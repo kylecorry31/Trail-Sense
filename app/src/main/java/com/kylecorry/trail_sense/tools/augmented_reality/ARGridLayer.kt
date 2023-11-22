@@ -4,7 +4,9 @@ import android.graphics.Color
 import android.graphics.Path
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.andromeda.canvas.StrokeCap
 import com.kylecorry.andromeda.canvas.TextMode
+import com.kylecorry.andromeda.core.cache.ObjectPool
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.roundNearest
@@ -13,6 +15,7 @@ import com.kylecorry.trail_sense.shared.extensions.getValuesBetween
 import kotlin.math.absoluteValue
 import kotlin.math.hypot
 import kotlin.math.min
+import kotlin.math.roundToInt
 
 class ARGridLayer(
     private val spacing: Int = 30,
@@ -31,6 +34,8 @@ class ARGridLayer(
     private var eastString: String = ""
     private var westString: String = ""
 
+    private val path = Path()
+
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
 
         if (!isSetup){
@@ -42,7 +47,9 @@ class ARGridLayer(
             isSetup = true
         }
 
-        val maxAngle = hypot(view.fov.width, view.fov.height) * 1.2f
+        val maxAngle = hypot(view.fov.width, view.fov.height) * 1.5f
+
+        val resolutionDegrees = (maxAngle / 10f).roundToInt().coerceIn(1, 5)
 
         val minVertical = (view.inclination - maxAngle / 2f).toInt().coerceIn(-90, 90)
         val maxVertical = (view.inclination + maxAngle / 2f).toInt().coerceIn(-90, 90)
@@ -65,37 +72,45 @@ class ARGridLayer(
         // Draw horizontal lines
         val horizontalPointRange = steppedRangeInclusive(minHorizontal, maxHorizontal, resolutionDegrees)
         for (i in latitudes) {
+            path.reset()
+            if (i.toInt() == 0){
+                drawer.stroke(horizonColor)
+            } else {
+                drawer.stroke(color)
+            }
             var previous: PixelCoordinate? = null
             for (j in horizontalPointRange) {
-                if (i.toInt() == 0){
-                    drawer.stroke(horizonColor)
-                } else {
-                    drawer.stroke(color)
-                }
                 val pixel = view.toPixel(AugmentedRealityView.HorizonCoordinate(j.toFloat(), i))
                 if (previous != null && pixel.distanceTo(previous) < maxDistance){
-                    drawer.line(previous.x, previous.y, pixel.x, pixel.y)
+                    path.lineTo(pixel.x, pixel.y)
+                } else {
+                    path.moveTo(pixel.x, pixel.y)
                 }
                 previous = pixel
             }
+            drawer.path(path)
         }
 
         // Draw vertical lines
         val verticalPointRange = steppedRangeInclusive(minVertical, maxVertical, resolutionDegrees)
         for (i in longitudes) {
+            path.reset()
+            if (i.toInt() == 0){
+                drawer.stroke(northColor)
+            } else {
+                drawer.stroke(color)
+            }
             var previous: PixelCoordinate? = null
             for (j in verticalPointRange) {
-                if (i.toInt() == 0){
-                    drawer.stroke(northColor)
-                } else {
-                    drawer.stroke(color)
-                }
                 val pixel = view.toPixel(AugmentedRealityView.HorizonCoordinate(i, j.toFloat()))
                 if (previous != null && pixel.distanceTo(previous) < maxDistance){
-                    drawer.line(previous.x, previous.y, pixel.x, pixel.y)
+                    path.lineTo(pixel.x, pixel.y)
+                } else {
+                    path.moveTo(pixel.x, pixel.y)
                 }
                 previous = pixel
             }
+            drawer.path(path)
         }
 
 
