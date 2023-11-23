@@ -53,12 +53,11 @@ object Guides {
 
         val weather = UserGuideCategory(
             context.getString(R.string.weather), listOfNotNull(
-                if (Sensors.hasBarometer(context))
-                    UserGuide(
-                        context.getString(R.string.guide_weather_prediction_title),
-                        null,
-                        R.raw.weather
-                    ) else null,
+                UserGuide(
+                    context.getString(R.string.guide_weather_prediction_title),
+                    null,
+                    R.raw.weather
+                ),
                 if (Sensors.hasBarometer(context)) UserGuide(
                     context.getString(R.string.guide_barometer_calibration_title),
                     null,
