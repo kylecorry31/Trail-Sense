@@ -1,0 +1,18 @@
+Tools
+- Redesign tools tab
+- Move settings to tools
+- Add quick actions to tools (customize in settings)
+- Add tool pinning
+- Add tool sort (category, alphabetical)
+
+Navigation
+- Improve sighting compass camera alignment
+- Add label for True vs Magnetic North
+
+Augmented Reality (Experimental)
+- Add Augmented Reality tool (enable in Experimental settings)
+- Show nearby beacons in AR
+- Show sun and moon positions in AR
+
+Misc
+- New quick actions: Pedometer, Weather Monitor, Backtrack (toggle), and Night mode
