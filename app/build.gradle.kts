@@ -16,7 +16,7 @@ android {
         applicationId = "com.kylecorry.trail_sense"
         minSdk = 23
         targetSdk = 34
-        versionCode = 108
+        versionCode = 109
         versionName = "5.6.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

@@ -1,0 +1,18 @@
+Nástroje
+- Redesign nástrojů
+- Přesun nastavení do nástrojů
+- Rychlé akce v nástrojích
+- Připínání nástrojů
+- Třídění nástrojů
+
+Navigace
+- Zlepšení zarovnání kamery kompasu
+- Štítek pro pravý a magnetický sever
+
+Rozšířená realita (experimentální)
+- Nástroj Rozšířená realita (viz experim. nastavení)
+- Zobrazení blízkých majáků v rozšířené realitě
+- Zobrazení polohy Slunce a Měsíce v rozšířené realitě
+
+Různé
+- Nové rychlé akce: Krokoměr, Monitor počasí, Backtracking (přepínání) a Noční režim
