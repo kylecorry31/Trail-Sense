@@ -109,7 +109,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
     }
 
     private fun calibrate(){
-        referenceMagnitude = readings.average().toFloat()
+        referenceMagnitude = readings.takeLast(20).average().toFloat()
         calibratedField = lowPassMagnetometer.magneticField
         calibratedOrientation = orientation.orientation
         calibrateTimer.stop()
