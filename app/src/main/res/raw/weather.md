@@ -1,3 +1,8 @@
+## Weather prediction capabilities of Trail Sense
+Trail Sense can give a rough prediction of the weather using your device's sensors. The prediction is a best guess, and may not be accurate.
+
+On some devices, the Weather tool may not be available. This is due to the device not having a barometer sensor, which measures air pressure.
+
 ## Understanding pressure
 
 As a general rule, air pressure drops as a storm approaches. But pressure also changes when you change elevation, so if you're hiking in the mountains, Trail Sense's forecasts might not be as accurate.
