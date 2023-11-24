@@ -1,3 +1,5 @@
+The Metal Detector tool allows you to detect magnetic metals like iron. It's useful for finding dropped keys or knives. It cannot detect coins or jewelry.
+
 ## Calibration
 Calibrating the metal detector improves the accuracy of readings. To calibrate:
 
@@ -29,6 +31,3 @@ This removes noise filtering for maximum sensitivity. The graph becomes noisier 
 This experimental feature attempts to indicate metal direction with two on-screen dots. One points towards the metal and the other away from it. Unfortunately, it's uncertain which is which. Move your phone towards one dot; if the number in the center increases, you are getting closer. If the dots swap, it likely means you just passed over the metal. This requires a gyroscope sensor.
 
 Enable it on Settings > Experimental > Show metal direction.
-
-## Use Cases
-Find dropped magnetic metal objects like keys or knives. Cannot detect coins or jewelry.

@@ -103,9 +103,9 @@ object Guides {
                     R.raw.cliff_height
                 ),
                 UserGuide(
-                    context.getString(R.string.guide_light_meter_title),
+                    context.getString(R.string.tool_light_meter_title),
                     context.getString(R.string.guide_light_meter_description),
-                    R.raw.flashlight_testing
+                    R.raw.guide_tool_light_meter
                 ),
                 UserGuide(
                     context.getString(R.string.water_boil_guide_title),

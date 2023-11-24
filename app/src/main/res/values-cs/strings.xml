@@ -501,7 +501,6 @@
     <string name="beacon_export_error">Nepodařilo se exportovat majáky</string>
     <string name="distance_from_flashlight">Vzdálenost telefonu od svítilny</string>
     <string name="beam_distance">%s vzdálenost paprsku</string>
-    <string name="guide_light_meter_title">Určete účinnost svítilny</string>
     <string name="tomorrows_forecast">Předpověď na zítřek</string>
     <string name="lux_format">%s lx</string>
     <string name="candela_format">%s cd</string>

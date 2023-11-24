@@ -193,7 +193,6 @@
     <string name="tomorrows_forecast">De voorspelling voor morgen</string>
     <string name="todays_forecast">De voorspelling van vandaag</string>
     <string name="guide_light_meter_description">De reikafstand van een zaklamp bepalen</string>
-    <string name="guide_light_meter_title">De effectiviteit van een zaklamp bepalen</string>
     <string name="gps_cache">gps-cache</string>
     <string name="location_disabled">Locatie is uitgeschakeld</string>
     <string name="set">Instellen</string>

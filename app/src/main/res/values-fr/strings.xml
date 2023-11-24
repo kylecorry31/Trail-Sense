@@ -499,7 +499,6 @@
     <string name="gallon_format">%s gal</string>
     <string name="pounds">Livres</string>
     <string name="activity_recognition">Détection d’activité</string>
-    <string name="guide_light_meter_title">Détermine l’efficacité d’une source lumineuse</string>
     <string name="pref_daily_weather_notification_title">Notification météo quotidienne</string>
     <string name="service_update_frequency">Actualisation toutes les %s</string>
     <string name="battery_usage">Utilisation %s de batterie</string>

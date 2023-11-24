@@ -453,7 +453,6 @@
     <string name="always_on">Immer an</string>
     <string name="pref_daily_weather_notification_title">Tägliche Wetter-Benachrichtigung</string>
     <string name="todays_forecast">Vorhersage für heute</string>
-    <string name="guide_light_meter_title">Effektivität einer Taschenlampe herausfinden</string>
     <string name="gps_cache">GPS Cache</string>
     <string name="location_disabled">Standort ist deaktiviert</string>
     <string name="location_not_set">Standort nicht gesetzt</string>

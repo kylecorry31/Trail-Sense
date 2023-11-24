@@ -42,7 +42,6 @@
     <string name="none">Yok</string>
     <string name="tomorrows_forecast">Yarının hava durumu</string>
     <string name="todays_forecast">Bugünün hava durumu</string>
-    <string name="guide_light_meter_title">El feneri tesirini belirle</string>
     <string name="pref_backtrack_save_cell_title">Telefon sinyalini kaydet</string>
     <string name="pref_backtrack_save_cell_summary">Ara noktada telefon sinyalini kaydeder. İnternete gereksinim duymaz.</string>
     <string name="beam_distance">%s ışın mesafesi</string>

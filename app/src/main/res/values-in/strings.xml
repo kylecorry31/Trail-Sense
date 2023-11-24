@@ -594,7 +594,6 @@
 \n- Setelah mengklik lanjutkan, Anda akan diminta untuk memberikan izin lokasi dan lokasi latar belakang. Menolak izin tersebut akan mencegah Trail Sense mengakses lokasi Anda, sehingga entri lokasi manual disarankan.</string>
     <string name="network_2g">2G</string>
     <string name="right_quick_action">Tindakan cepat kanan</string>
-    <string name="guide_light_meter_title">Menentukan efektivitas senter</string>
     <string name="left_quick_action">Tindakan cepat kiri</string>
     <string name="since_time">sejak %s</string>
     <string name="odometer">Odometer</string>

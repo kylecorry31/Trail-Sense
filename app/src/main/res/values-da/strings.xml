@@ -739,7 +739,6 @@
     <string name="location_not_set">Placering ikke indstillet</string>
     <string name="set">Indstil</string>
     <string name="location_disabled">Placering er deaktiveret</string>
-    <string name="guide_light_meter_title">Bestem lommelygtens effektivitet</string>
     <string name="guide_light_meter_description">Hvordan stråleafstanden for lommelygter bestemmes</string>
     <string name="todays_forecast">Dagens vejrudsigt</string>
     <string name="tomorrows_forecast">Morgendagens vejrudsigt</string>

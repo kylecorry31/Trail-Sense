@@ -76,7 +76,6 @@
     <string name="pref_daily_weather_notification_title">Notificações meteorológicas diárias</string>
     <string name="todays_forecast">Previsão para hoje</string>
     <string name="guide_light_meter_description">Como determinar a distância do sinal das lanternas</string>
-    <string name="guide_light_meter_title">Determinar a eficácia da lanterna</string>
     <string name="gps_cache">Cache do GPS</string>
     <string name="location_disabled">A localização está desativada</string>
     <string name="create_at_distance">Criar à distância</string>

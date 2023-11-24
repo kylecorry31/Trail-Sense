@@ -192,7 +192,7 @@ object Tools {
                 R.id.action_toolsFragment_to_toolLightFragment,
                 ToolCategory.Power,
                 context.getString(R.string.guide_light_meter_description),
-                guideId = R.raw.flashlight_testing
+                guideId = R.raw.guide_tool_light_meter
             ) else null,
             if (hasBarometer) Tool(
                 20,

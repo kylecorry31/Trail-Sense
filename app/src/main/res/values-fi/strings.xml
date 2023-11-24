@@ -260,7 +260,6 @@
     <string name="last_lightning_strike_at">Viimeisin Salaman isku klo %s</string>
     <string name="ounces_weight">Unssia</string>
     <string name="cumulus_desc">Matalat turvonneet pilvet, jotka näyttävät puuvillapalloilta. Ne ovat erillään ja ovat tyypillisesti valkoisia, ja alla on tummempia laikkuja.</string>
-    <string name="guide_light_meter_title">Määritä taskulampun tehokkuus</string>
     <string name="now_value">Nyt: %s</string>
     <string name="set">Aseta</string>
     <string name="sighting_compass">Havaintokompassi</string>

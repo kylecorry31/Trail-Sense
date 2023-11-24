@@ -67,7 +67,6 @@
     <string name="tomorrows_forecast">Завтрашній прогноз</string>
     <string name="todays_forecast">Сьогоднішній прогноз</string>
     <string name="guide_light_meter_description">Визначає відстань променя ліхтарика</string>
-    <string name="guide_light_meter_title">Визначення дієвості ліхтарика</string>
     <string name="gps_cache">GPS-кеш</string>
     <string name="location_disabled">Місцеперебування вимкнено</string>
     <string name="set">Установити</string>

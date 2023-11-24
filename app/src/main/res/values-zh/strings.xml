@@ -459,7 +459,6 @@
     <string name="location_not_set">未设置位置</string>
     <string name="gps_cache">GPS 缓存</string>
     <string name="guide_light_meter_description">如何确定手电筒的光束距离</string>
-    <string name="guide_light_meter_title">确定手电筒效率</string>
     <string name="pref_daily_weather_notification_title">每日天气通知</string>
     <string name="todays_forecast">今日预报</string>
     <string name="low">低</string>

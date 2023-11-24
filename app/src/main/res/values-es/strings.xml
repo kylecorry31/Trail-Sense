@@ -491,7 +491,6 @@
     <string name="set">Establecer</string>
     <string name="location_disabled">La localización está deshabilitada</string>
     <string name="gps_cache">Caché de GPS</string>
-    <string name="guide_light_meter_title">Determinar la efectividad de la linterna</string>
     <string name="tomorrows_forecast">El pronóstico para mañana</string>
     <string name="pref_daily_weather_notification_title">Notificación diaria de clima</string>
     <string name="always_on">Siempre encendido</string>

@@ -737,7 +737,6 @@
     <string name="location_not_set">Hely nincs beállítva</string>
     <string name="location_disabled">Hely letiltva</string>
     <string name="gps_cache">GPS Gyorsítótár</string>
-    <string name="guide_light_meter_title">Zseblámpa hatékonyságának meghatározása</string>
     <string name="guide_light_meter_description">Hogyan határozzuk meg zseblámpák hatósugarát</string>
     <string name="todays_forecast">Mai előrejelzés</string>
     <string name="tomorrows_forecast">Holnapi előrejelzés</string>

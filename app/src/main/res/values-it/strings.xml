@@ -525,7 +525,6 @@
     <string name="beam_distance">Profondità fascio %s</string>
     <string name="pref_backtrack_save_cell_summary">Registra la potenza del segnale cellulare presso il segnaposto. Non utilizza Internet.</string>
     <string name="pref_backtrack_save_cell_title">Registra segnale cellulare</string>
-    <string name="guide_light_meter_title">Determina l\'efficacia della torcia</string>
     <string name="guide_light_meter_description">Determina la profondità del fascio di luce delle torce</string>
     <string name="service_update_frequency">Aggiornato ogni %s</string>
     <string name="right_quick_action">Azione rapida destra</string>
