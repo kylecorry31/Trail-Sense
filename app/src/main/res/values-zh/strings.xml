@@ -1142,4 +1142,5 @@
     <string name="no_sensor_unable_to_fix">没有，这是硬件功能。因此我们无法从软件层面加以解决。</string>
     <string name="true_north_description">用你所在位置的磁偏角指向地理北极。这么做会与大多数地图对齐。</string>
     <string name="is_there_a_way_to_fix_this">有办法解决吗？</string>
+    <string name="high_sensitivity">高敏感度</string>
 </resources>
