@@ -266,6 +266,7 @@ object Tools {
                 R.drawable.ic_tool_metal_detector,
                 R.id.action_action_experimental_tools_to_fragmentToolMetalDetector,
                 ToolCategory.Other,
+                guideId = R.raw.guide_tool_metal_detector
             ) else null,
             Tool(
                 29,

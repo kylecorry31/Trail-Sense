@@ -4,12 +4,15 @@ import android.content.Context
 import android.hardware.Sensor
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.domain.UserGuide
 import com.kylecorry.trail_sense.tools.guide.domain.UserGuideCategory
 
 object Guides {
 
     fun guides(context: Context): List<UserGuideCategory> {
+
+        val hasCompass = SensorService(context).hasCompass()
 
         val general = UserGuideCategory(
             context.getString(R.string.general), listOf(
@@ -78,6 +81,11 @@ object Guides {
                     null,
                     R.raw.packing_lists
                 ),
+                if (hasCompass) UserGuide(
+                    context.getString(R.string.tool_metal_detector_title),
+                    null,
+                    R.raw.guide_tool_metal_detector
+                ) else null,
                 UserGuide(
                     context.getString(R.string.clinometer_title),
                     context.getString(R.string.tool_clinometer_summary),
