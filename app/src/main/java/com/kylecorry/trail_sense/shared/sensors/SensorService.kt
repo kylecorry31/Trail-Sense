@@ -132,30 +132,25 @@ class SensorService(ctx: Context) {
     }
 
     fun getAltimeter(
-        preferGPS: Boolean = false,
-        gps: IGPS? = null
+        preferGPS: Boolean = false, gps: IGPS? = null
     ): IAltimeter {
         if (preferGPS) {
             return CachingAltimeterWrapper(
-                context,
-                GaussianAltimeterWrapper(
-                    getGPSAltimeter(gps),
-                    userPrefs.altimeterSamples
+                context, GaussianAltimeterWrapper(
+                    getGPSAltimeter(gps), userPrefs.altimeterSamples
                 )
             )
         }
+
+        val hasBarometer = Sensors.hasBarometer(context)
 
         val mode = userPrefs.altimeterMode
 
         if (mode == UserPreferences.AltimeterMode.Override) {
             return OverrideAltimeter(context)
-        } else if (mode == UserPreferences.AltimeterMode.Barometer && Sensors.hasBarometer(
-                context
-            )
-        ) {
+        } else if (mode == UserPreferences.AltimeterMode.Barometer && hasBarometer) {
             return CachingAltimeterWrapper(
-                context,
-                Barometer(
+                context, Barometer(
                     context,
                     ENVIRONMENT_SENSOR_DELAY,
                     seaLevelPressure = userPrefs.seaLevelPressureOverride
@@ -166,21 +161,12 @@ class SensorService(ctx: Context) {
                 return CachedAltimeter(context)
             }
 
-            val gps = gps ?: getGPS()
+            val gpsAltimeter = GaussianAltimeterWrapper(gps ?: getGPS(), userPrefs.altimeterSamples)
 
-            return if (mode == UserPreferences.AltimeterMode.GPSBarometer && Sensors.hasBarometer(
-                    context
-                )
-            ) {
-                CachingAltimeterWrapper(
-                    context,
-                    FusedAltimeter(gps, Barometer(context))
-                )
+            return if (mode == UserPreferences.AltimeterMode.GPSBarometer && hasBarometer) {
+                CachingAltimeterWrapper(context, FusedAltimeter(gpsAltimeter, Barometer(context, ENVIRONMENT_SENSOR_DELAY)))
             } else {
-                CachingAltimeterWrapper(
-                    context,
-                    GaussianAltimeterWrapper(gps, userPrefs.altimeterSamples),
-                )
+                CachingAltimeterWrapper(context, gpsAltimeter)
             }
         }
     }
@@ -204,8 +190,7 @@ class SensorService(ctx: Context) {
 
     fun getBarometer(): IBarometer {
         return if (userPrefs.weather.hasBarometer) Barometer(
-            context,
-            ENVIRONMENT_SENSOR_DELAY
+            context, ENVIRONMENT_SENSOR_DELAY
         ) else NullBarometer()
     }
 
@@ -216,8 +201,7 @@ class SensorService(ctx: Context) {
         }
         return if (calibrated) {
             CalibratedThermometerWrapper(
-                thermometer,
-                userPrefs.thermometer.calibrator
+                thermometer, userPrefs.thermometer.calibrator
             )
         } else {
             thermometer

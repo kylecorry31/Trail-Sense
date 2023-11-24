@@ -161,7 +161,7 @@
         <item>@string/altimeter_mode_gps_barometer</item>
         <item>@string/gps</item>
         <item>@string/barometer</item>
-        <item>@string/never</item>
+        <item>@string/manual</item>
     </string-array>
 
     <string-array name="altimeter_mode_values">

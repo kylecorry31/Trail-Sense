@@ -20,7 +20,7 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_altimeter_calibration_mode"
             app:singleLineTitle="false"
-            app:title="@string/pref_altimeter_calibration_mode_title"
+            app:title="@string/source"
             app:useSimpleSummaryProvider="true" />
 
         <Preference

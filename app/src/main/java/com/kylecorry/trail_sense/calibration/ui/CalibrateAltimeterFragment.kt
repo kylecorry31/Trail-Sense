@@ -254,7 +254,8 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
             lastMode = prefs.altimeterMode
             restartAltimeter()
             setOverrideStates()
-            accuracyPref.isVisible = prefs.altimeterMode == UserPreferences.AltimeterMode.GPS
+            accuracyPref.isVisible =
+                prefs.altimeterMode == UserPreferences.AltimeterMode.GPS || prefs.altimeterMode == UserPreferences.AltimeterMode.GPSBarometer
             if (prefs.altimeterMode == UserPreferences.AltimeterMode.Barometer) {
                 updateSeaLevelPressureOverride()
             }

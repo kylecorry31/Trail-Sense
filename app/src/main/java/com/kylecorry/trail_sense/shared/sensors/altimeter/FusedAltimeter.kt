@@ -2,67 +2,70 @@ package com.kylecorry.trail_sense.shared.sensors.altimeter
 
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.IAltimeter
-import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.sense.barometer.IBarometer
+import com.kylecorry.sol.math.filters.IFilter
+import com.kylecorry.sol.math.filters.LowPassFilter
+import com.kylecorry.sol.science.geology.Geology
+import com.kylecorry.sol.science.meteorology.Meteorology
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.Pressure
 
-class FusedAltimeter(private val gps: IGPS, private val barometer: IBarometer) : AbstractSensor(),
-    IAltimeter {
+class FusedAltimeter(
+    private val gpsAltimeter: IAltimeter,
+    private val barometer: IBarometer
+) : AbstractSensor(), IAltimeter {
 
     override val altitude: Float
-        get() = baseAltitude + altitudeChange
+        get() {
+            val seaLevelPressure = seaLevelPressure ?: return gpsAltimeter.altitude
+
+            return Geology.getAltitude(Pressure.hpa(filteredPressure), seaLevelPressure).distance
+        }
 
     override val hasValidReading: Boolean
-        get() = gotGps
+        get() = seaLevelPressure != null
 
-    private var altitudeChange = 0f
-    private var lastBarometricAltitude: Float? = null
-
-    private var baseAltitude = 0f
-    private var started = false
-
-    private var gotGps = false
-
-    init {
-        if (gps.hasValidReading){
-            gotGps = true
-            baseAltitude = gps.altitude
-        }
-    }
-
-    private fun onGPSUpdate(): Boolean {
-        baseAltitude = gps.altitude
-        gotGps = true
-        notifyListeners()
-        return false
-    }
-
-    private fun onBarometerUpdate(): Boolean {
-        val lastAltitude = lastBarometricAltitude
-        if (lastAltitude != null) {
-            altitudeChange += barometer.altitude - lastAltitude
-        }
-
-        lastBarometricAltitude = barometer.altitude
-
-        if (gotGps) {
-            notifyListeners()
-        }
-        return true
-    }
-
+    private var seaLevelPressure: Pressure? = null
+    private var pressureFilter: IFilter? = null
+    private var filteredPressure = barometer.pressure
 
     override fun startImpl() {
-        altitudeChange = 0f
-        started = true
-        lastBarometricAltitude = null
-        baseAltitude = gps.altitude
-        gps.start(this::onGPSUpdate)
+        seaLevelPressure = null
+        pressureFilter = null
+        trySetSeaLevelPressure()
+        gpsAltimeter.start(this::onBaseAltimeterUpdate)
         barometer.start(this::onBarometerUpdate)
     }
 
     override fun stopImpl() {
-        started = false
-        gps.stop(this::onGPSUpdate)
+        gpsAltimeter.stop(this::onBaseAltimeterUpdate)
         barometer.stop(this::onBarometerUpdate)
+    }
+
+    private fun onBarometerUpdate(): Boolean {
+        trySetSeaLevelPressure()
+        updatePressure(barometer.pressure)
+        notifyListeners()
+        return true
+    }
+
+    private fun onBaseAltimeterUpdate(): Boolean {
+        trySetSeaLevelPressure()
+        notifyListeners()
+        return seaLevelPressure == null
+    }
+
+    private fun trySetSeaLevelPressure() {
+        if (seaLevelPressure == null && barometer.hasValidReading && gpsAltimeter.hasValidReading) {
+            seaLevelPressure = Meteorology.getSeaLevelPressure(
+                Pressure.hpa(barometer.pressure), Distance.meters(gpsAltimeter.altitude)
+            )
+        }
+    }
+
+    private fun updatePressure(pressure: Float){
+        val filter = pressureFilter ?: LowPassFilter(0.2f, barometer.pressure)
+        pressureFilter = filter
+        filteredPressure = filter.filter(pressure)
     }
 }
