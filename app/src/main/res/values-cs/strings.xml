@@ -1183,4 +1183,5 @@
     <string name="no_sensor_unable_to_fix">Bohužel ne, jedná se o hardwarovou funkci, takže se s tím bohužel nedá nic dělat.</string>
     <string name="true_north_description">Ukazuje na zeměpisný severní pól pomocí deklinace pro vaši polohu. To odpovídá většině map.</string>
     <string name="is_there_a_way_to_fix_this">Dá se to nějak opravit?</string>
+    <string name="high_sensitivity">Vysoká senzitivita</string>
 </resources>
