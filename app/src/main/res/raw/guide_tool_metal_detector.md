@@ -25,7 +25,7 @@ Lower threshold values increase sensitivity. Higher values decrease it. Adjust w
 ## High Sensitivity Mode
 This removes noise filtering for maximum sensitivity. The graph becomes noisier and false positives occur more frequently. Enable with the 'High sensitivity' switch.
 
-## Metal Direction (experimental)
+## Metal Direction (Experimental)
 This experimental feature attempts to indicate metal direction with two on-screen dots. One points towards the metal and the other away from it. Unfortunately, it's uncertain which is which. Move your phone towards one dot; if the number in the center increases, you are getting closer. If the dots swap, it likely means you just passed over the metal. This requires a gyroscope sensor.
 
 Enable it on Settings > Experimental > Show metal direction.
