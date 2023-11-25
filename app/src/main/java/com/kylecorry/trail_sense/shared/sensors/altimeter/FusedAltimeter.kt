@@ -45,13 +45,17 @@ class FusedAltimeter(
     private fun onBarometerUpdate(): Boolean {
         trySetSeaLevelPressure()
         updatePressure(barometer.pressure)
-        notifyListeners()
+        if (seaLevelPressure != null){
+            notifyListeners()
+        }
         return true
     }
 
     private fun onBaseAltimeterUpdate(): Boolean {
         trySetSeaLevelPressure()
-        notifyListeners()
+        if (seaLevelPressure != null){
+            notifyListeners()
+        }
         return seaLevelPressure == null
     }
 
