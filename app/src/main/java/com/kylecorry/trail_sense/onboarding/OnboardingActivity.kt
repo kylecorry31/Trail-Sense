@@ -9,9 +9,7 @@ import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityOnboardingBinding
 import com.kylecorry.trail_sense.main.MainActivity
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 
 class OnboardingActivity : AppCompatActivity() {

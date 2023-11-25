@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.quickactions
 
 import android.widget.ImageButton
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.topics.generic.ITopic

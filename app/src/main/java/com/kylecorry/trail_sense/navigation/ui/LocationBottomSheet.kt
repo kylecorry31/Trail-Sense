@@ -15,15 +15,10 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentLocationBinding
-import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationCopy
-import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSender
-import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationQRSender
-import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sharing.Share
-import com.kylecorry.trail_sense.shared.sharing.ShareAction
 import java.time.Duration
 import java.time.Instant
 

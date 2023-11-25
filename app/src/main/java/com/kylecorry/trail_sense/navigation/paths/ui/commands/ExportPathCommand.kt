@@ -16,12 +16,9 @@ import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import com.kylecorry.trail_sense.navigation.paths.domain.PathGPXConverter
 import com.kylecorry.trail_sense.navigation.paths.domain.PathGroup
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.PathGroupLoader
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.paths.ui.PathNameFactory
 import com.kylecorry.trail_sense.shared.io.IOService
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.time.Instant
 
 

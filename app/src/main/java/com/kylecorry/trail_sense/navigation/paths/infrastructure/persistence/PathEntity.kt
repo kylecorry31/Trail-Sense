@@ -6,7 +6,11 @@ import androidx.room.PrimaryKey
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.navigation.paths.domain.*
+import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
+import com.kylecorry.trail_sense.navigation.paths.domain.Path
+import com.kylecorry.trail_sense.navigation.paths.domain.PathMetadata
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPointColoringStyle
+import com.kylecorry.trail_sense.navigation.paths.domain.PathStyle
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.database.Identifiable
 import java.time.Instant

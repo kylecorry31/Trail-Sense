@@ -6,8 +6,8 @@ import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.ceres.list.ListItem
 import com.kylecorry.ceres.list.ListItemMapper
 import com.kylecorry.trail_sense.tools.maps.domain.IMap
-import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.domain.MapGroup
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 
 class IMapMapper(
     gps: IGPS,

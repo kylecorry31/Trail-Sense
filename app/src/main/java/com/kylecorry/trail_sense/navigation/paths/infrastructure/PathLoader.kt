@@ -3,7 +3,11 @@ package com.kylecorry.trail_sense.navigation.paths.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.trail_sense.navigation.paths.domain.*
+import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
+import com.kylecorry.trail_sense.navigation.paths.domain.Path
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
+import com.kylecorry.trail_sense.navigation.paths.domain.ShouldLoadPathSpecification
+import com.kylecorry.trail_sense.navigation.paths.domain.ShouldUnloadPathSpecification
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import java.time.Instant
 

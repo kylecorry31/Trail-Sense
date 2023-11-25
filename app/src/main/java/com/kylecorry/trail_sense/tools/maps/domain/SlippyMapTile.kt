@@ -5,7 +5,11 @@ import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
-import kotlin.math.*
+import kotlin.math.PI
+import kotlin.math.asinh
+import kotlin.math.atan
+import kotlin.math.sinh
+import kotlin.math.tan
 
 // TODO: Extract this to Sol
 // TODO: Convert meters to pixel to zoom level

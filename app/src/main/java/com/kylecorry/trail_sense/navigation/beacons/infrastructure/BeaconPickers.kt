@@ -7,8 +7,8 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.navigation.beacons.domain.IBeacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.loading.BeaconLoader
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.NameBeaconSort
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.IBeaconSort
+import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.NameBeaconSort
 import com.kylecorry.trail_sense.navigation.beacons.ui.list.IBeaconListItemMapper
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.grouping.picker.GroupablePickers

@@ -7,7 +7,6 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.alerts.Backtrac
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.services.BacktrackService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import kotlinx.coroutines.runBlocking
 
 object BacktrackScheduler {
 

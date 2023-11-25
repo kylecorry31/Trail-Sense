@@ -5,12 +5,12 @@ import android.graphics.Color
 import android.util.Range
 import com.kylecorry.andromeda.core.rangeOrNull
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
-import com.kylecorry.trail_sense.shared.scales.ContinuousColorScale
-import com.kylecorry.trail_sense.shared.scales.IColorScale
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.IPointColoringStrategy
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.TimePointColoringStrategy
+import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.scales.ContinuousColorScale
+import com.kylecorry.trail_sense.shared.scales.IColorScale
 import java.time.Instant
 
 class TimePointDisplayFactory(private val context: Context) : IPointDisplayFactory {

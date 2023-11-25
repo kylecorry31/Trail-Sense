@@ -16,7 +16,6 @@ import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.time.Duration
 
 object TrailSenseServiceUtils {
 

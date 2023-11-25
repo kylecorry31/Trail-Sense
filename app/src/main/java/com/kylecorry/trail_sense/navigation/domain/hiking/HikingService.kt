@@ -1,11 +1,14 @@
 package com.kylecorry.trail_sense.navigation.domain.hiking
 
 import com.kylecorry.sol.science.geology.Geology
-import com.kylecorry.sol.units.*
+import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.sol.units.Speed
+import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.data.DataUtils
 import java.time.Duration
-import kotlin.math.sqrt
 
 class HikingService : IHikingService {
 

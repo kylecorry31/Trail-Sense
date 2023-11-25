@@ -4,12 +4,8 @@ import android.graphics.Color
 import android.graphics.Path
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
-import com.kylecorry.andromeda.canvas.StrokeCap
-import com.kylecorry.andromeda.canvas.TextMode
-import com.kylecorry.andromeda.core.cache.ObjectPool
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.roundNearest
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.getValuesBetween
 import kotlin.math.absoluteValue

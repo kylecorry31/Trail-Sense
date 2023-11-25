@@ -10,11 +10,16 @@ import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
-import com.kylecorry.trail_sense.weather.domain.*
+import com.kylecorry.trail_sense.weather.domain.CurrentWeather
+import com.kylecorry.trail_sense.weather.domain.WeatherObservation
+import com.kylecorry.trail_sense.weather.domain.WeatherPrediction
 import com.kylecorry.trail_sense.weather.domain.forecasting.alerts.WeatherAlertGenerator
 import com.kylecorry.trail_sense.weather.domain.forecasting.arrival.WeatherArrivalTime
 import com.kylecorry.trail_sense.weather.domain.forecasting.arrival.WeatherArrivalTimeCalculator
 import com.kylecorry.trail_sense.weather.domain.forecasting.temperatures.ITemperatureService
+import com.kylecorry.trail_sense.weather.domain.get3hTendency
+import com.kylecorry.trail_sense.weather.domain.getLastCloud
+import com.kylecorry.trail_sense.weather.domain.getTemperaturePrediction
 import com.kylecorry.trail_sense.weather.infrastructure.IWeatherPreferences
 import java.time.Duration
 import java.time.Instant

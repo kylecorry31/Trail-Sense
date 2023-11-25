@@ -5,7 +5,6 @@ import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import kotlinx.coroutines.CoroutineScope

@@ -3,6 +3,10 @@ package com.kylecorry.trail_sense.navigation.paths.ui
 import android.content.Context
 import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
+import com.kylecorry.ceres.list.ListItem
+import com.kylecorry.ceres.list.ListItemMapper
+import com.kylecorry.ceres.list.ListMenuItem
+import com.kylecorry.ceres.list.ResourceListIcon
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
@@ -10,10 +14,6 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.ceres.list.ListItem
-import com.kylecorry.ceres.list.ListItemMapper
-import com.kylecorry.ceres.list.ListMenuItem
-import com.kylecorry.ceres.list.ResourceListIcon
 
 class PathListItemMapper(
     private val context: Context,

@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.ui
 
-import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 
 class PinnedToolManager(private val prefs: UserPreferences) {

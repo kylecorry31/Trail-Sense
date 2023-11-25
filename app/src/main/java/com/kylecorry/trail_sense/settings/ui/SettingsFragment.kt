@@ -13,7 +13,6 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.backup.BackupCommand
 import com.kylecorry.trail_sense.backup.RestoreCommand
-import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trail_sense.shared.QuickActionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.ActivityUriPicker

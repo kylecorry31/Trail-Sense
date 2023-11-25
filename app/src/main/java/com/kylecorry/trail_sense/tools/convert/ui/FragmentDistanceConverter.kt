@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.tools.convert.ui
 
-import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.FormatService
 import kotlin.math.absoluteValue
 
 class FragmentDistanceConverter :

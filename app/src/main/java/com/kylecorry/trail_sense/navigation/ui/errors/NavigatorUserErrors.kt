@@ -1,10 +1,7 @@
 package com.kylecorry.trail_sense.navigation.ui.errors
 
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.sensors.Quality
-import com.kylecorry.andromeda.core.system.Android
-import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.diagnostics.DiagnosticCode
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment

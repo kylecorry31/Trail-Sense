@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.sense.light.LightSensor
 import com.kylecorry.sol.science.physics.PhysicsService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolLightBinding
 import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.andromeda.fragments.observe
 import kotlin.math.max
 
 class ToolLightFragment : BoundFragment<FragmentToolLightBinding>() {

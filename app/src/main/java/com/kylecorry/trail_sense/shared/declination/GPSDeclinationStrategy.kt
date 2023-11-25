@@ -4,7 +4,6 @@ import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.science.geology.IGeologyService
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.sol.units.Distance
 
 class GPSDeclinationStrategy(
     private val gps: IGPS,

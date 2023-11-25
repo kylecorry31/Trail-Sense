@@ -7,7 +7,7 @@ import com.kylecorry.trail_sense.shared.extensions.toAndroidSize
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
-import java.util.*
+import java.util.UUID
 
 abstract class BaseMapReduce(
     context: Context,

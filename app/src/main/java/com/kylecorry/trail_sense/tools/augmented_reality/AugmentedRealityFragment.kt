@@ -18,7 +18,6 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.units.Distance

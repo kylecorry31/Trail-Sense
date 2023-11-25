@@ -4,8 +4,6 @@ import android.hardware.SensorManager
 import android.opengl.Matrix
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
-import com.kylecorry.sol.math.Euler
-import com.kylecorry.sol.math.Quaternion
 import com.kylecorry.sol.math.QuaternionMath
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.real
@@ -20,7 +18,6 @@ import kotlin.math.asin
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
-import kotlin.math.sqrt
 
 object AugmentedRealityUtils {
 

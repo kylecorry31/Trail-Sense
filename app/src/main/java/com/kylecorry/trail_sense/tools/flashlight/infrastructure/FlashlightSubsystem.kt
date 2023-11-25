@@ -13,7 +13,6 @@ import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.andromeda.torch.TorchStateChangedTopic
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.settings.infrastructure.FlashlightPreferenceRepo
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.getOrNull
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem

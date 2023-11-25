@@ -11,7 +11,6 @@ import com.kylecorry.andromeda.sense.compass.LegacyCompass
 import com.kylecorry.andromeda.sense.magnetometer.Magnetometer
 import com.kylecorry.andromeda.sense.orientation.GeomagneticRotationSensor
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
-import com.kylecorry.andromeda.sense.orientation.OrientationSensor
 import com.kylecorry.andromeda.sense.orientation.RotationSensor
 import com.kylecorry.sol.math.filters.MovingAverageFilter
 import com.kylecorry.trail_sense.settings.infrastructure.ICompassPreferences

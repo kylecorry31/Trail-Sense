@@ -6,7 +6,12 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPointColoringStyle
-import com.kylecorry.trail_sense.navigation.paths.domain.factories.*
+import com.kylecorry.trail_sense.navigation.paths.domain.factories.AltitudePointDisplayFactory
+import com.kylecorry.trail_sense.navigation.paths.domain.factories.CellSignalPointDisplayFactory
+import com.kylecorry.trail_sense.navigation.paths.domain.factories.IPointDisplayFactory
+import com.kylecorry.trail_sense.navigation.paths.domain.factories.NonePointDisplayFactory
+import com.kylecorry.trail_sense.navigation.paths.domain.factories.SlopePointDisplayFactory
+import com.kylecorry.trail_sense.navigation.paths.domain.factories.TimePointDisplayFactory
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.NoDrawPointColoringStrategy
 import com.kylecorry.trail_sense.navigation.paths.domain.waypointcolors.SelectedPointDecorator
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath

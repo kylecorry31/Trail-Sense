@@ -19,9 +19,9 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.setOnQueryTextListener
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
-import com.kylecorry.trail_sense.tools.ui.items.render.DelegateToolListItemRenderer
 import com.kylecorry.trail_sense.tools.ui.items.ToolListItem
 import com.kylecorry.trail_sense.tools.ui.items.ToolListItemStyle
+import com.kylecorry.trail_sense.tools.ui.items.render.DelegateToolListItemRenderer
 import com.kylecorry.trail_sense.tools.ui.sort.AlphabeticalToolSort
 import com.kylecorry.trail_sense.tools.ui.sort.CategorizedTools
 import com.kylecorry.trail_sense.tools.ui.sort.ToolSortFactory

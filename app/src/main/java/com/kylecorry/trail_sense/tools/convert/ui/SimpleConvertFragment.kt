@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.widget.addTextChangedListener
+import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolSimpleConvertBinding
-import com.kylecorry.andromeda.fragments.BoundFragment
 
 abstract class SimpleConvertFragment<T>(private val defaultFrom: T, private val defaultTo: T) : BoundFragment<FragmentToolSimpleConvertBinding>() {
 

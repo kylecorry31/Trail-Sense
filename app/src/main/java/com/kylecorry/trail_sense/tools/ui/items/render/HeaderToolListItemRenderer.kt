@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.ui.items.render
 
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.core.view.setMargins
 import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors

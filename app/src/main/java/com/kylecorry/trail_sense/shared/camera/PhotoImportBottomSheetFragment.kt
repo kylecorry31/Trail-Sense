@@ -9,7 +9,6 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.camera.core.ExperimentalZeroShutterLag
 import androidx.camera.core.ImageCapture
 import androidx.camera.view.PreviewView
 import androidx.core.net.toUri
@@ -17,8 +16,8 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.camera.ImageCaptureSettings
 import com.kylecorry.andromeda.fragments.BoundFullscreenDialogFragment
-import com.kylecorry.trail_sense.databinding.FragmentPhotoImportSheetBinding
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.trail_sense.databinding.FragmentPhotoImportSheetBinding
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.io.FileSubsystem

@@ -10,7 +10,6 @@ import com.kylecorry.andromeda.preferences.SharedPreferences
 import com.kylecorry.trail_sense.receivers.TrailSenseServiceUtils
 import com.kylecorry.trail_sense.shared.database.AppDatabase
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import java.io.File
 
 class BackupService(

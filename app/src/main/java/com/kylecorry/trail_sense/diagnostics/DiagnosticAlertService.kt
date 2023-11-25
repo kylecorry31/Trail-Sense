@@ -16,7 +16,6 @@ import com.kylecorry.trail_sense.astronomy.infrastructure.commands.SunsetAlarmCo
 import com.kylecorry.trail_sense.shared.alerts.MissingSensorAlert
 import com.kylecorry.trail_sense.shared.commands.Command
 import com.kylecorry.trail_sense.shared.navigation.IAppNavigation
-import com.kylecorry.trail_sense.shared.notificationSettings
 import com.kylecorry.trail_sense.shared.permissions.RemoveBatteryRestrictionsCommand
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService

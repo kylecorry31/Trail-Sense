@@ -1,11 +1,9 @@
 package com.kylecorry.trail_sense.diagnostics
 
 import android.content.Context
-import android.hardware.Sensor
 import android.hardware.SensorManager
 import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.core.sensors.Quality
-import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.magnetometer.IMagnetometer
 import com.kylecorry.andromeda.sense.magnetometer.Magnetometer
 import com.kylecorry.trail_sense.shared.sensors.SensorService

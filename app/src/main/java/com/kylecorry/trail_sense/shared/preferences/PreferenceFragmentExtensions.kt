@@ -5,7 +5,6 @@ import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.notificationSettings
 
 fun AndromedaPreferenceFragment.setupNotificationSetting(key: String, channelId: String, channelName: String){
     val pref = preferenceManager.findPreference<Preference>(key)
