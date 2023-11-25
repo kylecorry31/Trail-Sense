@@ -167,9 +167,9 @@ class SensorService(ctx: Context) {
                 CachingAltimeterWrapper(
                     context,
                     FusedAltimeter(
+                        context,
                         gps,
-                        Barometer(context, ENVIRONMENT_SENSOR_DELAY),
-                        userPrefs.altimeterSamples
+                        Barometer(context, ENVIRONMENT_SENSOR_DELAY)
                     )
                 )
             } else {

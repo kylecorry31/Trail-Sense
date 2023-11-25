@@ -1,9 +1,14 @@
 package com.kylecorry.trail_sense.shared.sensors
 
+import android.util.Log
 import com.kylecorry.andromeda.core.sensors.ISensor
 import com.kylecorry.andromeda.core.tryOrLog
+import com.kylecorry.luna.coroutines.IFlowable
+import com.kylecorry.luna.coroutines.ListenerFlowWrapper
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
@@ -32,6 +37,25 @@ suspend fun readAll(
                     it.stop(null)
                 }
             }
+        }
+    }
+}
+
+fun ISensor.asFlowable(): IFlowable<Unit> {
+    return object : ListenerFlowWrapper<Unit>() {
+        override fun start() {
+            Log.d("Sensor", "Starting ${this@asFlowable.javaClass.simpleName}")
+            subscribe(this::onSensorUpdate)
+        }
+
+        override fun stop() {
+            Log.d("Sensor", "Stopping ${this@asFlowable.javaClass.simpleName}")
+            unsubscribe(this::onSensorUpdate)
+        }
+
+        private fun onSensorUpdate(): Boolean {
+            emit(Unit)
+            return true
         }
     }
 }
