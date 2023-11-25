@@ -154,6 +154,6 @@ class FusedAltimeter2(
         private const val LAST_SEA_LEVEL_PRESSURE_TIME_KEY =
             "cache_fused_altimeter_last_sea_level_pressure_time"
         private val SEA_LEVEL_EXPIRATION = Duration.ofHours(1)
-        private const val ALPHA = 0.01f
+        private const val ALPHA = 0.02f
     }
 }
