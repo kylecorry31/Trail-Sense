@@ -53,8 +53,6 @@ class FusedAltimeter(
     private var pressureFilter: IFilter? = null
     private var filteredPressure = barometer.pressure
 
-    private var lastSeaLevelPressureTime: Instant? = null
-
     private val scope = CoroutineScope(Dispatchers.Default)
     private val runner = CoroutineQueueRunner()
 
@@ -84,8 +82,9 @@ class FusedAltimeter(
     }
 
     private fun isSeaLevelPressureValid(): Boolean {
-        val delta = lastSeaLevelPressureTime?.let {
-            Duration.between(lastSeaLevelPressureTime, Instant.now())
+        val time = getLastSeaLevelPressureTime()
+        val delta = time?.let {
+            Duration.between(time, Instant.now())
         }
         return seaLevelPressure != null && delta != null && delta > Duration.ZERO && delta < CALIBRATION_INTERVAL
     }
@@ -103,7 +102,6 @@ class FusedAltimeter(
         cache.putFloat(LAST_SEA_LEVEL_PRESSURE_KEY, pressure)
         cache.putInstant(LAST_SEA_LEVEL_PRESSURE_TIME_KEY, time)
         seaLevelPressure = Pressure.hpa(pressure)
-        lastSeaLevelPressureTime = time
     }
 
     private fun updatePressure(pressure: Float) {
@@ -114,7 +112,6 @@ class FusedAltimeter(
 
     private suspend fun calibrate() {
         seaLevelPressure = getLastSeaLevelPressure()
-        lastSeaLevelPressureTime = getLastSeaLevelPressureTime()
         if (isSeaLevelPressureValid()) {
             Log.d("FusedAltimeter", "Used cached calibration")
             return
@@ -147,6 +144,12 @@ class FusedAltimeter(
         private const val SMOOTHING = 0.9f
         private val CALIBRATION_TIMEOUT = Duration.ofSeconds(10)
         private val CALIBRATION_INTERVAL = Duration.ofHours(1)
+
+        fun clearCachedCalibration(context: Context) {
+            val prefs = PreferencesSubsystem.getInstance(context).preferences
+            prefs.remove(LAST_SEA_LEVEL_PRESSURE_KEY)
+            prefs.remove(LAST_SEA_LEVEL_PRESSURE_TIME_KEY)
+        }
     }
 
 }
