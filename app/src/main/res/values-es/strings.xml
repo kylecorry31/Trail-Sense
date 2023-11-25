@@ -539,7 +539,6 @@
     <string name="backtrack_high_priority_notification">Colocar un punto de referencia cada %s</string>
     <string name="battery_warning">Advertencia de descarga de batería</string>
     <string name="calibrate_new_tide">¿Calibrar a una nueva marea\?</string>
-    <string name="water_boil_guide_title">Hacer que el agua sea segura para beber</string>
     <string name="last_signal_beacon_name">Última señal -%1$s (%2$s)</string>
     <string name="pref_show_last_signal_beacon_title">Baliza de última señal</string>
     <string name="pref_show_last_signal_beacon_summary">Crea una baliza para la ubicación de la última señal de celular</string>

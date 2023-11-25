@@ -538,7 +538,6 @@
     <string name="last_signal_beacon_name">上个信号 - %1$s (%2$s)</string>
     <string name="camera_permission_denied">相机权限被拒绝，无法打开相机功能。 你可以在设置中启用它。</string>
     <string name="color">颜色</string>
-    <string name="water_boil_guide_title">使水可以安全饮用</string>
     <string name="arrow">箭头线</string>
     <string name="whistle_signal_come_here">来这里</string>
     <string name="whistle_signal_acknowledged">已承认</string>

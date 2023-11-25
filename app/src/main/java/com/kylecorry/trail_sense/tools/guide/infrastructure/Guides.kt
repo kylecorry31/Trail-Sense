@@ -108,9 +108,9 @@ object Guides {
                     R.raw.guide_tool_light_meter
                 ),
                 UserGuide(
-                    context.getString(R.string.water_boil_guide_title),
+                    context.getString(R.string.water_boil_timer),
                     null,
-                    R.raw.making_water_potable
+                    R.raw.guide_tool_water_boil_timer
                 ),
                 UserGuide(
                     context.getString(R.string.tides),

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="color">Колір</string>
-    <string name="water_boil_guide_title">Убезпечте воду для її споживання</string>
     <string name="calibrate_new_tide">Відкалібрувати новий приплив\?</string>
     <string name="backtrack_battery_warning">Невеликі інтервали (менш як 15 хвилин) можуть призвести до надмірного розряджання батареї</string>
     <string name="battery_warning">Попередження про розряджання акумулятора</string>

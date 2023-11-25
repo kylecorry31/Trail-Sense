@@ -1,0 +1,11 @@
+The Water Boil Timer helps you determine the necessary boiling time to make water safe for drinking, taking into account your current elevation since boiling time varies with elevation.
+
+## Making Water Safe to Drink
+To ensure water is safe for consumption, you must first filter and then boil it. Please note that filtering and boiling will not render polluted water safe to drink. Follow these steps to make water potable:
+
+1. Filter the water into a metal container.
+2. Bring the water to a rolling boil.
+3. Click the 'Start' button once the water reaches a rolling boil.
+4. Your water is likely safe to drink when the timer expires.
+
+By default, the timer utilizes your current elevation to calculate the required boiling time. Alternatively, you can manually select either a 1-minute or 3-minute duration using the buttons located at the bottom of the screen.

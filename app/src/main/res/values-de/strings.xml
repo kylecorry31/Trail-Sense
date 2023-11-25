@@ -546,7 +546,6 @@
     <string name="last_signal_beacon_name">Letztes Signal - %1$s (%2$s)</string>
     <string name="camera_permission_denied">Kameraberechtigung verweigert, kann Kamera-Features nicht aktivieren. Du kannst sie in den Einstellungen erteilen.</string>
     <string name="color">Farbe</string>
-    <string name="water_boil_guide_title">Wasser zum Trinken aufbereiten</string>
     <string name="arrow">Pfeil</string>
     <string name="whistle_signal_come_here">Komm her</string>
     <string name="whistle_signal_acknowledged">Angenommen</string>

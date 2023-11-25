@@ -543,7 +543,6 @@
     <string name="camera_permission_denied">Povolení používání fotoaparátu bylo zamítnuto, nelze zapnout funkce, které používající fotoaparát. Můžete je povolit v nastavení.</string>
     <string name="backtrack_battery_warning">Malé intervaly (do 15 minut) mohou způsobit nadměrné vybíjení baterie</string>
     <string name="calibrate_new_tide">Kalibrovat na nový příliv/odliv\?</string>
-    <string name="water_boil_guide_title">Zajistěte, aby byla voda pitná</string>
     <string name="color">Barva</string>
     <string name="square">Čtverec</string>
     <string name="search">Hledat</string>

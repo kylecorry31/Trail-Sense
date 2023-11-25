@@ -159,7 +159,7 @@ object Tools {
                 R.id.action_action_experimental_tools_to_waterPurificationFragment,
                 ToolCategory.Time,
                 context.getString(R.string.tool_boil_summary),
-                guideId = R.raw.making_water_potable
+                guideId = R.raw.guide_tool_water_boil_timer
             ),
             Tool(
                 16,

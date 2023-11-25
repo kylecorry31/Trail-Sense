@@ -554,7 +554,6 @@
     <string name="last_signal_beacon_name">Último sinal - %1$s (%2$s)</string>
     <string name="camera_permission_denied">Permissão da câmera negada, não foi possível ativar os recursos da câmera. Você pode ativá-los em configurações.</string>
     <string name="color">Cor</string>
-    <string name="water_boil_guide_title">Tornar a água segura para beber</string>
     <string name="calibrate_new_tide">Calibrar para uma nova maré\?</string>
     <string name="backtrack_battery_warning">Pequenos intervalos (menos de 15 minutos) pode causar um consumo excessivo da bateria</string>
     <string name="backtrack_high_priority_notification">Colocando um ponto de caminho a cada %s</string>

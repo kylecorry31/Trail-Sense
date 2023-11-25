@@ -735,7 +735,6 @@
     <string name="activity_recognition_permission_denied">הרשאת פעילות גופנית נדחתה, לא ניתן להפעיל תכונות מד צעדים. באפשרותך להפוך אותו לזמין בהגדרות.</string>
     <string name="pref_default_path_style_title">סגנון נתיב המהווה ברירת מחדל</string>
     <string name="calibrate_new_tide">לכייל לגאות חדשה\?</string>
-    <string name="water_boil_guide_title">הפוך מים בטוחים לשתייה</string>
     <string name="color">צבע</string>
     <string name="pref_show_last_signal_beacon_summary">יצירת משואה עבור מיקום אות התא האחרון</string>
     <string name="fields">שדות</string>

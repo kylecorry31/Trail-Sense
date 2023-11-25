@@ -877,7 +877,6 @@
     <string name="dashed">Katkotettu</string>
     <string name="time_ago">%s sitten</string>
     <string name="keep_forever">Säilytä ikuisesti</string>
-    <string name="water_boil_guide_title">Tee vedestä juomakelpoista</string>
     <string name="weight">Paino</string>
     <string name="gps_unavailable_resolution">Ota Sijainti käyttöön tai vaihda sijaintilähteeksi Vain laite tai Suuri tarkkuus</string>
     <string name="weather_alert_storm_description">Varaudu voimakkaisiin tuuliin ja rankkasateisiin.</string>

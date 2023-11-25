@@ -628,7 +628,6 @@
     <string name="pref_default_path_style_title">Gaya jalur standar</string>
     <string name="pref_default_path_color_title">Warna jalur standar</string>
     <string name="backtrack_battery_warning">Interval kecil (di bawah 15 menit) dapat menyebabkan baterai terkuras secara berlebihan</string>
-    <string name="water_boil_guide_title">Membuat air aman untuk diminum</string>
     <string name="color">Warna</string>
     <string name="camera_permission_denied">Izin kamera ditolak, tidak dapat mengaktifkan fitur kamera. Anda dapat mengaktifkannya di pengaturan.</string>
     <string name="last_signal_beacon_name">Sinyal terakhir - %1$s (%2$s)</string>

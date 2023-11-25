@@ -775,7 +775,6 @@
     <string name="import_gpx">Importer GPX</string>
     <string name="battery_warning">Advarsel om batteriafladning</string>
     <string name="calibrate_new_tide">Kalibrer til et nyt tidevand\?</string>
-    <string name="water_boil_guide_title">Gør vand sikkert at drikke</string>
     <string name="color">Farve</string>
     <string name="icon">Ikon</string>
     <string name="activity_recognition_permission_denied">Tilladelse til fysisk aktivitet nægtet, kan ikke aktivere skridttællerfunktion. Du kan aktivere det i indstillinger.</string>

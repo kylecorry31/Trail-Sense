@@ -584,7 +584,6 @@
     <string name="last_signal_beacon_name">Laatste signaal - %1$s (%2$s)</string>
     <string name="camera_permission_denied">Cameratoestemming geweigerd, kan camerafuncties niet inschakelen. Je kunt het inschakelen in de instellingen.</string>
     <string name="color">Kleur</string>
-    <string name="water_boil_guide_title">Maak water veilig om te drinken</string>
     <string name="calibrate_new_tide">Kalibreren voor een nieuw tij\?</string>
     <string name="battery_warning">Waarschuwing batterij leeg</string>
     <string name="arrow">Pijl</string>

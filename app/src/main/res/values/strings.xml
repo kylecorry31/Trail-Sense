@@ -712,7 +712,6 @@
     <string name="battery_warning">Battery drain warning</string>
     <string name="backtrack_battery_warning">Small intervals (under 15 minutes) may cause excess battery drain</string>
     <string name="calibrate_new_tide">Calibrate to a new tide?</string>
-    <string name="water_boil_guide_title">Make water safe to drink</string>
     <string name="color">Color</string>
     <string name="icon">Icon</string>
     <string name="camera_permission_denied">Camera permission denied, unable to turn on camera features. You can enable it in settings.</string>

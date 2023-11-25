@@ -561,7 +561,6 @@
     <string name="last_signal_beacon_name">Последний сигнал - %1$s (%2$s)</string>
     <string name="camera_permission_denied">В разрешении камеры отказано, невозможно включить функции камеры. Вы можете включить его в настройках.</string>
     <string name="color">Цвет</string>
-    <string name="water_boil_guide_title">Сделать воду безопасной для питья</string>
     <string name="map_perspective_instructions">Нарисуйте карту</string>
     <string name="days">Дни</string>
     <plurals name="number_days">

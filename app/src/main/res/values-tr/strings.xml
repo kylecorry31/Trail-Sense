@@ -4,7 +4,6 @@
     <string name="fields">Alanlar</string>
     <string name="pref_show_last_signal_beacon_summary">Son telefon sinyali konumu için işaret oluşturur</string>
     <string name="pref_show_last_signal_beacon_title">Son sinyal işareti</string>
-    <string name="water_boil_guide_title">Suyu içilebilir hale getir</string>
     <string name="calibrate_new_tide">Yeni gelgit için kalibre etmek istediğinizden emin misiniz\?</string>
     <string name="backtrack_battery_warning">Kısa aralıklar (15 dakikanın altında) aşırı pil tüketimine neden olabilir</string>
     <string name="battery_warning">Pil tüketimi uyarısı</string>

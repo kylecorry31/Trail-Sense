@@ -472,7 +472,6 @@
     <string name="cross">Croix</string>
     <string name="backtrack_battery_warning">Des intervalles courts (inférieurs à 15 minutes) peut causer une consommation excessive de la batterie</string>
     <string name="calibrate_new_tide">Calibrer à une nouvelle marée \?</string>
-    <string name="water_boil_guide_title">Rend l’eau potable</string>
     <string name="camera_permission_denied">Accès à la caméra refusé, peut être activé dans les paramètres.</string>
     <string name="activity_recognition_permission_denied">Accès aux activités physiques refusé, peut être activé dans les paramètres.</string>
     <string name="last_signal_beacon_name">Dernier signal – %1$s (%2$s)</string>

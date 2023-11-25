@@ -550,7 +550,6 @@
     <string name="backtrack_high_priority_notification">Posiziona un segnaposto ogni %s</string>
     <string name="battery_warning">Avviso consumo batteria</string>
     <string name="calibrate_new_tide">Calibrare su una nuova marea\?</string>
-    <string name="water_boil_guide_title">Rendere l\'acqua sicura da bere</string>
     <string name="last_signal_beacon_name">Ultimo segnale - %1$s (%2$s)</string>
     <string name="noon">Mezzogiorno</string>
     <string name="delete_path_group_message">%s e tutti i suoi percorsi verranno eliminati.</string>
