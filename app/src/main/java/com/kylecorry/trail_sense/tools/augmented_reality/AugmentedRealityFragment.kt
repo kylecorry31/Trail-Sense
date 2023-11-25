@@ -37,6 +37,7 @@ import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
+import com.kylecorry.trail_sense.shared.sensors.observeFlow2
 import kotlinx.coroutines.Dispatchers
 import java.time.Duration
 import java.time.LocalDate
@@ -91,11 +92,11 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        observeFlow(beaconRepo.getBeacons()) {
+        observeFlow2(beaconRepo.getBeacons()) {
             beaconLayer.setBeacons(it)
         }
 
-        observeFlow(navigator.destination) {
+        observeFlow2(navigator.destination) {
             if (it == null) {
                 binding.arView.clearGuide()
             } else {

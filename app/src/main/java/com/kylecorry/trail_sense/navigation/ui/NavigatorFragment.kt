@@ -17,15 +17,12 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.tryOrNothing
-import com.kylecorry.andromeda.core.ui.Colors.withAlpha
-import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.interval
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.show
-import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -50,9 +47,6 @@ import com.kylecorry.trail_sense.navigation.domain.CompassStyle
 import com.kylecorry.trail_sense.navigation.domain.CompassStyleChooser
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.infrastructure.Navigator
-import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationCopy
-import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationGeoSender
-import com.kylecorry.trail_sense.navigation.infrastructure.share.LocationSharesheet
 import com.kylecorry.trail_sense.navigation.ui.data.UpdateAstronomyLayerCommand
 import com.kylecorry.trail_sense.navigation.ui.errors.NavigatorUserErrors
 import com.kylecorry.trail_sense.navigation.ui.layers.*
@@ -71,6 +65,7 @@ import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.observeFlow2
 import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.ILayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MultiLayerManager
@@ -281,7 +276,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             userPrefs.navigation
         ).bind()
 
-        observeFlow(beaconRepo.getBeacons()) {
+        observeFlow2(beaconRepo.getBeacons()) {
             beacons = it
             updateNearbyBeacons()
         }

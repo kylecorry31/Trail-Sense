@@ -51,6 +51,7 @@ import com.kylecorry.trail_sense.shared.lists.bind
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.permissions.requestLocationForegroundServicePermission
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.observeFlow2
 
 class PathsFragment : BoundFragment<FragmentPathsBinding>() {
 
@@ -102,7 +103,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         sort = prefs.navigation.pathSort
 
         // TODO: See if it is possible to get notified of changes without loading all paths
-        observeFlow(pathService.getPaths()) {
+        observeFlow2(pathService.getPaths()) {
             manager.refresh()
         }
 
