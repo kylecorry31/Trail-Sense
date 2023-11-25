@@ -66,7 +66,9 @@ class FusedAltimeter(
                 barometerFlow.collect {
                     updatePressure(barometer.pressure)
                     onMain {
-                        notifyListeners()
+                        if (hasValidReading) {
+                            notifyListeners()
+                        }
                     }
 
                     if (!isSeaLevelPressureValid()) {
@@ -123,9 +125,15 @@ class FusedAltimeter(
         // Get a reading from the GPS and barometer
         readAll(listOf(gpsAltimeter, barometer), CALIBRATION_TIMEOUT)
 
+        if (barometer.pressure == 0f) {
+            Log.d("FusedAltimeter", "Calibration failed")
+            return
+        }
+
         // Update the sea level pressure
         val pressure = Meteorology.getSeaLevelPressure(
-            Pressure.hpa(barometer.pressure), Distance.meters(gpsAltimeter.altitude)
+            Pressure.hpa(barometer.pressure),
+            Distance.meters(gpsAltimeter.altitude)
         )
         setLastSeaLevelPressure(pressure.pressure)
         Log.d("FusedAltimeter", "Updated calibration")
