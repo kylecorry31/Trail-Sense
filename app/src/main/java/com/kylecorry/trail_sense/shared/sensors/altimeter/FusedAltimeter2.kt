@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.sensors.altimeter
 
 import android.content.Context
+import android.util.Log
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.IAltimeter
@@ -55,7 +56,7 @@ class FusedAltimeter2(
         filteredPressure = 0f
         gpsAltimeter.start(this::onGPSUpdate)
         barometer.start(this::onBarometerUpdate)
-        updateTimer.interval(Duration.ofMillis(20))
+        updateTimer.interval(Duration.ofMillis(200))
     }
 
     override fun stopImpl() {
@@ -74,7 +75,7 @@ class FusedAltimeter2(
     }
 
     private fun updatePressure(pressure: Float) {
-        val filter = pressureFilter ?: LowPassFilter(0.8f, barometer.pressure)
+        val filter = pressureFilter ?: LowPassFilter(0.1f, barometer.pressure)
         pressureFilter = filter
         filteredPressure = filter.filter(pressure)
     }
@@ -127,6 +128,8 @@ class FusedAltimeter2(
                 Distance.meters(filter.value)
             )
         )
+
+//        Log.d("FusedAltimeter", "Altitude: ${filter.value}m, GPS: ${gpsAltimeter.altitude}m, Barometer: ${barometricAltitude}m, Sea level: ${seaLevel.pressure}hPa")
         return true
     }
 
@@ -145,7 +148,11 @@ class FusedAltimeter2(
 
     private fun setLastSeaLevelPressure(pressure: Pressure) {
         cache.putFloat(LAST_SEA_LEVEL_PRESSURE_KEY, pressure.pressure)
-        cache.putInstant(LAST_SEA_LEVEL_PRESSURE_TIME_KEY, Instant.now())
+
+        // Only update the time if the GPS was used - this prevents only using the barometer over the long term
+        if (gpsAltimeter.hasValidReading) {
+            cache.putInstant(LAST_SEA_LEVEL_PRESSURE_TIME_KEY, Instant.now())
+        }
     }
 
     companion object {
@@ -153,7 +160,9 @@ class FusedAltimeter2(
             "cache_fused_altimeter_last_sea_level_pressure"
         private const val LAST_SEA_LEVEL_PRESSURE_TIME_KEY =
             "cache_fused_altimeter_last_sea_level_pressure_time"
-        private val SEA_LEVEL_EXPIRATION = Duration.ofHours(1)
+
+        // The amount of time before the sea level pressure expires if not updated using the GPS
+        private val SEA_LEVEL_EXPIRATION = Duration.ofMinutes(1)
 
         // 2% GPS, 98% barometer
         private const val ALPHA = 0.02f
