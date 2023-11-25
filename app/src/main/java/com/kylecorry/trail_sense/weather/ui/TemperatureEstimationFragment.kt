@@ -22,7 +22,6 @@ import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.readAll
-import com.kylecorry.trail_sense.shared.sensors.readAllUntilValid
 import com.kylecorry.trail_sense.shared.views.UnitInputView
 import java.time.Duration
 import kotlin.math.roundToInt
@@ -114,7 +113,7 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
                 binding.tempEstBaseElevation.autofill()
             }
 
-            readAllUntilValid(
+            readAll(
                 listOf(thermometer),
                 Duration.ofSeconds(10),
                 forceStopOnCompletion = true

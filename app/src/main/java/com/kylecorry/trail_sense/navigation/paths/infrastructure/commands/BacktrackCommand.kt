@@ -14,7 +14,6 @@ import com.kylecorry.trail_sense.shared.networkQuality
 import com.kylecorry.trail_sense.shared.sensors.NullCellSignalSensor
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.readAll
-import com.kylecorry.trail_sense.shared.sensors.readAllUntilValid
 import java.time.Duration
 import java.time.Instant
 
@@ -53,7 +52,7 @@ class BacktrackCommand(
     }
 
     private suspend fun updateSensors() {
-        readAllUntilValid(
+        readAll(
             listOf(gps, altimeter, cellSignalSensor),
             timeout = Duration.ofSeconds(10),
             forceStopOnCompletion = true
