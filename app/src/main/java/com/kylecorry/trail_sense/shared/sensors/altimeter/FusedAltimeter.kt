@@ -136,7 +136,7 @@ class FusedAltimeter(
             "cache_fused_altimeter_last_sea_level_pressure"
         private const val LAST_SEA_LEVEL_PRESSURE_TIME_KEY =
             "cache_fused_altimeter_last_sea_level_pressure_time"
-        private const val SMOOTHING = 0.8f
+        private const val SMOOTHING = 0.9f
         private val CALIBRATION_TIMEOUT = Duration.ofSeconds(10)
         private val CALIBRATION_INTERVAL = Duration.ofHours(1)
     }
