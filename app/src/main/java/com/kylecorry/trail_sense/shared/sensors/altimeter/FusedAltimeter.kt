@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.sensors.altimeter
 
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.IAltimeter
+import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.sense.barometer.IBarometer
 import com.kylecorry.sol.math.filters.IFilter
 import com.kylecorry.sol.math.filters.LowPassFilter
@@ -11,9 +12,12 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Pressure
 
 class FusedAltimeter(
-    private val gpsAltimeter: IAltimeter,
-    private val barometer: IBarometer
+    private val gps: IGPS,
+    private val barometer: IBarometer,
+    gpsAltitudeSampleCount: Int
 ) : AbstractSensor(), IAltimeter {
+
+    private val gpsAltimeter = GaussianAltimeterWrapper(gps, gpsAltitudeSampleCount)
 
     override val altitude: Float
         get() {

@@ -161,12 +161,22 @@ class SensorService(ctx: Context) {
                 return CachedAltimeter(context)
             }
 
-            val gpsAltimeter = GaussianAltimeterWrapper(gps ?: getGPS(), userPrefs.altimeterSamples)
+            val gps = gps ?: getGPS()
 
             return if (mode == UserPreferences.AltimeterMode.GPSBarometer && hasBarometer) {
-                CachingAltimeterWrapper(context, FusedAltimeter(gpsAltimeter, Barometer(context, ENVIRONMENT_SENSOR_DELAY)))
+                CachingAltimeterWrapper(
+                    context,
+                    FusedAltimeter(
+                        gps,
+                        Barometer(context, ENVIRONMENT_SENSOR_DELAY),
+                        userPrefs.altimeterSamples
+                    )
+                )
             } else {
-                CachingAltimeterWrapper(context, gpsAltimeter)
+                CachingAltimeterWrapper(
+                    context,
+                    GaussianAltimeterWrapper(gps, userPrefs.altimeterSamples)
+                )
             }
         }
     }
