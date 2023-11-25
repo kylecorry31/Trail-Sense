@@ -44,12 +44,12 @@ suspend fun readAll(
 fun ISensor.asFlowable(): IFlowable<Unit> {
     return object : ListenerFlowWrapper<Unit>() {
         override fun start() {
-            Log.d("Sensor", "Starting ${this@asFlowable.javaClass.simpleName}")
+            Log.d("Sensor", "Starting ${toString()}")
             subscribe(this::onSensorUpdate)
         }
 
         override fun stop() {
-            Log.d("Sensor", "Stopping ${this@asFlowable.javaClass.simpleName}")
+            Log.d("Sensor", "Stopping ${toString()}")
             unsubscribe(this::onSensorUpdate)
         }
 
