@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.sensors.altimeter
 
 import android.content.Context
 import android.util.Log
+import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.IAltimeter
@@ -86,7 +87,12 @@ class FusedAltimeter(
         val delta = time?.let {
             Duration.between(time, Instant.now())
         }
-        return seaLevelPressure != null && delta != null && delta > Duration.ZERO && delta < CALIBRATION_INTERVAL
+
+        val isExpired = delta == null || delta <= Duration.ZERO || delta >= CALIBRATION_INTERVAL
+        val isPressureValid = seaLevelPressure != null
+        // TODO: In the future, make sure the pressure is within a reasonable range of the starting pressure
+
+        return isPressureValid && !isExpired
     }
 
     private fun getLastSeaLevelPressure(): Pressure? {
@@ -110,11 +116,11 @@ class FusedAltimeter(
         filteredPressure = filter.filter(pressure)
     }
 
-    private suspend fun calibrate() {
+    private suspend fun calibrate() = onDefault {
         seaLevelPressure = getLastSeaLevelPressure()
         if (isSeaLevelPressureValid()) {
             Log.d("FusedAltimeter", "Used cached calibration")
-            return
+            return@onDefault
         }
 
         Log.d("FusedAltimeter", "Calibrating")
@@ -124,7 +130,7 @@ class FusedAltimeter(
 
         if (barometer.pressure == 0f) {
             Log.d("FusedAltimeter", "Calibration failed")
-            return
+            return@onDefault
         }
 
         // Update the sea level pressure
