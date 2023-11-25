@@ -183,7 +183,7 @@
 
     <string-array name="altimeter_mode_no_barometer_entries">
         <item>@string/gps</item>
-        <item>@string/never</item>
+        <item>@string/manual</item>
     </string-array>
 
     <string-array name="altimeter_mode_no_barometer_values">

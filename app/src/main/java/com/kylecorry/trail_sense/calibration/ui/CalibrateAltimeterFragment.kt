@@ -86,12 +86,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         val altitudeOverride = Distance.meters(prefs.altitudeOverride).convertTo(distanceUnits)
         altitudeOverridePref.summary = formatService.formatDistance(altitudeOverride)
 
-        setOverrideStates()
-        altitudeOverrideBarometerEdit.isVisible = prefs.weather.hasBarometer
-        if (!prefs.weather.hasBarometer) {
-            calibrationModeList.setEntries(R.array.altimeter_mode_no_barometer_entries)
-            calibrationModeList.setEntryValues(R.array.altimeter_mode_no_barometer_values)
-        }
+        updateConditionalPreferences()
 
         altitudeOverrideBarometerEdit.setOnBindEditTextListener { editText ->
             editText.inputType = InputType.TYPE_CLASS_NUMBER.or(InputType.TYPE_NUMBER_FLAG_DECIMAL)
@@ -140,7 +135,6 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
             }
         }
 
-        clearCachePref.isVisible = prefs.altimeterMode == UserPreferences.AltimeterMode.GPSBarometer
         onClick(clearCachePref) {
             FusedAltimeter.clearCachedCalibration(requireContext())
             toast(getString(R.string.done))
@@ -153,14 +147,30 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         lastMode = prefs.altimeterMode
     }
 
-    private fun setOverrideStates() {
+    private fun updateConditionalPreferences() {
+        val hasBarometer = prefs.weather.hasBarometer
         val mode = prefs.altimeterMode
-        val enabled =
-            mode == UserPreferences.AltimeterMode.Barometer || mode == UserPreferences.AltimeterMode.Override
 
-        altitudeOverridePref.isEnabled = enabled
-        altitudeOverrideGpsBtn.isEnabled = enabled
-        altitudeOverrideBarometerEdit.isEnabled = enabled
+        // Cache is only available on the fused barometer
+        clearCachePref.isVisible =
+            hasBarometer && mode == UserPreferences.AltimeterMode.GPSBarometer
+
+        // Overrides are available on the barometer or the manual mode
+        val canProvideOverrides =
+            mode == UserPreferences.AltimeterMode.Barometer || mode == UserPreferences.AltimeterMode.Override
+        altitudeOverridePref.isVisible = canProvideOverrides
+        altitudeOverrideGpsBtn.isVisible = canProvideOverrides
+        altitudeOverrideBarometerEdit.isVisible = canProvideOverrides && hasBarometer
+
+        // Sample size is only available when the GPS is being used
+        accuracyPref.isVisible =
+            mode == UserPreferences.AltimeterMode.GPS || mode == UserPreferences.AltimeterMode.GPSBarometer
+
+        // Restrict the calibration mode list if there is no barometer
+        if (!hasBarometer) {
+            calibrationModeList.setEntries(R.array.altimeter_mode_no_barometer_entries)
+            calibrationModeList.setEntryValues(R.array.altimeter_mode_no_barometer_values)
+        }
     }
 
     private fun restartAltimeter() {
@@ -266,10 +276,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         if (lastMode != prefs.altimeterMode) {
             lastMode = prefs.altimeterMode
             restartAltimeter()
-            setOverrideStates()
-            clearCachePref.isVisible = prefs.altimeterMode == UserPreferences.AltimeterMode.GPSBarometer
-            accuracyPref.isVisible =
-                prefs.altimeterMode == UserPreferences.AltimeterMode.GPS || prefs.altimeterMode == UserPreferences.AltimeterMode.GPSBarometer
+            updateConditionalPreferences()
             if (prefs.altimeterMode == UserPreferences.AltimeterMode.Barometer) {
                 updateSeaLevelPressureOverride()
             }
