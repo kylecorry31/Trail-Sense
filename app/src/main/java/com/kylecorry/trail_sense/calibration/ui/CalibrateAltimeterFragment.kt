@@ -7,6 +7,7 @@ import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
@@ -24,6 +25,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.altimeter.FusedAltimeter
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFactory
 import java.time.Instant
@@ -46,6 +48,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
     private lateinit var altitudeOverrideGpsBtn: Preference
     private lateinit var altitudeOverrideBarometerEdit: EditTextPreference
     private lateinit var accuracyPref: Preference
+    private lateinit var clearCachePref: Preference
 
     private lateinit var lastMode: UserPreferences.AltimeterMode
     private val intervalometer = Timer { updateAltitude() }
@@ -78,6 +81,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         altitudeOverrideBarometerEdit =
             findPreference(getString(R.string.pref_altitude_override_sea_level))!!
         accuracyPref = preference(R.string.pref_altimeter_accuracy_holder)!!
+        clearCachePref = preference(R.string.pref_altimeter_clear_cache_holder)!!
 
         val altitudeOverride = Distance.meters(prefs.altitudeOverride).convertTo(distanceUnits)
         altitudeOverridePref.summary = formatService.formatDistance(altitudeOverride)
@@ -136,6 +140,11 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
             }
         }
 
+        clearCachePref.isVisible = prefs.altimeterMode == UserPreferences.AltimeterMode.GPSBarometer
+        onClick(clearCachePref) {
+            FusedAltimeter.clearCachedCalibration(requireContext())
+            toast(getString(R.string.done))
+        }
 
         if (prefs.altimeterMode == UserPreferences.AltimeterMode.Barometer) {
             updateElevationFromBarometer(prefs.seaLevelPressureOverride)
@@ -156,6 +165,10 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
 
     private fun restartAltimeter() {
         stopAltimeter()
+
+        // Reset the cache of the fused altimeter
+        FusedAltimeter.clearCachedCalibration(requireContext())
+
         altimeter = sensorService.getAltimeter()
         startAltimeter()
         updateAltitude()
@@ -254,6 +267,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
             lastMode = prefs.altimeterMode
             restartAltimeter()
             setOverrideStates()
+            clearCachePref.isVisible = prefs.altimeterMode == UserPreferences.AltimeterMode.GPSBarometer
             accuracyPref.isVisible =
                 prefs.altimeterMode == UserPreferences.AltimeterMode.GPS || prefs.altimeterMode == UserPreferences.AltimeterMode.GPSBarometer
             if (prefs.altimeterMode == UserPreferences.AltimeterMode.Barometer) {

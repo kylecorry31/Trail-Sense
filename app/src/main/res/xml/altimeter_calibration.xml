@@ -60,6 +60,12 @@
             app:key="@string/pref_nmea_altitude"
             app:singleLineTitle="false" />
 
+        <Preference
+            android:key="@string/pref_altimeter_clear_cache_holder"
+            android:title="@string/clear_cache"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
 
     </PreferenceCategory>
 
