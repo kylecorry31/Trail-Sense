@@ -166,7 +166,7 @@ class SensorService(ctx: Context) {
             return if (mode == UserPreferences.AltimeterMode.GPSBarometer && hasBarometer) {
                 CachingAltimeterWrapper(
                     context,
-                    FusedAltimeter(
+                    FusedAltimeter2(
                         context,
                         gps,
                         Barometer(context, ENVIRONMENT_SENSOR_DELAY)
