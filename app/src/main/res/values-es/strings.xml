@@ -1171,4 +1171,5 @@
     <string name="no_sensor_unable_to_fix">No, lamentablemente se trata de una función de hardware, por lo que no se puede hacer nada para añadirla.</string>
     <string name="true_north_description">Señala el Polo Norte geográfico utilizando la declinación correspondiente a tu ubicación. Esto se alineará con la mayoría de los mapas.</string>
     <string name="is_there_a_way_to_fix_this">¿Hay alguna forma de solucionarlo?</string>
+    <string name="high_sensitivity">Alta sensibilidad</string>
 </resources>

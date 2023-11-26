@@ -181,7 +181,7 @@
     <string name="precise_feet_format">%s voet</string>
     <string name="dialog_deny">Nee bedankt</string>
     <string name="dialog_grant">Instellingen bijwerken</string>
-    <string name="access_background_location_rationale">Trail Sense gebruikt je locatiegegevens op de achtergrond voor het ijken van de zeeniveauluchtdrukmeter, voor weeranalyse en om nauwkeurige meldingen voor zonsondergang te geven. [Privacybeleid bekijken](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense gebruikt je locatiegegevens op de achtergrond voor het kalibreren van de zeeniveauluchtdrukmeter, voor weeranalyse en om nauwkeurige meldingen voor zonsondergang te geven. [Privacybeleid bekijken](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Locatie-instellingen bijwerken</string>
     <string name="copied_to_clipboard_toast">Naar klembord gekopieerd</string>
     <string name="moderate">Matig</string>
@@ -1158,4 +1158,5 @@
     <string name="no_sensor_unable_to_fix">Nee, dit is helaas een hardware-functie, er is dus niks aan te doen om dit toe te voegen.</string>
     <string name="true_north_description">Wijst naar de geografische Noordpool door de declinatie voor jouw locatie te gebruiken. Dit werkt met de meeste kaarten.</string>
     <string name="is_there_a_way_to_fix_this">Is er een manier om dit op te lossen?</string>
+    <string name="high_sensitivity">Hoge gevoeligheid</string>
 </resources>
