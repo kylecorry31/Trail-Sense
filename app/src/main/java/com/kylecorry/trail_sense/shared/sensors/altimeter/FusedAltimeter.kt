@@ -3,12 +3,13 @@ package com.kylecorry.trail_sense.shared.sensors.altimeter
 import android.content.Context
 import android.util.Log
 import com.kylecorry.andromeda.core.coroutines.onDefault
-import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.IAltimeter
+import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.sense.barometer.IBarometer
-import com.kylecorry.luna.coroutines.CoroutineQueueRunner
+import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.math.filters.IFilter
 import com.kylecorry.sol.math.filters.LowPassFilter
 import com.kylecorry.sol.science.geology.Geology
@@ -17,129 +18,194 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.shared.sensors.asFlowable
-import com.kylecorry.trail_sense.shared.sensors.readAll
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.kylecorry.trail_sense.shared.sensors.hasFix
 import java.time.Duration
 import java.time.Instant
 
 class FusedAltimeter(
     context: Context,
-    gps: IGPS,
+    private val gps: IGPS,
     private val barometer: IBarometer,
+    private val alwaysOnCalibration: Boolean
 ) : AbstractSensor(), IAltimeter {
+
+    private val shouldLog = true
 
     private val prefs = UserPreferences(context)
     private val cache = PreferencesSubsystem.getInstance(context).preferences
     private val gpsAltimeter = GaussianAltimeterWrapper(gps, prefs.altimeterSamples)
-    private val barometerFlow = barometer.asFlowable().flow
+
+    private val updateTimer = CoroutineTimer {
+        val success = onDefault {
+            update()
+        }
+        if (success) {
+            notifyListeners()
+        }
+    }
+
+    private var filteredAltitude: Float? = null
 
     override val altitude: Float
-        get() {
-            val seaLevelPressure = seaLevelPressure ?: return gpsAltimeter.altitude
-
-            if (filteredPressure == 0f){
-                return gpsAltimeter.altitude
-            }
-
-            return Geology.getAltitude(Pressure.hpa(filteredPressure), seaLevelPressure).distance
-        }
+        get() = filteredAltitude ?: getGPSAltitude()
 
     override val hasValidReading: Boolean
-        get() = seaLevelPressure != null
+        get() = filteredAltitude != null
 
-    private var seaLevelPressure: Pressure? = null
     private var pressureFilter: IFilter? = null
     private var filteredPressure = barometer.pressure
 
-    private val scope = CoroutineScope(Dispatchers.Default)
-    private val runner = CoroutineQueueRunner()
-
     override fun startImpl() {
-        scope.launch {
-            runner.replace {
-                pressureFilter = null
-                calibrate()
-                barometerFlow.collect {
-                    updatePressure(barometer.pressure)
-                    onMain {
-                        if (hasValidReading) {
-                            notifyListeners()
-                        }
-                    }
-
-                    if (!isSeaLevelPressureValid()) {
-                        calibrate()
-                    }
-                }
-            }
-        }
+        pressureFilter = null
+        filteredAltitude = null
+        filteredPressure = 0f
+        gpsAltimeter.start(this::onGPSUpdate)
+        barometer.start(this::onBarometerUpdate)
+        updateTimer.interval(UPDATE_FREQUENCY)
     }
 
     override fun stopImpl() {
-        runner.cancel()
+        gpsAltimeter.stop(this::onGPSUpdate)
+        barometer.stop(this::onBarometerUpdate)
+        updateTimer.stop()
     }
 
-    private fun isSeaLevelPressureValid(): Boolean {
-        val time = getLastSeaLevelPressureTime()
-        val delta = time?.let {
-            Duration.between(time, Instant.now())
+    private fun onBarometerUpdate(): Boolean {
+        if (barometer.pressure != 0f) {
+            updatePressure(barometer.pressure)
         }
-
-        val isExpired = delta == null || delta <= Duration.ZERO || delta >= CALIBRATION_INTERVAL
-        val isPressureValid = seaLevelPressure != null
-        // TODO: In the future, make sure the pressure is within a reasonable range of the starting pressure
-
-        return isPressureValid && !isExpired
+        return true
     }
 
-    private fun getLastSeaLevelPressure(): Pressure? {
-        return cache.getFloat(LAST_SEA_LEVEL_PRESSURE_KEY)?.let { Pressure.hpa(it) }
-    }
-
-    private fun getLastSeaLevelPressureTime(): Instant? {
-        return cache.getInstant(LAST_SEA_LEVEL_PRESSURE_TIME_KEY)
-    }
-
-    private fun setLastSeaLevelPressure(pressure: Float) {
-        val time = Instant.now()
-        cache.putFloat(LAST_SEA_LEVEL_PRESSURE_KEY, pressure)
-        cache.putInstant(LAST_SEA_LEVEL_PRESSURE_TIME_KEY, time)
-        seaLevelPressure = Pressure.hpa(pressure)
+    private fun onGPSUpdate(): Boolean {
+        // Do nothing
+        return true
     }
 
     private fun updatePressure(pressure: Float) {
-        val filter = pressureFilter ?: LowPassFilter(1 - SMOOTHING, barometer.pressure)
+        val filter = pressureFilter ?: LowPassFilter(1 - BAROMETER_SMOOTHING, barometer.pressure)
         pressureFilter = filter
         filteredPressure = filter.filter(pressure)
     }
 
-    private suspend fun calibrate() = onDefault {
-        seaLevelPressure = getLastSeaLevelPressure()
-        if (isSeaLevelPressureValid()) {
-            Log.d("FusedAltimeter", "Used cached calibration")
-            return@onDefault
+
+    private fun update(): Boolean {
+        if (filteredPressure == 0f) {
+            // No barometer reading yet
+            return false
         }
 
-        Log.d("FusedAltimeter", "Calibrating")
+        val seaLevel = getLastSeaLevelPressure()
 
-        // Get a reading from the GPS and barometer
-        readAll(listOf(gpsAltimeter, barometer), CALIBRATION_TIMEOUT)
-
-        if (barometer.pressure == 0f) {
-            Log.d("FusedAltimeter", "Calibration failed")
-            return@onDefault
+        // Sea level pressure is unknown, it needs to be calibrated
+        if (seaLevel == null) {
+            recalibrate()
+            return false
         }
 
-        // Update the sea level pressure
-        val pressure = Meteorology.getSeaLevelPressure(
-            Pressure.hpa(barometer.pressure),
-            Distance.meters(gpsAltimeter.altitude)
+        // Calculate the barometric altitude
+        val barometricAltitude =
+            Geology.getAltitude(Pressure.hpa(filteredPressure), seaLevel).distance
+
+        // At this point, the barometric altitude is available but the GPS altitude may not be
+        // If the GPS has a reading, use the GPS altimeter (even if the gaussian filter hasn't converged)
+        // Otherwise, use the barometric altitude
+        val gpsAltitude = if (hasGPSFix()) {
+            getGPSAltitude()
+        } else {
+            barometricAltitude
+        }
+
+        // Dynamically calculate the influence of the GPS using the altitude accuracy
+        // A more accurate GPS reading will have a higher weight
+        // If always on calibration is disabled, the GPS will not be used
+        val gpsError = if (hasGPSFix()) {
+            gpsAltimeter.altitudeAccuracy ?: MAX_GPS_ERROR
+        } else {
+            MAX_GPS_ERROR
+        }
+        val gpsWeight = if (alwaysOnCalibration) {
+            1 - SolMath.map(gpsError, 0f, MAX_GPS_ERROR, MIN_ALPHA, MAX_ALPHA)
+                .coerceIn(MIN_ALPHA, MAX_ALPHA)
+        } else {
+            0f
+        }
+
+        // Create the filter if it doesn't exist, the value will be overwritten so it doesn't matter
+        val altitude = gpsWeight * gpsAltitude + (1 - gpsWeight) * barometricAltitude
+        filteredAltitude = altitude
+
+        // Update the current estimate of the sea level pressure
+        setLastSeaLevelPressure(
+            Meteorology.getSeaLevelPressure(
+                Pressure.hpa(filteredPressure),
+                Distance.meters(altitude)
+            ),
+            false
         )
-        setLastSeaLevelPressure(pressure.pressure)
-        Log.d("FusedAltimeter", "Updated calibration")
+
+        if (shouldLog) {
+            Log.d(
+                "FusedAltimeter",
+                "ALT: ${altitude.roundPlaces(2)}, " +
+                        "GPS: ${getGPSAltitude().roundPlaces(2)}, " +
+                        "BAR: ${barometricAltitude.roundPlaces(2)}, " +
+                        "SEA: ${seaLevel.pressure.roundPlaces(2)}, " +
+                        "ALPHA: ${gpsWeight.roundPlaces(3)}"
+            )
+        }
+        return true
+    }
+
+    private fun getGPSAltitude(): Float {
+        val altitude = gpsAltimeter.altitude
+        return if (altitude == 0f && !hasGaussianGPSFix()) {
+            gps.altitude
+        } else {
+            altitude
+        }
+    }
+
+    private fun recalibrate(){
+        if (filteredPressure > 0f && hasGaussianGPSFix()){
+            setLastSeaLevelPressure(
+                Meteorology.getSeaLevelPressure(
+                    Pressure.hpa(filteredPressure),
+                    Distance.meters(getGPSAltitude())
+                ),
+                true
+            )
+        }
+    }
+
+    private fun hasGPSFix(): Boolean {
+        return gps.hasFix()
+    }
+
+    private fun hasGaussianGPSFix(): Boolean {
+        return hasGPSFix() && gpsAltimeter.hasValidReading
+    }
+
+    private fun getLastSeaLevelPressure(): Pressure? {
+        val time = cache.getInstant(LAST_SEA_LEVEL_PRESSURE_TIME_KEY) ?: return null
+
+        val timeSinceReading = Duration.between(time, Instant.now())
+        if (timeSinceReading > SEA_LEVEL_EXPIRATION || timeSinceReading.isNegative) {
+            // Sea level pressure has expired
+            return null
+        }
+
+        return cache.getFloat(LAST_SEA_LEVEL_PRESSURE_KEY)?.let { Pressure.hpa(it) }
+    }
+
+
+    private fun setLastSeaLevelPressure(pressure: Pressure, isBaseline: Boolean) {
+        cache.putFloat(LAST_SEA_LEVEL_PRESSURE_KEY, pressure.pressure)
+
+        // Only update the time if the gaussian GPS was used - this prevents only using the barometer over the long term
+        if (isBaseline) {
+            cache.putInstant(LAST_SEA_LEVEL_PRESSURE_TIME_KEY, Instant.now())
+        }
     }
 
     companion object {
@@ -147,9 +213,15 @@ class FusedAltimeter(
             "cache_fused_altimeter_last_sea_level_pressure"
         private const val LAST_SEA_LEVEL_PRESSURE_TIME_KEY =
             "cache_fused_altimeter_last_sea_level_pressure_time"
-        private const val SMOOTHING = 0.9f
-        private val CALIBRATION_TIMEOUT = Duration.ofSeconds(10)
-        private val CALIBRATION_INTERVAL = Duration.ofHours(1)
+
+        // The amount of time before the sea level pressure expires if not updated using the GPS
+        private val SEA_LEVEL_EXPIRATION = Duration.ofHours(1)
+
+        private const val MIN_ALPHA = 0.96f
+        private const val MAX_ALPHA = 0.999f
+        private const val MAX_GPS_ERROR = 5f
+        private const val BAROMETER_SMOOTHING = 0.9f
+        private val UPDATE_FREQUENCY = Duration.ofMillis(200)
 
         fun clearCachedCalibration(context: Context) {
             val prefs = PreferencesSubsystem.getInstance(context).preferences
@@ -157,5 +229,4 @@ class FusedAltimeter(
             prefs.remove(LAST_SEA_LEVEL_PRESSURE_TIME_KEY)
         }
     }
-
 }
