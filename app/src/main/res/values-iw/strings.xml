@@ -21,7 +21,7 @@
     <string name="disclaimer_message_title">כתב ויתור</string>
     <string name="precise_kilometers_format">%s ק\"מ</string>
     <string name="current_format">%s mA</string>
-    <string name="access_background_location_rationale">Trail Sense משתמש בנתוני מיקום ברקע. הוא משמש כדי לספק התראות שקיעה מדויקות יותר בזמן נסיעה. [הצג מדיניות פרטיות] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense משתמש בנתוני מיקום ברקע עבור כיול לחץ פני הים בניטור מזג האוויר וכדי לספק התראות שקיעה מדויקות יותר. [הצגת מדיניות הפרטיות](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="app_disclaimer_message_title">כתב ויתור / תנאי שירות</string>
     <string name="degree_format">%.0f°</string>
     <string name="precise_miles_format">%s מייל</string>
@@ -259,7 +259,7 @@
 \n- השתמש בטלפון שלך כפנס
 \n
 \nוהרבה יותר!</string>
-    <string name="steps">שלבים</string>
+    <string name="steps">צעדים</string>
     <string name="remove_distance_alert">להסיר את התראת המרחק (%s)\?</string>
     <string name="distance_alert">התראת מרחק</string>
     <string name="navigating_to_nearest_path_point">ניווט לנקודת הנתיב הקרובה ביותר</string>
@@ -358,7 +358,7 @@
     <string name="delete">מחיקה</string>
     <string name="category">קטגוריה</string>
     <string name="tool_clinometer_summary">הערכת סיכוני מפולת שלגים וגובה אובייקטים</string>
-    <string name="set_inclination_instructions">הקשה או החזקה בכל מקום כדי לנעול/לבטל נעילה</string>
+    <string name="set_inclination_instructions">הקשה או החזקה בכל מקום כדי לנעול או לבטל נעילה</string>
     <string name="subtract">החסרה</string>
     <string name="edit">עריכה</string>
     <string name="coordinate_format_utm">UTM</string>
@@ -840,7 +840,7 @@
     <string name="precise_temp_f_format">%s °F</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="sun_does_not_set">אינו מוגדר</string>
-    <string name="theme_light">בהיר</string>
+    <string name="theme_light">ערכת עיצוב בהירה</string>
     <string name="no_group">אין קבוצה</string>
     <string name="unknown">לא ידוע</string>
     <string name="alerts">התראות</string>
@@ -1097,7 +1097,7 @@
         <item quantity="one">מפה אחת</item>
         <item quantity="two">%d מפות</item>
         <item quantity="many">%d מפות</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <string name="calibrate_map_point">כיול עם מיקומים ידועים (%1$d / %2$d)</string>
     <string name="descent">מוצא</string>
@@ -1132,4 +1132,57 @@
     <string name="until_sunrise">עד הזריחה</string>
     <string name="astronomy_set">הגדרה</string>
     <string name="astronomy_rise">זורח</string>
+    <string name="no_sensor_message">להתקן שלך אין חיישן %s</string>
+    <string name="missing_sensor_message_1">ל-%1$s שלך אין חיישן %2$s מובנה. למרבה הצער, זה אומר שחלק מהתכונות ב-%3$s לא יהיו זמינות.</string>
+    <string name="tool_deprecation_disclaimer">יתכן שכלי זה יוסר או יעוצב מחדש מכיוון שהוא אינו מעשי לטיולים רגליים, תרמילאים או קמפינג. אם הינך מוצא את הכלי הזה שימושי,אנא לשתף אותי כיצד הינך משתמש בו ב-%s.</string>
+    <string name="enter_manually">הזנה ידנית</string>
+    <string name="why_missing_sensor">ההתקן שלי חדש/יקר, למה חסר לו החיישן הזה?</string>
+    <string name="augmented_reality">מציאות רבודה</string>
+    <string name="restore_failure_newer_version">גיבוי זה נוצר עם גרסה חדשה יותר של %s. נא לעדכן את היישום ולנסות שוב.</string>
+    <string name="magnetic_north_description">מצביע על הקוטב הצפוני המגנטי. זה יתיישר עם רוב המצפנים.</string>
+    <string name="gps_satellites">לווני GPS</string>
+    <string name="tool_long_press_hint_toast">לחיצה ארוכה על כלי כדי לראות אפשרויות נוספות</string>
+    <string name="unpin">לא מוצמד</string>
+    <string name="triangulate_destination_location_1_instructions">רישום מיקומך ואת כיוון היעד.</string>
+    <string name="gps_elevation_accuracy">דיוק גובה GPS</string>
+    <string name="restore">שיחזור</string>
+    <string name="high_sensitivity">רגישות גבוהה</string>
+    <string name="my_location">המיקום שלי</string>
+    <string name="distance_away_from_destination">%s מהיעד</string>
+    <string name="invalid_backup_file">קובץ גיבוי לא חוקי</string>
+    <string name="missing_sensor_explanation">חלק מיצרני הטלפונים בוחרים שלא להוסיף חיישן זה, אפילו בהתקנים חדשים או יקרים. ניתן לקבל מידע נוסף על ידי ביקור באתר האינטרנט של יצרן ההתקן שלך או יצירת קשר איתם.</string>
+    <string name="no_sensor_unable_to_fix">לא, למרבה הצער זו תכונת חומרה, אז אין מה לעשות כדי להוסיף אותה.</string>
+    <string name="backup_restore">גיבוי / שיחזור</string>
+    <string name="settings_have_moved_message">הגדרות היישום הועברו לכרטיסייה כלים</string>
+    <string name="settings_have_moved">ההגדרות הועברו</string>
+    <string name="pinned">מוצמד</string>
+    <string name="gps_accuracy_tip">יש לוודא שיש לך נוף ללא הפרעה לשמים, ולהתרחק מבניינים גבוהים ועצים.</string>
+    <string name="triangulate_self_location_1_instructions">בחירת מיקום ידוע שבו ניתן לראות ולתעד את הכיוון מהמקום שבו הינך נמצא למיקום זה.</string>
+    <string name="restoring_loading_message">משחזר…</string>
+    <string name="augmented_reality_description">הצגת משואות סמוכות ואת השמש / הירח עם המצלמה שלך</string>
+    <string name="triangulate_self_location_2_instructions">בחירת מיקום ידוע אחר שבו ניתן לראות ולתעד את הכיוון מהמקום שבו הינך נמצא למיקום זה.</string>
+    <string name="scheduled_for_redesign_or_removal">מתוכנן לעיצוב מחדש או הסרה</string>
+    <string name="backup">גיבוי</string>
+    <string name="magnetic_north">צפון מגנטי</string>
+    <string name="true_north_description">מצביע על הקוטב הצפוני הגיאוגרפי באמצעות הסטייה עבור המיקום שלך. זה יתיישר עם רוב המפות.</string>
+    <string name="direction_not_set">כיוון לא מוגדר</string>
+    <string name="location_number">מיקום %d</string>
+    <string name="direction">כיוון</string>
+    <string name="zero_shutter_lag">אפס השהיית תריס</string>
+    <string name="tool_quick_actions">כלי פעולות מהירות</string>
+    <string name="triangulate_destination_location_2_instructions">תזוזה של לפחות %s מהמיקום הראשון ולתעד שוב את המיקום שלך ואת כיוון היעד.</string>
+    <string name="backing_up_loading_message">מגבה…</string>
+    <string name="gps_location_accuracy">דיוק מיקום GPS</string>
+    <string name="restore_complete_message">השחזור הצליח, הפעלה מחדש כדי להחיל שינויים</string>
+    <string name="location_to_triangulate">מיקום לטריאנגולציה</string>
+    <string name="is_there_a_way_to_fix_this">האם יש דרך לתקן את זה?</string>
+    <string name="backup_disclaimer">ייווצר קובץ גיבוי המכיל את כל הנתונים הנוכחיים שלך. זה יכלול הגדרות, שבילים, משואות, מפות וכו\'.
+\n
+\nקובץ זה אינו מוצפן. אין לשתף את זה עם מישהו לא מהימן.</string>
+    <string name="destination">יעד</string>
+    <string name="restore_disclaimer">פעולה זו תחליף את כל הנתונים הנוכחיים שלך. נא לוודא שיש לך גיבוי לפני שתמשיך.
+\n
+\nיש לבחור רק קובץ גיבוי שיצרת עם %s ועם אמון.</string>
+    <string name="pin">הצמדה</string>
+    <string name="distance_away_from_self">%s משם</string>
 </resources>
