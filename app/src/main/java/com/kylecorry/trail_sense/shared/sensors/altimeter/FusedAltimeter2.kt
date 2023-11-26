@@ -8,7 +8,8 @@ import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.sense.barometer.IBarometer
-import com.kylecorry.sol.math.filters.ComplementaryFilter
+import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.math.filters.IFilter
 import com.kylecorry.sol.math.filters.LowPassFilter
 import com.kylecorry.sol.science.geology.Geology
@@ -22,7 +23,7 @@ import java.time.Instant
 
 class FusedAltimeter2(
     context: Context,
-    gps: IGPS,
+    private val gps: IGPS,
     private val barometer: IBarometer,
 ) : AbstractSensor(), IAltimeter {
 
@@ -39,20 +40,21 @@ class FusedAltimeter2(
         }
     }
 
-    private var filter: ComplementaryFilter? = null
+    //    private var filter: ComplementaryFilter? = null
+    private var filteredAltitude: Float? = null
 
     override val altitude: Float
-        get() = filter?.value ?: gpsAltimeter.altitude
+        get() = filteredAltitude ?: gpsAltimeter.altitude
 
     override val hasValidReading: Boolean
-        get() = filter != null
+        get() = filteredAltitude != null
 
     private var pressureFilter: IFilter? = null
     private var filteredPressure = barometer.pressure
 
     override fun startImpl() {
         pressureFilter = null
-        filter = null
+        filteredAltitude = null
         filteredPressure = 0f
         gpsAltimeter.start(this::onGPSUpdate)
         barometer.start(this::onBarometerUpdate)
@@ -109,27 +111,45 @@ class FusedAltimeter2(
             Geology.getAltitude(Pressure.hpa(filteredPressure), seaLevel).distance
 
         // At this point, the barometric altitude is available but the GPS altitude may not be
-        // If the GPS altitude is not available, use the barometric altitude instead
-        val gpsAltitude = if (gpsAltimeter.hasValidReading){
+        // If the GPS has a reading, use the GPS altimeter (even if the gaussian filter hasn't converged)
+        // Otherwise, use the barometric altitude
+        val gpsAltitude = if (gps.hasValidReading) {
             gpsAltimeter.altitude
         } else {
             barometricAltitude
         }
 
+        // Dynamically calculate the influence of the GPS using the altitude accuracy
+        val gpsError = if (gps.hasValidReading) {
+            gpsAltimeter.altitudeAccuracy ?: 10f
+        } else {
+            0f
+        }
+        val gpsWeight =
+            1 - SolMath.map(gpsError, 0f, 10f, MIN_ALPHA, MAX_ALPHA).coerceIn(MIN_ALPHA, MAX_ALPHA)
+
         // Create the filter if it doesn't exist, the value will be overwritten so it doesn't matter
-        val filter = filter ?: ComplementaryFilter(listOf(ALPHA, 1 - ALPHA), gpsAltitude)
-        this.filter = filter
-        filter.filter(listOf(gpsAltitude, barometricAltitude))
+        val altitude = gpsWeight * gpsAltitude + (1 - gpsWeight) * barometricAltitude
+        filteredAltitude = altitude
 
         // Update the current estimate of the sea level pressure
         setLastSeaLevelPressure(
             Meteorology.getSeaLevelPressure(
                 Pressure.hpa(filteredPressure),
-                Distance.meters(filter.value)
+                Distance.meters(altitude)
             )
         )
 
-//        Log.d("FusedAltimeter", "Altitude: ${filter.value}m, GPS: ${gpsAltimeter.altitude}m, Barometer: ${barometricAltitude}m, Sea level: ${seaLevel.pressure}hPa")
+        Log.d(
+            "FusedAltimeter",
+            "Alt: ${altitude.roundPlaces(1)}, GPS: ${gpsAltimeter.altitude.roundPlaces(1)}, Bar: ${
+                barometricAltitude.roundPlaces(1)
+            }, Sea: ${seaLevel.pressure.roundPlaces(2)}, alpha: $gpsWeight, error: ${
+                gpsError.roundPlaces(
+                    1
+                )
+            }"
+        )
         return true
     }
 
@@ -164,7 +184,7 @@ class FusedAltimeter2(
         // The amount of time before the sea level pressure expires if not updated using the GPS
         private val SEA_LEVEL_EXPIRATION = Duration.ofHours(1)
 
-        // 2% GPS, 98% barometer
-        private const val ALPHA = 0.02f
+        private val MIN_ALPHA = 0.95f
+        private val MAX_ALPHA = 0.999f
     }
 }
