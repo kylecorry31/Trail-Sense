@@ -67,11 +67,14 @@ class FusedAltimeter2(
     }
 
     private fun onBarometerUpdate(): Boolean {
-        updatePressure(barometer.pressure)
+        if (barometer.pressure != 0f) {
+            updatePressure(barometer.pressure)
+        }
         return true
     }
 
     private fun onGPSUpdate(): Boolean {
+        // Do nothing
         return true
     }
 
