@@ -162,7 +162,7 @@ class FusedAltimeter2(
             "cache_fused_altimeter_last_sea_level_pressure_time"
 
         // The amount of time before the sea level pressure expires if not updated using the GPS
-        private val SEA_LEVEL_EXPIRATION = Duration.ofMinutes(1)
+        private val SEA_LEVEL_EXPIRATION = Duration.ofHours(1)
 
         // 2% GPS, 98% barometer
         private const val ALPHA = 0.02f
