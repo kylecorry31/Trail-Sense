@@ -140,16 +140,16 @@ class FusedAltimeter2(
             )
         )
 
-        Log.d(
-            "FusedAltimeter",
-            "Alt: ${altitude.roundPlaces(1)}, GPS: ${gpsAltimeter.altitude.roundPlaces(1)}, Bar: ${
-                barometricAltitude.roundPlaces(1)
-            }, Sea: ${seaLevel.pressure.roundPlaces(2)}, alpha: ${gpsWeight.roundPlaces(3)}, error: ${
-                gpsError.roundPlaces(
-                    1
-                )
-            }, GPS: ${gps.altitude.roundPlaces(1)}"
-        )
+//        Log.d(
+//            "FusedAltimeter",
+//            "Alt: ${altitude.roundPlaces(1)}, GPS: ${gpsAltimeter.altitude.roundPlaces(1)}, Bar: ${
+//                barometricAltitude.roundPlaces(1)
+//            }, Sea: ${seaLevel.pressure.roundPlaces(2)}, alpha: ${gpsWeight.roundPlaces(3)}, error: ${
+//                gpsError.roundPlaces(
+//                    1
+//                )
+//            }, GPS: ${gps.altitude.roundPlaces(1)}"
+//        )
         return true
     }
 
