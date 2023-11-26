@@ -18,6 +18,7 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import java.time.Duration
 import java.time.Instant
 
@@ -115,14 +116,14 @@ class FusedAltimeter2(
         // At this point, the barometric altitude is available but the GPS altitude may not be
         // If the GPS has a reading, use the GPS altimeter (even if the gaussian filter hasn't converged)
         // Otherwise, use the barometric altitude
-        val gpsAltitude = if (gps.hasValidReading) {
+        val gpsAltitude = if (hasGPSReading()) {
             gpsAltimeter.altitude
         } else {
             barometricAltitude
         }
 
         // Dynamically calculate the influence of the GPS using the altitude accuracy
-        val gpsError = if (gps.hasValidReading) {
+        val gpsError = if (hasGPSReading()) {
             gpsAltimeter.altitudeAccuracy ?: MAX_GPS_ERROR
         } else {
             MAX_GPS_ERROR
@@ -152,6 +153,15 @@ class FusedAltimeter2(
 //                    "ALPHA: ${gpsWeight.roundPlaces(3)}"
 //        )
         return true
+    }
+
+    private fun hasGPSReading(): Boolean {
+        val isTimedOut = if (gps is CustomGPS){
+            gps.isTimedOut
+        } else {
+            false
+        }
+        return gps.hasValidReading && !isTimedOut
     }
 
     private fun getLastSeaLevelPressure(): Pressure? {
