@@ -185,9 +185,9 @@ class FusedAltimeter2(
         // The amount of time before the sea level pressure expires if not updated using the GPS
         private val SEA_LEVEL_EXPIRATION = Duration.ofHours(1)
 
-        private const val MIN_ALPHA = 0.95f
+        private const val MIN_ALPHA = 0.96f
         private const val MAX_ALPHA = 0.999f
-        private const val MAX_GPS_ERROR = 10f
+        private const val MAX_GPS_ERROR = 5f
         private const val BAROMETER_SMOOTHING = 0.9f
         private val UPDATE_FREQUENCY = Duration.ofMillis(200)
 
