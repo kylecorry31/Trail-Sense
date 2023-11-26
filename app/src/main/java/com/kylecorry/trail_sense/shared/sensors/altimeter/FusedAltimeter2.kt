@@ -123,7 +123,7 @@ class FusedAltimeter2(
         val gpsError = if (gps.hasValidReading) {
             gpsAltimeter.altitudeAccuracy ?: 10f
         } else {
-            0f
+            10f
         }
         val gpsWeight =
             1 - SolMath.map(gpsError, 0f, 10f, MIN_ALPHA, MAX_ALPHA).coerceIn(MIN_ALPHA, MAX_ALPHA)
@@ -144,11 +144,11 @@ class FusedAltimeter2(
             "FusedAltimeter",
             "Alt: ${altitude.roundPlaces(1)}, GPS: ${gpsAltimeter.altitude.roundPlaces(1)}, Bar: ${
                 barometricAltitude.roundPlaces(1)
-            }, Sea: ${seaLevel.pressure.roundPlaces(2)}, alpha: $gpsWeight, error: ${
+            }, Sea: ${seaLevel.pressure.roundPlaces(2)}, alpha: ${gpsWeight.roundPlaces(3)}, error: ${
                 gpsError.roundPlaces(
                     1
                 )
-            }"
+            }, GPS: ${gps.altitude.roundPlaces(1)}"
         )
         return true
     }
