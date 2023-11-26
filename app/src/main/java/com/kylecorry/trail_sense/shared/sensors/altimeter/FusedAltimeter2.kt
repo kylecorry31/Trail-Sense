@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.shared.sensors.altimeter
 
 import android.content.Context
-import android.util.Log
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.IAltimeter
@@ -9,7 +8,6 @@ import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.sense.barometer.IBarometer
 import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.math.filters.IFilter
 import com.kylecorry.sol.math.filters.LowPassFilter
 import com.kylecorry.sol.science.geology.Geology
@@ -18,7 +16,7 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.shared.sensors.CustomGPS
+import com.kylecorry.trail_sense.shared.sensors.hasFix
 import java.time.Duration
 import java.time.Instant
 
@@ -44,7 +42,7 @@ class FusedAltimeter2(
     private var filteredAltitude: Float? = null
 
     override val altitude: Float
-        get() = filteredAltitude ?: gpsAltimeter.altitude
+        get() = filteredAltitude ?: getGPSAltitude()
 
     override val hasValidReading: Boolean
         get() = filteredAltitude != null
@@ -97,15 +95,7 @@ class FusedAltimeter2(
         // Sea level pressure is unknown
         if (seaLevel == null) {
             // Calibrate using the GPS if available
-            if (gpsAltimeter.hasValidReading) {
-                setLastSeaLevelPressure(
-                    Meteorology.getSeaLevelPressure(
-                        Pressure.hpa(filteredPressure),
-                        Distance.meters(gpsAltimeter.altitude)
-                    )
-                )
-            }
-
+            recalibrate()
             return false
         }
 
@@ -116,14 +106,14 @@ class FusedAltimeter2(
         // At this point, the barometric altitude is available but the GPS altitude may not be
         // If the GPS has a reading, use the GPS altimeter (even if the gaussian filter hasn't converged)
         // Otherwise, use the barometric altitude
-        val gpsAltitude = if (hasGPSReading()) {
-            gpsAltimeter.altitude
+        val gpsAltitude = if (hasGPSFix()) {
+            getGPSAltitude()
         } else {
             barometricAltitude
         }
 
         // Dynamically calculate the influence of the GPS using the altitude accuracy
-        val gpsError = if (hasGPSReading()) {
+        val gpsError = if (hasGPSFix()) {
             gpsAltimeter.altitudeAccuracy ?: MAX_GPS_ERROR
         } else {
             MAX_GPS_ERROR
@@ -147,7 +137,7 @@ class FusedAltimeter2(
 //        Log.d(
 //            "FusedAltimeter",
 //            "ALT: ${altitude.roundPlaces(2)}, " +
-//                    "GPS: ${gpsAltimeter.altitude.roundPlaces(2)}, " +
+//                    "GPS: ${getGPSAltitude()roundPlaces(2)}, " +
 //                    "BAR: ${barometricAltitude.roundPlaces(2)}, " +
 //                    "SEA: ${seaLevel.pressure.roundPlaces(2)}, " +
 //                    "ALPHA: ${gpsWeight.roundPlaces(3)}"
@@ -155,13 +145,32 @@ class FusedAltimeter2(
         return true
     }
 
-    private fun hasGPSReading(): Boolean {
-        val isTimedOut = if (gps is CustomGPS){
-            gps.isTimedOut
+    private fun getGPSAltitude(): Float {
+        val altitude = gpsAltimeter.altitude
+        return if (altitude == 0f && !hasGaussianGPSFix()) {
+            gps.altitude
         } else {
-            false
+            altitude
         }
-        return gps.hasValidReading && !isTimedOut
+    }
+
+    private fun recalibrate(){
+        if (filteredPressure > 0f && hasGaussianGPSFix()){
+            setLastSeaLevelPressure(
+                Meteorology.getSeaLevelPressure(
+                    Pressure.hpa(filteredPressure),
+                    Distance.meters(getGPSAltitude())
+                )
+            )
+        }
+    }
+
+    private fun hasGPSFix(): Boolean {
+        return gps.hasFix()
+    }
+
+    private fun hasGaussianGPSFix(): Boolean {
+        return hasGPSFix() && gpsAltimeter.hasValidReading
     }
 
     private fun getLastSeaLevelPressure(): Pressure? {
@@ -180,8 +189,8 @@ class FusedAltimeter2(
     private fun setLastSeaLevelPressure(pressure: Pressure) {
         cache.putFloat(LAST_SEA_LEVEL_PRESSURE_KEY, pressure.pressure)
 
-        // Only update the time if the GPS was used - this prevents only using the barometer over the long term
-        if (gpsAltimeter.hasValidReading) {
+        // Only update the time if the gaussian GPS was used - this prevents only using the barometer over the long term
+        if (hasGaussianGPSFix()) {
             cache.putInstant(LAST_SEA_LEVEL_PRESSURE_TIME_KEY, Instant.now())
         }
     }
