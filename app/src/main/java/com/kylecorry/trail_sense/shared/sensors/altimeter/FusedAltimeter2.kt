@@ -121,12 +121,13 @@ class FusedAltimeter2(
 
         // Dynamically calculate the influence of the GPS using the altitude accuracy
         val gpsError = if (gps.hasValidReading) {
-            gpsAltimeter.altitudeAccuracy ?: 10f
+            gpsAltimeter.altitudeAccuracy ?: MAX_GPS_ERROR
         } else {
-            10f
+            MAX_GPS_ERROR
         }
         val gpsWeight =
-            1 - SolMath.map(gpsError, 0f, 10f, MIN_ALPHA, MAX_ALPHA).coerceIn(MIN_ALPHA, MAX_ALPHA)
+            1 - SolMath.map(gpsError, 0f, MAX_GPS_ERROR, MIN_ALPHA, MAX_ALPHA)
+                .coerceIn(MIN_ALPHA, MAX_ALPHA)
 
         // Create the filter if it doesn't exist, the value will be overwritten so it doesn't matter
         val altitude = gpsWeight * gpsAltitude + (1 - gpsWeight) * barometricAltitude
@@ -140,16 +141,14 @@ class FusedAltimeter2(
             )
         )
 
-//        Log.d(
-//            "FusedAltimeter",
-//            "Alt: ${altitude.roundPlaces(1)}, GPS: ${gpsAltimeter.altitude.roundPlaces(1)}, Bar: ${
-//                barometricAltitude.roundPlaces(1)
-//            }, Sea: ${seaLevel.pressure.roundPlaces(2)}, alpha: ${gpsWeight.roundPlaces(3)}, error: ${
-//                gpsError.roundPlaces(
-//                    1
-//                )
-//            }, GPS: ${gps.altitude.roundPlaces(1)}"
-//        )
+        Log.d(
+            "FusedAltimeter",
+            "ALT: ${altitude.roundPlaces(2)}, " +
+                    "GPS: ${gpsAltimeter.altitude.roundPlaces(2)}, " +
+                    "BAR: ${barometricAltitude.roundPlaces(2)}, " +
+                    "SEA: ${seaLevel.pressure.roundPlaces(2)}, " +
+                    "ALPHA: ${gpsWeight.roundPlaces(3)}"
+        )
         return true
     }
 
@@ -184,7 +183,14 @@ class FusedAltimeter2(
         // The amount of time before the sea level pressure expires if not updated using the GPS
         private val SEA_LEVEL_EXPIRATION = Duration.ofHours(1)
 
-        private val MIN_ALPHA = 0.95f
-        private val MAX_ALPHA = 0.999f
+        private const val MIN_ALPHA = 0.95f
+        private const val MAX_ALPHA = 0.999f
+        private const val MAX_GPS_ERROR = 10f
+
+        fun clearCachedCalibration(context: Context) {
+            val prefs = PreferencesSubsystem.getInstance(context).preferences
+            prefs.remove(LAST_SEA_LEVEL_PRESSURE_KEY)
+            prefs.remove(LAST_SEA_LEVEL_PRESSURE_TIME_KEY)
+        }
     }
 }
