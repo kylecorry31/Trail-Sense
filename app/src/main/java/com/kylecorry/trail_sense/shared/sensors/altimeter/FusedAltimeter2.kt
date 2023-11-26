@@ -40,7 +40,6 @@ class FusedAltimeter2(
         }
     }
 
-    //    private var filter: ComplementaryFilter? = null
     private var filteredAltitude: Float? = null
 
     override val altitude: Float
@@ -58,7 +57,7 @@ class FusedAltimeter2(
         filteredPressure = 0f
         gpsAltimeter.start(this::onGPSUpdate)
         barometer.start(this::onBarometerUpdate)
-        updateTimer.interval(Duration.ofMillis(200))
+        updateTimer.interval(UPDATE_FREQUENCY)
     }
 
     override fun stopImpl() {
@@ -77,7 +76,7 @@ class FusedAltimeter2(
     }
 
     private fun updatePressure(pressure: Float) {
-        val filter = pressureFilter ?: LowPassFilter(0.1f, barometer.pressure)
+        val filter = pressureFilter ?: LowPassFilter(1 - BAROMETER_SMOOTHING, barometer.pressure)
         pressureFilter = filter
         filteredPressure = filter.filter(pressure)
     }
@@ -186,6 +185,8 @@ class FusedAltimeter2(
         private const val MIN_ALPHA = 0.95f
         private const val MAX_ALPHA = 0.999f
         private const val MAX_GPS_ERROR = 10f
+        private const val BAROMETER_SMOOTHING = 0.9f
+        private val UPDATE_FREQUENCY = Duration.ofMillis(200)
 
         fun clearCachedCalibration(context: Context) {
             val prefs = PreferencesSubsystem.getInstance(context).preferences
