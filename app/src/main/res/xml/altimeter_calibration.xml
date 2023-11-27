@@ -46,6 +46,14 @@
             app:singleLineTitle="false"
             app:title="@string/elevation_from_pressure" />
 
+        <SwitchPreferenceCompat
+            android:summary="@string/continuous_calibration_description"
+            android:title="@string/continuous_calibration"
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_altimeter_continuous_calibration"
+            app:singleLineTitle="false" />
+
         <Preference
             android:key="@string/pref_altimeter_accuracy_holder"
             android:title="@string/samples"

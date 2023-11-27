@@ -22,11 +22,18 @@ import com.kylecorry.trail_sense.shared.sensors.hasFix
 import java.time.Duration
 import java.time.Instant
 
+/**
+ * A sensor that uses the GPS and barometer to calculate altitude.
+ * @param context The context
+ * @param gps The GPS sensor
+ * @param barometer The barometer sensor
+ * @param useContinuousCalibration True if the sensor should continuously calibrate using the GPS, otherwise it will only calibrate once an hour
+ */
 class FusedAltimeter(
     context: Context,
     private val gps: IGPS,
     private val barometer: IBarometer,
-    private val alwaysOnCalibration: Boolean
+    private val useContinuousCalibration: Boolean
 ) : AbstractSensor(), IAltimeter {
 
     private val shouldLog = true
@@ -124,7 +131,7 @@ class FusedAltimeter(
         } else {
             MAX_GPS_ERROR
         }
-        val gpsWeight = if (alwaysOnCalibration) {
+        val gpsWeight = if (useContinuousCalibration) {
             1 - SolMath.map(gpsError, 0f, MAX_GPS_ERROR, MIN_ALPHA, MAX_ALPHA)
                 .coerceIn(MIN_ALPHA, MAX_ALPHA)
         } else {
@@ -166,8 +173,8 @@ class FusedAltimeter(
         }
     }
 
-    private fun recalibrate(){
-        if (filteredPressure > 0f && hasGaussianGPSFix()){
+    private fun recalibrate() {
+        if (filteredPressure > 0f && hasGaussianGPSFix()) {
             setLastSeaLevelPressure(
                 Meteorology.getSeaLevelPressure(
                     Pressure.hpa(filteredPressure),

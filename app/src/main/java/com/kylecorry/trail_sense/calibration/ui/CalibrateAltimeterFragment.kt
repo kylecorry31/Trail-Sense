@@ -6,6 +6,7 @@ import android.text.InputType
 import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
 import androidx.preference.Preference
+import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.sensors.IAltimeter
@@ -49,6 +50,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
     private lateinit var altitudeOverrideBarometerEdit: EditTextPreference
     private lateinit var accuracyPref: Preference
     private lateinit var clearCachePref: Preference
+    private lateinit var continuousCalibrationPref: SwitchPreferenceCompat
 
     private lateinit var lastMode: UserPreferences.AltimeterMode
     private val intervalometer = Timer { updateAltitude() }
@@ -82,6 +84,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
             findPreference(getString(R.string.pref_altitude_override_sea_level))!!
         accuracyPref = preference(R.string.pref_altimeter_accuracy_holder)!!
         clearCachePref = preference(R.string.pref_altimeter_clear_cache_holder)!!
+        continuousCalibrationPref = switch(R.string.pref_altimeter_continuous_calibration)!!
 
         val altitudeOverride = Distance.meters(prefs.altitudeOverride).convertTo(distanceUnits)
         altitudeOverridePref.summary = formatService.formatDistance(altitudeOverride)
@@ -140,6 +143,10 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
             toast(getString(R.string.done))
         }
 
+        onClick(continuousCalibrationPref){
+            restartAltimeter()
+        }
+
         if (prefs.altimeterMode == UserPreferences.AltimeterMode.Barometer) {
             updateElevationFromBarometer(prefs.seaLevelPressureOverride)
         }
@@ -151,8 +158,10 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         val hasBarometer = prefs.weather.hasBarometer
         val mode = prefs.altimeterMode
 
-        // Cache is only available on the fused barometer
+        // Cache and continuous calibration are only available on the fused barometer
         clearCachePref.isVisible =
+            hasBarometer && mode == UserPreferences.AltimeterMode.GPSBarometer
+        continuousCalibrationPref.isVisible =
             hasBarometer && mode == UserPreferences.AltimeterMode.GPSBarometer
 
         // Overrides are available on the barometer or the manual mode
