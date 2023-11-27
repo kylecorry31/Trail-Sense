@@ -70,7 +70,7 @@
 
         <Preference
             android:key="@string/pref_altimeter_clear_cache_holder"
-            android:title="@string/clear_cache"
+            android:title="@string/reset_calibration"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
