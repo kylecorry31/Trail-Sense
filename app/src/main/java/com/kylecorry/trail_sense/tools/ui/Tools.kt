@@ -226,7 +226,7 @@ object Tools {
                 R.drawable.ic_tool_clouds,
                 R.id.action_action_experimental_tools_to_cloudFragment,
                 ToolCategory.Weather,
-                guideId = R.raw.weather
+                guideId = R.raw.guide_tool_clouds
             ),
             Tool(
                 24,

@@ -50,7 +50,7 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
         }
 
         binding.cloudListTitle.rightButton.setOnClickListener {
-            UserGuideUtils.showGuide(this, R.raw.weather)
+            UserGuideUtils.showGuide(this, R.raw.guide_tool_clouds)
         }
 
         binding.cloudListTitle.subtitle.text = getString(

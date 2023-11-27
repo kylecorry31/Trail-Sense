@@ -1,4 +1,4 @@
-The Water Boil Timer helps you determine the necessary boiling time to make water safe for drinking, taking into account your current elevation since boiling time varies with elevation.
+The Water Boil Timer tool helps you determine the necessary boiling time to make water safe for drinking, taking into account your current elevation since boiling time varies with elevation.
 
 ## Making Water Safe to Drink
 To ensure water is safe for consumption, you must first filter and then boil it. Please note that filtering and boiling will not render polluted water safe to drink. Follow these steps to make water potable:
