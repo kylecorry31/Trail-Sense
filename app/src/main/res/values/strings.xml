@@ -734,8 +734,8 @@
     <string name="pref_nmea_altitude" translatable="false">pref_nmea_altitude</string>
     <string name="pref_barometer_info_holder" translatable="false">pref_barometer_info_holder</string>
     <string name="pref_barometer_info_summary">The pressure may differ from that of nearby stations</string>
-    <string name="pref_nmea_elevation_title">NMEA elevation offsets</string>
-    <string name="pref_nmea_elevation_summary">Uses NMEA offsets for elevation conversion</string>
+    <string name="pref_nmea_elevation_title">NMEA elevation correction</string>
+    <string name="pref_nmea_elevation_summary">Use NMEA (satellite) to correct elevations, rather than built-in model</string>
     <string name="pref_barometer_pressure_smoothing" translatable="false">pref_barometer_pressure_smoothing</string>
     <string name="pref_barometer_pressure_smoothing_title">Pressure smoothing</string>
     <string name="convert">Convert</string>
