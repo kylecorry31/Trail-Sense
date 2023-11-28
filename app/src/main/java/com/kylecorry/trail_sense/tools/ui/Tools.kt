@@ -282,6 +282,7 @@ object Tools {
                 R.drawable.ic_tool_notes,
                 R.id.action_action_experimental_tools_to_fragmentToolNotes,
                 ToolCategory.Other,
+                guideId = R.raw.guide_tool_notes
             ),
             Tool(
                 31,

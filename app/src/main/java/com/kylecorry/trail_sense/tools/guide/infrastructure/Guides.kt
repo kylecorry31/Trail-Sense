@@ -86,6 +86,11 @@ object Guides {
                     null,
                     R.raw.packing_lists
                 ),
+                UserGuide(
+                    context.getString(R.string.tool_notes_title),
+                    null,
+                    R.raw.guide_tool_notes
+                ),
                 if (hasCompass) UserGuide(
                     context.getString(R.string.tool_metal_detector_title),
                     null,
