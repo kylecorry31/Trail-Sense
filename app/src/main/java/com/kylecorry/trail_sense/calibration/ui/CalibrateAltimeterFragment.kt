@@ -184,10 +184,6 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
 
     private fun restartAltimeter() {
         stopAltimeter()
-
-        // Reset the cache of the fused altimeter
-        FusedAltimeter.clearCachedCalibration(requireContext())
-
         altimeter = sensorService.getAltimeter()
         startAltimeter()
         updateAltitude()
@@ -213,8 +209,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
     }
 
     private fun onElevationFromGPSCallback(): Boolean {
-        val elevation = gps.altitude
-        prefs.altitudeOverride = elevation
+        prefs.altitudeOverride = gps.altitude
         updateSeaLevelPressureOverride()
         updateAltitude()
         Alerts.toast(requireContext(), getString(R.string.elevation_override_updated_toast))
