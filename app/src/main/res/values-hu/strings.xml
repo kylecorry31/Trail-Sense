@@ -838,7 +838,7 @@
     <string name="sensors">Érzékelők</string>
     <string name="pref_ruler_calibration_summary">"Kalibrálási eljárás:
 \n
-\n-   Állítsd ezt az értéket 1-re.
+\n-  Állítsd ezt az értéket 1-re.
 \n
 \n- Mérd meg, mennyit mutat a Trail Sense vonalzója egy fizikai vonalzó egy egységénél.
 \n
@@ -1110,4 +1110,52 @@
     <string name="photo_map_disclaimer">Mindig vigyél magaddal egy fizikai térképet vésztartaléknak, és ellenőrizd a Trail Sense pontosságát.</string>
     <string name="pref_keep_map_facing_up_title">Tartsa a térképet felfelé</string>
     <string name="season">Évszak</string>
+    <string name="no_sensor_message">Az eszközödnek nincs %s szenzora</string>
+    <string name="missing_sensor_message_1">%1$s eszközöd nem rendelkezik beépített %2$s szenzorral. Sajnos emiatt a %3$s néhány funkciója nem lesz elérhető.</string>
+    <string name="tool_deprecation_disclaimer">Ez az eszköz lehet, hogy átalakításra vagy eltávolításra fog kerülni, mert nem praktikus túrázáshoz, hátizsákos túrához, vagy táborozáshoz. Ha ezt az eszközt hasznosnak találod, kérlek, oszd meg velem, hogyan tudtad hasznosítani a %s címen.</string>
+    <string name="enter_manually">Megadás manuálisan</string>
+    <string name="why_missing_sensor">Az eszközöm új/drága, miért nincs benne ilyen szenzor?</string>
+    <string name="augmented_reality">Kiterjesztett Valóság</string>
+    <string name="restore_failure_newer_version">Ez a mentés a %s egy újabb verziójával készült. Frissítsd az appot és próbáld újra.</string>
+    <string name="magnetic_north_description">A mágneses Északi Sark felé mutat. Ez a legtöbb iránytűvel meg fog egyezni.</string>
+    <string name="tool_long_press_hint_toast">Nyomj hosszan egy eszközre további opciókért</string>
+    <string name="unpin">Kitűzés eltávolítása</string>
+    <string name="triangulate_destination_location_1_instructions">Jegyezd fel a helyedet és az úticél irányát.</string>
+    <string name="high_sensitivity">Magas érzékenység</string>
+    <string name="my_location">Helyzetem</string>
+    <string name="distance_away_from_destination">%s távolságra az úticéltól</string>
+    <string name="invalid_backup_file">Érvénytelen mentésfájl</string>
+    <string name="missing_sensor_explanation">Néhány telefongyártó úgy dönt, hogy nem szerel ilyen szenzort még az új vagy drága eszközeire sem. További információt az eszközöd gyártójának weboldaláról vagy ügyfélszolgálatától kaphatsz.</string>
+    <string name="no_sensor_unable_to_fix">Nem, sajnos ez egy hardveres tulajdonság, ezért sehogyan nem lehet utólag hozzáadni.</string>
+    <string name="backup_restore">Mentés / Visszaállítás</string>
+    <string name="settings_have_moved_message">Az alkalmazás beállításai az Eszközök lapra kerültek</string>
+    <string name="settings_have_moved">A beállítások átköltöztek</string>
+    <string name="pinned">Kitűzöttek</string>
+    <string name="triangulate_self_location_1_instructions">Válassz egy általad ismert helyet, amire rálátsz és jegyezd fel hogy ez a hely a jelenlegi helyedhez képest milyen irányban van.</string>
+    <string name="restoring_loading_message">Visszaállítás…</string>
+    <string name="augmented_reality_description">Nézd meg a közeli jelzőpontokat és a napot/holdat, a kamerádon keresztül</string>
+    <string name="triangulate_self_location_2_instructions">Válassz egy másik általad ismert helyet, amire rálátsz és jegyezd fel hogy ez a hely a jelenlegi helyedhez képest milyen irányban van.</string>
+    <string name="scheduled_for_redesign_or_removal">Beütemezve átalakításra vagy eltávolításra</string>
+    <plurals name="map_group_summary">
+        <item quantity="one">%d térkép</item>
+        <item quantity="other">%d térkép</item>
+    </plurals>
+    <string name="magnetic_north">Mágneses Észak</string>
+    <string name="true_north_description">A földrajzi Északi Sark felé mutat a helyedhez tartozó elhajlás alapján. Ez a legtöbb térképpel meg fog egyezni.</string>
+    <string name="direction_not_set">Irány nincs beállítva</string>
+    <string name="location_number">%d. Hely</string>
+    <string name="direction">Irány</string>
+    <string name="zero_shutter_lag">Nulla rekeszkésés</string>
+    <string name="tool_quick_actions">Eszköz gyorsgombok</string>
+    <string name="triangulate_destination_location_2_instructions">Menj legalább %s-t az első helytől és ismét jegyezd fel a helyedet és az úticél irányát.</string>
+    <string name="backing_up_loading_message">Mentés készítése…</string>
+    <string name="restore_complete_message">Visszaállítás sikeres, az app újraindul a változások alkalmazásához</string>
+    <string name="location_to_triangulate">Háromszögelendő hely</string>
+    <string name="is_there_a_way_to_fix_this">Van-e mód ezt orvosolni?</string>
+    <string name="backup_disclaimer">Létre fog jönni egy mentésfájl, mely minden jelenlegi adatod tartalmazza. Benne lesznek a beállítások, ösvények, jelzőpontok, térképek, stb.
+\n
+\nEz a fájl nem titkosított. Senkivel ne oszd meg, akiben nem bízol.</string>
+    <string name="destination">Úticél</string>
+    <string name="pin">Kitűzés</string>
+    <string name="distance_away_from_self">%s távolságra</string>
 </resources>
