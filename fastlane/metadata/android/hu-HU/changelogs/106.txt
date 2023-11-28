@@ -1,0 +1,7 @@
+Hely Háromszögelése
+- Távol lévő hely háromszögelése
+- A háromszögelő eszköz át lett dolgozva, térkép, utasítások és iránytűs célzás került bele
+
+Egyéb
+- Néhány kamera előnézet nagyítva lett
+- Hibajavítások

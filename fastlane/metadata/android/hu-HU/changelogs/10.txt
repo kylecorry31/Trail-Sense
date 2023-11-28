@@ -1,0 +1,9 @@
+- Sebesség mutatása a navigáció lapon
+- Becsült idő mutatása a jelzőpontig
+- A navigáció lap átrendezésre került
+- GPS/Iránytű pontosságának mutatása
+- Megjegyzés és magasság fűzhető a jelzőpontokhoz
+- A jelzőpontok mostantól szerkeszthetőek
+- Az előrejelzés érzékenysége mostantól beállítható
+- Az értesítésbe bekerültek időjárási információk
+- Javítva lett a tengerszinti nyomás kiszámítása

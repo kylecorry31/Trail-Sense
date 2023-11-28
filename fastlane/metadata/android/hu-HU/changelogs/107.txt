@@ -1,0 +1,18 @@
+Eszközök
+- Az eszközök lap át lett tervezve
+- A beállítások az eszközökhöz kerültek
+- Gyorsgombok kerültek az eszközökhöz (a beállításokban személyre szabhatóak)
+- Az eszközök kitűzhetőek lettek
+- Az eszközök kategória és név szerint rendezhetőek
+
+Navigáció
+- Javult az iránytűs célzás kamerailleszkedése
+- Bekerült a Valós vagy Mágneses Észak kijelzése
+
+Kiterjesztett Valóság (Kísérleti)
+- Bekerült a Kiterjesztett Valóság eszköz (a Kisérleti beállítás alatt bekapcsolható)
+- Közeli jelzőpontok mutatása AR-ben
+- Nap és Hold helyzetének mutatása AR-ben
+
+Egyéb
+- Új gyorsműveletek: Lépésszámláló, Időjárás-kijelzés, Visszakövetés(ki-be), és Éjszaka mód
