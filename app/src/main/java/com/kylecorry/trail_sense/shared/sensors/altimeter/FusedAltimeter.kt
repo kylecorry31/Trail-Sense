@@ -66,15 +66,17 @@ class FusedAltimeter(
         pressureFilter = null
         filteredAltitude = null
         filteredPressure = 0f
-        gpsAltimeter.start(this::onGPSUpdate)
+        if (useContinuousCalibration) {
+            gpsAltimeter.start(this::onGPSUpdate)
+        }
         barometer.start(this::onBarometerUpdate)
         updateTimer.interval(UPDATE_FREQUENCY)
     }
 
     override fun stopImpl() {
-        gpsAltimeter.stop(this::onGPSUpdate)
-        barometer.stop(this::onBarometerUpdate)
         updateTimer.stop()
+        gpsAltimeter.stop(null)
+        barometer.stop(this::onBarometerUpdate)
     }
 
     private fun onBarometerUpdate(): Boolean {
@@ -96,7 +98,7 @@ class FusedAltimeter(
     }
 
 
-    private fun update(): Boolean {
+    private suspend fun update(): Boolean {
         if (filteredPressure == 0f) {
             // No barometer reading yet
             return false
@@ -173,8 +175,9 @@ class FusedAltimeter(
         }
     }
 
-    private fun recalibrate() {
-        if (filteredPressure > 0f && hasGaussianGPSFix()) {
+    private suspend fun recalibrate() {
+        if (filteredPressure > 0f) {
+            gpsAltimeter.read()
             setLastSeaLevelPressure(
                 Meteorology.getSeaLevelPressure(
                     Pressure.hpa(filteredPressure),
