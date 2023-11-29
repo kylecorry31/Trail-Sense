@@ -1,0 +1,16 @@
+Fotó Térképek (Béta)
+- A Fotó Térképek eszköz minden béta tagnak elérhető, fényképek használhatók térképként
+- Nem Valós Észak felé mutató térképek kezelése
+
+Csillagászat
+- A csillagászat lap át lett dolgozva a könnyeb használat érdekében
+- Meteorzivatarok kezdetének és végének mutatása
+- Fogyatkozások csúcsidejének mutatása
+- Keresőgomb a legközelebbi csillagászati esemény megkereséséhez
+- A nap / hold lista elemeire kattintás további részleteket mutat
+
+Időjárás / Klíma
+- Javult a történelmi hőmérsékletek pontossága
+
+Egyéb
+- Hibajavítás

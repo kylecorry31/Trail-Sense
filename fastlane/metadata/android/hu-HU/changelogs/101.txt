@@ -1,0 +1,21 @@
+Visszakövetés
+- Állandó értesítés futás közben
+
+Időjárás
+- Állandó értesítés futás közben
+- Javult a történelmi hőmérsékletek pontossága
+- Javult a felhőkkel történő előrejelzés
+
+Csillagászat
+- Gyorsművelet a naplemente értesítéshez
+
+Fotó Térképek
+-Javult az auto-elforgatás
+
+Lépésszámláló
+- A lépésszámláló az értesítésből megállítható
+
+Egyéb
+- Android 14 támogatás
+- Az engedélykérések gördülékenyebbek
+- Hibajavítások
