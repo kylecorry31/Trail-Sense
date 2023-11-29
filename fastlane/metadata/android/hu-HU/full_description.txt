@@ -1,0 +1,27 @@
+<p>Fedezd fel a világot az internet határain túl a Trail Sense-szel.</p>
+
+<p>A Trail Sense telefonod szenzoraival segít téged természeti kirándulásaidon. A Trail Sense számos eszközt tartalmaz, amik különféle helyzetben felhasználhatók, mint például túrázás, sátorozás, backpacking, sziklamászás, stb.</p>
+
+<p>Ez az app továbbá nem használ internetkapcsolatot, és soha nem is fog - a Trail Sense-ben lévő összes információ a telefonod szenzoraiból származik, és semmilyen adat nem hagyja el a Trail Sense-t.</p>
+
+<ul>
+    <li>Túrázásra, backpackingre, sátorozásra, geocachingre tervezve</li>
+    <li>Helyezz le jelzőpontokat és navigálj hozzájuk</li>
+    <li>Kövess ösvényeket</li>
+    <li>Kövesd vissza lépéseidet a visszakövetés segítségével</li>
+    <li>Tervezd meg, mit csomagolsz el</li>
+    <li>Kapj figyelmeztetést, mielőtt lemegy a nap</li>
+    <li>Jósold meg az időjárást</li>
+    <li>Használd telefonodat zseblámpaként</li>
+    <li>És sok más!</li>
+</ul>
+
+<p>A Trail Sense egy eszköz, amit használhatsz, de nem érdemes teljesen rá hagyatkoznod. Ez az app csak információs célokat szolgál és a jóslatok és szenzorok pontossága számos tényezőtől függ, beleértve a kalibrációt, szenzorminőséget, külső forrásokat és egyebeket. Saját felelősségedre használd, mindig legyen tartalék eszközöd (pl. iránytű), és vigyázz magadra, amennyire csak lehet.</p>
+
+<p>Hibát találtál vagy új funkciót szeretnél? Írj nekem a trailsense@protonmail.com címen vagy hozz létre új témát GitHub-on: github.com/kylecorry31/Trail-Sense</p>
+
+<p>Egyedül fejlesztem a Trail Sense-t, úgyhogy igyekszem minden problémát megoldani - de korlátozott számú eszközöm van, amiken tesztelni tudok.</p>
+
+<p>Adatvédelmi szabályzat: https://kylecorry.com/Trail-Sense/#privacy</p>
+<p>GYIK: https://github.com/kylecorry31/Trail-Sense#faq</p>
+<p>A Trail Sense az MIT Licensz szerint elérhető: https://opensource.org/license/mit/</p>

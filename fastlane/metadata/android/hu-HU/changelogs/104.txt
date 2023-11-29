@@ -1,0 +1,8 @@
+Ösvények
+- Ösvénycsoportok importálása/exportálása
+- A túrák nehézségi szintje jobban figyelembe veszi a meredek szakaszokat
+
+Egyéb
+- Teljes biztonsági mentés / visszaállítás került a beállításokhoz (beállítások és adatok)
+- Kísérleti beállítás került be, amellyel nulla rekeszkésés mód kapcsolható be fényképezéshez
+- Hibajavítások

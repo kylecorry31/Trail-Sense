@@ -1,0 +1,12 @@
+Fotó Térképek
+- Mostantól nem béta változat
+- Térkép rétegek előnézete kalibrálás közben
+
+Ösvények
+- Ösvények importálása GPX-útvonalakból
+
+Egyéb
+- Iránytű hiányának jobb kommunikációja
+- Automatikus mértékegység-választás
+- Teljesítményjavítások
+- Hibajavítások
