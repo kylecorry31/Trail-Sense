@@ -76,9 +76,9 @@ object Tools {
                 R.drawable.ic_tool_cliff_height,
                 R.id.action_action_experimental_tools_to_toolCliffHeightFragment,
                 ToolCategory.Distance,
-                context.getString(R.string.experimental) + " - " + context.getString(R.string.tool_cliff_height_description),
+                context.getString(R.string.tool_cliff_height_description),
                 isExperimental = true,
-                guideId = R.raw.cliff_height
+                guideId = R.raw.guide_tool_cliff_height
             ) else null,
             Tool(
                 6,

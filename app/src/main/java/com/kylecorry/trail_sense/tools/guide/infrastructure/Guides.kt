@@ -115,7 +115,7 @@ object Guides {
                 UserGuide(
                     context.getString(R.string.cliff_height_guide),
                     context.getString(R.string.experimental),
-                    R.raw.cliff_height
+                    R.raw.guide_tool_cliff_height
                 ),
                 UserGuide(
                     context.getString(R.string.tool_light_meter_title),
