@@ -4,6 +4,7 @@ import android.content.Context
 import android.hardware.Sensor
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.domain.UserGuide
 import com.kylecorry.trail_sense.tools.guide.domain.UserGuideCategory
@@ -13,6 +14,7 @@ object Guides {
     fun guides(context: Context): List<UserGuideCategory> {
 
         val hasCompass = SensorService(context).hasCompass()
+        val prefs = UserPreferences(context)
 
         val general = UserGuideCategory(
             context.getString(R.string.general), listOf(
@@ -112,11 +114,11 @@ object Guides {
                         null,
                         R.raw.pedometer
                     ) else null,
-                UserGuide(
-                    context.getString(R.string.cliff_height_guide),
+                if (prefs.isCliffHeightEnabled) UserGuide(
+                    context.getString(R.string.tool_cliff_height_title),
                     context.getString(R.string.experimental),
                     R.raw.guide_tool_cliff_height
-                ),
+                ) else null,
                 UserGuide(
                     context.getString(R.string.tool_light_meter_title),
                     context.getString(R.string.guide_light_meter_description),

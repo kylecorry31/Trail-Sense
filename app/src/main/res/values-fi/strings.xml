@@ -296,7 +296,6 @@
     <string name="tool_user_guide_title">Käyttöohjeet</string>
     <string name="gps_cache">GPS-välimuisti</string>
     <string name="path_exported">Polku viety</string>
-    <string name="cliff_height_guide">Arvioi kallion korkeus</string>
     <string name="pref_experimental_metal_direction_title">Näytä metallin suunta</string>
     <string name="distance_alert_distance_reached">Olet saavuttanut %s</string>
     <string name="onboarding_privacy">"- Trail Sense kunnioittaa yksityisyyttäsi ja sijaintitietojasi ei koskaan poistu laitteestasi

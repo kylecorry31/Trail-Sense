@@ -644,7 +644,6 @@
     <string name="tool_cliff_height_title">Klippehøjde</string>
     <string name="tool_cliff_height_description">Mål højden af en klippe eller et fald</string>
     <string name="tool_cliff_height_disclaimer">Brug kun dette værktøj, når det er sikkert, og sørg for at undersøge, hvad der er under klippen for at undgå skader. Se brugervejledningen for instruktioner.</string>
-    <string name="cliff_height_guide">Anslå klippehøjde</string>
     <string name="action_inventory_clear_confirm">Ryd alle pakkede mængder\?</string>
     <string name="distance_from">Fra</string>
     <string name="distance_to">Til</string>

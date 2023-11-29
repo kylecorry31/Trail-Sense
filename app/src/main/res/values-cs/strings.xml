@@ -245,7 +245,6 @@
     <string name="category_natural">Přírodní</string>
     <string name="tool_cliff_height_title">Výška útesu</string>
     <string name="tool_cliff_height_disclaimer">Tento nástroj používejte pouze tehdy, je-li to bezpečné, a nezapomeňte zkontrolovat, co se nachází pod útesem, abyste předešli zranění. Pokyny naleznete v uživatelské příručce.</string>
-    <string name="cliff_height_guide">Odhadněte výšku útesu</string>
     <string name="inventory_empty_text">Žádně věci</string>
     <string name="distance_from">Od</string>
     <string name="unit_meters">Metry</string>

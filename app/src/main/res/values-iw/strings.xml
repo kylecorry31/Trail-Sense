@@ -529,7 +529,6 @@
     <string name="import_btn">ייבוא</string>
     <string name="network_no_signal">אין אות</string>
     <string name="tool_bubble_level_title">רמת בועה - פלס</string>
-    <string name="cliff_height_guide">אומדן גובה צוק</string>
     <string name="tool_whistle_title">משרוקית</string>
     <string name="action_inventory_clear_confirm">לנקות את כל הסכומים הארוזים\?</string>
     <string name="water_boil_timer_done_content">המים שלך ראויים לשתייה כעת</string>

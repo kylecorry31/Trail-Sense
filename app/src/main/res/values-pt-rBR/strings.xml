@@ -265,7 +265,6 @@
     <string name="distance_to">A</string>
     <string name="inventory_empty_text">Nenhum item</string>
     <string name="tool_whistle_title">Apito</string>
-    <string name="cliff_height_guide">Estimar a altura do penhasco</string>
     <string name="tool_cliff_height_disclaimer">Use esta ferramenta somente quando for seguro para fazê-lo, e certifique-se de verificar o que está abaixo do penhasco para evitar ferimentos. Consulte o guia do usuário para mais instruções.</string>
     <string name="tool_cliff_height_description">Medir a altura de um penhasco ou queda</string>
     <string name="tool_cliff_height_title">Altura de penhasco</string>

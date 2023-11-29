@@ -383,7 +383,6 @@
 \n
 \nQuesto avviso può essere disabilitato nelle impostazioni dell\'app.</string>
     <string name="toast_destination_bearing_set">Direzione della destinazione impostata</string>
-    <string name="cliff_height_guide">Stima altezza precipizio</string>
     <string name="precise_centimeters_format">%s cm</string>
     <string name="clock_waiting_for_gps">Aggiornamento orario dal GPS…</string>
     <string name="contents">Contenuto</string>

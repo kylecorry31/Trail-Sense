@@ -418,7 +418,6 @@
     <string name="pref_show_linear_compass_summary">Mugikorra bertikalean dagoenean</string>
     <string name="pref_show_linear_compass_title">Erakutsi iparrorratz lineala</string>
     <string name="pref_show_sun_moon_compass_title">Erakutsi eguzkia/ilargia iparrorratzean</string>
-    <string name="cliff_height_guide">Balioetsi amildegiaren altuera</string>
     <string name="pref_center_sun_and_moon_title">Mantendu eguzkia/ilargia erdian</string>
     <string name="update_90_minutes">Ordu 1 eta 30 minutu</string>
     <string name="delete_map_group_message">%s eta bere mapa guztiak ezabatuko dira.</string>

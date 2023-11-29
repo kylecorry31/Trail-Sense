@@ -363,7 +363,6 @@
     <string name="threshold">Drempelwaarde</string>
     <string name="inventory_empty_text">Geen voorwerpen</string>
     <string name="tool_whistle_title">Fluitje</string>
-    <string name="cliff_height_guide">Klifhoogte schatten</string>
     <string name="tool_cliff_height_disclaimer">Gebruik dit gereedschap alleen als het veilig is. Controleer wat zich onder de klif bevindt om letsel te voorkomen. Lees de handleiding voor instructies.</string>
     <string name="tool_cliff_height_description">Klif- of dalhoogte meten</string>
     <string name="tool_cliff_height_title">Klifhoogte</string>

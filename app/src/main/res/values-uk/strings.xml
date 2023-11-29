@@ -171,7 +171,6 @@
     <string name="unsaved_changes_message">Внесені вами зміни не будуть збережені.</string>
     <string name="inventory_empty_text">Порожньо</string>
     <string name="tool_whistle_title">Свисток</string>
-    <string name="cliff_height_guide">Оцінка висоти скелі</string>
     <string name="tool_cliff_height_disclaimer">Використовуйте цей засіб тільки тоді, коли це безпечно, і обов\'язково перевіряйте, що знаходиться під скелею, щоб уникнути травм. Вказівки дивіться в посібнику користувача.</string>
     <string name="tool_cliff_height_description">Виміряйте висоту скелі чи обриву</string>
     <string name="tool_cliff_height_title">Висота скелі</string>

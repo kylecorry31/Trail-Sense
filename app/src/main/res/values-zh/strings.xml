@@ -210,7 +210,6 @@
     <string name="distance_from">起点</string>
     <string name="inventory_empty_text">无物品</string>
     <string name="tool_whistle_title">哨子</string>
-    <string name="cliff_height_guide">预估悬崖高度</string>
     <string name="tool_cliff_height_disclaimer">确保自身安全的情况下使用此工具，并检查悬崖下有什么，以避免受伤。详细请参见用户指南。</string>
     <string name="tool_cliff_height_description">测量悬崖或瀑布的高度</string>
     <string name="tool_cliff_height_title">悬崖高度</string>

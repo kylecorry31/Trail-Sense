@@ -519,7 +519,6 @@
         <item quantity="other">%d jalur</item>
     </plurals>
     <string name="delete_path_group_message">%s dan semua jalur akan dihapus.</string>
-    <string name="cliff_height_guide">Perkiraan ketinggian tebing</string>
     <string name="location_override_updated">Penggantian lokasi diperbarui</string>
     <string name="backtrack">Mundur</string>
     <string name="backtrack_notification_channel_description">Backtrack lokasi diperbarui</string>
