@@ -234,7 +234,8 @@ object Tools {
                 R.drawable.ic_torch_on,
                 R.id.action_action_experimental_tools_to_fragmentToolLightning,
                 ToolCategory.Weather,
-                context.getString(R.string.tool_lightning_description)
+                context.getString(R.string.tool_lightning_description),
+                guideId = R.raw.guide_tool_lightning_stike_distance
             ),
             if (prefs.isAugmentedRealityEnabled && hasCompass) Tool(
                 25,

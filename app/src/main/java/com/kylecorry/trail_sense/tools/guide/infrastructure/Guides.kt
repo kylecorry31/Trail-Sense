@@ -66,6 +66,11 @@ object Guides {
                     null,
                     R.raw.guide_tool_clouds
                 ),
+                UserGuide(
+                    context.getString(R.string.tool_lightning_title),
+                    null,
+                    R.raw.guide_tool_lightning_stike_distance
+                ),
                 if (Sensors.hasBarometer(context)) UserGuide(
                     context.getString(R.string.guide_barometer_calibration_title),
                     null,
