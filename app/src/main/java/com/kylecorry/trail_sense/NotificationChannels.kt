@@ -26,8 +26,10 @@ object NotificationChannels {
     const val GROUP_PEDOMETER = "trail_sense_pedometer"
     const val GROUP_WATER = "trail_sense_water"
     const val GROUP_CLOCK = "trail_sense_clock"
+    const val GROUP_SERVICE_RESTART = "trail_sense_service_restart"
 
     const val CHANNEL_ASTRONOMY_ALERTS = "astronomy_alerts"
+    const val CHANNEL_SERVICE_RESTART = "service_restart"
 
     // Legacy (intended for deletion)
     const val CHANNEL_BACKGROUND_UPDATES = "background_updates"
@@ -149,6 +151,15 @@ object NotificationChannels {
             false
         )
 
+        // Service restart
+        Notify.createChannel(
+            context,
+            CHANNEL_SERVICE_RESTART,
+            context.getString(R.string.service_restart),
+            context.getString(R.string.service_restart_channel_description),
+            Notify.CHANNEL_IMPORTANCE_LOW,
+            true
+        )
 
         // CHANNEL CLEANUP SECTION
         Notify.deleteChannel(context, CHANNEL_BACKGROUND_UPDATES)

@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.receivers
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 
 class TimeChangeReceiver : BroadcastReceiver() {
 
@@ -13,7 +14,8 @@ class TimeChangeReceiver : BroadcastReceiver() {
             Intent.ACTION_DATE_CHANGED
         )
         if (validIntentActions.contains(intent?.action) && context != null) {
-            TrailSenseServiceUtils.restartServices(context)
+            Log.d("TimeChangeReceiver", "Time changed")
+            TrailSenseServiceUtils.restartServices(context, true)
         }
     }
 }

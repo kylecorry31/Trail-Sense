@@ -141,7 +141,7 @@ class MainActivity : AndromedaActivity() {
         ComposedCommand(
             ShowDisclaimerCommand(this),
             PowerSavingModeAlertCommand(this),
-            RestartServicesCommand(this),
+            RestartServicesCommand(this, false),
             SettingsMoveNotice(this)
         ).execute()
 

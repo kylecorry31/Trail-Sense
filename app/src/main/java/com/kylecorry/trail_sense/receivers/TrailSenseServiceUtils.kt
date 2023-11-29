@@ -21,10 +21,14 @@ object TrailSenseServiceUtils {
 
     private val coroutineScope = CoroutineScope(Dispatchers.Default)
 
-    fun restartServices(context: Context) {
+    fun restartServices(context: Context, isInBackground: Boolean = false) {
         coroutineScope.launch {
-            startWeatherMonitoring(context)
-            startBacktrack(context)
+            if (!isInBackground){
+                ServiceRestartAlerter(context).dismiss()
+            }
+
+            startWeatherMonitoring(context, isInBackground)
+            startBacktrack(context, isInBackground)
             startPedometer(context)
             startSunsetAlarm(context)
             startAstronomyAlerts(context)
@@ -58,22 +62,22 @@ object TrailSenseServiceUtils {
         }
     }
 
-    private fun startWeatherMonitoring(context: Context) {
+    private fun startWeatherMonitoring(context: Context, isInBackground: Boolean) {
         val prefs = UserPreferences(context)
         if (prefs.weather.shouldMonitorWeather) {
             if (!WeatherMonitorService.isRunning) {
-                WeatherUpdateScheduler.start(context)
+                WeatherUpdateScheduler.start(context, isInBackground)
             }
         } else {
             WeatherUpdateScheduler.stop(context)
         }
     }
 
-    private suspend fun startBacktrack(context: Context) {
+    private suspend fun startBacktrack(context: Context, isInBackground: Boolean) {
         val backtrack = BacktrackSubsystem.getInstance(context)
         if (backtrack.getState() == FeatureState.On) {
             if (!BacktrackService.isRunning) {
-                backtrack.enable(false)
+                backtrack.enable(false, isInBackground)
             }
         } else {
             backtrack.disable()

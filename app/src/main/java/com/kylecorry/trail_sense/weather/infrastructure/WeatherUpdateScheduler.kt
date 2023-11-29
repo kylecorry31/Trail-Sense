@@ -1,7 +1,11 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
+import android.util.Log
 import com.kylecorry.andromeda.notify.Notify
+import com.kylecorry.andromeda.permissions.Permissions
+import com.kylecorry.trail_sense.receivers.ServiceRestartAlerter
+import com.kylecorry.trail_sense.shared.permissions.canRunLocationForegroundService
 
 object WeatherUpdateScheduler {
 
@@ -12,12 +16,27 @@ object WeatherUpdateScheduler {
         }
     }
 
-    fun start(context: Context) {
+    fun start(context: Context, isInBackground: Boolean = false) {
         if (!WeatherMonitorIsAvailable().isSatisfiedBy(context)) {
             return
         }
 
+        if (isInBackground && !canStartFromBackground(context)) {
+            ServiceRestartAlerter(context).alert()
+            Log.d("WeatherUpdateScheduler", "Cannot start weather monitoring")
+            return
+        }
+
         WeatherMonitorService.start(context)
+    }
+
+    private fun canStartFromBackground(context: Context): Boolean {
+        if (Permissions.canRunLocationForegroundService(context, true)) {
+            return true
+        }
+
+        // Location permission is not needed, so it is not restricted
+        return !Permissions.canGetLocation(context)
     }
 
     fun stop(context: Context) {

@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.navigation.paths.infrastructure.subsystem
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import com.kylecorry.andromeda.core.topics.generic.ITopic
 import com.kylecorry.andromeda.core.topics.generic.Topic
 import com.kylecorry.andromeda.core.topics.generic.distinct
@@ -9,6 +10,7 @@ import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.commands.StopBacktrackCommand
+import com.kylecorry.trail_sense.receivers.ServiceRestartAlerter
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.getOrNull
@@ -65,7 +67,13 @@ class BacktrackSubsystem private constructor(private val context: Context) {
         return frequency.getOrNull() ?: Duration.ofMinutes(30)
     }
 
-    suspend fun enable(startNewPath: Boolean) {
+    suspend fun enable(startNewPath: Boolean, isInBackground: Boolean = false) {
+        if (isInBackground && !Permissions.canRunLocationForegroundService(context, true)) {
+            ServiceRestartAlerter(context).alert()
+            Log.d("BacktrackSubsystem", "Cannot start backtrack")
+            return
+        }
+
         if (Permissions.canRunLocationForegroundService(context)) {
             prefs.backtrackEnabled = true
             BacktrackScheduler.start(context, startNewPath)

@@ -9,11 +9,13 @@ import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.IPermissionRequester
+import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.permissions.PermissionRationale
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.permissions.SpecialPermission
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 fun Fragment.alertNoCameraPermission() {
     Alerts.toast(
@@ -106,11 +108,31 @@ fun AndromedaFragment.requestCamera(action: (hasPermission: Boolean) -> Unit) {
     }
 }
 
-fun Permissions.canRunLocationForegroundService(context: Context): Boolean {
+fun Permissions.canRunLocationForegroundService(context: Context, isInBackground: Boolean = false): Boolean {
+    // Older API versions don't need foreground permission
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
         return true
     }
-    return canGetLocation(context)
+
+    // If it is not in the background, just check if it has location permissions
+    if (!isInBackground){
+        return canGetLocation(context)
+    }
+
+    // The app is in the background, some restrictions apply
+
+    // This is not a restriction, but appears to be a bug: https://issuetracker.google.com/issues/294408576
+    if (!GPS.isAvailable(context)){
+        return false
+    }
+
+    // If background location is granted, we can start the service
+    if (isBackgroundLocationEnabled(context)){
+        return true
+    }
+
+    // Otherwise, we can only start the service if it is ignoring battery optimizations and has location permission
+    return isIgnoringBatteryOptimizations(context) && canGetLocation(context)
 }
 
 /**
