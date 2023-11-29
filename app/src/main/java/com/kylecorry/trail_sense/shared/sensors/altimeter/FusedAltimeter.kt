@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.sensors.altimeter
 import android.content.Context
 import android.util.Log
 import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.andromeda.core.time.CoroutineTimer
@@ -36,7 +37,7 @@ class FusedAltimeter(
     private val useContinuousCalibration: Boolean
 ) : AbstractSensor(), IAltimeter {
 
-    private val shouldLog = true
+    private val shouldLog = false
 
     private val prefs = UserPreferences(context)
     private val cache = PreferencesSubsystem.getInstance(context).preferences
@@ -62,10 +63,13 @@ class FusedAltimeter(
     private var pressureFilter: IFilter? = null
     private var filteredPressure = barometer.pressure
 
+    private var hasPendingGPSUpdate = false
+
     override fun startImpl() {
         pressureFilter = null
         filteredAltitude = null
         filteredPressure = 0f
+        hasPendingGPSUpdate = false
         if (useContinuousCalibration) {
             gpsAltimeter.start(this::onGPSUpdate)
         }
@@ -87,7 +91,7 @@ class FusedAltimeter(
     }
 
     private fun onGPSUpdate(): Boolean {
-        // Do nothing
+        hasPendingGPSUpdate = true
         return true
     }
 
@@ -133,7 +137,8 @@ class FusedAltimeter(
         } else {
             MAX_GPS_ERROR
         }
-        val gpsWeight = if (useContinuousCalibration) {
+        val gpsWeight = if (useContinuousCalibration && hasPendingGPSUpdate) {
+            hasPendingGPSUpdate = false
             1 - SolMath.map(gpsError, 0f, MAX_GPS_ERROR, MIN_ALPHA, MAX_ALPHA)
                 .coerceIn(MIN_ALPHA, MAX_ALPHA)
         } else {
@@ -156,14 +161,21 @@ class FusedAltimeter(
         if (shouldLog) {
             Log.d(
                 "FusedAltimeter",
-                "ALT: ${altitude.roundPlaces(2)}, " +
-                        "GPS: ${getGPSAltitude().roundPlaces(2)}, " +
-                        "BAR: ${barometricAltitude.roundPlaces(2)}, " +
-                        "SEA: ${seaLevel.pressure.roundPlaces(2)}, " +
-                        "ALPHA: ${gpsWeight.roundPlaces(3)}"
+                "ALT: ${DecimalFormatter.format(altitude, 2, true)}, " +
+                        "GPS: ${DecimalFormatter.format(getGPSAltitude(), 2, true)}, " +
+                        "BAR: ${DecimalFormatter.format(filteredPressure, 2, true)}, " +
+                        "SEA: ${DecimalFormatter.format(seaLevel.pressure, 2, true)}, " +
+                        "ALPHA: ${DecimalFormatter.format(gpsWeight, 3, true)}, " +
+                        "ERR: ${DecimalFormatter.format(gpsError, 2, true)}"
             )
         }
-        return true
+
+        // When continuous calibration is enabled, ensure a GPS fix before notifying listeners
+        return if (useContinuousCalibration){
+            hasGPSFix()
+        } else {
+            true
+        }
     }
 
     private fun getGPSAltitude(): Float {
@@ -228,7 +240,7 @@ class FusedAltimeter(
         private val SEA_LEVEL_EXPIRATION = Duration.ofHours(1)
 
         private const val MIN_ALPHA = 0.96f
-        private const val MAX_ALPHA = 0.999f
+        private const val MAX_ALPHA = 0.99f
         private const val MAX_GPS_ERROR = 5f
         private const val BAROMETER_SMOOTHING = 0.9f
         private val UPDATE_FREQUENCY = Duration.ofMillis(200)
