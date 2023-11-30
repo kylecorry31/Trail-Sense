@@ -139,8 +139,17 @@ class FusedAltimeter(
         }
         val gpsWeight = if (useContinuousCalibration && hasPendingGPSUpdate) {
             hasPendingGPSUpdate = false
-            1 - SolMath.map(gpsError, 0f, MAX_GPS_ERROR, MIN_ALPHA, MAX_ALPHA)
+            val errorWeight = 1 - SolMath.map(gpsError, 0f, MAX_GPS_ERROR, MIN_ALPHA, MAX_ALPHA)
                 .coerceIn(MIN_ALPHA, MAX_ALPHA)
+            val timeSinceLastGPSUsed = getTimeSinceLastGPSUsed()?.seconds?.toFloat() ?: 0f
+            val timeWeight = SolMath.map(
+                timeSinceLastGPSUsed,
+                0f,
+                SEA_LEVEL_EXPIRATION.seconds.toFloat(),
+                0f,
+                MAX_ALPHA_TIME
+            ).coerceIn(0f, MAX_ALPHA_TIME)
+            errorWeight + timeWeight
         } else {
             0f
         }
@@ -155,7 +164,8 @@ class FusedAltimeter(
                 Pressure.hpa(filteredPressure),
                 Distance.meters(altitude)
             ),
-            false
+            isBaseline = false,
+            wasGPSUsed = gpsWeight > 0
         )
 
         if (shouldLog) {
@@ -171,7 +181,7 @@ class FusedAltimeter(
         }
 
         // When continuous calibration is enabled, ensure a GPS fix before notifying listeners
-        return if (useContinuousCalibration){
+        return if (useContinuousCalibration) {
             hasGPSFix()
         } else {
             true
@@ -195,7 +205,8 @@ class FusedAltimeter(
                     Pressure.hpa(filteredPressure),
                     Distance.meters(getGPSAltitude())
                 ),
-                true
+                isBaseline = true,
+                wasGPSUsed = true
             )
         }
     }
@@ -220,13 +231,25 @@ class FusedAltimeter(
         return cache.getFloat(LAST_SEA_LEVEL_PRESSURE_KEY)?.let { Pressure.hpa(it) }
     }
 
+    private fun getTimeSinceLastGPSUsed(): Duration? {
+        val time = cache.getInstant(LAST_GPS_USED_TIME_KEY) ?: return null
+        return Duration.between(time, Instant.now())
+    }
 
-    private fun setLastSeaLevelPressure(pressure: Pressure, isBaseline: Boolean) {
+    private fun setLastSeaLevelPressure(
+        pressure: Pressure,
+        isBaseline: Boolean,
+        wasGPSUsed: Boolean
+    ) {
         cache.putFloat(LAST_SEA_LEVEL_PRESSURE_KEY, pressure.pressure)
 
         // Only update the time if the gaussian GPS was used - this prevents only using the barometer over the long term
         if (isBaseline) {
             cache.putInstant(LAST_SEA_LEVEL_PRESSURE_TIME_KEY, Instant.now())
+        }
+
+        if (wasGPSUsed) {
+            cache.putInstant(LAST_GPS_USED_TIME_KEY, Instant.now())
         }
     }
 
@@ -235,12 +258,14 @@ class FusedAltimeter(
             "cache_fused_altimeter_last_sea_level_pressure"
         private const val LAST_SEA_LEVEL_PRESSURE_TIME_KEY =
             "cache_fused_altimeter_last_sea_level_pressure_time"
+        private const val LAST_GPS_USED_TIME_KEY = "cache_fused_altimeter_last_gps_used_time"
 
         // The amount of time before the sea level pressure expires if not updated using the GPS
         private val SEA_LEVEL_EXPIRATION = Duration.ofHours(1)
 
         private const val MIN_ALPHA = 0.96f
         private const val MAX_ALPHA = 0.99f
+        private const val MAX_ALPHA_TIME = 0.1f
         private const val MAX_GPS_ERROR = 5f
         private const val BAROMETER_SMOOTHING = 0.9f
         private val UPDATE_FREQUENCY = Duration.ofMillis(200)
