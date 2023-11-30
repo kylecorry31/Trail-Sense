@@ -89,6 +89,11 @@ object Guides {
         val tools = UserGuideCategory(
             context.getString(R.string.tools), listOfNotNull(
                 UserGuide(
+                    context.getString(R.string.tool_whistle_title),
+                    null,
+                    R.raw.guide_tool_whistle
+                ),
+                UserGuide(
                     context.getString(R.string.guide_packing_list),
                     null,
                     R.raw.packing_lists

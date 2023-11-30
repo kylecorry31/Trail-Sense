@@ -55,6 +55,7 @@ object Tools {
                 R.drawable.ic_tool_whistle,
                 R.id.action_action_experimental_tools_to_toolWhistleFragment,
                 ToolCategory.Signaling,
+                guideId = R.raw.guide_tool_whistle
             ),
             Tool(
                 3,
