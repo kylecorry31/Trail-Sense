@@ -2,8 +2,8 @@ import java.time.LocalDate
 
 plugins {
     id("com.android.application")
-    kotlin("android")
-    kotlin("kapt")
+    id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp")
     id("kotlin-parcelize")
 }
 
@@ -101,7 +101,6 @@ android {
 
 dependencies {
     // Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 
@@ -117,7 +116,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     val roomVersion = "2.6.0"
-    kapt("androidx.room:room-compiler:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-runtime:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
     val lifecycleVersion = "2.6.2"
@@ -185,9 +184,9 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    testImplementation("org.junit.platform:junit-platform-runner:1.10.0")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
+    testImplementation("org.junit.platform:junit-platform-runner:1.10.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.1")
     testImplementation("org.mockito.kotlin:mockito-kotlin:5.1.0")
 }
