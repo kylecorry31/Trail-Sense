@@ -863,7 +863,7 @@
     <string name="weight_per_item">Weight per item</string>
     <string name="guide_packing_list">Create packing lists</string>
     <string name="humidity">Humidity</string>
-<!--    The %s is the name of the sensor-->
+    <!--    The %s is the name of the sensor-->
     <string name="no_sensor_message">Your device does not have a %s sensor</string>
     <string name="num_satellites">%d satellites</string>
     <string name="wgs84">WGS 84</string>
@@ -1382,6 +1382,10 @@
     <string name="restart_services_title">Restart services</string>
     <string name="restart_services_message">Background services could not be restarted. Tap to restart.</string>
     <string name="pref_altimeter_forced_recalibration_interval" translatable="false">pref_altimeter_forced_recalibration_interval</string>
+    <string name="fused_altimeter_force_calibration">Force calibration interval</string>
+    <string name="pref_fused_altimeter_force_calibration_holder" translatable="false">pref_fused_altimeter_force_calibration_holder</string>
+    <!--    %s is the interval, ex. 1 h-->
+    <string name="fused_altimeter_force_calibration_summary">Forces a GPS calibration every %s</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>

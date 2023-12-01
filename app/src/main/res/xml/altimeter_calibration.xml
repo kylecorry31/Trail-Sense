@@ -46,6 +46,12 @@
             app:singleLineTitle="false"
             app:title="@string/elevation_from_pressure" />
 
+        <Preference
+            android:title="@string/fused_altimeter_force_calibration"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_fused_altimeter_force_calibration_holder"
+            app:singleLineTitle="false" />
+
         <SwitchPreferenceCompat
             android:summary="@string/continuous_calibration_description"
             android:title="@string/continuous_calibration"

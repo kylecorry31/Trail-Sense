@@ -56,6 +56,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
     private lateinit var accuracyPref: Preference
     private lateinit var clearCachePref: Preference
     private lateinit var continuousCalibrationPref: SwitchPreferenceCompat
+    private lateinit var forceCalibrationPref: Preference
 
     private lateinit var lastMode: UserPreferences.AltimeterMode
     private val updateTimer = CoroutineTimer { updateAltitude() }
@@ -90,6 +91,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         accuracyPref = preference(R.string.pref_altimeter_accuracy_holder)!!
         clearCachePref = preference(R.string.pref_altimeter_clear_cache_holder)!!
         continuousCalibrationPref = switch(R.string.pref_altimeter_continuous_calibration)!!
+        forceCalibrationPref = preference(R.string.pref_fused_altimeter_force_calibration_holder)!!
 
         val altitudeOverride = Distance.meters(prefs.altitudeOverride).convertTo(distanceUnits)
         altitudeOverridePref.summary = formatService.formatDistance(altitudeOverride)
@@ -153,6 +155,12 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
             restartAltimeter()
         }
 
+        onClick(forceCalibrationPref) {
+            updateForceCalibrationInterval()
+        }
+
+        updateForceCalibrationIntervalSummary()
+
         // Update the altitude override to the current altitude
         if (prefs.altimeterMode == UserPreferences.AltimeterMode.Barometer) {
             updateAltitudeOverride()
@@ -165,10 +173,12 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         val hasBarometer = prefs.weather.hasBarometer
         val mode = prefs.altimeterMode
 
-        // Cache and continuous calibration are only available on the fused barometer
+        // Cache, continuous calibration, and force calibration interval are only available on the fused barometer
         clearCachePref.isVisible =
             hasBarometer && mode == UserPreferences.AltimeterMode.GPSBarometer
         continuousCalibrationPref.isVisible =
+            hasBarometer && mode == UserPreferences.AltimeterMode.GPSBarometer
+        forceCalibrationPref.isVisible =
             hasBarometer && mode == UserPreferences.AltimeterMode.GPSBarometer
 
         // Overrides are available on the barometer or the manual mode
@@ -290,6 +300,26 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         if (prefs.altimeterMode == UserPreferences.AltimeterMode.Barometer) {
             updateAltitudeOverride()
         }
+    }
+
+    private fun updateForceCalibrationInterval() {
+        CustomUiUtils.pickDuration(
+            requireContext(),
+            prefs.altimeter.fusedAltimeterForcedRecalibrationInterval,
+            getString(R.string.fused_altimeter_force_calibration)
+        ) {
+            if (it != null) {
+                prefs.altimeter.fusedAltimeterForcedRecalibrationInterval = it
+                updateForceCalibrationIntervalSummary()
+            }
+        }
+    }
+
+    private fun updateForceCalibrationIntervalSummary() {
+        val interval =
+            formatService.formatDuration(prefs.altimeter.fusedAltimeterForcedRecalibrationInterval)
+        forceCalibrationPref.summary =
+            getString(R.string.fused_altimeter_force_calibration_summary, interval)
     }
 
     private fun updateAltitude(): Boolean {
