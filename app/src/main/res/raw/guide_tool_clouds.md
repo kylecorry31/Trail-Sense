@@ -1,7 +1,7 @@
 The Clouds tool assists you in tracking and predicting weather patterns by identifying clouds. If your phone is equipped with a barometer, Trail Sense can merge cloud observations with barometer readings to enhance weather prediction on the Weather tool.
 
 ## Cloud Log
-In the Cloud Log section, you'll find the last 48 hours of cloud observations. Each row includes the observation time, cloud type, and potential weather indications. Click on a row for more details about the cloud, including its description, possible weather outcomes, precipitation chances, and common precipitation types it can generate. To delete an observation, use the menu button located on the right of each row. Additionally, you can click on the cloud image to view a larger version.
+In the cloud log, you'll find the last 48 hours of cloud observations. Each row includes the observation time, cloud type, and potential weather indications. Click on a row for more details about the cloud, including its description, possible weather outcomes, precipitation chances, and common precipitation types it can generate. To delete an observation, use the menu button located on the right of each row. Additionally, you can click on the cloud image to view a larger version.
 
 ## Logging a Cloud
 To log a cloud, tap the '+' button at the bottom right. You can choose to use a picture of the cloud from your device's files or camera, or manually identify the cloud.
