@@ -1381,6 +1381,7 @@
     <string name="service_restart_channel_description">A notification to restart services</string>
     <string name="restart_services_title">Restart services</string>
     <string name="restart_services_message">Background services could not be restarted. Tap to restart.</string>
+    <string name="pref_altimeter_forced_recalibration_interval" translatable="false">pref_altimeter_forced_recalibration_interval</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>

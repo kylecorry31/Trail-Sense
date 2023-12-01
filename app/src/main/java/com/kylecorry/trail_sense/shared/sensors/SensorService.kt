@@ -170,7 +170,7 @@ class SensorService(ctx: Context) {
                         context,
                         gps,
                         Barometer(context, ENVIRONMENT_SENSOR_DELAY),
-                        useContinuousCalibration = userPrefs.altimeter.useContinuousCalibration
+                        useContinuousCalibration = userPrefs.altimeter.useFusedAltimeterContinuousCalibration
                     )
                 )
             } else {

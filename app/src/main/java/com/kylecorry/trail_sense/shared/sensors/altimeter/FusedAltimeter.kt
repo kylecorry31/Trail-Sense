@@ -139,17 +139,23 @@ class FusedAltimeter(
         }
         val gpsWeight = if (useContinuousCalibration && hasPendingGPSUpdate) {
             hasPendingGPSUpdate = false
+
+            // The weight is higher for more accurate GPS readings
             val errorWeight = 1 - SolMath.map(gpsError, 0f, MAX_GPS_ERROR, MIN_ALPHA, MAX_ALPHA)
                 .coerceIn(MIN_ALPHA, MAX_ALPHA)
+
+            // The weight increases over time (up to a maximum at MAX_TIME_FOR_WEIGHT hours)
             val timeSinceLastGPSUsed = getTimeSinceLastGPSUsed()?.seconds?.toFloat() ?: 0f
             val timeWeight = SolMath.map(
                 timeSinceLastGPSUsed,
                 0f,
-                SEA_LEVEL_EXPIRATION.seconds.toFloat(),
+                MAX_TIME_FOR_WEIGHT.seconds.toFloat(),
                 0f,
                 MAX_ALPHA_TIME
             ).coerceIn(0f, MAX_ALPHA_TIME)
-            errorWeight + timeWeight
+
+            // Simply add the weights together and restrict to the range
+            (errorWeight + timeWeight).coerceIn(0f, 1f)
         } else {
             0f
         }
@@ -223,7 +229,7 @@ class FusedAltimeter(
         val time = cache.getInstant(LAST_SEA_LEVEL_PRESSURE_TIME_KEY) ?: return null
 
         val timeSinceReading = Duration.between(time, Instant.now())
-        if (timeSinceReading > SEA_LEVEL_EXPIRATION || timeSinceReading.isNegative) {
+        if (timeSinceReading > prefs.altimeter.fusedAltimeterForcedRecalibrationInterval || timeSinceReading.isNegative) {
             // Sea level pressure has expired
             return null
         }
@@ -260,12 +266,10 @@ class FusedAltimeter(
             "cache_fused_altimeter_last_sea_level_pressure_time"
         private const val LAST_GPS_USED_TIME_KEY = "cache_fused_altimeter_last_gps_used_time"
 
-        // The amount of time before the sea level pressure expires if not updated using the GPS
-        private val SEA_LEVEL_EXPIRATION = Duration.ofHours(1)
-
         private const val MIN_ALPHA = 0.96f
         private const val MAX_ALPHA = 0.99f
-        private const val MAX_ALPHA_TIME = 0.1f
+        private const val MAX_ALPHA_TIME = 0.4f
+        private val MAX_TIME_FOR_WEIGHT = Duration.ofHours(2)
         private const val MAX_GPS_ERROR = 5f
         private const val BAROMETER_SMOOTHING = 0.9f
         private val UPDATE_FREQUENCY = Duration.ofMillis(200)
