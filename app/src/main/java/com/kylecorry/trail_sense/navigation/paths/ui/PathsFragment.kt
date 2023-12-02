@@ -12,6 +12,7 @@ import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPathsBinding
@@ -50,7 +51,6 @@ import com.kylecorry.trail_sense.shared.lists.bind
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.permissions.requestLocationForegroundServicePermission
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.sensors.observeFlow2
 
 class PathsFragment : BoundFragment<FragmentPathsBinding>() {
 
@@ -102,7 +102,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         sort = prefs.navigation.pathSort
 
         // TODO: See if it is possible to get notified of changes without loading all paths
-        observeFlow2(pathService.getPaths()) {
+        observeFlow(pathService.getPaths()) {
             manager.refresh()
         }
 

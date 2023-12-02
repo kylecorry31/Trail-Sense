@@ -64,7 +64,7 @@ import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.sensors.observeFlow2
+import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.ILayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MultiLayerManager
@@ -275,7 +275,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             userPrefs.navigation
         ).bind()
 
-        observeFlow2(beaconRepo.getBeacons()) {
+        observeFlow(beaconRepo.getBeacons()) {
             beacons = it
             updateNearbyBeacons()
         }

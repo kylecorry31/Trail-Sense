@@ -45,21 +45,3 @@ suspend fun readAll(
         }
     }
 }
-
-fun <T> Fragment.observeFlow2(
-    flow: Flow<T>,
-    state: BackgroundMinimumState = BackgroundMinimumState.Any,
-    collectOn: CoroutineContext = Dispatchers.Default,
-    observeOn: CoroutineContext = Dispatchers.Main,
-    listener: suspend (T) -> Unit
-) {
-    repeatInBackground(state) {
-        withContext(collectOn) {
-            flow.collect {
-                withContext(observeOn) {
-                    listener(it)
-                }
-            }
-        }
-    }
-}
