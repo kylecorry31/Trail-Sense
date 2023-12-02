@@ -76,31 +76,24 @@ See the need for a new feature? [Post it here!](https://github.com/kylecorry31/T
 <table>
   <tr>
     <td>
-      <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" alt="Navigation Screenshot" height="500"/>
+      <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png"/>
     </td>
     <td>
-      <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" alt="Weather Screenshot" height="500"/>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" alt="Weather Screenshot" height="500"/>
+      <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png"/>
     </td>
     <td>
-      <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" alt="Weather Screenshot" height="500"/>
+      <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.png"/>
     </td>
   </tr>
   <tr>
     <td>
-      <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.jpg" alt="Weather Screenshot" height="500"/>
+      <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.jpg"/>
     </td>
     <td>
-      <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/6.png" alt="Weather Screenshot" height="500"/>
+      <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/6.png"/>
     </td>
-  </tr>
-  <tr>
     <td>
-      <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/7.png" alt="Weather Screenshot" height="500"/>
+      <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/7.png"/>
     </td>
   </tr>
 </table>
