@@ -4,11 +4,9 @@ import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import com.kylecorry.andromeda.sense.Sensors
-import com.kylecorry.andromeda.sense.accelerometer.Accelerometer
 import com.kylecorry.andromeda.sense.accelerometer.GravitySensor
 import com.kylecorry.andromeda.sense.accelerometer.LowPassAccelerometer
 import com.kylecorry.andromeda.sense.compass.FilterCompassWrapper
-import com.kylecorry.andromeda.sense.compass.GravityCompensatedCompass
 import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.compass.LegacyCompass
 import com.kylecorry.andromeda.sense.magnetometer.LowPassMagnetometer
@@ -37,7 +35,7 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
         val allSources = getAvailableSources(context)
 
         // There were no compass sensors found
-        if (allSources.isEmpty()){
+        if (allSources.isEmpty()) {
             return NullCompass()
         }
 
@@ -55,7 +53,7 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
             }
 
             CompassSource.CustomMagnetometer -> {
-                GravityCompensatedCompass(context, useTrueNorth, SensorService.MOTION_SENSOR_DELAY)
+                getCustomGeomagneticRotationSensor(useTrueNorth)
             }
 
             CompassSource.Orientation -> {
@@ -82,7 +80,7 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
         val allSources = getAvailableSources(context)
 
         // There were no compass sensors found
-        if (allSources.isEmpty()){
+        if (allSources.isEmpty()) {
             return NullOrientationSensor()
         }
 
@@ -91,30 +89,41 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
         }
 
         // TODO: Apply the smoothing / quality to the orientation sensor
-        if (source == CompassSource.RotationVector){
+        if (source == CompassSource.RotationVector) {
             return RotationSensor(context, useTrueNorth, SensorService.MOTION_SENSOR_DELAY)
         }
 
-        if (source == CompassSource.GeomagneticRotationVector){
-            return GeomagneticRotationSensor(context, useTrueNorth, SensorService.MOTION_SENSOR_DELAY)
+        if (source == CompassSource.GeomagneticRotationVector) {
+            return GeomagneticRotationSensor(
+                context,
+                useTrueNorth,
+                SensorService.MOTION_SENSOR_DELAY
+            )
         }
 
-        if (source == CompassSource.CustomMagnetometer){
-            // TODO: Should these be filtered, or should just the orientation sensor be filtered?
-            val magnetometer = LowPassMagnetometer(context, SensorService.MOTION_SENSOR_DELAY, 0.3f)
-            val accelerometer = if (Sensors.hasGravity(context)) {
-                GravitySensor(context, SensorService.MOTION_SENSOR_DELAY)
-            } else {
-                LowPassAccelerometer(context, SensorService.MOTION_SENSOR_DELAY)
-            }
-            return CustomGeomagneticRotationSensor(magnetometer, accelerometer, useTrueNorth)
+        if (source == CompassSource.CustomMagnetometer) {
+            return getCustomGeomagneticRotationSensor(useTrueNorth)
         }
 
         // TODO: Construct this from existing sensors
         return null
     }
 
+    private fun getCustomGeomagneticRotationSensor(useTrueNorth: Boolean): CustomGeomagneticRotationSensor {
+        val magnetometer =
+            LowPassMagnetometer(context, SensorService.MOTION_SENSOR_DELAY, MAGNETOMETER_LOW_PASS)
+        val accelerometer = if (Sensors.hasGravity(context)) {
+            GravitySensor(context, SensorService.MOTION_SENSOR_DELAY)
+        } else {
+            LowPassAccelerometer(context, SensorService.MOTION_SENSOR_DELAY)
+        }
+        return CustomGeomagneticRotationSensor(magnetometer, accelerometer, useTrueNorth)
+    }
+
     companion object {
+
+        private const val MAGNETOMETER_LOW_PASS = 0.3f
+
         /**
          * Returns the available compass sources in order of quality
          */
