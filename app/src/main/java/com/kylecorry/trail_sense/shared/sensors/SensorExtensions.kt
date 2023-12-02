@@ -46,28 +46,6 @@ suspend fun readAll(
     }
 }
 
-fun ISensor.asFlowable(): IFlowable<Unit> {
-
-    val name = this@asFlowable.javaClass.simpleName + "@" + Integer.toHexString(hashCode())
-
-    return object : ListenerFlowWrapper<Unit>() {
-        override fun start() {
-            Log.d("Sensor", "Starting $name")
-            subscribe(this::onSensorUpdate)
-        }
-
-        override fun stop() {
-            Log.d("Sensor", "Stopping $name")
-            unsubscribe(this::onSensorUpdate)
-        }
-
-        private fun onSensorUpdate(): Boolean {
-            emit(Unit)
-            return true
-        }
-    }
-}
-
 fun <T> Fragment.observeFlow2(
     flow: Flow<T>,
     state: BackgroundMinimumState = BackgroundMinimumState.Any,
