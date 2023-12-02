@@ -71,7 +71,7 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 - Use your phone as a flashlight
 - [And much more!](https://github.com/kylecorry31/Trail-Sense/wiki/Use-Cases)
 
-See the need for a new feature? [Post it here!](https://github.com/kylecorry31/Trail-Sense/issues/59)
+See the need for a new feature? [Post it here!](https://github.com/kylecorry31/Trail-Sense/issues/1911)
 
 <table>
   <tr>
@@ -150,13 +150,11 @@ Only available on debug APKs / builds via Android Studio
 - [Translate Trail Sense on Weblate](https://hosted.weblate.org/projects/trail-sense/trail-sense-android)
 - [Test out new features](https://github.com/kylecorry31/Trail-Sense/issues/74)
 
-If you choose to write a new feature yourself, send me a message to verify that it is something that I will accept into Trail Sense before your write it (if not, you can always fork this repo and create your own version of Trail Sense!). I will conduct a code review on incoming pull requests to verify they align nicely with the rest of the code base and the feature works as intended.
+If you choose to write a new feature yourself, send me a message to verify that it is something that I will accept into Trail Sense before your write it (if not, you can always fork this repo and create your own version of Trail Sense). I will conduct a code review on incoming pull requests to verify they align nicely with the rest of the code base and the feature works as intended.
 
-Issues marked with the help-wanted label are open for community contribution at any time (just submit a PR to main and I will review it), or leave a comment on the story to say you are working on it / ask for more details. Please leave a comment on any other issue before you work on them because they might not have all the details, I may not want it implemented yet, or I may have to implement it myself - for fun.
+Issues marked with the help-wanted label are open for community contribution at any time (just submit a PR to main and I will review it), or leave a comment on the story to say you are working on it / ask for more details. Please leave a comment on any other issue before you work on them because they might not have all the details, I may not want it implemented yet, or I may want to implement it myself - for fun.
 
-If an issue has a milestone and you would like to work on it, please leave a comment before working on it or creating a pull request. If you do not have the feature completed within 4 days of when I plan to release, I will implement it.
-
-If you submit an issue, please be civil and constructive - I will consider all feedback, and if I choose not to implement your suggestion I will post my reasoning. If you are experiencing an issue, please include all relevant details to help me understand and reproduce the issue. If you disagree with a change, please describe why you disagree and how I can improve it (if applicable, please provide research / evidence so I can cross verify).
+If you submit an issue, please be civil and constructive - I will consider all feedback, and if I choose not to implement your suggestion I will post my reasoning. If you are experiencing an issue, please include all relevant details to help me understand and reproduce the issue. If you disagree with a change, please describe why you disagree and how I can improve it. Finally, if applicable, please provide research / evidence so I can cross verify.
 
 # FAQ
 The FAQ has moved [to the wiki](https://github.com/kylecorry31/Trail-Sense/wiki/Frequently-Asked-Questions-(FAQ))
@@ -168,7 +166,7 @@ The best way to support Trail Sense is to send me your feedback, share how you a
 # Open Source Credits
 
 - Thank you to everyone who tried out this app and opened issues, suggested features, provided translations, or tested debug builds for me
-- Thanks to @qwerty287 and @Portagoras for implementing several features and bugfixes
+- Thanks to @qwerty287 and @Portagoras for implementing some features and bugfixes
 - Please see the in app licenses for all open source licenses
 - Contributors and translators: https://github.com/kylecorry31/Trail-Sense/graphs/contributors
 
