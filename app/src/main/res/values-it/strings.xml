@@ -1137,4 +1137,25 @@
     <string name="tool_deprecation_disclaimer">Questo strumento potrebbe essere rimosso o ridesignato dal momento che non è utile per le escursoni o il campeggio. Se pensi che questo strumento sia utile, per favore condivi con me il motivo per cui lo trovi utile scrivendo a %s.</string>
     <string name="my_location">La mia posizione</string>
     <string name="destination">Destinazione</string>
+    <string name="no_sensor_message">Il dispositivo non dispone di un sensore %s</string>
+    <string name="missing_sensor_message_1">Il vostro %1$s non ha un sensore incorporato %2$s. Purtroppo, questo significa che alcune caratteristiche in %3$s non saranno disponibili.</string>
+    <string name="enter_manually">Inserisci manualmente</string>
+    <string name="why_missing_sensor">Il mio dispositivo è nuovo/costoso, perché manca questo sensore?</string>
+    <string name="augmented_reality">Realtà aumentata</string>
+    <string name="tool_long_press_hint_toast">Premi a lungo uno strumento per visualizzare più opzioni</string>
+    <string name="triangulate_destination_location_1_instructions">Registra la tua posizione e la direzione per la destinazione.</string>
+    <string name="high_sensitivity">Alta sensibilità</string>
+    <string name="distance_away_from_destination">%s dalla destinazione</string>
+    <string name="missing_sensor_explanation">Alcuni produttori di telefoni scelgono di non aggiungere questo sensore, anche su dispositivi nuovi o costosi. È possibile ottenere ulteriori informazioni visitando il sito dei produttori di dispositivi o contattandoli.</string>
+    <string name="no_sensor_unable_to_fix">No, purtroppo questa è una caratteristica hardware, quindi non c\'è modo di aggiungerlo.</string>
+    <string name="settings_have_moved_message">Le impostazioni dell\'app sono state spostate nella scheda Strumenti</string>
+    <string name="settings_have_moved">Le impostazioni si sono spostate</string>
+    <string name="triangulate_self_location_1_instructions">Scegli una posizione conosciuta che puoi vedere e registra la direzione da dove sei a quella posizione.</string>
+    <string name="augmented_reality_description">Visualizza i beacon vicini e sole / luna con la fotocamera</string>
+    <string name="triangulate_self_location_2_instructions">Scegli un\'altra posizione conosciuta che puoi vedere e registra la direzione da dove sei a quella posizione.</string>
+    <string name="magnetic_north">Nord magnetico</string>
+    <string name="direction_not_set">Direzione non impostata</string>
+    <string name="location_number">Posizione %d</string>
+    <string name="direction">Direzione</string>
+    <string name="is_there_a_way_to_fix_this">C\'è un modo per risolvere questo problema?</string>
 </resources>
