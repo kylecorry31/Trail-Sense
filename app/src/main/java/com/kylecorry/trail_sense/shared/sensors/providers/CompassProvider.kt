@@ -4,11 +4,16 @@ import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import com.kylecorry.andromeda.sense.Sensors
+import com.kylecorry.andromeda.sense.accelerometer.Accelerometer
+import com.kylecorry.andromeda.sense.accelerometer.GravitySensor
+import com.kylecorry.andromeda.sense.accelerometer.LowPassAccelerometer
 import com.kylecorry.andromeda.sense.compass.FilterCompassWrapper
 import com.kylecorry.andromeda.sense.compass.GravityCompensatedCompass
 import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.compass.LegacyCompass
+import com.kylecorry.andromeda.sense.magnetometer.LowPassMagnetometer
 import com.kylecorry.andromeda.sense.magnetometer.Magnetometer
+import com.kylecorry.andromeda.sense.orientation.CustomGeomagneticRotationSensor
 import com.kylecorry.andromeda.sense.orientation.GeomagneticRotationSensor
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.andromeda.sense.orientation.RotationSensor
@@ -92,6 +97,17 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
 
         if (source == CompassSource.GeomagneticRotationVector){
             return GeomagneticRotationSensor(context, useTrueNorth, SensorService.MOTION_SENSOR_DELAY)
+        }
+
+        if (source == CompassSource.CustomMagnetometer){
+            // TODO: Should these be filtered, or should just the orientation sensor be filtered?
+            val magnetometer = LowPassMagnetometer(context, SensorService.MOTION_SENSOR_DELAY, 0.3f)
+            val accelerometer = if (Sensors.hasGravity(context)) {
+                GravitySensor(context, SensorService.MOTION_SENSOR_DELAY)
+            } else {
+                LowPassAccelerometer(context, SensorService.MOTION_SENSOR_DELAY)
+            }
+            return CustomGeomagneticRotationSensor(magnetometer, accelerometer, useTrueNorth)
         }
 
         // TODO: Construct this from existing sensors
