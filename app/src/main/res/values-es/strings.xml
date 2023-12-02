@@ -607,7 +607,7 @@
     <string name="pref_show_nearest_tide_title">Mostrar marea más cercana</string>
     <string name="weather_monitoring_disabled">Monitoreo meteorológico deshabilitado</string>
     <string name="precipitation_drizzle">Llovizna</string>
-    <string name="pref_nmea_elevation_summary">Utiliza compensaciones NMEA para la conversión de altitud</string>
+    <string name="pref_nmea_elevation_summary">Utiliza NMEA (satélite) para corregir las elevaciones, en lugar del modelo incorporado</string>
     <string name="capture">Capturar</string>
     <string name="duration">Duracion</string>
     <string name="or">o</string>
@@ -647,7 +647,7 @@
     <string name="guide_packing_list">Crear lista de empacado</string>
     <string name="sun">Sol</string>
     <string name="pref_barometer_info_summary">La presión puede diferir de la de las estaciones cercanas</string>
-    <string name="pref_nmea_elevation_title">Desplazamientos de altitud NMEA</string>
+    <string name="pref_nmea_elevation_title">Corrección de la elevación NMEA</string>
     <string name="convert">Convertir</string>
     <string name="coordinates_tab">Coordenadas</string>
     <string name="no_groups">Sin grupos</string>
@@ -1171,4 +1171,12 @@
     <string name="true_north_description">Señala el Polo Norte geográfico utilizando la declinación correspondiente a tu ubicación. Esto se alineará con la mayoría de los mapas.</string>
     <string name="is_there_a_way_to_fix_this">¿Hay alguna forma de solucionarlo?</string>
     <string name="high_sensitivity">Alta sensibilidad</string>
+    <string name="restart_services_message">No se han podido reiniciar los servicios en segundo plano. Pulse para reiniciar.</string>
+    <string name="service_restart">Reinicio de los servicios</string>
+    <string name="restart_services_title">Reiniciar los servicios</string>
+    <string name="fused_altimeter_force_calibration">Intervalo de calibración forzada</string>
+    <string name="continuous_calibration_description">Se calibra siempre que hay un punto de GPS</string>
+    <string name="fused_altimeter_force_calibration_summary">Fuerza una calibración del GPS cada %s</string>
+    <string name="continuous_calibration">Calibración continua</string>
+    <string name="service_restart_channel_description">Una notificación para reiniciar los servicios</string>
 </resources>
