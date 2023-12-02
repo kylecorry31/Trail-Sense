@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.pedometer.infrastructure
 
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.ISpeedometer
-import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.trail_sense.shared.ZERO_SPEED
 import com.kylecorry.trail_sense.tools.pedometer.domain.IPaceCalculator
@@ -14,13 +14,13 @@ class AveragePaceSpeedometer(
     private val paceCalculator: IPaceCalculator
 ) : AbstractSensor(), ISpeedometer {
 
-    private val timer = Timer {
+    private val timer = CoroutineTimer {
         val lastReset = stepCounter.startTime
         val steps = stepCounter.steps
 
         if (lastReset == null) {
             reset()
-            return@Timer
+            return@CoroutineTimer
         }
 
         speed = paceCalculator.speed(steps, Duration.between(lastReset, Instant.now()))

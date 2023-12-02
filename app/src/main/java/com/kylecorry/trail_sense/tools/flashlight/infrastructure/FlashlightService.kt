@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import com.kylecorry.andromeda.background.services.AndromedaService
 import com.kylecorry.andromeda.core.system.Intents
-import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.NotificationChannels
@@ -24,7 +24,7 @@ class FlashlightService : AndromedaService() {
 
     private val topic by lazy { flashlight.mode.replay() }
 
-    private val offTimer = Timer {
+    private val offTimer = CoroutineTimer {
         val end = stopAt
         if (end != null && end <= Instant.now() && flashlight.getMode() != FlashlightMode.Off) {
             flashlight.set(FlashlightMode.Off)

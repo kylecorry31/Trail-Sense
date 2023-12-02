@@ -7,7 +7,7 @@ import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
-import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
@@ -33,7 +33,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
     private lateinit var prefs: UserPreferences
     private lateinit var sensorService: SensorService
     private val throttle = Throttle(20)
-    private val updateTimer = Timer {
+    private val updateTimer = CoroutineTimer {
         update()
     }
 

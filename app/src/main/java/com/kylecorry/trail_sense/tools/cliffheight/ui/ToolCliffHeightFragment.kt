@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.DistanceUnits
@@ -24,7 +24,7 @@ import java.time.Instant
 class ToolCliffHeightFragment : BoundFragment<FragmentToolCliffHeightBinding>() {
 
     private val service = CliffHeightService()
-    private val timer = Timer {
+    private val timer = CoroutineTimer {
         update()
     }
     private val formatService by lazy { FormatService.getInstance(requireContext()) }

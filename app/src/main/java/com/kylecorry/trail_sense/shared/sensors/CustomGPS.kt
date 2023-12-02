@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.Quality
-import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.location.GPS
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.sol.math.RingBuffer
@@ -81,11 +81,11 @@ class CustomGPS(
     private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
     private val userPrefs by lazy { UserPreferences(context) }
 
-    private val timeout = Timer {
+    private val timeout = CoroutineTimer {
         onTimeout()
     }
 
-    private val geoidTimer = Timer {
+    private val geoidTimer = CoroutineTimer {
         geoidOffset = AltitudeCorrection.getGeoid(context, location)
     }
 

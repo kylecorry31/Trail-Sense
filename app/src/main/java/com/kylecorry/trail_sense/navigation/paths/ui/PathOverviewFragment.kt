@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
-import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -208,7 +208,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                 }
             }
             binding.pathMapFullscreenToggle.setImageResource(if (isFullscreen) R.drawable.ic_fullscreen_exit else R.drawable.ic_recenter)
-            val timer = Timer {
+            val timer = CoroutineTimer {
                 if (isBound) {
                     binding.root.scrollTo(0, binding.pathMapHolder.top)
                     binding.pathImage.recenter()

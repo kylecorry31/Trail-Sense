@@ -10,7 +10,7 @@ import android.widget.ProgressBar
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.units.CoordinateExtensions.parse
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.sol.units.Coordinate
@@ -33,7 +33,7 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
     private val sensorService by lazy { SensorService(getContext()) }
     lateinit var gps: IGPS
 
-    private val errorHandler = Timer {
+    private val errorHandler = CoroutineTimer {
         locationEdit.error = getContext().getString(R.string.coordinate_input_invalid_location)
     }
 

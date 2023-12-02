@@ -13,7 +13,7 @@ import com.kylecorry.andromeda.battery.BatteryChargingStatus
 import com.kylecorry.andromeda.battery.BatteryHealth
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.list.ListView
@@ -57,15 +57,15 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
 
     private var readings = listOf<BatteryReading>()
 
-    private val intervalometer = Timer {
+    private val intervalometer = CoroutineTimer {
         update()
     }
 
-    private val serviceIntervalometer = Timer {
+    private val serviceIntervalometer = CoroutineTimer {
         updateServices()
     }
 
-    private val batteryUpdateTimer = Timer(lifecycleScope) {
+    private val batteryUpdateTimer = CoroutineTimer(lifecycleScope) {
         onDefault {
             // If charging, show up arrow
             val chargingStatus = battery.chargingStatus

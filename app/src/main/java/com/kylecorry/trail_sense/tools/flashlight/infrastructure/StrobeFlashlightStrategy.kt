@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.flashlight.infrastructure
 
-import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.time.CoroutineTimer
 import java.time.Duration
 
 class StrobeFlashlightStrategy(
@@ -9,7 +9,7 @@ class StrobeFlashlightStrategy(
 ) : IFlashlightStrategy {
 
     private var on = false
-    private val timer = Timer {
+    private val timer = CoroutineTimer {
         if (on) {
             flashlight.turnOff()
         } else {

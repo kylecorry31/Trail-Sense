@@ -5,7 +5,7 @@ import android.content.Intent
 import androidx.core.content.ContextCompat
 import com.kylecorry.andromeda.background.services.AndromedaService
 import com.kylecorry.andromeda.background.services.ForegroundInfo
-import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.sound.ISoundPlayer
 import com.kylecorry.trail_sense.R
@@ -18,7 +18,7 @@ class WhiteNoiseService : AndromedaService() {
     private var whiteNoise: ISoundPlayer? = null
     private val cache by lazy { PreferencesSubsystem.getInstance(this).preferences }
 
-    private val offTimer = Timer {
+    private val offTimer = CoroutineTimer {
         stopSelf()
     }
 

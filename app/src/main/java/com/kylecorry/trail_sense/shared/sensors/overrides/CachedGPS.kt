@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.shared.sensors.overrides
 
 import android.content.Context
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
-import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
@@ -49,7 +49,7 @@ class CachedGPS(context: Context, private val updateFrequency: Long = 20L) : Abs
 
     private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
     private val userPrefs by lazy { UserPreferences(context) }
-    private val intervalometer = Timer { notifyListeners() }
+    private val intervalometer = CoroutineTimer { notifyListeners() }
 
     override fun startImpl() {
         intervalometer.interval(updateFrequency)

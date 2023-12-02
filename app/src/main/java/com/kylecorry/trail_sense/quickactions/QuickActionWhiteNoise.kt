@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.quickactions
 
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
-import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
@@ -11,7 +11,7 @@ import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseServi
 class QuickActionWhiteNoise(btn: ImageButton, fragment: Fragment) :
     QuickActionButton(btn, fragment) {
 
-    private val intervalometer = Timer {
+    private val intervalometer = CoroutineTimer {
         CustomUiUtils.setButtonState(button, isOn())
     }
 

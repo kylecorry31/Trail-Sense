@@ -7,7 +7,7 @@ import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.trail_sense.R
@@ -33,7 +33,7 @@ class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
     private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
 
 
-    private val intervalometer = Timer {
+    private val intervalometer = CoroutineTimer {
         updateStrideLength()
         updatePermissionRequestPreference()
         if (wasEnabled != userPrefs.pedometer.isEnabled) {

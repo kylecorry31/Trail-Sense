@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
 import android.content.Context
-import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.trail_sense.shared.alerts.ILoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.onIO
@@ -17,7 +17,7 @@ class WeatherLogger(
 ) {
     private val weather = WeatherSubsystem.getInstance(context)
     private val runner = CoroutineQueueRunner()
-    private val timer = Timer {
+    private val timer = CoroutineTimer {
         onIO {
             runner.skipIfRunning {
                 onMain { loadingIndicator.show() }

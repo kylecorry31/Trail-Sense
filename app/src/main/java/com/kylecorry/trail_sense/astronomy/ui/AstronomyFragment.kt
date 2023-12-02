@@ -10,7 +10,7 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.loading.AlertLoadingIndicator
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.capitalizeWords
-import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
@@ -80,7 +80,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
     private var gpsErrorShown = false
 
-    private val intervalometer = Timer {
+    private val intervalometer = CoroutineTimer {
         updateUI()
     }
 

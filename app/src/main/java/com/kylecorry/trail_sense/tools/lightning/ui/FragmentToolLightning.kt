@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
@@ -37,7 +37,7 @@ class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {
     private var strike: Reading<LightningStrike>? = null
     private var lastStrike: Reading<LightningStrike>? = null
 
-    private val timer = Timer {
+    private val timer = CoroutineTimer {
         updateUI()
     }
 

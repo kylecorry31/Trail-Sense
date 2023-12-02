@@ -1,10 +1,10 @@
 package com.kylecorry.trail_sense.shared.morse
 
-import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.time.CoroutineTimer
 
 class SignalPlayer(private val device: ISignalingDevice) {
 
-    private var intervalometer: Timer? = null
+    private var intervalometer: CoroutineTimer? = null
     private var isOn = false
 
     fun play(signals: List<Signal>, loop: Boolean, onComplete: (() -> Any)? = null){
@@ -14,11 +14,11 @@ class SignalPlayer(private val device: ISignalingDevice) {
         }
         var idx = 0
         isOn = true
-        intervalometer = Timer {
+        intervalometer = CoroutineTimer {
             synchronized(this) {
                 if (!isOn){
                     intervalometer = null
-                    return@Timer
+                    return@CoroutineTimer
                 }
                 if (idx >= signals.size && loop){
                     idx = 0

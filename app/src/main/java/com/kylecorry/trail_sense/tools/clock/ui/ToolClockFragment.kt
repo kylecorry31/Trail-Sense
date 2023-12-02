@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.background.AlarmTaskScheduler
-import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.R
@@ -32,7 +32,7 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val timer = Timer { update() }
+    private val timer = CoroutineTimer { update() }
 
     private var gpsTime = Instant.now()
     private var systemTime = Instant.now()

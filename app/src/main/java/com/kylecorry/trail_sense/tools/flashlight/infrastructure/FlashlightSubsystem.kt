@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.flashlight.infrastructure
 
 import android.annotation.SuppressLint
 import android.content.Context
-import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.topics.generic.ITopic
 import com.kylecorry.andromeda.core.topics.generic.Topic
 import com.kylecorry.andromeda.core.topics.generic.distinct
@@ -43,7 +43,7 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
     private var isAvailable: Boolean = Torch.isAvailable(context, true)
 
     private var isTransitioning = false
-    private val transitionTimer = Timer {
+    private val transitionTimer = CoroutineTimer {
         isTransitioning = false
     }
 

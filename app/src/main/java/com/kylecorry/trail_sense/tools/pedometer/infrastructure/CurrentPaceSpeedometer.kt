@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.pedometer.infrastructure
 
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.ISpeedometer
-import com.kylecorry.andromeda.core.time.Timer
+import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.sense.pedometer.IPedometer
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.trail_sense.shared.ZERO_SPEED
@@ -15,7 +15,7 @@ class CurrentPaceSpeedometer(
     private val paceCalculator: IPaceCalculator
 ) : AbstractSensor(), ISpeedometer {
 
-    private val timer = Timer {
+    private val timer = CoroutineTimer {
         updateSpeed()
     }
 
