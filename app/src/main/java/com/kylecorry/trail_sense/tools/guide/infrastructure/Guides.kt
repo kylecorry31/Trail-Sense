@@ -8,16 +8,19 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.domain.UserGuide
 import com.kylecorry.trail_sense.tools.guide.domain.UserGuideCategory
+import com.kylecorry.trail_sense.tools.ui.Tools
+import com.kylecorry.trail_sense.tools.ui.sort.AlphabeticalToolSort
+import com.kylecorry.trail_sense.tools.ui.sort.CategoricalToolSort
 
 object Guides {
 
     fun guides(context: Context): List<UserGuideCategory> {
+        val tools = Tools.getTools(context)
+        val sortedTools = CategoricalToolSort(context).sort(tools)
 
-        val hasCompass = SensorService(context).hasCompass()
-        val prefs = UserPreferences(context)
-
-        val general = UserGuideCategory(
-            context.getString(R.string.general), listOf(
+        val otherGuides = UserGuideCategory(
+            "TO BE UPDATED",
+            listOfNotNull(
                 UserGuide(
                     context.getString(R.string.guide_conserving_battery_title),
                     null,
@@ -27,12 +30,7 @@ object Guides {
                     context.getString(R.string.guide_signaling_for_help_title),
                     null,
                     R.raw.signaling_for_help
-                )
-            )
-        )
-
-        val navigation = UserGuideCategory(
-            context.getString(R.string.navigation), listOf(
+                ),
                 UserGuide(
                     context.getString(R.string.navigation),
                     context.getString(R.string.navigation_guide_description),
@@ -52,26 +50,11 @@ object Guides {
                     context.getString(R.string.guide_location_no_gps_title),
                     null,
                     R.raw.determine_location_without_gps
-                )
-            )
-        )
-
-        val weather = UserGuideCategory(
-            context.getString(R.string.weather), listOfNotNull(
+                ),
                 UserGuide(
                     context.getString(R.string.guide_weather_prediction_title),
                     null,
                     R.raw.weather
-                ),
-                UserGuide(
-                    context.getString(R.string.clouds),
-                    null,
-                    R.raw.guide_tool_clouds
-                ),
-                UserGuide(
-                    context.getString(R.string.tool_lightning_title),
-                    null,
-                    R.raw.guide_tool_lightning_stike_distance
                 ),
                 if (Sensors.hasBarometer(context)) UserGuide(
                     context.getString(R.string.guide_barometer_calibration_title),
@@ -82,37 +65,12 @@ object Guides {
                     context.getString(R.string.guide_thermometer_calibration_title),
                     null,
                     R.raw.calibrating_thermometer
-                )
-            )
-        )
-
-        val tools = UserGuideCategory(
-            context.getString(R.string.tools), listOfNotNull(
-                UserGuide(
-                    context.getString(R.string.tool_whistle_title),
-                    null,
-                    R.raw.guide_tool_whistle
-                ),
-                UserGuide(
-                    context.getString(R.string.tool_bubble_level_title),
-                    null,
-                    R.raw.guide_tool_bubble_level
                 ),
                 UserGuide(
                     context.getString(R.string.guide_packing_list),
                     null,
                     R.raw.packing_lists
                 ),
-                UserGuide(
-                    context.getString(R.string.tool_notes_title),
-                    null,
-                    R.raw.guide_tool_notes
-                ),
-                if (hasCompass) UserGuide(
-                    context.getString(R.string.tool_metal_detector_title),
-                    null,
-                    R.raw.guide_tool_metal_detector
-                ) else null,
                 UserGuide(
                     context.getString(R.string.clinometer_title),
                     context.getString(R.string.tool_clinometer_summary),
@@ -124,21 +82,6 @@ object Guides {
                         null,
                         R.raw.pedometer
                     ) else null,
-                if (prefs.isCliffHeightEnabled) UserGuide(
-                    context.getString(R.string.tool_cliff_height_title),
-                    context.getString(R.string.experimental),
-                    R.raw.guide_tool_cliff_height
-                ) else null,
-                UserGuide(
-                    context.getString(R.string.tool_light_meter_title),
-                    context.getString(R.string.guide_light_meter_description),
-                    R.raw.guide_tool_light_meter
-                ),
-                UserGuide(
-                    context.getString(R.string.water_boil_timer),
-                    null,
-                    R.raw.guide_tool_water_boil_timer
-                ),
                 UserGuide(
                     context.getString(R.string.tides),
                     null,
@@ -152,11 +95,36 @@ object Guides {
             )
         )
 
-        return listOf(
-            general,
-            navigation,
-            weather,
-            tools
-        )
+        val toolGuides = sortedTools.mapNotNull { category ->
+            val guides = category.tools.mapNotNull { tool ->
+                if (tool.guideId == null) {
+                    return@mapNotNull null
+                }
+
+                // TODO: Remove this once the guides are updated
+                // If the guide hasn't been updated, don't show it
+                if (otherGuides.guides.any { it.contents == tool.guideId }) {
+                    return@mapNotNull null
+                }
+
+                UserGuide(
+                    tool.name,
+                    tool.description,
+                    tool.guideId
+                )
+            }
+
+            if (guides.isEmpty()){
+                return@mapNotNull null
+            }
+
+            UserGuideCategory(
+                category.categoryName ?: context.getString(R.string.tools),
+                guides
+            )
+        }
+
+
+        return toolGuides + otherGuides
     }
 }
