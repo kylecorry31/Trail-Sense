@@ -188,7 +188,7 @@ class FusedAltimeter(
 
         // When continuous calibration is enabled, ensure a GPS fix before notifying listeners
         return if (useContinuousCalibration) {
-            hasGPSFix()
+            gpsWeight > 0
         } else {
             true
         }
