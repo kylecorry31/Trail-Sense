@@ -7,7 +7,7 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.altimeter.AltimeterWrapper
-import com.kylecorry.trail_sense.shared.sensors.readAll
+import com.kylecorry.andromeda.sense.readAll
 import com.kylecorry.trail_sense.shared.sensors.thermometer.HistoricThermometer
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import java.time.Duration

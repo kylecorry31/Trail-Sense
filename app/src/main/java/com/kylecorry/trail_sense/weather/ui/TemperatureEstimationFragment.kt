@@ -21,7 +21,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.sensors.readAll
+import com.kylecorry.andromeda.sense.readAll
 import com.kylecorry.trail_sense.shared.views.UnitInputView
 import java.time.Duration
 import kotlin.math.roundToInt

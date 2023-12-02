@@ -14,12 +14,12 @@ import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.time.Throttle
-import com.kylecorry.andromeda.core.time.Timer
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.location.IGPS
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sense.barometer.IBarometer
+import com.kylecorry.andromeda.sense.readAll
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.science.meteorology.Meteorology
@@ -33,7 +33,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.altimeter.FusedAltimeter
-import com.kylecorry.trail_sense.shared.sensors.readAll
 import kotlinx.coroutines.Dispatchers
 
 

@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.networkQuality
 import com.kylecorry.trail_sense.shared.sensors.NullCellSignalSensor
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.sensors.readAll
+import com.kylecorry.andromeda.sense.readAll
 import java.time.Duration
 import java.time.Instant
 
