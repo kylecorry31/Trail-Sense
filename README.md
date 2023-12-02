@@ -63,8 +63,7 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 - Navigation
 - Weather
 - Astronomy
-- Tides
-- Clinometer
+- Photo Maps
 - And many more tools
 
 See the need for a new feature? [Post it here!](https://github.com/kylecorry31/Trail-Sense/issues/59)
