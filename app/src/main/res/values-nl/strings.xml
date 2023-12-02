@@ -567,8 +567,8 @@
     <string name="distance">Afstand</string>
     <string name="convert">Omrekenen</string>
     <string name="pref_barometer_pressure_smoothing_title">Drukvereffening</string>
-    <string name="pref_nmea_elevation_summary">Gebruikt NMEA-offsets voor hoogteconversie</string>
-    <string name="pref_nmea_elevation_title">NMEA hoogte offsets</string>
+    <string name="pref_nmea_elevation_summary">Gebruik NMEA (satelliet) om hoogtes te corrigeren in plaats van het ingebouwde model</string>
+    <string name="pref_nmea_elevation_title">NMEA hoogtecorrectie</string>
     <string name="pref_barometer_info_summary">De druk kan verschillen van die van nabijgelegen stations</string>
     <string name="battery_history">Batterijgeschiedenis - afgelopen %s</string>
     <string name="dusk_type">Schemering (%s)</string>
@@ -1158,4 +1158,12 @@
     <string name="true_north_description">Wijst naar de geografische Noordpool door de declinatie voor jouw locatie te gebruiken. Dit werkt met de meeste kaarten.</string>
     <string name="is_there_a_way_to_fix_this">Is er een manier om dit op te lossen?</string>
     <string name="high_sensitivity">Hoge gevoeligheid</string>
+    <string name="restart_services_message">Achtergrondactiviteiten konden niet opnieuw opgestart worden. Tik om te herstarten.</string>
+    <string name="service_restart">Activiteit herstarten</string>
+    <string name="restart_services_title">Herstart activiteiten</string>
+    <string name="fused_altimeter_force_calibration">Forceer kalibratie-interval</string>
+    <string name="continuous_calibration_description">Kalibreert als een geolocatie wordt bepaald</string>
+    <string name="fused_altimeter_force_calibration_summary">Forceert een GPS-kalibratie elke %s</string>
+    <string name="continuous_calibration">Voortdurende kalibratie</string>
+    <string name="service_restart_channel_description">Een melding om activiteiten te herstarten</string>
 </resources>
