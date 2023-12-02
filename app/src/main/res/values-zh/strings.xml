@@ -549,9 +549,9 @@
     <string name="pref_barometer_info_summary">大气压强可能与附近气象站的大气压强不同</string>
     <string name="battery_history">历史电量 - 过去 %s</string>
     <string name="no_data">无数据</string>
-    <string name="pref_nmea_elevation_title">NMEA高度偏移</string>
+    <string name="pref_nmea_elevation_title">NMEA 高度修正</string>
     <string name="pref_barometer_pressure_smoothing_title">大气压数据平滑</string>
-    <string name="pref_nmea_elevation_summary">使用NMEA偏移量进行高度转换</string>
+    <string name="pref_nmea_elevation_summary">使用 NMEA（卫星）而不是内置模型来修正高度</string>
     <string name="moved_to">已移动到 %s</string>
     <string name="move">移动</string>
     <string name="no_groups">无群组</string>
@@ -1142,4 +1142,12 @@
     <string name="true_north_description">用你所在位置的磁偏角指向地理北极。这么做会与大多数地图对齐。</string>
     <string name="is_there_a_way_to_fix_this">有办法解决吗？</string>
     <string name="high_sensitivity">高敏感度</string>
+    <string name="restart_services_message">无法重启后台服务。轻按以重启。</string>
+    <string name="service_restart">服务重启</string>
+    <string name="restart_services_title">重启服务</string>
+    <string name="fused_altimeter_force_calibration">强制校正间隔</string>
+    <string name="continuous_calibration_description">不论何时只要有 GPS 修正就进行校正</string>
+    <string name="fused_altimeter_force_calibration_summary">每 %s 强制进行 GPS 校正</string>
+    <string name="continuous_calibration">持续校正</string>
+    <string name="service_restart_channel_description">重启服务的通知</string>
 </resources>
