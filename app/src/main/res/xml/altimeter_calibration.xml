@@ -55,7 +55,7 @@
         <SwitchPreferenceCompat
             android:summary="@string/continuous_calibration_description"
             android:title="@string/continuous_calibration"
-            app:defaultValue="false"
+            app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_altimeter_continuous_calibration"
             app:singleLineTitle="false" />

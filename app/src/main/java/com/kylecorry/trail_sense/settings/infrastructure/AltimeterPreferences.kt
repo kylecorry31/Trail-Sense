@@ -11,7 +11,7 @@ class AltimeterPreferences(context: Context) : PreferenceRepo(context) {
     val useFusedAltimeterContinuousCalibration by BooleanPreference(
         cache,
         context.getString(R.string.pref_altimeter_continuous_calibration),
-        false
+        true
     )
 
     var fusedAltimeterForcedRecalibrationInterval by DurationPreference(
