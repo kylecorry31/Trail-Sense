@@ -60,33 +60,50 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 
 ## Features
 
-- Navigation
-- Weather
-- Astronomy
-- Photo Maps
-- And many more tools
+- Designed for hiking, backpacking, camping, and geocaching
+- Place beacons and navigate to them
+- Follow paths
+- Retrace your steps with backtrack
+- Use a photo as a map
+- Plan what to pack
+- Be alerted before the sun sets
+- Predict the weather
+- Use your phone as a flashlight
+- [And much more!](https://github.com/kylecorry31/Trail-Sense/wiki/Use-Cases)
 
 See the need for a new feature? [Post it here!](https://github.com/kylecorry31/Trail-Sense/issues/59)
 
-### Navigation
-
-Trail Sense's compass helps you determine the direction of North and navigate to saved locations, known as beacons. In addition to navigating to beacons, you can also use the Backtrack feature to record waypoints and retrace your steps. This tool makes it easy to navigate and find your way in the great outdoors.
-
-Example beacons: home, work, trailhead, campsite
-
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" alt="Navigation Screenshot" height="500"/>
-
-### Weather
-
-Trail Sense helps you stay informed about the weather, while completely offline. You can use it to predict if what the weather will be or be notified if a storm is likely to occur. It also displays the historical daily temperatures for your location, so you can be better prepared. This feature is only available on phones that have a barometer.
-
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.png" alt="Weather Screenshot" height="500"/>
-
-### Astronomy
-
-View reliable and accurate sunrise and sunset times for your location. In addition, you can stay informed about the phases of the moon, lunar eclipses, and meteor showers. These tools can help you plan your outdoor activities and ensure you have the necessary light for your endeavors.
-
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" alt="Astronomy Screenshot" height="500"/>
+<table>
+  <tr>
+    <td>
+      <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" alt="Navigation Screenshot" height="500"/>
+    </td>
+    <td>
+      <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" alt="Weather Screenshot" height="500"/>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" alt="Weather Screenshot" height="500"/>
+    </td>
+    <td>
+      <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" alt="Weather Screenshot" height="500"/>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.jpg" alt="Weather Screenshot" height="500"/>
+    </td>
+    <td>
+      <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/6.png" alt="Weather Screenshot" height="500"/>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/7.png" alt="Weather Screenshot" height="500"/>
+    </td>
+  </tr>
+</table>
 
 # Privacy
 
