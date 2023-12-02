@@ -266,7 +266,7 @@ class FusedAltimeter(
             "cache_fused_altimeter_last_sea_level_pressure_time"
         private const val LAST_GPS_USED_TIME_KEY = "cache_fused_altimeter_last_gps_used_time"
 
-        private const val MIN_ALPHA = 0.96f
+        private const val MIN_ALPHA = 0.9f
         private const val MAX_ALPHA = 0.99f
         private const val MAX_ALPHA_TIME = 0.4f
         private val MAX_TIME_FOR_WEIGHT = Duration.ofHours(2)
