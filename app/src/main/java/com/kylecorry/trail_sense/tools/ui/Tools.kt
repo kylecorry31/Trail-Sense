@@ -48,6 +48,7 @@ object Tools {
                 R.drawable.flashlight,
                 R.id.action_action_experimental_tools_to_fragmentToolFlashlight,
                 ToolCategory.Signaling,
+                guideId = R.raw.guide_tool_flashlight
             ),
             Tool(
                 2,
