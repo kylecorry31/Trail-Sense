@@ -319,7 +319,6 @@
     <string name="pref_compass_sensor" translatable="false">pref_compass_calibration</string>
     <string name="pref_holder_altitude" translatable="false">pref_holder_altitude</string>
     <string name="pref_auto_altitude" translatable="false">pref_auto_altitude</string>
-    <string name="pref_fine_tune_altitude" translatable="false">pref_fine_tune_altitude</string>
     <string name="pref_altitude_override" translatable="false">pref_altitude_override</string>
     <string name="pref_altitude_from_gps_btn" translatable="false">pref_altitude_from_gps_btn</string>
     <string name="pref_altitude_override_sea_level" translatable="false">pref_altitude_override_sea_level</string>

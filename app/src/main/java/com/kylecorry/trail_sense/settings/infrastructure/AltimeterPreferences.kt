@@ -17,7 +17,7 @@ class AltimeterPreferences(context: Context) : PreferenceRepo(context) {
     var fusedAltimeterForcedRecalibrationInterval by DurationPreference(
         cache,
         context.getString(R.string.pref_altimeter_forced_recalibration_interval),
-        Duration.ofHours(1)
+        Duration.ofHours(2)
     )
 
 }

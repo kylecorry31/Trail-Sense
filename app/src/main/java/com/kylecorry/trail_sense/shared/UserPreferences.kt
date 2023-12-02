@@ -237,7 +237,7 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
             var raw = cache.getString(getString(R.string.pref_altimeter_calibration_mode))
 
             if (raw == null) {
-                if (useAutoAltitude && useFineTuneAltitude && weather.hasBarometer) {
+                if (useAutoAltitude && weather.hasBarometer) {
                     raw = "gps_barometer"
                 } else if (useAutoAltitude) {
                     raw = "gps"
@@ -271,10 +271,6 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
     private var useAutoAltitude: Boolean
         get() = cache.getBoolean(getString(R.string.pref_auto_altitude)) ?: true
         set(value) = cache.putBoolean(getString(R.string.pref_auto_altitude), value)
-
-    private var useFineTuneAltitude: Boolean
-        get() = cache.getBoolean(getString(R.string.pref_fine_tune_altitude)) ?: true
-        set(value) = cache.putBoolean(getString(R.string.pref_fine_tune_altitude), value)
 
     val useNMEA: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_nmea_altitude)) ?: false
