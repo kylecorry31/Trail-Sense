@@ -10,6 +10,7 @@ Navigating
 - Place beacons and navigate back to them using your phone's compass
 - Retrace your steps with Backtrack
 - View your current GPS coordinates and altitude
+- Use a photo as a map with Photo Maps
 
 Weather
 - Predict how the weather might change
