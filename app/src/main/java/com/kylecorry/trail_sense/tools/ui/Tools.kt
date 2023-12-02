@@ -137,7 +137,8 @@ object Tools {
                 R.drawable.level,
                 R.id.action_action_experimental_tools_to_levelFragment,
                 ToolCategory.Angles,
-                context.getString(R.string.tool_bubble_level_summary)
+                context.getString(R.string.tool_bubble_level_summary),
+                guideId = R.raw.guide_tool_bubble_level
             ),
             Tool(
                 13,

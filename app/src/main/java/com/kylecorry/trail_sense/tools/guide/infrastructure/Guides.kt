@@ -94,6 +94,11 @@ object Guides {
                     R.raw.guide_tool_whistle
                 ),
                 UserGuide(
+                    context.getString(R.string.tool_bubble_level_title),
+                    null,
+                    R.raw.guide_tool_bubble_level
+                ),
+                UserGuide(
                     context.getString(R.string.guide_packing_list),
                     null,
                     R.raw.packing_lists
