@@ -167,7 +167,7 @@ dependencies {
     implementation("com.github.kylecorry31.andromeda:list:$andromedaVersion")
 
     // Ceres
-    val ceresVersion = "53f10aa952"
+    val ceresVersion = "093e9f14ed"
     implementation("com.github.kylecorry31.ceres:list:$ceresVersion")
     implementation("com.github.kylecorry31.ceres:toolbar:$ceresVersion")
     implementation("com.github.kylecorry31.ceres:badge:$ceresVersion")
