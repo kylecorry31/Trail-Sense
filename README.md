@@ -148,7 +148,8 @@ Only available on debug APKs / builds via Android Studio
 - [Request a new feature](https://github.com/kylecorry31/Trail-Sense/issues/59)
 - [Submit an issue](https://github.com/kylecorry31/Trail-Sense/issues)
 - [Translate Trail Sense on Weblate](https://hosted.weblate.org/projects/trail-sense/trail-sense-android)
-- [Test out new features](https://github.com/kylecorry31/Trail-Sense/issues/74)
+- [Test out nightly builds](https://github.com/kylecorry31/Trail-Sense/discussions/1940)
+- [Test out experimental features](https://github.com/kylecorry31/Trail-Sense/discussions/2099)
 
 If you choose to write a new feature yourself, send me a message to verify that it is something that I will accept into Trail Sense before your write it (if not, you can always fork this repo and create your own version of Trail Sense). I will conduct a code review on incoming pull requests to verify they align nicely with the rest of the code base and the feature works as intended.
 
