@@ -249,7 +249,6 @@
     <string name="dbm_format">%s dBm</string>
     <string name="tool_user_guide_title">Εγχειρίδιο χρήσης</string>
     <string name="gps_cache">Κρυφή Μνήμη GPS</string>
-    <string name="cliff_height_guide">Υπολογισμός ύψους γκρεμού</string>
     <string name="imperial_gallons">Αγγλικά Γαλόνια</string>
     <string name="pref_experimental_metal_direction_title">Υπόδειξη κατεύθυνσης μετάλλου</string>
     <string name="onboarding_privacy">- Το Trail Sense σέβεται το απόρρητό σας και τα δεδομένα τοποθεσίας δεν εγκαταλείπουν ποτέ τη συσκευή σας

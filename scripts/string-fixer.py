@@ -70,6 +70,38 @@ class NonTranslatableTranslated(StringDiagnostic):
     def is_warning(self) -> bool:
         return True
 
+class URLMismatch(StringDiagnostic):
+    def check(self, source_tree, tree, element) -> bool:
+        if source_tree != tree:
+            return False
+        source_string_value = get_string_element(source_tree, element.get('name')).text.strip()
+        string_value = element.text.strip()
+
+        source_urls = self.__get_urls(source_string_value)
+        urls = self.__get_urls(string_value)
+
+        if len(source_urls) != len(urls):
+            return True
+        
+        for i in range(len(source_urls)):
+            if source_urls[i] != urls[i]:
+                return True
+            
+        return False
+    
+    def __get_urls(self, text):
+        # Regex to get all URLs
+        r = r'(https?://[^\s]+)'
+        # Find all matches
+        return re.findall(r, text)
+
+    def fix(self, source_tree, tree, element) -> bool:
+        delete_element(tree, element)
+        return True
+    
+    def is_warning(self) -> bool:
+        return False
+
 class PreferenceKeyTranslatable(StringDiagnostic):
     def check(self, source_tree, tree, element) -> bool:
         if source_tree != tree:
@@ -201,7 +233,8 @@ diagnostics = [
     NotInSource(),
     PositionalFormattingUnspecified(),
     TranslatedAppName(),
-    HardCodedAppName()
+    HardCodedAppName(),
+    URLMismatch()
 ]
 
 
