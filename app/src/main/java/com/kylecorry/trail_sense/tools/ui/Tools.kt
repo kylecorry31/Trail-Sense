@@ -153,7 +153,8 @@ object Tools {
                 context.getString(R.string.astronomy),
                 R.drawable.ic_astronomy,
                 R.id.action_astronomy,
-                ToolCategory.Time
+                ToolCategory.Time,
+                guideId = R.raw.guide_tool_astronomy
             ),
             Tool(
                 15,
