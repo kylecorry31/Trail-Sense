@@ -213,7 +213,7 @@ object Tools {
                 R.id.action_toolsFragment_to_toolClimate,
                 ToolCategory.Weather,
                 context.getString(R.string.tool_climate_summary),
-                guideId = R.raw.weather
+                guideId = R.raw.guide_tool_climate
             ),
             Tool(
                 22,
