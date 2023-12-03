@@ -1111,7 +1111,6 @@
     <string name="season">Évszak</string>
     <string name="no_sensor_message">Az eszközödnek nincs %s szenzora</string>
     <string name="missing_sensor_message_1">%1$s eszközöd nem rendelkezik beépített %2$s szenzorral. Sajnos emiatt a %3$s néhány funkciója nem lesz elérhető.</string>
-    <string name="tool_deprecation_disclaimer">Ez az eszköz lehet, hogy átalakításra vagy eltávolításra fog kerülni, mert nem praktikus túrázáshoz, hátizsákos túrához, vagy táborozáshoz. Ha ezt az eszközt hasznosnak találod, kérlek, oszd meg velem, hogyan tudtad hasznosítani a %s címen.</string>
     <string name="enter_manually">Megadás manuálisan</string>
     <string name="why_missing_sensor">Az eszközöm új/drága, miért nincs benne ilyen szenzor?</string>
     <string name="augmented_reality">Kiterjesztett Valóság</string>
@@ -1134,7 +1133,6 @@
     <string name="restoring_loading_message">Visszaállítás…</string>
     <string name="augmented_reality_description">Nézd meg a közeli jelzőpontokat és a napot/holdat, a kamerádon keresztül</string>
     <string name="triangulate_self_location_2_instructions">Válassz egy másik általad ismert helyet, amire rálátsz és jegyezd fel hogy ez a hely a jelenlegi helyedhez képest milyen irányban van.</string>
-    <string name="scheduled_for_redesign_or_removal">Beütemezve átalakításra vagy eltávolításra</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d térkép</item>
         <item quantity="other">%d térkép</item>

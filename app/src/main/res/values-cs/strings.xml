@@ -1148,9 +1148,7 @@
     <string name="backup_restore">Záloha / obnovení</string>
     <string name="restore_failure_newer_version">Tato záloha byla vytvořena s novější verzí aplikace %s. Aktualizujte prosím aplikaci a zkuste to znovu.</string>
     <string name="zero_shutter_lag">Nulové zpoždění závěrky</string>
-    <string name="tool_deprecation_disclaimer">Tento nástroj může být odstraněn nebo přepracován, protože není praktický pro pěší turistiku, turistiku s batohem nebo kempování. Pokud je pro vás tento nástroj užitečný, podělte se se mnou o to, jak ho používáte, na %s.</string>
     <string name="my_location">Moje lokace</string>
-    <string name="scheduled_for_redesign_or_removal">Naplánováno přepracování nebo odstranění</string>
     <string name="destination">Cíl</string>
     <string name="triangulate_destination_location_1_instructions">Zaznamenejte svou lokaci a směr k cíli.</string>
     <string name="triangulate_self_location_1_instructions">Vyberte známou lokaci, kterou vidíte a zaznamenejte směr, ze kterého se díváte na danou lokaci.</string>

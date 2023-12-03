@@ -12,6 +12,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:rightButtonIcon="@drawable/ic_user_guide"
         tools:title="10 m" />
 
 
@@ -25,5 +26,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tileIcon="@drawable/ic_tool_cliff_height"
         app:tilePadding="64dp" />
+
+    <TextView
+        android:id="@+id/tide_disclaimer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="@dimen/default_bottom_margin"
+        android:text="@string/tool_cliff_height_disclaimer"
+        android:textAlignment="center"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

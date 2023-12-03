@@ -1057,7 +1057,6 @@
     <string name="step_progression">Adım %1$d / %2$d</string>
     <string name="autofill_source">Otomatik doldurma kaynağı</string>
     <string name="pref_keep_map_facing_up_summary">Harita, Gerçek Kuzey yerine ekranın üst kısmı ile hizalanacaktır.</string>
-    <string name="tool_deprecation_disclaimer">Bu araç yürüyüş, sırt çantasıyla gezme veya kamp yapma için kullanışlı olmadığından kaldırılabilir veya yeniden tasarlanabilir. Bu aracı faydalı bulursanız, lütfen nasıl kullandığınızı benimle %s adresinde paylaşın.</string>
     <string name="rate">Oran</string>
     <string name="enter_manually">Elle gir</string>
     <string name="rotation_amount">Dönüş: %s</string>
@@ -1096,7 +1095,6 @@
     <string name="restoring_loading_message">Geri yükleniyor…</string>
     <string name="augmented_reality_description">Kameranızla yakındaki işaretleri ve güneşi / ayı görüntüleyin</string>
     <string name="triangulate_self_location_2_instructions">Görebildiğiniz bilinen başka bir konum seçin ve bulunduğunuz yerden o konuma olan yönü kaydedin.</string>
-    <string name="scheduled_for_redesign_or_removal">Yeniden tasarımı veya kaldırması düşünülüyor</string>
     <string name="crop_map_instructions_long">Çerçevelemek için kutunun köşelerini haritanın köşelerine sürükleyin.</string>
     <string name="map_auto_rotated">Harita yönü kalibrasyon ile ayarlandı</string>
     <string name="backup">Yedekle</string>

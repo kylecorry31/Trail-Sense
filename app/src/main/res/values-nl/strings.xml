@@ -1009,7 +1009,6 @@
     <string name="pref_include_leading_zero_title">Voeg voorloopnul toe aan de tijd</string>
     <string name="center">Centrum</string>
     <string name="pref_keep_map_facing_up_summary">De kaart zal uitlijnen met de bovenkant van het scherm, in plaats van het ware noorden.</string>
-    <string name="tool_deprecation_disclaimer">Dit hulpmiddel zal misschien verwijderd worden omdat het niet praktisch is tijdens een wandeling, trektocht of kamperen. Als je het toch een nuttig hulpmiddel vind, deel a.u.b met mij hoe je het gebruikt: %s.</string>
     <string name="last_lightning_strike_at">Laatste blikseminslag om %s</string>
     <string name="now_value">Nu: %s</string>
     <string name="rate">Frequentie</string>
@@ -1067,7 +1066,6 @@
     <string name="step_progression">Stap %1$d / %2$d</string>
     <string name="restoring_loading_message">Herstellen…</string>
     <string name="triangulate_self_location_2_instructions">Kies een andere bekende locatie waar je zicht op hebt een neem de richting op vanaf waar jij bent ten opzichte van die locatie.</string>
-    <string name="scheduled_for_redesign_or_removal">Opgenomen om vernieuwd of verwijderd te worden</string>
     <string name="crop_map_instructions_long">Sleep de hoeken van het kader naar de hoeken van de kaart.</string>
     <string name="map_auto_rotated">Kaartrotatie aangepast met kalibratie</string>
     <string name="pref_backfill_temperatures_title">Werk opgenomen temperaturen bij</string>

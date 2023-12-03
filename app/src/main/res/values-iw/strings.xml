@@ -1132,7 +1132,6 @@
     <string name="astronomy_rise">זורח</string>
     <string name="no_sensor_message">להתקן שלך אין חיישן %s</string>
     <string name="missing_sensor_message_1">ל-%1$s שלך אין חיישן %2$s מובנה. למרבה הצער, זה אומר שחלק מהתכונות ב-%3$s לא יהיו זמינות.</string>
-    <string name="tool_deprecation_disclaimer">יתכן שכלי זה יוסר או יעוצב מחדש מכיוון שהוא אינו מעשי לטיולים רגליים, תרמילאים או קמפינג. אם הינך מוצא את הכלי הזה שימושי,אנא לשתף אותי כיצד הינך משתמש בו ב-%s.</string>
     <string name="enter_manually">הזנה ידנית</string>
     <string name="why_missing_sensor">ההתקן שלי חדש/יקר, למה חסר לו החיישן הזה?</string>
     <string name="augmented_reality">מציאות רבודה</string>
@@ -1159,7 +1158,6 @@
     <string name="restoring_loading_message">משחזר…</string>
     <string name="augmented_reality_description">הצגת משואות סמוכות ואת השמש / הירח עם המצלמה שלך</string>
     <string name="triangulate_self_location_2_instructions">בחירת מיקום ידוע אחר שבו ניתן לראות ולתעד את הכיוון מהמקום שבו הינך נמצא למיקום זה.</string>
-    <string name="scheduled_for_redesign_or_removal">מתוכנן לעיצוב מחדש או הסרה</string>
     <string name="backup">גיבוי</string>
     <string name="magnetic_north">צפון מגנטי</string>
     <string name="true_north_description">מצביע על הקוטב הצפוני הגיאוגרפי באמצעות הסטייה עבור המיקום שלך. זה יתיישר עם רוב המפות.</string>

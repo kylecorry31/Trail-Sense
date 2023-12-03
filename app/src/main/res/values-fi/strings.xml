@@ -241,7 +241,6 @@
     <string name="tide_deleted">Vuorovesi poistettu</string>
     <string name="thunder">Ukkonen</string>
     <string name="hours">Tuntia</string>
-    <string name="tool_deprecation_disclaimer">Tämä työkalu voidaan poistaa tai suunnitella uudelleen, koska se ei ole käytännöllinen patikointiin, reppureissuun tai retkeilyyn. Jos pidät tätä työkalua hyödyllisenä, kerro minulle, miten käytät sitä osoitteessa %s.</string>
     <string name="temperature_history">Lämpötilahistoria - viimeinen %s</string>
     <string name="pref_barometer_info_summary">Paine voi poiketa lähellä olevien asemien paineista</string>
     <string name="estimated">Arvioitu</string>
@@ -607,7 +606,6 @@
     <string name="water_boil_timer">Veden kiehumisajastin</string>
     <string name="share_ellipsis">Jaa…</string>
     <string name="quality_poor">Huono</string>
-    <string name="scheduled_for_redesign_or_removal">Ajoitettu uudelleensuunnitteluun tai poistoon</string>
     <string name="sleep_timer">Uniajastin</string>
     <string name="right_quick_action">Oikea nopea toiminta</string>
     <string name="meteor_shower">Meteorisuihku</string>
