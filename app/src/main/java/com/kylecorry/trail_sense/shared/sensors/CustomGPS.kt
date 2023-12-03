@@ -237,7 +237,10 @@ class CustomGPS(
         var shouldNotify = true
 
         // Verify satellite requirement for notification
-        if (userPrefs.requiresSatellites && (baseGPS.satellites ?: 0) < 4) {
+        // If satellite count is null, then the phone doesn't support satellite count
+        val satelliteCount = baseGPS.satellites
+        val hasFix = satelliteCount == null || (userPrefs.requiresSatellites && satelliteCount >= 4)
+        if (!hasFix) {
             shouldNotify = false
         } else {
             // Reset the timeout, there's a valid reading
