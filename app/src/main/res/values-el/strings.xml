@@ -787,7 +787,7 @@
     <string name="pref_show_nearest_tide_title">Προβολή πλησιέστερης παλίρροιας</string>
     <string name="pref_auto_low_power_title">Αυτόματη λειτουργία εξοικονόμησης ενέργειας</string>
     <string name="season_spring">Άνοιξη</string>
-    <string name="supermoon">Περίγειο σελήνης</string>
+    <string name="supermoon">Υπερσελήνη</string>
     <string name="pick_file">Επιλέξτε αρχείο</string>
     <string name="astronomy_alerts">Ειδοποιήσεις για αστρονομικά συμβάντα</string>
     <string name="export_path_error">Δεν ήταν δυνατό να εξαχθεί η διαδρομή</string>
@@ -821,4 +821,8 @@
     <string name="navigate">Πλοηγηθείτε</string>
     <string name="precipitation_hail">Χαλαζόπτωση</string>
     <string name="solar_eclipse">Έκλειψη ηλίου</string>
+    <string name="precipitation_drizzle">Ασθενής βροχή</string>
+    <string name="precipitation_small_hail">Μικρό χαλάζι</string>
+    <string name="astronomy_altitude_peak">Μεσημβρινή διάβαση</string>
+    <string name="precipitation_snow_pellets">Χιονοχάλαζο</string>
 </resources>
