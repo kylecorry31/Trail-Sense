@@ -207,7 +207,6 @@
     <string name="advanced">Fortgeschritten</string>
     <string name="tool_bubble_level_summary">Stelle fest, ob eine Oberfläche eben ist</string>
     <string name="guide_weather_prediction_title">Wettervorhersage</string>
-    <string name="guide_conserving_battery_title">Stromsparmodus</string>
     <string name="pref_adjust_for_temperature_summary">Verwende die Temperatur zur Umrechnung auf Meereshöhe</string>
     <string name="tool_bubble_level_title">Wasserwaage</string>
     <string name="edit_item_title">Gegenstand bearbeiten</string>

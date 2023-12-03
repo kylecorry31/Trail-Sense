@@ -179,7 +179,7 @@ object Tools {
                 R.drawable.ic_tool_battery,
                 R.id.action_action_experimental_tools_to_fragmentToolBattery,
                 ToolCategory.Power,
-                guideId = R.raw.conserving_battery
+                guideId = R.raw.guide_tool_battery
             ),
             if (hasCompass) Tool(
                 18,

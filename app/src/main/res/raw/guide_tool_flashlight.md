@@ -3,6 +3,8 @@ The Flashlight tool can be used to provide light or signal for help. As with any
 ## Flashlight
 Tap the flashlight button to toggle the flashlight on or off. When the flashlight is on (any mode), a notification will be displayed to allow you to quickly turn it off.
 
+On supported devices, you can adjust the brightness using the slider at the bottom.
+
 ## Strobe
 Drag the dial to the desired strobe frequency. Tap the flashlight button to toggle the strobe on or off.
 

@@ -693,7 +693,6 @@
     <string name="manual">Manuaalinen</string>
     <string name="default_pack_name">Oletuspaketti</string>
     <string name="action_inventory_clear_confirm">Tyhjennä kaikki pakatut määrät\?</string>
-    <string name="guide_conserving_battery_title">Akkua säästävä</string>
     <string name="updating">Päivitetään</string>
     <string name="unit_kilometers">Kilometrejä</string>
     <string name="lunar_eclipse">Kuunpimennys</string>

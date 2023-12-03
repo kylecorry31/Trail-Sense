@@ -22,11 +22,6 @@ object Guides {
             "TO BE UPDATED",
             listOfNotNull(
                 UserGuide(
-                    context.getString(R.string.guide_conserving_battery_title),
-                    null,
-                    R.raw.conserving_battery
-                ),
-                UserGuide(
                     context.getString(R.string.guide_signaling_for_help_title),
                     null,
                     R.raw.signaling_for_help

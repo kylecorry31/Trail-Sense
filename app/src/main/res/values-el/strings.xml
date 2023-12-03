@@ -563,7 +563,6 @@
     <string name="distance_from">Από</string>
     <string name="default_pack_name">Προκαθορισμένο πακέτο</string>
     <string name="action_inventory_clear_confirm">Εκκαθάριση όλων των συσκευασμένων ποσοτήτων;</string>
-    <string name="guide_conserving_battery_title">Εξοικονόμηση μπαταρίας</string>
     <string name="pref_show_sun_moon_compass_title">Εμφάνιση ηλίου/σελήνης στην πυξίδα</string>
     <string name="update_60_minutes">1 ώρα</string>
     <string name="always">Πάντα</string>

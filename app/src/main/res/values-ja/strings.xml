@@ -225,7 +225,6 @@
     <string name="battery_capacity_format">%s mAh</string>
     <string name="current_format">%s mA</string>
     <string name="charging_slow">低速充電中（%s）</string>
-    <string name="guide_conserving_battery_title">バッテリーの節約</string>
     <string name="beacon_create">作成</string>
     <string name="lightning">閃光</string>
     <string name="battery_health_overheat">過熱</string>

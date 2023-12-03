@@ -227,7 +227,6 @@
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="tool_bubble_level_title">气泡水平仪</string>
     <string name="guide_weather_prediction_title">天气预测</string>
-    <string name="guide_conserving_battery_title">节约电量</string>
     <string name="navigation_nearby_category">附近</string>
     <string name="forecasts_category">预测</string>
     <string name="advanced">高级设置</string>

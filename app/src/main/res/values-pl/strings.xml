@@ -144,7 +144,6 @@
     <string name="category_safety">Bezpieczeństwo</string>
     <string name="category_clothing">Odzież</string>
     <string name="category_hydration">Nawodnienie</string>
-    <string name="guide_conserving_battery_title">Oszczędzanie baterii</string>
     <string name="navigation_nearby_category">W pobliżu</string>
     <string name="forecasts_category">Prognozy</string>
     <string name="beacon_create_beacon">Punkt nawigacyjny</string>
