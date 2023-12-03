@@ -255,6 +255,7 @@ object Tools {
                 R.drawable.ic_tool_distance_convert,
                 R.id.action_toolsFragment_to_toolConvertFragment,
                 ToolCategory.Other,
+                guideId = R.raw.guide_tool_convert
             ),
             Tool(
                 27,
