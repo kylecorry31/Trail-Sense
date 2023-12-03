@@ -1,6 +1,8 @@
 The Astronomy tool can be used to see when the sun or moon is up. It can also be used to know when astronomical events are happening, such as a meteor shower or lunar eclipse.
 
-With the exception of the time until sunrise or sunset (always today), all information shown on the page is for the selected date. By default the current date is selected, but you can change it by tapping the calendar icon at the top of the screen. You can also click the search icon to find for the next occurrence of an astronomical event at your location, such as the next full moon or meteor shower. The calendar icon can be long pressed to quickly select today's date.
+With the exception of the time until sunrise or sunset (always today), all information shown on the page is for the selected date. By default the current date is selected, but you can change it by tapping the calendar icon at the top of the screen. Additionally, you can use the arrows to move to the next / previous date or long press the calendar to quickly jump to today's date.
+
+You can also click the search icon to find for the next occurrence of an astronomical event at your location, such as the next full moon or meteor shower.
 
 ## Time Until Sunrise / Sunset
 The time until sunrise or sunset is shown at the top of the screen. This respects the 'Sunrise / sunset times' in Settings > Astronomy. For a description of each time, see the Sun section below.
