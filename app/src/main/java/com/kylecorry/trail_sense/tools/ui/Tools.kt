@@ -248,7 +248,8 @@ object Tools {
                 R.id.action_tools_to_augmented_reality,
                 ToolCategory.Other,
                 context.getString(R.string.augmented_reality_description),
-                isExperimental = true
+                isExperimental = true,
+                guideId = R.raw.guide_tool_augmented_reality
             ) else null,
             Tool(
                 26,
