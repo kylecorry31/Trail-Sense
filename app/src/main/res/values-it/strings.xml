@@ -404,7 +404,6 @@
     <string name="pref_low_power_mode_summary">Disabilita alcune funzioni per risparmiare energia</string>
     <string name="cirrus">Cirro</string>
     <string name="water_boil_timer_title">Bollitura acqua</string>
-    <string name="guide_conserving_battery_title">Conservare batteria</string>
     <string name="max_temp_uncalibrated">Temperatura telefono massima (calibrata)</string>
     <string name="min_temp_calibrated">Temperatura ambiente minima (calibrata)</string>
     <string name="min_temp_uncalibrated">Temperatura telefono minima (calibrata)</string>

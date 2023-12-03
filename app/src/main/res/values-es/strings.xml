@@ -192,7 +192,6 @@
     <string name="tool_bubble_level_summary">Determina si una superficie es plana</string>
     <string name="tool_bubble_level_title">Nivel de burbuja</string>
     <string name="guide_weather_prediction_title">Predicción meteorológica</string>
-    <string name="guide_conserving_battery_title">Conservación de batería</string>
     <string name="navigation_nearby_category">Cerca</string>
     <string name="forecasts_category">Pronósticos</string>
     <string name="advanced">Avanzado</string>

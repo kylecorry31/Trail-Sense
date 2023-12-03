@@ -140,7 +140,6 @@
     <string name="gps_unavailable">GPS nem elérhető</string>
     <string name="off">Ki</string>
     <string name="barometer">Barométer</string>
-    <string name="guide_conserving_battery_title">Takarékoskodás az akkumulátorral</string>
     <string name="category_food">Étel</string>
     <string name="category_hydration">Hidratálás</string>
     <string name="category_clothing">Ruházat</string>

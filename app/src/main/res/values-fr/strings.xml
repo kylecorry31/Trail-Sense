@@ -202,7 +202,6 @@
         <item quantity="other">%d repères</item>
         <item quantity="many">%d repères</item>
     </plurals>
-    <string name="guide_conserving_battery_title">Préserver la batterie</string>
     <string name="navigation_nearby_category">À proximité</string>
     <string name="forecasts_category">Prévisions</string>
     <string name="advanced">Avancé</string>

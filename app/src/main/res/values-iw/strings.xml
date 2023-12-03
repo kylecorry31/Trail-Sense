@@ -438,7 +438,6 @@
     <string name="pref_sun_time_mode_title">זמני זריחה / שקיעה</string>
     <string name="sun_civil">אזרחי</string>
     <string name="error_occurred">אירעה שגיאה</string>
-    <string name="guide_conserving_battery_title">חיסכון בסוללה</string>
     <string name="category_shelter">מקלט</string>
     <string name="category_safety">בטיחות</string>
     <string name="category_natural">טבעי</string>

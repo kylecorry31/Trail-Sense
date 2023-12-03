@@ -727,7 +727,6 @@
     <string name="weather_monitor">氣象監測</string>
     <string name="battery_history">電量紀錄：過去嗰 %s</string>
     <string name="pref_barometer_pressure_smoothing_title">氣壓平滑化</string>
-    <string name="guide_conserving_battery_title">慳電</string>
     <string name="tool_bubble_level_summary">睇下個面係咪平</string>
     <string name="bubble_level_angles">橫：%1$s
 \n縱：%2$s</string>
