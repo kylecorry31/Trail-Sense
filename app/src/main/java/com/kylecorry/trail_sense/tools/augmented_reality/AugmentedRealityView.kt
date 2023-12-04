@@ -431,7 +431,6 @@ class AugmentedRealityView : CanvasView {
 
         AugmentedRealityUtils.getOrientation(
             orientationSensor,
-            quaternion,
             rotationMatrix,
             orientation,
             if (isTrueNorth) declinationProvider.getDeclination() else null

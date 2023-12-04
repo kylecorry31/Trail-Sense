@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.camera
 
 import android.hardware.SensorManager
 import android.opengl.Matrix
+import android.view.Surface
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.sol.math.QuaternionMath
@@ -108,33 +109,16 @@ object AugmentedRealityUtils {
      */
     fun getOrientation(
         orientationSensor: IOrientationSensor,
-        quaternion: FloatArray,
         rotationMatrix: FloatArray,
         orientation: FloatArray,
         declination: Float? = null
     ) {
-        // Convert the orientation a rotation matrix
-        orientationSensor.rawOrientation.copyInto(quaternion)
-        SensorManager.getRotationMatrixFromVector(rotationMatrix, quaternion)
-
-        // Remap the coordinate system to AR space
-        SensorManager.remapCoordinateSystem(
+        OrientationUtils.getAROrientation(
+            orientationSensor,
             rotationMatrix,
-            SensorManager.AXIS_X,
-            SensorManager.AXIS_Z,
-            rotationMatrix
+            orientation,
+            declination
         )
-
-        // Add declination
-        if (declination != null) {
-            Matrix.rotateM(rotationMatrix, 0, declination, 0f, 0f, 1f)
-        }
-
-        // Get orientation from rotation matrix
-        SensorManager.getOrientation(rotationMatrix, orientation)
-        orientation[0] = orientation[0].toDegrees()
-        orientation[1] = -orientation[1].toDegrees()
-        orientation[2] = -orientation[2].toDegrees()
     }
 
     /**
