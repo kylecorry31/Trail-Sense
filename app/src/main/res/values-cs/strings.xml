@@ -584,8 +584,8 @@
     <string name="whistle_signal_come_here">Pojďte sem</string>
     <string name="dusk_type">Soumrak (%s)</string>
     <string name="pref_barometer_info_summary">Tlak se může lišit od tlaku okolních stanic</string>
-    <string name="pref_nmea_elevation_title">Kompenzace nadmořské výšky NMEA</string>
-    <string name="pref_nmea_elevation_summary">Používá kompenzace NMEA pro převod nadmořské výšky</string>
+    <string name="pref_nmea_elevation_title">Oprava nadmořské výšky NMEA</string>
+    <string name="pref_nmea_elevation_summary">Použít NMEA (satelit) pro opravu výšek namísto vestavěného modelu</string>
     <string name="pref_barometer_pressure_smoothing_title">Vyhlazení tlaku</string>
     <string name="convert">Převést</string>
     <string name="distance">Vzdálenost</string>
@@ -1179,4 +1179,12 @@
     <string name="true_north_description">Ukazuje na zeměpisný severní pól pomocí deklinace pro vaši polohu. To odpovídá většině map.</string>
     <string name="is_there_a_way_to_fix_this">Dá se to nějak opravit?</string>
     <string name="high_sensitivity">Vysoká senzitivita</string>
+    <string name="restart_services_message">Nepodařilo se restartovat služby na pozadí. Klepněte pro restartování.</string>
+    <string name="service_restart">Restart služby</string>
+    <string name="restart_services_title">Restartovat služby</string>
+    <string name="fused_altimeter_force_calibration">Interval vynucení kalibrace</string>
+    <string name="continuous_calibration_description">Aplikace provede kalibraci při dostupné opravě GPS</string>
+    <string name="fused_altimeter_force_calibration_summary">Vynutí kalibraci každých %s</string>
+    <string name="continuous_calibration">Průběžná kalibrace</string>
+    <string name="service_restart_channel_description">Oznámení pro restart služeb</string>
 </resources>
