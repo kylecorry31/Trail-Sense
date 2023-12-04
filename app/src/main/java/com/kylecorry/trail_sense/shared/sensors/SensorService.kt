@@ -190,7 +190,7 @@ class SensorService(ctx: Context) {
         return CompassProvider(context, userPrefs.compass).get()
     }
 
-    fun getOrientation(): IOrientationSensor? {
+    fun getOrientation(): IOrientationSensor {
         return CompassProvider(context, userPrefs.compass).getOrientationSensor()
     }
 

@@ -70,11 +70,16 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
         )
     }
 
-    fun getOrientationSensor(): IOrientationSensor? {
+    fun getOrientationSensor(): IOrientationSensor {
         // TODO: This isn't used by the actual orientation sensors (they should use it)
         val useTrueNorth = prefs.useTrueNorth
 
         var source = prefs.source
+
+        // Swap out the legacy orientation sensor for the rotation vector sensor
+        if (source == CompassSource.Orientation) {
+            source = CompassSource.RotationVector
+        }
 
         // Handle if the available sources have changed (not likely)
         val allSources = getAvailableSources(context)
@@ -86,6 +91,9 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
 
         if (!allSources.contains(source)) {
             source = allSources.firstOrNull() ?: CompassSource.CustomMagnetometer
+            if (source == CompassSource.Orientation) {
+                source = CompassSource.CustomMagnetometer
+            }
         }
 
         // TODO: Apply the smoothing / quality to the orientation sensor
@@ -101,12 +109,7 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
             )
         }
 
-        if (source == CompassSource.CustomMagnetometer) {
-            return getCustomGeomagneticRotationSensor(useTrueNorth)
-        }
-
-        // TODO: Construct this from existing sensors
-        return null
+        return getCustomGeomagneticRotationSensor(useTrueNorth)
     }
 
     private fun getCustomGeomagneticRotationSensor(useTrueNorth: Boolean): CustomGeomagneticRotationSensor {

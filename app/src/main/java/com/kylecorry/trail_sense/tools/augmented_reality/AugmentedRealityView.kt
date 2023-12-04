@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Path
-import android.hardware.SensorManager
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -13,10 +12,7 @@ import com.kylecorry.andromeda.canvas.TextAlign
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.andromeda.sense.clinometer.CameraClinometer
-import com.kylecorry.andromeda.sense.clinometer.SideClinometer
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
-import com.kylecorry.sol.math.QuaternionMath
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Bearing
@@ -53,17 +49,13 @@ class AugmentedRealityView : CanvasView {
     var backgroundFillColor: Int = Color.TRANSPARENT
 
     private var rotationMatrix = FloatArray(16)
-    private val quaternion = FloatArray(4)
     private val orientation = FloatArray(3)
     private var size = Size(width.toFloat(), height.toFloat())
 
     // Sensors / preferences
     private val userPrefs = UserPreferences(context)
     private val sensors = SensorService(context)
-    private val compass = sensors.getCompass()
-    private val clinometer = CameraClinometer(context)
-    private val sideClinometer = SideClinometer(context)
-    private var orientationSensor: IOrientationSensor? = sensors.getOrientation()
+    private var orientationSensor: IOrientationSensor = sensors.getOrientation()
     private val gps = sensors.getGPS(frequency = Duration.ofMillis(200))
     private val altimeter = sensors.getAltimeter(gps = gps)
     private val declinationProvider = DeclinationFactory().getDeclinationStrategy(
@@ -72,9 +64,7 @@ class AugmentedRealityView : CanvasView {
     )
     private val isTrueNorth = userPrefs.compass.useTrueNorth
     private val formatter = FormatService.getInstance(context)
-
-    private val orientationLock = Any()
-
+    
     /**
      * The compass bearing of the device in degrees.
      */
@@ -123,27 +113,15 @@ class AugmentedRealityView : CanvasView {
         gps.start(this::onSensorUpdate)
         altimeter.start(this::onSensorUpdate)
         // Recreate the orientation sensor - seems to be an upstream bug with the rotation vector that if you reuse, it may not be accurate
-        orientationSensor?.stop(this::onSensorUpdate)
+        orientationSensor.stop(this::onSensorUpdate)
         orientationSensor = sensors.getOrientation()
-        if (orientationSensor != null) {
-            orientationSensor?.start(this::onSensorUpdate)
-        } else {
-            compass.start(this::onSensorUpdate)
-            clinometer.start(this::onSensorUpdate)
-            sideClinometer.start(this::onSensorUpdate)
-        }
+        orientationSensor.start(this::onSensorUpdate)
     }
 
     fun stop() {
         gps.stop(this::onSensorUpdate)
         altimeter.stop(this::onSensorUpdate)
-        if (orientationSensor != null) {
-            orientationSensor?.stop(this::onSensorUpdate)
-        } else {
-            compass.stop(this::onSensorUpdate)
-            clinometer.stop(this::onSensorUpdate)
-            sideClinometer.stop(this::onSensorUpdate)
-        }
+        orientationSensor.stop(this::onSensorUpdate)
     }
 
     fun addLayer(layer: ARLayer) {
@@ -188,20 +166,6 @@ class AugmentedRealityView : CanvasView {
     }
 
     private fun onSensorUpdate(): Boolean {
-        if (orientationSensor != null) {
-            // No need to update the positions because the orientation sensor is valid
-            return true
-        }
-        if (isTrueNorth) {
-            compass.declination = declinationProvider.getDeclination()
-        } else {
-            compass.declination = 0f
-        }
-        synchronized(orientationLock) {
-            azimuth = compass.rawBearing
-            inclination = clinometer.incline
-            sideInclination = sideClinometer.angle - 90f
-        }
         return true
     }
 
@@ -415,19 +379,6 @@ class AugmentedRealityView : CanvasView {
 
     private fun updateOrientation() {
         size = Size(width.toFloat(), height.toFloat())
-
-        val orientationSensor = orientationSensor
-        if (orientationSensor == null) {
-            QuaternionMath.fromEuler(
-                floatArrayOf(inclination, -sideInclination, -azimuth),
-                quaternion
-            )
-            SensorManager.getRotationMatrixFromVector(
-                rotationMatrix,
-                quaternion
-            )
-            return
-        }
 
         AugmentedRealityUtils.getOrientation(
             orientationSensor,
