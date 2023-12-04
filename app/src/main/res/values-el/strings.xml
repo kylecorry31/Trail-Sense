@@ -812,7 +812,7 @@
     <string name="no_clouds">Ανέφελος Ουρανός</string>
     <string name="precipitation_snow">Χιονόπτωση</string>
     <string name="pref_nmea_elevation_summary">Χρήση NMEA (δορυφόρος) για τη διόρθωση υψομέτρων, αντί για το ενσωματωμένο πρότυπο</string>
-    <string name="gps_unavailable_resolution">Ενεργοποιήστε την τοποθεσία ή αλλάξτε την πηγή της τοποθεσίας σας σε Μόνο στη Συσκευή ή Υψηλή Ακρίβεια.</string>
+    <string name="gps_unavailable_resolution">Ενεργοποιήστε την τοποθεσία ή αλλάξτε την πηγή της τοποθεσίας σας σε Μόνο στη Συσκευή ή Υψηλή Ακρίβεια</string>
     <string name="whistle_signal_acknowledged">Έγινε αντιληπτό</string>
     <string name="pref_cell_signal_refresh_cache_title">Ανανέωση κρυφής μνήμης του σήματος δικτύου κινητής τηλεφωνίας</string>
     <string name="sun">Ήλιος</string>
@@ -824,4 +824,79 @@
     <string name="precipitation_small_hail">Μικρό χαλάζι</string>
     <string name="astronomy_altitude_peak">Μεσημβρινή διάβαση</string>
     <string name="precipitation_snow_pellets">Χιονοχάλαζο</string>
+    <string name="precipitation_chance">Πιθανότητα υετού: %s</string>
+    <string name="points">Δείκτες</string>
+    <string name="save">Αποθήκευση</string>
+    <string name="line_style">Ύφος γραμμής</string>
+    <string name="allow_ignore_battery_restrictions_instructions">Η άρση των περιορισμών της μπαταρίας για το Trail Sense μπορεί να βελτιώσει την ακρίβεια.
+\n
+\nΣτις περισσότερες συσκευές, αγγίξτε στο \'%s\', στη συνέχεια μεταβείτε σε όλες τις εφαρμογές και απενεργοποιήστε τη βελτιστοποίηση μπαταρίας για το Trail Sense.
+\n
+\nΕπισκεφθείτε τη διεύθυνση [Don\'t kill my app](https://dontkillmyapp.com/) για οδηγίες σχετικά με την εκάστοτε συσκευή.</string>
+    <string name="warning">Προειδοποίηση</string>
+    <string name="distance_alert_distance_reached">Έχετε φτάσει τα %s</string>
+    <string name="reset_distance_title">Επαναφορά απόστασης;</string>
+    <string name="distance_alert">Ειδοποίηση απόστασης</string>
+    <string name="saved">Αποθηκεύτηκε</string>
+    <string name="remove_battery_restrictions">Άρση περιορισμών μπαταρίας;</string>
+    <string name="notification_backtrack_update_title">Ενημέρωση Ιχνηθεσίας</string>
+    <string name="stride_length_stand_still">Σταθείτε σε ακινησία</string>
+    <string name="explore">Εξερευνήστε</string>
+    <string name="merging">Γίνεται συγχώνευση</string>
+    <string name="estimate_stride_length">Υπολογισμός μήκους βηματισμού</string>
+    <string name="notification_weather_update_content">Καταγραφέται η βαρομετρική πίεση</string>
+    <string name="or">Είτε</string>
+    <string name="difficulty">Βαθμός δυσκολίας</string>
+    <string name="exporting_map">Ο χάρτης εξάγεται</string>
+    <string name="navigating_to_nearest_path_point">Πλοήγηση στον πλησιέστερο δείκτη στη διαδρομή</string>
+    <string name="pref_only_navigate_path_points_title">Πλοήγηση μόνο προς καταχωρημένα σημεία</string>
+    <string name="current_speed_gps">Τρέχουσα ταχύτητα (GPS)</string>
+    <string name="waypoint">Σημείο διαδρομής</string>
+    <string name="current_speed_pedometer">Τρέχουσα ταχύτητα (Βηματομετρητής)</string>
+    <string name="easy">Εύκολο</string>
+    <string name="current_speed">Τρέχουσα ταχύτητα</string>
+    <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
+    <string name="no_camera_access">Δεν είναι δυνατή η πρόσβαση στην κάμερα</string>
+    <string name="map_file">Αρχείο (JPG, PNG, PDF)</string>
+    <string name="onboarding_explore">- Δημιουργήθηκε για χρήση σε πεζοπορία, ορειβασία, κατασκήνωση και αναζήτηση γεωκρυπτών
+\n
+\n- Τοποθετήστε τοπόσημα και πλοηγηθείτε σε αυτά
+\n
+\n- Ακολουθήστε διαδρομές
+\n
+\n- Ακολουθήστε τα
+\nβήματά σας με τον ιχνηθέτη
+\n
+\n- Φτιάξτε ένα σχέδιο και προετοιμάστε τις αποσκευές σας
+\n
+\n- Λάβετε ειδοποιήσεις πρίν δύσει ο ήλιος
+\n
+\n- Προβλέψτε τον καιρό
+\n
+\n- Χρησιμοποιήστε το τηλέφωνό σας ως φακό
+\n
+\n‐Και πολλά άλλα!</string>
+    <string name="camera_capture">Απαθανάτιση</string>
+    <string name="tool_temperature_estimation_description">Κάντε πρόβλεψη της θερμοκρασίας σε διαφορετικό υψόμετρο</string>
+    <string name="notification_weather_update_title">Ενημέρωση Παρακολούθησης Καιρού</string>
+    <string name="pressure_tendency">Τάση</string>
+    <string name="pref_start_on_boot_title">Άνοιγμα εφαρμογής στην εκκίνηση του τηλεφώνου</string>
+    <string name="stride_length_walk">Προχωρήστε σε ευθεία γραμμή, αγγίξτε τέλος στην οθόνη όταν ολοκληρώσετε</string>
+    <string name="choose_photo">Επιλέξτε μια φωτογραφία</string>
+    <string name="remove_distance_alert">Αφαίρεση ειδοποίησης απόστασης (%s);</string>
+    <string name="error">Σφάλμα</string>
+    <string name="results">Αποτελέσματα</string>
+    <string name="map_exported">Ο χάρτης εξήχθη</string>
+    <string name="average_speed">Μέση ταχύτητα</string>
+    <string name="obscuration">Επισκότιση</string>
+    <string name="notification_backtrack_update_content">Καταγράφεται η τοποθεσία σας</string>
+    <string name="average_speed_backtrack">Μέση ταχύτητα (Ιχνηθέτης)</string>
+    <string name="bearing">Προσανατολισμός</string>
+    <string name="hard">Δύσκολο</string>
+    <string name="steps">Βήματα</string>
+    <string name="take_photo">Φωτογραφίστε</string>
+    <string name="file">Αρχείο</string>
+    <string name="up_to_amount">Έως %s</string>
+    <string name="average_speed_pedometer">Μέση ταχύτητα (Βηματομετρητής)</string>
+    <string name="point_style">Ύφος δείκτη</string>
 </resources>
