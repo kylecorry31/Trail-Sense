@@ -114,7 +114,7 @@ object AugmentedRealityUtils {
         declination: Float? = null
     ) {
         // Convert the orientation a rotation matrix
-        QuaternionMath.inverse(orientationSensor.rawOrientation, quaternion)
+        orientationSensor.rawOrientation.copyInto(quaternion)
         SensorManager.getRotationMatrixFromVector(rotationMatrix, quaternion)
 
         // Remap the coordinate system to AR space

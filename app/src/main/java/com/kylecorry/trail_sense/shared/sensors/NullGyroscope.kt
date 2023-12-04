@@ -16,4 +16,6 @@ class NullGyroscope : NullSensor(), IGyroscope {
         get() = Quaternion.zero.toFloatArray()
     override val angularRate: Euler
         get() = Euler(0f, 0f, 0f)
+    override val headingAccuracy: Float?
+        get() = null
 }
