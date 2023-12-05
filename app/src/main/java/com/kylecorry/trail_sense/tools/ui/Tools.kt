@@ -222,7 +222,7 @@ object Tools {
                 R.id.action_tools_to_temperature_estimation,
                 ToolCategory.Weather,
                 context.getString(R.string.tool_temperature_estimation_description),
-                guideId = R.raw.weather
+                guideId = R.raw.guide_tool_temperature_estimation
             ),
             Tool(
                 23,
