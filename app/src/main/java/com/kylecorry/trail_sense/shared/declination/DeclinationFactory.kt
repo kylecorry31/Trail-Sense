@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.shared.declination
 
-import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.trail_sense.settings.infrastructure.IDeclinationPreferences
 
 class DeclinationFactory {

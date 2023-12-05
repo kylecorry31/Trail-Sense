@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.signal.CellNetworkQuality
 import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.sol.math.SolMath.roundPlaces

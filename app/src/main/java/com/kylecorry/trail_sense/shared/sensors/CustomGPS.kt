@@ -5,8 +5,8 @@ import android.content.Context
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.time.CoroutineTimer
-import com.kylecorry.andromeda.location.GPS
-import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.sense.location.GPS
+import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.sol.math.RingBuffer
 import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.time.Time.isInPast

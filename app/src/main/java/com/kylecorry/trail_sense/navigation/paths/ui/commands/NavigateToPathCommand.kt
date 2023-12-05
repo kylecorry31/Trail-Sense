@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.navigation.paths.ui.commands
 
-import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.IBeaconNavigator
 import com.kylecorry.trail_sense.navigation.paths.domain.Path
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint

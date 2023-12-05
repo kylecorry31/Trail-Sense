@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.maps.ui.mappers
 
 import android.content.Context
 import androidx.lifecycle.LifecycleOwner
-import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.ceres.list.ListItem
 import com.kylecorry.ceres.list.ListItemMapper
 import com.kylecorry.trail_sense.tools.maps.domain.IMap

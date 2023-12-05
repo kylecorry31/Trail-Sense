@@ -22,3 +22,4 @@ build-cache/
 /app/dev/
 /app/nightly/
 release-builds-helper.sh
+.idea/appInsightsSettings.xml

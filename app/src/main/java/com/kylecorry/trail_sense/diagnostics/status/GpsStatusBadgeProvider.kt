@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.diagnostics.status
 
 import android.content.Context
 import androidx.annotation.ColorInt
-import com.kylecorry.andromeda.location.GPS
-import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.sense.location.GPS
+import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService

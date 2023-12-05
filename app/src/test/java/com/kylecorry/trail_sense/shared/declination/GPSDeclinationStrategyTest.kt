@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.shared.declination
 
-import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.sol.science.geology.IGeologyService
 import com.kylecorry.sol.units.Coordinate
 import org.junit.jupiter.api.Assertions.assertEquals

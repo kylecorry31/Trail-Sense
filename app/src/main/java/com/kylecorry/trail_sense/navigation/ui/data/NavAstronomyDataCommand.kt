@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.navigation.ui.data
 
 import com.kylecorry.andromeda.core.coroutines.onDefault
-import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.shared.commands.CoroutineValueCommand
 import java.time.LocalDate

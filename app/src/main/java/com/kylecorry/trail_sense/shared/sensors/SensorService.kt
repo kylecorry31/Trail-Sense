@@ -7,13 +7,14 @@ import com.kylecorry.andromeda.battery.Battery
 import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.andromeda.core.sensors.ISpeedometer
 import com.kylecorry.andromeda.core.sensors.IThermometer
-import com.kylecorry.andromeda.location.GPS
-import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.sense.location.GPS
+import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.accelerometer.GravitySensor
 import com.kylecorry.andromeda.sense.accelerometer.IAccelerometer
 import com.kylecorry.andromeda.sense.accelerometer.LowPassAccelerometer
+import com.kylecorry.andromeda.sense.altitude.BarometricAltimeter
 import com.kylecorry.andromeda.sense.barometer.Barometer
 import com.kylecorry.andromeda.sense.barometer.IBarometer
 import com.kylecorry.andromeda.sense.compass.ICompass
@@ -31,6 +32,7 @@ import com.kylecorry.andromeda.sense.temperature.AmbientThermometer
 import com.kylecorry.andromeda.sense.temperature.Thermometer
 import com.kylecorry.andromeda.signal.CellSignalSensor
 import com.kylecorry.andromeda.signal.ICellSignalSensor
+import com.kylecorry.sol.units.Pressure
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -150,10 +152,12 @@ class SensorService(ctx: Context) {
             return OverrideAltimeter(context)
         } else if (mode == UserPreferences.AltimeterMode.Barometer && hasBarometer) {
             return CachingAltimeterWrapper(
-                context, Barometer(
-                    context,
-                    ENVIRONMENT_SENSOR_DELAY,
-                    seaLevelPressure = userPrefs.seaLevelPressureOverride
+                context, BarometricAltimeter(
+                    Barometer(
+                        context,
+                        ENVIRONMENT_SENSOR_DELAY
+                    ),
+                    seaLevelPressure = Pressure.hpa(userPrefs.seaLevelPressureOverride)
                 )
             )
         } else {

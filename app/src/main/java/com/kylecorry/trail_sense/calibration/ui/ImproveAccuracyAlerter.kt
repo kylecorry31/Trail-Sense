@@ -8,7 +8,7 @@ import androidx.core.text.scale
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.ISensor
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R

@@ -133,13 +133,12 @@ dependencies {
     implementation("com.google.android.flexbox:flexbox:3.0.0")
 
     // Andromeda
-    val andromedaVersion = "086c107bf7"
+    val andromedaVersion = "0957d47d67"
     implementation("com.github.kylecorry31.andromeda:core:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:fragments:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:forms:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:csv:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:background:$andromedaVersion")
-    implementation("com.github.kylecorry31.andromeda:location:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:camera:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:gpx:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:sound:$andromedaVersion")

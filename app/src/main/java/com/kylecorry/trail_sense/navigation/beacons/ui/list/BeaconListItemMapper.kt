@@ -6,7 +6,7 @@ import android.widget.ImageView
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
-import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.ceres.list.ListIcon
 import com.kylecorry.ceres.list.ListItem
 import com.kylecorry.ceres.list.ListItemMapper

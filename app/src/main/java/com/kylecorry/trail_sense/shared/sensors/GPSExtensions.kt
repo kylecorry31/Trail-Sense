@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.shared.sensors
 
-import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.sense.location.IGPS
 
 fun IGPS.hasFix(): Boolean {
     if (!hasValidReading) {

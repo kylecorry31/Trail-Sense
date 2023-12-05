@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.pedometer.infrastructure.stride_length
 
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
-import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.sense.pedometer.IPedometer
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance

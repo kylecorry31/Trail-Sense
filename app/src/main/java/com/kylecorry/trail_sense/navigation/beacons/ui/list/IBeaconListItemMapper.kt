@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.navigation.beacons.ui.list
 
 import android.content.Context
-import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.ceres.list.ListItem
 import com.kylecorry.ceres.list.ListItemMapper
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon

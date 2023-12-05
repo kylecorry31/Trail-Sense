@@ -20,6 +20,7 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sense.clinometer.Clinometer
 import com.kylecorry.andromeda.sense.clinometer.IClinometer
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
+import com.kylecorry.sol.math.SolMath.normalizeAngle
 import com.kylecorry.sol.science.geology.AvalancheRisk
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Distance
@@ -264,11 +265,12 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         touchTime = Instant.now()
         startIncline = clinometer.incline
         binding.cameraClinometer.startInclination = startIncline
-        binding.clinometer.startAngle = clinometer.incline
+        // TODO: This should just be clinometer.angle
+        binding.clinometer.startAngle = normalizeAngle(-clinometer.angle + 180f)
     }
 
     private fun setEndAngle() {
-        slopeAngle = clinometer.incline
+        slopeAngle = normalizeAngle(-clinometer.angle + 180f)
         slopeIncline = clinometer.incline
     }
 
@@ -339,7 +341,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         binding.cameraViewHolder.isVisible = useCamera
         binding.clinometer.isInvisible = useCamera
 
-        val angle = slopeAngle ?: clinometer.incline
+        val angle = slopeAngle ?: normalizeAngle(-clinometer.angle + 180f)
         val incline = slopeIncline ?: clinometer.incline
 
         if (hapticsEnabled) {

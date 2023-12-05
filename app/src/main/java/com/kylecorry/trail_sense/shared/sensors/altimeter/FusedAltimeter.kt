@@ -7,7 +7,7 @@ import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.andromeda.core.time.CoroutineTimer
-import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.sense.barometer.IBarometer
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.roundPlaces

@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.weather.infrastructure.commands
 
 import android.content.Context
-import com.kylecorry.andromeda.location.IGPS
+import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.extensions.onDefault
