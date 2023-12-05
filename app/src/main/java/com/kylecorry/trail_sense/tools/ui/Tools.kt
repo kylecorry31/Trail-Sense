@@ -204,7 +204,7 @@ object Tools {
                 R.drawable.cloud,
                 R.id.action_weather,
                 ToolCategory.Weather,
-                guideId = R.raw.weather
+                guideId = R.raw.guide_tool_weather
             ) else null,
             Tool(
                 21,

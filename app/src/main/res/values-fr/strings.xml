@@ -208,7 +208,6 @@
     <string name="tap_sun_moon_hint">Appuyer sur les astres pour obtenir des détails sur leurs positions</string>
     <string name="tool_bubble_level_summary">Permet de déterminer la planéité d\'une surface</string>
     <string name="tool_bubble_level_title">Niveau à bulle</string>
-    <string name="guide_weather_prediction_title">Prévisions météorologiques</string>
     <string name="tool_user_guide_summary">Un manuel pour la prise en main de Trail Sense</string>
     <string name="tool_user_guide_title">Guide d\'utilisation</string>
     <string name="category_natural">Naturel</string>

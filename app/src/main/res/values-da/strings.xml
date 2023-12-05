@@ -633,7 +633,6 @@
     <string name="tap_sun_moon_hint">Tryk på sol eller måne for positionsdetaljer</string>
     <string name="forecasts_category">Prognoser</string>
     <string name="navigation_nearby_category">Nærved</string>
-    <string name="guide_weather_prediction_title">Vejrprognose</string>
     <string name="tool_bubble_level_title">Vaterpas</string>
     <string name="tool_bubble_level_summary">Bestem om overflader er flade</string>
     <string name="category_fire">Ild</string>

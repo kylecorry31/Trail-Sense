@@ -192,7 +192,6 @@
     <string name="preview">Προεπισκόπηση</string>
     <string name="gallon_format">%s gal</string>
     <string name="navigation_guide_description">Χρήση τοπόσημων και διαδρομών</string>
-    <string name="guide_weather_prediction_title">Πρόβλεψη καιρού</string>
     <string name="compass_unavailable">Πυξίδα μη διαθέσιμη</string>
     <string name="no_sensor_message">Η συσκευή σας δεν διαθέτει αισθητήρα για χρήση ως %s</string>
     <string name="clinometer_measure_distance_instructions">Για να μετρήσετε την απόσταση ενός στόχου με ύψος %s:

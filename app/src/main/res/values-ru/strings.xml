@@ -211,7 +211,6 @@
     <string name="no_group">Не в группе</string>
     <string name="tap_sun_moon_hint">Коснитесь Солнца или Луны, чтобы узнать о местоположении</string>
     <string name="forecasts_category">Прогнозы</string>
-    <string name="guide_weather_prediction_title">Прогноз погоды</string>
     <string name="category_natural">Природное</string>
     <string name="category_safety">Безопасность</string>
     <string name="category_shelter">Укрытие</string>

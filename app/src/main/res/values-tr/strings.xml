@@ -444,7 +444,6 @@
     <string name="direction_south_west">SW</string>
     <string name="tool_bubble_level_summary">yüzeylerin düz olup olmadığını belirle</string>
     <string name="tool_bubble_level_title">Su Terazisi</string>
-    <string name="guide_weather_prediction_title">Hava durumu tahmini</string>
     <string name="direction_north_west">NW</string>
     <string name="direction_south_east">SE</string>
     <string name="direction_north_east">NE</string>

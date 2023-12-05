@@ -258,7 +258,6 @@
     <string name="precise_temp_f_format">%s °F</string>
     <string name="beacon_create_beacon">ビーコン</string>
     <string name="forecasts_category">予報</string>
-    <string name="guide_weather_prediction_title">天気予測</string>
     <string name="tool_bubble_level_summary">表面が平らかどうかを確かめる</string>
     <string name="category_food">食品</string>
     <string name="category_hydration">水分</string>

@@ -466,7 +466,6 @@
     <string name="pref_category_about">אודות</string>
     <string name="water_boil_timer">טיימר להרתחת מים</string>
     <string name="precise_inches_format">%s אינץ\'</string>
-    <string name="guide_weather_prediction_title">תחזית מזג האוויר</string>
     <string name="category_food">מזון</string>
     <string name="category_clothing">ביגוד</string>
     <string name="category_medical">רפואי</string>

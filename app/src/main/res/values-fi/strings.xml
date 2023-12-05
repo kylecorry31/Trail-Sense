@@ -220,7 +220,6 @@
     <string name="high_amount">Korkea (%s)</string>
     <string name="navigation_guide_description">Majakoiden ja polkujen käyttö</string>
     <string name="pref_include_leading_zero_title">Lisää alkunolla aikaan</string>
-    <string name="guide_weather_prediction_title">Sääennuste</string>
     <string name="precipitation_chance">Sateen mahdollisuus: %s</string>
     <string name="compass_unavailable">Kompassi ei ole käytettävissä</string>
     <string name="clinometer_measure_distance_instructions">Etäisyyden mittaaminen kohteeseen, joka on %s pitkä:

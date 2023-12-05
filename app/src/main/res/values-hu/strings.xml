@@ -453,7 +453,6 @@
     <string name="tap_sun_moon_hint">Nyomj a Napra vagy a Holdra a pozíció részleteiért</string>
     <string name="forecasts_category">Előrejelzések</string>
     <string name="navigation_nearby_category">Közeli</string>
-    <string name="guide_weather_prediction_title">Időjárás jóslása</string>
     <string name="pref_privacy_policy_title">Adatvédelmi irányelvek</string>
     <string name="category_medical">Egészségügy</string>
     <string name="category_shelter">Búvóhely</string>

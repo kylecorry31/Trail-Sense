@@ -368,7 +368,6 @@
     <string name="navigation_nearby_category">Nearby</string>
     <string name="pref_navigation_header_key" translatable="false">pref_navigation_header_key</string>
     <string name="pref_astronomy_category" translatable="false">pref_astronomy_category</string>
-    <string name="guide_weather_prediction_title">Weather prediction</string>
     <string name="tool_bubble_level_title">Bubble Level</string>
     <string name="tool_bubble_level_summary">Determine if surfaces are flat</string>
     <string name="other">Other</string>

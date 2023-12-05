@@ -46,11 +46,6 @@ object Guides {
                     null,
                     R.raw.determine_location_without_gps
                 ),
-                UserGuide(
-                    context.getString(R.string.guide_weather_prediction_title),
-                    null,
-                    R.raw.weather
-                ),
                 if (Sensors.hasBarometer(context)) UserGuide(
                     context.getString(R.string.guide_barometer_calibration_title),
                     null,

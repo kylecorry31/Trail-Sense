@@ -264,7 +264,6 @@
     <string name="tool_ruler_title">Linijka</string>
     <string name="precise_centimeters_format">%s cm</string>
     <string name="guide_recommended_apps_description">Przydatne aplikacje w sytuacjach surwiwalowych</string>
-    <string name="guide_weather_prediction_title">Przewidywanie pogody</string>
     <string name="tool_battery_title">Bateria</string>
     <string name="discharging_fast">Szybkie rozładowywanie (%s)</string>
     <string name="discharging_slow">Powolne rozładowywanie (%s)</string>
