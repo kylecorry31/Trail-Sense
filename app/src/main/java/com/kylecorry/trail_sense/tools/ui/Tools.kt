@@ -147,6 +147,7 @@ object Tools {
                 R.drawable.ic_tool_clock,
                 R.id.action_action_experimental_tools_to_toolClockFragment,
                 ToolCategory.Time,
+                guideId = R.raw.guide_tool_clock
             ),
             Tool(
                 14,
