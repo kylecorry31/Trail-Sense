@@ -69,7 +69,6 @@ If a solar eclipse is happening on the selected date at your location, it will s
 ## Sunset Alerts
 Alerts can be set for sunset so you don't get caught outside in the dark. To set an alert, you can open Settings > Astronomy and enable 'Sunset alerts'. You can adjust how far in advance of sunset you want to be notified by adjusting the 'Sunset alert time' setting. There is also a quick action available for the sunset alert, see below for more information.
 
-
 ## Astronomy Alerts
 Alerts can be set for astronomical events so you don't miss them. To set an alert, you can open Settings > Astronomy and enable the alerts you want to be notified about for your location. You can be notified for meteor showers, lunar eclipses, and solar eclipses. The alert will be shown before the event starts, up to 24 hours in advance.
 

@@ -5,6 +5,8 @@ The weather prediction appears at the top of your screen. This does not use the 
 
 If the Weather Monitor is on, it records pressure history automatically. Otherwise, pressure updates only occur when you open the Weather tool. For accuracy, it's best to record pressure every 30 minutes.
 
+You can adjust prediction sensitivity in Settings > Weather > Forecast sensitivity. Higher sensitivity may detect more patterns but might yield more false predictions.
+
 ## Weather Monitor
 The Weather Monitor runs in the background to record pressure history. Enable it by clicking the start icon at the bottom right. This causes a notification to appear with the current prediction and an option to stop the Weather Monitor. You can also stop it by clicking the stop icon in the bottom right.
 
@@ -12,10 +14,16 @@ To change the recording frequency, click the time under the Weather Monitor labe
 
 For better accuracy, grant Trail Sense Location permission to determine your elevation via GPS. This helps convert pressure to sea level pressure, improving prediction accuracy.
 
-You can also enable daily weather notifications in Settings > Weather > Daily weather notification. Without the Weather Monitor being active, you won't receive these notifications.
+In Settings > Weather, you can customize the notification to show:
+- **Pressure**: Displays the current pressure.
+- **Temperature**:  Displays the current temperature (refer to Sensors > Thermometer guide for details).
+
+You can also enable daily weather notifications in Settings > Weather > Daily weather notification. Without the Weather Monitor being active, you won't receive these notifications. The timing of this notification is configurable in Settings > Weather > Daily weather time.
+
+You can disable Weather Monitor notifications in Android's notification settings for Trail Sense.
 
 ## Storm Alert
-If the Weather Monitor is active, Trail Sense can notify you when a storm is detected. Enable this in Settings > Weather > Storm Alert.
+If the Weather Monitor is active, Trail Sense can notify you of storms. Enable this in Settings > Weather > Storm Alert. You can adjust the sensitivity in Settings > Weather > Storm sensitivity. Higher sensitivity might trigger false alerts, while lower sensitivity could miss some storms.
 
 ## Weather Details
 The Weather tool also provides more information about the current and predicted weather.
@@ -40,28 +48,13 @@ The last logged cloud type appears in the weather list. Clicking on it provides 
 ### Weather Front
 The current weather front is displayed in the weather list. Fronts typically indicate weather changes and are often associated with precipitation and wind. Clicking on it provides a description of the weather front.
 
+## Exporting Weather Data
+You can export the recorded weather data to a CSV file with Settings > Weather > Export weather records.
+
 ## Quick Action
 The Weather Monitor quick action is available on the Weather and Tools tabs. You can enable the quick action in the settings for the tab you want it on.
 
 To use the quick action, tap the Weather Monitor quick action button to toggle it on or off.
-
-## Settings
-Settings for the Weather tool can be found in Settings > Weather.
-
-- **Left quick action**: The quick action that appears in the top left.
-- **Right quick action**: The quick action that appears in the top right.
-- **Monitor Weather**: Enables the Weather Monitor.
-- **Storm alerts**: Enables storm alerts.
-- **Storm sensitivity**: The sensitivity of storm alerts. A higher value means more storms will be detected, but may also result in false alerts.
-- **Forecast sensitivity**: The sensitivity of the weather forecast. A higher value means more weather patterns will be detected, but may also result in false predictions.
-- **Notifications (Weather Monitor)**: Links to Android's notification settings for Trail Sense.
-- **Show pressure in notification**: Displays the current pressure in the Weather Monitor notification.
-- **Show temperature in notification**: Displays the current temperature in the Weather Monitor notification.
-- **Daily weather notification**: Enables daily weather notifications.
-- **Daily weather time**: The approximate time of day to send the daily weather notification.
-- **Weather update frequency**: The frequency of pressure updates when the Weather Monitor is active.
-- **Show colored notification icon**: Displays the forecast icon in color when you view the notification.
-- **Export weather records**: Exports weather records to a CSV file.
 
 ## Accuracy
 The weather prediction is a best guess using available sensor data, and may not be accurate. If Trail Sense says it is going to be clear but you see what appears to be storm clouds rolling in, trust your instincts - some times storms roll in with gradual changes in pressure. Seek shelter if you sense a storm approaching, regardless of Trail Sense's prediction.
