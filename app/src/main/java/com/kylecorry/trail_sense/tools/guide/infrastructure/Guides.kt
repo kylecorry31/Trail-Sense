@@ -57,11 +57,6 @@ object Guides {
                     R.raw.calibrating_thermometer
                 ),
                 UserGuide(
-                    context.getString(R.string.guide_packing_list),
-                    null,
-                    R.raw.packing_lists
-                ),
-                UserGuide(
                     context.getString(R.string.clinometer_title),
                     context.getString(R.string.tool_clinometer_summary),
                     R.raw.clinometer

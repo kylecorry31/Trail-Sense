@@ -265,7 +265,7 @@ object Tools {
                 R.drawable.ic_tool_pack,
                 R.id.action_action_experimental_tools_to_action_inventory,
                 ToolCategory.Other,
-                guideId = R.raw.packing_lists
+                guideId = R.raw.guide_tool_packing_lists
             ),
             if (hasCompass) Tool(
                 28,
