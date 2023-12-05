@@ -17,9 +17,8 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.pickers.Pickers
-import com.kylecorry.andromeda.sense.clinometer.CameraClinometer
+import com.kylecorry.andromeda.sense.clinometer.Clinometer
 import com.kylecorry.andromeda.sense.clinometer.IClinometer
-import com.kylecorry.andromeda.sense.clinometer.SideClinometer
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.sol.science.geology.AvalancheRisk
 import com.kylecorry.sol.science.geology.Geology
@@ -40,8 +39,9 @@ import kotlin.math.min
 class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
-    private val cameraClinometer by lazy { CameraClinometer(requireContext()) }
-    private val sideClinometer by lazy { SideClinometer(requireContext()) }
+    private val orientation by lazy { sensorService.getOrientation() }
+    private val cameraClinometer by lazy { Clinometer(orientation, isAugmentedReality = true) }
+    private val sideClinometer by lazy { Clinometer(orientation, isAugmentedReality = false) }
     private val deviceOrientation by lazy { sensorService.getDeviceOrientationSensor() }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val markdown by lazy { MarkdownService(requireContext()) }
@@ -264,11 +264,11 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         touchTime = Instant.now()
         startIncline = clinometer.incline
         binding.cameraClinometer.startInclination = startIncline
-        binding.clinometer.startAngle = clinometer.angle
+        binding.clinometer.startAngle = clinometer.incline
     }
 
     private fun setEndAngle() {
-        slopeAngle = clinometer.angle
+        slopeAngle = clinometer.incline
         slopeIncline = clinometer.incline
     }
 
@@ -339,7 +339,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         binding.cameraViewHolder.isVisible = useCamera
         binding.clinometer.isInvisible = useCamera
 
-        val angle = slopeAngle ?: clinometer.angle
+        val angle = slopeAngle ?: clinometer.incline
         val incline = slopeIncline ?: clinometer.incline
 
         if (hapticsEnabled) {

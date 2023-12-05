@@ -5,6 +5,7 @@ import android.opengl.Matrix
 import android.view.Surface
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
+import com.kylecorry.andromeda.sense.orientation.OrientationUtils
 import com.kylecorry.sol.math.QuaternionMath
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.real

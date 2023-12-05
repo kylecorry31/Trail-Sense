@@ -10,45 +10,40 @@ import com.kylecorry.andromeda.core.ui.VerticalConstraintType
 import com.kylecorry.andromeda.core.ui.align
 import com.kylecorry.andromeda.core.ui.alignToVector
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.sense.orientation.GravityOrientationSensor
+import com.kylecorry.andromeda.sense.level.Level
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentLevelBinding
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import kotlin.math.abs
 import kotlin.math.atan2
 
 class LevelFragment : BoundFragment<FragmentLevelBinding>() {
 
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
-    // TODO: Eventually switch to the rotation sensors
-    private val orientationSensor by lazy { GravityOrientationSensor(requireContext()) }
+    private val level by lazy { Level(SensorService(requireContext()).getOrientation()) }
     private val throttle = Throttle(20)
 
     override fun onResume() {
         super.onResume()
-        orientationSensor.start(this::onOrientationUpdate)
+        level.start(this::onLevelUpdate)
     }
 
     override fun onPause() {
-        orientationSensor.stop(this::onOrientationUpdate)
+        level.stop(this::onLevelUpdate)
         super.onPause()
     }
 
-    private fun onOrientationUpdate(): Boolean {
+    private fun onLevelUpdate(): Boolean {
 
         if (throttle.isThrottled()) {
             return true
         }
 
-        val euler = orientationSensor.orientation.toEuler()
-        val x = when {
-            euler.roll in -90f..90f -> euler.roll
-            euler.roll > 90f -> 180 - euler.roll
-            else -> -(180 + euler.roll)
-        }
-        val y = euler.pitch
+        val x = level.x
+        val y = -level.y
         binding.bubbleX.align(
             null,
             HorizontalConstraint(binding.bubbleXBackground, HorizontalConstraintType.Left),
