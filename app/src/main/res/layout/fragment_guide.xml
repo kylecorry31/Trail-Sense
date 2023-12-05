@@ -27,6 +27,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:lineSpacingMultiplier="1.5"
+            android:linksClickable="true"
+            android:autoLink="email|web"
             tools:text="Guide contents" />
     </androidx.core.widget.NestedScrollView>
 
