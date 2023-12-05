@@ -13,6 +13,7 @@ import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.compass.LegacyCompass
 import com.kylecorry.andromeda.sense.magnetometer.LowPassMagnetometer
 import com.kylecorry.andromeda.sense.magnetometer.Magnetometer
+import com.kylecorry.andromeda.sense.mock.MockMagnetometer
 import com.kylecorry.andromeda.sense.orientation.CustomGeomagneticRotationSensor
 import com.kylecorry.andromeda.sense.orientation.GeomagneticRotationSensor
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
@@ -95,13 +96,7 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
             source = CompassSource.RotationVector
         }
 
-        // Handle if the available sources have changed (not likely)
         val allSources = getAvailableSources(context)
-
-        // There were no compass sensors found
-        if (allSources.isEmpty()) {
-            return NullOrientationSensor()
-        }
 
         if (!allSources.contains(source)) {
             source = allSources.firstOrNull() ?: CompassSource.CustomMagnetometer
@@ -126,8 +121,11 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
     }
 
     private fun getCustomGeomagneticRotationSensor(): CustomGeomagneticRotationSensor {
-        val magnetometer =
+        val magnetometer = if (Sensors.hasSensor(context, Sensor.TYPE_MAGNETIC_FIELD)) {
             LowPassMagnetometer(context, SensorService.MOTION_SENSOR_DELAY, MAGNETOMETER_LOW_PASS)
+        } else {
+            MockMagnetometer()
+        }
         val accelerometer = if (Sensors.hasGravity(context)) {
             GravitySensor(context, SensorService.MOTION_SENSOR_DELAY)
         } else {
