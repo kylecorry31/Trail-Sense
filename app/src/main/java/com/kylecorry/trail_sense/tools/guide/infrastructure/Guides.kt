@@ -56,11 +56,6 @@ object Guides {
                     null,
                     R.raw.calibrating_thermometer
                 ),
-                UserGuide(
-                    context.getString(R.string.clinometer_title),
-                    context.getString(R.string.tool_clinometer_summary),
-                    R.raw.clinometer
-                ),
                 if (Sensors.hasSensor(context, Sensor.TYPE_STEP_COUNTER))
                     UserGuide(
                         context.getString(R.string.pedometer),

@@ -130,7 +130,7 @@ object Tools {
                 R.id.action_toolsFragment_to_clinometerFragment,
                 ToolCategory.Angles,
                 context.getString(R.string.tool_clinometer_summary),
-                guideId = R.raw.clinometer
+                guideId = R.raw.guide_tool_clinometer
             ),
             Tool(
                 12,
