@@ -95,6 +95,9 @@ class AugmentedRealityView : CanvasView {
     val altitude: Float
         get() = altimeter.altitude
 
+    var showReticle: Boolean = true
+    var showPosition: Boolean = true
+
     /**
      * The diameter of the reticle in pixels
      */
@@ -109,9 +112,11 @@ class AugmentedRealityView : CanvasView {
     private var guideThreshold: Float? = null
     private var onGuideReached: (() -> Unit)? = null
 
-    fun start() {
-        gps.start(this::onSensorUpdate)
-        altimeter.start(this::onSensorUpdate)
+    fun start(useGPS: Boolean = true) {
+        if (useGPS) {
+            gps.start(this::onSensorUpdate)
+            altimeter.start(this::onSensorUpdate)
+        }
         // Recreate the orientation sensor - seems to be an upstream bug with the rotation vector that if you reuse, it may not be accurate
         orientationSensor.stop(this::onSensorUpdate)
         orientationSensor = sensors.getOrientation()
@@ -195,10 +200,15 @@ class AugmentedRealityView : CanvasView {
             focusText = null
         }
 
-        drawReticle()
-        drawGuidance()
-        drawFocusText()
-        drawPosition()
+        if (showReticle) {
+            drawReticle()
+            drawGuidance()
+            drawFocusText()
+        }
+
+        if (showPosition) {
+            drawPosition()
+        }
     }
 
     private fun drawPosition() {
@@ -407,9 +417,8 @@ class AugmentedRealityView : CanvasView {
     private val mGestureDetector = GestureDetector(context, gestureListener)
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        mGestureDetector.onTouchEvent(event)
-        invalidate()
-        return true
+        val consumed = mGestureDetector.onTouchEvent(event)
+        return consumed || super.onTouchEvent(event)
     }
 
     data class HorizonCoordinate(

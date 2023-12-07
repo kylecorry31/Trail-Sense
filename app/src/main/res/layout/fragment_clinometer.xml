@@ -50,6 +50,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
+            <com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityView
+                android:id="@+id/ar_view"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
             <View
                 android:layout_width="60dp"
                 android:layout_height="1dp"
