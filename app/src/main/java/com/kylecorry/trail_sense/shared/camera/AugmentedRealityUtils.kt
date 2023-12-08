@@ -1,15 +1,11 @@
 package com.kylecorry.trail_sense.shared.camera
 
-import android.hardware.SensorManager
 import android.opengl.Matrix
-import android.view.Surface
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.andromeda.sense.orientation.OrientationUtils
-import com.kylecorry.sol.math.QuaternionMath
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.real
-import com.kylecorry.sol.math.SolMath.tanDegrees
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.math.Vector3
@@ -26,6 +22,9 @@ object AugmentedRealityUtils {
 
     private val worldVectorLock = Any()
     private val tempWorldVector = FloatArray(4)
+
+    private val perspectiveLock = Any()
+    private val tempPerspective = FloatArray(16)
 
     /**
      * Gets the pixel coordinate of a point on the screen given the bearing and azimuth. The point is considered to be on a plane.
@@ -98,7 +97,7 @@ object AugmentedRealityUtils {
     ): PixelCoordinate {
         val spherical = toRelative(bearing, elevation, 1f, rotationMatrix)
         // The rotation of the device has been negated, so azimuth = 0 and inclination = 0 is used
-        return getPixelNonLinear(spherical.first, 0f, spherical.second, 0f, size, fov)
+        return getPixelPerspective(spherical.first, 0f, spherical.second, 0f, size, fov)
     }
 
     /**
@@ -110,7 +109,7 @@ object AugmentedRealityUtils {
      * @param size The size of the view in pixels
      * @param fov The field of view of the camera in degrees
      */
-    fun getPixelNonLinear(
+    fun getPixelPerspective(
         bearing: Float,
         azimuth: Float,
         altitude: Float,
@@ -121,26 +120,64 @@ object AugmentedRealityUtils {
 
         val linear = getPixelLinear(bearing, azimuth, altitude, inclination, size, fov)
 
+        if (fov.width > 65){
+            return linear
+        }
+
         val newBearing = SolMath.deltaAngle(azimuth, bearing)
         val newAltitude = altitude - inclination
+        val world = toRectangular(newBearing, newAltitude, 1f)
+        
+        synchronized(perspectiveLock) {
+            Matrix.perspectiveM(
+                tempPerspective,
+                0,
+                fov.height,
+                fov.width / fov.height,
+                0.1f,
+                100f
+            )
 
-        val y = if (linear.y in 0f..size.height){
-            val verticalOffset = tanDegrees(newAltitude) * size.height / 2f
-            val verticalScaleFactor = tanDegrees(fov.height / 2f)
-            size.height / 2f - verticalOffset / verticalScaleFactor
+            // Map the world coordinate to the screen using the perspective matrix
+            synchronized(worldVectorLock) {
+                tempWorldVector[0] = world.x
+                tempWorldVector[1] = world.y
+                tempWorldVector[2] = world.z
+                tempWorldVector[3] = 1f
+                Matrix.multiplyMV(tempWorldVector, 0, tempPerspective, 0, tempWorldVector, 0)
+            }
+        }
+
+        // Get the screen coordinate
+        val screenX = tempWorldVector[0] / tempWorldVector[3]
+        val screenY = tempWorldVector[1] / tempWorldVector[3]
+
+        val pixelX = if (linear.x in (-size.width / 2f)..(size.width + size.width / 2f)) {
+            (1 - screenX) / 2f * size.width
+        } else {
+            linear.x
+        }
+        val pixelY = if (linear.y in (-size.height / 2f)..(size.height + size.height / 2f)) {
+            (1 - screenY) / 2f * size.height
+            (screenY + 1) / 2f * size.height
         } else {
             linear.y
         }
 
-        val x = if (linear.x in 0f..size.width){
-            val horizontalOffset = tanDegrees(newBearing) * size.width / 2f
-            val horizontalScaleFactor = tanDegrees(fov.width / 2f)
-            size.width / 2f + horizontalOffset / horizontalScaleFactor
-        } else {
-            linear.x
-        }
+        return PixelCoordinate(pixelX, pixelY)
 
-        return PixelCoordinate(x, y)
+    }
+
+    private fun toRectangular(
+        bearing: Float,
+        altitude: Float,
+        radius: Float
+    ): Vector3 {
+        // X and Y are flipped
+        val x = sin(bearing.toRadians()) * cos(altitude.toRadians()) * radius
+        val y = cos(bearing.toRadians()) * sin(altitude.toRadians()) * radius
+        val z = cos(bearing.toRadians()) * cos(altitude.toRadians()) * radius
+        return Vector3(x, y, z)
     }
 
     /**
