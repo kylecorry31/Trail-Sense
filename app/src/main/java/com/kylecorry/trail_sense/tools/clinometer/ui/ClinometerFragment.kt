@@ -86,7 +86,9 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private val fovRunner = CoroutineQueueRunner(1, dispatcher = Dispatchers.Default)
     private val markerLayer = ARMarkerLayer()
 
-    private var isAugmentedReality = false
+    private val isAugmentedReality by lazy {
+        prefs.isAugmentedRealityEnabled
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -118,7 +120,10 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                 requestCamera { hasPermission ->
                     if (hasPermission) {
                         useCamera = true
-                        binding.camera.start()
+                        binding.camera.start(
+                            readFrames = false,
+                            shouldStabilizePreview = false
+                        )
                         if (isAugmentedReality) {
                             binding.arView.start(false)
                         }
