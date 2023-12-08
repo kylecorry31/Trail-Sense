@@ -117,18 +117,22 @@ object AugmentedRealityUtils {
         size: Size,
         fov: Size
     ): PixelCoordinate {
-
-        val linear = getPixelLinear(bearing, azimuth, altitude, inclination, size, fov)
-
+        // This doesn't work well for large fovs, so fall back to linear
         if (fov.width > 65){
-            return linear
+            return getPixelLinear(bearing, azimuth, altitude, inclination, size, fov)
         }
 
         val newBearing = SolMath.deltaAngle(azimuth, bearing)
         val newAltitude = altitude - inclination
         val world = toRectangular(newBearing, newAltitude, 1f)
-        
+
+        val screenX: Float
+        val screenY: Float
+
+        // TODO: Put the device rotation into the matrix
+
         synchronized(perspectiveLock) {
+            // TODO: No need to calculate this everytime
             Matrix.perspectiveM(
                 tempPerspective,
                 0,
@@ -145,24 +149,25 @@ object AugmentedRealityUtils {
                 tempWorldVector[2] = world.z
                 tempWorldVector[3] = 1f
                 Matrix.multiplyMV(tempWorldVector, 0, tempPerspective, 0, tempWorldVector, 0)
+
+                if (tempWorldVector[3] == 0f){
+                    tempWorldVector[3] = 1f
+                }
+
+                // Get the screen coordinate
+                screenX = tempWorldVector[0] / tempWorldVector[3]
+                screenY = tempWorldVector[1] / tempWorldVector[3]
+
+                // The point is behind the camera, so use linear projection
+                if (tempWorldVector[3] > 0) {
+                    return getPixelLinear(bearing, azimuth, altitude, inclination, size, fov)
+                }
             }
         }
 
-        // Get the screen coordinate
-        val screenX = tempWorldVector[0] / tempWorldVector[3]
-        val screenY = tempWorldVector[1] / tempWorldVector[3]
-
-        val pixelX = if (linear.x in (-size.width / 2f)..(size.width + size.width / 2f)) {
-            (1 - screenX) / 2f * size.width
-        } else {
-            linear.x
-        }
-        val pixelY = if (linear.y in (-size.height / 2f)..(size.height + size.height / 2f)) {
-            (1 - screenY) / 2f * size.height
-            (screenY + 1) / 2f * size.height
-        } else {
-            linear.y
-        }
+        // TODO: Use a matrix to convert from world to screen space
+        val pixelX = (1 - screenX) / 2f * size.width
+        val pixelY = (screenY + 1) / 2f * size.height
 
         return PixelCoordinate(pixelX, pixelY)
 
