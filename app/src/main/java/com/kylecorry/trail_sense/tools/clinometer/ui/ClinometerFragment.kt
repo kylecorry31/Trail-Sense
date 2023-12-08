@@ -6,21 +6,28 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import androidx.camera.view.PreviewView
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.alerts.toast
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sense.clinometer.Clinometer
 import com.kylecorry.andromeda.sense.clinometer.IClinometer
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
+import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.math.SolMath.normalizeAngle
+import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.science.geology.AvalancheRisk
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Distance
@@ -28,10 +35,16 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentClinometerBinding
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.augmented_reality.ARMarkerImpl
+import com.kylecorry.trail_sense.tools.augmented_reality.ARMarkerLayer
+import com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityView
+import com.kylecorry.trail_sense.tools.augmented_reality.CircleCanvasObject
+import kotlinx.coroutines.Dispatchers
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.max
@@ -68,6 +81,13 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
     private var useCamera = false
 
+    // Augmented reality
+    private var lastSize: android.util.Size? = null
+    private val fovRunner = CoroutineQueueRunner(1, dispatcher = Dispatchers.Default)
+    private val markerLayer = ARMarkerLayer()
+
+    private var isAugmentedReality = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         clinometer = getClinometer()
@@ -83,10 +103,13 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         CustomUiUtils.setButtonState(binding.clinometerTitle.rightButton, false)
 
         binding.cameraViewHolder.clipToOutline = true
+        binding.camera.setScaleType(PreviewView.ScaleType.FIT_CENTER)
+        binding.camera.setShowTorch(false)
 
         binding.clinometerTitle.leftButton.setOnClickListener {
             if (useCamera) {
                 binding.camera.stop()
+                binding.arView.stop()
                 binding.clinometerTitle.leftButton.setImageResource(R.drawable.ic_camera)
                 CustomUiUtils.setButtonState(binding.clinometerTitle.leftButton, false)
                 useCamera = false
@@ -96,6 +119,9 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                     if (hasPermission) {
                         useCamera = true
                         binding.camera.start()
+                        if (isAugmentedReality) {
+                            binding.arView.start(false)
+                        }
                         binding.clinometerTitle.leftButton.setImageResource(R.drawable.ic_screen_flashlight)
                         CustomUiUtils.setButtonState(binding.clinometerTitle.leftButton, false)
                         clinometer = getClinometer()
@@ -118,6 +144,12 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             }
             true
         }
+
+        if (isAugmentedReality) {
+            binding.arView.setLayers(listOf(markerLayer))
+        }
+        binding.arView.showReticle = false
+        binding.arView.showPosition = false
 
         observe(sideClinometer) { updateUI() }
         observe(cameraClinometer) { updateUI() }
@@ -267,16 +299,33 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         binding.cameraClinometer.startInclination = startIncline
         // TODO: This should just be clinometer.angle
         binding.clinometer.startAngle = normalizeAngle(-clinometer.angle + 180f)
+        markerLayer.addMarker(
+            ARMarkerImpl.horizon(
+                // TODO: Populate use true north
+                AugmentedRealityView.HorizonCoordinate(binding.arView.azimuth, binding.arView.inclination),
+                2f,
+                canvasObject = CircleCanvasObject(AppColor.Orange.color)
+            )
+        )
     }
 
     private fun setEndAngle() {
         slopeAngle = normalizeAngle(-clinometer.angle + 180f)
         slopeIncline = clinometer.incline
+        markerLayer.addMarker(
+            ARMarkerImpl.horizon(
+                // TODO: Populate use true north
+                AugmentedRealityView.HorizonCoordinate(binding.arView.azimuth, binding.arView.inclination),
+                2f,
+                canvasObject = CircleCanvasObject(AppColor.Orange.color)
+            )
+        )
     }
 
     private fun clearEndAngle() {
         slopeAngle = null
         slopeIncline = null
+        markerLayer.clearMarkers()
     }
 
     override fun onResume() {
@@ -294,6 +343,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         super.onPause()
         if (useCamera) {
             binding.camera.stop()
+            binding.arView.stop()
             useCamera = false
             clinometer = getClinometer()
         }
@@ -389,6 +439,8 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                 binding.estimatedHeight.title = getString(R.string.distance_unset)
             }
         }
+
+        updateCamera()
     }
 
     private fun isLocked(): Boolean {
@@ -441,6 +493,37 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             bottom,
             top
         )
+    }
+
+    private fun updateCamera(){
+        inBackground {
+            fovRunner.enqueue {
+                if (!isBound || !useCamera) {
+                    return@enqueue
+                }
+
+                val fov = binding.camera.fov
+
+                onMain {
+                    binding.arView.fov = Size(fov.first, fov.second)
+
+                    // Set the arView size to be the camera preview size
+                    val size = binding.camera.getPreviewSize()
+                    if (size != lastSize) {
+                        lastSize = size
+                        if (binding.arView.layoutParams == null) {
+                            binding.arView.layoutParams =
+                                FrameLayout.LayoutParams(size.width, size.height)
+                        } else {
+                            binding.arView.updateLayoutParams {
+                                width = size.width
+                                height = size.height
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private enum class ClinometerLockState {
