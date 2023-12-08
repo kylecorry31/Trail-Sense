@@ -349,6 +349,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         if (useCamera) {
             binding.camera.stop()
             binding.arView.stop()
+            fovRunner.cancel()
             useCamera = false
             clinometer = getClinometer()
         }
