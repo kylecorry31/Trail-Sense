@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.sense.orientation.OrientationUtils
 import com.kylecorry.sol.math.QuaternionMath
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.real
+import com.kylecorry.sol.math.SolMath.tanDegrees
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.math.Vector3
@@ -97,7 +98,49 @@ object AugmentedRealityUtils {
     ): PixelCoordinate {
         val spherical = toRelative(bearing, elevation, 1f, rotationMatrix)
         // The rotation of the device has been negated, so azimuth = 0 and inclination = 0 is used
-        return getPixelLinear(spherical.first, 0f, spherical.second, 0f, size, fov)
+        return getPixelNonLinear(spherical.first, 0f, spherical.second, 0f, size, fov)
+    }
+
+    /**
+     * Gets the pixel coordinate of a point on the screen given the bearing and azimuth. The point is considered to be on a plane.
+     * @param bearing The compass bearing in degrees of the point
+     * @param azimuth The compass bearing in degrees that the user is facing (center of the screen)
+     * @param altitude The altitude of the point in degrees
+     * @param inclination The inclination of the device in degrees
+     * @param size The size of the view in pixels
+     * @param fov The field of view of the camera in degrees
+     */
+    fun getPixelNonLinear(
+        bearing: Float,
+        azimuth: Float,
+        altitude: Float,
+        inclination: Float,
+        size: Size,
+        fov: Size
+    ): PixelCoordinate {
+
+        val linear = getPixelLinear(bearing, azimuth, altitude, inclination, size, fov)
+
+        val newBearing = SolMath.deltaAngle(azimuth, bearing)
+        val newAltitude = altitude - inclination
+
+        val y = if (linear.y in 0f..size.height){
+            val verticalOffset = tanDegrees(newAltitude) * size.height / 2f
+            val verticalScaleFactor = tanDegrees(fov.height / 2f)
+            size.height / 2f - verticalOffset / verticalScaleFactor
+        } else {
+            linear.y
+        }
+
+        val x = if (linear.x in 0f..size.width){
+            val horizontalOffset = tanDegrees(newBearing) * size.width / 2f
+            val horizontalScaleFactor = tanDegrees(fov.width / 2f)
+            size.width / 2f + horizontalOffset / horizontalScaleFactor
+        } else {
+            linear.x
+        }
+
+        return PixelCoordinate(x, y)
     }
 
     /**
