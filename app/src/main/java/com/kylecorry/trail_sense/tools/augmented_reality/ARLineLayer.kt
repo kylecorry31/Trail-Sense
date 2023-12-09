@@ -54,24 +54,38 @@ class ARLineLayer(
         for (line in lines) {
             path.reset()
             drawer.stroke(color)
-            val pixels = getLinePixels(
-                view,
-                line,
-                resolutionDegrees.toFloat(),
-                maxDistance.toFloat()
-            )
-            // TODO: This should clip the lines to the view, just like
-            for (pixelLine in pixels) {
-                var previous: PixelCoordinate? = null
-                for (pixel in pixelLine) {
-                    if (previous != null) {
-                        path.lineTo(pixel.x, pixel.y)
-                    } else {
-                        path.moveTo(pixel.x, pixel.y)
-                    }
-                    previous = pixel
+
+            // TODO: This should split the lines into smaller chunks (which will allow distance splitting) - keeping it this way for now for the clinometer
+            var previous: PixelCoordinate? = null
+            for (point in line){
+                val pixel = view.toPixel(point.getHorizonCoordinate(view))
+                // TODO: This should split the line if the distance is too great
+                if (previous != null) {
+                    path.lineTo(pixel.x, pixel.y)
+                } else {
+                    path.moveTo(pixel.x, pixel.y)
                 }
+                previous = pixel
             }
+
+            // Curved + increased resolution
+//            val pixels = getLinePixels(
+//                view,
+//                line,
+//                resolutionDegrees.toFloat(),
+//                maxDistance.toFloat()
+//            )
+//            for (pixelLine in pixels) {
+//                var previous: PixelCoordinate? = null
+//                for (pixel in pixelLine) {
+//                    if (previous != null) {
+//                        path.lineTo(pixel.x, pixel.y)
+//                    } else {
+//                        path.moveTo(pixel.x, pixel.y)
+//                    }
+//                    previous = pixel
+//                }
+//            }
 
             drawer.path(path)
         }
