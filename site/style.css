@@ -97,6 +97,14 @@ img {
   margin-top: 60vh;
 }
 
+#guide-content {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 16px;
+  margin-top: 54px;
+}
+
 #titlebar {
   grid-area: titlebar;
   height: 70px;
@@ -138,6 +146,11 @@ img {
 }
 
 #features {
+  min-height: 75vh;
+  background: white;
+}
+
+#guide {
   min-height: 75vh;
   background: white;
 }
@@ -192,6 +205,10 @@ img {
 
   #titlebar {
     display: none;
+  }
+
+  #guide-content {
+    margin-top: 0;
   }
 
   #hero-title {
