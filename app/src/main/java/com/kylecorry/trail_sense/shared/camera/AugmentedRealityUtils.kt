@@ -155,6 +155,7 @@ object AugmentedRealityUtils {
                 tempWorldVector[3] = 1f
                 Matrix.multiplyMV(tempWorldVector, 0, tempPerspective, 0, tempWorldVector, 0)
 
+                // Using the Z coordinate instead of W because it's more accurate in my testing
                 if (tempWorldVector[2] == 0f) {
                     tempWorldVector[2] = 1f
                 }
