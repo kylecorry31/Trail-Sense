@@ -2,11 +2,10 @@ package com.kylecorry.trail_sense.tools.augmented_reality
 
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
+import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPositionStrategy
 
-interface ARMarker {
+interface ARMarker: ARPositionStrategy {
     fun draw(view: AugmentedRealityView, drawer: ICanvasDrawer, area: PixelCircle)
-    fun getAngularDiameter(view: AugmentedRealityView): Float
-    fun getHorizonCoordinate(view: AugmentedRealityView): AugmentedRealityView.HorizonCoordinate
     fun onFocused(): Boolean
     fun onClick(): Boolean
 }
