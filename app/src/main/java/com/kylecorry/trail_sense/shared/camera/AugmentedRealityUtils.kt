@@ -99,9 +99,12 @@ object AugmentedRealityUtils {
         size: Size,
         fov: Size
     ): PixelCoordinate {
-        val spherical = toRelative(bearing, elevation, distance.coerceIn(minDistance, maxDistance), rotationMatrix)
+
+        val d = distance.coerceIn(minDistance, maxDistance)
+
+        val spherical = toRelative(bearing, elevation, d, rotationMatrix)
         // The rotation of the device has been negated, so azimuth = 0 and inclination = 0 is used
-        return getPixelPerspective(spherical.first, 0f, spherical.second, 0f, distance, size, fov)
+        return getPixelPerspective(spherical.first, 0f, spherical.second, 0f, d, size, fov)
     }
 
     /**
@@ -129,7 +132,7 @@ object AugmentedRealityUtils {
 
         val newBearing = SolMath.deltaAngle(azimuth, bearing)
         val newAltitude = altitude - inclination
-        val world = toRectangular(newBearing, newAltitude, distance.coerceIn(minDistance, maxDistance))
+        val world = toRectangular(newBearing, newAltitude, distance)
 
         val screenX: Float
         val screenY: Float
