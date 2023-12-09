@@ -6,12 +6,13 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 
+// TODO: Use this on the MapView as well - maybe extract to Andromeda
+
 interface CanvasObject {
-    // TODO: Use a pixel region instead of a circle
     fun draw(drawer: ICanvasDrawer, area: PixelCircle)
 }
 
-class CircleCanvasObject(
+class CanvasCircle(
     @ColorInt
     private val color: Int,
     @ColorInt
@@ -36,7 +37,7 @@ class CircleCanvasObject(
     }
 }
 
-class BitmapCanvasObject(
+class CanvasBitmap(
     private val bitmap: android.graphics.Bitmap,
     private val scale: Float = 1f,
     private val opacity: Int = 255,

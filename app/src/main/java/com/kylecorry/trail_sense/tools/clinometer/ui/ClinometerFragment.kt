@@ -44,7 +44,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.augmented_reality.ARLineLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ARMarker
 import com.kylecorry.trail_sense.tools.augmented_reality.ARMarkerLayer
-import com.kylecorry.trail_sense.tools.augmented_reality.CircleCanvasObject
+import com.kylecorry.trail_sense.tools.augmented_reality.CanvasCircle
 import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.position.SphericalARPoint
 import kotlinx.coroutines.Dispatchers
@@ -331,7 +331,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         markerLayer.addMarker(
             ARMarker(
                 startPoint,
-                CircleCanvasObject(AppColor.Orange.color)
+                CanvasCircle(AppColor.Orange.color)
             )
         )
     }
@@ -354,7 +354,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         markerLayer.addMarker(
             ARMarker(
                 endPoint,
-                CircleCanvasObject(AppColor.Orange.color)
+                CanvasCircle(AppColor.Orange.color)
             )
         )
     }

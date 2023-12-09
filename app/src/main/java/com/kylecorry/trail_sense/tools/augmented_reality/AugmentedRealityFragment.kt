@@ -219,22 +219,22 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                 val locationSubsystem = LocationSubsystem.getInstance(requireContext())
                 val location = locationSubsystem.location
 
-                val moonBeforePathObject = CircleCanvasObject(
+                val moonBeforePathObject = CanvasCircle(
                     Color.WHITE,
                     opacity = 20
                 )
 
-                val moonAfterPathObject = CircleCanvasObject(
+                val moonAfterPathObject = CanvasCircle(
                     Color.WHITE,
                     opacity = 127
                 )
 
-                val sunBeforePathObject = CircleCanvasObject(
+                val sunBeforePathObject = CanvasCircle(
                     AppColor.Yellow.color,
                     opacity = 20
                 )
 
-                val sunAfterPathObject = CircleCanvasObject(
+                val sunAfterPathObject = CanvasCircle(
                     AppColor.Yellow.color,
                     opacity = 127
                 )
@@ -316,8 +316,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                         isTrueNorth = true,
                         angularDiameter = 2f
                     ),
-                    canvasObject = moonBitmap?.let { BitmapCanvasObject(moonBitmap) }
-                        ?: CircleCanvasObject(Color.WHITE),
+                    canvasObject = moonBitmap?.let { CanvasBitmap(moonBitmap) }
+                        ?: CanvasCircle(Color.WHITE),
                     onFocusedFn = {
                         // TODO: Display moon phase
                         binding.arView.focusText = getString(R.string.moon)
@@ -332,7 +332,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                         isTrueNorth = true,
                         angularDiameter = 2f
                     ),
-                    canvasObject = CircleCanvasObject(AppColor.Yellow.color),
+                    canvasObject = CanvasCircle(AppColor.Yellow.color),
                     onFocusedFn = {
                         binding.arView.focusText = getString(R.string.sun)
                         true

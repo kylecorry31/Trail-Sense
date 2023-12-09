@@ -103,7 +103,7 @@ class ARBeaconLayer(
                         beacon.elevation,
                         beaconSize.distance,
                     ),
-                    CircleCanvasObject(beacon.color, Color.WHITE),
+                    CanvasCircle(beacon.color, Color.WHITE),
                     onFocusedFn = {
                         onFocus(beacon)
                     },
@@ -119,7 +119,7 @@ class ARBeaconLayer(
                             beacon.elevation,
                             beaconSize.distance
                         ),
-                        BitmapCanvasObject(
+                        CanvasBitmap(
                             loader.load(icon.icon, loadedImageSize),
                             0.75f,
                             tint = color
