@@ -9,8 +9,7 @@ import com.kylecorry.trail_sense.tools.augmented_reality.position.GeographicPosi
 import com.kylecorry.trail_sense.tools.augmented_reality.position.SphericalPositionStrategy
 import kotlin.math.hypot
 
-// TODO: Is the interface even needed?
-// TODO: Use ARPosition and ARSize
+// TODO: Are the helper methods needed, or can the constructor be called directly?
 class ARMarkerImpl private constructor(
     private val positionStrategy: ARPositionStrategy,
     private val canvasObject: CanvasObject,

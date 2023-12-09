@@ -27,6 +27,7 @@ import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.text
 import com.kylecorry.trail_sense.shared.textDimensions
+import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPositionStrategy
 import java.time.Duration
 import kotlin.math.atan2
 
@@ -108,7 +109,7 @@ class AugmentedRealityView : CanvasView {
     private val layerLock = Any()
 
     // Guidance
-    private var guideLocation: ARPosition? = null
+    private var guideStrategy: ARPositionStrategy? = null
     private var guideThreshold: Float? = null
     private var onGuideReached: (() -> Unit)? = null
 
@@ -155,17 +156,17 @@ class AugmentedRealityView : CanvasView {
     }
 
     fun guideTo(
-        location: ARPosition,
+        guideStrategy: ARPositionStrategy,
         thresholdDegrees: Float? = null,
         onReached: () -> Unit = { clearGuide() }
     ) {
-        guideLocation = location
+        this.guideStrategy = guideStrategy
         guideThreshold = thresholdDegrees
         onGuideReached = onReached
     }
 
     fun clearGuide() {
-        guideLocation = null
+        guideStrategy = null
         guideThreshold = null
         onGuideReached = null
     }
@@ -224,7 +225,7 @@ class AugmentedRealityView : CanvasView {
 
     private fun drawGuidance() {
         // Draw an arrow around the reticle that points to the desired location
-        val coordinate = guideLocation?.getHorizonCoordinate(location, altitude) ?: return
+        val coordinate = guideStrategy?.getHorizonCoordinate(this) ?: return
         val threshold = guideThreshold
         val point = toPixel(coordinate)
         val center = PixelCoordinate(width / 2f, height / 2f)

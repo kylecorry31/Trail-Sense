@@ -37,6 +37,7 @@ import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.andromeda.fragments.observeFlow
+import com.kylecorry.trail_sense.tools.augmented_reality.position.GeographicPositionStrategy
 import kotlinx.coroutines.Dispatchers
 import java.time.Duration
 import java.time.LocalDate
@@ -61,6 +62,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             Distance.meters(userPrefs.navigation.maxBeaconDistance),
             onFocus = this::onBeaconFocused
         ) {
+            println(it)
             if (navigator.getDestinationId() != it.id) {
                 navigator.navigateTo(it)
             } else {
@@ -102,7 +104,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             if (it == null) {
                 binding.arView.clearGuide()
             } else {
-                binding.arView.guideTo(ARPosition.geographic(it.coordinate, it.elevation)) {
+                binding.arView.guideTo(GeographicPositionStrategy(it.coordinate, it.elevation)) {
                     // Do nothing when reached
                 }
             }
