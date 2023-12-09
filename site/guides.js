@@ -5,6 +5,7 @@ const guides = [
     'tool_bubble_level',
     'tool_cliff_height',
     'tool_climate',
+    'tool_clinometer',
     'tool_clock',
     'tool_clouds',
     'tool_convert',
