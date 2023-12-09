@@ -66,6 +66,9 @@ function toHTML(markdown) {
 
     html = lines.join("\n");
 
+    // Remove script tags
+    html = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "");
+
     // If there are multiple newlines, replace them with a br except when before a header
     html = html.replace(/([^>])\n\n([^<])/gm, "$1<br><br>$2");
 
