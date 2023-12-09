@@ -26,6 +26,9 @@ object AugmentedRealityUtils {
     private val perspectiveLock = Any()
     private val tempPerspective = FloatArray(16)
 
+    private val minDistance = 0.1f
+    private val maxDistance = 1000f
+
     /**
      * Gets the pixel coordinate of a point on the screen given the bearing and azimuth. The point is considered to be on a plane.
      * @param bearing The compass bearing in degrees of the point
@@ -96,7 +99,7 @@ object AugmentedRealityUtils {
         size: Size,
         fov: Size
     ): PixelCoordinate {
-        val spherical = toRelative(bearing, elevation, distance.coerceIn(0.1f, 1000f), rotationMatrix)
+        val spherical = toRelative(bearing, elevation, distance.coerceIn(minDistance, maxDistance), rotationMatrix)
         // The rotation of the device has been negated, so azimuth = 0 and inclination = 0 is used
         return getPixelPerspective(spherical.first, 0f, spherical.second, 0f, distance, size, fov)
     }
@@ -126,8 +129,7 @@ object AugmentedRealityUtils {
 
         val newBearing = SolMath.deltaAngle(azimuth, bearing)
         val newAltitude = altitude - inclination
-        val maxDistance = 1000f
-        val world = toRectangular(newBearing, newAltitude, distance.coerceIn(0.1f, maxDistance))
+        val world = toRectangular(newBearing, newAltitude, distance.coerceIn(minDistance, maxDistance))
 
         val screenX: Float
         val screenY: Float
