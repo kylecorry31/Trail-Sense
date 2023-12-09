@@ -19,10 +19,9 @@ class ARGridLayer(
     @ColorInt private val northColor: Int = color,
     @ColorInt private val horizonColor: Int = color,
     @ColorInt private val labelColor: Int = color,
-    private val thicknessDp: Float = 1f
+    private val thicknessDp: Float = 1f,
+    private val useTrueNorth: Boolean = true,
 ) : ARLayer {
-
-    // TODO: Make sure this is setting true north correctly
 
     private val distance = Float.MAX_VALUE
 
@@ -79,7 +78,7 @@ class ARGridLayer(
             }
             var previous: PixelCoordinate? = null
             for (j in horizontalPointRange) {
-                val pixel = view.toPixel(AugmentedRealityView.HorizonCoordinate(j.toFloat(), i, distance))
+                val pixel = view.toPixel(AugmentedRealityView.HorizonCoordinate(j.toFloat(), i, distance, useTrueNorth))
                 if (previous != null && pixel.distanceTo(previous) < maxDistance){
                     path.lineTo(pixel.x, pixel.y)
                 } else {
@@ -101,7 +100,7 @@ class ARGridLayer(
             }
             var previous: PixelCoordinate? = null
             for (j in verticalPointRange) {
-                val pixel = view.toPixel(AugmentedRealityView.HorizonCoordinate(i, j.toFloat(), distance))
+                val pixel = view.toPixel(AugmentedRealityView.HorizonCoordinate(i, j.toFloat(), distance, useTrueNorth))
                 if (previous != null && pixel.distanceTo(previous) < maxDistance){
                     path.lineTo(pixel.x, pixel.y)
                 } else {
@@ -117,10 +116,10 @@ class ARGridLayer(
 
         // Draw cardinal direction labels
         val offset = 2f
-        val north = view.toPixel(AugmentedRealityView.HorizonCoordinate(0f, offset, distance))
-        val south = view.toPixel(AugmentedRealityView.HorizonCoordinate(180f, offset, distance))
-        val east = view.toPixel(AugmentedRealityView.HorizonCoordinate(90f, offset, distance))
-        val west = view.toPixel(AugmentedRealityView.HorizonCoordinate(-90f, offset, distance))
+        val north = view.toPixel(AugmentedRealityView.HorizonCoordinate(0f, offset, distance, useTrueNorth))
+        val south = view.toPixel(AugmentedRealityView.HorizonCoordinate(180f, offset, distance, useTrueNorth))
+        val east = view.toPixel(AugmentedRealityView.HorizonCoordinate(90f, offset, distance, useTrueNorth))
+        val west = view.toPixel(AugmentedRealityView.HorizonCoordinate(-90f, offset, distance, useTrueNorth))
 
         drawLabel(drawer, view, northString, north)
         drawLabel(drawer, view, southString, south)

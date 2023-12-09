@@ -316,13 +316,11 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
         markerLayer.addMarker(
             ARMarkerImpl.horizon(
-                // TODO: Populate use true north
-                AugmentedRealityView.HorizonCoordinate(
-                    binding.arView.azimuth,
-                    binding.arView.inclination,
-                    hypotenuse
-                ),
-                2f,
+                binding.arView.azimuth,
+                binding.arView.inclination,
+                isTrueNorth = prefs.compass.useTrueNorth,
+                distance = hypotenuse,
+                angularDiameter = 1f,
                 canvasObject = CircleCanvasObject(AppColor.Orange.color)
             )
         )
@@ -337,13 +335,11 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         val hypotenuse = adjacent / cosDegrees(slopeIncline ?: 0f)
         markerLayer.addMarker(
             ARMarkerImpl.horizon(
-                // TODO: Populate use true north
-                AugmentedRealityView.HorizonCoordinate(
-                    binding.arView.azimuth,
-                    binding.arView.inclination,
-                    hypotenuse
-                ),
-                2f,
+                binding.arView.azimuth,
+                binding.arView.inclination,
+                isTrueNorth = prefs.compass.useTrueNorth,
+                distance = hypotenuse,
+                angularDiameter = 1f,
                 canvasObject = CircleCanvasObject(AppColor.Orange.color)
             )
         )

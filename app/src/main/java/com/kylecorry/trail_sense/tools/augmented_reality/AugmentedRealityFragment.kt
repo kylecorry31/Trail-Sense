@@ -74,13 +74,16 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
     private val sunLayer = ARMarkerLayer()
     private val moonLayer = ARMarkerLayer()
-    private val gridLayer = ARGridLayer(
-        30,
-        northColor = AppColor.Orange.color,
-        horizonColor = Color.WHITE,
-        labelColor = Color.WHITE,
-        color = Color.WHITE.withAlpha(100)
-    )
+    private val gridLayer by lazy {
+        ARGridLayer(
+            30,
+            northColor = AppColor.Orange.color,
+            horizonColor = Color.WHITE,
+            labelColor = Color.WHITE,
+            color = Color.WHITE.withAlpha(100),
+            useTrueNorth = userPrefs.compass.useTrueNorth
+        )
+    }
 
     private var isCameraEnabled = true
 
@@ -205,8 +208,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     }
 
     private fun updateAstronomyLayers() {
-        val astroDistance = Float.MAX_VALUE
-
         // TODO: Extract this population
         inBackground {
             // TODO: Show icons / render path rather than circles
@@ -247,14 +248,11 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                     }
 
                     ARMarkerImpl.horizon(
-                        AugmentedRealityView.HorizonCoordinate(
-                            astro.getMoonAzimuth(location, it).value,
-                            astro.getMoonAltitude(location, it),
-                            astroDistance,
-                            true
-                        ),
-                        1f,
-                        obj,
+                        astro.getMoonAzimuth(location, it).value,
+                        astro.getMoonAltitude(location, it),
+                        isTrueNorth = true,
+                        angularDiameter = 1f,
+                        canvasObject = obj,
                         onFocusedFn = {
                             binding.arView.focusText =
                                 getString(R.string.moon) + "\n" + formatter.formatRelativeDateTime(
@@ -276,14 +274,11 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                     }
 
                     ARMarkerImpl.horizon(
-                        AugmentedRealityView.HorizonCoordinate(
-                            astro.getSunAzimuth(location, it).value,
-                            astro.getSunAltitude(location, it),
-                            astroDistance,
-                            true
-                        ),
-                        1f,
-                        obj,
+                        astro.getSunAzimuth(location, it).value,
+                        astro.getSunAltitude(location, it),
+                        isTrueNorth = true,
+                        angularDiameter = 1f,
+                        canvasObject = obj,
                         onFocusedFn = {
                             binding.arView.focusText =
                                 getString(R.string.sun) + "\n" + formatter.formatRelativeDateTime(
@@ -308,14 +303,11 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                 val moonBitmap = moonIcon?.toBitmapOrNull(moonImageSize, moonImageSize)
 
                 val moon = ARMarkerImpl.horizon(
-                    AugmentedRealityView.HorizonCoordinate(
-                        moonAzimuth,
-                        moonAltitude,
-                        astroDistance,
-                        true
-                    ),
-                    2f,
-                    moonBitmap?.let { BitmapCanvasObject(moonBitmap) }
+                    moonAzimuth,
+                    moonAltitude,
+                    isTrueNorth = true,
+                    angularDiameter = 2f,
+                    canvasObject = moonBitmap?.let { BitmapCanvasObject(moonBitmap) }
                         ?: CircleCanvasObject(Color.WHITE),
                     onFocusedFn = {
                         // TODO: Display moon phase
@@ -325,14 +317,11 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                 )
 
                 val sun = ARMarkerImpl.horizon(
-                    AugmentedRealityView.HorizonCoordinate(
-                        sunAzimuth,
-                        sunAltitude,
-                        astroDistance,
-                        true
-                    ),
-                    2f,
-                    CircleCanvasObject(AppColor.Yellow.color),
+                    sunAzimuth,
+                    sunAltitude,
+                    isTrueNorth = true,
+                    angularDiameter = 2f,
+                    canvasObject = CircleCanvasObject(AppColor.Yellow.color),
                     onFocusedFn = {
                         binding.arView.focusText = getString(R.string.sun)
                         true

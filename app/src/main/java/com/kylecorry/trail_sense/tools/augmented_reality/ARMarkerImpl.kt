@@ -64,7 +64,10 @@ class ARMarkerImpl private constructor(
 
     companion object {
         fun horizon(
-            position: AugmentedRealityView.HorizonCoordinate?,
+            bearing: Float,
+            elevation: Float,
+            distance: Float = Float.MAX_VALUE,
+            isTrueNorth: Boolean = true,
             angularDiameter: Float = 12f,
             canvasObject: CanvasObject,
             keepFacingUp: Boolean = false,
@@ -72,7 +75,7 @@ class ARMarkerImpl private constructor(
             onClickFn: () -> Boolean = { false }
         ): ARMarker {
             return ARMarkerImpl(
-                position,
+                AugmentedRealityView.HorizonCoordinate(bearing, elevation, distance, isTrueNorth),
                 angularDiameter,
                 null,
                 null,
