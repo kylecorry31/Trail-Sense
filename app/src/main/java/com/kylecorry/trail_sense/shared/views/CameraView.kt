@@ -280,9 +280,9 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     private val mScaleDetector = ScaleGestureDetector(context, scaleListener)
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        mScaleDetector.onTouchEvent(event)
-        gestureDetector.onTouchEvent(event)
-        return true
+        var consumed = mScaleDetector.onTouchEvent(event)
+        consumed = consumed || gestureDetector.onTouchEvent(event)
+        return consumed || super.onTouchEvent(event)
     }
 
 
