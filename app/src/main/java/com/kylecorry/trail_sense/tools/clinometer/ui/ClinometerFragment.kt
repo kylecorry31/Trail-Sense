@@ -26,6 +26,7 @@ import com.kylecorry.andromeda.sense.clinometer.Clinometer
 import com.kylecorry.andromeda.sense.clinometer.IClinometer
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
+import com.kylecorry.sol.math.SolMath.cosDegrees
 import com.kylecorry.sol.math.SolMath.normalizeAngle
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.science.geology.AvalancheRisk
@@ -169,6 +170,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                     lockState = ClinometerLockState.PartiallyLocked
                 }
             }
+
             ClinometerLockState.PartiallyLocked -> {
                 if (pressState == PressState.Up) {
                     if (Duration.between(touchTime, Instant.now()) < holdDuration) {
@@ -181,6 +183,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                     lockState = ClinometerLockState.Locked
                 }
             }
+
             ClinometerLockState.Locked -> {
                 if (pressState == PressState.Down && isOrientationValid()) {
                     setStartAngle()
@@ -192,6 +195,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                     lockState = ClinometerLockState.Unlocked
                 }
             }
+
             ClinometerLockState.PartiallyUnlocked -> {
                 if (pressState == PressState.Up) {
                     lockState = if (Duration.between(touchTime, Instant.now()) < holdDuration) {
@@ -304,10 +308,20 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         binding.cameraClinometer.startInclination = startIncline
         // TODO: This should just be clinometer.angle
         binding.clinometer.startAngle = normalizeAngle(-clinometer.angle + 180f)
+
+        // Distance away is distance from device to the object at 0 inclination
+        // Calculate the distance away using the hypotenuse of the triangle
+        val adjacent = distanceAway?.meters()?.distance ?: 10f
+        val hypotenuse = adjacent / cosDegrees(startIncline)
+
         markerLayer.addMarker(
             ARMarkerImpl.horizon(
                 // TODO: Populate use true north
-                AugmentedRealityView.HorizonCoordinate(binding.arView.azimuth, binding.arView.inclination),
+                AugmentedRealityView.HorizonCoordinate(
+                    binding.arView.azimuth,
+                    binding.arView.inclination,
+                    hypotenuse
+                ),
                 2f,
                 canvasObject = CircleCanvasObject(AppColor.Orange.color)
             )
@@ -317,10 +331,18 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private fun setEndAngle() {
         slopeAngle = normalizeAngle(-clinometer.angle + 180f)
         slopeIncline = clinometer.incline
+        // Distance away is distance from device to the object at 0 inclination
+        // Calculate the distance away using the hypotenuse of the triangle
+        val adjacent = distanceAway?.meters()?.distance ?: 10f
+        val hypotenuse = adjacent / cosDegrees(slopeIncline ?: 0f)
         markerLayer.addMarker(
             ARMarkerImpl.horizon(
                 // TODO: Populate use true north
-                AugmentedRealityView.HorizonCoordinate(binding.arView.azimuth, binding.arView.inclination),
+                AugmentedRealityView.HorizonCoordinate(
+                    binding.arView.azimuth,
+                    binding.arView.inclination,
+                    hypotenuse
+                ),
                 2f,
                 canvasObject = CircleCanvasObject(AppColor.Orange.color)
             )
@@ -430,6 +452,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                     1, false
                 )
             }
+
             knownHeight != null -> {
                 binding.estimatedHeight.description = getString(R.string.distance)
                 binding.estimatedHeight.title = formatter.formatDistance(
@@ -441,6 +464,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                     1, false
                 )
             }
+
             else -> {
                 binding.estimatedHeight.title = getString(R.string.distance_unset)
             }
@@ -501,7 +525,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         )
     }
 
-    private fun updateCamera(){
+    private fun updateCamera() {
         inBackground {
             fovRunner.enqueue {
                 if (!isBound || !useCamera) {

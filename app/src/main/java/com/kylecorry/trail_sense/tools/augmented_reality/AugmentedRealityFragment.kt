@@ -205,6 +205,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     }
 
     private fun updateAstronomyLayers() {
+        val astroDistance = Float.MAX_VALUE
+
         // TODO: Extract this population
         inBackground {
             // TODO: Show icons / render path rather than circles
@@ -248,6 +250,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                         AugmentedRealityView.HorizonCoordinate(
                             astro.getMoonAzimuth(location, it).value,
                             astro.getMoonAltitude(location, it),
+                            astroDistance,
                             true
                         ),
                         1f,
@@ -276,6 +279,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                         AugmentedRealityView.HorizonCoordinate(
                             astro.getSunAzimuth(location, it).value,
                             astro.getSunAltitude(location, it),
+                            astroDistance,
                             true
                         ),
                         1f,
@@ -307,6 +311,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                     AugmentedRealityView.HorizonCoordinate(
                         moonAzimuth,
                         moonAltitude,
+                        astroDistance,
                         true
                     ),
                     2f,
@@ -323,6 +328,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                     AugmentedRealityView.HorizonCoordinate(
                         sunAzimuth,
                         sunAltitude,
+                        astroDistance,
                         true
                     ),
                     2f,

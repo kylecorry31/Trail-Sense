@@ -352,6 +352,7 @@ class AugmentedRealityView : CanvasView {
         return AugmentedRealityUtils.getPixel(
             bearing,
             coordinate.elevation,
+            coordinate.distance,
             rotationMatrix,
             size,
             fov
@@ -366,7 +367,7 @@ class AugmentedRealityView : CanvasView {
         } else {
             atan2((elevation - gps.altitude), distance).toDegrees()
         }
-        return toPixel(HorizonCoordinate(bearing, elevationAngle, true))
+        return toPixel(HorizonCoordinate(bearing, elevationAngle, distance, true))
     }
 
     private fun getActualBearing(coordinate: HorizonCoordinate): Float {
@@ -424,6 +425,7 @@ class AugmentedRealityView : CanvasView {
     data class HorizonCoordinate(
         val bearing: Float,
         val elevation: Float,
+        val distance: Float,
         val isTrueNorth: Boolean = true
     )
 

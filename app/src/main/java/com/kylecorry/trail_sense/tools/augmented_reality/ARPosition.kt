@@ -15,7 +15,7 @@ class ARPosition private constructor(
     ): AugmentedRealityView.HorizonCoordinate {
         return horizon ?: coordinate?.let {
             AugmentedRealityUtils.getHorizonCoordinate(myLocation, myElevation, it, altitude)
-        } ?: AugmentedRealityView.HorizonCoordinate(0f, 0f)
+        } ?: AugmentedRealityView.HorizonCoordinate(0f, 0f, 1f)
     }
 
     companion object {

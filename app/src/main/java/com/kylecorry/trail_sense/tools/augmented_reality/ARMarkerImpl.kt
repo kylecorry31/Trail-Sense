@@ -50,7 +50,7 @@ class ARMarkerImpl private constructor(
             )
         }
 
-        return position ?: AugmentedRealityView.HorizonCoordinate(0f, 0f)
+        return position ?: AugmentedRealityView.HorizonCoordinate(0f, 0f, 1f)
     }
 
 

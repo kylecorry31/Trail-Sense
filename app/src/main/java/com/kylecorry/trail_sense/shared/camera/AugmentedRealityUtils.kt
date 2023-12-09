@@ -77,7 +77,7 @@ object AugmentedRealityUtils {
         } else {
             atan2((destinationElevation - myElevation), distance).toDegrees()
         }
-        return AugmentedRealityView.HorizonCoordinate(bearing, elevationAngle, true)
+        return AugmentedRealityView.HorizonCoordinate(bearing, elevationAngle, distance, true)
     }
 
     /**
@@ -91,13 +91,14 @@ object AugmentedRealityUtils {
     fun getPixel(
         bearing: Float,
         elevation: Float,
+        distance: Float,
         rotationMatrix: FloatArray,
         size: Size,
         fov: Size
     ): PixelCoordinate {
-        val spherical = toRelative(bearing, elevation, 1f, rotationMatrix)
+        val spherical = toRelative(bearing, elevation, distance.coerceIn(0.1f, 1000f), rotationMatrix)
         // The rotation of the device has been negated, so azimuth = 0 and inclination = 0 is used
-        return getPixelPerspective(spherical.first, 0f, spherical.second, 0f, size, fov)
+        return getPixelPerspective(spherical.first, 0f, spherical.second, 0f, distance, size, fov)
     }
 
     /**
@@ -114,17 +115,19 @@ object AugmentedRealityUtils {
         azimuth: Float,
         altitude: Float,
         inclination: Float,
+        distance: Float,
         size: Size,
         fov: Size
     ): PixelCoordinate {
         // This doesn't work well for large fovs, so fall back to linear
-        if (fov.width > 65){
+        if (fov.width > 65) {
             return getPixelLinear(bearing, azimuth, altitude, inclination, size, fov)
         }
 
         val newBearing = SolMath.deltaAngle(azimuth, bearing)
         val newAltitude = altitude - inclination
-        val world = toRectangular(newBearing, newAltitude, 1f)
+        val maxDistance = 1000f
+        val world = toRectangular(newBearing, newAltitude, distance.coerceIn(0.1f, maxDistance))
 
         val screenX: Float
         val screenY: Float
@@ -139,7 +142,7 @@ object AugmentedRealityUtils {
                 fov.height,
                 fov.width / fov.height,
                 0.1f,
-                100f
+                maxDistance
             )
 
             // Map the world coordinate to the screen using the perspective matrix
@@ -150,13 +153,13 @@ object AugmentedRealityUtils {
                 tempWorldVector[3] = 1f
                 Matrix.multiplyMV(tempWorldVector, 0, tempPerspective, 0, tempWorldVector, 0)
 
-                if (tempWorldVector[3] == 0f){
-                    tempWorldVector[3] = 1f
+                if (tempWorldVector[2] == 0f) {
+                    tempWorldVector[2] = 1f
                 }
 
                 // Get the screen coordinate
-                screenX = tempWorldVector[0] / tempWorldVector[3]
-                screenY = tempWorldVector[1] / tempWorldVector[3]
+                screenX = tempWorldVector[0] / tempWorldVector[2]
+                screenY = tempWorldVector[1] / tempWorldVector[2]
 
                 // The point is behind the camera, so use linear projection
                 if (tempWorldVector[3] > 0) {
