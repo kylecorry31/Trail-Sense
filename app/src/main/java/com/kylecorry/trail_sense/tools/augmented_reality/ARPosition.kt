@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.augmented_reality
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
 
+// TODO: Use ARPositionStrategy instead
 class ARPosition private constructor(
     private val horizon: AugmentedRealityView.HorizonCoordinate?,
     private val coordinate: Coordinate?,

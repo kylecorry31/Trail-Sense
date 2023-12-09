@@ -4,16 +4,15 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
+import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPositionStrategy
+import com.kylecorry.trail_sense.tools.augmented_reality.position.GeographicPositionStrategy
+import com.kylecorry.trail_sense.tools.augmented_reality.position.SphericalPositionStrategy
 import kotlin.math.hypot
 
 // TODO: Is the interface even needed?
 // TODO: Use ARPosition and ARSize
 class ARMarkerImpl private constructor(
-    private val position: AugmentedRealityView.HorizonCoordinate?,
-    private val angularDiameter: Float?,
-    private val location: Coordinate?,
-    private val elevation: Float?,
-    private val actualDiameter: Float?,
+    private val positionStrategy: ARPositionStrategy,
     private val canvasObject: CanvasObject,
     private val keepFacingUp: Boolean = false,
     private val onFocusedFn: (() -> Boolean) = { false },
@@ -30,27 +29,11 @@ class ARMarkerImpl private constructor(
     }
 
     override fun getAngularDiameter(view: AugmentedRealityView): Float {
-        if (actualDiameter != null && location != null) {
-            val distance = hypot(
-                view.location.distanceTo(location),
-                (elevation ?: view.altitude) - view.altitude
-            )
-            return AugmentedRealityUtils.getAngularSize(actualDiameter, distance)
-        }
-        return angularDiameter ?: 1f
+        return positionStrategy.getAngularDiameter(view)
     }
 
     override fun getHorizonCoordinate(view: AugmentedRealityView): AugmentedRealityView.HorizonCoordinate {
-        if (location != null) {
-            return AugmentedRealityUtils.getHorizonCoordinate(
-                view.location,
-                view.altitude,
-                location,
-                elevation
-            )
-        }
-
-        return position ?: AugmentedRealityView.HorizonCoordinate(0f, 0f, 1f)
+        return positionStrategy.getHorizonCoordinate(view)
     }
 
 
@@ -75,11 +58,13 @@ class ARMarkerImpl private constructor(
             onClickFn: () -> Boolean = { false }
         ): ARMarker {
             return ARMarkerImpl(
-                AugmentedRealityView.HorizonCoordinate(bearing, elevation, distance, isTrueNorth),
-                angularDiameter,
-                null,
-                null,
-                null,
+                SphericalPositionStrategy(
+                    bearing,
+                    elevation,
+                    distance,
+                    angularDiameter,
+                    isTrueNorth
+                ),
                 canvasObject,
                 keepFacingUp,
                 onFocusedFn,
@@ -97,11 +82,11 @@ class ARMarkerImpl private constructor(
             onClickFn: () -> Boolean = { false }
         ): ARMarker {
             return ARMarkerImpl(
-                null,
-                null,
-                location,
-                elevation,
-                actualDiameter,
+                GeographicPositionStrategy(
+                    location,
+                    elevation,
+                    actualDiameter
+                ),
                 canvasObject,
                 keepFacingUp,
                 onFocusedFn,
