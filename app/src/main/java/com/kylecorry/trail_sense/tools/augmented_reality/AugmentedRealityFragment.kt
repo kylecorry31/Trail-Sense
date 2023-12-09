@@ -37,7 +37,8 @@ import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.andromeda.fragments.observeFlow
-import com.kylecorry.trail_sense.tools.augmented_reality.position.GeographicPositionStrategy
+import com.kylecorry.trail_sense.tools.augmented_reality.position.GeographicARPoint
+import com.kylecorry.trail_sense.tools.augmented_reality.position.SphericalARPoint
 import kotlinx.coroutines.Dispatchers
 import java.time.Duration
 import java.time.LocalDate
@@ -104,7 +105,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             if (it == null) {
                 binding.arView.clearGuide()
             } else {
-                binding.arView.guideTo(GeographicPositionStrategy(it.coordinate, it.elevation)) {
+                binding.arView.guideTo(GeographicARPoint(it.coordinate, it.elevation)) {
                     // Do nothing when reached
                 }
             }
@@ -249,11 +250,13 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                         moonAfterPathObject
                     }
 
-                    ARMarkerImpl.horizon(
-                        astro.getMoonAzimuth(location, it).value,
-                        astro.getMoonAltitude(location, it),
-                        isTrueNorth = true,
-                        angularDiameter = 1f,
+                    ARMarker(
+                        SphericalARPoint(
+                            astro.getMoonAzimuth(location, it).value,
+                            astro.getMoonAltitude(location, it),
+                            isTrueNorth = true,
+                            angularDiameter = 1f
+                        ),
                         canvasObject = obj,
                         onFocusedFn = {
                             binding.arView.focusText =
@@ -275,11 +278,13 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                         sunAfterPathObject
                     }
 
-                    ARMarkerImpl.horizon(
-                        astro.getSunAzimuth(location, it).value,
-                        astro.getSunAltitude(location, it),
-                        isTrueNorth = true,
-                        angularDiameter = 1f,
+                    ARMarker(
+                        SphericalARPoint(
+                            astro.getSunAzimuth(location, it).value,
+                            astro.getSunAltitude(location, it),
+                            isTrueNorth = true,
+                            angularDiameter = 1f
+                        ),
                         canvasObject = obj,
                         onFocusedFn = {
                             binding.arView.focusText =
@@ -304,11 +309,13 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                 val moonImageSize = Resources.dp(requireContext(), 24f).toInt()
                 val moonBitmap = moonIcon?.toBitmapOrNull(moonImageSize, moonImageSize)
 
-                val moon = ARMarkerImpl.horizon(
-                    moonAzimuth,
-                    moonAltitude,
-                    isTrueNorth = true,
-                    angularDiameter = 2f,
+                val moon = ARMarker(
+                    SphericalARPoint(
+                        moonAzimuth,
+                        moonAltitude,
+                        isTrueNorth = true,
+                        angularDiameter = 2f
+                    ),
                     canvasObject = moonBitmap?.let { BitmapCanvasObject(moonBitmap) }
                         ?: CircleCanvasObject(Color.WHITE),
                     onFocusedFn = {
@@ -318,11 +325,13 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                     }
                 )
 
-                val sun = ARMarkerImpl.horizon(
-                    sunAzimuth,
-                    sunAltitude,
-                    isTrueNorth = true,
-                    angularDiameter = 2f,
+                val sun = ARMarker(
+                    SphericalARPoint(
+                        sunAzimuth,
+                        sunAltitude,
+                        isTrueNorth = true,
+                        angularDiameter = 2f
+                    ),
                     canvasObject = CircleCanvasObject(AppColor.Yellow.color),
                     onFocusedFn = {
                         binding.arView.focusText = getString(R.string.sun)

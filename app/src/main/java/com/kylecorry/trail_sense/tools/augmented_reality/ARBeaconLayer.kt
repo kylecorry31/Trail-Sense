@@ -7,6 +7,7 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.ui.DrawerBitmapLoader
+import com.kylecorry.trail_sense.tools.augmented_reality.position.GeographicARPoint
 import kotlin.math.hypot
 
 // TODO: Figure out what to pass for the visible distance: d = 1.2246 * sqrt(h) where d is miles and h is feet (or move it to the consumer)
@@ -93,37 +94,41 @@ class ARBeaconLayer(
         // TODO: Avoid recreating markers every time - it will help if this didn't filter nearby beacons
 //        if (!areBeaconsUpToDate) {
         // TODO: Change opacity if navigating
-            layer.setMarkers(visible.flatMap {
-                val beacon = it.first
-                listOfNotNull(
-                    ARMarkerImpl.geographic(
+        layer.setMarkers(visible.flatMap {
+            val beacon = it.first
+            listOfNotNull(
+                ARMarker(
+                    GeographicARPoint(
                         beacon.coordinate,
                         beacon.elevation,
                         beaconSize.distance,
-                        CircleCanvasObject(beacon.color, Color.WHITE),
-                        onFocusedFn = {
-                            onFocus(beacon)
-                        },
-                        onClickFn = {
-                            onClick(beacon)
-                        }
                     ),
-                    beacon.icon?.let { icon ->
-                        val color = Colors.mostContrastingColor(Color.WHITE, Color.BLACK, beacon.color)
-                        ARMarkerImpl.geographic(
+                    CircleCanvasObject(beacon.color, Color.WHITE),
+                    onFocusedFn = {
+                        onFocus(beacon)
+                    },
+                    onClickFn = {
+                        onClick(beacon)
+                    }
+                ),
+                beacon.icon?.let { icon ->
+                    val color = Colors.mostContrastingColor(Color.WHITE, Color.BLACK, beacon.color)
+                    ARMarker(
+                        GeographicARPoint(
                             beacon.coordinate,
                             beacon.elevation,
-                            beaconSize.distance,
-                            BitmapCanvasObject(
-                                loader.load(icon.icon, loadedImageSize),
-                                0.75f,
-                                tint = color
-                            ),
-                            keepFacingUp = true
-                        )
-                    }
-                )
-            })
+                            beaconSize.distance
+                        ),
+                        BitmapCanvasObject(
+                            loader.load(icon.icon, loadedImageSize),
+                            0.75f,
+                            tint = color
+                        ),
+                        keepFacingUp = true
+                    )
+                }
+            )
+        })
 //            areBeaconsUpToDate = true
 //        }
 

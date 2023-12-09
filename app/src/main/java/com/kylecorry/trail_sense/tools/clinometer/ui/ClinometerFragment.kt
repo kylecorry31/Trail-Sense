@@ -42,12 +42,11 @@ import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.augmented_reality.ARLineLayer
-import com.kylecorry.trail_sense.tools.augmented_reality.ARMarkerImpl
+import com.kylecorry.trail_sense.tools.augmented_reality.ARMarker
 import com.kylecorry.trail_sense.tools.augmented_reality.ARMarkerLayer
-import com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityView
 import com.kylecorry.trail_sense.tools.augmented_reality.CircleCanvasObject
-import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPositionStrategy
-import com.kylecorry.trail_sense.tools.augmented_reality.position.SphericalPositionStrategy
+import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPoint
+import com.kylecorry.trail_sense.tools.augmented_reality.position.SphericalARPoint
 import kotlinx.coroutines.Dispatchers
 import java.time.Duration
 import java.time.Instant
@@ -90,8 +89,8 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private val fovRunner = CoroutineQueueRunner(1, dispatcher = Dispatchers.Default)
     private val markerLayer = ARMarkerLayer()
     private val lineLayer = ARLineLayer()
-    private var startMarker: ARPositionStrategy? = null
-    private var endMarker: ARPositionStrategy? = null
+    private var startMarker: ARPoint? = null
+    private var endMarker: ARPoint? = null
 
     private val isAugmentedReality by lazy {
         prefs.isAugmentedRealityEnabled
@@ -304,6 +303,8 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
     private fun clearStartAngle() {
         startIncline = 0f
+        lineLayer.clearLines()
+        markerLayer.clearMarkers()
         binding.cameraClinometer.startInclination = null
         binding.clinometer.startAngle = null
     }
@@ -319,16 +320,20 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         // Calculate the distance away using the hypotenuse of the triangle
         val adjacent = distanceAway?.meters()?.distance ?: 10f
         val hypotenuse = adjacent / cosDegrees(startIncline)
-        val start = ARMarkerImpl.horizon(
+        val startPoint = SphericalARPoint(
             binding.arView.azimuth,
             binding.arView.inclination,
             isTrueNorth = prefs.compass.useTrueNorth,
             distance = hypotenuse,
-            angularDiameter = 1f,
-            canvasObject = CircleCanvasObject(AppColor.Orange.color)
+            angularDiameter = 1f
         )
-        startMarker = start
-        markerLayer.addMarker(start)
+        startMarker = startPoint
+        markerLayer.addMarker(
+            ARMarker(
+                startPoint,
+                CircleCanvasObject(AppColor.Orange.color)
+            )
+        )
     }
 
     private fun setEndAngle() {
@@ -338,16 +343,20 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         // Calculate the distance away using the hypotenuse of the triangle
         val adjacent = distanceAway?.meters()?.distance ?: 10f
         val hypotenuse = adjacent / cosDegrees(slopeIncline ?: 0f)
-        val end = ARMarkerImpl.horizon(
+        val endPoint = SphericalARPoint(
             binding.arView.azimuth,
             binding.arView.inclination,
             isTrueNorth = prefs.compass.useTrueNorth,
             distance = hypotenuse,
-            angularDiameter = 1f,
-            canvasObject = CircleCanvasObject(AppColor.Orange.color)
+            angularDiameter = 1f
         )
-        endMarker = end
-        markerLayer.addMarker(end)
+        endMarker = endPoint
+        markerLayer.addMarker(
+            ARMarker(
+                endPoint,
+                CircleCanvasObject(AppColor.Orange.color)
+            )
+        )
     }
 
     private fun clearEndAngle() {
@@ -355,6 +364,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         slopeIncline = null
         startMarker = null
         endMarker = null
+        lineLayer.clearLines()
         markerLayer.clearMarkers()
     }
 
@@ -475,12 +485,12 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
         updateCamera()
 
-        if (isAugmentedReality) {
+        if (isAugmentedReality && startMarker != null) {
             lineLayer.setLines(
                 listOf(
                     listOfNotNull(
                         startMarker,
-                        endMarker ?: SphericalPositionStrategy(
+                        endMarker ?: SphericalARPoint(
                             binding.arView.azimuth,
                             binding.arView.inclination,
                             isTrueNorth = prefs.compass.useTrueNorth,

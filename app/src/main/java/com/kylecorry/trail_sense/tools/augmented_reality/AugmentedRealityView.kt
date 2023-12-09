@@ -27,7 +27,7 @@ import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.text
 import com.kylecorry.trail_sense.shared.textDimensions
-import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPositionStrategy
+import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPoint
 import java.time.Duration
 import kotlin.math.atan2
 
@@ -109,7 +109,7 @@ class AugmentedRealityView : CanvasView {
     private val layerLock = Any()
 
     // Guidance
-    private var guideStrategy: ARPositionStrategy? = null
+    private var guideStrategy: ARPoint? = null
     private var guideThreshold: Float? = null
     private var onGuideReached: (() -> Unit)? = null
 
@@ -156,7 +156,7 @@ class AugmentedRealityView : CanvasView {
     }
 
     fun guideTo(
-        guideStrategy: ARPositionStrategy,
+        guideStrategy: ARPoint,
         thresholdDegrees: Float? = null,
         onReached: () -> Unit = { clearGuide() }
     ) {

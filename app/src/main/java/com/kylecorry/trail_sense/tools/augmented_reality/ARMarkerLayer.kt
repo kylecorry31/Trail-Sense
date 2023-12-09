@@ -119,12 +119,9 @@ class ARMarkerLayer(
         minimumPixelSize: Float,
         maximumPixelSize: Float
     ): PixelCircle {
-        val coordinates = marker.getHorizonCoordinate(view)
-        val angularDiameter = marker.getAngularDiameter(view)
-        val diameter = view.sizeToPixel(angularDiameter)
-        return PixelCircle(
-            view.toPixel(coordinates),
-            diameter.coerceIn(minimumPixelSize, maximumPixelSize) / 2f
+        val circle = marker.getViewLocation(view)
+        return circle.copy(
+            radius = circle.radius.coerceIn(minimumPixelSize / 2f, maximumPixelSize / 2f)
         )
     }
 

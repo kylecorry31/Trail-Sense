@@ -2,15 +2,23 @@ package com.kylecorry.trail_sense.tools.augmented_reality.position
 
 import com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityView
 
-class SphericalPositionStrategy(
+/**
+ * A point in spherical coordinates
+ * @param bearing The bearing in degrees
+ * @param elevationAngle The elevation angle in degrees
+ * @param distance The distance in meters, defaults to MAX_VALUE
+ * @param angularDiameter The angular diameter in degrees, defaults to 1
+ * @param isTrueNorth True if the bearing is true north, false if it is magnetic north
+ */
+class SphericalARPoint(
     bearing: Float,
-    elevation: Float,
+    elevationAngle: Float,
     distance: Float = Float.MAX_VALUE,
     private val angularDiameter: Float = 1f,
     isTrueNorth: Boolean = true
-) : ARPositionStrategy {
+) : ARPoint {
     private val position =
-        AugmentedRealityView.HorizonCoordinate(bearing, elevation, distance, isTrueNorth)
+        AugmentedRealityView.HorizonCoordinate(bearing, elevationAngle, distance, isTrueNorth)
 
     override fun getAngularDiameter(view: AugmentedRealityView): Float {
         return angularDiameter

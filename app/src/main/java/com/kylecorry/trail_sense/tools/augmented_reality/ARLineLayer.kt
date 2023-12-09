@@ -7,7 +7,7 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.normalizeAngle
-import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPositionStrategy
+import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPoint
 import kotlin.math.hypot
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -20,10 +20,10 @@ class ARLineLayer(
 
     private val path = Path()
 
-    private val lines = mutableListOf<List<ARPositionStrategy>>()
+    private val lines = mutableListOf<List<ARPoint>>()
     private val lineLock = Any()
 
-    fun setLines(lines: List<List<ARPositionStrategy>>) {
+    fun setLines(lines: List<List<ARPoint>>) {
         synchronized(lineLock) {
             this.lines.clear()
             this.lines.addAll(lines)
@@ -100,7 +100,7 @@ class ARLineLayer(
      */
     private fun getLinePixels(
         view: AugmentedRealityView,
-        line: List<ARPositionStrategy>,
+        line: List<ARPoint>,
         resolutionDegrees: Float,
         maxDistance: Float,
     ): List<List<PixelCoordinate>> {
