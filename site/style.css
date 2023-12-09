@@ -191,6 +191,28 @@ img {
   padding: 0;
 }
 
+#guide-list {
+  margin-top: 24px;
+}
+
+.guide-list-item {
+  padding: 16px;
+  width: calc(100% - 32px);
+  display: block;
+  text-decoration: none;
+  color: #222222;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.guide-list-item:first-child {
+  border-top: 1px solid #f2f2f2;
+}
+
+.guide-list-item:hover,
+.guide-list-item:focus {
+    background: rgba(0, 0, 0, 0.05);
+}
+
 @media screen and (max-width: 600px) {
   #features .grid {
     grid-template-columns: 1fr 1fr;

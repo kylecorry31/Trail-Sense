@@ -24,7 +24,9 @@ const guides = [
 // Populate the guide list
 const guideList = document.querySelector('#guide-list');
 for (const guide of guides) {
-    const guideItem = document.createElement('li');
-    guideItem.innerHTML = `<a href="guide?id=${guide}">${guide.split('_').slice(1).map(w => w[0].toUpperCase() + w.slice(1)).join(' ')}</a>`;
+    const guideItem = document.createElement('a');
+    guideItem.innerText = guide.split('_').slice(1).map(w => w[0].toUpperCase() + w.slice(1)).join(' ');
+    guideItem.classList.add('guide-list-item');
+    guideItem.href = `guide?id=${guide}`;
     guideList.appendChild(guideItem);
 }
