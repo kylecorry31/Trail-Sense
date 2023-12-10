@@ -494,7 +494,6 @@
     <string name="guide_using_printed_maps">使用印刷地图</string>
     <string name="next">下一张</string>
     <string name="previous">上一张</string>
-    <string name="guide_importing_maps_title">正在导入地图</string>
     <string name="create_map_description">输入地图名称</string>
     <string name="create_map">创建地图</string>
     <string name="place_beacon_at">将一个信标放置于%s？</string>

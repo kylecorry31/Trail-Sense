@@ -516,7 +516,6 @@
     <string name="map_auto_calibrated">Harita otomatik olarak kalibre edildi, lütfen doğruluğunu onaylayın</string>
     <string name="next">Sonraki</string>
     <string name="previous">Önceki</string>
-    <string name="guide_importing_maps_title">Haritaları içe aktarma</string>
     <string name="create_map_description">Haritanın adını girin</string>
     <string name="create_map">Harita oluştur</string>
     <string name="on_map">Harita üzerinde</string>

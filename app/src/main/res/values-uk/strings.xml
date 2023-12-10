@@ -23,7 +23,6 @@
     <string name="time_until_empty">до спустошення</string>
     <string name="next">Далі</string>
     <string name="previous">Назад</string>
-    <string name="guide_importing_maps_title">Імпортування мап</string>
     <string name="create_map_description">Уведіть назву мапи</string>
     <string name="create_map">Створити мапу</string>
     <string name="place_beacon_at">Установити маячок на %s\?</string>

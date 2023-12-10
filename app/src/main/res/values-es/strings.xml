@@ -514,7 +514,6 @@
     <string name="on_map">En el mapa</string>
     <string name="place_beacon_at">¿Colocar una baliza en %s\?</string>
     <string name="create_map_description">Introduce el nombre del mapa</string>
-    <string name="guide_importing_maps_title">Importando mapas</string>
     <string name="previous">Anterior</string>
     <string name="next">Siguiente</string>
     <string name="time_until_full">Hasta que este lleno</string>

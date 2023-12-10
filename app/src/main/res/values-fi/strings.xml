@@ -329,7 +329,6 @@
     <string name="guide_recommended_apps">Suositellut sovellukset</string>
     <string name="pref_nmea_elevation_title">NMEA-korkeuspoikkeamat</string>
     <string name="could_not_triangulate">Kolmiota ei voitu tehdä</string>
-    <string name="guide_importing_maps_title">Tuodaan karttoja</string>
     <string name="pip_notification_scheduled">Ilmoitus ajoitettu %s</string>
     <string name="restore_failure_newer_version">Tämä varmuuskopio luotiin %s:n uudemmalla versiolla. Päivitä sovellus ja yritä uudelleen.</string>
     <string name="open_beacon_in_maps">Näytä kartalla</string>

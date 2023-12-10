@@ -513,7 +513,6 @@
     <string name="time_until_empty">до опустения</string>
     <string name="next">Далее</string>
     <string name="previous">Назад</string>
-    <string name="guide_importing_maps_title">Импорт карт</string>
     <string name="create_map_description">Введите название карты</string>
     <string name="create_map">Создать карту</string>
     <string name="place_beacon_at">Установить маячок на %s\?</string>

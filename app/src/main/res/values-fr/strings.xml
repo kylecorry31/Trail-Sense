@@ -518,7 +518,6 @@
     <string name="on_map">Sur la carte</string>
     <string name="create_map">Créer une carte</string>
     <string name="create_map_description">Entrer le nom de la carte</string>
-    <string name="guide_importing_maps_title">Importer des cartes</string>
     <string name="previous">Précédent</string>
     <string name="next">Suivant</string>
     <string name="hour_symbol">h</string>

@@ -105,7 +105,7 @@ object Tools {
                 R.id.action_tools_to_maps_list,
                 ToolCategory.Location,
                 context.getString(R.string.photo_map_summary),
-                guideId = R.raw.importing_maps
+                guideId = R.raw.guide_tool_photo_maps
             ),
             Tool(
                 9,

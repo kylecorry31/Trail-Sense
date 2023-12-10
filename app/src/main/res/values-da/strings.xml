@@ -760,7 +760,6 @@
     <string name="tomorrow_at">I morgen kl. %s</string>
     <string name="on_map">På kort</string>
     <string name="create_map">Opret kort</string>
-    <string name="guide_importing_maps_title">Importerer kort</string>
     <string name="gps_cache">GPS Cache</string>
     <string name="always_on">Altid til</string>
     <string name="pref_backtrack_save_cell_title">Husk cellesignal</string>

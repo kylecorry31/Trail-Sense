@@ -638,7 +638,6 @@
     <string name="time_until_empty">até esgotar</string>
     <string name="next">Seguinte</string>
     <string name="previous">Anterior</string>
-    <string name="guide_importing_maps_title">Importar mapas</string>
     <string name="create_map_description">Introduza o nome do mapa</string>
     <string name="create_map">Criar mapa</string>
     <string name="place_beacon_at">Posicionar um alfinete em %s\?</string>

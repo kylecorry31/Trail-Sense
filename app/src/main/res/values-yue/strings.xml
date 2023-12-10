@@ -407,7 +407,6 @@
     <string name="time_until_empty">就會冇晒電</string>
     <string name="previous">上一頁</string>
     <string name="time_until_full">就會叉滿電</string>
-    <string name="guide_importing_maps_title">匯入地圖</string>
     <plurals name="path_group_summary">
         <item quantity="other">%d 條路徑</item>
     </plurals>

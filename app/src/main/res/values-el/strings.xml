@@ -278,7 +278,6 @@
     <string name="imperial_ounces_volume">Αγγλικές Ουγγιές</string>
     <string name="could_not_triangulate">Δεν ήταν δυνατή η τριχοτόμηση</string>
     <string name="ounces_volume_format">%s oz</string>
-    <string name="guide_importing_maps_title">Εισαγωγή χαρτών</string>
     <string name="high_tide_letter">H</string>
     <string name="pip_notification_scheduled">Η ειδοποίηση προγραμματίστηκε για %s</string>
     <string name="pref_backtrack_frequency_title">Μεσοδιάστημα ιχνηθέτη</string>

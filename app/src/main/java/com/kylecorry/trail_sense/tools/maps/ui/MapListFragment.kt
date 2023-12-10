@@ -121,7 +121,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
         binding.mapList.emptyView = binding.mapEmptyText
 
         binding.mapListTitle.leftButton.setOnClickListener {
-            UserGuideUtils.showGuide(this, R.raw.importing_maps)
+            UserGuideUtils.showGuide(this, R.raw.guide_tool_photo_maps)
         }
 
         sort = prefs.navigation.mapSort

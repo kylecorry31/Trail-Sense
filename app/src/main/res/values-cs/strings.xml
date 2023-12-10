@@ -551,7 +551,6 @@
     <string name="place_beacon_at">Umístit maják na %s\?</string>
     <string name="create_map">Vytvořit mapu</string>
     <string name="create_map_description">Zadejte název mapy</string>
-    <string name="guide_importing_maps_title">Importování map</string>
     <string name="previous">Předchozí</string>
     <string name="next">Další</string>
     <string name="time_until_empty">do prázdné baterie</string>

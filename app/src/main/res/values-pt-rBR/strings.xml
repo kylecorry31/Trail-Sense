@@ -572,7 +572,6 @@
     <string name="time_until_empty">até esgotado</string>
     <string name="next">Próximo</string>
     <string name="previous">Anterior</string>
-    <string name="guide_importing_maps_title">Importando mapas</string>
     <string name="create_map_description">Digite o nome do mapa</string>
     <string name="create_map">Criar mapa</string>
     <string name="on_map">No mapa</string>

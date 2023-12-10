@@ -191,7 +191,6 @@
     <string name="time_until_empty">dok nije prazno</string>
     <string name="next">Sljedeće</string>
     <string name="previous">Prethodno</string>
-    <string name="guide_importing_maps_title">Uvoženje kartih</string>
     <string name="place_beacon_at">Postavite svjetionik na %s\?</string>
     <string name="on_map">Na karti</string>
     <string name="no_maps">Nema kartih</string>

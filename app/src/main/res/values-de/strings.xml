@@ -500,7 +500,6 @@
     <string name="update_gps_override">GPS-Override aktualisieren</string>
     <string name="next">Weiter</string>
     <string name="previous">Zurück</string>
-    <string name="guide_importing_maps_title">Karten importieren</string>
     <string name="create_map_description">Gebe den Namen der Karte ein</string>
     <string name="create_map">Karte erstellen</string>
     <string name="no_maps">Keine Karten</string>

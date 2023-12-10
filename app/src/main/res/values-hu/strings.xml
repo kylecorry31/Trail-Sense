@@ -190,7 +190,6 @@
     <string name="guide_using_printed_maps">Nyomtatott térképek használata</string>
     <string name="previous">Előző</string>
     <string name="create_map_description">Add meg a térkép nevét</string>
-    <string name="guide_importing_maps_title">Térképek importálása</string>
     <string name="minute_symbol">p</string>
     <string name="map_auto_calibrated">Térkép auto-kalibrálva, ellenőrizd a pontosságát</string>
     <string name="search">Keresés</string>

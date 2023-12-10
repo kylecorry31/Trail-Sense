@@ -37,11 +37,6 @@ object Guides {
                     R.raw.using_printed_maps
                 ),
                 UserGuide(
-                    context.getString(R.string.guide_importing_maps_title),
-                    null,
-                    R.raw.importing_maps
-                ),
-                UserGuide(
                     context.getString(R.string.guide_location_no_gps_title),
                     null,
                     R.raw.determine_location_without_gps

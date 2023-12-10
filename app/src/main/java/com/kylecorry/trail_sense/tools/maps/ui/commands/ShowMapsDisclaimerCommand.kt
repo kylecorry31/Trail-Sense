@@ -20,7 +20,7 @@ class ShowMapsDisclaimerCommand(private val fragment: Fragment) : Command {
             shownValue = true
         ) { showUserGuide, _ ->
             if (showUserGuide) {
-                UserGuideUtils.showGuide(fragment, R.raw.importing_maps)
+                UserGuideUtils.showGuide(fragment, R.raw.guide_tool_photo_maps)
             }
         }
     }

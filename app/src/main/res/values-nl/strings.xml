@@ -601,7 +601,6 @@
     <string name="time_until_empty">tot leeg</string>
     <string name="next">Volgende</string>
     <string name="previous">Vorige</string>
-    <string name="guide_importing_maps_title">Kaarten importeren</string>
     <string name="create_map_description">Voer de naam van de kaart in</string>
     <string name="create_map">Kaart maken</string>
     <string name="place_beacon_at">Een baken plaatsen op %s\?</string>
