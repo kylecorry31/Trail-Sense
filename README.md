@@ -170,6 +170,7 @@ The best way to support Trail Sense is to send me your feedback, share how you a
 - Thanks to @qwerty287 and @Portagoras for implementing some features and bugfixes
 - Please see the in app licenses for all open source licenses
 - Contributors and translators: https://github.com/kylecorry31/Trail-Sense/graphs/contributors
+- [showdownjs](https://github.com/showdownjs/showdown): used for website markdown rendering [License](https://github.com/showdownjs/showdown/blob/master/LICENSE)
 
 # License
 
