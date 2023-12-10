@@ -552,8 +552,8 @@
     <string name="hygrometer">Higrometre</string>
     <string name="barometer">Barometre</string>
     <string name="network_no_signal">Sinyal yok</string>
-    <string name="pref_nmea_elevation_summary">İrtifa dönüşümü için NMEA ofsetlerini kullanır</string>
-    <string name="pref_nmea_elevation_title">NMEA irtifa ofsetleri</string>
+    <string name="pref_nmea_elevation_summary">Yükseklikleri düzeltmek için yerleşik model yerine NMEA (uydu) kullan</string>
+    <string name="pref_nmea_elevation_title">NMEA yükseklik düzeltmesi</string>
     <string name="pref_barometer_pressure_smoothing_title">Basınç düzenleme</string>
     <string name="pref_barometer_info_summary">Basınç, yakındaki istasyonlardan farklı olabilir</string>
     <string name="battery_history">Pil geçmişi - son %s</string>
@@ -1144,4 +1144,21 @@
     <string name="pinned">Sabitlendi</string>
     <string name="tool_quick_actions">Araç hızlı eylemleri</string>
     <string name="pin">Sabitle</string>
+    <string name="no_sensor_message">Aygıtınızda %s sensörü yok</string>
+    <string name="missing_sensor_message_1">%1$s aygıtınızda yerleşik bir %2$s sensörü yok. Maalesef bu, %3$s\'deki bazı özelliklerin kullanılamayacağı anlamına gelir.</string>
+    <string name="why_missing_sensor">Aygıtım yeni/pahalı, neden bu sensör eksik?</string>
+    <string name="magnetic_north_description">Manyetik Kuzey Kutbunu gösterir. Bu, çoğu pusula ile uyumlu olacaktır.</string>
+    <string name="restart_services_message">Arka plan hizmetleri yeniden başlatılamadı. Yeniden başlatmak için dokunun.</string>
+    <string name="service_restart">Hizmet Yeniden Başlatma</string>
+    <string name="restart_services_title">Hizmetleri yeniden başlat</string>
+    <string name="high_sensitivity">Yüksek hassasiyet</string>
+    <string name="missing_sensor_explanation">Bazı telefon üreticileri, yeni veya pahalı aygıtlarda bile bu sensörü eklememeyi tercih etmektedir. Aygıt üreticinizin web sitesini ziyaret ederek veya onlarla iletişime geçerek daha fazla bilgi edinebilirsiniz.</string>
+    <string name="no_sensor_unable_to_fix">Hayır, ne yazık ki bu bir donanım özelliğidir, bu nedenle eklemek için yapılabilecek bir şey yoktur.</string>
+    <string name="fused_altimeter_force_calibration">Kalibrasyona zorlama aralığı</string>
+    <string name="true_north_description">Bulunduğunuz yerin sapmasını kullanarak coğrafi Kuzey Kutbunu gösterir. Bu, çoğu harita ile uyumlu olacaktır.</string>
+    <string name="continuous_calibration_description">GPS düzeltmesi olduğunda kalibrasyon yapar</string>
+    <string name="fused_altimeter_force_calibration_summary">Her %s\'de bir GPS kalibrasyonunu zorlar</string>
+    <string name="continuous_calibration">Sürekli kalibrasyon</string>
+    <string name="is_there_a_way_to_fix_this">Bunu düzeltmenin bir yolu var mı?</string>
+    <string name="service_restart_channel_description">Hizmetleri yeniden başlatmak için bir bildirim</string>
 </resources>
