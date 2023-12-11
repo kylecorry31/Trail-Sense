@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.databinding.FragmentGuideBinding
 import com.kylecorry.trail_sense.tools.guide.domain.UserGuide
@@ -15,10 +18,20 @@ class GuideBottomSheetFragment(private val guide: UserGuide) :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val content = UserGuideService(requireContext()).load(guide.contents)
         binding.guideName.title.text = guide.name
-        val markdown = MarkdownService(requireContext())
-        markdown.setMarkdown(binding.guideContents, content)
+
+        inBackground {
+            val content = onIO {
+                UserGuideService(requireContext()).load(guide.contents)
+            }
+            val markdown = MarkdownService(requireContext())
+            val spanned = onDefault {
+                markdown.toMarkdown(content)
+            }
+            if (isBound) {
+                binding.guideContents.text = spanned
+            }
+        }
     }
 
     override fun generateBinding(
