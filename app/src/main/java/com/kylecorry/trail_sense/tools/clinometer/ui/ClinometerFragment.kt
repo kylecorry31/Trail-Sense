@@ -162,6 +162,8 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         binding.arView.showReticle = false
         binding.arView.showPosition = false
 
+        binding.arView.bind(binding.camera)
+
         observe(sideClinometer) { updateUI() }
         observe(cameraClinometer) { updateUI() }
         observe(deviceOrientation) { updateUI() }

@@ -27,6 +27,7 @@ import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.text
 import com.kylecorry.trail_sense.shared.textDimensions
+import com.kylecorry.trail_sense.shared.views.CameraView
 import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPoint
 import java.time.Duration
 import kotlin.math.atan2
@@ -418,9 +419,17 @@ class AugmentedRealityView : CanvasView {
 
     private val mGestureDetector = GestureDetector(context, gestureListener)
 
+    private var camera: CameraView? = null
+
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        val consumed = mGestureDetector.onTouchEvent(event)
-        return consumed || super.onTouchEvent(event)
+        mGestureDetector.onTouchEvent(event)
+        camera?.onTouchEvent(event)
+        return true
+    }
+
+    fun bind(camera: CameraView){
+        this.camera = camera
+        // TODO: Listen for fov and size changes
     }
 
     data class HorizonCoordinate(

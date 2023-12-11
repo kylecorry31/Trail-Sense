@@ -115,6 +115,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         binding.camera.setScaleType(PreviewView.ScaleType.FIT_CENTER)
         binding.camera.setShowTorch(false)
 
+        binding.arView.bind(binding.camera)
+
         binding.arView.setLayers(listOf(gridLayer, sunLayer, moonLayer, beaconLayer))
 
         binding.cameraToggle.setOnClickListener {
