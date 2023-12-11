@@ -19,7 +19,8 @@ const guides = [
     'tool_temperature_estimation',
     'tool_water_boil_timer',
     'tool_weather',
-    'tool_whistle'
+    'tool_whistle',
+    'tool_white_noise',
 ];
 
 // Populate the guide list

@@ -282,7 +282,8 @@ object Tools {
                 R.drawable.ic_tool_white_noise,
                 R.id.action_action_experimental_tools_to_fragmentToolWhiteNoise,
                 ToolCategory.Other,
-                context.getString(R.string.tool_white_noise_summary)
+                context.getString(R.string.tool_white_noise_summary),
+                guideId = R.raw.guide_tool_white_noise
             ),
             Tool(
                 30,
