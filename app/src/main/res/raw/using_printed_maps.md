@@ -21,13 +21,3 @@
 3. Plot the Easting and Northing values on the map by finding the intersection of the corresponding grid lines. Using the example in step 2, find the 123E grid line (vertical line with the number listed on the top or bottom) and the 234N line (horizontal line with the number listed on the left or right). The intersection point is "123E 234N".
 
 4. For increased precision, divide the grid into 10 equal sections vertically and horizontally. Take the next digit from your UTM coordinate and move that many tenths up or right from the intersection. Repeat this process, dividing each tenth into 10 sections for each digit in your UTM coordinate. For example, suppose you narrowed your location down to the grid with the bottom left corner at "123E 234N". Split the space between 123E and 124E into 10 equal segments, and do the same for 234N and 235N. Take the next digit (fourth digit) from your UTM coordinate, which is 2 for the Easting and 1 for the Northing. Move 2 lines to the right from the intersection for Easting and 1 line up for Northing. This gives you a new intersection. Repeat this process, dividing the grid into smaller sections, until you accurately locate your position.
-
-## How to measure distance on a map?
-
-Using the ruler in Trail Sense, you can measure distances on a map. First determine which scale your map uses. If it says something along the lines of 'Scale 1:62500', then you can use the 'Ratio' scale on the ruler tool. If it says something like '1 inch = 1 mile' or has bars which can be measured, then you can use the 'Verbal' scale.
-
-**Ratio scale**: Enter the scale into Trail Sense as shown on the map. Ex. 1 on the left and 62500 on the right.
-
-**Verbal scale**: Enter the scale into Trail Sense as shown on the map. Ex. 1 inch on top and 1 mile on bottom.
-
-Once the scale has been entered, you can place the 0 marker of the ruler on your starting point, line up the ruler to see both the start and destination along the border, and then tap the ruler where the destination is. The distance shown will be the distance to the point.

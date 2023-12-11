@@ -64,6 +64,7 @@ object Tools {
                 R.drawable.ruler,
                 R.id.action_action_experimental_tools_to_rulerFragment,
                 ToolCategory.Distance,
+                guideId = R.raw.guide_tool_ruler
             ),
             if (hasPedometer) Tool(
                 4,

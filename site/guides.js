@@ -16,6 +16,7 @@ const guides = [
     'tool_notes',
     'tool_packing_lists',
     'tool_photo_maps',
+    'tool_ruler',
     'tool_temperature_estimation',
     'tool_water_boil_timer',
     'tool_weather',
