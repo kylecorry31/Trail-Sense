@@ -67,8 +67,8 @@ class BacktrackSubsystem private constructor(private val context: Context) {
         return frequency.getOrNull() ?: Duration.ofMinutes(30)
     }
 
-    suspend fun enable(startNewPath: Boolean, isInBackground: Boolean = false) {
-        if (isInBackground && !Permissions.canRunLocationForegroundService(context, true)) {
+    suspend fun enable(startNewPath: Boolean) {
+        if (!Permissions.canRunLocationForegroundService(context)) {
             ServiceRestartAlerter(context).alert()
             Log.d("BacktrackSubsystem", "Cannot start backtrack")
             return
@@ -87,10 +87,10 @@ class BacktrackSubsystem private constructor(private val context: Context) {
     }
 
     private fun calculateBacktrackState(): FeatureState {
-        return if (BacktrackScheduler.isOn(context)) {
-            FeatureState.On
-        } else if (BacktrackScheduler.isDisabled(context)) {
+        return if (BacktrackScheduler.isDisabled(context)) {
             FeatureState.Unavailable
+        } else if (BacktrackScheduler.isOn(context)) {
+            FeatureState.On
         } else {
             FeatureState.Off
         }

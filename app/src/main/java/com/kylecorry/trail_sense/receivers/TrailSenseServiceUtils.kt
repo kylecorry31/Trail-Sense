@@ -28,7 +28,7 @@ object TrailSenseServiceUtils {
             }
 
             startWeatherMonitoring(context, isInBackground)
-            startBacktrack(context, isInBackground)
+            startBacktrack(context)
             startPedometer(context)
             startSunsetAlarm(context)
             startAstronomyAlerts(context)
@@ -73,11 +73,11 @@ object TrailSenseServiceUtils {
         }
     }
 
-    private suspend fun startBacktrack(context: Context, isInBackground: Boolean) {
+    private suspend fun startBacktrack(context: Context) {
         val backtrack = BacktrackSubsystem.getInstance(context)
         if (backtrack.getState() == FeatureState.On) {
             if (!BacktrackService.isRunning) {
-                backtrack.enable(false, isInBackground)
+                backtrack.enable(false)
             }
         } else {
             backtrack.disable()

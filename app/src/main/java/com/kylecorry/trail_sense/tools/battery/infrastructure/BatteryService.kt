@@ -38,7 +38,7 @@ class BatteryService {
         }
 
         // Backtrack
-        if (BacktrackIsEnabled().isSatisfiedBy(context)) {
+        if (BacktrackScheduler.isOn(context)) {
             services.add(
                 RunningService(
                     context.getString(R.string.backtrack),

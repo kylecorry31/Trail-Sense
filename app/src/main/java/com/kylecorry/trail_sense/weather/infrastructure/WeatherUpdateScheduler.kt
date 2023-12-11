@@ -31,12 +31,8 @@ object WeatherUpdateScheduler {
     }
 
     private fun canStartFromBackground(context: Context): Boolean {
-        if (Permissions.canRunLocationForegroundService(context, true)) {
-            return true
-        }
-
-        // Location permission is not needed, so it is not restricted
-        return !Permissions.canGetLocation(context)
+        // TODO: If it was started without permission, it should be able to be restarted without permission - keep track of this
+        return Permissions.canRunLocationForegroundService(context)
     }
 
     fun stop(context: Context) {
