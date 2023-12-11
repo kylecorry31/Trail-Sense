@@ -18,6 +18,7 @@ const guides = [
     'tool_photo_maps',
     'tool_ruler',
     'tool_temperature_estimation',
+    'tool_triangulate_location',
     'tool_water_boil_timer',
     'tool_weather',
     'tool_whistle',
