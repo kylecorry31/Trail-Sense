@@ -5,7 +5,7 @@ import android.util.Log
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.trail_sense.receivers.ServiceRestartAlerter
-import com.kylecorry.trail_sense.shared.permissions.canRunLocationForegroundService
+import com.kylecorry.trail_sense.shared.permissions.canStartLocationForgroundService
 
 object WeatherUpdateScheduler {
 
@@ -16,12 +16,12 @@ object WeatherUpdateScheduler {
         }
     }
 
-    fun start(context: Context, isInBackground: Boolean = false) {
+    fun start(context: Context) {
         if (!WeatherMonitorIsAvailable().isSatisfiedBy(context)) {
             return
         }
 
-        if (isInBackground && !canStartFromBackground(context)) {
+        if (!hasPermissions(context)) {
             ServiceRestartAlerter(context).alert()
             Log.d("WeatherUpdateScheduler", "Cannot start weather monitoring")
             return
@@ -30,9 +30,9 @@ object WeatherUpdateScheduler {
         WeatherMonitorService.start(context)
     }
 
-    private fun canStartFromBackground(context: Context): Boolean {
-        // TODO: If it was started without permission, it should be able to be restarted without permission - keep track of this
-        return Permissions.canRunLocationForegroundService(context)
+    private fun hasPermissions(context: Context): Boolean {
+        // Either it didn't need location or it has foreground location permission (runtime check)
+        return !Permissions.canGetLocation(context) || Permissions.canStartLocationForgroundService(context)
     }
 
     fun stop(context: Context) {

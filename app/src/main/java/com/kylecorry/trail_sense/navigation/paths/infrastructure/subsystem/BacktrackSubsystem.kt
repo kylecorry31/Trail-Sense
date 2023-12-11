@@ -14,7 +14,7 @@ import com.kylecorry.trail_sense.receivers.ServiceRestartAlerter
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.getOrNull
-import com.kylecorry.trail_sense.shared.permissions.canRunLocationForegroundService
+import com.kylecorry.trail_sense.shared.permissions.canStartLocationForgroundService
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import java.time.Duration
 import java.util.*
@@ -68,18 +68,14 @@ class BacktrackSubsystem private constructor(private val context: Context) {
     }
 
     suspend fun enable(startNewPath: Boolean) {
-        if (!Permissions.canRunLocationForegroundService(context)) {
+        if (!Permissions.canStartLocationForgroundService(context)) {
             ServiceRestartAlerter(context).alert()
             Log.d("BacktrackSubsystem", "Cannot start backtrack")
             return
         }
 
-        if (Permissions.canRunLocationForegroundService(context)) {
-            prefs.backtrackEnabled = true
-            BacktrackScheduler.start(context, startNewPath)
-        } else {
-            disable()
-        }
+        prefs.backtrackEnabled = true
+        BacktrackScheduler.start(context, startNewPath)
     }
 
     fun disable() {

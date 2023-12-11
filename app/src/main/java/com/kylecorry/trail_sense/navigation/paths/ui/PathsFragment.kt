@@ -49,7 +49,7 @@ import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.lists.bind
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
-import com.kylecorry.trail_sense.shared.permissions.requestLocationForegroundServicePermission
+import com.kylecorry.trail_sense.shared.permissions.requestBacktrackPermission
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 class PathsFragment : BoundFragment<FragmentPathsBinding>() {
@@ -143,7 +143,7 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
             when (backtrack.getState()) {
                 FeatureState.On -> backtrack.disable()
                 FeatureState.Off -> {
-                    requestLocationForegroundServicePermission { success ->
+                    requestBacktrackPermission { success ->
                         if (success) {
                             inBackground {
                                 backtrack.enable(true)

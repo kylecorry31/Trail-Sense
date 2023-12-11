@@ -11,7 +11,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
-import com.kylecorry.trail_sense.shared.permissions.requestLocationForegroundServicePermission
+import com.kylecorry.trail_sense.shared.permissions.requestBacktrackPermission
 
 class QuickActionBacktrack(btn: ImageButton, private val andromedaFragment: AndromedaFragment) :
     TopicQuickAction(btn, andromedaFragment, hideWhenUnavailable = false) {
@@ -25,7 +25,7 @@ class QuickActionBacktrack(btn: ImageButton, private val andromedaFragment: Andr
             when (backtrack.getState()) {
                 FeatureState.On -> backtrack.disable()
                 FeatureState.Off -> {
-                    andromedaFragment.requestLocationForegroundServicePermission { success ->
+                    andromedaFragment.requestBacktrackPermission { success ->
                         if (success) {
                             andromedaFragment.inBackground {
                                 backtrack.enable(true)

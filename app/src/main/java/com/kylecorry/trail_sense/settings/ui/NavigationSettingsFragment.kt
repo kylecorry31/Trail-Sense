@@ -23,7 +23,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
-import com.kylecorry.trail_sense.shared.permissions.requestLocationForegroundServicePermission
+import com.kylecorry.trail_sense.shared.permissions.requestBacktrackPermission
 import com.kylecorry.trail_sense.shared.preferences.setupNotificationSetting
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import java.time.Duration
@@ -68,7 +68,7 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
         prefBacktrack?.setOnPreferenceClickListener {
             val backtrack = BacktrackSubsystem.getInstance(requireContext())
             if (prefs.backtrackEnabled) {
-                requestLocationForegroundServicePermission { success ->
+                requestBacktrackPermission { success ->
                     if (success) {
                         inBackground {
                             backtrack.enable(true)

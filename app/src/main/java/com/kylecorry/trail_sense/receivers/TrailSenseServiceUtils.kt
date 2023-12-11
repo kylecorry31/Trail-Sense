@@ -27,7 +27,7 @@ object TrailSenseServiceUtils {
                 ServiceRestartAlerter(context).dismiss()
             }
 
-            startWeatherMonitoring(context, isInBackground)
+            startWeatherMonitoring(context)
             startBacktrack(context)
             startPedometer(context)
             startSunsetAlarm(context)
@@ -62,11 +62,11 @@ object TrailSenseServiceUtils {
         }
     }
 
-    private fun startWeatherMonitoring(context: Context, isInBackground: Boolean) {
+    private fun startWeatherMonitoring(context: Context) {
         val prefs = UserPreferences(context)
         if (prefs.weather.shouldMonitorWeather) {
             if (!WeatherMonitorService.isRunning) {
-                WeatherUpdateScheduler.start(context, isInBackground)
+                WeatherUpdateScheduler.start(context)
             }
         } else {
             WeatherUpdateScheduler.stop(context)

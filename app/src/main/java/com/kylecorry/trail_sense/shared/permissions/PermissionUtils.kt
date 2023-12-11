@@ -3,20 +3,17 @@ package com.kylecorry.trail_sense.shared.permissions
 import android.Manifest
 import android.content.Context
 import android.os.Build
-import android.util.Log
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.IPermissionRequester
-import com.kylecorry.andromeda.sense.location.GPS
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.permissions.PermissionRationale
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.permissions.SpecialPermission
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 fun Fragment.alertNoCameraPermission() {
     Alerts.toast(
@@ -109,27 +106,27 @@ fun AndromedaFragment.requestCamera(action: (hasPermission: Boolean) -> Unit) {
     }
 }
 
-fun Permissions.canRunLocationForegroundService(context: Context): Boolean {
+fun Permissions.canStartLocationForgroundService(context: Context): Boolean {
     // Older API versions don't need foreground permission
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
         return true
     }
 
     // The service can be started if it has background permission or if the system says it can get location
-    return isBackgroundLocationEnabled(context) || canGetLocation(context)
+    return isBackgroundLocationEnabled(context) || canGetLocation(context, checkAppOps = true)
 }
 
 /**
  * Request location permission when absolutely required to start a foreground service (Android 14+)
  */
-fun <T> T.requestLocationForegroundServicePermission(action: (hasPermission: Boolean) -> Unit) where T : IPermissionRequester, T : Fragment {
-    if (Permissions.canRunLocationForegroundService(requireContext())) {
+fun <T> T.requestBacktrackPermission(action: (hasPermission: Boolean) -> Unit) where T : IPermissionRequester, T : Fragment {
+    if (Permissions.canStartLocationForgroundService(requireContext())) {
         action(true)
         return
     }
 
     requestPermissions(listOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)) {
-        val hasPermission = Permissions.canRunLocationForegroundService(requireContext())
+        val hasPermission = Permissions.canStartLocationForgroundService(requireContext())
         if (!hasPermission){
             toast(getString(R.string.backtrack_no_permission))
         }
