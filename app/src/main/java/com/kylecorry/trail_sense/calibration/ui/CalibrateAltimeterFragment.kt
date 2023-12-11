@@ -18,6 +18,7 @@ import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.andromeda.sense.altitude.FusedAltimeter
 import com.kylecorry.andromeda.sense.barometer.IBarometer
 import com.kylecorry.andromeda.sense.readAll
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
@@ -30,9 +31,9 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.sensors.altimeter.FusedAltimeter
 import kotlinx.coroutines.Dispatchers
 
 
@@ -146,7 +147,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         }
 
         onClick(clearCachePref) {
-            FusedAltimeter.clearCachedCalibration(requireContext())
+            FusedAltimeter.clearCachedCalibration(PreferencesSubsystem.getInstance(requireContext()).preferences)
             toast(getString(R.string.done))
         }
 
