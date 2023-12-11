@@ -391,7 +391,6 @@
     <string name="min_temp_calibrated">Temperatura ambiente mínima (calibrada)</string>
     <string name="min_temp_uncalibrated">Temperatura mínima del teléfono (sin calibrar)</string>
     <string name="create_at_distance">Crear a distancia</string>
-    <string name="guide_location_no_gps_title">Determinar ubicación sin GPS</string>
     <string name="backtrack">Retractarse</string>
     <string name="backtrack_notification_channel_description">Actualizar ubicaciones para retroceder</string>
     <string name="create_beacon">Crear baliza</string>

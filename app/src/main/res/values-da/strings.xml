@@ -676,7 +676,6 @@
     <string name="max_temp_uncalibrated">Maks. telefontemperatur (ukalibreret)</string>
     <string name="min_temp_uncalibrated">Min. telefontemperatur (ukalibreret)</string>
     <string name="create_at_distance">Opret på afstand</string>
-    <string name="guide_location_no_gps_title">Bestem placering uden GPS</string>
     <string name="pref_backtrack_enabled_summary">Noter placeringshistorik</string>
     <string name="map_fractional_separator">:</string>
     <string name="map_scale_verbal">Verbal</string>

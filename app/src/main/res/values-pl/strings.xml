@@ -301,7 +301,6 @@
     <string name="battery_health_dead">Wyładowana</string>
     <string name="pref_backtrack_enabled_summary">Rejestruj historię lokalizacji</string>
     <string name="waypoint_time_format">%1$s, %2$s</string>
-    <string name="guide_location_no_gps_title">Określ lokalizację bez GPS</string>
     <string name="min_temp_uncalibrated">Minimalna temperatura telefonu (nieskalibrowana)</string>
     <string name="min_temp_calibrated">Minimalna temperatura otoczenia (skalibrowana)</string>
     <string name="max_temp_uncalibrated">Maksymalna temperatura telefonu (nieskalibrowana)</string>

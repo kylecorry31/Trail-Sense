@@ -467,7 +467,6 @@
     <string name="distance_from">Van</string>
     <string name="waypoint_time_format">%1$s, %2$s</string>
     <string name="create_beacon">Baken maken</string>
-    <string name="guide_location_no_gps_title">Locatie bepalen zonder gps</string>
     <string name="create_at_distance">Op afstand maken</string>
     <string name="min_temp_uncalibrated">Minimale telefoontemperatuur (niet gekalibreerd)</string>
     <string name="min_temp_calibrated">Minimale omgevingstemperatuur (gekalibreerd)</string>

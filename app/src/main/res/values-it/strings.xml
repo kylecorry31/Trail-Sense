@@ -326,7 +326,6 @@
     <string name="pref_gps_override_title">Sovrascrittura posizione</string>
     <string name="coordinate_input_invalid_location">Posizione non valida</string>
     <string name="location_input_help_title">Formati supportati per la posizione</string>
-    <string name="guide_location_no_gps_title">Determina la posizione senza GPS</string>
     <string name="unit_inches_abbreviation">in</string>
     <string name="unit_centimeters_abbreviation">cm</string>
     <string name="note_title_hint">Titolo</string>

@@ -364,7 +364,6 @@
     <string name="create_beacon">Создать маячок</string>
     <string name="backtrack_notification_channel_description">Обновление местоположения истории маршрута</string>
     <string name="backtrack">История маршрута</string>
-    <string name="guide_location_no_gps_title">Определить местоположение без GPS</string>
     <string name="create_at_distance">Создать на расстоянии</string>
     <string name="update_gps_override">Обновить переопределение GPS</string>
     <string name="coordinate_format_mgrs">MGRS</string>

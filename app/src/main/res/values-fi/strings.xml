@@ -655,7 +655,6 @@
     <string name="map_file">Tiedosto (JPG, PNG, PDF)</string>
     <string name="tool_cliff_height_description">Mittaa kallion tai pudotuksen korkeus</string>
     <string name="category_hydration">Nesteytys</string>
-    <string name="guide_location_no_gps_title">Määritä sijainti ilman GPS:ää</string>
     <string name="map_scale_title">Kartan mittakaava</string>
     <string name="notifications_blocked">Ilmoitukset estetty</string>
     <string name="point_added">Piste lisätty polkuun</string>

@@ -709,7 +709,6 @@
     <string name="max_temp_uncalibrated">Max telefon hőmérséklet (kalibrálatlan)</string>
     <string name="map_fractional_separator">:</string>
     <string name="min_temp_calibrated">Min környezeti hőmérséklet (kalibrált)</string>
-    <string name="guide_location_no_gps_title">Hely meghatározása GPS nélkül</string>
     <string name="coordinate_input_invalid_location">Érvénytelen hely</string>
     <string name="delete_waypoint_prompt">Útvonalpont törlése\?</string>
     <string name="delete_tide_prompt">Árapály törlése\?</string>

@@ -469,7 +469,6 @@
     <string name="create_beacon">Criar alfinete</string>
     <string name="backtrack_notification_channel_description">Atualização das localizações de voltar para trás</string>
     <string name="backtrack">Voltar para trás</string>
-    <string name="guide_location_no_gps_title">Determinar localização sem GPS</string>
     <string name="duration_hour_format">%dh</string>
     <string name="miles_per_hour_format">%.1f mph</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>

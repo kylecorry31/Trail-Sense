@@ -846,7 +846,6 @@
     <string name="notes_empty_text">אין הערות</string>
     <string name="map_fractional_separator">:</string>
     <string name="create_at_distance">צור מרחוק</string>
-    <string name="guide_location_no_gps_title">קביעת מיקום ללא GPS</string>
     <string name="create_item_title">יצירת פריט</string>
     <string name="general">כללי</string>
     <string name="theme_dark">חשוך</string>

@@ -164,7 +164,6 @@
     <string name="notification_channel_clock_sync_description">Pemberitahuan untuk menyinkronkan jam Anda ke waktu GPS</string>
     <string name="clock_sync_notification">Sinkronisasi Jam - %s</string>
     <string name="notes_empty_text">Tidak ada catatan</string>
-    <string name="guide_location_no_gps_title">Tentukan lokasi tanpa GPS</string>
     <string name="waxing_gibbous">Bulan cembung awal</string>
     <string name="first_quarter">Kuartal pertama</string>
     <string name="sunset_alert_channel_title">Peringatan matahari terbenam</string>

@@ -325,7 +325,6 @@
     <string name="guide_thermometer_calibration_title">Calibração de termômetro</string>
     <string name="location_input_help_title">Formatos de localização suportados</string>
     <string name="coordinate_input_invalid_location">Localização inválida</string>
-    <string name="guide_location_no_gps_title">Determinar localização sem GPS</string>
     <string name="tool_white_noise_summary">Ajuda você a adormecer</string>
     <string name="map_scale_ratio">Proporção</string>
     <string name="map_scale_title">Escala do mapa</string>

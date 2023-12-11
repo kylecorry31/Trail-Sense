@@ -532,7 +532,6 @@
     <string name="map_scale_ratio">Λόγος Διαστάσεων</string>
     <string name="tool_cliff_height_description">Υπολογίστε το ύψος ενός γκρεμού ή μίας πτώσης</string>
     <string name="category_hydration">Ενυδάτωση</string>
-    <string name="guide_location_no_gps_title">Καθορισμός τοποθεσίας χωρίς GPS</string>
     <string name="map_scale_title">Κλίμακα Χάρτη</string>
     <string name="notifications_blocked">Οι ειδοποιήσεις έχουν περιοριστεί</string>
     <string name="pref_low_power_mode_title">Λειτουργία εξοικονόμησης ενέργειας</string>

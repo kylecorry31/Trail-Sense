@@ -454,7 +454,6 @@
     <string name="max_temp_uncalibrated">Mugikorraren gehienezko tenperatura (kalibratu gabea)</string>
     <string name="max_temp_calibrated">Gehienezko giro-tenperatura (kalibratua)</string>
     <string name="create_at_distance">Sortu urrutikoa</string>
-    <string name="guide_location_no_gps_title">Zehaztu kokapena GPSrik gabe</string>
     <string name="tool_white_noise_summary">Lo egiten laguntzen zaitu</string>
     <string name="pref_include_leading_zero_title">Gehitu zero bat aurretik orduari</string>
     <string name="strobe_warning_content">Kliskatze funtzioak argi keinukariak ditu, arriskutsuak izan daitezke erabiltzaile batzuentzako.</string>

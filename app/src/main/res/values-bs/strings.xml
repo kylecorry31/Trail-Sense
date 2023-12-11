@@ -590,7 +590,6 @@
     <string name="create_map_description">Unesite naziv karte</string>
     <string name="create_map">Napravi kartu</string>
     <string name="create_beacon">Napravi svjetionik</string>
-    <string name="guide_location_no_gps_title">Odredite lokaciju bez GPS-a</string>
     <string name="create_at_distance">Napravi sa daljine</string>
     <string name="min_temp_uncalibrated">Minimalna temperatura telefona (nekalibrirana)</string>
     <string name="min_temp_calibrated">Minimalna temperatura okoline (kalibrirana)</string>

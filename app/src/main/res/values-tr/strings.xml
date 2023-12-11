@@ -123,7 +123,6 @@
     <string name="create_beacon">İşaret oluştur</string>
     <string name="backtrack_notification_channel_description">Geri iz sürme konum güncellemeleri</string>
     <string name="backtrack">Geri iz sürme</string>
-    <string name="guide_location_no_gps_title">GPS olmadan konum belirle</string>
     <string name="create_at_distance">Belirli mesafede oluştur</string>
     <string name="min_temp_uncalibrated">Minimum telefon sıcaklığı (kalibre edilmemiş)</string>
     <string name="min_temp_calibrated">Minimum ortam sıcaklığı (kalibre edilmiş)</string>

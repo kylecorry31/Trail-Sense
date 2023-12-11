@@ -494,7 +494,6 @@
     <string name="tool_white_noise_title">白噪音</string>
     <string name="tool_white_noise_summary">幫助您入睡</string>
     <string name="map_scale_ratio">比率</string>
-    <string name="guide_location_no_gps_title">唔用 GPS 之下斷定位置</string>
     <string name="unit_centimeters_abbreviation">厘米</string>
     <string name="solar_eclipses">日蝕</string>
     <string name="solar_eclipse_start">日蝕 (開始)</string>

@@ -378,7 +378,6 @@
     <string name="create_beacon">Створити маячок</string>
     <string name="backtrack_notification_channel_description">Оновлення місцеперебування історії маршруту</string>
     <string name="backtrack">Історія маршруту</string>
-    <string name="guide_location_no_gps_title">Визначення місцеперебування без GPS</string>
     <string name="create_at_distance">Створити на відстані</string>
     <string name="min_temp_uncalibrated">Мін. температура телефону (без калібрування)</string>
     <string name="min_temp_calibrated">Мін. температура довкілля (після калібрування)</string>

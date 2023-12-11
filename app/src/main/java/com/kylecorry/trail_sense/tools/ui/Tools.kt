@@ -122,7 +122,7 @@ object Tools {
                 R.drawable.ic_tool_triangulate,
                 R.id.action_action_experimental_tools_to_fragmentToolTriangulate,
                 ToolCategory.Location,
-                guideId = R.raw.determine_location_without_gps
+                guideId = R.raw.guide_tool_triangulate_location
             ),
             Tool(
                 11,

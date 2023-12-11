@@ -489,7 +489,6 @@
     <string name="min_temp_calibrated">Min ambient temperature (calibrated)</string>
     <string name="min_temp_uncalibrated">Min phone temperature (uncalibrated)</string>
     <string name="create_at_distance">Create at distance</string>
-    <string name="guide_location_no_gps_title">Determine location without GPS</string>
     <string name="backtrack">Backtrack</string>
     <string name="backtrack_notification_channel_description">Backtrack location updates</string>
     <string name="create_beacon">Create beacon</string>

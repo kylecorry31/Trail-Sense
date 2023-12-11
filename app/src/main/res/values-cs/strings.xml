@@ -356,7 +356,6 @@
     <string name="create_at_distance">Vytvořit v dálce</string>
     <string name="backtrack">Zpětná navigace</string>
     <string name="pref_gps_override_title">Přepsání polohy</string>
-    <string name="guide_location_no_gps_title">Určete polohu bez GPS</string>
     <string name="quality_good">Dobrá</string>
     <string name="time_ago">Před %s</string>
     <string name="satellites">satelity</string>

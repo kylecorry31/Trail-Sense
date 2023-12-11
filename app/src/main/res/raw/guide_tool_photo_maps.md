@@ -26,7 +26,7 @@ To create a map, you have three options: take a photo of an existing map, import
 - Point 1: Choose the trail sign where you photographed the map or the trailhead.
 - Point 2: Select the first trail fork you encounter. If no trail fork is present, use a point of interest on the map, such as a lake, peak, or landmark.
 
-### Calibrating From the Map Grid
+### Calibrating from the Map Grid
 If your map features gridlines:
 
 1. Find the UTM zone number, which is a one or two-digit number followed by a letter (ex. "16T"). If it's not present on the map, estimate it by entering your approximate latitude and longitude in Trail Sense's Convert tool. For example, you can enter 10 for latitude and 45 for longitude.
@@ -38,7 +38,7 @@ If your map features gridlines:
 
 The intersections of gridlines are the easiest calibration points.
 
-### From an Online Source
+### Calibrating from an Online Source
 If you have Internet access, you can look up the coordinates of a map feature (ex. mountain summit, trailhead). Then in Trail Sense, tap the same location on the map and enter the coordinates.
 
 ### Finding a Geospatial PDF

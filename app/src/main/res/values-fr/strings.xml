@@ -347,7 +347,6 @@
     <string name="waypoint_time_format">%1$s, %2$s</string>
     <string name="create_beacon">Ajouter un repère</string>
     <string name="backtrack">Historique de l\'itinéraire</string>
-    <string name="guide_location_no_gps_title">Déterminer sa position sans GPS</string>
     <string name="create_at_distance">Créer une distance</string>
     <string name="min_temp_uncalibrated">Température du téléphone minimale (non étalonnée)</string>
     <string name="min_temp_calibrated">Température ambiante minimale (étalonnée)</string>
