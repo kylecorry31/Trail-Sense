@@ -2,23 +2,19 @@ package com.kylecorry.trail_sense.tools.augmented_reality
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.camera.view.PreviewView
 import androidx.core.graphics.drawable.toBitmapOrNull
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
-import androidx.core.view.updateLayoutParams
 import com.kylecorry.andromeda.core.coroutines.onDefault
-import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.luna.coroutines.CoroutineQueueRunner
+import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
@@ -36,10 +32,8 @@ import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
-import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.trail_sense.tools.augmented_reality.position.GeographicARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.position.SphericalARPoint
-import kotlinx.coroutines.Dispatchers
 import java.time.Duration
 import java.time.LocalDate
 import java.time.ZoneId
@@ -53,8 +47,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     private val beaconRepo by lazy {
         BeaconRepo.getInstance(requireContext())
     }
-
-    private var lastSize: Size? = null
 
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
 
@@ -90,8 +82,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
     private var isCameraEnabled = true
 
-    private val fovRunner = CoroutineQueueRunner(1, dispatcher = Dispatchers.Default)
-
     // TODO: Draw an indicator around the focused marker
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -126,8 +116,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                 startCamera()
             }
         }
-
-        scheduleUpdates(INTERVAL_1_FPS)
     }
 
     override fun onResume() {
@@ -175,41 +163,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         super.onPause()
         binding.camera.stop()
         binding.arView.stop()
-        fovRunner.cancel()
-    }
-
-    override fun onUpdate() {
-        super.onUpdate()
-
-        inBackground {
-            fovRunner.enqueue {
-                if (!isBound) {
-                    return@enqueue
-                }
-
-                val fov = binding.camera.fov
-
-                onMain {
-                    binding.arView.fov = com.kylecorry.sol.math.geometry.Size(fov.first, fov.second)
-
-                    // Set the arView size to be the camera preview size
-                    val size = binding.camera.getPreviewSize()
-                    if (size != lastSize) {
-                        lastSize = size
-                        if (binding.arView.layoutParams == null) {
-                            binding.arView.layoutParams =
-                                FrameLayout.LayoutParams(size.width, size.height)
-                        } else {
-                            binding.arView.updateLayoutParams {
-                                width = size.width
-                                height = size.height
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
     }
 
     private fun updateAstronomyLayers() {

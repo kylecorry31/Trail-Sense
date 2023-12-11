@@ -51,7 +51,8 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     private var zoom: Float = -1f
     private var isCapturing = false
 
-    private var isStarted = false
+    var isStarted = false
+        private set
     private val startLock = Any()
 
     fun start(

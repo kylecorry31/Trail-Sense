@@ -85,8 +85,6 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private var useCamera = false
 
     // Augmented reality
-    private var lastSize: android.util.Size? = null
-    private val fovRunner = CoroutineQueueRunner(1, dispatcher = Dispatchers.Default)
     private val markerLayer = ARMarkerLayer()
     private val lineLayer = ARLineLayer()
     private var startMarker: ARPoint? = null
@@ -386,13 +384,17 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         if (useCamera) {
             binding.camera.stop()
             binding.arView.stop()
-            fovRunner.cancel()
             useCamera = false
             clinometer = getClinometer()
         }
         if (hapticsEnabled) {
             feedback.stop()
         }
+    }
+
+    override fun onDestroyView() {
+        binding.arView.unbind()
+        super.onDestroyView()
     }
 
     private fun getClinometer(): IClinometer {
@@ -485,8 +487,6 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             }
         }
 
-        updateCamera()
-
         if (isAugmentedReality && startMarker != null) {
             lineLayer.setLines(
                 listOf(
@@ -554,37 +554,6 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             bottom,
             top
         )
-    }
-
-    private fun updateCamera() {
-        inBackground {
-            fovRunner.enqueue {
-                if (!isBound || !useCamera) {
-                    return@enqueue
-                }
-
-                val fov = binding.camera.fov
-
-                onMain {
-                    binding.arView.fov = Size(fov.first, fov.second)
-
-                    // Set the arView size to be the camera preview size
-                    val size = binding.camera.getPreviewSize()
-                    if (size != lastSize) {
-                        lastSize = size
-                        if (binding.arView.layoutParams == null) {
-                            binding.arView.layoutParams =
-                                FrameLayout.LayoutParams(size.width, size.height)
-                        } else {
-                            binding.arView.updateLayoutParams {
-                                width = size.width
-                                height = size.height
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
 
     private enum class ClinometerLockState {
