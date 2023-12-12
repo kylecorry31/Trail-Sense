@@ -189,7 +189,8 @@ object Tools {
                 R.drawable.ic_tool_solar_panel,
                 R.id.action_action_experimental_tools_to_fragmentToolSolarPanel,
                 ToolCategory.Power,
-                context.getString(R.string.tool_solar_panel_summary)
+                context.getString(R.string.tool_solar_panel_summary),
+                guideId = R.raw.guide_tool_solar_panel_aligner
             ) else null,
             if (hasLightMeter) Tool(
                 19,
