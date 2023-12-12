@@ -1,0 +1,17 @@
+Clinometer
+- Make camera the default clinometer
+- Increase camera view size
+- Add AR support (experimental)
+
+Metal Detector
+- Improve sensitivity
+
+Augmented Reality (Experimental)
+- Improve alignment
+- Show grid lines
+- Improve experience on devices without a gyroscope
+
+Misc
+- Improve GPS + Barometer altimeter
+- Notify if background services can't be started
+- Add more user guides
