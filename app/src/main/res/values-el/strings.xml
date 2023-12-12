@@ -897,4 +897,30 @@
     <string name="up_to_amount">Έως %s</string>
     <string name="average_speed_pedometer">Μέση ταχύτητα (Βηματομετρητής)</string>
     <string name="point_style">Ύφος δείκτη</string>
+    <string name="low_pressure_system_description">Σχετίζεται με κακές καιρικές συνθήκες, νεφελώδη ουρανό, και σχετικά υψηλές θερμοκρασίες.</string>
+    <string name="weather_cold_front">Ψυχρό</string>
+    <string name="ascent">Άνοδος</string>
+    <string name="path_slope_moderate">Ήπια</string>
+    <plurals name="paths_imported">
+        <item quantity="one">%d διαδρομή εισήχθη</item>
+        <item quantity="other">%d διαδρομές εισήχθησαν</item>
+    </plurals>
+    <string name="calibrate_map_point">Βαθμονόμηση με βάση γνωστές τοποθεσίες (%1$d / %2$d)</string>
+    <string name="path_slope">Κλίση</string>
+    <string name="clouds_clear">Ανέφελος</string>
+    <string name="path_slope_steep">Απότομη</string>
+    <string name="path_slope_flat">Επίπεδο</string>
+    <string name="weather_front">Μέτωπο Καιρού</string>
+    <string name="manual">Χειροκίνητα</string>
+    <string name="camera_unavailable">Η φωτογραφική μηχανή δεν είναι διαθέσιμη</string>
+    <string name="updating_weather">Ενημέρωση δεδομένων καιρού</string>
+    <string name="high_pressure_system_description">Σχετίζεται με αίθριο καιρό χωρίς σύννεφα, και σχετικά χαμηλές θερμοκρασίες.</string>
+    <plurals name="waypoints_deleted">
+        <item quantity="one">%d σημείο διαδρομής διεγράφη</item>
+        <item quantity="other">%d σημεία διαδρομής διεγράφησαν</item>
+    </plurals>
+    <string name="descent">Κάθοδος</string>
+    <string name="highest_point_elevation">Ανώτατο σημείο</string>
+    <string name="weather_warm_front">Θερμό</string>
+    <string name="lowest_point_elevation">Κατώτατο σημείο</string>
 </resources>
