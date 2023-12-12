@@ -301,6 +301,7 @@ object Tools {
                 R.drawable.ic_qr_code,
                 R.id.action_tools_to_qr,
                 ToolCategory.Other,
+                guideId = R.raw.guide_tool_qr_code_scanner
             ),
             Tool(
                 32,

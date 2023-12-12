@@ -16,6 +16,7 @@ const guides = [
     'tool_notes',
     'tool_packing_lists',
     'tool_photo_maps',
+    'tool_qr_code_scanner',
     'tool_ruler',
     'tool_solar_panel_aligner',
     'tool_temperature_estimation',
