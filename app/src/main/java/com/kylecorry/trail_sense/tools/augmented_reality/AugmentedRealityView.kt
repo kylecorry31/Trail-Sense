@@ -68,7 +68,7 @@ class AugmentedRealityView : CanvasView {
     // Sensors / preferences
     private val userPrefs = UserPreferences(context)
     private val sensors = SensorService(context)
-    private var orientationSensor: IOrientationSensor = sensors.getOrientation()
+    private val orientationSensor = sensors.getOrientation()
     private val gps = sensors.getGPS(frequency = Duration.ofMillis(200))
     private val altimeter = sensors.getAltimeter(gps = gps)
     private val declinationProvider = DeclinationFactory().getDeclinationStrategy(
@@ -151,9 +151,6 @@ class AugmentedRealityView : CanvasView {
             gps.start(this::onSensorUpdate)
             altimeter.start(this::onSensorUpdate)
         }
-        // Recreate the orientation sensor - seems to be an upstream bug with the rotation vector that if you reuse, it may not be accurate
-        orientationSensor.stop(this::onSensorUpdate)
-        orientationSensor = sensors.getOrientation()
         orientationSensor.start(this::onSensorUpdate)
     }
 

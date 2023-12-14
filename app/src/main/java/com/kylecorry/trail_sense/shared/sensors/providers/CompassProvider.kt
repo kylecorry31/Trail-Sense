@@ -5,6 +5,7 @@ import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.view.Surface
 import com.kylecorry.andromeda.sense.Sensors
+import com.kylecorry.andromeda.sense.accelerometer.Accelerometer
 import com.kylecorry.andromeda.sense.accelerometer.GravitySensor
 import com.kylecorry.andromeda.sense.accelerometer.LowPassAccelerometer
 import com.kylecorry.andromeda.sense.compass.Compass
@@ -24,7 +25,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
 import com.kylecorry.trail_sense.shared.sensors.compass.MagQualityCompassWrapper
 import com.kylecorry.trail_sense.shared.sensors.compass.NullCompass
-import com.kylecorry.trail_sense.shared.sensors.compass.NullOrientationSensor
+import com.kylecorry.trail_sense.shared.sensors.compass.QuickRecalibrationOrientationSensor
 
 class CompassProvider(private val context: Context, private val prefs: ICompassPreferences) {
 
@@ -47,35 +48,17 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
         }
 
         val compass = when (source) {
-            CompassSource.RotationVector -> {
-                Compass(
-                    RotationSensor(context, SensorService.MOTION_SENSOR_DELAY),
-                    useTrueNorth,
-                    surfaceRotation = Surface.ROTATION_90,
-                    offset = -90f
-                )
-            }
-
-            CompassSource.GeomagneticRotationVector -> {
-                Compass(
-                    GeomagneticRotationSensor(context, SensorService.MOTION_SENSOR_DELAY),
-                    useTrueNorth,
-                    surfaceRotation = Surface.ROTATION_90,
-                    offset = -90f
-                )
-            }
-
-            CompassSource.CustomMagnetometer -> {
-                Compass(
-                    getCustomGeomagneticRotationSensor(),
-                    useTrueNorth,
-                    surfaceRotation = Surface.ROTATION_90,
-                    offset = -90f
-                )
-            }
-
             CompassSource.Orientation -> {
                 LegacyCompass(context, useTrueNorth, SensorService.MOTION_SENSOR_DELAY)
+            }
+
+            else -> {
+                Compass(
+                    getOrientationSensor(),
+                    useTrueNorth,
+                    surfaceRotation = Surface.ROTATION_90,
+                    offset = -90f
+                )
             }
         }
 
@@ -88,7 +71,7 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
         )
     }
 
-    fun getOrientationSensor(): IOrientationSensor {
+    private fun getBaseOrientationSensor(): IOrientationSensor {
         var source = prefs.source
 
         // Swap out the legacy orientation sensor for the rotation vector sensor
@@ -118,6 +101,17 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
         }
 
         return getCustomGeomagneticRotationSensor()
+    }
+
+    fun getOrientationSensor(): IOrientationSensor {
+        return QuickRecalibrationOrientationSensor(
+            CustomGeomagneticRotationSensor(
+                Magnetometer(context, SensorService.MOTION_SENSOR_DELAY),
+                Accelerometer(context, SensorService.MOTION_SENSOR_DELAY),
+            ),
+            getBaseOrientationSensor(),
+            0.5f,
+        )
     }
 
     private fun getCustomGeomagneticRotationSensor(): CustomGeomagneticRotationSensor {
