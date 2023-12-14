@@ -6,20 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.camera.view.PreviewView
-import androidx.core.graphics.drawable.toBitmapOrNull
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
-import com.kylecorry.andromeda.core.coroutines.onDefault
-import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observeFlow
-import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
-import com.kylecorry.trail_sense.astronomy.ui.MoonPhaseImageMapper
 import com.kylecorry.trail_sense.databinding.FragmentAugmentedRealityBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
@@ -31,12 +24,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
-import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.augmented_reality.position.GeographicARPoint
-import com.kylecorry.trail_sense.tools.augmented_reality.position.SphericalARPoint
-import java.time.Duration
-import java.time.LocalDate
-import java.time.ZoneId
 import java.time.ZonedDateTime
 import kotlin.math.hypot
 
@@ -65,10 +53,12 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         }
     }
 
+    private val astronomyLayer by lazy {
+        ARAstronomyLayer(this::onSunFocused, this::onMoonFocused)
+    }
+
     private val navigator by lazy { Navigator.getInstance(requireContext()) }
 
-    private val sunLayer = ARMarkerLayer()
-    private val moonLayer = ARMarkerLayer()
     private val gridLayer by lazy {
         ARGridLayer(
             30,
@@ -107,7 +97,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
         binding.arView.bind(binding.camera)
 
-        binding.arView.setLayers(listOf(gridLayer, sunLayer, moonLayer, beaconLayer))
+        binding.arView.setLayers(listOf(gridLayer, astronomyLayer, beaconLayer))
 
         binding.cameraToggle.setOnClickListener {
             if (isCameraEnabled) {
@@ -127,7 +117,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         } else {
             stopCamera()
         }
-        updateAstronomyLayers()
     }
 
     // TODO: Move this to the AR view
@@ -165,139 +154,22 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         binding.arView.stop()
     }
 
-    private fun updateAstronomyLayers() {
-        // TODO: Extract this population
-        inBackground {
-            // TODO: Show icons / render path rather than circles
-            onDefault {
-                val astro = AstronomyService()
-                val locationSubsystem = LocationSubsystem.getInstance(requireContext())
-                val location = locationSubsystem.location
+    private fun onSunFocused(time: ZonedDateTime): Boolean {
+        binding.arView.focusText =
+            getString(R.string.sun) + "\n" + formatter.formatRelativeDateTime(
+                time,
+                includeSeconds = false
+            )
+        return true
+    }
 
-                val moonBeforePathObject = CanvasCircle(
-                    Color.WHITE,
-                    opacity = 20
-                )
-
-                val moonAfterPathObject = CanvasCircle(
-                    Color.WHITE,
-                    opacity = 127
-                )
-
-                val sunBeforePathObject = CanvasCircle(
-                    AppColor.Yellow.color,
-                    opacity = 20
-                )
-
-                val sunAfterPathObject = CanvasCircle(
-                    AppColor.Yellow.color,
-                    opacity = 127
-                )
-
-                val moonPositions = Time.getReadings(
-                    LocalDate.now(),
-                    ZoneId.systemDefault(),
-                    Duration.ofMinutes(15)
-                ) {
-                    val obj = if (it.isBefore(ZonedDateTime.now())) {
-                        moonBeforePathObject
-                    } else {
-                        moonAfterPathObject
-                    }
-
-                    ARMarker(
-                        SphericalARPoint(
-                            astro.getMoonAzimuth(location, it).value,
-                            astro.getMoonAltitude(location, it),
-                            isTrueNorth = true,
-                            angularDiameter = 1f
-                        ),
-                        canvasObject = obj,
-                        onFocusedFn = {
-                            binding.arView.focusText =
-                                getString(R.string.moon) + "\n" + formatter.formatRelativeDateTime(
-                                    it,
-                                    includeSeconds = false
-                                )
-                            true
-                        }
-                    )
-                }.map { it.value }
-
-                val sunPositions = Time.getReadings(
-                    LocalDate.now(), ZoneId.systemDefault(), Duration.ofMinutes(15)
-                ) {
-                    val obj = if (it.isBefore(ZonedDateTime.now())) {
-                        sunBeforePathObject
-                    } else {
-                        sunAfterPathObject
-                    }
-
-                    ARMarker(
-                        SphericalARPoint(
-                            astro.getSunAzimuth(location, it).value,
-                            astro.getSunAltitude(location, it),
-                            isTrueNorth = true,
-                            angularDiameter = 1f
-                        ),
-                        canvasObject = obj,
-                        onFocusedFn = {
-                            binding.arView.focusText =
-                                getString(R.string.sun) + "\n" + formatter.formatRelativeDateTime(
-                                    it,
-                                    includeSeconds = false
-                                )
-                            true
-                        }
-                    )
-                }.map { it.value }
-
-                val moonAltitude = astro.getMoonAltitude(location)
-                val moonAzimuth = astro.getMoonAzimuth(location).value
-
-                val sunAltitude = astro.getSunAltitude(location)
-                val sunAzimuth = astro.getSunAzimuth(location).value
-
-                val phase = astro.getMoonPhase(LocalDate.now())
-                val moonIconId = MoonPhaseImageMapper().getPhaseImage(phase.phase)
-                val moonIcon = Resources.drawable(requireContext(), moonIconId)
-                val moonImageSize = Resources.dp(requireContext(), 24f).toInt()
-                val moonBitmap = moonIcon?.toBitmapOrNull(moonImageSize, moonImageSize)
-
-                val moon = ARMarker(
-                    SphericalARPoint(
-                        moonAzimuth,
-                        moonAltitude,
-                        isTrueNorth = true,
-                        angularDiameter = 2f
-                    ),
-                    canvasObject = moonBitmap?.let { CanvasBitmap(moonBitmap) }
-                        ?: CanvasCircle(Color.WHITE),
-                    onFocusedFn = {
-                        // TODO: Display moon phase
-                        binding.arView.focusText = getString(R.string.moon)
-                        true
-                    }
-                )
-
-                val sun = ARMarker(
-                    SphericalARPoint(
-                        sunAzimuth,
-                        sunAltitude,
-                        isTrueNorth = true,
-                        angularDiameter = 2f
-                    ),
-                    canvasObject = CanvasCircle(AppColor.Yellow.color),
-                    onFocusedFn = {
-                        binding.arView.focusText = getString(R.string.sun)
-                        true
-                    }
-                )
-
-                sunLayer.setMarkers(sunPositions + sun)
-                moonLayer.setMarkers(moonPositions + moon)
-            }
-        }
+    private fun onMoonFocused(time: ZonedDateTime): Boolean {
+        binding.arView.focusText =
+            getString(R.string.moon) + "\n" + formatter.formatRelativeDateTime(
+                time,
+                includeSeconds = false
+            )
+        return true
     }
 
     private fun onBeaconFocused(beacon: Beacon): Boolean {
