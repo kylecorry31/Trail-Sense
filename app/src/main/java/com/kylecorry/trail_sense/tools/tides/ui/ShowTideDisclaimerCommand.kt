@@ -37,7 +37,7 @@ class ShowTideDisclaimerCommand(private val fragment: Fragment, private val onAg
             if (showGuide) {
                 UserGuideUtils.openGuide(
                     fragment,
-                    R.raw.tides
+                    R.raw.guide_tool_tides
                 )
             } else {
                 onAgree()

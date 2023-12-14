@@ -173,7 +173,7 @@ object Tools {
                 R.drawable.ic_tide_table,
                 R.id.action_toolsFragment_to_tidesFragment,
                 ToolCategory.Time,
-                guideId = R.raw.tides
+                guideId = R.raw.guide_tool_tides
             ),
             Tool(
                 17,

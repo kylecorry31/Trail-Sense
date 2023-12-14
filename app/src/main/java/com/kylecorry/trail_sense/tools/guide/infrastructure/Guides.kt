@@ -53,11 +53,6 @@ object Guides {
                         R.raw.pedometer
                     ) else null,
                 UserGuide(
-                    context.getString(R.string.tides),
-                    null,
-                    R.raw.tides
-                ),
-                UserGuide(
                     context.getString(R.string.guide_recommended_apps),
                     context.getString(R.string.guide_recommended_apps_description),
                     R.raw.recommended_apps

@@ -82,7 +82,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
 
         binding.createTideTitle.leftButton.flatten()
         binding.createTideTitle.leftButton.setOnClickListener {
-            UserGuideUtils.showGuide(this, R.raw.tides)
+            UserGuideUtils.showGuide(this, R.raw.guide_tool_tides)
         }
 
         CustomUiUtils.setButtonState(binding.createTideTitle.rightButton, true)
