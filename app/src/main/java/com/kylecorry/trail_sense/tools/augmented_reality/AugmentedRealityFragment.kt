@@ -43,7 +43,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             Distance.meters(userPrefs.navigation.maxBeaconDistance),
             onFocus = this::onBeaconFocused
         ) {
-            println(it)
             if (navigator.getDestinationId() != it.id) {
                 navigator.navigateTo(it)
             } else {
@@ -54,7 +53,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     }
 
     private val astronomyLayer by lazy {
-        ARAstronomyLayer(false, this::onSunFocused, this::onMoonFocused)
+        ARAstronomyLayer(true, this::onSunFocused, this::onMoonFocused)
     }
 
     private val navigator by lazy { Navigator.getInstance(requireContext()) }

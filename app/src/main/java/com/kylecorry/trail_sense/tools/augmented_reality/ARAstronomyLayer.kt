@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.augmented_reality
 
 import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.time.Time
@@ -28,13 +29,20 @@ class ARAstronomyLayer(
     private val scope = CoroutineScope(Dispatchers.Default)
     private val runner = CoroutineQueueRunner()
 
+    private val lineAlpha = 30
+    private val lineThickness = 1f
+
     private val sunLineLayer = ARLineLayer(
-        AppColor.Yellow.color,
+        AppColor.Yellow.color.withAlpha(lineAlpha),
+        thickness = lineThickness,
+        thicknessType = ARLineLayer.ThicknessType.Angle,
         curved = true
     )
     private val sunLayer = ARMarkerLayer()
     private val moonLineLayer = ARLineLayer(
-        Color.WHITE,
+        Color.WHITE.withAlpha(lineAlpha),
+        thickness = lineThickness,
+        thicknessType = ARLineLayer.ThicknessType.Angle,
         curved = true
     )
     private val moonLayer = ARMarkerLayer()

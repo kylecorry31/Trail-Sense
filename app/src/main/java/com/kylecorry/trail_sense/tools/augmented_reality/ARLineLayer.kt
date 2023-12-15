@@ -4,6 +4,8 @@ import android.graphics.Color
 import android.graphics.Path
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.andromeda.canvas.StrokeCap
+import com.kylecorry.andromeda.canvas.StrokeJoin
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.normalizeAngle
@@ -15,7 +17,8 @@ import kotlin.math.roundToInt
 // TODO: Create a generic version of this that works like the path tool. The consumers should be able to specify the line style, color, thickness, and whether it should be curved or straight between points
 class ARLineLayer(
     @ColorInt private val color: Int = Color.WHITE,
-    private val thicknessDp: Float = 1f,
+    private val thickness: Float = 1f,
+    private val thicknessType: ThicknessType = ThicknessType.Dp,
     private val curved: Boolean = true
 ) : ARLayer {
 
@@ -41,8 +44,17 @@ class ARLineLayer(
         val maxAngle = hypot(view.fov.width, view.fov.height) * 1.5f
         val resolutionDegrees = (maxAngle / 10f).roundToInt().coerceIn(1, 5)
 
+        val thicknessPx = when(thicknessType){
+            ThicknessType.Dp -> drawer.dp(thickness)
+            ThicknessType.Angle -> {
+                view.sizeToPixel(thickness)
+            }
+        }
+
         drawer.noFill()
-        drawer.strokeWeight(drawer.dp(thicknessDp))
+        drawer.strokeWeight(thicknessPx)
+        drawer.strokeJoin(StrokeJoin.Round)
+        drawer.strokeCap(StrokeCap.Round)
 
         val maxDistance = min(view.width, view.height)
         // TODO: Divide up the line into smaller chunks
@@ -185,5 +197,10 @@ class ARLineLayer(
 
     override fun onFocus(drawer: ICanvasDrawer, view: AugmentedRealityView): Boolean {
         return false
+    }
+
+    // TODO: Instead of this, pass in an AR size or something
+    enum class ThicknessType {
+        Dp, Angle
     }
 }

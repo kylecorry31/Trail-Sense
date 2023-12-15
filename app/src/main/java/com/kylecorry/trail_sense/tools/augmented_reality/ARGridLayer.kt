@@ -4,6 +4,8 @@ import android.graphics.Color
 import android.graphics.Path
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.andromeda.canvas.StrokeCap
+import com.kylecorry.andromeda.canvas.StrokeJoin
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.trail_sense.R
@@ -64,6 +66,8 @@ class ARGridLayer(
 
         drawer.noFill()
         drawer.strokeWeight(drawer.dp(thicknessDp))
+        drawer.strokeJoin(StrokeJoin.Round)
+        drawer.strokeCap(StrokeCap.Round)
 
         val maxDistance = min(view.width, view.height)
 
