@@ -37,12 +37,6 @@
             app:singleLineTitle="false" />
 
         <Preference
-            android:key="@string/pref_odometer_calibration"
-            android:title="@string/pedometer"
-            app:icon="@drawable/steps"
-            app:singleLineTitle="false" />
-
-        <Preference
             android:key="@string/pref_cell_signal_settings"
             android:title="@string/cell_signal"
             app:icon="@drawable/signal_cellular_3"

@@ -77,28 +77,30 @@
 
         <Preference
             app:icon="@drawable/ic_astronomy"
-            app:iconSpaceReserved="false"
             app:key="@string/pref_astronomy_category"
             app:singleLineTitle="false"
             app:title="@string/astronomy" />
 
         <Preference
             app:icon="@drawable/flashlight"
-            app:iconSpaceReserved="false"
             app:key="@string/pref_flashlight_settings"
             app:singleLineTitle="false"
             app:title="@string/flashlight_title" />
 
         <Preference
             app:icon="@drawable/clinometer"
-            app:iconSpaceReserved="false"
             app:key="@string/pref_clinometer_settings"
             app:singleLineTitle="false"
             app:title="@string/clinometer_title" />
 
         <Preference
+            android:key="@string/pref_odometer_calibration"
+            android:title="@string/pedometer"
+            app:icon="@drawable/steps"
+            app:singleLineTitle="false" />
+
+        <Preference
             app:icon="@drawable/ic_tide_table"
-            app:iconSpaceReserved="false"
             app:key="@string/pref_tide_settings"
             app:singleLineTitle="false"
             app:title="@string/tides" />

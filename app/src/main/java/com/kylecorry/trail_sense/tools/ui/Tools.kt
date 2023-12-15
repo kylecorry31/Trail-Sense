@@ -72,6 +72,7 @@ object Tools {
                 R.drawable.steps,
                 R.id.action_tools_to_pedometer,
                 ToolCategory.Distance,
+                guideId = R.raw.guide_tool_pedometer
             ) else null,
             if (prefs.isCliffHeightEnabled) Tool(
                 5,

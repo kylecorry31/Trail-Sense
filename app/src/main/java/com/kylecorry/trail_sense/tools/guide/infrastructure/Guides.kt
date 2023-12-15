@@ -46,12 +46,6 @@ object Guides {
                     null,
                     R.raw.calibrating_thermometer
                 ),
-                if (Sensors.hasSensor(context, Sensor.TYPE_STEP_COUNTER))
-                    UserGuide(
-                        context.getString(R.string.pedometer),
-                        null,
-                        R.raw.pedometer
-                    ) else null,
                 UserGuide(
                     context.getString(R.string.guide_recommended_apps),
                     context.getString(R.string.guide_recommended_apps_description),

@@ -38,6 +38,7 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         R.string.pref_flashlight_settings to R.id.action_action_settings_to_flashlightSettingsFragment,
         R.string.pref_maps_header_key to R.id.action_settings_to_map_settings,
         R.string.pref_tide_settings to R.id.action_settings_to_tide_settings,
+        R.string.pref_odometer_calibration to R.id.action_action_settings_to_calibrateOdometerFragment,
         R.string.pref_clinometer_settings to R.id.action_settings_to_clinometer_settings,
 
         // About
