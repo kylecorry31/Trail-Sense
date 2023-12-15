@@ -15,6 +15,7 @@ const guides = [
     'tool_metal_detector',
     'tool_notes',
     'tool_packing_lists',
+    'tool_pedometer',
     'tool_photo_maps',
     'tool_qr_code_scanner',
     'tool_ruler',
