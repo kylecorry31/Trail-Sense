@@ -15,7 +15,8 @@ import kotlin.math.roundToInt
 // TODO: Create a generic version of this that works like the path tool. The consumers should be able to specify the line style, color, thickness, and whether it should be curved or straight between points
 class ARLineLayer(
     @ColorInt private val color: Int = Color.WHITE,
-    private val thicknessDp: Float = 1f
+    private val thicknessDp: Float = 1f,
+    private val curved: Boolean = true
 ) : ARLayer {
 
     private val path = Path()
@@ -55,37 +56,39 @@ class ARLineLayer(
             path.reset()
             drawer.stroke(color)
 
-            // TODO: This should split the lines into smaller chunks (which will allow distance splitting) - keeping it this way for now for the clinometer
-            var previous: PixelCoordinate? = null
-            for (point in line){
-                val pixel = view.toPixel(point.getHorizonCoordinate(view))
-                // TODO: This should split the line if the distance is too great
-                if (previous != null) {
-                    path.lineTo(pixel.x, pixel.y)
-                } else {
-                    path.moveTo(pixel.x, pixel.y)
+            if (curved) {
+                // Curved + increased resolution
+                val pixels = getLinePixels(
+                    view,
+                    line,
+                    resolutionDegrees.toFloat(),
+                    maxDistance.toFloat()
+                )
+                for (pixelLine in pixels) {
+                    var previous: PixelCoordinate? = null
+                    for (pixel in pixelLine) {
+                        if (previous != null) {
+                            path.lineTo(pixel.x, pixel.y)
+                        } else {
+                            path.moveTo(pixel.x, pixel.y)
+                        }
+                        previous = pixel
+                    }
                 }
-                previous = pixel
+            } else {
+                // TODO: This should split the lines into smaller chunks (which will allow distance splitting) - keeping it this way for now for the clinometer
+                var previous: PixelCoordinate? = null
+                for (point in line) {
+                    val pixel = view.toPixel(point.getHorizonCoordinate(view))
+                    // TODO: This should split the line if the distance is too great
+                    if (previous != null) {
+                        path.lineTo(pixel.x, pixel.y)
+                    } else {
+                        path.moveTo(pixel.x, pixel.y)
+                    }
+                    previous = pixel
+                }
             }
-
-            // Curved + increased resolution
-//            val pixels = getLinePixels(
-//                view,
-//                line,
-//                resolutionDegrees.toFloat(),
-//                maxDistance.toFloat()
-//            )
-//            for (pixelLine in pixels) {
-//                var previous: PixelCoordinate? = null
-//                for (pixel in pixelLine) {
-//                    if (previous != null) {
-//                        path.lineTo(pixel.x, pixel.y)
-//                    } else {
-//                        path.moveTo(pixel.x, pixel.y)
-//                    }
-//                    previous = pixel
-//                }
-//            }
 
             drawer.path(path)
         }

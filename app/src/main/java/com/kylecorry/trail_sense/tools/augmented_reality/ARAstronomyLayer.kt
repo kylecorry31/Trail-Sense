@@ -20,6 +20,7 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 
 class ARAstronomyLayer(
+    private val drawLines: Boolean,
     private val onSunFocus: (time: ZonedDateTime) -> Boolean,
     private val onMoonFocus: (time: ZonedDateTime) -> Boolean
 ) : ARLayer {
@@ -27,7 +28,15 @@ class ARAstronomyLayer(
     private val scope = CoroutineScope(Dispatchers.Default)
     private val runner = CoroutineQueueRunner()
 
+    private val sunLineLayer = ARLineLayer(
+        AppColor.Yellow.color,
+        curved = true
+    )
     private val sunLayer = ARMarkerLayer()
+    private val moonLineLayer = ARLineLayer(
+        Color.WHITE,
+        curved = true
+    )
     private val moonLayer = ARMarkerLayer()
 
     private val astro = AstronomyService()
@@ -50,11 +59,17 @@ class ARAstronomyLayer(
             updatePositions(drawer, location, ZonedDateTime.now())
         }
 
+        if (drawLines) {
+            moonLineLayer.draw(drawer, view)
+            sunLineLayer.draw(drawer, view)
+        }
         moonLayer.draw(drawer, view)
         sunLayer.draw(drawer, view)
     }
 
     override fun invalidate() {
+        moonLineLayer.invalidate()
+        sunLineLayer.invalidate()
         moonLayer.invalidate()
         sunLayer.invalidate()
     }
@@ -80,22 +95,22 @@ class ARAstronomyLayer(
 
                 val moonBeforePathObject = CanvasCircle(
                     Color.WHITE,
-                    opacity = 20
+                    opacity = 60
                 )
 
                 val moonAfterPathObject = CanvasCircle(
                     Color.WHITE,
-                    opacity = 127
+                    opacity = 200
                 )
 
                 val sunBeforePathObject = CanvasCircle(
                     AppColor.Yellow.color,
-                    opacity = 20
+                    opacity = 60
                 )
 
                 val sunAfterPathObject = CanvasCircle(
                     AppColor.Yellow.color,
-                    opacity = 127
+                    opacity = 200
                 )
 
                 val moonPositions = Time.getReadings(
@@ -114,7 +129,7 @@ class ARAstronomyLayer(
                             astro.getMoonAzimuth(location, it).value,
                             astro.getMoonAltitude(location, it),
                             isTrueNorth = true,
-                            angularDiameter = 1f
+                            angularDiameter = 0.5f
                         ),
                         canvasObject = obj,
                         onFocusedFn = {
@@ -137,7 +152,7 @@ class ARAstronomyLayer(
                             astro.getSunAzimuth(location, it).value,
                             astro.getSunAltitude(location, it),
                             isTrueNorth = true,
-                            angularDiameter = 1f
+                            angularDiameter = 0.5f
                         ),
                         canvasObject = obj,
                         onFocusedFn = {
@@ -184,6 +199,12 @@ class ARAstronomyLayer(
                     }
                 )
 
+                sunLineLayer.setLines(listOf(sunPositions.map { it.point } + listOfNotNull(
+                    sunPositions.firstOrNull()?.point
+                )))
+                moonLineLayer.setLines(listOf(moonPositions.map { it.point } + listOfNotNull(
+                    moonPositions.firstOrNull()?.point
+                )))
                 sunLayer.setMarkers(sunPositions + sun)
                 moonLayer.setMarkers(moonPositions + moon)
             }

@@ -86,7 +86,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
     // Augmented reality
     private val markerLayer = ARMarkerLayer()
-    private val lineLayer = ARLineLayer()
+    private val lineLayer = ARLineLayer(curved = false)
     private var startMarker: ARPoint? = null
     private var endMarker: ARPoint? = null
 

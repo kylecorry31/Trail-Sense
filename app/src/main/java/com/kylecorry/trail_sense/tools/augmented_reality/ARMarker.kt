@@ -8,7 +8,7 @@ import com.kylecorry.trail_sense.tools.augmented_reality.position.GeographicARPo
 import com.kylecorry.trail_sense.tools.augmented_reality.position.SphericalARPoint
 
 class ARMarker(
-    private val point: ARPoint,
+    val point: ARPoint,
     private val canvasObject: CanvasObject,
     private val keepFacingUp: Boolean = false,
     private val onFocusedFn: (() -> Boolean) = { false },
