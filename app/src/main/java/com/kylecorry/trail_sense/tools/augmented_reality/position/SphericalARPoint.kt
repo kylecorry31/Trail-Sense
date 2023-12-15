@@ -17,7 +17,7 @@ class SphericalARPoint(
     private val angularDiameter: Float = 1f,
     isTrueNorth: Boolean = true
 ) : ARPoint {
-    private val position =
+    val position =
         AugmentedRealityView.HorizonCoordinate(bearing, elevationAngle, distance, isTrueNorth)
 
     override fun getAngularDiameter(view: AugmentedRealityView): Float {

@@ -16,12 +16,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.Duration
-import java.time.LocalDate
-import java.time.ZoneId
 import java.time.ZonedDateTime
 
 class ARAstronomyLayer(
     private val drawLines: Boolean,
+    private val drawBelowHorizon: Boolean,
     private val onSunFocus: (time: ZonedDateTime) -> Boolean,
     private val onMoonFocus: (time: ZonedDateTime) -> Boolean
 ) : ARLayer {
@@ -57,6 +56,7 @@ class ARAstronomyLayer(
     private val updateFrequency = Duration.ofMinutes(1).toMillis()
     private val updateDistance = 1000f
 
+    // TODO: Eventually use a clip path to clip the lines to the horizon
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         val location = view.location
         val time = System.currentTimeMillis()
@@ -94,12 +94,18 @@ class ARAstronomyLayer(
         return sunLayer.onFocus(drawer, view) || moonLayer.onFocus(drawer, view)
     }
 
-    private fun updatePositions(drawer: ICanvasDrawer, location: Coordinate, time: ZonedDateTime) {
+    private fun updatePositions(
+        drawer: ICanvasDrawer,
+        location: Coordinate,
+        time: ZonedDateTime
+    ) {
         scope.launch {
             runner.enqueue {
                 if (bitmapLoader == null) {
                     bitmapLoader = DrawerBitmapLoader(drawer)
                 }
+
+                val granularity = Duration.ofMinutes(10)
 
                 val moonBeforePathObject = CanvasCircle(
                     Color.WHITE,
@@ -121,12 +127,13 @@ class ARAstronomyLayer(
                     opacity = 200
                 )
 
+                // TODO: Should this be the day's value or the values when it is above the horizon?
                 val moonPositions = Time.getReadings(
-                    LocalDate.now(),
-                    ZoneId.systemDefault(),
-                    Duration.ofMinutes(15)
+                    time.toLocalDate(),
+                    time.zone,
+                    granularity
                 ) {
-                    val obj = if (it.isBefore(ZonedDateTime.now())) {
+                    val obj = if (it.isBefore(time)) {
                         moonBeforePathObject
                     } else {
                         moonAfterPathObject
@@ -147,9 +154,12 @@ class ARAstronomyLayer(
                 }.map { it.value }
 
                 val sunPositions = Time.getReadings(
-                    LocalDate.now(), ZoneId.systemDefault(), Duration.ofMinutes(15)
+                    time.toLocalDate(),
+                    time.zone,
+                    granularity
                 ) {
-                    val obj = if (it.isBefore(ZonedDateTime.now())) {
+
+                    val obj = if (it.isBefore(time)) {
                         sunBeforePathObject
                     } else {
                         sunAfterPathObject
@@ -175,7 +185,7 @@ class ARAstronomyLayer(
                 val sunAltitude = astro.getSunAltitude(location)
                 val sunAzimuth = astro.getSunAzimuth(location).value
 
-                val phase = astro.getMoonPhase(LocalDate.now())
+                val phase = astro.getMoonPhase(time.toLocalDate())
                 val moonIconId = MoonPhaseImageMapper().getPhaseImage(phase.phase)
                 val moonImageSize = drawer.dp(24f).toInt()
                 val moonBitmap = bitmapLoader?.load(moonIconId, moonImageSize)
@@ -190,7 +200,7 @@ class ARAstronomyLayer(
                     canvasObject = moonBitmap?.let { CanvasBitmap(moonBitmap) }
                         ?: CanvasCircle(Color.WHITE),
                     onFocusedFn = {
-                        onMoonFocus(ZonedDateTime.now())
+                        onMoonFocus(time)
                     }
                 )
 
@@ -203,19 +213,50 @@ class ARAstronomyLayer(
                     ),
                     canvasObject = CanvasCircle(AppColor.Yellow.color),
                     onFocusedFn = {
-                        onSunFocus(ZonedDateTime.now())
+                        onSunFocus(time)
                     }
                 )
 
-                sunLineLayer.setLines(listOf(sunPositions.map { it.point } + listOfNotNull(
-                    sunPositions.firstOrNull()?.point
-                )))
-                moonLineLayer.setLines(listOf(moonPositions.map { it.point } + listOfNotNull(
-                    moonPositions.firstOrNull()?.point
-                )))
-                sunLayer.setMarkers(sunPositions + sun)
-                moonLayer.setMarkers(moonPositions + moon)
+                val sunPointsToDraw = if (drawBelowHorizon) {
+                    listOf(sunPositions)
+                } else {
+                    getAboveHorizon(sunPositions)
+                }
+
+                val moonPointsToDraw = if (drawBelowHorizon) {
+                    listOf(moonPositions)
+                } else {
+                    getAboveHorizon(moonPositions)
+                }
+
+
+                // TODO: The line should be drawn to the horizon
+                sunLineLayer.setLines(sunPointsToDraw.map { markers -> markers.map { it.point } })
+                moonLineLayer.setLines(moonPointsToDraw.map { markers -> markers.map { it.point } })
+                // TODO: Should the sun and moon be drawn below the horizon?
+                sunLayer.setMarkers(sunPointsToDraw.flatten() + sun)
+                moonLayer.setMarkers(moonPointsToDraw.flatten() + moon)
             }
         }
+    }
+
+    private fun getAboveHorizon(points: List<ARMarker>): List<List<ARMarker>> {
+        val lines = mutableListOf<List<ARMarker>>()
+        var currentLine = mutableListOf<ARMarker>()
+        points.forEach {
+            val point = it.point as SphericalARPoint
+            if (point.position.elevation > 0) {
+                currentLine.add(it)
+            } else {
+                if (currentLine.isNotEmpty()) {
+                    lines.add(currentLine)
+                    currentLine = mutableListOf()
+                }
+            }
+        }
+        if (currentLine.isNotEmpty()) {
+            lines.add(currentLine)
+        }
+        return lines
     }
 }

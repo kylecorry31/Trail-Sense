@@ -53,7 +53,12 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     }
 
     private val astronomyLayer by lazy {
-        ARAstronomyLayer(true, this::onSunFocused, this::onMoonFocused)
+        ARAstronomyLayer(
+            drawLines = true,
+            drawBelowHorizon = false,
+            onSunFocus = this::onSunFocused,
+            onMoonFocus = this::onMoonFocused
+        )
     }
 
     private val navigator by lazy { Navigator.getInstance(requireContext()) }
