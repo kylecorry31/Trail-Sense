@@ -38,6 +38,8 @@ class ARAstronomyLayer(
         curved = true
     )
     private val sunLayer = ARMarkerLayer()
+    private val currentSunLayer = ARMarkerLayer()
+
     private val moonLineLayer = ARLineLayer(
         Color.WHITE.withAlpha(lineAlpha),
         thickness = lineThickness,
@@ -45,6 +47,7 @@ class ARAstronomyLayer(
         curved = true
     )
     private val moonLayer = ARMarkerLayer()
+    private val currentMoonLayer = ARMarkerLayer()
 
     private val astro = AstronomyService()
 
@@ -73,6 +76,8 @@ class ARAstronomyLayer(
         }
         moonLayer.draw(drawer, view)
         sunLayer.draw(drawer, view)
+        currentMoonLayer.draw(drawer, view)
+        currentSunLayer.draw(drawer, view)
     }
 
     override fun invalidate() {
@@ -80,6 +85,8 @@ class ARAstronomyLayer(
         sunLineLayer.invalidate()
         moonLayer.invalidate()
         sunLayer.invalidate()
+        currentMoonLayer.invalidate()
+        currentSunLayer.invalidate()
     }
 
     override fun onClick(
@@ -87,11 +94,17 @@ class ARAstronomyLayer(
         view: AugmentedRealityView,
         pixel: PixelCoordinate
     ): Boolean {
-        return sunLayer.onClick(drawer, view, pixel) || moonLayer.onClick(drawer, view, pixel)
+        return currentSunLayer.onClick(drawer, view, pixel) ||
+                currentMoonLayer.onClick(drawer, view, pixel) ||
+                sunLayer.onClick(drawer, view, pixel) ||
+                moonLayer.onClick(drawer, view, pixel)
     }
 
     override fun onFocus(drawer: ICanvasDrawer, view: AugmentedRealityView): Boolean {
-        return sunLayer.onFocus(drawer, view) || moonLayer.onFocus(drawer, view)
+        return currentSunLayer.onFocus(drawer, view) ||
+                currentMoonLayer.onFocus(drawer, view) ||
+                sunLayer.onFocus(drawer, view) ||
+                moonLayer.onFocus(drawer, view)
     }
 
     private fun updatePositions(
@@ -220,27 +233,30 @@ class ARAstronomyLayer(
                 val sunPointsToDraw = if (drawBelowHorizon) {
                     listOf(sunPositions)
                 } else {
-                    getAboveHorizon(sunPositions)
+                    getMarkersAboveHorizon(sunPositions)
                 }
 
                 val moonPointsToDraw = if (drawBelowHorizon) {
                     listOf(moonPositions)
                 } else {
-                    getAboveHorizon(moonPositions)
+                    getMarkersAboveHorizon(moonPositions)
                 }
 
 
                 // TODO: The line should be drawn to the horizon
                 sunLineLayer.setLines(sunPointsToDraw.map { markers -> markers.map { it.point } })
                 moonLineLayer.setLines(moonPointsToDraw.map { markers -> markers.map { it.point } })
+                sunLayer.setMarkers(sunPointsToDraw.flatten())
+                moonLayer.setMarkers(moonPointsToDraw.flatten())
+
                 // TODO: Should the sun and moon be drawn below the horizon?
-                sunLayer.setMarkers(sunPointsToDraw.flatten() + sun)
-                moonLayer.setMarkers(moonPointsToDraw.flatten() + moon)
+                currentSunLayer.setMarkers(listOf(sun))
+                currentMoonLayer.setMarkers(listOf(moon))
             }
         }
     }
 
-    private fun getAboveHorizon(points: List<ARMarker>): List<List<ARMarker>> {
+    private fun getMarkersAboveHorizon(points: List<ARMarker>): List<List<ARMarker>> {
         val lines = mutableListOf<List<ARMarker>>()
         var currentLine = mutableListOf<ARMarker>()
         points.forEach {
