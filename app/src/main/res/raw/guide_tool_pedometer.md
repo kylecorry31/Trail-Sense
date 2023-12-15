@@ -3,7 +3,7 @@ The Pedometer tool can be used to track distance traveled by counting your steps
 ## Track Distance and Speed
 To track distance traveled, tap the start button in the bottom-right corner of the screen. You may be asked to grant the "Physical Activity" permission, which allows Trail Sense to access your phone's pedometer. You can then put your phone away and begin your hike.
 
-The distance traveled will be shown at the top of the screen, along with the number of steps taken, your average speed, and your current speed. The average speed is calculated since the last reset, and does not factor in breaks. The current speed is calculated over the last 10 seconds. The distance traveled is calculated based on your steps and stride length.
+The distance traveled will be shown at the top of the screen, along with the number of steps taken, your average speed, and your current speed. The average speed is calculated since the last reset, and does not factor in breaks. The current speed is calculated over the last 10 seconds. The distance traveled is calculated based on your steps and stride length. The time since the last reset is shown at the top of the screen.
 
 You can stop the pedometer at any point (ex. while resting or at a campsite) by clicking the stop button in the bottom-right corner. Stopping the pedometer will not reset the distance traveled, so you can resume it by clicking start again. If you want to start a new measurement, you can click the reset button instead.
 
