@@ -1,0 +1,38 @@
+name: Update Contributors
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Runs every day at midnight
+  workflow_dispatch:
+
+jobs:
+  update_contributors:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Run script
+        run: python scripts/update_contributors.py
+
+      - name: Check for changes
+        id: git-diff
+        run: echo "::set-output name=changes::$(git diff --exit-code)"
+
+      - name: Create Pull Request
+        if: steps.git-diff.outputs.changes != ''
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: "Update contributors"
+          body: "This PR updates the list of contributors in the Licenses.kt file."
+          branch: "update-contributors"
