@@ -11,6 +11,8 @@ The slope percentage or grade is also shown under the angle.
 
 If you would prefer to lock the angle using the volume buttons instead of tapping the screen, you can enable this in Settings > Clinometer > Lock with volume buttons.
 
+An experimental setting is available to display the angle measurements on the camera viewfinder. You can enable this in Settings > Experimental > Clinometer augmented reality.
+
 ## Measuring Avalanche Risk
 Most avalanches occur on slopes between 30° (57%) and 45° (100%). When you measure the angle of a slope, the avalanche risk will be displayed toward the bottom of your screen. You can also use the color bands on the clinometer dial; red is high risk, yellow is moderate risk, and green is low risk.
 

@@ -64,8 +64,6 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
     val camera by lazy { CameraPreferences(context) }
     val altimeter by lazy { AltimeterPreferences(context) }
 
-    var hapticsEnabled = false
-
     private val isMetricPreferred = Resources.isMetricPreferred(context)
 
     val isAugmentedRealityEnabled by BooleanPreference(

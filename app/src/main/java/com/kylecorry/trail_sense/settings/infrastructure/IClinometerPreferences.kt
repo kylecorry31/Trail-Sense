@@ -7,4 +7,6 @@ interface IClinometerPreferences {
     var baselineDistance: Distance?
     var measureHeightInstructionsSent: Boolean
     var measureDistanceInstructionsSent: Boolean
+    val useAugmentedReality: Boolean
+    val useHaptics: Boolean
 }

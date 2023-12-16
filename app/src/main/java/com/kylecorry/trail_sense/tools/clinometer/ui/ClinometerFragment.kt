@@ -67,7 +67,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         HapticSubsystem.getInstance(requireContext()).dial()
     }
     private val throttle = Throttle(20)
-    private val hapticsEnabled by lazy { prefs.hapticsEnabled }
+    private val hapticsEnabled by lazy { prefs.clinometer.useHaptics }
 
     private lateinit var clinometer: IClinometer
 
@@ -91,7 +91,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private var endMarker: ARPoint? = null
 
     private val isAugmentedReality by lazy {
-        prefs.isAugmentedRealityEnabled
+        prefs.clinometer.useAugmentedReality
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

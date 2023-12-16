@@ -55,4 +55,12 @@ class ClinometerPreferences(private val context: Context) : IClinometerPreferenc
         "pref_clinometer_measure_distance_read",
         false
     )
+
+    override val useHaptics = false
+
+    override val useAugmentedReality by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_clinometer_use_ar),
+        false
+    )
 }
