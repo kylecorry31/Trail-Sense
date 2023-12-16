@@ -213,6 +213,48 @@ F. Point of Contact: Any Recipient contact with Government Agency is to be direc
 Global Relief Model. NOAA National Centers for Environmental Information.
 https://doi.org/10.25921/fd45-gt74 . Accessed 2023-05-26.
 ETOPO 2022 metadata may be accessed here: ETOPO 2022 metadata landing page"""
+        },
+        Library(
+            "Trail Sense Contributors",
+            "https://github.com/kylecorry31/Trail-Sense"
+        ) {
+            val contributors = arrayOf(
+                "kylecorry31",
+                "qwerty287",
+                "sr093906",
+                "ChuckMichael",
+                "oersen",
+                "laralem",
+                "Fjuro",
+                "comradekingu",
+                "beriain",
+                "ebraminio",
+                "SecularSteve",
+                "jer194",
+                "raphaelventura",
+                "ojppe",
+                "delthia",
+                "weblate",
+                "cewbdex",
+                "another-sapiens",
+                "ACABMAN666",
+                "zsbetu",
+                "Jakarrrg",
+                "shilonit",
+                "SantosSi",
+                "a-mento",
+                "fnogcps",
+                "comcloudway",
+                "Leopardus4",
+                "mfrancesconi",
+                "Craftefix",
+                "Xoronic"
+            )
+            "The following people contributed code or translations to Trail Sense under the MIT License: ${
+                contributors.joinToString(
+                    ", "
+                )
+            }"
         }
     )
 
