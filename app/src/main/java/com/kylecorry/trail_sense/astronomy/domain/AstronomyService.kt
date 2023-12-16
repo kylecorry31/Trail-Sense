@@ -45,7 +45,12 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     }
 
     fun getMoonTimes(location: Coordinate, date: LocalDate): RiseSetTransitTimes {
-        return Astronomy.getMoonEvents(date.atStartOfDay().toZonedDateTime(), location, true)
+        return Astronomy.getMoonEvents(
+            date.atStartOfDay().toZonedDateTime(),
+            location,
+            withRefraction = true,
+            withParallax = true
+        )
     }
 
     fun getCenteredMoonAltitudes(
@@ -74,15 +79,20 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
     }
 
     fun getMoonAltitude(location: Coordinate, time: ZonedDateTime = ZonedDateTime.now()): Float {
-        return Astronomy.getMoonAltitude(time, location, true)
+        return Astronomy.getMoonAltitude(time, location, withRefraction = true, withParallax = true)
     }
 
     fun getMoonAzimuth(location: Coordinate, time: ZonedDateTime = ZonedDateTime.now()): Bearing {
-        return Astronomy.getMoonAzimuth(time, location)
+        return Astronomy.getMoonAzimuth(time, location, withParallax = true)
     }
 
     fun isMoonUp(location: Coordinate): Boolean {
-        return Astronomy.isMoonUp(ZonedDateTime.now(clock), location, true)
+        return Astronomy.isMoonUp(
+            ZonedDateTime.now(clock),
+            location,
+            withRefraction = true,
+            withParallax = true
+        )
     }
 
     // PUBLIC SUN METHODS
@@ -213,7 +223,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         location: Coordinate,
         date: LocalDate = LocalDate.now()
     ): Eclipse? {
-        return getEclipse(location, date, EclipseType.PartialLunar){
+        return getEclipse(location, date, EclipseType.PartialLunar) {
             getMoonAzimuth(location, it) to getMoonAltitude(location, it)
         }
     }
@@ -222,7 +232,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         location: Coordinate,
         date: LocalDate = LocalDate.now()
     ): Eclipse? {
-        return getEclipse(location, date, EclipseType.Solar, 1){
+        return getEclipse(location, date, EclipseType.Solar, 1) {
             getSunAzimuth(location, it) to getSunAltitude(location, it)
         }
     }
@@ -283,14 +293,17 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
                 MoonTruePhase.FirstQuarter,
                 MoonTruePhase.ThirdQuarter
             ).contains(getMoonPhase(start).phase)
+
             AstronomyEvent.MeteorShower -> getMeteorShower(
                 location,
                 start
             )?.peak?.toLocalDate() == start
+
             AstronomyEvent.LunarEclipse -> getLunarEclipse(
                 location,
                 start
             ) != null
+
             AstronomyEvent.Supermoon -> isSuperMoon(start)
             AstronomyEvent.SolarEclipse -> getSolarEclipse(
                 location,
@@ -307,14 +320,17 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
                     MoonTruePhase.FirstQuarter,
                     MoonTruePhase.ThirdQuarter
                 ).contains(getMoonPhase(date).phase)
+
                 AstronomyEvent.MeteorShower -> getMeteorShower(
                     location,
                     date
                 )?.peak?.toLocalDate() == date
+
                 AstronomyEvent.LunarEclipse -> getLunarEclipse(
                     location,
                     date
                 ) != null
+
                 AstronomyEvent.Supermoon -> isSuperMoon(date)
                 AstronomyEvent.SolarEclipse -> getSolarEclipse(
                     location,
