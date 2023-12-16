@@ -1,7 +1,7 @@
 import requests
 import os
 
-url = "https://api.github.com/repos/kylecorry31/Trail-Sense/contributors"
+url = "https://api.github.com/repos/kylecorry31/Trail-Sense/contributors?q=contributions&order=desc"
 script_dir = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/')
 licenses_file = script_dir + "/../app/src/main/java/com/kylecorry/trail_sense/licenses/Licenses.kt"
 
