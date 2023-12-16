@@ -100,37 +100,36 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
             )
         }
 
-        return getCustomGeomagneticRotationSensor()
+        return getCustomGeomagneticRotationSensor(true)
     }
 
     fun getOrientationSensor(): IOrientationSensor {
         return QuickRecalibrationOrientationSensor(
-            CustomGeomagneticRotationSensor(
-                Magnetometer(context, SensorService.MOTION_SENSOR_DELAY),
-                Accelerometer(context, SensorService.MOTION_SENSOR_DELAY),
-            ),
+            getCustomGeomagneticRotationSensor(false),
             getBaseOrientationSensor(),
             0.5f,
         )
     }
 
-    private fun getCustomGeomagneticRotationSensor(): CustomGeomagneticRotationSensor {
+    private fun getCustomGeomagneticRotationSensor(useGyroIfAvailable: Boolean): CustomGeomagneticRotationSensor {
         val magnetometer = if (Sensors.hasSensor(context, Sensor.TYPE_MAGNETIC_FIELD)) {
             LowPassMagnetometer(context, SensorService.MOTION_SENSOR_DELAY, MAGNETOMETER_LOW_PASS)
         } else {
             MockMagnetometer()
         }
-        val accelerometer = if (Sensors.hasGravity(context)) {
+        val accelerometer = if (useGyroIfAvailable && Sensors.hasGravity(context)) {
             GravitySensor(context, SensorService.MOTION_SENSOR_DELAY)
         } else {
-            LowPassAccelerometer(context, SensorService.MOTION_SENSOR_DELAY)
+            LowPassAccelerometer(context, SensorService.MOTION_SENSOR_DELAY, ACCELEROMETER_LOW_PASS)
         }
+
         return CustomGeomagneticRotationSensor(magnetometer, accelerometer)
     }
 
     companion object {
 
         private const val MAGNETOMETER_LOW_PASS = 0.3f
+        private const val ACCELEROMETER_LOW_PASS = 0.1f
 
         /**
          * Returns the available compass sources in order of quality
