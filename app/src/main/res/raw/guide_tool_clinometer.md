@@ -3,9 +3,9 @@ The Clinometer tool measures angles and can be used to determine the slope of a 
 The following guide uses a tree as an example, but the same steps can be used for any object.
 
 ## Measure a Slope
-To measure a slope (or any angle) hold your phone vertical and use the side (where the volume and power buttons are normally located) of your phone to sight. Look down the side of your phone and point it at the top of the hill. You will see the angle change at the top of the screen.
+To measure a slope (or any angle), align the line in the center of the viewfinder with the top of the hill. Tapping anywhere on the screen will lock the clinometer and tapping again will unlock it.
 
-Alternatively, you can tap the camera icon in the top left to sight using your camera. Align the line in the center of the viewfinder with the top of the hill. Tapping anywhere on the screen will lock the clinometer and tapping again will unlock it.
+Alternatively, you can use the side of your phone to measure a slope. To do this, tap the screen icon in the top-left. Then hold your phone vertical and use the side (where the volume and power buttons are normally located) of your phone to sight. Look down the side of your phone and point it at the top of the hill. You will see the angle change at the top of the screen.
 
 The slope percentage or grade is also shown under the angle.
 

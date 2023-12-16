@@ -82,7 +82,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private var distanceAway: Distance? = null
     private var knownHeight: Distance? = null
 
-    private var useCamera = false
+    private var useCamera = true
 
     // Augmented reality
     private val markerLayer = ARMarkerLayer()
@@ -114,30 +114,9 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
         binding.clinometerTitle.leftButton.setOnClickListener {
             if (useCamera) {
-                binding.camera.stop()
-                binding.arView.stop()
-                binding.clinometerTitle.leftButton.setImageResource(R.drawable.ic_camera)
-                CustomUiUtils.setButtonState(binding.clinometerTitle.leftButton, false)
-                useCamera = false
-                clinometer = getClinometer()
+                startSideClinometer()
             } else {
-                requestCamera { hasPermission ->
-                    if (hasPermission) {
-                        useCamera = true
-                        binding.camera.start(
-                            readFrames = false,
-                            shouldStabilizePreview = false
-                        )
-                        if (isAugmentedReality) {
-                            binding.arView.start(false)
-                        }
-                        binding.clinometerTitle.leftButton.setImageResource(R.drawable.ic_screen_flashlight)
-                        CustomUiUtils.setButtonState(binding.clinometerTitle.leftButton, false)
-                        clinometer = getClinometer()
-                    } else {
-                        alertNoCameraPermission()
-                    }
-                }
+                startCameraClinometer(true)
             }
         }
 
@@ -165,6 +144,38 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         observe(sideClinometer) { updateUI() }
         observe(cameraClinometer) { updateUI() }
         observe(deviceOrientation) { updateUI() }
+    }
+
+    private fun startSideClinometer(){
+        binding.camera.stop()
+        binding.arView.stop()
+        binding.clinometerTitle.leftButton.setImageResource(R.drawable.ic_camera)
+        CustomUiUtils.setButtonState(binding.clinometerTitle.leftButton, false)
+        useCamera = false
+        clinometer = getClinometer()
+    }
+
+    private fun startCameraClinometer(showAlert: Boolean){
+        requestCamera { hasPermission ->
+            if (hasPermission) {
+                useCamera = true
+                binding.camera.start(
+                    readFrames = false,
+                    shouldStabilizePreview = false
+                )
+                if (isAugmentedReality) {
+                    binding.arView.start(false)
+                }
+                binding.clinometerTitle.leftButton.setImageResource(R.drawable.ic_screen_flashlight)
+                CustomUiUtils.setButtonState(binding.clinometerTitle.leftButton, false)
+                clinometer = getClinometer()
+            } else {
+                startSideClinometer()
+                if (showAlert) {
+                    alertNoCameraPermission()
+                }
+            }
+        }
     }
 
     fun updateLockState(pressState: PressState) {
@@ -377,6 +388,12 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                 distanceAway != null
             )
         }
+
+        if (useCamera){
+            startCameraClinometer(false)
+        } else {
+            startSideClinometer()
+        }
     }
 
     override fun onPause() {
@@ -384,8 +401,6 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         if (useCamera) {
             binding.camera.stop()
             binding.arView.stop()
-            useCamera = false
-            clinometer = getClinometer()
         }
         if (hapticsEnabled) {
             feedback.stop()
