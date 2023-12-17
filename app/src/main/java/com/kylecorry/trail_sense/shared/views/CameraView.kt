@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.util.AttributeSet
+import android.util.Log
 import android.util.Size
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -21,6 +22,8 @@ import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.camera.ICamera
 import com.kylecorry.andromeda.camera.ImageCaptureSettings
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
+import com.kylecorry.andromeda.core.tryOrDefault
+import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.trail_sense.R
@@ -36,7 +39,8 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     val fov: Pair<Float, Float>
         get() {
             val defaultFOV = 45f
-            val fieldOfView = camera?.getZoomedFOV() ?: lastFov ?: (defaultFOV to defaultFOV * 4f / 3f)
+            val fieldOfView =
+                camera?.getZoomedFOV() ?: lastFov ?: (defaultFOV to defaultFOV * 4f / 3f)
             lastFov = fieldOfView
             return fieldOfView
         }
@@ -50,6 +54,14 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     private var isTorchOn = false
     private var zoom: Float = -1f
     private var isCapturing = false
+
+    val previewImage: Bitmap?
+        get() = try {
+            preview.bitmap
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
 
     var isStarted = false
         private set
@@ -268,7 +280,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
 
         override fun onScale(detector: ScaleGestureDetector): Boolean {
             if (zoom != -1f && zoomSeek.isVisible) {
-                val newZoom = (zoom - 1 + detector.scaleFactor ).coerceIn(0f, 1f)
+                val newZoom = (zoom - 1 + detector.scaleFactor).coerceIn(0f, 1f)
                 zoomListener?.invoke(newZoom)
                 setZoom(newZoom)
                 return true

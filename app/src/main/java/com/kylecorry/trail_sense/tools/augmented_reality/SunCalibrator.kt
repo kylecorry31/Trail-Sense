@@ -1,0 +1,54 @@
+package com.kylecorry.trail_sense.tools.augmented_reality
+
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeToFit
+import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.sol.math.Quaternion
+import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
+import com.kylecorry.trail_sense.shared.camera.GrayscaleMomentFinder
+import com.kylecorry.trail_sense.shared.views.CameraView
+
+class SunCalibrator {
+
+    private val astro = AstronomyService()
+
+    suspend fun calibrate(view: AugmentedRealityView, camera: CameraView): Quaternion? {
+        val image = camera.previewImage ?: return null
+        return onDefault {
+            // Scale the image to fit in 100x100
+            val scaled = image.resizeToFit(100, 100)
+            val scaledWidth = scaled.width
+            val scaledHeight = scaled.height
+            if (scaled != image) {
+                image.recycle()
+            }
+
+            val momentFinder = GrayscaleMomentFinder(240, 5)
+
+            try {
+                val moment = momentFinder.getMoment(scaled) ?: return@onDefault null
+
+                // Scale to viewport
+                val xPct = moment.x / scaledWidth
+                val yPct = moment.y / scaledHeight
+                val actualPixel = PixelCoordinate(xPct * view.width, yPct * view.height)
+                // TODO: Convert the pixel into a horizon coordinate
+
+                val predictedLocation = AugmentedRealityView.HorizonCoordinate(
+                    astro.getSunAzimuth(view.location).value,
+                    astro.getSunAltitude(view.location),
+                    Float.MAX_VALUE,
+                    true
+                )
+
+                val delta = Quaternion.zero
+
+                // TODO: Calculate the quaternion needed to rotate the predicted position to the actual position
+                delta
+            } finally {
+                scaled.recycle()
+            }
+        }
+    }
+
+}
