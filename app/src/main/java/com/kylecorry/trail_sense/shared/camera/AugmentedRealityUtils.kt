@@ -113,7 +113,7 @@ object AugmentedRealityUtils {
     }
 
     /**
-     * Gets the pixel coordinate of a point on the screen given the bearing and azimuth. The point is considered to be on a plane.
+     * Gets the pixel coordinate of a point on the screen given the bearing and azimuth. The point is considered to be on a sphere.
      * @param bearing The compass bearing in degrees of the point
      * @param azimuth The compass bearing in degrees that the user is facing (center of the screen)
      * @param altitude The altitude of the point in degrees
@@ -146,6 +146,7 @@ object AugmentedRealityUtils {
 
         // Perspective matrix multiplication - written out to avoid unnecessary allocations and calculations
         val f = synchronized(lastFovLock) {
+            // Cache the focal length to avoid unnecessary recalculations
             if (lastFov == fov) {
                 lastFocalLength
             } else {
