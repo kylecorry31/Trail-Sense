@@ -40,6 +40,22 @@ class ARLineLayer(
         }
     }
 
+    /*
+     * Desired algorithm (for curved lines):
+     * 1. Split the line into smaller lines based on the resolution
+     * 2. For each line, get the pixels that make up the line
+     * 3. Clip the line to the view
+     * 4. Remove connections between lines that are too far apart (ex. crossing the view)
+     * 5. Draw the lines
+     *
+     * Desired algorithm (for straight lines):
+     * 1. Get the pixels that make up the line
+     * 2. Split the line into smaller lines based on the resolution
+     * 3. Clip the line to the view
+     * 4. Remove connections between lines that are too far apart (ex. crossing the view)
+     * 5. Draw the lines
+     */
+
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         val maxAngle = hypot(view.fov.width, view.fov.height) * 1.5f
         val resolutionDegrees = (maxAngle / 10f).roundToInt().coerceIn(1, 5)
