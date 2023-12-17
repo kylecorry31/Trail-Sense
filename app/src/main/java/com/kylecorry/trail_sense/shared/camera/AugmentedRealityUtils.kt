@@ -181,10 +181,17 @@ object AugmentedRealityUtils {
         altitude: Float,
         radius: Float
     ): Vector3 {
+        val altitudeRad = altitude.toRadians()
+        val bearingRad = bearing.toRadians()
+        val cosAltitude = cos(altitudeRad)
+        val sinAltitude = sin(altitudeRad)
+        val cosBearing = cos(bearingRad)
+        val sinBearing = sin(bearingRad)
+
         // X and Y are flipped
-        val x = sin(bearing.toRadians()) * cos(altitude.toRadians()) * radius
-        val y = cos(bearing.toRadians()) * sin(altitude.toRadians()) * radius
-        val z = cos(bearing.toRadians()) * cos(altitude.toRadians()) * radius
+        val x = sinBearing * cosAltitude * radius
+        val y = cosBearing * sinAltitude * radius
+        val z = cosBearing * cosAltitude * radius
         return Vector3(x, y, z)
     }
 
