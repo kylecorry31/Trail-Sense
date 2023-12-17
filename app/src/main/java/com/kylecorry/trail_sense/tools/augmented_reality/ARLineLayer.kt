@@ -180,6 +180,10 @@ class ARLineLayer(
                 )
             )
         }
+
+        // Add the end point
+        coordinates.add(end)
+
         return coordinates
     }
 
