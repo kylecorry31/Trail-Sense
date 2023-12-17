@@ -23,11 +23,16 @@ object AugmentedRealityUtils {
     private val worldVectorLock = Any()
     private val tempWorldVector = FloatArray(4)
 
-    private val perspectiveLock = Any()
-    private val tempPerspective = FloatArray(16)
+    private val lastFovLock = Any()
+    private var lastFov: Size? = null
+    private var lastFocalLength = 0f
 
-    private val minDistance = 0.1f
-    private val maxDistance = 1000f
+    // Constants for perspective projection
+    private const val minDistance = 0.1f
+    private const val maxDistance = 1000f
+    private const val rangeReciprocal = 1 / (minDistance - maxDistance)
+    private const val zMultiplier = (maxDistance + minDistance) * rangeReciprocal
+    private const val zOffset = 2 * maxDistance * minDistance * rangeReciprocal
 
     /**
      * Gets the pixel coordinate of a point on the screen given the bearing and azimuth. The point is considered to be on a plane.
@@ -134,47 +139,35 @@ object AugmentedRealityUtils {
         val newAltitude = altitude - inclination
         val world = toRectangular(newBearing, newAltitude, distance)
 
-        val screenX: Float
-        val screenY: Float
+        // Point is behind the camera, so calculate the linear projection
+        if (world.z < 0) {
+            return getPixelLinear(bearing, azimuth, altitude, inclination, size, fov)
+        }
 
-        // TODO: Put the device rotation into the matrix
-
-        synchronized(perspectiveLock) {
-            // TODO: No need to calculate this everytime
-            Matrix.perspectiveM(
-                tempPerspective,
-                0,
-                fov.height,
-                fov.width / fov.height,
-                0.1f,
-                maxDistance
-            )
-
-            // Map the world coordinate to the screen using the perspective matrix
-            synchronized(worldVectorLock) {
-                tempWorldVector[0] = world.x
-                tempWorldVector[1] = world.y
-                tempWorldVector[2] = world.z
-                tempWorldVector[3] = 1f
-                Matrix.multiplyMV(tempWorldVector, 0, tempPerspective, 0, tempWorldVector, 0)
-
-                // Using the Z coordinate instead of W because it's more accurate in my testing
-                if (tempWorldVector[2] == 0f) {
-                    tempWorldVector[2] = 1f
-                }
-
-                // Get the screen coordinate
-                screenX = tempWorldVector[0] / tempWorldVector[2]
-                screenY = tempWorldVector[1] / tempWorldVector[2]
-
-                // The point is behind the camera, so use linear projection
-                if (tempWorldVector[3] > 0) {
-                    return getPixelLinear(bearing, azimuth, altitude, inclination, size, fov)
-                }
+        // Perspective matrix multiplication - written out to avoid unnecessary allocations and calculations
+        val f = synchronized(lastFovLock) {
+            if (lastFov == fov) {
+                lastFocalLength
+            } else {
+                val focalLength = 1 / SolMath.tanDegrees(fov.height / 2)
+                lastFov = fov
+                lastFocalLength = focalLength
+                focalLength
             }
         }
 
-        // TODO: Use a matrix to convert from world to screen space
+        val aspect = fov.width / fov.height
+        val x = f / aspect * world.x
+        val y = f * world.y
+        var z = zMultiplier * world.z + zOffset
+        if (z == 0f) {
+            // Prevent NaN
+            z = 1f
+        }
+
+        val screenX = x / z
+        val screenY = y / z
+
         val pixelX = (1 - screenX) / 2f * size.width
         val pixelY = (screenY + 1) / 2f * size.height
 
