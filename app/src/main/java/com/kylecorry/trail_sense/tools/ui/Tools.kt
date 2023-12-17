@@ -98,7 +98,7 @@ object Tools {
                 R.drawable.ic_location,
                 R.id.action_tools_to_beacons,
                 ToolCategory.Location,
-                guideId = R.raw.navigate
+                guideId = R.raw.guide_tool_beacons
             ),
             Tool(
                 8,

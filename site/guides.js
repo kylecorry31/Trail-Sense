@@ -2,6 +2,7 @@ const guides = [
     'tool_astronomy',
     'tool_augmented_reality',
     'tool_battery',
+    'tool_beacons',
     'tool_bubble_level',
     'tool_cliff_height',
     'tool_climate',
