@@ -96,7 +96,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             beaconLayer.destination = it
         }
 
-        binding.camera.setScaleType(PreviewView.ScaleType.FIT_CENTER)
+        binding.camera.setScaleType(PreviewView.ScaleType.FILL_CENTER)
         binding.camera.setShowTorch(false)
 
         binding.arView.bind(binding.camera)

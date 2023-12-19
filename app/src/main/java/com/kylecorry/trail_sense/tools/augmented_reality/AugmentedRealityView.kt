@@ -9,7 +9,6 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
@@ -17,12 +16,10 @@ import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.TextAlign
 import com.kylecorry.andromeda.canvas.TextMode
-import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.geometry.Size
@@ -65,6 +62,7 @@ class AugmentedRealityView : CanvasView {
     private var rotationMatrix = FloatArray(16)
     private val orientation = FloatArray(3)
     private var size = Size(width.toFloat(), height.toFloat())
+    private var previewSize: Size? = null
 
     // Sensors / preferences
     private val userPrefs = UserPreferences(context)
@@ -129,17 +127,19 @@ class AugmentedRealityView : CanvasView {
     // Camera binding
     private var camera: CameraView? = null
     private var lastSize: android.util.Size? = null
-    private val fovRunner = CoroutineQueueRunner(1, dispatcher = Dispatchers.Default)
+    private val fovRunner = CoroutineQueueRunner(1, dispatcher = Dispatchers.Main)
     private var owner: LifecycleOwner? = null
     private val lifecycleObserver = LifecycleEventObserver { _, event ->
-        when(event){
+        when (event) {
             Lifecycle.Event.ON_RESUME -> {
                 syncTimer.interval(1000)
             }
+
             Lifecycle.Event.ON_PAUSE -> {
                 syncTimer.stop()
                 fovRunner.cancel()
             }
+
             else -> {} // Do nothing
         }
     }
@@ -386,9 +386,25 @@ class AugmentedRealityView : CanvasView {
             coordinate.elevation,
             coordinate.distance,
             rotationMatrix,
-            size,
+            previewSize ?: size,
             fov
         )
+
+//        val spherical = AugmentedRealityUtils.toRelative(
+//            bearing,
+//            coordinate.elevation,
+//            coordinate.distance,
+//            rotationMatrix
+//        )
+//
+//        return camera?.camera?.angleToPreviewPixel(
+//            spherical.first,
+//            spherical.second,
+//            coordinate.distance,
+//            outputReference = Camera.AnglePointReference.PreviewView,
+//            cropToView = false,
+////            mapper = PerspectiveCameraAnglePixelMapper(0.1f, 1000f)
+//        ) ?: PixelCoordinate(-1000f, -1000f)
     }
 
     fun toPixel(coordinate: Coordinate, elevation: Float? = null): PixelCoordinate {
@@ -477,33 +493,27 @@ class AugmentedRealityView : CanvasView {
         this.camera = camera
         owner = lifecycleOwner ?: this.findViewTreeLifecycleOwner() ?: return
 
-        // Cancel fovRunner on pause
-        owner?.lifecycle?.addObserver(lifecycleObserver)
-
         if (layoutParams == null) {
             layoutParams = defaultLayoutParams
         }
+
+        // Cancel fovRunner on pause
+        owner?.lifecycle?.addObserver(lifecycleObserver)
     }
 
-    private fun syncWithCamera(){
+    private fun syncWithCamera() {
         owner?.inBackground {
             fovRunner.enqueue {
                 val camera = camera ?: return@enqueue
                 if (!camera.isStarted) {
                     return@enqueue
                 }
-                val fov = camera.fov
-                this@AugmentedRealityView.fov = Size(fov.first, fov.second)
-                val size = camera.getPreviewSize()
 
-                onMain {
-                    // Set the arView size to be the camera preview size
-                    if (size != lastSize) {
-                        lastSize = size
-                        updateLayoutParams {
-                            width = size.width
-                            height = size.height
-                        }
+                val fov = camera.camera?.getPreviewFOV(true) ?: return@enqueue
+                this@AugmentedRealityView.fov = Size(fov.first, fov.second)
+                if (previewSize == null) {
+                    previewSize = camera.camera?.getPreviewSize(true)?.let {
+                        Size(it.width.toFloat(), it.height.toFloat())
                     }
                 }
             }

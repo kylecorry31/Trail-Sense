@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.util.AttributeSet
-import android.util.Log
 import android.util.Size
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -22,8 +21,6 @@ import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.camera.ICamera
 import com.kylecorry.andromeda.camera.ImageCaptureSettings
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
-import com.kylecorry.andromeda.core.tryOrDefault
-import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.trail_sense.R
