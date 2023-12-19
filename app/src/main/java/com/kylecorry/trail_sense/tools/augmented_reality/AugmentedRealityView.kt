@@ -8,7 +8,6 @@ import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ViewGroup
-import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
@@ -16,12 +15,10 @@ import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.TextAlign
 import com.kylecorry.andromeda.canvas.TextMode
-import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.geometry.Size
@@ -38,8 +35,6 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.text
 import com.kylecorry.trail_sense.shared.textDimensions
 import com.kylecorry.trail_sense.shared.views.CameraView
-import com.kylecorry.trail_sense.shared.views.camera.Camera
-import com.kylecorry.trail_sense.shared.views.camera.PerspectiveCameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPoint
 import kotlinx.coroutines.Dispatchers
 import java.time.Duration

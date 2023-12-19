@@ -2,6 +2,8 @@ package com.kylecorry.trail_sense.shared.camera
 
 import android.graphics.RectF
 import android.opengl.Matrix
+import com.kylecorry.andromeda.camera.ar.LinearCameraAnglePixelMapper
+import com.kylecorry.andromeda.camera.ar.PerspectiveCameraAnglePixelMapper
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.andromeda.sense.orientation.OrientationUtils
@@ -13,8 +15,6 @@ import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.shared.views.camera.LinearCameraAnglePixelMapper
-import com.kylecorry.trail_sense.shared.views.camera.PerspectiveCameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityView
 import kotlin.math.asin
 import kotlin.math.atan2
