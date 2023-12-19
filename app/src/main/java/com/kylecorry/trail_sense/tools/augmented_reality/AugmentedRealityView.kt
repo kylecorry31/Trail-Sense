@@ -38,6 +38,8 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.text
 import com.kylecorry.trail_sense.shared.textDimensions
 import com.kylecorry.trail_sense.shared.views.CameraView
+import com.kylecorry.trail_sense.shared.views.camera.Camera
+import com.kylecorry.trail_sense.shared.views.camera.PerspectiveCameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPoint
 import kotlinx.coroutines.Dispatchers
 import java.time.Duration
@@ -131,14 +133,16 @@ class AugmentedRealityView : CanvasView {
     private val fovRunner = CoroutineQueueRunner(1, dispatcher = Dispatchers.Default)
     private var owner: LifecycleOwner? = null
     private val lifecycleObserver = LifecycleEventObserver { _, event ->
-        when(event){
+        when (event) {
             Lifecycle.Event.ON_RESUME -> {
                 syncTimer.interval(1000)
             }
+
             Lifecycle.Event.ON_PAUSE -> {
                 syncTimer.stop()
                 fovRunner.cancel()
             }
+
             else -> {} // Do nothing
         }
     }
@@ -380,14 +384,21 @@ class AugmentedRealityView : CanvasView {
     fun toPixel(coordinate: HorizonCoordinate): PixelCoordinate {
         val bearing = getActualBearing(coordinate)
 
-        return AugmentedRealityUtils.getPixel(
+        val spherical = AugmentedRealityUtils.toRelative(
             bearing,
             coordinate.elevation,
             coordinate.distance,
-            rotationMatrix,
-            size,
-            fov
+            rotationMatrix
         )
+
+        return camera?.camera?.angleToPreviewPixel(
+            spherical.first,
+            spherical.second,
+            coordinate.distance,
+            outputReference = Camera.AnglePointReference.PreviewView,
+            cropToView = false,
+//            mapper = PerspectiveCameraAnglePixelMapper(0.1f, 1000f)
+        ) ?: PixelCoordinate(-1000f, -1000f)
     }
 
     fun toPixel(coordinate: Coordinate, elevation: Float? = null): PixelCoordinate {
@@ -473,35 +484,23 @@ class AugmentedRealityView : CanvasView {
         this.camera = camera
         owner = lifecycleOwner ?: this.findViewTreeLifecycleOwner() ?: return
 
-        // Cancel fovRunner on pause
-        owner?.lifecycle?.addObserver(lifecycleObserver)
-
         if (layoutParams == null) {
             layoutParams = defaultLayoutParams
         }
+
+        // Cancel fovRunner on pause
+        owner?.lifecycle?.addObserver(lifecycleObserver)
     }
 
-    private fun syncWithCamera(){
+    private fun syncWithCamera() {
         owner?.inBackground {
             fovRunner.enqueue {
                 val camera = camera ?: return@enqueue
                 if (!camera.isStarted) {
                     return@enqueue
                 }
-                val fov = camera.fov
+                val fov = camera.camera?.getPreviewFOV(true) ?: return@enqueue
                 this@AugmentedRealityView.fov = Size(fov.first, fov.second)
-                val size = camera.getPreviewSize()
-
-                onMain {
-                    // Set the arView size to be the camera preview size
-                    if (size != lastSize) {
-                        lastSize = size
-                        updateLayoutParams {
-                            width = size.width
-                            height = size.height
-                        }
-                    }
-                }
             }
         }
     }

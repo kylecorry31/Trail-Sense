@@ -102,7 +102,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         CustomUiUtils.setButtonState(binding.clinometerTitle.rightButton, false)
 
         binding.cameraViewHolder.clipToOutline = true
-        binding.camera.setScaleType(PreviewView.ScaleType.FIT_CENTER)
+        binding.camera.setScaleType(PreviewView.ScaleType.FILL_CENTER)
         binding.camera.setShowTorch(false)
 
         binding.clinometerTitle.leftButton.setOnClickListener {

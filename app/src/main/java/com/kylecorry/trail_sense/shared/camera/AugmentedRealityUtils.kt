@@ -88,112 +88,112 @@ object AugmentedRealityUtils {
         return AugmentedRealityView.HorizonCoordinate(bearing, elevationAngle, distance, true)
     }
 
-    /**
-     * Gets the pixel coordinate of a point on the screen given the bearing and azimuth.
-     * @param bearing The compass bearing in degrees of the point
-     * @param elevation The elevation in degrees of the point
-     * @param rotationMatrix The rotation matrix of the device in the AR coordinate system
-     * @param size The size of the view in pixels
-     * @param fov The field of view of the camera in degrees
-     */
-    fun getPixel(
-        bearing: Float,
-        elevation: Float,
-        distance: Float,
-        rotationMatrix: FloatArray,
-        size: Size,
-        fov: Size
-    ): PixelCoordinate {
+//    /**
+//     * Gets the pixel coordinate of a point on the screen given the bearing and azimuth.
+//     * @param bearing The compass bearing in degrees of the point
+//     * @param elevation The elevation in degrees of the point
+//     * @param rotationMatrix The rotation matrix of the device in the AR coordinate system
+//     * @param size The size of the view in pixels
+//     * @param fov The field of view of the camera in degrees
+//     */
+//    fun getPixel(
+//        bearing: Float,
+//        elevation: Float,
+//        distance: Float,
+//        rotationMatrix: FloatArray,
+//        size: Size,
+//        fov: Size
+//    ): PixelCoordinate {
+//
+//        val d = distance.coerceIn(minDistance, maxDistance)
+//
+//        val spherical = toRelative(bearing, elevation, d, rotationMatrix)
+//        // The rotation of the device has been negated, so azimuth = 0 and inclination = 0 is used
+//        return getPixelPerspective(spherical.first, 0f, spherical.second, 0f, d, size, fov)
+//    }
 
-        val d = distance.coerceIn(minDistance, maxDistance)
+//    /**
+//     * Gets the pixel coordinate of a point on the screen given the bearing and azimuth. The point is considered to be on a sphere.
+//     * @param bearing The compass bearing in degrees of the point
+//     * @param azimuth The compass bearing in degrees that the user is facing (center of the screen)
+//     * @param altitude The altitude of the point in degrees
+//     * @param inclination The inclination of the device in degrees
+//     * @param size The size of the view in pixels
+//     * @param fov The field of view of the camera in degrees
+//     */
+//    fun getPixelPerspective(
+//        bearing: Float,
+//        azimuth: Float,
+//        altitude: Float,
+//        inclination: Float,
+//        distance: Float,
+//        size: Size,
+//        fov: Size
+//    ): PixelCoordinate {
+//        // This doesn't work well for large fovs, so fall back to linear
+//        if (fov.width > 65) {
+//            return getPixelLinear(bearing, azimuth, altitude, inclination, size, fov)
+//        }
+//
+//        val newBearing = SolMath.deltaAngle(azimuth, bearing)
+//        val newAltitude = altitude - inclination
+//        val world = toRectangular(newBearing, newAltitude, distance)
+//
+//        // Point is behind the camera, so calculate the linear projection
+//        if (world.z < 0) {
+//            return getPixelLinear(bearing, azimuth, altitude, inclination, size, fov)
+//        }
+//
+//        // Perspective matrix multiplication - written out to avoid unnecessary allocations and calculations
+//        val f = synchronized(lastFovLock) {
+//            // Cache the focal length to avoid unnecessary recalculations
+//            if (lastFov == fov) {
+//                lastFocalLength
+//            } else {
+//                val focalLength = 1 / SolMath.tanDegrees(fov.height / 2)
+//                lastFov = fov
+//                lastFocalLength = focalLength
+//                focalLength
+//            }
+//        }
+//
+//        val aspect = fov.width / fov.height
+//        val x = f / aspect * world.x
+//        val y = f * world.y
+//        var z = zMultiplier * world.z + zOffset
+//        if (z == 0f) {
+//            // Prevent NaN
+//            z = 1f
+//        }
+//
+//        val screenX = x / z
+//        val screenY = y / z
+//
+//        val pixelX = (1 - screenX) / 2f * size.width
+//        val pixelY = (screenY + 1) / 2f *size.height
+//
+//        return PixelCoordinate(pixelX, pixelY)
+//
+//    }
 
-        val spherical = toRelative(bearing, elevation, d, rotationMatrix)
-        // The rotation of the device has been negated, so azimuth = 0 and inclination = 0 is used
-        return getPixelPerspective(spherical.first, 0f, spherical.second, 0f, d, size, fov)
-    }
-
-    /**
-     * Gets the pixel coordinate of a point on the screen given the bearing and azimuth. The point is considered to be on a sphere.
-     * @param bearing The compass bearing in degrees of the point
-     * @param azimuth The compass bearing in degrees that the user is facing (center of the screen)
-     * @param altitude The altitude of the point in degrees
-     * @param inclination The inclination of the device in degrees
-     * @param size The size of the view in pixels
-     * @param fov The field of view of the camera in degrees
-     */
-    fun getPixelPerspective(
-        bearing: Float,
-        azimuth: Float,
-        altitude: Float,
-        inclination: Float,
-        distance: Float,
-        size: Size,
-        fov: Size
-    ): PixelCoordinate {
-        // This doesn't work well for large fovs, so fall back to linear
-        if (fov.width > 65) {
-            return getPixelLinear(bearing, azimuth, altitude, inclination, size, fov)
-        }
-
-        val newBearing = SolMath.deltaAngle(azimuth, bearing)
-        val newAltitude = altitude - inclination
-        val world = toRectangular(newBearing, newAltitude, distance)
-
-        // Point is behind the camera, so calculate the linear projection
-        if (world.z < 0) {
-            return getPixelLinear(bearing, azimuth, altitude, inclination, size, fov)
-        }
-
-        // Perspective matrix multiplication - written out to avoid unnecessary allocations and calculations
-        val f = synchronized(lastFovLock) {
-            // Cache the focal length to avoid unnecessary recalculations
-            if (lastFov == fov) {
-                lastFocalLength
-            } else {
-                val focalLength = 1 / SolMath.tanDegrees(fov.height / 2)
-                lastFov = fov
-                lastFocalLength = focalLength
-                focalLength
-            }
-        }
-
-        val aspect = fov.width / fov.height
-        val x = f / aspect * world.x
-        val y = f * world.y
-        var z = zMultiplier * world.z + zOffset
-        if (z == 0f) {
-            // Prevent NaN
-            z = 1f
-        }
-
-        val screenX = x / z
-        val screenY = y / z
-
-        val pixelX = (1 - screenX) / 2f * size.width
-        val pixelY = (screenY + 1) / 2f * size.height
-
-        return PixelCoordinate(pixelX, pixelY)
-
-    }
-
-    private fun toRectangular(
-        bearing: Float,
-        altitude: Float,
-        radius: Float
-    ): Vector3 {
-        val altitudeRad = altitude.toRadians()
-        val bearingRad = bearing.toRadians()
-        val cosAltitude = cos(altitudeRad)
-        val sinAltitude = sin(altitudeRad)
-        val cosBearing = cos(bearingRad)
-        val sinBearing = sin(bearingRad)
-
-        // X and Y are flipped
-        val x = sinBearing * cosAltitude * radius
-        val y = cosBearing * sinAltitude * radius
-        val z = cosBearing * cosAltitude * radius
-        return Vector3(x, y, z)
-    }
+//    private fun toRectangular(
+//        bearing: Float,
+//        altitude: Float,
+//        radius: Float
+//    ): Vector3 {
+//        val altitudeRad = altitude.toRadians()
+//        val bearingRad = bearing.toRadians()
+//        val cosAltitude = cos(altitudeRad)
+//        val sinAltitude = sin(altitudeRad)
+//        val cosBearing = cos(bearingRad)
+//        val sinBearing = sin(bearingRad)
+//
+//        // X and Y are flipped
+//        val x = sinBearing * cosAltitude * radius
+//        val y = cosBearing * sinAltitude * radius
+//        val z = cosBearing * cosAltitude * radius
+//        return Vector3(x, y, z)
+//    }
 
     /**
      * Computes the orientation of the device in the AR coordinate system.
@@ -249,7 +249,7 @@ object AugmentedRealityUtils {
      * Converts a geographic spherical coordinate to a relative spherical coordinate in the AR coordinate system.
      * @return The relative spherical coordinate (bearing, inclination)
      */
-    private fun toRelative(
+    fun toRelative(
         bearing: Float,
         elevation: Float,
         distance: Float,
