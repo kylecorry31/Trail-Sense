@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.shared.camera
 
 import android.graphics.RectF
 import android.opengl.Matrix
-import android.util.SizeF
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.andromeda.sense.orientation.OrientationUtils
@@ -31,6 +30,11 @@ object AugmentedRealityUtils {
     private const val minDistance = 0.1f
     private const val maxDistance = 1000f
 
+    private val linear = LinearCameraAnglePixelMapper()
+    private val perspective = PerspectiveCameraAnglePixelMapper(minDistance, maxDistance)
+    private val rect = RectF()
+    private val rectLock = Any()
+
     /**
      * Gets the pixel coordinate of a point on the screen given the bearing and azimuth. The point is considered to be on a plane.
      * @param bearing The compass bearing in degrees of the point
@@ -52,14 +56,17 @@ object AugmentedRealityUtils {
         val newBearing = SolMath.deltaAngle(azimuth, bearing)
         val newAltitude = altitude - inclination
 
-        val linear = LinearCameraAnglePixelMapper()
-        return linear.getPixel(
-            newBearing,
-            newAltitude,
-            RectF(0f, 0f, size.width, size.height),
-            fov,
-            null
-        )
+        return synchronized(rectLock) {
+            rect.right = size.width
+            rect.bottom = size.height
+            linear.getPixel(
+                newBearing,
+                newAltitude,
+                rect,
+                fov,
+                null
+            )
+        }
     }
 
     fun getAngularSize(diameter: Distance, distance: Distance): Float {
@@ -104,28 +111,31 @@ object AugmentedRealityUtils {
     ): PixelCoordinate {
         val d = distance.coerceIn(minDistance, maxDistance)
 
+        // Negate the rotation of the device
         val spherical = toRelative(bearing, elevation, d, rotationMatrix)
-        // The rotation of the device has been negated, so azimuth = 0 and inclination = 0 is used
 
         val mapper = if (fov.width > 65) {
-            LinearCameraAnglePixelMapper()
+            linear
         } else {
-            PerspectiveCameraAnglePixelMapper(minDistance, maxDistance)
+            perspective
         }
 
-        return mapper.getPixel(
-            spherical.first,
-            spherical.second,
-            RectF(0f, 0f, size.width, size.height),
-            fov,
-            d
-        )
+        return synchronized(rectLock) {
+            rect.right = size.width
+            rect.bottom = size.height
+            mapper.getPixel(
+                spherical.first,
+                spherical.second,
+                rect,
+                fov,
+                d
+            )
+        }
     }
 
     /**
      * Computes the orientation of the device in the AR coordinate system.
      * @param orientationSensor The orientation sensor
-     * @param quaternion The array to store the quaternion in
      * @param rotationMatrix the array to store the rotation matrix in
      * @param orientation The array to store the orientation in (azimuth, pitch, roll in degrees)
      * @param declination The declination to use (default null)
@@ -176,7 +186,7 @@ object AugmentedRealityUtils {
      * Converts a geographic spherical coordinate to a relative spherical coordinate in the AR coordinate system.
      * @return The relative spherical coordinate (bearing, inclination)
      */
-    fun toRelative(
+    private fun toRelative(
         bearing: Float,
         elevation: Float,
         distance: Float,
