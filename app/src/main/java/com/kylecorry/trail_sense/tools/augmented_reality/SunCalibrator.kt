@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.augmented_reality
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeToFit
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.sol.math.Euler
 import com.kylecorry.sol.math.Quaternion
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.shared.camera.GrayscaleMomentFinder
@@ -13,6 +14,7 @@ class SunCalibrator {
     private val astro = AstronomyService()
 
     suspend fun calibrate(view: AugmentedRealityView, camera: CameraView): Quaternion? {
+        // TODO: Get current orientation
         val image = camera.previewImage ?: return null
         return onDefault {
             // Scale the image to fit in 100x100
@@ -40,6 +42,7 @@ class SunCalibrator {
                     Float.MAX_VALUE,
                     true
                 )
+                // TODO: It may be easier to make the prediction location relative to the current orientation and compare the two
 
                 val delta = Quaternion.zero
 
