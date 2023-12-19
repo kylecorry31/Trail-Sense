@@ -500,6 +500,9 @@ class AugmentedRealityView : CanvasView {
 
         // Cancel fovRunner on pause
         owner?.lifecycle?.addObserver(lifecycleObserver)
+
+        // TODO: Show its own zoom control
+        camera.setShowZoom(false)
     }
 
     private fun syncWithCamera() {

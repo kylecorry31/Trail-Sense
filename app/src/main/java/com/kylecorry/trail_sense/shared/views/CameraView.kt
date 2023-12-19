@@ -257,7 +257,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
 
     private val mGestureListener = object : GestureDetector.SimpleOnGestureListener() {
         override fun onDoubleTap(e: MotionEvent): Boolean {
-            if (zoom != -1f && zoomSeek.isVisible) {
+            if (zoom != -1f) {
                 val remainingZoom = 1 - zoom
                 val newZoom = (zoom + remainingZoom / 2).coerceIn(0f, 1f)
                 zoomListener?.invoke(newZoom)
@@ -275,7 +275,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     private val scaleListener = object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
 
         override fun onScale(detector: ScaleGestureDetector): Boolean {
-            if (zoom != -1f && zoomSeek.isVisible) {
+            if (zoom != -1f) {
                 val newZoom = (zoom - 1 + detector.scaleFactor).coerceIn(0f, 1f)
                 zoomListener?.invoke(newZoom)
                 setZoom(newZoom)
