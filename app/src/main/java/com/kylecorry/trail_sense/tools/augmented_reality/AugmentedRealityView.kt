@@ -8,6 +8,7 @@ import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -449,6 +450,9 @@ class AugmentedRealityView : CanvasView {
     private val mGestureDetector = GestureDetector(context, gestureListener)
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
+        if (!isVisible){
+            return false
+        }
         mGestureDetector.onTouchEvent(event)
         camera?.onTouchEvent(event)
         return true

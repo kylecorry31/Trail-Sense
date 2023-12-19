@@ -131,6 +131,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         }
         binding.arView.showReticle = false
         binding.arView.showPosition = false
+        binding.arView.isVisible = isAugmentedReality
 
         binding.arView.bind(binding.camera)
 
