@@ -57,8 +57,7 @@ class Camera(
     private val useYUV: Boolean = false,
     private val captureSettings: ImageCaptureSettings? = null,
     private val shouldStabilizePreview: Boolean = true,
-    @AspectRatio.Ratio
-    private val targetAspectRatio: Int = AspectRatio.RATIO_DEFAULT,
+    @AspectRatio.Ratio private val targetAspectRatio: Int = AspectRatio.RATIO_DEFAULT,
 ) : AbstractSensor(), ICamera {
 
     override val image: ImageProxy?
@@ -69,9 +68,7 @@ class Camera(
             try {
                 val state = camera?.cameraInfo?.zoomState?.value ?: return null
                 return ZoomInfo(
-                    state.zoomRatio,
-                    state.linearZoom,
-                    Range(state.minZoomRatio, state.maxZoomRatio)
+                    state.zoomRatio, state.linearZoom, Range(state.minZoomRatio, state.maxZoomRatio)
                 )
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -120,26 +117,22 @@ class Camera(
             } catch (e: InterruptedException) {
                 Log.i("Camera", "Unable to open camera because task was interrupted")
             }
-            preview = Preview.Builder()
-                .also {
-                    it.setTargetAspectRatio(targetAspectRatio)
-                    // TODO: This might not be needed now that the method is exposed
-                    if (!shouldStabilizePreview) {
-                        tryOrLog {
-                            // https://issuetracker.google.com/issues/230013960?pli=1
-                            Camera2Interop.Extender(it)
-                                .setCaptureRequestOption(
-                                    CaptureRequest.CONTROL_VIDEO_STABILIZATION_MODE,
-                                    CameraMetadata.CONTROL_VIDEO_STABILIZATION_MODE_OFF
-                                )
-                                .setCaptureRequestOption(
-                                    CaptureRequest.LENS_OPTICAL_STABILIZATION_MODE,
-                                    CameraMetadata.LENS_OPTICAL_STABILIZATION_MODE_OFF
-                                )
-                        }
+            preview = Preview.Builder().also {
+                it.setTargetAspectRatio(targetAspectRatio)
+                // TODO: This might not be needed now that the method is exposed
+                if (!shouldStabilizePreview) {
+                    tryOrLog {
+                        // https://issuetracker.google.com/issues/230013960?pli=1
+                        Camera2Interop.Extender(it).setCaptureRequestOption(
+                            CaptureRequest.CONTROL_VIDEO_STABILIZATION_MODE,
+                            CameraMetadata.CONTROL_VIDEO_STABILIZATION_MODE_OFF
+                        ).setCaptureRequestOption(
+                            CaptureRequest.LENS_OPTICAL_STABILIZATION_MODE,
+                            CameraMetadata.LENS_OPTICAL_STABILIZATION_MODE_OFF
+                        )
                     }
                 }
-                .build()
+            }.build()
 
             val imageAnalysis = ImageAnalysis.Builder().apply {
                 if (targetResolution != null) {
@@ -157,8 +150,7 @@ class Camera(
             }
 
             if (captureSettings != null) {
-                val builder = ImageCapture.Builder()
-                    .setFlashMode(captureSettings.flashMode)
+                val builder = ImageCapture.Builder().setFlashMode(captureSettings.flashMode)
                     .setCaptureMode(captureSettings.captureMode)
 
                 captureSettings.quality?.let {
@@ -186,9 +178,7 @@ class Camera(
             preview?.setSurfaceProvider(previewView?.surfaceProvider)
 
             camera = cameraProvider?.bindToLifecycle(
-                lifecycleOwner,
-                cameraSelector,
-                *listOfNotNull(
+                lifecycleOwner, cameraSelector, *listOfNotNull(
                     if (previewView != null) preview else null,
                     if (analyze) imageAnalysis else null,
                     imageCapture
@@ -249,9 +239,17 @@ class Camera(
     }
 
 
+    private var cachedFullPreviewSize: Size? = null
+    private var cachedCroppedPreviewSize: Size? = null
+
     fun getPreviewSize(cropToView: Boolean = true): Size? {
-        // TODO: Cache this?
-        return tryOrDefault(null) {
+        if (cropToView && cachedCroppedPreviewSize != null){
+            return cachedCroppedPreviewSize
+        } else if (!cropToView && cachedFullPreviewSize != null){
+            return cachedFullPreviewSize
+        }
+
+        val size = tryOrDefault(null) {
             val resolution = preview?.resolutionInfo?.resolution ?: return@tryOrDefault null
             val rotation = preview?.resolutionInfo?.rotationDegrees ?: return@tryOrDefault null
             val rotated = if (rotation == 90 || rotation == 270) {
@@ -302,6 +300,13 @@ class Camera(
                 }
             }
         }
+
+        if (cropToView){
+            cachedCroppedPreviewSize = size
+        } else {
+            cachedFullPreviewSize = size
+        }
+        return size
     }
 
     override fun setLinearZoom(zoom: Float) {
@@ -350,16 +355,17 @@ class Camera(
             return
         }
 
-        imageCapture.takePicture(ContextCompat.getMainExecutor(context), object :
-            ImageCapture.OnImageCapturedCallback() {
-            override fun onCaptureSuccess(image: ImageProxy) {
-                callback(image)
-            }
+        imageCapture.takePicture(
+            ContextCompat.getMainExecutor(context),
+            object : ImageCapture.OnImageCapturedCallback() {
+                override fun onCaptureSuccess(image: ImageProxy) {
+                    callback(image)
+                }
 
-            override fun onError(exception: ImageCaptureException) {
-                callback(null)
-            }
-        })
+                override fun onError(exception: ImageCaptureException) {
+                    callback(null)
+                }
+            })
     }
 
     override suspend fun takePhoto(): ImageProxy? = suspendCoroutine { cont ->
@@ -384,16 +390,18 @@ class Camera(
             cont.resume(false)
             return
         }
-        imageCapture.takePicture(options, ContextCompat.getMainExecutor(context), object :
-            ImageCapture.OnImageSavedCallback {
-            override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                cont.resume(true)
-            }
+        imageCapture.takePicture(
+            options,
+            ContextCompat.getMainExecutor(context),
+            object : ImageCapture.OnImageSavedCallback {
+                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                    cont.resume(true)
+                }
 
-            override fun onError(exception: ImageCaptureException) {
-                cont.resume(false)
-            }
-        })
+                override fun onError(exception: ImageCaptureException) {
+                    cont.resume(false)
+                }
+            })
     }
 
     @OptIn(androidx.camera.camera2.interop.ExperimentalCamera2Interop::class)
@@ -414,8 +422,7 @@ class Camera(
                 getCharacteristic(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE)
                     ?: return null
             val fullPixelSize =
-                getCharacteristic(CameraCharacteristics.SENSOR_INFO_PIXEL_ARRAY_SIZE)
-                    ?: return null
+                getCharacteristic(CameraCharacteristics.SENSOR_INFO_PIXEL_ARRAY_SIZE) ?: return null
             val maxFocus =
                 getCharacteristic(CameraCharacteristics.LENS_INFO_AVAILABLE_FOCAL_LENGTHS)
                     ?: return null
@@ -462,8 +469,7 @@ class Camera(
     fun setFocusDistancePercentage(distance: Float?) {
         if (distance == null) {
             setCaptureRequestOption(
-                CaptureRequest.CONTROL_AF_MODE,
-                CameraMetadata.CONTROL_AF_MODE_CONTINUOUS_PICTURE
+                CaptureRequest.CONTROL_AF_MODE, CameraMetadata.CONTROL_AF_MODE_CONTINUOUS_PICTURE
             )
             return
         }
@@ -491,8 +497,7 @@ class Camera(
     fun setExposureTime(exposureTime: Duration?) {
         if (exposureTime == null) {
             setCaptureRequestOption(
-                CaptureRequest.CONTROL_AE_MODE,
-                CameraMetadata.CONTROL_AE_MODE_ON
+                CaptureRequest.CONTROL_AE_MODE, CameraMetadata.CONTROL_AE_MODE_ON
             )
             return
         }
@@ -505,8 +510,7 @@ class Camera(
     fun setSensitivity(isoSensitivity: Int?) {
         if (isoSensitivity == null) {
             setCaptureRequestOption(
-                CaptureRequest.CONTROL_AE_MODE,
-                CameraMetadata.CONTROL_AE_MODE_ON
+                CaptureRequest.CONTROL_AE_MODE, CameraMetadata.CONTROL_AE_MODE_ON
             )
             return
         }
@@ -634,9 +638,7 @@ class Camera(
     }
 
     enum class AnglePointReference {
-        Screen,
-        PreviewView,
-        PreviewImage
+        Screen, PreviewView, PreviewImage
     }
 
     @OptIn(ExperimentalCamera2Interop::class)
@@ -661,9 +663,8 @@ class Camera(
     private fun <T : Any> setCaptureRequestOption(key: CaptureRequest.Key<T>, value: T) {
         tryOrDefault(false) {
             val control = getCamera2Controller() ?: return
-            val newCaptureRequestOptions = CaptureRequestOptions.Builder()
-                .setCaptureRequestOption(key, value)
-                .build()
+            val newCaptureRequestOptions =
+                CaptureRequestOptions.Builder().setCaptureRequestOption(key, value).build()
             control.addCaptureRequestOptions(newCaptureRequestOptions)
         }
     }
@@ -693,8 +694,7 @@ class Camera(
 
         private fun getDefaultCameraId(context: Context, isBackCamera: Boolean): String? {
             return tryOrDefault(null) {
-                val manager =
-                    context.getSystemService<CameraManager>() ?: return@tryOrDefault null
+                val manager = context.getSystemService<CameraManager>() ?: return@tryOrDefault null
                 manager.cameraIdList.firstOrNull {
                     val characteristics = manager.getCameraCharacteristics(it)
                     val orientation = characteristics.get(CameraCharacteristics.LENS_FACING)

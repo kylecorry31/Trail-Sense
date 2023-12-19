@@ -66,6 +66,7 @@ class AugmentedRealityView : CanvasView {
     private var rotationMatrix = FloatArray(16)
     private val orientation = FloatArray(3)
     private var size = Size(width.toFloat(), height.toFloat())
+    private var previewSize: Size? = null
 
     // Sensors / preferences
     private val userPrefs = UserPreferences(context)
@@ -130,7 +131,7 @@ class AugmentedRealityView : CanvasView {
     // Camera binding
     private var camera: CameraView? = null
     private var lastSize: android.util.Size? = null
-    private val fovRunner = CoroutineQueueRunner(1, dispatcher = Dispatchers.Default)
+    private val fovRunner = CoroutineQueueRunner(1, dispatcher = Dispatchers.Main)
     private var owner: LifecycleOwner? = null
     private val lifecycleObserver = LifecycleEventObserver { _, event ->
         when (event) {
@@ -384,21 +385,30 @@ class AugmentedRealityView : CanvasView {
     fun toPixel(coordinate: HorizonCoordinate): PixelCoordinate {
         val bearing = getActualBearing(coordinate)
 
-        val spherical = AugmentedRealityUtils.toRelative(
+        return AugmentedRealityUtils.getPixel(
             bearing,
             coordinate.elevation,
             coordinate.distance,
-            rotationMatrix
+            rotationMatrix,
+            previewSize ?: size,
+            fov
         )
 
-        return camera?.camera?.angleToPreviewPixel(
-            spherical.first,
-            spherical.second,
-            coordinate.distance,
-            outputReference = Camera.AnglePointReference.PreviewView,
-            cropToView = false,
-//            mapper = PerspectiveCameraAnglePixelMapper(0.1f, 1000f)
-        ) ?: PixelCoordinate(-1000f, -1000f)
+//        val spherical = AugmentedRealityUtils.toRelative(
+//            bearing,
+//            coordinate.elevation,
+//            coordinate.distance,
+//            rotationMatrix
+//        )
+//
+//        return camera?.camera?.angleToPreviewPixel(
+//            spherical.first,
+//            spherical.second,
+//            coordinate.distance,
+//            outputReference = Camera.AnglePointReference.PreviewView,
+//            cropToView = false,
+////            mapper = PerspectiveCameraAnglePixelMapper(0.1f, 1000f)
+//        ) ?: PixelCoordinate(-1000f, -1000f)
     }
 
     fun toPixel(coordinate: Coordinate, elevation: Float? = null): PixelCoordinate {
@@ -499,8 +509,14 @@ class AugmentedRealityView : CanvasView {
                 if (!camera.isStarted) {
                     return@enqueue
                 }
+
                 val fov = camera.camera?.getPreviewFOV(true) ?: return@enqueue
                 this@AugmentedRealityView.fov = Size(fov.first, fov.second)
+                if (previewSize == null) {
+                    previewSize = camera.camera?.getPreviewSize(true)?.let {
+                        Size(it.width.toFloat(), it.height.toFloat())
+                    }
+                }
             }
         }
     }
