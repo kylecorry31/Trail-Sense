@@ -1173,4 +1173,6 @@
     <string name="fused_altimeter_force_calibration_summary">Fuerza una calibración del GPS cada %s</string>
     <string name="continuous_calibration">Calibración continua</string>
     <string name="service_restart_channel_description">Una notificación para reiniciar los servicios</string>
+    <string name="clinometer_augmented_reality_description">Visualiza los ángulos con tu cámara</string>
+    <string name="clinometer_augmented_reality">Clinómetro realidad aumentada</string>
 </resources>
