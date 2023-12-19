@@ -1,6 +1,8 @@
 package com.kylecorry.trail_sense.shared.camera
 
+import android.graphics.RectF
 import android.opengl.Matrix
+import android.util.SizeF
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.andromeda.sense.orientation.OrientationUtils
@@ -12,6 +14,8 @@ import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.shared.views.camera.LinearCameraAnglePixelMapper
+import com.kylecorry.trail_sense.shared.views.camera.PerspectiveCameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityView
 import kotlin.math.asin
 import kotlin.math.atan2
@@ -23,16 +27,9 @@ object AugmentedRealityUtils {
     private val worldVectorLock = Any()
     private val tempWorldVector = FloatArray(4)
 
-    private val lastFovLock = Any()
-    private var lastFov: Size? = null
-    private var lastFocalLength = 0f
-
     // Constants for perspective projection
     private const val minDistance = 0.1f
     private const val maxDistance = 1000f
-    private const val rangeReciprocal = 1 / (minDistance - maxDistance)
-    private const val zMultiplier = (maxDistance + minDistance) * rangeReciprocal
-    private const val zOffset = 2 * maxDistance * minDistance * rangeReciprocal
 
     /**
      * Gets the pixel coordinate of a point on the screen given the bearing and azimuth. The point is considered to be on a plane.
@@ -55,13 +52,14 @@ object AugmentedRealityUtils {
         val newBearing = SolMath.deltaAngle(azimuth, bearing)
         val newAltitude = altitude - inclination
 
-        val wPixelsPerDegree = size.width / fov.width
-        val hPixelsPerDegree = size.height / fov.height
-
-        val x = size.width / 2f + newBearing * wPixelsPerDegree
-        val y = size.height / 2f - newAltitude * hPixelsPerDegree
-
-        return PixelCoordinate(x, y)
+        val linear = LinearCameraAnglePixelMapper()
+        return linear.getPixel(
+            newBearing,
+            newAltitude,
+            RectF(0f, 0f, size.width, size.height),
+            fov,
+            null
+        )
     }
 
     fun getAngularSize(diameter: Distance, distance: Distance): Float {
@@ -104,95 +102,24 @@ object AugmentedRealityUtils {
         size: Size,
         fov: Size
     ): PixelCoordinate {
-
         val d = distance.coerceIn(minDistance, maxDistance)
 
         val spherical = toRelative(bearing, elevation, d, rotationMatrix)
         // The rotation of the device has been negated, so azimuth = 0 and inclination = 0 is used
-        return getPixelPerspective(spherical.first, 0f, spherical.second, 0f, d, size, fov)
-    }
 
-    /**
-     * Gets the pixel coordinate of a point on the screen given the bearing and azimuth. The point is considered to be on a sphere.
-     * @param bearing The compass bearing in degrees of the point
-     * @param azimuth The compass bearing in degrees that the user is facing (center of the screen)
-     * @param altitude The altitude of the point in degrees
-     * @param inclination The inclination of the device in degrees
-     * @param size The size of the view in pixels
-     * @param fov The field of view of the camera in degrees
-     */
-    fun getPixelPerspective(
-        bearing: Float,
-        azimuth: Float,
-        altitude: Float,
-        inclination: Float,
-        distance: Float,
-        size: Size,
-        fov: Size
-    ): PixelCoordinate {
-        // This doesn't work well for large fovs, so fall back to linear
-        if (fov.width > 65) {
-            return getPixelLinear(bearing, azimuth, altitude, inclination, size, fov)
+        val mapper = if (fov.width > 65) {
+            LinearCameraAnglePixelMapper()
+        } else {
+            PerspectiveCameraAnglePixelMapper(minDistance, maxDistance)
         }
 
-        val newBearing = SolMath.deltaAngle(azimuth, bearing)
-        val newAltitude = altitude - inclination
-        val world = toRectangular(newBearing, newAltitude, distance)
-
-        // Point is behind the camera, so calculate the linear projection
-        if (world.z < 0) {
-            return getPixelLinear(bearing, azimuth, altitude, inclination, size, fov)
-        }
-
-        // Perspective matrix multiplication - written out to avoid unnecessary allocations and calculations
-        val f = synchronized(lastFovLock) {
-            // Cache the focal length to avoid unnecessary recalculations
-            if (lastFov == fov) {
-                lastFocalLength
-            } else {
-                val focalLength = 1 / SolMath.tanDegrees(fov.height / 2)
-                lastFov = fov
-                lastFocalLength = focalLength
-                focalLength
-            }
-        }
-
-        val aspect = fov.width / fov.height
-        val x = f / aspect * world.x
-        val y = f * world.y
-        var z = zMultiplier * world.z + zOffset
-        if (z == 0f) {
-            // Prevent NaN
-            z = 1f
-        }
-
-        val screenX = x / z
-        val screenY = y / z
-
-        val pixelX = (1 - screenX) / 2f * size.width
-        val pixelY = (screenY + 1) / 2f *size.height
-
-        return PixelCoordinate(pixelX, pixelY)
-
-    }
-
-    private fun toRectangular(
-        bearing: Float,
-        altitude: Float,
-        radius: Float
-    ): Vector3 {
-        val altitudeRad = altitude.toRadians()
-        val bearingRad = bearing.toRadians()
-        val cosAltitude = cos(altitudeRad)
-        val sinAltitude = sin(altitudeRad)
-        val cosBearing = cos(bearingRad)
-        val sinBearing = sin(bearingRad)
-
-        // X and Y are flipped
-        val x = sinBearing * cosAltitude * radius
-        val y = cosBearing * sinAltitude * radius
-        val z = cosBearing * cosAltitude * radius
-        return Vector3(x, y, z)
+        return mapper.getPixel(
+            spherical.first,
+            spherical.second,
+            RectF(0f, 0f, size.width, size.height),
+            fov,
+            d
+        )
     }
 
     /**

@@ -6,6 +6,8 @@ import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.Vector3
+import com.kylecorry.sol.math.geometry.Size
+import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
 import com.kylecorry.trail_sense.shared.views.camera.CameraAnglePixelMapper
 import com.kylecorry.trail_sense.shared.views.camera.LinearCameraAnglePixelMapper
 import kotlin.math.cos
@@ -25,31 +27,31 @@ class PerspectiveCameraAnglePixelMapper(
     override fun getAngle(
         x: Float,
         y: Float,
-        previewRect: RectF,
-        previewFOV: Pair<Float, Float>
+        imageRect: RectF,
+        fieldOfView: Size
     ): Vector2 {
         // TODO: Inverse perspective?
-        return linear.getAngle(x, y, previewRect, previewFOV)
+        return linear.getAngle(x, y, imageRect, fieldOfView)
     }
 
     override fun getPixel(
         angleX: Float,
         angleY: Float,
-        previewRect: RectF,
-        previewFOV: Pair<Float, Float>,
+        imageRect: RectF,
+        fieldOfView: Size,
         distance: Float?
     ): PixelCoordinate {
         val world = toCartesian(angleX, angleY, distance ?: farDistance)
 
         // Point is behind the camera, so calculate the linear projection
         if (world.z < 0) {
-            return linear.getPixel(angleX, angleY, previewRect, previewFOV, distance)
+            return linear.getPixel(angleX, angleY, imageRect, fieldOfView, distance)
         }
 
         // Perspective matrix multiplication - written out to avoid unnecessary allocations and calculations
-        val f = 1 / SolMath.tanDegrees(previewFOV.second / 2)
+        val f = 1 / SolMath.tanDegrees(fieldOfView.height / 2)
 
-        val aspect = previewFOV.first / previewFOV.second
+        val aspect = fieldOfView.width / fieldOfView.height
         val x = f / aspect * world.x
         val y = f * world.y
         var z = zMultiplier * world.z + zOffset
@@ -61,8 +63,8 @@ class PerspectiveCameraAnglePixelMapper(
         val screenX = x / z
         val screenY = y / z
 
-        val pixelX = (1 - screenX) / 2f * previewRect.width() + previewRect.left
-        val pixelY = (screenY + 1) / 2f * previewRect.height() + previewRect.top
+        val pixelX = (1 - screenX) / 2f * imageRect.width() + imageRect.left
+        val pixelY = (screenY + 1) / 2f * imageRect.height() + imageRect.top
 
         return PixelCoordinate(pixelX, pixelY)
     }
