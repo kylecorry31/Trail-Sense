@@ -1144,4 +1144,6 @@
     <string name="fused_altimeter_force_calibration_summary">每 %s 强制进行 GPS 校正</string>
     <string name="continuous_calibration">持续校正</string>
     <string name="service_restart_channel_description">重启服务的通知</string>
+    <string name="clinometer_augmented_reality_description">使用相机使倾角可视化</string>
+    <string name="clinometer_augmented_reality">测斜仪增强现实</string>
 </resources>

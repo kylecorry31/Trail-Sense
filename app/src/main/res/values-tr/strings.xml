@@ -1160,4 +1160,6 @@
     <string name="continuous_calibration">Sürekli kalibrasyon</string>
     <string name="is_there_a_way_to_fix_this">Bunu düzeltmenin bir yolu var mı?</string>
     <string name="service_restart_channel_description">Hizmetleri yeniden başlatmak için bir bildirim</string>
+    <string name="clinometer_augmented_reality_description">Kameranızla açıları görselleştirin</string>
+    <string name="clinometer_augmented_reality">Eğim ölçer artırılmış gerçeklik</string>
 </resources>
