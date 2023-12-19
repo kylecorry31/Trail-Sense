@@ -572,74 +572,74 @@ class Camera(
         return Pair(xFov, yFov)
     }
 
-    fun previewPixelToAngle(
-        x: Float,
-        y: Float,
-        reference: AnglePointReference = AnglePointReference.PreviewView,
-        cropToBounds: Boolean = true,
-        mapper: CameraAnglePixelMapper = LinearCameraAnglePixelMapper()
-    ): Vector2? {
-        val previewFOV = getPreviewFOV(true) ?: return null
-        val previewRect = getPreviewRect(true) ?: return null
-
-        val actualX = when (reference) {
-            AnglePointReference.Screen -> x
-            AnglePointReference.PreviewView -> x + (previewView?.x ?: 0f)
-            AnglePointReference.PreviewImage -> x + previewRect.left
-        }
-
-        val actualY = when (reference) {
-            AnglePointReference.Screen -> y
-            AnglePointReference.PreviewView -> y + (previewView?.y ?: 0f)
-            AnglePointReference.PreviewImage -> y + previewRect.top
-        }
-
-        // If it is outside the preview, return null
-        if (cropToBounds && (actualX < previewRect.left || actualX > previewRect.right || actualY < previewRect.top || actualY > previewRect.bottom)) {
-            return null
-        }
-
-        return mapper.getAngle(actualX, actualY, previewRect, previewFOV)
-    }
-
-    fun angleToPreviewPixel(
-        xAngle: Float,
-        yAngle: Float,
-        distance: Float?,
-        outputReference: AnglePointReference,
-        cropToView: Boolean,
-        mapper: CameraAnglePixelMapper = LinearCameraAnglePixelMapper()
-    ): PixelCoordinate? {
-        val previewFOV = getPreviewFOV(false) ?: return null
-        val previewRect = getPreviewRect(false) ?: return null
-
-        val pixel = mapper.getPixel(xAngle, yAngle, previewRect, previewFOV, distance)
-
-        if (cropToView) {
-            val view = getPreviewRect(true) ?: return null
-            if (!view.contains(pixel.x, pixel.y)) {
-                return null
-            }
-        }
-
-        val offsetX = when (outputReference) {
-            AnglePointReference.PreviewView -> -(previewView?.x ?: 0f)
-            AnglePointReference.PreviewImage -> -previewRect.left
-            AnglePointReference.Screen -> 0f
-        }
-
-        val offsetY = when (outputReference) {
-            AnglePointReference.PreviewView -> -(previewView?.y ?: 0f)
-            AnglePointReference.PreviewImage -> -previewRect.top
-            AnglePointReference.Screen -> 0f
-        }
-
-        return PixelCoordinate(pixel.x + offsetX, pixel.y + offsetY)
-    }
-
-    enum class AnglePointReference {
-        Screen, PreviewView, PreviewImage
-    }
+//    fun previewPixelToAngle(
+//        x: Float,
+//        y: Float,
+//        reference: AnglePointReference = AnglePointReference.PreviewView,
+//        cropToBounds: Boolean = true,
+//        mapper: CameraAnglePixelMapper = LinearCameraAnglePixelMapper()
+//    ): Vector2? {
+//        val previewFOV = getPreviewFOV(true) ?: return null
+//        val previewRect = getPreviewRect(true) ?: return null
+//
+//        val actualX = when (reference) {
+//            AnglePointReference.Screen -> x
+//            AnglePointReference.PreviewView -> x + (previewView?.x ?: 0f)
+//            AnglePointReference.PreviewImage -> x + previewRect.left
+//        }
+//
+//        val actualY = when (reference) {
+//            AnglePointReference.Screen -> y
+//            AnglePointReference.PreviewView -> y + (previewView?.y ?: 0f)
+//            AnglePointReference.PreviewImage -> y + previewRect.top
+//        }
+//
+//        // If it is outside the preview, return null
+//        if (cropToBounds && (actualX < previewRect.left || actualX > previewRect.right || actualY < previewRect.top || actualY > previewRect.bottom)) {
+//            return null
+//        }
+//
+//        return mapper.getAngle(actualX, actualY, previewRect, previewFOV)
+//    }
+//
+//    fun angleToPreviewPixel(
+//        xAngle: Float,
+//        yAngle: Float,
+//        distance: Float?,
+//        outputReference: AnglePointReference,
+//        cropToView: Boolean,
+//        mapper: CameraAnglePixelMapper = LinearCameraAnglePixelMapper()
+//    ): PixelCoordinate? {
+//        val previewFOV = getPreviewFOV(false) ?: return null
+//        val previewRect = getPreviewRect(false) ?: return null
+//
+//        val pixel = mapper.getPixel(xAngle, yAngle, previewRect, previewFOV, distance)
+//
+//        if (cropToView) {
+//            val view = getPreviewRect(true) ?: return null
+//            if (!view.contains(pixel.x, pixel.y)) {
+//                return null
+//            }
+//        }
+//
+//        val offsetX = when (outputReference) {
+//            AnglePointReference.PreviewView -> -(previewView?.x ?: 0f)
+//            AnglePointReference.PreviewImage -> -previewRect.left
+//            AnglePointReference.Screen -> 0f
+//        }
+//
+//        val offsetY = when (outputReference) {
+//            AnglePointReference.PreviewView -> -(previewView?.y ?: 0f)
+//            AnglePointReference.PreviewImage -> -previewRect.top
+//            AnglePointReference.Screen -> 0f
+//        }
+//
+//        return PixelCoordinate(pixel.x + offsetX, pixel.y + offsetY)
+//    }
+//
+//    enum class AnglePointReference {
+//        Screen, PreviewView, PreviewImage
+//    }
 
     @OptIn(ExperimentalCamera2Interop::class)
     private fun getCamera2Controller(): Camera2CameraControl? {
