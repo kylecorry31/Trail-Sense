@@ -515,6 +515,7 @@ class AugmentedRealityView : CanvasView {
                     previewSize = camera.camera?.getPreviewSize(true)?.let {
                         Size(it.width.toFloat(), it.height.toFloat())
                     }
+                    // TODO: Handle when the the scale type is not fit center - will need an offset
                 }
             }
         }

@@ -114,11 +114,7 @@ object AugmentedRealityUtils {
         // Negate the rotation of the device
         val spherical = toRelative(bearing, elevation, d, rotationMatrix)
 
-        val mapper = if (fov.width > 65) {
-            linear
-        } else {
-            perspective
-        }
+        val mapper = perspective
 
         return synchronized(rectLock) {
             rect.right = size.width
