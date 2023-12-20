@@ -90,7 +90,7 @@ object Tools {
                 R.drawable.ic_compass_icon,
                 R.id.action_navigation,
                 ToolCategory.Location,
-                guideId = R.raw.navigate
+                guideId = R.raw.guide_tool_navigation
             ),
             Tool(
                 7,

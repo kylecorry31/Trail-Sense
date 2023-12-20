@@ -14,6 +14,7 @@ const guides = [
     'tool_light_meter',
     'tool_lightning_strike_distance',
     'tool_metal_detector',
+    'tool_navigation',
     'tool_notes',
     'tool_packing_lists',
     'tool_pedometer',
