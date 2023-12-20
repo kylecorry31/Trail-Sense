@@ -1,4 +1,4 @@
-The Photo Maps tool can be used to convert a photo into a map. It's essential always to carry a physical map as a backup and validate Trail Sense's accuracy. Photo Maps complements other map apps and physical maps, serving as a convenient way to convert photos into maps rather than a replacement for them.
+The Photo Maps tool can be used to convert a photo into a map. It's essential to always carry a physical map as a backup and validate Trail Sense's accuracy. Photo Maps complements other map apps and physical maps, serving as a convenient way to convert photos into maps rather than a replacement for them.
 
 ## Creating a Map
 To create a map, you have three options: take a photo of an existing map, import a file, or generate a blank map.
@@ -30,8 +30,8 @@ To create a map, you have three options: take a photo of an existing map, import
 If your map features gridlines:
 
 1. Find the UTM zone number, which is a one or two-digit number followed by a letter (ex. "16T"). If it's not present on the map, estimate it by entering your approximate latitude and longitude in Trail Sense's Convert tool. For example, you can enter 10 for latitude and 45 for longitude.
-2. Locate the Easting and Northing values on the map's borders. They are usually marked and can have 3 to 6 or 7 digits. Add three zeros if there are only 3 digits (ex. 123 becomes 123000). Easting will be on the top or bottom, Northing will be on the left or right.
-3. Look at the grid lines on the map to identify the grid zone where your location is. These lines represent the first digits of your location (ex. 123000E and 234000N).
+2. Locate the Easting and Northing values on the map's borders. They are usually marked and can have 3 to 6 or 7 digits. Add three zeros if there are only 3 digits (e.g., 123 becomes 123000). Easting will be on the top or bottom, Northing will be on the left or right.
+3. Look at the grid lines on the map to identify the grid zone where your location is. These lines represent the first digits of your location (e.g., 123000E and 234000N).
 4. For increased precision, divide the grid into 10 equal sections vertically and horizontally. Determine which line your location is closest to within the grid. Use a ruler, like the one in Trail Sense, for accuracy. For example, if your location is two-tenths to the right and one-tenth up from the bottom right corner of the grid, your new location will be 123200E and 234100N.
 5. In Trail Sense, enter the UTM location and tap the same point on the photo map. For example, enter "16T 123200E 234100N".
 6. Repeat for the second calibration point. For the best accuracy, use a point that is far away from the first point.
@@ -39,7 +39,7 @@ If your map features gridlines:
 The intersections of gridlines are the easiest calibration points.
 
 ### Calibrating from an Online Source
-If you have Internet access, you can look up the coordinates of a map feature (ex. mountain summit, trailhead). Then in Trail Sense, tap the same location on the map and enter the coordinates.
+If you have Internet access, you can look up the coordinates of a map feature (e.g., mountain summit, trailhead). Then in Trail Sense, tap the same location on the map and enter the coordinates.
 
 ### Finding a Geospatial PDF
 A good source for Geospatial PDFs is [CalTopo](https://caltopo.com), though there are many other sources available online.
@@ -80,7 +80,7 @@ For a quick measurement from your location to a point, long-press that point on 
 To recalibrate a map, open the map, click the menu button in the top right, and choose 'Calibrate'. Follow the instructions above to recalibrate.
 
 ## Changing Map Projection
-If your map points are not aligning correctly after calibrating (try calibrating again with different points first), consider changing the map projection. To do this, open the map, click the menu button in the top right, and select 'Change projection'. Choose a different projection if necessary; the default is usually
+If your map points are not aligning correctly after calibrating (try calibrating again with different points first), consider changing the map projection. To do this, open the map, click the menu button in the top right, and select 'Change projection'.
 
 ## Rename a Map
 To rename a map, click the menu button on the map row you wish to rename, then select 'Rename' and provide a new name. Alternatively, open the map, click the menu button in the top right, and choose 'Rename'.
