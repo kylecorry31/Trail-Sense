@@ -10,14 +10,14 @@ The Beacons tool can be used to save locations and navigate to them later.
 
 ### Optional Fields
 - **Elevation**: The elevation of the beacon. You can click the elevation icon next to the elevation field to use your current elevation.
-- **Create at distance**: If you want to place a beacon a known distance and direction from a location, you can toggle this on. You will then need to enter the distance away and set the direction to the new location before you can save the beacon. The new beacon will be placed at the distance and direction away from the location entered above.
+- **Create at distance**: If you want to place a beacon at a known distance and direction from a location, you can toggle this on. You will then need to enter the distance away and set the direction to the new location before you can save the beacon. The new beacon will be placed at the distance and direction away from the location entered above.
 - **Group**: The group to add the beacon to. Tap a group and click 'OK' to add the beacon to that group. To create a new group, see the 'Organizing Beacons' section below.
 - **Color**: The color to use for the beacon.
 - **Icon**: The icon to use for the beacon.
 - **Notes**: Any notes you want to record about the beacon.
 
 ### Creating from a QR Code
-Beacons can be shared as a QR code by clicking the menu button on the beacon row you want to share, then selecting 'Share...'. You can then share the QR code to Trail Sense to create a beacon from it.
+Beacons can be shared as a QR code by clicking the menu button on the beacon row you want to share, then selecting 'Share...'. You can then share the QR code with Trail Sense to create a beacon from it.
 
 1. Tap the '+' button in the bottom-right corner of the screen.
 2. Click 'QR Code'.
@@ -34,7 +34,7 @@ If you have locations saved in a GPX file, you can import them into Trail Sense 
 5. The beacons will be created in the current group.
 
 ## Viewing a Beacon
-Beacons will be shown in the beacon list and display the distance to the beacon from your current location.
+Beacons will be shown in the beacon list and will display the distance to the beacon from your current location.
 
 To open a beacon, click the beacon in the list. This will open the beacon details page. The following information will be shown:
 - **Name**: The name of the beacon.
@@ -70,12 +70,12 @@ See the 'Creating a Beacon' section above for information on the fields you can 
 To delete a beacon, click the menu button on the beacon row you want to remove, then select 'Delete'. Alternatively, open the beacon, click the menu button in the top right, and choose 'Delete'.
 
 ## Exporting Beacons
-To export beacons, open the group you want to export and click the menu button in the top-right corner of the screen. Select 'Export' unselct any beacons you don't want to export, then click 'OK'. The beacons will be exported to a GPX file.
+To export beacons, open the group you want to export and click the menu button in the top-right corner of the screen. Select 'Export', unselect any beacons you don't want to export, then click 'OK'. The beacons will be exported to a GPX file.
 
 ## Organizing Beacons
 You can organize beacons into groups. To create a group, click the '+' button in the bottom-right of the beacon list and select 'Group'. Give the group a name and click 'OK'. Click the group in the list to view the beacons in that group.
 
-If you create a beacon or group while the group is opened, the new beacon or group will be added to the currently opened group.
+If you create a beacon or group while the group is open, the new beacon or group will be added to the currently open group.
 
 To change the group of an existing beacon, click the menu button on the beacon row you want to move, select 'Move to', and choose the target group.
 
@@ -87,6 +87,6 @@ You can delete a group (along with all beacons within it) by clicking the menu b
 To search through your created beacons, use the search bar at the top of the beacon list. This search encompasses the current group and all subgroups. Additionally, you can sort beacons by distance, time, or name by clicking the menu button in the top right and selecting 'Sort'.
 
 ## Last Cell Signal Beacon
-If you have Backtrack enabled (see the 'Paths' guide) and have it configured to record cell signal, you will see a beacon created for the last known location that you had a cell signal.
+If you have Backtrack enabled (see the 'Paths' guide) and it is configured to record cell signal, you will see a beacon created for the last known location where you had a cell signal.
 
 You can disable this beacon in Settings > Navigation > 'Last signal beacon'.
