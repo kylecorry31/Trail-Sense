@@ -51,7 +51,7 @@ You can drag to pan, pinch to zoom, or tap the zoom buttons in the bottom right.
 
 Click the GPS button in the bottom right to center the map on your location. Clicking it again will lock both your location and orientation, while a final click unlocks it. The compass icon in the top right always points North.
 
-By default the map will align with North roughly facing up so that the map is square with the screen. You can change this so the map is aligned with North facing up (rotated) by disabling Settings > Photo Maps > 'Keep map facing up'. Note: There's currently a bug where panning and zooming are a bit off when this setting is disabled.
+By default, the map will align with North, roughly facing up so that the map is square with the screen. You can change this so the map is aligned with North facing up (rotated) by disabling Settings > Photo Maps > 'Keep map facing up'. Note: There's currently a bug where panning and zooming are a bit off when this setting is disabled.
 
 ### Using Beacons and Navigating
 If you've created beacons, they will appear on the map.
@@ -60,7 +60,7 @@ When navigating to a beacon, the distance, direction, and estimated time of arri
 
 You can initiate navigation from the map by tapping a beacon or long-pressing a map point and selecting 'Navigate'.
 
-To create a beacon from the map, long-press a map point and choose 'Beacon'. This opens the 'Create Beacon' screen with the location filled in.
+To create a beacon from the map, long-press a map point and choose 'Beacon.' This opens the 'Create Beacon' screen with the location filled in.
 
 For further details on beacons, refer to the 'Beacons' guide.
 
@@ -97,7 +97,7 @@ To print a map, click the menu button on the map row you want to print, then sel
 ## Change the Resolution of a Map
 To alter the resolution of a Photo Map, click the menu button on the map row you want to adjust, then select 'Change resolution'. A dialog will appear, allowing you to switch between low (lowest quality and smallest file size), medium (moderate quality and file size), and high (highest quality and largest file size) resolutions. Keep in mind that changing the resolution is a permanent action and cannot be undone.
 
-By default, Trail Sense will automatically reduce map resolution on import. To change this, disable Settings > Photo Maps > 'Reduce map resolution'.
+By default, Trail Sense will automatically reduce the map resolution on import. To change this, disable Settings > Photo Maps > 'Reduce map resolution'.
 
 ## Organizing Maps
 You can organize maps into groups. To create a group, click the '+' button in the bottom right of the map list and select 'Group'. Give the group a name and click 'OK'. To add maps to the group, click on the group in the list and follow the map creation instructions. The map will be added to the chosen group.

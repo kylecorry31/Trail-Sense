@@ -23,7 +23,7 @@ By default, the Tides tool displays the closest tide to your location when you o
 To select a different tide, click the tides button in the top-right corner of the screen. This opens a list of all the tide tables you've created. Simply click on a tide to view it.
 
 ## Tide Chart
-The tide chart displays the tides for the current day. The X-axis represents time, while the Y-axis represents the tide height. A dot marks the current time on the chart. By default the today is selected, but you can change it by tapping the calendar icon at the top of the screen. Additionally, you can use the arrows to move to the next / previous date or long press the calendar to quickly jump to today's date.
+The tide chart displays the tides for the current day. The X-axis represents time, while the Y-axis represents the tide height. A dot marks the current time on the chart. By default, today is selected, but you can change it by tapping the calendar icon at the top of the screen. Additionally, you can use the arrows to move to the next/previous date or long press the calendar to quickly jump to today's date.
 
 At the top of the screen, you'll find the current tide level and, if available, the tide's height. A down arrow means a falling tide, while an up arrow means a rising tide.
 
@@ -46,7 +46,7 @@ You can delete a tide table using the following steps:
 3. Choose 'Delete.'
 
 ## Viewing Tides on the Map
-By default, tides with a location entered will appear on the Navigation tool's radar compass and Photo Maps. To hide / show a tide, follow these steps:
+By default, tides with a location entered will appear on the Navigation tool's radar compass and Photo Maps. To hide/show a tide, follow these steps:
 
 1. Click the tides button in the top-right corner of the screen.
 2. Click the menu button to the right of the tide you wish to hide or show.

@@ -24,7 +24,7 @@ You can pinch to zoom the radar compass, which will change the nearby beacon rad
 
 ### Linear Compass
 
-The linear compass is displayed when you hold your phone vertically. You can also use the sighting compass feature with the linear compass by tapping the camera icon on the right of the screen. This will display the compass overlaid on a camera viewfinder. With the sighting compass active, you can pinch to zoom the camera viewfinder.
+The linear compass is displayed when you hold your phone vertically. You can also use the sighting compass feature with the linear compass by tapping the camera icon on the right side of the screen. This will display the compass overlaid on a camera viewfinder. With the sighting compass active, you can pinch to zoom the camera viewfinder.
 
 You can enable or disable the linear compass under Settings > Navigation > Show linear compass.
 
@@ -34,7 +34,7 @@ By default, it will point to True North, but it can be configured to point to Ma
 
 ### Sun and Moon
 
-The compass shows the direction of the sun and moon, which allows you to navigate using the sun or moon and verify the accuracy of the compass. You can configure the sun and moon display in Settings > Navigation > Show sun/moon on compass. The options are:
+The compass shows the direction of the sun and moon, allowing you to navigate using them and verify the accuracy of the compass. You can configure the sun and moon display in Settings > Navigation > Show sun/moon on compass. The options are:
 
 - **Always**: Always show the sun and moon on the compass.
 - **When up**: Only show the sun and moon when they are above the horizon.
@@ -42,7 +42,7 @@ The compass shows the direction of the sun and moon, which allows you to navigat
 
 ### Calibration
 
-Phone compasses are not always accurate, so you should frequently calibrate your compass. You can calibrate your compass by waving your phone in a figure-8 pattern. For more detailed instructions and a visual, click the status icons in the bottom-left of the Navigation tool. This will guide you to calibrate your compass and also show details about location accuracy.
+Phone compasses are not always accurate, so you should frequently calibrate your compass. You can calibrate your compass by waving your phone in a figure-8 pattern. For more detailed instructions and a visual, click the status icons in the bottom-left of the Navigation tool. This will guide you in calibrating your compass and also show details about location accuracy.
 
 ## Beacon Navigation
 

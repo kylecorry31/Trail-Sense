@@ -13,7 +13,7 @@ If you are able to see a destination from multiple locations, you can use the Tr
 
 1. Select 'Destination' as the location to triangulate.
 2. Record your location and record the direction from where you are to that location as Location 1. You can tap the GPS icon next to the location field to use your current location. You can click the camera icon on the right side of the direction field to sight the location using the camera.
-3. Move to a new location that's at least 30 m / 100 ft from the first location and repeat for Location 2. You can put away your phone while you move, the tool will save what you entered.
+3. Move to a new location that's at least 30 m / 100 ft from the first location and repeat for Location 2. You can put away your phone while you move; the tool will save what you entered.
 5. If the destination can be determined, it will be displayed at the top of the screen.
 
 ## Triangulation Map
@@ -24,7 +24,7 @@ Once you triangulate a location, you have several options:
 
 - **Beacon**: Create a beacon at the triangulated location. This will open the Beacons tool. For more information on beacons, see the 'Beacons' guide.
 - **Navigate**: Navigate to the triangulated location. This will open the Navigation tool. For more information on navigation, see the 'Navigation' guide.
-- **Share...**: Share the triangulated location. This will open the share menu, where you can copy the coordinates, share as a QR code, open in a map app, or share with another app (ex. a text message).
+- **Share...**: Share the triangulated location. This will open the share menu, where you can copy the coordinates, share as a QR code, open in a map app, or share with another app (e.g. a text message).
 
 ## Reset
 You can reset the tool by clicking the reset button at the bottom of the screen.

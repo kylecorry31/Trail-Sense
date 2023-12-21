@@ -57,8 +57,8 @@ The Weather Monitor quick action is available on the Weather and Tools tabs. You
 To use the quick action, tap the Weather Monitor quick action button to toggle it on or off.
 
 ## Accuracy
-The weather prediction is a best guess using available sensor data, and may not be accurate. If Trail Sense says it is going to be clear but you see what appears to be storm clouds rolling in, trust your instincts - some times storms roll in with gradual changes in pressure. Seek shelter if you sense a storm approaching, regardless of Trail Sense's prediction.
+The weather prediction is a best guess using available sensor data and may not be accurate. If Trail Sense says it is going to be clear but you see what appears to be storm clouds rolling in, trust your instincts - sometimes storms roll in with gradual changes in pressure. Seek shelter if you sense a storm approaching, regardless of Trail Sense's prediction.
 
-Climate normals (historic temperatures) are based on the 30 year average of the historic data, and indicate what the weather usually is. The actual values may differ for a variety of reasons, but should remain fairly close to the historic values. Large differences are normally due to a storm or other weather event.
+Climate normals (historic temperatures) are based on the 30-year average of the historic data and indicate what the weather usually is. The actual values may differ for a variety of reasons but should remain fairly close to the historic values. Large differences are normally due to a storm or other weather event.
 
-Historic temperatures are estimated using a custom 30 year "climate normal" model derived from the NASA Global Modeling and Assimilation Office - MERRA-2 data (1991 - 2020).
+Historic temperatures are estimated using a custom 30-year "climate normal" model derived from the NASA Global Modeling and Assimilation Office - MERRA-2 data (1991 - 2020).

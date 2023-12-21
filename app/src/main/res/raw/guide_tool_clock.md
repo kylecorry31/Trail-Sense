@@ -10,5 +10,5 @@ To sync your device’s clock with GPS time:
 2. Note the time shown in the pop-up.
 3. Tap 'OK' to open your device's time settings.
 4. Enter the noted time and wait for the sync notification before saving.
-4. Save the time update when the notification arrives.
-5. Your system time is now synced with GPS time.
+5. Save the time update when the notification arrives.
+6. Your system time is now synced with GPS time.

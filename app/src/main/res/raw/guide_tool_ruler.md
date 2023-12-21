@@ -1,18 +1,18 @@
 The Ruler tool can be used to measure small objects or distances on a map.
 
 ## Measuring Distances
-Place the object next to the ruler, and tap the screen to mark the end of the object. The exact measurement will be displayed at the top of the screen.
+Place the object next to the ruler and tap the screen to mark the end of the object. The exact measurement will be displayed at the top of the screen.
 
 ## Changing Units
-By default the ruler will respect the distance units in Settings > Units. You can change the units of the ruler between centimeters and inches by tapping the units at the top of the screen.
+By default, the ruler will respect the distance units in Settings > Units. You can change the units of the ruler between centimeters and inches by tapping the units at the top of the screen.
 
 ## Measuring Distances on a Map
-To measure distances on a map, you need to know the map scale. If it says something along the lines of 'Scale 1:62500', then you can use the 'Ratio' scale on the Ruler. If it says something like '1 inch = 1 mile' or has bars which can be measured, then you can use the 'Verbal' scale.
+To measure distances on a map, you need to know the map scale. If it says something like 'Scale 1:62500', then you can use the 'Ratio' scale on the Ruler. If it says something like '1 inch = 1 mile' or has bars that can be measured, then you can use the 'Verbal' scale.
 
-- **Ratio scale**: Enter the scale as shown on the map. Ex. 1:62500 would become From = 1 and To = 62500.
-- **Verbal scale**: Enter the scale as shown on the map. Ex. 1 inch = 1 mile would become From = 1 inch and To = 1 mile.
+- **Ratio scale**: Enter the scale as shown on the map. For example, 1:62500 would become From = 1 and To = 62500.
+- **Verbal scale**: Enter the scale as shown on the map. For example, 1 inch = 1 mile would become From = 1 inch and To = 1 mile.
 
-Once the scale has been entered, measure the distance on the map and the map distance will be displayed at the top of the screen.
+Once the scale has been entered, measure the distance on the map, and the map distance will be displayed at the top of the screen.
 
 ## Calibration
 Most devices correctly report the screen size, but you should compare Trail Sense to a physical ruler to make sure it is accurate.
