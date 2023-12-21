@@ -29,7 +29,7 @@ If you have locations saved in a GPX file, you can import them into Trail Sense 
 
 1. Tap the '+' button in the bottom-right corner of the screen.
 2. Click 'GPX File'.
-3. Select the GPX file you want to create a beacon from.
+3. Select the GPX file you want to load beacons from.
 4. Confirm that you want to import the beacons by clicking 'OK'. You can uncheck any beacons you don't want to import.
 5. The beacons will be created in the current group.
 

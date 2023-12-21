@@ -17,6 +17,7 @@ const guides = [
     'tool_navigation',
     'tool_notes',
     'tool_packing_lists',
+    'tool_paths',
     'tool_pedometer',
     'tool_photo_maps',
     'tool_qr_code_scanner',

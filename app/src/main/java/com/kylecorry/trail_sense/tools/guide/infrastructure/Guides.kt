@@ -21,21 +21,6 @@ object Guides {
         val otherGuides = UserGuideCategory(
             "TO BE UPDATED",
             listOfNotNull(
-                UserGuide(
-                    context.getString(R.string.guide_signaling_for_help_title),
-                    null,
-                    R.raw.signaling_for_help
-                ),
-                UserGuide(
-                    context.getString(R.string.navigation),
-                    context.getString(R.string.navigation_guide_description),
-                    R.raw.navigate
-                ),
-                UserGuide(
-                    context.getString(R.string.guide_using_printed_maps),
-                    null,
-                    R.raw.using_printed_maps
-                ),
                 if (Sensors.hasBarometer(context)) UserGuide(
                     context.getString(R.string.guide_barometer_calibration_title),
                     null,

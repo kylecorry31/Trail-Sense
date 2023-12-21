@@ -115,7 +115,7 @@ object Tools {
                 R.drawable.ic_tool_backtrack,
                 R.id.action_action_experimental_tools_to_fragmentBacktrack,
                 ToolCategory.Location,
-                guideId = R.raw.navigate
+                guideId = R.raw.guide_tool_paths
             ),
             Tool(
                 10,
