@@ -7,10 +7,10 @@ The Battery tool will provide an estimate (based on the last day's history) of h
 The battery indicator shows the current battery percentage and, if supported, the remaining capacity (in mAh). Below that, you can see how fast your device is currently charging or discharging. Additionally, if your battery health is poor, you will see a warning.
 
 ## Battery History
-You can view the history of battery percentage by clicking the chart icon in the top right corner. This displays the last day's history, as recorded by Trail Sense.
+You can view the history of battery percentage by clicking the chart icon in the top-right corner. This displays the last day's history, as recorded by Trail Sense.
 
 ## System Settings
-To access system battery settings and usage, click the settings icon in the top right corner.
+To access system battery settings and usage, click the settings icon in the top-right corner.
 
 ## Power Saving Mode
 By turning on 'Power saving mode', you can reduce the power consumption of Trail Sense by stopping some services, such as Backtrack and Weather, as well as using the black theme. You can activate this by using the 'Power saving mode' switch on the battery tool.

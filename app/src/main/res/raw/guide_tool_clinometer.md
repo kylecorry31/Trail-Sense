@@ -19,7 +19,7 @@ Most avalanches occur on slopes between 30° (57%) and 45° (100%). When you mea
 ## Estimate the Height of a Tree
 The height of a tree can be measured if the distance to the tree is known.
 
-1. Tap the ruler icon in the top right.
+1. Tap the ruler icon in the top-right.
 2. Tap 'Height'.
 3. Enter the distance to the tree.
 4. Align the clinometer to the base of the tree.
@@ -32,7 +32,7 @@ If you normally measure the height of trees at the same distance, you can set a 
 ## Estimate the Distance to a Tree (Known Height)
 If you know the height of a tree, you can estimate the distance to it by using the clinometer.
 
-1. Tap the ruler icon in the top right.
+1. Tap the ruler icon in the top-right.
 2. Tap 'Distance'.
 3. Enter the height of the tree.
 4. Align the clinometer to the base of the tree.
@@ -43,7 +43,7 @@ If you know the height of a tree, you can estimate the distance to it by using t
 ## Estimate the Distance to a Tree (Unknown Height)
 If you do not know the height of the tree, you can still estimate the distance to it by using your height as a reference.
 
-1. Tap the ruler icon in the top right.
+1. Tap the ruler icon in the top-right.
 2. Tap 'Distance'.
 3. Enter your height.
 4. Stand next to the tree and take note of where the top of your head is on the tree.

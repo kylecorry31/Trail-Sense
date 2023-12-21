@@ -54,7 +54,7 @@ See the 'Navigation' guide for more information on how to use the navigation too
 You can choose which beacons are visible on the Navigation and Photo Maps tools by clicking the eye icon on the right side of the beacon row. This will toggle the visibility of the beacon.
 
 ## Share a Beacon
-You can share a beacon by clicking the menu button on the beacon row you want to share, then selecting 'Share...'. Alternatively, open the beacon and click the menu button in the top right, then choose 'Share...'. You can choose from the following options:
+You can share a beacon by clicking the menu button on the beacon row you want to share, then selecting 'Share...'. Alternatively, open the beacon and click the menu button in the top-right, then choose 'Share...'. You can choose from the following options:
 
 - **Copy**: Copies the beacon details to your clipboard.
 - **QR Code**: Shares a QR code for the beacon.
@@ -67,7 +67,7 @@ To edit a beacon, open the beacon and click the edit button at the bottom. Alter
 See the 'Creating a Beacon' section above for information on the fields you can edit.
 
 ## Delete a Beacon
-To delete a beacon, click the menu button on the beacon row you want to remove, then select 'Delete'. Alternatively, open the beacon, click the menu button in the top right, and choose 'Delete'.
+To delete a beacon, click the menu button on the beacon row you want to remove, then select 'Delete'. Alternatively, open the beacon, click the menu button in the top-right, and choose 'Delete'.
 
 ## Exporting Beacons
 To export beacons, open the group you want to export and click the menu button in the top-right corner of the screen. Select 'Export', unselect any beacons you don't want to export, then click 'OK'. The beacons will be exported to a GPX file.
@@ -84,7 +84,7 @@ To rename a group, click the menu button on the group row you want to rename, th
 You can delete a group (along with all beacons within it) by clicking the menu button on the group row you wish to remove, then selecting 'Delete'.
 
 ## Searching for Beacons
-To search through your created beacons, use the search bar at the top of the beacon list. This search encompasses the current group and all subgroups. Additionally, you can sort beacons by distance, time, or name by clicking the menu button in the top right and selecting 'Sort'.
+To search through your created beacons, use the search bar at the top of the beacon list. This search encompasses the current group and all subgroups. Additionally, you can sort beacons by distance, time, or name by clicking the menu button in the top-right and selecting 'Sort'.
 
 ## Last Cell Signal Beacon
 If you have Backtrack enabled (see the 'Paths' guide) and it is configured to record cell signal, you will see a beacon created for the last known location where you had a cell signal.

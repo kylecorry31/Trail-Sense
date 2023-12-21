@@ -8,7 +8,7 @@ If the Weather Monitor is on, it records pressure history automatically. Otherwi
 You can adjust prediction sensitivity in Settings > Weather > Forecast sensitivity. Higher sensitivity may detect more patterns but might yield more false predictions.
 
 ## Weather Monitor
-The Weather Monitor runs in the background to record pressure history. Enable it by clicking the start icon at the bottom right. This causes a notification to appear with the current prediction and an option to stop the Weather Monitor. You can also stop it by clicking the stop icon in the bottom right.
+The Weather Monitor runs in the background to record pressure history. Enable it by clicking the start icon at the bottom-right. This causes a notification to appear with the current prediction and an option to stop the Weather Monitor. You can also stop it by clicking the stop icon in the bottom-right.
 
 To change the recording frequency, click the time under the Weather Monitor label at the bottom left and enter a new interval.
 

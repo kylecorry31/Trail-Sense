@@ -1,13 +1,11 @@
 The Paths tool can be used to record waypoints while hiking or to follow a trail.
 
 ## Backtrack
-The Backtrack feature can be used to automatically record a path in the background while you hike. If you get lost, you can use the Backtrack path to navigate back to your last known position.
-
-To start Backtrack, click the start button in the bottom-right corner of the screen. A notification will appear showing how far you have traveled. You can stop Backtrack by clicking the stop button in the notification or by clicking the stop button in the bottom-right corner of the screen.
+The Backtrack feature can be used to automatically record a path while you hike. To start Backtrack, click the start button in the bottom-right corner of the screen. A notification will appear showing how far you have traveled. You can stop Backtrack by clicking the stop button in the notification or by clicking the stop button in the bottom-right corner of the screen.
 
 To change the recording frequency, click the time under the Backtrack label at the bottom-left and enter a new interval.
 
-Backtrack can optionally record the cell signal strength at each point. This can be enabled in Settings > Navigation > 'Record cell signal'. If you also have Settings > Navigation > 'Last signal beacon' enabled, a beacon will be created for the last known location where you had a cell signal.
+Backtrack can record the cell signal strength at each point. This can be enabled in Settings > Navigation > 'Record cell signal'. If you also have Settings > Navigation > 'Last signal beacon' enabled, a beacon will be created for the last known location where you had a cell signal.
 
 By default, Backtrack paths are temporary and will be deleted after the number of days specified by Settings > Navigation > 'Backtrack history'. You can choose to keep a Backtrack path forever by clicking the menu button on the Backtrack path row and selecting 'Keep forever'.
 
@@ -30,6 +28,7 @@ If you have tracks or routes saved in a GPX file, you can import them into Trail
 
 ## Viewing a Path
 To view a path, click the path in the list. This will open the path details page. The following information will be shown:
+
 - **Name**: The name of the path.
 - **Group**: The group the path is in. You can click the group name to move the path to a different group.
 - **Map**: A map showing the path and your current location. You can drag to move the map and pinch to zoom. You can also click a point on the map to select it. A scale is shown at the bottom-right of the map. You can make the map larger by clicking the expand button in the bottom-left corner of the map.
@@ -37,30 +36,31 @@ To view a path, click the path in the list. This will open the path details page
 - **Duration**: The time it took to record the path.
 - **Distance**: The distance of the path.
 - **Points**: The number of points in the path.
-- **Difficulty**: An estimate of the difficulty of the path. This is calculated based on the distance, elevation change, and slope of the path.
+- **Difficulty**: An estimate of the difficulty of the path. Calculated based on the distance, elevation change, and slope.
 - **Ascent**: The total elevation gain of the path.
 - **Descent**: The total elevation loss of the path.
-- **Lowest Point**: The lowest elevation of the path. Clicking this will select the point on the map.
-- **Highest Point**: The highest elevation of the path. Clicking this will select the point on the map.
-- **Elevation Chart**: A chart showing the elevation of the path over distance. You can click a point on the chart to select it.
-- **Points**: To see the list of points in the path, click the menu button in the top right and select 'Points'. You can click a point to select it. You can also click the menu button on a point to navigate to it, create a beacon for it, or delete it.
+- **Lowest Point**: The lowest elevation of the path. Click to select on the map.
+- **Highest Point**: The highest elevation of the path. Click to select on the map.
+- **Elevation Chart**: A chart showing the path's elevation over distance. Click a point on the chart to select it.
+- **Points**: To see the list of points in the path, click the menu button in the top-right and select 'Points'. Click a point to select it. Click the menu button on a point to navigate to it, create a beacon for it, or delete it.
 
 ## Path Styles
-You can adjust the appearance of a path by opening the path and clicking the dropdown for the line style or line color at the top of the screen. You can also change the appearance of the path's points by clicking the point style dropdown on the top right of the screen. You can choose between the following point styles:
-- **None**: No points will be shown.
-- **Cell signal**: The cell signal strength at each point will be shown.
-- **Elevation**: The elevation at each point will be shown.
-- **Time**: The time each point was recorded will be shown.
-- **Slope**: The slope at each point will be shown.
+Adjust the path's appearance by opening it and selecting the line style or line color from the dropdowns at the top of the screen. Change the appearance of the path's points by selecting the point style from the dropdown on the top-right. Choose between the following point styles:
 
-A key is shown before the path map to indicate what the colors mean.
+- **None**: No points shown.
+- **Cell signal**: Show cell signal strength at each point.
+- **Elevation**: Show elevation at each point.
+- **Time**: Show the time each point was recorded.
+- **Slope**: Show the slope at each point.
 
-The default path styles can be set in Settings > Navigation > 'Default path style' for the line style and Settings > Navigation > 'Default path color' for the line color.
+A key below the path map explains the colors.
+
+Set the default path styles in Settings > Navigation > 'Default path style' for the line style and Settings > Navigation > 'Default path color' for the line color.
 
 ## Simplify a Path
 Paths can be simplified to reduce the number of points in the path. This can be useful to improve the performance of the path rendering and may improve the accuracy of the path by removing GPS errors.
 
-To simplify a path, open the path and click the menu button in the top right corner of the screen. Select 'Simplify path' and choose the desired simplification quality. High quality means fewer points will be removed, while low quality means more points will be removed.
+To simplify a path, open the path and click the menu button in the top-right corner of the screen. Select 'Simplify path' and choose the desired simplification quality. High quality means fewer points will be removed, while low quality means more points will be removed.
 
 Once the path has been simplified, it is not possible to undo the simplification.
 
@@ -80,7 +80,7 @@ You can choose which paths are visible on the Navigation and Photo Maps tools by
 To delete a path, click the menu button on the path row you want to remove, then select 'Delete'.
 
 ## Exporting Paths
-To export paths, open the group you want to export and click the menu button in the top right corner of the screen. Select 'Export', unselect any paths you don't want to export, then click 'OK'. The paths will be exported to a GPX file. 
+To export paths, open the group you want to export and click the menu button in the top-right corner of the screen. Select 'Export', unselect any paths you don't want to export, then click 'OK'. The paths will be exported to a GPX file. 
 
 Alternatively, you can export a single path by clicking the menu button on the path row you want to export, then selecting 'Export'.
 
@@ -96,4 +96,4 @@ To rename a group, click the menu button on the group row you want to rename, th
 You can delete a group (along with all paths within it) by clicking the menu button on the group row you wish to remove, then selecting 'Delete'.
 
 ## Searching for Paths
-To search through your created paths, use the search bar at the top of the path list. This search encompasses the current group and all subgroups. Additionally, you can sort paths by distance away, time, length or name by clicking the menu button in the top right and selecting 'Sort'.
+To search through your created paths, use the search bar at the top of the path list. This search encompasses the current group and all subgroups. Additionally, you can sort paths by distance away, time, length or name by clicking the menu button in the top-right and selecting 'Sort'.

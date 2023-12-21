@@ -3,7 +3,7 @@ The Packing Lists tool can be used to plan for a trip and remember to pack all t
 ## Creating a Packing List
 To create a new packing list:
 
-1. Click the '+' button in the bottom right corner.
+1. Click the '+' button in the bottom-right corner.
 2. Enter a name for the packing list. 
 
 ## Copying a Packing List
@@ -12,11 +12,11 @@ To copy an existing packing list:
 1. Click the menu button on the right of an existing packing list.
 2. Click "Copy".
 3. Enter a name for the new packing list.
-4. (Optional) Click the menu button on the top right and click "Clear amounts" to reset the packed amounts.
+4. (Optional) Click the menu button on the top-right and click "Clear amounts" to reset the packed amounts.
 
 ## Adding Items
 
-With a packing list open, click the '+' button in the bottom right corner. On the create item screen, fill out the fields as described below:
+With a packing list open, click the '+' button in the bottom-right corner. On the create item screen, fill out the fields as described below:
 
 - **Name**: The name of the item
 - **Packed amount**: The number of items currently packed, can be blank or a number (with decimal places)
@@ -24,13 +24,13 @@ With a packing list open, click the '+' button in the bottom right corner. On th
 - **Category**: The category to group this item by, defaults to "Other"
 - **Weight**: The weight of 1 item in your desired units. Trail Sense will scale this by the amount of packed items to determine the total weight.
 
-When finished, click the check button in the bottom right corner to save the item.
+When finished, click the check button in the bottom-right corner to save the item.
 
 ## Editing Items
 
 With a packing list open, click the item you want to edit. This will bring you to the same form described in the 'Adding Items' section. 
 
-When finished, click the check button in the bottom right corner to save the item.
+When finished, click the check button in the bottom-right corner to save the item.
 
 ## Marking Items as Packed
 If you've packed an item, you can either edit it or click the checkbox next to it to mark it as packed. This will set the packed amount to the desired amount and update the weight (if applicable).
@@ -40,7 +40,7 @@ If the items have weight associated with them, the total weight of the pack will
 
 ## Sorting a Packing List
 
-Clicking the menu on the top right of the packing list will allow you to sort your items.
+Clicking the menu on the top-right of the packing list will allow you to sort your items.
 
 - **Category**: This groups items by category and sorts them by name within the category.
 - **Percent packed (low to high)**: Items which are unpacked show at the top, while packed items move to the bottom. Use this to more easily see what is left to pack.
@@ -52,13 +52,13 @@ Clicking the menu on the top right of the packing list will allow you to sort yo
 
 You can delete a packing list by clicking the menu button on the right of the packing list and clicking "Delete". This will permanently delete the packing list and all the items in it.
 
-You can also delete from the packing list itself by clicking the menu button on the top right and clicking "Delete".
+You can also delete from the packing list itself by clicking the menu button on the top-right and clicking "Delete".
 
 ## Renaming a Packing List
 
 You can rename a packing list by clicking the menu button on the right of the packing list and clicking "Rename". This will allow you to enter a new name for the packing list.
 
-You can also rename from the packing list itself by clicking the menu button on the top right and clicking "Rename".
+You can also rename from the packing list itself by clicking the menu button on the top-right and clicking "Rename".
 
 ## Clearing Packed Amounts
 

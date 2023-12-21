@@ -3,7 +3,7 @@ The Augmented Reality tool lets you see beacons and the paths of the sun and moo
 ## Camera
 If you have camera permission granted, you will see a live camera feed in the background. If you do not have camera permission granted, you will see a black background instead.
 
-You can toggle the camera on and off by tapping the camera icon in the top right corner of the screen.
+You can toggle the camera on and off by tapping the camera icon in the top-right corner of the screen.
 
 Additionally, while the camera is active, you can adjust the zoom level using the slider at the bottom of the screen.
 

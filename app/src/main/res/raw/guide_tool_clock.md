@@ -1,7 +1,7 @@
 The Clock tool can be used to determine the current time using the GPS satellites.
 
 ## Viewing GPS Time
-When you first open the Clock tool, it shows your device's set time. Once you get a GPS fix, the clock automatically updates to show precise GPS time. To refresh the GPS time, tap the refresh icon in the top left.
+When you first open the Clock tool, it shows your device's set time. Once you get a GPS fix, the clock automatically updates to show precise GPS time. To refresh the GPS time, tap the refresh icon in the top-left.
 
 ## Syncing Your Clock
 To sync your device’s clock with GPS time:
