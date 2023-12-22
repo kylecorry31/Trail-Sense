@@ -64,6 +64,19 @@ object Guides {
             )
         )
 
-        return toolGuides + sensors
+        val general = listOf(
+            UserGuideCategory(
+                context.getString(R.string.general),
+                listOf(
+                    UserGuide(
+                        context.getString(R.string.tools),
+                        null,
+                        R.raw.guide_tool_tools
+                    )
+                )
+            )
+        )
+
+        return general + toolGuides + sensors
     }
 }

@@ -26,6 +26,7 @@ const guides = [
     'tool_ruler',
     'tool_sensors',
     'tool_solar_panel_aligner',
+    'tool_tools',
     'tool_temperature_estimation',
     'tool_tides',
     'tool_triangulate_location',
