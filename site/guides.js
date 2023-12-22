@@ -10,6 +10,7 @@ const guides = [
     'tool_clock',
     'tool_clouds',
     'tool_convert',
+    'tool_diagnostics',
     'tool_flashlight',
     'tool_light_meter',
     'tool_lightning_strike_distance',

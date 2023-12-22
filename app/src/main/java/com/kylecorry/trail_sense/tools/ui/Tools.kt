@@ -318,6 +318,7 @@ object Tools {
                 R.drawable.ic_alert,
                 R.id.action_tools_to_diagnostics,
                 ToolCategory.Other,
+                guideId = R.raw.guide_tool_diagnostics
             ),
             Tool(
                 34,
