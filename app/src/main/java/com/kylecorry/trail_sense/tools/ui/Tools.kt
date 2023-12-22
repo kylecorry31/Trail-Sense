@@ -310,6 +310,7 @@ object Tools {
                 R.drawable.ic_sensors,
                 R.id.sensorDetailsFragment,
                 ToolCategory.Other,
+                guideId = R.raw.guide_tool_sensors
             ),
             Tool(
                 33,

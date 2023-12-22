@@ -23,6 +23,7 @@ const guides = [
     'tool_qr_code_scanner',
     'tool_recommended_apps',
     'tool_ruler',
+    'tool_sensors',
     'tool_solar_panel_aligner',
     'tool_temperature_estimation',
     'tool_tides',
