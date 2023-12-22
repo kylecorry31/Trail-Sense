@@ -107,7 +107,8 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
         return QuickRecalibrationOrientationSensor(
             getCustomGeomagneticRotationSensor(false),
             getBaseOrientationSensor(),
-            0.5f,
+            1f,
+            30f
         )
     }
 
