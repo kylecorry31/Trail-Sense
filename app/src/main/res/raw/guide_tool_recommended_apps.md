@@ -1,3 +1,5 @@
+The following apps have been recommended by users of Trail Sense as useful tools to have on your phone. These apps are not affiliated with Trail Sense.
+
 ## Offline Survival Manual
 
 A survival guide application. This app will teach you how to use resources around you to survive in almost every environment.
