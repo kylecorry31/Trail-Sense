@@ -21,6 +21,7 @@ const guides = [
     'tool_pedometer',
     'tool_photo_maps',
     'tool_qr_code_scanner',
+    'tool_recommended_apps',
     'tool_ruler',
     'tool_solar_panel_aligner',
     'tool_temperature_estimation',
