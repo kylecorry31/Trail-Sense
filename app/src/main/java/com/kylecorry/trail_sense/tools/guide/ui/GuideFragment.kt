@@ -1,9 +1,11 @@
 package com.kylecorry.trail_sense.tools.guide.ui
 
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.method.LinkMovementMethodCompat
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -37,6 +39,7 @@ class GuideFragment : BoundFragment<FragmentGuideBinding>() {
                 markdown.toMarkdown(content)
             }
             if (isBound) {
+                binding.guideContents.movementMethod = LinkMovementMethodCompat.getInstance()
                 binding.guideContents.text = spanned
             }
         }
