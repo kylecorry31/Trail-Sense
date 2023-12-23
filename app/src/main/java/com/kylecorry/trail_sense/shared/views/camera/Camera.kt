@@ -9,6 +9,7 @@ import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
 import android.hardware.camera2.CameraMetadata
 import android.hardware.camera2.CaptureRequest
+import android.os.Build
 import android.util.Log
 import android.util.Size
 import androidx.annotation.OptIn
@@ -585,8 +586,23 @@ class Camera(
         return getCharacteristic(CameraCharacteristics.LENS_INTRINSIC_CALIBRATION)
     }
 
-    fun getActiveArraySize(): Rect? {
-        return getCharacteristic(CameraCharacteristics.SENSOR_INFO_PRE_CORRECTION_ACTIVE_ARRAY_SIZE)
+    fun getActiveArraySize(preCorrection: Boolean): Rect? {
+        return if (preCorrection) {
+            getCharacteristic(CameraCharacteristics.SENSOR_INFO_PRE_CORRECTION_ACTIVE_ARRAY_SIZE)
+        } else {
+            getCharacteristic(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE)
+        }
+    }
+
+    fun getDistortionCorrection(): FloatArray? {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            getCharacteristic(CameraCharacteristics.LENS_DISTORTION)
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            @Suppress("DEPRECATION")
+            getCharacteristic(CameraCharacteristics.LENS_RADIAL_DISTORTION)
+        } else {
+            null
+        }
     }
 
     @OptIn(ExperimentalCamera2Interop::class)

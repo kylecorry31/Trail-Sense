@@ -14,11 +14,14 @@ import kotlin.math.sin
 
 class CalibratedCameraAnglePixelMapper(
     private val camera: Camera,
-    private val fallback: CameraAnglePixelMapper = LinearCameraAnglePixelMapper()
+    private val fallback: CameraAnglePixelMapper = LinearCameraAnglePixelMapper(),
+    private val applyDistortionCorrection: Boolean = false
 ) : CameraAnglePixelMapper {
 
     private var calibration: FloatArray? = null
+    private var preActiveArray: Rect? = null
     private var activeArray: Rect? = null
+    private var distortion: FloatArray? = null
     private val linear = LinearCameraAnglePixelMapper()
 
     private var zoom: Float = 1f
@@ -54,9 +57,22 @@ class CalibratedCameraAnglePixelMapper(
         return calibration
     }
 
+    private fun getPreActiveArraySize(): Rect? {
+        if (preActiveArray == null) {
+            val activeArray = camera.getActiveArraySize(true) ?: return null
+            val rotation = camera.sensorRotation.toInt()
+            this.preActiveArray = if (rotation == 90 || rotation == 270) {
+                Rect(activeArray.top, activeArray.left, activeArray.bottom, activeArray.right)
+            } else {
+                activeArray
+            }
+        }
+        return preActiveArray
+    }
+
     private fun getActiveArraySize(): Rect? {
         if (activeArray == null) {
-            val activeArray = camera.getActiveArraySize() ?: return null
+            val activeArray = camera.getActiveArraySize(false) ?: return null
             val rotation = camera.sensorRotation.toInt()
             this.activeArray = if (rotation == 90 || rotation == 270) {
                 Rect(activeArray.top, activeArray.left, activeArray.bottom, activeArray.right)
@@ -65,6 +81,13 @@ class CalibratedCameraAnglePixelMapper(
             }
         }
         return activeArray
+    }
+
+    private fun getDistortion(): FloatArray? {
+        if (distortion == null) {
+            distortion = camera.getDistortionCorrection()
+        }
+        return distortion
     }
 
     private fun getZoom(): Float {
@@ -93,23 +116,54 @@ class CalibratedCameraAnglePixelMapper(
         }
 
         val calibration = getCalibration()
+        val preActiveArray = getPreActiveArraySize()
         val activeArray = getActiveArraySize()
+        val distortion = getDistortion()
 
-        if (calibration == null || activeArray == null) {
+        if (calibration == null || preActiveArray == null || activeArray == null) {
             return fallback.getPixel(angleX, angleY, imageRect, fieldOfView, distance)
         }
 
+        // TODO: Factor in pose translation
         val fx = calibration[0]
         val fy = calibration[1]
         val cx = calibration[2]
         val cy = calibration[3]
 
-        val x = fx * (world.x / world.z) + cx
-        val y = fy * (world.y / world.z) + cy
+        // This represents the x and y in the active array
+        val preX = fx * (world.x / world.z)
+        val preY = fy * (world.y / world.z)
 
-        val invertedY = activeArray.height() - y
+        val normalizedX = preX / (preActiveArray.width() / 2f)
+        val normalizedY = preY / (preActiveArray.height() / 2f)
 
-        val pctX = x / activeArray.width()
+        // Correct for distortion
+        val rSquared: Float = normalizedX * normalizedX + normalizedY * normalizedY
+        val correctedX = if (applyDistortionCorrection && distortion != null) {
+            val radialDistortion =
+                1 + distortion[0] * rSquared + distortion[1] * rSquared * rSquared + distortion[2] * rSquared * rSquared * rSquared
+
+            preX * radialDistortion + distortion[3] * (2 * preX * preY) + distortion[4] * (rSquared + 2 * preX * preX) + cx
+        } else {
+            preX + cx
+        }
+
+        val correctedY = if (applyDistortionCorrection && distortion != null) {
+            val radialDistortion =
+                1 + distortion[0] * rSquared + distortion[1] * rSquared * rSquared + distortion[2] * rSquared * rSquared * rSquared
+
+            preY * radialDistortion + distortion[3] * (rSquared + 2 * preX * preY) + distortion[4] * (2 * preX * preY) + cy
+        } else {
+            preY + cy
+        }
+
+        // Clip to active array
+        val activeX = correctedX - activeArray.left
+        val activeY = correctedY - activeArray.top
+
+        val invertedY = activeArray.height() - activeY
+
+        val pctX = activeX / activeArray.width()
         val pctY = invertedY / activeArray.height()
 
         // Unzoom the image
