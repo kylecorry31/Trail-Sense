@@ -19,8 +19,11 @@ class CalibratedCameraAnglePixelMapper(
 
     private var calibration: FloatArray? = null
     private var activeArray: Rect? = null
-    private var sensorRotation: Int? = null
     private val linear = LinearCameraAnglePixelMapper()
+
+    private var zoom: Float = 1f
+    private var lastZoomTime = 0L
+    private val zoomRefreshInterval = 20L
 
     override fun getAngle(
         x: Float,
@@ -34,24 +37,46 @@ class CalibratedCameraAnglePixelMapper(
 
     private fun getCalibration(): FloatArray? {
         if (calibration == null) {
-            calibration = camera.getCalibration()
+            val calibration = camera.getCalibration() ?: return null
+            val rotation = camera.sensorRotation.toInt()
+            this.calibration = if (rotation == 90 || rotation == 270) {
+                floatArrayOf(
+                    calibration[1],
+                    calibration[0],
+                    calibration[3],
+                    calibration[2],
+                    calibration[4]
+                )
+            } else {
+                calibration
+            }
         }
         return calibration
     }
 
     private fun getActiveArraySize(): Rect? {
         if (activeArray == null) {
-            activeArray = camera.getActiveArraySize()
+            val activeArray = camera.getActiveArraySize() ?: return null
+            val rotation = camera.sensorRotation.toInt()
+            this.activeArray = if (rotation == 90 || rotation == 270) {
+                Rect(activeArray.top, activeArray.left, activeArray.bottom, activeArray.right)
+            } else {
+                activeArray
+            }
         }
         return activeArray
     }
 
-    private fun getSensorRotation(): Int? {
-        if (sensorRotation == null) {
-            sensorRotation = camera.sensorRotation.toInt()
+    private fun getZoom(): Float {
+        if (System.currentTimeMillis() - lastZoomTime < zoomRefreshInterval) {
+            return zoom
         }
-        return sensorRotation
+        zoom = camera.zoom?.ratio?.coerceAtLeast(0.05f) ?: 1f
+        lastZoomTime = System.currentTimeMillis()
+        return zoom
     }
+
+    private val unzoomedRect = RectF()
 
     override fun getPixel(
         angleX: Float,
@@ -67,47 +92,36 @@ class CalibratedCameraAnglePixelMapper(
             return linear.getPixel(angleX, angleY, imageRect, fieldOfView, distance)
         }
 
-        val sensorRotation = getSensorRotation()
         val calibration = getCalibration()
         val activeArray = getActiveArraySize()
 
-        if (sensorRotation == null || calibration == null || activeArray == null) {
+        if (calibration == null || activeArray == null) {
             return fallback.getPixel(angleX, angleY, imageRect, fieldOfView, distance)
         }
-
-        val zoom = camera.zoom?.ratio?.coerceAtLeast(0.05f) ?: 1f
-        val unzoomedImageRect = RectF(
-            imageRect.centerX() - zoom * imageRect.width() / 2f,
-            imageRect.centerY() - zoom * imageRect.height() / 2f,
-            imageRect.centerX() + zoom * imageRect.width() / 2f,
-            imageRect.centerY() + zoom * imageRect.height() / 2f
-        )
 
         val fx = calibration[0]
         val fy = calibration[1]
         val cx = calibration[2]
         val cy = calibration[3]
 
-        val realFx = if (sensorRotation == 90 || sensorRotation == 270) fx else fy
-        val realFy = if (sensorRotation == 90 || sensorRotation == 270) fy else fx
-        val realCx = if (sensorRotation == 90 || sensorRotation == 270) cy else cx
-        val realCy = if (sensorRotation == 90 || sensorRotation == 270) cx else cy
-        val realActiveArray = if (sensorRotation == 90 || sensorRotation == 270) {
-            Rect(activeArray.top, activeArray.left, activeArray.bottom, activeArray.right)
-        } else {
-            activeArray
-        }
+        val x = fx * (world.x / world.z) + cx
+        val y = fy * (world.y / world.z) + cy
 
-        val x = realFx * (world.x / world.z) + realCx
-        val y = realFy * (world.y / world.z) + realCy
+        val invertedY = activeArray.height() - y
 
-        val invertedY = realActiveArray.height() - y
+        val pctX = x / activeArray.width()
+        val pctY = invertedY / activeArray.height()
 
-        val pctX = x / realActiveArray.width()
-        val pctY = invertedY / realActiveArray.height()
+        // Unzoom the image
+        val zoom = getZoom()
+        unzoomedRect.left = imageRect.centerX() - zoom * imageRect.width() / 2f
+        unzoomedRect.top = imageRect.centerY() - zoom * imageRect.height() / 2f
+        unzoomedRect.right = imageRect.centerX() + zoom * imageRect.width() / 2f
+        unzoomedRect.bottom = imageRect.centerY() + zoom * imageRect.height() / 2f
 
-        val pixelX = pctX * unzoomedImageRect.width() + unzoomedImageRect.left
-        val pixelY = pctY * unzoomedImageRect.height() + unzoomedImageRect.top
+
+        val pixelX = pctX * unzoomedRect.width() + unzoomedRect.left
+        val pixelY = pctY * unzoomedRect.height() + unzoomedRect.top
 
         return PixelCoordinate(pixelX, pixelY)
     }

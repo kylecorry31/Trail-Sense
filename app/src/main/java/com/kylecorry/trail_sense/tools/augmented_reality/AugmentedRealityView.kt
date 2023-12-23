@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Path
+import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -14,6 +15,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.kylecorry.andromeda.camera.ar.CameraAnglePixelMapper
+import com.kylecorry.andromeda.camera.ar.LinearCameraAnglePixelMapper
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.TextAlign
 import com.kylecorry.andromeda.canvas.TextMode
@@ -63,8 +65,7 @@ class AugmentedRealityView : CanvasView {
 
     private var rotationMatrix = FloatArray(16)
     private val orientation = FloatArray(3)
-    private var size = Size(width.toFloat(), height.toFloat())
-    private var previewSize: Size? = null
+    private var previewRect: RectF? = null
     private var cameraMapper: CameraAnglePixelMapper? = null
 
     // Sensors / preferences
@@ -383,15 +384,17 @@ class AugmentedRealityView : CanvasView {
     fun toPixel(coordinate: HorizonCoordinate): PixelCoordinate {
         val bearing = getActualBearing(coordinate)
 
-        return AugmentedRealityUtils.getPixel(
+        val screenPixel = AugmentedRealityUtils.getPixel(
             bearing,
             coordinate.elevation,
             coordinate.distance,
             rotationMatrix,
-            previewSize ?: size,
+            previewRect ?: RectF(0f, 0f, width.toFloat(), height.toFloat()),
             fov,
-            cameraMapper
+            if (camera?.isStarted == true) cameraMapper else null
         )
+
+        return PixelCoordinate(screenPixel.x - x, screenPixel.y - y)
     }
 
     fun toPixel(coordinate: Coordinate, elevation: Float? = null): PixelCoordinate {
@@ -424,8 +427,6 @@ class AugmentedRealityView : CanvasView {
     }
 
     private fun updateOrientation() {
-        size = Size(width.toFloat(), height.toFloat())
-
         AugmentedRealityUtils.getOrientation(
             orientationSensor,
             rotationMatrix,
@@ -497,17 +498,14 @@ class AugmentedRealityView : CanvasView {
                     return@enqueue
                 }
 
-                val fov = camera.camera?.getPreviewFOV(true) ?: return@enqueue
+                val fov = camera.camera?.getPreviewFOV(false) ?: return@enqueue
                 this@AugmentedRealityView.fov = Size(fov.first, fov.second)
-                if (previewSize == null) {
-                    previewSize = camera.camera?.getPreviewSize(true)?.let {
-                        Size(it.width.toFloat(), it.height.toFloat())
-                    }
-                    // TODO: Handle when the the scale type is not fit center - will need an offset
+                if (previewRect == null) {
+                    previewRect = camera.camera?.getPreviewRect(false)
                 }
                 if (cameraMapper == null) {
                     cameraMapper = camera.camera?.let {
-                        CalibratedCameraAnglePixelMapper(it)
+                        CalibratedCameraAnglePixelMapper(it, AugmentedRealityUtils.defaultMapper)
                     }
                 }
             }
