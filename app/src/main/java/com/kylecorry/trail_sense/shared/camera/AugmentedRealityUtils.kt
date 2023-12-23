@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.camera
 
 import android.graphics.RectF
 import android.opengl.Matrix
+import com.kylecorry.andromeda.camera.ar.CameraAnglePixelMapper
 import com.kylecorry.andromeda.camera.ar.LinearCameraAnglePixelMapper
 import com.kylecorry.andromeda.camera.ar.PerspectiveCameraAnglePixelMapper
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -31,9 +32,10 @@ object AugmentedRealityUtils {
     private const val maxDistance = 1000f
 
     private val linear = LinearCameraAnglePixelMapper()
-    private val perspective = PerspectiveCameraAnglePixelMapper(minDistance, maxDistance)
     private val rect = RectF()
     private val rectLock = Any()
+
+    val defaultMapper = PerspectiveCameraAnglePixelMapper(minDistance, maxDistance)
 
     /**
      * Gets the pixel coordinate of a point on the screen given the bearing and azimuth. The point is considered to be on a plane.
@@ -98,7 +100,7 @@ object AugmentedRealityUtils {
      * @param bearing The compass bearing in degrees of the point
      * @param elevation The elevation in degrees of the point
      * @param rotationMatrix The rotation matrix of the device in the AR coordinate system
-     * @param size The size of the view in pixels
+     * @param rect The rectangle of the view in pixels
      * @param fov The field of view of the camera in degrees
      */
     fun getPixel(
@@ -106,27 +108,24 @@ object AugmentedRealityUtils {
         elevation: Float,
         distance: Float,
         rotationMatrix: FloatArray,
-        size: Size,
-        fov: Size
+        rect: RectF,
+        fov: Size,
+        mapperOverride: CameraAnglePixelMapper? = null
     ): PixelCoordinate {
         val d = distance.coerceIn(minDistance, maxDistance)
 
         // Negate the rotation of the device
         val spherical = toRelative(bearing, elevation, d, rotationMatrix)
 
-        val mapper = perspective
+        val mapper = mapperOverride ?: defaultMapper
 
-        return synchronized(rectLock) {
-            rect.right = size.width
-            rect.bottom = size.height
-            mapper.getPixel(
-                spherical.first,
-                spherical.second,
-                rect,
-                fov,
-                d
-            )
-        }
+        return mapper.getPixel(
+            spherical.first,
+            spherical.second,
+            rect,
+            fov,
+            d
+        )
     }
 
     /**
