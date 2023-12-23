@@ -13,6 +13,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.findViewTreeLifecycleOwner
+import com.kylecorry.andromeda.camera.ar.CameraAnglePixelMapper
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.TextAlign
 import com.kylecorry.andromeda.canvas.TextMode
@@ -36,6 +37,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.text
 import com.kylecorry.trail_sense.shared.textDimensions
 import com.kylecorry.trail_sense.shared.views.CameraView
+import com.kylecorry.trail_sense.shared.views.camera.CalibratedCameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPoint
 import kotlinx.coroutines.Dispatchers
 import java.time.Duration
@@ -63,6 +65,7 @@ class AugmentedRealityView : CanvasView {
     private val orientation = FloatArray(3)
     private var size = Size(width.toFloat(), height.toFloat())
     private var previewSize: Size? = null
+    private var cameraMapper: CameraAnglePixelMapper? = null
 
     // Sensors / preferences
     private val userPrefs = UserPreferences(context)
@@ -126,7 +129,6 @@ class AugmentedRealityView : CanvasView {
 
     // Camera binding
     private var camera: CameraView? = null
-    private var lastSize: android.util.Size? = null
     private val fovRunner = CoroutineQueueRunner(1, dispatcher = Dispatchers.Main)
     private var owner: LifecycleOwner? = null
     private val lifecycleObserver = LifecycleEventObserver { _, event ->
@@ -387,7 +389,8 @@ class AugmentedRealityView : CanvasView {
             coordinate.distance,
             rotationMatrix,
             previewSize ?: size,
-            fov
+            fov,
+            cameraMapper
         )
     }
 
@@ -462,6 +465,7 @@ class AugmentedRealityView : CanvasView {
         owner?.lifecycle?.removeObserver(lifecycleObserver)
         syncTimer.stop()
         fovRunner.cancel()
+        cameraMapper = null
         camera = null
         owner = null
     }
@@ -500,6 +504,11 @@ class AugmentedRealityView : CanvasView {
                         Size(it.width.toFloat(), it.height.toFloat())
                     }
                     // TODO: Handle when the the scale type is not fit center - will need an offset
+                }
+                if (cameraMapper == null) {
+                    cameraMapper = camera.camera?.let {
+                        CalibratedCameraAnglePixelMapper(it)
+                    }
                 }
             }
         }

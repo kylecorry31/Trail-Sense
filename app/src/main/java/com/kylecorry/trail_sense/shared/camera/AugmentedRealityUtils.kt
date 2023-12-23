@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.camera
 
 import android.graphics.RectF
 import android.opengl.Matrix
+import com.kylecorry.andromeda.camera.ar.CameraAnglePixelMapper
 import com.kylecorry.andromeda.camera.ar.LinearCameraAnglePixelMapper
 import com.kylecorry.andromeda.camera.ar.PerspectiveCameraAnglePixelMapper
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -107,14 +108,15 @@ object AugmentedRealityUtils {
         distance: Float,
         rotationMatrix: FloatArray,
         size: Size,
-        fov: Size
+        fov: Size,
+        mapperOverride: CameraAnglePixelMapper? = null
     ): PixelCoordinate {
         val d = distance.coerceIn(minDistance, maxDistance)
 
         // Negate the rotation of the device
         val spherical = toRelative(bearing, elevation, d, rotationMatrix)
 
-        val mapper = perspective
+        val mapper = mapperOverride ?: perspective
 
         return synchronized(rectLock) {
             rect.right = size.width

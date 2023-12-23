@@ -17,19 +17,18 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.camera.Camera
-import com.kylecorry.andromeda.camera.ICamera
 import com.kylecorry.andromeda.camera.ImageCaptureSettings
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
 import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.views.camera.Camera
 import java.io.File
 import kotlin.math.abs
 
 class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
 
-    var camera: ICamera? = null
+    var camera: Camera? = null
 
     private var lastFov: Pair<Float, Float>? = null
 
