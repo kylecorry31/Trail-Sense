@@ -389,22 +389,6 @@ class AugmentedRealityView : CanvasView {
             previewSize ?: size,
             fov
         )
-
-//        val spherical = AugmentedRealityUtils.toRelative(
-//            bearing,
-//            coordinate.elevation,
-//            coordinate.distance,
-//            rotationMatrix
-//        )
-//
-//        return camera?.camera?.angleToPreviewPixel(
-//            spherical.first,
-//            spherical.second,
-//            coordinate.distance,
-//            outputReference = Camera.AnglePointReference.PreviewView,
-//            cropToView = false,
-////            mapper = PerspectiveCameraAnglePixelMapper(0.1f, 1000f)
-//        ) ?: PixelCoordinate(-1000f, -1000f)
     }
 
     fun toPixel(coordinate: Coordinate, elevation: Float? = null): PixelCoordinate {
