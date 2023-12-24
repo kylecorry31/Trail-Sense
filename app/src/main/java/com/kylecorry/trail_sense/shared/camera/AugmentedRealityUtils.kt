@@ -4,7 +4,7 @@ import android.graphics.RectF
 import android.opengl.Matrix
 import com.kylecorry.andromeda.camera.ar.CameraAnglePixelMapper
 import com.kylecorry.andromeda.camera.ar.LinearCameraAnglePixelMapper
-import com.kylecorry.andromeda.camera.ar.PerspectiveCameraAnglePixelMapper
+import com.kylecorry.andromeda.camera.ar.SimplePerspectiveCameraAnglePixelMapper
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.andromeda.sense.orientation.OrientationUtils
@@ -35,7 +35,7 @@ object AugmentedRealityUtils {
     private val rect = RectF()
     private val rectLock = Any()
 
-    val defaultMapper = PerspectiveCameraAnglePixelMapper(minDistance, maxDistance)
+    val defaultMapper = SimplePerspectiveCameraAnglePixelMapper()
 
     /**
      * Gets the pixel coordinate of a point on the screen given the bearing and azimuth. The point is considered to be on a plane.
