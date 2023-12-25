@@ -563,7 +563,6 @@
     <string name="battery_power_usb">USB</string>
     <string name="battery_power_ac">AC</string>
     <string name="tool_thermometer_title">Termometar</string>
-    <string name="guide_thermometer_calibration_title">Kalibracija termometra</string>
     <string name="delete_tide_prompt">Izbrisati plimu\?</string>
     <string name="delete_waypoint_prompt">Izbrisati međutočku\?</string>
     <string name="coordinate_input_invalid_location">Nevaljana lokacija</string>

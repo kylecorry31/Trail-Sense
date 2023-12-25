@@ -445,7 +445,6 @@
     <string name="battery_power_usb">USB</string>
     <string name="battery_power_ac">AC</string>
     <string name="tool_thermometer_title">Termómetro</string>
-    <string name="guide_thermometer_calibration_title">Calibração do termómetro</string>
     <string name="delete_waypoint_prompt">Eliminar ponto de passagem\?</string>
     <string name="pref_gps_override_title">Localização simulada</string>
     <string name="coordinate_input_invalid_location">Localização inválida</string>

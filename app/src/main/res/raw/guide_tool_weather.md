@@ -16,7 +16,7 @@ For better accuracy, grant Trail Sense Location permission to determine your ele
 
 In Settings > Weather, you can customize the notification to show:
 - **Pressure**: Displays the current pressure.
-- **Temperature**:  Displays the current temperature (refer to Sensors > Thermometer guide for details).
+- **Temperature**:  Displays the current temperature (refer to Thermometer guide for details).
 
 You can also enable daily weather notifications in Settings > Weather > Daily weather notification. Without the Weather Monitor being active, you won't receive these notifications. The timing of this notification is configurable in Settings > Weather > Daily weather time.
 

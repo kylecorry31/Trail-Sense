@@ -265,7 +265,6 @@
     <string name="water_boil_timer_done_content">您的水現在可以飲用</string>
     <string name="disclaimer_message_title">聲明</string>
     <string name="app_disclaimer_message_title">聲明/服務條款</string>
-    <string name="guide_thermometer_calibration_title">溫度計校正</string>
     <string name="theme_sunset_sunrise">日出/日落</string>
     <string name="battery_capacity_format">%s 毫安時</string>
     <string name="current_format">%s 毫安</string>

@@ -667,7 +667,6 @@
     <string name="always">幾時都係</string>
     <string name="beacon_create_beacon">地標</string>
     <string name="coordinate_input_invalid_location">位置無效</string>
-    <string name="guide_thermometer_calibration_title">溫度計校正</string>
     <string name="tool_thermometer_title">溫度計</string>
     <string name="guide_barometer_calibration_title">氣壓計校正</string>
     <string name="unsaved_changes">未儲存更改</string>

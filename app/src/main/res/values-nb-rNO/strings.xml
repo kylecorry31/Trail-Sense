@@ -321,7 +321,6 @@
     <string name="pref_low_power_mode_title">Strømsparingsmodus</string>
     <string name="guide_barometer_calibration_title">Barometerkalibrering</string>
     <string name="tool_thermometer_title">Termometer</string>
-    <string name="guide_thermometer_calibration_title">Termometerkalibrering</string>
     <string name="coordinate_format_mgrs">MGRS</string>
     <string name="coordinate_format_utm">UTM</string>
     <string name="pref_gps_override_title">Sett posisjon</string>

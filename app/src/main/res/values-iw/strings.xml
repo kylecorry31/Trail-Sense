@@ -578,7 +578,6 @@
     <string name="gps_searching">מחפש</string>
     <string name="delete_waypoint_prompt">למחוק נקודת ציון\?</string>
     <string name="delete_tide_prompt">למחוק גאות\?</string>
-    <string name="guide_thermometer_calibration_title">כיול מדחום</string>
     <string name="tool_thermometer_title">מד חום</string>
     <string name="battery_power_ac">מיזוג אוויר</string>
     <string name="battery_power_usb">USB</string>

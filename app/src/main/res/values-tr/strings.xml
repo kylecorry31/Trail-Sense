@@ -491,7 +491,6 @@
     <string name="battery_power_wireless">Kablosuz</string>
     <string name="battery_power_usb">USB</string>
     <string name="tool_thermometer_title">Termometre</string>
-    <string name="guide_thermometer_calibration_title">Termometre kalibrasyonu</string>
     <string name="pref_gps_override_title">Konumun üzerine yaz</string>
     <string name="coordinate_input_invalid_location">Geçersiz konum</string>
     <string name="location_input_help">Ondalık dereceler (örn. 1.00, -2.00)

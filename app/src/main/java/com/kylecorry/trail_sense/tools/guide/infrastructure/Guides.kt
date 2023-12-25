@@ -52,12 +52,12 @@ object Guides {
             context.getString(R.string.sensors),
             listOfNotNull(
                 if (Sensors.hasBarometer(context)) UserGuide(
-                    context.getString(R.string.guide_barometer_calibration_title),
+                    context.getString(R.string.barometer),
                     null,
                     R.raw.calibrating_barometer
                 ) else null,
                 UserGuide(
-                    context.getString(R.string.guide_thermometer_calibration_title),
+                    context.getString(R.string.tool_thermometer_title),
                     null,
                     R.raw.calibrating_thermometer
                 ),

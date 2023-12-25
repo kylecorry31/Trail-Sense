@@ -715,7 +715,6 @@
     <string name="cumulus_forecast" tools:ignore="PluralsCandidate">Saattaa osoittaa hyvän sään. Jos kasvaa korkeammaksi, se voi tarkoittaa sadetta tai ukkosmyrskyä seuraavien %d tunnin aikana.</string>
     <string name="pressure_system">Painejärjestelmä</string>
     <string name="pref_privacy_policy_title">Tietosuojakäytäntö</string>
-    <string name="guide_thermometer_calibration_title">Lämpömittarin kalibrointi</string>
     <string name="season_summer">Kesä</string>
     <string name="odometer">Matkamittari</string>
     <string name="solar_eclipses">Auringonpimennykset</string>

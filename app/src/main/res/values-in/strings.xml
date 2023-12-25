@@ -541,7 +541,6 @@
     <string name="pref_gps_override_title">Penggantian lokasi</string>
     <string name="delete_waypoint_prompt">Hapus titik jalan\?</string>
     <string name="delete_tide_prompt">Hapus air pasang\?</string>
-    <string name="guide_thermometer_calibration_title">Kalibrasi termometer</string>
     <string name="tool_thermometer_title">Termometer</string>
     <string name="battery_power_ac">AC</string>
     <string name="battery_power_usb">USB</string>

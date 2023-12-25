@@ -325,7 +325,6 @@
     <string name="battery_power_usb">USB</string>
     <string name="battery_power_ac">Courant alternatif</string>
     <string name="tool_thermometer_title">Thermomètre</string>
-    <string name="guide_thermometer_calibration_title">Étalonnage du thermomètre</string>
     <string name="delete_waypoint_prompt">Supprimer le point de passage \?</string>
     <string name="coordinate_input_invalid_location">Position invalide</string>
     <string name="location_input_help">Degrés (ex. 1.00, -2.00)

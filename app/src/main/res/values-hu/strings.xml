@@ -712,7 +712,6 @@
     <string name="coordinate_input_invalid_location">Érvénytelen hely</string>
     <string name="delete_waypoint_prompt">Útvonalpont törlése\?</string>
     <string name="delete_tide_prompt">Árapály törlése\?</string>
-    <string name="guide_thermometer_calibration_title">Hőmérő kalibráció</string>
     <string name="tool_thermometer_title">Hőmérő</string>
     <string name="battery_power_ac">AC</string>
     <string name="unsaved_changes">Nem Mentett Változtatások</string>

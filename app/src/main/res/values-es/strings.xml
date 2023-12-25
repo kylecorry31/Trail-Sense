@@ -356,7 +356,6 @@
     <string name="map_distance">Mapa: %s</string>
     <string name="map_fractional_separator">:</string>
     <string name="map_scale_title">Escala del Mapa</string>
-    <string name="guide_thermometer_calibration_title">Calibración del termómetro</string>
     <string name="action_inventory_clear_confirm">¿Borrar todas las cantidades empaquetadas\?</string>
     <plurals name="water_boil_timer_content">
         <item quantity="one">%d segundo hasta que sea potable</item>

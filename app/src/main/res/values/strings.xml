@@ -504,7 +504,6 @@
     <string name="pref_gps_override_title">Location override</string>
     <string name="delete_waypoint_prompt">Delete waypoint?</string>
     <string name="delete_tide_prompt">Delete tide?</string>
-    <string name="guide_thermometer_calibration_title">Thermometer calibration</string>
     <string name="tool_thermometer_title">Thermometer</string>
     <string name="battery_power_ac">AC</string>
     <string name="battery_power_usb">USB</string>

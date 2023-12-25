@@ -305,7 +305,6 @@
     <string name="map_fractional_separator">:</string>
     <string name="map_distance">Karte: %s</string>
     <string name="guide_barometer_calibration_title">Eichung des Barometers</string>
-    <string name="guide_thermometer_calibration_title">Eichung des Thermometers</string>
     <string name="delete_waypoint_prompt">Wegpunkt löschen\?</string>
     <string name="coordinate_input_invalid_location">Ungültige Ortsangabe</string>
     <string name="location_input_help_title">Unterstützte Ortsformate</string>

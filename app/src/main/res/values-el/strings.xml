@@ -568,7 +568,6 @@
     <string name="import_gpx">Εισαγωγή GPX</string>
     <string name="cumulus_forecast" tools:ignore="PluralsCandidate">Ίσως υποδεικνύουν αίθριο καιρό. Εάν αναπτυχθούν σε ύψος, ίσως σημαίνει υετό ή καταιγίδα τις επόμενες %d ώρες.</string>
     <string name="pref_privacy_policy_title">Πολιτική απορρήτου</string>
-    <string name="guide_thermometer_calibration_title">Βαθμονόμηση θερμομέτρου</string>
     <string name="cirrocumulus">Θυσανοσωρείτες</string>
     <string name="unit_centimeters_abbreviation">cm</string>
     <string name="odometer">Χιλιομετρητής</string>

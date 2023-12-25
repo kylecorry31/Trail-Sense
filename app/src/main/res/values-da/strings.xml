@@ -687,7 +687,6 @@
     <string name="location_input_help_title">Understøttede lokationsformater</string>
     <string name="battery_power_ac">Vekselstrøm</string>
     <string name="coordinate_input_invalid_location">Ugyldig placering</string>
-    <string name="guide_thermometer_calibration_title">Termometerkalibrering</string>
     <string name="battery_power_wireless">Trådløs</string>
     <string name="guide_barometer_calibration_title">Barometerkalibrering</string>
     <string name="pref_low_power_mode_title">Strømsparetilstand</string>

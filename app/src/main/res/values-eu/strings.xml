@@ -299,7 +299,6 @@
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="guide_barometer_calibration_title">Barometroaren kalibrazioa</string>
     <string name="charging_wireless">Kargatzen (%s)</string>
-    <string name="guide_thermometer_calibration_title">Termometroaren kalibrazioa</string>
     <string name="create_beacon">Baliza sortu</string>
     <string name="pref_monitor_weather_title">Eguraldia monitorizatu</string>
     <string name="preview">Aurrebista</string>

@@ -272,7 +272,6 @@
     <string name="battery_power_usb">USB</string>
     <string name="battery_power_ac">wisselspanning</string>
     <string name="tool_thermometer_title">Thermometer</string>
-    <string name="guide_thermometer_calibration_title">IJking van de thermometer</string>
     <string name="delete_tide_prompt">Getijde verwijderen\?</string>
     <string name="delete_waypoint_prompt">Routepunt verwijderen\?</string>
     <string name="pref_gps_override_title">Locatie overschrijven</string>
