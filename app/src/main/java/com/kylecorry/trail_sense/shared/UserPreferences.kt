@@ -185,7 +185,7 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
             _theme = value
         }
 
-    val useDynamicColors = false
+    val useDynamicColors = true
 
     // Calibration
 

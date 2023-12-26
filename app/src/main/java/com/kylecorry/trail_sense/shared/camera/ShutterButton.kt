@@ -5,6 +5,8 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.view.MotionEvent
 import com.kylecorry.andromeda.canvas.CanvasView
+import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import kotlin.math.min
 
@@ -16,17 +18,19 @@ class ShutterButton(context: Context, attrs: AttributeSet? = null) : CanvasView(
 
     private var outlineThickness: Float = 0f
     private var isShutterPressed = false
+    private var shutterColor: Int = Color.BLACK
 
     override fun draw() {
         val diameter = min(width, height).toFloat()
         clear()
-        stroke(AppColor.Orange.color)
+        stroke(shutterColor)
         strokeWeight(outlineThickness)
-        fill(if (isShutterPressed) AppColor.Orange.color else Color.WHITE)
+        fill(if (isShutterPressed) shutterColor else Color.WHITE)
         circle(width / 2f, height / 2f, diameter - outlineThickness * 2)
     }
 
     override fun setup() {
+        shutterColor = Resources.getPrimaryColor(context)
         outlineThickness = dp(4f)
     }
 

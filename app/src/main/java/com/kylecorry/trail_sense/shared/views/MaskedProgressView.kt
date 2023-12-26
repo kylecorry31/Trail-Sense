@@ -11,6 +11,7 @@ import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import kotlin.math.min
 
@@ -81,7 +82,7 @@ class MaskedProgressView : CanvasView {
         progressColor = try {
             a.getColorOrThrow(R.styleable.MaskedProgressView_android_progressTint)
         } catch (e: Exception){
-            Resources.color(context, R.color.orange_40)
+            Resources.getPrimaryColor(context)
         }
 
         horizontal = a.getBoolean(R.styleable.MaskedProgressView_horizontal, true)

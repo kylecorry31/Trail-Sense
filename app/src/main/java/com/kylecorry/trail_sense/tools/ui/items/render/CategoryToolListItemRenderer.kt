@@ -6,6 +6,7 @@ import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.trail_sense.databinding.ListItemToolBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.tools.ui.items.ToolListItem
 
 class CategoryToolListItemRenderer : ToolListItemRenderer {
@@ -23,12 +24,7 @@ class CategoryToolListItemRenderer : ToolListItemRenderer {
         binding.root.elevation = 0f
 
         // Text
-        binding.title.setTextColor(
-            Resources.getAndroidColorAttr(
-                context,
-                android.R.attr.colorPrimary
-            )
-        )
+        binding.title.setTextColor(Resources.getPrimaryColor(context))
         binding.title.paint.isFakeBoldText = true
         binding.title.textSize = 14f
         binding.title.text = item.title?.capitalizeWords()

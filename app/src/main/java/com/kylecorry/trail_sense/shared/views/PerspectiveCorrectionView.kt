@@ -14,6 +14,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.ImageMagnifier
 import com.kylecorry.trail_sense.tools.maps.domain.PercentBounds
@@ -73,7 +74,7 @@ class PerspectiveCorrectionView : CanvasView {
     }
 
     override fun setup() {
-        primaryColor = Resources.color(context, R.color.orange_40)
+        primaryColor = AppColor.Orange.color
     }
 
     override fun draw() {

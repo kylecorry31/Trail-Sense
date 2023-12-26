@@ -12,6 +12,7 @@ import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatter
@@ -31,7 +32,7 @@ class PressureChart(
     private var margin = 1f
     private var clickable = selectionListener != null
 
-    private val color = Resources.getAndroidColorAttr(chart.context, androidx.appcompat.R.attr.colorPrimary)
+    private val color = Resources.getPrimaryColor(chart.context)
 
     private val rawLine = LineChartLayer(
         emptyList(),

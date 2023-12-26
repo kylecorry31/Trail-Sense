@@ -19,6 +19,7 @@ import com.kylecorry.sol.units.Bearing
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolSolarPanelBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
@@ -118,13 +119,13 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
         setButtonState(
             binding.solarTodayBtn,
             alignToRestOfDay,
-            Resources.getAndroidColorAttr(requireContext(), androidx.appcompat.R.attr.colorPrimary),
+            Resources.getPrimaryColor(requireContext()),
             Resources.color(requireContext(), R.color.colorSecondary)
         )
         setButtonState(
             binding.solarNowBtn,
             !alignToRestOfDay,
-            Resources.getAndroidColorAttr(requireContext(), androidx.appcompat.R.attr.colorPrimary),
+            Resources.getPrimaryColor(requireContext()),
             Resources.color(requireContext(), R.color.colorSecondary)
         )
     }

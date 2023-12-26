@@ -11,8 +11,10 @@ import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.getValuesBetween
 
 class LinearCompassView : BaseCompassView {
@@ -67,15 +69,18 @@ class LinearCompassView : BaseCompassView {
     private fun drawCompass() {
         val values = getValuesBetween(rawMinimum, rawMaximum, 5f).map { it.toInt() }
 
+        val primaryColor = AppColor.Orange.color
+        val secondaryColor = Resources.androidTextColorPrimary(context)
+
         values.forEach {
             val x = toPixel(it.toFloat())
 
             // Set the color
             if (it % 45 == 0) {
-                stroke(Resources.color(context, R.color.orange_40))
+                stroke(primaryColor)
                 strokeWeight(8f)
             } else {
-                stroke(Resources.androidTextColorPrimary(context))
+                stroke(secondaryColor)
                 strokeWeight(8f)
             }
 
@@ -103,7 +108,7 @@ class LinearCompassView : BaseCompassView {
                     else -> ""
                 }
                 noStroke()
-                fill(Resources.androidTextColorPrimary(context))
+                fill(secondaryColor)
                 textMode(TextMode.Corner)
                 text(coord, x, 5 / 12f * height)
             }

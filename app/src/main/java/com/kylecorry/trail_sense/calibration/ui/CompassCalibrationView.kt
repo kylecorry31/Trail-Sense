@@ -6,10 +6,12 @@ import android.graphics.Path
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import com.kylecorry.andromeda.canvas.CanvasView
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import kotlin.math.PI
 import kotlin.math.atan2
@@ -24,6 +26,7 @@ class CompassCalibrationView : CanvasView {
     private var figure8Height: Float = 0f
     private var phoneHeight: Float = 0f
     private var phoneWidth: Float = 0f
+    private var arrowColor: Int = Color.BLACK
 
     private val tMin = -(PI / 2).toFloat()
     private val tMax = ((3 * PI) / 2).toFloat()
@@ -40,6 +43,7 @@ class CompassCalibrationView : CanvasView {
     )
 
     override fun setup() {
+        arrowColor = Resources.getPrimaryColor(context)
         figure8Width = width.toFloat() * 0.8f / 2f
         figure8Height = height.toFloat() * 0.8f / 2f
 
@@ -114,7 +118,7 @@ class CompassCalibrationView : CanvasView {
         val screenHeight = phoneHeight * 0.8f
         rect(-screenWidth / 2f, -screenHeight / 2f, screenWidth, screenHeight)
 
-        fill(AppColor.Orange.color)
+        fill(arrowColor)
         triangle(-15f, 0f, 0f, -15f, 15f, 0f)
     }
 

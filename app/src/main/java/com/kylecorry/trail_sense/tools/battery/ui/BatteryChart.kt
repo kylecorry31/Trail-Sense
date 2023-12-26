@@ -1,10 +1,12 @@
 package com.kylecorry.trail_sense.tools.battery.ui
 
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.ceres.chart.Chart
 import com.kylecorry.ceres.chart.data.AreaChartLayer
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReading
 
@@ -36,7 +38,7 @@ class BatteryChart(private val chart: Chart) {
             it
         }
 
-        val color = AppColor.Orange.color
+        val color = Resources.getPrimaryColor(chart.context)
 
         chart.plot(
             AreaChartLayer(data, color, color.withAlpha(150)),

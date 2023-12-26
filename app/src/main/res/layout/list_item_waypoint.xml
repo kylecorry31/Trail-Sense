@@ -60,17 +60,4 @@
         app:srcCompat="@drawable/ic_menu_dots"
         app:tint="?android:textColorSecondary" />
 
-
-    <!--    <ImageView-->
-    <!--        android:id="@+id/waypoint_image"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginStart="16dp"-->
-    <!--        android:alpha="0.86"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:srcCompat="@drawable/ic_location"-->
-    <!--        app:tint="@color/colorPrimary" />-->
-
 </androidx.constraintlayout.widget.ConstraintLayout>

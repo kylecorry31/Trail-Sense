@@ -15,6 +15,7 @@ import com.kylecorry.ceres.list.ListItemTag
 import com.kylecorry.ceres.list.ListMenuItem
 import com.kylecorry.ceres.list.ResourceListIcon
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
@@ -56,7 +57,7 @@ class MapMapper(
                     ListItemTag(
                         context.getString(R.string.on_map),
                         null,
-                        AppColor.Orange.color
+                        Resources.getPrimaryColor(context)
                     )
                 } else {
                     null

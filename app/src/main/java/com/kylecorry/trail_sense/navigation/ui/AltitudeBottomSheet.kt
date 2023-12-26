@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentAltitudeHistoryBinding
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.data.DataUtils
@@ -50,7 +51,7 @@ class AltitudeBottomSheet : BoundBottomSheetDialogFragment<FragmentAltitudeHisto
     private var historyDuration = maxHistoryDuration
 
     private val elevationLine by lazy {
-        val color = Resources.getAndroidColorAttr(requireContext(), androidx.appcompat.R.attr.colorPrimary)
+        val color = Resources.getPrimaryColor(requireContext())
         AreaChartLayer(
             emptyList(),
             color,

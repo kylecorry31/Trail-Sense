@@ -10,6 +10,7 @@ import android.util.TypedValue
 import android.view.View
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import java.time.LocalTime
 import kotlin.math.cos
 import kotlin.math.min
@@ -71,7 +72,7 @@ class ClockView : View {
         val handRadius =
             if (isHour) radius - handTruncation - hourHandTruncation else radius - handTruncation
         if (isHour) {
-            paint.color = Resources.color(context, R.color.orange_40)
+            paint.color = AppColor.Orange.color
         } else {
             paint.color = Color.WHITE
         }

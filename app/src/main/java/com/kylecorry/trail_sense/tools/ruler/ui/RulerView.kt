@@ -11,6 +11,7 @@ import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import kotlin.math.roundToInt
@@ -62,7 +63,7 @@ class RulerView : CanvasView {
         dpi = Screen.ydpi(context)
         scale = prefs.navigation.rulerScale
         lineColor = Resources.androidTextColorPrimary(context)
-        highlightColor = AppColor.Orange.color
+        highlightColor = Resources.getPrimaryColor(context)
         offset = dp(8f)
         wholeSize = dp(40f)
         halfSize = dp(24f)
