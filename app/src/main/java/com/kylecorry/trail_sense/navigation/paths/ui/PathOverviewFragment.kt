@@ -62,6 +62,7 @@ import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.MyAccuracyLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.PathLayer
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -163,8 +164,8 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         super.onResume()
         layerManager = MultiLayerManager(
             listOf(
-                MyAccuracyLayerManager(myAccuracyLayer, AppColor.Orange.color, 25),
-                MyLocationLayerManager(myLocationLayer, AppColor.Orange.color)
+                MyAccuracyLayerManager(myAccuracyLayer, Resources.getPrimaryMarkerColor(requireContext()), 25),
+                MyLocationLayerManager(myLocationLayer, Resources.getPrimaryMarkerColor(requireContext()))
             )
         )
         layerManager?.start()

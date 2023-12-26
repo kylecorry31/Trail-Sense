@@ -12,10 +12,10 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.ui.DistanceScale
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.colors.AppColor
 
 
 class PhotoMapView : BasePhotoMapView {
@@ -27,6 +27,8 @@ class PhotoMapView : BasePhotoMapView {
     private val formatService by lazy { FormatService.getInstance(context) }
     private val scaleBar = Path()
     private val distanceScale = DistanceScale()
+
+    private var cardinalDirectionColor: Int = Color.WHITE
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -63,6 +65,11 @@ class PhotoMapView : BasePhotoMapView {
         }
     }
 
+    override fun setup() {
+        super.setup()
+        cardinalDirectionColor = Resources.getCardinalDirectionColor(context)
+    }
+
     // TODO: Extract this (same way as scale)
     private fun drawCompass() {
         val compassSize = drawer.dp(24f)
@@ -84,7 +91,7 @@ class PhotoMapView : BasePhotoMapView {
 
         // Top triangle
         drawer.noStroke()
-        drawer.fill(AppColor.Orange.color)
+        drawer.fill(cardinalDirectionColor)
         drawer.triangle(
             location.x,
             location.y - compassSize / 2f + arrowMargin,

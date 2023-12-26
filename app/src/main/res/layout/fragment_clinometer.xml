@@ -71,7 +71,7 @@
                 android:layout_width="60dp"
                 android:layout_height="1dp"
                 android:layout_gravity="center"
-                android:background="@color/orange_40" />
+                android:background="?attr/colorPrimary" />
         </FrameLayout>
 
         <com.kylecorry.trail_sense.tools.clinometer.ui.CameraClinometerView

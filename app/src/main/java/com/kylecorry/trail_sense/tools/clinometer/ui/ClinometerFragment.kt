@@ -29,6 +29,7 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentClinometerBinding
 import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
@@ -336,7 +337,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         markerLayer.addMarker(
             ARMarker(
                 startPoint,
-                CanvasCircle(AppColor.Orange.color)
+                CanvasCircle(Resources.getPrimaryMarkerColor(requireContext()))
             )
         )
     }
@@ -359,7 +360,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         markerLayer.addMarker(
             ARMarker(
                 endPoint,
-                CanvasCircle(AppColor.Orange.color)
+                CanvasCircle(Resources.getPrimaryMarkerColor(requireContext()))
             )
         )
     }

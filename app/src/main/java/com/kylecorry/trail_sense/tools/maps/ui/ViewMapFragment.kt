@@ -10,6 +10,7 @@ import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.system.GeoUri
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
@@ -31,6 +32,7 @@ import com.kylecorry.trail_sense.navigation.ui.layers.NavigationLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.PathLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.TideLayer
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Position
@@ -110,8 +112,8 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         layerManager = MultiLayerManager(
             listOf(
                 PathLayerManager(requireContext(), pathLayer),
-                MyAccuracyLayerManager(myAccuracyLayer, AppColor.Orange.color),
-                MyLocationLayerManager(myLocationLayer, AppColor.Orange.color),
+                MyAccuracyLayerManager(myAccuracyLayer, Resources.getPrimaryMarkerColor(requireContext())),
+                MyLocationLayerManager(myLocationLayer, Resources.getPrimaryMarkerColor(requireContext())),
                 TideLayerManager(requireContext(), tideLayer),
                 BeaconLayerManager(requireContext(), beaconLayer),
                 NavigationLayerManager(requireContext(), navigationLayer)

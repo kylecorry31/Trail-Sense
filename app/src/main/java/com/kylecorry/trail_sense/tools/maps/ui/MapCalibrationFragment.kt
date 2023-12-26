@@ -23,6 +23,7 @@ import com.kylecorry.trail_sense.navigation.ui.layers.MyAccuracyLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.PathLayer
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.GPSDeclinationStrategy
 import com.kylecorry.trail_sense.shared.extensions.onMain
@@ -87,8 +88,8 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
         layerManager = MultiLayerManager(
             listOf(
                 PathLayerManager(requireContext(), pathLayer),
-                MyAccuracyLayerManager(myAccuracyLayer, AppColor.Orange.color),
-                MyLocationLayerManager(myLocationLayer, AppColor.Orange.color),
+                MyAccuracyLayerManager(myAccuracyLayer, Resources.getPrimaryMarkerColor(requireContext())),
+                MyLocationLayerManager(myLocationLayer, Resources.getPrimaryMarkerColor(requireContext())),
                 BeaconLayerManager(requireContext(), beaconLayer)
             )
         )

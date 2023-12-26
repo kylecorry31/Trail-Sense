@@ -24,7 +24,7 @@ class CreateLastSignalBeaconCommand(private val context: Context) {
                 context.getString(
                     R.string.last_signal_beacon_name,
                     formatter.formatCellNetwork(
-                        CellNetwork.values()
+                        CellNetwork.entries
                             .first { it.id == point.cellSignal.network.id }
                     ),
                     formatter.formatQuality(point.cellSignal.quality)

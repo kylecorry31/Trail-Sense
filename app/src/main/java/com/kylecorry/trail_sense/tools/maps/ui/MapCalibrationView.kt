@@ -5,6 +5,8 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.view.MotionEvent
 import com.kylecorry.andromeda.canvas.TextMode
+import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
@@ -24,8 +26,15 @@ class MapCalibrationView : BasePhotoMapView {
 
     private var movePending = true
 
+    private var highlightedColor: Int = Color.WHITE
+
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
+
+    override fun setup() {
+        super.setup()
+        highlightedColor = Resources.getPrimaryMarkerColor(context)
+    }
 
     override fun postDraw() {
         super.postDraw()
@@ -62,7 +71,8 @@ class MapCalibrationView : BasePhotoMapView {
         calibrationPoints = calibrationPoints.sortedBy { it.first == highlightedIndex }
 
         for ((i, point) in calibrationPoints) {
-            val sourceCoord = point.imageLocation.rotate(orientation).toPixels(imageWidth, imageHeight)
+            val sourceCoord =
+                point.imageLocation.rotate(orientation).toPixels(imageWidth, imageHeight)
             if (movePending && i == highlightedIndex) {
                 moveTo(sourceCoord.x, sourceCoord.y)
                 movePending = false
@@ -70,7 +80,7 @@ class MapCalibrationView : BasePhotoMapView {
             val coord = toView(sourceCoord.x, sourceCoord.y) ?: continue
             drawer.stroke(Color.WHITE)
             if (i == highlightedIndex) {
-                drawer.fill(AppColor.Orange.color)
+                drawer.fill(highlightedColor)
             } else {
                 drawer.fill(Color.BLACK)
             }

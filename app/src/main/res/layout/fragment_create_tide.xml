@@ -102,9 +102,9 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@drawable/rounded_rectangle"
-                android:backgroundTint="@color/orange_40"
+                android:backgroundTint="?attr/colorPrimary"
                 app:srcCompat="@drawable/ic_add"
-                app:tint="@color/black" />
+                app:tint="?attr/colorOnPrimary" />
 
             <TextView
                 android:id="@+id/tide_time"

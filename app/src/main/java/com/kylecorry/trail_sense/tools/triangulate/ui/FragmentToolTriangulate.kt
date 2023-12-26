@@ -33,6 +33,7 @@ import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.PathLayer
 import com.kylecorry.trail_sense.shared.AppUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
@@ -168,8 +169,22 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
 
         // Show the locations on the map
         beaconLayer.setBeacons(listOfNotNull(
-            location1?.let { Beacon.temporary(it, id = 1, name = "1") },
-            location2?.let { Beacon.temporary(it, id = 2, name = "2") },
+            location1?.let {
+                Beacon.temporary(
+                    it,
+                    id = 1,
+                    name = "1",
+                    color = Resources.getPrimaryMarkerColor(requireContext())
+                )
+            },
+            location2?.let {
+                Beacon.temporary(
+                    it,
+                    id = 2,
+                    name = "2",
+                    color = Resources.getPrimaryMarkerColor(requireContext())
+                )
+            },
             destination?.let { Beacon.temporary(it, id = 3, color = AppColor.Green.color) }
         ))
 
@@ -291,13 +306,13 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
 
         return if (start != null && end != null) {
             val pts = listOf(
-                MappableLocation(0, start, AppColor.Orange.color, null),
-                MappableLocation(0, end, AppColor.Orange.color, null),
+                MappableLocation(0, start, Resources.getPrimaryMarkerColor(requireContext()), null),
+                MappableLocation(0, end, Resources.getPrimaryMarkerColor(requireContext()), null),
             )
             MappablePath(
                 locationIdx.toLong(),
                 if (shouldCalculateMyLocation) pts.reversed() else pts,
-                AppColor.Orange.color, LineStyle.Arrow
+                Resources.getPrimaryMarkerColor(requireContext()), LineStyle.Arrow
             )
         } else {
             null
@@ -377,8 +392,14 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         preferences.putBoolean("state_triangulate_self", shouldCalculateMyLocation)
         preferences.putOrRemoveFloat("state_triangulate_bearing1", binding.bearing1.bearing?.value)
         preferences.putOrRemoveFloat("state_triangulate_bearing2", binding.bearing2.bearing?.value)
-        preferences.putOrRemoveCoordinate("state_triangulate_location1", binding.location1.coordinate)
-        preferences.putOrRemoveCoordinate("state_triangulate_location2", binding.location2.coordinate)
+        preferences.putOrRemoveCoordinate(
+            "state_triangulate_location1",
+            binding.location1.coordinate
+        )
+        preferences.putOrRemoveCoordinate(
+            "state_triangulate_location2",
+            binding.location2.coordinate
+        )
         preferences.putBoolean("state_triangulate_true_north1", binding.bearing1.trueNorth)
         preferences.putBoolean("state_triangulate_true_north2", binding.bearing2.trueNorth)
     }

@@ -87,7 +87,7 @@ data class CreateBeaconData(
                 null,
                 false,
                 beacon.parentId,
-                AppColor.values().fromColor(beacon.color) ?: AppColor.Orange,
+                AppColor.entries.toTypedArray().fromColor(beacon.color) ?: AppColor.Orange,
                 beacon.comment ?: "",
                 beacon.visible,
                 beacon.icon

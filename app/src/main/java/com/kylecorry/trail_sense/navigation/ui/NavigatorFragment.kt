@@ -65,6 +65,7 @@ import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.andromeda.fragments.observeFlow
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.ILayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MultiLayerManager
@@ -172,7 +173,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val useTrueNorth by lazy { userPrefs.compass.useTrueNorth }
 
     private val northReferenceHideTimer = CoroutineTimer {
-        if (isBound){
+        if (isBound) {
             binding.northReferenceIndicator.showLabel = false
         }
     }
@@ -471,7 +472,11 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         layerManager = MultiLayerManager(
             listOf(
                 PathLayerManager(requireContext(), pathLayer),
-                MyAccuracyLayerManager(myAccuracyLayer, AppColor.Orange.color, 25),
+                MyAccuracyLayerManager(
+                    myAccuracyLayer,
+                    Resources.getPrimaryMarkerColor(requireContext()),
+                    25
+                ),
                 MyLocationLayerManager(myLocationLayer, Color.WHITE),
                 TideLayerManager(requireContext(), tideLayer)
             )

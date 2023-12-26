@@ -64,7 +64,7 @@
         android:id="@+id/view_camera_line"
         android:layout_width="1dp"
         android:layout_height="0dp"
-        android:background="@color/orange_40"
+        android:background="?attr/colorPrimary"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/view_camera"
         app:layout_constraintEnd_toEndOf="parent"

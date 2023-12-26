@@ -242,7 +242,7 @@ object CustomUiUtils {
         message: String,
         shownKey: String,
         short: Boolean = true
-    ){
+    ) {
         val prefs = PreferencesSubsystem.getInstance(context).preferences
         if (prefs.getBoolean(shownKey) != true) {
             Alerts.toast(context, message, short)
@@ -442,6 +442,10 @@ object CustomUiUtils {
     }
 
     fun Resources.getCardinalDirectionColor(context: Context): Int {
+        return AppColor.Orange.color // getPrimaryColor(context)
+    }
+
+    fun Resources.getPrimaryMarkerColor(context: Context): Int {
         return AppColor.Orange.color // getPrimaryColor(context)
     }
 
