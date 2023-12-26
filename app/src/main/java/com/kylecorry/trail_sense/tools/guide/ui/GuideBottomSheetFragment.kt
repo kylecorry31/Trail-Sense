@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.method.LinkMovementMethodCompat
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
@@ -29,6 +30,7 @@ class GuideBottomSheetFragment(private val guide: UserGuide) :
                 markdown.toMarkdown(content)
             }
             if (isBound) {
+                binding.guideContents.movementMethod = LinkMovementMethodCompat.getInstance()
                 binding.guideContents.text = spanned
             }
         }

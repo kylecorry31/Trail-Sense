@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.method.LinkMovementMethodCompat
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
@@ -71,6 +72,7 @@ class OnboardingActivity : AppCompatActivity() {
             binding.pageImage.imageTintList =
                 ColorStateList.valueOf(Resources.androidTextColorPrimary(this))
             binding.nextButton.text = pageContents.nextButtonText ?: getString(R.string.next)
+            binding.pageContents.movementMethod = LinkMovementMethodCompat.getInstance()
             if (pageContents.contents is String){
                 markdown.setMarkdown(binding.pageContents, pageContents.contents)
             } else {
