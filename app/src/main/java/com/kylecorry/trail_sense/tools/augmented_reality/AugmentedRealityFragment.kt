@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.camera.view.PreviewView
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.observeFlow
@@ -17,6 +18,7 @@ import com.kylecorry.trail_sense.databinding.FragmentAugmentedRealityBinding
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.infrastructure.Navigator
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
@@ -66,7 +68,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     private val gridLayer by lazy {
         ARGridLayer(
             30,
-            northColor = AppColor.Orange.color,
+            northColor = Resources.getCardinalDirectionColor(requireContext()),
             horizonColor = Color.WHITE,
             labelColor = Color.WHITE,
             color = Color.WHITE.withAlpha(100),

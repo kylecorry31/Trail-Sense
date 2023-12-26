@@ -441,5 +441,8 @@ object CustomUiUtils {
         return getAndroidColorAttr(context, com.google.android.material.R.attr.colorOnPrimary)
     }
 
+    fun Resources.getCardinalDirectionColor(context: Context): Int {
+        return AppColor.Orange.color // getPrimaryColor(context)
+    }
 
 }

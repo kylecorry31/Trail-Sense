@@ -11,6 +11,7 @@ import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
@@ -69,7 +70,7 @@ class LinearCompassView : BaseCompassView {
     private fun drawCompass() {
         val values = getValuesBetween(rawMinimum, rawMaximum, 5f).map { it.toInt() }
 
-        val primaryColor = AppColor.Orange.color
+        val primaryColor = Resources.getCardinalDirectionColor(context)
         val secondaryColor = Resources.androidTextColorPrimary(context)
 
         values.forEach {
