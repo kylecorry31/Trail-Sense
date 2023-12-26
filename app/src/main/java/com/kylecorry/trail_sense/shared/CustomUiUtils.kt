@@ -49,7 +49,7 @@ object CustomUiUtils {
         button.setState(
             state,
             Resources.getPrimaryColor(button.context),
-            Resources.color(button.context, R.color.colorSecondary)
+            Resources.getColorOnPrimary(button.context)
         )
     }
 
@@ -61,7 +61,7 @@ object CustomUiUtils {
         button.setState(
             isOn,
             Resources.getPrimaryColor(button.context),
-            Resources.color(button.context, R.color.colorSecondary)
+            Resources.getColorOnPrimary(button.context)
         )
     }
 
@@ -434,7 +434,11 @@ object CustomUiUtils {
     }
 
     fun Resources.getPrimaryColor(context: Context): Int {
-        return getAndroidColorAttr(context, androidx.appcompat.R.attr.colorPrimary)
+        return getAndroidColorAttr(context, com.google.android.material.R.attr.colorPrimary)
+    }
+
+    fun Resources.getColorOnPrimary(context: Context): Int {
+        return getAndroidColorAttr(context, com.google.android.material.R.attr.colorOnPrimary)
     }
 
 
