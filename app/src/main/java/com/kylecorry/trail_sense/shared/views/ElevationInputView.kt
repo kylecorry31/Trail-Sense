@@ -17,6 +17,7 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.BeaconPickers
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.ClosestBeaconSort
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
@@ -70,6 +71,8 @@ class ElevationInputView(context: Context?, attrs: AttributeSet? = null) :
             elevationInput = findViewById(R.id.elevation_input)
             gpsLoadingIndicator = findViewById(R.id.gps_loading)
             gpsBtn = findViewById(R.id.gps_btn)
+
+            CustomUiUtils.setButtonState(gpsBtn, true)
 
             // Set up elevation input
             elevationInput.defaultHint = it.getString(R.string.elevation)

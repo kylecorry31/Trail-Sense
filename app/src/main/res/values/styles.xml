@@ -17,11 +17,11 @@
         <item name="colorOnTertiaryContainer">?attr/colorOnPrimaryContainer</item>
 
         <!--Surface tint-->
-        <!--TODO: Pick a better surface color-->
         <item name="elevationOverlayEnabled">false</item>
-        <item name="colorSurface">?android:colorBackgroundFloating</item>
+<!--        TODO: Surface color does not work with dynamic theme-->
+        <item name="colorSurface">?attr/colorBackgroundFloating</item>
 
-        <item name="colorAccent">@color/orange_40</item>
+        <item name="colorAccent">?attr/colorPrimary</item>
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="materialButtonStyle">@style/ThemeOverlay.App.ElevatedButton</item>
@@ -76,7 +76,7 @@
     </style>
 
     <style name="SnackBarButtonTheme" parent="@style/Widget.MaterialComponents.Button.TextButton.Snackbar">
-        <item name="android:textColor">@color/orange_40</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
     </style>
 
     <style name="Widget.App.FloatingActionButton" parent="Widget.Material3.FloatingActionButton.Primary">

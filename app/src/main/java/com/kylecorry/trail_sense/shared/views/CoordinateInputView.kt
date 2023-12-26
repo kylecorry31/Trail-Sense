@@ -19,6 +19,7 @@ import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.BeaconPickers
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.ClosestBeaconSort
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import kotlinx.coroutines.CoroutineScope
@@ -69,6 +70,9 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
             helpBtn = findViewById(R.id.coordinate_input_help_btn)
             gpsBtn = findViewById(R.id.gps_btn)
             beaconBtn = findViewById(R.id.beacon_btn)
+
+            CustomUiUtils.setButtonState(gpsBtn, true)
+            CustomUiUtils.setButtonState(beaconBtn, true)
 
             gpsBtn.visibility = View.VISIBLE
             gpsLoadingIndicator.visibility = View.GONE

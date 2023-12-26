@@ -17,6 +17,7 @@ import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.camera.SightingCompassBottomSheetFragment
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
@@ -76,6 +77,8 @@ class BearingInputView(context: Context, attrs: AttributeSet? = null) :
         manualEntryBtn = findViewById(R.id.manual_bearing)
         clearBtn = findViewById(R.id.clear_btn)
         northReferenceBadge = findViewById(R.id.north_reference_badge)
+
+        CustomUiUtils.setButtonState(compassBtn, true)
 
         manualEntryBtn.setOnClickListener {
             pickManualBearing()
