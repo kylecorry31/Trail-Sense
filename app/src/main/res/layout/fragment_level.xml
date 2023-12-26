@@ -35,7 +35,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/orange_40" />
+        app:tint="?attr/colorPrimary" />
 
     <ImageView
         android:id="@+id/crosshairs"
@@ -75,10 +75,10 @@
         android:layout_width="38dp"
         android:layout_height="38dp"
         android:background="@drawable/bubble"
-        android:backgroundTint="@color/orange_40"
+        android:backgroundTint="?attr/colorPrimary"
         android:gravity="center"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="?attr/colorOnPrimary"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/bubble_x_background"
         app:layout_constraintEnd_toEndOf="@+id/bubble_x_background"
@@ -113,10 +113,10 @@
         android:layout_width="38dp"
         android:layout_height="38dp"
         android:background="@drawable/bubble"
-        android:backgroundTint="@color/orange_40"
+        android:backgroundTint="?attr/colorPrimary"
         android:gravity="center"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="?attr/colorOnPrimary"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/bubble_y_background"
