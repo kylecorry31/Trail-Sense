@@ -1,9 +1,13 @@
 package com.kylecorry.trail_sense.settings.ui
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
+import com.google.android.material.color.DynamicColors
+import com.google.android.material.color.DynamicColorsOptions
+import com.google.android.material.color.HarmonizedColors
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.core.system.Resources
@@ -46,7 +50,6 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         R.string.pref_diagnostics to R.id.action_settings_to_diagnostics
     )
 
-    private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
     private val uriPicker by lazy { ActivityUriPicker(requireMainActivity()) }
     private val backupCommand by lazy { BackupCommand(requireContext(), uriPicker) }
     private val restoreCommand by lazy { RestoreCommand(requireContext(), uriPicker) }
@@ -81,6 +84,10 @@ class SettingsFragment : AndromedaPreferenceFragment() {
             val intent = Intents.email(it.summary.toString(), getString(R.string.app_name))
             startActivity(Intent.createChooser(intent, it.title.toString()))
         }
+
+        val dynamicColorsSwitch = switch(R.string.pref_use_dynamic_colors)
+        dynamicColorsSwitch?.isVisible = DynamicColors.isDynamicColorAvailable()
+        reloadThemeOnChange(dynamicColorsSwitch)
 
         val version = Package.getVersionName(requireContext())
         preference(R.string.pref_app_version)?.summary = version

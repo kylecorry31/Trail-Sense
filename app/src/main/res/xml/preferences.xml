@@ -24,6 +24,12 @@
             app:singleLineTitle="false"
             app:title="@string/pref_theme_title"
             app:useSimpleSummaryProvider="true" />
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:icon="@drawable/palette"
+            app:key="@string/pref_use_dynamic_colors"
+            app:singleLineTitle="false"
+            app:title="@string/dynamic_colors" />
         <Preference
             app:icon="@drawable/ic_tool_battery"
             app:key="@string/pref_power_settings"
