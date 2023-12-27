@@ -7,6 +7,7 @@
         <!--Primary color-->
         <item name="colorPrimary">@color/orange_40</item>
         <item name="colorOnPrimary">@color/orange_10</item>
+        <item name="colorAccent">?attr/colorPrimary</item>
 
         <!--Containers-->
         <item name="colorPrimaryContainer">@color/orange_40_transparent</item>
@@ -16,12 +17,6 @@
         <item name="colorOnSecondaryContainer">?attr/colorOnPrimaryContainer</item>
         <item name="colorOnTertiaryContainer">?attr/colorOnPrimaryContainer</item>
 
-        <!--Surface tint-->
-        <item name="elevationOverlayEnabled">false</item>
-<!--        TODO: Surface color does not work with dynamic theme-->
-        <item name="colorSurface">?attr/colorBackgroundFloating</item>
-
-        <item name="colorAccent">?attr/colorPrimary</item>
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="materialButtonStyle">@style/ThemeOverlay.App.ElevatedButton</item>
@@ -89,7 +84,7 @@
 
     <style name="SearchViewTheme" parent="Widget.AppCompat.SearchView">
         <item name="android:background">@drawable/rounded_rectangle</item>
-        <item name="android:backgroundTint">?attr/colorSurface</item>
+        <item name="android:backgroundTint">?attr/colorBackgroundFloating</item>
         <item name="android:padding">0dp</item>
         <item name="android:elevation">2dp</item>
         <item name="queryBackground">@android:color/transparent</item>

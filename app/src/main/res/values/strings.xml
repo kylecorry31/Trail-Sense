@@ -1381,6 +1381,7 @@
     <string name="pref_clinometer_use_ar" translatable="false">pref_clinometer_use_ar</string>
     <string name="clinometer_augmented_reality">Clinometer augmented reality</string>
     <string name="clinometer_augmented_reality_description">Visualize angles with your camera</string>
+    <string name="pref_use_dynamic_colors" translatable="false">pref_use_dynamic_colors</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>

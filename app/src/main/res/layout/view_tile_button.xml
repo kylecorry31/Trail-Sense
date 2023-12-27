@@ -15,7 +15,7 @@
         android:padding="32dp"
         android:elevation="2dp"
         android:scaleType="fitCenter"
-        app:backgroundTint="?android:colorBackgroundFloating"
+        app:backgroundTint="?attr/colorBackgroundFloating"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

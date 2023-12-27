@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="?android:colorBackgroundFloating"
+            android:background="?attr/colorBackgroundFloating"
             app:itemIconTint="@drawable/selector"
             app:itemTextColor="?attr/colorOnSurface"
             app:layout_constraintBottom_toBottomOf="parent"

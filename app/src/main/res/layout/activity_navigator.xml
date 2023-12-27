@@ -104,7 +104,7 @@
         android:id="@+id/ruler"
         android:layout_width="80dp"
         android:layout_height="0dp"
-        android:background="?android:colorBackgroundFloating"
+        android:background="?attr/colorBackgroundFloating"
         android:elevation="4dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -124,7 +124,7 @@
         android:focusable="true"
         android:tint="?android:textColorSecondary"
         android:visibility="invisible"
-        app:backgroundTint="?android:colorBackgroundFloating"
+        app:backgroundTint="?attr/colorBackgroundFloating"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linear_compass"
         app:srcCompat="@drawable/ic_camera" />

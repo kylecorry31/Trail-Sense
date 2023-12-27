@@ -5,7 +5,7 @@
     android:id="@+id/navigation_sheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/colorSurface"
+    android:background="?attr/colorBackgroundFloating"
     android:orientation="vertical">
 
     <View

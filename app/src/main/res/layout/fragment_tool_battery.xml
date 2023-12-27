@@ -25,7 +25,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:drawable="@drawable/ic_battery"
-        android:drawableTint="?android:colorBackgroundFloating"
+        android:drawableTint="?attr/colorBackgroundFloating"
         android:progress="0"
         app:horizontal="false"
         app:layout_constraintEnd_toEndOf="parent"

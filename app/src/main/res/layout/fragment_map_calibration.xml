@@ -57,7 +57,7 @@
         android:id="@+id/map_calibration_bottom_panel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="?android:colorBackgroundFloating"
+        android:background="?attr/colorBackgroundFloating"
         android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
