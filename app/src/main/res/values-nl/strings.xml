@@ -105,7 +105,7 @@
     <string name="set_inclination_instructions">Tik of houd ergens vast om te vergrendelen of te ontgrendelen</string>
     <string name="clinometer_rotate_device">Houd je telefoon verticaal om de helling te meten</string>
     <string name="tool_clinometer_summary">Het schatten van risico op lawines en de hoogte van objecten</string>
-    <string name="clinometer_title">Hellingsmeter</string>
+    <string name="clinometer_title">Hellingmeter</string>
     <string name="moon_phase">Maanstand</string>
     <string name="lunar_noon">Maanmiddag</string>
     <string name="solar_noon">Zonnemiddag</string>
@@ -703,9 +703,9 @@
     <string name="distance_unset">Afstand niet ingesteld</string>
     <string name="clinometer_measure_distance_instructions">Om de afstand van een voorwerp dat %s hoog is te meten:
 \n
-\n1. Richt de hellingsmeter op de voet van het doel
+\n1. Richt de hellingmeter op de voet van het doel
 \n2. Tik op het scherm en houd vast
-\n3. Richt de hellingsmeter naar het hoogste punt van het doel
+\n3. Richt de hellingmeter naar het hoogste punt van het doel
 \n4. Laat los om vast te zetten en om de afstand tot het doel te zien</string>
     <string name="compass_accuracy">Nauwkeurigheid van kompas</string>
     <string name="saved_to_note">Opgeslagen als aantekening</string>
@@ -743,9 +743,9 @@
     <string name="new_text">Nieuw</string>
     <string name="clinometer_measure_height_instructions">Om de hoogte van een voorwerp op %s afstand te meten:
 \n
-\n1. Richt de hellingsmeter naar de voet van het doel
+\n1. Richt de hellingmeter naar de voet van het doel
 \n2. Tik op het scherm en houd vast
-\n3. Richt de hellingsmeter naar het hoogste punt van het doel
+\n3. Richt de hellingmeter naar het hoogste punt van het doel
 \n4. Laat los om vast te zetten en om de hoogte van het doel te zien</string>
     <string name="measure">Meten</string>
     <string name="compass_unavailable">Kompas niet beschikbaar</string>
@@ -851,7 +851,7 @@
     <string name="simplifying">Vereenvoudigen</string>
     <string name="simplification_quality">Vereenvoudiging kwaliteit</string>
     <string name="pref_auto_simplify_paths_title">Vereenvoudig paden bij inladen</string>
-    <string name="pref_clinometer_baseline_distance_title">Grondlijn afstand</string>
+    <string name="pref_clinometer_baseline_distance_title">Afstand grondlijn</string>
     <string name="height">Hoogte</string>
     <string name="navigation_guide_description">Gebruik van herkenningspunten en paden</string>
     <string name="saving">Opslaan</string>
@@ -1159,4 +1159,6 @@
     <string name="fused_altimeter_force_calibration_summary">Forceert een GPS-kalibratie elke %s</string>
     <string name="continuous_calibration">Voortdurende kalibratie</string>
     <string name="service_restart_channel_description">Een melding om activiteiten te herstarten</string>
+    <string name="clinometer_augmented_reality_description">Visualiseer hoeken met je camera</string>
+    <string name="clinometer_augmented_reality">Hellingmeter aangevulde realiteit</string>
 </resources>
