@@ -1145,4 +1145,5 @@
     <string name="service_restart_channel_description">重启服务的通知</string>
     <string name="clinometer_augmented_reality_description">使用相机使倾角可视化</string>
     <string name="clinometer_augmented_reality">测斜仪增强现实</string>
+    <string name="dynamic_colors">动态颜色</string>
 </resources>
