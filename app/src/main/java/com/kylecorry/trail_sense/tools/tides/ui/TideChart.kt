@@ -10,6 +10,8 @@ import com.kylecorry.sol.math.SolMath.norm
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatter
 import java.time.Instant
@@ -19,6 +21,12 @@ class TideChart(chart: Chart) {
 
     private var startTime = Instant.now()
 
+    private val levelColor = if (UserPreferences(chart.context).useDynamicColors){
+        Resources.getPrimaryColor(chart.context)
+    } else {
+        AppColor.Blue.color
+    }
+
     private val highlight = ScatterChartLayer(
         emptyList(),
         Resources.androidTextColorPrimary(chart.context),
@@ -27,8 +35,8 @@ class TideChart(chart: Chart) {
 
     private val level = AreaChartLayer(
         emptyList(),
-        AppColor.Blue.color,
-        AppColor.Blue.color.withAlpha(50)
+        levelColor,
+        levelColor.withAlpha(50)
     )
 
     init {
