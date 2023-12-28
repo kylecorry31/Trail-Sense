@@ -442,11 +442,21 @@ object CustomUiUtils {
     }
 
     fun Resources.getCardinalDirectionColor(context: Context): Int {
-        return AppColor.Orange.color // getPrimaryColor(context)
+        val prefs = UserPreferences(context)
+        return if (prefs.useDynamicColors && prefs.useDynamicColorsOnCompass) {
+            getPrimaryColor(context)
+        } else {
+            AppColor.Orange.color
+        }
     }
 
     fun Resources.getPrimaryMarkerColor(context: Context): Int {
-        return AppColor.Orange.color // getPrimaryColor(context)
+        val prefs = UserPreferences(context)
+        return if (prefs.useDynamicColors && prefs.useDynamicColorsOnCompass) {
+            getPrimaryColor(context)
+        } else {
+            AppColor.Orange.color
+        }
     }
 
 }

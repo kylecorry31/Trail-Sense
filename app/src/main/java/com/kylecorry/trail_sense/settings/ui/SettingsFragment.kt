@@ -86,8 +86,15 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         }
 
         val dynamicColorsSwitch = switch(R.string.pref_use_dynamic_colors)
+        val dynamicCompassColorsSwitch = switch(R.string.pref_use_dynamic_colors_on_compass)
         dynamicColorsSwitch?.isVisible = DynamicColors.isDynamicColorAvailable()
-        reloadThemeOnChange(dynamicColorsSwitch)
+        dynamicCompassColorsSwitch?.isVisible = DynamicColors.isDynamicColorAvailable()
+        dynamicCompassColorsSwitch?.isEnabled = prefs.useDynamicColors
+        dynamicColorsSwitch?.setOnPreferenceChangeListener { _, _ ->
+            requireMainActivity().reloadTheme()
+            dynamicCompassColorsSwitch?.isEnabled = prefs.useDynamicColors
+            true
+        }
 
         val version = Package.getVersionName(requireContext())
         preference(R.string.pref_app_version)?.summary = version

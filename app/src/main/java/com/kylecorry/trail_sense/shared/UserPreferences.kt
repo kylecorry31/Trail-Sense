@@ -191,6 +191,12 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
         false
     )
 
+    val useDynamicColorsOnCompass by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_use_dynamic_colors_on_compass),
+        false
+    )
+
     // Calibration
 
     override var useAutoDeclination: Boolean
