@@ -1161,4 +1161,5 @@
     <string name="service_restart_channel_description">Hizmetleri yeniden başlatmak için bir bildirim</string>
     <string name="clinometer_augmented_reality_description">Kameranızla açıları görselleştirin</string>
     <string name="clinometer_augmented_reality">Eğim ölçer artırılmış gerçeklik</string>
+    <string name="dynamic_colors">Değişken Renkler</string>
 </resources>
