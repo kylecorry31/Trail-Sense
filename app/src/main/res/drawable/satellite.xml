@@ -1,4 +1,4 @@
 <!--drawable/satellite_variant.xml-->
-<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="24dp" android:height="24dp" android:tint="@color/orange_40" android:viewportWidth="24" android:viewportHeight="24">
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="24dp" android:height="24dp" android:tint="#ffffff" android:viewportWidth="24" android:viewportHeight="24">
     <path android:fillColor="#fff" android:pathData="M11.62 1l5.66 5.67-2.12 2.12-2.12-2.12-1.42 1.42 2.33 2.32-1.16 1.17 0.45 0.46c0.93-0.43 2.07-0.27 2.83 0.5l-3.53 3.53c-0.77-0.76-0.93-1.9-0.5-2.83l-0.46-0.45-1.17 1.16-2.32-2.33-1.42 1.42 2.12 2.12-2.12 2.12L1 11.62 3.14 9.5l2.12 2.12 1.41-1.41-2.83-2.83c-0.78-0.78-0.78-2.05 0-2.83l0.71-0.71c0.78-0.78 2.05-0.78 2.83 0l2.83 2.83 1.41-1.41L9.5 3.14 11.62 1M18 14a4 4 0 0 1-4 4v-2a2 2 0 0 0 2-2h2m4 0a8 8 0 0 1-8 8v-2a6 6 0 0 0 6-6h2z"/>
 </vector>
