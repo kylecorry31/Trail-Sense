@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
@@ -66,7 +67,6 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.debugging.DebugPathElevationsCommand
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.extensions.isDebug
@@ -74,6 +74,7 @@ import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.extensions.range
+import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -82,6 +83,7 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.ILayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MultiLayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyAccuracyLayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyLocationLayerManager
+import kotlinx.coroutines.launch
 import java.time.Duration
 
 
@@ -164,8 +166,15 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         super.onResume()
         layerManager = MultiLayerManager(
             listOf(
-                MyAccuracyLayerManager(myAccuracyLayer, Resources.getPrimaryMarkerColor(requireContext()), 25),
-                MyLocationLayerManager(myLocationLayer, Resources.getPrimaryMarkerColor(requireContext()))
+                MyAccuracyLayerManager(
+                    myAccuracyLayer,
+                    Resources.getPrimaryMarkerColor(requireContext()),
+                    25
+                ),
+                MyLocationLayerManager(
+                    myLocationLayer,
+                    Resources.getPrimaryMarkerColor(requireContext())
+                )
             )
         )
         layerManager?.start()
@@ -220,11 +229,20 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
         binding.addPointBtn.setOnClickListener {
             inBackground {
-                binding.addPointBtn.isEnabled = false
-                BacktrackCommand(requireContext(), pathId).execute()
-                if (isBound) {
-                    toast(getString(R.string.point_added))
-                    binding.addPointBtn.isEnabled = true
+                var wasSuccessful = false
+                val job = launch {
+                    BacktrackCommand(requireContext(), pathId).execute()
+                    wasSuccessful = true
+                }
+
+                Alerts.withCancelableLoading(
+                    requireContext(),
+                    getString(R.string.loading),
+                    onCancel = { job.cancel() }) {
+                    job.join()
+                    if (wasSuccessful) {
+                        toast(getString(R.string.point_added))
+                    }
                 }
             }
         }
@@ -301,7 +319,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             command.execute(path)
         }
 
-        if (!hasCompass){
+        if (!hasCompass) {
             myLocationLayer.setShowDirection(false)
         }
     }
