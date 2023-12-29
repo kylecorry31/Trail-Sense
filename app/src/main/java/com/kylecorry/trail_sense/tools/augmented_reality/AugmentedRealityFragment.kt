@@ -12,6 +12,8 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.observeFlow
+import com.kylecorry.sol.science.astronomy.Astronomy
+import com.kylecorry.sol.science.astronomy.moon.MoonPhase
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentAugmentedRealityBinding
@@ -169,12 +171,14 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         return true
     }
 
-    private fun onMoonFocused(time: ZonedDateTime): Boolean {
+    private fun onMoonFocused(time: ZonedDateTime, phase: MoonPhase): Boolean {
         binding.arView.focusText =
             getString(R.string.moon) + "\n" + formatter.formatRelativeDateTime(
                 time,
                 includeSeconds = false
-            )
+            ) + "\n${formatter.formatMoonPhase(phase.phase)} (${formatter.formatPercentage(
+                phase.illumination
+            )})"
         return true
     }
 

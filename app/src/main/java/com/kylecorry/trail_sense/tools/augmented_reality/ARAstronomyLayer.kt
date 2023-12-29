@@ -5,6 +5,8 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
+import com.kylecorry.sol.science.astronomy.Astronomy
+import com.kylecorry.sol.science.astronomy.moon.MoonPhase
 import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
@@ -22,7 +24,7 @@ class ARAstronomyLayer(
     private val drawLines: Boolean,
     private val drawBelowHorizon: Boolean,
     private val onSunFocus: (time: ZonedDateTime) -> Boolean,
-    private val onMoonFocus: (time: ZonedDateTime) -> Boolean
+    private val onMoonFocus: (time: ZonedDateTime, phase: MoonPhase) -> Boolean
 ) : ARLayer {
 
     private val scope = CoroutineScope(Dispatchers.Default)
@@ -152,6 +154,8 @@ class ARAstronomyLayer(
                         moonAfterPathObject
                     }
 
+                    val phase = Astronomy.getMoonPhase(it)
+
                     ARMarker(
                         SphericalARPoint(
                             astro.getMoonAzimuth(location, it).value,
@@ -161,7 +165,7 @@ class ARAstronomyLayer(
                         ),
                         canvasObject = obj,
                         onFocusedFn = {
-                            onMoonFocus(it)
+                            onMoonFocus(it, phase)
                         }
                     )
                 }.map { it.value }
@@ -198,7 +202,7 @@ class ARAstronomyLayer(
                 val sunAltitude = astro.getSunAltitude(location)
                 val sunAzimuth = astro.getSunAzimuth(location).value
 
-                val phase = astro.getMoonPhase(time.toLocalDate())
+                val phase = Astronomy.getMoonPhase(time)
                 val moonIconId = MoonPhaseImageMapper().getPhaseImage(phase.phase)
                 val moonImageSize = drawer.dp(24f).toInt()
                 val moonBitmap = bitmapLoader?.load(moonIconId, moonImageSize)
@@ -213,7 +217,7 @@ class ARAstronomyLayer(
                     canvasObject = moonBitmap?.let { CanvasBitmap(moonBitmap) }
                         ?: CanvasCircle(Color.WHITE),
                     onFocusedFn = {
-                        onMoonFocus(time)
+                        onMoonFocus(time, phase)
                     }
                 )
 
