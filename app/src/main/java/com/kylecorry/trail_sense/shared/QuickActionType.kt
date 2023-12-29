@@ -25,6 +25,7 @@ enum class QuickActionType(val id: Int) {
     Backtrack(15),
     WeatherMonitor(16),
     Pedometer(17),
+    ScreenFlashlight(18),
 }
 
 object QuickActionUtils {
@@ -48,6 +49,7 @@ object QuickActionUtils {
             QuickActionType.Backtrack -> context.getString(R.string.backtrack)
             QuickActionType.WeatherMonitor -> context.getString(R.string.weather_monitor)
             QuickActionType.Pedometer -> context.getString(R.string.pedometer)
+            QuickActionType.ScreenFlashlight -> context.getString(R.string.screen_flashlight_full_name)
         }.capitalizeWords()
     }
 
@@ -67,7 +69,8 @@ object QuickActionUtils {
                     context,
                     Sensor.TYPE_STEP_COUNTER
                 )
-            ) QuickActionType.Pedometer else null
+            ) QuickActionType.Pedometer else null,
+            QuickActionType.ScreenFlashlight
         )
     }
 
@@ -88,7 +91,8 @@ object QuickActionUtils {
                     context,
                     Sensor.TYPE_STEP_COUNTER
                 )
-            ) QuickActionType.Pedometer else null
+            ) QuickActionType.Pedometer else null,
+            QuickActionType.ScreenFlashlight
         )
 
         return list.filterNotNull()
@@ -112,7 +116,8 @@ object QuickActionUtils {
                     context,
                     Sensor.TYPE_STEP_COUNTER
                 )
-            ) QuickActionType.Pedometer else null
+            ) QuickActionType.Pedometer else null,
+            QuickActionType.ScreenFlashlight
         )
     }
 
@@ -131,7 +136,8 @@ object QuickActionUtils {
                     context,
                     Sensor.TYPE_STEP_COUNTER
                 )
-            ) QuickActionType.Pedometer else null
+            ) QuickActionType.Pedometer else null,
+            QuickActionType.ScreenFlashlight
         )
     }
 }

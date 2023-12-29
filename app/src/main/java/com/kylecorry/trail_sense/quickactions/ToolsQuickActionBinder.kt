@@ -56,6 +56,7 @@ class ToolsQuickActionBinder(
                 QuickActionType.Backtrack -> QuickActionBacktrack(createButton(), fragment)
                 QuickActionType.WeatherMonitor -> QuickActionWeather(createButton(), fragment)
                 QuickActionType.Pedometer -> QuickActionPedometer(createButton(), fragment)
+                QuickActionType.ScreenFlashlight -> QuickActionScreenFlashlight(createButton(), fragment)
                 else -> null // No other actions are supported
             }
 

@@ -38,6 +38,7 @@ class AstronomyQuickActionBinder(
             QuickActionType.SunsetAlert -> QuickActionSunsetAlert(button, fragment)
             QuickActionType.NightMode -> QuickActionNightMode(button, fragment)
             QuickActionType.Pedometer -> QuickActionPedometer(button, fragment)
+            QuickActionType.ScreenFlashlight -> QuickActionScreenFlashlight(button, fragment)
             else -> QuickActionNone(button, fragment)
         }
     }

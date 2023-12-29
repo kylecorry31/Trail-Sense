@@ -31,7 +31,6 @@ import com.kylecorry.trail_sense.databinding.FragmentClinometerBinding
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
@@ -161,7 +160,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                 if (isAugmentedReality) {
                     binding.arView.start(false)
                 }
-                binding.clinometerTitle.leftButton.setImageResource(R.drawable.ic_screen_flashlight)
+                binding.clinometerTitle.leftButton.setImageResource(R.drawable.ic_phone_portrait)
                 CustomUiUtils.setButtonState(binding.clinometerTitle.leftButton, false)
                 clinometer = getClinometer()
             } else {
