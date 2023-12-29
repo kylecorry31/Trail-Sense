@@ -11,7 +11,11 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.getColorOnPrimary
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.FormatService
 import kotlin.math.abs
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.hypot
 import kotlin.math.min
+import kotlin.math.sin
 
 class BubbleLevel(context: Context?, attrs: AttributeSet? = null) : CanvasView(context, attrs) {
 
@@ -48,13 +52,13 @@ class BubbleLevel(context: Context?, attrs: AttributeSet? = null) : CanvasView(c
 
     override fun draw() {
         val barThickness = bubbleRadius * 2 + bubblePadding * 2
-        val barLength = min(width - barThickness - barGap, height - barThickness - barGap)
+        val barLength = min(width, height) - barThickness - barGap - bubbleRadius
 
         val topOffset = (height - barLength) / 2f
 
         val xBarTop = topOffset
-        val xBarLeft = 0f
-        val yBarLeft = barLength + barGap
+        val xBarLeft = bubbleRadius
+        val yBarLeft = barLength + barGap + bubbleRadius
         val yBarTop = barThickness + barGap + topOffset
 
         // Top bar
@@ -131,9 +135,15 @@ class BubbleLevel(context: Context?, attrs: AttributeSet? = null) : CanvasView(c
         )
 
         // Center bubble
+        val centerPercent = hypot(xAngle, yAngle).coerceAtMost(90f) / 90f
+        val centerAngle = atan2(yAngle, xAngle)
+
+        val xPercentCenter = cos(centerAngle) * barLength / 2f * centerPercent
+        val yPercentCenter = sin(centerAngle) * barLength / 2f * centerPercent
+
         circle(
-            xBarLeft + xPercent * barLength,
-            yBarTop + yPercent * barLength,
+            xBarLeft + barLength / 2f + xPercentCenter,
+            yBarTop + barLength / 2f + yPercentCenter,
             bubbleRadius * 2
         )
 
