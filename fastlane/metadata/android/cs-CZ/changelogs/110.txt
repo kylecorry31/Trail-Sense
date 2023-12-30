@@ -1,0 +1,18 @@
+Klinometr
+- Fotoaparát nastaven jako výchozí klinometr
+- Zvětšena velikost zobrazení kamery
+- Přidána podpora rozšířené reality (experimentální)
+
+Detektor kovů
+- Zlepšena citlivost
+
+Rozšířená realita (experimentální)
+- Zlepšeno zarovnání
+- Zobrazení čar mřížky
+- Vylepšena funkčnost na zařízeních bez gyroskopu
+
+Různé
+- Vylepšena GPS + barometrický výškoměr
+- Upozornění, pokud nelze spustit služby na pozadí
+- Přidány další uživatelské příručky
+- Opravy chyb
