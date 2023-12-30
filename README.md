@@ -147,7 +147,7 @@ Only available on debug APKs / builds via Android Studio
 
 - [Request a new feature](https://github.com/kylecorry31/Trail-Sense/issues/1911)
 - [Submit an issue](https://github.com/kylecorry31/Trail-Sense/issues)
-- [Translate Trail Sense on Weblate](https://hosted.weblate.org/projects/trail-sense/trail-sense-android)
+- [Translate Trail Sense](https://github.com/kylecorry31/Trail-Sense/issues/213)
 - [Test out nightly builds](https://github.com/kylecorry31/Trail-Sense/discussions/1940)
 - [Test out experimental features](https://github.com/kylecorry31/Trail-Sense/discussions/2099)
 
