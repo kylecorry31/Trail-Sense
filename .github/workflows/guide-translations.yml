@@ -1,0 +1,39 @@
+name: Update Guide Translations
+
+on:
+  schedule:
+    # Run every sunday at midnight
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
+
+jobs:
+  update_guides:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Run script
+        run: python scripts/update_guides.py
+
+      - name: Check for changes
+        id: git-diff
+        run: echo "::set-output name=changes::$(git diff --exit-code)"
+
+      - name: Create Pull Request
+        if: steps.git-diff.outputs.changes != ''
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: "Update guides"
+          body: "This PR updates the user guide translations."
+          branch: "update-user-guide-translations"
