@@ -12,13 +12,16 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: ${{ github.event.release.tag_name }}
+
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
-          distribution: 'adopt'
+          distribution: "adopt"
           java-version: 17
+
       - name: Make gradlew executable
         run: chmod +x ./gradlew
+
       - name: Build APK
         run: |
           echo ${DEV_STORE_FILE} | base64 -d > KEY_DEV.jks
@@ -28,6 +31,7 @@ jobs:
           DEV_STORE_PASSWORD: ${{ secrets.DEV_STORE_PASSWORD }}
           DEV_KEY_ALIAS: ${{ secrets.DEV_KEY_ALIAS }}
           DEV_STORE_FILE: ${{ secrets.DEV_STORE_FILE }}
+
       - name: Upload to release
         uses: Shopify/upload-to-release@v1.0.1
         with:

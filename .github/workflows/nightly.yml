@@ -2,29 +2,32 @@ name: Nightly
 
 on:
   schedule:
-    - cron:  "0 0 * * *"
+    - cron: "0 0 * * *"
   workflow_dispatch:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
       - name: Generate changelog
         run: |
           echo "## Changelog" >> $GITHUB_STEP_SUMMARY
           sh ./scripts/list-nightly-commits.sh >> $GITHUB_STEP_SUMMARY
+
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
-          distribution: 'adopt'
+          distribution: "adopt"
           java-version: 17
+
       - name: Make gradlew executable
         run: chmod +x ./gradlew
+
       - name: Build APK
         run: |
           echo ${NIGHTLY_STORE_FILE} | base64 -d > KEY_NIGHTLY.jks
@@ -34,10 +37,10 @@ jobs:
           NIGHTLY_STORE_PASSWORD: ${{ secrets.NIGHTLY_STORE_PASSWORD }}
           NIGHTLY_KEY_ALIAS: ${{ secrets.NIGHTLY_KEY_ALIAS }}
           NIGHTLY_STORE_FILE: ${{ secrets.NIGHTLY_STORE_FILE }}
+
       - name: Upload APK
         uses: actions/upload-artifact@v3
         with:
           name: Trail-Sense-Nightly.apk
           path: ./app/build/outputs/apk/nightly/*.apk
           retention-days: 7
-      
