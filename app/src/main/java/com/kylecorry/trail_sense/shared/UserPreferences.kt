@@ -38,6 +38,7 @@ import com.kylecorry.trail_sense.shared.extensions.putLongArray
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sharing.MapSite
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
+import com.kylecorry.trail_sense.tools.ui.Tools
 import com.kylecorry.trail_sense.tools.ui.sort.ToolSortType
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 import java.time.Duration
@@ -361,9 +362,10 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
     var toolPinnedIds: List<Long>
         get() {
             return cache.getLongArray(context.getString(R.string.pref_pinned_tools)) ?: listOf(
-                6L, // Navigation
-                20L, // Weather
-                14L // Astronomy
+                Tools.NAVIGATION,
+                Tools.WEATHER,
+                Tools.ASTRONOMY,
+                Tools.USER_GUIDE
             )
         }
         set(value) {
