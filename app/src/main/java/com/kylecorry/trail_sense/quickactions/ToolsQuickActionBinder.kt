@@ -9,7 +9,6 @@ import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolsBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trail_sense.shared.UserPreferences
 
 class ToolsQuickActionBinder(
@@ -44,23 +43,11 @@ class ToolsQuickActionBinder(
 
         binding.quickActions.isVisible = selected.isNotEmpty()
 
-        // TODO: Weather monitor
-        selected.forEach {
-            val action = when (it) {
-                QuickActionType.Flashlight -> QuickActionFlashlight(createButton(), fragment)
-                QuickActionType.Whistle -> QuickActionWhistle(createButton(), fragment)
-                QuickActionType.WhiteNoise -> QuickActionWhiteNoise(createButton(), fragment)
-                QuickActionType.LowPowerMode -> LowPowerQuickAction(createButton(), fragment)
-                QuickActionType.SunsetAlert -> QuickActionSunsetAlert(createButton(), fragment)
-                QuickActionType.NightMode -> QuickActionNightMode(createButton(), fragment)
-                QuickActionType.Backtrack -> QuickActionBacktrack(createButton(), fragment)
-                QuickActionType.WeatherMonitor -> QuickActionWeather(createButton(), fragment)
-                QuickActionType.Pedometer -> QuickActionPedometer(createButton(), fragment)
-                QuickActionType.ScreenFlashlight -> QuickActionScreenFlashlight(createButton(), fragment)
-                else -> null // No other actions are supported
-            }
+        val factory = QuickActionFactory()
 
-            action?.bind(fragment.viewLifecycleOwner)
+        selected.forEach {
+            val action = factory.create(it, createButton(), fragment)
+            action.bind(fragment.viewLifecycleOwner)
         }
     }
 }

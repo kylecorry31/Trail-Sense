@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.shared.extensions.getOrNull
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 
-class QuickActionWeather(btn: ImageButton, private val andromedaFragment: AndromedaFragment) :
+class QuickActionWeatherMonitor(btn: ImageButton, private val andromedaFragment: AndromedaFragment) :
     TopicQuickAction(btn, andromedaFragment, hideWhenUnavailable = false) {
 
     private val weather = WeatherSubsystem.getInstance(context)

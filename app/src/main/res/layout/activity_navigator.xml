@@ -100,18 +100,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/round_compass" />
 
-    <com.kylecorry.trail_sense.tools.ruler.ui.RulerView
-        android:id="@+id/ruler"
-        android:layout_width="80dp"
-        android:layout_height="0dp"
-        android:background="?attr/colorBackgroundFloating"
-        android:elevation="4dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+<!--    <com.kylecorry.trail_sense.tools.ruler.ui.RulerView-->
+<!--        android:id="@+id/ruler"-->
+<!--        android:layout_width="80dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:background="?attr/colorBackgroundFloating"-->
+<!--        android:elevation="4dp"-->
+<!--        android:visibility="gone"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
 
-    </com.kylecorry.trail_sense.tools.ruler.ui.RulerView>
+<!--    </com.kylecorry.trail_sense.tools.ruler.ui.RulerView>-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/sighting_compass_btn"

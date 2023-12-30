@@ -70,7 +70,8 @@ object QuickActionUtils {
                     Sensor.TYPE_STEP_COUNTER
                 )
             ) QuickActionType.Pedometer else null,
-            QuickActionType.ScreenFlashlight
+            QuickActionType.ScreenFlashlight,
+            QuickActionType.Ruler
         )
     }
 
@@ -117,7 +118,8 @@ object QuickActionUtils {
                     Sensor.TYPE_STEP_COUNTER
                 )
             ) QuickActionType.Pedometer else null,
-            QuickActionType.ScreenFlashlight
+            QuickActionType.ScreenFlashlight,
+            QuickActionType.Ruler
         )
     }
 
@@ -137,7 +139,8 @@ object QuickActionUtils {
                     Sensor.TYPE_STEP_COUNTER
                 )
             ) QuickActionType.Pedometer else null,
-            QuickActionType.ScreenFlashlight
+            QuickActionType.ScreenFlashlight,
+            QuickActionType.Ruler
         )
     }
 }

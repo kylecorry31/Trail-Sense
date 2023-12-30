@@ -15,34 +15,11 @@ class NavigationQuickActionBinder(
 ) : IQuickActionBinder {
 
     override fun bind() {
-        getQuickActionButton(
-            prefs.leftButton,
-            binding.navigationTitle.leftButton
-        ).bind(fragment)
-
-        getQuickActionButton(
-            prefs.rightButton,
-            binding.navigationTitle.rightButton
-        ).bind(fragment)
+        val factory = QuickActionFactory()
+        val left = factory.create(prefs.leftButton, binding.navigationTitle.leftButton, fragment)
+        val right = factory.create(prefs.rightButton, binding.navigationTitle.rightButton, fragment)
+        left.bind(fragment)
+        right.bind(fragment)
     }
 
-    private fun getQuickActionButton(
-        type: QuickActionType,
-        button: ImageButton
-    ): QuickActionButton {
-        return when (type) {
-            QuickActionType.None -> QuickActionNone(button, fragment)
-            QuickActionType.Paths -> QuickActionPaths(button, fragment)
-            QuickActionType.Flashlight -> QuickActionFlashlight(button, fragment)
-            QuickActionType.Ruler -> QuickActionRuler(button, fragment, binding.ruler)
-            QuickActionType.Maps -> QuickActionOfflineMaps(button, fragment)
-            QuickActionType.Whistle -> QuickActionWhistle(button, fragment)
-            QuickActionType.LowPowerMode -> LowPowerQuickAction(button, fragment)
-            QuickActionType.NightMode -> QuickActionNightMode(button, fragment)
-            QuickActionType.Backtrack -> QuickActionBacktrack(button, fragment)
-            QuickActionType.Pedometer -> QuickActionPedometer(button, fragment)
-            QuickActionType.ScreenFlashlight -> QuickActionScreenFlashlight(button, fragment)
-            else -> QuickActionNone(button, fragment)
-        }
-    }
 }

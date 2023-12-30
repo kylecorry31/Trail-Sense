@@ -7,15 +7,18 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
 
-class QuickActionThermometer(btn: ImageButton, fragment: Fragment) :
-    QuickActionButton(btn, fragment) {
+class QuickActionPhotoMaps(
+    button: ImageButton,
+    fragment: Fragment
+) : QuickActionButton(button, fragment) {
 
     override fun onCreate() {
         super.onCreate()
-        button.setImageResource(R.drawable.thermometer)
+        button.setImageResource(R.drawable.maps)
         CustomUiUtils.setButtonState(button, false)
         button.setOnClickListener {
-            fragment.findNavController().navigate(R.id.action_weather_to_temperature_estimation)
+            fragment.findNavController().navigate(R.id.mapListFragment)
         }
+
     }
 }

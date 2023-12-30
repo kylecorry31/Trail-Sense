@@ -1,10 +1,6 @@
 package com.kylecorry.trail_sense.quickactions
 
-import android.widget.ImageButton
 import com.kylecorry.trail_sense.databinding.ActivityWeatherBinding
-import com.kylecorry.trail_sense.shared.QuickActionButton
-import com.kylecorry.trail_sense.shared.QuickActionType
-import com.kylecorry.trail_sense.shared.views.QuickActionNone
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 import com.kylecorry.trail_sense.weather.ui.WeatherFragment
 
@@ -15,34 +11,11 @@ class WeatherQuickActionBinder(
 ) : IQuickActionBinder {
 
     override fun bind() {
-        getQuickActionButton(
-            prefs.leftButton,
-            binding.weatherTitle.leftButton
-        ).bind(fragment)
-
-        getQuickActionButton(
-            prefs.rightButton,
-            binding.weatherTitle.rightButton
-        ).bind(fragment)
+        val factory = QuickActionFactory()
+        val left = factory.create(prefs.leftButton, binding.weatherTitle.leftButton, fragment)
+        val right = factory.create(prefs.rightButton, binding.weatherTitle.rightButton, fragment)
+        left.bind(fragment)
+        right.bind(fragment)
     }
 
-    private fun getQuickActionButton(
-        type: QuickActionType,
-        button: ImageButton
-    ): QuickActionButton {
-        return when (type) {
-            QuickActionType.Whistle -> QuickActionWhistle(button, fragment)
-            QuickActionType.Flashlight -> QuickActionFlashlight(button, fragment)
-            QuickActionType.Clouds -> QuickActionClouds(button, fragment)
-            QuickActionType.Temperature -> QuickActionThermometer(button, fragment)
-            QuickActionType.LowPowerMode -> LowPowerQuickAction(button, fragment)
-            QuickActionType.Thunder -> QuickActionThunder(button, fragment)
-            QuickActionType.Climate -> QuickActionClimate(button, fragment)
-            QuickActionType.NightMode -> QuickActionNightMode(button, fragment)
-            QuickActionType.WeatherMonitor -> QuickActionWeather(button, fragment)
-            QuickActionType.Pedometer -> QuickActionPedometer(button, fragment)
-            QuickActionType.ScreenFlashlight -> QuickActionScreenFlashlight(button, fragment)
-            else -> QuickActionNone(button, fragment)
-        }
-    }
 }
