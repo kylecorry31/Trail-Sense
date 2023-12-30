@@ -1187,4 +1187,6 @@
     <string name="clinometer_augmented_reality_description">Vizualizace úhlů pomocí vašeho fotoaparátu</string>
     <string name="clinometer_augmented_reality">Rozšířená realita clinometru</string>
     <string name="dynamic_colors">Dynamické barvy</string>
+    <string name="compass_dynamic_colors">Dynamické barvy kompasu</string>
+    <string name="compass_dynamic_colors_summary">Použít dynamické barvy pro světové strany</string>
 </resources>
