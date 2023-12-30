@@ -1146,4 +1146,6 @@
     <string name="clinometer_augmented_reality_description">使用相机使倾角可视化</string>
     <string name="clinometer_augmented_reality">测斜仪增强现实</string>
     <string name="dynamic_colors">动态颜色</string>
+    <string name="compass_dynamic_colors">指南针动态颜色</string>
+    <string name="compass_dynamic_colors_summary">对基本方位使用动态颜色</string>
 </resources>
