@@ -1174,4 +1174,8 @@
     <string name="service_restart_channel_description">Una notificación para reiniciar los servicios</string>
     <string name="clinometer_augmented_reality_description">Visualiza los ángulos con tu cámara</string>
     <string name="clinometer_augmented_reality">Clinómetro realidad aumentada</string>
+    <string name="compass_dynamic_colors">Brújula colores dinámicos</string>
+    <string name="dynamic_colors">Colores dinámicos</string>
+    <string name="screen_flashlight_full_name">Linterna de pantalla</string>
+    <string name="compass_dynamic_colors_summary">Utilice colores dinámicos para los puntos cardinales</string>
 </resources>
