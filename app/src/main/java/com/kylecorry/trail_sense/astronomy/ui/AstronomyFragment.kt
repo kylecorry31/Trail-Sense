@@ -48,6 +48,8 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.UserError
+import com.kylecorry.trail_sense.tools.augmented_reality.ARMode
+import com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.Duration
@@ -115,6 +117,11 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
         binding.displayDate.setOnDateChangeListener {
             updateUI()
+        }
+
+        binding.button3d.isVisible = prefs.isAugmentedRealityEnabled
+        binding.button3d.setOnClickListener {
+            AugmentedRealityFragment.open(findNavController(), ARMode.Astronomy)
         }
 
         binding.displayDate.searchEnabled = true
@@ -201,6 +208,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     private fun showTimeSeeker() {
         binding.timeSeekerPanel.isVisible = true
         binding.astronomyDetailList.isVisible = false
+        binding.button3d.isVisible = false
         currentSeekChartTime = ZonedDateTime.now()
         binding.seekTime.text =
             formatService.formatTime(currentSeekChartTime.toLocalTime(), includeSeconds = false)
@@ -245,6 +253,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     private fun hideTimeSeeker() {
         binding.timeSeekerPanel.isVisible = false
         binding.astronomyDetailList.isVisible = true
+        binding.button3d.isVisible = prefs.isAugmentedRealityEnabled
         val displayDate = binding.displayDate.date
         if (displayDate == LocalDate.now()) {
             plotMoonImage(data.moon)
