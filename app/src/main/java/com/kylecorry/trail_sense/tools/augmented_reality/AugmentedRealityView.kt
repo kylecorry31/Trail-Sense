@@ -16,7 +16,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.kylecorry.andromeda.camera.ar.CalibratedCameraAnglePixelMapper
 import com.kylecorry.andromeda.camera.ar.CameraAnglePixelMapper
-import com.kylecorry.andromeda.camera.ar.LinearCameraAnglePixelMapper
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.TextAlign
 import com.kylecorry.andromeda.canvas.TextMode
@@ -114,6 +113,8 @@ class AugmentedRealityView : CanvasView {
     var showReticle: Boolean = true
     var showPosition: Boolean = true
 
+    private var reticleColor = Color.WHITE.withAlpha(127)
+
     /**
      * The diameter of the reticle in pixels
      */
@@ -124,7 +125,7 @@ class AugmentedRealityView : CanvasView {
     private val layerLock = Any()
 
     // Guidance
-    private var guideStrategy: ARPoint? = null
+    private var guidePoint: ARPoint? = null
     private var guideThreshold: Float? = null
     private var onGuideReached: (() -> Unit)? = null
 
@@ -190,17 +191,17 @@ class AugmentedRealityView : CanvasView {
     }
 
     fun guideTo(
-        guideStrategy: ARPoint,
+        guidePoint: ARPoint,
         thresholdDegrees: Float? = null,
         onReached: () -> Unit = { clearGuide() }
     ) {
-        this.guideStrategy = guideStrategy
+        this.guidePoint = guidePoint
         guideThreshold = thresholdDegrees
         onGuideReached = onReached
     }
 
     fun clearGuide() {
-        guideStrategy = null
+        guidePoint = null
         guideThreshold = null
         onGuideReached = null
     }
@@ -236,8 +237,8 @@ class AugmentedRealityView : CanvasView {
         }
 
         if (showReticle) {
-            drawReticle()
             drawGuidance()
+            drawReticle()
             drawFocusText()
         }
 
@@ -259,7 +260,8 @@ class AugmentedRealityView : CanvasView {
 
     private fun drawGuidance() {
         // Draw an arrow around the reticle that points to the desired location
-        val coordinate = guideStrategy?.getHorizonCoordinate(this) ?: return
+        reticleColor = Color.WHITE.withAlpha(127)
+        val coordinate = guidePoint?.getHorizonCoordinate(this) ?: return
         val threshold = guideThreshold
         val point = toPixel(coordinate)
         val center = PixelCoordinate(width / 2f, height / 2f)
@@ -270,6 +272,7 @@ class AugmentedRealityView : CanvasView {
         )
 
         if (circle.contains(center)) {
+            reticleColor = Color.WHITE
             onGuideReached?.invoke()
         }
 
@@ -354,7 +357,7 @@ class AugmentedRealityView : CanvasView {
     }
 
     private fun drawReticle() {
-        stroke(Color.WHITE.withAlpha(127))
+        stroke(reticleColor)
         strokeWeight(dp(2f))
         noFill()
         circle(width / 2f, height / 2f, reticleDiameter)

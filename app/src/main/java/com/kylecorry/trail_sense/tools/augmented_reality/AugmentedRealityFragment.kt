@@ -6,13 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.camera.view.PreviewView
+import androidx.core.os.bundleOf
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import androidx.navigation.NavController
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.observeFlow
-import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
@@ -25,15 +26,19 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
-import com.kylecorry.trail_sense.tools.augmented_reality.position.GeographicARPoint
+import com.kylecorry.trail_sense.shared.withId
+import com.kylecorry.trail_sense.tools.augmented_reality.guide.ARGuide
+import com.kylecorry.trail_sense.tools.augmented_reality.guide.AstronomyARGuide
+import com.kylecorry.trail_sense.tools.augmented_reality.guide.NavigationARGuide
 import java.time.ZonedDateTime
 import kotlin.math.hypot
 
 // TODO: Support arguments for default layer visibility (ex. coming from astronomy, enable only sun/moon)
 class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>() {
+
+    private var mode = ARMode.Normal
 
     private val userPrefs by lazy { UserPreferences(requireContext()) }
     private val beaconRepo by lazy {
@@ -41,6 +46,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     }
 
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
+
+    private var guide: ARGuide? = null
 
     private val beaconLayer by lazy {
         ARBeaconLayer(
@@ -85,18 +92,11 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Beacon layer setup (TODO: Move this to a layer manager)
         observeFlow(beaconRepo.getBeacons()) {
             beaconLayer.setBeacons(it)
         }
-
         observeFlow(navigator.destination) {
-            if (it == null) {
-                binding.arView.clearGuide()
-            } else {
-                binding.arView.guideTo(GeographicARPoint(it.coordinate, it.elevation)) {
-                    // Do nothing when reached
-                }
-            }
             beaconLayer.destination = it
         }
 
@@ -105,7 +105,10 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
         binding.arView.bind(binding.camera)
 
-        binding.arView.setLayers(listOf(gridLayer, astronomyLayer, beaconLayer))
+        val modeId = requireArguments().getLong("mode", ARMode.Normal.id)
+        val desiredMode = ARMode.entries.withId(modeId) ?: ARMode.Normal
+
+        setMode(desiredMode)
 
         binding.cameraToggle.setOnClickListener {
             if (isCameraEnabled) {
@@ -125,6 +128,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         } else {
             stopCamera()
         }
+
+        guide?.start(binding.arView)
     }
 
     // TODO: Move this to the AR view
@@ -160,6 +165,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         super.onPause()
         binding.camera.stop()
         binding.arView.stop()
+        guide?.stop(binding.arView)
     }
 
     private fun onSunFocused(time: ZonedDateTime): Boolean {
@@ -176,9 +182,11 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             getString(R.string.moon) + "\n" + formatter.formatRelativeDateTime(
                 time,
                 includeSeconds = false
-            ) + "\n${formatter.formatMoonPhase(phase.phase)} (${formatter.formatPercentage(
-                phase.illumination
-            )})"
+            ) + "\n${formatter.formatMoonPhase(phase.phase)} (${
+                formatter.formatPercentage(
+                    phase.illumination
+                )
+            })"
         return true
     }
 
@@ -203,4 +211,34 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     ): FragmentAugmentedRealityBinding {
         return FragmentAugmentedRealityBinding.inflate(layoutInflater, container, false)
     }
+
+    private fun setMode(mode: ARMode) {
+        this.mode = mode
+        when (mode) {
+            ARMode.Normal -> {
+                binding.arView.setLayers(listOf(gridLayer, astronomyLayer, beaconLayer))
+                changeGuide(NavigationARGuide(navigator))
+            }
+
+            ARMode.Astronomy -> {
+                binding.arView.setLayers(listOf(gridLayer, astronomyLayer))
+                changeGuide(AstronomyARGuide())
+            }
+        }
+    }
+
+    private fun changeGuide(guide: ARGuide?) {
+        this.guide?.stop(binding.arView)
+        this.guide = guide
+        this.guide?.start(binding.arView)
+    }
+
+    companion object {
+        fun open(navController: NavController, mode: ARMode = ARMode.Normal) {
+            navController.navigate(R.id.augmentedRealityFragment, bundleOf(
+                "mode" to mode.id
+            ))
+        }
+    }
+
 }

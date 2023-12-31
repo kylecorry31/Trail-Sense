@@ -422,7 +422,7 @@
     <fragment
         android:id="@+id/experimentationFragment"
         android:name="com.kylecorry.trail_sense.experimentation.ExperimentationFragment"
-        android:label="ExperimentationFragment"/>
+        android:label="ExperimentationFragment" />
     <fragment
         android:id="@+id/beacon_list"
         android:name="com.kylecorry.trail_sense.navigation.beacons.ui.list.BeaconListFragment"
@@ -952,7 +952,12 @@
     <fragment
         android:id="@+id/augmentedRealityFragment"
         android:name="com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityFragment"
-        android:label="AugmentedRealityFragment" />
+        android:label="AugmentedRealityFragment">
+        <argument
+            android:name="mode"
+            android:defaultValue="1L"
+            app:argType="long" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentStrideLengthEstimation"
         android:name="com.kylecorry.trail_sense.tools.pedometer.ui.FragmentStrideLengthEstimation"
