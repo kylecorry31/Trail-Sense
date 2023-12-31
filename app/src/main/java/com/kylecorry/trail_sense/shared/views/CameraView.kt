@@ -184,32 +184,6 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         preview.scaleType = type
     }
 
-    private val commonAspectRatios = listOf(
-        1f,
-        3 / 2f,
-        2 / 3f,
-        4 / 3f,
-        3 / 4f,
-        16 / 9f,
-        9 / 16f,
-    )
-
-    private val aspectRatioPercentTolerance = 0.1f
-
-    fun getPreviewSize(): Size {
-        val fov = fov
-        val aspectRatio = fov.first / fov.second
-        val aspect = commonAspectRatios.minByOrNull { abs(it - aspectRatio) }.let {
-            if (it == null || abs(it - aspectRatio) / it > aspectRatioPercentTolerance) {
-                aspectRatio
-            } else {
-                it
-            }
-        }
-        val width = preview.width.toFloat()
-        return Size(width.toInt(), (width / aspect).toInt())
-    }
-
     @SuppressLint("UnsafeOptInUsageError")
     private fun onCameraUpdate(): Boolean {
         if (zoom == -1f) {
