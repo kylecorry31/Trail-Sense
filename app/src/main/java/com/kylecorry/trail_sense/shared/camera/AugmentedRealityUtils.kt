@@ -192,20 +192,6 @@ object AugmentedRealityUtils {
     }
 
     /**
-     * Converts a geographic spherical coordinate to a point in the AR coordinate system.
-     * @return The AR coordinate
-     */
-    private fun toArSpace(
-        bearing: Float,
-        elevation: Float,
-        distance: Float,
-        rotationMatrix: FloatArray
-    ): Vector3 {
-        val worldVector = toEastNorthUp(bearing, elevation, distance)
-        return enuToAr(worldVector, rotationMatrix)
-    }
-
-    /**
      * Converts a cartesian coordinate in the East-North-Up (ENU) coordinate system to a cartesian coordinate in the AR coordinate system.
      * @param enu The ENU coordinate
      * @param rotationMatrix The rotation matrix of the device in the AR coordinate system
