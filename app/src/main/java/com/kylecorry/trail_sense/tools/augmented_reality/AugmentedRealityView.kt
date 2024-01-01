@@ -22,7 +22,10 @@ import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
+import com.kylecorry.sol.math.Euler
+import com.kylecorry.sol.math.Quaternion
 import com.kylecorry.sol.math.SolMath.toDegrees
+import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
@@ -40,6 +43,7 @@ import com.kylecorry.trail_sense.shared.views.CameraView
 import com.kylecorry.trail_sense.tools.augmented_reality.mapper.CalibratedCameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.mapper.CameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPoint
+import com.kylecorry.trail_sense.tools.augmented_reality.position.AugmentedRealityCoordinate
 import kotlinx.coroutines.Dispatchers
 import java.time.Duration
 import kotlin.math.atan2
@@ -261,7 +265,7 @@ class AugmentedRealityView : CanvasView {
     private fun drawGuidance() {
         // Draw an arrow around the reticle that points to the desired location
         reticleColor = Color.WHITE.withAlpha(127)
-        val coordinate = guidePoint?.getHorizonCoordinate(this) ?: return
+        val coordinate = guidePoint?.getAugmentedRealityCoordinate(this) ?: return
         val threshold = guideThreshold
         val point = toPixel(coordinate)
         val center = PixelCoordinate(width / 2f, height / 2f)
@@ -399,15 +403,16 @@ class AugmentedRealityView : CanvasView {
         return PixelCoordinate(screenPixel.x - x, screenPixel.y - y)
     }
 
-    fun toPixel(coordinate: Coordinate, elevation: Float? = null): PixelCoordinate {
-        val bearing = gps.location.bearingTo(coordinate).value
-        val distance = gps.location.distanceTo(coordinate)
-        val elevationAngle = if (elevation == null) {
-            0f
-        } else {
-            atan2((elevation - gps.altitude), distance).toDegrees()
-        }
-        return toPixel(HorizonCoordinate(bearing, elevationAngle, distance, true))
+    fun toPixel(coordinate: AugmentedRealityCoordinate): PixelCoordinate {
+        val actual = getActualPoint(coordinate.position, coordinate.isTrueNorth)
+        val screenPixel = AugmentedRealityUtils.getPixel(
+            actual,
+            rotationMatrix,
+            previewRect ?: RectF(0f, 0f, width.toFloat(), height.toFloat()),
+            fov,
+            if (camera?.isStarted == true) cameraMapper else null
+        )
+        return PixelCoordinate(screenPixel.x - x, screenPixel.y - y)
     }
 
     private fun getActualBearing(coordinate: HorizonCoordinate): Float {
@@ -425,6 +430,18 @@ class AugmentedRealityView : CanvasView {
             )
         } else {
             coordinate.bearing
+        }
+    }
+
+    private fun getActualPoint(point: Vector3, isPointTrueNorth: Boolean): Vector3 {
+        return if (isTrueNorth && !isPointTrueNorth) {
+            val quaternion = Quaternion.from(Euler(0f, 0f, declinationProvider.getDeclination()))
+            quaternion.rotate(point)
+        } else if (!isTrueNorth && isPointTrueNorth) {
+            val quaternion = Quaternion.from(Euler(0f, 0f, -declinationProvider.getDeclination()))
+            quaternion.rotate(point)
+        } else {
+            point
         }
     }
 

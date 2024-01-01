@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.augmented_reality.position
 
+import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
 import com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityView
 
 /**
@@ -20,11 +21,20 @@ class SphericalARPoint(
     val position =
         AugmentedRealityView.HorizonCoordinate(bearing, elevationAngle, distance, isTrueNorth)
 
+    val enu = AugmentedRealityUtils.toEastNorthUp(bearing, elevationAngle, distance)
+
     override fun getAngularDiameter(view: AugmentedRealityView): Float {
         return angularDiameter
     }
 
     override fun getHorizonCoordinate(view: AugmentedRealityView): AugmentedRealityView.HorizonCoordinate {
         return position
+    }
+
+    override fun getAugmentedRealityCoordinate(view: AugmentedRealityView): AugmentedRealityCoordinate {
+        return AugmentedRealityCoordinate(
+            enu,
+            position.isTrueNorth
+        )
     }
 }

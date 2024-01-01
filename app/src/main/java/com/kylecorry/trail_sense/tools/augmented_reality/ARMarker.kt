@@ -30,7 +30,7 @@ class ARMarker(
      * @return The location of the marker
      */
     fun getViewLocation(view: AugmentedRealityView): PixelCircle {
-        val coordinates = point.getHorizonCoordinate(view)
+        val coordinates = point.getAugmentedRealityCoordinate(view)
         val angularDiameter = point.getAngularDiameter(view)
         val diameter = view.sizeToPixel(angularDiameter)
         return PixelCircle(

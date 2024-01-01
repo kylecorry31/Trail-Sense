@@ -32,4 +32,13 @@ class GeographicARPoint(
             elevation
         )
     }
+
+    override fun getAugmentedRealityCoordinate(view: AugmentedRealityView): AugmentedRealityCoordinate {
+        // TODO: Go directly to ENU
+        val horizon = getHorizonCoordinate(view)
+        return AugmentedRealityCoordinate(
+            AugmentedRealityUtils.toEastNorthUp(horizon.bearing, horizon.elevation, horizon.distance),
+            horizon.isTrueNorth
+        )
+    }
 }

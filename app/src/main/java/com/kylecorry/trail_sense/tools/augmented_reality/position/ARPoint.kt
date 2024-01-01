@@ -11,6 +11,8 @@ interface ARPoint {
      */
     fun getHorizonCoordinate(view: AugmentedRealityView): AugmentedRealityView.HorizonCoordinate
 
+    fun getAugmentedRealityCoordinate(view: AugmentedRealityView): AugmentedRealityCoordinate
+
     /**
      * Gets the angular diameter of the point in degrees
      */

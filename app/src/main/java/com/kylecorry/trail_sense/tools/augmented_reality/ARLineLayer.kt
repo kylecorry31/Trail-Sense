@@ -107,7 +107,7 @@ class ARLineLayer(
                 // TODO: This should split the lines into smaller chunks (which will allow distance splitting) - keeping it this way for now for the clinometer
                 var previous: PixelCoordinate? = null
                 for (point in line) {
-                    val pixel = view.toPixel(point.getHorizonCoordinate(view))
+                    val pixel = view.toPixel(point.getAugmentedRealityCoordinate(view))
                     // TODO: This should split the line if the distance is too great
                     if (previous != null) {
                         path.lineTo(pixel.x, pixel.y)
