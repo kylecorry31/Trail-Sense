@@ -4,13 +4,10 @@ import android.graphics.Rect
 import android.graphics.RectF
 import com.kylecorry.andromeda.camera.ICamera
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
-import kotlin.math.cos
 import kotlin.math.max
-import kotlin.math.sin
 
 /**
  * A camera angle pixel mapper that uses the intrinsic calibration of the camera to map angles to pixels.
@@ -113,7 +110,7 @@ class CalibratedCameraAnglePixelMapper(
         distance: Float?
     ): PixelCoordinate {
         // TODO: Factor in pose translation (just add it to the world position?)
-        val world = toCartesian(angleX, angleY, distance ?: 1f)
+        val world = CameraAnglePixelMapper.toCartesian(angleX, angleY, distance ?: 1f)
         return getPixel(world, imageRect, fieldOfView)
     }
 
@@ -196,24 +193,5 @@ class CalibratedCameraAnglePixelMapper(
             normalizedY * radialDistortion + distortion[3] * (rSquared + 2 * normalizedX * normalizedY) + distortion[4] * (2 * normalizedY * normalizedY)
 
         return Vector2(xc * sizeX + cx, yc * sizeY + cy)
-    }
-
-    private fun toCartesian(
-        bearing: Float,
-        altitude: Float,
-        radius: Float
-    ): Vector3 {
-        val altitudeRad = altitude.toRadians()
-        val bearingRad = bearing.toRadians()
-        val cosAltitude = cos(altitudeRad)
-        val sinAltitude = sin(altitudeRad)
-        val cosBearing = cos(bearingRad)
-        val sinBearing = sin(bearingRad)
-
-        // X and Y are flipped
-        val x = sinBearing * cosAltitude * radius
-        val y = cosBearing * sinAltitude * radius
-        val z = cosBearing * cosAltitude * radius
-        return Vector3(x, y, z)
     }
 }

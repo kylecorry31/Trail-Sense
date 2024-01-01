@@ -38,15 +38,7 @@ class LinearCameraAnglePixelMapper : CameraAnglePixelMapper {
     }
 
     override fun getPixel(world: Vector3, imageRect: RectF, fieldOfView: Size): PixelCoordinate {
-        val spherical = toSpherical(world)
+        val spherical = CameraAnglePixelMapper.toSpherical(world)
         return getPixel(spherical.z, spherical.y, imageRect, fieldOfView, spherical.x)
     }
-
-    private fun toSpherical(vector: Vector3): Vector3 {
-        val r = vector.magnitude()
-        val theta = asin(vector.y / r).toDegrees().real(0f)
-        val phi = atan2(vector.x, vector.z).toDegrees().real(0f)
-        return Vector3(r, theta, phi)
-    }
-
 }
