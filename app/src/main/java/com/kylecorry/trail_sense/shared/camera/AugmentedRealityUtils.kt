@@ -113,7 +113,7 @@ object AugmentedRealityUtils {
         val d = distance.coerceIn(minDistance, maxDistance)
 
         // Negate the rotation of the device
-        val world = toRelative(bearing, elevation, d, rotationMatrix)
+        val world = toArSpace(bearing, elevation, d, rotationMatrix)
 
         val mapper = mapperOverride ?: defaultMapper
 
@@ -167,23 +167,30 @@ object AugmentedRealityUtils {
     }
 
     /**
-     * Converts a geographic spherical coordinate to a relative spherical coordinate in the AR coordinate system.
-     * @return The relative spherical coordinate (bearing, inclination)
+     * Converts a geographic spherical coordinate to a point in the AR coordinate system.
+     * @return The AR coordinate
      */
-    private fun toRelative(
+    private fun toArSpace(
         bearing: Float,
         elevation: Float,
         distance: Float,
         rotationMatrix: FloatArray
     ): Vector3 {
-        // Convert to world space
         val worldVector = toEastNorthUp(bearing, elevation, distance)
+        return enuToAr(worldVector, rotationMatrix)
+    }
 
-        // Rotate
+    /**
+     * Converts a cartesian coordinate in the East-North-Up (ENU) coordinate system to a cartesian coordinate in the AR coordinate system.
+     * @param enu The ENU coordinate
+     * @param rotationMatrix The rotation matrix of the device in the AR coordinate system
+     * @return The AR coordinate
+     */
+    private fun enuToAr(enu: Vector3, rotationMatrix: FloatArray): Vector3 {
         return synchronized(worldVectorLock) {
-            tempWorldVector[0] = worldVector.x
-            tempWorldVector[1] = worldVector.y
-            tempWorldVector[2] = worldVector.z
+            tempWorldVector[0] = enu.x
+            tempWorldVector[1] = enu.y
+            tempWorldVector[2] = enu.z
             tempWorldVector[3] = 1f
             Matrix.multiplyMV(tempWorldVector, 0, rotationMatrix, 0, tempWorldVector, 0)
             // Swap y and z to convert to AR coordinate system
