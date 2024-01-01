@@ -1161,4 +1161,8 @@
     <string name="service_restart_channel_description">Een melding om activiteiten te herstarten</string>
     <string name="clinometer_augmented_reality_description">Visualiseer hoeken met je camera</string>
     <string name="clinometer_augmented_reality">Hellingmeter aangevulde realiteit</string>
+    <string name="compass_dynamic_colors">Dynamische kleuren kompas</string>
+    <string name="dynamic_colors">Dynamische kleuren</string>
+    <string name="screen_flashlight_full_name">Schermzaklamp</string>
+    <string name="compass_dynamic_colors_summary">Gebruik dynamische kleuren voor windstreken</string>
 </resources>
