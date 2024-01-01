@@ -150,12 +150,12 @@ object AugmentedRealityUtils {
     }
 
     /**
-     * Converts a spherical coordinate to a cartesian coordinate in the AR coordinate system.
+     * Converts a spherical coordinate to a cartesian coordinate in the East-North-Up (ENU) coordinate system.
      * @param bearing The azimuth in degrees (rotation around the z axis)
      * @param elevation The elevation in degrees (rotation around the x axis)
      * @param distance The distance in meters
      */
-    private fun toWorldCoordinate(
+    private fun toEastNorthUp(
         bearing: Float,
         elevation: Float,
         distance: Float
@@ -164,9 +164,9 @@ object AugmentedRealityUtils {
         val phiRad = bearing.toRadians()
 
         val cosTheta = cos(thetaRad)
-        val x = distance * cosTheta * sin(phiRad)
-        val y = distance * cosTheta * cos(phiRad)
-        val z = distance * sin(thetaRad)
+        val x = distance * cosTheta * sin(phiRad) // East
+        val y = distance * cosTheta * cos(phiRad) // North
+        val z = distance * sin(thetaRad) // Up
         return Vector3(x, y, z)
     }
 
@@ -188,7 +188,7 @@ object AugmentedRealityUtils {
         rotationMatrix: FloatArray
     ): Pair<Float, Float> {
         // Convert to world space
-        val worldVector = toWorldCoordinate(bearing, elevation, distance)
+        val worldVector = toEastNorthUp(bearing, elevation, distance)
 
         // Rotate
         val rotated = synchronized(worldVectorLock) {
