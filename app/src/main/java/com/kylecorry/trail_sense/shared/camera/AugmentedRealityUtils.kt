@@ -112,10 +112,34 @@ object AugmentedRealityUtils {
     ): PixelCoordinate {
         val d = distance.coerceIn(minDistance, maxDistance)
 
-        // Negate the rotation of the device
-        val world = toArSpace(bearing, elevation, d, rotationMatrix)
+        return getPixel(
+            toEastNorthUp(bearing, elevation, d),
+            rotationMatrix,
+            rect,
+            fov,
+            mapperOverride
+        )
+    }
 
+    /**
+     * Gets the pixel coordinate of a point in the ENU coordinate system.
+     * @param enuCoordinate The ENU coordinate of the point
+     * @param rotationMatrix The rotation matrix of the device in the AR coordinate system
+     * @param rect The rectangle of the view in pixels
+     * @param fov The field of view of the camera in degrees
+     * @param mapperOverride A mapper to override the default mapper
+     * @return The pixel coordinate
+     */
+    fun getPixel(
+        enuCoordinate: Vector3,
+        rotationMatrix: FloatArray,
+        rect: RectF,
+        fov: Size,
+        mapperOverride: CameraAnglePixelMapper? = null
+    ): PixelCoordinate {
         val mapper = mapperOverride ?: defaultMapper
+
+        val world = enuToAr(enuCoordinate, rotationMatrix)
 
         return mapper.getPixel(
             world,
@@ -123,6 +147,7 @@ object AugmentedRealityUtils {
             fov
         )
     }
+
 
     /**
      * Computes the orientation of the device in the AR coordinate system.
