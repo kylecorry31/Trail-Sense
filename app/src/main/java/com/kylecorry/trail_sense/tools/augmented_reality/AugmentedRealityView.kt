@@ -377,14 +377,13 @@ class AugmentedRealityView : CanvasView {
         return sizeToPixel(angularSize)
     }
 
-    // TODO: These are off by a about a degree when you point the device at around 45 degrees (ex. a north line appears 1 degree to the side of actual north)
-    // TODO: This may just be the compass being off
     /**
      * Gets the pixel coordinate of a point on the screen given the bearing and azimuth.
      * @param coordinate The horizon coordinate of the point
      * @return The pixel coordinate of the point
      */
     fun toPixel(coordinate: HorizonCoordinate): PixelCoordinate {
+        // TODO: This should always take in an ENU coordinate and whether that's true north or not - that would allow some points to be precalculated
         val bearing = getActualBearing(coordinate)
 
         val screenPixel = AugmentedRealityUtils.getPixel(
