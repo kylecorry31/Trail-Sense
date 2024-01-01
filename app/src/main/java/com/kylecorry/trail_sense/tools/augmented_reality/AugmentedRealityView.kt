@@ -83,6 +83,9 @@ class AugmentedRealityView : CanvasView {
     private val isTrueNorth = userPrefs.compass.useTrueNorth
     private val formatter = FormatService.getInstance(context)
 
+    private var fromTrueNorth = Quaternion.zero
+    private var toTrueNorth = Quaternion.zero
+
     /**
      * The compass bearing of the device in degrees.
      */
@@ -399,11 +402,9 @@ class AugmentedRealityView : CanvasView {
 
     private fun getActualPoint(point: Vector3, isPointTrueNorth: Boolean): Vector3 {
         return if (isTrueNorth && !isPointTrueNorth) {
-            val quaternion = Quaternion.from(Euler(0f, 0f, -declinationProvider.getDeclination()))
-            quaternion.rotate(point)
+            toTrueNorth.rotate(point)
         } else if (!isTrueNorth && isPointTrueNorth) {
-            val quaternion = Quaternion.from(Euler(0f, 0f, declinationProvider.getDeclination()))
-            quaternion.rotate(point)
+            fromTrueNorth.rotate(point)
         } else {
             point
         }
@@ -420,6 +421,10 @@ class AugmentedRealityView : CanvasView {
         azimuth = orientation[0]
         inclination = orientation[1]
         sideInclination = orientation[2]
+
+        // Update declination quaternions
+        fromTrueNorth = Quaternion.from(Euler(0f, 0f, declinationProvider.getDeclination()))
+        toTrueNorth = Quaternion.from(Euler(0f, 0f, -declinationProvider.getDeclination()))
     }
 
     private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
