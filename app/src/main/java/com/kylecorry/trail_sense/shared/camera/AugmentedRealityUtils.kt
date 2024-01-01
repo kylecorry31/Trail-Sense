@@ -2,14 +2,10 @@ package com.kylecorry.trail_sense.shared.camera
 
 import android.graphics.RectF
 import android.opengl.Matrix
-import com.kylecorry.andromeda.camera.ar.CameraAnglePixelMapper
-import com.kylecorry.andromeda.camera.ar.LinearCameraAnglePixelMapper
-import com.kylecorry.andromeda.camera.ar.SimplePerspectiveCameraAnglePixelMapper
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.andromeda.sense.orientation.OrientationUtils
 import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.math.Vector3
@@ -17,7 +13,9 @@ import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityView
-import kotlin.math.asin
+import com.kylecorry.trail_sense.tools.augmented_reality.mapper.CameraAnglePixelMapper
+import com.kylecorry.trail_sense.tools.augmented_reality.mapper.LinearCameraAnglePixelMapper
+import com.kylecorry.trail_sense.tools.augmented_reality.mapper.SimplePerspectiveCameraAnglePixelMapper
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
@@ -115,16 +113,14 @@ object AugmentedRealityUtils {
         val d = distance.coerceIn(minDistance, maxDistance)
 
         // Negate the rotation of the device
-        val spherical = toRelative(bearing, elevation, d, rotationMatrix)
+        val world = toRelative(bearing, elevation, d, rotationMatrix)
 
         val mapper = mapperOverride ?: defaultMapper
 
         return mapper.getPixel(
-            spherical.first,
-            spherical.second,
+            world,
             rect,
-            fov,
-            d
+            fov
         )
     }
 
@@ -155,26 +151,19 @@ object AugmentedRealityUtils {
      * @param elevation The elevation in degrees (rotation around the x axis)
      * @param distance The distance in meters
      */
-    private fun toEastNorthUp(
+    fun toEastNorthUp(
         bearing: Float,
         elevation: Float,
         distance: Float
     ): Vector3 {
-        val thetaRad = elevation.toRadians()
-        val phiRad = bearing.toRadians()
+        val elevationRad = elevation.toRadians()
+        val bearingRad = bearing.toRadians()
 
-        val cosTheta = cos(thetaRad)
-        val x = distance * cosTheta * sin(phiRad) // East
-        val y = distance * cosTheta * cos(phiRad) // North
-        val z = distance * sin(thetaRad) // Up
+        val cosElevation = cos(elevationRad)
+        val x = distance * cosElevation * sin(bearingRad) // East
+        val y = distance * cosElevation * cos(bearingRad) // North
+        val z = distance * sin(elevationRad) // Up
         return Vector3(x, y, z)
-    }
-
-    private fun toSpherical(vector: Vector3): Vector3 {
-        val r = vector.magnitude()
-        val theta = asin(vector.z / r).toDegrees().real(0f)
-        val phi = atan2(vector.x, vector.y).toDegrees().real(0f)
-        return Vector3(r, theta, phi)
     }
 
     /**
@@ -186,23 +175,20 @@ object AugmentedRealityUtils {
         elevation: Float,
         distance: Float,
         rotationMatrix: FloatArray
-    ): Pair<Float, Float> {
+    ): Vector3 {
         // Convert to world space
         val worldVector = toEastNorthUp(bearing, elevation, distance)
 
         // Rotate
-        val rotated = synchronized(worldVectorLock) {
+        return synchronized(worldVectorLock) {
             tempWorldVector[0] = worldVector.x
             tempWorldVector[1] = worldVector.y
             tempWorldVector[2] = worldVector.z
             tempWorldVector[3] = 1f
             Matrix.multiplyMV(tempWorldVector, 0, rotationMatrix, 0, tempWorldVector, 0)
-            Vector3(tempWorldVector[0], tempWorldVector[1], tempWorldVector[2])
+            // Swap y and z to convert to AR coordinate system
+            Vector3(tempWorldVector[0], tempWorldVector[2], tempWorldVector[1])
         }
-
-        // Convert back to spherical
-        val spherical = toSpherical(rotated)
-        return spherical.z to spherical.y
     }
 
 }

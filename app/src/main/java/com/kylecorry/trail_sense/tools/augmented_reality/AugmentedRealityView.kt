@@ -14,8 +14,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.findViewTreeLifecycleOwner
-import com.kylecorry.andromeda.camera.ar.CalibratedCameraAnglePixelMapper
-import com.kylecorry.andromeda.camera.ar.CameraAnglePixelMapper
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.TextAlign
 import com.kylecorry.andromeda.canvas.TextMode
@@ -39,6 +37,8 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.text
 import com.kylecorry.trail_sense.shared.textDimensions
 import com.kylecorry.trail_sense.shared.views.CameraView
+import com.kylecorry.trail_sense.tools.augmented_reality.mapper.CalibratedCameraAnglePixelMapper
+import com.kylecorry.trail_sense.tools.augmented_reality.mapper.CameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPoint
 import kotlinx.coroutines.Dispatchers
 import java.time.Duration
