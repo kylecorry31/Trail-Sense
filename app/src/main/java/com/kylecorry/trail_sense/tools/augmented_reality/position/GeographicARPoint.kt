@@ -24,21 +24,15 @@ class GeographicARPoint(
         return AugmentedRealityUtils.getAngularSize(actualDiameter, distance)
     }
 
-    override fun getHorizonCoordinate(view: AugmentedRealityView): AugmentedRealityView.HorizonCoordinate {
-        return AugmentedRealityUtils.getHorizonCoordinate(
-            view.location,
-            view.altitude,
-            location,
-            elevation
-        )
-    }
-
     override fun getAugmentedRealityCoordinate(view: AugmentedRealityView): AugmentedRealityCoordinate {
-        // TODO: Go directly to ENU
-        val horizon = getHorizonCoordinate(view)
         return AugmentedRealityCoordinate(
-            AugmentedRealityUtils.toEastNorthUp(horizon.bearing, horizon.elevation, horizon.distance),
-            horizon.isTrueNorth
+            AugmentedRealityUtils.toEastNorthUp(
+                view.location,
+                view.altitude,
+                location,
+                elevation
+            ),
+            true
         )
     }
 }

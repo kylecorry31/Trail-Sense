@@ -6,11 +6,10 @@ import com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityView
  * A point in the AR world
  */
 interface ARPoint {
-    /**
-     * Gets the horizon (spherical) coordinate of the point
-     */
-    fun getHorizonCoordinate(view: AugmentedRealityView): AugmentedRealityView.HorizonCoordinate
 
+    /**
+     * Gets the AR coordinate of the point
+     */
     fun getAugmentedRealityCoordinate(view: AugmentedRealityView): AugmentedRealityCoordinate
 
     /**

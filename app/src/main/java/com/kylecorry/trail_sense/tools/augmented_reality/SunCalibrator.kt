@@ -8,6 +8,7 @@ import com.kylecorry.sol.math.Quaternion
 import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.shared.camera.GrayscaleMomentFinder
 import com.kylecorry.trail_sense.shared.views.CameraView
+import com.kylecorry.trail_sense.tools.augmented_reality.position.AugmentedRealityCoordinate
 
 class SunCalibrator {
 
@@ -36,7 +37,7 @@ class SunCalibrator {
                 val actualPixel = PixelCoordinate(xPct * view.width, yPct * view.height)
                 // TODO: Convert the pixel into a horizon coordinate
 
-                val predictedLocation = AugmentedRealityView.HorizonCoordinate(
+                val predictedLocation = AugmentedRealityCoordinate.fromSpherical(
                     astro.getSunAzimuth(view.location).value,
                     astro.getSunAltitude(view.location),
                     Float.MAX_VALUE,

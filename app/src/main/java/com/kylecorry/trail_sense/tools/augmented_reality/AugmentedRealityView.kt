@@ -35,7 +35,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
-import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.text
 import com.kylecorry.trail_sense.shared.textDimensions
@@ -382,27 +381,10 @@ class AugmentedRealityView : CanvasView {
     }
 
     /**
-     * Gets the pixel coordinate of a point on the screen given the bearing and azimuth.
-     * @param coordinate The horizon coordinate of the point
+     * Gets the pixel coordinate of a point in the East-North-Up coordinate system
+     * @param coordinate The augmented reality coordinate of the point
      * @return The pixel coordinate of the point
      */
-    fun toPixel(coordinate: HorizonCoordinate): PixelCoordinate {
-        // TODO: This should always take in an ENU coordinate and whether that's true north or not - that would allow some points to be precalculated
-        val bearing = getActualBearing(coordinate)
-
-        val screenPixel = AugmentedRealityUtils.getPixel(
-            bearing,
-            coordinate.elevation,
-            coordinate.distance,
-            rotationMatrix,
-            previewRect ?: RectF(0f, 0f, width.toFloat(), height.toFloat()),
-            fov,
-            if (camera?.isStarted == true) cameraMapper else null
-        )
-
-        return PixelCoordinate(screenPixel.x - x, screenPixel.y - y)
-    }
-
     fun toPixel(coordinate: AugmentedRealityCoordinate): PixelCoordinate {
         val actual = getActualPoint(coordinate.position, coordinate.isTrueNorth)
         val screenPixel = AugmentedRealityUtils.getPixel(
@@ -415,30 +397,12 @@ class AugmentedRealityView : CanvasView {
         return PixelCoordinate(screenPixel.x - x, screenPixel.y - y)
     }
 
-    private fun getActualBearing(coordinate: HorizonCoordinate): Float {
-        return if (isTrueNorth && !coordinate.isTrueNorth) {
-            // Convert coordinate to true north
-            DeclinationUtils.toTrueNorthBearing(
-                coordinate.bearing,
-                declinationProvider.getDeclination()
-            )
-        } else if (!isTrueNorth && coordinate.isTrueNorth) {
-            // Convert coordinate to magnetic north
-            DeclinationUtils.fromTrueNorthBearing(
-                coordinate.bearing,
-                declinationProvider.getDeclination()
-            )
-        } else {
-            coordinate.bearing
-        }
-    }
-
     private fun getActualPoint(point: Vector3, isPointTrueNorth: Boolean): Vector3 {
         return if (isTrueNorth && !isPointTrueNorth) {
-            val quaternion = Quaternion.from(Euler(0f, 0f, declinationProvider.getDeclination()))
+            val quaternion = Quaternion.from(Euler(0f, 0f, -declinationProvider.getDeclination()))
             quaternion.rotate(point)
         } else if (!isTrueNorth && isPointTrueNorth) {
-            val quaternion = Quaternion.from(Euler(0f, 0f, -declinationProvider.getDeclination()))
+            val quaternion = Quaternion.from(Euler(0f, 0f, declinationProvider.getDeclination()))
             quaternion.rotate(point)
         } else {
             point
@@ -530,12 +494,4 @@ class AugmentedRealityView : CanvasView {
             }
         }
     }
-
-    data class HorizonCoordinate(
-        val bearing: Float,
-        val elevation: Float,
-        val distance: Float,
-        val isTrueNorth: Boolean = true
-    )
-
 }

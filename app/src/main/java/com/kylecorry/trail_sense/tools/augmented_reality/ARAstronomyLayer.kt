@@ -271,7 +271,8 @@ class ARAstronomyLayer(
         var currentLine = mutableListOf<ARMarker>()
         points.forEach {
             val point = it.point as SphericalARPoint
-            if (point.position.elevation > 0) {
+            // TODO: This isn't efficient
+            if (point.coordinate.elevation > 0) {
                 currentLine.add(it)
             } else {
                 if (currentLine.isNotEmpty()) {

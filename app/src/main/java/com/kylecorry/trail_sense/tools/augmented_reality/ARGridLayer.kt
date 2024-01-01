@@ -10,6 +10,7 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.getValuesBetween
+import com.kylecorry.trail_sense.tools.augmented_reality.position.AugmentedRealityCoordinate
 import kotlin.math.absoluteValue
 import kotlin.math.hypot
 import kotlin.math.min
@@ -82,7 +83,7 @@ class ARGridLayer(
             }
             var previous: PixelCoordinate? = null
             for (j in horizontalPointRange) {
-                val pixel = view.toPixel(AugmentedRealityView.HorizonCoordinate(j.toFloat(), i, distance, useTrueNorth))
+                val pixel = view.toPixel(AugmentedRealityCoordinate.fromSpherical(j.toFloat(), i, distance, useTrueNorth))
                 if (previous != null && pixel.distanceTo(previous) < maxDistance){
                     path.lineTo(pixel.x, pixel.y)
                 } else {
@@ -104,7 +105,7 @@ class ARGridLayer(
             }
             var previous: PixelCoordinate? = null
             for (j in verticalPointRange) {
-                val pixel = view.toPixel(AugmentedRealityView.HorizonCoordinate(i, j.toFloat(), distance, useTrueNorth))
+                val pixel = view.toPixel(AugmentedRealityCoordinate.fromSpherical(i, j.toFloat(), distance, useTrueNorth))
                 if (previous != null && pixel.distanceTo(previous) < maxDistance){
                     path.lineTo(pixel.x, pixel.y)
                 } else {
@@ -120,10 +121,10 @@ class ARGridLayer(
 
         // Draw cardinal direction labels
         val offset = 2f
-        val north = view.toPixel(AugmentedRealityView.HorizonCoordinate(0f, offset, distance, useTrueNorth))
-        val south = view.toPixel(AugmentedRealityView.HorizonCoordinate(180f, offset, distance, useTrueNorth))
-        val east = view.toPixel(AugmentedRealityView.HorizonCoordinate(90f, offset, distance, useTrueNorth))
-        val west = view.toPixel(AugmentedRealityView.HorizonCoordinate(-90f, offset, distance, useTrueNorth))
+        val north = view.toPixel(AugmentedRealityCoordinate.fromSpherical(0f, offset, distance, useTrueNorth))
+        val south = view.toPixel(AugmentedRealityCoordinate.fromSpherical(180f, offset, distance, useTrueNorth))
+        val east = view.toPixel(AugmentedRealityCoordinate.fromSpherical(90f, offset, distance, useTrueNorth))
+        val west = view.toPixel(AugmentedRealityCoordinate.fromSpherical(-90f, offset, distance, useTrueNorth))
 
         drawLabel(drawer, view, northString, north)
         drawLabel(drawer, view, southString, south)

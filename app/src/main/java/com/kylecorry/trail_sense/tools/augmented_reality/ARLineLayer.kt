@@ -10,6 +10,7 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.normalizeAngle
 import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPoint
+import com.kylecorry.trail_sense.tools.augmented_reality.position.AugmentedRealityCoordinate
 import kotlin.math.hypot
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -136,9 +137,9 @@ class ARLineLayer(
         maxDistance: Float,
     ): List<List<PixelCoordinate>> {
         val pixels = mutableListOf<PixelCoordinate>()
-        var previousCoordinate: AugmentedRealityView.HorizonCoordinate? = null
+        var previousCoordinate: AugmentedRealityCoordinate? = null
         for (point in line) {
-            val coord = point.getHorizonCoordinate(view)
+            val coord = point.getAugmentedRealityCoordinate(view)
             pixels.addAll(if (previousCoordinate != null) {
                 splitLine(previousCoordinate, coord, resolutionDegrees).map { view.toPixel(it) }
             } else {
@@ -173,11 +174,11 @@ class ARLineLayer(
 
     // TODO: Should this operate on pixels or coordinates? - if it is pixels, it will be linear, if it is coordinates it will be curved
     private fun splitLine(
-        start: AugmentedRealityView.HorizonCoordinate,
-        end: AugmentedRealityView.HorizonCoordinate,
+        start: AugmentedRealityCoordinate,
+        end: AugmentedRealityCoordinate,
         resolutionDegrees: Float
-    ): List<AugmentedRealityView.HorizonCoordinate> {
-        val coordinates = mutableListOf<AugmentedRealityView.HorizonCoordinate>()
+    ): List<AugmentedRealityCoordinate> {
+        val coordinates = mutableListOf<AugmentedRealityCoordinate>()
         coordinates.add(start)
         val bearingDelta = SolMath.deltaAngle(start.bearing, end.bearing)
         val elevationDelta = end.elevation - start.elevation
@@ -189,7 +190,7 @@ class ARLineLayer(
         val distanceStep = distanceDelta / steps
         for (i in 1..steps) {
             coordinates.add(
-                AugmentedRealityView.HorizonCoordinate(
+                AugmentedRealityCoordinate.fromSpherical(
                     normalizeAngle(start.bearing + bearingStep * i),
                     start.elevation + elevationStep * i,
                     start.distance + distanceStep * i

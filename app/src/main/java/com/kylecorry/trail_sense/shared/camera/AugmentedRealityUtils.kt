@@ -77,22 +77,6 @@ object AugmentedRealityUtils {
         return (2 * atan2(diameterMeters / 2f, distanceMeters)).toDegrees()
     }
 
-    fun getHorizonCoordinate(
-        myLocation: Coordinate,
-        myElevation: Float,
-        destinationCoordinate: Coordinate,
-        destinationElevation: Float? = null
-    ): AugmentedRealityView.HorizonCoordinate {
-        val bearing = myLocation.bearingTo(destinationCoordinate).value
-        val distance = myLocation.distanceTo(destinationCoordinate)
-        val elevationAngle = if (destinationElevation == null) {
-            0f
-        } else {
-            atan2((destinationElevation - myElevation), distance).toDegrees()
-        }
-        return AugmentedRealityView.HorizonCoordinate(bearing, elevationAngle, distance, true)
-    }
-
     /**
      * Gets the pixel coordinate of a point on the screen given the bearing and azimuth.
      * @param bearing The compass bearing in degrees of the point
@@ -170,6 +154,23 @@ object AugmentedRealityUtils {
         )
     }
 
+    fun toEastNorthUp(
+        myLocation: Coordinate,
+        myElevation: Float,
+        destinationCoordinate: Coordinate,
+        destinationElevation: Float? = null
+    ): Vector3 {
+        // TODO: Go directly to ENU
+        val bearing = myLocation.bearingTo(destinationCoordinate).value
+        val distance = myLocation.distanceTo(destinationCoordinate)
+        val elevationAngle = if (destinationElevation == null) {
+            0f
+        } else {
+            atan2((destinationElevation - myElevation), distance).toDegrees()
+        }
+        return toEastNorthUp(bearing, elevationAngle, distance)
+    }
+
     /**
      * Converts a spherical coordinate to a cartesian coordinate in the East-North-Up (ENU) coordinate system.
      * @param bearing The azimuth in degrees (rotation around the z axis)
@@ -181,13 +182,15 @@ object AugmentedRealityUtils {
         elevation: Float,
         distance: Float
     ): Vector3 {
+        val d = distance.coerceIn(minDistance, maxDistance)
+
         val elevationRad = elevation.toRadians()
         val bearingRad = bearing.toRadians()
 
         val cosElevation = cos(elevationRad)
-        val x = distance * cosElevation * sin(bearingRad) // East
-        val y = distance * cosElevation * cos(bearingRad) // North
-        val z = distance * sin(elevationRad) // Up
+        val x = d * cosElevation * sin(bearingRad) // East
+        val y = d * cosElevation * cos(bearingRad) // North
+        val z = d * sin(elevationRad) // Up
         return Vector3(x, y, z)
     }
 
