@@ -1164,4 +1164,5 @@
     <string name="dynamic_colors">Değişken Renkler</string>
     <string name="compass_dynamic_colors">Pusula Değişken Renkleri</string>
     <string name="compass_dynamic_colors_summary">Ana yönler için değişken renkleri kullanın</string>
+    <string name="screen_flashlight_full_name">Ekran Feneri</string>
 </resources>
