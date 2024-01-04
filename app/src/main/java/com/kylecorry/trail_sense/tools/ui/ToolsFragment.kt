@@ -17,7 +17,6 @@ import com.kylecorry.trail_sense.databinding.ListItemToolBinding
 import com.kylecorry.trail_sense.quickactions.ToolsQuickActionBinder
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.extensions.setOnQueryTextListener
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.ui.items.ToolListItem
 import com.kylecorry.trail_sense.tools.ui.items.ToolListItemStyle
@@ -87,9 +86,8 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
             findNavController().navigate(R.id.action_settings)
         }
 
-        binding.searchbox.setOnQueryTextListener { _, _ ->
+        binding.searchbox.setOnSearchListener {
             updateTools()
-            true
         }
 
         CustomUiUtils.oneTimeToast(
