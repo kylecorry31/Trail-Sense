@@ -1148,4 +1148,5 @@
     <string name="dynamic_colors">动态颜色</string>
     <string name="compass_dynamic_colors">指南针动态颜色</string>
     <string name="compass_dynamic_colors_summary">对基本方位使用动态颜色</string>
+    <string name="screen_flashlight_full_name">屏幕手电</string>
 </resources>
