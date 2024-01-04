@@ -16,13 +16,12 @@
         tools:title="@string/beacons" />
 
     <!--TODO: Make this a searchbox icon-->
-    <androidx.appcompat.widget.SearchView
+    <com.kylecorry.trail_sense.shared.views.SearchView
         android:id="@+id/searchbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:queryHint="@string/search" />
+        android:layout_marginEnd="16dp" />
 
     <TextView
         android:id="@+id/empty_text"
