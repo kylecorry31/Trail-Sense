@@ -1190,4 +1190,5 @@
     <string name="compass_dynamic_colors">Dynamické barvy kompasu</string>
     <string name="compass_dynamic_colors_summary">Použít dynamické barvy pro světové strany</string>
     <string name="screen_flashlight_full_name">Obrazovka jako svítilna</string>
+    <string name="view_in_3d">Zobrazit ve 3D</string>
 </resources>
