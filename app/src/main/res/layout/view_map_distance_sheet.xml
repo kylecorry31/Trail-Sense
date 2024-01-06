@@ -6,7 +6,7 @@
     android:background="?attr/colorBackgroundFloating"
     android:orientation="vertical">
 
-    <com.kylecorry.ceres.toolbar.CeresToolbar
+    <com.kylecorry.andromeda.views.toolbar.Toolbar
         android:id="@+id/map_distance_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

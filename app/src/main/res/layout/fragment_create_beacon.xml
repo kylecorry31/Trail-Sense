@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.kylecorry.ceres.toolbar.CeresToolbar
+    <com.kylecorry.andromeda.views.toolbar.Toolbar
         android:id="@+id/create_beacon_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

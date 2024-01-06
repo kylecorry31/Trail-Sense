@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.astronomy.ui.items
 
 import android.content.Context
 import com.kylecorry.andromeda.core.coroutines.onDefault
-import com.kylecorry.ceres.list.ListItem
-import com.kylecorry.ceres.list.ResourceListIcon
+import com.kylecorry.andromeda.views.list.ListItem
+import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.ui.format.EclipseFormatter

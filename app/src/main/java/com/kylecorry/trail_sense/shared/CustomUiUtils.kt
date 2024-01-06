@@ -20,9 +20,9 @@ import com.kylecorry.andromeda.core.ui.setState
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.pickers.Pickers
-import com.kylecorry.ceres.chart.Chart
-import com.kylecorry.ceres.list.CeresListView
-import com.kylecorry.ceres.list.ListItem
+import com.kylecorry.andromeda.views.chart.Chart
+import com.kylecorry.andromeda.views.list.AndromedaListView
+import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
@@ -416,7 +416,7 @@ object CustomUiUtils {
         emptyText: String? = null
     ) {
         val view = View.inflate(context, R.layout.view_list_dialog, null)
-        val list = view.findViewById<CeresListView>(R.id.list)
+        val list = view.findViewById<AndromedaListView>(R.id.list)
         val empty = view.findViewById<TextView>(R.id.empty_text)
 
         if (emptyText != null) {

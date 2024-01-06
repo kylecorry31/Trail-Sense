@@ -7,7 +7,7 @@ import android.widget.FrameLayout
 import androidx.navigation.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.ceres.badge.CeresBadge
+import com.kylecorry.andromeda.views.badge.Badge
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 
@@ -16,7 +16,7 @@ class NorthReferenceBadge(
     attrs: AttributeSet? = null
 ) : FrameLayout(context, attrs) {
 
-    private val badge = CeresBadge(context, attrs)
+    private val badge = Badge(context, attrs)
     private val formatter = FormatService.getInstance(context)
 
     var useTrueNorth: Boolean = false

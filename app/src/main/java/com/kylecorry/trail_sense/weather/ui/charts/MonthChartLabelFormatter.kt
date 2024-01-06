@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.weather.ui.charts
 
 import android.content.Context
-import com.kylecorry.ceres.chart.label.ChartLabelFormatter
+import com.kylecorry.andromeda.views.chart.label.ChartLabelFormatter
 import com.kylecorry.trail_sense.shared.FormatService
 import java.time.LocalDate
 

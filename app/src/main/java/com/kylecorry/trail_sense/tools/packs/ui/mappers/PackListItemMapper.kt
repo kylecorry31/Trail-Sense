@@ -2,10 +2,10 @@ package com.kylecorry.trail_sense.tools.packs.ui.mappers
 
 import android.content.Context
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.ceres.list.ListItem
-import com.kylecorry.ceres.list.ListItemMapper
-import com.kylecorry.ceres.list.ListMenuItem
-import com.kylecorry.ceres.list.ResourceListIcon
+import com.kylecorry.andromeda.views.list.ListItem
+import com.kylecorry.andromeda.views.list.ListItemMapper
+import com.kylecorry.andromeda.views.list.ListMenuItem
+import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.packs.domain.Pack
 

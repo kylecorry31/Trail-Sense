@@ -13,7 +13,7 @@ import android.view.View
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.math.MathUtils
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.sol.science.physics.PhysicsService
+import com.kylecorry.sol.science.optics.Optics
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
@@ -30,7 +30,6 @@ class LightBarView : View {
     private var gradient: List<Int> = listOf()
     private var candela: Float = 0f
     var units: DistanceUnits = DistanceUnits.Meters
-    private val lightService = PhysicsService()
     private var imageSize = 0
 
     constructor(context: Context?) : super(context)
@@ -78,7 +77,7 @@ class LightBarView : View {
     private fun updateGradients(){
         val intensities = (1..100).map {
             val distance = if (units == DistanceUnits.Feet) it * 3 else it
-            lightService.luxAtDistance(candela, Distance(distance.toFloat(), units))
+            Optics.luxAtDistance(candela, Distance(distance.toFloat(), units))
         }
 
         // TODO: Calculate distance of each intensity description

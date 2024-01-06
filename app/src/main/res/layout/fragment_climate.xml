@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.kylecorry.ceres.toolbar.CeresToolbar
+    <com.kylecorry.andromeda.views.toolbar.Toolbar
         android:id="@+id/climate_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp" />
 
-            <com.kylecorry.ceres.chart.Chart
+            <com.kylecorry.andromeda.views.chart.Chart
                 android:id="@+id/temperature_chart"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/chart_height"

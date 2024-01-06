@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.kylecorry.ceres.toolbar.CeresToolbar
+    <com.kylecorry.andromeda.views.toolbar.Toolbar
         android:id="@+id/tide_list_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,7 +15,7 @@
         app:showSubtitle="false"
         app:title="@string/tides" />
 
-    <com.kylecorry.ceres.list.CeresListView
+    <com.kylecorry.andromeda.views.list.AndromedaListView
         android:id="@+id/tide_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"

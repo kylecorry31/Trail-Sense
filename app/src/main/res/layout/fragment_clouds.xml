@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.kylecorry.ceres.toolbar.CeresToolbar
+    <com.kylecorry.andromeda.views.toolbar.Toolbar
         android:id="@+id/cloud_list_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         app:layout_constraintStart_toStartOf="@id/cloud_list"
         app:layout_constraintTop_toTopOf="@id/cloud_list" />
 
-    <com.kylecorry.ceres.list.CeresListView
+    <com.kylecorry.andromeda.views.list.AndromedaListView
         android:id="@+id/cloud_list"
         style="@style/AppTheme.ListViewWithFab"
         android:layout_width="match_parent"

@@ -2,9 +2,9 @@ package com.kylecorry.trail_sense.weather.ui.charts
 
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
-import com.kylecorry.ceres.chart.Chart
-import com.kylecorry.ceres.chart.data.FullAreaChartLayer
-import com.kylecorry.ceres.chart.data.LineChartLayer
+import com.kylecorry.andromeda.views.chart.Chart
+import com.kylecorry.andromeda.views.chart.data.FullAreaChartLayer
+import com.kylecorry.andromeda.views.chart.data.LineChartLayer
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.R

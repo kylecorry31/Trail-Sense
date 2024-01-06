@@ -2,10 +2,10 @@ package com.kylecorry.trail_sense.weather.ui.charts
 
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
-import com.kylecorry.ceres.chart.Chart
-import com.kylecorry.ceres.chart.data.LineChartLayer
-import com.kylecorry.ceres.chart.data.ScatterChartLayer
-import com.kylecorry.ceres.chart.label.NumberChartLabelFormatter
+import com.kylecorry.andromeda.views.chart.Chart
+import com.kylecorry.andromeda.views.chart.data.LineChartLayer
+import com.kylecorry.andromeda.views.chart.data.ScatterChartLayer
+import com.kylecorry.andromeda.views.chart.label.NumberChartLabelFormatter
 import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.units.Pressure

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.sense.light.LightSensor
-import com.kylecorry.sol.science.physics.PhysicsService
+import com.kylecorry.sol.science.optics.Optics
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolLightBinding
 import com.kylecorry.trail_sense.shared.DistanceUtils
@@ -17,7 +17,6 @@ import kotlin.math.max
 class ToolLightFragment : BoundFragment<FragmentToolLightBinding>() {
 
     private val lightSensor by lazy { LightSensor(requireContext()) }
-    private val lightService = PhysicsService()
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private var maxLux = 0f
 
@@ -62,8 +61,8 @@ class ToolLightFragment : BoundFragment<FragmentToolLightBinding>() {
             return
         }
 
-        val candela = lightService.luxToCandela(maxLux, distance)
-        val beamDist = lightService.lightBeamDistance(candela).convertTo(distance.units)
+        val candela = Optics.luxToCandela(maxLux, distance)
+        val beamDist = Optics.lightBeamDistance(candela).convertTo(distance.units)
 
         binding.lightTitle.subtitle.text = formatService.formatCandela(candela)
         binding.beamDistanceText.text =

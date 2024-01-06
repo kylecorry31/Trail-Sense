@@ -5,7 +5,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import androidx.core.view.isVisible
-import com.kylecorry.ceres.list.ListItemMapper
+import com.kylecorry.andromeda.views.list.ListItemMapper
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ViewGroupableSelectorBinding
 import com.kylecorry.trail_sense.shared.grouping.Groupable

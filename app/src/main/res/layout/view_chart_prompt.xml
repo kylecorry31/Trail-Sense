@@ -13,7 +13,7 @@
         android:layout_marginBottom="16dp"
         tools:text="Content" />
 
-    <com.kylecorry.ceres.chart.Chart
+    <com.kylecorry.andromeda.views.chart.Chart
         android:id="@+id/chart"
         android:layout_width="match_parent"
         android:layout_height="@dimen/chart_height" />

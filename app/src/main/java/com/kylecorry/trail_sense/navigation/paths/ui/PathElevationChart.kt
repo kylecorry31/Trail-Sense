@@ -4,11 +4,11 @@ import android.graphics.Color
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrNothing
-import com.kylecorry.ceres.chart.Chart
-import com.kylecorry.ceres.chart.data.AreaChartLayer
-import com.kylecorry.ceres.chart.data.ChartLayer
-import com.kylecorry.ceres.chart.data.LineChartLayer
-import com.kylecorry.ceres.chart.data.ScatterChartLayer
+import com.kylecorry.andromeda.views.chart.Chart
+import com.kylecorry.andromeda.views.chart.data.AreaChartLayer
+import com.kylecorry.andromeda.views.chart.data.ChartLayer
+import com.kylecorry.andromeda.views.chart.data.LineChartLayer
+import com.kylecorry.andromeda.views.chart.data.ScatterChartLayer
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits

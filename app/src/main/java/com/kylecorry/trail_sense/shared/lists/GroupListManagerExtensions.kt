@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.shared.lists
 
 import android.widget.TextView
 import com.kylecorry.andromeda.core.tryOrLog
-import com.kylecorry.ceres.list.CeresListView
-import com.kylecorry.ceres.list.ListItemMapper
+import com.kylecorry.andromeda.views.list.AndromedaListView
+import com.kylecorry.andromeda.views.list.ListItemMapper
 import com.kylecorry.trail_sense.shared.grouping.Groupable
 
 fun <T : Groupable> GroupListManager<T>.bind(view: com.kylecorry.trail_sense.shared.views.SearchView) {
@@ -13,7 +13,7 @@ fun <T : Groupable> GroupListManager<T>.bind(view: com.kylecorry.trail_sense.sha
 }
 
 fun <T : Groupable> GroupListManager<T>.bind(
-    list: CeresListView,
+    list: AndromedaListView,
     title: TextView,
     mapper: ListItemMapper<T>,
     titleProvider: (root: T?) -> String

@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.astronomy.ui.items
 
-import com.kylecorry.ceres.list.ListItem
+import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.sol.units.Coordinate
 import java.time.LocalDate
 

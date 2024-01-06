@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.kylecorry.ceres.toolbar.CeresToolbar
+    <com.kylecorry.andromeda.views.toolbar.Toolbar
         android:id="@+id/astronomy_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/astronomy_title" />
 
-    <com.kylecorry.ceres.chart.Chart
+    <com.kylecorry.andromeda.views.chart.Chart
         android:id="@+id/sunMoonChart"
         android:layout_width="0dp"
         android:layout_height="@dimen/chart_height"
@@ -120,7 +120,7 @@
     </ScrollView>
 
 
-    <com.kylecorry.ceres.list.CeresListView
+    <com.kylecorry.andromeda.views.list.AndromedaListView
         android:id="@+id/astronomy_detail_list"
         android:layout_width="0dp"
         android:layout_height="0dp"

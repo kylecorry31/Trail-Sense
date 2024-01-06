@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.kylecorry.ceres.toolbar.CeresToolbar
+        <com.kylecorry.andromeda.views.toolbar.Toolbar
             android:id="@+id/path_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -200,7 +200,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/elevation" />
 
-        <com.kylecorry.ceres.chart.Chart
+        <com.kylecorry.andromeda.views.chart.Chart
             android:id="@+id/chart"
             android:layout_width="match_parent"
             android:layout_height="@dimen/chart_height"

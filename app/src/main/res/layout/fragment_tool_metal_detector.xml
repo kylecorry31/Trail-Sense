@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:keepScreenOn="true">
 
-    <com.kylecorry.ceres.toolbar.CeresToolbar
+    <com.kylecorry.andromeda.views.toolbar.Toolbar
         android:id="@+id/metal_detector_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/high_sensitivity_toggle" />
 
-    <com.kylecorry.ceres.chart.Chart
+    <com.kylecorry.andromeda.views.chart.Chart
         android:id="@+id/metal_chart"
         android:layout_width="0dp"
         android:layout_height="@dimen/chart_height"

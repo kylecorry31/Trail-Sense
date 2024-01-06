@@ -133,7 +133,7 @@ dependencies {
     implementation("com.google.android.flexbox:flexbox:3.0.0")
 
     // Andromeda
-    val andromedaVersion = "c6ed873972"
+    val andromedaVersion = "81d7c0b694"
     implementation("com.github.kylecorry31.andromeda:core:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:fragments:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:forms:$andromedaVersion")
@@ -164,18 +164,11 @@ dependencies {
     implementation("com.github.kylecorry31.andromeda:exceptions:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:print:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:list:$andromedaVersion")
-
-    // Ceres
-    val ceresVersion = "ca2e86e350"
-    implementation("com.github.kylecorry31.ceres:list:$ceresVersion")
-    implementation("com.github.kylecorry31.ceres:toolbar:$ceresVersion")
-    implementation("com.github.kylecorry31.ceres:badge:$ceresVersion")
-    implementation("com.github.kylecorry31.ceres:chart:$ceresVersion")
-    implementation("com.github.kylecorry31.ceres:image:$ceresVersion")
+    implementation("com.github.kylecorry31.andromeda:views:$andromedaVersion")
 
     // Misc
     implementation("com.github.kylecorry31:subsampling-scale-image-view:3.11.9")
-    implementation("com.github.kylecorry31:sol:8.0.1")
+    implementation("com.github.kylecorry31:sol:9.1.1")
     implementation("com.github.kylecorry31:luna:6a88851e2b")
 //    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.12")
 

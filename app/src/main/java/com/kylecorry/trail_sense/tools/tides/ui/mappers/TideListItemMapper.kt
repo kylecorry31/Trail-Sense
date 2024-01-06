@@ -2,9 +2,9 @@ package com.kylecorry.trail_sense.tools.tides.ui.mappers
 
 import android.content.Context
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.ceres.list.ListItem
-import com.kylecorry.ceres.list.ListItemMapper
-import com.kylecorry.ceres.list.ResourceListIcon
+import com.kylecorry.andromeda.views.list.ListItem
+import com.kylecorry.andromeda.views.list.ListItemMapper
+import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R

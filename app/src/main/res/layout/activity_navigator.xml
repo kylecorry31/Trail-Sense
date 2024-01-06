@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".navigation.ui.NavigatorFragment">
 
-    <com.kylecorry.ceres.toolbar.CeresToolbar
+    <com.kylecorry.andromeda.views.toolbar.Toolbar
         android:id="@+id/navigation_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -162,7 +162,7 @@
         app:layout_constraintBottom_toTopOf="@+id/navigation_sheet"
         app:layout_constraintStart_toStartOf="parent">
 
-        <com.kylecorry.ceres.badge.CeresBadge
+        <com.kylecorry.andromeda.views.badge.Badge
             android:id="@+id/gps_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -170,7 +170,7 @@
             app:foregroundTint="@android:color/black"
             app:icon="@drawable/satellite" />
 
-        <com.kylecorry.ceres.badge.CeresBadge
+        <com.kylecorry.andromeda.views.badge.Badge
             android:id="@+id/compass_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

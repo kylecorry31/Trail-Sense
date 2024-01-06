@@ -12,7 +12,7 @@
         android:paddingBottom="@dimen/default_bottom_margin"
         android:orientation="vertical">
 
-        <com.kylecorry.ceres.toolbar.CeresToolbar
+        <com.kylecorry.andromeda.views.toolbar.Toolbar
             android:id="@+id/triangulate_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.weather.ui.fields
 
 import android.content.Context
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.ceres.list.ListItem
-import com.kylecorry.ceres.list.ResourceListIcon
+import com.kylecorry.andromeda.views.list.ListItem
+import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService

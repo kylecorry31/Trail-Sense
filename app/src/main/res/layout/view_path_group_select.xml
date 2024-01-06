@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.kylecorry.ceres.toolbar.CeresToolbar
+    <com.kylecorry.andromeda.views.toolbar.Toolbar
         android:id="@+id/path_group_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,7 +14,7 @@
         app:leftButtonIcon="@drawable/ic_prev"
         app:showSubtitle="false" />
 
-    <com.kylecorry.ceres.list.CeresListView
+    <com.kylecorry.andromeda.views.list.AndromedaListView
         android:id="@+id/path_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

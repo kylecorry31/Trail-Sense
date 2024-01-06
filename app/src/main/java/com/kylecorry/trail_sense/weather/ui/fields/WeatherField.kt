@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.weather.ui.fields
 
 import android.content.Context
-import com.kylecorry.ceres.list.ListItem
+import com.kylecorry.andromeda.views.list.ListItem
 
 interface WeatherField {
 

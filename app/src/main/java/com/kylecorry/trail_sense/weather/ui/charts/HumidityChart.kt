@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.weather.ui.charts
 
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.ceres.chart.Chart
-import com.kylecorry.ceres.chart.data.LineChartLayer
+import com.kylecorry.andromeda.views.chart.Chart
+import com.kylecorry.andromeda.views.chart.data.LineChartLayer
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor

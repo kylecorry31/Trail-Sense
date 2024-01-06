@@ -2,11 +2,11 @@ package com.kylecorry.trail_sense.weather.ui.clouds
 
 import android.content.Context
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.ceres.list.ListItem
-import com.kylecorry.ceres.list.ListItemData
-import com.kylecorry.ceres.list.ListItemMapper
-import com.kylecorry.ceres.list.ListMenuItem
-import com.kylecorry.ceres.list.ResourceListIcon
+import com.kylecorry.andromeda.views.list.ListItem
+import com.kylecorry.andromeda.views.list.ListItemData
+import com.kylecorry.andromeda.views.list.ListItemMapper
+import com.kylecorry.andromeda.views.list.ListMenuItem
+import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R

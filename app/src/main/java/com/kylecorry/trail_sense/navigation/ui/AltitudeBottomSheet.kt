@@ -11,8 +11,8 @@ import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
-import com.kylecorry.ceres.chart.Chart
-import com.kylecorry.ceres.chart.data.AreaChartLayer
+import com.kylecorry.andromeda.views.chart.Chart
+import com.kylecorry.andromeda.views.chart.data.AreaChartLayer
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Reading

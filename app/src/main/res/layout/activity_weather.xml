@@ -7,13 +7,13 @@
     android:orientation="vertical">
 
 
-    <com.kylecorry.ceres.toolbar.CeresToolbar
+    <com.kylecorry.andromeda.views.toolbar.Toolbar
         android:id="@+id/weather_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
 
-    <com.kylecorry.ceres.chart.Chart
+    <com.kylecorry.andromeda.views.chart.Chart
         android:id="@+id/chart"
         android:layout_width="match_parent"
         android:layout_height="@dimen/chart_height"
@@ -30,7 +30,7 @@
         tools:text="999 hPa, 3h ago"
         tools:visibility="visible" />
 
-    <com.kylecorry.ceres.list.CeresListView
+    <com.kylecorry.andromeda.views.list.AndromedaListView
         android:id="@+id/weather_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"

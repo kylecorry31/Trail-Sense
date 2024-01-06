@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.widget.Button
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
-import com.kylecorry.ceres.toolbar.CeresToolbar
+import com.kylecorry.andromeda.views.toolbar.Toolbar
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
@@ -20,7 +20,7 @@ class MapDistanceSheet(context: Context, attrs: AttributeSet?) : FrameLayout(con
     var undoListener: (() -> Unit)? = null
     var createPathListener: (() -> Unit)? = null
 
-    private val toolbar: CeresToolbar
+    private val toolbar: Toolbar
 
     init {
         inflate(context, R.layout.view_map_distance_sheet, this)
