@@ -9,11 +9,18 @@ import com.kylecorry.andromeda.canvas.StrokeJoin
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.normalizeAngle
+import com.kylecorry.sol.math.geometry.Geometry
+import com.kylecorry.sol.math.geometry.Rectangle
+import com.kylecorry.trail_sense.shared.getBounds
+import com.kylecorry.trail_sense.shared.toPixelCoordinate
+import com.kylecorry.trail_sense.shared.toVector2
 import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.position.AugmentedRealityCoordinate
+import com.kylecorry.trail_sense.tools.augmented_reality.position.SphericalARPoint
 import kotlin.math.hypot
 import kotlin.math.min
 import kotlin.math.roundToInt
+import kotlin.math.sign
 
 // TODO: Create a generic version of this that works like the path tool. The consumers should be able to specify the line style, color, thickness, and whether it should be curved or straight between points
 class ARLineLayer(
@@ -61,7 +68,7 @@ class ARLineLayer(
         val maxAngle = hypot(view.fov.width, view.fov.height) * 1.5f
         val resolutionDegrees = (maxAngle / 10f).roundToInt().coerceIn(1, 5)
 
-        val thicknessPx = when(thicknessType){
+        val thicknessPx = when (thicknessType) {
             ThicknessType.Dp -> drawer.dp(thickness)
             ThicknessType.Angle -> {
                 view.sizeToPixel(thickness)
@@ -73,9 +80,6 @@ class ARLineLayer(
         drawer.strokeJoin(StrokeJoin.Round)
         drawer.strokeCap(StrokeCap.Round)
 
-        val maxDistance = min(view.width, view.height)
-        // TODO: Divide up the line into smaller chunks
-
         val lines = synchronized(lineLock) {
             lines.toList()
         }
@@ -86,37 +90,16 @@ class ARLineLayer(
             drawer.stroke(color)
 
             if (curved) {
-                // Curved + increased resolution
+                // Curved
                 val pixels = getLinePixels(
                     view,
                     line,
-                    resolutionDegrees.toFloat(),
-                    maxDistance.toFloat()
+                    resolutionDegrees.toFloat()
                 )
-                for (pixelLine in pixels) {
-                    var previous: PixelCoordinate? = null
-                    for (pixel in pixelLine) {
-                        if (previous != null) {
-                            path.lineTo(pixel.x, pixel.y)
-                        } else {
-                            path.moveTo(pixel.x, pixel.y)
-                        }
-                        previous = pixel
-                    }
-                }
+                render(pixels, view, path)
             } else {
-                // TODO: This should split the lines into smaller chunks (which will allow distance splitting) - keeping it this way for now for the clinometer
-                var previous: PixelCoordinate? = null
-                for (point in line) {
-                    val pixel = view.toPixel(point.getAugmentedRealityCoordinate(view))
-                    // TODO: This should split the line if the distance is too great
-                    if (previous != null) {
-                        path.lineTo(pixel.x, pixel.y)
-                    } else {
-                        path.moveTo(pixel.x, pixel.y)
-                    }
-                    previous = pixel
-                }
+                // TODO: Instead of curved, lerp between AR coordinates
+                render(line.map { it.getAugmentedRealityCoordinate(view) }, view, path)
             }
 
             drawer.path(path)
@@ -134,42 +117,21 @@ class ARLineLayer(
         view: AugmentedRealityView,
         line: List<ARPoint>,
         resolutionDegrees: Float,
-        maxDistance: Float,
-    ): List<List<PixelCoordinate>> {
-        val pixels = mutableListOf<PixelCoordinate>()
+    ): List<AugmentedRealityCoordinate> {
+        val pixels = mutableListOf<AugmentedRealityCoordinate>()
         var previousCoordinate: AugmentedRealityCoordinate? = null
         for (point in line) {
             val coord = point.getAugmentedRealityCoordinate(view)
             pixels.addAll(if (previousCoordinate != null) {
-                splitLine(previousCoordinate, coord, resolutionDegrees).map { view.toPixel(it) }
+                splitLine(previousCoordinate, coord, resolutionDegrees)
             } else {
-                listOf(view.toPixel(coord))
+                listOf(coord)
             })
 
             previousCoordinate = coord
         }
 
-
-        // If there are any points that are further apart than maxDistance, split them up
-        val splitPixels = mutableListOf<List<PixelCoordinate>>()
-        var previousPixel: PixelCoordinate? = null
-        var currentLine = mutableListOf<PixelCoordinate>()
-        for (pixel in pixels) {
-            if (previousPixel != null && pixel.distanceTo(previousPixel) > maxDistance) {
-                splitPixels.add(currentLine)
-                currentLine = mutableListOf()
-            }
-            currentLine.add(pixel)
-            previousPixel = pixel
-        }
-        if (currentLine.isNotEmpty()) {
-            splitPixels.add(currentLine)
-        }
-
-        // Clip the lines to the view
-        return splitPixels.filter { line ->
-            line.isNotEmpty()
-        }
+        return pixels
     }
 
     // TODO: Should this operate on pixels or coordinates? - if it is pixels, it will be linear, if it is coordinates it will be curved
@@ -218,6 +180,82 @@ class ARLineLayer(
 
     override fun onFocus(drawer: ICanvasDrawer, view: AugmentedRealityView): Boolean {
         return false
+    }
+
+    private fun render(points: List<AugmentedRealityCoordinate>, view: AugmentedRealityView, path: Path) {
+        val bounds = view.getBounds()
+        val pixels = points.map { view.toPixel(it) }
+        var previous: PixelCoordinate? = null
+
+        val multiplier = 1.5f
+
+        val minX = view.width * -multiplier
+        val maxX = view.width * (1 + multiplier)
+        val minY = view.height * -multiplier
+        val maxY = view.height * (1 + multiplier)
+
+
+        for (pixel in pixels) {
+
+            val isLineInvalid = previous != null &&
+                    (pixel.x < minX && previous.x > maxX ||
+                            pixel.x > maxX && previous.x < minX ||
+                            pixel.y < minY && previous.y > maxY ||
+                            pixel.y > maxY && previous.y < minY)
+
+            if (previous != null && !isLineInvalid) {
+                drawLine(bounds, PixelCoordinate(0f, 0f), previous, pixel, path)
+            } else {
+                path.moveTo(pixel.x, pixel.y)
+            }
+            previous = pixel
+        }
+    }
+
+    private fun drawLine(
+        bounds: Rectangle,
+        origin: PixelCoordinate,
+        start: PixelCoordinate,
+        end: PixelCoordinate,
+        path: Path
+    ) {
+
+        val a = start.toVector2(bounds.top)
+        val b = end.toVector2(bounds.top)
+
+        // Both are in
+        if (bounds.contains(a) && bounds.contains(b)) {
+            path.lineTo(end.x - origin.x, end.y - origin.y)
+            return
+        }
+
+        val intersection =
+            Geometry.getIntersection(a, b, bounds).map { it.toPixelCoordinate(bounds.top) }
+
+        // A is in, B is not
+        if (bounds.contains(a)) {
+            if (intersection.any()) {
+                path.lineTo(intersection[0].x - origin.x, intersection[0].y - origin.y)
+            }
+            path.moveTo(end.x - origin.x, end.y - origin.y)
+            return
+        }
+
+        // B is in, A is not
+        if (bounds.contains(b)) {
+            if (intersection.any()) {
+                path.moveTo(intersection[0].x - origin.x, intersection[0].y - origin.y)
+            }
+            path.lineTo(end.x - origin.x, end.y - origin.y)
+            return
+        }
+
+        // Both are out, but may intersect
+        if (intersection.size == 2) {
+            path.moveTo(intersection[0].x - origin.x, intersection[0].y - origin.y)
+            path.lineTo(intersection[1].x - origin.x, intersection[1].y - origin.y)
+        }
+        path.moveTo(end.x - origin.x, end.y - origin.y)
     }
 
     // TODO: Instead of this, pass in an AR size or something
