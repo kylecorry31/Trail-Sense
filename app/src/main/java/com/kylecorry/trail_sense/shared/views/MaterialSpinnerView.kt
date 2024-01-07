@@ -16,6 +16,7 @@ class MaterialSpinnerView(context: Context, attrs: AttributeSet?) : FrameLayout(
     private val spinner: Spinner
     private val edittext: TextInputEditText
     private val holder: TextInputLayout
+    private var listener: ((Int?) -> Unit)? = null
 
     val selectedItemPosition: Int
         get() = spinner.selectedItemPosition
@@ -41,10 +42,12 @@ class MaterialSpinnerView(context: Context, attrs: AttributeSet?) : FrameLayout(
                 position: Int,
                 id: Long
             ) {
+                listener?.invoke(position)
                 edittext.setText(spinner.selectedItem.toString())
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
+                listener?.invoke(null)
                 edittext.setText("")
             }
         }
@@ -68,6 +71,10 @@ class MaterialSpinnerView(context: Context, attrs: AttributeSet?) : FrameLayout(
     fun setHint(hint: String) {
         holder.hint = hint
         spinner.prompt = hint
+    }
+
+    fun setOnItemSelectedListener(listener: (Int?) -> Unit) {
+        this.listener = listener
     }
 
 }

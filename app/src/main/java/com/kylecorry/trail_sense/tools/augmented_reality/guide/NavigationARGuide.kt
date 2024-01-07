@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.augmented_reality.guide
 
+import android.widget.FrameLayout
 import com.kylecorry.trail_sense.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityView
 import com.kylecorry.trail_sense.tools.augmented_reality.position.GeographicARPoint
@@ -13,7 +14,7 @@ class NavigationARGuide(private val navigator: Navigator) : ARGuide {
     private val scope = CoroutineScope(Dispatchers.Default)
     private var job: Job? = null
 
-    override fun start(arView: AugmentedRealityView) {
+    override fun start(arView: AugmentedRealityView, panel: FrameLayout) {
         job?.cancel()
         job = scope.launch {
             navigator.destination.collect {
@@ -28,7 +29,7 @@ class NavigationARGuide(private val navigator: Navigator) : ARGuide {
         }
     }
 
-    override fun stop(arView: AugmentedRealityView) {
+    override fun stop(arView: AugmentedRealityView, panel: FrameLayout) {
         job?.cancel()
         arView.clearGuide()
     }

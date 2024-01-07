@@ -129,7 +129,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             stopCamera()
         }
 
-        guide?.start(binding.arView)
+        guide?.start(binding.arView, binding.guidancePanel)
     }
 
     // TODO: Move this to the AR view
@@ -165,7 +165,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         super.onPause()
         binding.camera.stop()
         binding.arView.stop()
-        guide?.stop(binding.arView)
+        guide?.stop(binding.arView, binding.guidancePanel)
     }
 
     private fun onSunFocused(time: ZonedDateTime): Boolean {
@@ -222,22 +222,24 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
             ARMode.Astronomy -> {
                 binding.arView.setLayers(listOf(gridLayer, astronomyLayer))
-                changeGuide(AstronomyARGuide())
+                changeGuide(AstronomyARGuide { setMode(ARMode.Normal) })
             }
         }
     }
 
     private fun changeGuide(guide: ARGuide?) {
-        this.guide?.stop(binding.arView)
+        this.guide?.stop(binding.arView, binding.guidancePanel)
         this.guide = guide
-        this.guide?.start(binding.arView)
+        this.guide?.start(binding.arView, binding.guidancePanel)
     }
 
     companion object {
         fun open(navController: NavController, mode: ARMode = ARMode.Normal) {
-            navController.navigate(R.id.augmentedRealityFragment, bundleOf(
-                "mode" to mode.id
-            ))
+            navController.navigate(
+                R.id.augmentedRealityFragment, bundleOf(
+                    "mode" to mode.id
+                )
+            )
         }
     }
 

@@ -1388,6 +1388,7 @@
     <string name="compass_dynamic_colors_summary">Use Dynamic Colors for cardinal directions</string>
     <string name="screen_flashlight_full_name">Screen Flashlight</string>
     <string name="view_in_3d">View in 3D</string>
+    <string name="locate">Locate</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>
