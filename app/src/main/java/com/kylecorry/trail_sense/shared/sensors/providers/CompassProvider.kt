@@ -19,6 +19,9 @@ import com.kylecorry.andromeda.sense.orientation.CustomGeomagneticRotationSensor
 import com.kylecorry.andromeda.sense.orientation.GeomagneticRotationSensor
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.andromeda.sense.orientation.RotationSensor
+import com.kylecorry.andromeda.sense.orientation.filter.FilteredOrientationSensor
+import com.kylecorry.andromeda.sense.orientation.filter.LowPassOrientationSensorFilter
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.filters.MovingAverageFilter
 import com.kylecorry.trail_sense.settings.infrastructure.ICompassPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -26,11 +29,11 @@ import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
 import com.kylecorry.trail_sense.shared.sensors.compass.MagQualityCompassWrapper
 import com.kylecorry.trail_sense.shared.sensors.compass.NullCompass
 import com.kylecorry.trail_sense.shared.sensors.compass.QuickRecalibrationOrientationSensor
+import kotlin.math.pow
 
 class CompassProvider(private val context: Context, private val prefs: ICompassPreferences) {
 
     fun get(): ICompass {
-        val smoothing = prefs.compassSmoothing
         val useTrueNorth = prefs.useTrueNorth
 
         var source = prefs.source
@@ -49,7 +52,10 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
 
         val compass = when (source) {
             CompassSource.Orientation -> {
-                LegacyCompass(context, useTrueNorth, SensorService.MOTION_SENSOR_DELAY)
+                FilteredCompass(
+                    LegacyCompass(context, useTrueNorth, SensorService.MOTION_SENSOR_DELAY),
+                    MovingAverageFilter((prefs.compassSmoothing * 4).coerceAtLeast(1))
+                )
             }
 
             else -> {
@@ -63,10 +69,7 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
         }
 
         return MagQualityCompassWrapper(
-            FilteredCompass(
-                compass,
-                MovingAverageFilter((smoothing * 4).coerceAtLeast(1))
-            ),
+            compass,
             Magnetometer(context, SensorManager.SENSOR_DELAY_NORMAL)
         )
     }
@@ -104,12 +107,27 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
     }
 
     fun getOrientationSensor(): IOrientationSensor {
-        return QuickRecalibrationOrientationSensor(
+        val smoothing = prefs.compassSmoothing
+
+        val quickRecalibration = QuickRecalibrationOrientationSensor(
             getCustomGeomagneticRotationSensor(false),
             getBaseOrientationSensor(),
             1f,
             45f
         )
+
+        // Smoothing isn't needed
+        if (smoothing <= 1) {
+            return quickRecalibration
+        }
+
+        val alpha = SolMath.map((1 - smoothing / 100f).pow(2), 0f, 1f, 0.005f, 1f)
+
+        return FilteredOrientationSensor(
+            quickRecalibration,
+            LowPassOrientationSensorFilter(alpha, true)
+        )
+
     }
 
     private fun getCustomGeomagneticRotationSensor(useGyroIfAvailable: Boolean): CustomGeomagneticRotationSensor {
