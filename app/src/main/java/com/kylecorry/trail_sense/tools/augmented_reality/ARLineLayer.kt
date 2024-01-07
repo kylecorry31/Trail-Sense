@@ -90,6 +90,7 @@ class ARLineLayer(
             drawer.stroke(color)
 
             if (curved) {
+                // TODO: Only calculate this higher resolution path once or only for the visible portion
                 // Curved
                 val pixels = getLinePixels(
                     view,
@@ -122,11 +123,13 @@ class ARLineLayer(
         var previousCoordinate: AugmentedRealityCoordinate? = null
         for (point in line) {
             val coord = point.getAugmentedRealityCoordinate(view)
-            pixels.addAll(if (previousCoordinate != null) {
-                splitLine(previousCoordinate, coord, resolutionDegrees)
-            } else {
-                listOf(coord)
-            })
+            pixels.addAll(
+                if (previousCoordinate != null) {
+                    splitLine(previousCoordinate, coord, resolutionDegrees)
+                } else {
+                    listOf(coord)
+                }
+            )
 
             previousCoordinate = coord
         }
@@ -142,7 +145,11 @@ class ARLineLayer(
     ): List<AugmentedRealityCoordinate> {
         val coordinates = mutableListOf<AugmentedRealityCoordinate>()
         coordinates.add(start)
-        val bearingDelta = SolMath.deltaAngle(start.bearing, end.bearing)
+        val bearingDelta = if (start.hasBearing && end.hasBearing) {
+            SolMath.deltaAngle(start.bearing, end.bearing)
+        } else {
+            0f
+        }
         val elevationDelta = end.elevation - start.elevation
         val distanceDelta = end.distance - start.distance
         val distance = hypot(bearingDelta, elevationDelta)
@@ -153,7 +160,7 @@ class ARLineLayer(
         for (i in 1..steps) {
             coordinates.add(
                 AugmentedRealityCoordinate.fromSpherical(
-                    normalizeAngle(start.bearing + bearingStep * i),
+                    normalizeAngle((if (start.hasBearing) start.bearing else end.bearing) + bearingStep * i),
                     start.elevation + elevationStep * i,
                     start.distance + distanceStep * i
                 )
@@ -182,7 +189,11 @@ class ARLineLayer(
         return false
     }
 
-    private fun render(points: List<AugmentedRealityCoordinate>, view: AugmentedRealityView, path: Path) {
+    private fun render(
+        points: List<AugmentedRealityCoordinate>,
+        view: AugmentedRealityView,
+        path: Path
+    ) {
         val bounds = view.getBounds()
         val pixels = points.map { view.toPixel(it) }
         var previous: PixelCoordinate? = null

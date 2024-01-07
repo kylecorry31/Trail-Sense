@@ -10,19 +10,21 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.getValuesBetween
+import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.position.AugmentedRealityCoordinate
+import com.kylecorry.trail_sense.tools.augmented_reality.position.SphericalARPoint
 import kotlin.math.absoluteValue
 import kotlin.math.hypot
 import kotlin.math.min
 import kotlin.math.roundToInt
 
 class ARGridLayer(
-    private val spacing: Int = 30,
+    spacing: Int = 30,
     @ColorInt private val color: Int = Color.WHITE,
     @ColorInt private val northColor: Int = color,
     @ColorInt private val horizonColor: Int = color,
     @ColorInt private val labelColor: Int = color,
-    private val thicknessDp: Float = 1f,
+    thicknessDp: Float = 1f,
     private val useTrueNorth: Boolean = true,
 ) : ARLayer {
 
@@ -35,11 +37,76 @@ class ARGridLayer(
     private var eastString: String = ""
     private var westString: String = ""
 
-    private val path = Path()
+    private val regularLayer = ARLineLayer(color, thicknessDp, ARLineLayer.ThicknessType.Dp, true)
+    private val northLayer =
+        ARLineLayer(northColor, thicknessDp, ARLineLayer.ThicknessType.Dp, true)
+    private val horizonLayer =
+        ARLineLayer(horizonColor, thicknessDp, ARLineLayer.ThicknessType.Dp, true)
+
+    init {
+        val regularLines = mutableListOf<List<ARPoint>>()
+
+        // Horizontal lines
+        for (elevation in -90..90 step spacing) {
+            // Skip horizon
+            if (elevation == 0) {
+                continue
+            }
+
+            val line = mutableListOf<ARPoint>()
+            for (azimuth in 0..360 step spacing) {
+                line.add(
+                    SphericalARPoint(
+                        azimuth.toFloat(),
+                        elevation.toFloat(),
+                        isTrueNorth = useTrueNorth
+                    )
+                )
+            }
+            regularLines.add(line)
+        }
+
+        // Vertical lines
+        for (azimuth in 0 until 360 step spacing) {
+
+            // Skip north
+            if (azimuth == 0) {
+                continue
+            }
+
+            val line = mutableListOf<ARPoint>()
+            for (elevation in -90..90 step spacing) {
+                line.add(
+                    SphericalARPoint(
+                        azimuth.toFloat(),
+                        elevation.toFloat(),
+                        isTrueNorth = useTrueNorth
+                    )
+                )
+            }
+            regularLines.add(line)
+        }
+
+        regularLayer.setLines(regularLines)
+
+        // North line
+        val northLine = mutableListOf<ARPoint>()
+        for (elevation in -90..90 step spacing) {
+            northLine.add(SphericalARPoint(0f, elevation.toFloat(), isTrueNorth = useTrueNorth))
+        }
+        northLayer.setLines(listOf(northLine))
+
+        // Horizon line
+        val horizonLine = mutableListOf<ARPoint>()
+        for (azimuth in 0..360 step spacing) {
+            horizonLine.add(SphericalARPoint(azimuth.toFloat(), 0f, isTrueNorth = useTrueNorth))
+        }
+        horizonLayer.setLines(listOf(horizonLine))
+    }
 
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
 
-        if (!isSetup){
+        if (!isSetup) {
             textSize = drawer.sp(16f)
             northString = view.context.getString(R.string.direction_north)
             southString = view.context.getString(R.string.direction_south)
@@ -48,83 +115,44 @@ class ARGridLayer(
             isSetup = true
         }
 
-        val maxAngle = hypot(view.fov.width, view.fov.height) * 1.5f
-
-        val resolutionDegrees = (maxAngle / 10f).roundToInt().coerceIn(1, 5)
-
-        val minVertical = (view.inclination - maxAngle / 2f).toInt().coerceIn(-90, 90)
-        val maxVertical = (view.inclination + maxAngle / 2f).toInt().coerceIn(-90, 90)
-
-        val isPoleVisible = minVertical.absoluteValue == 90 || maxVertical.absoluteValue == 90
-
-        val minHorizontal = if (isPoleVisible) 0 else (view.azimuth - maxAngle / 2f).toInt()
-        val maxHorizontal = if (isPoleVisible) 360 else (view.azimuth + maxAngle / 2f).toInt()
-
-        val latitudes = getValuesBetween(minVertical.toFloat(), maxVertical.toFloat(), spacing.toFloat())
-        val longitudes = getValuesBetween(minHorizontal.toFloat(), maxHorizontal.toFloat(), spacing.toFloat()).distinctBy {
-            SolMath.normalizeAngle(it)
-        }
-
-        drawer.noFill()
-        drawer.strokeWeight(drawer.dp(thicknessDp))
-        drawer.strokeJoin(StrokeJoin.Round)
-        drawer.strokeCap(StrokeCap.Round)
-
-        val maxDistance = min(view.width, view.height)
-
-        // Draw horizontal lines
-        val horizontalPointRange = steppedRangeInclusive(minHorizontal, maxHorizontal, resolutionDegrees)
-        for (i in latitudes) {
-            path.reset()
-            if (i.toInt() == 0){
-                drawer.stroke(horizonColor)
-            } else {
-                drawer.stroke(color)
-            }
-            var previous: PixelCoordinate? = null
-            for (j in horizontalPointRange) {
-                val pixel = view.toPixel(AugmentedRealityCoordinate.fromSpherical(j.toFloat(), i, distance, useTrueNorth))
-                if (previous != null && pixel.distanceTo(previous) < maxDistance){
-                    path.lineTo(pixel.x, pixel.y)
-                } else {
-                    path.moveTo(pixel.x, pixel.y)
-                }
-                previous = pixel
-            }
-            drawer.path(path)
-        }
-
-        // Draw vertical lines
-        val verticalPointRange = steppedRangeInclusive(minVertical, maxVertical, resolutionDegrees)
-        for (i in longitudes) {
-            path.reset()
-            if (i.toInt() == 0){
-                drawer.stroke(northColor)
-            } else {
-                drawer.stroke(color)
-            }
-            var previous: PixelCoordinate? = null
-            for (j in verticalPointRange) {
-                val pixel = view.toPixel(AugmentedRealityCoordinate.fromSpherical(i, j.toFloat(), distance, useTrueNorth))
-                if (previous != null && pixel.distanceTo(previous) < maxDistance){
-                    path.lineTo(pixel.x, pixel.y)
-                } else {
-                    path.moveTo(pixel.x, pixel.y)
-                }
-                previous = pixel
-            }
-            drawer.path(path)
-        }
-
-
-        drawer.noStroke()
+        regularLayer.draw(drawer, view)
+        northLayer.draw(drawer, view)
+        horizonLayer.draw(drawer, view)
 
         // Draw cardinal direction labels
         val offset = 2f
-        val north = view.toPixel(AugmentedRealityCoordinate.fromSpherical(0f, offset, distance, useTrueNorth))
-        val south = view.toPixel(AugmentedRealityCoordinate.fromSpherical(180f, offset, distance, useTrueNorth))
-        val east = view.toPixel(AugmentedRealityCoordinate.fromSpherical(90f, offset, distance, useTrueNorth))
-        val west = view.toPixel(AugmentedRealityCoordinate.fromSpherical(-90f, offset, distance, useTrueNorth))
+        val north = view.toPixel(
+            AugmentedRealityCoordinate.fromSpherical(
+                0f,
+                offset,
+                distance,
+                useTrueNorth
+            )
+        )
+        val south = view.toPixel(
+            AugmentedRealityCoordinate.fromSpherical(
+                180f,
+                offset,
+                distance,
+                useTrueNorth
+            )
+        )
+        val east = view.toPixel(
+            AugmentedRealityCoordinate.fromSpherical(
+                90f,
+                offset,
+                distance,
+                useTrueNorth
+            )
+        )
+        val west = view.toPixel(
+            AugmentedRealityCoordinate.fromSpherical(
+                -90f,
+                offset,
+                distance,
+                useTrueNorth
+            )
+        )
 
         drawLabel(drawer, view, northString, north)
         drawLabel(drawer, view, southString, south)
@@ -132,24 +160,19 @@ class ARGridLayer(
         drawLabel(drawer, view, westString, west)
     }
 
-    private fun drawLabel(drawer: ICanvasDrawer, view: AugmentedRealityView, text: String, position: PixelCoordinate){
+    private fun drawLabel(
+        drawer: ICanvasDrawer,
+        view: AugmentedRealityView,
+        text: String,
+        position: PixelCoordinate
+    ) {
         drawer.textSize(drawer.sp(16f))
         drawer.fill(labelColor)
+        drawer.noStroke()
         drawer.push()
         drawer.rotate(view.sideInclination, position.x, position.y)
         drawer.text(text, position.x, position.y)
         drawer.pop()
-    }
-
-    private fun steppedRangeInclusive(min: Int, max: Int, step: Int): List<Int> {
-        val values = mutableListOf<Int>()
-        for (i in min..max step step) {
-            values.add(i)
-        }
-        if (values.lastOrNull() != max){
-            values.add(max)
-        }
-        return values
     }
 
     override fun invalidate() {
