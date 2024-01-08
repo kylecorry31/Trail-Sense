@@ -1,8 +1,6 @@
 package com.kylecorry.trail_sense.tools.augmented_reality
 
-import android.graphics.Color
 import android.graphics.Path
-import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.StrokeCap
 import com.kylecorry.andromeda.canvas.StrokeJoin
@@ -16,26 +14,17 @@ import com.kylecorry.trail_sense.shared.toPixelCoordinate
 import com.kylecorry.trail_sense.shared.toVector2
 import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.position.AugmentedRealityCoordinate
-import com.kylecorry.trail_sense.tools.augmented_reality.position.SphericalARPoint
 import kotlin.math.hypot
-import kotlin.math.min
 import kotlin.math.roundToInt
-import kotlin.math.sign
 
-// TODO: Create a generic version of this that works like the path tool. The consumers should be able to specify the line style, color, thickness, and whether it should be curved or straight between points
-class ARLineLayer(
-    @ColorInt private val color: Int = Color.WHITE,
-    private val thickness: Float = 1f,
-    private val thicknessType: ThicknessType = ThicknessType.Dp,
-    private val curved: Boolean = true
-) : ARLayer {
+class ARLineLayer : ARLayer {
 
     private val path = Path()
 
-    private val lines = mutableListOf<List<ARPoint>>()
+    private val lines = mutableListOf<ARLine>()
     private val lineLock = Any()
 
-    fun setLines(lines: List<List<ARPoint>>) {
+    fun setLines(lines: List<ARLine>) {
         synchronized(lineLock) {
             this.lines.clear()
             this.lines.addAll(lines)
@@ -48,35 +37,13 @@ class ARLineLayer(
         }
     }
 
-    /*
-     * Desired algorithm (for curved lines):
-     * 1. Split the line into smaller lines based on the resolution
-     * 2. For each line, get the pixels that make up the line
-     * 3. Clip the line to the view
-     * 4. Remove connections between lines that are too far apart (ex. crossing the view)
-     * 5. Draw the lines
-     *
-     * Desired algorithm (for straight lines):
-     * 1. Get the pixels that make up the line
-     * 2. Split the line into smaller lines based on the resolution
-     * 3. Clip the line to the view
-     * 4. Remove connections between lines that are too far apart (ex. crossing the view)
-     * 5. Draw the lines
-     */
-
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         val maxAngle = hypot(view.fov.width, view.fov.height) * 1.5f
         val resolutionDegrees = (maxAngle / 10f).roundToInt().coerceIn(1, 5)
 
-        val thicknessPx = when (thicknessType) {
-            ThicknessType.Dp -> drawer.dp(thickness)
-            ThicknessType.Angle -> {
-                view.sizeToPixel(thickness)
-            }
-        }
+
 
         drawer.noFill()
-        drawer.strokeWeight(thicknessPx)
         drawer.strokeJoin(StrokeJoin.Round)
         drawer.strokeCap(StrokeCap.Round)
 
@@ -87,20 +54,23 @@ class ARLineLayer(
         // Draw horizontal lines
         for (line in lines) {
             path.reset()
-            drawer.stroke(color)
+            drawer.stroke(line.color)
+            val thicknessPx = when (line.thicknessUnits) {
+                ARLine.ThicknessUnits.Dp -> drawer.dp(line.thickness)
+                ARLine.ThicknessUnits.Angle -> view.sizeToPixel(line.thickness)
+            }
+            drawer.strokeWeight(thicknessPx)
 
-            if (curved) {
+            if (line.curved) {
                 // TODO: Only calculate this higher resolution path once or only for the visible portion
-                // Curved
                 val pixels = getLinePixels(
                     view,
-                    line,
+                    line.points,
                     resolutionDegrees.toFloat()
                 )
                 render(pixels, view, path)
             } else {
-                // TODO: Instead of curved, lerp between AR coordinates
-                render(line.map { it.getAugmentedRealityCoordinate(view) }, view, path)
+                render(line.points.map { it.getAugmentedRealityCoordinate(view) }, view, path)
             }
 
             drawer.path(path)
@@ -267,10 +237,5 @@ class ARLineLayer(
             path.lineTo(intersection[1].x - origin.x, intersection[1].y - origin.y)
         }
         path.moveTo(end.x - origin.x, end.y - origin.y)
-    }
-
-    // TODO: Instead of this, pass in an AR size or something
-    enum class ThicknessType {
-        Dp, Angle
     }
 }

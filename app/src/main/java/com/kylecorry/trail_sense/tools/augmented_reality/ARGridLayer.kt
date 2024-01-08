@@ -1,22 +1,13 @@
 package com.kylecorry.trail_sense.tools.augmented_reality
 
 import android.graphics.Color
-import android.graphics.Path
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
-import com.kylecorry.andromeda.canvas.StrokeCap
-import com.kylecorry.andromeda.canvas.StrokeJoin
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.sol.math.SolMath
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.extensions.getValuesBetween
 import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.position.AugmentedRealityCoordinate
 import com.kylecorry.trail_sense.tools.augmented_reality.position.SphericalARPoint
-import kotlin.math.absoluteValue
-import kotlin.math.hypot
-import kotlin.math.min
-import kotlin.math.roundToInt
 
 class ARGridLayer(
     spacing: Int = 30,
@@ -37,12 +28,7 @@ class ARGridLayer(
     private var eastString: String = ""
     private var westString: String = ""
 
-    private val regularLayer = ARLineLayer(color, thicknessDp, ARLineLayer.ThicknessType.Dp, true)
-    private val northLayer =
-        ARLineLayer(northColor, thicknessDp, ARLineLayer.ThicknessType.Dp, true)
-    private val horizonLayer =
-        ARLineLayer(horizonColor, thicknessDp, ARLineLayer.ThicknessType.Dp, true)
-
+    private val lineLayer = ARLineLayer()
     init {
         val regularLines = mutableListOf<List<ARPoint>>()
 
@@ -87,21 +73,23 @@ class ARGridLayer(
             regularLines.add(line)
         }
 
-        regularLayer.setLines(regularLines)
-
         // North line
         val northLine = mutableListOf<ARPoint>()
         for (elevation in -90..90 step spacing) {
             northLine.add(SphericalARPoint(0f, elevation.toFloat(), isTrueNorth = useTrueNorth))
         }
-        northLayer.setLines(listOf(northLine))
 
         // Horizon line
         val horizonLine = mutableListOf<ARPoint>()
         for (azimuth in 0..360 step spacing) {
             horizonLine.add(SphericalARPoint(azimuth.toFloat(), 0f, isTrueNorth = useTrueNorth))
         }
-        horizonLayer.setLines(listOf(horizonLine))
+
+        lineLayer.setLines(
+            regularLines.map { ARLine(it, color, thicknessDp) } +
+                    ARLine(northLine, northColor, thicknessDp) +
+                    ARLine(horizonLine, horizonColor, thicknessDp)
+        )
     }
 
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
@@ -115,9 +103,7 @@ class ARGridLayer(
             isSetup = true
         }
 
-        regularLayer.draw(drawer, view)
-        northLayer.draw(drawer, view)
-        horizonLayer.draw(drawer, view)
+        lineLayer.draw(drawer, view)
 
         // Draw cardinal direction labels
         val offset = 2f

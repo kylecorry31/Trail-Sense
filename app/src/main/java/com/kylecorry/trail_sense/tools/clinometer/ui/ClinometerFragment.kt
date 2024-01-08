@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.clinometer.ui
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -35,6 +36,7 @@ import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.augmented_reality.ARLine
 import com.kylecorry.trail_sense.tools.augmented_reality.ARLineLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ARMarker
 import com.kylecorry.trail_sense.tools.augmented_reality.ARMarkerLayer
@@ -79,7 +81,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
     // Augmented reality
     private val markerLayer = ARMarkerLayer()
-    private val lineLayer = ARLineLayer(curved = false)
+    private val lineLayer = ARLineLayer()
     private var startMarker: ARPoint? = null
     private var endMarker: ARPoint? = null
 
@@ -140,7 +142,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         observe(deviceOrientation) { updateUI() }
     }
 
-    private fun startSideClinometer(){
+    private fun startSideClinometer() {
         binding.camera.stop()
         binding.arView.stop()
         binding.clinometerTitle.leftButton.setImageResource(R.drawable.ic_camera)
@@ -149,7 +151,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         clinometer = getClinometer()
     }
 
-    private fun startCameraClinometer(showAlert: Boolean){
+    private fun startCameraClinometer(showAlert: Boolean) {
         requestCamera { hasPermission ->
             if (hasPermission) {
                 useCamera = true
@@ -383,7 +385,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             )
         }
 
-        if (useCamera){
+        if (useCamera) {
             startCameraClinometer(false)
         } else {
             startSideClinometer()
@@ -499,14 +501,19 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         if (isAugmentedReality && startMarker != null) {
             lineLayer.setLines(
                 listOf(
-                    listOfNotNull(
-                        startMarker,
-                        endMarker ?: SphericalARPoint(
-                            binding.arView.azimuth,
-                            binding.arView.inclination,
-                            isTrueNorth = prefs.compass.useTrueNorth,
-                            distance = distanceAway?.meters()?.distance ?: 10f
-                        )
+                    ARLine(
+                        listOfNotNull(
+                            startMarker,
+                            endMarker ?: SphericalARPoint(
+                                binding.arView.azimuth,
+                                binding.arView.inclination,
+                                isTrueNorth = prefs.compass.useTrueNorth,
+                                distance = distanceAway?.meters()?.distance ?: 10f
+                            )
+                        ),
+                        Color.WHITE,
+                        1f,
+                        curved = false
                     )
                 )
             )

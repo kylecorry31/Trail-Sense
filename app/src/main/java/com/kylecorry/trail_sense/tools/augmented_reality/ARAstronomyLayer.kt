@@ -37,21 +37,10 @@ class ARAstronomyLayer(
     private val lineAlpha = 30
     private val lineThickness = 1f
 
-    private val sunLineLayer = ARLineLayer(
-        AppColor.Yellow.color.withAlpha(lineAlpha),
-        thickness = lineThickness,
-        thicknessType = ARLineLayer.ThicknessType.Angle,
-        curved = true
-    )
+    private val lineLayer = ARLineLayer()
     private val sunLayer = ARMarkerLayer()
     private val currentSunLayer = ARMarkerLayer()
 
-    private val moonLineLayer = ARLineLayer(
-        Color.WHITE.withAlpha(lineAlpha),
-        thickness = lineThickness,
-        thicknessType = ARLineLayer.ThicknessType.Angle,
-        curved = true
-    )
     private val moonLayer = ARMarkerLayer()
     private val currentMoonLayer = ARMarkerLayer()
 
@@ -77,8 +66,7 @@ class ARAstronomyLayer(
         }
 
         if (drawLines) {
-            moonLineLayer.draw(drawer, view)
-            sunLineLayer.draw(drawer, view)
+            lineLayer.draw(drawer, view)
         }
         moonLayer.draw(drawer, view)
         sunLayer.draw(drawer, view)
@@ -87,8 +75,7 @@ class ARAstronomyLayer(
     }
 
     override fun invalidate() {
-        moonLineLayer.invalidate()
-        sunLineLayer.invalidate()
+        lineLayer.invalidate()
         moonLayer.invalidate()
         sunLayer.invalidate()
         currentMoonLayer.invalidate()
@@ -254,8 +241,26 @@ class ARAstronomyLayer(
 
 
                 // TODO: The line should be drawn to the horizon
-                sunLineLayer.setLines(sunPointsToDraw.map { markers -> markers.map { it.point } })
-                moonLineLayer.setLines(moonPointsToDraw.map { markers -> markers.map { it.point } })
+
+                val sunLines = sunPointsToDraw.map { markers ->
+                    ARLine(
+                        markers.map { it.point },
+                        AppColor.Yellow.color.withAlpha(lineAlpha),
+                        lineThickness,
+                        ARLine.ThicknessUnits.Angle,
+                    )
+                }
+
+                val moonLines = moonPointsToDraw.map { markers ->
+                    ARLine(
+                        markers.map { it.point },
+                        Color.WHITE.withAlpha(lineAlpha),
+                        lineThickness,
+                        ARLine.ThicknessUnits.Angle,
+                    )
+                }
+
+                lineLayer.setLines(sunLines + moonLines)
                 sunLayer.setMarkers(sunPointsToDraw.flatten())
                 moonLayer.setMarkers(moonPointsToDraw.flatten())
 
@@ -327,9 +332,11 @@ class ARAstronomyLayer(
         // If the sun is down and is greater than 6 hours from the next sunrise, use the last sunrise to the last sunset
         val isUp = astro.isSunUp(location)
 
-        val yesterday = astro.getSunTimes(location, SunTimesMode.Actual, time.minusDays(1).toLocalDate())
+        val yesterday =
+            astro.getSunTimes(location, SunTimesMode.Actual, time.minusDays(1).toLocalDate())
         val today = astro.getSunTimes(location, SunTimesMode.Actual, time.toLocalDate())
-        val tomorrow = astro.getSunTimes(location, SunTimesMode.Actual, time.plusDays(1).toLocalDate())
+        val tomorrow =
+            astro.getSunTimes(location, SunTimesMode.Actual, time.plusDays(1).toLocalDate())
 
         val lastRise =
             Time.getClosestPastTime(time, listOfNotNull(yesterday.rise, today.rise, tomorrow.rise))
