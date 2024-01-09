@@ -1150,4 +1150,5 @@
     <string name="compass_dynamic_colors_summary">对基本方位使用动态颜色</string>
     <string name="screen_flashlight_full_name">屏幕手电</string>
     <string name="view_in_3d">3D 视图查看</string>
+    <string name="locate">定位</string>
 </resources>
