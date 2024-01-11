@@ -94,8 +94,8 @@
     <application
         android:name=".TrailSenseApplication"
         android:allowBackup="true"
-        android:fullBackupContent="@xml/backup_rules_30_lower"
         android:dataExtractionRules="@xml/backup_rules_31_higher"
+        android:fullBackupContent="@xml/backup_rules_30_lower"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:resizeableActivity="false"
@@ -129,6 +129,7 @@
             <intent-filter android:label="@string/import_map">
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="image/*" />
                 <data android:mimeType="application/pdf" />
             </intent-filter>
@@ -137,6 +138,11 @@
 
         <activity
             android:name="com.kylecorry.trail_sense.onboarding.OnboardingActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name="com.kylecorry.trail_sense.main.TileActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 

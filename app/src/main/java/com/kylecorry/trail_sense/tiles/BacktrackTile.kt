@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi
 import com.kylecorry.andromeda.core.topics.generic.ITopic
 import com.kylecorry.andromeda.core.topics.generic.map
 import com.kylecorry.andromeda.core.topics.generic.replay
+import com.kylecorry.trail_sense.main.TileActivity
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.FormatService
@@ -22,15 +23,20 @@ class BacktrackTile : TopicTile() {
         get() = backtrack.state.replay()
 
     override val subtitleTopic: ITopic<String>
-        get() = backtrack.frequency.map { formatter.formatDuration(it, includeSeconds = true) }.replay()
+        get() = backtrack.frequency.map { formatter.formatDuration(it, includeSeconds = true) }
+            .replay()
 
     override fun stop() {
         backtrack.disable()
     }
 
     override fun start() {
-        scope.launch {
-            backtrack.enable(true)
+        if (isForegroundWorkaroundNeeded()) {
+            startWorkaround(TileActivity.TILE_ID_BACKTRACK)
+        } else {
+            scope.launch {
+                backtrack.enable(true)
+            }
         }
     }
 }

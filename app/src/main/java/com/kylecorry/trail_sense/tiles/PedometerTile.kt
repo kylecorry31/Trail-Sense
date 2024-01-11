@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi
 import com.kylecorry.andromeda.core.topics.generic.ITopic
 import com.kylecorry.andromeda.core.topics.generic.map
 import com.kylecorry.andromeda.core.topics.generic.replay
+import com.kylecorry.trail_sense.main.TileActivity
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.FormatService
@@ -33,7 +34,11 @@ class PedometerTile : TopicTile() {
     }
 
     override fun start() {
-        pedometer.enable()
+        if (isForegroundWorkaroundNeeded()) {
+            startWorkaround(TileActivity.TILE_ID_PEDOMETER)
+        } else {
+            pedometer.enable()
+        }
     }
 
 }
