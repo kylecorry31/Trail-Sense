@@ -33,11 +33,7 @@ class PedometerTile : TopicTile() {
     }
 
     override fun start() {
-        if (isForegroundWorkaroundNeeded()) {
-            startWorkaround {
-                pedometer.enable()
-            }
-        } else {
+        startForegroundService {
             pedometer.enable()
         }
     }

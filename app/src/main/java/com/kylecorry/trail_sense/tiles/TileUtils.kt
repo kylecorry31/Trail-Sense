@@ -39,3 +39,14 @@ inline fun AndromedaTileService.startWorkaround(crossinline action: suspend () -
         showDialog(dialog)
     }
 }
+
+inline fun AndromedaTileService.startForegroundService(crossinline action: suspend () -> Unit) {
+    if (isForegroundWorkaroundNeeded()) {
+        startWorkaround {
+            action()
+        }
+    } else {
+        val scope = CoroutineScope(Dispatchers.Default)
+        scope.launch { action() }
+    }
+}
