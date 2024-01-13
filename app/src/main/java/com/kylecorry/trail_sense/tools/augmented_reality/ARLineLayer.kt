@@ -1,25 +1,17 @@
 package com.kylecorry.trail_sense.tools.augmented_reality
 
-import android.graphics.Path
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.StrokeCap
 import com.kylecorry.andromeda.canvas.StrokeJoin
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.normalizeAngle
 import com.kylecorry.sol.math.geometry.Geometry
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.shared.toPixelCoordinate
 import com.kylecorry.trail_sense.shared.toVector2
-import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.position.AugmentedRealityCoordinate
-import kotlin.math.hypot
-import kotlin.math.roundToInt
 
 class ARLineLayer : ARLayer {
-
-    private val path = Path()
 
     private val lines = mutableListOf<ARLine>()
     private val lineLock = Any()
@@ -48,7 +40,6 @@ class ARLineLayer : ARLayer {
 
         // Draw horizontal lines
         for (line in lines) {
-            path.reset()
             drawer.stroke(line.color)
             val thicknessPx = when (line.thicknessUnits) {
                 ARLine.ThicknessUnits.Dp -> drawer.dp(line.thickness)
@@ -56,9 +47,7 @@ class ARLineLayer : ARLayer {
             }
             drawer.strokeWeight(thicknessPx)
 
-            render(line.points.map { it.getAugmentedRealityCoordinate(view) }, view, path)
-
-            drawer.path(path)
+            render(line.points.map { it.getAugmentedRealityCoordinate(view) }, view, drawer)
         }
 
         drawer.noStroke()
@@ -83,7 +72,7 @@ class ARLineLayer : ARLayer {
     private fun render(
         points: List<AugmentedRealityCoordinate>,
         view: AugmentedRealityView,
-        path: Path
+        drawer: ICanvasDrawer
     ) {
         val bounds = view.getBounds()
         val pixels = points.map { view.toPixel(it) }
@@ -106,9 +95,7 @@ class ARLineLayer : ARLayer {
                             pixel.y > maxY && previous.y < minY)
 
             if (previous != null && !isLineInvalid) {
-                drawLine(bounds, PixelCoordinate(0f, 0f), previous, pixel, path)
-            } else {
-                path.moveTo(pixel.x, pixel.y)
+                drawLine(bounds, previous, pixel, drawer)
             }
             previous = pixel
         }
@@ -116,10 +103,9 @@ class ARLineLayer : ARLayer {
 
     private fun drawLine(
         bounds: Rectangle,
-        origin: PixelCoordinate,
         start: PixelCoordinate,
         end: PixelCoordinate,
-        path: Path
+        drawer: ICanvasDrawer
     ) {
 
         val a = start.toVector2(bounds.top)
@@ -127,7 +113,7 @@ class ARLineLayer : ARLayer {
 
         // Both are in
         if (bounds.contains(a) && bounds.contains(b)) {
-            path.lineTo(end.x - origin.x, end.y - origin.y)
+            drawer.line(start.x, start.y, end.x, end.y)
             return
         }
 
@@ -137,26 +123,22 @@ class ARLineLayer : ARLayer {
         // A is in, B is not
         if (bounds.contains(a)) {
             if (intersection.any()) {
-                path.lineTo(intersection[0].x - origin.x, intersection[0].y - origin.y)
+                drawer.line(start.x, start.y, intersection[0].x, intersection[0].y)
             }
-            path.moveTo(end.x - origin.x, end.y - origin.y)
             return
         }
 
         // B is in, A is not
         if (bounds.contains(b)) {
             if (intersection.any()) {
-                path.moveTo(intersection[0].x - origin.x, intersection[0].y - origin.y)
+                drawer.line(intersection[0].x, intersection[0].y, end.x, end.y)
             }
-            path.lineTo(end.x - origin.x, end.y - origin.y)
             return
         }
 
         // Both are out, but may intersect
         if (intersection.size == 2) {
-            path.moveTo(intersection[0].x - origin.x, intersection[0].y - origin.y)
-            path.lineTo(intersection[1].x - origin.x, intersection[1].y - origin.y)
+            drawer.line(intersection[0].x, intersection[0].y, intersection[1].x, intersection[1].y)
         }
-        path.moveTo(end.x - origin.x, end.y - origin.y)
     }
 }
