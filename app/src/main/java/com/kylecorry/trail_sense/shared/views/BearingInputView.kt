@@ -7,9 +7,9 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import com.google.android.material.materialswitch.MaterialSwitch
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.fragments.AndromedaActivity
@@ -158,7 +158,7 @@ class BearingInputView(context: Context, attrs: AttributeSet? = null) :
         }
         bearingInputView.setText(chosenBearing?.let { DecimalFormatter.format(it.value, 1) })
 
-        val trueNorthSwitch = view.findViewById<SwitchCompat>(R.id.true_north)
+        val trueNorthSwitch = view.findViewById<MaterialSwitch>(R.id.true_north)
         trueNorthSwitch.isChecked = chosenTrueNorth
         trueNorthSwitch.setOnCheckedChangeListener { _, isChecked ->
             chosenTrueNorth = isChecked

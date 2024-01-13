@@ -13,7 +13,7 @@
         app:tileIcon="@drawable/ic_tool_white_noise"
         app:tilePadding="64dp" />
 
-    <androidx.appcompat.widget.SwitchCompat
+    <com.google.android.material.materialswitch.MaterialSwitch
         android:id="@+id/sleep_timer_switch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
