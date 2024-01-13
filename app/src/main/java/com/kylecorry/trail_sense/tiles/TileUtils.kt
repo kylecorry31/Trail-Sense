@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tiles
 
+import android.app.ActivityManager
 import android.app.Dialog
 import android.os.Build
 import com.kylecorry.andromeda.background.services.AndromedaTileService
@@ -16,7 +17,10 @@ fun AndromedaTileService.isForegroundWorkaroundNeeded(): Boolean {
         return false
     }
 
-    // TODO: Only needed if the app is in the background
+    if (isInForeground()){
+        return false
+    }
+
     return !Permissions.isIgnoringBatteryOptimizations(this)
 }
 
@@ -49,4 +53,10 @@ inline fun AndromedaTileService.startForegroundService(crossinline action: suspe
         val scope = CoroutineScope(Dispatchers.Default)
         scope.launch { action() }
     }
+}
+
+fun isInForeground(): Boolean {
+    val processInfo = ActivityManager.RunningAppProcessInfo()
+    ActivityManager.getMyMemoryState(processInfo)
+    return processInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND || processInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND_SERVICE
 }
