@@ -30,7 +30,7 @@ class ARGridLayer(
 
     private val lineLayer = ARLineLayer()
 
-    private val resolution = spacing / 5
+    private val resolution = 6
 
     init {
         val regularLines = mutableListOf<List<ARPoint>>()
