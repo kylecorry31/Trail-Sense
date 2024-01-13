@@ -47,7 +47,7 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 
 ## Feature Roadmap
 - [x] Q2 2023: Photo Maps
-- [ ] Q3-Q4 2023: Usability (at a glance, tutorials, data export)
+- [x] Q3-Q4 2023: Usability (at a glance, tutorials, data export)
 - [ ] Q1-Q2 2024: Augmented reality
 - [ ] Q3 2024: Path navigation
 
