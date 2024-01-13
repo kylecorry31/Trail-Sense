@@ -22,8 +22,8 @@
         <item name="materialButtonStyle">@style/ThemeOverlay.App.ElevatedButton</item>
         <item name="snackbarButtonStyle">@style/SnackBarButtonTheme</item>
         <item name="floatingActionButtonStyle">@style/Widget.App.FloatingActionButton</item>
-        <item name="floatingActionButtonSmallStyle">@style/Widget.App.FloatingActionButtonSmall
-        </item>
+        <item name="floatingActionButtonSmallStyle">@style/Widget.App.FloatingActionButtonSmall</item>
+        <item name="preferenceTheme">@style/AppThemePreferenceThemeOverlay</item>
     </style>
 
     <!--Override this for other Android versions-->
@@ -89,6 +89,14 @@
     <style name="AppTheme.ListViewWithFab">
         <item name="android:clipToPadding">false</item>
         <item name="android:paddingBottom">96dp</item>
+    </style>
+
+    <style name="AppThemePreferenceThemeOverlay" parent="@style/PreferenceThemeOverlay">
+        <item name="switchPreferenceCompatStyle">@style/SwitchPreferenceStyle</item>
+    </style>
+
+    <style name="SwitchPreferenceStyle" parent="@style/Preference.SwitchPreferenceCompat.Material">
+        <item name="widgetLayout">@layout/preference_material_switch</item>
     </style>
 
 </resources>
