@@ -29,6 +29,9 @@ class ARGridLayer(
     private var westString: String = ""
 
     private val lineLayer = ARLineLayer()
+
+    private val resolution = spacing / 5
+
     init {
         val regularLines = mutableListOf<List<ARPoint>>()
 
@@ -40,7 +43,7 @@ class ARGridLayer(
             }
 
             val line = mutableListOf<ARPoint>()
-            for (azimuth in 0..360 step spacing) {
+            for (azimuth in 0..360 step resolution) {
                 line.add(
                     SphericalARPoint(
                         azimuth.toFloat(),
@@ -61,7 +64,7 @@ class ARGridLayer(
             }
 
             val line = mutableListOf<ARPoint>()
-            for (elevation in -90..90 step spacing) {
+            for (elevation in -90..90 step resolution) {
                 line.add(
                     SphericalARPoint(
                         azimuth.toFloat(),
@@ -75,13 +78,13 @@ class ARGridLayer(
 
         // North line
         val northLine = mutableListOf<ARPoint>()
-        for (elevation in -90..90 step spacing) {
+        for (elevation in -90..90 step resolution) {
             northLine.add(SphericalARPoint(0f, elevation.toFloat(), isTrueNorth = useTrueNorth))
         }
 
         // Horizon line
         val horizonLine = mutableListOf<ARPoint>()
-        for (azimuth in 0..360 step spacing) {
+        for (azimuth in 0..360 step resolution) {
             horizonLine.add(SphericalARPoint(azimuth.toFloat(), 0f, isTrueNorth = useTrueNorth))
         }
 

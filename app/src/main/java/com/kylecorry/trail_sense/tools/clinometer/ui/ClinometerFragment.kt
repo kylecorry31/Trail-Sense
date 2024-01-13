@@ -512,8 +512,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                             )
                         ),
                         Color.WHITE,
-                        1f,
-                        curved = false
+                        1f
                     )
                 )
             )

@@ -38,11 +38,6 @@ class ARLineLayer : ARLayer {
     }
 
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
-        val maxAngle = hypot(view.fov.width, view.fov.height) * 1.5f
-        val resolutionDegrees = (maxAngle / 10f).roundToInt().coerceIn(1, 5)
-
-
-
         drawer.noFill()
         drawer.strokeJoin(StrokeJoin.Round)
         drawer.strokeCap(StrokeCap.Round)
@@ -61,86 +56,12 @@ class ARLineLayer : ARLayer {
             }
             drawer.strokeWeight(thicknessPx)
 
-            if (line.curved) {
-                // TODO: Only calculate this higher resolution path once or only for the visible portion
-                val pixels = getLinePixels(
-                    view,
-                    line.points,
-                    resolutionDegrees.toFloat()
-                )
-                render(pixels, view, path)
-            } else {
-                render(line.points.map { it.getAugmentedRealityCoordinate(view) }, view, path)
-            }
+            render(line.points.map { it.getAugmentedRealityCoordinate(view) }, view, path)
 
             drawer.path(path)
         }
 
         drawer.noStroke()
-    }
-
-    /**
-     * Given a line it returns the pixels that make up the line.
-     * It will split long lines into smaller chunks, using the resolutionDegrees.
-     * It will also clip the line to the view.
-     */
-    private fun getLinePixels(
-        view: AugmentedRealityView,
-        line: List<ARPoint>,
-        resolutionDegrees: Float,
-    ): List<AugmentedRealityCoordinate> {
-        val pixels = mutableListOf<AugmentedRealityCoordinate>()
-        var previousCoordinate: AugmentedRealityCoordinate? = null
-        for (point in line) {
-            val coord = point.getAugmentedRealityCoordinate(view)
-            pixels.addAll(
-                if (previousCoordinate != null) {
-                    splitLine(previousCoordinate, coord, resolutionDegrees)
-                } else {
-                    listOf(coord)
-                }
-            )
-
-            previousCoordinate = coord
-        }
-
-        return pixels
-    }
-
-    // TODO: Should this operate on pixels or coordinates? - if it is pixels, it will be linear, if it is coordinates it will be curved
-    private fun splitLine(
-        start: AugmentedRealityCoordinate,
-        end: AugmentedRealityCoordinate,
-        resolutionDegrees: Float
-    ): List<AugmentedRealityCoordinate> {
-        val coordinates = mutableListOf<AugmentedRealityCoordinate>()
-        coordinates.add(start)
-        val bearingDelta = if (start.hasBearing && end.hasBearing) {
-            SolMath.deltaAngle(start.bearing, end.bearing)
-        } else {
-            0f
-        }
-        val elevationDelta = end.elevation - start.elevation
-        val distanceDelta = end.distance - start.distance
-        val distance = hypot(bearingDelta, elevationDelta)
-        val steps = (distance / resolutionDegrees).roundToInt()
-        val bearingStep = bearingDelta / steps
-        val elevationStep = elevationDelta / steps
-        val distanceStep = distanceDelta / steps
-        for (i in 1..steps) {
-            coordinates.add(
-                AugmentedRealityCoordinate.fromSpherical(
-                    normalizeAngle((if (start.hasBearing) start.bearing else end.bearing) + bearingStep * i),
-                    start.elevation + elevationStep * i,
-                    start.distance + distanceStep * i
-                )
-            )
-        }
-
-        // Add the end point
-        coordinates.add(end)
-
-        return coordinates
     }
 
     override fun invalidate() {
