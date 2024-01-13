@@ -85,9 +85,10 @@ class ARLineLayer : ARLayer {
         val minY = view.height * -multiplier
         val maxY = view.height * (1 + multiplier)
 
+        val lines = mutableListOf<Float>()
 
         for (pixel in pixels) {
-
+            // Remove lines that cross the entire screen (because they are behind the camera)
             val isLineInvalid = previous != null &&
                     (pixel.x < minX && previous.x > maxX ||
                             pixel.x > maxX && previous.x < minX ||
@@ -95,25 +96,29 @@ class ARLineLayer : ARLayer {
                             pixel.y > maxY && previous.y < minY)
 
             if (previous != null && !isLineInvalid) {
-                drawLine(bounds, previous, pixel, drawer)
+                addLine(bounds, previous, pixel, lines)
             }
             previous = pixel
         }
+
+        drawer.lines(lines.toFloatArray())
     }
 
-    private fun drawLine(
+    private fun addLine(
         bounds: Rectangle,
         start: PixelCoordinate,
         end: PixelCoordinate,
-        drawer: ICanvasDrawer
+        lines: MutableList<Float>
     ) {
-
         val a = start.toVector2(bounds.top)
         val b = end.toVector2(bounds.top)
 
         // Both are in
         if (bounds.contains(a) && bounds.contains(b)) {
-            drawer.line(start.x, start.y, end.x, end.y)
+            lines.add(start.x)
+            lines.add(start.y)
+            lines.add(end.x)
+            lines.add(end.y)
             return
         }
 
@@ -123,7 +128,10 @@ class ARLineLayer : ARLayer {
         // A is in, B is not
         if (bounds.contains(a)) {
             if (intersection.any()) {
-                drawer.line(start.x, start.y, intersection[0].x, intersection[0].y)
+                lines.add(start.x)
+                lines.add(start.y)
+                lines.add(intersection[0].x)
+                lines.add(intersection[0].y)
             }
             return
         }
@@ -131,14 +139,21 @@ class ARLineLayer : ARLayer {
         // B is in, A is not
         if (bounds.contains(b)) {
             if (intersection.any()) {
-                drawer.line(intersection[0].x, intersection[0].y, end.x, end.y)
+                lines.add(intersection[0].x)
+                lines.add(intersection[0].y)
+                lines.add(end.x)
+                lines.add(end.y)
             }
             return
         }
 
         // Both are out, but may intersect
         if (intersection.size == 2) {
-            drawer.line(intersection[0].x, intersection[0].y, intersection[1].x, intersection[1].y)
+            lines.add(intersection[0].x)
+            lines.add(intersection[0].y)
+            lines.add(intersection[1].x)
+            lines.add(intersection[1].y)
         }
     }
+
 }
