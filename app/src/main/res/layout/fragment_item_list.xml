@@ -17,7 +17,7 @@
         app:flattenButtons="true"
         tools:title="Pack name" />
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <LinearLayout
         android:id="@+id/pack_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
         </LinearLayout>
 
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </LinearLayout>
 
     <com.kylecorry.andromeda.views.list.AndromedaListView
         android:id="@+id/inventory_list"

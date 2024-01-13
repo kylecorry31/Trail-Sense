@@ -85,7 +85,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            <androidx.appcompat.widget.AppCompatSeekBar
+            <SeekBar
                 android:id="@+id/time_seeker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

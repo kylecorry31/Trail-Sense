@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -16,7 +16,7 @@
         tools:title="0.0000, 0.0000" />
 
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -46,7 +46,7 @@
             android:textAlignment="center"
             tools:text="1m ago" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/datum"
@@ -60,4 +60,4 @@
         app:drawableStartCompat="@drawable/ic_datum"
         app:drawableTint="?android:textColorSecondary" />
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+</LinearLayout>

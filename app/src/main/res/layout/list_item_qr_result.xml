@@ -19,7 +19,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <ImageView
                 android:id="@+id/qr_message_type"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
