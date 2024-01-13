@@ -8,6 +8,9 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.position.AugmentedRealityCoordinate
 import com.kylecorry.trail_sense.tools.augmented_reality.position.SphericalARPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ARGridLayer(
     spacing: Int = 30,
@@ -32,67 +35,71 @@ class ARGridLayer(
 
     private val resolution = 6
 
+    private val scope = CoroutineScope(Dispatchers.Default)
+
     init {
-        val regularLines = mutableListOf<List<ARPoint>>()
+        scope.launch {
+            val regularLines = mutableListOf<List<ARPoint>>()
 
-        // Horizontal lines
-        for (elevation in -90..90 step spacing) {
-            // Skip horizon
-            if (elevation == 0) {
-                continue
-            }
+            // Horizontal lines
+            for (elevation in -90..90 step spacing) {
+                // Skip horizon
+                if (elevation == 0) {
+                    continue
+                }
 
-            val line = mutableListOf<ARPoint>()
-            for (azimuth in 0..360 step resolution) {
-                line.add(
-                    SphericalARPoint(
-                        azimuth.toFloat(),
-                        elevation.toFloat(),
-                        isTrueNorth = useTrueNorth
+                val line = mutableListOf<ARPoint>()
+                for (azimuth in 0..360 step resolution) {
+                    line.add(
+                        SphericalARPoint(
+                            azimuth.toFloat(),
+                            elevation.toFloat(),
+                            isTrueNorth = useTrueNorth
+                        )
                     )
-                )
-            }
-            regularLines.add(line)
-        }
-
-        // Vertical lines
-        for (azimuth in 0 until 360 step spacing) {
-
-            // Skip north
-            if (azimuth == 0) {
-                continue
+                }
+                regularLines.add(line)
             }
 
-            val line = mutableListOf<ARPoint>()
+            // Vertical lines
+            for (azimuth in 0 until 360 step spacing) {
+
+                // Skip north
+                if (azimuth == 0) {
+                    continue
+                }
+
+                val line = mutableListOf<ARPoint>()
+                for (elevation in -90..90 step resolution) {
+                    line.add(
+                        SphericalARPoint(
+                            azimuth.toFloat(),
+                            elevation.toFloat(),
+                            isTrueNorth = useTrueNorth
+                        )
+                    )
+                }
+                regularLines.add(line)
+            }
+
+            // North line
+            val northLine = mutableListOf<ARPoint>()
             for (elevation in -90..90 step resolution) {
-                line.add(
-                    SphericalARPoint(
-                        azimuth.toFloat(),
-                        elevation.toFloat(),
-                        isTrueNorth = useTrueNorth
-                    )
-                )
+                northLine.add(SphericalARPoint(0f, elevation.toFloat(), isTrueNorth = useTrueNorth))
             }
-            regularLines.add(line)
-        }
 
-        // North line
-        val northLine = mutableListOf<ARPoint>()
-        for (elevation in -90..90 step resolution) {
-            northLine.add(SphericalARPoint(0f, elevation.toFloat(), isTrueNorth = useTrueNorth))
-        }
+            // Horizon line
+            val horizonLine = mutableListOf<ARPoint>()
+            for (azimuth in 0..360 step resolution) {
+                horizonLine.add(SphericalARPoint(azimuth.toFloat(), 0f, isTrueNorth = useTrueNorth))
+            }
 
-        // Horizon line
-        val horizonLine = mutableListOf<ARPoint>()
-        for (azimuth in 0..360 step resolution) {
-            horizonLine.add(SphericalARPoint(azimuth.toFloat(), 0f, isTrueNorth = useTrueNorth))
+            lineLayer.setLines(
+                regularLines.map { ARLine(it, color, thicknessDp) } +
+                        ARLine(northLine, northColor, thicknessDp) +
+                        ARLine(horizonLine, horizonColor, thicknessDp)
+            )
         }
-
-        lineLayer.setLines(
-            regularLines.map { ARLine(it, color, thicknessDp) } +
-                    ARLine(northLine, northColor, thicknessDp) +
-                    ARLine(horizonLine, horizonColor, thicknessDp)
-        )
     }
 
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
