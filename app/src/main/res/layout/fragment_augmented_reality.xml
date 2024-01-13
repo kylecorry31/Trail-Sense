@@ -20,7 +20,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guidance_panel"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatImageButton
+    <ImageButton
         android:id="@+id/camera_toggle"
         android:layout_width="32dp"
         android:layout_height="32dp"

@@ -97,7 +97,7 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <androidx.appcompat.widget.AppCompatImageButton
+            <ImageButton
                 android:id="@+id/add_tide_entry"
                 android:layout_width="32dp"
                 android:layout_height="32dp"

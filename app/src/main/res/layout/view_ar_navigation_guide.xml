@@ -42,7 +42,7 @@
         app:layout_constraintTop_toBottomOf="@id/ar_guide_label"
         tools:text="Beacon Name" />
 
-    <androidx.appcompat.widget.AppCompatImageButton
+    <ImageButton
         android:id="@+id/ar_guide_cancel"
         android:layout_width="24dp"
         android:layout_height="24dp"

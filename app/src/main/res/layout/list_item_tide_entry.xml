@@ -38,7 +38,7 @@
         android:textAppearance="@style/TextAppearance.Material3.BodySmall"
         tools:text="0m" />
 
-    <androidx.appcompat.widget.AppCompatImageButton
+    <ImageButton
         android:id="@+id/delete"
         android:layout_width="24dp"
         android:layout_height="24dp"

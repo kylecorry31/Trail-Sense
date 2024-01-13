@@ -70,7 +70,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="12:00" />
 
-                <androidx.appcompat.widget.AppCompatImageButton
+                <ImageButton
                     android:id="@+id/close_seek"
                     android:layout_width="32dp"
                     android:layout_height="32dp"

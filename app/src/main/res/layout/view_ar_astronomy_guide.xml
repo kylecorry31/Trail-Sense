@@ -26,7 +26,7 @@
         app:layout_constraintStart_toEndOf="@id/ar_guide_icon"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatImageButton
+    <ImageButton
         android:id="@+id/ar_guide_cancel"
         android:layout_width="24dp"
         android:layout_height="24dp"

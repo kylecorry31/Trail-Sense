@@ -45,7 +45,7 @@
         app:layout_constraintEnd_toStartOf="@id/error_close"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatImageButton
+    <ImageButton
         android:id="@+id/error_close"
         android:layout_width="32dp"
         android:layout_height="32dp"
