@@ -44,7 +44,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
         android:textIsSelectable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

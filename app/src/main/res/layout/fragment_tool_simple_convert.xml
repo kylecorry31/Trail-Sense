@@ -77,7 +77,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textAppearance="@style/TextAppearance.Material3.DisplayLarge"
         app:layout_constraintStart_toStartOf="@+id/to_units_text"
         app:layout_constraintTop_toBottomOf="@+id/to_units"
         tools:text="2 m" />

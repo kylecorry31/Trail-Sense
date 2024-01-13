@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:paddingTop="32dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
         android:visibility="gone"
         tools:text="@string/no_beacons"
         tools:visibility="visible" />

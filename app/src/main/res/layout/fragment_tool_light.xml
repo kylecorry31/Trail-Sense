@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
         app:layout_constraintBottom_toTopOf="@+id/light_chart"
         app:layout_constraintEnd_toEndOf="@+id/lux"
         app:layout_constraintStart_toStartOf="@+id/lux"
@@ -39,7 +39,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:text="@string/distance_from_flashlight"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
     <com.kylecorry.trail_sense.shared.views.DistanceInputView
         android:id="@+id/beam_distance"

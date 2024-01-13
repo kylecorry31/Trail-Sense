@@ -39,7 +39,7 @@
         android:shadowDx="0"
         android:shadowDy="0"
         android:shadowRadius="6"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textAppearance="@style/TextAppearance.Material3.DisplayLarge"
         android:textColor="?android:textColorPrimary"
         android:textSize="24sp"
         android:textStyle="bold"

@@ -45,7 +45,7 @@
         android:layout_marginBottom="@dimen/default_bottom_margin"
         android:drawablePadding="8dp"
         android:text="@string/clock_waiting_for_gps"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
         app:drawableStartCompat="@drawable/satellite"
         app:drawableTint="?android:textColorSecondary"
         app:layout_constraintBottom_toBottomOf="parent"

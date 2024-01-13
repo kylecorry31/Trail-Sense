@@ -97,7 +97,7 @@
                 android:drawablePadding="8dp"
                 android:focusable="true"
                 android:text="@string/no_group"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                 app:drawableSize="24dp"
                 app:drawableStartCompat="@drawable/ic_beacon_group"
                 app:drawableTint="@color/gray" />
@@ -112,7 +112,7 @@
                 android:drawablePadding="8dp"
                 android:focusable="true"
                 android:text="@string/color"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                 app:drawableSize="24dp"
                 app:drawableStartCompat="@drawable/bubble"
                 app:drawableTint="@color/orange" />
@@ -127,7 +127,7 @@
                 android:drawablePadding="8dp"
                 android:focusable="true"
                 android:text="@string/icon"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                 app:drawableSize="24dp"
                 app:drawableStartCompat="@drawable/bubble"
                 app:drawableTint="?android:textColorSecondary" />

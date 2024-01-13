@@ -3,9 +3,9 @@ package com.kylecorry.trail_sense.onboarding
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.method.LinkMovementMethodCompat
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.fragments.AndromedaActivity
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityOnboardingBinding
@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 
 
-class OnboardingActivity : AppCompatActivity() {
+class OnboardingActivity : AndromedaActivity() {
 
     private val cache by lazy { PreferencesSubsystem.getInstance(this).preferences }
     private val markdown by lazy { MarkdownService(this) }
