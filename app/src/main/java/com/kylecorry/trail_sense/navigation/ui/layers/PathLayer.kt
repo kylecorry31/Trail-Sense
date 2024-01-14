@@ -3,6 +3,8 @@ package com.kylecorry.trail_sense.navigation.ui.layers
 import android.graphics.Color
 import android.graphics.Path
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.andromeda.canvas.StrokeCap
+import com.kylecorry.andromeda.canvas.StrokeJoin
 import com.kylecorry.andromeda.core.cache.ObjectPool
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -23,7 +25,7 @@ class PathLayer : ILayer {
 
     private var pathsRendered = false
     private var renderInProgress = false
-    private var pathPool = ObjectPool { Path() }
+    private var pathPool = ObjectPool { mutableListOf<Float>() }
     private var renderedPaths = mapOf<Long, RenderedPath>()
     private val _paths =
         mutableListOf<IMappablePath>() // TODO: Make this Pair<Path, List<PathPoint>>
@@ -77,9 +79,10 @@ class PathLayer : ILayer {
                 val centerPixel = map.toPixel(path.origin)
                 drawer.push()
                 drawer.translate(centerPixel.x, centerPixel.y)
-
+                drawer.strokeJoin(StrokeJoin.Round)
+                drawer.strokeCap(StrokeCap.Round)
                 pathDrawer.draw(drawer, path.color, strokeScale = scale) {
-                    path(path.path)
+                    lines(path.path.toFloatArray())
                 }
                 drawer.pop()
             }
@@ -132,11 +135,11 @@ class PathLayer : ILayer {
     private suspend fun render(
         path: IMappablePath,
         renderer: IRenderedPathFactory,
-        pathObj: Path
+        pathObj: MutableList<Float>
     ): RenderedPath = onDefault {
         val points = path.points.map { it.coordinate }
         synchronized(lock) {
-            pathObj.reset()
+            pathObj.clear()
             renderer.render(points, pathObj).copy(style = path.style, color = path.color)
         }
     }
