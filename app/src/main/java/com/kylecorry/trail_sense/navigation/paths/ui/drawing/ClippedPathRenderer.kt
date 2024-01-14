@@ -6,8 +6,10 @@ import com.kylecorry.sol.math.geometry.Geometry
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.extensions.isSamePixel
 import com.kylecorry.trail_sense.shared.toPixelCoordinate
 import com.kylecorry.trail_sense.shared.toVector2
+import kotlin.math.roundToInt
 
 class ClippedPathRenderer(
     private val bounds: Rectangle,
@@ -23,6 +25,10 @@ class ClippedPathRenderer(
             }
 
             val end = mapper(points[i])
+            // If the start and end are the same, don't draw a line
+            if (start.isSamePixel(end)) {
+                continue
+            }
             drawLine(originPx, start, end, path)
         }
         return RenderedPath(origin, path)

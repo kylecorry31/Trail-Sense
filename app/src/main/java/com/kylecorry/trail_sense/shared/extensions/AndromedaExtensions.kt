@@ -7,6 +7,8 @@ import androidx.appcompat.app.AlertDialog
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.units.PixelCoordinate
+import kotlin.math.roundToInt
 
 inline fun Alerts.withCancelableLoading(
     context: Context,
@@ -62,4 +64,8 @@ fun Alerts.cancelableLoading(
             onCanceled?.invoke()
         }
     }
+}
+
+fun PixelCoordinate.isSamePixel(other: PixelCoordinate): Boolean {
+    return x.roundToInt() == other.x.roundToInt() && y.roundToInt() == other.y.roundToInt()
 }

@@ -6,6 +6,7 @@ import com.kylecorry.andromeda.canvas.StrokeJoin
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.geometry.Geometry
 import com.kylecorry.sol.math.geometry.Rectangle
+import com.kylecorry.trail_sense.shared.extensions.isSamePixel
 import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.shared.toPixelCoordinate
 import com.kylecorry.trail_sense.shared.toVector2
@@ -96,6 +97,10 @@ class ARLineLayer : ARLayer {
                             pixel.y > maxY && previous.y < minY)
 
             if (previous != null && !isLineInvalid) {
+                // If the end point is the same as the previous, don't draw a line
+                if (previous.isSamePixel(pixel)) {
+                    continue
+                }
                 addLine(bounds, previous, pixel, lines)
             }
             previous = pixel
