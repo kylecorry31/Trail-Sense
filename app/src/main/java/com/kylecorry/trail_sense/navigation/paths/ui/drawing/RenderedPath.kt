@@ -10,5 +10,6 @@ data class RenderedPath(
     val line: MutableList<Float>,
     val path: Path? = null,
     val style: LineStyle = LineStyle.Solid,
-    val color: Int = Color.BLACK
+    val color: Int = Color.BLACK,
+    val renderedScale: Float = 1f
 )

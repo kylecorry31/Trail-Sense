@@ -9,6 +9,8 @@ import com.kylecorry.andromeda.core.cache.ObjectPool
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
+import com.kylecorry.sol.math.SolMath.positive
+import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.ClippedPathRenderer
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.IRenderedPathFactory
@@ -38,6 +40,8 @@ class PathLayer : ILayer {
     private val runner = CoroutineQueueRunner()
     private val scope = CoroutineScope(Dispatchers.Default)
 
+    private var currentScale = 1f
+
     fun setShouldRenderWithDrawLines(shouldRenderWithDrawLines: Boolean) {
         this.shouldRenderWithDrawLines = shouldRenderWithDrawLines
         invalidate()
@@ -53,6 +57,7 @@ class PathLayer : ILayer {
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
         val scale = map.layerScale
+        currentScale = map.metersPerPixel
         if (!pathsRendered && !renderInProgress) {
             val renderer = ClippedPathRenderer(
                 getBounds(drawer),
@@ -71,6 +76,8 @@ class PathLayer : ILayer {
                 val centerPixel = map.toPixel(path.origin)
                 drawer.push()
                 drawer.translate(centerPixel.x, centerPixel.y)
+                val relativeScale = (path.renderedScale / currentScale).real().positive(1f)
+                drawer.scale(relativeScale)
                 drawer.strokeJoin(StrokeJoin.Round)
                 drawer.strokeCap(StrokeCap.Round)
                 pathDrawer.draw(drawer, path.color, strokeScale = scale) {
@@ -145,9 +152,13 @@ class PathLayer : ILayer {
             lineObj.clear()
             pathObj?.reset()
             renderer.render(points, lineObj)
-                .copy(style = path.style, color = path.color, path = pathObj?.also {
-                    it.drawLines(lineObj.toFloatArray())
-                })
+                .copy(
+                    style = path.style,
+                    color = path.color,
+                    renderedScale = currentScale,
+                    path = pathObj?.also {
+                        it.drawLines(lineObj.toFloatArray())
+                    })
         }
     }
 
