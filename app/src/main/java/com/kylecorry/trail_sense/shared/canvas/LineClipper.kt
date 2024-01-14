@@ -23,6 +23,10 @@ class LineClipper {
         preventLineWrapping: Boolean = false,
         rdpFilterEpsilon: Float? = null
     ) {
+        if (isOutOfBounds(pixels, bounds)) {
+            return
+        }
+
         var previous: PixelCoordinate? = null
 
         val filter =
@@ -59,6 +63,23 @@ class LineClipper {
             }
             previous = pixel
         }
+    }
+
+    private fun isOutOfBounds(pixels: List<PixelCoordinate>, bounds: Rectangle): Boolean {
+        for (i in 1 until pixels.size) {
+            val start = pixels[i - 1].toVector2(bounds.top)
+            val end = pixels[i].toVector2(bounds.top)
+            if (!(start.x < bounds.left && end.x < bounds.left ||
+                        start.x > bounds.right && end.x > bounds.right ||
+                        start.y < bounds.bottom && end.y < bounds.bottom ||
+                        start.y > bounds.top && end.y > bounds.top)
+            ) {
+                // Potential intersection
+                return false
+            }
+        }
+
+        return true
     }
 
     private fun addLine(
