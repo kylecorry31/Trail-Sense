@@ -13,7 +13,6 @@ import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.ClippedPathRenderer
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.IRenderedPathFactory
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathLineDrawerFactory
-import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathRenderer
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPath
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.shared.extensions.drawLines
@@ -32,25 +31,12 @@ class PathLayer : ILayer {
     private val _paths =
         mutableListOf<IMappablePath>() // TODO: Make this Pair<Path, List<PathPoint>>
 
-    private var shouldClip = true
-    private var shouldRotateClip = true
-
     private var shouldRenderWithDrawLines = false
 
     private val lock = Any()
 
     private val runner = CoroutineQueueRunner()
     private val scope = CoroutineScope(Dispatchers.Default)
-
-    fun setShouldClip(shouldClip: Boolean) {
-        this.shouldClip = shouldClip
-        invalidate()
-    }
-
-    fun setShouldRotateClip(shouldRotateClip: Boolean) {
-        this.shouldRotateClip = shouldRotateClip
-        invalidate()
-    }
 
     fun setShouldRenderWithDrawLines(shouldRenderWithDrawLines: Boolean) {
         this.shouldRenderWithDrawLines = shouldRenderWithDrawLines
@@ -68,14 +54,10 @@ class PathLayer : ILayer {
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
         val scale = map.layerScale
         if (!pathsRendered && !renderInProgress) {
-            val renderer = if (shouldClip) {
-                ClippedPathRenderer(
-                    getBounds(drawer),
-                    map::toPixel
-                )
-            } else {
-                PathRenderer(map::toPixel)
-            }
+            val renderer = ClippedPathRenderer(
+                getBounds(drawer),
+                map::toPixel
+            )
             renderInBackground(renderer)
         }
 
@@ -180,6 +162,6 @@ class PathLayer : ILayer {
     private fun getBounds(drawer: ICanvasDrawer): Rectangle {
         // Rotating by map rotation wasn't working around 90/270 degrees - this is a workaround
         // It will just render slightly more of the path than needed, but never less (since 45 is when the area is at its largest)
-        return drawer.getBounds(if (shouldRotateClip) 45f else 0f)
+        return drawer.getBounds(45f)
     }
 }
