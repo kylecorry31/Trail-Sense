@@ -1179,4 +1179,5 @@
     <string name="screen_flashlight_full_name">Linterna de pantalla</string>
     <string name="compass_dynamic_colors_summary">Utilice colores dinámicos para los puntos cardinales</string>
     <string name="view_in_3d">Ver en 3D</string>
+    <string name="locate">Localizar</string>
 </resources>
