@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.shared.sharing
 
 import androidx.fragment.app.Fragment
-import com.kylecorry.andromeda.core.units.CoordinateFormat
+import com.kylecorry.sol.science.geography.CoordinateFormat
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R

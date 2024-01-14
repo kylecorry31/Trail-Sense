@@ -8,7 +8,7 @@ import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
-import com.kylecorry.andromeda.core.units.CoordinateFormat
+import com.kylecorry.sol.science.geography.CoordinateFormat
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.pickers.Pickers

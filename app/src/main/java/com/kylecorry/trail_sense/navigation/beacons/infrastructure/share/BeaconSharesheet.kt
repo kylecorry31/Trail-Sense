@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.navigation.beacons.infrastructure.share
 
 import android.content.Context
 import android.content.Intent
-import com.kylecorry.andromeda.core.units.CoordinateExtensions.toDecimalDegrees
+import com.kylecorry.sol.science.geography.CoordinateFormatter.toDecimalDegrees
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon

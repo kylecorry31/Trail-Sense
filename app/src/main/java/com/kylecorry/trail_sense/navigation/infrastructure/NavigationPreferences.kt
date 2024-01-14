@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.navigation.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.core.toFloatCompat
 import com.kylecorry.andromeda.core.toIntCompat
-import com.kylecorry.andromeda.core.units.CoordinateFormat
+import com.kylecorry.sol.science.geography.CoordinateFormat
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.IntEnumPreference
 import com.kylecorry.andromeda.preferences.StringEnumPreference
