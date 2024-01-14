@@ -48,7 +48,7 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 ## Feature Roadmap (2024)
 The feature roadmap is a tentative outline of the major features that are planned to be completed in the next year. Smaller features may end up being implemented in between.
 - [ ] Augmented reality
-- [ ] Actions / Automations (name TBD)
+- [ ] Automations
 - [ ] Path navigation
 
 ## Goals
