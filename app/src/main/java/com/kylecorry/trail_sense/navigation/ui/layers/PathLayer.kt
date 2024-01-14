@@ -72,6 +72,10 @@ class PathLayer : ILayer {
             val factory = PathLineDrawerFactory()
             val values = renderedPaths.values
             for (path in values) {
+                // Don't draw empty paths
+                if (path.line.isEmpty()){
+                    continue
+                }
                 val pathDrawer = factory.create(path.style)
                 val centerPixel = map.toPixel(path.origin)
                 drawer.push()
