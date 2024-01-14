@@ -442,7 +442,7 @@ class AugmentedRealityView : CanvasView {
     private val mGestureDetector = GestureDetector(context, gestureListener)
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        if (!isVisible){
+        if (!isVisible) {
             return false
         }
         mGestureDetector.onTouchEvent(event)
@@ -476,6 +476,11 @@ class AugmentedRealityView : CanvasView {
 
         // Cancel fovRunner on pause
         owner?.lifecycle?.addObserver(lifecycleObserver)
+    }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        previewRect = null
+        syncWithCamera()
     }
 
     private fun syncWithCamera() {
