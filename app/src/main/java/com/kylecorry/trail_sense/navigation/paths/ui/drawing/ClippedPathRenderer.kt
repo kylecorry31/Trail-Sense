@@ -12,7 +12,8 @@ import com.kylecorry.trail_sense.shared.toVector2
 
 class ClippedPathRenderer(
     private val bounds: Rectangle,
-    private val mapper: (Coordinate) -> PixelCoordinate
+    private val mapper: (Coordinate) -> PixelCoordinate,
+    private val filterEpsilon: Float? = null
 ) : IRenderedPathFactory {
 
     private val clipper = LineClipper()
@@ -21,7 +22,7 @@ class ClippedPathRenderer(
         val origin = CoordinateBounds.from(points).center
         val originPx = mapper(origin)
 
-        clipper.clip(points.map { mapper(it) }, bounds, line, originPx)
+        clipper.clip(points.map { mapper(it) }, bounds, line, originPx, rdpFilterEpsilon = filterEpsilon)
 
         return RenderedPath(origin, line)
     }

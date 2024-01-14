@@ -56,7 +56,8 @@ class PathLayer : ILayer {
         if (!pathsRendered && !renderInProgress) {
             val renderer = ClippedPathRenderer(
                 getBounds(drawer),
-                map::toPixel
+                map::toPixel,
+                drawer.dp(1f)
             )
             renderInBackground(renderer)
         }

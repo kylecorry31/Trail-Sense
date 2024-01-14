@@ -1,11 +1,17 @@
 package com.kylecorry.trail_sense.shared.canvas
 
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.sol.math.Vector2
+import com.kylecorry.sol.math.filters.RDPFilter
 import com.kylecorry.sol.math.geometry.Geometry
+import com.kylecorry.sol.math.geometry.Line
 import com.kylecorry.sol.math.geometry.Rectangle
+import com.kylecorry.sol.science.geology.Geology
+import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.extensions.isSamePixel
 import com.kylecorry.trail_sense.shared.toPixelCoordinate
 import com.kylecorry.trail_sense.shared.toVector2
+import kotlin.math.absoluteValue
 
 class LineClipper {
 
@@ -14,9 +20,20 @@ class LineClipper {
         bounds: Rectangle,
         output: MutableList<Float>,
         origin: PixelCoordinate = PixelCoordinate(0f, 0f),
-        preventLineWrapping: Boolean = false
+        preventLineWrapping: Boolean = false,
+        rdpFilterEpsilon: Float? = null
     ) {
         var previous: PixelCoordinate? = null
+
+        val filter =
+            if (rdpFilterEpsilon != null) RDPFilter<PixelCoordinate>(rdpFilterEpsilon) { point, start, end ->
+                Geometry.pointLineDistance(
+                    point.toVector2(bounds.top),
+                    Line(start.toVector2(bounds.top), end.toVector2(bounds.top))
+                ).absoluteValue
+            } else null
+
+        val filtered = filter?.filter(pixels) ?: pixels
 
         val multiplier = 1.5f
 
@@ -25,7 +42,7 @@ class LineClipper {
         val minY = bounds.height() * -multiplier
         val maxY = bounds.height() * (1 + multiplier)
 
-        for (pixel in pixels) {
+        for (pixel in filtered) {
             // Remove lines that cross the entire screen (because they are behind the camera)
             val isLineInvalid = preventLineWrapping && previous != null &&
                     (pixel.x < minX && previous.x > maxX ||
