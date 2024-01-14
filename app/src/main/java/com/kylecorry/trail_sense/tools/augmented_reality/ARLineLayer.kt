@@ -32,14 +32,14 @@ class ARLineLayer : ARLayer {
 
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         drawer.noFill()
-        drawer.strokeJoin(StrokeJoin.Round)
+        // TODO: Setting the stroke cap to round causes artifacts between lines, but the end looks good - setting it to project fixes the artifacts but the end looks bad
         drawer.strokeCap(StrokeCap.Round)
 
         val lines = synchronized(lineLock) {
             lines.toList()
         }
 
-        // Draw horizontal lines
+        // Draw lines
         for (line in lines) {
             drawer.stroke(line.color)
             val thicknessPx = when (line.thicknessUnits) {
@@ -109,6 +109,7 @@ class ARLineLayer : ARLayer {
         drawer.lines(lines.toFloatArray())
     }
 
+    // TODO: Extract this
     private fun addLine(
         bounds: Rectangle,
         start: PixelCoordinate,
