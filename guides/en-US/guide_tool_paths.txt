@@ -97,3 +97,6 @@ You can delete a group (along with all paths within it) by clicking the menu but
 
 ## Searching for Paths
 To search through your created paths, use the search bar at the top of the path list. This search encompasses the current group and all subgroups. Additionally, you can sort paths by distance away, time, length or name by clicking the menu button in the top-right and selecting 'Sort'.
+
+## Improving Performance
+If you are experiencing performance issues with the Paths tool, you can enable Settings > Navigation > 'Fast path rendering' which will render paths faster, at the cost of appearance.
