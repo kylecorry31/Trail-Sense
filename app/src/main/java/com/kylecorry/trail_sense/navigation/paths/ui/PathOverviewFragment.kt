@@ -160,6 +160,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pathId = requireArguments().getLong("path_id")
+        pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
     }
 
     override fun onResume() {

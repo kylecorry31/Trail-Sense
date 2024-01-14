@@ -1389,6 +1389,9 @@
     <string name="screen_flashlight_full_name">Screen Flashlight</string>
     <string name="view_in_3d">View in 3D</string>
     <string name="locate">Locate</string>
+    <string name="pref_fast_path_rendering" translatable="false">pref_fast_path_rendering</string>
+    <string name="fast_path_rendering">Fast path rendering</string>
+    <string name="fast_path_rendering_summary">Improves performance at the cost of appearance</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>

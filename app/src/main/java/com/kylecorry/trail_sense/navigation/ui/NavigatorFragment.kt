@@ -190,6 +190,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        pathLayer.setShouldRenderWithDrawLines(userPrefs.navigation.useFastPathRendering)
         val beaconId = arguments?.getLong("destination") ?: 0L
 
         // Load the destination and start navigation

@@ -6,7 +6,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.extensions.isSamePixel
 
 class PathRenderer(private val mapper: (Coordinate) -> PixelCoordinate) : IRenderedPathFactory {
-    override fun render(points: List<Coordinate>, path: MutableList<Float>): RenderedPath {
+    override fun render(points: List<Coordinate>, line: MutableList<Float>): RenderedPath {
         val origin = CoordinateBounds.from(points).center
         val originPx = mapper(origin)
         var lastPoint: PixelCoordinate? = null
@@ -23,11 +23,11 @@ class PathRenderer(private val mapper: (Coordinate) -> PixelCoordinate) : IRende
                 continue
             }
             lastPoint = end
-            path.add(start.x - originPx.x)
-            path.add(start.y - originPx.y)
-            path.add(end.x - originPx.x)
-            path.add(end.y - originPx.y)
+            line.add(start.x - originPx.x)
+            line.add(start.y - originPx.y)
+            line.add(end.x - originPx.x)
+            line.add(end.y - originPx.y)
         }
-        return RenderedPath(origin, path)
+        return RenderedPath(origin, line)
     }
 }

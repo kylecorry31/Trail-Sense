@@ -97,6 +97,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
         mapId = requireArguments().getLong("mapId")
     }
 

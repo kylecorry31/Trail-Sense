@@ -124,6 +124,11 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         context.getString(R.string.pref_only_navigate_path_points),
         true
     )
+    override val useFastPathRendering by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_fast_path_rendering),
+        false
+    )
 
     var maxBeaconDistance: Float
         get() {

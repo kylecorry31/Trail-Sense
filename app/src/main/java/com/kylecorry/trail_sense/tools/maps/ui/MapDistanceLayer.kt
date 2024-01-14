@@ -26,6 +26,10 @@ class MapDistanceLayer(private val onPathChanged: (points: List<Coordinate>) -> 
     private val pathLayer = PathLayer()
     private var points = mutableListOf<Coordinate>()
 
+    init {
+        pathLayer.setShouldRenderWithDrawLines(true)
+    }
+
     var isEnabled = true
         set(value) {
             field = value

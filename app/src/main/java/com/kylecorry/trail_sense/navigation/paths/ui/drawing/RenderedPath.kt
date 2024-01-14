@@ -7,7 +7,8 @@ import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
 
 data class RenderedPath(
     val origin: Coordinate,
-    val path: MutableList<Float>,
+    val line: MutableList<Float>,
+    val path: Path? = null,
     val style: LineStyle = LineStyle.Solid,
     val color: Int = Color.BLACK
 )

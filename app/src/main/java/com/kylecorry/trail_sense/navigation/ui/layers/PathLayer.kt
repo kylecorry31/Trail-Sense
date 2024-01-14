@@ -16,6 +16,7 @@ import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathLineDrawerFacto
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathRenderer
 import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPath
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath
+import com.kylecorry.trail_sense.shared.extensions.drawLines
 import com.kylecorry.trail_sense.shared.getBounds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,13 +26,16 @@ class PathLayer : ILayer {
 
     private var pathsRendered = false
     private var renderInProgress = false
-    private var pathPool = ObjectPool { mutableListOf<Float>() }
+    private var linePool = ObjectPool { mutableListOf<Float>() }
+    private var pathPool = ObjectPool { Path() }
     private var renderedPaths = mapOf<Long, RenderedPath>()
     private val _paths =
         mutableListOf<IMappablePath>() // TODO: Make this Pair<Path, List<PathPoint>>
 
     private var shouldClip = true
     private var shouldRotateClip = true
+
+    private var shouldRenderWithDrawLines = false
 
     private val lock = Any()
 
@@ -45,6 +49,11 @@ class PathLayer : ILayer {
 
     fun setShouldRotateClip(shouldRotateClip: Boolean) {
         this.shouldRotateClip = shouldRotateClip
+        invalidate()
+    }
+
+    fun setShouldRenderWithDrawLines(shouldRenderWithDrawLines: Boolean) {
+        this.shouldRenderWithDrawLines = shouldRenderWithDrawLines
         invalidate()
     }
 
@@ -82,7 +91,11 @@ class PathLayer : ILayer {
                 drawer.strokeJoin(StrokeJoin.Round)
                 drawer.strokeCap(StrokeCap.Round)
                 pathDrawer.draw(drawer, path.color, strokeScale = scale) {
-                    lines(path.path.toFloatArray())
+                    if (shouldRenderWithDrawLines || path.path == null) {
+                        lines(path.line.toFloatArray())
+                    } else {
+                        path(path.path)
+                    }
                 }
                 drawer.pop()
             }
@@ -112,7 +125,12 @@ class PathLayer : ILayer {
 
         // Update the rendered paths
         synchronized(lock) {
-            renderedPaths.forEach { pathPool.release(it.value.path) }
+            renderedPaths.forEach {
+                linePool.release(it.value.line)
+                it.value.path?.let {
+                    pathPool.release(it)
+                }
+            }
             renderedPaths = updated
         }
 
@@ -126,8 +144,9 @@ class PathLayer : ILayer {
     ): Map<Long, RenderedPath> {
         val map = mutableMapOf<Long, RenderedPath>()
         for (path in paths) {
-            val pathObj = pathPool.get()
-            map[path.id] = render(path, renderer, pathObj)
+            val lineObj = linePool.get()
+            val pathObj = if (shouldRenderWithDrawLines) null else pathPool.get()
+            map[path.id] = render(path, renderer, lineObj, pathObj)
         }
         return map
     }
@@ -135,12 +154,17 @@ class PathLayer : ILayer {
     private suspend fun render(
         path: IMappablePath,
         renderer: IRenderedPathFactory,
-        pathObj: MutableList<Float>
+        lineObj: MutableList<Float>,
+        pathObj: Path?
     ): RenderedPath = onDefault {
         val points = path.points.map { it.coordinate }
         synchronized(lock) {
-            pathObj.clear()
-            renderer.render(points, pathObj).copy(style = path.style, color = path.color)
+            lineObj.clear()
+            pathObj?.reset()
+            renderer.render(points, lineObj)
+                .copy(style = path.style, color = path.color, path = pathObj?.also {
+                    it.drawLines(lineObj.toFloatArray())
+                })
         }
     }
 

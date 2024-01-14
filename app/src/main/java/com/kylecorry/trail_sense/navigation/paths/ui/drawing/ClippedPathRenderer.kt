@@ -13,7 +13,7 @@ class ClippedPathRenderer(
     private val bounds: Rectangle,
     private val mapper: (Coordinate) -> PixelCoordinate
 ) : IRenderedPathFactory {
-    override fun render(points: List<Coordinate>, path: MutableList<Float>): RenderedPath {
+    override fun render(points: List<Coordinate>, line: MutableList<Float>): RenderedPath {
         val origin = CoordinateBounds.from(points).center
         val originPx = mapper(origin)
         for (i in 1 until points.size) {
@@ -23,9 +23,9 @@ class ClippedPathRenderer(
             if (start.isSamePixel(end)) {
                 continue
             }
-            addLine(bounds, originPx, start, end, path)
+            addLine(bounds, originPx, start, end, line)
         }
-        return RenderedPath(origin, path)
+        return RenderedPath(origin, line)
     }
 
     private fun addLine(

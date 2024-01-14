@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.navigation.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.PathLayer
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.GPSDeclinationStrategy
 import com.kylecorry.trail_sense.shared.extensions.onMain
@@ -56,6 +57,8 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
 
     private lateinit var backCallback: OnBackPressedCallback
 
+    private val prefs by lazy { UserPreferences(requireContext()) }
+
     private val manager = MapCalibrationManager(maxPoints) {
         updateMapCalibration()
     }
@@ -79,6 +82,7 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
     private var showPreview = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
         super.onCreate(savedInstanceState)
         mapId = requireArguments().getLong("mapId")
     }

@@ -138,6 +138,7 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
 
         // TODO: Display the distance to the location in the title
         beaconLayer.setOutlineColor(Color.WHITE)
+        pathLayer.setShouldRenderWithDrawLines(true)
         binding.map.setLayers(listOf(pathLayer, beaconLayer))
 
         binding.resetBtn.setOnClickListener {
