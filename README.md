@@ -45,11 +45,11 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 - [Open Source Credits](#open-source-credits)
 - [License](#license)
 
-## Feature Roadmap
-- [x] Q2 2023: Photo Maps
-- [x] Q3-Q4 2023: Usability (at a glance, tutorials, data export)
-- [ ] Q1-Q2 2024: Augmented reality
-- [ ] Q3 2024: Path navigation
+## Feature Roadmap (2024)
+The feature roadmap is a tentative outline of the major features that are planned to be completed in the next year. Smaller features may end up being implemented in between.
+- [ ] Augmented reality
+- [ ] Actions / Automations (name TBD)
+- [ ] Path navigation
 
 ## Goals
 - Trail Sense must not use the Internet in any way, as I want the entire app usable when there is no Internet connection
