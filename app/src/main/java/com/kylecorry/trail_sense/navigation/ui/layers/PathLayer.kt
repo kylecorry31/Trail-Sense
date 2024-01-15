@@ -155,11 +155,13 @@ class PathLayer : ILayer {
         synchronized(lock) {
             lineObj.clear()
             pathObj?.reset()
+            val before = currentScale
             renderer.render(points, lineObj)
                 .copy(
                     style = path.style,
                     color = path.color,
-                    renderedScale = currentScale,
+                    // A best guess at what scale the path was rendered at
+                    renderedScale = (before + currentScale) / 2f,
                     path = pathObj?.also {
                         it.drawLines(lineObj.toFloatArray())
                     })
