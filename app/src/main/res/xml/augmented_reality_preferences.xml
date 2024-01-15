@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/navigation_nearby_category">
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_nearby_radius_holder"
+            app:singleLineTitle="false"
+            app:title="@string/view_distance" />
+
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

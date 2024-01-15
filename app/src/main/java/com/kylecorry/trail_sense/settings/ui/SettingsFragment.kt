@@ -44,6 +44,7 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         R.string.pref_tide_settings to R.id.action_settings_to_tide_settings,
         R.string.pref_odometer_calibration to R.id.action_action_settings_to_calibrateOdometerFragment,
         R.string.pref_clinometer_settings to R.id.action_settings_to_clinometer_settings,
+        R.string.pref_augmented_reality_settings to R.id.action_settings_to_ar_settings,
 
         // About
         R.string.pref_open_source_licenses to R.id.action_action_settings_to_licenseFragment,
@@ -99,6 +100,8 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         val version = Package.getVersionName(requireContext())
         preference(R.string.pref_app_version)?.summary = version
         setIconColor(preferenceScreen, Resources.androidTextColorSecondary(requireContext()))
+
+        preference(R.string.pref_augmented_reality_settings)?.isVisible = prefs.isAugmentedRealityEnabled
 
         onClick(findPreference("backup_restore")) {
             Pickers.item(

@@ -376,6 +376,13 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
+            android:id="@+id/action_settings_to_ar_settings"
+            app:destination="@id/augmentedRealitySettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
             android:id="@+id/action_settings_to_privacy_settings"
             app:destination="@id/privacySettingsFragment"
             app:enterAnim="@anim/slide_in_right"
@@ -941,6 +948,10 @@
         android:id="@+id/clinometerSettingsFragment"
         android:name="com.kylecorry.trail_sense.settings.ui.ClinometerSettingsFragment"
         android:label="ClinometerSettingsFragment" />
+    <fragment
+        android:id="@+id/augmentedRealitySettingsFragment"
+        android:name="com.kylecorry.trail_sense.settings.ui.AugmentedRealitySettingsFragment"
+        android:label="AugmentedRealitySettingsFragment" />
     <fragment
         android:id="@+id/errorSettingsFragment"
         android:name="com.kylecorry.trail_sense.settings.ui.ErrorSettingsFragment"

@@ -17,6 +17,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.AltimeterPreferences
+import com.kylecorry.trail_sense.settings.infrastructure.AugmentedRealityPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.CameraPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.CellSignalPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ClinometerPreferences
@@ -64,6 +65,7 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
     val compass by lazy { CompassPreferences(context) }
     val camera by lazy { CameraPreferences(context) }
     val altimeter by lazy { AltimeterPreferences(context) }
+    val augmentedReality by lazy { AugmentedRealityPreferences(context) }
 
     private val isMetricPreferred = Resources.isMetricPreferred(context)
 

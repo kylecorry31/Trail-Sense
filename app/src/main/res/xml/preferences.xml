@@ -96,6 +96,12 @@
             app:singleLineTitle="false"
             app:title="@string/tides" />
 
+        <Preference
+            app:icon="@drawable/ic_camera"
+            app:key="@string/pref_augmented_reality_settings"
+            app:singleLineTitle="false"
+            app:title="@string/augmented_reality" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

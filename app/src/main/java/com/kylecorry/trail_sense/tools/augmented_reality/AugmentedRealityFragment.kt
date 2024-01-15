@@ -51,7 +51,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
     private val beaconLayer by lazy {
         ARBeaconLayer(
-            Distance.meters(userPrefs.navigation.maxBeaconDistance),
+            Distance.meters(userPrefs.augmentedReality.viewDistance),
             onFocus = this::onBeaconFocused
         ) {
             if (navigator.getDestinationId() != it.id) {
