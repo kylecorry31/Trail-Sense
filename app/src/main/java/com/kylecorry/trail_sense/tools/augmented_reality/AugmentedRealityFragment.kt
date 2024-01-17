@@ -35,7 +35,6 @@ import com.kylecorry.trail_sense.tools.augmented_reality.guide.NavigationARGuide
 import java.time.ZonedDateTime
 import kotlin.math.hypot
 
-// TODO: Support arguments for default layer visibility (ex. coming from astronomy, enable only sun/moon)
 class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>() {
 
     private var mode = ARMode.Normal
@@ -116,6 +115,10 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             } else {
                 startCamera()
             }
+        }
+
+        binding.arView.setOnFocusLostListener {
+            binding.focusActionButton.isVisible = false
         }
     }
 
@@ -203,6 +206,18 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             strict = false
         )
         binding.arView.focusText = beacon.name + "\n" + formattedDistance
+
+        // If the beacon isn't the destination, show the navigate button
+        if (navigator.getDestinationId() != beacon.id) {
+            binding.focusActionButton.text = getString(R.string.navigate)
+            binding.focusActionButton.setOnClickListener {
+                navigator.navigateTo(beacon)
+            }
+            binding.focusActionButton.isVisible = true
+        } else {
+            binding.focusActionButton.isVisible = false
+        }
+
         return true
     }
 

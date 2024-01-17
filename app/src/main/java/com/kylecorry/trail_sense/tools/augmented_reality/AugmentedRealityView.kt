@@ -62,6 +62,8 @@ class AugmentedRealityView : CanvasView {
     var fov: Size = Size(45f, 45f)
 
     var focusText: String? = null
+    private var hadFocus = false
+    private var onFocusLostListener: (() -> Unit)? = null
 
     var backgroundFillColor: Int = Color.TRANSPARENT
 
@@ -212,6 +214,10 @@ class AugmentedRealityView : CanvasView {
         onGuideReached = null
     }
 
+    fun setOnFocusLostListener(listener: (() -> Unit)?) {
+        onFocusLostListener = listener
+    }
+
     private fun onSensorUpdate(): Boolean {
         return true
     }
@@ -239,8 +245,13 @@ class AugmentedRealityView : CanvasView {
 
         // TODO: Should the onFocus method just return a string?
         if (!hasFocus) {
+            if (hadFocus){
+                onFocusLostListener?.invoke()
+            }
             focusText = null
         }
+
+        hadFocus = hasFocus
 
         if (showReticle) {
             drawGuidance()

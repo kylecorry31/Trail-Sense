@@ -31,6 +31,16 @@
         app:srcCompat="@drawable/ic_camera"
         app:tint="@color/white" />
 
+    <Button
+        android:id="@+id/focus_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_bottom_margin"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/guidance_panel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <FrameLayout
         android:id="@+id/guidance_panel"
         android:layout_width="match_parent"
