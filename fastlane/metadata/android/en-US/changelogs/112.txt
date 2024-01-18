@@ -1,0 +1,20 @@
+Paths
+- Add setting to improve render performance at the cost of appearance
+
+Flashlight
+- Add quick action for screen flashlight
+
+Bubble Level
+- Increase size
+
+Augmented Reality (Experimental)
+- Guide to sun / moon (button on Astronomy tool)
+- Navigate to beacons
+- Add view distance setting
+- Apply compass smoothing to AR
+
+Misc
+- Add dynamic color support (enable in settings on supported devices)
+- Pin the user guide in Tools by default
+- Performance improvements
+- Bug fixes
