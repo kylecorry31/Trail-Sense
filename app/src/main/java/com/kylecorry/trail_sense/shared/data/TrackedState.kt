@@ -1,16 +1,18 @@
 package com.kylecorry.trail_sense.shared.data
 
-data class TrackedState<T>(val initialState: T) {
+class TrackedState<T>(initialState: T) {
     private var state: T = initialState
         set(value) {
+            if (value != field) {
+                hasChanges = true
+            }
             field = value
-            hasChanges = true
         }
 
     /**
      * True if the state has changed since the last read
      */
-    var hasChanges = false
+    var hasChanges = true
 
     /**
      * Read the state
@@ -27,5 +29,12 @@ data class TrackedState<T>(val initialState: T) {
      */
     fun write(value: T) {
         state = value
+    }
+
+    /**
+     * Reset the read state
+     */
+    fun resetReadState() {
+        hasChanges = true
     }
 }

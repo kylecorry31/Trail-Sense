@@ -66,6 +66,7 @@ import com.kylecorry.trail_sense.shared.Position
 import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.data.TrackedState
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.extensions.onDefault
@@ -130,8 +131,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             R.drawable.ic_compass_icon
         )
     }
-    private var gpsStatusBadge: StatusBadge? = null
-    private var compassStatusBadge: StatusBadge? = null
 
     // Diagnostics
     private val errors by lazy { NavigatorUserErrors(this) }
@@ -145,9 +144,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             gps
         ) { declination }
     }
-
-
-    private var hasGpsUpdate = true
 
     private var astronomyDataLoaded = false
 
@@ -180,6 +176,16 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val lockScreenPresence by lazy { userPrefs.navigation.lockScreenPresence }
     private val styleChooser by lazy { CompassStyleChooser(userPrefs.navigation, hasCompass) }
     private val useTrueNorth by lazy { userPrefs.compass.useTrueNorth }
+
+
+    // State
+    private val bearingState = TrackedState(0f)
+    private val speedState = TrackedState(0f)
+    private val altitudeState = TrackedState(0f)
+    private val locationState = TrackedState(Coordinate.zero)
+    private val compassStatusState = TrackedState<StatusBadge?>(null)
+    private val gpsStatusState = TrackedState<StatusBadge?>(null)
+
 
     private val northReferenceHideTimer = CoroutineTimer {
         if (isBound) {
@@ -293,11 +299,11 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         navController = findNavController()
 
-        observe(compass) {}
+        observe(compass) { bearingState.write(compass.rawBearing) }
         observe(orientation) { onOrientationUpdate() }
-        observe(altimeter) { }
-        observe(gps) { onLocationUpdate() }
-        observe(speedometer) { }
+        observe(altimeter) { altitudeState.write(altimeter.altitude) }
+        observe(gps) { locationState.write(gps.location) }
+        observe(speedometer) { speedState.write(speedometer.speed.speed) }
 
         binding.navigationTitle.subtitle.setOnLongClickListener {
             Share.shareLocation(
@@ -496,6 +502,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         // Populate the last known location
+        locationState.write(gps.location)
         layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
 
         // Resume navigation
@@ -608,6 +615,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             return
         }
 
+        // TODO: Move selected beacon updating to a coroutine
         val selectedBeacon = getSelectedBeacon(nearbyBeacons)
 
         if (selectedBeacon != null) {
@@ -621,55 +629,42 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             binding.navigationSheet.hide()
         }
 
-        gpsStatusBadge?.let {
-            binding.gpsStatus.setStatusText(it.name)
-            binding.gpsStatus.setBackgroundTint(it.color)
+        // GPS Status
+        if (gpsStatusState.hasChanges) {
+            gpsStatusState.read()?.let {
+                binding.gpsStatus.setStatusText(it.name)
+                binding.gpsStatus.setBackgroundTint(it.color)
+            }
         }
 
-        compassStatusBadge?.let {
-            binding.compassStatus.setStatusText(it.name)
-            binding.compassStatus.setBackgroundTint(it.color)
+        // Compass Status
+        if (compassStatusState.hasChanges) {
+            compassStatusState.read()?.let {
+                binding.compassStatus.setStatusText(it.name)
+                binding.compassStatus.setBackgroundTint(it.color)
+            }
         }
 
         // Speed
-        binding.speed.title = formatService.formatSpeed(speedometer.speed.speed)
+        if (speedState.hasChanges) {
+            binding.speed.title = formatService.formatSpeed(speedState.read())
+        }
 
         // Azimuth
-        if (hasCompass) {
-            val azimuthText =
-                formatService.formatDegrees(compass.bearing.value, replace360 = true)
-                    .padStart(4, ' ')
-            val directionText = formatService.formatDirection(compass.bearing.direction)
-                .padStart(2, ' ')
-            binding.navigationTitle.title.setTextDistinct("$azimuthText   $directionText")
-        } else {
-            binding.navigationTitle.title.setTextDistinct(getString(R.string.dash))
+        if (bearingState.hasChanges) {
+            updateCompassBearing()
         }
 
         // Altitude
-        binding.altitude.title = formatService.formatDistance(
-            Distance.meters(altimeter.altitude).convertTo(baseDistanceUnits)
-        )
-
-        layerManager?.onBearingChanged(compass.bearing)
-
-        // Compass
-        listOf<ICompassView>(
-            binding.roundCompass,
-            binding.radarCompass,
-            binding.linearCompass
-        ).forEach {
-            it.azimuth = compass.bearing
-            it.declination = declination
+        if (altitudeState.hasChanges) {
+            binding.altitude.title = formatService.formatDistance(
+                Distance.meters(altitudeState.read()).convertTo(baseDistanceUnits)
+            )
         }
 
         // Location
-        if (hasGpsUpdate) {
-            binding.navigationTitle.subtitle.setTextDistinct(
-                formatService.formatLocation(
-                    gps.location
-                )
-            )
+        if (locationState.hasChanges) {
+            updateLocation()
         }
 
         updateNavigationButton()
@@ -684,8 +679,69 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         sightingCompass?.update()
+    }
 
-        hasGpsUpdate = false
+    private fun updateCompassBearing() {
+        val bearing = Bearing(bearingState.read())
+
+        // Azimuth
+        if (hasCompass) {
+            val azimuthText =
+                formatService.formatDegrees(bearing.value, replace360 = true)
+                    .padStart(4, ' ')
+            val directionText = formatService.formatDirection(bearing.direction)
+                .padStart(2, ' ')
+            binding.navigationTitle.title.setTextDistinct("$azimuthText   $directionText")
+        } else {
+            binding.navigationTitle.title.setTextDistinct(getString(R.string.dash))
+        }
+
+        layerManager?.onBearingChanged(bearing)
+
+        // Compass
+        listOf<ICompassView>(
+            binding.roundCompass,
+            binding.radarCompass,
+            binding.linearCompass
+        ).forEach {
+            it.azimuth = bearing
+            it.declination = declination
+        }
+    }
+
+    private fun updateLocation() {
+        val location = locationState.read()
+
+        binding.navigationTitle.subtitle.setTextDistinct(
+            formatService.formatLocation(location)
+        )
+
+        layerManager?.onLocationChanged(location, gps.horizontalAccuracy)
+
+        // Compass center point
+        listOf<ICompassView>(
+            binding.roundCompass,
+            binding.radarCompass,
+            binding.linearCompass
+        ).forEach {
+            it.compassCenter = location
+        }
+
+        updateNearbyBeacons()
+        updateDeclination()
+
+        if (!astronomyDataLoaded) {
+            updateAstronomyData()
+        }
+
+        if (useRadarCompass) {
+            val loadGeofence = Geofence(
+                location,
+                Distance.meters(nearbyDistance + 10)
+            )
+            val bounds = CoordinateBounds.from(loadGeofence)
+            layerManager?.onBoundsChanged(bounds)
+        }
     }
 
     private fun updateCompassLayers() {
@@ -719,6 +775,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun getPosition(): Position {
+        // TODO: Remove this concept
         return Position(
             gps.location,
             altimeter.altitude,
@@ -746,10 +803,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
     }
 
-    private fun onOrientationUpdate(): Boolean {
-
+    private fun onOrientationUpdate() {
         if (orientation.orientation == lastOrientation) {
-            return true
+            return
         }
 
         lastOrientation = orientation.orientation
@@ -768,44 +824,12 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         } else {
             disableSightingCompass()
         }
-        return true
-    }
-
-    private fun onLocationUpdate() {
-        layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
-
-        // Compass center point
-        listOf<ICompassView>(
-            binding.roundCompass,
-            binding.radarCompass,
-            binding.linearCompass
-        ).forEach {
-            it.compassCenter = gps.location
-        }
-
-        updateNearbyBeacons()
-        updateDeclination()
-
-        if (!astronomyDataLoaded) {
-            updateAstronomyData()
-        }
-
-        if (useRadarCompass) {
-            val loadGeofence = Geofence(
-                gps.location,
-                Distance.meters(nearbyDistance + 10)
-            )
-            val bounds = CoordinateBounds.from(loadGeofence)
-            layerManager?.onBoundsChanged(bounds)
-        }
-
-        hasGpsUpdate = true
     }
 
     private fun updateSensorStatus() {
         inBackground {
-            compassStatusBadge = compassStatusBadgeProvider.getBadge()
-            gpsStatusBadge = gpsStatusBadgeProvider.getBadge()
+            compassStatusState.write(compassStatusBadgeProvider.getBadge())
+            gpsStatusState.write(gpsStatusBadgeProvider.getBadge())
 
             val codes = onDefault {
                 diagnostics.flatMap { it.scan() }
@@ -835,7 +859,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private fun updateNavigator() {
         handleShowWhenLocked()
-        onLocationUpdate()
         updateNavigationButton()
     }
 

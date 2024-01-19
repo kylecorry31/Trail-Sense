@@ -8,6 +8,7 @@ import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
+import com.kylecorry.andromeda.core.ui.setTextDistinct
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ViewDataPointBinding
 
@@ -19,13 +20,13 @@ class DataPointView(context: Context, attrs: AttributeSet?) : FrameLayout(contex
     var title: String
         get() = binding.dataPointTitle.text.toString()
         set(value) {
-            binding.dataPointTitle.text = value
+            binding.dataPointTitle.setTextDistinct(value)
         }
 
     var description: String
         get() = binding.dataPointDesc.text.toString()
         set(value) {
-            binding.dataPointDesc.text = value
+            binding.dataPointDesc.setTextDistinct(value)
         }
 
     init {
