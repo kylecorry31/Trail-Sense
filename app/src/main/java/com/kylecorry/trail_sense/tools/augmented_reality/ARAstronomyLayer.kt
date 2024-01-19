@@ -7,6 +7,7 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.astronomy.Astronomy
+import com.kylecorry.sol.science.astronomy.RiseSetTransitTimes
 import com.kylecorry.sol.science.astronomy.SunTimesMode
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
 import com.kylecorry.sol.time.Time
@@ -22,6 +23,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.Duration
+import java.time.LocalDate
 import java.time.ZonedDateTime
 
 class ARAstronomyLayer(
@@ -292,17 +294,22 @@ class ARAstronomyLayer(
         return lines
     }
 
-    // TODO: Move these to sol?
+    // TODO: Move this to sol
+    private fun getAboveHorizonTimes(
+        location: Coordinate,
+        time: ZonedDateTime,
+        nextRiseOffset: Duration,
+        isUpPredicate: (Coordinate, ZonedDateTime) -> Boolean,
+        riseSetTransitTimesProducer: (Coordinate, LocalDate) -> RiseSetTransitTimes
+    ): Range<ZonedDateTime> {
+        // If it is up, use the last rise to the next set
+        // If it is down and is less than nextRiseOffset from the next rise, use the next rise to the next set
+        // If it is down and is greater than nextRiseOffset from the next rise, use the last rise to the last set
+        val isUp = isUpPredicate(location, time)
 
-    private fun getMoonTimes(location: Coordinate, time: ZonedDateTime): Range<ZonedDateTime> {
-        // If the moon is up, use the last moonrise to the next moonset
-        // If the moon is down and is less than 6 hours from the next moonrise, use the next moonrise to the next moonset
-        // If the moon is down and is greater than 6 hours from the next moonrise, use the last moonrise to the last moonset
-        val isUp = astro.isMoonUp(location)
-
-        val yesterday = astro.getMoonTimes(location, time.minusDays(1).toLocalDate())
-        val today = astro.getMoonTimes(location, time.toLocalDate())
-        val tomorrow = astro.getMoonTimes(location, time.plusDays(1).toLocalDate())
+        val yesterday = riseSetTransitTimesProducer(location, time.minusDays(1).toLocalDate())
+        val today = riseSetTransitTimesProducer(location, time.toLocalDate())
+        val tomorrow = riseSetTransitTimesProducer(location, time.plusDays(1).toLocalDate())
 
         val lastRise =
             Time.getClosestPastTime(time, listOfNotNull(yesterday.rise, today.rise, tomorrow.rise))
@@ -319,44 +326,30 @@ class ARAstronomyLayer(
             return Range(lastRise ?: time.atStartOfDay(), nextSet ?: time.atEndOfDay())
         }
 
-        if (nextRise == null || Duration.between(time, nextRise) > Duration.ofHours(6)) {
+        if (nextRise == null || Duration.between(time, nextRise) > nextRiseOffset) {
             return Range(lastRise ?: time.atStartOfDay(), lastSet ?: time.atEndOfDay())
         }
 
         return Range(nextRise, nextSet ?: time.atEndOfDay())
     }
 
-    private fun getSunTimes(location: Coordinate, time: ZonedDateTime): Range<ZonedDateTime> {
-        // If the sun is up, use the last sunrise to the next sunset
-        // If the sun is down and is less than 6 hours from the next sunrise, use the next sunrise to the next sunset
-        // If the sun is down and is greater than 6 hours from the next sunrise, use the last sunrise to the last sunset
-        val isUp = astro.isSunUp(location)
-
-        val yesterday =
-            astro.getSunTimes(location, SunTimesMode.Actual, time.minusDays(1).toLocalDate())
-        val today = astro.getSunTimes(location, SunTimesMode.Actual, time.toLocalDate())
-        val tomorrow =
-            astro.getSunTimes(location, SunTimesMode.Actual, time.plusDays(1).toLocalDate())
-
-        val lastRise =
-            Time.getClosestPastTime(time, listOfNotNull(yesterday.rise, today.rise, tomorrow.rise))
-        val nextRise = Time.getClosestFutureTime(
+    private fun getMoonTimes(location: Coordinate, time: ZonedDateTime): Range<ZonedDateTime> {
+        return getAboveHorizonTimes(
+            location,
             time,
-            listOfNotNull(yesterday.rise, today.rise, tomorrow.rise)
+            Duration.ofHours(6),
+            { loc, t -> astro.isMoonUp(loc, t) },
+            { loc, date -> astro.getMoonTimes(loc, date) }
         )
-        val lastSet =
-            Time.getClosestPastTime(time, listOfNotNull(yesterday.set, today.set, tomorrow.set))
-        val nextSet =
-            Time.getClosestFutureTime(time, listOfNotNull(yesterday.set, today.set, tomorrow.set))
+    }
 
-        if (isUp) {
-            return Range(lastRise ?: time.atStartOfDay(), nextSet ?: time.atEndOfDay())
-        }
-
-        if (nextRise == null || Duration.between(time, nextRise) > Duration.ofHours(6)) {
-            return Range(lastRise ?: time.atStartOfDay(), lastSet ?: time.atEndOfDay())
-        }
-
-        return Range(nextRise, nextSet ?: time.atEndOfDay())
+    private fun getSunTimes(location: Coordinate, time: ZonedDateTime): Range<ZonedDateTime> {
+        return getAboveHorizonTimes(
+            location,
+            time,
+            Duration.ofHours(6),
+            { loc, t -> astro.isSunUp(loc, t) },
+            { loc, date -> astro.getSunTimes(loc, SunTimesMode.Actual, date) }
+        )
     }
 }

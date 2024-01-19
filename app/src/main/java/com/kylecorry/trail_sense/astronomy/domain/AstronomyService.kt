@@ -86,9 +86,9 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         return Astronomy.getMoonAzimuth(time, location, withParallax = true)
     }
 
-    fun isMoonUp(location: Coordinate): Boolean {
+    fun isMoonUp(location: Coordinate, time: ZonedDateTime = ZonedDateTime.now(clock)): Boolean {
         return Astronomy.isMoonUp(
-            ZonedDateTime.now(clock),
+            time,
             location,
             withRefraction = true,
             withParallax = true
@@ -174,8 +174,8 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
             ?.toLocalDateTime()
     }
 
-    fun isSunUp(location: Coordinate): Boolean {
-        return Astronomy.isSunUp(ZonedDateTime.now(clock), location, true)
+    fun isSunUp(location: Coordinate, time: ZonedDateTime = ZonedDateTime.now(clock)): Boolean {
+        return Astronomy.isSunUp(time, location, true)
     }
 
     fun getSunAzimuth(location: Coordinate, time: ZonedDateTime = ZonedDateTime.now()): Bearing {
