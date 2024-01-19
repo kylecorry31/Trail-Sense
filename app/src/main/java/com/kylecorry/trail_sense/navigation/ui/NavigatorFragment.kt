@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.navigation.ui
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,10 +16,12 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.tryOrNothing
+import com.kylecorry.andromeda.core.ui.setTextDistinct
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.interval
 import com.kylecorry.andromeda.fragments.observe
+import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
@@ -48,13 +49,22 @@ import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.navigation.ui.data.UpdateAstronomyLayerCommand
 import com.kylecorry.trail_sense.navigation.ui.errors.NavigatorUserErrors
-import com.kylecorry.trail_sense.navigation.ui.layers.*
+import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.MyAccuracyLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.MyLocationLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.PathLayer
+import com.kylecorry.trail_sense.navigation.ui.layers.TideLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.compass.BeaconCompassLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.compass.ICompassView
 import com.kylecorry.trail_sense.navigation.ui.layers.compass.MarkerCompassLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.compass.NavigationCompassLayer
 import com.kylecorry.trail_sense.quickactions.NavigationQuickActionBinder
-import com.kylecorry.trail_sense.shared.*
+import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Position
+import com.kylecorry.trail_sense.shared.QuickActionType
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
@@ -64,8 +74,6 @@ import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.andromeda.fragments.observeFlow
-import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.ILayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MultiLayerManager
@@ -75,7 +83,6 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.PathLayerManag
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.TideLayerManager
 import java.time.Duration
 import java.time.Instant
-import java.util.*
 
 
 class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
@@ -139,6 +146,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         ) { declination }
     }
 
+
+    private var hasGpsUpdate = true
 
     private var astronomyDataLoaded = false
 
@@ -627,15 +636,16 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         // Azimuth
         if (hasCompass) {
-            val azimuthText = formatService.formatDegrees(compass.bearing.value, replace360 = true)
-                .padStart(4, ' ')
+            val azimuthText =
+                formatService.formatDegrees(compass.bearing.value, replace360 = true)
+                    .padStart(4, ' ')
             val directionText = formatService.formatDirection(compass.bearing.direction)
                 .padStart(2, ' ')
-            @SuppressLint("SetTextI18n")
-            binding.navigationTitle.title.text = "$azimuthText   $directionText"
+            binding.navigationTitle.title.setTextDistinct("$azimuthText   $directionText")
         } else {
-            binding.navigationTitle.title.text = getString(R.string.dash)
+            binding.navigationTitle.title.setTextDistinct(getString(R.string.dash))
         }
+
         // Altitude
         binding.altitude.title = formatService.formatDistance(
             Distance.meters(altimeter.altitude).convertTo(baseDistanceUnits)
@@ -654,7 +664,13 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         // Location
-        binding.navigationTitle.subtitle.text = formatService.formatLocation(gps.location)
+        if (hasGpsUpdate) {
+            binding.navigationTitle.subtitle.setTextDistinct(
+                formatService.formatLocation(
+                    gps.location
+                )
+            )
+        }
 
         updateNavigationButton()
 
@@ -668,6 +684,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         sightingCompass?.update()
+
+        hasGpsUpdate = false
     }
 
     private fun updateCompassLayers() {
@@ -780,6 +798,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             val bounds = CoordinateBounds.from(loadGeofence)
             layerManager?.onBoundsChanged(bounds)
         }
+
+        hasGpsUpdate = true
     }
 
     private fun updateSensorStatus() {
@@ -798,11 +818,18 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
     }
 
+    private var currentNavButtonResource = 0
+
     private fun updateNavigationButton() {
-        if (destination != null) {
-            binding.beaconBtn.setImageResource(R.drawable.ic_cancel)
+        val resource = if (destination != null) {
+            R.drawable.ic_cancel
         } else {
-            binding.beaconBtn.setImageResource(R.drawable.ic_beacon)
+            R.drawable.ic_beacon
+        }
+
+        if (resource != currentNavButtonResource) {
+            binding.beaconBtn.setImageResource(resource)
+            currentNavButtonResource = resource
         }
     }
 
