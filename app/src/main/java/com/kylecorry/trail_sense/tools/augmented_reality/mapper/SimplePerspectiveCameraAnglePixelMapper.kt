@@ -7,6 +7,7 @@ import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
+import com.kylecorry.sol.science.optics.Optics
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -44,10 +45,9 @@ class SimplePerspectiveCameraAnglePixelMapper : CameraAnglePixelMapper {
         if (world.z < 0) {
             return linear.getPixel(world, imageRect, fieldOfView)
         }
-
-        // Perspective matrix multiplication - written out to avoid unnecessary allocations and calculations
-        val fy = imageRect.height() / 2f / SolMath.tanDegrees(fieldOfView.height / 2)
-        val fx = imageRect.width() / 2f / SolMath.tanDegrees(fieldOfView.width / 2)
+        
+        val fy = Optics.getFocalLength(fieldOfView.height, imageRect.height())
+        val fx = Optics.getFocalLength(fieldOfView.width, imageRect.width())
 
         val x = fx * world.x
         val y = fy * world.y

@@ -7,6 +7,7 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
+import com.kylecorry.sol.science.optics.Optics
 import kotlin.math.max
 
 /**
@@ -21,7 +22,8 @@ class CalibratedCameraAnglePixelMapper(
     private val applyDistortionCorrection: Boolean = false
 ) : CameraAnglePixelMapper {
 
-    private var calibration: FloatArray? = null
+    private var focalLength: Vector2? = null
+    private var opticalCenter: Vector2? = null
     private var preActiveArray: Rect? = null
     private var activeArray: Rect? = null
     private var distortion: FloatArray? = null
@@ -37,27 +39,36 @@ class CalibratedCameraAnglePixelMapper(
         imageRect: RectF,
         fieldOfView: Size
     ): Vector2 {
-        // TODO: Figure out how to do this
+        // TODO: Use inverse perspective after converting the point to the pre-active array
         return fallback.getAngle(x, y, imageRect, fieldOfView)
     }
 
-    private fun getCalibration(): FloatArray? {
-        if (calibration == null) {
-            val calibration = camera.getIntrinsicCalibration(true) ?: return null
+    private fun updateCalibration(){
+        if (focalLength == null || opticalCenter == null) {
+            val calibration = camera.getIntrinsicCalibration(true) ?: return
             val rotation = camera.sensorRotation.toInt()
-            this.calibration = if (rotation == 90 || rotation == 270) {
-                floatArrayOf(
-                    calibration[1],
-                    calibration[0],
-                    calibration[3],
-                    calibration[2],
-                    calibration[4]
-                )
+            if (rotation == 90 || rotation == 270) {
+                focalLength = Vector2(calibration[1], calibration[0])
+                opticalCenter = Vector2(calibration[3], calibration[2])
             } else {
-                calibration
+                focalLength = Vector2(calibration[0], calibration[1])
+                opticalCenter = Vector2(calibration[2], calibration[3])
             }
         }
-        return calibration
+    }
+
+    private fun getFocalLength(): Vector2? {
+        if (focalLength == null) {
+            updateCalibration()
+        }
+        return focalLength
+    }
+
+    private fun getOpticalCenter(): Vector2? {
+        if (opticalCenter == null) {
+            updateCalibration()
+        }
+        return opticalCenter
     }
 
     private fun getPreActiveArraySize(): Rect? {
@@ -120,29 +131,24 @@ class CalibratedCameraAnglePixelMapper(
             return linear.getPixel(world, imageRect, fieldOfView)
         }
 
-        val calibration = getCalibration()
+        val focalLength = getFocalLength()
+        val opticalCenter = getOpticalCenter()
         val preActiveArray = getPreActiveArraySize() ?: getActiveArraySize()
         val activeArray = getActiveArraySize()
         val distortion = getDistortion()
 
-        if (calibration == null || preActiveArray == null || activeArray == null) {
+        if (focalLength == null || opticalCenter == null || preActiveArray == null || activeArray == null) {
             return fallback.getPixel(world, imageRect, fieldOfView)
         }
 
-        val fx = calibration[0]
-        val fy = calibration[1]
-        val cx = calibration[2]
-        val cy = calibration[3]
-
         // Get the pixel in the pre-active array
-        val preX = fx * (world.x / world.z) + cx
-        val preY = fy * (world.y / world.z) + cy
+        val pre = Optics.perspectiveProjection(world, focalLength, opticalCenter)
 
         // Correct for distortion
         val corrected = if (applyDistortionCorrection && distortion != null) {
-            undistort(preX, preY, preActiveArray, cx, cy, distortion)
+            undistort(pre.x, pre.y, preActiveArray, opticalCenter.x, opticalCenter.y, distortion)
         } else {
-            Vector2(preX, preY)
+            Vector2(pre.x, pre.y)
         }
 
         // Translate to the active array
