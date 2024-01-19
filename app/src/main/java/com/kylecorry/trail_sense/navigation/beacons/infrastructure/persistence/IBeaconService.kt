@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence
 
+import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
@@ -29,6 +30,8 @@ interface IBeaconService {
         nameFilter: String,
         groupFilter: Long?
     ): List<IBeacon>
+
+    suspend fun getBeaconsInRegion(region: CoordinateBounds): List<Beacon>
 
     // Delete
     suspend fun delete(group: BeaconGroup)

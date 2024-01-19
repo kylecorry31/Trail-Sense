@@ -37,4 +37,26 @@ interface BeaconDao {
 
     @Update
     suspend fun update(beacon: BeaconEntity)
+
+    /**
+     * Get all beacons in a region. Does not work if the region crosses the 180 meridian, use getAllInRegionNear180Meridian instead.
+     */
+    @Query("SELECT * FROM beacons WHERE `temporary` = 0 AND latitude BETWEEN :south AND :north AND longitude BETWEEN :west AND :east")
+    suspend fun getAllInRegion(
+        north: Double,
+        south: Double,
+        east: Double,
+        west: Double
+    ): List<BeaconEntity>
+
+    /**
+     * Get all beacons in a region that crosses the 180 meridian
+     */
+    @Query("SELECT * FROM beacons WHERE `temporary` = 0 AND latitude BETWEEN :south AND :north AND (longitude >= :west OR longitude <= :east)")
+    suspend fun getAllInRegionNear180Meridian(
+        north: Double,
+        south: Double,
+        east: Double,
+        west: Double
+    ): List<BeaconEntity>
 }

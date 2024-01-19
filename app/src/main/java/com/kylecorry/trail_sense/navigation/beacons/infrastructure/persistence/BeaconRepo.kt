@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence
 
 import android.content.Context
+import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.shared.database.AppDatabase
@@ -72,6 +73,18 @@ class BeaconRepo private constructor(context: Context) : IBeaconRepo {
 
     override suspend fun getGroup(id: Long): BeaconGroupEntity? = beaconGroupDao.get(id)
 
+    override suspend fun getBeaconsInRegion(region: CoordinateBounds): List<BeaconEntity> {
+        return if (region.east < region.west) {
+            beaconDao.getAllInRegionNear180Meridian(
+                region.north,
+                region.south,
+                region.east,
+                region.west
+            )
+        } else {
+            beaconDao.getAllInRegion(region.north, region.south, region.east, region.west)
+        }
+    }
 
     companion object {
         private var instance: BeaconRepo? = null

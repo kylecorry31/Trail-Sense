@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence
 
+import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
 import kotlinx.coroutines.flow.Flow
@@ -19,5 +20,7 @@ interface IBeaconRepo {
     suspend fun deleteBeaconGroup(group: BeaconGroupEntity)
     suspend fun getGroupsWithParent(parent: Long?): List<BeaconGroupEntity>
     suspend fun getGroup(id: Long): BeaconGroupEntity?
+
+    suspend fun getBeaconsInRegion(region: CoordinateBounds): List<BeaconEntity>
 
 }

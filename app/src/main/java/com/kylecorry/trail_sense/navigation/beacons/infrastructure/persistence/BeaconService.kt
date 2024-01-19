@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence
 
 import android.content.Context
+import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
@@ -87,6 +88,10 @@ class BeaconService(context: Context) : IBeaconService {
         return filter.filter(groupFilter) {
             it.name.contains(nameFilter, ignoreCase = true)
         }
+    }
+
+    override suspend fun getBeaconsInRegion(region: CoordinateBounds): List<Beacon> {
+        return repo.getBeaconsInRegion(region).map { it.toBeacon() }
     }
 
     override suspend fun delete(group: BeaconGroup) {
