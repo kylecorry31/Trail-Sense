@@ -45,6 +45,7 @@ import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.position.SphericalARPoint
 import java.time.Duration
 import java.time.Instant
+import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
@@ -73,6 +74,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
     private var lockState = ClinometerLockState.Unlocked
     private val holdDuration = Duration.ofMillis(200)
+    private val holdAngle = 0.5f
 
     private var distanceAway: Distance? = null
     private var knownHeight: Distance? = null
@@ -185,7 +187,9 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
             ClinometerLockState.PartiallyLocked -> {
                 if (pressState == PressState.Up) {
-                    if (Duration.between(touchTime, Instant.now()) < holdDuration) {
+                    val currentAngle = clinometer.incline
+                    val deltaAngle = abs(currentAngle - startIncline)
+                    if (deltaAngle < holdAngle || Duration.between(touchTime, Instant.now()) < holdDuration) {
                         // No sweep angle
                         clearStartAngle()
                     }
@@ -210,7 +214,9 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
             ClinometerLockState.PartiallyUnlocked -> {
                 if (pressState == PressState.Up) {
-                    lockState = if (Duration.between(touchTime, Instant.now()) < holdDuration) {
+                    val currentAngle = clinometer.incline
+                    val deltaAngle = abs(currentAngle - startIncline)
+                    lockState = if (deltaAngle < holdAngle || Duration.between(touchTime, Instant.now()) < holdDuration) {
                         // User wants to unlock
                         clearStartAngle()
                         clearEndAngle()
@@ -223,6 +229,11 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                 }
             }
         }
+    }
+
+    private fun getCurrentAngle(): Float {
+        // TODO: This should just be clinometer.angle
+        return normalizeAngle(-clinometer.angle + 180f)
     }
 
     private fun askForHeightOrDistance() {
@@ -320,8 +331,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         touchTime = Instant.now()
         startIncline = clinometer.incline
         binding.cameraClinometer.startInclination = startIncline
-        // TODO: This should just be clinometer.angle
-        binding.clinometer.startAngle = normalizeAngle(-clinometer.angle + 180f)
+        binding.clinometer.startAngle = getCurrentAngle()
 
         // Distance away is distance from device to the object at 0 inclination
         // Calculate the distance away using the hypotenuse of the triangle
@@ -344,7 +354,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     }
 
     private fun setEndAngle() {
-        slopeAngle = normalizeAngle(-clinometer.angle + 180f)
+        slopeAngle = getCurrentAngle()
         slopeIncline = clinometer.incline
         // Distance away is distance from device to the object at 0 inclination
         // Calculate the distance away using the hypotenuse of the triangle
@@ -447,7 +457,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         binding.cameraViewHolder.isVisible = useCamera
         binding.clinometer.isInvisible = useCamera
 
-        val angle = slopeAngle ?: normalizeAngle(-clinometer.angle + 180f)
+        val angle = slopeAngle ?: getCurrentAngle()
         val incline = slopeIncline ?: clinometer.incline
 
         if (hapticsEnabled) {
