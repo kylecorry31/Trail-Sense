@@ -77,8 +77,8 @@ class NavigationService {
             .toList()
     }
 
-    private fun isFacingBearing(azimuth: Bearing, bearing: Bearing): Boolean {
-        return abs(deltaAngle(bearing.value, azimuth.value)) < 20
+    private fun isFacingBearing(azimuth: Float, bearing: Float): Boolean {
+        return abs(deltaAngle(bearing, azimuth)) < 20
     }
 
     fun getFacingBeacon(
@@ -100,8 +100,8 @@ class NavigationService {
                 }
             )
         }.filter {
-            isFacingBearing(position.bearing, it.second)
-        }.minByOrNull { abs(deltaAngle(it.second.value, position.bearing.value)) }?.first
+            isFacingBearing(position.bearing, it.second.value)
+        }.minByOrNull { abs(deltaAngle(it.second.value, position.bearing)) }?.first
     }
 
 }

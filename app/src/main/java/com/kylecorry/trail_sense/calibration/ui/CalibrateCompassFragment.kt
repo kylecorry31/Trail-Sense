@@ -235,7 +235,7 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
         compass.declination = getDeclination()
 
         calibrateBtn.summary = getString(R.string.compass_reported_accuracy, getCompassAccuracy())
-        azimuthTxt.summary = formatService.formatDegrees(compass.bearing.value, replace360 = true)
+        azimuthTxt.summary = formatService.formatDegrees(compass.rawBearing, replace360 = true)
         declinationTxt.summary = formatService.formatDegrees(compass.declination)
         declinationOverrideEdit.summary =
             getString(R.string.degree_format, prefs.declinationOverride)

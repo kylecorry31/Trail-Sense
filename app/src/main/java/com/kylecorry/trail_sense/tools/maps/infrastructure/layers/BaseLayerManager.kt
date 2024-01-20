@@ -8,10 +8,10 @@ abstract class BaseLayerManager : ILayerManager {
 
     protected var bounds: CoordinateBounds? = null
     protected var location: Coordinate? = null
-    protected var bearing: Bearing? = null
+    protected var bearing: Float? = null
     protected var accuracy: Float? = null
 
-    override fun onBearingChanged(bearing: Bearing) {
+    override fun onBearingChanged(bearing: Float) {
         this.bearing = bearing
     }
 

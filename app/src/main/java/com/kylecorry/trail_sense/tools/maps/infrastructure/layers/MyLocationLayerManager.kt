@@ -19,7 +19,7 @@ class MyLocationLayerManager(private val layer: MyLocationLayer, @ColorInt priva
         layer.setLocation(location)
     }
 
-    override fun onBearingChanged(bearing: Bearing) {
+    override fun onBearingChanged(bearing: Float) {
         super.onBearingChanged(bearing)
         layer.setAzimuth(bearing)
     }

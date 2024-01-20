@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.navigation.ui.markers.PathMapMarker
 class MyLocationLayer : BaseLayer() {
 
     private var _location: Coordinate? = null
-    private var _azimuth: Bearing? = null
+    private var _azimuth: Float? = null
     private var _path: Path? = null
     private var _showDirection = true
 
@@ -29,7 +29,7 @@ class MyLocationLayer : BaseLayer() {
         invalidate()
     }
 
-    fun setAzimuth(azimuth: Bearing) {
+    fun setAzimuth(azimuth: Float) {
         _azimuth = azimuth
         invalidate()
     }
@@ -90,7 +90,7 @@ class MyLocationLayer : BaseLayer() {
                 color = _color,
                 strokeColor = Color.WHITE,
                 strokeWeight = 2f,
-                rotation = (_azimuth?.value ?: 0f) + map.mapRotation
+                rotation = (_azimuth ?: 0f) + map.mapRotation
             )
         )
     }

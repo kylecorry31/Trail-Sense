@@ -154,11 +154,11 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
             -getDeclination()
         }
         val desiredAzimuth = solarPosition.second.withDeclination(declinationOffset).inverse()
-        val azimuthDiff = deltaAngle(desiredAzimuth.value, compass.bearing.value)
+        val azimuthDiff = deltaAngle(desiredAzimuth.value, compass.rawBearing)
         val azimuthAligned = azimuthDiff.absoluteValue < AZIMUTH_THRESHOLD
         binding.azimuthComplete.visibility = if (azimuthAligned) View.VISIBLE else View.INVISIBLE
         binding.currentAzimuth.text =
-            formatService.formatDegrees(compass.bearing.value, replace360 = true)
+            formatService.formatDegrees(compass.rawBearing, replace360 = true)
         binding.desiredAzimuth.text =
             formatService.formatDegrees(desiredAzimuth.value, replace360 = true)
         binding.arrowLeft.visibility =

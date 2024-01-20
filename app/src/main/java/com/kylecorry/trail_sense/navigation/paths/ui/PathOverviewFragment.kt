@@ -294,7 +294,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         }
 
         observe(compass) {
-            layerManager?.onBearingChanged(compass.bearing)
+            layerManager?.onBearingChanged(compass.rawBearing)
         }
 
         waypointLayer.setOutlineColor(Color.TRANSPARENT)

@@ -107,7 +107,7 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
         }
 
         observe(compass) {
-            layerManager?.onBearingChanged(compass.bearing)
+            layerManager?.onBearingChanged(compass.rawBearing)
         }
     }
 

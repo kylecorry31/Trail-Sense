@@ -32,7 +32,7 @@ class BearingInputView(context: Context, attrs: AttributeSet? = null) :
     private val compass by lazy { sensors.getCompass() }
     private val hasCompass by lazy { sensors.hasCompass() }
 
-    var bearing: Bearing? = null
+    var bearing: Float? = null
         set(value) {
             field = value
             if (value == null) {
@@ -40,7 +40,7 @@ class BearingInputView(context: Context, attrs: AttributeSet? = null) :
                 clearBtn.isVisible = false
                 northReferenceBadge.isVisible = false
             } else {
-                bearingTxt.text = formatter.formatDegrees(value.value, replace360 = true)
+                bearingTxt.text = formatter.formatDegrees(value, replace360 = true)
                 clearBtn.isVisible = true
                 northReferenceBadge.isVisible = true
             }
@@ -54,7 +54,7 @@ class BearingInputView(context: Context, attrs: AttributeSet? = null) :
             onChange()
         }
 
-    private var changeListener: ((bearing: Bearing?, isTrueNorth: Boolean) -> Unit)? = null
+    private var changeListener: ((bearing: Float?, isTrueNorth: Boolean) -> Unit)? = null
 
     private val bearingTxt: TextView
     private val compassBtn: ImageButton
@@ -91,7 +91,7 @@ class BearingInputView(context: Context, attrs: AttributeSet? = null) :
         }
 
         compassBtn.setOnClickListener {
-            bearing = compass.bearing
+            bearing = compass.rawBearing
             trueNorth = false
             northReferenceBadge.useTrueNorth = false
         }
@@ -142,7 +142,7 @@ class BearingInputView(context: Context, attrs: AttributeSet? = null) :
         changeListener?.invoke(bearing, trueNorth)
     }
 
-    fun setOnBearingChangeListener(listener: ((bearing: Bearing?, isTrueNorth: Boolean) -> Unit)?) {
+    fun setOnBearingChangeListener(listener: ((bearing: Float?, isTrueNorth: Boolean) -> Unit)?) {
         changeListener = listener
     }
 
@@ -154,9 +154,9 @@ class BearingInputView(context: Context, attrs: AttributeSet? = null) :
         val bearingInputView = view.findViewById<EditText>(R.id.bearing)
         bearingInputView.addTextChangedListener {
             val text = bearingInputView.text?.toString()
-            chosenBearing = text?.toFloatOrNull()?.let { Bearing(it) }
+            chosenBearing = text?.toFloatOrNull()?.let { Bearing.getBearing(it) }
         }
-        bearingInputView.setText(chosenBearing?.let { DecimalFormatter.format(it.value, 1) })
+        bearingInputView.setText(chosenBearing?.let { DecimalFormatter.format(it, 1) })
 
         val trueNorthSwitch = view.findViewById<MaterialSwitch>(R.id.true_north)
         trueNorthSwitch.isChecked = chosenTrueNorth

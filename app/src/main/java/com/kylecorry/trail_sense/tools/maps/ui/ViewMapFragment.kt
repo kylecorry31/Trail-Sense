@@ -159,11 +159,11 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         observe(altimeter) { updateDestination() }
         observe(compass) {
             compass.declination = Geology.getGeomagneticDeclination(gps.location, gps.altitude)
-            val bearing = compass.bearing
+            val bearing = compass.rawBearing
             binding.map.azimuth = bearing
             layerManager?.onBearingChanged(bearing)
             if (mapLockMode == MapLockMode.Compass) {
-                binding.map.mapAzimuth = bearing.value
+                binding.map.mapAzimuth = bearing
             }
             updateDestination()
         }
@@ -314,7 +314,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
         val beacon = destination ?: return
         binding.navigationSheet.show(
-            Position(gps.location, altimeter.altitude, compass.bearing, gps.speed.speed),
+            Position(gps.location, altimeter.altitude, compass.rawBearing, gps.speed.speed),
             beacon,
             compass.declination,
             true

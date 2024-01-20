@@ -272,7 +272,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
         } else {
             SensorDetails(
                 getString(R.string.pref_compass_sensor_title),
-                formatService.formatDegrees(compass.bearing.value, replace360 = true),
+                formatService.formatDegrees(compass.rawBearing, replace360 = true),
                 formatService.formatQuality(compass.quality),
                 CustomUiUtils.getQualityColor(compass.quality),
                 R.drawable.ic_compass_icon

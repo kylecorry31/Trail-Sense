@@ -696,7 +696,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             binding.navigationTitle.title.setTextDistinct(getString(R.string.dash))
         }
 
-        layerManager?.onBearingChanged(bearing)
+        layerManager?.onBearingChanged(bearing.value)
 
         // Compass
         listOf<ICompassView>(
@@ -779,7 +779,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         return Position(
             gps.location,
             altimeter.altitude,
-            compass.bearing,
+            compass.rawBearing,
             speedometer.speed.speed
         )
     }

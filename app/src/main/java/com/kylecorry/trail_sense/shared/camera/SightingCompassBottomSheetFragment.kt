@@ -17,7 +17,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import kotlinx.coroutines.Dispatchers
 
 class SightingCompassBottomSheetFragment(
-    private val onSelect: (bearing: Bearing?) -> Unit
+    private val onSelect: (bearing: Float?) -> Unit
 ) : BoundFullscreenDialogFragment<FragmentSightingCompassSheetBinding>() {
 
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
@@ -83,7 +83,7 @@ class SightingCompassBottomSheetFragment(
     }
 
     private fun confirmBearing() {
-        onSelect(bearing?.let { Bearing(it) })
+        onSelect(bearing)
         dismiss()
     }
 

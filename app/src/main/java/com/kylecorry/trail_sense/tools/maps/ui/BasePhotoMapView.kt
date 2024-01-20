@@ -107,7 +107,7 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
             invalidate()
         }
 
-    var azimuth: Bearing = Bearing(0f)
+    var azimuth: Float = 0f
         set(value) {
             field = value
             invalidate()
