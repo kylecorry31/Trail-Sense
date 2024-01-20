@@ -26,7 +26,8 @@ class TideService : ITideService {
         val end = date.plusDays(1).atStartOfDay().toZonedDateTime(zone)
         val waterLevelCalculator = TideTableWaterLevelCalculator(table)
         val extremaFinder = GoldenRatioExtremaFinder(30.0, 1.0)
-        return ocean.getTides(waterLevelCalculator, start, end, extremaFinder)
+        val tides = ocean.getTides(waterLevelCalculator, start, end, extremaFinder)
+        return tides.filter { it.time.toLocalDate() == date }
     }
 
     private fun LocalDateTime.toZonedDateTime(zone: ZoneId): ZonedDateTime {

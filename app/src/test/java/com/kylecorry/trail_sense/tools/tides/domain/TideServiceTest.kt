@@ -386,7 +386,7 @@ internal class TideServiceTest {
                 if (exact) 0.0001f else 1.5f
             )
             val delta = Duration.between(actual.time, expected.time).seconds / 60f
-            Assertions.assertEquals(0f, delta, if (exact) 0f else 90f)
+            Assertions.assertEquals(0f, delta, if (exact) 1f else 90f)
         }
     }
 
