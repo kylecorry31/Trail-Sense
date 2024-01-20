@@ -202,8 +202,9 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
             ClinometerLockState.Locked -> {
                 if (pressState == PressState.Down && isOrientationValid()) {
-                    setStartAngle()
+                    clearStartAngle()
                     clearEndAngle()
+                    setStartAngle()
                     lockState = ClinometerLockState.PartiallyUnlocked
                 } else if (pressState == PressState.Down) {
                     clearStartAngle()
