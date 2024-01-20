@@ -294,7 +294,16 @@ class ARAstronomyLayer(
         return lines
     }
 
-    // TODO: Move this to sol
+    // TODO: Move this to sol and handle when the object does not rise or set - and make it even more generic (take in a celestial locator)
+    /**
+     * Gets the times the object is above the horizon
+     * @param location The location of the observer
+     * @param time The current time
+     * @param nextRiseOffset The duration before the next rise to switch to the next day's times
+     * @param isUpPredicate A predicate to determine if the object is up
+     * @param riseSetTransitTimesProducer A function to get the rise, set, and transit times for the object
+     * @return The range of times the object is above the horizon
+     */
     private fun getAboveHorizonTimes(
         location: Coordinate,
         time: ZonedDateTime,
