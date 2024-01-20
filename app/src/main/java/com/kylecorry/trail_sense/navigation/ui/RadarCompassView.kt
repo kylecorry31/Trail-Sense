@@ -12,6 +12,8 @@ import androidx.core.view.isVisible
 import com.kylecorry.andromeda.canvas.ArcMode
 import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.canvas.TextMode
+import com.kylecorry.andromeda.core.cache.LRUCache
+import com.kylecorry.andromeda.core.cache.MemoryCachedValue
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath.deltaAngle
@@ -30,11 +32,14 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.data.SimpleCachedValue
+import com.kylecorry.trail_sense.shared.extensions.HashUtils
 import com.kylecorry.trail_sense.shared.maps.ICoordinateToPixelStrategy
 import kotlin.math.min
 
 class RadarCompassView : BaseCompassView, IMapView {
     private lateinit var centerPixel: PixelCoordinate
+    private lateinit var compassCircle: Circle
 
     @ColorInt
     private var primaryColor: Int = Color.WHITE
@@ -59,15 +64,24 @@ class RadarCompassView : BaseCompassView, IMapView {
     private lateinit var maxDistanceBaseUnits: Distance
     private lateinit var maxDistanceMeters: Distance
 
-    // TODO: Cache this
+    private val coordinateToPixelStrategyCache = SimpleCachedValue<ICoordinateToPixelStrategy>()
+
     private val coordinateToPixelStrategy: ICoordinateToPixelStrategy
         get() {
-            return RadarCompassCoordinateToPixelStrategy(
-                Circle(Vector2(centerPixel.x, centerPixel.y), compassSize / 2f),
-                Geofence(compassCenter, maxDistanceMeters),
+            return coordinateToPixelStrategyCache.getOrPut(
+                compassCircle,
+                compassCenter,
+                maxDistanceMeters,
                 useTrueNorth,
                 declination
-            )
+            ) {
+                RadarCompassCoordinateToPixelStrategy(
+                    compassCircle,
+                    Geofence(compassCenter, maxDistanceMeters),
+                    useTrueNorth,
+                    declination
+                )
+            }
         }
 
     private val layers = mutableListOf<ILayer>()
@@ -213,6 +227,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         east = context.getString(R.string.direction_east)
         west = context.getString(R.string.direction_west)
         centerPixel = PixelCoordinate(width / 2f, height / 2f)
+        compassCircle = Circle(Vector2(centerPixel.x, centerPixel.y), compassSize / 2f)
         locationStrokeWeight = dp(0.5f)
         dial = CompassDial(centerPixel, compassSize / 2f, secondaryColor, Color.WHITE, primaryColor)
     }
