@@ -28,7 +28,7 @@ internal class IsBeaconFormDataCompleteTest {
                         coordinate = Coordinate.zero,
                         createAtDistance = true,
                         distanceTo = Distance.meters(0f),
-                        bearingTo = Bearing(0f)
+                        bearingTo = 0f
                     ),
                     true
                 ),
@@ -64,7 +64,7 @@ internal class IsBeaconFormDataCompleteTest {
                         coordinate = Coordinate.zero,
                         createAtDistance = true,
                         distanceTo = null,
-                        bearingTo = Bearing(0f)
+                        bearingTo = 0f
                     ),
                     false
                 ),

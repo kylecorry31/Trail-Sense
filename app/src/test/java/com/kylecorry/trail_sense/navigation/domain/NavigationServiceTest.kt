@@ -38,9 +38,9 @@ internal class NavigationServiceTest {
         val destinationAltitude = 1900f
         val beacon = Beacon(0, "", destination, elevation = destinationAltitude, color = Color.BLACK)
 
-        val linearEta = service.eta(Position(location, altitude, Bearing(0f), speed), beacon)
+        val linearEta = service.eta(Position(location, altitude, 0f, speed), beacon)
 
-        val linearEtaDownhill = service.eta(Position(location, destinationAltitude, Bearing(0f), speed), beacon.copy(elevation = altitude))
+        val linearEtaDownhill = service.eta(Position(location, destinationAltitude, 0f, speed), beacon.copy(elevation = altitude))
 
         assertEquals(127L, linearEta.toMinutes())
         assertEquals(47L, linearEtaDownhill.toMinutes())
