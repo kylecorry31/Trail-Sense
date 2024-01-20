@@ -58,6 +58,8 @@ class RadarCompassView : BaseCompassView, IMapView {
 
     private lateinit var maxDistanceBaseUnits: Distance
     private lateinit var maxDistanceMeters: Distance
+
+    // TODO: Cache this
     private val coordinateToPixelStrategy: ICoordinateToPixelStrategy
         get() {
             return RadarCompassCoordinateToPixelStrategy(
