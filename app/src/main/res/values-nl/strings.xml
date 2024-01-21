@@ -1166,4 +1166,5 @@
     <string name="screen_flashlight_full_name">Schermzaklamp</string>
     <string name="compass_dynamic_colors_summary">Gebruik dynamische kleuren voor windstreken</string>
     <string name="view_in_3d">Bekijk in 3D</string>
+    <string name="locate">Localiseer</string>
 </resources>
