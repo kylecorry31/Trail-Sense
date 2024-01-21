@@ -67,14 +67,16 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
     private lateinit var clinometer: IClinometer
 
-    private var slopeIncline: Float? = null
-    private var slopeAngle: Float? = null
-    private var startIncline: Float = 0f
-    private var touchTime = Instant.now()
-
-    private var lockState = ClinometerLockState.Unlocked
-    private val holdDuration = Duration.ofMillis(200)
-    private val holdAngle = 0.5f
+    // Lock
+    private val minimumHoldDuration = Duration.ofMillis(200)
+    private val minimumHoldAngle = 0.5f
+    private var lockedAngle1: Float? = null
+    private var lockedIncline1: Float? = null
+    private var lockedAngle2: Float? = null
+    private var lockedIncline2: Float? = null
+    private var lockStartTime: Instant? = null
+    private var hadLock = false
+    private var isHolding = false
 
     private var distanceAway: Distance? = null
     private var knownHeight: Distance? = null
@@ -158,8 +160,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             if (hasPermission) {
                 useCamera = true
                 binding.camera.start(
-                    readFrames = false,
-                    shouldStabilizePreview = false
+                    readFrames = false, shouldStabilizePreview = false
                 )
                 if (isAugmentedReality) {
                     binding.arView.start(false)
@@ -177,58 +178,10 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     }
 
     fun updateLockState(pressState: PressState) {
-        when (lockState) {
-            ClinometerLockState.Unlocked -> {
-                if (pressState == PressState.Down && isOrientationValid()) {
-                    setStartAngle()
-                    lockState = ClinometerLockState.PartiallyLocked
-                }
-            }
-
-            ClinometerLockState.PartiallyLocked -> {
-                if (pressState == PressState.Up) {
-                    val currentAngle = clinometer.incline
-                    val deltaAngle = abs(currentAngle - startIncline)
-                    if (deltaAngle < holdAngle || Duration.between(touchTime, Instant.now()) < holdDuration) {
-                        // No sweep angle
-                        clearStartAngle()
-                    }
-
-                    setEndAngle()
-
-                    lockState = ClinometerLockState.Locked
-                }
-            }
-
-            ClinometerLockState.Locked -> {
-                if (pressState == PressState.Down && isOrientationValid()) {
-                    clearStartAngle()
-                    clearEndAngle()
-                    setStartAngle()
-                    lockState = ClinometerLockState.PartiallyUnlocked
-                } else if (pressState == PressState.Down) {
-                    clearStartAngle()
-                    clearEndAngle()
-                    lockState = ClinometerLockState.Unlocked
-                }
-            }
-
-            ClinometerLockState.PartiallyUnlocked -> {
-                if (pressState == PressState.Up) {
-                    val currentAngle = clinometer.incline
-                    val deltaAngle = abs(currentAngle - startIncline)
-                    lockState = if (deltaAngle < holdAngle || Duration.between(touchTime, Instant.now()) < holdDuration) {
-                        // User wants to unlock
-                        clearStartAngle()
-                        clearEndAngle()
-                        ClinometerLockState.Unlocked
-                    } else {
-                        // User wants to do another sweep angle
-                        setEndAngle()
-                        ClinometerLockState.Locked
-                    }
-                }
-            }
+        if (pressState == PressState.Down) {
+            onTouchDown()
+        } else {
+            onTouchUp()
         }
     }
 
@@ -240,8 +193,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private fun askForHeightOrDistance() {
         Pickers.item(
             requireContext(), getString(R.string.measure), listOf(
-                getString(R.string.height),
-                getString(R.string.distance)
+                getString(R.string.height), getString(R.string.distance)
             ), when {
                 distanceAway != null -> 0
                 knownHeight != null -> 1
@@ -271,14 +223,12 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                 CustomUiUtils.setButtonState(binding.clinometerTitle.rightButton, true)
                 if (!prefs.clinometer.measureHeightInstructionsSent) {
                     dialog(
-                        getString(R.string.instructions),
-                        markdown.toMarkdown(
+                        getString(R.string.instructions), markdown.toMarkdown(
                             getString(
                                 R.string.clinometer_measure_height_instructions,
                                 formatter.formatDistance(distance, 2, false)
                             )
-                        ),
-                        cancelText = null
+                        ), cancelText = null
                     ) {
                         prefs.clinometer.measureHeightInstructionsSent = true
                     }
@@ -304,14 +254,12 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                 CustomUiUtils.setButtonState(binding.clinometerTitle.rightButton, true)
                 if (!prefs.clinometer.measureDistanceInstructionsSent) {
                     dialog(
-                        getString(R.string.instructions),
-                        markdown.toMarkdown(
+                        getString(R.string.instructions), markdown.toMarkdown(
                             getString(
                                 R.string.clinometer_measure_distance_instructions,
                                 formatter.formatDistance(distance, 2, false)
                             )
-                        ),
-                        cancelText = null
+                        ), cancelText = null
                     ) {
                         prefs.clinometer.measureDistanceInstructionsSent = true
                     }
@@ -320,79 +268,12 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         }
     }
 
-    private fun clearStartAngle() {
-        startIncline = 0f
-        lineLayer.clearLines()
-        markerLayer.clearMarkers()
-        binding.cameraClinometer.startInclination = null
-        binding.clinometer.startAngle = null
-    }
-
-    private fun setStartAngle() {
-        touchTime = Instant.now()
-        startIncline = clinometer.incline
-        binding.cameraClinometer.startInclination = startIncline
-        binding.clinometer.startAngle = getCurrentAngle()
-
-        // Distance away is distance from device to the object at 0 inclination
-        // Calculate the distance away using the hypotenuse of the triangle
-        val adjacent = distanceAway?.meters()?.distance ?: 10f
-        val hypotenuse = adjacent / cosDegrees(startIncline)
-        val startPoint = SphericalARPoint(
-            binding.arView.azimuth,
-            binding.arView.inclination,
-            isTrueNorth = prefs.compass.useTrueNorth,
-            distance = hypotenuse,
-            angularDiameter = 1f
-        )
-        startMarker = startPoint
-        markerLayer.addMarker(
-            ARMarker(
-                startPoint,
-                CanvasCircle(Resources.getPrimaryMarkerColor(requireContext()))
-            )
-        )
-    }
-
-    private fun setEndAngle() {
-        slopeAngle = getCurrentAngle()
-        slopeIncline = clinometer.incline
-        // Distance away is distance from device to the object at 0 inclination
-        // Calculate the distance away using the hypotenuse of the triangle
-        val adjacent = distanceAway?.meters()?.distance ?: 10f
-        val hypotenuse = adjacent / cosDegrees(slopeIncline ?: 0f)
-        val endPoint = SphericalARPoint(
-            binding.arView.azimuth,
-            binding.arView.inclination,
-            isTrueNorth = prefs.compass.useTrueNorth,
-            distance = hypotenuse,
-            angularDiameter = 1f
-        )
-        endMarker = endPoint
-        markerLayer.addMarker(
-            ARMarker(
-                endPoint,
-                CanvasCircle(Resources.getPrimaryMarkerColor(requireContext()))
-            )
-        )
-    }
-
-    private fun clearEndAngle() {
-        slopeAngle = null
-        slopeIncline = null
-        startMarker = null
-        endMarker = null
-        lineLayer.clearLines()
-        markerLayer.clearMarkers()
-    }
-
     override fun onResume() {
         super.onResume()
         if (distanceAway == null && knownHeight == null) {
             distanceAway = prefs.clinometer.baselineDistance
             CustomUiUtils.setButtonState(
-                binding.clinometerTitle.rightButton,
-                distanceAway != null
+                binding.clinometerTitle.rightButton, distanceAway != null
             )
         }
 
@@ -433,7 +314,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             return
         }
 
-        val locked = isLocked()
+        val locked = lockedAngle1 != null
 
         binding.clinometerTitle.title.setCompoundDrawables(
             Resources.dp(requireContext(), 24f).toInt(),
@@ -441,8 +322,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         )
 
         CustomUiUtils.setImageColor(
-            binding.clinometerTitle.title,
-            Resources.androidTextColorPrimary(requireContext())
+            binding.clinometerTitle.title, Resources.androidTextColorPrimary(requireContext())
         )
 
         if (!isOrientationValid() && !locked) {
@@ -458,8 +338,9 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         binding.cameraViewHolder.isVisible = useCamera
         binding.clinometer.isInvisible = useCamera
 
-        val angle = slopeAngle ?: getCurrentAngle()
-        val incline = slopeIncline ?: clinometer.incline
+        val angle = lockedAngle2 ?: (if (!isHolding) lockedAngle1 else null) ?: getCurrentAngle()
+        val incline =
+            lockedIncline2 ?: (if (!isHolding) lockedIncline1 else null) ?: clinometer.incline
 
         if (hapticsEnabled) {
             feedback.angle = angle
@@ -483,24 +364,14 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             distanceAway != null -> {
                 binding.estimatedHeight.description = getString(R.string.height)
                 binding.estimatedHeight.title = formatter.formatDistance(
-                    getHeight(
-                        distanceAway,
-                        min(startIncline, incline),
-                        max(startIncline, incline)
-                    ).toRelativeDistance(),
-                    1, false
+                    getHeight(distanceAway).toRelativeDistance(), 1, false
                 )
             }
 
             knownHeight != null -> {
                 binding.estimatedHeight.description = getString(R.string.distance)
                 binding.estimatedHeight.title = formatter.formatDistance(
-                    getDistance(
-                        knownHeight,
-                        min(startIncline, incline),
-                        max(startIncline, incline)
-                    ).toRelativeDistance(),
-                    1, false
+                    getDistance(knownHeight).toRelativeDistance(), 1, false
                 )
             }
 
@@ -509,29 +380,28 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             }
         }
 
-        if (isAugmentedReality && startMarker != null) {
+        updateARLine()
+    }
+
+    private fun updateARLine() {
+        if (isAugmentedReality && startMarker != null && (isHolding || endMarker != null)) {
             lineLayer.setLines(
                 listOf(
                     ARLine(
                         listOfNotNull(
-                            startMarker,
-                            endMarker ?: SphericalARPoint(
+                            startMarker, endMarker ?: SphericalARPoint(
                                 binding.arView.azimuth,
                                 binding.arView.inclination,
                                 isTrueNorth = prefs.compass.useTrueNorth,
                                 distance = distanceAway?.meters()?.distance ?: 10f
                             )
-                        ),
-                        Color.WHITE,
-                        1f
+                        ), Color.WHITE, 1f
                     )
                 )
             )
+        } else {
+            lineLayer.clearLines()
         }
-    }
-
-    private fun isLocked(): Boolean {
-        return slopeAngle != null
     }
 
     private fun getSlopePercent(incline: Float): Float {
@@ -560,33 +430,119 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     }
 
     override fun generateBinding(
-        layoutInflater: LayoutInflater,
-        container: ViewGroup?
+        layoutInflater: LayoutInflater, container: ViewGroup?
     ): FragmentClinometerBinding {
         return FragmentClinometerBinding.inflate(layoutInflater, container, false)
     }
 
-    private fun getHeight(distanceAway: Distance, bottom: Float, top: Float): Distance {
+    private fun getBottomIncline(): Float {
+        val locked1 = lockedIncline1 ?: 0f
+        val locked2 = lockedIncline2 ?: clinometer.incline
+        return min(locked1, locked2)
+    }
+
+    private fun getTopIncline(): Float {
+        val locked1 = lockedIncline1 ?: 0f
+        val locked2 = lockedIncline2 ?: clinometer.incline
+        return max(locked1, locked2)
+    }
+
+    private fun getHeight(distanceAway: Distance): Distance {
         return Geology.getHeightFromInclination(
-            distanceAway,
-            bottom,
-            top
+            distanceAway, getBottomIncline(), getTopIncline()
         )
     }
 
-    private fun getDistance(height: Distance, bottom: Float, top: Float): Distance {
+    private fun getDistance(height: Distance): Distance {
         return Geology.getDistanceFromInclination(
-            height,
-            bottom,
-            top
+            height, getBottomIncline(), getTopIncline()
         )
     }
 
-    private enum class ClinometerLockState {
-        PartiallyUnlocked,
-        Unlocked,
-        PartiallyLocked,
-        Locked
+    private fun onTouchDown() {
+        if (!isOrientationValid() || isHolding) {
+            return
+        }
+
+        isHolding = true
+        hadLock = lockedAngle1 != null
+        clearLock()
+        lockedAngle1 = getCurrentAngle()
+        lockedIncline1 = clinometer.incline
+        lockStartTime = Instant.now()
+
+        // Update the UI
+        binding.cameraClinometer.startInclination = lockedIncline1
+        binding.clinometer.startAngle = lockedAngle1
+        startMarker = addMarker()
+    }
+
+    private fun onTouchUp() {
+        if (!isOrientationValid() || !isHolding) {
+            return
+        }
+
+        // Determine if the user did a sweep or single angle
+        val deltaAngle = abs(clinometer.incline - (lockedIncline1 ?: 0f))
+        val deltaTime = Duration.between(lockStartTime, Instant.now())
+        if (deltaAngle < minimumHoldAngle || deltaTime < minimumHoldDuration) {
+
+            // These aren't needed for a single angle mode
+            binding.cameraClinometer.startInclination = null
+            binding.clinometer.startAngle = null
+
+            // If there was a lock, clear it instead of setting a new one
+            if (hadLock) {
+                clearLock()
+            }
+
+            isHolding = false
+            return
+        }
+
+        lockedAngle2 = getCurrentAngle()
+        lockedIncline2 = clinometer.incline
+
+        // Update UI
+        endMarker = addMarker()
+
+        isHolding = false
+    }
+
+    private fun clearLock() {
+        lockedAngle1 = null
+        lockedIncline1 = null
+        lockedAngle2 = null
+        lockedIncline2 = null
+        lockStartTime = null
+
+        // Update UI
+        startMarker = null
+        endMarker = null
+        lineLayer.clearLines()
+        markerLayer.clearMarkers()
+        binding.cameraClinometer.startInclination = null
+        binding.clinometer.startAngle = null
+    }
+
+    private fun addMarker(): ARPoint {
+        // Distance away is distance from device to the object at 0 inclination
+        // Calculate the distance away using the hypotenuse of the triangle
+        val adjacent = distanceAway?.meters()?.distance ?: 10f
+        val hypotenuse = adjacent / cosDegrees(clinometer.incline)
+        val point = SphericalARPoint(
+            binding.arView.azimuth,
+            binding.arView.inclination,
+            isTrueNorth = prefs.compass.useTrueNorth,
+            distance = hypotenuse,
+            angularDiameter = 1f
+        )
+        markerLayer.addMarker(
+            ARMarker(
+                point, CanvasCircle(Resources.getPrimaryMarkerColor(requireContext()))
+            )
+        )
+        return point
     }
 
 
