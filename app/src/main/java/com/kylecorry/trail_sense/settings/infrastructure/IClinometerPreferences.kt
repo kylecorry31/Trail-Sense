@@ -8,5 +8,4 @@ interface IClinometerPreferences {
     var measureHeightInstructionsSent: Boolean
     var measureDistanceInstructionsSent: Boolean
     val useAugmentedReality: Boolean
-    val useHaptics: Boolean
 }

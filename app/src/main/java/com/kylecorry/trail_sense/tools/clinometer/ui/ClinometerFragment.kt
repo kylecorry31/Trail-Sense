@@ -32,7 +32,6 @@ import com.kylecorry.trail_sense.databinding.FragmentClinometerBinding
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
-import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -59,11 +58,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val markdown by lazy { MarkdownService(requireContext()) }
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
-    private val feedback by lazy {
-        HapticSubsystem.getInstance(requireContext()).dial()
-    }
     private val throttle = Throttle(20)
-    private val hapticsEnabled by lazy { prefs.clinometer.useHaptics }
 
     private lateinit var clinometer: IClinometer
 
@@ -290,9 +285,6 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             binding.camera.stop()
             binding.arView.stop()
         }
-        if (hapticsEnabled) {
-            feedback.stop()
-        }
     }
 
     override fun onDestroyView() {
@@ -341,10 +333,6 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         val angle = lockedAngle2 ?: (if (!isHolding) lockedAngle1 else null) ?: getCurrentAngle()
         val incline =
             lockedIncline2 ?: (if (!isHolding) lockedIncline1 else null) ?: clinometer.incline
-
-        if (hapticsEnabled) {
-            feedback.angle = angle
-        }
 
         val avalancheRisk = Geology.getAvalancheRisk(incline)
 
