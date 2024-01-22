@@ -37,4 +37,8 @@ class TrackedState<T>(initialState: T) {
     fun resetReadState() {
         hasChanges = true
     }
+
+    fun peek(): T {
+        return state
+    }
 }

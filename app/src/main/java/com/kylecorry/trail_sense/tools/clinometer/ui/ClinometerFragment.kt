@@ -10,14 +10,13 @@ import android.view.ViewGroup
 import androidx.camera.view.PreviewView
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
-import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
+import com.kylecorry.andromeda.core.ui.setTextDistinct
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.observe
-import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sense.clinometer.Clinometer
 import com.kylecorry.andromeda.sense.clinometer.IClinometer
@@ -32,6 +31,7 @@ import com.kylecorry.trail_sense.databinding.FragmentClinometerBinding
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
+import com.kylecorry.trail_sense.shared.data.TrackedState
 import com.kylecorry.trail_sense.shared.extensions.getMarkdown
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
@@ -60,8 +60,6 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
     private val throttle = Throttle(20)
 
-    private lateinit var clinometer: IClinometer
-
     // Lock
     private val minimumHoldDuration = Duration.ofMillis(200)
     private val minimumHoldAngle = 0.5f
@@ -72,6 +70,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private var lockStartTime: Instant? = null
     private var hadLock = false
     private var isHolding = false
+    private val lockState = TrackedState(false)
 
     private var distanceAway: Distance? = null
     private var knownHeight: Distance? = null
@@ -88,10 +87,8 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         prefs.clinometer.useAugmentedReality
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        clinometer = getClinometer()
-    }
+    private val clinometer: IClinometer
+        get() = if (useCamera) cameraClinometer else sideClinometer
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -147,7 +144,6 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         binding.clinometerTitle.leftButton.setImageResource(R.drawable.ic_camera)
         CustomUiUtils.setButtonState(binding.clinometerTitle.leftButton, false)
         useCamera = false
-        clinometer = getClinometer()
     }
 
     private fun startCameraClinometer(showAlert: Boolean) {
@@ -162,7 +158,6 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                 }
                 binding.clinometerTitle.leftButton.setImageResource(R.drawable.ic_phone_portrait)
                 CustomUiUtils.setButtonState(binding.clinometerTitle.leftButton, false)
-                clinometer = getClinometer()
             } else {
                 startSideClinometer()
                 if (showAlert) {
@@ -281,32 +276,27 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         super.onDestroyView()
     }
 
-    private fun getClinometer(): IClinometer {
-        return if (useCamera) {
-            cameraClinometer
-        } else {
-            sideClinometer
-        }
-    }
-
     private fun updateUI() {
 
         if (throttle.isThrottled()) {
             return
         }
 
-        val locked = lockedAngle1 != null
+        // Update the lock state
+        lockState.write(lockedAngle1 != null)
 
-        binding.clinometerTitle.title.setCompoundDrawables(
-            Resources.dp(requireContext(), 24f).toInt(),
-            right = if (locked) R.drawable.lock else null
-        )
+        if (lockState.hasChanges) {
+            binding.clinometerTitle.title.setCompoundDrawables(
+                Resources.dp(requireContext(), 24f).toInt(),
+                right = if (lockState.read()) R.drawable.lock else null
+            )
+        }
 
         CustomUiUtils.setImageColor(
             binding.clinometerTitle.title, Resources.androidTextColorPrimary(requireContext())
         )
 
-        if (!isOrientationValid() && !locked) {
+        if (!isOrientationValid() && !lockState.peek()) {
             binding.clinometerInstructions.isVisible = !useCamera
             binding.cameraClinometerInstructions.isVisible = useCamera
             binding.cameraViewHolder.isVisible = false
@@ -323,17 +313,21 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         val incline =
             lockedIncline2 ?: (if (!isHolding) lockedIncline1 else null) ?: clinometer.incline
 
-        val avalancheRisk = Geology.getAvalancheRisk(incline)
-
         binding.clinometer.angle = angle
         binding.cameraClinometer.inclination = incline
 
-        binding.clinometerTitle.title.text = formatter.formatDegrees(incline)
-        binding.avalancheRisk.title = getAvalancheRiskString(avalancheRisk)
-
-        binding.clinometerTitle.subtitle.text =
+        binding.clinometerTitle.title.setTextDistinct(formatter.formatDegrees(incline))
+        binding.clinometerTitle.subtitle.setTextDistinct(
             getString(R.string.slope_amount, formatter.formatPercentage(getSlopePercent(incline)))
+        )
 
+        binding.avalancheRisk.title = getAvalancheRiskString(Geology.getAvalancheRisk(incline))
+
+        updateMeasurement()
+        updateARLine()
+    }
+
+    private fun updateMeasurement() {
         val distanceAway = distanceAway
         val knownHeight = knownHeight
 
@@ -356,8 +350,6 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                 binding.estimatedHeight.title = getString(R.string.distance_unset)
             }
         }
-
-        updateARLine()
     }
 
     private fun updateARLine() {
