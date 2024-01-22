@@ -120,9 +120,9 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
         binding.root.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
-                updateLockState(PressState.Down)
+                onTouchDown()
             } else if (event.action == MotionEvent.ACTION_UP) {
-                updateLockState(PressState.Up)
+                onTouchUp()
             }
             true
         }
@@ -169,14 +169,6 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                     alertNoCameraPermission()
                 }
             }
-        }
-    }
-
-    fun updateLockState(pressState: PressState) {
-        if (pressState == PressState.Down) {
-            onTouchDown()
-        } else {
-            onTouchUp()
         }
     }
 
@@ -447,7 +439,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         )
     }
 
-    private fun onTouchDown() {
+    fun onTouchDown() {
         if (!isOrientationValid() || isHolding) {
             return
         }
@@ -465,7 +457,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         startMarker = addMarker()
     }
 
-    private fun onTouchUp() {
+    fun onTouchUp() {
         if (!isOrientationValid() || !isHolding) {
             return
         }
