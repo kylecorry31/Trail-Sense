@@ -44,18 +44,6 @@ class ClinometerPreferences(private val context: Context) : IClinometerPreferenc
             }
         }
 
-    override var measureHeightInstructionsSent by BooleanPreference(
-        cache,
-        "pref_clinometer_measure_height_read",
-        false
-    )
-
-    override var measureDistanceInstructionsSent by BooleanPreference(
-        cache,
-        "pref_clinometer_measure_distance_read",
-        false
-    )
-
     override val useAugmentedReality by BooleanPreference(
         cache,
         context.getString(R.string.pref_clinometer_use_ar),

@@ -2,8 +2,10 @@ package com.kylecorry.trail_sense.shared.extensions
 
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
 
 fun Fragment.onBackPressed(
@@ -35,4 +37,9 @@ fun Fragment.promptIfUnsavedChanges(
             activity.onBackPressed()
         }
     }
+}
+
+fun Fragment.getMarkdown(@StringRes resId: Int, vararg formatArgs: Any?): CharSequence {
+    val service = MarkdownService(requireContext())
+    return service.toMarkdown(getString(resId, *formatArgs))
 }

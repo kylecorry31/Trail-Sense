@@ -32,6 +32,7 @@ import com.kylecorry.trail_sense.databinding.FragmentClinometerBinding
 import com.kylecorry.trail_sense.shared.*
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
+import com.kylecorry.trail_sense.shared.extensions.getMarkdown
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -56,7 +57,6 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private val sideClinometer by lazy { Clinometer(orientation, isAugmentedReality = false) }
     private val deviceOrientation by lazy { sensorService.getDeviceOrientationSensor() }
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val markdown by lazy { MarkdownService(requireContext()) }
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
     private val throttle = Throttle(20)
 
@@ -208,18 +208,16 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                 distanceAway = distance
                 knownHeight = null
                 CustomUiUtils.setButtonState(binding.clinometerTitle.rightButton, true)
-                if (!prefs.clinometer.measureHeightInstructionsSent) {
-                    dialog(
-                        getString(R.string.instructions), markdown.toMarkdown(
-                            getString(
-                                R.string.clinometer_measure_height_instructions,
-                                formatter.formatDistance(distance, 2, false)
-                            )
-                        ), cancelText = null
-                    ) {
-                        prefs.clinometer.measureHeightInstructionsSent = true
-                    }
-                }
+                CustomUiUtils.disclaimer(
+                    requireContext(),
+                    getString(R.string.instructions),
+                    getMarkdown(
+                        R.string.clinometer_measure_height_instructions,
+                        formatter.formatDistance(distance, 2, false)
+                    ),
+                    "pref_clinometer_measure_height_read",
+                    cancelText = null
+                )
             }
         }
     }
@@ -239,18 +237,17 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                 knownHeight = distance
                 distanceAway = null
                 CustomUiUtils.setButtonState(binding.clinometerTitle.rightButton, true)
-                if (!prefs.clinometer.measureDistanceInstructionsSent) {
-                    dialog(
-                        getString(R.string.instructions), markdown.toMarkdown(
-                            getString(
-                                R.string.clinometer_measure_distance_instructions,
-                                formatter.formatDistance(distance, 2, false)
-                            )
-                        ), cancelText = null
-                    ) {
-                        prefs.clinometer.measureDistanceInstructionsSent = true
-                    }
-                }
+
+                CustomUiUtils.disclaimer(
+                    requireContext(),
+                    getString(R.string.instructions),
+                    getMarkdown(
+                        R.string.clinometer_measure_distance_instructions,
+                        formatter.formatDistance(distance, 2, false)
+                    ),
+                    "pref_clinometer_measure_distance_read",
+                    cancelText = null
+                )
             }
         }
     }
