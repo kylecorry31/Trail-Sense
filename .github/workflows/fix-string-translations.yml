@@ -1,0 +1,35 @@
+name: Fix String Translations
+
+on:
+  schedule:
+    # Run every day at midnight
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  update_guides:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Run script
+        run: python scripts/string-fixer.py
+
+      - name: Check for changes
+        id: git-diff
+        run: echo "::set-output name=changes::$(git diff --exit-code)"
+
+      - name: Create Pull Request
+        if: steps.git-diff.outputs.changes != ''
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: "Fix translations"
+          body: "This PR fixes malformed string translations."
+          branch: "fix-string-translations"
