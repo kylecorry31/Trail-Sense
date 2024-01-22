@@ -1122,7 +1122,7 @@
     <string name="restore">Відновити</string>
     <string name="notifications_channel">Сповіщення (%s)</string>
     <string name="sunset_alerts_background_location_disclaimer">Сповіщення про захід сонця можуть бути неточними під час подорожі</string>
-    <string name="allow_schedule_exact_alarms_instructions">Це дозволяє %1$ встановлювати точні будильники та нагадування, наприклад, про захід сонця. Без цього будильники можуть не спрацьовувати в потрібний час.
+    <string name="allow_schedule_exact_alarms_instructions">Це дозволяє %1$s встановлювати точні будильники та нагадування, наприклад, про захід сонця. Без цього будильники можуть не спрацьовувати в потрібний час.
 \n
 \nЩоб дозволити, натисніть \"%2$s\" і увімкніть налаштування для дозволу будильників і нагадувань.</string>
     <string name="exact_alarm_permission_denied">Будильники та нагадування заборонено, сповіщення можуть бути неточними.</string>
