@@ -1167,4 +1167,7 @@
     <string name="screen_flashlight_full_name">Ekran Feneri</string>
     <string name="view_in_3d">3 Boyutlu Görüntüle</string>
     <string name="locate">Bul</string>
+    <string name="view_distance">Mesafeyi görüntüle</string>
+    <string name="fast_path_rendering">Hızlı yol oluşturma</string>
+    <string name="fast_path_rendering_summary">Görünüş pahasına performansı iyileştirir</string>
 </resources>

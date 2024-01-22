@@ -1,0 +1,20 @@
+Cesty
+- Nastavení pro zlepšení výkonu vykr. na úkor vzhledu
+
+Svítilna
+- Přidána rychlá akce pro svítilnu na obrazovce
+
+Vodováha
+- Zvětšena velikost
+
+Rozšířená realita (experimentální)
+- Průvodce Sluncem/Měsícem (tlačítko na nástroji Astronomie)
+- Navigace k majákům
+- Nastavení vzdálenosti pohledu
+- Vyhlazování kompasu pro rozšířenou realitu
+
+Různé
+- Podpora dynamických barev (viz nastavení na podporovaných zařízeních)
+- Připnuta uživatelská příručka v Nástrojích
+- Vylepšení výkonu
+- Opravy chyb
