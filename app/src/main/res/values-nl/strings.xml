@@ -1167,4 +1167,7 @@
     <string name="compass_dynamic_colors_summary">Gebruik dynamische kleuren voor windstreken</string>
     <string name="view_in_3d">Bekijk in 3D</string>
     <string name="locate">Localiseer</string>
+    <string name="view_distance">Kijkafstand</string>
+    <string name="fast_path_rendering">Paden snel weergeven</string>
+    <string name="fast_path_rendering_summary">Verbeterd prestaties ten koste van uiterlijk</string>
 </resources>

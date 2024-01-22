@@ -1192,4 +1192,7 @@
     <string name="screen_flashlight_full_name">Obrazovka jako svítilna</string>
     <string name="view_in_3d">Zobrazit ve 3D</string>
     <string name="locate">Lokace</string>
+    <string name="fast_path_rendering">Rychlé vykreslování trasy</string>
+    <string name="view_distance">Zobrazovací vzdálenost</string>
+    <string name="fast_path_rendering_summary">Zvýší výkon na úkor vzhledu</string>
 </resources>
