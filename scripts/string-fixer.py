@@ -126,11 +126,23 @@ class FormattingDoesNotMatch(StringDiagnostic):
         source_element = get_string_element(source_tree, element.get('name'))
         if source_element is None:
             return False
-        # Count % signs in the reference string
-        reference_count = source_element.text.count('%')
-        # Count % signs in the string
-        string_count = element.text.count('%')
-        return string_count != reference_count
+        
+        # Get the format arguments from the source string
+        source_format_args = self.__get_format_args(source_element.text)
+
+        # Get the format arguments from the string
+        format_args = self.__get_format_args(element.text)
+
+        # If the number of format arguments does not match, return true
+        if len(source_format_args) != len(format_args):
+            return True
+        
+        # If the format arguments do not match, return true
+        for i in range(len(source_format_args)):
+            if source_format_args[i] != format_args[i]:
+                return True
+            
+        return False
 
     def fix(self, source_tree, tree, element) -> bool:
         delete_element(tree, element)
@@ -138,6 +150,16 @@ class FormattingDoesNotMatch(StringDiagnostic):
     
     def is_warning(self) -> bool:
         return False
+
+    def __get_format_args(self, text):
+        # Avoid counting %% as a format argument
+        t = text.replace('%%', '')
+
+        # Get the format arguments from the source string (ex. %s, %d, %1$s, %0.2f) but %% is ignored
+        r = r'%[^a-zA-Z]*[a-zA-Z]'
+
+        # Find all matches
+        return re.findall(r, t)
 
 class PositionalFormattingUnspecified(StringDiagnostic):
     def check(self, source_tree, tree, element) -> bool:
