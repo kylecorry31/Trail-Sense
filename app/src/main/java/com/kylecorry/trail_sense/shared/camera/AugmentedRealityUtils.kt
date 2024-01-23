@@ -12,7 +12,6 @@ import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityView
 import com.kylecorry.trail_sense.tools.augmented_reality.mapper.CameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.mapper.LinearCameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.mapper.SimplePerspectiveCameraAnglePixelMapper

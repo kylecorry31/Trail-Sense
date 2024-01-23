@@ -11,8 +11,8 @@ import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.time.CoroutineTimer
-import com.kylecorry.sol.science.geography.CoordinateFormatter.parse
 import com.kylecorry.andromeda.sense.location.IGPS
+import com.kylecorry.sol.science.geography.CoordinateFormatter.parse
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon

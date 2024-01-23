@@ -14,7 +14,12 @@ import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.B
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconGroupDao
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconGroupEntity
 import com.kylecorry.trail_sense.navigation.paths.domain.WaypointEntity
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.*
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathDao
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathDatabaseMigrationWorker
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathEntity
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathGroupDao
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathGroupEntity
+import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.WaypointDao
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReadingEntity
 import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryDao
 import com.kylecorry.trail_sense.tools.maps.domain.MapEntity
@@ -32,7 +37,12 @@ import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTabl
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableDatabaseMigrationWorker
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableEntity
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableRowEntity
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.*
+import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudReadingDao
+import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudReadingEntity
+import com.kylecorry.trail_sense.weather.infrastructure.persistence.LightningStrikeDao
+import com.kylecorry.trail_sense.weather.infrastructure.persistence.LightningStrikeEntity
+import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureReadingDao
+import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureReadingEntity
 
 /**
  * The Room database for this app

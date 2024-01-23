@@ -25,7 +25,6 @@ import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.trail_sense.R
 import java.io.File
-import kotlin.math.abs
 
 class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
 

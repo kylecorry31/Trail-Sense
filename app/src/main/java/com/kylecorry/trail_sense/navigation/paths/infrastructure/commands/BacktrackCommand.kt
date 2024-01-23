@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.navigation.paths.infrastructure.commands
 
 import android.content.Context
+import com.kylecorry.andromeda.sense.readAll
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.alerts.BacktrackAlerter
@@ -13,7 +14,6 @@ import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.networkQuality
 import com.kylecorry.trail_sense.shared.sensors.NullCellSignalSensor
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.andromeda.sense.readAll
 import java.time.Duration
 import java.time.Instant
 

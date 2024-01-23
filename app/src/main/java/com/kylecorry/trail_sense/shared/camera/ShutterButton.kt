@@ -7,7 +7,6 @@ import android.view.MotionEvent
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import kotlin.math.min
 
 class ShutterButton(context: Context, attrs: AttributeSet? = null) : CanvasView(context, attrs) {

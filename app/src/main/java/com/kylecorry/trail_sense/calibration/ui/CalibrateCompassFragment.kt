@@ -14,8 +14,8 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.topics.generic.asLiveData
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
-import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.sense.compass.ICompass
+import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService

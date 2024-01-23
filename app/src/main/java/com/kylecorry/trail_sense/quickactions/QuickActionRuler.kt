@@ -2,10 +2,8 @@ package com.kylecorry.trail_sense.quickactions
 
 import android.view.ViewGroup
 import android.widget.ImageButton
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.isVisible
-import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R

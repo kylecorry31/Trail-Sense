@@ -7,7 +7,6 @@ import com.kylecorry.andromeda.views.chart.data.AreaChartLayer
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReading
 
 class BatteryChart(private val chart: Chart) {

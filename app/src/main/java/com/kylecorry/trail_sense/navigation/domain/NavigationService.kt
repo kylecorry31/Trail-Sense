@@ -4,7 +4,6 @@ import com.kylecorry.sol.math.SolMath.clamp
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.science.geology.NavigationVector
-import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.shared.Position

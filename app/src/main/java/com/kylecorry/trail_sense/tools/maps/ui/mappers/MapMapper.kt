@@ -6,8 +6,8 @@ import android.util.Size
 import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.rotate
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.print.Printer
+import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.views.list.AsyncListIcon
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ListItemMapper

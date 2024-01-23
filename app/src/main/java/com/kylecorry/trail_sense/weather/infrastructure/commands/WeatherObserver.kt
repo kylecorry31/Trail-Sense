@@ -2,12 +2,12 @@ package com.kylecorry.trail_sense.weather.infrastructure.commands
 
 import android.content.Context
 import com.kylecorry.andromeda.sense.location.IGPS
+import com.kylecorry.andromeda.sense.readAll
 import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.altimeter.AltimeterWrapper
-import com.kylecorry.andromeda.sense.readAll
 import com.kylecorry.trail_sense.shared.sensors.thermometer.HistoricThermometer
 import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
 import java.time.Duration

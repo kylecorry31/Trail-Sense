@@ -4,7 +4,6 @@ import com.kylecorry.andromeda.core.specifications.Specification
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Bearing
-import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon

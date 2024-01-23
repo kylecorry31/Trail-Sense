@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.receivers
 
-import android.app.PendingIntent
 import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.NotificationChannels

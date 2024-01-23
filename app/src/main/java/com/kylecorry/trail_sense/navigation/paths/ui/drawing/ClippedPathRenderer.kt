@@ -1,14 +1,10 @@
 package com.kylecorry.trail_sense.navigation.paths.ui.drawing
 
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.sol.math.geometry.Geometry
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.canvas.LineClipper
-import com.kylecorry.trail_sense.shared.extensions.isSamePixel
-import com.kylecorry.trail_sense.shared.toPixelCoordinate
-import com.kylecorry.trail_sense.shared.toVector2
 
 class ClippedPathRenderer(
     private val bounds: Rectangle,

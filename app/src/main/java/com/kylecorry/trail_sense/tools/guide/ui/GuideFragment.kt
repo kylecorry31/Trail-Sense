@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.tools.guide.ui
 
 import android.os.Bundle
-import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

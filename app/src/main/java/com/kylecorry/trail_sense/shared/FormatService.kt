@@ -9,6 +9,9 @@ import com.kylecorry.andromeda.battery.BatteryHealth
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.ResourceCache
+import com.kylecorry.andromeda.signal.CellNetwork
+import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
+import com.kylecorry.sol.science.geography.CoordinateFormat
 import com.kylecorry.sol.science.geography.CoordinateFormatter.toDecimalDegrees
 import com.kylecorry.sol.science.geography.CoordinateFormatter.toDegreeDecimalMinutes
 import com.kylecorry.sol.science.geography.CoordinateFormatter.toDegreeMinutesSeconds
@@ -16,9 +19,6 @@ import com.kylecorry.sol.science.geography.CoordinateFormatter.toMGRS
 import com.kylecorry.sol.science.geography.CoordinateFormatter.toOSGB
 import com.kylecorry.sol.science.geography.CoordinateFormatter.toUSNG
 import com.kylecorry.sol.science.geography.CoordinateFormatter.toUTM
-import com.kylecorry.sol.science.geography.CoordinateFormat
-import com.kylecorry.andromeda.signal.CellNetwork
-import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
 import com.kylecorry.sol.science.meteorology.Precipitation
 import com.kylecorry.sol.science.meteorology.WeatherCondition
 import com.kylecorry.sol.science.shared.Season

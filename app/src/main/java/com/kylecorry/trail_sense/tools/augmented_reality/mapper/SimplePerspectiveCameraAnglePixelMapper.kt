@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.augmented_reality.mapper
 
 import android.graphics.RectF
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.Vector3

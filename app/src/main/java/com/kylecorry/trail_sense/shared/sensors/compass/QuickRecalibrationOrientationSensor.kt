@@ -6,7 +6,6 @@ import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.sol.math.Quaternion
 import com.kylecorry.sol.math.SolMath.real
-import com.kylecorry.sol.math.filters.LowPassFilter
 import com.kylecorry.trail_sense.tools.metaldetector.ui.Debouncer
 import java.time.Duration
 import kotlin.math.sqrt
