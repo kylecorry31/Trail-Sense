@@ -59,6 +59,15 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
     private val throttle = Throttle(20)
+    private val invalidCameraOrientations = listOf(
+        DeviceOrientation.Orientation.Landscape,
+        DeviceOrientation.Orientation.LandscapeInverse,
+    )
+
+    private val invalidSideOrientations = listOf(
+        DeviceOrientation.Orientation.Flat,
+        DeviceOrientation.Orientation.FlatInverse,
+    )
 
     // Lock
     private val minimumHoldDuration = Duration.ofMillis(200)
@@ -387,12 +396,9 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
 
     private fun isOrientationValid(): Boolean {
         val invalidOrientations = if (useCamera) {
-            listOf(
-                DeviceOrientation.Orientation.Landscape,
-                DeviceOrientation.Orientation.LandscapeInverse
-            )
+            invalidCameraOrientations
         } else {
-            listOf(DeviceOrientation.Orientation.Flat, DeviceOrientation.Orientation.FlatInverse)
+            invalidSideOrientations
         }
 
         return !invalidOrientations.contains(deviceOrientation.orientation)
