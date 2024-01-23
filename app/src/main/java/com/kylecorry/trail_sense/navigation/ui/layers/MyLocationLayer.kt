@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.graphics.Path
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
-import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.navigation.ui.markers.CircleMapMarker
 import com.kylecorry.trail_sense.navigation.ui.markers.PathMapMarker

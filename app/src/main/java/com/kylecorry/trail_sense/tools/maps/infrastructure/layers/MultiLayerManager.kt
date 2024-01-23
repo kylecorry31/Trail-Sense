@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.tools.maps.infrastructure.layers
 
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 
 class MultiLayerManager(private val managers: List<ILayerManager>) : ILayerManager {

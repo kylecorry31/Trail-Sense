@@ -7,8 +7,6 @@ import com.kylecorry.andromeda.battery.Battery
 import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.andromeda.core.sensors.ISpeedometer
 import com.kylecorry.andromeda.core.sensors.IThermometer
-import com.kylecorry.andromeda.sense.location.GPS
-import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.accelerometer.GravitySensor
@@ -21,6 +19,8 @@ import com.kylecorry.andromeda.sense.barometer.IBarometer
 import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.hygrometer.Hygrometer
 import com.kylecorry.andromeda.sense.hygrometer.IHygrometer
+import com.kylecorry.andromeda.sense.location.GPS
+import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.sense.location.filters.GPSGaussianAltitudeFilter
 import com.kylecorry.andromeda.sense.magnetometer.IMagnetometer
 import com.kylecorry.andromeda.sense.magnetometer.Magnetometer
@@ -39,7 +39,11 @@ import com.kylecorry.sol.units.Pressure
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.shared.sensors.altimeter.*
+import com.kylecorry.trail_sense.shared.sensors.altimeter.AltimeterWrapper
+import com.kylecorry.trail_sense.shared.sensors.altimeter.CachedAltimeter
+import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrapper
+import com.kylecorry.trail_sense.shared.sensors.altimeter.GaussianAltimeterWrapper
+import com.kylecorry.trail_sense.shared.sensors.altimeter.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.hygrometer.NullHygrometer
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS

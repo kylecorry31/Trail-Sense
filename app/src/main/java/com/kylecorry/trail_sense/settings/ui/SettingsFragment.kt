@@ -1,13 +1,10 @@
 package com.kylecorry.trail_sense.settings.ui
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import com.google.android.material.color.DynamicColors
-import com.google.android.material.color.DynamicColorsOptions
-import com.google.android.material.color.HarmonizedColors
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.core.system.Resources
@@ -20,7 +17,6 @@ import com.kylecorry.trail_sense.backup.RestoreCommand
 import com.kylecorry.trail_sense.shared.QuickActionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.ActivityUriPicker
-import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import kotlinx.coroutines.launch

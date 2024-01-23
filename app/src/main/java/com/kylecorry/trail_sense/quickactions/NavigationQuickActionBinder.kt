@@ -1,12 +1,8 @@
 package com.kylecorry.trail_sense.quickactions
 
-import android.widget.ImageButton
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.navigation.ui.NavigatorFragment
-import com.kylecorry.trail_sense.shared.QuickActionButton
-import com.kylecorry.trail_sense.shared.QuickActionType
-import com.kylecorry.trail_sense.shared.views.QuickActionNone
 
 class NavigationQuickActionBinder(
     private val fragment: NavigatorFragment,

@@ -2,13 +2,9 @@ package com.kylecorry.trail_sense.tools.augmented_reality.mapper
 
 import android.graphics.RectF
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.sol.math.SolMath.real
-import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
-import kotlin.math.asin
-import kotlin.math.atan2
 
 /**
  * A camera angle pixel mapper that uses a linear projection to map angles to pixels.

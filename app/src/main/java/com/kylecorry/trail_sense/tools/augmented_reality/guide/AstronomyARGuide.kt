@@ -3,8 +3,6 @@ package com.kylecorry.trail_sense.tools.augmented_reality.guide
 import android.content.Context
 import android.view.LayoutInflater
 import android.widget.FrameLayout
-import android.widget.TextView
-import androidx.core.view.LayoutInflaterCompat
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.trail_sense.R
