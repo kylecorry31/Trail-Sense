@@ -1,0 +1,1 @@
+- Fix dynamic colors on Samsung devices
