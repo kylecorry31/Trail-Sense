@@ -1,108 +1,58 @@
 package com.kylecorry.trail_sense.tools.guide.ui
 
 import android.os.Bundle
-import androidx.core.os.bundleOf
-import androidx.navigation.fragment.findNavController
-import androidx.preference.Preference
-import androidx.preference.PreferenceCategory
-import androidx.preference.PreferenceFragmentCompat
-import com.kylecorry.andromeda.core.tryOrNothing
-import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.luna.coroutines.CoroutineQueueRunner
-import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.settings.ui.SearchBarPreference
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.trail_sense.databinding.FragmentGuideListBinding
 import com.kylecorry.trail_sense.tools.guide.domain.UserGuideCategory
 import com.kylecorry.trail_sense.tools.guide.infrastructure.Guides
-import kotlinx.coroutines.Dispatchers
 
-class GuideListFragment : PreferenceFragmentCompat() {
+class GuideListFragment : BoundFragment<FragmentGuideListBinding>() {
 
-    private var guides = listOf<UserGuideCategory>()
-    private var searchPref: SearchBarPreference? = null
-    private var prefs = mutableListOf<Preference>()
-    private val queue = CoroutineQueueRunner(dispatcher = Dispatchers.Main)
-
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.user_guide, rootKey)
-        guides = Guides.guides(requireContext())
-        preferenceScreen.setShouldUseGeneratedIds(true)
-        createSearchBar()
-        updateList(guides)
+    override fun generateBinding(
+        layoutInflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentGuideListBinding {
+        return FragmentGuideListBinding.inflate(layoutInflater, container, false)
     }
 
-    private fun createSearchBar() {
-        searchPref = SearchBarPreference(requireContext(), null)
-        searchPref?.setOnSearchListener {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val fragment = GuideListPreferenceFragment()
+        val guides = Guides.guides(requireContext())
+
+        binding.searchbox.setOnSearchListener {
             val newGuides = mutableListOf<UserGuideCategory>()
 
-            for (category in guides){
-                if (category.name.contains(it, true)){
+            for (category in guides) {
+                if (category.name.contains(it, true)) {
                     newGuides.add(category)
                 } else {
-                    val newCategory = UserGuideCategory(category.name, category.guides.filter { guide ->
-                        guide.name.contains(it, true)
-                    })
-                    if (newCategory.guides.isNotEmpty()){
+                    val newCategory =
+                        UserGuideCategory(category.name, category.guides.filter { guide ->
+                            guide.name.contains(it, true)
+                        })
+                    if (newCategory.guides.isNotEmpty()) {
                         newGuides.add(newCategory)
                     }
                 }
             }
 
-            updateList(newGuides)
+            fragment.updateList(newGuides)
         }
-        // Add a searchbar to the top
-        searchPref?.let {
-            preferenceScreen.addPreference(it)
-        }
+
+        setFragment(fragment)
+        fragment.updateList(guides)
     }
 
-    private fun updateList(guides: List<UserGuideCategory>) {
-        inBackground {
-            queue.enqueue {
-                prefs.forEach {
-                    preferenceScreen.removePreference(it)
-                }
-                prefs.clear()
-
-                for (guideCategory in guides) {
-                    val category = PreferenceCategory(requireContext())
-                    category.title = guideCategory.name
-                    category.isIconSpaceReserved = false
-                    category.isSingleLineTitle = false
-                    preferenceScreen.addPreference(category)
-                    prefs.add(category)
-
-                    for (guide in guideCategory.guides) {
-                        val guidePref = Preference(requireContext())
-                        guidePref.title = guide.name
-                        if (guide.description != null) {
-                            guidePref.summary = guide.description
-                        }
-                        guidePref.isSingleLineTitle = false
-                        guidePref.isIconSpaceReserved = false
-                        onClick(guidePref) {
-                            tryOrNothing {
-                                findNavController().navigate(
-                                    R.id.action_guideListFragment_to_guideFragment, bundleOf(
-                                        "guide_name" to guide.name,
-                                        "guide_contents" to guide.contents
-                                    )
-                                )
-                            }
-                        }
-                        category.addPreference(guidePref)
-                        prefs.add(guidePref)
-                    }
-                }
-            }
-        }
-    }
-
-
-    private fun onClick(pref: Preference?, action: () -> Unit) {
-        pref?.setOnPreferenceClickListener {
-            action.invoke()
-            true
+    private fun setFragment(fragment: Fragment) {
+        val fragmentManager = childFragmentManager
+        fragmentManager.commit {
+            replace(binding.guideFragment.id, fragment)
         }
     }
 
