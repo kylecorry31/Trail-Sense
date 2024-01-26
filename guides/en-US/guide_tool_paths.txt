@@ -5,9 +5,9 @@ The Backtrack feature can be used to automatically record a path while you hike.
 
 To change the recording frequency, click the time under the Backtrack label at the bottom-left and enter a new interval.
 
-Backtrack can record the cell signal strength at each point. This can be enabled in Settings > Navigation > 'Record cell signal'. If you also have Settings > Navigation > 'Last signal beacon' enabled, a beacon will be created for the last known location where you had a cell signal.
+Backtrack can record the cell signal strength at each point. This can be enabled in Settings > Paths > 'Record cell signal'. If you also have Settings > Navigation > 'Last signal beacon' enabled, a beacon will be created for the last known location where you had a cell signal.
 
-By default, Backtrack paths are temporary and will be deleted after the number of days specified by Settings > Navigation > 'Backtrack history'. You can choose to keep a Backtrack path forever by clicking the menu button on the Backtrack path row and selecting 'Keep forever'.
+By default, Backtrack paths are temporary and will be deleted after the number of days specified by Settings > Paths > 'Backtrack history'. You can choose to keep a Backtrack path forever by clicking the menu button on the Backtrack path row and selecting 'Keep forever'.
 
 ## Creating a Path
 You can choose to manually create a path by doing the following:
@@ -55,7 +55,7 @@ Adjust the path's appearance by opening it and selecting the line style or line 
 
 A key below the path map explains the colors.
 
-Set the default path styles in Settings > Navigation > 'Default path style' for the line style and Settings > Navigation > 'Default path color' for the line color.
+Set the default path styles in Settings > Paths > 'Default path style' for the line style and Settings > Navigation > 'Default path color' for the line color.
 
 ## Simplify a Path
 Paths can be simplified to reduce the number of points in the path. This can be useful to improve the performance of the path rendering and may improve the accuracy of the path by removing GPS errors.
@@ -64,12 +64,12 @@ To simplify a path, open the path and click the menu button in the top-right cor
 
 Once the path has been simplified, it is not possible to undo the simplification.
 
-You can choose to automatically simplify paths imported from a GPX file by enabling Settings > Navigation > 'Simplify paths on import'.
+You can choose to automatically simplify paths imported from a GPX file by enabling Settings > Paths > 'Simplify paths on import'.
 
 ## Navigate to a Path
 You can navigate to the nearest point on a path by opening the path and clicking the 'Navigate' button at the bottom. This will open the navigation tool with the path as the destination. Alternatively, you can click the menu button on the path row you want to navigate to and then select 'Navigate'.
 
-By default, this will only navigate to recorded waypoints on the path. However, you can choose to navigate to any position on the path by disabling Settings > Navigation > 'Only navigate to recorded points'. This will assume that the path is a straight line between points.
+By default, this will only navigate to recorded waypoints on the path. However, you can choose to navigate to any position on the path by disabling Settings > Paths > 'Only navigate to recorded points'. This will assume that the path is a straight line between points.
 
 Paths are also visible on the radar compass (see the 'Navigation' guide) and photo maps (see the 'Photo Maps' guide).
 
@@ -99,4 +99,4 @@ You can delete a group (along with all paths within it) by clicking the menu but
 To search through your created paths, use the search bar at the top of the path list. This search encompasses the current group and all subgroups. Additionally, you can sort paths by distance away, time, length or name by clicking the menu button in the top-right and selecting 'Sort'.
 
 ## Improving Performance
-If you are experiencing performance issues with the Paths tool, you can enable Settings > Navigation > 'Fast path rendering' which will render paths faster, at the cost of appearance.
+If you are experiencing performance issues with the Paths tool, you can enable Settings > Paths > 'Fast path rendering' which will render paths faster, at the cost of appearance.

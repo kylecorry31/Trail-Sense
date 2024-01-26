@@ -1,0 +1,90 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/paths">
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_backtrack_enabled"
+            app:singleLineTitle="false"
+            app:summary="@string/pref_backtrack_enabled_summary"
+            app:title="@string/backtrack" />
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_backtrack_interval"
+            app:singleLineTitle="false"
+            app:title="@string/pref_backtrack_frequency_title" />
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_backtrack_history_days"
+            app:singleLineTitle="false"
+            app:title="@string/pref_backtrack_history_days_title" />
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_backtrack_notifications_link"
+            app:singleLineTitle="false"
+            app:title="@string/notifications_channel" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_backtrack_save_cell"
+            app:singleLineTitle="false"
+            app:summary="@string/pref_backtrack_save_cell_summary"
+            app:title="@string/pref_backtrack_save_cell_title" />
+
+        <SwitchPreferenceCompat
+            android:dependency="@string/pref_backtrack_save_cell"
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_last_signal_beacon"
+            app:singleLineTitle="false"
+            app:summary="@string/pref_show_last_signal_beacon_summary"
+            app:title="@string/pref_show_last_signal_beacon_title" />
+
+        <ListPreference
+            app:defaultValue="dotted"
+            app:entries="@array/line_style_entries"
+            app:entryValues="@array/line_style_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_backtrack_path_style"
+            app:singleLineTitle="false"
+            app:title="@string/pref_default_path_style_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <Preference
+            app:icon="@drawable/bubble"
+            app:key="@string/pref_backtrack_path_color"
+            app:singleLineTitle="false"
+            app:title="@string/pref_default_path_color_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_auto_simplify_paths"
+            app:singleLineTitle="false"
+            app:title="@string/pref_auto_simplify_paths_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_only_navigate_path_points"
+            app:singleLineTitle="false"
+            app:title="@string/pref_only_navigate_path_points_title" />
+
+        <SwitchPreferenceCompat
+            android:summary="@string/fast_path_rendering_summary"
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_fast_path_rendering"
+            app:singleLineTitle="false"
+            app:title="@string/fast_path_rendering" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

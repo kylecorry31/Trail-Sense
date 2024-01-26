@@ -89,4 +89,4 @@ To search through your created beacons, use the search bar at the top of the bea
 ## Last Cell Signal Beacon
 If you have Backtrack enabled (see the 'Paths' guide) and it is configured to record cell signal, you will see a beacon created for the last known location where you had a cell signal.
 
-You can disable this beacon in Settings > Navigation > 'Last signal beacon'.
+You can disable this beacon in Settings > Paths > 'Last signal beacon'.

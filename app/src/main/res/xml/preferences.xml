@@ -55,6 +55,12 @@
             app:title="@string/navigation" />
 
         <Preference
+            app:icon="@drawable/ic_tool_backtrack"
+            app:key="@string/pref_paths_header_key"
+            app:singleLineTitle="false"
+            app:title="@string/paths" />
+
+        <Preference
             app:icon="@drawable/maps"
             app:key="@string/pref_maps_header_key"
             app:singleLineTitle="false"

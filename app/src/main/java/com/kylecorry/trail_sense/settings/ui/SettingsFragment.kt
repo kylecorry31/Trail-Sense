@@ -33,6 +33,7 @@ class SettingsFragment : AndromedaPreferenceFragment() {
 
         // Tools
         R.string.pref_navigation_header_key to R.id.action_action_settings_to_navigationSettingsFragment,
+        R.string.pref_paths_header_key to R.id.action_action_settings_to_pathsSettingsFragment,
         R.string.pref_weather_category to R.id.action_action_settings_to_weatherSettingsFragment,
         R.string.pref_astronomy_category to R.id.action_action_settings_to_astronomySettingsFragment,
         R.string.pref_flashlight_settings to R.id.action_action_settings_to_flashlightSettingsFragment,
