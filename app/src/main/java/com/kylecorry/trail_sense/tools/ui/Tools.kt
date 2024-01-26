@@ -19,7 +19,8 @@ data class Tool(
     val category: ToolCategory,
     val description: String? = null,
     val guideId: Int? = null,
-    val isExperimental: Boolean = false
+    val isExperimental: Boolean = false,
+    @IdRes val settingsNavAction: Int? = null
 ) : Identifiable
 
 enum class ToolCategory {
@@ -48,7 +49,8 @@ object Tools {
                 R.drawable.flashlight,
                 R.id.action_action_experimental_tools_to_fragmentToolFlashlight,
                 ToolCategory.Signaling,
-                guideId = R.raw.guide_tool_flashlight
+                guideId = R.raw.guide_tool_flashlight,
+                settingsNavAction = R.id.flashlightSettingsFragment
             ),
             Tool(
                 WHISTLE,
@@ -64,7 +66,8 @@ object Tools {
                 R.drawable.ruler,
                 R.id.action_action_experimental_tools_to_rulerFragment,
                 ToolCategory.Distance,
-                guideId = R.raw.guide_tool_ruler
+                guideId = R.raw.guide_tool_ruler,
+                settingsNavAction = R.id.sensorSettingsFragment
             ),
             if (hasPedometer) Tool(
                 PEDOMETER,
@@ -72,7 +75,8 @@ object Tools {
                 R.drawable.steps,
                 R.id.action_tools_to_pedometer,
                 ToolCategory.Distance,
-                guideId = R.raw.guide_tool_pedometer
+                guideId = R.raw.guide_tool_pedometer,
+                settingsNavAction = R.id.calibrateOdometerFragment
             ) else null,
             if (prefs.isCliffHeightEnabled) Tool(
                 CLIFF_HEIGHT,
@@ -90,7 +94,8 @@ object Tools {
                 R.drawable.ic_compass_icon,
                 R.id.action_navigation,
                 ToolCategory.Location,
-                guideId = R.raw.guide_tool_navigation
+                guideId = R.raw.guide_tool_navigation,
+                settingsNavAction = R.id.navigationSettingsFragment
             ),
             Tool(
                 BEACONS,
@@ -107,7 +112,8 @@ object Tools {
                 R.id.action_tools_to_maps_list,
                 ToolCategory.Location,
                 context.getString(R.string.photo_map_summary),
-                guideId = R.raw.guide_tool_photo_maps
+                guideId = R.raw.guide_tool_photo_maps,
+                settingsNavAction = R.id.mapSettingsFragment
             ),
             Tool(
                 PATHS,
@@ -115,7 +121,8 @@ object Tools {
                 R.drawable.ic_tool_backtrack,
                 R.id.action_action_experimental_tools_to_fragmentBacktrack,
                 ToolCategory.Location,
-                guideId = R.raw.guide_tool_paths
+                guideId = R.raw.guide_tool_paths,
+                settingsNavAction = R.id.pathsSettingsFragment
             ),
             Tool(
                 TRIANGULATE_LOCATION,
@@ -132,7 +139,8 @@ object Tools {
                 R.id.action_toolsFragment_to_clinometerFragment,
                 ToolCategory.Angles,
                 context.getString(R.string.tool_clinometer_summary),
-                guideId = R.raw.guide_tool_clinometer
+                guideId = R.raw.guide_tool_clinometer,
+                settingsNavAction = R.id.clinometerSettingsFragment
             ),
             Tool(
                 BUBBLE_LEVEL,
@@ -157,12 +165,13 @@ object Tools {
                 R.drawable.ic_astronomy,
                 R.id.action_astronomy,
                 ToolCategory.Time,
-                guideId = R.raw.guide_tool_astronomy
+                guideId = R.raw.guide_tool_astronomy,
+                settingsNavAction = R.id.astronomySettingsFragment
             ),
             Tool(
                 WATER_BOIL_TIMER,
                 context.getString(R.string.water_boil_timer),
-                R.drawable.ic_tool_boil,
+                R.drawable.ic_tool_boil_done,
                 R.id.action_action_experimental_tools_to_waterPurificationFragment,
                 ToolCategory.Time,
                 context.getString(R.string.tool_boil_summary),
@@ -174,7 +183,8 @@ object Tools {
                 R.drawable.ic_tide_table,
                 R.id.action_toolsFragment_to_tidesFragment,
                 ToolCategory.Time,
-                guideId = R.raw.guide_tool_tides
+                guideId = R.raw.guide_tool_tides,
+                settingsNavAction = R.id.tideSettingsFragment
             ),
             Tool(
                 BATTERY,
@@ -182,7 +192,8 @@ object Tools {
                 R.drawable.ic_tool_battery,
                 R.id.action_action_experimental_tools_to_fragmentToolBattery,
                 ToolCategory.Power,
-                guideId = R.raw.guide_tool_battery
+                guideId = R.raw.guide_tool_battery,
+                settingsNavAction = R.id.powerSettingsFragment
             ),
             if (hasCompass) Tool(
                 SOLAR_PANEL_ALIGNER,
@@ -208,7 +219,8 @@ object Tools {
                 R.drawable.cloud,
                 R.id.action_weather,
                 ToolCategory.Weather,
-                guideId = R.raw.guide_tool_weather
+                guideId = R.raw.guide_tool_weather,
+                settingsNavAction = R.id.weatherSettingsFragment
             ) else null,
             Tool(
                 CLIMATE,
@@ -253,7 +265,8 @@ object Tools {
                 ToolCategory.Other,
                 context.getString(R.string.augmented_reality_description),
                 isExperimental = true,
-                guideId = R.raw.guide_tool_augmented_reality
+                guideId = R.raw.guide_tool_augmented_reality,
+                settingsNavAction = R.id.augmentedRealitySettingsFragment
             ) else null,
             Tool(
                 CONVERT,
@@ -341,6 +354,8 @@ object Tools {
                 R.drawable.ic_experimental,
                 R.id.experimentationFragment,
                 ToolCategory.Other,
+                isExperimental = true,
+                settingsNavAction = R.id.experimentalSettingsFragment
             ) else null
         )
     }

@@ -206,6 +206,7 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
                             getString(R.string.pin)
                         },
                         if (tool.guideId != null) getString(R.string.tool_user_guide_title) else null,
+                        if (tool.settingsNavAction != null) getString(R.string.settings) else null
                     )
                 ) { selectedIdx ->
                     when (selectedIdx) {
@@ -221,6 +222,10 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
 
                         3 -> {
                             UserGuideUtils.showGuide(this, tool.guideId!!)
+                        }
+
+                        4 -> {
+                            findNavController().navigate(tool.settingsNavAction!!)
                         }
                     }
                     true
