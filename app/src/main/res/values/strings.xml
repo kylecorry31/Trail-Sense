@@ -1396,6 +1396,9 @@
     <string name="view_distance">View distance</string>
     <string name="pref_augmented_reality_view_distance" translatable="false">pref_augmented_reality_view_distance</string>
     <string name="pref_paths_header_key" translatable="false">pref_paths_header_key</string>
+    <string name="pref_show_dial_ticks_when_no_compass" translatable="false">pref_show_dial_ticks_when_no_compass</string>
+    <string name="show_dial_ticks_on_nearby_radar">Show dial ticks on nearby radar</string>
+    <string name="show_dial_ticks_on_nearby_radar_summary">Your device does not have a compass, but you can still see what direction beacons are.</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>

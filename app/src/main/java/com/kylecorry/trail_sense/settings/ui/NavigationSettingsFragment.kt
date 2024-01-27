@@ -93,6 +93,8 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
             ).forEach {
                 it?.isVisible = false
             }
+        } else {
+            preference(R.string.pref_show_dial_ticks_when_no_compass)?.isVisible = false
         }
 
         updateNearbyRadius()

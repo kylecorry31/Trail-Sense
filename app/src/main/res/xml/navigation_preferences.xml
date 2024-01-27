@@ -27,6 +27,14 @@
             app:summary="@string/pref_show_linear_compass_summary"
             app:title="@string/pref_show_linear_compass_title" />
 
+        <SwitchPreferenceCompat
+            android:summary="@string/show_dial_ticks_on_nearby_radar_summary"
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_dial_ticks_when_no_compass"
+            app:singleLineTitle="false"
+            app:title="@string/show_dial_ticks_on_nearby_radar" />
+
         <ListPreference
             android:entries="@array/sun_moon_compass_entries"
             android:entryValues="@array/sun_moon_compass_values"
@@ -104,5 +112,5 @@
             app:title="@string/pref_nearby_radar_title" />
 
     </PreferenceCategory>
-    
+
 </PreferenceScreen>

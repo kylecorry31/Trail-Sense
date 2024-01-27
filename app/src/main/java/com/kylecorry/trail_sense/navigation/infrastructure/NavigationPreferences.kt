@@ -69,6 +69,12 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
     override val useRadarCompass: Boolean
         get() = !sensors.hasCompass() || (showMultipleBeacons && _useRadarCompassPref)
 
+    override val showDialTicksWhenNoCompass by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_show_dial_ticks_when_no_compass),
+        false
+    )
+
     var defaultPathColor: AppColor
         get() {
             val id = cache.getLong(context.getString(R.string.pref_backtrack_path_color))

@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
+import androidx.core.view.marginTop
+import androidx.core.view.updateLayoutParams
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
@@ -379,6 +382,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         if (!hasCompass) {
             myLocationLayer.setShowDirection(false)
+            binding.radarCompass.shouldDrawDial = userPrefs.navigation.showDialTicksWhenNoCompass
+            binding.compassStatus.isVisible = false
+            binding.navigationTitle.title.isVisible = false
+            binding.northReferenceIndicator.isVisible = false
         }
 
         scheduleUpdates(INTERVAL_60_FPS)
@@ -692,8 +699,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             val directionText = formatService.formatDirection(bearing.direction)
                 .padStart(2, ' ')
             binding.navigationTitle.title.setTextDistinct("$azimuthText   $directionText")
-        } else {
-            binding.navigationTitle.title.setTextDistinct(getString(R.string.dash))
         }
 
         layerManager?.onBearingChanged(bearing.value)

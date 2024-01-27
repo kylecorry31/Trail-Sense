@@ -93,6 +93,8 @@ class RadarCompassView : BaseCompassView, IMapView {
 
     private lateinit var dial: CompassDial
 
+    var shouldDrawDial: Boolean = true
+
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
@@ -116,7 +118,7 @@ class RadarCompassView : BaseCompassView, IMapView {
     private fun drawCompass() {
         imageMode(ImageMode.Center)
 
-        dial.draw(drawer)
+        dial.draw(drawer, shouldDrawDial)
 
         noFill()
         stroke(Color.WHITE)
@@ -124,7 +126,9 @@ class RadarCompassView : BaseCompassView, IMapView {
         strokeWeight(3f)
         push()
         rotate(azimuth.value)
-        line(width / 2f, height / 2f, width / 2f, iconSize + dp(2f))
+        if (shouldDrawDial) {
+            line(width / 2f, height / 2f, width / 2f, iconSize + dp(2f))
+        }
         circle(width / 2f, height / 2f, compassSize / 2f)
         circle(width / 2f, height / 2f, 3 * compassSize / 4f)
         circle(width / 2f, height / 2f, compassSize / 4f)
@@ -151,54 +155,38 @@ class RadarCompassView : BaseCompassView, IMapView {
                 height - (height - compassSize) / 2f + 16
             )
         }
+        pop()
+
 
         // Directions
-        pop()
-        textMode(TextMode.Center)
-        textSize(cardinalSize)
-        stroke(Resources.color(context, R.color.colorSecondary))
-        opacity(255)
-        push()
-        rotate(0f)
-        fill(Color.WHITE)
-        text(
-            north,
-            width / 2f,
-            height / 2f - compassSize / 4f
-        )
-        pop()
-
-        push()
-        rotate(180f)
-        fill(Color.WHITE)
-        text(
-            south,
-            width / 2f,
-            height / 2f - compassSize / 4f
-        )
-        pop()
-
-        push()
-        rotate(90f)
-        fill(Color.WHITE)
-        text(
-            east,
-            width / 2f,
-            height / 2f - compassSize / 4f
-        )
-        pop()
-
-        push()
-        rotate(270f)
-        fill(Color.WHITE)
-        text(
-            west,
-            width / 2f,
-            height / 2f - compassSize / 4f
-        )
-        pop()
+        if (shouldDrawDial) {
+            drawCardinalDirections()
+        }
 
         imageMode(ImageMode.Corner)
+    }
+
+    private fun drawCardinalDirections() {
+        textMode(TextMode.Center)
+        textSize(cardinalSize)
+        stroke(secondaryColor)
+        opacity(255)
+        drawDirection(0f, north)
+        drawDirection(90f, east)
+        drawDirection(180f, south)
+        drawDirection(270f, west)
+    }
+
+    private fun drawDirection(degrees: Float, text: String) {
+        push()
+        rotate(degrees)
+        fill(Color.WHITE)
+        text(
+            text,
+            width / 2f,
+            height / 2f - compassSize / 4f
+        )
+        pop()
     }
 
     override fun setup() {
