@@ -24,7 +24,7 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.ColorFilterConstraintLayout
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
+import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.backup.BackupService
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.RestartServicesCommand

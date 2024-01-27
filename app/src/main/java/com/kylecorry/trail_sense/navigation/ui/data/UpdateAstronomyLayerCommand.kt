@@ -4,7 +4,7 @@ import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.astronomy.ui.MoonPhaseImageMapper
+import com.kylecorry.trail_sense.tools.astronomy.ui.MoonPhaseImageMapper
 import com.kylecorry.trail_sense.navigation.ui.IMappableReferencePoint
 import com.kylecorry.trail_sense.navigation.ui.MappableReferencePoint
 import com.kylecorry.trail_sense.navigation.ui.layers.compass.MarkerCompassLayer

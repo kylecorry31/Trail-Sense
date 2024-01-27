@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/action_astronomy"
-        android:name="com.kylecorry.trail_sense.astronomy.ui.AstronomyFragment"
+        android:name="com.kylecorry.trail_sense.tools.astronomy.ui.AstronomyFragment"
         android:label="AstronomyFragment">
         <action
             android:id="@+id/action_astronomyFragment_to_calibrateGPSFragment"

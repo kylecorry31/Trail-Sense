@@ -8,7 +8,7 @@ import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
-import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
+import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime

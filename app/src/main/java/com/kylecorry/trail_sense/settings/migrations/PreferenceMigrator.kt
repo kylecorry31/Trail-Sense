@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.settings.migrations
 import android.content.Context
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyDailyWorker
+import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyDailyWorker
 import com.kylecorry.trail_sense.main.AppState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem

@@ -262,7 +262,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver"
+            android:name="com.kylecorry.trail_sense.tools.astronomy.infrastructure.receivers.SunsetAlarmReceiver"
             android:enabled="true"
             android:exported="false" />
         <receiver

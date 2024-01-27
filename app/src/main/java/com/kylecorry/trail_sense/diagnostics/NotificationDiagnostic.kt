@@ -6,7 +6,7 @@ import android.hardware.Sensor
 import android.os.Build
 import androidx.core.content.getSystemService
 import com.kylecorry.andromeda.sense.Sensors
-import com.kylecorry.trail_sense.astronomy.infrastructure.commands.SunsetAlarmCommand
+import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunsetAlarmCommand
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.weather.infrastructure.alerts.CurrentWeatherAlerter

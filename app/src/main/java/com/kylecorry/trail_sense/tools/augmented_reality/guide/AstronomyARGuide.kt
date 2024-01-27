@@ -6,8 +6,8 @@ import android.widget.FrameLayout
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.astronomy.domain.AstronomyService
-import com.kylecorry.trail_sense.astronomy.ui.MoonPhaseImageMapper
+import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
+import com.kylecorry.trail_sense.tools.astronomy.ui.MoonPhaseImageMapper
 import com.kylecorry.trail_sense.databinding.ViewArAstronomyGuideBinding
 import com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityView
 import com.kylecorry.trail_sense.tools.augmented_reality.position.SphericalARPoint

@@ -13,13 +13,13 @@ import com.kylecorry.trail_sense.navigation.paths.quickactions.QuickActionBacktr
 import com.kylecorry.trail_sense.weather.quickactions.QuickActionClimate
 import com.kylecorry.trail_sense.weather.quickactions.QuickActionClouds
 import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionFlashlight
-import com.kylecorry.trail_sense.astronomy.quickactions.QuickActionNightMode
+import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionNightMode
 import com.kylecorry.trail_sense.navigation.paths.quickactions.QuickActionPaths
 import com.kylecorry.trail_sense.tools.pedometer.quickactions.QuickActionPedometer
 import com.kylecorry.trail_sense.tools.maps.quickactions.QuickActionPhotoMaps
 import com.kylecorry.trail_sense.tools.ruler.quickactions.QuickActionRuler
 import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionScreenFlashlight
-import com.kylecorry.trail_sense.astronomy.quickactions.QuickActionSunsetAlert
+import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunsetAlert
 import com.kylecorry.trail_sense.weather.quickactions.QuickActionTemperatureEstimation
 import com.kylecorry.trail_sense.tools.lightning.quickactions.QuickActionLightingStrikeDistance
 import com.kylecorry.trail_sense.weather.quickactions.QuickActionWeatherMonitor

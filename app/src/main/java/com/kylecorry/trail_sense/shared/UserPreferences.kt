@@ -14,7 +14,7 @@ import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.astronomy.infrastructure.AstronomyPreferences
+import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.AltimeterPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.AugmentedRealityPreferences
