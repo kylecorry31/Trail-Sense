@@ -6,6 +6,7 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
+import com.kylecorry.trail_sense.shared.navigateWithAnimation
 
 class QuickActionPhotoMaps(
     button: ImageButton,
@@ -17,7 +18,7 @@ class QuickActionPhotoMaps(
         button.setImageResource(R.drawable.maps)
         CustomUiUtils.setButtonState(button, false)
         button.setOnClickListener {
-            fragment.findNavController().navigate(R.id.mapListFragment)
+            fragment.findNavController().navigateWithAnimation(R.id.mapListFragment)
         }
 
     }

@@ -10,6 +10,7 @@ import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.shared.FeatureState
+import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.permissions.requestBacktrackPermission
 
@@ -40,7 +41,7 @@ class QuickActionBacktrack(btn: ImageButton, private val andromedaFragment: Andr
         }
 
         button.setOnLongClickListener {
-            fragment.findNavController().navigate(R.id.fragmentBacktrack)
+            fragment.findNavController().navigateWithAnimation(R.id.fragmentBacktrack)
             true
         }
     }

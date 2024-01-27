@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.extensions.getOrNull
+import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
 
@@ -32,7 +33,7 @@ class QuickActionWeatherMonitor(btn: ImageButton, private val andromedaFragment:
         }
 
         button.setOnLongClickListener {
-            fragment.findNavController().navigate(R.id.action_weather)
+            fragment.findNavController().navigateWithAnimation(R.id.action_weather)
             true
         }
     }

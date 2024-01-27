@@ -22,15 +22,6 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
-
-        <action
-            android:id="@+id/action_navigatorFragment_to_fragmentBacktrack"
-            app:destination="@id/fragmentBacktrack"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-
         <action
             android:id="@+id/action_navigatorFragment_to_calibrateGPSFragment"
             app:destination="@id/calibrateGPSFragment"
@@ -60,36 +51,7 @@
         android:id="@+id/action_weather"
         android:name="com.kylecorry.trail_sense.weather.ui.WeatherFragment"
         android:label="activity_weather"
-        tools:layout="@layout/activity_weather">
-        <action
-            android:id="@+id/action_weather_to_temperature_estimation"
-            app:destination="@id/temperatureEstimationFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_weather_to_climate"
-            app:destination="@id/climateFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_weather_to_clouds"
-            app:destination="@id/cloudFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_weather_to_thunder"
-            app:destination="@id/fragmentToolLightning"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
+        tools:layout="@layout/activity_weather" />
     <fragment
         android:id="@+id/action_settings"
         android:name="com.kylecorry.trail_sense.settings.ui.SettingsFragment"

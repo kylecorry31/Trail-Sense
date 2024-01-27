@@ -8,6 +8,7 @@ import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.extensions.getOrNull
+import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
@@ -33,7 +34,7 @@ class QuickActionPedometer(btn: ImageButton, private val andromedaFragment: Andr
         }
 
         button.setOnLongClickListener {
-            fragment.findNavController().navigate(R.id.fragmentToolPedometer)
+            fragment.findNavController().navigateWithAnimation(R.id.fragmentToolPedometer)
             true
         }
     }

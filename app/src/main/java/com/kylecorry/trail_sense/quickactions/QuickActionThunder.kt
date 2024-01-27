@@ -6,6 +6,7 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
+import com.kylecorry.trail_sense.shared.navigateWithAnimation
 
 class QuickActionThunder(btn: ImageButton, fragment: Fragment) :
     QuickActionButton(btn, fragment) {
@@ -18,8 +19,7 @@ class QuickActionThunder(btn: ImageButton, fragment: Fragment) :
             false
         )
         button.setOnClickListener {
-            fragment.findNavController()
-                .navigate(R.id.action_weather_to_thunder)
+            fragment.findNavController().navigateWithAnimation(R.id.fragmentToolLightning)
         }
     }
 

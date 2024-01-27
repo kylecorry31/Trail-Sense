@@ -6,6 +6,7 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
+import com.kylecorry.trail_sense.shared.navigateWithAnimation
 
 class QuickActionTemperatureEstimation(btn: ImageButton, fragment: Fragment) :
     QuickActionButton(btn, fragment) {
@@ -15,7 +16,7 @@ class QuickActionTemperatureEstimation(btn: ImageButton, fragment: Fragment) :
         button.setImageResource(R.drawable.thermometer)
         CustomUiUtils.setButtonState(button, false)
         button.setOnClickListener {
-            fragment.findNavController().navigate(R.id.action_weather_to_temperature_estimation)
+            fragment.findNavController().navigateWithAnimation(R.id.temperatureEstimationFragment)
         }
     }
 }
