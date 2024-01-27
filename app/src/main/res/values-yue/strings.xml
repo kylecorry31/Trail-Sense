@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="tools">架生</string>
     <string name="copied_to_clipboard_toast">複製咗去剪貼簿</string>
     <string name="access_background_location">更新定位設定</string>
@@ -588,7 +588,7 @@
     <string name="low_power_mode_on_message">慳電模式開啟，有啲功能可能停用。</string>
     <string name="clouds">雲</string>
     <string name="pref_require_satellites_title">事必要衛星定位</string>
-    <string name="pref_require_satellites_description">事必要至少 4 枚衛星，提昇準繩</string>
+    <string name="pref_require_satellites_description">事必要至少 4 枚衛星，好提昇準繩</string>
     <string name="cirrus">卷雲</string>
     <string name="altocumulus">高積雲</string>
     <string name="nimbostratus">雨層雲</string>
@@ -673,7 +673,7 @@
     <string name="open_beacon_in_maps">喺地圖度睇過</string>
     <string name="privacy_and_location">私隱與定位</string>
     <string name="always_on">幾時都用</string>
-    <string name="pref_nmea_elevation_summary">海拔換算時計入 NMEA 偏差</string>
+    <string name="pref_nmea_elevation_summary">用 NMEA (衛星) 代替內置模型去修正海拔</string>
     <string name="compass_auto_declination">自動調整磁偏角</string>
     <string name="pref_show_pressure_in_notification_title">喺通知度顯示埋氣壓</string>
     <string name="pref_monitor_weather_title">監測氣象</string>
@@ -743,7 +743,7 @@
     <string name="meteor_shower">流星雨</string>
     <string name="tomorrow_at">聽日 %s</string>
     <string name="dusk_type">%s薄暮</string>
-    <string name="pref_nmea_elevation_title">NMEA 海拔偏差</string>
+    <string name="pref_nmea_elevation_title">NMEA 海拔修正</string>
     <string name="pick_file">揀個檔案</string>
     <string name="coordinate_format_usng">USNG</string>
     <string name="coordinate_format_osgb">OSGB</string>
@@ -864,7 +864,7 @@
     <string name="min_temp_calibrated">最低環境氣溫 (經校正)</string>
     <string name="restore_failure_newer_version">呢個備份乃較新版本嘅 %s 整嘅。請更新個 app，然後再試下啦。</string>
     <string name="min_temp_uncalibrated">最低手機溫度 (未校正)</string>
-    <string name="gps_satellites">GPS 衛星</string>
+    <string name="gps_satellites">GPS 衛星數目</string>
     <string name="gps_elevation_accuracy">GPS 海拔準繩</string>
     <string name="restore">還原</string>
     <string name="my_location">我嘅位置</string>
@@ -879,4 +879,59 @@
     <string name="gps_location_accuracy">GPS 定位準繩</string>
     <string name="destination">目的地</string>
     <string name="beta_disclaimer">呢項架生目前都係試住先，如有疏漏或意見，歡迎來鴻 %s。</string>
+    <string name="missing_sensor_explanation">就算係新機或者貴價機，部份手機生產商或會選擇唔配備呢個感應器。詳情可以睇返您部機生產商嘅網站又或者問返佢哋。</string>
+    <string name="why_missing_sensor">我部機新個喎/貴嘢嚟，點會爭噉個感應器㗎？</string>
+    <string name="continuous_calibration">持續校正</string>
+    <string name="continuous_calibration_description">一有 GPS 定位就校正</string>
+    <string name="pref_tiles_enabled_title">系統通知欄方塊</string>
+    <string name="view_distance">觀測距離</string>
+    <string name="guide_using_printed_maps">點用紙本地圖</string>
+    <string name="altocumulus_forecast" tools:ignore="PluralsCandidate">可能表示未來 %d 個鐘會降水或行雷。</string>
+    <string name="altostratus_forecast" tools:ignore="PluralsCandidate">可能表示未來 %d 個鐘會降水。</string>
+    <string name="cloud_fair_forecast_hours" tools:ignore="PluralsCandidate">可能表示未來 %d 個鐘會天朗氣清。</string>
+    <string name="is_there_a_way_to_fix_this">有冇得解救？</string>
+    <string name="pref_backtrack_frequency_title">踏雪留蹤幾耐一次</string>
+    <string name="activity_recognition_permission_denied">攞唔到身體活動權限，步程計功能冇得用。您可以喺設定入面啟用。</string>
+    <string name="pref_show_last_signal_beacon_title">最後收到訊號地標</string>
+    <string name="tool_long_press_hint_toast">撳實個架生睇下更多選項</string>
+    <string name="service_restart">服務重新啟動</string>
+    <string name="service_restart_channel_description">重新啟動服務嘅通知</string>
+    <string name="restart_services_title">重新啟動服務</string>
+    <string name="restart_services_message">幕後服務未能重新啟動。撳一下去重新啟動。</string>
+    <string name="clinometer_augmented_reality">傾角儀擴充實境</string>
+    <string name="location_number">位置 %d</string>
+    <string name="last_signal_beacon_name">最後一次收到訊號 - %1$s (%2$s)</string>
+    <string name="nimbostratus_forecast" tools:ignore="PluralsCandidate">未來 %d 個鐘可能會降水。</string>
+    <string name="pref_start_on_boot_title">開機時啟動</string>
+    <string name="metal_detector_disclaimer">淨係探測到磁性金屬，例如鐵</string>
+    <string name="map_auto_rotated">經校正，地圖轉向已調整</string>
+    <string name="pin">置頂</string>
+    <string name="tool_quick_actions">架生快速動作</string>
+    <string name="settings_have_moved">設定執咗位喇</string>
+    <string name="no_sensor_message">您部機冇配備%s感應器</string>
+    <string name="calibrate_map_point">用已知位置校正 (%1$d / %2$d)</string>
+    <string name="direction_not_set">方位未設定</string>
+    <string name="augmented_reality">擴充實境</string>
+    <string name="augmented_reality_description">用您個相機鏡頭做視野，一窺就近嘅地標同日月</string>
+    <string name="cumulus_forecast" tools:ignore="PluralsCandidate">可能表示天朗氣清。若果變厚，可能表示未來 %d 個鐘會降水或行雷。</string>
+    <string name="cumulonimbus_forecast">可能表示跟住幾分鐘會行雷。</string>
+    <string name="onboarding_user_guide">查閱使用指南，了解點樣用 Trail Sense 嘅各種功能。撳開下低嘅架生版面就可以搵到。
+\n
+\n更多指南會陸續推出，敬請期待。</string>
+    <string name="camera_permission_denied">攞唔到相機權限，相機功能冇得用。您可以喺設定入面啟用。</string>
+    <string name="backtrack_battery_warning">好密 (唔夠 15 分鐘) 一次可能會好食電</string>
+    <string name="pref_tiles_enabled_summary">或可避免慳電程式將 Trail Sense 收皮</string>
+    <string name="strobe_warning_content">閃光燈會一眨一眨亮起閃爍燈光，對部份用家可能觸發危險。</string>
+    <string name="cloud_precipitation_forecast_hour_range" tools:ignore="PluralsCandidate">可能表示未來 %1$d 至 %2$d 個鐘會降水。</string>
+    <string name="direction">方位</string>
+    <string name="pinned">置頂</string>
+    <string name="unpin">解除置頂</string>
+    <string name="missing_sensor_message_1">您部 %1$s 未有內置%2$s感應器。即係話 %3$s 嘅部份功能會用唔到，真係唔好意思。</string>
+    <string name="pref_weather_update_frequency_title">氣象幾耐更新一次</string>
+    <string name="strobe_warning_title">閃光燈</string>
+    <string name="settings_have_moved_message">個 App 嘅設定，已經搬咗落去架生版面入面</string>
+    <string name="no_sensor_unable_to_fix">好可惜，呢個係硬件規格問題，冇得話加返落去。</string>
+    <string name="on_map">擺落地圖上面</string>
+    <string name="find_next_occurrence">搵下一次幾時出現</string>
+    <string name="pref_show_last_signal_beacon_summary">用最後一次收到基站訊號嘅位置整返個地標</string>
 </resources>
