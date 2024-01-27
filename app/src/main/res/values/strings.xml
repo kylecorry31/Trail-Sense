@@ -763,7 +763,6 @@
     <string name="units">Units</string>
     <string name="privacy">Privacy</string>
     <string name="pref_privacy_settings" translatable="false">pref_privacy_settings</string>
-    <string name="pref_power_settings" translatable="false">pref_power_settings</string>
     <string name="pref_unit_settings" translatable="false">pref_unit_settings</string>
     <string name="pref_experimental_metal_direction" translatable="false">pref_experimental_metal_direction</string>
     <string name="pref_experimental_metal_direction_title">Show metal direction</string>
@@ -1399,6 +1398,7 @@
     <string name="pref_show_dial_ticks_when_no_compass" translatable="false">pref_show_dial_ticks_when_no_compass</string>
     <string name="show_dial_ticks_on_nearby_radar">Show dial ticks on nearby radar</string>
     <string name="show_dial_ticks_on_nearby_radar_summary">Your device does not have a compass, but you can still see what direction beacons are.</string>
+    <string name="pref_tool_category_holder_key" translatable="false">pref_tool_category_holder_key</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>

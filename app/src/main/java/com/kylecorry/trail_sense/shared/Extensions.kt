@@ -1,6 +1,10 @@
 package com.kylecorry.trail_sense.shared
 
+import android.os.Bundle
+import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -15,6 +19,7 @@ import com.kylecorry.sol.math.sumOfFloat
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
@@ -105,7 +110,7 @@ inline fun Enum<*>.readableName(): String {
         .joinToString("").trim()
 }
 
-fun ICanvasDrawer.text(str: String, x: Float, y: Float, lineSpacing: Float){
+fun ICanvasDrawer.text(str: String, x: Float, y: Float, lineSpacing: Float) {
     val lines = str.split("\n")
     var lastHeight = 0f
     var lastY = y
@@ -123,4 +128,19 @@ fun ICanvasDrawer.textDimensions(str: String, lineSpacing: Float): Pair<Float, F
     val totalSpacing = lineSpacing * (lines.size - 1)
     val maxWidth = lines.maxOfOrNull { textWidth(it) } ?: 0f
     return maxWidth to totalTextHeight + totalSpacing
+}
+
+fun NavController.navigateWithAnimation(@IdRes resId: Int, args: Bundle? = null) {
+    try {
+        val options = NavOptions.Builder()
+            .setEnterAnim(R.anim.slide_in_right)
+            .setExitAnim(R.anim.slide_out_left)
+            .setPopEnterAnim(R.anim.slide_in_left)
+            .setPopExitAnim(R.anim.slide_out_right)
+            .build()
+        navigate(resId, args, options)
+    } catch (e: Exception) {
+        // If for some reason the animation fails, just navigate without it
+        navigate(resId, args)
+    }
 }

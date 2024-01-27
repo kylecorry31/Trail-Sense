@@ -16,10 +16,6 @@
             app:key="@string/pref_sensor_settings"
             app:title="@string/sensors" />
         <Preference
-            app:icon="@drawable/ic_tool_battery"
-            app:key="@string/pref_power_settings"
-            app:title="@string/power" />
-        <Preference
             app:icon="@drawable/ic_visible"
             app:key="@string/pref_privacy_settings"
             app:title="@string/privacy" />
@@ -40,6 +36,7 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:singleLineTitle="false"
+        app:key="@string/pref_tool_category_holder_key"
         app:title="@string/tools">
 
         <Preference
@@ -47,66 +44,6 @@
             app:key="@string/pref_tool_quick_action_header_key"
             app:singleLineTitle="false"
             app:title="@string/tool_quick_actions" />
-
-        <Preference
-            app:icon="@drawable/ic_compass_icon"
-            app:key="@string/pref_navigation_header_key"
-            app:singleLineTitle="false"
-            app:title="@string/navigation" />
-
-        <Preference
-            app:icon="@drawable/ic_tool_backtrack"
-            app:key="@string/pref_paths_header_key"
-            app:singleLineTitle="false"
-            app:title="@string/paths" />
-
-        <Preference
-            app:icon="@drawable/maps"
-            app:key="@string/pref_maps_header_key"
-            app:singleLineTitle="false"
-            app:title="@string/photo_maps" />
-
-        <Preference
-            app:icon="@drawable/cloud"
-            app:key="@string/pref_weather_category"
-            app:singleLineTitle="false"
-            app:title="@string/weather" />
-
-        <Preference
-            app:icon="@drawable/ic_astronomy"
-            app:key="@string/pref_astronomy_category"
-            app:singleLineTitle="false"
-            app:title="@string/astronomy" />
-
-        <Preference
-            app:icon="@drawable/flashlight"
-            app:key="@string/pref_flashlight_settings"
-            app:singleLineTitle="false"
-            app:title="@string/flashlight_title" />
-
-        <Preference
-            app:icon="@drawable/clinometer"
-            app:key="@string/pref_clinometer_settings"
-            app:singleLineTitle="false"
-            app:title="@string/clinometer_title" />
-
-        <Preference
-            android:key="@string/pref_odometer_calibration"
-            android:title="@string/pedometer"
-            app:icon="@drawable/steps"
-            app:singleLineTitle="false" />
-
-        <Preference
-            app:icon="@drawable/ic_tide_table"
-            app:key="@string/pref_tide_settings"
-            app:singleLineTitle="false"
-            app:title="@string/tides" />
-
-        <Preference
-            app:icon="@drawable/ic_camera"
-            app:key="@string/pref_augmented_reality_settings"
-            app:singleLineTitle="false"
-            app:title="@string/augmented_reality" />
 
     </PreferenceCategory>
 

@@ -169,7 +169,7 @@ class MainActivity : AndromedaActivity() {
             bottomNavigation.selectedItemId = R.id.action_experimental_tools
             val intentUri = intent.clipData?.getItemAt(0)?.uri
             val bundle = bundleOf("map_intent_uri" to intentUri)
-            navController.navigate(R.id.action_tools_to_maps_list, bundle)
+            navController.navigate(R.id.mapListFragment, bundle)
         }
     }
 

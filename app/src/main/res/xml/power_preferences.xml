@@ -4,7 +4,7 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:singleLineTitle="false"
-        app:title="@string/power">
+        app:title="@string/tool_battery_title">
 
         <SwitchPreferenceCompat
             android:summary="@string/pref_low_power_mode_summary"

@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.database.Identifiable
 import com.kylecorry.trail_sense.shared.extensions.isDebug
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 
 data class Tool(
     override val id: Long,
@@ -40,6 +41,7 @@ object Tools {
         val hasPedometer = Sensors.hasSensor(context, Sensor.TYPE_STEP_COUNTER)
         val hasCompass = SensorService(context).hasCompass()
         val hasBarometer = Sensors.hasBarometer(context)
+        val hasFlashlight = FlashlightSubsystem.getInstance(context).isAvailable()
         val prefs = UserPreferences(context)
 
         return listOfNotNull(
@@ -47,16 +49,17 @@ object Tools {
                 FLASHLIGHT,
                 context.getString(R.string.flashlight_title),
                 R.drawable.flashlight,
-                R.id.action_action_experimental_tools_to_fragmentToolFlashlight,
+                R.id.fragmentToolFlashlight,
                 ToolCategory.Signaling,
                 guideId = R.raw.guide_tool_flashlight,
-                settingsNavAction = R.id.flashlightSettingsFragment
+                // The only settings available are for the physical flashlight
+                settingsNavAction = if (hasFlashlight) R.id.flashlightSettingsFragment else null
             ),
             Tool(
                 WHISTLE,
                 context.getString(R.string.tool_whistle_title),
                 R.drawable.ic_tool_whistle,
-                R.id.action_action_experimental_tools_to_toolWhistleFragment,
+                R.id.toolWhistleFragment,
                 ToolCategory.Signaling,
                 guideId = R.raw.guide_tool_whistle
             ),
@@ -64,16 +67,15 @@ object Tools {
                 RULER,
                 context.getString(R.string.tool_ruler_title),
                 R.drawable.ruler,
-                R.id.action_action_experimental_tools_to_rulerFragment,
+                R.id.rulerFragment,
                 ToolCategory.Distance,
-                guideId = R.raw.guide_tool_ruler,
-                settingsNavAction = R.id.sensorSettingsFragment
+                guideId = R.raw.guide_tool_ruler
             ),
             if (hasPedometer) Tool(
                 PEDOMETER,
                 context.getString(R.string.pedometer),
                 R.drawable.steps,
-                R.id.action_tools_to_pedometer,
+                R.id.fragmentToolPedometer,
                 ToolCategory.Distance,
                 guideId = R.raw.guide_tool_pedometer,
                 settingsNavAction = R.id.calibrateOdometerFragment
@@ -82,7 +84,7 @@ object Tools {
                 CLIFF_HEIGHT,
                 context.getString(R.string.tool_cliff_height_title),
                 R.drawable.ic_tool_cliff_height,
-                R.id.action_action_experimental_tools_to_toolCliffHeightFragment,
+                R.id.toolCliffHeightFragment,
                 ToolCategory.Distance,
                 context.getString(R.string.tool_cliff_height_description),
                 isExperimental = true,
@@ -101,7 +103,7 @@ object Tools {
                 BEACONS,
                 context.getString(R.string.beacons),
                 R.drawable.ic_location,
-                R.id.action_tools_to_beacons,
+                R.id.beacon_list,
                 ToolCategory.Location,
                 guideId = R.raw.guide_tool_beacons
             ),
@@ -109,7 +111,7 @@ object Tools {
                 PHOTO_MAPS,
                 context.getString(R.string.photo_maps),
                 R.drawable.maps,
-                R.id.action_tools_to_maps_list,
+                R.id.mapListFragment,
                 ToolCategory.Location,
                 context.getString(R.string.photo_map_summary),
                 guideId = R.raw.guide_tool_photo_maps,
@@ -119,7 +121,7 @@ object Tools {
                 PATHS,
                 context.getString(R.string.paths),
                 R.drawable.ic_tool_backtrack,
-                R.id.action_action_experimental_tools_to_fragmentBacktrack,
+                R.id.fragmentBacktrack,
                 ToolCategory.Location,
                 guideId = R.raw.guide_tool_paths,
                 settingsNavAction = R.id.pathsSettingsFragment
@@ -128,7 +130,7 @@ object Tools {
                 TRIANGULATE_LOCATION,
                 context.getString(R.string.tool_triangulate_title),
                 R.drawable.ic_tool_triangulate,
-                R.id.action_action_experimental_tools_to_fragmentToolTriangulate,
+                R.id.fragmentToolTriangulate,
                 ToolCategory.Location,
                 guideId = R.raw.guide_tool_triangulate_location
             ),
@@ -136,7 +138,7 @@ object Tools {
                 CLINOMETER,
                 context.getString(R.string.clinometer_title),
                 R.drawable.clinometer,
-                R.id.action_toolsFragment_to_clinometerFragment,
+                R.id.clinometerFragment,
                 ToolCategory.Angles,
                 context.getString(R.string.tool_clinometer_summary),
                 guideId = R.raw.guide_tool_clinometer,
@@ -146,7 +148,7 @@ object Tools {
                 BUBBLE_LEVEL,
                 context.getString(R.string.tool_bubble_level_title),
                 R.drawable.level,
-                R.id.action_action_experimental_tools_to_levelFragment,
+                R.id.levelFragment,
                 ToolCategory.Angles,
                 context.getString(R.string.tool_bubble_level_summary),
                 guideId = R.raw.guide_tool_bubble_level
@@ -155,7 +157,7 @@ object Tools {
                 CLOCK,
                 context.getString(R.string.tool_clock_title),
                 R.drawable.ic_tool_clock,
-                R.id.action_action_experimental_tools_to_toolClockFragment,
+                R.id.toolClockFragment,
                 ToolCategory.Time,
                 guideId = R.raw.guide_tool_clock
             ),
@@ -172,7 +174,7 @@ object Tools {
                 WATER_BOIL_TIMER,
                 context.getString(R.string.water_boil_timer),
                 R.drawable.ic_tool_boil_done,
-                R.id.action_action_experimental_tools_to_waterPurificationFragment,
+                R.id.waterPurificationFragment,
                 ToolCategory.Time,
                 context.getString(R.string.tool_boil_summary),
                 guideId = R.raw.guide_tool_water_boil_timer
@@ -181,7 +183,7 @@ object Tools {
                 TIDES,
                 context.getString(R.string.tides),
                 R.drawable.ic_tide_table,
-                R.id.action_toolsFragment_to_tidesFragment,
+                R.id.tidesFragment,
                 ToolCategory.Time,
                 guideId = R.raw.guide_tool_tides,
                 settingsNavAction = R.id.tideSettingsFragment
@@ -190,7 +192,7 @@ object Tools {
                 BATTERY,
                 context.getString(R.string.tool_battery_title),
                 R.drawable.ic_tool_battery,
-                R.id.action_action_experimental_tools_to_fragmentToolBattery,
+                R.id.fragmentToolBattery,
                 ToolCategory.Power,
                 guideId = R.raw.guide_tool_battery,
                 settingsNavAction = R.id.powerSettingsFragment
@@ -199,7 +201,7 @@ object Tools {
                 SOLAR_PANEL_ALIGNER,
                 context.getString(R.string.tool_solar_panel_title),
                 R.drawable.ic_tool_solar_panel,
-                R.id.action_action_experimental_tools_to_fragmentToolSolarPanel,
+                R.id.fragmentToolSolarPanel,
                 ToolCategory.Power,
                 context.getString(R.string.tool_solar_panel_summary),
                 guideId = R.raw.guide_tool_solar_panel_aligner
@@ -208,7 +210,7 @@ object Tools {
                 LIGHT_METER,
                 context.getString(R.string.tool_light_meter_title),
                 R.drawable.flashlight,
-                R.id.action_toolsFragment_to_toolLightFragment,
+                R.id.toolLightFragment,
                 ToolCategory.Power,
                 context.getString(R.string.guide_light_meter_description),
                 guideId = R.raw.guide_tool_light_meter
@@ -226,7 +228,7 @@ object Tools {
                 CLIMATE,
                 context.getString(R.string.tool_climate),
                 R.drawable.ic_temperature_range,
-                R.id.action_toolsFragment_to_toolClimate,
+                R.id.climateFragment,
                 ToolCategory.Weather,
                 context.getString(R.string.tool_climate_summary),
                 guideId = R.raw.guide_tool_climate
@@ -235,7 +237,7 @@ object Tools {
                 TEMPERATURE_ESTIMATION,
                 context.getString(R.string.tool_temperature_estimation_title),
                 R.drawable.thermometer,
-                R.id.action_tools_to_temperature_estimation,
+                R.id.temperatureEstimationFragment,
                 ToolCategory.Weather,
                 context.getString(R.string.tool_temperature_estimation_description),
                 guideId = R.raw.guide_tool_temperature_estimation
@@ -244,7 +246,7 @@ object Tools {
                 CLOUDS,
                 context.getString(R.string.clouds),
                 R.drawable.ic_tool_clouds,
-                R.id.action_action_experimental_tools_to_cloudFragment,
+                R.id.cloudFragment,
                 ToolCategory.Weather,
                 guideId = R.raw.guide_tool_clouds
             ),
@@ -252,7 +254,7 @@ object Tools {
                 LIGHTNING_STRIKE_DISTANCE,
                 context.getString(R.string.tool_lightning_title),
                 R.drawable.ic_torch_on,
-                R.id.action_action_experimental_tools_to_fragmentToolLightning,
+                R.id.fragmentToolLightning,
                 ToolCategory.Weather,
                 context.getString(R.string.tool_lightning_description),
                 guideId = R.raw.guide_tool_lightning_strike_distance
@@ -261,7 +263,7 @@ object Tools {
                 AUGMENTED_REALITY,
                 context.getString(R.string.augmented_reality),
                 R.drawable.ic_camera,
-                R.id.action_tools_to_augmented_reality,
+                R.id.augmentedRealityFragment,
                 ToolCategory.Other,
                 context.getString(R.string.augmented_reality_description),
                 isExperimental = true,
@@ -272,7 +274,7 @@ object Tools {
                 CONVERT,
                 context.getString(R.string.convert),
                 R.drawable.ic_tool_distance_convert,
-                R.id.action_toolsFragment_to_toolConvertFragment,
+                R.id.toolConvertFragment,
                 ToolCategory.Other,
                 guideId = R.raw.guide_tool_convert
             ),
@@ -280,7 +282,7 @@ object Tools {
                 PACKING_LISTS,
                 context.getString(R.string.packing_lists),
                 R.drawable.ic_tool_pack,
-                R.id.action_action_experimental_tools_to_action_inventory,
+                R.id.packListFragment,
                 ToolCategory.Other,
                 guideId = R.raw.guide_tool_packing_lists
             ),
@@ -288,7 +290,7 @@ object Tools {
                 METAL_DETECTOR,
                 context.getString(R.string.tool_metal_detector_title),
                 R.drawable.ic_tool_metal_detector,
-                R.id.action_action_experimental_tools_to_fragmentToolMetalDetector,
+                R.id.fragmentToolMetalDetector,
                 ToolCategory.Other,
                 guideId = R.raw.guide_tool_metal_detector
             ) else null,
@@ -296,7 +298,7 @@ object Tools {
                 WHITE_NOISE,
                 context.getString(R.string.tool_white_noise_title),
                 R.drawable.ic_tool_white_noise,
-                R.id.action_action_experimental_tools_to_fragmentToolWhiteNoise,
+                R.id.fragmentToolWhiteNoise,
                 ToolCategory.Other,
                 context.getString(R.string.tool_white_noise_summary),
                 guideId = R.raw.guide_tool_white_noise
@@ -305,7 +307,7 @@ object Tools {
                 NOTES,
                 context.getString(R.string.tool_notes_title),
                 R.drawable.ic_tool_notes,
-                R.id.action_action_experimental_tools_to_fragmentToolNotes,
+                R.id.fragmentToolNotes,
                 ToolCategory.Other,
                 guideId = R.raw.guide_tool_notes
             ),
@@ -313,7 +315,7 @@ object Tools {
                 QR_CODE_SCANNER,
                 context.getString(R.string.qr_code_scanner),
                 R.drawable.ic_qr_code,
-                R.id.action_tools_to_qr,
+                R.id.scanQrFragment,
                 ToolCategory.Other,
                 guideId = R.raw.guide_tool_qr_code_scanner
             ),
@@ -329,7 +331,7 @@ object Tools {
                 DIAGNOSTICS,
                 context.getString(R.string.diagnostics),
                 R.drawable.ic_alert,
-                R.id.action_tools_to_diagnostics,
+                R.id.diagnosticsFragment,
                 ToolCategory.Other,
                 guideId = R.raw.guide_tool_diagnostics
             ),
@@ -344,7 +346,7 @@ object Tools {
                 USER_GUIDE,
                 context.getString(R.string.tool_user_guide_title),
                 R.drawable.ic_user_guide,
-                R.id.action_action_experimental_tools_to_guideListFragment,
+                R.id.guideListFragment,
                 ToolCategory.Other,
                 context.getString(R.string.tool_user_guide_summary)
             ),
@@ -354,8 +356,7 @@ object Tools {
                 R.drawable.ic_experimental,
                 R.id.experimentationFragment,
                 ToolCategory.Other,
-                isExperimental = true,
-                settingsNavAction = R.id.experimentalSettingsFragment
+                isExperimental = true
             ) else null
         )
     }

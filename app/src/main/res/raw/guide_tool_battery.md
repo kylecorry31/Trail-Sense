@@ -15,7 +15,7 @@ To access system battery settings and usage, click the settings icon in the top-
 ## Power Saving Mode
 By turning on 'Power saving mode', you can reduce the power consumption of Trail Sense by stopping some services, such as Backtrack and Weather, as well as using the black theme. You can activate this by using the 'Power saving mode' switch on the battery tool.
 
-You can configure power saving mode to activate automatically when your battery is low by opening Settings > Power > Enabling 'Automatic power saving'.
+You can configure power saving mode to activate automatically when your battery is low by opening Settings > Battery > Enabling 'Automatic power saving'.
 
 ## Services
 Running services are listed below the battery statistics. You can see how often they are running and how much impact they have on battery life. You can stop a service by clicking the 'X' button next to it.

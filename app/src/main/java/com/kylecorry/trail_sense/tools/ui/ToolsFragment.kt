@@ -17,6 +17,7 @@ import com.kylecorry.trail_sense.databinding.ListItemToolBinding
 import com.kylecorry.trail_sense.quickactions.ToolsQuickActionBinder
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.ui.items.ToolListItem
 import com.kylecorry.trail_sense.tools.ui.items.ToolListItemStyle
@@ -193,7 +194,7 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
             ToolListItemStyle.Tool,
             tool.icon,
             onClick = {
-                findNavController().navigate(tool.navAction)
+                findNavController().navigateWithAnimation(tool.navAction)
             },
             onLongClick = {
                 Pickers.menu(
@@ -225,7 +226,7 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
                         }
 
                         4 -> {
-                            findNavController().navigate(tool.settingsNavAction!!)
+                            findNavController().navigateWithAnimation(tool.settingsNavAction!!)
                         }
                     }
                     true
