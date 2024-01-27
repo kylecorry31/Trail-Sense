@@ -42,17 +42,6 @@
             app:icon="@drawable/signal_cellular_3"
             app:singleLineTitle="false" />
 
-        <EditTextPreference
-            android:inputType="numberDecimal"
-            app:defaultValue="1"
-            app:dialogMessage="@string/pref_ruler_calibration_summary"
-            app:icon="@drawable/ruler"
-            app:key="@string/pref_ruler_calibration"
-            app:min="0"
-            app:singleLineTitle="false"
-            app:title="@string/pref_ruler_calibration_title"
-            app:useSimpleSummaryProvider="true" />
-
         <Preference
             android:key="@string/pref_sensor_details"
             android:title="@string/pref_sensor_details_title"

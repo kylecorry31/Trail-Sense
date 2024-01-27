@@ -125,6 +125,7 @@ class SettingsFragment : AndromedaPreferenceFragment() {
             findPreference<PreferenceCategory>(getString(R.string.pref_tool_category_holder_key))
         val tools = Tools.getTools(requireContext())
         val sortedTools = AlphabeticalToolSort().sort(tools)
+        val primaryColor = Resources.androidTextColorPrimary(requireContext())
         for (tool in sortedTools.first().tools) {
             if (tool.settingsNavAction == null) {
                 continue
@@ -133,7 +134,7 @@ class SettingsFragment : AndromedaPreferenceFragment() {
             preference.title = tool.name
             preference.setIcon(tool.icon)
             preference.icon?.let {
-                Colors.setImageColor(it, Resources.androidTextColorPrimary(requireContext()))
+                Colors.setImageColor(it, primaryColor)
             }
             preference.setOnPreferenceClickListener {
                 findNavController().navigateWithAnimation(tool.settingsNavAction)

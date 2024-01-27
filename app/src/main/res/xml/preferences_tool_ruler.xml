@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/tool_ruler_title">
+
+        <EditTextPreference
+            android:inputType="numberDecimal"
+            app:defaultValue="1"
+            app:dialogMessage="@string/pref_ruler_calibration_summary"
+            app:icon="@drawable/ruler"
+            app:key="@string/pref_ruler_calibration"
+            app:min="0"
+            app:singleLineTitle="false"
+            app:title="@string/pref_ruler_calibration_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+</PreferenceScreen>

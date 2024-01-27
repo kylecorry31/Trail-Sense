@@ -572,6 +572,10 @@
         android:name="com.kylecorry.trail_sense.settings.ui.ExperimentalSettingsFragment"
         android:label="ExperimentalSettingsFragment" />
     <fragment
+        android:id="@+id/toolRulerSettingsFragment"
+        android:name="com.kylecorry.trail_sense.settings.ui.ToolRulerSettingsFragment"
+        android:label="RulerSettingsFragment" />
+    <fragment
         android:id="@+id/sensorSettingsFragment"
         android:name="com.kylecorry.trail_sense.settings.ui.SensorSettingsFragment"
         android:label="SensorSettingsFragment">

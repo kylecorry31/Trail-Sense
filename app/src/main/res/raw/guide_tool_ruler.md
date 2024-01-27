@@ -19,10 +19,10 @@ Most devices correctly report the screen size, but you should compare Trail Sens
 
 If it is not accurate:
 
-1. Open Settings > Sensors > Ruler scale.
+1. Open Settings > Ruler > Ruler scale.
 2. Set the value to 1 and click 'OK'.
 3. Open the Ruler tool and measure 1 inch or 1 centimeter on a physical ruler.
-4. Open Settings > Sensors > Ruler scale.
+4. Open Settings > Ruler > Ruler scale.
 5. Enter what Trail Sense measured for 1 inch or 1 centimeter and click 'OK'.
 
 For example, if Trail Sense reported 1.5 cm when you measured 1 cm on the ruler, enter 1.5 as the ruler scale.
