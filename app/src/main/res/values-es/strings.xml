@@ -1123,4 +1123,9 @@
     <string name="compass_dynamic_colors_summary">Utilice colores dinámicos para los puntos cardinales</string>
     <string name="view_in_3d">Ver en 3D</string>
     <string name="locate">Localizar</string>
+    <string name="fast_path_rendering">Representación rápida de la ruta</string>
+    <string name="fast_path_rendering_summary">Mejora el rendimiento a costa de la apariencia</string>
+    <string name="view_distance">Ver distancia</string>
+    <string name="show_dial_ticks_on_nearby_radar">Mostrar las marcas de las esferas en el radar cercano</string>
+    <string name="show_dial_ticks_on_nearby_radar_summary">Tu dispositivo no tiene brújula, pero aún así puedes ver en qué dirección están las balizas.</string>
 </resources>
