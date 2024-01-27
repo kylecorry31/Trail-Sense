@@ -2,20 +2,19 @@ Explore beyond the reaches of the Internet with Trail Sense.
 
 - Designed for hiking, backpacking, camping, and geocaching
 - Place beacons and navigate to them
+- Use as a compass (only available on devices with a compass sensor)
 - Follow paths
 - Retrace your steps with backtrack
 - Use a photo as a map
 - Plan what to pack
 - Be alerted before the sun sets
-- Predict the weather
+- Predict the weather (only available on devices with a barometer sensor)
 - Use your phone as a flashlight
 - And much more!
 
-Trail Sense is a tool, and just like any other tool that you bring into the wilderness, it's essential to have backup equipment and skills.
+Trail Sense is a tool, and just like any other tool that you bring into the wilderness, it's essential to have backup equipment and skills. This app is intended for information purposes only and the accuracy of the predictions and sensors are determined by a number of factors, including calibration, sensor quality, external sources, etc. Use at your own risk, always have backup tools (ex. compass), and stay safe.
 
 This app also does not, and will never, use the Internet - all information in Trail Sense comes directly from your phone's sensors, and no data will leave Trail Sense.
-
-Trail Sense is a tool that you can use, but not something you should rely on. This app is intended for information purposes only and the accuracy of the predictions and sensors are determined by a number of factors, including calibration, sensor quality, external sources, etc. Use at your own risk, always have backup tools (ex. compass), and stay safe as much as possible.
 
 COMMON ISSUES
 - No compass: If your phone does not have a compass sensor, there is nothing I can do to make it work because that is hardware. You will still be able to use other features of Trail Sense.
