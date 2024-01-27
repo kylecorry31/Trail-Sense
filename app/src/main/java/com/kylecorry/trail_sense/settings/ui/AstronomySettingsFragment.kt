@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.tools.ui.Tools
+import com.kylecorry.trail_sense.tools.tools.ui.Tools
 
 class AstronomySettingsFragment : AndromedaPreferenceFragment() {
 

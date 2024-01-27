@@ -6,7 +6,7 @@ import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.sol.science.astronomy.SunTimesMode
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.tools.ui.Tools
+import com.kylecorry.trail_sense.tools.tools.ui.Tools
 import java.time.LocalDate
 import java.time.LocalTime
 

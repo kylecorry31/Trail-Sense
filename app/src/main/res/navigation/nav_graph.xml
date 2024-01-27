@@ -45,7 +45,7 @@
     </fragment>
     <fragment
         android:id="@+id/action_experimental_tools"
-        android:name="com.kylecorry.trail_sense.tools.ui.ToolsFragment"
+        android:name="com.kylecorry.trail_sense.tools.tools.ui.ToolsFragment"
         android:label="ToolsFragment" />
     <fragment
         android:id="@+id/action_weather"

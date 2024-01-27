@@ -39,8 +39,8 @@ import com.kylecorry.trail_sense.shared.extensions.putLongArray
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sharing.MapSite
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
-import com.kylecorry.trail_sense.tools.ui.Tools
-import com.kylecorry.trail_sense.tools.ui.sort.ToolSortType
+import com.kylecorry.trail_sense.tools.tools.ui.Tools
+import com.kylecorry.trail_sense.tools.tools.ui.sort.ToolSortType
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 import java.time.Duration
 

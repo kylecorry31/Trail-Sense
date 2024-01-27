@@ -36,7 +36,7 @@ import com.kylecorry.trail_sense.astronomy.ui.items.SolarEclipseListItemProducer
 import com.kylecorry.trail_sense.astronomy.ui.items.SunListItemProducer
 import com.kylecorry.trail_sense.databinding.ActivityAstronomyBinding
 import com.kylecorry.trail_sense.main.MainActivity
-import com.kylecorry.trail_sense.quickactions.AstronomyQuickActionBinder
+import com.kylecorry.trail_sense.astronomy.quickactions.AstronomyQuickActionBinder
 import com.kylecorry.trail_sense.shared.ErrorBannerReason
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences

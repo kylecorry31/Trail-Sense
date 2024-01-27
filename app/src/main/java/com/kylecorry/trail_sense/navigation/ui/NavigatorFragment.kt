@@ -59,7 +59,7 @@ import com.kylecorry.trail_sense.navigation.ui.layers.compass.BeaconCompassLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.compass.ICompassView
 import com.kylecorry.trail_sense.navigation.ui.layers.compass.MarkerCompassLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.compass.NavigationCompassLayer
-import com.kylecorry.trail_sense.quickactions.NavigationQuickActionBinder
+import com.kylecorry.trail_sense.navigation.quickactions.NavigationQuickActionBinder
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.FormatService
@@ -82,7 +82,7 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyAccuracyLaye
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyLocationLayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.TideLayerManager
-import com.kylecorry.trail_sense.tools.ui.Tools
+import com.kylecorry.trail_sense.tools.tools.ui.Tools
 import java.time.Duration
 import java.time.Instant
 

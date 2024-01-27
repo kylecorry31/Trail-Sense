@@ -19,7 +19,7 @@ import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityWeatherBinding
-import com.kylecorry.trail_sense.quickactions.WeatherQuickActionBinder
+import com.kylecorry.trail_sense.weather.quickactions.WeatherQuickActionBinder
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.FormatService
