@@ -4,6 +4,8 @@ The Navigation tool can be used to navigate to a beacon, follow a path, or follo
 
 The compass can be used for both orientation and navigation. Your bearing is displayed at the top of the screen.
 
+This feature is not available if your device does not have a compass.
+
 ### Nearby
 
 You can choose to display nearby beacons on the compass. The following settings control the nearby beacons:
@@ -21,6 +23,8 @@ If you have the radar compass enabled, the nearby beacons will be shown on the c
 The radar compass shows nearby beacons, paths, and tides as a map-like radar display. The radar compass is available with nearby beacons enabled. Once nearby beacons are enabled, you can turn on the radar compass using "Settings > Navigation > Show nearby radar compass".
 
 You can pinch to zoom the radar compass, which will change the nearby beacon radius.
+
+If your device does not have a compass, you can still choose to display the compass dial ticks by enabling the Settings > Navigation > 'Show dial ticks on nearby radar' option. Please note, that without a compass sensor, moving your device will not change the direction of the radar compass.
 
 ### Linear Compass
 
