@@ -14,7 +14,6 @@ import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.QuickActionUtils
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.isDebug
@@ -24,6 +23,7 @@ import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.preferences.setupNotificationSetting
 import com.kylecorry.trail_sense.shared.requireMainActivity
+import com.kylecorry.trail_sense.tools.ui.Tools
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherCsvConverter
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
 import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
@@ -70,8 +70,8 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         prefs = userPrefs
         bindPreferences()
 
-        val actions = QuickActionUtils.weather(requireContext())
-        val actionNames = actions.map { QuickActionUtils.getName(requireContext(), it) }
+        val actions = Tools.getQuickActions(requireContext())
+        val actionNames = actions.map { it.name }
         val actionValues = actions.map { it.id.toString() }
 
         prefleftButton?.entries = actionNames.toTypedArray()

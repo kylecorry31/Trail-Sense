@@ -341,23 +341,19 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
         ToolSortType.Category
     )
 
-    var toolQuickActions: List<QuickActionType>
+    var toolQuickActions: List<Int>
         get() {
-            val ids = cache.getIntArray(context.getString(R.string.pref_tool_quick_actions))
-                ?: return listOfNotNull(
-                    if (FlashlightSubsystem.getInstance(context)
-                            .isAvailable()
-                    ) QuickActionType.Flashlight else null,
-                    QuickActionType.Whistle,
-                    QuickActionType.LowPowerMode,
+            return cache.getIntArray(context.getString(R.string.pref_tool_quick_actions))
+                ?: listOfNotNull(
+                    Tools.QUICK_ACTION_FLASHLIGHT,
+                    Tools.QUICK_ACTION_WHISTLE,
+                    Tools.QUICK_ACTION_LOW_POWER_MODE,
                 )
-
-            return ids.mapNotNull { QuickActionType.values().find { q -> q.id == it } }
         }
         set(value) {
             cache.putIntArray(
                 context.getString(R.string.pref_tool_quick_actions),
-                value.map { it.id }
+                value
             )
         }
 

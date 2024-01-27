@@ -19,11 +19,11 @@ import com.kylecorry.trail_sense.navigation.paths.ui.PathSortMethod
 import com.kylecorry.trail_sense.settings.infrastructure.IBeaconPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ICompassStylePreferences
 import com.kylecorry.trail_sense.settings.infrastructure.IMapPreferences
-import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.maps.domain.sort.MapSortMethod
+import com.kylecorry.trail_sense.tools.ui.Tools
 import java.time.Duration
 
 class NavigationPreferences(private val context: Context) : ICompassStylePreferences,
@@ -189,19 +189,18 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         PathSortMethod.MostRecent
     )
 
-    val leftButton: QuickActionType
+    val leftButton: Int
         get() {
             val id = cache.getString(context.getString(R.string.pref_navigation_quick_action_left))
                 ?.toIntCompat()
-            return QuickActionType.values().firstOrNull { it.id == id } ?: QuickActionType.Paths
+            return id ?: Tools.QUICK_ACTION_PATHS
         }
 
-    val rightButton: QuickActionType
+    val rightButton: Int
         get() {
             val id = cache.getString(context.getString(R.string.pref_navigation_quick_action_right))
                 ?.toIntCompat()
-            return QuickActionType.values().firstOrNull { it.id == id }
-                ?: QuickActionType.Maps
+            return id ?: Tools.QUICK_ACTION_MAPS
         }
 
     var speedometerMode by StringEnumPreference(

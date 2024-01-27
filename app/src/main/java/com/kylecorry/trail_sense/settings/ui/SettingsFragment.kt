@@ -16,7 +16,6 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.backup.BackupCommand
 import com.kylecorry.trail_sense.backup.RestoreCommand
-import com.kylecorry.trail_sense.shared.QuickActionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.ActivityUriPicker
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
@@ -100,22 +99,23 @@ class SettingsFragment : AndromedaPreferenceFragment() {
 
 
         onClick(findPreference(getString(R.string.pref_tool_quick_action_header_key))) {
-            val potentialActions = QuickActionUtils.tools(requireContext())
+            val potentialActions = Tools.getQuickActions(requireContext())
+                .filterNot { it.id == Tools.QUICK_ACTION_NONE }
 
             val selected = prefs.toolQuickActions
 
-            val selectedIndices = potentialActions.mapIndexedNotNull { index, quickActionType ->
-                if (selected.contains(quickActionType)) index else null
+            val selectedIndices = potentialActions.mapIndexedNotNull { index, action ->
+                if (selected.contains(action.id)) index else null
             }
 
             Pickers.items(
                 requireContext(),
                 getString(R.string.tool_quick_actions),
-                potentialActions.map { QuickActionUtils.getName(requireContext(), it) },
+                potentialActions.map { it.name },
                 selectedIndices
             ) {
                 if (it != null) {
-                    prefs.toolQuickActions = it.map { potentialActions[it] }
+                    prefs.toolQuickActions = it.map { potentialActions[it].id }
                 }
             }
         }

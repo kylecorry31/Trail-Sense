@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
-import androidx.core.view.marginTop
-import androidx.core.view.updateLayoutParams
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
@@ -66,7 +64,6 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Position
-import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.data.TrackedState
@@ -85,6 +82,7 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyAccuracyLaye
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyLocationLayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.TideLayerManager
+import com.kylecorry.trail_sense.tools.ui.Tools
 import java.time.Duration
 import java.time.Instant
 
@@ -413,10 +411,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         if (sightingCompass?.isRunning() == true) {
             // TODO: Extract this logic to the flashlight (if camera is in use)
-            if (userPrefs.navigation.rightButton == QuickActionType.Flashlight) {
+            if (userPrefs.navigation.rightButton == Tools.QUICK_ACTION_FLASHLIGHT) {
                 binding.navigationTitle.rightButton.isClickable = false
             }
-            if (userPrefs.navigation.leftButton == QuickActionType.Flashlight) {
+            if (userPrefs.navigation.leftButton == Tools.QUICK_ACTION_FLASHLIGHT) {
                 binding.navigationTitle.leftButton.isClickable = false
             }
         }
@@ -424,10 +422,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private fun disableSightingCompass() {
         sightingCompass?.stop()
-        if (userPrefs.navigation.rightButton == QuickActionType.Flashlight) {
+        if (userPrefs.navigation.rightButton == Tools.QUICK_ACTION_FLASHLIGHT) {
             binding.navigationTitle.rightButton.isClickable = true
         }
-        if (userPrefs.navigation.leftButton == QuickActionType.Flashlight) {
+        if (userPrefs.navigation.leftButton == Tools.QUICK_ACTION_FLASHLIGHT) {
             binding.navigationTitle.leftButton.isClickable = true
         }
     }

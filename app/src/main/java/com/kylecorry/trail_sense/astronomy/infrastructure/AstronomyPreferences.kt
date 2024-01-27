@@ -5,8 +5,8 @@ import com.kylecorry.andromeda.core.toIntCompat
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.sol.science.astronomy.SunTimesMode
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.tools.ui.Tools
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -91,20 +91,18 @@ class AstronomyPreferences(private val context: Context) {
         cache.putString("sunset_alert_last_sent_date", date.toString())
     }
 
-    val leftButton: QuickActionType
+    val leftButton: Int
         get() {
             val id = cache.getString(context.getString(R.string.pref_astronomy_quick_action_left))
                 ?.toIntCompat()
-            return QuickActionType.values().firstOrNull { it.id == id }
-                ?: QuickActionType.Flashlight
+            return id ?: Tools.QUICK_ACTION_FLASHLIGHT
         }
 
-    val rightButton: QuickActionType
+    val rightButton: Int
         get() {
             val id = cache.getString(context.getString(R.string.pref_astronomy_quick_action_right))
                 ?.toIntCompat()
-            return QuickActionType.values().firstOrNull { it.id == id }
-                ?: QuickActionType.SunsetAlert
+            return id ?: Tools.QUICK_ACTION_SUNSET_ALERT
         }
 
 }

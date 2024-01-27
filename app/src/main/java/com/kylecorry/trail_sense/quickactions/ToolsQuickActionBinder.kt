@@ -39,7 +39,7 @@ class ToolsQuickActionBinder(
     override fun bind() {
         binding.quickActions.removeAllViews()
 
-        val selected = prefs.toolQuickActions.sortedBy { it.id }
+        val selected = prefs.toolQuickActions.sorted()
 
         binding.quickActions.isVisible = selected.isNotEmpty()
 

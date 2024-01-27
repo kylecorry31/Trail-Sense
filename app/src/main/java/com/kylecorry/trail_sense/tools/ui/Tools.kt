@@ -2,14 +2,35 @@ package com.kylecorry.trail_sense.tools.ui
 
 import android.content.Context
 import android.hardware.Sensor
+import android.widget.ImageButton
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
+import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.quickactions.LowPowerQuickAction
+import com.kylecorry.trail_sense.quickactions.QuickActionBacktrack
+import com.kylecorry.trail_sense.quickactions.QuickActionClimate
+import com.kylecorry.trail_sense.quickactions.QuickActionClouds
+import com.kylecorry.trail_sense.quickactions.QuickActionFlashlight
+import com.kylecorry.trail_sense.quickactions.QuickActionNightMode
+import com.kylecorry.trail_sense.quickactions.QuickActionPaths
+import com.kylecorry.trail_sense.quickactions.QuickActionPedometer
+import com.kylecorry.trail_sense.quickactions.QuickActionPhotoMaps
+import com.kylecorry.trail_sense.quickactions.QuickActionRuler
+import com.kylecorry.trail_sense.quickactions.QuickActionScreenFlashlight
+import com.kylecorry.trail_sense.quickactions.QuickActionSunsetAlert
+import com.kylecorry.trail_sense.quickactions.QuickActionTemperatureEstimation
+import com.kylecorry.trail_sense.quickactions.QuickActionThunder
+import com.kylecorry.trail_sense.quickactions.QuickActionWeatherMonitor
+import com.kylecorry.trail_sense.quickactions.QuickActionWhistle
+import com.kylecorry.trail_sense.quickactions.QuickActionWhiteNoise
+import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.database.Identifiable
 import com.kylecorry.trail_sense.shared.extensions.isDebug
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.views.QuickActionNone
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 
 data class Tool(
@@ -21,8 +42,15 @@ data class Tool(
     val description: String? = null,
     val guideId: Int? = null,
     val isExperimental: Boolean = false,
-    @IdRes val settingsNavAction: Int? = null
+    @IdRes val settingsNavAction: Int? = null,
+    val quickActions: List<ToolQuickAction> = emptyList()
 ) : Identifiable
+
+data class ToolQuickAction(
+    val id: Int,
+    val name: String,
+    val create: (button: ImageButton, fragment: AndromedaFragment) -> QuickActionButton
+)
 
 enum class ToolCategory {
     Signaling,
@@ -53,7 +81,18 @@ object Tools {
                 ToolCategory.Signaling,
                 guideId = R.raw.guide_tool_flashlight,
                 // The only settings available are for the physical flashlight
-                settingsNavAction = if (hasFlashlight) R.id.flashlightSettingsFragment else null
+                settingsNavAction = if (hasFlashlight) R.id.flashlightSettingsFragment else null,
+                quickActions = listOfNotNull(
+                    if (hasFlashlight)
+                        ToolQuickAction(
+                            QUICK_ACTION_FLASHLIGHT,
+                            context.getString(R.string.flashlight_title)
+                        ) { button, fragment -> QuickActionFlashlight(button, fragment) } else null,
+                    ToolQuickAction(
+                        QUICK_ACTION_SCREEN_FLASHLIGHT,
+                        context.getString(R.string.screen_flashlight_full_name)
+                    ) { button, fragment -> QuickActionScreenFlashlight(button, fragment) }
+                )
             ),
             Tool(
                 WHISTLE,
@@ -61,7 +100,13 @@ object Tools {
                 R.drawable.ic_tool_whistle,
                 R.id.toolWhistleFragment,
                 ToolCategory.Signaling,
-                guideId = R.raw.guide_tool_whistle
+                guideId = R.raw.guide_tool_whistle,
+                quickActions = listOf(
+                    ToolQuickAction(
+                        QUICK_ACTION_WHISTLE,
+                        context.getString(R.string.tool_whistle_title)
+                    ) { button, fragment -> QuickActionWhistle(button, fragment) }
+                )
             ),
             Tool(
                 RULER,
@@ -70,7 +115,13 @@ object Tools {
                 R.id.rulerFragment,
                 ToolCategory.Distance,
                 guideId = R.raw.guide_tool_ruler,
-                settingsNavAction = R.id.toolRulerSettingsFragment
+                settingsNavAction = R.id.toolRulerSettingsFragment,
+                quickActions = listOf(
+                    ToolQuickAction(
+                        QUICK_ACTION_RULER,
+                        context.getString(R.string.tool_ruler_title)
+                    ) { button, fragment -> QuickActionRuler(button, fragment) }
+                )
             ),
             if (hasPedometer) Tool(
                 PEDOMETER,
@@ -79,7 +130,13 @@ object Tools {
                 R.id.fragmentToolPedometer,
                 ToolCategory.Distance,
                 guideId = R.raw.guide_tool_pedometer,
-                settingsNavAction = R.id.calibrateOdometerFragment
+                settingsNavAction = R.id.calibrateOdometerFragment,
+                quickActions = listOf(
+                    ToolQuickAction(
+                        QUICK_ACTION_PEDOMETER,
+                        context.getString(R.string.pedometer)
+                    ) { button, fragment -> QuickActionPedometer(button, fragment) }
+                )
             ) else null,
             if (prefs.isCliffHeightEnabled) Tool(
                 CLIFF_HEIGHT,
@@ -116,7 +173,13 @@ object Tools {
                 ToolCategory.Location,
                 context.getString(R.string.photo_map_summary),
                 guideId = R.raw.guide_tool_photo_maps,
-                settingsNavAction = R.id.mapSettingsFragment
+                settingsNavAction = R.id.mapSettingsFragment,
+                quickActions = listOf(
+                    ToolQuickAction(
+                        QUICK_ACTION_MAPS,
+                        context.getString(R.string.photo_maps)
+                    ) { button, fragment -> QuickActionPhotoMaps(button, fragment) }
+                )
             ),
             Tool(
                 PATHS,
@@ -125,7 +188,17 @@ object Tools {
                 R.id.fragmentBacktrack,
                 ToolCategory.Location,
                 guideId = R.raw.guide_tool_paths,
-                settingsNavAction = R.id.pathsSettingsFragment
+                settingsNavAction = R.id.pathsSettingsFragment,
+                quickActions = listOf(
+                    ToolQuickAction(
+                        QUICK_ACTION_PATHS,
+                        context.getString(R.string.paths)
+                    ) { button, fragment -> QuickActionPaths(button, fragment) },
+                    ToolQuickAction(
+                        QUICK_ACTION_BACKTRACK,
+                        context.getString(R.string.backtrack)
+                    ) { button, fragment -> QuickActionBacktrack(button, fragment) }
+                )
             ),
             Tool(
                 TRIANGULATE_LOCATION,
@@ -169,7 +242,17 @@ object Tools {
                 R.id.action_astronomy,
                 ToolCategory.Time,
                 guideId = R.raw.guide_tool_astronomy,
-                settingsNavAction = R.id.astronomySettingsFragment
+                settingsNavAction = R.id.astronomySettingsFragment,
+                quickActions = listOf(
+                    ToolQuickAction(
+                        QUICK_ACTION_SUNSET_ALERT,
+                        context.getString(R.string.sunset_alerts)
+                    ) { button, fragment -> QuickActionSunsetAlert(button, fragment) },
+                    ToolQuickAction(
+                        QUICK_ACTION_NIGHT_MODE,
+                        context.getString(R.string.night)
+                    ) { button, fragment -> QuickActionNightMode(button, fragment) }
+                )
             ),
             Tool(
                 WATER_BOIL_TIMER,
@@ -196,7 +279,13 @@ object Tools {
                 R.id.fragmentToolBattery,
                 ToolCategory.Power,
                 guideId = R.raw.guide_tool_battery,
-                settingsNavAction = R.id.powerSettingsFragment
+                settingsNavAction = R.id.powerSettingsFragment,
+                quickActions = listOf(
+                    ToolQuickAction(
+                        QUICK_ACTION_LOW_POWER_MODE,
+                        context.getString(R.string.pref_low_power_mode_title)
+                    ) { button, fragment -> LowPowerQuickAction(button, fragment) }
+                )
             ),
             if (hasCompass) Tool(
                 SOLAR_PANEL_ALIGNER,
@@ -223,7 +312,13 @@ object Tools {
                 R.id.action_weather,
                 ToolCategory.Weather,
                 guideId = R.raw.guide_tool_weather,
-                settingsNavAction = R.id.weatherSettingsFragment
+                settingsNavAction = R.id.weatherSettingsFragment,
+                quickActions = listOf(
+                    ToolQuickAction(
+                        QUICK_ACTION_WEATHER_MONITOR,
+                        context.getString(R.string.weather_monitor),
+                    ) { button, fragment -> QuickActionWeatherMonitor(button, fragment) }
+                )
             ) else null,
             Tool(
                 CLIMATE,
@@ -232,7 +327,13 @@ object Tools {
                 R.id.climateFragment,
                 ToolCategory.Weather,
                 context.getString(R.string.tool_climate_summary),
-                guideId = R.raw.guide_tool_climate
+                guideId = R.raw.guide_tool_climate,
+                quickActions = listOf(
+                    ToolQuickAction(
+                        QUICK_ACTION_CLIMATE,
+                        context.getString(R.string.tool_climate),
+                    ) { button, fragment -> QuickActionClimate(button, fragment) }
+                )
             ),
             Tool(
                 TEMPERATURE_ESTIMATION,
@@ -241,7 +342,13 @@ object Tools {
                 R.id.temperatureEstimationFragment,
                 ToolCategory.Weather,
                 context.getString(R.string.tool_temperature_estimation_description),
-                guideId = R.raw.guide_tool_temperature_estimation
+                guideId = R.raw.guide_tool_temperature_estimation,
+                quickActions = listOf(
+                    ToolQuickAction(
+                        QUICK_ACTION_TEMPERATURE_ESTIMATION,
+                        context.getString(R.string.tool_temperature_estimation_title),
+                    ) { button, fragment -> QuickActionTemperatureEstimation(button, fragment) }
+                )
             ),
             Tool(
                 CLOUDS,
@@ -249,7 +356,13 @@ object Tools {
                 R.drawable.ic_tool_clouds,
                 R.id.cloudFragment,
                 ToolCategory.Weather,
-                guideId = R.raw.guide_tool_clouds
+                guideId = R.raw.guide_tool_clouds,
+                quickActions = listOf(
+                    ToolQuickAction(
+                        QUICK_ACTION_CLOUDS,
+                        context.getString(R.string.clouds),
+                    ) { button, fragment -> QuickActionClouds(button, fragment) }
+                )
             ),
             Tool(
                 LIGHTNING_STRIKE_DISTANCE,
@@ -258,7 +371,13 @@ object Tools {
                 R.id.fragmentToolLightning,
                 ToolCategory.Weather,
                 context.getString(R.string.tool_lightning_description),
-                guideId = R.raw.guide_tool_lightning_strike_distance
+                guideId = R.raw.guide_tool_lightning_strike_distance,
+                quickActions = listOf(
+                    ToolQuickAction(
+                        QUICK_ACTION_THUNDER,
+                        context.getString(R.string.tool_lightning_title),
+                    ) { button, fragment -> QuickActionThunder(button, fragment) }
+                )
             ),
             if (prefs.isAugmentedRealityEnabled && hasCompass) Tool(
                 AUGMENTED_REALITY,
@@ -302,7 +421,13 @@ object Tools {
                 R.id.fragmentToolWhiteNoise,
                 ToolCategory.Other,
                 context.getString(R.string.tool_white_noise_summary),
-                guideId = R.raw.guide_tool_white_noise
+                guideId = R.raw.guide_tool_white_noise,
+                quickActions = listOf(
+                    ToolQuickAction(
+                        QUICK_ACTION_WHITE_NOISE,
+                        context.getString(R.string.tool_white_noise_title),
+                    ) { button, fragment -> QuickActionWhiteNoise(button, fragment) }
+                )
             ),
             Tool(
                 NOTES,
@@ -362,6 +487,17 @@ object Tools {
         )
     }
 
+    fun getQuickActions(context: Context): List<ToolQuickAction> {
+        val none = ToolQuickAction(
+            QUICK_ACTION_NONE,
+            context.getString(R.string.none)
+        ) { button, fragment ->
+            QuickActionNone(button, fragment)
+        }
+        return listOf(none) + getTools(context).flatMap { it.quickActions }.distinctBy { it.id }
+            .sortedBy { it.id }
+    }
+
     // Tool IDs
     const val FLASHLIGHT = 1L
     const val WHISTLE = 2L
@@ -399,4 +535,24 @@ object Tools {
     const val SETTINGS = 34L
     const val USER_GUIDE = 35L
     const val EXPERIMENTATION = 36L
+
+    // Quick Action IDs
+    const val QUICK_ACTION_NONE = -1
+    const val QUICK_ACTION_PATHS = 0
+    const val QUICK_ACTION_FLASHLIGHT = 1
+    const val QUICK_ACTION_CLOUDS = 2
+    const val QUICK_ACTION_TEMPERATURE_ESTIMATION = 3
+    const val QUICK_ACTION_RULER = 5
+    const val QUICK_ACTION_MAPS = 7
+    const val QUICK_ACTION_WHISTLE = 8
+    const val QUICK_ACTION_WHITE_NOISE = 9
+    const val QUICK_ACTION_LOW_POWER_MODE = 10
+    const val QUICK_ACTION_THUNDER = 11
+    const val QUICK_ACTION_CLIMATE = 12
+    const val QUICK_ACTION_SUNSET_ALERT = 13
+    const val QUICK_ACTION_NIGHT_MODE = 14
+    const val QUICK_ACTION_BACKTRACK = 15
+    const val QUICK_ACTION_WEATHER_MONITOR = 16
+    const val QUICK_ACTION_PEDOMETER = 17
+    const val QUICK_ACTION_SCREEN_FLASHLIGHT = 18
 }

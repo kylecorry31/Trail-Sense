@@ -11,11 +11,11 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.QuickActionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.ui.Tools
 
 class NavigationSettingsFragment : AndromedaPreferenceFragment() {
 
@@ -39,8 +39,8 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
         prefs = userPrefs
         bindPreferences()
 
-        val actions = QuickActionUtils.navigation(requireContext())
-        val actionNames = actions.map { QuickActionUtils.getName(requireContext(), it) }
+        val actions = Tools.getQuickActions(requireContext())
+        val actionNames = actions.map { it.name }
         val actionValues = actions.map { it.id.toString() }
 
         prefLeftButton?.entries = actionNames.toTypedArray()

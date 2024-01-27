@@ -7,9 +7,9 @@ import com.kylecorry.andromeda.core.topics.generic.asLiveData
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.astronomy.infrastructure.receivers.SunsetAlarmReceiver
-import com.kylecorry.trail_sense.shared.QuickActionUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.tools.ui.Tools
 
 class AstronomySettingsFragment : AndromedaPreferenceFragment() {
 
@@ -26,8 +26,8 @@ class AstronomySettingsFragment : AndromedaPreferenceFragment() {
         prefleftButton = list(R.string.pref_astronomy_quick_action_left)
         prefrightButton = list(R.string.pref_astronomy_quick_action_right)
 
-        val actions = QuickActionUtils.astronomy(requireContext())
-        val actionNames = actions.map { QuickActionUtils.getName(requireContext(), it) }
+        val actions = Tools.getQuickActions(requireContext())
+        val actionNames = actions.map { it.name }
         val actionValues = actions.map { it.id.toString() }
 
         prefleftButton?.entries = actionNames.toTypedArray()

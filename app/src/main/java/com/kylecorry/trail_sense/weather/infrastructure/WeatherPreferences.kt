@@ -4,8 +4,8 @@ import android.content.Context
 import com.kylecorry.andromeda.core.toIntCompat
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.QuickActionType
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.tools.ui.Tools
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
@@ -129,19 +129,18 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
             cache.putString(context.getString(R.string.pref_daily_weather_time), value.toString())
         }
 
-    override val leftButton: QuickActionType
+    override val leftButton: Int
         get() {
             val id = cache.getString(context.getString(R.string.pref_weather_quick_action_left))
                 ?.toIntCompat()
-            return QuickActionType.values().firstOrNull { it.id == id } ?: QuickActionType.Clouds
+            return id ?: Tools.QUICK_ACTION_CLOUDS
         }
 
-    override val rightButton: QuickActionType
+    override val rightButton: Int
         get() {
             val id = cache.getString(context.getString(R.string.pref_weather_quick_action_right))
                 ?.toIntCompat()
-            return QuickActionType.values().firstOrNull { it.id == id }
-                ?: QuickActionType.Temperature
+            return id ?: Tools.QUICK_ACTION_TEMPERATURE_ESTIMATION
         }
 
     override val showColoredNotificationIcon: Boolean

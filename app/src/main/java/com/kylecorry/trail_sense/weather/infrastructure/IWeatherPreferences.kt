@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.weather.infrastructure
 
-import com.kylecorry.trail_sense.shared.QuickActionType
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
@@ -23,7 +22,7 @@ interface IWeatherPreferences {
     var dailyWeatherLastSent: LocalDate
     val dailyWeatherIsForTomorrow: Boolean
     var dailyForecastTime: LocalTime
-    val leftButton: QuickActionType
-    val rightButton: QuickActionType
+    val leftButton: Int
+    val rightButton: Int
     val showColoredNotificationIcon: Boolean
 }
