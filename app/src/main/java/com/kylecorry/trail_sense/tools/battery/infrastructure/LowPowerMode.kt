@@ -1,7 +1,8 @@
-package com.kylecorry.trail_sense.shared
+package com.kylecorry.trail_sense.tools.battery.infrastructure
 
 import android.app.Activity
 import android.content.Context
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorIsEnabled

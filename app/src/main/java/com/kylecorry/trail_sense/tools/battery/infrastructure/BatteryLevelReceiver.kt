@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.battery.infrastructure
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.kylecorry.trail_sense.shared.LowPowerMode
 import com.kylecorry.trail_sense.shared.UserPreferences
 
 class BatteryLevelReceiver: BroadcastReceiver() {

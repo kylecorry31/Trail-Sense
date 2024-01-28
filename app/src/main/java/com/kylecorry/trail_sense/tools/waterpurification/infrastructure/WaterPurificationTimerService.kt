@@ -10,7 +10,7 @@ import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.main.NotificationChannels
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.NavigationUtils
+import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import kotlin.math.roundToInt
 
 class WaterPurificationTimerService : AndromedaService() {

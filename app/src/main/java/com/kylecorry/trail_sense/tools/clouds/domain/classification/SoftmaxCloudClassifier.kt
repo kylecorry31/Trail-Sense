@@ -10,7 +10,6 @@ import com.kylecorry.sol.math.statistics.Statistics
 import com.kylecorry.sol.math.statistics.Texture
 import com.kylecorry.sol.math.statistics.TextureFeatures
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
-import com.kylecorry.trail_sense.shared.ClassificationResult
 import com.kylecorry.trail_sense.shared.colors.ColorUtils
 import kotlin.math.sqrt
 

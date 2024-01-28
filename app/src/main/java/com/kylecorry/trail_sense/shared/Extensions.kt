@@ -30,16 +30,6 @@ fun Fragment.requireMainActivity(): MainActivity {
     return requireActivity() as MainActivity
 }
 
-fun IGPS.getPathPoint(pathId: Long): PathPoint {
-    return PathPoint(
-        -1,
-        pathId,
-        location,
-        altitude,
-        time
-    )
-}
-
 fun <T : Identifiable> Array<T>.withId(id: Long): T? {
     return firstOrNull { it.id == id }
 }

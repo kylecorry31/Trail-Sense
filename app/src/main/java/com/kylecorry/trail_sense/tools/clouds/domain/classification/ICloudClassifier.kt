@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.clouds.domain.classification
 
 import android.graphics.Bitmap
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
-import com.kylecorry.trail_sense.shared.ClassificationResult
 
 interface ICloudClassifier {
 
