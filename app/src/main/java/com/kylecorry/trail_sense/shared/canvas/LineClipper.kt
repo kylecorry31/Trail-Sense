@@ -51,6 +51,8 @@ class LineClipper {
         for (idx in filteredIndices) {
             val pixel = pixels[idx]
             val vector = vectors[idx]
+            // Remove points that are NaN
+            if (pixel.x.isNaN() || pixel.y.isNaN()) continue
             // Remove lines that cross the entire screen (because they are behind the camera)
             val isLineInvalid = preventLineWrapping && previous != null &&
                     (pixel.x < minX && previous.x > maxX ||
