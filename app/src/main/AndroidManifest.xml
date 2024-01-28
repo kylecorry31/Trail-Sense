@@ -160,7 +160,7 @@
             android:foregroundServiceType="location" />
 
         <service
-            android:name=".weather.infrastructure.WeatherMonitorService"
+            android:name=".tools.weather.infrastructure.WeatherMonitorService"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="location|specialUse">

@@ -20,6 +20,7 @@ object NotificationChannels {
     const val GROUP_UPDATES = "trail_sense_updates"
     const val GROUP_FLASHLIGHT = "trail_sense_flashlight"
     const val GROUP_WEATHER = "trail_sense_weather"
+    const val GROUP_BACKTRACK = "trail_sense_weather"
     const val GROUP_DAILY_WEATHER = "trail_sense_daily_weather"
     const val GROUP_ASTRONOMY_ALERTS = "trail_sense_astronomy_alerts"
     const val GROUP_STORM = "trail_sense_storm"
