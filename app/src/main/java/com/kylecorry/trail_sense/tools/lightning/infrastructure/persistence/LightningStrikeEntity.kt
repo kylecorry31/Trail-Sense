@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
-import com.kylecorry.trail_sense.shared.database.Identifiable
+import com.kylecorry.trail_sense.shared.data.Identifiable
 import com.kylecorry.trail_sense.tools.lightning.domain.LightningStrike
 import java.time.Instant
 

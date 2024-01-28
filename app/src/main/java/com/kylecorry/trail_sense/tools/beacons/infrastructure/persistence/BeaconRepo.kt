@@ -4,7 +4,7 @@ import android.content.Context
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
-import com.kylecorry.trail_sense.shared.database.AppDatabase
+import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn

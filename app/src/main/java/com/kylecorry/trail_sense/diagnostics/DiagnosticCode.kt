@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.diagnostics
 
-import com.kylecorry.trail_sense.shared.database.Identifiable
+import com.kylecorry.trail_sense.shared.data.Identifiable
 
 // Max ID = 31
 enum class DiagnosticCode(override val id: Long, val severity: Severity): Identifiable {

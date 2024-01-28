@@ -23,7 +23,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
-import com.kylecorry.trail_sense.shared.database.Identifiable
+import com.kylecorry.trail_sense.shared.data.Identifiable
 import kotlin.collections.set
 
 fun Fragment.requireMainActivity(): MainActivity {

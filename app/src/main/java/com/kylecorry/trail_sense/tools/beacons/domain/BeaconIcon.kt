@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.beacons.domain
 
 import androidx.annotation.DrawableRes
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.database.Identifiable
+import com.kylecorry.trail_sense.shared.data.Identifiable
 
 // Last ID: 46
 enum class BeaconIcon(override val id: Long, @DrawableRes val icon: Int) : Identifiable {

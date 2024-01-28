@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.tools.beacons.infrastructure.sort.NameBeaconSor
 import com.kylecorry.trail_sense.tools.beacons.ui.list.IBeaconListItemMapper
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.grouping.picker.GroupablePickers
-import com.kylecorry.trail_sense.shared.lists.GroupListManager
+import com.kylecorry.trail_sense.shared.grouping.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

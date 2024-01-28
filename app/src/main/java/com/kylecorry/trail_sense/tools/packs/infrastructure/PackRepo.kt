@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.packs.infrastructure
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import com.kylecorry.trail_sense.shared.database.AppDatabase
+import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.tools.packs.domain.Pack
 import com.kylecorry.trail_sense.tools.packs.domain.PackItem
 

@@ -12,7 +12,7 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sound.ISoundPlayer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolWhistleBinding
-import com.kylecorry.trail_sense.shared.asSignal
+import com.kylecorry.trail_sense.shared.morse.asSignal
 import com.kylecorry.trail_sense.shared.morse.Signal
 import com.kylecorry.trail_sense.shared.morse.SignalPlayer
 import com.kylecorry.trail_sense.shared.morse.Signals

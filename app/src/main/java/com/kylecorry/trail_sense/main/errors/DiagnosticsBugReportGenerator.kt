@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.errors
+package com.kylecorry.trail_sense.main.errors
 
 import android.content.Context
 import com.kylecorry.andromeda.exceptions.IBugReportGenerator

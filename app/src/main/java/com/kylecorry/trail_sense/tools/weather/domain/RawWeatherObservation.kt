@@ -5,7 +5,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Temperature
-import com.kylecorry.trail_sense.shared.database.Identifiable
+import com.kylecorry.trail_sense.shared.data.Identifiable
 
 data class RawWeatherObservation(
     override val id: Long,

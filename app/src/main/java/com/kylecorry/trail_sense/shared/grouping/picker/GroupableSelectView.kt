@@ -9,7 +9,7 @@ import com.kylecorry.andromeda.views.list.ListItemMapper
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ViewGroupableSelectorBinding
 import com.kylecorry.trail_sense.shared.grouping.Groupable
-import com.kylecorry.trail_sense.shared.lists.GroupListManager
+import com.kylecorry.trail_sense.shared.grouping.lists.GroupListManager
 
 @SuppressLint("ViewConstructor")
 class GroupableSelectView<T : Groupable>(

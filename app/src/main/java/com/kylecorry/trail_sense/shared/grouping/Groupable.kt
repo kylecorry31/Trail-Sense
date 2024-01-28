@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.shared.grouping
 
-import com.kylecorry.trail_sense.shared.database.Identifiable
+import com.kylecorry.trail_sense.shared.data.Identifiable
 
 interface Groupable : Identifiable {
     val parentId: Long?

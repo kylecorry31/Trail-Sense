@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared
+package com.kylecorry.trail_sense.shared.morse
 
 import com.kylecorry.andromeda.sound.ISoundPlayer
 import com.kylecorry.andromeda.torch.ITorch

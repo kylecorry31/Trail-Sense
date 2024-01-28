@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.lists
+package com.kylecorry.trail_sense.shared.grouping.lists
 
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.trail_sense.shared.extensions.onIO

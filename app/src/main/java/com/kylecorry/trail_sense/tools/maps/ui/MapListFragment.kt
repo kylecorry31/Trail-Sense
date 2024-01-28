@@ -22,8 +22,8 @@ import com.kylecorry.trail_sense.shared.extensions.onBackPressed
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
-import com.kylecorry.trail_sense.shared.lists.GroupListManager
-import com.kylecorry.trail_sense.shared.lists.bind
+import com.kylecorry.trail_sense.shared.grouping.lists.GroupListManager
+import com.kylecorry.trail_sense.shared.grouping.lists.bind
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.IMap

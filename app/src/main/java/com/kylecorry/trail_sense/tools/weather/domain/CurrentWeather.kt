@@ -7,7 +7,7 @@ import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
-import com.kylecorry.trail_sense.shared.database.Identifiable
+import com.kylecorry.trail_sense.shared.data.Identifiable
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.PrimaryWeatherSelector
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.arrival.WeatherArrivalTime
 import java.time.Instant

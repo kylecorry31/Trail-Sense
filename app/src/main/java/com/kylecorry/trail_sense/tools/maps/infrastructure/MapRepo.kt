@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.sol.math.geometry.Size
-import com.kylecorry.trail_sense.shared.database.AppDatabase
+import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.MapEntity

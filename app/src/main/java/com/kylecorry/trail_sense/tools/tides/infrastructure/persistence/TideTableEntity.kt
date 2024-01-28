@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.shared.database.Identifiable
+import com.kylecorry.trail_sense.shared.data.Identifiable
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 
 @Entity(tableName = "tide_tables")

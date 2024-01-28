@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.database
+package com.kylecorry.trail_sense.main.persistence
 
 import android.content.Context
 import androidx.work.CoroutineWorker

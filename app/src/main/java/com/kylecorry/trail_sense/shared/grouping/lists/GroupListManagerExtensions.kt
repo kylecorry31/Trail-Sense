@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.lists
+package com.kylecorry.trail_sense.shared.grouping.lists
 
 import android.widget.TextView
 import com.kylecorry.andromeda.core.tryOrLog

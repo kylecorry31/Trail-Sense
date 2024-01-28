@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.io
+package com.kylecorry.trail_sense.tools.maps.infrastructure
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -19,6 +19,10 @@ import com.kylecorry.andromeda.pdf.page
 import com.kylecorry.andromeda.pdf.pages
 import com.kylecorry.andromeda.pdf.viewport
 import com.kylecorry.sol.science.geology.ReferenceEllipsoid
+import com.kylecorry.trail_sense.shared.io.ExportService
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.shared.io.UriPicker
+import com.kylecorry.trail_sense.shared.io.UriService
 import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 

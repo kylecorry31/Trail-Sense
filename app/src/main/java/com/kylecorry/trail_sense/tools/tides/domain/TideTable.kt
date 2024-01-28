@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.tides.domain
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideConstituent
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.shared.database.Identifiable
+import com.kylecorry.trail_sense.shared.data.Identifiable
 
 data class TideTable(
     override val id: Long,

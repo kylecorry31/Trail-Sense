@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.database
+package com.kylecorry.trail_sense.main.persistence
 
 import androidx.room.TypeConverter
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus

@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.paths.ui
 
-import com.kylecorry.trail_sense.shared.database.Identifiable
+import com.kylecorry.trail_sense.shared.data.Identifiable
 
 enum class PathSortMethod(override val id: Long) : Identifiable {
     MostRecent(1),

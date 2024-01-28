@@ -10,7 +10,7 @@ import com.kylecorry.trail_sense.tools.paths.domain.pathsort.NamePathSortStrateg
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.paths.ui.IPathListItemMapper
 import com.kylecorry.trail_sense.shared.grouping.picker.GroupablePickers
-import com.kylecorry.trail_sense.shared.lists.GroupListManager
+import com.kylecorry.trail_sense.shared.grouping.lists.GroupListManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.resume

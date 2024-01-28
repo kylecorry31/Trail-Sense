@@ -8,7 +8,7 @@ import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.files.ZipUtils
 import com.kylecorry.andromeda.preferences.SharedPreferences
 import com.kylecorry.trail_sense.receivers.TrailSenseServiceUtils
-import com.kylecorry.trail_sense.shared.database.AppDatabase
+import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import java.io.File
 

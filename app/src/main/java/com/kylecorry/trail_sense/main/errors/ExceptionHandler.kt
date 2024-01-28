@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.main
+package com.kylecorry.trail_sense.main.errors
 
 import android.util.Log
 import com.kylecorry.andromeda.exceptions.AggregateBugReportGenerator
@@ -9,8 +9,7 @@ import com.kylecorry.andromeda.exceptions.DeviceDetailsBugReportGenerator
 import com.kylecorry.andromeda.exceptions.EmailExceptionHandler
 import com.kylecorry.andromeda.exceptions.StackTraceBugReportGenerator
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.errors.DiagnosticsBugReportGenerator
-import com.kylecorry.trail_sense.shared.errors.FragmentDetailsBugReportGenerator
+import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.extensions.isDebug
 
 object ExceptionHandler {

@@ -5,7 +5,7 @@ import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.science.meteorology.WeatherFront
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.commands.generic.Command
-import com.kylecorry.trail_sense.shared.database.IReadingRepo
+import com.kylecorry.trail_sense.main.persistence.IReadingRepo
 import com.kylecorry.trail_sense.tools.weather.domain.CurrentWeather
 import com.kylecorry.trail_sense.tools.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherPrediction

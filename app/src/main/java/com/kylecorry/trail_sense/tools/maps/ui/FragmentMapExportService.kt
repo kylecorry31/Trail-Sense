@@ -8,7 +8,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.alerts.AlertLoadingIndicator
 import com.kylecorry.trail_sense.shared.io.ExternalUriService
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
-import com.kylecorry.trail_sense.shared.io.MapExportService
+import com.kylecorry.trail_sense.tools.maps.infrastructure.MapExportService
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.commands.ExportMapCommand
 

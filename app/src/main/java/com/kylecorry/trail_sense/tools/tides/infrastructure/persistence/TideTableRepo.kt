@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.tides.infrastructure.persistence
 
 import android.content.Context
 import com.kylecorry.sol.science.oceanography.Tide
-import com.kylecorry.trail_sense.shared.database.AppDatabase
+import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 
 class TideTableRepo private constructor(private val dao: TideTableDao) : ITideTableRepo {

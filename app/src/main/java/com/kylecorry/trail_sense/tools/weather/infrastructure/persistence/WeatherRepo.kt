@@ -6,8 +6,8 @@ import androidx.lifecycle.map
 import com.kylecorry.andromeda.core.topics.ITopic
 import com.kylecorry.andromeda.core.topics.Topic
 import com.kylecorry.sol.units.Reading
-import com.kylecorry.trail_sense.shared.database.AppDatabase
-import com.kylecorry.trail_sense.shared.database.IReadingRepo
+import com.kylecorry.trail_sense.main.persistence.AppDatabase
+import com.kylecorry.trail_sense.main.persistence.IReadingRepo
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.tools.weather.domain.RawWeatherObservation
 import java.time.Duration
