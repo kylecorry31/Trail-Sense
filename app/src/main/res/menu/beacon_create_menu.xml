@@ -14,6 +14,6 @@
         android:icon="@drawable/ic_beacon_group"/>
     <item
         android:id="@+id/action_create_beacon"
-        android:title="@string/beacon_create_beacon"
+        android:title="@string/beacon"
         android:icon="@drawable/ic_location"/>
 </menu>

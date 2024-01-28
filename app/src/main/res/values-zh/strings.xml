@@ -134,8 +134,6 @@
     <string name="direction_north">北</string>
     <string name="duration_minute_format">%d 分钟</string>
     <string name="duration_hour_format">%d 小时</string>
-    <string name="dialog_deny">不，谢谢</string>
-    <string name="dialog_grant">更新设置</string>
     <string name="access_background_location_rationale">Trail Sense 在后台使用位置信息，用于天气检测部分的海平面气压校正以及提供更精确的日落警报。[查看隐私权条款](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">更新定位设置</string>
     <string name="copied_to_clipboard_toast">已复制到剪贴板</string>
@@ -232,7 +230,6 @@
     <string name="tap_sun_moon_hint">点按太阳或月亮了解位置详情</string>
     <string name="no_group">无群组</string>
     <string name="group">群组</string>
-    <string name="beacon_create_beacon">信标</string>
     <string name="beacon_create">创建</string>
     <string name="delete_beacon_group_message">%s 及其所有信标都将被删除。</string>
     <string name="tool_user_guide_summary">一份如何使用 Trail Sense 的指南</string>
@@ -741,7 +738,6 @@
     <string name="precipitation_small_hail">小冰雹</string>
     <string name="precipitation_ice_pellets">冰粒</string>
     <string name="precipitation_snow_grains">雪粒</string>
-    <string name="capture">捕获</string>
     <string name="results">结果</string>
     <string name="precipitation_chance">降水概率：%s</string>
     <string name="take_photo">拍照</string>

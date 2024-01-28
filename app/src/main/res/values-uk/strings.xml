@@ -204,7 +204,6 @@
     <string name="tap_sun_moon_hint">Торкніться Сонця або Місяця, щоб дізнатися про місцеперебування</string>
     <string name="no_group">Немає групи</string>
     <string name="group">Група</string>
-    <string name="beacon_create_beacon">Маячок</string>
     <string name="beacon_create">Створити</string>
     <string name="delete_beacon_group_message">%s і все його маячки будуть видалені.</string>
     <string name="tool_user_guide_summary">Посібник із використання Trail Sense</string>
@@ -545,8 +544,6 @@
     <string name="precise_miles_format">%s миль</string>
     <string name="app_disclaimer_message_title">Відмова від відповідальності / Умови надання послуг</string>
     <string name="disclaimer_message_title">Відмова від відповідальності</string>
-    <string name="dialog_deny">Ні, спасибі</string>
-    <string name="dialog_grant">Оновити налаштування</string>
     <string name="access_background_location">Оновити налаштування місцеперебування</string>
     <string name="copied_to_clipboard_toast">Скопійовано до буфера обміну</string>
     <string name="astronomy">Астрономія</string>
@@ -764,7 +761,6 @@
     <string name="precipitation_snow_pellets">Снігова крупа</string>
     <string name="precipitation_hail">Град</string>
     <string name="precipitation_snow_grains">Снігові зернята</string>
-    <string name="capture">Захоплення</string>
     <string name="results">Підсумки</string>
     <string name="precipitation_small_hail">Дрібний град</string>
     <string name="precipitation_ice_pellets">Льодяна крупа</string>

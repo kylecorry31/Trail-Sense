@@ -755,6 +755,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                 val quantile75 = Statistics.quantile(readings, 0.75f).roundPlaces(2)
                 val quantile90 = Statistics.quantile(readings, 0.9f).roundPlaces(2)
                 onMain {
+                    @Suppress("SetTextI18n")
                     binding.pathsTiming.text = "Mean: $mean\n" +
                             "Stdev: $stdev\n" +
                             "Max: $max\n" +

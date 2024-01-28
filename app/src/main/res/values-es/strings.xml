@@ -140,8 +140,6 @@
     <string name="precise_meters_format">%s m</string>
     <string name="precise_miles_format">%s mi</string>
     <string name="precise_feet_format">%s pies</string>
-    <string name="dialog_deny">No, gracias</string>
-    <string name="dialog_grant">Actualizar ajustes</string>
     <string name="access_background_location_rationale">Trail Sense utiliza datos de localización en segundo plano para calibrar la presión a nivel del mar en la monitorización meteorológica y para proporcionar alertas más precisas sobre la puesta de sol. [Ver la política de privacidad](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Actualizar ajustes de ubicación</string>
     <string name="accuracy_distance_unknown">\?</string>
@@ -197,7 +195,6 @@
     <string name="tap_sun_moon_hint">Tocar sol o luna para detalles de posición</string>
     <string name="no_group">Sin grupo</string>
     <string name="group">Grupo</string>
-    <string name="beacon_create_beacon">Baliza</string>
     <string name="beacon_create">Crear</string>
     <string name="delete_beacon_group_message">%s y todas sus balizas se eliminarán.</string>
     <string name="tool_user_guide_summary">Una guía sobre cómo usar Trail Sense</string>
@@ -603,7 +600,6 @@
     <string name="weather_monitoring_disabled">Monitoreo meteorológico deshabilitado</string>
     <string name="precipitation_drizzle">Llovizna</string>
     <string name="pref_nmea_elevation_summary">Utiliza NMEA (satélite) para corregir las elevaciones, en lugar del modelo incorporado</string>
-    <string name="capture">Capturar</string>
     <string name="duration">Duracion</string>
     <string name="or">o</string>
     <string name="closest">Mas cercano</string>

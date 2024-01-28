@@ -91,8 +91,6 @@
     <string name="weather">Vær</string>
     <string name="navigation">Navigasjon</string>
     <string name="pressure_format">%1$s %2$s</string>
-    <string name="dialog_deny">Nei takk</string>
-    <string name="dialog_grant">Oppdater innstillinger</string>
     <string name="navigation_nearby_category">I nærheten</string>
     <string name="forecasts_category">Værvarsler</string>
     <string name="advanced">Avansert</string>
@@ -539,7 +537,6 @@
     </plurals>
     <string name="no_beacons">Ingen navigeringsmarkører</string>
     <string name="backtrack">Tilbakesporing</string>
-    <string name="beacon_create_beacon">Navigeringsmarkør</string>
     <string name="qr_code">QR-kode</string>
     <string name="pref_experimental_metal_direction_title">Vis retning til metall</string>
     <string name="map_rotate_instructions">Roter til Nord peker opp</string>
@@ -952,7 +949,6 @@
     <string name="delete_map_group_message">%s og alle tilhørende kart blir slettet.</string>
     <string name="blank">Blankt</string>
     <string name="coordinate_format_osgb">OSGB</string>
-    <string name="capture">Registrer</string>
     <string name="activity_recognition">Aktivitetsgjenkjennelse</string>
     <string name="background_location_permission">Posisjon (tillat hele tiden)</string>
     <string name="location_override_resolution">Skru på auto-justering av posisjon i innstillingene.</string>

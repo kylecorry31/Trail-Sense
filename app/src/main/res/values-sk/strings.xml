@@ -48,7 +48,6 @@
     <string name="precise_meters_format">%s m</string>
     <string name="miles_per_hour_format">%.1f mph</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
-    <string name="dialog_deny">Nie, ďakujem</string>
     <string name="copied_to_clipboard_toast">Skopírované do schránky</string>
     <string name="tools">Nástroje</string>
     <string name="astronomy">Astronómia</string>

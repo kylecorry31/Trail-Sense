@@ -242,7 +242,6 @@
     <string name="tap_sun_moon_hint">Pozisyon detayları için aya veya güneşe dokunun</string>
     <string name="no_group">Grup yok</string>
     <string name="group">Grup</string>
-    <string name="beacon_create_beacon">İşaret</string>
     <string name="beacon_create">Oluştur</string>
     <string name="tool_user_guide_summary">Trail Sense için kullanım kılavuzu</string>
     <string name="tool_user_guide_title">Kullanım Kılavuzu</string>
@@ -461,8 +460,6 @@
     <string name="precise_feet_format">%s ft</string>
     <string name="app_disclaimer_message_title">Sorumluluk reddi / Hizmet kullanım şartları</string>
     <string name="disclaimer_message_title">Sorumluluk reddi</string>
-    <string name="dialog_deny">Hayır, teşekkürler</string>
-    <string name="dialog_grant">Ayarları güncelle</string>
     <string name="access_background_location">Konum bilgisini güncelle</string>
     <string name="copied_to_clipboard_toast">Panoya kopyalandı</string>
     <string name="tools">Araçlar</string>
@@ -727,7 +724,6 @@
     <string name="precipitation_drizzle">Çisenti</string>
     <string name="precipitation_snow">Kar</string>
     <string name="results">Sonuçlar</string>
-    <string name="capture">Yakala</string>
     <string name="take_photo">Fotoğraf çek</string>
     <string name="or">Veya</string>
     <string name="no_camera_access">Kameraya erişilemiyor</string>

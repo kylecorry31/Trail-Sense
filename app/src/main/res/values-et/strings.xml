@@ -4,8 +4,6 @@
     <string name="tools">Tarvikud</string>
     <string name="copied_to_clipboard_toast">Kopeeritud lõikelauale</string>
     <string name="access_background_location">Värskenda asukohaseadistusi</string>
-    <string name="dialog_grant">Uuenda seadistusi</string>
-    <string name="dialog_deny">Tänan, ei</string>
     <string name="disclaimer_message_title">Vastutusnõue</string>
     <string name="app_disclaimer_message_title">Vastutusnõue / Kasutustingimused</string>
     <string name="precise_miles_format">%s mi</string>

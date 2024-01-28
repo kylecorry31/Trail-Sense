@@ -105,11 +105,9 @@
     <string name="altimeter_mode_gps_barometer">GPS + Βαρόμετρο</string>
     <string name="soon">Σύντομα</string>
     <string name="new_moon">Νουμηνία</string>
-    <string name="dialog_deny">Όχι ευχαριστώ</string>
     <string name="location">Τοποθεσία</string>
     <string name="very_soon">Πολύ σύντομα</string>
     <string name="tomorrow">Αύριο</string>
-    <string name="dialog_grant">Ενημέρωση ρυθμίσεων</string>
     <string name="direction_south">Ν</string>
     <string name="request_permission">Ζητήστε την άδεια</string>
     <string name="compass_azimuth">Αζιμούθιο</string>
@@ -392,7 +390,6 @@
     <string name="new_packing_list">Νέα λίστα συσκευασίας</string>
     <string name="error_importing_map">Σφάλμα κατά την εισαγωγή χάρτη</string>
     <string name="milliliter_format">%s ml</string>
-    <string name="beacon_create_beacon">Τοπόσημο</string>
     <string name="sun_nautical">Ναυτική</string>
     <string name="guide_recommended_apps_description">Χρήσιμες εφαρμογές για καταστάσεις επιβίωσης</string>
     <string name="grant_permission">Χορήγηση άδειας για %s</string>

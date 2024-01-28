@@ -61,7 +61,6 @@
     <string name="duration_hour_format">%dó</string>
     <string name="miles_per_hour_format">%.1f mérf./h</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
-    <string name="dialog_deny">Nem, köszönöm</string>
     <string name="access_background_location">Tartózkodási hely beállítások frissítése</string>
     <string name="copied_to_clipboard_toast">Vágólapra másolva</string>
     <string name="tools">Eszközök</string>
@@ -279,7 +278,6 @@
     <string name="simplify">Egyszerűsítés</string>
     <string name="simplifying">Egyszerűsítés</string>
     <string name="tool_boil_summary">Állapítsd meg, mikor iható a víz</string>
-    <string name="dialog_grant">Beállítások frissítése</string>
     <string name="precise_feet_format">%s láb</string>
     <string name="precise_nautical_miles_format">%s teng. mérf.</string>
     <string name="disclaimer_message_title">Felelősségi Nyilatkozat</string>
@@ -288,7 +286,6 @@
     <string name="true_north">Valós Észak</string>
     <string name="compass_auto_declination">Elhajlás automatikus állítása</string>
     <string name="pref_num_visible_beacons_title">Közeli jelzőpontok</string>
-    <string name="beacon_create_beacon">Jelzőpont</string>
     <string name="tool_cliff_height_disclaimer">Csak akkor használd ezt az eszközt, ha biztonságos, és ellenőrizd a szakadék alját a sérülések elkerülése érdekében. Utasításokért lásd a felhasználói útmutatót.</string>
     <string name="unit_feet">Láb</string>
     <string name="gps_user">Felhasználó</string>
@@ -547,7 +544,6 @@
     <string name="precipitation_small_hail">Apró jégeső</string>
     <string name="precipitation_ice_pellets">Jégdara</string>
     <string name="precipitation_snow_grains">Szemcsés Hó</string>
-    <string name="capture">Felvétel</string>
     <string name="results">Eredmények</string>
     <string name="precipitation_chance">Csapadék valószínűsége: %s</string>
     <string name="choose_photo">Fénykép kiválasztása</string>

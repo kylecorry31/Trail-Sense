@@ -3,7 +3,6 @@
     <string name="tools">架生</string>
     <string name="copied_to_clipboard_toast">複製咗去剪貼簿</string>
     <string name="access_background_location">更新定位設定</string>
-    <string name="dialog_grant">更新設定</string>
     <string name="navigation">定向</string>
     <string name="weather">氣象</string>
     <string name="astronomy">天文</string>
@@ -665,7 +664,6 @@
     <string name="pref_adjust_for_temperature_summary">海平面氣壓換算時計入氣溫</string>
     <string name="pref_show_linear_compass_summary">當部機打直拎起時</string>
     <string name="always">幾時都係</string>
-    <string name="beacon_create_beacon">地標</string>
     <string name="coordinate_input_invalid_location">位置無效</string>
     <string name="tool_thermometer_title">溫度計</string>
     <string name="guide_barometer_calibration_title">氣壓計校正</string>
@@ -695,7 +693,6 @@
     <string name="weather_warm_front">暖鋒</string>
     <string name="map_is_not_calibrated">地圖未校正</string>
     <string name="print">列印</string>
-    <string name="dialog_deny">係噉先啦</string>
     <string name="notification_weather_update_title">氣象監測更新</string>
     <string name="notification_weather_update_content">紀錄緊氣壓</string>
     <string name="access_background_location_rationale">Trail Sense 會喺幕後用到位置資料，喺氣象監測入面用嚟做海平面氣壓校正，同埋挺日落警示更加之準。[查閱私隱政策](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>

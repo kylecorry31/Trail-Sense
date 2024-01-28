@@ -55,8 +55,6 @@
     <string name="pressure_12_hours">12 sati</string>
     <string name="pressure_4_hours">4 sata</string>
     <string name="pref_pressure_history_title">Istorija pritiska</string>
-    <string name="dialog_deny">Ne hvala</string>
-    <string name="dialog_grant">Ažuriraj postavke</string>
     <string name="access_background_location_rationale">Trail Sense koristi podatke o lokaciji u pozadini. Koristi se za kalibraciju pritiska na razini mora u praćenju vremena i za pružanje preciznijih upozorenja o zalasku sunca. [Pogledajte Politiku Privatnosti](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Ažurirajte postavke lokacije</string>
     <string name="copied_to_clipboard_toast">Kopirano u međuspremnik</string>
@@ -452,7 +450,6 @@
     <string name="tap_sun_moon_hint">Za detalje položaja dodirnite sunce ili mjesec</string>
     <string name="no_group">Bez grupe</string>
     <string name="group">Grupa</string>
-    <string name="beacon_create_beacon">Svjetionik</string>
     <string name="beacon_create">Napravi</string>
     <string name="delete_beacon_group_message">%s i svi njegovi svjetionici će biti izbrisani.</string>
     <string name="tool_user_guide_summary">Vodič kako koristiti Trail Sense</string>
@@ -685,7 +682,6 @@
     <string name="precipitation_snow">Snijeg</string>
     <string name="precipitation_snow_pellets">Snježne pahuljice</string>
     <string name="precipitation_small_hail">Mali Grad</string>
-    <string name="capture">Snimanje</string>
     <string name="precipitation_chance">Prilike za padavine: %s</string>
     <string name="choose_photo">Odaberite fotografiju</string>
     <string name="notification_backtrack_update_title">Ažuriranje Izatraga</string>

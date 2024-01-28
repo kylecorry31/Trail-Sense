@@ -184,7 +184,6 @@
     <string name="tap_sun_moon_hint">Toque no sol ou na lua para detalhes de posição</string>
     <string name="no_group">Nenhum grupo</string>
     <string name="group">Grupo</string>
-    <string name="beacon_create_beacon">Ponto de orientação</string>
     <string name="beacon_create">Criar</string>
     <string name="delete_beacon_group_message">%s e todos os seus pontos de orientação serão excluídos.</string>
     <string name="tool_user_guide_summary">Um guia de como usar o Trail Sense</string>
@@ -212,8 +211,6 @@
     <string name="sos">SOS</string>
     <string name="tap_to_turn_off">Toque para desligar</string>
     <string name="flashlight_title">Lanterna</string>
-    <string name="dialog_deny">Não, obrigado</string>
-    <string name="dialog_grant">Atualizar as configurações</string>
     <string name="access_background_location_rationale">O Trail Sense utiliza dados de localização em segundo plano. Ele é usado para a calibração da pressão ao nível do mar no monitoramento meteorológico e para fornecer alertas mais precisos do pôr do sol. [Ver política de privacidade](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Atualizar as configurações de localização</string>
     <string name="copied_to_clipboard_toast">Copiado para área de transferência</string>
@@ -781,7 +778,6 @@
     <string name="show">Mostrar</string>
     <string name="humidity">Umidade</string>
     <string name="precipitation_snow">Neve</string>
-    <string name="capture">Capturar</string>
     <string name="results">Resultados</string>
     <string name="precipitation_chance">Chance de precipitação: %s</string>
     <string name="take_photo">Tirar foto</string>

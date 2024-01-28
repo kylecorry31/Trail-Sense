@@ -77,8 +77,6 @@
     <string name="precise_kilometers_format">%s km</string>
     <string name="access_background_location_rationale">Trail Sense usa i dati sulla posizione in background. Sono utilizzati per calibrare la pressione al livello del mare nelle osservazioni meteo e per fornire dati più accurati sulle notifiche sull\'alba. [Informativa sulla Privacy](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Aggiorna le impostazioni di geolocalizzazione</string>
-    <string name="dialog_deny">No grazie</string>
-    <string name="dialog_grant">Aggiorna le impostazioni</string>
     <string name="pref_num_visible_beacons_title">Segnaposto vicini</string>
     <string name="never">Mai</string>
     <string name="tools">Strumenti</string>
@@ -273,7 +271,6 @@
     <string name="tap_sun_moon_hint">Clicca il sole o la luna per dettagli sulla posizione</string>
     <string name="no_group">Nessun gruppo</string>
     <string name="group">Gruppo</string>
-    <string name="beacon_create_beacon">Segnaposto</string>
     <string name="beacon_create">Crea</string>
     <string name="delete_beacon_group_message">%s e tutti I suoi Segnaposto verranno cancellati.</string>
     <string name="tool_user_guide_title">Guida utente</string>
@@ -802,7 +799,6 @@
     <string name="up_to_amount">Fino a %s</string>
     <string name="tilt">Inclina</string>
     <string name="precipitation_hail">Grandine</string>
-    <string name="capture">Acquisisci</string>
     <string name="notification_backtrack_update_content">Acquisizione della tua posizione</string>
     <string name="path">Percorso</string>
     <string name="path_color">Colore del percorso</string>

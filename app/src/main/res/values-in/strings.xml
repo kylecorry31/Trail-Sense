@@ -5,8 +5,6 @@
     <string name="settings">Pengaturan</string>
     <string name="astronomy">Astronomi</string>
     <string name="tools">Alat</string>
-    <string name="dialog_grant">Perbarui pengaturan</string>
-    <string name="dialog_deny">Tidak, terima kasih</string>
     <string name="disclaimer_message_title">Penyangkalan</string>
     <string name="app_disclaimer_message_title">Penyangkalan / Ketentuan Layanan</string>
     <string name="precise_miles_format">%s mil</string>
@@ -286,7 +284,6 @@
     <string name="pref_email_title">Surel pengembang</string>
     <string name="tool_user_guide_title">Panduan pengguna</string>
     <string name="tool_user_guide_summary">Panduan cara menggunakan Trail Sense</string>
-    <string name="beacon_create_beacon">Suar</string>
     <string name="group">Grup</string>
     <string name="navigation_nearby_category">Di sekitar</string>
     <string name="tool_bubble_level_title">Tingkat gelembung</string>
@@ -799,7 +796,6 @@
     <string name="precipitation_none">Tidak ada curah hujan</string>
     <string name="precipitation_small_hail">Hujan Es Kecil</string>
     <string name="precipitation_ice_pellets">Pelet Es</string>
-    <string name="capture">Tangkap</string>
     <string name="notification_weather_update_title">Pembaruan Pantauan Cuaca</string>
     <string name="medium_amount">Sedang (%s)</string>
     <string name="high_amount">Tinggi (%s)</string>

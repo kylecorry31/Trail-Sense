@@ -68,8 +68,6 @@
     <string name="precise_kilometers_format">%s km</string>
     <string name="precise_meters_format">%s m</string>
     <string name="precise_nautical_miles_format">%s nm</string>
-    <string name="dialog_deny">Ei kiitos</string>
-    <string name="dialog_grant">Päivitä asetukset</string>
     <string name="access_background_location_rationale">Trail Sense käyttää sijaintitietoja taustalla. Sitä käytetään merenpinnan kalibrointiin ilmanpaineen sääseurannassa ja tarkempien auringonlaskuhälytysten tarjoamiseksi. [Katso tietosuojakäytäntö] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Sijaintipäivityksen asetukset</string>
     <string name="copied_to_clipboard_toast">Kopioitu leikepöydälle</string>
@@ -231,7 +229,6 @@
     <string name="power">Teho</string>
     <string name="center">Keskipiste</string>
     <string name="pref_keep_map_facing_up_summary">Kartta kohdistetaan näytön yläreunaan todellisen pohjoisen sijaan.</string>
-    <string name="capture">Kaapata</string>
     <string name="tool_lightning_description">Mittaa etäisyys salamaniskusta</string>
     <string name="fields">Kentät</string>
     <string name="moon">Kuu</string>
@@ -480,7 +477,6 @@
     <string name="new_packing_list">Uusi pakkauslista</string>
     <string name="error_importing_map">Virhe kartan tuonnissa</string>
     <string name="until_sunset">auringonlaskuun</string>
-    <string name="beacon_create_beacon">Majakka</string>
     <string name="sensor_gyroscope">Gyroskooppi</string>
     <string name="cold">Kylmä</string>
     <string name="weather_alert_cold_description">Valmistaudu kylmiin lämpötiloihin. Ryhdy ylimääräisiin varotoimiin hypotermiaa ja paleltumia vastaan.</string>

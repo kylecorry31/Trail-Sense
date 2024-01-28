@@ -31,8 +31,6 @@
     <string name="duration_hour_format">%do</string>
     <string name="miles_per_hour_format">%.1f mph</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
-    <string name="dialog_deny">Ez, eskerrik asko</string>
-    <string name="dialog_grant">Ezarpenak eguneratu</string>
     <string name="access_background_location">Kokapen ezarpenak eguneratu</string>
     <string name="copied_to_clipboard_toast">Arbelera kopiatuta</string>
     <string name="tools">Tresnak</string>
@@ -126,7 +124,6 @@
     <string name="forecasts_category">Iragarpenak</string>
     <string name="advanced">Aurreratua</string>
     <string name="group">Taldea</string>
-    <string name="beacon_create_beacon">Baliza</string>
     <string name="beacon_create">Sortu</string>
     <string name="category_safety">Segurtasuna</string>
     <string name="category_shelter">Babeslekua</string>

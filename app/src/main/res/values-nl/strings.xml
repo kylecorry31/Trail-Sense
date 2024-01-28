@@ -179,8 +179,6 @@
     <string name="precise_nautical_miles_format">%s NM</string>
     <string name="precise_miles_format">%s mijl</string>
     <string name="precise_feet_format">%s voet</string>
-    <string name="dialog_deny">Nee bedankt</string>
-    <string name="dialog_grant">Instellingen bijwerken</string>
     <string name="access_background_location_rationale">Trail Sense gebruikt je locatiegegevens op de achtergrond voor het kalibreren van de zeeniveauluchtdrukmeter, voor weeranalyse en om nauwkeurige meldingen voor zonsondergang te geven. [Privacybeleid bekijken](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Locatie-instellingen bijwerken</string>
     <string name="copied_to_clipboard_toast">Naar klembord gekopieerd</string>
@@ -383,7 +381,6 @@
     <string name="tap_sun_moon_hint">Tik op zon of maan voor positiedetails</string>
     <string name="no_group">Geen groep</string>
     <string name="group">Groep</string>
-    <string name="beacon_create_beacon">Baken</string>
     <string name="beacon_create">maken</string>
     <string name="delete_beacon_group_message">%s en al zijn bakens zullen worden verwijderd.</string>
     <string name="tool_user_guide_summary">Een handleiding voor het gebruik van Trail Sense</string>
@@ -935,7 +932,6 @@
     <string name="weather_exported">Weer verzonden</string>
     <string name="season_summer">Zomer</string>
     <string name="pref_show_nearest_tide_title">Toon dichtstbijzijnde getijde</string>
-    <string name="capture">Opname</string>
     <string name="cloud_photo_mask_toast">Op de afbeelding tikken om masker te ver-/onthullen</string>
     <string name="no_camera_access">Kan camera niet bereiken</string>
     <string name="path">Pad</string>

@@ -121,7 +121,6 @@
     <string name="duration_minute_format">%dm</string>
     <string name="duration_hour_format">%dg</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
-    <string name="dialog_deny">Nie, dzięki</string>
     <string name="copied_to_clipboard_toast">Skopiowano do schowka</string>
     <string name="tools">Narzędzia</string>
     <string name="access_background_location_rationale">Trail Sense wykorzystuje dane lokalizacji w tle do kalibracji ciśnienia na poziomie morza, w monitorowaniu pogody i w celu zapewnienia dokładniejszych alertów o zachodzie słońca. [Zobacz politykę prywatności](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
@@ -146,7 +145,6 @@
     <string name="category_hydration">Nawodnienie</string>
     <string name="navigation_nearby_category">W pobliżu</string>
     <string name="forecasts_category">Prognozy</string>
-    <string name="beacon_create_beacon">Punkt nawigacyjny</string>
     <string name="beacon_create">Utwórz</string>
     <string name="tool_user_guide_summary">Poradnik dotyczący korzystania z Trail Sense</string>
     <string name="pref_monitor_weather_title">Monitoruj pogodę</string>
@@ -166,7 +164,6 @@
     <string name="tool_clinometer_summary">Oszacowanie zagrożenia lawinowego i wysokości obiektów</string>
     <string name="sunset_alert_channel_title">Alert o zachodzie słońca</string>
     <string name="sun_up_no_set">Słońce wzeszło</string>
-    <string name="dialog_grant">Aktualizuj ustawienia</string>
     <string name="tool_bubble_level_summary">Sprawdź, czy powierzchnie są płaskie</string>
     <string name="tool_bubble_level_title">Poziomica</string>
     <string name="calibrate_compass_dialog_title">Kalibracja kompasu</string>
@@ -860,7 +857,6 @@
     <string name="simplification_quality">Jakość uproszczenia</string>
     <string name="note">Notatka</string>
     <string name="open">Otwórz</string>
-    <string name="capture">Przechwytywanie</string>
     <string name="notification_weather_update_title">Aktualizacja monitorowania pogody</string>
     <string name="cloud_photo_mask_toast">Stuknij zdjęcie, aby przełączyć maskę</string>
     <string name="beacon">Punkt nawigacyjny</string>

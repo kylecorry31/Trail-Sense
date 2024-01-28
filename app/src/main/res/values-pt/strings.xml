@@ -193,7 +193,6 @@
     <string name="tap_sun_moon_hint">Toque no sol ou na lua para detalhes da posição</string>
     <string name="no_group">Nenhum grupo</string>
     <string name="group">Grupo</string>
-    <string name="beacon_create_beacon">Alfinete</string>
     <string name="beacon_create">Criar</string>
     <string name="delete_beacon_group_message">%s e todos os alfinetes pertencentes serão eliminados.</string>
     <string name="tool_user_guide_summary">Um guia de como usar o Trail Sense</string>
@@ -476,8 +475,6 @@
     <string name="precise_nautical_miles_format">%s nm</string>
     <string name="precise_miles_format">%s mi</string>
     <string name="precise_feet_format">%s pés</string>
-    <string name="dialog_deny">Não, obrigado</string>
-    <string name="dialog_grant">Atualizar configurações</string>
     <string name="access_background_location_rationale">O Trail Sense utiliza dados de localização em segundo plano. Estes são usados para a calibração da pressão ao nível do mar na monitorização meteorológica e para fornecer alertas mais precisos do pôr do sol. [Ver política de privacidade](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Atualizar as configurações de localização</string>
     <plurals name="waypoints_to_be_deleted">
@@ -756,7 +753,6 @@
     <string name="precipitation_small_hail">Granizo pequeno</string>
     <string name="precipitation_snow_grains">Grãos de neve</string>
     <string name="precipitation_ice_pellets">Flocos de gelo</string>
-    <string name="capture">Capturar</string>
     <string name="results">Resultados</string>
     <string name="or">ou</string>
     <string name="notification_weather_update_title">Atualização do monitor de meteorologia</string>

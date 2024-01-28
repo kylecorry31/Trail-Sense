@@ -9,8 +9,6 @@
     <string name="direction_east">מז</string>
     <string name="direction_south">ד</string>
     <string name="direction_north">צ</string>
-    <string name="dialog_deny">לא תודה</string>
-    <string name="dialog_grant">עדכן הגדרות</string>
     <string name="access_background_location">עדכן הגדרות מיקום</string>
     <string name="copied_to_clipboard_toast">הועתק ללוח</string>
     <string name="tools">כלים</string>
@@ -158,7 +156,6 @@
     <string name="precipitation_snow">שלג</string>
     <string name="precipitation_snow_pellets">כדורי שלג</string>
     <string name="precipitation_ice_pellets">כדורי קרח</string>
-    <string name="capture">ללכוד</string>
     <string name="choose_photo">בחר תמונה</string>
     <string name="notification_weather_update_content">רישום הלחץ</string>
     <string name="notification_backtrack_update_content">הקלטת המיקום שלך</string>
@@ -461,7 +458,6 @@
     <string name="water_purification_step_3">הפעל את שעון העצר</string>
     <string name="clock_waiting_for_gps">מעדכן זמן מ-GPS…</string>
     <string name="update_180_minutes">3 שעות</string>
-    <string name="beacon_create_beacon">משואת איתות</string>
     <string name="pref_open_source_licenses_title">רישיונות</string>
     <string name="pref_category_about">אודות</string>
     <string name="water_boil_timer">טיימר להרתחת מים</string>

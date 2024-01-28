@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">Indstillinger</string>
-    <string name="dialog_deny">Nej tak</string>
     <string name="precise_miles_format">%s mil</string>
     <string name="navigation">Navigation</string>
     <string name="astronomy">Astronomi</string>
@@ -79,7 +78,6 @@
     <string name="weather">Vejr</string>
     <string name="access_background_location">Opdater placeringsindstillinger</string>
     <string name="access_background_location_rationale">Trail Sense bruger placeringsdata i baggrunden. De bruges til kalibrering af tryk ved havniveau i vejrovervågning og til at give mere præcise solnedgangsalarmer. [Se fortrolighedspolitik](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
-    <string name="dialog_grant">Opdater indstillinger</string>
     <string name="precise_feet_format">%s fod</string>
     <string name="precise_nautical_miles_format">%s nm</string>
     <string name="direction_south_east">SØ</string>
@@ -350,7 +348,6 @@
     <string name="error_occurred">En fejl opstod</string>
     <string name="error_occurred_message">Trail Sense løb ind i en fejl. Send venligst en email til udvikleren for at få problemet løst.</string>
     <string name="tool_user_guide_title">Brugervejledning</string>
-    <string name="beacon_create_beacon">Beacon</string>
     <string name="delete_path_group_message">%s og alle dens stier vil blive slettet.</string>
     <string name="group">Gruppe</string>
     <string name="category_hydration">Hydrering</string>
@@ -979,7 +976,6 @@
 \n
 \n### Løsning
 \n%4$s</string>
-    <string name="capture">Registrer</string>
     <string name="sort_by">Sorter: %s</string>
     <string name="clinometer_measure_height_instructions">Sådan måles højden af et mål, der er %s væk:
 \n

@@ -69,7 +69,6 @@
     <string name="discharging_slow">Pomalu vybíjeno (%s)</string>
     <string name="charging_slow">Pomalu nabíjeno (%s)</string>
     <string name="charging_fast">Rychle nabíjeno (%s)</string>
-    <string name="dialog_grant">Změnit nastavení</string>
     <string name="access_background_location_rationale">Trail Sense používá polohu na pozadí pro kalibraci tlaku výšky nad mořem v monitoru počasí a pro poskytnutí přesnějších upozornění na západ slunce. [Zobrazit zásady ochrany osobních údajů](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="navigation">Navigace</string>
     <string name="share_action_send">Poslat</string>
@@ -107,7 +106,6 @@
     <string name="precise_nautical_miles_format">%s nm</string>
     <string name="precise_miles_format">%s mi</string>
     <string name="precise_feet_format">%s ft</string>
-    <string name="dialog_deny">Ne, děkuji</string>
     <string name="copied_to_clipboard_toast">Zkopírováno do schránky</string>
     <string name="tools">Nástroje</string>
     <string name="astronomy">Astronomie</string>
@@ -272,7 +270,6 @@
     <string name="update_90_minutes">1 hodina 30 minut</string>
     <string name="pref_open_source_licenses_title">Licence</string>
     <string name="pref_category_about">O aplikaci</string>
-    <string name="beacon_create_beacon">Maják</string>
     <string name="tool_bubble_level_summary">Určete, zda jsou povrchy rovné</string>
     <string name="distance_to">K</string>
     <string name="beacon_create">Vytvořit</string>
@@ -768,7 +765,6 @@
     <string name="lunar_eclipses">Zatmění Měsíce</string>
     <string name="total">Celkové</string>
     <string name="duration_of_charge">Doba nabíjení</string>
-    <string name="capture">Zachytit</string>
     <string name="difficulty">Obtížnost</string>
     <string name="clinometer_measure_distance_instructions">Pro změření vzdálenost od objektu vysokého %s:
 \n

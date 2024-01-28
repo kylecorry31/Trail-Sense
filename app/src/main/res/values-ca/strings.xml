@@ -17,7 +17,6 @@
     <string name="tap_sun_moon_hint">Premeu sol o lluna per obtenir els detalls de posició</string>
     <string name="no_group">Sense grup</string>
     <string name="group">Grup</string>
-    <string name="beacon_create_beacon">Fita</string>
     <string name="beacon_create">Crear</string>
     <string name="delete_beacon_group_message">%s i totes les fites seran eliminades.</string>
     <string name="tool_user_guide_summary">Una guia sobre com utilitzar Trail Sense</string>
@@ -143,8 +142,6 @@
     <string name="precise_feet_format">%s ft</string>
     <string name="app_disclaimer_message_title">Clàusula de protecció / Termes de serveis</string>
     <string name="disclaimer_message_title">Avís legal</string>
-    <string name="dialog_deny">No, gràcies</string>
-    <string name="dialog_grant">Actualitzar ajustaments</string>
     <string name="access_background_location">Actualitzar la configuració de la ubicació</string>
     <string name="copied_to_clipboard_toast">Copiat al portaretalls</string>
     <string name="tools">Eines</string>

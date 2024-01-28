@@ -81,8 +81,6 @@
     <string name="duration_minute_format">%d د</string>
     <string name="access_background_location">حدث إعدادات الموقع</string>
     <string name="access_background_location_rationale">‬هذا التطبيق يستخدم بيانات الموقع في الخلفية. انه يستعملها لمعايرة الضغط الجوي عند مستوى سطح البحر في اداة معاينة الطقس وللحصول على تحذيرات غروب اكثر دقة.[سياسة الخصوصية](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
-    <string name="dialog_grant">حدث الإعدادات</string>
-    <string name="dialog_deny">لا شكراً</string>
     <string name="precise_feet_format">%s ft</string>
     <string name="precise_miles_format">%s ميل</string>
     <string name="elevation_diff_format">%1$s%2$s</string>

@@ -116,7 +116,6 @@
     <string name="direction_north">С</string>
     <string name="kilometers_per_hour_format">%.1f км/ч</string>
     <string name="disclaimer_message_title">Отказ от ответственности</string>
-    <string name="dialog_deny">Нет, спасибо</string>
     <string name="access_background_location">Обновить настройки местоположения</string>
     <string name="copied_to_clipboard_toast">Скопировано в буфер обмена</string>
     <string name="tools">Инструменты</string>
@@ -129,7 +128,6 @@
     <string name="accuracy_distance_format">± %s</string>
     <string name="degree_format">%.0f°</string>
     <string name="access_background_location_rationale">Trail Sense использует данные о местоположении в фоновом режиме. Оно используется для калибровки давления на уровне моря при мониторинге погоды и для обеспечения более точных предупреждений о заходе солнца. [Просмотреть политику конфиденциальности] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
-    <string name="dialog_grant">Обновить настройки</string>
     <string name="duration_minute_format">%dм</string>
     <string name="duration_hour_format">%dч</string>
     <string name="miles_per_hour_format">%.1f миль/ч</string>
@@ -206,7 +204,6 @@
     <string name="tool_user_guide_summary">Руководство по использованию Trail Sense</string>
     <string name="delete_beacon_group_message">%s и все его маячки будут удалены.</string>
     <string name="beacon_create">Создать</string>
-    <string name="beacon_create_beacon">Маячок</string>
     <string name="group">Группа</string>
     <string name="no_group">Не в группе</string>
     <string name="tap_sun_moon_hint">Коснитесь Солнца или Луны, чтобы узнать о местоположении</string>
@@ -763,7 +760,6 @@
     <string name="precipitation_snow_grains">Снежные зерна</string>
     <string name="results">Результат</string>
     <string name="precipitation_none">Без осадков</string>
-    <string name="capture">Снимок</string>
     <string name="precipitation_rain">Дождь</string>
     <string name="precipitation_drizzle">Морось</string>
     <string name="precipitation_snow">Снег</string>

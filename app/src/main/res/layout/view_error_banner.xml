@@ -7,16 +7,16 @@
     android:layout_height="wrap_content"
     android:background="@color/red"
     android:gravity="center_horizontal"
-    android:orientation="horizontal"
     android:minHeight="64dp"
+    android:orientation="horizontal"
     android:padding="4dp">
 
     <ImageView
         android:id="@+id/error_icon"
         android:layout_width="16dp"
         android:layout_height="16dp"
-        android:scaleType="fitCenter"
         android:layout_marginStart="12dp"
+        android:scaleType="fitCenter"
         android:src="@drawable/satellite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,11 +30,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:textColor="@android:color/black"
-        tools:text="@string/location_disabled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/error_action"
         app:layout_constraintStart_toEndOf="@id/error_icon"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/location_disabled" />
 
     <Button
         android:id="@+id/error_action"
@@ -51,9 +51,9 @@
         android:layout_height="32dp"
         android:layout_marginEnd="12dp"
         android:background="@android:color/transparent"
-        android:tint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_cancel" />
+        app:srcCompat="@drawable/ic_cancel"
+        app:tint="@color/black" />
 </androidx.constraintlayout.widget.ConstraintLayout>

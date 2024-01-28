@@ -205,8 +205,6 @@
         <item quantity="other">%d個のビーコン</item>
     </plurals>
     <string name="metal_detector_disclaimer">鉄などの磁性金属のみを検知します</string>
-    <string name="dialog_grant">設定を更新</string>
-    <string name="dialog_deny">結構です</string>
     <string name="disclaimer_message_title">免責事項</string>
     <string name="app_disclaimer_message_title">免責事項／利用規約</string>
     <string name="precise_feet_format">%sフィート</string>
@@ -256,7 +254,6 @@
     </plurals>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
-    <string name="beacon_create_beacon">ビーコン</string>
     <string name="forecasts_category">予報</string>
     <string name="tool_bubble_level_summary">表面が平らかどうかを確かめる</string>
     <string name="category_food">食品</string>
