@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.shared
 
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
-import com.kylecorry.trail_sense.shared.specifications.IsLargeUnitSpecification
 
 fun Distance.toRelativeDistance(threshold: Float = 1000f): Distance {
     val metric = units.isMetric()
@@ -25,5 +24,6 @@ fun DistanceUnits.isMetric(): Boolean {
 }
 
 fun DistanceUnits.isLarge(): Boolean {
-    return IsLargeUnitSpecification().isSatisfiedBy(this)
+    // If it is greater than 100 meters per unit, then it is large
+    return meters > 100f
 }

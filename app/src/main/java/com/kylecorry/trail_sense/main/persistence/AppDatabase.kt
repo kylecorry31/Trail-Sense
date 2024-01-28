@@ -9,19 +9,12 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
+import com.kylecorry.trail_sense.tools.battery.domain.BatteryReadingEntity
+import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryDao
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconDao
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconEntity
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconGroupDao
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconGroupEntity
-import com.kylecorry.trail_sense.tools.paths.domain.WaypointEntity
-import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathDao
-import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathDatabaseMigrationWorker
-import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathEntity
-import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathGroupDao
-import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathGroupEntity
-import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.WaypointDao
-import com.kylecorry.trail_sense.tools.battery.domain.BatteryReadingEntity
-import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryDao
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudReadingDao
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudReadingEntity
 import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningStrikeDao
@@ -37,8 +30,13 @@ import com.kylecorry.trail_sense.tools.packs.infrastructure.PackDao
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackEntity
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackItemDao
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackItemEntity
+import com.kylecorry.trail_sense.tools.paths.domain.WaypointEntity
+import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathDao
+import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathEntity
+import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathGroupDao
+import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathGroupEntity
+import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.WaypointDao
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableDao
-import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableDatabaseMigrationWorker
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableEntity
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableRowEntity
 import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.PressureReadingDao
@@ -200,9 +198,6 @@ abstract class AppDatabase : RoomDatabase() {
             val MIGRATION_17_18 = object : Migration(17, 18) {
                 override fun migrate(database: SupportSQLiteDatabase) {
                     database.execSQL("CREATE TABLE IF NOT EXISTS `paths` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `lineStyle` INTEGER NOT NULL, `pointStyle` INTEGER NOT NULL, `color` INTEGER NOT NULL, `visible` INTEGER NOT NULL, `temporary` INTEGER NOT NULL, `distance` REAL NOT NULL, `numWaypoints` INTEGER NOT NULL, `startTime` INTEGER, `endTime` INTEGER, `north` REAL NOT NULL, `east` REAL NOT NULL, `south` REAL NOT NULL, `west` REAL NOT NULL)")
-                    val request =
-                        OneTimeWorkRequestBuilder<PathDatabaseMigrationWorker>().build()
-                    WorkManager.getInstance(context).enqueue(request)
                 }
             }
 
@@ -231,9 +226,6 @@ abstract class AppDatabase : RoomDatabase() {
                 override fun migrate(database: SupportSQLiteDatabase) {
                     database.execSQL("CREATE TABLE IF NOT EXISTS `tide_tables` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `latitude` REAL, `longitude` REAL)")
                     database.execSQL("CREATE TABLE IF NOT EXISTS `tide_table_rows` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `table_id` INTEGER NOT NULL, `time` INTEGER NOT NULL, `high` INTEGER NOT NULL, `height` REAL)")
-                    val request =
-                        OneTimeWorkRequestBuilder<TideTableDatabaseMigrationWorker>().build()
-                    WorkManager.getInstance(context).enqueue(request)
                 }
             }
 
