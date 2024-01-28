@@ -1101,4 +1101,6 @@
     <string name="fast_path_rendering">快速路径渲染</string>
     <string name="fast_path_rendering_summary">以外观为代价改善性能</string>
     <string name="view_distance">查看距离</string>
+    <string name="show_dial_ticks_on_nearby_radar">在附近雷达上显示刻度 tick</string>
+    <string name="show_dial_ticks_on_nearby_radar_summary">你的设备没有指南针，但你仍能看到什么是方向信标。</string>
 </resources>

@@ -820,7 +820,7 @@
     <string name="disclaimer_estimated_tide_title">Geschatte tij</string>
     <string name="pressure_tendency">Veranderlijkheid</string>
     <string name="distance_alert_distance_reached">U heeft %s bereikt</string>
-    <string name="estimate_stride_length">Schat lengte in van stappen</string>
+    <string name="estimate_stride_length">Lengte van passen inschatten</string>
     <string name="stride_length_stand_still">Stilstaan</string>
     <string name="saved">Opgeslagen</string>
     <string name="stride_length_walk">Loop een rechte lijn, druk stop als u klaar bent</string>
@@ -1115,4 +1115,5 @@
     <string name="view_distance">Kijkafstand</string>
     <string name="fast_path_rendering">Paden snel weergeven</string>
     <string name="fast_path_rendering_summary">Verbeterd prestaties ten koste van uiterlijk</string>
+    <string name="show_dial_ticks_on_nearby_radar_summary">Je apparaat heeft geen kompas, maar je kan nog steeds zien in welke richting bakens zijn.</string>
 </resources>
