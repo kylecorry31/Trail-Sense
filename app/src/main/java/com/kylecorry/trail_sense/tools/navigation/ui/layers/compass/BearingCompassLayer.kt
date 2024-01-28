@@ -14,12 +14,6 @@ class BearingCompassLayer : ICompassLayer {
         }
     }
 
-    fun removeBearing(bearing: IMappableBearing) {
-        synchronized(lock) {
-            bearings.remove(bearing)
-        }
-    }
-
     fun clearBearings() {
         synchronized(lock) {
             bearings.clear()

@@ -17,6 +17,4 @@ data class Note(
     @ColumnInfo(name = "_id")
     var id: Long = 0
 
-    val createdInstant: Instant
-        get() = Instant.ofEpochMilli(createdOn)
 }

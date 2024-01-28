@@ -173,24 +173,6 @@ class AugmentedRealityView : CanvasView {
         orientationSensor.stop(this::onSensorUpdate)
     }
 
-    fun addLayer(layer: ARLayer) {
-        synchronized(layerLock) {
-            layers.add(layer)
-        }
-    }
-
-    fun removeLayer(layer: ARLayer) {
-        synchronized(layerLock) {
-            layers.remove(layer)
-        }
-    }
-
-    fun clearLayers() {
-        synchronized(layerLock) {
-            layers.clear()
-        }
-    }
-
     fun setLayers(layers: List<ARLayer>) {
         synchronized(layerLock) {
             this.layers.clear()
@@ -387,11 +369,6 @@ class AugmentedRealityView : CanvasView {
      */
     fun sizeToPixel(angularSize: Float): Float {
         return (width / fov.width) * angularSize
-    }
-
-    fun sizeToPixel(diameter: Distance, distance: Distance): Float {
-        val angularSize = AugmentedRealityUtils.getAngularSize(diameter, distance)
-        return sizeToPixel(angularSize)
     }
 
     /**

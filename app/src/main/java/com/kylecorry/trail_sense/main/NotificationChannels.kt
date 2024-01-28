@@ -17,14 +17,12 @@ import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseServi
 
 object NotificationChannels {
 
-    const val GROUP_UPDATES = "trail_sense_updates"
     const val GROUP_FLASHLIGHT = "trail_sense_flashlight"
     const val GROUP_WEATHER = "trail_sense_weather"
     const val GROUP_BACKTRACK = "trail_sense_weather"
     const val GROUP_DAILY_WEATHER = "trail_sense_daily_weather"
     const val GROUP_ASTRONOMY_ALERTS = "trail_sense_astronomy_alerts"
     const val GROUP_STORM = "trail_sense_storm"
-    const val GROUP_SUNSET = "trail_sense_sunset"
     const val GROUP_PEDOMETER = "trail_sense_pedometer"
     const val GROUP_WATER = "trail_sense_water"
     const val GROUP_CLOCK = "trail_sense_clock"

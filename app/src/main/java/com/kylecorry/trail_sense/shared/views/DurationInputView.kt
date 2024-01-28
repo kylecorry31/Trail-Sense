@@ -25,7 +25,6 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
 
     private var durationText = "000000"
 
-    private val PLACES_HOURS = 1
     private val PLACES_MINUTES = 3
     private val PLACES_SECONDS = 5
 

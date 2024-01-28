@@ -122,12 +122,6 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         }
     }
 
-    fun quickCapture(onImage: (Bitmap) -> Unit) {
-        synchronized(this) {
-            captureListener = onImage
-        }
-    }
-
     suspend fun capture(file: File): Boolean {
         synchronized(this) {
             if (isCapturing) {
@@ -173,10 +167,6 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
 
     fun setOnZoomChangeListener(listener: ((zoom: Float) -> Unit)?) {
         zoomListener = listener
-    }
-
-    fun setShowZoom(shouldShow: Boolean) {
-        zoomSeek.isVisible = shouldShow
     }
 
     fun setScaleType(type: PreviewView.ScaleType) {

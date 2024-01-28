@@ -57,15 +57,6 @@ class GeographicImageSource(
             }
         }
 
-        fun offsetDecoder(offset: Float): (Int?) -> List<Float> {
-            return {
-                val red = it?.red?.toFloat() ?: 0f
-                val green = it?.green?.toFloat() ?: 0f
-                val blue = it?.blue?.toFloat() ?: 0f
-                val alpha = it?.alpha?.toFloat() ?: 0f
-                listOf(red - offset, green - offset, blue - offset, alpha - offset)
-            }
-        }
     }
 
 }

@@ -39,50 +39,6 @@ class LocationSubsystem private constructor(private val context: Context) {
 
     private val userPrefs by lazy { UserPreferences(context) }
 
-    suspend fun getRawElevationHistory(): List<Reading<Float>> {
-        val fromWeather = weather.getRawHistory().map { Reading(it.value.altitude, it.time) }
-        val backtrack = paths.getRecentAltitudes(
-            Instant.now().minus(maxElevationFilterHistoryDuration)
-        )
-        // TODO: Add current altitude
-        val readings = (fromWeather + backtrack)
-            .sortedBy { it.time }
-            .filter {
-                Duration.between(
-                    it.time,
-                    Instant.now()
-                ) < maxElevationHistoryDuration
-            }
-
-        return readings
-    }
-
-    suspend fun getElevationHistory(): List<Reading<Float>> {
-        val fromWeather = weather.getRawHistory().map { Reading(it.value.altitude, it.time) }
-        val backtrack = paths.getRecentAltitudes(
-            Instant.now().minus(maxElevationFilterHistoryDuration)
-        )
-        // TODO: Add current altitude
-        val readings = (fromWeather + backtrack)
-            .sortedBy { it.time }
-            .filter {
-                Duration.between(
-                    it.time,
-                    Instant.now()
-                ) < maxElevationFilterHistoryDuration
-            }
-
-        val smoothed = DataUtils.smoothTemporal(readings, 0.3f)
-
-        onIO {
-            DebugElevationsCommand(context, readings, smoothed).execute()
-        }
-
-        return smoothed.filter {
-            Duration.between(it.time, Instant.now()).abs() <= maxElevationHistoryDuration
-        }
-    }
-
     private fun isAltimeterOverridden(): Boolean {
         val mode = userPrefs.altimeterMode
         val usesOverride = mode == UserPreferences.AltimeterMode.Override

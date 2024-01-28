@@ -7,12 +7,6 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 object OnboardingPages {
 
-    const val EXPLORE = 0
-    const val USER_GUIDE = 1
-    const val PRIVACY = 2
-    const val DISCLAIMER = 3
-    const val MISSING_COMPASS = 4
-
     fun getPages(context: Context): List<OnboardingPage> {
         return listOfNotNull(
             OnboardingPage(

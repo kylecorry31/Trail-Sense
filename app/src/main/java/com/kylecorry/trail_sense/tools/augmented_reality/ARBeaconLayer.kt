@@ -38,27 +38,6 @@ class ARBeaconLayer(
         }
     }
 
-    fun addBeacon(beacon: Beacon) {
-        synchronized(lock) {
-            beacons.add(beacon)
-            areBeaconsUpToDate = false
-        }
-    }
-
-    fun removeBeacon(beacon: Beacon) {
-        synchronized(lock) {
-            beacons.remove(beacon)
-            areBeaconsUpToDate = false
-        }
-    }
-
-    fun clearBeacons() {
-        synchronized(lock) {
-            beacons.clear()
-            areBeaconsUpToDate = false
-        }
-    }
-
     protected fun finalize() {
         _loader?.clear()
         _loader = null

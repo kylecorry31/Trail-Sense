@@ -20,10 +20,6 @@ class BearingToCompassLayer : ICompassLayer {
         this.color = color
     }
 
-    fun clearDestination(){
-        destination = null
-    }
-
     override fun draw(drawer: ICanvasDrawer, compass: ICompassView) {
         val destination = destination
         var direction = bearing

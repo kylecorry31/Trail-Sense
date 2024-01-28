@@ -26,12 +26,6 @@ class ARMarkerLayer(
         }
     }
 
-    fun removeMarker(marker: ARMarker) {
-        synchronized(lock) {
-            markers.remove(marker)
-        }
-    }
-
     fun clearMarkers() {
         synchronized(lock) {
             markers.clear()

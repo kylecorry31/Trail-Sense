@@ -3,8 +3,6 @@ package com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import com.kylecorry.andromeda.core.topics.ITopic
-import com.kylecorry.andromeda.core.topics.Topic
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.main.persistence.IReadingRepo
@@ -16,14 +14,8 @@ import java.time.Instant
 class LightningRepo private constructor(private val dao: LightningStrikeDao) :
     IReadingRepo<LightningStrike> {
 
-    private val _readingsChanged = Topic()
-    val readingsChanged: ITopic = _readingsChanged
-
     override suspend fun clean() = onIO {
         dao.deleteOlderThan(Instant.now().minus(LIGHTNING_HISTORY_DURATION).toEpochMilli())
-
-        // TODO: Only do this if there was a change
-        _readingsChanged.publish()
     }
 
     override suspend fun add(reading: Reading<LightningStrike>): Long = onIO {
@@ -35,14 +27,12 @@ class LightningRepo private constructor(private val dao: LightningStrikeDao) :
         } else {
             dao.insert(entity)
         }
-        _readingsChanged.publish()
         id
     }
 
     override suspend fun delete(reading: Reading<LightningStrike>) = onIO {
         val entity = LightningStrikeEntity.from(reading)
         dao.delete(entity)
-        _readingsChanged.publish()
     }
 
     override suspend fun get(id: Long): Reading<LightningStrike>? = onIO {

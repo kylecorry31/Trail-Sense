@@ -21,12 +21,6 @@ open class MarkerCompassLayer : ICompassLayer {
         }
     }
 
-    fun removeMarker(marker: IMappableReferencePoint) {
-        synchronized(lock) {
-            markers.removeIf { it.first == marker }
-        }
-    }
-
     fun clearMarkers() {
         synchronized(lock) {
             markers.clear()

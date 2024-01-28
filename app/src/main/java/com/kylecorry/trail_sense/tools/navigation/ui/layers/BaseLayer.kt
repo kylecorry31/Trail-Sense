@@ -19,12 +19,6 @@ open class BaseLayer : ILayer {
         }
     }
 
-    fun removeMarker(marker: MapMarker) {
-        synchronized(lock) {
-            markers.remove(marker)
-        }
-    }
-
     fun clearMarkers() {
         synchronized(lock) {
             markers.clear()
