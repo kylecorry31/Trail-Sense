@@ -5,7 +5,7 @@ import com.kylecorry.andromeda.files.AssetFileSystem
 import com.kylecorry.andromeda.gpx.GPXSerializer
 import com.kylecorry.trail_sense.navigation.domain.hiking.HikingDifficulty
 import com.kylecorry.trail_sense.navigation.domain.hiking.HikingService
-import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
+import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test

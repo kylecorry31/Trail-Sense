@@ -11,11 +11,11 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.BeaconSortMethod
-import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
-import com.kylecorry.trail_sense.navigation.paths.domain.PathPointColoringStyle
-import com.kylecorry.trail_sense.navigation.paths.domain.PathStyle
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.IPathPreferences
-import com.kylecorry.trail_sense.navigation.paths.ui.PathSortMethod
+import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
+import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
+import com.kylecorry.trail_sense.tools.paths.domain.PathStyle
+import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.IPathPreferences
+import com.kylecorry.trail_sense.tools.paths.ui.PathSortMethod
 import com.kylecorry.trail_sense.settings.infrastructure.IBeaconPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ICompassStylePreferences
 import com.kylecorry.trail_sense.settings.infrastructure.IMapPreferences

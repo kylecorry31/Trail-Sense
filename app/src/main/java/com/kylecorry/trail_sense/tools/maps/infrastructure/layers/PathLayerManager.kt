@@ -4,11 +4,11 @@ import android.content.Context
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.navigation.paths.domain.Path
-import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.PathLoader
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
-import com.kylecorry.trail_sense.navigation.paths.ui.asMappable
+import com.kylecorry.trail_sense.tools.paths.domain.Path
+import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
+import com.kylecorry.trail_sense.tools.paths.infrastructure.PathLoader
+import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.tools.paths.ui.asMappable
 import com.kylecorry.trail_sense.navigation.ui.layers.PathLayer
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import kotlinx.coroutines.CoroutineScope

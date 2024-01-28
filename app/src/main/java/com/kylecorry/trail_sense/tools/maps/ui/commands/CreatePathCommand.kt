@@ -2,11 +2,11 @@ package com.kylecorry.trail_sense.tools.maps.ui.commands
 
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
-import com.kylecorry.trail_sense.navigation.paths.domain.Path
-import com.kylecorry.trail_sense.navigation.paths.domain.PathMetadata
-import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.IPathPreferences
+import com.kylecorry.trail_sense.tools.paths.domain.IPathService
+import com.kylecorry.trail_sense.tools.paths.domain.Path
+import com.kylecorry.trail_sense.tools.paths.domain.PathMetadata
+import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
+import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.IPathPreferences
 import com.kylecorry.trail_sense.shared.commands.generic.CoroutineValueCommand
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 

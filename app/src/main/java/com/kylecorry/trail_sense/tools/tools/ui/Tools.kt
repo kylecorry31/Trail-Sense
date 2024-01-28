@@ -8,8 +8,8 @@ import androidx.annotation.IdRes
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.paths.quickactions.QuickActionBacktrack
-import com.kylecorry.trail_sense.navigation.paths.quickactions.QuickActionPaths
+import com.kylecorry.trail_sense.tools.paths.quickactions.QuickActionBacktrack
+import com.kylecorry.trail_sense.tools.paths.quickactions.QuickActionPaths
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.database.Identifiable

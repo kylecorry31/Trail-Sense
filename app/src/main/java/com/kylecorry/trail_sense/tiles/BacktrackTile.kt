@@ -5,7 +5,7 @@ import androidx.annotation.RequiresApi
 import com.kylecorry.andromeda.core.topics.generic.ITopic
 import com.kylecorry.andromeda.core.topics.generic.map
 import com.kylecorry.andromeda.core.topics.generic.replay
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.subsystem.BacktrackSubsystem
+import com.kylecorry.trail_sense.tools.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.FormatService
 

@@ -1,8 +1,14 @@
-package com.kylecorry.trail_sense.navigation.paths.domain
+package com.kylecorrytrail_sense.tools.paths.domain
 
 import android.graphics.Color
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
+import com.kylecorry.trail_sense.tools.paths.domain.Path
+import com.kylecorry.trail_sense.tools.paths.domain.PathMetadata
+import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
+import com.kylecorry.trail_sense.tools.paths.domain.PathStyle
+import com.kylecorry.trail_sense.tools.paths.domain.ShouldUnloadPathSpecification
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments

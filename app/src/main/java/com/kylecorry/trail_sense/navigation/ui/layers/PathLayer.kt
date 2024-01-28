@@ -12,10 +12,10 @@ import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.math.SolMath.positive
 import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.math.geometry.Rectangle
-import com.kylecorry.trail_sense.navigation.paths.ui.drawing.ClippedPathRenderer
-import com.kylecorry.trail_sense.navigation.paths.ui.drawing.IRenderedPathFactory
-import com.kylecorry.trail_sense.navigation.paths.ui.drawing.PathLineDrawerFactory
-import com.kylecorry.trail_sense.navigation.paths.ui.drawing.RenderedPath
+import com.kylecorry.trail_sense.tools.paths.ui.drawing.ClippedPathRenderer
+import com.kylecorry.trail_sense.tools.paths.ui.drawing.IRenderedPathFactory
+import com.kylecorry.trail_sense.tools.paths.ui.drawing.PathLineDrawerFactory
+import com.kylecorry.trail_sense.tools.paths.ui.drawing.RenderedPath
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.shared.extensions.drawLines
 import com.kylecorry.trail_sense.shared.getBounds

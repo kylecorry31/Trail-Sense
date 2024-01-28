@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.navigation.domain.hiking
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Speed
-import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
+import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import java.time.Duration
 
 interface IHikingService {

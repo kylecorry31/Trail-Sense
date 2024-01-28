@@ -1,7 +1,8 @@
-package com.kylecorry.trail_sense.navigation.paths.domain.point_finder
+package com.kylecorrytrail_sense.tools.paths.domain.point_finder
 
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
+import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
+import com.kylecorry.trail_sense.tools.paths.domain.point_finder.NearestPathPointNavigator
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull

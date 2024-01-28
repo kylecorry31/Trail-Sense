@@ -374,7 +374,7 @@
         android:label="FragmentToolWhiteNoise" />
     <fragment
         android:id="@+id/fragmentBacktrack"
-        android:name="com.kylecorry.trail_sense.navigation.paths.ui.PathsFragment"
+        android:name="com.kylecorry.trail_sense.tools.paths.ui.PathsFragment"
         android:label="FragmentBacktrack">
         <action
             android:id="@+id/action_fragmentBacktrack_to_action_navigation"
@@ -629,7 +629,7 @@
     </fragment>
     <fragment
         android:id="@+id/pathDetailsFragment"
-        android:name="com.kylecorry.trail_sense.navigation.paths.ui.PathOverviewFragment"
+        android:name="com.kylecorry.trail_sense.tools.paths.ui.PathOverviewFragment"
         android:label="PathDetailsFragment">
         <argument
             android:name="destination"

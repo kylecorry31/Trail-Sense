@@ -1,0 +1,26 @@
+package com.kylecorry.trail_sense.tools.paths.ui
+
+import android.content.Context
+import com.kylecorry.andromeda.views.list.ListItem
+import com.kylecorry.andromeda.views.list.ListItemMapper
+import com.kylecorry.trail_sense.tools.paths.domain.IPath
+import com.kylecorry.trail_sense.tools.paths.domain.Path
+import com.kylecorry.trail_sense.tools.paths.domain.PathGroup
+
+class IPathListItemMapper(
+    context: Context,
+    pathHandler: (Path, PathAction) -> Unit,
+    groupHandler: (PathGroup, PathGroupAction) -> Unit
+) : ListItemMapper<IPath> {
+
+    private val pathMapper = PathListItemMapper(context, pathHandler)
+    private val groupMapper = PathGroupListItemMapper(context, groupHandler)
+
+    override fun map(value: IPath): ListItem {
+        return if (value is Path) {
+            pathMapper.map(value)
+        } else {
+            groupMapper.map(value as PathGroup)
+        }
+    }
+}

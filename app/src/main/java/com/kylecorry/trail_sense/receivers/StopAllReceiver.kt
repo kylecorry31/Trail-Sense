@@ -4,7 +4,7 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.commands.StopBacktrackCommand
+import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.StopBacktrackCommand
 import com.kylecorry.trail_sense.tools.weather.infrastructure.commands.StopWeatherMonitorCommand
 
 class StopAllReceiver: BroadcastReceiver() {

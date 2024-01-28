@@ -1,7 +1,8 @@
-package com.kylecorry.trail_sense.navigation.paths.ui
+package com.kylecorrytrail_sense.tools.paths.ui
 
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.trail_sense.tools.paths.ui.DistanceScale
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments

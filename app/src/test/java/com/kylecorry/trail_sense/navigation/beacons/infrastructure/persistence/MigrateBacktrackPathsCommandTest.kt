@@ -1,15 +1,15 @@
 package com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence
 
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
-import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
-import com.kylecorry.trail_sense.navigation.paths.domain.Path
-import com.kylecorry.trail_sense.navigation.paths.domain.PathMetadata
-import com.kylecorry.trail_sense.navigation.paths.domain.PathPoint
-import com.kylecorry.trail_sense.navigation.paths.domain.PathPointColoringStyle
-import com.kylecorry.trail_sense.navigation.paths.domain.PathStyle
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.IPathPreferences
-import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.MigrateBacktrackPathsCommand
+import com.kylecorry.trail_sense.tools.paths.domain.IPathService
+import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
+import com.kylecorry.trail_sense.tools.paths.domain.Path
+import com.kylecorry.trail_sense.tools.paths.domain.PathMetadata
+import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
+import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
+import com.kylecorry.trail_sense.tools.paths.domain.PathStyle
+import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.IPathPreferences
+import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.MigrateBacktrackPathsCommand
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

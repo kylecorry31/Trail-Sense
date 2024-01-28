@@ -1,18 +1,19 @@
-package com.kylecorry.trail_sense.navigation.paths.domain.pathsort
+package com.kylecorrytrail_sense.tools.paths.domain.pathsort
 
 import android.graphics.Color
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.navigation.paths.domain.IPath
-import com.kylecorry.trail_sense.navigation.paths.domain.IPathService
-import com.kylecorry.trail_sense.navigation.paths.domain.LineStyle
-import com.kylecorry.trail_sense.navigation.paths.domain.Path
-import com.kylecorry.trail_sense.navigation.paths.domain.PathMetadata
-import com.kylecorry.trail_sense.navigation.paths.domain.PathPointColoringStyle
-import com.kylecorry.trail_sense.navigation.paths.domain.PathStyle
+import com.kylecorry.trail_sense.tools.paths.domain.IPath
+import com.kylecorry.trail_sense.tools.paths.domain.IPathService
+import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
+import com.kylecorry.trail_sense.tools.paths.domain.Path
+import com.kylecorry.trail_sense.tools.paths.domain.PathMetadata
+import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
+import com.kylecorry.trail_sense.tools.paths.domain.PathStyle
 import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
+import com.kylecorry.trail_sense.tools.paths.domain.pathsort.ShortestPathSortStrategy
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
