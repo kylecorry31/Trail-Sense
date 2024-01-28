@@ -5,7 +5,7 @@ import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 import com.kylecorry.trail_sense.navigation.ui.MappablePath
 import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer

@@ -12,11 +12,11 @@ import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
-import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconGroup
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.BeaconPickers
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.ClosestBeaconSort
+import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.beacons.domain.BeaconGroup
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.BeaconPickers
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.sort.ClosestBeaconSort
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.FormatService

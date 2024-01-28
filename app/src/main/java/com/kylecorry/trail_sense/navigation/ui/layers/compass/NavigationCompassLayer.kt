@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.navigation.ui.layers.compass
 
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.ui.IMappableBearing
 import com.kylecorry.trail_sense.navigation.ui.MappableReferencePoint
 

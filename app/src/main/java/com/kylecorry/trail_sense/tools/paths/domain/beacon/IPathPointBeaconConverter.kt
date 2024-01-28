@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.paths.domain.beacon
 
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 

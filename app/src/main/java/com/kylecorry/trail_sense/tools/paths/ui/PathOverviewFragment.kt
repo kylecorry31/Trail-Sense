@@ -29,11 +29,11 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPathOverviewBinding
 import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.BeaconNavigator
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.IBeaconNavigator
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
-import com.kylecorry.trail_sense.navigation.domain.hiking.HikingDifficulty
-import com.kylecorry.trail_sense.navigation.domain.hiking.HikingService
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.BeaconNavigator
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.IBeaconNavigator
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
+import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingDifficulty
+import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle

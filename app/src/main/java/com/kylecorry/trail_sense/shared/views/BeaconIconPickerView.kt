@@ -8,7 +8,7 @@ import androidx.core.view.setPadding
 import com.google.android.flexbox.FlexboxLayout
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconIcon
+import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 
 class BeaconIconPickerView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {

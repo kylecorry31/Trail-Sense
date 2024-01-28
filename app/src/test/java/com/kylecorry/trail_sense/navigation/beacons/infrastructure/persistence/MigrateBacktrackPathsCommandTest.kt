@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence
+package com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence
 
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.paths.domain.IPathService

@@ -120,7 +120,7 @@
         android:label="ExperimentationFragment" />
     <fragment
         android:id="@+id/beacon_list"
-        android:name="com.kylecorry.trail_sense.navigation.beacons.ui.list.BeaconListFragment"
+        android:name="com.kylecorry.trail_sense.tools.beacons.ui.list.BeaconListFragment"
         android:label="BeaconListFragment">
 
         <argument
@@ -145,7 +145,7 @@
     </fragment>
     <fragment
         android:id="@+id/place_beacon"
-        android:name="com.kylecorry.trail_sense.navigation.beacons.ui.PlaceBeaconFragment"
+        android:name="com.kylecorry.trail_sense.tools.beacons.ui.PlaceBeaconFragment"
         android:label="PlaceBeaconFragment">
 
         <argument
@@ -237,7 +237,7 @@
         android:label="LevelFragment" />
     <fragment
         android:id="@+id/beaconDetailsFragment"
-        android:name="com.kylecorry.trail_sense.navigation.beacons.ui.BeaconDetailsFragment"
+        android:name="com.kylecorry.trail_sense.tools.beacons.ui.BeaconDetailsFragment"
         android:label="BeaconDetailsFragment">
 
         <argument

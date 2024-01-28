@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.navigation.ui
 
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconIcon
+import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 import com.kylecorry.trail_sense.shared.database.Identifiable
 

@@ -5,7 +5,7 @@ import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.ui.DrawerBitmapLoader
 import com.kylecorry.trail_sense.navigation.ui.markers.BitmapMapMarker
 import com.kylecorry.trail_sense.navigation.ui.markers.CircleMapMarker

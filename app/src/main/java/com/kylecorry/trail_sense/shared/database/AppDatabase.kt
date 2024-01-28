@@ -9,10 +9,10 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconDao
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconEntity
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconGroupDao
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconGroupEntity
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconDao
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconEntity
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconGroupDao
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconGroupEntity
 import com.kylecorry.trail_sense.tools.paths.domain.WaypointEntity
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathDao
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathDatabaseMigrationWorker

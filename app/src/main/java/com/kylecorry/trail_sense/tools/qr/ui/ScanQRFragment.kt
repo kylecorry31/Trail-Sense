@@ -23,7 +23,7 @@ import com.kylecorry.andromeda.qr.QR
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentScanTextBinding
 import com.kylecorry.trail_sense.databinding.ListItemQrResultBinding
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission

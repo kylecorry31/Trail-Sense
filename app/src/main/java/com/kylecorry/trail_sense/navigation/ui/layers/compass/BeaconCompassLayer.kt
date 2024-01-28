@@ -5,7 +5,7 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.ui.IMappableReferencePoint
 import com.kylecorry.trail_sense.navigation.ui.MappableReferencePoint
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils

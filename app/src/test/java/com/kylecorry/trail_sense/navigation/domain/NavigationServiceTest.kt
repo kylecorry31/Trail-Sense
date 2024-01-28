@@ -1,9 +1,8 @@
 package com.kylecorry.trail_sense.navigation.domain
 
 import android.graphics.Color
-import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.shared.Position
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test

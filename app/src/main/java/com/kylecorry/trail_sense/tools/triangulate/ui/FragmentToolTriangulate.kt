@@ -22,8 +22,8 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolTriangulateBinding
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
-import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
+import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 import com.kylecorry.trail_sense.navigation.ui.IMappablePath

@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.tools.qr.infrastructure
 
 import android.net.Uri
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.share.BeaconUriEncoder
+import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.share.BeaconUriEncoder
 
 class BeaconQREncoder : IQREncoder<Beacon> {
 

@@ -5,7 +5,7 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.navigation.ui.DrawerBitmapLoader
 import com.kylecorry.trail_sense.tools.augmented_reality.position.GeographicARPoint
 import kotlin.math.hypot

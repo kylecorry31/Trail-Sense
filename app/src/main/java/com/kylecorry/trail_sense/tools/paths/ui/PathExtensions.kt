@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.paths.ui
 
 import android.content.Context
 import android.graphics.Color
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle

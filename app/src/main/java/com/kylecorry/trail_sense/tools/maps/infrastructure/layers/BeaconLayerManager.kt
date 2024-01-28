@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.tools.maps.infrastructure.layers
 
 import android.content.Context
 import android.graphics.Color
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer
 import kotlinx.coroutines.CoroutineScope

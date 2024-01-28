@@ -42,8 +42,8 @@ import com.kylecorry.trail_sense.diagnostics.MagnetometerDiagnostic
 import com.kylecorry.trail_sense.diagnostics.status.GpsStatusBadgeProvider
 import com.kylecorry.trail_sense.diagnostics.status.SensorStatusBadgeProvider
 import com.kylecorry.trail_sense.diagnostics.status.StatusBadge
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.navigation.domain.CompassStyle
 import com.kylecorry.trail_sense.navigation.domain.CompassStyleChooser
 import com.kylecorry.trail_sense.navigation.domain.NavigationService

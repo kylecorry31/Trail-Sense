@@ -3,9 +3,9 @@ package com.kylecorry.trail_sense.navigation.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
-import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconOwner
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
+import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

@@ -10,7 +10,7 @@ import com.kylecorry.sol.science.geography.CoordinateFormat
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.BeaconSortMethod
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.sort.BeaconSortMethod
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
 import com.kylecorry.trail_sense.tools.paths.domain.PathStyle

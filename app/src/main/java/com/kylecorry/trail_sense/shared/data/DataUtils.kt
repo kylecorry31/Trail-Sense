@@ -9,7 +9,7 @@ import com.kylecorry.sol.math.filters.LoessFilter
 import com.kylecorry.sol.math.filters.LoessFilter2D
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Reading
-import com.kylecorry.trail_sense.navigation.domain.hiking.HikingService
+import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
 import java.time.Duration
 import java.time.Instant
 

@@ -15,10 +15,10 @@ import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.sol.science.geography.CoordinateFormatter.parse
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.beacons.domain.Beacon
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.BeaconPickers
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.persistence.BeaconService
-import com.kylecorry.trail_sense.navigation.beacons.infrastructure.sort.ClosestBeaconSort
+import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.BeaconPickers
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.sort.ClosestBeaconSort
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.sensors.SensorService

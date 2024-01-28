@@ -26,7 +26,7 @@ import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.beacons.domain.BeaconIcon
+import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.shared.camera.PhotoImportBottomSheetFragment
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
