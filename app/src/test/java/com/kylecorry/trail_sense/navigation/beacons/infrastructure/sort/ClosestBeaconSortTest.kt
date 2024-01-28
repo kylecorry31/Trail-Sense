@@ -1,11 +1,10 @@
 package com.kylecorry.trail_sense.tools.beacons.infrastructure.sort
 
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.domain.IBeacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.IBeaconService
-import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
-import com.kylecorry.trail_sense.tools.beacons.infrastructure.sort.ClosestBeaconSort
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test

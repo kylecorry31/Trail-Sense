@@ -2,8 +2,6 @@ package com.kylecorry.trail_sense.tools.beacons.ui.form
 
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.tools.beacons.ui.form.CreateBeaconData
-import com.kylecorry.trail_sense.tools.beacons.ui.form.IsBeaconFormDataComplete
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments

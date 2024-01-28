@@ -1,12 +1,11 @@
 package com.kylecorry.trail_sense.tools.beacons.infrastructure.loading
 
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.settings.infrastructure.IBeaconPreferences
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.IBeaconService
-import com.kylecorry.trail_sense.settings.infrastructure.IBeaconPreferences
-import com.kylecorry.trail_sense.tools.beacons.infrastructure.loading.BeaconLoader
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach

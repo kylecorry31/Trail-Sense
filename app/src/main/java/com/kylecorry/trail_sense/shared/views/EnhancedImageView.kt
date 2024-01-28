@@ -276,16 +276,14 @@ open class EnhancedImageView : SubsamplingScaleImageView {
         val view = PointF(viewX, viewY)
 
         // Remove the rotation
-        if (withRotation){
+        if (withRotation) {
             transform(view, invert = true, inPlace = true) {
                 postRotate(-imageRotation + rotationOffset, width / 2f, height / 2f)
             }
         }
 
         // Remove the scale and translate
-        val source = viewToSourceCoord(view.x, view.y) ?: return null
-
-        return source
+        return viewToSourceCoord(view.x, view.y)
     }
 
     val imageWidth: Int

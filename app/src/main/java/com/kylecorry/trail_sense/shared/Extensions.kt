@@ -8,7 +8,6 @@ import androidx.navigation.NavOptions
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.signal.CellNetworkQuality
 import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.sol.math.SolMath.roundPlaces
@@ -21,9 +20,8 @@ import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
-import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
-import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.data.Identifiable
+import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import kotlin.collections.set
 
 fun Fragment.requireMainActivity(): MainActivity {

@@ -105,7 +105,6 @@ class FloatingActionButtonMenu(context: Context, attrs: AttributeSet?) : FrameLa
         }
     }
 
-    @Suppress("MemberVisibilityCanBePrivate")
     fun toggle() {
         if (isVisible) {
             hide()
