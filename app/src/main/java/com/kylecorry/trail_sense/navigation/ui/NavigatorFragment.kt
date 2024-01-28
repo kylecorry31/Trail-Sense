@@ -48,6 +48,7 @@ import com.kylecorry.trail_sense.navigation.domain.CompassStyle
 import com.kylecorry.trail_sense.navigation.domain.CompassStyleChooser
 import com.kylecorry.trail_sense.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.navigation.infrastructure.Navigator
+import com.kylecorry.trail_sense.navigation.quickactions.NavigationQuickActionBinder
 import com.kylecorry.trail_sense.navigation.ui.data.UpdateAstronomyLayerCommand
 import com.kylecorry.trail_sense.navigation.ui.errors.NavigatorUserErrors
 import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer
@@ -59,7 +60,6 @@ import com.kylecorry.trail_sense.navigation.ui.layers.compass.BeaconCompassLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.compass.ICompassView
 import com.kylecorry.trail_sense.navigation.ui.layers.compass.MarkerCompassLayer
 import com.kylecorry.trail_sense.navigation.ui.layers.compass.NavigationCompassLayer
-import com.kylecorry.trail_sense.navigation.quickactions.NavigationQuickActionBinder
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.FormatService

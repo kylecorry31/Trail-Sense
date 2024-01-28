@@ -2,13 +2,13 @@ package com.kylecorry.trail_sense.receivers
 
 import android.content.Context
 import android.os.Build
-import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyDailyWorker
-import com.kylecorry.trail_sense.tools.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.services.BacktrackService
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tiles.TileManager
+import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyDailyWorker
+import com.kylecorry.trail_sense.tools.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryLogWorker
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorService

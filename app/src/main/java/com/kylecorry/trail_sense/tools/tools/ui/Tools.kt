@@ -8,30 +8,30 @@ import androidx.annotation.IdRes
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.battery.quickactions.QuickActionLowPowerMode
 import com.kylecorry.trail_sense.navigation.paths.quickactions.QuickActionBacktrack
-import com.kylecorry.trail_sense.tools.climate.quickactions.QuickActionClimate
-import com.kylecorry.trail_sense.tools.clouds.quickactions.QuickActionClouds
-import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionFlashlight
-import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionNightMode
 import com.kylecorry.trail_sense.navigation.paths.quickactions.QuickActionPaths
-import com.kylecorry.trail_sense.tools.pedometer.quickactions.QuickActionPedometer
-import com.kylecorry.trail_sense.tools.maps.quickactions.QuickActionPhotoMaps
-import com.kylecorry.trail_sense.tools.ruler.quickactions.QuickActionRuler
-import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionScreenFlashlight
-import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunsetAlert
-import com.kylecorry.trail_sense.tools.temperature_estimation.quickactions.QuickActionTemperatureEstimation
-import com.kylecorry.trail_sense.tools.lightning.quickactions.QuickActionLightingStrikeDistance
-import com.kylecorry.trail_sense.tools.weather.quickactions.QuickActionWeatherMonitor
-import com.kylecorry.trail_sense.tools.whistle.quickactions.QuickActionWhistle
-import com.kylecorry.trail_sense.tools.whitenoise.quickactions.QuickActionWhiteNoise
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.database.Identifiable
 import com.kylecorry.trail_sense.shared.extensions.isDebug
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.QuickActionNone
+import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionNightMode
+import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunsetAlert
+import com.kylecorry.trail_sense.tools.battery.quickactions.QuickActionLowPowerMode
+import com.kylecorry.trail_sense.tools.climate.quickactions.QuickActionClimate
+import com.kylecorry.trail_sense.tools.clouds.quickactions.QuickActionClouds
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
+import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionFlashlight
+import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionScreenFlashlight
+import com.kylecorry.trail_sense.tools.lightning.quickactions.QuickActionLightingStrikeDistance
+import com.kylecorry.trail_sense.tools.maps.quickactions.QuickActionPhotoMaps
+import com.kylecorry.trail_sense.tools.pedometer.quickactions.QuickActionPedometer
+import com.kylecorry.trail_sense.tools.ruler.quickactions.QuickActionRuler
+import com.kylecorry.trail_sense.tools.temperature_estimation.quickactions.QuickActionTemperatureEstimation
+import com.kylecorry.trail_sense.tools.weather.quickactions.QuickActionWeatherMonitor
+import com.kylecorry.trail_sense.tools.whistle.quickactions.QuickActionWhistle
+import com.kylecorry.trail_sense.tools.whitenoise.quickactions.QuickActionWhiteNoise
 
 data class Tool(
     override val id: Long,

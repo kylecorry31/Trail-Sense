@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.shared.views
 
 import android.widget.ImageButton
 import androidx.core.view.isGone
-import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.shared.QuickActionButton
 

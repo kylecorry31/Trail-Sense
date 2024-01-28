@@ -19,7 +19,6 @@ import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityWeatherBinding
-import com.kylecorry.trail_sense.tools.weather.quickactions.WeatherQuickActionBinder
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.FormatService
@@ -37,6 +36,7 @@ import com.kylecorry.trail_sense.tools.weather.domain.WeatherObservation
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherLogger
 import com.kylecorry.trail_sense.tools.weather.infrastructure.commands.ChangeWeatherFrequencyCommand
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
+import com.kylecorry.trail_sense.tools.weather.quickactions.WeatherQuickActionBinder
 import com.kylecorry.trail_sense.tools.weather.ui.charts.HumidityChart
 import com.kylecorry.trail_sense.tools.weather.ui.charts.PressureChart
 import com.kylecorry.trail_sense.tools.weather.ui.charts.TemperatureChart

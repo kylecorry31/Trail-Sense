@@ -1,10 +1,10 @@
 package com.kylecorry.trail_sense.tools.astronomy.quickactions
 
-import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyPreferences
-import com.kylecorry.trail_sense.tools.astronomy.ui.AstronomyFragment
 import com.kylecorry.trail_sense.databinding.ActivityAstronomyBinding
 import com.kylecorry.trail_sense.shared.quickactions.IQuickActionBinder
 import com.kylecorry.trail_sense.shared.quickactions.QuickActionFactory
+import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyPreferences
+import com.kylecorry.trail_sense.tools.astronomy.ui.AstronomyFragment
 
 class AstronomyQuickActionBinder(
     private val fragment: AstronomyFragment,

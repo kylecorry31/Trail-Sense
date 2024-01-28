@@ -24,11 +24,11 @@ import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
-import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.clouds.domain.classification.SoftmaxCloudClassifier
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.CloudDetailsService
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudObservation
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudRepo
+import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import java.time.Duration
 import java.time.Instant
 

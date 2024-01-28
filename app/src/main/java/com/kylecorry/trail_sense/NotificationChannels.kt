@@ -2,17 +2,17 @@ package com.kylecorry.trail_sense
 
 import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunsetAlarmCommand
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.services.BacktrackService
+import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunsetAlarmCommand
 import com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastReceiver
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.DistanceAlerter
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.tools.waterpurification.infrastructure.WaterPurificationTimerService
-import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeatherAlerter
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.DailyWeatherAlerter
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.StormAlerter
+import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
 
 object NotificationChannels {
 

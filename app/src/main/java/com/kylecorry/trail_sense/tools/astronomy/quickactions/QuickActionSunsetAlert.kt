@@ -5,11 +5,11 @@ import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.fragments.IPermissionRequester
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import java.time.Duration
 
 class QuickActionSunsetAlert(btn: ImageButton, fragment: Fragment) :

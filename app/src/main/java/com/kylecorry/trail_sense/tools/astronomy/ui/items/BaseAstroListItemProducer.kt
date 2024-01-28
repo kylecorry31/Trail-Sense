@@ -18,10 +18,10 @@ import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.sol.science.astronomy.RiseSetTransitTimes
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import java.time.Duration
 import java.time.LocalDate
 import java.time.ZonedDateTime

@@ -5,9 +5,9 @@ import androidx.work.WorkerParameters
 import com.kylecorry.andromeda.background.DailyWorker
 import com.kylecorry.andromeda.background.IOneTimeTaskScheduler
 import com.kylecorry.andromeda.background.OneTimeTaskSchedulerFactory
-import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.AstronomyAlertCommand
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.AstronomyAlertCommand
 import java.time.Duration
 import java.time.LocalTime
 

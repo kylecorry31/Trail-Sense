@@ -35,13 +35,10 @@ import com.kylecorry.trail_sense.tools.weather.domain.forecasting.temperatures.C
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.temperatures.HistoricTemperatureService
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.temperatures.ITemperatureService
 import com.kylecorry.trail_sense.tools.weather.domain.sealevel.SeaLevelCalibrationFactory
-import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorIsAvailable
-import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorIsEnabled
-import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherUpdateScheduler
+import com.kylecorry.trail_sense.tools.weather.infrastructure.*
 import com.kylecorry.trail_sense.tools.weather.infrastructure.commands.MonitorWeatherCommand
 import com.kylecorry.trail_sense.tools.weather.infrastructure.commands.SendWeatherAlertsCommand
 import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.WeatherRepo
-import com.kylecorry.trail_sense.tools.weather.infrastructure.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock

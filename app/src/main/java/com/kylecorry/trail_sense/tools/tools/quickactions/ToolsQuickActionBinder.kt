@@ -8,10 +8,10 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolsBinding
-import com.kylecorry.trail_sense.shared.quickactions.IQuickActionBinder
-import com.kylecorry.trail_sense.shared.quickactions.QuickActionFactory
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.quickactions.IQuickActionBinder
+import com.kylecorry.trail_sense.shared.quickactions.QuickActionFactory
 
 class ToolsQuickActionBinder(
     private val fragment: AndromedaFragment,
