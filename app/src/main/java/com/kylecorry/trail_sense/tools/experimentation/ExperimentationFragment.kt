@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.experimentation
+package com.kylecorry.trail_sense.tools.experimentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

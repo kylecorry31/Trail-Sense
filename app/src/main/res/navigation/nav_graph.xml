@@ -116,7 +116,7 @@
     </fragment>
     <fragment
         android:id="@+id/experimentationFragment"
-        android:name="com.kylecorry.trail_sense.experimentation.ExperimentationFragment"
+        android:name="com.kylecorry.trail_sense.tools.experimentation.ExperimentationFragment"
         android:label="ExperimentationFragment" />
     <fragment
         android:id="@+id/beacon_list"
