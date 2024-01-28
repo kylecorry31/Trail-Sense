@@ -34,9 +34,9 @@ import com.kylecorry.trail_sense.weather.domain.sealevel.SeaLevelCalibrationFact
 import com.kylecorry.trail_sense.weather.infrastructure.*
 import com.kylecorry.trail_sense.weather.infrastructure.commands.MonitorWeatherCommand
 import com.kylecorry.trail_sense.weather.infrastructure.commands.SendWeatherAlertsCommand
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudRepo
+import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudRepo
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
-import com.kylecorry.trail_sense.weather.infrastructure.temperatures.HistoricTemperatureRepo
+import com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures.HistoricTemperatureRepo
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock

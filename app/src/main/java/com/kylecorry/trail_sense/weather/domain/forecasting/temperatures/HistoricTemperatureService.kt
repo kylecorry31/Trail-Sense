@@ -8,7 +8,7 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.range
-import com.kylecorry.trail_sense.weather.infrastructure.temperatures.ITemperatureRepo
+import com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures.ITemperatureRepo
 import java.time.LocalDate
 import java.time.ZonedDateTime
 

@@ -10,8 +10,8 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.battery.quickactions.QuickActionLowPowerMode
 import com.kylecorry.trail_sense.navigation.paths.quickactions.QuickActionBacktrack
-import com.kylecorry.trail_sense.weather.quickactions.QuickActionClimate
-import com.kylecorry.trail_sense.weather.quickactions.QuickActionClouds
+import com.kylecorry.trail_sense.tools.climate.quickactions.QuickActionClimate
+import com.kylecorry.trail_sense.tools.clouds.quickactions.QuickActionClouds
 import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionNightMode
 import com.kylecorry.trail_sense.navigation.paths.quickactions.QuickActionPaths
@@ -20,7 +20,7 @@ import com.kylecorry.trail_sense.tools.maps.quickactions.QuickActionPhotoMaps
 import com.kylecorry.trail_sense.tools.ruler.quickactions.QuickActionRuler
 import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionScreenFlashlight
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunsetAlert
-import com.kylecorry.trail_sense.weather.quickactions.QuickActionTemperatureEstimation
+import com.kylecorry.trail_sense.tools.temperature_estimation.quickactions.QuickActionTemperatureEstimation
 import com.kylecorry.trail_sense.tools.lightning.quickactions.QuickActionLightingStrikeDistance
 import com.kylecorry.trail_sense.weather.quickactions.QuickActionWeatherMonitor
 import com.kylecorry.trail_sense.tools.whistle.quickactions.QuickActionWhistle

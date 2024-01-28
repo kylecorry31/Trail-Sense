@@ -7,8 +7,8 @@ import com.kylecorry.andromeda.background.IPeriodicTaskScheduler
 import com.kylecorry.andromeda.background.TaskSchedulerFactory
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudRepo
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.LightningRepo
+import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudRepo
+import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningRepo
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

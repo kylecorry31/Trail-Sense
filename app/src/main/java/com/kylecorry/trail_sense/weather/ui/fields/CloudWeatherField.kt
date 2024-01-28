@@ -6,8 +6,8 @@ import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.weather.infrastructure.clouds.CloudDetailsService
-import com.kylecorry.trail_sense.weather.ui.clouds.CloudDetailsModal
+import com.kylecorry.trail_sense.tools.clouds.infrastructure.CloudDetailsService
+import com.kylecorry.trail_sense.tools.clouds.ui.CloudDetailsModal
 
 class CloudWeatherField(
     private val cloud: Reading<CloudGenus?>?

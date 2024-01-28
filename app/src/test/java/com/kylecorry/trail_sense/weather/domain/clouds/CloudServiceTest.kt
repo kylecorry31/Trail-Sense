@@ -4,6 +4,7 @@ import com.kylecorry.sol.science.meteorology.Precipitation
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.science.meteorology.clouds.ICloudService
 import com.kylecorry.trail_sense.shared.domain.Probability
+import com.kylecorry.trail_sense.tools.clouds.domain.CloudService
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

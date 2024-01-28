@@ -397,7 +397,7 @@
     </fragment>
     <fragment
         android:id="@+id/cloudFragment"
-        android:name="com.kylecorry.trail_sense.weather.ui.clouds.CloudFragment"
+        android:name="com.kylecorry.trail_sense.tools.clouds.ui.CloudFragment"
         android:label="CloudFragment">
         <action
             android:id="@+id/action_cloud_to_cloud_picker"
@@ -597,7 +597,7 @@
         android:label="MapSettingsFragment" />
     <fragment
         android:id="@+id/temperatureEstimationFragment"
-        android:name="com.kylecorry.trail_sense.weather.ui.TemperatureEstimationFragment"
+        android:name="com.kylecorry.trail_sense.tools.temperature_estimation.ui.TemperatureEstimationFragment"
         android:label="TemperatureEstimationFragment" />
     <fragment
         android:id="@+id/packListFragment"
@@ -671,11 +671,11 @@
         android:label="FragmentStrideLengthEstimation" />
     <fragment
         android:id="@+id/cloudResultsFragment"
-        android:name="com.kylecorry.trail_sense.weather.ui.clouds.CloudResultsFragment"
+        android:name="com.kylecorry.trail_sense.tools.clouds.ui.CloudResultsFragment"
         android:label="CloudResultsFragment" />
     <fragment
         android:id="@+id/climateFragment"
-        android:name="com.kylecorry.trail_sense.weather.ui.ClimateFragment"
+        android:name="com.kylecorry.trail_sense.tools.climate.ui.ClimateFragment"
         android:label="ClimateFragment" />
 
 </navigation>

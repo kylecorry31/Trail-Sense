@@ -37,10 +37,10 @@ import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTabl
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableDatabaseMigrationWorker
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableEntity
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableRowEntity
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudReadingDao
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.CloudReadingEntity
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.LightningStrikeDao
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.LightningStrikeEntity
+import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudReadingDao
+import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudReadingEntity
+import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningStrikeDao
+import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningStrikeEntity
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureReadingDao
 import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureReadingEntity
 
