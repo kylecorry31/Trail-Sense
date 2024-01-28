@@ -7,7 +7,7 @@ import androidx.camera.core.CameraXConfig
 import com.kylecorry.trail_sense.settings.migrations.PreferenceMigrator
 import com.kylecorry.trail_sense.shared.database.RepoCleanupWorker
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
-import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
+import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Duration
 
 class TrailSenseApplication : Application(), CameraXConfig.Provider {

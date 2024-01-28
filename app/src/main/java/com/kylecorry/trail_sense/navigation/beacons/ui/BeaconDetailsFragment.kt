@@ -29,8 +29,8 @@ import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.toRelativeDistance
-import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
-import com.kylecorry.trail_sense.weather.ui.dialogs.ShowHighLowTemperatureDialogCommand
+import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
+import com.kylecorry.trail_sense.tools.weather.ui.dialogs.ShowHighLowTemperatureDialogCommand
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.LocalDate

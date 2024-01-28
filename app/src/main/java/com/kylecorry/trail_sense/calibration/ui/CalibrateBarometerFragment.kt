@@ -22,9 +22,9 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
-import com.kylecorry.trail_sense.weather.domain.WeatherObservation
-import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
+import com.kylecorry.trail_sense.tools.weather.domain.RawWeatherObservation
+import com.kylecorry.trail_sense.tools.weather.domain.WeatherObservation
+import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Duration
 import java.time.Instant
 

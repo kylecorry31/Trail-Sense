@@ -1,12 +1,17 @@
-package com.kylecorry.trail_sense.weather.domain.forecasting.alerts
+package com.kylecorry.trail_sense.tools.weather.domain.forecasting.alerts
 
 import com.kylecorry.sol.science.meteorology.PressureCharacteristic
 import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.science.meteorology.WeatherCondition
 import com.kylecorry.sol.units.Temperature
-import com.kylecorry.trail_sense.weather.domain.*
-import com.kylecorry.trail_sense.weather.domain.forecasting.arrival.WeatherArrivalTime
-import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
+import com.kylecorry.trail_sense.tools.weather.domain.CurrentWeather
+import com.kylecorry.trail_sense.tools.weather.domain.TemperaturePrediction
+import com.kylecorry.trail_sense.tools.weather.domain.WeatherAlert
+import com.kylecorry.trail_sense.tools.weather.domain.WeatherPrediction
+import com.kylecorry.trail_sense.tools.weather.domain.forecasting.alerts.WeatherAlertGenerator
+import com.kylecorry.trail_sense.tools.weather.domain.forecasting.arrival.WeatherArrivalTime
+import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
+import com.kylecorry.trail_sense.tools.weather.domain.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments

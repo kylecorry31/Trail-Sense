@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.navigation.paths.infrastructure.persistence.Pat
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudRepo
 import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningRepo
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
+import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.WeatherRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

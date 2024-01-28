@@ -22,7 +22,7 @@ import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionScreen
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunsetAlert
 import com.kylecorry.trail_sense.tools.temperature_estimation.quickactions.QuickActionTemperatureEstimation
 import com.kylecorry.trail_sense.tools.lightning.quickactions.QuickActionLightingStrikeDistance
-import com.kylecorry.trail_sense.weather.quickactions.QuickActionWeatherMonitor
+import com.kylecorry.trail_sense.tools.weather.quickactions.QuickActionWeatherMonitor
 import com.kylecorry.trail_sense.tools.whistle.quickactions.QuickActionWhistle
 import com.kylecorry.trail_sense.tools.whitenoise.quickactions.QuickActionWhiteNoise
 import com.kylecorry.trail_sense.shared.QuickActionButton

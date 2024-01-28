@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.shared.permissions
 import android.content.Context
 import com.kylecorry.andromeda.core.specifications.Specification
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackIsEnabled
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherMonitorIsEnabled
+import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorIsEnabled
 
 class IsBatteryExemptionRequired(
     private val isBatteryUsageRestricted: Specification<Context> = IsBatteryUsageRestricted(),

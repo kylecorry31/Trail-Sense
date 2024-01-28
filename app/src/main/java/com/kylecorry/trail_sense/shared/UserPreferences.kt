@@ -14,7 +14,6 @@ import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.AltimeterPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.AugmentedRealityPreferences
@@ -38,10 +37,10 @@ import com.kylecorry.trail_sense.shared.extensions.putIntArray
 import com.kylecorry.trail_sense.shared.extensions.putLongArray
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sharing.MapSite
-import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
+import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.tools.tools.ui.Tools
 import com.kylecorry.trail_sense.tools.tools.ui.sort.ToolSortType
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherPreferences
+import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherPreferences
 import java.time.Duration
 
 class UserPreferences(private val context: Context) : IDeclinationPreferences {

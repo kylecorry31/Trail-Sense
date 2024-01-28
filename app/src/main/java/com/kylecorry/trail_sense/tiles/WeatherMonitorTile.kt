@@ -7,7 +7,7 @@ import com.kylecorry.andromeda.core.topics.generic.map
 import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
+import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 
 @RequiresApi(Build.VERSION_CODES.N)
 class WeatherMonitorTile : TopicTile() {

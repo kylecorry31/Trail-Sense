@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.domain.clouds
+package com.kylecorry.trail_sense.tools.weather.domain.clouds
 
 import com.kylecorry.sol.science.meteorology.Precipitation
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus

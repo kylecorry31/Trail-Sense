@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.infrastructure.subsystem
+package com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem
 
 import androidx.test.platform.app.InstrumentationRegistry
 import com.kylecorry.sol.math.Range

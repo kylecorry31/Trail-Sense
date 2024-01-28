@@ -10,9 +10,9 @@ import com.kylecorry.trail_sense.tools.pedometer.infrastructure.DistanceAlerter
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.tools.waterpurification.infrastructure.WaterPurificationTimerService
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
-import com.kylecorry.trail_sense.weather.infrastructure.alerts.CurrentWeatherAlerter
-import com.kylecorry.trail_sense.weather.infrastructure.alerts.DailyWeatherAlerter
-import com.kylecorry.trail_sense.weather.infrastructure.alerts.StormAlerter
+import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeatherAlerter
+import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.DailyWeatherAlerter
+import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.StormAlerter
 
 object NotificationChannels {
 

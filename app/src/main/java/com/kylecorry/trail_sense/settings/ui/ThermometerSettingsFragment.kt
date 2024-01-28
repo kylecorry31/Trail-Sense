@@ -33,11 +33,11 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.thermometer.ThermometerSource
 import com.kylecorry.trail_sense.shared.views.UserError
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
-import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
-import com.kylecorry.trail_sense.weather.domain.WeatherObservation
-import com.kylecorry.trail_sense.weather.infrastructure.commands.BackfillHistoricalTemperaturesCommand
-import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
-import com.kylecorry.trail_sense.weather.ui.charts.TemperatureChartPreference
+import com.kylecorry.trail_sense.tools.weather.domain.RawWeatherObservation
+import com.kylecorry.trail_sense.tools.weather.domain.WeatherObservation
+import com.kylecorry.trail_sense.tools.weather.infrastructure.commands.BackfillHistoricalTemperaturesCommand
+import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
+import com.kylecorry.trail_sense.tools.weather.ui.charts.TemperatureChartPreference
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.roundToInt

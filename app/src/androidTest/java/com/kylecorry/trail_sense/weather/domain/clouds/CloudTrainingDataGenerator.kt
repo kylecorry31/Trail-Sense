@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.domain.clouds
+package com.kylecorry.trail_sense.tools.weather.domain.clouds
 
 import androidx.test.platform.app.InstrumentationRegistry
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils

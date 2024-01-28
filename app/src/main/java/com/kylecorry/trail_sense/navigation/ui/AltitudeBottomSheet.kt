@@ -29,7 +29,7 @@ import com.kylecorry.trail_sense.shared.extensions.onDefault
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatter
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.WeatherRepo
+import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.WeatherRepo
 import java.time.Duration
 import java.time.Instant
 

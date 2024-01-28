@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.shared.debugging.DebugElevationsCommand
 import com.kylecorry.trail_sense.shared.extensions.onIO
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.altimeter.OverrideAltimeter
-import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
+import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Duration
 import java.time.Instant
 
@@ -88,11 +88,7 @@ class LocationSubsystem private constructor(private val context: Context) {
         val usesOverride = mode == UserPreferences.AltimeterMode.Override
         val usesGPS =
             mode == UserPreferences.AltimeterMode.GPSBarometer || mode == UserPreferences.AltimeterMode.GPS
-        if (usesOverride || (usesGPS && !sensorService.hasLocationPermission())) {
-            return true
-        }
-
-        return false
+        return usesOverride || (usesGPS && !sensorService.hasLocationPermission())
     }
 
     companion object {

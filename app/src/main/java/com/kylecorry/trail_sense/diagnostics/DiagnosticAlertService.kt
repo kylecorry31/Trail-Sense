@@ -19,9 +19,9 @@ import com.kylecorry.trail_sense.shared.navigation.IAppNavigation
 import com.kylecorry.trail_sense.shared.permissions.RemoveBatteryRestrictionsCommand
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
-import com.kylecorry.trail_sense.weather.infrastructure.alerts.CurrentWeatherAlerter
-import com.kylecorry.trail_sense.weather.infrastructure.alerts.DailyWeatherAlerter
-import com.kylecorry.trail_sense.weather.infrastructure.alerts.StormAlerter
+import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeatherAlerter
+import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.DailyWeatherAlerter
+import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.StormAlerter
 
 class DiagnosticAlertService(private val context: Context, private val navigation: IAppNavigation) :
     IDiagnosticAlertService {

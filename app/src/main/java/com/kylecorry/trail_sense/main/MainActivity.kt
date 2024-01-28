@@ -261,11 +261,7 @@ class MainActivity : AndromedaActivity() {
         }
 
         // If the white noise service is running, don't override the volume buttons so the user can adjust the volume
-        if (WhiteNoiseService.isRunning) {
-            return false
-        }
-
-        return true
+        return !WhiteNoiseService.isRunning
     }
 
 

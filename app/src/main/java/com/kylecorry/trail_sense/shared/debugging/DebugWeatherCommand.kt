@@ -4,8 +4,8 @@ import android.content.Context
 import com.kylecorry.andromeda.csv.CSVConvert
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.weather.domain.RawWeatherObservation
-import com.kylecorry.trail_sense.weather.domain.WeatherObservation
+import com.kylecorry.trail_sense.tools.weather.domain.RawWeatherObservation
+import com.kylecorry.trail_sense.tools.weather.domain.WeatherObservation
 
 class DebugWeatherCommand(
     private val context: Context,

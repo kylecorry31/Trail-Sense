@@ -9,9 +9,9 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunsetAlarmCommand
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
-import com.kylecorry.trail_sense.weather.infrastructure.alerts.CurrentWeatherAlerter
-import com.kylecorry.trail_sense.weather.infrastructure.alerts.DailyWeatherAlerter
-import com.kylecorry.trail_sense.weather.infrastructure.alerts.StormAlerter
+import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeatherAlerter
+import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.DailyWeatherAlerter
+import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.StormAlerter
 
 class NotificationDiagnostic(private val context: Context) : IDiagnostic {
 

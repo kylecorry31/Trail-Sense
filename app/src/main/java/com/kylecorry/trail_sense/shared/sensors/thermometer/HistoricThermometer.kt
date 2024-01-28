@@ -4,7 +4,7 @@ import android.content.Context
 import com.kylecorry.andromeda.core.sensors.IThermometer
 import com.kylecorry.trail_sense.shared.sensors.CoroutineIntervalSensor
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
-import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
+import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Duration
 import java.time.ZonedDateTime
 

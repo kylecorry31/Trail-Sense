@@ -11,8 +11,8 @@ import com.kylecorry.trail_sense.tools.battery.domain.RunningService
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherMonitorIsEnabled
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
+import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorIsEnabled
+import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherUpdateScheduler
 import java.time.Duration
 
 class BatteryService {

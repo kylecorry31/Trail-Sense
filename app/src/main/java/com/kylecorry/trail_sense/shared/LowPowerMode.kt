@@ -4,8 +4,8 @@ import android.app.Activity
 import android.content.Context
 import com.kylecorry.trail_sense.navigation.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherMonitorIsEnabled
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
+import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorIsEnabled
+import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherUpdateScheduler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

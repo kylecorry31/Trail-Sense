@@ -11,8 +11,8 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tiles.TileManager
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryLogWorker
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherMonitorService
-import com.kylecorry.trail_sense.weather.infrastructure.WeatherUpdateScheduler
+import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorService
+import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherUpdateScheduler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

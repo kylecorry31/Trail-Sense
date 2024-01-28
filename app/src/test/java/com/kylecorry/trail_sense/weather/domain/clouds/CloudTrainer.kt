@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.weather.domain.clouds
+package com.kylecorry.trail_sense.tools.weather.domain.clouds
 
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.csv.CSVConvert

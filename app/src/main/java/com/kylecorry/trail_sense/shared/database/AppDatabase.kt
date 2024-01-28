@@ -41,8 +41,8 @@ import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudRe
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudReadingEntity
 import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningStrikeDao
 import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningStrikeEntity
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureReadingDao
-import com.kylecorry.trail_sense.weather.infrastructure.persistence.PressureReadingEntity
+import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.PressureReadingDao
+import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.PressureReadingEntity
 
 /**
  * The Room database for this app

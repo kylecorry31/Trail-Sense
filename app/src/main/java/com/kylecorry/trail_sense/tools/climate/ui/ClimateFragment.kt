@@ -19,8 +19,8 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
-import com.kylecorry.trail_sense.weather.infrastructure.subsystem.WeatherSubsystem
-import com.kylecorry.trail_sense.weather.ui.charts.YearlyTemperatureRangeChart
+import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
+import com.kylecorry.trail_sense.tools.weather.ui.charts.YearlyTemperatureRangeChart
 import java.time.LocalDate
 
 class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
