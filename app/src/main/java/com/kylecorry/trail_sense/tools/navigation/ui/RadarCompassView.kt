@@ -14,23 +14,21 @@ import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Circle
-import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.navigation.domain.RadarCompassCoordinateToPixelStrategy
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.ILayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
-import com.kylecorry.trail_sense.shared.data.SimpleCachedValue
-import com.kylecorry.trail_sense.shared.maps.ICoordinateToPixelStrategy
+import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.ILayer
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
 import kotlin.math.min
 
 class RadarCompassView : BaseCompassView, IMapView {
@@ -60,25 +58,7 @@ class RadarCompassView : BaseCompassView, IMapView {
     private lateinit var maxDistanceBaseUnits: Distance
     private lateinit var maxDistanceMeters: Distance
 
-    private val coordinateToPixelStrategyCache = SimpleCachedValue<ICoordinateToPixelStrategy>()
-
-    private val coordinateToPixelStrategy: ICoordinateToPixelStrategy
-        get() {
-            return coordinateToPixelStrategyCache.getOrPut(
-                compassCircle,
-                compassCenter,
-                maxDistanceMeters,
-                useTrueNorth,
-                declination
-            ) {
-                RadarCompassCoordinateToPixelStrategy(
-                    compassCircle,
-                    Geofence(compassCenter, maxDistanceMeters),
-                    useTrueNorth,
-                    declination
-                )
-            }
-        }
+    private val navigation = NavigationService()
 
     private val layers = mutableListOf<ILayer>()
 
@@ -331,9 +311,13 @@ class RadarCompassView : BaseCompassView, IMapView {
         this.layers.addAll(layers)
     }
 
-    // TODO: Don't calculate coordinate to pixel strategy on the fly
     override fun toPixel(coordinate: Coordinate): PixelCoordinate {
-        return coordinateToPixelStrategy.getPixels(coordinate)
+        val vector = navigation.navigate(compassCenter, coordinate, declination, useTrueNorth)
+        val angle = SolMath.wrap(-(vector.direction.value - 90), 0f, 360f)
+        val pixelDistance = vector.distance / metersPerPixel
+        val xDiff = SolMath.cosDegrees(angle) * pixelDistance
+        val yDiff = SolMath.sinDegrees(angle) * pixelDistance
+        return PixelCoordinate(compassCircle.center.x + xDiff, compassCircle.center.y - yDiff)
     }
 
     override fun toCoordinate(pixel: PixelCoordinate): Coordinate {
