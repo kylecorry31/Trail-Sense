@@ -24,6 +24,8 @@ import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.sense.location.filters.GPSGaussianAltitudeFilter
 import com.kylecorry.andromeda.sense.magnetometer.IMagnetometer
 import com.kylecorry.andromeda.sense.magnetometer.Magnetometer
+import com.kylecorry.andromeda.sense.mock.MockBarometer
+import com.kylecorry.andromeda.sense.mock.MockGyroscope
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.andromeda.sense.orientation.GameRotationSensor
 import com.kylecorry.andromeda.sense.orientation.Gyroscope
@@ -44,7 +46,7 @@ import com.kylecorry.trail_sense.shared.sensors.altimeter.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrapper
 import com.kylecorry.trail_sense.shared.sensors.altimeter.GaussianAltimeterWrapper
 import com.kylecorry.trail_sense.shared.sensors.altimeter.OverrideAltimeter
-import com.kylecorry.trail_sense.shared.sensors.hygrometer.NullHygrometer
+import com.kylecorry.trail_sense.shared.sensors.hygrometer.MockHygrometer
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.sensors.providers.CompassProvider
@@ -106,7 +108,7 @@ class SensorService(ctx: Context) {
         return if (Permissions.canRecognizeActivity(context)) {
             Pedometer(context, ENVIRONMENT_SENSOR_DELAY)
         } else {
-            NullPedometer()
+            MockPedometer()
         }
     }
 
@@ -218,7 +220,7 @@ class SensorService(ctx: Context) {
             3
         ) {
             LowPassFilter(0.1f, it)
-        } else NullBarometer()
+        } else MockBarometer()
     }
 
     fun getThermometer(calibrated: Boolean = true): IThermometer {
@@ -253,12 +255,12 @@ class SensorService(ctx: Context) {
             return Hygrometer(context, ENVIRONMENT_SENSOR_DELAY)
         }
 
-        return NullHygrometer()
+        return MockHygrometer()
     }
 
     fun getCellSignal(): ICellSignalSensor {
         if (!hasLocationPermission()) {
-            return NullCellSignalSensor()
+            return MockCellSignalSensor()
         }
         return CellSignalSensor(context, userPrefs.cellSignal.populateCache)
     }
@@ -277,7 +279,7 @@ class SensorService(ctx: Context) {
 
     fun getGyroscope(): IOrientationSensor {
         if (!Sensors.hasGyroscope(context)) {
-            return NullGyroscope()
+            return MockGyroscope()
         }
         if (Sensors.hasSensor(context, Sensor.TYPE_GAME_ROTATION_VECTOR)) {
             return GameRotationSensor(context, MOTION_SENSOR_DELAY)

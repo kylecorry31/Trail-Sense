@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.tools.paths.quickactions.QuickActionPaths
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.data.Identifiable
-import com.kylecorry.trail_sense.shared.extensions.isDebug
+import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.QuickActionNone
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionNightMode

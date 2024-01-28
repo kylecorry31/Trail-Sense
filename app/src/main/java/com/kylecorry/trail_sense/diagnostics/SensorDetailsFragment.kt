@@ -19,6 +19,8 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.accelerometer.Accelerometer
 import com.kylecorry.andromeda.sense.altitude.BarometricAltimeter
 import com.kylecorry.andromeda.sense.location.GPS
+import com.kylecorry.andromeda.sense.mock.MockBarometer
+import com.kylecorry.andromeda.sense.mock.MockSensor
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
@@ -35,12 +37,10 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
-import com.kylecorry.trail_sense.shared.sensors.NullBarometer
-import com.kylecorry.trail_sense.shared.sensors.NullSensor
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.altimeter.OverrideAltimeter
-import com.kylecorry.trail_sense.shared.sensors.hygrometer.NullHygrometer
+import com.kylecorry.trail_sense.shared.sensors.hygrometer.MockHygrometer
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import java.time.Duration
@@ -232,7 +232,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
     }
 
     private fun updateBarometer() {
-        if (barometer is NullBarometer) {
+        if (barometer is MockBarometer) {
             return
         }
         val pressure =
@@ -260,7 +260,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
     }
 
     private fun updateCompass() {
-        sensorDetailsMap["compass"] = if (compass is NullSensor) {
+        sensorDetailsMap["compass"] = if (compass is MockSensor) {
             SensorDetails(
                 getString(R.string.pref_compass_sensor_title),
                 "-",
@@ -294,7 +294,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
     }
 
     private fun updateHygrometer() {
-        if (hygrometer is NullHygrometer) {
+        if (hygrometer is MockHygrometer) {
             return
         }
 

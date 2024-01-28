@@ -26,7 +26,7 @@ import com.kylecorry.trail_sense.settings.infrastructure.ICompassPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
 import com.kylecorry.trail_sense.shared.sensors.compass.MagQualityCompassWrapper
-import com.kylecorry.trail_sense.shared.sensors.compass.NullCompass
+import com.kylecorry.trail_sense.shared.sensors.compass.MockCompass
 import com.kylecorry.trail_sense.shared.sensors.compass.QuickRecalibrationOrientationSensor
 import kotlin.math.pow
 
@@ -42,7 +42,7 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
 
         // There were no compass sensors found
         if (allSources.isEmpty()) {
-            return NullCompass()
+            return MockCompass()
         }
 
         if (!allSources.contains(source)) {

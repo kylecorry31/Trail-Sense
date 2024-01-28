@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.annotation.DrawableRes
 import com.kylecorry.andromeda.core.sensors.ISensor
 import com.kylecorry.andromeda.core.sensors.Quality
+import com.kylecorry.andromeda.sense.mock.MockSensor
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.sensors.NullSensor
 
 class SensorStatusBadgeProvider(
     private val sensor: ISensor,
@@ -16,7 +16,7 @@ class SensorStatusBadgeProvider(
 ) : StatusBadgeProvider {
 
     private val formatter = FormatService.getInstance(context)
-    private val isUnavailable = sensor is NullSensor
+    private val isUnavailable = sensor is MockSensor
 
     override fun getBadge(): StatusBadge {
         if (isUnavailable) {

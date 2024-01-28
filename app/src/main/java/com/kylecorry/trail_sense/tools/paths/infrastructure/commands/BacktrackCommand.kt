@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.trail_sense.shared.networkQuality
-import com.kylecorry.trail_sense.shared.sensors.NullCellSignalSensor
+import com.kylecorry.trail_sense.shared.sensors.MockCellSignalSensor
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import java.time.Duration
 import java.time.Instant
@@ -29,7 +29,7 @@ class BacktrackCommand(
     private val gps = sensorService.getGPS()
     private val altimeter = sensorService.getAltimeter(gps = gps)
     private val cellSignalSensor =
-        if (prefs.backtrackSaveCellHistory && pathId == 0L) sensorService.getCellSignal() else NullCellSignalSensor()
+        if (prefs.backtrackSaveCellHistory && pathId == 0L) sensorService.getCellSignal() else MockCellSignalSensor()
 
     private val pathService = PathService.getInstance(context)
 

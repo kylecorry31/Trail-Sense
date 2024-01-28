@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.shared.sensors.hygrometer
 
 import com.kylecorry.andromeda.sense.hygrometer.IHygrometer
-import com.kylecorry.trail_sense.shared.sensors.NullSensor
+import com.kylecorry.andromeda.sense.mock.MockSensor
 
-class NullHygrometer : NullSensor(), IHygrometer {
+class MockHygrometer : MockSensor(), IHygrometer {
     override val humidity: Float
         get() = _humidity
 

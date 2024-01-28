@@ -10,7 +10,7 @@ import com.kylecorry.andromeda.exceptions.EmailExceptionHandler
 import com.kylecorry.andromeda.exceptions.StackTraceBugReportGenerator
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
-import com.kylecorry.trail_sense.shared.extensions.isDebug
+import com.kylecorry.trail_sense.shared.debugging.isDebug
 
 object ExceptionHandler {
 

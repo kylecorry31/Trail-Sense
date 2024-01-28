@@ -10,12 +10,12 @@ import com.kylecorry.andromeda.core.sensors.ISensor
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.location.IGPS
+import com.kylecorry.andromeda.sense.mock.MockSensor
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
-import com.kylecorry.trail_sense.shared.sensors.NullSensor
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 
@@ -29,7 +29,7 @@ class ImproveAccuracyAlerter(private val context: Context) : IValueAlerter<List<
     override fun alert(value: List<ISensor>) {
         val gps = value.firstOrNull { it is IGPS } as? IGPS
         val compass = value.firstOrNull { it is ICompass } as? ICompass
-        val hasCompass = compass !is NullSensor
+        val hasCompass = compass !is MockSensor
         val content = buildSpannedString {
             gps?.let {
                 appendGPS(it)
@@ -55,7 +55,7 @@ class ImproveAccuracyAlerter(private val context: Context) : IValueAlerter<List<
     }
 
     private fun SpannableStringBuilder.appendCompass(compass: ICompass) {
-        if (compass is NullSensor) {
+        if (compass is MockSensor) {
             return
         }
 
