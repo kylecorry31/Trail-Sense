@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.tools.paths.infrastructure.services.BacktrackSe
 import com.kylecorry.trail_sense.tools.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tiles.TileManager
+import com.kylecorry.trail_sense.shared.tiles.TileManager
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyDailyWorker
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryLogWorker

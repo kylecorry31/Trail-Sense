@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tiles
+package com.kylecorry.trail_sense.tools.paths.tiles
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -8,6 +8,7 @@ import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.trail_sense.tools.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.tiles.TopicTile
 
 @RequiresApi(Build.VERSION_CODES.N)
 class BacktrackTile : TopicTile() {

@@ -7,7 +7,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.receivers.StartOnBootController
 import com.kylecorry.trail_sense.shared.LowPowerMode
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tiles.TileManager
+import com.kylecorry.trail_sense.shared.tiles.TileManager
 
 class PowerSettingsFragment : AndromedaPreferenceFragment() {
 

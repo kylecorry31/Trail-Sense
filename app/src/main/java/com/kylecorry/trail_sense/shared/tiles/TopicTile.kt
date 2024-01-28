@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tiles
+package com.kylecorry.trail_sense.shared.tiles
 
 import android.os.Build
 import android.service.quicksettings.Tile

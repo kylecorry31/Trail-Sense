@@ -183,7 +183,7 @@
 
         <!--Tiles-->
         <service
-            android:name=".tiles.BacktrackTile"
+            android:name=".tools.paths.tiles.BacktrackTile"
             android:exported="true"
             android:icon="@drawable/ic_tool_backtrack"
             android:label="@string/backtrack"
@@ -197,7 +197,7 @@
         </service>
 
         <service
-            android:name=".tiles.WeatherMonitorTile"
+            android:name=".tools.weather.tiles.WeatherMonitorTile"
             android:exported="true"
             android:icon="@drawable/cloud"
             android:label="@string/weather_monitor"
@@ -211,7 +211,7 @@
         </service>
 
         <service
-            android:name=".tiles.PedometerTile"
+            android:name=".tools.pedometer.tiles.PedometerTile"
             android:exported="true"
             android:icon="@drawable/steps"
             android:label="@string/pedometer"

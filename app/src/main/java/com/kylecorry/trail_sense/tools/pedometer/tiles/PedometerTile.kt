@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tiles
+package com.kylecorry.trail_sense.tools.pedometer.tiles
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.tiles.TopicTile
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
 
 @RequiresApi(Build.VERSION_CODES.N)
