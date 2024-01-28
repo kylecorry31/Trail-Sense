@@ -1115,4 +1115,6 @@
     <string name="view_distance">Mesafeyi görüntüle</string>
     <string name="fast_path_rendering">Hızlı yol oluşturma</string>
     <string name="fast_path_rendering_summary">Görünüş pahasına performansı iyileştirir</string>
+    <string name="show_dial_ticks_on_nearby_radar_summary">Aygıtınızın pusulası yok, ancak yine de işaretlerin ne yönde olduğunu görebilirsiniz.</string>
+    <string name="show_dial_ticks_on_nearby_radar">Yakındaki radarda kadran işaretlerini göster</string>
 </resources>

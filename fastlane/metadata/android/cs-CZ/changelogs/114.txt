@@ -1,0 +1,1 @@
+- Opraveny dynamické barvy na zařízeních Samsung
