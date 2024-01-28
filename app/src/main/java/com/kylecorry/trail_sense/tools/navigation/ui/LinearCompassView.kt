@@ -35,12 +35,6 @@ class LinearCompassView : BaseCompassView {
 
     var range = 180f
 
-    var showAzimuthArrow: Boolean = true
-        set(value) {
-            field = value
-            invalidate()
-        }
-
     private val rawMinimum: Float
         get() = azimuth.value - range / 2
 
@@ -51,9 +45,6 @@ class LinearCompassView : BaseCompassView {
     private var textSize = 0f
 
     private fun drawAzimuth() {
-        if (!showAzimuthArrow) {
-            return
-        }
         tint(Resources.androidTextColorPrimary(context))
         imageMode(ImageMode.Corner)
         image(

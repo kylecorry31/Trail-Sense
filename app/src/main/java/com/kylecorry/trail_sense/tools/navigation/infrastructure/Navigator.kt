@@ -23,7 +23,7 @@ class Navigator private constructor(context: Context) {
 
     // Flows
     private val _destinationId = MutableStateFlow(getDestinationId())
-    val destinationId: Flow<Long?> = _destinationId
+    private val destinationId: Flow<Long?> = _destinationId
         .distinctUntilChanged { old, new -> old == new }
 
     val destination = destinationId.map { it?.let { service.getBeacon(it) } }
@@ -60,7 +60,7 @@ class Navigator private constructor(context: Context) {
     }
 
     companion object {
-        val DESTINATION_ID_KEY = "last_beacon_id_long"
+        const val DESTINATION_ID_KEY = "last_beacon_id_long"
 
         private var instance: Navigator? = null
 

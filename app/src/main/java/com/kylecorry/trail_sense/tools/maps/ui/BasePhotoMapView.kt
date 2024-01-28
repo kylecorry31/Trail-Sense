@@ -172,7 +172,7 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
         invalidate()
     }
 
-    protected fun getPixelCoordinate(coordinate: Coordinate): PixelCoordinate? {
+    private fun getPixelCoordinate(coordinate: Coordinate): PixelCoordinate? {
         val source = projection?.toPixels(coordinate) ?: return null
         val view = toView(source.x, source.y)
         return PixelCoordinate(view?.x ?: 0f, view?.y ?: 0f)

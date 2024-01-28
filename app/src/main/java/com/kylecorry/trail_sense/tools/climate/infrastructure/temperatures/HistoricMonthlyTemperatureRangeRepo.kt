@@ -48,8 +48,8 @@ internal object HistoricMonthlyTemperatureRangeRepo {
         "7-9" to Triple(Month.JULY, Month.AUGUST, Month.SEPTEMBER),
         "10-12" to Triple(Month.OCTOBER, Month.NOVEMBER, Month.DECEMBER)
     )
-    private val lowType = "T2MMIN"
-    private val highType = "T2MMAX"
+    private const val lowType = "T2MMIN"
+    private const val highType = "T2MMAX"
 
     suspend fun getMonthlyTemperatureRanges(
         context: Context,

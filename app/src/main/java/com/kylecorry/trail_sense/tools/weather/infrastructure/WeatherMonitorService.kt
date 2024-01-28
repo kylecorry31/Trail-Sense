@@ -71,7 +71,7 @@ class WeatherMonitorService :
             scheduler(context).cancel()
         }
 
-        fun scheduler(context: Context): IAlwaysOnTaskScheduler {
+        private fun scheduler(context: Context): IAlwaysOnTaskScheduler {
             return TaskSchedulerFactory(context).alwaysOn(
                 WeatherMonitorService::class.java,
                 foreground = true

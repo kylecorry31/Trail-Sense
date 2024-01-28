@@ -40,7 +40,7 @@ class AstronomyDailyWorker(context: Context, params: WorkerParameters) : DailyWo
 
         const val UNIQUE_ID = 72394823
 
-        fun getScheduler(context: Context): IOneTimeTaskScheduler {
+        private fun getScheduler(context: Context): IOneTimeTaskScheduler {
             return OneTimeTaskSchedulerFactory(context).deferrable(
                 AstronomyDailyWorker::class.java,
                 UNIQUE_ID

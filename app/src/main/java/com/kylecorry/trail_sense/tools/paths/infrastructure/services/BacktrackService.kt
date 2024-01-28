@@ -70,7 +70,7 @@ class BacktrackService :
             scheduler(context).cancel()
         }
 
-        fun scheduler(context: Context): IAlwaysOnTaskScheduler {
+        private fun scheduler(context: Context): IAlwaysOnTaskScheduler {
             return TaskSchedulerFactory(context).alwaysOn(
                 BacktrackService::class.java,
                 foreground = true

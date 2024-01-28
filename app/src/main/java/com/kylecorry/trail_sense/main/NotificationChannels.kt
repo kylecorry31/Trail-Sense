@@ -32,8 +32,8 @@ object NotificationChannels {
     const val CHANNEL_SERVICE_RESTART = "service_restart"
 
     // Legacy (intended for deletion)
-    const val CHANNEL_BACKGROUND_UPDATES = "background_updates"
-    const val CHANNEL_BACKGROUND_LAUNCHER = "background_launcher"
+    private const val CHANNEL_BACKGROUND_UPDATES = "background_updates"
+    private const val CHANNEL_BACKGROUND_LAUNCHER = "background_launcher"
 
     fun createChannels(context: Context) {
         // Flashlight

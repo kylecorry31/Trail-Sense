@@ -12,7 +12,7 @@ class PathGPXConverter {
         return GPXData(emptyList(), tracks.flatMap { it.tracks }, emptyList())
     }
 
-    fun toGPX(path: FullPath): GPXData {
+    private fun toGPX(path: FullPath): GPXData {
         val waypoints = path.points.map {
             GPXWaypoint(it.coordinate, elevation = it.elevation, time = it.time)
         }

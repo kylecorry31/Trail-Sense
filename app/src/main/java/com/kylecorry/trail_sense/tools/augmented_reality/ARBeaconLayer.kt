@@ -10,9 +10,8 @@ import com.kylecorry.trail_sense.tools.navigation.ui.DrawerBitmapLoader
 import com.kylecorry.trail_sense.tools.augmented_reality.position.GeographicARPoint
 import kotlin.math.hypot
 
-// TODO: Figure out what to pass for the visible distance: d = 1.2246 * sqrt(h) where d is miles and h is feet (or move it to the consumer)
 class ARBeaconLayer(
-    var maxVisibleDistance: Distance = Distance.kilometers(1f),
+    private val maxVisibleDistance: Distance = Distance.kilometers(1f),
     private val beaconSize: Distance = Distance.meters(4f),
     private val onFocus: (beacon: Beacon) -> Boolean = { false },
     private val onClick: (beacon: Beacon) -> Boolean = { false }

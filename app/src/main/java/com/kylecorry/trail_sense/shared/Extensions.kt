@@ -93,7 +93,7 @@ fun ICanvasDrawer.getBounds(rotation: Float = 0f): Rectangle {
     return rectangle
 }
 
-inline fun Enum<*>.readableName(): String {
+fun Enum<*>.readableName(): String {
     return name.map { if (it.isUpperCase()) " $it" else it }
         .joinToString("").trim()
 }
