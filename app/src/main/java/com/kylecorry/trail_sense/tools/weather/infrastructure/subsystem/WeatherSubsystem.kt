@@ -20,8 +20,8 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.data.DataUtils
 import com.kylecorry.trail_sense.shared.debugging.DebugWeatherCommand
 import com.kylecorry.trail_sense.shared.extensions.getOrNull
-import com.kylecorry.trail_sense.shared.extensions.onDefault
-import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures.HistoricTemperatureRepo

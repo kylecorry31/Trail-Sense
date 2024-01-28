@@ -26,7 +26,7 @@ import com.kylecorry.trail_sense.shared.ErrorBannerReason
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.AlertLoadingIndicator
-import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.sensors.SensorService

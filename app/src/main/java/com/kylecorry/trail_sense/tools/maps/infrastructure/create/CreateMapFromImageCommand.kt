@@ -6,7 +6,7 @@ import androidx.core.net.toFile
 import androidx.exifinterface.media.ExifInterface
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.sol.math.geometry.Size
-import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibration
 import com.kylecorry.trail_sense.tools.maps.domain.MapMetadata

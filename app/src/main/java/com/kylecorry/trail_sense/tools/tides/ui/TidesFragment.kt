@@ -21,7 +21,7 @@ import com.kylecorry.trail_sense.databinding.FragmentTideBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.trail_sense.tools.tides.domain.TideService
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import com.kylecorry.trail_sense.tools.tides.domain.commands.CurrentTideCommand

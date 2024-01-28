@@ -8,7 +8,7 @@ import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathGroup
 import com.kylecorry.trail_sense.tools.paths.infrastructure.PathPickers
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
-import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.andromeda.core.coroutines.onIO
 
 class MoveIPathCommand(
     private val context: Context,

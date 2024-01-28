@@ -6,7 +6,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
-import com.kylecorry.trail_sense.shared.extensions.onDefault
+import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.trail_sense.shared.extensions.range
 import com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures.ITemperatureRepo
 import java.time.LocalDate

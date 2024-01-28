@@ -70,9 +70,9 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.debugging.DebugPathElevationsCommand
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.extensions.isDebug
-import com.kylecorry.trail_sense.shared.extensions.onDefault
-import com.kylecorry.trail_sense.shared.extensions.onIO
-import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.trail_sense.shared.extensions.range
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.io.IOFactory

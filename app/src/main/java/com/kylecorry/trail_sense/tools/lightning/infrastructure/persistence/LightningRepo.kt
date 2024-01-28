@@ -6,7 +6,7 @@ import androidx.lifecycle.map
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.main.persistence.IReadingRepo
-import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.trail_sense.tools.lightning.domain.LightningStrike
 import java.time.Duration
 import java.time.Instant

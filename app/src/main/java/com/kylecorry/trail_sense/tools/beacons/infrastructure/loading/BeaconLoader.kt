@@ -5,7 +5,7 @@ import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.beacons.domain.IBeacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.IBeaconService
 import com.kylecorry.trail_sense.settings.infrastructure.IBeaconPreferences
-import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.trail_sense.shared.grouping.persistence.ISearchableGroupLoader
 
 class BeaconLoader(

@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.extensions
+package com.kylecorry.trail_sense.shared.data
 
 object HashUtils {
 

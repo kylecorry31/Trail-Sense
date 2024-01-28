@@ -8,8 +8,8 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.databinding.FragmentToolNotesCreateBinding
-import com.kylecorry.trail_sense.shared.extensions.onIO
-import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteRepo

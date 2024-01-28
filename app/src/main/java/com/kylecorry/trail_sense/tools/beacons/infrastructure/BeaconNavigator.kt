@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.beacons.infrastructure
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.IBeaconService
-import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.trail_sense.shared.navigation.IAppNavigation
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

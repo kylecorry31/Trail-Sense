@@ -10,7 +10,7 @@ import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathServ
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.data.DataUtils
 import com.kylecorry.trail_sense.shared.debugging.DebugElevationsCommand
-import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.altimeter.OverrideAltimeter
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem

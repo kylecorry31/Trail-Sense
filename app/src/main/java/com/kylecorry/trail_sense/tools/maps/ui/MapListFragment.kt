@@ -19,8 +19,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapListBinding
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.onBackPressed
-import com.kylecorry.trail_sense.shared.extensions.onDefault
-import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
 import com.kylecorry.trail_sense.shared.grouping.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.grouping.lists.bind

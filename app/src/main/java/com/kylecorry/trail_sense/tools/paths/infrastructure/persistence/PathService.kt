@@ -18,7 +18,7 @@ import com.kylecorry.trail_sense.tools.paths.domain.PathGroup
 import com.kylecorry.trail_sense.tools.paths.domain.PathMetadata
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.domain.PathSimplificationQuality
-import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.trail_sense.shared.grouping.count.GroupCounter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupDeleter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader

@@ -4,8 +4,8 @@ import android.content.Context
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.trail_sense.shared.alerts.ILoadingIndicator
-import com.kylecorry.trail_sense.shared.extensions.onIO
-import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Duration
 

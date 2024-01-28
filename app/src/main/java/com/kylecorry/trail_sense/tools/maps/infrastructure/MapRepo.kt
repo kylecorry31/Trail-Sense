@@ -5,7 +5,7 @@ import android.content.Context
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
-import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.MapEntity
 import com.kylecorry.trail_sense.tools.maps.domain.MapGroup

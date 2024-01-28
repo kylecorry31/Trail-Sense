@@ -10,7 +10,7 @@ import com.kylecorry.trail_sense.tools.paths.infrastructure.PathLoader
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.paths.ui.asMappable
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.PathLayer
-import com.kylecorry.trail_sense.shared.extensions.onDefault
+import com.kylecorry.andromeda.core.coroutines.onDefault
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel

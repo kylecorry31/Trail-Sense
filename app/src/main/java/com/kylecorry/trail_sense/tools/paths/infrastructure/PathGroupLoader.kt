@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.paths.infrastructure
 import com.kylecorry.trail_sense.tools.paths.domain.IPath
 import com.kylecorry.trail_sense.tools.paths.domain.IPathService
 import com.kylecorry.trail_sense.tools.paths.domain.Path
-import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.trail_sense.shared.grouping.filter.GroupFilter
 import com.kylecorry.trail_sense.shared.grouping.persistence.ISearchableGroupLoader
 

@@ -43,8 +43,8 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.onBackPressed
-import com.kylecorry.trail_sense.shared.extensions.onIO
-import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.trail_sense.shared.from
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.grouping.lists.GroupListManager

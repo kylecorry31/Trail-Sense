@@ -4,7 +4,7 @@ import android.content.Context
 import com.kylecorry.andromeda.alerts.CoroutineAlerts
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.commands.generic.CoroutineCommand
-import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.trail_sense.tools.maps.domain.IMap
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapService

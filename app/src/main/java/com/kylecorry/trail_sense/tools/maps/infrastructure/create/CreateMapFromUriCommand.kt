@@ -5,8 +5,8 @@ import android.net.Uri
 import com.kylecorry.andromeda.alerts.loading.ILoadingIndicator
 import com.kylecorry.andromeda.pickers.CoroutinePickers
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.extensions.onIO
-import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.IMapRepo

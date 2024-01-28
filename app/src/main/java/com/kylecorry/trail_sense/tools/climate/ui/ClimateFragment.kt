@@ -17,7 +17,7 @@ import com.kylecorry.trail_sense.databinding.FragmentClimateBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import com.kylecorry.trail_sense.tools.weather.ui.charts.YearlyTemperatureRangeChart

@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.beacons.domain.IBeacon
-import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.trail_sense.shared.grouping.count.GroupCounter
 import com.kylecorry.trail_sense.shared.grouping.filter.GroupFilter
 import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader

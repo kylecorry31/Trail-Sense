@@ -25,9 +25,9 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.data.DataUtils
 import com.kylecorry.trail_sense.shared.debugging.DebugElevationsCommand
-import com.kylecorry.trail_sense.shared.extensions.onDefault
-import com.kylecorry.trail_sense.shared.extensions.onIO
-import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatter
 import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.WeatherRepo
 import java.time.Duration

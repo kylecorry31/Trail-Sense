@@ -9,8 +9,8 @@ import com.kylecorry.trail_sense.tools.paths.domain.PathMetadata
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.IPathPreferences
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.extensions.onIO
-import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.andromeda.core.coroutines.onMain
 
 
 class CreatePathCommand(

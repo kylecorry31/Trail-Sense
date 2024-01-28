@@ -1,7 +1,5 @@
 package com.kylecorry.trail_sense.shared.data
 
-import com.kylecorry.trail_sense.shared.extensions.HashUtils
-
 class SimpleCachedValue<T> {
 
     private var cachedValue: T? = null

@@ -18,8 +18,8 @@ import com.kylecorry.andromeda.camera.ImageCaptureSettings
 import com.kylecorry.andromeda.fragments.BoundFullscreenDialogFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.databinding.FragmentPhotoImportSheetBinding
-import com.kylecorry.trail_sense.shared.extensions.onIO
-import com.kylecorry.trail_sense.shared.extensions.onMain
+import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 
 class PhotoImportBottomSheetFragment(

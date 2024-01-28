@@ -8,7 +8,7 @@ import com.kylecorry.sol.time.Time.daysUntil
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
-import com.kylecorry.trail_sense.shared.extensions.onDefault
+import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures.calculators.DailyTemperatureCalculator
 import java.time.Duration
 import java.time.LocalDate

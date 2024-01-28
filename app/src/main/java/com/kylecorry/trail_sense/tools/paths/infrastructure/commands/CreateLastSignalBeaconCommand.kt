@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.Beacon
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.extensions.onIO
+import com.kylecorry.andromeda.core.coroutines.onIO
 
 class CreateLastSignalBeaconCommand(private val context: Context) {
 
