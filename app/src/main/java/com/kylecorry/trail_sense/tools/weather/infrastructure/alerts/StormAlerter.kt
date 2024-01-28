@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.weather.infrastructure.alerts
 
 import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.trail_sense.NotificationChannels
+import com.kylecorry.trail_sense.main.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.NavigationUtils
 import com.kylecorry.trail_sense.shared.alerts.IDismissibleAlerter

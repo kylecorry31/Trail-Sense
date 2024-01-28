@@ -26,7 +26,7 @@ import com.kylecorry.sol.time.Time.toEpochMillis
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.*
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.domain.LocationMath
+import com.kylecorry.trail_sense.tools.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingDifficulty
 import com.kylecorry.trail_sense.shared.domain.Probability
 import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType

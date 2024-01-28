@@ -10,8 +10,8 @@ import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geology.projections.IMapProjection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.ui.layers.ILayer
-import com.kylecorry.trail_sense.navigation.ui.layers.IMapView
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.ILayer
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.views.EnhancedImageView
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import kotlin.math.max

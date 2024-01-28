@@ -20,8 +20,8 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.navigation.ui.layers.ILayer
-import com.kylecorry.trail_sense.navigation.ui.layers.IMapView
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.ILayer
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences

@@ -8,7 +8,7 @@ import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ViewArNavigationGuideBinding
-import com.kylecorry.trail_sense.navigation.infrastructure.Navigator
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.shared.extensions.onMain
 import com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityView
 import com.kylecorry.trail_sense.tools.augmented_reality.position.GeographicARPoint

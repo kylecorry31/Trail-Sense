@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/action_navigation"
-        android:name="com.kylecorry.trail_sense.navigation.ui.NavigatorFragment"
+        android:name="com.kylecorry.trail_sense.tools.navigation.ui.NavigatorFragment"
         android:label="activity_navigator"
         tools:layout="@layout/activity_navigator">
 

@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.NotificationChannels
+import com.kylecorry.trail_sense.main.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.NavigationUtils

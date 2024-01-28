@@ -38,7 +38,7 @@ import com.kylecorry.trail_sense.tools.beacons.infrastructure.sort.BeaconSortMet
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.sort.ClosestBeaconSort
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.sort.MostRecentBeaconSort
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.sort.NameBeaconSort
-import com.kylecorry.trail_sense.navigation.infrastructure.Navigator
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences

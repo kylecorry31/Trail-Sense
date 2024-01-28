@@ -3,8 +3,8 @@ package com.kylecorry.trail_sense.tools.maps.infrastructure.layers
 import android.content.Context
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.navigation.infrastructure.Navigator
-import com.kylecorry.trail_sense.navigation.ui.layers.NavigationLayer
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.NavigationLayer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel

@@ -92,7 +92,7 @@
         tools:node="remove" />
 
     <application
-        android:name=".TrailSenseApplication"
+        android:name=".main.TrailSenseApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/backup_rules_31_higher"
         android:fullBackupContent="@xml/backup_rules_30_lower"

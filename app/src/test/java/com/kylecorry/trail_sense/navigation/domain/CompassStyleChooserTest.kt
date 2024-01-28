@@ -1,7 +1,9 @@
-package com.kylecorry.trail_sense.navigation.domain
+package com.kylecorry.trail_sense.tools.navigation.domain
 
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.trail_sense.settings.infrastructure.ICompassStylePreferences
+import com.kylecorry.trail_sense.tools.navigation.domain.CompassStyle
+import com.kylecorry.trail_sense.tools.navigation.domain.CompassStyleChooser
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest

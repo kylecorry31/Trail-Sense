@@ -14,7 +14,7 @@ import com.kylecorry.andromeda.views.chart.data.TextChartLayer
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.navigation.ui.BitmapLoader
+import com.kylecorry.trail_sense.tools.navigation.ui.BitmapLoader
 import com.kylecorry.trail_sense.shared.colors.ColorUtils
 import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatter
 import java.time.Instant

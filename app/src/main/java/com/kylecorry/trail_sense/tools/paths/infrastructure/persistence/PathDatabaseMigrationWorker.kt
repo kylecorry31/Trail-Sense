@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.paths.infrastructure.persistence
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationPreferences
 
 class PathDatabaseMigrationWorker(
     private val context: Context,

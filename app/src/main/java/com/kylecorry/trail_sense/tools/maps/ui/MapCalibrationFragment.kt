@@ -18,10 +18,10 @@ import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.roundNearestAngle
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapCalibrationBinding
-import com.kylecorry.trail_sense.navigation.ui.layers.BeaconLayer
-import com.kylecorry.trail_sense.navigation.ui.layers.MyAccuracyLayer
-import com.kylecorry.trail_sense.navigation.ui.layers.MyLocationLayer
-import com.kylecorry.trail_sense.navigation.ui.layers.PathLayer
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.BeaconLayer
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyAccuracyLayer
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyLocationLayer
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.PathLayer
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.UserPreferences

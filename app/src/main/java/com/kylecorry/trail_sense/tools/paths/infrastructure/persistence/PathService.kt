@@ -10,7 +10,7 @@ import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.filters.RDPFilter
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Reading
-import com.kylecorry.trail_sense.navigation.infrastructure.NavigationPreferences
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.tools.paths.domain.IPath
 import com.kylecorry.trail_sense.tools.paths.domain.IPathService
 import com.kylecorry.trail_sense.tools.paths.domain.Path

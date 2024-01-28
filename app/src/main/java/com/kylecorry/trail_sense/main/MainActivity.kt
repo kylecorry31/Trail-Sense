@@ -22,7 +22,6 @@ import com.kylecorry.andromeda.fragments.AndromedaActivity
 import com.kylecorry.andromeda.fragments.ColorTheme
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.ColorFilterConstraintLayout
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.backup.BackupService
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
@@ -40,9 +39,9 @@ import com.kylecorry.trail_sense.tools.clinometer.ui.ClinometerFragment
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.flashlight.ui.FragmentToolFlashlight
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
-import com.kylecorry.trail_sense.volumeactions.ClinometerLockVolumeAction
-import com.kylecorry.trail_sense.volumeactions.FlashlightToggleVolumeAction
-import com.kylecorry.trail_sense.volumeactions.VolumeAction
+import com.kylecorry.trail_sense.tools.clinometer.volumeactions.ClinometerLockVolumeAction
+import com.kylecorry.trail_sense.tools.flashlight.volumeactions.FlashlightToggleVolumeAction
+import com.kylecorry.trail_sense.shared.VolumeAction
 
 
 class MainActivity : AndromedaActivity() {

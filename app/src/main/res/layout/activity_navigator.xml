@@ -5,7 +5,7 @@
     android:id="@+id/navigator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".navigation.ui.NavigatorFragment">
+    tools:context=".tools.navigation.ui.NavigatorFragment">
 
     <com.kylecorry.andromeda.views.toolbar.Toolbar
         android:id="@+id/navigation_title"
@@ -72,7 +72,7 @@
         app:layout_constraintTop_toTopOf="@id/view_camera" />
 
 
-    <com.kylecorry.trail_sense.navigation.ui.RoundCompassView
+    <com.kylecorry.trail_sense.tools.navigation.ui.RoundCompassView
         android:id="@+id/round_compass"
         android:layout_width="@dimen/circular_display_size"
         android:layout_height="@dimen/circular_display_size"
@@ -81,7 +81,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/navigation_grid" />
 
-    <com.kylecorry.trail_sense.navigation.ui.RadarCompassView
+    <com.kylecorry.trail_sense.tools.navigation.ui.RadarCompassView
         android:id="@+id/radar_compass"
         android:layout_width="@dimen/circular_display_size"
         android:layout_height="@dimen/circular_display_size"
@@ -91,7 +91,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/navigation_grid" />
 
-    <com.kylecorry.trail_sense.navigation.ui.LinearCompassView
+    <com.kylecorry.trail_sense.tools.navigation.ui.LinearCompassView
         android:id="@+id/linear_compass"
         android:layout_width="match_parent"
         android:layout_height="100dp"

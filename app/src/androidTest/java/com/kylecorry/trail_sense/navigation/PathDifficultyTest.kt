@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.navigation
+package com.kylecorry.trail_sense.tools.navigation
 
 import androidx.test.platform.app.InstrumentationRegistry
 import com.kylecorry.andromeda.files.AssetFileSystem
