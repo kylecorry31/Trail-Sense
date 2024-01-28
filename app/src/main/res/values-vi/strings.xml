@@ -3,8 +3,6 @@
     <string name="settings">Cài đặt</string>
     <string name="astronomy">Thiên văn học</string>
     <string name="copied_to_clipboard_toast">Sao chép vào bộ nhớ tạm</string>
-    <string name="dialog_grant">Cập nhật cài đặt</string>
-    <string name="dialog_deny">Không, cảm ơn</string>
     <string name="disclaimer_message_title">Điều khoản bỏ quyền</string>
     <string name="app_disclaimer_message_title">Điều khoản bỏ quyền/ Điều khoản dịch vụ</string>
     <string name="navigation">Điều hướng</string>

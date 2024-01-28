@@ -99,8 +99,6 @@
     <string name="precise_feet_format">%s ft</string>
     <string name="app_disclaimer_message_title">Renunțare / Termeni și condiții</string>
     <string name="disclaimer_message_title">Act de renunțare</string>
-    <string name="dialog_deny">Nu, mulțumesc</string>
-    <string name="dialog_grant">Actualizare setări</string>
     <string name="access_background_location_rationale">Trail Sense utilizează datele despre locație în fundal. Este utilizat pentru calibrarea presiunii la nivelul mării în monitorizarea vremii și pentru a oferi alerte mai precise privind apusul soarelui. [Vezi Politica de confidențialitate] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Actualizați setările locației</string>
     <string name="copied_to_clipboard_toast">Copiat în clipboard</string>
