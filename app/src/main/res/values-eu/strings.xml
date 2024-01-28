@@ -13,7 +13,6 @@
     <string name="flashlight_title">Linterna</string>
     <string name="accuracy_info_title">Sentsoreen datuen zehaztasuna hobetzeko aholkuak</string>
     <string name="accuracy_distance_format">± %s</string>
-    <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Ezezaguna</string>
     <string name="dash">-</string>
     <string name="degree_format">%.0f°</string>
@@ -38,14 +37,6 @@
     <string name="settings">Ezarpenak</string>
     <string name="weather">Eguraldia</string>
     <string name="navigation">Nabigazioa</string>
-    <plurals name="last_minutes">
-        <item quantity="one">Azken %d minutua</item>
-        <item quantity="other">Azken %d minutuak</item>
-    </plurals>
-    <plurals name="last_hours">
-        <item quantity="one">Azken %d ordua</item>
-        <item quantity="other">Azken %d orduak</item>
-    </plurals>
     <string name="notification_monitoring_weather">Eguraldia atzekaldean monitorizatzen</string>
     <string name="notification_storm_alert_title">Ekaitz abisua</string>
     <string name="notification_storm_alert_text">Ekaitz bat hurbiltzen egon liteke</string>
@@ -124,14 +115,12 @@
     <string name="forecasts_category">Iragarpenak</string>
     <string name="advanced">Aurreratua</string>
     <string name="group">Taldea</string>
-    <string name="beacon_create">Sortu</string>
     <string name="category_safety">Segurtasuna</string>
     <string name="category_shelter">Babeslekua</string>
     <string name="category_fire">Sua</string>
     <string name="category_medical">Medikua</string>
     <string name="category_clothing">Arropa</string>
     <string name="category_hydration">Hidratazioa</string>
-    <string name="pref_altimeter_calibration_mode_title">Autokalibraketa</string>
     <string name="access_background_location_rationale">Trail Sensek kokapen datuak erabiltzen ditu atzekaldean. Eguraldiaren monitorizazioan itsas mailaren presioaren kalibraketa egiteko eta egunsenti abisu zehatzagoak emateko erabiltzen da. [Ikusi pribatutasun politika] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="thunder">Trumoia</string>
     <string name="lightning">Tximista</string>
@@ -168,8 +157,6 @@
     <string name="edit_item_title">Elementua editatu</string>
     <string name="create_item_title">Elementua sortu</string>
     <string name="moon_phase">Ilargialdia</string>
-    <string name="lunar_noon">Gauerdia</string>
-    <string name="solar_noon">Eguerdia</string>
     <string name="sunset_alert_channel_title">Ilunabar alerta</string>
     <string name="sunset_alerts">Ilunabar alertak</string>
     <string name="low">Baxua</string>
@@ -276,8 +263,6 @@
     <string name="arrow">Gezia</string>
     <string name="solid">Solidoa</string>
     <string name="search">Bilatu</string>
-    <string name="hour_symbol">o</string>
-    <string name="minute_symbol">m</string>
     <string name="next">Hurrengoa</string>
     <string name="previous">Aurrekoa</string>
     <string name="rename">Berrizendatu</string>
@@ -294,7 +279,6 @@
     <string name="network_no_signal">Seinalerik ez</string>
     <string name="time_ago">duela %s</string>
     <string name="magnetic_field_format_precise">%s uT</string>
-    <string name="guide_barometer_calibration_title">Barometroaren kalibrazioa</string>
     <string name="charging_wireless">Kargatzen (%s)</string>
     <string name="create_beacon">Baliza sortu</string>
     <string name="pref_monitor_weather_title">Eguraldia monitorizatu</string>
@@ -305,7 +289,6 @@
     <string name="convert">Bihurtu</string>
     <string name="whistle_signal_acknowledged">Onartua</string>
     <string name="noon">Eguerdia</string>
-    <string name="fields">Eremuak</string>
     <string name="dotted">Puntuekin</string>
     <string name="theme_sunset_sunrise">Egunsentia/ilunabarra</string>
     <string name="experimental">Esperimentala</string>
@@ -453,7 +436,6 @@
     <string name="tool_white_noise_summary">Lo egiten laguntzen zaitu</string>
     <string name="pref_include_leading_zero_title">Gehitu zero bat aurretik orduari</string>
     <string name="strobe_warning_content">Kliskatze funtzioak argi keinukariak ditu, arriskutsuak izan daitezke erabiltzaile batzuentzako.</string>
-    <string name="tool_triangulate_summary">Zehaztu zure kokapena GPSrik gabe</string>
     <string name="could_not_triangulate">Ezin izan da triangulatu</string>
     <string name="notification_channel_clock_sync_description">Jakinarazpen bat zure erlojua GPSaren orduarekin sinkronizatzeko</string>
     <string name="clock_sync_instructions">Jakinarazpena jasotzean ordu hau ezarri: %s</string>

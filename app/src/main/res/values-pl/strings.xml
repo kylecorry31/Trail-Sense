@@ -23,18 +23,6 @@
     <string name="pref_show_sun_moon_compass_title">Pokaż słońce/księżyc na kompasie</string>
     <string name="pref_show_linear_compass_title">Pokaż kompas liniowy</string>
     <string name="pref_show_linear_compass_summary">Gdy telefon jest ustawiony pionowo</string>
-    <plurals name="last_hours">
-        <item quantity="one">ostatnia %d godzina</item>
-        <item quantity="few">ostatnie %d godziny</item>
-        <item quantity="many">ostatnie %d godzin</item>
-        <item quantity="other">ostatnie %d godzin</item>
-    </plurals>
-    <plurals name="last_minutes">
-        <item quantity="one">ostatnia %d minuta</item>
-        <item quantity="few">ostatnie %d minuty</item>
-        <item quantity="many">ostatnie %d minut</item>
-        <item quantity="other">ostatnie %d minut</item>
-    </plurals>
     <string name="feet_miles">Stopy / Mile</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">inHg</string>
@@ -57,7 +45,6 @@
     <string name="pressure_12_hours">12 godzin</string>
     <string name="pressure_4_hours">4 godziny</string>
     <string name="pref_pressure_history_title">Historia ciśnienia</string>
-    <string name="solar_noon">Górowanie Słońca</string>
     <string name="waning_crescent">Ubywający Sierp</string>
     <string name="new_moon">Nów</string>
     <string name="advanced">Zaawansowane</string>
@@ -104,7 +91,6 @@
     <string name="flashlight_title">Latarka</string>
     <string name="accuracy_info_title">Wskazówki dotyczące poprawy dokładności danych z czujników</string>
     <string name="accuracy_distance_format">± %s</string>
-    <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Nieznana</string>
     <string name="dash">-</string>
     <string name="degree_format">%.0f°</string>
@@ -145,7 +131,6 @@
     <string name="category_hydration">Nawodnienie</string>
     <string name="navigation_nearby_category">W pobliżu</string>
     <string name="forecasts_category">Prognozy</string>
-    <string name="beacon_create">Utwórz</string>
     <string name="tool_user_guide_summary">Poradnik dotyczący korzystania z Trail Sense</string>
     <string name="pref_monitor_weather_title">Monitoruj pogodę</string>
     <string name="pref_max_beacon_distance_title">Promień punktów nawigacyjnych w pobliżu</string>
@@ -180,7 +165,6 @@
     <string name="pref_coordinate_format_title">Format współrzędnych</string>
     <string name="coordinate_format_degrees_minutes_seconds">Stopnie Minuty Sekundy</string>
     <string name="coordinate_format_decimal_degrees">Stopnie dziesiętne</string>
-    <string name="lunar_noon">Górowanie Księżyca</string>
     <string name="pref_ruler_calibration_title">Skala linijki</string>
     <string name="sensors">Czujniki</string>
     <string name="clinometer_title">Inklinometr</string>
@@ -199,7 +183,6 @@
     <string name="pref_show_pressure_in_notification_title">Pokaż ciśnienie w powiadomieniu</string>
     <string name="pref_forecast_sensitivity_title">Dokładność prognozy</string>
     <string name="pref_monitor_weather_summary">W tle</string>
-    <string name="pref_altimeter_calibration_mode_title">Automatyczna kalibracja</string>
     <string name="compass_azimuth">Azymut</string>
     <string name="water_boil_timer_title">Przegotowywanie wody</string>
     <string name="water_boil_timer_channel_description">Woda wrze</string>
@@ -284,7 +267,6 @@
     <string name="contents">Treść</string>
     <string name="tool_metal_detector_title">Wykrywacz metalu</string>
     <string name="metal_detector_disclaimer">Wykrywa jedynie metale magnetyczne (np. żelazo, stal)</string>
-    <string name="tool_triangulate_summary">Określ swoją lokalizację bez użycia GPS</string>
     <string name="tool_triangulate_title">Triangulacja położenia</string>
     <string name="tool_category_angles">Kąty</string>
     <string name="tool_category_signaling">Sygnalizacja</string>
@@ -350,7 +332,6 @@
     <string name="create_beacon">Dodaj punkt nawigacyjny</string>
     <string name="low_power_mode_on_message">Tryb oszczędzania energii jest włączony, niektóre funkcje mogą być wyłączone.</string>
     <string name="pref_low_power_mode_title">Tryb oszczędzania energii</string>
-    <string name="guide_barometer_calibration_title">Kalibracja barometru</string>
     <string name="charging_wireless">Ładowanie (%s)</string>
     <string name="battery_power_wireless">Bezprzewodowe</string>
     <string name="tool_thermometer_title">Termometr</string>
@@ -486,23 +467,16 @@
     <string name="menu">Menu</string>
     <string name="pref_meteor_showers_title">Deszcze meteorów</string>
     <string name="meteors_per_hour">Maksymalnie %d meteorów / h</string>
-    <string name="tomorrow_at">Jutro o %s</string>
     <string name="meteor_shower">Deszcz meteorów</string>
-    <string name="guide_using_printed_maps">Korzystanie z map drukowanych</string>
     <string name="previous">Poprzedni</string>
     <string name="next">Dalej</string>
-    <string name="create_map_description">Podaj nazwę mapy</string>
-    <string name="create_map">Utwórz mapę</string>
     <string name="on_map">Na mapie</string>
     <string name="no_maps">Brak map</string>
     <string name="rename">Zmień nazwę</string>
     <string name="experimental">Eksperymentalne</string>
-    <string name="guide_signaling_for_help_title">Wzywanie pomocy</string>
     <string name="import_gpx">Importuj plik GPX</string>
     <string name="error_importing_map">Błąd podczas importowania mapy</string>
     <string name="importing_map">Importowanie mapy</string>
-    <string name="hour_symbol">h</string>
-    <string name="minute_symbol">m</string>
     <string name="pref_odometer_reset_daily_title">Resetuj codziennie</string>
     <string name="calibrate_new_tide">Skalibrować do nowego przypływu\?</string>
     <string name="backtrack_battery_warning">Małe odstępy czasu (poniżej 15 minut) mogą powodować nadmierne rozładowanie baterii</string>
@@ -510,7 +484,6 @@
     <string name="pref_weather_show_detailed_icon_title">Pokaż kolorową ikonę powiadomienia</string>
     <string name="search">Wyszukaj</string>
     <string name="map_auto_calibrated">Mapa skalibrowana automatycznie, sprawdź jej dokładność</string>
-    <string name="place_beacon_at">Czy umieścić punkt nawigacyjny na %s\?</string>
     <plurals name="beacons_exported">
         <item quantity="one">Wyeksportowano %d punkt nawigacyjny</item>
         <item quantity="few">Wyeksportowano %d punkty nawigacyjne</item>
@@ -531,12 +504,9 @@
     <string name="noon">Południe</string>
     <string name="time_until_full">pozostało do naładowania</string>
     <string name="time_until_empty">pozostało do rozładowania</string>
-    <string name="fields">Pola</string>
     <string name="whistle_signal_come_here">Chodź tu</string>
     <string name="whistle_signal_acknowledged">Potwierdzony</string>
     <string name="whistle_signal_where_are_you">Gdzie jesteś\?</string>
-    <string name="dusk_type">Zachód słońca (%s)</string>
-    <string name="dawn_type">Wschód słońca (%s)</string>
     <string name="weather_monitor">Monitorowanie pogody</string>
     <string name="no_data">Brak danych</string>
     <string name="backtrack">Ślad powrotny</string>
@@ -577,13 +547,10 @@
     <string name="pref_cell_signal_refresh_cache_summary">Wymusza wczytywanie najnowszych danych o mocy sygnału</string>
     <string name="pref_cell_signal_refresh_cache_title">Odśwież pamięć podręczną sygnału</string>
     <string name="pref_navigation_lock_screen_presence_title">Pokaż na ekranie blokady podczas nawigowania</string>
-    <string name="map_rotate_instructions">Obracaj, aż północ będzie skierowana do góry</string>
-    <string name="pref_barometer_pressure_smoothing_title">Wygładzanie ciśnienia</string>
     <string name="pref_nmea_elevation_summary">Wykorzystuje przesunięcia NMEA do konwersji wysokości</string>
     <string name="pref_barometer_info_summary">Ciśnienie może różnić się od ciśnienia w pobliskich stacjach</string>
     <string name="battery_history">Historia baterii - ostatnie %s</string>
     <string name="pref_show_last_signal_beacon_summary">Tworzy punkt dla ostatniej lokalizacji z sygnałem komórkowym</string>
-    <string name="backtrack_high_priority_notification">Umieszczanie punktu trasy co %s</string>
     <string name="actual_frequency_disclaimer">Rzeczywista częstotliwość może się różnić, ponieważ niektóre urządzenia mają ograniczenia działania w tle.</string>
     <string name="pref_nearby_radar_title">Pokaż pobliski kompas radarowy</string>
     <string name="cirrocumulus_desc">Tworzy falistą taflę, chmury wyglądają niemal dwuwymiarowo.</string>
@@ -642,7 +609,6 @@
     <string name="elevation_history">Historia wysokości</string>
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d satelity(ów)</string>
-    <string name="guide_packing_list">Utwórz listę rzeczy do spakowania</string>
     <string name="new_packing_list">Nowa lista rzeczy do spakowania</string>
     <string name="no_packing_lists">Brak list rzeczy do spakowania</string>
     <string name="packing_lists">Listy rzeczy do spakowania</string>
@@ -692,8 +658,6 @@
     <string name="total">Całkowite</string>
     <string name="astronomy_alerts">Alerty astronomiczne</string>
     <string name="lunar_eclipse">Zaćmienie Księżyca</string>
-    <string name="lunar_eclipse_end">Zaćmienie Księżyca (koniec)</string>
-    <string name="lunar_eclipse_start">Zaćmienie Księżyca (początek)</string>
     <string name="lunar_eclipses">Zaćmienia Księżyca</string>
     <string name="high_amount">Wysoka (%s)</string>
     <string name="medium_amount">Średnia (%s)</string>
@@ -709,7 +673,6 @@
     <string name="units_mmhg">mmHg</string>
     <string name="elevation_history_length">Długość historii wysokości</string>
     <string name="delete_pack">Usunąć plecak\?</string>
-    <string name="default_pack_name">Plecak domyślny</string>
     <string name="path_exported">Ślad wyeksportowany</string>
     <string name="diagnostic_message_template">%1$s: %2$s
 \n
@@ -734,20 +697,16 @@
     <string name="pref_show_nearest_tide_title">Pokaż najbliższy przypływ</string>
     <string name="weather_exported">Dane pogodowe wyeksportowane</string>
     <string name="pref_export_weather_csv_title">Eksportuj odczyty pogody</string>
-    <string name="enable">Włączone</string>
     <string name="weather_monitoring_disabled">Monitorowanie pogody wyłączone</string>
     <string name="precipitation_rain">Deszcz</string>
     <string name="precipitation_snow">Śnieg</string>
-    <string name="or">Lub</string>
     <string name="take_photo">Zrób zdjęcie</string>
-    <string name="choose_photo">Wybierz zdjęcie</string>
     <string name="precipitation_small_hail">Mały grad</string>
     <string name="humidity">Wilgotność</string>
     <string name="no_clouds">Bezchmurnie</string>
     <string name="precipitation_hail">Grad</string>
     <string name="precipitation_drizzle">Mżawka</string>
     <string name="no_camera_access">Nie można uzyskać dostępu do aparatu</string>
-    <string name="results">Wyniki</string>
     <string name="paths">Ścieżki</string>
     <string name="avalanche_risk">Zagrożenie lawinowe</string>
     <string name="slope_amount">nachylenie %s</string>
@@ -787,8 +746,6 @@
     <string name="precipitation_snow_pellets">Krupa śnieżna</string>
     <string name="precipitation_ice_pellets">Krupa lodowa</string>
     <string name="precipitation_snow_grains">Śnieg ziarnisty</string>
-    <string name="notification_weather_update_content">Rejestrowanie ciśnienia</string>
-    <string name="notification_backtrack_update_content">Rejestrowanie Twojej lokalizacji</string>
     <string name="line_style">Styl linii</string>
     <string name="path_color">Kolor ścieżki</string>
     <string name="temporary">Tymczasowo</string>
@@ -857,8 +814,6 @@
     <string name="simplification_quality">Jakość uproszczenia</string>
     <string name="note">Notatka</string>
     <string name="open">Otwórz</string>
-    <string name="notification_weather_update_title">Aktualizacja monitorowania pogody</string>
-    <string name="cloud_photo_mask_toast">Stuknij zdjęcie, aby przełączyć maskę</string>
     <string name="beacon">Punkt nawigacyjny</string>
     <string name="steps">Kroki</string>
     <string name="qr_text_too_long">Tekst jest zbyt długi, kod QR został skrócony</string>
@@ -892,14 +847,11 @@
     <string name="explore">Poznaj</string>
     <string name="move_to">Przenieś do</string>
     <string name="path">Ścieżka</string>
-    <string name="elevation_gain">Przyrost wysokości</string>
     <string name="point_added">Punkt dodany do ścieżki</string>
-    <string name="elevation_loss">Spadek wysokości</string>
     <string name="pref_only_navigate_path_points_title">Nawiguj tylko do zarejestrowanych punktów</string>
     <string name="camera_capture">Przechwytywanie</string>
     <string name="point">Punkt</string>
     <string name="map_export_error">Nie można wyeksportować mapy do wybranego pliku</string>
-    <string name="second_symbol">s</string>
     <plurals name="path_group_summary">
         <item quantity="one">%d ścieżka</item>
         <item quantity="few">%d ścieżki</item>
@@ -928,7 +880,6 @@
     <string name="learn_more">Dowiedz się więcej</string>
     <string name="samples">Próbki</string>
     <string name="size">Rozmiar</string>
-    <string name="step_progression">Krok %1$d / %2$d</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d mapa</item>
         <item quantity="few">%d mapy</item>
@@ -992,7 +943,6 @@
     <string name="beta_disclaimer">Narzędzie jest obecnie w wersji beta, więc prosimy o zgłaszanie wszelkich problemów lub opinii pod adresem %s.</string>
     <string name="accelerometer">Akcelerometr</string>
     <string name="autofill_source">Źródło autouzupełniania</string>
-    <string name="remove_battery_restrictions">Usunąć ograniczenia baterii\?</string>
     <string name="data_source">Źródło: %s</string>
     <string name="icon">Ikona</string>
     <string name="later">Później</string>
@@ -1037,14 +987,12 @@
     <string name="center">Centrum</string>
     <string name="create_blank_map">Utwórz pustą mapę</string>
     <string name="solar_eclipses">Zaćmienia Słońca</string>
-    <string name="solar_eclipse_start">Zaćmienie Słońca (początek)</string>
     <string name="high_tide_letter">Przypływ</string>
     <string name="weather_clear">Pogodnie</string>
     <string name="weather_precipitation">Opad</string>
     <string name="solar_eclipse">Zaćmienie Słońca</string>
     <string name="weather_front">Front pogodowy</string>
     <string name="low_tide_letter">Odpływ</string>
-    <string name="solar_eclipse_end">Zaćmienie Słońca (koniec)</string>
     <string name="altocumulus_forecast" tools:ignore="PluralsCandidate">Może wskazywać na opady lub burzę w ciągu najbliższych %d godzin.</string>
     <string name="gps_satellites">Satelity GPS</string>
     <string name="nimbostratus_forecast" tools:ignore="PluralsCandidate">Opady mogą występować przez następne %d godzin.</string>

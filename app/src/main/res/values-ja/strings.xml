@@ -23,12 +23,6 @@
     <string name="pref_show_sun_moon_compass_title">コンパスに太陽/月を表示</string>
     <string name="pref_show_linear_compass_title">線形コンパスを表示</string>
     <string name="pref_show_linear_compass_summary">スマートフォンが縦向きの場合</string>
-    <plurals name="last_hours">
-        <item quantity="other">過去 %d 時間</item>
-    </plurals>
-    <plurals name="last_minutes">
-        <item quantity="other">過去 %d 分間</item>
-    </plurals>
     <string name="feet_miles">フィート/マイル</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">inHg</string>
@@ -114,8 +108,6 @@
     <string name="tool_clinometer_summary">雪崩の危険性と物体の高さを推定します</string>
     <string name="clinometer_title">傾斜計</string>
     <string name="moon_phase">月相</string>
-    <string name="lunar_noon">月の南中</string>
-    <string name="solar_noon">太陽の南中</string>
     <string name="sunset_alert_channel_title">日没アラート</string>
     <string name="sunset_alerts">日没アラート</string>
     <string name="sunset_alert_notification_text">太陽は %s に沈みます</string>
@@ -144,7 +136,6 @@
     <string name="share_action_send">送信</string>
     <string name="accuracy_info_title">精度を改善するためのヒント</string>
     <string name="accuracy_distance_format">± %s</string>
-    <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">不明</string>
     <string name="dash">-</string>
     <string name="elevation_diff_format">%1$s%2$s</string>
@@ -176,7 +167,6 @@
     <string name="water_boil_timer">湯沸かしタイマー</string>
     <string name="tool_clock_title">時計</string>
     <string name="tool_battery_title">バッテリー</string>
-    <string name="tool_triangulate_summary">GPSなしで位置を特定します</string>
     <string name="could_not_triangulate">三角測量できませんでした</string>
     <string name="unavailable">利用不可</string>
     <string name="compass_unavailable">コンパス利用不可</string>
@@ -223,7 +213,6 @@
     <string name="battery_capacity_format">%s mAh</string>
     <string name="current_format">%s mA</string>
     <string name="charging_slow">低速充電中（%s）</string>
-    <string name="beacon_create">作成</string>
     <string name="lightning">閃光</string>
     <string name="battery_health_overheat">過熱</string>
     <string name="battery_health_over_voltage">過電圧</string>

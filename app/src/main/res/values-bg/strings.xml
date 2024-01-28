@@ -26,16 +26,6 @@
     <string name="pref_show_linear_compass_title">Покажете линеен компас</string>
     <string name="pref_show_linear_compass_summary">Когато телефонът е вертикален</string>
 
-    <plurals name="last_hours">
-        <item quantity="one">последно %d час</item>
-        <item quantity="other">последно %d часa</item>
-    </plurals>
-
-    <plurals name="last_minutes">
-        <item quantity="one">последно %d минута</item>
-        <item quantity="other">последно %d минути</item>
-    </plurals>
-
     <string name="feet_miles">Крака /мили</string>
     <string name="units_hpa">HPA</string>
     <string name="units_inhg">inHg</string>

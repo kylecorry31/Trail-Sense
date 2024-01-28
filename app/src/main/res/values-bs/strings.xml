@@ -23,16 +23,6 @@
     <string name="pref_show_sun_moon_compass_title">Pokažite sunce / mjesec na kompasu</string>
     <string name="pref_show_linear_compass_title">Prikažite linearni kompas</string>
     <string name="pref_show_linear_compass_summary">Kad je telefon okomit</string>
-    <plurals name="last_hours">
-        <item quantity="one">Posljednji %d sat</item>
-        <item quantity="few">Posljednja %d sata</item>
-        <item quantity="other">Posljednjih %d sati</item>
-    </plurals>
-    <plurals name="last_minutes">
-        <item quantity="one">Posljednji %d minut</item>
-        <item quantity="few">Posljednje %d minute</item>
-        <item quantity="other">Posljednjih %d minuta</item>
-    </plurals>
     <string name="feet_miles">Stope / Milje</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">inHg</string>
@@ -71,7 +61,6 @@
     <string name="clear_amounts">Rasčisti iznose</string>
     <string name="desired_amount">Željeni iznos</string>
     <string name="packed_amount">Pakirani iznos</string>
-    <string name="default_pack_name">Zadani paket</string>
     <string name="time">Vrijeme</string>
     <string name="days_format">%s d</string>
     <string name="hours_format">%s h</string>
@@ -145,7 +134,6 @@
     <string name="pref_cell_signal_refresh_cache_summary">Prisiljava učitavanje najnovijih snaga signala</string>
     <string name="pref_cell_signal_refresh_cache_title">Osvježite predmemoriju signala</string>
     <string name="pref_navigation_lock_screen_presence_title">Prikaži na zaključanom ekranu tijekom navigacije</string>
-    <string name="map_rotate_instructions">Rotirajte dok Sjever nije prema gore usmjeren</string>
     <string name="map_perspective_instructions">Zacrtajte kartu</string>
     <string name="preview">Pregled</string>
     <string name="move">Premjesti</string>
@@ -156,21 +144,17 @@
     <string name="convert">Pretvori</string>
     <string name="pref_barometer_info_summary">Pritisak se može razlikovati od pritiska u obližnjim stanicama</string>
     <string name="battery_history">Istorija baterije - posljednja %s</string>
-    <string name="dusk_type">Sumrak (%s)</string>
-    <string name="dawn_type">Zora (%s)</string>
     <string name="weather_monitor">Vremenski Pratilac</string>
     <string name="whistle_signal_come_here">Dođi ovamo</string>
     <string name="whistle_signal_acknowledged">Priznato</string>
     <string name="whistle_signal_where_are_you">Gdje ste vi\?</string>
     <string name="noon">Podne</string>
-    <string name="fields">Polja</string>
     <string name="pref_show_last_signal_beacon_title">Svjetiljka posljednjeg signala</string>
     <string name="last_signal_beacon_name">Posljednji signal - %1$s (%2$s)</string>
     <string name="camera_permission_denied">Dozvola za kameru je odbijena, nije moguće uključiti funkcije kamere. Možete ih omogućiti u postavkama.</string>
     <string name="color">Boja</string>
     <string name="backtrack_battery_warning">Mali intervali (ispod 15 minuta) mogu prouzrokovati prekomjerno pražnjenje baterije</string>
     <string name="battery_warning">Upozorenje o pražnjenju baterije</string>
-    <string name="backtrack_high_priority_notification">Postavljanje međutočke svakih %s</string>
     <string name="arrow">Strijelica</string>
     <string name="dotted">Tačkasta</string>
     <string name="solid">Solidna</string>
@@ -182,24 +166,18 @@
     <string name="import_gpx">Uvezi GPX</string>
     <string name="error_importing_map">Greška pri uvozu karte</string>
     <string name="importing_map">Uvozi se karta</string>
-    <string name="hour_symbol">S</string>
-    <string name="minute_symbol">m</string>
     <string name="map_auto_calibrated">Mapa je automatski kalibrirana, molimo provjerite njezinu preciznost</string>
     <string name="time_until_full">dok nije puno</string>
     <string name="time_until_empty">dok nije prazno</string>
     <string name="next">Sljedeće</string>
     <string name="previous">Prethodno</string>
-    <string name="place_beacon_at">Postavite svjetionik na %s\?</string>
     <string name="on_map">Na karti</string>
     <string name="no_maps">Nema kartih</string>
     <string name="rename">Preimenuj</string>
     <string name="pedometer_disclaimer">Preciznost i potrošnja baterije pedometra ovisi o proizvođaču uređaja i unesenoj dužini koraka. Isprobajte malo kod kuće kako biste potvrdili trošenje i tačnost baterije prije upotrebe na stazi.</string>
-    <string name="guide_using_printed_maps">Kako koristiti štampane karte</string>
-    <string name="guide_signaling_for_help_title">Signaliranje za pomoć</string>
     <string name="pref_meteor_showers_title">Meteorski pljuskovi</string>
     <string name="meteor_shower">Meteorski pljusak</string>
     <string name="meteors_per_hour">Maksimalno %d meteora po satu</string>
-    <string name="tomorrow_at">Sutra u %s</string>
     <string name="menu">Meni</string>
     <string name="pref_nearby_radar_title">Pokaži radarski kompas u blizini</string>
     <string name="pref_stride_length_title">Dužina koraka</string>
@@ -367,7 +345,6 @@
     <string name="pip_notification_scheduled">Obavijest zakazana za %s</string>
     <string name="pip_button">Ažurirajte Sistemsko Vrijeme</string>
     <string name="could_not_triangulate">Nije moguće trouglirati</string>
-    <string name="tool_triangulate_summary">Odredite svoju lokaciju bez GPS-a</string>
     <string name="tool_triangulate_title">Trouglite Svoju Poziciju</string>
     <string name="tool_category_signaling">Signalizacija</string>
     <string name="tool_category_angles">Uglovi</string>
@@ -450,7 +427,6 @@
     <string name="tap_sun_moon_hint">Za detalje položaja dodirnite sunce ili mjesec</string>
     <string name="no_group">Bez grupe</string>
     <string name="group">Grupa</string>
-    <string name="beacon_create">Napravi</string>
     <string name="delete_beacon_group_message">%s i svi njegovi svjetionici će biti izbrisani.</string>
     <string name="tool_user_guide_summary">Vodič kako koristiti Trail Sense</string>
     <string name="tool_user_guide_title">Korisnički Vodič</string>
@@ -469,7 +445,6 @@
     <string name="update_120_minutes">2 sata</string>
     <string name="update_90_minutes">1 sat 30 minuta</string>
     <string name="pref_center_sun_and_moon_title">Nek bude sunce/mjesec centriran</string>
-    <string name="pref_barometer_pressure_smoothing_title">Izravnavanje pritiska</string>
     <string name="pref_nmea_elevation_summary">Koristi NMEA pomake za pretvaranje visine</string>
     <string name="pref_nmea_elevation_title">NMEA pomake nadmorske visine</string>
     <string name="sun_moon_compass_when_up">Kad je gore</string>
@@ -518,7 +493,6 @@
     <string name="flashlight_title">Svjetiljka</string>
     <string name="accuracy_info_title">Savjeti za poboljšanje tačnosti podataka senzora</string>
     <string name="accuracy_distance_format">± %s</string>
-    <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Nepoznato</string>
     <string name="dash">-</string>
     <string name="discharging_fast">Brzo pražnjenje (%s)</string>
@@ -554,7 +528,6 @@
     <string name="unsaved_changes_message">Promjene koje ste napravili neće biti sačuvane.</string>
     <string name="unsaved_changes">Nespašene Promjene</string>
     <string name="low_power_mode_on_message">Uključen je režim za uštedu energije, neke funkcije su možda onemogućene.</string>
-    <string name="guide_barometer_calibration_title">Kalibracija barometra</string>
     <string name="charging_wireless">Puni se (%s)</string>
     <string name="battery_power_wireless">Bežično</string>
     <string name="battery_power_usb">USB</string>
@@ -583,8 +556,6 @@
     <string name="backtrack_notification_channel_description">Ažuriranja lokacija Izatraga</string>
     <string name="backtrack">Izatrag</string>
     <string name="pref_show_last_signal_beacon_summary">Stvara svjetionik za lokaciju posljednjeg signala ćelije</string>
-    <string name="create_map_description">Unesite naziv karte</string>
-    <string name="create_map">Napravi kartu</string>
     <string name="create_beacon">Napravi svjetionik</string>
     <string name="create_at_distance">Napravi sa daljine</string>
     <string name="min_temp_uncalibrated">Minimalna temperatura telefona (nekalibrirana)</string>
@@ -602,7 +573,6 @@
     <string name="pref_elevation_override_sea_level_dialog_title">Unesite pritisak na razini mora</string>
     <string name="pref_elevation_override_sea_level_dialog_msg">Unesite trenutni pritisak na razini mora u hPa</string>
     <string name="pref_adjust_for_temperature_title">Uzmi temperaturu u obzir</string>
-    <string name="pref_altimeter_calibration_mode_title">Auto-kalibracija</string>
     <string name="never">Nikad</string>
     <string name="altimeter_mode_gps_barometer">GPS + Barometar</string>
     <string name="elevation_override_updated_toast">Nadjačavanje nadmorske visine je ažurirano</string>
@@ -648,15 +618,12 @@
     <string name="tool_clinometer_summary">Procijenite rizik od lavine i visinu predmeta</string>
     <string name="clinometer_title">Inklinometar</string>
     <string name="moon_phase">Mjesečeva faza</string>
-    <string name="lunar_noon">Lunarno podne</string>
-    <string name="solar_noon">Solarno podne</string>
     <string name="sunset_alerts">Upozorenja na zalazke</string>
     <string name="beacon_qr_import_instructions">Skenirajte QR kodu da uvezete</string>
     <string name="qr_code">QR Koda</string>
     <string name="elevation_history">Povijest visine</string>
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d satelita</string>
-    <string name="guide_packing_list">Napravi liste za pakovanje</string>
     <string name="weight_per_item">Težina po stavci</string>
     <string name="pack_sort_weight_high_to_low">Težina (visoka do niske)</string>
     <string name="pack_sort_weight_low_to_high">Težina (niska do visoke)</string>
@@ -664,7 +631,6 @@
     <string name="pack_sort_percent_low_to_high">Postotina spakovana (niska do visoke)</string>
     <string name="sort">Razvrstaj</string>
     <string name="current_format">%s mA</string>
-    <string name="notification_weather_update_title">Ažuriranje Vremenskog Monitora</string>
     <string name="new_text">Novo</string>
     <string name="precipitation_rain">Kiša</string>
     <plurals name="path_group_summary">
@@ -683,14 +649,9 @@
     <string name="precipitation_snow_pellets">Snježne pahuljice</string>
     <string name="precipitation_small_hail">Mali Grad</string>
     <string name="precipitation_chance">Prilike za padavine: %s</string>
-    <string name="choose_photo">Odaberite fotografiju</string>
-    <string name="notification_backtrack_update_title">Ažuriranje Izatraga</string>
-    <string name="notification_weather_update_content">Snimanje pritiska</string>
     <string name="shortest">Najkraće</string>
     <string name="paths">Putanje</string>
     <string name="keep_forever">Zadrži zauvijek</string>
-    <string name="elevation_loss">Gubitak na uzvišenju</string>
-    <string name="cloud_photo_mask_toast">Tapnite fotografiju da promijenite masku</string>
     <string name="no_camera_access">Nije moguće pristupiti kameri</string>
     <string name="path">Putanja</string>
     <string name="sort_by">Poredaj: %s</string>
@@ -698,7 +659,6 @@
     <string name="most_recent">Najnovije</string>
     <string name="longest">Najduže</string>
     <string name="duration">Trajanje</string>
-    <string name="elevation_gain">Dobitak na uzvišenju</string>
     <string name="easy">Lagano</string>
     <string name="difficulty">Razina</string>
     <string name="hard">Teško</string>
@@ -770,10 +730,8 @@
     <string name="season_summer">Ljeto</string>
     <string name="season_fall">Jesen</string>
     <string name="pref_show_nearest_tide_title">Prikažite najbližu plimu</string>
-    <string name="results">Rezultati</string>
     <string name="sun">Sunce</string>
     <string name="weather_monitoring_disabled">Praćenje vremena onemogućeno</string>
-    <string name="notification_backtrack_update_content">Snimanje vaše lokacije</string>
     <string name="hide">Sakrij</string>
     <string name="precipitation_ice_pellets">Ledene Kuglice</string>
     <string name="precipitation_none">Nema Padavina</string>
@@ -820,7 +778,6 @@
     <string name="current_speed_gps">Trenutna brzina (GPS)</string>
     <string name="average_speed_pedometer">Prosječna brzina (Pedometar)</string>
     <string name="bearing">Ležište</string>
-    <string name="remove_battery_restrictions">Uklonite ograničenja baterije\?</string>
     <string name="clouds_clear">Vedro</string>
     <string name="manual">Priručnik</string>
     <string name="pressure_system">Sistem pritiska</string>
@@ -850,7 +807,6 @@
 \n
 \nPosjetite [Don\'t kill my app](https://dontkillmyapp.com/) za upute za određeni uređaj.</string>
     <string name="map_export_error">Nije moguće izvesti mapu u odabranu datoteku</string>
-    <string name="second_symbol">s</string>
     <string name="point">Točka</string>
     <string name="point_added">Točka je dodata u putanju</string>
     <string name="tide_diurnal">Diurnal</string>
@@ -888,8 +844,6 @@
     <string name="cloud_fair_forecast_hours">Može ukazivati na lijepo vrijeme u narednih %d sati.</string>
     <string name="activity_recognition_permission_denied">Dozvola za fizičku aktivnost je odbijena, nije moguće uključiti funkcije pedometra. Možete ga omogućiti u postavkama.</string>
     <string name="total">Ukupno</string>
-    <string name="lunar_eclipse_start">Pomračenje Mjeseca (početak)</string>
-    <string name="lunar_eclipse_end">Pomračenje Mjeseca (kraj)</string>
     <string name="lunar_eclipse">Pomračenje Mjeseca</string>
     <string name="no_qr_code_found">Nije otkrivena QR koda</string>
     <string name="saved_to_note">Sačuvano u bilješku</string>
@@ -928,7 +882,6 @@
     <string name="location_override_resolution">Omogućite automatsko podešavanje lokacije u postavkama.</string>
     <string name="location_override_not_set_resolution">Postavite premošćivanje lokacije u postavkama</string>
     <string name="partial">Djelomično (%s)</string>
-    <string name="or">Ili</string>
     <string name="show">Pokaži</string>
     <string name="path_color">Boja putanje</string>
     <string name="temporary">Privremeno</string>
@@ -947,7 +900,6 @@
     <string name="average_speed_backtrack">Prosječna brzina (Izatrag)</string>
     <string name="map_exported">Karta je izvezena</string>
     <string name="camera_capture">Snimanje</string>
-    <string name="tide_diurnal_description">Visoka plima jednom dnevno - većina plima i oseka nisu diurnalne</string>
     <string name="low_pressure_system_description">Povezan je sa lošim vremenom, prelivenim nebom i toplijim temperaturama.</string>
     <string name="tide_deleted">Plima je izbrisana</string>
     <string name="tide_semidiurnal">Semidiurnal</string>
@@ -974,7 +926,6 @@
     <string name="tilt">Nagib</string>
     <string name="pref_export_weather_csv_title">Izvozite očitavanja vremena</string>
     <string name="moon">Mjesec</string>
-    <string name="enable">Omogući</string>
     <string name="point_style">Stil točke</string>
     <string name="line_style">Stil crte</string>
     <string name="elevation">Uzvišenje</string>
@@ -983,7 +934,6 @@
     <string name="append_onto">Priloži na</string>
     <string name="simplify">Pojednostavite</string>
     <string name="simplifying">Pojednostavljenje</string>
-    <string name="navigation_guide_description">Korištenje svjetionika i putanja</string>
     <string name="pressure_tendency">Sklonost pritiska</string>
     <string name="explore">Istražite</string>
     <string name="pref_only_navigate_path_points_title">Navigirajte samo do snimljenih tačaka</string>
@@ -1009,8 +959,6 @@
     <string name="next_24_hours">Sljedeća 24 sata</string>
     <string name="pref_show_temperature_in_notification_title">Prikaži temperaturu u obavještenju</string>
     <string name="solar_eclipses">Pomračenja Sunca</string>
-    <string name="solar_eclipse_start">Pomračenje Sunca (početak)</string>
-    <string name="solar_eclipse_end">Pomračenje Sunca (kraj)</string>
     <string name="solar_eclipse">Pomračenje Sunca</string>
     <string name="weather_alert_hot_description">Pripremite se za visoke temperature. Poduzmite dodatne mjere predostrožnosti protiv toplotnog iscrpljivanja i toplotnog udara.</string>
     <string name="create_blank_map">Kreirajte praznu kartu</string>

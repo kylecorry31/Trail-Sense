@@ -11,7 +11,6 @@
     <string name="pref_num_visible_beacons_title">鄰近地標</string>
     <string name="pref_show_linear_compass_summary">當手機垂直時</string>
     <string name="pref_use_sea_level_pressure_title">海平面壓力</string>
-    <string name="pref_altimeter_calibration_mode_title">自動校準</string>
     <string name="never">永不</string>
     <string name="altimeter_mode_gps_barometer">GPS + 氣壓計</string>
     <string name="pref_elevation_override_sea_level_dialog_title">輸入海平面壓力</string>
@@ -60,9 +59,6 @@
     <string name="yesterday">昨日</string>
     <string name="tomorrow">明日</string>
     <string name="today">今日</string>
-    <plurals name="last_hours">
-        <item quantity="other">持續 %d 小時</item>
-    </plurals>
     <string name="notification_storm_alert_text">暴風雨可能正在接近</string>
     <string name="storm_alerts">暴風雨警報</string>
     <string name="alerts">警告</string>
@@ -78,7 +74,6 @@
     <string name="sos">求救訊號SOS</string>
     <string name="tap_to_turn_off">輕觸以關閉</string>
     <string name="accuracy_distance_format">± %s</string>
-    <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">未知</string>
     <string name="dash">-</string>
     <string name="beacon_invalid_name">無效名稱</string>
@@ -168,7 +163,6 @@
     <string name="forecasts_category">預報</string>
     <string name="advanced">進階</string>
     <string name="group">群組</string>
-    <string name="beacon_create">建立</string>
     <string name="continue_button">繼續</string>
     <string name="pref_github_title">GitHub</string>
     <string name="pref_app_version_title">版本</string>
@@ -187,8 +181,6 @@
     <string name="set_inclination_instructions">輕觸螢幕任意處 固定/解除固定 傾斜角度</string>
     <string name="clinometer_rotate_device">垂直握持您的手機以測量傾斜</string>
     <string name="clinometer_title">傾斜儀</string>
-    <string name="lunar_noon">月球正午</string>
-    <string name="solar_noon">太陽正午</string>
     <string name="navigation">導航</string>
     <string name="map_scale_title">地圖縮放</string>
     <string name="map_scale_ratio">比例</string>
@@ -234,9 +226,6 @@
     <string name="sun_up_no_set">太陽升起</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
-    <plurals name="last_minutes">
-        <item quantity="other">%d 分鐘之前</item>
-    </plurals>
     <string name="notification_storm_alert_title">暴風雨警報</string>
     <string name="pressure_reading_time_ago">%1$s - %2$s 之前</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
@@ -247,8 +236,6 @@
     <string name="precise_percent_format">%s%%</string>
     <string name="degree">%s°</string>
     <string name="daylight">日光時間</string>
-    <string name="dawn_type">黎明 (%s)</string>
-    <string name="dusk_type">黃昏 (%s)</string>
     <string name="tool_thermometer_title">溫度計</string>
     <string name="convert">轉換</string>
     <string name="pref_flashlight_toggle_with_volume_summary">當 Trail Sense 開啟時</string>
@@ -275,8 +262,6 @@
     <string name="general">一班</string>
     <string name="pref_altimeter_calibration_title">高度計</string>
     <string name="pref_elevation_override_sea_level_title">使用已知海平面壓力</string>
-    <string name="hour_symbol">小時</string>
-    <string name="minute_symbol">分</string>
     <string name="coordinates_tab">座標</string>
     <string name="units">單位</string>
     <string name="ounces_volume_format">%s 盎司</string>

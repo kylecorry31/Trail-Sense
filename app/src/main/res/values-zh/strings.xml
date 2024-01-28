@@ -23,12 +23,6 @@
     <string name="pref_show_sun_moon_compass_title">在指南针上显示太阳/月亮</string>
     <string name="pref_show_linear_compass_title">显示线性罗盘</string>
     <string name="pref_show_linear_compass_summary">在手机垂直的时候</string>
-    <plurals name="last_hours">
-        <item quantity="other">持续 %d 小时</item>
-    </plurals>
-    <plurals name="last_minutes">
-        <item quantity="other">持续 %d 分钟</item>
-    </plurals>
     <string name="feet_miles">英尺/英里</string>
     <string name="units_hpa">百帕</string>
     <string name="units_inhg">英寸汞柱</string>
@@ -87,7 +81,6 @@
     <string name="tool_clinometer_summary">预估雪崩风险与物体高度</string>
     <string name="clinometer_title">测斜仪</string>
     <string name="moon_phase">月相</string>
-    <string name="solar_noon">太阳达到白天最高点</string>
     <string name="sunset_alert_channel_title">日落提醒</string>
     <string name="sunset_alerts">日落提醒</string>
     <string name="sunset_alert_notification_text">太阳将于 %s 落下</string>
@@ -110,7 +103,6 @@
     <string name="storm_alerts">暴风雨警报</string>
     <string name="alerts">警报</string>
     <string name="units_inhg_short">英寸</string>
-    <string name="accuracy_distance_unknown">\?</string>
     <string name="beacon_comment">备注（可选）</string>
     <string name="beacon_invalid_name">无效的名称</string>
     <string name="maps">地图</string>
@@ -138,7 +130,6 @@
     <string name="access_background_location">更新定位设置</string>
     <string name="copied_to_clipboard_toast">已复制到剪贴板</string>
     <string name="tools">工具</string>
-    <string name="pref_altimeter_calibration_mode_title">自动校准</string>
     <string name="kilometers_per_hour_format">%.1f 公里 / 小时</string>
     <string name="sun_moon_compass_when_up">升起时</string>
     <string name="pref_max_beacon_distance_title">附近的信标半径</string>
@@ -155,7 +146,6 @@
     <string name="pip_notification_scheduled">已经安排了对 %s 的通知</string>
     <string name="pip_button">更新系统时间</string>
     <string name="could_not_triangulate">无法进行三角定位</string>
-    <string name="tool_triangulate_summary">在没有GPS的情况下确定你的位置</string>
     <string name="tool_triangulate_title">三角定位</string>
     <string name="tool_category_signaling">信号传递</string>
     <string name="tool_category_angles">角度</string>
@@ -230,7 +220,6 @@
     <string name="tap_sun_moon_hint">点按太阳或月亮了解位置详情</string>
     <string name="no_group">无群组</string>
     <string name="group">群组</string>
-    <string name="beacon_create">创建</string>
     <string name="delete_beacon_group_message">%s 及其所有信标都将被删除。</string>
     <string name="tool_user_guide_summary">一份如何使用 Trail Sense 的指南</string>
     <string name="tool_user_guide_title">用户指南</string>
@@ -275,7 +264,6 @@
     <string name="delete">删除</string>
     <string name="subtract">减去</string>
     <string name="add">添加</string>
-    <string name="lunar_noon">月亮升到晚上的最高点</string>
     <string name="pressure_reading_time_ago">%1$s - %2$s 前</string>
     <string name="pressure_format">%1$s %2$s</string>
     <string name="accuracy_distance_format">± %s</string>
@@ -350,7 +338,6 @@
     <string name="delete_waypoint_prompt">删除路径点？</string>
     <string name="low_power_mode_on_message">已开启省电模式，一些功能可能被禁用。</string>
     <string name="pref_low_power_mode_title">省电模式</string>
-    <string name="guide_barometer_calibration_title">气压计校准</string>
     <string name="charging_wireless">充电中 （%s）</string>
     <string name="battery_power_wireless">无线</string>
     <string name="battery_power_usb">USB</string>
@@ -481,17 +468,11 @@
     <string name="tides">潮汐</string>
     <string name="delete_tide_prompt">删除潮汐？</string>
     <string name="meteor_shower">流星雨</string>
-    <string name="guide_signaling_for_help_title">发出求救信号</string>
     <string name="pref_meteor_showers_title">流星雨</string>
     <string name="meteors_per_hour">最多 %d 颗流星/时</string>
-    <string name="tomorrow_at">在明天 %s</string>
     <string name="pedometer_disclaimer">计步器的准确性和电池使用量取决于你设备的制造商和输入的步幅。在实际使用前，请先在家里试一下，验证电池消耗和准确性。</string>
-    <string name="guide_using_printed_maps">使用印刷地图</string>
     <string name="next">下一张</string>
     <string name="previous">上一张</string>
-    <string name="create_map_description">输入地图名称</string>
-    <string name="create_map">创建地图</string>
-    <string name="place_beacon_at">将一个信标放置于%s？</string>
     <string name="on_map">在地图上</string>
     <string name="no_maps">无地图</string>
     <string name="rename">重命名</string>
@@ -499,8 +480,6 @@
     <string name="import_gpx">导入 GPX</string>
     <string name="error_importing_map">导入地图时出错</string>
     <string name="importing_map">导入地图中</string>
-    <string name="hour_symbol">小时</string>
-    <string name="minute_symbol">分钟</string>
     <string name="map_auto_calibrated">为了自动校准地图，请验证其精度</string>
     <string name="time_until_empty">离空还剩</string>
     <string name="pref_odometer_reset_daily_title">每天重置</string>
@@ -518,7 +497,6 @@
     <string name="disclaimer_message_title">免责声明</string>
     <string name="backtrack_battery_warning">间隔时间过短(15分钟以下)可能导致电池过度消耗</string>
     <string name="battery_warning">电量即将耗完警告</string>
-    <string name="backtrack_high_priority_notification">路标放置间隔 %s</string>
     <string name="dotted">点线</string>
     <string name="solid">实线</string>
     <string name="theme_sunset_sunrise">日出/日落</string>
@@ -534,15 +512,11 @@
     <string name="whistle_signal_acknowledged">已承认</string>
     <string name="whistle_signal_where_are_you">你在哪里？</string>
     <string name="noon">正午</string>
-    <string name="fields">视野</string>
     <string name="weather_monitor">天气监控器</string>
-    <string name="dusk_type">日落 (%s)</string>
-    <string name="dawn_type">日出 (%s)</string>
     <string name="pref_barometer_info_summary">大气压强可能与附近气象站的大气压强不同</string>
     <string name="battery_history">历史电量 - 过去 %s</string>
     <string name="no_data">无数据</string>
     <string name="pref_nmea_elevation_title">NMEA 高度修正</string>
-    <string name="pref_barometer_pressure_smoothing_title">大气压数据平滑</string>
     <string name="pref_nmea_elevation_summary">使用 NMEA（卫星）而不是内置模型来修正高度</string>
     <string name="moved_to">已移动到 %s</string>
     <string name="move">移动</string>
@@ -550,7 +524,6 @@
     <string name="coordinates_tab">坐标</string>
     <string name="distance">距离</string>
     <string name="convert">转换</string>
-    <string name="map_rotate_instructions">旋转直到北指向上</string>
     <string name="map_perspective_instructions">勾勒地图轮廓</string>
     <string name="preview">预览</string>
     <string name="pref_navigation_lock_screen_presence_title">导航时在锁定屏幕上显示</string>
@@ -635,7 +608,6 @@
     <string name="clear_amounts">清除数量</string>
     <string name="desired_amount">期望数目</string>
     <string name="packed_amount">包装数目</string>
-    <string name="default_pack_name">默认包装</string>
     <string name="action_inventory_clear_confirm">清除所有包装数\?</string>
     <string name="weight_per_item">每件重量</string>
     <string name="pack_sort_weight_high_to_low">重量 (从高到低)</string>
@@ -643,7 +615,6 @@
     <string name="pack_sort_percent_high_to_low">已打包百分比 (从高到低)</string>
     <string name="pack_sort_percent_low_to_high">已打包百分比 (从低到高)</string>
     <string name="sort">排序</string>
-    <string name="guide_packing_list">创建包装清单</string>
     <string name="current_format">%s 毫安</string>
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d 颗卫星</string>
@@ -699,8 +670,6 @@
     <string name="navigate">导航</string>
     <string name="astronomy_alerts">天文提醒</string>
     <string name="lunar_eclipse">月食</string>
-    <string name="lunar_eclipse_end">月食 (结束)</string>
-    <string name="lunar_eclipse_start">月食 (开始)</string>
     <string name="partial">部分 (%s)</string>
     <string name="total">总数</string>
     <string name="lunar_eclipses">月食</string>
@@ -726,7 +695,6 @@
 \n
 \n**方位角**: %3$s</string>
     <string name="moon">月亮</string>
-    <string name="enable">启用</string>
     <string name="weather_monitoring_disabled">已禁用天气检测</string>
     <string name="no_clouds">没有云</string>
     <string name="precipitation_rain">雨</string>
@@ -738,17 +706,9 @@
     <string name="precipitation_small_hail">小冰雹</string>
     <string name="precipitation_ice_pellets">冰粒</string>
     <string name="precipitation_snow_grains">雪粒</string>
-    <string name="results">结果</string>
     <string name="precipitation_chance">降水概率：%s</string>
     <string name="take_photo">拍照</string>
-    <string name="choose_photo">选择照片</string>
-    <string name="or">或</string>
-    <string name="notification_weather_update_title">天气监测器更新</string>
-    <string name="notification_backtrack_update_title">Backtrack(路径回溯) 更新</string>
-    <string name="notification_backtrack_update_content">正在记录你的位置</string>
-    <string name="notification_weather_update_content">正在记录气压</string>
     <string name="humidity">湿度</string>
-    <string name="cloud_photo_mask_toast">轻按照片来切换蒙版</string>
     <string name="no_camera_access">无法访问相机</string>
     <string name="paths">路径</string>
     <string name="keep_forever">永久保留</string>
@@ -767,9 +727,7 @@
     <string name="sort_by">排序：%s</string>
     <string name="most_recent">最近</string>
     <string name="duration">持续时间</string>
-    <string name="elevation_gain">海拔增加</string>
     <string name="easy">容易</string>
-    <string name="elevation_loss">海拔减少</string>
     <string name="hard">困难</string>
     <string name="difficulty">难度</string>
     <string name="points">点</string>
@@ -789,7 +747,6 @@
     <plurals name="waypoints_deleted">
         <item quantity="other">删除了 %d 个航点</item>
     </plurals>
-    <string name="navigation_guide_description">使用信标和路径</string>
     <string name="saving">节省</string>
     <string name="change_map_projection">更改地图投影</string>
     <string name="map_projection_mercator">墨卡托</string>
@@ -914,13 +871,11 @@
 \n在大多数设备上，单击“%s”，然后切换到所有应用程序，然后关闭 Trail Sense 的电池优化。
 \n
 \n访问 [Don\'t kill my app](https://dontkillmyapp.com/) 了解不同设备操作指南。</string>
-    <string name="remove_battery_restrictions">去除电池限制？</string>
     <string name="exporting_map">导出地图</string>
     <string name="map_exported">已导出地图</string>
     <string name="camera_capture">拍摄</string>
     <string name="file">文件</string>
     <string name="map_export_error">无法将地图导出到所选文件</string>
-    <string name="second_symbol">秒</string>
     <string name="path">路径</string>
     <string name="point">点</string>
     <string name="point_added">已添加点至路径</string>
@@ -929,7 +884,6 @@
         <item quantity="other">%d 条路径</item>
     </plurals>
     <string name="tide_diurnal">全日潮</string>
-    <string name="tide_diurnal_description">涨潮一天一次 - 大多数潮汐不是全日的</string>
     <string name="tide_instructions">使用官方潮汐表输入你旅行期间的参考潮汐。</string>
     <string name="tide_user_guide_recommendation">可在用户指南中找到官方潮汐表网站。</string>
     <string name="tide_semidiurnal">半日潮</string>
@@ -1015,8 +969,6 @@
     <string name="create_blank_map">创建空白地图</string>
     <string name="pref_include_leading_zero_title">在表示时间的数字前添加 0</string>
     <string name="create_path">创建路径</string>
-    <string name="solar_eclipse_start">日食（开始）</string>
-    <string name="solar_eclipse_end">日食（结束）</string>
     <string name="solar_eclipse">日食</string>
     <string name="map_is_not_calibrated">未校准地图</string>
     <string name="loading">加载中</string>
@@ -1029,7 +981,6 @@
     <string name="magnitude">等级</string>
     <string name="unable_to_find_next_astronomy">无法找到下一个 %s</string>
     <string name="print">打印</string>
-    <string name="step_progression">步骤 %1$d / %2$d</string>
     <string name="astronomy_direction_peak">峰值方向</string>
     <string name="autofill_source">自动填充源</string>
     <string name="calibrate_map_point">用已知位置校准 (%1$d / %2$d)</string>

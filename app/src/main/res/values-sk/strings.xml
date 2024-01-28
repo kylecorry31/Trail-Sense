@@ -25,7 +25,6 @@
     <string name="flashlight_title">Baterka</string>
     <string name="accuracy_info_title">Tipy na zlepšenie presnosti údajov zo senzorov</string>
     <string name="accuracy_distance_format">± %s</string>
-    <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Neznáma</string>
     <string name="dash">-</string>
     <string name="battery_capacity_format">%s mAh</string>

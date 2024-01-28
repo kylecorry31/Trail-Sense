@@ -23,18 +23,6 @@
     <string name="pref_show_sun_moon_compass_title">Показать Солнце/Луну на компасе</string>
     <string name="pref_show_linear_compass_title">Показывать компас-линейку</string>
     <string name="pref_show_linear_compass_summary">Когда телефон находится вертикально</string>
-    <plurals name="last_hours">
-        <item quantity="one">Прошлый %d час</item>
-        <item quantity="few">Прошлые %d часа</item>
-        <item quantity="many">Прошлые %d часов</item>
-        <item quantity="other">Прошлые %d часов</item>
-    </plurals>
-    <plurals name="last_minutes">
-        <item quantity="one">Прошлая %d минута</item>
-        <item quantity="few">Прошлые %d минуты</item>
-        <item quantity="many">Прошлые %d минут</item>
-        <item quantity="other">Прошлые %d минут</item>
-    </plurals>
     <string name="feet_miles">Футы / мили</string>
     <string name="units_hpa">гПа</string>
     <string name="units_mbar">мбар</string>
@@ -72,7 +60,6 @@
     <string name="pref_weather_update_frequency_title">Частота обновления погоды</string>
     <string name="pref_monitor_weather_title">Следить за погодой</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Калибровка перед навигацией</string>
-    <string name="pref_altimeter_calibration_mode_title">Автокалибровка</string>
     <string name="never">Никогда</string>
     <string name="altimeter_mode_gps_barometer">GPS и барометр</string>
     <string name="pref_altimeter_calibration_title">Высотомер</string>
@@ -101,7 +88,6 @@
     <string name="sos">СОС</string>
     <string name="tap_to_turn_off">Нажмите, чтобы выключить</string>
     <string name="flashlight_title">Фонарик</string>
-    <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Неизвестная</string>
     <string name="dash">-</string>
     <string name="elevation_diff_format">%1$s%2$s</string>
@@ -172,8 +158,6 @@
     <string name="set_inclination_instructions">Нажмите или удерживайте в любом месте для блокировки/разблокировки</string>
     <string name="clinometer_rotate_device">Держите ваш телефон вертикально для измерения наклона</string>
     <string name="tool_clinometer_summary">Оценка риска лавин и высоты объектов</string>
-    <string name="lunar_noon">Луна в зените</string>
-    <string name="solar_noon">Солнце в зените</string>
     <string name="sunset_alert_channel_title">Солнце скоро зайдет</string>
     <string name="sunset_alerts">Оповещения о заходе солнца</string>
     <string name="sunset_alert_notification_text">Солнце сядет в %s</string>
@@ -203,7 +187,6 @@
     <string name="tool_user_guide_title">Руководство пользователя</string>
     <string name="tool_user_guide_summary">Руководство по использованию Trail Sense</string>
     <string name="delete_beacon_group_message">%s и все его маячки будут удалены.</string>
-    <string name="beacon_create">Создать</string>
     <string name="group">Группа</string>
     <string name="no_group">Не в группе</string>
     <string name="tap_sun_moon_hint">Коснитесь Солнца или Луны, чтобы узнать о местоположении</string>
@@ -293,7 +276,6 @@
     <string name="pip_notification_scheduled">Уведомление запланировано на %s</string>
     <string name="pip_button">Обновить системное время</string>
     <string name="could_not_triangulate">Не удалось выполнить триангуляцию</string>
-    <string name="tool_triangulate_summary">Определите свое местоположение без GPS</string>
     <string name="tool_triangulate_title">Триангуляция местоположения</string>
     <string name="tool_category_signaling">Сигнал</string>
     <string name="tool_category_angles">Углы</string>
@@ -331,7 +313,6 @@
     <string name="location_override_updated">Переопределение местоположения обновлено</string>
     <string name="low_power_mode_on_message">Включен режим энергосбережения, некоторые функции могут быть отключены.</string>
     <string name="pref_low_power_mode_title">Режим энергосбережения</string>
-    <string name="guide_barometer_calibration_title">Калибровка барометра</string>
     <string name="charging_wireless">Зарядка (%s)</string>
     <string name="battery_power_wireless">Беспроводная</string>
     <string name="battery_power_usb">USB</string>
@@ -488,10 +469,7 @@
     <string name="pref_meteor_showers_title">Звездопад</string>
     <string name="meteor_shower">Звездопад</string>
     <string name="pedometer_disclaimer">Точность шагомера и его использование батареи зависят от производителя вашего устройства и введенной длины шага. Попробуйте походить немного дома, чтобы проверить разряд батареи и точность перед использованием на тропе.</string>
-    <string name="guide_using_printed_maps">Использование печатных карт</string>
-    <string name="guide_signaling_for_help_title">Сигнал о помощи</string>
     <string name="meteors_per_hour">Максимум %d метеоров в час</string>
-    <string name="tomorrow_at">Завтра в %s</string>
     <string name="menu">Меню</string>
     <string name="no_tides">Нет приливов</string>
     <string name="pref_nearby_radar_title">Показать радарный компас вблизи</string>
@@ -502,15 +480,10 @@
     <string name="import_gpx">Импорт GPX</string>
     <string name="error_importing_map">Ошибка при импорте карты</string>
     <string name="importing_map">Импорт карты</string>
-    <string name="hour_symbol">ч</string>
-    <string name="minute_symbol">м</string>
     <string name="map_auto_calibrated">Карта откалибрована автоматически, проверьте её точность</string>
     <string name="time_until_empty">до опустения</string>
     <string name="next">Далее</string>
     <string name="previous">Назад</string>
-    <string name="create_map_description">Введите название карты</string>
-    <string name="create_map">Создать карту</string>
-    <string name="place_beacon_at">Установить маячок на %s\?</string>
     <string name="on_map">На карте</string>
     <string name="no_maps">Нет карт</string>
     <string name="rename">Переименовать</string>
@@ -533,7 +506,6 @@
     <string name="calibrate_new_tide">Откалибровать новый прилив\?</string>
     <string name="backtrack_battery_warning">Небольшие интервалы (менее 15 минут) могут привести к чрезмерному разряду батареи</string>
     <string name="battery_warning">Предупреждение о разряде батареи</string>
-    <string name="backtrack_high_priority_notification">Размещение путевой точки каждые %s</string>
     <string name="dotted">Пунктиром</string>
     <string name="solid">Сплошной</string>
     <string name="pref_weather_show_detailed_icon_title">Показать цветной значок уведомления</string>
@@ -546,7 +518,6 @@
     <string name="whistle_signal_where_are_you">Где вы\?</string>
     <string name="noon">Полдень</string>
     <string name="arrow">Стрелками</string>
-    <string name="fields">Поля</string>
     <string name="pref_show_last_signal_beacon_summary">Создает маячок для определения местоположения последнего сигнала сети</string>
     <string name="pref_show_last_signal_beacon_title">Маячок последнего сигнала</string>
     <string name="last_signal_beacon_name">Последний сигнал - %1$s (%2$s)</string>
@@ -567,7 +538,6 @@
     <string name="pref_cell_signal_refresh_cache_summary">Заставляет загружать последние уровни сигнала</string>
     <string name="pref_cell_signal_refresh_cache_title">Обновить кэш сигнала</string>
     <string name="pref_navigation_lock_screen_presence_title">Показывать на экране блокировки во время навигации</string>
-    <string name="map_rotate_instructions">Поворачивайте, пока север не будет направлен вверх</string>
     <string name="preview">Предпросмотр</string>
     <string name="moved_to">Перемещено в %s</string>
     <string name="move">Переместить</string>
@@ -575,13 +545,10 @@
     <string name="coordinates_tab">Координаты</string>
     <string name="distance">Расстояние</string>
     <string name="convert">Конвертировать</string>
-    <string name="pref_barometer_pressure_smoothing_title">Сглаживание давления</string>
     <string name="pref_nmea_elevation_summary">Использует смещения NMEA для преобразования высоты</string>
     <string name="pref_nmea_elevation_title">Смещение высоты по NMEA</string>
     <string name="pref_barometer_info_summary">Давление может отличаться от давления на близлежащих станциях</string>
     <string name="battery_history">История батареи - последняя %s</string>
-    <string name="dusk_type">Сумерки (%s)</string>
-    <string name="dawn_type">Рассвет (%s)</string>
     <string name="weather_monitor">Монитор погоды</string>
     <string name="no_data">Нет данных</string>
     <string name="pref_map_url_source_title">Поделиться местоположением на карте</string>
@@ -590,7 +557,6 @@
     <string name="elevation_history">История высот</string>
     <string name="wgs84">WGS 84</string>
     <string name="num_satellites">%d спутников</string>
-    <string name="guide_packing_list">Создание списков упаковки</string>
     <string name="weight_per_item">Вес на единицу</string>
     <string name="pack_sort_weight_high_to_low">Вес (по убыванию)</string>
     <string name="pack_sort_weight_low_to_high">Вес (по возрастанию)</string>
@@ -609,7 +575,6 @@
     <string name="clear_amounts">Очистить ёмкость</string>
     <string name="desired_amount">Желаемая ёмкость</string>
     <string name="packed_amount">Упакованная ёмкость</string>
-    <string name="default_pack_name">Пакет по умолчанию</string>
     <string name="time">Время</string>
     <string name="days_format">%s д</string>
     <string name="hours_format">%s ч</string>
@@ -703,7 +668,6 @@
     <string name="no_permission">Разрешение не выдано</string>
     <string name="camera">Камера</string>
     <string name="quarter_moon">Четверть Луны</string>
-    <string name="enable">Включить</string>
     <string name="weather_monitoring_disabled">Мониторинг погоды отключен</string>
     <string name="moon">Луна</string>
     <string name="sun">Солнце</string>
@@ -731,8 +695,6 @@
     </plurals>
     <string name="astronomy_alerts">Астрономические предупреждения</string>
     <string name="lunar_eclipse">Лунное затмение</string>
-    <string name="lunar_eclipse_end">Лунное затмение (конец)</string>
-    <string name="lunar_eclipse_start">Лунное затмение (начало)</string>
     <string name="partial">Частично (%s)</string>
     <string name="total">Всего</string>
     <string name="lunar_eclipses">Лунные затмения</string>
@@ -758,21 +720,13 @@
     <string name="precipitation_small_hail">Мелкий град</string>
     <string name="precipitation_ice_pellets">Ледяная крупа</string>
     <string name="precipitation_snow_grains">Снежные зерна</string>
-    <string name="results">Результат</string>
     <string name="precipitation_none">Без осадков</string>
     <string name="precipitation_rain">Дождь</string>
     <string name="precipitation_drizzle">Морось</string>
     <string name="precipitation_snow">Снег</string>
-    <string name="or">Или</string>
     <string name="humidity">Влажность</string>
-    <string name="choose_photo">Выбрать фото</string>
     <string name="precipitation_chance">Вероятность осадков: %s</string>
     <string name="take_photo">Сделать фото</string>
-    <string name="notification_weather_update_title">Обновление погодного монитора</string>
-    <string name="notification_weather_update_content">Запись давления</string>
-    <string name="notification_backtrack_update_title">Обновление истории маршрута</string>
-    <string name="notification_backtrack_update_content">Запись вашего местоположения</string>
-    <string name="cloud_photo_mask_toast">Нажмите на фотографию, чтобы переключить маску</string>
     <string name="no_camera_access">Не удается получить доступ к камере</string>
     <string name="hide">Скрыть</string>
     <string name="show">Показать</string>
@@ -822,10 +776,7 @@
     <string name="points">Точки</string>
     <string name="duration">Продолжительность</string>
     <string name="elevation">Высота</string>
-    <string name="elevation_gain">Повышение высоты</string>
-    <string name="elevation_loss">Понижение высоты</string>
     <string name="easy">Легко</string>
-    <string name="navigation_guide_description">Использование маячков и путей</string>
     <string name="change_map_projection">Изменить проекцию</string>
     <string name="map_projection_mercator">Меркатор</string>
     <string name="map_projection_equidistant">Эквидистантная</string>
@@ -944,14 +895,12 @@
     <string name="bearing">Подшипник</string>
     <string name="exporting_map">Экспорт карты</string>
     <string name="map_exported">Карта экспортирована</string>
-    <string name="remove_battery_restrictions">Снять ограничения на использование батареи\?</string>
     <string name="allow_ignore_battery_restrictions_instructions">Снятие ограничений на использование батареи для Trail Sense может повысить точность.
 \n
 \nНа большинстве устройств нажмите \"%s\", затем переключитесь на все приложения и отключите оптимизацию батареи для Trail Sense.
 \n
 \nПосетите [Don\'t kill my app](https://dontkillmyapp.com/) для получения инструкций для конкретного устройства.</string>
     <string name="file">Файл</string>
-    <string name="second_symbol">с</string>
     <string name="delete_path_group_message">%s и все его пути будут удалены.</string>
     <string name="point">Точка</string>
     <string name="point_added">Точка добавлена к пути</string>
@@ -966,7 +915,6 @@
     </plurals>
     <string name="tide_instructions">Используйте официальную таблицу приливов, чтобы ввести эталонные значения приливов для всего вашего путешествия.</string>
     <string name="tide_diurnal">Суточный</string>
-    <string name="tide_diurnal_description">Прилив один раз в день - большинство приливов не являются суточными</string>
     <string name="tide_user_guide_recommendation">Официальные сайты таблиц приливов можно найти в руководстве пользователя.</string>
     <string name="tide_semidiurnal">Полусуточный</string>
     <string name="frequency">Частота</string>

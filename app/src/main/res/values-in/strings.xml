@@ -19,9 +19,6 @@
     <string name="access_background_location_rationale">Trail Sense menggunakan data lokasi di latar belakang. Data tersebut digunakan untuk kalibrasi tekanan permukaan laut di pemantauan cuaca dan untuk memberikan peringatan matahari terbenam yang lebih akurat. [Lihat Kebijakan Privasi](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="duration_hour_format">%d jam</string>
     <string name="degree">%s°</string>
-    <plurals name="last_hours">
-        <item quantity="other">%d jam terakhir</item>
-    </plurals>
     <string name="gps_timeouts">Batas waktu GPS</string>
     <string name="pref_flashlight_should_timeout_title">Secara otomatis dimatikan</string>
     <string name="access_background_location">Perbarui pengaturan lokasi</string>
@@ -33,9 +30,6 @@
     <string name="notification_storm_alert_text">Badai mungkin mendekat</string>
     <string name="notification_storm_alert_title">Peringatan Badai</string>
     <string name="notification_monitoring_weather">Pemantauan cuaca di latar-belakang</string>
-    <plurals name="last_minutes">
-        <item quantity="other">%d menit terakhir</item>
-    </plurals>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="no_data">Tidak ada data</string>
@@ -64,7 +58,6 @@
     <string name="battery_capacity_format">%s mAh</string>
     <string name="dash">-</string>
     <string name="unknown">Tidak diketahui</string>
-    <string name="accuracy_distance_unknown">\?</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_info_title">Cara meningkatkan akurasi data sensor</string>
     <string name="flashlight_title">Senter</string>
@@ -213,7 +206,6 @@
     <string name="elevation_from_pressure">Mengatur penggantian dari barometer</string>
     <string name="pref_use_sea_level_pressure_title">Tekanan permukaan laut</string>
     <string name="pref_adjust_for_temperature_summary">Gunakan suhu dalam konversi tekanan permukaan laut</string>
-    <string name="solar_noon">Matahari tengah-hari</string>
     <string name="pref_compass_sensor_title">Kompas</string>
     <string name="smoothing_summary">Nilai yang tinggi dapat mengurangi kebisingan</string>
     <string name="compass_declination_override">Penimpaan deklinasi</string>
@@ -232,7 +224,6 @@
 \nPeringatan ini dapat dinonaktifkan di pengaturan aplikasi.</string>
     <string name="gps">GPS</string>
     <string name="waning_gibbous">Bulan cembung akhir</string>
-    <string name="lunar_noon">Bulan tengah-hari</string>
     <string name="pref_ruler_calibration_summary">Protokol kalibrasi:
 \n- Tetapkan nilai ini ke 1.
 \n- Ukur nilai penggaris Trail Sense yang sesuai dengan satu unit penggaris fisik.
@@ -247,7 +238,6 @@
     <string name="elevation_override_updated_toast">Penggantian ketinggian diperbarui</string>
     <string name="pref_elevation_override_sea_level_dialog_msg">Masukkan tekanan saat ini di permukaan laut dalam hPa</string>
     <string name="never">Tidak pernah</string>
-    <string name="pref_altimeter_calibration_mode_title">Kalibrasi otomatis</string>
     <string name="clinometer_rotate_device">Posisikan ponsel anda secara vertikal</string>
     <string name="tool_clinometer_summary">Perkiraan resiko longsoran dan ketinggian objek</string>
     <string name="pref_elevation_override_sea_level_dialog_title">Masukkan tekanan permukaan laut</string>
@@ -308,7 +298,6 @@
     <string name="pref_show_calibrate_on_navigate_dialog_title">Kalibrasi sebelum menavigasi</string>
     <string name="pref_monitor_weather_title">Pantauan cuaca</string>
     <string name="update_120_minutes">2 jam</string>
-    <string name="beacon_create">Buat</string>
     <string name="pressure_24_hours">24 jam</string>
     <string name="height">Tinggi</string>
     <string name="todays_forecast">Perkiraan hari ini</string>
@@ -349,9 +338,7 @@
     <string name="no_tides">Tidak ada pasang surut</string>
     <string name="pref_weather_show_detailed_icon_title">Tampilkan ikon pemberitahuan berwarna</string>
     <string name="calibrate_new_tide">Kalibrasi ke gelombang baru\?</string>
-    <string name="backtrack_high_priority_notification">Menempatkan titik arah setiap %s</string>
     <string name="cumulus">Cumulus</string>
-    <string name="place_beacon_at">Tempatkan suar di %s\?</string>
     <string name="category_hydration">Hidrasi</string>
     <string name="category_clothing">Pakaian</string>
     <string name="category_medical">Medis</string>
@@ -398,7 +385,6 @@
     <string name="tool_category_angles">Sudut</string>
     <string name="tool_category_signaling">Persinyalan</string>
     <string name="tool_triangulate_title">Triangulasi Lokasi</string>
-    <string name="tool_triangulate_summary">Tentukan lokasi Anda tanpa GPS</string>
     <string name="unsaved_changes_message">Perubahan yang Anda buat tidak akan disimpan.</string>
     <string name="pref_low_power_mode_summary">Menonaktifkan beberapa fitur untuk menghemat daya</string>
     <string name="dialog_leave">Pergi</string>
@@ -432,7 +418,6 @@
     <string name="screen_flashlight">Layar</string>
     <string name="speedometer">Speedometer</string>
     <string name="meteor_shower">Hujan meteor</string>
-    <string name="tomorrow_at">Besok di %s</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Maks %d meteor / j</string>
     <string name="square">Persegi</string>
     <string name="solid">Padat</string>
@@ -481,13 +466,10 @@
     <string name="actual_frequency_disclaimer">Frekuensi sebenarnya dapat bervariasi karena beberapa perangkat memiliki batasan latar belakang.</string>
     <string name="weather_monitor">Pemantau Cuaca</string>
     <string name="activity_recognition_permission_denied">Izin aktivitas fisik ditolak, tidak dapat mengaktifkan fitur pedometer. Anda dapat mengaktifkannya di pengaturan.</string>
-    <string name="dusk_type">Senja (%s)</string>
     <string name="pref_show_last_signal_beacon_title">Suar sinyal terakhir</string>
-    <string name="fields">Bidang</string>
     <string name="noon">Siang hari</string>
     <string name="move_to">Pindah ke</string>
     <string name="pref_barometer_info_summary">Tekanan mungkin berbeda dari stasiun terdekat</string>
-    <string name="map_rotate_instructions">Putar sampai Utara menunjuk ke atas</string>
     <string name="pref_privacy_policy_title">Kebijakan privasi</string>
     <string name="water_boil_timer_done_content">Air Anda sekarang dapat diminum</string>
     <string name="could_not_triangulate">Tidak bisa melakukan triangulasi</string>
@@ -543,7 +525,6 @@
     <string name="battery_power_usb">USB</string>
     <string name="battery_power_wireless">Nirkabel</string>
     <string name="charging_wireless">Mengisi daya (%s)</string>
-    <string name="guide_barometer_calibration_title">Kalibrasi barometer</string>
     <string name="pref_low_power_mode_title">Mode hemat daya</string>
     <string name="low_power_mode_on_message">Mode hemat daya aktif, beberapa fitur mungkin dinonaktifkan.</string>
     <string name="nimbostratus">Nimbostratus</string>
@@ -594,21 +575,15 @@
     <string name="pref_nearby_radar_title">Tampilkan kompas radar terdekat</string>
     <string name="menu">Menu</string>
     <string name="pref_meteor_showers_title">Hujan meteor</string>
-    <string name="guide_signaling_for_help_title">Memberi isyarat untuk bantuan</string>
-    <string name="guide_using_printed_maps">Menggunakan peta cetak</string>
     <string name="pedometer_disclaimer">Keakuratan dan penggunaan baterai pedometer tergantung pada produsen perangkant Anda dan panjang langkah yang dimasukkan. Cobalah di rumah sebentar untuk memverifikasi penggunaan baterai dan keakuratannya sebelum menggunakan di jalan.</string>
     <string name="rename">Ubah nama</string>
     <string name="no_maps">Tidak ada peta</string>
     <string name="on_map">Pada peta</string>
-    <string name="create_map">Buat peta</string>
-    <string name="create_map_description">Masukkan nama peta</string>
     <string name="previous">Sebelumnya</string>
     <string name="next">Berikutnya</string>
     <string name="time_until_empty">sampai kosong</string>
     <string name="time_until_full">sampai penuh</string>
     <string name="map_auto_calibrated">Peta dikalibrasi secara otomatis, harap verifikasi keakuratannya</string>
-    <string name="minute_symbol">m</string>
-    <string name="hour_symbol">j</string>
     <string name="importing_map">Mengimpor peta</string>
     <string name="error_importing_map">Kesalahan mengimpor peta</string>
     <string name="import_gpx">Impor GPX</string>
@@ -624,9 +599,7 @@
     <string name="last_signal_beacon_name">Sinyal terakhir - %1$s (%2$s)</string>
     <string name="pref_show_last_signal_beacon_summary">Membuat beacon untuk lokasi sinyal seluler terakhir</string>
     <string name="whistle_signal_where_are_you">Di mana Anda\?</string>
-    <string name="dawn_type">Fajar (%s)</string>
     <string name="pref_nmea_elevation_summary">Menggunakan offset NMEA untuk konversi ketinggian</string>
-    <string name="pref_barometer_pressure_smoothing_title">Perataan tekanan</string>
     <string name="distance">Jarak</string>
     <string name="moved_to">Dipindahkan ke %s</string>
     <string name="preview">Pratinjau</string>
@@ -646,11 +619,8 @@
     <string name="auto">Otomatis</string>
     <string name="delete_path">Hapus jalur\?</string>
     <string name="total">Total</string>
-    <string name="choose_photo">Pilih foto</string>
-    <string name="notification_backtrack_update_content">Merekam lokasi Anda</string>
     <string name="up_to_amount">HIngga %s</string>
     <string name="precipitation_rain">Hujan</string>
-    <string name="or">Atau</string>
     <string name="frequency">Frekuensi</string>
     <string name="path">Jalur</string>
     <string name="show">Tampilkan</string>
@@ -683,7 +653,6 @@
     <string name="season_spring">Musim Semi</string>
     <string name="season_summer">Musim Panas</string>
     <string name="season_fall">Musim Gugur</string>
-    <string name="results">Hasil</string>
     <string name="camera">Kamera</string>
     <string name="sun">Matahari</string>
     <string name="no_clouds">Tidak Ada Awan</string>
@@ -750,15 +719,11 @@
     <string name="no_issues">Tidak ada masalah yang terdeteksi</string>
     <string name="no_resolution">Tidak ada resolusi</string>
     <string name="no_paths">Tidak ada jalan</string>
-    <string name="lunar_eclipse_start">Gerhana bulan (mulai)</string>
-    <string name="lunar_eclipse_end">Gerhana bulan (akhir)</string>
     <string name="lunar_eclipse">Gerhana bulan</string>
-    <string name="notification_weather_update_content">Merekam tekanan</string>
     <string name="weight_per_item">Berat per item</string>
     <string name="on">Aktif</string>
     <string name="packing_lists">Daftar Kemasan</string>
     <string name="kilograms_format">%s kg</string>
-    <string name="default_pack_name">Paket bawaan</string>
     <string name="no_packing_lists">Tidak ada daftar kemasan</string>
     <string name="coordinate_format_usng">USNG</string>
     <string name="gps_unavailable_resolution">Aktifkan Lokasi atau ubah sumber lokasi Anda menjadi Hanya Perangkat atau Akurasi Tinggi</string>
@@ -776,7 +741,6 @@
     <string name="milliseconds_format">%s ms</string>
     <string name="pack_sort_percent_low_to_high">Persen dikemas (rendah ke tinggi)</string>
     <string name="pack_sort_percent_high_to_low">Persen dikemas (tinggi ke rendah)</string>
-    <string name="guide_packing_list">Buat daftar pengemasan</string>
     <string name="humidity">Kelembaban</string>
     <string name="elevation_history_length">Panjang riwayat ketinggian</string>
     <string name="diagnostic_message_template">%1$s: %2$s
@@ -792,11 +756,9 @@
     <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
     <string name="weather_exported">Cuaca yang diekspor</string>
     <string name="pref_show_nearest_tide_title">Tampilkan pasang terdekat</string>
-    <string name="enable">Aktifkan</string>
     <string name="precipitation_none">Tidak ada curah hujan</string>
     <string name="precipitation_small_hail">Hujan Es Kecil</string>
     <string name="precipitation_ice_pellets">Pelet Es</string>
-    <string name="notification_weather_update_title">Pembaruan Pantauan Cuaca</string>
     <string name="medium_amount">Sedang (%s)</string>
     <string name="high_amount">Tinggi (%s)</string>
     <string name="duration_of_charge">Durasi pengisian</string>
@@ -850,11 +812,8 @@
     <string name="imperial_cups">Piala Imperial</string>
     <string name="points">Titik</string>
     <string name="elevation">Ketinggian</string>
-    <string name="elevation_gain">Peningkatan ketinggian</string>
-    <string name="elevation_loss">Pengurangan Ketinggian</string>
     <string name="avalanche_risk">Risiko longsoran salju</string>
     <string name="distance_unset">Jarak tidak disetel</string>
-    <string name="tide_diurnal_description">Pasang akan tinggi sesekali - sebagian besar pasang surut bukan harian</string>
     <string name="pref_tiles_enabled_title">Petak sistem</string>
     <string name="point_style">Gaya titik</string>
     <string name="onboarding_explore">- Dirancang untuk hiking, backpacking, berkemah, dan geocaching
@@ -881,7 +840,6 @@
     <string name="tool_temperature_estimation_description">Memprediksi suhu pada ketinggian yang berbeda</string>
     <string name="save">Simpan</string>
     <string name="stride_length_stand_still">Berdiri diam</string>
-    <string name="notification_backtrack_update_title">Perbarui Backtrack</string>
     <string name="line_style">Gaya garis</string>
     <string name="simplify">Sederhanakan</string>
     <string name="simplification_quality">Kualitas penyederhanaan</string>
@@ -905,12 +863,10 @@
     <string name="navigating_to_nearest_path_point">Menavigasi ke titik jalur terdekat</string>
     <string name="beacons">Suar</string>
     <string name="pref_start_on_boot_title">Mulai saat menyala</string>
-    <string name="remove_battery_restrictions">Hapus pembatasan baterai\?</string>
     <string name="map_exported">Peta yang diekspor</string>
     <string name="camera_capture">Tangkap</string>
     <string name="file">Berkas</string>
     <string name="map_export_error">Tidak dapat mengekspor peta ke file yang dipilih</string>
-    <string name="second_symbol">s</string>
     <string name="point">Titik</string>
     <string name="tide_instructions">Gunakan tabel pasang surut resmi untuk memasukkan referensi pasang surut selama perjalanan Anda.</string>
     <string name="tide_user_guide_recommendation">Situs resmi tabel pasang surut dapat ditemukan di panduan pengguna.</string>
@@ -921,7 +877,6 @@
     <string name="disclaimer_estimated_tide">Perkiraan pasang surut mungkin tidak akurat. Silakan gunakan tabel pasang surut resmi untuk mengetahui waktu yang tepat.</string>
     <string name="map_projection_mercator">Mercator</string>
     <string name="merging">Penggabungan</string>
-    <string name="navigation_guide_description">Menggunakan suar dan jalur</string>
     <string name="change_map_projection">Ubah proyeksi</string>
     <string name="map_projection_equidistant">Jarak yang sama</string>
     <string name="reduce_map_resolution">Kurangi resolusi peta</string>

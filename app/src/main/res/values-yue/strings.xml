@@ -29,16 +29,9 @@
     <string name="current_format">%s 毫安</string>
     <string name="dash">-</string>
     <string name="unknown">未知</string>
-    <string name="accuracy_distance_unknown">\?</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="stop">停止</string>
     <string name="pressure_format">%1$s %2$s</string>
-    <plurals name="last_hours">
-        <item quantity="other">過去 %d 個鐘</item>
-    </plurals>
-    <plurals name="last_minutes">
-        <item quantity="other">過去 %d 分鐘</item>
-    </plurals>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="temp_c_short">°C</string>
@@ -57,7 +50,6 @@
     <string name="pressure_24_hours">24 個鐘</string>
     <string name="update_150_minutes">2 個鐘零 30 分鐘</string>
     <string name="gps_signal_lost">GPS 訊號中斷</string>
-    <string name="choose_photo">揀幅相</string>
     <string name="disclaimer_message_title">免責聲明</string>
     <string name="app_disclaimer_message_title">免責聲明 / 服務條款</string>
     <string name="flashlight_title">電筒</string>
@@ -91,9 +83,7 @@
     <string name="no_permission">未授予權限</string>
     <string name="battery_usage_restricted">電池用量受限</string>
     <string name="auto">自動</string>
-    <string name="enable">啟用</string>
     <string name="take_photo">影幅相</string>
-    <string name="or">又或者</string>
     <string name="hide">隱藏</string>
     <string name="show">顯示</string>
     <string name="saving">儲存緊</string>
@@ -148,7 +138,6 @@
     <string name="pref_elevation_override_title">海拔推翻</string>
     <string name="elevation_override_updated_toast">更新咗海拔推翻</string>
     <string name="never">從來都冇</string>
-    <string name="pref_altimeter_calibration_mode_title">自動校正</string>
     <string name="pref_adjust_for_temperature_title">一併考慮氣溫</string>
     <string name="pref_num_visible_beacons_title">就近嘅地標</string>
     <string name="pref_max_beacon_distance_title">就近地標方圓</string>
@@ -266,7 +255,6 @@
     <string name="simplifying">簡化緊</string>
     <string name="simplification_quality">簡化品質</string>
     <string name="pref_auto_simplify_paths_title">匯入時簡化路徑</string>
-    <string name="navigation_guide_description">地標與路徑點用法</string>
     <string name="pref_clinometer_lock_with_volume_buttons_title">用大細聲掣去鎖定</string>
     <string name="height">高度</string>
     <string name="clinometer_measure_distance_title">目標嘅高度</string>
@@ -279,7 +267,6 @@
     <string name="errors">錯誤</string>
     <string name="error">錯誤</string>
     <string name="warning">警告</string>
-    <string name="remove_battery_restrictions">係咪要移除電量限制？</string>
     <string name="exporting_map">匯出緊地圖</string>
     <string name="map_exported">匯出咗個地圖</string>
     <string name="camera_capture">影相</string>
@@ -305,7 +292,6 @@
     <string name="time_ago">%s之前</string>
     <string name="none">無</string>
     <string name="high_tide">漲潮</string>
-    <string name="hour_symbol">時</string>
     <string name="importing_map">匯入緊地圖</string>
     <string name="error_importing_map">匯入地圖嘅時候發生錯誤</string>
     <string name="battery_warning">耗電警告</string>
@@ -387,11 +373,9 @@
     <string name="no_tides">未有潮汐</string>
     <string name="menu">功能表</string>
     <string name="rename">改過個名</string>
-    <string name="minute_symbol">分</string>
     <string name="import_gpx">匯入 GPX</string>
     <string name="map_auto_calibrated">地圖已自動校正，請查驗準繩</string>
     <string name="actual_frequency_disclaimer">一啲機幕後執行設限，故實際頻率可能有異。</string>
-    <string name="backtrack_high_priority_notification">每 %s 就放置一個中途點</string>
     <string name="calibrate_new_tide">係咪要校正去新嘅潮汐？</string>
     <string name="color">色水</string>
     <string name="icon">公仔</string>
@@ -410,7 +394,6 @@
         <item quantity="other">%d 條路徑</item>
     </plurals>
     <string name="high">高</string>
-    <string name="second_symbol">秒</string>
     <string name="imperial_gallons">英制加侖</string>
     <string name="us_cups">美制量杯</string>
     <string name="us_pints">美制品脫</string>
@@ -435,7 +418,6 @@
     <string name="battery_health">狀況：%s</string>
     <string name="power">電源</string>
     <string name="tool_triangulate_title">三角定位</string>
-    <string name="tool_triangulate_summary">唔用 GPS 之下斷定您嘅位置</string>
     <string name="could_not_triangulate">三角定位唔到</string>
     <string name="clock_sync_time_settings">係咪要開啟時間設定？</string>
     <string name="notification_channel_clock_sync_description">將您嘅時鐘同 GPS 時間同步嘅通知</string>
@@ -495,18 +477,14 @@
     <string name="map_scale_ratio">比率</string>
     <string name="unit_centimeters_abbreviation">厘米</string>
     <string name="solar_eclipses">日蝕</string>
-    <string name="solar_eclipse_start">日蝕 (開始)</string>
-    <string name="solar_eclipse_end">日蝕 (結束)</string>
     <string name="solar_eclipse">日蝕</string>
     <string name="season_spring">春天</string>
     <string name="season_summer">夏天</string>
     <string name="no_issues">未偵測到問題</string>
     <string name="total">全蝕</string>
     <string name="partial">偏蝕 (%s)</string>
-    <string name="lunar_eclipse_start">月蝕 (開始)</string>
     <string name="lunar_eclipse">月蝕</string>
     <string name="astronomy_alerts">天文警示</string>
-    <string name="lunar_eclipse_end">月蝕 (結束)</string>
     <string name="moon">月亮</string>
     <string name="precipitation_hail">有冰雹</string>
     <string name="precipitation_small_hail">細冰雹</string>
@@ -523,8 +501,6 @@
     <string name="sunset_alert_notification_text">太陽會喺 %s 落山</string>
     <string name="sunset_alerts">日落警示</string>
     <string name="sunset_alert_channel_title">日落警示</string>
-    <string name="solar_noon">日上中天</string>
-    <string name="lunar_noon">月上中天</string>
     <string name="moon_phase">月相</string>
     <string name="clinometer_title">傾角儀</string>
     <string name="add">加</string>
@@ -554,7 +530,6 @@
     <string name="season_fall">秋天</string>
     <string name="sun">太陽</string>
     <string name="precipitation_rain">有雨</string>
-    <string name="results">結果</string>
     <string name="no_clouds">未有雲</string>
     <string name="reduce_map_resolution">降低地圖解像度</string>
     <string name="saved">儲存咗</string>
@@ -644,7 +619,6 @@
     <string name="pref_show_linear_compass_title">以線性表示羅經</string>
     <string name="toast_destination_bearing_set">目標方位設定好</string>
     <string name="distance_from_flashlight">由部機去到閃光燈嘅距離</string>
-    <string name="guide_signaling_for_help_title">發求救訊號</string>
     <string name="dialog_leave">算罷啦</string>
     <string name="hygrometer">濕度計</string>
     <string name="gravity">重力</string>
@@ -666,7 +640,6 @@
     <string name="always">幾時都係</string>
     <string name="coordinate_input_invalid_location">位置無效</string>
     <string name="tool_thermometer_title">溫度計</string>
-    <string name="guide_barometer_calibration_title">氣壓計校正</string>
     <string name="unsaved_changes">未儲存更改</string>
     <string name="open_beacon_in_maps">喺地圖度睇過</string>
     <string name="privacy_and_location">私隱與定位</string>
@@ -693,8 +666,6 @@
     <string name="weather_warm_front">暖鋒</string>
     <string name="map_is_not_calibrated">地圖未校正</string>
     <string name="print">列印</string>
-    <string name="notification_weather_update_title">氣象監測更新</string>
-    <string name="notification_weather_update_content">紀錄緊氣壓</string>
     <string name="access_background_location_rationale">Trail Sense 會喺幕後用到位置資料，喺氣象監測入面用嚟做海平面氣壓校正，同埋挺日落警示更加之準。[查閱私隱政策](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="tide_user_guide_recommendation">使用指南載有提供官方潮汐表嘅網站。</string>
     <string name="kilometers_per_hour_format">時速 %.1f 公里</string>
@@ -714,13 +685,10 @@
 \n**方位角**：%3$s</string>
     <string name="tap_sun_moon_hint">撳一下日月有得睇位置詳細</string>
     <string name="noon">中天</string>
-    <string name="fields">埋欄</string>
-    <string name="dawn_type">%s拂曉</string>
     <string name="whistle_signal_acknowledged">收到</string>
     <string name="whistle_signal_come_here">過嚟吖</string>
     <string name="weather_monitor">氣象監測</string>
     <string name="battery_history">電量紀錄：過去嗰 %s</string>
-    <string name="pref_barometer_pressure_smoothing_title">氣壓平滑化</string>
     <string name="tool_bubble_level_summary">睇下個面係咪平</string>
     <string name="bubble_level_angles">橫：%1$s
 \n縱：%2$s</string>
@@ -738,8 +706,6 @@
     <string name="humidity_history">濕度紀錄：過去嗰 %s</string>
     <string name="temperature_history">溫度紀錄：過去嗰 %s</string>
     <string name="meteor_shower">流星雨</string>
-    <string name="tomorrow_at">聽日 %s</string>
-    <string name="dusk_type">%s薄暮</string>
     <string name="pref_nmea_elevation_title">NMEA 海拔修正</string>
     <string name="pick_file">揀個檔案</string>
     <string name="coordinate_format_usng">USNG</string>
@@ -799,7 +765,6 @@
     <string name="distance_unset">距離未設定</string>
     <string name="average_speed_backtrack">平均速度 (踏雪留蹤)</string>
     <string name="backtrack_disabled_low_power_toast">慳電模式之下，停用踏雪留蹤</string>
-    <string name="notification_backtrack_update_title">踏雪留蹤更新</string>
     <string name="delete_waypoint_prompt">係咪要刪除中途點？</string>
     <string name="location_input_help">小數點度數 (例如 1.00、-2.00)
 \n
@@ -820,7 +785,6 @@
     <string name="navigating_to_nearest_path_point">定向緊去路徑最就近嗰點</string>
     <string name="pref_only_navigate_path_points_title">淨係定向去紀錄咗嘅點</string>
     <string name="backtrack">踏雪留蹤</string>
-    <string name="notification_backtrack_update_content">紀錄緊您嘅位置</string>
     <string name="backtrack_notification_channel_description">踏雪留蹤定位更新</string>
     <string name="avalanche_risk">雪崩風險</string>
     <string name="coordinate_format_decimal_degrees">小數點度數</string>
@@ -882,7 +846,6 @@
     <string name="continuous_calibration_description">一有 GPS 定位就校正</string>
     <string name="pref_tiles_enabled_title">系統通知欄方塊</string>
     <string name="view_distance">觀測距離</string>
-    <string name="guide_using_printed_maps">點用紙本地圖</string>
     <string name="altocumulus_forecast" tools:ignore="PluralsCandidate">可能表示未來 %d 個鐘會降水或行雷。</string>
     <string name="altostratus_forecast" tools:ignore="PluralsCandidate">可能表示未來 %d 個鐘會降水。</string>
     <string name="cloud_fair_forecast_hours" tools:ignore="PluralsCandidate">可能表示未來 %d 個鐘會天朗氣清。</string>

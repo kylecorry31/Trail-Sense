@@ -26,16 +26,6 @@
     <string name="pref_show_linear_compass_title">रैखिक कम्पास दिखाएं</string>
     <string name="pref_show_linear_compass_summary">जब फोन वर्टिकल होता है</string>
 
-    <plurals name="last_hours">
-        <item quantity="one">अन्तिम %d घण्टा</item>
-        <item quantity="other">अन्तिम %d घण्टा</item>
-    </plurals>
-
-    <plurals name="last_minutes">
-        <item quantity="one">अन्तिम %d मिनेट</item>
-        <item quantity="other">अन्तिम %d मिनेट</item>
-    </plurals>
-
     <string name="feet_miles">पैर /मील</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">inHg</string>

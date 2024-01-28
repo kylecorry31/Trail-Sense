@@ -26,16 +26,6 @@
     <string name="pref_show_linear_compass_title">Wys lineêre kompas</string>
     <string name="pref_show_linear_compass_summary">As die telefoon vertikaal is</string>
 
-    <plurals name="last_hours">
-        <item quantity="one">laaste %d uur</item>
-        <item quantity="other">laaste %d ure</item>
-    </plurals>
-
-    <plurals name="last_minutes">
-        <item quantity="one">laaste %d minuut</item>
-        <item quantity="other">laaste %d minute</item>
-    </plurals>
-
     <string name="feet_miles">Voete /myl</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">inHg</string>

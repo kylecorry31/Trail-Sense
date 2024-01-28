@@ -23,16 +23,6 @@
     <string name="pref_show_sun_moon_compass_title">Afficher les astres sur la boussole</string>
     <string name="pref_show_linear_compass_title">Afficher la boussole linéaire</string>
     <string name="pref_show_linear_compass_summary">Lorsque le téléphone est vertical</string>
-    <plurals name="last_hours">
-        <item quantity="one">Dernière %d heure</item>
-        <item quantity="many">Dernières %d heures</item>
-        <item quantity="other">Dernières %d heures</item>
-    </plurals>
-    <plurals name="last_minutes">
-        <item quantity="one">Dernière %d minute</item>
-        <item quantity="other">Dernières %d minutes</item>
-        <item quantity="many">Dernières %d minutes</item>
-    </plurals>
     <string name="feet_miles">Pieds / Miles</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">inHg</string>
@@ -84,7 +74,6 @@
     <string name="sun_does_not_rise">pas de lever</string>
     <string name="sun_does_not_set">pas de coucher</string>
     <string name="pref_center_sun_and_moon_title">Centrer les astres sur le graphe</string>
-    <string name="pref_altimeter_calibration_mode_title">Étalonnage automatique</string>
     <string name="never">Jamais</string>
     <string name="altimeter_mode_gps_barometer">GPS + baromètre</string>
     <string name="override_from_gps">Utiliser la valeur issue du GPS</string>
@@ -139,7 +128,6 @@
     <string name="clinometer_rotate_device">Tenez votre téléphone verticalement afin de mesurer l\'inclinaison</string>
     <string name="tool_clinometer_summary">Permet d\'estimer la hauteur des objets et le risque d\'avalanches</string>
     <string name="clinometer_title">Inclinomètre</string>
-    <string name="solar_noon">Midi solaire</string>
     <string name="sunset_alert_channel_title">Alerte de coucher de soleil</string>
     <string name="sunset_alerts">Alertes associées au coucher de soleil</string>
     <string name="sunset_alert_notification_text">Le soleil se couchera à %s</string>
@@ -162,13 +150,11 @@
     <string name="sos">SOS</string>
     <string name="flashlight_title">Lampe torche</string>
     <string name="accuracy_info_title">Conseils pour améliorer la précision des données issues des capteurs</string>
-    <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Inconnue</string>
     <string name="tools">Outils</string>
     <string name="moon_phase">Phase de la lune</string>
     <string name="full_moon">Pleine lune</string>
     <string name="copied_to_clipboard_toast">Copié dans le presse-papier</string>
-    <string name="lunar_noon">Midi lunaire</string>
     <string name="pressure_reading_time_ago">il y a %1$s - %2$s</string>
     <string name="maps">Cartes</string>
     <string name="pref_adjust_for_temperature_summary">Utiliser la température pour l\'estimation des valeurs de pressions au niveau de la mer</string>
@@ -192,7 +178,6 @@
     <string name="error_occurred">Une erreur est survenue</string>
     <string name="no_group">Pas de groupes définis</string>
     <string name="group">Groupe</string>
-    <string name="beacon_create">Créer</string>
     <string name="delete_beacon_group_message">%s et l\'ensemble des repères associés seront supprimés.</string>
     <plurals name="beacon_group_summary">
         <item quantity="one">%d repère</item>
@@ -229,7 +214,6 @@
     <string name="tool_cliff_height_title">Hauteur de falaise</string>
     <string name="toast_destination_bearing_set">Orientation établie</string>
     <string name="solar_panel_instructions">Placez votre téléphone sur la surface du panneau solaire pour commencer.</string>
-    <string name="tool_triangulate_summary">Vous géolocalise sans GPS</string>
     <string name="inventory_empty_text">Aucun objet</string>
     <string name="discharging_fast">En décharge rapide (%s)</string>
     <string name="discharging_slow">En décharge lente (%s)</string>
@@ -316,7 +300,6 @@
     <string name="precise_centimeters_format">%s cm</string>
     <string name="low_power_mode_on_message">Le mode économie d\'énergie est activé, certaines fonctionnalités pourraient être désactivées.</string>
     <string name="pref_low_power_mode_title">Mode économie d\'énergie</string>
-    <string name="guide_barometer_calibration_title">Étalonnage du baromètre</string>
     <string name="charging_wireless">En charge (%s)</string>
     <string name="battery_power_wireless">Sans-fil</string>
     <string name="battery_power_usb">USB</string>
@@ -458,7 +441,6 @@
     <string name="time_until_empty">jusqu\'à ce que ce soit vide</string>
     <string name="time_until_full">jusqu\'à ce que ça soit plein</string>
     <string name="map_auto_calibrated">Calibrage automatique de la carte, précision à vérifier</string>
-    <string name="minute_symbol">m</string>
     <string name="square">Carré</string>
     <string name="diamond">Diamant</string>
     <string name="cross">Croix</string>
@@ -471,10 +453,7 @@
     <string name="whistle_signal_acknowledged">Reçu</string>
     <string name="whistle_signal_come_here">Par ici</string>
     <string name="weather_monitor">Moniteur météo</string>
-    <string name="dawn_type">Aube (%s)</string>
-    <string name="dusk_type">Crépuscule (%s)</string>
     <string name="battery_history">Historique de batterie – dernières %s</string>
-    <string name="pref_barometer_pressure_smoothing_title">Lissage de pression</string>
     <string name="move_to">Déplacer vers</string>
     <string name="pref_cell_signal_refresh_cache_title">Actualiser le cache du signal</string>
     <string name="pref_cell_signal_refresh_cache_summary">Force le chargement de la qualité du réseau</string>
@@ -502,20 +481,14 @@
     <string name="time_not_set">Horaire non défini</string>
     <string name="pref_daily_weather_time_title">Heure quotidienne météo</string>
     <string name="screen_flashlight">Écran</string>
-    <string name="guide_signaling_for_help_title">Demander de l’aide</string>
     <string name="speedometer">Tachymètre</string>
     <string name="since_time">depuis %s</string>
-    <string name="tomorrow_at">Demain à %s</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Max %d météores / h</string>
-    <string name="guide_using_printed_maps">En utilisant une carte papier</string>
     <string name="pedometer_disclaimer">La précision et la consommation de batterie du podomètre dépend du fabricant de l’appareil ainsi que de la longueur d’enjambée défini. À essayer chez soi avant d’aller sur le terrain.</string>
     <string name="no_maps">Pas de cartes</string>
     <string name="on_map">Sur la carte</string>
-    <string name="create_map">Créer une carte</string>
-    <string name="create_map_description">Entrer le nom de la carte</string>
     <string name="previous">Précédent</string>
     <string name="next">Suivant</string>
-    <string name="hour_symbol">h</string>
     <string name="importing_map">Importation de carte</string>
     <string name="error_importing_map">Erreur d’importation de carte</string>
     <string name="import_gpx">Importation de GPX</string>
@@ -528,7 +501,6 @@
     <string name="dotted">Pointillé</string>
     <string name="arrow">Flèche</string>
     <string name="pref_default_path_style_title">Style de chemin par défaut</string>
-    <string name="fields">Champs</string>
     <string name="humidity_history">Historique d’humidité – dernières %s</string>
     <string name="temperature_history">Historique de température – dernières %s</string>
     <string name="pref_barometer_info_summary">La pression peut différer des stations alentours</string>
@@ -578,12 +550,10 @@
     <string name="high_amount">Élevé (%s)</string>
     <string name="low_amount">Faible (%s)</string>
     <string name="partial">Partielle (%s)</string>
-    <string name="lunar_eclipse_start">Éclipse lunaire (début)</string>
     <string name="season_fall">Automne</string>
     <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
     <string name="season_summer">Été</string>
     <string name="up_to_amount">Jusqu’à %s</string>
-    <string name="place_beacon_at">Placer un marqueur en %s \?</string>
     <string name="units">Unités</string>
     <string name="map_perspective_instructions">Entourer la carte</string>
     <string name="half_tide">Demie</string>
@@ -628,10 +598,8 @@
     <string name="time">Heure</string>
     <string name="days_format">%s d</string>
     <string name="packing_lists">Liste de bagage</string>
-    <string name="default_pack_name">Paquet par défaut</string>
     <string name="percent_packed">%s empaqueté</string>
     <string name="wgs84">WGS 84</string>
-    <string name="guide_packing_list">Créer une liste</string>
     <string name="quarter_moon">Quartier de Lune</string>
     <string name="no_permission">Permission non accordée</string>
     <string name="no_issues">Pas d’erreur détectée</string>
@@ -653,12 +621,10 @@
     <string name="imperial_pints">Pintes Impériales</string>
     <string name="diagnostics">Diagnostics</string>
     <string name="pref_odometer_reset_daily_title">Mise à zéro quotidienne</string>
-    <string name="backtrack_high_priority_notification">Ajouter un point de passage tous les %s</string>
     <string name="pedometer">Podomètre</string>
     <string name="meteor_shower">Pluie de météores</string>
     <string name="odometer">Odomètre</string>
     <string name="menu">Menu</string>
-    <string name="map_rotate_instructions">Tourner jusqu’à ce que le Nord soit au dessus</string>
     <string name="kilograms">Kilogrammes</string>
     <string name="weight">Masse</string>
     <string name="pref_navigation_lock_screen_presence_title">Afficher sur l’écran de verrouillage lors de la navigation</string>
@@ -695,7 +661,6 @@
     <string name="astronomy_alerts">Alertes astronomiques</string>
     <string name="unblock_notification_channel">Débloquer les notifications %s pour Trail Sense</string>
     <string name="path_exported">Chemins exportés</string>
-    <string name="lunar_eclipse_end">Éclipse lunaire (fin)</string>
     <string name="season_spring">Printemps</string>
     <string name="total">Totale</string>
     <string name="supermoon">Super Lune</string>
@@ -711,28 +676,20 @@
     <string name="stratus_desc">Nuage bas couvrant le ciel. Les objets n’ont pas d’ombre et il peut y avoir du brouillard.</string>
     <string name="precipitation_snow">Neige</string>
     <string name="pref_auto_simplify_paths_title">Simplifier les chemins lors de l’importation</string>
-    <string name="navigation_guide_description">Utilisation des balises et chemins</string>
     <string name="change_map_projection">Changer de projection</string>
     <string name="map_projection_mercator">Mercator</string>
     <string name="map_projection_equidistant">Équidistant</string>
     <string name="tilt">Inclinaison</string>
     <string name="duration_of_charge">Durée de charge</string>
     <string name="take_photo">Prendre une photo</string>
-    <string name="choose_photo">Choisir une photo</string>
-    <string name="or">Ou</string>
-    <string name="cloud_photo_mask_toast">Toucher l’image pour appliquer un masque</string>
     <string name="no_camera_access">Accès à la caméra impossible</string>
     <string name="show">Afficher</string>
-    <string name="notification_weather_update_title">Actualiser le moniteur météo</string>
-    <string name="notification_backtrack_update_content">Enregistrement de la position</string>
     <string name="point_style">Style de point</string>
     <string name="line_style">Style de ligne</string>
     <string name="path_color">Couleur de chemin</string>
     <string name="temporary">Temporaire</string>
     <string name="importing">Importation</string>
     <string name="elevation">Altitude</string>
-    <string name="elevation_gain">Dénivelé positif</string>
-    <string name="elevation_loss">Dénivelé négatif</string>
     <string name="easy">Facile</string>
     <string name="reduce_map_resolution">Réduire la résolution de la carte</string>
     <string name="slope_amount">%s déclinaison</string>
@@ -745,11 +702,8 @@
     <string name="precipitation_none">Pas de précipitation</string>
     <string name="precipitation_drizzle">Bruine</string>
     <string name="precipitation_hail">Grêle</string>
-    <string name="results">Résultats</string>
     <string name="precipitation_chance">Chances de précipitations : %s</string>
     <string name="hide">Cacher</string>
-    <string name="notification_weather_update_content">Enregistrement de la pression</string>
-    <string name="notification_backtrack_update_title">Actualisation de Backtrack</string>
     <string name="most_recent">Plus récent</string>
     <string name="longest">Plus long</string>
     <string name="shortest">Plus court</string>
@@ -771,7 +725,6 @@
 \n**Altitude** : %2$s
 \n
 \n**Azimuth** : %3$s</string>
-    <string name="enable">Activer</string>
     <string name="weather_monitoring_disabled">Moniteur météo désactivé</string>
     <string name="no_clouds">Pas de nuages</string>
     <string name="points">Points</string>
@@ -899,7 +852,6 @@
     <string name="distance_alert_distance_reached">Vous avez atteint %s</string>
     <string name="reset_distance_title">Réinitialisation de la distance \?</string>
     <string name="bearing">Palier</string>
-    <string name="tide_diurnal_description">Marée haute une fois par jour - la plupart des marées ne sont pas diurnes</string>
     <string name="highest_point_elevation">Point le plus haut</string>
     <string name="updating_weather">Actualiser la météo</string>
     <string name="camera_unavailable">Caméra indisponible</string>
@@ -951,7 +903,6 @@
         <item quantity="other">%d chemins importés</item>
     </plurals>
     <string name="exporting_map">Exporter la carte</string>
-    <string name="second_symbol">s</string>
     <string name="permission_alarms_and_reminders">Alarmes et rappels</string>
     <string name="descent">Descente</string>
     <string name="undo">Annuler</string>
@@ -1010,7 +961,6 @@
     <string name="map_export_error">Impossible d\'exporter la carte dans le fichier sélectionné</string>
     <string name="point">Point</string>
     <string name="point_added">Point ajouté au chemin</string>
-    <string name="remove_battery_restrictions">Supprimer les restrictions de batterie \?</string>
     <string name="camera_capture">Capturer</string>
     <string name="file">Fichier</string>
     <string name="updating">Mise à jour</string>
@@ -1034,7 +984,6 @@
     <string name="backing_up_loading_message">En cours de sauvegarde…</string>
     <string name="invalid_backup_file">Fichier de sauvegarde invalide</string>
     <string name="backup_restore">Sauvegarde / Restauration</string>
-    <string name="step_progression">Étape %1$d / %2$d</string>
     <string name="historic_temperatures">Températures historiques</string>
     <string name="loading">Chargement</string>
     <string name="calibrate_map_point">Calibrer avec des emplacements connus (%1$d / %2$d)</string>
@@ -1105,8 +1054,6 @@
     <string name="delete_map_group_message">%s et toutes ses cartes sont supprimées.</string>
     <string name="map_auto_rotated">Rotation de la carte ajustée avec calibrage</string>
     <string name="coordinate_format_osgb">OSGB</string>
-    <string name="solar_eclipse_start">Éclipse solaire (début)</string>
-    <string name="solar_eclipse_end">Eclipse totale de Soleil (fin)</string>
     <string name="historic_temperatures_full_disclaimer" tools:ignore="PluralsCandidate">Les températures sont basées sur une moyenne de %d-années de données historiques et peuvent ne pas refléter les conditions météorologiques actuelles.</string>
     <string name="create_path">Créer un chemin</string>
     <string name="map_is_not_calibrated">La carte n’est pas calibrée</string>

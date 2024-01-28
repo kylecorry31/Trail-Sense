@@ -50,7 +50,6 @@
     <string name="duration_hour_format">%dh</string>
     <string name="direction_south_west">ΝΔ</string>
     <string name="pref_elevation_override_sea_level_dialog_title">Εισάγετε την ισαλλοβαρομετρική πίεση</string>
-    <string name="accuracy_distance_unknown">;</string>
     <string name="dialog_item_amount">Ποσότητα</string>
     <string name="unknown">Άγνωστο</string>
     <string name="increase">+</string>
@@ -82,10 +81,6 @@
     <string name="duration_second_format">%ds</string>
     <string name="delete">Διαγραφή</string>
     <string name="charging_fast">Γρήγορη φόρτιση (%s)</string>
-    <plurals name="last_hours">
-        <item quantity="one">Τελευταία %d ώρα</item>
-        <item quantity="other">Τελευταίες %d ώρες</item>
-    </plurals>
     <string name="coordinate_format_degrees_minutes_seconds">Μοίρες Λεπτά Δευτερόλεπτα</string>
     <string name="sun_does_not_rise">Χωρίς ανατολή</string>
     <string name="compass_reported_accuracy">Δηλωθείσα ακρίβεια: %s</string>
@@ -120,8 +115,6 @@
     <string name="accuracy_info_title">Προτάσεις για βελτίωση της ακρίβειας των δεδομένων του αισθητήρα</string>
     <string name="sunrise_label">Ανατολή ηλίου</string>
     <string name="sunset_alerts">Ειδοποιήσεις δύσης ηλίου</string>
-    <string name="solar_noon">Μεσημβρία</string>
-    <string name="lunar_noon">Άνω μεσουράνηση σελήνης</string>
     <string name="sos">SOS</string>
     <string name="discharging_slow">Αργή αποφόρτιση (%s)</string>
     <string name="sunset_alert_notification_text">Ο ήλιος θα δύσει σε %s</string>
@@ -176,10 +169,6 @@
     <string name="full_moon">Πανσέληνος</string>
     <string name="pressure_format">%1$s %2$s</string>
     <string name="accuracy_distance_format">± %s</string>
-    <plurals name="last_minutes">
-        <item quantity="one">Τελευταίο %d λεπτό</item>
-        <item quantity="other">Τελευταία %d λεπτά</item>
-    </plurals>
     <string name="theme_sunset_sunrise">Ανατολή/δύση ηλίου</string>
     <string name="battery_capacity_format">%s mAh</string>
     <string name="sun_down_no_set">Ο ήλιος έδυσε</string>
@@ -189,7 +178,6 @@
     <string name="charging_wireless">Φορτίζει (%s)</string>
     <string name="preview">Προεπισκόπηση</string>
     <string name="gallon_format">%s gal</string>
-    <string name="navigation_guide_description">Χρήση τοπόσημων και διαδρομών</string>
     <string name="compass_unavailable">Πυξίδα μη διαθέσιμη</string>
     <string name="no_sensor_message">Η συσκευή σας δεν διαθέτει αισθητήρα για χρήση ως %s</string>
     <string name="clinometer_measure_distance_instructions">Για να μετρήσετε την απόσταση ενός στόχου με ύψος %s:
@@ -201,7 +189,6 @@
     <string name="power">Ενέργεια</string>
     <string name="battery_power_usb">USB</string>
     <string name="tool_lightning_description">Υπολογίστε την απόσταση απο το σημείο πτώσης ενός κεραυνού</string>
-    <string name="fields">Πεδία</string>
     <string name="tide_deleted">Η παλίρροια διαγράφηκε</string>
     <string name="thunder">Βροντή</string>
     <string name="pref_category_about">Σχετικά</string>
@@ -325,7 +312,6 @@
     <string name="tap_sun_moon_hint">Αγγίξτε στον ήλιο ή τη σελήνη για λεπτομέρειες τοποθεσίας</string>
     <string name="height">Ύψος</string>
     <string name="on_map">Στον χάρτη</string>
-    <string name="create_map_description">Εισάγετε το όνομα του χάρτη</string>
     <string name="pref_tiles_enabled_summary">Μπορεί να αποτρέψει εφαρμογές εξοικονόμισης μπαταρίας απο το να σταματήσουν εντελώς το Trail Sense</string>
     <string name="saved_to_note">Αποθηκεύτηκε σε σημείωση</string>
     <string name="tool_battery_title">Μπαταρία</string>
@@ -367,7 +353,6 @@
     <string name="battery_health_over_voltage">Υπέρταση</string>
     <string name="altocumulus">Υψισωρείτες</string>
     <string name="battery_usage_restricted">Η χρήση της μπαταρίας υπόκειται σε περιορισμούς</string>
-    <string name="guide_packing_list">Δημιουργία λιστών συσκευασίας</string>
     <string name="none">Καθόλου</string>
     <string name="create_beacon">Δημιουργία τοπόσημου</string>
     <string name="beacon_qr_import_instructions">Σαρώστε ένα κωδικό QR για εισαγωγή</string>
@@ -378,7 +363,6 @@
     <string name="unsaved_changes">Μη Αποθηκευμένες Αλλαγές</string>
     <string name="cirrostratus_desc">Υψηλό νέφος που καλύπτει τον ουρανό. Είναι διαυγές και κατά κανόνα προκαλεί το φαινόμενο της Άλως γύρω από τον ήλιο.</string>
     <string name="slope_amount">%s κατωφέρεια</string>
-    <string name="dusk_type">Λυκόφως (%s)</string>
     <string name="no_gps_signal">Κανένα σήμα GPS</string>
     <string name="clock_waiting_for_gps">Ενημέρωση ώρας μέσω GPS…</string>
     <string name="backtrack_disabled_low_power_toast">Η ιχνηθεσία είναι απενεργοποιημένη στη λειτουργία εξοικονόμησης ενέργειας</string>
@@ -401,7 +385,6 @@
     <string name="network_3g">3G</string>
     <string name="pref_flashlight_timeout_title">Απενεργοποίηση ύστερα από</string>
     <string name="qr_code">Κωδικός QR</string>
-    <string name="minute_symbol">m</string>
     <string name="us_ounces_volume">Ουγγιά ΗΠΑ</string>
     <string name="gps_stale">Ελλιπές</string>
     <string name="seconds">Δευτερόλεπτα</string>
@@ -425,13 +408,11 @@
     <string name="altostratus">Υψιστρώματα</string>
     <string name="max_temp_calibrated">Μέγιστη θερμοκρασία περιβάλλοντος (βαθμονομημένη)</string>
     <string name="tool_category_signaling">Σινιάλα</string>
-    <string name="tool_triangulate_summary">Προσδιορίστε την τοποθεσία σας χωρίς GPS</string>
     <string name="pref_center_sun_and_moon_title">Διατηρήστε τον ήλιο/τη σελήνη στο κέντρο</string>
     <string name="tool_category_angles">Γωνίες</string>
     <string name="category_medical">Ιατροφαρμακευτικά</string>
     <string name="weather_monitor">Παρακολούθηση Καιρού</string>
     <string name="pref_sun_time_mode_title">Ώρες ανατολής / δύσης ηλίου</string>
-    <string name="pref_altimeter_calibration_mode_title">Αυτόματη βαθμονόμηση</string>
     <string name="units">Μονάδες</string>
     <string name="start">Εκκίνηση</string>
     <string name="delete_map_group_message">%s και όλοι οι χάρτες του θα διαγραφούν.</string>
@@ -467,7 +448,6 @@
     <string name="moderate">Μέτρια</string>
     <string name="pref_use_sea_level_pressure_title">Ισαλλοβαρομετρική πίεση</string>
     <string name="category_food">Φαγητό</string>
-    <string name="guide_barometer_calibration_title">Βαθμονόμηση βαρομέτρου</string>
     <string name="location_mocked">Χρήση τεχνητής τοποθεσίας</string>
     <string name="nimbostratus_desc">Χαμηλά, έντονα σκουρόχρωμα και πυκνά νέφη, που καλύπτουν τον ουρανό. Αν δεν βρέχει, ίσως είναι νέφη στρωμάτων.</string>
     <string name="cross">Σταυρός</string>
@@ -480,7 +460,6 @@
     <string name="us_pints">Πίντα ΗΠΑ</string>
     <string name="group">Ομάδα</string>
     <string name="distance_from_flashlight">Απόσταση μεταξύ της συσκευής και του φανού</string>
-    <string name="tomorrow_at">Αύριο στις %s</string>
     <string name="pref_meteor_showers_title">Βροχές μετεωριτών</string>
     <string name="no_beacons">Κανένα τοπόσημο</string>
     <string name="water_boil_timer">Χρονοδιακόπτης Βρασμού Νερού</string>
@@ -493,7 +472,6 @@
     <string name="electronics">Ηλεκτρονικά είδη</string>
     <string name="previous">Προηγούμενο</string>
     <string name="map_auto_rotated">Η περιστροφή του χάρτη προσαρμόστηκε με την βαθμονόμηση</string>
-    <string name="hour_symbol">h</string>
     <string name="tool_white_noise_title">Λευκός Θόρυβος</string>
     <string name="water_purification_step_1">Διυλίστε το νερό</string>
     <string name="tool_whistle_title">Σφυρίχτρα</string>
@@ -518,7 +496,6 @@
     <string name="location_not_set">Δεν έχει οριστεί τοποθεσία</string>
     <string name="precise_inches_format">%s in</string>
     <string name="beacon_created">Δημιουργήθηκε τοπόσημο</string>
-    <string name="backtrack_high_priority_notification">Τοποθέτηση ενός σημείου διαδρομής κάθε %s</string>
     <string name="always_on">Πάντα σε λειτουργία</string>
     <string name="importing">Γίνεται εισαγωγή</string>
     <string name="map_fractional_separator">:</string>
@@ -537,7 +514,6 @@
     <string name="acceleration_m_s2_format">%s m/s²</string>
     <string name="altostratus_forecast" tools:ignore="PluralsCandidate">Ίσως υποδεικνύουν υετό τις επόμενες %d ώρες.</string>
     <string name="cumulonimbus_forecast">Ίσως υποδεικνύουν ισχυρή καταιγίδα μέσα σε λίγα λεπτά.</string>
-    <string name="dawn_type">Λυκαυγές (%s)</string>
     <string name="unit_centimeters">Εκατοστά</string>
     <string name="ounces_weight_format">%s oz</string>
     <string name="pref_app_version_title">Έκδοση</string>
@@ -550,11 +526,9 @@
     <string name="bubble_level_angles">X: %1$s
 \nY: %2$s</string>
     <string name="water_purification_step_3">Εκκινήστε το χρονόμετρο</string>
-    <string name="place_beacon_at">Εφαρμογή τοπόσημου σε %s;</string>
     <string name="gps_signal_lost">Χάθηκε το σήμα GPS</string>
     <string name="delete_waypoint_prompt">Διαγραφή σημείου διαδρομής;</string>
     <string name="distance_from">Από</string>
-    <string name="default_pack_name">Προκαθορισμένο πακέτο</string>
     <string name="action_inventory_clear_confirm">Εκκαθάριση όλων των συσκευασμένων ποσοτήτων;</string>
     <string name="pref_show_sun_moon_compass_title">Εμφάνιση ηλίου/σελήνης στην πυξίδα</string>
     <string name="update_60_minutes">1 ώρα</string>
@@ -638,7 +612,6 @@
     </plurals>
     <string name="high">Υψηλή</string>
     <string name="pressure_12_hours">12 ώρες</string>
-    <string name="beacon_create">Δημιουργία</string>
     <string name="map_distance">Χάρτης: %s</string>
     <string name="pref_require_satellites_title">Απαιτείται εστίαση δορυφόρων</string>
     <string name="map_projection_mercator">Μερκατορική προβολή</string>
@@ -669,7 +642,6 @@
     <string name="water_boil_timer_done_content">Το νερό σας είναι πλέον πόσιμο</string>
     <string name="pack_sort_percent_low_to_high">Συσκευασμένο ποσοστό (χαμηλό προς υψηλό)</string>
     <string name="days_format">%s d</string>
-    <string name="create_map">Δημιουργία χάρτη</string>
     <string name="hygiene">Προσωπική υγιεινή</string>
     <string name="cumulonimbus">Σωρειτομελανίες</string>
     <string name="dashed">Διακεκομμένο</string>
@@ -698,7 +670,6 @@
     <string name="no_tides">Καμία παλίρροια</string>
     <string name="pref_daily_weather_time_title">Ώρα ημερήσιας πρόγνωσης καιρού</string>
     <string name="elevation_history">Ιστορικό υψομέτρου</string>
-    <string name="guide_using_printed_maps">Χρήση φυσικών χαρτών</string>
     <string name="gps_user">Χρήστης</string>
     <string name="update_120_minutes">2 ώρες</string>
     <string name="time_until_full">μέχρι την πλήρωση</string>
@@ -756,7 +727,6 @@
     <string name="autofill">Αυτόματη συμπλήρωση</string>
     <string name="power_saving_mode_resolution">Απενεργοποίηση λειτουργίας εξοικονόμησης ενέργειας</string>
     <string name="pref_nmea_elevation_title">Διόρθωση υψομέτρου NMEA</string>
-    <string name="lunar_eclipse_start">Έκλειψη σελήνης (έναρξη)</string>
     <plurals name="number_days">
         <item quantity="one">%d ημέρα</item>
         <item quantity="other">%d ημέρες</item>
@@ -776,7 +746,6 @@
     <string name="season_winter">Χειμώνας</string>
     <string name="battery_restricted_resolution">Ορίστε το Trail Sense ως εφαρμογή Χωρίς Βελτιστοποίηση</string>
     <string name="daylight">Ημέρα</string>
-    <string name="map_rotate_instructions">Περιστρέψτε έως ότου ο Βορράς δείχνει το πάνω μέρος της οθόνης</string>
     <string name="pref_show_nearest_tide_title">Προβολή πλησιέστερης παλίρροιας</string>
     <string name="pref_auto_low_power_title">Αυτόματη λειτουργία εξοικονόμησης ενέργειας</string>
     <string name="season_spring">Άνοιξη</string>
@@ -794,15 +763,12 @@
     <string name="pref_flashlight_toggle_with_volume_title">Εναλλαγή λειτουργίας με τα πλήκτρα έντασης</string>
     <string name="weather_exported">Οι καιρικές ενδείξεις εξήχθησαν</string>
     <string name="location_override_resolution">Ενεργοποιήστε την αυτόματη προσαρμογή της τοποθεσίας στις ρυθμίσεις.</string>
-    <string name="enable">Ενεργοποίηση</string>
     <string name="tilt">Ανάκλιση</string>
     <plurals name="waypoints_to_be_deleted">
         <item quantity="one">%d σημείο διαδρομής πρόκειται να διαγραφεί</item>
         <item quantity="other">%d σημεία διαδρομής πρόκειται να διαγραφούν</item>
     </plurals>
     <string name="auto">Αυτόματα</string>
-    <string name="solar_eclipse_end">Έκλειψη ηλίου (πέρας)</string>
-    <string name="solar_eclipse_start">Έκλειψη ηλίου (έναρξη)</string>
     <string name="no_clouds">Ανέφελος Ουρανός</string>
     <string name="precipitation_snow">Χιονόπτωση</string>
     <string name="pref_nmea_elevation_summary">Χρήση NMEA (δορυφόρος) για τη διόρθωση υψομέτρων, αντί για το ενσωματωμένο πρότυπο</string>
@@ -810,7 +776,6 @@
     <string name="whistle_signal_acknowledged">Έγινε αντιληπτό</string>
     <string name="pref_cell_signal_refresh_cache_title">Ανανέωση κρυφής μνήμης του σήματος δικτύου κινητής τηλεφωνίας</string>
     <string name="sun">Ήλιος</string>
-    <string name="lunar_eclipse_end">Έκλειψη σελήνης (πέρας)</string>
     <string name="navigate">Πλοηγηθείτε</string>
     <string name="precipitation_hail">Χαλαζόπτωση</string>
     <string name="solar_eclipse">Έκλειψη ηλίου</string>
@@ -832,14 +797,10 @@
     <string name="reset_distance_title">Επαναφορά απόστασης;</string>
     <string name="distance_alert">Ειδοποίηση απόστασης</string>
     <string name="saved">Αποθηκεύτηκε</string>
-    <string name="remove_battery_restrictions">Άρση περιορισμών μπαταρίας;</string>
-    <string name="notification_backtrack_update_title">Ενημέρωση Ιχνηθεσίας</string>
     <string name="stride_length_stand_still">Σταθείτε σε ακινησία</string>
     <string name="explore">Εξερευνήστε</string>
     <string name="merging">Γίνεται συγχώνευση</string>
     <string name="estimate_stride_length">Υπολογισμός μήκους βηματισμού</string>
-    <string name="notification_weather_update_content">Καταγραφέται η βαρομετρική πίεση</string>
-    <string name="or">Είτε</string>
     <string name="difficulty">Βαθμός δυσκολίας</string>
     <string name="exporting_map">Ο χάρτης εξάγεται</string>
     <string name="navigating_to_nearest_path_point">Πλοήγηση στον πλησιέστερο δείκτη στη διαδρομή</string>
@@ -872,18 +833,14 @@
 \n‐Και πολλά άλλα!</string>
     <string name="camera_capture">Απαθανάτιση</string>
     <string name="tool_temperature_estimation_description">Κάντε πρόβλεψη της θερμοκρασίας σε διαφορετικό υψόμετρο</string>
-    <string name="notification_weather_update_title">Ενημέρωση Παρακολούθησης Καιρού</string>
     <string name="pressure_tendency">Τάση</string>
     <string name="pref_start_on_boot_title">Άνοιγμα εφαρμογής στην εκκίνηση του τηλεφώνου</string>
     <string name="stride_length_walk">Προχωρήστε σε ευθεία γραμμή, αγγίξτε τέλος στην οθόνη όταν ολοκληρώσετε</string>
-    <string name="choose_photo">Επιλέξτε μια φωτογραφία</string>
     <string name="remove_distance_alert">Αφαίρεση ειδοποίησης απόστασης (%s);</string>
     <string name="error">Σφάλμα</string>
-    <string name="results">Αποτελέσματα</string>
     <string name="map_exported">Ο χάρτης εξήχθη</string>
     <string name="average_speed">Μέση ταχύτητα</string>
     <string name="obscuration">Επισκότιση</string>
-    <string name="notification_backtrack_update_content">Καταγράφεται η τοποθεσία σας</string>
     <string name="average_speed_backtrack">Μέση ταχύτητα (Ιχνηθέτης)</string>
     <string name="bearing">Προσανατολισμός</string>
     <string name="hard">Δύσκολο</string>

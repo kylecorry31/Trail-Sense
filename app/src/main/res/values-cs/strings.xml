@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="pref_altimeter_calibration_mode_title">Automatická kalibrace</string>
     <string name="never">Nikdy</string>
     <string name="altimeter_mode_gps_barometer">GPS + Barometr</string>
     <string name="location">Poloha</string>
@@ -36,8 +35,6 @@
     <string name="tool_clinometer_summary">Odhadněte pravděpodobnost laviny a výšku objektů</string>
     <string name="clinometer_title">Sklonoměr</string>
     <string name="moon_phase">Měsíční fáze</string>
-    <string name="lunar_noon">Měsíční poledne</string>
-    <string name="solar_noon">Sluneční poledne</string>
     <string name="sunset_alert_notification_text">Slunce zapadne v %s</string>
     <string name="sunset_alert_notification_title">Slunce brzo zapadne</string>
     <string name="third_quarter">Poslední čtvrt</string>
@@ -83,7 +80,6 @@
     <string name="flashlight_title">Svítilna</string>
     <string name="accuracy_info_title">Tipy na zlepšení přesnosti dat ze senzorů</string>
     <string name="accuracy_distance_format">± %s</string>
-    <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Neznámá</string>
     <string name="dash">-</string>
     <string name="degree_format">%.0f°</string>
@@ -159,18 +155,6 @@
     <string name="sun_down_no_set">Slunce je nízko</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
-    <plurals name="last_minutes">
-        <item quantity="one">Poslední %d minuta</item>
-        <item quantity="few">Poslední %d minuty</item>
-        <item quantity="other">Posledních %d minut</item>
-        <item quantity="many">Posledních %d minut</item>
-    </plurals>
-    <plurals name="last_hours">
-        <item quantity="one">Poslední %d hodina</item>
-        <item quantity="few">Poslední %d hodiny</item>
-        <item quantity="other">Posledních %d hodin</item>
-        <item quantity="many">Posledních %d hodin</item>
-    </plurals>
     <string name="notification_monitoring_weather">Sledování počasí na pozadí</string>
     <string name="notification_storm_alert_title">Výstraha před bouří</string>
     <string name="storm_alerts">Výstrahy před bouřemi</string>
@@ -272,7 +256,6 @@
     <string name="pref_category_about">O aplikaci</string>
     <string name="tool_bubble_level_summary">Určete, zda jsou povrchy rovné</string>
     <string name="distance_to">K</string>
-    <string name="beacon_create">Vytvořit</string>
     <string name="guide_recommended_apps">Doporučené aplikace</string>
     <string name="tool_bubble_level_title">Bublinová vodováha</string>
     <string name="category_clothing">Oblečení</string>
@@ -335,11 +318,9 @@
     <string name="experimental">Experimentální</string>
     <string name="tides">Přílivy a odlivy</string>
     <string name="menu">Menu</string>
-    <string name="tomorrow_at">Zítra v %s</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Maximálně %d meteorů / h</string>
     <string name="meteor_shower">Meteorický déšť</string>
     <string name="pref_meteor_showers_title">Meteorické deště</string>
-    <string name="guide_signaling_for_help_title">Signalizace o pomoc</string>
     <plurals name="beacons_imported">
         <item quantity="one">%d maják importován</item>
         <item quantity="few">%d majáky importovány</item>
@@ -379,7 +360,6 @@
     <string name="battery_power_usb">USB</string>
     <string name="pref_low_power_mode_title">Úsporný režim</string>
     <string name="charging_wireless">Nabíjení (%s)</string>
-    <string name="guide_barometer_calibration_title">Kalibrace barometru</string>
     <string name="unsaved_changes">Neuložené změny</string>
     <string name="unsaved_changes_message">Provedené změny nebudou uloženy.</string>
     <string name="backtrack_disabled_low_power_toast">Zpětná navigace je v úsporném režimu deaktivována</string>
@@ -419,7 +399,6 @@
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="could_not_triangulate">Nepodařilo se triangulovat</string>
     <string name="tool_category_signaling">Signalizace</string>
-    <string name="tool_triangulate_summary">Určete svou polohu bez GPS</string>
     <string name="notification_channel_clock_sync_description">Oznámení k synchronizace hodin s časem GPS</string>
     <string name="clock_sync_notification">Synchronizace hodin – %s</string>
     <string name="threshold">Prahová hodnota</string>
@@ -539,20 +518,13 @@
     <string name="square">Čtverec</string>
     <string name="search">Hledat</string>
     <string name="battery_warning">Upozornění na vybití baterie</string>
-    <string name="backtrack_high_priority_notification">Umístění navigačního bodu každých %s</string>
-    <string name="guide_using_printed_maps">Pomocí tištěných map</string>
     <string name="no_maps">Žádné mapy</string>
     <string name="on_map">Na mapě</string>
-    <string name="place_beacon_at">Umístit maják na %s\?</string>
-    <string name="create_map">Vytvořit mapu</string>
-    <string name="create_map_description">Zadejte název mapy</string>
     <string name="previous">Předchozí</string>
     <string name="next">Další</string>
     <string name="time_until_empty">do prázdné baterie</string>
     <string name="time_until_full">do plné baterie</string>
     <string name="map_auto_calibrated">Mapa je automaticky kalibrována, ověřte prosím její přesnost</string>
-    <string name="minute_symbol">min</string>
-    <string name="hour_symbol">h</string>
     <string name="importing_map">Importování mapy</string>
     <string name="sleep_timer">Časovač vypnutí</string>
     <string name="pref_odometer_reset_daily_title">Resetovat denně</string>
@@ -572,21 +544,17 @@
     <string name="noon">Poledne</string>
     <string name="whistle_signal_where_are_you">Kde jste\?</string>
     <string name="whistle_signal_acknowledged">Potvrzený</string>
-    <string name="dawn_type">Svítání (%s)</string>
     <string name="preview">Náhled</string>
     <string name="activity_recognition_permission_denied">Povolení k pohybové aktivitě bylo zamítnuto, nelze zapnout funkce, které používají krokoměr. Můžete je povolit v nastavení.</string>
     <string name="whistle_signal_come_here">Pojďte sem</string>
-    <string name="dusk_type">Soumrak (%s)</string>
     <string name="pref_barometer_info_summary">Tlak se může lišit od tlaku okolních stanic</string>
     <string name="pref_nmea_elevation_title">Oprava nadmořské výšky NMEA</string>
     <string name="pref_nmea_elevation_summary">Použít NMEA (satelit) pro opravu výšek namísto vestavěného modelu</string>
-    <string name="pref_barometer_pressure_smoothing_title">Vyhlazení tlaku</string>
     <string name="convert">Převést</string>
     <string name="distance">Vzdálenost</string>
     <string name="move">Přesunout</string>
     <string name="move_to">Přesunout do</string>
     <string name="moved_to">Přesunuto do %s</string>
-    <string name="map_rotate_instructions">Otáčejte, dokud sever neukazuje nahoru</string>
     <string name="humidity_history">Historie vlhkosti - poslední %s</string>
     <string name="temperature_history">Historie teploty - poslední %s</string>
     <string name="no_groups">Žádné skupiny</string>
@@ -594,7 +562,6 @@
     <string name="coordinates_tab">Souřadnice</string>
     <string name="pref_navigation_lock_screen_presence_title">Zobrazit na uzamčené obrazovce při navigaci</string>
     <string name="battery_history">Historie baterie - poslední %s</string>
-    <string name="fields">Pole</string>
     <string name="map_perspective_instructions">Načrtněte mapu</string>
     <string name="clinometer_measure_distance_title">Výška cíle</string>
     <string name="clinometer_measure_height_title">Vzdálenost od cíle</string>
@@ -630,7 +597,6 @@
     <string name="no_packing_lists">Žádné seznamy věcí na cesty</string>
     <string name="pack_sort_percent_high_to_low">Procento zabalených (od nejvyšší po nejnižší)</string>
     <string name="pack_sort_weight_low_to_high">Hmotnost (od nejnižší po nejvyšší)</string>
-    <string name="guide_packing_list">Vytvořit seznam věcí na cesty</string>
     <string name="elevation_history">Historie nadmořské výšky</string>
     <string name="overridden">Přepsáno</string>
     <string name="on">Zapnuto</string>
@@ -696,7 +662,6 @@
 \n4. Uvolněním prstu uzamknete hodnotu a zjistíte výšku</string>
     <string name="current_speed_pedometer">Aktuální rychlost (krokoměr)</string>
     <string name="days_format">%s d</string>
-    <string name="default_pack_name">Výchozí balíček</string>
     <string name="diagnostic_message_template">%1$s: %2$s
 \n
 \n### Ovlivněné nástroje
@@ -761,7 +726,6 @@
     <string name="gps_signal_lost">GPS signál byl ztracen</string>
     <string name="quarter_moon">Čtvrt měsíce</string>
     <string name="partial">Částečné (%s)</string>
-    <string name="lunar_eclipse_start">Zatmění Měsíce (začátek)</string>
     <string name="lunar_eclipses">Zatmění Měsíce</string>
     <string name="total">Celkové</string>
     <string name="duration_of_charge">Doba nabíjení</string>
@@ -775,7 +739,6 @@
     <string name="compass_accuracy">Přesnost kompasu</string>
     <string name="compass_unavailable">Kompas není k dispozici</string>
     <string name="disclaimer_estimated_tide_title">Odhadovaný příliv/odliv</string>
-    <string name="choose_photo">Vybrat fotku</string>
     <string name="distance_unset">Vzdálenost není nastavena</string>
     <string name="pref_cell_signal_refresh_cache_summary">Vynutí načítání nejnovější síly signálu</string>
     <string name="import_map">Importovat mapu</string>
@@ -793,10 +756,8 @@
     <string name="percent_packed">%s zabaleno</string>
     <string name="packing_lists">Seznamy věcí na cesty</string>
     <string name="last_duration">Poslední %s</string>
-    <string name="lunar_eclipse_end">Zatmění Měsíce (konec)</string>
     <string name="lunar_eclipse">Zatmění Měsíce</string>
     <string name="astronomy_alerts">Astronomická upozornění</string>
-    <string name="cloud_photo_mask_toast">Klepnutím na fotografii přepnete masku</string>
     <string name="beacons">Majáky</string>
     <plurals name="paths_imported">
         <item quantity="one">%d cesta importována</item>
@@ -827,7 +788,6 @@
     <string name="tilt">Náklon</string>
     <string name="precipitation_snow_grains">Sněhová zrna</string>
     <string name="take_photo">Vyfoťte</string>
-    <string name="or">Nebo</string>
     <string name="precipitation_small_hail">Malé krupobití</string>
     <string name="precipitation_chance">Šance na srážky: %s</string>
     <string name="precipitation_ice_pellets">Ledové kroupy</string>
@@ -837,21 +797,15 @@
     <string name="precipitation_snow">Sníh</string>
     <string name="precipitation_none">Žádné srážky</string>
     <string name="precipitation_snow_pellets">Sněhové kroupy</string>
-    <string name="results">Výsledek</string>
     <string name="sun">Slunce</string>
     <string name="moon">Měsíc</string>
-    <string name="notification_weather_update_title">Aktualizace monitorování počasí</string>
     <string name="sun_moon_position_template">### %1$s
 \n**Nadmořská výška**: %2$s
 \n
 \n**Azimut**: %3$s</string>
-    <string name="enable">Povolit</string>
     <string name="weather_monitoring_disabled">Monitorování počasí zakázáno</string>
-    <string name="notification_backtrack_update_content">Zaznamenávání vaší polohy</string>
     <string name="hide">Skrýt</string>
     <string name="show">Ukázat</string>
-    <string name="notification_weather_update_content">Zaznamenávání tlaku</string>
-    <string name="notification_backtrack_update_title">Aktualizace zpětné navigace</string>
     <string name="pref_show_nearest_tide_title">Zobrazit nejbližší příliv/odliv</string>
     <string name="no_clouds">Žádné mraky</string>
     <string name="no_camera_access">Nedaří se přistoupit k fotoaparátu</string>
@@ -899,11 +853,9 @@
     <string name="map_projection_equidistant">Ekvidistantní</string>
     <string name="saved">Uložené</string>
     <string name="error">Chyba</string>
-    <string name="second_symbol">s</string>
     <string name="explore">Prozkoumat</string>
     <string name="longest">Nejdelší</string>
     <string name="pref_clinometer_lock_with_volume_buttons_title">Uzamknout pomocí tlačítek hlasitosti</string>
-    <string name="tide_diurnal_description">Příliv jednou denně – většina přílivů není denních</string>
     <string name="shortest">Nejkratší</string>
     <string name="night">Noc</string>
     <string name="pref_flashlight_should_timeout_title">Automaticky vypnout</string>
@@ -932,8 +884,6 @@
     <string name="tide_diurnal">Denní</string>
     <string name="done">Hotovo</string>
     <string name="elevation">Nadmořská výška</string>
-    <string name="elevation_gain">Převýšení</string>
-    <string name="elevation_loss">Ztráta nadmořské výšky</string>
     <string name="pref_clinometer_baseline_distance_title">Základní vzdálenost</string>
     <string name="instructions">Instrukce</string>
     <string name="weather_monitor_disabled_resolution">Povolit monitorování počasí z nastavení počasí</string>
@@ -954,11 +904,9 @@
     <string name="temporary">Dočasná</string>
     <string name="importing">Importuji</string>
     <string name="sort_by">Seřadit: %s</string>
-    <string name="navigation_guide_description">Pomocí majáků a cest</string>
     <string name="navigating_to_nearest_path_point">Navigace k nejbližšímu bodu cesty</string>
     <string name="pref_start_on_boot_title">Spustit při zapnutí</string>
     <string name="pref_only_navigate_path_points_title">Navigace pouze k zaznamenaným bodům</string>
-    <string name="remove_battery_restrictions">Odstranit optimalizaci baterie\?</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d navigační bod odstraněn</item>
         <item quantity="few">%d navigační body odstraněny</item>
@@ -1030,8 +978,6 @@
     <string name="temperature_high_low">Vysoká / Nízká</string>
     <string name="next_24_hours">Příštích 24 hodin</string>
     <string name="solar_eclipses">Zatmění Slunce</string>
-    <string name="solar_eclipse_start">Zatmění Slunce (začátek)</string>
-    <string name="solar_eclipse_end">Zatmění Slunce (konec)</string>
     <string name="solar_eclipse">Zatmění Slunce</string>
     <string name="hot">Horko</string>
     <string name="obscuration">Zastínění</string>
@@ -1058,7 +1004,6 @@
     <string name="map_is_not_calibrated">Mapa není zkalibrovaná</string>
     <string name="loading">Načítání</string>
     <string name="unable_to_find_next_astronomy">Nelze najít další %s</string>
-    <string name="step_progression">Krok %1$d / %2$d</string>
     <string name="autofill_source">Zdroj automatického vyplnění</string>
     <string name="map_calibration">Kalibrace mapy</string>
     <string name="compass_source_mag_gyro">Magnetometr + gyroskop</string>

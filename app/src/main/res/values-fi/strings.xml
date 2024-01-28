@@ -2,14 +2,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
-    <plurals name="last_minutes">
-        <item quantity="one">Viime %d minuutti</item>
-        <item quantity="other">Viime %d minuutit</item>
-    </plurals>
-    <plurals name="last_hours">
-        <item quantity="one">Viime %d tunti</item>
-        <item quantity="other">Viime %d tunnit</item>
-    </plurals>
     <string name="notification_monitoring_weather">Säätä seurataan taustalla</string>
     <string name="notification_storm_alert_title">Myrskyhälytys</string>
     <string name="notification_storm_alert_text">Myrsky saattaa lähestyä</string>
@@ -39,7 +31,6 @@
     <string name="flashlight_title">Taskulamppu</string>
     <string name="accuracy_info_title">Vinkkejä anturitietojen tarkkuuden parantamiseen</string>
     <string name="accuracy_distance_format">± %s</string>
-    <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Tuntematon</string>
     <string name="dash">-</string>
     <string name="discharging_fast">Purkautuu nopeasti (%s)</string>
@@ -119,7 +110,6 @@
     <string name="pref_adjust_for_temperature_summary">Käytä lämpötilaa merenpinnan painemuunnoksissa</string>
     <string name="pref_adjust_for_temperature_title">Kerroin lämpötilaan</string>
     <string name="pref_use_sea_level_pressure_title">Merenpinnan paine</string>
-    <string name="pref_altimeter_calibration_mode_title">Automaattinen kalibrointi</string>
     <string name="never">Ei koskaan</string>
     <string name="altimeter_mode_gps_barometer">GPS + Barometri</string>
     <string name="pref_elevation_override_sea_level_title">Käyttämällä tunnettua merenpinnan painetta</string>
@@ -187,8 +177,6 @@
     <string name="tool_clinometer_summary">Arvioi vyöryjen riskit ja esineiden korkeus</string>
     <string name="clinometer_title">Kaltevuusmittari</string>
     <string name="moon_phase">Kuunvaihe</string>
-    <string name="lunar_noon">Kuun keskipäivä</string>
-    <string name="solar_noon">Auringon keskipäivä</string>
     <string name="sunset_alert_channel_title">Auringonlaskuilmoitus</string>
     <string name="sunset_alerts">Auringonlaskuilmoitukset</string>
     <string name="sunset_alert_notification_text">Aurinko laskee %s</string>
@@ -216,7 +204,6 @@
     <string name="duration_of_charge">Latausaika</string>
     <string name="preview">Esikatselu</string>
     <string name="high_amount">Korkea (%s)</string>
-    <string name="navigation_guide_description">Majakoiden ja polkujen käyttö</string>
     <string name="pref_include_leading_zero_title">Lisää alkunolla aikaan</string>
     <string name="precipitation_chance">Sateen mahdollisuus: %s</string>
     <string name="compass_unavailable">Kompassi ei ole käytettävissä</string>
@@ -230,7 +217,6 @@
     <string name="center">Keskipiste</string>
     <string name="pref_keep_map_facing_up_summary">Kartta kohdistetaan näytön yläreunaan todellisen pohjoisen sijaan.</string>
     <string name="tool_lightning_description">Mittaa etäisyys salamaniskusta</string>
-    <string name="fields">Kentät</string>
     <string name="moon">Kuu</string>
     <string name="points">Pisteet</string>
     <string name="elevation_override_resolution">Ota automaattinen kalibrointi käyttöön asetuksissa.</string>
@@ -320,7 +306,6 @@
     <string name="tool_cliff_height_disclaimer">Käytä tätä työkalua vain, kun se on turvallista, ja muista tarkistaa, mikä on kallion alapuolella loukkaantumisen välttämiseksi. Katso ohjeet käyttöoppaasta.</string>
     <string name="power_saving_mode_resolution">Poista virransäästötila käytöstä</string>
     <string name="disclaimer_estimated_tide_title">Arvioitu vuorovesi</string>
-    <string name="pref_barometer_pressure_smoothing_title">Paineen tasoitus</string>
     <string name="horizon">Horisontti</string>
     <string name="reset_distance_title">Nollataanko etäisyys\?</string>
     <string name="guide_recommended_apps">Suositellut sovellukset</string>
@@ -334,7 +319,6 @@
     <string name="move">Liiku</string>
     <string name="water_boil_timer_title">Vesi kiehuvaa</string>
     <string name="noon">Keskipäivä</string>
-    <string name="lunar_eclipse_start">Kuunpimennys (aloitus)</string>
     <string name="pref_require_satellites_description">Vaatii vähintään 4 satelliittia, parantaa tarkkuutta</string>
     <string name="weather_overcast">Pilvinen</string>
     <plurals name="number_days">
@@ -373,7 +357,6 @@
 \n
 \nSalli napsauttamalla %2$s ja ota käyttöön hälytysten ja muistutusten salliva asetus.</string>
     <string name="documents">Asiakirjat</string>
-    <string name="remove_battery_restrictions">Poistetaanko akkurajoitukset\?</string>
     <string name="next">Seuraava</string>
     <string name="cirrocumulus_desc">Korkean tason pilviä, jotka muodostavat aaltoilevan levyn. Arkki koostuu pienistä pisteistä, jotka näyttävät melkein kaksiulotteisilta.</string>
     <string name="stride_length_stand_still">Pysy paikallasi</string>
@@ -391,7 +374,6 @@
     <string name="tide_frequency_description">Vuorovesien määrä päivässä. Useimmat vuorovedet ovat puolipäiväisiä.</string>
     <string name="height">Korkeus</string>
     <string name="on_map">Kartalla</string>
-    <string name="create_map_description">Kirjoita kartan nimi</string>
     <string name="pref_tiles_enabled_summary">Saattaa estää virransäästösovelluksia pysäyttämästä Trail Senseä kokonaan</string>
     <string name="no">Ei</string>
     <string name="tide_instructions">Käytä virallista vuorovesitaulukkoa syöttääksesi vertailuvuorovedet matkasi pituudelle.</string>
@@ -445,12 +427,9 @@
     <string name="calibrate_map_point">Kalibroi tunnetuilla paikoilla (%1$d / %2$d)</string>
     <string name="on">Päällä</string>
     <string name="gps_elevation_accuracy">GPS-korkeustarkkuus</string>
-    <string name="notification_weather_update_content">Paineen tallennus</string>
     <string name="battery_health_over_voltage">Ylijännite</string>
-    <string name="cloud_photo_mask_toast">Napauta valokuvaa vaihtaaksesi maskia</string>
     <string name="restore">Palauta</string>
     <string name="battery_usage_restricted">Akun käyttöä rajoitettu</string>
-    <string name="guide_packing_list">Luo pakkausluettelot</string>
     <string name="create_beacon">Luo majakka</string>
     <string name="beacon_qr_import_instructions">Skannaa QR-koodi tuontia varten</string>
     <string name="beacon_export_error">Majakoita ei voitu viedä</string>
@@ -462,10 +441,8 @@
     <string name="cirrostratus_desc">Korkea pilvi, joka peittää taivaan. Se on läpinäkyvä ja aiheuttaa tyypillisesti halon muodostumisen auringon ympärille.</string>
     <string name="my_location">Minun sijaintini</string>
     <string name="slope_amount">%s kaltevuus</string>
-    <string name="dusk_type">Hämärä (%s)</string>
     <string name="no_gps_signal">Ei GPS-signaalia</string>
     <string name="lightning_dangerously_close">Salama vaarallisen lähellä</string>
-    <string name="or">Tai</string>
     <string name="clock_waiting_for_gps">Päivitetään aikaa GPS:stä…</string>
     <string name="backtrack_disabled_low_power_toast">Backtrack ei ole käytössä virransäästötilassa</string>
     <string name="tomorrows_forecast">Huomisen ennuste</string>
@@ -511,7 +488,6 @@
     <string name="for_historic_temperatures">Historiallisille lämpötiloille</string>
     <string name="camera_permission_denied">Kameran käyttöoikeus evätty, kameran ominaisuuksia ei voi ottaa käyttöön. Voit ottaa sen käyttöön asetuksista.</string>
     <string name="pref_default_path_style_title">Oletuspolun tyyli</string>
-    <string name="map_rotate_instructions">Pyöritä, kunnes pohjoinen osoittaa ylöspäin</string>
     <string name="invalid_backup_file">Virheellinen varmuuskopiotiedosto</string>
     <string name="location_disabled">Sijainti on poistettu käytöstä</string>
     <string name="sunset_alert_scheduled">Varoitus on ajoitettu %s ennen auringonlaskua</string>
@@ -528,7 +504,6 @@
     <string name="pedometer_disclaimer">Askelmittarin tarkkuus ja akun käyttö riippuu laitteesi valmistajasta ja syötetystä askelpituudesta. Kokeile sitä hetken kotona varmistaaksesi akun tyhjenemisen ja tarkkuuden ennen kuin käytät polulla.</string>
     <string name="category_clothing">Vaatetus</string>
     <string name="max_temp_calibrated">Ympäristön korkein lämpötila (kalibroitu)</string>
-    <string name="tool_triangulate_summary">Määritä sijaintisi ilman GPS:ää</string>
     <string name="tool_category_angles">Kulmat</string>
     <string name="category_medical">Lääketieteellinen</string>
     <string name="weather_monitor">Säänäyttö</string>
@@ -563,7 +538,6 @@
         <item quantity="one">%d majakka tuotu</item>
         <item quantity="other">%d majakkaa tuotu</item>
     </plurals>
-    <string name="step_progression">Vaihe %1$d / %2$d</string>
     <string name="compass_calibrate_toast">Kompassin tarkkuus %s, kalibrointi on suositeltavaa</string>
     <string name="location_input_help_title">Tuetut sijaintimuodot</string>
     <string name="activity_recognition_permission_denied">Fyysisen toiminnan lupa evätty, askelmittaritoimintoja ei voi ottaa käyttöön. Voit ottaa sen käyttöön asetuksista.</string>
@@ -575,7 +549,6 @@
     <string name="current_speed_pedometer">Nykyinen nopeus (askelmittari)</string>
     <string name="restoring_loading_message">Palautetaan…</string>
     <string name="category_food">Ruoka</string>
-    <string name="guide_barometer_calibration_title">Barometrin kalibrointi</string>
     <string name="easy">Helppo</string>
     <string name="nimbostratus_desc">Keskitason pilvi, joka on tummanharmaa ja peittää taivaan. Jos ei sada, se voi olla stratus pilvi.</string>
     <string name="season_spring">kevät</string>
@@ -592,7 +565,6 @@
     <string name="soon">Pian</string>
     <string name="group">Ryhmä</string>
     <string name="distance_from_flashlight">Etäisyys puhelimesta taskulamppuun</string>
-    <string name="tomorrow_at">Huomenna klo %s</string>
     <string name="sun_moon_position_template">### %1$s
 \n**Korkeus**: %2$s
 \n
@@ -639,7 +611,6 @@
     <string name="daylight_duration">%s päivänvalo</string>
     <string name="beacon_created">Majakka luotu</string>
     <string name="accelerometer">Kiihtyvyysmittari</string>
-    <string name="backtrack_high_priority_notification">Reittipisteen asettaminen joka %s</string>
     <string name="always_on">Aina päällä</string>
     <string name="importing">Tuodaan</string>
     <string name="view">Näytä</string>
@@ -661,14 +632,12 @@
     <string name="weather_front">Sää Front</string>
     <string name="altostratus_forecast" tools:ignore="PluralsCandidate">Saattaa tarkoittaa sadetta seuraavien %d tunnin aikana.</string>
     <string name="cumulonimbus_forecast">Voi tarkoittaa ukkosmyrskyä muutaman minuutin kuluttua.</string>
-    <string name="dawn_type">Aamunkoitto (%s)</string>
     <string name="unit_centimeters">senttimetriä</string>
     <string name="gps_unavailable">GPS ei ole käytettävissä</string>
     <string name="cloud_stratus_forecast" tools:ignore="PluralsCandidate">Saattaa osoittaa hyvän sään seuraaville %d tunnille, jos on sumuista, muuten se voi tarkoittaa pian sadetta.</string>
     <string name="astronomy_altitude_peak">Huippukorkeus</string>
     <string name="tool_bubble_level_summary">Selvitä, ovatko pinnat tasaiset</string>
     <string name="import_btn">Tuonti</string>
-    <string name="elevation_loss">Korkeuden menetys</string>
     <string name="calibrate_new_tide">Kalibroidaanko uudelle vuorovedelle\?</string>
     <string name="gps_searching">Etsitään</string>
     <plurals name="map_group_summary">
@@ -676,13 +645,11 @@
         <item quantity="other">%d karttaa</item>
     </plurals>
     <string name="water_purification_step_3">Käynnistä ajastin</string>
-    <string name="place_beacon_at">Laitetaanko majakka kohtaan %s\?</string>
     <string name="gps_signal_lost">GPS-signaali katosi</string>
     <string name="unable_to_find_next_astronomy">Seuraavaa %s ei löydy</string>
     <string name="pref_navigation_lock_screen_presence_title">Näytä lukitusnäytöllä navigoinnin aikana</string>
     <string name="delete_waypoint_prompt">Poistetaanko reittipiste\?</string>
     <string name="manual">Manuaalinen</string>
-    <string name="default_pack_name">Oletuspaketti</string>
     <string name="action_inventory_clear_confirm">Tyhjennä kaikki pakatut määrät\?</string>
     <string name="updating">Päivitetään</string>
     <string name="unit_kilometers">Kilometrejä</string>
@@ -742,7 +709,6 @@
     <string name="measure">Mitata</string>
     <string name="historic_temperatures">Historialliset lämpötilat</string>
     <string name="beam_distance">%s säteen etäisyys</string>
-    <string name="notification_weather_update_title">Säämittarin päivitys</string>
     <string name="simplifying">Yksinkertaistaminen</string>
     <string name="weather_exported">Sää vietiin</string>
     <string name="path">Polku</string>
@@ -753,14 +719,12 @@
 \nLisää oppaita on tulossa pian.</string>
     <string name="battery_usage_allowed">Akun käyttö sallittu</string>
     <string name="no_packing_lists">Ei pakkausluetteloita</string>
-    <string name="enable">ota käyttöön</string>
     <string name="pref_start_on_boot_title">Aloita käynnistäessä</string>
     <string name="stride_length_walk">Kävele suoraa linjaa, paina stop, kun olet valmis</string>
     <string name="map_calibration_instructions">Napauta tunnettua sijaintia kartalla ja anna sitten todelliset koordinaatit. Voit tallentaa kalibroinnin napsauttamalla \"Valmis\"-painiketta.
 \n
 \nEsimerkkejä hyvistä kalibrointipisteistä ovat parkkipaikka, opastepiste, maamerkki tai polun varrella oleva risteys.</string>
     <string name="unsaved_changes_message">Tekemiäsi muutoksia ei tallenneta.</string>
-    <string name="choose_photo">Valitse valokuva</string>
     <string name="tool_user_guide_summary">Ohje Trail Sensen käyttöön</string>
     <string name="lightning">Salama</string>
     <string name="pref_flashlight_toggle_with_volume_summary">Kun Trail Sense on auki</string>
@@ -803,26 +767,21 @@
     <string name="high">Korkea</string>
     <string name="partial">Osittainen (%s)</string>
     <string name="until_sunrise">auringonnousuun</string>
-    <string name="results">Tulokset</string>
-    <string name="beacon_create">Luo</string>
     <string name="map_distance">Kartta: %s</string>
     <string name="weather_clear">Selkeää</string>
     <string name="at_time">klo %s</string>
     <string name="cloud_fair_forecast_hours" tools:ignore="PluralsCandidate">Saattaa osoittaa hyvän sään seuraaville %d tunnille.</string>
     <string name="pref_default_path_color_title">Reitin oletusväri</string>
     <string name="tool_notes_title">Muistiinpanot</string>
-    <string name="tide_diurnal_description">Nousuvesi kerran päivässä - useimmat vuorovedet eivät ole vuorokautisia</string>
     <string name="map_exported">Kartta viety</string>
     <string name="pref_show_temperature_in_notification_title">Näytä lämpötila ilmoituksessa</string>
     <string name="disclaimer_estimated_tide">Arvioidut vuorovedet voivat olla epätarkkoja. Käytä virallista vuorovesitaulukkoa tarkat ajat.</string>
     <string name="speedometer">Nopeusmittari</string>
-    <string name="solar_eclipse_end">Auringonpimennys (loppu)</string>
     <string name="delete_beacon_group_message">%s ja kaikki sen majakat poistetaan.</string>
     <string name="exact_alarm_permission_denied">Hälytysten ja muistutusten lupa evätty, hälytykset voivat olla epätarkkoja.</string>
     <string name="map_calibration">Kartan kalibrointi</string>
     <string name="humidity_history">Kosteushistoria – viimeinen %s</string>
     <string name="temperature_high_low">Korkea / Matala</string>
-    <string name="solar_eclipse_start">Auringonpimennys (aloitus)</string>
     <string name="saving">Tallentaa</string>
     <string name="average_speed">Keskinopeus</string>
     <string name="humidity">Kosteus</string>
@@ -853,8 +812,6 @@
     <string name="pack_sort_percent_low_to_high">Pakattu prosentti (pienestä korkeaan)</string>
     <string name="high_pressure_system_description">Liittyy kauniiseen säähän, selkeään taivaan ja kylmempään lämpöön.</string>
     <string name="pref_nmea_elevation_summary">Käyttää NMEA-offsetteja korkeuden muuntamiseen</string>
-    <string name="create_map">Luo kartta</string>
-    <string name="guide_signaling_for_help_title">Signalointi apua varten</string>
     <string name="hygiene">Hygienia</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d reittipiste poistettu</item>
@@ -890,7 +847,6 @@
     <string name="no_tides">Ei vuorovesiä</string>
     <string name="pref_daily_weather_time_title">Päivittäinen sääaika</string>
     <string name="elevation_history">Korkeushistoria</string>
-    <string name="guide_using_printed_maps">Painettujen karttojen käyttö</string>
     <string name="source">Lähde</string>
     <string name="gps_user">Käyttäjä</string>
     <string name="file">Tiedosto</string>
@@ -919,7 +875,6 @@
     <string name="tool_climate">Ilmasto</string>
     <string name="duration">Kesto</string>
     <string name="gps_timeouts">GPS-aikakatkaisut</string>
-    <string name="lunar_eclipse_end">Kuunpimennys (loppu)</string>
     <string name="tool_white_noise_summary">Auttaa nukahtamaan</string>
     <string name="compass_source_mag_gyro">Magnetometri + Gyro</string>
     <string name="no_issues">Ei havaittuja ongelmia</string>

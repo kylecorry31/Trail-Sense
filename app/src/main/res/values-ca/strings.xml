@@ -17,7 +17,6 @@
     <string name="tap_sun_moon_hint">Premeu sol o lluna per obtenir els detalls de posició</string>
     <string name="no_group">Sense grup</string>
     <string name="group">Grup</string>
-    <string name="beacon_create">Crear</string>
     <string name="delete_beacon_group_message">%s i totes les fites seran eliminades.</string>
     <string name="tool_user_guide_summary">Una guia sobre com utilitzar Trail Sense</string>
     <string name="tool_user_guide_title">Guia d\'usuari</string>
@@ -66,18 +65,9 @@
     <string name="pref_adjust_for_temperature_summary">Utilitzar la temperatura en les conversions de pressió atmosfèrica</string>
     <string name="pref_adjust_for_temperature_title">Factor en temperatura</string>
     <string name="pref_use_sea_level_pressure_title">Pressió a nivell del mar</string>
-    <string name="pref_altimeter_calibration_mode_title">Auto-calibració</string>
     <string name="no_data">Sense dades</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
-    <plurals name="last_minutes">
-        <item quantity="one">Últim %d minut</item>
-        <item quantity="other">Últims %d minuts</item>
-    </plurals>
-    <plurals name="last_hours">
-        <item quantity="one">Última %d hora</item>
-        <item quantity="other">Últimes %d hores</item>
-    </plurals>
     <string name="notification_monitoring_weather">Monitorització metereològica en segon plà</string>
     <string name="notification_storm_alert_title">Alerta de tempesta</string>
     <string name="notification_storm_alert_text">Una tempesta podria estar apropant-se</string>
@@ -109,7 +99,6 @@
     <string name="flashlight_title">Llanterna</string>
     <string name="accuracy_info_title">Consells per millorar la precisió de les dades del sensor</string>
     <string name="accuracy_distance_format">± %s</string>
-    <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Desconeguda</string>
     <string name="dash">-</string>
     <string name="discharging_fast">Descàrrega lenta (%s)</string>
@@ -218,8 +207,6 @@
     <string name="tool_clinometer_summary">Permet d\'estimar l\'alçada dels objectes i evaluar el risc d’allau</string>
     <string name="clinometer_title">Inclinòmetre</string>
     <string name="moon_phase">Fase lunar</string>
-    <string name="lunar_noon">Migdia llunar</string>
-    <string name="solar_noon">Migdia solar</string>
     <string name="sunset_alert_channel_title">Alerta de posta de sol</string>
     <string name="sunset_alerts">Alertes de posta de sol</string>
     <string name="sunset_alert_notification_text">El sol es pon a %s</string>
@@ -269,7 +256,6 @@
     <string name="power">Potència</string>
     <string name="tool_category_angles">Angles</string>
     <string name="tool_category_signaling">Senyalització</string>
-    <string name="tool_triangulate_summary">Determineu la vostra ubicació sense GPS</string>
     <string name="could_not_triangulate">No s\'ha pogut triangular</string>
     <string name="clock_sync_instructions">Establiu l\'hora a %s quan arribi la notificació</string>
     <string name="threshold">Llindar</string>

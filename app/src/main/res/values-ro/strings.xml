@@ -24,16 +24,6 @@
     <string name="no_data">Nu există date</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
-    <plurals name="last_minutes">
-        <item quantity="one">Ultimul %d minut</item>
-        <item quantity="few">Ultimele %d minute</item>
-        <item quantity="other">Ultimele %d minute</item>
-    </plurals>
-    <plurals name="last_hours">
-        <item quantity="one">Ultima %d oră</item>
-        <item quantity="few">Ultimele %d ore</item>
-        <item quantity="other">Ultimele %d ore</item>
-    </plurals>
     <string name="notification_monitoring_weather">Monitorizarea vremii în fundal</string>
     <string name="notification_storm_alert_title">Alertă de furtună</string>
     <string name="notification_storm_alert_text">S-ar putea să se apropie o furtună</string>
@@ -66,7 +56,6 @@
     <string name="flashlight_title">Lanternă</string>
     <string name="accuracy_info_title">Sfaturi pentru îmbunătățirea preciziei datelor senzorilor</string>
     <string name="accuracy_distance_format">± %s</string>
-    <string name="accuracy_distance_unknown">\?</string>
     <string name="unknown">Necunoscut</string>
     <string name="dash">-</string>
     <string name="discharging_fast">Descărcare rapidă (%s)</string>

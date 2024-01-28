@@ -50,7 +50,6 @@
     <string name="dash">-</string>
     <!--Navigation Tab - Accuracy-->
     <string name="unknown">Unknown</string>
-    <string name="accuracy_distance_unknown">\?</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_info_title">Tips for improving sensor data accuracy</string>
     <string name="gps_accuracy_tip">Ensure you have an unobstructed view of the sky, and move away from tall buildings and trees.</string>
@@ -99,14 +98,6 @@
     <string name="notification_storm_alert_text">A storm might be approaching</string>
     <string name="notification_storm_alert_title">Storm Alert</string>
     <string name="notification_monitoring_weather">Monitoring weather in the background</string>
-    <plurals name="last_hours">
-        <item quantity="one">Last %d hour</item>
-        <item quantity="other">Last %d hours</item>
-    </plurals>
-    <plurals name="last_minutes">
-        <item quantity="one">Last %d minute</item>
-        <item quantity="other">Last %d minutes</item>
-    </plurals>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="temp_f_short">°F</string>
@@ -139,8 +130,6 @@
     <string name="sunset_alert_notification_text">The sun will set at %s</string>
     <string name="sunset_alerts">Sunset alerts</string>
     <string name="sunset_alert_channel_title">Sunset alert</string>
-    <string name="solar_noon">Solar noon</string>
-    <string name="lunar_noon">Lunar noon</string>
     <string name="moon_phase">Moon phase</string>
     <!--    The percent of the moon that is illuminated-->
     <string name="illumination">Illumination</string>
@@ -236,7 +225,6 @@
     <string name="pref_elevation_override_sea_level_title">Using a known sea level pressure</string>
     <string name="altimeter_mode_gps_barometer">GPS + Barometer</string>
     <string name="never">Never</string>
-    <string name="pref_altimeter_calibration_mode_title">Auto-calibration</string>
     <!--Settings - Sensors - Barometer-->
     <string name="pref_use_sea_level_pressure_title">Sea level pressure</string>
     <!--    Text for using the temperature in the sea level pressure calibration formula-->
@@ -298,7 +286,6 @@
     <string name="pref_include_leading_zero" translatable="false">pref_leading_zero</string>
     <string name="pref_sun_time_mode" translatable="false">sun_time_mode</string>
     <string name="pref_onboarding_completed" translatable="false">onboarding_completed</string>
-    <string name="pref_weather_category" translatable="false">pref_weather_category</string>
     <string name="pref_compass_filter_amt" translatable="false">pref_compass_filter_amt</string>
     <string name="pref_theme" translatable="false">pref_theme</string>
     <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
@@ -356,15 +343,12 @@
     <string name="delete_beacon_group_message">%s and all its beacons will be deleted.</string>
     <string name="delete_path_group_message">%s and all its paths will be deleted.</string>
     <string name="delete_map_group_message">%s and all its maps will be deleted.</string>
-    <string name="beacon_create">Create</string>
     <string name="group">Group</string>
     <string name="no_group">No group</string>
     <string name="tap_sun_moon_hint">Tap sun or moon for position details</string>
     <string name="advanced">Advanced</string>
     <string name="forecasts_category">Forecasts</string>
     <string name="navigation_nearby_category">Nearby</string>
-    <string name="pref_navigation_header_key" translatable="false">pref_navigation_header_key</string>
-    <string name="pref_astronomy_category" translatable="false">pref_astronomy_category</string>
     <string name="tool_bubble_level_title">Bubble Level</string>
     <string name="tool_bubble_level_summary">Determine if surfaces are flat</string>
     <string name="other">Other</string>
@@ -441,7 +425,6 @@
     <string name="tool_category_angles">Angles</string>
     <string name="tool_category_signaling">Signaling</string>
     <string name="tool_triangulate_title">Triangulate Location</string>
-    <string name="tool_triangulate_summary">Determine your location without GPS</string>
     <string name="could_not_triangulate">Could not triangulate</string>
     <string name="pip_button">Update System Time</string>
     <string name="pip_notification_scheduled">Notification scheduled for %s</string>
@@ -506,7 +489,6 @@
     <string name="battery_power_usb">USB</string>
     <string name="battery_power_wireless">Wireless</string>
     <string name="charging_wireless">Charging (%s)</string>
-    <string name="guide_barometer_calibration_title">Barometer calibration</string>
     <string name="pref_low_power_mode" translatable="false">pref_low_power_mode</string>
     <string name="pref_low_power_mode_weather" translatable="false">pref_low_power_mode_weather</string>
     <string name="pref_low_power_mode_backtrack" translatable="false">pref_low_power_mode_backtrack</string>
@@ -643,7 +625,6 @@
     <string name="pref_stride_length_title">Stride length</string>
     <string name="pref_stride_length_holder" translatable="false">pref_stride_length_holder</string>
     <string name="pref_stride_length" translatable="false">pref_stride_length</string>
-    <string name="pref_odometer_calibration" translatable="false">pref_odometer_calibration</string>
     <string name="pref_odometer_request_permission" translatable="false">pref_odometer_request_permission</string>
     <string name="pref_nearby_radar" translatable="false">pref_nearby_radar</string>
     <string name="pref_nearby_radar_title">Show nearby radar compass</string>
@@ -651,18 +632,12 @@
     <string name="no_tides">No tides</string>
     <string name="menu">Menu</string>
     <string name="meteor_shower">Meteor shower</string>
-    <string name="tomorrow_at">Tomorrow at %s</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Max %d meteors / h</string>
     <string name="pref_meteor_showers_title">Meteor showers</string>
-    <string name="guide_signaling_for_help_title">Signaling for help</string>
-    <string name="guide_using_printed_maps">Using printed maps</string>
     <string name="pedometer_disclaimer">The accuracy and battery usage of the pedometer is dependent on your device\'s manufacturer and the stride length entered. Try it out at home for a bit to verify battery drain and accuracy before using on the trail.</string>
     <string name="rename">Rename</string>
     <string name="no_maps">No maps</string>
     <string name="on_map">On map</string>
-    <string name="place_beacon_at">Place a beacon at %s?</string>
-    <string name="create_map">Create map</string>
-    <string name="create_map_description">Enter the name of the map</string>
     <string name="previous">Previous</string>
     <string name="next">Next</string>
     <string name="time_until_empty">until empty</string>
@@ -670,8 +645,6 @@
     <string name="map_auto_calibrated">Map auto-calibrated, please verify its accuracy</string>
     <string name="map_auto_rotated">Map rotation adjusted with calibration</string>
     <string name="pref_backtrack_interval" translatable="false">pref_backtrack_interval</string>
-    <string name="minute_symbol">m</string>
-    <string name="hour_symbol">h</string>
     <string name="importing_map">Importing map</string>
     <string name="error_importing_map">Error importing map</string>
     <string name="import_gpx">Import GPX</string>
@@ -698,7 +671,6 @@
     <string name="arrow">Arrow</string>
     <string name="pref_default_path_style_title">Default path style</string>
     <string name="pref_default_path_color_title">Default path color</string>
-    <string name="backtrack_high_priority_notification">Placing a waypoint every %s</string>
     <string name="battery_warning">Battery drain warning</string>
     <string name="backtrack_battery_warning">Small intervals (under 15 minutes) may cause excess battery drain</string>
     <string name="calibrate_new_tide">Calibrate to a new tide?</string>
@@ -710,14 +682,11 @@
     <string name="pref_show_last_signal_beacon" translatable="false">pref_show_last_signal_beacon</string>
     <string name="pref_show_last_signal_beacon_title">Last signal beacon</string>
     <string name="pref_show_last_signal_beacon_summary">Creates a beacon for the last cell signal location</string>
-    <string name="fields">Fields</string>
     <string name="noon">Noon</string>
     <string name="whistle_signal_where_are_you">Where are you?</string>
     <string name="whistle_signal_acknowledged">Acknowledged</string>
     <string name="whistle_signal_come_here">Come here</string>
     <string name="weather_monitor">Weather Monitor</string>
-    <string name="dawn_type">Dawn (%s)</string>
-    <string name="dusk_type">Dusk (%s)</string>
     <string name="battery_history">Battery history - last %s</string>
     <string name="humidity_history">Humidity history - last %s</string>
     <string name="temperature_history">Temperature history - last %s</string>
@@ -727,7 +696,6 @@
     <string name="pref_nmea_elevation_title">NMEA elevation correction</string>
     <string name="pref_nmea_elevation_summary">Use NMEA (satellite) to correct elevations, rather than built-in model</string>
     <string name="pref_barometer_pressure_smoothing" translatable="false">pref_barometer_pressure_smoothing</string>
-    <string name="pref_barometer_pressure_smoothing_title">Pressure smoothing</string>
     <string name="convert">Convert</string>
     <string name="distance">Distance</string>
     <string name="coordinates_tab">Coordinates</string>
@@ -737,8 +705,6 @@
     <string name="moved_to">Moved to %s</string>
     <string name="preview">Preview</string>
     <string name="map_perspective_instructions">Outline the map</string>
-    <string name="map_rotate_instructions">Rotate until North points up</string>
-    <string name="pref_flashlight_settings" translatable="false">pref_flashlight_settings</string>
     <string name="pref_navigation_lock_screen_presence" translatable="false">pref_navigation_show_on_lock_screen</string>
     <string name="pref_navigation_lock_screen_presence_title">Show on lock screen while navigating</string>
     <string name="pref_temperature_settings" translatable="false">pref_temperature_settings</string>
@@ -774,7 +740,6 @@
     <string name="pref_flashlight_toggle_with_volume_summary">While Trail Sense is open</string>
     <string name="pref_flashlight_toggle_with_volume_title">Toggle with volume buttons</string>
     <string name="pref_low_resolution_maps" translatable="false">pref_low_resolution_maps</string>
-    <string name="pref_maps_header_key" translatable="false">pref_maps_header_key</string>
     <string name="pref_auto_low_power" translatable="false">pref_auto_low_power</string>
     <string name="pref_auto_low_power_summary">When your battery is low</string>
     <string name="pref_auto_low_power_title">Automatic power saving</string>
@@ -829,7 +794,6 @@
     <string name="hours_format">%s h</string>
     <string name="days_format">%s d</string>
     <string name="time">Time</string>
-    <string name="default_pack_name">Default pack</string>
     <string name="packed_amount">Packed amount</string>
     <string name="desired_amount">Desired amount</string>
     <string name="clear_amounts">Clear amounts</string>
@@ -851,7 +815,6 @@
     <string name="pack_sort_weight_high_to_low">Weight (high to low)</string>
     <string name="pref_weight_units" translatable="false">pref_weight_units</string>
     <string name="weight_per_item">Weight per item</string>
-    <string name="guide_packing_list">Create packing lists</string>
     <string name="humidity">Humidity</string>
     <!--    The %s is the name of the sensor-->
     <string name="no_sensor_message">Your device does not have a %s sensor</string>
@@ -912,12 +875,8 @@
     <string name="lunar_eclipses">Lunar eclipses</string>
     <string name="total">Total</string>
     <string name="partial">Partial (%s)</string>
-    <string name="lunar_eclipse_start">Lunar eclipse (start)</string>
-    <string name="lunar_eclipse_end">Lunar eclipse (end)</string>
     <string name="lunar_eclipse">Lunar eclipse</string>
     <string name="solar_eclipses">Solar eclipses</string>
-    <string name="solar_eclipse_start">Solar eclipse (start)</string>
-    <string name="solar_eclipse_end">Solar eclipse (end)</string>
     <string name="solar_eclipse">Solar eclipse</string>
     <string name="astronomy_alerts">Astronomy alerts</string>
     <string name="pref_send_lunar_eclipse_alerts" translatable="false">pref_send_lunar_eclipse_alerts</string>
@@ -950,13 +909,11 @@
     <string name="weather_exported">Weather exported</string>
     <string name="pref_show_nearest_tide" translatable="false">pref_show_nearest_tide</string>
     <string name="pref_show_nearest_tide_title">Show closest tide</string>
-    <string name="pref_tide_settings" translatable="false">pref_tide_settings</string>
     <!--This is in markdown formatting - the first %s is either Sun or Moon-->
     <string name="sun_moon_position_template">### %1$s\n**Altitude**: %2$s\n\n**Azimuth**: %3$s</string>
     <string name="sun">Sun</string>
     <string name="moon">Moon</string>
     <string name="weather_monitoring_disabled">Weather monitoring disabled</string>
-    <string name="enable">Enable</string>
     <string name="no_clouds">No Clouds</string>
     <string name="precipitation_none">No precipitation</string>
     <string name="precipitation_rain">Rain</string>
@@ -967,16 +924,8 @@
     <string name="precipitation_small_hail">Small Hail</string>
     <string name="precipitation_ice_pellets">Ice Pellets</string>
     <string name="precipitation_snow_grains">Snow Grains</string>
-    <string name="results">Results</string>
     <string name="precipitation_chance">Precipitation chance: %s</string>
     <string name="take_photo">Take photo</string>
-    <string name="choose_photo">Choose photo</string>
-    <string name="or">Or</string>
-    <string name="notification_weather_update_title">Weather Monitor Update</string>
-    <string name="notification_weather_update_content">Recording the pressure</string>
-    <string name="notification_backtrack_update_title">Backtrack Update</string>
-    <string name="notification_backtrack_update_content">Recording your location</string>
-    <string name="cloud_photo_mask_toast">Tap photo to toggle mask</string>
     <string name="no_camera_access">Unable to access camera</string>
     <string name="paths">Paths</string>
     <string name="path">Path</string>
@@ -997,8 +946,6 @@
     <string name="points">Points</string>
     <string name="duration">Duration</string>
     <string name="elevation">Elevation</string>
-    <string name="elevation_gain">Elevation gain</string>
-    <string name="elevation_loss">Elevation loss</string>
     <string name="easy">Easy</string>
     <!--    Referring to the difficulty-->
     <string name="hard">Hard</string>
@@ -1012,7 +959,6 @@
     <string name="simplification_quality">Simplification quality</string>
     <string name="pref_auto_simplify_paths" translatable="false">pref_auto_simplify_paths</string>
     <string name="pref_auto_simplify_paths_title">Simplify paths on import</string>
-    <string name="navigation_guide_description">Using beacons and paths</string>
     <string name="saving">Saving</string>
     <string name="change_map_projection">Change projection</string>
     <string name="map_projection_mercator">Mercator</string>
@@ -1031,7 +977,6 @@
     </string>
     <string name="pref_clinometer_lock_with_volume_buttons" translatable="false">pref_clinometer_lock_with_volume_buttons</string>
     <string name="pref_clinometer_lock_with_volume_buttons_title">Lock with volume buttons</string>
-    <string name="pref_clinometer_settings" translatable="false">pref_clinometer_settings</string>
     <string name="pref_clinometer_baseline_distance" translatable="false">pref_clinometer_baseline_distance</string>
     <string name="pref_clinometer_baseline_distance_units" translatable="false">pref_clinometer_baseline_distance_units</string>
     <string name="pref_clinometer_baseline_distance_holder" translatable="false">pref_clinometer_baseline_distance_holder</string>
@@ -1113,18 +1058,15 @@
     <string name="warning">Warning</string>
     <!--The OK string is what is seen as a button in the dialog containing this message. Don't kill my app is the name of the website - it is formatted as a Markdown URL.-->
     <string name="allow_ignore_battery_restrictions_instructions">Removing battery restrictions for Trail Sense may improve accuracy.\n\nOn most devices, click \'%s\', then switch to all apps, and switch off battery optimization for Trail Sense.\n\nVisit [Don\'t kill my app](https://dontkillmyapp.com/) for device specific instructions.</string>
-    <string name="remove_battery_restrictions">Remove battery restrictions?</string>
     <string name="exporting_map">Exporting map</string>
     <string name="map_exported">Map exported</string>
     <string name="camera_capture">Capture</string>
     <string name="file">File</string>
     <string name="map_file">File (JPG, PNG, PDF)</string>
     <string name="map_export_error">Unable to export map to the chosen file</string>
-    <string name="second_symbol">s</string>
     <string name="point">Point</string>
     <string name="point_added">Point added to path</string>
     <string name="tide_diurnal">Diurnal</string>
-    <string name="tide_diurnal_description">High tide once a day - most tides are not diurnal</string>
     <string name="pref_tide_disclaimer_seen" translatable="false">pref_tide_disclaimer_seen</string>
     <string name="tide_instructions">Use an official tide table to enter reference tides for the length of your trip.</string>
     <string name="tide_user_guide_recommendation">Official tide table websites can be found in the user guide.</string>
@@ -1234,7 +1176,6 @@
     <string name="unable_to_find_next_astronomy">Unable to find next %s</string>
     <!--    The action of printing a document/map-->
     <string name="print">Print</string>
-    <string name="step_progression">Step %1$d / %2$d</string>
     <string name="autofill_source">Autofill source</string>
     <string name="map_calibration">Map calibration</string>
     <string name="map_calibration_instructions">Tap a known location on the map, then enter the real-world coordinates. You can save the calibration by clicking the “Done” button.\n\nExamples of good calibration points are a parking lot, a signage point, a landmark, or a junction along a trail.</string>
@@ -1387,10 +1328,8 @@
     <string name="pref_fast_path_rendering" translatable="false">pref_fast_path_rendering</string>
     <string name="fast_path_rendering">Fast path rendering</string>
     <string name="fast_path_rendering_summary">Improves performance at the cost of appearance</string>
-    <string name="pref_augmented_reality_settings" translatable="false">pref_augmented_reality_settings</string>
     <string name="view_distance">View distance</string>
     <string name="pref_augmented_reality_view_distance" translatable="false">pref_augmented_reality_view_distance</string>
-    <string name="pref_paths_header_key" translatable="false">pref_paths_header_key</string>
     <string name="pref_show_dial_ticks_when_no_compass" translatable="false">pref_show_dial_ticks_when_no_compass</string>
     <string name="show_dial_ticks_on_nearby_radar">Show dial ticks on nearby radar</string>
     <string name="show_dial_ticks_on_nearby_radar_summary">Your device does not have a compass, but you can still see what direction beacons are.</string>

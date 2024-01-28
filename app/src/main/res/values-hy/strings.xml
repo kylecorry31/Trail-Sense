@@ -26,16 +26,6 @@
     <string name="pref_show_linear_compass_title">Ուցադրել գծային կողմնացույց</string>
     <string name="pref_show_linear_compass_summary">Երբ հեռախոսը ուղղահայաց է</string>
 
-    <plurals name="last_hours">
-        <item quantity="one">Վերջին %d ժամ</item>
-        <item quantity="other">Վերջին %d ժամեր</item>
-    </plurals>
-
-    <plurals name="last_minutes">
-        <item quantity="one">Վերջին %d րոպե</item>
-        <item quantity="other">Վերջին %d րոպեներ</item>
-    </plurals>Վերջին
-
     <string name="feet_miles">Ոտքեր /մղոններ</string>
     <string name="units_hpa">հՊա</string>
     <string name="units_inhg">inHg</string>

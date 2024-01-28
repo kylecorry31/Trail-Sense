@@ -26,16 +26,6 @@
     <string name="pref_show_linear_compass_title">Onetsani kampasi yotsogola</string>
     <string name="pref_show_linear_compass_summary">Foni ikakhala yoima</string>
 
-    <plurals name="last_hours">
-        <item quantity="one">komaliza %d ola</item>
-        <item quantity="other">komaliza %d maola</item>
-    </plurals>
-
-    <plurals name="last_minutes">
-        <item quantity="one">komaliza %d mphindi</item>
-        <item quantity="other">komaliza %d mphindi</item>
-    </plurals>
-
     <string name="feet_miles">Mapazi /Miles</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">inHg</string>

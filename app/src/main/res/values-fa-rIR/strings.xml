@@ -27,16 +27,6 @@
     <string name="pref_show_linear_compass_title">نمایش قطب نما خطی</string>
     <string name="pref_show_linear_compass_summary">وقتی تلفن عمودی است</string>
 
-    <plurals name="last_hours">
-        <item quantity="one">آخرین %d ساعت</item>
-        <item quantity="other">آخرین %d ساعات</item>
-    </plurals>
-
-    <plurals name="last_minutes">
-        <item quantity="one">آخرین %d دقیقه</item>
-        <item quantity="other">آخرین %d دقایق</item>
-    </plurals>
-
     <string name="feet_miles">فوت / مایل</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">جیوه</string>

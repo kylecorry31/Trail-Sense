@@ -22,7 +22,6 @@
     <string name="direction_south_west">SO</string>
     <!--Navigation Tab - Accuracy-->
     <string name="unknown">Indeterminada</string>
-    <string name="accuracy_distance_unknown">\?</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="accuracy_info_title">Dicas para melhorar a precisão de dados dos sensores</string>
     <!--Navigation Tab - Destination Panel-->
@@ -43,14 +42,6 @@
     <string name="pressure_format">%1$s %2$s</string>
     <string name="pressure_reading_time_ago">%1$s - há %2$s</string>
     <!--Weather Tab - Forecasts-->
-    <plurals name="last_hours">
-        <item quantity="one">Última %d hora</item>
-        <item quantity="other">Últimas %d horas</item>
-    </plurals>
-    <plurals name="last_minutes">
-        <item quantity="one">Último %d minuto</item>
-        <item quantity="other">Últimos %d minutos</item>
-    </plurals>
     <!--Astronomy Tab-->
     <string name="sun_does_not_set">não se põe</string>
     <string name="sun_does_not_rise">não nasce</string>
@@ -124,8 +115,6 @@
     <string name="sunset_alert_notification_text">O sol se porá em %s</string>
     <string name="sunset_alerts">Alertas ao pôr do sol</string>
     <string name="sunset_alert_channel_title">Alerta ao pôr do sol</string>
-    <string name="solar_noon">Meio-dia solar</string>
-    <string name="lunar_noon">Meio-dia lunar</string>
     <string name="moon_phase">Fase lunar</string>
     <string name="degree_format">%.0f°</string>
     <string name="alerts">Alertas</string>
@@ -184,7 +173,6 @@
     <string name="tap_sun_moon_hint">Toque no sol ou na lua para detalhes de posição</string>
     <string name="no_group">Nenhum grupo</string>
     <string name="group">Grupo</string>
-    <string name="beacon_create">Criar</string>
     <string name="delete_beacon_group_message">%s e todos os seus pontos de orientação serão excluídos.</string>
     <string name="tool_user_guide_summary">Um guia de como usar o Trail Sense</string>
     <string name="tool_user_guide_title">Guia de usuário</string>
@@ -196,7 +184,6 @@
     <string name="pref_max_beacon_distance_title">Raio de pontos de orientação mais próximos</string>
     <string name="pref_adjust_for_temperature_summary">Usar a temperatura em conversões de pressão ao nível do mar</string>
     <string name="pref_adjust_for_temperature_title">Fator em temperatura</string>
-    <string name="pref_altimeter_calibration_mode_title">Auto-calibração</string>
     <string name="never">Nunca</string>
     <string name="altimeter_mode_gps_barometer">GPS + barômetro</string>
     <string name="temperature">Temperatura</string>
@@ -296,7 +283,6 @@
     <string name="pip_notification_scheduled">Notificação programada para %s</string>
     <string name="pip_button">Atualizar o tempo do sistema</string>
     <string name="could_not_triangulate">Não foi possível triangular</string>
-    <string name="tool_triangulate_summary">Determinar sua localização sem GPS</string>
     <string name="tool_triangulate_title">Triangular localização</string>
     <string name="tool_category_signaling">Sinalização</string>
     <string name="tool_category_angles">Ângulos</string>
@@ -400,7 +386,6 @@
     <string name="unsaved_changes">Alterações não salvas</string>
     <string name="low_power_mode_on_message">Modo de economia de energia ativado, algumas funcionalidades podem ser desativadas.</string>
     <string name="pref_low_power_mode_title">Modo de economia de energia</string>
-    <string name="guide_barometer_calibration_title">Calibração do barômetro</string>
     <string name="charging_wireless">Carregando (%s)</string>
     <string name="battery_power_wireless">Wireless</string>
     <string name="battery_power_usb">USB</string>
@@ -488,7 +473,6 @@
     <string name="pref_cell_signal_refresh_cache_summary">Força o carregamento dos últimos níveis de sinal</string>
     <string name="pref_show_last_signal_beacon_summary">Cria um ponto de orientação para a localização do último sinal de celular</string>
     <string name="pref_show_last_signal_beacon_title">Último sinal do ponto de orientação</string>
-    <string name="place_beacon_at">Colocar um ponto de orientação em %s\?</string>
     <string name="pref_tiles_enabled_summary">Pode impedir que o app que gerencia a economia da bateria suspenda o Trail Sense</string>
     <string name="battery_warning">Aviso do consumo da bateria</string>
     <string name="pref_backtrack_history_days_title">Histórico do caminho de recuo</string>
@@ -521,7 +505,6 @@
     <string name="import_map">Importar mapa</string>
     <string name="pref_cell_signal_refresh_cache_title">Atualizar o cache de sinal</string>
     <string name="pref_navigation_lock_screen_presence_title">Mostrar na tela de bloqueio durante a navegação</string>
-    <string name="map_rotate_instructions">Girar até que o Norte aponte para cima</string>
     <string name="map_perspective_instructions">Contornar o mapa</string>
     <string name="preview">Pré-visualização</string>
     <string name="moved_to">Movido para %s</string>
@@ -530,25 +513,20 @@
     <string name="coordinates_tab">Coordenadas</string>
     <string name="distance">Distância</string>
     <string name="convert">Converter</string>
-    <string name="pref_barometer_pressure_smoothing_title">Regularização da pressão</string>
     <string name="pref_nmea_elevation_summary">Utiliza compensações NMEA para conversão de altitude</string>
     <string name="pref_nmea_elevation_title">Compensação de altitude NMEA</string>
     <string name="pref_barometer_info_summary">A pressão pode ser diferente da das estações próximas</string>
     <string name="battery_history">Histórico da bateria - últimos %s</string>
-    <string name="dusk_type">Anoitecer (%s)</string>
-    <string name="dawn_type">Madrugada (%s)</string>
     <string name="weather_monitor">Monitor do tempo</string>
     <string name="whistle_signal_come_here">Venha aqui</string>
     <string name="whistle_signal_acknowledged">Referenciado</string>
     <string name="whistle_signal_where_are_you">Onde você está\?</string>
     <string name="noon">Meio-dia</string>
-    <string name="fields">Áreas</string>
     <string name="last_signal_beacon_name">Último sinal - %1$s (%2$s)</string>
     <string name="camera_permission_denied">Permissão da câmera negada, não foi possível ativar os recursos da câmera. Você pode ativá-los em configurações.</string>
     <string name="color">Cor</string>
     <string name="calibrate_new_tide">Calibrar para uma nova maré\?</string>
     <string name="backtrack_battery_warning">Pequenos intervalos (menos de 15 minutos) pode causar um consumo excessivo da bateria</string>
-    <string name="backtrack_high_priority_notification">Colocando um ponto de caminho a cada %s</string>
     <string name="arrow">Seta</string>
     <string name="dotted">Pontilhada</string>
     <string name="solid">Sólido</string>
@@ -560,24 +538,17 @@
     <string name="import_gpx">Importar GPX</string>
     <string name="error_importing_map">Erro ao importar mapas</string>
     <string name="importing_map">Importando mapas</string>
-    <string name="hour_symbol">h</string>
-    <string name="minute_symbol">m</string>
     <string name="map_auto_calibrated">Mapa auto-calibrado, favor verificar sua precisão</string>
     <string name="time_until_full">até completo</string>
     <string name="time_until_empty">até esgotado</string>
     <string name="next">Próximo</string>
     <string name="previous">Anterior</string>
-    <string name="create_map_description">Digite o nome do mapa</string>
-    <string name="create_map">Criar mapa</string>
     <string name="on_map">No mapa</string>
     <string name="no_maps">Sem mapas</string>
     <string name="rename">Renomear</string>
     <string name="pedometer_disclaimer">A precisão e o consumo da bateria do pedômetro depende do fabricante de seu dispositivo e a distância definida entre os passos. Experimente-o em casa primeiro para verificar o consumo e a precisão antes de usá-lo na trilha.</string>
-    <string name="guide_using_printed_maps">Usando mapas impressos</string>
-    <string name="guide_signaling_for_help_title">Sinalização para ajuda</string>
     <string name="pref_meteor_showers_title">Chuvas de meteoros</string>
     <string name="meteors_per_hour">Máximo %d meteoros / h</string>
-    <string name="tomorrow_at">Amanhã às %s</string>
     <string name="meteor_shower">Chuva de meteoros</string>
     <string name="menu">Menu</string>
     <string name="no_tides">Sem marés</string>
@@ -642,7 +613,6 @@
     <string name="destination_elevation">Elevação de local de destino</string>
     <string name="base_temperature">Temperatura de base</string>
     <string name="base_elevation">Elevação de base</string>
-    <string name="guide_packing_list">Criar listas de conteúdo</string>
     <string name="weight_per_item">Peso por item</string>
     <string name="pack_sort_weight_high_to_low">Peso (alto a baixo)</string>
     <string name="pack_sort_weight_low_to_high">Peso (baixo a alto)</string>
@@ -661,7 +631,6 @@
     <string name="clear_amounts">Eliminar as quantidades</string>
     <string name="desired_amount">Quantidade desejada</string>
     <string name="packed_amount">Quantidade contida</string>
-    <string name="default_pack_name">Pacote padrão</string>
     <string name="action_inventory_clear_confirm">Eliminar todas as quantidades contidas\?</string>
     <string name="current_format">%s mA</string>
     <string name="elevation_history">Histórico de altitude</string>
@@ -720,8 +689,6 @@
     <string name="supermoon">Superlua</string>
     <string name="astronomy_alerts">Alertas de astronomia</string>
     <string name="lunar_eclipse">Eclipse lunar</string>
-    <string name="lunar_eclipse_end">Eclipse lunar (fim)</string>
-    <string name="lunar_eclipse_start">Eclipse lunar (início)</string>
     <string name="partial">Parcial (%s)</string>
     <string name="total">Total</string>
     <string name="lunar_eclipses">Eclipses lunares</string>
@@ -760,7 +727,6 @@
     <string name="no_clouds">Sem nuvens</string>
     <string name="no_camera_access">Incapaz de acessar a câmera</string>
     <string name="temporary">Temporário</string>
-    <string name="enable">Habilitar</string>
     <string name="precipitation_small_hail">Granizo pequeno</string>
     <string name="precipitation_rain">Chuva</string>
     <string name="precipitation_drizzle">Chuviscos</string>
@@ -769,23 +735,15 @@
     <string name="precipitation_ice_pellets">Flocos de gelo</string>
     <string name="precipitation_snow_grains">Grãos de neve</string>
     <string name="precipitation_none">Sem precipitação</string>
-    <string name="cloud_photo_mask_toast">Toque na foto para alternar máscara</string>
     <string name="path_color">Cor do caminho</string>
-    <string name="or">ou</string>
     <string name="point_style">Estilo de ponto</string>
     <string name="line_style">Estilo de linha</string>
     <string name="hide">Esconder</string>
     <string name="show">Mostrar</string>
     <string name="humidity">Umidade</string>
     <string name="precipitation_snow">Neve</string>
-    <string name="results">Resultados</string>
     <string name="precipitation_chance">Chance de precipitação: %s</string>
     <string name="take_photo">Tirar foto</string>
-    <string name="choose_photo">Escolher foto</string>
-    <string name="notification_weather_update_title">Atualização do monitor meteorológico</string>
-    <string name="notification_weather_update_content">Registrando a pressão</string>
-    <string name="notification_backtrack_update_title">Atualização de recuo</string>
-    <string name="notification_backtrack_update_content">Registrando sua localização</string>
     <string name="paths">Caminhos</string>
     <string name="keep_forever">Mantenha para sempre</string>
     <string name="very_soon">Muito em breve</string>
@@ -802,7 +760,6 @@
     <string name="points">Pontos</string>
     <string name="duration">Duração</string>
     <string name="elevation">Elevação</string>
-    <string name="elevation_loss">Perda de elevação</string>
     <string name="easy">Fácil</string>
     <string name="difficulty">Dificuldade</string>
     <string name="waypoint">Ponto do caminho</string>
@@ -866,7 +823,6 @@
     <string name="hard">Difícil</string>
     <string name="simplifying">Simplificando</string>
     <string name="simplification_quality">Qualidade de simplificação</string>
-    <string name="elevation_gain">Ganho de elevação</string>
     <string name="gps_unavailable">GPS indisponível</string>
     <string name="gps_timeouts">Intervalos no GPS</string>
     <string name="qr_code_scanner">Leitor de código QR</string>
@@ -875,7 +831,6 @@
     <string name="append_onto">Anexar ao</string>
     <string name="simplify">Simplificar</string>
     <string name="pref_auto_simplify_paths_title">Simplificar os caminhos ao importar</string>
-    <string name="navigation_guide_description">Usando pontos de orientação e caminhos</string>
     <string name="change_map_projection">Mudar projeção</string>
     <string name="map_projection_mercator">Mercator</string>
     <string name="map_projection_equidistant">Equidistante</string>
@@ -940,7 +895,6 @@
     <string name="cross">Cruz</string>
     <string name="pref_only_navigate_path_points_title">Navegar somente até pontos registrados</string>
     <string name="bearing">Rumo</string>
-    <string name="remove_battery_restrictions">Remover as restrições da bateria\?</string>
     <plurals name="path_group_summary">
         <item quantity="one">%d caminho</item>
         <item quantity="other">%d caminhos</item>
@@ -951,8 +905,6 @@
     <string name="camera_capture">Capturar</string>
     <string name="file">Arquivo</string>
     <string name="tide_diurnal">Diurno</string>
-    <string name="tide_diurnal_description">Maré alta uma vez por dia - a maioria de marés não são diurnas</string>
-    <string name="second_symbol">s</string>
     <string name="point">Ponto</string>
     <string name="point_added">Ponto adicionado ao caminho</string>
     <string name="tide_user_guide_recommendation">Os sites oficiais com tabela de marés podem ser encontrados em manual de instruções.</string>
@@ -997,8 +949,6 @@
     <string name="temperature_high_low">Alta / baixa</string>
     <string name="sensor">Sensor</string>
     <string name="solar_eclipses">Eclipses solares</string>
-    <string name="solar_eclipse_start">Eclipse solar (começa)</string>
-    <string name="solar_eclipse_end">Eclipse solar (termina)</string>
     <string name="solar_eclipse">Eclipse solar</string>
     <string name="updating_weather">Atualizando previsão</string>
     <string name="now_value">Agora: %s</string>

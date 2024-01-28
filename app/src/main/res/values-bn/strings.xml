@@ -23,14 +23,6 @@
     <string name="pref_show_sun_moon_compass_title">কম্পাসে সূর্য /চাঁদ দেখান</string>
     <string name="pref_show_linear_compass_title">লিনিয়ার কম্পাস দেখান</string>
     <string name="pref_show_linear_compass_summary">ফোনটি উল্লম্ব হলে</string>
-    <plurals name="last_hours">
-        <item quantity="one">গত %d ঘন্টা</item>
-        <item quantity="other">গত %d ঘন্টার</item>
-    </plurals>
-    <plurals name="last_minutes">
-        <item quantity="one">গত %d মিনিট</item>
-        <item quantity="other">গত %d মিনিট</item>
-    </plurals>
     <string name="feet_miles">পা /মাইলস</string>
     <string name="units_hpa">HPA</string>
     <string name="units_inhg">inHg</string>

@@ -65,7 +65,6 @@
     <string name="units">יחידות</string>
     <string name="pack_sort_weight_high_to_low">משקל (מהגבוה לנמוך)</string>
     <string name="weight_per_item">משקל לפריט</string>
-    <string name="guide_packing_list">יצירת רשימות אריזה</string>
     <string name="humidity">לחות</string>
     <string name="diagnostics">אבחון</string>
     <string name="old">ישן</string>
@@ -101,7 +100,6 @@
     <string name="on">על</string>
     <string name="notifications_blocked">הודעות נחסמו</string>
     <string name="no_issues">לא זוהו בעיות</string>
-    <string name="remove_battery_restrictions">האם להסיר הגבלות סוללה\?</string>
     <string name="grant_permission">הענק את ההרשאה %s</string>
     <string name="location_override_not_set_resolution">הגדרת עקיפת המיקום בהגדרות</string>
     <string name="elevation_override_resolution">אפשר כיול אוטומטי בהגדרות.</string>
@@ -122,7 +120,6 @@
     <string name="delete_path">למחוק נתיב\?</string>
     <string name="new_text">חדש</string>
     <string name="path_exported">הנתיב מיוצא</string>
-    <string name="lunar_eclipse_start">ליקוי ירח (התחלה)</string>
     <string name="season_fall">סתיו</string>
     <string name="precipitation_rain">גשם</string>
     <string name="precipitation_drizzle">טיפטוף</string>
@@ -132,7 +129,6 @@
     <string name="lunar_eclipses">ליקוי ירח</string>
     <string name="total">סך הכל</string>
     <string name="partial">חלקי (%s)</string>
-    <string name="lunar_eclipse_end">ליקוי ירח (סוף)</string>
     <string name="astronomy_alerts">התראות אסטרונומיה</string>
     <string name="lunar_eclipse">ליקוי ירח</string>
     <string name="supermoon">ירח על</string>
@@ -152,19 +148,12 @@
     <string name="no_clouds">ללא עננים</string>
     <string name="moon">ירח</string>
     <string name="weather_monitoring_disabled">ניטור מזג האוויר מושבת</string>
-    <string name="enable">איפשור</string>
     <string name="precipitation_snow">שלג</string>
     <string name="precipitation_snow_pellets">כדורי שלג</string>
     <string name="precipitation_ice_pellets">כדורי קרח</string>
-    <string name="choose_photo">בחר תמונה</string>
-    <string name="notification_weather_update_content">רישום הלחץ</string>
-    <string name="notification_backtrack_update_content">הקלטת המיקום שלך</string>
-    <string name="cloud_photo_mask_toast">הקש על תמונה כדי להחליף מסיכה</string>
     <string name="precipitation_snow_grains">גרגירי שלג</string>
     <string name="map_projection_equidistant">שווה ערך</string>
     <string name="tool_temperature_estimation_description">חזה את הטמפרטורה בגובה שונה</string>
-    <string name="notification_weather_update_title">עדכון צג מזג האוויר</string>
-    <string name="notification_backtrack_update_title">עדכון מסלול חזרה</string>
     <string name="no_camera_access">אין אפשרות לגשת למצלמה</string>
     <string name="most_recent">העדכני ביותר</string>
     <string name="hide">הסתרה</string>
@@ -179,7 +168,6 @@
     <string name="simplifying">פישוט</string>
     <string name="simplification_quality">איכות פישוט</string>
     <string name="longest">הארוך ביותר</string>
-    <string name="elevation_loss">אובדן גובה</string>
     <string name="pref_auto_simplify_paths_title">פישוט נתיבים בייבוא</string>
     <string name="saving">חיסכון</string>
     <string name="map_projection_mercator">מרקטור</string>
@@ -191,13 +179,11 @@
 \n3. ליישר מחדש את מד התווך לראש היעד
 \n4. שחררו לנעילה וראו את המרחק ליעד</string>
     <string name="elevation">גובה</string>
-    <string name="elevation_gain">גובה מצטבר</string>
     <string name="hard">קשה</string>
     <string name="difficulty">קושי</string>
     <string name="merging">מיזוג</string>
     <string name="append_onto">צרף אל</string>
     <string name="instructions">הוראות</string>
-    <string name="navigation_guide_description">שימוש במשואות ושבילים</string>
     <string name="change_map_projection">שינוי הקרנה</string>
     <string name="reduce_map_resolution">הפחת את רזולוציית המפה</string>
     <string name="clinometer_measure_height_instructions">כדי למדוד את הגובה של יעד המרוחק %s:
@@ -299,7 +285,6 @@
     <string name="pref_max_beacon_distance_title">רדיוס משואות סמוכים</string>
     <string name="true_north">צפון אמיתי</string>
     <string name="tap_to_turn_off">הקשה כדי לכבות</string>
-    <string name="accuracy_distance_unknown">\?</string>
     <string name="units_mmhg">ממ\"כ</string>
     <string name="pref_altimeter_calibration_title">מד גובה</string>
     <string name="accuracy_distance_format">± %s</string>
@@ -330,12 +315,6 @@
     <string name="temp_f_short">°F</string>
     <string name="no_data">אין מידע</string>
     <string name="weather_no_change">ללא שינוי</string>
-    <plurals name="last_minutes">
-        <item quantity="one">בדקה האחרונה</item>
-        <item quantity="two">ב-%d אחרונות</item>
-        <item quantity="many">ב-%d אחרונות</item>
-        <item quantity="other">ב-%d אחרונות</item>
-    </plurals>
     <string name="very_soon">בקרוב מאוד</string>
     <string name="soon">בקרוב</string>
     <string name="waxing_crescent">סהר שעווני</string>
@@ -422,7 +401,6 @@
     <string name="gps">GPS</string>
     <string name="delete_beacon_group_message">%s וכל המשואות שלו יימחקו.</string>
     <string name="pref_elevation_override_title">עקיפת גבוה</string>
-    <string name="pref_altimeter_calibration_mode_title">כיול אוטומטי</string>
     <string name="temp_c_short">°C</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">כיול לפני ניווט</string>
     <string name="pref_storm_alert_sensitivity_title">רגישות לסערה</string>
@@ -444,7 +422,6 @@
     <string name="pref_email_title">דוא\"ל של מפתח</string>
     <string name="pref_display_multi_beacons_summary">הצג את המשואות הקרובות ביותר על המצפן</string>
     <string name="pressure_24_hours">24 שעות</string>
-    <string name="beacon_create">יצירה</string>
     <string name="pref_center_sun_and_moon_title">שמור על מרכז השמש/ירח</string>
     <string name="update_60_minutes">שעה אחת</string>
     <string name="tool_user_guide_title">מדריך למשתמש</string>
@@ -471,7 +448,6 @@
     <string name="solar_panel_instructions">הנח את הטלפון שלך על פני הפאנל הסולארי כדי להתחיל.</string>
     <string name="strobe_warning_title">אורות מהבהבים</string>
     <string name="tool_category_signaling">איתות</string>
-    <string name="tool_triangulate_summary">קביעת המיקום שלך ללא GPS</string>
     <string name="clock_sync_time_settings">לפתוח הגדרות זמן\?</string>
     <string name="contents">תוכן</string>
     <string name="water_boil_timer_title">מים רותחים</string>
@@ -580,7 +556,6 @@
     <string name="battery_power_wireless">אלחוטי</string>
     <string name="cirrostratus">צירוסטרטוס</string>
     <string name="altostratus">ענן רפידה בינוני</string>
-    <string name="guide_barometer_calibration_title">כיול ברומטר</string>
     <string name="pref_low_power_mode_title">מצב חיסכון בחשמל</string>
     <string name="unsaved_changes_message">שינויים שביצעת לא יישמרו.</string>
     <string name="dialog_leave">עזוב</string>
@@ -654,7 +629,6 @@
     <string name="network_5g">5G</string>
     <string name="network_3g">3G</string>
     <string name="set">הגדר</string>
-    <string name="backtrack_high_priority_notification">הצבת נקודת ציון כל %s</string>
     <string name="pref_nmea_elevation_title">היסט גובה NMEA</string>
     <string name="location_mocked">שימוש במיקום מזויף</string>
     <string name="distance_from_flashlight">מרחק מהטלפון לפנס</string>
@@ -688,21 +662,16 @@
     <string name="no_tides">אין גאות ושפל</string>
     <string name="menu">תפריט</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">מקסימום %d מטאורים/שעה</string>
-    <string name="guide_signaling_for_help_title">איתות לעזרה</string>
-    <string name="guide_using_printed_maps">שימוש במפות מודפסות</string>
     <string name="on_map">על המפה</string>
     <string name="experimental">ניסיוני</string>
     <string name="time_not_set">השעה לא נקבעה</string>
     <string name="pedometer">מד צעדים</string>
-    <string name="tomorrow_at">מחר ב-%s</string>
     <string name="pref_meteor_showers_title">מטר מטאורים</string>
     <string name="pedometer_disclaimer">הדיוק והשימוש בסוללה של מד הצעדים תלויים ביצרן ההתקן ובאורך הפסיעה שהוזן. נסה את זה בבית עבור קצת כדי לאמת את התרקנות הסוללה ודיוק לפני השימוש במסלול.</string>
-    <string name="create_map_description">הזן את שם המפה</string>
     <string name="since_time">מאז %s</string>
     <string name="pref_nearby_radar_title">הצג מצפן מכ\"ם קרוב</string>
     <string name="rename">שנה שם</string>
     <string name="meteor_shower">מטר מטאורים</string>
-    <string name="create_map">יצירת מפה</string>
     <string name="pref_odometer_reset_daily_title">איפוס יומי</string>
     <string name="previous">קודם</string>
     <string name="time_until_empty">עד לריקון</string>
@@ -710,8 +679,6 @@
     <string name="importing_map">מייבא מפה</string>
     <string name="import_gpx">ייבוא GPX</string>
     <string name="map_auto_calibrated">המפה מכוילת אוטומטית, נא לוודא את דיוקה</string>
-    <string name="minute_symbol">ד</string>
-    <string name="hour_symbol">ש</string>
     <string name="sleep_timer">טיימר שינה</string>
     <string name="pref_weather_show_detailed_icon_title">הצג סמל התראה צבעוני</string>
     <string name="solid">מוצק</string>
@@ -728,8 +695,6 @@
     <string name="calibrate_new_tide">לכייל לגאות חדשה\?</string>
     <string name="color">צבע</string>
     <string name="pref_show_last_signal_beacon_summary">יצירת משואה עבור מיקום אות התא האחרון</string>
-    <string name="fields">שדות</string>
-    <string name="pref_barometer_pressure_smoothing_title">החלקת לחץ</string>
     <string name="backtrack_battery_warning">מרווחים קטנים (מתחת ל-15 דקות) עלולים לגרום לריקון יתר של הסוללה</string>
     <string name="camera_permission_denied">הרשאת המצלמה נדחתה, לא ניתן להפעיל תכונות מצלמה. באפשרותך להפוך אותו לזמין בהגדרות.</string>
     <string name="last_signal_beacon_name">אות אחרון - %1$s (%2$s)</string>
@@ -740,7 +705,6 @@
     <string name="pref_barometer_info_summary">הלחץ עשוי להיות שונה מזה של תחנות סמוכות</string>
     <string name="pref_nmea_elevation_summary">שימוש בהיסט NMEA להמרת גובה</string>
     <string name="preview">תצוגה מקדימה</string>
-    <string name="map_rotate_instructions">סובב עד שהצפון יצביע למעלה</string>
     <string name="pref_navigation_lock_screen_presence_title">הצג במסך הנעילה בזמן הניווט</string>
     <string name="pref_cell_signal_refresh_cache_summary">מאלץ טעינת עוצמת האות העדכנית ביותר</string>
     <string name="roll_pitch_yaw">גליל: %1$s, גובה: %2$s, פיתול: %3$s</string>
@@ -756,9 +720,7 @@
     <string name="ounces_weight">אונקיות</string>
     <string name="delete_pack">למחוק חבילה\?</string>
     <string name="whistle_signal_come_here">בוא הנה</string>
-    <string name="dusk_type">בין הערביים (%s)</string>
     <string name="humidity_history">היסטוריית לחות - אחרונה %s</string>
-    <string name="dawn_type">שחר (%s)</string>
     <string name="distance">מרחק</string>
     <string name="coordinates_tab">קואורדינטות</string>
     <string name="no_groups">אין קבוצות</string>
@@ -814,7 +776,6 @@
     <string name="minutes">דקות</string>
     <string name="days_format">%s י\'</string>
     <string name="time">זמן</string>
-    <string name="default_pack_name">חבילת ברירת מחדל</string>
     <string name="packed_amount">כמות ארוזה</string>
     <string name="percent_packed">%s ארוז</string>
     <string name="new_packing_list">רשימת אריזה חדשה</string>
@@ -852,7 +813,6 @@
     <string name="actual_frequency_disclaimer">התדירות בפועל עשויה להשתנות מכיוון שלהתקנים מסוימים יש מגבלות רקע.</string>
     <string name="precipitation_hail">ברד</string>
     <string name="precipitation_small_hail">ברד קטן</string>
-    <string name="or">או</string>
     <string name="avalanche_risk">סכנת מפולת שלגים</string>
     <string name="compass_unavailable">המצפן אינו זמין</string>
     <string name="gps_unavailable">GPS אינו זמין</string>
@@ -861,12 +821,6 @@
     <string name="open">פתח</string>
     <string name="stop">עצור</string>
     <string name="start">התחלה</string>
-    <plurals name="last_hours">
-        <item quantity="one">בשעה האחרונה</item>
-        <item quantity="two">בשעתיים האחרונות</item>
-        <item quantity="many">ב-%d שעות האחרונות</item>
-        <item quantity="other">ב-%d שעות האחרונות</item>
-    </plurals>
     <plurals name="number_days">
         <item quantity="one">יום</item>
         <item quantity="two">יומיים</item>
@@ -893,7 +847,6 @@
     <string name="auto">אוטומטי</string>
     <string name="pref_export_weather_csv_title">ייצא קריאות מזג אוויר</string>
     <string name="precipitation_none">אין משקעים</string>
-    <string name="results">תוצאות</string>
     <string name="precipitation_chance">סיכוי למשקעים: %s</string>
     <string name="take_photo">צלם תמונה</string>
     <string name="pref_flashlight_timeout_title">כבה לאחר</string>
@@ -913,7 +866,6 @@
     <string name="elevation_from_pressure">הגדרת עקיפה מברומטר</string>
     <string name="pref_require_satellites_description">דורש לפחות 4 לוויינים, משפר את הדיוק</string>
     <string name="cirrus">ענן נוצות</string>
-    <string name="place_beacon_at">למקם משואה ב-%s\?</string>
     <string name="pref_show_linear_compass_summary">כאשר הטלפון אנכי</string>
     <string name="pref_sunset_alert_time_title">זמן התראת שקיעה</string>
     <string name="pref_app_version_title">גירסה</string>
@@ -932,8 +884,6 @@
     <string name="sunset_label">שקיעה</string>
     <string name="new_moon">ירח חדש</string>
     <string name="waning_crescent">סהר דועך</string>
-    <string name="solar_noon">שמש בצהריים</string>
-    <string name="lunar_noon">ירחי בצהריים</string>
     <string name="theme_sunset_sunrise">זריחה/שקיעה</string>
     <string name="coordinate_format_decimal_degrees">מעלות עשרוניות</string>
     <string name="pressure_12_hours">12 שעות</string>
@@ -951,9 +901,7 @@
     <string name="measure">מדידה</string>
     <string name="paths">נתיבים</string>
     <string name="keep_forever">שמור לנצח</string>
-    <string name="second_symbol">שנ</string>
     <string name="solar_eclipses">ליקויי חמה</string>
-    <string name="solar_eclipse_start">ליקוי חמה (התחלה)</string>
     <string name="point">נקודה</string>
     <plurals name="path_group_summary">
         <item quantity="one">נתיב אחד</item>
@@ -967,7 +915,6 @@
     <string name="point_added">נקודה נוספה לנתיב</string>
     <string name="delete_map_group_message">%s וכל המפות שלו יימחקו.</string>
     <string name="map_auto_rotated">סיבוב המפה מותאם לכיול</string>
-    <string name="solar_eclipse_end">ליקוי חמה (סיום)</string>
     <string name="solar_eclipse">ליקוי חמה</string>
     <string name="map_file">קובץ (JPG, PNG, PDF)</string>
     <string name="pref_include_leading_zero_title">הוספת אפס מוביל לזמן</string>
@@ -1018,7 +965,6 @@
     <string name="cold">קַר</string>
     <string name="pref_backfill_temperatures_description">כל הטמפרטורות המתועדות יוחלפו בטמפרטורה ההיסטורית המכוילת.</string>
     <string name="center">מרכז</string>
-    <string name="step_progression">שלב %1$d / %2$d</string>
     <string name="weather_clear">בהיר</string>
     <string name="now">כעת</string>
     <string name="source">מקור</string>
@@ -1041,7 +987,6 @@
     <string name="map_is_not_calibrated">המפה אינה מכויילת</string>
     <string name="unable_to_find_next_astronomy">לא ניתן למצוא את %s הבא</string>
     <string name="autofill_source">מקור מילוי אוטומטי</string>
-    <string name="tide_diurnal_description">גאות גבוהה פעם ביום - רוב הגאות והשפל אינם יומיים</string>
     <string name="crop_map_instructions_long">יש לגרור את פינות התיבה לפינות המפה כדי לחלק לרמות.</string>
     <string name="path_slope_moderate">מתון</string>
     <string name="reset_calibration">איפוס כיול</string>
