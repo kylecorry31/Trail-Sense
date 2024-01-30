@@ -14,6 +14,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.observeFlow
+import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
@@ -119,6 +120,10 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
         binding.arView.setOnFocusLostListener {
             binding.focusActionButton.isVisible = false
+        }
+
+        if (!Sensors.hasGyroscope(requireContext())) {
+            ARNoGyroAlert(requireContext()).alert()
         }
     }
 
