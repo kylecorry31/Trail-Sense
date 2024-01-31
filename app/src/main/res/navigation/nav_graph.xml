@@ -190,11 +190,11 @@
         android:label="LicenseFragment" />
     <fragment
         android:id="@+id/weatherSettingsFragment"
-        android:name="com.kylecorry.trail_sense.settings.ui.WeatherSettingsFragment"
+        android:name="com.kylecorry.trail_sense.tools.weather.ui.WeatherSettingsFragment"
         android:label="WeatherSettingsFragment" />
     <fragment
         android:id="@+id/navigationSettingsFragment"
-        android:name="com.kylecorry.trail_sense.settings.ui.NavigationSettingsFragment"
+        android:name="com.kylecorry.trail_sense.tools.navigation.ui.NavigationSettingsFragment"
         android:label="NavigationSettingsFragment" />
     <fragment
         android:id="@+id/pathsSettingsFragment"
@@ -202,7 +202,7 @@
         android:label="PathsSettingsFragment" />
     <fragment
         android:id="@+id/astronomySettingsFragment"
-        android:name="com.kylecorry.trail_sense.settings.ui.AstronomySettingsFragment"
+        android:name="com.kylecorry.trail_sense.tools.astronomy.ui.AstronomySettingsFragment"
         android:label="AstronomySettingsFragment" />
     <fragment
         android:id="@+id/guideListFragment"
@@ -437,7 +437,7 @@
         android:label="FragmentToolSpeedometer" />
     <fragment
         android:id="@+id/calibrateOdometerFragment"
-        android:name="com.kylecorry.trail_sense.calibration.ui.CalibrateOdometerFragment"
+        android:name="com.kylecorry.trail_sense.tools.pedometer.ui.PedometerSettingsFragment"
         android:label="CalibrateOdometerFragment">
         <action
             android:id="@+id/action_calibrate_pedometer_to_estimate_stride_length"
@@ -499,7 +499,7 @@
     </fragment>
     <fragment
         android:id="@+id/flashlightSettingsFragment"
-        android:name="com.kylecorry.trail_sense.settings.ui.FlashlightSettingsFragment"
+        android:name="com.kylecorry.trail_sense.tools.flashlight.ui.FlashlightSettingsFragment"
         android:label="FlashlightSettingsFragment" />
     <fragment
         android:id="@+id/thermometerSettingsFragment"
@@ -535,7 +535,7 @@
         android:label="ExperimentalSettingsFragment" />
     <fragment
         android:id="@+id/toolRulerSettingsFragment"
-        android:name="com.kylecorry.trail_sense.settings.ui.ToolRulerSettingsFragment"
+        android:name="com.kylecorry.trail_sense.tools.ruler.ui.ToolRulerSettingsFragment"
         android:label="RulerSettingsFragment" />
     <fragment
         android:id="@+id/sensorSettingsFragment"
@@ -593,7 +593,7 @@
     </fragment>
     <fragment
         android:id="@+id/mapSettingsFragment"
-        android:name="com.kylecorry.trail_sense.settings.ui.MapSettingsFragment"
+        android:name="com.kylecorry.trail_sense.tools.maps.ui.MapSettingsFragment"
         android:label="MapSettingsFragment" />
     <fragment
         android:id="@+id/temperatureEstimationFragment"
@@ -638,15 +638,15 @@
     </fragment>
     <fragment
         android:id="@+id/tideSettingsFragment"
-        android:name="com.kylecorry.trail_sense.settings.ui.TideSettingsFragment"
+        android:name="com.kylecorry.trail_sense.tools.tides.ui.TideSettingsFragment"
         android:label="TideSettingsFragment" />
     <fragment
         android:id="@+id/clinometerSettingsFragment"
-        android:name="com.kylecorry.trail_sense.settings.ui.ClinometerSettingsFragment"
+        android:name="com.kylecorry.trail_sense.tools.clinometer.ui.ClinometerSettingsFragment"
         android:label="ClinometerSettingsFragment" />
     <fragment
         android:id="@+id/augmentedRealitySettingsFragment"
-        android:name="com.kylecorry.trail_sense.settings.ui.AugmentedRealitySettingsFragment"
+        android:name="com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealitySettingsFragment"
         android:label="AugmentedRealitySettingsFragment" />
     <fragment
         android:id="@+id/errorSettingsFragment"

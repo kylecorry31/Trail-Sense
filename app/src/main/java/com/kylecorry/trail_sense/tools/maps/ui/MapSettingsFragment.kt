@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.settings.ui
+package com.kylecorry.trail_sense.tools.maps.ui
 
 import android.os.Bundle
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment

@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.calibration.ui
+package com.kylecorry.trail_sense.tools.pedometer.ui
 
 import android.os.Bundle
 import androidx.navigation.fragment.findNavController
@@ -22,7 +22,7 @@ import com.kylecorry.trail_sense.shared.preferences.setupNotificationSetting
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 
 
-class CalibrateOdometerFragment : AndromedaPreferenceFragment() {
+class PedometerSettingsFragment : AndromedaPreferenceFragment() {
 
     private lateinit var strideLengthPref: Preference
     private lateinit var permissionPref: Preference

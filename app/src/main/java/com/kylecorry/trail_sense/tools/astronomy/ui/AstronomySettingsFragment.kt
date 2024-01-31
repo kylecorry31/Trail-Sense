@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.settings.ui
+package com.kylecorry.trail_sense.tools.astronomy.ui
 
 import android.os.Bundle
 import android.view.View

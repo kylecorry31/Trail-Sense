@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.settings.ui
+package com.kylecorry.trail_sense.tools.weather.ui
 
 import android.os.Bundle
 import androidx.preference.ListPreference
