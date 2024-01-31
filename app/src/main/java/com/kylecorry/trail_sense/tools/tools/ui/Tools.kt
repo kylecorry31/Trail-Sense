@@ -19,6 +19,7 @@ import com.kylecorry.trail_sense.shared.views.QuickActionNone
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionNightMode
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunsetAlert
 import com.kylecorry.trail_sense.tools.battery.quickactions.QuickActionLowPowerMode
+import com.kylecorry.trail_sense.tools.beacons.quickactions.QuickActionPlaceBeacon
 import com.kylecorry.trail_sense.tools.climate.quickactions.QuickActionClimate
 import com.kylecorry.trail_sense.tools.clouds.quickactions.QuickActionClouds
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
@@ -169,7 +170,14 @@ object Tools {
                 R.drawable.ic_location,
                 R.id.beacon_list,
                 ToolCategory.Location,
-                guideId = R.raw.guide_tool_beacons
+                guideId = R.raw.guide_tool_beacons,
+                quickActions = listOf(
+                    ToolQuickAction(
+                        QUICK_ACTION_CREATE_BEACON,
+                        context.getString(R.string.create_beacon),
+                        ::QuickActionPlaceBeacon
+                    )
+                )
             ),
             Tool(
                 PHOTO_MAPS,
@@ -581,4 +589,5 @@ object Tools {
     const val QUICK_ACTION_PEDOMETER = 17
     const val QUICK_ACTION_SCREEN_FLASHLIGHT = 18
     const val QUICK_ACTION_CREATE_NOTE = 19
+    const val QUICK_ACTION_CREATE_BEACON = 20
 }

@@ -15,6 +15,12 @@ class QuickActionCreateNote(btn: ImageButton, fragment: Fragment) :
         super.onCreate()
         button.setImageResource(R.drawable.ic_tool_notes)
         CustomUiUtils.setButtonState(button, false)
+
+        button.setOnLongClickListener {
+            fragment.findNavController().navigateWithAnimation(R.id.fragmentToolNotes)
+            true
+        }
+
         button.setOnClickListener {
             fragment.findNavController().navigateWithAnimation(R.id.fragmentToolNotesCreate)
         }

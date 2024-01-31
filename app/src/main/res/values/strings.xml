@@ -1335,6 +1335,7 @@
     <string name="show_dial_ticks_on_nearby_radar_summary">Your device does not have a compass, but you can still see what direction beacons are.</string>
     <string name="pref_tool_category_holder_key" translatable="false">pref_tool_category_holder_key</string>
     <string name="augmented_reality_no_gyro_message">You can still use the Augmented Reality tool, but it will not be as accurate.</string>
+    <string name="creating_beacon">Creating beacon</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>
