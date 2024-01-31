@@ -1,6 +1,6 @@
-package com.kylecorry.trail_sense.tools.augmented_reality.position
+package com.kylecorry.trail_sense.tools.augmented_reality.domain.position
 
-import com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityView
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 
 /**
  * A point in the AR world

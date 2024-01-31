@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.augmented_reality
+package com.kylecorry.trail_sense.tools.augmented_reality.ui
 
 import android.graphics.Color
 import android.os.Bundle
@@ -33,9 +33,13 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.withId
-import com.kylecorry.trail_sense.tools.augmented_reality.guide.ARGuide
-import com.kylecorry.trail_sense.tools.augmented_reality.guide.AstronomyARGuide
-import com.kylecorry.trail_sense.tools.augmented_reality.guide.NavigationARGuide
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.guide.ARGuide
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.guide.AstronomyARGuide
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.guide.NavigationARGuide
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARAstronomyLayer
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARBeaconLayer
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARGridLayer
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARPathLayer
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.PathLayerManager
 import java.time.ZonedDateTime
 import kotlin.math.hypot

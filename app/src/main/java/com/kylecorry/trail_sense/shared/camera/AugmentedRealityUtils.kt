@@ -12,9 +12,9 @@ import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.tools.augmented_reality.mapper.CameraAnglePixelMapper
-import com.kylecorry.trail_sense.tools.augmented_reality.mapper.LinearCameraAnglePixelMapper
-import com.kylecorry.trail_sense.tools.augmented_reality.mapper.SimplePerspectiveCameraAnglePixelMapper
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.CameraAnglePixelMapper
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.LinearCameraAnglePixelMapper
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.SimplePerspectiveCameraAnglePixelMapper
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin

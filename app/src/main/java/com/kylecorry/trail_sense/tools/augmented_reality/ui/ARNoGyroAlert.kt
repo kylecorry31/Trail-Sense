@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.augmented_reality
+package com.kylecorry.trail_sense.tools.augmented_reality.ui
 
 import android.content.Context
 import com.kylecorry.trail_sense.R

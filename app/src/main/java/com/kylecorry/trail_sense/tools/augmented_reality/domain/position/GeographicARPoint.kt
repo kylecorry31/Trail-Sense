@@ -1,8 +1,8 @@
-package com.kylecorry.trail_sense.tools.augmented_reality.position
+package com.kylecorry.trail_sense.tools.augmented_reality.domain.position
 
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
-import com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityView
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 import kotlin.math.hypot
 
 /**

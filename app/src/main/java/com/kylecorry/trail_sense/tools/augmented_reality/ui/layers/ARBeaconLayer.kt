@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.augmented_reality
+package com.kylecorry.trail_sense.tools.augmented_reality.ui.layers
 
 import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
@@ -7,7 +7,11 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.navigation.ui.DrawerBitmapLoader
-import com.kylecorry.trail_sense.tools.augmented_reality.position.GeographicARPoint
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.GeographicARPoint
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMarker
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasBitmap
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasCircle
 import kotlin.math.hypot
 
 class ARBeaconLayer(

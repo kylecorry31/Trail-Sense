@@ -646,7 +646,7 @@
         android:label="ClinometerSettingsFragment" />
     <fragment
         android:id="@+id/augmentedRealitySettingsFragment"
-        android:name="com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealitySettingsFragment"
+        android:name="com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealitySettingsFragment"
         android:label="AugmentedRealitySettingsFragment" />
     <fragment
         android:id="@+id/errorSettingsFragment"
@@ -658,7 +658,7 @@
         android:label="ScanQRFragment" />
     <fragment
         android:id="@+id/augmentedRealityFragment"
-        android:name="com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityFragment"
+        android:name="com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityFragment"
         android:label="AugmentedRealityFragment">
         <argument
             android:name="mode"

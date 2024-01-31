@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.augmented_reality.mapper
+package com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper
 
 import android.graphics.Rect
 import android.graphics.RectF

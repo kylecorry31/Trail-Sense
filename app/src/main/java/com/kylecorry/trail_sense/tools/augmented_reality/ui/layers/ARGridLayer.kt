@@ -1,13 +1,15 @@
-package com.kylecorry.trail_sense.tools.augmented_reality
+package com.kylecorry.trail_sense.tools.augmented_reality.ui.layers
 
 import android.graphics.Color
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPoint
-import com.kylecorry.trail_sense.tools.augmented_reality.position.AugmentedRealityCoordinate
-import com.kylecorry.trail_sense.tools.augmented_reality.position.SphericalARPoint
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.ARPoint
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.AugmentedRealityCoordinate
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.SphericalARPoint
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARLine
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

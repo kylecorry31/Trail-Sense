@@ -1,7 +1,7 @@
-package com.kylecorry.trail_sense.tools.augmented_reality.guide
+package com.kylecorry.trail_sense.tools.augmented_reality.ui.guide
 
 import android.widget.FrameLayout
-import com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityView
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 
 interface ARGuide {
     fun start(arView: AugmentedRealityView, panel: FrameLayout)

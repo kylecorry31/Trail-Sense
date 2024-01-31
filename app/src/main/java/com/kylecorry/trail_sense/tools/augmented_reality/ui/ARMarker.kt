@@ -1,8 +1,8 @@
-package com.kylecorry.trail_sense.tools.augmented_reality
+package com.kylecorry.trail_sense.tools.augmented_reality.ui
 
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
-import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPoint
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.ARPoint
 
 class ARMarker(
     val point: ARPoint,

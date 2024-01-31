@@ -1,7 +1,7 @@
-package com.kylecorry.trail_sense.tools.augmented_reality
+package com.kylecorry.trail_sense.tools.augmented_reality.ui
 
 import androidx.annotation.ColorInt
-import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPoint
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.ARPoint
 
 data class ARLine(
     val points: List<ARPoint>,

@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.augmented_reality.guide
+package com.kylecorry.trail_sense.tools.augmented_reality.ui.guide
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,8 +9,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ViewArAstronomyGuideBinding
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.tools.astronomy.ui.MoonPhaseImageMapper
-import com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityView
-import com.kylecorry.trail_sense.tools.augmented_reality.position.SphericalARPoint
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.SphericalARPoint
 import java.time.ZonedDateTime
 
 class AstronomyARGuide(private val onCancel: () -> Unit) : ARGuide {

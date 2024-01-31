@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.augmented_reality
+package com.kylecorry.trail_sense.tools.augmented_reality.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -29,7 +29,6 @@ import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
@@ -39,10 +38,11 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.text
 import com.kylecorry.trail_sense.shared.textDimensions
 import com.kylecorry.trail_sense.shared.views.CameraView
-import com.kylecorry.trail_sense.tools.augmented_reality.mapper.CalibratedCameraAnglePixelMapper
-import com.kylecorry.trail_sense.tools.augmented_reality.mapper.CameraAnglePixelMapper
-import com.kylecorry.trail_sense.tools.augmented_reality.position.ARPoint
-import com.kylecorry.trail_sense.tools.augmented_reality.position.AugmentedRealityCoordinate
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.CalibratedCameraAnglePixelMapper
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.CameraAnglePixelMapper
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.ARPoint
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.AugmentedRealityCoordinate
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARLayer
 import kotlinx.coroutines.Dispatchers
 import java.time.Duration
 import kotlin.math.atan2

@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.augmented_reality
+package com.kylecorry.trail_sense.tools.augmented_reality.ui.layers
 
 import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
@@ -18,7 +18,12 @@ import com.kylecorry.trail_sense.tools.navigation.ui.DrawerBitmapLoader
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.tools.astronomy.ui.MoonPhaseImageMapper
-import com.kylecorry.trail_sense.tools.augmented_reality.position.SphericalARPoint
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.SphericalARPoint
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARLine
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMarker
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasBitmap
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasCircle
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

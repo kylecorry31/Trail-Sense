@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.augmented_reality.guide
+package com.kylecorry.trail_sense.tools.augmented_reality.ui.guide
 
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -10,8 +10,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ViewArNavigationGuideBinding
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.andromeda.core.coroutines.onMain
-import com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityView
-import com.kylecorry.trail_sense.tools.augmented_reality.position.GeographicARPoint
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.GeographicARPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

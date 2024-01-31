@@ -1,10 +1,14 @@
-package com.kylecorry.trail_sense.tools.augmented_reality
+package com.kylecorry.trail_sense.tools.augmented_reality.ui.layers
 
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.tools.augmented_reality.position.GeographicARPoint
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.GeographicARPoint
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARLine
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMarker
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasCircle
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappableLocation
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath

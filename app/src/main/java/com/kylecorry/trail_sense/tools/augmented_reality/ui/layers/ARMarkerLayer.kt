@@ -1,8 +1,10 @@
-package com.kylecorry.trail_sense.tools.augmented_reality
+package com.kylecorry.trail_sense.tools.augmented_reality.ui.layers
 
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMarker
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 
 class ARMarkerLayer(
     private val minimumDpSize: Float = 0f,

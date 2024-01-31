@@ -1,11 +1,13 @@
-package com.kylecorry.trail_sense.tools.augmented_reality
+package com.kylecorry.trail_sense.tools.augmented_reality.ui.layers
 
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.StrokeCap
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.shared.canvas.LineClipper
 import com.kylecorry.trail_sense.shared.getBounds
-import com.kylecorry.trail_sense.tools.augmented_reality.position.AugmentedRealityCoordinate
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.AugmentedRealityCoordinate
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARLine
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 
 class ARLineLayer : ARLayer {
 

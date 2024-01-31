@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.augmented_reality
+package com.kylecorry.trail_sense.tools.augmented_reality.ui
 
 import android.os.Bundle
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment

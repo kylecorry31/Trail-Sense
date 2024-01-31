@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.augmented_reality.position
+package com.kylecorry.trail_sense.tools.augmented_reality.domain.position
 
 import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.math.SolMath.toDegrees

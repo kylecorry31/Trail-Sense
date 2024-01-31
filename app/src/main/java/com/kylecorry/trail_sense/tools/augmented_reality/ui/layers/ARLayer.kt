@@ -1,7 +1,8 @@
-package com.kylecorry.trail_sense.tools.augmented_reality
+package com.kylecorry.trail_sense.tools.augmented_reality.ui.layers
 
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 
 interface ARLayer {
     // TODO: Use an interface for the view

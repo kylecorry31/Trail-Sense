@@ -12,7 +12,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guidance_panel"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityView
+    <com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
         android:id="@+id/ar_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
