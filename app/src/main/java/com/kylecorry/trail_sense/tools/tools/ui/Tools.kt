@@ -5,6 +5,8 @@ import android.hardware.Sensor
 import android.widget.ImageButton
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
+import com.kylecorry.andromeda.core.capitalizeCompat
+import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
@@ -523,12 +525,15 @@ object Tools {
     fun getQuickActions(context: Context): List<ToolQuickAction> {
         val none = ToolQuickAction(
             QUICK_ACTION_NONE,
-            context.getString(R.string.none)
+            context.getString(R.string.none).capitalizeWords()
         ) { button, fragment ->
             QuickActionNone(button, fragment)
         }
-        return listOf(none) + getTools(context).flatMap { it.quickActions }.distinctBy { it.id }
+        return listOf(none) + getTools(context)
+            .flatMap { it.quickActions }
+            .distinctBy { it.id }
             .sortedBy { it.id }
+            .map { it.copy(name = it.name.capitalizeWords()) }
     }
 
     // Tool IDs
