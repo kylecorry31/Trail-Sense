@@ -87,12 +87,14 @@ object Tools {
                     if (hasFlashlight)
                         ToolQuickAction(
                             QUICK_ACTION_FLASHLIGHT,
-                            context.getString(R.string.flashlight_title)
-                        ) { button, fragment -> QuickActionFlashlight(button, fragment) } else null,
+                            context.getString(R.string.flashlight_title),
+                            ::QuickActionFlashlight
+                        ) else null,
                     ToolQuickAction(
                         QUICK_ACTION_SCREEN_FLASHLIGHT,
-                        context.getString(R.string.screen_flashlight_full_name)
-                    ) { button, fragment -> QuickActionScreenFlashlight(button, fragment) }
+                        context.getString(R.string.screen_flashlight_full_name),
+                        ::QuickActionScreenFlashlight
+                    )
                 )
             ),
             Tool(
@@ -105,8 +107,9 @@ object Tools {
                 quickActions = listOf(
                     ToolQuickAction(
                         QUICK_ACTION_WHISTLE,
-                        context.getString(R.string.tool_whistle_title)
-                    ) { button, fragment -> QuickActionWhistle(button, fragment) }
+                        context.getString(R.string.tool_whistle_title),
+                        ::QuickActionWhistle
+                    )
                 )
             ),
             Tool(
@@ -120,8 +123,9 @@ object Tools {
                 quickActions = listOf(
                     ToolQuickAction(
                         QUICK_ACTION_RULER,
-                        context.getString(R.string.tool_ruler_title)
-                    ) { button, fragment -> QuickActionRuler(button, fragment) }
+                        context.getString(R.string.tool_ruler_title),
+                        ::QuickActionRuler
+                    )
                 )
             ),
             if (hasPedometer) Tool(
@@ -135,8 +139,9 @@ object Tools {
                 quickActions = listOf(
                     ToolQuickAction(
                         QUICK_ACTION_PEDOMETER,
-                        context.getString(R.string.pedometer)
-                    ) { button, fragment -> QuickActionPedometer(button, fragment) }
+                        context.getString(R.string.pedometer),
+                        ::QuickActionPedometer
+                    )
                 )
             ) else null,
             if (prefs.isCliffHeightEnabled) Tool(
@@ -178,8 +183,9 @@ object Tools {
                 quickActions = listOf(
                     ToolQuickAction(
                         QUICK_ACTION_MAPS,
-                        context.getString(R.string.photo_maps)
-                    ) { button, fragment -> QuickActionPhotoMaps(button, fragment) }
+                        context.getString(R.string.photo_maps),
+                        ::QuickActionPhotoMaps
+                    )
                 )
             ),
             Tool(
@@ -193,12 +199,14 @@ object Tools {
                 quickActions = listOf(
                     ToolQuickAction(
                         QUICK_ACTION_PATHS,
-                        context.getString(R.string.paths)
-                    ) { button, fragment -> QuickActionPaths(button, fragment) },
+                        context.getString(R.string.paths),
+                        ::QuickActionPaths
+                    ),
                     ToolQuickAction(
                         QUICK_ACTION_BACKTRACK,
-                        context.getString(R.string.backtrack)
-                    ) { button, fragment -> QuickActionBacktrack(button, fragment) }
+                        context.getString(R.string.backtrack),
+                        ::QuickActionBacktrack
+                    )
                 )
             ),
             Tool(
@@ -247,12 +255,14 @@ object Tools {
                 quickActions = listOf(
                     ToolQuickAction(
                         QUICK_ACTION_SUNSET_ALERT,
-                        context.getString(R.string.sunset_alerts)
-                    ) { button, fragment -> QuickActionSunsetAlert(button, fragment) },
+                        context.getString(R.string.sunset_alerts),
+                        ::QuickActionSunsetAlert
+                    ),
                     ToolQuickAction(
                         QUICK_ACTION_NIGHT_MODE,
-                        context.getString(R.string.night)
-                    ) { button, fragment -> QuickActionNightMode(button, fragment) }
+                        context.getString(R.string.night),
+                        ::QuickActionNightMode
+                    )
                 )
             ),
             Tool(
@@ -284,8 +294,9 @@ object Tools {
                 quickActions = listOf(
                     ToolQuickAction(
                         QUICK_ACTION_LOW_POWER_MODE,
-                        context.getString(R.string.pref_low_power_mode_title)
-                    ) { button, fragment -> QuickActionLowPowerMode(button, fragment) }
+                        context.getString(R.string.pref_low_power_mode_title),
+                        ::QuickActionLowPowerMode
+                    )
                 )
             ),
             if (hasCompass) Tool(
@@ -318,7 +329,8 @@ object Tools {
                     ToolQuickAction(
                         QUICK_ACTION_WEATHER_MONITOR,
                         context.getString(R.string.weather_monitor),
-                    ) { button, fragment -> QuickActionWeatherMonitor(button, fragment) }
+                        ::QuickActionWeatherMonitor
+                    )
                 )
             ) else null,
             Tool(
@@ -333,7 +345,8 @@ object Tools {
                     ToolQuickAction(
                         QUICK_ACTION_CLIMATE,
                         context.getString(R.string.tool_climate),
-                    ) { button, fragment -> QuickActionClimate(button, fragment) }
+                        ::QuickActionClimate
+                    )
                 )
             ),
             Tool(
@@ -348,7 +361,8 @@ object Tools {
                     ToolQuickAction(
                         QUICK_ACTION_TEMPERATURE_ESTIMATION,
                         context.getString(R.string.tool_temperature_estimation_title),
-                    ) { button, fragment -> QuickActionTemperatureEstimation(button, fragment) }
+                        ::QuickActionTemperatureEstimation
+                    )
                 )
             ),
             Tool(
@@ -362,7 +376,8 @@ object Tools {
                     ToolQuickAction(
                         QUICK_ACTION_CLOUDS,
                         context.getString(R.string.clouds),
-                    ) { button, fragment -> QuickActionClouds(button, fragment) }
+                        ::QuickActionClouds
+                    )
                 )
             ),
             Tool(
@@ -377,7 +392,8 @@ object Tools {
                     ToolQuickAction(
                         QUICK_ACTION_THUNDER,
                         context.getString(R.string.tool_lightning_title),
-                    ) { button, fragment -> QuickActionLightingStrikeDistance(button, fragment) }
+                        ::QuickActionLightingStrikeDistance
+                    )
                 )
             ),
             if (prefs.isAugmentedRealityEnabled && hasCompass) Tool(
@@ -427,7 +443,8 @@ object Tools {
                     ToolQuickAction(
                         QUICK_ACTION_WHITE_NOISE,
                         context.getString(R.string.tool_white_noise_title),
-                    ) { button, fragment -> QuickActionWhiteNoise(button, fragment) }
+                        ::QuickActionWhiteNoise
+                    )
                 )
             ),
             Tool(
@@ -440,8 +457,9 @@ object Tools {
                 quickActions = listOf(
                     ToolQuickAction(
                         QUICK_ACTION_CREATE_NOTE,
-                        context.getString(R.string.note)
-                    ) { button, fragment -> QuickActionCreateNote(button, fragment) }
+                        context.getString(R.string.note),
+                        ::QuickActionCreateNote
+                    )
                 )
             ),
             Tool(
