@@ -11,12 +11,13 @@ import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathServ
 import com.kylecorry.trail_sense.tools.paths.ui.asMappable
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.PathLayer
 import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.trail_sense.tools.paths.ui.IPathLayer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-class PathLayerManager(private val context: Context, private val layer: PathLayer) :
+class PathLayerManager(private val context: Context, private val layer: IPathLayer) :
     BaseLayerManager() {
 
     private val pathService = PathService.getInstance(context)

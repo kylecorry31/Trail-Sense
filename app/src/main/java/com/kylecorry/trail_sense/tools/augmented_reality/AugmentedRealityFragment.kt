@@ -11,11 +11,14 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
+import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentAugmentedRealityBinding
@@ -33,6 +36,7 @@ import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.augmented_reality.guide.ARGuide
 import com.kylecorry.trail_sense.tools.augmented_reality.guide.AstronomyARGuide
 import com.kylecorry.trail_sense.tools.augmented_reality.guide.NavigationARGuide
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.PathLayerManager
 import java.time.ZonedDateTime
 import kotlin.math.hypot
 
@@ -85,9 +89,19 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         )
     }
 
+    private val pathsLayer by lazy {
+        ARPathLayer(Distance.meters(userPrefs.augmentedReality.viewDistance))
+    }
+    private var pathLayerManager: PathLayerManager? = null
+
     private var isCameraEnabled = true
 
-    // TODO: Draw an indicator around the focused marker
+    private val layerManagementUpdater = CoroutineTimer {
+        if (!isBound) return@CoroutineTimer
+        val viewDistance = Distance.meters(userPrefs.augmentedReality.viewDistance)
+        pathLayerManager?.onBoundsChanged(CoordinateBounds.from(Geofence(binding.arView.location, viewDistance)))
+        pathLayerManager?.onLocationChanged(binding.arView.location, null)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -129,6 +143,10 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
     override fun onResume() {
         super.onResume()
+
+        pathLayerManager = PathLayerManager(requireContext(), pathsLayer)
+        pathLayerManager?.start()
+        layerManagementUpdater.interval(1000)
 
         binding.arView.start()
         if (isCameraEnabled) {
@@ -174,6 +192,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         binding.camera.stop()
         binding.arView.stop()
         guide?.stop(binding.arView, binding.guidancePanel)
+        pathLayerManager?.stop()
+        layerManagementUpdater.stop()
     }
 
     private fun onSunFocused(time: ZonedDateTime): Boolean {
@@ -236,7 +256,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         this.mode = mode
         when (mode) {
             ARMode.Normal -> {
-                binding.arView.setLayers(listOf(gridLayer, astronomyLayer, beaconLayer))
+                binding.arView.setLayers(listOf(gridLayer, astronomyLayer, pathsLayer, beaconLayer))
                 changeGuide(NavigationARGuide(navigator))
             }
 

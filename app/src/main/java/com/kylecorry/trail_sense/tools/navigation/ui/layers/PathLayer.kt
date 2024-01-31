@@ -19,11 +19,12 @@ import com.kylecorry.trail_sense.tools.paths.ui.drawing.RenderedPath
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.shared.extensions.drawLines
 import com.kylecorry.trail_sense.shared.getBounds
+import com.kylecorry.trail_sense.tools.paths.ui.IPathLayer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PathLayer : ILayer {
+class PathLayer : ILayer, IPathLayer {
 
     private var pathsRendered = false
     private var renderInProgress = false
@@ -47,7 +48,7 @@ class PathLayer : ILayer {
         invalidate()
     }
 
-    fun setPaths(paths: List<IMappablePath>) {
+    override fun setPaths(paths: List<IMappablePath>) {
         synchronized(lock) {
             _paths.clear()
             _paths.addAll(paths)

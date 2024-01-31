@@ -13,7 +13,7 @@ data class Beacon(
     val visible: Boolean = true,
     val comment: String? = null,
     override val parentId: Long? = null,
-    val elevation: Float? = null,
+    override val elevation: Float? = null,
     val temporary: Boolean = false,
     val owner: BeaconOwner = BeaconOwner.User,
     @ColorInt override val color: Int = Color.BLACK,

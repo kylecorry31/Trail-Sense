@@ -33,7 +33,8 @@ fun List<PathPoint>.toMappableLocations(
             point.id,
             point.coordinate,
             strategy.getColor(point) ?: Color.TRANSPARENT,
-            null
+            null,
+            point.elevation
         )
     }
 }
@@ -60,6 +61,7 @@ fun List<PathPoint>.asBeacons(
             point.id,
             "",
             point.coordinate,
+            elevation = point.elevation,
             color = if (point.id == selected && color == Color.TRANSPARENT) {
                 Color.WHITE
             } else {

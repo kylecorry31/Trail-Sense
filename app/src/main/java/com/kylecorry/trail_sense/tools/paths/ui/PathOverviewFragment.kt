@@ -492,7 +492,8 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                             it.id,
                             it.coordinate,
                             path.style.color,
-                            null
+                            null,
+                            it.elevation
                         )
                     },
                     path.style.color,

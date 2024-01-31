@@ -34,13 +34,15 @@ interface IMappableLocation : Identifiable {
     val coordinate: Coordinate
     val color: Int
     val icon: BeaconIcon?
+    val elevation: Float?
 }
 
 data class MappableLocation(
     override val id: Long,
     override val coordinate: Coordinate,
     override val color: Int,
-    override val icon: BeaconIcon?
+    override val icon: BeaconIcon?,
+    override val elevation: Float? = null
 ) : IMappableLocation
 
 interface IMappablePath : Identifiable {
