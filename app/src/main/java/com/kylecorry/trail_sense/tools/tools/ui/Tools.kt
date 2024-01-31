@@ -26,6 +26,7 @@ import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionFlashl
 import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionScreenFlashlight
 import com.kylecorry.trail_sense.tools.lightning.quickactions.QuickActionLightingStrikeDistance
 import com.kylecorry.trail_sense.tools.maps.quickactions.QuickActionPhotoMaps
+import com.kylecorry.trail_sense.tools.notes.quickactions.QuickActionCreateNote
 import com.kylecorry.trail_sense.tools.pedometer.quickactions.QuickActionPedometer
 import com.kylecorry.trail_sense.tools.ruler.quickactions.QuickActionRuler
 import com.kylecorry.trail_sense.tools.temperature_estimation.quickactions.QuickActionTemperatureEstimation
@@ -435,7 +436,13 @@ object Tools {
                 R.drawable.ic_tool_notes,
                 R.id.fragmentToolNotes,
                 ToolCategory.Other,
-                guideId = R.raw.guide_tool_notes
+                guideId = R.raw.guide_tool_notes,
+                quickActions = listOf(
+                    ToolQuickAction(
+                        QUICK_ACTION_CREATE_NOTE,
+                        context.getString(R.string.note)
+                    ) { button, fragment -> QuickActionCreateNote(button, fragment) }
+                )
             ),
             Tool(
                 QR_CODE_SCANNER,
@@ -555,4 +562,5 @@ object Tools {
     const val QUICK_ACTION_WEATHER_MONITOR = 16
     const val QUICK_ACTION_PEDOMETER = 17
     const val QUICK_ACTION_SCREEN_FLASHLIGHT = 18
+    const val QUICK_ACTION_CREATE_NOTE = 19
 }
