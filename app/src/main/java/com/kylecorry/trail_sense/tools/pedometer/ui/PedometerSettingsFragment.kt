@@ -11,30 +11,26 @@ import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils
-import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.preferences.setupDistanceSetting
 import com.kylecorry.trail_sense.shared.preferences.setupNotificationSetting
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 
 
 class PedometerSettingsFragment : AndromedaPreferenceFragment() {
 
-    private lateinit var strideLengthPref: Preference
     private lateinit var permissionPref: Preference
     private var enabledPref: SwitchPreferenceCompat? = null
     private val userPrefs by lazy { UserPreferences(requireContext()) }
-    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private var wasEnabled = false
     private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
 
 
     private val intervalometer = CoroutineTimer {
-        updateStrideLength()
         updatePermissionRequestPreference()
         if (wasEnabled != userPrefs.pedometer.isEnabled) {
             updatePedometerService()
@@ -49,7 +45,6 @@ class PedometerSettingsFragment : AndromedaPreferenceFragment() {
 
     private fun bindPreferences() {
         enabledPref = switch(R.string.pref_pedometer_enabled)
-        strideLengthPref = findPreference(getString(R.string.pref_stride_length_holder))!!
         permissionPref = findPreference(getString(R.string.pref_odometer_request_permission))!!
 
         onClick(enabledPref) {
@@ -71,22 +66,18 @@ class PedometerSettingsFragment : AndromedaPreferenceFragment() {
             true
         }
 
-        strideLengthPref.setOnPreferenceClickListener {
-            val units = formatService.sortDistanceUnits(DistanceUtils.humanDistanceUnits)
-            CustomUiUtils.pickDistance(
-                requireContext(),
-                units,
-                userPrefs.pedometer.strideLength.convertTo(userPrefs.baseDistanceUnits),
-                getString(R.string.pref_stride_length_title),
-                showFeetAndInches = true
-            ) { distance, _ ->
-                if (distance != null) {
+        setupDistanceSetting(
+            getString(R.string.pref_stride_length_holder),
+            { userPrefs.pedometer.strideLength.convertTo(userPrefs.baseDistanceUnits) },
+            { distance ->
+                if (distance != null && distance.distance > 0f) {
                     userPrefs.pedometer.strideLength = distance
-                    updateStrideLength()
                 }
-            }
-            true
-        }
+            },
+            DistanceUtils.humanDistanceUnits,
+            showFeetAndInches = true,
+            decimalPlacesOverride = 2
+        )
 
         onClick(preference(R.string.pref_estimate_stride_length_holder)) {
             findNavController().navigate(R.id.action_calibrate_pedometer_to_estimate_stride_length)
@@ -135,13 +126,6 @@ class PedometerSettingsFragment : AndromedaPreferenceFragment() {
         }
 
         wasEnabled = userPrefs.pedometer.isEnabled
-    }
-
-    private fun updateStrideLength() {
-        strideLengthPref.summary = formatService.formatDistance(
-            userPrefs.pedometer.strideLength.convertTo(userPrefs.baseDistanceUnits),
-            2
-        )
     }
 
 }

@@ -39,7 +39,9 @@ fun AndromedaPreferenceFragment.setupDistanceSetting(
     holderKey: String,
     getDistance: () -> Distance?,
     setDistance: (Distance?) -> Unit,
-    units: List<DistanceUnits>
+    units: List<DistanceUnits>,
+    showFeetAndInches: Boolean = false,
+    decimalPlacesOverride: Int? = null
 ) {
     val pref = preferenceManager.findPreference<Preference>(holderKey)
     val formatter = FormatService.getInstance(requireContext())
@@ -49,7 +51,8 @@ fun AndromedaPreferenceFragment.setupDistanceSetting(
             requireContext(),
             sortedUnits,
             getDistance(),
-            pref.title.toString()
+            pref.title.toString(),
+            showFeetAndInches = showFeetAndInches
         ) { distance, cancelled ->
             if (cancelled) {
                 return@pickDistance
@@ -61,7 +64,7 @@ fun AndromedaPreferenceFragment.setupDistanceSetting(
             pref.summary = current?.let {
                 formatter.formatDistance(
                     current,
-                    Units.getDecimalPlaces(current.units)
+                    decimalPlacesOverride ?: Units.getDecimalPlaces(current.units)
                 )
             } ?: getString(R.string.dash)
         }
@@ -71,7 +74,7 @@ fun AndromedaPreferenceFragment.setupDistanceSetting(
     pref?.summary = current?.let {
         formatter.formatDistance(
             current,
-            Units.getDecimalPlaces(current.units)
+            decimalPlacesOverride ?: Units.getDecimalPlaces(current.units)
         )
     } ?: getString(R.string.dash)
 }
