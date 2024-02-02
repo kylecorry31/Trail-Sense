@@ -24,7 +24,7 @@ class ClinometerPreferences(private val context: Context) : IClinometerPreferenc
             val baselineUnitId =
                 cache.getInt(context.getString(R.string.pref_clinometer_baseline_distance_units))
                     ?: return null
-            val units = DistanceUnits.values().firstOrNull { baselineUnitId == it.id }
+            val units = DistanceUnits.entries.firstOrNull { baselineUnitId == it.id }
                 ?: DistanceUnits.Meters
             return Distance(baseline, units)
         }
