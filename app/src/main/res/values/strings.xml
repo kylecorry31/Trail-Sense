@@ -629,6 +629,7 @@
     <string name="pref_nearby_radar" translatable="false">pref_nearby_radar</string>
     <string name="pref_nearby_radar_title">Show nearby radar compass</string>
     <string name="pref_nearby_radius_holder" translatable="false">pref_nearby_radius_holder</string>
+    <string name="pref_view_distance_beacons_holder" translatable="false">pref_view_distance_beacons_holder</string>
     <string name="no_tides">No tides</string>
     <string name="menu">Menu</string>
     <string name="meteor_shower">Meteor shower</string>
@@ -1336,6 +1337,8 @@
     <string name="pref_tool_category_holder_key" translatable="false">pref_tool_category_holder_key</string>
     <string name="augmented_reality_no_gyro_message">You can still use the Augmented Reality tool, but it will not be as accurate.</string>
     <string name="creating_beacon">Creating beacon</string>
+    <string name="pref_view_distance_paths_holder" translatable="false">pref_view_distance_paths_holder</string>
+    <string name="pref_augmented_reality_view_distance_paths" translatable="false">pref_augmented_reality_view_distance_paths</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>

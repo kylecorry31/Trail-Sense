@@ -59,7 +59,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
     private val beaconLayer by lazy {
         ARBeaconLayer(
-            Distance.meters(userPrefs.augmentedReality.viewDistance),
+            Distance.meters(userPrefs.augmentedReality.beaconViewDistance),
             onFocus = this::onBeaconFocused
         ) {
             if (navigator.getDestinationId() != it.id) {
@@ -94,7 +94,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     }
 
     private val pathsLayer by lazy {
-        ARPathLayer(Distance.meters(userPrefs.augmentedReality.viewDistance))
+        ARPathLayer(Distance.meters(userPrefs.augmentedReality.pathViewDistance))
     }
     private var pathLayerManager: PathLayerManager? = null
 
@@ -102,7 +102,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
     private val layerManagementUpdater = CoroutineTimer {
         if (!isBound) return@CoroutineTimer
-        val viewDistance = Distance.meters(userPrefs.augmentedReality.viewDistance)
+        // This is only handling the path layer for now
+        val viewDistance = Distance.meters(userPrefs.augmentedReality.pathViewDistance)
         pathLayerManager?.onBoundsChanged(CoordinateBounds.from(Geofence(binding.arView.location, viewDistance)))
         pathLayerManager?.onLocationChanged(binding.arView.location, null)
     }
