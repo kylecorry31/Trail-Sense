@@ -9,6 +9,7 @@ import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.sol.math.SolMath.square
 import kotlin.math.roundToInt
 
 inline fun Alerts.withCancelableLoading(
@@ -74,6 +75,10 @@ fun PixelCoordinate.isSamePixel(other: PixelCoordinate): Boolean {
     }
 
     return x.roundToInt() == other.x.roundToInt() && y.roundToInt() == other.y.roundToInt()
+}
+
+fun PixelCoordinate.squaredDistanceTo(other: PixelCoordinate): Float {
+    return square(x - other.x) + square(y - other.y)
 }
 
 fun Path.drawLines(lines: FloatArray) {

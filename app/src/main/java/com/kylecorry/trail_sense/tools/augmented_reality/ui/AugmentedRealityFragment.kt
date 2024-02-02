@@ -261,7 +261,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         this.mode = mode
         when (mode) {
             ARMode.Normal -> {
-                binding.arView.setLayers(listOf(gridLayer, astronomyLayer, beaconLayer))
+                binding.arView.setLayers(listOf(gridLayer, astronomyLayer, pathsLayer, beaconLayer))
                 changeGuide(NavigationARGuide(navigator))
             }
 

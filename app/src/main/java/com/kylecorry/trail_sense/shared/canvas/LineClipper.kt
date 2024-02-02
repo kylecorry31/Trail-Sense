@@ -1,12 +1,15 @@
 package com.kylecorry.trail_sense.shared.canvas
 
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.filters.RDPFilter
 import com.kylecorry.sol.math.geometry.Geometry
 import com.kylecorry.sol.math.geometry.Line
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.trail_sense.shared.extensions.isSamePixel
+import com.kylecorry.trail_sense.shared.extensions.squaredDistanceTo
 import com.kylecorry.trail_sense.shared.toPixelCoordinate
 import com.kylecorry.trail_sense.shared.toVector2
 import kotlin.math.absoluteValue
@@ -19,7 +22,9 @@ class LineClipper {
         output: MutableList<Float>,
         origin: PixelCoordinate = PixelCoordinate(0f, 0f),
         preventLineWrapping: Boolean = false,
-        rdpFilterEpsilon: Float? = null
+        rdpFilterEpsilon: Float? = null,
+        zValues: List<Float>? = null,
+        zOutput: MutableList<Float>? = null
     ) {
         // TODO: Is this allocation needed? What if the bounds were flipped?
         val vectors = pixels.map { it.toVector2(bounds.top) }
@@ -47,9 +52,11 @@ class LineClipper {
 
         var previous: PixelCoordinate? = null
         var previousVector: Vector2? = null
+        var previousZ: Float? = null
 
         for (idx in filteredIndices) {
             val pixel = pixels[idx]
+            val z = zValues?.getOrNull(idx)
             val vector = vectors[idx]
             // Remove points that are NaN
             if (pixel.x.isNaN() || pixel.y.isNaN()) continue
@@ -65,10 +72,22 @@ class LineClipper {
                 if (previous.isSamePixel(pixel)) {
                     continue
                 }
-                addLine(bounds, previous, previousVector, pixel, vector, origin, output)
+                addLine(
+                    bounds,
+                    previous,
+                    previousVector,
+                    pixel,
+                    vector,
+                    origin,
+                    output,
+                    previousZ,
+                    z,
+                    zOutput
+                )
             }
             previous = pixel
             previousVector = vector
+            previousZ = z
         }
     }
 
@@ -96,7 +115,10 @@ class LineClipper {
         end: PixelCoordinate,
         endVector: Vector2,
         origin: PixelCoordinate,
-        lines: MutableList<Float>
+        lines: MutableList<Float>,
+        startZ: Float?,
+        endZ: Float?,
+        zOutput: MutableList<Float>?
     ) {
         // Both are in
         if (bounds.contains(startVector) && bounds.contains(endVector)) {
@@ -104,11 +126,16 @@ class LineClipper {
             lines.add(start.y - origin.y)
             lines.add(end.x - origin.x)
             lines.add(end.y - origin.y)
+            if (zOutput != null) {
+                zOutput.add(interpolateZ(startZ, endZ, 0f))
+                zOutput.add(interpolateZ(startZ, endZ, 1f))
+            }
             return
         }
 
         val intersection =
-            Geometry.getIntersection(startVector, endVector, bounds).map { it.toPixelCoordinate(bounds.top) }
+            Geometry.getIntersection(startVector, endVector, bounds)
+                .map { it.toPixelCoordinate(bounds.top) }
 
         // A is in, B is not
         if (bounds.contains(startVector)) {
@@ -117,6 +144,12 @@ class LineClipper {
                 lines.add(start.y - origin.y)
                 lines.add(intersection[0].x - origin.x)
                 lines.add(intersection[0].y - origin.y)
+                if (zOutput != null) {
+                    val originalDistance = start.squaredDistanceTo(end)
+                    val t = start.squaredDistanceTo(intersection[0]) / originalDistance.real(1f)
+                    zOutput.add(interpolateZ(startZ, endZ, 0f))
+                    zOutput.add(interpolateZ(startZ, endZ, t))
+                }
             }
             return
         }
@@ -128,6 +161,12 @@ class LineClipper {
                 lines.add(intersection[0].y - origin.y)
                 lines.add(end.x - origin.x)
                 lines.add(end.y - origin.y)
+                if (zOutput != null) {
+                    val originalDistance = start.squaredDistanceTo(end)
+                    val t = start.squaredDistanceTo(intersection[0]) / originalDistance.real(1f)
+                    zOutput.add(interpolateZ(startZ, endZ, t))
+                    zOutput.add(interpolateZ(startZ, endZ, 1f))
+                }
             }
             return
         }
@@ -138,7 +177,21 @@ class LineClipper {
             lines.add(intersection[0].y - origin.y)
             lines.add(intersection[1].x - origin.x)
             lines.add(intersection[1].y - origin.y)
+            if (zOutput != null) {
+                val originalDistance = start.squaredDistanceTo(end)
+                val t1 = start.squaredDistanceTo(intersection[0]) / originalDistance.real(1f)
+                val t2 = start.squaredDistanceTo(intersection[1]) / originalDistance.real(1f)
+                zOutput.add(interpolateZ(startZ, endZ, t1))
+                zOutput.add(interpolateZ(startZ, endZ, t2))
+            }
         }
+    }
+
+    private fun interpolateZ(start: Float?, end: Float?, t: Float): Float {
+        if (start == null || end == null) {
+            return start ?: end ?: 0f
+        }
+        return start + (end - start) * t
     }
 
 }
