@@ -28,3 +28,4 @@ export VERSION_CODE=$(LC_ALL=C.UTF-8 grep -oP '(?<=versionCode = )\d+' "${BASH_S
 echo "Copying files to $(head -n 5 "$1" | tail -n 1)"
 cp "${BASH_SOURCE%/*}"/../app/build/outputs/apk/release/app-release.apk $(head -n 5 "$1" | tail -n 1)/${VERSION_CODE}-release.apk
 cp "${BASH_SOURCE%/*}"/../app/build/outputs/bundle/release/app-release.aab $(head -n 5 "$1" | tail -n 1)/${VERSION_CODE}-release.aab
+cp "${BASH_SOURCE%/*}"/../app/build/outputs/mapping/release/mapping.txt $(head -n 5 "$1" | tail -n 1)/${VERSION_CODE}-mapping.txt
