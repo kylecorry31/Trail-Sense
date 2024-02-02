@@ -12,9 +12,9 @@ import kotlin.math.hypot
  * @param actualDiameter The actual diameter of the point in meters, defaults to 1 meter
  */
 class GeographicARPoint(
-    private val location: Coordinate,
-    private val elevation: Float? = null,
-    private val actualDiameter: Float = 1f
+    val location: Coordinate,
+    val elevation: Float? = null,
+    val actualDiameter: Float = 1f
 ) : ARPoint {
     override fun getAngularDiameter(view: AugmentedRealityView): Float {
         val distance = hypot(

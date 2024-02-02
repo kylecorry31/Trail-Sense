@@ -28,6 +28,9 @@ class ARPathLayer(viewDistance: Distance) : ARLayer, IPathLayer {
     private var lastLocation = Coordinate.zero
     private val viewDistanceMeters = viewDistance.meters().distance
 
+    // A limit to ensure performance is not impacted
+    private val nearbyLimit = 20
+
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         lastLocation = view.location
         pointLayer.draw(drawer, view)
@@ -86,8 +89,7 @@ class ARPathLayer(viewDistance: Distance) : ARLayer, IPathLayer {
             bounds,
             output,
             zValues = z,
-            zOutput = zOutput,
-            rdpFilterEpsilon = 10f
+            zOutput = zOutput
         )
 
         // Step 3: Interpolate between the points for a higher resolution
@@ -110,6 +112,12 @@ class ARPathLayer(viewDistance: Distance) : ARLayer, IPathLayer {
             val elevation = zOutput?.getOrNull(i / 2)
             val projectedCoordinate = inverseProject(PixelCoordinate(x, y), location)
             finalPoints.add(GeographicARPoint(projectedCoordinate, elevation))
+        }
+
+        // Limit to the closest points
+        if (finalPoints.size > nearbyLimit) {
+            finalPoints.sortBy { it.location.distanceTo(location) }
+            return finalPoints.subList(0, nearbyLimit)
         }
 
         return finalPoints
