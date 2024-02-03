@@ -190,7 +190,7 @@ class ARPathLayer : ARLayer, IPathLayer {
     }
 
     companion object {
-        const val VIEW_DISTANCE_METERS = 6f
+        const val VIEW_DISTANCE_METERS = 12f
     }
 
 }
