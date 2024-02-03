@@ -27,7 +27,7 @@ import kotlin.math.sqrt
 
 class ARPathLayer(viewDistance: Distance) : ARLayer, IPathLayer {
 
-    private val pointLayer = ARMarkerLayer(0.2f, 16f)
+    private val pointLayer = ARMarkerLayer(0.2f, 24f)
     private var lastLocation = Coordinate.zero
     private var lastElevation: Float? = null
     private val viewDistanceMeters = viewDistance.meters().distance
@@ -42,15 +42,16 @@ class ARPathLayer(viewDistance: Distance) : ARLayer, IPathLayer {
     private val navigation = NavigationService()
     private val interpolator = LineInterpolator()
 
-    // A limit to ensure performance is not impacted
-    private val nearbyLimit = 20
-
     // The distance at which the elevation of the closest point is used to adjust the elevation of all points
     private val elevationOverrideDistance = 30f // meters
     private val squareElevationOverrideDistance = SolMath.square(elevationOverrideDistance)
 
-    private val pointSpacing = 7f // meters
-    private val pathSimplification = 2f // meters (high quality)
+    private val pointSpacing = 4f // meters
+    private val pathSimplification = 1f // meters (high quality)
+    private val pointSize = 0.75f // meters
+
+    // A limit to ensure performance is not impacted
+    private val nearbyLimit = ((viewDistanceMeters / pointSpacing).toInt()).coerceIn(20, 60)
 
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         lastLocation = view.location
@@ -78,13 +79,22 @@ class ARPathLayer(viewDistance: Distance) : ARLayer, IPathLayer {
         val location = lastLocation
         val elevation = lastElevation
 
-        val markers = paths.flatMap { path ->
-            val circle = CanvasCircle(path.color, Color.WHITE, 175)
-            val nearby = getNearbyARPoints(path, location, elevation)
+        // TODO: Render the other nearby paths at a lower opacity and number of points
+        val ps = paths.map {
+            val circle = CanvasCircle(it.color, Color.WHITE, 175)
+            // These are sorted by farthest to closest
+            val nearby = getNearbyARPoints(it, location, elevation)
             nearby.map {
                 ARMarker(it, circle)
-            }
+            } to nearby.lastOrNull()?.location?.distanceTo(location)
         }
+
+        val markers =
+            ps.minByOrNull { it.second ?: Float.POSITIVE_INFINITY }?.first ?: emptyList()
+
+        // TODO: Allow the user to choose the number of paths to display
+        // All
+//        val markers = ps.flatMap { it.first }
 
         pointLayer.setMarkers(markers)
     }
@@ -93,7 +103,7 @@ class ARPathLayer(viewDistance: Distance) : ARLayer, IPathLayer {
         path: IMappablePath,
         location: Coordinate,
         elevation: Float?
-    ): List<ARPoint> {
+    ): List<GeographicARPoint> {
         // It is easier to work with the points if they are projected onto a cartesian plane
 
         // Step 1: Project the path points
@@ -162,7 +172,8 @@ class ARPathLayer(viewDistance: Distance) : ARLayer, IPathLayer {
         return nearby.map {
             GeographicARPoint(
                 inverseProject(it.first, location),
-                it.second?.minus(elevationOffset ?: 0f)
+                it.second?.minus(elevationOffset ?: 0f),
+                pointSize
             )
         }
     }

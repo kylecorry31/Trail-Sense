@@ -32,6 +32,7 @@ class LineClipper {
             return
         }
 
+        // TODO: If the z values are provided, this should be a 3D RDP filter
         val filter =
             if (rdpFilterEpsilon != null) RDPFilter<Int>(rdpFilterEpsilon) { pointIdx, startIdx, endIdx ->
                 Geometry.pointLineDistance(
