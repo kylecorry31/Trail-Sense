@@ -18,10 +18,8 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMarker
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasCircle
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
-import com.kylecorry.trail_sense.tools.navigation.ui.IMappableLocation
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.tools.paths.ui.IPathLayer
-import java.util.stream.Collectors.toList
 import kotlin.math.atan2
 import kotlin.math.sqrt
 
@@ -139,13 +137,11 @@ class ARPathLayer(viewDistance: Distance) : ARLayer, IPathLayer {
 
         // Remove duplicate points and take top n closest points
         val nearby = points
-            .stream()
-            .distinct()
-            .sorted { p1, p2 ->
-                p1.first.squaredDistanceTo(center).compareTo(p2.first.squaredDistanceTo(center))
-            }
-            .limit(nearbyLimit.toLong())
-            .collect(toList())
+            .asSequence()
+            .distinctBy { it.first }
+            .sortedBy { it.first.squaredDistanceTo(center) }
+            .take(nearbyLimit)
+            .toList()
             .reversed()
 
         // Step 5: Adjust the elevation of the points
