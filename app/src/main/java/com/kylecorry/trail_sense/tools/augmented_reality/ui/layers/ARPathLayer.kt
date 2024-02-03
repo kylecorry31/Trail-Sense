@@ -116,6 +116,7 @@ class ARPathLayer(viewDistance: Distance) : ARLayer, IPathLayer {
         )
 
         // TODO: If I am on the path (or very close to it), adjust the elevation of the path so it is relative to my elevation (nearest point)
+        // If a point is closer than 20 meters, make that point equal to my elevation and offset all other points accordingly
 
         // Step 4: Convert the clipped points back to geographic points
         var lastX: Float? = null
