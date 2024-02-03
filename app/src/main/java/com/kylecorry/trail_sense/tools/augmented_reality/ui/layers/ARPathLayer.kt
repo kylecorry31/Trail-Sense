@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.tools.paths.ui.IPathLayer
 import kotlin.math.atan2
+import kotlin.math.sqrt
 
 class ARPathLayer : ARLayer, IPathLayer {
 
@@ -27,7 +28,7 @@ class ARPathLayer : ARLayer, IPathLayer {
     private var lastLocation = Coordinate.zero
 
     private val squareViewDistance = SolMath.square(VIEW_DISTANCE_METERS)
-    private val degreesPerMeter = 75f / squareViewDistance
+    private val degreesPerMeter = 75f / VIEW_DISTANCE_METERS
     private val center = PixelCoordinate(VIEW_DISTANCE_METERS, VIEW_DISTANCE_METERS)
     private val bounds = Rectangle(
         0f,
@@ -184,7 +185,7 @@ class ARPathLayer : ARLayer, IPathLayer {
         // Otherwise add the point
         return SphericalARPoint(
             Bearing.getBearing(angle),
-            -90 + squareDistance * degreesPerMeter
+            -90 + sqrt(squareDistance) * degreesPerMeter
         )
     }
 
