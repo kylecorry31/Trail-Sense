@@ -11,6 +11,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.canvas.LineClipper
 import com.kylecorry.trail_sense.shared.canvas.LineInterpolator
+import com.kylecorry.trail_sense.shared.extensions.squaredDistanceTo
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.ARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.GeographicARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMarker
@@ -20,6 +21,7 @@ import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappableLocation
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.tools.paths.ui.IPathLayer
+import java.util.stream.Collectors.toList
 import kotlin.math.atan2
 import kotlin.math.sqrt
 
@@ -27,13 +29,22 @@ class ARPathLayer(viewDistance: Distance) : ARLayer, IPathLayer {
 
     private val pointLayer = ARMarkerLayer(0.2f, 16f)
     private var lastLocation = Coordinate.zero
+    private var lastElevation: Float? = null
     private val viewDistanceMeters = viewDistance.meters().distance
 
     // A limit to ensure performance is not impacted
     private val nearbyLimit = 20
 
+    // The distance at which the elevation of the closest point is used to adjust the elevation of all points
+    private val elevationOverrideDistance = 30f // meters
+    private val squareElevationOverrideDistance = SolMath.square(elevationOverrideDistance)
+
+    private val pointSpacing = 7f // meters
+    private val pathSimplification = 2f // meters (high quality)
+
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         lastLocation = view.location
+        lastElevation = view.altitude
         pointLayer.draw(drawer, view)
     }
 
@@ -56,9 +67,10 @@ class ARPathLayer(viewDistance: Distance) : ARLayer, IPathLayer {
     override fun setPaths(paths: List<IMappablePath>) {
 
         val location = lastLocation
+        val elevation = lastElevation
 
         val markers = paths.flatMap { path ->
-            val nearby = getNearbyARPoints(path, location, viewDistanceMeters)
+            val nearby = getNearbyARPoints(path, location, elevation, viewDistanceMeters)
             nearby.map {
                 ARMarker(
                     it,
@@ -73,6 +85,7 @@ class ARPathLayer(viewDistance: Distance) : ARLayer, IPathLayer {
     private fun getNearbyARPoints(
         path: IMappablePath,
         location: Coordinate,
+        elevation: Float?,
         viewDistance: Float
     ): List<ARPoint> {
         val bounds = Rectangle(
@@ -86,7 +99,8 @@ class ARPathLayer(viewDistance: Distance) : ARLayer, IPathLayer {
         val projected = project(path.points, location, viewDistance, viewDistance)
         val fallbackElevation = path.points.firstOrNull { it.elevation != null }?.elevation
         val hasElevation = fallbackElevation != null
-        val z = if (hasElevation) path.points.map { it.elevation ?: fallbackElevation ?: 0f } else null
+        val z =
+            if (hasElevation) path.points.map { it.elevation ?: fallbackElevation ?: 0f } else null
 
         // Step 2: Clip the projected points
         val clipper = LineClipper()
@@ -98,54 +112,76 @@ class ARPathLayer(viewDistance: Distance) : ARLayer, IPathLayer {
             output,
             zValues = z,
             zOutput = zOutput,
-            rdpFilterEpsilon = 2f // Simplify the path
+            rdpFilterEpsilon = pathSimplification
         )
 
 
         // Step 3: Interpolate between the points for a higher resolution
         val interpolator = LineInterpolator()
-        val minSpacing = 8f // meters
         val output2 = mutableListOf<Float>()
         val zOutput2 = if (hasElevation) mutableListOf<Float>() else null
         interpolator.increaseResolution(
             output,
             output2,
-            minSpacing,
+            pointSpacing,
             z = zOutput,
             zOutput = zOutput2
         )
 
-        // TODO: If I am on the path (or very close to it), adjust the elevation of the path so it is relative to my elevation (nearest point)
-        // If a point is closer than 20 meters, make that point equal to my elevation and offset all other points accordingly
+        // Reduce the memory footprint
+        output.clear()
+        zOutput?.clear()
 
-        // Step 4: Convert the clipped points back to geographic points
-        var lastX: Float? = null
-        var lastY: Float? = null
-
-        val finalPoints = mutableListOf<GeographicARPoint>()
-
+        // Step 4: Cleanup and sorting
+        val points = mutableListOf<Pair<PixelCoordinate, Float?>>()
         for (i in output2.indices step 2) {
             val x = output2[i]
             val y = output2[i + 1]
-            if (x == lastX && y == lastY) {
-                continue
+            val pointZ = zOutput2?.getOrNull(i / 2)
+            points.add(PixelCoordinate(x, y) to pointZ)
+        }
+
+        // Reduce the memory footprint
+        output2.clear()
+        zOutput2?.clear()
+
+        val center = PixelCoordinate(viewDistance, viewDistance)
+
+        // Remove duplicate points and take top n closest points
+        val nearby = points
+            .stream()
+            .distinct()
+            .sorted { p1, p2 ->
+                p1.first.squaredDistanceTo(center).compareTo(p2.first.squaredDistanceTo(center))
             }
-            lastX = x
-            lastY = y
-            val elevation = zOutput2?.getOrNull(i / 2)
-            val projectedCoordinate =
-                inverseProject(PixelCoordinate(x, y), location, viewDistance, viewDistance)
-            finalPoints.add(GeographicARPoint(projectedCoordinate, elevation))
+            .limit(nearbyLimit.toLong())
+            .collect(toList())
+            .reversed()
+
+        // Step 5: Adjust the elevation of the points
+        val closest = nearby.lastOrNull()
+        val closestSquareDist = closest?.first?.squaredDistanceTo(center)
+
+        // If the closest point is within the elevation override distance, override the elevation of all points
+        val elevationOffset =
+            if (hasElevation && elevation != null && closestSquareDist != null && closestSquareDist < squareElevationOverrideDistance) {
+                closest.second?.minus(elevation) ?: 0f
+            } else {
+                null
+            }
+
+        // Step 6: Convert the points to AR points
+        return nearby.map {
+            GeographicARPoint(
+                inverseProject(
+                    it.first,
+                    location,
+                    viewDistance,
+                    viewDistance
+                ),
+                it.second?.minus(elevationOffset ?: 0f)
+            )
         }
-
-        // Limit to the closest points
-        if (finalPoints.size > nearbyLimit) {
-            finalPoints.sortBy { it.location.distanceTo(location) }
-            return finalPoints.subList(0, nearbyLimit)
-        }
-
-        return finalPoints
-
     }
 
     private fun project(
