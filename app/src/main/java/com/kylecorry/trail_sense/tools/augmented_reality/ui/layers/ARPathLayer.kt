@@ -1,6 +1,8 @@
 package com.kylecorry.trail_sense.tools.augmented_reality.ui.layers
 
+import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.toDegrees
@@ -77,7 +79,7 @@ class ARPathLayer(viewDistance: Distance) : ARLayer, IPathLayer {
         val elevation = lastElevation
 
         val markers = paths.flatMap { path ->
-            val circle = CanvasCircle(path.color)
+            val circle = CanvasCircle(path.color, Color.WHITE, 175)
             val nearby = getNearbyARPoints(path, location, elevation)
             nearby.map {
                 ARMarker(it, circle)
@@ -112,7 +114,7 @@ class ARPathLayer(viewDistance: Distance) : ARLayer, IPathLayer {
             output,
             zValues = z,
             zOutput = zOutput,
-            rdpFilterEpsilon = pathSimplification
+//            rdpFilterEpsilon = pathSimplification
         )
 
         // Step 3: Interpolate between the points for a higher resolution
