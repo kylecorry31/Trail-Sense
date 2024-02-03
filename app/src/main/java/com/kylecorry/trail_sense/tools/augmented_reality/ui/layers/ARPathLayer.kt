@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.shared.canvas.LineInterpolator
 import com.kylecorry.trail_sense.shared.extensions.isSamePixel
 import com.kylecorry.trail_sense.shared.extensions.squaredDistanceTo
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.ARPoint
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.GeographicARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.SphericalARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARLine
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
@@ -26,9 +27,9 @@ class ARPathLayer : ARLayer, IPathLayer {
 
     private val lineLayer = ARLineLayer()
     private var lastLocation = Coordinate.zero
+    private var lastElevation: Float? = null
 
     private val squareViewDistance = SolMath.square(VIEW_DISTANCE_METERS)
-    private val degreesPerMeter = 75f / VIEW_DISTANCE_METERS
     private val center = PixelCoordinate(VIEW_DISTANCE_METERS, VIEW_DISTANCE_METERS)
     private val bounds = Rectangle(
         0f,
@@ -40,11 +41,12 @@ class ARPathLayer : ARLayer, IPathLayer {
     private val navigation = NavigationService()
     private val interpolator = LineInterpolator()
 
-    private val pointSpacing = 0.5f // meters
-    private val pathSimplification = 0.5f // meters (high quality)
+    private val pointSpacing = 4f // meters
+    private val pathSimplification = 0.5f // meters
 
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         lastLocation = view.location
+        lastElevation = view.altitude
         lineLayer.draw(drawer, view)
     }
 
@@ -124,7 +126,7 @@ class ARPathLayer : ARLayer, IPathLayer {
                 lines.add(currentLine)
                 currentLine = mutableListOf()
                 // Add the first point
-                val spherical = toSpherical(pixel1)
+                val spherical = toARPoint(pixel1)
 
                 if (spherical == null) {
                     // The start point is too far away, skip this line segment (no need to modify the current line)
@@ -134,7 +136,7 @@ class ARPathLayer : ARLayer, IPathLayer {
             }
 
             // The line continues
-            val spherical = toSpherical(pixel2)
+            val spherical = toARPoint(pixel2)
             if (spherical == null) {
                 // The point is too far away, break the line and skip this point
                 lines.add(currentLine)
@@ -169,7 +171,7 @@ class ARPathLayer : ARLayer, IPathLayer {
         return PixelCoordinate(center.x + xDiff, center.y - yDiff)
     }
 
-    private fun toSpherical(pixel: PixelCoordinate): ARPoint? {
+    private fun toARPoint(pixel: PixelCoordinate): ARPoint? {
         // The line continues
         val angle = Trigonometry.toUnitAngle(
             atan2(center.y - pixel.y, pixel.x - center.x).toDegrees(),
@@ -182,15 +184,19 @@ class ARPathLayer : ARLayer, IPathLayer {
             return null
         }
 
+        val distance = sqrt(squareDistance)
+
         // Otherwise add the point
-        return SphericalARPoint(
-            Bearing.getBearing(angle),
-            -90 + sqrt(squareDistance) * degreesPerMeter
+        val location = lastLocation.plus(distance.toDouble(), Bearing(angle))
+        val elevation = lastElevation
+        return GeographicARPoint(
+            location,
+            if (elevation != null) elevation - 2f else null
         )
     }
 
     companion object {
-        const val VIEW_DISTANCE_METERS = 12f
+        const val VIEW_DISTANCE_METERS = 10f
     }
 
 }

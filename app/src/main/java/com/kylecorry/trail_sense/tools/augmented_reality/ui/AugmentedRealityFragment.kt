@@ -104,7 +104,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         if (!isBound) return@CoroutineTimer
         if (!userPrefs.augmentedReality.showPathLayer) return@CoroutineTimer
         // This is only handling the path layer for now
-        val viewDistance = Distance.meters(ARPathLayer.VIEW_DISTANCE_METERS * 4f)
+        val viewDistance = Distance.meters(ARPathLayer.VIEW_DISTANCE_METERS * 2f)
         pathLayerManager?.onBoundsChanged(
             CoordinateBounds.from(
                 Geofence(
