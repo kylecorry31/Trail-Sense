@@ -11,6 +11,13 @@
             app:singleLineTitle="false"
             app:title="@string/view_distance" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_ar_path_layer"
+            app:singleLineTitle="false"
+            app:title="@string/paths" />
+
     </PreferenceCategory>
 
 

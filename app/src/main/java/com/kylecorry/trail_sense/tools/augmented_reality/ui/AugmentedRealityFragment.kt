@@ -102,9 +102,17 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
     private val layerManagementUpdater = CoroutineTimer {
         if (!isBound) return@CoroutineTimer
+        if (!userPrefs.augmentedReality.showPathLayer) return@CoroutineTimer
         // This is only handling the path layer for now
         val viewDistance = Distance.meters(ARPathLayer.VIEW_DISTANCE_METERS * 4f)
-        pathLayerManager?.onBoundsChanged(CoordinateBounds.from(Geofence(binding.arView.location, viewDistance)))
+        pathLayerManager?.onBoundsChanged(
+            CoordinateBounds.from(
+                Geofence(
+                    binding.arView.location,
+                    viewDistance
+                )
+            )
+        )
         pathLayerManager?.onLocationChanged(binding.arView.location, null)
     }
 
@@ -261,7 +269,14 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         this.mode = mode
         when (mode) {
             ARMode.Normal -> {
-                binding.arView.setLayers(listOf(gridLayer, astronomyLayer, pathsLayer, beaconLayer))
+                binding.arView.setLayers(
+                    listOfNotNull(
+                        gridLayer,
+                        astronomyLayer,
+                        if (userPrefs.augmentedReality.showPathLayer) pathsLayer else null,
+                        beaconLayer
+                    )
+                )
                 changeGuide(NavigationARGuide(navigator))
             }
 
