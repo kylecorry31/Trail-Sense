@@ -3,19 +3,13 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:singleLineTitle="false"
-        app:title="@string/view_distance">
+        app:title="@string/augmented_reality">
 
         <Preference
             app:iconSpaceReserved="false"
             app:key="@string/pref_view_distance_beacons_holder"
             app:singleLineTitle="false"
-            app:title="@string/beacons" />
-
-        <Preference
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_view_distance_paths_holder"
-            app:singleLineTitle="false"
-            app:title="@string/paths" />
+            app:title="@string/view_distance" />
 
     </PreferenceCategory>
 
