@@ -6,9 +6,8 @@ import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.calculus.Calculus
 import com.kylecorry.sol.math.optimization.HillClimbingOptimizer
 import com.kylecorry.sol.science.astronomy.Astronomy
+import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.time.Time.atEndOfDay
-import com.kylecorry.sol.time.Time.plusHours
-import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import java.time.Duration
@@ -27,14 +26,15 @@ class SolarPanelService(
         location: Coordinate,
         tilt: Float,
         azimuth: Bearing,
-        duration: Duration = Duration.ofDays(1)
+        duration: Duration = Duration.ofDays(1),
+        restrictToToday: Boolean = false
     ): Float {
         val time = timeProvider.getTime()
         var end = time.plus(duration)
-        if (end.toLocalDate() != time.toLocalDate()) {
+        if (end.toLocalDate() != time.toLocalDate() && restrictToToday) {
             end = time.atEndOfDay()
         }
-        return getSolarRadiationForRemainderOfDay(
+        return getSolarRadiation(
             time,
             end,
             location,
@@ -45,7 +45,8 @@ class SolarPanelService(
 
     fun getBestPosition(
         location: Coordinate,
-        maxDuration: Duration
+        maxDuration: Duration,
+        restrictToToday: Boolean = false
     ): Pair<Float, Bearing> {
         val duration = if (maxDuration <= Duration.ofMinutes(15).plusSeconds(5)) {
             Duration.ofMinutes(15).plusSeconds(15)
@@ -58,11 +59,12 @@ class SolarPanelService(
             maxDuration = duration,
             energyResolution = if (duration < Duration.ofHours(6)) Duration.ofMinutes(15) else Duration.ofMinutes(
                 30
-            )
+            ),
+            restrictToToday = restrictToToday
         )
     }
 
-    private fun getSolarRadiationForRemainderOfDay(
+    private fun getSolarRadiation(
         start: ZonedDateTime,
         end: ZonedDateTime,
         location: Coordinate,
@@ -76,7 +78,7 @@ class SolarPanelService(
             Duration.between(start, end).seconds * secondsToHours,
             dt.seconds * secondsToHours
         ) { hours ->
-            val t = start.toLocalDateTime().plusHours(hours).toZonedDateTime()
+            val t = start.plus(Time.hours(hours))
             Astronomy.getSolarRadiation(t, location, tilt, bearing, withRefraction = true)
         }
     }
@@ -85,10 +87,11 @@ class SolarPanelService(
         location: Coordinate,
         start: ZonedDateTime = timeProvider.getTime(),
         maxDuration: Duration = Duration.ofDays(1),
-        energyResolution: Duration = Duration.ofMinutes(30)
+        energyResolution: Duration = Duration.ofMinutes(30),
+        restrictToToday: Boolean = false
     ): Pair<Float, Bearing> {
         var end = start.plus(maxDuration)
-        if (end.toLocalDate() != start.toLocalDate()) {
+        if (end.toLocalDate() != start.toLocalDate() && restrictToToday) {
             end = start.atEndOfDay()
         }
 
@@ -119,7 +122,7 @@ class SolarPanelService(
         val endTilt = 90.0
 
         val fn = { x: Double, y: Double ->
-            getSolarRadiationForRemainderOfDay(
+            getSolarRadiation(
                 start,
                 end,
                 location,

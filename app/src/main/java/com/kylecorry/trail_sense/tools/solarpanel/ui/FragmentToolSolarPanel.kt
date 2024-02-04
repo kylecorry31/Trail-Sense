@@ -109,7 +109,8 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
             withContext(Dispatchers.IO) {
                 position = solarPanelService.getBestPosition(
                     gps.location,
-                    if (alignToRestOfDay) Duration.ofDays(1) else nowDuration
+                    if (alignToRestOfDay) Duration.ofDays(1) else nowDuration,
+                    restrictToToday = alignToRestOfDay
                 )
             }
         }
@@ -180,7 +181,8 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
             gps.location,
             orientation.y,
             compass.bearing.inverse(),
-            if (alignToRestOfDay) Duration.ofDays(1) else nowDuration
+            if (alignToRestOfDay) Duration.ofDays(1) else nowDuration,
+            restrictToToday = alignToRestOfDay
         )
         binding.energy.text =
             getString(R.string.up_to_amount, formatService.formatSolarEnergy(energy))
