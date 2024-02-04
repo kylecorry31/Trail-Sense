@@ -1,0 +1,27 @@
+<p>用 Trail Sense 探索互联网不可及之处。</p>
+
+<p>Trail Sense 应用使用您手机的传感器，帮助您进行徒步旅行。Trail Sense 包含很多可以在不同情景下使用的工具，比如远足、露营、背包旅行、攀岩等等。</p>
+
+<p>这个应用也不使用、也永远不会使用互联网 - Trail Sense 中的所有信息都直接来自您手机的传感器，Trail Sense 也不会发送数据。</p>
+
+<ul>
+    <li>为远足、背包旅行、露营与地理侦测设计</li>
+    <li>设置信标并前往其所在地</li>
+    <li>跟随路径</li>
+    <li>使用 Backtrack 功能回溯路径</li>
+    <li>规划行李</li>
+    <li>在日落前收到预警</li>
+    <li>预测天气</li>
+    <li>将手机用作手电筒</li>
+    <li>还有更多！</li>
+</ul>
+
+<p>您可以将 Trail Sense 当做工具使用，但不应该依赖它。这个应用只是为了提供信息，预测结果与传感器的准确度由若干因素决定，包括校准过程、传感器质量、外部来源等等。使用时请自担风险，一定要准备好备用工具（如指南针），并尽可能注意安全。</p>
+
+<p>找到问题或者想要新功能？发邮件给 trailsense@protonmail.com 联系我，也可以在 GitHub 上新建议题： github.com/kylecorry31/Trail-Sense</p>
+
+<p>我是 Trail Sense 唯一的开发者，因此会尽力协助解决问题 - 但我测试的设备有限。</p>
+
+<p>隐私政策： https://kylecorry.com/Trail-Sense/#privacy</p>
+<p>常见问题： https://github.com/kylecorry31/Trail-Sense#faq</p>
+<p>Trail Sense 使用 MIT 许可证发布： https://opensource.org/license/mit/</p>
