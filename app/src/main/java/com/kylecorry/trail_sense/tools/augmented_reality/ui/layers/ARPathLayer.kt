@@ -27,7 +27,6 @@ class ARPathLayer : ARLayer, IPathLayer {
 
     private val lineLayer = ARLineLayer()
     private var lastLocation = Coordinate.zero
-    private var lastElevation: Float? = null
 
     private val squareViewDistance = SolMath.square(VIEW_DISTANCE_METERS)
     private val center = PixelCoordinate(VIEW_DISTANCE_METERS, VIEW_DISTANCE_METERS)
@@ -46,7 +45,6 @@ class ARPathLayer : ARLayer, IPathLayer {
 
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         lastLocation = view.location
-        lastElevation = view.altitude
         lineLayer.draw(drawer, view)
     }
 
@@ -188,10 +186,10 @@ class ARPathLayer : ARLayer, IPathLayer {
 
         // Otherwise add the point
         val location = lastLocation.plus(distance.toDouble(), Bearing(angle))
-        val elevation = lastElevation
         return GeographicARPoint(
             location,
-            if (elevation != null) elevation - 2f else null
+            -2f,
+            isElevationRelative = true
         )
     }
 

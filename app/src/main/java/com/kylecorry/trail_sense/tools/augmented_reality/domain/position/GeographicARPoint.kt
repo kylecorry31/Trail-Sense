@@ -14,12 +14,13 @@ import kotlin.math.hypot
 class GeographicARPoint(
     val location: Coordinate,
     val elevation: Float? = null,
-    val actualDiameter: Float = 1f
+    val actualDiameter: Float = 1f,
+    val isElevationRelative: Boolean = false
 ) : ARPoint {
     override fun getAngularDiameter(view: AugmentedRealityView): Float {
         val distance = hypot(
             view.location.distanceTo(location),
-            (elevation ?: view.altitude) - view.altitude
+            getActualElevation(view) - view.altitude
         )
         return AugmentedRealityUtils.getAngularSize(actualDiameter, distance)
     }
@@ -30,9 +31,17 @@ class GeographicARPoint(
                 view.location,
                 view.altitude,
                 location,
-                elevation
+                getActualElevation(view)
             ),
             true
         )
+    }
+
+    private fun getActualElevation(view: AugmentedRealityView): Float {
+        return if (isElevationRelative){
+            view.altitude + (elevation ?: 0f)
+        } else {
+            elevation ?: view.altitude
+        }
     }
 }

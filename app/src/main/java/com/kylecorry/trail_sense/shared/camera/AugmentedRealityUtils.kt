@@ -15,6 +15,7 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.CameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.LinearCameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.SimplePerspectiveCameraAnglePixelMapper
+import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
@@ -157,12 +158,12 @@ object AugmentedRealityUtils {
         myLocation: Coordinate,
         myElevation: Float,
         destinationCoordinate: Coordinate,
-        destinationElevation: Float? = null
+        destinationElevation: Float
     ): Vector3 {
         // TODO: Go directly to ENU
         val bearing = myLocation.bearingTo(destinationCoordinate).value
         val distance = myLocation.distanceTo(destinationCoordinate)
-        val elevationAngle = if (destinationElevation == null) {
+        val elevationAngle = if (abs(myElevation - destinationElevation) < 0.0001f) {
             0f
         } else {
             atan2((destinationElevation - myElevation), distance).toDegrees()
