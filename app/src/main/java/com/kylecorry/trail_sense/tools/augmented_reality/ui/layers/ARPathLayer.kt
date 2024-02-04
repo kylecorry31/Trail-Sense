@@ -24,12 +24,16 @@ import com.kylecorry.trail_sense.tools.paths.ui.IPathLayer
 import kotlin.math.atan2
 import kotlin.math.sqrt
 
-class ARPathLayer(private val viewDistanceMeters: Float) : ARLayer, IPathLayer {
+class ARPathLayer(
+    private val viewDistanceMeters: Float,
+    private val useGeographicPathPoints: Boolean
+) : ARLayer, IPathLayer {
 
     private val lineLayer = ARLineLayer()
     private var lastLocation = Coordinate.zero
 
     private val squareViewDistance = SolMath.square(viewDistanceMeters)
+    private val degreesPerMeter = 75f / viewDistanceMeters
     private val center = PixelCoordinate(viewDistanceMeters, viewDistanceMeters)
     private val bounds = Rectangle(
         0f,
@@ -185,6 +189,13 @@ class ARPathLayer(private val viewDistanceMeters: Float) : ARLayer, IPathLayer {
 
         val distance = sqrt(squareDistance)
 
+        if (!useGeographicPathPoints) {
+            return SphericalARPoint(
+                Bearing.getBearing(angle),
+                -90 + sqrt(squareDistance) * degreesPerMeter
+            )
+        }
+
         // Otherwise add the point
         val location = lastLocation.plus(distance.toDouble(), Bearing(angle))
         return GeographicARPoint(
@@ -193,9 +204,4 @@ class ARPathLayer(private val viewDistanceMeters: Float) : ARLayer, IPathLayer {
             isElevationRelative = true
         )
     }
-
-    companion object {
-        const val VIEW_DISTANCE_METERS = 20f
-    }
-
 }

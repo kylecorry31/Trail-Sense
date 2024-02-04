@@ -94,7 +94,10 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     }
 
     private val pathsLayer by lazy {
-        ARPathLayer(userPrefs.augmentedReality.pathViewDistance)
+        ARPathLayer(
+            userPrefs.augmentedReality.pathViewDistance,
+            userPrefs.augmentedReality.useGeographicPathPoints
+        )
     }
     private var pathLayerManager: PathLayerManager? = null
 

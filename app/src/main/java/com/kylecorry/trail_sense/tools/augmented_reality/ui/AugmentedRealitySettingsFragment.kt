@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.preferences.setupDistanceSetting
 
 class AugmentedRealitySettingsFragment : AndromedaPreferenceFragment() {
@@ -15,6 +16,8 @@ class AugmentedRealitySettingsFragment : AndromedaPreferenceFragment() {
         setPreferencesFromResource(R.xml.augmented_reality_preferences, rootKey)
 
         val userPrefs = UserPreferences(requireContext())
+
+        preference(R.string.pref_ar_use_geographic_path_points)?.isVisible = isDebug()
 
         setupDistanceSetting(
             getString(R.string.pref_view_distance_beacons_holder),
