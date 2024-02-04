@@ -94,7 +94,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     }
 
     private val pathsLayer by lazy {
-        ARPathLayer()
+        ARPathLayer(userPrefs.augmentedReality.pathViewDistance)
     }
     private var pathLayerManager: PathLayerManager? = null
 
@@ -104,7 +104,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         if (!isBound) return@CoroutineTimer
         if (!userPrefs.augmentedReality.showPathLayer) return@CoroutineTimer
         // This is only handling the path layer for now
-        val viewDistance = Distance.meters(ARPathLayer.VIEW_DISTANCE_METERS * 2f)
+        val viewDistance = Distance.meters(userPrefs.augmentedReality.pathViewDistance * 2f)
         pathLayerManager?.onBoundsChanged(
             CoordinateBounds.from(
                 Geofence(

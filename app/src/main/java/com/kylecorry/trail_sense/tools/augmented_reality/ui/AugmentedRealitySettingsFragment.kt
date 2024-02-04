@@ -26,6 +26,17 @@ class AugmentedRealitySettingsFragment : AndromedaPreferenceFragment() {
             },
             DistanceUtils.hikingDistanceUnits
         )
+
+        setupDistanceSetting(
+            getString(R.string.pref_view_distance_paths_holder),
+            { relative(Distance.meters(userPrefs.augmentedReality.pathViewDistance), userPrefs) },
+            { distance ->
+                if (distance != null && distance.distance > 0) {
+                    userPrefs.augmentedReality.pathViewDistance = distance.meters().distance
+                }
+            },
+            DistanceUtils.hikingDistanceUnits
+        )
     }
 
     private fun relative(distance: Distance, prefs: UserPreferences): Distance {

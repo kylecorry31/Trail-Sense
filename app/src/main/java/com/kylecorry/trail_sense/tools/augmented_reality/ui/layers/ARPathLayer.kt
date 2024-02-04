@@ -8,6 +8,7 @@ import com.kylecorry.sol.math.analysis.Trigonometry
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.canvas.LineClipper
 import com.kylecorry.trail_sense.shared.canvas.LineInterpolator
 import com.kylecorry.trail_sense.shared.extensions.isSamePixel
@@ -23,17 +24,17 @@ import com.kylecorry.trail_sense.tools.paths.ui.IPathLayer
 import kotlin.math.atan2
 import kotlin.math.sqrt
 
-class ARPathLayer : ARLayer, IPathLayer {
+class ARPathLayer(private val viewDistanceMeters: Float) : ARLayer, IPathLayer {
 
     private val lineLayer = ARLineLayer()
     private var lastLocation = Coordinate.zero
 
-    private val squareViewDistance = SolMath.square(VIEW_DISTANCE_METERS)
-    private val center = PixelCoordinate(VIEW_DISTANCE_METERS, VIEW_DISTANCE_METERS)
+    private val squareViewDistance = SolMath.square(viewDistanceMeters)
+    private val center = PixelCoordinate(viewDistanceMeters, viewDistanceMeters)
     private val bounds = Rectangle(
         0f,
-        VIEW_DISTANCE_METERS * 2,
-        VIEW_DISTANCE_METERS * 2,
+        viewDistanceMeters * 2,
+        viewDistanceMeters * 2,
         0f,
     )
     private val clipper = LineClipper()

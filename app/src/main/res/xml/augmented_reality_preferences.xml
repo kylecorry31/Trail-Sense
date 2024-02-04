@@ -18,6 +18,12 @@
             app:singleLineTitle="false"
             app:title="@string/paths" />
 
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_view_distance_paths_holder"
+            app:singleLineTitle="false"
+            app:title="@string/paths" />
+
     </PreferenceCategory>
 
 
