@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.augmented_reality.ui.layers
 
+import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
@@ -21,6 +22,7 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.tools.paths.ui.IPathLayer
+import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.sqrt
 
@@ -33,7 +35,7 @@ class ARPathLayer(
     private var lastLocation = Coordinate.zero
 
     private val squareViewDistance = SolMath.square(viewDistanceMeters)
-    private val degreesPerMeter = 75f / viewDistanceMeters
+    private val degreesPerMeter = 85f / viewDistanceMeters
     private val center = PixelCoordinate(viewDistanceMeters, viewDistanceMeters)
     private val bounds = Rectangle(
         0f,
@@ -73,8 +75,11 @@ class ARPathLayer(
         val location = lastLocation
 
         val lines = paths.flatMap {
-            getNearbyARPoints(it, location).map { points ->
-                ARLine(points, it.color, 16f)
+            getNearbyARPoints(it, location).flatMap { points ->
+                listOf(
+                    ARLine(points, Color.WHITE, 18f),
+                    ARLine(points, it.color, 16f)
+                )
             }
         }
 
@@ -190,9 +195,11 @@ class ARPathLayer(
         val distance = sqrt(squareDistance)
 
         if (!useGeographicPathPoints) {
+//            val elevationAngle = atan2(-2f, distance).toDegrees()
+            val elevationAngle = -90 + sqrt(squareDistance) * degreesPerMeter
             return SphericalARPoint(
                 Bearing.getBearing(angle),
-                -90 + sqrt(squareDistance) * degreesPerMeter
+                elevationAngle
             )
         }
 
