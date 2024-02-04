@@ -28,10 +28,10 @@
     <string name="units_inhg">英寸汞柱</string>
     <string name="units_mbar">毫巴（100帕斯卡）</string>
     <string name="units_psi">PSI</string>
-    <string name="theme_light">明亮</string>
-    <string name="theme_dark">暗黑</string>
-    <string name="theme_black">黑色</string>
-    <string name="theme_system">系统</string>
+    <string name="theme_light">浅色主题</string>
+    <string name="theme_dark">深色主题</string>
+    <string name="theme_black">纯黑主题</string>
+    <string name="theme_system">跟随系统</string>
     <string name="gps">全球定位系统</string>
     <string name="sun_actual">实际</string>
     <string name="sun_civil">民用</string>
@@ -93,8 +93,8 @@
     <string name="waning_gibbous">亏凸月</string>
     <string name="third_quarter">下弦月</string>
     <string name="new_moon">新月</string>
-    <string name="sun_up_no_set">已日出</string>
-    <string name="sun_down_no_set">已日落</string>
+    <string name="sun_up_no_set">太阳已升起</string>
+    <string name="sun_down_no_set">太阳已落下</string>
     <string name="sun_does_not_rise">还未升起</string>
     <string name="sun_does_not_set">还未落下</string>
     <string name="notification_monitoring_weather">后台监测天气</string>
@@ -104,7 +104,7 @@
     <string name="alerts">警报</string>
     <string name="units_inhg_short">英寸</string>
     <string name="beacon_comment">备注（可选）</string>
-    <string name="beacon_invalid_name">无效的名称</string>
+    <string name="beacon_invalid_name">名称无效</string>
     <string name="maps">地图</string>
     <string name="share_action_send">发送</string>
     <plurals name="beacon_group_summary">
@@ -153,7 +153,7 @@
     <string name="battery_health">健康状况：%s</string>
     <string name="battery_health_over_voltage">过电压</string>
     <string name="battery_health_overheat">过热</string>
-    <string name="battery_health_dead">死</string>
+    <string name="battery_health_dead">危险</string>
     <string name="battery_health_cold">冷</string>
     <string name="tool_battery_title">电池</string>
     <string name="strobe_warning_content">频闪功能包含闪烁的灯光，这对一些用户可能是危险的。</string>
@@ -188,7 +188,7 @@
     <string name="tool_solar_panel_title">太阳能板对准器</string>
     <string name="tool_solar_panel_summary">放置太阳能电池板以获得最优的电力生产效率</string>
     <string name="pref_privacy_policy_title">隐私政策</string>
-    <string name="guide_recommended_apps_description">对生存状况有用应用程序</string>
+    <string name="guide_recommended_apps_description">对生存情境有用的应用程序</string>
     <string name="guide_recommended_apps">推荐的应用</string>
     <string name="unit_nautical_miles">海里</string>
     <string name="unit_miles">英里</string>
@@ -255,7 +255,7 @@
     <string name="declination_override_updated_toast">赤纬覆盖已更新</string>
     <string name="compass_declination_override">赤纬覆盖</string>
     <string name="override_from_gps">从 GPS 设置覆盖</string>
-    <string name="coordinate_format_decimal_degrees">十进位度数</string>
+    <string name="coordinate_format_decimal_degrees">十进制度数</string>
     <string name="edit_item_title">编辑项目</string>
     <string name="create_item_title">创建项目</string>
     <string name="dialog_item_amount">数量</string>
@@ -405,7 +405,7 @@
     <string name="export">导出</string>
     <string name="unavailable">不可用</string>
     <string name="gps_searching">正在搜索</string>
-    <string name="gps_stale">过时的</string>
+    <string name="gps_stale">已过期</string>
     <string name="gps_user">用户</string>
     <string name="magnetometer">磁强计</string>
     <string name="acceleration_m_s2_format">%s m/s²</string>
@@ -430,8 +430,8 @@
     <string name="lux_format">%s lx</string>
     <string name="distance_from_flashlight">从手机到手电筒的距离</string>
     <string name="beacon_export_error">无法导出信标</string>
-    <string name="pref_backtrack_save_cell_summary">在航点记录手机信号。 不使用互联网。</string>
-    <string name="pref_backtrack_save_cell_title">记录电池信号</string>
+    <string name="pref_backtrack_save_cell_summary">在路径点处记录手机信号。 不使用互联网。</string>
+    <string name="pref_backtrack_save_cell_title">记录手机信号</string>
     <string name="tool_light_meter_title">照度计</string>
     <string name="location_disabled">位置被禁用</string>
     <string name="set">设置</string>
@@ -480,28 +480,28 @@
     <string name="import_gpx">导入 GPX</string>
     <string name="error_importing_map">导入地图时出错</string>
     <string name="importing_map">导入地图中</string>
-    <string name="map_auto_calibrated">为了自动校准地图，请验证其精度</string>
-    <string name="time_until_empty">离空还剩</string>
+    <string name="map_auto_calibrated">已自动校准地图，请验证精度</string>
+    <string name="time_until_empty">距离耗尽还剩</string>
     <string name="pref_odometer_reset_daily_title">每天重置</string>
     <string name="sleep_timer">睡眠定时器</string>
     <string name="search">搜索</string>
     <plurals name="beacons_exported">
-        <item quantity="other">%d 个信标已被导出</item>
+        <item quantity="other">已导出 %d 个信标</item>
     </plurals>
     <plurals name="beacons_imported">
-        <item quantity="other">%d 个信标已被导入</item>
+        <item quantity="other">已导入 %d 个信标</item>
     </plurals>
     <string name="pref_weather_show_detailed_icon_title">显示彩色通知图标</string>
     <string name="actual_frequency_disclaimer">实际频率可能会因某些设备的后台限制而变化。</string>
     <string name="app_disclaimer_message_title">免责声明/服务条款</string>
     <string name="disclaimer_message_title">免责声明</string>
     <string name="backtrack_battery_warning">间隔时间过短(15分钟以下)可能导致电池过度消耗</string>
-    <string name="battery_warning">电量即将耗完警告</string>
+    <string name="battery_warning">电量即将耗尽警告</string>
     <string name="dotted">点线</string>
     <string name="solid">实线</string>
     <string name="theme_sunset_sunrise">日出/日落</string>
     <string name="calibrate_new_tide">校准到新的潮汐？</string>
-    <string name="time_until_full">距离充满剩</string>
+    <string name="time_until_full">距离充满还剩</string>
     <string name="pref_show_last_signal_beacon_summary">为上一个手机信号位置创建一个信标</string>
     <string name="pref_show_last_signal_beacon_title">上一个信号信标</string>
     <string name="last_signal_beacon_name">上个信号 - %1$s (%2$s)</string>
@@ -509,7 +509,7 @@
     <string name="color">颜色</string>
     <string name="arrow">箭头线</string>
     <string name="whistle_signal_come_here">来这里</string>
-    <string name="whistle_signal_acknowledged">已承认</string>
+    <string name="whistle_signal_acknowledged">收到</string>
     <string name="whistle_signal_where_are_you">你在哪里？</string>
     <string name="noon">正午</string>
     <string name="weather_monitor">天气监控器</string>
@@ -538,7 +538,7 @@
     </plurals>
     <string name="pref_backtrack_history_days_title">Backtrack 历史</string>
     <string name="units">单位</string>
-    <string name="pref_tiles_enabled_summary">有可能会阻止电池保护程序完全停止 Trail Sense</string>
+    <string name="pref_tiles_enabled_summary">可能会阻止省电程序杀掉 Trail Sense</string>
     <string name="pref_tiles_enabled_title">系统瓷贴</string>
     <string name="location_not_mocked">使用实际位置</string>
     <string name="location_mocked">使用模拟位置</string>
@@ -551,8 +551,8 @@
     <string name="yards_format">%s码</string>
     <string name="find_next_occurrence">查找下一个出现</string>
     <string name="daylight">日光</string>
-    <string name="pref_auto_low_power_title">自动电量节省</string>
-    <string name="pref_auto_low_power_summary">当你的电量低时</string>
+    <string name="pref_auto_low_power_title">自动节电</string>
+    <string name="pref_auto_low_power_summary">当电量低时</string>
     <string name="time">时间</string>
     <string name="days_format">%s 天</string>
     <string name="hours_format">%s 小时</string>
@@ -637,7 +637,7 @@
     <string name="location_override_not_set_resolution">在设置中设定位置覆盖</string>
     <string name="location_override_resolution">在设置中启用自动调整位置。</string>
     <string name="elevation_override_resolution">在设置中启用自动校准。</string>
-    <string name="unblock_notification_channel">解锁 Trail Sense 的 %s 通知</string>
+    <string name="unblock_notification_channel">取消屏蔽 Trail Sense 的 %s 通知</string>
     <string name="get_gps_signal">走到无遮挡的天空下。</string>
     <string name="activity_recognition">活动识别</string>
     <string name="background_location_permission">位置（始终允许）</string>
@@ -648,22 +648,22 @@
     <string name="notifications_blocked">已屏蔽通知</string>
     <string name="on">开</string>
     <string name="overridden">覆盖</string>
-    <string name="battery_usage_restricted">电池使用受限</string>
+    <string name="battery_usage_restricted">电池使用情况受限</string>
     <string name="diagnostics">诊断</string>
     <string name="no_permission">未授予权限</string>
     <string name="camera">相机</string>
     <string name="quarter_moon">上弦月</string>
     <string name="autofill">自动填充</string>
-    <string name="lightning_dangerously_close">你离闪电发生地点太近了</string>
+    <string name="lightning_dangerously_close">闪电过近 有危险</string>
     <plurals name="waypoints_to_be_deleted">
-        <item quantity="other">%d 个航点将被删除</item>
+        <item quantity="other">将删除 %d 个航点</item>
     </plurals>
     <string name="delete_path">删除路径？</string>
     <string name="auto">自动</string>
     <string name="new_text">新</string>
     <string name="old">旧</string>
     <string name="units_mmhg_short">毫米</string>
-    <string name="pick_file">挑选文件</string>
+    <string name="pick_file">选择文件</string>
     <string name="export_path_error">无法导出路径</string>
     <string name="path_exported">已导出路径</string>
     <string name="no_paths">无路径</string>
@@ -794,13 +794,13 @@
     <string name="temp_f_short">°F</string>
     <string name="temp_c_short">°C</string>
     <string name="night">夜晚</string>
-    <string name="qr_text_too_long">文本太长，二维码被截短</string>
+    <string name="qr_text_too_long">文本太长，二维码已被截短</string>
     <string name="pref_flashlight_should_timeout_title">自动关闭</string>
     <string name="pref_flashlight_timeout_title">多少秒后关闭</string>
     <string name="duration_second_format">%d秒</string>
     <string name="tide_table">潮汐表</string>
-    <string name="high_tide_letter">涨潮</string>
-    <string name="low_tide_letter">落潮</string>
+    <string name="high_tide_letter">涨</string>
+    <string name="low_tide_letter">落</string>
     <string name="view">查看</string>
     <string name="tide_deleted">已删除潮汐</string>
     <string name="estimated">预估值</string>
@@ -935,7 +935,7 @@
     <string name="historic">历史数值</string>
     <string name="sensor">传感器</string>
     <string name="temperature_high_low">高位/低位</string>
-    <string name="next_24_hours">接下去 24 小时</string>
+    <string name="next_24_hours">接下来 24 小时</string>
     <string name="altimeter_cache">高度计缓存</string>
     <string name="tool_climate">气候</string>
     <string name="tool_climate_summary">查看历史气温</string>
@@ -967,7 +967,7 @@
     <string name="center">中心</string>
     <string name="size">尺寸</string>
     <string name="create_blank_map">创建空白地图</string>
-    <string name="pref_include_leading_zero_title">在表示时间的数字前添加 0</string>
+    <string name="pref_include_leading_zero_title">若时间数字不足两位则补 0</string>
     <string name="create_path">创建路径</string>
     <string name="solar_eclipse">日食</string>
     <string name="map_is_not_calibrated">未校准地图</string>
@@ -989,8 +989,8 @@
 \n
 \n良好校准点的示例包括停车场、标志点、地标或小径沿线的交叉点。</string>
     <string name="compass_source_mag_gyro">磁力计+陀螺仪</string>
-    <string name="compass_source_legacy_ts">旧版（Trail Sense）</string>
-    <string name="compass_source_legacy_android">旧版（Android）</string>
+    <string name="compass_source_legacy_ts">传统（Trail Sense）</string>
+    <string name="compass_source_legacy_android">传统（Android）</string>
     <string name="accelerometer">加速度计</string>
     <string name="data_source">来源：%s</string>
     <string name="pref_keep_map_facing_up_summary">地图会与屏幕顶部对齐而不是真北。</string>
