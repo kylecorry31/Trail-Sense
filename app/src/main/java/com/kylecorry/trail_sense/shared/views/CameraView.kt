@@ -51,6 +51,8 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     private var zoom: Float = -1f
     private var isCapturing = false
 
+    var passThroughTouchEvents = false
+
     val previewImage: Bitmap?
         get() = try {
             preview.bitmap
@@ -255,7 +257,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         mScaleDetector.onTouchEvent(event)
         gestureDetector.onTouchEvent(event)
-        return true
+        return !passThroughTouchEvents
     }
 
 

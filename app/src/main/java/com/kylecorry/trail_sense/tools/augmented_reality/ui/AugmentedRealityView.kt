@@ -118,6 +118,8 @@ class AugmentedRealityView : CanvasView {
     val altitude: Float
         get() = altimeter.altitude
 
+    var passThroughTouchEvents = false
+
     var showReticle: Boolean = true
     var showPosition: Boolean = true
 
@@ -227,7 +229,7 @@ class AugmentedRealityView : CanvasView {
 
         // TODO: Should the onFocus method just return a string?
         if (!hasFocus) {
-            if (hadFocus){
+            if (hadFocus) {
                 onFocusLostListener?.invoke()
             }
             focusText = null
@@ -434,8 +436,8 @@ class AugmentedRealityView : CanvasView {
             return false
         }
         mGestureDetector.onTouchEvent(event)
-        camera?.onTouchEvent(event)
-        return true
+        camera?.dispatchTouchEvent(event)
+        return !passThroughTouchEvents
     }
 
     fun unbind() {
@@ -472,6 +474,7 @@ class AugmentedRealityView : CanvasView {
     }
 
     private fun syncWithCamera() {
+        camera?.passThroughTouchEvents = true
         owner?.inBackground {
             fovRunner.enqueue {
                 val camera = camera ?: return@enqueue

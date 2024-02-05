@@ -111,6 +111,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         binding.cameraViewHolder.clipToOutline = true
         binding.camera.setScaleType(PreviewView.ScaleType.FILL_CENTER)
         binding.camera.setShowTorch(false)
+        binding.camera.passThroughTouchEvents = true
 
         binding.clinometerTitle.leftButton.setOnClickListener {
             if (useCamera) {
@@ -138,6 +139,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
         }
         binding.arView.showReticle = false
         binding.arView.showPosition = false
+        binding.arView.passThroughTouchEvents = true
         binding.arView.isVisible = isAugmentedReality
 
         binding.arView.bind(binding.camera)
