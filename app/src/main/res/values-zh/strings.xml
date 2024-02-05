@@ -1103,4 +1103,6 @@
     <string name="view_distance">查看距离</string>
     <string name="show_dial_ticks_on_nearby_radar">在附近雷达上显示刻度 tick</string>
     <string name="show_dial_ticks_on_nearby_radar_summary">你的设备没有指南针，但你仍能看到什么是方向信标。</string>
+    <string name="creating_beacon">创建信标</string>
+    <string name="augmented_reality_no_gyro_message">你仍可以使用“增强现实”工具，但它的精度会下降。</string>
 </resources>

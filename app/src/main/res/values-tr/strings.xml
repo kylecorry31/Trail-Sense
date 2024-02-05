@@ -1117,4 +1117,6 @@
     <string name="fast_path_rendering_summary">Görünüş pahasına performansı iyileştirir</string>
     <string name="show_dial_ticks_on_nearby_radar_summary">Aygıtınızın pusulası yok, ancak yine de işaretlerin ne yönde olduğunu görebilirsiniz.</string>
     <string name="show_dial_ticks_on_nearby_radar">Yakındaki radarda kadran işaretlerini göster</string>
+    <string name="creating_beacon">İşaret oluşturuluyor</string>
+    <string name="augmented_reality_no_gyro_message">Artırılmış Gerçeklik aracını kullanmaya devam edebilirsiniz, ancak o kadar doğru olmayacaktır.</string>
 </resources>
