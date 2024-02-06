@@ -8,7 +8,7 @@ On supported devices, you can adjust the brightness using the slider at the bott
 ## Strobe
 Drag the dial to the desired strobe frequency. Tap the flashlight button to toggle the strobe on or off.
 
-Please note that the flashing light is harmful to some users and may break your camera. You should use this tool with caution.
+Please note that the strobe feature contains flashing lights, which may be dangerous for some users. Prolonged use of the strobe may cause excess battery drain or damage to your camera's flash.
 
 ## SOS
 Drag the dial to the SOS indicator to continuously play the SOS distress signal (3 short, 3 long, 3 short). Tap the flashlight button to toggle the SOS on or off.

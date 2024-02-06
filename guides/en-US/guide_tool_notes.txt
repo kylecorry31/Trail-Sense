@@ -3,7 +3,7 @@ The Notes tool can be used to write down notes for offline access.
 ## Create or Edit a Note
 To create, view or edit a note:
 
-1. Press the '+' button in the bottom-right corner to create a note, or tap a existing one in the list.
+1. Press the '+' button in the bottom-right corner to create a note, or tap an existing one in the list.
 2. You can edit the title and/or content of the note.
 3. Press the checkmark button in the bottom-right corner to save.
 
