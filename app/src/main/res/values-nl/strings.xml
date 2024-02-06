@@ -20,7 +20,7 @@
     <string name="pref_theme_title">Thema</string>
     <string name="pref_display_multi_beacons_title">Bakens in de buurt tonen</string>
     <string name="pref_storm_alert_sensitivity_title">Stormgevoeligheid</string>
-    <string name="pref_show_sun_moon_compass_title">Toon zon/maan op kompas</string>
+    <string name="pref_show_sun_moon_compass_title">Zon/maan op kompas tonen</string>
     <string name="pref_show_linear_compass_title">Lineair kompas tonen</string>
     <string name="pref_show_linear_compass_summary">Als de telefoon verticaal staat</string>
     <string name="feet_miles">Voet / Mijl</string>
@@ -60,7 +60,7 @@
 \nDeze melding kun je in de instellingen afzetten.</string>
     <string name="calibrate_compass_dialog_content">Draai je telefoon een paar keer in een 8-vormig patroon in alle richtingen en klik %s als je klaar bent.</string>
     <string name="calibrate_compass_dialog_title">Kompas kalibreren</string>
-    <string name="calibrate">IJken</string>
+    <string name="calibrate">Kalibreren</string>
     <string name="pref_auto_declination_summary">Gebaseerd op je huidige locatie</string>
     <string name="declination_override_updated_toast">Afwijking handmatig bijgewerkt</string>
     <string name="compass_azimuth">Azimut</string>
@@ -224,7 +224,7 @@
     <string name="privacy_and_location">Privacy en locatie</string>
     <string name="cirrus_desc">Hoge, spichtige wolken die lijken op kuiven wit haar.</string>
     <string name="cumulonimbus_desc">Lage, gezwollen wolken die erg hoog zijn. Zij hebben doorgaans de vorm van een aambeeld en ze zijn donker.</string>
-    <string name="cumulus_desc">Lage, opgeblazen wolken die op watjes lijken. Zij zijn verspreid en zijn doorgaans wit met donker vlekken onderaan.</string>
+    <string name="cumulus_desc">Lage, opgeblazen wolken die op watjes lijken. Ze zijn verspreid en zijn doorgaans wit met donker vlekken onderaan.</string>
     <string name="stratocumulus_desc">Lage wolken die lijken op een plaat van watjes met kleine spleten. De kleur verschilt van wit tot donkergrijs.</string>
     <string name="stratus_desc">Een lage wolk die de hemel verhult. Voorwerpen werpen geen schaduw af en het kan mistig zijn.</string>
     <string name="nimbostratus_desc">Een middelhoge wolk die donkergrijs is en de lucht bedekt. Als het niet regent, kan het een stratuswolk zijn.</string>
@@ -246,7 +246,7 @@
     <string name="clouds">Wolken</string>
     <string name="how">Hoe</string>
     <string name="compass_calibrate_toast">Kompasjuistheid %s, kalibreren wordt geadviseerd</string>
-    <string name="open_beacon_in_maps">Op de Kaart bekijken</string>
+    <string name="open_beacon_in_maps">Op de kaart bekijken</string>
     <string name="pref_low_power_mode_summary">Schakelt sommige functies uit om energie te besparen</string>
     <string name="dialog_leave">Verlaten</string>
     <string name="unsaved_changes_message">Wijzigingen die je hebt aangebracht, worden niet opgeslagen.</string>
@@ -432,7 +432,7 @@
     <string name="solar_panel_instructions">Plaats je telefoon op de voorkant van het zonnepaneel om te beginnen.</string>
     <string name="tool_solar_panel_title">Zonnepaneeluitlijner</string>
     <string name="tool_solar_panel_summary">Zonnepanelen plaatsen voor optimale energiewinning</string>
-    <string name="pref_show_calibrate_on_navigate_dialog_title">IJken voordat je navigeert</string>
+    <string name="pref_show_calibrate_on_navigate_dialog_title">Kalibreren voordat je navigeert</string>
     <string name="unit_yards">Yard</string>
     <string name="units">Eenheden</string>
     <string name="unit_centimeters">Centimeter</string>
@@ -520,7 +520,7 @@
     <string name="pref_tiles_enabled_title">Systeemtegels</string>
     <string name="location_not_mocked">Werkelijke locatie gebruiken</string>
     <string name="location_mocked">Bespotte locatie gebruiken</string>
-    <string name="pref_experimental_metal_direction_title">Toon richting van metaal</string>
+    <string name="pref_experimental_metal_direction_title">Richting van metaal tonen</string>
     <string name="privacy">Privacy</string>
     <string name="pref_privacy_screenshot_protection_title">Schermafbeeldingen voorkomen</string>
     <plurals name="number_days">
@@ -559,7 +559,7 @@
     <string name="arrow">Pijl</string>
     <string name="dotted">Gestippeld</string>
     <string name="solid">Vast</string>
-    <string name="pref_weather_show_detailed_icon_title">Toon gekleurd meldingspictogram</string>
+    <string name="pref_weather_show_detailed_icon_title">Gekleurd meldingspictogram tonen</string>
     <string name="actual_frequency_disclaimer">De werkelijke frequentie kan variëren, omdat sommige apparaten achtergrondlimieten hebben.</string>
     <string name="search">Zoeken</string>
     <string name="pref_odometer_reset_daily_title">Dagelijks op nul zetten</string>
@@ -581,7 +581,7 @@
     <string name="meteor_shower">Meteorenzwerm</string>
     <string name="menu">Menu</string>
     <string name="no_tides">Geen getijden</string>
-    <string name="pref_nearby_radar_title">Toon nabijgelegen radarkompas</string>
+    <string name="pref_nearby_radar_title">Nabijgelegen radarkompas tonen</string>
     <string name="pref_stride_length_title">Paslengte</string>
     <string name="pedometer">Stappenteller</string>
     <string name="odometer">Kilometerteller</string>
@@ -884,7 +884,7 @@
     <string name="pref_export_weather_csv_title">Weermetingen verzenden</string>
     <string name="weather_exported">Weer verzonden</string>
     <string name="season_summer">Zomer</string>
-    <string name="pref_show_nearest_tide_title">Toon dichtstbijzijnde getijde</string>
+    <string name="pref_show_nearest_tide_title">Dichtstbijzijnde getijde tonen</string>
     <string name="no_camera_access">Kan camera niet bereiken</string>
     <string name="path">Pad</string>
     <string name="point_style">Stijl van punten</string>
@@ -930,7 +930,7 @@
     <string name="weather_warm_front">Warm</string>
     <string name="later">Later</string>
     <string name="now">Nu</string>
-    <string name="pref_show_map_previews_title">Toon kaartvoorbeelden</string>
+    <string name="pref_show_map_previews_title">Kaartvoorbeelden tonen</string>
     <string name="sensor_summary">Kompas, GPS, hoogtemeter, barometer, enz.</string>
     <string name="historic">Historisch</string>
     <string name="samples">Monsters</string>
@@ -1050,7 +1050,7 @@
     <string name="until_sunrise">tot zonsopkomst</string>
     <string name="at_time">om %s</string>
     <string name="location_to_triangulate">Locatie om te trianguleren</string>
-    <string name="pref_show_temperature_in_notification_title">Toon temperatuur in melding</string>
+    <string name="pref_show_temperature_in_notification_title">Temperatuur in melding tonen</string>
     <string name="exact_alarm_permission_denied">Wekkers en meldingen geweigerd, waarschuwingen zijn misschien niet accuraat.</string>
     <string name="map_calibration">Kaartkalibratie</string>
     <string name="obscuration">Verduistering</string>
@@ -1116,4 +1116,7 @@
     <string name="fast_path_rendering">Paden snel weergeven</string>
     <string name="fast_path_rendering_summary">Verbeterd prestaties ten koste van uiterlijk</string>
     <string name="show_dial_ticks_on_nearby_radar_summary">Je apparaat heeft geen kompas, maar je kan nog steeds zien in welke richting bakens zijn.</string>
+    <string name="show_dial_ticks_on_nearby_radar">Wijzers tonen op nabijgelegen radar</string>
+    <string name="creating_beacon">Baken maken</string>
+    <string name="augmented_reality_no_gyro_message">Je kunt nog steeds de Augmented Reality-tool gebruiken, maar deze zal niet zo nauwkeurig zijn.</string>
 </resources>
