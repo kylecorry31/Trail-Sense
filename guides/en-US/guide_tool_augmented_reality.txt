@@ -5,7 +5,7 @@ If you have camera permission granted, you will see a live camera feed in the ba
 
 You can toggle the camera on and off by tapping the camera icon in the top-right corner of the screen.
 
-Additionally, while the camera is active, you can adjust the zoom level using the slider at the bottom of the screen.
+Additionally, while the camera is active, you can adjust the zoom level using two fingers to pinch or the slider at the bottom of the screen.
 
 ## Reticle
 A circular reticle is displayed in the center of your screen. You can use this to see more details about the marker you are looking at by centering it in the reticle.
