@@ -40,14 +40,25 @@ class ARLineLayer : ARLayer {
 
         // Draw lines
         for (line in lines) {
+            val points = render(line.points.map { it.getAugmentedRealityCoordinate(view) }, view)
+
+            if (line.outlineColor != null) {
+                drawer.stroke(line.outlineColor)
+                val outlinePx = when (line.thicknessUnits) {
+                    ARLine.ThicknessUnits.Dp -> drawer.dp(line.thickness + 2 * line.outlineThickness)
+                    ARLine.ThicknessUnits.Angle -> view.sizeToPixel(line.thickness + 2 * line.outlineThickness)
+                }
+                drawer.strokeWeight(outlinePx)
+                drawer.lines(points)
+            }
+
             drawer.stroke(line.color)
             val thicknessPx = when (line.thicknessUnits) {
                 ARLine.ThicknessUnits.Dp -> drawer.dp(line.thickness)
                 ARLine.ThicknessUnits.Angle -> view.sizeToPixel(line.thickness)
             }
             drawer.strokeWeight(thicknessPx)
-
-            render(line.points.map { it.getAugmentedRealityCoordinate(view) }, view, drawer)
+            drawer.lines(points)
         }
 
         drawer.noStroke()
@@ -71,15 +82,14 @@ class ARLineLayer : ARLayer {
 
     private fun render(
         points: List<AugmentedRealityCoordinate>,
-        view: AugmentedRealityView,
-        drawer: ICanvasDrawer
-    ) {
+        view: AugmentedRealityView
+    ): FloatArray {
         val bounds = view.getBounds()
         val pixels = points.map { view.toPixel(it) }
 
         val lines = mutableListOf<Float>()
         clipper.clip(pixels, bounds, lines, preventLineWrapping = true)
-        drawer.lines(lines.toFloatArray())
+        return lines.toFloatArray()
     }
 
 }

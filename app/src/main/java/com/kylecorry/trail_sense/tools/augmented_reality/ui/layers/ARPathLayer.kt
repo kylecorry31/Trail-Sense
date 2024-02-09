@@ -88,12 +88,8 @@ class ARPathLayer(
 
         // Add the offset to all the points
         val lines = actualPoints.flatMap { (pts, color) ->
-            val projected = project(pts)
-            projected.flatMap {
-                listOf(
-                    ARLine(it, Color.WHITE, 18f),
-                    ARLine(it, color, 16f)
-                )
+            project(pts).map {
+                ARLine(it, color, 16f, outlineColor = Color.WHITE)
             }
         }
 

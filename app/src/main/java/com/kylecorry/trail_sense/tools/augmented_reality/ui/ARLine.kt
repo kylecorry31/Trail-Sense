@@ -7,7 +7,9 @@ data class ARLine(
     val points: List<ARPoint>,
     @ColorInt val color: Int,
     val thickness: Float,
-    val thicknessUnits: ThicknessUnits = ThicknessUnits.Dp
+    val thicknessUnits: ThicknessUnits = ThicknessUnits.Dp,
+    val outlineColor: Int? = null,
+    val outlineThickness: Float = 1f,
 ) {
     // TODO: Extract this
     enum class ThicknessUnits {
