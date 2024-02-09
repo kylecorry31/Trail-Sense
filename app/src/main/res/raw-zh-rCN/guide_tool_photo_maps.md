@@ -56,11 +56,11 @@
 ### 使用信标和导航功能
 你创建的信标会显示在地图上。
 
-When navigating to a beacon, the distance, direction, and estimated time of arrival (ETA) are displayed at the bottom. A line is drawn from your location to the beacon. To cancel navigation, click the 'X' button in the bottom-right.
+导航到信标时，底部会显示距离、方向与预计到达时间（ETA）。你的位置到信标之间会由直线连接。要取消导航，请点击右下角的 “X”按钮。
 
-You can initiate navigation from the map by tapping a beacon or long-pressing a map point and selecting 'Navigate'.
+可以通过点击信标或长按地图点并选择“导航”，从地图上启动导航。
 
-To create a beacon from the map, long-press a map point and choose 'Beacon.' This opens the 'Create Beacon' screen with the location filled in.
+要从地图上创建信标，请长按地图点并选择“信标”。这将打开“创建信标”界面，并自动填入位置。
 
 要进一步了解信标，请参见“信标”指南。
 
@@ -72,43 +72,43 @@ To create a beacon from the map, long-press a map point and choose 'Beacon.' Thi
 要进一步了解路径，请参见“路径”指南。
 
 ## 测量图上距离
-You can measure distances on a map by opening the map, clicking the menu button in the top-right, and selecting 'Measure' or 'Create path'. Tap the map to place markers, and the total distance will be displayed at the bottom. To undo the last marker, click the undo button in the bottom left. Cancel by clicking the 'X' button in the bottom-right. You can also convert the drawn path into a saved path by clicking the 'Create path' button at the bottom.
+打开地图，点击右上角的菜单按钮，选择“测量”或“创建路径”，即可在地图上测量距离。点击地图放置标记，总距离将显示在底部。点击左下角的撤销按钮可以撤销最后一个标记。点击右下角的“X”按钮即可取消。你还可以点击底部的“创建路径”按钮，将绘制的路径保存下来。
 
-For a quick measurement from your location to a point, long-press that point on the map and click 'Distance'.
+要快速测量从你的位置到某一点的距离，请长按地图上的该点并点击”距离”。
 
 ## 重新校准地图
-To recalibrate a map, open the map, click the menu button in the top-right, and choose 'Calibrate'. Follow the instructions above to recalibrate.
+要重新校准地图，请打开地图，点击右上角的菜单按钮，然后选择“校准”，按照上文的说明重新校准。
 
 ## 改变地图投影
-If your map points are not aligning correctly after calibrating (try calibrating again with different points first), consider changing the map projection. To do this, open the map, click the menu button in the top-right, and select 'Change projection'.
+如果校准后地图点没有正确对齐（先试试用不同的点再次校准），请考虑改变地图投影。要这样做，请打开地图，点击右上角的菜单按钮，然后选择“改变投影”。
 
 ## 重命名地图
-To rename a map, click the menu button on the map row you wish to rename, then select 'Rename' and provide a new name. Alternatively, open the map, click the menu button in the top-right, and choose 'Rename'.
+要重命名地图，请点击待重命名的地图行的菜单按钮，然后选择“重命名”并提供新名称。也可以打开地图，点击右上角的菜单按钮，选择“重命名”。
 
 ## 删除地图
-To delete a map, click the menu button on the map row you want to remove, then select 'Delete'. Alternatively, open the map, click the menu button in the top-right, and choose 'Delete'.
+要删除地图，请单击待删除的地图行的菜单按钮，然后选择“删除”。也可以打开地图，点击右上角的菜单按钮，然后选择“删除”。
 
 ## 导出地图
-To export a map, click the menu button on the map row you want to export, then select 'Export'. Alternatively, open the map, click the menu button in the top-right, and choose 'Export'. This action exports the map as a PDF, and if calibrated, it will convert it into a geospatial PDF.
+要导出地图，请点击待导出的地图行的菜单按钮，然后选择“导出”。也可以打开地图，点击右上角的菜单按钮，然后选择“导出”。此操作会将地图导出为 PDF 格式，如果地图经过校准，则会将其转换为地理空间 PDF 格式。
 
 ## 打印地图
-To print a map, click the menu button on the map row you want to print, then select 'Print'. Alternatively, open the map, click the menu button in the top-right, and choose 'Print'. This opens the system print dialog, enabling you to print the map.
+要打印地图，请点击要打印的地图行的菜单按钮，然后选择“打印”。也可以打开地图，点击右上角的菜单按钮，然后选择“打印”。这将打开系统打印对话框，使你能打印地图。
 
 ## 改变地图分辨率
-To alter the resolution of a Photo Map, click the menu button on the map row you want to adjust, then select 'Change resolution'. A dialog will appear, allowing you to switch between low (lowest quality and smallest file size), medium (moderate quality and file size), and high (highest quality and largest file size) resolutions. Keep in mind that changing the resolution is a permanent action and cannot be undone.
+要更改照片地图的分辨率，请点击要调整的地图行的菜单按钮，然后选择“更改分辨率”。此时会出现一个对话框，其中可以选择低分辨率（最低质量，最小文件大小）、中分辨率（中等质量与文件大小）和高分辨率（最高质量，最大文件大小）。请记住，更改分辨率是永久性操作，无法撤销。
 
 默认情况下，Trail Sense 在导入地图时会自动降低其分辨率。要改变此行为，请禁用“设置 > 照片地图 > 降低地图分辨率”。
 
 ## 组织地图
-You can organize maps into groups. To create a group, click the '+' button in the bottom-right of the map list and select 'Group'. Give the group a name and click 'OK'. To add maps to the group, click on the group in the list and follow the map creation instructions. The map will be added to the chosen group.
+你可以将地图组织成组。要创建新分组，请点击地图列表右下方的“+”按钮并选择“分组”，为其命名，然后点击“确定”。要将地图添加到分组中，请点击列表中的分组，然后按照地图创建说明进行操作。地图将被添加到所选的组中。
 
-To change the group of an existing map, click the menu button on the map row you want to move, select 'Move to', and choose the target group.
+要更改现有地图分组，请点击要移动的地图行的菜单按钮，选择“移动到”，然后选择目标分组。
 
-To rename a group, click the menu button on the group row you want to rename, then select 'Rename' and provide a new name.
+要重新命名分组，请点击要重新命名的分组行的菜单按钮，选择“重命名”并提供新名称。
 
-You can delete a group (along with all maps within it) by clicking the menu button on the group row you wish to remove, then selecting 'Delete'.
+单击要删除的分组行的菜单按钮，然后选择“删除”，即可删除此分组（以及其中的所有地图）。
 
 ## 搜索地图
-To search through your created maps, use the search bar at the top of the map list. This search encompasses the current group and all subgroups. Additionally, you can sort maps by distance, time, or name by clicking the menu button in the top-right and selecting 'Sort'.
+用地图列表顶部的搜索框搜索已创建的地图。该搜索包括当前分组和所有子分组。此外，还可以点击右上角的菜单按钮并选择“排序”，按距离、时间或名称对地图进行排序。
 
-The preview of the map is displayed on the left side of the map row. You can disable this preview in Settings > Photo Maps > 'Show map previews'.
+地图的预览显示在地图行的左侧，可以在“设置 > 照片地图 > 显示地图预览”中禁用。
