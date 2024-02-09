@@ -894,4 +894,5 @@
     <string name="on_map">擺落地圖上面</string>
     <string name="find_next_occurrence">搵下一次幾時出現</string>
     <string name="pref_show_last_signal_beacon_summary">用最後一次收到基站訊號嘅位置整返個地標</string>
+    <string name="view_in_3d">用 3D 睇過</string>
 </resources>

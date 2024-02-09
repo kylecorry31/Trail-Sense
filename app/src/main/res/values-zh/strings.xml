@@ -156,7 +156,7 @@
     <string name="battery_health_dead">危险</string>
     <string name="battery_health_cold">冷</string>
     <string name="tool_battery_title">电池</string>
-    <string name="strobe_warning_content">频闪功能包含闪烁的灯光，这对一些用户可能是危险的。</string>
+    <string name="strobe_warning_content">频闪功能包含闪烁的灯光，对某些用户可能很危险。</string>
     <string name="strobe_warning_title">闪烁的灯光</string>
     <string name="clock_waiting_for_gps">正从 GPS 更新时间 …</string>
     <string name="water_purification_step_3">启动计时器</string>
@@ -184,7 +184,7 @@
     <string name="water_boil_timer_title">烧开水计时器</string>
     <string name="water_boil_timer_channel_description">水在沸腾</string>
     <string name="water_boil_timer">水沸腾计时器</string>
-    <string name="solar_panel_instructions">要开始，请把你的手机放在太阳能电池板的面上。</string>
+    <string name="solar_panel_instructions">要开始，请把你的手机放在太阳能电池板表面。</string>
     <string name="tool_solar_panel_title">太阳能板对准器</string>
     <string name="tool_solar_panel_summary">放置太阳能电池板以获得最优的电力生产效率</string>
     <string name="pref_privacy_policy_title">隐私政策</string>
@@ -223,7 +223,7 @@
     <string name="delete_beacon_group_message">%s 及其所有信标都将被删除。</string>
     <string name="tool_user_guide_summary">一份如何使用 Trail Sense 的指南</string>
     <string name="tool_user_guide_title">用户指南</string>
-    <string name="error_occurred_message">Trail Sense 遇到了一个错误。请给开发者发邮件以修复这个问题。</string>
+    <string name="error_occurred_message">Trail Sense 出现了错误。请给开发者发邮件，以便修复这个问题。</string>
     <string name="error_occurred">发生一个错误</string>
     <string name="pref_email_title">给开发者发邮件</string>
     <string name="pref_github_title">GitHub</string>
@@ -335,7 +335,7 @@
 \nOSGB (如， TG 51409 13177)</string>
     <string name="location_input_help_title">支持的位置格式</string>
     <string name="tool_thermometer_title">温度计</string>
-    <string name="delete_waypoint_prompt">删除路径点？</string>
+    <string name="delete_waypoint_prompt">删除航点？</string>
     <string name="low_power_mode_on_message">已开启省电模式，一些功能可能被禁用。</string>
     <string name="pref_low_power_mode_title">省电模式</string>
     <string name="charging_wireless">充电中 （%s）</string>
@@ -351,13 +351,13 @@
     <string name="dialog_leave">离开</string>
     <string name="unsaved_changes_message">你所做的更改将不被保存。</string>
     <string name="unsaved_changes">未保存的变更</string>
-    <string name="cirrus_desc">看起来像一簇簇白发的高而稀薄的云。</string>
+    <string name="cirrus_desc">高而稀薄的云，形似簇簇白发。</string>
     <string name="cumulonimbus_desc">非常高的低浮云。 它们通常是砧形的并且是深色的。</string>
     <string name="cumulus_desc">看起来像棉球的低浮云。 它们间隔开，通常是白色的，下面有较暗的斑块。</string>
     <string name="stratocumulus_desc">看起来像有小缝隙的棉球的低云。 颜色范围从白色到深灰色。</string>
     <string name="stratus_desc">覆盖天空的低云。 物体不会投射阴影，可能雾蒙蒙的。</string>
     <string name="nimbostratus_desc">深灰色并覆盖天空的中层云。 如果没在下雨，可能是层云。</string>
-    <string name="altostratus_desc">覆盖天空的中层云。 肉眼勉强可见太阳形似明亮的补丁。</string>
+    <string name="altostratus_desc">覆盖天空的中层云。肉眼勉强能看到太阳，形似明亮的补丁。</string>
     <string name="altocumulus_desc">看起来像棉球的中层浮云。 它们通常是白色的，下方有较深的斑块，可以间隔开或呈片状。</string>
     <string name="cirrostratus_desc">遮住了天空的高云。 它是透明的，通常会在太阳周围形成光晕。</string>
     <string name="cirrocumulus_desc">形成波浪板的高云。板由几乎看起来二维的小点组成。</string>
@@ -430,7 +430,7 @@
     <string name="lux_format">%s lx</string>
     <string name="distance_from_flashlight">从手机到手电筒的距离</string>
     <string name="beacon_export_error">无法导出信标</string>
-    <string name="pref_backtrack_save_cell_summary">在路径点处记录手机信号。 不使用互联网。</string>
+    <string name="pref_backtrack_save_cell_summary">在航点处记录手机信号。 不使用互联网。</string>
     <string name="pref_backtrack_save_cell_title">记录手机信号</string>
     <string name="tool_light_meter_title">照度计</string>
     <string name="location_disabled">位置被禁用</string>
@@ -631,7 +631,7 @@
 \n
 \n### 解决方案
 \n%4$s</string>
-    <string name="gps_unavailable_resolution">启用位置或将您的位置源更改为仅设备或高精度</string>
+    <string name="gps_unavailable_resolution">启用定位功能，或将您的位置源更改为“仅设备”或“高精度”</string>
     <string name="battery_restricted_resolution">将 Trail Sense 设置为未优化</string>
     <string name="power_saving_mode_resolution">禁用省电模式</string>
     <string name="location_override_not_set_resolution">在设置中设定位置覆盖</string>
@@ -733,7 +733,7 @@
     <string name="points">点</string>
     <string name="importing">导入中</string>
     <string name="elevation">海拔</string>
-    <string name="waypoint">路径点</string>
+    <string name="waypoint">航点</string>
     <string name="dashed">虚线</string>
     <string name="pref_default_path_style_title">默认路径样式</string>
     <string name="pref_default_path_color_title">默认路径颜色</string>
@@ -793,7 +793,7 @@
     <string name="share_ellipsis">分享…</string>
     <string name="temp_f_short">°F</string>
     <string name="temp_c_short">°C</string>
-    <string name="night">夜晚</string>
+    <string name="night">夜视主题</string>
     <string name="qr_text_too_long">文本太长，二维码已被截短</string>
     <string name="pref_flashlight_should_timeout_title">自动关闭</string>
     <string name="pref_flashlight_timeout_title">多少秒后关闭</string>
@@ -957,7 +957,7 @@
     <string name="photo_maps">照片地图</string>
     <string name="historic_temperature_years">历史值（%d 年）</string>
     <string name="historic_temperatures">历史气温</string>
-    <string name="historic_temperatures_full_disclaimer">气温基于历史数据的 %d 年均值，不反应当前天气状况。</string>
+    <string name="historic_temperatures_full_disclaimer">气温基于历史数据的 %d 年均值得出，不反映当前天气状况。</string>
     <plurals name="map_group_summary">
         <item quantity="other">%d 张地图</item>
     </plurals>
@@ -1014,7 +1014,7 @@
     <string name="beta_disclaimer">此工具目前处于测试中，请将问题或反馈报告至 %s。</string>
     <string name="photo_map_summary">使用照片作为地图</string>
     <string name="reduce_map_resolution_crop_disclaimer">裁剪地图会降低分辨率。如果你需要以高分辨率裁剪地图，请使用照片编辑器应用。我们计划将来修复此问题。</string>
-    <string name="crop_map_instructions_long">将方框的角拖动到地图的角上来绘制轮廓。</string>
+    <string name="crop_map_instructions_long">将方框的角拖动到地图四角处来绘制轮廓。</string>
     <string name="rotation_amount">旋转：%s</string>
     <string name="i_agree">我同意</string>
     <string name="battery_settings_limit_accuracy">限制使用电量可能降低精度</string>
@@ -1031,7 +1031,7 @@
     <string name="notifications_channel">通知（%s）</string>
     <string name="sunset_alert_scheduled">警报定于日落前 %s 发出</string>
     <string name="reset_calibration">重置校准</string>
-    <string name="gps_accuracy_tip">确保你有不受遮挡的天际视线且远离高楼和树木。</string>
+    <string name="gps_accuracy_tip">确保天空视野不受遮挡，并远离高楼和树木。</string>
     <string name="gps_location_accuracy">GPS 定位精度</string>
     <string name="gps_elevation_accuracy">GPS 海拔精度</string>
     <string name="gps_satellites">GPS 卫星</string>
@@ -1053,9 +1053,9 @@
     <string name="my_location">我的位置</string>
     <string name="destination">目的地</string>
     <string name="triangulate_destination_location_1_instructions">记录你的位置和到目的地的方向。</string>
-    <string name="triangulate_self_location_1_instructions">选择一个你看得到的已知位置并记录从你所在的位置到那个位置的方向。</string>
-    <string name="triangulate_self_location_2_instructions">选择另一个你看得到的已知位置并记录从你所在位置到那个位置的方向。</string>
-    <string name="triangulate_destination_location_2_instructions">从初始位置移动至少 %s 米并再次记录你的位置和到目的地的方向。</string>
+    <string name="triangulate_self_location_1_instructions">选择一个你看得到的已知位置，并记录到那个位置的方向。</string>
+    <string name="triangulate_self_location_2_instructions">选择另一个你看得到的已知位置，并记录到那个位置的方向。</string>
+    <string name="triangulate_destination_location_2_instructions">从初始位置移动至少 %s 米，再次记录你的位置和到目的地的方向。</string>
     <string name="location_to_triangulate">三角定位法</string>
     <string name="distance_away_from_destination">离目的地 %s</string>
     <string name="location_number">位置 %d</string>
@@ -1079,7 +1079,7 @@
     <string name="magnetic_north_description">指向磁北极。这么做会与多数指南针对齐。</string>
     <string name="missing_sensor_explanation">某些收集制造商选择即使在刚推出或很贵的设备上也不添加这一传感器。要获取更多信息，请访问设备制造商网站或和制造商取得联系。</string>
     <string name="no_sensor_unable_to_fix">没有，这是硬件功能。因此我们无法从软件层面加以解决。</string>
-    <string name="true_north_description">用你所在位置的磁偏角指向地理北极。这么做会与大多数地图对齐。</string>
+    <string name="true_north_description">用你所在位置的磁偏角指向地理北极，这会与大多数地图一致。</string>
     <string name="is_there_a_way_to_fix_this">有办法解决吗？</string>
     <string name="high_sensitivity">高敏感度</string>
     <string name="restart_services_message">无法重启后台服务。轻按以重启。</string>
@@ -1102,7 +1102,7 @@
     <string name="fast_path_rendering_summary">以外观为代价改善性能</string>
     <string name="view_distance">查看距离</string>
     <string name="show_dial_ticks_on_nearby_radar">在附近雷达上显示刻度 tick</string>
-    <string name="show_dial_ticks_on_nearby_radar_summary">你的设备没有指南针，但你仍能看到什么是方向信标。</string>
+    <string name="show_dial_ticks_on_nearby_radar_summary">你的设备没有指南针，但你仍能看到信标所处方向。</string>
     <string name="creating_beacon">创建信标</string>
     <string name="augmented_reality_no_gyro_message">你仍可以使用“增强现实”工具，但它的精度会下降。</string>
 </resources>
