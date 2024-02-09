@@ -13,6 +13,6 @@ Tap the help button to continuously play the help distress signal (3 long).
 Long press the help button to play common signals.
 
 ## Quick Action
-The Whistle quick action is available on any tab. You can enable the quick action in the settings for the tab you want it on.
+You can enable the Whistle quick action in the settings for the tab you want it on.
 
 To use the quick action, tap and hold the whistle quick action button.

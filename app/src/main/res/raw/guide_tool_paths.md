@@ -100,3 +100,8 @@ To search through your created paths, use the search bar at the top of the path 
 
 ## Improving Performance
 If you are experiencing performance issues with the Paths tool, you can enable Settings > Paths > 'Fast path rendering' which will render paths faster, at the cost of appearance.
+
+## Quick Action
+You can enable the Backtrack quick action in the settings for the desired tab.
+
+To use the quick action, tap the Backtrack quick action button to toggle it on or off. You can long press the button to open the Paths tool.

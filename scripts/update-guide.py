@@ -7,7 +7,7 @@ root = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/') + '/..'
 def check_url_integrity(original_text: str, translated_text: str) -> bool:
     """Returns True if the URLs in the translated guide are the same as the URLs in the original guide. Otherwise, returns False."""    
     # Regex to get all URLs
-    expression = r'(https?://[^\s]+)'
+    expression = r'(https?://[^\s\)]+)'
     
     original_urls = re.findall(expression, original_text)
     translated_urls = re.findall(expression, translated_text)

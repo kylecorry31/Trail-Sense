@@ -90,3 +90,8 @@ To search through your created beacons, use the search bar at the top of the bea
 If you have Backtrack enabled (see the 'Paths' guide) and it is configured to record cell signal, you will see a beacon created for the last known location where you had a cell signal.
 
 You can disable this beacon in Settings > Paths > 'Last signal beacon'.
+
+## Quick Action
+You can enable the Create Beacon quick action in the settings for the desired tab.
+
+To use the quick action, tap the Beacon quick action button to create a beacon at your current location. The title of the beacon will be set to the current date and time. Once created you will see a notification at the bottom of the screen with a button to view the beacon.

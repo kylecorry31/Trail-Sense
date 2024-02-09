@@ -21,6 +21,6 @@ Before using the pedometer in Trail Sense, you should calibrate it based on your
 6. You can then choose to save the stride length.
 
 ## Quick Action
-The Pedometer quick action is available on any tab. You can enable the quick action in the settings for the tab you want it on.
+You can enable the Pedometer quick action in the settings for the tab you want it on.
 
 To use the quick action, tap the Pedometer quick action button to toggle it on or off.

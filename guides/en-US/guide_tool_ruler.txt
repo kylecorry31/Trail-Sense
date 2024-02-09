@@ -28,6 +28,6 @@ If it is not accurate:
 For example, if Trail Sense reported 1.5 cm when you measured 1 cm on the ruler, enter 1.5 as the ruler scale.
 
 ## Quick Action
-The Ruler quick action is available on all tabs. You can enable the quick action in the settings for the desired tab.
+You can enable the Ruler quick action in the settings for the desired tab.
 
 To use the quick action, tap the Ruler quick action button to display or hide the ruler. When active, tap the ruler to hide it.

@@ -21,7 +21,7 @@ You can configure power saving mode to activate automatically when your battery 
 Running services are listed below the battery statistics. You can see how often they are running and how much impact they have on battery life. You can stop a service by clicking the 'X' button next to it.
 
 ## Quick Action
-The Power Saving Mode quick action is available on any tab. You can enable the quick action in the settings for the tab you want it on.
+You can enable the Power Saving Mode quick action in the settings for the tab you want it on.
 
 To use the quick action, tap the power saving mode quick action button to toggle it on or off.
 

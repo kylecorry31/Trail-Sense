@@ -31,3 +31,8 @@ To share a note as a QR code:
 3. Scan the QR code with another device to import the note.
 
 Note: The QR code can only transfer the first 1000 characters of a note.
+
+## Quick Action
+You can enable the Note quick action in the settings for the desired tab.
+
+To use the quick action, tap the Note quick action button to create a new note.

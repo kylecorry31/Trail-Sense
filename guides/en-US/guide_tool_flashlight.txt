@@ -23,6 +23,6 @@ You can set the flashlight to automatically turn off after a certain amount of t
 You can set the flashlight to toggle on or off when you press either volume button by opening Settings > Flashlight > Enable 'Toggle with volume buttons'. This only works while Trail Sense is open.
 
 ## Quick Action
-The Flashlight quick action is available on any tab. You can enable the quick action in the settings for the tab you want it on.
+You can enable the Flashlight quick action in the settings for the tab you want it on.
 
 To use the quick action, tap the flashlight quick action button to toggle it on or off.

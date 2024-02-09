@@ -13,6 +13,9 @@ A circular reticle is displayed in the center of your screen. You can use this t
 ## Beacons
 Nearby beacons are displayed as markers on the screen. You can tap on a beacon to start navigation (See the Navigation section below). The nearby beacon radius can be adjusted in Settings > Navigation > Nearby beacon radius.
 
+## Paths
+Nearby paths are displayed below your feet. Due to GPS inaccuracy, the paths may not be perfectly aligned with the real world.
+
 ## Sun / Moon
 The paths that the sun and moon will take today are displayed as markers on the screen. The sun's path is displayed in yellow and the moon's path is displayed in white. A larger marker is displayed at the current time, and will also show the moon phase. Times in the past are lighter.
 

@@ -52,7 +52,7 @@ The current weather front is displayed in the weather list. Fronts typically ind
 You can export the recorded weather data to a CSV file with Settings > Weather > Export weather records.
 
 ## Quick Action
-The Weather Monitor quick action is available on the Weather and Tools tabs. You can enable the quick action in the settings for the tab you want it on.
+You can enable the Weather Monitor quick action in the settings for the tab you want it on.
 
 To use the quick action, tap the Weather Monitor quick action button to toggle it on or off.
 
