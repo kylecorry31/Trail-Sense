@@ -166,7 +166,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
         pathLayerManager = PathLayerManager(requireContext(), pathsLayer)
         pathLayerManager?.start()
-        layerManagementUpdater.interval(200)
+        layerManagementUpdater.interval(100)
 
         binding.arView.start()
         if (isCameraEnabled) {
