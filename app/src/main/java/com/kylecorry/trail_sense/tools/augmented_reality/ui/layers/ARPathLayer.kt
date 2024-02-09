@@ -45,7 +45,7 @@ class ARPathLayer(
 
     private val pointSpacing = 5f // meters
     private val pathSimplification = 0.5f // meters
-    private val snapDistance = viewDistanceMeters / 2f // meters
+    private val snapDistance = 2 * viewDistanceMeters / 3f // meters
     private val snapDistanceSquared = square(snapDistance)
 
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
