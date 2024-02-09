@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.CoroutineTimer
+import com.kylecorry.andromeda.core.time.TimerActionBehavior
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.observeFlow
@@ -104,7 +105,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     private var isCameraEnabled = true
 
     private var lastLocation = Coordinate.zero
-    private val layerManagementUpdater = CoroutineTimer {
+    private val layerManagementUpdater = CoroutineTimer(actionBehavior = TimerActionBehavior.Skip) {
         if (!isBound) return@CoroutineTimer
         if (!userPrefs.augmentedReality.showPathLayer) return@CoroutineTimer
         if (binding.arView.location == lastLocation) return@CoroutineTimer
