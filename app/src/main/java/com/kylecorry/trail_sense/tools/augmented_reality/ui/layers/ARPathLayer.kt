@@ -45,7 +45,7 @@ class ARPathLayer(
 
     private val pointSpacing = 4f // meters
     private val pathSimplification = 0.5f // meters
-    private val snapDistance = viewDistanceMeters / 3f // meters
+    private val snapDistance = viewDistanceMeters / 2f // meters
     private val snapDistanceSquared = square(snapDistance)
 
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
@@ -236,12 +236,17 @@ class ARPathLayer(
         point: PixelCoordinate,
         lineStart: PixelCoordinate,
         lineEnd: PixelCoordinate
-    ): PixelCoordinate {
+    ): PixelCoordinate? {
         val ab = lineEnd.distanceTo(lineStart)
         val ap = point.distanceTo(lineStart)
         val bp = point.distanceTo(lineEnd)
 
         val t = (ap * ap - bp * bp + ab * ab) / (2 * ab * ab)
+
+        if (t < 0 || t > 1 || t.isNaN()) {
+            return null
+        }
+
         val x = lineStart.x + t * (lineEnd.x - lineStart.x)
         val y = lineStart.y + t * (lineEnd.y - lineStart.y)
         return PixelCoordinate(x, y)

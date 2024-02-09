@@ -19,6 +19,7 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentAugmentedRealityBinding
@@ -102,9 +103,12 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
     private var isCameraEnabled = true
 
+    private var lastLocation = Coordinate.zero
     private val layerManagementUpdater = CoroutineTimer {
         if (!isBound) return@CoroutineTimer
         if (!userPrefs.augmentedReality.showPathLayer) return@CoroutineTimer
+        if (binding.arView.location == lastLocation) return@CoroutineTimer
+        lastLocation = binding.arView.location
         // This is only handling the path layer for now
         val viewDistance = Distance.meters(userPrefs.augmentedReality.pathViewDistance * 2f)
         pathLayerManager?.onBoundsChanged(
@@ -161,7 +165,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
         pathLayerManager = PathLayerManager(requireContext(), pathsLayer)
         pathLayerManager?.start()
-        layerManagementUpdater.interval(500)
+        layerManagementUpdater.interval(20)
 
         binding.arView.start()
         if (isCameraEnabled) {
