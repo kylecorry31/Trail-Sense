@@ -37,6 +37,7 @@ class PerspectiveCorrectionView : CanvasView {
     private var bottomLeft = PixelCoordinate(0f, 0f)
     private var bottomRight = PixelCoordinate(0f, 0f)
     private var movingCorner: Corner? = null
+    private var movingOffset = PixelCoordinate(0f, 0f)
     private var sourceMatrix = Matrix()
     var mapRotation: Float = 0f
         set(value) {
@@ -256,36 +257,41 @@ class PerspectiveCorrectionView : CanvasView {
                 when {
                     topLeft.distanceTo(position) <= radius -> {
                         movingCorner = Corner.TopLeft
+                        movingOffset = PixelCoordinate(position.x - topLeft.x, position.y - topLeft.y)
                     }
                     topRight.distanceTo(position) <= radius -> {
                         movingCorner = Corner.TopRight
+                        movingOffset = PixelCoordinate(position.x - topRight.x, position.y - topRight.y)
                     }
                     bottomLeft.distanceTo(position) <= radius -> {
                         movingCorner = Corner.BottomLeft
+                        movingOffset = PixelCoordinate(position.x - bottomLeft.x, position.y - bottomLeft.y)
                     }
                     bottomRight.distanceTo(position) <= radius -> {
                         movingCorner = Corner.BottomRight
+                        movingOffset = PixelCoordinate(position.x - bottomRight.x, position.y - bottomRight.y)
                     }
                 }
             }
             MotionEvent.ACTION_MOVE -> {
+                val actualPosition = PixelCoordinate(position.x - movingOffset.x, position.y - movingOffset.y)
                 when (movingCorner) {
                     Corner.TopLeft -> {
-                        topLeft = constrain(position, null, bottomLeft.y, null, topRight.x, radius)
+                        topLeft = constrain(actualPosition, null, bottomLeft.y, null, topRight.x, radius)
                         hasChanges = true
                     }
                     Corner.TopRight -> {
-                        topRight = constrain(position, null, bottomRight.y, topLeft.x, null, radius)
+                        topRight = constrain(actualPosition, null, bottomRight.y, topLeft.x, null, radius)
                         hasChanges = true
                     }
                     Corner.BottomLeft -> {
                         bottomLeft =
-                            constrain(position, topLeft.y, null, null, bottomRight.x, radius)
+                            constrain(actualPosition, topLeft.y, null, null, bottomRight.x, radius)
                         hasChanges = true
                     }
                     Corner.BottomRight -> {
                         bottomRight =
-                            constrain(position, topRight.y, null, bottomLeft.x, null, radius)
+                            constrain(actualPosition, topRight.y, null, bottomLeft.x, null, radius)
                         hasChanges = true
                     }
                     null -> {}
