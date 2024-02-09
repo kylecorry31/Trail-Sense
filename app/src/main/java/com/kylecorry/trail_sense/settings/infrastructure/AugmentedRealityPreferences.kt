@@ -22,6 +22,6 @@ class AugmentedRealityPreferences(context: Context) : PreferenceRepo(context) {
     var pathViewDistance by FloatPreference(
         cache,
         context.getString(R.string.pref_augmented_reality_view_distance_paths),
-        20f
+        30f
     )
 }
