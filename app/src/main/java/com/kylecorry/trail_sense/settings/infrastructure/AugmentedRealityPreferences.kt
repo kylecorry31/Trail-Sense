@@ -24,10 +24,4 @@ class AugmentedRealityPreferences(context: Context) : PreferenceRepo(context) {
         context.getString(R.string.pref_augmented_reality_view_distance_paths),
         20f
     )
-
-    var useGeographicPathPoints by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_ar_use_geographic_path_points),
-        true
-    )
 }

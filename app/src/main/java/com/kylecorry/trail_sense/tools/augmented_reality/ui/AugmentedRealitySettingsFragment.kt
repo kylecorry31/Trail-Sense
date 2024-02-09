@@ -17,8 +17,6 @@ class AugmentedRealitySettingsFragment : AndromedaPreferenceFragment() {
 
         val userPrefs = UserPreferences(requireContext())
 
-        preference(R.string.pref_ar_use_geographic_path_points)?.isVisible = isDebug()
-
         setupDistanceSetting(
             getString(R.string.pref_view_distance_beacons_holder),
             { relative(Distance.meters(userPrefs.augmentedReality.beaconViewDistance), userPrefs) },
@@ -40,6 +38,8 @@ class AugmentedRealitySettingsFragment : AndromedaPreferenceFragment() {
             },
             DistanceUtils.hikingDistanceUnits
         )
+
+        preference(R.string.pref_view_distance_paths_holder)?.isVisible = isDebug()
     }
 
     private fun relative(distance: Distance, prefs: UserPreferences): Distance {

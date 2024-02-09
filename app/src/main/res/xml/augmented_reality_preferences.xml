@@ -18,13 +18,6 @@
             app:singleLineTitle="false"
             app:title="@string/paths" />
 
-        <SwitchPreferenceCompat
-            app:defaultValue="true"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_ar_use_geographic_path_points"
-            app:singleLineTitle="false"
-            app:title="Use geographic path points (Testing)" />
-
         <Preference
             app:iconSpaceReserved="false"
             app:key="@string/pref_view_distance_paths_holder"

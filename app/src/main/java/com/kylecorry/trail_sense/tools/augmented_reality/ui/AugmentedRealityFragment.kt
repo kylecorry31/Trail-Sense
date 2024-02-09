@@ -95,8 +95,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
     private val pathsLayer by lazy {
         ARPathLayer(
-            userPrefs.augmentedReality.pathViewDistance,
-            userPrefs.augmentedReality.useGeographicPathPoints
+            userPrefs.augmentedReality.pathViewDistance
         )
     }
     private var pathLayerManager: PathLayerManager? = null
@@ -162,7 +161,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
         pathLayerManager = PathLayerManager(requireContext(), pathsLayer)
         pathLayerManager?.start()
-        layerManagementUpdater.interval(1000)
+        layerManagementUpdater.interval(500)
 
         binding.arView.start()
         if (isCameraEnabled) {

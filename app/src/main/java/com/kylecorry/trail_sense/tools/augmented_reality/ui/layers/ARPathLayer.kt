@@ -4,38 +4,34 @@ import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.SolMath.square
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.analysis.Trigonometry
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.canvas.LineClipper
 import com.kylecorry.trail_sense.shared.canvas.LineInterpolator
 import com.kylecorry.trail_sense.shared.extensions.isSamePixel
 import com.kylecorry.trail_sense.shared.extensions.squaredDistanceTo
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.ARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.GeographicARPoint
-import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.SphericalARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARLine
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.tools.paths.ui.IPathLayer
-import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.sqrt
 
 class ARPathLayer(
-    private val viewDistanceMeters: Float,
-    private val useGeographicPathPoints: Boolean
+    private val viewDistanceMeters: Float
 ) : ARLayer, IPathLayer {
 
     private val lineLayer = ARLineLayer()
     private var lastLocation = Coordinate.zero
 
-    private val squareViewDistance = SolMath.square(viewDistanceMeters)
-    private val degreesPerMeter = 85f / viewDistanceMeters
+    private val squareViewDistance = square(viewDistanceMeters)
     private val center = PixelCoordinate(viewDistanceMeters, viewDistanceMeters)
     private val bounds = Rectangle(
         0f,
@@ -49,6 +45,8 @@ class ARPathLayer(
 
     private val pointSpacing = 4f // meters
     private val pathSimplification = 0.5f // meters
+    private val snapDistance = viewDistanceMeters / 3f // meters
+    private val snapDistanceSquared = square(snapDistance)
 
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         lastLocation = view.location
@@ -74,11 +72,27 @@ class ARPathLayer(
     override fun setPaths(paths: List<IMappablePath>) {
         val location = lastLocation
 
-        val lines = paths.flatMap {
-            getNearbyARPoints(it, location).flatMap { points ->
+        val points = paths.map {
+            getNearbyARPoints(it, location) to it.color
+        }
+
+        val nearestPoints = points.mapNotNull { getNearestPoint(it.first) }
+        val nearest =
+            nearestPoints.minByOrNull { it.squaredDistanceTo(center) } ?: PixelCoordinate(0f, 0f)
+
+        // TODO: This is very inefficient - it should be done in a single pass by shifting the points
+        val newLocation = toLocation(nearest) ?: location
+        val actualPoints = paths.map {
+            getNearbyARPoints(it, newLocation) to it.color
+        }
+
+        // Add the offset to all the points
+        val lines = actualPoints.flatMap { (pts, color) ->
+            val projected = project(pts)
+            projected.flatMap {
                 listOf(
-                    ARLine(points, Color.WHITE, 18f),
-                    ARLine(points, it.color, 16f)
+                    ARLine(it, Color.WHITE, 18f),
+                    ARLine(it, color, 16f)
                 )
             }
         }
@@ -86,45 +100,65 @@ class ARPathLayer(
         lineLayer.setLines(lines)
     }
 
-    private fun getNearbyARPoints(
-        path: IMappablePath,
-        location: Coordinate
-    ): List<List<ARPoint>> {
-        // It is easier to work with the points if they are projected onto a cartesian plane
+    private fun getNearestPoint(points: List<Float>): PixelCoordinate? {
+        var minIdx = -1
+        var minDistance = snapDistanceSquared
 
-        // Step 1: Project the path points
-        val projected = path.points.map {
-            project(it.coordinate, location)
+        for (i in points.indices step 2) {
+            val dx = points[i] - center.x
+            val dy = points[i + 1] - center.y
+            val distance = dx * dx + dy * dy
+            if (distance < minDistance) {
+                minDistance = distance
+                minIdx = i
+            }
         }
 
-        // Step 2: Clip the projected points
-        val output = mutableListOf<Float>()
-        clipper.clip(
-            projected,
-            bounds,
-            output,
-            rdpFilterEpsilon = pathSimplification
-        )
+        if (minIdx == -1) {
+            return null
+        }
 
-        // Step 3: Interpolate between the points for a higher resolution
-        val output2 = mutableListOf<Float>()
-        interpolator.increaseResolution(
-            output,
-            output2,
-            pointSpacing
-        )
+        val point = PixelCoordinate(points[minIdx], points[minIdx + 1])
 
+        val previous = if (minIdx >= 2) {
+            val start = PixelCoordinate(points[minIdx - 2], points[minIdx - 1])
+            projectOntoLine(center, start, point)
+        } else {
+            null
+        }
+        val previousDistance = previous?.squaredDistanceTo(center) ?: Float.MAX_VALUE
+
+        val next = if (minIdx < points.size - 2) {
+            val end = PixelCoordinate(points[minIdx + 2], points[minIdx + 3])
+            projectOntoLine(center, point, end)
+        } else {
+            null
+        }
+        val nextDistance = next?.squaredDistanceTo(center) ?: Float.MAX_VALUE
+
+        val pointDistance = point.squaredDistanceTo(center)
+
+        return when {
+            previousDistance < nextDistance && previousDistance < pointDistance -> previous
+            nextDistance < previousDistance && nextDistance < pointDistance -> next
+            else -> point
+        }
+    }
+
+    private fun project(
+        points: MutableList<Float>
+    ): List<List<ARPoint>> {
         // Step 4: Convert the points back to geographic coordinates and split the lines
         val lines = mutableListOf<List<ARPoint>>()
         var currentLine = mutableListOf<ARPoint>()
 
         var lastPixel: PixelCoordinate? = null
 
-        for (i in output2.indices step 4) {
-            val x1 = output2[i]
-            val y1 = output2[i + 1]
-            val x2 = output2[i + 2]
-            val y2 = output2[i + 3]
+        for (i in points.indices step 4) {
+            val x1 = points[i]
+            val y1 = points[i + 1]
+            val x2 = points[i + 2]
+            val y2 = points[i + 3]
 
             val pixel1 = PixelCoordinate(x1, y1)
             val pixel2 = PixelCoordinate(x2, y2)
@@ -166,6 +200,53 @@ class ARPathLayer(
         return lines.filterNot { it.size < 2 }
     }
 
+    private fun getNearbyARPoints(
+        path: IMappablePath,
+        location: Coordinate
+    ): MutableList<Float> {
+        // It is easier to work with the points if they are projected onto a cartesian plane
+
+        // Step 1: Project the path points
+        val projected = path.points.map {
+            project(it.coordinate, location)
+        }
+
+        // Step 2: Clip the projected points
+        val output = mutableListOf<Float>()
+        clipper.clip(
+            projected,
+            bounds,
+            output,
+            rdpFilterEpsilon = pathSimplification
+        )
+
+        // Step 3: Interpolate between the points for a higher resolution
+        val output2 = mutableListOf<Float>()
+        interpolator.increaseResolution(
+            output,
+            output2,
+            pointSpacing
+        )
+
+        return output2
+    }
+
+    // TODO: This should be extracted
+    private fun projectOntoLine(
+        point: PixelCoordinate,
+        lineStart: PixelCoordinate,
+        lineEnd: PixelCoordinate
+    ): PixelCoordinate {
+        val ab = lineEnd.distanceTo(lineStart)
+        val ap = point.distanceTo(lineStart)
+        val bp = point.distanceTo(lineEnd)
+
+        val t = (ap * ap - bp * bp + ab * ab) / (2 * ab * ab)
+        val x = lineStart.x + t * (lineEnd.x - lineStart.x)
+        val y = lineStart.y + t * (lineEnd.y - lineStart.y)
+        return PixelCoordinate(x, y)
+    }
+
     // TODO: Extract this to sol (azimuthal equidistant projection)
     private fun project(
         location: Coordinate,
@@ -179,7 +260,7 @@ class ARPathLayer(
         return PixelCoordinate(center.x + xDiff, center.y - yDiff)
     }
 
-    private fun toARPoint(pixel: PixelCoordinate): ARPoint? {
+    private fun toLocation(pixel: PixelCoordinate): Coordinate? {
         // The line continues
         val angle = Trigonometry.toUnitAngle(
             atan2(center.y - pixel.y, pixel.x - center.x).toDegrees(),
@@ -194,17 +275,12 @@ class ARPathLayer(
 
         val distance = sqrt(squareDistance)
 
-        if (!useGeographicPathPoints) {
-//            val elevationAngle = atan2(-2f, distance).toDegrees()
-            val elevationAngle = -90 + sqrt(squareDistance) * degreesPerMeter
-            return SphericalARPoint(
-                Bearing.getBearing(angle),
-                elevationAngle
-            )
-        }
-
         // Otherwise add the point
-        val location = lastLocation.plus(distance.toDouble(), Bearing(angle))
+        return lastLocation.plus(distance.toDouble(), Bearing(angle))
+    }
+
+    private fun toARPoint(pixel: PixelCoordinate): ARPoint? {
+        val location = toLocation(pixel) ?: return null
         return GeographicARPoint(
             location,
             -2f,
