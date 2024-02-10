@@ -11,11 +11,14 @@ import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.MenuItem
+import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 import com.kylecorry.andromeda.core.system.GeoUri
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.AndromedaActivity
@@ -90,6 +93,7 @@ class MainActivity : AndromedaActivity() {
 
         navController = findNavController()
         bottomNavigation = findViewById(R.id.bottom_navigation)
+        setBottomNavLabelsVisibility()
         bottomNavigation.setupWithNavController(navController, false)
 
         if (userPrefs.theme == UserPreferences.Theme.Black || userPrefs.theme == UserPreferences.Theme.Night) {
@@ -105,6 +109,25 @@ class MainActivity : AndromedaActivity() {
 
         requestPermissions(permissions) {
             startApp()
+        }
+    }
+
+    fun changeBottomNavLabelsVisibility(useCompactMode: Boolean){
+        userPrefs.useCompactMode = useCompactMode
+        setBottomNavLabelsVisibility()
+    }
+
+    private fun setBottomNavLabelsVisibility(){
+        if(userPrefs.useCompactMode) {
+            bottomNavigation.apply {
+                layoutParams.height = Resources.dp(context, 55f).toInt()
+                labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_UNLABELED
+            }
+        } else {
+            bottomNavigation.apply {
+                layoutParams.height = LayoutParams.WRAP_CONTENT
+                labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_AUTO
+            }
         }
     }
 

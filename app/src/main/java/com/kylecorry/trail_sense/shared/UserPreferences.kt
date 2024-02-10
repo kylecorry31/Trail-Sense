@@ -199,6 +199,12 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
         false
     )
 
+    var useCompactMode by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_use_compact_mode),
+        false
+    )
+
     // Calibration
 
     override var useAutoDeclination: Boolean
