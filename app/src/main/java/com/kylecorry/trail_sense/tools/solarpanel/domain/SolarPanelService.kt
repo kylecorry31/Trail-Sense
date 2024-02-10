@@ -4,7 +4,9 @@ import com.kylecorry.andromeda.core.time.ITimeProvider
 import com.kylecorry.andromeda.core.time.SystemTimeProvider
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.calculus.Calculus
+import com.kylecorry.sol.math.optimization.GradientDescentOptimizer
 import com.kylecorry.sol.math.optimization.HillClimbingOptimizer
+import com.kylecorry.sol.math.optimization.SimulatedAnnealingOptimizer
 import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.time.Time.atEndOfDay
@@ -132,10 +134,19 @@ class SolarPanelService(
             )
         }
 
-        val optimizer = HillClimbingOptimizer(
-            1.0,
-            2000
-        )
+        val optimizer = if (start.toLocalDate() == end.toLocalDate()) {
+            HillClimbingOptimizer(
+                1.0,
+                2000
+            )
+        } else {
+            // When crossing days, hill climbing can get stuck in a local maximum
+            SimulatedAnnealingOptimizer(
+                10.0,
+                1.0,
+                2000
+            )
+        }
 
         val best = optimizer.optimize(
             Range(startAzimuth, endAzimuth),
