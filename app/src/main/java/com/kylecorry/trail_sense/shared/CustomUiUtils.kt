@@ -459,4 +459,9 @@ object CustomUiUtils {
         }
     }
 
+    /**
+     * Int extension to convert dp to px based on device pixel density
+     */
+    fun Int.dpToPx(): Int = (this * android.content.res.Resources.getSystem().displayMetrics.density).toInt()
+
 }
