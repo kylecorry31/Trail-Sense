@@ -80,7 +80,7 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         //Set Compact Mode
         val compactMode = switch(R.string.pref_use_compact_mode)
         compactMode?.setOnPreferenceChangeListener { _, checked ->
-            requireMainActivity().changeBottomNavLabelVisibility(checked as Boolean)
+            requireMainActivity().changeBottomNavLabelsVisibility(checked as Boolean)
             true
         }
 

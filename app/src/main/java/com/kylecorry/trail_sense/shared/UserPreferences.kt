@@ -199,7 +199,7 @@ class UserPreferences(private val context: Context) : IDeclinationPreferences {
         false
     )
 
-    val useCompactMode by BooleanPreference(
+    var useCompactMode by BooleanPreference(
         cache,
         context.getString(R.string.pref_use_compact_mode),
         false

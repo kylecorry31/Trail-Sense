@@ -18,6 +18,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.kylecorry.andromeda.core.system.GeoUri
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.AndromedaActivity
@@ -30,7 +31,6 @@ import com.kylecorry.trail_sense.main.errors.ExceptionHandler
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.RestartServicesCommand
 import com.kylecorry.trail_sense.settings.ui.SettingsMoveNotice
-import com.kylecorry.trail_sense.shared.CustomUiUtils.dpToPx
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils.setupWithNavController
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.ComposedCommand
@@ -93,7 +93,7 @@ class MainActivity : AndromedaActivity() {
 
         navController = findNavController()
         bottomNavigation = findViewById(R.id.bottom_navigation)
-        setBottomNavLabelVisibility()
+        setBottomNavLabelsVisibility()
         bottomNavigation.setupWithNavController(navController, false)
 
         if (userPrefs.theme == UserPreferences.Theme.Black || userPrefs.theme == UserPreferences.Theme.Night) {
@@ -112,15 +112,15 @@ class MainActivity : AndromedaActivity() {
         }
     }
 
-    fun changeBottomNavLabelVisibility(useCompactMode: Boolean){
-        cache.putBoolean("pref_use_compact_mode", useCompactMode)
-        recreate()
+    fun changeBottomNavLabelsVisibility(useCompactMode: Boolean){
+        userPrefs.useCompactMode = useCompactMode
+        setBottomNavLabelsVisibility()
     }
 
-    private fun setBottomNavLabelVisibility(){
+    private fun setBottomNavLabelsVisibility(){
         if(userPrefs.useCompactMode) {
             bottomNavigation.apply {
-                layoutParams.height = 55.dpToPx()
+                layoutParams.height = Resources.dp(context, 55f).toInt()
                 labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_UNLABELED
             }
         } else {
