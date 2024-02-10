@@ -78,7 +78,7 @@ class ARPathLayer(
 
         val nearestPoints = points.mapNotNull { getNearestPoint(it.first) }
         val nearest = nearestPoints.minByOrNull { it.squaredDistanceTo(center) }
-        if (nearest != null){
+        if (nearest != null) {
             points.forEach {
                 recenterPoints(it.first, nearest, center)
             }
@@ -96,48 +96,24 @@ class ARPathLayer(
     }
 
     private fun getNearestPoint(points: List<Float>): PixelCoordinate? {
-        var minIdx = -1
+        var minPoint: PixelCoordinate? = null
         var minDistance = snapDistanceSquared
 
-        for (i in points.indices step 2) {
-            val dx = points[i] - center.x
-            val dy = points[i + 1] - center.y
-            val distance = dx * dx + dy * dy
+        for (i in points.indices step 4) {
+            val x1 = points[i]
+            val y1 = points[i + 1]
+            val x2 = points[i + 2]
+            val y2 = points[i + 3]
+            val projected = projectOntoLine(center.x, center.y, x1, y1, x2, y2)
+            val distance = projected.squaredDistanceTo(center)
+
             if (distance < minDistance) {
                 minDistance = distance
-                minIdx = i
+                minPoint = projected
             }
         }
 
-        if (minIdx == -1) {
-            return null
-        }
-
-        val point = PixelCoordinate(points[minIdx], points[minIdx + 1])
-
-        val previous = if (minIdx >= 2) {
-            val start = PixelCoordinate(points[minIdx - 2], points[minIdx - 1])
-            projectOntoLine(center, start, point)
-        } else {
-            null
-        }
-        val previousDistance = previous?.squaredDistanceTo(center) ?: Float.MAX_VALUE
-
-        val next = if (minIdx < points.size - 2) {
-            val end = PixelCoordinate(points[minIdx + 2], points[minIdx + 3])
-            projectOntoLine(center, point, end)
-        } else {
-            null
-        }
-        val nextDistance = next?.squaredDistanceTo(center) ?: Float.MAX_VALUE
-
-        val pointDistance = point.squaredDistanceTo(center)
-
-        return when {
-            previousDistance < nextDistance && previousDistance < pointDistance -> previous
-            nextDistance < previousDistance && nextDistance < pointDistance -> next
-            else -> point
-        }
+        return minPoint
     }
 
     private fun project(
@@ -226,8 +202,12 @@ class ARPathLayer(
         return output2
     }
 
-    private fun recenterPoints(points: MutableList<Float>, oldCenter: PixelCoordinate, newCenter: PixelCoordinate){
-        for (i in points.indices step 2){
+    private fun recenterPoints(
+        points: MutableList<Float>,
+        oldCenter: PixelCoordinate,
+        newCenter: PixelCoordinate
+    ) {
+        for (i in points.indices step 2) {
             val x = points[i]
             val y = points[i + 1]
             points[i] = x - oldCenter.x + newCenter.x
@@ -235,25 +215,23 @@ class ARPathLayer(
         }
     }
 
-    // TODO: This should be extracted
+    // TODO: Extract this to sol
     private fun projectOntoLine(
-        point: PixelCoordinate,
-        lineStart: PixelCoordinate,
-        lineEnd: PixelCoordinate
-    ): PixelCoordinate? {
-        val ab = lineEnd.distanceTo(lineStart)
-        val ap = point.distanceTo(lineStart)
-        val bp = point.distanceTo(lineEnd)
+        x: Float,
+        y: Float,
+        x1: Float,
+        y1: Float,
+        x2: Float,
+        y2: Float
+    ): PixelCoordinate {
+        val ab = square(x2 - x1) + square(y2 - y1)
+        val ap = square(x - x1) + square(y - y1)
+        val bp = square(x - x2) + square(y - y2)
 
-        val t = (ap * ap - bp * bp + ab * ab) / (2 * ab * ab)
-
-        if (t < 0 || t > 1 || t.isNaN()) {
-            return null
-        }
-
-        val x = lineStart.x + t * (lineEnd.x - lineStart.x)
-        val y = lineStart.y + t * (lineEnd.y - lineStart.y)
-        return PixelCoordinate(x, y)
+        val t = ((ap - bp + ab) / (2 * ab)).coerceIn(0f, 1f)
+        val projectedX = x1 + t * (x2 - x1)
+        val projectedY = y1 + t * (y2 - y1)
+        return PixelCoordinate(projectedX, projectedY)
     }
 
     // TODO: Extract this to sol (azimuthal equidistant projection)
