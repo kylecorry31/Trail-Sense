@@ -77,17 +77,16 @@ class ARPathLayer(
         }
 
         val nearestPoints = points.mapNotNull { getNearestPoint(it.first) }
-        val nearest =
-            nearestPoints.minByOrNull { it.squaredDistanceTo(center) } ?: PixelCoordinate(0f, 0f)
-
-        // TODO: This is very inefficient - it should be done in a single pass by shifting the points
-        val newLocation = toLocation(nearest) ?: location
-        val actualPoints = paths.map {
-            getNearbyARPoints(it, newLocation) to it.color
+        val nearest = nearestPoints.minByOrNull { it.squaredDistanceTo(center) }
+        if (nearest != null){
+            points.forEach {
+                recenterPoints(it.first, nearest, center)
+            }
         }
 
+
         // Add the offset to all the points
-        val lines = actualPoints.flatMap { (pts, color) ->
+        val lines = points.flatMap { (pts, color) ->
             project(pts).map {
                 ARLine(it, color, 16f, outlineColor = Color.WHITE)
             }
@@ -225,6 +224,15 @@ class ARPathLayer(
         )
 
         return output2
+    }
+
+    private fun recenterPoints(points: MutableList<Float>, oldCenter: PixelCoordinate, newCenter: PixelCoordinate){
+        for (i in points.indices step 2){
+            val x = points[i]
+            val y = points[i + 1]
+            points[i] = x - oldCenter.x + newCenter.x
+            points[i + 1] = y - oldCenter.y + newCenter.y
+        }
     }
 
     // TODO: This should be extracted
