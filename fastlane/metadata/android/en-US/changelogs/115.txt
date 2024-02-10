@@ -9,4 +9,5 @@ Augmented Reality
 Misc
 - Split Navigation and Path settings
 - Add settings option when long pressing a tool
+- Add compact mode for bottom navigation
 - Bug fixes
