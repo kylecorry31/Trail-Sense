@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.augmented_reality.ui.layers
 
-import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
@@ -18,18 +17,19 @@ import com.kylecorry.trail_sense.shared.forEachLine
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.ARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.GeographicARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARLine
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMarker
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasCircle
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.tools.paths.ui.IPathLayer
 import kotlin.math.atan2
 import kotlin.math.sqrt
 
-class ARPathLayer(
-    private val viewDistanceMeters: Float
-) : ARLayer, IPathLayer {
+class ARPathLayer(viewDistanceMeters: Float) : ARLayer, IPathLayer {
 
     private val lineLayer = ARLineLayer()
+    private val markerLayer = ARMarkerLayer(1f, 32f)
     private var lastLocation = Coordinate.zero
 
     private val squareViewDistance = square(viewDistanceMeters)
@@ -52,10 +52,12 @@ class ARPathLayer(
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         lastLocation = view.location
         lineLayer.draw(drawer, view)
+        markerLayer.draw(drawer, view)
     }
 
     override fun invalidate() {
         lineLayer.invalidate()
+        markerLayer.invalidate()
     }
 
     override fun onClick(
@@ -89,10 +91,20 @@ class ARPathLayer(
         // Add the offset to all the points
         val lines = points.flatMap { (pts, color) ->
             project(pts).map {
-                ARLine(it, color, 16f, outlineColor = Color.WHITE)
+                ARLine(it, color, 4f)
             }
         }
 
+        val markers = lines.flatMap {
+            it.points.map { point ->
+                ARMarker(
+                    point,
+                    CanvasCircle(it.color)
+                )
+            }
+        }
+
+        markerLayer.setMarkers(markers)
         lineLayer.setLines(lines)
     }
 
@@ -264,7 +276,8 @@ class ARPathLayer(
         return GeographicARPoint(
             location,
             -2f,
-            isElevationRelative = true
+            isElevationRelative = true,
+            actualDiameter = 0.25f
         )
     }
 }
