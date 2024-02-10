@@ -73,6 +73,12 @@
             app:key="@string/pref_use_dynamic_colors_on_compass"
             app:singleLineTitle="false"
             app:title="@string/compass_dynamic_colors" />
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:icon="@drawable/page_layout_footer"
+            app:key="pref_use_compact_mode"
+            app:singleLineTitle="false"
+            app:title="@string/compact_mode" />
     </PreferenceCategory>
 
     <PreferenceCategory
