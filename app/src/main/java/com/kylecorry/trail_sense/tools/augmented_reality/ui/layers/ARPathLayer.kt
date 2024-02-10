@@ -14,6 +14,7 @@ import com.kylecorry.trail_sense.shared.canvas.LineClipper
 import com.kylecorry.trail_sense.shared.canvas.LineInterpolator
 import com.kylecorry.trail_sense.shared.extensions.isSamePixel
 import com.kylecorry.trail_sense.shared.extensions.squaredDistanceTo
+import com.kylecorry.trail_sense.shared.forEachLine
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.ARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.GeographicARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARLine
@@ -99,11 +100,7 @@ class ARPathLayer(
         var minPoint: PixelCoordinate? = null
         var minDistance = snapDistanceSquared
 
-        for (i in points.indices step 4) {
-            val x1 = points[i]
-            val y1 = points[i + 1]
-            val x2 = points[i + 2]
-            val y2 = points[i + 3]
+        points.forEachLine { x1, y1, x2, y2 ->
             val projected = projectOntoLine(center.x, center.y, x1, y1, x2, y2)
             val distance = projected.squaredDistanceTo(center)
 
@@ -125,16 +122,12 @@ class ARPathLayer(
 
         var lastPixel: PixelCoordinate? = null
 
-        for (i in points.indices step 4) {
-            val x1 = points[i]
-            val y1 = points[i + 1]
-            val x2 = points[i + 2]
-            val y2 = points[i + 3]
-
+        points.forEachLine { x1, y1, x2, y2 ->
             val pixel1 = PixelCoordinate(x1, y1)
             val pixel2 = PixelCoordinate(x2, y2)
+            val last = lastPixel
 
-            if (lastPixel != null && !lastPixel.isSamePixel(pixel1) || currentLine.isEmpty()) {
+            if (last != null && !last.isSamePixel(pixel1) || currentLine.isEmpty()) {
                 // There's a split or this is the first point
                 lines.add(currentLine)
                 currentLine = mutableListOf()
@@ -144,7 +137,7 @@ class ARPathLayer(
                 if (spherical == null) {
                     // The start point is too far away, skip this line segment (no need to modify the current line)
                     lastPixel = null
-                    continue
+                    return@forEachLine
                 }
             }
 
@@ -155,7 +148,7 @@ class ARPathLayer(
                 lines.add(currentLine)
                 currentLine = mutableListOf()
                 lastPixel = null
-                continue
+                return@forEachLine
             }
 
             // Otherwise add the point

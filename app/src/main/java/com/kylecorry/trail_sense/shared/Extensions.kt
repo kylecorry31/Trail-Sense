@@ -132,3 +132,9 @@ fun NavController.navigateWithAnimation(@IdRes resId: Int, args: Bundle? = null)
         navigate(resId, args)
     }
 }
+
+inline fun List<Float>.forEachLine(action: (x1: Float, y1: Float, x2: Float, y2: Float) -> Unit) {
+    for (i in indices step 4) {
+        action(this[i], this[i + 1], this[i + 2], this[i + 3])
+    }
+}
