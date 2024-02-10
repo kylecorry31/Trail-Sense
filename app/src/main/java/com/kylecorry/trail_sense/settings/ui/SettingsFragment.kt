@@ -77,6 +77,13 @@ class SettingsFragment : AndromedaPreferenceFragment() {
             true
         }
 
+        //Set Compact Mode
+        val compactMode = switch(R.string.pref_use_compact_mode)
+        compactMode?.setOnPreferenceChangeListener { _, checked ->
+            requireMainActivity().changeBottomNavLabelVisibility(checked as Boolean)
+            true
+        }
+
         val version = Package.getVersionName(requireContext())
         preference(R.string.pref_app_version)?.summary = version
         setIconColor(preferenceScreen, Resources.androidTextColorSecondary(requireContext()))
