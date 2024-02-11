@@ -12,6 +12,9 @@ Tap the help button to continuously play the help distress signal (3 long).
 ## Other Signals
 Long press the help button to play common signals.
 
+- **Where are you** and **Acknowledged**: 1 long
+- **Come here**: 2 long
+
 ## Quick Action
 You can enable the Whistle quick action in the settings for the tab you want it on.
 
