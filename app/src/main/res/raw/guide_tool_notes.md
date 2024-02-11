@@ -1,20 +1,10 @@
 The Notes tool can be used to write down notes for offline access.
 
-## Create a Note
-To create a note:
+## Create or Edit a Note
+To create, view or edit a note:
 
-1. Press the '+' button in the bottom-right corner.
-2. Enter a title and/or content.
-3. Press the checkmark button in the bottom-right corner to save.
-
-## View a Note
-To view a note, tap it in the list.
-
-## Edit a Note
-To edit a note:
-
-1. Tap the note in the list.
-2. Edit the title and/or content.
+1. Press the '+' button in the bottom-right corner to create a note, or tap an existing one in the list.
+2. You can edit the title and/or content of the note.
 3. Press the checkmark button in the bottom-right corner to save.
 
 ## Delete a Note
@@ -28,7 +18,7 @@ To share a note as a QR code:
 
 1. Tap the menu icon on the right side of the note in the list.
 2. Press 'QR code'.
-3. Scan the QR code with another device to import the note.
+3. Scan the QR code with another device to import the note, or take a screenshot for later use.
 
 Note: The QR code can only transfer the first 1000 characters of a note.
 
