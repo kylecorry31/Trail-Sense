@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared
 
 import android.content.Context
+import android.content.res.Configuration
 import android.net.Uri
 import android.util.Size
 import android.view.View
@@ -457,6 +458,11 @@ object CustomUiUtils {
         } else {
             AppColor.Orange.color
         }
+    }
+
+    fun Context.isDarkThemeOn(): Boolean {
+        return resources.configuration.uiMode and
+                Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
     }
 
 }

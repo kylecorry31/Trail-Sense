@@ -13,6 +13,7 @@ import android.view.KeyEvent
 import android.view.MenuItem
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
 import androidx.core.os.bundleOf
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -31,6 +32,7 @@ import com.kylecorry.trail_sense.main.errors.ExceptionHandler
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.RestartServicesCommand
 import com.kylecorry.trail_sense.settings.ui.SettingsMoveNotice
+import com.kylecorry.trail_sense.shared.CustomUiUtils.isDarkThemeOn
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils.setupWithNavController
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.ComposedCommand
@@ -46,6 +48,7 @@ import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseServi
 import com.kylecorry.trail_sense.tools.clinometer.volumeactions.ClinometerLockVolumeAction
 import com.kylecorry.trail_sense.tools.flashlight.volumeactions.FlashlightToggleVolumeAction
 import com.kylecorry.trail_sense.shared.VolumeAction
+import com.kylecorry.trail_sense.shared.colors.ColorUtils
 
 
 class MainActivity : AndromedaActivity() {
@@ -96,10 +99,7 @@ class MainActivity : AndromedaActivity() {
         setBottomNavLabelsVisibility()
         bottomNavigation.setupWithNavController(navController, false)
 
-        if (userPrefs.theme == UserPreferences.Theme.Black || userPrefs.theme == UserPreferences.Theme.Night) {
-            window.decorView.rootView.setBackgroundColor(Color.BLACK)
-            bottomNavigation.setBackgroundColor(Color.BLACK)
-        }
+        setBarsColorBasedOnCurrentTheme(userPrefs.theme)
 
         if (cache.getBoolean(getString(R.string.pref_onboarding_completed)) != true) {
             startActivity(Intent(this, OnboardingActivity::class.java))
@@ -127,6 +127,40 @@ class MainActivity : AndromedaActivity() {
             bottomNavigation.apply {
                 layoutParams.height = LayoutParams.WRAP_CONTENT
                 labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_AUTO
+            }
+        }
+    }
+
+    /**
+     * Setup Statusbar and Bottom Nav color based on theme selected
+     */
+    private fun setBarsColorBasedOnCurrentTheme(theme: UserPreferences.Theme){
+        when(theme){
+            UserPreferences.Theme.Black, UserPreferences.Theme.Night -> {
+                window.apply {
+                    statusBarColor = Color.BLACK
+                    decorView.rootView.setBackgroundColor(Color.BLACK)
+                }
+                bottomNavigation.setBackgroundColor(Color.BLACK)
+            }
+            UserPreferences.Theme.Dark -> {
+                window.statusBarColor = ColorUtils.backgroundColor(window.decorView.rootView.context)
+            }
+            UserPreferences.Theme.Light -> {
+                window.statusBarColor = ColorUtils.backgroundColor(window.decorView.rootView.context)
+                WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
+            }
+            UserPreferences.Theme.System -> {
+                if(isDarkThemeOn())
+                    setBarsColorBasedOnCurrentTheme(UserPreferences.Theme.Dark)
+                else
+                    setBarsColorBasedOnCurrentTheme(UserPreferences.Theme.Light)
+            }
+            UserPreferences.Theme.SunriseSunset -> {
+                if(sunriseSunsetTheme() == ColorTheme.Dark)
+                    setBarsColorBasedOnCurrentTheme(UserPreferences.Theme.Dark)
+                else
+                    setBarsColorBasedOnCurrentTheme(UserPreferences.Theme.Light)
             }
         }
     }
