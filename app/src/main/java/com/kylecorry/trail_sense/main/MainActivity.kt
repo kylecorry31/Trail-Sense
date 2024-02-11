@@ -32,6 +32,7 @@ import com.kylecorry.trail_sense.main.errors.ExceptionHandler
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.RestartServicesCommand
 import com.kylecorry.trail_sense.settings.ui.SettingsMoveNotice
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils.isDarkThemeOn
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils.setupWithNavController
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -112,13 +113,13 @@ class MainActivity : AndromedaActivity() {
         }
     }
 
-    fun changeBottomNavLabelsVisibility(useCompactMode: Boolean){
+    fun changeBottomNavLabelsVisibility(useCompactMode: Boolean) {
         userPrefs.useCompactMode = useCompactMode
         setBottomNavLabelsVisibility()
     }
 
-    private fun setBottomNavLabelsVisibility(){
-        if(userPrefs.useCompactMode) {
+    private fun setBottomNavLabelsVisibility() {
+        if (userPrefs.useCompactMode) {
             bottomNavigation.apply {
                 layoutParams.height = Resources.dp(context, 55f).toInt()
                 labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_UNLABELED
@@ -134,17 +135,26 @@ class MainActivity : AndromedaActivity() {
     /**
      * Setup Statusbar and Bottom Nav color based on theme selected
      */
-    private fun setBarsColorBasedOnCurrentTheme(){
-        if(userPrefs.theme == UserPreferences.Theme.Black || userPrefs.theme == UserPreferences.Theme.Night){
+    private fun setBarsColorBasedOnCurrentTheme() {
+        if (userPrefs.theme == UserPreferences.Theme.Black || userPrefs.theme == UserPreferences.Theme.Night) {
             window.apply {
                 statusBarColor = Color.BLACK
                 decorView.rootView.setBackgroundColor(Color.BLACK)
+                navigationBarColor = Color.BLACK
             }
             bottomNavigation.setBackgroundColor(Color.BLACK)
-        }else{
-            window.statusBarColor = ColorUtils.backgroundColor(window.decorView.rootView.context)
-            if(!isDarkThemeOn()){
-                WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
+        } else {
+            window.apply {
+                statusBarColor = ColorUtils.backgroundColor(this@MainActivity)
+
+                // Match the color of the bottom navigation
+                navigationBarColor = Resources.androidBackgroundColorSecondary(this@MainActivity)
+            }
+            if (!isDarkThemeOn()) {
+                WindowInsetsControllerCompat(window, window.decorView).apply {
+                    isAppearanceLightStatusBars = true
+                    isAppearanceLightNavigationBars = true
+                }
             }
         }
     }
