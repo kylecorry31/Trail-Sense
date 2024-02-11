@@ -50,6 +50,7 @@ import com.kylecorry.trail_sense.tools.clinometer.volumeactions.ClinometerLockVo
 import com.kylecorry.trail_sense.tools.flashlight.volumeactions.FlashlightToggleVolumeAction
 import com.kylecorry.trail_sense.shared.VolumeAction
 import com.kylecorry.trail_sense.shared.colors.ColorUtils
+import com.kylecorry.trail_sense.shared.setNavigationBarColorCompat
 
 
 class MainActivity : AndromedaActivity() {
@@ -140,15 +141,13 @@ class MainActivity : AndromedaActivity() {
             window.apply {
                 statusBarColor = Color.BLACK
                 decorView.rootView.setBackgroundColor(Color.BLACK)
-                navigationBarColor = Color.BLACK
+                setNavigationBarColorCompat(Color.BLACK)
             }
             bottomNavigation.setBackgroundColor(Color.BLACK)
         } else {
             window.apply {
                 statusBarColor = ColorUtils.backgroundColor(this@MainActivity)
-
-                // Match the color of the bottom navigation
-                navigationBarColor = Resources.androidBackgroundColorSecondary(this@MainActivity)
+                setNavigationBarColorCompat(Resources.androidBackgroundColorSecondary(this@MainActivity))
             }
             if (!isDarkThemeOn()) {
                 WindowInsetsControllerCompat(window, window.decorView).apply {
