@@ -298,9 +298,9 @@
 \nY: %2$s</string>
     <string name="contents">内容</string>
     <string name="note_title_hint">标题</string>
-    <string name="tool_notes_title">附注</string>
-    <string name="delete_note_title">删除附注？</string>
-    <string name="notes_empty_text">无附注</string>
+    <string name="tool_notes_title">笔记</string>
+    <string name="delete_note_title">删除笔记吗？</string>
+    <string name="notes_empty_text">没有笔记</string>
     <string name="location_override_updated">位置覆盖已更新</string>
     <string name="update_gps_override">更新 GPS 覆盖</string>
     <string name="compass_declination">磁偏角</string>

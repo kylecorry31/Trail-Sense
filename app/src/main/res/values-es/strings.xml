@@ -1128,4 +1128,5 @@
     <string name="view_distance">Ver distancia</string>
     <string name="show_dial_ticks_on_nearby_radar">Mostrar las marcas de las esferas en el radar cercano</string>
     <string name="show_dial_ticks_on_nearby_radar_summary">Tu dispositivo no tiene brújula, pero aún así puedes ver en qué dirección están las balizas.</string>
+    <string name="augmented_reality_no_gyro_message">Puede seguir utilizando la herramienta de realidad virtual, pero no será tan precisa.</string>
 </resources>
