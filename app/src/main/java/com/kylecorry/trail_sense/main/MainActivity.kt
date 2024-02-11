@@ -99,7 +99,7 @@ class MainActivity : AndromedaActivity() {
         setBottomNavLabelsVisibility()
         bottomNavigation.setupWithNavController(navController, false)
 
-        setBarsColorBasedOnCurrentTheme(userPrefs.theme)
+        setBarsColorBasedOnCurrentTheme()
 
         if (cache.getBoolean(getString(R.string.pref_onboarding_completed)) != true) {
             startActivity(Intent(this, OnboardingActivity::class.java))
@@ -134,33 +134,17 @@ class MainActivity : AndromedaActivity() {
     /**
      * Setup Statusbar and Bottom Nav color based on theme selected
      */
-    private fun setBarsColorBasedOnCurrentTheme(theme: UserPreferences.Theme){
-        when(theme){
-            UserPreferences.Theme.Black, UserPreferences.Theme.Night -> {
-                window.apply {
-                    statusBarColor = Color.BLACK
-                    decorView.rootView.setBackgroundColor(Color.BLACK)
-                }
-                bottomNavigation.setBackgroundColor(Color.BLACK)
+    private fun setBarsColorBasedOnCurrentTheme(){
+        if(userPrefs.theme == UserPreferences.Theme.Black || userPrefs.theme == UserPreferences.Theme.Night){
+            window.apply {
+                statusBarColor = Color.BLACK
+                decorView.rootView.setBackgroundColor(Color.BLACK)
             }
-            UserPreferences.Theme.Dark -> {
-                window.statusBarColor = ColorUtils.backgroundColor(window.decorView.rootView.context)
-            }
-            UserPreferences.Theme.Light -> {
-                window.statusBarColor = ColorUtils.backgroundColor(window.decorView.rootView.context)
+            bottomNavigation.setBackgroundColor(Color.BLACK)
+        }else{
+            window.statusBarColor = ColorUtils.backgroundColor(window.decorView.rootView.context)
+            if(!isDarkThemeOn()){
                 WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
-            }
-            UserPreferences.Theme.System -> {
-                if(isDarkThemeOn())
-                    setBarsColorBasedOnCurrentTheme(UserPreferences.Theme.Dark)
-                else
-                    setBarsColorBasedOnCurrentTheme(UserPreferences.Theme.Light)
-            }
-            UserPreferences.Theme.SunriseSunset -> {
-                if(sunriseSunsetTheme() == ColorTheme.Dark)
-                    setBarsColorBasedOnCurrentTheme(UserPreferences.Theme.Dark)
-                else
-                    setBarsColorBasedOnCurrentTheme(UserPreferences.Theme.Light)
             }
         }
     }
