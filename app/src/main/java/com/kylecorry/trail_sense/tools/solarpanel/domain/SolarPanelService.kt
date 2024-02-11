@@ -97,11 +97,9 @@ class SolarPanelService(
             end = start.atEndOfDay()
         }
 
-        val sunAzimuth = Astronomy.getSunAzimuth(start, location).value.toDouble()
-
         val startAzimuth = if (location.isNorthernHemisphere) {
             // East
-            max(80.0, sunAzimuth)
+            80.0
         } else {
             // West
             -100.0
@@ -112,12 +110,7 @@ class SolarPanelService(
             280.0
         } else {
             // East
-            val sunBearing = if (sunAzimuth < 180) {
-                sunAzimuth
-            } else {
-                sunAzimuth - 360
-            }
-            min(100.0, sunBearing)
+            100.0
         }
 
         val startTilt = 0.0
