@@ -1119,4 +1119,5 @@
     <string name="show_dial_ticks_on_nearby_radar">Wijzers tonen op nabijgelegen radar</string>
     <string name="creating_beacon">Baken maken</string>
     <string name="augmented_reality_no_gyro_message">Je kunt nog steeds de Augmented Reality-tool gebruiken, maar deze zal niet zo nauwkeurig zijn.</string>
+    <string name="compact_mode">Compacte modus</string>
 </resources>
