@@ -399,7 +399,7 @@
     <string name="cirrostratus_desc">Una nuvola alta che copre il cielo. È trasparente e solitamente causa un bagliore attorno al sole.</string>
     <string name="packing_lists">Liste Inventario</string>
     <string name="no_packing_lists">Nessuna lista inventario</string>
-    <string name="tool_cliff_height_disclaimer">Utilizza questa funzione solo quando è sicuro farlo, assicurati di controllare cosa si trova sotto al precipizio per evitare di recare danno a persone, oggetti e animali. Leggi la guida utente per le istruzioni.</string>
+    <string name="tool_cliff_height_disclaimer">Utilizzare questa funzione solo quando è sicuro farlo, assicurandosi di controllare cosa si trovi al di sotto del precipizio per evitare di recare danni a persone, oggetti e animali. Per istruzioni consultare la guida utente.</string>
     <string name="action_inventory_clear_confirm">Eliminare tutte le quantità di inventario\?</string>
     <string name="tool_solar_panel_summary">Permette di posizionare i pannelli solari in modo da ottenere la potenza ottimale</string>
     <string name="water_boil_timer">Timer bollitura dell\'acqua</string>
@@ -683,7 +683,7 @@
     <string name="minutes_format">%s m</string>
     <string name="days_format">%s gg</string>
     <string name="location_override_resolution">Attiva la regolazione automatica della posizione nel menù impostazioni.</string>
-    <string name="pref_nmea_elevation_summary">Utilizza NMEA (satellite) per correggere l\'elevazione, piuttosto che il modello incorporato</string>
+    <string name="pref_nmea_elevation_summary">Utilizza NMEA (satellite) per correggere le altitudini, piuttosto che il modello incorporato</string>
     <string name="elevation_override_resolution">Attiva la calibrazione automatica nel menù impostazioni.</string>
     <string name="cloud_precipitation_forecast_hour_range" tools:ignore="PluralsCandidate">Potrebbe indicare precipitazioni nelle prossime %1$d - %2$d ore.</string>
     <string name="quart_format">%s qt</string>
@@ -1114,4 +1114,18 @@
     <string name="augmented_reality_no_gyro_message">È comunque possibile utilizzare lo strumento della Realtà Aumentata, ma non sarà così preciso.</string>
     <string name="creating_beacon">Creare un segnaposto</string>
     <string name="true_north_description">Indica il Polo Nord geografico utilizzando la declinazione della propria posizione. Questo combacerà con quello indicato nella maggior parte delle mappe.</string>
+    <string name="screen_flashlight_full_name">Torcia a schermo</string>
+    <string name="restart_services_title">Riavvia servizi</string>
+    <string name="restart_services_message">Non è stato possibile riavviare i servizi in background. Tocca per riavviare.</string>
+    <string name="fused_altimeter_force_calibration">Forza intervallo di calibrazione</string>
+    <string name="service_restart">Riavvia servizio</string>
+    <string name="compass_dynamic_colors">Colori Dinamici bussola</string>
+    <string name="fused_altimeter_force_calibration_summary">Forza una calibrazione GPS ogni %s</string>
+    <string name="clinometer_augmented_reality">Realtà aumentata inclinometro</string>
+    <string name="clinometer_augmented_reality_description">Visualizza gli angoli con la fotocamera</string>
+    <string name="dynamic_colors">Colori Dinamici</string>
+    <string name="continuous_calibration_description">Calibra ogni volta che è disponibile un aggiustamento GPS</string>
+    <string name="compass_dynamic_colors_summary">Utilizza Colori Dinamici per i punti cardinali</string>
+    <string name="service_restart_channel_description">Una notifica per riavviare i servizi</string>
+    <string name="compact_mode">Modalità compatta</string>
 </resources>
