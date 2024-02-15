@@ -1,0 +1,13 @@
+Rychlé akce
+- Nové: tvorba majáku, poznámky
+- Odstraněna omezení dostupných rychlých akcí
+
+Rozšířená realita
+- Přidána podpory cest
+- Povolen panel přiblížení
+
+Různé
+- Rozdělení nastavení navigace a cesty
+- Přidána možnost nastavení při dlouhém stisknutí nástroje
+- Přidán kompaktní režim pro spodní navigaci
+- Opravy chyb

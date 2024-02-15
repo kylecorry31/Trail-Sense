@@ -1140,4 +1140,5 @@
     <string name="show_dial_ticks_on_nearby_radar">Zobrazit ukazatele u blízkého radaru</string>
     <string name="augmented_reality_no_gyro_message">Stále můžete použít nástroj Rozšířená realita, nebude ale tak přesný.</string>
     <string name="creating_beacon">Vytváření majáku</string>
+    <string name="compact_mode">Kompaktní režim</string>
 </resources>
