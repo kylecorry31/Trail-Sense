@@ -200,7 +200,7 @@ object AugmentedRealityUtils {
      * @param rotationMatrix The rotation matrix of the device in the AR coordinate system
      * @return The AR coordinate
      */
-    private fun enuToAr(enu: Vector3, rotationMatrix: FloatArray): Vector3 {
+    fun enuToAr(enu: Vector3, rotationMatrix: FloatArray): Vector3 {
         return synchronized(worldVectorLock) {
             tempWorldVector[0] = enu.x
             tempWorldVector[1] = enu.y

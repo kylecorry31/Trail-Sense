@@ -21,6 +21,7 @@ import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.andromeda.sense.orientation.filter.FilteredOrientationSensor
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.math.Euler
 import com.kylecorry.sol.math.Quaternion
@@ -35,9 +36,11 @@ import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.providers.OffsetOrientationSensorFilter
 import com.kylecorry.trail_sense.shared.text
 import com.kylecorry.trail_sense.shared.textDimensions
 import com.kylecorry.trail_sense.shared.views.CameraView
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.SunCalibrator
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.CalibratedCameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.CameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.ARPoint
@@ -67,7 +70,7 @@ class AugmentedRealityView : CanvasView {
 
     var backgroundFillColor: Int = Color.TRANSPARENT
 
-    private var rotationMatrix = FloatArray(16)
+    val rotationMatrix = FloatArray(16)
     private val orientation = FloatArray(3)
     private var previewRect: RectF? = null
     private var cameraMapper: CameraAnglePixelMapper? = null
@@ -75,6 +78,7 @@ class AugmentedRealityView : CanvasView {
     // Sensors / preferences
     private val userPrefs = UserPreferences(context)
     private val sensors = SensorService(context)
+    private var calibrationBearingOffset: Float = 0f
     private val orientationSensor = sensors.getOrientation()
     private val gps = sensors.getGPS(frequency = Duration.ofMillis(200))
     private val altimeter = sensors.getAltimeter(gps = gps)
@@ -405,7 +409,7 @@ class AugmentedRealityView : CanvasView {
             orientationSensor,
             rotationMatrix,
             orientation,
-            if (isTrueNorth) declinationProvider.getDeclination() else null
+            (if (isTrueNorth) declinationProvider.getDeclination() else 0f) + calibrationBearingOffset
         )
 
         azimuth = orientation[0]
@@ -471,6 +475,14 @@ class AugmentedRealityView : CanvasView {
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         previewRect = null
         syncWithCamera()
+    }
+
+    suspend fun calibrate(){
+        val camera = camera ?: return
+        val calibrator = SunCalibrator()
+        calibrationBearingOffset = 0f
+        val offset = calibrator.calibrate(this, camera) ?: return
+        calibrationBearingOffset = offset
     }
 
     private fun syncWithCamera() {

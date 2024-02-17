@@ -31,6 +31,17 @@
         app:srcCompat="@drawable/ic_camera"
         app:tint="@color/white" />
 
+    <ImageButton
+        android:id="@+id/calibrate_btn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_margin="8dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_compass_icon"
+        app:tint="@color/white" />
+
     <Button
         android:id="@+id/focus_action_button"
         android:layout_width="wrap_content"

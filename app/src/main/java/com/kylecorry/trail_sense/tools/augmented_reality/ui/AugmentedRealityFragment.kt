@@ -15,6 +15,7 @@ import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.time.TimerActionBehavior
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
@@ -149,6 +150,13 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                 stopCamera()
             } else {
                 startCamera()
+            }
+        }
+
+        binding.calibrateBtn.setOnClickListener {
+            inBackground {
+                // TODO: Give the user instructions / repeat calibration until it's successful
+                binding.arView.calibrate()
             }
         }
 
