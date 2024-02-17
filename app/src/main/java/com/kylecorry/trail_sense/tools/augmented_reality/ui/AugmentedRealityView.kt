@@ -39,6 +39,7 @@ import com.kylecorry.trail_sense.shared.text
 import com.kylecorry.trail_sense.shared.textDimensions
 import com.kylecorry.trail_sense.shared.views.CameraView
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.calibration.CenteredSunCalibrator
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.calibration.IARCalibrator
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.CalibratedCameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.CameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.ARPoint
@@ -77,7 +78,6 @@ class AugmentedRealityView : CanvasView {
     private val userPrefs = UserPreferences(context)
     private val sensors = SensorService(context)
     private var calibrationBearingOffset: Float = 0f
-    private var sunPixelDebug: PixelCoordinate? = null
     private val orientationSensor = sensors.getOrientation()
     private val gps = sensors.getGPS(frequency = Duration.ofMillis(200))
     private val altimeter = sensors.getAltimeter(gps = gps)
@@ -248,12 +248,6 @@ class AugmentedRealityView : CanvasView {
 
         if (showPosition) {
             drawPosition()
-        }
-
-        // Draw the sun pixel debug
-        if (sunPixelDebug != null) {
-            fill(Color.RED)
-            circle(sunPixelDebug!!.x, sunPixelDebug!!.y, dp(8f))
         }
     }
 
@@ -484,12 +478,11 @@ class AugmentedRealityView : CanvasView {
 
     suspend fun calibrate(){
         val camera = camera ?: return
-        val calibrator = CenteredSunCalibrator()
+        val calibrator: IARCalibrator = CenteredSunCalibrator()
         calibrationBearingOffset = 0f
         updateOrientation()
         val offset = calibrator.calibrateBearing(this, camera) ?: return
-        calibrationBearingOffset = offset.second
-        sunPixelDebug = offset.first
+        calibrationBearingOffset = offset
     }
 
     private fun syncWithCamera() {
