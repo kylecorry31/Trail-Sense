@@ -1,0 +1,13 @@
+Quick Actions
+- New: Create Beacon, Note
+- Remove limits on available quick actions
+
+Augmented Reality
+- Add path support
+- Enable zoom bar
+
+Misc
+- Split Navigation and Path settings
+- Add settings option when long pressing a tool
+- Add compact mode for bottom navigation
+- Bug fixes
