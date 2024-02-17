@@ -7,6 +7,7 @@ import com.kylecorry.sol.math.Euler
 import com.kylecorry.sol.math.Quaternion
 import com.kylecorry.sol.math.QuaternionMath
 import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.math.SolMath.square
 import com.kylecorry.sol.math.Vector2
@@ -25,19 +26,19 @@ class SunCalibrator {
 
     private val astro = AstronomyService()
 
-    suspend fun calibrate(view: AugmentedRealityView, camera: CameraView): Float? {
+    suspend fun calibrate(view: AugmentedRealityView, camera: CameraView): Pair<PixelCoordinate, Float>? {
         // TODO: If the sun and actual are too far apart, return null
         val image = camera.previewImage ?: return null
         return onDefault {
             // Scale the image to fit in 100x100
             val scaled = image.resizeToFit(100, 100)
             val scaledWidth = scaled.width
-//            val scaledHeight = scaled.height
+            val scaledHeight = scaled.height
             if (scaled != image) {
                 image.recycle()
             }
 
-            val momentFinder = GrayscaleMomentFinder(240, 5)
+            val momentFinder = GrayscaleMomentFinder(245, 5)
 
             try {
                 val moment = momentFinder.getMoment(scaled) ?: return@onDefault null
@@ -47,8 +48,8 @@ class SunCalibrator {
 
                 // Determine the actual location of the sun
                 // TODO: Determine if perspective projection is necessary
-//                val yPct = moment.y / scaledHeight
-//                val actualPixel = PixelCoordinate(xPct * view.width, yPct * view.height)
+                val yPct = moment.y / scaledHeight
+                val actualPixel = PixelCoordinate(xPct * view.width, yPct * view.height)
 //                val actual = AugmentedRealityCoordinate(Optics.inversePerspectiveProjection(
 //                    Vector2(actualPixel.x, view.height - actualPixel.y),
 //                    Vector2(
@@ -58,22 +59,25 @@ class SunCalibrator {
 //                    Vector2(view.width / 2f, view.height / 2f),
 //                    1000f
 //                ))
-                val actualBearing = (xPct - 0.5f) * camera.fov.first
+//                val actualBearing = actual.bearing + view.azimuth
+                // TODO: This doesn't factor in the inclination of the device
+                val actualBearing = (xPct - 0.5f) * camera.fov.first + view.azimuth
 
                 // Get the predicted location of the sun relative to the camera
-                val predictedLocation = AugmentedRealityCoordinate.fromSpherical(
-                    astro.getSunAzimuth(view.location).value,
-                    astro.getSunAltitude(view.location),
-                    Float.MAX_VALUE,
-                    true
-                )
-                val relativeCoordinate = AugmentedRealityCoordinate(AugmentedRealityUtils.enuToAr(
-                    predictedLocation.position,
-                    view.rotationMatrix
-                ), true)
+                val predictedBearing = astro.getSunAzimuth(view.location).value
+//                val predictedLocation = AugmentedRealityCoordinate.fromSpherical(
+//                    astro.getSunAzimuth(view.location).value,
+//                    astro.getSunAltitude(view.location),
+//                    Float.MAX_VALUE,
+//                    true
+//                )
+//                val relativeCoordinate = AugmentedRealityCoordinate(AugmentedRealityUtils.enuToAr(
+//                    predictedLocation.position,
+//                    view.rotationMatrix
+//                ), true)
 
                 // Calculate the bearing difference
-                SolMath.deltaAngle(actualBearing, relativeCoordinate.bearing)
+                actualPixel to deltaAngle(actualBearing, predictedBearing)
             } finally {
                 scaled.recycle()
             }

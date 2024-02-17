@@ -78,6 +78,7 @@ class AugmentedRealityView : CanvasView {
     private val userPrefs = UserPreferences(context)
     private val sensors = SensorService(context)
     private var calibrationBearingOffset: Float = 0f
+    private var sunPixelDebug: PixelCoordinate? = null
     private val orientationSensor = sensors.getOrientation()
     private val gps = sensors.getGPS(frequency = Duration.ofMillis(200))
     private val altimeter = sensors.getAltimeter(gps = gps)
@@ -248,6 +249,12 @@ class AugmentedRealityView : CanvasView {
 
         if (showPosition) {
             drawPosition()
+        }
+
+        // Draw the sun pixel debug
+        if (sunPixelDebug != null) {
+            fill(Color.RED)
+            circle(sunPixelDebug!!.x, sunPixelDebug!!.y, dp(8f))
         }
     }
 
@@ -481,7 +488,8 @@ class AugmentedRealityView : CanvasView {
         val calibrator = SunCalibrator()
         calibrationBearingOffset = 0f
         val offset = calibrator.calibrate(this, camera) ?: return
-        calibrationBearingOffset = offset
+        calibrationBearingOffset = offset.second
+        sunPixelDebug = offset.first
     }
 
     private fun syncWithCamera() {
