@@ -22,20 +22,21 @@ object TrailSenseServiceUtils {
     private val coroutineScope = CoroutineScope(Dispatchers.Default)
 
     fun restartServices(context: Context, isInBackground: Boolean = false) {
+        val appContext = context.applicationContext
         coroutineScope.launch {
             if (!isInBackground){
-                ServiceRestartAlerter(context).dismiss()
+                ServiceRestartAlerter(appContext).dismiss()
             }
 
-            startWeatherMonitoring(context)
-            startBacktrack(context)
-            startPedometer(context)
-            startSunsetAlarm(context)
-            startAstronomyAlerts(context)
-            BatteryLogWorker.start(context)
+            startWeatherMonitoring(appContext)
+            startBacktrack(appContext)
+            startPedometer(appContext)
+            startSunsetAlarm(appContext)
+            startAstronomyAlerts(appContext)
+            BatteryLogWorker.start(appContext)
             TileManager().setTilesEnabled(
-                context,
-                UserPreferences(context).power.areTilesEnabled && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+                appContext,
+                UserPreferences(appContext).power.areTilesEnabled && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
             )
         }
     }
@@ -44,13 +45,14 @@ object TrailSenseServiceUtils {
      * Temporarily stops all services (will restart when the app is opened again)
      */
     fun stopServices(context: Context) {
-        WeatherUpdateScheduler.stop(context)
-        BacktrackService.stop(context)
-        StepCounterService.stop(context)
-        AstronomyDailyWorker.stop(context)
-        BatteryLogWorker.stop(context)
-        SunsetAlarmReceiver.scheduler(context).cancel()
-        TileManager().setTilesEnabled(context, false)
+        val appContext = context.applicationContext
+        WeatherUpdateScheduler.stop(appContext)
+        BacktrackService.stop(appContext)
+        StepCounterService.stop(appContext)
+        AstronomyDailyWorker.stop(appContext)
+        BatteryLogWorker.stop(appContext)
+        SunsetAlarmReceiver.scheduler(appContext).cancel()
+        TileManager().setTilesEnabled(appContext, false)
     }
 
     private fun startPedometer(context: Context) {

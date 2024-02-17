@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.main.errors
 
+import android.content.Context
 import android.util.Log
 import com.kylecorry.andromeda.exceptions.AggregateBugReportGenerator
 import com.kylecorry.andromeda.exceptions.AndroidDetailsBugReportGenerator
@@ -14,12 +15,12 @@ import com.kylecorry.trail_sense.shared.debugging.isDebug
 
 object ExceptionHandler {
 
-    fun initialize(activity: MainActivity) {
+    fun initialize(context: Context) {
         val handler = EmailExceptionHandler(
-            activity,
+            context.applicationContext,
             AggregateBugReportGenerator(
                 listOf(
-                    AppDetailsBugReportGenerator(activity.getString(R.string.app_name)),
+                    AppDetailsBugReportGenerator(context.getString(R.string.app_name)),
                     AndroidDetailsBugReportGenerator(),
                     DeviceDetailsBugReportGenerator(),
                     FragmentDetailsBugReportGenerator(),

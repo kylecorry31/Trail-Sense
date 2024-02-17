@@ -57,8 +57,9 @@ import com.kylecorry.trail_sense.shared.setNavigationBarColorCompat
 class MainActivity : AndromedaActivity() {
 
     private lateinit var navController: NavController
-    private lateinit var bottomNavigation: BottomNavigationView
-    val errorBanner: ErrorBannerView by lazy { findViewById(R.id.error_banner) }
+    private var bottomNavigation: BottomNavigationView? = null
+    val errorBanner: ErrorBannerView
+        get() = findViewById(R.id.error_banner)
 
     private lateinit var userPrefs: UserPreferences
     private val cache by lazy { PreferencesSubsystem.getInstance(this).preferences }
@@ -78,7 +79,7 @@ class MainActivity : AndromedaActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         ExceptionHandler.initialize(this)
 
-        userPrefs = UserPreferences(this)
+        userPrefs = UserPreferences(applicationContext)
         val mode = when (userPrefs.theme) {
             UserPreferences.Theme.Light -> ColorTheme.Light
             UserPreferences.Theme.Dark, UserPreferences.Theme.Black, UserPreferences.Theme.Night -> ColorTheme.Dark
@@ -100,7 +101,7 @@ class MainActivity : AndromedaActivity() {
         navController = findNavController()
         bottomNavigation = findViewById(R.id.bottom_navigation)
         setBottomNavLabelsVisibility()
-        bottomNavigation.setupWithNavController(navController, false)
+        bottomNavigation?.setupWithNavController(navController, false)
 
         setBarsColorBasedOnCurrentTheme()
 
@@ -117,9 +118,15 @@ class MainActivity : AndromedaActivity() {
             val currentPermissionStatus = permissions.map {
                 Permissions.hasPermission(this, it)
             }
-            val permissionsChanged = previousPermissionStatus.zip(currentPermissionStatus).any { it.first != it.second }
+            val permissionsChanged =
+                previousPermissionStatus.zip(currentPermissionStatus).any { it.first != it.second }
             startApp(permissionsChanged)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        bottomNavigation = null
     }
 
     fun changeBottomNavLabelsVisibility(useCompactMode: Boolean) {
@@ -128,13 +135,11 @@ class MainActivity : AndromedaActivity() {
     }
 
     private fun setBottomNavLabelsVisibility() {
-        if (userPrefs.useCompactMode) {
-            bottomNavigation.apply {
+        bottomNavigation?.apply {
+            if (userPrefs.useCompactMode) {
                 layoutParams.height = Resources.dp(context, 55f).toInt()
                 labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_UNLABELED
-            }
-        } else {
-            bottomNavigation.apply {
+            } else {
                 layoutParams.height = LayoutParams.WRAP_CONTENT
                 labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_AUTO
             }
@@ -151,7 +156,7 @@ class MainActivity : AndromedaActivity() {
                 decorView.rootView.setBackgroundColor(Color.BLACK)
                 setNavigationBarColorCompat(Color.BLACK)
             }
-            bottomNavigation.setBackgroundColor(Color.BLACK)
+            bottomNavigation?.setBackgroundColor(Color.BLACK)
         } else {
             window.apply {
                 statusBarColor = ColorUtils.backgroundColor(this@MainActivity)
@@ -204,8 +209,8 @@ class MainActivity : AndromedaActivity() {
         ).execute()
 
         if (!Sensors.hasBarometer(this)) {
-            val item: MenuItem = bottomNavigation.menu.findItem(R.id.action_weather)
-            item.isVisible = false
+            val item = bottomNavigation?.menu?.findItem(R.id.action_weather)
+            item?.isVisible = false
         }
 
         handleIntentAction(intent)
@@ -215,7 +220,7 @@ class MainActivity : AndromedaActivity() {
         val intentData = intent.data
         if (intent.scheme == "geo" && intentData != null) {
             val geo = GeoUri.from(intentData)
-            bottomNavigation.selectedItemId = R.id.action_navigation
+            bottomNavigation?.selectedItemId = R.id.action_navigation
             if (geo != null) {
                 val bundle = bundleOf("initial_location" to geo)
                 navController.navigate(
@@ -224,7 +229,7 @@ class MainActivity : AndromedaActivity() {
                 )
             }
         } else if ((intent.type?.startsWith("image/") == true || intent.type?.startsWith("application/pdf") == true)) {
-            bottomNavigation.selectedItemId = R.id.action_experimental_tools
+            bottomNavigation?.selectedItemId = R.id.action_experimental_tools
             val intentUri = intent.clipData?.getItemAt(0)?.uri
             val bundle = bundleOf("map_intent_uri" to intentUri)
             navController.navigate(R.id.mapListFragment, bundle)
@@ -240,7 +245,7 @@ class MainActivity : AndromedaActivity() {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        bottomNavigation.selectedItemId = savedInstanceState.getInt(
+        bottomNavigation?.selectedItemId = savedInstanceState.getInt(
             "page",
             R.id.action_navigation
         )
@@ -254,7 +259,9 @@ class MainActivity : AndromedaActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt("page", bottomNavigation.selectedItemId)
+        bottomNavigation?.selectedItemId?.let {
+            outState.putInt("page", it)
+        }
         navController.currentBackStackEntry?.arguments?.let {
             outState.putBundle("navigation_arguments", it)
         }

@@ -311,12 +311,13 @@ class PathService(
 
         @Synchronized
         fun getInstance(context: Context): PathService {
+            val appContext = context.applicationContext
             if (instance == null) {
                 instance = PathService(
-                    PathRepo.getInstance(context),
-                    WaypointRepo.getInstance(context),
-                    NavigationPreferences(context),
-                    PreferencesSubsystem.getInstance(context).preferences
+                    PathRepo.getInstance(appContext),
+                    WaypointRepo.getInstance(appContext),
+                    NavigationPreferences(appContext),
+                    PreferencesSubsystem.getInstance(appContext).preferences
                 )
             }
             return instance!!

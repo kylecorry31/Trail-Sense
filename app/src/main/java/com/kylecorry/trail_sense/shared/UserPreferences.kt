@@ -43,8 +43,9 @@ import com.kylecorry.trail_sense.tools.tools.ui.sort.ToolSortType
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherPreferences
 import java.time.Duration
 
-class UserPreferences(private val context: Context) : IDeclinationPreferences {
+class UserPreferences(ctx: Context) : IDeclinationPreferences {
 
+    private val context = ctx.applicationContext
     private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
 
     val navigation by lazy { NavigationPreferences(context) }
