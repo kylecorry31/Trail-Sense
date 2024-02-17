@@ -10,13 +10,11 @@ import android.graphics.PorterDuffColorFilter
 import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
-import android.view.MenuItem
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
 import androidx.core.os.bundleOf
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Resources
@@ -29,11 +27,11 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.backup.BackupService
+import com.kylecorry.trail_sense.databinding.ActivityMainBinding
 import com.kylecorry.trail_sense.main.errors.ExceptionHandler
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.RestartServicesCommand
 import com.kylecorry.trail_sense.settings.ui.SettingsMoveNotice
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils.isDarkThemeOn
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils.setupWithNavController
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -53,13 +51,17 @@ import com.kylecorry.trail_sense.shared.VolumeAction
 import com.kylecorry.trail_sense.shared.colors.ColorUtils
 import com.kylecorry.trail_sense.shared.setNavigationBarColorCompat
 
-
 class MainActivity : AndromedaActivity() {
 
-    private lateinit var navController: NavController
-    private var bottomNavigation: BottomNavigationView? = null
+    private var _binding: ActivityMainBinding? = null
+    private val binding: ActivityMainBinding
+        get() = _binding!!
+
+    private val navController: NavController
+        get() = findNavController()
+
     val errorBanner: ErrorBannerView
-        get() = findViewById(R.id.error_banner)
+        get() = binding.errorBanner
 
     private lateinit var userPrefs: UserPreferences
     private val cache by lazy { PreferencesSubsystem.getInstance(this).preferences }
@@ -91,17 +93,15 @@ class MainActivity : AndromedaActivity() {
 
         Screen.setAllowScreenshots(window, !userPrefs.privacy.isScreenshotProtectionOn)
 
-        setContentView(R.layout.activity_main)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(_binding?.root)
 
         if (userPrefs.theme == UserPreferences.Theme.Night) {
-            val root = findViewById<ColorFilterConstraintLayout>(R.id.color_filter)
-            root.setColorFilter(PorterDuffColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY))
+            binding.colorFilter.setColorFilter(PorterDuffColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY))
         }
 
-        navController = findNavController()
-        bottomNavigation = findViewById(R.id.bottom_navigation)
         setBottomNavLabelsVisibility()
-        bottomNavigation?.setupWithNavController(navController, false)
+        binding.bottomNavigation.setupWithNavController(navController, false)
 
         setBarsColorBasedOnCurrentTheme()
 
@@ -126,7 +126,7 @@ class MainActivity : AndromedaActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        bottomNavigation = null
+        _binding = null
     }
 
     fun changeBottomNavLabelsVisibility(useCompactMode: Boolean) {
@@ -135,7 +135,7 @@ class MainActivity : AndromedaActivity() {
     }
 
     private fun setBottomNavLabelsVisibility() {
-        bottomNavigation?.apply {
+        binding.bottomNavigation.apply {
             if (userPrefs.useCompactMode) {
                 layoutParams.height = Resources.dp(context, 55f).toInt()
                 labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_UNLABELED
@@ -156,7 +156,7 @@ class MainActivity : AndromedaActivity() {
                 decorView.rootView.setBackgroundColor(Color.BLACK)
                 setNavigationBarColorCompat(Color.BLACK)
             }
-            bottomNavigation?.setBackgroundColor(Color.BLACK)
+            binding.bottomNavigation.setBackgroundColor(Color.BLACK)
         } else {
             window.apply {
                 statusBarColor = ColorUtils.backgroundColor(this@MainActivity)
@@ -209,7 +209,7 @@ class MainActivity : AndromedaActivity() {
         ).execute()
 
         if (!Sensors.hasBarometer(this)) {
-            val item = bottomNavigation?.menu?.findItem(R.id.action_weather)
+            val item = binding.bottomNavigation.menu.findItem(R.id.action_weather)
             item?.isVisible = false
         }
 
@@ -220,7 +220,7 @@ class MainActivity : AndromedaActivity() {
         val intentData = intent.data
         if (intent.scheme == "geo" && intentData != null) {
             val geo = GeoUri.from(intentData)
-            bottomNavigation?.selectedItemId = R.id.action_navigation
+            binding.bottomNavigation.selectedItemId = R.id.action_navigation
             if (geo != null) {
                 val bundle = bundleOf("initial_location" to geo)
                 navController.navigate(
@@ -229,7 +229,7 @@ class MainActivity : AndromedaActivity() {
                 )
             }
         } else if ((intent.type?.startsWith("image/") == true || intent.type?.startsWith("application/pdf") == true)) {
-            bottomNavigation?.selectedItemId = R.id.action_experimental_tools
+            binding.bottomNavigation.selectedItemId = R.id.action_experimental_tools
             val intentUri = intent.clipData?.getItemAt(0)?.uri
             val bundle = bundleOf("map_intent_uri" to intentUri)
             navController.navigate(R.id.mapListFragment, bundle)
@@ -245,7 +245,7 @@ class MainActivity : AndromedaActivity() {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        bottomNavigation?.selectedItemId = savedInstanceState.getInt(
+        binding.bottomNavigation.selectedItemId = savedInstanceState.getInt(
             "page",
             R.id.action_navigation
         )
@@ -259,9 +259,7 @@ class MainActivity : AndromedaActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        bottomNavigation?.selectedItemId?.let {
-            outState.putInt("page", it)
-        }
+        outState.putInt("page", binding.bottomNavigation.selectedItemId)
         navController.currentBackStackEntry?.arguments?.let {
             outState.putBundle("navigation_arguments", it)
         }
