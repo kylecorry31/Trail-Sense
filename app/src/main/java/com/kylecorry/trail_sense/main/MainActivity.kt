@@ -24,6 +24,7 @@ import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.AndromedaActivity
 import com.kylecorry.andromeda.fragments.ColorTheme
+import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
@@ -109,8 +110,15 @@ class MainActivity : AndromedaActivity() {
             return
         }
 
+        val previousPermissionStatus = permissions.map {
+            Permissions.hasPermission(this, it)
+        }
         requestPermissions(permissions) {
-            startApp()
+            val currentPermissionStatus = permissions.map {
+                Permissions.hasPermission(this, it)
+            }
+            val permissionsChanged = previousPermissionStatus.zip(currentPermissionStatus).any { it.first != it.second }
+            startApp(permissionsChanged)
         }
     }
 
@@ -173,7 +181,7 @@ class MainActivity : AndromedaActivity() {
         FlashlightSubsystem.getInstance(this).stopSystemMonitor()
     }
 
-    private fun startApp() {
+    private fun startApp(shouldReloadNavigation: Boolean) {
         if (cache.getBoolean("pref_theme_just_changed") == true) {
             cache.putBoolean("pref_theme_just_changed", false)
             recreate()
@@ -184,7 +192,7 @@ class MainActivity : AndromedaActivity() {
         if (cache.getBoolean(BackupService.RECENTLY_BACKED_UP_KEY) == true) {
             cache.remove(BackupService.RECENTLY_BACKED_UP_KEY)
             navController.navigate(R.id.action_settings)
-        } else if (navController.currentDestination?.id == R.id.action_navigation) {
+        } else if (navController.currentDestination?.id == R.id.action_navigation && shouldReloadNavigation) {
             navController.navigate(R.id.action_navigation)
         }
 
