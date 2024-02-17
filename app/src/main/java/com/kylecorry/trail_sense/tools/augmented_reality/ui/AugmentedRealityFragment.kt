@@ -156,6 +156,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         binding.calibrateBtn.setOnClickListener {
             inBackground {
                 // TODO: Give the user instructions / repeat calibration until it's successful
+                // Hold device upright and center the sun in the view
+                // TODO: Maybe show a button to calibrate after the user has centered the sun
                 binding.arView.calibrate()
             }
         }

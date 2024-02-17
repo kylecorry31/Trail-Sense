@@ -21,7 +21,6 @@ import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.sense.orientation.filter.FilteredOrientationSensor
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.math.Euler
 import com.kylecorry.sol.math.Quaternion
@@ -39,7 +38,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.text
 import com.kylecorry.trail_sense.shared.textDimensions
 import com.kylecorry.trail_sense.shared.views.CameraView
-import com.kylecorry.trail_sense.tools.augmented_reality.domain.SunCalibrator
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.calibration.AutoSunCalibrator
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.CalibratedCameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.CameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.ARPoint
@@ -485,9 +484,10 @@ class AugmentedRealityView : CanvasView {
 
     suspend fun calibrate(){
         val camera = camera ?: return
-        val calibrator = SunCalibrator()
+        val calibrator = AutoSunCalibrator()
         calibrationBearingOffset = 0f
-        val offset = calibrator.calibrate(this, camera) ?: return
+        updateOrientation()
+        val offset = calibrator.calibrateBearing(this, camera) ?: return
         calibrationBearingOffset = offset.second
         sunPixelDebug = offset.first
     }
