@@ -10,6 +10,7 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
+import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.time.TimerActionBehavior
@@ -160,7 +161,15 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         }
 
         binding.calibrateBtn.setOnClickListener {
+            startCalibration()
+        }
+
+        binding.confirmCalibrationButton.setOnClickListener {
             calibrate()
+        }
+
+        binding.cancelCalibrationButton.setOnClickListener {
+            stopCalibration()
         }
 
         binding.arView.setOnFocusLostListener {
@@ -311,18 +320,37 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         this.guide?.start(binding.arView, binding.guidancePanel)
     }
 
-    private fun calibrate(){
+    private fun startCalibration() {
+        binding.calibrationPanel.isVisible = true
+        val isSunUp = astronomyService.isSunUp(binding.arView.location)
+        dialog(
+            getString(R.string.calibrate),
+            getString(
+                R.string.ar_calibration_instructions,
+                if (isSunUp) getString(R.string.sun) else getString(R.string.moon)
+            ),
+        ) { cancelled ->
+            if (cancelled) {
+                stopCalibration()
+            }
+        }
+
+    }
+
+    private fun calibrate() {
         inBackground {
-            // TODO: Give the user instructions / repeat calibration until it's successful
-            // Hold device upright and center the sun in the view
-            // TODO: Maybe show a button to calibrate after the user has centered the sun
             val calibrator = if (astronomyService.isSunUp(binding.arView.location)) {
                 calibrationFactory.getSunCalibrator(binding.arView.location)
             } else {
                 calibrationFactory.getMoonCalibrator(binding.arView.location)
             }
             binding.arView.calibrate(calibrator)
+            stopCalibration()
         }
+    }
+
+    private fun stopCalibration() {
+        binding.calibrationPanel.isVisible = false
     }
 
     companion object {

@@ -48,9 +48,37 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/default_bottom_margin"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/guidance_panel"
+        app:layout_constraintBottom_toTopOf="@id/calibration_panel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/calibration_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_bottom_margin"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/guidance_panel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/confirm_calibration_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calibrate" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cancel_calibration_button"
+            android:layout_width="38dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            app:icon="@drawable/ic_cancel"
+            app:iconSize="24dp" />
+
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/guidance_panel"
