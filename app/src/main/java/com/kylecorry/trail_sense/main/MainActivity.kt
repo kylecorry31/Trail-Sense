@@ -10,9 +10,15 @@ import android.graphics.PorterDuffColorFilter
 import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.ViewGroup
+import androidx.activity.SystemBarStyle
+import androidx.activity.enableEdgeToEdge
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
 import androidx.core.os.bundleOf
-import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.navigation.NavigationBarView
@@ -32,6 +38,7 @@ import com.kylecorry.trail_sense.main.errors.ExceptionHandler
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.RestartServicesCommand
 import com.kylecorry.trail_sense.settings.ui.SettingsMoveNotice
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils.isDarkThemeOn
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils.setupWithNavController
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -48,8 +55,6 @@ import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseServi
 import com.kylecorry.trail_sense.tools.clinometer.volumeactions.ClinometerLockVolumeAction
 import com.kylecorry.trail_sense.tools.flashlight.volumeactions.FlashlightToggleVolumeAction
 import com.kylecorry.trail_sense.shared.VolumeAction
-import com.kylecorry.trail_sense.shared.colors.ColorUtils
-import com.kylecorry.trail_sense.shared.setNavigationBarColorCompat
 
 class MainActivity : AndromedaActivity() {
 
@@ -89,6 +94,16 @@ class MainActivity : AndromedaActivity() {
             UserPreferences.Theme.SunriseSunset -> sunriseSunsetTheme()
         }
         setColorTheme(mode, userPrefs.useDynamicColors)
+        enableEdgeToEdge(
+            navigationBarStyle = if (isDarkThemeOn()) {
+                SystemBarStyle.dark(Resources.androidBackgroundColorSecondary(this))
+            } else {
+                SystemBarStyle.light(
+                    Resources.androidBackgroundColorSecondary(this),
+                    Color.BLACK
+                )
+            }
+        )
         super.onCreate(savedInstanceState)
 
         Screen.setAllowScreenshots(window, !userPrefs.privacy.isScreenshotProtectionOn)
@@ -97,13 +112,18 @@ class MainActivity : AndromedaActivity() {
         setContentView(_binding?.root)
 
         if (userPrefs.theme == UserPreferences.Theme.Night) {
-            binding.colorFilter.setColorFilter(PorterDuffColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY))
+            binding.colorFilter.setColorFilter(
+                PorterDuffColorFilter(
+                    Color.RED,
+                    PorterDuff.Mode.MULTIPLY
+                )
+            )
         }
 
         setBottomNavLabelsVisibility()
         binding.bottomNavigation.setupWithNavController(navController, false)
 
-        setBarsColorBasedOnCurrentTheme()
+        bindLayoutInsets()
 
         if (cache.getBoolean(getString(R.string.pref_onboarding_completed)) != true) {
             startActivity(Intent(this, OnboardingActivity::class.java))
@@ -146,28 +166,14 @@ class MainActivity : AndromedaActivity() {
         }
     }
 
-    /**
-     * Setup Statusbar and Bottom Nav color based on theme selected
-     */
-    private fun setBarsColorBasedOnCurrentTheme() {
-        if (userPrefs.theme == UserPreferences.Theme.Black || userPrefs.theme == UserPreferences.Theme.Night) {
-            window.apply {
-                statusBarColor = Color.BLACK
-                decorView.rootView.setBackgroundColor(Color.BLACK)
-                setNavigationBarColorCompat(Color.BLACK)
+    private fun bindLayoutInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                topMargin = insets.top
+                bottomMargin = insets.bottom
             }
-            binding.bottomNavigation.setBackgroundColor(Color.BLACK)
-        } else {
-            window.apply {
-                statusBarColor = ColorUtils.backgroundColor(this@MainActivity)
-                setNavigationBarColorCompat(Resources.androidBackgroundColorSecondary(this@MainActivity))
-            }
-            if (!isDarkThemeOn()) {
-                WindowInsetsControllerCompat(window, window.decorView).apply {
-                    isAppearanceLightStatusBars = true
-                    isAppearanceLightNavigationBars = true
-                }
-            }
+            WindowInsetsCompat.CONSUMED
         }
     }
 
