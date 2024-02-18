@@ -316,7 +316,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             // TODO: Give the user instructions / repeat calibration until it's successful
             // Hold device upright and center the sun in the view
             // TODO: Maybe show a button to calibrate after the user has centered the sun
-            // TODO: Let the user choose between the sun and moon (and default the selection)
             val calibrator = if (astronomyService.isSunUp(binding.arView.location)) {
                 calibrationFactory.getSunCalibrator(binding.arView.location)
             } else {

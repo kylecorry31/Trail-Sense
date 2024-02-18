@@ -85,7 +85,7 @@ class AugmentedRealityView : CanvasView {
         userPrefs,
         gps
     )
-    private val isTrueNorth = userPrefs.compass.useTrueNorth
+    val isTrueNorth = userPrefs.compass.useTrueNorth
     private val formatter = FormatService.getInstance(context)
 
     private var fromTrueNorth = Quaternion.zero
@@ -393,7 +393,7 @@ class AugmentedRealityView : CanvasView {
         return PixelCoordinate(screenPixel.x - x, screenPixel.y - y)
     }
 
-    private fun getActualPoint(point: Vector3, isPointTrueNorth: Boolean): Vector3 {
+    fun getActualPoint(point: Vector3, isPointTrueNorth: Boolean): Vector3 {
         return if (isTrueNorth && !isPointTrueNorth) {
             toTrueNorth.rotate(point)
         } else if (!isTrueNorth && isPointTrueNorth) {

@@ -8,10 +8,13 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 class ARCenteredCalibrator(private val reference: AugmentedRealityCoordinate) : IARCalibrator {
 
     override suspend fun calibrateBearing(view: AugmentedRealityView, camera: CameraView): Float {
-        // TODO: Make sure the azimuth and reference are adjusted for declination if not True north - this calculation assumes it is True north
+        val actualReference = AugmentedRealityCoordinate(
+            view.getActualPoint(reference.position, true),
+            view.isTrueNorth
+        )
         return SolMath.deltaAngle(
             view.azimuth,
-            reference.bearing
+            actualReference.bearing
         )
     }
 
