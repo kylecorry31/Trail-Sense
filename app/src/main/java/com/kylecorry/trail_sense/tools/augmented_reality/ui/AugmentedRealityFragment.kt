@@ -36,6 +36,8 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.withId
+import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.calibration.ARCalibratorFactory
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.guide.ARGuide
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.guide.AstronomyARGuide
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.guide.NavigationARGuide
@@ -124,6 +126,10 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         pathLayerManager?.onLocationChanged(binding.arView.location, null)
     }
 
+    // Calibration
+    private val calibrationFactory = ARCalibratorFactory()
+    private val astronomyService = AstronomyService()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -154,12 +160,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         }
 
         binding.calibrateBtn.setOnClickListener {
-            inBackground {
-                // TODO: Give the user instructions / repeat calibration until it's successful
-                // Hold device upright and center the sun in the view
-                // TODO: Maybe show a button to calibrate after the user has centered the sun
-                binding.arView.calibrate()
-            }
+            calibrate()
         }
 
         binding.arView.setOnFocusLostListener {
@@ -308,6 +309,21 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         this.guide?.stop(binding.arView, binding.guidancePanel)
         this.guide = guide
         this.guide?.start(binding.arView, binding.guidancePanel)
+    }
+
+    private fun calibrate(){
+        inBackground {
+            // TODO: Give the user instructions / repeat calibration until it's successful
+            // Hold device upright and center the sun in the view
+            // TODO: Maybe show a button to calibrate after the user has centered the sun
+            // TODO: Let the user choose between the sun and moon (and default the selection)
+            val calibrator = if (astronomyService.isSunUp(binding.arView.location)) {
+                calibrationFactory.getSunCalibrator(binding.arView.location)
+            } else {
+                calibrationFactory.getMoonCalibrator(binding.arView.location)
+            }
+            binding.arView.calibrate(calibrator)
+        }
     }
 
     companion object {
