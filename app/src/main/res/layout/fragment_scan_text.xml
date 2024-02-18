@@ -13,6 +13,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="16dp"
         android:background="@drawable/rounded_rectangle"
+        app:flipEnable="true"
         app:layout_constraintDimensionRatio="H,1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.5"

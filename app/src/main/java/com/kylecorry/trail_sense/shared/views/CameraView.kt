@@ -8,6 +8,7 @@ import android.util.Size
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
+import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.SeekBar
@@ -43,6 +44,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
 
     private val preview: PreviewView
     private val torchBtn: ImageButton
+    private val changeCameraBtn: ImageButton
     private val zoomSeek: SeekBar
     private var zoomListener: ((Float) -> Unit)? = null
     private var imageListener: ((Bitmap) -> Unit)? = null
@@ -210,15 +212,27 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         preview = findViewById(R.id.camera_preview)
         torchBtn = findViewById(R.id.camera_torch)
         zoomSeek = findViewById(R.id.camera_zoom)
+        changeCameraBtn = findViewById(R.id.camera_change)
+
+        val a = context.obtainStyledAttributes(attrs, R.styleable.CameraView, 0, 0)
 
         torchBtn.setOnClickListener {
             setTorch(!isTorchOn)
+        }
+
+        if(a.getBoolean(R.styleable.CameraView_flipEnable,false)) {
+            changeCameraBtn.visibility = View.VISIBLE
+            changeCameraBtn.setOnClickListener {
+                camera?.flipCamera()
+            }
         }
 
         zoomSeek.setOnProgressChangeListener { progress, _ ->
             zoomListener?.invoke(progress / 100f)
             setZoom(progress / 100f)
         }
+
+        a.recycle()
     }
 
     private val mGestureListener = object : GestureDetector.SimpleOnGestureListener() {

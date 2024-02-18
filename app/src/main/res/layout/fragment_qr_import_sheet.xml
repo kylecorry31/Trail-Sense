@@ -21,6 +21,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/rounded_rectangle"
+        app:flipEnable="true"
         app:layout_constraintDimensionRatio="H,1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -59,4 +59,8 @@
         <attr name="horizontal" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="CameraView">
+        <attr name="flipEnable" format="boolean" />
+    </declare-styleable>
+
 </resources>
