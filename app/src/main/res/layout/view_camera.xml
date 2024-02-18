@@ -15,6 +15,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
+        android:id="@+id/camera_change"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_margin="8dp"
+        android:background="@android:color/transparent"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/camera_flip"
+        app:tint="@color/white" />
+
+    <ImageButton
         android:id="@+id/camera_torch"
         android:layout_width="32dp"
         android:layout_height="32dp"
