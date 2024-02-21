@@ -499,6 +499,11 @@ class AugmentedRealityView : CanvasView {
         calibrationBearingOffset = offset
     }
 
+    fun resetCalibration() {
+        calibrationBearingOffset = 0f
+        orientationSensor = realOrientationSensor
+    }
+
     private fun syncWithCamera() {
         camera?.passThroughTouchEvents = true
         owner?.inBackground {

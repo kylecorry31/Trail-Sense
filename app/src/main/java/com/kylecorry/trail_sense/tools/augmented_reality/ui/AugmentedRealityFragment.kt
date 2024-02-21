@@ -164,6 +164,15 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             startCalibration()
         }
 
+        binding.calibrateBtn.setOnLongClickListener {
+            dialog(getString(R.string.reset_calibration_question)) { cancelled ->
+                if (!cancelled) {
+                    binding.arView.resetCalibration()
+                }
+            }
+            true
+        }
+
         binding.confirmCalibrationButton.setOnClickListener {
             calibrate()
         }

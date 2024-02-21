@@ -1346,6 +1346,7 @@
     <string name="pref_ar_use_gyro_only_after_calibration" translatable="false">pref_ar_use_gyro_only_after_calibration</string>
     <string name="use_gyroscope_after_calibration">Use gyroscope after calibration</string>
     <string name="use_gyroscope_after_calibration_description">Instead of the compass (avoids magnetic drift)</string>
+    <string name="reset_calibration_question">Reset calibration?</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>
