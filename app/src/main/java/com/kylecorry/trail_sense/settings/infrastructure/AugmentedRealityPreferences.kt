@@ -24,4 +24,10 @@ class AugmentedRealityPreferences(context: Context) : PreferenceRepo(context) {
         context.getString(R.string.pref_augmented_reality_view_distance_paths),
         20f
     )
+
+    val useGyroOnlyAfterCalibration by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_ar_use_gyro_only_after_calibration),
+        false
+    )
 }

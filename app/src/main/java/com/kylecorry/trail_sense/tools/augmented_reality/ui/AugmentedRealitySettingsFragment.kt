@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.augmented_reality.ui
 
 import android.os.Bundle
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
+import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.DistanceUtils
@@ -40,6 +41,9 @@ class AugmentedRealitySettingsFragment : AndromedaPreferenceFragment() {
         )
 
         preference(R.string.pref_view_distance_paths_holder)?.isVisible = isDebug()
+
+        preference(R.string.pref_ar_use_gyro_only_after_calibration)?.isVisible =
+            Sensors.hasGyroscope(requireContext())
     }
 
     private fun relative(distance: Distance, prefs: UserPreferences): Distance {

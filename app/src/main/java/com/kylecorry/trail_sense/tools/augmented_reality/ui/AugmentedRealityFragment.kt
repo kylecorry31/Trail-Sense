@@ -339,12 +339,13 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
     private fun calibrate() {
         inBackground {
+            val useGyro = userPrefs.augmentedReality.useGyroOnlyAfterCalibration
             val calibrator = if (astronomyService.isSunUp(binding.arView.location)) {
                 calibrationFactory.getSunCalibrator(binding.arView.location)
             } else {
                 calibrationFactory.getMoonCalibrator(binding.arView.location)
             }
-            binding.arView.calibrate(calibrator)
+            binding.arView.calibrate(calibrator, useGyro)
             stopCalibration()
         }
     }

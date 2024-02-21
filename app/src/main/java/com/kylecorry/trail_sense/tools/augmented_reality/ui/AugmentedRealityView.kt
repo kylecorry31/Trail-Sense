@@ -21,9 +21,11 @@ import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.math.Euler
 import com.kylecorry.sol.math.Quaternion
+import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
@@ -78,7 +80,10 @@ class AugmentedRealityView : CanvasView {
     private val userPrefs = UserPreferences(context)
     private val sensors = SensorService(context)
     private var calibrationBearingOffset: Float = 0f
-    private val orientationSensor = sensors.getOrientation()
+    private val realOrientationSensor = sensors.getOrientation()
+    private val gyroOrientationSensor = sensors.getGyroscope()
+    private val hasGyro = Sensors.hasGyroscope(context)
+    private var orientationSensor = realOrientationSensor
     private val gps = sensors.getGPS(frequency = Duration.ofMillis(200))
     private val altimeter = sensors.getAltimeter(gps = gps)
     private val declinationProvider = DeclinationFactory().getDeclinationStrategy(
@@ -169,13 +174,19 @@ class AugmentedRealityView : CanvasView {
             gps.start(this::onSensorUpdate)
             altimeter.start(this::onSensorUpdate)
         }
-        orientationSensor.start(this::onSensorUpdate)
+        orientationSensor = realOrientationSensor
+        calibrationBearingOffset = 0f
+        realOrientationSensor.start(this::onSensorUpdate)
+        if (hasGyro) {
+            gyroOrientationSensor.start(this::onSensorUpdate)
+        }
     }
 
     fun stop() {
         gps.stop(this::onSensorUpdate)
         altimeter.stop(this::onSensorUpdate)
-        orientationSensor.stop(this::onSensorUpdate)
+        realOrientationSensor.stop(this::onSensorUpdate)
+        gyroOrientationSensor.stop(this::onSensorUpdate)
     }
 
     fun setLayers(layers: List<ARLayer>) {
@@ -476,10 +487,14 @@ class AugmentedRealityView : CanvasView {
         syncWithCamera()
     }
 
-    suspend fun calibrate(calibrator: IARCalibrator){
+    suspend fun calibrate(calibrator: IARCalibrator, useGyro: Boolean = true) {
         val camera = camera ?: return
         calibrationBearingOffset = 0f
+        // Switch to the reference orientation sensor and recalculate the orientation
+        orientationSensor = if (useGyro && hasGyro) gyroOrientationSensor else realOrientationSensor
         updateOrientation()
+
+        // Calculate the offset
         val offset = calibrator.calibrateBearing(this, camera) ?: return
         calibrationBearingOffset = offset
     }
