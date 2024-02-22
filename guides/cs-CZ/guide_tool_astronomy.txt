@@ -1,0 +1,79 @@
+Nástroj Astronomie může být použit k zobrazení, kdy je slunce nebo měsíc nahoru. Lze ho také použít k zjištění, kdy se konají astronomické události, jako je meteorický roj nebo lunární zatmění.
+
+S výjimkou doby do východu slunce nebo západu slunce (vždy dnes) jsou všechny informace zobrazené na stránce pro vybrané datum. Výchozím nastavením je dnešní den, ale můžete jej změnit klepnutím na ikonu kalendáře nahoře na obrazovce. Kromě toho můžete použít šipky pro přesun na další/předchozí datum nebo dlouhým stisknutím kalendáře rychle skočit na dnešní datum.
+
+Můžete také kliknout na ikonu vyhledávání, abyste našli další výskyt astronomické události ve vaší lokalitě, jako je další úplněk nebo meteorický roj.
+
+## Čas do východu/západu slunce
+
+Čas do východu slunce nebo západu slunce je zobrazen nahoře na obrazovce. Toto respektuje časy 'Východu/západu slunce' v Nastavení > Astronomie. Pro popis každého času podívejte se do sekce Slunce níže.
+
+## Graf
+Graf ukazuje polohu slunce a měsíce během dne. Osa X je čas a osa Y je výška nebo výška na obloze. Můžete klepnout na ikonu slunce nebo měsíce v grafu, abyste viděli jeho aktuální polohu. Když to uděláte, objeví se posuvník, abyste mohli vidět jeho polohu v jiný čas dne.
+
+Můžete také zvolit, aby aktuální čas zůstal uprostřed grafu tím, že povolíte 'Udržet slunce/měsíc uprostřed' v Nastavení > Astronomie. To udrží aktuální čas uprostřed grafu, když máte vybraný dnešní den, a zobrazí 12 hodin před a po aktuálním čase. Pokud máte vybrané jiné datum, zobrazí celý den místo toho.
+
+## Slunce
+Všechny časy související se sluncem respektují časy 'Východu/západu slunce' v Nastavení > Astronomie. Pro popis každého času podívejte se níže.
+
+Čas do východu slunce nebo západu slunce je zobrazen nahoře na obrazovce.
+
+Čas východu slunce, západu slunce a poledne je zobrazen pod grafem, stejně jako délka dne. Pokud klepnete na tuto sekci, uvidíte více podrobností o slunci pro aktuální den:
+
+- **Skutečný: Jedná se o skutečný čas východu slunce, západu slunce a poledne. Je to čas, kdy je slunce na obzoru.
+- **Civilní: Jedná se o čas východu slunce, západu slunce a poledne, kdy je slunce mezi 0 a 6 stupni pod obzorem. Je dostatek světla na to, aby byly objekty viditelné.
+- **Námořní: Jedná se o čas východu slunce, západu slunce a poledne, kdy je slunce mezi 6 a 12 stupni pod obzorem. Obzor je stále viditelný, ale je příliš temno na to, aby byly objekty viditelné.
+- **Astronomický: Jedná se o čas východu slunce, západu slunce a poledne, kdy je slunce mezi 12 a 18 stupni pod obzorem. Je úplně tmavé, ale je to ideální pro pozorování hvězd.
+- **Maximální výška: Jedná se o nejvyšší bod, kterého slunce dosáhne na obloze. Je zobrazen v stupních nad obzorem.
+- **Denní světlo: Jedná se o dobu, kdy je slunce nahoru.
+- **Noc: Jedná se o dobu, kdy je slunce dole.
+- **Roční období: Jedná se o astronomické roční období založené na pozici Země kolem slunce. Bude to jedno z následujících: jaro, léto, podzim nebo zima.
+
+## Měsíc
+Čas východu měsíce, západu měsíce a měsíčního poledne jsou zobrazeny pod grafem, stejně jako aktuální fáze měsíce a procento osvětlení. Pokud klepnete na tuto sekci, uvidíte více podrobností o měsíci pro aktuální den:
+
+- **Časy: Jedná se o čas východu měsíce, západu měsíce a měsíčního poledne.
+- **Fáze měsíce: Jedná se o aktuální fázi měsíce, jak se jeví na obloze.
+- **Osvětlení: Jedná se o procento měsíce, které je osvětlené. Úplněk je osvětlen 100 % a nov jest osvětlen 0 %.
+- **Maximální výška: Jedná se o nejvyšší bod, kterého měsíc dosáhne na obloze. Je zobrazen v stupních nad obzorem.
+- **Superměsíc: Jedná se o situaci, kdy je měsíc blíže k Zemi než obvykle, což způsobuje, že se na obloze jeví větší a jasnější.
+
+## Meteorické roje
+Pokud se na vybraném datu ve vaší lokalitě koná vrchol meteorického roje, zobrazí se v seznamu. Zobrazí začátek, vrchol a konec sprchy, stejně jako průměrný počet meteorů za hodinu. Pokud klepnete na sprchu, uvidíte více podrobností:
+
+- **Časy: Jedná se o začátek, vrchol a konec sprchy.
+- **Název: Jedná se o název sprchy.
+- **Frekvence: Jedná se o průměrný počet meteorů za hodinu.
+- **Maximální výška: Jedná se o nejvyšší bod, kterého radiant (oblast, odkud se meteory zdají přicházet) dosáhne na obloze. Je zobrazen v stupních nad obzorem.
+- **Směr vrcholu: Jedná se o směr, kde se radiant nachází.
+
+## Zatmění Měsíce
+Pokud se na vybraném datu ve vaší lokalitě koná lunární zatmění, zobrazí se v seznamu. Zobrazí začátek, vrchol a konec zatmění, stejně jako míru zatmění měsíce. Pokud klepnete na zatmění, uvidíte více podrobností:
+
+- **Časy: Jedná se o začátek, vrchol a konec zatmění.
+- **Doba trvání: Jedná se o dobu trvání zatmění.
+- **Zastínění: Jedná se o procento měsíce, které je zastíněno.
+- **Velikost: Jedná se o velikost zatmění. Jedná se o zlomek průměru měsíce, který je zatměn.
+- **Maximální výška: Jedná se o výšku měsíce v době vrcholu zatmění. Je zobrazen v stupních nad obzorem.
+- **Směr vrcholu: Jedná se o směr, kterým se měsíc nachází v době vrcholu zatmění.
+
+## Sluneční zatmění
+Pokud se na vybraném datu ve vaší lokalitě koná sluneční zatmění, zobrazí se v seznamu. Zobrazí začátek, vrchol a konec zatmění, stejně jako míru zatmění slunce. Pokud klepnete na zatmění, uvidíte více podrobností:
+
+- **Časy: Jedná se o začátek, vrchol a konec zatmění.
+- **Doba trvání: Jedná se o dobu trvání zatmění.
+- **Zastínění: Jedná se o procento slunce, které je zastíněno.
+- **Velikost: Jedná se o velikost zatmění. Jedná se o zlomek průměru slunce, který je zatměn.
+- **Maximální výška: Jedná se o výšku slunce v době vrcholu zatmění, zobrazenou v stupních nad obzorem.
+- **Směr vrcholu: Jedná se o směr, kterým se slunce nachází v době vrcholu zatmění.
+
+## Upozornění na západ slunce
+Upozornění lze nastavit na západ slunce, abyste se vyhnuli tomu, abyste byli v tmě venku. Chcete-li nastavit upozornění, otevřete Nastavení > Astronomie a povolte 'Upozornění na západ slunce'. Můžete upravit nastavení 'Čas upozornění na západ slunce', abyste určili, jak daleko předem chcete být upozorněni. Je také k dispozici rychlá akce pro upozornění na západ slunce. Podívejte se níže pro více informací.
+
+## Astronomická upozornění
+Upozornění lze nastavit na astronomické události, abyste se ujistili, že je nezmeškáte. Chcete-li nastavit upozornění, otevřete Nastavení > Astronomie a povolte upozornění, o kterých chcete být informováni pro vaši lokalitu. Můžete dostávat oznámení o meteorických rojích, lunárních a slunečních zatměních. Upozornění bude zobrazeno až 24 hodin před začátkem události.
+
+## Rychlá akce
+Můžete povolit rychlou akci pro upozornění na západ slunce v nastavení pro kartu, kde chcete, aby se zobrazila.
+
+Pro použití rychlé akce klepněte na tlačítko rychlé akce pro upozornění na západ slunce, abyste ji zapnuli nebo vypnuli.
