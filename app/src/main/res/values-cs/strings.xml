@@ -1141,4 +1141,8 @@
     <string name="augmented_reality_no_gyro_message">Stále můžete použít nástroj Rozšířená realita, nebude ale tak přesný.</string>
     <string name="creating_beacon">Vytváření majáku</string>
     <string name="compact_mode">Kompaktní režim</string>
+    <string name="use_gyroscope_after_calibration">Použít gyroskop po kalibraci</string>
+    <string name="use_gyroscope_after_calibration_description">Místo kompasu (zamezuje magnetickému driftu)</string>
+    <string name="reset_calibration_question">Resetovat kalibraci?</string>
+    <string name="ar_calibration_instructions">Umístěte %s do středu obrazovky a stiskněte „Kalibrovat“</string>
 </resources>
