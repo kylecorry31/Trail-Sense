@@ -6,36 +6,43 @@
     android:layout_height="wrap_content"
     android:padding="16dp">
 
-    <ImageView
-        android:id="@+id/ar_guide_icon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        app:layout_constraintBottom_toBottomOf="@id/ar_guide_spinner"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/ar_guide_spinner"
-        tools:src="@drawable/ic_sun" />
-
-    <com.kylecorry.trail_sense.shared.views.MaterialSpinnerView
-        android:id="@+id/ar_guide_spinner"
-        android:layout_width="0dp"
+    <com.kylecorry.trail_sense.shared.views.DatePickerView
+        android:id="@+id/ar_guide_date_picker"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/ar_guide_cancel"
-        app:layout_constraintStart_toEndOf="@id/ar_guide_icon"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/ar_guide_cancel"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@id/ar_guide_spinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/ar_guide_spinner"
-        app:srcCompat="@drawable/ic_cancel"
-        app:tint="?android:textColorSecondary" />
+    <LinearLayout
+        android:id="@+id/ar_guide_object_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/ar_guide_date_picker">
+
+        <ImageView
+            android:id="@+id/ar_guide_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            tools:src="@drawable/ic_sun" />
+
+        <com.kylecorry.trail_sense.shared.views.MaterialSpinnerView
+            android:id="@+id/ar_guide_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/ar_guide_cancel"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_cancel"
+            app:tint="?android:textColorSecondary" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -320,7 +320,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
             ARMode.Astronomy -> {
                 binding.arView.setLayers(listOf(gridLayer, astronomyLayer))
-                changeGuide(AstronomyARGuide { setMode(ARMode.Normal) })
+                changeGuide(AstronomyARGuide(astronomyLayer) { setMode(ARMode.Normal) })
             }
         }
     }

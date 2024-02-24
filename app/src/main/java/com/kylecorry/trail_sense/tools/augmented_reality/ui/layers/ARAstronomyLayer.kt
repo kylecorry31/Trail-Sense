@@ -60,6 +60,13 @@ class ARAstronomyLayer(
 
     private val updateFrequency = Duration.ofMinutes(1).toMillis()
     private val updateDistance = 1000f
+
+    var timeOverride: ZonedDateTime? = null
+        set(value) {
+            field = value
+            lastUpdateTime = 0L
+        }
+
     override suspend fun update(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         val location = view.location
         val time = System.currentTimeMillis()
@@ -67,10 +74,10 @@ class ARAstronomyLayer(
         if (location.distanceTo(lastUpdateLocation) > updateDistance || time - lastUpdateTime > updateFrequency) {
             lastUpdateTime = time
             lastUpdateLocation = location
-            updatePositions(drawer, location, ZonedDateTime.now())
+            updatePositions(drawer, location, timeOverride ?: ZonedDateTime.now())
         }
 
-        if (drawLines){
+        if (drawLines) {
             lineLayer.update(drawer, view)
         }
         sunLayer.update(drawer, view)
@@ -86,8 +93,12 @@ class ARAstronomyLayer(
         }
         moonLayer.draw(drawer, view)
         sunLayer.draw(drawer, view)
-        currentMoonLayer.draw(drawer, view)
-        currentSunLayer.draw(drawer, view)
+
+        // Only draw the current position when the time is today (this will change in the future)
+        if (timeOverride == null || timeOverride?.toLocalDate() == LocalDate.now()) {
+            currentMoonLayer.draw(drawer, view)
+            currentSunLayer.draw(drawer, view)
+        }
     }
 
     override fun invalidate() {
