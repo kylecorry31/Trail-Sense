@@ -17,7 +17,6 @@ import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.TextAlign
 import com.kylecorry.andromeda.canvas.TextMode
-import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -26,7 +25,6 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.math.Euler
 import com.kylecorry.sol.math.Quaternion
-import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
@@ -41,7 +39,6 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.text
 import com.kylecorry.trail_sense.shared.textDimensions
 import com.kylecorry.trail_sense.shared.views.CameraView
-import com.kylecorry.trail_sense.tools.augmented_reality.domain.calibration.ARCalibratorFactory
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.calibration.IARCalibrator
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.CalibratedCameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.CameraAnglePixelMapper
@@ -49,7 +46,6 @@ import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.ARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.AugmentedRealityCoordinate
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARLayer
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
 import java.time.Duration
 import kotlin.math.atan2
 
@@ -173,10 +169,11 @@ class AugmentedRealityView : CanvasView {
 
     private var isSetup = false
     private val updateTimer = CoroutineTimer(observeOn = Dispatchers.Default) {
-        if (!isSetup){
+        if (!isSetup) {
             return@CoroutineTimer
         }
         updateOrientation()
+        val layers = synchronized(layerLock) { layers.toList() }
         layers.forEach {
             it.update(this, this)
         }
@@ -243,7 +240,7 @@ class AugmentedRealityView : CanvasView {
 
     override fun draw() {
         background(backgroundFillColor)
-
+        val layers = synchronized(layerLock) { layers.toList() }
         layers.forEach {
             it.draw(this, this)
         }
