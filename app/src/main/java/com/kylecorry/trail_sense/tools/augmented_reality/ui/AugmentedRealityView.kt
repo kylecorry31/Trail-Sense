@@ -17,6 +17,7 @@ import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.TextAlign
 import com.kylecorry.andromeda.canvas.TextMode
+import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -170,6 +171,17 @@ class AugmentedRealityView : CanvasView {
         syncWithCamera()
     }
 
+    private var isSetup = false
+    private val updateTimer = CoroutineTimer(observeOn = Dispatchers.Default) {
+        if (!isSetup){
+            return@CoroutineTimer
+        }
+        updateOrientation()
+        layers.forEach {
+            it.update(this, this)
+        }
+    }
+
     fun start(useGPS: Boolean = true) {
         if (useGPS) {
             gps.start(this::onSensorUpdate)
@@ -181,6 +193,7 @@ class AugmentedRealityView : CanvasView {
         if (hasGyro) {
             gyroOrientationSensor.start(this::onSensorUpdate)
         }
+        updateTimer.interval(20)
     }
 
     fun stop() {
@@ -188,6 +201,7 @@ class AugmentedRealityView : CanvasView {
         altimeter.stop(this::onSensorUpdate)
         realOrientationSensor.stop(this::onSensorUpdate)
         gyroOrientationSensor.stop(this::onSensorUpdate)
+        updateTimer.stop()
     }
 
     fun setLayers(layers: List<ARLayer>) {
@@ -223,19 +237,12 @@ class AugmentedRealityView : CanvasView {
 
 
     override fun setup() {
+        isSetup = true
         updateOrientation()
     }
 
     override fun draw() {
-        updateOrientation()
         background(backgroundFillColor)
-
-        // TODO: Move to a separate thread
-        layers.forEach {
-            runBlocking {
-                it.update(this@AugmentedRealityView, this@AugmentedRealityView)
-            }
-        }
 
         layers.forEach {
             it.draw(this, this)

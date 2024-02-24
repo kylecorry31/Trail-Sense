@@ -15,6 +15,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.time.TimerActionBehavior
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
+import com.kylecorry.andromeda.core.ui.setTextDistinct
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observeFlow
@@ -284,7 +285,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
         // If the beacon isn't the destination, show the navigate button
         if (navigator.getDestinationId() != beacon.id) {
-            binding.focusActionButton.text = getString(R.string.navigate)
+            binding.focusActionButton.setTextDistinct(getString(R.string.navigate))
             binding.focusActionButton.setOnClickListener {
                 navigator.navigateTo(beacon)
             }

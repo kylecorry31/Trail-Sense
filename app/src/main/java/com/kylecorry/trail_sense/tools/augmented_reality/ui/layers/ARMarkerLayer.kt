@@ -37,26 +37,27 @@ class ARMarkerLayer(
     private var renderedMarkers: List<Pair<ARMarker, PixelCircle>> = emptyList()
 
     override suspend fun update(drawer: ICanvasDrawer, view: AugmentedRealityView) {
-        potentialFocusPoints.clear()
-        val center = PixelCoordinate(view.width / 2f, view.height / 2f)
-        val reticle = PixelCircle(center, view.reticleDiameter / 2f)
-
         val minimumPixelSize = drawer.dp(minimumDpSize)
         val maximumPixelSize = maximumDpSize?.let { drawer.dp(it) } ?: Float.MAX_VALUE
         renderedMarkers = synchronized(lock) {
             markers.map {
-                val circle = getCircle(it, view, minimumPixelSize, maximumPixelSize)
-                if (reticle.intersects(circle)) {
-                    potentialFocusPoints.add(it to circle)
-                }
-                it to circle
+                it to getCircle(it, view, minimumPixelSize, maximumPixelSize)
             }
         }
     }
 
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
-        renderedMarkers.forEach {
+        potentialFocusPoints.clear()
+        val center = PixelCoordinate(view.width / 2f, view.height / 2f)
+        val reticle = PixelCircle(center, view.reticleDiameter / 2f)
+        val markers = synchronized(lock) {
+            renderedMarkers.toList()
+        }
+        markers.forEach {
             it.first.draw(view, drawer, it.second)
+            if (reticle.intersects(it.second)) {
+                potentialFocusPoints.add(it)
+            }
         }
     }
 

@@ -44,8 +44,12 @@ class ARLineLayer : ARLayer {
         // TODO: Setting the stroke cap to round causes artifacts between lines, but the end looks good - setting it to project fixes the artifacts but the end looks bad
         drawer.strokeCap(StrokeCap.Round)
 
+        val rendered = synchronized(lineLock) {
+            renderedLines.toList()
+        }
+
         // Draw lines
-        for ((line, points) in renderedLines) {
+        for ((line, points) in rendered) {
             if (line.outlineColor != null) {
                 drawer.stroke(line.outlineColor)
                 val outlinePx = when (line.thicknessUnits) {
