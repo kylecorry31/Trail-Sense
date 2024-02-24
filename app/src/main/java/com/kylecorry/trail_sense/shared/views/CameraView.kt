@@ -121,6 +121,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         camera?.stop(this::onCameraUpdate)
         camera = null
         keepScreenOn = false
+        imageListener = null
         synchronized(startLock) {
             isStarted = false
         }

@@ -183,23 +183,15 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onResume() {
+        super.onResume()
+        updateHistoryList()
         requestCamera { hasPermission ->
             if (hasPermission){
                 startCamera()
             } else {
                 alertNoCameraPermission()
             }
-        }
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-        updateHistoryList()
-        if (Camera.isAvailable(requireContext())) {
-            startCamera()
         }
     }
 
