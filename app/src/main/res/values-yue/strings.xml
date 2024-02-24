@@ -525,7 +525,7 @@
     <string name="location_override_not_set_resolution">喺設定入面設定位置推翻</string>
     <string name="power_saving_mode_resolution">停用慳電模式</string>
     <string name="photo_maps">相片地圖</string>
-    <string name="end_time">結束</string>
+    <string name="end_time">完結</string>
     <string name="magnitude">星等</string>
     <string name="season_fall">秋天</string>
     <string name="sun">太陽</string>
@@ -895,4 +895,8 @@
     <string name="find_next_occurrence">搵下一次幾時出現</string>
     <string name="pref_show_last_signal_beacon_summary">用最後一次收到基站訊號嘅位置整返個地標</string>
     <string name="view_in_3d">用 3D 睇過</string>
+    <string name="distance_away_from_self">相距 %s</string>
+    <string name="magnetic_north">磁北</string>
+    <string name="locate">指向</string>
+    <string name="distance_away_from_destination">相距目的地 %s</string>
 </resources>
