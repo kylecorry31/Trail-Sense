@@ -91,13 +91,14 @@ class ARAstronomyLayer(
         if (drawLines) {
             lineLayer.draw(drawer, view)
         }
-        moonLayer.draw(drawer, view)
+        // NOTE: The moon renders in front of the sun, but the focus/click order prioritizes the sun
         sunLayer.draw(drawer, view)
+        moonLayer.draw(drawer, view)
 
         // Only draw the current position when the time is today (this will change in the future)
         if (timeOverride == null || timeOverride?.toLocalDate() == LocalDate.now()) {
-            currentMoonLayer.draw(drawer, view)
             currentSunLayer.draw(drawer, view)
+            currentMoonLayer.draw(drawer, view)
         }
     }
 
