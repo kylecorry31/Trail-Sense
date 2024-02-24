@@ -1106,4 +1106,8 @@
     <string name="creating_beacon">创建信标</string>
     <string name="augmented_reality_no_gyro_message">你仍可以使用“增强现实”工具，但它的精度会下降。</string>
     <string name="compact_mode">紧凑模式</string>
+    <string name="reset_calibration_question">重置校准吗？</string>
+    <string name="use_gyroscope_after_calibration">校准后使用陀螺仪</string>
+    <string name="use_gyroscope_after_calibration_description">而不是用指南针（避免磁偏移）</string>
+    <string name="ar_calibration_instructions">使%s位于屏幕中心，然后按下“校准”</string>
 </resources>

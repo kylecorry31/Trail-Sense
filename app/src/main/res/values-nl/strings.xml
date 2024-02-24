@@ -1120,4 +1120,6 @@
     <string name="creating_beacon">Baken maken</string>
     <string name="augmented_reality_no_gyro_message">Je kunt nog steeds de Augmented Reality-tool gebruiken, maar deze zal niet zo nauwkeurig zijn.</string>
     <string name="compact_mode">Compacte modus</string>
+    <string name="ar_calibration_instructions">Plaats %s in het midden van het scherm en druk op \"Kalibreren\"</string>
+    <string name="use_gyroscope_after_calibration">Gebruik gyroscoop na kalibratie</string>
 </resources>

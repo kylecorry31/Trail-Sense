@@ -167,7 +167,6 @@ The best way to support Trail Sense is to send me your feedback, share how you a
 # Open Source Credits
 
 - Thank you to everyone who tried out this app and opened issues, suggested features, provided translations, or tested debug builds for me
-- Thanks to @qwerty287 and @Portagoras for implementing some features and bugfixes
 - Please see the in app licenses for all open source licenses
 - Contributors and translators: https://github.com/kylecorry31/Trail-Sense/graphs/contributors
 - [showdownjs](https://github.com/showdownjs/showdown): used for website markdown rendering [License](https://github.com/showdownjs/showdown/blob/master/LICENSE)

@@ -79,8 +79,8 @@
     <string name="sensors">Sensori</string>
     <string name="temperature">Temperatura</string>
     <string name="pref_coordinate_format_title">Formato coordinate</string>
-    <string name="coordinate_format_degrees_minutes_seconds">Gradi Minuti Secondi</string>
-    <string name="coordinate_format_degrees_decimal_minutes">Gradi Minuti Decimali</string>
+    <string name="coordinate_format_degrees_minutes_seconds">Gradi Primi Secondi</string>
+    <string name="coordinate_format_degrees_decimal_minutes">Gradi Primi Decimali</string>
     <string name="coordinate_format_decimal_degrees">Gradi decimali</string>
     <string name="edit_item_title">Modifica voce</string>
     <string name="create_item_title">Crea voce</string>
@@ -1080,14 +1080,14 @@
     <string name="why_missing_sensor">Il mio dispositivo è nuovo/costoso, perché manca questo sensore?</string>
     <string name="augmented_reality">Realtà aumentata</string>
     <string name="tool_long_press_hint_toast">Premi a lungo uno strumento per visualizzare più opzioni</string>
-    <string name="triangulate_destination_location_1_instructions">Registra la tua posizione e la direzione della destinazione.</string>
+    <string name="triangulate_destination_location_1_instructions">Inserisci la tua posizione attuale e la direzione della destinazione.</string>
     <string name="high_sensitivity">Alta sensibilità</string>
     <string name="distance_away_from_destination">%s dalla destinazione</string>
     <string name="missing_sensor_explanation">Alcuni produttori di telefoni scelgono di non aggiungere questo sensore, anche su dispositivi nuovi o costosi. È possibile ottenere ulteriori informazioni visitando il sito dei produttori di dispositivi o contattandoli.</string>
     <string name="no_sensor_unable_to_fix">No, purtroppo questa è una caratteristica hardware, quindi non c\'è modo di aggiungerlo.</string>
     <string name="settings_have_moved_message">Le impostazioni dell\'app sono state spostate nella sezione Strumenti</string>
     <string name="settings_have_moved">Le impostazioni sono state spostate</string>
-    <string name="triangulate_self_location_1_instructions">Scegli una posizione conosciuta che puoi vedere e registra la direzione da dove sei a quella posizione.</string>
+    <string name="triangulate_self_location_1_instructions">Scegli una posizione conosciuta che puoi vedere in lontananza e registra la tua direzione rispetto a quella posizione.</string>
     <string name="augmented_reality_description">Visualizza i beacon vicini e sole / luna con la fotocamera</string>
     <string name="triangulate_self_location_2_instructions">Scegli un\'altra posizione conosciuta che puoi vedere e registra la direzione da dove sei a quella posizione.</string>
     <string name="magnetic_north">Nord magnetico</string>
@@ -1096,7 +1096,7 @@
     <string name="direction">Direzione</string>
     <string name="is_there_a_way_to_fix_this">C\'è un modo per risolvere questo problema?</string>
     <string name="continuous_calibration">Calibrazione continua</string>
-    <string name="triangulate_destination_location_2_instructions">Muoviti almeno di %s dalla prima posizione e registra nuovamente la tua posizione e la direzione della destinazione.</string>
+    <string name="triangulate_destination_location_2_instructions">Muoviti di almeno %s dalla prima posizione e inserisci la tua nuova posizione e la direzione della destinazione.</string>
     <string name="distance_away_from_self">%s di distanza</string>
     <string name="unpin">Rimuovi da fissati</string>
     <string name="pin">Fissa</string>
