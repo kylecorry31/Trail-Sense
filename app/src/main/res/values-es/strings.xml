@@ -1131,4 +1131,8 @@
     <string name="augmented_reality_no_gyro_message">Puede seguir utilizando la herramienta de realidad virtual, pero no será tan precisa.</string>
     <string name="compact_mode">Modo compacto</string>
     <string name="creating_beacon">Creando baliza</string>
+    <string name="ar_calibration_instructions">Centra los %s en la pantalla y pulsa \"Calibrar\"</string>
+    <string name="use_gyroscope_after_calibration">Utilizar el giroscopio tras la calibración</string>
+    <string name="use_gyroscope_after_calibration_description">En lugar de la brújula (evita la deriva magnética)</string>
+    <string name="reset_calibration_question">¿Reajustar la calibración?</string>
 </resources>

@@ -414,7 +414,7 @@
     <string name="tool_lightning_title">Afstand tot blikseminslag</string>
     <string name="tool_lightning_description">De afstand tot een blikseminslag meten</string>
     <string name="start">Beginnen</string>
-    <string name="reset">Op nul zetten</string>
+    <string name="reset">Opnieuw instellen</string>
     <string name="thunder">Donder</string>
     <string name="lightning">Bliksem</string>
     <string name="tool_clock_title">Klok</string>
@@ -562,7 +562,7 @@
     <string name="pref_weather_show_detailed_icon_title">Gekleurd meldingspictogram tonen</string>
     <string name="actual_frequency_disclaimer">De werkelijke frequentie kan variëren, omdat sommige apparaten achtergrondlimieten hebben.</string>
     <string name="search">Zoeken</string>
-    <string name="pref_odometer_reset_daily_title">Dagelijks op nul zetten</string>
+    <string name="pref_odometer_reset_daily_title">Dagelijks opnieuw instellen</string>
     <string name="sleep_timer">Slaaptimer</string>
     <string name="importing_map">Kaart Importeren</string>
     <string name="import_gpx">GPX Importeren</string>
@@ -1122,4 +1122,6 @@
     <string name="compact_mode">Compacte modus</string>
     <string name="ar_calibration_instructions">Plaats %s in het midden van het scherm en druk op \"Kalibreren\"</string>
     <string name="use_gyroscope_after_calibration">Gebruik gyroscoop na kalibratie</string>
+    <string name="use_gyroscope_after_calibration_description">In plaats van het kompas (voorkomt magnetische drift)</string>
+    <string name="reset_calibration_question">Kalibratie herstellen?</string>
 </resources>
