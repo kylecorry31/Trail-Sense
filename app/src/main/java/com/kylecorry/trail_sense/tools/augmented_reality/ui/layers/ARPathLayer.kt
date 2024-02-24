@@ -49,8 +49,13 @@ class ARPathLayer(viewDistanceMeters: Float) : ARLayer, IPathLayer {
     private val snapDistance = 2 * viewDistanceMeters / 3f // meters
     private val snapDistanceSquared = square(snapDistance)
 
-    override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
+    override suspend fun update(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         lastLocation = view.location
+        lineLayer.update(drawer, view)
+        markerLayer.update(drawer, view)
+    }
+
+    override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         lineLayer.draw(drawer, view)
         markerLayer.draw(drawer, view)
     }

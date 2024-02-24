@@ -29,19 +29,23 @@ class ARLineLayer : ARLayer {
         }
     }
 
+    private var renderedLines: List<Pair<ARLine, FloatArray>> = emptyList()
+
+    override suspend fun update(drawer: ICanvasDrawer, view: AugmentedRealityView) {
+        renderedLines = synchronized(lineLock) {
+            lines.map {
+                it to render(it.points.map { it.getAugmentedRealityCoordinate(view) }, view)
+            }
+        }
+    }
+
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         drawer.noFill()
         // TODO: Setting the stroke cap to round causes artifacts between lines, but the end looks good - setting it to project fixes the artifacts but the end looks bad
         drawer.strokeCap(StrokeCap.Round)
 
-        val lines = synchronized(lineLock) {
-            lines.toList()
-        }
-
         // Draw lines
-        for (line in lines) {
-            val points = render(line.points.map { it.getAugmentedRealityCoordinate(view) }, view)
-
+        for ((line, points) in renderedLines) {
             if (line.outlineColor != null) {
                 drawer.stroke(line.outlineColor)
                 val outlinePx = when (line.thicknessUnits) {

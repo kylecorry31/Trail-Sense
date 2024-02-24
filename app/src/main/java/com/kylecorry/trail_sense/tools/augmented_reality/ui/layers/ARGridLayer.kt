@@ -104,8 +104,9 @@ class ARGridLayer(
         }
     }
 
-    override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
+    private var labels: List<Pair<PixelCoordinate, String>> = emptyList()
 
+    override suspend fun update(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         if (!isSetup) {
             textSize = drawer.sp(16f)
             northString = view.context.getString(R.string.direction_north)
@@ -114,49 +115,35 @@ class ARGridLayer(
             westString = view.context.getString(R.string.direction_west)
             isSetup = true
         }
+        lineLayer.update(drawer, view)
+        labels = listOf(
+            getPixel(view, 0f) to northString,
+            getPixel(view, 180f) to southString,
+            getPixel(view, 90f) to eastString,
+            getPixel(view, -90f) to westString
+        )
+    }
 
+    override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         lineLayer.draw(drawer, view)
 
-        // Draw cardinal direction labels
-        val offset = 2f
-        val north = view.toPixel(
-            AugmentedRealityCoordinate.fromSpherical(
-                0f,
-                offset,
-                distance,
-                useTrueNorth
-            )
-        )
-        val south = view.toPixel(
-            AugmentedRealityCoordinate.fromSpherical(
-                180f,
-                offset,
-                distance,
-                useTrueNorth
-            )
-        )
-        val east = view.toPixel(
-            AugmentedRealityCoordinate.fromSpherical(
-                90f,
-                offset,
-                distance,
-                useTrueNorth
-            )
-        )
-        val west = view.toPixel(
-            AugmentedRealityCoordinate.fromSpherical(
-                -90f,
-                offset,
-                distance,
-                useTrueNorth
-            )
-        )
-
-        drawLabel(drawer, view, northString, north)
-        drawLabel(drawer, view, southString, south)
-        drawLabel(drawer, view, eastString, east)
-        drawLabel(drawer, view, westString, west)
+        labels.forEach {
+            drawLabel(drawer, view, it.second, it.first)
+        }
     }
+
+    private fun getPixel(view: AugmentedRealityView, bearing: Float): PixelCoordinate {
+        val offset = 2f
+        return view.toPixel(
+            AugmentedRealityCoordinate.fromSpherical(
+                bearing,
+                offset,
+                distance,
+                useTrueNorth
+            )
+        )
+    }
+
 
     private fun drawLabel(
         drawer: ICanvasDrawer,

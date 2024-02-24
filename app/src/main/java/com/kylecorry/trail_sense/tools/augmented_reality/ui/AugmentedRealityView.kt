@@ -48,6 +48,7 @@ import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.ARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.AugmentedRealityCoordinate
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARLayer
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import java.time.Duration
 import kotlin.math.atan2
 
@@ -228,6 +229,13 @@ class AugmentedRealityView : CanvasView {
     override fun draw() {
         updateOrientation()
         background(backgroundFillColor)
+
+        // TODO: Move to a separate thread
+        layers.forEach {
+            runBlocking {
+                it.update(this@AugmentedRealityView, this@AugmentedRealityView)
+            }
+        }
 
         layers.forEach {
             it.draw(this, this)

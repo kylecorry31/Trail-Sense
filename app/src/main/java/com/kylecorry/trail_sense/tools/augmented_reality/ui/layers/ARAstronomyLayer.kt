@@ -60,9 +60,7 @@ class ARAstronomyLayer(
 
     private val updateFrequency = Duration.ofMinutes(1).toMillis()
     private val updateDistance = 1000f
-
-    // TODO: Eventually use a clip path to clip the lines to the horizon
-    override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
+    override suspend fun update(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         val location = view.location
         val time = System.currentTimeMillis()
 
@@ -72,6 +70,17 @@ class ARAstronomyLayer(
             updatePositions(drawer, location, ZonedDateTime.now())
         }
 
+        if (drawLines){
+            lineLayer.update(drawer, view)
+        }
+        sunLayer.update(drawer, view)
+        moonLayer.update(drawer, view)
+        currentSunLayer.update(drawer, view)
+        currentMoonLayer.update(drawer, view)
+    }
+
+    // TODO: Eventually use a clip path to clip the lines to the horizon
+    override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         if (drawLines) {
             lineLayer.draw(drawer, view)
         }

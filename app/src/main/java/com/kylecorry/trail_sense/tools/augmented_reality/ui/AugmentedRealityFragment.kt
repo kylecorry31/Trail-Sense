@@ -245,6 +245,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         layerManagementUpdater.stop()
     }
 
+    // TODO: Extract focus formatters
     private fun onSunFocused(time: ZonedDateTime): Boolean {
         binding.arView.focusText =
             getString(R.string.sun) + "\n" + formatter.formatRelativeDateTime(

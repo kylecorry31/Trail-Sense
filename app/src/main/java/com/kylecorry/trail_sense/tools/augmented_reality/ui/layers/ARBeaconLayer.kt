@@ -46,7 +46,7 @@ class ARBeaconLayer(
         _loader = null
     }
 
-    override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
+    override suspend fun update(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         if (_loader == null) {
             _loader = DrawerBitmapLoader(drawer)
             loadedImageSize = drawer.dp(24f).toInt()
@@ -111,9 +111,14 @@ class ARBeaconLayer(
                 }
             )
         })
-//            areBeaconsUpToDate = true
+        //            areBeaconsUpToDate = true
 //        }
 
+
+        layer.update(drawer, view)
+    }
+
+    override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         layer.draw(drawer, view)
     }
 
