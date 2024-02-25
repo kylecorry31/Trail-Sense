@@ -91,9 +91,12 @@ class MainActivity : AndromedaActivity() {
             UserPreferences.Theme.System -> ColorTheme.System
             UserPreferences.Theme.SunriseSunset -> sunriseSunsetTheme()
         }
+        val isBlackTheme = userPrefs.theme == UserPreferences.Theme.Black || userPrefs.theme == UserPreferences.Theme.Night
         setColorTheme(mode, userPrefs.useDynamicColors)
         enableEdgeToEdge(
-            navigationBarStyle = if (isDarkThemeOn()) {
+            navigationBarStyle = if (isBlackTheme) {
+                SystemBarStyle.dark(Color.BLACK)
+            } else if (isDarkThemeOn()) {
                 SystemBarStyle.dark(Resources.androidBackgroundColorSecondary(this))
             } else {
                 SystemBarStyle.light(
@@ -108,6 +111,12 @@ class MainActivity : AndromedaActivity() {
 
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(_binding?.root)
+
+        // Handle black theme
+        if (isBlackTheme) {
+            window.decorView.rootView.setBackgroundColor(Color.BLACK)
+            binding.bottomNavigation.setBackgroundColor(Color.BLACK)
+        }
 
         if (userPrefs.theme == UserPreferences.Theme.Night) {
             binding.colorFilter.setColorFilter(
