@@ -44,7 +44,7 @@ class ARAstronomyLayer(
     private val lineAlpha = 30
     private val lineThickness = 1f
 
-    private val lineLayer = ARLineLayer(renderWithPaths = true)
+    private val lineLayer = ARLineLayer()
     private val sunLayer = ARMarkerLayer()
     private val currentSunLayer = ARMarkerLayer()
 

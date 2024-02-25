@@ -28,7 +28,7 @@ import kotlin.math.sqrt
 
 class ARPathLayer(viewDistanceMeters: Float) : ARLayer, IPathLayer {
 
-    private val lineLayer = ARLineLayer()
+    private val lineLayer = ARLineLayer(renderWithPaths = false)
     private val markerLayer = ARMarkerLayer(1f, 32f)
     private var lastLocation = Coordinate.zero
 

@@ -12,7 +12,9 @@ import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.Augment
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARLine
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 
-class ARLineLayer(private val renderWithPaths: Boolean = false) : ARLayer {
+class ARLineLayer(
+    private val renderWithPaths: Boolean = true
+) : ARLayer {
 
     private val lines = mutableListOf<ARLine>()
     private val lineLock = Any()
@@ -60,7 +62,6 @@ class ARLineLayer(private val renderWithPaths: Boolean = false) : ARLayer {
 
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         drawer.noFill()
-        // TODO: Setting the stroke cap to round causes artifacts between lines, but the end looks good - setting it to project fixes the artifacts but the end looks bad
         drawer.strokeCap(StrokeCap.Round)
 
         val rendered = synchronized(lineLock) {
