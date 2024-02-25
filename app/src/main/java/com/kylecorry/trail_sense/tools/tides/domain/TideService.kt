@@ -1,12 +1,12 @@
 package com.kylecorry.trail_sense.tools.tides.domain
 
 import com.kylecorry.sol.math.Range
+import com.kylecorry.sol.math.optimization.GoldenSearchExtremaFinder
 import com.kylecorry.sol.science.oceanography.OceanographyService
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.units.Reading
-import com.kylecorry.trail_sense.shared.data.GoldenRatioExtremaFinder
 import com.kylecorry.trail_sense.tools.tides.domain.range.TideTableRangeCalculator
 import com.kylecorry.trail_sense.tools.tides.domain.waterlevel.TideTableWaterLevelCalculator
 import java.time.Duration
@@ -25,7 +25,7 @@ class TideService : ITideService {
         val start = date.atStartOfDay().toZonedDateTime(zone)
         val end = date.plusDays(1).atStartOfDay().toZonedDateTime(zone)
         val waterLevelCalculator = TideTableWaterLevelCalculator(table)
-        val extremaFinder = GoldenRatioExtremaFinder(30.0, 1.0)
+        val extremaFinder = GoldenSearchExtremaFinder(30.0, 1.0)
         val tides = ocean.getTides(waterLevelCalculator, start, end, extremaFinder)
         return tides.filter { it.time.toLocalDate() == date }
     }

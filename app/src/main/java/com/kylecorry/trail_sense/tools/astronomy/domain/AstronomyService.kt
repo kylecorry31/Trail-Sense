@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.astronomy.domain
 
+import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.sol.science.astronomy.RiseSetTransitTimes
 import com.kylecorry.sol.science.astronomy.SunTimesMode
@@ -95,6 +96,15 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         )
     }
 
+    fun getMoonAboveHorizonTimes(location: Coordinate, time: ZonedDateTime): Range<ZonedDateTime>? {
+        return Astronomy.getMoonAboveHorizonTimes(
+            location,
+            time,
+            withRefraction = true,
+            withParallax = true
+        )
+    }
+
     // PUBLIC SUN METHODS
 
     fun getSunTimes(
@@ -184,6 +194,13 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
 
     fun getSunAltitude(location: Coordinate, time: ZonedDateTime = ZonedDateTime.now()): Float {
         return Astronomy.getSunAltitude(time, location, true)
+    }
+
+    fun getSunAboveHorizonTimes(location: Coordinate, time: ZonedDateTime): Range<ZonedDateTime>? {
+        return Astronomy.getSunAboveHorizonTimes(
+            location, time,
+            withRefraction = true
+        )
     }
 
     fun getMeteorShower(

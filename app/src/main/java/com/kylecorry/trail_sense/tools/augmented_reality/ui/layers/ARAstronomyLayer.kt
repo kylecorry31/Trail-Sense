@@ -157,61 +157,69 @@ class ARAstronomyLayer(
                     AppColor.Yellow.color.withAlpha(200)
                 )
 
-                val moonPathTimes = getMoonTimes(location, time)
-                val sunPathTimes = getSunTimes(location, time)
+                val moonPathTimes = astro.getMoonAboveHorizonTimes(location, time)
+                val sunPathTimes = astro.getSunAboveHorizonTimes(location, time)
 
-                val moonPositions = Time.getReadings(
-                    moonPathTimes.start.minus(granularity),
-                    moonPathTimes.end.plus(granularity),
-                    granularity
-                ) {
-                    val obj = if (it.isBefore(time)) {
-                        moonBeforePathObject
-                    } else {
-                        moonAfterPathObject
-                    }
-
-                    val phase = Astronomy.getMoonPhase(it)
-
-                    ARMarker(
-                        SphericalARPoint(
-                            astro.getMoonAzimuth(location, it).value,
-                            astro.getMoonAltitude(location, it),
-                            isTrueNorth = true,
-                            angularDiameter = 0.5f
-                        ),
-                        canvasObject = obj,
-                        onFocusedFn = {
-                            onMoonFocus(it, phase)
+                val moonPositions = if (moonPathTimes != null) {
+                    Time.getReadings(
+                        moonPathTimes.start.minus(granularity),
+                        moonPathTimes.end.plus(granularity),
+                        granularity
+                    ) {
+                        val obj = if (it.isBefore(time)) {
+                            moonBeforePathObject
+                        } else {
+                            moonAfterPathObject
                         }
-                    )
-                }.map { it.value }
 
-                val sunPositions = Time.getReadings(
-                    sunPathTimes.start.minus(granularity),
-                    sunPathTimes.end.plus(granularity),
-                    granularity
-                ) {
+                        val phase = Astronomy.getMoonPhase(it)
 
-                    val obj = if (it.isBefore(time)) {
-                        sunBeforePathObject
-                    } else {
-                        sunAfterPathObject
-                    }
+                        ARMarker(
+                            SphericalARPoint(
+                                astro.getMoonAzimuth(location, it).value,
+                                astro.getMoonAltitude(location, it),
+                                isTrueNorth = true,
+                                angularDiameter = 0.5f
+                            ),
+                            canvasObject = obj,
+                            onFocusedFn = {
+                                onMoonFocus(it, phase)
+                            }
+                        )
+                    }.map { it.value }
+                } else {
+                    emptyList()
+                }
 
-                    ARMarker(
-                        SphericalARPoint(
-                            astro.getSunAzimuth(location, it).value,
-                            astro.getSunAltitude(location, it),
-                            isTrueNorth = true,
-                            angularDiameter = 0.5f
-                        ),
-                        canvasObject = obj,
-                        onFocusedFn = {
-                            onSunFocus(it)
+                val sunPositions = if (sunPathTimes != null) {
+                    Time.getReadings(
+                        sunPathTimes.start.minus(granularity),
+                        sunPathTimes.end.plus(granularity),
+                        granularity
+                    ) {
+
+                        val obj = if (it.isBefore(time)) {
+                            sunBeforePathObject
+                        } else {
+                            sunAfterPathObject
                         }
-                    )
-                }.map { it.value }
+
+                        ARMarker(
+                            SphericalARPoint(
+                                astro.getSunAzimuth(location, it).value,
+                                astro.getSunAltitude(location, it),
+                                isTrueNorth = true,
+                                angularDiameter = 0.5f
+                            ),
+                            canvasObject = obj,
+                            onFocusedFn = {
+                                onSunFocus(it)
+                            }
+                        )
+                    }.map { it.value }
+                } else {
+                    emptyList()
+                }
 
                 val moonAltitude = astro.getMoonAltitude(location)
                 val moonAzimuth = astro.getMoonAzimuth(location).value
@@ -314,73 +322,5 @@ class ARAstronomyLayer(
             lines.add(currentLine)
         }
         return lines
-    }
-
-    // TODO: Move this to sol and handle when the object does not rise or set - and make it even more generic (take in a celestial locator)
-    /**
-     * Gets the times the object is above the horizon
-     * @param location The location of the observer
-     * @param time The current time
-     * @param nextRiseOffset The duration before the next rise to switch to the next day's times
-     * @param isUpPredicate A predicate to determine if the object is up
-     * @param riseSetTransitTimesProducer A function to get the rise, set, and transit times for the object
-     * @return The range of times the object is above the horizon
-     */
-    private fun getAboveHorizonTimes(
-        location: Coordinate,
-        time: ZonedDateTime,
-        nextRiseOffset: Duration,
-        isUpPredicate: (Coordinate, ZonedDateTime) -> Boolean,
-        riseSetTransitTimesProducer: (Coordinate, LocalDate) -> RiseSetTransitTimes
-    ): Range<ZonedDateTime> {
-        // If it is up, use the last rise to the next set
-        // If it is down and is less than nextRiseOffset from the next rise, use the next rise to the next set
-        // If it is down and is greater than nextRiseOffset from the next rise, use the last rise to the last set
-        val isUp = isUpPredicate(location, time)
-
-        val yesterday = riseSetTransitTimesProducer(location, time.minusDays(1).toLocalDate())
-        val today = riseSetTransitTimesProducer(location, time.toLocalDate())
-        val tomorrow = riseSetTransitTimesProducer(location, time.plusDays(1).toLocalDate())
-
-        val lastRise =
-            Time.getClosestPastTime(time, listOfNotNull(yesterday.rise, today.rise, tomorrow.rise))
-        val nextRise = Time.getClosestFutureTime(
-            time,
-            listOfNotNull(yesterday.rise, today.rise, tomorrow.rise)
-        )
-        val lastSet =
-            Time.getClosestPastTime(time, listOfNotNull(yesterday.set, today.set, tomorrow.set))
-        val nextSet =
-            Time.getClosestFutureTime(time, listOfNotNull(yesterday.set, today.set, tomorrow.set))
-
-        if (isUp) {
-            return Range(lastRise ?: time.atStartOfDay(), nextSet ?: time.atEndOfDay())
-        }
-
-        if (nextRise == null || Duration.between(time, nextRise) > nextRiseOffset) {
-            return Range(lastRise ?: time.atStartOfDay(), lastSet ?: time.atEndOfDay())
-        }
-
-        return Range(nextRise, nextSet ?: time.atEndOfDay())
-    }
-
-    private fun getMoonTimes(location: Coordinate, time: ZonedDateTime): Range<ZonedDateTime> {
-        return getAboveHorizonTimes(
-            location,
-            time,
-            Duration.ofHours(6),
-            { loc, t -> astro.isMoonUp(loc, t) },
-            { loc, date -> astro.getMoonTimes(loc, date) }
-        )
-    }
-
-    private fun getSunTimes(location: Coordinate, time: ZonedDateTime): Range<ZonedDateTime> {
-        return getAboveHorizonTimes(
-            location,
-            time,
-            Duration.ofHours(6),
-            { loc, t -> astro.isSunUp(loc, t) },
-            { loc, date -> astro.getSunTimes(loc, SunTimesMode.Actual, date) }
-        )
     }
 }
