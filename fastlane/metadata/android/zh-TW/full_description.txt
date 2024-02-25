@@ -1,0 +1,27 @@
+<p>以 Trail Sense 探索網際網路以外的荒野。</p>
+
+<p>此 Trail Sense 應用程式利用您手機的感測器助您跋涉荒野。Trail Sense 包含多項工具，可用於不同情景，例如旅行、遠足、露營、攀石等。</p>
+
+<p>此應用程式並不、日後亦決不使用網際網路：Trail Sense 內所有資訊均直接來自您手機的感測器、數據俱不流出 Trail Sense 之外。</p>
+
+<ul>
+    <li>專為旅行、遠足、露營和地理藏寶而設計</li>
+    <li>放置地標並予以導航</li>
+    <li>跟隨路徑</li>
+    <li>以足跡追蹤您的腳步</li>
+    <li>計劃要收拾的物品</li>
+    <li>日落時接收警報</li>
+    <li>預測天氣</li>
+    <li>以手機作閃光燈</li>
+    <li>以及更多！</li>
+</ul>
+
+<p>Trail Sense 乃一項可供運用的工具，惟不該予以倚賴。此應用程式僅旨在作資訊用途，預測與感測器的準確度取決於若干因素，包括校準、感測器品質、外部來源等。其使用乃風險自負，請常備備用工具 (例如指南針)，時常安全至上，乃為上策。</p>
+
+<p>發現問題或是想要新功能？歡迎來函 trailsense@protonmail.com 或到 GitHub 開新議題：github.com/kylecorry31/Trail-Sense</p>
+
+<p>敝 Trail Sense 乃一人之作，問題排解乃略盡綿力，惟舍下測試用之裝置款式有限，還希見諒。</p>
+
+<p>隱私政策：https://kylecorry.com/Trail-Sense/#privacy</p>
+<p>常見問答：https://github.com/kylecorry31/Trail-Sense#faq</p>
+<p>Trail Sense 乃依據 MIT 授權協議提供：https://opensource.org/license/mit/</p>
