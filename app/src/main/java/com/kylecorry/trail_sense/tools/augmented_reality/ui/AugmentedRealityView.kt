@@ -29,6 +29,7 @@ import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Bearing
+import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -48,6 +49,7 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARLayer
 import kotlinx.coroutines.Dispatchers
 import java.time.Duration
 import kotlin.math.atan2
+import kotlin.math.roundToInt
 
 // TODO: Notify location change
 // TODO: This needs a parent view that has the camera, this, and any buttons (like the freeform button)
@@ -93,6 +95,14 @@ class AugmentedRealityView : CanvasView {
 
     private var fromTrueNorth = Quaternion.zero
     private var toTrueNorth = Quaternion.zero
+
+    // Cache for strings
+    private var lastBearing: Float? = null
+    private var lastDirection: CompassDirection? = null
+    private var lastInclination: Float? = null
+    private var lastBearingString: String? = null
+    private var lastDirectionString: String? = null
+    private var lastInclinationString: String? = null
 
     /**
      * The compass bearing of the device in degrees.
@@ -277,9 +287,28 @@ class AugmentedRealityView : CanvasView {
     private fun drawPosition() {
         val bearing = Bearing(azimuth)
         // TODO: Only update the string if the value changes
-        val azimuthText = formatter.formatDegrees(bearing.value, replace360 = true).padStart(4, ' ')
-        val directionText = formatter.formatDirection(bearing.direction).padStart(2, ' ')
-        val altitudeText = formatter.formatDegrees(inclination, replace360 = true)
+        val azimuthText = if (lastBearing?.roundToInt() != bearing.value.roundToInt()) {
+            formatter.formatDegrees(bearing.value, replace360 = true).padStart(4, ' ')
+        } else {
+            lastBearingString
+        }
+        val directionText = if (lastDirection != bearing.direction) {
+            formatter.formatDirection(bearing.direction).padStart(2, ' ')
+        } else {
+            lastDirectionString
+        }
+        val altitudeText = if (lastInclination?.roundToInt() != inclination.roundToInt()) {
+            formatter.formatDegrees(inclination)
+        } else {
+            lastInclinationString
+        }
+
+        lastBearing = bearing.value
+        lastDirection = bearing.direction
+        lastInclination = altitude
+        lastBearingString = azimuthText
+        lastDirectionString = directionText
+        lastInclinationString = altitudeText
 
         @SuppressLint("SetTextI18n")
         val text = "$azimuthText   $directionText\n${altitudeText}"
