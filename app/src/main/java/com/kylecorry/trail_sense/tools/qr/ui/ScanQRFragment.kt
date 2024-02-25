@@ -2,15 +2,20 @@ package com.kylecorry.trail_sense.tools.qr.ui
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.alerts.loading.AlertLoadingIndicator
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.clipboard.Clipboard
 import com.kylecorry.andromeda.core.system.GeoUri
@@ -36,6 +41,11 @@ import kotlinx.coroutines.withContext
 
 class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
 
+    companion object {
+        const val mediaMaxWidth = 2048
+        const val mediaMaxHeight = 2048
+    }
+
     private val cameraSize = Size(200, 200)
 
     private var history = mutableListOf<String>()
@@ -46,8 +56,68 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
 
     private val haptics by lazy { HapticSubsystem.getInstance(requireContext()) }
 
+    private val pickMedialoader by lazy {
+        AlertLoadingIndicator(
+            requireContext(),
+            getString(R.string.importing_image)
+        )
+    }
+
+    private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        uri?.let {
+            pickMedialoader.show()
+            val bitmap = BitmapFactory.decodeStream(context?.contentResolver?.openInputStream(uri))
+
+            bitmap?.let{ map ->
+                var compressedMap = map
+                if(bitmap.width > mediaMaxWidth || bitmap.height > mediaMaxHeight) {
+                    compressedMap = compressBitmapToMaxSize(
+                        bitmap = map,
+                        maxWidth = mediaMaxWidth,
+                        maxHeight = mediaMaxHeight
+                    )
+                }
+
+                onCameraUpdate(
+                    bitmap = compressedMap,
+                    isFromGallery = true
+                )
+            }
+            pickMedialoader.hide()
+        }
+    }
+
+    fun compressBitmapToMaxSize(bitmap: Bitmap, maxWidth: Int, maxHeight: Int): Bitmap {
+
+        val aspectRatio = bitmap.width.toFloat() / bitmap.height.toFloat()
+        if(aspectRatio == 1.00F){
+            return Bitmap.createScaledBitmap(bitmap, maxWidth, maxHeight, true)
+        }
+
+        val newWidth: Int
+        val newHeight: Int
+
+        if (bitmap.width > bitmap.height) {
+            newWidth = minOf(bitmap.width, maxWidth)
+            newHeight = (newWidth / aspectRatio).toInt()
+        } else {
+            newHeight = minOf(bitmap.height, maxHeight)
+            newWidth = (newHeight * aspectRatio).toInt()
+        }
+
+        return Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, true)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.gallery.setOnClickListener {
+            pickMedia.launch(
+                PickVisualMediaRequest(
+                    ActivityResultContracts.PickVisualMedia.ImageOnly
+                )
+            )
+        }
 
         qrHistoryList =
             ListView(binding.qrHistory, R.layout.list_item_qr_result) { itemView, text ->
@@ -204,7 +274,10 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
 
 
     @SuppressLint("UnsafeOptInUsageError")
-    private fun onCameraUpdate(bitmap: Bitmap): Boolean {
+    private fun onCameraUpdate(
+        bitmap: Bitmap,
+        isFromGallery: Boolean = false
+    ): Boolean {
         if (!isBound) {
             bitmap.recycle()
             return true
@@ -215,8 +288,12 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
             bitmap.recycle()
         }
 
-        if (message != null) {
-            onQRScanned(message!!)
+        message?.let{
+            onQRScanned(it)
+        } ?: run {
+            if(isFromGallery) {
+                Alerts.toast(requireContext(), getString(R.string.no_qr_code_detected))
+            }
         }
 
         return true
