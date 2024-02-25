@@ -276,6 +276,7 @@ class AugmentedRealityView : CanvasView {
 
     private fun drawPosition() {
         val bearing = Bearing(azimuth)
+        // TODO: Only update the string if the value changes
         val azimuthText = formatter.formatDegrees(bearing.value, replace360 = true).padStart(4, ' ')
         val directionText = formatter.formatDirection(bearing.direction).padStart(2, ' ')
         val altitudeText = formatter.formatDegrees(inclination, replace360 = true)

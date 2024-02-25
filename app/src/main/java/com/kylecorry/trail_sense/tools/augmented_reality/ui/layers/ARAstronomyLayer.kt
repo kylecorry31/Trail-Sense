@@ -142,23 +142,19 @@ class ARAstronomyLayer(
                 val granularity = Duration.ofMinutes(10)
 
                 val moonBeforePathObject = CanvasCircle(
-                    Color.WHITE,
-                    opacity = 60
+                    Color.WHITE.withAlpha(60)
                 )
 
                 val moonAfterPathObject = CanvasCircle(
-                    Color.WHITE,
-                    opacity = 200
+                    Color.WHITE.withAlpha(200)
                 )
 
                 val sunBeforePathObject = CanvasCircle(
-                    AppColor.Yellow.color,
-                    opacity = 60
+                    AppColor.Yellow.color.withAlpha(60)
                 )
 
                 val sunAfterPathObject = CanvasCircle(
-                    AppColor.Yellow.color,
-                    opacity = 200
+                    AppColor.Yellow.color.withAlpha(200)
                 )
 
                 val moonPathTimes = getMoonTimes(location, time)

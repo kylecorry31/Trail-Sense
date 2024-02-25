@@ -4,6 +4,7 @@ import android.graphics.Color
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.ImageMode
+import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 
 // TODO: Use this on the MapView as well - maybe extract to Andromeda
@@ -17,7 +18,6 @@ class CanvasCircle(
     private val color: Int,
     @ColorInt
     private val strokeColor: Int? = null,
-    private val opacity: Int = 255,
     private val strokeWeight: Float = 0.5f,
 ) : CanvasObject {
     override fun draw(drawer: ICanvasDrawer, area: PixelCircle) {
@@ -31,7 +31,6 @@ class CanvasCircle(
         }
         if (color != Color.TRANSPARENT) {
             drawer.fill(color)
-            drawer.opacity(opacity)
             drawer.circle(area.center.x, area.center.y, size)
         }
     }
