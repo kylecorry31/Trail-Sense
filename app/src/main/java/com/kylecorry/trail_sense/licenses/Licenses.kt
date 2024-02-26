@@ -3,6 +3,20 @@ package com.kylecorry.trail_sense.licenses
 object Licenses {
     val libraries = listOf(
         Library(
+            "Trail Sense",
+            "https://github.com/kylecorry31/Trail-Sense"
+        ) {
+            val contributors = arrayOf("kylecorry31", "qwerty287", "sr093906", "ChuckMichael", "oersen", "laralem", "Fjuro", "comradekingu", "ojppe", "beriain", "ebraminio", "SecularSteve", "jer194", "raphaelventura", "weblate", "ACABMAN666", "delthia", "cewbdex", "another-sapiens", "zsbetu", "Jakarrrg", "shilonit", "AlessandroFrangiamone", "SantosSi", "Portagoras", "crlambda", "Xoronic", "Craftefix", "mfrancesconi", "Leopardus4", "comcloudway", "fnogcps", "a-mento", "StarSkyGeminid", "mrestivill", "pr0gr8mm3r", "paulle", "notramo", "NaserKhoshfetrat", "Sak94664", "le-jun", "LiJu09", "ingfabby", "hphan9", "KovalevArtem", "CloneWith", "volodymyr-ahafonov", "mellvie", "huuhaa", "bowornsin", "naoritzio", "tacostea", "SebV60", "imBigo", "rezaalmanda", "Poussinou", "Oymate", "L-P", "LuccoJ", "ygorigor", "sguinetti", "asafran", "AHOHNMYC", "Tijs-B", "swltr", "A5468", "Shadowstrike-code", "rherilier", "VectorKappa", "Pastitas", "the7thNightmare", "TomasCartman", "efraletti", "nautilusx", "n30mrx", "kasmide", "xax", "jacoii", "zaioti", "jere-a", "btsmartx", "ARtHryDr", "Abdulkarim28", "Akamar", "dasrecht", "helloiamcait", "E440QF", "EnderPicture", "Estebastien", "fparri", "Johnny846", "FrameXX", "W113565456", "gerrydoro", "gustavosilveiragss", "iRomanyshyn", "LightFOSS", "LucFreitas", "Luiz-bro")
+            "${mit(
+                "2020-2024",
+                "Kyle Corry"
+            )}\n\nThe following people contributed code or translations to Trail Sense under the MIT License: ${
+                contributors.joinToString(
+                    ", "
+                )
+            }"
+        },
+        Library(
             "Pictogrammers",
             "https://pictogrammers.com/"
         ) {
@@ -213,17 +227,6 @@ F. Point of Contact: Any Recipient contact with Government Agency is to be direc
 Global Relief Model. NOAA National Centers for Environmental Information.
 https://doi.org/10.25921/fd45-gt74 . Accessed 2023-05-26.
 ETOPO 2022 metadata may be accessed here: ETOPO 2022 metadata landing page"""
-        },
-        Library(
-            "Trail Sense Contributors",
-            "https://github.com/kylecorry31/Trail-Sense"
-        ) {
-            val contributors = arrayOf("kylecorry31", "qwerty287", "sr093906", "ChuckMichael", "oersen", "laralem", "Fjuro", "comradekingu", "ojppe", "beriain", "ebraminio", "SecularSteve", "jer194", "raphaelventura", "weblate", "ACABMAN666", "delthia", "cewbdex", "another-sapiens", "zsbetu", "Jakarrrg", "shilonit", "AlessandroFrangiamone", "SantosSi", "Portagoras", "crlambda", "Xoronic", "Craftefix", "mfrancesconi", "Leopardus4", "comcloudway", "fnogcps", "a-mento", "StarSkyGeminid", "mrestivill", "pr0gr8mm3r", "paulle", "notramo", "NaserKhoshfetrat", "Sak94664", "le-jun", "LiJu09", "ingfabby", "hphan9", "KovalevArtem", "CloneWith", "volodymyr-ahafonov", "mellvie", "huuhaa", "bowornsin", "naoritzio", "tacostea", "SebV60", "imBigo", "rezaalmanda", "Poussinou", "Oymate", "L-P", "LuccoJ", "ygorigor", "sguinetti", "asafran", "AHOHNMYC", "Tijs-B", "swltr", "A5468", "Shadowstrike-code", "rherilier", "VectorKappa", "Pastitas", "the7thNightmare", "TomasCartman", "efraletti", "nautilusx", "n30mrx", "kasmide", "xax", "jacoii", "zaioti", "jere-a", "btsmartx", "ARtHryDr", "Abdulkarim28", "Akamar", "dasrecht", "helloiamcait", "E440QF", "EnderPicture", "Estebastien", "fparri", "Johnny846", "FrameXX", "W113565456", "gerrydoro", "gustavosilveiragss", "iRomanyshyn", "LightFOSS", "LucFreitas", "Luiz-bro")
-            "The following people contributed code or translations to Trail Sense under the MIT License: ${
-                contributors.joinToString(
-                    ", "
-                )
-            }"
         }
     )
 

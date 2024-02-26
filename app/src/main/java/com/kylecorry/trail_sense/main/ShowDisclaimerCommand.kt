@@ -19,7 +19,7 @@ class ShowDisclaimerCommand(private val context: Context) : Command {
             context,
             context.getString(R.string.app_disclaimer_message_title),
             context.getString(R.string.disclaimer_message_content) + "\n\n" + Licenses.mit(
-                "2020-2023",
+                "2020-2024",
                 "Kyle Corry"
             ),
             context.getString(R.string.pref_main_disclaimer_shown_key),
