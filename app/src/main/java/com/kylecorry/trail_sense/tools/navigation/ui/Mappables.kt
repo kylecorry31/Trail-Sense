@@ -49,11 +49,13 @@ interface IMappablePath : Identifiable {
     val points: List<IMappableLocation>
     val color: Int
     val style: LineStyle
+    val name: String?
 }
 
 data class MappablePath(
     override val id: Long,
     override val points: List<IMappableLocation>,
     override val color: Int,
-    override val style: LineStyle
+    override val style: LineStyle,
+    override val name: String? = null
 ) : IMappablePath

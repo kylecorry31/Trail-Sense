@@ -497,7 +497,8 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                         )
                     },
                     path.style.color,
-                    path.style.line
+                    path.style.line,
+                    path.name
                 )
             )
         )

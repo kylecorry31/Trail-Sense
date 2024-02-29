@@ -48,6 +48,8 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARBeaconLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARGridLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARPathLayer
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.PathLayerManager
+import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
+import com.kylecorry.trail_sense.tools.paths.domain.Path
 import java.time.ZonedDateTime
 import kotlin.math.hypot
 
@@ -102,7 +104,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
     private val pathsLayer by lazy {
         ARPathLayer(
-            userPrefs.augmentedReality.pathViewDistance
+            userPrefs.augmentedReality.pathViewDistance,
+            this::onPathFocused
         )
     }
     private var pathLayerManager: PathLayerManager? = null
@@ -266,6 +269,11 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                     phase.illumination
                 )
             })"
+        return true
+    }
+
+    private fun onPathFocused(path: IMappablePath): Boolean {
+        binding.arView.focusText = path.name
         return true
     }
 

@@ -20,13 +20,18 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARLine
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMarker
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasCircle
+import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
+import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.ui.IPathLayer
 import kotlin.math.atan2
 import kotlin.math.sqrt
 
-class ARPathLayer(viewDistanceMeters: Float) : ARLayer, IPathLayer {
+class ARPathLayer(
+    viewDistanceMeters: Float,
+    private val onFocus: (path: IMappablePath) -> Boolean = { false },
+) : ARLayer, IPathLayer {
 
     private val lineLayer = ARLineLayer(renderWithPaths = false)
     private val markerLayer = ARMarkerLayer(1f, 32f)
@@ -74,43 +79,46 @@ class ARPathLayer(viewDistanceMeters: Float) : ARLayer, IPathLayer {
     }
 
     override fun onFocus(drawer: ICanvasDrawer, view: AugmentedRealityView): Boolean {
-        return false
+        return markerLayer.onFocus(drawer, view)
     }
 
     override fun setPaths(paths: List<IMappablePath>) {
         val location = lastLocation
 
         val points = paths.map {
-            getNearbyARPoints(it, location) to it.color
+            it to getNearbyARPoints(it, location)
         }
 
-        val nearestPoints = points.mapNotNull { getNearestPoint(it.first) }
+        val nearestPoints = points.mapNotNull { getNearestPoint(it.second) }
         val nearest = nearestPoints.minByOrNull { it.squaredDistanceTo(center) }
         if (nearest != null) {
             points.forEach {
-                recenterPoints(it.first, nearest, center)
+                recenterPoints(it.second, nearest, center)
             }
         }
 
 
         // Add the offset to all the points
-        val lines = points.flatMap { (pts, color) ->
+        val lines = points.flatMap { (path, pts) ->
             project(pts).map {
-                ARLine(it, color, 4f)
+                path to ARLine(it, path.color, 4f)
             }
         }
 
         val markers = lines.flatMap {
-            it.points.map { point ->
+            it.second.points.map { point ->
                 ARMarker(
                     point,
-                    CanvasCircle(it.color)
+                    CanvasCircle(it.second.color),
+                    onFocusedFn = {
+                        onFocus(it.first)
+                    }
                 )
             }
         }
 
         markerLayer.setMarkers(markers)
-        lineLayer.setLines(lines)
+        lineLayer.setLines(lines.map { it.second })
     }
 
     private fun getNearestPoint(points: List<Float>): PixelCoordinate? {
