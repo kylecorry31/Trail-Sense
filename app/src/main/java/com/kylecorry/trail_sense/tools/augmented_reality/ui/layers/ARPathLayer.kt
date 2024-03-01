@@ -36,6 +36,7 @@ class ARPathLayer(
     private val lineLayer = ARLineLayer(renderWithPaths = false)
     private val markerLayer = ARMarkerLayer(1f, 32f)
     private var lastLocation = Coordinate.zero
+    private var lastLocationAccuracySquared: Float? = null
 
     private val squareViewDistance = square(viewDistanceMeters)
     private val center = PixelCoordinate(viewDistanceMeters, viewDistanceMeters)
@@ -56,6 +57,7 @@ class ARPathLayer(
 
     override suspend fun update(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         lastLocation = view.location
+        lastLocationAccuracySquared = view.locationAccuracy?.let { square(it) }
         lineLayer.update(drawer, view)
         markerLayer.update(drawer, view)
     }
@@ -123,7 +125,7 @@ class ARPathLayer(
 
     private fun getNearestPoint(points: List<Float>): PixelCoordinate? {
         var minPoint: PixelCoordinate? = null
-        var minDistance = snapDistanceSquared
+        var minDistance = lastLocationAccuracySquared?.coerceAtLeast(snapDistanceSquared) ?: snapDistanceSquared
 
         points.forEachLine { x1, y1, x2, y2 ->
             val projected = projectOntoLine(center.x, center.y, x1, y1, x2, y2)

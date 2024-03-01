@@ -126,6 +126,9 @@ class AugmentedRealityView : CanvasView {
     val location: Coordinate
         get() = gps.location
 
+    val locationAccuracy: Float?
+        get() = gps.horizontalAccuracy
+
     /**
      * The altitude of the device in meters
      */
