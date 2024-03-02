@@ -26,7 +26,7 @@ import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.Pedome
 
 class StepCounterService : AndromedaService() {
 
-    private val pedometer by lazy { Pedometer(this, SensorService.ENVIRONMENT_SENSOR_DELAY) }
+    private val pedometer by lazy { SensorService(this).getPedometer() }
     private val counter by lazy { StepCounter(PreferencesSubsystem.getInstance(this).preferences) }
     private val formatService by lazy { FormatService.getInstance(this) }
     private val prefs by lazy { UserPreferences(this) }

@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.core.sensors.ISpeedometer
 import com.kylecorry.andromeda.core.sensors.IThermometer
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.sense.Sensors
+import com.kylecorry.andromeda.sense.accelerometer.Accelerometer
 import com.kylecorry.andromeda.sense.accelerometer.GravitySensor
 import com.kylecorry.andromeda.sense.accelerometer.IAccelerometer
 import com.kylecorry.andromeda.sense.accelerometer.LowPassAccelerometer
@@ -19,10 +20,13 @@ import com.kylecorry.andromeda.sense.barometer.IBarometer
 import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.hygrometer.Hygrometer
 import com.kylecorry.andromeda.sense.hygrometer.IHygrometer
+import com.kylecorry.andromeda.sense.light.ILightSensor
+import com.kylecorry.andromeda.sense.light.LightSensor
 import com.kylecorry.andromeda.sense.location.GPS
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.sense.location.filters.GPSGaussianAltitudeFilter
 import com.kylecorry.andromeda.sense.magnetometer.IMagnetometer
+import com.kylecorry.andromeda.sense.magnetometer.LowPassMagnetometer
 import com.kylecorry.andromeda.sense.magnetometer.Magnetometer
 import com.kylecorry.andromeda.sense.mock.MockBarometer
 import com.kylecorry.andromeda.sense.mock.MockGyroscope
@@ -200,11 +204,11 @@ class SensorService(ctx: Context) {
     }
 
     fun getCompass(): ICompass {
-        return CompassProvider(context, userPrefs.compass).get()
+        return CompassProvider(context, userPrefs.compass).get(MOTION_SENSOR_DELAY)
     }
 
     fun getOrientation(): IOrientationSensor {
-        return CompassProvider(context, userPrefs.compass).getOrientationSensor()
+        return CompassProvider(context, userPrefs.compass).getOrientationSensor(MOTION_SENSOR_DELAY)
     }
 
     fun getDeviceOrientationSensor(): DeviceOrientation {
@@ -273,8 +277,12 @@ class SensorService(ctx: Context) {
         }
     }
 
-    fun getMagnetometer(): IMagnetometer {
-        return Magnetometer(context, MOTION_SENSOR_DELAY)
+    fun getMagnetometer(filtered: Boolean = false): IMagnetometer {
+        return if (filtered) {
+            LowPassMagnetometer(context, MOTION_SENSOR_DELAY)
+        } else {
+            Magnetometer(context, MOTION_SENSOR_DELAY)
+        }
     }
 
     fun getGyroscope(): IOrientationSensor {
@@ -287,9 +295,17 @@ class SensorService(ctx: Context) {
         return Gyroscope(context, MOTION_SENSOR_DELAY)
     }
 
+    fun getAccelerometer(): IAccelerometer {
+        return Accelerometer(context, MOTION_SENSOR_DELAY)
+    }
+
+    fun getLightSensor(): ILightSensor {
+        return LightSensor(context, ENVIRONMENT_SENSOR_DELAY)
+    }
+
     companion object {
-        const val MOTION_SENSOR_DELAY = SensorManager.SENSOR_DELAY_GAME
-        const val ENVIRONMENT_SENSOR_DELAY = SensorManager.SENSOR_DELAY_NORMAL
+        private const val MOTION_SENSOR_DELAY = SensorManager.SENSOR_DELAY_GAME
+        private const val ENVIRONMENT_SENSOR_DELAY = SensorManager.SENSOR_DELAY_NORMAL
     }
 
 }

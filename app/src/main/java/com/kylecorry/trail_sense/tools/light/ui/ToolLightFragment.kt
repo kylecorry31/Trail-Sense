@@ -6,17 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.observe
-import com.kylecorry.andromeda.sense.light.LightSensor
 import com.kylecorry.sol.science.optics.Optics
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolLightBinding
 import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import kotlin.math.max
 
 class ToolLightFragment : BoundFragment<FragmentToolLightBinding>() {
 
-    private val lightSensor by lazy { LightSensor(requireContext()) }
+    private val lightSensor by lazy { SensorService(requireContext()).getLightSensor() }
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private var maxLux = 0f
 

@@ -32,7 +32,7 @@ import kotlin.math.pow
 
 class CompassProvider(private val context: Context, private val prefs: ICompassPreferences) {
 
-    fun get(): ICompass {
+    fun get(sensorDelay: Int): ICompass {
         val useTrueNorth = prefs.useTrueNorth
 
         var source = prefs.source
@@ -52,14 +52,14 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
         val compass = when (source) {
             CompassSource.Orientation -> {
                 FilteredCompass(
-                    LegacyCompass(context, useTrueNorth, SensorService.MOTION_SENSOR_DELAY),
+                    LegacyCompass(context, useTrueNorth, sensorDelay),
                     MovingAverageFilter((prefs.compassSmoothing * 4).coerceAtLeast(1))
                 )
             }
 
             else -> {
                 Compass(
-                    getOrientationSensor(),
+                    getOrientationSensor(sensorDelay),
                     useTrueNorth,
                     surfaceRotation = Surface.ROTATION_90,
                     offset = -90f
@@ -73,7 +73,7 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
         )
     }
 
-    private fun getBaseOrientationSensor(): IOrientationSensor {
+    private fun getBaseOrientationSensor(sensorDelay: Int): IOrientationSensor {
         var source = prefs.source
 
         // Swap out the legacy orientation sensor for the rotation vector sensor
@@ -90,27 +90,26 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
             }
         }
 
-        // TODO: Apply the smoothing / quality to the orientation sensor
         if (source == CompassSource.RotationVector) {
-            return RotationSensor(context, SensorService.MOTION_SENSOR_DELAY)
+            return RotationSensor(context, sensorDelay)
         }
 
         if (source == CompassSource.GeomagneticRotationVector) {
             return GeomagneticRotationSensor(
                 context,
-                SensorService.MOTION_SENSOR_DELAY
+                sensorDelay
             )
         }
 
-        return getCustomGeomagneticRotationSensor(true)
+        return getCustomGeomagneticRotationSensor(true, sensorDelay)
     }
 
-    fun getOrientationSensor(): IOrientationSensor {
+    fun getOrientationSensor(sensorDelay: Int): IOrientationSensor {
         val smoothing = prefs.compassSmoothing
 
         val quickRecalibration = QuickRecalibrationOrientationSensor(
-            getCustomGeomagneticRotationSensor(false),
-            getBaseOrientationSensor(),
+            getCustomGeomagneticRotationSensor(false, sensorDelay),
+            getBaseOrientationSensor(sensorDelay),
             1f,
             45f
         )
@@ -129,16 +128,16 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
 
     }
 
-    private fun getCustomGeomagneticRotationSensor(useGyroIfAvailable: Boolean): CustomGeomagneticRotationSensor {
+    private fun getCustomGeomagneticRotationSensor(useGyroIfAvailable: Boolean, sensorDelay: Int): CustomGeomagneticRotationSensor {
         val magnetometer = if (Sensors.hasSensor(context, Sensor.TYPE_MAGNETIC_FIELD)) {
-            LowPassMagnetometer(context, SensorService.MOTION_SENSOR_DELAY, MAGNETOMETER_LOW_PASS)
+            LowPassMagnetometer(context, sensorDelay, MAGNETOMETER_LOW_PASS)
         } else {
             MockMagnetometer()
         }
         val accelerometer = if (useGyroIfAvailable && Sensors.hasGravity(context)) {
-            GravitySensor(context, SensorService.MOTION_SENSOR_DELAY)
+            GravitySensor(context, sensorDelay)
         } else {
-            LowPassAccelerometer(context, SensorService.MOTION_SENSOR_DELAY, ACCELEROMETER_LOW_PASS)
+            LowPassAccelerometer(context, sensorDelay, ACCELEROMETER_LOW_PASS)
         }
 
         return CustomGeomagneticRotationSensor(magnetometer, accelerometer)

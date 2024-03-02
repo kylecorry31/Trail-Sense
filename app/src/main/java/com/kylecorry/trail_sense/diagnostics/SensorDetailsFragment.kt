@@ -60,12 +60,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
     private val sensorDetailsMap = mutableMapOf<String, SensorDetails?>()
 
     // Hardware sensors
-    private val accelerometer by lazy {
-        Accelerometer(
-            requireContext(),
-            SensorService.MOTION_SENSOR_DELAY
-        )
-    }
+    private val accelerometer by lazy { sensorService.getAccelerometer() }
     private val magnetometer by lazy { sensorService.getMagnetometer() }
     private val barometer by lazy { sensorService.getBarometer() }
     private val hygrometer by lazy { sensorService.getHygrometer() }
