@@ -909,7 +909,7 @@
     <string name="location_number">Τοποθεσία %d</string>
     <string name="enter_manually">Εισάγετε μη αυτόματα</string>
     <string name="show_dial_ticks_on_nearby_radar_summary">Η συσκευή σας δεν υποστηρίζει πυξίδα, αλλά μπορείτε ακόμη να δείτε σε ποιά κατεύθυνση βρίσκονται τα τοπόσημα.</string>
-    <string name="off">Απενεργοποιημένος</string>
+    <string name="off">Ανενεργό</string>
     <string name="sensor_summary">Πυξίδα, GPS, αλτίμετρο, βαρόμετρο, κτλ.</string>
     <string name="sensor">Αισθητήρας</string>
     <string name="disclaimer_estimated_tide_title">Πρόβλεψη παλίρροιας</string>
@@ -960,4 +960,5 @@
 \n
 \nΜερικά καλά παραδείγματα τοποθεσιών για χρήση κατά τη βαθμονόμηση θα μπορούσαν να είναι ένας χώρος στάθμευσης οχημάτων, ενα σημείο σήμανσης, ένα ορόσημο, ή μία διασταύρωση στην πορεία μίας διαδρομής.</string>
     <string name="missing_sensor_message_1">Η συσκευή σας, %1$s, δεν υποστηρίζει αισθητήρα για χρήση ως %2$s. Δυστυχώς, αυτό σημαίνει πως κάποιες δυνατότητες από τη λειτουργία %3$s δεν θα είναι διαθέσιμες.</string>
+    <string name="on">Ενεργό</string>
 </resources>
