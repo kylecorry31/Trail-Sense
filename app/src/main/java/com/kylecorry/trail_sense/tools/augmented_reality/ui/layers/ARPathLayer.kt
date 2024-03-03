@@ -20,10 +20,8 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARLine
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMarker
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasCircle
-import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
-import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.ui.IPathLayer
 import kotlin.math.atan2
 import kotlin.math.sqrt
@@ -34,7 +32,7 @@ class ARPathLayer(
 ) : ARLayer, IPathLayer {
 
     private val lineLayer = ARLineLayer(renderWithPaths = false)
-    private val markerLayer = ARMarkerLayer(1f, 32f)
+    private val markerLayer = ARMarkerLayer(1f, 32f, false)
     private var lastLocation = Coordinate.zero
     private var lastLocationAccuracySquared: Float? = null
 

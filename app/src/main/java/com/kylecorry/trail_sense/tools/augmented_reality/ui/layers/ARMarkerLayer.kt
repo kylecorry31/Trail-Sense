@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 class ARMarkerLayer(
     private val minimumDpSize: Float = 0f,
     private val maximumDpSize: Float? = null,
+    private val renderMarkersBelowMinSize: Boolean = true
 ) : ARLayer {
 
     private val markers = mutableListOf<ARMarker>()
@@ -40,8 +41,9 @@ class ARMarkerLayer(
         val minimumPixelSize = drawer.dp(minimumDpSize)
         val maximumPixelSize = maximumDpSize?.let { drawer.dp(it) } ?: Float.MAX_VALUE
         renderedMarkers = synchronized(lock) {
-            markers.map {
-                it to getCircle(it, view, minimumPixelSize, maximumPixelSize)
+            markers.mapNotNull {
+                val circle = getCircle(it, view, minimumPixelSize, maximumPixelSize) ?: return@mapNotNull null
+                it to circle
             }
         }
     }
@@ -85,7 +87,7 @@ class ARMarkerLayer(
 
         val sorted = markers
             .mapNotNull {
-                val circle = getCircle(it, view, minimumPixelSize, maximumPixelSize)
+                val circle = getCircle(it, view, minimumPixelSize, maximumPixelSize) ?: return@mapNotNull null
                 if (circle.intersects(click)) {
                     it to circle
                 } else {
@@ -116,8 +118,11 @@ class ARMarkerLayer(
         view: AugmentedRealityView,
         minimumPixelSize: Float,
         maximumPixelSize: Float
-    ): PixelCircle {
+    ): PixelCircle? {
         val circle = marker.getViewLocation(view)
+        if (!renderMarkersBelowMinSize && circle.radius < minimumPixelSize) {
+            return null
+        }
         return circle.copy(
             radius = circle.radius.coerceIn(minimumPixelSize / 2f, maximumPixelSize / 2f)
         )
