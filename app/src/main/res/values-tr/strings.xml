@@ -1124,4 +1124,5 @@
     <string name="use_gyroscope_after_calibration">Kalibrasyondan sonra jiroskopu kullan</string>
     <string name="use_gyroscope_after_calibration_description">Pusula yerine (manyetik sapmayı önler)</string>
     <string name="reset_calibration_question">Kalibrasyon sıfırlansın mı?</string>
+    <string name="use_path_elevation">Yol yüksekliğini kullan</string>
 </resources>
