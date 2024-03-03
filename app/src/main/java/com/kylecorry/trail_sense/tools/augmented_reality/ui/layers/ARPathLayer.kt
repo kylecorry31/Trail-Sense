@@ -55,6 +55,9 @@ class ARPathLayer(
     private val snapDistance = 2 * viewDistanceMeters / 3f // meters
     private val snapDistanceSquared = square(snapDistance)
 
+    private val maxElevationOffset = 5f // meters
+    private val defaultElevationOffset = -2f // meters
+
     override suspend fun update(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         lastLocation = view.location
         lastElevation = view.altitude
@@ -137,7 +140,8 @@ class ARPathLayer(
 
     private fun getNearestPoint(points: Pair<List<Float>, List<Float>>): Pair<PixelCoordinate, Float>? {
         var minPoint: PixelCoordinate? = null
-        var minDistance = lastLocationAccuracySquared?.coerceAtLeast(snapDistanceSquared) ?: snapDistanceSquared
+        var minDistance =
+            lastLocationAccuracySquared?.coerceAtLeast(snapDistanceSquared) ?: snapDistanceSquared
         var minPointElevation: Float? = null
 
         var i = 0
@@ -324,9 +328,14 @@ class ARPathLayer(
 
     private fun toARPoint(pixel: PixelCoordinate, elevation: Float?): ARPoint? {
         val location = toLocation(pixel) ?: return null
+        val elevationOffset = if (adjustForPathElevation && elevation != null) {
+            (elevation - (lastElevation ?: 0f) + defaultElevationOffset)
+        } else {
+            defaultElevationOffset
+        }
         return GeographicARPoint(
             location,
-            if (adjustForPathElevation) elevation?.minus(lastElevation ?: 0f)?.minus(2f) ?: -2f else -2f,
+            elevationOffset.coerceIn(-maxElevationOffset, maxElevationOffset),
             isElevationRelative = true,
             actualDiameter = 0.25f
         )
