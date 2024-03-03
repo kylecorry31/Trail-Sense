@@ -1347,6 +1347,9 @@
     <string name="use_gyroscope_after_calibration">Use gyroscope after calibration</string>
     <string name="use_gyroscope_after_calibration_description">Instead of the compass (avoids magnetic drift)</string>
     <string name="reset_calibration_question">Reset calibration?</string>
+    <string name="pref_ar_adjust_for_path_elevation" translatable="false">pref_ar_adjust_for_path_elevation</string>
+    <!-- Whether to use path elevations on the augmented reality tool -->
+    <string name="use_path_elevation">Use path elevation</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>

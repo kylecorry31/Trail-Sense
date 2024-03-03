@@ -105,7 +105,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     private val pathsLayer by lazy {
         ARPathLayer(
             userPrefs.augmentedReality.pathViewDistance,
-            adjustForPathElevation = true,
+            adjustForPathElevation = userPrefs.augmentedReality.adjustForPathElevation,
             this::onPathFocused
         )
     }

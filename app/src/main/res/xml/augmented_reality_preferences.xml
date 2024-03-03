@@ -27,6 +27,13 @@
         <SwitchPreferenceCompat
             app:defaultValue="false"
             app:iconSpaceReserved="false"
+            app:key="@string/pref_ar_adjust_for_path_elevation"
+            app:singleLineTitle="false"
+            app:title="@string/use_path_elevation" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
             app:key="@string/pref_ar_use_gyro_only_after_calibration"
             app:singleLineTitle="false"
             app:summary="@string/use_gyroscope_after_calibration_description"
