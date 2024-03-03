@@ -28,12 +28,14 @@ import kotlin.math.sqrt
 
 class ARPathLayer(
     viewDistanceMeters: Float,
+    private val adjustForPathElevation: Boolean,
     private val onFocus: (path: IMappablePath) -> Boolean = { false },
 ) : ARLayer, IPathLayer {
 
     private val lineLayer = ARLineLayer(renderWithPaths = false)
     private val markerLayer = ARMarkerLayer(1f, 32f, false)
     private var lastLocation = Coordinate.zero
+    private var lastElevation: Float? = null
     private var lastLocationAccuracySquared: Float? = null
 
     private val squareViewDistance = square(viewDistanceMeters)
@@ -55,6 +57,7 @@ class ARPathLayer(
 
     override suspend fun update(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         lastLocation = view.location
+        lastElevation = view.altitude
         lastLocationAccuracySquared = view.locationAccuracy?.let { square(it) }
         lineLayer.update(drawer, view)
         markerLayer.update(drawer, view)
@@ -84,16 +87,27 @@ class ARPathLayer(
 
     override fun setPaths(paths: List<IMappablePath>) {
         val location = lastLocation
+        val elevation = lastElevation
 
         val points = paths.map {
-            it to getNearbyARPoints(it, location)
+            it to getNearbyARPoints(it, location, elevation)
         }
 
         val nearestPoints = points.mapNotNull { getNearestPoint(it.second) }
-        val nearest = nearestPoints.minByOrNull { it.squaredDistanceTo(center) }
+        val nearest = nearestPoints.minByOrNull { it.first.squaredDistanceTo(center) }
         if (nearest != null) {
             points.forEach {
-                recenterPoints(it.second, nearest, center)
+                recenterPoints(it.second.first, nearest.first, center)
+            }
+
+            // Set the elevation to the nearest point
+            if (adjustForPathElevation) {
+                val elevationDelta = elevation?.minus(nearest.second) ?: 0f
+                points.forEach {
+                    it.second.second.forEachIndexed { index, _ ->
+                        it.second.second[index] = it.second.second[index] + elevationDelta
+                    }
+                }
             }
         }
 
@@ -121,43 +135,54 @@ class ARPathLayer(
         lineLayer.setLines(lines.map { it.second })
     }
 
-    private fun getNearestPoint(points: List<Float>): PixelCoordinate? {
+    private fun getNearestPoint(points: Pair<List<Float>, List<Float>>): Pair<PixelCoordinate, Float>? {
         var minPoint: PixelCoordinate? = null
         var minDistance = lastLocationAccuracySquared?.coerceAtLeast(snapDistanceSquared) ?: snapDistanceSquared
+        var minPointElevation: Float? = null
 
-        points.forEachLine { x1, y1, x2, y2 ->
-            val projected = projectOntoLine(center.x, center.y, x1, y1, x2, y2)
-            val distance = projected.squaredDistanceTo(center)
+        var i = 0
+        points.first.forEachLine { x1, y1, x2, y2 ->
+            val z1 = points.second.getOrNull(i) ?: lastElevation ?: 0f
+            val z2 = points.second.getOrNull(i + 1) ?: lastElevation ?: 0f
+            val projected = projectOntoLine(center.x, center.y, x1, y1, z1, x2, y2, z2)
+            val distance = projected.first.squaredDistanceTo(center)
 
             if (distance < minDistance) {
                 minDistance = distance
-                minPoint = projected
+                minPoint = projected.first
+                minPointElevation = projected.second
             }
+
+            i += 2
         }
 
-        return minPoint
+        return (minPoint ?: return null) to (minPointElevation ?: return null)
     }
 
     private fun project(
-        points: MutableList<Float>
+        points: Pair<MutableList<Float>, MutableList<Float>>
     ): List<List<ARPoint>> {
         // Step 4: Convert the points back to geographic coordinates and split the lines
         val lines = mutableListOf<List<ARPoint>>()
         var currentLine = mutableListOf<ARPoint>()
 
         var lastPixel: PixelCoordinate? = null
+        var i = 0
 
-        points.forEachLine { x1, y1, x2, y2 ->
+        points.first.forEachLine { x1, y1, x2, y2 ->
             val pixel1 = PixelCoordinate(x1, y1)
             val pixel2 = PixelCoordinate(x2, y2)
             val last = lastPixel
+            val elevation1 = points.second.getOrNull(i) ?: lastElevation
+            val elevation2 = points.second.getOrNull(i + 1) ?: lastElevation
+            i += 2
 
             if (last != null && !last.isSamePixel(pixel1) || currentLine.isEmpty()) {
                 // There's a split or this is the first point
                 lines.add(currentLine)
                 currentLine = mutableListOf()
                 // Add the first point
-                val spherical = toARPoint(pixel1)
+                val spherical = toARPoint(pixel1, elevation1)
 
                 if (spherical == null) {
                     // The start point is too far away, skip this line segment (no need to modify the current line)
@@ -167,7 +192,7 @@ class ARPathLayer(
             }
 
             // The line continues
-            val spherical = toARPoint(pixel2)
+            val spherical = toARPoint(pixel2, elevation2)
             if (spherical == null) {
                 // The point is too far away, break the line and skip this point
                 lines.add(currentLine)
@@ -191,8 +216,9 @@ class ARPathLayer(
 
     private fun getNearbyARPoints(
         path: IMappablePath,
-        location: Coordinate
-    ): MutableList<Float> {
+        location: Coordinate,
+        elevation: Float?
+    ): Pair<MutableList<Float>, MutableList<Float>> {
         // It is easier to work with the points if they are projected onto a cartesian plane
 
         // Step 1: Project the path points
@@ -200,24 +226,33 @@ class ARPathLayer(
             project(it.coordinate, location)
         }
 
+        val z = path.points.map { it.elevation ?: elevation ?: 0f }
+
+
         // Step 2: Clip the projected points
         val output = mutableListOf<Float>()
+        val zOutput = mutableListOf<Float>()
         clipper.clip(
             projected,
             bounds,
             output,
-            rdpFilterEpsilon = pathSimplification
+            rdpFilterEpsilon = pathSimplification,
+            zValues = z,
+            zOutput = zOutput
         )
 
         // Step 3: Interpolate between the points for a higher resolution
         val output2 = mutableListOf<Float>()
+        val zOutput2 = mutableListOf<Float>()
         interpolator.increaseResolution(
             output,
             output2,
-            pointSpacing
+            pointSpacing,
+            zOutput,
+            zOutput2
         )
 
-        return output2
+        return output2 to zOutput2
     }
 
     private fun recenterPoints(
@@ -239,9 +274,11 @@ class ARPathLayer(
         y: Float,
         x1: Float,
         y1: Float,
+        z1: Float,
         x2: Float,
-        y2: Float
-    ): PixelCoordinate {
+        y2: Float,
+        z2: Float
+    ): Pair<PixelCoordinate, Float> {
         val ab = square(x2 - x1) + square(y2 - y1)
         val ap = square(x - x1) + square(y - y1)
         val bp = square(x - x2) + square(y - y2)
@@ -249,7 +286,8 @@ class ARPathLayer(
         val t = ((ap - bp + ab) / (2 * ab)).coerceIn(0f, 1f)
         val projectedX = x1 + t * (x2 - x1)
         val projectedY = y1 + t * (y2 - y1)
-        return PixelCoordinate(projectedX, projectedY)
+        val projectedZ = z1 + t * (z2 - z1)
+        return PixelCoordinate(projectedX, projectedY) to projectedZ
     }
 
     // TODO: Extract this to sol (azimuthal equidistant projection)
@@ -284,11 +322,11 @@ class ARPathLayer(
         return lastLocation.plus(distance.toDouble(), Bearing(angle))
     }
 
-    private fun toARPoint(pixel: PixelCoordinate): ARPoint? {
+    private fun toARPoint(pixel: PixelCoordinate, elevation: Float?): ARPoint? {
         val location = toLocation(pixel) ?: return null
         return GeographicARPoint(
             location,
-            -2f,
+            if (adjustForPathElevation) elevation?.minus(lastElevation ?: 0f)?.minus(2f) ?: -2f else -2f,
             isElevationRelative = true,
             actualDiameter = 0.25f
         )
