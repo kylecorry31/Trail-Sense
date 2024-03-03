@@ -4,7 +4,7 @@ import com.kylecorry.sol.math.SolMath.roundNearestAngle
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.sol.science.geology.projections.IMapProjection
+import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.tools.maps.domain.projections.PhotoMapProjection
 import com.kylecorry.trail_sense.tools.maps.domain.projections.distancePerPixel

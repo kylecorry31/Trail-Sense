@@ -5,8 +5,11 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.square
 import com.kylecorry.sol.math.SolMath.toDegrees
+import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.analysis.Trigonometry
 import com.kylecorry.sol.math.geometry.Rectangle
+import com.kylecorry.sol.science.geography.projections.AzimuthalEquidistantProjection
+import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.canvas.LineClipper
@@ -34,7 +37,6 @@ class ARPathLayer(
 
     private val lineLayer = ARLineLayer(renderWithPaths = false)
     private val markerLayer = ARMarkerLayer(1f, 32f, false)
-    private var lastLocation = Coordinate.zero
     private var lastElevation: Float? = null
     private var lastLocationAccuracySquared: Float? = null
 
@@ -47,7 +49,6 @@ class ARPathLayer(
         0f,
     )
     private val clipper = LineClipper()
-    private val navigation = NavigationService()
     private val interpolator = LineInterpolator()
 
     private val pointSpacing = 5f // meters
@@ -58,9 +59,15 @@ class ARPathLayer(
     private val maxElevationOffset = 5f // meters
     private val defaultElevationOffset = -2f // meters
 
+    private var projection: IMapProjection? = null
+
     override suspend fun update(drawer: ICanvasDrawer, view: AugmentedRealityView) {
-        lastLocation = view.location
         lastElevation = view.altitude
+        projection = AzimuthalEquidistantProjection(
+            view.location,
+            Vector2(center.x, center.y),
+            isYFlipped = true
+        )
         lastLocationAccuracySquared = view.locationAccuracy?.let { square(it) }
         lineLayer.update(drawer, view)
         markerLayer.update(drawer, view)
@@ -89,11 +96,10 @@ class ARPathLayer(
     }
 
     override fun setPaths(paths: List<IMappablePath>) {
-        val location = lastLocation
         val elevation = lastElevation
 
         val points = paths.map {
-            it to getNearbyARPoints(it, location, elevation)
+            it to getNearbyARPoints(it, elevation)
         }
 
         val nearestPoints = points.mapNotNull { getNearestPoint(it.second) }
@@ -220,14 +226,13 @@ class ARPathLayer(
 
     private fun getNearbyARPoints(
         path: IMappablePath,
-        location: Coordinate,
         elevation: Float?
     ): Pair<MutableList<Float>, MutableList<Float>> {
         // It is easier to work with the points if they are projected onto a cartesian plane
 
         // Step 1: Project the path points
         val projected = path.points.map {
-            project(it.coordinate, location)
+            project(it.coordinate)
         }
 
         val z = path.points.map { it.elevation ?: elevation ?: 0f }
@@ -294,36 +299,22 @@ class ARPathLayer(
         return PixelCoordinate(projectedX, projectedY) to projectedZ
     }
 
-    // TODO: Extract this to sol (azimuthal equidistant projection)
     private fun project(
-        location: Coordinate,
-        myLocation: Coordinate
+        location: Coordinate
     ): PixelCoordinate {
-        val vector = navigation.navigate(myLocation, location, 0f, true)
-        val angle = Trigonometry.toUnitAngle(vector.direction.value, 90f, false)
-        val pixelDistance = vector.distance // Assumes 1 meter = 1 pixel
-        val xDiff = SolMath.cosDegrees(angle) * pixelDistance
-        val yDiff = SolMath.sinDegrees(angle) * pixelDistance
-        return PixelCoordinate(center.x + xDiff, center.y - yDiff)
+        return projection?.toPixels(location)?.let {
+            PixelCoordinate(it.x, it.y)
+        } ?: PixelCoordinate(0f, 0f)
     }
 
     private fun toLocation(pixel: PixelCoordinate): Coordinate? {
-        // The line continues
-        val angle = Trigonometry.toUnitAngle(
-            atan2(center.y - pixel.y, pixel.x - center.x).toDegrees(),
-            90f,
-            false
-        )
         val squareDistance = pixel.squaredDistanceTo(center)
         if (squareDistance > squareViewDistance) {
             // The point is too far away
             return null
         }
 
-        val distance = sqrt(squareDistance)
-
-        // Otherwise add the point
-        return lastLocation.plus(distance.toDouble(), Bearing(angle))
+        return projection?.toCoordinate(Vector2(pixel.x, pixel.y))
     }
 
     private fun toARPoint(pixel: PixelCoordinate, elevation: Float?): ARPoint? {

@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.maps.domain.projections
 
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Size
-import com.kylecorry.sol.science.geology.projections.IMapProjection
+import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.rotateInRect
 

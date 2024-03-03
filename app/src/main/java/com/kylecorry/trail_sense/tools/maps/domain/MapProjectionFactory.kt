@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.tools.maps.domain
 
-import com.kylecorry.sol.science.geology.projections.CylindricalEquidistantProjection
-import com.kylecorry.sol.science.geology.projections.IMapProjection
-import com.kylecorry.sol.science.geology.projections.MercatorProjection
+import com.kylecorry.sol.science.geography.projections.CylindricalEquidistantProjection
+import com.kylecorry.sol.science.geography.projections.IMapProjection
+import com.kylecorry.sol.science.geography.projections.MercatorProjection
 
 class MapProjectionFactory {
 

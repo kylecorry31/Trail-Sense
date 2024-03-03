@@ -5,7 +5,7 @@ import com.kylecorry.sol.math.SolMath.map
 import com.kylecorry.sol.math.SolMath.norm
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.sol.science.geology.projections.IMapProjection
+import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.units.Coordinate
 
 class CalibratedProjection(

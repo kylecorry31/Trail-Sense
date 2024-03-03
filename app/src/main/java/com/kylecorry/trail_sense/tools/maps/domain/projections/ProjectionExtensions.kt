@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.maps.domain.projections
 
-import com.kylecorry.sol.science.geology.projections.IMapProjection
+import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 
