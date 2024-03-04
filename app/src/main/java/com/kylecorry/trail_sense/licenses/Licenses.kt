@@ -130,6 +130,12 @@ The MIT license applies to all non-font and non-icon files."""
             bsd("2013", "Mapbox, LLC")
         },
         Library(
+            "MAD Location Manager",
+            "https://github.com/maddevsio/mad-location-manager"
+        ){
+            mit("2020", "Mad Devs")
+        },
+        Library(
             "NASA WORLD WIND (ported by Berico-Technologies)",
             "https://github.com/Berico-Technologies/Geo-Coordinate-Conversion-Java"
         ) {

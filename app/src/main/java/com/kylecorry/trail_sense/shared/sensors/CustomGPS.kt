@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.shared.AltitudeCorrection
 import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.sensors.gps.KalmanGPS
 import com.kylecorry.trail_sense.shared.sensors.speedometer.SpeedEstimator
 import kotlinx.coroutines.runBlocking
 import java.time.Duration
@@ -77,7 +78,8 @@ class CustomGPS(
     val isTimedOut: Boolean
         get() = _isTimedOut
 
-    private val baseGPS by lazy { GPS(context.applicationContext, frequency = frequency) }
+    // TODO: There should be a way to allow this to report faster than the GPS
+    private val baseGPS by lazy { KalmanGPS(GPS(context.applicationContext, frequency = frequency), frequency) }
     private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
     private val userPrefs by lazy { UserPreferences(context) }
 
