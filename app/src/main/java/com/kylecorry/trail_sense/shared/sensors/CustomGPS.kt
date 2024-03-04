@@ -80,11 +80,15 @@ class CustomGPS(
     val isTimedOut: Boolean
         get() = _isTimedOut
 
-    private val baseGPS by lazy {
-        FusedGPS(
-            GPS(context.applicationContext, frequency = gpsFrequency),
-            updateFrequency
-        )
+    private val baseGPS: IGPS by lazy {
+        if (userPrefs.useFilteredGPS) {
+            FusedGPS(
+                GPS(context.applicationContext, frequency = gpsFrequency),
+                updateFrequency
+            )
+        } else {
+            GPS(context.applicationContext, frequency = gpsFrequency)
+        }
     }
     private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
     private val userPrefs by lazy { UserPreferences(context) }
@@ -115,7 +119,6 @@ class CustomGPS(
     private var _speedAccuracy: Float? = null
 
     private val locationHistory = RingBuffer<Pair<ApproximateCoordinate, Instant>>(10)
-    private val declinationProvider = DeclinationFactory().getDeclinationStrategy(userPrefs, this)
 
     init {
         if (baseGPS.hasValidReading) {
