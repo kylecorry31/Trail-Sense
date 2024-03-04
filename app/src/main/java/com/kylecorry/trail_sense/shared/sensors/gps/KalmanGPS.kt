@@ -20,7 +20,7 @@ class KalmanGPS(
     private val gps: IGPS,
     private val interval: Duration,
     private val accelerometer: IAccelerometer? = null,
-    ) : IGPS, AbstractSensor() {
+) : IGPS, AbstractSensor() {
     override val altitude: Float
         get() = gps.altitude
     override val bearing: Bearing?
@@ -28,7 +28,7 @@ class KalmanGPS(
     override val bearingAccuracy: Float?
         get() = gps.bearingAccuracy
     override val horizontalAccuracy: Float?
-        get() = if (hasValidReading) kalman?.positionSigma?.toFloat() else gps.horizontalAccuracy
+        get() = if (hasValidReading) kalman?.positionError?.toFloat() else gps.horizontalAccuracy
     override val location: Coordinate
         get() = if (hasValidReading) currentLocation else gps.location
     override val mslAltitude: Float?
@@ -49,6 +49,11 @@ class KalmanGPS(
         get() = currentLocation != Coordinate.zero && gps.hasValidReading
     override val quality: Quality
         get() = gps.quality
+
+    private var kalman: FusedGPSFilter? = null
+    private var currentLocation = Coordinate.zero
+    private var referenceLocation = Coordinate.zero
+    private var referenceProjection = AzimuthalEquidistantProjection(referenceLocation)
 
     private val timer = CoroutineTimer {
         update()
@@ -71,29 +76,27 @@ class KalmanGPS(
         return true
     }
 
-    private var kalman: GpsAccKalmanFilter? = null
     private fun onGPSUpdate(): Boolean {
 
         if (kalman == null || isFarFromReference(gps.location)) {
             referenceLocation = gps.location
-            kalman = GpsAccKalmanFilter(
+            referenceProjection = AzimuthalEquidistantProjection(referenceLocation)
+            kalman = FusedGPSFilter(
                 true,
-                getXPosition(gps.location, referenceLocation).toDouble(),
-                getYPosition(gps.location, referenceLocation).toDouble(),
+                getXPosition(gps.location).toDouble(),
+                getYPosition(gps.location).toDouble(),
                 getXVelocity(gps.speed, gps.rawBearing ?: 0f).toDouble(),
                 getYVelocity(gps.speed, gps.rawBearing ?: 0f).toDouble(),
                 0.1,
                 gps.horizontalAccuracy?.toDouble() ?: 30.0,
-                gps.time.toEpochMilli().toDouble(),
-                1.0,
-                1.0
+                Instant.now()
             )
         }
 
         kalman?.update(
-            gps.time.toEpochMilli().toDouble(),
-            getXPosition(gps.location, referenceLocation).toDouble(),
-            getYPosition(gps.location, referenceLocation).toDouble(),
+            Instant.now(),
+            getXPosition(gps.location).toDouble(),
+            getYPosition(gps.location).toDouble(),
             getXVelocity(gps.speed, gps.rawBearing ?: 0f).toDouble(),
             getYVelocity(gps.speed, gps.rawBearing ?: 0f).toDouble(),
             gps.horizontalAccuracy?.toDouble() ?: 30.0,
@@ -102,8 +105,7 @@ class KalmanGPS(
 
         currentLocation = getLocation(
             kalman?.currentX?.toFloat() ?: 0f,
-            kalman?.currentY?.toFloat() ?: 0f,
-            referenceLocation
+            kalman?.currentY?.toFloat() ?: 0f
         )
         return true
     }
@@ -111,9 +113,6 @@ class KalmanGPS(
     private fun isFarFromReference(location: Coordinate): Boolean {
         return location.distanceTo(referenceLocation) > 200
     }
-
-    private var currentLocation = Coordinate.zero
-    private var referenceLocation = Coordinate.zero
 
     private fun getXVelocity(speed: Speed, bearing: Float): Float {
         return speed.speed * cosDegrees(Trigonometry.toUnitAngle(bearing, 90f, false))
@@ -123,34 +122,30 @@ class KalmanGPS(
         return speed.speed * sinDegrees(Trigonometry.toUnitAngle(bearing, 90f, false))
     }
 
-    private fun getXPosition(location: Coordinate, reference: Coordinate): Float {
-        val projection = AzimuthalEquidistantProjection(reference)
-        return projection.toPixels(location).x
+    private fun getXPosition(location: Coordinate): Float {
+        return referenceProjection.toPixels(location).x
     }
 
-    private fun getYPosition(location: Coordinate, reference: Coordinate): Float {
-        val projection = AzimuthalEquidistantProjection(reference)
-        return projection.toPixels(location).y
+    private fun getYPosition(location: Coordinate): Float {
+        return referenceProjection.toPixels(location).y
     }
 
-    private fun getLocation(x: Float, y: Float, reference: Coordinate): Coordinate {
-        val projection = AzimuthalEquidistantProjection(reference)
-        return projection.toCoordinate(Vector2(x, y))
+    private fun getLocation(x: Float, y: Float): Coordinate {
+        return referenceProjection.toCoordinate(Vector2(x, y))
     }
 
     private fun update() {
         if (!gps.hasValidReading || currentLocation == Coordinate.zero || kalman == null) return
 
         kalman?.predict(
-            Instant.now().toEpochMilli().toDouble(),
+            Instant.now(),
             accelerometer?.rawAcceleration?.get(0)?.toDouble() ?: 0.0,
             accelerometer?.rawAcceleration?.get(1)?.toDouble() ?: 0.0,
         )
 
         currentLocation = getLocation(
             kalman?.currentX?.toFloat() ?: 0f,
-            kalman?.currentY?.toFloat() ?: 0f,
-            referenceLocation
+            kalman?.currentY?.toFloat() ?: 0f
         )
 
         notifyListeners()
