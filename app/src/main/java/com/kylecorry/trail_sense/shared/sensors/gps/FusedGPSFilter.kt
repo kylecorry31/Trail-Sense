@@ -23,12 +23,11 @@ internal class FusedGPSFilter(
     initialYVelocity: Double,
     private val accelerationDeviation: Double,
     initialPositionDeviation: Double,
-    initialTime: Instant,
     private val velocityFactor: Double = 1.0,
     private val positionFactor: Double = 1.0
 ) {
-    private var lastPredictTime = initialTime
-    private var lastUpdateTime = initialTime
+    private var lastPredictTime = Instant.now()
+    private var lastUpdateTime = lastPredictTime
     private var predictCount = 0
     private val kalmanFilter = KalmanFilter(4, if (useGpsSpeed) 4 else 2, 2)
 
@@ -54,10 +53,10 @@ internal class FusedGPSFilter(
     }
 
     fun predict(
-        time: Instant,
         xAcceleration: Double,
         yAcceleration: Double
     ) {
+        val time = Instant.now()
         val dtPredict = Duration.between(lastPredictTime, time).toMillis() / 1000.0
         val dtUpdate = Duration.between(lastUpdateTime, time).toMillis() / 1000.0
         rebuildFMatrix(dtPredict)
@@ -71,7 +70,6 @@ internal class FusedGPSFilter(
     }
 
     fun update(
-        time: Instant,
         x: Double,
         y: Double,
         xVel: Double,
@@ -80,7 +78,7 @@ internal class FusedGPSFilter(
         velErr: Double
     ) {
         predictCount = 0
-        lastUpdateTime = time
+        lastUpdateTime = Instant.now()
         rebuildR(posDev, velErr)
         if (useGpsSpeed) {
             kalmanFilter.Zk.setData(x, y, xVel, yVel)

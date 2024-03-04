@@ -5,7 +5,6 @@ import android.content.Context
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.time.CoroutineTimer
-import com.kylecorry.andromeda.sense.accelerometer.IAccelerometer
 import com.kylecorry.andromeda.sense.location.GPS
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.sol.math.RingBuffer
@@ -22,8 +21,7 @@ import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.shared.sensors.gps.KalmanGPS
-import com.kylecorry.trail_sense.shared.sensors.gps.WorldAccelerometer
+import com.kylecorry.trail_sense.shared.sensors.gps.FusedGPS
 import com.kylecorry.trail_sense.shared.sensors.speedometer.SpeedEstimator
 import kotlinx.coroutines.runBlocking
 import java.time.Duration
@@ -32,8 +30,8 @@ import java.time.Instant
 
 class CustomGPS(
     private val context: Context,
-    private val frequency: Duration = Duration.ofMillis(20),
-    private val accelerometer: WorldAccelerometer? = null
+    private val gpsFrequency: Duration = Duration.ofMillis(20),
+    private val updateFrequency: Duration = Duration.ofMillis(20),
 ) : AbstractSensor(), IGPS {
 
     override val hasValidReading: Boolean
@@ -82,12 +80,10 @@ class CustomGPS(
     val isTimedOut: Boolean
         get() = _isTimedOut
 
-    // TODO: There should be a way to allow this to report faster than the GPS
     private val baseGPS by lazy {
-        KalmanGPS(
-            GPS(context.applicationContext, frequency = Duration.ofMillis(20)),
-            frequency,
-            accelerometer
+        FusedGPS(
+            GPS(context.applicationContext, frequency = gpsFrequency),
+            updateFrequency
         )
     }
     private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
@@ -262,8 +258,6 @@ class CustomGPS(
         }
 
         updateFromBase()
-
-        accelerometer?.declination = declinationProvider.getDeclination()
 
         if (shouldNotify && location != Coordinate.zero) {
             notifyListeners()

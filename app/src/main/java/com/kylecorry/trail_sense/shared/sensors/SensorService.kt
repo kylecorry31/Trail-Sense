@@ -12,7 +12,6 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.accelerometer.Accelerometer
 import com.kylecorry.andromeda.sense.accelerometer.GravitySensor
 import com.kylecorry.andromeda.sense.accelerometer.IAccelerometer
-import com.kylecorry.andromeda.sense.accelerometer.LinearAccelerometer
 import com.kylecorry.andromeda.sense.accelerometer.LowPassAccelerometer
 import com.kylecorry.andromeda.sense.altitude.BarometricAltimeter
 import com.kylecorry.andromeda.sense.altitude.FusedAltimeter
@@ -51,7 +50,6 @@ import com.kylecorry.trail_sense.shared.sensors.altimeter.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrapper
 import com.kylecorry.trail_sense.shared.sensors.altimeter.GaussianAltimeterWrapper
 import com.kylecorry.trail_sense.shared.sensors.altimeter.OverrideAltimeter
-import com.kylecorry.trail_sense.shared.sensors.gps.WorldAccelerometer
 import com.kylecorry.trail_sense.shared.sensors.hygrometer.MockHygrometer
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
@@ -75,6 +73,7 @@ class SensorService(ctx: Context) {
     private var context = ctx.applicationContext
     private val userPrefs by lazy { UserPreferences(context) }
 
+    // TODO: This should control update frequency
     fun getGPS(frequency: Duration = Duration.ofMillis(20)): IGPS {
 
         val hasPermission = hasLocationPermission()
@@ -87,11 +86,7 @@ class SensorService(ctx: Context) {
             return CustomGPS(
                 context,
                 frequency,
-                WorldAccelerometer(
-                    getLinearAccelerometer(),
-                    getOrientation(),
-                    useTrueNorth = true
-                )
+                frequency
             )
         }
 
@@ -285,10 +280,6 @@ class SensorService(ctx: Context) {
         } else {
             LowPassAccelerometer(context, MOTION_SENSOR_DELAY)
         }
-    }
-
-    fun getLinearAccelerometer(): IAccelerometer {
-        return LinearAccelerometer(context, MOTION_SENSOR_DELAY)
     }
 
     fun getMagnetometer(filtered: Boolean = false): IMagnetometer {
