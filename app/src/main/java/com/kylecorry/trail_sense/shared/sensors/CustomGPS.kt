@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.gps.FusedGPS
+import com.kylecorry.trail_sense.shared.sensors.gps.FusedGPS2
 import com.kylecorry.trail_sense.shared.sensors.speedometer.SpeedEstimator
 import kotlinx.coroutines.runBlocking
 import java.time.Duration
@@ -82,7 +83,7 @@ class CustomGPS(
 
     private val baseGPS: IGPS by lazy {
         if (userPrefs.useFilteredGPS) {
-            FusedGPS(
+            FusedGPS2(
                 GPS(context.applicationContext, frequency = gpsFrequency),
                 updateFrequency
             )
