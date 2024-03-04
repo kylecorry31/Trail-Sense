@@ -1110,4 +1110,5 @@
     <string name="use_gyroscope_after_calibration">校准后使用陀螺仪</string>
     <string name="use_gyroscope_after_calibration_description">而不是用指南针（避免磁偏移）</string>
     <string name="ar_calibration_instructions">使%s位于屏幕中心，然后按下“校准”</string>
+    <string name="use_path_elevation">使用路径提升</string>
 </resources>
