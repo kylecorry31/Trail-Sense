@@ -5,6 +5,7 @@ import android.content.Context
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.time.CoroutineTimer
+import com.kylecorry.andromeda.sense.accelerometer.IAccelerometer
 import com.kylecorry.andromeda.sense.location.GPS
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.sol.math.RingBuffer
@@ -19,8 +20,10 @@ import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.shared.AltitudeCorrection
 import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.gps.KalmanGPS
+import com.kylecorry.trail_sense.shared.sensors.gps.WorldAccelerometer
 import com.kylecorry.trail_sense.shared.sensors.speedometer.SpeedEstimator
 import kotlinx.coroutines.runBlocking
 import java.time.Duration
@@ -29,7 +32,8 @@ import java.time.Instant
 
 class CustomGPS(
     private val context: Context,
-    private val frequency: Duration = Duration.ofMillis(20)
+    private val frequency: Duration = Duration.ofMillis(20),
+    private val accelerometer: WorldAccelerometer? = null
 ) : AbstractSensor(), IGPS {
 
     override val hasValidReading: Boolean
@@ -79,7 +83,13 @@ class CustomGPS(
         get() = _isTimedOut
 
     // TODO: There should be a way to allow this to report faster than the GPS
-    private val baseGPS by lazy { KalmanGPS(GPS(context.applicationContext, frequency = frequency), frequency) }
+    private val baseGPS by lazy {
+        KalmanGPS(
+            GPS(context.applicationContext, frequency = Duration.ofMillis(20)),
+            frequency,
+            accelerometer
+        )
+    }
     private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
     private val userPrefs by lazy { UserPreferences(context) }
 
@@ -109,6 +119,7 @@ class CustomGPS(
     private var _speedAccuracy: Float? = null
 
     private val locationHistory = RingBuffer<Pair<ApproximateCoordinate, Instant>>(10)
+    private val declinationProvider = DeclinationFactory().getDeclinationStrategy(userPrefs, this)
 
     init {
         if (baseGPS.hasValidReading) {
@@ -251,6 +262,8 @@ class CustomGPS(
         }
 
         updateFromBase()
+
+        accelerometer?.declination = declinationProvider.getDeclination()
 
         if (shouldNotify && location != Coordinate.zero) {
             notifyListeners()

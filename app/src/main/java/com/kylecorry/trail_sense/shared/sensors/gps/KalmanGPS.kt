@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.sensors.gps
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.time.CoroutineTimer
+import com.kylecorry.andromeda.sense.accelerometer.IAccelerometer
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.sol.math.SolMath.cosDegrees
 import com.kylecorry.sol.math.SolMath.sinDegrees
@@ -15,7 +16,11 @@ import com.kylecorry.sol.units.Speed
 import java.time.Duration
 import java.time.Instant
 
-class KalmanGPS(private val gps: IGPS, private val interval: Duration) : IGPS, AbstractSensor() {
+class KalmanGPS(
+    private val gps: IGPS,
+    private val interval: Duration,
+    private val accelerometer: IAccelerometer? = null,
+    ) : IGPS, AbstractSensor() {
     override val altitude: Float
         get() = gps.altitude
     override val bearing: Bearing?
@@ -51,17 +56,23 @@ class KalmanGPS(private val gps: IGPS, private val interval: Duration) : IGPS, A
 
     override fun startImpl() {
         kalman = null
-        gps.start(this::onSensorUpdate)
+        gps.start(this::onGPSUpdate)
+        accelerometer?.start(this::onAccelerometerUpdate)
         timer.interval(interval)
     }
 
     override fun stopImpl() {
-        gps.stop(this::onSensorUpdate)
+        gps.stop(this::onGPSUpdate)
+        accelerometer?.stop(this::onAccelerometerUpdate)
         timer.stop()
     }
 
+    private fun onAccelerometerUpdate(): Boolean {
+        return true
+    }
+
     private var kalman: GpsAccKalmanFilter? = null
-    private fun onSensorUpdate(): Boolean {
+    private fun onGPSUpdate(): Boolean {
 
         if (kalman == null || isFarFromReference(gps.location)) {
             referenceLocation = gps.location
@@ -130,11 +141,10 @@ class KalmanGPS(private val gps: IGPS, private val interval: Duration) : IGPS, A
     private fun update() {
         if (!gps.hasValidReading || currentLocation == Coordinate.zero || kalman == null) return
 
-        // TODO: Add in accelerometer
         kalman?.predict(
             Instant.now().toEpochMilli().toDouble(),
-            0.0,
-            0.0
+            accelerometer?.rawAcceleration?.get(0)?.toDouble() ?: 0.0,
+            accelerometer?.rawAcceleration?.get(1)?.toDouble() ?: 0.0,
         )
 
         currentLocation = getLocation(
