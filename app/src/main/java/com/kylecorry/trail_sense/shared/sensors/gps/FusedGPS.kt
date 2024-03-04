@@ -164,7 +164,7 @@ class FusedGPS(
     }
 
     companion object {
-        private const val PROJECTION_SCALE = 50.0
+        private const val PROJECTION_SCALE = 1.0
     }
 
 }
