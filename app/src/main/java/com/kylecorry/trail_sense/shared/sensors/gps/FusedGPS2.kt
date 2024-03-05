@@ -16,6 +16,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Speed
 import java.time.Duration
 import java.time.Instant
+import kotlin.math.max
 
 class FusedGPS2(
     private val gps: IGPS,
@@ -58,16 +59,20 @@ class FusedGPS2(
     private var gpsReadingTime = Instant.now()
     private var gpsReadingSystemTime = Instant.now()
     private var lastPredictTime = Instant.now()
+    private var wasMoving = false
 
-    private var estimateAlpha = 0.5f
-    private var gpsAlpha = 0.5f
-    private var speedAlpha = 0.5f
+    private var estimateAlpha = DEFAULT_ESTIMATE_ALPHA
+    private var gpsAlpha = DEFAULT_GPS_ALPHA
+    private var speedAlpha = DEFAULT_SPEED_ALPHA
 
     private val timer = CoroutineTimer {
         update()
     }
 
     override fun startImpl() {
+        estimateAlpha = DEFAULT_ESTIMATE_ALPHA
+        gpsAlpha = DEFAULT_GPS_ALPHA
+        speedAlpha = DEFAULT_SPEED_ALPHA
         gps.start(this::onGPSUpdate)
         timer.interval(interval)
     }
@@ -90,6 +95,25 @@ class FusedGPS2(
             currentLocation = referenceLocation
             notifyListeners()
         }
+
+        gpsAlpha = if (!wasMoving && gps.speed.speed == 0f){
+            // User is not moving, decrease the GPS weight
+            max(MIN_GPS_ALPHA, gpsAlpha - ALPHA_DRAIN_NOT_MOVING)
+        } else {
+            // User is moving, reset the GPS weight
+            DEFAULT_GPS_ALPHA
+        }
+
+        wasMoving = gps.speed.speed > 0
+
+        speedAlpha = if (!wasMoving){
+            // User is not moving, don't factor in speed
+            0f
+        } else {
+            // User is moving, factor in speed
+            DEFAULT_SPEED_ALPHA
+        }
+
         return true
     }
 
@@ -111,6 +135,10 @@ class FusedGPS2(
         lastPredictTime = Instant.now()
 
         // TODO: Update weights based on accuracy and time since last update
+        xFilter.weights = listOf(estimateAlpha, gpsAlpha, speedAlpha)
+        yFilter.weights = listOf(estimateAlpha, gpsAlpha, speedAlpha)
+
+        // TODO: Filter for speed
 
         val estimate = getProjectedLocation(currentLocation)
         val gpsLocation = getProjectedLocation(gps.location)
@@ -139,14 +167,23 @@ class FusedGPS2(
         )
 
         // Convert to coordinate
-        currentLocation = referenceProjection.toCoordinate(Vector2(xEstimate, yEstimate))
+        val coord = referenceProjection.toCoordinate(Vector2(xEstimate, yEstimate))
+        if (coord.latitude in -90.0..90.0 && coord.longitude in -180.0..180.0) {
+            currentLocation = coord
+        }
         // TODO: Update accuracy
+        // TODO: Update speed
 
         notifyListeners()
     }
 
     companion object {
         private const val PROJECTION_SCALE = 1.0
+        private const val DEFAULT_ESTIMATE_ALPHA = 0.6f
+        private const val DEFAULT_GPS_ALPHA = 0.2f
+        private const val MIN_GPS_ALPHA = 0.01f
+        private const val DEFAULT_SPEED_ALPHA = 0.2f
+        private const val ALPHA_DRAIN_NOT_MOVING = 0.02f
     }
 
 }

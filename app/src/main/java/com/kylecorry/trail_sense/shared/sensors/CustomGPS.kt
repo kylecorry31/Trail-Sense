@@ -19,7 +19,6 @@ import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.shared.AltitudeCorrection
 import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.gps.FusedGPS
 import com.kylecorry.trail_sense.shared.sensors.gps.FusedGPS2
@@ -83,7 +82,7 @@ class CustomGPS(
 
     private val baseGPS: IGPS by lazy {
         if (userPrefs.useFilteredGPS) {
-            FusedGPS2(
+            FusedGPS(
                 GPS(context.applicationContext, frequency = gpsFrequency),
                 updateFrequency
             )
@@ -301,6 +300,11 @@ class CustomGPS(
         val isSignificantlyNewer: Boolean = timeDelta > Duration.ofMinutes(2)
         val isSignificantlyOlder: Boolean = timeDelta < Duration.ofMinutes(-2)
         val isNewer = timeDelta > Duration.ZERO
+
+        val isLastTimeInFuture = time.isAfter(Instant.now().plusMillis(500))
+        if (isLastTimeInFuture){
+            return true
+        }
 
         if (isSignificantlyNewer) {
             return true
