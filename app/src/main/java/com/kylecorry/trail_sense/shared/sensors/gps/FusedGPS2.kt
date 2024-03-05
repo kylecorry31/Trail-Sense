@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
+// Loosely based on: https://cs.android.com/android/_/android/platform/frameworks/base/+/20de160ca32a8f2936a80ffd70551a22e2371d25:packages/FusedLocation/src/com/android/location/fused/FusionEngine.java;l=1;bpv=1;bpt=0
+
 import android.util.Log
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
@@ -121,7 +123,7 @@ class FusedGPS2(
         )
 
         // TODO: Estimate speed
-        // TODO: Update accuracy
+        // TODO: Update accuracy (decreases over time, use weights to update)
         // TODO: Update speed
 
         notifyListeners()
