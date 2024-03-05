@@ -192,6 +192,7 @@ class FusedGPS2(
         )
     }
 
+    // TODO: If moving, increase trust in GPS
     private fun getGPSAlpha(accuracy: Float): Float {
         val minAlphaInverse = 0.4f
         val minAccuracy = 0f
