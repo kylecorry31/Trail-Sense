@@ -24,3 +24,4 @@ build-cache/
 release-builds-helper.sh
 .idea/appInsightsSettings.xml
 .idea/shelf
+.idea/copilot

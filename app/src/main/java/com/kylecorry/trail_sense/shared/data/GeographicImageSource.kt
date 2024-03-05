@@ -26,8 +26,16 @@ class GeographicImageSource(
     private val reader = ImagePixelReader(imageSize, interpolate)
 
     fun getPixel(location: Coordinate): PixelCoordinate {
-        val x = (location.longitude + 180) * longitudePixelsPerDegree
-        val y = (180 - (location.latitude + 90)) * latitudePixelsPerDegree
+        var x = (location.longitude + 180) * longitudePixelsPerDegree
+        var y = (180 - (location.latitude + 90)) * latitudePixelsPerDegree
+
+        if (x.isNaN()){
+            x = 0.0
+        }
+
+        if (y.isNaN()){
+            y = 0.0
+        }
         return PixelCoordinate(
             x.roundPlaces(precision).toFloat(),
             y.roundPlaces(precision).toFloat()

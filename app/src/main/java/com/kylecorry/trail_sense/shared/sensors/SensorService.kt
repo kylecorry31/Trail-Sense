@@ -73,6 +73,7 @@ class SensorService(ctx: Context) {
     private var context = ctx.applicationContext
     private val userPrefs by lazy { UserPreferences(context) }
 
+    // TODO: This should control update frequency
     fun getGPS(frequency: Duration = Duration.ofMillis(20)): IGPS {
 
         val hasPermission = hasLocationPermission()
@@ -82,7 +83,11 @@ class SensorService(ctx: Context) {
         }
 
         if (GPS.isAvailable(context)) {
-            return CustomGPS(context, frequency)
+            return CustomGPS(
+                context,
+                frequency,
+                frequency
+            )
         }
 
         return CachedGPS(context, frequency.toMillis())

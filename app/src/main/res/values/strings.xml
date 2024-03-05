@@ -1350,6 +1350,8 @@
     <string name="pref_ar_adjust_for_path_elevation" translatable="false">pref_ar_adjust_for_path_elevation</string>
     <!-- Whether to use path elevations on the augmented reality tool -->
     <string name="use_path_elevation">Use path elevation</string>
+    <string name="pref_use_filtered_gps" translatable="false">pref_use_filtered_gps</string>
+    <string name="smooth_gps_readings">Smooth GPS readings</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>

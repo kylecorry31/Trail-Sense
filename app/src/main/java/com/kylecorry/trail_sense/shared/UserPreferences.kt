@@ -69,6 +69,12 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
 
     private val isMetricPreferred = Resources.isMetricPreferred(context)
 
+    val useFilteredGPS by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_use_filtered_gps),
+        false
+    )
+
     val isAugmentedRealityEnabled by BooleanPreference(
         cache,
         context.getString(R.string.pref_enable_augmented_reality_tool),

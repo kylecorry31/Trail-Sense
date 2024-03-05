@@ -20,6 +20,8 @@ import com.kylecorry.trail_sense.shared.AltitudeCorrection
 import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.sensors.gps.FusedGPS
+import com.kylecorry.trail_sense.shared.sensors.gps.FusedGPS2
 import com.kylecorry.trail_sense.shared.sensors.speedometer.SpeedEstimator
 import kotlinx.coroutines.runBlocking
 import java.time.Duration
@@ -28,7 +30,8 @@ import java.time.Instant
 
 class CustomGPS(
     private val context: Context,
-    private val frequency: Duration = Duration.ofMillis(20)
+    private val gpsFrequency: Duration = Duration.ofMillis(20),
+    private val updateFrequency: Duration = Duration.ofMillis(20),
 ) : AbstractSensor(), IGPS {
 
     override val hasValidReading: Boolean
@@ -77,7 +80,16 @@ class CustomGPS(
     val isTimedOut: Boolean
         get() = _isTimedOut
 
-    private val baseGPS by lazy { GPS(context.applicationContext, frequency = frequency) }
+    private val baseGPS: IGPS by lazy {
+        if (userPrefs.useFilteredGPS) {
+            FusedGPS2(
+                GPS(context.applicationContext, frequency = gpsFrequency),
+                updateFrequency
+            )
+        } else {
+            GPS(context.applicationContext, frequency = gpsFrequency)
+        }
+    }
     private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
     private val userPrefs by lazy { UserPreferences(context) }
 
@@ -288,6 +300,11 @@ class CustomGPS(
         val isSignificantlyNewer: Boolean = timeDelta > Duration.ofMinutes(2)
         val isSignificantlyOlder: Boolean = timeDelta < Duration.ofMinutes(-2)
         val isNewer = timeDelta > Duration.ZERO
+
+        val isLastTimeInFuture = time.isAfter(Instant.now().plusMillis(500))
+        if (isLastTimeInFuture){
+            return true
+        }
 
         if (isSignificantlyNewer) {
             return true
