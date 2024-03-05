@@ -196,7 +196,7 @@ class FusedGPS2(
         val minAlphaInverse = 0.4f
         val minAccuracy = 0f
         val maxAlphaInverse = 0.9f
-        val maxAccuracy = 30f
+        val maxAccuracy = 10f
         return 1 - SolMath.map(
             accuracy,
             minAccuracy,
