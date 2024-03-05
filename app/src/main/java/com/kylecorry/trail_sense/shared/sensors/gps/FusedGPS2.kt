@@ -5,22 +5,13 @@ import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.time.CoroutineTimer
-import com.kylecorry.andromeda.sense.accelerometer.IAccelerometer
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.cosDegrees
-import com.kylecorry.sol.math.SolMath.roundPlaces
-import com.kylecorry.sol.math.SolMath.sinDegrees
-import com.kylecorry.sol.math.Vector2
-import com.kylecorry.sol.math.analysis.Trigonometry
-import com.kylecorry.sol.math.filters.ComplementaryFilter
-import com.kylecorry.sol.science.geography.projections.AzimuthalEquidistantProjection
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Speed
 import java.time.Duration
 import java.time.Instant
-import kotlin.math.max
 
 class FusedGPS2(
     private val gps: IGPS,
@@ -57,10 +48,6 @@ class FusedGPS2(
         get() = gps.quality
 
     private var currentLocation = Coordinate.zero
-    private var referenceLocation = Coordinate.zero
-    private var referenceProjection =
-        AzimuthalEquidistantProjection(referenceLocation, scale = PROJECTION_SCALE.toFloat())
-
     private var gpsReadingTime = Instant.now()
     private var gpsReadingSystemTime = Instant.now()
     private var lastPredictTime = Instant.now()
@@ -83,28 +70,12 @@ class FusedGPS2(
         gpsReadingTime = gps.time
         gpsReadingSystemTime = Instant.now()
         lastPredictTime = Instant.now()
-        if (currentLocation == Coordinate.zero || isFarFromReference(gps.location)) {
-            referenceLocation = gps.location
-            referenceProjection = AzimuthalEquidistantProjection(
-                referenceLocation,
-                scale = PROJECTION_SCALE.toFloat()
-            )
-            currentLocation = referenceLocation
+        if (currentLocation == Coordinate.zero || currentLocation.distanceTo(gps.location) > 100) {
+            currentLocation = gps.location
             notifyListeners()
         }
         return true
     }
-
-    private fun isFarFromReference(location: Coordinate): Boolean {
-        return location.distanceTo(referenceLocation) > 200
-    }
-
-    private fun getProjectedLocation(location: Coordinate = gps.location): Vector2 {
-        return referenceProjection.toPixels(location)
-    }
-
-    private val xFilter = ComplementaryFilter(listOf(1f, 1f, 1f))
-    private val yFilter = ComplementaryFilter(listOf(1f, 1f, 1f))
 
     private fun update() {
         if (!gps.hasValidReading || currentLocation == Coordinate.zero) return
@@ -134,42 +105,22 @@ class FusedGPS2(
                 }, Speed alpha: ${DecimalFormatter.format(speedAlpha, 2, true)}"
             )
         }
-        xFilter.weights = listOf(estimateAlpha, gpsAlpha, speedAlpha)
-        yFilter.weights = listOf(estimateAlpha, gpsAlpha, speedAlpha)
 
-        // TODO: Filter for speed
-
-        val estimate = getProjectedLocation(currentLocation)
-        val gpsLocation = getProjectedLocation(gps.location)
-        val projectedLocation = getProjectedLocation(
+        val newEstimate = combineLocations(
+            currentLocation to estimateAlpha.toDouble(),
+            gps.location to gpsAlpha.toDouble(),
             currentLocation.plus(
-                gps.speed.speed * dt * PROJECTION_SCALE,
+                gps.speed.speed * dt,
                 Bearing(gps.rawBearing ?: 0f)
-            )
+            ) to speedAlpha.toDouble()
         )
 
-        // Combine the estimates
-        val xEstimate = xFilter.filter(
-            listOf(
-                estimate.x,
-                gpsLocation.x,
-                projectedLocation.x
-            )
+        currentLocation = Coordinate(
+            SolMath.clamp(newEstimate.latitude, -90.0, 90.0),
+            SolMath.wrap(newEstimate.longitude, -180.0, 180.0)
         )
 
-        val yEstimate = yFilter.filter(
-            listOf(
-                estimate.y,
-                gpsLocation.y,
-                projectedLocation.y
-            )
-        )
-
-        // Convert to coordinate
-        val coord = referenceProjection.toCoordinate(Vector2(xEstimate, yEstimate))
-        if (coord.latitude in -90.0..90.0 && coord.longitude in -180.0..180.0) {
-            currentLocation = coord
-        }
+        // TODO: Estimate speed
         // TODO: Update accuracy
         // TODO: Update speed
 
@@ -238,8 +189,28 @@ class FusedGPS2(
         return (accuracyAlpha + timeAlpha) / 2
     }
 
-    companion object {
-        private const val PROJECTION_SCALE = 1.0
+    private fun combineLatitudes(
+        vararg latitudesWeights: Pair<Double, Double>
+    ): Double {
+        return latitudesWeights.sumOf { it.first * it.second } / latitudesWeights.sumOf { it.second }
     }
 
+    private fun combineLongitudes(vararg longitudesWeights: Pair<Double, Double>): Double {
+        val longitude = longitudesWeights.sumOf {
+            val lon = if (it.first < 0) {
+                it.first + 360
+            } else {
+                it.first
+            }
+            lon * it.second
+        } / longitudesWeights.sumOf { it.second }
+        return SolMath.wrap(longitude, -180.0, 180.0)
+    }
+
+    private fun combineLocations(vararg locations: Pair<Coordinate, Double>): Coordinate {
+        return Coordinate(
+            combineLatitudes(*locations.map { it.first.latitude to it.second }.toTypedArray()),
+            combineLongitudes(*locations.map { it.first.longitude to it.second }.toTypedArray())
+        )
+    }
 }
