@@ -1,11 +1,15 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
+import android.util.Log
+import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.sense.accelerometer.IAccelerometer
 import com.kylecorry.andromeda.sense.location.IGPS
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.cosDegrees
+import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.math.SolMath.sinDegrees
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.analysis.Trigonometry
@@ -20,7 +24,8 @@ import kotlin.math.max
 
 class FusedGPS2(
     private val gps: IGPS,
-    private val interval: Duration
+    private val interval: Duration,
+    private val verbose: Boolean = false
 ) : IGPS, AbstractSensor() {
     override val altitude: Float
         get() = gps.altitude
@@ -59,20 +64,12 @@ class FusedGPS2(
     private var gpsReadingTime = Instant.now()
     private var gpsReadingSystemTime = Instant.now()
     private var lastPredictTime = Instant.now()
-    private var wasMoving = false
-
-    private var estimateAlpha = DEFAULT_ESTIMATE_ALPHA
-    private var gpsAlpha = DEFAULT_GPS_ALPHA
-    private var speedAlpha = DEFAULT_SPEED_ALPHA
 
     private val timer = CoroutineTimer {
         update()
     }
 
     override fun startImpl() {
-        estimateAlpha = DEFAULT_ESTIMATE_ALPHA
-        gpsAlpha = DEFAULT_GPS_ALPHA
-        speedAlpha = DEFAULT_SPEED_ALPHA
         gps.start(this::onGPSUpdate)
         timer.interval(interval)
     }
@@ -95,25 +92,6 @@ class FusedGPS2(
             currentLocation = referenceLocation
             notifyListeners()
         }
-
-        gpsAlpha = if (!wasMoving && gps.speed.speed == 0f){
-            // User is not moving, decrease the GPS weight
-            max(MIN_GPS_ALPHA, gpsAlpha - ALPHA_DRAIN_NOT_MOVING)
-        } else {
-            // User is moving, reset the GPS weight
-            DEFAULT_GPS_ALPHA
-        }
-
-        wasMoving = gps.speed.speed > 0
-
-        speedAlpha = if (!wasMoving){
-            // User is not moving, don't factor in speed
-            0f
-        } else {
-            // User is moving, factor in speed
-            DEFAULT_SPEED_ALPHA
-        }
-
         return true
     }
 
@@ -125,8 +103,8 @@ class FusedGPS2(
         return referenceProjection.toPixels(location)
     }
 
-    private val xFilter = ComplementaryFilter(listOf(estimateAlpha, gpsAlpha, speedAlpha))
-    private val yFilter = ComplementaryFilter(listOf(estimateAlpha, gpsAlpha, speedAlpha))
+    private val xFilter = ComplementaryFilter(listOf(1f, 1f, 1f))
+    private val yFilter = ComplementaryFilter(listOf(1f, 1f, 1f))
 
     private fun update() {
         if (!gps.hasValidReading || currentLocation == Coordinate.zero) return
@@ -134,7 +112,28 @@ class FusedGPS2(
         val dt = Duration.between(lastPredictTime, Instant.now()).toMillis() / 1000.0
         lastPredictTime = Instant.now()
 
-        // TODO: Update weights based on accuracy and time since last update
+        val timeSinceLastMeasurement = Duration.between(gpsReadingSystemTime, Instant.now())
+        val estimateAlpha = getEstimateAlpha(timeSinceLastMeasurement)
+        val gpsAlpha = getGPSAlpha(gps.horizontalAccuracy ?: 30f)
+        val speedAlpha = getSpeedAlpha(gps.speedAccuracy ?: 10f, timeSinceLastMeasurement)
+        if (verbose) {
+            Log.d(
+                "FusedGPS",
+                "Estimate alpha: ${
+                    DecimalFormatter.format(
+                        estimateAlpha,
+                        2,
+                        true
+                    )
+                }, GPS alpha: ${
+                    DecimalFormatter.format(
+                        gpsAlpha,
+                        2,
+                        true
+                    )
+                }, Speed alpha: ${DecimalFormatter.format(speedAlpha, 2, true)}"
+            )
+        }
         xFilter.weights = listOf(estimateAlpha, gpsAlpha, speedAlpha)
         yFilter.weights = listOf(estimateAlpha, gpsAlpha, speedAlpha)
 
@@ -177,13 +176,69 @@ class FusedGPS2(
         notifyListeners()
     }
 
+    private fun getEstimateAlpha(timeSinceMeasurement: Duration): Float {
+        val minAlphaInverse = 0.4f
+        val minTime = 0f
+        val maxAlphaInverse = 0.9f
+        val maxTime = 10f
+        val time = timeSinceMeasurement.toMillis() / 1000f
+        return 1 - SolMath.map(
+            time,
+            minTime,
+            maxTime,
+            minAlphaInverse,
+            maxAlphaInverse,
+            shouldClamp = true
+        )
+    }
+
+    private fun getGPSAlpha(accuracy: Float): Float {
+        val minAlphaInverse = 0.4f
+        val minAccuracy = 0f
+        val maxAlphaInverse = 0.9f
+        val maxAccuracy = 30f
+        return 1 - SolMath.map(
+            accuracy,
+            minAccuracy,
+            maxAccuracy,
+            minAlphaInverse,
+            maxAlphaInverse,
+            shouldClamp = true
+        )
+    }
+
+    private fun getSpeedAlpha(accuracy: Float, timeSinceMeasurement: Duration): Float {
+        val minSpeedAlphaInverse = 0.6f
+        val minAccuracy = 0f
+        val maxSpeedAlphaInverse = 0.95f
+        val maxAccuracy = 30f
+        val accuracyAlpha = SolMath.map(
+            accuracy,
+            minAccuracy,
+            maxAccuracy,
+            minSpeedAlphaInverse,
+            maxSpeedAlphaInverse,
+            shouldClamp = true
+        )
+
+        val minTimeAlphaInverse = 0.6f
+        val minTime = 0f
+        val maxTimeAlphaInverse = 0.95f
+        val maxTime = 10f
+        val timeAlpha = SolMath.map(
+            timeSinceMeasurement.toMillis() / 1000f,
+            minTime,
+            maxTime,
+            minTimeAlphaInverse,
+            maxTimeAlphaInverse,
+            shouldClamp = true
+        )
+
+        return (accuracyAlpha + timeAlpha) / 2
+    }
+
     companion object {
         private const val PROJECTION_SCALE = 1.0
-        private const val DEFAULT_ESTIMATE_ALPHA = 0.6f
-        private const val DEFAULT_GPS_ALPHA = 0.2f
-        private const val MIN_GPS_ALPHA = 0.01f
-        private const val DEFAULT_SPEED_ALPHA = 0.2f
-        private const val ALPHA_DRAIN_NOT_MOVING = 0.02f
     }
 
 }
