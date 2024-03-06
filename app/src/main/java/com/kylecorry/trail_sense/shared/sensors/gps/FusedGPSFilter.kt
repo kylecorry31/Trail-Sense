@@ -47,10 +47,23 @@ internal class FusedGPSFilter(
         get() = kalmanFilter.Xk_k[2][0]
     val currentYVelocity: Float
         get() = kalmanFilter.Xk_k[3][0]
-    val positionError: Float
+    val currentPositionError: Float
         get() = kalmanFilter.Pk_k[0][0]
-    val velocityError: Float
+    val currentVelocityError: Float
         get() = kalmanFilter.Pk_k[2][2]
+
+    val predictedX: Float
+        get() = kalmanFilter.Xk_km1[0][0]
+    val predictedY: Float
+        get() = kalmanFilter.Xk_km1[1][0]
+    val predictedXVelocity: Float
+        get() = kalmanFilter.Xk_km1[2][0]
+    val predictedYVelocity: Float
+        get() = kalmanFilter.Xk_km1[3][0]
+    val predictedPositionError: Float
+        get() = kalmanFilter.Pk_km1[0][0]
+    val predictedVelocityError: Float
+        get() = kalmanFilter.Pk_km1[2][2]
 
     private val lock = Any()
 

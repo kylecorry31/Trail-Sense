@@ -159,7 +159,7 @@ class FusedGPS(
     }
 
     private fun getKalmanLocationAccuracy(): Float {
-        return (kalman?.positionError?.div(PROJECTION_SCALE) ?: 0f)
+        return (kalman?.currentPositionError?.div(PROJECTION_SCALE) ?: 0f)
     }
 
     private fun getKalmanSpeed(): Speed {
@@ -175,7 +175,7 @@ class FusedGPS(
     }
 
     private fun getKalmanSpeedAccuracy(): Float {
-        return (kalman?.velocityError?.div(PROJECTION_SCALE) ?: 0f)
+        return (kalman?.currentVelocityError?.div(PROJECTION_SCALE) ?: 0f)
     }
 
     private fun updateCurrentFromKalman() {
