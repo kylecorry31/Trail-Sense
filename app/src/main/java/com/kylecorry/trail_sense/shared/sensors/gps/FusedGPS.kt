@@ -100,7 +100,7 @@ class FusedGPS(
                 projectedLocation.y.toDouble(),
                 projectedVelocity.x.toDouble(),
                 projectedVelocity.y.toDouble(),
-                0.1 * PROJECTION_SCALE,
+                0.5 * PROJECTION_SCALE,
                 (gps.horizontalAccuracy?.toDouble() ?: 30.0) * PROJECTION_SCALE
             )
         }

@@ -82,7 +82,7 @@ class CustomGPS(
 
     private val baseGPS: IGPS by lazy {
         if (userPrefs.useFilteredGPS) {
-            FusedGPS2(
+            FusedGPS(
                 GPS(context.applicationContext, frequency = gpsFrequency),
                 updateFrequency
             )
