@@ -21,7 +21,6 @@ import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.gps.FusedGPS
-import com.kylecorry.trail_sense.shared.sensors.gps.FusedGPS2
 import com.kylecorry.trail_sense.shared.sensors.speedometer.SpeedEstimator
 import kotlinx.coroutines.runBlocking
 import java.time.Duration
