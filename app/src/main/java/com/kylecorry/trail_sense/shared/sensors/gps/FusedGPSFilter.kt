@@ -137,20 +137,7 @@ internal class FusedGPSFilter(
         dtUpdate: Double,
         accelerationDeviation: Double
     ) {
-        // The original code uses predict count, but mentioned there might be a way to use dtUpdate instead
-//        kalmanFilter.Q.setIdentity();
-//        kalmanFilter.Q.scale(accelerationDeviation * dtUpdate);
-        val velDev = accelerationDeviation * predictCount
-        val posDev = velDev * predictCount / 2
-        val covDev = velDev * posDev
-        val posSig = posDev * posDev
-        val velSig = velDev * velDev
-        val newQMatrix = doubleArrayOf(
-            posSig, 0.0, covDev, 0.0,
-            0.0, posSig, 0.0, covDev,
-            covDev, 0.0, velSig, 0.0,
-            0.0, covDev, 0.0, velSig
-        )
-        kalmanFilter.Q.setData(*newQMatrix)
+        kalmanFilter.Q.setIdentity()
+        kalmanFilter.Q.scale(accelerationDeviation * dtUpdate)
     }
 }

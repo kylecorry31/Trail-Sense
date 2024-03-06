@@ -31,9 +31,7 @@ class FusedGPS(
     override val bearingAccuracy: Float?
         get() = gps.bearingAccuracy
     override val horizontalAccuracy: Float?
-        get() = if (hasValidReading && (currentAccuracy
-                ?: 0f) > KALMAN_MIN_ACCURACY
-        ) currentAccuracy else gps.horizontalAccuracy
+        get() = if (hasValidReading && currentAccuracy != 0f) currentAccuracy?.coerceAtLeast(KALMAN_MIN_ACCURACY) else gps.horizontalAccuracy
     override val location: Coordinate
         get() = if (hasValidReading) currentLocation else gps.location
     override val mslAltitude: Float?
@@ -205,8 +203,8 @@ class FusedGPS(
         private const val DEFAULT_POSITION_ACCURACY = 30.0
 
         // Process noise
-        private const val ACCELERATION_DEVIATION = 0.5
-        private const val KALMAN_MIN_ACCURACY = 2f
+        private const val ACCELERATION_DEVIATION = 20.0
+        private const val KALMAN_MIN_ACCURACY = 4f
     }
 
 }
