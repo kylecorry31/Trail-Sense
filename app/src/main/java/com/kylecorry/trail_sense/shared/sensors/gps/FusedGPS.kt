@@ -5,6 +5,7 @@ import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.sense.accelerometer.IAccelerometer
 import com.kylecorry.andromeda.sense.location.IGPS
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.cosDegrees
 import com.kylecorry.sol.math.SolMath.sinDegrees
 import com.kylecorry.sol.math.Vector2
@@ -31,7 +32,9 @@ class FusedGPS(
     override val bearingAccuracy: Float?
         get() = gps.bearingAccuracy
     override val horizontalAccuracy: Float?
-        get() = if (hasValidReading && currentAccuracy != 0f) currentAccuracy?.coerceAtLeast(KALMAN_MIN_ACCURACY) else gps.horizontalAccuracy
+        get() = if (hasValidReading && currentAccuracy != 0f) currentAccuracy?.coerceAtLeast(
+            KALMAN_MIN_ACCURACY
+        ) else gps.horizontalAccuracy
     override val location: Coordinate
         get() = if (hasValidReading) currentLocation else gps.location
     override val mslAltitude: Float?
@@ -175,12 +178,13 @@ class FusedGPS(
 
     private fun updateCurrentFromKalman() {
         val newLocation = getKalmanLocation()
-        if (newLocation.latitude in -90.0..90.0 && newLocation.longitude in -180.0..180.0) {
-            currentLocation = newLocation
-            currentAccuracy = getKalmanLocationAccuracy()
-            currentSpeed = getKalmanSpeed()
-            currentSpeedAccuracy = getKalmanSpeedAccuracy()
-        }
+        currentLocation = Coordinate(
+            newLocation.latitude.coerceIn(-90.0, 90.0),
+            SolMath.wrap(newLocation.longitude, -180.0, 180.0)
+        )
+        currentAccuracy = getKalmanLocationAccuracy()
+        currentSpeed = getKalmanSpeed()
+        currentSpeedAccuracy = getKalmanSpeedAccuracy()
     }
 
     private fun update() {
