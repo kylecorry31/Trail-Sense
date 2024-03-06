@@ -31,7 +31,9 @@ class FusedGPS(
     override val bearingAccuracy: Float?
         get() = gps.bearingAccuracy
     override val horizontalAccuracy: Float?
-        get() = if (hasValidReading) currentAccuracy else gps.horizontalAccuracy
+        get() = if (hasValidReading && (currentAccuracy
+                ?: 0f) > KALMAN_MIN_ACCURACY
+        ) currentAccuracy else gps.horizontalAccuracy
     override val location: Coordinate
         get() = if (hasValidReading) currentLocation else gps.location
     override val mslAltitude: Float?
@@ -91,7 +93,7 @@ class FusedGPS(
         gpsReadingTime = gps.time
         gpsReadingSystemTime = Instant.now()
         lastPredictTime = Instant.now()
-        if (kalman == null || isFarFromReference(gps.location)) {
+        if (kalman == null || isFarFromReference()) {
             referenceLocation = gps.location
             referenceProjection = AzimuthalEquidistantProjection(
                 referenceLocation,
@@ -105,8 +107,8 @@ class FusedGPS(
                 projectedLocation.y.toDouble(),
                 projectedVelocity.x.toDouble(),
                 projectedVelocity.y.toDouble(),
-                0.1 * PROJECTION_SCALE,
-                (gps.horizontalAccuracy?.toDouble() ?: 30.0) * PROJECTION_SCALE
+                ACCELERATION_DEVIATION * PROJECTION_SCALE,
+                (gps.horizontalAccuracy?.toDouble() ?: DEFAULT_POSITION_ACCURACY) * PROJECTION_SCALE
             )
         }
 
@@ -117,9 +119,10 @@ class FusedGPS(
             projectedLocation.y.toDouble(),
             projectedVelocity.x.toDouble(),
             projectedVelocity.y.toDouble(),
-            (gps.horizontalAccuracy?.toDouble() ?: 30.0) * PROJECTION_SCALE,
-            // If the device isn't moving, use a constant speed accuracy
-            (if (gps.speed.speed == 0f) 0.02 else (gps.speedAccuracy?.toDouble() ?: 1.0)) * PROJECTION_SCALE
+            (gps.horizontalAccuracy?.toDouble() ?: DEFAULT_POSITION_ACCURACY) * PROJECTION_SCALE,
+            // If the device isn't moving, increase the speed accuracy
+            (if (gps.speed.speed == 0f) NOT_MOVING_SPEED_ACCURACY_FACTOR else 1.0) * (gps.speedAccuracy?.toDouble()
+                ?: DEFAULT_SPEED_ACCURACY) * PROJECTION_SCALE
         )
 
         updateCurrentFromKalman()
@@ -127,8 +130,8 @@ class FusedGPS(
         return true
     }
 
-    private fun isFarFromReference(location: Coordinate): Boolean {
-        return location.distanceTo(referenceLocation) > 200
+    private fun isFarFromReference(): Boolean {
+        return gps.location.distanceTo(referenceLocation) > 200
     }
 
     private fun getProjectedVelocity(): Vector2 {
@@ -197,6 +200,13 @@ class FusedGPS(
 
     companion object {
         private const val PROJECTION_SCALE = 1.0
+        private const val NOT_MOVING_SPEED_ACCURACY_FACTOR = 0.5
+        private const val DEFAULT_SPEED_ACCURACY = 0.05
+        private const val DEFAULT_POSITION_ACCURACY = 30.0
+
+        // Process noise
+        private const val ACCELERATION_DEVIATION = 0.5
+        private const val KALMAN_MIN_ACCURACY = 2f
     }
 
 }
