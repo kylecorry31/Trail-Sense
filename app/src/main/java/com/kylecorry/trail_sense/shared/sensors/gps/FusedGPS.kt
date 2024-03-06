@@ -12,7 +12,9 @@ import com.kylecorry.sol.math.analysis.Trigonometry
 import com.kylecorry.sol.science.geography.projections.AzimuthalEquidistantProjection
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
+import com.kylecorry.sol.units.TimeUnits
 import java.time.Duration
 import java.time.Instant
 
@@ -20,6 +22,7 @@ class FusedGPS(
     private val gps: IGPS,
     private val interval: Duration,
     private val accelerometer: IAccelerometer? = null,
+    private val useKalmanSpeed: Boolean = false
 ) : IGPS, AbstractSensor() {
     override val altitude: Float
         get() = gps.altitude
@@ -38,9 +41,9 @@ class FusedGPS(
     override val satellites: Int?
         get() = gps.satellites
     override val speed: Speed
-        get() = gps.speed
+        get() = if (hasValidReading && useKalmanSpeed) currentSpeed ?: gps.speed else gps.speed
     override val speedAccuracy: Float?
-        get() = gps.speedAccuracy
+        get() = if (hasValidReading && useKalmanSpeed) currentSpeedAccuracy else gps.speedAccuracy
     override val time: Instant
         get() = gps.time.plus(Duration.between(gpsReadingSystemTime, lastPredictTime))
     override val verticalAccuracy: Float?
@@ -53,6 +56,8 @@ class FusedGPS(
     private var kalman: FusedGPSFilter? = null
     private var currentLocation = Coordinate.zero
     private var currentAccuracy: Float? = null
+    private var currentSpeed: Speed? = null
+    private var currentSpeedAccuracy: Float? = null
     private var referenceLocation = Coordinate.zero
     private var referenceProjection =
         AzimuthalEquidistantProjection(referenceLocation, scale = PROJECTION_SCALE.toFloat())
@@ -100,7 +105,7 @@ class FusedGPS(
                 projectedLocation.y.toDouble(),
                 projectedVelocity.x.toDouble(),
                 projectedVelocity.y.toDouble(),
-                0.5 * PROJECTION_SCALE,
+                0.1 * PROJECTION_SCALE,
                 (gps.horizontalAccuracy?.toDouble() ?: 30.0) * PROJECTION_SCALE
             )
         }
@@ -113,11 +118,11 @@ class FusedGPS(
             projectedVelocity.x.toDouble(),
             projectedVelocity.y.toDouble(),
             (gps.horizontalAccuracy?.toDouble() ?: 30.0) * PROJECTION_SCALE,
-            (gps.speedAccuracy?.toDouble() ?: 1.0) * PROJECTION_SCALE
+            // If the device isn't moving, use a constant speed accuracy
+            (if (gps.speed.speed == 0f) 0.02 else (gps.speedAccuracy?.toDouble() ?: 1.0)) * PROJECTION_SCALE
         )
 
-        currentLocation = getKalmanLocation()
-        currentAccuracy = (kalman?.positionError?.div(PROJECTION_SCALE)?.toFloat() ?: 0f)
+        updateCurrentFromKalman()
         notifyListeners()
         return true
     }
@@ -147,6 +152,36 @@ class FusedGPS(
         )
     }
 
+    private fun getKalmanLocationAccuracy(): Float {
+        return (kalman?.positionError?.div(PROJECTION_SCALE)?.toFloat() ?: 0f)
+    }
+
+    private fun getKalmanSpeed(): Speed {
+        val velocity = Vector2(
+            kalman?.currentXVelocity?.toFloat() ?: 0f,
+            kalman?.currentYVelocity?.toFloat() ?: 0f
+        )
+        return Speed(
+            velocity.magnitude() / PROJECTION_SCALE.toFloat(),
+            DistanceUnits.Meters,
+            TimeUnits.Seconds
+        )
+    }
+
+    private fun getKalmanSpeedAccuracy(): Float {
+        return (kalman?.velocityError?.div(PROJECTION_SCALE)?.toFloat() ?: 0f)
+    }
+
+    private fun updateCurrentFromKalman() {
+        val newLocation = getKalmanLocation()
+        if (newLocation.latitude in -90.0..90.0 && newLocation.longitude in -180.0..180.0) {
+            currentLocation = newLocation
+            currentAccuracy = getKalmanLocationAccuracy()
+            currentSpeed = getKalmanSpeed()
+            currentSpeedAccuracy = getKalmanSpeedAccuracy()
+        }
+    }
+
     private fun update() {
         if (!gps.hasValidReading || currentLocation == Coordinate.zero || kalman == null) return
 
@@ -156,11 +191,7 @@ class FusedGPS(
         )
         lastPredictTime = Instant.now()
 
-        val newLocation = getKalmanLocation()
-        if (newLocation.latitude in -90.0..90.0 && newLocation.longitude in -180.0..180.0) {
-            currentLocation = newLocation
-            currentAccuracy = (kalman?.positionError?.div(PROJECTION_SCALE)?.toFloat() ?: 0f)
-        }
+        updateCurrentFromKalman()
         notifyListeners()
     }
 
