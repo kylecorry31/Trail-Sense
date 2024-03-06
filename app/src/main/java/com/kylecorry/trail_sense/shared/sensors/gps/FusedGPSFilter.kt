@@ -27,13 +27,17 @@ internal class FusedGPSFilter(
     initialYVelocity: Float,
     private val accelerationDeviation: Float,
     initialPositionDeviation: Float,
-    private val velocityFactor: Float = 1.0f,
-    private val positionFactor: Float = 1.0f
+    updateStateWithPrediction: Boolean = false
 ) {
     private var lastPredictTime = Instant.now()
     private var lastUpdateTime = lastPredictTime
     private var predictCount = 0
-    private val kalmanFilter = KalmanFilter(4, if (useGpsSpeed) 4 else 2, 2)
+    private val kalmanFilter = KalmanFilter(
+        4,
+        if (useGpsSpeed) 4 else 2,
+        2,
+        updateStateWithPrediction = updateStateWithPrediction
+    )
 
     val currentX: Float
         get() = kalmanFilter.Xk_k[0][0]
@@ -48,19 +52,20 @@ internal class FusedGPSFilter(
     val velocityError: Float
         get() = kalmanFilter.Pk_k[2][2]
 
+    private val lock = Any()
+
     init {
         kalmanFilter.Xk_k = columnMatrix(initialX, initialY, initialXVelocity, initialYVelocity)
         // Both state and measurement have 4 dimensions, so use an identity matrix
-//        kalmanFilter.H.setIdentityDiag()
-        kalmanFilter.H = createMatrix(if (useGpsSpeed) 4 else 2, 4){ i, j -> if (i == j) 1f else 0f }
+        kalmanFilter.H =
+            createMatrix(if (useGpsSpeed) 4 else 2, 4) { i, j -> if (i == j) 1f else 0f }
         kalmanFilter.Pk_k = identityMatrix(4).multiply(initialPositionDeviation)
-//        kalmanFilter.Pk_k.scale(initialPositionDeviation)
     }
 
     fun predict(
         xAcceleration: Float,
         yAcceleration: Float
-    ) {
+    ) = synchronized(lock) {
         val time = Instant.now()
         val dtPredict = Duration.between(lastPredictTime, time).toMillis() / 1000f
         val dtUpdate = Duration.between(lastUpdateTime, time).toMillis() / 1000f
@@ -71,8 +76,6 @@ internal class FusedGPSFilter(
         rebuildQMatrix(dtUpdate, accelerationDeviation)
         lastPredictTime = time
         kalmanFilter.predict()
-        kalmanFilter.Xk_km1 = kalmanFilter.Xk_k.clone()
-//        Matrix.matrixCopy(kalmanFilter.Xk_km1, kalmanFilter.Xk_k)
     }
 
     fun update(
@@ -82,7 +85,7 @@ internal class FusedGPSFilter(
         yVel: Float,
         posDev: Float,
         velErr: Float
-    ) {
+    ) = synchronized(lock) {
         predictCount = 0
         lastUpdateTime = Instant.now()
         rebuildR(posDev, velErr)
@@ -109,7 +112,7 @@ internal class FusedGPSFilter(
 
     private fun rebuildBMatrix(dtPredict: Float) {
         val dt2 = 0.5f * dtPredict * dtPredict
-        kalmanFilter.B = createMatrix(4, 2){ _, _ -> 0f }
+        kalmanFilter.B = createMatrix(4, 2) { _, _ -> 0f }
         kalmanFilter.B[0][0] = dt2
         kalmanFilter.B[1][1] = dt2
         kalmanFilter.B[2][0] = dtPredict
@@ -117,14 +120,12 @@ internal class FusedGPSFilter(
     }
 
     private fun rebuildR(posSigma: Float, velSigma: Float) {
-        val scaledPosSigma = posSigma * positionFactor
         if (useGpsSpeed) {
-            val scaledVelSigma = velSigma * velocityFactor
-            kalmanFilter.R = identityMatrix(4).multiply(scaledPosSigma)
-            kalmanFilter.R[2][2] = scaledVelSigma
-            kalmanFilter.R[3][3] = scaledVelSigma
+            kalmanFilter.R = identityMatrix(4).multiply(posSigma)
+            kalmanFilter.R[2][2] = velSigma
+            kalmanFilter.R[3][3] = velSigma
         } else {
-            kalmanFilter.R = identityMatrix(2).multiply(scaledPosSigma)
+            kalmanFilter.R = identityMatrix(2).multiply(posSigma)
         }
     }
 

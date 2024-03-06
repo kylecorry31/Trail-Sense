@@ -23,7 +23,8 @@ class FusedGPS(
     private val gps: IGPS,
     private val interval: Duration,
     private val accelerometer: IAccelerometer? = null,
-    private val useKalmanSpeed: Boolean = false
+    private val useKalmanSpeed: Boolean = false,
+    private val updateWithPrediction: Boolean = false
 ) : IGPS, AbstractSensor() {
     override val altitude: Float
         get() = gps.altitude
@@ -109,7 +110,8 @@ class FusedGPS(
                 projectedVelocity.x,
                 projectedVelocity.y,
                 ACCELERATION_DEVIATION * PROJECTION_SCALE,
-                (gps.horizontalAccuracy ?: DEFAULT_POSITION_ACCURACY) * PROJECTION_SCALE
+                (gps.horizontalAccuracy ?: DEFAULT_POSITION_ACCURACY) * PROJECTION_SCALE,
+                updateStateWithPrediction = updateWithPrediction
             )
         }
 
@@ -138,8 +140,8 @@ class FusedGPS(
     private fun getProjectedVelocity(): Vector2 {
         val unitBearing = Trigonometry.toUnitAngle(gps.rawBearing ?: 0f, 90f, false)
         return Vector2(
-            gps.speed.speed * cosDegrees(unitBearing) * PROJECTION_SCALE.toFloat(),
-            gps.speed.speed * sinDegrees(unitBearing) * PROJECTION_SCALE.toFloat()
+            gps.speed.speed * cosDegrees(unitBearing) * PROJECTION_SCALE,
+            gps.speed.speed * sinDegrees(unitBearing) * PROJECTION_SCALE
         )
     }
 
@@ -150,14 +152,14 @@ class FusedGPS(
     private fun getKalmanLocation(): Coordinate {
         return referenceProjection.toCoordinate(
             Vector2(
-                kalman?.currentX?.toFloat() ?: 0f,
-                kalman?.currentY?.toFloat() ?: 0f
+                kalman?.currentX ?: 0f,
+                kalman?.currentY ?: 0f
             )
         )
     }
 
     private fun getKalmanLocationAccuracy(): Float {
-        return (kalman?.positionError?.div(PROJECTION_SCALE)?.toFloat() ?: 0f)
+        return (kalman?.positionError?.div(PROJECTION_SCALE) ?: 0f)
     }
 
     private fun getKalmanSpeed(): Speed {
@@ -197,7 +199,9 @@ class FusedGPS(
         lastPredictTime = Instant.now()
 
         updateCurrentFromKalman()
-        notifyListeners()
+        if (updateWithPrediction) {
+            notifyListeners()
+        }
     }
 
     companion object {
@@ -207,7 +211,7 @@ class FusedGPS(
         private const val DEFAULT_POSITION_ACCURACY = 30.0f
 
         // Process noise
-        private const val ACCELERATION_DEVIATION = 20.0f
+        private const val ACCELERATION_DEVIATION = 0.1f
         private const val KALMAN_MIN_ACCURACY = 4f
     }
 
