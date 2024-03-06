@@ -32,6 +32,8 @@ class FusedGPS(
         get() = gps.bearing
     override val bearingAccuracy: Float?
         get() = gps.bearingAccuracy
+    override val fixTimeElapsedNanos: Long?
+        get() = gps.fixTimeElapsedNanos
     override val horizontalAccuracy: Float?
         get() = if (hasValidReading && currentAccuracy != 0f) currentAccuracy?.coerceAtLeast(
             KALMAN_MIN_ACCURACY
@@ -49,7 +51,7 @@ class FusedGPS(
     override val speedAccuracy: Float?
         get() = if (hasValidReading && useKalmanSpeed) currentSpeedAccuracy else gps.speedAccuracy
     override val time: Instant
-        get() = gps.time.plus(Duration.between(gpsReadingSystemTime, lastPredictTime))
+        get() = gps.time
     override val verticalAccuracy: Float?
         get() = gps.verticalAccuracy
     override val hasValidReading: Boolean

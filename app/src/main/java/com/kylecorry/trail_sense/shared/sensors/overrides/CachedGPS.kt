@@ -42,6 +42,8 @@ class CachedGPS(context: Context, private val updateFrequency: Long = 20L) : Abs
         get() = null
     override val bearingAccuracy: Float?
         get() = null
+    override val fixTimeElapsedNanos: Long?
+        get() = null
     override val mslAltitude: Float
         get() = altitude
     override val rawBearing: Float?

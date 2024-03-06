@@ -1,14 +1,20 @@
 package com.kylecorry.trail_sense.tools.clock.ui
 
 import android.content.Intent
+import android.location.LocationManager
+import android.os.Build
 import android.os.Bundle
+import android.os.SystemClock
 import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.getSystemService
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.background.AlarmTaskScheduler
 import com.kylecorry.andromeda.core.time.CoroutineTimer
+import com.kylecorry.andromeda.core.tryOrDefault
+import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.R
@@ -67,7 +73,7 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
     }
 
     private fun onGPSUpdate(): Boolean {
-        gpsTime = gps.time
+        gpsTime = getGPSTime()
         systemTime = Instant.now()
 
         if (gps is CustomGPS && (gps as CustomGPS).isTimedOut) {
@@ -78,6 +84,21 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
         binding.updatingClock.visibility = View.INVISIBLE
         binding.pipButton.visibility = View.VISIBLE
         return false
+    }
+
+    private fun getGPSTime(): Instant {
+        // First try to use the system API
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            tryOrNothing {
+                return SystemClock.currentGnssTimeClock().instant()
+            }
+        }
+
+        // That didn't work, so get the time from the GPS
+        val fixTime = gps.fixTimeElapsedNanos ?: return gps.time
+        val systemTime = SystemClock.elapsedRealtimeNanos()
+        val timeDiff = fixTime - systemTime
+        return gps.time.plusNanos(timeDiff)
     }
 
     private fun update() {

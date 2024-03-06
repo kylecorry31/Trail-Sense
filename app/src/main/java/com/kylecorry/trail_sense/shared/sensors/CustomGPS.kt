@@ -73,6 +73,9 @@ class CustomGPS(
     override val bearingAccuracy: Float?
         get() = _bearingAccuracy
 
+    override var fixTimeElapsedNanos: Long? = null
+        private set
+
     override val mslAltitude: Float?
         get() = _mslAltitude
 
@@ -132,6 +135,7 @@ class CustomGPS(
         _speed = baseGPS.speed
         _verticalAccuracy = baseGPS.verticalAccuracy
         _time = baseGPS.time
+        fixTimeElapsedNanos = baseGPS.fixTimeElapsedNanos
         _horizontalAccuracy = baseGPS.horizontalAccuracy
         _quality = baseGPS.quality
         _satellites = baseGPS.satellites

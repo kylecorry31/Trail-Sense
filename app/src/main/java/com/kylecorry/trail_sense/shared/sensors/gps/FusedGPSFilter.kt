@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
+import android.os.SystemClock
 import com.kylecorry.sol.math.algebra.columnMatrix
 import com.kylecorry.sol.math.algebra.createMatrix
 import com.kylecorry.sol.math.algebra.identityMatrix
@@ -29,7 +30,7 @@ internal class FusedGPSFilter(
     initialPositionDeviation: Float,
     updateStateWithPrediction: Boolean = false
 ) {
-    private var lastPredictTime = System.nanoTime()
+    private var lastPredictTime = SystemClock.elapsedRealtimeNanos()
     private var lastUpdateTime = lastPredictTime
     private val kalmanFilter = KalmanFilter(
         4,
@@ -78,7 +79,7 @@ internal class FusedGPSFilter(
         xAcceleration: Float,
         yAcceleration: Float
     ) = synchronized(lock) {
-        val time = System.nanoTime()
+        val time = SystemClock.elapsedRealtimeNanos()
         val dtPredict = (time - lastPredictTime) / 1_000_000_000f
         val dtUpdate = (time - lastUpdateTime) / 1_000_000_000f
         rebuildFMatrix(dtPredict)
@@ -97,7 +98,7 @@ internal class FusedGPSFilter(
         posDev: Float,
         velErr: Float
     ) = synchronized(lock) {
-        lastUpdateTime = System.nanoTime()
+        lastUpdateTime = SystemClock.elapsedRealtimeNanos()
         rebuildR(posDev, velErr)
         if (useGpsSpeed) {
             kalmanFilter.Zk = columnMatrix(x, y, xVel, yVel)
