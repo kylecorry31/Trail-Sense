@@ -1,5 +1,15 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
+import com.kylecorry.sol.math.algebra.Matrix
+import com.kylecorry.sol.math.algebra.add
+import com.kylecorry.sol.math.algebra.createMatrix
+import com.kylecorry.sol.math.algebra.dot
+import com.kylecorry.sol.math.algebra.identityMatrix
+import com.kylecorry.sol.math.algebra.inverse
+import com.kylecorry.sol.math.algebra.rows
+import com.kylecorry.sol.math.algebra.subtract
+import com.kylecorry.sol.math.algebra.transpose
+
 /**
  * MIT License
  *
@@ -17,92 +27,105 @@ internal class KalmanFilter(
     controlDimension: Int
 ) {
     // State transition model
-    val F = Matrix(stateDimension, stateDimension)
+    var F = createMatrix(stateDimension, stateDimension) { _, _ -> 0f }
 
     // Observation model
-    val H = Matrix(measureDimension, stateDimension)
+    var H = createMatrix(measureDimension, stateDimension) { _, _ -> 0f }
 
     // Control matrix
-    val B = Matrix(stateDimension, controlDimension)
+    var B = createMatrix(stateDimension, controlDimension) { _, _ -> 0f }
 
     // Process noise covariance
-    val Q = Matrix(stateDimension, stateDimension)
+    var Q = createMatrix(stateDimension, stateDimension) { _, _ -> 0f }
 
     // Observation noise covariance
-    val R = Matrix(measureDimension, measureDimension)
+    var R = createMatrix(measureDimension, measureDimension) { _, _ -> 0f }
 
     // Control vector
-    val Uk = Matrix(controlDimension, 1)
+    var Uk = createMatrix(controlDimension, 1) { _, _ -> 0f }
 
     // Actual values (measured)
-    val Zk = Matrix(measureDimension, 1)
+    var Zk = createMatrix(measureDimension, 1) { _, _ -> 0f }
 
     // Predicted state estimate
-    val Xk_km1 = Matrix(stateDimension, 1)
+    var Xk_km1 = createMatrix(stateDimension, 1) { _, _ -> 0f }
 
     // Predicted estimate covariance
-    val Pk_km1 = Matrix(stateDimension, stateDimension)
+    var Pk_km1 = createMatrix(stateDimension, stateDimension) { _, _ -> 0f }
 
     // Measurement innovation
-    val Yk = Matrix(measureDimension, 1)
+    var Yk = createMatrix(measureDimension, 1) { _, _ -> 0f }
 
     // Innovation covariance
-    val Sk = Matrix(measureDimension, measureDimension)
+    var Sk = createMatrix(measureDimension, measureDimension) { _, _ -> 0f }
 
     // Innovation covariance inverse
-    val SkInv = Matrix(measureDimension, measureDimension)
+    var SkInv = createMatrix(measureDimension, measureDimension) { _, _ -> 0f }
 
     // Kalman gain (optimal)
-    val K = Matrix(stateDimension, measureDimension)
+    var K = createMatrix(stateDimension, measureDimension) { _, _ -> 0f }
 
     // Updated (current) state
-    val Xk_k = Matrix(stateDimension, 1)
+    var Xk_k = createMatrix(stateDimension, 1) { _, _ -> 0f }
 
     // Updated estimate covariance
-    val Pk_k = Matrix(stateDimension, stateDimension)
+    var Pk_k = createMatrix(stateDimension, stateDimension) { _, _ -> 0f }
 
     // Post fit residual - not used yet
 //    val Yk_k = Matrix(measureDimension, 1)
 
     /* Auxiliary matrices */
-    private val auxBxU = Matrix(stateDimension, 1)
-    private val auxSDxSD = Matrix(stateDimension, stateDimension)
-    private val auxSDxMD = Matrix(stateDimension, measureDimension)
+    private val auxBxU = createMatrix(stateDimension, 1) { _, _ -> 0f }
+    private var auxSDxSD = createMatrix(stateDimension, stateDimension) { _, _ -> 0f }
+    private var auxSDxMD = createMatrix(stateDimension, measureDimension) { _, _ -> 0f }
 
     fun predict() {
         //Xk|k-1 = Fk*Xk-1|k-1 + Bk*Uk
-        Matrix.matrixMultiply(F, Xk_k, Xk_km1)
-        Matrix.matrixMultiply(B, Uk, auxBxU)
-        Matrix.matrixAdd(Xk_km1, auxBxU, Xk_km1)
+        Xk_km1 = F.dot(Xk_k).add(B.dot(Uk))
+//        Matrix.matrixMultiply(F, Xk_k, Xk_km1)
+//        Matrix.matrixMultiply(B, Uk, auxBxU)
+//        Matrix.matrixAdd(Xk_km1, auxBxU, Xk_km1)
 
         //Pk|k-1 = Fk*Pk-1|k-1*Fk(t) + Qk
-        Matrix.matrixMultiply(F, Pk_k, auxSDxSD)
-        Matrix.matrixMultiplyByTranspose(auxSDxSD, F, Pk_km1)
-        Matrix.matrixAdd(Pk_km1, Q, Pk_km1)
+        auxSDxSD = F.dot(Pk_k)
+        Pk_km1 = auxSDxSD.dot(F.transpose())
+        Pk_km1 = Pk_km1.add(Q)
+//        Matrix.matrixMultiply(F, Pk_k, auxSDxSD)
+//        Matrix.matrixMultiplyByTranspose(auxSDxSD, F, Pk_km1)
+//        Matrix.matrixAdd(Pk_km1, Q, Pk_km1)
     }
 
     fun update() {
         //Yk = Zk - Hk*Xk|k-1
-        Matrix.matrixMultiply(H, Xk_km1, Yk)
-        Matrix.matrixSubtract(Zk, Yk, Yk)
+        Yk = Zk.subtract(H.dot(Xk_km1))
+//        Matrix.matrixMultiply(H, Xk_km1, Yk)
+//        Matrix.matrixSubtract(Zk, Yk, Yk)
 
         //Sk = Rk + Hk*Pk|k-1*Hk(t)
-        Matrix.matrixMultiplyByTranspose(Pk_km1, H, auxSDxMD)
-        Matrix.matrixMultiply(H, auxSDxMD, Sk)
-        Matrix.matrixAdd(R, Sk, Sk)
+        auxSDxMD = Pk_km1.dot(H.transpose())
+        Sk = R.add(H.dot(auxSDxMD))
+//        Matrix.matrixMultiplyByTranspose(Pk_km1, H, auxSDxMD)
+//        Matrix.matrixMultiply(H, auxSDxMD, Sk)
+//        Matrix.matrixAdd(R, Sk, Sk)
 
         //Kk = Pk|k-1*Hk(t)*Sk(inv)
-        if (!Matrix.matrixDestructiveInvert(Sk, SkInv)) return  // No inverse, can't continue
-        Matrix.matrixMultiply(auxSDxMD, SkInv, K)
+        SkInv = Sk.inverse()
+        K = auxSDxMD.dot(SkInv)
+//        if (!Matrix.matrixDestructiveInvert(Sk, SkInv)) return  // No inverse, can't continue
+//        Matrix.matrixMultiply(auxSDxMD, SkInv, K)
 
         //xk|k = xk|k-1 + Kk*Yk
-        Matrix.matrixMultiply(K, Yk, Xk_k)
-        Matrix.matrixAdd(Xk_km1, Xk_k, Xk_k)
+        Xk_k = Xk_km1.add(K.dot(Yk))
+//        Matrix.matrixMultiply(K, Yk, Xk_k)
+//        Matrix.matrixAdd(Xk_km1, Xk_k, Xk_k)
 
         //Pk|k = (I - Kk*Hk) * Pk|k-1 - SEE WIKI!!!
-        Matrix.matrixMultiply(K, H, auxSDxSD)
-        Matrix.matrixSubtractFromIdentity(auxSDxSD)
-        Matrix.matrixMultiply(auxSDxSD, Pk_km1, Pk_k)
+        auxSDxSD = K.dot(H)
+        auxSDxSD = identityMatrix(auxSDxSD.rows()).subtract(auxSDxSD)
+        Pk_k = auxSDxSD.dot(Pk_km1)
+//        Matrix.matrixMultiply(K, H, auxSDxSD)
+//        Matrix.matrixSubtractFromIdentity(auxSDxSD)
+//        Matrix.matrixMultiply(auxSDxSD, Pk_km1, Pk_k)
 
         //we don't use this :
         //Yk|k = Zk - Hk*Xk|k

@@ -98,31 +98,31 @@ class FusedGPS(
             referenceLocation = gps.location
             referenceProjection = AzimuthalEquidistantProjection(
                 referenceLocation,
-                scale = PROJECTION_SCALE.toFloat()
+                scale = PROJECTION_SCALE
             )
             val projectedLocation = getProjectedLocation()
             val projectedVelocity = getProjectedVelocity()
             kalman = FusedGPSFilter(
                 true,
-                projectedLocation.x.toDouble(),
-                projectedLocation.y.toDouble(),
-                projectedVelocity.x.toDouble(),
-                projectedVelocity.y.toDouble(),
+                projectedLocation.x,
+                projectedLocation.y,
+                projectedVelocity.x,
+                projectedVelocity.y,
                 ACCELERATION_DEVIATION * PROJECTION_SCALE,
-                (gps.horizontalAccuracy?.toDouble() ?: DEFAULT_POSITION_ACCURACY) * PROJECTION_SCALE
+                (gps.horizontalAccuracy ?: DEFAULT_POSITION_ACCURACY) * PROJECTION_SCALE
             )
         }
 
         val projectedLocation = getProjectedLocation()
         val projectedVelocity = getProjectedVelocity()
         kalman?.update(
-            projectedLocation.x.toDouble(),
-            projectedLocation.y.toDouble(),
-            projectedVelocity.x.toDouble(),
-            projectedVelocity.y.toDouble(),
-            (gps.horizontalAccuracy?.toDouble() ?: DEFAULT_POSITION_ACCURACY) * PROJECTION_SCALE,
+            projectedLocation.x,
+            projectedLocation.y,
+            projectedVelocity.x,
+            projectedVelocity.y,
+            (gps.horizontalAccuracy ?: DEFAULT_POSITION_ACCURACY) * PROJECTION_SCALE,
             // If the device isn't moving, increase the speed accuracy
-            (if (gps.speed.speed == 0f) NOT_MOVING_SPEED_ACCURACY_FACTOR else 1.0) * (gps.speedAccuracy?.toDouble()
+            (if (gps.speed.speed == 0f) NOT_MOVING_SPEED_ACCURACY_FACTOR else 1f) * (gps.speedAccuracy
                 ?: DEFAULT_SPEED_ACCURACY) * PROJECTION_SCALE
         )
 
@@ -162,18 +162,18 @@ class FusedGPS(
 
     private fun getKalmanSpeed(): Speed {
         val velocity = Vector2(
-            kalman?.currentXVelocity?.toFloat() ?: 0f,
-            kalman?.currentYVelocity?.toFloat() ?: 0f
+            kalman?.currentXVelocity ?: 0f,
+            kalman?.currentYVelocity ?: 0f
         )
         return Speed(
-            velocity.magnitude() / PROJECTION_SCALE.toFloat(),
+            velocity.magnitude() / PROJECTION_SCALE,
             DistanceUnits.Meters,
             TimeUnits.Seconds
         )
     }
 
     private fun getKalmanSpeedAccuracy(): Float {
-        return (kalman?.velocityError?.div(PROJECTION_SCALE)?.toFloat() ?: 0f)
+        return (kalman?.velocityError?.div(PROJECTION_SCALE) ?: 0f)
     }
 
     private fun updateCurrentFromKalman() {
@@ -191,8 +191,8 @@ class FusedGPS(
         if (!gps.hasValidReading || currentLocation == Coordinate.zero || kalman == null) return
 
         kalman?.predict(
-            (accelerometer?.rawAcceleration?.get(0)?.toDouble() ?: 0.0) * PROJECTION_SCALE,
-            (accelerometer?.rawAcceleration?.get(1)?.toDouble() ?: 0.0) * PROJECTION_SCALE,
+            (accelerometer?.rawAcceleration?.get(0) ?: 0f) * PROJECTION_SCALE,
+            (accelerometer?.rawAcceleration?.get(1) ?: 0f) * PROJECTION_SCALE,
         )
         lastPredictTime = Instant.now()
 
@@ -201,13 +201,13 @@ class FusedGPS(
     }
 
     companion object {
-        private const val PROJECTION_SCALE = 1.0
-        private const val NOT_MOVING_SPEED_ACCURACY_FACTOR = 0.5
-        private const val DEFAULT_SPEED_ACCURACY = 0.05
-        private const val DEFAULT_POSITION_ACCURACY = 30.0
+        private const val PROJECTION_SCALE = 1.0f
+        private const val NOT_MOVING_SPEED_ACCURACY_FACTOR = 0.5f
+        private const val DEFAULT_SPEED_ACCURACY = 0.05f
+        private const val DEFAULT_POSITION_ACCURACY = 30.0f
 
         // Process noise
-        private const val ACCELERATION_DEVIATION = 20.0
+        private const val ACCELERATION_DEVIATION = 20.0f
         private const val KALMAN_MIN_ACCURACY = 4f
     }
 
