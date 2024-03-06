@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.shared.sensors.gps
 import com.kylecorry.sol.math.algebra.add
 import com.kylecorry.sol.math.algebra.createMatrix
 import com.kylecorry.sol.math.algebra.dot
-import com.kylecorry.sol.math.algebra.identityMatrix
 import com.kylecorry.sol.math.algebra.inverse
 import com.kylecorry.sol.math.algebra.subtract
 import com.kylecorry.sol.math.algebra.transpose
@@ -80,7 +79,6 @@ internal class KalmanFilter(
 
         // Update the current state (the original library had this as an option)
         if (updateStateWithPrediction) {
-            println("State")
             Xk_k = Xk_km1.clone()
             Pk_k = Pk_km1.clone()
         }
