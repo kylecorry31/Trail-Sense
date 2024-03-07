@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.loading.AlertLoadingIndicator
@@ -20,7 +19,6 @@ import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Intents
-import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.list.ListView
@@ -28,7 +26,6 @@ import com.kylecorry.andromeda.qr.QR
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentScanTextBinding
 import com.kylecorry.trail_sense.databinding.ListItemQrResultBinding
-import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
@@ -36,11 +33,11 @@ import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteRepo
 import com.kylecorry.trail_sense.tools.qr.infrastructure.BeaconQREncoder
 import com.kylecorry.trail_sense.tools.qr.infrastructure.NoteQREncoder
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
@@ -55,6 +52,7 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
 
     private val haptics by lazy { HapticSubsystem.getInstance(requireContext()) }
     private val files by lazy { FileSubsystem.getInstance(requireContext()) }
+    private val scanLock = Any()
 
     private val pickMediaLoadingIndicator by lazy {
         AlertLoadingIndicator(
@@ -258,20 +256,22 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
     private fun onCameraUpdate(
         bitmap: Bitmap,
         isFromGallery: Boolean = false
-    ): Boolean {
+    ): Boolean = synchronized(scanLock) {
         if (!isBound) {
             bitmap.recycle()
             return true
         }
         var message: String? = null
-        tryOrNothing {
-            message = QR.decode(bitmap)
+        try {
+            message = QR.decode(bitmap, highAccuracy = isFromGallery)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
             bitmap.recycle()
         }
 
-
         if (message != null) {
-            onQRScanned(message!!)
+            onQRScanned(message)
         } else if (isFromGallery) {
             Alerts.toast(requireContext(), getString(R.string.no_qr_code_detected))
         }
@@ -336,7 +336,7 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
     }
 
     companion object {
-        const val mediaMaxWidth = 200
-        const val mediaMaxHeight = 200
+        const val mediaMaxWidth = 500
+        const val mediaMaxHeight = 500
     }
 }
