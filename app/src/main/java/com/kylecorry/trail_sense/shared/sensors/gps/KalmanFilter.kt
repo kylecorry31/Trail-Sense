@@ -7,65 +7,53 @@ import com.kylecorry.sol.math.algebra.inverse
 import com.kylecorry.sol.math.algebra.subtract
 import com.kylecorry.sol.math.algebra.transpose
 
-/**
- * MIT License
- *
- * Copyright (c) 2020 Mad Devs
- * Updated by Kyle Corry to convert to Kotlin and sol matrices in 2024
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
 internal class KalmanFilter(
-    stateDimension: Int,
-    measureDimension: Int,
-    controlDimension: Int,
+    stateSize: Int,
+    measurementSize: Int,
+    controlSize: Int,
     private val updateStateWithPrediction: Boolean = false
 ) {
     // State transition model
-    var F = createMatrix(stateDimension, stateDimension, 0f)
+    var F = createMatrix(stateSize, stateSize, 0f)
 
     // Observation model
-    var H = createMatrix(measureDimension, stateDimension, 0f)
+    var H = createMatrix(measurementSize, stateSize, 0f)
 
     // Control matrix
-    var B = createMatrix(stateDimension, controlDimension, 0f)
+    var B = createMatrix(stateSize, controlSize, 0f)
 
     // Process noise covariance
-    var Q = createMatrix(stateDimension, stateDimension, 0f)
+    var Q = createMatrix(stateSize, stateSize, 0f)
 
     // Observation noise covariance
-    var R = createMatrix(measureDimension, measureDimension, 0f)
+    var R = createMatrix(measurementSize, measurementSize, 0f)
 
     // Control vector
-    var Uk = createMatrix(controlDimension, 1, 0f)
+    var Uk = createMatrix(controlSize, 1, 0f)
 
     // Actual values (measured)
-    var Zk = createMatrix(measureDimension, 1, 0f)
+    var Zk = createMatrix(measurementSize, 1, 0f)
 
     // Predicted state estimate
-    var Xk_km1 = createMatrix(stateDimension, 1, 0f)
+    var Xk_km1 = createMatrix(stateSize, 1, 0f)
 
     // Predicted estimate covariance
-    var Pk_km1 = createMatrix(stateDimension, stateDimension, 0f)
+    var Pk_km1 = createMatrix(stateSize, stateSize, 0f)
 
     // Measurement innovation
-    var Yk = createMatrix(measureDimension, 1, 0f)
+    var Yk = createMatrix(measurementSize, 1, 0f)
 
     // Innovation covariance
-    var Sk = createMatrix(measureDimension, measureDimension, 0f)
+    var Sk = createMatrix(measurementSize, measurementSize, 0f)
 
     // Kalman gain (optimal)
-    var K = createMatrix(stateDimension, measureDimension, 0f)
+    var K = createMatrix(stateSize, measurementSize, 0f)
 
     // Updated (current) state
-    var Xk_k = createMatrix(stateDimension, 1, 0f)
+    var Xk_k = createMatrix(stateSize, 1, 0f)
 
     // Updated estimate covariance
-    var Pk_k = createMatrix(stateDimension, stateDimension, 0f)
+    var Pk_k = createMatrix(stateSize, stateSize, 0f)
 
     // Post fit residual - not used yet
 //    val Yk_k = createMatrix(measureDimension, 1, 0f)

@@ -123,7 +123,7 @@ internal class FusedGPSFilter(
 
     private fun rebuildBMatrix(dtPredict: Float) {
         val dt2 = 0.5f * dtPredict * dtPredict
-        kalmanFilter.B = createMatrix(4, 2) { _, _ -> 0f }
+        kalmanFilter.B = createMatrix(4, 2, 0f)
         kalmanFilter.B[0][0] = dt2
         kalmanFilter.B[1][1] = dt2
         kalmanFilter.B[2][0] = dtPredict
