@@ -2,22 +2,21 @@ package com.kylecorry.trail_sense.tools.qr.ui
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.loading.AlertLoadingIndicator
-import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.clipboard.Clipboard
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils
+import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.tryOrNothing
@@ -31,12 +30,15 @@ import com.kylecorry.trail_sense.databinding.ListItemQrResultBinding
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteRepo
 import com.kylecorry.trail_sense.tools.qr.infrastructure.BeaconQREncoder
 import com.kylecorry.trail_sense.tools.qr.infrastructure.NoteQREncoder
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
@@ -55,68 +57,45 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
     private val noteQREncoder = NoteQREncoder()
 
     private val haptics by lazy { HapticSubsystem.getInstance(requireContext()) }
+    private val files by lazy { FileSubsystem.getInstance(requireContext()) }
 
     private val pickMedialoader by lazy {
         AlertLoadingIndicator(
             requireContext(),
-            getString(R.string.importing_image)
+            getString(R.string.scanning_image)
         )
-    }
-
-    private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        uri?.let {
-            pickMedialoader.show()
-            val bitmap = BitmapFactory.decodeStream(context?.contentResolver?.openInputStream(uri))
-
-            bitmap?.let{ map ->
-                var compressedMap = map
-                if(bitmap.width > mediaMaxWidth || bitmap.height > mediaMaxHeight) {
-                    compressedMap = compressBitmapToMaxSize(
-                        bitmap = map,
-                        maxWidth = mediaMaxWidth,
-                        maxHeight = mediaMaxHeight
-                    )
-                }
-
-                onCameraUpdate(
-                    bitmap = compressedMap,
-                    isFromGallery = true
-                )
-            }
-            pickMedialoader.hide()
-        }
-    }
-
-    fun compressBitmapToMaxSize(bitmap: Bitmap, maxWidth: Int, maxHeight: Int): Bitmap {
-
-        val aspectRatio = bitmap.width.toFloat() / bitmap.height.toFloat()
-        if(aspectRatio == 1.00F){
-            return Bitmap.createScaledBitmap(bitmap, maxWidth, maxHeight, true)
-        }
-
-        val newWidth: Int
-        val newHeight: Int
-
-        if (bitmap.width > bitmap.height) {
-            newWidth = minOf(bitmap.width, maxWidth)
-            newHeight = (newWidth / aspectRatio).toInt()
-        } else {
-            newHeight = minOf(bitmap.height, maxHeight)
-            newWidth = (newHeight * aspectRatio).toInt()
-        }
-
-        return Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.gallery.setOnClickListener {
-            pickMedia.launch(
-                PickVisualMediaRequest(
-                    ActivityResultContracts.PickVisualMedia.ImageOnly
-                )
-            )
+            lifecycleScope.launch {
+                val pickMedia = FragmentUriPicker(this@ScanQRFragment).open(listOf("image/*"))
+
+                pickMedia?.let { uri ->
+                    pickMedialoader.show()
+
+                    var bitmap: Bitmap? = null
+                    val tempPathFile = onIO { files.copyToTemp(uri) }?.path
+
+                    tempPathFile?.let{ path ->
+                        bitmap = BitmapUtils.decodeBitmapScaled(
+                            path,
+                            mediaMaxWidth,
+                            mediaMaxHeight
+                        )
+                    }
+
+                    bitmap?.let{ map ->
+                        onCameraUpdate(
+                            bitmap = map,
+                            isFromGallery = true
+                        )
+                    }
+                    pickMedialoader.hide()
+                }
+            }
         }
 
         qrHistoryList =
@@ -288,9 +267,10 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
             bitmap.recycle()
         }
 
-        message?.let{
-            onQRScanned(it)
-        } ?: run {
+
+        if(message != null){
+            onQRScanned(message!!)
+        }else{
             if(isFromGallery) {
                 Alerts.toast(requireContext(), getString(R.string.no_qr_code_detected))
             }
