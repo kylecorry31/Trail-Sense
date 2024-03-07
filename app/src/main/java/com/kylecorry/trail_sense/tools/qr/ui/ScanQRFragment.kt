@@ -16,6 +16,7 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.loading.AlertLoadingIndicator
 import com.kylecorry.andromeda.clipboard.Clipboard
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils
+import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Intents
@@ -30,6 +31,7 @@ import com.kylecorry.trail_sense.databinding.ListItemQrResultBinding
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
+import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
@@ -43,11 +45,6 @@ import kotlinx.coroutines.withContext
 
 class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
 
-    companion object {
-        const val mediaMaxWidth = 2048
-        const val mediaMaxHeight = 2048
-    }
-
     private val cameraSize = Size(200, 200)
 
     private var history = mutableListOf<String>()
@@ -59,7 +56,7 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
     private val haptics by lazy { HapticSubsystem.getInstance(requireContext()) }
     private val files by lazy { FileSubsystem.getInstance(requireContext()) }
 
-    private val pickMedialoader by lazy {
+    private val pickMediaLoadingIndicator by lazy {
         AlertLoadingIndicator(
             requireContext(),
             getString(R.string.scanning_image)
@@ -70,32 +67,7 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.gallery.setOnClickListener {
-            lifecycleScope.launch {
-                val pickMedia = FragmentUriPicker(this@ScanQRFragment).open(listOf("image/*"))
-
-                pickMedia?.let { uri ->
-                    pickMedialoader.show()
-
-                    var bitmap: Bitmap? = null
-                    val tempPathFile = onIO { files.copyToTemp(uri) }?.path
-
-                    tempPathFile?.let{ path ->
-                        bitmap = BitmapUtils.decodeBitmapScaled(
-                            path,
-                            mediaMaxWidth,
-                            mediaMaxHeight
-                        )
-                    }
-
-                    bitmap?.let{ map ->
-                        onCameraUpdate(
-                            bitmap = map,
-                            isFromGallery = true
-                        )
-                    }
-                    pickMedialoader.hide()
-                }
-            }
+            scanFromGallery()
         }
 
         qrHistoryList =
@@ -152,6 +124,36 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
         binding.camera.clipToOutline = true
     }
 
+    private fun scanFromGallery() {
+        inBackground(BackgroundMinimumState.Created) {
+            val uri =
+                FragmentUriPicker(this@ScanQRFragment).open(listOf("image/*"))
+                    ?: return@inBackground
+
+            try {
+                pickMediaLoadingIndicator.show()
+
+                val path = onIO { files.copyToTemp(uri) }?.path ?: return@inBackground
+
+                val bitmap = onIO {
+                    BitmapUtils.decodeBitmapScaled(
+                        path,
+                        mediaMaxWidth,
+                        mediaMaxHeight
+                    )
+                } ?: return@inBackground
+
+                DeleteTempFilesCommand(requireContext()).execute()
+
+                onCameraUpdate(
+                    bitmap = bitmap,
+                    isFromGallery = true
+                )
+            } finally {
+                pickMediaLoadingIndicator.hide()
+            }
+        }
+    }
 
     private fun copy(text: String) {
         Clipboard.copy(requireContext(), text, getString(R.string.copied_to_clipboard_toast))
@@ -185,7 +187,7 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
 
     private fun openUrl(text: String) {
         val protocols = listOf("http", "https", "rtsp", "ftp")
-        val url = if (protocols.none { text.lowercase().startsWith(it) }){
+        val url = if (protocols.none { text.lowercase().startsWith(it) }) {
             // Default to HTTPS
             "https://$text"
         } else {
@@ -236,7 +238,7 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
         super.onResume()
         updateHistoryList()
         requestCamera { hasPermission ->
-            if (hasPermission){
+            if (hasPermission) {
                 startCamera()
             } else {
                 alertNoCameraPermission()
@@ -268,12 +270,10 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
         }
 
 
-        if(message != null){
+        if (message != null) {
             onQRScanned(message!!)
-        }else{
-            if(isFromGallery) {
-                Alerts.toast(requireContext(), getString(R.string.no_qr_code_detected))
-            }
+        } else if (isFromGallery) {
+            Alerts.toast(requireContext(), getString(R.string.no_qr_code_detected))
         }
 
         return true
@@ -335,5 +335,8 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
         Geo
     }
 
-
+    companion object {
+        const val mediaMaxWidth = 200
+        const val mediaMaxHeight = 200
+    }
 }
