@@ -20,6 +20,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/gallery"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="@string/select_from_gallery"
+        android:layout_marginTop="@dimen/default_top_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/camera" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/qr_history"
         android:layout_width="0dp"
@@ -28,8 +38,7 @@
         android:paddingTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/camera" />
+        app:layout_constraintTop_toBottomOf="@id/gallery" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

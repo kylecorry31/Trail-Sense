@@ -647,6 +647,7 @@
     <string name="map_auto_rotated">Map rotation adjusted with calibration</string>
     <string name="pref_backtrack_interval" translatable="false">pref_backtrack_interval</string>
     <string name="importing_map">Importing map</string>
+    <string name="scanning_image">Scanning image</string>
     <string name="error_importing_map">Error importing map</string>
     <string name="import_gpx">Import GPX</string>
     <string name="sleep_timer">Sleep timer</string>
@@ -824,6 +825,7 @@
     <string name="elevation_history">Elevation history</string>
     <string name="qr_code">QR Code</string>
     <string name="beacon_qr_import_instructions">Scan a QR code to import</string>
+    <string name="no_qr_code_detected">No QR code detected</string>
     <string name="last_duration">Last %s</string>
     <string name="elevation_history_length">Elevation history length</string>
     <string name="gps_signal_lost">GPS signal lost</string>
@@ -1368,4 +1370,5 @@
         <item quantity="one">%d path imported</item>
         <item quantity="other">%d paths imported</item>
     </plurals>
+    <string name="select_from_gallery">Select from Gallery</string>
 </resources>
