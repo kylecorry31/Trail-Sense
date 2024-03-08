@@ -22,6 +22,7 @@ import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.sense.Sensors
+import com.kylecorry.luna.cache.Hooks
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.math.Euler
 import com.kylecorry.sol.math.Quaternion
@@ -29,13 +30,11 @@ import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Bearing
-import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
-import com.kylecorry.trail_sense.shared.data.SimpleCachedValue
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.text
@@ -98,9 +97,7 @@ class AugmentedRealityView : CanvasView {
     private var toTrueNorth = Quaternion.zero
 
     // Cache for strings
-    private val cachedDirectionString = SimpleCachedValue<String>()
-    private val cachedBearingString = SimpleCachedValue<String>()
-    private val cachedInclinationString = SimpleCachedValue<String>()
+    private val hooks = Hooks()
 
     /**
      * The compass bearing of the device in degrees.
@@ -287,13 +284,13 @@ class AugmentedRealityView : CanvasView {
 
     private fun drawPosition() {
         val bearing = Bearing(azimuth)
-        val azimuthText = cachedBearingString.getOrPut(bearing.value.roundToInt()){
+        val azimuthText = hooks.memo("azimuth_text", bearing.value.roundToInt()) {
             formatter.formatDegrees(bearing.value, replace360 = true).padStart(4, ' ')
         }
-        val directionText = cachedDirectionString.getOrPut(bearing.direction) {
+        val directionText = hooks.memo("direction_text", bearing.direction) {
             formatter.formatDirection(bearing.direction).padStart(2, ' ')
         }
-        val altitudeText = cachedInclinationString.getOrPut(inclination.roundToInt()) {
+        val altitudeText = hooks.memo("altitude_text", inclination.roundToInt()) {
             formatter.formatDegrees(inclination)
         }
 

@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.augmented_reality.ui.layers
 
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.luna.cache.Hooks
 import com.kylecorry.sol.math.SolMath.square
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Rectangle
@@ -10,7 +11,6 @@ import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.canvas.LineClipper
 import com.kylecorry.trail_sense.shared.canvas.LineInterpolator
-import com.kylecorry.trail_sense.shared.data.Effects
 import com.kylecorry.trail_sense.shared.extensions.isSamePixel
 import com.kylecorry.trail_sense.shared.extensions.squaredDistanceTo
 import com.kylecorry.trail_sense.shared.forEachLine
@@ -65,13 +65,13 @@ class ARPathLayer(
 
     private var paths: List<IMappablePath> = listOf()
 
-    private val effects = Effects()
+    private val hooks = Hooks()
 
     override suspend fun update(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         lastElevation = view.altitude
         lastLocationAccuracySquared = view.locationAccuracy?.let { square(it) }
 
-        effects.run(
+        hooks.effect(
             "projection",
             view.location
         ) {
@@ -82,7 +82,7 @@ class ARPathLayer(
             )
         }
 
-        effects.run(
+        hooks.effect(
             "paths",
             view.location,
             if (adjustForPathElevation) view.altitude else null,

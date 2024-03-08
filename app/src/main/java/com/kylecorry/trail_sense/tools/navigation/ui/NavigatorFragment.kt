@@ -71,7 +71,6 @@ import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onMain
-import com.kylecorry.trail_sense.shared.data.Effects
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -184,8 +183,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     // State
     private val compassStatusState = TrackedState<StatusBadge?>(null)
     private val gpsStatusState = TrackedState<StatusBadge?>(null)
-    private val effects = Effects()
-
 
     private val northReferenceHideTimer = CoroutineTimer {
         if (isBound) {
@@ -649,24 +646,24 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         // Speed
-        effects.run("speed", speedometer.speed.speed) {
+        effect("speed", speedometer.speed.speed) {
             binding.speed.title = formatService.formatSpeed(speedometer.speed.speed)
         }
 
         // Azimuth
-        effects.run("azimuth", compass.rawBearing) {
+        effect("azimuth", compass.rawBearing) {
             updateCompassBearing()
         }
 
         // Altitude
-        effects.run("altitude", altimeter.altitude) {
+        effect("altitude", altimeter.altitude) {
             binding.altitude.title = formatService.formatDistance(
                 Distance.meters(altimeter.altitude).convertTo(baseDistanceUnits)
             )
         }
 
         // Location
-        effects.run("location", gps.location) {
+        effect("location", gps.location) {
             updateLocation()
         }
 
@@ -689,7 +686,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         // Azimuth
         if (hasCompass) {
-            effects.run("azimuth_title", bearing.value.roundToInt()) {
+            effect("azimuth_title", bearing.value.roundToInt()) {
                 val azimuthText =
                     formatService.formatDegrees(bearing.value, replace360 = true)
                         .padStart(4, ' ')
