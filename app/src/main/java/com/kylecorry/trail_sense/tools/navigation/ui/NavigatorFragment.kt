@@ -71,6 +71,7 @@ import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onMain
+import com.kylecorry.trail_sense.shared.data.Effects
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -85,6 +86,7 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.TideLayerManag
 import com.kylecorry.trail_sense.tools.tools.ui.Tools
 import java.time.Duration
 import java.time.Instant
+import kotlin.math.roundToInt
 
 
 class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
@@ -180,12 +182,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
 
     // State
-    private val bearingState = TrackedState(0f)
-    private val speedState = TrackedState(0f)
-    private val altitudeState = TrackedState(0f)
-    private val locationState = TrackedState(Coordinate.zero)
     private val compassStatusState = TrackedState<StatusBadge?>(null)
     private val gpsStatusState = TrackedState<StatusBadge?>(null)
+    private val effects = Effects()
 
 
     private val northReferenceHideTimer = CoroutineTimer {
@@ -300,11 +299,11 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         navController = findNavController()
 
-        observe(compass) { bearingState.write(compass.rawBearing) }
+        observe(compass) { }
         observe(orientation) { onOrientationUpdate() }
-        observe(altimeter) { altitudeState.write(altimeter.altitude) }
-        observe(gps) { locationState.write(gps.location) }
-        observe(speedometer) { speedState.write(speedometer.speed.speed) }
+        observe(altimeter) { }
+        observe(gps) { }
+        observe(speedometer) { }
 
         binding.navigationTitle.subtitle.setOnLongClickListener {
             Share.shareLocation(
@@ -507,7 +506,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         // Populate the last known location
-        locationState.write(gps.location)
         layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
 
         // Resume navigation
@@ -651,24 +649,24 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         // Speed
-        if (speedState.hasChanges) {
-            binding.speed.title = formatService.formatSpeed(speedState.read())
+        effects.run("speed", speedometer.speed.speed) {
+            binding.speed.title = formatService.formatSpeed(speedometer.speed.speed)
         }
 
         // Azimuth
-        if (bearingState.hasChanges) {
+        effects.run("azimuth", compass.rawBearing) {
             updateCompassBearing()
         }
 
         // Altitude
-        if (altitudeState.hasChanges) {
+        effects.run("altitude", altimeter.altitude) {
             binding.altitude.title = formatService.formatDistance(
-                Distance.meters(altitudeState.read()).convertTo(baseDistanceUnits)
+                Distance.meters(altimeter.altitude).convertTo(baseDistanceUnits)
             )
         }
 
         // Location
-        if (locationState.hasChanges) {
+        effects.run("location", gps.location) {
             updateLocation()
         }
 
@@ -687,16 +685,18 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun updateCompassBearing() {
-        val bearing = Bearing(bearingState.read())
+        val bearing = compass.bearing
 
         // Azimuth
         if (hasCompass) {
-            val azimuthText =
-                formatService.formatDegrees(bearing.value, replace360 = true)
-                    .padStart(4, ' ')
-            val directionText = formatService.formatDirection(bearing.direction)
-                .padStart(2, ' ')
-            binding.navigationTitle.title.setTextDistinct("$azimuthText   $directionText")
+            effects.run("azimuth_title", bearing.value.roundToInt()) {
+                val azimuthText =
+                    formatService.formatDegrees(bearing.value, replace360 = true)
+                        .padStart(4, ' ')
+                val directionText = formatService.formatDirection(bearing.direction)
+                    .padStart(2, ' ')
+                binding.navigationTitle.title.setTextDistinct("$azimuthText   $directionText")
+            }
         }
 
         layerManager?.onBearingChanged(bearing.value)
@@ -713,7 +713,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun updateLocation() {
-        val location = locationState.read()
+        val location = gps.location
 
         binding.navigationTitle.subtitle.setTextDistinct(
             formatService.formatLocation(location)

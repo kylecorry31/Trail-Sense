@@ -11,7 +11,6 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.canvas.LineClipper
 import com.kylecorry.trail_sense.shared.canvas.LineInterpolator
 import com.kylecorry.trail_sense.shared.data.Effects
-import com.kylecorry.trail_sense.shared.data.StateEffect
 import com.kylecorry.trail_sense.shared.extensions.isSamePixel
 import com.kylecorry.trail_sense.shared.extensions.squaredDistanceTo
 import com.kylecorry.trail_sense.shared.forEachLine
