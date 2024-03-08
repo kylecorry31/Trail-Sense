@@ -10,6 +10,7 @@ import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.canvas.LineClipper
 import com.kylecorry.trail_sense.shared.canvas.LineInterpolator
+import com.kylecorry.trail_sense.shared.data.StateEffect
 import com.kylecorry.trail_sense.shared.extensions.isSamePixel
 import com.kylecorry.trail_sense.shared.extensions.squaredDistanceTo
 import com.kylecorry.trail_sense.shared.forEachLine
@@ -39,7 +40,6 @@ class ARPathLayer(
     private val lineLayer = ARLineLayer(renderWithPaths = false)
     private val markerLayer = ARMarkerLayer(1f, 32f, false)
     private var lastElevation: Float? = null
-    private var lastLocation: Coordinate? = null
     private var lastLocationAccuracySquared: Float? = null
 
     private val squareViewDistance = square(viewDistanceMeters)
@@ -64,18 +64,19 @@ class ARPathLayer(
     private var projection: IMapProjection? = null
 
     private var paths: List<IMappablePath> = listOf()
-    private var hasPathChanges = false
+
+    private val pathUpdateEffect = StateEffect()
 
     override suspend fun update(drawer: ICanvasDrawer, view: AugmentedRealityView) {
-        val altitudeChanged = lastElevation != view.altitude
-        val locationChanged = lastLocation != view.location
         lastElevation = view.altitude
-        lastLocation = view.location
         lastLocationAccuracySquared = view.locationAccuracy?.let { square(it) }
 
-
-        if (hasPathChanges || (altitudeChanged && adjustForPathElevation) || locationChanged) {
-            hasPathChanges = false
+        pathUpdateEffect.runIfChanged(
+            view.location,
+            if (adjustForPathElevation) view.altitude else null,
+            view.locationAccuracy,
+            paths
+        ) {
             projection = AzimuthalEquidistantProjection(
                 view.location,
                 Vector2(center.x, center.y),
@@ -115,7 +116,6 @@ class ARPathLayer(
 
     override fun setPaths(paths: List<IMappablePath>) {
         this.paths = paths
-        hasPathChanges = true
 
         // Update the paths if we don't update every cycle (snapping may become out of date)
         if (!updateEveryCycle) {
