@@ -130,7 +130,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                 )
             )
         )
-        pathLayerManager?.onLocationChanged(binding.arView.location, null)
     }
 
     // Calibration

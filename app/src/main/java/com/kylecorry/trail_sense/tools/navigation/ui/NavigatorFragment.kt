@@ -842,18 +842,15 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
     }
 
-    private var currentNavButtonResource = 0
-
     private fun updateNavigationButton() {
-        val resource = if (destination != null) {
-            R.drawable.ic_cancel
-        } else {
-            R.drawable.ic_beacon
-        }
+        effect("navigation_button", destination) {
+            val resource = if (destination != null) {
+                R.drawable.ic_cancel
+            } else {
+                R.drawable.ic_beacon
+            }
 
-        if (resource != currentNavButtonResource) {
             binding.beaconBtn.setImageResource(resource)
-            currentNavButtonResource = resource
         }
     }
 

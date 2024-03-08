@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.maps.infrastructure.layers
 
 import android.content.Context
+import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
@@ -8,10 +9,8 @@ import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.infrastructure.PathLoader
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
-import com.kylecorry.trail_sense.tools.paths.ui.asMappable
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.PathLayer
-import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.trail_sense.tools.paths.ui.IPathLayer
+import com.kylecorry.trail_sense.tools.paths.ui.asMappable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -26,10 +25,8 @@ class PathLayerManager(private val context: Context, private val layer: IPathLay
     private val scope = CoroutineScope(Dispatchers.Default)
     private val loadRunner = CoroutineQueueRunner(2, scope)
     private val listenerRunner = CoroutineQueueRunner(scope = scope)
-    private var loaded = false
 
     override fun start() {
-        loaded = false
         scope.launch {
             listenerRunner.skipIfRunning {
                 pathService.getPaths().collect {
@@ -52,7 +49,7 @@ class PathLayerManager(private val context: Context, private val layer: IPathLay
         super.onBoundsChanged(bounds)
         scope.launch {
             loadRunner.replace {
-                loadPaths(true)
+                loadPaths(false)
             }
         }
     }
@@ -67,11 +64,8 @@ class PathLayerManager(private val context: Context, private val layer: IPathLay
     }
 
     private suspend fun loadPaths(reload: Boolean) = onDefault {
-        if (reload || !loaded) {
-            val bounds = bounds ?: return@onDefault
-            // TODO: Make unload bounds larger than load bounds
-            pathLoader.update(paths, bounds, bounds, true)
-            loaded = true
+        bounds?.let {
+            pathLoader.update(paths, it, it, reload)
         }
 
         val points = pathLoader.getPointsWithBacktrack(context)
