@@ -4,18 +4,16 @@ import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.luna.cache.Hooks
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
-import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.astronomy.Astronomy
-import com.kylecorry.sol.science.astronomy.RiseSetTransitTimes
-import com.kylecorry.sol.science.astronomy.SunTimesMode
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
 import com.kylecorry.sol.time.Time
-import com.kylecorry.sol.time.Time.atEndOfDay
-import com.kylecorry.sol.time.Time.atStartOfDay
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.tools.navigation.ui.DrawerBitmapLoader
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.data.HookTriggers
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.tools.astronomy.ui.MoonPhaseImageMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.SphericalARPoint
@@ -55,32 +53,33 @@ class ARAstronomyLayer(
 
     private var bitmapLoader: DrawerBitmapLoader? = null
 
-    private var lastUpdateTime = 0L
-    private var lastUpdateLocation = Coordinate.zero
+    private val hooks = Hooks()
+    private val triggers = HookTriggers()
 
-    private val updateFrequency = Duration.ofMinutes(1).toMillis()
-    private val updateDistance = 1000f
+    private val updateFrequency = Duration.ofMinutes(1)
+    private val updateDistance = Distance.meters(1000f)
 
     var timeOverride: ZonedDateTime? = null
-        set(value) {
-            field = value
-            lastUpdateTime = 0L
-        }
 
     override suspend fun update(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         val location = view.location
-        val time = System.currentTimeMillis()
 
-        if (location.distanceTo(lastUpdateLocation) > updateDistance || time - lastUpdateTime > updateFrequency) {
-            lastUpdateTime = time
-            lastUpdateLocation = location
+        hooks.effect(
+            "positions",
+            timeOverride,
+            triggers.time("positions", updateFrequency),
+            triggers.location("positions", location, updateDistance)
+        ) {
             updatePositions(drawer, location, timeOverride ?: ZonedDateTime.now())
         }
 
         if (drawLines) {
             lineLayer.update(drawer, view)
         }
-        sunLayer.update(drawer, view)
+        sunLayer.update(
+            drawer,
+            view
+        )
         moonLayer.update(drawer, view)
         currentSunLayer.update(drawer, view)
         currentMoonLayer.update(drawer, view)
