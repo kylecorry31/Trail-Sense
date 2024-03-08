@@ -39,6 +39,7 @@ class ARPathLayer(
     private val lineLayer = ARLineLayer(renderWithPaths = false)
     private val markerLayer = ARMarkerLayer(1f, 32f, false)
     private var lastElevation: Float? = null
+    private var lastLocation: Coordinate? = null
     private var lastLocationAccuracySquared: Float? = null
 
     private val squareViewDistance = square(viewDistanceMeters)
@@ -63,18 +64,27 @@ class ARPathLayer(
     private var projection: IMapProjection? = null
 
     private var paths: List<IMappablePath> = listOf()
+    private var hasPathChanges = false
 
     override suspend fun update(drawer: ICanvasDrawer, view: AugmentedRealityView) {
+        val altitudeChanged = lastElevation != view.altitude
+        val locationChanged = lastLocation != view.location
         lastElevation = view.altitude
-        projection = AzimuthalEquidistantProjection(
-            view.location,
-            Vector2(center.x, center.y),
-            isYFlipped = true
-        )
+        lastLocation = view.location
         lastLocationAccuracySquared = view.locationAccuracy?.let { square(it) }
 
-        if (updateEveryCycle) {
-            updatePaths()
+
+        if (hasPathChanges || (altitudeChanged && adjustForPathElevation) || locationChanged) {
+            hasPathChanges = false
+            projection = AzimuthalEquidistantProjection(
+                view.location,
+                Vector2(center.x, center.y),
+                isYFlipped = true
+            )
+
+            if (updateEveryCycle) {
+                updatePaths()
+            }
         }
 
         lineLayer.update(drawer, view)
@@ -105,6 +115,7 @@ class ARPathLayer(
 
     override fun setPaths(paths: List<IMappablePath>) {
         this.paths = paths
+        hasPathChanges = true
 
         // Update the paths if we don't update every cycle (snapping may become out of date)
         if (!updateEveryCycle) {
