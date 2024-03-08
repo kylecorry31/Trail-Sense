@@ -106,6 +106,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         ARPathLayer(
             userPrefs.augmentedReality.pathViewDistance,
             adjustForPathElevation = userPrefs.augmentedReality.adjustForPathElevation,
+            updateEveryCycle = true,
             this::onPathFocused
         )
     }

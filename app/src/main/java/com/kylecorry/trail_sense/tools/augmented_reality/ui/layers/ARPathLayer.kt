@@ -2,15 +2,11 @@ package com.kylecorry.trail_sense.tools.augmented_reality.ui.layers
 
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.square
-import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.Vector2
-import com.kylecorry.sol.math.analysis.Trigonometry
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geography.projections.AzimuthalEquidistantProjection
 import com.kylecorry.sol.science.geography.projections.IMapProjection
-import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.canvas.LineClipper
 import com.kylecorry.trail_sense.shared.canvas.LineInterpolator
@@ -23,15 +19,20 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARLine
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMarker
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasCircle
-import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.tools.paths.ui.IPathLayer
-import kotlin.math.atan2
-import kotlin.math.sqrt
 
+/**
+ * An augmented reality layer that displays paths
+ * @param viewDistanceMeters the maximum distance to display paths
+ * @param adjustForPathElevation true if the layer should adjust for path elevation, otherwise paths will be 2 meters below the camera
+ * @param updateEveryCycle true if the layer should update every cycle, otherwise the layer will only update when the paths change (snapping and clipping may become out of date if this is false)
+ * @param onFocus the callback to call when a path is focused, return true if focus is claimed
+ */
 class ARPathLayer(
     viewDistanceMeters: Float,
     private val adjustForPathElevation: Boolean,
+    private val updateEveryCycle: Boolean = true,
     private val onFocus: (path: IMappablePath) -> Boolean = { false },
 ) : ARLayer, IPathLayer {
 
@@ -61,6 +62,8 @@ class ARPathLayer(
 
     private var projection: IMapProjection? = null
 
+    private var paths: List<IMappablePath> = listOf()
+
     override suspend fun update(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         lastElevation = view.altitude
         projection = AzimuthalEquidistantProjection(
@@ -69,6 +72,11 @@ class ARPathLayer(
             isYFlipped = true
         )
         lastLocationAccuracySquared = view.locationAccuracy?.let { square(it) }
+
+        if (updateEveryCycle) {
+            updatePaths()
+        }
+
         lineLayer.update(drawer, view)
         markerLayer.update(drawer, view)
     }
@@ -96,6 +104,16 @@ class ARPathLayer(
     }
 
     override fun setPaths(paths: List<IMappablePath>) {
+        this.paths = paths
+
+        // Update the paths if we don't update every cycle (snapping may become out of date)
+        if (!updateEveryCycle) {
+            updatePaths()
+        }
+    }
+
+    private fun updatePaths() {
+        val paths = paths
         val elevation = lastElevation
 
         val points = paths.map {
@@ -106,7 +124,7 @@ class ARPathLayer(
         val nearest = nearestPoints.minByOrNull { it.point.squaredDistanceTo(center) }
         if (nearest != null) {
             // Add it to the path
-            if (nearest.previousIndex != null && nearest.nextIndex != null){
+            if (nearest.previousIndex != null && nearest.nextIndex != null) {
                 nearest.addToPath()
             }
 
@@ -148,27 +166,6 @@ class ARPathLayer(
 
         markerLayer.setMarkers(markers)
         lineLayer.setLines(lines.map { it.second })
-    }
-
-    private class NearestPoint(
-        val point: PixelCoordinate,
-        val elevation: Float,
-        val path: Pair<MutableList<Float>, MutableList<Float>>,
-        val previousIndex: Int?,
-        val nextIndex: Int?
-    ){
-        fun addToPath(){
-            if (previousIndex == null || nextIndex == null){
-                return
-            }
-
-            path.first.add(previousIndex * 2 + 2, point.x)
-            path.first.add(previousIndex * 2 + 3, point.y)
-            path.first.add(previousIndex * 2 + 4, point.x)
-            path.first.add(previousIndex * 2 + 5, point.y)
-            path.second.add(previousIndex + 1, elevation)
-            path.second.add(previousIndex + 2, elevation)
-        }
     }
 
     private fun getNearestPoint(points: Pair<MutableList<Float>, MutableList<Float>>): NearestPoint? {
@@ -365,5 +362,26 @@ class ARPathLayer(
             isElevationRelative = true,
             actualDiameter = 0.25f
         )
+    }
+
+    private class NearestPoint(
+        val point: PixelCoordinate,
+        val elevation: Float,
+        val path: Pair<MutableList<Float>, MutableList<Float>>,
+        val previousIndex: Int?,
+        val nextIndex: Int?
+    ) {
+        fun addToPath() {
+            if (previousIndex == null || nextIndex == null) {
+                return
+            }
+
+            path.first.add(previousIndex * 2 + 2, point.x)
+            path.first.add(previousIndex * 2 + 3, point.y)
+            path.first.add(previousIndex * 2 + 4, point.x)
+            path.first.add(previousIndex * 2 + 5, point.y)
+            path.second.add(previousIndex + 1, elevation)
+            path.second.add(previousIndex + 2, elevation)
+        }
     }
 }
