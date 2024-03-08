@@ -73,18 +73,23 @@ class ARPathLayer(
         lastLocationAccuracySquared = view.locationAccuracy?.let { square(it) }
 
         effects.run(
-            "ar_path_layer",
-            view.location,
-            if (adjustForPathElevation) view.altitude else null,
-            view.locationAccuracy,
-            paths
+            "projection",
+            view.location
         ) {
             projection = AzimuthalEquidistantProjection(
                 view.location,
                 Vector2(center.x, center.y),
                 isYFlipped = true
             )
+        }
 
+        effects.run(
+            "paths",
+            view.location,
+            if (adjustForPathElevation) view.altitude else null,
+            view.locationAccuracy,
+            paths
+        ) {
             if (updateEveryCycle) {
                 updatePaths()
             }
