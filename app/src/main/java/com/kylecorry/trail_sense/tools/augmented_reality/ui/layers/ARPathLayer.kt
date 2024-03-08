@@ -10,6 +10,7 @@ import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.canvas.LineClipper
 import com.kylecorry.trail_sense.shared.canvas.LineInterpolator
+import com.kylecorry.trail_sense.shared.data.Effects
 import com.kylecorry.trail_sense.shared.data.StateEffect
 import com.kylecorry.trail_sense.shared.extensions.isSamePixel
 import com.kylecorry.trail_sense.shared.extensions.squaredDistanceTo
@@ -65,13 +66,14 @@ class ARPathLayer(
 
     private var paths: List<IMappablePath> = listOf()
 
-    private val pathUpdateEffect = StateEffect()
+    private val effects = Effects()
 
     override suspend fun update(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         lastElevation = view.altitude
         lastLocationAccuracySquared = view.locationAccuracy?.let { square(it) }
 
-        pathUpdateEffect.runIfChanged(
+        effects.run(
+            "ar_path_layer",
             view.location,
             if (adjustForPathElevation) view.altitude else null,
             view.locationAccuracy,

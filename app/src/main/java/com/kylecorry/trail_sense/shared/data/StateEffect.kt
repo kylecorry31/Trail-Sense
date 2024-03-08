@@ -13,7 +13,7 @@ class StateEffect {
      * @param values the values to check for changes (uses hash code)
      * @param action the action to run if the values have changed
      */
-    fun runIfChanged(vararg values: Any?, action: () -> Unit) = synchronized(lock) {
+    fun runIfChanged(vararg values: Any?, action: () -> Unit): Unit = synchronized(lock) {
         val hash = HashUtils.hash(*values)
         if (cachedHash == null || cachedHash != hash) {
             action()
