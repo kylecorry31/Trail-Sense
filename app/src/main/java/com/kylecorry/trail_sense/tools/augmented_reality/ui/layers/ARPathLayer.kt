@@ -103,15 +103,21 @@ class ARPathLayer(
         }
 
         val nearestPoints = points.mapNotNull { getNearestPoint(it.second) }
-        val nearest = nearestPoints.minByOrNull { it.first.squaredDistanceTo(center) }
+        val nearest = nearestPoints.minByOrNull { it.point.squaredDistanceTo(center) }
         if (nearest != null) {
+            // Add it to the path
+            if (nearest.previousIndex != null && nearest.nextIndex != null){
+                nearest.addToPath()
+            }
+
+
             points.forEach {
-                recenterPoints(it.second.first, nearest.first, center)
+                recenterPoints(it.second.first, nearest.point, center)
             }
 
             // Set the elevation to the nearest point
             if (adjustForPathElevation) {
-                val elevationDelta = elevation?.minus(nearest.second) ?: 0f
+                val elevationDelta = elevation?.minus(nearest.elevation) ?: 0f
                 points.forEach {
                     it.second.second.forEachIndexed { index, _ ->
                         it.second.second[index] = it.second.second[index] + elevationDelta
@@ -144,8 +150,30 @@ class ARPathLayer(
         lineLayer.setLines(lines.map { it.second })
     }
 
-    private fun getNearestPoint(points: Pair<List<Float>, List<Float>>): Pair<PixelCoordinate, Float>? {
+    private class NearestPoint(
+        val point: PixelCoordinate,
+        val elevation: Float,
+        val path: Pair<MutableList<Float>, MutableList<Float>>,
+        val previousIndex: Int?,
+        val nextIndex: Int?
+    ){
+        fun addToPath(){
+            if (previousIndex == null || nextIndex == null){
+                return
+            }
+
+            path.first.add(previousIndex * 2 + 2, point.x)
+            path.first.add(previousIndex * 2 + 3, point.y)
+            path.first.add(previousIndex * 2 + 4, point.x)
+            path.first.add(previousIndex * 2 + 5, point.y)
+            path.second.add(previousIndex + 1, elevation)
+            path.second.add(previousIndex + 2, elevation)
+        }
+    }
+
+    private fun getNearestPoint(points: Pair<MutableList<Float>, MutableList<Float>>): NearestPoint? {
         var minPoint: PixelCoordinate? = null
+        var minPointIndex: Int? = null
         var minDistance =
             lastLocationAccuracySquared?.coerceAtLeast(snapDistanceSquared) ?: snapDistanceSquared
         var minPointElevation: Float? = null
@@ -161,12 +189,19 @@ class ARPathLayer(
                 minDistance = distance
                 minPoint = projected.first
                 minPointElevation = projected.second
+                minPointIndex = i
             }
 
             i += 2
         }
 
-        return (minPoint ?: return null) to (minPointElevation ?: return null)
+        return NearestPoint(
+            minPoint ?: return null,
+            minPointElevation ?: return null,
+            points,
+            minPointIndex,
+            minPointIndex?.let { it + 1 }
+        )
     }
 
     private fun project(
