@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.sensors.providers
 import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorManager
+import android.util.Range
 import android.view.Surface
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.accelerometer.Accelerometer
@@ -165,11 +166,16 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
     }
 
     private fun getCustomRotationSensor(sensorDelay: Int): CustomRotationSensor {
+        // This rotation sensor can use the raw magnetometer and accelerometer without the need for a filter
         val magnetometer = Magnetometer(context, sensorDelay)
         val accelerometer = Accelerometer(context, sensorDelay)
         val gyro = Gyroscope(context, sensorDelay)
 
-        return CustomRotationSensor(magnetometer, accelerometer, gyro)
+        return CustomRotationSensor(
+            magnetometer, accelerometer, gyro,
+            validMagnetometerMagnitudes = Range(20f, 65f),
+            validAccelerometerMagnitudes = Range(4f, 20f)
+        )
     }
 
     companion object {
