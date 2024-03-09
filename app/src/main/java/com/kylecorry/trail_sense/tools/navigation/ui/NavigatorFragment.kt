@@ -584,18 +584,19 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             return
         }
 
-        // TODO: Move selected beacon updating to a coroutine
-        val selectedBeacon = getSelectedBeacon(nearbyBeacons)
-
-        if (selectedBeacon != null) {
-            binding.navigationSheet.show(
-                getPosition(),
-                selectedBeacon,
-                declination,
-                useTrueNorth
-            )
-        } else {
-            binding.navigationSheet.hide()
+        // TODO: Move selected beacon updating to a coroutine / timer
+        effect("selected_beacon", destination, compass.rawBearing.safeRoundToInt()) {
+            val selectedBeacon = getSelectedBeacon(nearbyBeacons)
+            if (selectedBeacon != null) {
+                binding.navigationSheet.show(
+                    getPosition(),
+                    selectedBeacon,
+                    declination,
+                    useTrueNorth
+                )
+            } else {
+                binding.navigationSheet.hide()
+            }
         }
 
         effect("gps_status", gpsStatusBadge) {
