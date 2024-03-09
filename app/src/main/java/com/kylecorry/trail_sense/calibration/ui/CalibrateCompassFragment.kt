@@ -105,6 +105,7 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
         val names = mapOf(
             CompassSource.RotationVector to getString(R.string.compass_source_mag_gyro),
             CompassSource.GeomagneticRotationVector to getString(R.string.magnetometer),
+            CompassSource.CustomRotationVector to getString(R.string.magnetometer_gyro_custom),
             CompassSource.CustomMagnetometer to getString(R.string.compass_source_legacy_ts),
             CompassSource.Orientation to getString(R.string.compass_source_legacy_android)
         ).filter { availableSources.contains(it.key) }

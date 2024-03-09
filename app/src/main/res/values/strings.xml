@@ -1371,4 +1371,5 @@
         <item quantity="other">%d paths imported</item>
     </plurals>
     <string name="select_from_gallery">Select from Gallery</string>
+    <string name="magnetometer_gyro_custom">Magnetometer + Gyro (Custom)</string>
 </resources>

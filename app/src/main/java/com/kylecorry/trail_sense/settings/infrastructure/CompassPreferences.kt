@@ -33,7 +33,7 @@ class CompassPreferences(context: Context) : PreferenceRepo(context), ICompassPr
     override var source by StringEnumPreference(
         cache,
         context.getString(R.string.pref_compass_source),
-        CompassSource.values().associateBy { it.id },
+        CompassSource.entries.associateBy { it.id },
         CompassSource.RotationVector
     )
 }
