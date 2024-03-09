@@ -500,7 +500,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         // Populate the last known location
-        layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
+        updateLocation()
 
         // Resume navigation
         inBackground {
