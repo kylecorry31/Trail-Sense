@@ -177,8 +177,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
 
     // State
-    private val compassStatusState = TrackedState<StatusBadge?>(null)
-    private val gpsStatusState = TrackedState<StatusBadge?>(null)
+    private var compassStatusBadge: StatusBadge? = null
+    private var gpsStatusBadge: StatusBadge? = null
 
     private val northReferenceHideTimer = CoroutineTimer {
         if (isBound) {
@@ -209,7 +209,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             inBackground {
                 navigator.navigateTo(beaconId)
                 destination = navigator.getDestination()
-                onMain { handleShowWhenLocked() }
             }
         }
     }
@@ -336,7 +335,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             } else {
                 destination = null
                 navigator.cancelNavigation()
-                updateNavigator()
             }
         }
 
@@ -444,8 +442,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             destinationBearing = null
             cache.remove(LAST_DEST_BEARING)
         }
-
-        handleShowWhenLocked()
     }
 
     private fun handleShowWhenLocked() {
@@ -478,6 +474,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     override fun onResume() {
         super.onResume()
 
+        // Recreate the layer management
         layerManager = MultiLayerManager(
             listOf(
                 PathLayerManager(requireContext(), pathLayer),
@@ -497,21 +494,15 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         // Resume navigation
         inBackground {
             destination = navigator.getDestination()
-            if (destination != null) {
-                onMain { handleShowWhenLocked() }
-            }
         }
 
+        // Restore the last destination bearing
         val lastDestBearing = cache.getFloat(LAST_DEST_BEARING)
         if (lastDestBearing != null && hasCompass) {
             destinationBearing = lastDestBearing
         }
 
-        binding.beaconBtn.show()
-
-        // Update the UI
-        updateNavigator()
-
+        // Show the north reference indicator
         binding.northReferenceIndicator.showDetailsOnClick = true
         binding.northReferenceIndicator.useTrueNorth = useTrueNorth
         binding.northReferenceIndicator.showLabel = true
@@ -607,45 +598,38 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             binding.navigationSheet.hide()
         }
 
-        // GPS Status
-        if (gpsStatusState.hasChanges) {
-            gpsStatusState.read()?.let {
+        effect("gps_status", gpsStatusBadge) {
+            gpsStatusBadge?.let {
                 binding.gpsStatus.setStatusText(it.name)
                 binding.gpsStatus.setBackgroundTint(it.color)
             }
         }
 
-        // Compass Status
-        if (compassStatusState.hasChanges) {
-            compassStatusState.read()?.let {
+        effect("compass_status", compassStatusBadge) {
+            compassStatusBadge?.let {
                 binding.compassStatus.setStatusText(it.name)
                 binding.compassStatus.setBackgroundTint(it.color)
             }
         }
 
-        // Speed
         effect("speed", speedometer.speed.speed) {
             binding.speed.title = formatService.formatSpeed(speedometer.speed.speed)
         }
 
-        // Azimuth
         effect("azimuth", compass.rawBearing) {
             updateCompassBearing()
         }
 
-        // Altitude
         effect("altitude", altimeter.altitude) {
             binding.altitude.title = formatService.formatDistance(
                 Distance.meters(altimeter.altitude).convertTo(baseDistanceUnits)
             )
         }
 
-        // Location
         effect("location", gps.location, layerManager) {
             updateLocation()
         }
 
-        // Astronomy
         effect(
             "astronomy",
             triggers.distance("astronomy", gps.location, ASTRONOMY_UPDATE_DISTANCE),
@@ -654,15 +638,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             updateAstronomyData()
         }
 
-        updateNavigationButton()
-
-        // show on lock screen
-        if (lockScreenPresence && (destination != null || destinationBearing != null)) {
-            activity?.let {
-                tryOrNothing {
-                    Screen.setShowWhenLocked(it, true)
-                }
-            }
+        effect("navigation", destination) {
+            handleShowWhenLocked()
+            updateNavigationButton()
         }
 
         sightingCompass?.update()
@@ -809,8 +787,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private fun updateSensorStatus() {
         inBackground {
-            compassStatusState.write(compassStatusBadgeProvider.getBadge())
-            gpsStatusState.write(gpsStatusBadgeProvider.getBadge())
+            compassStatusBadge = compassStatusBadgeProvider.getBadge()
+            gpsStatusBadge = gpsStatusBadgeProvider.getBadge()
 
             val codes = onDefault {
                 diagnostics.flatMap { it.scan() }
@@ -824,20 +802,13 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun updateNavigationButton() {
-        effect("navigation_button", destination) {
-            val resource = if (destination != null) {
+        binding.beaconBtn.setImageResource(
+            if (destination != null) {
                 R.drawable.ic_cancel
             } else {
                 R.drawable.ic_beacon
             }
-
-            binding.beaconBtn.setImageResource(resource)
-        }
-    }
-
-    private fun updateNavigator() {
-        handleShowWhenLocked()
-        updateNavigationButton()
+        )
     }
 
     override fun generateBinding(
