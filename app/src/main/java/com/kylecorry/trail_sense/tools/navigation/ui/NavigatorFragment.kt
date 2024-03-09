@@ -11,7 +11,9 @@ import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.system.Screen
@@ -24,7 +26,6 @@ import com.kylecorry.andromeda.fragments.interval
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.show
-import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
@@ -42,8 +43,30 @@ import com.kylecorry.trail_sense.diagnostics.MagnetometerDiagnostic
 import com.kylecorry.trail_sense.diagnostics.status.GpsStatusBadgeProvider
 import com.kylecorry.trail_sense.diagnostics.status.SensorStatusBadgeProvider
 import com.kylecorry.trail_sense.diagnostics.status.StatusBadge
+import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Position
+import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.data.TrackedState
+import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
+import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
+import com.kylecorry.trail_sense.shared.hooks.HookTriggers
+import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
+import com.kylecorry.trail_sense.shared.permissions.requestCamera
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.safeRoundToInt
+import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.ILayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MultiLayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyAccuracyLayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyLocationLayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.PathLayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.TideLayerManager
 import com.kylecorry.trail_sense.tools.navigation.domain.CompassStyle
 import com.kylecorry.trail_sense.tools.navigation.domain.CompassStyleChooser
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
@@ -60,30 +83,6 @@ import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.BeaconCompas
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.ICompassView
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.MarkerCompassLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.NavigationCompassLayer
-import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
-import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.Position
-import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.data.TrackedState
-import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
-import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
-import com.kylecorry.andromeda.core.coroutines.onDefault
-import com.kylecorry.andromeda.core.coroutines.onMain
-import com.kylecorry.trail_sense.shared.data.HookTriggers
-import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
-import com.kylecorry.trail_sense.shared.permissions.requestCamera
-import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.shared.safeRoundToInt
-import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.sharing.Share
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.ILayerManager
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MultiLayerManager
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyAccuracyLayerManager
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyLocationLayerManager
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.PathLayerManager
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.TideLayerManager
 import com.kylecorry.trail_sense.tools.tools.ui.Tools
 import java.time.Duration
 import java.time.Instant
@@ -495,9 +494,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             layerManager?.start()
         }
 
-        // Populate the last known location
-        updateLocation()
-
         // Resume navigation
         inBackground {
             destination = navigator.getDestination()
@@ -510,8 +506,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         if (lastDestBearing != null && hasCompass) {
             destinationBearing = lastDestBearing
         }
-
-        updateDeclination()
 
         binding.beaconBtn.show()
 
@@ -583,15 +577,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         return DeclinationUtils.fromTrueNorthBearing(bearing, declination)
     }
 
-    private fun updateDeclination() {
-        inBackground {
-            onIO {
-                declination = declinationProvider.getDeclination()
-                compass.declination = declination
-            }
-        }
-    }
-
     private fun getFacingBeacon(nearby: Collection<Beacon>): Beacon? {
         return navigationService.getFacingBeacon(
             getPosition(),
@@ -656,7 +641,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         // Location
-        effect("location", gps.location) {
+        effect("location", gps.location, layerManager) {
             updateLocation()
         }
 
@@ -714,6 +699,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private fun updateLocation() {
         val location = gps.location
 
+        declination = declinationProvider.getDeclination()
+        compass.declination = declination
+
         binding.navigationTitle.subtitle.setTextDistinct(
             formatService.formatLocation(location)
         )
@@ -730,7 +718,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         updateNearbyBeacons()
-        updateDeclination()
 
         if (useRadarCompass) {
             val loadGeofence = Geofence(

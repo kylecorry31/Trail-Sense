@@ -5,7 +5,7 @@ import com.kylecorry.luna.cache.Hooks
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.science.geology.IGeologyService
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.shared.data.HookTriggers
+import com.kylecorry.trail_sense.shared.hooks.HookTriggers
 
 class GPSDeclinationStrategy(
     private val gps: IGPS,
