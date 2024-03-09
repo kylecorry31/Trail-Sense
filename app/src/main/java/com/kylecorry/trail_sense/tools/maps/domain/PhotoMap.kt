@@ -1,10 +1,11 @@
 package com.kylecorry.trail_sense.tools.maps.domain
 
+import com.kylecorry.luna.cache.Hooks
 import com.kylecorry.sol.math.SolMath.roundNearestAngle
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Size
-import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geography.projections.IMapProjection
+import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.tools.maps.domain.projections.PhotoMapProjection
 import com.kylecorry.trail_sense.tools.maps.domain.projections.distancePerPixel
@@ -20,11 +21,7 @@ data class PhotoMap(
     override val isGroup = false
     override val count: Int? = null
 
-    private var calculatedBounds: CoordinateBounds? = null
-    private val boundsLock = Any()
-
-    private var cachedDistancePerPixel: Distance? = null
-    private val distancePerPixelLock = Any()
+    private val hooks = Hooks()
 
     /**
      * The projection onto the image (with base rotation applied, ex. 0, 90, 180, 270)
@@ -47,17 +44,11 @@ data class PhotoMap(
             return null
         }
 
-        synchronized(distancePerPixelLock) {
-            if (cachedDistancePerPixel != null) {
-                return cachedDistancePerPixel
-            }
-
-            cachedDistancePerPixel = projection.distancePerPixel(
+        return hooks.memo("distance_per_pixel") {
+            projection.distancePerPixel(
                 calibration.calibrationPoints[0].location,
                 calibration.calibrationPoints[1].location
             )
-
-            return cachedDistancePerPixel
         }
     }
 
@@ -91,21 +82,14 @@ data class PhotoMap(
             return null
         }
 
-        synchronized(boundsLock) {
-            if (calculatedBounds != null) {
-                return calculatedBounds
-            }
-
+        return hooks.memo("boundary") {
             val size = baseSize()
-
             val topLeft = projection.toCoordinate(Vector2(0f, 0f))
             val bottomLeft = projection.toCoordinate(Vector2(0f, size.height))
             val topRight = projection.toCoordinate(Vector2(size.width, 0f))
             val bottomRight = projection.toCoordinate(Vector2(size.width, size.height))
 
-            calculatedBounds =
-                CoordinateBounds.from(listOf(topLeft, bottomLeft, topRight, bottomRight))
-            return calculatedBounds
+            CoordinateBounds.from(listOf(topLeft, bottomLeft, topRight, bottomRight))
         }
     }
 
