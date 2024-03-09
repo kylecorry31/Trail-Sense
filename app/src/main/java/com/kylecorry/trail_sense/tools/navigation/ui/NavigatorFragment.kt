@@ -149,8 +149,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private var astronomyDataLoaded = false
 
-    private var lastOrientation: DeviceOrientation.Orientation? = null
-
     private val loadBeaconsRunner = CoroutineQueueRunner()
 
     private val pathLayer = PathLayer()
@@ -484,7 +482,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     override fun onResume() {
         super.onResume()
-        lastOrientation = null
 
         layerManager = MultiLayerManager(
             listOf(
@@ -804,25 +801,21 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun onOrientationUpdate() {
-        if (orientation.orientation == lastOrientation) {
-            return
-        }
+        effect("device_orientation", orientation.orientation) {
+            val style = styleChooser.getStyle(orientation.orientation)
 
-        lastOrientation = orientation.orientation
+            binding.linearCompass.isInvisible = style != CompassStyle.Linear
+            binding.sightingCompassBtn.isInvisible = style != CompassStyle.Linear
+            binding.roundCompass.isInvisible = style != CompassStyle.Round
+            binding.radarCompass.isInvisible = style != CompassStyle.Radar
 
-        val style = styleChooser.getStyle(orientation.orientation)
-
-        binding.linearCompass.isInvisible = style != CompassStyle.Linear
-        binding.sightingCompassBtn.isInvisible = style != CompassStyle.Linear
-        binding.roundCompass.isInvisible = style != CompassStyle.Round
-        binding.radarCompass.isInvisible = style != CompassStyle.Radar
-
-        if (style == CompassStyle.Linear) {
-            if (showSightingCompass && sightingCompass?.isRunning() == false) {
-                enableSightingCompass()
+            if (style == CompassStyle.Linear) {
+                if (showSightingCompass && sightingCompass?.isRunning() == false) {
+                    enableSightingCompass()
+                }
+            } else {
+                disableSightingCompass()
             }
-        } else {
-            disableSightingCompass()
         }
     }
 
