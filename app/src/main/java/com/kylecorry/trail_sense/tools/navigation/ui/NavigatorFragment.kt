@@ -49,7 +49,6 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Position
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.data.TrackedState
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
@@ -200,7 +199,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pathLayer.setShouldRenderWithDrawLines(userPrefs.navigation.useFastPathRendering)
         val beaconId = arguments?.getLong("destination") ?: 0L
 
         // Load the destination and start navigation
@@ -239,6 +237,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         // Initialize layers
         beaconLayer.setOutlineColor(Resources.color(requireContext(), R.color.colorSecondary))
+        pathLayer.setShouldRenderWithDrawLines(userPrefs.navigation.useFastPathRendering)
         binding.radarCompass.setLayers(
             listOf(
                 pathLayer,
