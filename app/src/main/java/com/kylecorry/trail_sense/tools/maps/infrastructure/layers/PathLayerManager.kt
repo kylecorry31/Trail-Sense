@@ -25,12 +25,15 @@ class PathLayerManager(private val context: Context, private val layer: IPathLay
     private val scope = CoroutineScope(Dispatchers.Default)
     private val loadRunner = CoroutineQueueRunner(2, scope)
     private val listenerRunner = CoroutineQueueRunner(scope = scope)
+    private var loaded = false
 
     override fun start() {
+        loaded = false
         scope.launch {
             listenerRunner.skipIfRunning {
                 pathService.getPaths().collect {
                     paths = it.filter { path -> path.style.visible }
+                    loaded = false
                     loadRunner.replace {
                         loadPaths(true)
                     }
@@ -48,7 +51,7 @@ class PathLayerManager(private val context: Context, private val layer: IPathLay
     override fun onBoundsChanged(bounds: CoordinateBounds?) {
         super.onBoundsChanged(bounds)
         scope.launch {
-            loadRunner.replace {
+            loadRunner.enqueue {
                 loadPaths(false)
             }
         }
@@ -65,7 +68,8 @@ class PathLayerManager(private val context: Context, private val layer: IPathLay
 
     private suspend fun loadPaths(reload: Boolean) = onDefault {
         bounds?.let {
-            pathLoader.update(paths, it, it, reload)
+            pathLoader.update(paths, it, it, reload || !loaded)
+            loaded = true
         }
 
         val points = pathLoader.getPointsWithBacktrack(context)
