@@ -11,7 +11,6 @@ import com.kylecorry.sol.science.astronomy.moon.MoonPhase
 import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.tools.navigation.ui.DrawerBitmapLoader
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.data.HookTriggers
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
@@ -22,6 +21,7 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMarker
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasBitmap
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasCircle
+import com.kylecorry.trail_sense.tools.navigation.ui.DrawerBitmapLoader
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,7 +30,6 @@ import java.time.LocalDate
 import java.time.ZonedDateTime
 
 class ARAstronomyLayer(
-    private val drawLines: Boolean,
     private val drawBelowHorizon: Boolean,
     private val onSunFocus: (time: ZonedDateTime) -> Boolean,
     private val onMoonFocus: (time: ZonedDateTime, phase: MoonPhase) -> Boolean
@@ -67,15 +66,13 @@ class ARAstronomyLayer(
         hooks.effect(
             "positions",
             timeOverride,
-            triggers.time("positions", updateFrequency),
-            triggers.location("positions", location, updateDistance)
+            triggers.frequency("positions", updateFrequency),
+            triggers.distance("positions", location, updateDistance)
         ) {
             updatePositions(drawer, location, timeOverride ?: ZonedDateTime.now())
         }
 
-        if (drawLines) {
-            lineLayer.update(drawer, view)
-        }
+        lineLayer.update(drawer, view)
         sunLayer.update(
             drawer,
             view
@@ -85,11 +82,8 @@ class ARAstronomyLayer(
         currentMoonLayer.update(drawer, view)
     }
 
-    // TODO: Eventually use a clip path to clip the lines to the horizon
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
-        if (drawLines) {
-            lineLayer.draw(drawer, view)
-        }
+        lineLayer.draw(drawer, view)
         // NOTE: The moon renders in front of the sun, but the focus/click order prioritizes the sun
         sunLayer.draw(drawer, view)
         moonLayer.draw(drawer, view)

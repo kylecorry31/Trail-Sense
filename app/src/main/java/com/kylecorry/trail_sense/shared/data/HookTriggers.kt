@@ -6,27 +6,27 @@ import java.time.Duration
 import java.time.Instant
 
 class HookTriggers {
-    private val locationTriggers = mutableMapOf<String, LocationHookTrigger>()
-    private val locationLock = Any()
+    private val distanceTriggers = mutableMapOf<String, DistanceHookTrigger>()
+    private val distanceLock = Any()
 
-    private val timeTriggers = mutableMapOf<String, TimeHookTrigger>()
-    private val timeLock = Any()
+    private val frequencyTriggers = mutableMapOf<String, FrequencyHookTrigger>()
+    private val frequencyLock = Any()
 
-    fun location(name: String, location: Coordinate, threshold: Distance): Boolean {
-        val conditional = synchronized(locationLock) {
-            locationTriggers.getOrPut(name) { LocationHookTrigger() }
+    fun distance(name: String, location: Coordinate, threshold: Distance): Boolean {
+        val conditional = synchronized(distanceLock) {
+            distanceTriggers.getOrPut(name) { DistanceHookTrigger() }
         }
         return conditional.getValue(location, threshold)
     }
 
-    fun time(name: String, threshold: Duration): Boolean {
-        val conditional = synchronized(timeLock) {
-            timeTriggers.getOrPut(name) { TimeHookTrigger() }
+    fun frequency(name: String, threshold: Duration): Boolean {
+        val conditional = synchronized(frequencyLock) {
+            frequencyTriggers.getOrPut(name) { FrequencyHookTrigger() }
         }
         return conditional.getValue(Instant.now(), threshold)
     }
 
-    private class LocationHookTrigger {
+    private class DistanceHookTrigger {
 
         private var lastLocation: Coordinate? = null
         private val lock = Any()
@@ -53,7 +53,7 @@ class HookTriggers {
 
     }
 
-    private class TimeHookTrigger {
+    private class FrequencyHookTrigger {
 
         private var lastTime: Instant? = null
         private val lock = Any()
