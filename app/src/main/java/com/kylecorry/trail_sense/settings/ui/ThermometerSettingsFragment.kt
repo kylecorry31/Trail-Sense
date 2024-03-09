@@ -29,6 +29,7 @@ import com.kylecorry.trail_sense.shared.alerts.AlertLoadingIndicator
 import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.requireMainActivity
+import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.thermometer.ThermometerSource
 import com.kylecorry.trail_sense.shared.views.UserError
@@ -40,7 +41,6 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherS
 import com.kylecorry.trail_sense.tools.weather.ui.charts.TemperatureChartPreference
 import java.time.Duration
 import java.time.Instant
-import kotlin.math.roundToInt
 
 class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
 
@@ -279,7 +279,7 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
     }
 
     private fun setSmoothing(smoothing: Float) {
-        smoothingSeekBar?.value = (smoothing * 1000).roundToInt()
+        smoothingSeekBar?.value = (smoothing * 1000).safeRoundToInt()
         smoothingSeekBar?.summary = formatService.formatPercentage(smoothing * 100)
     }
 

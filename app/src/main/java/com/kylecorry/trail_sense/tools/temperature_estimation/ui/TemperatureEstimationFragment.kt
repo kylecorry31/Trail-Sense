@@ -24,7 +24,7 @@ import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.UnitInputView
 import java.time.Duration
-import kotlin.math.roundToInt
+import com.kylecorry.trail_sense.shared.safeRoundToInt
 
 class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimationBinding>() {
 
@@ -133,7 +133,7 @@ class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimatio
 
         if ((thermometer.hasValidReading || sensorTemperature != 0f) && !sensorTemperature.isNaN()) {
             val temp = Temperature.celsius(sensorTemperature).convertTo(temperatureUnits)
-            binding.tempEstBaseTemperature.amount = temp.temperature.roundToInt()
+            binding.tempEstBaseTemperature.amount = temp.temperature.safeRoundToInt()
             binding.tempEstBaseTemperature.unit = temperatureUnits
         }
     }

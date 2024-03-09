@@ -26,7 +26,6 @@ import com.kylecorry.luna.cache.Hooks
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.math.Euler
 import com.kylecorry.sol.math.Quaternion
-import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
@@ -37,6 +36,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
+import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.text
 import com.kylecorry.trail_sense.shared.textDimensions
@@ -50,7 +50,6 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARLayer
 import kotlinx.coroutines.Dispatchers
 import java.time.Duration
 import kotlin.math.atan2
-import kotlin.math.roundToInt
 
 // TODO: Notify location change
 // TODO: This needs a parent view that has the camera, this, and any buttons (like the freeform button)
@@ -285,13 +284,13 @@ class AugmentedRealityView : CanvasView {
 
     private fun drawPosition() {
         val bearing = Bearing(azimuth)
-        val azimuthText = hooks.memo("azimuth_text", bearing.value.real(0f).roundToInt()) {
+        val azimuthText = hooks.memo("azimuth_text", bearing.value.safeRoundToInt()) {
             formatter.formatDegrees(bearing.value, replace360 = true).padStart(4, ' ')
         }
         val directionText = hooks.memo("direction_text", bearing.direction) {
             formatter.formatDirection(bearing.direction).padStart(2, ' ')
         }
-        val altitudeText = hooks.memo("altitude_text", inclination.real(0f).roundToInt()) {
+        val altitudeText = hooks.memo("altitude_text", inclination.safeRoundToInt()) {
             formatter.formatDegrees(inclination)
         }
 

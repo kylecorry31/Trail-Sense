@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.system.GeoUri
+import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.signal.CellNetworkQuality
 import com.kylecorry.andromeda.signal.ICellSignalSensor
@@ -25,6 +26,7 @@ import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.data.Identifiable
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import kotlin.collections.set
+import kotlin.math.roundToInt
 
 fun Fragment.requireMainActivity(): MainActivity {
     return requireActivity() as MainActivity
@@ -147,5 +149,25 @@ inline fun List<Float>.forEachLine(action: (x1: Float, y1: Float, x2: Float, y2:
 fun Window.setNavigationBarColorCompat(@ColorInt color: Int) {
     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
         navigationBarColor = color
+    }
+}
+
+fun Float.safeRoundToInt(default: Int = 0): Int {
+    return tryOrDefault(default) {
+        if (isNaN() || isInfinite()) {
+            default
+        } else {
+            roundToInt()
+        }
+    }
+}
+
+fun Double.safeRoundToInt(default: Int = 0): Int {
+    return tryOrDefault(default) {
+        if (isNaN() || isInfinite()) {
+            default
+        } else {
+            roundToInt()
+        }
     }
 }

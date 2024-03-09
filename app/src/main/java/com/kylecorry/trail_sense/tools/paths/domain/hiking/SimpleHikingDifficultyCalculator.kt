@@ -6,9 +6,9 @@ import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.debugging.ifDebug
+import com.kylecorry.trail_sense.shared.safeRoundToInt
 import kotlin.math.absoluteValue
 import kotlin.math.max
-import kotlin.math.roundToInt
 
 // Adapted from https://www.smcgov.org/parks/county-hiking-trail-difficulty-rating-system
 class SimpleHikingDifficultyCalculator(private val hikingService: IHikingService) :
@@ -62,7 +62,7 @@ class SimpleHikingDifficultyCalculator(private val hikingService: IHikingService
         ifDebug {
             Log.d(
                 "HikingDifficulty",
-                "Dist: ${distance?.roundPlaces(2)}, Ele: ${elevationChange?.roundToInt()}, Slope: ${slope?.roundToInt()} ($rating)"
+                "Dist: ${distance?.roundPlaces(2)}, Ele: ${elevationChange?.safeRoundToInt()}, Slope: ${slope?.safeRoundToInt()} ($rating)"
             )
         }
     }

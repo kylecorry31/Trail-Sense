@@ -34,7 +34,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.Instant
-import kotlin.math.roundToInt
+import com.kylecorry.trail_sense.shared.safeRoundToInt
 
 class WeatherSettingsFragment : AndromedaPreferenceFragment() {
 
@@ -163,12 +163,12 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
                         return@onDefault
                     }
 
-                    val mean = Statistics.mean(readings).roundToInt()
-                    val stdev = Statistics.stdev(readings, mean=mean.toFloat()).roundToInt()
-                    val max = readings.maxOrNull()?.roundToInt() ?: 0
-                    val median = Statistics.median(readings).roundToInt()
-                    val quantile75 = Statistics.quantile(readings, 0.75f).roundToInt()
-                    val quantile90 = Statistics.quantile(readings, 0.9f).roundToInt()
+                    val mean = Statistics.mean(readings).safeRoundToInt()
+                    val stdev = Statistics.stdev(readings, mean=mean.toFloat()).safeRoundToInt()
+                    val max = readings.maxOrNull()?.safeRoundToInt() ?: 0
+                    val median = Statistics.median(readings).safeRoundToInt()
+                    val quantile75 = Statistics.quantile(readings, 0.75f).safeRoundToInt()
+                    val quantile90 = Statistics.quantile(readings, 0.9f).safeRoundToInt()
                     onMain {
                         timingPref?.summary = "Mean: $mean\n" +
                                 "Stdev: $stdev\n" +

@@ -10,7 +10,7 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath.square
-import kotlin.math.roundToInt
+import com.kylecorry.trail_sense.shared.safeRoundToInt
 
 inline fun Alerts.withCancelableLoading(
     context: Context,
@@ -74,7 +74,7 @@ fun PixelCoordinate.isSamePixel(other: PixelCoordinate): Boolean {
         return false
     }
 
-    return x.roundToInt() == other.x.roundToInt() && y.roundToInt() == other.y.roundToInt()
+    return x.safeRoundToInt() == other.x.safeRoundToInt() && y.safeRoundToInt() == other.y.safeRoundToInt()
 }
 
 fun PixelCoordinate.squaredDistanceTo(other: PixelCoordinate): Float {

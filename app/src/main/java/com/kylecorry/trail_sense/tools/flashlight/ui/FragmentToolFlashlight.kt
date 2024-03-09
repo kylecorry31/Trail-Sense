@@ -18,11 +18,11 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import java.time.Duration
 import java.time.Instant
-import kotlin.math.roundToInt
 
 class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
 
@@ -164,7 +164,7 @@ class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
     private fun updateBrightness(value: Float? = null) {
         if (hasBrightnessControl) {
             brightness = value ?: prefs.flashlight.brightness
-            binding.brightnessSeek.progress = (brightness * maxBrightness).roundToInt()
+            binding.brightnessSeek.progress = (brightness * maxBrightness).safeRoundToInt()
         } else {
             brightness = 1f
         }

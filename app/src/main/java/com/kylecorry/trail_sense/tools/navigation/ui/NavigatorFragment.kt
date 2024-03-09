@@ -74,6 +74,7 @@ import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.ILayerManager
@@ -85,7 +86,6 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.TideLayerManag
 import com.kylecorry.trail_sense.tools.tools.ui.Tools
 import java.time.Duration
 import java.time.Instant
-import kotlin.math.roundToInt
 
 
 class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
@@ -683,7 +683,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         // Azimuth
         if (hasCompass) {
-            effect("azimuth_title", bearing.value.roundToInt()) {
+            effect("azimuth_title", bearing.value.safeRoundToInt()) {
                 val azimuthText =
                     formatService.formatDegrees(bearing.value, replace360 = true)
                         .padStart(4, ' ')

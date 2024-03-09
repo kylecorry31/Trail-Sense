@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.shared.debugging
 
-import kotlin.math.roundToInt
+import com.kylecorry.trail_sense.shared.safeRoundToInt
 
 object Perf {
 
@@ -39,7 +39,7 @@ object Perf {
                 val tag = entry.first
                 if (getParent(tag) == parent) {
                     val ms = entry.second?.let { it / 1_000_000.0 }
-                    val percent = totalParentTime?.let { ms?.div(it) }?.times(100)?.roundToInt()
+                    val percent = totalParentTime?.let { ms?.div(it) }?.times(100)?.safeRoundToInt()
                     println("${tag}: $ms ms ($percent %)")
                 }
             }

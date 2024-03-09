@@ -28,6 +28,7 @@ import com.kylecorry.trail_sense.tools.battery.infrastructure.LowPowerMode
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReading
 import com.kylecorry.trail_sense.tools.battery.domain.RunningService
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryService
@@ -35,7 +36,6 @@ import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.Batter
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.absoluteValue
-import kotlin.math.roundToInt
 
 class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
 
@@ -81,7 +81,7 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
             current =
                 currentFilter.filter(battery.current.absoluteValue * if (isCharging) 1 else -1)
             capacity = battery.capacity
-            pct = battery.percent.roundToInt()
+            pct = battery.percent.safeRoundToInt()
         }
     }
 

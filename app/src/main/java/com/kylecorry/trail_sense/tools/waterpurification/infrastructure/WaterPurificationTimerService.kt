@@ -11,7 +11,7 @@ import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.main.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
-import kotlin.math.roundToInt
+import com.kylecorry.trail_sense.shared.safeRoundToInt
 
 class WaterPurificationTimerService : AndromedaService() {
 
@@ -70,7 +70,7 @@ class WaterPurificationTimerService : AndromedaService() {
     private fun startTimer(seconds: Long) {
         timer = object : CountDownTimer(seconds * ONE_SECOND, ONE_SECOND) {
             override fun onTick(millisUntilFinished: Long) {
-                val secondsLeft = (millisUntilFinished / ONE_SECOND.toFloat()).roundToInt()
+                val secondsLeft = (millisUntilFinished / ONE_SECOND.toFloat()).safeRoundToInt()
                 Notify.update(
                     this@WaterPurificationTimerService,
                     NOTIFICATION_ID,
