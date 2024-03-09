@@ -71,6 +71,7 @@ import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onMain
+import com.kylecorry.trail_sense.shared.data.HookTriggers
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -147,8 +148,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         ) { declination }
     }
 
-    private var astronomyDataLoaded = false
-
     private val loadBeaconsRunner = CoroutineQueueRunner()
 
     private val pathLayer = PathLayer()
@@ -187,6 +186,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             binding.northReferenceIndicator.showLabel = false
         }
     }
+
+    private val triggers = HookTriggers()
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -229,10 +230,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         )
 
         // Register timers
-        interval(Duration.ofMinutes(1)) {
-            updateAstronomyData()
-        }
-
         interval(100) {
             updateCompassLayers()
         }
@@ -476,7 +473,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             }
 
             updateAstronomyLayerCommand.execute()
-            astronomyDataLoaded = true
         }
     }
 
@@ -664,6 +660,15 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             updateLocation()
         }
 
+        // Astronomy
+        effect(
+            "astronomy",
+            triggers.distance("astronomy", gps.location, ASTRONOMY_UPDATE_DISTANCE),
+            triggers.frequency("astronomy", ASTRONOMY_UPDATE_FREQUENCY)
+        ) {
+            updateAstronomyData()
+        }
+
         updateNavigationButton()
 
         // show on lock screen
@@ -726,10 +731,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         updateNearbyBeacons()
         updateDeclination()
-
-        if (!astronomyDataLoaded) {
-            updateAstronomyData()
-        }
 
         if (useRadarCompass) {
             val loadGeofence = Geofence(
@@ -862,5 +863,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     companion object {
         const val LAST_DEST_BEARING = "last_dest_bearing"
         const val CACHE_CAMERA_ZOOM = "sighting_compass_camera_zoom"
+        private val ASTRONOMY_UPDATE_DISTANCE = Distance.kilometers(1f).meters()
+        private val ASTRONOMY_UPDATE_FREQUENCY = Duration.ofMinutes(1)
     }
 }
