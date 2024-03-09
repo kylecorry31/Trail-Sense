@@ -26,6 +26,7 @@ import com.kylecorry.luna.cache.Hooks
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.math.Euler
 import com.kylecorry.sol.math.Quaternion
+import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
@@ -284,13 +285,13 @@ class AugmentedRealityView : CanvasView {
 
     private fun drawPosition() {
         val bearing = Bearing(azimuth)
-        val azimuthText = hooks.memo("azimuth_text", bearing.value.roundToInt()) {
+        val azimuthText = hooks.memo("azimuth_text", bearing.value.real(0f).roundToInt()) {
             formatter.formatDegrees(bearing.value, replace360 = true).padStart(4, ' ')
         }
         val directionText = hooks.memo("direction_text", bearing.direction) {
             formatter.formatDirection(bearing.direction).padStart(2, ' ')
         }
-        val altitudeText = hooks.memo("altitude_text", inclination.roundToInt()) {
+        val altitudeText = hooks.memo("altitude_text", inclination.real(0f).roundToInt()) {
             formatter.formatDegrees(inclination)
         }
 
