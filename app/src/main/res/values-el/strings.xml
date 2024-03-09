@@ -497,7 +497,7 @@
     <string name="precise_inches_format">%s in</string>
     <string name="beacon_created">Δημιουργήθηκε τοπόσημο</string>
     <string name="always_on">Πάντα σε λειτουργία</string>
-    <string name="importing">Γίνεται εισαγωγή</string>
+    <string name="importing">Εισαγωγή</string>
     <string name="map_fractional_separator">:</string>
     <string name="view">Προβολή</string>
     <string name="tool_metal_detector_title">Ανιχνευτής Μετάλλων</string>
@@ -731,7 +731,7 @@
         <item quantity="one">%d ημέρα</item>
         <item quantity="other">%d ημέρες</item>
     </plurals>
-    <string name="units_mmhg_short">mm</string>
+    <string name="units_mmhg_short">χλστ</string>
     <string name="import_map">Εισάγετε χάρτη</string>
     <string name="start_time">Έναρξη</string>
     <string name="lunar_eclipses">Εκλείψεις σελήνης</string>
@@ -781,7 +781,7 @@
     <string name="solar_eclipse">Έκλειψη ηλίου</string>
     <string name="precipitation_drizzle">Ασθενής βροχή</string>
     <string name="precipitation_small_hail">Μικρό χαλάζι</string>
-    <string name="astronomy_altitude_peak">Μεσημβρινή διάβαση</string>
+    <string name="astronomy_altitude_peak">Κορυφαίο υψόμετρο</string>
     <string name="precipitation_snow_pellets">Χιονοχάλαζο</string>
     <string name="precipitation_chance">Πιθανότητα υετού: %s</string>
     <string name="points">Δείκτες</string>
@@ -963,4 +963,26 @@
     <string name="on">Ενεργό</string>
     <string name="no">Όχι</string>
     <string name="yes">Ναι</string>
+    <string name="medium_amount">Μεσαίο (%s)</string>
+    <string name="high_amount">Υψηλό (%s)</string>
+    <string name="magnitude">Κλίμακα</string>
+    <string name="base_elevation">Υψομετρική βάση</string>
+    <string name="base_temperature">Βασική θερμοκρασία</string>
+    <string name="error_banners">Μηνύματα σφάλματος</string>
+    <string name="gps_timeouts">Λήξη χρόνου GPS</string>
+    <string name="no_resolution">Χωρίς ανάλυση</string>
+    <string name="astronomy_direction_peak">Κορυφαία κατεύθυνση</string>
+    <string name="low_amount">Χαμηλό (%s)</string>
+    <string name="precipitation_snow_grains">Κόκκοι χιονιού</string>
+    <string name="peak_time">Κορυφή</string>
+    <string name="saving">Αποθήκευση</string>
+    <string name="pref_forecast_sensitivity_title">Ευαισθησία πρόγνωσης</string>
+    <string name="sun_moon_compass_when_up">Όταν επάνω</string>
+    <string name="pref_storm_alert_sensitivity_title">Ευαισθησία καταιγίδας</string>
+    <string name="partial">Μερικώς (%s)</string>
+    <string name="precipitation_ice_pellets">Χαλάζι</string>
+    <string name="reduce_map_resolution">Μείωση ανάλυσης χάρτη</string>
+    <string name="weather_monitor_disabled_resolution">Ενεργοποίηση παρατηρητήριο καιρού από τις ρυθμίσεις καιρού</string>
+    <string name="result_deleted">Το αποτέλεσμα διαγράφηκε</string>
+    <string name="pref_adjust_for_temperature_title">Παράμετρος στη θερμοκρασία</string>
 </resources>
