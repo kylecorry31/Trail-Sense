@@ -29,6 +29,7 @@ import com.kylecorry.sol.math.filters.MovingAverageFilter
 import com.kylecorry.trail_sense.settings.infrastructure.ICompassPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
+import com.kylecorry.trail_sense.shared.sensors.compass.CustomRotationSensor2
 import com.kylecorry.trail_sense.shared.sensors.compass.MagQualityCompassWrapper
 import com.kylecorry.trail_sense.shared.sensors.compass.MockCompass
 import com.kylecorry.trail_sense.shared.sensors.compass.QuickRecalibrationOrientationSensor
@@ -165,13 +166,13 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
         return CustomGeomagneticRotationSensor(magnetometer, accelerometer)
     }
 
-    private fun getCustomRotationSensor(sensorDelay: Int): CustomRotationSensor {
+    private fun getCustomRotationSensor(sensorDelay: Int): IOrientationSensor {
         // This rotation sensor can use the raw magnetometer and accelerometer without the need for a filter
         val magnetometer = Magnetometer(context, sensorDelay)
         val accelerometer = Accelerometer(context, sensorDelay)
         val gyro = Gyroscope(context, sensorDelay)
 
-        return CustomRotationSensor(
+        return CustomRotationSensor2(
             magnetometer, accelerometer, gyro,
             validMagnetometerMagnitudes = Range(20f, 65f),
             validAccelerometerMagnitudes = Range(4f, 20f)
