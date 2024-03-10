@@ -740,7 +740,8 @@
     <string name="pref_tiles_enabled_title">System tiles</string>
     <string name="pref_tiles_battery_log">Battery Log</string>
     <string name="pref_tiles_enabled_summary">May prevent battery saver apps from completely stopping Trail Sense</string>
-    <string name="pref_tiles_enabled_battery_log_summary">May prevent running battery log every hour in order to accurately show battery drain</string>
+    <string name="pref_dialog_battery_log_summary">The battery log is disabled, history and time until empty may be unavailable. You can re-enable this in settings</string>
+    <string name="pref_tiles_enabled_battery_log_summary">Logs battery percentage every hour to estimate time until empty</string>
     <string name="pref_flashlight_toggle_with_volume" translatable="false">pref_flashlight_toggle_with_volume</string>
     <string name="pref_flashlight_toggle_with_volume_summary">While Trail Sense is open</string>
     <string name="pref_flashlight_toggle_with_volume_title">Toggle with volume buttons</string>
