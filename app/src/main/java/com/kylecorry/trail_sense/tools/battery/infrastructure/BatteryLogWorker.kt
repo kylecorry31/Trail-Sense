@@ -20,12 +20,18 @@ class BatteryLogWorker(context: Context, params: WorkerParameters) :
 
         private const val UNIQUE_ID = 2739852
 
-        fun start(context: Context) {
-            scheduler(context).interval(Duration.ofHours(1))
-        }
-
-        fun stop(context: Context) {
-            scheduler(context).cancel()
+        /**
+         * This enable battery log worker to runs about every hour in order to accurately show battery drain
+         *
+         * enabled: Boolean: false cancel the process
+         * enabled: Boolean: true start the process
+         */
+        fun enableBatteryLog(context: Context, enabled: Boolean) {
+            if(enabled) {
+                scheduler(context).interval(Duration.ofHours(1))
+            }else {
+                scheduler(context).cancel()
+            }
         }
 
         private fun scheduler(context: Context): IPeriodicTaskScheduler {

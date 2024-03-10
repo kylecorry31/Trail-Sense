@@ -33,7 +33,8 @@ object TrailSenseServiceUtils {
             startPedometer(appContext)
             startSunsetAlarm(appContext)
             startAstronomyAlerts(appContext)
-            BatteryLogWorker.start(appContext)
+            BatteryLogWorker.enableBatteryLog(appContext,
+                UserPreferences(appContext).power.enableBatteryLog)
             TileManager().setTilesEnabled(
                 appContext,
                 UserPreferences(appContext).power.areTilesEnabled && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
@@ -50,7 +51,7 @@ object TrailSenseServiceUtils {
         BacktrackService.stop(appContext)
         StepCounterService.stop(appContext)
         AstronomyDailyWorker.stop(appContext)
-        BatteryLogWorker.stop(appContext)
+        BatteryLogWorker.enableBatteryLog(appContext,false)
         SunsetAlarmReceiver.scheduler(appContext).cancel()
         TileManager().setTilesEnabled(appContext, false)
     }
