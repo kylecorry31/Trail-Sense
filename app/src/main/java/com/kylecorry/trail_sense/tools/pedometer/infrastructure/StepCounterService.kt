@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.Command
+import com.kylecorry.trail_sense.shared.extensions.tryStartForegroundOrNotify
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
@@ -134,7 +135,9 @@ class StepCounterService : AndromedaService() {
                 return
             }
 
-            Intents.startService(context.applicationContext, intent(context), true)
+            tryStartForegroundOrNotify(context) {
+                Intents.startService(context.applicationContext, intent(context), true)
+            }
         }
 
     }

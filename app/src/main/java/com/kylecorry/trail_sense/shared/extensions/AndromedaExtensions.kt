@@ -1,7 +1,10 @@
 package com.kylecorry.trail_sense.shared.extensions
 
+import android.app.ForegroundServiceStartNotAllowedException
 import android.content.Context
 import android.graphics.Path
+import android.os.Build
+import android.util.Log
 import android.view.Gravity
 import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
@@ -10,6 +13,7 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath.square
+import com.kylecorry.trail_sense.receivers.ServiceRestartAlerter
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 
 inline fun Alerts.withCancelableLoading(
@@ -100,5 +104,18 @@ fun Path.drawLines(lines: FloatArray) {
         lastX = x2
         lastY = y2
         i += 4
+    }
+}
+
+inline fun tryStartForegroundOrNotify(context: Context, action: () -> Unit) {
+    try {
+        action()
+    } catch (e: Exception) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && e is ForegroundServiceStartNotAllowedException) {
+            ServiceRestartAlerter(context.applicationContext).alert()
+            Log.d("tryStartForegroundOrNotify", "Cannot start service")
+        } else {
+            throw e
+        }
     }
 }
