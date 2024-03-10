@@ -167,9 +167,8 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
     }
 
     private fun getCustomRotationSensor(sensorDelay: Int): IOrientationSensor {
-        // This rotation sensor can use the raw magnetometer and accelerometer without the need for a filter
-        val magnetometer = Magnetometer(context, sensorDelay)
-        val accelerometer = Accelerometer(context, sensorDelay)
+        val magnetometer = LowPassMagnetometer(context, sensorDelay, MAGNETOMETER_LOW_PASS)
+        val accelerometer = LowPassAccelerometer(context, sensorDelay, ACCELEROMETER_LOW_PASS)
         val gyro = Gyroscope(context, sensorDelay)
 
         return CustomRotationSensor2(
