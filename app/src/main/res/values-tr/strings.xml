@@ -1129,4 +1129,5 @@
     <string name="select_from_gallery">Galeriden seç</string>
     <string name="scanning_image">Resim taranıyor</string>
     <string name="smooth_gps_readings">Düzgün GPS okumaları</string>
+    <string name="magnetometer_gyro_custom">Manyetometre + Gyro (Özel)</string>
 </resources>
