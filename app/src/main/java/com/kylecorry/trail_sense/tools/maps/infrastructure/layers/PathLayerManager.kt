@@ -7,6 +7,7 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
+import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
 import com.kylecorry.trail_sense.tools.paths.infrastructure.PathLoader
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.paths.ui.IPathLayer
@@ -16,10 +17,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-class PathLayerManager(private val context: Context, private val layer: IPathLayer) :
+class PathLayerManager(
+    private val context: Context,
+    private val layer: IPathLayer,
+    private val shouldCorrectElevations: Boolean = false
+) :
     BaseLayerManager() {
 
     private val pathService = PathService.getInstance(context)
+    private val hikingService = HikingService()
     private val pathLoader = PathLoader(pathService)
     private var paths = emptyList<Path>()
     private val scope = CoroutineScope(Dispatchers.Default)
@@ -80,7 +86,14 @@ class PathLayerManager(private val context: Context, private val layer: IPathLay
         val mappablePaths = points.mapNotNull {
             val path =
                 paths.firstOrNull { p -> p.id == it.key } ?: return@mapNotNull null
-            it.value.asMappable(context, path)
+
+            val correctedPoints = if (shouldCorrectElevations) {
+                hikingService.correctElevations(it.value.sortedBy { it.id }).reversed()
+            } else {
+                it.value
+            }
+
+            correctedPoints.asMappable(context, path)
         }
         layer.setPaths(mappablePaths)
     }

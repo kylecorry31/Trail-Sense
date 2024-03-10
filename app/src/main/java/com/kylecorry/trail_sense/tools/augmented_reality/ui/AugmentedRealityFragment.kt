@@ -197,7 +197,11 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     override fun onResume() {
         super.onResume()
 
-        pathLayerManager = PathLayerManager(requireContext(), pathsLayer)
+        pathLayerManager = PathLayerManager(
+            requireContext(),
+            pathsLayer,
+            shouldCorrectElevations = userPrefs.augmentedReality.adjustForPathElevation
+        )
         pathLayerManager?.start()
         layerManagementUpdater.interval(100)
 
