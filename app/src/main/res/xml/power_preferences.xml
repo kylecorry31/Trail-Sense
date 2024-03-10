@@ -42,6 +42,14 @@
             app:summary="@string/pref_tiles_enabled_summary"
             app:title="@string/pref_tiles_enabled_title" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_battery_log_enabled"
+            app:singleLineTitle="false"
+            app:summary="@string/pref_tiles_enabled_battery_log_summary"
+            app:title="@string/pref_tiles_battery_log" />
+
 
     </PreferenceCategory>
 </PreferenceScreen>
