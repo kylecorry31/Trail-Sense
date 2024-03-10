@@ -1125,4 +1125,8 @@
     <string name="use_gyroscope_after_calibration_description">Pusula yerine (manyetik sapmayı önler)</string>
     <string name="reset_calibration_question">Kalibrasyon sıfırlansın mı?</string>
     <string name="use_path_elevation">Yol yüksekliğini kullan</string>
+    <string name="no_qr_code_detected">QR kodu algılanmadı</string>
+    <string name="select_from_gallery">Galeriden seç</string>
+    <string name="scanning_image">Resim taranıyor</string>
+    <string name="smooth_gps_readings">Düzgün GPS okumaları</string>
 </resources>

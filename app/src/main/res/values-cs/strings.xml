@@ -1146,4 +1146,8 @@
     <string name="reset_calibration_question">Resetovat kalibraci?</string>
     <string name="ar_calibration_instructions">Umístěte %s do středu obrazovky a stiskněte „Kalibrovat“</string>
     <string name="use_path_elevation">Používat převýšení cest</string>
+    <string name="scanning_image">Skenování obrázku</string>
+    <string name="no_qr_code_detected">Nebyl detekován žádný QR kód</string>
+    <string name="smooth_gps_readings">Jemné čtení GPS</string>
+    <string name="select_from_gallery">Vybrat z galerie</string>
 </resources>
