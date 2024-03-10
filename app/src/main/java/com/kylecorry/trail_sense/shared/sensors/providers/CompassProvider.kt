@@ -6,7 +6,6 @@ import android.hardware.SensorManager
 import android.util.Range
 import android.view.Surface
 import com.kylecorry.andromeda.sense.Sensors
-import com.kylecorry.andromeda.sense.accelerometer.Accelerometer
 import com.kylecorry.andromeda.sense.accelerometer.GravitySensor
 import com.kylecorry.andromeda.sense.accelerometer.LowPassAccelerometer
 import com.kylecorry.andromeda.sense.compass.Compass
@@ -27,9 +26,7 @@ import com.kylecorry.andromeda.sense.orientation.filter.LowPassOrientationSensor
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.filters.MovingAverageFilter
 import com.kylecorry.trail_sense.settings.infrastructure.ICompassPreferences
-import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
-import com.kylecorry.trail_sense.shared.sensors.compass.CustomRotationSensor2
 import com.kylecorry.trail_sense.shared.sensors.compass.MagQualityCompassWrapper
 import com.kylecorry.trail_sense.shared.sensors.compass.MockCompass
 import com.kylecorry.trail_sense.shared.sensors.compass.QuickRecalibrationOrientationSensor
@@ -171,7 +168,7 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
         val accelerometer = LowPassAccelerometer(context, sensorDelay, ACCELEROMETER_LOW_PASS)
         val gyro = Gyroscope(context, sensorDelay)
 
-        return CustomRotationSensor2(
+        return CustomRotationSensor(
             magnetometer, accelerometer, gyro,
             validMagnetometerMagnitudes = Range(20f, 65f),
             validAccelerometerMagnitudes = Range(4f, 20f)
