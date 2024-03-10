@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
  */
 interface ARLayer {
     /**
-     * Update the layer's state
+     * Update the layer's state. Some canvas drawer functions may be unreliable (ex. canvas.width - use view.width instead)
      */
     suspend fun update(drawer: ICanvasDrawer, view: AugmentedRealityView)
 

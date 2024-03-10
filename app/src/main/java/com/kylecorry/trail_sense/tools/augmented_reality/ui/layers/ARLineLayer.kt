@@ -8,6 +8,7 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.shared.canvas.LineClipper
 import com.kylecorry.trail_sense.shared.extensions.drawLines
 import com.kylecorry.trail_sense.shared.getBounds
+import com.kylecorry.trail_sense.shared.getViewBounds
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.AugmentedRealityCoordinate
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARLine
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
@@ -38,43 +39,43 @@ class ARLineLayer(
 
 
     override suspend fun update(drawer: ICanvasDrawer, view: AugmentedRealityView) {
-        renderedLines = synchronized(lineLock) {
-            lines.map {
-                it to render(it.points.map { it.getAugmentedRealityCoordinate(view) }, view)
-            }
+        val currentLines = synchronized(lineLock) {
+            lines.toList()
         }
 
-        if (renderWithPaths) {
-            renderedPaths = synchronized(lineLock) {
+        val rendered = currentLines.map {
+            it to render(it.points.map { it.getAugmentedRealityCoordinate(view) }, view)
+        }
+
+        val newPaths = if (renderWithPaths) rendered.map {
+            val path = pathPool.get()
+            path.reset()
+            path.drawLines(it.second)
+            it.first to path
+        } else {
+            emptyList()
+        }
+
+        synchronized(lineLock) {
+            renderedLines = rendered
+
+            if (renderWithPaths) {
                 // Free current paths
                 renderedPaths.forEach {
                     pathPool.release(it.second)
                 }
-                renderedLines.map {
-                    val path = pathPool.get()
-                    path.reset()
-                    path.drawLines(it.second)
-                    it.first to path
-                }
+                renderedPaths = newPaths
             }
         }
     }
 
-    override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
+    override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) = synchronized(lineLock) {
         drawer.noFill()
         drawer.strokeCap(StrokeCap.Round)
 
-        val rendered = synchronized(lineLock) {
-            renderedLines.toList()
-        }
-
-        val renderedPaths = synchronized(lineLock) {
-            renderedPaths.toList()
-        }
-
         // Draw lines
-        for (i in rendered.indices) {
-            val (line, points) = rendered[i]
+        for (i in renderedLines.indices) {
+            val (line, points) = renderedLines[i]
             val path = renderedPaths.getOrNull(i)?.second
             if (line.outlineColor != null) {
                 drawer.stroke(line.outlineColor)
@@ -126,7 +127,7 @@ class ARLineLayer(
         points: List<AugmentedRealityCoordinate>,
         view: AugmentedRealityView
     ): FloatArray {
-        val bounds = view.getBounds()
+        val bounds = view.getViewBounds()
         val pixels = points.map { view.toPixel(it) }
 
         val lines = mutableListOf<Float>()
