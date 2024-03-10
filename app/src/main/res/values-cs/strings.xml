@@ -1150,4 +1150,5 @@
     <string name="no_qr_code_detected">Nebyl detekován žádný QR kód</string>
     <string name="smooth_gps_readings">Jemné čtení GPS</string>
     <string name="select_from_gallery">Vybrat z galerie</string>
+    <string name="magnetometer_gyro_custom">Magnetometr + gyroskop (vlastní)</string>
 </resources>
