@@ -8,6 +8,7 @@ import com.kylecorry.trail_sense.receivers.StartOnBootController
 import com.kylecorry.trail_sense.tools.battery.infrastructure.LowPowerMode
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.tiles.TileManager
+import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryLogWorker
 
 class PowerSettingsFragment : AndromedaPreferenceFragment() {
 
@@ -41,6 +42,11 @@ class PowerSettingsFragment : AndromedaPreferenceFragment() {
         onClick(switch(R.string.pref_tiles_enabled)) {
             TileManager().setTilesEnabled(requireContext(), prefs.power.areTilesEnabled)
         }
+
+        onClick(switch(R.string.pref_battery_log_enabled)) {
+            BatteryLogWorker.enableBatteryLog(requireContext(),prefs.power.enableBatteryLog)
+        }
+
 
     }
 

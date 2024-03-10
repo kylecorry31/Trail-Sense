@@ -17,5 +17,10 @@ class PowerPreferences(context: Context) : PreferenceRepo(context) {
         context.getString(R.string.pref_start_on_boot),
         true
     )
+    var enableBatteryLog by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_battery_log_enabled),
+        true
+    )
 
 }
