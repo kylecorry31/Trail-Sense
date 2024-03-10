@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.battery.Battery
 import com.kylecorry.andromeda.battery.BatteryChargingMethod
 import com.kylecorry.andromeda.battery.BatteryChargingStatus
@@ -42,7 +45,7 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val battery by lazy { Battery(requireContext()) }
     private val batteryRepo by lazy { BatteryRepo.getInstance(requireContext()) }
-
+    private lateinit var navController: NavController
     private val lowPowerMode by lazy { LowPowerMode(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val batteryService = BatteryService()
@@ -87,6 +90,7 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navController = findNavController()
         binding.batteryLevelProgress.horizontal = false
         servicesList =
             ListView(binding.runningServices, R.layout.list_item_service) { serviceView, service ->
@@ -131,17 +135,34 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
         }
 
         binding.batteryTitle.leftButton.setOnClickListener {
-            val readingDuration =
-                Duration.between(readings.firstOrNull()?.time, readings.lastOrNull()?.time)
-            CustomUiUtils.showChart(
-                this,
-                getString(
-                    R.string.battery_history,
-                    formatService.formatDuration(readingDuration, false)
+            if (prefs.power.enableBatteryLog) {
+                val readingDuration =
+                    Duration.between(readings.firstOrNull()?.time, readings.lastOrNull()?.time)
+                CustomUiUtils.showChart(
+                    this,
+                    getString(
+                        R.string.battery_history,
+                        formatService.formatDuration(readingDuration, false)
+                    )
+                ) {
+                    val chart = BatteryChart(it)
+                    chart.plot(readings, false)
+                }
+            } else {
+                Alerts.dialog(
+                    requireContext(),
+                    getString(R.string.pref_tiles_battery_log),
+                    getString(R.string.pref_dialog_battery_log_summary),
+                    okText = getString(R.string.settings),
+                    onClose = {
+                        if (it.not()) {
+                            navController.navigate(
+                                R.id.action_settings_to_power_settings,
+                            )
+                        }
+
+                    }
                 )
-            ) {
-                val chart = BatteryChart(it)
-                chart.plot(readings, false)
             }
         }
 
