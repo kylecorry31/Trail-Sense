@@ -1124,4 +1124,10 @@
     <string name="use_gyroscope_after_calibration">Gebruik gyroscoop na kalibratie</string>
     <string name="use_gyroscope_after_calibration_description">In plaats van het kompas (voorkomt magnetische drift)</string>
     <string name="reset_calibration_question">Kalibratie herstellen?</string>
+    <string name="use_path_elevation">Gebruik padhoogte</string>
+    <string name="smooth_gps_readings">Fijne GPS-meting</string>
+    <string name="scanning_image">Afbeelding scannen</string>
+    <string name="no_qr_code_detected">Geen QR-code gedetecteerd</string>
+    <string name="select_from_gallery">Kies uit galerij</string>
+    <string name="magnetometer_gyro_custom">Magnetometer + Gyro (Aangepast)</string>
 </resources>

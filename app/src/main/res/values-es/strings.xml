@@ -1135,4 +1135,10 @@
     <string name="use_gyroscope_after_calibration">Utilizar el giroscopio tras la calibración</string>
     <string name="use_gyroscope_after_calibration_description">En lugar de la brújula (evita la deriva magnética)</string>
     <string name="reset_calibration_question">¿Reajustar la calibración?</string>
+    <string name="scanning_image">Escaneando la imagen</string>
+    <string name="no_qr_code_detected">No hay ningún código QR</string>
+    <string name="use_path_elevation">Usar elevación de ruta</string>
+    <string name="smooth_gps_readings">Lecturas GPS fluidas</string>
+    <string name="select_from_gallery">Seleccionar de la galería</string>
+    <string name="magnetometer_gyro_custom">Magnetómetro + Giroscopio (Personalizado)</string>
 </resources>

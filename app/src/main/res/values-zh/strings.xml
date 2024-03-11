@@ -1115,4 +1115,5 @@
     <string name="select_from_gallery">从相册选择</string>
     <string name="scanning_image">扫描图像</string>
     <string name="no_qr_code_detected">未检测到二维码</string>
+    <string name="magnetometer_gyro_custom">磁强计+陀螺仪（自定义）</string>
 </resources>

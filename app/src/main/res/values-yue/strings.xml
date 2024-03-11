@@ -954,8 +954,10 @@
     <string name="no_packing_lists">未有照單執嘢</string>
     <string name="create_item_title">整過樣嘢</string>
     <string name="inventory_empty_text">未有任何嘢</string>
-    <string name="create_path">整返個路徑</string>
+    <string name="create_path">整返條路徑</string>
     <string name="scanning_image">掃描緊影像</string>
     <string name="pref_backtrack_save_cell_summary">喺中途點紀錄基站訊號。唔會連上網。</string>
     <string name="photo_map_disclaimer">請時刻帶備一份紙本地圖以防萬一，並務必查驗 Trail Sense 嘅準繩。</string>
+    <string name="point_style">點嘅花款</string>
+    <string name="line_style">線嘅花款</string>
 </resources>
