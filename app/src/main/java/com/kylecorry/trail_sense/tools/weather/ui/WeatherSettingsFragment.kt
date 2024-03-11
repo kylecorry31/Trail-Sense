@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onMain
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.settings.ui.PressureChartPreference
 import com.kylecorry.trail_sense.shared.io.IOFactory
@@ -79,6 +80,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         prefDailyWeatherTime = preference(R.string.pref_daily_weather_time_holder)
         prefleftButton = list(R.string.pref_weather_quick_action_left)
         prefrightButton = list(R.string.pref_weather_quick_action_right)
+        bindPressurePreferences()
     }
 
 
@@ -270,6 +272,35 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
                 }
             }
         }
+    }
+
+    /**
+     * Initialize and display pressure settings
+     */
+    private fun bindPressurePreferences() {
+        pressureSmoothingSeekBar = seekBar(R.string.pref_barometer_pressure_smoothing)
+
+        pressureTxt = findPreference(getString(R.string.pref_holder_pressure))
+        seaLevelSwitch = findPreference(getString(R.string.pref_use_sea_level_pressure))
+        chart = findPreference(getString(R.string.pref_holder_pressure_chart))
+
+        pressureSmoothingSeekBar?.summary =
+            formatService.formatPercentage(prefs.weather.pressureSmoothing)
+
+        pressureSmoothingSeekBar?.updatesContinuously = true
+        pressureSmoothingSeekBar?.setOnPreferenceChangeListener { _, newValue ->
+            val change = 100 * newValue.toString().toFloat() / 1000f
+            pressureSmoothingSeekBar?.summary = formatService.formatPercentage(change)
+            true
+        }
+
+        preference(R.string.pref_barometer_info_holder)?.icon?.setTint(
+            Resources.getAndroidColorAttr(
+                requireContext(),
+                android.R.attr.textColorSecondary
+            )
+        )
+
     }
 
     /**
