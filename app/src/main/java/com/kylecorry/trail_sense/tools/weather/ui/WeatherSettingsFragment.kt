@@ -22,6 +22,8 @@ import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.time.CoroutineTimer
+import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.units.Reading
@@ -71,6 +73,10 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
     private lateinit var units: PressureUnits
     private lateinit var sensorService: SensorService
     private val runner = CoroutineQueueRunner()
+    private val throttle = Throttle(20)
+    private val updateTimer = CoroutineTimer {
+        update()
+    }
 
     private lateinit var prefs: UserPreferences
 
@@ -223,6 +229,15 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
             }
         }
     }
+    override fun onResume() {
+        super.onResume()
+        updateTimer.interval(200)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        updateTimer.stop()
+    }
 
     private fun restartWeatherMonitor() {
         WeatherUpdateScheduler.restart(requireContext())
@@ -356,5 +371,19 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
     }
 
 
+    private fun update() {
+        // TODO: Only call this on change
+        if (throttle.isThrottled()) {
+            return
+        }
+
+        val pressure = history.lastOrNull()?.pressure ?: Pressure.hpa(0f)
+
+        pressureTxt?.summary =
+            formatService.formatPressure(
+                pressure.convertTo(units),
+                Units.getDecimalPlaces(units)
+            )
+    }
 
 }
