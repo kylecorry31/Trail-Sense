@@ -25,6 +25,68 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:singleLineTitle="false"
+        app:title="@string/barometer">
+
+        <Preference
+            android:summary="@string/dash"
+            android:title="@string/pressure"
+            app:icon="@drawable/ic_barometer"
+            app:key="@string/pref_holder_pressure"
+            app:selectable="false"
+            app:singleLineTitle="false" />
+
+        <com.kylecorry.trail_sense.settings.ui.PressureChartPreference
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_holder_pressure_chart" />
+
+        <ListPreference
+            app:defaultValue="48"
+            app:entries="@array/pressure_history_entries"
+            app:entryValues="@array/pressure_history_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_pressure_history"
+            app:singleLineTitle="false"
+            app:title="@string/pref_pressure_history_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_use_sea_level_pressure"
+            app:singleLineTitle="false"
+            app:title="@string/pref_use_sea_level_pressure_title" />
+
+        <SeekBarPreference
+            android:defaultValue="150"
+            android:max="1000"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_barometer_pressure_smoothing"
+            app:min="0"
+            app:seekBarIncrement="1"
+            app:singleLineTitle="false"
+            app:title="@string/smoothing"
+            app:updatesContinuously="true" />
+
+        <SwitchPreferenceCompat
+            android:dependency="@string/pref_use_sea_level_pressure"
+            android:summary="@string/pref_adjust_for_temperature_summary"
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_adjust_for_temperature"
+            app:singleLineTitle="false"
+            app:title="@string/pref_adjust_for_temperature_title" />
+
+        <Preference
+            android:icon="@drawable/ic_info"
+            android:summary="@string/pref_barometer_info_summary"
+            app:key="@string/pref_barometer_info_holder"
+            app:selectable="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
         app:title="@string/forecasts_category">
 
         <SwitchPreferenceCompat
