@@ -14,6 +14,7 @@ class SensorSettingsFragment : AndromedaPreferenceFragment() {
         R.string.pref_compass_sensor to R.id.action_action_settings_to_calibrateCompassFragment,
         R.string.pref_altimeter_calibration to R.id.action_action_settings_to_calibrateAltimeterFragment,
         R.string.pref_gps_calibration to R.id.action_action_settings_to_calibrateGPSFragment,
+        R.string.pref_barometer_calibration to R.id.action_action_settings_to_calibrateBarometerFragment,
         R.string.pref_temperature_settings to R.id.action_action_settings_to_thermometerSettingsFragment,
         R.string.pref_cell_signal_settings to R.id.action_action_settings_to_cellSignalSettingsFragment
     )

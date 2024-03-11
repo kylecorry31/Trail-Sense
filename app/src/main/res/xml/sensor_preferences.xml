@@ -25,6 +25,12 @@
             app:singleLineTitle="false" />
 
         <Preference
+            android:key="@string/pref_barometer_calibration"
+            android:title="@string/barometer"
+            app:icon="@drawable/ic_barometer"
+            app:singleLineTitle="false" />
+
+        <Preference
             android:key="@string/pref_temperature_settings"
             android:title="@string/tool_thermometer_title"
             app:icon="@drawable/thermometer"
