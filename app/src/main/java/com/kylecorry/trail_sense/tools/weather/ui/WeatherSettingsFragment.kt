@@ -52,7 +52,6 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
 
     private val weatherSubsystem by lazy { WeatherSubsystem.getInstance(requireContext()) }
 
-
     private lateinit var prefs: UserPreferences
 
     private fun bindPreferences() {
