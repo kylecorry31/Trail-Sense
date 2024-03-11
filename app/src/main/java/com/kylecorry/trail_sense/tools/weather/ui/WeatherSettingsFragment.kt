@@ -35,6 +35,7 @@ import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.Instant
 import com.kylecorry.trail_sense.shared.safeRoundToInt
+import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 
 class WeatherSettingsFragment : AndromedaPreferenceFragment() {
 
@@ -48,6 +49,9 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
     private var prefDailyWeatherTime: Preference? = null
     private var prefStormAlerts: SwitchPreferenceCompat? = null
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
+
+    private val weatherSubsystem by lazy { WeatherSubsystem.getInstance(requireContext()) }
+
 
     private lateinit var prefs: UserPreferences
 
