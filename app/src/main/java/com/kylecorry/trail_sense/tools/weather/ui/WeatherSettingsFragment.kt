@@ -38,6 +38,7 @@ import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.Instant
 import com.kylecorry.trail_sense.shared.safeRoundToInt
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherObservation
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
@@ -64,6 +65,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
     private var history: List<WeatherObservation> = listOf()
     private var uncalibratedHistory: List<Reading<RawWeatherObservation>> = listOf()
     private lateinit var units: PressureUnits
+    private lateinit var sensorService: SensorService
 
     private lateinit var prefs: UserPreferences
 
@@ -84,6 +86,8 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         setPreferencesFromResource(R.xml.weather_preferences, rootKey)
         val userPrefs = UserPreferences(requireContext())
         prefs = userPrefs
+        sensorService = SensorService(requireContext())
+        units = prefs.pressureUnits
         bindPreferences()
 
         val actions = Tools.getQuickActions(requireContext())
