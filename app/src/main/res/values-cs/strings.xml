@@ -1151,4 +1151,7 @@
     <string name="smooth_gps_readings">Jemné čtení GPS</string>
     <string name="select_from_gallery">Vybrat z galerie</string>
     <string name="magnetometer_gyro_custom">Magnetometr + gyroskop (vlastní)</string>
+    <string name="pref_tiles_enabled_battery_log_summary">Každou hodinu zaznamená procento baterie pro odhad času do jejího vybití</string>
+    <string name="pref_tiles_battery_log">Protokol baterie</string>
+    <string name="pref_dialog_battery_log_summary">Protokol baterie je zakázán, historie a čas do vybití nemusí být dostupné. Tuto funkci lze znovu povolit v nastavení</string>
 </resources>
