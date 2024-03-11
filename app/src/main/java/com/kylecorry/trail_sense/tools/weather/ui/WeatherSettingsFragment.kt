@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.weather.ui
 
 import android.os.Bundle
+import android.view.View
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
@@ -21,6 +22,8 @@ import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.fragments.observe
+import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.settings.ui.PressureChartPreference
 import com.kylecorry.trail_sense.shared.io.IOFactory
@@ -67,6 +70,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
     private var uncalibratedHistory: List<Reading<RawWeatherObservation>> = listOf()
     private lateinit var units: PressureUnits
     private lateinit var sensorService: SensorService
+    private val runner = CoroutineQueueRunner()
 
     private lateinit var prefs: UserPreferences
 
@@ -205,6 +209,21 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        observe(weatherSubsystem.weatherChanged) {
+            inBackground {
+                runner.replace {
+                    history = weatherSubsystem.getHistory()
+                    uncalibratedHistory = weatherSubsystem.getRawHistory()
+                    onMain {
+                        updateChart()
+                    }
+                }
+            }
+        }
+    }
+
     private fun restartWeatherMonitor() {
         WeatherUpdateScheduler.restart(requireContext())
     }
@@ -335,5 +354,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
                 displayRawReadings.map { it.copy(value = it.value.convertTo(units)) })
         }
     }
+
+
 
 }
