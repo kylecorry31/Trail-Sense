@@ -272,4 +272,37 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         }
     }
 
+    /**
+     * to plot and display pressure readings
+     */
+    private fun updateChart() {
+        val displayReadings = history.filter {
+            Duration.between(
+                it.time,
+                Instant.now()
+            ) <= prefs.weather.pressureHistory
+        }.map { it.pressureReading() }
+
+        val useTemperature = prefs.weather.seaLevelFactorInTemp
+        val useSeaLevel = prefs.weather.useSeaLevelPressure
+
+        val displayRawReadings = uncalibratedHistory.filter {
+            Duration.between(
+                it.time,
+                Instant.now()
+            ) <= prefs.weather.pressureHistory
+        }.map {
+            if (useSeaLevel) {
+                Reading(it.value.seaLevel(useTemperature), it.time)
+            } else {
+                Reading(Pressure.hpa(it.value.pressure), it.time)
+            }
+        }
+        if (displayReadings.isNotEmpty()) {
+            chart?.plot(
+                displayReadings.map { it.copy(value = it.value.convertTo(units)) },
+                displayRawReadings.map { it.copy(value = it.value.convertTo(units)) })
+        }
+    }
+
 }
