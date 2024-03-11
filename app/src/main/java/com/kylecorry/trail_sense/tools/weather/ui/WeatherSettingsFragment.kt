@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.weather.ui
 import android.os.Bundle
 import androidx.preference.ListPreference
 import androidx.preference.Preference
+import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
@@ -19,6 +20,8 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onMain
+import com.kylecorry.sol.units.Reading
+import com.kylecorry.trail_sense.settings.ui.PressureChartPreference
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.preferences.setupNotificationSetting
@@ -35,6 +38,8 @@ import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.Instant
 import com.kylecorry.trail_sense.shared.safeRoundToInt
+import com.kylecorry.trail_sense.tools.weather.domain.RawWeatherObservation
+import com.kylecorry.trail_sense.tools.weather.domain.WeatherObservation
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 
 class WeatherSettingsFragment : AndromedaPreferenceFragment() {
@@ -50,7 +55,15 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
     private var prefStormAlerts: SwitchPreferenceCompat? = null
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
+    //barometer
     private val weatherSubsystem by lazy { WeatherSubsystem.getInstance(requireContext()) }
+    private var pressureTxt: Preference? = null
+    private var seaLevelSwitch: SwitchPreferenceCompat? = null
+    private var pressureSmoothingSeekBar: SeekBarPreference? = null
+    private var chart: PressureChartPreference? = null
+    private var history: List<WeatherObservation> = listOf()
+    private var uncalibratedHistory: List<Reading<RawWeatherObservation>> = listOf()
+    private lateinit var units: PressureUnits
 
     private lateinit var prefs: UserPreferences
 
