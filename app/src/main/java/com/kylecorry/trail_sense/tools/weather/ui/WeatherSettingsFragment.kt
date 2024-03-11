@@ -1,53 +1,40 @@
 package com.kylecorry.trail_sense.tools.weather.ui
 
 import android.os.Bundle
-import android.view.View
 import androidx.preference.ListPreference
 import androidx.preference.Preference
-import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
-import com.kylecorry.andromeda.core.coroutines.onDefault
-import com.kylecorry.andromeda.core.coroutines.onMain
-import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.time.CoroutineTimer
-import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.pickers.Pickers
-import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.math.statistics.Statistics
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
-import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.settings.ui.PressureChartPreference
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.debugging.isDebug
+import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.preferences.setupNotificationSetting
 import com.kylecorry.trail_sense.shared.requireMainActivity
-import com.kylecorry.trail_sense.shared.safeRoundToInt
-import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.tools.ui.Tools
-import com.kylecorry.trail_sense.tools.weather.domain.RawWeatherObservation
-import com.kylecorry.trail_sense.tools.weather.domain.WeatherObservation
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherCsvConverter
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherPreferences
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeatherAlerter
 import com.kylecorry.trail_sense.tools.weather.infrastructure.commands.ChangeWeatherFrequencyCommand
 import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.WeatherRepo
-import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.Instant
+import com.kylecorry.trail_sense.shared.safeRoundToInt
 
 class WeatherSettingsFragment : AndromedaPreferenceFragment() {
 
@@ -62,22 +49,6 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
     private var prefStormAlerts: SwitchPreferenceCompat? = null
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
-    //barometer
-    private val weatherSubsystem by lazy { WeatherSubsystem.getInstance(requireContext()) }
-    private var pressureTxt: Preference? = null
-    private var seaLevelSwitch: SwitchPreferenceCompat? = null
-    private var pressureSmoothingSeekBar: SeekBarPreference? = null
-    private var chart: PressureChartPreference? = null
-    private var history: List<WeatherObservation> = listOf()
-    private var uncalibratedHistory: List<Reading<RawWeatherObservation>> = listOf()
-    private lateinit var units: PressureUnits
-    private lateinit var sensorService: SensorService
-    private val runner = CoroutineQueueRunner()
-    private val throttle = Throttle(20)
-    private val updateTimer = CoroutineTimer {
-        update()
-    }
-
     private lateinit var prefs: UserPreferences
 
     private fun bindPreferences() {
@@ -90,7 +61,6 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         prefDailyWeatherTime = preference(R.string.pref_daily_weather_time_holder)
         prefleftButton = list(R.string.pref_weather_quick_action_left)
         prefrightButton = list(R.string.pref_weather_quick_action_right)
-        bindPressurePreferences()
     }
 
 
@@ -98,8 +68,6 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         setPreferencesFromResource(R.xml.weather_preferences, rootKey)
         val userPrefs = UserPreferences(requireContext())
         prefs = userPrefs
-        sensorService = SensorService(requireContext())
-        units = prefs.pressureUnits
         bindPreferences()
 
         val actions = Tools.getQuickActions(requireContext())
@@ -215,30 +183,6 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        observe(weatherSubsystem.weatherChanged) {
-            inBackground {
-                runner.replace {
-                    history = weatherSubsystem.getHistory()
-                    uncalibratedHistory = weatherSubsystem.getRawHistory()
-                    onMain {
-                        updateChart()
-                    }
-                }
-            }
-        }
-    }
-    override fun onResume() {
-        super.onResume()
-        updateTimer.interval(200)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        updateTimer.stop()
-    }
-
     private fun restartWeatherMonitor() {
         WeatherUpdateScheduler.restart(requireContext())
     }
@@ -306,84 +250,6 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
                 }
             }
         }
-    }
-
-    /**
-     * Initialize and display pressure settings
-     */
-    private fun bindPressurePreferences() {
-        pressureSmoothingSeekBar = seekBar(R.string.pref_barometer_pressure_smoothing)
-
-        pressureTxt = findPreference(getString(R.string.pref_holder_pressure))
-        seaLevelSwitch = findPreference(getString(R.string.pref_use_sea_level_pressure))
-        chart = findPreference(getString(R.string.pref_holder_pressure_chart))
-
-        pressureSmoothingSeekBar?.summary =
-            formatService.formatPercentage(prefs.weather.pressureSmoothing)
-
-        pressureSmoothingSeekBar?.updatesContinuously = true
-        pressureSmoothingSeekBar?.setOnPreferenceChangeListener { _, newValue ->
-            val change = 100 * newValue.toString().toFloat() / 1000f
-            pressureSmoothingSeekBar?.summary = formatService.formatPercentage(change)
-            true
-        }
-
-        preference(R.string.pref_barometer_info_holder)?.icon?.setTint(
-            Resources.getAndroidColorAttr(
-                requireContext(),
-                android.R.attr.textColorSecondary
-            )
-        )
-
-    }
-
-    /**
-     * to plot and display pressure readings
-     */
-    private fun updateChart() {
-        val displayReadings = history.filter {
-            Duration.between(
-                it.time,
-                Instant.now()
-            ) <= prefs.weather.pressureHistory
-        }.map { it.pressureReading() }
-
-        val useTemperature = prefs.weather.seaLevelFactorInTemp
-        val useSeaLevel = prefs.weather.useSeaLevelPressure
-
-        val displayRawReadings = uncalibratedHistory.filter {
-            Duration.between(
-                it.time,
-                Instant.now()
-            ) <= prefs.weather.pressureHistory
-        }.map {
-            if (useSeaLevel) {
-                Reading(it.value.seaLevel(useTemperature), it.time)
-            } else {
-                Reading(Pressure.hpa(it.value.pressure), it.time)
-            }
-        }
-        if (displayReadings.isNotEmpty()) {
-            chart?.plot(
-                displayReadings.map { it.copy(value = it.value.convertTo(units)) },
-                displayRawReadings.map { it.copy(value = it.value.convertTo(units)) })
-        }
-    }
-
-
-    private fun update() {
-        // TODO: Only call this on change
-        if (throttle.isThrottled()) {
-            return
-        }
-
-        val pressure = history.lastOrNull()?.pressure ?: Pressure.hpa(0f)
-
-        pressureTxt?.summary =
-            formatService.formatPressure(
-                pressure.convertTo(units),
-                Units.getDecimalPlaces(units)
-            )
     }
 
 }
