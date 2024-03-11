@@ -173,10 +173,6 @@
         android:name="com.kylecorry.trail_sense.calibration.ui.CalibrateAltimeterFragment"
         android:label="CalibrateAltimeterFragment" />
     <fragment
-        android:id="@+id/calibrateBarometerFragment"
-        android:name="com.kylecorry.trail_sense.calibration.ui.CalibrateBarometerFragment"
-        android:label="CalibrateBarometerFragment" />
-    <fragment
         android:id="@+id/calibrateCompassFragment"
         android:name="com.kylecorry.trail_sense.calibration.ui.CalibrateCompassFragment"
         android:label="CalibrateCompassFragment" />
@@ -551,13 +547,6 @@
         <action
             android:id="@+id/action_settings_to_sensor_details"
             app:destination="@id/sensorDetailsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_action_settings_to_calibrateBarometerFragment"
-            app:destination="@id/calibrateBarometerFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
