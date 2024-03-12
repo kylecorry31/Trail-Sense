@@ -20,12 +20,6 @@
             app:singleLineTitle="false"
             app:title="@string/right_quick_action"
             app:useSimpleSummaryProvider="true" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        app:iconSpaceReserved="false"
-        app:singleLineTitle="false"
-        app:title="@string/barometer">
 
         <ListPreference
             app:defaultValue="48"
@@ -36,7 +30,6 @@
             app:singleLineTitle="false"
             app:title="@string/pref_pressure_history_title"
             app:useSimpleSummaryProvider="true" />
-
     </PreferenceCategory>
 
     <PreferenceCategory
