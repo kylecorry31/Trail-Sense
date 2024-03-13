@@ -86,7 +86,12 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         }
 
         binding.metalSoundToggle.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked){
+                whistle.on()
 
+            } else {
+                whistle.off()
+            }
         }
     }
 
