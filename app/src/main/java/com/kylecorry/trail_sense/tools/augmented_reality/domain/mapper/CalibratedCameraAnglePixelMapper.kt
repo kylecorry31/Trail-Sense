@@ -19,7 +19,8 @@ import kotlin.math.max
 class CalibratedCameraAnglePixelMapper(
     private val camera: ICamera,
     private val fallback: CameraAnglePixelMapper = LinearCameraAnglePixelMapper(),
-    private val applyDistortionCorrection: Boolean = false
+    private val applyDistortionCorrection: Boolean = false,
+    private val useManufacturerCalibration: Boolean = false
 ) : CameraAnglePixelMapper {
 
     private var focalLength: Vector2? = null
@@ -43,9 +44,11 @@ class CalibratedCameraAnglePixelMapper(
         return fallback.getAngle(x, y, imageRect, fieldOfView)
     }
 
-    private fun updateCalibration(){
+    private fun updateCalibration() {
         if (focalLength == null || opticalCenter == null) {
-            val calibration = camera.getIntrinsicCalibration(true) ?: return
+            val calibration =
+                camera.getIntrinsicCalibration(true, onlyUseEstimated = !useManufacturerCalibration)
+                    ?: return
             val rotation = camera.sensorRotation.toInt()
             if (rotation == 90 || rotation == 270) {
                 focalLength = Vector2(calibration[1], calibration[0])
