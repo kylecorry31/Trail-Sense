@@ -1130,4 +1130,7 @@
     <string name="no_qr_code_detected">Geen QR-code gedetecteerd</string>
     <string name="select_from_gallery">Kies uit galerij</string>
     <string name="magnetometer_gyro_custom">Magnetometer + Gyro (Aangepast)</string>
+    <string name="pref_tiles_battery_log">Batterijlogboek</string>
+    <string name="pref_dialog_battery_log_summary">Het batterijlogboek is uitgeschakeld, geschiedenis en tijd tot ontlading zijn mogelijk niet beschikbaar. Deze functie kan opnieuw worden ingeschakeld in de instellingen</string>
+    <string name="pref_tiles_enabled_battery_log_summary">Registreert elk uur het batterijpercentage om de tijd te schatten totdat de batterij leeg is</string>
 </resources>
