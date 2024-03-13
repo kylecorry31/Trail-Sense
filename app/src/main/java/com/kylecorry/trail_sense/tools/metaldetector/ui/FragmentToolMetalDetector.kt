@@ -10,6 +10,7 @@ import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.sound.ISoundPlayer
 import com.kylecorry.sol.math.Quaternion
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.filters.LowPassFilter
@@ -22,6 +23,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.whistle.infrastructure.Whistle
 import java.time.Duration
 import kotlin.math.absoluteValue
 
@@ -60,6 +62,8 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
     private val haptics by lazy { HapticSubsystem.getInstance(requireContext()) }
 
     private val isMetalDetected = Debouncer(Duration.ofMillis(100))
+
+    private var whistle: ISoundPlayer = Whistle()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
