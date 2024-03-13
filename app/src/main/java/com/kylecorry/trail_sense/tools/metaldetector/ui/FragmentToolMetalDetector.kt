@@ -80,6 +80,10 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
                 isMetalDetected.debounceTime = Duration.ofMillis(100)
             }
         }
+
+        binding.metalSoundToggle.setOnCheckedChangeListener { _, isChecked ->
+
+        }
     }
 
     override fun onResume() {
