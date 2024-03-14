@@ -33,7 +33,6 @@ import com.kylecorry.trail_sense.tools.paths.ui.IPathLayer
 class ARPathLayer(
     viewDistanceMeters: Float,
     private val adjustForPathElevation: Boolean,
-    private val updateEveryCycle: Boolean = true,
     private val onFocus: (path: IMappablePath) -> Boolean = { false },
 ) : ARLayer, IPathLayer {
 
@@ -89,9 +88,7 @@ class ARPathLayer(
             view.locationAccuracy,
             paths
         ) {
-            if (updateEveryCycle) {
-                updatePaths()
-            }
+            updatePaths()
         }
 
         lineLayer.update(drawer, view)
@@ -122,11 +119,6 @@ class ARPathLayer(
 
     override fun setPaths(paths: List<IMappablePath>) {
         this.paths = paths
-
-        // Update the paths if we don't update every cycle (snapping may become out of date)
-        if (!updateEveryCycle) {
-            updatePaths()
-        }
     }
 
     private fun updatePaths() {
