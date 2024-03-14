@@ -1141,4 +1141,7 @@
     <string name="smooth_gps_readings">Lecturas GPS fluidas</string>
     <string name="select_from_gallery">Seleccionar de la galería</string>
     <string name="magnetometer_gyro_custom">Magnetómetro + Giroscopio (Personalizado)</string>
+    <string name="pref_tiles_enabled_battery_log_summary">Registra el porcentaje de batería cada hora para estimar el tiempo hasta que se agote</string>
+    <string name="pref_tiles_battery_log">Registro de batería</string>
+    <string name="pref_dialog_battery_log_summary">El registro de la batería está deshabilitado, el historial y el tiempo hasta que se agote pueden no estar disponibles. Puedes volver a habilitar esto en la configuración</string>
 </resources>
