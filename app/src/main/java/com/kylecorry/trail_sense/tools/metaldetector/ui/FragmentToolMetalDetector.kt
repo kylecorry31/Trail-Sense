@@ -65,6 +65,12 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
 
     private var whistle: ISoundPlayer = Whistle()
 
+    private var lastMagneticField: Float = 0f // Placeholder for the last magnetic field strength
+    private var volume: Float = 0.0f // Initial volume
+    private val maxVolume: Float = 0.1f // Adjusted Max volume
+    private val minVolume: Float = 0.0f // Min volume
+    private val volumeStep: Float = 0.01f // Adjusted volume change per step based on new range and steps
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         chart = MetalDetectorChart(
@@ -162,6 +168,8 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
             updateChart()
         }
 
+        updateMetalSoundIntensity(magneticField)
+
         // Update the threshold from the slider
         updateThreshold()
 
@@ -186,6 +194,19 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
             isVibrating = false
             haptics.off()
         }
+    }
+    private fun updateMetalSoundIntensity(magneticField: Float) {
+        // manage
+        if (magneticField > lastMagneticField && volume < maxVolume) {
+            // If the magnetic field has increased and volume is not at max, increase volume
+            volume = (volume + volumeStep).coerceAtMost(maxVolume) // Ensure volume does not exceed max
+        } else if (magneticField < lastMagneticField && volume > minVolume) {
+            // If the magnetic field has decreased and volume is not at min, decrease volume
+            volume = (volume - volumeStep).coerceAtLeast(minVolume) // Ensure volume does not drop below min
+        }
+        whistle.setVolume(volume) // Set the volume
+        lastMagneticField = magneticField //
+
     }
 
     private fun getCurrentMagneticFieldStrength(): Float {
