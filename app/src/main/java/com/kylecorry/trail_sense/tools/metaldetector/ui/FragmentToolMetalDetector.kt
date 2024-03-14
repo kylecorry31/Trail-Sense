@@ -67,9 +67,9 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
 
     private var lastMagneticField: Float = 0f // Placeholder for the last magnetic field strength
     private var volume: Float = 0.0f // Initial volume
-    private val maxVolume: Float = 0.1f // Adjusted Max volume
+    private val maxVolume: Float = 1.0f // Adjusted Max volume
     private val minVolume: Float = 0.0f // Min volume
-    private val volumeStep: Float = 0.01f // Adjusted volume change per step based on new range and steps
+    private val volumeStep: Float = 0.05f // Adjusted volume change per step based on new range and steps
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
