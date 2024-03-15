@@ -160,7 +160,11 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
             LowPassAccelerometer(context, sensorDelay, ACCELEROMETER_LOW_PASS)
         }
 
-        return CustomGeomagneticRotationSensor(magnetometer, accelerometer)
+        return CustomGeomagneticRotationSensor(
+            magnetometer,
+            accelerometer,
+            onlyUseMagnetometerQuality = true
+        )
     }
 
     private fun getCustomRotationSensor(sensorDelay: Int): IOrientationSensor {
@@ -171,7 +175,8 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
         return CustomRotationSensor(
             magnetometer, accelerometer, gyro,
             validMagnetometerMagnitudes = Range(20f, 65f),
-            validAccelerometerMagnitudes = Range(4f, 20f)
+            validAccelerometerMagnitudes = Range(4f, 20f),
+            onlyUseMagnetometerQuality = true
         )
     }
 
