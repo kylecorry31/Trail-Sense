@@ -584,7 +584,12 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         // TODO: Move selected beacon updating to a coroutine / timer
-        effect("selected_beacon", destination, compass.rawBearing.safeRoundToInt()) {
+        effect(
+            "selected_beacon",
+            destination,
+            compass.rawBearing.safeRoundToInt(),
+            lifecycleHookTrigger.onResume()
+        ) {
             val selectedBeacon = getSelectedBeacon(nearbyBeacons)
             if (selectedBeacon != null) {
                 binding.navigationSheet.show(
@@ -598,47 +603,48 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             }
         }
 
-        effect("gps_status", gpsStatusBadge) {
+        effect("gps_status", gpsStatusBadge, lifecycleHookTrigger.onResume()) {
             gpsStatusBadge?.let {
                 binding.gpsStatus.setStatusText(it.name)
                 binding.gpsStatus.setBackgroundTint(it.color)
             }
         }
 
-        effect("compass_status", compassStatusBadge) {
+        effect("compass_status", compassStatusBadge, lifecycleHookTrigger.onResume()) {
             compassStatusBadge?.let {
                 binding.compassStatus.setStatusText(it.name)
                 binding.compassStatus.setBackgroundTint(it.color)
             }
         }
 
-        effect("speed", speedometer.speed.speed) {
+        effect("speed", speedometer.speed.speed, lifecycleHookTrigger.onResume()) {
             binding.speed.title = formatService.formatSpeed(speedometer.speed.speed)
         }
 
-        effect("azimuth", compass.rawBearing) {
+        effect("azimuth", compass.rawBearing, lifecycleHookTrigger.onResume()) {
             updateCompassBearing()
         }
 
-        effect("altitude", altimeter.altitude) {
+        effect("altitude", altimeter.altitude, lifecycleHookTrigger.onResume()) {
             binding.altitude.title = formatService.formatDistance(
                 Distance.meters(altimeter.altitude).convertTo(baseDistanceUnits)
             )
         }
 
-        effect("location", gps.location, layerManager) {
+        effect("location", gps.location, layerManager, lifecycleHookTrigger.onResume()) {
             updateLocation()
         }
 
         effect(
             "astronomy",
             triggers.distance("astronomy", gps.location, ASTRONOMY_UPDATE_DISTANCE),
-            triggers.frequency("astronomy", ASTRONOMY_UPDATE_FREQUENCY)
+            triggers.frequency("astronomy", ASTRONOMY_UPDATE_FREQUENCY),
+            lifecycleHookTrigger.onResume()
         ) {
             updateAstronomyData()
         }
 
-        effect("navigation", destination) {
+        effect("navigation", destination, lifecycleHookTrigger.onResume()) {
             handleShowWhenLocked()
             updateNavigationButton()
         }
@@ -651,14 +657,15 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         // Azimuth
         if (hasCompass) {
-            effect("azimuth_title", bearing.value.safeRoundToInt()) {
+            val titleText = memo("azimuth_title", bearing.value.safeRoundToInt()) {
                 val azimuthText =
                     formatService.formatDegrees(bearing.value, replace360 = true)
                         .padStart(4, ' ')
                 val directionText = formatService.formatDirection(bearing.direction)
                     .padStart(2, ' ')
-                binding.navigationTitle.title.setTextDistinct("$azimuthText   $directionText")
+                "$azimuthText   $directionText"
             }
+            binding.navigationTitle.title.setTextDistinct(titleText)
         }
 
         layerManager?.onBearingChanged(bearing.value)
@@ -767,7 +774,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun onOrientationUpdate() {
-        effect("device_orientation", orientation.orientation) {
+        effect("device_orientation", orientation.orientation, lifecycleHookTrigger.onResume()) {
             val style = styleChooser.getStyle(orientation.orientation)
 
             binding.linearCompass.isInvisible = style != CompassStyle.Linear
