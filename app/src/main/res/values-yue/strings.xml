@@ -128,8 +128,8 @@
     <string name="explore">探索</string>
     <string name="calibrate">校正</string>
     <string name="calibrate_compass_dialog_title">校正羅經</string>
-    <string name="calibrate_compass_dialog_content">將您部電話打 8 字，或朝四方八面旋轉幾次，搞掂就撳一下%s。</string>
-    <string name="calibrate_compass_on_navigate_dialog_content">將您部電話打 8 字，或朝四方八面旋轉幾次，搞掂就撳一下%s。
+    <string name="calibrate_compass_dialog_content">將您部電話打 8 字，或朝四方八面旋轉幾次，搞掂就撳一下「%s」。</string>
+    <string name="calibrate_compass_on_navigate_dialog_content">將您部電話打 8 字，或朝四方八面旋轉幾次，搞掂就撳一下「%s」。
 \n
 \n呢項警報，有得喺 app 設定入面停用。</string>
     <string name="request_permission">攞權限</string>
@@ -503,8 +503,8 @@
     <string name="sunset_alert_channel_title">日落警示</string>
     <string name="moon_phase">月相</string>
     <string name="clinometer_title">傾角儀</string>
-    <string name="add">加</string>
-    <string name="subtract">減</string>
+    <string name="add">加多</string>
+    <string name="subtract">減少</string>
     <string name="delete">刪除</string>
     <string name="category">分類</string>
     <string name="dialog_item_amount">幾多件</string>
@@ -960,4 +960,48 @@
     <string name="photo_map_disclaimer">請時刻帶備一份紙本地圖以防萬一，並務必查驗 Trail Sense 嘅準繩。</string>
     <string name="point_style">點嘅花款</string>
     <string name="line_style">線嘅花款</string>
+    <string name="center">正中央</string>
+    <string name="move_to">搬過去</string>
+    <string name="moved_to">搬咗去 %s</string>
+    <string name="square">正方</string>
+    <string name="cross">十字</string>
+    <string name="dashed">虛線</string>
+    <string name="diamond">菱形</string>
+    <string name="pref_experimental_metal_direction_title">騷埋金屬方向</string>
+    <string name="old">舊</string>
+    <string name="estimate_stride_length">斷估步幅</string>
+    <string name="high_sensitivity">高敏感度</string>
+    <string name="size">大細</string>
+    <string name="group">路綫</string>
+    <string name="tool_cliff_height_disclaimer">請事必確保人身安全之下，至好用呢項架生，並務必查探懸崖下嘅狀況，以免傷亡。請查閱使用指南中嘅指示。</string>
+    <string name="pref_nearby_radar_title">騷埋就近嘅雷達羅經</string>
+    <string name="keep_forever">永遠保留</string>
+    <string name="location_to_triangulate">要三角定位嘅位置</string>
+    <string name="pref_dialog_battery_log_summary">電量紀錄已停用，過去紀錄同續航時間或會欠奉。您可以喺設定入面重新啟用</string>
+    <string name="pedometer_disclaimer">步程計嘅準繩與耗電量，取決於您部機嘅生產商以及您所打嘅步幅。可以喺屋企小試牛刀，查驗一下耗電量同準繩，先至拎出街實戰。</string>
+    <string name="new_text">新</string>
+    <string name="pref_tiles_battery_log">電量紀錄</string>
+    <string name="no_group">未有路綫</string>
+    <string name="pref_stride_length_title">步幅</string>
+    <string name="move">搬去</string>
+    <string name="guide_light_meter_description">點樣去斷定閃光燈嘅射程</string>
+    <string name="arrow">箭咀</string>
+    <string name="set_inclination_instructions">「既闊又窄」一撳，即可上鎖或解鎖</string>
+    <string name="pref_ruler_calibration_summary">"校正流程：
+\n
+\n-  呢度先設定做 1。
+\n
+\n- 用把尺度下，同一量度單位之下，把尺一格相當於 Trail Sense 把尺咩數值。
+\n
+\n- 再喺度打返把間尺嘅讀數。"</string>
+    <string name="pref_forecast_sensitivity_title">預測敏感度</string>
+    <string name="solid">實線</string>
+    <string name="dotted">點線</string>
+    <string name="no_groups">未有路綫</string>
+    <string name="map_perspective_instructions">勾劃地圖</string>
+    <string name="beam_distance">%s照射距離</string>
+    <string name="pref_tiles_enabled_battery_log_summary">每個鐘紀錄一次電量百份比，去估計續航時間</string>
+    <plurals name="waypoints_to_be_deleted">
+        <item quantity="other">%d 個中途點就會剷走個囉噃</item>
+    </plurals>
 </resources>
