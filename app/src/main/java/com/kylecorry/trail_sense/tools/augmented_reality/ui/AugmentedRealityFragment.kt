@@ -23,6 +23,7 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
+import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
@@ -50,6 +51,8 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARPathLayer
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.tools.paths.domain.Path
+import java.time.Instant
+import java.time.LocalDate
 import java.time.ZonedDateTime
 import kotlin.math.hypot
 
@@ -153,7 +156,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         val modeId = requireArguments().getLong("mode", ARMode.Normal.id)
         val desiredMode = ARMode.entries.withId(modeId) ?: ARMode.Normal
 
-        setMode(desiredMode)
+        setMode(desiredMode, requireArguments().getBundle("extras"))
 
         binding.cameraToggle.setOnClickListener {
             if (isCameraEnabled) {
@@ -314,7 +317,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         return FragmentAugmentedRealityBinding.inflate(layoutInflater, container, false)
     }
 
-    private fun setMode(mode: ARMode) {
+    private fun setMode(mode: ARMode, extras: Bundle? = null) {
         this.mode = mode
         when (mode) {
             ARMode.Normal -> {
@@ -331,7 +334,11 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
             ARMode.Astronomy -> {
                 binding.arView.setLayers(listOf(gridLayer, astronomyLayer))
-                changeGuide(AstronomyARGuide(astronomyLayer) { setMode(ARMode.Normal) })
+                val extraDate = extras?.getString("date")?.let {
+                    LocalDate.parse(it).atTime(12, 0).toZonedDateTime()
+                }
+                changeGuide(AstronomyARGuide(astronomyLayer, extraDate) { setMode(ARMode.Normal) })
+
             }
         }
     }
@@ -377,10 +384,15 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     }
 
     companion object {
-        fun open(navController: NavController, mode: ARMode = ARMode.Normal) {
+        fun open(
+            navController: NavController,
+            mode: ARMode = ARMode.Normal,
+            extras: Bundle? = null
+        ) {
             navController.navigate(
                 R.id.augmentedRealityFragment, bundleOf(
-                    "mode" to mode.id
+                    "mode" to mode.id,
+                    "extras" to extras
                 )
             )
         }

@@ -19,6 +19,7 @@ import java.time.ZonedDateTime
 
 class AstronomyARGuide(
     private val astronomyLayer: ARAstronomyLayer,
+    private val initialTimeOverride: ZonedDateTime?,
     private val onCancel: () -> Unit
 ) : ARGuide {
 
@@ -34,7 +35,7 @@ class AstronomyARGuide(
         val time = timeOverride ?: ZonedDateTime.now()
 
         // Clear the guide if the date is not today
-        if (timeOverride != null && time.toLocalDate() != LocalDate.now()){
+        if (timeOverride != null && time.toLocalDate() != LocalDate.now()) {
             arView.clearGuide()
             return@CoroutineTimer
         }
@@ -85,8 +86,17 @@ class AstronomyARGuide(
         }
 
         // Configure the date picker
-        timeOverride = null
-        astronomyLayer.timeOverride = null
+        val actualTimeOverride = initialTimeOverride?.let {
+            if (it.toLocalDate() == LocalDate.now()) {
+                null
+            } else {
+                it
+            }
+        }
+
+        timeOverride = actualTimeOverride
+        astronomyLayer.timeOverride = actualTimeOverride
+        binding?.arGuideDatePicker?.date = actualTimeOverride?.toLocalDate() ?: LocalDate.now()
         binding?.arGuideDatePicker?.setOnDateChangeListener {
             timeOverride = if (it == LocalDate.now()) {
                 null

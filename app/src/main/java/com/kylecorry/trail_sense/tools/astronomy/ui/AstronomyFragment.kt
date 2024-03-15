@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
@@ -121,7 +122,11 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
         binding.button3d.isVisible = prefs.isAugmentedRealityEnabled
         binding.button3d.setOnClickListener {
-            AugmentedRealityFragment.open(findNavController(), ARMode.Astronomy)
+            AugmentedRealityFragment.open(
+                findNavController(),
+                ARMode.Astronomy,
+                bundleOf("date" to binding.displayDate.date.toString())
+            )
         }
 
         binding.displayDate.searchEnabled = true
