@@ -1,0 +1,20 @@
+Battery
+- Add setting to toggle battery logging
+
+Weather
+- Move pressure history setting to weather settings
+
+Augmented Reality (Experimental)
+- Improve paths
+- Calibration AR orientation using sun or moon
+- Add setting to adjust paths for elevation
+- Improve camera calibration on some devices
+
+Clock
+- Improve GPS time accuracy
+
+Misc
+- [Experimental] Location smoothing
+- Switch between front and back camera on most camera views
+- Add custom magnetometer + gyro compass; may improve accuracy on some devices
+- Bug fixes
