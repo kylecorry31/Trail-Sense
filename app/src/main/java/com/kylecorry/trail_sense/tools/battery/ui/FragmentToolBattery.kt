@@ -241,9 +241,13 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
         }
 
         if (time != null && !isCharging) {
+            binding.batteryTitle.subtitle.isVisible = true
             binding.batteryTitle.subtitle.text = getString(R.string.time_until_empty)
         } else if (time != null) {
+            binding.batteryTitle.subtitle.isVisible = true
             binding.batteryTitle.subtitle.text = getString(R.string.time_until_full)
+        } else {
+            binding.batteryTitle.subtitle.isVisible = false
         }
         binding.batteryHealth.isVisible = battery.health != BatteryHealth.Good
         binding.batteryHealth.text =
