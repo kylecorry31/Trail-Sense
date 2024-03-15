@@ -123,7 +123,7 @@ dependencies {
     val lifecycleVersion = "2.7.0"
     implementation("androidx.lifecycle:lifecycle-service:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
-    val cameraxVersion = "1.3.1"
+    val cameraxVersion = "1.3.2"
     implementation("androidx.camera:camera-camera2:$cameraxVersion")
     implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
     implementation("androidx.camera:camera-view:$cameraxVersion")
@@ -133,7 +133,7 @@ dependencies {
     implementation("com.google.android.flexbox:flexbox:3.0.0")
 
     // Andromeda
-    val andromedaVersion = "ff32d165a3"
+    val andromedaVersion = "842e02f23a"
     implementation("com.github.kylecorry31.andromeda:core:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:fragments:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:forms:$andromedaVersion")
@@ -169,7 +169,7 @@ dependencies {
     // Misc
     implementation("com.github.kylecorry31:subsampling-scale-image-view:3.11.9")
     implementation("com.github.kylecorry31:sol:9.4.0")
-    implementation("com.github.kylecorry31:luna:0.3.0")
+    implementation("com.github.kylecorry31:luna:0.3.1")
 //    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.12")
 
     // Testing
