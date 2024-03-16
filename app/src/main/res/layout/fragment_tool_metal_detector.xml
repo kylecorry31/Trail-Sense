@@ -70,19 +70,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/calibrate_btn" />
 
-    <com.google.android.material.materialswitch.MaterialSwitch
-        android:id="@+id/metal_sound_toggle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/metal_sound"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/high_sensitivity_toggle" />
-
-
     <com.kylecorry.trail_sense.tools.metaldetector.ui.MagnetometerView
         android:id="@+id/magnetometerView"
         android:layout_width="0dp"
@@ -90,7 +77,7 @@
         app:layout_constraintBottom_toTopOf="@id/metal_chart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/metal_sound_toggle" />
+        app:layout_constraintTop_toBottomOf="@+id/high_sensitivity_toggle" />
 
     <com.kylecorry.andromeda.views.chart.Chart
         android:id="@+id/metal_chart"
