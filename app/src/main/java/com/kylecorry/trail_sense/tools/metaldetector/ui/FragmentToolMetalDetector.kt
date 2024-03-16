@@ -136,6 +136,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         calibrateTimer.stop()
         haptics.off()
         isVibrating = false
+        whistle.off()
     }
 
     private fun calibrate(){
@@ -211,7 +212,6 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         updateMetalSoundIntensity(magneticField,metalDetected)
     }
     private fun updateMetalSoundIntensity(reading: Float, isMetalDetected: Boolean) {
-
         if(isMetalDetected){
             whistle.setVolume(0.0f)
         }else{
@@ -219,9 +219,6 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
             volume = SolMath.map(delta - threshold, 0f, 30f, 0f, 1f, true)
             whistle.setVolume(volume) // Set the volume
         }
-
-
-
     }
 
     private fun getCurrentMagneticFieldStrength(): Float {
