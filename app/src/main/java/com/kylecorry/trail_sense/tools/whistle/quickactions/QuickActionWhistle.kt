@@ -3,8 +3,10 @@ package com.kylecorry.trail_sense.tools.whistle.quickactions
 import android.annotation.SuppressLint
 import android.view.MotionEvent
 import android.widget.ImageButton
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.sound.ISoundPlayer
 import com.kylecorry.trail_sense.R
@@ -23,7 +25,15 @@ class QuickActionWhistle(btn: ImageButton, fragment: Fragment) :
 
         fragment.inBackground {
             onDefault {
-                whistle = Whistle()
+                try {
+                    whistle = Whistle()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    // The whistle couldn't be instantiated
+                    onMain {
+                        button.isVisible = false
+                    }
+                }
             }
         }
 
