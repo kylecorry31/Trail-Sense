@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.navigation.ui.layers
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.geometry.Rectangle
+import com.kylecorry.trail_sense.shared.canvas.InteractionUtils
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.MapMarker
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.shared.getBounds
@@ -43,17 +44,19 @@ open class BaseLayer : ILayer {
     }
 
     override fun onClick(drawer: ICanvasDrawer, map: IMapView, pixel: PixelCoordinate): Boolean {
-        val clickSizeMultiplier = 2f
         val markers = synchronized(lock) {
             markers.toList()
         }
-        val clicked = markers.map {
+        val points = markers.map {
             val anchor = map.toPixel(it.location)
-            val radius = drawer.dp(it.size * map.layerScale * clickSizeMultiplier) / 2f
+            val radius = drawer.dp(it.size * map.layerScale) / 2f
             it to PixelCircle(anchor, radius)
         }
-            .filter { it.second.contains(pixel) }
-            .sortedBy { it.second.center.distanceTo(pixel) }
+
+        val clicked = InteractionUtils.getClickedPoints(
+            PixelCircle(pixel, drawer.dp(InteractionUtils.CLICK_SIZE_DP)),
+            points
+        )
 
         for (marker in clicked) {
             if (marker.first.onClick()) {

@@ -34,6 +34,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
+import com.kylecorry.trail_sense.shared.canvas.InteractionUtils
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.safeRoundToInt
@@ -143,7 +144,7 @@ class AugmentedRealityView : CanvasView {
      * The diameter of the reticle in pixels
      */
     val reticleDiameter: Float
-        get() = dp(36f)
+        get() = dp(InteractionUtils.CLICK_SIZE_DP * 2f)
 
     private val layers = mutableListOf<ARLayer>()
     private val layerLock = Any()

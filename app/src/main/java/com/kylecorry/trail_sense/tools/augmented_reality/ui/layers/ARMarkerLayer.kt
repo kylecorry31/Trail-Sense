@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.augmented_reality.ui.layers
 
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.trail_sense.shared.canvas.InteractionUtils
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMarker
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
@@ -42,7 +43,8 @@ class ARMarkerLayer(
         val maximumPixelSize = maximumDpSize?.let { drawer.dp(it) } ?: Float.MAX_VALUE
         renderedMarkers = synchronized(lock) {
             markers.mapNotNull {
-                val circle = getCircle(it, view, minimumPixelSize, maximumPixelSize) ?: return@mapNotNull null
+                val circle = getCircle(it, view, minimumPixelSize, maximumPixelSize)
+                    ?: return@mapNotNull null
                 it to circle
             }
         }
@@ -79,30 +81,17 @@ class ARMarkerLayer(
             pixel,
             view.reticleDiameter / 2f
         )
-        // potentialFocusPoints is ordered by farthest to closest to the camera
-        // Focus on the closest marker
 
         val minimumPixelSize = drawer.dp(minimumDpSize)
         val maximumPixelSize = maximumDpSize?.let { drawer.dp(it) } ?: Float.MAX_VALUE
 
-        val sorted = markers
-            .mapNotNull {
-                val circle = getCircle(it, view, minimumPixelSize, maximumPixelSize) ?: return@mapNotNull null
-                if (circle.intersects(click)) {
-                    it to circle
-                } else {
-                    null
-                }
-            }
-            .reversed()
-            .sortedBy {
-                // The point is centered (which means if the point is closer to the camera it will be first in the list)
-                if (it.second.contains(pixel)) {
-                    return@sortedBy 0f
-                }
-                // The circle does not overlap with the center, so calculate the distance to the nearest point on the circle
-                it.second.center.distanceTo(pixel) - it.second.radius
-            }
+        val points = markers.mapNotNull {
+            val circle =
+                getCircle(it, view, minimumPixelSize, maximumPixelSize) ?: return@mapNotNull null
+            it to circle
+        }
+
+        val sorted = InteractionUtils.getClickedPoints(click, points)
 
         for (marker in sorted) {
             if (marker.first.onClick()) {
