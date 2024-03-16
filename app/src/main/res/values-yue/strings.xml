@@ -1004,4 +1004,5 @@
     <plurals name="waypoints_to_be_deleted">
         <item quantity="other">%d 個中途點就會剷走個囉噃</item>
     </plurals>
+    <string name="magnetometer_gyro_custom">磁強計 + 陀螺儀 (合二為一)</string>
 </resources>
