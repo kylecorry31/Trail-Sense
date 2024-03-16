@@ -13,6 +13,7 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.sound.ISoundPlayer
 import com.kylecorry.sol.math.Quaternion
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.filters.LowPassFilter
 import com.kylecorry.sol.science.physics.PhysicsService
@@ -66,11 +67,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
 
     private lateinit var whistle: ISoundPlayer
 
-    private var lastMagneticField: Float = 0f // Placeholder for the last magnetic field strength
     private var volume: Float = 0.0f // Initial volume
-    private val maxVolume: Float = 1.0f // Adjusted Max volume
-    private val minVolume: Float = 0.0f // Min volume
-    private val volumeStep: Float = 0.05f // Adjusted volume change per step based on new range and steps
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -183,7 +180,8 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
             updateChart()
         }
 
-        updateMetalSoundIntensity(magneticField)
+
+
 
         // Update the threshold from the slider
         updateThreshold()
@@ -209,18 +207,22 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
             isVibrating = false
             haptics.off()
         }
+
+        updateMetalSoundIntensity(magneticField,metalDetected)
     }
-    private fun updateMetalSoundIntensity(magneticField: Float) {
-        // manage
-        if (magneticField > lastMagneticField && volume < maxVolume) {
-            // If the magnetic field has increased and volume is not at max, increase volume
-            volume = (volume + volumeStep).coerceAtMost(maxVolume) // Ensure volume does not exceed max
-        } else if (magneticField < lastMagneticField && volume > minVolume) {
-            // If the magnetic field has decreased and volume is not at min, decrease volume
-            volume = (volume - volumeStep).coerceAtLeast(minVolume) // Ensure volume does not drop below min
+    private fun updateMetalSoundIntensity(reading: Float, isMetalDetected: Boolean) {
+
+        if(isMetalDetected){
+            whistle.setVolume(0.0f)
+        }else{
+
         }
+        val delta = (reading - referenceMagnitude).absoluteValue
+        volume = SolMath.map(delta - threshold, 0f, 30f, 0f, 1f, true)
+
+
         whistle.setVolume(volume) // Set the volume
-        lastMagneticField = magneticField //
+
 
     }
 
