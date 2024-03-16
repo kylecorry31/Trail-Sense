@@ -12,6 +12,9 @@ import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.sound.ISoundPlayer
+import com.kylecorry.andromeda.sound.SoundPlayer
+import com.kylecorry.andromeda.sound.ToneGenerator
+import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.sol.math.Quaternion
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.Vector3
@@ -25,7 +28,6 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.tools.whistle.infrastructure.Whistle
 import java.time.Duration
 import kotlin.math.absoluteValue
 
@@ -65,9 +67,8 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
 
     private val isMetalDetected = Debouncer(Duration.ofMillis(100))
 
-    private  var whistle: ISoundPlayer? = null
-
-    private var volume: Float = 0.0f // Initial volume
+    private var audio: ISoundPlayer? = null
+    private val audioLock = Any()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -82,7 +83,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
 
         binding.highSensitivityToggle.setOnCheckedChangeListener { _, isChecked ->
             isHighSensitivity = isChecked
-            if (isChecked){
+            if (isChecked) {
                 isMetalDetected.debounceTime = Duration.ofMillis(50)
             } else {
                 isMetalDetected.debounceTime = Duration.ofMillis(100)
@@ -90,26 +91,24 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         }
 
 
-        CustomUiUtils.setButtonState(binding.metalDetectorTitle.rightButton, prefs.isMetalAudioEnabled)
+        CustomUiUtils.setButtonState(
+            binding.metalDetectorTitle.rightButton,
+            prefs.metalDetector.isMetalAudioEnabled
+        )
 
         binding.metalDetectorTitle.rightButton.setOnClickListener {
-            if (prefs.isMetalAudioEnabled){
-                prefs.isMetalAudioEnabled = false
-                whistle?.off()
+            if (prefs.metalDetector.isMetalAudioEnabled) {
+                prefs.metalDetector.isMetalAudioEnabled = false
+                audio?.off()
             } else {
-                prefs.isMetalAudioEnabled = true
-                whistle?.on()
+                prefs.metalDetector.isMetalAudioEnabled = true
+                initializeAudio()
             }
-            CustomUiUtils.setButtonState(binding.metalDetectorTitle.rightButton, prefs.isMetalAudioEnabled)
+            CustomUiUtils.setButtonState(
+                binding.metalDetectorTitle.rightButton,
+                prefs.metalDetector.isMetalAudioEnabled
+            )
         }
-    }
-
-    /**
-     *  initialize Whistle onCreate
-     */
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initializeWhistle()
     }
 
     override fun onResume() {
@@ -124,12 +123,8 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         calibrateTimer.once(Duration.ofSeconds(2))
 
 
-        if(prefs.isMetalAudioEnabled){
-            //initialize whistle instance when cleared
-            if (whistle == null){
-                initializeWhistle()
-            }
-            whistle?.on()
+        if (prefs.metalDetector.isMetalAudioEnabled) {
+            initializeAudio()
         }
 
     }
@@ -145,15 +140,15 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         calibrateTimer.stop()
         haptics.off()
         isVibrating = false
-        whistle?.off()
+        audio?.off()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        whistle?.release()
+        audio?.release()
     }
 
-    private fun calibrate(){
+    private fun calibrate() {
         referenceMagnitude = readings.takeLast(20).average().toFloat()
         calibratedField = lowPassMagnetometer.magneticField
         calibratedOrientation = orientation.orientation
@@ -196,8 +191,6 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         }
 
 
-
-
         // Update the threshold from the slider
         updateThreshold()
 
@@ -225,22 +218,30 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
 
         updateMetalSoundIntensity(magneticField)
     }
+
     private fun updateMetalSoundIntensity(reading: Float) {
+        if (!isMetalDetected.value || !prefs.metalDetector.isMetalAudioEnabled) {
+            audio?.off()
+            return
+        }
         val delta = (reading - referenceMagnitude).absoluteValue
-        volume = SolMath.map(delta - threshold, 0f, 30f, 0f, 1f, true)
-        whistle?.setVolume(volume) // Set the volume
+        val volume = SolMath.map(delta - threshold, 0f, 30f, 0f, 1f, true)
+        audio?.setVolume(volume)
+        if (audio?.isOn() != true) {
+            audio?.on()
+        }
     }
 
     private fun getCurrentMagneticFieldStrength(): Float {
         val filtered = filter.filter(magnetometer.magneticField.magnitude())
-        return if (isHighSensitivity){
+        return if (isHighSensitivity) {
             magnetometer.magneticField.magnitude()
         } else {
             filtered
         }
     }
 
-    private fun isMetalDetected(reading: Float):  Boolean {
+    private fun isMetalDetected(reading: Float): Boolean {
         val delta = (reading - referenceMagnitude).absoluteValue
         val current = delta >= threshold && referenceMagnitude != 0f
 
@@ -252,30 +253,27 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         return System.currentTimeMillis() - lastReadingTime > 20 && reading != 0f
     }
 
-    private fun updateThreshold(){
+    private fun updateThreshold() {
         threshold = (binding.threshold.progress.toFloat() / 10f).coerceAtLeast(0.1f)
-        binding.thresholdAmount.text = formatService.formatMagneticField(threshold, decimalPlaces = 1)
+        binding.thresholdAmount.text =
+            formatService.formatMagneticField(threshold, decimalPlaces = 1)
     }
 
-    private fun addReading(reading: Float){
+    private fun addReading(reading: Float) {
         readings.add(reading)
-        if (readings.size > 150){
+        if (readings.size > 150) {
             readings.removeAt(0)
         }
         lastReadingTime = System.currentTimeMillis()
     }
 
-    private fun updateChart(){
+    private fun updateChart() {
         chart.plot(readings, referenceMagnitude - threshold, referenceMagnitude + threshold)
     }
 
     private fun onMagnetometerUpdate(): Boolean {
         update()
         return true
-    }
-
-    companion object {
-        private val VIBRATION_DURATION = Duration.ofMillis(200)
     }
 
     override fun generateBinding(
@@ -285,10 +283,22 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         return FragmentToolMetalDetectorBinding.inflate(layoutInflater, container, false)
     }
 
-    private fun initializeWhistle(){
+    private fun initializeAudio() {
         inBackground {
-            whistle = Whistle()
+            onDefault {
+                synchronized(audioLock) {
+                    if (audio != null) {
+                        return@onDefault
+                    }
+                    audio = SoundPlayer(ToneGenerator().getTone(AUDIO_FREQUENCY))
+                }
+            }
         }
+    }
+
+    companion object {
+        private val VIBRATION_DURATION = Duration.ofMillis(200)
+        private const val AUDIO_FREQUENCY = 750
     }
 
 }

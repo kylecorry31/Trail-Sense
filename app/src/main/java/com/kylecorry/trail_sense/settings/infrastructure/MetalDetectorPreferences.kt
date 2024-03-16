@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.settings.infrastructure
 
 import android.content.Context
 import android.hardware.Sensor
+import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 
@@ -17,5 +18,11 @@ class MetalDetectorPreferences(context: Context): PreferenceRepo(context) {
     val showSinglePole: Boolean = false
 
     val directionSensitivity: Float = 0.6f
+
+    var isMetalAudioEnabled by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_use_metal_audio),
+        false
+    )
 
 }

@@ -91,7 +91,8 @@ class MainActivity : AndromedaActivity() {
             UserPreferences.Theme.System -> ColorTheme.System
             UserPreferences.Theme.SunriseSunset -> sunriseSunsetTheme()
         }
-        val isBlackTheme = userPrefs.theme == UserPreferences.Theme.Black || userPrefs.theme == UserPreferences.Theme.Night
+        val isBlackTheme =
+            userPrefs.theme == UserPreferences.Theme.Black || userPrefs.theme == UserPreferences.Theme.Night
         setColorTheme(mode, userPrefs.useDynamicColors)
         enableEdgeToEdge(
             navigationBarStyle = if (isBlackTheme) {
@@ -331,7 +332,12 @@ class MainActivity : AndromedaActivity() {
     }
 
     private fun shouldOverrideVolumePress(): Boolean {
-        val excluded = listOf(R.id.toolWhistleFragment, R.id.fragmentToolWhiteNoise)
+        val excluded = mutableListOf(R.id.toolWhistleFragment, R.id.fragmentToolWhiteNoise)
+
+        if (userPrefs.metalDetector.isMetalAudioEnabled) {
+            excluded.add(R.id.fragmentToolMetalDetector)
+        }
+
         if (excluded.contains(navController.currentDestination?.id)) {
             return false
         }
