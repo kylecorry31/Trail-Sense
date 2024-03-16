@@ -94,7 +94,15 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
 
 
         binding.metalDetectorTitle.rightButton.setOnClickListener {
-
+            if (prefs.isMetalAudioEnabled){
+                prefs.isMetalAudioEnabled = false
+                CustomUiUtils.setButtonState(binding.metalDetectorTitle.rightButton, false)
+                whistle.off()
+            } else {
+                prefs.isMetalAudioEnabled = true
+                CustomUiUtils.setButtonState(binding.metalDetectorTitle.rightButton, true)
+                whistle.on()
+            }
         }
     }
 
