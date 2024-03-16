@@ -45,6 +45,8 @@ import com.kylecorry.trail_sense.shared.views.CameraView
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.calibration.IARCalibrator
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.CalibratedCameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.CameraAnglePixelMapper
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.CameraAnglePixelMapperFactory
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.SimplePerspectiveCameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.ARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.AugmentedRealityCoordinate
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARLayer
@@ -76,6 +78,7 @@ class AugmentedRealityView : CanvasView {
     private val orientation = FloatArray(3)
     private var previewRect: RectF? = null
     private var cameraMapper: CameraAnglePixelMapper? = null
+    private val defaultMapper = SimplePerspectiveCameraAnglePixelMapper()
 
     // Sensors / preferences
     private val userPrefs = UserPreferences(context)
@@ -426,7 +429,7 @@ class AugmentedRealityView : CanvasView {
             rotationMatrix,
             previewRect ?: RectF(0f, 0f, width.toFloat(), height.toFloat()),
             fov,
-            if (camera?.isStarted == true) cameraMapper else null
+            if (camera?.isStarted == true) cameraMapper ?: defaultMapper else defaultMapper
         )
         return PixelCoordinate(screenPixel.x - x, screenPixel.y - y)
     }
@@ -547,7 +550,10 @@ class AugmentedRealityView : CanvasView {
                 }
                 if (cameraMapper == null) {
                     cameraMapper = camera.camera?.let {
-                        CalibratedCameraAnglePixelMapper(it, AugmentedRealityUtils.defaultMapper)
+                        CameraAnglePixelMapperFactory().getMapper(
+                            userPrefs.augmentedReality.projectionType,
+                            it
+                        )
                     }
                 }
             }

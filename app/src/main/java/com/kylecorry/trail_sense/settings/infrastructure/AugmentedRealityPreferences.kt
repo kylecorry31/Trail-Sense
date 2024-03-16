@@ -3,7 +3,9 @@ package com.kylecorry.trail_sense.settings.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.FloatPreference
+import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
 
 class AugmentedRealityPreferences(context: Context) : PreferenceRepo(context) {
 
@@ -36,4 +38,18 @@ class AugmentedRealityPreferences(context: Context) : PreferenceRepo(context) {
         context.getString(R.string.pref_ar_adjust_for_path_elevation),
         false
     )
+
+    val projectionType by StringEnumPreference(
+        cache,
+        context.getString(R.string.pref_augmented_reality_mapper),
+        ProjectionType.entries.associateBy { it.id },
+        ProjectionType.EstimatedIntrinsics
+    )
+
+    enum class ProjectionType(val id: String) {
+        EstimatedIntrinsics("estimated_intrinsics"),
+        ManufacturerIntrinsics("manufacturer_intrinsics"),
+        Perspective("perspective"),
+        Linear("linear")
+    }
 }

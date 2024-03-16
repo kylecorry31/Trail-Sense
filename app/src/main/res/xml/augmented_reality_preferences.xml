@@ -41,5 +41,20 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/advanced">
+
+        <ListPreference
+            app:defaultValue="estimated_intrinsics"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_augmented_reality_mapper"
+            app:singleLineTitle="false"
+            app:title="@string/projection_type"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
 
 </PreferenceScreen>

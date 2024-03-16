@@ -14,7 +14,6 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.CameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.LinearCameraAnglePixelMapper
-import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.SimplePerspectiveCameraAnglePixelMapper
 import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.cos
@@ -32,9 +31,7 @@ object AugmentedRealityUtils {
     private val linear = LinearCameraAnglePixelMapper()
     private val rect = RectF()
     private val rectLock = Any()
-
-    val defaultMapper = SimplePerspectiveCameraAnglePixelMapper()
-
+    
     /**
      * Gets the pixel coordinate of a point on the screen given the bearing and azimuth. The point is considered to be on a plane.
      * @param bearing The compass bearing in degrees of the point
@@ -84,6 +81,7 @@ object AugmentedRealityUtils {
      * @param rotationMatrix The rotation matrix of the device in the AR coordinate system
      * @param rect The rectangle of the view in pixels
      * @param fov The field of view of the camera in degrees
+     * @param mapper A mapper to use
      */
     fun getPixel(
         bearing: Float,
@@ -92,7 +90,7 @@ object AugmentedRealityUtils {
         rotationMatrix: FloatArray,
         rect: RectF,
         fov: Size,
-        mapperOverride: CameraAnglePixelMapper? = null
+        mapper: CameraAnglePixelMapper
     ): PixelCoordinate {
         val d = distance.coerceIn(minDistance, maxDistance)
 
@@ -101,7 +99,7 @@ object AugmentedRealityUtils {
             rotationMatrix,
             rect,
             fov,
-            mapperOverride
+            mapper
         )
     }
 
@@ -111,7 +109,7 @@ object AugmentedRealityUtils {
      * @param rotationMatrix The rotation matrix of the device in the AR coordinate system
      * @param rect The rectangle of the view in pixels
      * @param fov The field of view of the camera in degrees
-     * @param mapperOverride A mapper to override the default mapper
+     * @param mapper A mapper to use
      * @return The pixel coordinate
      */
     fun getPixel(
@@ -119,10 +117,8 @@ object AugmentedRealityUtils {
         rotationMatrix: FloatArray,
         rect: RectF,
         fov: Size,
-        mapperOverride: CameraAnglePixelMapper? = null
+        mapper: CameraAnglePixelMapper
     ): PixelCoordinate {
-        val mapper = mapperOverride ?: defaultMapper
-
         val world = enuToAr(enuCoordinate, rotationMatrix)
 
         return mapper.getPixel(

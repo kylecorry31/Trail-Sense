@@ -1377,4 +1377,16 @@
     </plurals>
     <string name="select_from_gallery">Select from Gallery</string>
     <string name="magnetometer_gyro_custom">Magnetometer + Gyro (Custom)</string>
+    <string name="pref_augmented_reality_mapper" translatable="false">pref_augmented_reality_mapper</string>
+    <!--The camera projection type for augmented reality (ex. perspective)-->
+    <string name="projection_type">Projection type</string>
+    <!--Camera projection using intrinsics matrix-->
+    <string name="projection_estimated_intrinsics">Estimated Intrinsics</string>
+    <!--Camera projection using intrinsics matrix-->
+    <string name="projection_manufacturer_intrinsics">Manufacturer Intrinsics</string>
+    <!--Camera projection using perspective-->
+    <string name="projection_perspective">Perspective</string>
+    <!--Camera projection using linear-->
+    <string name="projection_linear">Linear</string>
+    <string name="default_string">Default</string>
 </resources>
