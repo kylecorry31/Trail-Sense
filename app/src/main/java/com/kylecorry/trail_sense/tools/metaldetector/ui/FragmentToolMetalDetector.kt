@@ -218,7 +218,9 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         updateMetalSoundIntensity(magneticField)
     }
     private fun updateMetalSoundIntensity(reading: Float) {
-
+        val delta = (reading - referenceMagnitude).absoluteValue
+        volume = SolMath.map(delta - threshold, 0f, 30f, 0f, 1f, true)
+        whistle?.setVolume(volume) // Set the volume
     }
 
     private fun getCurrentMagneticFieldStrength(): Float {
