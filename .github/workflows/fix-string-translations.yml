@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  update_guides:
+  fix_translations:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
