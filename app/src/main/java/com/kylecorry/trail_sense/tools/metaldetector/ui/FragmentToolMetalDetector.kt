@@ -10,6 +10,7 @@ import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.sound.ISoundPlayer
 import com.kylecorry.sol.math.Quaternion
 import com.kylecorry.sol.math.Vector3
@@ -22,6 +23,8 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
+import com.kylecorry.trail_sense.shared.morse.SignalPlayer
+import com.kylecorry.trail_sense.shared.morse.asSignal
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.whistle.infrastructure.Whistle
 import java.time.Duration
@@ -63,7 +66,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
 
     private val isMetalDetected = Debouncer(Duration.ofMillis(100))
 
-    private var whistle: ISoundPlayer = Whistle()
+    private lateinit var whistle: ISoundPlayer
 
     private var lastMagneticField: Float = 0f // Placeholder for the last magnetic field strength
     private var volume: Float = 0.0f // Initial volume
@@ -102,6 +105,16 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
                 whistle.on()
             }
             CustomUiUtils.setButtonState(binding.metalDetectorTitle.rightButton, prefs.isMetalAudioEnabled)
+        }
+    }
+
+    /**
+     *  initialize Whistle onCreate
+     */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        inBackground {
+            whistle = Whistle()
         }
     }
 
