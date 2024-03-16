@@ -148,6 +148,11 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         whistle?.off()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        whistle?.release()
+    }
+
     private fun calibrate(){
         referenceMagnitude = readings.takeLast(20).average().toFloat()
         calibratedField = lowPassMagnetometer.magneticField
