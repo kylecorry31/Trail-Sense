@@ -91,6 +91,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         }
 
 
+        CustomUiUtils.setButtonState(binding.metalDetectorTitle.rightButton, prefs.isMetalAudioEnabled)
 
         binding.metalDetectorTitle.rightButton.setOnClickListener {
             if (prefs.isMetalAudioEnabled){
@@ -109,9 +110,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        inBackground {
-            whistle = Whistle()
-        }
+        initializeWhistle()
     }
 
     override fun onResume() {
@@ -125,10 +124,13 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         }
         calibrateTimer.once(Duration.ofSeconds(2))
 
-        if (prefs.isMetalAudioEnabled){
+        if(prefs.isMetalAudioEnabled){
+            if (whistle == null){
+                initializeWhistle()
+            }
             whistle?.on()
         }
-        CustomUiUtils.setButtonState(binding.metalDetectorTitle.rightButton, prefs.isMetalAudioEnabled)
+
     }
 
     override fun onPause() {
@@ -275,6 +277,12 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         container: ViewGroup?
     ): FragmentToolMetalDetectorBinding {
         return FragmentToolMetalDetectorBinding.inflate(layoutInflater, container, false)
+    }
+
+    private fun initializeWhistle(){
+        inBackground {
+            whistle = Whistle()
+        }
     }
 
 }
