@@ -123,7 +123,9 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         }
         calibrateTimer.once(Duration.ofSeconds(2))
 
+
         if(prefs.isMetalAudioEnabled){
+            //initialize whistle instance when cleared
             if (whistle == null){
                 initializeWhistle()
             }
