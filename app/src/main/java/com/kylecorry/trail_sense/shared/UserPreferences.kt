@@ -75,7 +75,7 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
         false
     )
 
-    val isAudioEnabled by BooleanPreference(
+    var isMetalAudioEnabled by BooleanPreference(
         cache,
         context.getString(R.string.pref_use_metal_audio),
         false
