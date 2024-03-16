@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.metaldetector.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -65,7 +66,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
 
     private val isMetalDetected = Debouncer(Duration.ofMillis(100))
 
-    private lateinit var whistle: ISoundPlayer
+    private  var whistle: ISoundPlayer? = null
 
     private var volume: Float = 0.0f // Initial volume
 
@@ -94,10 +95,10 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         binding.metalDetectorTitle.rightButton.setOnClickListener {
             if (prefs.isMetalAudioEnabled){
                 prefs.isMetalAudioEnabled = false
-                whistle.off()
+                whistle?.off()
             } else {
                 prefs.isMetalAudioEnabled = true
-                whistle.on()
+                whistle?.on()
             }
             CustomUiUtils.setButtonState(binding.metalDetectorTitle.rightButton, prefs.isMetalAudioEnabled)
         }
@@ -123,6 +124,11 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
             gravity.start(this::onMagnetometerUpdate)
         }
         calibrateTimer.once(Duration.ofSeconds(2))
+
+        if (prefs.isMetalAudioEnabled){
+            whistle?.on()
+        }
+        CustomUiUtils.setButtonState(binding.metalDetectorTitle.rightButton, prefs.isMetalAudioEnabled)
     }
 
     override fun onPause() {
@@ -136,7 +142,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         calibrateTimer.stop()
         haptics.off()
         isVibrating = false
-        whistle.off()
+        whistle?.off()
     }
 
     private fun calibrate(){
@@ -209,16 +215,10 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
             haptics.off()
         }
 
-        updateMetalSoundIntensity(magneticField,metalDetected)
+        updateMetalSoundIntensity(magneticField)
     }
-    private fun updateMetalSoundIntensity(reading: Float, isMetalDetected: Boolean) {
-        if(isMetalDetected){
-            whistle.setVolume(0.0f)
-        }else{
-            val delta = (reading - referenceMagnitude).absoluteValue
-            volume = SolMath.map(delta - threshold, 0f, 30f, 0f, 1f, true)
-            whistle.setVolume(volume) // Set the volume
-        }
+    private fun updateMetalSoundIntensity(reading: Float) {
+
     }
 
     private fun getCurrentMagneticFieldStrength(): Float {
