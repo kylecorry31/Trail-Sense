@@ -215,13 +215,11 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         if(isMetalDetected){
             whistle.setVolume(0.0f)
         }else{
-
+            val delta = (reading - referenceMagnitude).absoluteValue
+            volume = SolMath.map(delta - threshold, 0f, 30f, 0f, 1f, true)
+            whistle.setVolume(volume) // Set the volume
         }
-        val delta = (reading - referenceMagnitude).absoluteValue
-        volume = SolMath.map(delta - threshold, 0f, 30f, 0f, 1f, true)
 
-
-        whistle.setVolume(volume) // Set the volume
 
 
     }
