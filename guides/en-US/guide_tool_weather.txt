@@ -36,6 +36,8 @@ A pressure history chart is displayed at the top of the screen. Falling pressure
 
 The current pressure system is also displayed. Low pressure often means poor weather, while high pressure indicates fair conditions. Clicking on it provides a description of the pressure system.
 
+You can change the history duration in Settings > Weather > "Pressure history".
+
 ### Temperature
 The current temperature, sourced from historical data or the onboard thermometer, is shown in the weather list. Daily high/low temperatures are also provided using historical data. Clicking on the current temperature reveals a temperature history chart, while clicking on high/low temperatures displays a 24-hour temperature prediction chart based on historical temperatures.
 

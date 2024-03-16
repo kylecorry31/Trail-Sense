@@ -9,6 +9,8 @@ The battery indicator shows the current battery percentage and, if supported, th
 ## Battery History
 You can view the history of battery percentage by clicking the chart icon in the top-right corner. This displays the last day's history, as recorded by Trail Sense.
 
+The history is updated about every hour, you can disable this in Settings > Battery > Battery Log. If this is disabled, you will no longer see battery history and may not see time until full or empty.
+
 ## System Settings
 To access system battery settings and usage, click the settings icon in the top-right corner.
 
