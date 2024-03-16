@@ -133,7 +133,7 @@ dependencies {
     implementation("com.google.android.flexbox:flexbox:3.0.0")
 
     // Andromeda
-    val andromedaVersion = "842e02f23a"
+    val andromedaVersion = "cb2af1437e"
     implementation("com.github.kylecorry31.andromeda:core:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:fragments:$andromedaVersion")
     implementation("com.github.kylecorry31.andromeda:forms:$andromedaVersion")
@@ -169,7 +169,7 @@ dependencies {
     // Misc
     implementation("com.github.kylecorry31:subsampling-scale-image-view:3.11.9")
     implementation("com.github.kylecorry31:sol:9.4.0")
-    implementation("com.github.kylecorry31:luna:0.3.1")
+    implementation("com.github.kylecorry31:luna:0.3.2")
 //    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.12")
 
     // Testing
