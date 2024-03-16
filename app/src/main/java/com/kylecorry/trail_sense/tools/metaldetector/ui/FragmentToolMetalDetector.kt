@@ -10,7 +10,10 @@ import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.andromeda.sound.ISoundPlayer
 import com.kylecorry.sol.math.Quaternion
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.filters.LowPassFilter
 import com.kylecorry.sol.science.physics.PhysicsService
@@ -22,6 +25,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.whistle.infrastructure.Whistle
 import java.time.Duration
 import kotlin.math.absoluteValue
 
@@ -61,6 +65,10 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
 
     private val isMetalDetected = Debouncer(Duration.ofMillis(100))
 
+    private  var whistle: ISoundPlayer? = null
+
+    private var volume: Float = 0.0f // Initial volume
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         chart = MetalDetectorChart(
@@ -80,6 +88,28 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
                 isMetalDetected.debounceTime = Duration.ofMillis(100)
             }
         }
+
+
+        CustomUiUtils.setButtonState(binding.metalDetectorTitle.rightButton, prefs.isMetalAudioEnabled)
+
+        binding.metalDetectorTitle.rightButton.setOnClickListener {
+            if (prefs.isMetalAudioEnabled){
+                prefs.isMetalAudioEnabled = false
+                whistle?.off()
+            } else {
+                prefs.isMetalAudioEnabled = true
+                whistle?.on()
+            }
+            CustomUiUtils.setButtonState(binding.metalDetectorTitle.rightButton, prefs.isMetalAudioEnabled)
+        }
+    }
+
+    /**
+     *  initialize Whistle onCreate
+     */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initializeWhistle()
     }
 
     override fun onResume() {
@@ -92,6 +122,16 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
             gravity.start(this::onMagnetometerUpdate)
         }
         calibrateTimer.once(Duration.ofSeconds(2))
+
+
+        if(prefs.isMetalAudioEnabled){
+            //initialize whistle instance when cleared
+            if (whistle == null){
+                initializeWhistle()
+            }
+            whistle?.on()
+        }
+
     }
 
     override fun onPause() {
@@ -105,6 +145,12 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         calibrateTimer.stop()
         haptics.off()
         isVibrating = false
+        whistle?.off()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        whistle?.release()
     }
 
     private fun calibrate(){
@@ -149,6 +195,9 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
             updateChart()
         }
 
+
+
+
         // Update the threshold from the slider
         updateThreshold()
 
@@ -173,6 +222,13 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
             isVibrating = false
             haptics.off()
         }
+
+        updateMetalSoundIntensity(magneticField)
+    }
+    private fun updateMetalSoundIntensity(reading: Float) {
+        val delta = (reading - referenceMagnitude).absoluteValue
+        volume = SolMath.map(delta - threshold, 0f, 30f, 0f, 1f, true)
+        whistle?.setVolume(volume) // Set the volume
     }
 
     private fun getCurrentMagneticFieldStrength(): Float {
@@ -227,6 +283,12 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         container: ViewGroup?
     ): FragmentToolMetalDetectorBinding {
         return FragmentToolMetalDetectorBinding.inflate(layoutInflater, container, false)
+    }
+
+    private fun initializeWhistle(){
+        inBackground {
+            whistle = Whistle()
+        }
     }
 
 }
