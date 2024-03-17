@@ -25,6 +25,8 @@ class BatteryChart(private val chart: Chart) {
         )
 
         chart.emptyText = chart.context.getString(R.string.no_data)
+
+        chart.setShouldRerenderEveryCycle(false)
     }
 
     fun plot(readings: List<BatteryReading>, showCapacity: Boolean = false) {
@@ -42,6 +44,8 @@ class BatteryChart(private val chart: Chart) {
         chart.plot(
             AreaChartLayer(data, color, color.withAlpha(150)),
         )
+
+        chart.invalidate()
     }
 
 }

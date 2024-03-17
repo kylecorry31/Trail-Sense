@@ -29,11 +29,14 @@ class HumidityChart(private val chart: Chart) {
         )
 
         chart.emptyText = chart.context.getString(R.string.no_data)
+
+        chart.setShouldRerenderEveryCycle(false)
     }
 
     fun plot(data: List<Reading<Float>>) {
         startTime = data.firstOrNull()?.time ?: Instant.now()
         val values = Chart.getDataFromReadings(data, startTime) { it }
         chart.plot(LineChartLayer(values, color))
+        chart.invalidate()
     }
 }

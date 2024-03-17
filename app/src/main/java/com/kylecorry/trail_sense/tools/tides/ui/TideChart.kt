@@ -17,11 +17,11 @@ import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatte
 import java.time.Instant
 
 
-class TideChart(chart: Chart) {
+class TideChart(private val chart: Chart) {
 
     private var startTime = Instant.now()
 
-    private val levelColor = if (UserPreferences(chart.context).useDynamicColors){
+    private val levelColor = if (UserPreferences(chart.context).useDynamicColors) {
         Resources.getPrimaryColor(chart.context)
     } else {
         AppColor.Blue.color
@@ -56,21 +56,26 @@ class TideChart(chart: Chart) {
         chart.emptyText = chart.context.getString(R.string.no_data)
 
         chart.plot(level, highlight)
+
+        chart.setShouldRerenderEveryCycle(false)
     }
 
     fun plot(data: List<Reading<Float>>, range: Range<Float>) {
         val first = data.firstOrNull()?.time
         startTime = first
         level.data = convert(data, range)
+        chart.invalidate()
     }
 
     fun highlight(point: Reading<Float>, range: Range<Float>) {
         val value = convert(listOf(point), range)
         highlight.data = value
+        chart.invalidate()
     }
 
     fun removeHighlight() {
         highlight.data = emptyList()
+        chart.invalidate()
     }
 
     private fun convert(readings: List<Reading<Float>>, range: Range<Float>): List<Vector2> {

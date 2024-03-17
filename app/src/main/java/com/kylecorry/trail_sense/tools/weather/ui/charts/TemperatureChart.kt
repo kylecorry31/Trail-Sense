@@ -51,6 +51,8 @@ class TemperatureChart(private val chart: Chart, showFreezing: Boolean = true) {
         } else {
             chart.plot(rawLine, line)
         }
+
+        chart.setShouldRerenderEveryCycle(false)
     }
 
     fun plot(data: List<Reading<Float>>, raw: List<Reading<Float>>? = null) {
@@ -73,5 +75,7 @@ class TemperatureChart(private val chart: Chart, showFreezing: Boolean = true) {
         }
 
         line.data = values
+
+        chart.invalidate()
     }
 }

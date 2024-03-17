@@ -37,6 +37,8 @@ class MetalDetectorChart(private val chart: Chart, color: Int) {
         chart.emptyText = chart.context.getString(R.string.no_data)
 
         chart.plot(thresholdArea, line)
+
+        chart.setShouldRerenderEveryCycle(false)
     }
 
     fun plot(data: List<Float>, lowerThreshold: Float, upperThreshold: Float) {
@@ -54,5 +56,7 @@ class MetalDetectorChart(private val chart: Chart, color: Int) {
         thresholdArea.upper = listOf(Vector2(0f, upperThreshold), Vector2(data.lastIndex.toFloat(), upperThreshold))
 
         line.data = Chart.indexedData(data)
+
+        chart.invalidate()
     }
 }

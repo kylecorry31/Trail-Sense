@@ -51,6 +51,7 @@ class YearlyTemperatureRangeChart(
         )
         chart.configureYAxis(labelCount = 5, drawGridLines = true)
         chart.plot(freezingArea, lowLine, highLine, highlight)
+        chart.setShouldRerenderEveryCycle(false)
     }
 
     fun highlight(date: LocalDate) {
@@ -58,6 +59,7 @@ class YearlyTemperatureRangeChart(
         val low = lowLine.data.firstOrNull { it.x.toInt() == x }
         val high = highLine.data.firstOrNull { it.x.toInt() == x }
         highlight.data = listOfNotNull(low, high)
+        chart.invalidate()
     }
 
     fun plot(data: List<Pair<LocalDate, Range<Temperature>>>, units: TemperatureUnits) {
@@ -91,5 +93,6 @@ class YearlyTemperatureRangeChart(
         freezingArea.bottom = range.start
         lowLine.data = lows
         highLine.data = highs
+        chart.invalidate()
     }
 }
