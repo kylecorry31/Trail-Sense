@@ -204,7 +204,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             currentSeekChartTime = minChartTime.plusSeconds(seconds)
         }
 
-        scheduleUpdates(1000 * 30)
+        scheduleUpdates(INTERVAL_1_FPS)
     }
 
     private fun showTimeSeeker() {
