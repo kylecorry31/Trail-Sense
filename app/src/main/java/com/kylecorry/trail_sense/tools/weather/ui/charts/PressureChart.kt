@@ -67,6 +67,8 @@ class PressureChart(
 
         chart.emptyText = chart.context.getString(R.string.no_data)
 
+        chart.setShouldRerenderEveryCycle(false)
+
         chart.plot(rawLine, line, highlight)
     }
 
@@ -78,6 +80,7 @@ class PressureChart(
         val duration = Duration.between(startTime.plusSeconds(seconds.toLong()), Instant.now())
         selectionListener.invoke(duration, value.y)
         highlight.data = listOf(value)
+        chart.invalidate()
         return true
     }
 
@@ -116,6 +119,7 @@ class PressureChart(
         }
 
         line.data = values
+        chart.invalidate()
     }
 
     companion object {
