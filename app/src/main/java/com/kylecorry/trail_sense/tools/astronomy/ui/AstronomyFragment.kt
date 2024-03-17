@@ -24,7 +24,6 @@ import com.kylecorry.sol.science.astronomy.SunTimesMode
 import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityAstronomyBinding
@@ -34,7 +33,6 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
-import com.kylecorry.trail_sense.shared.hooks.StateManager
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
@@ -86,14 +84,11 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     private var gpsErrorShown = false
 
     private val triggers = HookTriggers()
-    private val state = StateManager(Dispatchers.Main, INTERVAL_30_FPS) {
-        onUpdate()
-    }
 
-    private var displayDate by state.state(LocalDate.now())
-    private var location by state.state(Coordinate.zero)
-    private var currentSeekChartTime by state.state(ZonedDateTime.now())
-    private var isSeeking by state.state(false)
+    private var displayDate by state(LocalDate.now())
+    private var location by state(Coordinate.zero)
+    private var currentSeekChartTime by state(ZonedDateTime.now())
+    private var isSeeking by state(false)
 
     private val astroChartDataProvider by lazy {
         if (prefs.astronomy.centerSunAndMoon) {
@@ -209,8 +204,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             currentSeekChartTime = minChartTime.plusSeconds(seconds)
         }
 
-        // Update every 30 seconds if no state change
-        scheduleUpdates(30 * 1000)
+        scheduleUpdates(1000 * 30)
     }
 
     private fun showTimeSeeker() {
@@ -293,7 +287,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
     override fun onResume() {
         super.onResume()
-        state.start()
         binding.displayDate.date = LocalDate.now()
         requestLocationUpdate()
 
@@ -306,7 +299,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
     override fun onPause() {
         super.onPause()
-        state.stop()
         gps.stop(this::onLocationUpdate)
         gpsErrorShown = false
     }
