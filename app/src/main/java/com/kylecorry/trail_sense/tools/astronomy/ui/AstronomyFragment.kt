@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.loading.AlertLoadingIndicator
@@ -32,6 +33,9 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onMain
+import com.kylecorry.andromeda.core.ui.setTextDistinct
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.shared.hooks.HookTriggers
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
@@ -52,6 +56,7 @@ import com.kylecorry.trail_sense.tools.astronomy.ui.items.SunListItemProducer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMode
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityFragment
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.LocalDate
@@ -83,9 +88,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
     private var gpsErrorShown = false
 
-    private val intervalometer = CoroutineTimer {
-        updateUI()
-    }
+    private val triggers = HookTriggers()
 
     private val astroChartDataProvider by lazy {
         if (prefs.astronomy.centerSunAndMoon) {
@@ -115,10 +118,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         ).bind()
 
         chart = AstroChart(binding.sunMoonChart, this::showTimeSeeker)
-
-        binding.displayDate.setOnDateChangeListener {
-            updateUI()
-        }
 
         binding.button3d.isVisible = prefs.isAugmentedRealityEnabled
         binding.button3d.setOnClickListener {
@@ -182,8 +181,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                                     )
                                 )
                             }
-
-                            updateUI()
                         }
                     }
                 }
@@ -201,13 +198,9 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                 minChartTime, maxChartTime
             ).seconds * progress / maxProgress.toFloat()).toLong()
             currentSeekChartTime = minChartTime.plusSeconds(seconds)
-            binding.seekTime.text = formatService.formatTime(
-                currentSeekChartTime.toLocalTime(), includeSeconds = false
-            )
-            plotMoonImage(data.moon, currentSeekChartTime)
-            plotSunImage(data.sun, currentSeekChartTime)
-            updateSeekPositions()
         }
+
+        scheduleUpdates(INTERVAL_60_FPS)
     }
 
     private fun showTimeSeeker() {
@@ -290,8 +283,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         super.onResume()
         binding.displayDate.date = LocalDate.now()
         requestLocationUpdate()
-        intervalometer.interval(Duration.ofMinutes(1), Duration.ofMillis(200))
-        updateUI()
 
         if (cache.getBoolean("cache_tap_sun_moon_shown") != true) {
             cache.putBoolean("cache_tap_sun_moon_shown", true)
@@ -303,7 +294,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     override fun onPause() {
         super.onPause()
         gps.stop(this::onLocationUpdate)
-        intervalometer.stop()
         gpsErrorShown = false
     }
 
@@ -316,28 +306,11 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     }
 
     private fun onLocationUpdate(): Boolean {
-        updateUI()
         return false
     }
 
     private fun getDeclination(): Float {
         return declination.getDeclination()
-    }
-
-    private fun updateUI() {
-        if (!isBound) {
-            return
-        }
-        inBackground {
-            withContext(Dispatchers.Main) {
-                detectAndShowGPSError()
-            }
-
-            updateSunUI()
-            updateMoonUI()
-            updateAstronomyChart()
-            updateAstronomyDetails()
-        }
     }
 
     private suspend fun updateMoonUI() {
@@ -409,15 +382,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             Duration.between(instant, it.time).abs()
         }
         chart.moveMoon(current)
-    }
-
-
-    private suspend fun updateSunUI() {
-        if (!isBound) {
-            return
-        }
-
-        displayTimeUntilNextSunEvent()
     }
 
     private suspend fun updateAstronomyDetails() {
@@ -503,6 +467,61 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         layoutInflater: LayoutInflater, container: ViewGroup?
     ): ActivityAstronomyBinding {
         return ActivityAstronomyBinding.inflate(layoutInflater, container, false)
+    }
+
+    override fun onUpdate() {
+        effect("location_unset", gps) {
+            detectAndShowGPSError()
+        }
+
+        effect(
+            "list",
+            binding.displayDate.date,
+            triggers.distance("list", gps.location, Distance.meters(1000f))
+        ) {
+            inBackground {
+                updateAstronomyDetails()
+            }
+        }
+
+        binding.seekTime.setTextDistinct(memo("seek_time", currentSeekChartTime) {
+            formatService.formatTime(currentSeekChartTime.toLocalTime(), includeSeconds = false)
+        })
+
+        effect(
+            "chart",
+            binding.displayDate.date,
+            currentSeekChartTime,
+            triggers.distance("chart", gps.location, Distance.meters(1000f)),
+            triggers.frequency("chart", Duration.ofMinutes(1))
+        ) {
+            inBackground {
+                updateAstronomyChart()
+                plotMoonImage(data.moon, currentSeekChartTime)
+                plotSunImage(data.sun, currentSeekChartTime)
+                updateSeekPositions()
+            }
+        }
+
+        effect(
+            "sun_time",
+            triggers.distance("sun_time", gps.location, Distance.meters(1000f)),
+            triggers.frequency("sun_time", Duration.ofMinutes(1))
+        ) {
+            inBackground {
+                displayTimeUntilNextSunEvent()
+            }
+        }
+
+        effect(
+            "moon_phase",
+            binding.displayDate.date,
+            triggers.frequency("moon_phase", Duration.ofMinutes(15))
+        ) {
+            inBackground {
+                updateMoonUI()
+            }
+        }
     }
 
 }
