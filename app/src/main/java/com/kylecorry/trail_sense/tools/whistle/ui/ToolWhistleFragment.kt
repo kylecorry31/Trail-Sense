@@ -6,10 +6,14 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sound.ISoundPlayer
+import com.kylecorry.luna.coroutines.onDefault
+import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolWhistleBinding
 import com.kylecorry.trail_sense.shared.morse.Signal
@@ -70,13 +74,16 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
                         0 -> signalWhistle?.play(
                             whereAreYouAndAcknowledgedSignal, false
                         ) { toggleOffInternationWhistleSignals() }
+
                         1 -> signalWhistle?.play(
                             whereAreYouAndAcknowledgedSignal, false
                         ) { toggleOffInternationWhistleSignals() }
+
                         2 -> signalWhistle?.play(
                             comeHereSignal,
                             false
                         ) { toggleOffInternationWhistleSignals() }
+
                         3 -> signalWhistle?.play(emergencySignal, true)
                     }
                     binding.whistleEmergencyBtn.setText(options[it])
@@ -117,9 +124,28 @@ class ToolWhistleFragment : BoundFragment<FragmentToolWhistleBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         inBackground {
-            whistle = Whistle()
-            whistle?.let {
-                signalWhistle = SignalPlayer(it.asSignal())
+            onDefault {
+                try {
+                    whistle = Whistle()
+                    whistle?.let {
+                        signalWhistle = SignalPlayer(it.asSignal())
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+
+                    onMain {
+                        dialog(
+                            getString(
+                                R.string.feature_unavailable,
+                                getString(R.string.tool_whistle_title)
+                            ),
+                            getString(R.string.audio_error_messsage),
+                            cancelText = null
+                        ) {
+                            findNavController().navigateUp()
+                        }
+                    }
+                }
             }
         }
     }

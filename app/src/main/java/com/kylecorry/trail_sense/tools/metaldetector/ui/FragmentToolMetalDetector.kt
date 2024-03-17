@@ -286,11 +286,17 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
     private fun initializeAudio() {
         inBackground {
             onDefault {
-                synchronized(audioLock) {
-                    if (audio != null) {
-                        return@onDefault
+                try {
+                    synchronized(audioLock) {
+                        if (audio != null) {
+                            return@onDefault
+                        }
+                        audio = SoundPlayer(ToneGenerator().getTone(AUDIO_FREQUENCY))
                     }
-                    audio = SoundPlayer(ToneGenerator().getTone(AUDIO_FREQUENCY))
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    prefs.metalDetector.isMetalAudioEnabled = false
+                    binding.metalDetectorTitle.rightButton.isVisible = false
                 }
             }
         }

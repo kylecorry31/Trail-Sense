@@ -1389,4 +1389,8 @@
     <!--Camera projection using linear-->
     <string name="projection_linear">Linear</string>
     <string name="default_string">Default</string>
+    <!--%s is the name of the feature-->
+    <string name="feature_unavailable">%s unavailable</string>
+    <!--This occurs if the whistle can't be instantiated-->
+    <string name="audio_error_messsage">An error occurred while trying to play audio.</string>
 </resources>
