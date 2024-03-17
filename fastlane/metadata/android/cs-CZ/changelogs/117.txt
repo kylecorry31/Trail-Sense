@@ -1,0 +1,20 @@
+Baterie
+- Přidáno nastavení pro přepnutí protokolování baterie
+
+Počasí
+- Nastavení historie tlaku přesunuto do nast. počasí
+
+Rozšířená realita (experimentální)
+- Vylepšeny cesty
+- Kalibr. orientace RR pomocí slunce/měsíce
+- Přidáno nast. pro uprav. cest pro převýšení
+- Vylepšena kalibrace fotoap. na některých zařízeních
+
+Hodiny
+- Vylepšena přesnost času z GPS
+
+Různé
+- [Exp.] Vyhlazování lokace
+- Přepnutí mezi předním a zadním fotoap. u většiny zobrazení
+- Přidán vlastní magnetometr
+- Opravy chyb
