@@ -373,7 +373,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             binding.northReferenceIndicator.isVisible = false
         }
 
-        scheduleUpdates(INTERVAL_60_FPS)
+        scheduleUpdates(INTERVAL_30_FPS)
     }
 
     private fun setSightingCompassStatus(isOn: Boolean) {

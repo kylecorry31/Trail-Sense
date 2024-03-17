@@ -86,7 +86,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     private var gpsErrorShown = false
 
     private val triggers = HookTriggers()
-    private val state = StateManager(Dispatchers.Main, INTERVAL_60_FPS) {
+    private val state = StateManager(Dispatchers.Main, INTERVAL_30_FPS) {
         onUpdate()
     }
 
