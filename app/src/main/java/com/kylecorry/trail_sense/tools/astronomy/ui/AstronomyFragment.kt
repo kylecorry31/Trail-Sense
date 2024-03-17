@@ -6,14 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.loading.AlertLoadingIndicator
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.capitalizeWords
-import com.kylecorry.andromeda.core.time.CoroutineTimer
+import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
+import com.kylecorry.andromeda.core.ui.setTextDistinct
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.markdown.MarkdownService
@@ -23,6 +24,7 @@ import com.kylecorry.sol.science.astronomy.SunTimesMode
 import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityAstronomyBinding
@@ -31,11 +33,8 @@ import com.kylecorry.trail_sense.shared.ErrorBannerReason
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
-import com.kylecorry.andromeda.core.coroutines.onDefault
-import com.kylecorry.andromeda.core.coroutines.onMain
-import com.kylecorry.andromeda.core.ui.setTextDistinct
-import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
+import com.kylecorry.trail_sense.shared.hooks.StateManager
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
@@ -56,7 +55,6 @@ import com.kylecorry.trail_sense.tools.astronomy.ui.items.SunListItemProducer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMode
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityFragment
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.LocalDate
@@ -83,12 +81,18 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
     private var minChartTime = ZonedDateTime.now()
     private var maxChartTime = ZonedDateTime.now()
-    private var currentSeekChartTime = ZonedDateTime.now()
     private val maxProgress = 60 * 24
 
     private var gpsErrorShown = false
 
     private val triggers = HookTriggers()
+    private val state = StateManager(Dispatchers.Main, INTERVAL_60_FPS) {
+        onUpdate()
+    }
+
+    private var displayDate by state.state(LocalDate.now())
+    private var location by state.state(Coordinate.zero)
+    private var currentSeekChartTime by state.state(ZonedDateTime.now())
 
     private val astroChartDataProvider by lazy {
         if (prefs.astronomy.centerSunAndMoon) {
@@ -126,6 +130,10 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                 ARMode.Astronomy,
                 bundleOf("date" to binding.displayDate.date.toString())
             )
+        }
+
+        binding.displayDate.setOnDateChangeListener {
+            displayDate = it
         }
 
         binding.displayDate.searchEnabled = true
@@ -166,7 +174,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                         loading.show()
                         val nextEvent = onDefault {
                             astronomyService.findNextEvent(
-                                search, gps.location, currentDate
+                                search, location, currentDate
                             )
                         }
                         onMain {
@@ -200,7 +208,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             currentSeekChartTime = minChartTime.plusSeconds(seconds)
         }
 
-        scheduleUpdates(INTERVAL_60_FPS)
+        scheduleUpdates(INTERVAL_1_FPS)
     }
 
     private fun showTimeSeeker() {
@@ -264,15 +272,15 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
 
     private fun getSunMoonPositions(time: ZonedDateTime): AstroPositions {
-        val moonAltitude = astronomyService.getMoonAltitude(gps.location, time)
-        val sunAltitude = astronomyService.getSunAltitude(gps.location, time)
+        val moonAltitude = astronomyService.getMoonAltitude(location, time)
+        val sunAltitude = astronomyService.getSunAltitude(location, time)
 
         val declination = if (!prefs.compass.useTrueNorth) getDeclination() else 0f
 
         val sunAzimuth =
-            astronomyService.getSunAzimuth(gps.location, time).withDeclination(-declination).value
+            astronomyService.getSunAzimuth(location, time).withDeclination(-declination).value
         val moonAzimuth =
-            astronomyService.getMoonAzimuth(gps.location, time).withDeclination(-declination).value
+            astronomyService.getMoonAzimuth(location, time).withDeclination(-declination).value
 
         return AstroPositions(
             moonAltitude, sunAltitude, moonAzimuth, sunAzimuth
@@ -281,6 +289,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
     override fun onResume() {
         super.onResume()
+        state.start()
         binding.displayDate.date = LocalDate.now()
         requestLocationUpdate()
 
@@ -293,11 +302,13 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
     override fun onPause() {
         super.onPause()
+        state.stop()
         gps.stop(this::onLocationUpdate)
         gpsErrorShown = false
     }
 
     private fun requestLocationUpdate() {
+        location = gps.location
         if (gps.hasValidReading) {
             onLocationUpdate()
         } else {
@@ -306,6 +317,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     }
 
     private fun onLocationUpdate(): Boolean {
+        location = gps.location
         return false
     }
 
@@ -344,7 +356,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             val time =
                 if (displayDate == LocalDate.now()) ZonedDateTime.now() else displayDate.atStartOfDay()
                     .toZonedDateTime()
-            astroChartDataProvider.get(gps.location, time)
+            astroChartDataProvider.get(location, time)
         }
 
         minChartTime = data.sun.first().time.toZonedDateTime()
@@ -392,7 +404,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         val displayDate = binding.displayDate.date
 
         onDefault {
-            val items = producers.map { it.getListItem(displayDate, gps.location) }
+            val items = producers.map { it.getListItem(displayDate, location) }
 
             onMain {
                 binding.astronomyDetailList.setItems(items.filterNotNull())
@@ -412,8 +424,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         var nextSunrise: LocalDateTime?
         var nextSunset: LocalDateTime?
         withContext(Dispatchers.Default) {
-            nextSunrise = astronomyService.getNextSunrise(gps.location, sunTimesMode)
-            nextSunset = astronomyService.getNextSunset(gps.location, sunTimesMode)
+            nextSunrise = astronomyService.getNextSunrise(location, sunTimesMode)
+            nextSunset = astronomyService.getNextSunset(location, sunTimesMode)
         }
 
         withContext(Dispatchers.Main) {
@@ -425,7 +437,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                 binding.astronomyTitle.title.text =
                     formatService.formatDuration(Duration.between(currentTime, nextSunset))
                 binding.astronomyTitle.subtitle.text = getString(R.string.until_sunset)
-            } else if (astronomyService.isSunUp(gps.location)) {
+            } else if (astronomyService.isSunUp(location)) {
                 binding.astronomyTitle.title.text = getString(R.string.sun_up_no_set)
                 binding.astronomyTitle.subtitle.text = getString(R.string.sun_does_not_set)
             } else {
@@ -440,7 +452,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             return
         }
 
-        if (gps is OverrideGPS && gps.location == Coordinate.zero) {
+        if (gps is OverrideGPS && location == Coordinate.zero) {
             val activity = requireActivity() as MainActivity
             val navController = findNavController()
             val error = UserError(
@@ -454,7 +466,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             }
             activity.errorBanner.report(error)
             gpsErrorShown = true
-        } else if (gps is CachedGPS && gps.location == Coordinate.zero) {
+        } else if (gps is CachedGPS && location == Coordinate.zero) {
             val error = UserError(
                 ErrorBannerReason.NoGPS, getString(R.string.location_disabled), R.drawable.satellite
             )
@@ -470,14 +482,15 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     }
 
     override fun onUpdate() {
+        println("onUpdate")
         effect("location_unset", gps) {
             detectAndShowGPSError()
         }
 
         effect(
             "list",
-            binding.displayDate.date,
-            triggers.distance("list", gps.location, Distance.meters(1000f))
+            displayDate,
+            triggers.distance("list", location, Distance.meters(1000f))
         ) {
             inBackground {
                 updateAstronomyDetails()
@@ -490,9 +503,9 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
         effect(
             "chart",
-            binding.displayDate.date,
+            displayDate,
             currentSeekChartTime,
-            triggers.distance("chart", gps.location, Distance.meters(1000f)),
+            triggers.distance("chart", location, Distance.meters(1000f)),
             triggers.frequency("chart", Duration.ofMinutes(1))
         ) {
             inBackground {
@@ -505,7 +518,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
         effect(
             "sun_time",
-            triggers.distance("sun_time", gps.location, Distance.meters(1000f)),
+            triggers.distance("sun_time", location, Distance.meters(1000f)),
             triggers.frequency("sun_time", Duration.ofMinutes(1))
         ) {
             inBackground {
@@ -515,7 +528,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
         effect(
             "moon_phase",
-            binding.displayDate.date,
+            displayDate,
             triggers.frequency("moon_phase", Duration.ofMinutes(15))
         ) {
             inBackground {
