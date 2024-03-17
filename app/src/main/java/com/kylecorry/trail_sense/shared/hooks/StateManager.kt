@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.shared.hooks
 
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlin.math.max
 import kotlin.reflect.KProperty
 
 class StateManager(
@@ -11,23 +10,22 @@ class StateManager(
     private val onChange: () -> Unit
 ) {
     private var lastUpdateTime = 0L
-    private var lastTriggerTime = 0L
 
     private val timer = CoroutineTimer(observeOn = observeOn) {
         synchronized(lock) {
-            lastTriggerTime = System.currentTimeMillis()
+            hasPendingUpdate = false
+            lastUpdateTime = System.currentTimeMillis()
         }
         onChange()
     }
 
-    private var nextScheduledTime = 0L
+    private var hasPendingUpdate = false
     private val lock = Any()
 
 
     fun start() {
         synchronized(lock) {
-            lastUpdateTime = System.currentTimeMillis()
-            nextScheduledTime = lastUpdateTime
+            hasPendingUpdate = true
             timer.once(0)
         }
     }
@@ -42,22 +40,20 @@ class StateManager(
 
     private fun scheduleChange() {
         synchronized(lock) {
-            lastUpdateTime = System.currentTimeMillis()
-            if (nextScheduledTime > lastUpdateTime) {
+            if (hasPendingUpdate) {
                 // There's already an update scheduled
                 return
             }
 
             // Otherwise, an update needs to be scheduled, ensuring that it's throttled
-            val timeSinceLastUpdate =
-                System.currentTimeMillis() - max(lastTriggerTime, nextScheduledTime)
+            val timeSinceLastUpdate = System.currentTimeMillis() - lastUpdateTime
             val timeToNextUpdate = if (timeSinceLastUpdate < throttleTimeMs) {
-                throttleTimeMs - timeSinceLastUpdate.coerceAtLeast(0)
+                throttleTimeMs - timeSinceLastUpdate
             } else {
                 0
-            }
+            }.coerceIn(0, throttleTimeMs)
 
-            nextScheduledTime = System.currentTimeMillis() + timeToNextUpdate
+            hasPendingUpdate = true
             timer.once(timeToNextUpdate)
         }
     }
