@@ -1154,4 +1154,10 @@
     <string name="pref_tiles_enabled_battery_log_summary">Každou hodinu zaznamená procento baterie pro odhad času do jejího vybití</string>
     <string name="pref_tiles_battery_log">Protokol baterie</string>
     <string name="pref_dialog_battery_log_summary">Protokol baterie je zakázán, historie a čas do vybití nemusí být dostupné. Tuto funkci lze znovu povolit v nastavení</string>
+    <string name="projection_type">Typ projekce</string>
+    <string name="projection_estimated_intrinsics">Odhadovaná vnitřní matice</string>
+    <string name="projection_manufacturer_intrinsics">Vnitřní matice od výrobce</string>
+    <string name="projection_linear">Lineární</string>
+    <string name="default_string">Výchozí</string>
+    <string name="projection_perspective">Perspektiva</string>
 </resources>
