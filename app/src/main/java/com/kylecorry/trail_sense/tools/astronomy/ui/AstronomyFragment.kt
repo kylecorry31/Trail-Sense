@@ -93,6 +93,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     private var displayDate by state.state(LocalDate.now())
     private var location by state.state(Coordinate.zero)
     private var currentSeekChartTime by state.state(ZonedDateTime.now())
+    private var isSeeking by state.state(false)
 
     private val astroChartDataProvider by lazy {
         if (prefs.astronomy.centerSunAndMoon) {
@@ -208,10 +209,12 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             currentSeekChartTime = minChartTime.plusSeconds(seconds)
         }
 
-        scheduleUpdates(INTERVAL_1_FPS)
+        // Update every 30 seconds if no state change
+        scheduleUpdates(30 * 1000)
     }
 
     private fun showTimeSeeker() {
+        isSeeking = true
         binding.timeSeekerPanel.isVisible = true
         binding.astronomyDetailList.isVisible = false
         binding.button3d.isVisible = false
@@ -257,6 +260,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     }
 
     private fun hideTimeSeeker() {
+        isSeeking = false
         binding.timeSeekerPanel.isVisible = false
         binding.astronomyDetailList.isVisible = true
         binding.button3d.isVisible = prefs.isAugmentedRealityEnabled
@@ -482,7 +486,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     }
 
     override fun onUpdate() {
-        println("onUpdate")
         effect("location_unset", gps) {
             detectAndShowGPSError()
         }
@@ -490,7 +493,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         effect(
             "list",
             displayDate,
-            triggers.distance("list", location, Distance.meters(1000f))
+            location
         ) {
             inBackground {
                 updateAstronomyDetails()
@@ -505,20 +508,23 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             "chart",
             displayDate,
             currentSeekChartTime,
-            triggers.distance("chart", location, Distance.meters(1000f)),
+            isSeeking,
+            location,
             triggers.frequency("chart", Duration.ofMinutes(1))
         ) {
             inBackground {
                 updateAstronomyChart()
-                plotMoonImage(data.moon, currentSeekChartTime)
-                plotSunImage(data.sun, currentSeekChartTime)
-                updateSeekPositions()
+                if (binding.timeSeekerPanel.isVisible) {
+                    plotMoonImage(data.moon, currentSeekChartTime)
+                    plotSunImage(data.sun, currentSeekChartTime)
+                    updateSeekPositions()
+                }
             }
         }
 
         effect(
             "sun_time",
-            triggers.distance("sun_time", location, Distance.meters(1000f)),
+            location,
             triggers.frequency("sun_time", Duration.ofMinutes(1))
         ) {
             inBackground {

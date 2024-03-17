@@ -20,7 +20,7 @@ import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatte
 import java.time.Instant
 
 
-class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
+class AstroChart(private val chart: Chart, private val onImageClick: () -> Unit) {
 
     // TODO: Experiment with this, if it isn't needed, remove it
     private val fillSunArea = true
@@ -128,6 +128,8 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
                 night
             )
         )
+
+        chart.setShouldRerenderEveryCycle(false)
     }
 
     fun plot(sun: List<Reading<Float>>, moon: List<Reading<Float>>) {
@@ -138,6 +140,7 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
         horizonLabel.position = horizonLabel.position.copy(x = endX - 0.1f)
         updateSunArea()
         updateMoonArea()
+        chart.invalidate()
     }
 
     fun moveSun(position: Reading<Float>?) {
@@ -147,6 +150,7 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
             Chart.getDataFromReadings(listOf(position), startTime) { it }
         }
         updateSunArea()
+        chart.invalidate()
     }
 
     fun setMoonImage(@DrawableRes icon: Int) {
@@ -155,6 +159,7 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
             bitmapLoader.unload(previousMoonImage)
         }
         previousMoonImage = icon
+        chart.invalidate()
     }
 
     fun moveMoon(position: Reading<Float>?) {
@@ -164,6 +169,7 @@ class AstroChart(chart: Chart, private val onImageClick: () -> Unit) {
             Chart.getDataFromReadings(listOf(position), startTime) { it }
         }
         updateMoonArea()
+        chart.invalidate()
     }
 
     private fun updateSunArea(){
