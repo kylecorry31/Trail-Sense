@@ -342,10 +342,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     }
 
     private suspend fun updateAstronomyChart() {
-        if (!isBound) {
-            return
-        }
-
         val displayDate = binding.displayDate.date
 
         data = onDefault {
@@ -492,9 +488,16 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             }
         }
 
-        binding.seekTime.setTextDistinct(memo("seek_time", currentSeekChartTime) {
-            formatService.formatTime(currentSeekChartTime.toLocalTime(), includeSeconds = false)
-        })
+        effect("seek_details", currentSeekChartTime, displayDate, isSeeking, location) {
+            if (!isSeeking){
+                return@effect
+            }
+            updateSeekPositions()
+            binding.seekTime.text = formatService.formatTime(
+                currentSeekChartTime.toLocalTime(),
+                includeSeconds = false
+            )
+        }
 
         effect(
             "chart",
@@ -505,11 +508,13 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             triggers.frequency("chart", Duration.ofMinutes(1))
         ) {
             inBackground {
+                if (!isBound) {
+                    return@inBackground
+                }
                 updateAstronomyChart()
-                if (binding.timeSeekerPanel.isVisible) {
+                if (isSeeking) {
                     plotMoonImage(data.moon, currentSeekChartTime)
                     plotSunImage(data.sun, currentSeekChartTime)
-                    updateSeekPositions()
                 }
             }
         }
