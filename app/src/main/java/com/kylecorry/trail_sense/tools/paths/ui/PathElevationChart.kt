@@ -60,6 +60,8 @@ class PathElevationChart(private val chart: Chart) {
         )
 
         chart.emptyText = chart.context.getString(R.string.no_data)
+
+        chart.setShouldRerenderEveryCycle(false)
     }
 
     fun setOnPointClickListener(listener: (point: PathPoint) -> Unit) {
@@ -129,6 +131,8 @@ class PathElevationChart(private val chart: Chart) {
         layers.add(highlight)
 
         chart.plot(layers)
+
+        chart.invalidate()
     }
 
     fun highlight(point: PathPoint) {
@@ -143,10 +147,13 @@ class PathElevationChart(private val chart: Chart) {
         tryOrNothing {
             highlight.data = listOf(_elevations[pointIndex])
         }
+
+        chart.invalidate()
     }
 
     fun removeHighlight() {
         highlight.data = emptyList()
+        chart.invalidate()
     }
 
     private fun getSlopeChart(
