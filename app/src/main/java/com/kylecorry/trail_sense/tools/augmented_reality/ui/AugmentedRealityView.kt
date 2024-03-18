@@ -43,7 +43,6 @@ import com.kylecorry.trail_sense.shared.text
 import com.kylecorry.trail_sense.shared.textDimensions
 import com.kylecorry.trail_sense.shared.views.CameraView
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.calibration.IARCalibrator
-import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.CalibratedCameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.CameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.CameraAnglePixelMapperFactory
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.SimplePerspectiveCameraAnglePixelMapper
@@ -84,11 +83,11 @@ class AugmentedRealityView : CanvasView {
     private val userPrefs = UserPreferences(context)
     private val sensors = SensorService(context)
     private var calibrationBearingOffset: Float = 0f
-    private val realOrientationSensor = sensors.getOrientation()
-    private val gyroOrientationSensor = sensors.getGyroscope()
+    val geomagneticOrientationSensor = sensors.getOrientation()
+    val gyroOrientationSensor = sensors.getGyroscope()
     private val hasGyro = Sensors.hasGyroscope(context)
-    private var orientationSensor = realOrientationSensor
-    private val gps = sensors.getGPS(frequency = Duration.ofMillis(200))
+    var orientationSensor = geomagneticOrientationSensor
+    val gps = sensors.getGPS(frequency = Duration.ofMillis(200))
     private val altimeter = sensors.getAltimeter(gps = gps)
     private val declinationProvider = DeclinationFactory().getDeclinationStrategy(
         userPrefs,
@@ -196,9 +195,9 @@ class AugmentedRealityView : CanvasView {
             gps.start(this::onSensorUpdate)
             altimeter.start(this::onSensorUpdate)
         }
-        orientationSensor = realOrientationSensor
+        orientationSensor = geomagneticOrientationSensor
         calibrationBearingOffset = 0f
-        realOrientationSensor.start(this::onSensorUpdate)
+        geomagneticOrientationSensor.start(this::onSensorUpdate)
         if (hasGyro) {
             gyroOrientationSensor.start(this::onSensorUpdate)
         }
@@ -208,7 +207,7 @@ class AugmentedRealityView : CanvasView {
     fun stop() {
         gps.stop(this::onSensorUpdate)
         altimeter.stop(this::onSensorUpdate)
-        realOrientationSensor.stop(this::onSensorUpdate)
+        geomagneticOrientationSensor.stop(this::onSensorUpdate)
         gyroOrientationSensor.stop(this::onSensorUpdate)
         updateTimer.stop()
     }
@@ -521,7 +520,7 @@ class AugmentedRealityView : CanvasView {
         val camera = camera ?: return
         calibrationBearingOffset = 0f
         // Switch to the reference orientation sensor and recalculate the orientation
-        orientationSensor = if (useGyro && hasGyro) gyroOrientationSensor else realOrientationSensor
+        orientationSensor = if (useGyro && hasGyro) gyroOrientationSensor else geomagneticOrientationSensor
         updateOrientation()
 
         // Calculate the offset
@@ -531,7 +530,7 @@ class AugmentedRealityView : CanvasView {
 
     fun resetCalibration() {
         calibrationBearingOffset = 0f
-        orientationSensor = realOrientationSensor
+        orientationSensor = geomagneticOrientationSensor
     }
 
     private fun syncWithCamera() {

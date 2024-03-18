@@ -1393,4 +1393,5 @@
     <string name="feature_unavailable">%s unavailable</string>
     <!--This occurs if the whistle can't be instantiated-->
     <string name="audio_error_messsage">An error occurred while trying to play audio.</string>
+    <string name="ar_calibration_instructions_hint">To calibrate the Augmented Reality tool, tap the icon in the top-left of the screen and follow the instructions that appear.</string>
 </resources>

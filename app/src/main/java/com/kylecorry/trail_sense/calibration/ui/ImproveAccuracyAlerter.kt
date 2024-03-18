@@ -11,6 +11,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.sense.mock.MockSensor
+import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
@@ -19,7 +20,10 @@ import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 
-class ImproveAccuracyAlerter(private val context: Context) : IValueAlerter<List<ISensor>> {
+class ImproveAccuracyAlerter(
+    private val context: Context,
+    private val customMessage: CharSequence? = null
+) : IValueAlerter<List<ISensor>> {
 
     private val formatter = FormatService.getInstance(context)
     private val baseDistanceUnits = UserPreferences(context).baseDistanceUnits
@@ -29,6 +33,7 @@ class ImproveAccuracyAlerter(private val context: Context) : IValueAlerter<List<
     override fun alert(value: List<ISensor>) {
         val gps = value.firstOrNull { it is IGPS } as? IGPS
         val compass = value.firstOrNull { it is ICompass } as? ICompass
+        val orientation = value.firstOrNull { it is IOrientationSensor } as? IOrientationSensor
         val hasCompass = compass !is MockSensor
         val content = buildSpannedString {
             gps?.let {
@@ -37,6 +42,13 @@ class ImproveAccuracyAlerter(private val context: Context) : IValueAlerter<List<
             }
             compass?.let {
                 appendCompass(it)
+            }
+            orientation?.let {
+                appendCompass(it)
+            }
+            customMessage?.let {
+                append("\n\n")
+                append(it)
             }
         }
 
@@ -54,7 +66,7 @@ class ImproveAccuracyAlerter(private val context: Context) : IValueAlerter<List<
         )
     }
 
-    private fun SpannableStringBuilder.appendCompass(compass: ICompass) {
+    private fun SpannableStringBuilder.appendCompass(compass: ISensor) {
         if (compass is MockSensor) {
             return
         }

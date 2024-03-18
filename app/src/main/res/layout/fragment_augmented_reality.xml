@@ -42,6 +42,34 @@
         app:srcCompat="@drawable/ic_compass_icon"
         app:tint="@color/white" />
 
+    <LinearLayout
+        android:id="@+id/accuracy_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="32dp"
+        android:alpha="0.6"
+        android:gravity="start"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/calibration_panel"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.kylecorry.andromeda.views.badge.Badge
+            android:id="@+id/gps_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:foregroundTint="@android:color/black"
+            app:icon="@drawable/satellite" />
+
+        <com.kylecorry.andromeda.views.badge.Badge
+            android:id="@+id/compass_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:foregroundTint="@android:color/black"
+            app:icon="@drawable/ic_compass_icon" />
+    </LinearLayout>
+
     <Button
         android:id="@+id/focus_action_button"
         android:layout_width="wrap_content"

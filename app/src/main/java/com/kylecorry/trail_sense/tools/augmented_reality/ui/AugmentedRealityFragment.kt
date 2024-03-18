@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.camera.view.PreviewView
 import androidx.core.os.bundleOf
+import androidx.core.text.buildSpannedString
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import com.kylecorry.andromeda.alerts.dialog
+import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.time.TimerActionBehavior
@@ -18,6 +21,7 @@ import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.ui.setTextDistinct
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.andromeda.fragments.interval
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
@@ -27,7 +31,11 @@ import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.calibration.ui.ImproveAccuracyAlerter
 import com.kylecorry.trail_sense.databinding.FragmentAugmentedRealityBinding
+import com.kylecorry.trail_sense.diagnostics.status.GpsStatusBadgeProvider
+import com.kylecorry.trail_sense.diagnostics.status.SensorStatusBadgeProvider
+import com.kylecorry.trail_sense.diagnostics.status.StatusBadge
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
@@ -137,6 +145,23 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     private val calibrationFactory = ARCalibratorFactory()
     private val astronomyService = AstronomyService()
 
+    // Status badges
+    private val gpsStatusBadgeProvider by lazy {
+        GpsStatusBadgeProvider(
+            binding.arView.gps,
+            requireContext()
+        )
+    }
+    private val compassStatusBadgeProvider by lazy {
+        SensorStatusBadgeProvider(
+            binding.arView.geomagneticOrientationSensor,
+            requireContext(),
+            R.drawable.ic_compass_icon
+        )
+    }
+    private var compassStatusBadge by state<StatusBadge?>(null)
+    private var gpsStatusBadge by state<StatusBadge?>(null)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -147,6 +172,11 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         observeFlow(navigator.destination) {
             beaconLayer.destination = it
         }
+
+        interval(1000) {
+            updateSensorStatus()
+        }
+        binding.accuracyView.setOnClickListener { displayAccuracyTips() }
 
         binding.camera.setScaleType(PreviewView.ScaleType.FILL_CENTER)
         binding.camera.setShowTorch(false)
@@ -255,6 +285,24 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         layerManagementUpdater.stop()
     }
 
+    override fun onUpdate() {
+        super.onUpdate()
+
+        effect("compass_status", compassStatusBadge) {
+            compassStatusBadge?.let {
+                binding.compassStatus.setStatusText(it.name)
+                binding.compassStatus.setBackgroundTint(it.color)
+            }
+        }
+
+        effect("gps_status", gpsStatusBadge) {
+            gpsStatusBadge?.let {
+                binding.gpsStatus.setStatusText(it.name)
+                binding.gpsStatus.setBackgroundTint(it.color)
+            }
+        }
+    }
+
     // TODO: Extract focus formatters
     private fun onSunFocused(time: ZonedDateTime): Boolean {
         binding.arView.focusText =
@@ -309,6 +357,15 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         }
 
         return true
+    }
+
+    private fun updateSensorStatus() {
+        inBackground {
+            onDefault {
+                compassStatusBadge = compassStatusBadgeProvider.getBadge()
+                gpsStatusBadge = gpsStatusBadgeProvider.getBadge()
+            }
+        }
     }
 
     override fun generateBinding(
@@ -381,6 +438,16 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
     private fun stopCalibration() {
         binding.calibrationPanel.isVisible = false
+    }
+
+    private fun displayAccuracyTips() {
+        context ?: return
+
+        val alerter = ImproveAccuracyAlerter(
+            requireContext(),
+            getString(R.string.ar_calibration_instructions_hint)
+        )
+        alerter.alert(listOf(binding.arView.gps, binding.arView.geomagneticOrientationSensor))
     }
 
     companion object {
