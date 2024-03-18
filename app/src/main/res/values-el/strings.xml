@@ -896,7 +896,7 @@
     <string name="point_added">Ο δείκτης προστέθηκε στη διαδρομή</string>
     <string name="done">Ολοκλήρωση</string>
     <string name="source">Πηγή</string>
-    <string name="until_sunrise">έως τη δύση του ηλίου</string>
+    <string name="until_sunrise">έως την Ανατολή του ηλίου</string>
     <string name="compass_source_mag_gyro">Μαγνητόμετρο + Γυροσκόπιο</string>
     <string name="astronomy_set">Δύση</string>
     <string name="notifications_channel">Ειδοποιήσεις (%s)</string>
@@ -1006,7 +1006,7 @@
     <string name="weather_wind">Άνεμος</string>
     <string name="later">Αργότερα</string>
     <string name="map_calibration">Βαθμονόμηση χάρτη</string>
-    <string name="until_sunset">Μέχρι το ηλιοβασίλεμα</string>
+    <string name="until_sunset">έως τη Δύση του ηλίου</string>
     <string name="data_source">Πηγή: %s</string>
     <string name="map_export_error">Η εξαγωγή του χάρτη στο επιλεγμένο αρχείο δεν είναι δυνατή</string>
     <string name="now">Τώρα</string>
