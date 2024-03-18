@@ -1133,4 +1133,12 @@
     <string name="pref_tiles_enabled_battery_log_summary">Pilin bitmesine kadar geçecek süreyi tahmin etmek için her saat pil yüzdesini kaydeder</string>
     <string name="pref_tiles_battery_log">Pil Günlüğü</string>
     <string name="pref_dialog_battery_log_summary">Pil günlüğü devre dışı, geçmiş ve ne kadar sürede biteceği özellikleri kullanılamayabilir. Bunu ayarlardan yeniden etkinleştirebilirsiniz</string>
+    <string name="projection_estimated_intrinsics">Tahmini İçseller</string>
+    <string name="projection_manufacturer_intrinsics">Üretici İçselleri</string>
+    <string name="projection_perspective">Bakış Açısı</string>
+    <string name="projection_linear">Doğrusal</string>
+    <string name="default_string">Öntanımlı</string>
+    <string name="feature_unavailable">%s kullanılabilir değil</string>
+    <string name="audio_error_messsage">Ses oynatmaya çalışırken bir hata oluştu.</string>
+    <string name="projection_type">İz düşüm türü</string>
 </resources>
