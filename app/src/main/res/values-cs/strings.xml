@@ -1160,4 +1160,6 @@
     <string name="projection_linear">Lineární</string>
     <string name="default_string">Výchozí</string>
     <string name="projection_perspective">Perspektiva</string>
+    <string name="feature_unavailable">Funkce %s není dostupná</string>
+    <string name="audio_error_messsage">Při pokusu o přehrání zvuku došlo k chybě.</string>
 </resources>

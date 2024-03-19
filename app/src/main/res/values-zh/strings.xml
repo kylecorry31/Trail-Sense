@@ -1125,4 +1125,6 @@
     <string name="projection_manufacturer_intrinsics">制造商内参矩阵</string>
     <string name="projection_perspective">透视</string>
     <string name="projection_linear">线性</string>
+    <string name="feature_unavailable">%s 不可用</string>
+    <string name="audio_error_messsage">尝试播放音频时发生错误。</string>
 </resources>
