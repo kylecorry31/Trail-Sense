@@ -1005,4 +1005,6 @@
         <item quantity="other">%d 個中途點就會剷走個囉噃</item>
     </plurals>
     <string name="magnetometer_gyro_custom">磁強計 + 陀螺儀 (合二為一)</string>
+    <string name="kwh_per_meter_squared_format">每平方米 %s 千瓦時</string>
+    <string name="feature_unavailable">%s欠奉</string>
 </resources>

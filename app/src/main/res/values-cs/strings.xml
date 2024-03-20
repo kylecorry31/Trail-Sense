@@ -1162,4 +1162,5 @@
     <string name="projection_perspective">Perspektiva</string>
     <string name="feature_unavailable">Funkce %s není dostupná</string>
     <string name="audio_error_messsage">Při pokusu o přehrání zvuku došlo k chybě.</string>
+    <string name="ar_calibration_instructions_hint">Pro kalibraci nástroje rozšířené reality klepněte na ikonu v levém horním rohu obrazovky a řiďte se zobrazenými pokyny.</string>
 </resources>
