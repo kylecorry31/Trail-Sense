@@ -10,6 +10,7 @@ import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
@@ -19,7 +20,6 @@ import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
@@ -27,7 +27,6 @@ import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
 import com.kylecorry.trail_sense.shared.sensors.providers.CompassProvider
-import com.kylecorry.trail_sense.shared.views.Views
 
 
 class CalibrateCompassFragment : AndromedaPreferenceFragment() {
@@ -128,8 +127,7 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
         }
 
         calibrateBtn.setOnPreferenceClickListener {
-            CustomUiUtils.scrollableDialog(
-                requireContext(),
+            dialog(
                 getString(R.string.calibrate_compass_dialog_title),
                 getString(
                     R.string.calibrate_compass_dialog_content,
@@ -141,7 +139,8 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
                     Resources.dp(requireContext(), 200f).toInt()
                 ) else null,
                 cancelText = null,
-                cancelOnOutsideTouch = false
+                cancelOnOutsideTouch = false,
+                scrollable = true
             )
             true
         }

@@ -15,13 +15,11 @@ import com.kylecorry.andromeda.sense.mock.MockSensor
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
-import com.kylecorry.trail_sense.shared.views.Views
 
 class ImproveAccuracyAlerter(
     private val context: Context,
@@ -55,7 +53,7 @@ class ImproveAccuracyAlerter(
             }
         }
 
-        CustomUiUtils.scrollableDialog(
+        Alerts.dialog(
             context,
             context.getString(R.string.accuracy_info_title),
             content,
@@ -66,7 +64,8 @@ class ImproveAccuracyAlerter(
             ) else null,
             cancelText = null,
             cancelOnOutsideTouch = false,
-            okText = doneButton
+            okText = doneButton,
+            scrollable = true
         )
     }
 

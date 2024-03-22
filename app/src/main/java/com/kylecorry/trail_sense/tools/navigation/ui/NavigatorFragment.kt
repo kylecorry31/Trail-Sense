@@ -11,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.coroutines.onMain
@@ -756,8 +757,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private fun showCalibrationDialog() {
         if (userPrefs.navigation.showCalibrationOnNavigateDialog) {
-            CustomUiUtils.scrollableDialog(
-                requireContext(),
+            dialog(
                 getString(R.string.calibrate_compass_dialog_title),
                 getString(
                     R.string.calibrate_compass_on_navigate_dialog_content,
@@ -769,7 +769,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                     Resources.dp(requireContext(), 200f).toInt()
                 ),
                 cancelText = null,
-                cancelOnOutsideTouch = false
+                cancelOnOutsideTouch = false,
+                scrollable = true
             )
         }
     }
