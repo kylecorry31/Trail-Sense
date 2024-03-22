@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.calibration.ui
 import android.os.Bundle
 import android.text.InputType
 import android.view.View
+import android.view.ViewGroup
 import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
 import androidx.preference.Preference
@@ -18,6 +19,7 @@ import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
@@ -25,6 +27,7 @@ import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
 import com.kylecorry.trail_sense.shared.sensors.providers.CompassProvider
+import com.kylecorry.trail_sense.shared.views.Views
 
 
 class CalibrateCompassFragment : AndromedaPreferenceFragment() {
@@ -125,16 +128,18 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
         }
 
         calibrateBtn.setOnPreferenceClickListener {
-            Alerts.dialog(
+            CustomUiUtils.scrollableDialog(
                 requireContext(),
                 getString(R.string.calibrate_compass_dialog_title),
                 getString(
-                    R.string.calibrate_compass_dialog_content, getString(android.R.string.ok)
+                    R.string.calibrate_compass_dialog_content,
+                    getString(android.R.string.ok)
                 ),
-                contentView = CompassCalibrationView.withFrame(
+                contentView = if (hasCompass) CompassCalibrationView.sized(
                     requireContext(),
-                    height = Resources.dp(requireContext(), 200f).toInt()
-                ),
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    Resources.dp(requireContext(), 200f).toInt()
+                ) else null,
                 cancelText = null,
                 cancelOnOutsideTouch = false
             )

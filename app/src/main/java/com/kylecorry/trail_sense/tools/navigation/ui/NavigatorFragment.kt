@@ -756,16 +756,17 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private fun showCalibrationDialog() {
         if (userPrefs.navigation.showCalibrationOnNavigateDialog) {
-            Alerts.dialog(
+            CustomUiUtils.scrollableDialog(
                 requireContext(),
                 getString(R.string.calibrate_compass_dialog_title),
                 getString(
                     R.string.calibrate_compass_on_navigate_dialog_content,
                     getString(android.R.string.ok)
                 ),
-                contentView = CompassCalibrationView.withFrame(
+                contentView = CompassCalibrationView.sized(
                     requireContext(),
-                    height = Resources.dp(requireContext(), 200f).toInt()
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    Resources.dp(requireContext(), 200f).toInt()
                 ),
                 cancelText = null,
                 cancelOnOutsideTouch = false

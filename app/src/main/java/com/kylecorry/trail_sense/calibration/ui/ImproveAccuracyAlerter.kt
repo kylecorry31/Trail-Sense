@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.calibration.ui
 
 import android.content.Context
 import android.text.SpannableStringBuilder
+import android.view.ViewGroup
 import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
 import androidx.core.text.scale
@@ -14,11 +15,13 @@ import com.kylecorry.andromeda.sense.mock.MockSensor
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
+import com.kylecorry.trail_sense.shared.views.Views
 
 class ImproveAccuracyAlerter(
     private val context: Context,
@@ -52,13 +55,14 @@ class ImproveAccuracyAlerter(
             }
         }
 
-        Alerts.dialog(
+        CustomUiUtils.scrollableDialog(
             context,
             context.getString(R.string.accuracy_info_title),
             content,
-            contentView = if (hasCompass) CompassCalibrationView.withFrame(
+            contentView = if (hasCompass) CompassCalibrationView.sized(
                 context,
-                height = Resources.dp(context, 200f).toInt()
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                Resources.dp(context, 200f).toInt()
             ) else null,
             cancelText = null,
             cancelOnOutsideTouch = false,

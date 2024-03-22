@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.Path
 import android.util.AttributeSet
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.system.Resources
@@ -129,20 +130,18 @@ class CompassCalibrationView : CanvasView {
     }
 
     companion object {
-        fun withFrame(
+
+        fun sized(
             context: Context,
-            width: Int = FrameLayout.LayoutParams.MATCH_PARENT,
-            height: Int = FrameLayout.LayoutParams.MATCH_PARENT
-        ): FrameLayout {
+            width: Int,
+            height: Int
+        ): CompassCalibrationView {
             val view = CompassCalibrationView(context)
-            view.layoutParams = FrameLayout.LayoutParams(
+            view.layoutParams = ViewGroup.LayoutParams(
                 width,
                 height
             )
-
-            val holder = inflate(context, R.layout.view_alert_dialog, null) as FrameLayout
-            holder.addView(view)
-            return holder
+            return view
         }
     }
 

@@ -5,10 +5,12 @@ import android.content.res.Configuration
 import android.net.Uri
 import android.util.Size
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.annotation.ColorInt
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -37,6 +39,7 @@ import com.kylecorry.trail_sense.shared.views.ColorPickerView
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
 import com.kylecorry.trail_sense.shared.views.DurationInputView
 import com.kylecorry.trail_sense.shared.views.ElevationInputView
+import com.kylecorry.trail_sense.shared.views.Views
 import com.kylecorry.trail_sense.tools.qr.ui.ScanQRBottomSheet
 import com.kylecorry.trail_sense.tools.qr.ui.ViewQRBottomSheet
 import java.time.Duration
@@ -463,6 +466,43 @@ object CustomUiUtils {
     fun Context.isDarkThemeOn(): Boolean {
         return resources.configuration.uiMode and
                 Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+    }
+
+    fun scrollableDialog(
+        context: Context,
+        title: CharSequence,
+        content: CharSequence? = null,
+        contentView: View? = null,
+        okText: String = context.getString(android.R.string.ok),
+        cancelText: String? = context.getString(android.R.string.cancel),
+        allowLinks: Boolean = false,
+        cancelable: Boolean = true,
+        cancelOnOutsideTouch: Boolean = true,
+        onClose: ((cancelled: Boolean) -> Unit)? = null
+    ): AlertDialog {
+
+        val contentViewWrapper = contentView?.let {
+
+            val layout = Views.linear(
+                listOf(Views.text(context, content), it),
+                padding = Resources.dp(context, 28f).toInt()
+            )
+
+            Views.scroll(layout)
+        }
+
+        return Alerts.dialog(
+            context,
+            title,
+            if (contentView == null) content else null,
+            contentViewWrapper,
+            okText,
+            cancelText,
+            allowLinks,
+            cancelable,
+            cancelOnOutsideTouch,
+            onClose
+        )
     }
 
 }
