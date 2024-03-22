@@ -6,6 +6,7 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.sol.units.Bearing
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ViewBeaconDestinationBinding
@@ -40,12 +41,20 @@ class DestinationPanel(private val view: View) {
 
     // TODO: Make this take the calculated values (as a value object)
     fun show(
-        position: Position,
+        location: Coordinate,
+        elevation: Float,
+        speed: Float,
         destination: Beacon,
         declination: Float,
         usingTrueNorth: Boolean = true
     ) {
-        val vector = navigationService.navigate(position, destination, declination, usingTrueNorth)
+        val vector = navigationService.navigate(
+            location,
+            elevation,
+            destination,
+            declination,
+            usingTrueNorth
+        )
 
         binding.root.isVisible = true
 
@@ -62,7 +71,7 @@ class DestinationPanel(private val view: View) {
         }
         updateDestinationDirection(vector.direction)
         updateDestinationElevation(destination.elevation, vector.altitudeChange)
-        updateDestinationEta(position, destination)
+        updateDestinationEta(location, elevation, speed, destination)
     }
 
     fun hide() {
@@ -77,14 +86,19 @@ class DestinationPanel(private val view: View) {
         ) + " " + formatService.formatDirection(azimuth.direction)
     }
 
-    private fun updateDestinationEta(position: Position, beacon: Beacon) {
-        val d = Distance.meters(position.location.distanceTo(beacon.coordinate))
+    private fun updateDestinationEta(
+        location: Coordinate,
+        elevation: Float,
+        speed: Float,
+        beacon: Beacon
+    ) {
+        val d = Distance.meters(location.distanceTo(beacon.coordinate))
             .convertTo(prefs.baseDistanceUnits).toRelativeDistance()
         binding.beaconDistance.title =
             formatService.formatDistance(d, Units.getDecimalPlaces(d.units), false)
 
         // ETA
-        val eta = navigationService.eta(position, beacon)
+        val eta = navigationService.eta(location, elevation, speed, beacon)
         binding.beaconEta.title = formatService.formatDuration(eta, false)
         binding.beaconEta.description = formatService.formatTime(
             ZonedDateTime.now().plus(eta).toLocalTime(),

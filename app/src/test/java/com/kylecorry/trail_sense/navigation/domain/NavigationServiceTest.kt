@@ -1,9 +1,9 @@
-package com.kylecorry.trail_sense.tools.navigation.domain
+package com.kylecorry.trail_sense.navigation.domain
 
 import android.graphics.Color
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.shared.Position
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -15,8 +15,20 @@ internal class NavigationServiceTest {
     fun nearby() {
         val mtWashington = Coordinate(44.2706, -71.3036)
         val beacons = listOf(
-            Beacon(0, "Tip top house", Coordinate(44.2705, -71.3036), color = Color.BLACK, visible = true),
-            Beacon(1, "Crawford", Coordinate(44.2709, -71.3056), color = Color.BLACK, visible = true),
+            Beacon(
+                0,
+                "Tip top house",
+                Coordinate(44.2705, -71.3036),
+                color = Color.BLACK,
+                visible = true
+            ),
+            Beacon(
+                1,
+                "Crawford",
+                Coordinate(44.2709, -71.3056),
+                color = Color.BLACK,
+                visible = true
+            ),
             Beacon(2, "Pinkham", Coordinate(44.2571, -71.2530), color = Color.BLACK, visible = true)
         )
 
@@ -28,18 +40,20 @@ internal class NavigationServiceTest {
     }
 
     @Test
-    fun eta(){
+    fun eta() {
         val location = Coordinate(44.2571, -71.2530)
         val speed = 1.5f
         val altitude = 1000f
 
         val destination = Coordinate(44.2706, -71.3036)
         val destinationAltitude = 1900f
-        val beacon = Beacon(0, "", destination, elevation = destinationAltitude, color = Color.BLACK)
+        val beacon =
+            Beacon(0, "", destination, elevation = destinationAltitude, color = Color.BLACK)
 
-        val linearEta = service.eta(Position(location, altitude, 0f, speed), beacon)
+        val linearEta = service.eta(location, altitude, speed, beacon)
 
-        val linearEtaDownhill = service.eta(Position(location, destinationAltitude, 0f, speed), beacon.copy(elevation = altitude))
+        val linearEtaDownhill =
+            service.eta(location, destinationAltitude, speed, beacon.copy(elevation = altitude))
 
         assertEquals(127L, linearEta.toMinutes())
         assertEquals(47L, linearEtaDownhill.toMinutes())

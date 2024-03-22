@@ -67,7 +67,7 @@ class ARAstronomyLayer(
             "positions",
             timeOverride,
             triggers.frequency("positions", updateFrequency),
-            triggers.distance("positions", location, updateDistance)
+            triggers.distance("positions", location, updateDistance, highAccuracy = false)
         ) {
             updatePositions(drawer, location, timeOverride ?: ZonedDateTime.now())
         }

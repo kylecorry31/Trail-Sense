@@ -9,7 +9,7 @@ internal class DistanceHookTrigger {
     private val lock = Any()
     private var lastReturnValue = false
 
-    fun getValue(location: Coordinate, threshold: Distance): Boolean {
+    fun getValue(location: Coordinate, threshold: Distance, highAccuracy: Boolean = true): Boolean {
         synchronized(lock) {
             if (lastLocation == null) {
                 lastLocation = location
@@ -17,7 +17,7 @@ internal class DistanceHookTrigger {
                 return lastReturnValue
             }
 
-            val distance = location.distanceTo(lastLocation!!)
+            val distance = location.distanceTo(lastLocation!!, highAccuracy)
             if (distance >= threshold.meters().distance) {
                 lastLocation = location
                 lastReturnValue = !lastReturnValue

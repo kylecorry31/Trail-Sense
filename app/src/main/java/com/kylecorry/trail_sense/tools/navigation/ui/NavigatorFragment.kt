@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.dialog
@@ -106,8 +105,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private var declination = 0f
 
     private val userPrefs by lazy { UserPreferences(requireContext()) }
-
-    private lateinit var navController: NavController
 
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
 
@@ -227,6 +224,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         )
 
         // Register timers
+
+        // TODO: This shouldn't be needed - layers can be updated when the data changes
         interval(100) {
             updateCompassLayers()
         }
@@ -287,10 +286,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             updateNearbyBeacons()
         }
 
-        navController = findNavController()
-
         observe(compass) { }
-        observe(orientation) { onOrientationUpdate() }
+        observe(orientation) { }
         observe(altimeter) { }
         observe(gps) { }
         observe(speedometer) { }
@@ -331,7 +328,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         binding.beaconBtn.setOnClickListener {
             if (destination == null) {
-                navController.navigate(R.id.action_navigatorFragment_to_beaconListFragment)
+                findNavController().navigate(R.id.action_navigatorFragment_to_beaconListFragment)
             } else {
                 destination = null
                 navigator.cancelNavigation()
@@ -346,9 +343,12 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                         if (altimeter.hasValidReading) altimeter.altitude else gps.altitude
                     )
                 )
-                navController.navigate(R.id.action_navigatorFragment_to_beaconListFragment, bundle)
+                findNavController().navigate(
+                    R.id.action_navigatorFragment_to_beaconListFragment,
+                    bundle
+                )
             } else {
-                navController.navigate(R.id.action_navigatorFragment_to_beaconListFragment)
+                findNavController().navigate(R.id.action_navigatorFragment_to_beaconListFragment)
 
             }
             true
@@ -570,7 +570,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private fun getFacingBeacon(nearby: Collection<Beacon>): Beacon? {
         return navigationService.getFacingBeacon(
-            getPosition(),
+            gps.location,
+            compass.rawBearing,
             nearby,
             declination,
             useTrueNorth
@@ -584,7 +585,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             return
         }
 
-        // TODO: Move selected beacon updating to a coroutine / timer
+        // TODO: Move selected beacon updating to a coroutine
         effect(
             "selected_beacon",
             destination,
@@ -594,7 +595,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             val selectedBeacon = getSelectedBeacon(nearbyBeacons)
             if (selectedBeacon != null) {
                 binding.navigationSheet.show(
-                    getPosition(),
+                    gps.location,
+                    altimeter.altitude,
+                    speedometer.speed.speed,
                     selectedBeacon,
                     declination,
                     useTrueNorth
@@ -638,7 +641,12 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         effect(
             "astronomy",
-            triggers.distance("astronomy", gps.location, ASTRONOMY_UPDATE_DISTANCE),
+            triggers.distance(
+                "astronomy",
+                gps.location,
+                ASTRONOMY_UPDATE_DISTANCE,
+                highAccuracy = false
+            ),
             triggers.frequency("astronomy", ASTRONOMY_UPDATE_FREQUENCY),
             lifecycleHookTrigger.onResume()
         ) {
@@ -650,6 +658,24 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             updateNavigationButton()
         }
 
+        effect("device_orientation", orientation.orientation, lifecycleHookTrigger.onResume()) {
+            val style = styleChooser.getStyle(orientation.orientation)
+
+            binding.linearCompass.isInvisible = style != CompassStyle.Linear
+            binding.sightingCompassBtn.isInvisible = style != CompassStyle.Linear
+            binding.roundCompass.isInvisible = style != CompassStyle.Round
+            binding.radarCompass.isInvisible = style != CompassStyle.Radar
+
+            if (style == CompassStyle.Linear) {
+                if (showSightingCompass && sightingCompass?.isRunning() == false) {
+                    enableSightingCompass()
+                }
+            } else {
+                disableSightingCompass()
+            }
+        }
+
+        // TODO: This shouldn't run every cycle
         sightingCompass?.update()
     }
 
@@ -745,16 +771,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
     }
 
-    private fun getPosition(): Position {
-        // TODO: Remove this concept
-        return Position(
-            gps.location,
-            altimeter.altitude,
-            compass.rawBearing,
-            speedometer.speed.speed
-        )
-    }
-
     private fun showCalibrationDialog() {
         if (userPrefs.navigation.showCalibrationOnNavigateDialog) {
             dialog(
@@ -772,25 +788,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 cancelOnOutsideTouch = false,
                 scrollable = true
             )
-        }
-    }
-
-    private fun onOrientationUpdate() {
-        effect("device_orientation", orientation.orientation, lifecycleHookTrigger.onResume()) {
-            val style = styleChooser.getStyle(orientation.orientation)
-
-            binding.linearCompass.isInvisible = style != CompassStyle.Linear
-            binding.sightingCompassBtn.isInvisible = style != CompassStyle.Linear
-            binding.roundCompass.isInvisible = style != CompassStyle.Round
-            binding.radarCompass.isInvisible = style != CompassStyle.Radar
-
-            if (style == CompassStyle.Linear) {
-                if (showSightingCompass && sightingCompass?.isRunning() == false) {
-                    enableSightingCompass()
-                }
-            } else {
-                disableSightingCompass()
-            }
         }
     }
 

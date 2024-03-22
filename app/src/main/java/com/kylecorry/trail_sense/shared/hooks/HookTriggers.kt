@@ -15,11 +15,16 @@ class HookTriggers {
     private val predicateTriggers = mutableMapOf<String, PredicateHookTrigger>()
     private val predicateLock = Any()
 
-    fun distance(name: String, location: Coordinate, threshold: Distance): Boolean {
+    fun distance(
+        name: String,
+        location: Coordinate,
+        threshold: Distance,
+        highAccuracy: Boolean = true
+    ): Boolean {
         val conditional = synchronized(distanceLock) {
             distanceTriggers.getOrPut(name) { DistanceHookTrigger() }
         }
-        return conditional.getValue(location, threshold)
+        return conditional.getValue(location, threshold, highAccuracy)
     }
 
     fun frequency(name: String, threshold: Duration): Boolean {

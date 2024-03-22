@@ -6,7 +6,6 @@ import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.science.geology.NavigationVector
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
-import com.kylecorry.trail_sense.shared.Position
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import java.time.Duration
 import kotlin.math.abs
@@ -24,21 +23,27 @@ class NavigationService {
     }
 
     fun navigate(
-        from: Position,
+        fromLocation: Coordinate,
+        fromElevation: Float,
         to: Beacon,
         declination: Float,
         usingTrueNorth: Boolean = true
     ): NavigationVector {
-        val originalVector = navigate(from.location, to.coordinate, declination, usingTrueNorth)
-        val altitudeChange = if (to.elevation != null) to.elevation - from.altitude else null
+        val originalVector = navigate(fromLocation, to.coordinate, declination, usingTrueNorth)
+        val altitudeChange = if (to.elevation != null) to.elevation - fromElevation else null
         return originalVector.copy(altitudeChange = altitudeChange)
     }
 
-    fun eta(from: Position, to: Beacon): Duration {
-        val speed =
-            if (from.speed < 3) clamp(from.speed, 0.89408f, 1.78816f) else from.speed
+    fun eta(
+        location: Coordinate,
+        elevation: Float,
+        speed: Float,
+        to: Beacon
+    ): Duration {
+        val adjustedSpeed =
+            if (speed < 3) clamp(speed, 0.89408f, 1.78816f) else speed
 
-        val time = scarfsDistance(from.location, to.coordinate, from.altitude, to.elevation) / speed
+        val time = scarfsDistance(location, to.coordinate, elevation, to.elevation) / adjustedSpeed
 
         return Duration.ofSeconds(time.toLong())
     }
@@ -81,7 +86,8 @@ class NavigationService {
     }
 
     fun getFacingBeacon(
-        position: Position,
+        location: Coordinate,
+        bearing: Float,
         beacons: Collection<Beacon>,
         declination: Float,
         usingTrueNorth: Boolean = true
@@ -90,17 +96,17 @@ class NavigationService {
             Pair(
                 it,
                 if (usingTrueNorth) {
-                    position.location.bearingTo(it.coordinate)
+                    location.bearingTo(it.coordinate)
                 } else {
                     DeclinationUtils.fromTrueNorthBearing(
-                        position.location.bearingTo(it.coordinate),
+                        location.bearingTo(it.coordinate),
                         declination
                     )
                 }
             )
         }.filter {
-            isFacingBearing(position.bearing, it.second.value)
-        }.minByOrNull { abs(deltaAngle(it.second.value, position.bearing)) }?.first
+            isFacingBearing(bearing, it.second.value)
+        }.minByOrNull { abs(deltaAngle(it.second.value, bearing)) }?.first
     }
 
 }

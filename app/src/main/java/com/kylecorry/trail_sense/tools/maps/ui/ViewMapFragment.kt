@@ -113,8 +113,14 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         layerManager = MultiLayerManager(
             listOf(
                 PathLayerManager(requireContext(), pathLayer),
-                MyAccuracyLayerManager(myAccuracyLayer, Resources.getPrimaryMarkerColor(requireContext())),
-                MyLocationLayerManager(myLocationLayer, Resources.getPrimaryMarkerColor(requireContext())),
+                MyAccuracyLayerManager(
+                    myAccuracyLayer,
+                    Resources.getPrimaryMarkerColor(requireContext())
+                ),
+                MyLocationLayerManager(
+                    myLocationLayer,
+                    Resources.getPrimaryMarkerColor(requireContext())
+                ),
                 TideLayerManager(requireContext(), tideLayer),
                 BeaconLayerManager(requireContext(), beaconLayer),
                 NavigationLayerManager(requireContext(), navigationLayer)
@@ -191,7 +197,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         binding.lockBtn.setOnClickListener {
             mapLockMode = getNextLockMode(mapLockMode)
 
-            when (mapLockMode){
+            when (mapLockMode) {
                 MapLockMode.Location -> {
                     // Disable pan
                     binding.map.isPanEnabled = false
@@ -208,6 +214,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                     binding.lockBtn.setImageResource(R.drawable.satellite)
                     CustomUiUtils.setButtonState(binding.lockBtn, true)
                 }
+
                 MapLockMode.Compass -> {
                     // Disable pan
                     binding.map.isPanEnabled = false
@@ -223,6 +230,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                     binding.lockBtn.setImageResource(R.drawable.ic_compass_icon)
                     CustomUiUtils.setButtonState(binding.lockBtn, true)
                 }
+
                 MapLockMode.Free -> {
                     // Enable pan
                     binding.map.isPanEnabled = true
@@ -259,7 +267,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             }
         }
 
-        if (!hasCompass){
+        if (!hasCompass) {
             myLocationLayer.setShowDirection(false)
         }
     }
@@ -314,7 +322,9 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
         val beacon = destination ?: return
         binding.navigationSheet.show(
-            Position(gps.location, altimeter.altitude, compass.rawBearing, gps.speed.speed),
+            gps.location,
+            altimeter.altitude,
+            gps.speed.speed,
             beacon,
             compass.declination,
             true
@@ -462,9 +472,11 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                     MapLockMode.Free
                 }
             }
+
             MapLockMode.Compass -> {
                 MapLockMode.Free
             }
+
             MapLockMode.Free -> {
                 MapLockMode.Location
             }

@@ -20,7 +20,7 @@ class GPSDeclinationStrategy(
     override fun getDeclination(): Float {
         return hooks.memo(
             "declination",
-            triggers.distance("declination", gps.location, cacheRadius)
+            triggers.distance("declination", gps.location, cacheRadius, highAccuracy = false)
         ) {
             geology.getGeomagneticDeclination(gps.location, gps.altitude)
         }
