@@ -30,6 +30,10 @@ class SunListItemProducer(context: Context) : BaseAstroListItemProducer(context)
         }
         val night = Duration.ofDays(1) - daylight
         val season = astronomyService.getSeason(location, date)
+        val azimuth =
+            if (date == LocalDate.now()) astronomyService.getSunAzimuth(location) else null
+        val altitude =
+            if (date == LocalDate.now()) astronomyService.getSunAltitude(location) else null
 
         list(
             1,
@@ -49,8 +53,10 @@ class SunListItemProducer(context: Context) : BaseAstroListItemProducer(context)
                 context.getString(R.string.astronomy_altitude_peak) to peak?.let { degrees(it) },
                 context.getString(R.string.daylight) to duration(daylight),
                 context.getString(R.string.night) to duration(night),
-                context.getString(R.string.season) to data(formatter.formatSeason(season))
-            ).filter { it.second != null }
+                context.getString(R.string.season) to data(formatter.formatSeason(season)),
+                context.getString(R.string.astronomy_altitude) to altitude?.let { degrees(it) },
+                context.getString(R.string.direction) to azimuth?.let { degrees(it.value) }
+            )
 
             showAdvancedData(context.getString(R.string.sun), advancedData)
         }

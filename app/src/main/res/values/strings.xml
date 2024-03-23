@@ -900,6 +900,7 @@
     <string name="obscuration">Obscuration</string>
     <!--  The astronomical altitude of the sun / moon in the sky  -->
     <string name="astronomy_altitude_peak">Peak altitude</string>
+    <string name="astronomy_altitude">Altitude</string>
     <string name="astronomy_direction_peak">Peak direction</string>
     <string name="supermoon">Supermoon</string>
     <string name="season_winter">Winter</string>
