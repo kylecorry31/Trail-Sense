@@ -89,10 +89,8 @@ import java.time.Instant
 
 class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
-    private var showSightingCompass = false
     private val compass by lazy { sensorService.getCompass() }
     private val gps by lazy { sensorService.getGPS(frequency = Duration.ofMillis(200)) }
-    private var sightingCompass: SightingCompassView? = null
     private val orientation by lazy { sensorService.getDeviceOrientationSensor() }
     private val altimeter by lazy { sensorService.getAltimeter(gps = gps) }
     private val speedometer by lazy { sensorService.getSpeedometer(gps = gps) }
@@ -187,7 +185,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        sightingCompass = null
         activity?.let {
             tryOrNothing {
                 Screen.setShowWhenLocked(it, false)
@@ -215,12 +212,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         diagnostics = listOf(
             GPSDiagnostic(requireContext(), null, gps),
             MagnetometerDiagnostic(requireContext(), viewLifecycleOwner)
-        )
-
-        sightingCompass = SightingCompassView(
-            binding.viewCamera,
-            binding.viewCameraLine,
-            binding.linearCompass
         )
 
         // Register timers
@@ -312,17 +303,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             sheet.show(this)
         }
 
-        CustomUiUtils.setButtonState(binding.sightingCompassBtn, showSightingCompass)
-        binding.sightingCompassBtn.setOnClickListener {
-            setSightingCompassStatus(!showSightingCompass)
-        }
-        sightingCompass?.stop()
-
-        binding.viewCamera.setOnClickListener {
-            toggleDestinationBearing()
-        }
-
-        binding.viewCameraLine.setOnClickListener {
+        binding.linearCompass.setOnClickListener {
             toggleDestinationBearing()
         }
 
@@ -375,47 +356,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         scheduleUpdates(INTERVAL_30_FPS)
-    }
-
-    private fun setSightingCompassStatus(isOn: Boolean) {
-        showSightingCompass = isOn
-        CustomUiUtils.setButtonState(binding.sightingCompassBtn, isOn)
-        if (isOn) {
-            requestCamera { hasPermission ->
-                if (hasPermission) {
-                    enableSightingCompass()
-                } else {
-                    alertNoCameraPermission()
-                    setSightingCompassStatus(false)
-                }
-            }
-        } else {
-            disableSightingCompass()
-        }
-    }
-
-    private fun enableSightingCompass() {
-        sightingCompass?.start()
-
-        if (sightingCompass?.isRunning() == true) {
-            // TODO: Extract this logic to the flashlight (if camera is in use)
-            if (userPrefs.navigation.rightButton == Tools.QUICK_ACTION_FLASHLIGHT) {
-                binding.navigationTitle.rightButton.isClickable = false
-            }
-            if (userPrefs.navigation.leftButton == Tools.QUICK_ACTION_FLASHLIGHT) {
-                binding.navigationTitle.leftButton.isClickable = false
-            }
-        }
-    }
-
-    private fun disableSightingCompass() {
-        sightingCompass?.stop()
-        if (userPrefs.navigation.rightButton == Tools.QUICK_ACTION_FLASHLIGHT) {
-            binding.navigationTitle.rightButton.isClickable = true
-        }
-        if (userPrefs.navigation.leftButton == Tools.QUICK_ACTION_FLASHLIGHT) {
-            binding.navigationTitle.leftButton.isClickable = true
-        }
     }
 
     private fun toggleDestinationBearing() {
@@ -512,7 +452,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     override fun onPause() {
         super.onPause()
         loadBeaconsRunner.cancel()
-        sightingCompass?.stop()
         errors.reset()
         layerManager?.stop()
         layerManager = null
@@ -662,21 +601,21 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             val style = styleChooser.getStyle(orientation.orientation)
 
             binding.linearCompass.isInvisible = style != CompassStyle.Linear
-            binding.sightingCompassBtn.isInvisible = style != CompassStyle.Linear
             binding.roundCompass.isInvisible = style != CompassStyle.Round
             binding.radarCompass.isInvisible = style != CompassStyle.Radar
-
-            if (style == CompassStyle.Linear) {
-                if (showSightingCompass && sightingCompass?.isRunning() == false) {
-                    enableSightingCompass()
-                }
-            } else {
-                disableSightingCompass()
-            }
         }
 
-        // TODO: This shouldn't run every cycle
-        sightingCompass?.update()
+        effect("sighting_compass_flashlight", binding.linearCompass.isCameraActive) {
+            // TODO: Extract this logic to the flashlight (if camera is in use)
+            if (userPrefs.navigation.rightButton == Tools.QUICK_ACTION_FLASHLIGHT) {
+                binding.navigationTitle.rightButton.isClickable =
+                    !binding.linearCompass.isCameraActive
+            }
+            if (userPrefs.navigation.leftButton == Tools.QUICK_ACTION_FLASHLIGHT) {
+                binding.navigationTitle.leftButton.isClickable =
+                    !binding.linearCompass.isCameraActive
+            }
+        }
     }
 
     private fun updateCompassBearing() {
