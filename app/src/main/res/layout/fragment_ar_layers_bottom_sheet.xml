@@ -15,5 +15,9 @@
         app:showSubtitle="false"
         app:title="@string/layers" />
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/preferences_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

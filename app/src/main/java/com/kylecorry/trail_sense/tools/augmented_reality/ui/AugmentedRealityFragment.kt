@@ -56,6 +56,7 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.guide.NavigationARGu
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARAstronomyLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARBeaconLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARGridLayer
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARPathLayer
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
@@ -162,6 +163,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     }
     private var compassStatusBadge by state<StatusBadge?>(null)
     private var gpsStatusBadge by state<StatusBadge?>(null)
+    private var visibleLayersOverride by state<List<ARLayer>?>(null)
+    private var visibleLayers by state<List<ARLayer>>(emptyList())
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -249,6 +252,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             stopCamera()
         }
 
+        updateLayerVisibility()
         guide?.start(binding.arView, binding.guidancePanel)
     }
 
@@ -305,6 +309,10 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                 binding.gpsStatus.setStatusText(it.name)
                 binding.gpsStatus.setBackgroundTint(it.color)
             }
+        }
+
+        effect("layer_visibility", visibleLayers, visibleLayersOverride) {
+            binding.arView.setLayers(visibleLayersOverride ?: visibleLayers)
         }
     }
 
@@ -383,19 +391,12 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         this.mode = mode
         when (mode) {
             ARMode.Normal -> {
-                binding.arView.setLayers(
-                    listOfNotNull(
-                        gridLayer,
-                        astronomyLayer,
-                        if (userPrefs.augmentedReality.showPathLayer) pathsLayer else null,
-                        beaconLayer
-                    )
-                )
+                visibleLayersOverride = null
                 changeGuide(NavigationARGuide(navigator))
             }
 
             ARMode.Astronomy -> {
-                binding.arView.setLayers(listOf(gridLayer, astronomyLayer))
+                visibleLayersOverride = listOf(gridLayer, astronomyLayer)
                 val extraDate = extras?.getString("date")?.let {
                     LocalDate.parse(it).atTime(12, 0).toZonedDateTime()
                 }
@@ -414,8 +415,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     private fun showLayersSheet() {
         val sheet = ARLayersBottomSheet()
         sheet.setOnDismissListener {
-            println("Dismissed")
-            // TODO: Refresh layers
+            updateLayerVisibility()
         }
         sheet.show(this)
     }
@@ -461,6 +461,15 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             getString(R.string.ar_calibration_instructions_hint)
         )
         alerter.alert(listOf(binding.arView.gps, binding.arView.geomagneticOrientationSensor))
+    }
+
+    private fun updateLayerVisibility() {
+        visibleLayers = listOfNotNull(
+            if (userPrefs.augmentedReality.showGridLayer) gridLayer else null,
+            if (userPrefs.augmentedReality.showAstronomyLayer) astronomyLayer else null,
+            if (userPrefs.augmentedReality.showPathLayer) pathsLayer else null,
+            if (userPrefs.augmentedReality.showBeaconLayer) beaconLayer else null
+        )
     }
 
     companion object {

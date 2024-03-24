@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.trail_sense.databinding.FragmentArLayersBottomSheetBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils.replaceChildFragment
 
 class ARLayersBottomSheet : BoundBottomSheetDialogFragment<FragmentArLayersBottomSheetBinding>() {
 
@@ -33,5 +36,10 @@ class ARLayersBottomSheet : BoundBottomSheetDialogFragment<FragmentArLayersBotto
         binding.title.rightButton.setOnClickListener {
             dismiss()
         }
+
+        replaceChildFragment(
+            ARLayersBottomSheetPreferenceFragment(),
+            binding.preferencesFragment.id
+        )
     }
 }

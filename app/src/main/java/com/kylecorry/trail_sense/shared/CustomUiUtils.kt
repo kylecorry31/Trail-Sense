@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import com.kylecorry.andromeda.alerts.Alerts
@@ -463,6 +464,12 @@ object CustomUiUtils {
     fun Context.isDarkThemeOn(): Boolean {
         return resources.configuration.uiMode and
                 Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+    }
+
+    fun Fragment.replaceChildFragment(fragment: Fragment, containerId: Int) {
+        childFragmentManager.commit {
+            replace(containerId, fragment)
+        }
     }
 
 }

@@ -15,12 +15,6 @@ class AugmentedRealityPreferences(context: Context) : PreferenceRepo(context) {
         1000f
     )
 
-    var showPathLayer by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_show_ar_path_layer),
-        true
-    )
-
     var pathViewDistance by FloatPreference(
         cache,
         context.getString(R.string.pref_augmented_reality_view_distance_paths),
@@ -44,6 +38,31 @@ class AugmentedRealityPreferences(context: Context) : PreferenceRepo(context) {
         context.getString(R.string.pref_augmented_reality_mapper),
         ProjectionType.entries.associateBy { it.id },
         ProjectionType.EstimatedIntrinsics
+    )
+
+    // Layer visibility
+    var showBeaconLayer by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_show_ar_beacon_layer),
+        true
+    )
+
+    var showPathLayer by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_show_ar_path_layer),
+        true
+    )
+
+    var showAstronomyLayer by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_show_ar_astronomy_layer),
+        true
+    )
+    
+    var showGridLayer by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_show_ar_grid_layer),
+        true
     )
 
     enum class ProjectionType(val id: String) {

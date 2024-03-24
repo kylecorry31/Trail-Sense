@@ -15,7 +15,7 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasCircle
 import kotlin.math.hypot
 
 class ARBeaconLayer(
-    private val maxVisibleDistance: Distance = Distance.kilometers(1f),
+    var maxVisibleDistance: Distance = Distance.kilometers(1f),
     private val beaconSize: Distance = Distance.meters(4f),
     private val onFocus: (beacon: Beacon) -> Boolean = { false },
     private val onClick: (beacon: Beacon) -> Boolean = { false }

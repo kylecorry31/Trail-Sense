@@ -1396,4 +1396,9 @@
     <string name="audio_error_messsage">An error occurred while trying to play audio.</string>
     <string name="ar_calibration_instructions_hint">To calibrate the Augmented Reality tool, tap the icon in the top-left of the screen and follow the instructions that appear.</string>
     <string name="layers">Layers</string>
+    <string name="pref_show_ar_beacon_layer" translatable="false">pref_show_ar_beacon_layer</string>
+    <string name="pref_show_ar_astronomy_layer" translatable="false">pref_show_ar_astronomy_layer</string>
+    <string name="visible">Visible</string>
+    <string name="pref_show_ar_grid_layer" translatable="false">pref_show_ar_grid_layer</string>
+    <string name="grid">Grid</string>
 </resources>

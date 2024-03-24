@@ -12,12 +12,6 @@
             app:singleLineTitle="false"
             app:title="@string/visible" />
 
-        <Preference
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_view_distance_beacons_holder"
-            app:singleLineTitle="false"
-            app:title="@string/view_distance" />
-
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -31,19 +25,6 @@
             app:key="@string/pref_show_ar_path_layer"
             app:singleLineTitle="false"
             app:title="@string/visible" />
-
-        <Preference
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_view_distance_paths_holder"
-            app:singleLineTitle="false"
-            app:title="@string/view_distance" />
-
-        <SwitchPreferenceCompat
-            app:defaultValue="false"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_ar_adjust_for_path_elevation"
-            app:singleLineTitle="false"
-            app:title="@string/use_path_elevation" />
 
     </PreferenceCategory>
 
@@ -72,30 +53,6 @@
             app:key="@string/pref_show_ar_grid_layer"
             app:singleLineTitle="false"
             app:title="@string/visible" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        app:iconSpaceReserved="false"
-        app:singleLineTitle="false"
-        app:title="@string/advanced">
-
-        <SwitchPreferenceCompat
-            app:defaultValue="false"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_ar_use_gyro_only_after_calibration"
-            app:singleLineTitle="false"
-            app:summary="@string/use_gyroscope_after_calibration_description"
-            app:title="@string/use_gyroscope_after_calibration" />
-
-
-        <ListPreference
-            app:defaultValue="estimated_intrinsics"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_augmented_reality_mapper"
-            app:singleLineTitle="false"
-            app:title="@string/projection_type"
-            app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
 
