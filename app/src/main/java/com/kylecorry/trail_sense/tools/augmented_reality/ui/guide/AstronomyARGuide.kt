@@ -30,6 +30,10 @@ class AstronomyARGuide(
 
     private var timeOverride: ZonedDateTime? = null
 
+    fun setDate(date: LocalDate){
+        binding?.arGuideDatePicker?.date = date
+    }
+
     private val timer = CoroutineTimer {
         val arView = arView ?: return@CoroutineTimer
         val time = timeOverride ?: ZonedDateTime.now()

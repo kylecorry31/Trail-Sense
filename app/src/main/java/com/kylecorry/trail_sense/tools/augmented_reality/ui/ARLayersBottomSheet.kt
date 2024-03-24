@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.trail_sense.databinding.FragmentArLayersBottomSheetBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils.replaceChildFragment
+import java.time.LocalDate
 
 class ARLayersBottomSheet : BoundBottomSheetDialogFragment<FragmentArLayersBottomSheetBinding>() {
 
     private var onDismissListener: (() -> Unit)? = null
+    var astronomyOverrideDate: LocalDate? = null
 
     fun setOnDismissListener(listener: (() -> Unit)?) {
         onDismissListener = listener
@@ -35,8 +37,14 @@ class ARLayersBottomSheet : BoundBottomSheetDialogFragment<FragmentArLayersBotto
             dismiss()
         }
 
+        val preferences = ARLayersBottomSheetPreferenceFragment()
+        preferences.astronomyOverrideDate = astronomyOverrideDate
+        preferences.setOnAstronomyDateChangeListener {
+            astronomyOverrideDate = it
+        }
+
         replaceChildFragment(
-            ARLayersBottomSheetPreferenceFragment(),
+            preferences,
             binding.preferencesFragment.id
         )
     }

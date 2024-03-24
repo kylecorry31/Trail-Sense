@@ -1402,4 +1402,6 @@
     <string name="pref_show_ar_grid_layer" translatable="false">pref_show_ar_grid_layer</string>
     <string name="grid">Grid</string>
     <string name="ar_layer_override_message">Layer settings may be overridden by guidance, such as the Astronomy guide.</string>
+    <string name="date">Date</string>
+    <string name="pref_ar_layer_settings_astronomy_date_holder" translatable="false">pref_ar_layer_settings_astronomy_date_holder</string>
 </resources>

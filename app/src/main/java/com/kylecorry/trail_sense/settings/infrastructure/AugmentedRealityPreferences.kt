@@ -5,7 +5,6 @@ import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.FloatPreference
 import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
 
 class AugmentedRealityPreferences(context: Context) : PreferenceRepo(context) {
 

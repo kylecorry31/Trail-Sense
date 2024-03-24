@@ -7,13 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.camera.view.PreviewView
 import androidx.core.os.bundleOf
-import androidx.core.text.buildSpannedString
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.coroutines.onDefault
-import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.time.TimerActionBehavior
@@ -37,9 +35,6 @@ import com.kylecorry.trail_sense.databinding.FragmentAugmentedRealityBinding
 import com.kylecorry.trail_sense.diagnostics.status.GpsStatusBadgeProvider
 import com.kylecorry.trail_sense.diagnostics.status.SensorStatusBadgeProvider
 import com.kylecorry.trail_sense.diagnostics.status.StatusBadge
-import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
-import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
@@ -58,10 +53,11 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARBeaconLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARGridLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARPathLayer
+import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.PathLayerManager
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
-import com.kylecorry.trail_sense.tools.paths.domain.Path
-import java.time.Instant
 import java.time.LocalDate
 import java.time.ZonedDateTime
 import kotlin.math.hypot
@@ -414,7 +410,19 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
     private fun showLayersSheet() {
         val sheet = ARLayersBottomSheet()
+        sheet.astronomyOverrideDate = astronomyLayer.timeOverride?.toLocalDate()
         sheet.setOnDismissListener {
+            // Update the date of the astronomy guide and layer
+            // TODO: It would be cleaner for the astronomy guide to emit the date, then it can be set via state
+            sheet.astronomyOverrideDate?.let {
+                val guide = this.guide
+                if (guide is AstronomyARGuide) {
+                    guide.setDate(it)
+                }
+                astronomyLayer.timeOverride =
+                    if (it == LocalDate.now()) null else it.atTime(12, 0).toZonedDateTime()
+            }
+
             updateLayerVisibility()
         }
         sheet.show(this)
