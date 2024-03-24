@@ -1401,4 +1401,5 @@
     <string name="visible">Visible</string>
     <string name="pref_show_ar_grid_layer" translatable="false">pref_show_ar_grid_layer</string>
     <string name="grid">Grid</string>
+    <string name="ar_layer_override_message">Layer settings may be overridden by guidance, such as the Astronomy guide.</string>
 </resources>
