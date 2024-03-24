@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.shared.declination
 
 import com.kylecorry.andromeda.sense.location.IGPS
-import com.kylecorry.luna.cache.Hooks
+import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.science.geology.IGeologyService
 import com.kylecorry.sol.units.Distance

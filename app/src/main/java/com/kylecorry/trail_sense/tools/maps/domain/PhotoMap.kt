@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.maps.domain
 
-import com.kylecorry.luna.cache.Hooks
+import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.SolMath.roundNearestAngle
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Size

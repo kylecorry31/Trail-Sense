@@ -4,7 +4,7 @@ import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.luna.cache.Hooks
+import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase

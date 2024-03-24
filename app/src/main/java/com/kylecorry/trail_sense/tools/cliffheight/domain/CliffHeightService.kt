@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.cliffheight.domain
 
-import com.kylecorry.luna.cache.Hooks
+import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.science.physics.PhysicsService
 import com.kylecorry.sol.units.Coordinate

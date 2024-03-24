@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.augmented_reality.ui.layers
 
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.luna.cache.Hooks
+import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.SolMath.square
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Rectangle

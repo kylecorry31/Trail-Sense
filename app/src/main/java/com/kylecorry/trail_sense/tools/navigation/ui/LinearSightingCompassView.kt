@@ -13,7 +13,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.fragments.AndromedaFragment
-import com.kylecorry.luna.cache.Hooks
+import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R

@@ -22,7 +22,7 @@ import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.sense.Sensors
-import com.kylecorry.luna.cache.Hooks
+import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.math.Euler
 import com.kylecorry.sol.math.Quaternion
