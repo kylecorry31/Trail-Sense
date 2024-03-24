@@ -42,6 +42,18 @@
         app:srcCompat="@drawable/ic_compass_icon"
         app:tint="@color/white" />
 
+    <ImageButton
+        android:id="@+id/layers_btn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="@id/calibrate_btn"
+        app:layout_constraintStart_toStartOf="@id/calibrate_btn"
+        app:layout_constraintTop_toBottomOf="@id/calibrate_btn"
+        app:srcCompat="@drawable/ic_layers"
+        app:tint="@color/white" />
+
     <LinearLayout
         android:id="@+id/accuracy_view"
         android:layout_width="wrap_content"

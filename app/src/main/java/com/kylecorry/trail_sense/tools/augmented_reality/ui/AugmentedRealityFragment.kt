@@ -23,6 +23,7 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.interval
 import com.kylecorry.andromeda.fragments.observeFlow
+import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -198,6 +199,10 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
         binding.calibrateBtn.setOnClickListener {
             startCalibration()
+        }
+
+        binding.layersBtn.setOnClickListener {
+            showLayersSheet()
         }
 
         binding.calibrateBtn.setOnLongClickListener {
@@ -406,6 +411,15 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         this.guide?.start(binding.arView, binding.guidancePanel)
     }
 
+    private fun showLayersSheet() {
+        val sheet = ARLayersBottomSheet()
+        sheet.setOnDismissListener {
+            println("Dismissed")
+            // TODO: Refresh layers
+        }
+        sheet.show(this)
+    }
+
     private fun startCalibration() {
         binding.calibrationPanel.isVisible = true
         val isSunUp = astronomyService.isSunUp(binding.arView.location)
@@ -420,7 +434,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                 stopCalibration()
             }
         }
-
     }
 
     private fun calibrate() {
