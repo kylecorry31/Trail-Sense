@@ -51,7 +51,7 @@
         <Preference
             android:key="@string/pref_sensor_details"
             android:title="@string/pref_sensor_details_title"
-            app:icon="@drawable/ic_info"
+            app:icon="@drawable/ic_sensors"
             app:singleLineTitle="false" />
 
     </PreferenceCategory>

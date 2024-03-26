@@ -2,12 +2,14 @@ package com.kylecorry.trail_sense.diagnostics
 
 import android.graphics.Color
 import android.hardware.Sensor
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
+import androidx.core.content.getSystemService
 import com.kylecorry.andromeda.battery.Battery
 import com.kylecorry.andromeda.battery.BatteryHealth
 import com.kylecorry.andromeda.core.sensors.Quality
@@ -16,11 +18,11 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.sense.Sensors
-import com.kylecorry.andromeda.sense.accelerometer.Accelerometer
 import com.kylecorry.andromeda.sense.altitude.BarometricAltimeter
 import com.kylecorry.andromeda.sense.location.GPS
 import com.kylecorry.andromeda.sense.mock.MockBarometer
 import com.kylecorry.andromeda.sense.mock.MockSensor
+import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
@@ -127,6 +129,26 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
                 R.drawable.ic_compass_icon
             )
         }
+
+        binding.sensorDetailsTitle.rightButton.setOnClickListener {
+            val sensorManager = requireContext().getSystemService<SensorManager>()
+            val sensors = sensorManager?.getSensorList(Sensor.TYPE_ALL)
+
+            val items = sensors?.mapIndexed { index, sensor ->
+                ListItem(
+                    index.toLong(),
+                    sensor.name,
+                    "${sensor.stringType} (${sensor.type})"
+                )
+            }
+
+            CustomUiUtils.showList(
+                requireContext(),
+                getString(R.string.sensors),
+                items ?: emptyList()
+            )
+        }
+
         scheduleUpdates(Duration.ofMillis(500))
     }
 
@@ -400,7 +422,9 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             return Resources.color(requireContext(), R.color.yellow)
         }
 
-        if (!gps.hasValidReading || (prefs.requiresSatellites && (gps.satellites ?: 0) < 4) || (gps is CustomGPS && (gps as CustomGPS).isTimedOut)) {
+        if (!gps.hasValidReading || (prefs.requiresSatellites && (gps.satellites
+                ?: 0) < 4) || (gps is CustomGPS && (gps as CustomGPS).isTimedOut)
+        ) {
             return Resources.color(requireContext(), R.color.yellow)
         }
 
@@ -452,7 +476,9 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             return getString(R.string.gps_stale)
         }
 
-        if (!gps.hasValidReading || (prefs.requiresSatellites && (gps.satellites ?: 0) < 4) || (gps is CustomGPS && (gps as CustomGPS).isTimedOut)) {
+        if (!gps.hasValidReading || (prefs.requiresSatellites && (gps.satellites
+                ?: 0) < 4) || (gps is CustomGPS && (gps as CustomGPS).isTimedOut)
+        ) {
             return getString(R.string.gps_searching)
         }
 
