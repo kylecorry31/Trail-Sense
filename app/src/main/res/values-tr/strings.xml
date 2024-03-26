@@ -1140,6 +1140,5 @@
     <string name="default_string">Öntanımlı</string>
     <string name="feature_unavailable">%s kullanılabilir değil</string>
     <string name="audio_error_messsage">Ses oynatmaya çalışırken bir hata oluştu.</string>
-    <string name="projection_type">İz düşüm türü</string>
     <string name="ar_calibration_instructions_hint">Artırılmış Gerçeklik aracını kalibre etmek için ekranın sol üst köşesindeki simgeye dokunun ve gösterilen talimatları izleyin.</string>
 </resources>

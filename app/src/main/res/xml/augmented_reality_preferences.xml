@@ -88,15 +88,6 @@
             app:summary="@string/use_gyroscope_after_calibration_description"
             app:title="@string/use_gyroscope_after_calibration" />
 
-
-        <ListPreference
-            app:defaultValue="estimated_intrinsics"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_augmented_reality_mapper"
-            app:singleLineTitle="false"
-            app:title="@string/projection_type"
-            app:useSimpleSummaryProvider="true" />
-
     </PreferenceCategory>
 
 

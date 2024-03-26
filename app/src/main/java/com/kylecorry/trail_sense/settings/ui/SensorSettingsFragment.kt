@@ -9,14 +9,14 @@ import com.kylecorry.trail_sense.R
 class SensorSettingsFragment : AndromedaPreferenceFragment() {
 
     private val navigationMap = mapOf(
-        R.string.pref_sensor_details to R.id.action_settings_to_sensor_details,
-        R.string.pref_cell_signal_settings to R.id.action_action_settings_to_cellSignalSettingsFragment,
-        R.string.pref_compass_sensor to R.id.action_action_settings_to_calibrateCompassFragment,
-        R.string.pref_altimeter_calibration to R.id.action_action_settings_to_calibrateAltimeterFragment,
-        R.string.pref_gps_calibration to R.id.action_action_settings_to_calibrateGPSFragment,
-        R.string.pref_barometer_calibration to R.id.action_action_settings_to_calibrateBarometerFragment,
-        R.string.pref_temperature_settings to R.id.action_action_settings_to_thermometerSettingsFragment,
-        R.string.pref_cell_signal_settings to R.id.action_action_settings_to_cellSignalSettingsFragment
+        R.string.pref_sensor_details to R.id.sensorDetailsFragment,
+        R.string.pref_cell_signal_settings to R.id.cellSignalSettingsFragment,
+        R.string.pref_compass_sensor to R.id.calibrateCompassFragment,
+        R.string.pref_altimeter_calibration to R.id.calibrateAltimeterFragment,
+        R.string.pref_gps_calibration to R.id.calibrateGPSFragment,
+        R.string.pref_barometer_calibration to R.id.calibrateBarometerFragment,
+        R.string.pref_temperature_settings to R.id.thermometerSettingsFragment,
+        R.string.pref_camera_settings to R.id.cameraSettingsFragment
     )
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

@@ -338,7 +338,7 @@
     <fragment
         android:id="@+id/fragmentToolBattery"
         android:name="com.kylecorry.trail_sense.tools.battery.ui.FragmentToolBattery"
-        android:label="FragmentToolBattery" >
+        android:label="FragmentToolBattery">
         <action
             android:id="@+id/action_settings_to_power_settings"
             app:destination="@id/powerSettingsFragment"
@@ -548,57 +548,7 @@
     <fragment
         android:id="@+id/sensorSettingsFragment"
         android:name="com.kylecorry.trail_sense.settings.ui.SensorSettingsFragment"
-        android:label="SensorSettingsFragment">
-        <action
-            android:id="@+id/action_action_settings_to_calibrateAltimeterFragment"
-            app:destination="@id/calibrateAltimeterFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_settings_to_sensor_details"
-            app:destination="@id/sensorDetailsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_action_settings_to_calibrateBarometerFragment"
-            app:destination="@id/calibrateBarometerFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_action_settings_to_thermometerSettingsFragment"
-            app:destination="@id/thermometerSettingsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_action_settings_to_calibrateCompassFragment"
-            app:destination="@id/calibrateCompassFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_action_settings_to_cellSignalSettingsFragment"
-            app:destination="@id/cellSignalSettingsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_action_settings_to_calibrateGPSFragment"
-            app:destination="@id/calibrateGPSFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
+        android:label="SensorSettingsFragment" />
     <fragment
         android:id="@+id/mapSettingsFragment"
         android:name="com.kylecorry.trail_sense.tools.maps.ui.MapSettingsFragment"
@@ -656,6 +606,10 @@
         android:id="@+id/augmentedRealitySettingsFragment"
         android:name="com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealitySettingsFragment"
         android:label="AugmentedRealitySettingsFragment" />
+    <fragment
+        android:id="@+id/cameraSettingsFragment"
+        android:name="com.kylecorry.trail_sense.calibration.ui.CameraSettingsFragment"
+        android:label="CameraSettingsFragment" />
     <fragment
         android:id="@+id/errorSettingsFragment"
         android:name="com.kylecorry.trail_sense.settings.ui.ErrorSettingsFragment"

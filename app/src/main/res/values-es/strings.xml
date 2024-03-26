@@ -1144,7 +1144,6 @@
     <string name="pref_tiles_enabled_battery_log_summary">Registra el porcentaje de batería cada hora para estimar el tiempo hasta que se agote</string>
     <string name="pref_tiles_battery_log">Registro de batería</string>
     <string name="pref_dialog_battery_log_summary">El registro de la batería está deshabilitado, el historial y el tiempo hasta que se agote pueden no estar disponibles. Puedes volver a habilitar esto en la configuración</string>
-    <string name="projection_type">Tipo de proyección</string>
     <string name="projection_estimated_intrinsics">Intrínsecos estimados</string>
     <string name="projection_manufacturer_intrinsics">Intrínsecos del fabricante</string>
     <string name="projection_perspective">Perspectiva</string>

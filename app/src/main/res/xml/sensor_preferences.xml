@@ -37,6 +37,12 @@
             app:singleLineTitle="false" />
 
         <Preference
+            android:key="@string/pref_camera_settings"
+            android:title="@string/camera"
+            app:icon="@drawable/ic_camera"
+            app:singleLineTitle="false" />
+
+        <Preference
             android:key="@string/pref_cell_signal_settings"
             android:title="@string/cell_signal"
             app:icon="@drawable/signal_cellular_3"

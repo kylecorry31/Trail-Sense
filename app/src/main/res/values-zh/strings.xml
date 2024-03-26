@@ -1120,7 +1120,6 @@
     <string name="pref_tiles_battery_log">电池日志</string>
     <string name="pref_dialog_battery_log_summary">电池日志已禁用，可能无法查看电量历史与耗尽时间。你可以在设置中重新启用</string>
     <string name="default_string">默认</string>
-    <string name="projection_type">投影类型</string>
     <string name="projection_estimated_intrinsics">估测内参矩阵</string>
     <string name="projection_manufacturer_intrinsics">制造商内参矩阵</string>
     <string name="projection_perspective">透视</string>
