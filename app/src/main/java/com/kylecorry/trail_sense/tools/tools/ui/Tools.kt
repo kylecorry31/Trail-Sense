@@ -68,6 +68,11 @@ enum class ToolCategory {
 }
 
 object Tools {
+
+    fun isToolAvailable(context: Context, toolId: Long): Boolean {
+        return getTools(context).any { it.id == toolId }
+    }
+
     fun getTools(context: Context): List<Tool> {
         val hasLightMeter = Sensors.hasSensor(context, Sensor.TYPE_LIGHT)
         val hasPedometer = Sensors.hasSensor(context, Sensor.TYPE_STEP_COUNTER)

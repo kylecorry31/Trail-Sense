@@ -52,6 +52,7 @@ import com.kylecorry.trail_sense.tools.astronomy.ui.items.SolarEclipseListItemPr
 import com.kylecorry.trail_sense.tools.astronomy.ui.items.SunListItemProducer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMode
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityFragment
+import com.kylecorry.trail_sense.tools.tools.ui.Tools
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.Duration
@@ -119,7 +120,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
         chart = AstroChart(binding.sunMoonChart, this::showTimeSeeker)
 
-        binding.button3d.isVisible = prefs.isAugmentedRealityEnabled
+        binding.button3d.isVisible =
+            Tools.isToolAvailable(requireContext(), Tools.AUGMENTED_REALITY)
         binding.button3d.setOnClickListener {
             AugmentedRealityFragment.open(
                 findNavController(),
@@ -489,7 +491,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         }
 
         effect("seek_details", currentSeekChartTime, displayDate, isSeeking, location) {
-            if (!isSeeking){
+            if (!isSeeking) {
                 return@effect
             }
             updateSeekPositions()
