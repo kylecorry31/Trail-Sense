@@ -5,13 +5,10 @@ import android.hardware.Sensor
 import android.widget.ImageButton
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
-import com.kylecorry.andromeda.core.capitalizeCompat
 import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.paths.quickactions.QuickActionBacktrack
-import com.kylecorry.trail_sense.tools.paths.quickactions.QuickActionPaths
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.data.Identifiable
@@ -30,6 +27,8 @@ import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionScreen
 import com.kylecorry.trail_sense.tools.lightning.quickactions.QuickActionLightingStrikeDistance
 import com.kylecorry.trail_sense.tools.maps.quickactions.QuickActionPhotoMaps
 import com.kylecorry.trail_sense.tools.notes.quickactions.QuickActionCreateNote
+import com.kylecorry.trail_sense.tools.paths.quickactions.QuickActionBacktrack
+import com.kylecorry.trail_sense.tools.paths.quickactions.QuickActionPaths
 import com.kylecorry.trail_sense.tools.pedometer.quickactions.QuickActionPedometer
 import com.kylecorry.trail_sense.tools.ruler.quickactions.QuickActionRuler
 import com.kylecorry.trail_sense.tools.temperature_estimation.quickactions.QuickActionTemperatureEstimation
@@ -411,9 +410,9 @@ object Tools {
                     )
                 )
             ),
-            if (prefs.isAugmentedRealityEnabled && hasCompass) Tool(
+            if (hasCompass) Tool(
                 AUGMENTED_REALITY,
-                context.getString(R.string.augmented_reality),
+                "${context.getString(R.string.augmented_reality)} (${context.getString(R.string.beta)})",
                 R.drawable.ic_camera,
                 R.id.augmentedRealityFragment,
                 ToolCategory.Other,

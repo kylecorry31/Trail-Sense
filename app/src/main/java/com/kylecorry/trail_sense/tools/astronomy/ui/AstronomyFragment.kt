@@ -259,7 +259,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         isSeeking = false
         binding.timeSeekerPanel.isVisible = false
         binding.astronomyDetailList.isVisible = true
-        binding.button3d.isVisible = prefs.isAugmentedRealityEnabled
+        binding.button3d.isVisible =
+            Tools.isToolAvailable(requireContext(), Tools.AUGMENTED_REALITY)
         val displayDate = binding.displayDate.date
         if (displayDate == LocalDate.now()) {
             plotMoonImage(data.moon)

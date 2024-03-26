@@ -35,6 +35,7 @@ import com.kylecorry.trail_sense.databinding.FragmentAugmentedRealityBinding
 import com.kylecorry.trail_sense.diagnostics.status.GpsStatusBadgeProvider
 import com.kylecorry.trail_sense.diagnostics.status.SensorStatusBadgeProvider
 import com.kylecorry.trail_sense.diagnostics.status.StatusBadge
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
@@ -224,6 +225,13 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         binding.arView.setOnFocusLostListener {
             binding.focusActionButton.isVisible = false
         }
+
+        CustomUiUtils.disclaimer(
+            requireContext(),
+            getString(R.string.beta),
+            getString(R.string.beta_disclaimer, getString(R.string.email)),
+            "ar_beta_disclaimer",
+        )
 
         if (!Sensors.hasGyroscope(requireContext())) {
             ARNoGyroAlert(requireContext()).alert()

@@ -16,6 +16,5 @@ class ExperimentalSettingsFragment : AndromedaPreferenceFragment() {
         val hasCompass = sensors.hasCompass()
 
         preference(R.string.pref_experimental_metal_direction)?.isVisible = hasGyro && hasCompass
-        preference(R.string.pref_enable_augmented_reality_tool)?.isVisible = hasCompass
     }
 }
