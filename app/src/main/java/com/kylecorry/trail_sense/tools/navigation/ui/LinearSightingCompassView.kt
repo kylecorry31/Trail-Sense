@@ -80,6 +80,7 @@ class LinearSightingCompassView(context: Context, attrs: AttributeSet?) :
     init {
         inflate(context, R.layout.view_linear_sighting_compass, this)
 
+        CustomUiUtils.setButtonState(binding.sightingCompassBtn, false)
         binding.sightingCompassBtn.setOnClickListener {
             setSightingCompass(!showSightingCompass)
         }

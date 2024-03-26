@@ -1,6 +1,6 @@
 [versions]
 androidApplication = "8.3.1"
-andromedaVersion = "6fdcd0df89"
+andromedaVersion = "222042e5f6"
 cameraxVersion = "1.3.2"
 coreKtx = "1.12.0"
 appcompat = "1.6.1"

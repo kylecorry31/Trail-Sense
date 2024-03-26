@@ -18,6 +18,7 @@ import com.kylecorry.andromeda.sense.mock.MockMagnetometer
 import com.kylecorry.andromeda.sense.orientation.CustomGeomagneticRotationSensor
 import com.kylecorry.andromeda.sense.orientation.CustomRotationSensor
 import com.kylecorry.andromeda.sense.orientation.GeomagneticRotationSensor
+import com.kylecorry.andromeda.sense.orientation.GravityRotationSensor
 import com.kylecorry.andromeda.sense.orientation.Gyroscope
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.andromeda.sense.orientation.RotationSensor
@@ -117,7 +118,8 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
 
         // Don't use quick recalibration for custom sensors
         val isCustomSensor = baseOrientationSensor is CustomGeomagneticRotationSensor ||
-                baseOrientationSensor is CustomRotationSensor
+                baseOrientationSensor is CustomRotationSensor ||
+                baseOrientationSensor is GravityRotationSensor
 
         val quickRecalibration =
             if (isCustomSensor) {
@@ -148,17 +150,19 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
     private fun getCustomGeomagneticRotationSensor(
         useGyroIfAvailable: Boolean,
         sensorDelay: Int
-    ): CustomGeomagneticRotationSensor {
-        val magnetometer = if (Sensors.hasSensor(context, Sensor.TYPE_MAGNETIC_FIELD)) {
-            LowPassMagnetometer(context, sensorDelay, MAGNETOMETER_LOW_PASS)
-        } else {
-            MockMagnetometer()
-        }
+    ): IOrientationSensor {
+
         val accelerometer = if (useGyroIfAvailable && Sensors.hasGravity(context)) {
             GravitySensor(context, sensorDelay)
         } else {
             LowPassAccelerometer(context, sensorDelay, ACCELEROMETER_LOW_PASS)
         }
+
+        if (!Sensors.hasSensor(context, Sensor.TYPE_MAGNETIC_FIELD)) {
+            return GravityRotationSensor(accelerometer)
+        }
+
+        val magnetometer = LowPassMagnetometer(context, sensorDelay, MAGNETOMETER_LOW_PASS)
 
         return CustomGeomagneticRotationSensor(
             magnetometer,
