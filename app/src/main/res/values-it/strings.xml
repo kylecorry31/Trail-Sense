@@ -1128,4 +1128,19 @@
     <string name="compass_dynamic_colors_summary">Utilizza Colori Dinamici per i punti cardinali</string>
     <string name="service_restart_channel_description">Una notifica per riavviare i servizi</string>
     <string name="compact_mode">Modalità compatta</string>
+    <string name="ar_calibration_instructions_hint">Per calibrare lo strumento di Realtà Aumentata, tocca l\'icona in alto a sinistra e segui le istruzioni che compaiono.</string>
+    <string name="grid">Griglia</string>
+    <string name="feature_unavailable">%s non disponibile</string>
+    <string name="audio_error_messsage">Si è verificato un errore durante la riproduzione audio.</string>
+    <string name="layers">Livelli</string>
+    <string name="visible">Visibile</string>
+    <string name="date">Data</string>
+    <string name="use_gyroscope_after_calibration_description">Invece del compasso (evita la deriva magnetica)</string>
+    <string name="reset_calibration_question">Azzerare la calibrazione?</string>
+    <string name="smooth_gps_readings">Smussa le letture GPS</string>
+    <string name="use_path_elevation">Usa l\'altitudine del percorso</string>
+    <string name="select_from_gallery">Seleziona dalla Galleria</string>
+    <string name="projection_perspective">Prospettiva</string>
+    <string name="projection_linear">Lineare</string>
+    <string name="default_string">Predefinito</string>
 </resources>
