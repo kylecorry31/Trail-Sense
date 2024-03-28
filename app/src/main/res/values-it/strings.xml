@@ -683,7 +683,7 @@
     <string name="minutes_format">%s m</string>
     <string name="days_format">%s gg</string>
     <string name="location_override_resolution">Attiva la regolazione automatica della posizione nel menù impostazioni.</string>
-    <string name="pref_nmea_elevation_summary">Utilizza NMEA (satellite) per correggere le altitudini, piuttosto che il modello incorporato</string>
+    <string name="pref_nmea_elevation_summary">Utilizza NMEA (satellite) per correggere le altitudini, invece del modello incorporato</string>
     <string name="elevation_override_resolution">Attiva la calibrazione automatica nel menù impostazioni.</string>
     <string name="cloud_precipitation_forecast_hour_range" tools:ignore="PluralsCandidate">Potrebbe indicare precipitazioni nelle prossime %1$d - %2$d ore.</string>
     <string name="quart_format">%s qt</string>
@@ -970,7 +970,7 @@
         <item quantity="other">%d punti Intermedi verranno eliminati</item>
     </plurals>
     <string name="photo_map_summary">Utilizza una fotografia come mappa</string>
-    <string name="beta_disclaimer">Questo strumento è attualmente in versione beta, si prega quindi di segnalare qualunque errore o suggerimento al seguente indirizzo email %s.</string>
+    <string name="beta_disclaimer">Questo strumento è attualmente in versione beta, si prega quindi di segnalare qualunque errore o suggerimento a %s.</string>
     <string name="paths">Percorsi</string>
     <string name="remove_distance_alert">Rimuovere l\'avviso di distanza (%s)\?</string>
     <string name="until_sunset">al tramonto</string>
@@ -1143,4 +1143,14 @@
     <string name="projection_perspective">Prospettiva</string>
     <string name="projection_linear">Lineare</string>
     <string name="default_string">Predefinito</string>
+    <string name="projection_type">Proiezione per la realtà aumentata</string>
+    <string name="astronomy_altitude">Altitudine</string>
+    <string name="ar_calibration_instructions">Centra %s sullo schermo e premi \"Calibra\"</string>
+    <string name="use_gyroscope_after_calibration">Usa il giroscopio dopo la calibrazione</string>
+    <string name="projection_estimated_intrinsics">Intrinseche stimate</string>
+    <string name="projection_manufacturer_intrinsics">Intrinseche di fabbrica</string>
+    <string name="pref_tiles_battery_log">Registro della batteria</string>
+    <string name="pref_dialog_battery_log_summary">Il registro della batteria è disattivato, cronologia e tempo fino allo scaricamento possono non essere disponibili. Puoi riattivarlo dalle impostazioni</string>
+    <string name="pref_tiles_enabled_battery_log_summary">Registra la percentuale di batteria ogni ora per stimare il tempo allo scaricamento</string>
+    <string name="no_qr_code_detected">Nessun QR code trovato</string>
 </resources>
