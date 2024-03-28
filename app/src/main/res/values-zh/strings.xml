@@ -1127,4 +1127,11 @@
     <string name="feature_unavailable">%s 不可用</string>
     <string name="audio_error_messsage">尝试播放音频时发生错误。</string>
     <string name="ar_calibration_instructions_hint">若要校准“增强现实”工具，请点击屏幕左上角的图标，然后按出现的说明操作。</string>
+    <string name="layers">图层</string>
+    <string name="visible">可见</string>
+    <string name="date">日期</string>
+    <string name="ar_layer_override_message">图层设置可能会被指南（例如“天文学”指南）覆盖。</string>
+    <string name="astronomy_altitude">海拔</string>
+    <string name="grid">网格</string>
+    <string name="projection_type">增强现实投影</string>
 </resources>
