@@ -53,6 +53,7 @@ import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseServi
 import com.kylecorry.trail_sense.tools.clinometer.volumeactions.ClinometerLockVolumeAction
 import com.kylecorry.trail_sense.tools.flashlight.volumeactions.FlashlightToggleVolumeAction
 import com.kylecorry.trail_sense.shared.VolumeAction
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
 
 class MainActivity : AndromedaActivity() {
 
@@ -193,6 +194,7 @@ class MainActivity : AndromedaActivity() {
     override fun onResume() {
         super.onResume()
         FlashlightSubsystem.getInstance(this).startSystemMonitor()
+        PedometerSubsystem.getInstance(this).recalculateState()
     }
 
     override fun onPause() {
