@@ -1141,4 +1141,11 @@
     <string name="feature_unavailable">%s kullanılabilir değil</string>
     <string name="audio_error_messsage">Ses oynatmaya çalışırken bir hata oluştu.</string>
     <string name="ar_calibration_instructions_hint">Artırılmış Gerçeklik aracını kalibre etmek için ekranın sol üst köşesindeki simgeye dokunun ve gösterilen talimatları izleyin.</string>
+    <string name="projection_type">Artırılmış gerçeklik iz düşümü</string>
+    <string name="astronomy_altitude">Rakım</string>
+    <string name="layers">Katmanlar</string>
+    <string name="visible">Görünür</string>
+    <string name="grid">Izgara</string>
+    <string name="ar_layer_override_message">Katman ayarları, Astronomi kılavuzu gibi yönlendirmelerle geçersiz kılınabilir.</string>
+    <string name="date">Tarih</string>
 </resources>

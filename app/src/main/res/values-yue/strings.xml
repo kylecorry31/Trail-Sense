@@ -526,7 +526,7 @@
     <string name="power_saving_mode_resolution">撤銷維護電池安全</string>
     <string name="photo_maps">相片地圖</string>
     <string name="end_time">完結</string>
-    <string name="magnitude">星等</string>
+    <string name="magnitude">食分</string>
     <string name="season_fall">秋天</string>
     <string name="sun">太陽</string>
     <string name="precipitation_rain">有雨</string>
@@ -924,7 +924,7 @@
     <string name="create_beacon">整返個地標</string>
     <string name="high_amount">高 (%s)</string>
     <string name="low_amount">低 (%s)</string>
-    <string name="slope_amount">%s 斜路</string>
+    <string name="slope_amount">%s 坡度</string>
     <string name="steps">步數</string>
     <string name="reset_distance_title">係咪要重設距離？</string>
     <string name="create_blank_map">整返個空白地圖</string>
@@ -1007,4 +1007,8 @@
     <string name="magnetometer_gyro_custom">磁強計 + 陀螺儀 (合二為一)</string>
     <string name="kwh_per_meter_squared_format">每平方米 %s 千瓦時</string>
     <string name="feature_unavailable">%s欠奉</string>
+    <string name="obscuration">掩蓋面積比</string>
+    <string name="astronomy_altitude">仰角</string>
+    <string name="sighting_compass">觀摩羅經</string>
+    <string name="date">日子</string>
 </resources>

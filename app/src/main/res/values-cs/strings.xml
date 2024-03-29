@@ -1028,7 +1028,7 @@
         <item quantity="other">%d mapy</item>
     </plurals>
     <string name="updating">Aktualizování</string>
-    <string name="beta_disclaimer">Tento nástroj je ve fázi testování, prosíme nahlašujte jakékoliv problémy nebo zpětnou vazbu na %s.</string>
+    <string name="beta_disclaimer">Tento nástroj je ve fázi testování, jakékoliv problémy nebo zpětnou vazbu prosím nahlaste na %s.</string>
     <string name="beta">Ve fázi testování</string>
     <string name="center">Střed</string>
     <string name="size">Velikost</string>
@@ -1163,4 +1163,10 @@
     <string name="audio_error_messsage">Při pokusu o přehrání zvuku došlo k chybě.</string>
     <string name="ar_calibration_instructions_hint">Pro kalibraci nástroje rozšířené reality klepněte na ikonu v levém horním rohu obrazovky a řiďte se zobrazenými pokyny.</string>
     <string name="astronomy_altitude">Nadmořská výška</string>
+    <string name="projection_type">Projekce rozšířené reality</string>
+    <string name="layers">Vrstvy</string>
+    <string name="visible">Viditelné</string>
+    <string name="grid">Mřížka</string>
+    <string name="ar_layer_override_message">Nastavení rozložení mohou být přepsány pokyny, například průvodcem astronomie.</string>
+    <string name="date">Datum</string>
 </resources>
