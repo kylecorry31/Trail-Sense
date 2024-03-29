@@ -272,7 +272,7 @@
     <string name="min_temp_uncalibrated">Ελάχιστη θερμοκρασία τηλεφώνου (μη βαθμονομημένη)</string>
     <string name="move">Μετακίνηση</string>
     <string name="water_boil_timer_title">Βρασμός νερού</string>
-    <string name="noon">Μεσημέρι</string>
+    <string name="noon">Μεσημβρινή διάβαση</string>
     <string name="pref_require_satellites_description">Απαιτεί τουλάχιστον 4 δορυφόρους, βελτιώνει την ακρίβεια</string>
     <string name="hygrometer">Υγρασιόμετρο</string>
     <string name="shortest">Μικρότερη διάρκεια</string>
@@ -503,7 +503,7 @@
     <string name="tool_metal_detector_title">Ανιχνευτής Μετάλλων</string>
     <string name="pref_low_power_mode_summary">Απενεργοποιεί ορισμένες λειτουργίες για εξοικονόμηση ενέργειας</string>
     <string name="undo">Αναίρεση</string>
-    <string name="map_scale_ratio">Λόγος Διαστάσεων</string>
+    <string name="map_scale_ratio">Αναλογική</string>
     <string name="tool_cliff_height_description">Υπολογίστε το ύψος ενός γκρεμού ή μίας πτώσης</string>
     <string name="category_hydration">Ενυδάτωση</string>
     <string name="map_scale_title">Κλίμακα Χάρτη</string>
@@ -781,7 +781,7 @@
     <string name="solar_eclipse">Έκλειψη ηλίου</string>
     <string name="precipitation_drizzle">Ασθενής βροχή</string>
     <string name="precipitation_small_hail">Μικρό χαλάζι</string>
-    <string name="astronomy_altitude_peak">Κορυφαίο υψόμετρο</string>
+    <string name="astronomy_altitude_peak">Μέγιστο ύψος από τον ορίζοντα του παρατηρητή</string>
     <string name="precipitation_snow_pellets">Χιονοχάλαζο</string>
     <string name="precipitation_chance">Πιθανότητα υετού: %s</string>
     <string name="points">Δείκτες</string>
