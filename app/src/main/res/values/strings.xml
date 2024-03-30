@@ -1321,9 +1321,6 @@
     <string name="pref_fused_altimeter_force_calibration_holder" translatable="false">pref_fused_altimeter_force_calibration_holder</string>
     <!--    %s is the interval, ex. 1 h-->
     <string name="fused_altimeter_force_calibration_summary">Forces a GPS calibration every %s</string>
-    <string name="pref_clinometer_use_ar" translatable="false">pref_clinometer_use_ar</string>
-    <string name="clinometer_augmented_reality">Clinometer augmented reality</string>
-    <string name="clinometer_augmented_reality_description">Visualize angles with your camera</string>
     <string name="pref_use_dynamic_colors" translatable="false">pref_use_dynamic_colors</string>
     <string name="dynamic_colors">Dynamic Colors</string>
     <string name="compact_mode">Compact Mode</string>

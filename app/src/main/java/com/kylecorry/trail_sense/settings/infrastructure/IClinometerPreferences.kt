@@ -5,5 +5,4 @@ import com.kylecorry.sol.units.Distance
 interface IClinometerPreferences {
     var lockWithVolumeButtons: Boolean
     var baselineDistance: Distance?
-    val useAugmentedReality: Boolean
 }

@@ -8,15 +8,6 @@
         app:title="@string/experimental">
 
         <SwitchPreferenceCompat
-            android:summary="@string/clinometer_augmented_reality_description"
-            app:defaultValue="false"
-            app:disableDependentsState="true"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_clinometer_use_ar"
-            app:singleLineTitle="false"
-            app:title="@string/clinometer_augmented_reality" />
-
-        <SwitchPreferenceCompat
             android:summary="@string/tool_metal_detector_title"
             app:defaultValue="false"
             app:disableDependentsState="true"

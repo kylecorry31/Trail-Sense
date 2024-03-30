@@ -43,10 +43,4 @@ class ClinometerPreferences(private val context: Context) : IClinometerPreferenc
                 )
             }
         }
-
-    override val useAugmentedReality by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_clinometer_use_ar),
-        false
-    )
 }

@@ -1121,8 +1121,6 @@
     <string name="service_restart">Riavvia servizio</string>
     <string name="compass_dynamic_colors">Colori Dinamici bussola</string>
     <string name="fused_altimeter_force_calibration_summary">Forza una calibrazione GPS ogni %s</string>
-    <string name="clinometer_augmented_reality">Realtà aumentata inclinometro</string>
-    <string name="clinometer_augmented_reality_description">Visualizza gli angoli con la fotocamera</string>
     <string name="dynamic_colors">Colori Dinamici</string>
     <string name="continuous_calibration_description">Calibra ogni volta che è disponibile un aggiustamento GPS</string>
     <string name="compass_dynamic_colors_summary">Utilizza Colori Dinamici per i punti cardinali</string>

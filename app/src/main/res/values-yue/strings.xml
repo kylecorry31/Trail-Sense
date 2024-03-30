@@ -858,7 +858,6 @@
     <string name="service_restart_channel_description">重新啟動服務嘅通知</string>
     <string name="restart_services_title">重新啟動服務</string>
     <string name="restart_services_message">幕後服務未能重新啟動。撳一下去重新啟動。</string>
-    <string name="clinometer_augmented_reality">傾角儀擴充實境</string>
     <string name="location_number">位置 %d</string>
     <string name="last_signal_beacon_name">最後一次收到訊號 - %1$s (%2$s)</string>
     <string name="nimbostratus_forecast" tools:ignore="PluralsCandidate">未來 %d 個鐘可能會降水。</string>

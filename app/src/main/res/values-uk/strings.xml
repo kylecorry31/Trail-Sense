@@ -1116,8 +1116,6 @@
     <string name="true_north_description">Вказує на географічний Північний полюс, використовуючи схилення для вашого місцеперебування. Це узгоджується з більшістю мап.</string>
     <string name="continuous_calibration_description">Калібрує щоразу, коли є GPS-прив\'язка</string>
     <string name="fused_altimeter_force_calibration">Інтервал примусового калібрування</string>
-    <string name="clinometer_augmented_reality">Нахиломір доповненої реальності</string>
-    <string name="clinometer_augmented_reality_description">Візуалізуйте кути за допомогою камери</string>
     <string name="dynamic_colors">Динамічні кольори</string>
     <string name="compass_dynamic_colors">Динамічні кольори компаса</string>
     <string name="locate">Визначити місце</string>

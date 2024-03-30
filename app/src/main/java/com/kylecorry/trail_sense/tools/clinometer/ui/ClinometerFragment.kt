@@ -92,10 +92,6 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     private var startMarker: ARPoint? = null
     private var endMarker: ARPoint? = null
 
-    private val isAugmentedReality by lazy {
-        prefs.clinometer.useAugmentedReality
-    }
-
     private val clinometer: IClinometer
         get() = if (useCamera) cameraClinometer else sideClinometer
 
@@ -134,13 +130,10 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             true
         }
 
-        if (isAugmentedReality) {
-            binding.arView.setLayers(listOf(lineLayer, markerLayer))
-        }
+        binding.arView.setLayers(listOf(lineLayer, markerLayer))
         binding.arView.showReticle = false
         binding.arView.showPosition = false
         binding.arView.passThroughTouchEvents = true
-        binding.arView.isVisible = isAugmentedReality
 
         binding.arView.bind(binding.camera)
 
@@ -164,9 +157,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
                 binding.camera.start(
                     readFrames = false, shouldStabilizePreview = false
                 )
-                if (isAugmentedReality) {
-                    binding.arView.start(false)
-                }
+                binding.arView.start(false)
                 binding.clinometerTitle.leftButton.setImageResource(R.drawable.ic_phone_portrait)
                 CustomUiUtils.setButtonState(binding.clinometerTitle.leftButton, false)
             } else {
@@ -364,7 +355,7 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
     }
 
     private fun updateARLine() {
-        if (isAugmentedReality && startMarker != null && (isHolding || endMarker != null)) {
+        if (startMarker != null && (isHolding || endMarker != null)) {
             lineLayer.setLines(
                 listOf(
                     ARLine(
