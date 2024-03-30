@@ -233,6 +233,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             "ar_beta_disclaimer",
         )
 
+        ARCalibrateDisclaimer(requireContext()).alert()
+
         if (!Sensors.hasGyroscope(requireContext())) {
             ARNoGyroAlert(requireContext()).alert()
         }
