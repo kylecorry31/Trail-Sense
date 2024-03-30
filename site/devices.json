@@ -1,0 +1,97 @@
+{
+  "devices": [
+    {
+      "name": "Google Pixel 7A",
+      "features": [
+        "Accelerometer",
+        "Ambient Light",
+        "Barometer",
+        "Camera (Back)",
+        "Camera (Front)",
+        "Flash (Brightness Control)",
+        "Gyroscope",
+        "GPS",
+        "Magnetometer",
+        "Pedometer"
+      ],
+      "rating": "B"
+    },
+    {
+      "name": "Google Pixel 5A",
+      "features": [
+        "Accelerometer",
+        "Ambient Light",
+        "Barometer",
+        "Camera (Back)",
+        "Camera (Front)",
+        "Flash",
+        "Gyroscope",
+        "GPS",
+        "Magnetometer",
+        "Pedometer"
+      ],
+      "rating": "B"
+    },
+    {
+      "name": "Google Pixel 3A",
+      "features": [
+        "Accelerometer",
+        "Ambient Light",
+        "Barometer",
+        "Camera (Back)",
+        "Camera (Front)",
+        "Flash",
+        "Gyroscope",
+        "GPS",
+        "Magnetometer",
+        "Pedometer"
+      ],
+      "rating": "B"
+    },
+    {
+      "name": "Samsung Galaxy A52 5G",
+      "features": [
+        "Accelerometer",
+        "Ambient Light",
+        "Barometer",
+        "Camera (Back)",
+        "Camera (Front)",
+        "Flash (Brightness Control)",
+        "Gyroscope",
+        "GPS",
+        "Magnetometer",
+        "Pedometer"
+      ],
+      "rating": "B"
+    },
+    {
+      "name": "Samsung Galaxy A13 5G",
+      "features": [
+        "Accelerometer",
+        "Ambient Light",
+        "Barometer",
+        "Camera (Back)",
+        "Camera (Front)",
+        "Flash (Brightness Control)",
+        "Gyroscope",
+        "GPS",
+        "Magnetometer",
+        "Pedometer"
+      ],
+      "rating": "B"
+    },
+    {
+      "name": "Samsung Galaxy A01",
+      "features": [
+        "Accelerometer",
+        "Ambient Light",
+        "Camera (Back)",
+        "Camera (Front)",
+        "Flash",
+        "GPS",
+        "Pedometer"
+      ],
+      "rating": "D"
+    }
+  ]
+}

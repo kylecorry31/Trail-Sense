@@ -97,7 +97,7 @@ img {
   margin-top: 60vh;
 }
 
-#guide-content {
+#guide-content, #devices-content {
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
@@ -211,6 +211,22 @@ img {
 .guide-list-item:hover,
 .guide-list-item:focus {
     background: rgba(0, 0, 0, 0.05);
+}
+
+.device-rating {
+  float: right;
+  font-weight: bold;
+  color: #ff6d00;
+}
+
+.device {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.device:last-child {
+  border-bottom: none;
 }
 
 @media screen and (max-width: 600px) {
