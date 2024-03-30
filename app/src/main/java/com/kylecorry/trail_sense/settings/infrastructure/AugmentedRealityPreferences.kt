@@ -4,7 +4,10 @@ import android.content.Context
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.FloatPreference
 import com.kylecorry.andromeda.preferences.StringEnumPreference
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.UserPreferences
 
 class AugmentedRealityPreferences(context: Context) : PreferenceRepo(context) {
 
@@ -14,7 +17,21 @@ class AugmentedRealityPreferences(context: Context) : PreferenceRepo(context) {
         1000f
     )
 
-    var pathViewDistance by FloatPreference(
+    val maxPathViewDistanceMeters by lazy {
+        if (UserPreferences(context).baseDistanceUnits == DistanceUnits.Meters) {
+            30f
+        } else {
+            Distance.feet(100f).meters().distance
+        }
+    }
+
+    var pathViewDistance: Float
+        get() = _pathViewDistance.coerceAtMost(maxPathViewDistanceMeters)
+        set(value) {
+            _pathViewDistance = value.coerceAtMost(maxPathViewDistanceMeters)
+        }
+
+    private var _pathViewDistance by FloatPreference(
         cache,
         context.getString(R.string.pref_augmented_reality_view_distance_paths),
         20f
@@ -57,7 +74,7 @@ class AugmentedRealityPreferences(context: Context) : PreferenceRepo(context) {
         context.getString(R.string.pref_show_ar_astronomy_layer),
         true
     )
-    
+
     var showGridLayer by BooleanPreference(
         cache,
         context.getString(R.string.pref_show_ar_grid_layer),

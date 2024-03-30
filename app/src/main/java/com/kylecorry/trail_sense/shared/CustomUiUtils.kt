@@ -83,6 +83,7 @@ object CustomUiUtils {
         title: String,
         showFeetAndInches: Boolean = false,
         hint: String = context.getString(R.string.distance),
+        description: String? = null,
         onDistancePick: (distance: Distance?, cancelled: Boolean) -> Unit
     ) {
         val view = View.inflate(context, R.layout.view_distance_entry_prompt, null)
@@ -103,6 +104,7 @@ object CustomUiUtils {
         Alerts.dialog(
             context,
             title,
+            content = description,
             contentView = view
         ) { cancelled ->
             if (cancelled) {

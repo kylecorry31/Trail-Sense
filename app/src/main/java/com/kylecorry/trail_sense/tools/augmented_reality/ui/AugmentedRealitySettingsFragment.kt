@@ -7,8 +7,8 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.preferences.setupDistanceSetting
 
 class AugmentedRealitySettingsFragment : AndromedaPreferenceFragment() {
@@ -17,6 +17,13 @@ class AugmentedRealitySettingsFragment : AndromedaPreferenceFragment() {
         setPreferencesFromResource(R.xml.augmented_reality_preferences, rootKey)
 
         val userPrefs = UserPreferences(requireContext())
+        val formattedMaxDistance = FormatService.getInstance(requireContext())
+            .formatDistance(
+                relative(
+                    Distance.meters(userPrefs.augmentedReality.maxPathViewDistanceMeters),
+                    userPrefs
+                )
+            )
 
         setupDistanceSetting(
             getString(R.string.pref_view_distance_beacons_holder),
@@ -37,10 +44,9 @@ class AugmentedRealitySettingsFragment : AndromedaPreferenceFragment() {
                     userPrefs.augmentedReality.pathViewDistance = distance.meters().distance
                 }
             },
-            DistanceUtils.hikingDistanceUnits
+            DistanceUtils.hikingDistanceUnits,
+            description = getString(R.string.max_s, formattedMaxDistance)
         )
-
-        preference(R.string.pref_view_distance_paths_holder)?.isVisible = isDebug()
 
         preference(R.string.pref_ar_use_gyro_only_after_calibration)?.isVisible =
             Sensors.hasGyroscope(requireContext())
