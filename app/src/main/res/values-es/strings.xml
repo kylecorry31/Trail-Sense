@@ -1150,4 +1150,12 @@
     <string name="feature_unavailable">%s no disponible</string>
     <string name="audio_error_messsage">Se produjo un error al intentar reproducir audio.</string>
     <string name="ar_calibration_instructions_hint">Para calibrar la herramienta de Realidad Aumentada, toque el ícono en la parte superior izquierda de la pantalla y siga las instrucciones que aparecen.</string>
+    <string name="projection_type">Proyección de realidad aumentada</string>
+    <string name="astronomy_altitude">Altitud</string>
+    <string name="visible">Visible</string>
+    <string name="grid">Red</string>
+    <string name="date">Fecha</string>
+    <string name="layers">Capas</string>
+    <string name="ar_layer_override_message">Las guías como la guía de Astronomía, pueden anular la configuración de capas.</string>
+    <string name="max_s">Máx %s</string>
 </resources>
