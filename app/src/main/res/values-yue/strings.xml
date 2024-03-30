@@ -476,17 +476,17 @@
     <string name="tool_white_noise_summary">幫助您入睡</string>
     <string name="map_scale_ratio">比率</string>
     <string name="unit_centimeters_abbreviation">厘米</string>
-    <string name="solar_eclipses">日蝕</string>
-    <string name="solar_eclipse">日蝕</string>
+    <string name="solar_eclipses">日食</string>
+    <string name="solar_eclipse">日食</string>
     <string name="season_spring">春天</string>
     <string name="season_summer">夏天</string>
     <string name="no_issues">未偵測到問題</string>
-    <string name="total">全蝕</string>
-    <string name="partial">偏蝕 (%s)</string>
-    <string name="lunar_eclipse">月蝕</string>
+    <string name="total">全食</string>
+    <string name="partial">偏食 (%s)</string>
+    <string name="lunar_eclipse">月食</string>
     <string name="astronomy_alerts">天文警示</string>
     <string name="moon">月亮</string>
-    <string name="precipitation_hail">有冰雹</string>
+    <string name="precipitation_hail">冰雹</string>
     <string name="precipitation_small_hail">細冰雹</string>
     <string name="precipitation_ice_pellets">冰粒</string>
     <string name="precipitation_chance">降水機會：%s</string>
@@ -529,7 +529,7 @@
     <string name="magnitude">食分</string>
     <string name="season_fall">秋天</string>
     <string name="sun">太陽</string>
-    <string name="precipitation_rain">有雨</string>
+    <string name="precipitation_rain">雨</string>
     <string name="no_clouds">未有雲</string>
     <string name="reduce_map_resolution">降低地圖解像度</string>
     <string name="saved">儲存咗</string>
@@ -543,7 +543,7 @@
     <string name="general">一般</string>
     <string name="theme_system">跟返系統噉樣</string>
     <string name="other">其他</string>
-    <string name="lunar_eclipses">月蝕</string>
+    <string name="lunar_eclipses">月食</string>
     <string name="start_time">開始</string>
     <string name="loading">載入緊</string>
     <string name="unable_to_find_next_astronomy">搵唔到下一次%s</string>
@@ -581,9 +581,9 @@
 \n### 解救
 \n%4$s</string>
     <string name="battery_restricted_resolution">將 Trail Sense 設定為「未優化」</string>
-    <string name="precipitation_none">未有降水</string>
+    <string name="precipitation_none">無降水</string>
     <string name="precipitation_drizzle">毛毛雨</string>
-    <string name="precipitation_snow">有雪</string>
+    <string name="precipitation_snow">雪</string>
     <string name="precipitation_snow_pellets">雪粒</string>
     <string name="charging_fast">快速叉緊電 (%s)</string>
     <string name="charging_slow">慢速叉緊電 (%s)</string>
@@ -1010,4 +1010,5 @@
     <string name="astronomy_altitude">仰角</string>
     <string name="sighting_compass">觀摩羅經</string>
     <string name="date">日子</string>
+    <string name="precipitation_snow_grains">毛毛雪</string>
 </resources>
