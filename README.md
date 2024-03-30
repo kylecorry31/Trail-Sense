@@ -73,6 +73,8 @@ The feature roadmap is a tentative outline of the major features that are planne
 
 See the need for a new feature? [Post it here!](https://github.com/kylecorry31/Trail-Sense/issues/1911)
 
+For a list of community contributed device feature support, [go here](https://kylecorry.com/Trail-Sense/devices.html)
+
 <table>
   <tr>
     <td>
