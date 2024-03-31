@@ -4,7 +4,10 @@ import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.shared.hooks.HookTriggers
+import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.navigation.ui.DrawerBitmapLoader
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.GeographicARPoint
@@ -21,7 +24,9 @@ class ARBeaconLayer(
     private val onClick: (beacon: Beacon) -> Boolean = { false }
 ) : ARLayer {
 
-    private val beacons = mutableListOf<Beacon>()
+    private val hooks = Hooks()
+    private val triggers = HookTriggers()
+    private var beacons = listOf<Beacon>()
     private val lock = Any()
     private var _loader: DrawerBitmapLoader? = null
     private var loadedImageSize = 24
@@ -35,8 +40,7 @@ class ARBeaconLayer(
     fun setBeacons(beacons: List<Beacon>) {
         synchronized(lock) {
             // TODO: Convert to markers
-            this.beacons.clear()
-            this.beacons.addAll(beacons)
+            this.beacons = beacons.toList()
             areBeaconsUpToDate = false
         }
     }
@@ -54,65 +58,65 @@ class ARBeaconLayer(
 
         val loader = _loader ?: return
 
-        val beacons = synchronized(lock) {
-            beacons.toList()
-        }
+        val beacons = this.beacons
 
-        // TODO: Is this the responsibility of the layer or consumer?
-        val visible = beacons.mapNotNull {
-            if (it.id != destination?.id && !it.visible) {
-                return@mapNotNull null
-            }
-            val distance = hypot(
-                view.location.distanceTo(it.coordinate),
-                (it.elevation ?: view.altitude) - view.altitude
-            )
-            if (it.id != destination?.id && distance > maxVisibleDistance.meters().distance) {
-                return@mapNotNull null
-            }
-            it to distance
-        }.sortedByDescending { it.second }
-
-        // TODO: Avoid recreating markers every time - it will help if this didn't filter nearby beacons
-//        if (!areBeaconsUpToDate) {
-        // TODO: Change opacity if navigating
-        layer.setMarkers(visible.flatMap {
-            val beacon = it.first
-            listOfNotNull(
-                ARMarker(
-                    GeographicARPoint(
-                        beacon.coordinate,
-                        beacon.elevation,
-                        beaconSize.distance,
-                    ),
-                    CanvasCircle(beacon.color, Color.WHITE),
-                    onFocusedFn = {
-                        onFocus(beacon)
-                    },
-                    onClickFn = {
-                        onClick(beacon)
+        val visible =
+            hooks.memo("visible_beacons", beacons, view.location, view.altitude.safeRoundToInt()) {
+                beacons.mapNotNull {
+                    if (it.id != destination?.id && !it.visible) {
+                        return@mapNotNull null
                     }
-                ),
-                beacon.icon?.let { icon ->
-                    val color = Colors.mostContrastingColor(Color.WHITE, Color.BLACK, beacon.color)
+                    val distance = hypot(
+                        view.location.distanceTo(it.coordinate),
+                        (it.elevation ?: view.altitude) - view.altitude
+                    )
+                    if (it.id != destination?.id && distance > maxVisibleDistance.meters().distance) {
+                        return@mapNotNull null
+                    }
+                    it to distance
+                }
+                    .sortedByDescending { it.second }
+                    .map { it.first }
+            }
+
+        hooks.effect("layer_update", visible) {
+            // TODO: Change opacity if navigating
+            layer.setMarkers(visible.flatMap {beacon ->
+                listOfNotNull(
                     ARMarker(
                         GeographicARPoint(
                             beacon.coordinate,
                             beacon.elevation,
-                            beaconSize.distance
+                            beaconSize.distance,
                         ),
-                        CanvasBitmap(
-                            loader.load(icon.icon, loadedImageSize),
-                            0.75f,
-                            tint = color
-                        ),
-                        keepFacingUp = true
-                    )
-                }
-            )
-        })
-        //            areBeaconsUpToDate = true
-//        }
+                        CanvasCircle(beacon.color, Color.WHITE),
+                        onFocusedFn = {
+                            onFocus(beacon)
+                        },
+                        onClickFn = {
+                            onClick(beacon)
+                        }
+                    ),
+                    beacon.icon?.let { icon ->
+                        val color =
+                            Colors.mostContrastingColor(Color.WHITE, Color.BLACK, beacon.color)
+                        ARMarker(
+                            GeographicARPoint(
+                                beacon.coordinate,
+                                beacon.elevation,
+                                beaconSize.distance
+                            ),
+                            CanvasBitmap(
+                                loader.load(icon.icon, loadedImageSize),
+                                0.75f,
+                                tint = color
+                            ),
+                            keepFacingUp = true
+                        )
+                    }
+                )
+            })
+        }
 
 
         layer.update(drawer, view)
