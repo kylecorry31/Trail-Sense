@@ -1146,4 +1146,5 @@
     <string name="grid">Izgara</string>
     <string name="ar_layer_override_message">Katman ayarları, Astronomi kılavuzu gibi yönlendirmelerle geçersiz kılınabilir.</string>
     <string name="date">Tarih</string>
+    <string name="max_s">En fazla %s</string>
 </resources>
