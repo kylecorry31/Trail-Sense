@@ -1132,4 +1132,5 @@
     <string name="astronomy_altitude">海拔</string>
     <string name="grid">网格</string>
     <string name="projection_type">增强现实投影</string>
+    <string name="max_s">最大 %s</string>
 </resources>
