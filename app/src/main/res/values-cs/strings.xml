@@ -1167,4 +1167,5 @@
     <string name="grid">Mřížka</string>
     <string name="ar_layer_override_message">Nastavení rozložení mohou být přepsány pokyny, například průvodcem astronomie.</string>
     <string name="date">Datum</string>
+    <string name="max_s">Max. %s</string>
 </resources>
