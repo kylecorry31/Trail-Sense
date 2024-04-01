@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="navigation">Навигация</string>
     <string name="weather">Погода</string>
     <string name="settings">Настройки</string>
@@ -13,12 +13,12 @@
     <string name="pressure">Давление</string>
     <string name="pref_use_24_hour_title">Использовать 24-часовой формат</string>
     <string name="pref_sun_time_mode_title">Время восхода/захода Солнца</string>
-    <string name="no_beacons">Нет маячков</string>
+    <string name="no_beacons">Нет ориентиров</string>
     <string name="continue_button">ДАЛЕЕ</string>
     <string name="stop">Стоп</string>
     <string name="smoothing_summary">Высокие значения могут увеличить плавность</string>
     <string name="pref_theme_title">Тема</string>
-    <string name="pref_display_multi_beacons_title">Показывать ближайшие маячки</string>
+    <string name="pref_display_multi_beacons_title">Показывать ближайшие ориентиры</string>
     <string name="pref_storm_alert_sensitivity_title">Чувствительность шторма</string>
     <string name="pref_show_sun_moon_compass_title">Показать Солнце/Луну на компасе</string>
     <string name="pref_show_linear_compass_title">Показывать компас-линейку</string>
@@ -113,7 +113,7 @@
     <string name="celsius">Градусы Цельсия</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="degree_format">%.0f°</string>
-    <string name="access_background_location_rationale">Trail Sense использует данные о местоположении в фоновом режиме. Оно используется для калибровки давления на уровне моря при мониторинге погоды и для обеспечения более точных предупреждений о заходе солнца. [Просмотреть политику конфиденциальности] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense использует данные о местоположении в фоновом режиме для калибровки давления на уровне моря при мониторинге погоды и для обеспечения более точных предупреждений о заходе солнца. [Просмотреть политику конфиденциальности] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="duration_minute_format">%dм</string>
     <string name="duration_hour_format">%dч</string>
     <string name="miles_per_hour_format">%.1f миль/ч</string>
@@ -123,9 +123,9 @@
     <string name="pref_center_sun_and_moon_title">Держать Солнце/Луну в центре</string>
     <string name="sun_moon_compass_when_up">Когда взошло</string>
     <string name="pref_monitor_weather_summary">В фоне</string>
-    <string name="pref_max_beacon_distance_title">Радиус отображения ближайших маячков</string>
-    <string name="pref_display_multi_beacons_summary">Показывать ближайшие маячки на компасе</string>
-    <string name="pref_num_visible_beacons_title">Ближайших маячков</string>
+    <string name="pref_max_beacon_distance_title">Радиус отображения ближайших ориентиров</string>
+    <string name="pref_display_multi_beacons_summary">Показывать ближайшие ориентиры на компасе</string>
+    <string name="pref_num_visible_beacons_title">Ближайшие ориентиры</string>
     <string name="pref_adjust_for_temperature_title">Использовать данные о температуре</string>
     <string name="pref_adjust_for_temperature_summary">Использовать данные о температуре при расчете давления на уровне моря</string>
     <string name="pref_elevation_override_sea_level_title">Используя данные о давлении на уровне моря</string>
@@ -133,7 +133,7 @@
     <string name="pref_elevation_override_sea_level_dialog_msg">Введите текущее давление на уровне моря в гПа</string>
     <string name="elevation_override_updated_toast">Высота будут смещена на заданное число</string>
     <string name="pref_elevation_override_title">Смещение</string>
-    <string name="elevation_from_pressure">Задать смещение с помощью барометра на устройстве</string>
+    <string name="elevation_from_pressure">Задать смещение с помощью барометра</string>
     <string name="request_permission">Запрос разрешения</string>
     <string name="pref_auto_location_title">Автоматически отслеживать перемещение</string>
     <string name="compass_accuracy_improved">Точность компаса поднялась: %s</string>
@@ -144,12 +144,15 @@
     <string name="calibrate_compass_dialog_content">Проведите ваше устройство восьмеркой или во всех направлениях несколько раз и нажмите %s.</string>
     <string name="pref_auto_declination_summary">На основе текущего местоположения</string>
     <string name="declination_override_updated_toast">Смещение компаса обновлено</string>
-    <string name="override_from_gps">Направлять компас на географический север, используя текущее местоположение GPS</string>
+    <string name="override_from_gps">Задать смещение из GPS</string>
     <string name="compass_declination_override">Задать смещение компаса</string>
     <string name="compass_auto_declination">Автоматически направлять компас на географический север</string>
     <string name="pref_ruler_calibration_summary">Порядок калибровки:
+\n
 \n- Установите значение 1.
+\n
 \n- Измерьте значение одной единицы виртуальной линейки.
+\n
 \n- Введите это значение сюда.</string>
     <string name="pref_ruler_calibration_title">Настройка линейки</string>
     <string name="coordinate_format_degrees_minutes_seconds">Градусы, минуты и секунды</string>
@@ -179,14 +182,14 @@
     <string name="navigation_nearby_category">Поблизости</string>
     <string name="advanced">Дополнительно</string>
     <plurals name="beacon_group_summary">
-        <item quantity="one">%d маячок</item>
-        <item quantity="few">%d маячка</item>
-        <item quantity="many">%d маячков</item>
-        <item quantity="other">%d маячков</item>
+        <item quantity="one">%d ориентир</item>
+        <item quantity="few">%d ориентира</item>
+        <item quantity="many">%d ориентиров</item>
+        <item quantity="other">%d ориентиров</item>
     </plurals>
     <string name="tool_user_guide_title">Руководство пользователя</string>
     <string name="tool_user_guide_summary">Руководство по использованию Trail Sense</string>
-    <string name="delete_beacon_group_message">%s и все его маячки будут удалены.</string>
+    <string name="delete_beacon_group_message">%s и все его ориентиры будут удалены.</string>
     <string name="group">Группа</string>
     <string name="no_group">Не в группе</string>
     <string name="tap_sun_moon_hint">Коснитесь Солнца или Луны, чтобы узнать о местоположении</string>
@@ -338,7 +341,7 @@
     <string name="pref_backtrack_frequency_title">Интервал истории маршрута</string>
     <string name="pref_backtrack_enabled_summary">Записывать историю местоположений</string>
     <string name="waypoint_time_format">%1$s, %2$s</string>
-    <string name="create_beacon">Создать маячок</string>
+    <string name="create_beacon">Создать ориентир</string>
     <string name="backtrack_notification_channel_description">Обновление местоположения истории маршрута</string>
     <string name="backtrack">История маршрута</string>
     <string name="create_at_distance">Создать на расстоянии</string>
@@ -394,18 +397,18 @@
 \n
 \n- Предоставление разрешения на местоположение позволит использовать следующие функции:
 \n
-\n- Навигация к маячкам
+\n- Следование к ориентирам
 \n
-\n- Повышенная точность прогнозов (требуется фоновое местоположение, доступно не на всех устройствах)
+\n- Повышенная точность прогнозов (доступно не на всех устройствах)
 \n
-\n- История маршрута (требуется работа в фоне)
+\n- История маршрута
 \n
-\n- Время солнца и луны для вашего текущего местоположения
+\n- Время солнца и луны для вашего текущего местоположения (для оповещения а заходе может потребоватся фоновое местоположение)
 \n
-\n- Если вы решите не предоставлять разрешение на определение местоположения, вы можете вручную ввести местоположение в меню «Настройки» &gt; «Калибровка GPS» в Trail Sense.
+\n- Если вы решите не предоставлять разрешение на определение местоположения, вы можете вручную ввести местоположение в меню «Настройки» &gt; «Датчики» &gt; «Калибровка GPS» в Trail Sense.
 \n
-\n- После нажатия кнопки «Продолжить» вам будет предложено предоставить разрешения на местоположение и фоновое местоположение. Отказ от этих разрешений не позволит Trail Sense получить доступ к вашему местоположению, поэтому рекомендуется вводить местоположение вручную.</string>
-    <string name="onboarding_user_guide">Узнайте, как использовать функции Trail Sense, с помощью руководства пользователя. Доступно в нижней части вкладки Инструменты.
+\n- После нажатия кнопки «Продолжить» вам будет предложено предоставить разрешения на местоположение. Отказ от этого разрешения не позволит Trail Sense получить доступ к вашему местоположению, поэтому рекомендуется вводить местоположение вручную.</string>
+    <string name="onboarding_user_guide">Научитесь как использовать функции Trail Sense с помощью руководства пользователя. Доступно в нижней части вкладки Инструменты.
 \n
 \nСкоро появятся другие руководства.</string>
     <string name="privacy_and_location">Конфиденциальность и местоположение</string>
@@ -434,7 +437,7 @@
     <string name="lux_format">%s лк</string>
     <string name="candela_format">%s кд</string>
     <string name="distance_from_flashlight">Расстояние от телефона до фонарика</string>
-    <string name="beacon_export_error">Не удалось экспортировать маячки</string>
+    <string name="beacon_export_error">Не удалось экспортировать ориентиры</string>
     <string name="help">Помощь</string>
     <string name="pref_backtrack_save_cell_title">Запись сотового сигнала</string>
     <string name="pref_backtrack_save_cell_summary">Записывает сотовую связь в путевой точке. Интернет не используется.</string>
@@ -456,10 +459,10 @@
     <string name="half_tide">Половина прилива</string>
     <string name="low_tide">Низкий</string>
     <string name="high_tide">Высокий</string>
-    <string name="right_quick_action">Быстрое действие направо</string>
-    <string name="left_quick_action">Быстрое действие налево</string>
+    <string name="right_quick_action">Быстрое действие для Направо</string>
+    <string name="left_quick_action">Быстрое действие для Налево</string>
     <string name="none">Ничего</string>
-    <string name="no_gps_signal">Нет сигнала GPS</string>
+    <string name="no_gps_signal">Нет GPS сигнала</string>
     <string name="always_on">Всегда включено</string>
     <string name="tomorrows_forecast">Прогноз на завтра</string>
     <string name="speedometer">Спидометр</string>
@@ -472,7 +475,7 @@
     <string name="meteors_per_hour">Максимум %d метеоров в час</string>
     <string name="menu">Меню</string>
     <string name="no_tides">Нет приливов</string>
-    <string name="pref_nearby_radar_title">Показать радарный компас вблизи</string>
+    <string name="pref_nearby_radar_title">Показать компас ближнего радара</string>
     <string name="pref_stride_length_title">Длина шага</string>
     <string name="pedometer">Шагомер</string>
     <string name="odometer">Одометр</string>
@@ -492,16 +495,16 @@
     <string name="pref_odometer_reset_daily_title">Сбрасывать ежедневно</string>
     <string name="sleep_timer">Таймер сна</string>
     <plurals name="beacons_exported">
-        <item quantity="one">%d маячок экспортирован</item>
-        <item quantity="few">%d маячка экспортировано</item>
-        <item quantity="many">%d маячков экспортировано</item>
-        <item quantity="other">%d маячков экспортировано</item>
+        <item quantity="one">%d ориентир экспортирован</item>
+        <item quantity="few">%d ориентира экспортировано</item>
+        <item quantity="many">%d ориентиров экспортировано</item>
+        <item quantity="other">%d ориентиров экспортировано</item>
     </plurals>
     <plurals name="beacons_imported">
-        <item quantity="one">%d маячок импортирован</item>
-        <item quantity="few">%d маячка импортировано</item>
-        <item quantity="many">%d маячков импортировано</item>
-        <item quantity="other">%d маячков импортировано</item>
+        <item quantity="one">%d ориентир импортирован</item>
+        <item quantity="few">%d ориентира импортировано</item>
+        <item quantity="many">%d ориентиров импортировано</item>
+        <item quantity="other">%d ориентиров импортировано</item>
     </plurals>
     <string name="calibrate_new_tide">Откалибровать новый прилив\?</string>
     <string name="backtrack_battery_warning">Небольшие интервалы (менее 15 минут) могут привести к чрезмерному разряду батареи</string>
@@ -518,8 +521,8 @@
     <string name="whistle_signal_where_are_you">Где вы\?</string>
     <string name="noon">Полдень</string>
     <string name="arrow">Стрелками</string>
-    <string name="pref_show_last_signal_beacon_summary">Создает маячок для определения местоположения последнего сигнала сети</string>
-    <string name="pref_show_last_signal_beacon_title">Маячок последнего сигнала</string>
+    <string name="pref_show_last_signal_beacon_summary">Создает ориентир для определения местоположения последнего сигнала сети</string>
+    <string name="pref_show_last_signal_beacon_title">Ориентир последнего сигнала</string>
     <string name="last_signal_beacon_name">Последний сигнал - %1$s (%2$s)</string>
     <string name="camera_permission_denied">В разрешении камеры отказано, невозможно включить функции камеры. Вы можете включить его в настройках.</string>
     <string name="color">Цвет</string>
@@ -545,7 +548,7 @@
     <string name="coordinates_tab">Координаты</string>
     <string name="distance">Расстояние</string>
     <string name="convert">Конвертировать</string>
-    <string name="pref_nmea_elevation_summary">Использует смещения NMEA для преобразования высоты</string>
+    <string name="pref_nmea_elevation_summary">Использовать NMEA (спутник) для коректировки высоты вместо встроеной модели</string>
     <string name="pref_nmea_elevation_title">Смещение высоты по NMEA</string>
     <string name="pref_barometer_info_summary">Давление может отличаться от давления на близлежащих станциях</string>
     <string name="battery_history">История батареи - последняя %s</string>
@@ -810,8 +813,8 @@
     <string name="qr_code_scanner">Сканер QR-кодов</string>
     <string name="open">Открыть</string>
     <string name="night">Ночь</string>
-    <string name="beacon">Маячок</string>
-    <string name="beacon_created">Маячок создан</string>
+    <string name="beacon">Ориентир</string>
+    <string name="beacon_created">Ориентир создан</string>
     <string name="result_deleted">Результат удален</string>
     <string name="duration_second_format">%dс</string>
     <string name="temp_f_short">°F</string>
@@ -831,7 +834,7 @@
         <item quantity="many">%d приливов</item>
         <item quantity="other">%d приливов</item>
     </plurals>
-    <string name="view">Показать</string>
+    <string name="view">Просмотр</string>
     <string name="tide_deleted">Прилив удален</string>
     <string name="estimated">Приблизительно</string>
     <string name="disclaimer_estimated_tide">Приблизительное время приливов может быть неточным. Используйте официальную таблицу приливов для точного времени.</string>
@@ -846,7 +849,7 @@
     <string name="tool_temperature_estimation_description">Предсказать температуру на другой высоте</string>
     <string name="onboarding_explore">- Предназначен для походов, путешествий, кемпинга и геокэшинга
 \n
-\n- Размещайте маячки и ориентируйтесь по ним
+\n- Размечайте ориентиры и ориентируйтесь по ним
 \n
 \n- Следуйте за путями
 \n
@@ -883,7 +886,7 @@
     <string name="average_speed_backtrack">Средняя скорость (история маршрута)</string>
     <string name="reset_distance_title">Сбросить расстояние\?</string>
     <string name="navigating_to_nearest_path_point">Навигация к ближайшей точке маршрута</string>
-    <string name="beacons">Маячки</string>
+    <string name="beacons">Ориентиры</string>
     <string name="move_to">Перейти к</string>
     <string name="pref_start_on_boot_title">Запуск при включении</string>
     <string name="error">Ошибка</string>
@@ -892,7 +895,7 @@
     <string name="diamond">Бриллиантами</string>
     <string name="cross">Крестами</string>
     <string name="pref_only_navigate_path_points_title">Переход только к записанным точкам</string>
-    <string name="bearing">Подшипник</string>
+    <string name="bearing">Пеленг</string>
     <string name="exporting_map">Экспорт карты</string>
     <string name="map_exported">Карта экспортирована</string>
     <string name="allow_ignore_battery_restrictions_instructions">Снятие ограничений на использование батареи для Trail Sense может повысить точность.
@@ -919,7 +922,7 @@
     <string name="tide_semidiurnal">Полусуточный</string>
     <string name="frequency">Частота</string>
     <string name="tide_frequency_description">Количество приливов в день. Большинство приливов полусуточные.</string>
-    <string name="permission_alarms_and_reminders">Будильники и напоминания</string>
+    <string name="permission_alarms_and_reminders">Оповещения и напоминания</string>
     <string name="change_resolution">Изменить разрешение</string>
     <string name="descent">Спуск</string>
     <string name="weather_front">Погодный фронт</string>
@@ -990,4 +993,181 @@
     <string name="create_blank_map">Создать пустую карту</string>
     <string name="photo_maps">Фотографии карт</string>
     <string name="illumination">Освещение</string>
+    <string name="calibrate_map_point">Калибрировать по известным местоположениям (%1$d / %2$d)</string>
+    <string name="compass_source_legacy_android">Старый (Android)</string>
+    <string name="triangulate_self_location_1_instructions">Выберите известное место которое вы можете увидеть и записать направление от того места где вы находитесь.</string>
+    <string name="solar_eclipses">Солнечные затмения</string>
+    <string name="historic_temperature_years" tools:ignore="PluralsCandidate">Исторический (%d год)</string>
+    <string name="screen_flashlight_full_name">Фонарик из экрана</string>
+    <string name="pref_backfill_temperatures_description">Все зарегистрированные температуры будут заменены откалиброванной исторической температурой.</string>
+    <string name="compass_dynamic_colors_summary">Использовать Динамические Цвета для сторон света</string>
+    <string name="view_in_3d">Вид в 3D</string>
+    <string name="creating_beacon">Создание ориентира</string>
+    <string name="show_dial_ticks_on_nearby_radar_summary">У вашего устройства нет компаса, но вы все еще можете увидеть какие есть ориентиры направления.</string>
+    <string name="augmented_reality_no_gyro_message">Вы все еще можете использовать инструмент Дополненая Реальность, но он не будет таким точным.</string>
+    <string name="learn_more">Подробнее</string>
+    <string name="end_time">Конец</string>
+    <string name="peak_time">Пик</string>
+    <string name="daylight_duration">%s дневной свет</string>
+    <string name="times">Времена</string>
+    <string name="astronomy_set">Закат</string>
+    <string name="beta">Бета-версия</string>
+    <string name="magnitude">Величина</string>
+    <string name="unable_to_find_next_astronomy">Не удается найти следующий %s</string>
+    <string name="compass_source_legacy_ts">Старый (Trail Sense)</string>
+    <string name="rate">Скорость</string>
+    <string name="notifications_channel">Оповещения (%s)</string>
+    <string name="allow_schedule_exact_alarms">Разрешить %s устанавливать будильники и напоминания</string>
+    <string name="sunset_alert_scheduled">Оповещение запланировано на %s перед закатом</string>
+    <string name="reset_calibration">Сброс калибровки</string>
+    <string name="invalid_backup_file">Неверный файл резервного копирования</string>
+    <string name="location_number">Локация %d</string>
+    <string name="enter_manually">Введите вручную</string>
+    <string name="tool_quick_actions">Быстрые действия Инструментов</string>
+    <string name="continuous_calibration_description">Калибрирует всякий раз когда есть GPS</string>
+    <string name="service_restart_channel_description">Уведомление о перезагрузке сервиса</string>
+    <string name="at_time">в %s</string>
+    <string name="last_lightning_strike_at">Последний удар в %s</string>
+    <string name="coordinate_format_osgb">Формат OSGB</string>
+    <string name="compass_source_mag_gyro">Магнитометр + гироскоп</string>
+    <string name="backtrack_no_permission">История маршрута требует разрешения на определение местоположения</string>
+    <string name="location_to_triangulate">Местоположение для триангуляции</string>
+    <string name="no">Нет</string>
+    <string name="locate">Определить местоположение</string>
+    <string name="battery_usage_allowed">Допустимое использование батареи</string>
+    <string name="obscuration">Затемнение</string>
+    <string name="battery_settings_limit_accuracy">Ограничения по заряду батареи могут снизить точность</string>
+    <string name="photo_map_summary">Использование фотографии в качестве карты</string>
+    <string name="solar_eclipse">Солнечное затмение</string>
+    <string name="sunset_alerts_background_location_disclaimer">Предупреждения о закате могут быть неточными во время путешествия</string>
+    <string name="my_location">Мое местоположение</string>
+    <string name="service_restart">Перезагрузить Сервис</string>
+    <string name="start_time">Старт</string>
+    <string name="for_historic_temperatures">Для исторических температур</string>
+    <string name="map_is_not_calibrated">Карта не откалибрована</string>
+    <string name="pref_keep_map_facing_up_title">Держите карту лицевой стороной вверх</string>
+    <string name="gps_accuracy_tip">Убедитесь что у вас беспрепятственный обзор неба, и отойдите от высоких зданий и деревьев.</string>
+    <string name="gps_elevation_accuracy">Точность высоты GPS</string>
+    <string name="map_auto_rotated">Вращение карты с калибровкой</string>
+    <string name="astronomy_altitude">Высота над уровнем моря</string>
+    <string name="center">Центр</string>
+    <string name="create_path">Создать путь</string>
+    <string name="loading">Загрузка</string>
+    <string name="print">Печать</string>
+    <string name="autofill_source">Источник автозаполнения</string>
+    <string name="data_source">Источник: %s</string>
+    <string name="pref_keep_map_facing_up_summary">Карта будет совмещена с верхней частью экрана а не с настоящим севером.</string>
+    <string name="yes">Да</string>
+    <string name="season">Сезон</string>
+    <string name="horizon">Горизонт</string>
+    <string name="photo_map_disclaimer">Всегда носите с собой физическую карту про запас и проверяйте точность Trail Sense.</string>
+    <string name="crop_map_instructions_long">Перетащите углы прямоугольника в углы карты чтобы наметить контур.</string>
+    <string name="rotation_amount">Вращение: %s</string>
+    <string name="i_agree">Принимаю</string>
+    <string name="allow_ignore_battery_restrictions">Разрешить %s игнорировать ограничения батареи</string>
+    <string name="exact_alarm_permission_denied">Оповещения и напоминания отклонены, оповещения могут быть неточными.</string>
+    <string name="backup">Резервная копия</string>
+    <string name="restore_disclaimer">Это действие перепишет все ваши текущие данные. Пожалуйста убедитесь что у вас есть резервная копия прежде чем продолжить.
+\n
+\nТолько выберите резервный файл который вы создали из %s и доверяете ему.</string>
+    <string name="backing_up_loading_message">Резервное копирование…</string>
+    <string name="restoring_loading_message">Восстановление…</string>
+    <string name="astronomy_rise">Восход</string>
+    <string name="until_sunset">до заката</string>
+    <string name="restore_complete_message">Восстановлено, перезапус для применения изменений</string>
+    <string name="backup_restore">Резервное копирование / Восстановление</string>
+    <string name="destination">Место назначения</string>
+    <string name="high_sensitivity">Высокая чувствительность</string>
+    <string name="historic_temperatures">Исторические температуры</string>
+    <string name="triangulate_self_location_2_instructions">Выберите другое известное место которое вы можете увидеть и записать направление от того места где вы находитесь.</string>
+    <string name="dynamic_colors">Динамические цвета</string>
+    <string name="gps_satellites">GPS спутники</string>
+    <string name="pref_include_leading_zero_title">Прибавить ведущий ноль ко времени</string>
+    <string name="scanning_image">Сканирование изображения</string>
+    <string name="astronomy_direction_peak">Пиковое направление</string>
+    <string name="restore">Востановить</string>
+    <string name="backup_disclaimer">Будет создан резервный файл содержащий все ваши текущие данные. Он будет включать в себя настройки, пути, маяки, карты и т.д.
+\n
+\nЭтот файл не зашифрован. Не делитесь с кем-либо кому вы не доверяете.</string>
+    <string name="zero_shutter_lag">Нулевая задержка срабатывания затвора</string>
+    <string name="triangulate_destination_location_1_instructions">Запишите свое местоположение и направление к месту назначения.</string>
+    <string name="triangulate_destination_location_2_instructions">Переместится по крайней мере %s из первого места и записать ваше местоположение и направление в пункт назначения снова.</string>
+    <string name="distance_away_from_self">%s дали</string>
+    <string name="distance_away_from_destination">%s дали от места назначения</string>
+    <string name="direction">Направление</string>
+    <string name="augmented_reality">Дополненная реальность</string>
+    <string name="augmented_reality_description">Вид на близлежащие ориентиры и солнце / луну с вашей камеры</string>
+    <string name="use_path_elevation">Использовать воспроизведение пути</string>
+    <string name="blank">Пустой</string>
+    <string name="direction_not_set">Направление не установлено</string>
+    <string name="select_from_gallery">Выберите из галереи</string>
+    <string name="magnetometer_gyro_custom">Магнитометр + Гироскоп (Свои настройки)</string>
+    <string name="default_string">По умолчанию</string>
+    <string name="pref_tiles_battery_log">Журнал батареи</string>
+    <string name="pref_dialog_battery_log_summary">Журнал батареи отключен, история и время до разрядки могут быть недоступны. Вы можете снова включить это в настройках</string>
+    <string name="pref_tiles_enabled_battery_log_summary">Отмечать процент заряда батареи каждый час чтобы оценить время до разрядки</string>
+    <string name="no_sensor_message">На вашем устройстве нет датчика %s</string>
+    <string name="no_qr_code_detected">QR-код не обнаружен</string>
+    <string name="astronomy_altitude_peak">Пиковая высота</string>
+    <string name="beta_disclaimer">Этот инструмент в настоящее время находится в стадии бета-тестирования, поэтому пожалуйста сообщайте о любых проблемах или отзывах по адресу %s.</string>
+    <string name="magnetic_north">Магнитный Север</string>
+    <string name="pinned">Прикреплено</string>
+    <string name="unpin">Открепить</string>
+    <string name="pin">Прикрепить</string>
+    <string name="tool_long_press_hint_toast">Длинное нажатие чтобы увидеть больше опций</string>
+    <string name="settings_have_moved">Настройки перемещены</string>
+    <string name="settings_have_moved_message">Настройки приложения были перенесены на вкладку Инструменты</string>
+    <string name="missing_sensor_message_1">Ваш %1$s не имеет встроенного датчика %2$s. К сожалению это означает что некоторые функции в %3$s не будут доступны.</string>
+    <string name="is_there_a_way_to_fix_this">Есть ли способ исправить это?</string>
+    <string name="no_sensor_unable_to_fix">Нет, к сожалению, это аппаратная функция, поэтому нет ничего, что можно сделать, чтобы добавить ее.</string>
+    <string name="why_missing_sensor">Мое устройство новое / дорогое, почему в нём нет этого датчика?</string>
+    <string name="missing_sensor_explanation">Некоторые производители телефонов предпочитают не добавлять этот датчик даже на новых или дорогих устройствах. Вы можете получить больше информации на веб-сайте производителя устройства или связавшись с ним.</string>
+    <string name="magnetic_north_description">Указывать на Магнитный Северный Полюс. Это будет соответствовать большинству компасов.</string>
+    <string name="true_north_description">Указывать на Географический Северный Полюс с использованием отклонение для вашего местоположения. Это будет соответствовать большинству карт.</string>
+    <string name="continuous_calibration">Непрерывная калибровка</string>
+    <string name="restart_services_title">Перезагрузить сервисы</string>
+    <string name="restart_services_message">Фоновые сервисы не могут быть перезапущены. Тапните для перезапуска.</string>
+    <string name="fused_altimeter_force_calibration">Принудительный интервал калибровки</string>
+    <string name="fused_altimeter_force_calibration_summary">Принуждает к GPS калибровке каждые %s</string>
+    <string name="compact_mode">Компактный режим</string>
+    <string name="fast_path_rendering">Отрисовка быстрого пути</string>
+    <string name="ar_calibration_instructions">Отцентрируйте %s на экране и нажмите «Калибрация»</string>
+    <string name="reset_calibration_question">Сбросить калибровку?</string>
+    <string name="smooth_gps_readings">Гладкие показания GPS</string>
+    <string name="projection_type">Проекция Дополненной Реальности</string>
+    <string name="projection_estimated_intrinsics">Примерные интрисики</string>
+    <string name="projection_manufacturer_intrinsics">Интрисики производителя</string>
+    <string name="projection_perspective">Перспектива</string>
+    <string name="projection_linear">Линейная</string>
+    <string name="feature_unavailable">%s недоступно</string>
+    <string name="audio_error_messsage">Произошла ошибка при попытке проиграть аудио.</string>
+    <string name="layers">Слои</string>
+    <string name="visible">Видимый</string>
+    <string name="grid">Сетка</string>
+    <string name="ar_layer_override_message">Настройки слоев могут быть переопределены по руководству, таким как руководство по Астрономии.</string>
+    <string name="date">Дата</string>
+    <string name="max_s">Макс %s</string>
+    <string name="show_dial_ticks_on_nearby_radar">Показать насечки на ближнем радаре</string>
+    <string name="map_calibration_instructions">Коснитесь известного местоположения на карте, затем введите реальные координаты. Вы можете сохранить калибровку нажав кнопку «Готово».
+\n
+\nПримерами хороших точек калибровки являются парковка, указатель, ориентир или перекресток вдоль тропы.</string>
+    <string name="map_file">Файл (JPG, PNG, PDF)</string>
+    <string name="pref_backfill_temperatures_title">Обновить записанные температуры</string>
+    <string name="accelerometer">Акселерометр</string>
+    <string name="gps_location_accuracy">Точность GPS локации</string>
+    <string name="historic_temperatures_full_disclaimer" tools:ignore="PluralsCandidate">Температура основана на среднегодовом значении исторических данных %d года и может не отражать текущие погодные условия.</string>
+    <string name="map_calibration">Калибровка карты</string>
+    <string name="reduce_map_resolution_crop_disclaimer">Обрезка карты все равно приведет к снижению разрешения. Если вам нужно обрезать карту с высоким разрешением, используйте редактор изображений. Есть планы исправить это в будущем.</string>
+    <string name="allow_schedule_exact_alarms_instructions">Это позволяет %1$s устанавливать точные оповещения и напоминания, такие как оповещения о закате. Без этого оповещения могут не срабатывать в нужное время.
+\n
+\nЧтобы разрешить нажмите «%2$s» и включите настройку для разрешения оповещений и напоминаний.</string>
+    <string name="compass_dynamic_colors">Динамические цвета Компаса</string>
+    <string name="fast_path_rendering_summary">Улучшает производительность за счет внешнего вида</string>
+    <string name="view_distance">Расстояние просмотра</string>
+    <string name="use_gyroscope_after_calibration">Используйте гироскоп после калибровки</string>
+    <string name="use_gyroscope_after_calibration_description">Вместо компаса (избегает магнитного дрейфа)</string>
+    <string name="ar_calibration_instructions_hint">Чтобы откалибровать инструмент Дополнительная Реальность, нажмите на значок в верхней левой части экрана и следуйте инструкциям которые появятся.</string>
+    <string name="ar_calibration_disclaimer">Перед каждым использованием инструмента Дополненной Реальности, убедитесь что значки Солнца или Луны должным образом выровнены с реальным миром. Если нет, нажмите на значок компаса слева от экрана и следуйте инструкциям по калибровке.</string>
+    <string name="until_sunrise">до восхода</string>
+    <string name="restore_failure_newer_version">Эта резервная копия была создана с более новой версией %s. Пожалуйста, обновите приложение и попробуйте снова.</string>
 </resources>
