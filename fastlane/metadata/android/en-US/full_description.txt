@@ -1,24 +1,32 @@
 <p>Explore beyond the reaches of the Internet with Trail Sense.</p>
 
-<p>Trail Sense is an app that uses your phone's sensors to help you on wilderness treks. Trail Sense contains many tools that can be used in different scenarios, such as hiking, camping, backpacking, rock climbing, etc.</p>
-
-<p>This app also does not, and will never, use the Internet - all information in Trail Sense comes directly from your phone's sensors, and no data will leave Trail Sense.</p>
+<p>Trail Sense is an app that uses your phone's sensors to help you on wilderness treks.
+Trail Sense contains many tools that can be used in different scenarios, such as hiking, camping, backpacking, rock climbing, etc.</p>
 
 <ul>
     <li>Designed for hiking, backpacking, camping, and geocaching</li>
     <li>Place beacons and navigate to them</li>
+    <li>Use as a compass (only available on devices with a compass sensor)</li>
     <li>Follow paths</li>
     <li>Retrace your steps with backtrack</li>
+    <li>Use a photo as a map</li>
     <li>Plan what to pack</li>
     <li>Be alerted before the sun sets</li>
-    <li>Predict the weather</li>
+    <li>Predict the weather (only available on devices with a barometer sensor)</li>
     <li>Use your phone as a flashlight</li>
     <li>And much more!</li>
 </ul>
 
-<p>Trail Sense is a tool that you can use, but not something you should rely on. This app is intended for information purposes only and the accuracy of the predictions and sensors are determined by a number of factors, including calibration, sensor quality, external sources, etc. Use at your own risk, always have backup tools (ex. compass), and stay safe as much as possible.</p>
+<p>This app also does not, and will never, use the Internet - all information in Trail Sense comes directly from your phone's sensors, and no data will leave Trail Sense.</p>
 
-<p>Found an issue or want a new feature? Contact me at trailsense@protonmail.com or create a new issue on GitHub: github.com/kylecorry31/Trail-Sense</p>
+<p>Trail Sense is a tool, and just like any other tool that you bring into the wilderness,
+it's essential to have backup equipment and skills.
+This app is intended for information purposes only and the accuracy of the predictions and sensors are determined by a number of factors,
+including calibration, sensor quality, external sources, etc.
+Use at your own risk, always have backup tools (ex. compass), and stay safe as much as possible.</p>
+
+
+<p>Found an issue or want a new feature? Contact me at TrailSense@protonmail.com or create a new issue on GitHub: github.com/kylecorry31/Trail-Sense</p>
 
 <p>I'm the only developer of Trail Sense, so I will do my best to help out with issues - but I have a limited device selection to test on.</p>
 
