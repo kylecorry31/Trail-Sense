@@ -1011,4 +1011,7 @@
     <string name="sighting_compass">觀摩羅經</string>
     <string name="date">日子</string>
     <string name="precipitation_snow_grains">毛毛雪</string>
+    <string name="temporary">臨時</string>
+    <string name="ar_calibration_disclaimer">每次用「擴充實境」架生之前，請查驗個太陽或月亮公仔係咪已經同真實世界對齊。若果唔齊整，請撳一下畫面左上角嘅羅經公仔並跟指示校正。</string>
+    <string name="max_s">最高 %s</string>
 </resources>
