@@ -72,8 +72,8 @@
     <string name="pref_forecast_sensitivity_title">予報の感度</string>
     <string name="pref_monitor_weather_title">天気を監視</string>
     <string name="pref_monitor_weather_summary">バックグラウンドで動作します</string>
-    <string name="pref_show_calibrate_on_navigate_dialog_title">Calibrate before navigating</string>
-    <string name="pref_display_multi_beacons_summary">最も近いビーコンをコンパスに表示</string>
+    <string name="pref_show_calibrate_on_navigate_dialog_title">ナビゲーションする前にキャリブレーションする</string>
+    <string name="pref_display_multi_beacons_summary">近くのビーコンをコンパス上に表示</string>
     <string name="pref_elevation_override_sea_level_title">Using a known sea level pressure</string>
     <string name="pref_elevation_override_sea_level_dialog_title">Enter sea level pressure</string>
     <string name="pref_elevation_override_sea_level_dialog_msg">Enter the current pressure at sea level in hPa</string>
@@ -310,4 +310,26 @@
     <string name="beta">ベータ版</string>
     <string name="photo_map_summary">画像を地図として使用できます</string>
     <string name="soon">もうじき</string>
+    <string name="edit">編集</string>
+    <string name="pref_adjust_for_temperature_title">気温を考慮する</string>
+    <string name="never">なし</string>
+    <string name="pref_max_beacon_distance_title">ビーコン表示半径</string>
+    <string name="coordinate_format_utm">UTM</string>
+    <string name="temperature">温度</string>
+    <string name="celsius">摂氏</string>
+    <string name="pref_adjust_for_temperature_summary">海面気圧への変換時に気温を使用する</string>
+    <string name="pref_show_temperature_in_notification_title">通知に気温を表示する</string>
+    <string name="add">追加</string>
+    <string name="subtract">減量</string>
+    <string name="category">カテゴリ</string>
+    <string name="gps_location_accuracy">GPS 測位精度</string>
+    <string name="gps_accuracy_tip">空をさえぎるものがないことを確認し、高い建物や木から離れてください。</string>
+    <string name="gps_satellites">GPS 衛星数</string>
+    <string name="pref_include_leading_zero_title">時刻を0埋めして2桁表記する</string>
+    <string name="theme_sunset_sunrise">日の出/日の入り</string>
+    <string name="coordinate_format_mgrs">MGRS</string>
+    <string name="fahrenheit">華氏</string>
+    <string name="pref_num_visible_beacons_title">表示ビーコン数</string>
+    <string name="gps_elevation_accuracy">GPS 標高精度</string>
+    <string name="altimeter_mode_gps_barometer">GPS + 気圧計</string>
 </resources>
