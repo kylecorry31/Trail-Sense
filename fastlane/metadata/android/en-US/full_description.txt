@@ -1,27 +1,53 @@
 <p>Explore beyond the reaches of the Internet with Trail Sense.</p>
 
-<p>Trail Sense is an app that uses your phone's sensors to help you on wilderness treks. Trail Sense contains many tools that can be used in different scenarios, such as hiking, camping, backpacking, rock climbing, etc.</p>
-
-<p>This app also does not, and will never, use the Internet - all information in Trail Sense comes directly from your phone's sensors, and no data will leave Trail Sense.</p>
-
 <ul>
     <li>Designed for hiking, backpacking, camping, and geocaching</li>
     <li>Place beacons and navigate to them</li>
+    <li>Use as a compass (only available on devices with a compass sensor)</li>
     <li>Follow paths</li>
     <li>Retrace your steps with backtrack</li>
+    <li>Use a photo as a map</li>
     <li>Plan what to pack</li>
     <li>Be alerted before the sun sets</li>
-    <li>Predict the weather</li>
+    <li>Predict the weather (only available on devices with a barometer sensor)</li>
     <li>Use your phone as a flashlight</li>
     <li>And much more!</li>
 </ul>
 
-<p>Trail Sense is a tool that you can use, but not something you should rely on. This app is intended for information purposes only and the accuracy of the predictions and sensors are determined by a number of factors, including calibration, sensor quality, external sources, etc. Use at your own risk, always have backup tools (ex. compass), and stay safe as much as possible.</p>
+<p>Trail Sense is a tool, and just like any other tool that you bring into the wilderness,
+it's essential to have backup equipment and skills.
+This app is intended for information purposes only and the accuracy of the predictions and sensors are determined by a number of factors, including calibration, sensor quality, external sources, etc.
+Use at your own risk, always have backup tools (ex. compass), and stay safe.</p>
+
+<p>This app also does not, and will never, use the Internet - all information in Trail Sense comes directly from your phone's sensors, and no data will leave Trail Sense.</p>
+
+<h3>COMMON ISSUES</h3>
+<ul>
+    <li>No compass: If your phone does not have a compass sensor, there is nothing I can do to make it work because that is hardware.
+    You will still be able to use other features of Trail Sense.</li>
+    <li>No weather: The Weather tool is only available if your phone has a barometer sensor.</li>
+</ul>
 
 <p>Found an issue or want a new feature? Contact me at trailsense@protonmail.com or create a new issue on GitHub: github.com/kylecorry31/Trail-Sense</p>
 
 <p>I'm the only developer of Trail Sense, so I will do my best to help out with issues - but I have a limited device selection to test on.</p>
 
-<p>Privacy policy: https://kylecorry.com/Trail-Sense/#privacy</p>
-<p>FAQ: https://github.com/kylecorry31/Trail-Sense#faq</p>
-<p>Trail Sense is available under the MIT License: https://opensource.org/license/mit/</p>
+
+<h3>PERMISSIONS</h3>
+<ul>
+    <li>Notifications: Allows Trail Sense to display notifications (backtrack, weather, sunset alerts, astronomy events, water boil timer, etc)</li>
+    <li>Location: Allows Trail Sense to retrieve your location for navigation, weather (sea level calibration), and astronomy.</li>
+    <li>Background location: Allows Trail Sense to retrieve your location for sunset alerts while in the background.
+    On some devices, this will also improve the reliability of backtrack and weather monitor.</li>
+    <li>Physical activity: Allows Trail Sense to use your phone's pedometer for distance calculation.</li>
+    <li>Camera: Allows Trail Sense to use your camera on the sighting compass, clinometer, and for taking photos used by the Cloud Scanner, QR Code Scanner, and Photo Maps.</li>
+    <li>Alarms & reminders: Allows Trail Sense to post a notification at an exact time.
+    This is used by the Clock tool (when updating system time) and Sunset Alerts.</li>
+</ul>
+
+<h3>Links</h3>
+<ul>
+    <li>Privacy policy: https://kylecorry.com/Trail-Sense/#privacy</li>
+    <li>FAQ: https://github.com/kylecorry31/Trail-Sense#faq</li>
+    <li>Trail Sense is available under the MIT License: https://opensource.org/license/mit/</li>
+</ul>
