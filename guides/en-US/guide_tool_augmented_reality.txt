@@ -11,10 +11,10 @@ Additionally, while the camera is active, you can adjust the zoom level using tw
 A circular reticle is displayed in the center of your screen. You can use this to see more details about the marker you are looking at by centering it in the reticle.
 
 ## Beacons
-Nearby beacons are displayed as markers on the screen. You can tap on a beacon to start navigation (See the Navigation section below). The nearby beacon radius can be adjusted in Settings > Augmented Reality > "View distance".
+Nearby beacons are displayed as markers on the screen. You can tap on a beacon to start navigation (See the Navigation section below). The view distance can be adjusted in Settings > Augmented Reality > Beacons > "View distance".
 
 ## Paths
-Nearby paths are displayed below your feet. Due to GPS inaccuracy, the paths may not be perfectly aligned with the real world. You can disable paths in Settings > Augmented Reality > Paths.
+Nearby paths are displayed below your feet. Due to GPS inaccuracy, the paths may not be perfectly aligned with the real world. The view distance can be adjusted in Settings > Augmented Reality > Paths > "View distance"
 
 You can choose to adjust paths using their recorded elevation by enabling Settings > Augmented Reality > "Use path elevation". This should make the paths line up better with hills and valleys, but is dependent on the accuracy of the elevation data.
 
@@ -47,8 +47,13 @@ If your device has a gyroscope, calibrating will switch the tool to use the gyro
 
 To reset the calibration, long press the compass icon or close and reopen the tool.
 
+### Accuracy
+The accuracy of the compass and GPS are shown in the bottom-left of the screen. You can tap the status icons to see more details about the accuracy and for further instructions on calibrating your compass.
+
 ## Sensors
 The Augmented Reality tool respects the compass source in Settings > Sensors > Compass > Source. If your device does not have a gyroscope, the tool will still work but will not be as accurate and may jitter.
 
-## Experimental
-This tool is currently in experimental mode, so there may be bugs or unfinished features. If you have any feedback, please email me at trailsense@protonmail.com or visit https://github.com/kylecorry31/Trail-Sense/discussions/2099#discussioncomment-7737952 for more details.
+## Layers
+You can toggle the visibility of the Beacons, Paths, Astronomy, and Grid layers by clicking the layer icon in the top-left corner of the screen or by changing the "Visible" setting in Settings > Augmented Reality.
+
+The preview date for the Astronomy layer can be adjusted in the layers menu on the Augmented Reality tool.
