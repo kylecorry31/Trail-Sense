@@ -399,7 +399,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         val displayDate = binding.displayDate.date
 
         onDefault {
-            val items = producers.map { it.getListItem(displayDate, location) }
+            val items = producers.map { it.getListItem(displayDate, location, getDeclination()) }
 
             onMain {
                 binding.astronomyDetailList.setItems(items.filterNotNull())

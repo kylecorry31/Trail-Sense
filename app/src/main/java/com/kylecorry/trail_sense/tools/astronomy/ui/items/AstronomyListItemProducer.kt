@@ -5,5 +5,5 @@ import com.kylecorry.sol.units.Coordinate
 import java.time.LocalDate
 
 interface AstronomyListItemProducer {
-    suspend fun getListItem(date: LocalDate, location: Coordinate): ListItem?
+    suspend fun getListItem(date: LocalDate, location: Coordinate, declination: Float): ListItem?
 }

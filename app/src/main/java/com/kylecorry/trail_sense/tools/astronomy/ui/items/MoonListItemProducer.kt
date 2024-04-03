@@ -6,6 +6,7 @@ import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.tools.astronomy.ui.MoonPhaseImageMapper
 import java.time.LocalDate
 
@@ -13,7 +14,8 @@ class MoonListItemProducer(context: Context) : BaseAstroListItemProducer(context
 
     override suspend fun getListItem(
         date: LocalDate,
-        location: Coordinate
+        location: Coordinate,
+        declination: Float
     ): ListItem = onDefault {
         // At a glance
         val times = astronomyService.getMoonTimes(location, date)
@@ -27,7 +29,10 @@ class MoonListItemProducer(context: Context) : BaseAstroListItemProducer(context
         val isSuperMoon = astronomyService.isSuperMoon(date)
         val peak = times.transit?.let { astronomyService.getMoonAltitude(location, it) }
         val azimuth =
-            if (date == LocalDate.now()) astronomyService.getMoonAzimuth(location) else null
+            if (date == LocalDate.now()) DeclinationUtils.fromTrueNorthBearing(
+                astronomyService.getMoonAzimuth(location),
+                declination
+            ) else null
         val altitude =
             if (date == LocalDate.now()) astronomyService.getMoonAltitude(location) else null
 

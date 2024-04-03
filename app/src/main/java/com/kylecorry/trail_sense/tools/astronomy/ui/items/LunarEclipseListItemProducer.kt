@@ -7,6 +7,7 @@ import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.tools.astronomy.ui.format.EclipseFormatter
 import java.time.LocalDate
 
@@ -14,13 +15,17 @@ class LunarEclipseListItemProducer(context: Context) : BaseAstroListItemProducer
 
     override suspend fun getListItem(
         date: LocalDate,
-        location: Coordinate
+        location: Coordinate,
+        declination: Float
     ): ListItem? = onDefault {
         val eclipse = astronomyService.getLunarEclipse(location, date) ?: return@onDefault null
 
         // Advanced
         val peakAltitude = astronomyService.getMoonAltitude(location, eclipse.peak)
-        val peakAzimuth = astronomyService.getMoonAzimuth(location, eclipse.peak)
+        val peakAzimuth = DeclinationUtils.fromTrueNorthBearing(
+            astronomyService.getMoonAzimuth(location, eclipse.peak),
+            declination
+        )
 
         list(
             4,

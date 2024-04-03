@@ -6,6 +6,7 @@ import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.readableName
 import java.time.LocalDate
 
@@ -13,13 +14,17 @@ class MeteorShowerListItemProducer(context: Context) : BaseAstroListItemProducer
 
     override suspend fun getListItem(
         date: LocalDate,
-        location: Coordinate
+        location: Coordinate,
+        declination: Float
     ): ListItem? = onDefault {
         val shower = astronomyService.getMeteorShower(location, date) ?: return@onDefault null
 
         // Advanced
         val peakAltitude = astronomyService.getMeteorShowerPeakAltitude(shower, location)
-        val peakAzimuth = astronomyService.getMeteorShowerPeakAzimuth(shower, location)
+        val peakAzimuth = DeclinationUtils.fromTrueNorthBearing(
+            astronomyService.getMeteorShowerPeakAzimuth(shower, location),
+            declination
+        )
 
         list(
             3,
@@ -30,7 +35,12 @@ class MeteorShowerListItemProducer(context: Context) : BaseAstroListItemProducer
         ) {
 
             val advancedData = listOf(
-                context.getString(R.string.times) to times(shower.start, shower.peak, shower.end, date),
+                context.getString(R.string.times) to times(
+                    shower.start,
+                    shower.peak,
+                    shower.end,
+                    date
+                ),
                 context.getString(R.string.name) to data(shower.shower.readableName()),
                 context.getString(R.string.rate) to data(
                     context.getString(R.string.meteors_per_hour, shower.shower.rate)

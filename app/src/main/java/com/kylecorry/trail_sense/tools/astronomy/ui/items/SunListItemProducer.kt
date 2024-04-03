@@ -7,6 +7,7 @@ import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.sol.science.astronomy.SunTimesMode
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import java.time.Duration
 import java.time.LocalDate
 
@@ -14,7 +15,8 @@ class SunListItemProducer(context: Context) : BaseAstroListItemProducer(context)
 
     override suspend fun getListItem(
         date: LocalDate,
-        location: Coordinate
+        location: Coordinate,
+        declination: Float
     ): ListItem = onDefault {
         // At a glance
         val times = astronomyService.getSunTimes(location, prefs.astronomy.sunTimesMode, date)
@@ -30,8 +32,10 @@ class SunListItemProducer(context: Context) : BaseAstroListItemProducer(context)
         }
         val night = Duration.ofDays(1) - daylight
         val season = astronomyService.getSeason(location, date)
-        val azimuth =
-            if (date == LocalDate.now()) astronomyService.getSunAzimuth(location) else null
+        val azimuth = if (date == LocalDate.now()) DeclinationUtils.fromTrueNorthBearing(
+            astronomyService.getSunAzimuth(location),
+            declination
+        ) else null
         val altitude =
             if (date == LocalDate.now()) astronomyService.getSunAltitude(location) else null
 
