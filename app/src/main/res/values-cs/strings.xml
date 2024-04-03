@@ -1168,4 +1168,5 @@
     <string name="ar_layer_override_message">Nastavení rozložení mohou být přepsány pokyny, například průvodcem astronomie.</string>
     <string name="date">Datum</string>
     <string name="max_s">Max. %s</string>
+    <string name="ar_calibration_disclaimer">Před každým použitím nástroje Rozšířená realita ověřte, že se ikony slunce nebo měsíce nacházejí ve správné pozici oproti reálnému světu. Pokud ne, klepněte na ikonu kompasu v levém horním rohu obrazovky a následujte pokyny pro kalibraci.</string>
 </resources>
