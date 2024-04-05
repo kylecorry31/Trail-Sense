@@ -90,4 +90,8 @@ class DatePickerView(context: Context, attrs: AttributeSet?) : FrameLayout(conte
         onSearch = listener
     }
 
+    fun reset(){
+        date = LocalDate.now()
+    }
+
 }

@@ -8,13 +8,11 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.alerts.loading.AlertLoadingIndicator
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
-import com.kylecorry.andromeda.core.ui.setTextDistinct
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.markdown.MarkdownService
@@ -28,12 +26,12 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityAstronomyBinding
 import com.kylecorry.trail_sense.main.MainActivity
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.ErrorBannerReason
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
-import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
@@ -70,7 +68,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
     private val astronomyService = AstronomyService()
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val declination by lazy { DeclinationFactory().getDeclinationStrategy(prefs, gps) }
@@ -167,25 +164,23 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                     lastAstronomyEventSearch = search
                     val currentDate = binding.displayDate.date
                     inBackground {
-                        val loading =
-                            AlertLoadingIndicator(requireContext(), getString(R.string.loading))
-                        loading.show()
-                        val nextEvent = onDefault {
-                            astronomyService.findNextEvent(
-                                search, location, currentDate
-                            )
-                        }
-                        onMain {
-                            loading.hide()
-                            binding.displayDate.date = nextEvent ?: currentDate
-
-                            if (nextEvent == null) {
-                                toast(
-                                    getString(
-                                        R.string.unable_to_find_next_astronomy,
-                                        optionNames[it].lowercase()
-                                    )
+                        Alerts.withLoading(requireContext(), getString(R.string.loading)) {
+                            val nextEvent = onDefault {
+                                astronomyService.findNextEvent(
+                                    search, location, currentDate
                                 )
+                            }
+                            onMain {
+                                binding.displayDate.date = nextEvent ?: currentDate
+
+                                if (nextEvent == null) {
+                                    toast(
+                                        getString(
+                                            R.string.unable_to_find_next_astronomy,
+                                            optionNames[it].lowercase()
+                                        )
+                                    )
+                                }
                             }
                         }
                     }
@@ -223,8 +218,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         binding.closeSeek.setOnClickListener {
             hideTimeSeeker()
         }
-
-        updateSeekPositions()
     }
 
     private fun updateSeekPositions() {
@@ -271,7 +264,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         }
     }
 
-
     private fun getSunMoonPositions(time: ZonedDateTime): AstroPositions {
         val moonAltitude = astronomyService.getMoonAltitude(location, time)
         val sunAltitude = astronomyService.getSunAltitude(location, time)
@@ -290,14 +282,14 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
     override fun onResume() {
         super.onResume()
-        binding.displayDate.date = LocalDate.now()
+        binding.displayDate.reset()
         requestLocationUpdate()
 
-        if (cache.getBoolean("cache_tap_sun_moon_shown") != true) {
-            cache.putBoolean("cache_tap_sun_moon_shown", true)
-            Alerts.toast(requireContext(), getString(R.string.tap_sun_moon_hint))
-        }
-
+        CustomUiUtils.oneTimeToast(
+            requireContext(),
+            getString(R.string.tap_sun_moon_hint),
+            "cache_tap_sun_moon_shown"
+        )
     }
 
     override fun onPause() {
@@ -369,7 +361,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             }
         }
     }
-
 
     private fun plotSunImage(
         altitudes: List<Reading<Float>>, time: ZonedDateTime = ZonedDateTime.now()
@@ -490,7 +481,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                 updateAstronomyDetails()
             }
         }
-
+        
         effect("seek_details", currentSeekChartTime, displayDate, isSeeking, location) {
             if (!isSeeking) {
                 return@effect
