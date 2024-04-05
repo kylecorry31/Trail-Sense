@@ -481,7 +481,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                 updateAstronomyDetails()
             }
         }
-        
+
         effect("seek_details", currentSeekChartTime, displayDate, isSeeking, location) {
             if (!isSeeking) {
                 return@effect

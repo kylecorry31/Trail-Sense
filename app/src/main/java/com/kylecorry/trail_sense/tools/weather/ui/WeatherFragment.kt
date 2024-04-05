@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.alerts.toast
+import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.topics.generic.asLiveData
 import com.kylecorry.andromeda.core.topics.generic.replay
@@ -26,10 +28,8 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.ResettableLoadingIndicator
 import com.kylecorry.trail_sense.shared.alerts.ViewLoadingIndicator
-import com.kylecorry.trail_sense.shared.extensions.getOrNull
 import com.kylecorry.trail_sense.shared.debugging.isDebug
-import com.kylecorry.andromeda.core.coroutines.onIO
-import com.kylecorry.andromeda.core.coroutines.onMain
+import com.kylecorry.trail_sense.shared.extensions.getOrNull
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.tools.weather.domain.CurrentWeather
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherObservation
@@ -66,11 +66,11 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
-    private var history: List<WeatherObservation> = listOf()
-    private var rawHistory: List<Reading<Pressure>> = listOf()
+    private var history by state<List<WeatherObservation>>(emptyList())
+    private var rawHistory by state<List<Reading<Pressure>>>(emptyList())
 
     private val weatherSubsystem by lazy { WeatherSubsystem.getInstance(requireContext()) }
-    private var weather: CurrentWeather? = null
+    private var weather by state<CurrentWeather?>(null)
     private val loadingIndicator by lazy {
         ResettableLoadingIndicator(
             ViewLoadingIndicator(binding.weatherUpdating)
@@ -136,6 +136,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                     weatherSubsystem.enableMonitor()
                     RequestRemoveBatteryRestrictionCommand(this).execute()
                 }
+
                 null -> {}
             }
         }
@@ -209,8 +210,23 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
                 weather = weatherSubsystem.getWeather()
             }
-            onMain {
-                update()
+        }
+    }
+
+    override fun onUpdate() {
+        super.onUpdate()
+
+        effect("chart", history, rawHistory) {
+            displayPressureChart(history, rawHistory)
+        }
+
+        effect("list", weather) {
+            updateList()
+        }
+
+        effect("forecast", weather) {
+            inBackground {
+                updateForecast()
             }
         }
     }
@@ -229,15 +245,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                     Reading(it.value.seaLevel(useTemperature), it.time)
                 }
             }
-        }
-    }
-
-    private fun update() {
-        if (!isBound) return
-        displayPressureChart(history, rawHistory)
-        updateList()
-        inBackground {
-            updateForecast()
         }
     }
 
