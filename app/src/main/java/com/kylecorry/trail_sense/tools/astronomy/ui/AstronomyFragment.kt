@@ -390,7 +390,9 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         val displayDate = binding.displayDate.date
 
         onDefault {
-            val items = producers.map { it.getListItem(displayDate, location, getDeclination()) }
+            val declination = if (!prefs.compass.useTrueNorth) getDeclination() else 0f
+
+            val items = producers.map { it.getListItem(displayDate, location, declination) }
 
             onMain {
                 binding.astronomyDetailList.setItems(items.filterNotNull())
