@@ -28,6 +28,8 @@ The time of sunrise, sunset, and noon is shown below the chart, as well as the l
 - **Daylight**: This is the amount of time when the sun is up.
 - **Night**: This is the amount of time when the sun is down.
 - **Season**: This is the astronomical season based on the Earth's position around the sun. It will be one of the following: spring, summer, fall, or winter.
+- **Altitude**: This is the current angle of the sun above the horizon. It is shown in degrees.
+- **Direction**: This is the current direction the sun is in. It is shown in degrees.
 
 ## Moon
 The time of moonrise, moonset, and lunar noon are shown below the chart, as well as the current moon phase and illumination percentage. If you tap this section, you will see more details about the moon for the current day:
