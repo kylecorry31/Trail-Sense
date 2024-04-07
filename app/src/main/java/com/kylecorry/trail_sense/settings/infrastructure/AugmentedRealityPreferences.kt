@@ -49,13 +49,6 @@ class AugmentedRealityPreferences(context: Context) : PreferenceRepo(context) {
         false
     )
 
-    val projectionType by StringEnumPreference(
-        cache,
-        context.getString(R.string.pref_augmented_reality_mapper),
-        ProjectionType.entries.associateBy { it.id },
-        ProjectionType.EstimatedIntrinsics
-    )
-
     // Layer visibility
     var showBeaconLayer by BooleanPreference(
         cache,
@@ -80,11 +73,4 @@ class AugmentedRealityPreferences(context: Context) : PreferenceRepo(context) {
         context.getString(R.string.pref_show_ar_grid_layer),
         true
     )
-
-    enum class ProjectionType(val id: String) {
-        EstimatedIntrinsics("estimated_intrinsics"),
-        ManufacturerIntrinsics("manufacturer_intrinsics"),
-        Perspective("perspective"),
-        Linear("linear")
-    }
 }

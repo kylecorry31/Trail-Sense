@@ -550,7 +550,7 @@ class AugmentedRealityView : CanvasView {
                 if (cameraMapper == null) {
                     cameraMapper = camera.camera?.let {
                         CameraAnglePixelMapperFactory().getMapper(
-                            userPrefs.augmentedReality.projectionType,
+                            userPrefs.camera.projectionType,
                             it
                         )
                     }
