@@ -1140,4 +1140,11 @@
     <string name="projection_perspective">Perspectief</string>
     <string name="projection_linear">Lineair</string>
     <string name="default_string">Standaard</string>
+    <string name="grid">Rooster</string>
+    <string name="ar_calibration_disclaimer">Controleer vóór gebruik van de Aangevulde Realiteit of de zon- of maanpictogrammen zich in de juiste positie bevinden ten opzichte van de echte wereld. Als dit niet het geval is, klik op het kompaspictogram linksboven in het scherm en volg de instructies om te kalibreren.</string>
+    <string name="astronomy_altitude">Hoogte</string>
+    <string name="layers">Lagen</string>
+    <string name="visible">Zichtbaar</string>
+    <string name="date">Datum</string>
+    <string name="max_s">Max. %s</string>
 </resources>
