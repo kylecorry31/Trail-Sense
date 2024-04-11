@@ -42,4 +42,20 @@
     <string name="discharging_fast">กำลังคายประจุอย่างรวดเร็ว(%s)</string>
     <string name="battery_capacity_format">%s มิลลิแอมป์ชั่วโมง</string>
     <string name="access_background_location_rationale">Trail Sense ใช้ข้อมูลตำแหน่งในพื้นหลังสำหรับการปรับเทียบค่าความกดอากาศจากระดับน้ำทะเลในการติดตามสภาพอากาศ และเพื่อการแจ้งเตือนพระอาทิตย์ขึ้นลงได้แม่นยำยิ่งขึ้น [ดูนโยบายความเป็นส่วนตัว] (https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="app_disclaimer_message_title">เงื่อนไขการใช้งาน</string>
+    <string name="duration_hour_format">%dชั่วโมง</string>
+    <string name="duration_minute_format">%dนาที</string>
+    <string name="degree_format">%.0f°</string>
+    <string name="degree">%sองศา</string>
+    <string name="share_action_send">ส่ง</string>
+    <string name="beacon_comment">หมายเหตุ(ไม่จำเป็น)</string>
+    <string name="units_inhg">นิ้วปรอท</string>
+    <string name="stop">หยุด</string>
+    <string name="units_mmhg">มิลลิเมตรปรอท</string>
+    <string name="units_inhg_short">นิ้ว</string>
+    <string name="units_psi">ปอนด์ต่อตารางนิ้ว</string>
+    <string name="duration_second_format">%dวินาที</string>
+    <string name="name">ชื่อ</string>
+    <string name="beacon_invalid_name">ชื่อใช้ไม่ได้</string>
+    <string name="units_mbar">มิลลิบาร์</string>
 </resources>
