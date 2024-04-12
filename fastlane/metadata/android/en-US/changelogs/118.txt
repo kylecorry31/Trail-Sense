@@ -1,0 +1,22 @@
+Augmented Reality
+- Available in beta - view beacons, paths, and sun/moon with camera
+- Not available on devices without a compass
+- Toggle layers
+- Adjustable path view distance
+- Show compass / GPS accuracy
+
+Clinometer
+- Show measurement on camera view
+
+Astronomy
+- View sun / moon path in 3D
+- Show current direction and altitude of sun / moon on click
+
+Metal Detector
+- Play sound when metal is detected
+
+Sensors
+- List all sensors
+
+User Guide
+- Add guides for Settings
