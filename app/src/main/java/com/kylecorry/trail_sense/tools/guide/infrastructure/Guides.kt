@@ -54,7 +54,7 @@ object Guides {
                 if (Sensors.hasBarometer(context)) UserGuide(
                     context.getString(R.string.barometer),
                     null,
-                    R.raw.calibrating_barometer
+                    R.raw.guide_settings_barometer
                 ) else null,
                 UserGuide(
                     context.getString(R.string.tool_thermometer_title),

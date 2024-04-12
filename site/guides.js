@@ -34,6 +34,7 @@ const guides = [
     'tool_weather',
     'tool_whistle',
     'tool_white_noise',
+    'settings_barometer',
 ];
 
 // Populate the guide list
