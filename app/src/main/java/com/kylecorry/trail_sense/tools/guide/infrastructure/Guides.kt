@@ -48,8 +48,8 @@ object Guides {
             )
         }
 
-        val sensors = UserGuideCategory(
-            context.getString(R.string.sensors),
+        val settings = UserGuideCategory(
+            context.getString(R.string.settings),
             listOfNotNull(
                 if (Sensors.hasBarometer(context)) UserGuide(
                     context.getString(R.string.barometer),
@@ -59,7 +59,7 @@ object Guides {
                 UserGuide(
                     context.getString(R.string.tool_thermometer_title),
                     null,
-                    R.raw.calibrating_thermometer
+                    R.raw.guide_settings_thermometer
                 ),
             )
         )
@@ -77,6 +77,6 @@ object Guides {
             )
         )
 
-        return general + toolGuides + sensors
+        return general + toolGuides + settings
     }
 }

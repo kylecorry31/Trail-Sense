@@ -1,11 +1,15 @@
-You can update the thermometer calibration from the thermometer settings (Trail Sense Settings > Sensors > Thermometer).
+Thermometer settings can be found in Trail Sense Settings > Sensors > Thermometer.
 
 ## Source
-
 On most phones, you should use this historic temperature source as it will be more accurate.
 
 - **Historic** temperature is estimated from 30 years of historical data. It's usually accurate, but not during extreme weather. You can calibrate it if it's wrong for your location.
 - **Sensor** temperature is read from the phone's built-in thermometer. It's often inaccurate because it's affected by the phone's CPU and battery. You can calibrate it to improve its accuracy. If you power off your phone for a while, you will get a more accurate reading from the sensor.
+
+## Smoothing
+To reduce noise in temperature readings, you can increase the smoothing setting. If using the historic temperature source, this is normally not needed.
+
+If the Weather Monitor (see the Weather tool) is enabled, you will see a chart of the temperature history as recorded by your device. The colored line represents the calibrated temperature while the gray line represents the raw temperature. When you adjust the settings, the chart will update to show the new calibrated temperature. The goal is to have the colored line smoothly follow the gray line.
 
 ### Updating recorded temperatures
 
