@@ -1059,6 +1059,8 @@
     <string name="beacons">Beacons</string>
     <string name="pref_start_on_boot" translatable="false">pref_start_on_boot</string>
     <string name="pref_start_on_boot_title">Start on boot</string>
+    <string name="pref_enable_analog_clock" translatable="false">pref_enable_analog_clock</string>
+    <string name="pref_enable_analog_title">Enable Analog Clock</string>
     <string name="bearing">Bearing</string>
     <string name="pref_only_navigate_path_points" translatable="false">pref_only_navigate_path_points</string>
     <string name="pref_only_navigate_path_points_title">Only navigate to recorded points</string>
@@ -1404,4 +1406,6 @@
     <!--    Maximum value (ex. Max 100 ft)-->
     <string name="max_s">Max %s</string>
     <string name="ar_calibration_disclaimer">Before each use of the Augmented Reality tool, verify the sun or moon icons are properly aligned to the real world. If not, click the compass icon in the top left of the screen and follow the instructions to calibrate.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
