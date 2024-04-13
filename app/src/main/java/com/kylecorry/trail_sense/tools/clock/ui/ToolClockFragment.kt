@@ -110,6 +110,14 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
         binding.analogClock.time = myTime.toLocalTime()
         binding.analogClock.use24Hours = prefs.use24HourTime
         binding.analogClock.isAnalog = prefs.clock.enabledAnalogView
+        if(prefs.clock.enabledAnalogView){
+            binding.clockBackground.setImageResource(R.drawable.bubble);
+
+        } else {
+            binding.clockBackground.setImageResource(R.drawable.rounded_rectangle);
+
+        }
+
     }
 
     private fun sendNextMinuteNotification() {
