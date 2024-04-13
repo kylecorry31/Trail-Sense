@@ -517,6 +517,12 @@
         android:id="@+id/cellSignalSettingsFragment"
         android:name="com.kylecorry.trail_sense.settings.ui.CellSignalSettingsFragment"
         android:label="CellSignalSettingsFragment" />
+
+    <fragment
+        android:id="@+id/clockSettingsFragment"
+        android:name="com.kylecorry.trail_sense.settings.ui.ClockSettingsFragment"
+        android:label="ClockSettingsFragment" />
+
     <fragment
         android:id="@+id/privacySettingsFragment"
         android:name="com.kylecorry.trail_sense.settings.ui.PrivacySettingsFragment"
