@@ -31,6 +31,7 @@ class ClockView : View {
 
     var time: LocalTime = LocalTime.now()
     var use24Hours = true
+    var isAnalog = true  // True for analog, false for digital
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -59,12 +60,36 @@ class ClockView : View {
             initClock()
         }
         canvas.drawColor(Color.TRANSPARENT)
-        drawNumeral(canvas)
-        drawHands(canvas)
-        drawCenter(canvas)
+        if (isAnalog) {
+            drawNumeral(canvas)
+            drawHands(canvas)
+            drawCenter(canvas)
+        } else {
+            drawDigitalClock(canvas)
+        }
         postInvalidateDelayed(20)
         invalidate()
     }
+    private fun drawDigitalClock(canvas: Canvas) {
+        val timeText = if (use24Hours) {
+            String.format("%02d:%02d:%02d", time.hour, time.minute, time.second)
+        } else {
+            format12HourTime(time)
+        }
+        paint.textSize = fontSize.toFloat() * 4f
+        paint.color = Color.WHITE
+        paint.textAlign = Paint.Align.CENTER
+        canvas.drawText(timeText, width / 2f, height / 2f, paint)
+    }
+
+    private fun format12HourTime(time: LocalTime): String {
+        val hour = if (time.hour % 12 == 0) 12 else time.hour % 12
+        val minute = time.minute.toString().padStart(2, '0')
+        val second = time.second.toString().padStart(2, '0')
+        val amPm = if (time.hour < 12) "AM" else "PM"
+        return "$hour:$minute:$second $amPm"
+    }
+
 
     private fun drawHand(canvas: Canvas, loc: Double, isHour: Boolean, strokeWidth: Float = 3f) {
         val angle = Math.PI * loc / 30 - Math.PI / 2
