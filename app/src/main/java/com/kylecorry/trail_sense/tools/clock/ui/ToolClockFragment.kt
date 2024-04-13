@@ -112,10 +112,10 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
         binding.analogClock.isAnalog = prefs.clock.enabledAnalogView
         if(prefs.clock.enabledAnalogView){
             binding.clockBackground.setImageResource(R.drawable.bubble);
-
+            binding.clockTitle.visibility = View.VISIBLE
         } else {
             binding.clockBackground.setImageResource(R.drawable.rounded_rectangle);
-
+            binding.clockTitle.title.visibility = View.INVISIBLE
         }
 
     }
