@@ -47,23 +47,6 @@ object Guides {
                 guides
             )
         }
-
-        val settings = UserGuideCategory(
-            context.getString(R.string.settings),
-            listOfNotNull(
-                if (Sensors.hasBarometer(context)) UserGuide(
-                    context.getString(R.string.barometer),
-                    null,
-                    R.raw.guide_settings_barometer
-                ) else null,
-                UserGuide(
-                    context.getString(R.string.tool_thermometer_title),
-                    null,
-                    R.raw.guide_settings_thermometer
-                ),
-            )
-        )
-
         val general = listOf(
             UserGuideCategory(
                 context.getString(R.string.general),
@@ -77,6 +60,6 @@ object Guides {
             )
         )
 
-        return general + toolGuides + settings
+        return general + toolGuides
     }
 }

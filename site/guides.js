@@ -25,6 +25,7 @@ const guides = [
   "tool_recommended_apps",
   "tool_ruler",
   "tool_sensors",
+  "tool_settings",
   "tool_solar_panel_aligner",
   "tool_tools",
   "tool_temperature_estimation",
@@ -33,9 +34,7 @@ const guides = [
   "tool_water_boil_timer",
   "tool_weather",
   "tool_whistle",
-  "tool_white_noise",
-  "settings_barometer",
-  "settings_thermometer",
+  "tool_white_noise"
 ];
 
 // Populate the guide list

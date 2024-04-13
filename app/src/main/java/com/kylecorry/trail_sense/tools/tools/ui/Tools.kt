@@ -506,6 +506,7 @@ object Tools {
                 R.drawable.ic_settings,
                 R.id.action_settings,
                 ToolCategory.Other,
+                guideId = R.raw.guide_tool_settings
             ),
             Tool(
                 USER_GUIDE,
