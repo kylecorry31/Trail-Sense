@@ -256,7 +256,8 @@ object Tools {
                 R.drawable.ic_tool_clock,
                 R.id.toolClockFragment,
                 ToolCategory.Time,
-                guideId = R.raw.guide_tool_clock
+                guideId = R.raw.guide_tool_clock,
+                settingsNavAction = R.id.clockSettingsFragment,
             ),
             Tool(
                 ASTRONOMY,
