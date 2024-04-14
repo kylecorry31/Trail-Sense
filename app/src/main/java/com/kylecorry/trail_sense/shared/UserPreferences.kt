@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.settings.infrastructure.AugmentedRealityPrefere
 import com.kylecorry.trail_sense.settings.infrastructure.CameraPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.CellSignalPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ClinometerPreferences
+import com.kylecorry.trail_sense.settings.infrastructure.ClockPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.CompassPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ErrorPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.FlashlightPreferenceRepo
@@ -63,6 +64,7 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
     val pedometer by lazy { PedometerPreferences(context) }
     val thermometer by lazy { ThermometerPreferences(context) }
     val compass by lazy { CompassPreferences(context) }
+    val clock by lazy { ClockPreferences(context) }
     val camera by lazy { CameraPreferences(context) }
     val altimeter by lazy { AltimeterPreferences(context) }
     val augmentedReality by lazy { AugmentedRealityPreferences(context) }

@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.tools.clock.ui
 
 import android.content.Intent
-import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
@@ -9,11 +8,9 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.getSystemService
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.background.AlarmTaskScheduler
 import com.kylecorry.andromeda.core.time.CoroutineTimer
-import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.sol.time.Time.toZonedDateTime
@@ -105,10 +102,25 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
         val systemDiff = Duration.between(systemTime, Instant.now())
         val currentTime = gpsTime.plus(systemDiff)
         val myTime = ZonedDateTime.ofInstant(currentTime, ZoneId.systemDefault())
-        binding.clockTitle.title.text = formatService.formatTime(myTime.toLocalTime())
         binding.clockTitle.subtitle.text = formatService.formatDate(myTime)
-        binding.analogClock.time = myTime.toLocalTime()
-        binding.analogClock.use24Hours = prefs.use24HourTime
+        if(prefs.clock.enabledAnalogView){
+            binding.clockTitle.visibility = View.VISIBLE
+            binding.analogClock.visibility = View.VISIBLE
+            binding.digitalClock.visibility = View.GONE
+
+            binding.clockTitle.title.text = formatService.formatTime(myTime.toLocalTime())
+            binding.clockBackground.setImageResource(R.drawable.bubble);
+            binding.analogClock.time = myTime.toLocalTime()
+            binding.analogClock.use24Hours = prefs.use24HourTime
+        } else {
+            binding.clockTitle.title.visibility = View.INVISIBLE
+            binding.analogClock.visibility = View.INVISIBLE
+            binding.digitalClock.visibility = View.VISIBLE
+
+            binding.clockBackground.setImageResource(R.drawable.rounded_rectangle);
+            binding.digitalClock.text = formatService.formatTime(myTime.toLocalTime())
+        }
+
     }
 
     private fun sendNextMinuteNotification() {
