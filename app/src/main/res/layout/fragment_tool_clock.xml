@@ -41,8 +41,6 @@
         android:id="@+id/digital_clock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-
         android:visibility="invisible"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/analog_clock"
