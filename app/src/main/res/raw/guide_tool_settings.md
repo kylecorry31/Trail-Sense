@@ -10,6 +10,20 @@ The units can be adjusted in Settings > Units. By default, the units are set bas
 - **Use 24-hour format**: Whether to use a 24-hour clock.
 - **Add leading zero to time**: Whether to add a leading zero to the time (ex. 01:00 instead of 1:00).
 
+## Sensors > GPS
+GPS settings can be found in Trail Sense Settings > Sensors > GPS. If your phone supports it, multiple GNSS systems will be used (such as GPS, GLONASS, Galileo, and BeiDou).
+
+### Location Source
+You can choose to mock your location by disabling the "Auto adjust location" setting. This will enable the "Location override" setting where you can manually set your location.
+
+When "Auto adjust location" is enabled, the location will be determined by your device's GPS.
+
+### Require satellite fix
+To get a more accurate location, Trail Sense requires at least 4 satellites to have a fix. If you are having trouble getting a location, you can disable this setting to allow for a location with fewer satellites (or if your phone does not support satellite counts).
+
+### Cache
+Trail Sense automatically caches your last location to quickly load details in certain tools. You can clear this cache temporarily using the "Clear cache" option in the GPS settings.
+
 ## Sensors > Barometer
 The barometer is used to measure air pressure. It can be used to predict the weather or determine your altitude. To adjust barometer settings, go to Trail Sense Settings > Sensors > Barometer.
 
@@ -55,6 +69,23 @@ If you change the temperature source to "Historic", you can choose to update all
 
 **Caution:** Refer to your phone's manual to identify the designed operating temperatures, do not exceed these when performing calibration.
 
+## Sensors > Camera
+Camera settings can be found in Trail Sense Settings > Sensors > Camera.
+
+### Augmented reality projection
+The projection method determines how points get displayed onto the camera view. If you are experiencing issues with the points not aligning with the real world, try changing the projection method.
+
+- **Estimated Intrinsics**: This is the default method and should work on most devices. It uses the camera's properties to estimate the projection.
+- **Manual Intrinsics**: This is similar to the estimated intrinsics method, except that the calculations are done by the manufacturer. On some devices this does not work correctly.
+- **Perspective**: This is a simple projection method that factors in the distance of the point from the camera. It is similar to intrinsics, but may be less accurate in some cases.
+- **Linear**: This is the simplest projection method (also the fastest). It does not factor in distances.
+
+## Sensors > Cell signal
+Cell signal settings can be found in Trail Sense Settings > Sensors > Cell signal.
+
+### Refresh signal cache
+Your phone reports the current cell signal strength, but it may be outdated. You can choose to forcefully refresh the cell signal cache to get the current signal strength. This feature is only used by the Paths tool (Backtrack) when Settings > Paths > Record cell signal is enabled.
+
 ## Privacy
 Privacy settings can be adjusted in Settings > Privacy.
 
@@ -97,9 +128,6 @@ Theme related settings can be adjusted in Settings > Theme.
 - **Dynamic Colors**: Whether to use your device's dynamic colors in the app, if disabled or unavailable colors in Trail Sense will be a shade of orange.
 - **Compass Dynamic Colors**: Whether to use your device's dynamic colors in the compass (cardinal directions and certain markers on maps).
 - **Compact Mode**: Whether to use a more compact layout for the bottom bar (thinner and does not display labels).
-
-## Diagnostics
-If you are having issues with the app, you can view diagnostic information in Settings > Diagnostics. This feature runs some checks and clicking on each failed check will provide more information on how to resolve the issue and what is impacted.
 
 ## About
 You can find additional information about Trail Sense in Settings > About.
