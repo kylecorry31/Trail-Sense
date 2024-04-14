@@ -10,6 +10,7 @@ import android.util.TypedValue
 import android.view.View
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
+import com.kylecorry.trail_sense.shared.FormatService
 import java.time.LocalTime
 import kotlin.math.cos
 import kotlin.math.min
@@ -65,14 +66,15 @@ class ClockView : View {
             drawHands(canvas)
             drawCenter(canvas)
         } else {
-            drawDigitalClock(canvas)
+            drawDigitalClock(canvas,context)
         }
         postInvalidateDelayed(20)
         invalidate()
     }
-    private fun drawDigitalClock(canvas: Canvas) {
+    private fun drawDigitalClock(canvas: Canvas,context: Context) {
+       val formatService = FormatService.getInstance(context)
         val timeText = if (use24Hours) {
-            String.format("%02d:%02d:%02d", time.hour, time.minute, time.second)
+            formatService.formatTime(time)
         } else {
             format12HourTime(time)
         }

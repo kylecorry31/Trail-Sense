@@ -1406,6 +1406,4 @@
     <!--    Maximum value (ex. Max 100 ft)-->
     <string name="max_s">Max %s</string>
     <string name="ar_calibration_disclaimer">Before each use of the Augmented Reality tool, verify the sun or moon icons are properly aligned to the real world. If not, click the compass icon in the top left of the screen and follow the instructions to calibrate.</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
