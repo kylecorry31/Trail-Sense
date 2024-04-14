@@ -8,6 +8,7 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.background.AlarmTaskScheduler
 import com.kylecorry.andromeda.core.time.CoroutineTimer
@@ -53,6 +54,12 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
             binding.updatingClock.visibility = View.VISIBLE
             binding.pipButton.visibility = View.INVISIBLE
         }
+
+        val showAnalogClock = prefs.clock.showAnalogClock
+        binding.clockTitle.title.isVisible = showAnalogClock
+        binding.analogClock.isVisible = showAnalogClock
+        binding.digitalClock.isVisible = !showAnalogClock
+        binding.clockBackground.setImageResource(if (showAnalogClock) R.drawable.bubble else R.drawable.rounded_rectangle)
     }
 
     override fun onResume() {
@@ -103,21 +110,11 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
         val currentTime = gpsTime.plus(systemDiff)
         val myTime = ZonedDateTime.ofInstant(currentTime, ZoneId.systemDefault())
         binding.clockTitle.subtitle.text = formatService.formatDate(myTime)
-        if(prefs.clock.enabledAnalogView){
-            binding.clockTitle.visibility = View.VISIBLE
-            binding.analogClock.visibility = View.VISIBLE
-            binding.digitalClock.visibility = View.GONE
-
+        if (prefs.clock.showAnalogClock) {
             binding.clockTitle.title.text = formatService.formatTime(myTime.toLocalTime())
-            binding.clockBackground.setImageResource(R.drawable.bubble);
             binding.analogClock.time = myTime.toLocalTime()
             binding.analogClock.use24Hours = prefs.use24HourTime
         } else {
-            binding.clockTitle.title.visibility = View.INVISIBLE
-            binding.analogClock.visibility = View.INVISIBLE
-            binding.digitalClock.visibility = View.VISIBLE
-
-            binding.clockBackground.setImageResource(R.drawable.rounded_rectangle);
             binding.digitalClock.text = formatService.formatTime(myTime.toLocalTime())
         }
 

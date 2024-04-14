@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.R
 
 class ClockPreferences(context: Context) : PreferenceRepo(context) {
 
-    var enabledAnalogView by BooleanPreference(
+    var showAnalogClock by BooleanPreference(
         cache,
         context.getString(R.string.pref_enable_analog_clock),
         true

@@ -59,12 +59,13 @@ class ClockView : View {
             initClock()
         }
         canvas.drawColor(Color.TRANSPARENT)
-            drawNumeral(canvas)
-            drawHands(canvas)
-            drawCenter(canvas)
+        drawNumeral(canvas)
+        drawHands(canvas)
+        drawCenter(canvas)
         postInvalidateDelayed(20)
         invalidate()
     }
+
     private fun drawHand(canvas: Canvas, loc: Double, isHour: Boolean, strokeWidth: Float = 3f) {
         val angle = Math.PI * loc / 30 - Math.PI / 2
         val handRadius =
