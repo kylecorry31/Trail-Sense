@@ -59,7 +59,7 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
         binding.clockTitle.title.isVisible = showAnalogClock
         binding.analogClock.isVisible = showAnalogClock
         binding.digitalClock.isVisible = !showAnalogClock
-        binding.clockBackground.setImageResource(if (showAnalogClock) R.drawable.bubble else R.drawable.rounded_rectangle)
+        binding.clockBackground.isVisible = showAnalogClock
     }
 
     override fun onResume() {
