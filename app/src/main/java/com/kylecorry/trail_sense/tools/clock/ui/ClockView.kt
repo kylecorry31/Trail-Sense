@@ -10,8 +10,6 @@ import android.util.TypedValue
 import android.view.View
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
-import com.kylecorry.trail_sense.shared.FormatService
-import java.lang.Integer.max
 import java.time.LocalTime
 import kotlin.math.cos
 import kotlin.math.min
@@ -33,7 +31,6 @@ class ClockView : View {
 
     var time: LocalTime = LocalTime.now()
     var use24Hours = true
-    var isAnalog = true  // True for analog, false for digital
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -62,35 +59,12 @@ class ClockView : View {
             initClock()
         }
         canvas.drawColor(Color.TRANSPARENT)
-        if (isAnalog) {
             drawNumeral(canvas)
             drawHands(canvas)
             drawCenter(canvas)
-        } else {
-            drawDigitalClock(canvas,context)
-        }
         postInvalidateDelayed(20)
         invalidate()
     }
-    private fun drawDigitalClock(canvas: Canvas, context: Context) {
-        val formatService = FormatService.getInstance(context)
-        val timeText = formatService.formatTime(time)
-        paint.textSize = fontSize.toFloat() * 3.8f
-        paint.color = Color.WHITE
-        // Change to LEFT for better control
-        paint.textAlign = Paint.Align.LEFT
-
-        // Measure the text to ensure it fits within the canvas with padding
-        paint.getTextBounds(timeText, 0, timeText.length, rect)
-        val textWidth = rect.width()
-        // Calculate startX to center the text
-        val startX = (width - textWidth) / 2f
-
-        val minimumPadding = 8
-        val actualStartX = max(minimumPadding, startX.toInt()).toFloat()
-        canvas.drawText(timeText, actualStartX, height / 2f + rect.height() / 2f, paint)
-    }
-
     private fun drawHand(canvas: Canvas, loc: Double, isHour: Boolean, strokeWidth: Float = 3f) {
         val angle = Math.PI * loc / 30 - Math.PI / 2
         val handRadius =
