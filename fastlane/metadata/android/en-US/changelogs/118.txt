@@ -20,3 +20,6 @@ Sensors
 
 User Guide
 - Add guides for Settings
+
+Clock
+- Add setting to use digital clock
