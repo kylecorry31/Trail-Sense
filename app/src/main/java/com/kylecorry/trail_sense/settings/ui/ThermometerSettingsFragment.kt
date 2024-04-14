@@ -179,7 +179,7 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
         }
 
         onClick(preference(R.string.pref_thermometer_user_guide_button)){
-            UserGuideUtils.showGuide(this, R.raw.calibrating_thermometer)
+            UserGuideUtils.showGuide(this, R.raw.guide_tool_settings)
         }
     }
 
