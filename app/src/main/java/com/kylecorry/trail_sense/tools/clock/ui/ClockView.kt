@@ -11,6 +11,7 @@ import android.view.View
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.FormatService
+import java.lang.Integer.max
 import java.time.LocalTime
 import kotlin.math.cos
 import kotlin.math.min
@@ -71,13 +72,23 @@ class ClockView : View {
         postInvalidateDelayed(20)
         invalidate()
     }
-    private fun drawDigitalClock(canvas: Canvas,context: Context) {
-       val formatService = FormatService.getInstance(context)
+    private fun drawDigitalClock(canvas: Canvas, context: Context) {
+        val formatService = FormatService.getInstance(context)
         val timeText = formatService.formatTime(time)
-        paint.textSize = fontSize.toFloat() * 4.5f
+        paint.textSize = fontSize.toFloat() * 3.8f
         paint.color = Color.WHITE
-        paint.textAlign = Paint.Align.CENTER
-        canvas.drawText(timeText, width / 2f, height / 2f, paint)
+        // Change to LEFT for better control
+        paint.textAlign = Paint.Align.LEFT
+
+        // Measure the text to ensure it fits within the canvas with padding
+        paint.getTextBounds(timeText, 0, timeText.length, rect)
+        val textWidth = rect.width()
+        // Calculate startX to center the text
+        val startX = (width - textWidth) / 2f
+
+        val minimumPadding = 8
+        val actualStartX = max(minimumPadding, startX.toInt()).toFloat()
+        canvas.drawText(timeText, actualStartX, height / 2f + rect.height() / 2f, paint)
     }
 
     private fun drawHand(canvas: Canvas, loc: Double, isHour: Boolean, strokeWidth: Float = 3f) {
