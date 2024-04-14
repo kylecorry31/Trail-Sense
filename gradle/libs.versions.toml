@@ -1,5 +1,5 @@
 [versions]
-androidApplication = "8.3.1"
+androidApplication = "8.3.2"
 andromedaVersion = "7.0.0"
 cameraxVersion = "1.3.2"
 coreKtx = "1.12.0"
