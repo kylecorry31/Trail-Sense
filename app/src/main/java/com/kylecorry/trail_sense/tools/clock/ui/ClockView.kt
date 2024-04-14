@@ -74,7 +74,7 @@ class ClockView : View {
     private fun drawDigitalClock(canvas: Canvas,context: Context) {
        val formatService = FormatService.getInstance(context)
         val timeText = formatService.formatTime(time)
-        paint.textSize = fontSize.toFloat() * 4f
+        paint.textSize = fontSize.toFloat() * 4.5f
         paint.color = Color.WHITE
         paint.textAlign = Paint.Align.CENTER
         canvas.drawText(timeText, width / 2f, height / 2f, paint)
