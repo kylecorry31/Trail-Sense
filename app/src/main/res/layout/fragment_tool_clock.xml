@@ -37,6 +37,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/digital_clock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:visibility="invisible"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/analog_clock"
+        app:layout_constraintEnd_toEndOf="@+id/analog_clock"
+        app:layout_constraintStart_toStartOf="@+id/analog_clock"
+        app:layout_constraintTop_toTopOf="@+id/analog_clock"
+        android:textAppearance="@style/TextAppearance.Material3.DisplayMedium" />
 
     <TextView
         android:id="@+id/updating_clock"
