@@ -16,18 +16,6 @@
         app:subtitle="Monday, November 5, 2020"
         tools:title="10:00:00 AM" />
 
-    <ImageView
-        android:id="@+id/clock_background"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="@+id/analog_clock"
-        app:layout_constraintEnd_toEndOf="@+id/analog_clock"
-        app:layout_constraintStart_toStartOf="@+id/analog_clock"
-        app:layout_constraintTop_toTopOf="@+id/analog_clock"
-        app:srcCompat="@drawable/bubble"
-        app:tint="@color/colorSecondary" />
-
     <com.kylecorry.trail_sense.tools.clock.ui.ClockView
         android:id="@+id/analog_clock"
         android:layout_width="250dp"
@@ -38,7 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+     <TextView
         android:id="@+id/digital_clock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
