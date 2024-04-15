@@ -8,7 +8,9 @@ import android.graphics.Rect
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
+import androidx.core.content.ContextCompat
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import java.time.LocalTime
 import kotlin.math.cos
@@ -72,7 +74,7 @@ class ClockView : View {
         val backgroundRadius = radius + paddingSize
         val backgroundPaint = Paint().apply {
             style = Paint.Style.FILL
-            color = Color.parseColor("#222222") // Color from your colorSecondary
+            color = ContextCompat.getColor(context, R.color.colorSecondary)
         }
         canvas.drawCircle(width / 2f, height / 2f, backgroundRadius.toFloat(), backgroundPaint)
     }
