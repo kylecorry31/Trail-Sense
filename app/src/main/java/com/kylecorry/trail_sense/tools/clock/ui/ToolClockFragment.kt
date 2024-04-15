@@ -59,7 +59,6 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
         binding.clockTitle.title.isVisible = showAnalogClock
         binding.analogClock.isVisible = showAnalogClock
         binding.digitalClock.isVisible = !showAnalogClock
-        binding.clockBackground.isVisible = showAnalogClock
     }
 
     override fun onResume() {

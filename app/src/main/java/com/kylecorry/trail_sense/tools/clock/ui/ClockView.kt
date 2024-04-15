@@ -8,7 +8,9 @@ import android.graphics.Rect
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
+import androidx.core.content.ContextCompat
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import java.time.LocalTime
 import kotlin.math.cos
@@ -28,6 +30,7 @@ class ClockView : View {
     private var isInit = false
     private val numbers = intArrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
     private val rect = Rect()
+    private val paddingSize = 60
 
     var time: LocalTime = LocalTime.now()
     var use24Hours = true
@@ -41,7 +44,7 @@ class ClockView : View {
     )
 
     private fun initClock() {
-        padding = numeralSpacing + 50
+        padding = numeralSpacing + paddingSize
         fontSize = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_SP, 13f,
             resources.displayMetrics
@@ -58,12 +61,22 @@ class ClockView : View {
         if (!isInit) {
             initClock()
         }
+        drawBackground(canvas)
         canvas.drawColor(Color.TRANSPARENT)
         drawNumeral(canvas)
         drawHands(canvas)
         drawCenter(canvas)
         postInvalidateDelayed(20)
         invalidate()
+    }
+
+    private fun drawBackground(canvas: Canvas) {
+        val backgroundRadius = radius + paddingSize
+        val backgroundPaint = Paint().apply {
+            style = Paint.Style.FILL
+            color = ContextCompat.getColor(context, R.color.colorSecondary)
+        }
+        canvas.drawCircle(width / 2f, height / 2f, backgroundRadius.toFloat(), backgroundPaint)
     }
 
     private fun drawHand(canvas: Canvas, loc: Double, isHour: Boolean, strokeWidth: Float = 3f) {
