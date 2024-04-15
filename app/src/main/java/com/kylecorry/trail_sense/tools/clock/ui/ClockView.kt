@@ -30,7 +30,7 @@ class ClockView : View {
     private var isInit = false
     private val numbers = intArrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
     private val rect = Rect()
-    private val  paddingSize = 60
+    private val paddingSize = 60
 
     var time: LocalTime = LocalTime.now()
     var use24Hours = true
