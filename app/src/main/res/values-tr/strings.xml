@@ -1148,4 +1148,5 @@
     <string name="date">Tarih</string>
     <string name="max_s">En fazla %s</string>
     <string name="ar_calibration_disclaimer">Artırılmış Gerçeklik aracını her kullanmadan önce, güneş veya ay simgelerinin gerçek dünyaya uygun şekilde hizalandığını doğrulayın. Değilse, ekranın sol üst köşesindeki pusula simgesine tıklayın ve kalibre etmek için talimatları izleyin.</string>
+    <string name="pref_enable_analog_title">Analog Saat</string>
 </resources>
