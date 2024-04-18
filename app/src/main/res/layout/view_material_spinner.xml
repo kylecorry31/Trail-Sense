@@ -21,10 +21,4 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Spinner
-        android:id="@+id/material_spinner_spinner"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:spinnerMode="dialog" />
-
 </FrameLayout>
