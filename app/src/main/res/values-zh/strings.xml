@@ -208,7 +208,7 @@
     <string name="category_fire">火</string>
     <string name="category_medical">医药</string>
     <string name="category_clothing">着装</string>
-    <string name="category_hydration">水和作用</string>
+    <string name="category_hydration">供水</string>
     <string name="category_food">食物</string>
     <string name="other">其他</string>
     <string name="tool_bubble_level_summary">确定表面是否平坦</string>
