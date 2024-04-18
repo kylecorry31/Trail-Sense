@@ -1,27 +1,53 @@
 <p>用 Trail Sense 探索互联网不可及之处。</p>
 
-<p>Trail Sense 应用使用您手机的传感器，帮助您进行徒步旅行。Trail Sense 包含很多可以在不同情景下使用的工具，比如远足、露营、背包旅行、攀岩等等。</p>
-
-<p>这个应用也不使用、也永远不会使用互联网 - Trail Sense 中的所有信息都直接来自您手机的传感器，Trail Sense 也不会发送数据。</p>
-
 <ul>
     <li>为远足、背包旅行、露营与地理侦测设计</li>
     <li>设置信标并前往其所在地</li>
+    <li>用作指南针（仅在带指南针传感器的设备上可用）</li>
     <li>跟随路径</li>
     <li>使用 Backtrack 功能回溯路径</li>
+    <li>将照片用作地图</li>
     <li>规划行李</li>
-    <li>在日落前收到预警</li>
-    <li>预测天气</li>
+    <li>在日落前收到提醒</li>
+    <li>预测天气（仅在带气压传感器的设备上可用）</li>
     <li>将手机用作手电筒</li>
     <li>还有更多！</li>
 </ul>
 
-<p>您可以将 Trail Sense 当做工具使用，但不应该依赖它。这个应用只是为了提供信息，预测结果与传感器的准确度由若干因素决定，包括校准过程、传感器质量、外部来源等等。使用时请自担风险，一定要准备好备用工具（如指南针），并尽可能注意安全。</p>
+<p>Trail Sense 是一个工具，就像你带到野外的任何其他工具一样，
+有必要准备备用设施并学习技能。
+这个应用只是为了提供信息，预测结果与传感器的准确度由若干因素决定，包括校准过程、传感器质量、外部来源等等。
+使用时请自担风险，一定要准备好备用工具（如指南针），并尽可能注意安全。</p>
+
+<p>这个应用也不使用、也永远不会使用互联网 - Trail Sense 中的所有信息都直接来自您手机的传感器，Trail Sense 也不会发送数据。</p>
+
+<h3>一般问题</h3>
+<ul>
+    <li>没有指南针：如果你的手机没有指南针传感器，我没办法让它工作，因为这是硬件方面的问题。
+    你仍然可以使用 Trail Sense 的其他功能。</li>
+    <li>没有天气：只有你的手机有气压传感器时，“天气”工具才可用。</li>
+</ul>
 
 <p>找到问题或者想要新功能？发邮件给 trailsense@protonmail.com 联系我，也可以在 GitHub 上新建议题： github.com/kylecorry31/Trail-Sense</p>
 
 <p>我是 Trail Sense 唯一的开发者，因此会尽力协助解决问题 - 但我测试的设备有限。</p>
 
-<p>隐私政策： https://kylecorry.com/Trail-Sense/#privacy</p>
-<p>常见问题： https://github.com/kylecorry31/Trail-Sense#faq</p>
-<p>Trail Sense 使用 MIT 许可证发布： https://opensource.org/license/mit/</p>
+
+<h3>权限</h3>
+<ul>
+    <li>通知：允许 Trail Sense 显示通知（路径回溯、天气、日落提醒、天文时间、水沸腾计时器等等）</li>
+    <li>位置：允许 Trail Sense 获取你的位置以用于导航、天气（海平面校准）与天文学。</li>
+    <li>后台位置：允许 Trail Sense 在后台获取你的位置以用于日落提醒。
+    在某些设备上，这也会改善路径回溯与天气监测的可靠性。</li>
+    <li>身体活动：允许 Trail Sense 使用计步器以计算距离。</li>
+    <li>相机：允许 Trail Sense 使用在实景指南针与测斜仪中使用相机，以及在云扫描器、二维码扫描器与照片地图中拍摄照片。</li>
+    <li>闹钟与提醒：允许 Trail Sense 在某个时间发送通知。
+    时钟工具（更新系统时间时）与日落提醒会使用此权限。</li>
+</ul>
+
+<h3>链接</h3>
+<ul>
+    <li>隐私政策：https://kylecorry.com/Trail-Sense/#privacy</li>
+    <li>常见问题：https://github.com/kylecorry31/Trail-Sense#faq</li>
+    <li>Trail Sense 使用 MIT 许可证发布：https://opensource.org/license/mit/</li>
+</ul>
