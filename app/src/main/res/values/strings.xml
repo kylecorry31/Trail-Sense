@@ -744,7 +744,7 @@
     <string name="pref_tiles_enabled_battery_log_summary">Logs battery percentage every hour to estimate time until empty</string>
     <string name="pref_flashlight_toggle_with_volume" translatable="false">pref_flashlight_toggle_with_volume</string>
     <string name="pref_flashlight_toggle_with_volume_summary">While Trail Sense is open</string>
-    <string name="pref_flashlight_toggle_with_volume_title">Toggle with volume buttons</string>
+    <string name="pref_flashlight_toggle_with_volume_title">Toggle With Volume Buttons</string>
     <string name="pref_low_resolution_maps" translatable="false">pref_low_resolution_maps</string>
     <string name="pref_auto_low_power" translatable="false">pref_auto_low_power</string>
     <string name="pref_auto_low_power_summary">When your battery is low</string>
@@ -1019,8 +1019,8 @@
     <string name="pref_flashlight_should_timeout" translatable="false">pref_flashlight_should_timeout</string>
     <string name="pref_flashlight_timeout" translatable="false">pref_flashlight_timeout</string>
     <string name="pref_flashlight_timeout_instant" translatable="false">pref_flashlight_timeout_instant</string>
-    <string name="pref_flashlight_should_timeout_title">Automatically turn off</string>
-    <string name="pref_flashlight_timeout_title">Turn off after</string>
+    <string name="pref_flashlight_should_timeout_title">Automatically Turn Off</string>
+    <string name="pref_flashlight_timeout_title">Turn Off After</string>
     <string name="view">View</string>
     <string name="estimated">Estimated</string>
     <string name="tide_table">Tide table</string>
