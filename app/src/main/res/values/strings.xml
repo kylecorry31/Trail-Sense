@@ -153,8 +153,8 @@
     <string name="general">General</string>
     <string name="feet_miles">Feet / Miles</string>
     <string name="pressure">Pressure</string>
-    <string name="pref_use_24_hour_title">Use 24-hour format</string>
-    <string name="pref_include_leading_zero_title">Add leading zero to time</string>
+    <string name="pref_use_24_hour_title">Use 24-Hour Format</string>
+    <string name="pref_include_leading_zero_title">Add Leading Zero to Time</string>
     <string name="pref_theme_title">Theme</string>
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>
@@ -167,7 +167,7 @@
     <string name="coordinate_format_degrees_minutes_seconds">Degrees Minutes Seconds</string>
     <string name="coordinate_format_utm">UTM</string>
     <string name="coordinate_format_mgrs">MGRS</string>
-    <string name="pref_coordinate_format_title">Coordinate format</string>
+    <string name="pref_coordinate_format_title">Coordinate Format</string>
     <string name="fahrenheit">Fahrenheit</string>
     <string name="celsius">Celsius</string>
     <string name="temperature">Temperature</string>
@@ -759,7 +759,7 @@
     <string name="clear_cache">Clear cache</string>
     <string name="pref_gps_clear_cache" translatable="false">pref_gps_clear_cache</string>
     <string name="pref_map_url_source" translatable="false">pref_map_url_source</string>
-    <string name="pref_map_url_source_title">Location share map</string>
+    <string name="pref_map_url_source_title">Location Share Map</string>
     <string name="liter_format">%s l</string>
     <string name="milliliter_format">%s ml</string>
     <string name="cup_format">%s c</string>
