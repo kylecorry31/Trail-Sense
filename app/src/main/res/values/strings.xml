@@ -395,7 +395,7 @@
     <string name="start">Start</string>
     <string name="tool_boil_summary">Tell when water is potable</string>
     <string name="pref_sensor_details" translatable="false">pref_sensor_details</string>
-    <string name="pref_sensor_details_title">Sensor details</string>
+    <string name="pref_sensor_details_title">Sensor Details</string>
     <string name="tool_clock_title">Clock</string>
     <string name="lightning">Lightning</string>
     <string name="thunder">Thunder</string>
@@ -568,7 +568,7 @@
     <string name="network_3g">3G</string>
     <string name="network_no_signal">No signal</string>
     <string name="barometer">Barometer</string>
-    <string name="cell_signal">Cell signal</string>
+    <string name="cell_signal">Cell Signal</string>
     <string name="dbm_format">%s dBm</string>
     <string name="satellites">satellites</string>
     <string name="hygrometer">Hygrometer</string>
