@@ -585,7 +585,7 @@
     <string name="pref_backtrack_save_cell_summary">Records cell signal at the waypoint. Does not use the Internet.</string>
     <string name="pref_backtrack_save_cell_title">Record cell signal</string>
     <string name="pref_holder_pressure_chart" translatable="false">pref_holder_pressure_chart</string>
-    <string name="location_not_set">Location not set</string>
+    <string name="location_not_set">Location Not Set</string>
     <string name="set">Set</string>
     <string name="location_disabled">Location is disabled</string>
     <string name="gps_cache">GPS Cache</string>
@@ -998,11 +998,11 @@
     <string name="error_banners">Error banners</string>
     <string name="errors">Errors</string>
     <string name="pref_error_banner_category" translatable="false">pref_error_banner_category</string>
-    <string name="compass_accuracy">Compass accuracy</string>
-    <string name="compass_unavailable">Compass unavailable</string>
-    <string name="gps_unavailable">GPS unavailable</string>
+    <string name="compass_accuracy">Compass Accuracy</string>
+    <string name="compass_unavailable">Compass Unavailable</string>
+    <string name="gps_unavailable">GPS Unavailable</string>
     <string name="pref_error_settings" translatable="false">pref_error_settings</string>
-    <string name="gps_timeouts">GPS timeouts</string>
+    <string name="gps_timeouts">GPS Timeouts</string>
     <string name="qr_code_scanner">QR Code Scanner</string>
     <string name="no_qr_code_found">No QR code detected</string>
     <string name="saved_to_note">Saved to note</string>
