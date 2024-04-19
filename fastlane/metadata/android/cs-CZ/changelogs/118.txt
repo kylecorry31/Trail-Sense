@@ -1,0 +1,18 @@
+Rozšířená realita
+- K dispozici v beta verzi - zobrazení majáků, cest a slunce/měsíce pomocí kamery
+- Není k dispozici na zařízeních bez kompasu
+- Přepínání vrstev
+- Nastavitelná vzdálenost zobrazení cesty
+- Zobrazení přesnosti kompasu / GPS
+
+Klinometr
+- Zobrazení měření v pohledu kamery
+
+Astronomie
+- Zobrazení dráhy Slunce / Měsíce ve 3D
+- Zobrazení aktuálního směru a nadmořské výšky Slunce / Měsíce na kliknutí
+
+Detektor kovů
+- Přehrávání zvuku při detekci kovu
+
+a spousta dalších změn...
