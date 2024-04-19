@@ -492,7 +492,7 @@
     <string name="pref_low_power_mode" translatable="false">pref_low_power_mode</string>
     <string name="pref_low_power_mode_weather" translatable="false">pref_low_power_mode_weather</string>
     <string name="pref_low_power_mode_backtrack" translatable="false">pref_low_power_mode_backtrack</string>
-    <string name="pref_low_power_mode_title">Power saving mode</string>
+    <string name="pref_low_power_mode_title">Power Saving Mode</string>
     <string name="low_power_mode_on_message">Power saving mode on, some features may be disabled.</string>
     <string name="unsaved_changes">Unsaved Changes</string>
     <string name="unsaved_changes_message">Changes you made will not be saved.</string>
@@ -737,7 +737,7 @@
     <string name="location_not_mocked">Using actual location</string>
     <string name="pref_tiles_enabled" translatable="false">pref_tiles_enabled</string>
     <string name="pref_battery_log_enabled" translatable="false">pref_battery_log_enabled</string>
-    <string name="pref_tiles_enabled_title">System tiles</string>
+    <string name="pref_tiles_enabled_title">System Tiles</string>
     <string name="pref_tiles_battery_log">Battery Log</string>
     <string name="pref_tiles_enabled_summary">May prevent battery saver apps from completely stopping Trail Sense</string>
     <string name="pref_dialog_battery_log_summary">The battery log is disabled, history and time until empty may be unavailable. You can re-enable this in settings</string>
@@ -748,7 +748,7 @@
     <string name="pref_low_resolution_maps" translatable="false">pref_low_resolution_maps</string>
     <string name="pref_auto_low_power" translatable="false">pref_auto_low_power</string>
     <string name="pref_auto_low_power_summary">When your battery is low</string>
-    <string name="pref_auto_low_power_title">Automatic power saving</string>
+    <string name="pref_auto_low_power_title">Automatic Power Saving</string>
     <string name="daylight">Daylight</string>
     <string name="find_next_occurrence">Find next occurrence</string>
     <string name="yards_format">%s yd</string>
@@ -1058,7 +1058,7 @@
     <string name="navigating_to_nearest_path_point">Navigating to nearest path point</string>
     <string name="beacons">Beacons</string>
     <string name="pref_start_on_boot" translatable="false">pref_start_on_boot</string>
-    <string name="pref_start_on_boot_title">Start on boot</string>
+    <string name="pref_start_on_boot_title">Start on Boot</string>
     <string name="pref_enable_analog_clock" translatable="false">pref_enable_analog_clock</string>
     <string name="pref_enable_analog_title">Analog Clock</string>
     <string name="bearing">Bearing</string>
