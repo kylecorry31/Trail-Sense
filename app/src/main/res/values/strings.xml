@@ -273,7 +273,7 @@
     <string name="pref_category_about">About</string>
     <string name="pref_app_version_title">Version</string>
     <string name="pref_github_title">GitHub</string>
-    <string name="pref_email_title">Email developer</string>
+    <string name="pref_email_title">Email Developer</string>
     <string name="continue_button">CONTINUE</string>
     <!--Preference Keys (DO NOT TRANSLATE)-->
     <string name="pref_use_true_north" translatable="false">use_true_north</string>
@@ -377,7 +377,7 @@
     <string name="unit_nautical_miles">Nautical Miles</string>
     <string name="guide_recommended_apps">Recommended apps</string>
     <string name="guide_recommended_apps_description">Useful apps for survival situations</string>
-    <string name="pref_privacy_policy_title">Privacy policy</string>
+    <string name="pref_privacy_policy_title">Privacy Policy</string>
     <string name="pref_privacy_policy" translatable="false">pref_privacy_policy</string>
     <string name="privacy_policy_url" translatable="false">https://kylecorry.com/Trail-Sense/privacy_policy.html</string>
     <string name="tool_solar_panel_summary">Position solar panels for optimal power production</string>
