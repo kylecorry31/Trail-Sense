@@ -86,6 +86,10 @@ class WaypointRepo private constructor(context: Context) : IWaypointRepo {
         }
     }
 
+    override suspend fun getAllWithCellSignal(): List<PathPoint> = onIO {
+        waypointDao.getAllWithCellSignal().map { it.toPathPoint() }
+    }
+
     companion object {
         private var instance: WaypointRepo? = null
 

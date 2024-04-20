@@ -212,6 +212,10 @@ class PathService(
         return waypointRepo.getAllInPathLive(path)
     }
 
+    override suspend fun getWaypointsWithCellSignal(): List<PathPoint> {
+        return waypointRepo.getAllWithCellSignal()
+    }
+
     override suspend fun addWaypointsToPath(points: List<PathPoint>, pathId: Long) {
         waypointRepo.addAll(points.map { it.copy(pathId = pathId) })
         updatePathMetadata(pathId)

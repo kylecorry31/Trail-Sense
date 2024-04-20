@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence
 
 import android.content.Context
+import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
@@ -36,8 +37,8 @@ class BeaconRepo private constructor(context: Context) : IBeaconRepo {
 
     override suspend fun deleteBeacon(beacon: BeaconEntity) = beaconDao.delete(beacon)
 
-    override suspend fun addBeacon(beacon: BeaconEntity): Long {
-        return if (beacon.id != 0L) {
+    override suspend fun addBeacon(beacon: BeaconEntity): Long = onIO {
+        if (beacon.id != 0L) {
             beaconDao.update(beacon)
             beacon.id
         } else {

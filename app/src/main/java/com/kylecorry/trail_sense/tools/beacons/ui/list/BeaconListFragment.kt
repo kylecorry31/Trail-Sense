@@ -52,6 +52,7 @@ import com.kylecorry.trail_sense.shared.grouping.lists.bind
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.commands.cell.NavigateToNearestCellSignal
 import com.kylecorry.trail_sense.tools.qr.infrastructure.BeaconQREncoder
 import java.time.Instant
 
@@ -123,12 +124,14 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
             Pickers.menu(
                 it, listOf(
                     getString(R.string.sort_by, getSortString(defaultSort)),
-                    getString(R.string.export)
+                    getString(R.string.export),
+                    getString(R.string.navigate_to_nearest_cell_signal)
                 )
             ) { selected ->
                 when (selected) {
                     0 -> changeSort()
                     1 -> onExportBeacons()
+                    2 -> navigateToNearestCellSignal()
                 }
                 true
             }
@@ -333,7 +336,8 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                 ) {
                     if (it != null) {
                         inBackground {
-                            val gpxToImport = GPXData(waypoints.filterIndices(it), emptyList(), emptyList())
+                            val gpxToImport =
+                                GPXData(waypoints.filterIndices(it), emptyList(), emptyList())
                             val count = onIO {
                                 importer.import(gpxToImport, manager.root?.id)
                             }
@@ -481,6 +485,21 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         val command =
             RenameBeaconGroupCommand(requireContext(), lifecycleScope, beaconService) { refresh() }
         command.execute(group)
+    }
+
+    private fun navigateToNearestCellSignal() {
+        inBackground {
+            val command = NavigateToNearestCellSignal(requireContext())
+            if (command.execute()) {
+                onMain {
+                    findNavController().navigate(R.id.action_navigation)
+                }
+            } else {
+                onMain {
+                    toast(getString(R.string.no_recorded_cell_signal_nearby))
+                }
+            }
+        }
     }
 
     private fun handleBeaconGroupAction(group: BeaconGroup, action: BeaconGroupAction) {

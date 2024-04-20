@@ -32,6 +32,9 @@ interface WaypointDao {
     @Query("SELECT * FROM waypoints WHERE pathId = :pathId")
     suspend fun getAllInPathSync(pathId: Long): List<WaypointEntity>
 
+    @Query("SELECT * FROM waypoints WHERE cellQuality IS NOT NULL")
+    suspend fun getAllWithCellSignal(): List<WaypointEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(waypoint: WaypointEntity): Long
 

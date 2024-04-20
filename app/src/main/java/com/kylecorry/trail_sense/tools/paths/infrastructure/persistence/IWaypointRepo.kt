@@ -26,4 +26,6 @@ interface IWaypointRepo {
     suspend fun getAllInPaths(pathIds: List<Long>): List<PathPoint>
 
     fun getAllInPathLive(pathId: Long): LiveData<List<PathPoint>>
+
+    suspend fun getAllWithCellSignal(): List<PathPoint>
 }
