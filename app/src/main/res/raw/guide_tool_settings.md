@@ -8,7 +8,7 @@ The units can be adjusted in Settings > Units. By default, the units are set bas
 - **Coordinate format**: The format to display geographic coordinates.
 - **Location share map**: The link to use when sharing a location.
 - **Use 24-hour format**: Whether to use a 24-hour clock.
-- **Add leading zero to time**: Whether to add a leading zero to the time (ex. 01:00 instead of 1:00).
+- **Add leading zero to time**: Whether to add a leading zero to the time (for example, 01:00 instead of 1:00).
 
 ## Sensors > Compass
 Compass settings can be found in Trail Sense Settings > Sensors > Compass. Some devices may not have a compass sensor, but you will still be able to set declination.
@@ -17,7 +17,7 @@ Compass settings can be found in Trail Sense Settings > Sensors > Compass. Some 
 The current compass direction (azimuth) is displayed at the top of the compass settings. As you change settings, it will update to show the new direction.
 
 ### Calibrate
-The reported accuracy of the compass is show. If it is low, you can click this option to view instructions on how to calibrate.
+The reported accuracy of the compass is shown. If it is low, you can click this option to view instructions on how to calibrate.
 
 ### Source
 - **Magnetometer + Gyro**: This is the default source and should work on most devices. It uses the magnetometer and gyroscope sensors to determine the direction. When the gyroscope is added in, the reading is typically less noisy. This source is provided by your phone's manufacturer.
@@ -99,7 +99,7 @@ To get a more accurate pressure reading, you can factor in the temperature. This
 Thermometer settings can be found in Trail Sense Settings > Sensors > Thermometer.
 
 ### Source
-On most phones, you should use this historic temperature source as it will be more accurate.
+On most phones, you should use the historic temperature source as it will be more accurate.
 
 - **Historic** temperature is estimated from 30 years of historical data. It's usually accurate, but not during extreme weather. You can calibrate it if it's wrong for your location.
 - **Sensor** temperature is read from the phone's built-in thermometer. It's often inaccurate because it's affected by the phone's CPU and battery. You can calibrate it to improve its accuracy. If you power off your phone for a while, you will get a more accurate reading from the sensor.
