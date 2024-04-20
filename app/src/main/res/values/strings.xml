@@ -916,7 +916,7 @@
     <string name="pref_export_weather_csv_title">Export Weather Readings</string>
     <string name="weather_exported">Weather exported</string>
     <string name="pref_show_nearest_tide" translatable="false">pref_show_nearest_tide</string>
-    <string name="pref_show_nearest_tide_title">Show Closest Tide</string>
+    <string name="pref_show_nearest_tide_title">Show closest tide</string>
     <!--This is in markdown formatting - the first %s is either Sun or Moon-->
     <string name="sun_moon_position_template">### %1$s\n**Altitude**: %2$s\n\n**Azimuth**: %3$s</string>
     <string name="sun">Sun</string>
