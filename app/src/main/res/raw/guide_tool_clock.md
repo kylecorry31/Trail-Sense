@@ -12,3 +12,6 @@ To sync your device’s clock with GPS time:
 4. Enter the noted time and wait for the sync notification before saving.
 5. Save the time update when the notification arrives.
 6. Your system time is now synced with GPS time.
+
+## Digital Clock
+If you prefer a digital clock, you can switch to it by turning off the Analog Clock setting in the Clock tool's settings. This will show a large digital clock on the screen.
