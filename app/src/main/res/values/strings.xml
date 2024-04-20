@@ -151,23 +151,23 @@
     <string name="edit_item_title">Edit Item</string>
     <!--Settings - General-->
     <string name="general">General</string>
-    <string name="feet_miles">Feet / Miles</string>
+    <string name="feet_miles">Feet / miles</string>
     <string name="pressure">Pressure</string>
-    <string name="pref_use_24_hour_title">Use 24-Hour Format</string>
-    <string name="pref_include_leading_zero_title">Add Leading Zero to Time</string>
+    <string name="pref_use_24_hour_title">Use 24-hour format</string>
+    <string name="pref_include_leading_zero_title">Add leading zero to time</string>
     <string name="pref_theme_title">Theme</string>
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>
     <string name="theme_black">Black</string>
     <string name="theme_system">System</string>
     <string name="theme_sunset_sunrise">Sunrise/Sunset</string>
-    <string name="coordinate_format_decimal_degrees">Decimal Degrees</string>
+    <string name="coordinate_format_decimal_degrees">Decimal degrees</string>
     <!--A coordinate format as such:  X° X.XXX' N-->
-    <string name="coordinate_format_degrees_decimal_minutes">Degrees Decimal Minutes</string>
-    <string name="coordinate_format_degrees_minutes_seconds">Degrees Minutes Seconds</string>
-    <string name="coordinate_format_utm">UTM</string>
-    <string name="coordinate_format_mgrs">MGRS</string>
-    <string name="pref_coordinate_format_title">Coordinate Format</string>
+    <string name="coordinate_format_degrees_decimal_minutes">Degrees decimal minutes</string>
+    <string name="coordinate_format_degrees_minutes_seconds">Degrees minutes seconds</string>
+    <string name="coordinate_format_utm">Utm</string>
+    <string name="coordinate_format_mgrs">Mgrs</string>
+    <string name="pref_coordinate_format_title">Coordinate format</string>
     <string name="fahrenheit">Fahrenheit</string>
     <string name="celsius">Celsius</string>
     <string name="temperature">Temperature</string>
@@ -759,7 +759,7 @@
     <string name="clear_cache">Clear cache</string>
     <string name="pref_gps_clear_cache" translatable="false">pref_gps_clear_cache</string>
     <string name="pref_map_url_source" translatable="false">pref_map_url_source</string>
-    <string name="pref_map_url_source_title">Location Share Map</string>
+    <string name="pref_map_url_source_title">Location share map</string>
     <string name="liter_format">%s l</string>
     <string name="milliliter_format">%s ml</string>
     <string name="cup_format">%s c</string>
@@ -811,8 +811,8 @@
     <string name="no_packing_lists">No packing lists</string>
     <string name="new_packing_list">New packing list</string>
     <string name="delete_pack">Delete pack?</string>
-    <string name="coordinate_format_usng">USNG</string>
-    <string name="coordinate_format_osgb">OSGB</string>
+    <string name="coordinate_format_usng">Usng</string>
+    <string name="coordinate_format_osgb">Osgb</string>
     <string name="sort">Sort</string>
     <string name="pref_pack_item_sort" translatable="false">pref_pack_item_sort</string>
     <string name="pack_sort_percent_low_to_high">Percent packed (low to high)</string>
