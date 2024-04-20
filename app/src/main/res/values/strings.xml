@@ -128,13 +128,13 @@
     <string name="waxing_crescent">Waxing Crescent</string>
     <string name="sunset_alert_notification_title">Sun is setting soon</string>
     <string name="sunset_alert_notification_text">The sun will set at %s</string>
-    <string name="sunset_alerts">Sunset Alerts</string>
+    <string name="sunset_alerts">Sunset alerts</string>
     <string name="sunset_alert_channel_title">Sunset alert</string>
     <string name="moon_phase">Moon phase</string>
     <!--    The percent of the moon that is illuminated-->
     <string name="illumination">Illumination</string>
     <!--Tools-->
-    <string name="photo_maps">Photo Maps</string>
+    <string name="photo_maps">Photo maps</string>
     <!--Clinometer-->
     <string name="clinometer_title">Clinometer</string>
     <string name="tool_clinometer_summary">Estimate avalanche risks and the height of objects</string>
@@ -401,7 +401,7 @@
     <string name="thunder">Thunder</string>
     <string name="reset">Reset</string>
     <string name="tool_lightning_description">Measure the distance from a lightning strike</string>
-    <string name="tool_lightning_title">Lightning Strike Distance</string>
+    <string name="tool_lightning_title">Lightning strike distance</string>
     <string name="precise_centimeters_format">%s cm</string>
     <string name="precise_inches_format">%s in</string>
     <string name="tool_ruler_title">Ruler</string>
@@ -451,7 +451,7 @@
     <string name="unit_inches">Inches</string>
     <string name="map_distance">Map: %s</string>
     <string name="map_fractional_separator">:</string>
-    <string name="tool_white_noise_title">White Noise</string>
+    <string name="tool_white_noise_title">White noise</string>
     <string name="tool_white_noise_summary">Helps you fall asleep</string>
     <string name="map_scale_title">Map Scale</string>
     <string name="map_scale_ratio">Ratio</string>
@@ -492,7 +492,7 @@
     <string name="pref_low_power_mode" translatable="false">pref_low_power_mode</string>
     <string name="pref_low_power_mode_weather" translatable="false">pref_low_power_mode_weather</string>
     <string name="pref_low_power_mode_backtrack" translatable="false">pref_low_power_mode_backtrack</string>
-    <string name="pref_low_power_mode_title">Power Saving Mode</string>
+    <string name="pref_low_power_mode_title">Power saving mode</string>
     <string name="low_power_mode_on_message">Power saving mode on, some features may be disabled.</string>
     <string name="unsaved_changes">Unsaved Changes</string>
     <string name="unsaved_changes_message">Changes you made will not be saved.</string>
@@ -688,7 +688,7 @@
     <string name="whistle_signal_where_are_you">Where are you?</string>
     <string name="whistle_signal_acknowledged">Acknowledged</string>
     <string name="whistle_signal_come_here">Come here</string>
-    <string name="weather_monitor">Weather Monitor</string>
+    <string name="weather_monitor">Weather monitor</string>
     <string name="battery_history">Battery history - last %s</string>
     <string name="humidity_history">Humidity history - last %s</string>
     <string name="temperature_history">Temperature history - last %s</string>
@@ -1295,7 +1295,7 @@
     <string name="pin">Pin</string>
     <string name="tool_long_press_hint_toast">Long press a tool to see more options</string>
     <string name="pref_tool_sort" translatable="false">pref_tool_sort</string>
-    <string name="tool_quick_actions">Tool Quick Actions</string>
+    <string name="tool_quick_actions">Tool quick actions</string>
     <string name="pref_tool_quick_action_header_key" translatable="false">pref_tool_quick_action_header_key</string>
     <string name="pref_tool_quick_actions" translatable="false">pref_tool_quick_actions</string>
     <string name="pref_pinned_tools" translatable="false">pref_pinned_tools</string>
