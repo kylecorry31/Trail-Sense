@@ -539,7 +539,7 @@ object Tools {
             .flatMap { it.quickActions }
             .distinctBy { it.id }
             .sortedBy { it.id }
-            .map { it.copy(name = it.name) }
+            .map { it.copy(name = it.name.capitalizeWords()) }
     }
 
     // Tool IDs

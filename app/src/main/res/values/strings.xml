@@ -1289,13 +1289,13 @@
     <string name="direction">Direction</string>
     <string name="augmented_reality">Augmented Reality</string>
     <string name="augmented_reality_description">View nearby beacons and the sun / moon with your camera</string>
-    <string name="magnetic_north">Magnetic North</string>
+    <string name="magnetic_north">Magnetic north</string>
     <string name="pinned">Pinned</string>
     <string name="unpin">Unpin</string>
     <string name="pin">Pin</string>
     <string name="tool_long_press_hint_toast">Long press a tool to see more options</string>
     <string name="pref_tool_sort" translatable="false">pref_tool_sort</string>
-    <string name="tool_quick_actions">Tool Quick Actions</string>
+    <string name="tool_quick_actions">Tool quick actions</string>
     <string name="pref_tool_quick_action_header_key" translatable="false">pref_tool_quick_action_header_key</string>
     <string name="pref_tool_quick_actions" translatable="false">pref_tool_quick_actions</string>
     <string name="pref_pinned_tools" translatable="false">pref_pinned_tools</string>
