@@ -134,7 +134,7 @@
     <!--    The percent of the moon that is illuminated-->
     <string name="illumination">Illumination</string>
     <!--Tools-->
-    <string name="photo_maps">Photo maps</string>
+    <string name="photo_maps">Photo Maps</string>
     <!--Clinometer-->
     <string name="clinometer_title">Clinometer</string>
     <string name="tool_clinometer_summary">Estimate avalanche risks and the height of objects</string>
@@ -811,8 +811,8 @@
     <string name="no_packing_lists">No packing lists</string>
     <string name="new_packing_list">New packing list</string>
     <string name="delete_pack">Delete pack?</string>
-    <string name="coordinate_format_usng">Usng</string>
-    <string name="coordinate_format_osgb">Osgb</string>
+    <string name="coordinate_format_usng">USNG</string>
+    <string name="coordinate_format_osgb">OSGB</string>
     <string name="sort">Sort</string>
     <string name="pref_pack_item_sort" translatable="false">pref_pack_item_sort</string>
     <string name="pack_sort_percent_low_to_high">Percent packed (low to high)</string>
@@ -1287,7 +1287,7 @@
     <string name="direction_not_set">Direction not set</string>
     <!--The compass direction / bearing-->
     <string name="direction">Direction</string>
-    <string name="augmented_reality">Augmented reality</string>
+    <string name="augmented_reality">Augmented Reality</string>
     <string name="augmented_reality_description">View nearby beacons and the sun / moon with your camera</string>
     <string name="magnetic_north">Magnetic North</string>
     <string name="pinned">Pinned</string>
@@ -1295,7 +1295,7 @@
     <string name="pin">Pin</string>
     <string name="tool_long_press_hint_toast">Long press a tool to see more options</string>
     <string name="pref_tool_sort" translatable="false">pref_tool_sort</string>
-    <string name="tool_quick_actions">Tool quick actions</string>
+    <string name="tool_quick_actions">Tool Quick Actions</string>
     <string name="pref_tool_quick_action_header_key" translatable="false">pref_tool_quick_action_header_key</string>
     <string name="pref_tool_quick_actions" translatable="false">pref_tool_quick_actions</string>
     <string name="pref_pinned_tools" translatable="false">pref_pinned_tools</string>
