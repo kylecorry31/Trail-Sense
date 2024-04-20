@@ -1147,4 +1147,5 @@
     <string name="visible">Zichtbaar</string>
     <string name="date">Datum</string>
     <string name="max_s">Max. %s</string>
+    <string name="pref_enable_analog_title">Analoge klok</string>
 </resources>

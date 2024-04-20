@@ -1169,4 +1169,5 @@
     <string name="date">Datum</string>
     <string name="max_s">Max. %s</string>
     <string name="ar_calibration_disclaimer">Před každým použitím nástroje Rozšířená realita ověřte, že se ikony slunce nebo měsíce nacházejí ve správné pozici oproti reálnému světu. Pokud ne, klepněte na ikonu kompasu v levém horním rohu obrazovky a následujte pokyny pro kalibraci.</string>
+    <string name="pref_enable_analog_title">Analogové hodiny</string>
 </resources>
