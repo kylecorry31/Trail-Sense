@@ -96,7 +96,7 @@
     <string name="alerts">Alerts</string>
     <string name="storm_alerts">Storm alerts</string>
     <string name="notification_storm_alert_text">A storm might be approaching</string>
-    <string name="notification_storm_alert_title">Storm Alert</string>
+    <string name="notification_storm_alert_title">Storm alert</string>
     <string name="notification_monitoring_weather">Monitoring weather in the background</string>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="precise_temp_c_format">%s °C</string>
@@ -151,7 +151,7 @@
     <string name="edit_item_title">Edit Item</string>
     <!--Settings - General-->
     <string name="general">General</string>
-    <string name="feet_miles">Feet / Miles</string>
+    <string name="feet_miles">Feet / miles</string>
     <string name="pressure">Pressure</string>
     <string name="pref_use_24_hour_title">Use 24-hour format</string>
     <string name="pref_include_leading_zero_title">Add leading zero to time</string>
@@ -161,10 +161,10 @@
     <string name="theme_black">Black</string>
     <string name="theme_system">System</string>
     <string name="theme_sunset_sunrise">Sunrise/sunset</string>
-    <string name="coordinate_format_decimal_degrees">Decimal Degrees</string>
+    <string name="coordinate_format_decimal_degrees">Decimal degrees</string>
     <!--A coordinate format as such:  X° X.XXX' N-->
-    <string name="coordinate_format_degrees_decimal_minutes">Degrees Decimal Minutes</string>
-    <string name="coordinate_format_degrees_minutes_seconds">Degrees Minutes Seconds</string>
+    <string name="coordinate_format_degrees_decimal_minutes">Degrees decimal minutes</string>
+    <string name="coordinate_format_degrees_minutes_seconds">Degrees minutes seconds</string>
     <string name="coordinate_format_utm">UTM</string>
     <string name="coordinate_format_mgrs">MGRS</string>
     <string name="pref_coordinate_format_title">Coordinate format</string>
@@ -181,7 +181,7 @@
 \n- Report the measured value here."</string>
     <!--Settings - Sensors - Compass-->
     <string name="pref_compass_sensor_title">Compass</string>
-    <string name="true_north">True North</string>
+    <string name="true_north">True north</string>
     <string name="smoothing_summary">High values may reduce noise</string>
     <!--Button text which will use your current location to set the declination override-->
     <string name="override_from_gps">Set override from GPS</string>
@@ -588,7 +588,7 @@
     <string name="location_not_set">Location not set</string>
     <string name="set">Set</string>
     <string name="location_disabled">Location is disabled</string>
-    <string name="gps_cache">GPS Cache</string>
+    <string name="gps_cache">GPS cache</string>
     <string name="guide_light_meter_description">How to determine the beam distance of flashlights</string>
     <string name="todays_forecast">Today\'s forecast</string>
     <string name="tomorrows_forecast">Tomorrow\'s forecast</string>
@@ -738,7 +738,7 @@
     <string name="pref_tiles_enabled" translatable="false">pref_tiles_enabled</string>
     <string name="pref_battery_log_enabled" translatable="false">pref_battery_log_enabled</string>
     <string name="pref_tiles_enabled_title">System tiles</string>
-    <string name="pref_tiles_battery_log">Battery Log</string>
+    <string name="pref_tiles_battery_log">Battery log</string>
     <string name="pref_tiles_enabled_summary">May prevent battery saver apps from completely stopping Trail Sense</string>
     <string name="pref_dialog_battery_log_summary">The battery log is disabled, history and time until empty may be unavailable. You can re-enable this in settings</string>
     <string name="pref_tiles_enabled_battery_log_summary">Logs battery percentage every hour to estimate time until empty</string>
@@ -1060,7 +1060,7 @@
     <string name="pref_start_on_boot" translatable="false">pref_start_on_boot</string>
     <string name="pref_start_on_boot_title">Start on boot</string>
     <string name="pref_enable_analog_clock" translatable="false">pref_enable_analog_clock</string>
-    <string name="pref_enable_analog_title">Analog Clock</string>
+    <string name="pref_enable_analog_title">Analog clock</string>
     <string name="bearing">Bearing</string>
     <string name="pref_only_navigate_path_points" translatable="false">pref_only_navigate_path_points</string>
     <string name="pref_only_navigate_path_points_title">Only navigate to recorded points</string>
@@ -1261,7 +1261,7 @@
     <string name="restoring_loading_message">Restoring…</string>
     <string name="restore_complete_message">Restore successful, restarting to apply changes</string>
     <string name="invalid_backup_file">Invalid backup file</string>
-    <string name="backup_restore">Backup / Restore</string>
+    <string name="backup_restore">Backup / restore</string>
     <!--    %s is the app name (Trail Sense)-->
     <string name="restore_failure_newer_version">This backup was created with a newer version of %s. Please update the app and try again.</string>
     <!--    A mode for the camera to use zero shutter lag-->
@@ -1289,7 +1289,7 @@
     <string name="direction">Direction</string>
     <string name="augmented_reality">Augmented Reality</string>
     <string name="augmented_reality_description">View nearby beacons and the sun / moon with your camera</string>
-    <string name="magnetic_north">Magnetic North</string>
+    <string name="magnetic_north">Magnetic north</string>
     <string name="pinned">Pinned</string>
     <string name="unpin">Unpin</string>
     <string name="pin">Pin</string>
@@ -1324,13 +1324,13 @@
     <!--    %s is the interval, ex. 1 h-->
     <string name="fused_altimeter_force_calibration_summary">Forces a GPS calibration every %s</string>
     <string name="pref_use_dynamic_colors" translatable="false">pref_use_dynamic_colors</string>
-    <string name="dynamic_colors">Dynamic Colors</string>
-    <string name="compact_mode">Compact Mode</string>
+    <string name="dynamic_colors">Dynamic colors</string>
+    <string name="compact_mode">Compact mode</string>
     <string name="pref_use_dynamic_colors_on_compass" translatable="false">pref_use_dynamic_colors_on_compass</string>
     <string name="pref_use_compact_mode" translatable="false">pref_use_compact_mode</string>
-    <string name="compass_dynamic_colors">Compass Dynamic Colors</string>
-    <string name="compass_dynamic_colors_summary">Use Dynamic Colors for cardinal directions</string>
-    <string name="screen_flashlight_full_name">Screen Flashlight</string>
+    <string name="compass_dynamic_colors">Compass dynamic colors</string>
+    <string name="compass_dynamic_colors_summary">Use dynamic colors for cardinal directions</string>
+    <string name="screen_flashlight_full_name">Screen flashlight</string>
     <string name="view_in_3d">View in 3D</string>
     <string name="locate">Locate</string>
     <string name="pref_fast_path_rendering" translatable="false">pref_fast_path_rendering</string>
