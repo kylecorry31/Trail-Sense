@@ -413,12 +413,11 @@ object Tools {
             ),
             if (hasCompass) Tool(
                 AUGMENTED_REALITY,
-                "${context.getString(R.string.augmented_reality)} (${context.getString(R.string.beta)})",
+                context.getString(R.string.augmented_reality),
                 R.drawable.ic_camera,
                 R.id.augmentedRealityFragment,
                 ToolCategory.Other,
                 context.getString(R.string.augmented_reality_description),
-                isExperimental = true,
                 guideId = R.raw.guide_tool_augmented_reality,
                 settingsNavAction = R.id.augmentedRealitySettingsFragment
             ) else null,

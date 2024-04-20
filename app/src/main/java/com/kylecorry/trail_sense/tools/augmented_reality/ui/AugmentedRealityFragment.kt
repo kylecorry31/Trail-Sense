@@ -226,13 +226,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             binding.focusActionButton.isVisible = false
         }
 
-        CustomUiUtils.disclaimer(
-            requireContext(),
-            getString(R.string.beta),
-            getString(R.string.beta_disclaimer, getString(R.string.email)),
-            "ar_beta_disclaimer",
-        )
-
         ARCalibrateDisclaimer(requireContext()).alert()
 
         if (!Sensors.hasGyroscope(requireContext())) {
