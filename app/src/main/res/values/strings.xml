@@ -181,7 +181,7 @@
 \n- Report the measured value here."</string>
     <!--Settings - Sensors - Compass-->
     <string name="pref_compass_sensor_title">Compass</string>
-    <string name="true_north">True North</string>
+    <string name="true_north">True north</string>
     <string name="smoothing_summary">High values may reduce noise</string>
     <!--Button text which will use your current location to set the declination override-->
     <string name="override_from_gps">Set override from GPS</string>
@@ -338,7 +338,7 @@
     <string name="pref_max_beacon_distance" translatable="false">pref_max_beacon_distance</string>
     <string name="error_occurred">An error occurred</string>
     <string name="error_occurred_message">Trail Sense ran into an error. Please email the developer to get this issue fixed.</string>
-    <string name="tool_user_guide_title">User Guide</string>
+    <string name="tool_user_guide_title">User guide</string>
     <string name="tool_user_guide_summary">A how-to guide for using Trail Sense</string>
     <string name="delete_beacon_group_message">%s and all its beacons will be deleted.</string>
     <string name="delete_path_group_message">%s and all its paths will be deleted.</string>
@@ -395,7 +395,7 @@
     <string name="start">Start</string>
     <string name="tool_boil_summary">Tell when water is potable</string>
     <string name="pref_sensor_details" translatable="false">pref_sensor_details</string>
-    <string name="pref_sensor_details_title">Sensor Details</string>
+    <string name="pref_sensor_details_title">Sensor details</string>
     <string name="tool_clock_title">Clock</string>
     <string name="lightning">Lightning</string>
     <string name="thunder">Thunder</string>
@@ -568,7 +568,7 @@
     <string name="network_3g">3G</string>
     <string name="network_no_signal">No signal</string>
     <string name="barometer">Barometer</string>
-    <string name="cell_signal">Cell Signal</string>
+    <string name="cell_signal">Cell signal</string>
     <string name="dbm_format">%s dBm</string>
     <string name="satellites">satellites</string>
     <string name="hygrometer">Hygrometer</string>
@@ -588,7 +588,7 @@
     <string name="location_not_set">Location Not Set</string>
     <string name="set">Set</string>
     <string name="location_disabled">Location is disabled</string>
-    <string name="gps_cache">GPS Cache</string>
+    <string name="gps_cache">GPS cache</string>
     <string name="guide_light_meter_description">How to determine the beam distance of flashlights</string>
     <string name="todays_forecast">Today\'s forecast</string>
     <string name="tomorrows_forecast">Tomorrow\'s forecast</string>
@@ -1261,7 +1261,7 @@
     <string name="restoring_loading_message">Restoring…</string>
     <string name="restore_complete_message">Restore successful, restarting to apply changes</string>
     <string name="invalid_backup_file">Invalid backup file</string>
-    <string name="backup_restore">Backup / Restore</string>
+    <string name="backup_restore">Backup / restore</string>
     <!--    %s is the app name (Trail Sense)-->
     <string name="restore_failure_newer_version">This backup was created with a newer version of %s. Please update the app and try again.</string>
     <!--    A mode for the camera to use zero shutter lag-->
@@ -1324,13 +1324,13 @@
     <!--    %s is the interval, ex. 1 h-->
     <string name="fused_altimeter_force_calibration_summary">Forces a GPS calibration every %s</string>
     <string name="pref_use_dynamic_colors" translatable="false">pref_use_dynamic_colors</string>
-    <string name="dynamic_colors">Dynamic Colors</string>
-    <string name="compact_mode">Compact Mode</string>
+    <string name="dynamic_colors">Dynamic colors</string>
+    <string name="compact_mode">Compact mode</string>
     <string name="pref_use_dynamic_colors_on_compass" translatable="false">pref_use_dynamic_colors_on_compass</string>
     <string name="pref_use_compact_mode" translatable="false">pref_use_compact_mode</string>
-    <string name="compass_dynamic_colors">Compass Dynamic Colors</string>
-    <string name="compass_dynamic_colors_summary">Use Dynamic Colors for cardinal directions</string>
-    <string name="screen_flashlight_full_name">Screen Flashlight</string>
+    <string name="compass_dynamic_colors">Compass dynamic colors</string>
+    <string name="compass_dynamic_colors_summary">Use dynamic colors for cardinal directions</string>
+    <string name="screen_flashlight_full_name">Screen flashlight</string>
     <string name="view_in_3d">View in 3D</string>
     <string name="locate">Locate</string>
     <string name="pref_fast_path_rendering" translatable="false">pref_fast_path_rendering</string>
@@ -1380,7 +1380,7 @@
     <!--The camera projection type for augmented reality (ex. perspective)-->
     <string name="projection_type">Augmented reality projection</string>
     <!--Camera projection using intrinsics matrix-->
-    <string name="projection_estimated_intrinsics">Estimated Intrinsics</string>
+    <string name="projection_estimated_intrinsics">Estimated intrinsics</string>
     <!--Camera projection using intrinsics matrix-->
     <string name="projection_manufacturer_intrinsics">Manufacturer Intrinsics</string>
     <!--Camera projection using perspective-->
