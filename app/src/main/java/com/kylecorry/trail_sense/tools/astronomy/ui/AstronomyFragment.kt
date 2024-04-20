@@ -470,21 +470,29 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     }
 
     override fun onUpdate() {
-        effect("location_unset", gps) {
+        effect("location_unset", gps, lifecycleHookTrigger.onResume()) {
             detectAndShowGPSError()
         }
 
         effect(
             "list",
             displayDate,
-            location
+            location,
+            lifecycleHookTrigger.onResume()
         ) {
             inBackground {
                 updateAstronomyDetails()
             }
         }
 
-        effect("seek_details", currentSeekChartTime, displayDate, isSeeking, location) {
+        effect(
+            "seek_details",
+            currentSeekChartTime,
+            displayDate,
+            isSeeking,
+            location,
+            lifecycleHookTrigger.onResume()
+        ) {
             if (!isSeeking) {
                 return@effect
             }
@@ -501,7 +509,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             currentSeekChartTime,
             isSeeking,
             location,
-            triggers.frequency("chart", Duration.ofMinutes(1))
+            triggers.frequency("chart", Duration.ofMinutes(1)),
+            lifecycleHookTrigger.onResume()
         ) {
             inBackground {
                 if (!isBound) {
@@ -518,7 +527,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         effect(
             "sun_time",
             location,
-            triggers.frequency("sun_time", Duration.ofMinutes(1))
+            triggers.frequency("sun_time", Duration.ofMinutes(1)),
+            lifecycleHookTrigger.onResume()
         ) {
             inBackground {
                 displayTimeUntilNextSunEvent()
@@ -528,7 +538,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         effect(
             "moon_phase",
             displayDate,
-            triggers.frequency("moon_phase", Duration.ofMinutes(15))
+            triggers.frequency("moon_phase", Duration.ofMinutes(15)),
+            lifecycleHookTrigger.onResume()
         ) {
             inBackground {
                 updateMoonUI()
