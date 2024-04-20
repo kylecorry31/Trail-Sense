@@ -94,9 +94,9 @@
     <string name="pressure_format">%1$s %2$s</string>
     <string name="pressure_reading_time_ago">%1$s - %2$s ago</string>
     <string name="alerts">Alerts</string>
-    <string name="storm_alerts">Storm Alerts</string>
+    <string name="storm_alerts">Storm alerts</string>
     <string name="notification_storm_alert_text">A storm might be approaching</string>
-    <string name="notification_storm_alert_title">Storm Alert</string>
+    <string name="notification_storm_alert_title">Storm alert</string>
     <string name="notification_monitoring_weather">Monitoring weather in the background</string>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="precise_temp_c_format">%s °C</string>
@@ -239,18 +239,18 @@
     <string name="pref_show_calibrate_on_navigate_dialog_title">Calibrate before navigating</string>
     <string name="pref_max_beacon_distance_title">Nearby beacon radius</string>
     <!--Settings - Weather-->
-    <string name="pref_storm_alert_sensitivity_title">Storm Sensitivity</string>
-    <string name="pref_pressure_history_title">Pressure History</string>
+    <string name="pref_storm_alert_sensitivity_title">Storm sensitivity</string>
+    <string name="pref_pressure_history_title">Pressure history</string>
     <string name="pressure_48_hours">48 hours</string>
     <string name="pressure_24_hours">24 hours</string>
     <string name="pressure_12_hours">12 hours</string>
     <string name="pressure_4_hours">4 hours</string>
     <string name="pref_monitor_weather_summary">In the background</string>
-    <string name="pref_monitor_weather_title">Monitor Weather</string>
-    <string name="pref_forecast_sensitivity_title">Forecast Sensitivity</string>
-    <string name="pref_show_pressure_in_notification_title">Show Pressure in Notification</string>
-    <string name="pref_show_temperature_in_notification_title">Show Temperature in Notification</string>
-    <string name="pref_weather_update_frequency_title">Weather Update Frequency</string>
+    <string name="pref_monitor_weather_title">Monitor weather</string>
+    <string name="pref_forecast_sensitivity_title">Forecast sensitivity</string>
+    <string name="pref_show_pressure_in_notification_title">Show pressure in notification</string>
+    <string name="pref_show_temperature_in_notification_title">Show temperature in notification</string>
+    <string name="pref_weather_update_frequency_title">Weather update frequency</string>
     <!--Settings - Astronomy-->
     <string name="pref_sun_time_mode_title">Sunrise / sunset times</string>
     <string name="pref_show_sun_moon_compass_title">Show sun/moon on compass</string>
@@ -593,7 +593,7 @@
     <string name="todays_forecast">Today\'s forecast</string>
     <string name="tomorrows_forecast">Tomorrow\'s forecast</string>
     <string name="pref_daily_weather_notification" translatable="false">pref_daily_weather_notification</string>
-    <string name="pref_daily_weather_notification_title">Daily Weather Notification</string>
+    <string name="pref_daily_weather_notification_title">Daily weather notification</string>
     <string name="always_on">Always on</string>
     <string name="service_update_frequency">Updates every %s</string>
     <string name="battery_usage">%s battery usage</string>
@@ -614,7 +614,7 @@
     <string name="last_tide_id" translatable="false">last_tide_id</string>
     <string name="time_not_set">Time not set</string>
     <string name="pref_daily_weather_time_holder" translatable="false">pref_daily_weather_time_holder</string>
-    <string name="pref_daily_weather_time_title">Daily Weather Time</string>
+    <string name="pref_daily_weather_time_title">Daily weather time</string>
     <string name="pref_daily_weather_time" translatable="false">pref_daily_weather_time</string>
     <string name="screen_flashlight">Screen</string>
     <string name="pref_navigation_speedometer_type" translatable="false">pref_navigation_speedometer_type</string>
@@ -660,7 +660,7 @@
     <string name="pref_astronomy_quick_action_right" translatable="false">pref_astronomy_quick_action_right</string>
     <string name="actual_frequency_disclaimer">The actual frequency may vary as some devices have background limits in place.</string>
     <string name="pref_weather_show_detailed_icon" translatable="false">pref_weather_show_detailed_icon</string>
-    <string name="pref_weather_show_detailed_icon_title">Show Colored Notification Icon</string>
+    <string name="pref_weather_show_detailed_icon_title">Show colored notification icon</string>
     <string name="pref_backtrack_path_color" translatable="false">pref_backtrack_path_color</string>
     <string name="pref_backtrack_path_style" translatable="false">pref_backtrack_path_dotted</string>
     <!--Path line styles-->
@@ -913,7 +913,7 @@
     <string name="tilt">Tilt</string>
     <string name="duration_of_charge">Duration of charge</string>
     <string name="pref_export_weather_csv" translatable="false">pref_export_weather_csv</string>
-    <string name="pref_export_weather_csv_title">Export Weather Readings</string>
+    <string name="pref_export_weather_csv_title">Export weather readings</string>
     <string name="weather_exported">Weather exported</string>
     <string name="pref_show_nearest_tide" translatable="false">pref_show_nearest_tide</string>
     <string name="pref_show_nearest_tide_title">Show closest tide</string>
