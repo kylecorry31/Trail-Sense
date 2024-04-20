@@ -10,6 +10,37 @@ The units can be adjusted in Settings > Units. By default, the units are set bas
 - **Use 24-hour format**: Whether to use a 24-hour clock.
 - **Add leading zero to time**: Whether to add a leading zero to the time (ex. 01:00 instead of 1:00).
 
+## Sensors > Compass
+Compass settings can be found in Trail Sense Settings > Sensors > Compass. Some devices may not have a compass sensor, but you will still be able to set declination.
+
+### Azimuth
+The current compass direction (azimuth) is displayed at the top of the compass settings. As you change settings, it will update to show the new direction.
+
+### Calibrate
+The reported accuracy of the compass is show. If it is low, you can click this option to view instructions on how to calibrate.
+
+### Source
+- **Magnetometer + Gyro**: This is the default source and should work on most devices. It uses the magnetometer and gyroscope sensors to determine the direction. When the gyroscope is added in, the reading is typically less noisy. This source is provided by your phone's manufacturer.
+- **Magnetometer**: This source only uses the magnetometer sensor to determine the direction. This source is provided by your phone's manufacturer.
+- **Magnetometer + Gyro (Custom)**: This source is similar to the Magnetometer + Gyro source, but the calculations are done by Trail Sense. If the Magnetometer + Gyro source is not working correctly, try this source.
+- **Legacy (Trail Sense)**: This source is similar to the Magnetometer source, but the calculations are done by Trail Sense. If the Magnetometer source is not working correctly, try this source.
+- **Legacy (Android)**: This source is provided by Android and is not recommended to use. It is only included for compatibility with older devices, but could potentially work well on some devices.
+
+### Smoothing
+To reduce noise in compass readings, you can increase the smoothing setting. If using a source that has a gyroscope, a value of 1 is recommended. Otherwise, experiment with increasing this value until the compass appears to be working correctly when you rotate your phone. However, if you increase the smoothing too much, Trail Sense may ignore real compass changes.
+
+### True North
+To display true north instead of magnetic north, enable the "True north" setting. This will adjust the compass reading to account for magnetic declination, and it will match most maps.
+
+### Magnetic declination
+Magnetic declination is the difference between magnetic north and true north. You should ensure this is correct regardless of whether you are using true north or magnetic north.
+
+### Auto adjust declination
+Enabling the "Auto adjust declination" setting will automatically adjust the declination based on your location.
+
+### Declination override
+If you would prefer to manually set the declination, you can disable the "Auto adjust declination" setting and use the "Declination override" setting to set the declination. You can find the declination for your location on most maps or online. You can also click the "Set override from GPS" option to set the declination based on your current location (only sets it once).
+
 ## Sensors > GPS
 GPS settings can be found in Trail Sense Settings > Sensors > GPS. If your phone supports it, multiple GNSS systems will be used (such as GPS, GLONASS, Galileo, and BeiDou).
 
@@ -23,6 +54,32 @@ To get a more accurate location, Trail Sense requires at least 4 satellites to h
 
 ### Cache
 Trail Sense automatically caches your last location to quickly load details in certain tools. You can clear this cache temporarily using the "Clear cache" option in the GPS settings.
+
+## Sensors > Altimeter
+The altimeter is used to measure altitude. To adjust altimeter settings, go to Trail Sense Settings > Sensors > Altimeter.
+
+### Elevation
+The current elevation is displayed at the top of the altimeter settings. As you change settings, it will update to show the new elevation.
+
+### Source
+- **GPS + Barometer**: This is the default source and should work on most devices with a barometer. It combines the GPS and barometer to determine the altitude.
+- **GPS**: This source only uses the GPS to determine the altitude. It is less accurate than the GPS + Barometer source.
+- **Barometer**: This source only uses the barometer to determine the altitude. It is more accurate than the GPS source, but may drift over time and you will need to calibrate it before use.
+- **Manual**: This source allows you to manually set the altitude. This is useful if you know the altitude of your location and it will not change.
+
+### GPS + Barometer settings
+- **Force calibration interval**: You can choose to force the altimeter to recalibrate using the GPS every so often. This is useful to compensate for drift in the barometer, which may be due to changes in weather or location.
+- **Continuous calibration**: You can choose to continuously calibrate the altimeter using the GPS. This is useful if you are moving around a lot and want the most accurate altitude reading. When this is enabled, it prefers the barometer reading, but will slightly adjust it based on the GPS reading.
+- **Reset calibration**: You can choose to reset the calibration of the altimeter. This is useful if you are in a new location and want to recalibrate the barometer.
+
+### GPS settings
+- **Samples**: The number of GPS samples to use when determining the altitude. A higher number will give a more accurate reading, but will take longer to calculate.
+- **NMEA elevation correction**: The elevation provided by the GPS needs to be corrected to match the actual elevation. If this setting is enabled, it will use the correction factor provided by the GPS. If it is disabled, it will use the correction factor provided by Trail Sense, which may be more accurate.
+
+### Barometer / manual settings
+- **Elevation override**: If you are using the barometer or manual source, you can set the elevation manually. This is useful if you know the elevation of your location. If using the barometer source, this setting is used to calibrate the barometer and will change as you move.
+- **Set override from GPS**: You can choose to set the elevation override using the GPS if you don't know your current elevation (only sets it once).
+- **Set override from barometer**: If you know the current sea level pressure for your location, you can set the elevation override using the barometer (only sets it once). Only available on devices with a barometer.
 
 ## Sensors > Barometer
 The barometer is used to measure air pressure. It can be used to predict the weather or determine your altitude. To adjust barometer settings, go to Trail Sense Settings > Sensors > Barometer.
