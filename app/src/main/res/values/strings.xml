@@ -231,13 +231,13 @@
     <string name="pref_adjust_for_temperature_title">Factor in temperature</string>
     <string name="pref_adjust_for_temperature_summary">Use the temperature in sea level pressure conversions</string>
     <!--Settings - Navigation-->
-    <string name="pref_display_multi_beacons_title">Show Nearby Beacons</string>
-    <string name="pref_show_linear_compass_title">Show Linear Compass</string>
+    <string name="pref_display_multi_beacons_title">Show nearby beacons</string>
+    <string name="pref_show_linear_compass_title">Show linear compass</string>
     <string name="pref_show_linear_compass_summary">When the phone is vertical</string>
-    <string name="pref_num_visible_beacons_title">Nearby Beacons</string>
+    <string name="pref_num_visible_beacons_title">Nearby beacons</string>
     <string name="pref_display_multi_beacons_summary">Show closest beacons on the compass</string>
-    <string name="pref_show_calibrate_on_navigate_dialog_title">Calibrate Before Navigating</string>
-    <string name="pref_max_beacon_distance_title">Nearby Beacon Radius</string>
+    <string name="pref_show_calibrate_on_navigate_dialog_title">Calibrate before navigating</string>
+    <string name="pref_max_beacon_distance_title">Nearby beacon radius</string>
     <!--Settings - Weather-->
     <string name="pref_storm_alert_sensitivity_title">Storm Sensitivity</string>
     <string name="pref_pressure_history_title">Pressure History</string>
@@ -253,7 +253,7 @@
     <string name="pref_weather_update_frequency_title">Weather Update Frequency</string>
     <!--Settings - Astronomy-->
     <string name="pref_sun_time_mode_title">Sunrise / sunset times</string>
-    <string name="pref_show_sun_moon_compass_title">Show Sun/Moon on Compass</string>
+    <string name="pref_show_sun_moon_compass_title">Show sun/moon on compass</string>
     <string name="sun_actual">Actual</string>
     <string name="sun_civil">Civil</string>
     <string name="sun_nautical">Nautical</string>
@@ -627,7 +627,7 @@
     <string name="pref_stride_length" translatable="false">pref_stride_length</string>
     <string name="pref_odometer_request_permission" translatable="false">pref_odometer_request_permission</string>
     <string name="pref_nearby_radar" translatable="false">pref_nearby_radar</string>
-    <string name="pref_nearby_radar_title">Show Nearby Radar Compass</string>
+    <string name="pref_nearby_radar_title">Show nearby radar compass</string>
     <string name="pref_nearby_radius_holder" translatable="false">pref_nearby_radius_holder</string>
     <string name="pref_view_distance_beacons_holder" translatable="false">pref_view_distance_beacons_holder</string>
     <string name="no_tides">No tides</string>
@@ -708,7 +708,7 @@
     <string name="preview">Preview</string>
     <string name="map_perspective_instructions">Outline the map</string>
     <string name="pref_navigation_lock_screen_presence" translatable="false">pref_navigation_show_on_lock_screen</string>
-    <string name="pref_navigation_lock_screen_presence_title">Show on Lock Screen While Navigating</string>
+    <string name="pref_navigation_lock_screen_presence_title">Show on lock screen while navigating</string>
     <string name="pref_temperature_settings" translatable="false">pref_temperature_settings</string>
     <string name="pref_cell_signal_refresh_cache" translatable="false">pref_cell_signal_refresh_cache</string>
     <string name="pref_cell_signal_refresh_cache_title">Refresh signal cache</string>
