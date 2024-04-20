@@ -1060,7 +1060,7 @@
     <string name="pref_start_on_boot" translatable="false">pref_start_on_boot</string>
     <string name="pref_start_on_boot_title">Start on boot</string>
     <string name="pref_enable_analog_clock" translatable="false">pref_enable_analog_clock</string>
-    <string name="pref_enable_analog_title">Analog Clock</string>
+    <string name="pref_enable_analog_title">Analog clock</string>
     <string name="bearing">Bearing</string>
     <string name="pref_only_navigate_path_points" translatable="false">pref_only_navigate_path_points</string>
     <string name="pref_only_navigate_path_points_title">Only Navigate to Recorded Points</string>
