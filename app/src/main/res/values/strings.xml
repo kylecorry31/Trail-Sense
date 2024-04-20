@@ -984,11 +984,11 @@
         To measure the distance to a target that is %s tall:\n\n1. Align the clinometer to the base of the target\n2. Tap the screen and hold\n3. Realign the clinometer to the top of the target\n4. Release to lock and see the distance to the target
     </string>
     <string name="pref_clinometer_lock_with_volume_buttons" translatable="false">pref_clinometer_lock_with_volume_buttons</string>
-    <string name="pref_clinometer_lock_with_volume_buttons_title">Lock With Volume Buttons</string>
+    <string name="pref_clinometer_lock_with_volume_buttons_title">Lock with volume buttons</string>
     <string name="pref_clinometer_baseline_distance" translatable="false">pref_clinometer_baseline_distance</string>
     <string name="pref_clinometer_baseline_distance_units" translatable="false">pref_clinometer_baseline_distance_units</string>
     <string name="pref_clinometer_baseline_distance_holder" translatable="false">pref_clinometer_baseline_distance_holder</string>
-    <string name="pref_clinometer_baseline_distance_title">Baseline Distance</string>
+    <string name="pref_clinometer_baseline_distance_title">Baseline distance</string>
     <string name="height">Height</string>
     <string name="clinometer_measure_distance_title">Height of target</string>
     <string name="instructions">Instructions</string>
