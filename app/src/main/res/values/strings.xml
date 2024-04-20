@@ -361,7 +361,7 @@
     <string name="category_safety">Safety</string>
     <string name="category_natural">Natural</string>
     <string name="toast_destination_bearing_set">Destination bearing set</string>
-    <string name="tool_cliff_height_title">Cliff Height</string>
+    <string name="tool_cliff_height_title">Cliff height</string>
     <string name="tool_cliff_height_description">Measure the height of a cliff or drop</string>
     <string name="tool_cliff_height_disclaimer">Only use this tool when it is safe to do so, and be sure to check what is below the cliff to avoid injury. See the user guide for instructions.</string>
     <string name="tool_whistle_title">Whistle</string>
@@ -435,7 +435,7 @@
     <string name="clock_sync_time_settings">Open time settings?</string>
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="threshold">Threshold</string>
-    <string name="tool_metal_detector_title">Metal Detector</string>
+    <string name="tool_metal_detector_title">Metal detector</string>
     <string name="metal_detector_disclaimer">Only detects magnetic metals (ex. iron)</string>
     <string name="update_gps_override">Update GPS override</string>
     <string name="location_override_updated">Location override updated</string>
@@ -730,7 +730,7 @@
     <string name="pref_privacy_settings" translatable="false">pref_privacy_settings</string>
     <string name="pref_unit_settings" translatable="false">pref_unit_settings</string>
     <string name="pref_experimental_metal_direction" translatable="false">pref_experimental_metal_direction</string>
-    <string name="pref_experimental_metal_direction_title">Show Metal Direction</string>
+    <string name="pref_experimental_metal_direction_title">Show metal direction</string>
     <string name="pref_experimental_settings" translatable="false">pref_experimental_settings</string>
     <string name="pref_sensor_settings" translatable="false">pref_sensor_settings</string>
     <string name="location_mocked">Using mocked location</string>
@@ -1265,7 +1265,7 @@
     <!--    %s is the app name (Trail Sense)-->
     <string name="restore_failure_newer_version">This backup was created with a newer version of %s. Please update the app and try again.</string>
     <!--    A mode for the camera to use zero shutter lag-->
-    <string name="zero_shutter_lag">Zero Shutter Lag</string>
+    <string name="zero_shutter_lag">Zero shutter lag</string>
     <string name="pref_use_zero_shutter_lag" translatable="false">pref_use_zero_shutter_lag</string>
     <string name="my_location">My location</string>
     <string name="destination">Destination</string>
@@ -1357,7 +1357,7 @@
     <string name="use_path_elevation">Use Path Elevation</string>
     <string name="pref_use_filtered_gps" translatable="false">pref_use_filtered_gps</string>
     <string name="pref_use_metal_audio" translatable="false">pref_use_metal_audio</string>
-    <string name="smooth_gps_readings">Smooth GPS Readings</string>
+    <string name="smooth_gps_readings">Smooth GPS readings</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>
