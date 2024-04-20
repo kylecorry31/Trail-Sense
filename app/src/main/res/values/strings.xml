@@ -1287,7 +1287,7 @@
     <string name="direction_not_set">Direction not set</string>
     <!--The compass direction / bearing-->
     <string name="direction">Direction</string>
-    <string name="augmented_reality">Augmented Reality</string>
+    <string name="augmented_reality">Augmented reality</string>
     <string name="augmented_reality_description">View nearby beacons and the sun / moon with your camera</string>
     <string name="magnetic_north">Magnetic North</string>
     <string name="pinned">Pinned</string>
@@ -1336,7 +1336,7 @@
     <string name="pref_fast_path_rendering" translatable="false">pref_fast_path_rendering</string>
     <string name="fast_path_rendering">Fast Path Rendering</string>
     <string name="fast_path_rendering_summary">Improves performance at the cost of appearance</string>
-    <string name="view_distance">View Distance</string>
+    <string name="view_distance">View distance</string>
     <string name="pref_augmented_reality_view_distance" translatable="false">pref_augmented_reality_view_distance</string>
     <string name="pref_show_dial_ticks_when_no_compass" translatable="false">pref_show_dial_ticks_when_no_compass</string>
     <string name="show_dial_ticks_on_nearby_radar">Show dial ticks on nearby radar</string>
@@ -1349,12 +1349,12 @@
     <string name="pref_augmented_reality_view_distance_paths" translatable="false">pref_augmented_reality_view_distance_paths</string>
     <string name="ar_calibration_instructions">Center the %s in the screen and press \"Calibrate\"</string>
     <string name="pref_ar_use_gyro_only_after_calibration" translatable="false">pref_ar_use_gyro_only_after_calibration</string>
-    <string name="use_gyroscope_after_calibration">Use Gyroscope After Calibration</string>
+    <string name="use_gyroscope_after_calibration">Use gyroscope after calibration</string>
     <string name="use_gyroscope_after_calibration_description">Instead of the compass (avoids magnetic drift)</string>
     <string name="reset_calibration_question">Reset calibration?</string>
     <string name="pref_ar_adjust_for_path_elevation" translatable="false">pref_ar_adjust_for_path_elevation</string>
     <!-- Whether to use path elevations on the augmented reality tool -->
-    <string name="use_path_elevation">Use Path Elevation</string>
+    <string name="use_path_elevation">Use path elevation</string>
     <string name="pref_use_filtered_gps" translatable="false">pref_use_filtered_gps</string>
     <string name="pref_use_metal_audio" translatable="false">pref_use_metal_audio</string>
     <string name="smooth_gps_readings">Smooth GPS readings</string>
