@@ -476,7 +476,7 @@
     <string name="waypoint_time_format">%1$s, %2$s</string>
     <string name="pref_backtrack_enabled_summary">Record location history</string>
     <string name="pref_backtrack_frequency" translatable="false">pref_backtrack_frequency_seconds</string>
-    <string name="pref_backtrack_frequency_title">Backtrack Interval</string>
+    <string name="pref_backtrack_frequency_title">Backtrack interval</string>
     <string name="location_input_help_title">Supported location formats</string>
     <string name="location_input_help">Decimal degrees (ex. 1.00, -2.00)\n\nDegrees decimal minutes (ex. 1°23.12\'N, 3°12.1\'W)\n\nDegrees minutes seconds (ex. 1°23\'12.1\"N, 3°12\'1.2\"W)\n\nUTM (ex. 03T 12345E 67890N)\n\nMGRS (ex. 27PXM 09601 05579)\n\nUSNG (ex. 14S NJ 39521 41744)\n\nOSGB (ex. TG 51409 13177)</string>
     <string name="coordinate_input_invalid_location">Invalid location</string>
@@ -583,7 +583,7 @@
     <string name="beam_distance">%s beam distance</string>
     <string name="tool_light_meter_title">Light Meter</string>
     <string name="pref_backtrack_save_cell_summary">Records cell signal at the waypoint. Does not use the Internet.</string>
-    <string name="pref_backtrack_save_cell_title">Record Cell Signal</string>
+    <string name="pref_backtrack_save_cell_title">Record cell signal</string>
     <string name="pref_holder_pressure_chart" translatable="false">pref_holder_pressure_chart</string>
     <string name="location_not_set">Location not set</string>
     <string name="set">Set</string>
@@ -671,8 +671,8 @@
     <string name="diamond">Diamond</string>
     <string name="cross">Cross</string>
     <string name="arrow">Arrow</string>
-    <string name="pref_default_path_style_title">Default Path Style</string>
-    <string name="pref_default_path_color_title">Default Path Color</string>
+    <string name="pref_default_path_style_title">Default path style</string>
+    <string name="pref_default_path_color_title">Default path color</string>
     <string name="battery_warning">Battery drain warning</string>
     <string name="backtrack_battery_warning">Small intervals (under 15 minutes) may cause excess battery drain</string>
     <string name="calibrate_new_tide">Calibrate to a new tide?</string>
@@ -682,7 +682,7 @@
     <string name="activity_recognition_permission_denied">Physical activity permission denied, unable to turn on pedometer features. You can enable it in settings.</string>
     <string name="last_signal_beacon_name">Last signal - %1$s (%2$s)</string>
     <string name="pref_show_last_signal_beacon" translatable="false">pref_show_last_signal_beacon</string>
-    <string name="pref_show_last_signal_beacon_title">Last Signal Beacon</string>
+    <string name="pref_show_last_signal_beacon_title">Last signal beacon</string>
     <string name="pref_show_last_signal_beacon_summary">Creates a beacon for the last cell signal location</string>
     <string name="noon">Noon</string>
     <string name="whistle_signal_where_are_you">Where are you?</string>
@@ -718,7 +718,7 @@
     <string name="sensor_gyroscope">Gyroscope</string>
     <string name="roll_pitch_yaw">Roll: %1$s, Pitch: %2$s, Yaw: %3$s</string>
     <string name="pref_backtrack_history_days" translatable="false">pref_backtrack_history_days</string>
-    <string name="pref_backtrack_history_days_title">Backtrack History</string>
+    <string name="pref_backtrack_history_days_title">Backtrack history</string>
     <plurals name="number_days">
         <item quantity="one">%d day</item>
         <item quantity="other">%d days</item>
@@ -966,7 +966,7 @@
     <string name="simplifying">Simplifying</string>
     <string name="simplification_quality">Simplification quality</string>
     <string name="pref_auto_simplify_paths" translatable="false">pref_auto_simplify_paths</string>
-    <string name="pref_auto_simplify_paths_title">Simplify Paths on Import</string>
+    <string name="pref_auto_simplify_paths_title">Simplify paths on import</string>
     <string name="saving">Saving</string>
     <string name="change_map_projection">Change projection</string>
     <string name="map_projection_mercator">Mercator</string>
@@ -1063,7 +1063,7 @@
     <string name="pref_enable_analog_title">Analog clock</string>
     <string name="bearing">Bearing</string>
     <string name="pref_only_navigate_path_points" translatable="false">pref_only_navigate_path_points</string>
-    <string name="pref_only_navigate_path_points_title">Only Navigate to Recorded Points</string>
+    <string name="pref_only_navigate_path_points_title">Only navigate to recorded points</string>
     <string name="error">Error</string>
     <string name="warning">Warning</string>
     <!--The OK string is what is seen as a button in the dialog containing this message. Don't kill my app is the name of the website - it is formatted as a Markdown URL.-->
@@ -1334,7 +1334,7 @@
     <string name="view_in_3d">View in 3D</string>
     <string name="locate">Locate</string>
     <string name="pref_fast_path_rendering" translatable="false">pref_fast_path_rendering</string>
-    <string name="fast_path_rendering">Fast Path Rendering</string>
+    <string name="fast_path_rendering">Fast path rendering</string>
     <string name="fast_path_rendering_summary">Improves performance at the cost of appearance</string>
     <string name="view_distance">View distance</string>
     <string name="pref_augmented_reality_view_distance" translatable="false">pref_augmented_reality_view_distance</string>
