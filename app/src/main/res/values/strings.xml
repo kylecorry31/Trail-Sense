@@ -724,7 +724,7 @@
         <item quantity="other">%d days</item>
     </plurals>
     <string name="pref_privacy_screenshot_protection" translatable="false">pref_privacy_screenshot_protection</string>
-    <string name="pref_privacy_screenshot_protection_title">Prevent Screenshots</string>
+    <string name="pref_privacy_screenshot_protection_title">Prevent screenshots</string>
     <string name="units">Units</string>
     <string name="privacy">Privacy</string>
     <string name="pref_privacy_settings" translatable="false">pref_privacy_settings</string>
