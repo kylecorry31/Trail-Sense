@@ -174,7 +174,7 @@
     <!--Settings - Sensors-->
     <string name="sensors">Sensors</string>
     <!--Settings - Sensors - Ruler-->
-    <string name="pref_ruler_calibration_title">Ruler Scale</string>
+    <string name="pref_ruler_calibration_title">Ruler scale</string>
     <string name="pref_ruler_calibration_summary">"Calibration protocol:
 \n-  Set this value to 1.
 \n- Measure the Trail Sense ruler value corresponding to one unit of a physical ruler.
