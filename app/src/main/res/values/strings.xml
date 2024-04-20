@@ -252,7 +252,7 @@
     <string name="pref_show_temperature_in_notification_title">Show Temperature in Notification</string>
     <string name="pref_weather_update_frequency_title">Weather Update Frequency</string>
     <!--Settings - Astronomy-->
-    <string name="pref_sun_time_mode_title">Sunrise / Sunset Times</string>
+    <string name="pref_sun_time_mode_title">Sunrise / sunset times</string>
     <string name="pref_show_sun_moon_compass_title">Show Sun/Moon on Compass</string>
     <string name="sun_actual">Actual</string>
     <string name="sun_civil">Civil</string>
@@ -260,14 +260,14 @@
     <string name="sun_astronomical">Astronomical</string>
     <string name="always">Always</string>
     <string name="sun_moon_compass_when_up">When up</string>
-    <string name="pref_center_sun_and_moon_title">Keep Sun/Moon Centered</string>
+    <string name="pref_center_sun_and_moon_title">Keep sun/moon centered</string>
     <string name="update_90_minutes">1 hour 30 minutes</string>
     <string name="update_120_minutes">2 hours</string>
     <string name="update_150_minutes">2 hours 30 minutes</string>
     <string name="update_180_minutes">3 hours</string>
     <string name="update_30_minutes">30 minutes</string>
     <string name="update_60_minutes">1 hour</string>
-    <string name="pref_sunset_alert_time_title">Sunset Alert Time</string>
+    <string name="pref_sunset_alert_time_title">Sunset alert time</string>
     <!--Settings - About-->
     <string name="pref_open_source_licenses_title">Licenses</string>
     <string name="pref_category_about">About</string>
@@ -604,8 +604,8 @@
     <string name="pref_navigation_quick_action_left" translatable="false">pref_navigation_quick_action_left</string>
     <string name="pref_navigation_quick_action_right" translatable="false">pref_navigation_quick_action_right</string>
     <string name="none">None</string>
-    <string name="left_quick_action">Left Quick Action</string>
-    <string name="right_quick_action">Right Quick Action</string>
+    <string name="left_quick_action">Left quick action</string>
+    <string name="right_quick_action">Right quick action</string>
     <string name="experimental">Experimental</string>
     <string name="tides">Tides</string>
     <string name="high_tide">High</string>
@@ -632,9 +632,9 @@
     <string name="pref_view_distance_beacons_holder" translatable="false">pref_view_distance_beacons_holder</string>
     <string name="no_tides">No tides</string>
     <string name="menu">Menu</string>
-    <string name="meteor_shower">Meteor Shower</string>
+    <string name="meteor_shower">Meteor shower</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Max %d meteors / h</string>
-    <string name="pref_meteor_showers_title">Meteor Showers</string>
+    <string name="pref_meteor_showers_title">Meteor showers</string>
     <string name="pedometer_disclaimer">The accuracy and battery usage of the pedometer is dependent on your device\'s manufacturer and the stride length entered. Try it out at home for a bit to verify battery drain and accuracy before using on the trail.</string>
     <string name="rename">Rename</string>
     <string name="no_maps">No maps</string>
@@ -879,11 +879,11 @@
     <string name="low_amount">Low (%s)</string>
     <string name="medium_amount">Medium (%s)</string>
     <string name="high_amount">High (%s)</string>
-    <string name="lunar_eclipses">Lunar Eclipses</string>
+    <string name="lunar_eclipses">Lunar eclipses</string>
     <string name="total">Total</string>
     <string name="partial">Partial (%s)</string>
     <string name="lunar_eclipse">Lunar eclipse</string>
-    <string name="solar_eclipses">Solar Eclipses</string>
+    <string name="solar_eclipses">Solar eclipses</string>
     <string name="solar_eclipse">Solar eclipse</string>
     <string name="astronomy_alerts">Astronomy alerts</string>
     <string name="pref_send_lunar_eclipse_alerts" translatable="false">pref_send_lunar_eclipse_alerts</string>
