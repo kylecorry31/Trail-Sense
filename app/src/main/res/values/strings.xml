@@ -246,7 +246,7 @@
     <string name="pressure_12_hours">12 hours</string>
     <string name="pressure_4_hours">4 hours</string>
     <string name="pref_monitor_weather_summary">In the background</string>
-    <string name="pref_monitor_weather_title">Monitor weather</string>
+    <string name="pref_monitor_weather_title">Monitor Weather</string>
     <string name="pref_forecast_sensitivity_title">Forecast sensitivity</string>
     <string name="pref_show_pressure_in_notification_title">Show pressure in notification</string>
     <string name="pref_show_temperature_in_notification_title">Show temperature in notification</string>
@@ -688,7 +688,7 @@
     <string name="whistle_signal_where_are_you">Where are you?</string>
     <string name="whistle_signal_acknowledged">Acknowledged</string>
     <string name="whistle_signal_come_here">Come here</string>
-    <string name="weather_monitor">Weather monitor</string>
+    <string name="weather_monitor">Weather Monitor</string>
     <string name="battery_history">Battery history - last %s</string>
     <string name="humidity_history">Humidity history - last %s</string>
     <string name="temperature_history">Temperature history - last %s</string>
