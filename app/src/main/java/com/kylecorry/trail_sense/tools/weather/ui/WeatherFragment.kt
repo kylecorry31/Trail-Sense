@@ -216,15 +216,15 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     override fun onUpdate() {
         super.onUpdate()
 
-        effect("chart", history, rawHistory) {
+        effect("chart", history, rawHistory, lifecycleHookTrigger.onResume()) {
             displayPressureChart(history, rawHistory)
         }
 
-        effect("list", weather) {
+        effect("list", weather, lifecycleHookTrigger.onResume()) {
             updateList()
         }
 
-        effect("forecast", weather) {
+        effect("forecast", weather, lifecycleHookTrigger.onResume()) {
             inBackground {
                 updateForecast()
             }
