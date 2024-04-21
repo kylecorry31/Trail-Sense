@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.data.Identifiable
 import com.kylecorry.trail_sense.shared.debugging.isDebug
+import com.kylecorry.trail_sense.shared.quickactions.QuickActionOpenTool
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.QuickActionNone
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionNightMode
@@ -32,6 +33,7 @@ import com.kylecorry.trail_sense.tools.paths.quickactions.QuickActionPaths
 import com.kylecorry.trail_sense.tools.pedometer.quickactions.QuickActionPedometer
 import com.kylecorry.trail_sense.tools.ruler.quickactions.QuickActionRuler
 import com.kylecorry.trail_sense.tools.temperature_estimation.quickactions.QuickActionTemperatureEstimation
+import com.kylecorry.trail_sense.tools.tools.ui.sort.AlphabeticalToolSort
 import com.kylecorry.trail_sense.tools.weather.quickactions.QuickActionWeatherMonitor
 import com.kylecorry.trail_sense.tools.whistle.quickactions.QuickActionWhistle
 import com.kylecorry.trail_sense.tools.whitenoise.quickactions.QuickActionWhiteNoise
@@ -534,11 +536,25 @@ object Tools {
         ) { button, fragment ->
             QuickActionNone(button, fragment)
         }
-        return listOf(none) + getTools(context)
+
+        val tools = getTools(context)
+
+        val sortedTools = AlphabeticalToolSort().sort(tools).flatMap { it.tools }
+
+        val quickActions = tools
             .flatMap { it.quickActions }
             .distinctBy { it.id }
             .sortedBy { it.id }
             .map { it.copy(name = it.name.capitalizeWords()) }
+
+        val toolActions = sortedTools.map {
+            ToolQuickAction(
+                -it.id.toInt(),
+                context.getString(R.string.tool_quick_action_name, it.name)
+            ) { button, fragment -> QuickActionOpenTool(button, fragment, it.navAction, it.icon) }
+        }
+
+        return listOf(none) + quickActions + toolActions
     }
 
     // Tool IDs
