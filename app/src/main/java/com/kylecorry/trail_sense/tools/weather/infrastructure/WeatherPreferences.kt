@@ -133,14 +133,14 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
         get() {
             val id = cache.getString(context.getString(R.string.pref_weather_quick_action_left))
                 ?.toIntCompat()
-            return id ?: Tools.QUICK_ACTION_CLOUDS
+            return id ?: (Tools.CLOUDS.toInt() + Tools.TOOL_QUICK_ACTION_OFFSET)
         }
 
     override val rightButton: Int
         get() {
             val id = cache.getString(context.getString(R.string.pref_weather_quick_action_right))
                 ?.toIntCompat()
-            return id ?: Tools.QUICK_ACTION_TEMPERATURE_ESTIMATION
+            return id ?: (Tools.TEMPERATURE_ESTIMATION.toInt() + Tools.TOOL_QUICK_ACTION_OFFSET)
         }
 
     override val showColoredNotificationIcon: Boolean

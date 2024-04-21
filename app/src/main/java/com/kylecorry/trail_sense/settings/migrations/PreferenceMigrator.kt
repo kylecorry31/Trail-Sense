@@ -2,9 +2,12 @@ package com.kylecorry.trail_sense.settings.migrations
 
 import android.content.Context
 import com.kylecorry.andromeda.core.system.Screen
+import com.kylecorry.luna.text.toIntCompat
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.AppState
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.getIntArray
+import com.kylecorry.trail_sense.shared.extensions.putIntArray
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrapper
@@ -12,6 +15,7 @@ import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
 import com.kylecorry.trail_sense.shared.sensors.providers.CompassProvider
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyDailyWorker
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
+import com.kylecorry.trail_sense.tools.tools.ui.Tools
 import java.time.Duration
 
 class PreferenceMigrator private constructor() {
@@ -36,11 +40,12 @@ class PreferenceMigrator private constructor() {
             }
         }
     }
+
     companion object {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Object()
 
-        private const val version = 16
+        private const val version = 17
         private val migrations = listOf(
             PreferenceMigration(0, 1) { context, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -169,7 +174,7 @@ class PreferenceMigrator private constructor() {
                 userPrefs.compass.source = sources.firstOrNull() ?: CompassSource.CustomMagnetometer
                 prefs.remove("pref_use_legacy_compass_2")
             },
-            PreferenceMigration(14, 15){ context, prefs ->
+            PreferenceMigration(14, 15) { context, prefs ->
                 val userPrefs = UserPreferences(context)
 
                 // By grabbing the preferences, it will solidify the defaults
@@ -179,11 +184,54 @@ class PreferenceMigrator private constructor() {
                 userPrefs.pressureUnits
                 userPrefs.temperatureUnits
             },
-            PreferenceMigration(15, 16){ context, prefs ->
-                if (prefs.getBoolean("cache_dialog_tool_cliff_height") != null){
+            PreferenceMigration(15, 16) { context, prefs ->
+                if (prefs.getBoolean("cache_dialog_tool_cliff_height") != null) {
                     // Enable the cliff height tool since it was previously used
                     val userPrefs = UserPreferences(context)
                     userPrefs.isCliffHeightEnabled = true
+                }
+            },
+            PreferenceMigration(16, 17) { context, prefs ->
+                // Replace the old tool quick actions with the generic tool quick action
+                val individualQuickActionPrefs = listOf(
+                    context.getString(R.string.pref_navigation_quick_action_left),
+                    context.getString(R.string.pref_navigation_quick_action_right),
+                    context.getString(R.string.pref_astronomy_quick_action_left),
+                    context.getString(R.string.pref_astronomy_quick_action_right),
+                    context.getString(R.string.pref_weather_quick_action_left),
+                    context.getString(R.string.pref_weather_quick_action_right),
+                )
+                val toolQuickActionPrefs = context.getString(R.string.pref_tool_quick_actions)
+
+                val replacementMap = mapOf(
+                    7 to Tools.PHOTO_MAPS.toInt() + Tools.TOOL_QUICK_ACTION_OFFSET,
+                    0 to Tools.PATHS.toInt() + Tools.TOOL_QUICK_ACTION_OFFSET,
+                    12 to Tools.CLIMATE.toInt() + Tools.TOOL_QUICK_ACTION_OFFSET,
+                    3 to Tools.TEMPERATURE_ESTIMATION.toInt() + Tools.TOOL_QUICK_ACTION_OFFSET,
+                    2 to Tools.CLOUDS.toInt() + Tools.TOOL_QUICK_ACTION_OFFSET,
+                    11 to Tools.LIGHTNING_STRIKE_DISTANCE.toInt() + Tools.TOOL_QUICK_ACTION_OFFSET
+                )
+
+                for (pref in individualQuickActionPrefs) {
+                    val tool = prefs.getString(pref)?.toIntCompat()
+                    if (tool != null) {
+                        val replacement = replacementMap[tool]
+                        if (replacement != null) {
+                            prefs.putString(pref, replacement.toString())
+                        }
+                    }
+                }
+
+                val toolQuickActions = prefs.getIntArray(toolQuickActionPrefs)
+                if (toolQuickActions != null) {
+                    val newToolQuickActions = toolQuickActions.mapNotNull {
+                        if (it in replacementMap) {
+                            replacementMap[it]
+                        } else {
+                            it
+                        }
+                    }
+                    prefs.putIntArray(toolQuickActionPrefs, newToolQuickActions)
                 }
             }
         )

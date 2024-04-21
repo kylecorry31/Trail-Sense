@@ -20,19 +20,13 @@ import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionNightMo
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunsetAlert
 import com.kylecorry.trail_sense.tools.battery.quickactions.QuickActionLowPowerMode
 import com.kylecorry.trail_sense.tools.beacons.quickactions.QuickActionPlaceBeacon
-import com.kylecorry.trail_sense.tools.climate.quickactions.QuickActionClimate
-import com.kylecorry.trail_sense.tools.clouds.quickactions.QuickActionClouds
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionScreenFlashlight
-import com.kylecorry.trail_sense.tools.lightning.quickactions.QuickActionLightingStrikeDistance
-import com.kylecorry.trail_sense.tools.maps.quickactions.QuickActionPhotoMaps
 import com.kylecorry.trail_sense.tools.notes.quickactions.QuickActionCreateNote
 import com.kylecorry.trail_sense.tools.paths.quickactions.QuickActionBacktrack
-import com.kylecorry.trail_sense.tools.paths.quickactions.QuickActionPaths
 import com.kylecorry.trail_sense.tools.pedometer.quickactions.QuickActionPedometer
 import com.kylecorry.trail_sense.tools.ruler.quickactions.QuickActionRuler
-import com.kylecorry.trail_sense.tools.temperature_estimation.quickactions.QuickActionTemperatureEstimation
 import com.kylecorry.trail_sense.tools.tools.ui.sort.AlphabeticalToolSort
 import com.kylecorry.trail_sense.tools.weather.quickactions.QuickActionWeatherMonitor
 import com.kylecorry.trail_sense.tools.whistle.quickactions.QuickActionWhistle
@@ -195,14 +189,7 @@ object Tools {
                 ToolCategory.Location,
                 context.getString(R.string.photo_map_summary),
                 guideId = R.raw.guide_tool_photo_maps,
-                settingsNavAction = R.id.mapSettingsFragment,
-                quickActions = listOf(
-                    ToolQuickAction(
-                        QUICK_ACTION_MAPS,
-                        context.getString(R.string.photo_maps),
-                        ::QuickActionPhotoMaps
-                    )
-                )
+                settingsNavAction = R.id.mapSettingsFragment
             ),
             Tool(
                 PATHS,
@@ -213,11 +200,6 @@ object Tools {
                 guideId = R.raw.guide_tool_paths,
                 settingsNavAction = R.id.pathsSettingsFragment,
                 quickActions = listOf(
-                    ToolQuickAction(
-                        QUICK_ACTION_PATHS,
-                        context.getString(R.string.paths),
-                        ::QuickActionPaths
-                    ),
                     ToolQuickAction(
                         QUICK_ACTION_BACKTRACK,
                         context.getString(R.string.backtrack),
@@ -357,14 +339,7 @@ object Tools {
                 R.id.climateFragment,
                 ToolCategory.Weather,
                 context.getString(R.string.tool_climate_summary),
-                guideId = R.raw.guide_tool_climate,
-                quickActions = listOf(
-                    ToolQuickAction(
-                        QUICK_ACTION_CLIMATE,
-                        context.getString(R.string.tool_climate),
-                        ::QuickActionClimate
-                    )
-                )
+                guideId = R.raw.guide_tool_climate
             ),
             Tool(
                 TEMPERATURE_ESTIMATION,
@@ -373,14 +348,7 @@ object Tools {
                 R.id.temperatureEstimationFragment,
                 ToolCategory.Weather,
                 context.getString(R.string.tool_temperature_estimation_description),
-                guideId = R.raw.guide_tool_temperature_estimation,
-                quickActions = listOf(
-                    ToolQuickAction(
-                        QUICK_ACTION_TEMPERATURE_ESTIMATION,
-                        context.getString(R.string.tool_temperature_estimation_title),
-                        ::QuickActionTemperatureEstimation
-                    )
-                )
+                guideId = R.raw.guide_tool_temperature_estimation
             ),
             Tool(
                 CLOUDS,
@@ -388,14 +356,7 @@ object Tools {
                 R.drawable.ic_tool_clouds,
                 R.id.cloudFragment,
                 ToolCategory.Weather,
-                guideId = R.raw.guide_tool_clouds,
-                quickActions = listOf(
-                    ToolQuickAction(
-                        QUICK_ACTION_CLOUDS,
-                        context.getString(R.string.clouds),
-                        ::QuickActionClouds
-                    )
-                )
+                guideId = R.raw.guide_tool_clouds
             ),
             Tool(
                 LIGHTNING_STRIKE_DISTANCE,
@@ -404,14 +365,7 @@ object Tools {
                 R.id.fragmentToolLightning,
                 ToolCategory.Weather,
                 context.getString(R.string.tool_lightning_description),
-                guideId = R.raw.guide_tool_lightning_strike_distance,
-                quickActions = listOf(
-                    ToolQuickAction(
-                        QUICK_ACTION_THUNDER,
-                        context.getString(R.string.tool_lightning_title),
-                        ::QuickActionLightingStrikeDistance
-                    )
-                )
+                guideId = R.raw.guide_tool_lightning_strike_distance
             ),
             if (hasCompass) Tool(
                 AUGMENTED_REALITY,
@@ -549,13 +503,15 @@ object Tools {
 
         val toolActions = sortedTools.map {
             ToolQuickAction(
-                -it.id.toInt(),
+                it.id.toInt() + TOOL_QUICK_ACTION_OFFSET, // Avoid overlap
                 context.getString(R.string.tool_quick_action_name, it.name)
             ) { button, fragment -> QuickActionOpenTool(button, fragment, it.navAction, it.icon) }
         }
 
         return listOf(none) + quickActions + toolActions
     }
+
+    const val TOOL_QUICK_ACTION_OFFSET = 1000
 
     // Tool IDs
     const val FLASHLIGHT = 1L
@@ -597,17 +553,11 @@ object Tools {
 
     // Quick Action IDs
     const val QUICK_ACTION_NONE = -1
-    const val QUICK_ACTION_PATHS = 0
     const val QUICK_ACTION_FLASHLIGHT = 1
-    const val QUICK_ACTION_CLOUDS = 2
-    const val QUICK_ACTION_TEMPERATURE_ESTIMATION = 3
     const val QUICK_ACTION_RULER = 5
-    const val QUICK_ACTION_MAPS = 7
     const val QUICK_ACTION_WHISTLE = 8
     const val QUICK_ACTION_WHITE_NOISE = 9
     const val QUICK_ACTION_LOW_POWER_MODE = 10
-    const val QUICK_ACTION_THUNDER = 11
-    const val QUICK_ACTION_CLIMATE = 12
     const val QUICK_ACTION_SUNSET_ALERT = 13
     const val QUICK_ACTION_NIGHT_MODE = 14
     const val QUICK_ACTION_BACKTRACK = 15
