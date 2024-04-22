@@ -7,8 +7,6 @@
     <string name="astronomy">ستاره شناسی</string>
     <string name="sunrise_label">طلوع خورشید</string>
     <string name="sunset_label">غروب خورشید</string>
-
-
     <string name="true_north">شمال جغرافیایی</string>
     <string name="pref_use_sea_level_pressure_title">فشار سطح دریا</string>
     <string name="general">عمومی</string>
@@ -16,7 +14,6 @@
     <string name="pref_use_24_hour_title">از قالب 24 ساعته استفاده کنید</string>
     <string name="pref_sun_time_mode_title">زمان طلوع آفتاب / غروب خورشید</string>
     <string name="no_beacons">مکان راهنمایی وجود ندارد</string>
-
     <string name="continue_button">ادامه</string>
     <string name="stop">متوقف کردن</string>
     <string name="smoothing_summary">مقادیر زیاد میتواند نویز را کاهش دهد</string>
@@ -26,20 +23,16 @@
     <string name="pref_show_sun_moon_compass_title">خورشید / ماه را در قطب نما نشان دهید</string>
     <string name="pref_show_linear_compass_title">نمایش قطب نما خطی</string>
     <string name="pref_show_linear_compass_summary">وقتی تلفن عمودی است</string>
-
     <string name="feet_miles">فوت / مایل</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">جیوه</string>
     <string name="units_mbar">mbar</string>
     <string name="units_psi">PSI</string>
-
     <string name="theme_light">روشن</string>
     <string name="theme_dark">تیره</string>
     <string name="theme_black">سیاه</string>
     <string name="theme_system">سیستم</string>
-
     <string name="gps">جي.پي.اس</string>
-
     <string name="sun_actual">زمان واقعی</string>
     <string name="sun_civil">گرگ و میش</string>
     <string name="sun_nautical">گرگ و میش دریایی</string>
@@ -47,7 +40,6 @@
     <string name="today">امروز</string>
     <string name="tomorrow">فردا</string>
     <string name="yesterday">دیروز</string>
-
     <string name="pressure_48_hours">48 ساعته</string>
     <string name="pressure_24_hours">24 ساعته</string>
     <string name="pressure_12_hours">12 ساعته</string>
