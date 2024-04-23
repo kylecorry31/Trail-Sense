@@ -7,8 +7,6 @@
     <string name="astronomy">खगोल विज्ञान</string>
     <string name="sunrise_label">सूर्योदय</string>
     <string name="sunset_label">सूर्यास्त</string>
-
-
     <string name="true_north">साँचो उत्तर</string>
     <string name="pref_use_sea_level_pressure_title">समुद्री सतह दबाव</string>
     <string name="general">सामान्य</string>
@@ -25,20 +23,16 @@
     <string name="pref_show_sun_moon_compass_title">कम्पासमा सूर्य /चन्द्रमा देखाउनुहोस्</string>
     <string name="pref_show_linear_compass_title">रैखिक कम्पास देखाउनुहोस्</string>
     <string name="pref_show_linear_compass_summary">जब फोन ठाडो हुन्छ</string>
-
     <string name="feet_miles">फुट /माइल</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">inHg</string>
     <string name="units_mbar">mbar</string>
     <string name="units_psi">PSI</string>
-
     <string name="theme_light">हल्का</string>
     <string name="theme_dark">गाढा</string>
     <string name="theme_black">कालो</string>
     <string name="theme_system">प्रणाली</string>
-
     <string name="gps">जीपीएस</string>
-
     <string name="sun_actual">वास्तविक समय</string>
     <string name="sun_civil">नागरिक गोधूलि</string>
     <string name="sun_nautical">समुद्री गोधूलि</string>
@@ -46,7 +40,6 @@
     <string name="today">आज</string>
     <string name="tomorrow">भोली</string>
     <string name="yesterday">हिजो</string>
-
     <string name="pressure_48_hours"> ४८ घण्टा</string>
     <string name="pressure_24_hours">२ घण्टा</string>
     <string name="pressure_12_hours">१२ घण्टा</string>

@@ -324,4 +324,5 @@
     <string name="tool_cliff_height_disclaimer">請確保在安全的情況下使用此工具，並且務必檢查懸崖下方的情況以避免受傷。請參閱使用者指南以取得說明。</string>
     <string name="water_boil_timer_channel_description">水在沸騰了</string>
     <string name="water_boil_timer_done_title">水已煮沸</string>
+    <string name="access_background_location_rationale">Trail Sense 會在背景使用位置資料以進行天氣監測中的海平面壓力校準，並提供更準確的日落警報。[查看隱私權政策](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
 </resources>
