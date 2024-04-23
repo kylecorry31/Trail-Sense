@@ -146,8 +146,8 @@
     <string name="override_from_gps">Nastavit přepsání z GPS</string>
     <string name="coordinate_format_mgrs">MGRS</string>
     <string name="coordinate_format_utm">UTM</string>
-    <string name="coordinate_format_degrees_minutes_seconds">Minuty Sekundy Stupňů</string>
-    <string name="coordinate_format_degrees_decimal_minutes">Desetinné minuty stupňů</string>
+    <string name="coordinate_format_degrees_minutes_seconds">Stupně minuty sekundy</string>
+    <string name="coordinate_format_degrees_decimal_minutes">Stupně desetiny minuty</string>
     <string name="coordinate_format_decimal_degrees">Desetinné stupně</string>
     <string name="set_inclination_instructions">Klepněte nebo držte kdekoli k uzamknutí nebo odemknutí</string>
     <string name="waxing_gibbous">Měsíc Dorůstá</string>
@@ -479,7 +479,7 @@
     <string name="high_tide">Příliv</string>
     <string name="location_not_set">Poloha není nastavena</string>
     <string name="set">Nastavit</string>
-    <string name="gps_cache">GPS cache</string>
+    <string name="gps_cache">Mezipaměť GPS</string>
     <string name="guide_light_meter_description">Jak určit délku paprsku svítilen</string>
     <string name="time_not_set">Čas není nastaven</string>
     <string name="half_tide">Poloviční</string>
@@ -1170,4 +1170,7 @@
     <string name="max_s">Max. %s</string>
     <string name="ar_calibration_disclaimer">Před každým použitím nástroje Rozšířená realita ověřte, že se ikony slunce nebo měsíce nacházejí ve správné pozici oproti reálnému světu. Pokud ne, klepněte na ikonu kompasu v levém horním rohu obrazovky a následujte pokyny pro kalibraci.</string>
     <string name="pref_enable_analog_title">Analogové hodiny</string>
+    <string name="no_recorded_cell_signal_nearby">Poblíž nenalezen žádný zaznamenaný mobilní signál</string>
+    <string name="navigate_to_nearest_cell_signal">Navigace k nejbližšímu mobilnímu signálu</string>
+    <string name="tool_quick_action_name">Nástroj: %s</string>
 </resources>
