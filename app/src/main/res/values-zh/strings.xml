@@ -317,7 +317,7 @@
     <string name="degree">%s°</string>
     <string name="coordinate_format_utm">通用横轴墨卡托（UTM） 坐标系</string>
     <string name="coordinate_format_degrees_minutes_seconds">度分秒</string>
-    <string name="coordinate_format_degrees_decimal_minutes">度十进制分</string>
+    <string name="coordinate_format_degrees_decimal_minutes">十进制度数分钟</string>
     <string name="pref_gps_override_title">位置覆盖</string>
     <string name="coordinate_input_invalid_location">无效位置</string>
     <string name="location_input_help">十进制度数 (如， 1.00, -2.00)
@@ -1135,4 +1135,7 @@
     <string name="max_s">最大 %s</string>
     <string name="ar_calibration_disclaimer">在每次使用“增强现实”工具前，请先验证太阳或月亮图标与真实世界的正确对齐。如果不是的话，请点击屏幕左上角的指南针图标，按照指示进行校准。</string>
     <string name="pref_enable_analog_title">模拟时钟</string>
+    <string name="no_recorded_cell_signal_nearby">附近没有记录的电话信号</string>
+    <string name="navigate_to_nearest_cell_signal">导航到最近的电话信号</string>
+    <string name="tool_quick_action_name">工具：%s</string>
 </resources>
