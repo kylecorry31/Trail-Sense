@@ -7,8 +7,6 @@
     <string name="astronomy">астрономия</string>
     <string name="sunrise_label">изгрев</string>
     <string name="sunset_label">залез</string>
-
-
     <string name="true_north">Истински Север</string>
     <string name="pref_use_sea_level_pressure_title">Налягане на морското ниво</string>
     <string name="general">Общ</string>
@@ -25,20 +23,16 @@
     <string name="pref_show_sun_moon_compass_title">Покажете слънце /луна на компас</string>
     <string name="pref_show_linear_compass_title">Покажете линеен компас</string>
     <string name="pref_show_linear_compass_summary">Когато телефонът е вертикален</string>
-
     <string name="feet_miles">Крака /мили</string>
     <string name="units_hpa">HPA</string>
     <string name="units_inhg">inHg</string>
     <string name="units_mbar">милибара</string>
     <string name="units_psi">PSI</string>
-
     <string name="theme_light">Светлина</string>
     <string name="theme_dark">тъмен</string>
     <string name="theme_black">черно</string>
     <string name="theme_system">Система</string>
-
     <string name="gps">GPS</string>
-
     <string name="sun_actual">Реално време</string>
     <string name="sun_civil">Граждански здрач</string>
     <string name="sun_nautical">Морски здрач</string>
@@ -46,7 +40,6 @@
     <string name="today">днес</string>
     <string name="tomorrow">утре</string>
     <string name="yesterday">Вчера</string>
-
     <string name="pressure_48_hours">48 часа</string>
     <string name="pressure_24_hours">24 часа</string>
     <string name="pressure_12_hours">12 часа</string>

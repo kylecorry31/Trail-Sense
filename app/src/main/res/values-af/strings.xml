@@ -7,8 +7,6 @@
     <string name="astronomy">Sterrekunde</string>
     <string name="sunrise_label">Sunrise</string>
     <string name="sunset_label">Sunset</string>
-
-
     <string name="true_north">Ware Noord</string>
     <string name="pref_use_sea_level_pressure_title">Seevlak druk</string>
     <string name="general">algemene</string>
@@ -25,20 +23,16 @@
     <string name="pref_show_sun_moon_compass_title">Wys son /maan op kompas</string>
     <string name="pref_show_linear_compass_title">Wys lineêre kompas</string>
     <string name="pref_show_linear_compass_summary">As die telefoon vertikaal is</string>
-
     <string name="feet_miles">Voete /myl</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">inHg</string>
     <string name="units_mbar">mbar</string>
     <string name="units_psi">PSI</string>
-
     <string name="theme_light">lig</string>
     <string name="theme_dark">donker</string>
     <string name="theme_black">Swart</string>
     <string name="theme_system">stelsel</string>
-
     <string name="gps">GPS</string>
-
     <string name="sun_actual">Werklike tyd</string>
     <string name="sun_civil">Civil Twilight</string>
     <string name="sun_nautical">Nautical Twilight</string>
@@ -46,7 +40,6 @@
     <string name="today">vandag</string>
     <string name="tomorrow">môre</string>
     <string name="yesterday">gister</string>
-
     <string name="pressure_48_hours">48 uur</string>
     <string name="pressure_24_hours">24 ure</string>
     <string name="pressure_12_hours">12 uur</string>

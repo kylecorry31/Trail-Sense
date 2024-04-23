@@ -379,7 +379,7 @@
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="notification_monitoring_weather">Arkaplanda hava durumu gözetleniyor</string>
-    <string name="notification_storm_alert_title">Fırtına Uyarısı</string>
+    <string name="notification_storm_alert_title">Fırtına uyarısı</string>
     <string name="notification_storm_alert_text">Fırtına yaklaşıyor olabilir</string>
     <string name="storm_alerts">Fırtına uyarıları</string>
     <string name="alerts">Uyarılar</string>

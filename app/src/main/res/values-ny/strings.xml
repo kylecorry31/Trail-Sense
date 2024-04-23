@@ -7,8 +7,6 @@
     <string name="astronomy">Zakuthambo</string>
     <string name="sunrise_label">Kutuluka kwa dzuwa</string>
     <string name="sunset_label">Dzuwa</string>
-
-
     <string name="true_north">Kumpoto Kwenikweni</string>
     <string name="pref_use_sea_level_pressure_title">Kupsinjika kwa nyanja</string>
     <string name="general">Zambiri</string>
@@ -25,20 +23,16 @@
     <string name="pref_show_sun_moon_compass_title">Onetsani dzuwa /mwezi pa Kampasi</string>
     <string name="pref_show_linear_compass_title">Onetsani kampasi yotsogola</string>
     <string name="pref_show_linear_compass_summary">Foni ikakhala yoima</string>
-
     <string name="feet_miles">Mapazi /Miles</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">inHg</string>
     <string name="units_mbar">mbar</string>
     <string name="units_psi">PSI</string>
-
     <string name="theme_light">Kuwala</string>
     <string name="theme_dark">Mdima</string>
     <string name="theme_black">Chakuda</string>
     <string name="theme_system">Dongosolo</string>
-
     <string name="gps">GPS</string>
-
     <string name="sun_actual">Nthawi Yeniyeni</string>
     <string name="sun_civil">Usiku Wamadzulo</string>
     <string name="sun_nautical">Madzulo Nautical</string>
@@ -46,7 +40,6 @@
     <string name="today">Lero</string>
     <string name="tomorrow">Mawa</string>
     <string name="yesterday">Dzulo</string>
-
     <string name="pressure_48_hours">Maola 48</string>
     <string name="pressure_24_hours">Maola 24</string>
     <string name="pressure_12_hours">Maola 12</string>

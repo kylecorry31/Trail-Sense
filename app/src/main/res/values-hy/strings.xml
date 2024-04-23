@@ -7,8 +7,6 @@
     <string name="astronomy">Աստղագիտություն</string>
     <string name="sunrise_label">Արևածագ</string>
     <string name="sunset_label">Մայրամուտ</string>
-
-
     <string name="true_north">Իսկական Հյուսիս</string>
     <string name="pref_use_sea_level_pressure_title">Ծովի մակարդակի ճնշում</string>
     <string name="general">Գեներալ</string>
@@ -25,20 +23,16 @@
     <string name="pref_show_sun_moon_compass_title">Sunուցադրել արևը /լուսինը կողմնացույցի վրա</string>
     <string name="pref_show_linear_compass_title">Ուցադրել գծային կողմնացույց</string>
     <string name="pref_show_linear_compass_summary">Երբ հեռախոսը ուղղահայաց է</string>
-
     <string name="feet_miles">Ոտքեր /մղոններ</string>
     <string name="units_hpa">հՊա</string>
     <string name="units_inhg">inHg</string>
     <string name="units_mbar">մբար</string>
     <string name="units_psi">PSI</string>
-
     <string name="theme_light">Լույս</string>
     <string name="theme_dark">Մութ</string>
     <string name="theme_black">Սեվ</string>
     <string name="theme_system">Համակարգ</string>
-
     <string name="gps">GPS</string>
-
     <string name="sun_actual">Իրական ժամանակը</string>
     <string name="sun_civil">Քաղաքացիական մթնշաղ</string>
     <string name="sun_nautical">Ծովային մթնշաղ</string>
@@ -46,7 +40,6 @@
     <string name="today">Այսօր</string>
     <string name="tomorrow">Վաղը</string>
     <string name="yesterday">Երեկ</string>
-
     <string name="pressure_48_hours">48 ժամ</string>
     <string name="pressure_24_hours">24 ժամ</string>
     <string name="pressure_12_hours">12 ժամ</string>
