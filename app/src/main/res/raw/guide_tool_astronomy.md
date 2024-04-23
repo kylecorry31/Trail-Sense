@@ -76,7 +76,9 @@ Alerts can be set for sunset to avoid being caught outside in the dark. To set a
 Alerts can be set for astronomical events to ensure you don't miss them. To set an alert, open Settings > Astronomy and enable the alerts you want to be notified about for your location. You can receive notifications for meteor showers, lunar eclipses, and solar eclipses. The alert will be shown up to 24 hours in advance of the event start time.
 
 ## View in 3D
-If you have the experimental Augmented Reality tool enabled, you will see a "View in 3D" button. Clicking this will open the Augmented Reality tool with the selected date and allow you to see where the sun and moon will be throughout the day using your camera.
+If your phone has a compass, you will see a "View in 3D" button. Clicking this will open the Augmented Reality tool with the selected date and allow you to see where the sun and moon will be throughout the day using your camera.
+
+You can choose to disable the camera when clicked by disabling the "Settings > Astronomy > Use camera for 3D viewing" setting.
 
 ## Quick Action
 You can enable the Sunset Alert quick action in the settings for the tab where you want it to appear.

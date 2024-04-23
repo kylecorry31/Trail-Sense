@@ -8,6 +8,7 @@ import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.tools.tools.ui.Tools
 
@@ -35,6 +36,9 @@ class AstronomySettingsFragment : AndromedaPreferenceFragment() {
 
         prefleftButton?.entryValues = actionValues.toTypedArray()
         prefrightButton?.entryValues = actionValues.toTypedArray()
+
+        switch(R.string.pref_start_camera_in_3d_view)?.isVisible =
+            Tools.isToolAvailable(requireContext(), Tools.AUGMENTED_REALITY)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,15 +48,15 @@ class AstronomySettingsFragment : AndromedaPreferenceFragment() {
 
         PreferencesSubsystem.getInstance(requireContext()).preferences.onChange.asLiveData()
             .observe(viewLifecycleOwner) {
-                if (it == alertTimePrefKey){
+                if (it == alertTimePrefKey) {
                     restartSunsetAlerts(false)
-                } else if (it == alertPrefKey){
+                } else if (it == alertPrefKey) {
                     restartSunsetAlerts(true)
                 }
             }
     }
 
-    private fun restartSunsetAlerts(shouldRequestPermissions: Boolean){
+    private fun restartSunsetAlerts(shouldRequestPermissions: Boolean) {
         if (!prefs.astronomy.sendSunsetAlerts) {
             return
         }

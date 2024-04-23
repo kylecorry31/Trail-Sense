@@ -105,4 +105,10 @@ class AstronomyPreferences(private val context: Context) {
             return id ?: Tools.QUICK_ACTION_SUNSET_ALERT
         }
 
+    val startCameraIn3DView by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_start_camera_in_3d_view),
+        true
+    )
+
 }

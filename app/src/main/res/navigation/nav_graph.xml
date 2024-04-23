@@ -632,6 +632,10 @@
             android:name="mode"
             android:defaultValue="1L"
             app:argType="long" />
+        <argument
+            android:name="camera_enabled"
+            android:defaultValue="true"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/fragmentStrideLengthEstimation"

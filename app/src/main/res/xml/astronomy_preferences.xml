@@ -38,6 +38,14 @@
             app:title="@string/right_quick_action"
             app:useSimpleSummaryProvider="true" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_start_camera_in_3d_view"
+            app:singleLineTitle="false"
+            app:title="@string/pref_start_camera_in_3d_view_title"
+            android:summary="@string/pref_start_camera_in_3d_view_summary"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory

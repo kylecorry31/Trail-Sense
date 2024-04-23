@@ -123,6 +123,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             AugmentedRealityFragment.open(
                 findNavController(),
                 ARMode.Astronomy,
+                enableCamera = prefs.astronomy.startCameraIn3DView,
                 bundleOf("date" to binding.displayDate.date.toString())
             )
         }

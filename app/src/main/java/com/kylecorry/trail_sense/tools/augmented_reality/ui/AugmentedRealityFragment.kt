@@ -184,8 +184,11 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
         binding.arView.bind(binding.camera)
 
-        val modeId = requireArguments().getLong("mode", ARMode.Normal.id)
+        val arguments = requireArguments()
+        val modeId = arguments.getLong("mode", ARMode.Normal.id)
         val desiredMode = ARMode.entries.withId(modeId) ?: ARMode.Normal
+
+        isCameraEnabled = arguments.getBoolean("camera_enabled", true)
 
         setMode(desiredMode, requireArguments().getBundle("extras"))
 
@@ -487,11 +490,13 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         fun open(
             navController: NavController,
             mode: ARMode = ARMode.Normal,
+            enableCamera: Boolean = true,
             extras: Bundle? = null
         ) {
             navController.navigate(
                 R.id.augmentedRealityFragment, bundleOf(
                     "mode" to mode.id,
+                    "camera_enabled" to enableCamera,
                     "extras" to extras
                 )
             )
