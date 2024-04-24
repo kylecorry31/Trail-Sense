@@ -181,7 +181,7 @@
 \n- Report the measured value here."</string>
     <!--Settings - Sensors - Compass-->
     <string name="pref_compass_sensor_title">Compass</string>
-    <string name="true_north">True North</string>
+    <string name="true_north">True north</string>
     <string name="smoothing_summary">High values may reduce noise</string>
     <!--Button text which will use your current location to set the declination override-->
     <string name="override_from_gps">Set override from GPS</string>
@@ -453,7 +453,7 @@
     <string name="map_fractional_separator">:</string>
     <string name="tool_white_noise_title">White Noise</string>
     <string name="tool_white_noise_summary">Helps you fall asleep</string>
-    <string name="map_scale_title">Map Scale</string>
+    <string name="map_scale_title">Map scale</string>
     <string name="map_scale_ratio">Ratio</string>
     <string name="map_scale_verbal">Verbal</string>
     <string name="pref_min_uncalibrated_temp_c" translatable="false">pref_min_uncalibrated_temp_c</string>
@@ -1029,7 +1029,7 @@
     <string name="tide_deleted">Tide deleted</string>
     <string name="disclaimer_estimated_tide">Estimated tides may be inaccurate. Please use an official tide table for the exact times.</string>
     <string name="disclaimer_estimated_tide_title">Estimated tide</string>
-    <string name="tool_temperature_estimation_title">Temperature estimation</string>
+    <string name="tool_temperature_estimation_title">Temperature Estimation</string>
     <string name="tool_temperature_estimation_description">Predict the temperature at a different elevation</string>
     <string name="pressure_tendency">Tendency</string>
     <string name="explore">Explore</string>
