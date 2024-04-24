@@ -588,7 +588,7 @@
     <string name="location_not_set">Location not set</string>
     <string name="set">Set</string>
     <string name="location_disabled">Location is disabled</string>
-    <string name="gps_cache">GPS Cache</string>
+    <string name="gps_cache">GPS cache</string>
     <string name="guide_light_meter_description">How to determine the beam distance of flashlights</string>
     <string name="todays_forecast">Today\'s forecast</string>
     <string name="tomorrows_forecast">Tomorrow\'s forecast</string>
@@ -854,7 +854,7 @@
     <string name="location_override_resolution">Enable auto adjust location in settings.</string>
     <string name="location_override_not_set_resolution">Set the location override in settings</string>
     <string name="power_saving_mode_resolution">Disable power saving mode</string>
-    <string name="battery_restricted_resolution">Set Trail Sense as Not Optimized</string>
+    <string name="battery_restricted_resolution">Set Trail Sense as not optimized</string>
     <string name="gps_unavailable_resolution">Enable Location or change your location source to Device Only or High Accuracy</string>
     <!--Severity: Title   Affected tools (list of tools)  Resolution (text)-->
     <string name="diagnostic_message_template">%1$s: %2$s\n\n### Affected tools\n%3$s\n\n### Resolution\n%4$s</string>
