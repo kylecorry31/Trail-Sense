@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionNightMo
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunsetAlert
 import com.kylecorry.trail_sense.tools.battery.quickactions.QuickActionLowPowerMode
 import com.kylecorry.trail_sense.tools.beacons.quickactions.QuickActionPlaceBeacon
+import com.kylecorry.trail_sense.tools.clouds.quickactions.QuickActionScanCloud
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionScreenFlashlight
@@ -356,7 +357,14 @@ object Tools {
                 R.drawable.ic_tool_clouds,
                 R.id.cloudFragment,
                 ToolCategory.Weather,
-                guideId = R.raw.guide_tool_clouds
+                guideId = R.raw.guide_tool_clouds,
+                quickActions = listOf(
+                    ToolQuickAction(
+                        QUICK_ACTION_SCAN_CLOUD,
+                        context.getString(R.string.cloud_scanner),
+                        ::QuickActionScanCloud
+                    )
+                )
             ),
             Tool(
                 LIGHTNING_STRIKE_DISTANCE,
@@ -566,4 +574,5 @@ object Tools {
     const val QUICK_ACTION_SCREEN_FLASHLIGHT = 18
     const val QUICK_ACTION_CREATE_NOTE = 19
     const val QUICK_ACTION_CREATE_BEACON = 20
+    const val QUICK_ACTION_SCAN_CLOUD = 21
 }

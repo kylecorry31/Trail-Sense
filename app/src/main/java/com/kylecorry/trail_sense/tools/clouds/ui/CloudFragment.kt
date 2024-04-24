@@ -62,6 +62,13 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
 
         binding.cloudList.emptyView = binding.cloudEmptyText
         setupCreateMenu()
+
+        val shouldOpenScanner = requireArguments().getBoolean("open_scanner", false)
+        effect("open_scanner", shouldOpenScanner) {
+            if (shouldOpenScanner) {
+                addFromCamera()
+            }
+        }
     }
 
     private fun setupCreateMenu() {

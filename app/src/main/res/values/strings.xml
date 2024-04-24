@@ -1412,4 +1412,5 @@
     <string name="pref_start_camera_in_3d_view" translatable="false">pref_start_camera_in_3d_view</string>
     <string name="pref_start_camera_in_3d_view_title">Use camera for 3D viewing</string>
     <string name="pref_start_camera_in_3d_view_summary">Opens the camera when you click the view in 3D button</string>
+    <string name="cloud_scanner">Cloud Scanner</string>
 </resources>
