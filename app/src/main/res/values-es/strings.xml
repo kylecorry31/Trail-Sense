@@ -23,7 +23,7 @@
     <string name="pref_show_sun_moon_compass_title">Mostrar sol / luna en la brújula</string>
     <string name="pref_show_linear_compass_title">Mostrar brújula lineal</string>
     <string name="pref_show_linear_compass_summary">Cuando el teléfono está en vertical</string>
-    <string name="feet_miles">Pies / Millas</string>
+    <string name="feet_miles">Pies / millas</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">Pulgadas Hg</string>
     <string name="units_mbar">mbar</string>
@@ -227,7 +227,7 @@
     <string name="compass_declination_override">Reemplazar declinación</string>
     <string name="override_from_gps">Reemplazar con GPS</string>
     <string name="pref_compass_sensor_title">Brújula</string>
-    <string name="coordinate_format_decimal_degrees">Grados Decimales</string>
+    <string name="coordinate_format_decimal_degrees">Grados decimales</string>
     <string name="theme_sunset_sunrise">Salida/Puesta del sol</string>
     <string name="edit_item_title">Editar ítem</string>
     <string name="create_item_title">Crear ítem</string>
