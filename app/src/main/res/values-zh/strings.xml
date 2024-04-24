@@ -1138,4 +1138,6 @@
     <string name="no_recorded_cell_signal_nearby">附近没有记录的电话信号</string>
     <string name="navigate_to_nearest_cell_signal">导航到最近的电话信号</string>
     <string name="tool_quick_action_name">工具：%s</string>
+    <string name="pref_start_camera_in_3d_view_title">使用相机进行 3D 查看</string>
+    <string name="pref_start_camera_in_3d_view_summary">单击\"用 3D 视图查看“按钮时打开相机</string>
 </resources>
