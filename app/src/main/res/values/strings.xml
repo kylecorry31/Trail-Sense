@@ -361,7 +361,7 @@
     <string name="category_safety">Safety</string>
     <string name="category_natural">Natural</string>
     <string name="toast_destination_bearing_set">Destination bearing set</string>
-    <string name="tool_cliff_height_title">Cliff Height</string>
+    <string name="tool_cliff_height_title">Cliff height</string>
     <string name="tool_cliff_height_description">Measure the height of a cliff or drop</string>
     <string name="tool_cliff_height_disclaimer">Only use this tool when it is safe to do so, and be sure to check what is below the cliff to avoid injury. See the user guide for instructions.</string>
     <string name="tool_whistle_title">Whistle</string>
@@ -435,7 +435,7 @@
     <string name="clock_sync_time_settings">Open time settings?</string>
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="threshold">Threshold</string>
-    <string name="tool_metal_detector_title">Metal Detector</string>
+    <string name="tool_metal_detector_title">Metal detector</string>
     <string name="metal_detector_disclaimer">Only detects magnetic metals (ex. iron)</string>
     <string name="update_gps_override">Update GPS override</string>
     <string name="location_override_updated">Location override updated</string>
@@ -738,7 +738,7 @@
     <string name="pref_tiles_enabled" translatable="false">pref_tiles_enabled</string>
     <string name="pref_battery_log_enabled" translatable="false">pref_battery_log_enabled</string>
     <string name="pref_tiles_enabled_title">System tiles</string>
-    <string name="pref_tiles_battery_log">Battery Log</string>
+    <string name="pref_tiles_battery_log">Battery log</string>
     <string name="pref_tiles_enabled_summary">May prevent battery saver apps from completely stopping Trail Sense</string>
     <string name="pref_dialog_battery_log_summary">The battery log is disabled, history and time until empty may be unavailable. You can re-enable this in settings</string>
     <string name="pref_tiles_enabled_battery_log_summary">Logs battery percentage every hour to estimate time until empty</string>
@@ -1060,7 +1060,7 @@
     <string name="pref_start_on_boot" translatable="false">pref_start_on_boot</string>
     <string name="pref_start_on_boot_title">Start on boot</string>
     <string name="pref_enable_analog_clock" translatable="false">pref_enable_analog_clock</string>
-    <string name="pref_enable_analog_title">Analog Clock</string>
+    <string name="pref_enable_analog_title">Analog clock</string>
     <string name="bearing">Bearing</string>
     <string name="pref_only_navigate_path_points" translatable="false">pref_only_navigate_path_points</string>
     <string name="pref_only_navigate_path_points_title">Only navigate to recorded points</string>
@@ -1295,7 +1295,7 @@
     <string name="pin">Pin</string>
     <string name="tool_long_press_hint_toast">Long press a tool to see more options</string>
     <string name="pref_tool_sort" translatable="false">pref_tool_sort</string>
-    <string name="tool_quick_actions">Tool quick actions</string>
+    <string name="tool_quick_actions">Tool Quick Actions</string>
     <string name="pref_tool_quick_action_header_key" translatable="false">pref_tool_quick_action_header_key</string>
     <string name="pref_tool_quick_actions" translatable="false">pref_tool_quick_actions</string>
     <string name="pref_pinned_tools" translatable="false">pref_pinned_tools</string>
