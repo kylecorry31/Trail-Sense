@@ -118,14 +118,14 @@
     <string name="yesterday">Yesterday</string>
     <string name="sunrise_label">Sunrise</string>
     <string name="sunset_label">Sunset</string>
-    <string name="new_moon">New Moon</string>
-    <string name="waning_crescent">Waning Crescent</string>
-    <string name="third_quarter">Third Quarter</string>
-    <string name="waning_gibbous">Waning Gibbous</string>
-    <string name="full_moon">Full Moon</string>
-    <string name="waxing_gibbous">Waxing Gibbous</string>
-    <string name="first_quarter">First Quarter</string>
-    <string name="waxing_crescent">Waxing Crescent</string>
+    <string name="new_moon">New moon</string>
+    <string name="waning_crescent">Waning crescent</string>
+    <string name="third_quarter">Third quarter</string>
+    <string name="waning_gibbous">Waning gibbous</string>
+    <string name="full_moon">Full moon</string>
+    <string name="waxing_gibbous">Waxing gibbous</string>
+    <string name="first_quarter">First quarter</string>
+    <string name="waxing_crescent">Waxing crescent</string>
     <string name="sunset_alert_notification_title">Sun is setting soon</string>
     <string name="sunset_alert_notification_text">The sun will set at %s</string>
     <string name="sunset_alerts">Sunset alerts</string>
@@ -375,7 +375,7 @@
     <string name="unit_feet">Feet</string>
     <string name="unit_miles">Miles</string>
     <string name="unit_nautical_miles">Nautical Miles</string>
-    <string name="guide_recommended_apps">Recommended apps</string>
+    <string name="guide_recommended_apps">Recommended Apps</string>
     <string name="guide_recommended_apps_description">Useful apps for survival situations</string>
     <string name="pref_privacy_policy_title">Privacy policy</string>
     <string name="pref_privacy_policy" translatable="false">pref_privacy_policy</string>
@@ -1209,9 +1209,9 @@
     <string name="rate">Rate</string>
     <string name="season">Season</string>
     <!--    Displayed in lower case as it is a continuation of the title. Ex. 11h until sunset-->
-    <string name="until_sunset">until sunset</string>
+    <string name="until_sunset">Until sunset</string>
     <!--    Displayed in lower case as it is a continuation of the title. Ex. 11h until sunrise-->
-    <string name="until_sunrise">until sunrise</string>
+    <string name="until_sunrise">Until sunrise</string>
     <!--    as in sun / moon set-->
     <string name="astronomy_set">Set</string>
     <!--    as in sun / moon rise-->
