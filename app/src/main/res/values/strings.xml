@@ -161,10 +161,10 @@
     <string name="theme_black">Black</string>
     <string name="theme_system">System</string>
     <string name="theme_sunset_sunrise">Sunrise/sunset</string>
-    <string name="coordinate_format_decimal_degrees">Decimal Degrees</string>
+    <string name="coordinate_format_decimal_degrees">Decimal degrees</string>
     <!--A coordinate format as such:  X° X.XXX' N-->
-    <string name="coordinate_format_degrees_decimal_minutes">Degrees Decimal Minutes</string>
-    <string name="coordinate_format_degrees_minutes_seconds">Degrees Minutes Seconds</string>
+    <string name="coordinate_format_degrees_decimal_minutes">Degrees decimal minutes</string>
+    <string name="coordinate_format_degrees_minutes_seconds">Degrees minutes seconds</string>
     <string name="coordinate_format_utm">UTM</string>
     <string name="coordinate_format_mgrs">MGRS</string>
     <string name="pref_coordinate_format_title">Coordinate format</string>
@@ -769,16 +769,16 @@
     <string name="gallon_format">%s gal</string>
     <string name="liters">Liters</string>
     <string name="milliliters">Milliliters</string>
-    <string name="us_cups">US Cups</string>
-    <string name="us_pints">US Pints</string>
-    <string name="us_quarts">US Quarts</string>
-    <string name="us_ounces_volume">US Ounces</string>
-    <string name="us_gallons">US Gallons</string>
-    <string name="imperial_cups">Imperial Cups</string>
-    <string name="imperial_pints">Imperial Pints</string>
-    <string name="imperial_quarts">Imperial Quarts</string>
-    <string name="imperial_ounces_volume">Imperial Ounces</string>
-    <string name="imperial_gallons">Imperial Gallons</string>
+    <string name="us_cups">US cups</string>
+    <string name="us_pints">US pints</string>
+    <string name="us_quarts">US quarts</string>
+    <string name="us_ounces_volume">US ounces</string>
+    <string name="us_gallons">US gallons</string>
+    <string name="imperial_cups">Imperial cups</string>
+    <string name="imperial_pints">Imperial pints</string>
+    <string name="imperial_quarts">Imperial quarts</string>
+    <string name="imperial_ounces_volume">Imperial ounces</string>
+    <string name="imperial_gallons">Imperial gallons</string>
     <!--    The measure of how much space something takes up (liquid)-->
     <string name="volume">Volume</string>
     <string name="pounds">Pounds</string>
