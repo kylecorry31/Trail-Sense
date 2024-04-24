@@ -1173,4 +1173,6 @@
     <string name="no_recorded_cell_signal_nearby">Poblíž nenalezen žádný zaznamenaný mobilní signál</string>
     <string name="navigate_to_nearest_cell_signal">Navigace k nejbližšímu mobilnímu signálu</string>
     <string name="tool_quick_action_name">Nástroj: %s</string>
+    <string name="pref_start_camera_in_3d_view_title">Použít fotoaparát pro 3D pohled</string>
+    <string name="pref_start_camera_in_3d_view_summary">Otevře fotoaparát po klepnutí na pohled v 3D tlačítku</string>
 </resources>
