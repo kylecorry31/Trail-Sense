@@ -311,7 +311,7 @@
     <string name="compass_declination_override">Sapma değerinin üzerine yaz</string>
     <string name="override_from_gps">Üzerine yazma değerini GPS\'ten ayarla</string>
     <string name="smoothing_summary">Yüksek değerler paraziti azaltabilir</string>
-    <string name="true_north">Gerçek Kuzey</string>
+    <string name="true_north">Gerçek kuzey</string>
     <string name="pref_compass_sensor_title">Pusula</string>
     <string name="pref_ruler_calibration_summary">Kalibrasyon yöntemi:
 \n
@@ -328,9 +328,9 @@
     <string name="pref_coordinate_format_title">Koordinat biçimi</string>
     <string name="coordinate_format_mgrs">MGRS</string>
     <string name="coordinate_format_utm">UTM</string>
-    <string name="coordinate_format_degrees_minutes_seconds">Derece, Dakika ve Saniye</string>
-    <string name="coordinate_format_degrees_decimal_minutes">Derece, Ondalık Dakika</string>
-    <string name="coordinate_format_decimal_degrees">Ondalık Dereceler</string>
+    <string name="coordinate_format_degrees_minutes_seconds">Derece, dakika ve saniye</string>
+    <string name="coordinate_format_degrees_decimal_minutes">Derece, ondalık dakika</string>
+    <string name="coordinate_format_decimal_degrees">Ondalık dereceler</string>
     <string name="theme_sunset_sunrise">Gün doğumu/gün batımı</string>
     <string name="theme_system">Sistemdeki ayarlı tema</string>
     <string name="theme_black">Siyah</string>
@@ -339,7 +339,7 @@
     <string name="pref_theme_title">Tema</string>
     <string name="pref_use_24_hour_title">24 saatlik zaman biçimini kullan</string>
     <string name="pressure">Basınç</string>
-    <string name="feet_miles">Feet / Mil</string>
+    <string name="feet_miles">Feet / mil</string>
     <string name="create_item_title">Öge Oluştur</string>
     <string name="general">Genel</string>
     <string name="edit_item_title">Öge Düzenle</string>
@@ -508,7 +508,7 @@
     <string name="always_on">Her zaman açık</string>
     <string name="pref_daily_weather_notification_title">Günlük hava durumu bildirimi</string>
     <string name="guide_light_meter_description">El fenerlerinin ışın mesafesi nasıl belirlenir</string>
-    <string name="gps_cache">GPS Önbelleği</string>
+    <string name="gps_cache">GPS önbelleği</string>
     <string name="location_disabled">Konum devre dışı bırakıldı</string>
     <string name="set">Ayarla</string>
     <string name="location_not_set">Konum ayarlanmadı</string>
@@ -1027,7 +1027,7 @@
     <string name="notifications_channel">Bildirimler (%s)</string>
     <string name="invalid_backup_file">Geçersiz yedekleme dosyası</string>
     <string name="sunset_alert_scheduled">Gün batımından %s öncesi için uyarı zamanlandı</string>
-    <string name="backup_restore">Yedekle / Geri yükle</string>
+    <string name="backup_restore">Yedekle / geri yükle</string>
     <string name="sunset_alerts_background_location_disclaimer">Seyahat ederken gün batımı uyarıları hatalı olabilir</string>
     <string name="beta">Beta</string>
     <string name="backtrack_no_permission">Geri iz sürmenin çalıştırması için konum izni gerekir</string>
@@ -1079,7 +1079,7 @@
     <string name="pref_keep_map_facing_up_title">Haritayı yukarı bakacak şekilde tutun</string>
     <string name="distance_away_from_self">%s uzaklıkta</string>
     <string name="season">Mevsim</string>
-    <string name="magnetic_north">Manyetik Kuzey</string>
+    <string name="magnetic_north">Manyetik kuzey</string>
     <string name="tool_long_press_hint_toast">Daha fazla seçenek görmek için bir araca uzun basın</string>
     <string name="unpin">Sabitlemeyi kaldır</string>
     <string name="settings_have_moved_message">Uygulama ayarları Araçlar sekmesine taşındı</string>
@@ -1104,10 +1104,10 @@
     <string name="continuous_calibration">Sürekli kalibrasyon</string>
     <string name="is_there_a_way_to_fix_this">Bunu düzeltmenin bir yolu var mı?</string>
     <string name="service_restart_channel_description">Hizmetleri yeniden başlatmak için bir bildirim</string>
-    <string name="dynamic_colors">Değişken Renkler</string>
-    <string name="compass_dynamic_colors">Pusula Değişken Renkleri</string>
+    <string name="dynamic_colors">Değişken renkler</string>
+    <string name="compass_dynamic_colors">Pusula değişken renkleri</string>
     <string name="compass_dynamic_colors_summary">Ana yönler için değişken renkleri kullanın</string>
-    <string name="screen_flashlight_full_name">Ekran Feneri</string>
+    <string name="screen_flashlight_full_name">Ekran feneri</string>
     <string name="view_in_3d">3 Boyutlu Görüntüle</string>
     <string name="locate">Bul</string>
     <string name="view_distance">Mesafeyi görüntüle</string>
@@ -1117,7 +1117,7 @@
     <string name="show_dial_ticks_on_nearby_radar">Yakındaki radarda kadran işaretlerini göster</string>
     <string name="creating_beacon">İşaret oluşturuluyor</string>
     <string name="augmented_reality_no_gyro_message">Artırılmış Gerçeklik aracını kullanmaya devam edebilirsiniz, ancak o kadar doğru olmayacaktır.</string>
-    <string name="compact_mode">Sıkı Mod</string>
+    <string name="compact_mode">Sıkı mod</string>
     <string name="ar_calibration_instructions">Ekranda %s\'yi ortalayın ve \"Kalibre Et\" düğmesine basın</string>
     <string name="use_gyroscope_after_calibration">Kalibrasyondan sonra jiroskopu kullan</string>
     <string name="use_gyroscope_after_calibration_description">Pusula yerine (manyetik sapmayı önler)</string>
@@ -1129,7 +1129,7 @@
     <string name="smooth_gps_readings">Düzgün GPS okumaları</string>
     <string name="magnetometer_gyro_custom">Manyetometre + Gyro (Özel)</string>
     <string name="pref_tiles_enabled_battery_log_summary">Pilin bitmesine kadar geçecek süreyi tahmin etmek için her saat pil yüzdesini kaydeder</string>
-    <string name="pref_tiles_battery_log">Pil Günlüğü</string>
+    <string name="pref_tiles_battery_log">Pil günlüğü</string>
     <string name="pref_dialog_battery_log_summary">Pil günlüğü devre dışı, geçmiş ve ne kadar sürede biteceği özellikleri kullanılamayabilir. Bunu ayarlardan yeniden etkinleştirebilirsiniz</string>
     <string name="projection_estimated_intrinsics">Tahmini İçseller</string>
     <string name="projection_manufacturer_intrinsics">Üretici İçselleri</string>
@@ -1148,5 +1148,8 @@
     <string name="date">Tarih</string>
     <string name="max_s">En fazla %s</string>
     <string name="ar_calibration_disclaimer">Artırılmış Gerçeklik aracını her kullanmadan önce, güneş veya ay simgelerinin gerçek dünyaya uygun şekilde hizalandığını doğrulayın. Değilse, ekranın sol üst köşesindeki pusula simgesine tıklayın ve kalibre etmek için talimatları izleyin.</string>
-    <string name="pref_enable_analog_title">Analog Saat</string>
+    <string name="pref_enable_analog_title">Analog saat</string>
+    <string name="no_recorded_cell_signal_nearby">Yakınlarda kayıtlı telefon sinyali yok</string>
+    <string name="navigate_to_nearest_cell_signal">En yakın telefon sinyaline git</string>
+    <string name="tool_quick_action_name">Araç: %s</string>
 </resources>

@@ -1079,7 +1079,7 @@
     <string name="season">Seizoen</string>
     <string name="augmented_reality">Aangevulde realiteit</string>
     <string name="augmented_reality_description">Bekijk bakens in de buurt en de zon/maan met je camera</string>
-    <string name="magnetic_north">Magnetisch Noorden</string>
+    <string name="magnetic_north">Magnetisch noorden</string>
     <string name="tool_long_press_hint_toast">Houdt een hulpmiddel ingedrukt voor meer opties</string>
     <string name="unpin">Losmaken</string>
     <string name="settings_have_moved_message">Instellingen zijn verplaatst naar het tabblad Hulpmiddelen</string>
@@ -1135,7 +1135,7 @@
     <string name="audio_error_messsage">Er is een fout opgetreden tijdens het afspelen van audio.</string>
     <string name="ar_calibration_instructions_hint">Om het Aangevulde Realiteit-hulpmiddel te kalibreren, klik op het pictogram in de linkerbovenhoek van het scherm en volg de instructies die verschijnen.</string>
     <string name="projection_estimated_intrinsics">Geschat binnenmatrix</string>
-    <string name="projection_type">Projectietype</string>
+    <string name="projection_type">Aanvullende realiteit-projectie</string>
     <string name="projection_manufacturer_intrinsics">Binnenmatrix van de fabrikant</string>
     <string name="projection_perspective">Perspectief</string>
     <string name="projection_linear">Lineair</string>
@@ -1148,4 +1148,8 @@
     <string name="date">Datum</string>
     <string name="max_s">Max. %s</string>
     <string name="pref_enable_analog_title">Analoge klok</string>
+    <string name="navigate_to_nearest_cell_signal">Navigeer naar dichtstbijzijnde mobiele signaal</string>
+    <string name="tool_quick_action_name">Hulpmiddel: %s</string>
+    <string name="no_recorded_cell_signal_nearby">Geen opgenomen mobiel signaal in de buurt gevonden</string>
+    <string name="ar_layer_override_message">Laaginstellingen kunnen overschreven worden door navigatie, zoals de Astronomiegids.</string>
 </resources>
