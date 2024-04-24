@@ -118,14 +118,14 @@
     <string name="yesterday">Yesterday</string>
     <string name="sunrise_label">Sunrise</string>
     <string name="sunset_label">Sunset</string>
-    <string name="new_moon">New Moon</string>
-    <string name="waning_crescent">Waning Crescent</string>
-    <string name="third_quarter">Third Quarter</string>
-    <string name="waning_gibbous">Waning Gibbous</string>
-    <string name="full_moon">Full Moon</string>
-    <string name="waxing_gibbous">Waxing Gibbous</string>
-    <string name="first_quarter">First Quarter</string>
-    <string name="waxing_crescent">Waxing Crescent</string>
+    <string name="new_moon">New moon</string>
+    <string name="waning_crescent">Waning crescent</string>
+    <string name="third_quarter">Third quarter</string>
+    <string name="waning_gibbous">Waning gibbous</string>
+    <string name="full_moon">Full moon</string>
+    <string name="waxing_gibbous">Waxing gibbous</string>
+    <string name="first_quarter">First quarter</string>
+    <string name="waxing_crescent">Waxing crescent</string>
     <string name="sunset_alert_notification_title">Sun is setting soon</string>
     <string name="sunset_alert_notification_text">The sun will set at %s</string>
     <string name="sunset_alerts">Sunset alerts</string>
@@ -374,8 +374,8 @@
     <string name="unit_kilometers">Kilometers</string>
     <string name="unit_feet">Feet</string>
     <string name="unit_miles">Miles</string>
-    <string name="unit_nautical_miles">Nautical Miles</string>
-    <string name="guide_recommended_apps">Recommended apps</string>
+    <string name="unit_nautical_miles">Nautical miles</string>
+    <string name="guide_recommended_apps">Recommended Apps</string>
     <string name="guide_recommended_apps_description">Useful apps for survival situations</string>
     <string name="pref_privacy_policy_title">Privacy policy</string>
     <string name="pref_privacy_policy" translatable="false">pref_privacy_policy</string>
@@ -453,7 +453,7 @@
     <string name="map_fractional_separator">:</string>
     <string name="tool_white_noise_title">White Noise</string>
     <string name="tool_white_noise_summary">Helps you fall asleep</string>
-    <string name="map_scale_title">Map Scale</string>
+    <string name="map_scale_title">Map scale</string>
     <string name="map_scale_ratio">Ratio</string>
     <string name="map_scale_verbal">Verbal</string>
     <string name="pref_min_uncalibrated_temp_c" translatable="false">pref_min_uncalibrated_temp_c</string>
@@ -769,16 +769,16 @@
     <string name="gallon_format">%s gal</string>
     <string name="liters">Liters</string>
     <string name="milliliters">Milliliters</string>
-    <string name="us_cups">US Cups</string>
-    <string name="us_pints">US Pints</string>
-    <string name="us_quarts">US Quarts</string>
-    <string name="us_ounces_volume">US Ounces</string>
-    <string name="us_gallons">US Gallons</string>
-    <string name="imperial_cups">Imperial Cups</string>
-    <string name="imperial_pints">Imperial Pints</string>
-    <string name="imperial_quarts">Imperial Quarts</string>
-    <string name="imperial_ounces_volume">Imperial Ounces</string>
-    <string name="imperial_gallons">Imperial Gallons</string>
+    <string name="us_cups">US cups</string>
+    <string name="us_pints">US pints</string>
+    <string name="us_quarts">US quarts</string>
+    <string name="us_ounces_volume">US ounces</string>
+    <string name="us_gallons">US gallons</string>
+    <string name="imperial_cups">Imperial cups</string>
+    <string name="imperial_pints">Imperial pints</string>
+    <string name="imperial_quarts">Imperial quarts</string>
+    <string name="imperial_ounces_volume">Imperial ounces</string>
+    <string name="imperial_gallons">Imperial gallons</string>
     <!--    The measure of how much space something takes up (liquid)-->
     <string name="volume">Volume</string>
     <string name="pounds">Pounds</string>
@@ -854,7 +854,7 @@
     <string name="location_override_resolution">Enable auto adjust location in settings.</string>
     <string name="location_override_not_set_resolution">Set the location override in settings</string>
     <string name="power_saving_mode_resolution">Disable power saving mode</string>
-    <string name="battery_restricted_resolution">Set Trail Sense as Not Optimized</string>
+    <string name="battery_restricted_resolution">Set Trail Sense as not optimized</string>
     <string name="gps_unavailable_resolution">Enable Location or change your location source to Device Only or High Accuracy</string>
     <!--Severity: Title   Affected tools (list of tools)  Resolution (text)-->
     <string name="diagnostic_message_template">%1$s: %2$s\n\n### Affected tools\n%3$s\n\n### Resolution\n%4$s</string>
@@ -922,16 +922,16 @@
     <string name="sun">Sun</string>
     <string name="moon">Moon</string>
     <string name="weather_monitoring_disabled">Weather monitoring disabled</string>
-    <string name="no_clouds">No Clouds</string>
+    <string name="no_clouds">No clouds</string>
     <string name="precipitation_none">No precipitation</string>
     <string name="precipitation_rain">Rain</string>
     <string name="precipitation_drizzle">Drizzle</string>
     <string name="precipitation_snow">Snow</string>
     <string name="precipitation_snow_pellets">Snow pellets</string>
     <string name="precipitation_hail">Hail</string>
-    <string name="precipitation_small_hail">Small Hail</string>
-    <string name="precipitation_ice_pellets">Ice Pellets</string>
-    <string name="precipitation_snow_grains">Snow Grains</string>
+    <string name="precipitation_small_hail">Small hail</string>
+    <string name="precipitation_ice_pellets">Ice pellets</string>
+    <string name="precipitation_snow_grains">Snow grains</string>
     <string name="precipitation_chance">Precipitation chance: %s</string>
     <string name="take_photo">Take photo</string>
     <string name="no_camera_access">Unable to access camera</string>
@@ -1029,7 +1029,7 @@
     <string name="tide_deleted">Tide deleted</string>
     <string name="disclaimer_estimated_tide">Estimated tides may be inaccurate. Please use an official tide table for the exact times.</string>
     <string name="disclaimer_estimated_tide_title">Estimated tide</string>
-    <string name="tool_temperature_estimation_title">Temperature estimation</string>
+    <string name="tool_temperature_estimation_title">Temperature Estimation</string>
     <string name="tool_temperature_estimation_description">Predict the temperature at a different elevation</string>
     <string name="pressure_tendency">Tendency</string>
     <string name="explore">Explore</string>
@@ -1178,7 +1178,7 @@
     <!--    Center point-->
     <string name="center">Center</string>
     <string name="size">Size</string>
-    <string name="create_blank_map">Create Blank Map</string>
+    <string name="create_blank_map">Create blank map</string>
     <string name="create_path">Create path</string>
     <string name="map_is_not_calibrated">Map is not calibrated</string>
     <string name="loading">Loading</string>
@@ -1209,9 +1209,9 @@
     <string name="rate">Rate</string>
     <string name="season">Season</string>
     <!--    Displayed in lower case as it is a continuation of the title. Ex. 11h until sunset-->
-    <string name="until_sunset">until sunset</string>
+    <string name="until_sunset">Until sunset</string>
     <!--    Displayed in lower case as it is a continuation of the title. Ex. 11h until sunrise-->
-    <string name="until_sunrise">until sunrise</string>
+    <string name="until_sunrise">Until sunrise</string>
     <!--    as in sun / moon set-->
     <string name="astronomy_set">Set</string>
     <!--    as in sun / moon rise-->
