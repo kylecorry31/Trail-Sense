@@ -125,7 +125,7 @@
     <string name="max_temp_calibrated">Maksimum ortam sıcaklığı (kalibre edilmiş)</string>
     <string name="map_scale_verbal">Sözlü</string>
     <string name="map_scale_ratio">Oran</string>
-    <string name="map_scale_title">Harita Ölçeği</string>
+    <string name="map_scale_title">Harita ölçeği</string>
     <string name="tool_white_noise_summary">Uykuya dalmanıza yardımcı olur</string>
     <string name="tool_white_noise_title">Beyaz Gürültü</string>
     <string name="map_fractional_separator">:</string>
@@ -209,7 +209,7 @@
     <string name="tool_solar_panel_summary">İdeal güç üretimi için güneş panellerini yerleştir</string>
     <string name="pref_privacy_policy_title">Gizlilik politikası</string>
     <string name="guide_recommended_apps_description">Hayatta kalma durumları için işe yarar uygulamalar</string>
-    <string name="guide_recommended_apps">Önerilen uygulamalar</string>
+    <string name="guide_recommended_apps">Tavsiye Edilen Uygulamalar</string>
     <string name="unit_nautical_miles">Deniz mili</string>
     <string name="unit_miles">Mil</string>
     <string name="unit_feet">Feet</string>
@@ -359,9 +359,9 @@
     <string name="access_background_location_rationale">Trail Sense, hava durumu gözleminde deniz seviyesi basıncını ölçmek ve daha isabetli gün doğumu bilgisi sunmak için arka planda konum bilgisini kullanır. [Gizlilik Politikasına Göz Atın](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="sunset_alert_notification_text">Güneş %s\'de batacak</string>
     <string name="sunset_alert_notification_title">Güneş yakın zamanda batıyor</string>
-    <string name="waxing_crescent">Küçülen Hilal</string>
-    <string name="first_quarter">İlk Dördün</string>
-    <string name="waxing_gibbous">Şişkin Ay</string>
+    <string name="waxing_crescent">Küçülen hilal</string>
+    <string name="first_quarter">İlk dördün</string>
+    <string name="waxing_gibbous">Şişkin ay</string>
     <string name="full_moon">Dolunay</string>
     <string name="waning_gibbous">Şişkin Ay</string>
     <string name="third_quarter">Üçüncü Dördün</string>
@@ -552,7 +552,7 @@
     <string name="privacy">Gizlilik</string>
     <string name="units">Birimler</string>
     <string name="pref_privacy_screenshot_protection_title">Ekran görüntüsü alınmasını engelle</string>
-    <string name="battery_restricted_resolution">Trail Sense\'i Optimize Edilmedi Olarak Ayarla</string>
+    <string name="battery_restricted_resolution">Trail Sense\'i iyileştirilmedi olarak ayarla</string>
     <string name="ounces_weight_format">%s ons</string>
     <string name="ounces_volume_format">%s ons</string>
     <string name="find_next_occurrence">Sonraki tekrarı bul</string>
@@ -683,7 +683,7 @@
     <string name="sun">Güneş</string>
     <string name="precipitation_chance">Yağış ihtimali: %s</string>
     <string name="weather_monitoring_disabled">Hava durumu izleme devre dışı bırakıldı</string>
-    <string name="no_clouds">Bulut Yok</string>
+    <string name="no_clouds">Bulut yok</string>
     <string name="precipitation_snow_pellets">Kar topakları</string>
     <string name="precipitation_drizzle">Çisenti</string>
     <string name="precipitation_snow">Kar</string>
@@ -806,7 +806,7 @@
     <string name="night">Gece</string>
     <string name="qr_text_too_long">Metin çok uzun, QR kodu kısaltıldı</string>
     <string name="pref_flashlight_timeout_title">Sonra kapat</string>
-    <string name="tool_temperature_estimation_title">Sıcaklık tahmini</string>
+    <string name="tool_temperature_estimation_title">Sıcaklık Tahmini</string>
     <string name="tool_temperature_estimation_description">Farklı bir yükseklikteki sıcaklığı tahmin et</string>
     <string name="pressure_tendency">Eğilim</string>
     <string name="explore">Keşfet</string>
@@ -831,10 +831,10 @@
     <string name="pint_format">%s pint</string>
     <string name="activity_recognition_permission_denied">Fiziksel etkinlik izni reddedildi, adımsayar özellikleri açılamıyor. Ayarlardan etkinleştirebilirsiniz.</string>
     <string name="cup_format">%s su b.</string>
-    <string name="us_pints">Amerikan Pint</string>
-    <string name="imperial_pints">İngiliz Pint</string>
-    <string name="imperial_quarts">İngiliz Quart</string>
-    <string name="imperial_ounces_volume">İngiliz Ons</string>
+    <string name="us_pints">Amerikan pint</string>
+    <string name="imperial_pints">İngiliz pint</string>
+    <string name="imperial_quarts">İngiliz quart</string>
+    <string name="imperial_ounces_volume">İngiliz ons</string>
     <string name="sighting_compass">El pusulası</string>
     <string name="clinometer_measure_height_instructions">%s uzaklıktaki bir hedefin yüksekliğini ölçmek için:
 \n
@@ -850,11 +850,11 @@
     <string name="gallon_format">%s galon</string>
     <string name="pref_clinometer_baseline_distance_title">Taban çizgisi mesafesi</string>
     <string name="move_to">Şuraya taşı</string>
-    <string name="us_cups">Amerikan Su Bardağı</string>
-    <string name="us_quarts">Amerikan Quart</string>
-    <string name="us_gallons">Amerikan Galon</string>
-    <string name="imperial_cups">İngiliz Su Bardağı</string>
-    <string name="us_ounces_volume">Amerikan Ons</string>
+    <string name="us_cups">Amerikan su bardağı</string>
+    <string name="us_quarts">Amerikan quart</string>
+    <string name="us_gallons">Amerikan galon</string>
+    <string name="imperial_cups">İngiliz su bardağı</string>
+    <string name="us_ounces_volume">Amerikan ons</string>
     <string name="pounds">Libre</string>
     <string name="stride_length_stand_still">Hareketsiz durun</string>
     <string name="stride_length_walk">Düz bir çizgide yürüyün, işiniz bittiğinde dur düğmesine basın</string>
@@ -866,7 +866,7 @@
     <string name="pref_start_on_boot_title">Önyüklemede başlat</string>
     <string name="navigating_to_nearest_path_point">En yakın yol noktasına git</string>
     <string name="beacons">İşaretler</string>
-    <string name="imperial_gallons">İngiliz Galon</string>
+    <string name="imperial_gallons">İngiliz galon</string>
     <string name="saving">Kaydet</string>
     <string name="change_map_projection">İz düşümünü değiştir</string>
     <string name="map_projection_mercator">Merkator</string>
@@ -978,7 +978,7 @@
     <string name="delete_map_group_message">%s ve tüm haritaları silinecek.</string>
     <string name="blank">Boş</string>
     <string name="coordinate_format_osgb">OSGB</string>
-    <string name="create_blank_map">Boş Harita Oluştur</string>
+    <string name="create_blank_map">Boş harita oluştur</string>
     <string name="center">Merkez</string>
     <string name="size">Boyut</string>
     <string name="pref_include_leading_zero_title">Zamanın önüne sıfır ekle</string>
@@ -1021,7 +1021,7 @@
     <string name="my_location">Konumum</string>
     <string name="compass_source_legacy_ts">Eski (Trail Sense)</string>
     <string name="distance_away_from_destination">hedeften %s</string>
-    <string name="until_sunset">gün batımına kadar</string>
+    <string name="until_sunset">Gün batımına kadar</string>
     <string name="allow_schedule_exact_alarms">%s için alarmları ve hatırlatıcıları ayarlama izni verin</string>
     <string name="yes">Evet</string>
     <string name="notifications_channel">Bildirimler (%s)</string>
@@ -1059,7 +1059,7 @@
     <string name="backing_up_loading_message">Yedekleniyor…</string>
     <string name="gps_location_accuracy">GPS konum doğruluğu</string>
     <string name="restore_complete_message">Geri yükleme başarılı, değişikliklerin uygulanması için yeniden başlatılıyor</string>
-    <string name="until_sunrise">gün doğumuna kadar</string>
+    <string name="until_sunrise">Gün doğumuna kadar</string>
     <string name="location_to_triangulate">Üçgenleme yapılacak konum</string>
     <string name="exact_alarm_permission_denied">Alarmlar ve hatırlatıcılar izni reddedildi, uyarılar hatalı olabilir.</string>
     <string name="map_calibration">Harita kalibrasyonu</string>
@@ -1154,4 +1154,5 @@
     <string name="tool_quick_action_name">Araç: %s</string>
     <string name="pref_start_camera_in_3d_view_title">3B görüntüleme için kamerayı kullan</string>
     <string name="pref_start_camera_in_3d_view_summary">3B görüntüle düğmesine tıkladığınızda kamerayı açar</string>
+    <string name="cloud_scanner">Bulut Tarayıcı</string>
 </resources>
