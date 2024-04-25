@@ -577,11 +577,11 @@
     <string name="imperial_quarts">英制夸脱</string>
     <string name="imperial_pints">英制品脱</string>
     <string name="imperial_cups">英制 Cup</string>
-    <string name="us_gallons">美国加仑</string>
-    <string name="us_ounces_volume">美国盎司</string>
-    <string name="us_quarts">美国夸脱</string>
-    <string name="us_pints">美国品脱</string>
-    <string name="us_cups">美国 Cup</string>
+    <string name="us_gallons">美制加仑</string>
+    <string name="us_ounces_volume">美制盎司</string>
+    <string name="us_quarts">美制夸脱</string>
+    <string name="us_pints">美制品脱</string>
+    <string name="us_cups">美制 Cup</string>
     <string name="milliliters">毫升</string>
     <string name="liters">升</string>
     <string name="gallon_format">%s 加仑</string>
@@ -632,7 +632,7 @@
 \n### 解决方案
 \n%4$s</string>
     <string name="gps_unavailable_resolution">启用定位功能，或将您的位置源更改为“仅设备”或“高精度”</string>
-    <string name="battery_restricted_resolution">将 Trail Sense 设置为未优化</string>
+    <string name="battery_restricted_resolution">将 Trail Sense 设置为不优化</string>
     <string name="power_saving_mode_resolution">禁用省电模式</string>
     <string name="location_override_not_set_resolution">在设置中设定位置覆盖</string>
     <string name="location_override_resolution">在设置中启用自动调整位置。</string>
@@ -1140,4 +1140,5 @@
     <string name="tool_quick_action_name">工具：%s</string>
     <string name="pref_start_camera_in_3d_view_title">使用相机进行 3D 查看</string>
     <string name="pref_start_camera_in_3d_view_summary">单击\"用 3D 视图查看“按钮时打开相机</string>
+    <string name="cloud_scanner">云扫描器</string>
 </resources>
