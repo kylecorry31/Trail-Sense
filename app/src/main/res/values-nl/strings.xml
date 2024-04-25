@@ -485,16 +485,16 @@
     <string name="ounces_weight">Ons</string>
     <string name="pounds">Engelse Pond</string>
     <string name="volume">Volume</string>
-    <string name="imperial_gallons">Imperiale Gallons</string>
-    <string name="imperial_ounces_volume">Imperiale Onzen</string>
-    <string name="imperial_quarts">Imperiale Quarts</string>
-    <string name="imperial_pints">Imperiale Pints</string>
-    <string name="imperial_cups">Imperiale Cups</string>
-    <string name="us_gallons">Amerikaanse Gallons</string>
-    <string name="us_ounces_volume">Amerikaanse Onzen</string>
-    <string name="us_cups">Amerikaanse Cups</string>
-    <string name="us_pints">Amerikaanse Pints</string>
-    <string name="us_quarts">Amerikaanse Quarts</string>
+    <string name="imperial_gallons">Imperiale gallons</string>
+    <string name="imperial_ounces_volume">Imperiale onzen</string>
+    <string name="imperial_quarts">Imperiale quarts</string>
+    <string name="imperial_pints">Imperiale pints</string>
+    <string name="imperial_cups">Imperiale cups</string>
+    <string name="us_gallons">Amerikaanse gallons</string>
+    <string name="us_ounces_volume">Amerikaanse onzen</string>
+    <string name="us_cups">Amerikaanse cups</string>
+    <string name="us_pints">Amerikaanse pints</string>
+    <string name="us_quarts">Amerikaanse quarts</string>
     <string name="milliliters">Milliliter</string>
     <string name="liters">Liter</string>
     <string name="gallon_format">%s gal</string>
@@ -985,7 +985,7 @@
     <string name="my_location">Mijn locatie</string>
     <string name="compass_source_legacy_ts">Verouderd (Trail Sense)</string>
     <string name="distance_away_from_destination">%s van bestemming</string>
-    <string name="until_sunset">tot zonsondergang</string>
+    <string name="until_sunset">Tot zonsondergang</string>
     <string name="cold">Koud</string>
     <string name="weather_alert_cold_description">Bereid je voor op lage temperaturen. Neem extra voorzorgsmaatregelen tegen onderkoeling en bevriezing.</string>
     <string name="allow_schedule_exact_alarms">%s toelaten wekkers en meldingen te starten</string>
@@ -1004,7 +1004,7 @@
     <string name="beta">Beta</string>
     <string name="backtrack_no_permission">Terugweg heeft locatietoestemming nodig om te functioneren</string>
     <string name="autofill_source">Bron automatisch invullen</string>
-    <string name="create_blank_map">Maak lege kaart</string>
+    <string name="create_blank_map">Lege kaart maken</string>
     <string name="gps_accuracy_tip">Zorg ervoor dat je vrij zicht hebt op de hemel, en blijf weg bij bomen en hoge gebouwen.</string>
     <string name="triangulate_self_location_1_instructions">Kies een bekende locatie waar je zicht op hebt en neem de richting op vanaf waar jij bent ten opzichte van die locatie.</string>
     <string name="restoring_loading_message">Herstellen…</string>
@@ -1047,7 +1047,7 @@
     <string name="backing_up_loading_message">Reservekopie maken…</string>
     <string name="gps_location_accuracy">GPS locatienauwkeurigheid</string>
     <string name="restore_complete_message">Herstel geslaagd, herstarten om veranderingen toe te passen</string>
-    <string name="until_sunrise">tot zonsopkomst</string>
+    <string name="until_sunrise">Tot zonsopkomst</string>
     <string name="at_time">om %s</string>
     <string name="location_to_triangulate">Locatie om te trianguleren</string>
     <string name="pref_show_temperature_in_notification_title">Temperatuur in melding tonen</string>
@@ -1152,4 +1152,7 @@
     <string name="tool_quick_action_name">Hulpmiddel: %s</string>
     <string name="no_recorded_cell_signal_nearby">Geen opgenomen mobiel signaal in de buurt gevonden</string>
     <string name="ar_layer_override_message">Laaginstellingen kunnen overschreven worden door navigatie, zoals de Astronomiegids.</string>
+    <string name="cloud_scanner">Wolkenscanner</string>
+    <string name="pref_start_camera_in_3d_view_summary">Opent de camera als je op de knop Bekijk in 3D klikt</string>
+    <string name="pref_start_camera_in_3d_view_title">Camera gebruiken voor 3D-weergave</string>
 </resources>
