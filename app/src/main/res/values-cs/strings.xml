@@ -37,7 +37,7 @@
     <string name="moon_phase">Měsíční fáze</string>
     <string name="sunset_alert_notification_text">Slunce zapadne v %s</string>
     <string name="sunset_alert_notification_title">Slunce brzo zapadne</string>
-    <string name="third_quarter">Poslední čtvrt</string>
+    <string name="third_quarter">Třetí čtvrť</string>
     <string name="first_quarter">První čtvrť</string>
     <string name="full_moon">Úplněk</string>
     <string name="new_moon">Nov</string>
@@ -150,8 +150,8 @@
     <string name="coordinate_format_degrees_decimal_minutes">Stupně desetiny minuty</string>
     <string name="coordinate_format_decimal_degrees">Desetinné stupně</string>
     <string name="set_inclination_instructions">Klepněte nebo držte kdekoli k uzamknutí nebo odemknutí</string>
-    <string name="waxing_gibbous">Měsíc Dorůstá</string>
-    <string name="waning_gibbous">Měsíc Couvá</string>
+    <string name="waxing_gibbous">Měsíc dorůstá</string>
+    <string name="waning_gibbous">Měsíc couvá</string>
     <string name="sun_down_no_set">Slunce je nízko</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
@@ -698,7 +698,7 @@
     <string name="no_permission">Povolení nebylo uděleno</string>
     <string name="no_issues">Nebyly zjištěny žádné problémy</string>
     <string name="wgs84">WGS 84</string>
-    <string name="battery_restricted_resolution">Nastavte Trail Sense jako Neoptimalizováné</string>
+    <string name="battery_restricted_resolution">Nastavte Trail Sense jako neoptimalizované</string>
     <string name="power_saving_mode_resolution">Vypněte úsporný režim</string>
     <string name="navigate">Navigovat</string>
     <string name="no_paths">Žádné cesty</string>
@@ -1014,8 +1014,8 @@
     <string name="daylight_duration">%s denního světla</string>
     <string name="no">Ne</string>
     <string name="season">Období</string>
-    <string name="until_sunset">do soumraku</string>
-    <string name="until_sunrise">do svítání</string>
+    <string name="until_sunset">Do soumraku</string>
+    <string name="until_sunrise">Do svítání</string>
     <string name="astronomy_set">Západ</string>
     <string name="astronomy_rise">Východ</string>
     <string name="photo_map_disclaimer">Vždy s sebou noste fyzickou mapu jako zálohu a ověřujte přesnost Trail Sense.</string>
@@ -1175,4 +1175,5 @@
     <string name="tool_quick_action_name">Nástroj: %s</string>
     <string name="pref_start_camera_in_3d_view_title">Použít fotoaparát pro 3D pohled</string>
     <string name="pref_start_camera_in_3d_view_summary">Otevře fotoaparát po klepnutí na pohled v 3D tlačítku</string>
+    <string name="cloud_scanner">Skener mraků</string>
 </resources>
