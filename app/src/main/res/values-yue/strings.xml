@@ -580,7 +580,7 @@
 \n
 \n### 解救
 \n%4$s</string>
-    <string name="battery_restricted_resolution">將 Trail Sense 設定為「未優化」</string>
+    <string name="battery_restricted_resolution">將 Trail Sense 設定為未優化</string>
     <string name="precipitation_none">無降水</string>
     <string name="precipitation_drizzle">毛毛雨</string>
     <string name="precipitation_snow">雪</string>
@@ -986,13 +986,13 @@
     <string name="guide_light_meter_description">點樣去斷定閃光燈嘅射程</string>
     <string name="arrow">箭咀</string>
     <string name="set_inclination_instructions">「既闊又窄」一撳，即可上鎖或解鎖</string>
-    <string name="pref_ruler_calibration_summary">"校正流程：
+    <string name="pref_ruler_calibration_summary">校正流程：
 \n
-\n-  呢度先設定做 1。
+\n- 呢度先設定做 1。
 \n
 \n- 用把尺度下，同一量度單位之下，把尺一格相當於 Trail Sense 把尺咩數值。
 \n
-\n- 再喺度打返把間尺嘅讀數。"</string>
+\n- 再喺度打返把間尺嘅讀數。</string>
     <string name="pref_forecast_sensitivity_title">預測敏感度</string>
     <string name="solid">實線</string>
     <string name="dotted">點線</string>
