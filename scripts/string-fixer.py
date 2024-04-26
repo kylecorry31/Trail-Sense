@@ -12,7 +12,7 @@ def read_xml(file) -> ET.ElementTree:
     return ET.parse(file, parser=parser)
 
 def write_xml(tree: ET.ElementTree, file):
-    tree.write(file, encoding='utf-8', xml_declaration=True, short_empty_elements=False)
+    tree.write(file, encoding='utf-8', xml_declaration=True, short_empty_elements=True)
     # Replace the single quotes with double quotes
     with open(file, 'r', encoding='utf-8') as f:
         content = f.read()
