@@ -22,7 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.Instant
-import java.util.*
+import java.util.Optional
 
 class FlashlightSubsystem private constructor(private val context: Context) : IFlashlightSubsystem {
 

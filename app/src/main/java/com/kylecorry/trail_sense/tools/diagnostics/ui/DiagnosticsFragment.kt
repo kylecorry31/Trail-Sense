@@ -15,6 +15,9 @@ import com.kylecorry.trail_sense.databinding.FragmentDiagnosticsBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconBinding
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
+import com.kylecorry.trail_sense.tools.diagnostics.domain.DiagnosticCode
+import com.kylecorry.trail_sense.tools.diagnostics.domain.IDiagnostic
+import com.kylecorry.trail_sense.tools.diagnostics.domain.Severity
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.AccelerometerDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.AlarmDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.AltimeterDiagnostic
@@ -22,15 +25,12 @@ import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.BarometerDiagn
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.BatteryDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.CameraDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.DiagnosticAlertService
-import com.kylecorry.trail_sense.tools.diagnostics.domain.DiagnosticCode
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.FlashlightDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.GPSDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.domain.IDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.LightSensorDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.MagnetometerDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.NotificationDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.PedometerDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.domain.Severity
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.WeatherMonitorDiagnostic
 
 class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {

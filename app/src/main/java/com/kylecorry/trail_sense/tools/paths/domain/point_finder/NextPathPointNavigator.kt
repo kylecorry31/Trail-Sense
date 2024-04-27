@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.tools.paths.domain.point_finder
 
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.specifications.InGeofenceSpecification
+import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 
 class NextPathPointNavigator :
     IPathPointNavigator {

@@ -1,10 +1,10 @@
 package com.kylecorry.trail_sense.tools.paths.domain.pathsort.mappers
 
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.tools.paths.domain.IPath
-import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.shared.grouping.mapping.GroupMapper
 import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
+import com.kylecorry.trail_sense.tools.paths.domain.IPath
+import com.kylecorry.trail_sense.tools.paths.domain.Path
 
 class PathDistanceMapper(
     override val loader: IGroupLoader<IPath>,

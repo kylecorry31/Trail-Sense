@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.tools.maps.infrastructure.commands
 
 import android.content.Context
-import com.kylecorry.trail_sense.shared.commands.CoroutineValueCommand
 import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.trail_sense.shared.commands.CoroutineValueCommand
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapService
 

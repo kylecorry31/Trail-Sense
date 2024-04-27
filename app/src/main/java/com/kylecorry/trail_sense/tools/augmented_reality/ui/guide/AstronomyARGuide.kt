@@ -10,11 +10,10 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ViewArAstronomyGuideBinding
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.tools.astronomy.ui.MoonPhaseImageMapper
-import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.SphericalARPoint
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARAstronomyLayer
 import java.time.LocalDate
-import java.time.ZoneId
 import java.time.ZonedDateTime
 
 class AstronomyARGuide(

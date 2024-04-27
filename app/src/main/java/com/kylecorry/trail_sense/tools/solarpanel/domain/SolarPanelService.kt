@@ -4,7 +4,6 @@ import com.kylecorry.andromeda.core.time.ITimeProvider
 import com.kylecorry.andromeda.core.time.SystemTimeProvider
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.calculus.Calculus
-import com.kylecorry.sol.math.optimization.GradientDescentOptimizer
 import com.kylecorry.sol.math.optimization.HillClimbingOptimizer
 import com.kylecorry.sol.math.optimization.SimulatedAnnealingOptimizer
 import com.kylecorry.sol.science.astronomy.Astronomy
@@ -14,8 +13,6 @@ import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import java.time.Duration
 import java.time.ZonedDateTime
-import kotlin.math.max
-import kotlin.math.min
 
 class SolarPanelService(
     private val timeProvider: ITimeProvider = SystemTimeProvider()

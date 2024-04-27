@@ -5,15 +5,14 @@ import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.main.NotificationChannels
-import com.kylecorry.trail_sense.tools.paths.infrastructure.receivers.StopBacktrackReceiver
-import com.kylecorry.trail_sense.tools.paths.infrastructure.services.BacktrackService
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
+import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.shared.toRelativeDistance
+import com.kylecorry.trail_sense.tools.paths.infrastructure.receivers.StopBacktrackReceiver
+import com.kylecorry.trail_sense.tools.paths.infrastructure.services.BacktrackService
 
 class BacktrackAlerter(private val context: Context) : IValueAlerter<Distance> {
 

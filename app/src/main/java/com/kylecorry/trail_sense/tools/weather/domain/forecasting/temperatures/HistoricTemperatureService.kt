@@ -1,12 +1,12 @@
 package com.kylecorry.trail_sense.tools.weather.domain.forecasting.temperatures
 
+import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
-import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.trail_sense.shared.extensions.range
 import com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures.ITemperatureRepo
 import java.time.LocalDate

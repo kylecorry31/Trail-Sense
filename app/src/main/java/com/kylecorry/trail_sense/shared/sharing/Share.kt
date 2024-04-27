@@ -5,11 +5,11 @@ import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.sol.science.geography.CoordinateFormat
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.share.LocationCopy
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.share.LocationGeoSender
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.share.LocationQRSender
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.share.LocationSharesheet
-import com.kylecorry.trail_sense.shared.UserPreferences
 
 object Share {
 

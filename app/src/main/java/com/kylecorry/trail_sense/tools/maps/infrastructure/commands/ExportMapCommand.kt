@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.tools.maps.infrastructure.commands
 
-import com.kylecorry.andromeda.core.text.slugify
-import com.kylecorry.trail_sense.shared.alerts.ILoadingIndicator
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.coroutines.onMain
+import com.kylecorry.andromeda.core.text.slugify
+import com.kylecorry.trail_sense.shared.alerts.ILoadingIndicator
 import com.kylecorry.trail_sense.shared.io.ExportService
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 

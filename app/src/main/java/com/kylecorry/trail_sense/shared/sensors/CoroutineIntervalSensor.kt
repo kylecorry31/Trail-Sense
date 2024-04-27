@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.shared.sensors
 
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.time.CoroutineTimer
-import com.kylecorry.andromeda.core.coroutines.onMain
 import java.time.Duration
 
 abstract class CoroutineIntervalSensor(private val frequency: Duration) : AbstractSensor() {

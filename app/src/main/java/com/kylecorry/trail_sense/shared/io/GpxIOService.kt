@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.shared.io
 
+import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.gpx.GPXData
 import com.kylecorry.andromeda.gpx.GPXParser
-import com.kylecorry.andromeda.core.coroutines.onIO
 
 class GpxIOService(private val uriPicker: UriPicker, private val uriService: UriService) :
     IOService<GPXData> {

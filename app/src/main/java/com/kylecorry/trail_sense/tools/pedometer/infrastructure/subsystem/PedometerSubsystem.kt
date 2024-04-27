@@ -20,7 +20,7 @@ import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import java.time.Duration
 import java.time.Instant
-import java.util.*
+import java.util.Optional
 
 class PedometerSubsystem private constructor(private val context: Context) : IPedometerSubsystem {
 

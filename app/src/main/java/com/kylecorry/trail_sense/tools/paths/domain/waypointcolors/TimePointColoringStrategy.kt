@@ -3,8 +3,8 @@ package com.kylecorry.trail_sense.tools.paths.domain.waypointcolors
 import android.util.Range
 import com.kylecorry.sol.math.SolMath.clamp
 import com.kylecorry.sol.math.SolMath.norm
-import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.scales.IColorScale
+import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import java.time.Instant
 
 class TimePointColoringStrategy(

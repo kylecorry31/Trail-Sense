@@ -3,14 +3,14 @@ package com.kylecorry.trail_sense.tools.navigation.ui.errors
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.diagnostics.domain.DiagnosticCode
-import com.kylecorry.trail_sense.tools.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.ErrorBannerReason
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.alerts.MissingSensorAlert
 import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.views.UserError
+import com.kylecorry.trail_sense.tools.diagnostics.domain.DiagnosticCode
+import com.kylecorry.trail_sense.tools.navigation.ui.NavigatorFragment
 import java.util.Locale
 
 class NavigatorUserErrors(private val fragment: NavigatorFragment) {

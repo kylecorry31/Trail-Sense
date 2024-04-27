@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.util.Size
 import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.rotate
+import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.print.Printer
 import com.kylecorry.andromeda.sense.location.IGPS
@@ -19,7 +20,6 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 

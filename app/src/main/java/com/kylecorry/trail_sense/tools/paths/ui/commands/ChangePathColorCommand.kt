@@ -4,11 +4,11 @@ import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.paths.domain.IPathService
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
-import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

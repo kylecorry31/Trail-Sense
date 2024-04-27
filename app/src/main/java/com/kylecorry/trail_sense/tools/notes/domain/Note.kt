@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.notes.domain
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.time.Instant
 
 @Entity(
     tableName = "notes"

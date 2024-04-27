@@ -5,10 +5,10 @@ import android.content.Intent
 import com.kylecorry.sol.science.geography.CoordinateFormatter.toDecimalDegrees
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sharing.MapSiteService
+import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 
 class BeaconSharesheet(private val context: Context) : IBeaconSender {
 

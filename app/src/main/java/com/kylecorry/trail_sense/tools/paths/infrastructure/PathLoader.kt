@@ -3,12 +3,12 @@ package com.kylecorry.trail_sense.tools.paths.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.paths.domain.IPathService
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.domain.ShouldLoadPathSpecification
 import com.kylecorry.trail_sense.tools.paths.domain.ShouldUnloadPathSpecification
-import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import java.time.Instant
 
 class PathLoader(private val pathService: IPathService) {

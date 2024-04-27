@@ -2,9 +2,9 @@ package com.kylecorry.trail_sense.shared.debugging
 
 import android.content.Context
 import com.kylecorry.andromeda.csv.CSVConvert
-import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
-import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
+import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
 
 class DebugPathElevationsCommand(
     private val context: Context,

@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.tools.maps.infrastructure
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.grouping.picker.GroupablePickers
 import com.kylecorry.trail_sense.shared.grouping.lists.GroupListManager
+import com.kylecorry.trail_sense.shared.grouping.picker.GroupablePickers
 import com.kylecorry.trail_sense.tools.maps.domain.MapGroup
 import com.kylecorry.trail_sense.tools.maps.ui.mappers.MapGroupMapper
 import kotlinx.coroutines.CoroutineScope

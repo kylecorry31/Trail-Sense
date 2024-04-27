@@ -10,10 +10,7 @@ import android.widget.TextView
 import androidx.annotation.RawRes
 import androidx.core.os.bundleOf
 import androidx.core.text.method.LinkMovementMethodCompat
-import androidx.core.view.MarginLayoutParamsCompat
-import androidx.core.view.children
 import androidx.core.view.setPadding
-import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.calibration.ui
 import android.os.Bundle
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.settings.infrastructure.AugmentedRealityPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.CameraPreferences
 
 class CameraSettingsFragment : AndromedaPreferenceFragment() {

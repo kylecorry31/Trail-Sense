@@ -2,10 +2,10 @@ package com.kylecorry.trail_sense.tools.beacons.infrastructure.share
 
 import android.net.Uri
 import com.kylecorry.andromeda.core.system.GeoUri
-import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.from
 import com.kylecorry.trail_sense.shared.uri.IUriEncoder
+import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 
 class BeaconUriEncoder : IUriEncoder<Beacon> {
 

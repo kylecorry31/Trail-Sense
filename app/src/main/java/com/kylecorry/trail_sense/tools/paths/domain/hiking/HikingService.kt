@@ -6,8 +6,8 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
-import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.data.DataUtils
+import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import java.time.Duration
 
 class HikingService : IHikingService {

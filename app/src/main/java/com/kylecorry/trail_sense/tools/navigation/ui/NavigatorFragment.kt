@@ -37,12 +37,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.calibration.ui.CompassCalibrationView
 import com.kylecorry.trail_sense.calibration.ui.ImproveAccuracyAlerter
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.GPSDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.domain.IDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.MagnetometerDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.status.GpsStatusBadgeProvider
-import com.kylecorry.trail_sense.tools.diagnostics.status.SensorStatusBadgeProvider
-import com.kylecorry.trail_sense.tools.diagnostics.status.StatusBadge
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -56,6 +50,12 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.tools.diagnostics.domain.IDiagnostic
+import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.GPSDiagnostic
+import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.MagnetometerDiagnostic
+import com.kylecorry.trail_sense.tools.diagnostics.status.GpsStatusBadgeProvider
+import com.kylecorry.trail_sense.tools.diagnostics.status.SensorStatusBadgeProvider
+import com.kylecorry.trail_sense.tools.diagnostics.status.StatusBadge
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.ILayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MultiLayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyAccuracyLayerManager

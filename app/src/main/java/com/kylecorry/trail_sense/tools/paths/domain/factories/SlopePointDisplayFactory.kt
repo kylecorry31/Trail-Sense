@@ -2,12 +2,12 @@ package com.kylecorry.trail_sense.tools.paths.domain.factories
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
-import com.kylecorry.trail_sense.tools.paths.domain.waypointcolors.IPointColoringStrategy
-import com.kylecorry.trail_sense.tools.paths.domain.waypointcolors.SlopePointColoringStrategy
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.scales.DiscreteColorScale
 import com.kylecorry.trail_sense.shared.scales.IColorScale
+import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
+import com.kylecorry.trail_sense.tools.paths.domain.waypointcolors.IPointColoringStrategy
+import com.kylecorry.trail_sense.tools.paths.domain.waypointcolors.SlopePointColoringStrategy
 
 class SlopePointDisplayFactory(private val context: Context) : IPointDisplayFactory {
     override fun createColoringStrategy(path: List<PathPoint>): IPointColoringStrategy {

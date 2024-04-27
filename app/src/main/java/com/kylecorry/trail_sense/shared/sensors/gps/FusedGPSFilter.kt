@@ -5,8 +5,6 @@ import com.kylecorry.sol.math.algebra.columnMatrix
 import com.kylecorry.sol.math.algebra.createMatrix
 import com.kylecorry.sol.math.algebra.identityMatrix
 import com.kylecorry.sol.math.algebra.multiply
-import java.time.Duration
-import java.time.Instant
 
 /*
  * MIT License

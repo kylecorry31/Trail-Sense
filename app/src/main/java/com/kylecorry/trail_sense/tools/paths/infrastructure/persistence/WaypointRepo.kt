@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.domain.WaypointEntity
-import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import java.time.Instant
 
 class WaypointRepo private constructor(context: Context) : IWaypointRepo {

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
@@ -19,12 +20,11 @@ import com.kylecorry.trail_sense.databinding.FragmentTemperatureEstimationBindin
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.andromeda.core.coroutines.onMain
+import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.UnitInputView
 import java.time.Duration
-import com.kylecorry.trail_sense.shared.safeRoundToInt
 
 class TemperatureEstimationFragment : BoundFragment<FragmentTemperatureEstimationBinding>() {
 

@@ -11,11 +11,9 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
-import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapService
 import kotlinx.coroutines.launch
-import java.time.Duration
 
 class QuickActionOpenPhotoMap(button: ImageButton, fragment: Fragment) : QuickActionButton(
     button, fragment

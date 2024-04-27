@@ -4,10 +4,10 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.trail_sense.shared.canvas.InteractionUtils
-import com.kylecorry.trail_sense.tools.navigation.ui.markers.MapMarker
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.shared.toVector2
+import com.kylecorry.trail_sense.tools.navigation.ui.markers.MapMarker
 
 open class BaseLayer : ILayer {
 

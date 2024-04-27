@@ -4,13 +4,13 @@ import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.navigation.ui.IMappableReferencePoint
-import com.kylecorry.trail_sense.tools.navigation.ui.MappableReferencePoint
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.MarkerCompassLayer
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.tools.astronomy.ui.MoonPhaseImageMapper
+import com.kylecorry.trail_sense.tools.navigation.ui.IMappableReferencePoint
+import com.kylecorry.trail_sense.tools.navigation.ui.MappableReferencePoint
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.MarkerCompassLayer
 
 class UpdateAstronomyLayerCommand(
     private val layer: MarkerCompassLayer,

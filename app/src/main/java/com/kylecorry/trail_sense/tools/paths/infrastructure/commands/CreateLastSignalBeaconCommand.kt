@@ -1,15 +1,15 @@
 package com.kylecorry.trail_sense.tools.paths.infrastructure.commands
 
 import android.content.Context
+import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
-import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.andromeda.core.coroutines.onIO
 
 class CreateLastSignalBeaconCommand(private val context: Context) {
 

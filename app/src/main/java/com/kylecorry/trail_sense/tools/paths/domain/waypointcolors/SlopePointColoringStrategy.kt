@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.paths.domain.waypointcolors
 
-import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.shared.scales.IColorScale
+import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import kotlin.math.absoluteValue
 
 class SlopePointColoringStrategy(private val colorScale: IColorScale) :

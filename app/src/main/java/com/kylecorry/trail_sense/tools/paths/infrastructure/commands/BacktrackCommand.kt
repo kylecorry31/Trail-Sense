@@ -1,19 +1,19 @@
 package com.kylecorry.trail_sense.tools.paths.infrastructure.commands
 
 import android.content.Context
+import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.sense.readAll
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
-import com.kylecorry.trail_sense.tools.paths.infrastructure.alerts.BacktrackAlerter
-import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
-import com.kylecorry.andromeda.core.coroutines.onDefault
-import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.trail_sense.shared.networkQuality
 import com.kylecorry.trail_sense.shared.sensors.MockCellSignalSensor
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
+import com.kylecorry.trail_sense.tools.paths.infrastructure.alerts.BacktrackAlerter
+import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import java.time.Duration
 import java.time.Instant
 

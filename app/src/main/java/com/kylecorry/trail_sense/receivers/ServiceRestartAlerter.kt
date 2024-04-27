@@ -4,7 +4,6 @@ import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
-import com.kylecorry.trail_sense.main.NotificationChannels
 import com.kylecorry.trail_sense.shared.alerts.IDismissibleAlerter
 
 class ServiceRestartAlerter(private val context: Context) : IDismissibleAlerter {

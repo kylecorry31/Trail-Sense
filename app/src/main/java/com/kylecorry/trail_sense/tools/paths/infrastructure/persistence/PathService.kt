@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.paths.infrastructure.persistence
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
+import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.time.ITimeProvider
 import com.kylecorry.andromeda.core.time.SystemTimeProvider
 import com.kylecorry.andromeda.preferences.IPreferences
@@ -10,6 +11,11 @@ import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.filters.RDPFilter
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Reading
+import com.kylecorry.trail_sense.shared.grouping.count.GroupCounter
+import com.kylecorry.trail_sense.shared.grouping.persistence.GroupDeleter
+import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader
+import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.tools.paths.domain.IPath
 import com.kylecorry.trail_sense.tools.paths.domain.IPathService
@@ -18,12 +24,6 @@ import com.kylecorry.trail_sense.tools.paths.domain.PathGroup
 import com.kylecorry.trail_sense.tools.paths.domain.PathMetadata
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.domain.PathSimplificationQuality
-import com.kylecorry.andromeda.core.coroutines.onIO
-import com.kylecorry.trail_sense.shared.grouping.count.GroupCounter
-import com.kylecorry.trail_sense.shared.grouping.persistence.GroupDeleter
-import com.kylecorry.trail_sense.shared.grouping.persistence.GroupLoader
-import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
-import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock

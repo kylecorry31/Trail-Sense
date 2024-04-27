@@ -3,11 +3,11 @@ package com.kylecorry.trail_sense.tools.beacons.infrastructure.export
 import android.content.Context
 import com.kylecorry.andromeda.gpx.GPXData
 import com.kylecorry.sol.time.Time.toZonedDateTime
+import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
-import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.colors.AppColor
 
 class BeaconGpxImporter(private val context: Context) {
 

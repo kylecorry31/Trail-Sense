@@ -3,8 +3,8 @@ package com.kylecorry.trail_sense.tools.beacons.ui.form
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import com.kylecorry.trail_sense.databinding.FragmentCreateBeaconBinding
-import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 
 class CreateBeaconForm {
 

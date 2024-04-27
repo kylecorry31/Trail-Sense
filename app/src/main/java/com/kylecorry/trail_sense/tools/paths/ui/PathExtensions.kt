@@ -3,6 +3,9 @@ package com.kylecorry.trail_sense.tools.paths.ui
 import android.content.Context
 import android.graphics.Color
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
+import com.kylecorry.trail_sense.tools.navigation.ui.MappableLocation
+import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
@@ -14,9 +17,6 @@ import com.kylecorry.trail_sense.tools.paths.domain.factories.SlopePointDisplayF
 import com.kylecorry.trail_sense.tools.paths.domain.factories.TimePointDisplayFactory
 import com.kylecorry.trail_sense.tools.paths.domain.waypointcolors.NoDrawPointColoringStrategy
 import com.kylecorry.trail_sense.tools.paths.domain.waypointcolors.SelectedPointDecorator
-import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
-import com.kylecorry.trail_sense.tools.navigation.ui.MappableLocation
-import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
 
 fun List<PathPoint>.asMappable(context: Context, path: Path): IMappablePath {
     return MappablePath(path.id, toMappableLocations(context), path.style.color, path.style.line, path.name)

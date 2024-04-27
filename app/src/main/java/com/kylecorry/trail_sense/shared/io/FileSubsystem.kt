@@ -9,18 +9,18 @@ import android.util.Size
 import android.webkit.MimeTypeMap
 import androidx.core.net.toUri
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils
+import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.files.ExternalFileSystem
 import com.kylecorry.andromeda.files.FileSaver
 import com.kylecorry.andromeda.files.LocalFileSystem
 import com.kylecorry.trail_sense.shared.debugging.ifDebug
-import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.trail_sense.tools.maps.infrastructure.ImageSaver
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 import java.io.OutputStream
-import java.util.*
+import java.util.UUID
 
 
 class FileSubsystem private constructor(private val context: Context) {

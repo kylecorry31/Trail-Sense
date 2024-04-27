@@ -5,8 +5,8 @@ import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.science.geology.NavigationVector
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
+import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import java.time.Duration
 import kotlin.math.abs
 import kotlin.math.max

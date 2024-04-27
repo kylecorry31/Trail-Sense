@@ -1,11 +1,11 @@
 package com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence
 
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.beacons.domain.IBeacon
-import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
 
 interface IBeaconService {
 

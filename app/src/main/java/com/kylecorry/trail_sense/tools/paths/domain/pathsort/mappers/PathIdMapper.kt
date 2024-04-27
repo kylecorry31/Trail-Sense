@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.tools.paths.domain.pathsort.mappers
 
-import com.kylecorry.trail_sense.tools.paths.domain.IPath
 import com.kylecorry.trail_sense.shared.grouping.mapping.GroupMapper
 import com.kylecorry.trail_sense.shared.grouping.persistence.IGroupLoader
+import com.kylecorry.trail_sense.tools.paths.domain.IPath
 
 class PathIdMapper(override val loader: IGroupLoader<IPath>) : GroupMapper<IPath, Long, Long>() {
 

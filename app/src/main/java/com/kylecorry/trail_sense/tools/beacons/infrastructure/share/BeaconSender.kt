@@ -1,10 +1,10 @@
 package com.kylecorry.trail_sense.tools.beacons.infrastructure.share
 
 import androidx.fragment.app.Fragment
-import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.shared.sharing.ShareAction
+import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.qr.infrastructure.BeaconQREncoder
 
 class BeaconSender(private val fragment: Fragment) : IBeaconSender {

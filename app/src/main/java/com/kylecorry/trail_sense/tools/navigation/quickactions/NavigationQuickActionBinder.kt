@@ -1,10 +1,10 @@
 package com.kylecorry.trail_sense.tools.navigation.quickactions
 
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
-import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationPreferences
-import com.kylecorry.trail_sense.tools.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.shared.quickactions.IQuickActionBinder
 import com.kylecorry.trail_sense.shared.quickactions.QuickActionFactory
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationPreferences
+import com.kylecorry.trail_sense.tools.navigation.ui.NavigatorFragment
 
 class NavigationQuickActionBinder(
     private val fragment: NavigatorFragment,
