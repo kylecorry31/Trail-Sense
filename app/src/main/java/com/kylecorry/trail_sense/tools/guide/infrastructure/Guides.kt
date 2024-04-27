@@ -1,11 +1,10 @@
 package com.kylecorry.trail_sense.tools.guide.infrastructure
 
 import android.content.Context
-import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.guide.domain.UserGuide
 import com.kylecorry.trail_sense.tools.guide.domain.UserGuideCategory
-import com.kylecorry.trail_sense.tools.tools.ui.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.ui.sort.CategoricalToolSort
 
 object Guides {

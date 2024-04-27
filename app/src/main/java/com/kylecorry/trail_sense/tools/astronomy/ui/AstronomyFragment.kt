@@ -50,7 +50,7 @@ import com.kylecorry.trail_sense.tools.astronomy.ui.items.SolarEclipseListItemPr
 import com.kylecorry.trail_sense.tools.astronomy.ui.items.SunListItemProducer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMode
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityFragment
-import com.kylecorry.trail_sense.tools.tools.ui.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.Duration

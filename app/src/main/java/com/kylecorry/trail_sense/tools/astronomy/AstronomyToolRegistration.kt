@@ -5,10 +5,10 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionNightMode
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunsetAlert
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
-import com.kylecorry.trail_sense.tools.tools.ui.Tool
-import com.kylecorry.trail_sense.tools.tools.ui.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.ui.ToolQuickAction
-import com.kylecorry.trail_sense.tools.tools.ui.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 object AstronomyToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {

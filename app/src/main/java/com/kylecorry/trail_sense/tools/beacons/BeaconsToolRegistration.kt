@@ -4,10 +4,10 @@ import android.content.Context
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.beacons.quickactions.QuickActionPlaceBeacon
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
-import com.kylecorry.trail_sense.tools.tools.ui.Tool
-import com.kylecorry.trail_sense.tools.tools.ui.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.ui.ToolQuickAction
-import com.kylecorry.trail_sense.tools.tools.ui.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 object BeaconsToolRegistration: ToolRegistration {
     override fun getTool(context: Context): Tool {

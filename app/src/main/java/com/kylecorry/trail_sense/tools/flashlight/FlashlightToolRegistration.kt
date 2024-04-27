@@ -8,12 +8,12 @@ import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionFlashl
 import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionScreenFlashlight
 import com.kylecorry.trail_sense.tools.flashlight.volumeactions.FlashlightToggleVolumeAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
-import com.kylecorry.trail_sense.tools.tools.ui.Tool
-import com.kylecorry.trail_sense.tools.tools.ui.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.ui.ToolQuickAction
-import com.kylecorry.trail_sense.tools.tools.ui.ToolVolumeAction
-import com.kylecorry.trail_sense.tools.tools.ui.ToolVolumeActionPriority
-import com.kylecorry.trail_sense.tools.tools.ui.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeAction
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeActionPriority
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 object FlashlightToolRegistration : ToolRegistration {
 

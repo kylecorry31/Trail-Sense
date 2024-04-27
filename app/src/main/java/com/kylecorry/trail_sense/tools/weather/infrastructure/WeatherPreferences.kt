@@ -5,7 +5,7 @@ import com.kylecorry.andromeda.core.toIntCompat
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.tools.tools.ui.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime

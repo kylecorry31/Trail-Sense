@@ -23,7 +23,7 @@ import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.preferences.setupNotificationSetting
 import com.kylecorry.trail_sense.shared.requireMainActivity
-import com.kylecorry.trail_sense.tools.tools.ui.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherCsvConverter
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherPreferences
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherUpdateScheduler

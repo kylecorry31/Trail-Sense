@@ -14,7 +14,7 @@ import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPe
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.shared.preferences.setupDistanceSetting
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.tools.tools.ui.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class NavigationSettingsFragment : AndromedaPreferenceFragment() {
 

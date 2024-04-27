@@ -78,7 +78,7 @@ import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.BeaconCompas
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.ICompassView
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.MarkerCompassLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.NavigationCompassLayer
-import com.kylecorry.trail_sense.tools.tools.ui.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
 import java.time.Instant
 

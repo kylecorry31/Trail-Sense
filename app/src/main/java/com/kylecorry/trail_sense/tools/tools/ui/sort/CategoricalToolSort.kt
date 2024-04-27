@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.tools.tools.ui.sort
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.tools.ui.Tool
-import com.kylecorry.trail_sense.tools.tools.ui.ToolCategory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 
 class CategoricalToolSort(context: Context) : ToolSort {
 

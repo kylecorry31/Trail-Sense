@@ -1,20 +1,13 @@
-package com.kylecorry.trail_sense.tools.tools.ui
+package com.kylecorry.trail_sense.tools.tools.infrastructure
 
 import android.content.Context
-import android.widget.ImageButton
-import androidx.annotation.DrawableRes
-import androidx.annotation.IdRes
 import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.SettingsToolRegistration
-import com.kylecorry.trail_sense.shared.QuickActionButton
-import com.kylecorry.trail_sense.shared.data.Identifiable
 import com.kylecorry.trail_sense.shared.quickactions.QuickActionOpenTool
 import com.kylecorry.trail_sense.shared.views.QuickActionNone
-import com.kylecorry.trail_sense.shared.volume.VolumeAction
 import com.kylecorry.trail_sense.tools.astronomy.AstronomyToolRegistration
 import com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityToolRegistration
 import com.kylecorry.trail_sense.tools.battery.BatteryToolRegistration
@@ -51,54 +44,6 @@ import com.kylecorry.trail_sense.tools.waterpurification.WaterBoilTimerToolRegis
 import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 import com.kylecorry.trail_sense.tools.whistle.WhistleToolRegistration
 import com.kylecorry.trail_sense.tools.whitenoise.WhiteNoiseToolRegistration
-
-data class Tool(
-    override val id: Long,
-    val name: String,
-    @DrawableRes val icon: Int,
-    @IdRes val navAction: Int,
-    val category: ToolCategory,
-    val description: String? = null,
-    val guideId: Int? = null,
-    val isExperimental: Boolean = false,
-    @IdRes val settingsNavAction: Int? = null,
-    val quickActions: List<ToolQuickAction> = emptyList(),
-    val additionalNavigationIds: List<Int> = emptyList(),
-    val volumeActions: List<ToolVolumeAction> = emptyList(),
-    val isAvailable: (context: Context) -> Boolean = { true }
-) : Identifiable {
-    fun isOpen(currentNavId: Int): Boolean {
-        return navAction == currentNavId || additionalNavigationIds.contains(currentNavId)
-    }
-}
-
-data class ToolQuickAction(
-    val id: Int,
-    val name: String,
-    val create: (button: ImageButton, fragment: AndromedaFragment) -> QuickActionButton
-)
-
-data class ToolVolumeAction(
-    val priority: ToolVolumeActionPriority,
-    val isActive: (context: Context, isToolOpen: Boolean) -> Boolean,
-    val create: (fragment: AndromedaFragment) -> VolumeAction
-)
-
-enum class ToolVolumeActionPriority {
-    High,
-    Normal
-}
-
-enum class ToolCategory {
-    Signaling,
-    Distance,
-    Location,
-    Angles,
-    Time,
-    Power,
-    Weather,
-    Other
-}
 
 object Tools {
 
