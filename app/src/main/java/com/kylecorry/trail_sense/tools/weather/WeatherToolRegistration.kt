@@ -4,12 +4,16 @@ import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorIsEnabled
+import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeatherAlerter
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.DailyWeatherAlerter
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.StormAlerter
@@ -56,6 +60,19 @@ object WeatherToolRegistration : ToolRegistration {
                     context.getString(R.string.todays_forecast),
                     Notify.CHANNEL_IMPORTANCE_LOW,
                     true
+                )
+            ),
+            services = listOf(
+                ToolService(
+                    context.getString(R.string.weather_monitor),
+                    getFrequency = { UserPreferences(it).weather.weatherUpdateFrequency },
+                    isActive = {
+                        WeatherMonitorIsEnabled().isSatisfiedBy(it)
+                    },
+                    disable = {
+                        UserPreferences(it).weather.shouldMonitorWeather = false
+                        WeatherUpdateScheduler.stop(it)
+                    }
                 )
             )
         )

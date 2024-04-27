@@ -4,6 +4,7 @@ import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionFlashlight
@@ -14,9 +15,11 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeActionPriority
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import java.time.Duration
 
 object FlashlightToolRegistration : ToolRegistration {
 
@@ -62,6 +65,18 @@ object FlashlightToolRegistration : ToolRegistration {
                     context.getString(R.string.flashlight_title),
                     Notify.CHANNEL_IMPORTANCE_LOW,
                     muteSound = true
+                )
+            ),
+            services = listOf(
+                ToolService(
+                    context.getString(R.string.flashlight_title),
+                    getFrequency = { Duration.ZERO },
+                    isActive = {
+                        FlashlightSubsystem.getInstance(it).getMode() != FlashlightMode.Off
+                    },
+                    disable = {
+                        FlashlightSubsystem.getInstance(it).set(FlashlightMode.Off)
+                    }
                 )
             )
         )

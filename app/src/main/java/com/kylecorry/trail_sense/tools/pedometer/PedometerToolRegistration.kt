@@ -5,6 +5,7 @@ import android.hardware.Sensor
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.DistanceAlerter
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.tools.pedometer.quickactions.QuickActionPedometer
@@ -13,7 +14,9 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import java.time.Duration
 
 object PedometerToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
@@ -51,6 +54,20 @@ object PedometerToolRegistration : ToolRegistration {
                     context.getString(R.string.distance_alert),
                     Notify.CHANNEL_IMPORTANCE_HIGH,
                     false
+                )
+            ),
+            services = listOf(
+                ToolService(
+                    context.getString(R.string.pedometer),
+                    getFrequency = { Duration.ZERO },
+                    isActive = {
+                        val prefs = UserPreferences(it)
+                        prefs.pedometer.isEnabled && !prefs.isLowPowerModeOn
+                    },
+                    disable = {
+                        UserPreferences(it).pedometer.isEnabled = false
+                        StepCounterService.stop(it)
+                    }
                 )
             )
         )

@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.astronomy
 import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.AstronomyAlertCommand
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunsetAlarmCommand
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionNightMode
@@ -12,7 +13,9 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import java.time.Duration
 
 object AstronomyToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
@@ -50,6 +53,18 @@ object AstronomyToolRegistration : ToolRegistration {
                     context.getString(R.string.astronomy_alerts),
                     Notify.CHANNEL_IMPORTANCE_LOW,
                     false
+                )
+            ),
+            services = listOf(
+                ToolService(
+                    context.getString(R.string.sunset_alerts),
+                    getFrequency = { Duration.ofDays(1) },
+                    isActive = {
+                        UserPreferences(it).astronomy.sendSunsetAlerts
+                    },
+                    disable = {
+                        UserPreferences(it).astronomy.sendSunsetAlerts = false
+                    }
                 )
             )
         )
