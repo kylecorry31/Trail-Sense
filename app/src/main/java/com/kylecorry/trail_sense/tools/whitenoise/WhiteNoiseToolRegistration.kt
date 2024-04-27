@@ -1,11 +1,13 @@
 package com.kylecorry.trail_sense.tools.whitenoise
 
 import android.content.Context
+import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.volume.SystemVolumeAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeActionPriority
@@ -35,6 +37,14 @@ object WhiteNoiseToolRegistration : ToolRegistration {
                     ToolVolumeActionPriority.High,
                     { _, isToolOpen -> isToolOpen || WhiteNoiseService.isRunning },
                     ::SystemVolumeAction
+                )
+            ),
+            notificationChannels = listOf(
+                ToolNotificationChannel(
+                    WhiteNoiseService.NOTIFICATION_CHANNEL_ID,
+                    context.getString(R.string.tool_white_noise_title),
+                    context.getString(R.string.tool_white_noise_title),
+                    Notify.CHANNEL_IMPORTANCE_LOW
                 )
             )
         )

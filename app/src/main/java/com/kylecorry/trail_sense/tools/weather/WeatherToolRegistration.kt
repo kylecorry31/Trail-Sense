@@ -1,13 +1,18 @@
 package com.kylecorry.trail_sense.tools.weather
 
 import android.content.Context
+import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeatherAlerter
+import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.DailyWeatherAlerter
+import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.StormAlerter
 import com.kylecorry.trail_sense.tools.weather.quickactions.QuickActionWeatherMonitor
 
 object WeatherToolRegistration : ToolRegistration {
@@ -30,6 +35,28 @@ object WeatherToolRegistration : ToolRegistration {
             isAvailable = { Sensors.hasBarometer(it) },
             tiles = listOf(
                 "com.kylecorry.trail_sense.tools.weather.tiles.WeatherMonitorTile"
+            ),
+            notificationChannels = listOf(
+                ToolNotificationChannel(
+                    StormAlerter.STORM_CHANNEL_ID,
+                    context.getString(R.string.storm_alerts),
+                    context.getString(R.string.storm_alerts),
+                    Notify.CHANNEL_IMPORTANCE_HIGH
+                ),
+                ToolNotificationChannel(
+                    CurrentWeatherAlerter.WEATHER_CHANNEL_ID,
+                    context.getString(R.string.weather_monitor),
+                    context.getString(R.string.notification_monitoring_weather),
+                    Notify.CHANNEL_IMPORTANCE_LOW,
+                    true
+                ),
+                ToolNotificationChannel(
+                    DailyWeatherAlerter.DAILY_CHANNEL_ID,
+                    context.getString(R.string.todays_forecast),
+                    context.getString(R.string.todays_forecast),
+                    Notify.CHANNEL_IMPORTANCE_LOW,
+                    true
+                )
             )
         )
     }

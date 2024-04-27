@@ -9,18 +9,16 @@ import com.kylecorry.andromeda.background.services.ForegroundInfo
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.permissions.Permissions
-import com.kylecorry.andromeda.sense.pedometer.Pedometer
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
-import com.kylecorry.trail_sense.main.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.Command
 import com.kylecorry.trail_sense.shared.extensions.tryStartForegroundOrNotify
+import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
@@ -79,7 +77,8 @@ class StepCounterService : AndromedaService() {
 
         val openIntent = NavigationUtils.pendingIntent(this, R.id.fragmentToolPedometer)
         val stopIntent = Intent(this, StopPedometerReceiver::class.java)
-        val stopPendingIntent = PendingIntent.getBroadcast(this, 0, stopIntent, PendingIntent.FLAG_IMMUTABLE)
+        val stopPendingIntent =
+            PendingIntent.getBroadcast(this, 0, stopIntent, PendingIntent.FLAG_IMMUTABLE)
         val stopAction = Notify.action(
             getString(R.string.stop),
             stopPendingIntent,
@@ -97,7 +96,7 @@ class StepCounterService : AndromedaService() {
             ),
             R.drawable.steps,
             intent = openIntent,
-            group = NotificationChannels.GROUP_PEDOMETER,
+            group = NOTIFICATION_GROUP_PEDOMETER,
             showForegroundImmediate = true,
             actions = listOf(stopAction)
         )
@@ -106,6 +105,8 @@ class StepCounterService : AndromedaService() {
     companion object {
         const val CHANNEL_ID = "pedometer"
         const val NOTIFICATION_ID = 1279812
+        private const val NOTIFICATION_GROUP_PEDOMETER = "trail_sense_pedometer"
+
 
         var isRunning = false
             private set
@@ -123,7 +124,7 @@ class StepCounterService : AndromedaService() {
         }
 
         fun start(context: Context) {
-            if (UserPreferences(context).isLowPowerModeOn){
+            if (UserPreferences(context).isLowPowerModeOn) {
                 return
             }
 

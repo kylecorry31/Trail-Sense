@@ -1,11 +1,14 @@
 package com.kylecorry.trail_sense.tools.waterpurification
 
 import android.content.Context
+import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.waterpurification.infrastructure.WaterPurificationTimerService
 
 object WaterBoilTimerToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
@@ -16,7 +19,16 @@ object WaterBoilTimerToolRegistration : ToolRegistration {
             R.id.waterPurificationFragment,
             ToolCategory.Time,
             context.getString(R.string.tool_boil_summary),
-            guideId = R.raw.guide_tool_water_boil_timer
+            guideId = R.raw.guide_tool_water_boil_timer,
+            notificationChannels = listOf(
+                ToolNotificationChannel(
+                    WaterPurificationTimerService.CHANNEL_ID,
+                    context.getString(R.string.water_boil_timer),
+                    context.getString(R.string.water_boil_timer_channel_description),
+                    Notify.CHANNEL_IMPORTANCE_HIGH,
+                    false
+                )
+            )
         )
     }
 }

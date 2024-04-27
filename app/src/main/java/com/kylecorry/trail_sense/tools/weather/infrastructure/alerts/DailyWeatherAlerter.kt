@@ -52,7 +52,7 @@ class DailyWeatherAlerter(
             description,
             icon,
             showBigIcon = prefs.showColoredNotificationIcon,
-            group = NotificationChannels.GROUP_DAILY_WEATHER,
+            group = NOTIFICATION_GROUP_DAILY_WEATHER,
             intent = openIntent,
             autoCancel = true
         )
@@ -63,5 +63,6 @@ class DailyWeatherAlerter(
     companion object {
         private const val DAILY_NOTIFICATION_ID = 798643
         const val DAILY_CHANNEL_ID = "daily-weather"
+        private const val NOTIFICATION_GROUP_DAILY_WEATHER = "trail_sense_daily_weather"
     }
 }

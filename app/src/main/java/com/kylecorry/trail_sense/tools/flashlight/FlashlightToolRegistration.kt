@@ -1,8 +1,10 @@
 package com.kylecorry.trail_sense.tools.flashlight
 
 import android.content.Context
+import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionScreenFlashlight
@@ -10,6 +12,7 @@ import com.kylecorry.trail_sense.tools.flashlight.volumeactions.FlashlightToggle
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeActionPriority
@@ -50,6 +53,15 @@ object FlashlightToolRegistration : ToolRegistration {
                     ToolVolumeActionPriority.Normal,
                     { context, _ -> UserPreferences(context).flashlight.toggleWithVolumeButtons },
                     ::FlashlightToggleVolumeAction
+                )
+            ),
+            notificationChannels = listOf(
+                ToolNotificationChannel(
+                    FlashlightService.CHANNEL_ID,
+                    context.getString(R.string.flashlight_title),
+                    context.getString(R.string.flashlight_title),
+                    Notify.CHANNEL_IMPORTANCE_LOW,
+                    muteSound = true
                 )
             )
         )

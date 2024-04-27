@@ -27,6 +27,7 @@ class BacktrackAlerter(private val context: Context) : IValueAlerter<Distance> {
 
     companion object {
         const val NOTIFICATION_ID = 578879
+        private const val NOTIFICATION_GROUP = "trail_sense_backtrack"
 
         fun getNotification(context: Context, distance: Distance): Notification {
             val formatter = FormatService.getInstance(context)
@@ -44,7 +45,7 @@ class BacktrackAlerter(private val context: Context) : IValueAlerter<Distance> {
                 context.getString(R.string.backtrack),
                 formatter.formatDistance(distance, Units.getDecimalPlaces(distance.units), false),
                 R.drawable.ic_tool_backtrack,
-                group = NotificationChannels.GROUP_BACKTRACK,
+                group = NOTIFICATION_GROUP,
                 intent = openAction,
                 actions = listOf(stopAction),
                 showForegroundImmediate = true

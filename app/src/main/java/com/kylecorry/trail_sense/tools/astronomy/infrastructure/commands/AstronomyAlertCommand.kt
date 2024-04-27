@@ -23,4 +23,9 @@ class AstronomyAlertCommand(private val context: Context) : CoroutineCommand {
 
         command.execute(location)
     }
+
+    companion object {
+        const val NOTIFICATION_CHANNEL = "astronomy_alerts"
+        const val NOTIFICATION_GROUP_ASTRONOMY_ALERTS = "trail_sense_astronomy_alerts"
+    }
 }

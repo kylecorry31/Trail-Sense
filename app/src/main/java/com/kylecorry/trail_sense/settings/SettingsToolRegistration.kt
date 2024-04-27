@@ -1,10 +1,13 @@
 package com.kylecorry.trail_sense.settings
 
 import android.content.Context
+import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
+import com.kylecorry.trail_sense.receivers.ServiceRestartAlerter
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 object SettingsToolRegistration : ToolRegistration {
@@ -30,6 +33,15 @@ object SettingsToolRegistration : ToolRegistration {
                 R.id.calibrateBarometerFragment,
                 R.id.thermometerSettingsFragment,
                 R.id.cameraSettingsFragment
+            ),
+            notificationChannels = listOf(
+                ToolNotificationChannel(
+                    ServiceRestartAlerter.CHANNEL_SERVICE_RESTART,
+                    context.getString(R.string.service_restart),
+                    context.getString(R.string.service_restart_channel_description),
+                    Notify.CHANNEL_IMPORTANCE_LOW,
+                    true
+                )
             )
         )
     }

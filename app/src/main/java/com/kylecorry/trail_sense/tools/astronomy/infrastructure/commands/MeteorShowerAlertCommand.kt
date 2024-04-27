@@ -5,12 +5,12 @@ import android.util.Log
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.sol.science.astronomy.meteors.MeteorShowerPeak
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.main.NotificationChannels
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.NotificationChannels
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.generic.Command
+import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import java.time.Duration
 import java.time.LocalDate
@@ -42,11 +42,11 @@ class MeteorShowerAlertCommand(private val context: Context) : Command<Coordinat
 
         val notification = Notify.status(
             context,
-            NotificationChannels.CHANNEL_ASTRONOMY_ALERTS,
+            AstronomyAlertCommand.NOTIFICATION_CHANNEL,
             context.getString(R.string.meteor_shower),
             getShowerDescription(context, shower),
             R.drawable.ic_astronomy,
-            group = NotificationChannels.GROUP_ASTRONOMY_ALERTS,
+            group = AstronomyAlertCommand.NOTIFICATION_GROUP_ASTRONOMY_ALERTS,
             intent = NavigationUtils.pendingIntent(context, R.id.action_astronomy),
             autoCancel = true
         )

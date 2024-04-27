@@ -2,9 +2,9 @@ package com.kylecorry.trail_sense.receivers
 
 import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.trail_sense.main.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
+import com.kylecorry.trail_sense.main.NotificationChannels
 import com.kylecorry.trail_sense.shared.alerts.IDismissibleAlerter
 
 class ServiceRestartAlerter(private val context: Context) : IDismissibleAlerter {
@@ -14,11 +14,11 @@ class ServiceRestartAlerter(private val context: Context) : IDismissibleAlerter 
 
         val notification = Notify.status(
             context,
-            NotificationChannels.CHANNEL_SERVICE_RESTART,
+            CHANNEL_SERVICE_RESTART,
             context.getString(R.string.restart_services_title),
             context.getString(R.string.restart_services_message),
             R.drawable.ic_alert,
-            group = NotificationChannels.GROUP_SERVICE_RESTART,
+            group = NOTIFICATION_GROUP_SERVICE_RESTART,
             intent = intent,
             autoCancel = true,
             alertOnlyOnce = true,
@@ -32,5 +32,7 @@ class ServiceRestartAlerter(private val context: Context) : IDismissibleAlerter 
 
     companion object {
         private const val NOTIFICATION_ID = 23759823
+        private const val NOTIFICATION_GROUP_SERVICE_RESTART = "trail_sense_service_restart"
+        const val CHANNEL_SERVICE_RESTART = "service_restart"
     }
 }

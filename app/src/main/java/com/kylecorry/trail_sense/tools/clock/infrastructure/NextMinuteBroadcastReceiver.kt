@@ -19,7 +19,7 @@ class NextMinuteBroadcastReceiver : BroadcastReceiver() {
             context.getString(R.string.clock_sync_notification, time),
             null,
             R.drawable.ic_tool_clock,
-            group = NotificationChannels.GROUP_CLOCK,
+            group = NOTIFICATION_GROUP_CLOCK,
             intent = NavigationUtils.pendingIntent(context, R.id.toolClockFragment)
         )
         Notify.send(context, NOTIFICATION_ID, notification)
@@ -30,6 +30,7 @@ class NextMinuteBroadcastReceiver : BroadcastReceiver() {
         private const val EXTRA_TIME = "extra_time"
         private const val PENDING_INTENT_ID = 632854823
         private const val NOTIFICATION_ID = 49852323
+        private const val NOTIFICATION_GROUP_CLOCK = "trail_sense_clock"
 
         fun intent(context: Context, timeString: String): Intent {
             val i = Intent(context, NextMinuteBroadcastReceiver::class.java)

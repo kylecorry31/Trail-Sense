@@ -9,12 +9,11 @@ import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.sol.units.TemperatureUnits
-import com.kylecorry.trail_sense.main.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
+import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.tools.weather.domain.CurrentWeather
 import com.kylecorry.trail_sense.tools.weather.infrastructure.IWeatherPreferences
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherUpdateScheduler
@@ -86,7 +85,7 @@ class CurrentWeatherAlerter(
             text,
             icon,
             showBigIcon = prefs.showColoredNotificationIcon,
-            group = NotificationChannels.GROUP_WEATHER,
+            group = NOTIFICATION_GROUP_WEATHER,
             intent = openIntent,
             actions = listOf(stopAction)
         )
@@ -110,6 +109,7 @@ class CurrentWeatherAlerter(
 
     companion object {
         const val WEATHER_CHANNEL_ID = "Weather"
+        private const val NOTIFICATION_GROUP_WEATHER = "trail_sense_weather"
 
         fun getDefaultNotification(context: Context): Notification {
             val stopIntent = Intent(context, WeatherStopMonitoringReceiver::class.java)
@@ -133,7 +133,7 @@ class CurrentWeatherAlerter(
                 title,
                 subtitle,
                 R.drawable.cloud,
-                group = NotificationChannels.GROUP_WEATHER,
+                group = NOTIFICATION_GROUP_WEATHER,
                 intent = openIntent,
                 actions = listOf(stopAction),
                 showForegroundImmediate = true

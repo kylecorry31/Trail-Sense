@@ -8,7 +8,6 @@ import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.trail_sense.main.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
@@ -41,7 +40,7 @@ class FlashlightService : AndromedaService() {
             getString(R.string.tap_to_turn_off),
             R.drawable.flashlight,
             intent = FlashlightOffReceiver.pendingIntent(this),
-            group = NotificationChannels.GROUP_FLASHLIGHT,
+            group = NOTIFICATION_GROUP_FLASHLIGHT,
             showForegroundImmediate = true
         )
     }
@@ -102,6 +101,7 @@ class FlashlightService : AndromedaService() {
     companion object {
         const val CHANNEL_ID = "Flashlight"
         const val NOTIFICATION_ID = 983589
+        private const val NOTIFICATION_GROUP_FLASHLIGHT = "trail_sense_flashlight"
 
         fun intent(context: Context): Intent {
             return Intent(context.applicationContext, FlashlightService::class.java)

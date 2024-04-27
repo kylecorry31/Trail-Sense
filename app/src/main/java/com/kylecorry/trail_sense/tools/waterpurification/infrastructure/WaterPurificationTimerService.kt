@@ -8,7 +8,6 @@ import com.kylecorry.andromeda.background.services.AndromedaService
 import com.kylecorry.andromeda.background.services.ForegroundInfo
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.notify.Notify
-import com.kylecorry.trail_sense.main.NotificationChannels
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.shared.safeRoundToInt
@@ -53,7 +52,7 @@ class WaterPurificationTimerService : AndromedaService() {
                 getString(R.string.water_boil_timer_done_title),
                 getString(R.string.water_boil_timer_done_content),
                 R.drawable.ic_tool_boil_done,
-                group = NotificationChannels.GROUP_WATER,
+                group = NOTIFICATION_GROUP_WATER,
                 intent = openIntent
             )
             Notify.send(this@WaterPurificationTimerService, NOTIFICATION_ID, notification)
@@ -97,7 +96,7 @@ class WaterPurificationTimerService : AndromedaService() {
                 secondsLeft
             ),
             R.drawable.ic_tool_boil,
-            group = NotificationChannels.GROUP_WATER,
+            group = NOTIFICATION_GROUP_WATER,
             actions = listOf(cancelAction),
             intent = openIntent,
             showForegroundImmediate = true
@@ -111,6 +110,7 @@ class WaterPurificationTimerService : AndromedaService() {
         private const val ONE_SECOND = 1000L
         private const val KEY_SECONDS = "seconds"
         private const val DEFAULT_SECONDS = 60L
+        private const val NOTIFICATION_GROUP_WATER = "trail_sense_water"
 
         fun intent(context: Context, seconds: Long = DEFAULT_SECONDS): Intent {
             val i = Intent(context.applicationContext, WaterPurificationTimerService::class.java)
