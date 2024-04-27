@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.diagnostics
+package com.kylecorry.trail_sense.tools.diagnostics.infrastructure
 
 import android.content.Context
 import android.content.Intent
@@ -17,6 +17,11 @@ import com.kylecorry.trail_sense.shared.commands.Command
 import com.kylecorry.trail_sense.shared.navigation.IAppNavigation
 import com.kylecorry.trail_sense.shared.permissions.RemoveBatteryRestrictionsCommand
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunsetAlarmCommand
+import com.kylecorry.trail_sense.tools.diagnostics.domain.DiagnosticCode
+import com.kylecorry.trail_sense.tools.diagnostics.domain.Severity
+import com.kylecorry.trail_sense.tools.diagnostics.ui.DiagnosticCodeDescriptionLookup
+import com.kylecorry.trail_sense.tools.diagnostics.ui.DiagnosticCodeTitleLookup
+import com.kylecorry.trail_sense.tools.diagnostics.ui.IDiagnosticAlertService
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeatherAlerter

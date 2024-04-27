@@ -1,8 +1,10 @@
-package com.kylecorry.trail_sense.diagnostics
+package com.kylecorry.trail_sense.tools.diagnostics.infrastructure
 
 import android.content.Context
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.diagnostics.domain.DiagnosticCode
+import com.kylecorry.trail_sense.tools.diagnostics.domain.IDiagnostic
 
 class WeatherMonitorDiagnostic(private val context: Context) : IDiagnostic {
 

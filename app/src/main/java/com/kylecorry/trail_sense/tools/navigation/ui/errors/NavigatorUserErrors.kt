@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.navigation.ui.errors
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.diagnostics.DiagnosticCode
+import com.kylecorry.trail_sense.tools.diagnostics.domain.DiagnosticCode
 import com.kylecorry.trail_sense.tools.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.ErrorBannerReason

@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.diagnostics
+package com.kylecorry.trail_sense.tools.diagnostics.infrastructure
 
 import android.content.Context
 import android.hardware.SensorManager
@@ -7,6 +7,7 @@ import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.sense.magnetometer.IMagnetometer
 import com.kylecorry.andromeda.sense.magnetometer.Magnetometer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.diagnostics.domain.DiagnosticCode
 
 class MagnetometerDiagnostic(context: Context, lifecycleOwner: LifecycleOwner?) :
     BaseSensorQualityDiagnostic<IMagnetometer>(

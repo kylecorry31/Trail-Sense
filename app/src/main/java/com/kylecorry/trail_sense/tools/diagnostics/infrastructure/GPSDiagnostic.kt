@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.diagnostics
+package com.kylecorry.trail_sense.tools.diagnostics.infrastructure
 
 import android.content.Context
 import androidx.lifecycle.LifecycleOwner
@@ -9,6 +9,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.diagnostics.domain.DiagnosticCode
 
 class GPSDiagnostic(context: Context, lifecycleOwner: LifecycleOwner?, gps: IGPS? = null) :
     BaseSensorQualityDiagnostic<IGPS>(

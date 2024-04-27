@@ -20,8 +20,8 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.diagnostics.DiagnosticCode
-import com.kylecorry.trail_sense.diagnostics.GPSDiagnostic
+import com.kylecorry.trail_sense.tools.diagnostics.domain.DiagnosticCode
+import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.GPSDiagnostic
 import com.kylecorry.trail_sense.shared.ErrorBannerReason
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences

@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.diagnostics
+package com.kylecorry.trail_sense.tools.diagnostics.infrastructure
 
 import android.content.Context
 import android.hardware.Sensor
@@ -7,6 +7,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.light.ILightSensor
 import com.kylecorry.andromeda.sense.light.LightSensor
+import com.kylecorry.trail_sense.tools.diagnostics.domain.DiagnosticCode
 
 class LightSensorDiagnostic(context: Context, lifecycleOwner: LifecycleOwner?) :
     BaseSensorQualityDiagnostic<ILightSensor>(

@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.diagnostics
+package com.kylecorry.trail_sense.tools.diagnostics.infrastructure
 
 import android.app.NotificationManager
 import android.content.Context
@@ -7,6 +7,8 @@ import android.os.Build
 import androidx.core.content.getSystemService
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunsetAlarmCommand
+import com.kylecorry.trail_sense.tools.diagnostics.domain.DiagnosticCode
+import com.kylecorry.trail_sense.tools.diagnostics.domain.IDiagnostic
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeatherAlerter

@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.diagnostics.status
+package com.kylecorry.trail_sense.tools.diagnostics.status
 
 import android.content.Context
 import androidx.annotation.DrawableRes

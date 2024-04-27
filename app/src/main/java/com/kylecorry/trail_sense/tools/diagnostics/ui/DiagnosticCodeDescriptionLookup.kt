@@ -1,7 +1,8 @@
-package com.kylecorry.trail_sense.diagnostics
+package com.kylecorry.trail_sense.tools.diagnostics.ui
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.tools.diagnostics.domain.DiagnosticCode
 
 class DiagnosticCodeDescriptionLookup(private val context: Context) {
 

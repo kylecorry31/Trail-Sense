@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.diagnostics.status
+package com.kylecorry.trail_sense.tools.diagnostics.status
 
 interface StatusBadgeProvider {
     fun getBadge(): StatusBadge

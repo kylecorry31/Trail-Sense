@@ -2,18 +2,18 @@ package com.kylecorry.trail_sense.main.errors
 
 import android.content.Context
 import com.kylecorry.andromeda.exceptions.IBugReportGenerator
-import com.kylecorry.trail_sense.diagnostics.AccelerometerDiagnostic
-import com.kylecorry.trail_sense.diagnostics.AlarmDiagnostic
-import com.kylecorry.trail_sense.diagnostics.AltimeterDiagnostic
-import com.kylecorry.trail_sense.diagnostics.BarometerDiagnostic
-import com.kylecorry.trail_sense.diagnostics.BatteryDiagnostic
-import com.kylecorry.trail_sense.diagnostics.CameraDiagnostic
-import com.kylecorry.trail_sense.diagnostics.FlashlightDiagnostic
-import com.kylecorry.trail_sense.diagnostics.GPSDiagnostic
-import com.kylecorry.trail_sense.diagnostics.LightSensorDiagnostic
-import com.kylecorry.trail_sense.diagnostics.MagnetometerDiagnostic
-import com.kylecorry.trail_sense.diagnostics.NotificationDiagnostic
-import com.kylecorry.trail_sense.diagnostics.PedometerDiagnostic
+import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.AccelerometerDiagnostic
+import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.AlarmDiagnostic
+import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.AltimeterDiagnostic
+import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.BarometerDiagnostic
+import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.BatteryDiagnostic
+import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.CameraDiagnostic
+import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.FlashlightDiagnostic
+import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.GPSDiagnostic
+import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.LightSensorDiagnostic
+import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.MagnetometerDiagnostic
+import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.NotificationDiagnostic
+import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.PedometerDiagnostic
 
 class DiagnosticsBugReportGenerator : IBugReportGenerator {
     override fun generate(context: Context, throwable: Throwable): String {

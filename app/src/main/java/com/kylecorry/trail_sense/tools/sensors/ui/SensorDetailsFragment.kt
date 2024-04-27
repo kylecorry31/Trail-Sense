@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.diagnostics
+package com.kylecorry.trail_sense.tools.sensors.ui
 
 import android.graphics.Color
 import android.hardware.Sensor

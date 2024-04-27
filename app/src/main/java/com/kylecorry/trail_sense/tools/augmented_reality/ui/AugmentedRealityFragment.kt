@@ -32,10 +32,9 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.calibration.ui.ImproveAccuracyAlerter
 import com.kylecorry.trail_sense.databinding.FragmentAugmentedRealityBinding
-import com.kylecorry.trail_sense.diagnostics.status.GpsStatusBadgeProvider
-import com.kylecorry.trail_sense.diagnostics.status.SensorStatusBadgeProvider
-import com.kylecorry.trail_sense.diagnostics.status.StatusBadge
-import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.tools.diagnostics.status.GpsStatusBadgeProvider
+import com.kylecorry.trail_sense.tools.diagnostics.status.SensorStatusBadgeProvider
+import com.kylecorry.trail_sense.tools.diagnostics.status.StatusBadge
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService

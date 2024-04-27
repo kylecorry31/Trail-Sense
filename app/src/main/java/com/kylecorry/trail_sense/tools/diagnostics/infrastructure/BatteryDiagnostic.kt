@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.diagnostics
+package com.kylecorry.trail_sense.tools.diagnostics.infrastructure
 
 import android.content.Context
 import androidx.lifecycle.LifecycleOwner
@@ -7,6 +7,7 @@ import com.kylecorry.andromeda.battery.BatteryHealth
 import com.kylecorry.andromeda.battery.IBattery
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.diagnostics.domain.DiagnosticCode
 
 class BatteryDiagnostic(
     context: Context,

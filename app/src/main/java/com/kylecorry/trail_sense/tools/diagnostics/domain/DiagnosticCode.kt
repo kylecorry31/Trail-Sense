@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.diagnostics
+package com.kylecorry.trail_sense.tools.diagnostics.domain
 
 import com.kylecorry.trail_sense.shared.data.Identifiable
 
