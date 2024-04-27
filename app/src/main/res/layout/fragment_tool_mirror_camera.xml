@@ -9,6 +9,7 @@
         android:id="@+id/camera"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:keepScreenOn="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.8"

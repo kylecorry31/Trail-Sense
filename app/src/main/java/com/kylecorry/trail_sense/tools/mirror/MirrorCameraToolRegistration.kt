@@ -13,7 +13,7 @@ object MirrorCameraToolRegistration : ToolRegistration {
         return Tool(
             Tools.MIRROR_CAMERA,
             context.getString(R.string.mirror_camera),
-            R.drawable.ic_camera, // TODO: Get an icon
+            R.drawable.ic_mirror_camera,
             R.id.mirrorCameraFragment,
             ToolCategory.Other,
             isAvailable = { Camera.hasFrontCamera(it) }
