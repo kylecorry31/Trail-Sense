@@ -28,6 +28,9 @@ object PathsToolRegistration : ToolRegistration {
             ),
             additionalNavigationIds = listOf(
                 R.id.pathDetailsFragment
+            ),
+            tiles = listOf(
+                "com.kylecorry.trail_sense.tools.paths.tiles.BacktrackTile"
             )
         )
     }

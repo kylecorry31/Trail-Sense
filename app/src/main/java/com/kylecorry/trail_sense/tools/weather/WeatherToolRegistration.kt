@@ -27,7 +27,10 @@ object WeatherToolRegistration : ToolRegistration {
                     ::QuickActionWeatherMonitor
                 )
             ),
-            isAvailable = { Sensors.hasBarometer(it) }
+            isAvailable = { Sensors.hasBarometer(it) },
+            tiles = listOf(
+                "com.kylecorry.trail_sense.tools.weather.tiles.WeatherMonitorTile"
+            )
         )
     }
 }

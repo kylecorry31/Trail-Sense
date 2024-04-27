@@ -18,6 +18,7 @@ data class Tool(
     val quickActions: List<ToolQuickAction> = emptyList(),
     val additionalNavigationIds: List<Int> = emptyList(),
     val volumeActions: List<ToolVolumeAction> = emptyList(),
+    val tiles: List<String> = emptyList(),
     val isAvailable: (context: Context) -> Boolean = { true }
 ) : Identifiable {
     fun isOpen(currentNavId: Int): Boolean {

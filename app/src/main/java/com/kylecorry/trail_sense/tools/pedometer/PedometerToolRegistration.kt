@@ -28,7 +28,10 @@ object PedometerToolRegistration : ToolRegistration {
                     ::QuickActionPedometer
                 )
             ),
-            isAvailable = { Sensors.hasSensor(it, Sensor.TYPE_STEP_COUNTER) }
+            isAvailable = { Sensors.hasSensor(it, Sensor.TYPE_STEP_COUNTER) },
+            tiles = listOf(
+                "com.kylecorry.trail_sense.tools.pedometer.tiles.PedometerTile"
+            )
         )
     }
 }
