@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.SeekBar
+import androidx.annotation.ColorInt
 import androidx.camera.view.PreviewView
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
@@ -177,6 +178,10 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
 
     fun setScaleType(type: PreviewView.ScaleType) {
         preview.scaleType = type
+    }
+
+    fun setPreviewBackgroundColor(@ColorInt color: Int){
+        preview.setBackgroundColor(color)
     }
 
     @SuppressLint("UnsafeOptInUsageError")

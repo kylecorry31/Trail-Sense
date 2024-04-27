@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.mirror.ui
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +25,7 @@ class ToolMirrorCameraFragment : BoundFragment<FragmentToolMirrorCameraBinding>(
         super.onViewCreated(view, savedInstanceState)
         binding.camera.setScaleType(PreviewView.ScaleType.FIT_CENTER)
         binding.camera.setShowTorch(false)
+        binding.camera.setPreviewBackgroundColor(Color.WHITE)
     }
 
     override fun onResume() {
