@@ -73,6 +73,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         captureSettings: ImageCaptureSettings? = null,
         readFrames: Boolean = true,
         shouldStabilizePreview: Boolean = true,
+        preferBackCamera: Boolean = true,
         onImage: ((Bitmap) -> Unit)? = null
     ) {
         val owner = lifecycleOwner ?: this.findViewTreeLifecycleOwner() ?: return
@@ -85,7 +86,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
             return
         }
 
-        val useBackCamera = Camera.hasBackCamera(context)
+        val useBackCamera = preferBackCamera && Camera.hasBackCamera(context)
 
         if (!useBackCamera && !Camera.hasFrontCamera(context)) {
             Alerts.toast(context, context.getString(R.string.camera_unavailable))

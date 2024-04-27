@@ -654,5 +654,9 @@
         android:id="@+id/climateFragment"
         android:name="com.kylecorry.trail_sense.tools.climate.ui.ClimateFragment"
         android:label="ClimateFragment" />
+    <fragment
+        android:id="@+id/mirrorCameraFragment"
+        android:name="com.kylecorry.trail_sense.tools.mirror.ui.ToolMirrorCameraFragment"
+        android:label="ToolMirrorCameraFragment" />
 
 </navigation>

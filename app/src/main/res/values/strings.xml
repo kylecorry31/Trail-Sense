@@ -1414,4 +1414,5 @@
     <string name="pref_start_camera_in_3d_view_summary">Opens the camera when you click the view in 3D button</string>
     <string name="cloud_scanner">Cloud Scanner</string>
     <string name="open_photo_map">Open photo map</string>
+    <string name="mirror_camera">Mirror Camera</string>
 </resources>

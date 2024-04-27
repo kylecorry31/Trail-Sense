@@ -1,0 +1,22 @@
+package com.kylecorry.trail_sense.tools.mirror
+
+import android.content.Context
+import com.kylecorry.andromeda.camera.Camera
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+
+object MirrorCameraToolRegistration : ToolRegistration {
+    override fun getTool(context: Context): Tool {
+        return Tool(
+            Tools.MIRROR_CAMERA,
+            context.getString(R.string.mirror_camera),
+            R.drawable.ic_camera, // TODO: Get an icon
+            R.id.mirrorCameraFragment,
+            ToolCategory.Other,
+            isAvailable = { Camera.hasFrontCamera(it) }
+        )
+    }
+}

@@ -27,6 +27,7 @@ import com.kylecorry.trail_sense.tools.light.LightMeterToolRegistration
 import com.kylecorry.trail_sense.tools.lightning.LightningStrikeDistanceToolRegistration
 import com.kylecorry.trail_sense.tools.maps.PhotoMapsToolRegistration
 import com.kylecorry.trail_sense.tools.metaldetector.MetalDetectorToolRegistration
+import com.kylecorry.trail_sense.tools.mirror.MirrorCameraToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.notes.NotesToolRegistration
 import com.kylecorry.trail_sense.tools.packs.PackingListsToolRegistration
@@ -84,7 +85,8 @@ object Tools {
         DiagnosticsToolRegistration,
         SettingsToolRegistration,
         UserGuideToolRegistration,
-        ExperimentationToolRegistration
+        ExperimentationToolRegistration,
+        MirrorCameraToolRegistration
     )
 
     fun isToolAvailable(context: Context, toolId: Long): Boolean {
@@ -171,6 +173,7 @@ object Tools {
     const val SETTINGS = 34L
     const val USER_GUIDE = 35L
     const val EXPERIMENTATION = 36L
+    const val MIRROR_CAMERA = 37L
 
     // Quick Action IDs
     const val QUICK_ACTION_NONE = -1
