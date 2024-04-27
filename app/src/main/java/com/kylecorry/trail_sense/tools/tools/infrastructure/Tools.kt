@@ -188,4 +188,5 @@ object Tools {
     const val QUICK_ACTION_CREATE_NOTE = 19
     const val QUICK_ACTION_CREATE_BEACON = 20
     const val QUICK_ACTION_SCAN_CLOUD = 21
+    const val QUICK_ACTION_OPEN_PHOTO_MAP = 22
 }
