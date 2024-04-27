@@ -14,7 +14,7 @@ class QuickActionScanCloud(button: ImageButton, fragment: Fragment) :
 
     override fun onCreate() {
         super.onCreate()
-        button.setImageResource(R.drawable.ic_tool_clouds)
+        button.setImageResource(R.drawable.cloud_scanner)
         CustomUiUtils.setButtonState(button, false)
 
         button.setOnClickListener {
