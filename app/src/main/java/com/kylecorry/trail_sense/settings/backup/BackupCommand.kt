@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.backup
+package com.kylecorry.trail_sense.settings.backup
 
 import android.content.Context
 import com.kylecorry.andromeda.alerts.Alerts

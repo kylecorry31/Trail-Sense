@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.calibration.ui
+package com.kylecorry.trail_sense.settings.ui
 
 import android.content.Context
 import android.text.SpannableStringBuilder

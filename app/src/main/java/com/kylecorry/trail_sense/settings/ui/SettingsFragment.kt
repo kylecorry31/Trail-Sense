@@ -14,8 +14,8 @@ import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.backup.BackupCommand
-import com.kylecorry.trail_sense.backup.RestoreCommand
+import com.kylecorry.trail_sense.settings.backup.BackupCommand
+import com.kylecorry.trail_sense.settings.backup.RestoreCommand
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.ActivityUriPicker
 import com.kylecorry.trail_sense.shared.navigateWithAnimation

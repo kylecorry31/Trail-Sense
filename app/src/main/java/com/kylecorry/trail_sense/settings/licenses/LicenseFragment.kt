@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.licenses
+package com.kylecorry.trail_sense.settings.licenses
 
 import android.os.Bundle
 import androidx.preference.Preference

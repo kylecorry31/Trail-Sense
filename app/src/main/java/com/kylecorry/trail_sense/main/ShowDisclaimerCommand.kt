@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.main
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.licenses.Licenses
+import com.kylecorry.trail_sense.settings.licenses.Licenses
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.commands.Command
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem

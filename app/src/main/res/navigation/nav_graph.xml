@@ -170,23 +170,23 @@
         android:label="ClinometerFragment" />
     <fragment
         android:id="@+id/calibrateAltimeterFragment"
-        android:name="com.kylecorry.trail_sense.calibration.ui.CalibrateAltimeterFragment"
+        android:name="com.kylecorry.trail_sense.settings.ui.CalibrateAltimeterFragment"
         android:label="CalibrateAltimeterFragment" />
     <fragment
         android:id="@+id/calibrateBarometerFragment"
-        android:name="com.kylecorry.trail_sense.calibration.ui.CalibrateBarometerFragment"
+        android:name="com.kylecorry.trail_sense.settings.ui.CalibrateBarometerFragment"
         android:label="CalibrateBarometerFragment" />
     <fragment
         android:id="@+id/calibrateCompassFragment"
-        android:name="com.kylecorry.trail_sense.calibration.ui.CalibrateCompassFragment"
+        android:name="com.kylecorry.trail_sense.settings.ui.CalibrateCompassFragment"
         android:label="CalibrateCompassFragment" />
     <fragment
         android:id="@+id/calibrateGPSFragment"
-        android:name="com.kylecorry.trail_sense.calibration.ui.CalibrateGPSFragment"
+        android:name="com.kylecorry.trail_sense.settings.ui.CalibrateGPSFragment"
         android:label="CalibrateGPSFragment" />
     <fragment
         android:id="@+id/licenseFragment"
-        android:name="com.kylecorry.trail_sense.licenses.LicenseFragment"
+        android:name="com.kylecorry.trail_sense.settings.licenses.LicenseFragment"
         android:label="LicenseFragment" />
     <fragment
         android:id="@+id/weatherSettingsFragment"
@@ -619,7 +619,7 @@
         android:label="AugmentedRealitySettingsFragment" />
     <fragment
         android:id="@+id/cameraSettingsFragment"
-        android:name="com.kylecorry.trail_sense.calibration.ui.CameraSettingsFragment"
+        android:name="com.kylecorry.trail_sense.settings.ui.CameraSettingsFragment"
         android:label="CameraSettingsFragment" />
     <fragment
         android:id="@+id/errorSettingsFragment"

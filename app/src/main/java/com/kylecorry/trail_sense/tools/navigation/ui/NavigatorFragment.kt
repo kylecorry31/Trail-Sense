@@ -34,8 +34,8 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.calibration.ui.CompassCalibrationView
-import com.kylecorry.trail_sense.calibration.ui.ImproveAccuracyAlerter
+import com.kylecorry.trail_sense.settings.ui.CompassCalibrationView
+import com.kylecorry.trail_sense.settings.ui.ImproveAccuracyAlerter
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.FormatService

@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.licenses
+package com.kylecorry.trail_sense.settings.licenses
 
 object Licenses {
     val libraries = listOf(
@@ -7,10 +7,12 @@ object Licenses {
             "https://github.com/kylecorry31/Trail-Sense"
         ) {
             val contributors = arrayOf("kylecorry31", "qwerty287", "muryno", "sr093906", "oersen", "ChuckMichael", "Fjuro", "laralem", "ojppe", "comradekingu", "beriain", "ebraminio", "weblate", "SecularSteve", "CloneWith", "jer194", "Jakarrrg", "raphaelventura", "ACABMAN666", "delthia", "cewbdex", "AlessandroFrangiamone", "another-sapiens", "zsbetu", "shilonit", "SantosSi", "Portagoras", "crlambda", "Xoronic", "Craftefix", "mfrancesconi", "Leopardus4", "comcloudway", "fnogcps", "a-mento", "StarSkyGeminid", "mrestivill", "pr0gr8mm3r", "paulle", "notramo", "NaserKhoshfetrat", "bowornsin", "tacostea", "Sak94664", "le-jun", "LiJu09", "ingfabby", "hphan9", "KovalevArtem", "volodymyr-ahafonov", "mellvie", "huuhaa", "naoritzio", "SebV60", "imBigo", "rezaalmanda", "Poussinou", "Oymate", "NicolaSmaniotto", "L-P", "LuccoJ", "ygorigor", "sguinetti", "asafran", "AHOHNMYC", "efraletti", "Tijs-B", "swltr", "A5468", "Shadowstrike-code", "rherilier", "VectorKappa", "Pastitas", "the7thNightmare", "ARtHryDr", "github-actions[bot]", "nautilusx", "haie-grain", "kasmide", "xax", "jacoii", "zaioti", "jere-a", "btsmartx", "Abdulkarim28", "Akamar", "dasrecht", "helloiamcait", "E440QF", "EnderPicture", "Estebastien", "fparri", "Johnny846", "FrameXX", "W113565456", "gerrydoro", "gustavosilveiragss", "iRomanyshyn", "LightFOSS", "LucFreitas", "Luiz-bro", "TomasCartman")
-            "${mit(
+            "${
+                mit(
                 "2020-2024",
                 "Kyle Corry"
-            )}\n\nThe following people contributed code or translations to Trail Sense under the MIT License: ${
+            )
+            }\n\nThe following people contributed code or translations to Trail Sense under the MIT License: ${
                 contributors.joinToString(
                     ", "
                 )
