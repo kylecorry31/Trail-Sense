@@ -44,7 +44,11 @@ class ToolMirrorCameraFragment : BoundFragment<FragmentToolMirrorCameraBinding>(
     private fun startCamera() {
         requestCamera {
             if (it) {
-                binding.camera.start(readFrames = false, preferBackCamera = false)
+                binding.camera.start(
+                    readFrames = false,
+                    preferBackCamera = false,
+                    shouldStabilizePreview = false
+                )
             } else {
                 alertNoCameraPermission()
             }
