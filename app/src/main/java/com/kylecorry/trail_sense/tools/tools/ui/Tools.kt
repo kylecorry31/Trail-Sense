@@ -11,19 +11,23 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.volume.VolumeAction
 import com.kylecorry.trail_sense.shared.data.Identifiable
 import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.quickactions.QuickActionOpenTool
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.QuickActionNone
+import com.kylecorry.trail_sense.shared.volume.SystemVolumeAction
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionNightMode
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunsetAlert
 import com.kylecorry.trail_sense.tools.battery.quickactions.QuickActionLowPowerMode
 import com.kylecorry.trail_sense.tools.beacons.quickactions.QuickActionPlaceBeacon
+import com.kylecorry.trail_sense.tools.clinometer.volumeactions.ClinometerLockVolumeAction
 import com.kylecorry.trail_sense.tools.clouds.quickactions.QuickActionScanCloud
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionScreenFlashlight
+import com.kylecorry.trail_sense.tools.flashlight.volumeactions.FlashlightToggleVolumeAction
 import com.kylecorry.trail_sense.tools.notes.quickactions.QuickActionCreateNote
 import com.kylecorry.trail_sense.tools.paths.quickactions.QuickActionBacktrack
 import com.kylecorry.trail_sense.tools.pedometer.quickactions.QuickActionPedometer
@@ -31,6 +35,7 @@ import com.kylecorry.trail_sense.tools.ruler.quickactions.QuickActionRuler
 import com.kylecorry.trail_sense.tools.tools.ui.sort.AlphabeticalToolSort
 import com.kylecorry.trail_sense.tools.weather.quickactions.QuickActionWeatherMonitor
 import com.kylecorry.trail_sense.tools.whistle.quickactions.QuickActionWhistle
+import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
 import com.kylecorry.trail_sense.tools.whitenoise.quickactions.QuickActionWhiteNoise
 
 data class Tool(
@@ -43,14 +48,31 @@ data class Tool(
     val guideId: Int? = null,
     val isExperimental: Boolean = false,
     @IdRes val settingsNavAction: Int? = null,
-    val quickActions: List<ToolQuickAction> = emptyList()
-) : Identifiable
+    val quickActions: List<ToolQuickAction> = emptyList(),
+    val additionalNavigationIds: List<Int> = emptyList(),
+    val volumeActions: List<ToolVolumeAction> = emptyList()
+) : Identifiable {
+    fun isOpen(currentNavId: Int): Boolean {
+        return navAction == currentNavId || additionalNavigationIds.contains(currentNavId)
+    }
+}
 
 data class ToolQuickAction(
     val id: Int,
     val name: String,
     val create: (button: ImageButton, fragment: AndromedaFragment) -> QuickActionButton
 )
+
+data class ToolVolumeAction(
+    val priority: ToolVolumeActionPriority,
+    val isActive: (context: Context, isToolOpen: Boolean) -> Boolean,
+    val create: (fragment: AndromedaFragment) -> VolumeAction
+)
+
+enum class ToolVolumeActionPriority {
+    High,
+    Normal
+}
 
 enum class ToolCategory {
     Signaling,
@@ -66,7 +88,11 @@ enum class ToolCategory {
 object Tools {
 
     fun isToolAvailable(context: Context, toolId: Long): Boolean {
-        return getTools(context).any { it.id == toolId }
+        return getTool(context, toolId) != null
+    }
+
+    fun getTool(context: Context, toolId: Long): Tool? {
+        return getTools(context).firstOrNull { it.id == toolId }
     }
 
     fun getTools(context: Context): List<Tool> {
@@ -99,6 +125,16 @@ object Tools {
                         context.getString(R.string.screen_flashlight_full_name),
                         ::QuickActionScreenFlashlight
                     )
+                ),
+                additionalNavigationIds = listOf(
+                    R.id.fragmentToolScreenFlashlight
+                ),
+                volumeActions = listOf(
+                    ToolVolumeAction(
+                        ToolVolumeActionPriority.Normal,
+                        { context, _ -> UserPreferences(context).flashlight.toggleWithVolumeButtons },
+                        ::FlashlightToggleVolumeAction
+                    )
                 )
             ),
             Tool(
@@ -113,6 +149,13 @@ object Tools {
                         QUICK_ACTION_WHISTLE,
                         context.getString(R.string.tool_whistle_title),
                         ::QuickActionWhistle
+                    )
+                ),
+                volumeActions = listOf(
+                    ToolVolumeAction(
+                        ToolVolumeActionPriority.Normal,
+                        { _, isToolOpen -> isToolOpen },
+                        ::SystemVolumeAction
                     )
                 )
             ),
@@ -180,6 +223,10 @@ object Tools {
                         context.getString(R.string.create_beacon),
                         ::QuickActionPlaceBeacon
                     )
+                ),
+                additionalNavigationIds = listOf(
+                    R.id.beaconDetailsFragment,
+                    R.id.placeBeaconFragment
                 )
             ),
             Tool(
@@ -190,7 +237,10 @@ object Tools {
                 ToolCategory.Location,
                 context.getString(R.string.photo_map_summary),
                 guideId = R.raw.guide_tool_photo_maps,
-                settingsNavAction = R.id.mapSettingsFragment
+                settingsNavAction = R.id.mapSettingsFragment,
+                additionalNavigationIds = listOf(
+                    R.id.mapsFragment
+                )
             ),
             Tool(
                 PATHS,
@@ -206,6 +256,9 @@ object Tools {
                         context.getString(R.string.backtrack),
                         ::QuickActionBacktrack
                     )
+                ),
+                additionalNavigationIds = listOf(
+                    R.id.pathDetailsFragment
                 )
             ),
             Tool(
@@ -224,7 +277,14 @@ object Tools {
                 ToolCategory.Angles,
                 context.getString(R.string.tool_clinometer_summary),
                 guideId = R.raw.guide_tool_clinometer,
-                settingsNavAction = R.id.clinometerSettingsFragment
+                settingsNavAction = R.id.clinometerSettingsFragment,
+                volumeActions = listOf(
+                    ToolVolumeAction(
+                        ToolVolumeActionPriority.Normal,
+                        { context, isToolOpen -> isToolOpen && UserPreferences(context).clinometer.lockWithVolumeButtons },
+                        ::ClinometerLockVolumeAction
+                    )
+                )
             ),
             Tool(
                 BUBBLE_LEVEL,
@@ -281,7 +341,11 @@ object Tools {
                 R.id.tidesFragment,
                 ToolCategory.Time,
                 guideId = R.raw.guide_tool_tides,
-                settingsNavAction = R.id.tideSettingsFragment
+                settingsNavAction = R.id.tideSettingsFragment,
+                additionalNavigationIds = listOf(
+                    R.id.tideListFragment,
+                    R.id.createTideFragment
+                )
             ),
             Tool(
                 BATTERY,
@@ -364,6 +428,9 @@ object Tools {
                         context.getString(R.string.cloud_scanner),
                         ::QuickActionScanCloud
                     )
+                ),
+                additionalNavigationIds = listOf(
+                    R.id.cloudResultsFragment
                 )
             ),
             Tool(
@@ -399,7 +466,11 @@ object Tools {
                 R.drawable.ic_tool_pack,
                 R.id.packListFragment,
                 ToolCategory.Other,
-                guideId = R.raw.guide_tool_packing_lists
+                guideId = R.raw.guide_tool_packing_lists,
+                additionalNavigationIds = listOf(
+                    R.id.createItemFragment,
+                    R.id.packItemListFragment
+                )
             ),
             if (hasCompass) Tool(
                 METAL_DETECTOR,
@@ -407,7 +478,14 @@ object Tools {
                 R.drawable.ic_tool_metal_detector,
                 R.id.fragmentToolMetalDetector,
                 ToolCategory.Other,
-                guideId = R.raw.guide_tool_metal_detector
+                guideId = R.raw.guide_tool_metal_detector,
+                volumeActions = listOf(
+                    ToolVolumeAction(
+                        ToolVolumeActionPriority.Normal,
+                        { context, isToolOpen -> isToolOpen && UserPreferences(context).metalDetector.isMetalAudioEnabled },
+                        ::SystemVolumeAction
+                    )
+                )
             ) else null,
             Tool(
                 WHITE_NOISE,
@@ -422,6 +500,13 @@ object Tools {
                         QUICK_ACTION_WHITE_NOISE,
                         context.getString(R.string.tool_white_noise_title),
                         ::QuickActionWhiteNoise
+                    )
+                ),
+                volumeActions = listOf(
+                    ToolVolumeAction(
+                        ToolVolumeActionPriority.High,
+                        { _, isToolOpen -> isToolOpen || WhiteNoiseService.isRunning },
+                        ::SystemVolumeAction
                     )
                 )
             ),
@@ -438,6 +523,9 @@ object Tools {
                         context.getString(R.string.note),
                         ::QuickActionCreateNote
                     )
+                ),
+                additionalNavigationIds = listOf(
+                    R.id.fragmentToolNotesCreate
                 )
             ),
             Tool(
@@ -470,7 +558,22 @@ object Tools {
                 R.drawable.ic_settings,
                 R.id.action_settings,
                 ToolCategory.Other,
-                guideId = R.raw.guide_tool_settings
+                guideId = R.raw.guide_tool_settings,
+                additionalNavigationIds = listOf(
+                    R.id.unitSettingsFragment,
+                    R.id.privacySettingsFragment,
+                    R.id.experimentalSettingsFragment,
+                    R.id.errorSettingsFragment,
+                    R.id.sensorSettingsFragment,
+                    R.id.licenseFragment,
+                    R.id.cellSignalSettingsFragment,
+                    R.id.calibrateCompassFragment,
+                    R.id.calibrateAltimeterFragment,
+                    R.id.calibrateGPSFragment,
+                    R.id.calibrateBarometerFragment,
+                    R.id.thermometerSettingsFragment,
+                    R.id.cameraSettingsFragment
+                )
             ),
             Tool(
                 USER_GUIDE,
@@ -478,7 +581,10 @@ object Tools {
                 R.drawable.ic_user_guide,
                 R.id.guideListFragment,
                 ToolCategory.Other,
-                context.getString(R.string.tool_user_guide_summary)
+                context.getString(R.string.tool_user_guide_summary),
+                additionalNavigationIds = listOf(
+                    R.id.guideFragment
+                )
             ),
             if (isDebug()) Tool(
                 EXPERIMENTATION,

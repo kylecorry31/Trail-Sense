@@ -1,24 +1,28 @@
 package com.kylecorry.trail_sense.tools.flashlight.volumeactions
 
-import android.content.Context
-import com.kylecorry.trail_sense.shared.VolumeAction
+import com.kylecorry.andromeda.fragments.AndromedaFragment
+import com.kylecorry.trail_sense.shared.volume.VolumeAction
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.flashlight.ui.FragmentToolFlashlight
 
 class FlashlightToggleVolumeAction(
-    private val context: Context,
-    private val fragment: FragmentToolFlashlight? = null
+    private val fragment: AndromedaFragment
 ) : VolumeAction {
-    override fun onButtonPress() {
-        if (fragment == null) {
-            val flashlight = FlashlightSubsystem.getInstance(context)
+
+    private val flashlightFragment = fragment as? FragmentToolFlashlight
+
+    override fun onButtonPress(): Boolean {
+        if (flashlightFragment == null) {
+            val flashlight = FlashlightSubsystem.getInstance(fragment.requireContext())
             flashlight.toggle()
         } else {
-            fragment.toggle()
+            flashlightFragment.toggle()
         }
+        return true
     }
 
-    override fun onButtonRelease() {
+    override fun onButtonRelease(): Boolean {
         // Do nothing
+        return true
     }
 }

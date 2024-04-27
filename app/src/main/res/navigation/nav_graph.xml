@@ -130,7 +130,7 @@
 
         <action
             android:id="@+id/action_beaconListFragment_to_placeBeaconFragment"
-            app:destination="@id/place_beacon"
+            app:destination="@id/placeBeaconFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -144,7 +144,7 @@
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
-        android:id="@+id/place_beacon"
+        android:id="@+id/placeBeaconFragment"
         android:name="com.kylecorry.trail_sense.tools.beacons.ui.PlaceBeaconFragment"
         android:label="PlaceBeaconFragment">
 
@@ -246,7 +246,7 @@
 
         <action
             android:id="@+id/action_beacon_details_to_beacon_edit"
-            app:destination="@id/place_beacon"
+            app:destination="@id/placeBeaconFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -262,7 +262,7 @@
     </fragment>
 
     <fragment
-        android:id="@+id/action_inventory"
+        android:id="@+id/packItemListFragment"
         android:name="com.kylecorry.trail_sense.tools.packs.ui.PackItemListFragment"
         android:label="ItemListFragment">
         <action
@@ -575,7 +575,7 @@
 
         <action
             android:id="@+id/action_pack_to_pack_items"
-            app:destination="@id/action_inventory"
+            app:destination="@id/packItemListFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"

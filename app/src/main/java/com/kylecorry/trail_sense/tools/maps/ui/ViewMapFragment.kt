@@ -35,7 +35,6 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.Position
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.andromeda.core.coroutines.onIO
@@ -347,7 +346,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         val bundle = bundleOf(
             "initial_location" to GeoUri(location)
         )
-        findNavController().navigate(R.id.place_beacon, bundle)
+        findNavController().navigate(R.id.placeBeaconFragment, bundle)
     }
 
     private fun showDistance(distance: Distance) {

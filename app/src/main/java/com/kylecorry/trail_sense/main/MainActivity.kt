@@ -26,6 +26,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.AndromedaActivity
+import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.ColorTheme
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.sense.Sensors
@@ -38,22 +39,20 @@ import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.RestartServicesCommand
 import com.kylecorry.trail_sense.settings.ui.SettingsMoveNotice
 import com.kylecorry.trail_sense.shared.CustomUiUtils.isDarkThemeOn
-import com.kylecorry.trail_sense.shared.navigation.NavigationUtils.setupWithNavController
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.volume.VolumeAction
 import com.kylecorry.trail_sense.shared.commands.ComposedCommand
+import com.kylecorry.trail_sense.shared.navigation.NavigationUtils.setupWithNavController
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.tools.battery.infrastructure.commands.PowerSavingModeAlertCommand
-import com.kylecorry.trail_sense.tools.clinometer.ui.ClinometerFragment
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
-import com.kylecorry.trail_sense.tools.flashlight.ui.FragmentToolFlashlight
-import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
-import com.kylecorry.trail_sense.tools.clinometer.volumeactions.ClinometerLockVolumeAction
-import com.kylecorry.trail_sense.tools.flashlight.volumeactions.FlashlightToggleVolumeAction
-import com.kylecorry.trail_sense.shared.VolumeAction
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
+import com.kylecorry.trail_sense.tools.tools.ui.ToolVolumeActionPriority
+import com.kylecorry.trail_sense.tools.tools.ui.Tools
+import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
 
 class MainActivity : AndromedaActivity() {
 
@@ -316,72 +315,61 @@ class MainActivity : AndromedaActivity() {
         return super.onKeyUp(keyCode, event)
     }
 
+    private fun getVolumeAction(): VolumeAction? {
+        val navigationId = navController.currentDestination?.id
+        val fragment = getFragment() as? AndromedaFragment ?: return null
+        val tools = Tools.getTools(this)
+
+        // Sort order = High priority active, open tool, normal priority active
+
+        val highPriorityAction = tools.flatMap { tool ->
+            tool.volumeActions.filter {
+                it.priority == ToolVolumeActionPriority.High && it.isActive(
+                    this,
+                    tool.isOpen(navigationId ?: 0)
+                )
+            }
+        }.firstOrNull()
+
+        if (highPriorityAction != null) {
+            return highPriorityAction.create(fragment)
+        }
+
+        val activeAction =
+            tools.firstOrNull { it.isOpen(navigationId ?: 0) }?.volumeActions?.firstOrNull {
+                it.isActive(this, true)
+            }
+
+        if (activeAction != null) {
+            return activeAction.create(fragment)
+        }
+
+        val normalPriorityAction = tools.flatMap { tool ->
+            tool.volumeActions.filter {
+                it.priority == ToolVolumeActionPriority.Normal && it.isActive(
+                    this,
+                    tool.isOpen(navigationId ?: 0)
+                )
+            }
+        }.firstOrNull()
+
+        return normalPriorityAction?.create?.invoke(fragment)
+    }
+
     private fun onVolumePressed(isVolumeUp: Boolean, isButtonPressed: Boolean): Boolean {
-        if (!shouldOverrideVolumePress()) {
-            return false
+        val action = getVolumeAction()
+
+        if (action != null) {
+            return if (isButtonPressed) {
+                action.onButtonPress()
+            } else {
+                action.onButtonRelease()
+            }
         }
 
-        val action =
-            (if (isVolumeUp) getVolumeUpAction() else getVolumeDownAction()) ?: return false
-
-        if (isButtonPressed) {
-            action.onButtonPress()
-        } else {
-            action.onButtonRelease()
-        }
-
-        return true
+        return false
     }
 
-    private fun shouldOverrideVolumePress(): Boolean {
-        val excluded = mutableListOf(R.id.toolWhistleFragment, R.id.fragmentToolWhiteNoise)
-
-        if (userPrefs.metalDetector.isMetalAudioEnabled) {
-            excluded.add(R.id.fragmentToolMetalDetector)
-        }
-
-        if (excluded.contains(navController.currentDestination?.id)) {
-            return false
-        }
-
-        // If the white noise service is running, don't override the volume buttons so the user can adjust the volume
-        return !WhiteNoiseService.isRunning
-    }
-
-
-    private fun getVolumeDownAction(): VolumeAction? {
-
-        val fragment = getFragment()
-        if (userPrefs.clinometer.lockWithVolumeButtons && fragment is ClinometerFragment) {
-            return ClinometerLockVolumeAction(fragment)
-        }
-
-
-        if (userPrefs.flashlight.toggleWithVolumeButtons) {
-            return FlashlightToggleVolumeAction(
-                this,
-                if (fragment is FragmentToolFlashlight) fragment else null
-            )
-        }
-
-        return null
-    }
-
-    private fun getVolumeUpAction(): VolumeAction? {
-        val fragment = getFragment()
-        if (userPrefs.clinometer.lockWithVolumeButtons && fragment is ClinometerFragment) {
-            return ClinometerLockVolumeAction(fragment)
-        }
-
-        if (userPrefs.flashlight.toggleWithVolumeButtons) {
-            return FlashlightToggleVolumeAction(
-                this,
-                if (fragment is FragmentToolFlashlight) fragment else null
-            )
-        }
-
-        return null
-    }
 
     private fun findNavController(): NavController {
         return (supportFragmentManager.findFragmentById(R.id.fragment_holder) as NavHostFragment).navController
