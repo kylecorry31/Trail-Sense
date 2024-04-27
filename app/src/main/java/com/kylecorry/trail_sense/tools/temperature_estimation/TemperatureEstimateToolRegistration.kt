@@ -1,0 +1,22 @@
+package com.kylecorry.trail_sense.tools.temperature_estimation
+
+import android.content.Context
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
+import com.kylecorry.trail_sense.tools.tools.ui.Tool
+import com.kylecorry.trail_sense.tools.tools.ui.ToolCategory
+import com.kylecorry.trail_sense.tools.tools.ui.Tools
+
+object TemperatureEstimateToolRegistration : ToolRegistration {
+    override fun getTool(context: Context): Tool {
+        return Tool(
+            Tools.TEMPERATURE_ESTIMATION,
+            context.getString(R.string.tool_temperature_estimation_title),
+            R.drawable.thermometer,
+            R.id.temperatureEstimationFragment,
+            ToolCategory.Weather,
+            context.getString(R.string.tool_temperature_estimation_description),
+            guideId = R.raw.guide_tool_temperature_estimation
+        )
+    }
+}
