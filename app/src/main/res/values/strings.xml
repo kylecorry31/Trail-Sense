@@ -1415,4 +1415,5 @@
     <string name="cloud_scanner">Cloud Scanner</string>
     <string name="open_photo_map">Open photo map</string>
     <string name="mirror_camera">Mirror Camera</string>
+    <string name="tool_turn_back">Turn Back</string>
 </resources>

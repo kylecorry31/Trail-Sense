@@ -658,5 +658,9 @@
         android:id="@+id/mirrorCameraFragment"
         android:name="com.kylecorry.trail_sense.tools.mirror.ui.ToolMirrorCameraFragment"
         android:label="ToolMirrorCameraFragment" />
+    <fragment
+        android:id="@+id/turnBackFragment"
+        android:name="com.kylecorry.trail_sense.tools.turn_back.ui.TurnBackFragment"
+        android:label="TurnBackFragment" />
 
 </navigation>

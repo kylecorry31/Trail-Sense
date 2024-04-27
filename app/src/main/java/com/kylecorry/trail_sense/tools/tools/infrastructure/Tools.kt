@@ -41,6 +41,7 @@ import com.kylecorry.trail_sense.tools.temperature_estimation.TemperatureEstimat
 import com.kylecorry.trail_sense.tools.tides.TidesToolRegistration
 import com.kylecorry.trail_sense.tools.tools.ui.sort.AlphabeticalToolSort
 import com.kylecorry.trail_sense.tools.triangulate.ui.TriangulateLocationToolRegistration
+import com.kylecorry.trail_sense.tools.turn_back.TurnBackToolRegistration
 import com.kylecorry.trail_sense.tools.waterpurification.WaterBoilTimerToolRegistration
 import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 import com.kylecorry.trail_sense.tools.whistle.WhistleToolRegistration
@@ -86,7 +87,8 @@ object Tools {
         SettingsToolRegistration,
         UserGuideToolRegistration,
         ExperimentationToolRegistration,
-        MirrorCameraToolRegistration
+        MirrorCameraToolRegistration,
+        TurnBackToolRegistration
     )
 
     fun isToolAvailable(context: Context, toolId: Long): Boolean {
@@ -174,6 +176,7 @@ object Tools {
     const val USER_GUIDE = 35L
     const val EXPERIMENTATION = 36L
     const val MIRROR_CAMERA = 37L
+    const val TURN_BACK = 38L
 
     // Quick Action IDs
     const val QUICK_ACTION_NONE = -1
