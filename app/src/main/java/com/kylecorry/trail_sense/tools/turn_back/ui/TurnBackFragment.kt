@@ -4,15 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.topics.generic.asLiveData
 import com.kylecorry.andromeda.core.ui.setTextDistinct
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sense.readAll
 import com.kylecorry.sol.science.astronomy.SunTimesMode
