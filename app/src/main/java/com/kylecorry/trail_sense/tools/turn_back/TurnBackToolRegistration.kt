@@ -19,6 +19,7 @@ object TurnBackToolRegistration : ToolRegistration {
             R.drawable.ic_undo,
             R.id.turnBackFragment,
             ToolCategory.Time,
+            guideId = R.raw.guide_tool_turn_back,
             notificationChannels = listOf(
                 ToolNotificationChannel(
                     TurnBackAlarmReceiver.NOTIFICATION_CHANNEL_ID,
