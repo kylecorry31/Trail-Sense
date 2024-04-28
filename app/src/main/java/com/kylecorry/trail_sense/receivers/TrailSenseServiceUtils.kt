@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryLogWorker
 import com.kylecorry.trail_sense.tools.paths.infrastructure.services.BacktrackService
 import com.kylecorry.trail_sense.tools.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
+import com.kylecorry.trail_sense.tools.turn_back.infrastructure.receivers.TurnBackAlarmReceiver
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorService
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherUpdateScheduler
 import kotlinx.coroutines.CoroutineScope
@@ -32,6 +33,7 @@ object TrailSenseServiceUtils {
             startBacktrack(appContext)
             startPedometer(appContext)
             startSunsetAlarm(appContext)
+            startTurnBackAlarm(appContext)
             startAstronomyAlerts(appContext)
             BatteryLogWorker.enableBatteryLog(appContext,
                 UserPreferences(appContext).power.enableBatteryLog)
@@ -53,6 +55,7 @@ object TrailSenseServiceUtils {
         AstronomyDailyWorker.stop(appContext)
         BatteryLogWorker.enableBatteryLog(appContext,false)
         SunsetAlarmReceiver.scheduler(appContext).cancel()
+        TurnBackAlarmReceiver.scheduler(appContext).cancel()
         TileManager().setTilesEnabled(appContext, false)
     }
 
@@ -89,6 +92,10 @@ object TrailSenseServiceUtils {
 
     private fun startSunsetAlarm(context: Context) {
         SunsetAlarmReceiver.start(context)
+    }
+
+    private fun startTurnBackAlarm(context: Context) {
+        TurnBackAlarmReceiver.start(context)
     }
 
     private fun startAstronomyAlerts(context: Context) {

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.kylecorry.andromeda.views.toolbar.Toolbar
-        android:id="@+id/title"
+    <TextView
+        android:id="@+id/instructions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:showSubtitle="false"
-        tools:title="@string/time_not_set" />
+        android:layout_margin="16dp"
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+        tools:text="@string/turn_back_instructions" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/time_holder"
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="@string/time">
+        android:hint="@string/return_time">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittext"

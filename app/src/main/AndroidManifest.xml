@@ -266,6 +266,10 @@
             android:enabled="true"
             android:exported="false" />
         <receiver
+            android:name="com.kylecorry.trail_sense.tools.turn_back.infrastructure.receivers.TurnBackAlarmReceiver"
+            android:enabled="true"
+            android:exported="false" />
+        <receiver
             android:name="com.kylecorry.trail_sense.tools.weather.infrastructure.receivers.WeatherStopMonitoringReceiver"
             android:enabled="true"
             android:exported="false" />
