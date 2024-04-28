@@ -116,10 +116,14 @@ class TurnBackFragment : BoundFragment<FragmentToolTurnBackBinding>() {
     }
 
     private fun setReturnTime(time: ZonedDateTime) {
+        // The percent will eventually be customizable
+        // This means turn back when 40% of the time has passed
+        val turnBackPercent = 0.4f
         val instant = time.toInstant()
+        val remainingMillisToReturn =
+            Duration.between(Instant.now(), instant).toMillis().coerceAtLeast(0)
         val newTurnBackTime =
-            Instant.now()
-                .plus(Duration.between(Instant.now(), instant).dividedBy(2))
+            Instant.now().plusMillis((remainingMillisToReturn * turnBackPercent).toLong())
 
         sharedPrefs.preferences.putInstant(PREF_TURN_BACK_TIME, newTurnBackTime)
         sharedPrefs.preferences.putInstant(PREF_TURN_BACK_RETURN_TIME, instant)
