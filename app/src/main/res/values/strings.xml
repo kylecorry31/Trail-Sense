@@ -1423,4 +1423,5 @@
     <string name="turn_back_notification_title">It\'s time to turn back</string>
     <!--    The %s is the return time (14:24)-->
     <string name="turn_back_notification_description">Turn back now to return at %s</string>
+    <string name="return_before_dark">Return before dark</string>
 </resources>

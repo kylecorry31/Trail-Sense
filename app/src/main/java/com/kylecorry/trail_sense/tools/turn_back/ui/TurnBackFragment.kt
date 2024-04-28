@@ -4,20 +4,30 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.topics.generic.asLiveData
 import com.kylecorry.andromeda.core.ui.setTextDistinct
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.andromeda.sense.readAll
+import com.kylecorry.sol.science.astronomy.SunTimesMode
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolTurnBackBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.tools.turn_back.infrastructure.receivers.TurnBackAlarmReceiver
+import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalTime
@@ -29,6 +39,7 @@ class TurnBackFragment : BoundFragment<FragmentToolTurnBackBinding>() {
     private val sharedPrefs by lazy { PreferencesSubsystem.getInstance(requireContext()) }
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
     private val triggers = HookTriggers()
+    private val astronomy = AstronomyService()
 
     private var returnTime by state<Instant?>(null)
     private var turnBackTime by state<Instant?>(null)
@@ -43,13 +54,7 @@ class TurnBackFragment : BoundFragment<FragmentToolTurnBackBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO: Add a sunset button
         binding.edittext.setOnClickListener {
-
-            if (returnTime != null) {
-                return@setOnClickListener
-            }
-
             Pickers.time(
                 requireContext(),
                 prefs.use24HourTime,
@@ -60,15 +65,34 @@ class TurnBackFragment : BoundFragment<FragmentToolTurnBackBinding>() {
                         ZonedDateTime.now().plusDays(1).with(it)
                     } else {
                         ZonedDateTime.now().with(it)
-                    }.toInstant()
+                    }
 
-                    val newTurnBackTime =
-                        Instant.now()
-                            .plus(Duration.between(Instant.now(), newReturnTime).dividedBy(2))
+                    setReturnTime(newReturnTime)
+                }
+            }
+        }
 
-                    sharedPrefs.preferences.putInstant(PREF_TURN_BACK_TIME, newTurnBackTime)
-                    sharedPrefs.preferences.putInstant(PREF_TURN_BACK_RETURN_TIME, newReturnTime)
-                    TurnBackAlarmReceiver.enable(this, true)
+        binding.sunsetButton.setOnClickListener {
+            inBackground {
+                var wasSuccessful = false
+                var sunsetTime: ZonedDateTime? = null
+                val job = launch {
+                    val sensors = SensorService(requireContext())
+                    val gps = sensors.getGPS()
+                    readAll(listOf(gps), onlyIfInvalid = true)
+                    sunsetTime = astronomy.getNextSunset(gps.location, SunTimesMode.Actual)
+                        ?.toZonedDateTime()
+                    wasSuccessful = true
+                }
+
+
+                Alerts.withCancelableLoading(requireContext(),
+                    getString(R.string.loading),
+                    onCancel = { job.cancel() }) {
+                    job.join()
+                    if (wasSuccessful) {
+                        setReturnTime(sunsetTime ?: return@withCancelableLoading)
+                    }
                 }
             }
         }
@@ -89,6 +113,17 @@ class TurnBackFragment : BoundFragment<FragmentToolTurnBackBinding>() {
             }
 
         scheduleUpdates(INTERVAL_1_FPS)
+    }
+
+    private fun setReturnTime(time: ZonedDateTime) {
+        val instant = time.toInstant()
+        val newTurnBackTime =
+            Instant.now()
+                .plus(Duration.between(Instant.now(), instant).dividedBy(2))
+
+        sharedPrefs.preferences.putInstant(PREF_TURN_BACK_TIME, newTurnBackTime)
+        sharedPrefs.preferences.putInstant(PREF_TURN_BACK_RETURN_TIME, instant)
+        TurnBackAlarmReceiver.enable(this, true)
     }
 
     override fun onResume() {
