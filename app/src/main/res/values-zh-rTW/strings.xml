@@ -34,7 +34,7 @@
     <string name="pref_theme_title">主題</string>
     <string name="pref_use_24_hour_title">使用24小時制</string>
     <string name="pressure">壓力</string>
-    <string name="feet_miles">英呎/英里</string>
+    <string name="feet_miles">英呎／英里</string>
     <string name="edit_item_title">編輯物品</string>
     <string name="create_item_title">建立物品</string>
     <string name="dialog_item_amount">數量</string>
@@ -325,4 +325,29 @@
     <string name="water_boil_timer_channel_description">水在沸騰了</string>
     <string name="water_boil_timer_done_title">水已煮沸</string>
     <string name="access_background_location_rationale">Trail Sense 會在背景使用位置資料以進行天氣監測中的海平面壓力校準，並提供更準確的日落警報。[查看隱私權政策](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="no_gps_signal">沒有 GPS 訊號</string>
+    <string name="navigate_to_nearest_cell_signal">導航至最近的手機訊號</string>
+    <string name="tool_quick_action_name">工具：%s</string>
+    <string name="quality_poor">差</string>
+    <string name="quality_good">好</string>
+    <string name="pref_start_camera_in_3d_view_title">使用相機進行 3D 檢視</string>
+    <string name="projection_linear">線性</string>
+    <string name="default_string">預設</string>
+    <plurals name="paths_imported">
+        <item quantity="other">已匯入 %d 條路線</item>
+    </plurals>
+    <string name="return_before_dark">天黑前返回</string>
+    <string name="turn_back_notification_title">是時候回頭了</string>
+    <string name="turn_back_alerts">回頭警報</string>
+    <string name="open_photo_map">開啟照片地圖</string>
+    <string name="cloud_scanner">雲掃描器</string>
+    <string name="max_s">最大 %s</string>
+    <string name="date">日期</string>
+    <string name="grid">網格</string>
+    <string name="visible">可見</string>
+    <string name="layers">圖層</string>
+    <string name="select_from_gallery">從相簿中選擇</string>
+    <plurals name="waypoints_deleted">
+        <item quantity="other">已刪除 %d 個停駐點</item>
+    </plurals>
 </resources>
