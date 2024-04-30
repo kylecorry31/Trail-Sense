@@ -1176,4 +1176,13 @@
     <string name="pref_start_camera_in_3d_view_title">Použít fotoaparát pro 3D pohled</string>
     <string name="pref_start_camera_in_3d_view_summary">Otevře fotoaparát po klepnutí na pohled v 3D tlačítku</string>
     <string name="cloud_scanner">Skener mraků</string>
+    <string name="open_photo_map">Otevřít fotografickou mapu</string>
+    <string name="mirror_camera">Zrcadlit fotoaparát</string>
+    <string name="return_time">Čas návratu</string>
+    <string name="turn_back_alerts">Upozornění na návrat</string>
+    <string name="turn_back_notification_title">Je čas se vrátit</string>
+    <string name="turn_back_notification_description">Začněte se vracet, abyste byli zpět v %s</string>
+    <string name="return_before_dark">Návrat před setměním</string>
+    <string name="tool_turn_back">Vrátit se</string>
+    <string name="turn_back_instructions">Pro návrat v %3$s se začněte vracet v %1$s (%2$s)</string>
 </resources>
