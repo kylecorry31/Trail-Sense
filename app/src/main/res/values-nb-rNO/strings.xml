@@ -1015,4 +1015,15 @@
     <string name="restore_disclaimer">Denne handlingen vil overskrive alle dine nåværende data. Sørg for å ha en sikkerhetskopi før du fortsetter.
 \n
 \nVelg kun en sikkerhetskopifil som du har opprettet med %s og stoler på.</string>
+    <string name="compact_mode">Kompakt modus</string>
+    <string name="tool_quick_action_name">Verktøy: %s</string>
+    <string name="magnetic_north">Magnetisk nord</string>
+    <string name="pref_start_camera_in_3d_view_title">Bruk kamera for 3D-visning</string>
+    <string name="pref_start_camera_in_3d_view_summary">Åpner kameraet når du trykker knappen Vis i 3D</string>
+    <string name="layers">Lag</string>
+    <string name="grid">Rutenett</string>
+    <string name="date">Dato</string>
+    <string name="tool_quick_actions">Verktøy-hurtighandlinger</string>
+    <string name="view_in_3d">Vis i 3D</string>
+    <string name="visible">Synlig</string>
 </resources>
