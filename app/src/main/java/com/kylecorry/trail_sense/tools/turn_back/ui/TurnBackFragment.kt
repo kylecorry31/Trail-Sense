@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.topics.generic.asLiveData
 import com.kylecorry.andromeda.core.ui.setTextDistinct
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -125,6 +126,8 @@ class TurnBackFragment : BoundFragment<FragmentToolTurnBackBinding>() {
         sharedPrefs.preferences.putInstant(PREF_TURN_BACK_TIME, newTurnBackTime)
         sharedPrefs.preferences.putInstant(PREF_TURN_BACK_RETURN_TIME, instant)
         TurnBackAlarmReceiver.enable(this, true)
+
+        toast(getString(R.string.turn_back_alert_set))
     }
 
     override fun onResume() {
