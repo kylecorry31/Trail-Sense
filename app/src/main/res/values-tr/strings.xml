@@ -1155,4 +1155,13 @@
     <string name="pref_start_camera_in_3d_view_title">3B görüntüleme için kamerayı kullan</string>
     <string name="pref_start_camera_in_3d_view_summary">3B görüntüle düğmesine tıkladığınızda kamerayı açar</string>
     <string name="cloud_scanner">Bulut Tarayıcı</string>
+    <string name="mirror_camera">Kamerayı Aynala</string>
+    <string name="tool_turn_back">Geri Dön</string>
+    <string name="return_time">Geri dönüş zamanı</string>
+    <string name="turn_back_alerts">Geri dönüş uyarıları</string>
+    <string name="turn_back_notification_title">Geri dönme zamanı</string>
+    <string name="turn_back_notification_description">%s zamanında geri dönmek için şimdi geri dönün</string>
+    <string name="open_photo_map">Fotoğraf haritasını aç</string>
+    <string name="return_before_dark">Karanlıktan önce geri dön</string>
+    <string name="turn_back_instructions">%3$s zamanında geri dönmek için %1$s (%2$s) zamanına kadar geri dönün</string>
 </resources>
