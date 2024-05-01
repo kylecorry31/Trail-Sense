@@ -138,8 +138,11 @@ class FormattingDoesNotMatch(StringDiagnostic):
             return True
         
         # If the format arguments do not match, return true
-        for i in range(len(source_format_args)):
-            if source_format_args[i] != format_args[i]:
+        remaining = format_args.copy()
+        for source_format_arg in source_format_args:
+            if source_format_arg in remaining:
+                remaining.remove(source_format_arg)
+            else:
                 return True
             
         return False
