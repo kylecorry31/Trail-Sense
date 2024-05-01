@@ -1184,5 +1184,4 @@
     <string name="turn_back_notification_description">Začněte se vracet, abyste byli zpět v %s</string>
     <string name="return_before_dark">Návrat před setměním</string>
     <string name="tool_turn_back">Vrátit se</string>
-    <string name="turn_back_instructions">Pro návrat v %3$s se začněte vracet v %1$s (%2$s)</string>
-</resources>
+    </resources>
