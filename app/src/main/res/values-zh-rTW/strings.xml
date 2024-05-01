@@ -350,4 +350,6 @@
     <plurals name="waypoints_deleted">
         <item quantity="other">已刪除 %d 個停駐點</item>
     </plurals>
+    <string name="pinned">已釘選</string>
+    <string name="illumination">照度</string>
 </resources>
