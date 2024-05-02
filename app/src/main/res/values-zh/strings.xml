@@ -1142,12 +1142,13 @@
     <string name="pref_start_camera_in_3d_view_summary">单击\"用 3D 视图查看“按钮时打开相机</string>
     <string name="cloud_scanner">云扫描器</string>
     <string name="open_photo_map">打开照片地图</string>
-    <string name="tool_turn_back">折回</string>
+    <string name="tool_turn_back">折返</string>
     <string name="return_time">返回时间</string>
     <string name="turn_back_instructions">%1$s （%2$s）前掉头于 %3$s 返回</string>
-    <string name="turn_back_alerts">折回警告</string>
-    <string name="turn_back_notification_title">是时候折回了</string>
+    <string name="turn_back_alerts">折返警告</string>
+    <string name="turn_back_notification_title">是时候折返了</string>
     <string name="turn_back_notification_description">现在折返于 %s 返回</string>
     <string name="return_before_dark">天黑前返回</string>
     <string name="mirror_camera">反射相机</string>
+    <string name="turn_back_alert_set">设置了折返警报</string>
 </resources>
