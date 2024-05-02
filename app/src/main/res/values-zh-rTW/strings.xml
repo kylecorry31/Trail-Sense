@@ -379,7 +379,7 @@
 \n- 點選繼續後，系統會提示你授予位置權限。拒絕此權限將阻止 Trail Sense 存取你的位置，因此建議手動輸入位置。</string>
     <string name="backup_disclaimer">將會建立一個包含所有目前資料的備份檔案。它會包括設定、路線、信標、地圖等。
 \n
-\n此檔案未加密。不要與你不信任的任何人分享。</string>
+\n此文件未加密。不要與你不信任的任何人分享。</string>
     <string name="pref_adjust_for_temperature_summary">使用溫度進行海平面氣壓轉換</string>
     <string name="waypoint_time_format">%1$s %2$s</string>
     <string name="no_groups">沒有群組</string>
@@ -489,7 +489,7 @@
     <string name="lowest_point_elevation">最低點</string>
     <string name="later">稍後</string>
     <string name="samples">樣品</string>
-    <string name="sensor_summary">指南針、GPS、高度計、氣壓計等。</string>
+    <string name="sensor_summary">指南針、GPS、高度計、氣壓計…</string>
     <string name="network_no_signal">沒有訊號</string>
     <string name="battery_health_over_voltage">電壓過高</string>
     <string name="power">電源</string>
@@ -597,7 +597,7 @@
         <item quantity="other">%d 個停駐點將會被刪除</item>
     </plurals>
     <string name="qr_text_too_long">文字太長，QR 圖碼被截斷</string>
-    <string name="navigating_to_nearest_path_point">正在導航至最接近路線的點</string>
+    <string name="navigating_to_nearest_path_point">導航至最近的路線點</string>
     <string name="warning">警告</string>
     <string name="pref_start_on_boot_title">開機時啟動</string>
     <string name="ascent">上坡</string>
