@@ -32,6 +32,7 @@ import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.MagnetometerDi
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.NotificationDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.PedometerDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.WeatherMonitorDiagnostic
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
 
@@ -84,11 +85,19 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
             WeatherMonitorDiagnostic(requireContext()),
             AlarmDiagnostic(requireContext())
         )
+
+//        val tools = Tools.getTools(requireContext())
+//        // TODO: Keep the mapping of tools to diagnostics and the mapping of ID to diagnostic
+//        diagnostics = tools.flatMap { it.diagnostics }
+//            .distinctBy { it.id }
+//            .map { it.create(this) }
+
         scheduleUpdates(INTERVAL_1_FPS)
     }
 
     override fun onUpdate() {
         super.onUpdate()
+        // TODO: Keep track of which diagnostic found an error, and show all the tools it is associated with
         val results = diagnostics.flatMap { it.scan() }.toSet().sortedBy { it.severity.ordinal }
         binding.emptyText.isVisible = results.isEmpty()
         diagnosticListView.setData(results)

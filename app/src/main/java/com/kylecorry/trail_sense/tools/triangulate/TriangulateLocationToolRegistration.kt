@@ -1,9 +1,10 @@
-package com.kylecorry.trail_sense.tools.triangulate.ui
+package com.kylecorry.trail_sense.tools.triangulate
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnostic
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
@@ -15,7 +16,13 @@ object TriangulateLocationToolRegistration : ToolRegistration {
             R.drawable.ic_tool_triangulate,
             R.id.fragmentToolTriangulate,
             ToolCategory.Location,
-            guideId = R.raw.guide_tool_triangulate_location
+            guideId = R.raw.guide_tool_triangulate_location,
+            diagnostics = listOf(
+                ToolDiagnostic.gps,
+                ToolDiagnostic.magnetometer,
+                ToolDiagnostic.accelerometer,
+                ToolDiagnostic.camera
+            )
         )
     }
 }

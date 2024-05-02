@@ -6,6 +6,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunsetAlarmCommand
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnostic
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -28,6 +29,9 @@ object TurnBackToolRegistration : ToolRegistration {
                     Notify.CHANNEL_IMPORTANCE_HIGH,
                     false
                 )
+            ),
+            diagnostics = listOf(
+                ToolDiagnostic.alarm
             )
         )
     }

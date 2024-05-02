@@ -8,8 +8,10 @@ import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.Astrono
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunsetAlarmCommand
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionNightMode
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunsetAlert
+import com.kylecorry.trail_sense.tools.diagnostics.domain.DiagnosticCode
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnostic
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
@@ -65,6 +67,14 @@ object AstronomyToolRegistration : ToolRegistration {
                     disable = {
                         UserPreferences(it).astronomy.sendSunsetAlerts = false
                     }
+                )
+            ),
+            diagnostics = listOf(
+                ToolDiagnostic.alarm,
+                ToolDiagnostic.gps,
+                ToolDiagnostic.notification(
+                    SunsetAlarmCommand.NOTIFICATION_CHANNEL_ID,
+                    DiagnosticCode.SunsetAlertsBlocked
                 )
             )
         )

@@ -40,7 +40,7 @@ import com.kylecorry.trail_sense.tools.solarpanel.SolarPanelAlignerToolRegistrat
 import com.kylecorry.trail_sense.tools.temperature_estimation.TemperatureEstimateToolRegistration
 import com.kylecorry.trail_sense.tools.tides.TidesToolRegistration
 import com.kylecorry.trail_sense.tools.tools.ui.sort.AlphabeticalToolSort
-import com.kylecorry.trail_sense.tools.triangulate.ui.TriangulateLocationToolRegistration
+import com.kylecorry.trail_sense.tools.triangulate.TriangulateLocationToolRegistration
 import com.kylecorry.trail_sense.tools.turn_back.TurnBackToolRegistration
 import com.kylecorry.trail_sense.tools.waterpurification.WaterBoilTimerToolRegistration
 import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration

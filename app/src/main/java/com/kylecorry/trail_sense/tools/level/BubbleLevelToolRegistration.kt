@@ -4,6 +4,7 @@ import android.content.Context
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnostic
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
@@ -16,7 +17,10 @@ object BubbleLevelToolRegistration : ToolRegistration {
             R.id.levelFragment,
             ToolCategory.Angles,
             context.getString(R.string.tool_bubble_level_summary),
-            guideId = R.raw.guide_tool_bubble_level
+            guideId = R.raw.guide_tool_bubble_level,
+            diagnostics = listOf(
+                ToolDiagnostic.accelerometer
+            )
         )
     }
 }

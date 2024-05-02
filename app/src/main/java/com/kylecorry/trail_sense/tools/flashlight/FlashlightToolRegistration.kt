@@ -12,6 +12,7 @@ import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionScreen
 import com.kylecorry.trail_sense.tools.flashlight.volumeactions.FlashlightToggleVolumeAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnostic
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
@@ -78,6 +79,9 @@ object FlashlightToolRegistration : ToolRegistration {
                         FlashlightSubsystem.getInstance(it).set(FlashlightMode.Off)
                     }
                 )
+            ),
+            diagnostics = listOf(
+                ToolDiagnostic.flashlight
             )
         )
     }

@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.volume.SystemVolumeAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnostic
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeActionPriority
@@ -28,7 +29,10 @@ object MetalDetectorToolRegistration : ToolRegistration {
                     ::SystemVolumeAction
                 )
             ),
-            isAvailable = { SensorService(it).hasCompass() }
+            isAvailable = { SensorService(it).hasCompass() },
+            diagnostics = listOf(
+                ToolDiagnostic.magnetometer
+            )
         )
     }
 }

@@ -5,11 +5,12 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.beacons.quickactions.QuickActionPlaceBeacon
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnostic
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
-object BeaconsToolRegistration: ToolRegistration {
+object BeaconsToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
         return Tool(
             Tools.BEACONS,
@@ -28,6 +29,9 @@ object BeaconsToolRegistration: ToolRegistration {
             additionalNavigationIds = listOf(
                 R.id.beaconDetailsFragment,
                 R.id.placeBeaconFragment
+            ),
+            diagnostics = listOf(
+                ToolDiagnostic.gps,
             )
         )
     }

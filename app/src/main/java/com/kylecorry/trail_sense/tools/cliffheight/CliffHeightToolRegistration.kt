@@ -19,7 +19,7 @@ object CliffHeightToolRegistration : ToolRegistration {
             context.getString(R.string.tool_cliff_height_description),
             isExperimental = true,
             guideId = R.raw.guide_tool_cliff_height,
-            isAvailable = { UserPreferences(it).isCliffHeightEnabled }
+            isAvailable = { UserPreferences(it).isCliffHeightEnabled },
         )
     }
 }

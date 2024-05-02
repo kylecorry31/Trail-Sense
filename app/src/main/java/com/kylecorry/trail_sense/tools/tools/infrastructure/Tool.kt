@@ -21,9 +21,11 @@ data class Tool(
     val tiles: List<String> = emptyList(),
     val notificationChannels: List<ToolNotificationChannel> = emptyList(),
     val services: List<ToolService> = emptyList(),
-    val isAvailable: (context: Context) -> Boolean = { true }
+    val diagnostics: List<ToolDiagnostic> = emptyList(),
+    val isAvailable: (context: Context) -> Boolean = { true },
 ) : Identifiable {
     fun isOpen(currentNavId: Int): Boolean {
         return navAction == currentNavId || additionalNavigationIds.contains(currentNavId)
     }
 }
+

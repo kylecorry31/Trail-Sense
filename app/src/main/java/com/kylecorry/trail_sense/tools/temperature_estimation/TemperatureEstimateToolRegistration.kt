@@ -4,6 +4,7 @@ import android.content.Context
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnostic
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
@@ -16,7 +17,12 @@ object TemperatureEstimateToolRegistration : ToolRegistration {
             R.id.temperatureEstimationFragment,
             ToolCategory.Weather,
             context.getString(R.string.tool_temperature_estimation_description),
-            guideId = R.raw.guide_tool_temperature_estimation
+            guideId = R.raw.guide_tool_temperature_estimation,
+            diagnostics = listOf(
+                ToolDiagnostic.altimeter,
+                ToolDiagnostic.gps,
+                ToolDiagnostic.barometer
+            )
         )
     }
 }

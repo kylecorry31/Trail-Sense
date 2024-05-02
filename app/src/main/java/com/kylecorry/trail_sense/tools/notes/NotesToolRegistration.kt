@@ -5,6 +5,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.notes.quickactions.QuickActionCreateNote
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnostic
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -27,6 +28,9 @@ object NotesToolRegistration : ToolRegistration {
             ),
             additionalNavigationIds = listOf(
                 R.id.fragmentToolNotesCreate
+            ),
+            diagnostics = listOf(
+                ToolDiagnostic.camera
             )
         )
     }
