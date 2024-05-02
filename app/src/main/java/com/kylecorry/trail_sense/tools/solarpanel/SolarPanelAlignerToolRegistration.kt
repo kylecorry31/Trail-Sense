@@ -22,9 +22,9 @@ object SolarPanelAlignerToolRegistration : ToolRegistration {
             isAvailable = { SensorService(it).hasCompass() },
             diagnostics = listOf(
                 ToolDiagnostic.gps,
-                ToolDiagnostic.accelerometer,
-                ToolDiagnostic.magnetometer
-            )
+                *ToolDiagnostic.tilt,
+                *ToolDiagnostic.compass
+            ).distinctBy { it.id }
         )
     }
 }

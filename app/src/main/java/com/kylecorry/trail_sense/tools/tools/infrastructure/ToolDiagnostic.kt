@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.tools.infrastructure
 
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.luna.text.slugify
-import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunsetAlarmCommand
 import com.kylecorry.trail_sense.tools.diagnostics.domain.DiagnosticCode
 import com.kylecorry.trail_sense.tools.diagnostics.domain.IDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.AccelerometerDiagnostic
@@ -31,8 +30,8 @@ data class ToolDiagnostic(
             )
         }
         val alarm = ToolDiagnostic("alarm-diagnostic") { AlarmDiagnostic(it.requireContext()) }
-        val altimeter =
-            ToolDiagnostic("altimeter-diagnostic") { AltimeterDiagnostic(it.requireContext()) }
+        val altimeterOverride =
+            ToolDiagnostic("altimeter-override-diagnostic") { AltimeterDiagnostic(it.requireContext()) }
         val barometer =
             ToolDiagnostic("barometer-diagnostic") { BarometerDiagnostic(it.requireContext(), it) }
         val battery =
@@ -49,6 +48,14 @@ data class ToolDiagnostic(
                 it
             )
         }
+
+        // TODO: Add gyro
+        val compass = arrayOf(accelerometer, magnetometer)
+        val sightingCompass = arrayOf(*compass, camera)
+        val altimeter = arrayOf(barometer, altimeterOverride, gps)
+
+        // TODO: Add gyro
+        val tilt = arrayOf(accelerometer)
 
         fun notification(channelId: String, code: DiagnosticCode): ToolDiagnostic {
             return ToolDiagnostic("notification-diagnostic-${channelId.slugify()}") {

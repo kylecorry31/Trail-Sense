@@ -19,10 +19,8 @@ object TemperatureEstimateToolRegistration : ToolRegistration {
             context.getString(R.string.tool_temperature_estimation_description),
             guideId = R.raw.guide_tool_temperature_estimation,
             diagnostics = listOf(
-                ToolDiagnostic.altimeter,
-                ToolDiagnostic.gps,
-                ToolDiagnostic.barometer
-            )
+                *ToolDiagnostic.altimeter,
+            ).distinctBy { it.id }
         )
     }
 }

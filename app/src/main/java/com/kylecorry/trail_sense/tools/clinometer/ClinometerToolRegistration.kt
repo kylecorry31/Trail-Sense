@@ -31,9 +31,9 @@ object ClinometerToolRegistration : ToolRegistration {
                 )
             ),
             diagnostics = listOf(
-                ToolDiagnostic.accelerometer,
+                *ToolDiagnostic.tilt,
                 ToolDiagnostic.camera
-            )
+            ).distinctBy { it.id }
         )
     }
 }

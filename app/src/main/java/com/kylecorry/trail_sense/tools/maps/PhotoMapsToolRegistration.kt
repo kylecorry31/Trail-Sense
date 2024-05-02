@@ -35,8 +35,8 @@ object PhotoMapsToolRegistration : ToolRegistration {
             diagnostics = listOf(
                 ToolDiagnostic.gps,
                 ToolDiagnostic.camera,
-                ToolDiagnostic.magnetometer
-            )
+                *ToolDiagnostic.compass
+            ).distinctBy { it.id }
         )
     }
 }

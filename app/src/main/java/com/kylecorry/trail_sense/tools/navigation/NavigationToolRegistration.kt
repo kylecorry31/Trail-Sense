@@ -19,13 +19,10 @@ object NavigationToolRegistration : ToolRegistration {
             guideId = R.raw.guide_tool_navigation,
             settingsNavAction = R.id.navigationSettingsFragment,
             diagnostics = listOf(
-                ToolDiagnostic.magnetometer,
-                ToolDiagnostic.accelerometer,
-                ToolDiagnostic.camera,
+                *ToolDiagnostic.sightingCompass,
                 ToolDiagnostic.gps,
-                ToolDiagnostic.barometer,
-                ToolDiagnostic.altimeter
-            )
+                *ToolDiagnostic.altimeter
+            ).distinctBy { it.id }
         )
     }
 }

@@ -20,8 +20,8 @@ object ClimateToolRegistration : ToolRegistration {
             guideId = R.raw.guide_tool_climate,
             diagnostics = listOf(
                 ToolDiagnostic.gps,
-                ToolDiagnostic.altimeter
-            )
+                *ToolDiagnostic.altimeter
+            ).distinctBy { it.id }
         )
     }
 }

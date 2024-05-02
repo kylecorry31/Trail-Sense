@@ -19,8 +19,8 @@ object BubbleLevelToolRegistration : ToolRegistration {
             context.getString(R.string.tool_bubble_level_summary),
             guideId = R.raw.guide_tool_bubble_level,
             diagnostics = listOf(
-                ToolDiagnostic.accelerometer
-            )
+                *ToolDiagnostic.tilt
+            ).distinctBy { it.id }
         )
     }
 }

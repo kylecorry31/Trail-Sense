@@ -63,9 +63,9 @@ object PathsToolRegistration : ToolRegistration {
             ),
             diagnostics = listOf(
                 ToolDiagnostic.gps,
-                ToolDiagnostic.altimeter,
-                ToolDiagnostic.barometer,
-            )
+                *ToolDiagnostic.altimeter,
+                *ToolDiagnostic.compass,
+            ).distinctBy { it.id }
         )
     }
 }

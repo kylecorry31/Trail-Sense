@@ -31,9 +31,8 @@ object WaterBoilTimerToolRegistration : ToolRegistration {
                 )
             ),
             diagnostics = listOf(
-                ToolDiagnostic.altimeter,
-                ToolDiagnostic.barometer
-            )
+                *ToolDiagnostic.altimeter
+            ).distinctBy { it.id }
         )
     }
 }

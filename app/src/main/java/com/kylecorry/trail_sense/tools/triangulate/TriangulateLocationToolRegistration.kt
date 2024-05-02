@@ -19,10 +19,8 @@ object TriangulateLocationToolRegistration : ToolRegistration {
             guideId = R.raw.guide_tool_triangulate_location,
             diagnostics = listOf(
                 ToolDiagnostic.gps,
-                ToolDiagnostic.magnetometer,
-                ToolDiagnostic.accelerometer,
-                ToolDiagnostic.camera
-            )
+                *ToolDiagnostic.sightingCompass
+            ).distinctBy { it.id }
         )
     }
 }

@@ -32,13 +32,10 @@ object AugmentedRealityToolRegistration : ToolRegistration {
                 )
             ),
             diagnostics = listOf(
-                ToolDiagnostic.camera,
+                *ToolDiagnostic.sightingCompass,
+                *ToolDiagnostic.altimeter,
                 ToolDiagnostic.gps,
-                ToolDiagnostic.magnetometer,
-                ToolDiagnostic.altimeter,
-                ToolDiagnostic.barometer,
-                ToolDiagnostic.accelerometer
-            )
+            ).distinctBy { it.id }
         )
     }
 }
