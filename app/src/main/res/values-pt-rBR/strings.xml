@@ -86,8 +86,11 @@
     <string name="pref_monitor_weather_title">Monitorar o tempo</string>
     <string name="pref_ruler_calibration_title">Escala de régua</string>
     <string name="pref_ruler_calibration_summary">Protocolo de calibração:
+\n
 \n- Defina este valor para 1.
+\n
 \n- Meça o valor da régua no Trail Sense correspondente a uma unidade de uma régua física.
+\n
 \n- Digite aqui o valor medido.</string>
     <string name="pref_num_visible_beacons_title">Pontos de orientação por perto</string>
     <string name="pref_display_multi_beacons_summary">Mostrar os pontos de orientação mais próximos na bússola</string>
@@ -164,7 +167,7 @@
     <string name="tool_clinometer_summary">Estimar os riscos de avalanche e a altura dos objetos</string>
     <string name="tools">Ferramentas</string>
     <string name="clinometer_rotate_device">Segure seu celular na vertical para medir a inclinação</string>
-    <string name="set_inclination_instructions">Toque ou segure em qualquer lugar para bloquear/desbloquear</string>
+    <string name="set_inclination_instructions">Toque ou segure em qualquer lugar para bloquear ou desbloquear</string>
     <string name="tool_bubble_level_summary">Determinar se as superfícies são planas</string>
     <string name="tool_bubble_level_title">Nível de bolha</string>
     <string name="navigation_nearby_category">Nas proximidades</string>
@@ -343,15 +346,15 @@
 \n
 \n\t- Navegação até os pontos de orientação
 \n
-\n\t- Maior precisão na previsão (requer localização em segundo plano, não disponível em todos os dispositivos)
+\n\t- Maior precisão na previsão (não disponível em todos os dispositivos)
 \n
-\n\t- Recuo (requer localização em segundo plano)
+\n\t- Recuo
 \n
-\n\t- Tempos de sol e lua para sua localização atual
+\n\t- Tempos de sol e lua para sua localização atual (alertas de pôr-do-sol podem precisar da localização em segundo plano)
 \n
 \n- Se você optar por não conceder a permissão de localização, você pode digitar manualmente uma localização no menu de Configurações &gt; Calibração do GPS em Trail Sense.
 \n
-\n- Depois de clicar em continuar, você será solicitado a conceder as permissões de localização e localização em segundo plano. A negação dessas permissões impedirá o Trail Sense de acessar sua localização, portanto, recomenda-se uma inserção manual de localização.</string>
+\n- Depois de clicar em continuar, você será solicitado a conceder a permissão de localização. A negação dessa permissão impedirá o Trail Sense de acessar sua localização, portanto, recomenda-se uma inserção manual de localização.</string>
     <string name="onboarding_user_guide">Saiba como usar as funcionalidades de Trail Sense com o guia do usuário. Disponível na parte inferior da aba de Ferramentas.
 \n
 \nMais guias estarão disponíveis em breve.</string>
@@ -513,8 +516,8 @@
     <string name="coordinates_tab">Coordenadas</string>
     <string name="distance">Distância</string>
     <string name="convert">Converter</string>
-    <string name="pref_nmea_elevation_summary">Utiliza compensações NMEA para conversão de altitude</string>
-    <string name="pref_nmea_elevation_title">Compensação de altitude NMEA</string>
+    <string name="pref_nmea_elevation_summary">Utilizar NMEA (satélite) para corrigir elevações, em vez do modelo integrado</string>
+    <string name="pref_nmea_elevation_title">Correção de altitude NMEA</string>
     <string name="pref_barometer_info_summary">A pressão pode ser diferente da das estações próximas</string>
     <string name="battery_history">Histórico da bateria - últimos %s</string>
     <string name="weather_monitor">Monitor do tempo</string>
@@ -589,10 +592,10 @@
     <string name="ounces_weight">Onças</string>
     <string name="pounds">Libras</string>
     <string name="volume">Volume</string>
-    <string name="imperial_gallons">Galões Imperiais</string>
-    <string name="imperial_ounces_volume">Onças Imperiais</string>
-    <string name="imperial_quarts">Quartos Imperiais</string>
-    <string name="imperial_pints">Quartilhos Imperiais</string>
+    <string name="imperial_gallons">Galões imperiais</string>
+    <string name="imperial_ounces_volume">Onças imperiais</string>
+    <string name="imperial_quarts">Quartos imperiais</string>
+    <string name="imperial_pints">Quartilhos imperiais</string>
     <string name="imperial_cups">Copos imperiais</string>
     <string name="us_gallons">Galões dos EUA</string>
     <string name="us_ounces_volume">Onças dos EUA</string>
@@ -647,7 +650,7 @@
 \n### Resolução
 \n%4$s</string>
     <string name="gps_unavailable_resolution">Ative a localização ou mude o tipo de localização para \"Somente dispositivo\" ou \"Alta precisão\"</string>
-    <string name="battery_restricted_resolution">Definir o Trail Sense como \"Não otimizado\"</string>
+    <string name="battery_restricted_resolution">Defina o Trail Sense como \"não otimizado\"</string>
     <string name="power_saving_mode_resolution">Desativar o modo de economia da bateria</string>
     <string name="location_override_not_set_resolution">Insira a localização simulada em configurações</string>
     <string name="location_override_resolution">Ativar o ajuste automático de localização em configurações.</string>
@@ -724,7 +727,7 @@
     </plurals>
     <string name="most_recent">Mais recente</string>
     <string name="weather_monitoring_disabled">Monitoramento do clima desabilitado</string>
-    <string name="no_clouds">Sem nuvens</string>
+    <string name="no_clouds">Nenhuma nuvem</string>
     <string name="no_camera_access">Incapaz de acessar a câmera</string>
     <string name="temporary">Temporário</string>
     <string name="precipitation_small_hail">Granizo pequeno</string>
@@ -732,7 +735,7 @@
     <string name="precipitation_drizzle">Chuviscos</string>
     <string name="precipitation_snow_pellets">Flocos de neve</string>
     <string name="precipitation_hail">Granizo</string>
-    <string name="precipitation_ice_pellets">Flocos de gelo</string>
+    <string name="precipitation_ice_pellets">Paletas de gelo</string>
     <string name="precipitation_snow_grains">Grãos de neve</string>
     <string name="precipitation_none">Sem precipitação</string>
     <string name="path_color">Cor do caminho</string>
@@ -1008,4 +1011,29 @@
     <string name="compass_source_legacy_android">Legado (Android)</string>
     <string name="accelerometer">Acelerômetro</string>
     <string name="data_source">Origem: %s</string>
+    <string name="gps_accuracy_tip">Certifique-se que tens uma visão desobstruída do céu, e fique longe de prédios altos e árvores.</string>
+    <string name="pref_dialog_battery_log_summary">O log de bateria está desativado, o histórico e o tempo até que descarregue podem estar indisponíveis. Você pode reativar isso nas configurações</string>
+    <string name="altimeter_cache">Cache do altímetro</string>
+    <string name="no_sensor_message">Seu dispositivo não tem um sensor de %s</string>
+    <string name="print">Imprimir</string>
+    <string name="create_path">Criar caminho</string>
+    <string name="map_is_not_calibrated">Mapa não está calibrado</string>
+    <string name="map_calibration">Calibração do mapa</string>
+    <string name="blank">Vazio</string>
+    <string name="gps_location_accuracy">Precisão da localização de GPS</string>
+    <string name="astronomy_altitude">Altitude</string>
+    <string name="gps_elevation_accuracy">Precisão da elevação do GPS</string>
+    <string name="gps_satellites">Satélites de GPS</string>
+    <string name="at_time">às %s</string>
+    <string name="center">Centro</string>
+    <string name="scanning_image">Analisando imagem</string>
+    <string name="no_qr_code_detected">Nenhum código QR detectado</string>
+    <string name="pref_tiles_battery_log">Log de bateria</string>
+    <string name="pref_tiles_enabled_battery_log_summary">Faz um log da porcentagem da bateria a cada hora para estimar o tempo até estar descarregada</string>
+    <string name="pref_enable_analog_title">Relógio analógico</string>
+    <string name="last_lightning_strike_at">Último raio às %s</string>
+    <string name="historic_temperatures_full_disclaimer" tools:ignore="PluralsCandidate">Temperaturas são baseadas em uma média de %d ano(s) de dados históricos e pode não refletir as condições do clima atuais.</string>
+    <string name="size">Tamanho</string>
+    <string name="create_blank_map">Criar mapa vazio</string>
+    <string name="autofill_source">Automaticamente completar fonte</string>
 </resources>
