@@ -1164,4 +1164,5 @@
     <string name="open_photo_map">Fotoğraf haritasını aç</string>
     <string name="return_before_dark">Karanlıktan önce geri dön</string>
     <string name="turn_back_instructions">%3$s zamanında geri dönmek için %1$s (%2$s) zamanına kadar geri dönün</string>
+    <string name="turn_back_alert_set">Geri dönme uyarısı ayarlandı</string>
 </resources>
