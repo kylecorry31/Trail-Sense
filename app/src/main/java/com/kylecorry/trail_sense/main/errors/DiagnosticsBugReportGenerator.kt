@@ -17,6 +17,7 @@ import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.PedometerDiagn
 
 class DiagnosticsBugReportGenerator : IBugReportGenerator {
     override fun generate(context: Context, throwable: Throwable): String {
+        // TODO: Update this to use the new diagnostic system
         val diagnostics = listOf(
             AccelerometerDiagnostic(context, null),
             MagnetometerDiagnostic(context, null),
@@ -28,7 +29,6 @@ class DiagnosticsBugReportGenerator : IBugReportGenerator {
             CameraDiagnostic(context),
             FlashlightDiagnostic(context),
             PedometerDiagnostic(context),
-            NotificationDiagnostic(context),
             AlarmDiagnostic(context)
         )
 

@@ -4,6 +4,7 @@ import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.diagnostics.domain.DiagnosticCode
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
@@ -81,7 +82,11 @@ object FlashlightToolRegistration : ToolRegistration {
                 )
             ),
             diagnostics = listOf(
-                ToolDiagnostic.flashlight
+                ToolDiagnostic.flashlight,
+                ToolDiagnostic.notification(
+                    FlashlightService.CHANNEL_ID,
+                    DiagnosticCode.FlashlightNotificationsBlocked
+                )
             )
         )
     }

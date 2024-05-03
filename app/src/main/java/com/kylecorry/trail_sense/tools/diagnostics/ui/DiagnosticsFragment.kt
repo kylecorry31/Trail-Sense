@@ -18,20 +18,7 @@ import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.tools.diagnostics.domain.DiagnosticCode
 import com.kylecorry.trail_sense.tools.diagnostics.domain.IDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.domain.Severity
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.AccelerometerDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.AlarmDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.AltimeterDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.BarometerDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.BatteryDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.CameraDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.DiagnosticAlertService
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.FlashlightDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.GPSDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.LightSensorDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.MagnetometerDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.NotificationDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.PedometerDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.WeatherMonitorDiagnostic
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
@@ -70,27 +57,14 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
                 }
             }
         diagnosticListView.addLineSeparator()
-        diagnostics = listOfNotNull(
-            AccelerometerDiagnostic(requireContext(), this),
-            MagnetometerDiagnostic(requireContext(), this),
-            GPSDiagnostic(requireContext(), this),
-            BarometerDiagnostic(requireContext(), this),
-            AltimeterDiagnostic(requireContext()),
-            BatteryDiagnostic(requireContext(), this),
-            LightSensorDiagnostic(requireContext(), this),
-            CameraDiagnostic(requireContext()),
-            FlashlightDiagnostic(requireContext()),
-            PedometerDiagnostic(requireContext()),
-            NotificationDiagnostic(requireContext()),
-            WeatherMonitorDiagnostic(requireContext()),
-            AlarmDiagnostic(requireContext())
-        )
 
-//        val tools = Tools.getTools(requireContext())
-//        // TODO: Keep the mapping of tools to diagnostics and the mapping of ID to diagnostic
-//        diagnostics = tools.flatMap { it.diagnostics }
-//            .distinctBy { it.id }
-//            .map { it.create(this) }
+        val tools = Tools.getTools(requireContext())
+        // TODO: Keep the mapping of tools to diagnostics and the mapping of ID to diagnostic
+        diagnostics = tools.flatMap { it.diagnostics }
+            .distinctBy { it.id }
+            .map { it.create(this) }
+
+        println(diagnostics.map { it::class.java.simpleName })
 
         scheduleUpdates(INTERVAL_1_FPS)
     }

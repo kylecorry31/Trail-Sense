@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.diagnostics.infrastructure
+package com.kylecorry.trail_sense.tools.weather.infrastructure
 
 import android.content.Context
 import com.kylecorry.andromeda.sense.Sensors

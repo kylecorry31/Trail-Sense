@@ -5,6 +5,7 @@ import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.diagnostics.domain.DiagnosticCode
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnostic
@@ -13,6 +14,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorDiagnostic
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorIsEnabled
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeatherAlerter
@@ -77,7 +79,20 @@ object WeatherToolRegistration : ToolRegistration {
                 )
             ),
             diagnostics = listOf(
-                ToolDiagnostic.barometer
+                ToolDiagnostic.barometer,
+                ToolDiagnostic("weather-monitor-diagnostic") { WeatherMonitorDiagnostic(it.requireContext()) },
+                ToolDiagnostic.notification(
+                    StormAlerter.STORM_CHANNEL_ID,
+                    DiagnosticCode.StormAlertsBlocked
+                ),
+                ToolDiagnostic.notification(
+                    DailyWeatherAlerter.DAILY_CHANNEL_ID,
+                    DiagnosticCode.DailyForecastNotificationsBlocked
+                ),
+                ToolDiagnostic.notification(
+                    CurrentWeatherAlerter.WEATHER_CHANNEL_ID,
+                    DiagnosticCode.WeatherNotificationsBlocked
+                )
             )
         )
     }

@@ -14,7 +14,7 @@ import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.FlashlightDiag
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.GPSDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.LightSensorDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.MagnetometerDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.NotificationDiagnostic2
+import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.NotificationDiagnostic
 
 // TODO: It shouldn't need the fragment
 // TODO: It should have a single suspend function / flow to get the codes (takes in context)
@@ -59,7 +59,7 @@ data class ToolDiagnostic(
 
         fun notification(channelId: String, code: DiagnosticCode): ToolDiagnostic {
             return ToolDiagnostic("notification-diagnostic-${channelId.slugify()}") {
-                NotificationDiagnostic2(
+                NotificationDiagnostic(
                     it.requireContext(),
                     channelId,
                     code
