@@ -4,28 +4,24 @@ import android.content.Context
 import android.content.Intent
 import androidx.annotation.IdRes
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.commands.Command
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
-import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.diagnostics.domain.Severity
-import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.map
 
 data class ToolDiagnostic2(
     val id: String,
     val name: String,
-    val quickScan: (context: Context) -> List<ToolDiagnosticResult>,
-    val fullScan: (context: Context) -> Flow<List<ToolDiagnosticResult>> = {
-        flowOf(quickScan(it))
-    }
+    val scanner: ToolDiagnosticScanner
 )
+
+interface ToolDiagnosticScanner {
+    fun quickScan(context: Context): List<ToolDiagnosticResult>
+    fun fullScan(context: Context): Flow<List<ToolDiagnosticResult>>
+}
 
 data class ToolDiagnosticResult(
     val id: String,
