@@ -39,6 +39,8 @@ class DiagnosticCodeDescriptionLookup(private val context: Context) {
             DiagnosticCode.WeatherNotificationsBlocked -> context.getString(R.string.notifications_blocked)
             DiagnosticCode.WeatherMonitorDisabled -> context.getString(R.string.weather_monitoring_disabled)
             DiagnosticCode.ExactAlarmNoPermission -> context.getString(R.string.no_permission)
+            DiagnosticCode.GyroscopeUnavailable -> context.getString(R.string.unavailable)
+            DiagnosticCode.GyroscopePoor -> context.getString(R.string.quality_poor)
         }
     }
 

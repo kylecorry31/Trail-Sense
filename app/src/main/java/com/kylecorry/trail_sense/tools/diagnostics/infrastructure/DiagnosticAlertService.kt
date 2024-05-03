@@ -161,6 +161,9 @@ class DiagnosticAlertService(private val context: Context, private val navigatio
                 R.string.grant_permission,
                 getString(R.string.permission_alarms_and_reminders)
             )
+
+            DiagnosticCode.GyroscopeUnavailable -> getString(R.string.no_resolution)
+            DiagnosticCode.GyroscopePoor -> getString(R.string.no_resolution)
         }
     }
 
@@ -205,6 +208,8 @@ class DiagnosticAlertService(private val context: Context, private val navigatio
             DiagnosticCode.LightSensorUnavailable -> null
             DiagnosticCode.WeatherMonitorDisabled -> navigateAction(R.id.weatherSettingsFragment)
             DiagnosticCode.ExactAlarmNoPermission -> alarmAndReminderAction()
+            DiagnosticCode.GyroscopeUnavailable -> null
+            DiagnosticCode.GyroscopePoor -> null
         }
     }
 

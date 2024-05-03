@@ -23,6 +23,7 @@ enum class DiagnosticCode(override val id: Long, val severity: Severity): Identi
     GPSUnavailable(12, Severity.Error),
     FlashlightUnavailable(13, Severity.Warning),
     PedometerUnavailable(14, Severity.Warning),
+    GyroscopeUnavailable(32, Severity.Warning),
 
     // Permissions
     CameraNoPermission(15, Severity.Warning),
@@ -37,6 +38,7 @@ enum class DiagnosticCode(override val id: Long, val severity: Severity): Identi
     AccelerometerPoor(21, Severity.Warning),
     GPSPoor(22, Severity.Warning),
     GPSTimedOut(23, Severity.Error),
+    GyroscopePoor(33, Severity.Warning),
 
     // Notifications
     SunsetAlertsBlocked(24, Severity.Warning),

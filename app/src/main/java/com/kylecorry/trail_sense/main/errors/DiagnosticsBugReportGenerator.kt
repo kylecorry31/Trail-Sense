@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.BatteryDiagnos
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.CameraDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.FlashlightDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.GPSDiagnostic
+import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.GyroscopeDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.LightSensorDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.MagnetometerDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.NotificationDiagnostic
@@ -26,6 +27,7 @@ class DiagnosticsBugReportGenerator : IBugReportGenerator {
             AltimeterDiagnostic(context),
             BatteryDiagnostic(context, null),
             LightSensorDiagnostic(context, null),
+            GyroscopeDiagnostic(context, null),
             CameraDiagnostic(context),
             FlashlightDiagnostic(context),
             PedometerDiagnostic(context),

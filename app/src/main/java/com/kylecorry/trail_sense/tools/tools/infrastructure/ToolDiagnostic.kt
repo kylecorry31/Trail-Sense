@@ -12,6 +12,7 @@ import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.BatteryDiagnos
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.CameraDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.FlashlightDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.GPSDiagnostic
+import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.GyroscopeDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.LightSensorDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.MagnetometerDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.NotificationDiagnostic
@@ -42,6 +43,9 @@ data class ToolDiagnostic(
         val gps = ToolDiagnostic("gps-diagnostic") { GPSDiagnostic(it.requireContext(), it) }
         val light =
             ToolDiagnostic("light-diagnostic") { LightSensorDiagnostic(it.requireContext(), it) }
+        val gyroscope = ToolDiagnostic("gyroscope-diagnostic") {
+            GyroscopeDiagnostic(it.requireContext(), it)
+        }
         val magnetometer = ToolDiagnostic("magnetometer-diagnostic") {
             MagnetometerDiagnostic(
                 it.requireContext(),
@@ -49,13 +53,10 @@ data class ToolDiagnostic(
             )
         }
 
-        // TODO: Add gyro
-        val compass = arrayOf(accelerometer, magnetometer)
+        val compass = arrayOf(accelerometer, magnetometer, gyroscope)
         val sightingCompass = arrayOf(*compass, camera)
         val altimeter = arrayOf(barometer, altimeterOverride, gps)
-
-        // TODO: Add gyro
-        val tilt = arrayOf(accelerometer)
+        val tilt = arrayOf(accelerometer, gyroscope)
 
         fun notification(channelId: String, code: DiagnosticCode): ToolDiagnostic {
             return ToolDiagnostic("notification-diagnostic-${channelId.slugify()}") {

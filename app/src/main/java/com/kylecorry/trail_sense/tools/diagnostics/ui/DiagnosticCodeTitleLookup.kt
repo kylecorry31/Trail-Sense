@@ -38,6 +38,8 @@ class DiagnosticCodeTitleLookup(private val context: Context) {
             DiagnosticCode.LightSensorUnavailable -> context.getString(R.string.tool_light_meter_title)
             DiagnosticCode.WeatherMonitorDisabled -> context.getString(R.string.weather)
             DiagnosticCode.ExactAlarmNoPermission -> context.getString(R.string.permission_alarms_and_reminders)
+            DiagnosticCode.GyroscopeUnavailable -> context.getString(R.string.sensor_gyroscope)
+            DiagnosticCode.GyroscopePoor -> context.getString(R.string.sensor_gyroscope)
         }
     }
 }
