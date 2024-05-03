@@ -41,25 +41,6 @@ class GPSDiagnosticScanner(private val gps: IGPS? = null) : ToolDiagnosticScanne
             )
         }
 
-        // TODO: Maybe split this out since not all tools need this
-        if (!sensorService.hasLocationPermission(true)) {
-            issues.add(
-                ToolDiagnosticResult(
-                    "background-location-no-permission",
-                    Severity.Warning,
-                    context.getString(R.string.gps),
-                    context.getString(R.string.no_permission),
-                    resolution = context.getString(
-                        R.string.grant_permission,
-                        context.getString(
-                            R.string.background_location_permission
-                        )
-                    ),
-                    action = ToolDiagnosticAction.permissions(context)
-                )
-            )
-        }
-
         // The location is overridden
         if (!prefs.useAutoLocation || !sensorService.hasLocationPermission()) {
             issues.add(
