@@ -489,7 +489,7 @@
     <string name="lowest_point_elevation">最低點</string>
     <string name="later">稍後</string>
     <string name="samples">樣品</string>
-    <string name="sensor_summary">指南針、GPS、高度計、氣壓計…</string>
+    <string name="sensor_summary">指南針、GPS、高度計、氣壓計等。</string>
     <string name="network_no_signal">沒有訊號</string>
     <string name="battery_health_over_voltage">電壓過高</string>
     <string name="power">電源</string>
