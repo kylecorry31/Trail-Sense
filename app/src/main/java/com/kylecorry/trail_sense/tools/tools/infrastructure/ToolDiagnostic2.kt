@@ -21,8 +21,8 @@ import kotlinx.coroutines.flow.map
 data class ToolDiagnostic2(
     val id: String,
     val name: String,
-    val quickScan: (fragment: AndromedaFragment) -> List<ToolDiagnosticResult>,
-    val fullScan: (fragment: AndromedaFragment) -> Flow<List<ToolDiagnosticResult>> = {
+    val quickScan: (context: Context) -> List<ToolDiagnosticResult>,
+    val fullScan: (context: Context) -> Flow<List<ToolDiagnosticResult>> = {
         flowOf(quickScan(it))
     }
 )
