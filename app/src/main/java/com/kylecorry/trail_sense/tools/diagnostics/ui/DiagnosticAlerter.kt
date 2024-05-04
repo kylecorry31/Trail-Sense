@@ -1,18 +1,17 @@
-package com.kylecorry.trail_sense.tools.diagnostics.infrastructure
+package com.kylecorry.trail_sense.tools.diagnostics.ui
 
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.diagnostics.domain.Severity
-import com.kylecorry.trail_sense.tools.diagnostics.ui.IDiagnosticAlertService
 import com.kylecorry.trail_sense.tools.tools.ui.items.DiagnosticItem
 
-class DiagnosticAlertService(private val fragment: AndromedaFragment) : IDiagnosticAlertService {
+class DiagnosticAlerter(private val fragment: AndromedaFragment) {
 
     private val context = fragment.requireContext()
 
-    override fun alert(item: DiagnosticItem) {
+    fun alert(item: DiagnosticItem) {
         val affectedTools = item.tools.sortedBy { it.name }.joinToString("\n") { "- ${it.name}" }
 
         val message = context.getString(

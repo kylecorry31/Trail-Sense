@@ -42,7 +42,7 @@ class GPSDiagnosticScanner(private val gps: IGPS? = null) : ToolDiagnosticScanne
         if (!prefs.useAutoLocation || !sensorService.hasLocationPermission()) {
             issues.add(
                 ToolDiagnosticResult(
-                    "location-overridden",
+                    LOCATION_OVERRIDDEN,
                     Severity.Warning,
                     context.getString(R.string.gps),
                     context.getString(R.string.overridden),
@@ -56,7 +56,7 @@ class GPSDiagnosticScanner(private val gps: IGPS? = null) : ToolDiagnosticScanne
             if (prefs.locationOverride == Coordinate.zero) {
                 issues.add(
                     ToolDiagnosticResult(
-                        "location-unset",
+                        LOCATION_UNSET,
                         Severity.Error,
                         context.getString(R.string.gps),
                         context.getString(R.string.location_not_set),
@@ -77,7 +77,7 @@ class GPSDiagnosticScanner(private val gps: IGPS? = null) : ToolDiagnosticScanne
         ) {
             issues.add(
                 ToolDiagnosticResult(
-                    "gps-unavailable",
+                    GPS_UNAVAILABLE,
                     Severity.Error,
                     context.getString(R.string.gps),
                     context.getString(R.string.unavailable),
@@ -105,7 +105,7 @@ class GPSDiagnosticScanner(private val gps: IGPS? = null) : ToolDiagnosticScanne
             if (gps.quality == Quality.Poor) {
                 issues.add(
                     ToolDiagnosticResult(
-                        "gps-poor",
+                        GPS_POOR,
                         Severity.Warning,
                         context.getString(R.string.gps),
                         context.getString(R.string.quality_poor),
@@ -117,7 +117,7 @@ class GPSDiagnosticScanner(private val gps: IGPS? = null) : ToolDiagnosticScanne
             if (gps is CustomGPS && gps.isTimedOut) {
                 issues.add(
                     ToolDiagnosticResult(
-                        "gps-timed-out",
+                        GPS_TIMED_OUT,
                         Severity.Error,
                         context.getString(R.string.gps),
                         context.getString(R.string.gps_signal_lost),
@@ -128,5 +128,13 @@ class GPSDiagnosticScanner(private val gps: IGPS? = null) : ToolDiagnosticScanne
 
             issues
         }
+    }
+
+    companion object {
+        const val LOCATION_UNSET = "location-unset"
+        const val LOCATION_OVERRIDDEN = "location-overridden"
+        const val GPS_UNAVAILABLE = "gps-unavailable"
+        const val GPS_POOR = "gps-poor"
+        const val GPS_TIMED_OUT = "gps-timed-out"
     }
 }

@@ -9,8 +9,9 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.alerts.MissingSensorAlert
 import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.views.UserError
-import com.kylecorry.trail_sense.tools.diagnostics.domain.DiagnosticCode
 import com.kylecorry.trail_sense.tools.navigation.ui.NavigatorFragment
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.GPSDiagnosticScanner
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.MagnetometerDiagnosticScanner
 import java.util.Locale
 
 class NavigatorUserErrors(private val fragment: NavigatorFragment) {
@@ -27,12 +28,12 @@ class NavigatorUserErrors(private val fragment: NavigatorFragment) {
     )
 
     private val errorMap = mapOf(
-        DiagnosticCode.GPSUnavailable to UserError(
+        GPSDiagnosticScanner.GPS_UNAVAILABLE to UserError(
             ErrorBannerReason.NoGPS,
             fragment.getString(R.string.location_disabled),
             R.drawable.satellite
         ),
-        DiagnosticCode.LocationUnset to UserError(
+        GPSDiagnosticScanner.LOCATION_UNSET to UserError(
             ErrorBannerReason.LocationNotSet,
             fragment.getString(R.string.location_not_set),
             R.drawable.satellite,
@@ -42,12 +43,12 @@ class NavigatorUserErrors(private val fragment: NavigatorFragment) {
             banner.dismiss(ErrorBannerReason.LocationNotSet)
             navController.navigate(R.id.calibrateGPSFragment)
         },
-        DiagnosticCode.GPSTimedOut to UserError(
+        GPSDiagnosticScanner.GPS_TIMED_OUT to UserError(
             ErrorBannerReason.GPSTimeout,
             fragment.getString(R.string.gps_signal_lost),
             R.drawable.satellite
         ),
-        DiagnosticCode.MagnetometerPoor to UserError(
+        MagnetometerDiagnosticScanner.MAGNETOMETER_POOR to UserError(
             ErrorBannerReason.CompassPoor,
             fragment.getString(
                 R.string.compass_calibrate_toast,
@@ -59,7 +60,7 @@ class NavigatorUserErrors(private val fragment: NavigatorFragment) {
             fragment.displayAccuracyTips()
             banner.dismiss(ErrorBannerReason.CompassPoor)
         },
-        DiagnosticCode.MagnetometerUnavailable to UserError(
+        MagnetometerDiagnosticScanner.MAGNETOMETER_UNAVAILABLE to UserError(
             ErrorBannerReason.NoCompass,
             MissingSensorAlert.getMissingSensorTitle(
                 fragment.requireContext(),
@@ -88,38 +89,38 @@ class NavigatorUserErrors(private val fragment: NavigatorFragment) {
 
     // TODO: Improve architecture using the strategy pattern and remove this class all together
     // TODO: Each error condition should be responsible for its own display and dismissal
-    fun update(codes: List<DiagnosticCode>) {
+    fun update(diagnosticResultIds: List<String>) {
 
         // Location unset
-        if (!isGPSErrorShown && codes.contains(DiagnosticCode.LocationUnset)) {
-            show(DiagnosticCode.LocationUnset)
+        if (!isGPSErrorShown && diagnosticResultIds.contains(GPSDiagnosticScanner.LOCATION_UNSET)) {
+            show(GPSDiagnosticScanner.LOCATION_UNSET)
             isGPSErrorShown = true
-        } else if (!codes.contains(DiagnosticCode.LocationUnset)) {
+        } else if (!diagnosticResultIds.contains(GPSDiagnosticScanner.LOCATION_UNSET)) {
             banner.dismiss(ErrorBannerReason.LocationNotSet)
             // Do not reset isGPSErrorShown
         }
 
         // GPS unavailable
-        if (!isGPSErrorShown && codes.contains(DiagnosticCode.GPSUnavailable)) {
-            show(DiagnosticCode.GPSUnavailable)
+        if (!isGPSErrorShown && diagnosticResultIds.contains(GPSDiagnosticScanner.GPS_UNAVAILABLE)) {
+            show(GPSDiagnosticScanner.GPS_UNAVAILABLE)
             isGPSErrorShown = true
-        } else if (!codes.contains(DiagnosticCode.GPSUnavailable)) {
+        } else if (!diagnosticResultIds.contains(GPSDiagnosticScanner.GPS_UNAVAILABLE)) {
             banner.dismiss(ErrorBannerReason.NoGPS)
             // Do not reset isGPSErrorShown
         }
 
         // GPS timed out
-        if (!isTimedOut && codes.contains(DiagnosticCode.GPSTimedOut)) {
-            show(DiagnosticCode.GPSTimedOut)
+        if (!isTimedOut && diagnosticResultIds.contains(GPSDiagnosticScanner.GPS_TIMED_OUT)) {
+            show(GPSDiagnosticScanner.GPS_TIMED_OUT)
             isTimedOut = true
-        } else if (!codes.contains(DiagnosticCode.GPSTimedOut)) {
+        } else if (!diagnosticResultIds.contains(GPSDiagnosticScanner.GPS_TIMED_OUT)) {
             banner.dismiss(ErrorBannerReason.GPSTimeout)
             isTimedOut = false
         }
 
         // Compass unavailable
-        if (!isCompassErrorShown && codes.contains(DiagnosticCode.MagnetometerUnavailable)) {
-            show(DiagnosticCode.MagnetometerUnavailable)
+        if (!isCompassErrorShown && diagnosticResultIds.contains(MagnetometerDiagnosticScanner.MAGNETOMETER_UNAVAILABLE)) {
+            show(MagnetometerDiagnosticScanner.MAGNETOMETER_UNAVAILABLE)
             isCompassErrorShown = true
 
             // Show a one time dialog containing the missing compass text
@@ -136,24 +137,24 @@ class NavigatorUserErrors(private val fragment: NavigatorFragment) {
                 "no_compass_message_shown",
                 cancelText = null
             )
-        } else if (!codes.contains(DiagnosticCode.MagnetometerUnavailable)) {
+        } else if (!diagnosticResultIds.contains(MagnetometerDiagnosticScanner.MAGNETOMETER_UNAVAILABLE)) {
             banner.dismiss(ErrorBannerReason.NoCompass)
             // Do not reset isCompassErrorShown
         }
 
         // Compass poor
-        if (!isPoorCompassShown && codes.contains(DiagnosticCode.MagnetometerPoor)) {
-            show(DiagnosticCode.MagnetometerPoor)
+        if (!isPoorCompassShown && diagnosticResultIds.contains(MagnetometerDiagnosticScanner.MAGNETOMETER_POOR)) {
+            show(MagnetometerDiagnosticScanner.MAGNETOMETER_POOR)
             isPoorCompassShown = true
-        } else if (!codes.contains(DiagnosticCode.MagnetometerPoor)) {
+        } else if (!diagnosticResultIds.contains(MagnetometerDiagnosticScanner.MAGNETOMETER_POOR)) {
             banner.dismiss(ErrorBannerReason.CompassPoor)
             isPoorCompassShown = false
         }
 
     }
 
-    private fun show(code: DiagnosticCode) {
-        val error = errorMap[code]
+    private fun show(diagnosticResultId: String) {
+        val error = errorMap[diagnosticResultId]
         if (error != null) {
             banner.report(error)
         }

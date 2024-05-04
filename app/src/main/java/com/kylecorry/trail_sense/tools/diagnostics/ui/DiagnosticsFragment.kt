@@ -17,7 +17,6 @@ import com.kylecorry.trail_sense.databinding.FragmentDiagnosticsBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconBinding
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.diagnostics.domain.Severity
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.DiagnosticAlertService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticResult
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -52,7 +51,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
                 itemBinding.icon.setImageResource(R.drawable.ic_alert)
                 Colors.setImageColor(itemBinding.icon, getStatusTint(item.result.severity))
                 itemBinding.root.setOnClickListener {
-                    val alerter = DiagnosticAlertService(this)
+                    val alerter = DiagnosticAlerter(this)
                     alerter.alert(item)
                 }
             }

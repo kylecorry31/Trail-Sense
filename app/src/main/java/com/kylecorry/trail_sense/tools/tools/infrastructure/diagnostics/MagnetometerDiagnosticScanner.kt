@@ -17,7 +17,7 @@ class MagnetometerDiagnosticScanner : ToolDiagnosticScanner {
         return if (!SensorService(context).hasCompass()) {
             listOf(
                 ToolDiagnosticResult(
-                    "magnetometer-unavailable",
+                    MAGNETOMETER_UNAVAILABLE,
                     Severity.Error,
                     context.getString(R.string.pref_compass_sensor_title),
                     context.getString(R.string.unavailable)
@@ -34,7 +34,7 @@ class MagnetometerDiagnosticScanner : ToolDiagnosticScanner {
             if (magnetometer.quality == Quality.Poor) {
                 listOf(
                     ToolDiagnosticResult(
-                        "magnetometer-poor",
+                        MAGNETOMETER_POOR,
                         Severity.Warning,
                         context.getString(R.string.pref_compass_sensor_title),
                         context.getString(R.string.quality_poor),
@@ -52,5 +52,10 @@ class MagnetometerDiagnosticScanner : ToolDiagnosticScanner {
                 emptyList()
             }
         }.combine(flowOf(quickScan(context))) { a, b -> a + b }
+    }
+
+    companion object {
+        const val MAGNETOMETER_UNAVAILABLE = "magnetometer-unavailable"
+        const val MAGNETOMETER_POOR = "magnetometer-poor"
     }
 }

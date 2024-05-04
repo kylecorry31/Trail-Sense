@@ -11,7 +11,7 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.dialog
-import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.system.GeoUri
@@ -34,9 +34,9 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
 import com.kylecorry.trail_sense.settings.ui.CompassCalibrationView
 import com.kylecorry.trail_sense.settings.ui.ImproveAccuracyAlerter
-import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -50,9 +50,6 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconRepo
-import com.kylecorry.trail_sense.tools.diagnostics.domain.IDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.GPSDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.MagnetometerDiagnostic
 import com.kylecorry.trail_sense.tools.diagnostics.status.GpsStatusBadgeProvider
 import com.kylecorry.trail_sense.tools.diagnostics.status.SensorStatusBadgeProvider
 import com.kylecorry.trail_sense.tools.diagnostics.status.StatusBadge
@@ -79,6 +76,9 @@ import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.ICompassView
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.MarkerCompassLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.NavigationCompassLayer
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.GPSDiagnosticScanner
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.MagnetometerDiagnosticScanner
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticResult
 import java.time.Duration
 import java.time.Instant
 
@@ -127,7 +127,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     // Diagnostics
     private val errors by lazy { NavigatorUserErrors(this) }
-    private lateinit var diagnostics: List<IDiagnostic>
 
     // Data commands
     private val updateAstronomyLayerCommand by lazy {
@@ -170,6 +169,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     // State
     private var compassStatusBadge: StatusBadge? = null
     private var gpsStatusBadge: StatusBadge? = null
+    private var diagnosticResults by state<Map<Int, List<String>>>(emptyMap())
 
     private val northReferenceHideTimer = CoroutineTimer {
         if (isBound) {
@@ -205,10 +205,18 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        diagnostics = listOf(
-            GPSDiagnostic(requireContext(), null, gps),
-            MagnetometerDiagnostic(requireContext(), viewLifecycleOwner)
-        )
+        // Observe diagnostics
+        listOf(
+            GPSDiagnosticScanner(gps),
+            MagnetometerDiagnosticScanner()
+        ).mapIndexed { index, scanner ->
+            observeFlow(
+                scanner.fullScan(requireContext()),
+                BackgroundMinimumState.Resumed
+            ) { results ->
+                diagnosticResults = diagnosticResults + (index to results.map { it.id })
+            }
+        }
 
         // Register timers
 
@@ -612,6 +620,11 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                     !binding.linearCompass.isCameraActive
             }
         }
+
+        effect("error_messages", diagnosticResults, lifecycleHookTrigger.onResume()) {
+            val codes = diagnosticResults.values.flatten().distinct()
+            errors.update(codes)
+        }
     }
 
     private fun updateCompassBearing() {
@@ -730,15 +743,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         inBackground {
             compassStatusBadge = compassStatusBadgeProvider.getBadge()
             gpsStatusBadge = gpsStatusBadgeProvider.getBadge()
-
-            val codes = onDefault {
-                diagnostics.flatMap { it.scan() }
-            }
-
-            onMain {
-                errors.update(codes)
-            }
-
         }
     }
 

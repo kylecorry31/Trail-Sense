@@ -2,40 +2,18 @@ package com.kylecorry.trail_sense.main.errors
 
 import android.content.Context
 import com.kylecorry.andromeda.exceptions.IBugReportGenerator
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.AccelerometerDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.AlarmDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.AltimeterDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.BarometerDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.BatteryDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.CameraDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.FlashlightDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.GPSDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.GyroscopeDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.LightSensorDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.MagnetometerDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.NotificationDiagnostic
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.PedometerDiagnostic
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class DiagnosticsBugReportGenerator : IBugReportGenerator {
     override fun generate(context: Context, throwable: Throwable): String {
         // TODO: Update this to use the new diagnostic system
-        val diagnostics = listOf(
-            AccelerometerDiagnostic(context, null),
-            MagnetometerDiagnostic(context, null),
-            GPSDiagnostic(context, null),
-            BarometerDiagnostic(context, null),
-            AltimeterDiagnostic(context),
-            BatteryDiagnostic(context, null),
-            LightSensorDiagnostic(context, null),
-            GyroscopeDiagnostic(context, null),
-            CameraDiagnostic(context),
-            FlashlightDiagnostic(context),
-            PedometerDiagnostic(context),
-            AlarmDiagnostic(context)
-        )
+        val diagnostics = Tools.getTools(context)
+            .flatMap { it.diagnostics }
+            .distinctBy { it.id }
 
-        val codes = diagnostics.flatMap { it.scan() }.toSet().sortedBy { it.ordinal }
 
-        return "Diagnostics: ${codes.joinToString(", ") { it.name }}"
+        val codes = diagnostics.flatMap { it.scanner.quickScan(context) }.toSet().sortedBy { it.id }
+
+        return "Diagnostics: ${codes.joinToString(", ") { it.id }}"
     }
 }
