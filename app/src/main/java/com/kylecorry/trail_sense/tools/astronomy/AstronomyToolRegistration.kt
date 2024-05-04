@@ -70,14 +70,6 @@ object AstronomyToolRegistration : ToolRegistration {
                     }
                 )
             ),
-            diagnostics = listOf(
-                ToolDiagnostic.alarm,
-                ToolDiagnostic.gps,
-                ToolDiagnostic.notification(
-                    SunsetAlarmCommand.NOTIFICATION_CHANNEL_ID,
-                    DiagnosticCode.SunsetAlertsBlocked
-                )
-            ),
             diagnostics2 = listOf(
                 ToolDiagnosticFactory.gps(context),
                 ToolDiagnosticFactory.backgroundLocation(context),

@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.tools.ui.items
 
-import com.kylecorry.trail_sense.tools.diagnostics.domain.DiagnosticCode
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnosticResult
 
-class DiagnosticItem(val code: DiagnosticCode, val tools: List<Tool>)
+class DiagnosticItem(val result: ToolDiagnosticResult, val tools: List<Tool>)

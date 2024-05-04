@@ -5,7 +5,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.beacons.quickactions.QuickActionPlaceBeacon
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnostic
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -30,9 +30,12 @@ object BeaconsToolRegistration : ToolRegistration {
                 R.id.beaconDetailsFragment,
                 R.id.placeBeaconFragment
             ),
-            diagnostics = listOf(
-                ToolDiagnostic.gps,
-            )
+            diagnostics2 = listOf(
+                ToolDiagnosticFactory.gps(context),
+                *ToolDiagnosticFactory.altimeter(context),
+                ToolDiagnosticFactory.camera(context),
+                *ToolDiagnosticFactory.sightingCompass(context)
+            ).distinctBy { it.id }
         )
     }
 }

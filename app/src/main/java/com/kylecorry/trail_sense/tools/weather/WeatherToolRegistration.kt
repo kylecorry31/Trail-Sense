@@ -5,16 +5,16 @@ import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.diagnostics.domain.DiagnosticCode
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnostic
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnostic2
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorDiagnostic
+import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorDiagnosticScanner
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorIsEnabled
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeatherAlerter
@@ -78,22 +78,28 @@ object WeatherToolRegistration : ToolRegistration {
                     }
                 )
             ),
-            diagnostics = listOf(
-                ToolDiagnostic.barometer,
-                ToolDiagnostic("weather-monitor-diagnostic") { WeatherMonitorDiagnostic(it.requireContext()) },
-                ToolDiagnostic.notification(
+            diagnostics2 = listOf(
+                ToolDiagnosticFactory.barometer(context),
+                *ToolDiagnosticFactory.altimeter(context),
+                ToolDiagnosticFactory.backgroundLocation(context),
+                ToolDiagnostic2(
+                    "weather-monitor",
+                    context.getString(R.string.weather_monitor),
+                    scanner = WeatherMonitorDiagnosticScanner()
+                ),
+                ToolDiagnosticFactory.notification(
                     StormAlerter.STORM_CHANNEL_ID,
-                    DiagnosticCode.StormAlertsBlocked
+                    context.getString(R.string.storm_alerts),
                 ),
-                ToolDiagnostic.notification(
+                ToolDiagnosticFactory.notification(
                     DailyWeatherAlerter.DAILY_CHANNEL_ID,
-                    DiagnosticCode.DailyForecastNotificationsBlocked
+                    context.getString(R.string.todays_forecast),
                 ),
-                ToolDiagnostic.notification(
+                ToolDiagnosticFactory.notification(
                     CurrentWeatherAlerter.WEATHER_CHANNEL_ID,
-                    DiagnosticCode.WeatherNotificationsBlocked
+                    context.getString(R.string.weather_monitor),
                 )
-            )
+            ).distinctBy { it.id }
         )
     }
 }

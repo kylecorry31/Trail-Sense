@@ -4,7 +4,6 @@ import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.diagnostics.domain.DiagnosticCode
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
@@ -13,7 +12,7 @@ import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionScreen
 import com.kylecorry.trail_sense.tools.flashlight.volumeactions.FlashlightToggleVolumeAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnostic
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
@@ -81,11 +80,11 @@ object FlashlightToolRegistration : ToolRegistration {
                     }
                 )
             ),
-            diagnostics = listOf(
-                ToolDiagnostic.flashlight,
-                ToolDiagnostic.notification(
+            diagnostics2 = listOf(
+                ToolDiagnosticFactory.flashlight(context),
+                ToolDiagnosticFactory.notification(
                     FlashlightService.CHANNEL_ID,
-                    DiagnosticCode.FlashlightNotificationsBlocked
+                    context.getString(R.string.flashlight_title),
                 )
             )
         )

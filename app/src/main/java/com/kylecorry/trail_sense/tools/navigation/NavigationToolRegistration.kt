@@ -5,6 +5,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnostic
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
@@ -18,10 +19,10 @@ object NavigationToolRegistration : ToolRegistration {
             ToolCategory.Location,
             guideId = R.raw.guide_tool_navigation,
             settingsNavAction = R.id.navigationSettingsFragment,
-            diagnostics = listOf(
-                *ToolDiagnostic.sightingCompass,
-                ToolDiagnostic.gps,
-                *ToolDiagnostic.altimeter
+            diagnostics2 = listOf(
+                *ToolDiagnosticFactory.sightingCompass(context),
+                ToolDiagnosticFactory.gps(context),
+                *ToolDiagnosticFactory.altimeter(context)
             ).distinctBy { it.id }
         )
     }

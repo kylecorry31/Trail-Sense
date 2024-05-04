@@ -6,14 +6,12 @@ import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.diagnostics.domain.DiagnosticCode
-import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.PedometerDiagnostic
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.DistanceAlerter
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.tools.pedometer.quickactions.QuickActionPedometer
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnostic
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
@@ -73,11 +71,12 @@ object PedometerToolRegistration : ToolRegistration {
                     }
                 )
             ),
-            diagnostics = listOf(
-                ToolDiagnostic("pedometer-diagnostic") { PedometerDiagnostic(it.requireContext()) },
-                ToolDiagnostic.notification(
+            diagnostics2 = listOf(
+                ToolDiagnosticFactory.pedometer(context),
+                ToolDiagnosticFactory.gps(context),
+                ToolDiagnosticFactory.notification(
                     StepCounterService.CHANNEL_ID,
-                    DiagnosticCode.PedometerNotificationsBlocked
+                    context.getString(R.string.pedometer),
                 ),
             )
         )

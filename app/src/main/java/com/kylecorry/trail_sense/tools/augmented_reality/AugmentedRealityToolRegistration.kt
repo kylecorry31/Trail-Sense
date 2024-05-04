@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.volume.SystemVolumeAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnostic
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeActionPriority
@@ -31,10 +31,10 @@ object AugmentedRealityToolRegistration : ToolRegistration {
                     ::SystemVolumeAction
                 )
             ),
-            diagnostics = listOf(
-                *ToolDiagnostic.sightingCompass,
-                *ToolDiagnostic.altimeter,
-                ToolDiagnostic.gps,
+            diagnostics2 = listOf(
+                *ToolDiagnosticFactory.sightingCompass(context),
+                *ToolDiagnosticFactory.altimeter(context),
+                ToolDiagnosticFactory.gps(context),
             ).distinctBy { it.id }
         )
     }

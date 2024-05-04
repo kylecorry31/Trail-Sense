@@ -5,7 +5,7 @@ import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnostic
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -30,8 +30,8 @@ object WaterBoilTimerToolRegistration : ToolRegistration {
                     false
                 )
             ),
-            diagnostics = listOf(
-                *ToolDiagnostic.altimeter
+            diagnostics2 = listOf(
+                *ToolDiagnosticFactory.altimeter(context)
             ).distinctBy { it.id }
         )
     }

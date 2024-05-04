@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.tools.clinometer.volumeactions.ClinometerLockVo
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnostic
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeActionPriority
@@ -30,9 +31,9 @@ object ClinometerToolRegistration : ToolRegistration {
                     ::ClinometerLockVolumeAction
                 )
             ),
-            diagnostics = listOf(
-                *ToolDiagnostic.tilt,
-                ToolDiagnostic.camera
+            diagnostics2 = listOf(
+                *ToolDiagnosticFactory.tilt(context),
+                ToolDiagnosticFactory.camera(context)
             ).distinctBy { it.id }
         )
     }

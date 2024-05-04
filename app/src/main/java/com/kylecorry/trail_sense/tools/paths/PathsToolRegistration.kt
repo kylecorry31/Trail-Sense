@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.tools.paths.infrastructure.services.BacktrackSe
 import com.kylecorry.trail_sense.tools.paths.quickactions.QuickActionBacktrack
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnostic
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
@@ -61,10 +61,11 @@ object PathsToolRegistration : ToolRegistration {
                     }
                 )
             ),
-            diagnostics = listOf(
-                ToolDiagnostic.gps,
-                *ToolDiagnostic.altimeter,
-                *ToolDiagnostic.compass,
+            diagnostics2 = listOf(
+                ToolDiagnosticFactory.gps(context),
+                *ToolDiagnosticFactory.altimeter(context),
+                *ToolDiagnosticFactory.compass(context),
+                ToolDiagnosticFactory.backgroundLocation(context)
             ).distinctBy { it.id }
         )
     }
