@@ -436,8 +436,8 @@
     </plurals>
     <string name="pref_privacy_screenshot_protection_title">防止螢幕截圖</string>
     <string name="yards_format">%s 碼</string>
-    <string name="base_elevation">基礎海拔</string>
-    <string name="base_temperature">基礎溫度</string>
+    <string name="base_elevation">基準海拔</string>
+    <string name="base_temperature">基準溫度</string>
     <string name="pounds_format">%s 磅</string>
     <string name="grams_format">%s 克</string>
     <string name="days">天</string>
@@ -609,7 +609,7 @@
     <string name="until_sunrise">直至日出</string>
     <string name="augmented_reality">擴增實境</string>
     <string name="tool_quick_actions">工具快速動作</string>
-    <string name="pref_enable_analog_title">模擬時鐘</string>
+    <string name="pref_enable_analog_title">指針時鐘</string>
     <string name="gps_cache">GPS 快取</string>
     <string name="max_temp_calibrated">最高環境溫度（已校正）</string>
     <string name="pref_require_satellites_description">需要至少 4 顆衛星以提高精確度</string>
@@ -987,4 +987,6 @@
     <string name="historic">歷史性</string>
     <string name="fast_path_rendering">快速路線渲染</string>
     <string name="use_path_elevation">使用路線海拔</string>
+    <string name="stratus_desc">一片低矮的雲覆蓋了天空。物體不會投射陰影，並且可能有霧。</string>
+    <string name="mirror_camera">鏡子相機</string>
 </resources>
