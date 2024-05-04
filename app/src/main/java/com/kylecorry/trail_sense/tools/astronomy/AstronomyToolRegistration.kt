@@ -12,6 +12,7 @@ import com.kylecorry.trail_sense.tools.diagnostics.domain.DiagnosticCode
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnostic
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
@@ -75,6 +76,15 @@ object AstronomyToolRegistration : ToolRegistration {
                 ToolDiagnostic.notification(
                     SunsetAlarmCommand.NOTIFICATION_CHANNEL_ID,
                     DiagnosticCode.SunsetAlertsBlocked
+                )
+            ),
+            diagnostics2 = listOf(
+                ToolDiagnosticFactory.gps(context),
+                ToolDiagnosticFactory.backgroundLocation(context),
+                ToolDiagnosticFactory.alarm(context),
+                ToolDiagnosticFactory.notification(
+                    SunsetAlarmCommand.NOTIFICATION_CHANNEL_ID,
+                    context.getString(R.string.sunset_alerts)
                 )
             )
         )
