@@ -8,11 +8,9 @@ import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.Astrono
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunsetAlarmCommand
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionNightMode
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunsetAlert
-import com.kylecorry.trail_sense.tools.diagnostics.domain.DiagnosticCode
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnostic
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnosticFactory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
@@ -70,7 +68,7 @@ object AstronomyToolRegistration : ToolRegistration {
                     }
                 )
             ),
-            diagnostics2 = listOf(
+            diagnostics = listOf(
                 ToolDiagnosticFactory.gps(context),
                 ToolDiagnosticFactory.backgroundLocation(context),
                 ToolDiagnosticFactory.alarm(context),

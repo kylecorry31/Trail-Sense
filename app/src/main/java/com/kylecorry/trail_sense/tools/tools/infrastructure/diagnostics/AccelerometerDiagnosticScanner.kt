@@ -8,8 +8,6 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.accelerometer.Accelerometer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.diagnostics.domain.Severity
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnosticResult
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnosticScanner
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOf

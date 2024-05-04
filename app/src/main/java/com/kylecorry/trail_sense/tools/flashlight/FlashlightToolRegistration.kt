@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionScreen
 import com.kylecorry.trail_sense.tools.flashlight.volumeactions.FlashlightToggleVolumeAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnosticFactory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
@@ -80,7 +80,7 @@ object FlashlightToolRegistration : ToolRegistration {
                     }
                 )
             ),
-            diagnostics2 = listOf(
+            diagnostics = listOf(
                 ToolDiagnosticFactory.flashlight(context),
                 ToolDiagnosticFactory.notification(
                     FlashlightService.CHANNEL_ID,

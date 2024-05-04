@@ -4,8 +4,7 @@ import android.content.Context
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnostic
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnosticFactory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
@@ -19,7 +18,7 @@ object NavigationToolRegistration : ToolRegistration {
             ToolCategory.Location,
             guideId = R.raw.guide_tool_navigation,
             settingsNavAction = R.id.navigationSettingsFragment,
-            diagnostics2 = listOf(
+            diagnostics = listOf(
                 *ToolDiagnosticFactory.sightingCompass(context),
                 ToolDiagnosticFactory.gps(context),
                 *ToolDiagnosticFactory.altimeter(context)

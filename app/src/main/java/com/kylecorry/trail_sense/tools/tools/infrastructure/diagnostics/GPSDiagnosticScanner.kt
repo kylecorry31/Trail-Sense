@@ -12,9 +12,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.diagnostics.domain.Severity
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnosticAction
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnosticResult
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnosticScanner
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

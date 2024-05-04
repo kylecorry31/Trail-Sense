@@ -5,8 +5,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnostic
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnosticFactory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
@@ -21,7 +20,7 @@ object SolarPanelAlignerToolRegistration : ToolRegistration {
             context.getString(R.string.tool_solar_panel_summary),
             guideId = R.raw.guide_tool_solar_panel_aligner,
             isAvailable = { SensorService(it).hasCompass() },
-            diagnostics2 = listOf(
+            diagnostics = listOf(
                 ToolDiagnosticFactory.gps(context),
                 *ToolDiagnosticFactory.tilt(context),
                 *ToolDiagnosticFactory.compass(context)

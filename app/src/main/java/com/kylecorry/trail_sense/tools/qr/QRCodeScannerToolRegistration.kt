@@ -4,7 +4,7 @@ import android.content.Context
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnosticFactory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
@@ -17,7 +17,7 @@ object QRCodeScannerToolRegistration : ToolRegistration {
             R.id.scanQrFragment,
             ToolCategory.Other,
             guideId = R.raw.guide_tool_qr_code_scanner,
-            diagnostics2 = listOf(
+            diagnostics = listOf(
                 ToolDiagnosticFactory.camera(context)
             )
         )

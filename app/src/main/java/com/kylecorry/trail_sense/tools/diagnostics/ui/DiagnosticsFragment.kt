@@ -19,7 +19,7 @@ import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.diagnostics.domain.Severity
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.DiagnosticAlertService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnosticResult
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticResult
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.ui.items.DiagnosticItem
 
@@ -63,7 +63,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
         val toolMap = mutableMapOf<String, List<Tool>>()
 
         tools.forEach {
-            it.diagnostics2.forEach { diagnostic ->
+            it.diagnostics.forEach { diagnostic ->
                 toolMap[diagnostic.id] = toolMap.getOrDefault(diagnostic.id, listOf()) + it
             }
         }
@@ -71,7 +71,7 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
         diagnosticIdToTool = toolMap
 
         val toolDiagnostics = tools
-            .flatMap { it.diagnostics2 }
+            .flatMap { it.diagnostics }
             .distinctBy { it.id }
 
         // Start all scanners

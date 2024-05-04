@@ -6,7 +6,7 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnosticFactory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
@@ -21,7 +21,7 @@ object LightMeterToolRegistration : ToolRegistration {
             context.getString(R.string.guide_light_meter_description),
             guideId = R.raw.guide_tool_light_meter,
             isAvailable = { Sensors.hasSensor(it, Sensor.TYPE_LIGHT) },
-            diagnostics2 = listOf(
+            diagnostics = listOf(
                 ToolDiagnosticFactory.light(context)
             )
         )

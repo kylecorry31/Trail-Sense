@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.clock.infrastructure.NextMinuteBroadcastReceiver
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnosticFactory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -30,7 +30,7 @@ object ClockToolRegistration : ToolRegistration {
                     false
                 )
             ),
-            diagnostics2 = listOf(
+            diagnostics = listOf(
                 ToolDiagnosticFactory.alarm(context),
                 ToolDiagnosticFactory.gps(context),
             )

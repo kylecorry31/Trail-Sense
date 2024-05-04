@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import com.kylecorry.trail_sense.shared.data.Identifiable
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnostic
 
 data class Tool(
     override val id: Long,
@@ -21,7 +22,7 @@ data class Tool(
     val tiles: List<String> = emptyList(),
     val notificationChannels: List<ToolNotificationChannel> = emptyList(),
     val services: List<ToolService> = emptyList(),
-    val diagnostics2: List<ToolDiagnostic2> = emptyList(),
+    val diagnostics: List<ToolDiagnostic> = emptyList(),
     val isAvailable: (context: Context) -> Boolean = { true },
 ) : Identifiable {
     fun isOpen(currentNavId: Int): Boolean {

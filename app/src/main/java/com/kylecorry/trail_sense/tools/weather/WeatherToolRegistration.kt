@@ -7,8 +7,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnostic2
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnosticFactory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnostic
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
@@ -78,11 +78,11 @@ object WeatherToolRegistration : ToolRegistration {
                     }
                 )
             ),
-            diagnostics2 = listOf(
+            diagnostics = listOf(
                 ToolDiagnosticFactory.barometer(context),
                 *ToolDiagnosticFactory.altimeter(context),
                 ToolDiagnosticFactory.backgroundLocation(context),
-                ToolDiagnostic2(
+                ToolDiagnostic(
                     "weather-monitor",
                     context.getString(R.string.weather_monitor),
                     scanner = WeatherMonitorDiagnosticScanner()

@@ -5,8 +5,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.maps.quickactions.QuickActionOpenPhotoMap
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnostic
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolDiagnosticFactory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -33,7 +32,7 @@ object PhotoMapsToolRegistration : ToolRegistration {
             additionalNavigationIds = listOf(
                 R.id.mapsFragment
             ),
-            diagnostics2 = listOf(
+            diagnostics = listOf(
                 ToolDiagnosticFactory.gps(context),
                 ToolDiagnosticFactory.camera(context),
                 *ToolDiagnosticFactory.compass(context)
