@@ -21,7 +21,8 @@ object NavigationToolRegistration : ToolRegistration {
             diagnostics = listOf(
                 *ToolDiagnosticFactory.sightingCompass(context),
                 ToolDiagnosticFactory.gps(context),
-                *ToolDiagnosticFactory.altimeter(context)
+                *ToolDiagnosticFactory.altimeter(context),
+                ToolDiagnosticFactory.pedometer(context),
             ).distinctBy { it.id }
         )
     }
