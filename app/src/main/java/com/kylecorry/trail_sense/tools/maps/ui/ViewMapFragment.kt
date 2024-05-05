@@ -17,6 +17,7 @@ import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
+import com.kylecorry.andromeda.fragments.once
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -55,6 +56,7 @@ import com.kylecorry.trail_sense.tools.navigation.ui.layers.TideLayer
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.time.Duration
 
 class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
@@ -94,10 +96,13 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     private val throttle = Throttle(20)
 
+    private var shouldLockOnMapLoad = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
         mapId = requireArguments().getLong("mapId")
+        shouldLockOnMapLoad = requireArguments().getBoolean("autoLockLocation", false)
     }
 
     override fun generateBinding(
@@ -194,55 +199,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
         // Handle when the lock button is pressed
         binding.lockBtn.setOnClickListener {
-            mapLockMode = getNextLockMode(mapLockMode)
-
-            when (mapLockMode) {
-                MapLockMode.Location -> {
-                    // Disable pan
-                    binding.map.isPanEnabled = false
-
-                    // Zoom in and center on location
-                    binding.map.metersPerPixel = 0.5f
-                    binding.map.mapCenter = gps.location
-
-                    // Reset the rotation
-                    binding.map.mapAzimuth = 0f
-                    binding.map.keepMapUp = keepMapUp
-
-                    // Show as locked
-                    binding.lockBtn.setImageResource(R.drawable.satellite)
-                    CustomUiUtils.setButtonState(binding.lockBtn, true)
-                }
-
-                MapLockMode.Compass -> {
-                    // Disable pan
-                    binding.map.isPanEnabled = false
-
-                    // Center on location
-                    binding.map.mapCenter = gps.location
-
-                    // Rotate
-                    binding.map.keepMapUp = false
-                    binding.map.mapAzimuth = -compass.rawBearing
-
-                    // Show as locked
-                    binding.lockBtn.setImageResource(R.drawable.ic_compass_icon)
-                    CustomUiUtils.setButtonState(binding.lockBtn, true)
-                }
-
-                MapLockMode.Free -> {
-                    // Enable pan
-                    binding.map.isPanEnabled = true
-
-                    // Reset the rotation
-                    binding.map.mapAzimuth = 0f
-                    binding.map.keepMapUp = keepMapUp
-
-                    // Show as unlocked
-                    binding.lockBtn.setImageResource(R.drawable.satellite)
-                    CustomUiUtils.setButtonState(binding.lockBtn, false)
-                }
-            }
+            updateMapLockMode(getNextLockMode(mapLockMode), keepMapUp)
         }
 
         binding.cancelNavigationBtn.setOnClickListener {
@@ -447,8 +404,65 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     private fun onMapLoad(map: PhotoMap) {
         this.map = map
+        binding.map.onImageLoadedListener = {
+            if (shouldLockOnMapLoad) {
+                updateMapLockMode(MapLockMode.Location, prefs.navigation.keepMapFacingUp)
+                shouldLockOnMapLoad = false
+            }
+        }
         binding.map.showMap(map)
         layerManager?.onBoundsChanged(map.boundary())
+    }
+
+    private fun updateMapLockMode(mode: MapLockMode, keepMapUp: Boolean) {
+        mapLockMode = mode
+        when (mapLockMode) {
+            MapLockMode.Location -> {
+                // Disable pan
+                binding.map.isPanEnabled = false
+
+                // Zoom in and center on location
+                binding.map.metersPerPixel = 0.5f
+                binding.map.mapCenter = gps.location
+
+                // Reset the rotation
+                binding.map.mapAzimuth = 0f
+                binding.map.keepMapUp = keepMapUp
+
+                // Show as locked
+                binding.lockBtn.setImageResource(R.drawable.satellite)
+                CustomUiUtils.setButtonState(binding.lockBtn, true)
+            }
+
+            MapLockMode.Compass -> {
+                // Disable pan
+                binding.map.isPanEnabled = false
+
+                // Center on location
+                binding.map.mapCenter = gps.location
+
+                // Rotate
+                binding.map.keepMapUp = false
+                binding.map.mapAzimuth = -compass.rawBearing
+
+                // Show as locked
+                binding.lockBtn.setImageResource(R.drawable.ic_compass_icon)
+                CustomUiUtils.setButtonState(binding.lockBtn, true)
+            }
+
+            MapLockMode.Free -> {
+                // Enable pan
+                binding.map.isPanEnabled = true
+
+                // Reset the rotation
+                binding.map.mapAzimuth = 0f
+                binding.map.keepMapUp = keepMapUp
+
+                // Show as unlocked
+                binding.lockBtn.setImageResource(R.drawable.satellite)
+                CustomUiUtils.setButtonState(binding.lockBtn, false)
+            }
+        }
     }
 
     override fun onPause() {
@@ -489,9 +503,9 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     }
 
     companion object {
-        fun create(mapId: Long): ViewMapFragment {
+        fun create(mapId: Long, autoLockLocation: Boolean = false): ViewMapFragment {
             return ViewMapFragment().apply {
-                arguments = bundleOf("mapId" to mapId)
+                arguments = bundleOf("mapId" to mapId, "autoLockLocation" to autoLockLocation)
             }
         }
     }

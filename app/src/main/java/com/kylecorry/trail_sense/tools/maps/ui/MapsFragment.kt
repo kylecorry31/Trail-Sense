@@ -39,6 +39,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
 
     private var mapId = 0L
+    private var autoLockLocation = false
     private var map: PhotoMap? = null
     private var currentFragment: Fragment? = null
 
@@ -47,6 +48,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mapId = requireArguments().getLong("mapId")
+        autoLockLocation = requireArguments().getBoolean("autoLockLocation", false)
     }
 
     override fun generateBinding(
@@ -123,10 +125,11 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
 
     private fun showRotation(rotation: Float) {
         binding.mapTitle.subtitle.isVisible = true
-        binding.mapTitle.subtitle.text = getString(R.string.rotation_amount, formatter.formatDegrees(rotation))
+        binding.mapTitle.subtitle.text =
+            getString(R.string.rotation_amount, formatter.formatDegrees(rotation))
     }
 
-    private fun hideRotation(){
+    private fun hideRotation() {
         binding.mapTitle.subtitle.isVisible = false
     }
 
@@ -261,7 +264,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
         val newRotation = MapRotationCalculator().calculate(updatedMap)
 
         val delta = SolMath.deltaAngle(newRotation, updatedMap.calibration.rotation).absoluteValue
-        if (delta > 1f){
+        if (delta > 1f) {
             toast(getString(R.string.map_auto_rotated))
         }
 
@@ -281,7 +284,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
     private fun view() {
         hideRotation()
         binding.mapTitle.leftButton.isVisible = true
-        val fragment = ViewMapFragment.create(mapId)
+        val fragment = ViewMapFragment.create(mapId, autoLockLocation)
         setFragment(fragment)
     }
 

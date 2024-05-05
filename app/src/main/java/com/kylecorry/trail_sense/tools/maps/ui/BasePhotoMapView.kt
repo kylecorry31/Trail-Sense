@@ -27,6 +27,8 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
 
     private var shouldRecenter = true
 
+    var onImageLoadedListener: (() -> Unit)? = null
+
     override fun addLayer(layer: ILayer) {
         layers.add(layer)
     }
@@ -149,6 +151,7 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
         if (shouldRecenter && isImageLoaded) {
             recenter()
             shouldRecenter = false
+            onImageLoadedListener?.invoke()
         }
 
         layers.forEach { it.draw(drawer, this) }
