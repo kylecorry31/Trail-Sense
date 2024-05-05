@@ -77,6 +77,12 @@ object FlashlightToolRegistration : ToolRegistration {
                     },
                     disable = {
                         FlashlightSubsystem.getInstance(it).set(FlashlightMode.Off)
+                    },
+                    stop = {
+                        FlashlightSubsystem.getInstance(it).set(FlashlightMode.Off)
+                    },
+                    restart = {
+                        // Does not support restarting
                     }
                 )
             ),

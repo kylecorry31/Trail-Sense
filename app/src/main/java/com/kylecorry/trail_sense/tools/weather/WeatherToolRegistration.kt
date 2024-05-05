@@ -16,6 +16,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorDiagnosticScanner
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorIsEnabled
+import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorService
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeatherAlerter
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.DailyWeatherAlerter
@@ -75,6 +76,19 @@ object WeatherToolRegistration : ToolRegistration {
                     disable = {
                         UserPreferences(it).weather.shouldMonitorWeather = false
                         WeatherUpdateScheduler.stop(it)
+                    },
+                    stop = {
+                        WeatherUpdateScheduler.stop(it)
+                    },
+                    restart = {
+                        val prefs = UserPreferences(it)
+                        if (prefs.weather.shouldMonitorWeather) {
+                            if (!WeatherMonitorService.isRunning) {
+                                WeatherUpdateScheduler.start(it)
+                            }
+                        } else {
+                            WeatherUpdateScheduler.stop(it)
+                        }
                     }
                 )
             ),

@@ -3,9 +3,11 @@ package com.kylecorry.trail_sense.tools.paths
 import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.paths.infrastructure.services.BacktrackService
+import com.kylecorry.trail_sense.tools.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.tools.paths.quickactions.QuickActionBacktrack
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
@@ -58,6 +60,19 @@ object PathsToolRegistration : ToolRegistration {
                     disable = {
                         UserPreferences(it).backtrackEnabled = false
                         BacktrackScheduler.stop(it)
+                    },
+                    stop = {
+                        BacktrackService.stop(it)
+                    },
+                    restart = {
+                        val backtrack = BacktrackSubsystem.getInstance(context)
+                        if (backtrack.getState() == FeatureState.On) {
+                            if (!BacktrackService.isRunning) {
+                                backtrack.enable(false)
+                            }
+                        } else {
+                            backtrack.disable()
+                        }
                     }
                 )
             ),

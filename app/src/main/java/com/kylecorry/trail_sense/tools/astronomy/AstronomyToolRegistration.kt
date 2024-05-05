@@ -4,8 +4,10 @@ import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyDailyWorker
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.AstronomyAlertCommand
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunsetAlarmCommand
+import com.kylecorry.trail_sense.tools.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionNightMode
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunsetAlert
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
@@ -65,6 +67,33 @@ object AstronomyToolRegistration : ToolRegistration {
                     },
                     disable = {
                         UserPreferences(it).astronomy.sendSunsetAlerts = false
+                    },
+                    stop = {
+                        SunsetAlarmReceiver.scheduler(it).cancel()
+                    },
+                    restart = {
+                        // Always starts - it short circuits if it doesn't need to run
+                        SunsetAlarmReceiver.start(context)
+                    }
+                ),
+                ToolService(
+                    context.getString(R.string.astronomy_alerts),
+                    getFrequency = { Duration.ofDays(1) },
+                    isActive = {
+                        UserPreferences(it).astronomy.sendAstronomyAlerts
+                    },
+                    disable = {
+                        val prefs = UserPreferences(it)
+                        prefs.astronomy.sendLunarEclipseAlerts = false
+                        prefs.astronomy.sendMeteorShowerAlerts = false
+                        prefs.astronomy.sendSolarEclipseAlerts = false
+                    },
+                    stop = {
+                        AstronomyDailyWorker.stop(it)
+                    },
+                    restart = {
+                        // Always starts - it short circuits if it doesn't need to run
+                        AstronomyDailyWorker.start(it)
                     }
                 )
             ),

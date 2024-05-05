@@ -11,12 +11,12 @@ import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterServi
 import com.kylecorry.trail_sense.tools.pedometer.quickactions.QuickActionPedometer
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 import java.time.Duration
 
 object PedometerToolRegistration : ToolRegistration {
@@ -68,6 +68,17 @@ object PedometerToolRegistration : ToolRegistration {
                     disable = {
                         UserPreferences(it).pedometer.isEnabled = false
                         StepCounterService.stop(it)
+                    },
+                    stop = {
+                        StepCounterService.stop(it)
+                    },
+                    restart = {
+                        val prefs = UserPreferences(it)
+                        if (prefs.pedometer.isEnabled) {
+                            StepCounterService.start(it)
+                        } else {
+                            StepCounterService.stop(it)
+                        }
                     }
                 )
             ),
