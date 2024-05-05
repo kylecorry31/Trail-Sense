@@ -78,6 +78,10 @@ object PedometerToolRegistration : ToolRegistration {
                     StepCounterService.CHANNEL_ID,
                     context.getString(R.string.pedometer),
                 ),
+                ToolDiagnosticFactory.notification(
+                    DistanceAlerter.NOTIFICATION_CHANNEL_ID,
+                    context.getString(R.string.distance_alert)
+                )
             )
         )
     }

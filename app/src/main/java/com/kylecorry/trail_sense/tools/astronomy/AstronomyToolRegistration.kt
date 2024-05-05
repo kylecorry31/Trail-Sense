@@ -75,6 +75,10 @@ object AstronomyToolRegistration : ToolRegistration {
                 ToolDiagnosticFactory.notification(
                     SunsetAlarmCommand.NOTIFICATION_CHANNEL_ID,
                     context.getString(R.string.sunset_alerts)
+                ),
+                ToolDiagnosticFactory.notification(
+                    AstronomyAlertCommand.NOTIFICATION_CHANNEL,
+                    context.getString(R.string.astronomy_alerts)
                 )
             )
         )

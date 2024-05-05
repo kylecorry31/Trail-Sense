@@ -32,6 +32,10 @@ object TurnBackToolRegistration : ToolRegistration {
             diagnostics = listOf(
                 ToolDiagnosticFactory.alarm(context),
                 ToolDiagnosticFactory.gps(context),
+                ToolDiagnosticFactory.notification(
+                    TurnBackAlarmReceiver.NOTIFICATION_CHANNEL_ID,
+                    context.getString(R.string.turn_back_alerts)
+                )
             )
         )
     }

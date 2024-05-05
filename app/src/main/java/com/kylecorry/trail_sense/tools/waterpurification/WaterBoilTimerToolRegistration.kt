@@ -31,7 +31,11 @@ object WaterBoilTimerToolRegistration : ToolRegistration {
                 )
             ),
             diagnostics = listOf(
-                *ToolDiagnosticFactory.altimeter(context)
+                *ToolDiagnosticFactory.altimeter(context),
+                ToolDiagnosticFactory.notification(
+                    WaterPurificationTimerService.CHANNEL_ID,
+                    context.getString(R.string.water_boil_timer)
+                )
             ).distinctBy { it.id }
         )
     }

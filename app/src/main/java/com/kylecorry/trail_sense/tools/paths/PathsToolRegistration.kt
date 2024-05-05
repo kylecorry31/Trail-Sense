@@ -65,7 +65,11 @@ object PathsToolRegistration : ToolRegistration {
                 ToolDiagnosticFactory.gps(context),
                 *ToolDiagnosticFactory.altimeter(context),
                 *ToolDiagnosticFactory.compass(context),
-                ToolDiagnosticFactory.backgroundLocation(context)
+                ToolDiagnosticFactory.backgroundLocation(context),
+                ToolDiagnosticFactory.notification(
+                    BacktrackService.FOREGROUND_CHANNEL_ID,
+                    context.getString(R.string.backtrack)
+                )
             ).distinctBy { it.id }
         )
     }

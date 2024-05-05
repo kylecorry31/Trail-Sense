@@ -12,6 +12,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeActionPriority
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
 import com.kylecorry.trail_sense.tools.whitenoise.quickactions.QuickActionWhiteNoise
 
@@ -45,6 +46,12 @@ object WhiteNoiseToolRegistration : ToolRegistration {
                     context.getString(R.string.tool_white_noise_title),
                     context.getString(R.string.tool_white_noise_title),
                     Notify.CHANNEL_IMPORTANCE_LOW
+                )
+            ),
+            diagnostics = listOf(
+                ToolDiagnosticFactory.notification(
+                    WhiteNoiseService.NOTIFICATION_CHANNEL_ID,
+                    context.getString(R.string.tool_white_noise_title)
                 )
             )
         )
