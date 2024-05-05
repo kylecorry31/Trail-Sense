@@ -9,78 +9,78 @@
 距離日出或日落的時間顯示在螢幕頂部。這遵循「設定」>「天文」中的「日出／日落時間」。有關每個時間的描述，請參閱下面的「太陽」章節。
 
 ## 圖表
-The chart shows the position of the sun and moon throughout the day. The X-axis is time, and the Y-axis is the altitude or height in the sky. You can tap on the sun or moon icon in the chart to see its current position. When you do this, a slider will appear so you can see its position at a different time of the day.
+圖表顯示了一天中太陽和月亮的位置。X 軸是時間，Y 軸是高度。你可以點擊圖表中的太陽或月亮圖示以查看其目前位置。當你這樣做時，將會出現一個滑桿，以便你可以查看其在一天中不同時間的位置。
 
-You can also choose to keep the current time centered in the chart by enabling 'Keep sun/moon centered' in Settings > Astronomy. This will keep the current time centered in the chart when you have today selected and will show 12 hours before and after the current time. If you have a different date selected, it will show the entire day instead.
+你還可以透過在「設定」>「天文」中啟用「保持太陽／月亮居中」以選擇將目前時間保持在圖表的中心位置。當你選擇「今天」時，這將會使目前時間保持在圖表的中心位置，並將會顯示目前時間前後 12 小時。如果你選擇了不同的日期，它將會顯示一整天。
 
 ## 太陽
-All times related to the sun respect the 'Sunrise/sunset times' in Settings > Astronomy. For a description of each time, see below.
+所有與太陽相關的時間均遵循「設定」>「天文」中的「日出／日落時間」。有關每個時間的描述，請參閱下文。
 
-The time until sunrise or sunset is shown at the top of the screen.
+距離日出或日落的時間顯示在螢幕頂部。
 
-The time of sunrise, sunset, and noon is shown below the chart, as well as the length of the day. If you tap this section, you will see more details about the sun for the current day:
+日出、日落和中午的時間，以及一天的長度均顯示在圖表下方。如果你點擊此部分，你將會看到有關今天太陽的更多詳細資訊：
 
-- **Actual**: This is the actual time of sunrise, sunset, and noon. It is the time when the sun is at the horizon.
-- **Civil**: This is the time of sunrise, sunset, and noon when the sun is between 0 and 6 degrees below the horizon. There is enough light to see objects clearly.
-- **Nautical**: This is the time of sunrise, sunset, and noon when the sun is between 6 and 12 degrees below the horizon. The horizon is still visible, but it is too dark to see objects clearly.
-- **Astronomical**: This is the time of sunrise, sunset, and noon when the sun is between 12 and 18 degrees below the horizon. It is completely dark, but it is perfect for stargazing.
-- **Peak altitude**: This is the highest point the sun reaches in the sky. It is shown in degrees above the horizon.
-- **Daylight**: This is the amount of time when the sun is up.
-- **Night**: This is the amount of time when the sun is down.
-- **Season**: This is the astronomical season based on the Earth's position around the sun. It will be one of the following: spring, summer, fall, or winter.
-- **Altitude**: This is the current angle of the sun above the horizon. It is shown in degrees.
-- **Direction**: This is the current direction the sun is in. It is shown in degrees.
+- **實際：** 這是太陽位於地平線的日出、日落和中午的實際時間。
+- **民用：** 這是太陽位於地平線以下 0 至 6 度之間的日出、日落和中午的民用時間。有足夠的光線可以清楚地看到物體。
+- **航海：** 這是太陽位於地平線以下 6 至 12 度之間的日出、日落和中午的航海時間。地平線仍然可見，但是太暗而看不清楚物體。
+- **天文：** 這是太陽位於地平線以下 12 至 18 度之間的日出、日落和中午的天文時間。天色完全黑了，但是非常適合觀星。
+- **最高高度：** 這是太陽在天空中達到的最高點。它以地平線上方的度數顯示。
+- **日光：** 這是太陽升起的時間。
+- **夜晚：** 這是太陽落下的時間。
+- **季節：** 這是基於地球圍繞太陽的位置的天文季節。它會是以下之一：春季、夏季、秋季或冬季。
+- **高度：** 這是目前太陽與地平線上方的角度。它以度數顯示。
+- **方向：** 這是太陽目前的方向。它以度數顯示。
 
 ## 月亮
-The time of moonrise, moonset, and lunar noon are shown below the chart, as well as the current moon phase and illumination percentage. If you tap this section, you will see more details about the moon for the current day:
+月出、月落和月中午的時間，以及目前的月相和照度百分比均顯示在圖表下方。如果你點擊此部分，你將會看到有關今天月亮的更多詳細資訊：
 
-- **Times**: This is the time of moonrise, moonset, and lunar noon.
-- **Moon phase**: This is the current phase of the moon as it appears in the sky.
-- **Illumination**: This is the percentage of the moon that is illuminated. A full moon is 100% illuminated, and a new moon is 0% illuminated.
-- **Peak altitude**: This is the highest point the moon reaches in the sky. It is shown in degrees above the horizon.
-- **Supermoon**: This is when the moon is closer to the Earth than normal, making it appear larger and brighter in the sky.
+- **時間：** 這是月出、月落和月中午的時間。
+- **月相：** 這是月亮在天空中出現的目前相位。
+- **照度：**: 這是月亮被照亮的百分比。滿月的照度為 100%，新月的照度為 0%。
+- **最高高度：** 這是月亮在天空中達到的最高點。它以地平線上方的度數顯示。
+- **超級月亮：** 此時月亮比平常更接近地球，使其在天空中顯得更大、更亮。
 
 ## 流星雨
-If a meteor shower peak is happening on the selected date at your location, it will show in the list. It displays the start, peak, and end times of the shower, as well as the average number of meteors per hour. You can tap on the shower to see more details:
+如果你所在位置的選定日期發生流星雨高峰，它將會顯示在列表中。它顯示流星雨的開始、高峰和結束時間，以及每小時流星的平均數量。你可以點擊流星雨以查看更多詳細資訊：
 
-- **Times**: This is the start, peak, and end times of the shower.
-- **Name**: This is the name of the shower.
-- **Rate**: This is the average number of meteors per hour.
-- **Peak altitude**: This is the highest point the radiant (area where the meteors appear to come from) reaches in the sky. It is shown in degrees above the horizon.
-- **Peak direction**: This is the direction the radiant is in.
+- **時間：** 這是流星雨的開始、高峰和結束時間。
+- **名稱：** 這是流星雨的名稱。
+- **流量：** 這是每小時流星的平均數量。
+- **高峰高度：** 這是天空中達到最高峰的輻射點（流星似乎來自的區域）。它以地平線上方的度數顯示。
+- **高峰方向：** 這是輻射點所在的方向。
 
 ## 月食
-If a lunar eclipse is happening on the selected date at your location, it will show in the list. It displays the start, peak, and end times of the eclipse, as well as how much of the moon is eclipsed. You can tap on the eclipse to see more details:
+如果你所在位置的選定日期發生月食，它將會顯示在列表中。它顯示月食的開始、高峰和結束時間，以及月食的面積。你可以點擊月食以查看更多詳細資訊：
 
-- **Times**: This is the start, peak, and end times of the eclipse.
-- **Duration**: This is the duration of the eclipse.
-- **Obscuration**: This is the percentage of the moon that is eclipsed.
-- **Magnitude**: This is the magnitude of the eclipse. It is the fraction of the moon's diameter that is eclipsed.
-- **Peak altitude**: This is the altitude of the moon at the peak of the eclipse. It is shown in degrees above the horizon.
-- **Peak direction**: This is the direction the moon is in at the peak of the eclipse.
+- **時間：** 這是月食的開始、高峰和結束時間。
+- **時長：** 這是月食的持續時間。
+- **遮蔽：** 這是月食面積的百分比。
+- **規模：** 這是月食的規模。它是月亮直徑中被遮蔽的部分。
+- **高峰高度：** 這是月食高峰時月亮的高度。它以地平線上方的度數顯示。
+- **高峰方向：** 這是月食高峰時月亮所在的方向。
 
 ## 日食
-If a solar eclipse is happening on the selected date at your location, it will show in the list. It displays the start, peak, and end times of the eclipse, as well as how much of the sun is eclipsed. You can tap on the eclipse to see more details:
+如果你所在位置的選定日期發生日食，它將會顯示在列表中。它顯示日食的開始、高峰和結束時間，以及日食的面積。你可以點擊日食以查看更多詳細資訊：
 
-- **Times**: This is the start, peak, and end times of the eclipse.
-- **Duration**: This is the duration of the eclipse.
-- **Obscuration**: This is the percentage of the sun that is eclipsed.
-- **Magnitude**: This is the magnitude of the eclipse. It is the fraction of the sun's diameter that is eclipsed.
-- **Peak altitude**: This is the altitude of the sun at the peak of the eclipse, shown in degrees above the horizon.
-- **Peak direction**: This is the direction the sun is in at the peak of the eclipse.
+- **時間：** 這是日食的開始、高峰和結束時間。
+- **時長：** 這是日食的持續時間。
+- **遮蔽：** 這是日食面積的百分比。
+- **規模：** 這是日食的規模。它是太陽直徑中被遮蔽的部分。
+- **高峰高度：** 這是日食高峰時太陽的高度。它以地平線上方的度數顯示。
+- **高峰方向：** 這是日食高峰時太陽所在的方向。
 
 ## 日落警報
-Alerts can be set for sunset to avoid being caught outside in the dark. To set an alert, open Settings > Astronomy and enable 'Sunset alerts'. You can adjust the 'Sunset alert time' setting to determine how far in advance you want to be notified. There is also a quick action available for the sunset alert. See below for more information.
+可以設定日落警報以避免在黑暗中被困在外面。要設定警報，請開啟「設定」>「天文」並啟用「日落警報」。你可以調整「日落警報時間」設定來確定你希望提前多長時間收到通知。還有一個可以用於日落警報的快速動作。請參閱下面的詳細資訊。
 
 ## 天文警報
-Alerts can be set for astronomical events to ensure you don't miss them. To set an alert, open Settings > Astronomy and enable the alerts you want to be notified about for your location. You can receive notifications for meteor showers, lunar eclipses, and solar eclipses. The alert will be shown up to 24 hours in advance of the event start time.
+可以為天文事件設定警報以確保你不會錯過它們。要設定警報，請開啟「設定」>「天文」，然後啟用你想要收到的有關你所在位置的警報。你可以接收流星雨、月食和日食的通知。該警報將會在活動開始前最多 24 小時顯示。
 
 ## 3D 檢視
-If your phone has a compass, you will see a "View in 3D" button. Clicking this will open the Augmented Reality tool with the selected date and allow you to see where the sun and moon will be throughout the day using your camera.
+如果你的手機有指南針，你會看到「以 3D 方式檢視」按鈕。點擊此按鈕將會開啟具有所選日期的擴增實境工具，並允許你使用相機查看太陽和月亮全天的位置。
 
-You can choose to disable the camera when clicked by disabling the "Settings > Astronomy > Use camera for 3D viewing" setting.
+你可以透過停用「設定 > 天文 > 使用相機進行 3D 檢視」設定來選擇點擊時停用相機。
 
 ## 快速動作
-You can enable the Sunset Alert quick action in the settings for the tab where you want it to appear.
+你可以在希望顯示日落警報的分頁的設定中啟用日落警報快速動作。
 
-To use the quick action, tap the sunset alert quick action button to toggle it on or off.
+若要使用快速動作，請點擊日落警報快速動作按鈕以開啟或關閉。
