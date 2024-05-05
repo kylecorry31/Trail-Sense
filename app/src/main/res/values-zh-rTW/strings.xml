@@ -948,7 +948,7 @@
     <string name="use_gyroscope_after_calibration">校正後使用陀螺儀</string>
     <string name="reset_calibration_question">重置校正？</string>
     <string name="ar_layer_override_message">圖層設定可能會被指南覆寫，例如天文學指南。</string>
-    <string name="view_in_3d">3D 檢視</string>
+    <string name="view_in_3d">以 3D 方式檢視</string>
     <string name="locate">定位</string>
     <string name="tool_turn_back">折返</string>
     <string name="allow_ignore_battery_restrictions_instructions">移除 Trail Sense 的電池限制可能會提高準確性。
@@ -989,4 +989,5 @@
     <string name="use_path_elevation">使用路線海拔</string>
     <string name="stratus_desc">一片低矮的雲覆蓋了天空。物體不會投射陰影，並且可能有霧。</string>
     <string name="mirror_camera">鏡子相機</string>
+    <string name="pref_start_camera_in_3d_view_summary">點擊「以 3D 方式檢視」按鈕時開啟相機</string>
 </resources>
