@@ -11,7 +11,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.tools.diagnostics.domain.Severity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -26,7 +25,7 @@ class GPSDiagnosticScanner(private val gps: IGPS? = null) : ToolDiagnosticScanne
             issues.add(
                 ToolDiagnosticResult(
                     "location-no-permission",
-                    Severity.Error,
+                    ToolDiagnosticSeverity.Error,
                     context.getString(R.string.gps),
                     context.getString(R.string.no_permission),
                     resolution = context.getString(
@@ -43,7 +42,7 @@ class GPSDiagnosticScanner(private val gps: IGPS? = null) : ToolDiagnosticScanne
             issues.add(
                 ToolDiagnosticResult(
                     LOCATION_OVERRIDDEN,
-                    Severity.Warning,
+                    ToolDiagnosticSeverity.Warning,
                     context.getString(R.string.gps),
                     context.getString(R.string.overridden),
                     resolution = context.getString(R.string.location_override_resolution),
@@ -57,7 +56,7 @@ class GPSDiagnosticScanner(private val gps: IGPS? = null) : ToolDiagnosticScanne
                 issues.add(
                     ToolDiagnosticResult(
                         LOCATION_UNSET,
-                        Severity.Error,
+                        ToolDiagnosticSeverity.Error,
                         context.getString(R.string.gps),
                         context.getString(R.string.location_not_set),
                         resolution = context.getString(R.string.location_override_not_set_resolution),
@@ -78,7 +77,7 @@ class GPSDiagnosticScanner(private val gps: IGPS? = null) : ToolDiagnosticScanne
             issues.add(
                 ToolDiagnosticResult(
                     GPS_UNAVAILABLE,
-                    Severity.Error,
+                    ToolDiagnosticSeverity.Error,
                     context.getString(R.string.gps),
                     context.getString(R.string.unavailable),
                     resolution = context.getString(R.string.gps_unavailable_resolution),
@@ -106,7 +105,7 @@ class GPSDiagnosticScanner(private val gps: IGPS? = null) : ToolDiagnosticScanne
                 issues.add(
                     ToolDiagnosticResult(
                         GPS_POOR,
-                        Severity.Warning,
+                        ToolDiagnosticSeverity.Warning,
                         context.getString(R.string.gps),
                         context.getString(R.string.quality_poor),
                         resolution = context.getString(R.string.get_gps_signal)
@@ -118,7 +117,7 @@ class GPSDiagnosticScanner(private val gps: IGPS? = null) : ToolDiagnosticScanne
                 issues.add(
                     ToolDiagnosticResult(
                         GPS_TIMED_OUT,
-                        Severity.Error,
+                        ToolDiagnosticSeverity.Error,
                         context.getString(R.string.gps),
                         context.getString(R.string.gps_signal_lost),
                         resolution = context.getString(R.string.get_gps_signal)

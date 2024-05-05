@@ -6,7 +6,6 @@ import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.sense.magnetometer.Magnetometer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.tools.diagnostics.domain.Severity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOf
@@ -18,7 +17,7 @@ class MagnetometerDiagnosticScanner : ToolDiagnosticScanner {
             listOf(
                 ToolDiagnosticResult(
                     MAGNETOMETER_UNAVAILABLE,
-                    Severity.Error,
+                    ToolDiagnosticSeverity.Error,
                     context.getString(R.string.pref_compass_sensor_title),
                     context.getString(R.string.unavailable)
                 )
@@ -35,7 +34,7 @@ class MagnetometerDiagnosticScanner : ToolDiagnosticScanner {
                 listOf(
                     ToolDiagnosticResult(
                         MAGNETOMETER_POOR,
-                        Severity.Warning,
+                        ToolDiagnosticSeverity.Warning,
                         context.getString(R.string.pref_compass_sensor_title),
                         context.getString(R.string.quality_poor),
                         context.getString(

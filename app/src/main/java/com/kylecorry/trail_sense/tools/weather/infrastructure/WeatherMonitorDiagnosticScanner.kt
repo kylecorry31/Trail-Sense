@@ -4,7 +4,7 @@ import android.content.Context
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.diagnostics.domain.Severity
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticSeverity
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticResult
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticScanner
@@ -21,7 +21,7 @@ class WeatherMonitorDiagnosticScanner : ToolDiagnosticScanner {
                 return listOf(
                     ToolDiagnosticResult(
                         "weather-monitor-disabled",
-                        Severity.Warning,
+                        ToolDiagnosticSeverity.Warning,
                         context.getString(R.string.weather),
                         context.getString(R.string.weather_monitoring_disabled),
                         context.getString(R.string.weather_monitor_disabled_resolution),

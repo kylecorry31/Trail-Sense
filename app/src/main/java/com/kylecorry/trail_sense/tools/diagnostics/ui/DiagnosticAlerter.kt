@@ -4,7 +4,7 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.diagnostics.domain.Severity
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticSeverity
 import com.kylecorry.trail_sense.tools.tools.ui.items.DiagnosticItem
 
 class DiagnosticAlerter(private val fragment: AndromedaFragment) {
@@ -36,10 +36,10 @@ class DiagnosticAlerter(private val fragment: AndromedaFragment) {
     }
 
 
-    private fun getSeverityName(status: Severity): String {
+    private fun getSeverityName(status: ToolDiagnosticSeverity): String {
         return when (status) {
-            Severity.Error -> context.getString(R.string.error)
-            Severity.Warning -> context.getString(R.string.warning)
+            ToolDiagnosticSeverity.Error -> context.getString(R.string.error)
+            ToolDiagnosticSeverity.Warning -> context.getString(R.string.warning)
         }
     }
 

@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics
 import android.content.Context
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.tools.diagnostics.domain.Severity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
@@ -15,7 +14,7 @@ class BackgroundLocationDiagnosticScanner : ToolDiagnosticScanner {
             return listOf(
                 ToolDiagnosticResult(
                     "background-location-no-permission",
-                    Severity.Warning,
+                    ToolDiagnosticSeverity.Warning,
                     context.getString(R.string.gps),
                     context.getString(R.string.no_permission),
                     resolution = context.getString(

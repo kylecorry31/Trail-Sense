@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics
 import android.content.Context
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.diagnostics.domain.Severity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
@@ -15,7 +14,7 @@ class AltimeterDiagnosticScanner : ToolDiagnosticScanner {
             listOf(
                 ToolDiagnosticResult(
                     "altitude-overridden",
-                    Severity.Warning,
+                    ToolDiagnosticSeverity.Warning,
                     context.getString(R.string.elevation),
                     context.getString(R.string.overridden),
                     resolution = context.getString(R.string.elevation_override_resolution),

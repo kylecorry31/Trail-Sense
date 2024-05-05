@@ -5,7 +5,6 @@ import android.os.Build
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.permissions.SpecialPermission
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.diagnostics.domain.Severity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
@@ -14,7 +13,7 @@ class AlarmDiagnosticScanner : ToolDiagnosticScanner {
         return if (!Permissions.hasPermission(context, SpecialPermission.SCHEDULE_EXACT_ALARMS)) {
             listOf(ToolDiagnosticResult(
                 "exact-alarm-no-permission",
-                Severity.Warning,
+                ToolDiagnosticSeverity.Warning,
                 context.getString(R.string.permission_alarms_and_reminders),
                 context.getString(R.string.no_permission),
                 context.getString(

@@ -16,7 +16,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentDiagnosticsBinding
 import com.kylecorry.trail_sense.databinding.ListItemPlainIconBinding
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.tools.diagnostics.domain.Severity
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticSeverity
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticResult
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -102,10 +102,10 @@ class DiagnosticsFragment : BoundFragment<FragmentDiagnosticsBinding>() {
     }
 
     @ColorInt
-    private fun getStatusTint(status: Severity): Int {
+    private fun getStatusTint(status: ToolDiagnosticSeverity): Int {
         return when (status) {
-            Severity.Error -> AppColor.Red.color
-            Severity.Warning -> AppColor.Yellow.color
+            ToolDiagnosticSeverity.Error -> AppColor.Red.color
+            ToolDiagnosticSeverity.Warning -> AppColor.Yellow.color
         }
     }
 

@@ -4,7 +4,6 @@ import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.luna.text.slugify
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.diagnostics.domain.Severity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
@@ -17,7 +16,7 @@ class NotificationDiagnosticScanner(
             listOf(
                 ToolDiagnosticResult(
                     "notification-channel-blocked-${channelId.slugify()}",
-                    Severity.Warning,
+                    ToolDiagnosticSeverity.Warning,
                     channelName,
                     context.getString(R.string.notifications_blocked),
                     context.getString(

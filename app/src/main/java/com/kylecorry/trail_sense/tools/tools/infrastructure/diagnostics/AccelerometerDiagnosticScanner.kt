@@ -7,7 +7,6 @@ import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.accelerometer.Accelerometer
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.diagnostics.domain.Severity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOf
@@ -19,7 +18,7 @@ class AccelerometerDiagnosticScanner : ToolDiagnosticScanner {
             listOf(
                 ToolDiagnosticResult(
                     "accelerometer-unavailable",
-                    Severity.Error,
+                    ToolDiagnosticSeverity.Error,
                     context.getString(R.string.gravity),
                     context.getString(R.string.unavailable)
                 )
@@ -36,7 +35,7 @@ class AccelerometerDiagnosticScanner : ToolDiagnosticScanner {
                 listOf(
                     ToolDiagnosticResult(
                         "accelerometer-poor",
-                        Severity.Warning,
+                        ToolDiagnosticSeverity.Warning,
                         context.getString(R.string.gravity),
                         context.getString(R.string.quality_poor)
                     )

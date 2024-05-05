@@ -6,7 +6,6 @@ import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.orientation.Gyroscope
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.diagnostics.domain.Severity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOf
@@ -18,7 +17,7 @@ class GyroscopeDiagnosticScanner : ToolDiagnosticScanner {
             listOf(
                 ToolDiagnosticResult(
                     "gyroscope-unavailable",
-                    Severity.Warning,
+                    ToolDiagnosticSeverity.Warning,
                     context.getString(R.string.sensor_gyroscope),
                     context.getString(R.string.unavailable)
                 )
@@ -35,7 +34,7 @@ class GyroscopeDiagnosticScanner : ToolDiagnosticScanner {
                 listOf(
                     ToolDiagnosticResult(
                         "gyroscope-poor",
-                        Severity.Warning,
+                        ToolDiagnosticSeverity.Warning,
                         context.getString(R.string.sensor_gyroscope),
                         context.getString(R.string.quality_poor)
                     )

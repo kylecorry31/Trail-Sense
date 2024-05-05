@@ -5,7 +5,6 @@ import android.hardware.Sensor
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.diagnostics.domain.Severity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
@@ -17,7 +16,7 @@ class PedometerDiagnosticScanner : ToolDiagnosticScanner {
             results.add(
                 ToolDiagnosticResult(
                     "pedometer-unavailable",
-                    Severity.Error,
+                    ToolDiagnosticSeverity.Error,
                     context.getString(R.string.pedometer),
                     context.getString(R.string.unavailable)
                 )
@@ -28,7 +27,7 @@ class PedometerDiagnosticScanner : ToolDiagnosticScanner {
             results.add(
                 ToolDiagnosticResult(
                     "pedometer-no-permission",
-                    Severity.Warning,
+                    ToolDiagnosticSeverity.Warning,
                     context.getString(R.string.pedometer),
                     context.getString(R.string.no_permission),
                     context.getString(
