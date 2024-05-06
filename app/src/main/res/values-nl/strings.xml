@@ -1155,4 +1155,8 @@
     <string name="cloud_scanner">Wolkenscanner</string>
     <string name="pref_start_camera_in_3d_view_summary">Opent de camera als je op de knop Bekijk in 3D klikt</string>
     <string name="pref_start_camera_in_3d_view_title">Camera gebruiken voor 3D-weergave</string>
+    <string name="open_photo_map">Fotokaart openen</string>
+    <string name="mirror_camera">Spiegelcamera</string>
+    <string name="tool_turn_back">Teruggaan</string>
+    <string name="return_time">Tijd van terugkomst</string>
 </resources>
