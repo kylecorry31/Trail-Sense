@@ -84,7 +84,9 @@ object PathsToolRegistration : ToolRegistration {
                 ToolDiagnosticFactory.notification(
                     BacktrackService.FOREGROUND_CHANNEL_ID,
                     context.getString(R.string.backtrack)
-                )
+                ),
+                ToolDiagnosticFactory.powerSaver(context),
+                ToolDiagnosticFactory.backgroundService(context)
             ).distinctBy { it.id }
         )
     }

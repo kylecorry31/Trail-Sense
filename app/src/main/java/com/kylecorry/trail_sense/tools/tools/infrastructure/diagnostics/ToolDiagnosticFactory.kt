@@ -22,6 +22,22 @@ object ToolDiagnosticFactory {
         )
     }
 
+    fun backgroundService(context: Context): ToolDiagnostic {
+        return ToolDiagnostic(
+            "background-service",
+            context.getString(R.string.background),
+            scanner = BackgroundServiceDiagnosticScanner()
+        )
+    }
+
+    fun powerSaver(context: Context): ToolDiagnostic {
+        return ToolDiagnostic(
+            "power-saver",
+            context.getString(R.string.pref_low_power_mode_title),
+            scanner = PowerSaverDiagnosticScanner()
+        )
+    }
+
     fun alarm(context: Context): ToolDiagnostic {
         return ToolDiagnostic(
             "alarm",

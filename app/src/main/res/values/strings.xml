@@ -1425,4 +1425,6 @@
     <string name="turn_back_notification_description">Turn back now to return at %s</string>
     <string name="return_before_dark">Return before dark</string>
     <string name="turn_back_alert_set">Turn back alert set</string>
+<!--    As in a process running in the background-->
+    <string name="background">Background</string>
 </resources>

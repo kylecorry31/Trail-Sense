@@ -112,7 +112,9 @@ object WeatherToolRegistration : ToolRegistration {
                 ToolDiagnosticFactory.notification(
                     CurrentWeatherAlerter.WEATHER_CHANNEL_ID,
                     context.getString(R.string.weather_monitor),
-                )
+                ),
+                ToolDiagnosticFactory.powerSaver(context),
+                ToolDiagnosticFactory.backgroundService(context)
             ).distinctBy { it.id }
         )
     }
