@@ -15,12 +15,14 @@ abstract class QuickActionButton(
     protected val context: Context by lazy { fragment.requireContext() }
 
     private val observer = LifecycleEventObserver { _, event ->
-        when(event){
+        when (event) {
             Lifecycle.Event.ON_CREATE -> onCreate()
             Lifecycle.Event.ON_RESUME -> onResume()
             Lifecycle.Event.ON_PAUSE -> onPause()
             Lifecycle.Event.ON_DESTROY -> onDestroy()
-            else -> {} // Do nothing
+            else -> {
+                // Do nothing
+            }
         }
     }
 
@@ -28,14 +30,23 @@ abstract class QuickActionButton(
         lifecycleOwner.lifecycle.addObserver(observer)
     }
 
-    fun unbind(lifecycleOwner: LifecycleOwner){
+    fun unbind(lifecycleOwner: LifecycleOwner) {
         lifecycleOwner.lifecycle.removeObserver(observer)
     }
 
     open fun onCreate() {
         button.isVisible = true
     }
-    open fun onResume() {}
-    open fun onPause() {}
-    open fun onDestroy() {}
+
+    open fun onResume() {
+        // Do nothing
+    }
+
+    open fun onPause() {
+        // Do nothing
+    }
+
+    open fun onDestroy() {
+        // Do nothing
+    }
 }

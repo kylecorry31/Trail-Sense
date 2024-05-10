@@ -1,6 +1,10 @@
 package com.kylecorry.trail_sense.settings.licenses
 
 object Licenses {
+
+    private const val APACHE_NO_OWNER_SPECIFIED = "[name of copyright owner]"
+    private const val APACHE_NO_YEAR_SPECIFIED = "[yyyy]"
+
     val libraries = listOf(
         Library(
             "Trail Sense",
@@ -53,7 +57,7 @@ The MIT license applies to all non-font and non-icon files."""
             "Material Components for Android",
             "https://github.com/material-components/material-components-android"
         ) {
-            apache2("[yyyy]", "[name of copyright owner]", "")
+            apache2(APACHE_NO_YEAR_SPECIFIED, APACHE_NO_OWNER_SPECIFIED, "")
         },
         Library(
             "Android Jetpack",
@@ -65,7 +69,7 @@ The MIT license applies to all non-font and non-icon files."""
             "RenderScript Intrinsics Replacement Toolkit",
             "https://github.com/android/renderscript-intrinsics-replacement-toolkit"
         ) {
-            apache2("[yyyy]", "[name of copyright owner]", "")
+            apache2(APACHE_NO_YEAR_SPECIFIED, APACHE_NO_OWNER_SPECIFIED, "")
         },
         Library(
             "Markwon",
@@ -78,8 +82,8 @@ The MIT license applies to all non-font and non-icon files."""
             "https://github.com/zxing/zxing"
         ) {
             apache2(
-                "[yyyy]",
-                "[name of copyright owner]",
+                APACHE_NO_YEAR_SPECIFIED,
+                APACHE_NO_OWNER_SPECIFIED,
                 ""
             )
         },
@@ -98,8 +102,8 @@ The MIT license applies to all non-font and non-icon files."""
             "https://github.com/dstl/osgb"
         ) {
             apache2(
-                "[yyyy]",
-                "[name of copyright owner]",
+                APACHE_NO_YEAR_SPECIFIED,
+                APACHE_NO_OWNER_SPECIFIED,
                 "Modifications made by Kyle Corry: Fixed WGS84 conversion bug"
             )
         },
