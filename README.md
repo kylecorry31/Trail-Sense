@@ -50,6 +50,7 @@ The feature roadmap is a tentative outline of the major features that are planne
 - [ ] Augmented reality
 - [ ] Automations
 - [ ] Path navigation
+- [ ] Experiment with the first plugin (Comms)
 
 ## Goals
 - Trail Sense must not use the Internet in any way, as I want the entire app usable when there is no Internet connection
