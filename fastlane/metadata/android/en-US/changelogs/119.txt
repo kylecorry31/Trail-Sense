@@ -1,0 +1,20 @@
+Augmented Reality
+- No longer in beta
+
+Turn Back
+- New tool to remind you to turn back halfway through your hike
+
+Mirror Camera
+- New tool to act as a "mirror" using the front camera
+
+Photo Maps
+- Add Open Photo Map quick action (opens active map)
+
+Clouds
+- Add Cloud Scanner quick action
+
+Beacons
+- Navigate to nearest cell signal
+
+Misc
+- Open any tool as a quick action
