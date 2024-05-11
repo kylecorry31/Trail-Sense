@@ -91,6 +91,8 @@ If you have Backtrack enabled (see the 'Paths' guide) and it is configured to re
 
 You can disable this beacon in Settings > Paths > 'Last signal beacon'.
 
+You can also choose to navigate to the nearest cell signal by clicking the menu button at the top-right of the beacon list and selecting 'Navigate to nearest cell signal'. This will start navigation to the nearest recorded location that has a cell signal.
+
 ## Quick Action
 You can enable the Create Beacon quick action in the settings for the desired tab.
 

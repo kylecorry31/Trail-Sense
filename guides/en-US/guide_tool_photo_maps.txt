@@ -112,3 +112,8 @@ You can delete a group (along with all maps within it) by clicking the menu butt
 To search through your created maps, use the search bar at the top of the map list. This search encompasses the current group and all subgroups. Additionally, you can sort maps by distance, time, or name by clicking the menu button in the top-right and selecting 'Sort'.
 
 The preview of the map is displayed on the left side of the map row. You can disable this preview in Settings > Photo Maps > 'Show map previews'.
+
+## Quick action
+You can enable the Open Photo Map quick action in the settings for the tab where you want it to appear.
+
+To use the quick action, tap the quick action button and the active map will be opened and locked to your location. If no map is active, the map list will be displayed. Long press the quick action to open the Photo Maps tool.

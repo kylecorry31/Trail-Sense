@@ -23,6 +23,13 @@ class QuickActionScanCloud(button: ImageButton, fragment: Fragment) :
                 bundleOf("open_scanner" to true),
             )
         }
+
+        button.setOnLongClickListener {
+            fragment.findNavController().navigateWithAnimation(
+                R.id.cloudFragment
+            )
+            true
+        }
     }
 
 

@@ -11,3 +11,8 @@ If you opt to use the camera or a file, Trail Sense will make an attempt to iden
 
 ### Manual Identification
 If you choose to manually identify the cloud, you will see a list of cloud types. Use the checkboxes to select the cloud types you want to log. You can also adjust the observation time by clicking on the time at the top of the screen. Once you're satisfied with the observation, click the checkmark button at the top-right of the screen.
+
+## Quick action
+You can enable the Cloud Scanner quick action in the settings for the tab where you want it to appear.
+
+Tapping the quick action button will open your camera to take a picture of a cloud to identify. Long pressing the button will open the Clouds tool.

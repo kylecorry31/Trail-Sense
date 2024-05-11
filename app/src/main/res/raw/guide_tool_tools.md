@@ -38,3 +38,5 @@ You can access the app settings by tapping the settings icon in the top right co
 
 ## Quick Actions
 You can enable quick actions at the top of the tool list in Settings > 'Tool quick actions'. You can find more information about each quick action by viewing the user guide for its respective tool.
+
+All quick actions that begin with 'Tool:' will open the tool when clicked.
