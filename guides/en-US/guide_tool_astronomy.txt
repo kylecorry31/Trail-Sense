@@ -4,7 +4,7 @@ With the exception of the time until sunrise or sunset (always today), all infor
 
 You can also click the search icon to find the next occurrence of an astronomical event at your location, such as the next full moon or meteor shower.
 
-## Time Until Sunrise/Sunset
+## Time until sunrise/sunset
 
 The time until sunrise or sunset is shown at the top of the screen. This respects the 'Sunrise/sunset times' in Settings > Astronomy. For a description of each time, see the Sun section below.
 
@@ -40,7 +40,7 @@ The time of moonrise, moonset, and lunar noon are shown below the chart, as well
 - **Peak altitude**: This is the highest point the moon reaches in the sky. It is shown in degrees above the horizon.
 - **Supermoon**: This is when the moon is closer to the Earth than normal, making it appear larger and brighter in the sky.
 
-## Meteor Showers
+## Meteor showers
 If a meteor shower peak is happening on the selected date at your location, it will show in the list. It displays the start, peak, and end times of the shower, as well as the average number of meteors per hour. You can tap on the shower to see more details:
 
 - **Times**: This is the start, peak, and end times of the shower.
@@ -49,7 +49,7 @@ If a meteor shower peak is happening on the selected date at your location, it w
 - **Peak altitude**: This is the highest point the radiant (area where the meteors appear to come from) reaches in the sky. It is shown in degrees above the horizon.
 - **Peak direction**: This is the direction the radiant is in.
 
-## Lunar Eclipses
+## Lunar eclipses
 If a lunar eclipse is happening on the selected date at your location, it will show in the list. It displays the start, peak, and end times of the eclipse, as well as how much of the moon is eclipsed. You can tap on the eclipse to see more details:
 
 - **Times**: This is the start, peak, and end times of the eclipse.
@@ -59,7 +59,7 @@ If a lunar eclipse is happening on the selected date at your location, it will s
 - **Peak altitude**: This is the altitude of the moon at the peak of the eclipse. It is shown in degrees above the horizon.
 - **Peak direction**: This is the direction the moon is in at the peak of the eclipse.
 
-## Solar Eclipses
+## Solar eclipses
 If a solar eclipse is happening on the selected date at your location, it will show in the list. It displays the start, peak, and end times of the eclipse, as well as how much of the sun is eclipsed. You can tap on the eclipse to see more details:
 
 - **Times**: This is the start, peak, and end times of the eclipse.
@@ -69,10 +69,10 @@ If a solar eclipse is happening on the selected date at your location, it will s
 - **Peak altitude**: This is the altitude of the sun at the peak of the eclipse, shown in degrees above the horizon.
 - **Peak direction**: This is the direction the sun is in at the peak of the eclipse.
 
-## Sunset Alerts
+## Sunset alerts
 Alerts can be set for sunset to avoid being caught outside in the dark. To set an alert, open Settings > Astronomy and enable 'Sunset alerts'. You can adjust the 'Sunset alert time' setting to determine how far in advance you want to be notified. There is also a quick action available for the sunset alert. See below for more information.
 
-## Astronomy Alerts
+## Astronomy alerts
 Alerts can be set for astronomical events to ensure you don't miss them. To set an alert, open Settings > Astronomy and enable the alerts you want to be notified about for your location. You can receive notifications for meteor showers, lunar eclipses, and solar eclipses. The alert will be shown up to 24 hours in advance of the event start time.
 
 ## View in 3D
@@ -80,7 +80,7 @@ If your phone has a compass, you will see a "View in 3D" button. Clicking this w
 
 You can choose to disable the camera when clicked by disabling the "Settings > Astronomy > Use camera for 3D viewing" setting.
 
-## Quick Action
+## Quick action
 You can enable the Sunset Alert quick action in the settings for the tab where you want it to appear.
 
 To use the quick action, tap the sunset alert quick action button to toggle it on or off.

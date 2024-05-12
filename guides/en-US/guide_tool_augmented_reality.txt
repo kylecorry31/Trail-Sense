@@ -18,18 +18,18 @@ Nearby paths are displayed below your feet. Due to GPS inaccuracy, the paths may
 
 You can choose to adjust paths using their recorded elevation by enabling Settings > Augmented Reality > "Use path elevation". This should make the paths line up better with hills and valleys, but is dependent on the accuracy of the elevation data.
 
-## Sun / Moon
+## Sun / moon
 The paths that the sun and moon will take today are displayed as markers on the screen. The sun's path is displayed in yellow and the moon's path is displayed in white. A larger marker is displayed at the current time, and will also show the moon phase. Times in the past are lighter.
 
 If you bring the sun or moon into the reticle, you will see more details about the marker such as the time.
 
 If you tapped the "View in 3D" button on the Astronomy tool, you can use the guide to see where the sun or moon currently is and change the previewed date in the bottom panel.
 
-## Grid / Compass
-A grid is displayed on the screen to help orient you. The grid is aligned with the cardinal directions and is spaced at 30 degrees. The grid line for North is highlighted in orange. The cardinal directions are displayed over the grid.
+## Grid / compass
+A grid is displayed on the screen to help orient you. The grid is aligned with the cardinal directions and is spaced at 30 degrees. The grid line for north is highlighted in orange. The cardinal directions are displayed over the grid.
 
 ## Orientation
-The orientation of your device is displayed at the top of the screen. This includes the compass bearing and the tilt angle. The Augmented Reality tool respects the True North setting found on Settings > Sensors > Compass > True North.
+The orientation of your device is displayed at the top of the screen. This includes the compass bearing and the tilt angle. The Augmented Reality tool respects the true north setting found on Settings > Sensors > Compass > True north.
 
 ## Navigation
 Tap on a beacon to navigate to it.
@@ -54,6 +54,6 @@ The accuracy of the compass and GPS are shown in the bottom-left of the screen. 
 The Augmented Reality tool respects the compass source in Settings > Sensors > Compass > Source. If your device does not have a gyroscope, the tool will still work but will not be as accurate and may jitter.
 
 ## Layers
-You can toggle the visibility of the Beacons, Paths, Astronomy, and Grid layers by clicking the layer icon in the top-left corner of the screen or by changing the "Visible" setting in Settings > Augmented Reality.
+You can toggle the visibility of the beacons, paths, astronomy, and grid layers by clicking the layer icon in the top-left corner of the screen or by changing the "Visible" setting in Settings > Augmented Reality.
 
-The preview date for the Astronomy layer can be adjusted in the layers menu on the Augmented Reality tool.
+The preview date for the astronomy layer can be adjusted in the layers menu on the Augmented Reality tool.
