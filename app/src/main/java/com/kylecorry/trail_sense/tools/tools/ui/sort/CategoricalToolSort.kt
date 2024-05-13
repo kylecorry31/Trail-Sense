@@ -15,12 +15,14 @@ class CategoricalToolSort(context: Context) : ToolSort {
         ToolCategory.Time to context.getString(R.string.time),
         ToolCategory.Power to context.getString(R.string.power),
         ToolCategory.Weather to context.getString(R.string.weather),
+        ToolCategory.Communication to context.getString(R.string.communication),
         ToolCategory.Other to context.getString(R.string.other)
     )
 
     override fun sort(tools: List<Tool>): List<CategorizedTools> {
-        return tools.groupBy { it.category }.map { (category, tools) ->
-            CategorizedTools(groupNameMap[category], tools.sortedBy { it.name })
-        }
+        return tools.sortedBy { it.category.ordinal }.groupBy { it.category }
+            .map { (category, tools) ->
+                CategorizedTools(groupNameMap[category], tools.sortedBy { it.name })
+            }
     }
 }

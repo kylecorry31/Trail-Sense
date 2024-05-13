@@ -667,5 +667,9 @@
         android:id="@+id/turnBackFragment"
         android:name="com.kylecorry.trail_sense.tools.turn_back.ui.TurnBackFragment"
         android:label="TurnBackFragment" />
+    <fragment
+        android:id="@+id/fragmentLocalMessaging"
+        android:name="com.kylecorry.trail_sense.tools.comms.messaging.ui.FragmentToolLocalMessaging"
+        android:label="FragmentToolLocalMessaging" />
 
 </navigation>

@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <queries>
+        <package android:name="com.kylecorry.trail_sense_comms" />
+    </queries>
+
     <!--Features-->
     <uses-feature
         android:name="android.hardware.sensor.accelerometer"

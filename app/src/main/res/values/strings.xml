@@ -1427,4 +1427,6 @@
     <string name="turn_back_alert_set">Turn back alert set</string>
 <!--    As in a process running in the background-->
     <string name="background">Background</string>
+    <string name="local_messaging">Local Messaging</string>
+    <string name="communication">Communication</string>
 </resources>

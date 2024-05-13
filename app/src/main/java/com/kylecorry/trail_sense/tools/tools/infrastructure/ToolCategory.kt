@@ -8,5 +8,6 @@ enum class ToolCategory {
     Time,
     Power,
     Weather,
+    Communication,
     Other
 }
