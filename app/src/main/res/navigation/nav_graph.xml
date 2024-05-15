@@ -671,5 +671,9 @@
         android:id="@+id/fragmentLocalMessaging"
         android:name="com.kylecorry.trail_sense.tools.comms.messaging.ui.FragmentToolLocalMessaging"
         android:label="FragmentToolLocalMessaging" />
+    <fragment
+        android:id="@+id/fragmentLocalTalk"
+        android:name="com.kylecorry.trail_sense.tools.comms.talk.ui.FragmentToolLocalTalk"
+        android:label="FragmentToolLocalTalk" />
 
 </navigation>

@@ -18,6 +18,7 @@ import com.kylecorry.trail_sense.tools.clinometer.ClinometerToolRegistration
 import com.kylecorry.trail_sense.tools.clock.ClockToolRegistration
 import com.kylecorry.trail_sense.tools.clouds.CloudsToolRegistration
 import com.kylecorry.trail_sense.tools.comms.messaging.LocalMessagingToolRegistration
+import com.kylecorry.trail_sense.tools.comms.talk.LocalTalkToolRegistration
 import com.kylecorry.trail_sense.tools.convert.ConvertToolRegistration
 import com.kylecorry.trail_sense.tools.diagnostics.DiagnosticsToolRegistration
 import com.kylecorry.trail_sense.tools.experimentation.ExperimentationToolRegistration
@@ -90,7 +91,8 @@ object Tools {
         ExperimentationToolRegistration,
         MirrorCameraToolRegistration,
         TurnBackToolRegistration,
-        LocalMessagingToolRegistration
+        LocalMessagingToolRegistration,
+        LocalTalkToolRegistration
     )
 
     fun isToolAvailable(context: Context, toolId: Long): Boolean {
@@ -180,6 +182,7 @@ object Tools {
     const val MIRROR_CAMERA = 37L
     const val TURN_BACK = 38L
     const val LOCAL_MESSAGING = 39L
+    const val LOCAL_TALK = 40L
 
     // Quick Action IDs
     const val QUICK_ACTION_NONE = -1

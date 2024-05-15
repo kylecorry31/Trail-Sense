@@ -1429,4 +1429,5 @@
     <string name="background">Background</string>
     <string name="local_messaging">Local Messaging</string>
     <string name="communication">Communication</string>
+    <string name="local_talk">Local Talk</string>
 </resources>

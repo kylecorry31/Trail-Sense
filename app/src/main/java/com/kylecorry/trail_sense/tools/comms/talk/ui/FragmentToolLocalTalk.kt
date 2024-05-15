@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.comms.messaging.ui
+package com.kylecorry.trail_sense.tools.comms.talk.ui
 
 import android.content.Context
 import android.content.Intent
@@ -11,15 +11,14 @@ import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.trail_sense.databinding.FragmentCommsPluginBinding
 
-class FragmentToolLocalMessaging : BoundFragment<FragmentCommsPluginBinding>() {
+class FragmentToolLocalTalk : BoundFragment<FragmentCommsPluginBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // TODO: Only do this once
         openApp(
             requireContext(),
             "com.kylecorry.trail_sense_comms",
-            "4c285dfe-1c8b-45eb-bb79-3f1d2eb6ae48"
+            "b76f32bf-6a72-4992-a741-0c9bf19ebd11"
         )
     }
 
