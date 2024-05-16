@@ -1,6 +1,6 @@
 The Lightning Strike Distance tool calculates how far away a lightning strike is. This helps you determine if a storm is approaching or moving away.
 
-## Measuring Distance
+## Measuring distance
 To use:
 
 1. Press the lightning icon immediately after seeing lightning.

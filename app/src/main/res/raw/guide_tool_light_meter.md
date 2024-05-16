@@ -1,6 +1,6 @@
 The Light Meter tool measures a flashlight's beam distance, which is how far it can project usable light.
 
-## Testing Flashlight Beam Distance
+## Testing flashlight beam distance
 To measure a flashlight's beam distance:
 
 1. Go into a dark room.
@@ -11,7 +11,7 @@ To measure a flashlight's beam distance:
 6. Once the reading stops changing, the beam distance has been determined.
 7. You can click 'Reset' to test another flashlight.
 
-## Choosing an Appropriate Beam Distance
+## Choosing an appropriate beam distance
 The beam distance you need depends on how you will use the flashlight:
 - For camping, a shorter beam lets you see your immediate surroundings.
 - For hiking, a longer beam lets you see farther ahead - try starting with 300 feet (100 meters).

@@ -18,13 +18,18 @@ You can use your screen as a flashlight, which may be better for close-up work. 
 
 Press back or tap the 'Turn off' button to turn off the screen flashlight. Your settings will be saved for next time.
 
-## Automatically Turn Off
-You can set the flashlight to automatically turn off after a certain amount of time by opening Settings > Flashlight > Enable 'Automatically turn off' and selecting the desired time. This can be useful to save battery if you forget to turn off the flashlight.
+## Automatically turn off
+You can set the flashlight to automatically turn off after a certain amount of time by enabling 'Settings > Flashlight > Automatically turn off' and selecting the desired time. This can be useful to save battery if you forget to turn off the flashlight.
 
-## Toggle with Volume Buttons
-You can set the flashlight to toggle on or off when you press either volume button by opening Settings > Flashlight > Enable 'Toggle with volume buttons'. This only works while Trail Sense is open.
+## Toggle with volume buttons
+You can set the flashlight to toggle on or off when you press either volume button by enabling 'Settings > Flashlight > Toggle with volume buttons'. This only works while Trail Sense is open.
 
-## Quick Action
+## Quick action
+
+### Flashlight
 You can enable the Flashlight quick action in the settings for the tab you want it on.
 
 To use the quick action, tap the flashlight quick action button to toggle it on or off.
+
+### Screen flashlight
+You can enable the Screen Flashlight quick action in the settings for the tab you want it on. Tap the quick action button to open the screen flashlight.
