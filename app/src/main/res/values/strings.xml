@@ -855,7 +855,7 @@
     <string name="location_override_not_set_resolution">Set the location override in settings</string>
     <string name="power_saving_mode_resolution">Disable power saving mode</string>
     <string name="battery_restricted_resolution">Set Trail Sense as not optimized</string>
-    <string name="gps_unavailable_resolution">Enable location or change your location source to 'Device Only' or 'High Accuracy'</string>
+    <string name="gps_unavailable_resolution">Enable location or change your location source to \'Device Only\' or \'High Accuracy\'</string>
     <!--Severity: Title   Affected tools (list of tools)  Resolution (text)-->
     <string name="diagnostic_message_template">%1$s: %2$s\n\n### Affected tools\n%3$s\n\n### Resolution\n%4$s</string>
     <string name="pref_main_disclaimer_shown_key" translatable="false">pref_show_disclaimer_message_4_2021</string>
