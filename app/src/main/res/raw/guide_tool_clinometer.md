@@ -2,7 +2,7 @@ The Clinometer tool measures angles and can be used to determine the slope of a 
 
 The following guide uses a tree as an example, but the same steps can be used for any object.
 
-## Measure a Slope
+## Measure a slope
 To measure a slope (or any angle), align the line in the center of the viewfinder with the top of the hill. Tapping anywhere on the screen will lock the clinometer, and tapping again will unlock it.
 
 Alternatively, you can use the side of your phone to measure a slope. To do this, tap the screen icon in the top-left. Then hold your phone vertically and use the side (where the volume and power buttons are normally located) of your phone to sight. Look down the side of your phone and point it at the top of the hill. You will see the angle change at the top of the screen.
@@ -11,12 +11,12 @@ The slope percentage or grade is also shown under the angle.
 
 If you would prefer to lock the angle using the volume buttons instead of tapping the screen, you can enable this in Settings > Clinometer > Lock with volume buttons.
 
-An experimental setting is available to display the angle measurements on the camera viewfinder. You can enable this in Settings > Experimental > Clinometer augmented reality.
+The angle measurements will also be displayed on the camera viewfinder.
 
-## Measuring Avalanche Risk
+## Measuring avalanche risk
 Most avalanches occur on slopes between 30° (57%) and 45° (100%). When you measure the angle of a slope, the avalanche risk will be displayed at the bottom of your screen. You can also use the color bands on the clinometer dial; red indicates high risk, yellow indicates moderate risk, and green indicates low risk.
 
-## Estimate the Height of a Tree
+## Estimate the height of a tree
 The height of a tree can be measured if the distance to the tree is known.
 
 1. Tap the ruler icon in the top-right.
@@ -29,7 +29,7 @@ The height of a tree can be measured if the distance to the tree is known.
 
 If you normally measure the height of trees at the same distance, you can set a default distance in Settings > Clinometer > Baseline distance.
 
-## Estimate the Distance to a Tree (Known Height)
+## Estimate the distance to a tree (known height)
 If you know the height of a tree, you can estimate the distance to it by using the clinometer.
 
 1. Tap the ruler icon in the top-right.
@@ -40,7 +40,7 @@ If you know the height of a tree, you can estimate the distance to it by using t
 6. Realign the clinometer to the top of the tree.
 7. Release to lock and see the distance to the tree.
 
-## Estimate the Distance to a Tree (Unknown Height)
+## Estimate the distance to a tree (unknown height)
 If you do not know the height of the tree, you can still estimate the distance to it by using your height as a reference.
 
 1. Tap the ruler icon in the top-right.

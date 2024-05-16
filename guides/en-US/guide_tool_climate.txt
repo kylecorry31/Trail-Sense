@@ -5,12 +5,12 @@ The historical high and low temperatures are displayed at the top of the screen 
 
 The freezing point is displayed in the bottom portion of the chart as a filled area.
 
-## Changing the Date
+## Changing the date
 To change the date, you can tap the calendar icon above the chart and select a date. Additionally, you can use the arrows to move to the next/previous date or long press the calendar to quickly jump to today's date.
 
 Tapping on one of the lines on the chart will also change the date to the point you tapped.
 
-## Changing the Location
+## Changing the location
 By default, your current location is used. If you want to change this, enter a new location in the input field below the chart. You can also change the elevation using the elevation input field.
 
 ## Accuracy

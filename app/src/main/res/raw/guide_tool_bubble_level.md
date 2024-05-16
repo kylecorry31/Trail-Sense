@@ -1,6 +1,6 @@
 The Bubble Level tool can be used to determine if a surface is flat. This can be helpful for setting up a tent or a cooking stove.
 
-## Determine if a Surface is Flat
+## Determine if a surface is flat
 To determine if a surface is flat:
 
 1. Place the device flat on the surface.
