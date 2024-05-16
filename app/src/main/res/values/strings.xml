@@ -14,7 +14,7 @@
     <string name="access_background_location_rationale">Trail Sense uses location data in the background for the sea level pressure calibration in weather monitoring and to provide more accurate sunset alerts. [View Privacy Policy](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <!--Disclaimer-->
     <string name="disclaimer_message_title">Disclaimer</string>
-    <string name="app_disclaimer_message_title">Disclaimer / Terms of Service</string>
+    <string name="app_disclaimer_message_title">Disclaimer / terms of service</string>
     <!--    This is a legal statement, not to be translated-->
     <string name="disclaimer_message_content" translatable="false">Trail Sense is for informational purposes only and the developers make no warranties concerning the accuracy of the information provided by the app, which may further be limited by the quality of your device\'s sensors and the current environmental conditions.\n\nBy using this app, you understand that the developers of Trail Sense cannot and do not assume responsibility for any personal injury, death, property damage, and other dangers associated with activities where you would use Trail Sense.\n\nThe developers of Trail Sense are not responsible for how you use the data provided, and what you do with it is done at your own risk. Please do not rely upon it and always have backup plans and gear.\n\nTrail Sense is available under the MIT License</string>
     <!--Navigation Tab - Unit Formats-->
@@ -147,8 +147,8 @@
     <string name="edit">Edit</string>
     <string name="category">Category</string>
     <string name="dialog_item_amount">Amount</string>
-    <string name="create_item_title">Create Item</string>
-    <string name="edit_item_title">Edit Item</string>
+    <string name="create_item_title">Create item</string>
+    <string name="edit_item_title">Edit item</string>
     <!--Settings - General-->
     <string name="general">General</string>
     <string name="feet_miles">Feet / miles</string>
@@ -426,11 +426,11 @@
     <string name="tool_category_signaling">Signaling</string>
     <string name="tool_triangulate_title">Triangulate Location</string>
     <string name="could_not_triangulate">Could not triangulate</string>
-    <string name="pip_button">Update System Time</string>
+    <string name="pip_button">Update system time</string>
     <string name="pip_notification_scheduled">Notification scheduled for %s</string>
-    <string name="notification_channel_clock_sync">Clock Sync</string>
+    <string name="notification_channel_clock_sync">Clock sync</string>
     <string name="notification_channel_clock_sync_description">A notification to sync your clock to GPS time</string>
-    <string name="clock_sync_notification">Clock Sync - %s</string>
+    <string name="clock_sync_notification">Clock sync - %s</string>
     <string name="clock_sync_instructions">Set the time to %s when the notification arrives</string>
     <string name="clock_sync_time_settings">Open time settings?</string>
     <string name="magnetic_field_format_precise">%s uT</string>
@@ -494,7 +494,7 @@
     <string name="pref_low_power_mode_backtrack" translatable="false">pref_low_power_mode_backtrack</string>
     <string name="pref_low_power_mode_title">Power saving mode</string>
     <string name="low_power_mode_on_message">Power saving mode on, some features may be disabled.</string>
-    <string name="unsaved_changes">Unsaved Changes</string>
+    <string name="unsaved_changes">Unsaved changes</string>
     <string name="unsaved_changes_message">Changes you made will not be saved.</string>
     <string name="dialog_leave">Leave</string>
     <string name="backtrack_disabled_low_power_toast">Backtrack is disabled in power saving mode</string>
@@ -539,11 +539,11 @@
     <string name="cumulonimbus_desc">Low puffy clouds that are very tall. They typically have an anvil shape and are dark.</string>
     <string name="cumulonimbus_forecast">May indicate a thunderstorm in a few minutes.</string>
     <string name="cirrus_desc">High wispy clouds that look like tufts of white hair.</string>
-    <string name="privacy_and_location">Privacy and Location</string>
+    <string name="privacy_and_location">Privacy and location</string>
     <!--This is in Markdown format-->
     <string name="onboarding_user_guide">Learn how to use Trail Sense\'s features with the user guide. Available at the bottom of the Tools tab.\n\nMore guides will be coming soon.</string>
     <!--This is in Markdown format-->
-    <string name="onboarding_privacy">- Trail Sense respects your privacy and location data never leaves your device\n\n- Trail Sense will never require Internet permission\n\n- View the [Privacy Policy](https://kylecorry.com/Trail-Sense/privacy_policy.html) (opens in your phone\'s browser)\n\n- Some features of Trail Sense require access to your location\n\n- Granting the location permission will enable the following features:\n\n\t- Navigating to beacons\n\n\t- Improved forecast accuracy (not available on all devices)\n\n\t- Backtrack\n\n\t- Sun and moon times for your current location (sunset alerts may require background location)\n\n- If you choose to not grant the location permission, you can manually enter a location in the Settings &gt; Sensors &gt; GPS calibration menu in Trail Sense.\n\n- After clicking continue, you will be prompted to grant the location permission. Denying this permission will prevent Trail Sense from accessing your location, so a manual location entry is recommended.</string>
+    <string name="onboarding_privacy">- Trail Sense respects your privacy and location data never leaves your device\n\n- Trail Sense will never require Internet permission\n\n- View the [privacy policy](https://kylecorry.com/Trail-Sense/privacy_policy.html) (opens in your phone\'s browser)\n\n- Some features of Trail Sense require access to your location\n\n- Granting the location permission will enable the following features:\n\n\t- Navigating to beacons\n\n\t- Improved forecast accuracy (not available on all devices)\n\n\t- Backtrack\n\n\t- Sun and moon times for your current location (sunset alerts may require background location)\n\n- If you choose to not grant the location permission, you can manually enter a location in the Settings &gt; Sensors &gt; GPS calibration menu in Trail Sense.\n\n- After clicking continue, you will be prompted to grant the location permission. Denying this permission will prevent Trail Sense from accessing your location, so a manual location entry is recommended.</string>
     <string name="export">Export</string>
     <plurals name="beacons_imported">
         <item quantity="one">%d beacon imported</item>
@@ -688,7 +688,7 @@
     <string name="whistle_signal_where_are_you">Where are you?</string>
     <string name="whistle_signal_acknowledged">Acknowledged</string>
     <string name="whistle_signal_come_here">Come here</string>
-    <string name="weather_monitor">Weather Monitor</string>
+    <string name="weather_monitor">Weather monitor</string>
     <string name="battery_history">Battery history - last %s</string>
     <string name="humidity_history">Humidity history - last %s</string>
     <string name="temperature_history">Temperature history - last %s</string>
@@ -833,7 +833,7 @@
     <string name="last_duration">Last %s</string>
     <string name="elevation_history_length">Elevation history length</string>
     <string name="gps_signal_lost">GPS signal lost</string>
-    <string name="quarter_moon">Quarter Moon</string>
+    <string name="quarter_moon">Quarter moon</string>
     <string name="camera">Camera</string>
     <string name="no_permission">Permission not granted</string>
     <string name="diagnostics">Diagnostics</string>
@@ -855,7 +855,7 @@
     <string name="location_override_not_set_resolution">Set the location override in settings</string>
     <string name="power_saving_mode_resolution">Disable power saving mode</string>
     <string name="battery_restricted_resolution">Set Trail Sense as not optimized</string>
-    <string name="gps_unavailable_resolution">Enable Location or change your location source to Device Only or High Accuracy</string>
+    <string name="gps_unavailable_resolution">Enable location or change your location source to 'Device Only' or 'High Accuracy'</string>
     <!--Severity: Title   Affected tools (list of tools)  Resolution (text)-->
     <string name="diagnostic_message_template">%1$s: %2$s\n\n### Affected tools\n%3$s\n\n### Resolution\n%4$s</string>
     <string name="pref_main_disclaimer_shown_key" translatable="false">pref_show_disclaimer_message_4_2021</string>
@@ -1374,15 +1374,15 @@
         <item quantity="one">%d path imported</item>
         <item quantity="other">%d paths imported</item>
     </plurals>
-    <string name="select_from_gallery">Select from Gallery</string>
+    <string name="select_from_gallery">Select from gallery</string>
     <string name="magnetometer_gyro_custom">Magnetometer + Gyro (Custom)</string>
     <string name="pref_augmented_reality_mapper" translatable="false">pref_augmented_reality_mapper</string>
     <!--The camera projection type for augmented reality (ex. perspective)-->
     <string name="projection_type">Augmented reality projection</string>
     <!--Camera projection using intrinsics matrix-->
-    <string name="projection_estimated_intrinsics">Estimated Intrinsics</string>
+    <string name="projection_estimated_intrinsics">Estimated intrinsics</string>
     <!--Camera projection using intrinsics matrix-->
-    <string name="projection_manufacturer_intrinsics">Manufacturer Intrinsics</string>
+    <string name="projection_manufacturer_intrinsics">Manufacturer intrinsics</string>
     <!--Camera projection using perspective-->
     <string name="projection_perspective">Perspective</string>
     <!--Camera projection using linear-->
