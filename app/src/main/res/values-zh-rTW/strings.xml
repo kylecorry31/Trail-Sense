@@ -990,4 +990,6 @@
     <string name="stratus_desc">一片低矮的雲覆蓋了天空。物體不會投射陰影，並且可能有霧。</string>
     <string name="mirror_camera">鏡子相機</string>
     <string name="pref_start_camera_in_3d_view_summary">點擊「以 3D 方式檢視」按鈕時開啟相機</string>
+    <string name="stratocumulus_desc">看起來像有小縫隙的棉球的低雲。顏色範圍從白色到深灰色。</string>
+    <string name="cumulus_desc">低矮的浮雲，看起來像棉球。它們間隔開，通常是白色的，下面有深色斑點。</string>
 </resources>
