@@ -17,6 +17,7 @@ object LocalMessagingToolRegistration : ToolRegistration {
             R.drawable.ic_send,
             R.id.fragmentLocalMessaging,
             ToolCategory.Communication,
+            isExperimental = true,
             isAvailable = {
                 Package.isPackageInstalled(it, "com.kylecorry.trail_sense_comms")
             }

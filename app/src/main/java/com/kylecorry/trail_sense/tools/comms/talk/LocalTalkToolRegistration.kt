@@ -17,6 +17,7 @@ object LocalTalkToolRegistration : ToolRegistration {
             R.drawable.volume_up,
             R.id.fragmentLocalTalk,
             ToolCategory.Communication,
+            isExperimental = true,
             isAvailable = {
                 Package.isPackageInstalled(it, "com.kylecorry.trail_sense_comms")
             }
