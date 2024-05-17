@@ -1,0 +1,20 @@
+Rozšířená realita
+- Již není v beta verzi
+
+Otočení zpět
+- Nový nástroj, který vám připomene, že se máte v polovině trasy otočit zpět
+
+Kamera jako zrcadlo
+- Nový nástroj, který slouží jako "zrcadlo" pomocí přední kamery
+
+Fotomapy
+- Přidána rychlá akce Otevřít fotomapu (otevře aktivní mapu)
+
+Mraky
+- Přidána rychlá akce Skener mraků
+
+Majáky
+- Navigace k nejbližšímu mobilnímu signálu
+
+Různé
+- Otevřete jakýkoli nástroj jako rychlou akci

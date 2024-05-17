@@ -1151,4 +1151,8 @@
     <string name="return_before_dark">天黑前返回</string>
     <string name="mirror_camera">反射相机</string>
     <string name="turn_back_alert_set">设置了折返警报</string>
+    <string name="background">后台</string>
+    <string name="local_messaging">本地消息收发</string>
+    <string name="communication">通讯</string>
+    <string name="local_talk">本地交谈</string>
 </resources>
