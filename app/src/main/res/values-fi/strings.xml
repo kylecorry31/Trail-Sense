@@ -281,23 +281,43 @@
     <string name="distance_alert_distance_reached">Olet saavuttanut %s</string>
     <string name="onboarding_privacy">"- Trail Sense kunnioittaa yksityisyyttäsi ja sijaintitietojasi ei koskaan poistu laitteestasi
 \n
+\n
+\n
 \n- Trail Sense ei koskaan vaadi Internetin lupaa
+\n
+\n
 \n
 \n- Katso [tietosuojakäytäntö](https://kylecorry.com/Trail-Sense/privacy_policy.html) (avautuu puhelimesi selaimeen)
 \n
+\n
+\n
 \n- Jotkin Trail Sensen ominaisuudet vaativat pääsyn sijaintiisi
+\n
+\n
 \n
 \n- Sijaintiluvan myöntäminen mahdollistaa seuraavat ominaisuudet:
 \n
+\n
+\n
 \n    - Navigointi majakoille
+\n
+\n
 \n
 \n    - Parannettu ennusteen tarkkuus (ei käytettävissä kaikissa laitteissa)
 \n
+\n
+\n
 \n    - Backtrack
+\n
+\n
 \n
 \n    - Aurinko- ja kuuajat nykyiselle sijaintillesi (auringonlaskuhälytykset voivat vaatia taustasijainnin)
 \n
+\n
+\n
 \n - Jos et anna sijaintilupaa, voit syöttää sijainnin manuaalisesti Trail Sensen Asetukset &gt; Anturit &gt; GPS-kalibrointi -valikosta.
+\n
+\n
 \n
 \n- Kun napsautat Jatka, sinua pyydetään myöntämään sijaintilupa. Tämän luvan epääminen estää Trail Senseä pääsemästä sijaintiisi, joten sijainnin manuaalinen syöttäminen on suositeltavaa."</string>
     <string name="autofill">Automaattinen täyttö</string>

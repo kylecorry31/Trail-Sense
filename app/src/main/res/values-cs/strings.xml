@@ -1186,4 +1186,8 @@
     <string name="tool_turn_back">Vrátit se</string>
     <string name="turn_back_instructions">Pro návrat v %3$s se začněte vracet v %1$s (%2$s)</string>
     <string name="turn_back_alert_set">Upozornění na návrat nastaveno</string>
+    <string name="local_talk">Local Talk</string>
+    <string name="background">Pozadí</string>
+    <string name="local_messaging">Lokální zprávy</string>
+    <string name="communication">Komunikace</string>
 </resources>
