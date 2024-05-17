@@ -18,7 +18,7 @@ Nearby beacons will be shown as arrows around the compass. The arrows will point
 
 If you have the radar compass enabled, the nearby beacons will be shown on the compass itself.
 
-### Radar Compass
+### Radar compass
 
 The radar compass shows nearby beacons, paths, and tides as a map-like radar display. The radar compass is available with nearby beacons enabled. Once nearby beacons are enabled, you can turn on the radar compass using "Settings > Navigation > Show nearby radar compass".
 
@@ -26,17 +26,17 @@ You can pinch to zoom the radar compass, which will change the nearby beacon rad
 
 If your device does not have a compass, you can still choose to display the compass dial ticks by enabling the Settings > Navigation > 'Show dial ticks on nearby radar' option. Please note, that without a compass sensor, moving your device will not change the direction of the radar compass.
 
-### Linear Compass
+### Linear compass
 
 The linear compass is displayed when you hold your phone vertically. You can also use the sighting compass feature with the linear compass by tapping the camera icon on the right side of the screen. This will display the compass overlaid on a camera viewfinder. With the sighting compass active, you can pinch to zoom the camera viewfinder.
 
 You can enable or disable the linear compass under Settings > Navigation > Show linear compass.
 
-### North Reference
+### North reference
 
-By default, it will point to True North, but it can be configured to point to Magnetic North in the compass settings. The North reference is displayed at the bottom of the screen.
+By default, it will point to True North, but it can be configured to point to magnetic north in the compass settings. The north reference is displayed at the bottom of the screen.
 
-### Sun and Moon
+### Sun and moon
 
 The compass shows the direction of the sun and moon, allowing you to navigate using them and verify the accuracy of the compass. You can configure the sun and moon display in Settings > Navigation > Show sun/moon on compass. The options are:
 
@@ -48,7 +48,7 @@ The compass shows the direction of the sun and moon, allowing you to navigate us
 
 Phone compasses are not always accurate, so you should frequently calibrate your compass. You can calibrate your compass by waving your phone in a figure-8 pattern. For more detailed instructions and a visual, click the status icons in the bottom-left of the Navigation tool. This will guide you in calibrating your compass and also show details about location accuracy.
 
-## Beacon Navigation
+## Beacon navigation
 
 You can navigate to a beacon by tapping the navigate button in the bottom-right. This will open the Beacons tool, where you can select a beacon to navigate to. See the Beacons guide for more information.
 
@@ -66,11 +66,11 @@ You can quickly create a beacon from your current location by long-pressing the 
 
 For more information on beacons, see the Beacons guide.
 
-## Bearing Navigation
+## Bearing navigation
 
 You can navigate using a bearing by tapping the compass to set a bearing. The set bearing will be displayed on the compass. You can tap the compass again to clear the bearing.
 
-## Path Navigation
+## Path navigation
 
 If you have the radar compass enabled, you can see nearby paths on the compass. You can't currently navigate along a path, but you can use the compass to see where the path is relative to you. If you have Backtrack running, you can see your current position on the path. For more information, see the Paths guide.
 
@@ -89,7 +89,7 @@ You can long-press the location to quickly bring up the share menu.
 
 ## Elevation
 
-Your elevation is shown at the top-left of the screen. You can tap it to see a history of your elevation. The history is only available if you have Backtrack or Weather Monitor running - see the Paths or Weather guide for details on how to turn this on. You can adjust the length of the history by clicking the "Last 24h" dropdown at the top of the history panel.
+Your elevation is shown at the top-left of the screen. You can tap it to see a history of your elevation. The history is only available if you have Backtrack or the weather monitor running - see the Paths or Weather guide for details on how to turn this on. You can adjust the length of the history by clicking the "Last 24h" dropdown at the top of the history panel.
 
 ## Speed
 

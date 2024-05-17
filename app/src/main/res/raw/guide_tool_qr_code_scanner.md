@@ -1,6 +1,6 @@
 The QR Code Scanner tool can be used to scan QR codes.
 
-## Scanning a QR Code
+## Scanning a QR code
 To scan a QR code, simply point your camera at the code. Once it is recognized, the contents will be displayed on your screen along with some actions you can take.
 
 ### Location
@@ -22,7 +22,7 @@ If the QR code contains text or is an unsupported type, you will have the follow
 - **Copy**: Copy the contents of the QR code to your clipboard.
 - **Delete**: Remove the result from the list.
 
-## Sharing Data with QR Codes
+## Sharing data with QR codes
 Some tools support data sharing via QR codes. To use this feature, follow the instructions in the specific tool's guide to generate the code, and scan it with the QR Code Scanner tool. You can also scan a beacon directly from the Beacon tool.
 
 The tools that support data sharing are:

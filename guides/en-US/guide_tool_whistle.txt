@@ -9,13 +9,13 @@ Tap the SOS button to continuously play the SOS distress signal (3 short, 3 long
 ## Help
 Tap the help button to continuously play the help distress signal (3 long).
 
-## Other Signals
+## Other signals
 Long press the help button to play common signals.
 
 - **Where are you** and **Acknowledged**: 1 long
 - **Come here**: 2 long
 
-## Quick Action
+## Quick action
 You can enable the Whistle quick action in the settings for the tab you want it on.
 
 To use the quick action, tap and hold the whistle quick action button.

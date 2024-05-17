@@ -29,7 +29,7 @@ The reported accuracy of the compass is shown. If it is low, you can click this 
 ### Smoothing
 To reduce noise in compass readings, you can increase the smoothing setting. If using a source that has a gyroscope, a value of 1 is recommended. Otherwise, experiment with increasing this value until the compass appears to be working correctly when you rotate your phone. However, if you increase the smoothing too much, Trail Sense may ignore real compass changes.
 
-### True North
+### True north
 To display true north instead of magnetic north, enable the "True north" setting. This will adjust the compass reading to account for magnetic declination, and it will match most maps.
 
 ### Magnetic declination
@@ -163,7 +163,7 @@ Some tools such as Navigation and Astronomy display error banners at the top of 
 ## Experimental
 Experimental features can be enabled in Settings > Experimental. These features are not ready for general use and may not work as expected.
 
-## Backup / Restore
+## Backup / restore
 When switching to a new device or reinstalling the app, it may be helpful to backup your data and settings. This can be done in Settings > Backup / Restore.
 
 - **Backup**: Creates a backup of your data and settings. This will save as a zip file which is unencrypted and contains location data, so only send it to people you trust.
@@ -182,9 +182,9 @@ Theme related settings can be adjusted in Settings > Theme.
   - **System**: A theme that follows the system settings.
   - **Sunrise/sunset**: A theme that changes between light and dark based on the time of day.
   - **Night**: A theme with a black background and a red filter to help maintain night vision.
-- **Dynamic Colors**: Whether to use your device's dynamic colors in the app, if disabled or unavailable colors in Trail Sense will be a shade of orange.
-- **Compass Dynamic Colors**: Whether to use your device's dynamic colors in the compass (cardinal directions and certain markers on maps).
-- **Compact Mode**: Whether to use a more compact layout for the bottom bar (thinner and does not display labels).
+- **Dynamic colors**: Whether to use your device's dynamic colors in the app, if disabled or unavailable colors in Trail Sense will be a shade of orange.
+- **Compass dynamic colors**: Whether to use your device's dynamic colors in the compass (cardinal directions and certain markers on maps).
+- **Compact mode**: Whether to use a more compact layout for the bottom bar (thinner and does not display labels).
 
 ## About
 You can find additional information about Trail Sense in Settings > About.

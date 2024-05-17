@@ -1,6 +1,6 @@
 The Temperature Estimation tool can be used to estimate the temperature at a different elevation.
 
-# Estimating Temperature
+# Estimating temperature
 To estimate the temperature at another elevation, you need to know your current elevation and the current temperature, as well as the elevation at which you want to estimate the temperature.
 
 To estimate the temperature:

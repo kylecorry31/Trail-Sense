@@ -1,16 +1,16 @@
 The Weather tool can be used to roughly predict the weather.
 
-## Weather Prediction
+## Weather prediction
 The weather prediction appears at the top of your screen. This does not use the Internet and factors in pressure history, historical (30-year average) temperatures, and the clouds from the Clouds tool. It also attempts to estimate when the weather change will occur, displayed beneath the prediction. The accuracy of the time frame depends on if the clouds indicate a weather front; if it's detected, an approximate time will be displayed, otherwise, it's more vague, like "soon" or "later."
 
-If the Weather Monitor is on, it records pressure history automatically. Otherwise, pressure updates only occur when you open the Weather tool. For accuracy, it's best to record pressure every 30 minutes.
+If the weather monitor is on, it records pressure history automatically. Otherwise, pressure updates only occur when you open the Weather tool. For accuracy, it's best to record pressure every 30 minutes.
 
 You can adjust prediction sensitivity in Settings > Weather > Forecast sensitivity. Higher sensitivity may detect more patterns but might yield more false predictions.
 
-## Weather Monitor
-The Weather Monitor runs in the background to record pressure history. Enable it by clicking the start icon at the bottom-right. This causes a notification to appear with the current prediction and an option to stop the Weather Monitor. You can also stop it by clicking the stop icon in the bottom-right.
+## Weather monitor
+The weather monitor runs in the background to record pressure history. Enable it by clicking the start icon at the bottom-right. This causes a notification to appear with the current prediction and an option to stop the weather monitor. You can also stop it by clicking the stop icon in the bottom-right.
 
-To change the recording frequency, click the time under the Weather Monitor label at the bottom left and enter a new interval.
+To change the recording frequency, click the time under the weather monitor label at the bottom left and enter a new interval.
 
 For better accuracy, grant Trail Sense Location permission to determine your elevation via GPS. This helps convert pressure to sea level pressure, improving prediction accuracy.
 
@@ -18,14 +18,14 @@ In Settings > Weather, you can customize the notification to show:
 - **Pressure**: Displays the current pressure.
 - **Temperature**:  Displays the current temperature (refer to Thermometer guide for details).
 
-You can also enable daily weather notifications in Settings > Weather > Daily weather notification. Without the Weather Monitor being active, you won't receive these notifications. The timing of this notification is configurable in Settings > Weather > Daily weather time.
+You can also enable daily weather notifications in Settings > Weather > Daily weather notification. Without the weather monitor being active, you won't receive these notifications. The timing of this notification is configurable in Settings > Weather > Daily weather time.
 
-You can disable Weather Monitor notifications in Android's notification settings for Trail Sense.
+You can disable weather monitor notifications in Android's notification settings for Trail Sense.
 
-## Storm Alert
-If the Weather Monitor is active, Trail Sense can notify you of storms. Enable this in Settings > Weather > Storm Alert. You can adjust the sensitivity in Settings > Weather > Storm sensitivity. Higher sensitivity might trigger false alerts, while lower sensitivity could miss some storms.
+## Storm alert
+If the weather monitor is active, Trail Sense can notify you of storms. Enable this in Settings > Weather > Storm alert. You can adjust the sensitivity in Settings > Weather > Storm sensitivity. Higher sensitivity might trigger false alerts, while lower sensitivity could miss some storms.
 
-## Weather Details
+## Weather details
 The Weather tool also provides more information about the current and predicted weather.
 
 ### Alerts
@@ -47,13 +47,13 @@ If your device has a humidity sensor, the current humidity is displayed. Clickin
 ### Clouds
 The last logged cloud type appears in the weather list. Clicking on it provides a description of the cloud type.
 
-### Weather Front
+### Weather front
 The current weather front is displayed in the weather list. Fronts typically indicate weather changes and are often associated with precipitation and wind. Clicking on it provides a description of the weather front.
 
-## Exporting Weather Data
+## Exporting weather data
 You can export the recorded weather data to a CSV file with Settings > Weather > Export weather records.
 
-## Quick Action
+## Quick action
 You can enable the Weather Monitor quick action in the settings for the tab you want it on.
 
 To use the quick action, tap the Weather Monitor quick action button to toggle it on or off.
