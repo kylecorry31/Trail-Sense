@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.camera.view.PreviewView
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.torch.ScreenTorch
 import com.kylecorry.trail_sense.databinding.FragmentToolMirrorCameraBinding
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
@@ -14,7 +15,8 @@ import com.kylecorry.trail_sense.shared.permissions.requestCamera
 
 class ToolMirrorCameraFragment : BoundFragment<FragmentToolMirrorCameraBinding>() {
     private val flashlight by lazy { ScreenTorch(requireActivity().window) }
-    private var isCameraEnabled = true
+    private var isCameraEnabled by state(false)
+    private var wasPermissionRequested by state(false)
 
     override fun generateBinding(
         layoutInflater: LayoutInflater, container: ViewGroup?
@@ -31,7 +33,7 @@ class ToolMirrorCameraFragment : BoundFragment<FragmentToolMirrorCameraBinding>(
 
     override fun onResume() {
         super.onResume()
-        startCamera()
+        isCameraEnabled = Permissions.isCameraEnabled(requireContext())
         flashlight.on()
     }
 
@@ -42,24 +44,37 @@ class ToolMirrorCameraFragment : BoundFragment<FragmentToolMirrorCameraBinding>(
     }
 
     private fun startCamera() {
-        if (!isCameraEnabled){
-            return
-        }
-        requestCamera {
-            if (it) {
-                binding.camera.start(
-                    readFrames = false,
-                    preferBackCamera = false,
-                    shouldStabilizePreview = false
-                )
-            } else {
-                isCameraEnabled = false
-                alertNoCameraPermission()
-            }
-        }
+        binding.camera.start(
+            readFrames = false,
+            preferBackCamera = false,
+            shouldStabilizePreview = false
+        )
     }
 
     private fun stopCamera() {
         binding.camera.stop()
+    }
+
+    override fun onUpdate() {
+        super.onUpdate()
+        effect("camera_permission", wasPermissionRequested, lifecycleHookTrigger.onResume()) {
+            if (!wasPermissionRequested) {
+                wasPermissionRequested = true
+                requestCamera {
+                    isCameraEnabled = it
+                    if (!it) {
+                        alertNoCameraPermission()
+                    }
+                }
+            }
+        }
+
+        effect("camera", isCameraEnabled, lifecycleHookTrigger.onResume()) {
+            if (isCameraEnabled) {
+                startCamera()
+            } else {
+                stopCamera()
+            }
+        }
     }
 }
