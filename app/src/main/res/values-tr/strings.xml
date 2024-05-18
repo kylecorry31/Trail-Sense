@@ -66,7 +66,7 @@
 \n
 \n- Trail Sense, asla internet iznine ihtiyaç duymaz.
 \n
-\n- [Gizlilik İlkesi](https://kylecorry.com/Trail-Sense/privacy_policy.html)\'ni telefonunuzda görüntüleyin.
+\n- [Gizlilik ilkesi](https://kylecorry.com/Trail-Sense/privacy_policy.html)\'ni telefonunuzda görüntüleyin.
 \n
 \n- Trail Sense\'in bazı özellikleri konum izninize ihtiyaç duyar.
 \n
@@ -109,7 +109,7 @@
     <string name="backtrack_disabled_low_power_toast">Geri iz sürme özelliği güç tasarruf modunda devre dışı bırakıldı</string>
     <string name="dialog_leave">Terk et</string>
     <string name="unsaved_changes_message">Yaptığınız değişiklikler kaydedilmeyecek.</string>
-    <string name="unsaved_changes">Kaydedilmeyen Değişiklikler</string>
+    <string name="unsaved_changes">Kaydedilmeyen değişiklikler</string>
     <string name="charging_wireless">Şarj ediliyor (%s)</string>
     <string name="battery_power_ac">AC</string>
     <string name="pref_backtrack_frequency_title">Geri iz sürme aralığı</string>
@@ -149,11 +149,11 @@
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="clock_sync_time_settings">Zaman ayarlarını açmak istiyor musunuz\?</string>
     <string name="clock_sync_instructions">Bildirim gelince zamanı %s\'a ayarla</string>
-    <string name="notification_channel_clock_sync">Saat Senkronizazyonu</string>
-    <string name="clock_sync_notification">Saat Senkronizazyonu - %s</string>
+    <string name="notification_channel_clock_sync">Saat senkronizazyonu</string>
+    <string name="clock_sync_notification">Saat senkronizazyonu - %s</string>
     <string name="notification_channel_clock_sync_description">Saatinizi GPS zamanına senkronize etmek için bildirim</string>
     <string name="pip_notification_scheduled">Bildirimler %s için planlandı</string>
-    <string name="pip_button">Sistem Zamanını Güncelle</string>
+    <string name="pip_button">Sistem zamanını güncelle</string>
     <string name="could_not_triangulate">Üçgenleme başarısız</string>
     <string name="tool_triangulate_title">Konumu üçgenleme yöntemiyle belirle</string>
     <string name="tool_category_signaling">Sinyalleşme</string>
@@ -187,7 +187,7 @@
     <string name="distance_from">Buradan</string>
     <string name="delete_tide_prompt">Gelgiti sil\?</string>
     <string name="toast_destination_bearing_set">Hedef kerterizi belirlendi</string>
-    <string name="weather_monitor">Hava Durumu Monitörü</string>
+    <string name="weather_monitor">Hava durumu izleyici</string>
     <string name="whistle_signal_come_here">Buraya gel</string>
     <string name="whistle_signal_acknowledged">Anlaşıldı/alındı</string>
     <string name="whistle_signal_where_are_you">Neredesin\?</string>
@@ -340,9 +340,9 @@
     <string name="pref_use_24_hour_title">24 saatlik zaman biçimini kullan</string>
     <string name="pressure">Basınç</string>
     <string name="feet_miles">Feet / mil</string>
-    <string name="create_item_title">Öge Oluştur</string>
+    <string name="create_item_title">Öge oluştur</string>
     <string name="general">Genel</string>
-    <string name="edit_item_title">Öge Düzenle</string>
+    <string name="edit_item_title">Öge düzenle</string>
     <string name="dialog_item_amount">Miktar</string>
     <string name="category">Kategori</string>
     <string name="edit">Düzenle</string>
@@ -439,7 +439,7 @@
     <string name="precise_nautical_miles_format">%s nm</string>
     <string name="precise_miles_format">%s mi</string>
     <string name="precise_feet_format">%s ft</string>
-    <string name="app_disclaimer_message_title">Sorumluluk reddi / Hizmet kullanım şartları</string>
+    <string name="app_disclaimer_message_title">Sorumluluk reddi / hizmet kullanım şartları</string>
     <string name="disclaimer_message_title">Sorumluluk reddi</string>
     <string name="access_background_location">Konum bilgisini güncelle</string>
     <string name="copied_to_clipboard_toast">Panoya kopyalandı</string>
@@ -453,7 +453,7 @@
     <string name="network_4g">4G</string>
     <string name="network_5g">5G</string>
     <string name="time_ago">%s önce</string>
-    <string name="privacy_and_location">Gizlilik ve Konum</string>
+    <string name="privacy_and_location">Gizlilik ve konum</string>
     <string name="pref_require_satellites_description">En az 4 uydu gerektirir, doğruluğu arttırır</string>
     <string name="pref_require_satellites_title">Uydu düzeltmesi gerektir</string>
     <string name="clouds">Bulutlar</string>
@@ -588,7 +588,7 @@
 \n
 \n### Çözünürlük
 \n%4$s</string>
-    <string name="gps_unavailable_resolution">Konumu etkinleştirin veya konum kaynağınızı Yalnızca Aygıt ya da Yüksek Doğruluk olarak değiştirin</string>
+    <string name="gps_unavailable_resolution">Konumu etkinleştirin veya konum kaynağınızı \'Yalnızca Aygıt\' veya \'Yüksek Doğruluk\' olarak değiştirin</string>
     <string name="power_saving_mode_resolution">Güç tasarrufu modunu devre dışı bırak</string>
     <string name="location_override_not_set_resolution">Ayarlarda konumu geçersiz kılmayı ayarla</string>
     <string name="location_override_resolution">Ayarlarda konumu otomatik ayarlamayı etkinleştir.</string>
@@ -607,7 +607,7 @@
     <string name="diagnostics">Tanılama</string>
     <string name="no_permission">İzin verilmedi</string>
     <string name="camera">Kamera</string>
-    <string name="quarter_moon">Çeyrek Ay</string>
+    <string name="quarter_moon">Çeyrek ay</string>
     <string name="gps_signal_lost">GPS sinyali kayboldu</string>
     <string name="elevation_history_length">Rakım geçmişi uzunluğu</string>
     <string name="last_duration">Son %s</string>
@@ -1131,8 +1131,8 @@
     <string name="pref_tiles_enabled_battery_log_summary">Pilin bitmesine kadar geçecek süreyi tahmin etmek için her saat pil yüzdesini kaydeder</string>
     <string name="pref_tiles_battery_log">Pil günlüğü</string>
     <string name="pref_dialog_battery_log_summary">Pil günlüğü devre dışı, geçmiş ve ne kadar sürede biteceği özellikleri kullanılamayabilir. Bunu ayarlardan yeniden etkinleştirebilirsiniz</string>
-    <string name="projection_estimated_intrinsics">Tahmini İçseller</string>
-    <string name="projection_manufacturer_intrinsics">Üretici İçselleri</string>
+    <string name="projection_estimated_intrinsics">Tahmini içseller</string>
+    <string name="projection_manufacturer_intrinsics">Üretici içselleri</string>
     <string name="projection_perspective">Bakış Açısı</string>
     <string name="projection_linear">Doğrusal</string>
     <string name="default_string">Öntanımlı</string>
