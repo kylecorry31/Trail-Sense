@@ -907,7 +907,7 @@
         <item quantity="one">נתיב אחד</item>
         <item quantity="two">שני נתיבים</item>
         <item quantity="many">%d נתיבים</item>
-        <item quantity="other"/>
+        <item quantity="other" />
     </plurals>
     <string name="coordinate_format_osgb">OSGB</string>
     <string name="delete_path_group_message">%s וכל נתיביו יימחקו.</string>
@@ -1032,7 +1032,7 @@
         <item quantity="one">מפה אחת</item>
         <item quantity="two">%d מפות</item>
         <item quantity="many">%d מפות</item>
-        <item quantity="other"/>
+        <item quantity="other" />
     </plurals>
     <string name="calibrate_map_point">כיול עם מיקומים ידועים (%1$d / %2$d)</string>
     <string name="descent">מוצא</string>
