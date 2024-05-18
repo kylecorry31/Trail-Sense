@@ -14,6 +14,7 @@ import com.kylecorry.trail_sense.shared.permissions.requestCamera
 
 class ToolMirrorCameraFragment : BoundFragment<FragmentToolMirrorCameraBinding>() {
     private val flashlight by lazy { ScreenTorch(requireActivity().window) }
+    private var isCameraEnabled = true
 
     override fun generateBinding(
         layoutInflater: LayoutInflater, container: ViewGroup?
@@ -41,6 +42,9 @@ class ToolMirrorCameraFragment : BoundFragment<FragmentToolMirrorCameraBinding>(
     }
 
     private fun startCamera() {
+        if (!isCameraEnabled){
+            return
+        }
         requestCamera {
             if (it) {
                 binding.camera.start(
@@ -49,6 +53,7 @@ class ToolMirrorCameraFragment : BoundFragment<FragmentToolMirrorCameraBinding>(
                     shouldStabilizePreview = false
                 )
             } else {
+                isCameraEnabled = false
                 alertNoCameraPermission()
             }
         }
