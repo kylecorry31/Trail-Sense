@@ -16,7 +16,7 @@
     <string name="pref_elevation_override_sea_level_dialog_title">輸入海平面氣壓</string>
     <string name="request_permission">請求權限</string>
     <string name="pref_auto_location_title">自動調整位置</string>
-    <string name="compass_accuracy_improved">指南針精確度已改善至 %s</string>
+    <string name="compass_accuracy_improved">指南針準確度已改善至 %s</string>
     <string name="calibrate_compass_dialog_title">校正指南針</string>
     <string name="calibrate">校正</string>
     <string name="true_north">實際北方</string>
@@ -32,7 +32,7 @@
     <string name="theme_dark">深色</string>
     <string name="theme_light">淺色</string>
     <string name="pref_theme_title">主題</string>
-    <string name="pref_use_24_hour_title">使用 24 小時制</string>
+    <string name="pref_use_24_hour_title">使用 24 小時格式</string>
     <string name="pressure">氣壓</string>
     <string name="feet_miles">英尺／英里</string>
     <string name="edit_item_title">編輯物品</string>
@@ -72,7 +72,7 @@
     <string name="beacon_comment">備註（選填）</string>
     <string name="maps">地圖</string>
     <string name="sos">SOS</string>
-    <string name="tap_to_turn_off">輕觸以關閉</string>
+    <string name="tap_to_turn_off">點擊以關閉</string>
     <string name="accuracy_distance_format">± %s</string>
     <string name="unknown">未知</string>
     <string name="dash">-</string>
@@ -105,10 +105,10 @@
     <string name="precise_nautical_miles_format">%s 海里</string>
     <string name="precise_miles_format">%s 英里</string>
     <string name="precise_feet_format">%s 英尺</string>
-    <string name="access_background_location">更新地點設定</string>
+    <string name="access_background_location">更新位置設定</string>
     <string name="copied_to_clipboard_toast">已複製至剪貼簿</string>
     <string name="tools">工具</string>
-    <string name="astronomy">天體</string>
+    <string name="astronomy">天文</string>
     <string name="settings">設定</string>
     <string name="weather">天氣</string>
     <string name="notification_channel_clock_sync">時鐘同步</string>
@@ -129,7 +129,7 @@
     <string name="update_120_minutes">2 小時</string>
     <string name="sun_actual">實際</string>
     <string name="pref_elevation_override_title">海拔覆寫</string>
-    <string name="map_fractional_separator">：</string>
+    <string name="map_fractional_separator">:</string>
     <string name="unit_inches">英寸</string>
     <string name="unit_centimeters">公分</string>
     <string name="contents">內容</string>
@@ -200,7 +200,7 @@
     <string name="tool_lightning_title">閃電雷聲測距</string>
     <string name="pref_sensor_details_title">感測器細節</string>
     <string name="start">開始</string>
-    <string name="navigation_nearby_category">附近</string>
+    <string name="navigation_nearby_category">鄰近</string>
     <string name="tap_sun_moon_hint">點擊太陽或月亮以取得詳細位置</string>
     <string name="error_occurred_message">Trail Sense 遇到錯誤。請向開發人員發送電子郵件以解決此問題。</string>
     <string name="error_occurred">發生錯誤</string>
@@ -308,8 +308,8 @@
     </plurals>
     <string name="gps_satellites">GPS 衛星</string>
     <string name="gps_accuracy_tip">請確定你能夠一覽無遺地看到天空，並且遠離高大的建築物和樹木。</string>
-    <string name="gps_location_accuracy">GPS 定位精確度</string>
-    <string name="gps_elevation_accuracy">GPS 海拔精確度</string>
+    <string name="gps_location_accuracy">GPS 定位準確度</string>
+    <string name="gps_elevation_accuracy">GPS 海拔準確度</string>
     <string name="temp_c_short">°C</string>
     <string name="tool_clinometer_summary">估計雪崩風險和物體的高度</string>
     <string name="pref_include_leading_zero_title">若時間數字不足兩位則補 0</string>
@@ -1030,7 +1030,7 @@
     <string name="weather_monitoring_disabled">天氣監測已停用</string>
     <string name="precipitation_snow_pellets">霰</string>
     <string name="precipitation_ice_pellets">冰珠</string>
-    <string name="weather_monitor_disabled_resolution">從天氣設定中啟用監控天氣</string>
+    <string name="weather_monitor_disabled_resolution">從天氣設定中啟用監視天氣</string>
     <string name="percent_packed">%s 已打包</string>
     <string name="compass_dynamic_colors">指南針動態顏色</string>
     <string name="service_restart">服務重新啟動</string>
@@ -1050,4 +1050,55 @@
     <string name="dynamic_colors">動態顏色</string>
     <string name="projection_type">擴增實境投影</string>
     <string name="feature_unavailable">%s 無法使用</string>
+    <string name="distance_away_from_self">距離 %s</string>
+    <string name="location_number">位置 %d</string>
+    <string name="why_missing_sensor">我的裝置是新的／昂貴的，為什麼缺少這個感測器？</string>
+    <string name="augmented_reality_no_gyro_message">你仍然可以使用「擴增實境」工具，但它不會那麼準確。</string>
+    <string name="tide_semidiurnal">半日潮</string>
+    <string name="communication">通訊</string>
+    <string name="slope_amount">%s 坡度</string>
+    <string name="change_resolution">變更解析度</string>
+    <string name="restore_disclaimer">此操作將會覆寫你目前的所有資料。在繼續之前請確保你有備份。
+\n
+\n只選擇你使用 %s 建立並信任的備份檔案。</string>
+    <string name="triangulate_destination_location_1_instructions">記錄你的位置和到達目的地的方向。</string>
+    <string name="triangulate_self_location_2_instructions">選擇另一個你可以看到的已知位置並記錄從你所在位置到該位置的方向。</string>
+    <string name="direction_not_set">方位未設定</string>
+    <string name="pref_keep_map_facing_up_summary">地圖將與螢幕頂部對齊，而不是與實際北方對齊。</string>
+    <string name="rate">發生頻率</string>
+    <string name="tool_long_press_hint_toast">長按工具以查看更多選項</string>
+    <string name="settings_have_moved_message">應用程式設定已移至「工具」分頁</string>
+    <string name="true_north_description">使用你所在位置的赤緯指向地理北極。這將與大多數地圖保持一致。</string>
+    <string name="ar_calibration_disclaimer">每次使用「擴增實境」工具之前，請先驗證太陽或月亮圖示是否與現實世界正確對齊。如果沒有，請按一下螢幕左上角的指南針圖示，然後按照說明進行校正。</string>
+    <string name="ar_calibration_instructions_hint">若要校正「擴增實境」工具，請點擊螢幕左上角的圖示，然後按照顯示的說明進行操作。</string>
+    <string name="show_dial_ticks_on_nearby_radar">在鄰近雷達上顯示撥號刻度</string>
+    <string name="missing_sensor_explanation">一些手機製造商選擇不添加此感測器，即使在新的或昂貴的裝置上也是如此。你可以透過瀏覽裝置製造商網站或與他們聯繫來獲取更多資訊。</string>
+    <string name="direction">方位</string>
+    <string name="restore_failure_newer_version">此備份是使用較新版本的 %s 建立的。請更新應用程式並重試。</string>
+    <string name="sunset_alert_scheduled">警報已安排在日落之前 %s 發出</string>
+    <string name="allow_schedule_exact_alarms_instructions">這允許 %1$s 設定準確的鬧鐘和提醒，例如日落警報。否則，警報可能無法在正確的時間觸發。
+\n
+\n若要允許，請按「%2$s」並啟用允許鬧鐘和提醒的設定。</string>
+    <string name="pref_backfill_temperatures_title">更新已記錄的溫度</string>
+    <string name="reduce_map_resolution_crop_disclaimer">裁切地圖會降低解析度。如果你需要以高解析度裁切地圖，請使用照片編輯器應用程式。未來有計劃解決這個問題。</string>
+    <string name="backtrack_no_permission">足跡回溯需要位置權限才能運行</string>
+    <string name="projection_manufacturer_intrinsics">製造商內參矩陣</string>
+    <string name="no_sensor_unable_to_fix">沒有，不幸的是，這是一個硬體功能，因此無法添加它。</string>
+    <string name="is_there_a_way_to_fix_this">有沒有辦法解決這個問題？</string>
+    <string name="missing_sensor_message_1">你的 %1$s 沒有內建 %2$s 感測器。不幸的是，這意味著 %3$s 中的某些功能將會無法使用。</string>
+    <string name="settings_have_moved">設定已移動</string>
+    <string name="distance_away_from_destination">距離目的地 %s</string>
+    <string name="triangulate_self_location_1_instructions">選擇你可以看到的已知位置並記錄從你所在位置到該位置的方向。</string>
+    <string name="triangulate_destination_location_2_instructions">從第一個位置移動至少 %s，並再次記錄你的位置和到達目的地的方向。</string>
+    <string name="magnetic_north">地磁北極</string>
+    <string name="photo_map_disclaimer">總是攜帶實體地圖作為備用並驗證 Trail Sense 的準確度。</string>
+    <string name="daylight_duration">%s 日光</string>
+    <string name="zero_shutter_lag">零快門延遲</string>
+    <string name="magnetometer_gyro_custom">磁強計 + 陀螺儀（自訂）</string>
+    <string name="ar_calibration_instructions">將 %s 置於螢幕中央並按「校正」</string>
+    <string name="use_gyroscope_after_calibration_description">而不是指南針（避免磁偏移）</string>
+    <string name="projection_estimated_intrinsics">估計內參矩陣</string>
+    <string name="turn_back_notification_description">立即折返並於 %s 返回</string>
+    <string name="turn_back_instructions">於 %1$s（%2$s）折返並於 %3$s 返回</string>
+    <string name="return_time">返回時間</string>
 </resources>
