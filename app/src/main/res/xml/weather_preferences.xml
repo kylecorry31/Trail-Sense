@@ -6,7 +6,7 @@
         app:iconSpaceReserved="false"
         app:singleLineTitle="false">
         <ListPreference
-            app:defaultValue="2"
+            app:defaultValue="1023"
             app:iconSpaceReserved="false"
             app:key="@string/pref_weather_quick_action_left"
             app:singleLineTitle="false"
@@ -14,7 +14,7 @@
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
-            app:defaultValue="3"
+            app:defaultValue="1022"
             app:iconSpaceReserved="false"
             app:key="@string/pref_weather_quick_action_right"
             app:singleLineTitle="false"
