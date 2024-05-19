@@ -19,11 +19,12 @@ class QuickActionOpenTool(
 
     override fun onCreate() {
         super.onCreate()
-        button.setImageResource(icon)
-        CustomUiUtils.setButtonState(button, false)
-        button.setOnClickListener {
-            fragment.findNavController().navigateWithAnimation(navId)
-        }
+        setIcon(icon)
+    }
+
+    override fun onClick() {
+        super.onClick()
+        fragment.findNavController().navigateWithAnimation(navId)
     }
 
 }

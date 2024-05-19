@@ -34,7 +34,7 @@ abstract class TopicQuickAction(
 
     private fun onStateChange(state: FeatureState): Boolean {
         button.isVisible = !hideWhenUnavailable || state != FeatureState.Unavailable
-        CustomUiUtils.setButtonState(button, state == FeatureState.On)
+        setState(state == FeatureState.On)
         return true
     }
 

@@ -7,7 +7,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.isMetric
@@ -49,27 +48,29 @@ class QuickActionRuler(
         val root = fragment.requireActivity().findViewById(R.id.coordinator) as? CoordinatorLayout
         root?.addView(ruler)
 
-        button.setImageResource(R.drawable.ruler)
+        setIcon(R.drawable.ruler)
         ruler.metric = prefs.baseDistanceUnits.isMetric()
         ruler.setOnTouchListener {
-            CustomUiUtils.setButtonState(button, false)
+            setState(false)
             ruler.isVisible = false
         }
-        button.setOnClickListener {
-            if (ruler.isVisible) {
-                CustomUiUtils.setButtonState(button, false)
-                ruler.isVisible = false
-            } else {
-                CustomUiUtils.setButtonState(button, true)
-                ruler.isVisible = true
-            }
+    }
+
+    override fun onClick() {
+        super.onClick()
+        if (ruler?.isVisible == true) {
+            setState(false)
+            ruler?.isVisible = false
+        } else {
+            setState(true)
+            ruler?.isVisible = true
         }
     }
 
     override fun onPause() {
         super.onPause()
         if (ruler?.isVisible == true) {
-            CustomUiUtils.setButtonState(button, false)
+            setState(false)
             ruler?.isVisible = false
         }
     }

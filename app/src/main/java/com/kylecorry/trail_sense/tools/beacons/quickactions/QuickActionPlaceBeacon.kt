@@ -26,67 +26,68 @@ class QuickActionPlaceBeacon(btn: ImageButton, fragment: Fragment) :
 
     override fun onCreate() {
         super.onCreate()
-        button.setImageResource(R.drawable.ic_location)
-        CustomUiUtils.setButtonState(button, false)
+        setIcon(R.drawable.ic_location)
+    }
 
-        button.setOnLongClickListener {
-            fragment.findNavController().navigateWithAnimation(R.id.beacon_list)
-            true
-        }
+    override fun onClick() {
+        super.onClick()
+        fragment.inBackground {
 
-        button.setOnClickListener {
-            fragment.inBackground {
+            var wasSuccessful = false
+            var id = 0L
+            val job = launch {
+                val sensors = SensorService(fragment.requireContext())
+                val gps = sensors.getGPS()
+                val altimeter = sensors.getAltimeter(gps = gps)
+                readAll(listOf(gps, altimeter))
 
-                var wasSuccessful = false
-                var id = 0L
-                val job = launch {
-                    val sensors = SensorService(fragment.requireContext())
-                    val gps = sensors.getGPS()
-                    val altimeter = sensors.getAltimeter(gps = gps)
-                    readAll(listOf(gps, altimeter))
+                // Create a beacon
+                val formatter = FormatService.getInstance(fragment.requireContext())
+                val time = formatter.formatDateTime(ZonedDateTime.now())
 
-                    // Create a beacon
-                    val formatter = FormatService.getInstance(fragment.requireContext())
-                    val time = formatter.formatDateTime(ZonedDateTime.now())
-
-                    val beaconService = BeaconService(fragment.requireContext())
-                    id = beaconService.add(
-                        Beacon(
-                            0,
-                            time,
-                            gps.location,
-                            elevation = altimeter.altitude,
-                            color = AppColor.Orange.color,
-                        )
+                val beaconService = BeaconService(fragment.requireContext())
+                id = beaconService.add(
+                    Beacon(
+                        0,
+                        time,
+                        gps.location,
+                        elevation = altimeter.altitude,
+                        color = AppColor.Orange.color,
                     )
+                )
 
-                    wasSuccessful = true
-                }
+                wasSuccessful = true
+            }
 
 
-                Alerts.withCancelableLoading(fragment.requireContext(),
-                    context.getString(R.string.creating_beacon),
-                    onCancel = { job.cancel() }) {
-                    job.join()
-                    if (wasSuccessful) {
-                        CustomUiUtils.snackbar(
-                            fragment,
-                            fragment.getString(R.string.beacon_created),
-                            duration = Snackbar.LENGTH_LONG,
-                            action = fragment.getString(R.string.view)
-                        ) {
-                            fragment.findNavController().navigateWithAnimation(
-                                R.id.beaconDetailsFragment,
-                                bundleOf(
-                                    "beacon_id" to id
-                                )
+            Alerts.withCancelableLoading(fragment.requireContext(),
+                context.getString(R.string.creating_beacon),
+                onCancel = { job.cancel() }) {
+                job.join()
+                if (wasSuccessful) {
+                    CustomUiUtils.snackbar(
+                        fragment,
+                        fragment.getString(R.string.beacon_created),
+                        duration = Snackbar.LENGTH_LONG,
+                        action = fragment.getString(R.string.view)
+                    ) {
+                        fragment.findNavController().navigateWithAnimation(
+                            R.id.beaconDetailsFragment,
+                            bundleOf(
+                                "beacon_id" to id
                             )
-                        }
+                        )
                     }
                 }
-
             }
+
         }
+    }
+
+    override fun onLongClick(): Boolean {
+        super.onLongClick()
+        fragment.findNavController().navigateWithAnimation(R.id.beacon_list)
+        return true
     }
 
 }

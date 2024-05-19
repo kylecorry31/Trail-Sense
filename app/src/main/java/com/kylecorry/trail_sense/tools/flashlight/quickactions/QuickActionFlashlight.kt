@@ -18,10 +18,12 @@ class QuickActionFlashlight(btn: ImageButton, fragment: Fragment) :
 
     override fun onCreate() {
         super.onCreate()
-        button.setImageResource(R.drawable.flashlight)
-        button.setOnClickListener {
-            flashlight.toggle()
-        }
+        setIcon(R.drawable.flashlight)
+    }
+
+    override fun onClick() {
+        super.onClick()
+        flashlight.toggle()
     }
 
     override val state: ITopic<FeatureState> = flashlight.mode.map {

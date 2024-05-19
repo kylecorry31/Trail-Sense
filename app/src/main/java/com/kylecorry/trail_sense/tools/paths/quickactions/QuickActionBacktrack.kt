@@ -22,28 +22,31 @@ class QuickActionBacktrack(btn: ImageButton, private val andromedaFragment: Andr
 
     override fun onCreate() {
         super.onCreate()
-        button.setImageResource(R.drawable.ic_tool_backtrack)
-        button.setOnClickListener {
-            when (backtrack.getState()) {
-                FeatureState.On -> backtrack.disable()
-                FeatureState.Off -> {
-                    andromedaFragment.requestBacktrackPermission { success ->
-                        if (success) {
-                            andromedaFragment.inBackground {
-                                backtrack.enable(true)
-                                RequestRemoveBatteryRestrictionCommand(andromedaFragment).execute()
-                            }
+        setIcon(R.drawable.ic_tool_backtrack)
+    }
+
+    override fun onLongClick(): Boolean {
+        super.onLongClick()
+        fragment.findNavController().navigateWithAnimation(R.id.fragmentBacktrack)
+        return true
+    }
+
+    override fun onClick() {
+        super.onClick()
+        when (backtrack.getState()) {
+            FeatureState.On -> backtrack.disable()
+            FeatureState.Off -> {
+                andromedaFragment.requestBacktrackPermission { success ->
+                    if (success) {
+                        andromedaFragment.inBackground {
+                            backtrack.enable(true)
+                            RequestRemoveBatteryRestrictionCommand(andromedaFragment).execute()
                         }
                     }
                 }
-
-                FeatureState.Unavailable -> fragment.toast(context.getString(R.string.backtrack_disabled_low_power_toast))
             }
-        }
 
-        button.setOnLongClickListener {
-            fragment.findNavController().navigateWithAnimation(R.id.fragmentBacktrack)
-            true
+            FeatureState.Unavailable -> fragment.toast(context.getString(R.string.backtrack_disabled_low_power_toast))
         }
     }
 

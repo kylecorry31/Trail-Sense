@@ -14,28 +14,35 @@ import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrict
 import com.kylecorry.trail_sense.shared.quickactions.TopicQuickAction
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 
-class QuickActionWeatherMonitor(btn: ImageButton, private val andromedaFragment: AndromedaFragment) :
+class QuickActionWeatherMonitor(
+    btn: ImageButton,
+    private val andromedaFragment: AndromedaFragment
+) :
     TopicQuickAction(btn, andromedaFragment, hideWhenUnavailable = false) {
 
     private val weather = WeatherSubsystem.getInstance(context)
 
     override fun onCreate() {
         super.onCreate()
-        button.setImageResource(R.drawable.ic_weather)
-        button.setOnClickListener {
-            when (weather.weatherMonitorState.getOrNull()) {
-                FeatureState.On -> weather.disableMonitor()
-                FeatureState.Off -> {
-                    weather.enableMonitor()
-                    RequestRemoveBatteryRestrictionCommand(andromedaFragment).execute()
-                }
-                else -> fragment.toast(context.getString(R.string.weather_monitoring_disabled))
-            }
-        }
+        setIcon(R.drawable.ic_weather)
+    }
 
-        button.setOnLongClickListener {
-            fragment.findNavController().navigateWithAnimation(R.id.action_weather)
-            true
+    override fun onLongClick(): Boolean {
+        super.onLongClick()
+        fragment.findNavController().navigateWithAnimation(R.id.action_weather)
+        return true
+    }
+
+    override fun onClick() {
+        super.onClick()
+        when (weather.weatherMonitorState.getOrNull()) {
+            FeatureState.On -> weather.disableMonitor()
+            FeatureState.Off -> {
+                weather.enableMonitor()
+                RequestRemoveBatteryRestrictionCommand(andromedaFragment).execute()
+            }
+
+            else -> fragment.toast(context.getString(R.string.weather_monitoring_disabled))
         }
     }
 

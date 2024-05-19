@@ -2,17 +2,27 @@ package com.kylecorry.trail_sense.shared
 
 import android.content.Context
 import android.widget.ImageButton
+import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
+import com.kylecorry.andromeda.core.tryOrNothing
+import com.kylecorry.luna.timer.CoroutineTimer
 
 abstract class QuickActionButton(
     protected val button: ImageButton,
     protected val fragment: Fragment
 ) {
     protected val context: Context by lazy { fragment.requireContext() }
+    private var wasStateSet = false
+
+    private val closeTimer = CoroutineTimer {
+        tryOrNothing {
+            fragment.requireMainActivity().dismissQuickActions()
+        }
+    }
 
     private val observer = LifecycleEventObserver { _, event ->
         when (event) {
@@ -36,6 +46,15 @@ abstract class QuickActionButton(
 
     open fun onCreate() {
         button.isVisible = true
+        button.setOnClickListener {
+            onClick()
+            closeQuickActionSheet()
+        }
+        button.setOnLongClickListener {
+            val result = onLongClick()
+            closeQuickActionSheet()
+            result
+        }
     }
 
     open fun onResume() {
@@ -48,5 +67,29 @@ abstract class QuickActionButton(
 
     open fun onDestroy() {
         // Do nothing
+    }
+
+    open fun onClick() {
+        // Do nothing
+    }
+
+    open fun onLongClick(): Boolean {
+        return false
+    }
+
+    protected fun setIcon(@DrawableRes icon: Int) {
+        button.setImageResource(icon)
+        if (!wasStateSet) {
+            setState(false)
+        }
+    }
+
+    protected fun setState(enabled: Boolean) {
+        CustomUiUtils.setButtonState(button, enabled)
+        wasStateSet = true
+    }
+
+    private fun closeQuickActionSheet() {
+        closeTimer.once(200)
     }
 }

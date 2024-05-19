@@ -10,7 +10,6 @@ import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.sound.ISoundPlayer
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.tools.whistle.infrastructure.Whistle
 
@@ -37,15 +36,14 @@ class QuickActionWhistle(btn: ImageButton, fragment: Fragment) :
             }
         }
 
-        button.setImageResource(R.drawable.ic_tool_whistle)
-        CustomUiUtils.setButtonState(button, false)
+        setIcon(R.drawable.ic_tool_whistle)
         button.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 whistle?.on()
-                CustomUiUtils.setButtonState(button, true)
+                setState(true)
             } else if (event.action == MotionEvent.ACTION_UP) {
                 whistle?.off()
-                CustomUiUtils.setButtonState(button, false)
+                setState(false)
             }
             true
         }
@@ -53,7 +51,7 @@ class QuickActionWhistle(btn: ImageButton, fragment: Fragment) :
 
     override fun onResume() {
         super.onResume()
-        CustomUiUtils.setButtonState(button, false)
+        setState(false)
     }
 
     override fun onPause() {

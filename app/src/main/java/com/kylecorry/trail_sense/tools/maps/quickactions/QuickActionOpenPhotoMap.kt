@@ -8,7 +8,6 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.sense.readAll
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -24,44 +23,43 @@ class QuickActionOpenPhotoMap(button: ImageButton, fragment: Fragment) : QuickAc
 
     override fun onCreate() {
         super.onCreate()
+        setIcon(R.drawable.maps)
+    }
 
-        button.setImageResource(R.drawable.maps)
-        CustomUiUtils.setButtonState(button, false)
+    override fun onLongClick(): Boolean {
+        super.onLongClick()
+        fragment.findNavController().navigate(R.id.mapListFragment)
+        return true
+    }
 
-        button.setOnClickListener {
-            fragment.inBackground {
-                var wasSuccessful = false
-                var id = 0L
-                val job = launch {
-                    id = getActiveMap()?.id ?: 0
-                    wasSuccessful = true
-                }
+    override fun onClick() {
+        super.onClick()
+        fragment.inBackground {
+            var wasSuccessful = false
+            var id = 0L
+            val job = launch {
+                id = getActiveMap()?.id ?: 0
+                wasSuccessful = true
+            }
 
 
-                Alerts.withCancelableLoading(fragment.requireContext(),
-                    context.getString(R.string.loading),
-                    onCancel = { job.cancel() }) {
-                    job.join()
-                    if (wasSuccessful) {
-                        if (id != 0L) {
-                            fragment.findNavController()
-                                .navigate(
-                                    R.id.mapsFragment,
-                                    bundleOf("mapId" to id, "autoLockLocation" to true)
-                                )
-                        } else {
-                            fragment.findNavController().navigate(R.id.mapListFragment)
-                        }
+            Alerts.withCancelableLoading(fragment.requireContext(),
+                context.getString(R.string.loading),
+                onCancel = { job.cancel() }) {
+                job.join()
+                if (wasSuccessful) {
+                    if (id != 0L) {
+                        fragment.findNavController()
+                            .navigate(
+                                R.id.mapsFragment,
+                                bundleOf("mapId" to id, "autoLockLocation" to true)
+                            )
+                    } else {
+                        fragment.findNavController().navigate(R.id.mapListFragment)
                     }
                 }
             }
         }
-
-        button.setOnLongClickListener {
-            fragment.findNavController().navigate(R.id.mapListFragment)
-            true
-        }
-
     }
 
     private suspend fun getActiveMap(): PhotoMap? {

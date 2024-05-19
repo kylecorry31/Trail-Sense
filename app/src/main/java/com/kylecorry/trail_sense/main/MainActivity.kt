@@ -10,6 +10,7 @@ import android.graphics.PorterDuffColorFilter
 import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.View
 import android.view.ViewGroup
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
@@ -52,6 +53,7 @@ import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsy
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeActionPriority
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.tools.quickactions.QuickActionsBottomSheet
 
 class MainActivity : AndromedaActivity() {
 
@@ -64,6 +66,8 @@ class MainActivity : AndromedaActivity() {
 
     val errorBanner: ErrorBannerView
         get() = binding.errorBanner
+
+    private var quickActionsSheet: QuickActionsBottomSheet? = null
 
     private lateinit var userPrefs: UserPreferences
     private val cache by lazy { PreferencesSubsystem.getInstance(this).preferences }
@@ -130,6 +134,18 @@ class MainActivity : AndromedaActivity() {
         setBottomNavLabelsVisibility()
         binding.bottomNavigation.setupWithNavController(navController, false)
 
+        // Loop through each item of the bottom navigation and override the long press behavior
+        for (i in 0 until binding.bottomNavigation.menu.size()) {
+            val item = binding.bottomNavigation.menu.getItem(i)
+            val view = binding.bottomNavigation.findViewById<View>(item.itemId)
+            view.setOnLongClickListener {
+                quickActionsSheet?.dismiss()
+                quickActionsSheet = QuickActionsBottomSheet()
+                quickActionsSheet?.show(supportFragmentManager, "quick_actions")
+                true
+            }
+        }
+
         bindLayoutInsets()
 
         if (cache.getBoolean(getString(R.string.pref_onboarding_completed)) != true) {
@@ -154,6 +170,10 @@ class MainActivity : AndromedaActivity() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    fun dismissQuickActions(){
+        quickActionsSheet?.dismiss()
     }
 
     fun changeBottomNavLabelsVisibility(useCompactMode: Boolean) {

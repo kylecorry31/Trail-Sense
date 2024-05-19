@@ -21,22 +21,25 @@ class QuickActionPedometer(btn: ImageButton, private val andromedaFragment: Andr
 
     override fun onCreate() {
         super.onCreate()
-        button.setImageResource(R.drawable.steps)
-        button.setOnClickListener {
-            when (pedometer.state.getOrNull()) {
-                FeatureState.On -> pedometer.disable()
-                FeatureState.Off -> startStepCounter()
-                else -> {
-                    if (pedometer.isDisabledDueToPermissions()) {
-                        startStepCounter()
-                    }
+        setIcon(R.drawable.steps)
+    }
+
+    override fun onLongClick(): Boolean {
+        super.onLongClick()
+        fragment.findNavController().navigateWithAnimation(R.id.fragmentToolPedometer)
+        return true
+    }
+
+    override fun onClick() {
+        super.onClick()
+        when (pedometer.state.getOrNull()) {
+            FeatureState.On -> pedometer.disable()
+            FeatureState.Off -> startStepCounter()
+            else -> {
+                if (pedometer.isDisabledDueToPermissions()) {
+                    startStepCounter()
                 }
             }
-        }
-
-        button.setOnLongClickListener {
-            fragment.findNavController().navigateWithAnimation(R.id.fragmentToolPedometer)
-            true
         }
     }
 
