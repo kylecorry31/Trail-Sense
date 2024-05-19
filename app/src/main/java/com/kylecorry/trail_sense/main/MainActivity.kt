@@ -146,10 +146,12 @@ class MainActivity : AndromedaActivity() {
             }
         }
 
-        // On navigation changed, reset the quick actions
         navController.addOnDestinationChangedListener { _, _, _ ->
+            // Reset the quick actions
             binding.quickActions.removeAllViews()
             binding.quickActionsSheet.isVisible = false
+
+            updateBottomNavSelection()
         }
 
         binding.quickActionsToolbar.rightButton.setOnClickListener {
@@ -180,6 +182,29 @@ class MainActivity : AndromedaActivity() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    /**
+     * Update the bottom nav selection based on the current navigation destination
+     */
+    private fun updateBottomNavSelection() {
+        val currentNavId = navController.currentDestination?.id
+        val tools = Tools.getTools(this)
+        val selectedTool = tools.firstOrNull { it.isOpen(currentNavId ?: 0) }
+        // If the tool appears in the bottom nav, select it. Otherwise, select the Tools tab
+        val idToSelect = if (selectedTool != null) {
+            val isToolPinnedToNav =
+                binding.bottomNavigation.menu.findItem(selectedTool.navAction) != null
+            if (isToolPinnedToNav) {
+                selectedTool.navAction
+            } else {
+                R.id.action_experimental_tools
+            }
+        } else {
+            R.id.action_experimental_tools
+        }
+
+        binding.bottomNavigation.menu.findItem(idToSelect)?.isChecked = true
     }
 
     fun changeBottomNavLabelsVisibility(useCompactMode: Boolean) {
