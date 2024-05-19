@@ -23,6 +23,7 @@ data class Tool(
     val notificationChannels: List<ToolNotificationChannel> = emptyList(),
     val services: List<ToolService> = emptyList(),
     val diagnostics: List<ToolDiagnostic> = emptyList(),
+    val intentHandlers: List<ToolIntentHandler> = emptyList(),
     val isAvailable: (context: Context) -> Boolean = { true },
 ) : Identifiable {
     fun isOpen(currentNavId: Int): Boolean {

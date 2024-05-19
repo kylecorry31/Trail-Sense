@@ -15,15 +15,12 @@ import android.view.ViewGroup
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
-import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.navigation.NavigationBarView
-import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.tryOrNothing
@@ -31,7 +28,6 @@ import com.kylecorry.andromeda.fragments.AndromedaActivity
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.ColorTheme
 import com.kylecorry.andromeda.permissions.Permissions
-import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityMainBinding
@@ -43,6 +39,7 @@ import com.kylecorry.trail_sense.settings.ui.SettingsMoveNotice
 import com.kylecorry.trail_sense.shared.CustomUiUtils.isDarkThemeOn
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.ComposedCommand
+import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils.setupWithNavController
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
@@ -273,7 +270,7 @@ class MainActivity : AndromedaActivity() {
             SettingsMoveNotice(this)
         ).execute()
 
-        if (!Sensors.hasBarometer(this)) {
+        if (!Tools.isToolAvailable(this, Tools.WEATHER)) {
             val item = binding.bottomNavigation.menu.findItem(R.id.action_weather)
             item?.isVisible = false
         }
@@ -282,22 +279,13 @@ class MainActivity : AndromedaActivity() {
     }
 
     private fun handleIntentAction(intent: Intent) {
-        val intentData = intent.data
-        if (intent.scheme == "geo" && intentData != null) {
-            val geo = GeoUri.from(intentData)
-            binding.bottomNavigation.selectedItemId = R.id.action_navigation
-            if (geo != null) {
-                val bundle = bundleOf("initial_location" to geo)
-                navController.navigate(
-                    R.id.beacon_list,
-                    bundle
-                )
+        val tools = Tools.getTools(this)
+        tools.forEach { tool ->
+            tool.intentHandlers.forEach { handler ->
+                if (handler.handle(this, intent)) {
+                    return
+                }
             }
-        } else if ((intent.type?.startsWith("image/") == true || intent.type?.startsWith("application/pdf") == true)) {
-            binding.bottomNavigation.selectedItemId = R.id.action_experimental_tools
-            val intentUri = intent.clipData?.getItemAt(0)?.uri
-            val bundle = bundleOf("map_intent_uri" to intentUri)
-            navController.navigate(R.id.mapListFragment, bundle)
         }
     }
 
@@ -418,11 +406,6 @@ class MainActivity : AndromedaActivity() {
         }
 
         return false
-    }
-
-
-    private fun findNavController(): NavController {
-        return (supportFragmentManager.findFragmentById(R.id.fragment_holder) as NavHostFragment).navController
     }
 
     companion object {

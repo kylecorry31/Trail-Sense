@@ -1,16 +1,32 @@
 package com.kylecorry.trail_sense.tools.maps
 
 import android.content.Context
+import androidx.core.os.bundleOf
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.tools.maps.quickactions.QuickActionOpenPhotoMap
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolIntentHandler
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 object PhotoMapsToolRegistration : ToolRegistration {
+
+    private val importMapIntentHandler = ToolIntentHandler { activity, intent ->
+        val validTypes = listOf("image/", "application/pdf")
+        if (!validTypes.any { intent.type?.startsWith(it) == true }) {
+            return@ToolIntentHandler false
+        }
+
+        val intentUri = intent.clipData?.getItemAt(0)?.uri ?: return@ToolIntentHandler false
+        val bundle = bundleOf("map_intent_uri" to intentUri)
+        activity.findNavController().navigate(R.id.mapListFragment, bundle)
+        true
+    }
+
     override fun getTool(context: Context): Tool {
         return Tool(
             Tools.PHOTO_MAPS,
@@ -36,7 +52,8 @@ object PhotoMapsToolRegistration : ToolRegistration {
                 ToolDiagnosticFactory.gps(context),
                 ToolDiagnosticFactory.camera(context),
                 *ToolDiagnosticFactory.compass(context)
-            ).distinctBy { it.id }
+            ).distinctBy { it.id },
+            intentHandlers = listOf(importMapIntentHandler)
         )
     }
 }
