@@ -36,6 +36,33 @@
             app:layout_constraintTop_toBottomOf="@id/error_banner"
             app:navGraph="@navigation/nav_graph" />
 
+        <LinearLayout
+            android:id="@+id/quick_actions_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorSurfaceContainer"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@id/bottom_navigation">
+
+            <com.kylecorry.andromeda.views.toolbar.Toolbar
+                android:id="@+id/quick_actions_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:flattenButtons="true"
+                app:rightButtonIcon="@drawable/ic_cancel"
+                app:showSubtitle="false"
+                app:title="@string/quick_actions" />
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/quick_actions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:alignItems="center"
+                app:flexWrap="wrap"
+                app:justifyContent="center" />
+        </LinearLayout>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"

@@ -1430,4 +1430,5 @@
     <string name="local_messaging">Local Messaging</string>
     <string name="communication">Communication</string>
     <string name="local_talk">Local Talk</string>
+    <string name="quick_actions">Quick actions</string>
 </resources>

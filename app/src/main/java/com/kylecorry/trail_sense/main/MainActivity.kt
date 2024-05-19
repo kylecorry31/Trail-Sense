@@ -18,6 +18,7 @@ import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -33,11 +34,11 @@ import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.settings.backup.BackupService
 import com.kylecorry.trail_sense.databinding.ActivityMainBinding
 import com.kylecorry.trail_sense.main.errors.ExceptionHandler
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.RestartServicesCommand
+import com.kylecorry.trail_sense.settings.backup.BackupService
 import com.kylecorry.trail_sense.settings.ui.SettingsMoveNotice
 import com.kylecorry.trail_sense.shared.CustomUiUtils.isDarkThemeOn
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -53,7 +54,7 @@ import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsy
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeActionPriority
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import com.kylecorry.trail_sense.tools.tools.quickactions.QuickActionsBottomSheet
+import com.kylecorry.trail_sense.tools.tools.quickactions.MainActivityQuickActionBinder
 
 class MainActivity : AndromedaActivity() {
 
@@ -66,8 +67,6 @@ class MainActivity : AndromedaActivity() {
 
     val errorBanner: ErrorBannerView
         get() = binding.errorBanner
-
-    private var quickActionsSheet: QuickActionsBottomSheet? = null
 
     private lateinit var userPrefs: UserPreferences
     private val cache by lazy { PreferencesSubsystem.getInstance(this).preferences }
@@ -139,11 +138,22 @@ class MainActivity : AndromedaActivity() {
             val item = binding.bottomNavigation.menu.getItem(i)
             val view = binding.bottomNavigation.findViewById<View>(item.itemId)
             view.setOnLongClickListener {
-                quickActionsSheet?.dismiss()
-                quickActionsSheet = QuickActionsBottomSheet()
-                quickActionsSheet?.show(supportFragmentManager, "quick_actions")
+                val fragment =
+                    getFragment() as? AndromedaFragment ?: return@setOnLongClickListener true
+                MainActivityQuickActionBinder(fragment, binding).bind()
+                binding.quickActionsSheet.isVisible = true
                 true
             }
+        }
+
+        // On navigation changed, reset the quick actions
+        navController.addOnDestinationChangedListener { _, _, _ ->
+            binding.quickActions.removeAllViews()
+            binding.quickActionsSheet.isVisible = false
+        }
+
+        binding.quickActionsToolbar.rightButton.setOnClickListener {
+            binding.quickActionsSheet.isVisible = false
         }
 
         bindLayoutInsets()
@@ -170,10 +180,6 @@ class MainActivity : AndromedaActivity() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-    }
-
-    fun dismissQuickActions(){
-        quickActionsSheet?.dismiss()
     }
 
     fun changeBottomNavLabelsVisibility(useCompactMode: Boolean) {
