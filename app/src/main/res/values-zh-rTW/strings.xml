@@ -198,7 +198,7 @@
     <string name="clock_waiting_for_gps">正在從 GPS 更新時間…</string>
     <string name="water_purification_step_3">開始計時器</string>
     <string name="tool_lightning_title">閃電雷聲測距</string>
-    <string name="pref_sensor_details_title">感應器細節</string>
+    <string name="pref_sensor_details_title">感測器細節</string>
     <string name="start">開始</string>
     <string name="navigation_nearby_category">附近</string>
     <string name="tap_sun_moon_hint">點擊太陽或月亮以取得詳細位置</string>
@@ -221,7 +221,7 @@
     <string name="calibrate_compass_dialog_content">將你的手機以 8 字形或向各個方向旋轉數次，完成後按 %s。</string>
     <string name="pref_auto_declination_summary">根據你目前的位置</string>
     <string name="override_from_gps">按照 GPS 設定覆寫</string>
-    <string name="sensors">感應器</string>
+    <string name="sensors">感測器</string>
     <string name="sun_down_no_set">太陽已落下</string>
     <string name="sun_up_no_set">太陽已升起</string>
     <string name="precise_temp_c_format">%s °C</string>
@@ -230,7 +230,7 @@
     <string name="pressure_reading_time_ago">%1$s - %2$s 之前</string>
     <string name="pressure_tendency_format_2">%s／3 小時</string>
     <string name="share_action_send">傳送</string>
-    <string name="accuracy_info_title">改善感應器數據精確度的訣竅</string>
+    <string name="accuracy_info_title">改善感測器數據精確度的訣竅</string>
     <string name="discharging_fast">正在快速放電（%s）</string>
     <string name="discharging_slow">正在慢速放電（%s）</string>
     <string name="precise_percent_format">%s%%</string>
@@ -307,7 +307,7 @@
         <item quantity="other">%d 秒後即可飲用</item>
     </plurals>
     <string name="gps_satellites">GPS 衛星</string>
-    <string name="gps_accuracy_tip">請確定您能夠一覽無遺地看到天空，並且遠離高大的建築物和樹木。</string>
+    <string name="gps_accuracy_tip">請確定你能夠一覽無遺地看到天空，並且遠離高大的建築物和樹木。</string>
     <string name="gps_location_accuracy">GPS 定位精確度</string>
     <string name="gps_elevation_accuracy">GPS 海拔精確度</string>
     <string name="temp_c_short">°C</string>
@@ -358,7 +358,7 @@
     <string name="audio_error_messsage">嘗試播放音訊時發生錯誤。</string>
     <string name="onboarding_privacy">- Trail Sense 尊重你的隱私，位置資料永遠不會離開你的裝置
 \n
-\n- Trail Sense 永遠不會要求網絡權限
+\n- Trail Sense 永遠不會要求網路權限
 \n
 \n- 查看[隱私權政策](https://kylecorry.com/Trail-Sense/privacy_policy.html)（在手機瀏覽器中開啟）
 \n
@@ -374,7 +374,7 @@
 \n
 \n\t- 你目前位置的太陽和月亮時間（日落警報可能需要背景位置）
 \n
-\n- 如果你選擇不授予位置權限，你可以在 Trail Sense 的「設定」&gt;「感應器」&gt;「GPS 校正」選單中手動輸入位置。
+\n- 如果你選擇不授予位置權限，你可以在 Trail Sense 的「設定」&gt;「感測器」&gt;「GPS 校正」選單中手動輸入位置。
 \n
 \n- 點選繼續後，系統會提示你授予位置權限。拒絕此權限將阻止 Trail Sense 存取你的位置，因此建議手動輸入位置。</string>
     <string name="backup_disclaimer">將會建立一個包含所有目前資料的備份檔案。它會包括設定、路線、信標、地圖等。
@@ -384,14 +384,14 @@
     <string name="waypoint_time_format">%1$s %2$s</string>
     <string name="no_groups">沒有群組</string>
     <string name="days_format">%s 天</string>
-    <string name="no_sensor_message">你的裝置沒有 %s 感應器</string>
+    <string name="no_sensor_message">你的裝置沒有 %s 感測器</string>
     <string name="navigate">導航</string>
     <string name="no_paths">沒有路線</string>
     <string name="map_exported">地圖已匯出</string>
     <string name="exporting_map">正在匯出地圖</string>
     <string name="weather_wind">風</string>
     <string name="now">現在</string>
-    <string name="sensor">感應器</string>
+    <string name="sensor">感測器</string>
     <string name="times">時間</string>
     <string name="now_value">現在：%s</string>
     <string name="updating">正在更新</string>
@@ -579,7 +579,7 @@
     <string name="network_3g">3G</string>
     <string name="acceleration_m_s2_format">%s 米／秒²</string>
     <string name="magnetometer">磁強計</string>
-    <string name="pref_backtrack_save_cell_summary">在停駐點記錄手機訊號。不使用網絡。</string>
+    <string name="pref_backtrack_save_cell_summary">在停駐點記錄手機訊號。不使用網路。</string>
     <string name="since_time">自從 %s</string>
     <string name="odometer">里程表</string>
     <string name="pref_meteor_showers_title">流星雨</string>
