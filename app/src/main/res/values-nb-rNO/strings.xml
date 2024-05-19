@@ -514,8 +514,8 @@
     <string name="backtrack">Tilbakesporing</string>
     <string name="qr_code">QR-kode</string>
     <string name="pref_experimental_metal_direction_title">Vis retning til metall</string>
-    <string name="pref_nmea_elevation_summary">Bruker NMEA-offset for høydeomregning</string>
-    <string name="pref_nmea_elevation_title">NMEA høyde-offset</string>
+    <string name="pref_nmea_elevation_summary">Bruk NMEA (satellitt) for å korrigere høyde, heller enn innebygd modell</string>
+    <string name="pref_nmea_elevation_title">NMEA-høydekorrigering</string>
     <string name="pref_backtrack_save_cell_title">Registrer mobiltelefonsignal</string>
     <string name="pref_backtrack_save_cell_summary">Registrerer mobiltelefonsignal på rutepunktet. Bruker ikke Internett.</string>
     <string name="pack_sort_weight_high_to_low">Vekt (høy til lav)</string>
@@ -947,7 +947,7 @@
     <string name="print">Skriv ut</string>
     <string name="pref_include_leading_zero_title">Legg til ledende null i klokkeslett</string>
     <string name="autofill_source">Auto-utfyll kilde</string>
-    <string name="gps_unavailable_resolution">Aktiver Posisjon eller endre posisjonskilde til Bare telefon eller Høy nøyaktighet</string>
+    <string name="gps_unavailable_resolution">Aktiver posisjon eller endre posisjonskilde til \'Bare telefon\' eller \'Høy nøyaktighet\'</string>
     <string name="calibrate_map_point">Kalibrer med kjente steder (%1$d / %2$d)</string>
     <string name="map_calibration">Kartkalibrering</string>
     <string name="map_calibration_instructions">Trykk på et kjent sted på kartet, deretter angi de virkelige koordinatene. Lagre kalibreringen ved å trykke knappen “Ferdig”.
