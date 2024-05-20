@@ -1155,4 +1155,5 @@
     <string name="local_messaging">本地消息收发</string>
     <string name="communication">通讯</string>
     <string name="local_talk">本地交谈</string>
+    <string name="quick_actions">快速操作</string>
 </resources>
