@@ -1190,4 +1190,5 @@
     <string name="background">Pozadí</string>
     <string name="local_messaging">Lokální zprávy</string>
     <string name="communication">Komunikace</string>
+    <string name="quick_actions">Rychlé akce</string>
 </resources>
