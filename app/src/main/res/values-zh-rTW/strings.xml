@@ -352,7 +352,7 @@
     </plurals>
     <string name="pinned">已釘選</string>
     <string name="illumination">照度</string>
-    <string name="action_inventory_clear_confirm">清除所有已包裝數目？</string>
+    <string name="action_inventory_clear_confirm">清除所有已打包數目？</string>
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="elevation_override_updated_toast">海拔覆寫已更新</string>
     <string name="audio_error_messsage">嘗試播放音訊時發生錯誤。</string>
@@ -900,8 +900,8 @@
     <string name="seconds">秒</string>
     <string name="milliseconds_format">%s 毫秒</string>
     <string name="seconds_format">%s 秒</string>
-    <string name="packed_amount">已包裝數量</string>
-    <string name="packing_lists">包裝列表</string>
+    <string name="packed_amount">已打包數量</string>
+    <string name="packing_lists">打包列表</string>
     <string name="elevation_history">海拔歷史記錄</string>
     <string name="qr_code">QR 圖碼</string>
     <string name="no_qr_code_detected">未偵測到 QR 圖碼</string>
@@ -1108,16 +1108,16 @@
 \n
 \n### 解決方案
 \n%4$s</string>
-    <string name="pack_sort_percent_high_to_low">已包裝百分比（從高至低）</string>
+    <string name="pack_sort_percent_high_to_low">已打包百分比（從高至低）</string>
     <string name="weather_alert_cold_description">為應對寒冷天氣做好準備。採取額外的預防措施以防止體溫過低和凍傷。</string>
     <string name="map_calibration_instructions">在地圖上點擊已知的位置，然後輸入現實世界的座標。你可以透過點擊「完成」按鈕以儲存校正。
 \n
 \n良好校正點的範例包括停車場、標誌點、地標或路的交會處。</string>
     <string name="battery_usage">%s 電池使用情況</string>
     <string name="estimate_stride_length">估計步幅</string>
-    <string name="pack_sort_percent_low_to_high">已包裝百分比（從低至高）</string>
+    <string name="pack_sort_percent_low_to_high">已打包百分比（從低至高）</string>
     <string name="for_historic_temperatures">用於歷史溫度</string>
-    <string name="delete_pack">刪除包裝？</string>
+    <string name="delete_pack">刪除打包？</string>
     <string name="magnitude">規模</string>
     <string name="magnetic_north_description">指向地磁北極。這將與大多數指南針對齊。</string>
     <string name="quick_actions">快速動作</string>
@@ -1142,4 +1142,21 @@
     <string name="weather_alert_storm_description">為應對大風和強降雨做好準備。</string>
     <string name="historic_temperatures_full_disclaimer" tools:ignore="PluralsCandidate">溫度是根據過去 %d 年歷史資料的平均值，可能無法反映目前的天氣狀況。</string>
     <string name="crop_map_instructions_long">將框的角落拖曳到地圖的角落以繪製輪廓。</string>
+    <string name="tilt">傾斜</string>
+    <string name="clinometer_measure_distance_instructions">如何測量目標有 %s 高的距離：
+\n
+\n1. 將傾斜儀與目標底部對齊
+\n2. 點擊螢幕並按住
+\n3. 再將傾斜儀與目標頂部對齊
+\n4. 放開鎖定並查看到目標的距離</string>
+    <string name="cumulonimbus_desc">非常高的低矮蓬鬆雲。它們通常是砧形並且是深色的。</string>
+    <string name="clinometer_measure_height_instructions">如何測量距離 %s 遠的目標高度：
+\n
+\n1. 將傾斜儀與目標底部對齊
+\n2. 點擊螢幕並按住
+\n3. 再將傾斜儀與目標頂部對齊
+\n4. 放開鎖定並查看目標高度</string>
+    <string name="cirrus_desc">高高的雲朵，看起來像一簇簇白髮。</string>
+    <string name="cross">十字</string>
+    <string name="arrow">箭</string>
 </resources>
