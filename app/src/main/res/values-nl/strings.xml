@@ -250,7 +250,7 @@
     <string name="pref_low_power_mode_summary">Schakelt sommige functies uit om energie te besparen</string>
     <string name="dialog_leave">Verlaten</string>
     <string name="unsaved_changes_message">Wijzigingen die je hebt aangebracht, worden niet opgeslagen.</string>
-    <string name="unsaved_changes">Onopgeslagen Wijzigingen</string>
+    <string name="unsaved_changes">Onopgeslagen wijzigingen</string>
     <string name="low_power_mode_on_message">Energiebesparingsmodus ingeschakeld, sommige functies zijn mogelijk uitgeschakeld.</string>
     <string name="pref_low_power_mode_title">Energiebesparingsmodus</string>
     <string name="charging_wireless">Opladen (%s)</string>
@@ -270,7 +270,7 @@
 \n
 \n- Trail Sense zal nooit internettoegang vereisen
 \n
-\n- Bekijk het [Privacybeleid](https://kylecorry.com/Trail-Sense/privacy_policy.html) (opent in de webbrowser van je telefoon)
+\n- Bekijk het [privacybeleid](https://kylecorry.com/Trail-Sense/privacy_policy.html) (opent in de webbrowser van je telefoon)
 \n
 \n- Sommige functies van Trail Sense vereisen toegang tot je locatie
 \n
@@ -394,7 +394,7 @@
     <string name="pref_monitor_weather_summary">Op de achtergrond</string>
     <string name="pref_max_beacon_distance_title">Nabijgelegen bakenradius</string>
     <string name="pref_num_visible_beacons_title">Bakens in de buurt</string>
-    <string name="app_disclaimer_message_title">Disclaimer / Servicevoorwaarden</string>
+    <string name="app_disclaimer_message_title">Disclaimer / servicevoorwaarden</string>
     <string name="disclaimer_message_title">Disclaimer</string>
     <string name="pref_adjust_for_temperature_title">Temperatuur meenemen</string>
     <string name="pref_adjust_for_temperature_summary">Temperatuur gebruiken in zeeniveau druk-conversies</string>
@@ -1165,4 +1165,9 @@
     <string name="turn_back_notification_title">Het is tijd om terug te gaan</string>
     <string name="turn_back_notification_description">Ga nu terug om aan te komen om %s</string>
     <string name="turn_back_instructions">Ga terug om %1$s (%2$s) om aan te komen om %3$s</string>
+    <string name="local_messaging">Lokale berichten</string>
+    <string name="communication">Communicatie</string>
+    <string name="local_talk">lokaal gesprek</string>
+    <string name="background">Achtergrond</string>
+    <string name="quick_actions">Snelle acties</string>
 </resources>
