@@ -1169,4 +1169,5 @@
     <string name="communication">İletişim</string>
     <string name="local_messaging">Yerel Mesajlaşma</string>
     <string name="local_talk">Yerel Konuşma</string>
+    <string name="quick_actions">Hızlı eylemler</string>
 </resources>

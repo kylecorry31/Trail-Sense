@@ -217,7 +217,7 @@
     <string name="pref_show_calibrate_on_navigate_dialog_title">導航前校正</string>
     <string name="pref_show_linear_compass_title">顯示線性指南針</string>
     <string name="pref_display_multi_beacons_title">顯示鄰近信標</string>
-    <string name="compass_reported_accuracy">回報的精確度：%s</string>
+    <string name="compass_reported_accuracy">回報的準確度：%s</string>
     <string name="calibrate_compass_dialog_content">將你的手機以 8 字形或向各個方向旋轉數次，完成後按 %s。</string>
     <string name="pref_auto_declination_summary">根據你目前的位置</string>
     <string name="override_from_gps">按照 GPS 設定覆寫</string>
@@ -352,7 +352,7 @@
     </plurals>
     <string name="pinned">已釘選</string>
     <string name="illumination">照度</string>
-    <string name="action_inventory_clear_confirm">清除所有已包裝數目？</string>
+    <string name="action_inventory_clear_confirm">清除所有已打包數目？</string>
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="elevation_override_updated_toast">海拔覆寫已更新</string>
     <string name="audio_error_messsage">嘗試播放音訊時發生錯誤。</string>
@@ -485,7 +485,7 @@
     <string name="distance_unset">距離未設定</string>
     <string name="create_blank_map">建立空白地圖</string>
     <string name="map_is_not_calibrated">地圖未校正</string>
-    <string name="permission_alarms_and_reminders">鬧鐘與提醒</string>
+    <string name="permission_alarms_and_reminders">鬧鐘和提醒</string>
     <string name="lowest_point_elevation">最低點</string>
     <string name="later">稍後</string>
     <string name="samples">樣品</string>
@@ -900,8 +900,8 @@
     <string name="seconds">秒</string>
     <string name="milliseconds_format">%s 毫秒</string>
     <string name="seconds_format">%s 秒</string>
-    <string name="packed_amount">已包裝數量</string>
-    <string name="packing_lists">包裝列表</string>
+    <string name="packed_amount">已打包數量</string>
+    <string name="packing_lists">打包列表</string>
     <string name="elevation_history">海拔歷史記錄</string>
     <string name="qr_code">QR 圖碼</string>
     <string name="no_qr_code_detected">未偵測到 QR 圖碼</string>
@@ -1101,4 +1101,62 @@
     <string name="turn_back_notification_description">立即折返並於 %s 返回</string>
     <string name="turn_back_instructions">於 %1$s（%2$s）折返並於 %3$s 返回</string>
     <string name="return_time">返回時間</string>
+    <string name="diagnostic_message_template">%1$s：%2$s
+\n
+\n### 受影響的工具
+\n%3$s
+\n
+\n### 解決方案
+\n%4$s</string>
+    <string name="pack_sort_percent_high_to_low">已打包百分比（從高至低）</string>
+    <string name="weather_alert_cold_description">為應對寒冷天氣做好準備。採取額外的預防措施以防止體溫過低和凍傷。</string>
+    <string name="map_calibration_instructions">在地圖上點擊已知的位置，然後輸入現實世界的座標。你可以透過點擊「完成」按鈕以儲存校正。
+\n
+\n良好校正點的範例包括停車場、標誌點、地標或路的交會處。</string>
+    <string name="battery_usage">%s 電池使用情況</string>
+    <string name="estimate_stride_length">估計步幅</string>
+    <string name="pack_sort_percent_low_to_high">已打包百分比（從低至高）</string>
+    <string name="for_historic_temperatures">用於歷史溫度</string>
+    <string name="delete_pack">刪除打包？</string>
+    <string name="magnitude">規模</string>
+    <string name="magnetic_north_description">指向地磁北極。這將與大多數指南針對齊。</string>
+    <string name="quick_actions">快速動作</string>
+    <string name="pref_backfill_temperatures_description">所有已記錄的溫度將會替換為已校正的歷史溫度。</string>
+    <string name="disclaimer_estimated_tide">估計的潮汐可能不準確。請使用官方潮汐表以瞭解確切時間。</string>
+    <string name="pref_tiles_enabled_title">系統排列</string>
+    <string name="weather_alert_hot_description">為應對酷熱天氣做好準備。採取額外的預防措施以防止熱衰竭和中暑。</string>
+    <string name="points">點數</string>
+    <string name="sun_moon_position_template">### %1$s
+\n**仰角：** %2$s
+\n
+\n**方位角：** %3$s</string>
+    <string name="astronomy_direction_peak">峰值方向</string>
+    <string name="tool_temperature_estimation_description">預測不同海拔的溫度</string>
+    <string name="find_next_occurrence">尋找下一次發生</string>
+    <string name="astronomy_altitude_peak">峰值仰角</string>
+    <string name="obscuration">遮蔽</string>
+    <string name="tide_frequency_description">每天潮漲的次數。大多數潮汐是半日潮。</string>
+    <string name="high_pressure_system_description">與晴朗的天氣、晴朗的天空和較低溫度有關。</string>
+    <string name="low_pressure_system_description">與惡劣天氣、陰天和較高溫度有關。</string>
+    <string name="historic_temperature_years" tools:ignore="PluralsCandidate">歷史值（%d 年）</string>
+    <string name="weather_alert_storm_description">為應對大風和強降雨做好準備。</string>
+    <string name="historic_temperatures_full_disclaimer" tools:ignore="PluralsCandidate">溫度是根據過去 %d 年歷史資料的平均值，可能無法反映目前的天氣狀況。</string>
+    <string name="crop_map_instructions_long">將框的角落拖曳到地圖的角落以繪製輪廓。</string>
+    <string name="tilt">傾斜</string>
+    <string name="clinometer_measure_distance_instructions">如何測量目標有 %s 高的距離：
+\n
+\n1. 將傾斜儀與目標底部對齊
+\n2. 點擊螢幕並按住
+\n3. 再將傾斜儀與目標頂部對齊
+\n4. 放開鎖定並查看到目標的距離</string>
+    <string name="cumulonimbus_desc">非常高的低矮蓬鬆雲。它們通常是砧形並且是深色的。</string>
+    <string name="clinometer_measure_height_instructions">如何測量距離 %s 遠的目標高度：
+\n
+\n1. 將傾斜儀與目標底部對齊
+\n2. 點擊螢幕並按住
+\n3. 再將傾斜儀與目標頂部對齊
+\n4. 放開鎖定並查看目標高度</string>
+    <string name="cirrus_desc">高高的雲朵，看起來像一簇簇白髮。</string>
+    <string name="cross">十字</string>
+    <string name="arrow">箭</string>
 </resources>
