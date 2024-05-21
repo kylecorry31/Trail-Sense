@@ -512,7 +512,7 @@
     <string name="whistle_signal_acknowledged">收到</string>
     <string name="whistle_signal_where_are_you">你在哪里？</string>
     <string name="noon">正午</string>
-    <string name="weather_monitor">天气监控器</string>
+    <string name="weather_monitor">天气监视</string>
     <string name="pref_barometer_info_summary">大气压强可能与附近气象站的大气压强不同</string>
     <string name="battery_history">历史电量 - 过去 %s</string>
     <string name="no_data">无数据</string>
@@ -1056,7 +1056,7 @@
     <string name="triangulate_self_location_1_instructions">选择一个你看得到的已知位置，并记录到那个位置的方向。</string>
     <string name="triangulate_self_location_2_instructions">选择另一个你看得到的已知位置，并记录到那个位置的方向。</string>
     <string name="triangulate_destination_location_2_instructions">从初始位置移动至少 %s 米，再次记录你的位置和到目的地的方向。</string>
-    <string name="location_to_triangulate">三角定位法</string>
+    <string name="location_to_triangulate">三角定位位置</string>
     <string name="distance_away_from_destination">离目的地 %s</string>
     <string name="location_number">位置 %d</string>
     <string name="distance_away_from_self">%s 远</string>
@@ -1149,8 +1149,8 @@
     <string name="turn_back_notification_title">是时候折返了</string>
     <string name="turn_back_notification_description">现在折返于 %s 返回</string>
     <string name="return_before_dark">天黑前返回</string>
-    <string name="mirror_camera">反射相机</string>
-    <string name="turn_back_alert_set">设置了折返警报</string>
+    <string name="mirror_camera">镜像相机</string>
+    <string name="turn_back_alert_set">已设置折返警报</string>
     <string name="background">后台</string>
     <string name="local_messaging">本地消息收发</string>
     <string name="communication">通讯</string>
