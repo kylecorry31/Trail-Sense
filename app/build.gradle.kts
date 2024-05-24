@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
-        applicationId = "com.kylecorry.trail_sense"
+        applicationId = "com.bloodwalrus.ocean_sense"
         minSdk = 23
         targetSdk = 34
         versionCode = 120

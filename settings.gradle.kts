@@ -21,7 +21,7 @@ dependencyResolutionManagement {
 }
 
 include(":app")
-rootProject.name = "Trail Sense"
+rootProject.name = "Ocean Sense"
 
 buildCache {
     local {

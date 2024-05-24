@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name" translatable="false">Trail Sense</string>
+    <string name="app_name" translatable="false">Ocean Sense</string>
     <!--Tabs-->
     <string name="navigation">Navigation</string>
     <string name="weather">Weather</string>
@@ -16,7 +16,7 @@
     <string name="disclaimer_message_title">Disclaimer</string>
     <string name="app_disclaimer_message_title">Disclaimer / terms of service</string>
     <!--    This is a legal statement, not to be translated-->
-    <string name="disclaimer_message_content" translatable="false">Trail Sense is for informational purposes only and the developers make no warranties concerning the accuracy of the information provided by the app, which may further be limited by the quality of your device\'s sensors and the current environmental conditions.\n\nBy using this app, you understand that the developers of Trail Sense cannot and do not assume responsibility for any personal injury, death, property damage, and other dangers associated with activities where you would use Trail Sense.\n\nThe developers of Trail Sense are not responsible for how you use the data provided, and what you do with it is done at your own risk. Please do not rely upon it and always have backup plans and gear.\n\nTrail Sense is available under the MIT License</string>
+    <string name="disclaimer_message_content" translatable="false">Ocean Sense is for informational purposes only and the developers make no warranties concerning the accuracy of the information provided by the app, which may further be limited by the quality of your device\'s sensors and the current environmental conditions.\n\nBy using this app, you understand that the developers of Ocean Sense cannot and do not assume responsibility for any personal injury, death, property damage, and other dangers associated with activities where you would use Ocean Sense.\n\nThe developers of Ocean Sense are not responsible for how you use the data provided, and what you do with it is done at your own risk. Please do not rely upon it and always have backup plans and gear.\n\nOcean Sense is available under the MIT License</string>
     <!--Navigation Tab - Unit Formats-->
     <string name="precise_feet_format">%s ft</string>
     <string name="precise_miles_format">%s mi</string>
