@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="orange_10">#351000</color>
-    <color name="orange_40">#FF6D00</color>
-    <color name="orange_40_transparent">#80FF6D00</color>
-    <color name="colorPrimaryLight">#FD750E</color>
+    <color name="orange_10">#121420</color>
+    <color name="orange_40">#06AED5</color>
+    <color name="orange_40_transparent">#8006AED5</color>
+    <color name="colorPrimaryLight">#06AED5</color>
     <color name="colorSecondary">#222222</color>
     <color name="white">#FFFFFF</color>
     <color name="offWhite">#cccccc</color>
