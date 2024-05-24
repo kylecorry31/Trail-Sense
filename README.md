@@ -15,20 +15,16 @@ Ocean Sense is a tool, and just like any other tool, it's essential to have back
 - [Features](#features)
 - [Privacy](#privacy)
 - [Contributing](#contributing)
-- [FAQ](#faq)
-- [Support](#support)
 - [Open Source Credits](#open-source-credits)
 - [License](#license)
 
 ## Feature Roadmap (2024)
 The feature roadmap is a tentative outline of the major features that are planned to be completed in the next year. Smaller features may end up being implemented in between.
-- [x] Augmented reality
-- [ ] Automations
-- [ ] Path navigation
-- [ ] Experiment with the first plugin (Comms)
+- [X] Nautical miles and knots
+- [ ] Heading and COG arrows
 
 ## Goals
-- Ocean Sense must not use the Internet in any way, as I want the entire app usable when there is no Internet connection
+- Ocean Sense must not use the Internet in any way, the entire app is usable when there is no Internet connection
 - Features must provide some benefits to people using the app while hiking, in a survival situation, etc.
 - Features should make use of the sensors on a phone rather than relying on stored information such as guides
 - Features must be based on peer-reviewed science or be verified against real world data
@@ -36,7 +32,7 @@ The feature roadmap is a tentative outline of the major features that are planne
 
 ## Features
 
-- Designed for hiking, backpacking, camping, and geocaching
+- Nautical miles and knots
 - Place beacons and navigate to them
 - Follow paths
 - Retrace your steps with backtrack
@@ -120,13 +116,6 @@ Only available on debug APKs / builds via Android Studio
 # Contributing
 
 See the [CONTRIBUTING.md](https://github.com/BloodWalrus/Ocean-Sense/blob/main/CONTRIBUTING.md) file for details on contributing to Ocean Sense.
-
-# FAQ
-The FAQ has moved [to the wiki](https://github.com/BloodWalrus/Ocean-Sense/wiki/Frequently-Asked-Questions-(FAQ))
-
-# Support
-
-The best way to support Ocean Sense is to send me your feedback, share how you are using it, test nightly builds, or post your ideas for new features.
 
 # Open Source Credits
 
