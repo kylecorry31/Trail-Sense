@@ -92,7 +92,7 @@ class DestinationPanel(private val view: View) {
         beacon: Beacon
     ) {
         val d = Distance.meters(location.distanceTo(beacon.coordinate))
-            .convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+            .convertTo(prefs.baseDistanceUnits).toRelativeDistance(prefs.useNauticalMiles)
         binding.beaconDistance.title =
             formatService.formatDistance(d, Units.getDecimalPlaces(d.units), false)
 

@@ -340,14 +340,14 @@ class ClinometerFragment : BoundFragment<FragmentClinometerBinding>() {
             distanceAway != null -> {
                 binding.estimatedHeight.description = getString(R.string.height)
                 binding.estimatedHeight.title = formatter.formatDistance(
-                    getHeight(distanceAway).toRelativeDistance(), 1, false
+                    getHeight(distanceAway).toRelativeDistance(prefs.useNauticalMiles), 1, false
                 )
             }
 
             knownHeight != null -> {
                 binding.estimatedHeight.description = getString(R.string.distance)
                 binding.estimatedHeight.title = formatter.formatDistance(
-                    getDistance(knownHeight).toRelativeDistance(), 1, false
+                    getDistance(knownHeight).toRelativeDistance(prefs.useNauticalMiles), 1, false
                 )
             }
 

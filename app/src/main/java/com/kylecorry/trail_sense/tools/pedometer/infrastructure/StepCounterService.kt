@@ -73,7 +73,7 @@ class StepCounterService : AndromedaService() {
     private fun getNotification(): Notification {
         val distance = subsystem.distance.value.orElseGet { Distance(0f, DistanceUnits.Meters) }
             .convertTo(prefs.baseDistanceUnits)
-            .toRelativeDistance()
+            .toRelativeDistance(prefs.useNauticalMiles)
 
         val openIntent = NavigationUtils.pendingIntent(this, R.id.fragmentToolPedometer)
         val stopIntent = Intent(this, StopPedometerReceiver::class.java)

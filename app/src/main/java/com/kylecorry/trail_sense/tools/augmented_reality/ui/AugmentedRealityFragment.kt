@@ -351,7 +351,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             (beacon.elevation ?: binding.arView.altitude) - binding.arView.altitude
         )
         val userDistance = Distance.meters(distance).convertTo(userPrefs.baseDistanceUnits)
-            .toRelativeDistance()
+            .toRelativeDistance(userPrefs.useNauticalMiles)
         val formattedDistance = formatter.formatDistance(
             userDistance,
             Units.getDecimalPlaces(userDistance.units),

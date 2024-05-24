@@ -283,7 +283,7 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
                 ?: return null
         val destination = location ?: return null
         return Distance.meters(start.distanceTo(destination)).convertTo(prefs.baseDistanceUnits)
-            .toRelativeDistance()
+            .toRelativeDistance(prefs.useNauticalMiles)
     }
 
     private fun getPath(locationIdx: Int): IMappablePath? {

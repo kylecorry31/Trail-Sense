@@ -16,8 +16,16 @@ object LocationMath {
         return unitPerSecond * 60 * 60
     }
 
-    fun convertToBaseSpeed(metersPerSecond: Float, units: UserPreferences.DistanceUnits): Float {
-        return if (units == UserPreferences.DistanceUnits.Feet) {
+    fun convertToBaseSpeed(metersPerSecond: Float, units: UserPreferences.DistanceUnits, useNauticalMiles: Boolean): Float {
+        return if (useNauticalMiles) {
+            convertUnitPerSecondsToUnitPerHours(
+                Distance(
+                    metersPerSecond,
+                    DistanceUnits.Meters
+                ).convertTo(DistanceUnits.NauticalMiles).distance
+            )
+        }
+        else if (units == UserPreferences.DistanceUnits.Feet) {
             convertUnitPerSecondsToUnitPerHours(
                 Distance(
                     metersPerSecond,

@@ -310,7 +310,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         lastDistanceToast?.cancel()
         val relative = distance
             .convertTo(prefs.baseDistanceUnits)
-            .toRelativeDistance()
+            .toRelativeDistance(prefs.useNauticalMiles)
         binding.distanceSheet.setDistance(relative)
     }
 

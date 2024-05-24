@@ -115,7 +115,7 @@ class RadarCompassView : BaseCompassView, IMapView {
 
         // Distance Text
         if (distanceText == null) {
-            val distance = maxDistanceBaseUnits.toRelativeDistance()
+            val distance = maxDistanceBaseUnits.toRelativeDistance(prefs.useNauticalMiles)
             distanceText = formatService.formatDistance(
                 distance,
                 Units.getDecimalPlaces(distance.units),

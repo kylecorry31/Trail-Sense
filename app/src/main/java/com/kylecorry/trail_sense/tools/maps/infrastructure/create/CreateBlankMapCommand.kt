@@ -87,7 +87,7 @@ class CreateBlankMapCommand(
         val allUnits = formatter.sortDistanceUnits(DistanceUtils.hikingDistanceUnits)
         
         val defaultDistance =
-            Distance.kilometers(2f).convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+            Distance.kilometers(2f).convertTo(prefs.baseDistanceUnits).toRelativeDistance(prefs.useNauticalMiles)
         var distance = defaultDistance
         var center = location.location
 

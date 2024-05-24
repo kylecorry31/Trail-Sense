@@ -22,7 +22,8 @@ import kotlin.math.absoluteValue
 
 class PathElevationChart(private val chart: Chart) {
 
-    private val units = UserPreferences(chart.context).baseDistanceUnits
+    private val prefs = UserPreferences(chart.context);
+    private val units = if (prefs.useNauticalMiles) DistanceUnits.NauticalMiles else prefs.baseDistanceUnits;
     private val formatter = FormatService.getInstance(chart.context)
 
     private var _path = emptyList<PathPoint>()

@@ -20,7 +20,7 @@ class BacktrackAlerter(private val context: Context) : IValueAlerter<Distance> {
 
     override fun alert(value: Distance) {
         val notification =
-            getNotification(context, value.convertTo(prefs.baseDistanceUnits).toRelativeDistance())
+            getNotification(context, value.convertTo(prefs.baseDistanceUnits).toRelativeDistance(prefs.useNauticalMiles))
         Notify.update(context, NOTIFICATION_ID, notification)
     }
 

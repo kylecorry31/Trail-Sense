@@ -31,7 +31,7 @@ class PathListItemMapper(
         val formatService = FormatService.getInstance(context)
         val nameFactory = PathNameFactory(context)
         val distance =
-            metadata.distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+            metadata.distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance(prefs.useNauticalMiles)
         val icon = if (!style.visible) {
             R.drawable.ic_not_visible
         } else when (style.line) {

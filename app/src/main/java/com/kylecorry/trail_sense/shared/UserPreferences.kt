@@ -94,6 +94,13 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
         saveDefault = true
     )
 
+    var useNauticalMiles by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_use_nautical_miles),
+        false,
+        saveDefault = true
+    )
+
     val weightUnits by StringEnumPreference(
         cache,
         getString(R.string.pref_weight_units),

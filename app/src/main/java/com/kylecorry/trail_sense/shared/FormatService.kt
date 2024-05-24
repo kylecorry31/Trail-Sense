@@ -471,8 +471,10 @@ class FormatService private constructor(private val context: Context) {
     // TODO: Rewrite this
     fun formatSpeed(metersPerSecond: Float): String {
         val distanceUnits = prefs.distanceUnits
-        val convertedSpeed = LocationMath.convertToBaseSpeed(metersPerSecond, distanceUnits)
-        return if (distanceUnits == UserPreferences.DistanceUnits.Meters) {
+        val convertedSpeed = LocationMath.convertToBaseSpeed(metersPerSecond, distanceUnits, prefs.useNauticalMiles)
+        return if (prefs.useNauticalMiles) {
+            strings.getString(R.string.knots_format, convertedSpeed)
+        } else if (distanceUnits == UserPreferences.DistanceUnits.Meters) {
             strings.getString(R.string.kilometers_per_hour_format, convertedSpeed)
         } else {
             strings.getString(R.string.miles_per_hour_format, convertedSpeed)

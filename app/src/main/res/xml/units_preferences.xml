@@ -16,6 +16,13 @@
             app:title="@string/distance"
             app:useSimpleSummaryProvider="true" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_use_nautical_miles"
+            app:singleLineTitle="false"
+            app:title="@string/pref_use_nautical_miles_title" />
+
         <ListPreference
             app:defaultValue="hpa"
             app:entries="@array/pressure_unit_entries"

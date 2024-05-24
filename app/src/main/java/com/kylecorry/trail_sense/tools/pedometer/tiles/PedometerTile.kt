@@ -25,7 +25,7 @@ class PedometerTile : TopicTile() {
 
     override val subtitleTopic: ITopic<String>
         get() = pedometer.distance.map {
-            val converted = it.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+            val converted = it.convertTo(prefs.baseDistanceUnits).toRelativeDistance(prefs.useNauticalMiles)
             formatter.formatDistance(converted, Units.getDecimalPlaces(converted.units))
         }.replay()
 

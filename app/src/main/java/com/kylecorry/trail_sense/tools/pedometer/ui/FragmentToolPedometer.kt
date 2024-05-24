@@ -92,7 +92,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
                 }
             } else {
                 val distance =
-                    alertDistance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+                    alertDistance.convertTo(prefs.baseDistanceUnits).toRelativeDistance(prefs.useNauticalMiles)
                 Alerts.dialog(
                     requireContext(),
                     getString(R.string.distance_alert),
@@ -180,7 +180,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
 
     private fun getDistance(steps: Long): Distance {
         val distance = paceCalculator.distance(steps)
-        return distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+        return distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance(prefs.useNauticalMiles)
     }
 
     private fun startStepCounter() {

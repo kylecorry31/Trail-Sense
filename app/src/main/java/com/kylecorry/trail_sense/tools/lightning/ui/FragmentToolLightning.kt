@@ -117,7 +117,7 @@ class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {
         current?.let {
             val distance = it
                 .convertTo(units)
-                .toRelativeDistance()
+                .toRelativeDistance(prefs.useNauticalMiles)
             binding.lightningTitle.title.text = formatService.formatDistance(
                 distance,
                 Units.getDecimalPlaces(distance.units),
@@ -131,7 +131,7 @@ class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {
         lastStrike?.let {
             val distance = it.value.distance
                 .convertTo(units)
-                .toRelativeDistance()
+                .toRelativeDistance(prefs.useNauticalMiles)
 
             val lastTime = getString(
                 R.string.last_lightning_strike_at, formatService.formatTime(

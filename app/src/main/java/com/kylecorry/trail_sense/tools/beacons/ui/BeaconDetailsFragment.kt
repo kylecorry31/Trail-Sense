@@ -201,7 +201,7 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
             val beacon = beacon
             if (isBound && beacon != null) {
                 val distance = Distance.meters(beacon.coordinate.distanceTo(gps.location))
-                    .convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+                    .convertTo(prefs.baseDistanceUnits).toRelativeDistance(prefs.useNauticalMiles)
                 binding.beaconDistance.title =
                     formatService.formatDistance(
                         distance,

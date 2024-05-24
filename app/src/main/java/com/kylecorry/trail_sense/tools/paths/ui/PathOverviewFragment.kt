@@ -522,7 +522,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         )[path.style.line.ordinal]
 
         val distance =
-            path.metadata.distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+            path.metadata.distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance(prefs.useNauticalMiles)
 
         val start = path.metadata.duration?.start
         val end = path.metadata.duration?.end

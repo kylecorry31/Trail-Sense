@@ -141,7 +141,7 @@ class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
                 } else {
                     val mapDistance = Geology.getMapDistance(currentDistance, ratioFrom, ratioTo)
                     formatService.formatDistance(
-                        mapDistance.convertTo(rulerUnits).toRelativeDistance(), mapPrecision, false
+                        mapDistance.convertTo(rulerUnits).toRelativeDistance(prefs.useNauticalMiles), mapPrecision, false
                     )
                 }
             }

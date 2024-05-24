@@ -110,7 +110,7 @@ class BeaconListItemMapper(
         val formatService = FormatService.getInstance(context)
         val navigationService = NavigationService()
         val distance = navigationService.navigate(coordinate, myLocation, 0f).distance
-        val d = Distance.meters(distance).convertTo(units).toRelativeDistance()
+        val d = Distance.meters(distance).convertTo(units).toRelativeDistance(prefs.useNauticalMiles)
         return formatService.formatDistance(d, Units.getDecimalPlaces(d.units), false)
     }
 

@@ -19,7 +19,7 @@ class DistanceAlerter(private val context: Context) : IAlerter {
         val openIntent = NavigationUtils.pendingIntent(context, R.id.fragmentToolPedometer)
 
         val distance =
-            prefs.pedometer.alertDistance?.convertTo(prefs.baseDistanceUnits)?.toRelativeDistance()
+            prefs.pedometer.alertDistance?.convertTo(prefs.baseDistanceUnits)?.toRelativeDistance(prefs.useNauticalMiles)
 
         val notification = Notify.alert(
             context,

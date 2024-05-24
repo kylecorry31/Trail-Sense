@@ -53,6 +53,6 @@ class AugmentedRealitySettingsFragment : AndromedaPreferenceFragment() {
     }
 
     private fun relative(distance: Distance, prefs: UserPreferences): Distance {
-        return distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+        return distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance(prefs.useNauticalMiles)
     }
 }

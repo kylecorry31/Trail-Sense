@@ -4,7 +4,7 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 
 object DistanceUtils {
-    fun Distance.toRelativeDistance(): Distance {
+    fun Distance.toRelativeDistance(useNauticalMiles: Boolean): Distance {
         val metric = listOf(
             DistanceUnits.Kilometers,
             DistanceUnits.Meters,
@@ -13,7 +13,13 @@ object DistanceUtils {
         val baseDistance =
             if (metric) this.convertTo(DistanceUnits.Meters) else this.convertTo(DistanceUnits.Feet)
         val newUnits = if (baseDistance.distance > 1000) {
-            if (metric) DistanceUnits.Kilometers else DistanceUnits.Miles
+            if (useNauticalMiles) {
+                DistanceUnits.NauticalMiles
+            } else if (metric) {
+                DistanceUnits.Kilometers
+            } else {
+                DistanceUnits.Miles
+            }
         } else {
             if (metric) DistanceUnits.Meters else DistanceUnits.Feet
         }
