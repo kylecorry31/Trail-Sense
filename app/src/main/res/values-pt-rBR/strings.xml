@@ -571,7 +571,7 @@
         <item quantity="other">%d pontos de orientação importados</item>
     </plurals>
     <string name="battery_capacity_format">%s mAh</string>
-    <string name="app_disclaimer_message_title">Isenção de responsabilidade / Termos de serviço</string>
+    <string name="app_disclaimer_message_title">Aviso Legal / Termos de serviço</string>
     <string name="disclaimer_message_title">Isenção de responsabilidade</string>
     <string name="time">Hora</string>
     <string name="days_format">%s d</string>

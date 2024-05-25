@@ -1,0 +1,9 @@
+- Mostrar a velocidade na guia de navegação
+- Mostrar o tempo aproximado para os sinalizadores
+- Reorganização da guia de navegação
+- Mostrar a precisão do GPS/bússola
+- Adicionar notas e elevação aos sinalizadores
+- Adicionar capacidade de editar sinalizadores
+- Adicionar configuração para a sensibilidade da previsão
+- Adicionar informações meteorológicas à notificação
+- Melhorar o cálculo da pressão ao nível do mar

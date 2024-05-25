@@ -1026,4 +1026,10 @@
     <string name="tool_quick_actions">Verktøy-hurtighandlinger</string>
     <string name="view_in_3d">Vis i 3D</string>
     <string name="visible">Synlig</string>
+    <string name="cloud_scanner">Sky-skanner</string>
+    <string name="dynamic_colors">Dynamiske farger</string>
+    <string name="quick_actions">Hurtighandlinger</string>
+    <string name="astronomy_altitude">Høyde</string>
+    <string name="no_qr_code_detected">Ingen QR-kode oppdaget</string>
+    <string name="direction">Retning</string>
 </resources>
