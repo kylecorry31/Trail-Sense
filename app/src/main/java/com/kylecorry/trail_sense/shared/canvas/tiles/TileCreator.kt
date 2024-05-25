@@ -1,6 +1,10 @@
 package com.kylecorry.trail_sense.shared.canvas.tiles
 
 import android.graphics.RectF
+import android.util.Size
+import kotlin.math.ceil
+import kotlin.math.log
+import kotlin.math.pow
 
 object TileCreator {
 
@@ -26,6 +30,30 @@ object TileCreator {
             )
             tileRect.intersect(rect)
         }
+    }
+
+    fun getTileSize(
+        sourceWidth: Int,
+        sourceHeight: Int,
+        scale: Float,
+        desiredTileWidth: Int = 256
+    ): Size {
+        val zoomedWidth = sourceWidth * scale
+        val zoomedHeight = sourceHeight * scale
+        val numTilesX = ceil((zoomedWidth + desiredTileWidth - 1) / desiredTileWidth).toInt()
+        val numTilesY = ceil((zoomedHeight + desiredTileWidth - 1) / desiredTileWidth).toInt()
+        val tileSizeX = nextPowerOf2(sourceWidth / numTilesX)
+        val tileSizeY = nextPowerOf2(sourceHeight / numTilesY)
+        return Size(
+            tileSizeX.coerceAtLeast(desiredTileWidth),
+            tileSizeY.coerceAtLeast(desiredTileWidth)
+        )
+    }
+
+    private fun nextPowerOf2(value: Int): Int {
+        if (value <= 0) return 1
+        // TODO: Use bitwise operators to determine if the number is a power of 2
+        return 2.0.pow(ceil(log(value.toDouble(), 2.0))).toInt()
     }
 }
 

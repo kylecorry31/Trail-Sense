@@ -1,31 +1,26 @@
 package com.kylecorry.trail_sense.shared.canvas.tiles
 
+import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Rect
 import android.graphics.RectF
+import android.net.Uri
 import android.util.Size
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils
+import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.sol.math.SolMath.roundNearest
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
-import java.io.File
-import java.io.FileInputStream
 import java.util.concurrent.ConcurrentHashMap
-import kotlin.math.ceil
-import kotlin.math.log
-import kotlin.math.pow
 
-
-class BitmapTileLoader(private val path: String, private val scaleStep: Float = 0.01f) :
+class PDFTileLoader(
+    private val context: Context,
+    private val uri: Uri,
+    private val scaleStep: Float = 0.01f
+) :
     TileLoader {
 
-    /**
-     * The tiles to render (in the order they should be rendered)
-     */
     override val tiles: List<Pair<ImageTile, Bitmap>>
         get() = listOfNotNull(baseImage) + tileMap.toList()
 
@@ -33,30 +28,35 @@ class BitmapTileLoader(private val path: String, private val scaleStep: Float = 
     private val tileMap = ConcurrentHashMap<ImageTile, Bitmap>()
     private val tileUpdateQueue = CoroutineQueueRunner()
     private var imageSize = Size(0, 0)
+    private var renderer: PDFRenderer? = null
 
-    /**
-     * Updates the tiles for the given zoom level and clip bounds
-     * @param zoom the zoom level (at 1f, the image is at its original size; 1px on the screen = 1px in the image)
-     * @param clipBounds the clip bounds (in the source image coordinates)
-     */
     override suspend fun updateTiles(zoom: Float, clipBounds: RectF) {
         onDefault {
             tileUpdateQueue.enqueue {
                 onIO {
+                    println("RENDERING")
+
+                    if (renderer == null) {
+                        renderer = PDFRenderer(context, uri)
+                    }
+
                     if (imageSize.width == 0 || imageSize.height == 0) {
-                        imageSize = BitmapUtils.getBitmapSize(path)!!
+                        val sizeNative = renderer!!.getSize()
+                        imageSize = Size(
+                            (sizeNative.width * Screen.dpi(context) / 72f).toInt(),
+                            (sizeNative.height * Screen.dpi(context) / 72f).toInt()
+                        )
                     }
 
                     if (baseImage == null) {
                         baseImage = ImageTile(0, 0, imageSize.width, imageSize.height) to
                                 renderTile(
-                                    path,
                                     ImageTile(0, 0, imageSize.width, imageSize.height),
                                     256
                                 )!!
                     }
 
-                    val tileSize = getTileSize(
+                    val tileSize = TileCreator.getTileSize(
                         imageSize.width,
                         imageSize.height,
                         zoom.roundNearest(scaleStep),
@@ -76,7 +76,7 @@ class BitmapTileLoader(private val path: String, private val scaleStep: Float = 
                         it.copy(width = it.width + 1, height = it.height + 1)
                     }
 
-                    val adjustedBaseImageTile = baseImage!!.first.copy(
+                    val adjustedBaseImageTile = baseImage?.first?.copy(
                         width = baseImage!!.first.width + 1,
                         height = baseImage!!.first.height + 1
                     )
@@ -89,7 +89,7 @@ class BitmapTileLoader(private val path: String, private val scaleStep: Float = 
                     // TODO: Replace tile tree when loaded
                     val jobs = tilesToLoad.map { tile ->
                         launch {
-                            loadedTiles[tile] = renderTile(path, tile, 256)!!
+                            loadedTiles[tile] = renderTile(tile, 256)!!
                         }
                     }
 
@@ -112,71 +112,16 @@ class BitmapTileLoader(private val path: String, private val scaleStep: Float = 
         }
     }
 
-    private fun renderTile(path: String, tile: ImageTile, destinationSize: Int): Bitmap? {
-        return FileInputStream(File(path)).use {
-            val options = BitmapFactory.Options().also {
-                it.inSampleSize = calculateInSampleSize(
-                    tile.width,
-                    tile.height,
-                    destinationSize,
-                    destinationSize
-                )
-                it.inScaled = true
-            }
-            BitmapUtils.decodeRegion(
-                it,
-                Rect(tile.x, tile.y, tile.x + tile.width, tile.y + tile.height),
-                options
+    private fun renderTile(tile: ImageTile, destinationSize: Int): Bitmap? {
+        return renderer?.toBitmap(
+            Size(destinationSize, destinationSize),
+            srcRegion = RectF(
+                tile.x.toFloat(),
+                tile.y.toFloat(),
+                (tile.x + tile.width).toFloat(),
+                (tile.y + tile.height).toFloat()
             )
-        }
-    }
-
-    private fun getTileSize(
-        sourceWidth: Int,
-        sourceHeight: Int,
-        scale: Float,
-        desiredTileWidth: Int = 256
-    ): Size {
-        val zoomedWidth = sourceWidth * scale
-        val zoomedHeight = sourceHeight * scale
-        val numTilesX = ceil((zoomedWidth + desiredTileWidth - 1) / desiredTileWidth).toInt()
-        val numTilesY = ceil((zoomedHeight + desiredTileWidth - 1) / desiredTileWidth).toInt()
-        val tileSizeX = nextPowerOf2(sourceWidth / numTilesX)
-        val tileSizeY = nextPowerOf2(sourceHeight / numTilesY)
-        return Size(
-            tileSizeX.coerceAtLeast(desiredTileWidth),
-            tileSizeY.coerceAtLeast(desiredTileWidth)
         )
-    }
-
-    private fun nextPowerOf2(value: Int): Int {
-        if (value <= 0) return 1
-        // TODO: Use bitwise operators to determine if the number is a power of 2
-        return 2.0.pow(ceil(log(value.toDouble(), 2.0))).toInt()
-    }
-
-    private fun calculateInSampleSize(
-        sourceWidth: Int,
-        sourceHeight: Int,
-        reqWidth: Int,
-        reqHeight: Int
-    ): Int {
-        // Raw height and width of image
-        var inSampleSize = 1
-
-        if (sourceHeight > reqHeight || sourceWidth > reqWidth) {
-
-            val halfHeight: Int = sourceHeight / 2
-            val halfWidth: Int = sourceWidth / 2
-
-            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            // height and width larger than the requested height and width.
-            while (halfHeight / inSampleSize >= reqHeight && halfWidth / inSampleSize >= reqWidth) {
-                inSampleSize *= 2
-            }
-        }
-
-        return inSampleSize
     }
 
     override fun release() {
@@ -187,5 +132,7 @@ class BitmapTileLoader(private val path: String, private val scaleStep: Float = 
         baseImage?.second?.recycle()
         baseImage = null
         tileMap.clear()
+        renderer?.release()
+        renderer = null
     }
 }
