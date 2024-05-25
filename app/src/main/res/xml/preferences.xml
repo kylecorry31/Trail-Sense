@@ -113,7 +113,7 @@
             app:singleLineTitle="false" />
 
         <Preference
-            android:summary="https://github.com/kylecorry31/Trail-Sense"
+            android:summary="https://github.com/BloodWalrus/Ocean-Sense"
             android:title="@string/pref_github_title"
             app:iconSpaceReserved="false"
             app:key="@string/pref_github"
