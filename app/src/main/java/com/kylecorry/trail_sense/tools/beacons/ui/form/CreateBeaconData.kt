@@ -21,7 +21,7 @@ data class CreateBeaconData(
     val bearingTo: Float? = null,
     val bearingIsTrueNorth: Boolean = false,
     val groupId: Long? = null,
-    val color: AppColor = AppColor.Orange,
+    val color: AppColor = AppColor.Blue,
     val notes: String = "",
     val isVisible: Boolean = true,
     val icon: BeaconIcon? = null
@@ -86,7 +86,7 @@ data class CreateBeaconData(
                 null,
                 false,
                 beacon.parentId,
-                AppColor.entries.toTypedArray().fromColor(beacon.color) ?: AppColor.Orange,
+                AppColor.entries.toTypedArray().fromColor(beacon.color) ?: AppColor.Blue,
                 beacon.comment ?: "",
                 beacon.visible,
                 beacon.icon

@@ -74,7 +74,7 @@ class DialSelectView : CanvasView {
         }
 
     @ColorInt
-    var selectedColor: Int = AppColor.Orange.color
+    var selectedColor: Int = AppColor.Blue.color
         set(value) {
             field = value
             invalidate()

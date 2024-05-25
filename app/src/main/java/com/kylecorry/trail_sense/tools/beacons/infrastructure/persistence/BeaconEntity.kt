@@ -62,7 +62,7 @@ data class BeaconEntity(
                 beacon.elevation,
                 beacon.temporary,
                 beacon.owner,
-                AppColor.values().firstOrNull { it.color == beacon.color } ?: AppColor.Orange,
+                AppColor.values().firstOrNull { it.color == beacon.color } ?: AppColor.Blue,
                 beacon.icon
             ).also {
                 it.id = beacon.id

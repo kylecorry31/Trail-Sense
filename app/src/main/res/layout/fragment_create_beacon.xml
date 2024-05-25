@@ -115,7 +115,7 @@
                 android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                 app:drawableSize="24dp"
                 app:drawableStartCompat="@drawable/bubble"
-                app:drawableTint="@color/orange" />
+                app:drawableTint="@color/blue" />
 
             <TextView
                 android:id="@+id/beacon_icon_picker"

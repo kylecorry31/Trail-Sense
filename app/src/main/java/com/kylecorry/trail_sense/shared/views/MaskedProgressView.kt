@@ -32,7 +32,7 @@ class MaskedProgressView : CanvasView {
         }
 
     @ColorInt
-    var progressColor: Int = AppColor.Orange.color
+    var progressColor: Int = AppColor.Blue.color
         set(value) {
             field = value
             invalidate()

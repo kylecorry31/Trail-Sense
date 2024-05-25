@@ -21,7 +21,7 @@ class BeaconUriEncoder : IUriEncoder<Beacon> {
             geo.queryParameters.getOrDefault("label", ""),
             geo.coordinate,
             elevation = geo.altitude ?: geo.queryParameters.getOrDefault("ele", "").toFloatOrNull(),
-            color = AppColor.Orange.color
+            color = AppColor.Blue.color
         )
     }
 

@@ -365,7 +365,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 location,
                 visible = false,
                 temporary = true,
-                color = AppColor.Orange.color,
+                color = AppColor.Blue.color,
                 owner = BeaconOwner.Maps
             )
             val id = onIO {

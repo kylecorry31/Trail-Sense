@@ -32,7 +32,7 @@ data class Beacon(
             parentId: Long? = null,
             elevation: Float? = null,
             owner: BeaconOwner = BeaconOwner.User,
-            @ColorInt color: Int = AppColor.Orange.color,
+            @ColorInt color: Int = AppColor.Blue.color,
             icon: BeaconIcon? = null
         ): Beacon {
             return Beacon(

@@ -72,7 +72,7 @@ class Converters {
 
     @TypeConverter
     fun toAppColor(value: Long): AppColor {
-        return AppColor.values().withId(value) ?: AppColor.Orange
+        return AppColor.values().withId(value) ?: AppColor.Blue
     }
 
     @TypeConverter

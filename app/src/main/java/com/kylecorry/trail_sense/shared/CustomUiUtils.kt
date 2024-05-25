@@ -450,7 +450,7 @@ object CustomUiUtils {
         return if (prefs.useDynamicColors && prefs.useDynamicColorsOnCompass) {
             getPrimaryColor(context)
         } else {
-            AppColor.Orange.color
+            AppColor.Red.color
         }
     }
 
@@ -459,7 +459,7 @@ object CustomUiUtils {
         return if (prefs.useDynamicColors && prefs.useDynamicColorsOnCompass) {
             getPrimaryColor(context)
         } else {
-            AppColor.Orange.color
+            AppColor.Blue.color
         }
     }
 

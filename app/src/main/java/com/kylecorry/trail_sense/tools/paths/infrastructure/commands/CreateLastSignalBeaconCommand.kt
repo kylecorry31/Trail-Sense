@@ -34,7 +34,7 @@ class CreateLastSignalBeaconCommand(private val context: Context) {
                 elevation = point.elevation,
                 temporary = true,
                 owner = BeaconOwner.CellSignal,
-                color = AppColor.Orange.color
+                color = AppColor.Blue.color
             ))
         }
     }

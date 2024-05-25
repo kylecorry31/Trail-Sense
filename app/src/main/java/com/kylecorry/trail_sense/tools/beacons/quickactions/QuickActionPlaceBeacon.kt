@@ -52,7 +52,7 @@ class QuickActionPlaceBeacon(btn: ImageButton, fragment: Fragment) :
                         time,
                         gps.location,
                         elevation = altimeter.altitude,
-                        color = AppColor.Orange.color,
+                        color = AppColor.Blue.color,
                     )
                 )
 
