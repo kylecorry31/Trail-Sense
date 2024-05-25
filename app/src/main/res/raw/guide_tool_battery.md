@@ -7,7 +7,7 @@ The Battery tool will provide an estimate (based on the last day's history) of h
 The battery indicator shows the current battery percentage and, if supported, the remaining capacity (in mAh). Below that, you can see how fast your device is currently charging or discharging. Additionally, if your battery health is poor, you will see a warning.
 
 ## Battery history
-You can view the history of battery percentage by clicking the chart icon in the top-right corner. This displays the last day's history, as recorded by Trail Sense.
+You can view the history of battery percentage by clicking the chart icon in the top-right corner. This displays the last day's history, as recorded by Ocean Sense.
 
 The history is updated about every hour, you can disable this in 'Settings > Battery > Battery log'. If this is disabled, you will no longer see battery history and may not see time until full or empty.
 
@@ -15,7 +15,7 @@ The history is updated about every hour, you can disable this in 'Settings > Bat
 To access system battery settings and usage, click the settings icon in the top-right corner.
 
 ## Power saving mode
-By turning on 'Power saving mode', you can reduce the power consumption of Trail Sense by stopping some services, such as Backtrack and Weather, as well as using the black theme. You can activate this by using the 'Power saving mode' switch on the battery tool.
+By turning on 'Power saving mode', you can reduce the power consumption of Ocean Sense by stopping some services, such as Backtrack and Weather, as well as using the black theme. You can activate this by using the 'Power saving mode' switch on the battery tool.
 
 You can configure power saving mode to activate automatically when your battery is low by enabling 'Settings > Battery > Automatic power saving'.
 

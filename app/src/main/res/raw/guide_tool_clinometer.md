@@ -54,4 +54,4 @@ If you do not know the height of the tree, you can still estimate the distance t
 9. Release to lock and see the distance to the tree.
 
 ## Disclaimer
-Trail Sense uses a general rule of thumb to determine if a slope has avalanche potential, which is limited by your phone's sensors. If you think a slope is unsafe, then try to find an alternate route to avoid it or take precautions.
+Ocean Sense uses a general rule of thumb to determine if a slope has avalanche potential, which is limited by your phone's sensors. If you think a slope is unsafe, then try to find an alternate route to avoid it or take precautions.

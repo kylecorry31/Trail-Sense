@@ -1,7 +1,7 @@
-The Tides tool helps you keep track of tides at a specific location. Trail Sense operates offline, so you'll need to manually input the tides you wish to monitor.
+The Tides tool helps you keep track of tides at a specific location. Ocean Sense operates offline, so you'll need to manually input the tides you wish to monitor.
 
 ## Create a tide table
-Before venturing into coastal areas, consult an official tide table for accurate times and water heights. Once you have this information, follow these steps to import it into Trail Sense's Tide tool:
+Before venturing into coastal areas, consult an official tide table for accurate times and water heights. Once you have this information, follow these steps to import it into Ocean Sense's Tide tool:
 
 1. Click the tides button in the top-right corner of the screen.
 2. Tap the '+' button in the bottom-right corner.
@@ -15,7 +15,7 @@ Before venturing into coastal areas, consult an official tide table for accurate
 10. You can delete a tide by clicking the 'X' icon to the right of the tide.
 11. Save the tide table by clicking the checkmark in the top-right corner.
 
-For the best accuracy, input all tides for each relevant day. Trail Sense will distinguish between entered and estimated tides on the tide chart.
+For the best accuracy, input all tides for each relevant day. Ocean Sense will distinguish between entered and estimated tides on the tide chart.
 
 ## Viewing a tide table
 By default, the Tides tool displays the closest tide to your location when you open it. To change this, go to Settings > Tides > 'Show closest tide' to toggle between displaying the closest tide and the last tide you viewed.
@@ -80,4 +80,4 @@ To locate an official tide table, search the Internet for tides at your location
 - [Tides.net](https://tides.net/)
 
 ## Disclaimer
-Tide predictions are estimates and should not be relied upon exclusively. Whenever possible, use an official tide table and input the data into Trail Sense for accuracy.
+Tide predictions are estimates and should not be relied upon exclusively. Whenever possible, use an official tide table and input the data into Ocean Sense for accuracy.

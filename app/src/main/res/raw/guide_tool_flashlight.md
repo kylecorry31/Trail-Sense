@@ -1,4 +1,4 @@
-The Flashlight tool can be used to provide light or signal for help. As with any tool in Trail Sense, it is always best to carry a real flashlight with you.
+The Flashlight tool can be used to provide light or signal for help. As with any tool in Ocean Sense, it is always best to carry a real flashlight with you.
 
 ## Flashlight
 Tap the flashlight button to toggle the flashlight on or off. When the flashlight is on (in any mode), a notification will be displayed to allow you to quickly turn it off.
@@ -22,7 +22,7 @@ Press back or tap the 'Turn off' button to turn off the screen flashlight. Your 
 You can set the flashlight to automatically turn off after a certain amount of time by enabling 'Settings > Flashlight > Automatically turn off' and selecting the desired time. This can be useful to save battery if you forget to turn off the flashlight.
 
 ## Toggle with volume buttons
-You can set the flashlight to toggle on or off when you press either volume button by enabling 'Settings > Flashlight > Toggle with volume buttons'. This only works while Trail Sense is open.
+You can set the flashlight to toggle on or off when you press either volume button by enabling 'Settings > Flashlight > Toggle with volume buttons'. This only works while Ocean Sense is open.
 
 ## Quick action
 

@@ -12,7 +12,7 @@ The weather monitor runs in the background to record pressure history. Enable it
 
 To change the recording frequency, click the time under the weather monitor label at the bottom left and enter a new interval.
 
-For better accuracy, grant Trail Sense Location permission to determine your elevation via GPS. This helps convert pressure to sea level pressure, improving prediction accuracy.
+For better accuracy, grant Ocean Sense Location permission to determine your elevation via GPS. This helps convert pressure to sea level pressure, improving prediction accuracy.
 
 In Settings > Weather, you can customize the notification to show:
 - **Pressure**: Displays the current pressure.
@@ -20,10 +20,10 @@ In Settings > Weather, you can customize the notification to show:
 
 You can also enable daily weather notifications in Settings > Weather > Daily weather notification. Without the weather monitor being active, you won't receive these notifications. The timing of this notification is configurable in Settings > Weather > Daily weather time.
 
-You can disable weather monitor notifications in Android's notification settings for Trail Sense.
+You can disable weather monitor notifications in Android's notification settings for Ocean Sense.
 
 ## Storm alert
-If the weather monitor is active, Trail Sense can notify you of storms. Enable this in Settings > Weather > Storm alert. You can adjust the sensitivity in Settings > Weather > Storm sensitivity. Higher sensitivity might trigger false alerts, while lower sensitivity could miss some storms.
+If the weather monitor is active, Ocean Sense can notify you of storms. Enable this in Settings > Weather > Storm alert. You can adjust the sensitivity in Settings > Weather > Storm sensitivity. Higher sensitivity might trigger false alerts, while lower sensitivity could miss some storms.
 
 ## Weather details
 The Weather tool also provides more information about the current and predicted weather.
@@ -59,7 +59,7 @@ You can enable the Weather Monitor quick action in the settings for the tab you 
 To use the quick action, tap the Weather Monitor quick action button to toggle it on or off.
 
 ## Accuracy
-The weather prediction is a best guess using available sensor data and may not be accurate. If Trail Sense says it is going to be clear but you see what appears to be storm clouds rolling in, trust your instincts - sometimes storms roll in with gradual changes in pressure. Seek shelter if you sense a storm approaching, regardless of Trail Sense's prediction.
+The weather prediction is a best guess using available sensor data and may not be accurate. If Ocean Sense says it is going to be clear but you see what appears to be storm clouds rolling in, trust your instincts - sometimes storms roll in with gradual changes in pressure. Seek shelter if you sense a storm approaching, regardless of Ocean Sense's prediction.
 
 Climate normals (historic temperatures) are based on the 30-year average of the historic data and indicate what the weather usually is. The actual values may differ for a variety of reasons but should remain fairly close to the historic values. Large differences are normally due to a storm or other weather event.
 

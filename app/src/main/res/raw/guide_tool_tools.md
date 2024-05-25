@@ -1,4 +1,4 @@
-Trail Sense is composed of a number of tools that are designed for hiking, backpacking, camping, and geocaching.
+Ocean Sense is composed of a number of tools that are designed for hiking, backpacking, camping, and geocaching.
 
 ## Bottom navigation
 The Navigation, Weather (if available), and Astronomy tools are available in the bottom navigation bar. These tools are also available in the tool list.
@@ -6,7 +6,7 @@ The Navigation, Weather (if available), and Astronomy tools are available in the
 All other tools can be found in the Tools bottom navigation item on the far right.
 
 ## Tool list
-The tool list can be accessed by tapping the Tools item in the bottom navigation bar. This will show a list of all tools available in Trail Sense.
+The tool list can be accessed by tapping the Tools item in the bottom navigation bar. This will show a list of all tools available in Ocean Sense.
 
 Clicking on a tool will open it.
 

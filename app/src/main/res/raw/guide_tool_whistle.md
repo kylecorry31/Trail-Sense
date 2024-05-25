@@ -1,4 +1,4 @@
-The Whistle tool can be used to signal for help. When using the whistle, it is recommended to turn your volume up to the maximum or connect to an external speaker. As with any tool in Trail Sense, it is always best to carry a real whistle with you.
+The Whistle tool can be used to signal for help. When using the whistle, it is recommended to turn your volume up to the maximum or connect to an external speaker. As with any tool in Ocean Sense, it is always best to carry a real whistle with you.
 
 ## Whistle
 Press and hold the whistle button to play a whistle sound.

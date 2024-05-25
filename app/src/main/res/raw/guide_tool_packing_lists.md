@@ -22,7 +22,7 @@ With a packing list open, click the '+' button in the bottom-right corner. On th
 - **Packed amount**: The number of items currently packed, can be blank or a number (with decimal places)
 - **Desired amount**: The number of items you would like to pack, can be blank or a number (with decimal places)
 - **Category**: The category to group this item by, defaults to "Other"
-- **Weight**: The weight of 1 item in your desired units. Trail Sense will scale this by the amount of packed items to determine the total weight.
+- **Weight**: The weight of 1 item in your desired units. Ocean Sense will scale this by the amount of packed items to determine the total weight.
 
 When finished, click the check button in the bottom-right corner to save the item.
 

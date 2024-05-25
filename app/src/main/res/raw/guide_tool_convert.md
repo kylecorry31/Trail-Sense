@@ -1,7 +1,7 @@
 The Convert tool can be used to convert various measurement units.
 
 ## Coordinates
-To convert a location from one coordinate system to another, swipe to the 'Coordinates' tab of the Convert tool (open by default). Then enter the coordinates and the To unit, and the result will be displayed. Trail Sense will automatically detect the coordinate system of the input if it is supported. For a list of supported coordinate systems, click on the "To" field.
+To convert a location from one coordinate system to another, swipe to the 'Coordinates' tab of the Convert tool (open by default). Then enter the coordinates and the To unit, and the result will be displayed. Ocean Sense will automatically detect the coordinate system of the input if it is supported. For a list of supported coordinate systems, click on the "To" field.
 
 ## Distance
 To convert a distance from one unit to another, swipe to the 'Distance' tab of the Convert tool. Then enter the distance, From unit, and To unit, and the result will be displayed.

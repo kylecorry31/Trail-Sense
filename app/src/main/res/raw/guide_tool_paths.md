@@ -18,7 +18,7 @@ You can choose to manually create a path by doing the following:
 4. Click the '+ Point' button to add a point to the path at your current location. You can add as many points as you want.
 
 ## Importing paths
-If you have tracks or routes saved in a GPX file, you can import them into Trail Sense as paths.
+If you have tracks or routes saved in a GPX file, you can import them into Ocean Sense as paths.
 
 1. Tap the '+' button in the bottom-right corner of the screen.
 2. Click 'GPX File'.
