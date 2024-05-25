@@ -26,3 +26,4 @@ release-builds-helper.sh
 .idea/shelf
 .idea/copilot
 .idea/deploymentTargetSelector.xml
+.kotlin/
