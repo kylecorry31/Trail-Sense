@@ -35,7 +35,7 @@ class BitmapTileLoader(private val path: String, private val scaleStep: Float = 
 
     /**
      * Updates the tiles for the given zoom level and clip bounds
-     * @param zoom the zoom level
+     * @param zoom the zoom level (at 1f, the image is at its original size; 1px on the screen = 1px in the image)
      * @param clipBounds the clip bounds (in the source image coordinates)
      */
     suspend fun updateTiles(zoom: Float, clipBounds: RectF) {
