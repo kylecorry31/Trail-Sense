@@ -951,7 +951,7 @@
     <string name="delete_pack">係咪要剷走呢箱嘢？</string>
     <string name="pack_sort_percent_low_to_high">執好幾多成 (未執到執晒)</string>
     <string name="no_packing_lists">未有照單執嘢</string>
-    <string name="create_item_title">整過樣嘢</string>
+    <string name="create_item_title">整返樣嘢</string>
     <string name="inventory_empty_text">未有任何嘢</string>
     <string name="create_path">整返條路徑</string>
     <string name="scanning_image">掃描緊影像</string>
@@ -1014,4 +1014,6 @@
     <string name="temporary">臨時</string>
     <string name="ar_calibration_disclaimer">每次用「擴充實境」架生之前，請查驗個太陽或月亮公仔係咪已經同真實世界對齊。若果唔齊整，請撳一下畫面左上角嘅羅經公仔並跟指示校正。</string>
     <string name="max_s">最高 %s</string>
+    <string name="background">幕後</string>
+    <string name="quick_actions">快速動作</string>
 </resources>
