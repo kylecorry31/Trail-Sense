@@ -10,6 +10,7 @@ import android.graphics.PorterDuffColorFilter
 import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.SystemBarStyle
@@ -20,6 +21,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import com.google.android.material.navigation.NavigationBarView
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.system.Screen
@@ -127,8 +129,7 @@ class MainActivity : AndromedaActivity() {
             )
         }
 
-        setBottomNavLabelsVisibility()
-        binding.bottomNavigation.setupWithNavController(navController, false)
+        setupBottomNavigation()
 
         // Loop through each item of the bottom navigation and override the long press behavior
         for (i in 0 until binding.bottomNavigation.menu.size()) {
@@ -259,8 +260,14 @@ class MainActivity : AndromedaActivity() {
         if (cache.getBoolean(BackupService.RECENTLY_BACKED_UP_KEY) == true) {
             cache.remove(BackupService.RECENTLY_BACKED_UP_KEY)
             navController.navigate(R.id.action_settings)
-        } else if (navController.currentDestination?.id == R.id.action_navigation && shouldReloadNavigation) {
-            navController.navigate(R.id.action_navigation)
+        } else if (shouldReloadNavigation) {
+            navController.navigate(
+                binding.bottomNavigation.selectedItemId,
+                null,
+                NavOptions.Builder().setPopUpTo(
+                    navController.currentDestination?.id ?: R.id.action_experimental_tools, true
+                ).build()
+            )
         }
 
         ComposedCommand(
@@ -300,7 +307,7 @@ class MainActivity : AndromedaActivity() {
         super.onRestoreInstanceState(savedInstanceState)
         binding.bottomNavigation.selectedItemId = savedInstanceState.getInt(
             "page",
-            R.id.action_navigation
+            binding.bottomNavigation.menu.getItem(0).itemId
         )
         if (savedInstanceState.containsKey("navigation")) {
             tryOrNothing {
@@ -406,6 +413,46 @@ class MainActivity : AndromedaActivity() {
         }
 
         return false
+    }
+
+    private fun setupBottomNavigation() {
+        setBottomNavLabelsVisibility()
+
+        val bottomNavTools = userPrefs.bottomNavigationTools
+
+        val tools = Tools.getTools(this)
+        binding.bottomNavigation.menu.clear()
+        bottomNavTools.take(4).forEachIndexed { index, toolId ->
+            val toolItem = tools.firstOrNull { it.id == toolId } ?: return@forEachIndexed
+            binding.bottomNavigation.menu.add(
+                Menu.NONE,
+                toolItem.navAction,
+                index,
+                toolItem.name
+            ).setIcon(toolItem.icon)
+        }
+
+        binding.bottomNavigation.menu.add(
+            Menu.NONE,
+            R.id.action_experimental_tools,
+            4,
+            getString(R.string.tools)
+        ).setIcon(R.drawable.apps)
+
+        // Bind to navigation
+        binding.bottomNavigation.setupWithNavController(navController, false)
+
+        // Open the left most item by default (and clear the back stack)
+        val leftMostItem = binding.bottomNavigation.menu.getItem(0)
+        if (navController.currentDestination?.id != leftMostItem.itemId) {
+            navController.navigate(
+                leftMostItem.itemId,
+                null,
+                NavOptions.Builder()
+                    .setPopUpTo(R.id.action_experimental_tools, true)
+                    .build()
+            )
+        }
     }
 
     companion object {

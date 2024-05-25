@@ -352,7 +352,7 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
     var toolQuickActions: List<Int>
         get() {
             return cache.getIntArray(context.getString(R.string.pref_tool_quick_actions))
-                ?: listOfNotNull(
+                ?: listOf(
                     Tools.QUICK_ACTION_FLASHLIGHT,
                     Tools.QUICK_ACTION_WHISTLE,
                     Tools.QUICK_ACTION_LOW_POWER_MODE,
@@ -362,6 +362,23 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
             cache.putIntArray(
                 context.getString(R.string.pref_tool_quick_actions),
                 value
+            )
+        }
+
+    var bottomNavigationTools: List<Long>
+        get() {
+            return cache.getIntArray(context.getString(R.string.pref_bottom_navigation_tools))
+                ?.map { it.toLong() }
+                ?: listOf(
+                    Tools.NAVIGATION,
+                    Tools.WEATHER,
+                    Tools.ASTRONOMY
+                )
+        }
+        set(value) {
+            cache.putIntArray(
+                context.getString(R.string.pref_bottom_navigation_tools),
+                value.map { it.toInt() }
             )
         }
 
