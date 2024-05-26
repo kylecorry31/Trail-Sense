@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.luna.coroutines.onIO
+import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.sol.math.SolMath.roundNearest
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
@@ -29,6 +30,7 @@ class PDFTileLoader(
     private val tileUpdateQueue = CoroutineQueueRunner()
     private var imageSize = Size(0, 0)
     private var renderer: PDFRenderer? = null
+    private var onTilesChangedListener: (() -> Unit)? = null
 
     override suspend fun updateTiles(zoom: Float, clipBounds: RectF) {
         onDefault {
@@ -60,6 +62,7 @@ class PDFTileLoader(
                         imageSize.width,
                         imageSize.height,
                         zoom.roundNearest(scaleStep),
+                        minimumSize = 128
                     ).width
                     val allTiles =
                         TileCreator.createTiles(
@@ -71,7 +74,7 @@ class PDFTileLoader(
                     // TODO: Why is the size off by 1?
                     val tiles = TileCreator.clip(
                         allTiles,
-                        clipBounds
+                        clipBounds,
                     ).map {
                         it.copy(width = it.width + 1, height = it.height + 1)
                     }
@@ -84,29 +87,45 @@ class PDFTileLoader(
                         tiles.filter { !tileMap.containsKey(it) && it != adjustedBaseImageTile }
                     val tilesToRemove = tileMap.keys.filter { !tiles.contains(it) }
 
-                    val loadedTiles = ConcurrentHashMap<ImageTile, Bitmap>()
+//                val loadedTiles = ConcurrentHashMap<ImageTile, Bitmap>()
 
                     // TODO: Replace tile tree when loaded
                     val jobs = tilesToLoad.map { tile ->
                         launch {
-                            loadedTiles[tile] = renderTile(tile, 256)!!
+                            val rendered = renderTile(tile, 256)!!
+                            // Remove all other tiles completely contained by this tile
+                            val toRemove = tiles.filter {
+                                if (it == tile) return@filter false
+                                val isContained = it.x >= tile.x && it.y >= tile.y &&
+                                        it.x + it.width <= tile.x + tile.width &&
+                                        it.y + it.height <= tile.y + tile.height
+                                isContained
+                            }
+                            tileMap[tile] = rendered
+                            toRemove.forEach {
+                                tileMap[it]?.recycle()
+                                tileMap.remove(it)
+                            }
                         }
                     }
 
                     // Wait for all jobs to finish
                     jobs.joinAll()
 
-                    tileMap.putAll(loadedTiles)
+//                tileMap.putAll(loadedTiles)
                     tilesToRemove.forEach {
+                        tileMap[it]?.recycle()
                         tileMap.remove(it)
                     }
-                    println("Tile size: $tileSize")
-                    println("Tile count: ${tiles.size} / ${allTiles.size}")
-                    println("Cache size: ${tileMap.size}")
-                    println("Added: ${tilesToLoad.size}, Removed: ${tilesToRemove.size}")
-                    println("Max bitmap size: ${tileMap.maxOf { it.value.width }}")
-                    println("Min bitmap size: ${tileMap.minOf { it.value.width }}")
-                    println()
+//                println("Tile size: $tileSize")
+//                println("Tile count: ${tiles.size} / ${allTiles.size}")
+//                println("Cache size: ${tileMap.size}")
+//                println("Added: ${tilesToLoad.size}, Removed: ${tilesToRemove.size}")
+//                println()
+                }
+
+                onMain {
+                    onTilesChangedListener?.invoke()
                 }
             }
         }
@@ -134,5 +153,9 @@ class PDFTileLoader(
         tileMap.clear()
         renderer?.release()
         renderer = null
+    }
+
+    override fun setOnTilesChangedListener(listener: () -> Unit) {
+        onTilesChangedListener = listener
     }
 }

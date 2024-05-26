@@ -9,23 +9,18 @@ import com.kylecorry.andromeda.core.bitmap.BitmapUtils
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.luna.coroutines.onIO
+import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.sol.math.SolMath.roundNearest
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileInputStream
 import java.util.concurrent.ConcurrentHashMap
-import kotlin.math.ceil
-import kotlin.math.log
-import kotlin.math.pow
 
 
 class BitmapTileLoader(private val path: String, private val scaleStep: Float = 0.01f) :
     TileLoader {
 
-    /**
-     * The tiles to render (in the order they should be rendered)
-     */
     override val tiles: List<Pair<ImageTile, Bitmap>>
         get() = listOfNotNull(baseImage) + tileMap.toList()
 
@@ -33,12 +28,9 @@ class BitmapTileLoader(private val path: String, private val scaleStep: Float = 
     private val tileMap = ConcurrentHashMap<ImageTile, Bitmap>()
     private val tileUpdateQueue = CoroutineQueueRunner()
     private var imageSize = Size(0, 0)
+    private var onTilesChangedListener: (() -> Unit)? = null
 
-    /**
-     * Updates the tiles for the given zoom level and clip bounds
-     * @param zoom the zoom level (at 1f, the image is at its original size; 1px on the screen = 1px in the image)
-     * @param clipBounds the clip bounds (in the source image coordinates)
-     */
+    // TODO: There are gaps between tiles
     override suspend fun updateTiles(zoom: Float, clipBounds: RectF) {
         onDefault {
             tileUpdateQueue.enqueue {
@@ -56,7 +48,7 @@ class BitmapTileLoader(private val path: String, private val scaleStep: Float = 
                                 )!!
                     }
 
-                    val tileSize = getTileSize(
+                    val tileSize = TileCreator.getTileSize(
                         imageSize.width,
                         imageSize.height,
                         zoom.roundNearest(scaleStep),
@@ -100,13 +92,17 @@ class BitmapTileLoader(private val path: String, private val scaleStep: Float = 
                     tilesToRemove.forEach {
                         tileMap.remove(it)
                     }
-                    println("Tile size: $tileSize")
-                    println("Tile count: ${tiles.size} / ${allTiles.size}")
-                    println("Cache size: ${tileMap.size}")
-                    println("Added: ${tilesToLoad.size}, Removed: ${tilesToRemove.size}")
-                    println("Max bitmap size: ${tileMap.maxOf { it.value.width }}")
-                    println("Min bitmap size: ${tileMap.minOf { it.value.width }}")
-                    println()
+//                println("Tile size: $tileSize")
+//                println("Tile count: ${tiles.size} / ${allTiles.size}")
+//                println("Cache size: ${tileMap.size}")
+//                println("Added: ${tilesToLoad.size}, Removed: ${tilesToRemove.size}")
+//                println("Max bitmap size: ${tileMap.maxOf { it.value.width }}")
+//                println("Min bitmap size: ${tileMap.minOf { it.value.width }}")
+//                println()
+                }
+
+                onMain {
+                    onTilesChangedListener?.invoke()
                 }
             }
         }
@@ -129,30 +125,6 @@ class BitmapTileLoader(private val path: String, private val scaleStep: Float = 
                 options
             )
         }
-    }
-
-    private fun getTileSize(
-        sourceWidth: Int,
-        sourceHeight: Int,
-        scale: Float,
-        desiredTileWidth: Int = 256
-    ): Size {
-        val zoomedWidth = sourceWidth * scale
-        val zoomedHeight = sourceHeight * scale
-        val numTilesX = ceil((zoomedWidth + desiredTileWidth - 1) / desiredTileWidth).toInt()
-        val numTilesY = ceil((zoomedHeight + desiredTileWidth - 1) / desiredTileWidth).toInt()
-        val tileSizeX = nextPowerOf2(sourceWidth / numTilesX)
-        val tileSizeY = nextPowerOf2(sourceHeight / numTilesY)
-        return Size(
-            tileSizeX.coerceAtLeast(desiredTileWidth),
-            tileSizeY.coerceAtLeast(desiredTileWidth)
-        )
-    }
-
-    private fun nextPowerOf2(value: Int): Int {
-        if (value <= 0) return 1
-        // TODO: Use bitwise operators to determine if the number is a power of 2
-        return 2.0.pow(ceil(log(value.toDouble(), 2.0))).toInt()
     }
 
     private fun calculateInSampleSize(
@@ -187,5 +159,9 @@ class BitmapTileLoader(private val path: String, private val scaleStep: Float = 
         baseImage?.second?.recycle()
         baseImage = null
         tileMap.clear()
+    }
+
+    override fun setOnTilesChangedListener(listener: () -> Unit) {
+        onTilesChangedListener = listener
     }
 }

@@ -36,7 +36,8 @@ object TileCreator {
         sourceWidth: Int,
         sourceHeight: Int,
         scale: Float,
-        desiredTileWidth: Int = 256
+        desiredTileWidth: Int = 256,
+        minimumSize: Int = 256
     ): Size {
         val zoomedWidth = sourceWidth * scale
         val zoomedHeight = sourceHeight * scale
@@ -45,8 +46,8 @@ object TileCreator {
         val tileSizeX = nextPowerOf2(sourceWidth / numTilesX)
         val tileSizeY = nextPowerOf2(sourceHeight / numTilesY)
         return Size(
-            tileSizeX.coerceAtLeast(desiredTileWidth),
-            tileSizeY.coerceAtLeast(desiredTileWidth)
+            tileSizeX.coerceAtLeast(minimumSize),
+            tileSizeY.coerceAtLeast(minimumSize)
         )
     }
 

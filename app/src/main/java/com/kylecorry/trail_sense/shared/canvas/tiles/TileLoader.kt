@@ -6,7 +6,8 @@ import android.graphics.RectF
 interface TileLoader {
     val tiles: List<Pair<ImageTile, Bitmap>>
 
-    // TODO: There are gaps between tiles
     suspend fun updateTiles(zoom: Float, clipBounds: RectF)
     fun release()
+
+    fun setOnTilesChangedListener(listener: () -> Unit)
 }
