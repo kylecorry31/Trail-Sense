@@ -23,6 +23,7 @@ import androidx.core.view.updateLayoutParams
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import com.google.android.material.navigation.NavigationBarView
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.tryOrNothing
@@ -137,7 +138,13 @@ class MainActivity : AndromedaActivity() {
             val view = binding.bottomNavigation.findViewById<View>(item.itemId)
             view.setOnLongClickListener {
                 val fragment =
-                    getFragment() as? AndromedaFragment ?: return@setOnLongClickListener true
+                    getFragment() as? AndromedaFragment
+
+                if (fragment == null) {
+                    Alerts.toast(this, getString(R.string.quick_actions_are_unavailable))
+                    return@setOnLongClickListener true
+                }
+
                 MainActivityQuickActionBinder(fragment, binding).bind()
                 binding.quickActionsSheet.isVisible = true
                 true
