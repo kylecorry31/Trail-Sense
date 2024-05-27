@@ -53,6 +53,7 @@ import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.Beacon
 import com.kylecorry.trail_sense.tools.diagnostics.status.GpsStatusBadgeProvider
 import com.kylecorry.trail_sense.tools.diagnostics.status.SensorStatusBadgeProvider
 import com.kylecorry.trail_sense.tools.diagnostics.status.StatusBadge
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.COGLayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.ILayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MultiLayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyAccuracyLayerManager
@@ -67,6 +68,7 @@ import com.kylecorry.trail_sense.tools.navigation.quickactions.NavigationQuickAc
 import com.kylecorry.trail_sense.tools.navigation.ui.data.UpdateAstronomyLayerCommand
 import com.kylecorry.trail_sense.tools.navigation.ui.errors.NavigatorUserErrors
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.BeaconLayer
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.COGLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyAccuracyLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.PathLayer
@@ -143,6 +145,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val beaconLayer = BeaconLayer()
     private val myLocationLayer = MyLocationLayer()
     private val myAccuracyLayer = MyAccuracyLayer()
+    private val cogLayer = COGLayer(isCompass = true)
     private val tideLayer = TideLayer()
     private var layerManager: ILayerManager? = null
 
@@ -237,9 +240,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             listOf(
                 pathLayer,
                 myAccuracyLayer,
+                cogLayer,
                 myLocationLayer,
                 tideLayer,
-                beaconLayer
+                beaconLayer,
             )
         )
 
@@ -247,7 +251,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             listOf(
                 astronomyCompassLayer,
                 beaconCompassLayer,
-                navigationCompassLayer
+                navigationCompassLayer,
             )
         )
 
@@ -427,8 +431,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                     Resources.getPrimaryMarkerColor(requireContext()),
                     25
                 ),
+                COGLayerManager(cogLayer, Resources.getPrimaryMarkerColor(requireContext())),
                 MyLocationLayerManager(myLocationLayer, Color.WHITE),
-                TideLayerManager(requireContext(), tideLayer)
+                TideLayerManager(requireContext(), tideLayer),
             )
         )
         if (useRadarCompass) {
@@ -565,7 +570,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         effect("speed", speedometer.speed.speed, lifecycleHookTrigger.onResume()) {
-            binding.speed.title = formatService.formatSpeed(speedometer.speed.speed)
+            updateSpeed()
         }
 
         effect("azimuth", compass.rawBearing, lifecycleHookTrigger.onResume()) {
@@ -654,6 +659,12 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             it.azimuth = bearing
             it.declination = declination
         }
+    }
+
+    private fun updateSpeed() {
+        val speed = speedometer.speed
+        binding.speed.title = formatService.formatSpeed(speedometer.speed.speed)
+        layerManager?.onSpeedChanged(speed)
     }
 
     private fun updateLocation() {

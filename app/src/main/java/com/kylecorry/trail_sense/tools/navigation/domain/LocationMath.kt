@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 object LocationMath {
 
 
-    private fun convertUnitPerSecondsToUnitPerHours(unitPerSecond: Float): Float {
+    fun convertUnitPerSecondsToUnitPerHours(unitPerSecond: Float): Float {
         return unitPerSecond * 60 * 60
     }
 

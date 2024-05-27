@@ -38,6 +38,7 @@ import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.Beacon
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.BeaconLayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.COGLayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.ILayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MultiLayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyAccuracyLayerManager
@@ -48,6 +49,7 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.TideLayerManag
 import com.kylecorry.trail_sense.tools.maps.ui.commands.CreatePathCommand
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.BeaconLayer
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.COGLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyAccuracyLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.NavigationLayer
@@ -63,6 +65,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
     private val altimeter by lazy { sensorService.getAltimeter() }
+    private val speedometer by lazy { sensorService.getSpeedometer(gps = gps) }
     private val compass by lazy { sensorService.getCompass() }
     private val hasCompass by lazy { sensorService.hasCompass() }
     private val beaconService by lazy { BeaconService(requireContext()) }
@@ -80,6 +83,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val myLocationLayer = MyLocationLayer()
     private val myAccuracyLayer = MyAccuracyLayer()
     private val navigationLayer = NavigationLayer()
+    private val cogLayer = COGLayer();
     private val selectedPointLayer = BeaconLayer()
     private var layerManager: ILayerManager? = null
 
@@ -127,7 +131,11 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 ),
                 TideLayerManager(requireContext(), tideLayer),
                 BeaconLayerManager(requireContext(), beaconLayer),
-                NavigationLayerManager(requireContext(), navigationLayer)
+                NavigationLayerManager(requireContext(), navigationLayer),
+                COGLayerManager(
+                    cogLayer,
+                    Resources.getPrimaryMarkerColor(requireContext())
+                ),
                 // selectedPointLayer and distanceLayer do not need to be managed
             )
         )
@@ -146,11 +154,12 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 navigationLayer,
                 pathLayer,
                 myAccuracyLayer,
+                cogLayer,
                 myLocationLayer,
                 tideLayer,
                 beaconLayer,
                 selectedPointLayer,
-                distanceLayer
+                distanceLayer,
             )
         )
         distanceLayer.setOutlineColor(Color.WHITE)
@@ -176,6 +185,9 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 binding.map.mapAzimuth = bearing
             }
             updateDestination()
+        }
+        observe(speedometer) {
+            layerManager?.onSpeedChanged(speedometer.speed)
         }
 
         reloadMap()
