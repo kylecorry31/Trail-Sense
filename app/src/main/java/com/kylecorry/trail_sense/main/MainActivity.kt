@@ -23,6 +23,7 @@ import androidx.core.view.updateLayoutParams
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import com.google.android.material.navigation.NavigationBarView
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.tryOrNothing
@@ -129,7 +130,7 @@ class MainActivity : AndromedaActivity() {
             )
         }
 
-        setupBottomNavigation()
+        updateBottomNavigation()
 
         // Loop through each item of the bottom navigation and override the long press behavior
         for (i in 0 until binding.bottomNavigation.menu.size()) {
@@ -137,7 +138,13 @@ class MainActivity : AndromedaActivity() {
             val view = binding.bottomNavigation.findViewById<View>(item.itemId)
             view.setOnLongClickListener {
                 val fragment =
-                    getFragment() as? AndromedaFragment ?: return@setOnLongClickListener true
+                    getFragment() as? AndromedaFragment
+
+                if (fragment == null) {
+                    Alerts.toast(this, getString(R.string.quick_actions_are_unavailable))
+                    return@setOnLongClickListener true
+                }
+
                 MainActivityQuickActionBinder(fragment, binding).bind()
                 binding.quickActionsSheet.isVisible = true
                 true
@@ -415,7 +422,7 @@ class MainActivity : AndromedaActivity() {
         return false
     }
 
-    private fun setupBottomNavigation() {
+    fun updateBottomNavigation(shouldNavigate: Boolean = true) {
         setBottomNavLabelsVisibility()
 
         val bottomNavTools = userPrefs.bottomNavigationTools
@@ -442,9 +449,11 @@ class MainActivity : AndromedaActivity() {
         // Bind to navigation
         binding.bottomNavigation.setupWithNavController(navController, false)
 
+        updateBottomNavSelection()
+
         // Open the left most item by default (and clear the back stack)
         val leftMostItem = binding.bottomNavigation.menu.getItem(0)
-        if (navController.currentDestination?.id != leftMostItem.itemId) {
+        if (shouldNavigate && navController.currentDestination?.id != leftMostItem.itemId) {
             navController.navigate(
                 leftMostItem.itemId,
                 null,

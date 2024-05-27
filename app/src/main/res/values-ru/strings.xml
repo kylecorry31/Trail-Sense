@@ -1023,7 +1023,6 @@
     <string name="invalid_backup_file">Неверный файл резервного копирования</string>
     <string name="location_number">Локация %d</string>
     <string name="enter_manually">Введите вручную</string>
-    <string name="tool_quick_actions">Быстрые действия Инструментов</string>
     <string name="continuous_calibration_description">Калибрирует всякий раз когда есть GPS</string>
     <string name="service_restart_channel_description">Уведомление о перезагрузке сервиса</string>
     <string name="at_time">в %s</string>

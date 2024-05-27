@@ -1085,7 +1085,6 @@
     <string name="settings_have_moved_message">Uygulama ayarları Araçlar sekmesine taşındı</string>
     <string name="settings_have_moved">Ayarlar taşındı</string>
     <string name="pinned">Sabitlendi</string>
-    <string name="tool_quick_actions">Araç hızlı eylemleri</string>
     <string name="pin">Sabitle</string>
     <string name="no_sensor_message">Aygıtınızda %s sensörü yok</string>
     <string name="missing_sensor_message_1">%1$s aygıtınızda yerleşik bir %2$s sensörü yok. Maalesef bu, %3$s\'deki bazı özelliklerin kullanılamayacağı anlamına gelir.</string>

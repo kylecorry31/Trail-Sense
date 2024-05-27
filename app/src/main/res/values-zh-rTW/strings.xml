@@ -608,7 +608,6 @@
     <string name="until_sunset">直至日落</string>
     <string name="until_sunrise">直至日出</string>
     <string name="augmented_reality">擴增實境</string>
-    <string name="tool_quick_actions">工具快速動作</string>
     <string name="pref_enable_analog_title">指針時鐘</string>
     <string name="gps_cache">GPS 快取</string>
     <string name="max_temp_calibrated">最高環境溫度（已校正）</string>

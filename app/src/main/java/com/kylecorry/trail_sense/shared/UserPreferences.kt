@@ -374,13 +374,16 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
 
     var bottomNavigationTools: List<Long>
         get() {
-            return cache.getIntArray(context.getString(R.string.pref_bottom_navigation_tools))
+            val maxLength = 4
+            return (cache.getIntArray(context.getString(R.string.pref_bottom_navigation_tools))
                 ?.map { it.toLong() }
                 ?: listOf(
                     Tools.NAVIGATION,
                     Tools.WEATHER,
                     Tools.ASTRONOMY
-                )
+                ))
+                .padRight(maxLength, 0)
+                .subList(0, maxLength)
         }
         set(value) {
             cache.putIntArray(

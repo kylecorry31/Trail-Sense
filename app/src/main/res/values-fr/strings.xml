@@ -1092,7 +1092,6 @@
     <string name="location_number">Position %d</string>
     <string name="direction">Direction</string>
     <string name="zero_shutter_lag">Délai nul d\'obturation</string>
-    <string name="tool_quick_actions">Actions rapides d\'outil</string>
     <string name="triangulate_destination_location_2_instructions">Déplacer d\'au moins %s par rapport à la première position puis enregistrer à nouveau votre position et la direction de la destination.</string>
     <string name="location_to_triangulate">Position à trianguler</string>
     <string name="destination">Destination</string>

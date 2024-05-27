@@ -1298,7 +1298,6 @@
     <string name="pin">Pin</string>
     <string name="tool_long_press_hint_toast">Long press a tool to see more options</string>
     <string name="pref_tool_sort" translatable="false">pref_tool_sort</string>
-    <string name="tool_quick_actions">Tool quick actions</string>
     <string name="pref_tool_quick_action_header_key" translatable="false">pref_tool_quick_action_header_key</string>
     <string name="pref_tool_quick_actions" translatable="false">pref_tool_quick_actions</string>
     <string name="pref_pinned_tools" translatable="false">pref_pinned_tools</string>
@@ -1435,4 +1434,8 @@
     <string name="local_talk">Local Talk</string>
     <string name="quick_actions">Quick actions</string>
     <string name="pref_bottom_navigation_tools" translatable="false">pref_bottom_navigation_tools</string>
+    <string name="tool_quick_action_summary">Long press bottom navigation or view on tools tab</string>
+    <string name="pref_tool_settings_header_key" translatable="false">pref_tool_settings_header_key</string>
+    <string name="quick_actions_are_unavailable">Quick actions are unavailable</string>
+    <string name="bottom_navigation_slot">Bottom navigation slot %d</string>
 </resources>

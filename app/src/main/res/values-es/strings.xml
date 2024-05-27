@@ -1094,7 +1094,6 @@
     <string name="tool_long_press_hint_toast">Pulsa prolongadamente en una herramienta para ver más opciones</string>
     <string name="unpin">Desbloquear</string>
     <string name="pinned">Fijado</string>
-    <string name="tool_quick_actions">Herramienta de acciones rápidas</string>
     <string name="pin">Bloquear</string>
     <string name="settings_have_moved_message">Los ajustes de la aplicación se han trasladado a la pestaña Herramientas</string>
     <string name="settings_have_moved">Los ajustes se han desplazado</string>

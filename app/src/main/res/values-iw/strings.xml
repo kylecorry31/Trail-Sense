@@ -907,7 +907,7 @@
         <item quantity="one">נתיב אחד</item>
         <item quantity="two">שני נתיבים</item>
         <item quantity="many">%d נתיבים</item>
-        <item quantity="other" />
+        <item quantity="other"></item>
     </plurals>
     <string name="coordinate_format_osgb">OSGB</string>
     <string name="delete_path_group_message">%s וכל נתיביו יימחקו.</string>
@@ -1032,7 +1032,7 @@
         <item quantity="one">מפה אחת</item>
         <item quantity="two">%d מפות</item>
         <item quantity="many">%d מפות</item>
-        <item quantity="other" />
+        <item quantity="other"></item>
     </plurals>
     <string name="calibrate_map_point">כיול עם מיקומים ידועים (%1$d / %2$d)</string>
     <string name="descent">מוצא</string>
@@ -1102,7 +1102,6 @@
     <string name="location_number">מיקום %d</string>
     <string name="direction">כיוון</string>
     <string name="zero_shutter_lag">אפס השהיית תריס</string>
-    <string name="tool_quick_actions">כלי פעולות מהירות</string>
     <string name="triangulate_destination_location_2_instructions">תזוזה של לפחות %s מהמיקום הראשון ולתעד שוב את המיקום שלך ואת כיוון היעד.</string>
     <string name="backing_up_loading_message">מגבה…</string>
     <string name="gps_location_accuracy">דיוק מיקום GPS</string>

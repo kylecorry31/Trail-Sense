@@ -1085,7 +1085,6 @@
     <string name="settings_have_moved_message">Instellingen zijn verplaatst naar het tabblad Hulpmiddelen</string>
     <string name="settings_have_moved">Instellingen zijn verplaatst</string>
     <string name="pinned">Vastgezet</string>
-    <string name="tool_quick_actions">Hulpmiddel snelle acties</string>
     <string name="pin">Vastzetten</string>
     <string name="no_sensor_message">Je apparaat heef geen %ssensor</string>
     <string name="missing_sensor_message_1">Jouw %1$s heeft geen ingebouwde %2$ssensor. Helaas betekent dit dat sommige functies in %3$s niet beschikbaar zijn.</string>

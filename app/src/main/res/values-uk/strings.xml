@@ -1127,7 +1127,6 @@
     <string name="triangulate_self_location_2_instructions">Виберіть інше відоме вам місце, яке ви можете бачити, і запишіть напрямок від місця, де ви перебуваєте, до цього місця.</string>
     <string name="distance_away_from_self">%s від вас</string>
     <string name="distance_away_from_destination">%s від пункту призначення</string>
-    <string name="tool_quick_actions">Засіб швидких дій</string>
     <string name="augmented_reality_description">Подивіться на найближчі маячки та сонце/місяць за допомогою камери</string>
     <string name="direction">Напрямок</string>
     <string name="magnetic_north">Магнітна Північ</string>

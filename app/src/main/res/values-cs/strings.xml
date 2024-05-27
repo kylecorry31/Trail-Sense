@@ -1104,7 +1104,6 @@
     <string name="tool_long_press_hint_toast">Podržte pro zobrazení více možností</string>
     <string name="unpin">Odepnout</string>
     <string name="pinned">Připnuto</string>
-    <string name="tool_quick_actions">Rychlé akce nástroje</string>
     <string name="pin">Připnout</string>
     <string name="settings_have_moved_message">Nastavení aplikace byla přesunuta na kartu Nástroje</string>
     <string name="settings_have_moved">Přesunuli jsme nastavení</string>

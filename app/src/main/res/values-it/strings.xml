@@ -1100,7 +1100,6 @@
     <string name="distance_away_from_self">%s di distanza</string>
     <string name="unpin">Rimuovi da fissati</string>
     <string name="pin">Fissa</string>
-    <string name="tool_quick_actions">Azioni rapide</string>
     <string name="show_dial_ticks_on_nearby_radar">Mostra i tick del quadrante sui radar vicini</string>
     <string name="view_in_3d">Visualizza in 3D</string>
     <string name="locate">Localizza</string>
