@@ -130,7 +130,7 @@ class MainActivity : AndromedaActivity() {
             )
         }
 
-        setupBottomNavigation()
+        updateBottomNavigation()
 
         // Loop through each item of the bottom navigation and override the long press behavior
         for (i in 0 until binding.bottomNavigation.menu.size()) {
@@ -422,7 +422,7 @@ class MainActivity : AndromedaActivity() {
         return false
     }
 
-    private fun setupBottomNavigation() {
+    fun updateBottomNavigation(shouldNavigate: Boolean = true) {
         setBottomNavLabelsVisibility()
 
         val bottomNavTools = userPrefs.bottomNavigationTools
@@ -449,9 +449,11 @@ class MainActivity : AndromedaActivity() {
         // Bind to navigation
         binding.bottomNavigation.setupWithNavController(navController, false)
 
+        updateBottomNavSelection()
+
         // Open the left most item by default (and clear the back stack)
         val leftMostItem = binding.bottomNavigation.menu.getItem(0)
-        if (navController.currentDestination?.id != leftMostItem.itemId) {
+        if (shouldNavigate && navController.currentDestination?.id != leftMostItem.itemId) {
             navController.navigate(
                 leftMostItem.itemId,
                 null,

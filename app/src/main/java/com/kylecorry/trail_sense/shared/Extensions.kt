@@ -187,3 +187,11 @@ fun Double.safeRoundToInt(default: Int = 0): Int {
         }
     }
 }
+
+fun <T> List<T>.padRight(minLength: Int, value: T): List<T> {
+    return if (size >= minLength) {
+        this
+    } else {
+        this + List(minLength - size) { value }
+    }
+}

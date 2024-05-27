@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 class ExperimentalSettingsFragment : AndromedaPreferenceFragment() {
@@ -16,5 +17,9 @@ class ExperimentalSettingsFragment : AndromedaPreferenceFragment() {
         val hasCompass = sensors.hasCompass()
 
         preference(R.string.pref_experimental_metal_direction)?.isVisible = hasGyro && hasCompass
+
+        onClick(preference(R.string.pref_cliff_height_enabled)) {
+            requireMainActivity().updateBottomNavigation(false)
+        }
     }
 }

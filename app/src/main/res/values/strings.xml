@@ -1434,4 +1434,5 @@
     <string name="tool_quick_action_summary">Long press bottom navigation or view on tools tab</string>
     <string name="pref_tool_settings_header_key" translatable="false">pref_tool_settings_header_key</string>
     <string name="quick_actions_are_unavailable">Quick actions are unavailable</string>
+    <string name="bottom_navigation_slot">Bottom navigation slot %d</string>
 </resources>
