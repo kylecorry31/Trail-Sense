@@ -32,6 +32,7 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         R.string.pref_experimental_settings to R.id.action_settings_to_experimental_settings,
         R.string.pref_error_settings to R.id.action_settings_to_error_settings,
         R.string.pref_sensor_settings to R.id.action_settings_to_sensor_settings,
+        R.string.pref_tool_settings_header_key to R.id.toolsSettingsFragment,
         // About
         R.string.pref_open_source_licenses to R.id.action_action_settings_to_licenseFragment,
         R.string.pref_diagnostics to R.id.action_settings_to_diagnostics
@@ -100,29 +101,6 @@ class SettingsFragment : AndromedaPreferenceFragment() {
                 when (it) {
                     0 -> backup()
                     1 -> restore()
-                }
-            }
-        }
-
-
-        onClick(findPreference(getString(R.string.pref_tool_quick_action_header_key))) {
-            val potentialActions = Tools.getQuickActions(requireContext())
-                .filterNot { it.id == Tools.QUICK_ACTION_NONE }
-
-            val selected = prefs.toolQuickActions
-
-            val selectedIndices = potentialActions.mapIndexedNotNull { index, action ->
-                if (selected.contains(action.id)) index else null
-            }
-
-            Pickers.items(
-                requireContext(),
-                getString(R.string.tool_quick_actions),
-                potentialActions.map { it.name },
-                selectedIndices
-            ) {
-                if (it != null) {
-                    prefs.toolQuickActions = it.map { potentialActions[it].id }
                 }
             }
         }

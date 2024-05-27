@@ -865,7 +865,6 @@
     <string name="metal_detector_disclaimer">淨係探測到磁性金屬，例如鐵</string>
     <string name="map_auto_rotated">經校正，地圖轉向已調整</string>
     <string name="pin">置頂</string>
-    <string name="tool_quick_actions">架生快速動作</string>
     <string name="settings_have_moved">設定執咗位喇</string>
     <string name="no_sensor_message">您部機冇配備%s感應器</string>
     <string name="calibrate_map_point">用已知位置校正 (%1$d / %2$d)</string>

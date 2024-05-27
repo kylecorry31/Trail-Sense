@@ -1084,7 +1084,6 @@
     <string name="location_number">%d. Hely</string>
     <string name="direction">Irány</string>
     <string name="zero_shutter_lag">Nulla rekeszkésés</string>
-    <string name="tool_quick_actions">Eszköz gyorsgombok</string>
     <string name="triangulate_destination_location_2_instructions">Menj legalább %s-t az első helytől és ismét jegyezd fel a helyedet és az úticél irányát.</string>
     <string name="backing_up_loading_message">Mentés készítése…</string>
     <string name="restore_complete_message">Visszaállítás sikeres, az app újraindul a változások alkalmazásához</string>

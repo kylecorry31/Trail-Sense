@@ -32,7 +32,9 @@ object SettingsToolRegistration : ToolRegistration {
                 R.id.calibrateGPSFragment,
                 R.id.calibrateBarometerFragment,
                 R.id.thermometerSettingsFragment,
-                R.id.cameraSettingsFragment
+                R.id.cameraSettingsFragment,
+                R.id.toolsSettingsFragment,
+                // TODO: Add all the tool settings
             ),
             notificationChannels = listOf(
                 ToolNotificationChannel(

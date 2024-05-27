@@ -1,0 +1,17 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:key="@string/pref_tool_category_holder_key"
+        app:singleLineTitle="false"
+        app:title="@string/tools">
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_tool_quick_action_header_key"
+            app:singleLineTitle="false"
+            app:summary="@string/tool_quick_action_summary"
+            app:title="@string/quick_actions" />
+
+    </PreferenceCategory>
+</PreferenceScreen>
