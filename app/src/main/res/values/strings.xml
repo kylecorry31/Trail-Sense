@@ -328,6 +328,7 @@
     <string name="pref_longitude_override" translatable="false">pref_longitude_override</string>
     <string name="pref_calibrate_compass_btn" translatable="false">pref_calibrate_compass_btn</string>
     <string name="pref_app_version" translatable="false">pref_app_version</string>
+    <string name="pref_not_for_navigation" translatable="false">pref_not_for_navigation</string>
     <string name="pref_category_licenses" translatable="false">pref_category_licenses</string>
     <string name="pref_show_calibrate_on_navigate_dialog" translatable="false">pref_show_calibrate_on_navigate_dialog</string>
     <string name="pref_github" translatable="false">pref_github</string>
@@ -840,6 +841,7 @@
     <string name="camera">Camera</string>
     <string name="no_permission">Permission not granted</string>
     <string name="diagnostics">Diagnostics</string>
+    <string name="not_for_navigation">NOT FOR NAVIGATION</string>
     <string name="pref_diagnostics" translatable="false">pref_diagnostics</string>
     <string name="battery_usage_restricted">Battery usage restricted</string>
     <string name="overridden">Overridden</string>
