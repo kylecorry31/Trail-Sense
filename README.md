@@ -23,6 +23,7 @@ The feature roadmap is a tentative outline of the major features that are planne
 - [X] Nautical miles and knots
 - [ ] Heading and COG arrows
 
+
 ## Goals
 - Ocean Sense must not use the Internet in any way, the entire app is usable when there is no Internet connection
 - Features must provide some benefits to people using the app while hiking, in a survival situation, etc.
