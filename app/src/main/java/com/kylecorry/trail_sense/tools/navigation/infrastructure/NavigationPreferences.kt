@@ -51,6 +51,12 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
     override val useLinearCompass: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_show_linear_compass)) ?: true
 
+    val showCOGOnCompass: Boolean
+        get() = cache.getBoolean(context.getString(R.string.pref_show_cog_on_compass)) ?: true
+
+    val showCOGOnMaps: Boolean
+        get() = cache.getBoolean(context.getString(R.string.pref_show_cog_on_maps)) ?: true
+
     val showMultipleBeacons: Boolean
         get() = !sensors.hasCompass() || cache.getBoolean(context.getString(R.string.pref_display_multi_beacons)) ?: true
 

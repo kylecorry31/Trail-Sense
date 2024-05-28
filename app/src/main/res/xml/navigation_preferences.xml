@@ -28,6 +28,13 @@
             app:title="@string/pref_show_linear_compass_title" />
 
         <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_cog_on_compass"
+            app:singleLineTitle="false"
+            app:title="@string/pref_show_cog_title" />
+
+        <SwitchPreferenceCompat
             android:summary="@string/show_dial_ticks_on_nearby_radar_summary"
             app:defaultValue="false"
             app:iconSpaceReserved="false"

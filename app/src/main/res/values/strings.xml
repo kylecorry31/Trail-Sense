@@ -843,6 +843,9 @@
     <string name="diagnostics">Diagnostics</string>
     <string name="not_for_navigation">NOT FOR NAVIGATION</string>
     <string name="pref_diagnostics" translatable="false">pref_diagnostics</string>
+    <string name="pref_show_cog_on_compass" translatable="false">pref_show_cog_on_compass</string>
+    <string name="pref_show_cog_on_maps" translatable="false">pref_show_cog_on_maps</string>
+    <string name="pref_show_cog_title" >Show course over ground</string>
     <string name="battery_usage_restricted">Battery usage restricted</string>
     <string name="overridden">Overridden</string>
     <string name="on">On</string>
@@ -1440,4 +1443,5 @@
     <string name="pref_tool_settings_header_key" translatable="false">pref_tool_settings_header_key</string>
     <string name="quick_actions_are_unavailable">Quick actions are unavailable</string>
     <string name="bottom_navigation_slot">Bottom navigation slot %d</string>
+    <string name="pref_cog_mode" translatable="false">cog_mode</string>
 </resources>

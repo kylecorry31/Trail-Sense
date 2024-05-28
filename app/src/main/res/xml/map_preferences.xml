@@ -28,5 +28,12 @@
             app:title="@string/pref_keep_map_facing_up_title"
             android:summary="@string/pref_keep_map_facing_up_summary"/>
 
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_cog_on_maps"
+            app:singleLineTitle="false"
+            app:title="@string/pref_show_cog_title" />
+
     </PreferenceCategory>
 </PreferenceScreen>

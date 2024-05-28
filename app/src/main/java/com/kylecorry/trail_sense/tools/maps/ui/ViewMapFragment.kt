@@ -166,6 +166,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         distanceLayer.setPathColor(Color.BLACK)
         distanceLayer.isEnabled = false
         selectedPointLayer.setOutlineColor(Color.WHITE)
+        cogLayer.setShowCOG(prefs.navigation.showCOGOnMaps)
 
         observe(gps) {
             layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
