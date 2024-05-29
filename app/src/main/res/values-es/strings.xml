@@ -91,12 +91,12 @@
     <string name="clinometer_title">Inclinómetro</string>
     <string name="moon_phase">Fase lunar</string>
     <string name="sunset_alert_notification_text">El sol se pondrá a las %s</string>
-    <string name="first_quarter">Cuarto Creciente</string>
-    <string name="waxing_gibbous">Luna Creciente a Llena</string>
+    <string name="first_quarter">Primer cuarto</string>
+    <string name="waxing_gibbous">Luna menguante</string>
     <string name="full_moon">Luna Llena</string>
     <string name="waning_gibbous">Gibosa Menguante</string>
     <string name="third_quarter">Cuarto menguante</string>
-    <string name="waning_crescent">Media Luna menguante</string>
+    <string name="waning_crescent">Menguante y creciente</string>
     <string name="new_moon">Luna nueva</string>
     <string name="notification_monitoring_weather">Monitorización del clima en segundo plano</string>
     <plurals name="beacon_group_summary">
@@ -134,7 +134,7 @@
     <string name="battery_capacity_format">%s mAh</string>
     <string name="direction_south_east">SE</string>
     <string name="precise_nautical_miles_format">%s mill. naut</string>
-    <string name="app_disclaimer_message_title">Descargo de Responsabilidad/ Términos de Servicio</string>
+    <string name="app_disclaimer_message_title">Descargo de responsabilidad / Términos del servicio</string>
     <string name="disclaimer_message_title">Descargo de responsabilidad</string>
     <string name="copied_to_clipboard_toast">Copiado a portapapeles</string>
     <string name="precise_percent_format">%s%%</string>
@@ -229,8 +229,8 @@
     <string name="pref_compass_sensor_title">Brújula</string>
     <string name="coordinate_format_decimal_degrees">Grados decimales</string>
     <string name="theme_sunset_sunrise">Salida/Puesta del sol</string>
-    <string name="edit_item_title">Editar ítem</string>
-    <string name="create_item_title">Crear ítem</string>
+    <string name="edit_item_title">Editar elemento</string>
+    <string name="create_item_title">Crear elemento</string>
     <string name="dialog_item_amount">Cantidad</string>
     <string name="category">Categoría</string>
     <string name="edit">Editar</string>
@@ -240,7 +240,7 @@
     <string name="sunset_alert_channel_title">Alerta de puesta de sol</string>
     <string name="sunset_alerts">Alertas de puesta de sol</string>
     <string name="sunset_alert_notification_title">El sol se pondrá pronto</string>
-    <string name="waxing_crescent">Luna Nueva a Creciente</string>
+    <string name="waxing_crescent">Luna creciente</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="pref_elevation_override_title">Anulación de altitud</string>
