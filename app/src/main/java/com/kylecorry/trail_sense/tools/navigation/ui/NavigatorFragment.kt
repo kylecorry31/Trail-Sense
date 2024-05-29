@@ -13,7 +13,6 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.coroutines.onIO
-import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.system.Screen
@@ -37,6 +36,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
 import com.kylecorry.trail_sense.settings.ui.CompassCalibrationView
 import com.kylecorry.trail_sense.settings.ui.ImproveAccuracyAlerter
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -53,7 +53,7 @@ import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.Beacon
 import com.kylecorry.trail_sense.tools.diagnostics.status.GpsStatusBadgeProvider
 import com.kylecorry.trail_sense.tools.diagnostics.status.SensorStatusBadgeProvider
 import com.kylecorry.trail_sense.tools.diagnostics.status.StatusBadge
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.COGLayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.CourseLayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.ILayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MultiLayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyAccuracyLayerManager
@@ -68,7 +68,7 @@ import com.kylecorry.trail_sense.tools.navigation.quickactions.NavigationQuickAc
 import com.kylecorry.trail_sense.tools.navigation.ui.data.UpdateAstronomyLayerCommand
 import com.kylecorry.trail_sense.tools.navigation.ui.errors.NavigatorUserErrors
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.BeaconLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.COGLayer
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.CourseLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyAccuracyLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.PathLayer
@@ -80,7 +80,6 @@ import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.NavigationCo
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.GPSDiagnosticScanner
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.MagnetometerDiagnosticScanner
-import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticResult
 import java.time.Duration
 import java.time.Instant
 
@@ -145,7 +144,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val beaconLayer = BeaconLayer()
     private val myLocationLayer = MyLocationLayer()
     private val myAccuracyLayer = MyAccuracyLayer()
-    private val cogLayer = COGLayer(isCompass = true)
+    private val courseLayer = CourseLayer(isCompass = true)
     private val tideLayer = TideLayer()
     private var layerManager: ILayerManager? = null
 
@@ -240,7 +239,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             listOf(
                 pathLayer,
                 myAccuracyLayer,
-                cogLayer,
+                courseLayer,
                 myLocationLayer,
                 tideLayer,
                 beaconLayer,
@@ -433,7 +432,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                     Resources.getPrimaryMarkerColor(requireContext()),
                     25
                 ),
-                COGLayerManager(cogLayer, Resources.getPrimaryMarkerColor(requireContext())),
+                CourseLayerManager(courseLayer,
+                    Resources.getPrimaryMarkerColor(requireContext()),
+                    Resources.getCardinalDirectionColor(requireContext())
+                ),
                 MyLocationLayerManager(myLocationLayer, Color.WHITE),
                 TideLayerManager(requireContext(), tideLayer),
             )

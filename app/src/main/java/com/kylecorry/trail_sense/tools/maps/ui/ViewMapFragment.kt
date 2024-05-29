@@ -17,13 +17,14 @@ import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
-import com.kylecorry.andromeda.fragments.once
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentMapsViewBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
@@ -38,7 +39,7 @@ import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.Beacon
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.BeaconLayerManager
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.COGLayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.CourseLayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.ILayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MultiLayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyAccuracyLayerManager
@@ -49,7 +50,7 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.TideLayerManag
 import com.kylecorry.trail_sense.tools.maps.ui.commands.CreatePathCommand
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.BeaconLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.COGLayer
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.CourseLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyAccuracyLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.NavigationLayer
@@ -58,7 +59,6 @@ import com.kylecorry.trail_sense.tools.navigation.ui.layers.TideLayer
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.time.Duration
 
 class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
@@ -83,7 +83,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val myLocationLayer = MyLocationLayer()
     private val myAccuracyLayer = MyAccuracyLayer()
     private val navigationLayer = NavigationLayer()
-    private val cogLayer = COGLayer();
+    private val courseLayer = CourseLayer();
     private val selectedPointLayer = BeaconLayer()
     private var layerManager: ILayerManager? = null
 
@@ -132,9 +132,10 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 TideLayerManager(requireContext(), tideLayer),
                 BeaconLayerManager(requireContext(), beaconLayer),
                 NavigationLayerManager(requireContext(), navigationLayer),
-                COGLayerManager(
-                    cogLayer,
-                    Resources.getPrimaryMarkerColor(requireContext())
+                CourseLayerManager(
+                    courseLayer,
+                    Resources.getPrimaryMarkerColor(requireContext()),
+                    Resources.getCardinalDirectionColor(requireContext())
                 ),
                 // selectedPointLayer and distanceLayer do not need to be managed
             )
@@ -154,7 +155,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 navigationLayer,
                 pathLayer,
                 myAccuracyLayer,
-                cogLayer,
+                courseLayer,
                 myLocationLayer,
                 tideLayer,
                 beaconLayer,
@@ -166,7 +167,12 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         distanceLayer.setPathColor(Color.BLACK)
         distanceLayer.isEnabled = false
         selectedPointLayer.setOutlineColor(Color.WHITE)
-        cogLayer.setShowCOG(prefs.navigation.showCOGOnMaps)
+        courseLayer.setShowCOG(prefs.navigation.showCOGOnMaps)
+        if (prefs.useNauticalMiles) {
+            courseLayer.setUnits(DistanceUnits.NauticalMiles)
+        } else {
+            courseLayer.setUnits(if (prefs.distanceUnits == UserPreferences.DistanceUnits.Meters) DistanceUnits.Kilometers else DistanceUnits.Miles)
+        }
 
         observe(gps) {
             layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)

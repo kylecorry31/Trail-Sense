@@ -1,24 +1,17 @@
 package com.kylecorry.trail_sense.tools.maps.infrastructure.layers
 
-import android.content.Context
 import androidx.annotation.ColorInt
-import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Speed
-import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.COGLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.NavigationLayer
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.CourseLayer
 
-class COGLayerManager(private val layer: COGLayer, @ColorInt private val color: Int) :
+class CourseLayerManager(private val layer: CourseLayer, @ColorInt private val cogColor: Int, @ColorInt private val headingColor: Int) :
     BaseLayerManager() {
 
     override fun start() {
-        layer.setColor(color)
+        layer.setCOGColor(cogColor)
+        layer.setHeadingColor(headingColor)
     }
 
     override fun stop() {
@@ -27,6 +20,11 @@ class COGLayerManager(private val layer: COGLayer, @ColorInt private val color: 
     override fun onSpeedChanged(speed: Speed) {
         super.onSpeedChanged(speed)
         layer.setSpeed(speed)
+    }
+
+    override fun onBearingChanged(bearing: Float) {
+        super.onBearingChanged(bearing)
+        layer.setBearing(bearing)
     }
 
     override fun onCOGChanged(cog: Bearing?) {
