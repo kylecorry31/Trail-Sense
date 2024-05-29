@@ -288,7 +288,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         observe(compass) { }
         observe(orientation) { }
         observe(altimeter) { }
-        observe(gps) { }
+        observe(gps) {
+            layerManager?.onCOGChanged(gps.bearing)
+        }
         observe(speedometer) { }
 
         binding.navigationTitle.subtitle.setOnLongClickListener {

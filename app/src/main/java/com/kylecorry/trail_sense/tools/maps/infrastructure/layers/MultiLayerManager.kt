@@ -39,6 +39,12 @@ class MultiLayerManager(private val managers: List<ILayerManager>) : ILayerManag
         }
     }
 
+    override fun onCOGChanged(cog: Bearing?) {
+        managers.forEach {
+            it.onCOGChanged(cog)
+        }
+    }
+
     override fun onBearingChanged(bearing: Float) {
         managers.forEach {
             it.onBearingChanged(bearing)

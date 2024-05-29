@@ -10,6 +10,7 @@ abstract class BaseLayerManager : ILayerManager {
     protected var bounds: CoordinateBounds? = null
     protected var location: Coordinate? = null
     protected var speed: Speed? = null
+    protected var cog: Bearing? = null
     protected var bearing: Float? = null
     protected var accuracy: Float? = null
 
@@ -19,6 +20,10 @@ abstract class BaseLayerManager : ILayerManager {
 
     override fun onSpeedChanged(speed: Speed) {
         this.speed = speed
+    }
+
+    override fun onCOGChanged(cog: Bearing?) {
+        this.cog = cog
     }
 
     override fun onBoundsChanged(bounds: CoordinateBounds?) {

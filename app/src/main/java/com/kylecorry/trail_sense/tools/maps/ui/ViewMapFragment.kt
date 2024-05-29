@@ -170,6 +170,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
         observe(gps) {
             layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
+            layerManager?.onCOGChanged(gps.bearing)
             updateDestination()
 
             if (mapLockMode != MapLockMode.Free) {

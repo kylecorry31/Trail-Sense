@@ -12,6 +12,7 @@ interface ILayerManager {
 
     fun onLocationChanged(location: Coordinate, accuracy: Float? = null)
     fun onSpeedChanged(speed: Speed)
+    fun onCOGChanged(cog: Bearing?)
     fun onBearingChanged(bearing: Float)
     fun onBoundsChanged(bounds: CoordinateBounds?)
 

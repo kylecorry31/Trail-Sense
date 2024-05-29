@@ -29,6 +29,11 @@ class COGLayerManager(private val layer: COGLayer, @ColorInt private val color: 
         layer.setSpeed(speed)
     }
 
+    override fun onCOGChanged(cog: Bearing?) {
+        super.onCOGChanged(cog)
+        layer.setCOG(cog)
+    }
+
     override fun onLocationChanged(location: Coordinate, accuracy: Float?) {
         super.onLocationChanged(location, accuracy)
         layer.setLocation(location)
