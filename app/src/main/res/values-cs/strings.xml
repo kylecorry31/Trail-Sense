@@ -1190,4 +1190,7 @@
     <string name="local_messaging">Lokální zprávy</string>
     <string name="communication">Komunikace</string>
     <string name="quick_actions">Rychlé akce</string>
+    <string name="quick_actions_are_unavailable">Rychlé akce jsou nedostupné</string>
+    <string name="bottom_navigation_slot">Místo spodní navigace %d</string>
+    <string name="tool_quick_action_summary">Dlouze stiskněte spodní navigaci nebo zobrazení na kartě nástrojů</string>
 </resources>
