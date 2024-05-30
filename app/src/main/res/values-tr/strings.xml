@@ -1169,4 +1169,7 @@
     <string name="local_messaging">Yerel Mesajlaşma</string>
     <string name="local_talk">Yerel Konuşma</string>
     <string name="quick_actions">Hızlı eylemler</string>
+    <string name="tool_quick_action_summary">Alt gezinmeye uzun basın veya araçlar sekmesinde görüntüleyin</string>
+    <string name="quick_actions_are_unavailable">Hızlı eylemler kullanılamıyor</string>
+    <string name="bottom_navigation_slot">Alt gezinme yuvası %d</string>
 </resources>
