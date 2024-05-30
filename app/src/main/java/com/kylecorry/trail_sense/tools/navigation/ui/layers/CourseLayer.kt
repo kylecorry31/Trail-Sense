@@ -7,6 +7,7 @@ import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.COGArrowMapMarker
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.HeadingArrowMapMarker
@@ -21,9 +22,9 @@ class CourseLayer(val isCompass: Boolean = false) : BaseLayer() {
     private var _speed: Speed? = null
     private var _showCOG: Boolean = true
     @ColorInt
-    private var _cogColor: Int? = null
+    private var _cogColor: Int = AppColor.Blue.color
     @ColorInt
-    private var _headingColor: Int? = null
+    private var _headingColor: Int = AppColor.Red.color
     private var _units: DistanceUnits? = null
 
     fun setShowCOG(show: Boolean) {
@@ -48,13 +49,11 @@ class CourseLayer(val isCompass: Boolean = false) : BaseLayer() {
 
     fun setLocation(location: Coordinate) {
         _location = location
-        calculateCOG()
         invalidate()
     }
 
     fun setCOG(cog: Bearing?) {
         _cog = cog
-        calculateCOG()
         invalidate()
     }
 
@@ -65,13 +64,11 @@ class CourseLayer(val isCompass: Boolean = false) : BaseLayer() {
 
     fun setBearing(bearing: Float) {
         _heading = bearing
-        calculateHeadingPosition()
         invalidate()
     }
 
     fun setSpeed(speed: Speed) {
         _speed = speed
-        calculateCOG()
         invalidate()
     }
 
@@ -85,30 +82,45 @@ class CourseLayer(val isCompass: Boolean = false) : BaseLayer() {
         invalidate()
     }
 
+    private fun drawCOG(drawer: ICanvasDrawer, map: IMapView, location: Coordinate, predictedLocation: Coordinate, cog: Bearing, @ColorInt color: Int, strokeWeight: Float) {
+        val p1 = map.toPixel(location)
+        val p2 = map.toPixel(predictedLocation)
+        drawer.stroke(color)
+        drawer.line(p1.x, p1.y, p2.x, p2.y)
+        addMarker(COGArrowMapMarker(predictedLocation ?: return, color, cog = cog.value, strokeWeight = strokeWeight))
+    }
+
+    private fun drawHeading(drawer: ICanvasDrawer, map: IMapView, location: Coordinate, headingLocation: Coordinate, heading: Bearing, @ColorInt color: Int, strokeWeight: Float) {
+        val p1 = map.toPixel(location)
+        val p2 = map.toPixel(headingLocation)
+        drawer.stroke(color)
+        drawer.line(p1.x, p1.y, p2.x, p2.y)
+        addMarker(HeadingArrowMapMarker(headingLocation ?: return, color, heading = heading.value, strokeWeight = strokeWeight))
+    }
+
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
         if (!_showCOG) return
 
         val scale = map.layerScale
-        val tmp = if (isCompass) map.mapCenter else _location
-        val p1 = tmp?.let { map.toPixel(it) } ?: return
-        var p2 = _headingLocation?.let { map.toPixel(it) } ?: return
+        val location = if (isCompass) map.mapCenter else _location
+        if (location == null) return // cannot draw anything without a location
+
+        calculateHeadingPosition()
+        calculateCOG()
+
+        clearMarkers()
+
         drawer.noPathEffect()
         drawer.noFill()
         drawer.strokeWeight(6f / scale)
-        if (!isCompass) {
-            drawer.stroke(_headingColor ?: return)
-            drawer.line(p1.x, p1.y, p2.x, p2.y)
+
+        if (!isCompass && _headingLocation != null && _heading != null) {
+            drawHeading(drawer, map, location, _headingLocation!!, Bearing(_heading!!), _headingColor, 6f / scale)
+        }
+        if (_predictedLocation != null && _cog != null) {
+            drawCOG(drawer, map, location, _predictedLocation!!, _cog!!, _cogColor, 6f / scale)
         }
 
-        p2 = _predictedLocation?.let { map.toPixel(it) } ?: return
-        drawer.stroke(_cogColor ?: return)
-        drawer.line(p1.x, p1.y, p2.x, p2.y)
-
-        clearMarkers()
-        if (!isCompass) {
-            addMarker(HeadingArrowMapMarker(_headingLocation ?: return, _headingColor ?: return, heading = (_heading ?: return), strokeWeight = 6f / scale))
-        }
-        addMarker(COGArrowMapMarker(_predictedLocation ?: return, _cogColor ?: return, cog = (_cog ?: return).value, strokeWeight = 6f / scale))
         super.draw(drawer, map)
     }
 }
