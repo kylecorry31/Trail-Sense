@@ -154,11 +154,11 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             listOf(
                 navigationLayer,
                 pathLayer,
-                myAccuracyLayer,
-                courseLayer,
                 myLocationLayer,
                 tideLayer,
                 beaconLayer,
+                courseLayer,
+                myLocationLayer,
                 selectedPointLayer,
                 distanceLayer,
             )

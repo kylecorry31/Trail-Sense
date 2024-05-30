@@ -239,10 +239,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             listOf(
                 pathLayer,
                 myAccuracyLayer,
-                courseLayer,
-                myLocationLayer,
                 tideLayer,
                 beaconLayer,
+                courseLayer,
+                myLocationLayer,
             )
         )
 
