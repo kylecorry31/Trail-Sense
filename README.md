@@ -21,7 +21,11 @@ Ocean Sense is a tool, and just like any other tool, it's essential to have back
 ## Feature Roadmap (2024)
 The feature roadmap is a tentative outline of the major features that are planned to be completed in the next year. Smaller features may end up being implemented in between.
 - [X] Nautical miles and knots
-- [ ] Heading and COG arrows
+- [X] Heading and COG arrows
+- [X] MOB system
+- [ ] More useful icons
+- [ ] Seamarks
+- [ ] Anchor alarm
 
 
 ## Goals
