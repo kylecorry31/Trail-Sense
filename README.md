@@ -4,7 +4,7 @@
 
 > Ocean Sense is a fork of [Trail Sense](https://github.com/kylecorry31/Trail-Sense) with some nautical features added (at present it adds nautical miles and knots as units). Please visit [https://github.com/kylecorry31/Trail-Sense](https://github.com/kylecorry31/Trail-Sense).
 
-Ocean Sense is a tool, and just like any other tool, it's essential to have backup equipment and skills. Ocean Sense is *NOT FOR NAVIGATION*!
+Ocean Sense is a tool, and just like any other tool, it's essential to have backup equipment and skills. Ocean Sense is _NOT FOR NAVIGATION_ and should not be relied upon.
 
 > Add image here
 
@@ -35,18 +35,11 @@ The feature roadmap is a tentative outline of the major features that are planne
 - Features must be based on peer-reviewed science or be verified against real world data
 - [Use Cases](https://github.com/BloodWalrus/Ocean-Sense/wiki/Use-Cases)
 
-## Features
+## Features 
 
 - Nautical miles and knots
-- Place beacons and navigate to them
-- Follow paths
-- Retrace your steps with backtrack
-- Use a photo as a map
-- Plan what to pack
-- Be alerted before the sun sets
-- Predict the weather
-- Use your phone as a flashlight
-- [And much more!](https://github.com/BloodWalrus/Ocean-Sense/wiki/Use-Cases)
+- Show heading and course overground graphically
+- MOB beacon quick action
 
 <table>
   <tr>
