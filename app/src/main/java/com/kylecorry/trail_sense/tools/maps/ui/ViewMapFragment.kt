@@ -296,6 +296,13 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             return
         }
 
+        inBackground {
+            val navigatorDestination = navigator.getDestination()
+            if (navigatorDestination != destination) {
+                destination = navigatorDestination
+            }
+        }
+
         val beacon = destination ?: return
         binding.navigationSheet.show(
             gps.location,

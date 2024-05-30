@@ -71,7 +71,7 @@
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
-            app:defaultValue="1008"
+            app:defaultValue="23"
             app:iconSpaceReserved="false"
             app:key="@string/pref_navigation_quick_action_right"
             app:singleLineTitle="false"

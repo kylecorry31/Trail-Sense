@@ -7,6 +7,7 @@ import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.fragments.AndromedaActivity
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.findNavController
+import com.kylecorry.trail_sense.tools.beacons.quickactions.QuickActionManOverBoard
 import com.kylecorry.trail_sense.tools.beacons.quickactions.QuickActionPlaceBeacon
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
@@ -45,6 +46,11 @@ object BeaconsToolRegistration : ToolRegistration {
                     Tools.QUICK_ACTION_CREATE_BEACON,
                     context.getString(R.string.create_beacon),
                     ::QuickActionPlaceBeacon
+                ),
+                ToolQuickAction(
+                    Tools.QUICK_ACTION_CREATE_MOB_BEACON,
+                    context.getString(R.string.place_mob),
+                    ::QuickActionManOverBoard
                 )
             ),
             additionalNavigationIds = listOf(

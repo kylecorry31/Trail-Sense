@@ -1444,4 +1444,8 @@
     <string name="quick_actions_are_unavailable">Quick actions are unavailable</string>
     <string name="bottom_navigation_slot">Bottom navigation slot %d</string>
     <string name="pref_cog_mode" translatable="false">cog_mode</string>
+    <string name="mob">MOB</string>
+    <string name="creating_mob">Creating MOB beacon</string>
+    <string name="mob_created">MOB beacon created</string>
+    <string name="place_mob">Place MOB beacon</string>
 </resources>

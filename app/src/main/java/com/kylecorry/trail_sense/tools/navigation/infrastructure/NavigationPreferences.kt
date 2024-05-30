@@ -206,7 +206,7 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         get() {
             val id = cache.getString(context.getString(R.string.pref_navigation_quick_action_right))
                 ?.toIntCompat()
-            return id ?: (Tools.PHOTO_MAPS.toInt() + Tools.TOOL_QUICK_ACTION_OFFSET)
+            return id ?: Tools.QUICK_ACTION_CREATE_MOB_BEACON
         }
 
     var speedometerMode by StringEnumPreference(

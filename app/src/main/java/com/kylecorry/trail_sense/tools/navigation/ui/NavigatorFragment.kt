@@ -537,6 +537,13 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             return
         }
 
+        inBackground {
+            val navigatorDestination = navigator.getDestination()
+            if (navigatorDestination != destination) {
+                destination = navigatorDestination
+            }
+        }
+
         // TODO: Move selected beacon updating to a coroutine
         effect(
             "selected_beacon",

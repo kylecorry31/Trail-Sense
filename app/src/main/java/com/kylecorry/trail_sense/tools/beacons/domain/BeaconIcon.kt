@@ -65,5 +65,5 @@ enum class BeaconIcon(override val id: Long, @DrawableRes val icon: Int) : Ident
     Information(14, R.drawable.ic_help_simple),
     Map(15, R.drawable.maps),
     Sign(35, R.drawable.ic_sign),
-    Lifebuoy(37, R.drawable.ic_lifebuoy),
+    Lifebuoy(47, R.drawable.ic_lifebuoy),
 }

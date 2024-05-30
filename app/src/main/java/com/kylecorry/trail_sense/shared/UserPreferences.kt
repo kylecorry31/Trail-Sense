@@ -363,6 +363,7 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
                     Tools.QUICK_ACTION_FLASHLIGHT,
                     Tools.QUICK_ACTION_WHISTLE,
                     Tools.QUICK_ACTION_LOW_POWER_MODE,
+                    Tools.QUICK_ACTION_CREATE_MOB_BEACON
                 )
         }
         set(value) {
