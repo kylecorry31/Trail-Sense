@@ -546,6 +546,10 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                 updateMoonUI()
             }
         }
+
+        effect("day_view_decorator", location) {
+            binding.displayDate.setDayViewDecorator(AstronomyDayViewDecorator(location))
+        }
     }
 
 }

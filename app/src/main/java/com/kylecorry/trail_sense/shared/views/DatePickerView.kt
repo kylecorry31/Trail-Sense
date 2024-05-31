@@ -6,9 +6,12 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentActivity
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.andromeda_temporary.AndromedaDayViewDecorator
+import com.kylecorry.trail_sense.shared.andromeda_temporary.MaterialPickers
 import java.time.LocalDate
 
 class DatePickerView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
@@ -40,6 +43,7 @@ class DatePickerView(context: Context, attrs: AttributeSet?) : FrameLayout(conte
         date = LocalDate.now()
     }
     private var onSearch: () -> Unit = {}
+    private var dayViewDecorator: AndromedaDayViewDecorator? = null
 
     init {
         inflate(context, R.layout.view_date_picker, this)
@@ -52,9 +56,17 @@ class DatePickerView(context: Context, attrs: AttributeSet?) : FrameLayout(conte
         dateText.text = formatter.formatRelativeDate(date)
 
         calendar.setOnClickListener {
-            Pickers.date(context, date) {
-                if (it != null) {
-                    date = it
+            if (context is FragmentActivity) {
+                MaterialPickers.date(context.supportFragmentManager, date, dayViewDecorator) {
+                    if (it != null) {
+                        date = it
+                    }
+                }
+            } else {
+                Pickers.date(context, date) {
+                    if (it != null) {
+                        date = it
+                    }
                 }
             }
         }
@@ -90,7 +102,11 @@ class DatePickerView(context: Context, attrs: AttributeSet?) : FrameLayout(conte
         onSearch = listener
     }
 
-    fun reset(){
+    fun setDayViewDecorator(decorator: AndromedaDayViewDecorator?) {
+        dayViewDecorator = decorator
+    }
+
+    fun reset() {
         date = LocalDate.now()
     }
 
