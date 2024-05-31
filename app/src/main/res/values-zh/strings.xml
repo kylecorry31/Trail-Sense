@@ -1155,4 +1155,7 @@
     <string name="communication">通讯</string>
     <string name="local_talk">本地交谈</string>
     <string name="quick_actions">快速操作</string>
+    <string name="tool_quick_action_summary">长按底部导航或在工具标签页查看</string>
+    <string name="quick_actions_are_unavailable">快速操作不可用</string>
+    <string name="bottom_navigation_slot">底部导航插口 %d</string>
 </resources>
