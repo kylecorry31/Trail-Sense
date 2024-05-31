@@ -453,7 +453,8 @@ class MainActivity : AndromedaActivity() {
 
         // Open the left most item by default (and clear the back stack)
         val leftMostItem = binding.bottomNavigation.menu.getItem(0)
-        if (shouldNavigate && navController.currentDestination?.id != leftMostItem.itemId) {
+        val currentDestination = navController.currentDestination?.id
+        if (shouldNavigate && currentDestination != leftMostItem.itemId && currentDestination == R.id.action_experimental_tools) {
             navController.navigate(
                 leftMostItem.itemId,
                 null,
