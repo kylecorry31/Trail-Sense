@@ -44,7 +44,8 @@ class AstronomyDayViewDecorator(private val location: Coordinate) : AndromedaDay
             if (hasMeteorShower) createIndicatorDrawable(
                 context,
                 R.drawable.ic_meteor,
-                size
+                size,
+                Resources.androidTextColorSecondary(context)
             ) else null,
             if (hasTotalLunar) createIndicatorDrawable(
                 context,
