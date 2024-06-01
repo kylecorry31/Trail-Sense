@@ -3,10 +3,10 @@ package com.kylecorry.trail_sense.tools.astronomy.ui
 import android.content.Context
 import android.graphics.drawable.Drawable
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.pickers.material.AndromedaDayViewDecorator
 import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.andromeda_temporary.AndromedaDayViewDecorator
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import java.time.LocalDate
 

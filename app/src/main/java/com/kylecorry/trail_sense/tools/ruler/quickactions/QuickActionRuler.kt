@@ -9,7 +9,6 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.isMetric
 import com.kylecorry.trail_sense.tools.ruler.ui.RulerView
 
 class QuickActionRuler(
@@ -49,7 +48,7 @@ class QuickActionRuler(
         root?.addView(ruler)
 
         setIcon(R.drawable.ruler)
-        ruler.metric = prefs.baseDistanceUnits.isMetric()
+        ruler.metric = prefs.baseDistanceUnits.isMetric
         ruler.setOnTouchListener {
             setState(false)
             ruler.isVisible = false

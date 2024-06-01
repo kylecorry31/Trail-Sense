@@ -5,6 +5,7 @@ import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import java.time.LocalDate
 
@@ -38,7 +39,7 @@ class ARLayersBottomSheetPreferenceFragment : AndromedaPreferenceFragment() {
         astronomyDateHolder?.summary =
             formatter.formatRelativeDate(astronomyOverrideDate ?: LocalDate.now())
         onClick(astronomyDateHolder) {
-            Pickers.date(requireContext(), astronomyOverrideDate ?: LocalDate.now()) {
+            CustomUiUtils.pickDate(requireContext(), astronomyOverrideDate ?: LocalDate.now()) {
                 if (it != null) {
                     astronomyOverrideDate = it
                 }

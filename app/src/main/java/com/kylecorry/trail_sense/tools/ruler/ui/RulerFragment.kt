@@ -17,7 +17,6 @@ import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.isMetric
 
 class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
@@ -35,7 +34,7 @@ class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
         super.onViewCreated(view, savedInstanceState)
         rulerUnits =
             if (prefs.distanceUnits == UserPreferences.DistanceUnits.Meters) DistanceUnits.Centimeters else DistanceUnits.Inches
-        binding.ruler.metric = rulerUnits.isMetric()
+        binding.ruler.metric = rulerUnits.isMetric
         binding.ruler.setOnTouchListener { distance ->
             binding.ruler.highlight = distance
             onRulerTap(distance)
@@ -56,7 +55,7 @@ class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
             binding.rulerUnitBtn.text = getUnitText(rulerUnits)
             val displayDistance = currentDistance.convertTo(rulerUnits)
             binding.measurement.text = formatService.formatDistance(displayDistance, precision, false)
-            binding.ruler.metric = rulerUnits.isMetric()
+            binding.ruler.metric = rulerUnits.isMetric
             calculateMapDistance()
         }
 

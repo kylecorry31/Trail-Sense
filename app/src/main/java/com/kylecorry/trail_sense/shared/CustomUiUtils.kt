@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.commit
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
@@ -22,6 +23,8 @@ import com.kylecorry.andromeda.core.ui.setState
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.andromeda.pickers.material.AndromedaDayViewDecorator
+import com.kylecorry.andromeda.pickers.material.MaterialPickers
 import com.kylecorry.andromeda.views.chart.Chart
 import com.kylecorry.andromeda.views.list.AndromedaListView
 import com.kylecorry.andromeda.views.list.ListItem
@@ -41,6 +44,7 @@ import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.tools.qr.ui.ScanQRBottomSheet
 import com.kylecorry.trail_sense.tools.qr.ui.ViewQRBottomSheet
 import java.time.Duration
+import java.time.LocalDate
 import java.time.LocalDateTime
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -241,6 +245,19 @@ object CustomUiUtils {
         }
     }
 
+    fun pickDate(
+        context: Context,
+        date: LocalDate = LocalDate.now(),
+        dayViewDecorator: AndromedaDayViewDecorator? = null,
+        onDatePick: (date: LocalDate?) -> Unit
+    ) {
+        if (context is FragmentActivity) {
+            MaterialPickers.date(context.supportFragmentManager, date, dayViewDecorator, onDatePick)
+        } else {
+            Pickers.date(context, date, onDatePick)
+        }
+    }
+
     fun oneTimeToast(
         context: Context,
         message: String,
@@ -375,7 +392,7 @@ object CustomUiUtils {
         default: LocalDateTime = LocalDateTime.now(),
         onDatetimePick: (value: LocalDateTime?) -> Unit
     ) {
-        Pickers.date(context, default.toLocalDate()) { date ->
+        pickDate(context, default.toLocalDate()) { date ->
             if (date != null) {
                 Pickers.time(context, use24Hours, default.toLocalTime()) { time ->
                     if (time != null) {
