@@ -132,25 +132,6 @@ class MainActivity : AndromedaActivity() {
 
         updateBottomNavigation()
 
-        // Loop through each item of the bottom navigation and override the long press behavior
-        for (i in 0 until binding.bottomNavigation.menu.size()) {
-            val item = binding.bottomNavigation.menu.getItem(i)
-            val view = binding.bottomNavigation.findViewById<View>(item.itemId)
-            view.setOnLongClickListener {
-                val fragment =
-                    getFragment() as? AndromedaFragment
-
-                if (fragment == null) {
-                    Alerts.toast(this, getString(R.string.quick_actions_are_unavailable))
-                    return@setOnLongClickListener true
-                }
-
-                MainActivityQuickActionBinder(fragment, binding).bind()
-                binding.quickActionsSheet.isVisible = true
-                true
-            }
-        }
-
         navController.addOnDestinationChangedListener { _, _, _ ->
             // Reset the quick actions
             binding.quickActions.removeAllViews()
@@ -450,6 +431,25 @@ class MainActivity : AndromedaActivity() {
         binding.bottomNavigation.setupWithNavController(navController, false)
 
         updateBottomNavSelection()
+
+        // Loop through each item of the bottom navigation and override the long press behavior
+        for (i in 0 until binding.bottomNavigation.menu.size()) {
+            val item = binding.bottomNavigation.menu.getItem(i)
+            val view = binding.bottomNavigation.findViewById<View>(item.itemId)
+            view.setOnLongClickListener {
+                val fragment =
+                    getFragment() as? AndromedaFragment
+
+                if (fragment == null) {
+                    Alerts.toast(this, getString(R.string.quick_actions_are_unavailable))
+                    return@setOnLongClickListener true
+                }
+
+                MainActivityQuickActionBinder(fragment, binding).bind()
+                binding.quickActionsSheet.isVisible = true
+                true
+            }
+        }
 
         // Open the left most item by default (and clear the back stack)
         val leftMostItem = binding.bottomNavigation.menu.getItem(0)
