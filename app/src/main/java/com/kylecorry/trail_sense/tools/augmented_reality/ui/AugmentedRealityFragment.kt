@@ -298,21 +298,26 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     override fun onUpdate() {
         super.onUpdate()
 
-        effect("compass_status", compassStatusBadge) {
+        effect("compass_status", compassStatusBadge, lifecycleHookTrigger.onResume()) {
             compassStatusBadge?.let {
                 binding.compassStatus.setStatusText(it.name)
                 binding.compassStatus.setBackgroundTint(it.color)
             }
         }
 
-        effect("gps_status", gpsStatusBadge) {
+        effect("gps_status", gpsStatusBadge, lifecycleHookTrigger.onResume()) {
             gpsStatusBadge?.let {
                 binding.gpsStatus.setStatusText(it.name)
                 binding.gpsStatus.setBackgroundTint(it.color)
             }
         }
 
-        effect("layer_visibility", visibleLayers, visibleLayersOverride) {
+        effect(
+            "layer_visibility",
+            visibleLayers,
+            visibleLayersOverride,
+            lifecycleHookTrigger.onResume()
+        ) {
             binding.arView.setLayers(visibleLayersOverride ?: visibleLayers)
         }
     }
