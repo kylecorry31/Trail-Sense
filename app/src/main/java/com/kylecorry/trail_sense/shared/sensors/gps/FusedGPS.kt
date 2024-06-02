@@ -5,6 +5,8 @@ import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.sense.accelerometer.IAccelerometer
 import com.kylecorry.andromeda.sense.location.IGPS
+import com.kylecorry.andromeda.sense.location.ISatelliteGPS
+import com.kylecorry.andromeda.sense.location.Satellite
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.cosDegrees
 import com.kylecorry.sol.math.SolMath.sinDegrees
@@ -20,12 +22,12 @@ import java.time.Duration
 import java.time.Instant
 
 class FusedGPS(
-    private val gps: IGPS,
+    private val gps: ISatelliteGPS,
     private val interval: Duration,
     private val accelerometer: IAccelerometer? = null,
     private val useKalmanSpeed: Boolean = false,
     private val updateWithPrediction: Boolean = false
-) : IGPS, AbstractSensor() {
+) : ISatelliteGPS, AbstractSensor() {
     override val altitude: Float
         get() = gps.altitude
     override val bearing: Bearing?
@@ -44,6 +46,8 @@ class FusedGPS(
         get() = gps.mslAltitude
     override val rawBearing: Float?
         get() = gps.rawBearing
+    override val satelliteDetails: List<Satellite>?
+        get() = gps.satelliteDetails
     override val satellites: Int?
         get() = gps.satellites
     override val speed: Speed

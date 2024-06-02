@@ -7,6 +7,8 @@ import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.sense.location.GPS
 import com.kylecorry.andromeda.sense.location.IGPS
+import com.kylecorry.andromeda.sense.location.ISatelliteGPS
+import com.kylecorry.andromeda.sense.location.Satellite
 import com.kylecorry.sol.math.RingBuffer
 import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.time.Time.isInPast
@@ -31,7 +33,7 @@ class CustomGPS(
     private val context: Context,
     private val gpsFrequency: Duration = Duration.ofMillis(20),
     private val updateFrequency: Duration = Duration.ofMillis(20),
-) : AbstractSensor(), IGPS {
+) : AbstractSensor(), ISatelliteGPS {
 
     override val hasValidReading: Boolean
         get() = hadRecentValidReading()
@@ -43,6 +45,8 @@ class CustomGPS(
         get() = _quality
     override val rawBearing: Float?
         get() = _rawBearing
+    override var satelliteDetails: List<Satellite>? = null
+        private set
 
     override val horizontalAccuracy: Float?
         get() = _horizontalAccuracy
@@ -82,7 +86,7 @@ class CustomGPS(
     val isTimedOut: Boolean
         get() = _isTimedOut
 
-    private val baseGPS: IGPS by lazy {
+    private val baseGPS: ISatelliteGPS by lazy {
         if (userPrefs.useFilteredGPS) {
             FusedGPS(
                 GPS(context.applicationContext, frequency = gpsFrequency),
@@ -139,6 +143,7 @@ class CustomGPS(
         _horizontalAccuracy = baseGPS.horizontalAccuracy
         _quality = baseGPS.quality
         _satellites = baseGPS.satellites
+        satelliteDetails = baseGPS.satelliteDetails
         _mslAltitude = baseGPS.mslAltitude
         val newMSLOffset = baseGPS.altitude - (baseGPS.mslAltitude ?: baseGPS.altitude)
         if (newMSLOffset != 0f) {
@@ -305,7 +310,7 @@ class CustomGPS(
         val isNewer = timeDelta > Duration.ZERO
 
         val isLastTimeInFuture = time.isAfter(Instant.now().plusMillis(500))
-        if (isLastTimeInFuture){
+        if (isLastTimeInFuture) {
             return true
         }
 

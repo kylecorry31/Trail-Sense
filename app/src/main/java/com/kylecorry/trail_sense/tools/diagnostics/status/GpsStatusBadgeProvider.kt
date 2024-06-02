@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.diagnostics.status
 import android.content.Context
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.sense.location.GPS
-import com.kylecorry.andromeda.sense.location.IGPS
+import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
@@ -15,7 +15,7 @@ import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import java.time.Duration
 import java.time.Instant
 
-class GpsStatusBadgeProvider(private val gps: IGPS, private val context: Context) :
+class GpsStatusBadgeProvider(private val gps: ISatelliteGPS, private val context: Context) :
     StatusBadgeProvider {
 
     private val formatter = FormatService.getInstance(context)
@@ -39,7 +39,9 @@ class GpsStatusBadgeProvider(private val gps: IGPS, private val context: Context
             return AppColor.Yellow.color
         }
 
-        if (!gps.hasValidReading || (prefs.requiresSatellites && (gps.satellites ?: 0) < 4) || (gps is CustomGPS && gps.isTimedOut)) {
+        if (!gps.hasValidReading || (prefs.requiresSatellites && (gps.satellites
+                ?: 0) < 4) || (gps is CustomGPS && gps.isTimedOut)
+        ) {
             return AppColor.Yellow.color
         }
 
@@ -59,7 +61,9 @@ class GpsStatusBadgeProvider(private val gps: IGPS, private val context: Context
             return context.getString(R.string.gps_stale)
         }
 
-        if (!gps.hasValidReading || (prefs.requiresSatellites && (gps.satellites ?: 0) < 4) || (gps is CustomGPS && gps.isTimedOut)) {
+        if (!gps.hasValidReading || (prefs.requiresSatellites && (gps.satellites
+                ?: 0) < 4) || (gps is CustomGPS && gps.isTimedOut)
+        ) {
             return context.getString(R.string.gps_searching)
         }
 

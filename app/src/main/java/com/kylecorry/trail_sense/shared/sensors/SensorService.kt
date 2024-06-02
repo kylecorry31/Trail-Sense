@@ -24,6 +24,7 @@ import com.kylecorry.andromeda.sense.light.ILightSensor
 import com.kylecorry.andromeda.sense.light.LightSensor
 import com.kylecorry.andromeda.sense.location.GPS
 import com.kylecorry.andromeda.sense.location.IGPS
+import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.andromeda.sense.location.filters.GPSGaussianAltitudeFilter
 import com.kylecorry.andromeda.sense.magnetometer.IMagnetometer
 import com.kylecorry.andromeda.sense.magnetometer.LowPassMagnetometer
@@ -74,7 +75,7 @@ class SensorService(ctx: Context) {
     private val userPrefs by lazy { UserPreferences(context) }
 
     // TODO: This should control update frequency
-    fun getGPS(frequency: Duration = Duration.ofMillis(20)): IGPS {
+    fun getGPS(frequency: Duration = Duration.ofMillis(20)): ISatelliteGPS {
 
         val hasPermission = hasLocationPermission()
 

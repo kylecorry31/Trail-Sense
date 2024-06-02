@@ -72,4 +72,6 @@ class AugmentedRealityPreferences(context: Context) : PreferenceRepo(context) {
         context.getString(R.string.pref_show_ar_grid_layer),
         true
     )
+
+    var showSatelliteLayer = false
 }

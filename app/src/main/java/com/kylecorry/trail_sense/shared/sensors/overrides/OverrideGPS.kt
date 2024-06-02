@@ -2,7 +2,8 @@ package com.kylecorry.trail_sense.shared.sensors.overrides
 
 import android.content.Context
 import android.os.SystemClock
-import com.kylecorry.andromeda.sense.location.IGPS
+import com.kylecorry.andromeda.sense.location.ISatelliteGPS
+import com.kylecorry.andromeda.sense.location.Satellite
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.DistanceUnits
@@ -15,7 +16,7 @@ import java.time.Instant
 
 class OverrideGPS(context: Context, updateFrequency: Long = 20L) :
     IntervalSensor(Duration.ofMillis(updateFrequency)),
-    IGPS {
+    ISatelliteGPS {
 
     private val userPrefs by lazy { UserPreferences(context) }
 
@@ -46,5 +47,7 @@ class OverrideGPS(context: Context, updateFrequency: Long = 20L) :
     override val mslAltitude: Float
         get() = altitude
     override val rawBearing: Float?
+        get() = null
+    override val satelliteDetails: List<Satellite>?
         get() = null
 }

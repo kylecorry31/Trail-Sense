@@ -23,6 +23,7 @@ import com.kylecorry.andromeda.fragments.interval
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.sense.Sensors
+import com.kylecorry.andromeda.sense.location.Satellite
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
@@ -30,8 +31,8 @@ import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.settings.ui.ImproveAccuracyAlerter
 import com.kylecorry.trail_sense.databinding.FragmentAugmentedRealityBinding
+import com.kylecorry.trail_sense.settings.ui.ImproveAccuracyAlerter
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
@@ -50,6 +51,7 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARBeaconLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARGridLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARPathLayer
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARSatelliteLayer
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.tools.diagnostics.status.GpsStatusBadgeProvider
@@ -94,6 +96,13 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             drawBelowHorizon = false,
             onSunFocus = this::onSunFocused,
             onMoonFocus = this::onMoonFocused
+        )
+    }
+
+    private val satelliteLayer by lazy {
+        ARSatelliteLayer(
+            binding.arView.gps,
+            this::onSatelliteFocused
         )
     }
 
@@ -345,6 +354,11 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         return true
     }
 
+    private fun onSatelliteFocused(satellite: Satellite): Boolean {
+        binding.arView.focusText = "${satellite.constellation} ${satellite.id}"
+        return true
+    }
+
     private fun onPathFocused(path: IMappablePath): Boolean {
         binding.arView.focusText = path.name
         return true
@@ -484,6 +498,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     private fun updateLayerVisibility() {
         visibleLayers = listOfNotNull(
             if (userPrefs.augmentedReality.showGridLayer) gridLayer else null,
+            if (userPrefs.augmentedReality.showSatelliteLayer) satelliteLayer else null,
             if (userPrefs.augmentedReality.showAstronomyLayer) astronomyLayer else null,
             if (userPrefs.augmentedReality.showPathLayer) pathsLayer else null,
             if (userPrefs.augmentedReality.showBeaconLayer) beaconLayer else null

@@ -11,6 +11,7 @@ import com.kylecorry.andromeda.core.sensors.ISensor
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.location.IGPS
+import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.andromeda.sense.mock.MockSensor
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.sol.units.Distance
@@ -32,7 +33,7 @@ class ImproveAccuracyAlerter(
     private val doneButton = context.getString(android.R.string.ok)
 
     override fun alert(value: List<ISensor>) {
-        val gps = value.firstOrNull { it is IGPS } as? IGPS
+        val gps = value.firstOrNull { it is ISatelliteGPS } as? ISatelliteGPS
         val compass = value.firstOrNull { it is ICompass } as? ICompass
         val orientation = value.firstOrNull { it is IOrientationSensor } as? IOrientationSensor
         val hasCompass = compass !is MockSensor
@@ -79,7 +80,7 @@ class ImproveAccuracyAlerter(
         appendLine(context.getString(R.string.calibrate_compass_dialog_content, doneButton))
     }
 
-    private fun SpannableStringBuilder.appendGPS(gps: IGPS) {
+    private fun SpannableStringBuilder.appendGPS(gps: ISatelliteGPS) {
         if (gps is OverrideGPS || gps is CachedGPS) {
             return
         }
