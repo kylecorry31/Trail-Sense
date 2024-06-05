@@ -19,7 +19,7 @@ class ActiveMapSelectorTest {
         "0.0, 0.0, 4",
         "0.05, 0.05, 3",
         "0.1, 0.05, 3",
-        "0.1, 0.1, 1",
+        "0.1, 0.1, 3",
         "0.2, 0.1, 1",
         "2.0, 0.1,",
     )
@@ -29,7 +29,7 @@ class ActiveMapSelectorTest {
             map(1, Size(100f, 100f), CoordinateBounds(0.0, 0.0, 1.0, 1.0)),
             map(2, Size(100f, 100f), CoordinateBounds(0.0, 0.0, 0.1, 0.1)),
             map(3, Size(400f, 400f), CoordinateBounds(0.0, 0.0, 0.1, 0.1)),
-            map(4, Size(400f, 400f), CoordinateBounds(-0.1, -0.1, 0.1, 0.1)),
+            map(4, Size(800f, 800f), CoordinateBounds(-0.1, -0.1, 0.1, 0.1)),
         )
 
         assertEquals(expected, selector.getActiveMap(maps, Coordinate(latitude, longitude))?.id)
@@ -37,10 +37,10 @@ class ActiveMapSelectorTest {
 
     @ParameterizedTest
     @CsvSource(
-        "0.0, 0.0, 0.1, 0.1, 4",
-        "0.0, 0.0, 0.05, 0.05, 4",
+        "0.0, 0.0, 0.1, 0.1, 3",
+        "0.0, 0.0, 0.05, 0.05, 3",
         "0.05, 0.05, 0.1, 0.1, 3",
-        "0.0, 0.0, 1.0, 1.0, 1"
+        "0.0, 0.0, 0.1, 0.11, 1"
     )
     fun canGetActiveMapWithDestination(
         latitude: Double,
@@ -51,7 +51,7 @@ class ActiveMapSelectorTest {
     ) {
         val selector = ActiveMapSelector()
         val maps = listOf(
-            map(1, Size(100f, 100f), CoordinateBounds(0.0, 0.0, 1.0, 1.0)),
+            map(1, Size(500f, 500f), CoordinateBounds(0.0, 0.0, 0.15, 0.15)),
             map(2, Size(100f, 100f), CoordinateBounds(0.0, 0.0, 0.1, 0.1)),
             map(3, Size(400f, 400f), CoordinateBounds(0.0, 0.0, 0.1, 0.1)),
             map(4, Size(400f, 400f), CoordinateBounds(-0.1, -0.1, 0.1, 0.1)),

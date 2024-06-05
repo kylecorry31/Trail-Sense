@@ -46,7 +46,7 @@ class ActiveMapSelector {
         return map.boundary()?.contains(location) == true
     }
 
-    private fun isSimilarZoom(base: PhotoMap, map: PhotoMap, pct: Float): Boolean {
+    private fun isSimilarZoom(map: PhotoMap, base: PhotoMap, pct: Float): Boolean {
         return metersPerPixel(map) <= metersPerPixel(base) * (1f + pct)
     }
 
