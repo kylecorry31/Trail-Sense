@@ -12,14 +12,17 @@ import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
+import com.kylecorry.trail_sense.tools.maps.domain.selection.ActiveMapSelector
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapService
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import kotlinx.coroutines.launch
-import kotlin.math.abs
 
 class QuickActionOpenPhotoMap(button: ImageButton, fragment: Fragment) : QuickActionButton(
     button, fragment
 ) {
     private val mapService = MapService.getInstance(fragment.requireContext())
+    private val navigator = Navigator.getInstance(fragment.requireContext())
+    private val selector = ActiveMapSelector()
 
     override fun onCreate() {
         super.onCreate()
@@ -66,38 +69,10 @@ class QuickActionOpenPhotoMap(button: ImageButton, fragment: Fragment) : QuickAc
         val sensors = SensorService(fragment.requireContext())
         val gps = sensors.getGPS()
         readAll(listOf(gps), onlyIfInvalid = true)
+
+        val destination = navigator.getDestination()?.coordinate
         val maps = mapService.getAllMaps()
-        val activeMaps = maps.filter {
-            it.boundary()?.contains(gps.location) == true
-        }
-
-        val sorted = activeMaps.map {
-            (it.distancePerPixel()?.meters()?.distance ?: Float.MAX_VALUE) to it
-        }.sortedBy { it.first }
-
-        val mostZoomedIn = sorted.firstOrNull() ?: return null
-
-        // Get the maps that are similar in zoom level
-        val pct = 0.05f
-        val similarZoomLevelMaps = sorted.filter {
-            it.first <= mostZoomedIn.first * (1f + pct)
-        }
-
-        if (similarZoomLevelMaps.size == 1) {
-            return mostZoomedIn.second
-        }
-
-        // Get the map in which the user is closest to the center
-        val closestToCenter = similarZoomLevelMaps.minByOrNull {
-            val pixel = it.second.projection.toPixels(gps.location)
-            val xPercent = pixel.x / it.second.metadata.size.width
-            val yPercent = pixel.y / it.second.metadata.size.height
-            val xDist = abs(0.5f - xPercent)
-            val yDist = abs(0.5f - yPercent)
-            xDist + yDist
-        }
-
-        return closestToCenter?.second
+        return selector.getActiveMap(maps, gps.location, destination)
     }
 
 }
