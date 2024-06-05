@@ -1080,7 +1080,7 @@
     <string name="augmented_reality">Aangevulde realiteit</string>
     <string name="augmented_reality_description">Bekijk bakens in de buurt en de zon/maan met je camera</string>
     <string name="magnetic_north">Magnetisch noorden</string>
-    <string name="tool_long_press_hint_toast">Houdt een hulpmiddel ingedrukt voor meer opties</string>
+    <string name="tool_long_press_hint_toast">Houd een hulpmiddel ingedrukt voor meer opties</string>
     <string name="unpin">Losmaken</string>
     <string name="settings_have_moved_message">Instellingen zijn verplaatst naar het tabblad Hulpmiddelen</string>
     <string name="settings_have_moved">Instellingen zijn verplaatst</string>
@@ -1169,4 +1169,7 @@
     <string name="local_talk">lokaal gesprek</string>
     <string name="background">Achtergrond</string>
     <string name="quick_actions">Snelle acties</string>
+    <string name="tool_quick_action_summary">Houd onderste navigatie lang ingedrukt of bekijk in het tab \'hulpmiddelen\'</string>
+    <string name="quick_actions_are_unavailable">Snelle acties zijn niet beschikbaar</string>
+    <string name="bottom_navigation_slot">Onderste navigatieslot %d</string>
 </resources>
