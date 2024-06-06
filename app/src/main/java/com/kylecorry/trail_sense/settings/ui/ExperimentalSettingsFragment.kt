@@ -19,7 +19,7 @@ class ExperimentalSettingsFragment : AndromedaPreferenceFragment() {
         preference(R.string.pref_experimental_metal_direction)?.isVisible = hasGyro && hasCompass
 
         onClick(preference(R.string.pref_cliff_height_enabled)) {
-            requireMainActivity().updateBottomNavigation(false)
+            requireMainActivity().updateBottomNavigation()
         }
     }
 }

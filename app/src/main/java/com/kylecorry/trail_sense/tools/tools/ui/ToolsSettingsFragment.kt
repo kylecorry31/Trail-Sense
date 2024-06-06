@@ -55,7 +55,7 @@ class ToolsSettingsFragment : AndromedaPreferenceFragment() {
                             }
                         prefs.bottomNavigationTools = bottomNavSelection
                         preference.summary = names[it]
-                        requireMainActivity().updateBottomNavigation(false)
+                        requireMainActivity().updateBottomNavigation()
                     }
                 }
                 true
