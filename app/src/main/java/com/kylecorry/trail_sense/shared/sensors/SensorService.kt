@@ -50,6 +50,7 @@ import com.kylecorry.trail_sense.shared.sensors.altimeter.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrapper
 import com.kylecorry.trail_sense.shared.sensors.altimeter.GaussianAltimeterWrapper
 import com.kylecorry.trail_sense.shared.sensors.altimeter.OverrideAltimeter
+import com.kylecorry.trail_sense.shared.sensors.barometer.CalibratedBarometer
 import com.kylecorry.trail_sense.shared.sensors.hygrometer.MockHygrometer
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
@@ -223,14 +224,18 @@ class SensorService(ctx: Context) {
     }
 
     fun getBarometer(): IBarometer {
-        return if (userPrefs.weather.hasBarometer) FilteredBarometer(
-            Barometer(
-                context, ENVIRONMENT_SENSOR_DELAY
-            ),
-            3
-        ) {
+        if (!userPrefs.weather.hasBarometer) {
+            return MockBarometer()
+        }
+
+        val barometer = CalibratedBarometer(
+            Barometer(context, ENVIRONMENT_SENSOR_DELAY),
+            0f // TODO: Read offset from prefs
+        )
+
+        return FilteredBarometer(barometer, 3) {
             LowPassFilter(0.1f, it)
-        } else MockBarometer()
+        }
     }
 
     fun getThermometer(calibrated: Boolean = true): IThermometer {
