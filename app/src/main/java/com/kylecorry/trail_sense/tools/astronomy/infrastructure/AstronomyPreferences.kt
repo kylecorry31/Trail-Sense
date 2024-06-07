@@ -49,6 +49,12 @@ class AstronomyPreferences(private val context: Context) {
         false
     )
 
+    var sendSunriseAlerts by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_sunrise_alerts),
+        false
+    )
+
     val sendAstronomyAlerts: Boolean
         get() {
             return sendLunarEclipseAlerts || sendMeteorShowerAlerts || sendSolarEclipseAlerts
@@ -80,15 +86,32 @@ class AstronomyPreferences(private val context: Context) {
             return (cache.getString(context.getString(R.string.pref_sunset_alert_time))
                 ?: "60").toLong()
         }
+    val sunriseAlertMinutesBefore: Long
+        get() {
+            return (cache.getString(context.getString(R.string.pref_sunrise_alert_time))
+                ?: "60").toLong()
+        }
 
     val sunsetAlertLastSent: LocalDate
         get() {
-            val raw = (cache.getString("sunset_alert_last_sent_date") ?: LocalDate.MIN.toString())
+            val raw = (cache.getString(context.getString(R.string.pref_sunset_alert_last_sent_date))
+                ?: LocalDate.MIN.toString())
+            return LocalDate.parse(raw)
+        }
+    val sunriseAlertLastSent: LocalDate
+        get() {
+            val raw =
+                (cache.getString(context.getString(R.string.pref_sunrise_alert_last_sent_date))
+                    ?: LocalDate.MIN.toString())
             return LocalDate.parse(raw)
         }
 
     fun setSunsetAlertLastSentDate(date: LocalDate) {
-        cache.putString("sunset_alert_last_sent_date", date.toString())
+        cache.putString(context.getString(R.string.pref_sunset_alert_last_sent_date), date.toString())
+    }
+
+    fun setSunriseAlertLastSentDate(date: LocalDate) {
+        cache.putString(context.getString(R.string.pref_sunrise_alert_last_sent_date), date.toString())
     }
 
     val leftButton: Int

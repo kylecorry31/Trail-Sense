@@ -6,9 +6,12 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyDailyWorker
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.AstronomyAlertCommand
+import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunriseAlarmCommand
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunsetAlarmCommand
+import com.kylecorry.trail_sense.tools.astronomy.infrastructure.receivers.SunriseAlarmReceiver
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionNightMode
+import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunriseAlert
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunsetAlert
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
@@ -37,6 +40,11 @@ object AstronomyToolRegistration : ToolRegistration {
                     ::QuickActionSunsetAlert
                 ),
                 ToolQuickAction(
+                    Tools.QUICK_ACTION_SUNRISE_ALERT,
+                    context.getString(R.string.sunrise_alerts),
+                    ::QuickActionSunriseAlert
+                ),
+                ToolQuickAction(
                     Tools.QUICK_ACTION_NIGHT_MODE,
                     context.getString(R.string.night),
                     ::QuickActionNightMode
@@ -51,6 +59,13 @@ object AstronomyToolRegistration : ToolRegistration {
                     false
                 ),
                 ToolNotificationChannel(
+                    SunriseAlarmCommand.NOTIFICATION_CHANNEL_ID,
+                    context.getString(R.string.sunrise_alert_channel_title),
+                    context.getString(R.string.sunrise_alerts),
+                    Notify.CHANNEL_IMPORTANCE_HIGH,
+                    false
+                ),
+                ToolNotificationChannel(
                     AstronomyAlertCommand.NOTIFICATION_CHANNEL,
                     context.getString(R.string.astronomy_alerts),
                     context.getString(R.string.astronomy_alerts),
@@ -59,6 +74,22 @@ object AstronomyToolRegistration : ToolRegistration {
                 )
             ),
             services = listOf(
+                ToolService(
+                    context.getString(R.string.sunrise_alerts),
+                    getFrequency = { Duration.ofDays(1) },
+                    isActive = {
+                        UserPreferences(it).astronomy.sendSunriseAlerts
+                    },
+                    disable = {
+                        UserPreferences(it).astronomy.sendSunriseAlerts = false
+                    },
+                    stop = {
+                        SunriseAlarmReceiver.scheduler(it).cancel()
+                    },
+                    restart = {
+                        SunriseAlarmReceiver.start(context)
+                    }
+                ),
                 ToolService(
                     context.getString(R.string.sunset_alerts),
                     getFrequency = { Duration.ofDays(1) },
@@ -104,6 +135,10 @@ object AstronomyToolRegistration : ToolRegistration {
                 ToolDiagnosticFactory.notification(
                     SunsetAlarmCommand.NOTIFICATION_CHANNEL_ID,
                     context.getString(R.string.sunset_alerts)
+                ),
+                ToolDiagnosticFactory.notification(
+                    SunriseAlarmCommand.NOTIFICATION_CHANNEL_ID,
+                    context.getString(R.string.sunrise_alerts)
                 ),
                 ToolDiagnosticFactory.notification(
                     AstronomyAlertCommand.NOTIFICATION_CHANNEL,
