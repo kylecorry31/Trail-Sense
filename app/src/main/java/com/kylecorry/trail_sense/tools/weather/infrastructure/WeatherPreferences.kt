@@ -2,7 +2,10 @@ package com.kylecorry.trail_sense.tools.weather.infrastructure
 
 import android.content.Context
 import com.kylecorry.andromeda.core.toIntCompat
+import com.kylecorry.andromeda.preferences.IntEnumPreference
+import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.andromeda.sense.Sensors
+import com.kylecorry.sol.science.meteorology.forecast.ForecastSource
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -146,6 +149,16 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
     override val showColoredNotificationIcon: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_weather_show_detailed_icon))
             ?: true
+
+    override val forecastSource: ForecastSource by StringEnumPreference(
+        cache,
+        context.getString(R.string.pref_weather_forecast_source),
+        mapOf(
+            "1" to ForecastSource.Sol,
+            "2" to ForecastSource.Zambretti
+        ),
+        ForecastSource.Sol
+    )
 
     companion object {
         const val HPA_FORECAST_LOW = 2.5f

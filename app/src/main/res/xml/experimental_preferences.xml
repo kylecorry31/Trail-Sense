@@ -42,6 +42,14 @@
             app:singleLineTitle="false"
             app:title="@string/smooth_gps_readings" />
 
+        <ListPreference
+            app:defaultValue="1"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_weather_forecast_source"
+            app:singleLineTitle="false"
+            app:title="@string/forecast_algorithm"
+            app:useSimpleSummaryProvider="true" />
+
 
     </PreferenceCategory>
 

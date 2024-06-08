@@ -34,6 +34,7 @@ internal class WeatherForecaster(
 
     private val stormThreshold = prefs.stormAlertThreshold
     private val hourlyForecastChangeThreshold = prefs.hourlyForecastChangeThreshold
+    private val forecastSource = prefs.forecastSource
     private val arrivalCalculator = WeatherArrivalTimeCalculator()
     private val alertGenerator = WeatherAlertGenerator()
 
@@ -128,7 +129,7 @@ internal class WeatherForecaster(
             stormThreshold / 3f,
             Instant.now(),
             location ?: Coordinate.zero,
-            ForecastSource.Sol
+            forecastSource
         )
     }
 
