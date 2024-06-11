@@ -7,7 +7,7 @@
     <string name="astronomy">Astronomía</string>
     <string name="sunrise_label">Amanecer</string>
     <string name="sunset_label">Anochecer</string>
-    <string name="true_north">Norte verdadero</string>
+    <string name="true_north">Norte geográfico</string>
     <string name="pref_use_sea_level_pressure_title">Presión al nivel del mar</string>
     <string name="general">General</string>
     <string name="pressure">Presión</string>
@@ -83,8 +83,8 @@
     <string name="pref_coordinate_format_title">Formato de coordenadas</string>
     <string name="coordinate_format_mgrs">MGRS</string>
     <string name="coordinate_format_utm">UTM</string>
-    <string name="coordinate_format_degrees_minutes_seconds">Grados Minutos Segundos</string>
-    <string name="coordinate_format_degrees_decimal_minutes">Grados Decimales Minutos</string>
+    <string name="coordinate_format_degrees_minutes_seconds">Grados minutos segundos</string>
+    <string name="coordinate_format_degrees_decimal_minutes">Grados decimales minutos</string>
     <string name="set_inclination_instructions">Toca o mantén pulsado en cualquier lugar para bloquear o desbloquear</string>
     <string name="clinometer_rotate_device">Mantén el teléfono vertical para medir la inclinación</string>
     <string name="tool_clinometer_summary">Estimar riesgos de avalanchas y alturas de objetos</string>
@@ -94,7 +94,7 @@
     <string name="first_quarter">Primer cuarto</string>
     <string name="waxing_gibbous">Luna menguante</string>
     <string name="full_moon">Luna Llena</string>
-    <string name="waning_gibbous">Gibosa Menguante</string>
+    <string name="waning_gibbous">Cuarto menguante</string>
     <string name="third_quarter">Cuarto menguante</string>
     <string name="waning_crescent">Menguante y creciente</string>
     <string name="new_moon">Luna nueva</string>
@@ -280,27 +280,27 @@
     <string name="thunder">Trueno</string>
     <string name="pedometer">Podómetro</string>
     <string name="import_btn">Importar</string>
-    <string name="onboarding_privacy">- Trail Sense respeta tu privacidad y los datos de ubicación nunca salen de tu dispositivo
+    <string name="onboarding_privacy">- Trail Sense respeta tu privacidad y los datos de localización nunca salen de tu dispositivo
 \n
 \n- Trail Sense nunca requerirá permiso de Internet
 \n
-\n- Ver la [Política de privacidad] (https://kylecorry.com/Trail-Sense/privacy_policy.html) (se abre en el navegador de tu teléfono)
+\n- Ver la [política de privacidad](https://kylecorry.com/Trail-Sense/privacy_policy.html) (se abre en el navegador de tu teléfono)
 \n
 \n- Algunas funciones de Trail Sense requieren acceso a tu ubicación
 \n
-\n- Otorgar el permiso de ubicación habilitará las siguientes funciones:
+\n- Conceder el permiso de ubicación habilitará las siguientes funciones:
 \n
-\n- Navegar a balizas
+\n\t- Navegación hacia balizas
 \n
-\n- Precisión de pronóstico mejorada (requiere ubicación en segundo plano, no disponible en todos los dispositivos)
+\n\t- Mejora de la precisión de las previsiones (no disponible en todos los dispositivos)
 \n
-\n- Retroceso (requiere ubicación en segundo plano)
+\n\t- Retroceso
 \n
-\n- Horas de sol y luna para su ubicación actual
+\n\t- Horas de sol y luna para su ubicación actual (las alertas de puesta de sol pueden requerir una ubicación de fondo)
 \n
-\n- Si eliges no otorgar el permiso de ubicación, puedes introducir manualmente una ubicación en el menú Configuración &gt; Calibración de GPS en Trail Sense
+\n- Si decides no conceder el permiso de ubicación, puedes introducir manualmente una ubicación en el menú Configuración &gt; Sensores &gt; Calibración GPS en Trail Sense.
 \n
-\n- Después de hacer clic en Continuar, se te pedirá que otorgues los permisos de ubicación y ubicación en segundo plano. Denegar esos permisos evitará que Trail Sense acceda a tu ubicación, por lo que se recomienda una introducción de ubicación manual.</string>
+\n- Tras hacer clic en Continuar, se te pedirá que concedas el permiso de ubicación. Si deniegas este permiso, Trail Sense no podrá acceder a tu ubicación, por lo que se recomienda introducirla manualmente.</string>
     <plurals name="beacons_exported">
         <item quantity="one">%d baliza exportada</item>
         <item quantity="many">%d balizas exportadas</item>
@@ -335,7 +335,7 @@
     <string name="unit_inches">Pulgadas</string>
     <string name="map_distance">Mapa: %s</string>
     <string name="map_fractional_separator">:</string>
-    <string name="map_scale_title">Escala del Mapa</string>
+    <string name="map_scale_title">Escala del mapa</string>
     <string name="action_inventory_clear_confirm">¿Borrar todas las cantidades empaquetadas\?</string>
     <plurals name="water_boil_timer_content">
         <item quantity="one">%d segundo hasta que sea potable</item>
@@ -396,7 +396,7 @@
     <string name="battery_health_over_voltage">Sobretensión</string>
     <string name="battery_health">Salúd: %s</string>
     <string name="power">Energía</string>
-    <string name="clock_sync_notification">Sincronizar tu reloj - %s</string>
+    <string name="clock_sync_notification">Sincronización del reloj - %s</string>
     <string name="units_mmhg">mm Hg</string>
     <string name="water_boil_timer">Temporizador de hervir agua</string>
     <string name="battery_power_ac">AC</string>
@@ -462,7 +462,7 @@
     <string name="location_not_set">Ubicación no definida</string>
     <string name="set">Establecer</string>
     <string name="location_disabled">La localización está deshabilitada</string>
-    <string name="gps_cache">Caché de GPS</string>
+    <string name="gps_cache">Caché del GPS</string>
     <string name="tomorrows_forecast">El pronóstico para mañana</string>
     <string name="pref_daily_weather_notification_title">Notificación diaria de clima</string>
     <string name="always_on">Siempre encendido</string>
@@ -511,7 +511,7 @@
     <string name="whistle_signal_where_are_you">¿Dónde estás\?</string>
     <string name="whistle_signal_acknowledged">Admitido</string>
     <string name="whistle_signal_come_here">Ven aquí</string>
-    <string name="weather_monitor">Monitor meteorológico</string>
+    <string name="weather_monitor">Estación meteorológica</string>
     <string name="battery_history">Historial de la batería: último %s</string>
     <string name="elevation_from_pressure">Establecer la anulación del barómetro</string>
     <string name="pref_elevation_override_sea_level_dialog_title">Introduce la presión al nivel del mar</string>
@@ -526,9 +526,9 @@
     <string name="tool_category_signaling">Señalización</string>
     <string name="tool_triangulate_title">Triangular Ubicación</string>
     <string name="could_not_triangulate">No se pudo triangular</string>
-    <string name="pip_button">Actualizar el reloj del sistema</string>
+    <string name="pip_button">Actualizar la hora del sistema</string>
     <string name="pip_notification_scheduled">Notificacion programada para las %s</string>
-    <string name="notification_channel_clock_sync">Sincronización del Reloj</string>
+    <string name="notification_channel_clock_sync">Sincronización del reloj</string>
     <string name="metal_detector_disclaimer">Solo detecta metales magnéticos (ej. hierro)</string>
     <string name="unsaved_changes_message">Los cambios que hiciste no serán guardados.</string>
     <string name="dialog_leave">Salir</string>
@@ -576,9 +576,9 @@
     <string name="difficulty">Dificultad</string>
     <string name="waypoint">Punto de referencia</string>
     <string name="pref_tiles_enabled_summary">Puede evitar que las aplicaciones de ahorro de batería detenga completamente Trail Sense</string>
-    <string name="us_pints">Pinta USA (473 ml)</string>
-    <string name="us_quarts">1/4 Galón USA (0,94 litros)</string>
-    <string name="us_ounces_volume">Onza USA (28.349 gramos)</string>
+    <string name="us_pints">Pinta USA</string>
+    <string name="us_quarts">1/4 Galón USA</string>
+    <string name="us_ounces_volume">Onza USA</string>
     <string name="hours_format">%s horas</string>
     <string name="last_duration">Último %s</string>
     <string name="elevation_history_length">Longitud del historial de altitud</string>
@@ -639,8 +639,8 @@
     <string name="milliliter_format">%s Ml</string>
     <string name="cup_format">%s c</string>
     <string name="liters">Litros</string>
-    <string name="us_cups">Tazas USA (0,23 litros)</string>
-    <string name="us_gallons">Galón USA (aprx. 4,5 litros)</string>
+    <string name="us_cups">Tazas USA</string>
+    <string name="us_gallons">Galón USA</string>
     <string name="imperial_cups">Tazas Imperiales</string>
     <string name="imperial_pints">Pintas Imperiales</string>
     <string name="imperial_quarts">Cuartos Imperiales</string>
