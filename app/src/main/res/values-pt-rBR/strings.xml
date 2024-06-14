@@ -1083,4 +1083,21 @@
     <string name="backing_up_loading_message">Fazendo backup…</string>
     <string name="backup_restore">Backup / restauração</string>
     <string name="triangulate_destination_location_1_instructions">Coloque a sua posição e a direção do destino.</string>
+    <string name="augmented_reality_description">Ver pontos de orientação próximos, o sol e a lua com a câmera</string>
+    <string name="magnetic_north">Norte Magnético</string>
+    <string name="pinned">Fixado</string>
+    <string name="unpin">Desafixar</string>
+    <string name="tool_long_press_hint_toast">Mantenha pressionado para ver mais opções da ferramenta</string>
+    <string name="direction_not_set">Direção não definida</string>
+    <string name="distance_away_from_self">%s distante</string>
+    <string name="location_to_triangulate">Posição para triangular</string>
+    <string name="missing_sensor_message_1">Seu dispositivo %1$s não possui %2$s disponível. Infelizmente algumas funções do %3$s não estarão disponíveis.</string>
+    <string name="settings_have_moved">As configurações mudaram de lugar</string>
+    <string name="settings_have_moved_message">As configurações do aplicativo mudaram para a barra de ferramentas</string>
+    <string name="enter_manually">Colocar manualmente</string>
+    <string name="location_number">Posição %d</string>
+    <string name="direction">Direção</string>
+    <string name="pin">Fixar</string>
+    <string name="distance_away_from_destination">%s do destino</string>
+    <string name="augmented_reality">Realidade Aumentada</string>
 </resources>
