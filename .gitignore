@@ -27,3 +27,4 @@ release-builds-helper.sh
 .idea/copilot
 .idea/deploymentTargetSelector.xml
 .kotlin/
+.idea/other.xml
