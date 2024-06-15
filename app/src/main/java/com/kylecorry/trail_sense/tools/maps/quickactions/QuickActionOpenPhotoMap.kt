@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.domain.selection.ActiveMapSelector
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapService
@@ -66,13 +67,12 @@ class QuickActionOpenPhotoMap(button: ImageButton, fragment: Fragment) : QuickAc
     }
 
     private suspend fun getActiveMap(): PhotoMap? {
-        val sensors = SensorService(fragment.requireContext())
-        val gps = sensors.getGPS()
-        readAll(listOf(gps), onlyIfInvalid = true)
+        val sensors = SensorSubsystem.getInstance(fragment.requireContext())
+        val location = sensors.getLocation()
 
         val destination = navigator.getDestination()?.coordinate
         val maps = mapService.getAllMaps()
-        return selector.getActiveMap(maps, gps.location, destination)
+        return selector.getActiveMap(maps, location, destination)
     }
 
 }

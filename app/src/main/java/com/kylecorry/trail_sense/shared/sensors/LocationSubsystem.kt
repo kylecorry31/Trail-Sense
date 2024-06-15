@@ -19,12 +19,13 @@ class LocationSubsystem private constructor(private val context: Context) {
     private val altimeterOverride by lazy { OverrideAltimeter(context) }
     private val weather by lazy { WeatherSubsystem.getInstance(context) }
     private val paths by lazy { PathService.getInstance(context) }
+    private val sensorSubsystem by lazy { SensorSubsystem.getInstance(context) }
 
     private val maxElevationHistoryDuration = Duration.ofDays(1)
     private val maxElevationFilterHistoryDuration = maxElevationHistoryDuration.plusHours(6)
 
     val location: Coordinate
-        get() = sensorService.getGPS().location
+        get() = sensorSubsystem.lastKnownLocation
 
     val elevation: Distance
         get(){

@@ -46,6 +46,7 @@ import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils.setupWithNavController
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
+import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.shared.volume.VolumeAction
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
@@ -318,7 +319,7 @@ class MainActivity : AndromedaActivity() {
 
     private fun sunriseSunsetTheme(): ColorTheme {
         val astronomyService = AstronomyService()
-        val location = LocationSubsystem.getInstance(this).location
+        val location = SensorSubsystem.getInstance(this).lastKnownLocation
         if (location == Coordinate.zero) {
             return ColorTheme.System
         }
