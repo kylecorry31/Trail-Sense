@@ -1031,4 +1031,10 @@
     <string name="astronomy_altitude">Høyde</string>
     <string name="no_qr_code_detected">Ingen QR-kode oppdaget</string>
     <string name="direction">Retning</string>
+    <string name="pref_enable_analog_title">Analog klokke</string>
+    <string name="no_sensor_message">Enheten din har ikke %s-sensor</string>
+    <string name="forecast_algorithm">Værvarselalgoritme</string>
+    <string name="background">Bakgrunn</string>
+    <string name="quick_actions_are_unavailable">Hurtighandlinger er utilgjengelige</string>
+    <string name="pref_tiles_battery_log">Batterilogg</string>
 </resources>
