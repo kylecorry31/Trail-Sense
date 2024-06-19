@@ -39,7 +39,7 @@ class SunriseAlarmReceiver : BroadcastReceiver() {
 
     companion object {
 
-        private const val PI_ID = 8309
+        private const val PI_ID = 8310
 
         fun scheduler(context: Context): IOneTimeTaskScheduler {
             return OneTimeTaskSchedulerFactory(context).exact(
