@@ -7,6 +7,8 @@ import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.science.meteorology.WeatherCondition
 import com.kylecorry.sol.science.meteorology.WeatherForecast
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
+import com.kylecorry.sol.science.meteorology.forecast.ForecastSource
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
@@ -32,14 +34,16 @@ internal class WeatherForecaster(
 
     private val stormThreshold = prefs.stormAlertThreshold
     private val hourlyForecastChangeThreshold = prefs.hourlyForecastChangeThreshold
+    private val forecastSource = prefs.forecastSource
     private val arrivalCalculator = WeatherArrivalTimeCalculator()
     private val alertGenerator = WeatherAlertGenerator()
 
     override suspend fun forecast(
         observations: List<WeatherObservation>,
-        clouds: List<Reading<CloudGenus?>>
+        clouds: List<Reading<CloudGenus?>>,
+        location: Coordinate
     ): CurrentWeather {
-        val (arrival, forecast) = getForecast(observations, clouds)
+        val (arrival, forecast) = getForecast(observations, clouds, location)
         val last = observations.lastOrNull()
         val lastCloud = clouds.getLastCloud(Duration.ofHours(4))
 
@@ -66,7 +70,8 @@ internal class WeatherForecaster(
 
     private suspend fun getForecast(
         readings: List<WeatherObservation>,
-        clouds: List<Reading<CloudGenus?>>
+        clouds: List<Reading<CloudGenus?>>,
+        location: Coordinate
     ): Pair<WeatherArrivalTime?, List<WeatherForecast>> {
         // If there aren't enough readings, don't use them
         val mapped = if (!hasEnoughReadings(readings)) {
@@ -79,7 +84,8 @@ internal class WeatherForecaster(
         val original = getForecast(
             mapped,
             clouds,
-            null
+            null,
+            location
         )
 
         val arrival = arrivalCalculator.getArrivalTime(original, clouds)
@@ -99,7 +105,8 @@ internal class WeatherForecaster(
         return arrival to getForecast(
             mapped,
             clouds,
-            temperatures
+            temperatures,
+            location
         )
     }
 
@@ -111,7 +118,8 @@ internal class WeatherForecaster(
     private fun getForecast(
         pressures: List<Reading<Pressure>>,
         clouds: List<Reading<CloudGenus?>>,
-        temperatureRange: Range<Temperature>?
+        temperatureRange: Range<Temperature>?,
+        location: Coordinate? = null
     ): List<WeatherForecast> {
         return Meteorology.forecast(
             pressures,
@@ -119,7 +127,9 @@ internal class WeatherForecaster(
             temperatureRange,
             hourlyForecastChangeThreshold / 3f,
             stormThreshold / 3f,
-            Instant.now()
+            Instant.now(),
+            location ?: Coordinate.zero,
+            forecastSource
         )
     }
 

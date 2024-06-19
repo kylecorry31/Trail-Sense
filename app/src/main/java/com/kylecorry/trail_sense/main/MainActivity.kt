@@ -46,6 +46,7 @@ import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils.setupWithNavController
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
+import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.shared.volume.VolumeAction
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
@@ -318,7 +319,7 @@ class MainActivity : AndromedaActivity() {
 
     private fun sunriseSunsetTheme(): ColorTheme {
         val astronomyService = AstronomyService()
-        val location = LocationSubsystem.getInstance(this).location
+        val location = SensorSubsystem.getInstance(this).lastKnownLocation
         if (location == Coordinate.zero) {
             return ColorTheme.System
         }
@@ -403,7 +404,7 @@ class MainActivity : AndromedaActivity() {
         return false
     }
 
-    fun updateBottomNavigation(shouldNavigate: Boolean = true) {
+    fun updateBottomNavigation() {
         setBottomNavLabelsVisibility()
 
         val bottomNavTools = userPrefs.bottomNavigationTools
@@ -427,11 +428,6 @@ class MainActivity : AndromedaActivity() {
             getString(R.string.tools)
         ).setIcon(R.drawable.apps)
 
-        // Bind to navigation
-        binding.bottomNavigation.setupWithNavController(navController, false)
-
-        updateBottomNavSelection()
-
         // Loop through each item of the bottom navigation and override the long press behavior
         for (i in 0 until binding.bottomNavigation.menu.size()) {
             val item = binding.bottomNavigation.menu.getItem(i)
@@ -453,16 +449,21 @@ class MainActivity : AndromedaActivity() {
 
         // Open the left most item by default (and clear the back stack)
         val leftMostItem = binding.bottomNavigation.menu.getItem(0)
-        val currentDestination = navController.currentDestination?.id
-        if (shouldNavigate && currentDestination != leftMostItem.itemId && currentDestination == R.id.action_experimental_tools) {
-            navController.navigate(
-                leftMostItem.itemId,
-                null,
-                NavOptions.Builder()
-                    .setPopUpTo(R.id.action_experimental_tools, true)
-                    .build()
-            )
+
+        // Only initialize the nav graph once
+        effect("navGraph"){
+            initializeNavGraph(leftMostItem.itemId)
         }
+        // Bind to navigation
+        binding.bottomNavigation.setupWithNavController(navController, false)
+
+        updateBottomNavSelection()
+    }
+
+    private fun initializeNavGraph(startDestination: Int){
+        val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
+        navGraph.setStartDestination(startDestination)
+        navController.graph = navGraph
     }
 
     companion object {

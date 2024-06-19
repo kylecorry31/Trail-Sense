@@ -30,7 +30,6 @@ class BitmapTileLoader(private val path: String, private val scaleStep: Float = 
     private var imageSize = Size(0, 0)
     private var onTilesChangedListener: (() -> Unit)? = null
 
-    // TODO: There are gaps between tiles
     override suspend fun updateTiles(zoom: Float, clipBounds: RectF) {
         onDefault {
             tileUpdateQueue.enqueue {
@@ -118,6 +117,7 @@ class BitmapTileLoader(private val path: String, private val scaleStep: Float = 
                     destinationSize
                 )
                 it.inScaled = true
+                it.inPreferredConfig = Bitmap.Config.RGB_565
             }
             BitmapUtils.decodeRegion(
                 it,

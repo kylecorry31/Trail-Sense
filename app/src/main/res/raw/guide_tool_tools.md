@@ -1,7 +1,9 @@
 Trail Sense is composed of a number of tools that are designed for hiking, backpacking, camping, and geocaching.
 
 ## Bottom navigation
-The Navigation, Weather (if available), and Astronomy tools are available in the bottom navigation bar. These tools are also available in the tool list.
+The Navigation, Weather (if available), and Astronomy tools are available in the bottom navigation bar by default. These tools are also available in the tool list.
+
+You can change which tools (up to 4) appear in the bottom navigation in Settings > Tools > 'Bottom navigation slot'.
 
 All other tools can be found in the Tools bottom navigation item on the far right.
 
@@ -37,6 +39,6 @@ A user guide is available for each tool. You can access the user guide by long-p
 You can access the app settings by tapping the settings icon in the top right corner of the tool list. You can also access the settings by opening the 'Settings' tool in the tool list.
 
 ## Quick actions
-You can enable quick actions at the top of the tool list in Settings > 'Tool quick actions'. You can find more information about each quick action by viewing the user guide for its respective tool.
+You can enable quick actions at the top of the tool list in 'Settings > Tools > Quick actions'. The quick actions can also be accessed by long pressing the bottom navigation.
 
-All quick actions that begin with 'Tool:' will open the tool when clicked.
+You can find more information about each quick action by viewing the user guide for its respective tool. All quick actions that begin with 'Tool:' will open the tool when clicked.

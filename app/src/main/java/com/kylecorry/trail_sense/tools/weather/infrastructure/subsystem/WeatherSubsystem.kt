@@ -101,7 +101,8 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         R.string.pref_storm_alert_sensitivity,
         R.string.pref_altimeter_calibration_mode,
         R.string.pref_pressure_history,
-        R.string.pref_temperature_smoothing
+        R.string.pref_temperature_smoothing,
+        R.string.pref_weather_forecast_source
     ).map { context.getString(it) }
 
     private val weatherMonitorStatePrefKeys = listOf(
@@ -336,7 +337,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         val last = history.lastOrNull()
         val (location, elevation) = getLocationAndElevation(last?.id)
         val forecaster = getWeatherForecaster(location, elevation)
-        return forecaster.forecast(history, allClouds)
+        return forecaster.forecast(history, allClouds, location)
     }
 
     private suspend fun getLocationAndElevation(lastReadingId: Long? = null): Pair<Coordinate, Distance> {

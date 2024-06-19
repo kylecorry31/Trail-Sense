@@ -1036,4 +1036,68 @@
     <string name="size">Tamanho</string>
     <string name="create_blank_map">Criar mapa vazio</string>
     <string name="autofill_source">Automaticamente completar fonte</string>
+    <string name="season">Estação</string>
+    <string name="learn_more">Saiba mais</string>
+    <string name="yes">Sim</string>
+    <string name="daylight_duration">%s luz do dia</string>
+    <string name="beta">Beta</string>
+    <string name="rotation_amount">Rotação: %s.</string>
+    <string name="backtrack_no_permission">Recuo necessita da permissão de localização para funcionar</string>
+    <string name="restore">Restaurar</string>
+    <string name="restore_complete_message">Restauração concluída, reiniciando para aplicar as mudanças</string>
+    <string name="notifications_channel">Notificações (%s)</string>
+    <string name="destination">Destino</string>
+    <string name="my_location">Minha posição</string>
+    <string name="no">Não</string>
+    <string name="photo_map_summary">Usar uma foto como mapa</string>
+    <string name="photo_map_disclaimer">Sempre leve um mapa físico como alternativa e verifique a precisão do Trail Sense.</string>
+    <string name="backup_disclaimer">Um arquivo de backup será criado contendo todos os dados atuais. Isso inclui caminhos, pontos de orientação, mapas, configurações, etc.
+\n
+\nEsse arquivo não é criptografado. Não o compartilhe com pessoas não confiáveis.</string>
+    <string name="invalid_backup_file">Arquivo de backup inválido</string>
+    <string name="map_calibration_instructions">Toque em um local conhecido no mapa e insira as coordenadas do mundo real. Você pode salvar a calibração clicando no botão “Concluído”.
+\n
+\nExemplos de bons pontos de calibração são um estacionamento, um ponto de sinalização, um ponto de referência ou uma junção ao longo de uma trilha.</string>
+    <string name="until_sunset">até o pôr-do sol</string>
+    <string name="reset_calibration">Redefinir calibragem</string>
+    <string name="sunset_alert_scheduled">Alerta marcado para %s do pôr-do-sol</string>
+    <string name="backup">Backup</string>
+    <string name="restore_disclaimer">Essa ação irá substituir todos os dados atuais. Verifique se possui um backup antes de continuar.
+\n
+\nApenas selecione um arquivo de backup que você criou com o %s e confie.</string>
+    <string name="pref_keep_map_facing_up_title">Manter o mapa voltado para cima</string>
+    <string name="restore_failure_newer_version">Esse backup foi criado com uma versão do %s mais recente. Atualize o aplicativo e tente novamente.</string>
+    <string name="rate">Frequência</string>
+    <string name="until_sunrise">até o nascer do sol</string>
+    <string name="reduce_map_resolution_crop_disclaimer">Cortar o mapa ainda reduzirá a resolução. Se precisar cortar o mapa em alta resolução, use um aplicativo editor de imagem. Está planejado consertar isso no futuro.</string>
+    <string name="zero_shutter_lag">Sem atraso no obturador</string>
+    <string name="triangulate_destination_location_2_instructions">Mova-se pelo menos %s da primeira posição e coloque a nova posição e a direção do destino novamente.</string>
+    <string name="restoring_loading_message">Restaurando…</string>
+    <string name="pref_keep_map_facing_up_summary">O mapa se alinhará com a parte superior da tela em vez do Norte verdadeiro.</string>
+    <string name="times">Horários</string>
+    <string name="astronomy_set">Poente</string>
+    <string name="astronomy_rise">Nascente</string>
+    <string name="beta_disclaimer">Esta ferramenta está em desenvolvimento, por favor mande quaisquer problemas ou feedback para %s.</string>
+    <string name="crop_map_instructions_long">Alinhe os cantos da caixa com os cantos do mapa para salvá-lo.</string>
+    <string name="battery_settings_limit_accuracy">Restrições na bateria podem reduzir a precisão</string>
+    <string name="backing_up_loading_message">Fazendo backup…</string>
+    <string name="backup_restore">Backup / restauração</string>
+    <string name="triangulate_destination_location_1_instructions">Coloque a sua posição e a direção do destino.</string>
+    <string name="augmented_reality_description">Ver pontos de orientação próximos, o sol e a lua com a câmera</string>
+    <string name="magnetic_north">Norte Magnético</string>
+    <string name="pinned">Fixado</string>
+    <string name="unpin">Desafixar</string>
+    <string name="tool_long_press_hint_toast">Mantenha pressionado para ver mais opções da ferramenta</string>
+    <string name="direction_not_set">Direção não definida</string>
+    <string name="distance_away_from_self">%s distante</string>
+    <string name="location_to_triangulate">Posição para triangular</string>
+    <string name="missing_sensor_message_1">Seu dispositivo %1$s não possui %2$s disponível. Infelizmente algumas funções do %3$s não estarão disponíveis.</string>
+    <string name="settings_have_moved">As configurações mudaram de lugar</string>
+    <string name="settings_have_moved_message">As configurações do aplicativo mudaram para a barra de ferramentas</string>
+    <string name="enter_manually">Colocar manualmente</string>
+    <string name="location_number">Posição %d</string>
+    <string name="direction">Direção</string>
+    <string name="pin">Fixar</string>
+    <string name="distance_away_from_destination">%s do destino</string>
+    <string name="augmented_reality">Realidade Aumentada</string>
 </resources>

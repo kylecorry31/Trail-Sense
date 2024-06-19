@@ -25,7 +25,11 @@ class CreatePathCommand(
 
         val newPathId = pathService.addPath(newPath)
 
-        val waypoints = value.map {
+        val waypoints = value.mapNotNull {
+            // TODO: Figure out why some of these are NaN
+            if (it.latitude.isNaN() || it.longitude.isNaN()) {
+                return@mapNotNull null
+            }
             PathPoint(0, newPathId, it)
         }
 

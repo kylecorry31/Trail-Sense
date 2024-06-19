@@ -23,6 +23,7 @@ import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.tools.turn_back.infrastructure.receivers.TurnBackAlarmReceiver
 import kotlinx.coroutines.launch
@@ -75,10 +76,8 @@ class TurnBackFragment : BoundFragment<FragmentToolTurnBackBinding>() {
                 var wasSuccessful = false
                 var sunsetTime: ZonedDateTime? = null
                 val job = launch {
-                    val sensors = SensorService(requireContext())
-                    val gps = sensors.getGPS()
-                    readAll(listOf(gps), onlyIfInvalid = true)
-                    sunsetTime = astronomy.getNextSunset(gps.location, SunTimesMode.Actual)
+                    val location = SensorSubsystem.getInstance(requireContext()).getLocation()
+                    sunsetTime = astronomy.getNextSunset(location, SunTimesMode.Actual)
                         ?.toZonedDateTime()
                     wasSuccessful = true
                 }

@@ -1158,4 +1158,8 @@
     <string name="cirrus_desc">高高的雲朵，看起來像一簇簇白髮。</string>
     <string name="cross">十字</string>
     <string name="arrow">箭</string>
+    <string name="tool_quick_action_summary">長按底部導航或於工具分頁上檢視</string>
+    <string name="bottom_navigation_slot">底部導航欄 %d</string>
+    <string name="quick_actions_are_unavailable">快速動作不能使用</string>
+    <string name="forecast_algorithm">預報演算法</string>
 </resources>
