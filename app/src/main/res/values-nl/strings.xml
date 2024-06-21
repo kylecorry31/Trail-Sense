@@ -1172,4 +1172,5 @@
     <string name="tool_quick_action_summary">Houd onderste navigatie lang ingedrukt of bekijk in het tab \'hulpmiddelen\'</string>
     <string name="quick_actions_are_unavailable">Snelle acties zijn niet beschikbaar</string>
     <string name="bottom_navigation_slot">Onderste navigatieslot %d</string>
+    <string name="forecast_algorithm">Voorspellingsalgoritme</string>
 </resources>
