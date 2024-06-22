@@ -26,6 +26,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.data.Identifiable
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlin.collections.set
 import kotlin.math.roundToInt
 
@@ -151,6 +152,11 @@ fun NavController.navigateWithAnimation(@IdRes resId: Int, args: Bundle? = null)
         // If for some reason the animation fails, just navigate without it
         navigate(resId, args)
     }
+}
+
+fun NavController.openTool(toolId: Long, args: Bundle? = null) {
+    val navId = Tools.getTool(context, toolId)?.navAction ?: return
+    navigateWithAnimation(navId, args)
 }
 
 inline fun List<Float>.forEachLine(action: (x1: Float, y1: Float, x2: Float, y2: Float) -> Unit) {
