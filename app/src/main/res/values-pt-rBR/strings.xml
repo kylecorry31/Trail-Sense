@@ -1100,4 +1100,14 @@
     <string name="pin">Fixar</string>
     <string name="distance_away_from_destination">%s do destino</string>
     <string name="augmented_reality">Realidade Aumentada</string>
+    <string name="triangulate_self_location_1_instructions">Escolha um local conhecido que você possa ver e registre a direção de onde você está até esse local.</string>
+    <string name="battery_usage_allowed">Uso da bateria permitido</string>
+    <string name="allow_ignore_battery_restrictions">Permitir que %s ignore as restrições de bateria</string>
+    <string name="sunset_alerts_background_location_disclaimer">Os alertas de pôr do sol podem ser imprecisos durante a viagem</string>
+    <string name="horizon">Horizonte</string>
+    <string name="allow_schedule_exact_alarms">Permitir que %s crie alarmes e lembretes</string>
+    <string name="allow_schedule_exact_alarms_instructions">Isso permite que %1$s defina alarmes e lembretes exatos, como alertas de pôr do sol. Sem isso, os alarmes podem não ser acionados no horário correto.
+\n
+\nPara permitir, clique em \'%2$s\' e ative a configuração para permitir alarmes e lembretes.</string>
+    <string name="exact_alarm_permission_denied">Alarmes e lembretes negados, os alertas podem ser imprecisos.</string>
 </resources>
