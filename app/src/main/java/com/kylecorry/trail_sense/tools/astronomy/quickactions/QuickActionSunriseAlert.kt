@@ -23,7 +23,7 @@ class QuickActionSunriseAlert(btn: ImageButton, fragment: Fragment) :
 
     override fun onCreate() {
         super.onCreate()
-        setIcon(R.drawable.ic_sunrise_notification)
+        setIcon(R.drawable.ic_sunrise_quick_action)
     }
 
     override fun onClick() {
