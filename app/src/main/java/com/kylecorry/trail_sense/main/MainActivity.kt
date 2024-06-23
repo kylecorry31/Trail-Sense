@@ -77,6 +77,8 @@ class MainActivity : AndromedaActivity() {
         Manifest.permission.ACCESS_COARSE_LOCATION
     )
 
+    private var bottomInsets = 0
+
     init {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             permissions.add(Manifest.permission.POST_NOTIFICATIONS)
@@ -97,18 +99,7 @@ class MainActivity : AndromedaActivity() {
         val isBlackTheme =
             userPrefs.theme == UserPreferences.Theme.Black || userPrefs.theme == UserPreferences.Theme.Night
         setColorTheme(mode, userPrefs.useDynamicColors)
-        enableEdgeToEdge(
-            navigationBarStyle = if (isBlackTheme) {
-                SystemBarStyle.dark(Color.BLACK)
-            } else if (isDarkThemeOn()) {
-                SystemBarStyle.dark(Resources.androidBackgroundColorSecondary(this))
-            } else {
-                SystemBarStyle.light(
-                    Resources.androidBackgroundColorSecondary(this),
-                    Color.BLACK
-                )
-            }
-        )
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
         Screen.setAllowScreenshots(window, !userPrefs.privacy.isScreenshotProtectionOn)
@@ -202,7 +193,7 @@ class MainActivity : AndromedaActivity() {
     private fun setBottomNavLabelsVisibility() {
         binding.bottomNavigation.apply {
             if (userPrefs.useCompactMode) {
-                layoutParams.height = Resources.dp(context, 55f).toInt()
+                layoutParams.height = Resources.dp(context, 55f).toInt() + bottomInsets
                 labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_UNLABELED
             } else {
                 layoutParams.height = LayoutParams.WRAP_CONTENT
@@ -216,9 +207,10 @@ class MainActivity : AndromedaActivity() {
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 topMargin = insets.top
-                bottomMargin = insets.bottom
             }
-            WindowInsetsCompat.CONSUMED
+            bottomInsets = insets.bottom
+            setBottomNavLabelsVisibility()
+            windowInsets
         }
     }
 
