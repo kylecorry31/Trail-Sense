@@ -50,7 +50,7 @@
     <string name="compass_declination">Declinação magnética</string>
     <string name="theme_sunset_sunrise">Nascer/pôr do sol</string>
     <string name="turn_off">Desligar</string>
-    <string name="app_disclaimer_message_title">Aviso / Termos de utilização do serviço</string>
+    <string name="app_disclaimer_message_title">Aviso legal / Termos de Serviço</string>
     <string name="disclaimer_message_title">Aviso</string>
     <string name="battery_power_wireless">Sem fios</string>
     <string name="right_quick_action">Ação rápida da direita</string>
@@ -458,7 +458,7 @@
     <string name="precise_nautical_miles_format">%s nm</string>
     <string name="precise_miles_format">%s mi</string>
     <string name="precise_feet_format">%s pés</string>
-    <string name="access_background_location_rationale">O Trail Sense utiliza dados de localização em segundo plano. Estes são usados para a calibração da pressão ao nível do mar na monitorização meteorológica e para fornecer alertas mais precisos do pôr do sol. [Ver política de privacidade](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">O Trail Sense utiliza dados de localização em segundo plano. Estes são usados para a calibração da pressão ao nível do mar no monitoramento do tempo e para fornecer alertas mais precisos do pôr do sol. [Ver política de privacidade](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Atualizar as configurações de localização</string>
     <plurals name="waypoints_to_be_deleted">
         <item quantity="one">%d ponto de passagem será eliminado</item>
@@ -1010,4 +1010,5 @@
     <string name="compass_source_legacy_ts">Legado (Trail Sense)</string>
     <string name="compass_source_legacy_android">Legado (Android)</string>
     <string name="accelerometer">Acelerómetro</string>
+    <string name="gps_accuracy_tip">Assegure que você tenha uma vista desobstruída do céu e boa distância de edifícios altos e de árvores.</string>
 </resources>
