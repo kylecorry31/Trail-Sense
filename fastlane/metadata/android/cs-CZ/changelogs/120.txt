@@ -1,0 +1,6 @@
+Astronomie
+- Fáze Měsíce, zatmění a meteorické roje v kalendáři
+
+Nástroje
+- Zvolte si, které nástroje se mají zobrazit na dolním panelu
+- Dlouhým stisknutím spodní lišty zobrazíte rychlé akce
