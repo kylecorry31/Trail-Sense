@@ -54,11 +54,11 @@ class MainActivityQuickActionBinder(
             .firstOrNull { it.isOpen(navController.currentDestination?.id ?: 0) }
 
         val recommended = (activeTool?.quickActions?.map { it.id }
-            ?: emptyList()) + listOf(Tools.QUICK_ACTION_USER_GUIDE)
+            ?: emptyList()) + listOf(Tools.QUICK_ACTION_USER_GUIDE, Tools.QUICK_ACTION_SETTINGS)
 
         val factory = QuickActionFactory()
 
-        recommended.forEach {
+        recommended.distinct().forEach {
             val action = factory.create(it, createButton(true), fragment)
             action.bind(fragment.viewLifecycleOwner)
         }
