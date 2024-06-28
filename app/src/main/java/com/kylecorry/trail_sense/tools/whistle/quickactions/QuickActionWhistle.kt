@@ -40,9 +40,11 @@ class QuickActionWhistle(btn: ImageButton, fragment: Fragment) :
         button.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 whistle?.on()
+                isRunning = true
                 setState(true)
             } else if (event.action == MotionEvent.ACTION_UP) {
                 whistle?.off()
+                isRunning = false
                 setState(false)
             }
             true
@@ -57,11 +59,18 @@ class QuickActionWhistle(btn: ImageButton, fragment: Fragment) :
     override fun onPause() {
         super.onPause()
         whistle?.off()
+        isRunning = false
     }
 
     override fun onDestroy() {
         super.onDestroy()
         whistle?.release()
+        isRunning = false
+    }
+
+    companion object {
+        var isRunning = false
+            private set
     }
 
 }
