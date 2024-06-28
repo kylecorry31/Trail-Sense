@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.weather.quickactions
 
 import android.widget.ImageButton
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.topics.generic.ITopic
@@ -16,9 +17,8 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherS
 
 class QuickActionWeatherMonitor(
     btn: ImageButton,
-    private val andromedaFragment: AndromedaFragment
-) :
-    TopicQuickAction(btn, andromedaFragment, hideWhenUnavailable = false) {
+    fragment: Fragment
+) : TopicQuickAction(btn, fragment, hideWhenUnavailable = false) {
 
     private val weather = WeatherSubsystem.getInstance(context)
 
@@ -39,7 +39,7 @@ class QuickActionWeatherMonitor(
             FeatureState.On -> weather.disableMonitor()
             FeatureState.Off -> {
                 weather.enableMonitor()
-                RequestRemoveBatteryRestrictionCommand(andromedaFragment).execute()
+                RequestRemoveBatteryRestrictionCommand(fragment).execute()
             }
 
             else -> fragment.toast(context.getString(R.string.weather_monitoring_disabled))

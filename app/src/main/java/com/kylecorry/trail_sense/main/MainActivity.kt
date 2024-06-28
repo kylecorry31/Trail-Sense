@@ -425,8 +425,7 @@ class MainActivity : AndromedaActivity() {
             val item = binding.bottomNavigation.menu.getItem(i)
             val view = binding.bottomNavigation.findViewById<View>(item.itemId)
             view.setOnLongClickListener {
-                val fragment =
-                    getFragment() as? AndromedaFragment
+                val fragment = getFragment()
 
                 if (fragment == null) {
                     Alerts.toast(this, getString(R.string.quick_actions_are_unavailable))

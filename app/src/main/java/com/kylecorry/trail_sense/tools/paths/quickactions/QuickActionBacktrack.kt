@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.paths.quickactions
 
 import android.widget.ImageButton
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.topics.generic.ITopic
@@ -15,8 +16,8 @@ import com.kylecorry.trail_sense.shared.permissions.requestBacktrackPermission
 import com.kylecorry.trail_sense.shared.quickactions.TopicQuickAction
 import com.kylecorry.trail_sense.tools.paths.infrastructure.subsystem.BacktrackSubsystem
 
-class QuickActionBacktrack(btn: ImageButton, private val andromedaFragment: AndromedaFragment) :
-    TopicQuickAction(btn, andromedaFragment, hideWhenUnavailable = false) {
+class QuickActionBacktrack(btn: ImageButton, fragment: Fragment) :
+    TopicQuickAction(btn, fragment, hideWhenUnavailable = false) {
 
     private val backtrack = BacktrackSubsystem.getInstance(context)
 
@@ -36,11 +37,11 @@ class QuickActionBacktrack(btn: ImageButton, private val andromedaFragment: Andr
         when (backtrack.getState()) {
             FeatureState.On -> backtrack.disable()
             FeatureState.Off -> {
-                andromedaFragment.requestBacktrackPermission { success ->
+                fragment.requestBacktrackPermission { success ->
                     if (success) {
-                        andromedaFragment.inBackground {
+                        fragment.inBackground {
                             backtrack.enable(true)
-                            RequestRemoveBatteryRestrictionCommand(andromedaFragment).execute()
+                            RequestRemoveBatteryRestrictionCommand(fragment).execute()
                         }
                     }
                 }

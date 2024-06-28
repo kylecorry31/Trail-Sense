@@ -31,17 +31,13 @@ fun Fragment.alertNoActivityRecognitionPermission() {
     )
 }
 
-fun Fragment.alertBatteryUsageRestricted(){
-    toast(getString(R.string.battery_usage_restricted), short = false)
-}
-
-fun Fragment.alertExactAlarmsDenied(){
+fun Fragment.alertExactAlarmsDenied() {
     toast(getString(R.string.exact_alarm_permission_denied), short = false)
 }
 
-fun <T> T.requestActivityRecognition(action: (hasPermission: Boolean) -> Unit) where T : IPermissionRequester, T : Fragment {
+fun Fragment.requestActivityRecognition(action: (hasPermission: Boolean) -> Unit) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-        requestPermissions(listOf(Manifest.permission.ACTIVITY_RECOGNITION)) {
+        requirePermissionRequester().requestPermissions(listOf(Manifest.permission.ACTIVITY_RECOGNITION)) {
             action(Permissions.canRecognizeActivity(requireContext()))
         }
     } else {
@@ -49,11 +45,16 @@ fun <T> T.requestActivityRecognition(action: (hasPermission: Boolean) -> Unit) w
     }
 }
 
-fun <T> T.requestIgnoreBatteryOptimizations(action: (hasPermission: Boolean) -> Unit) where T : IPermissionRequester, T : Fragment {
-    requestPermission(
+fun Fragment.requestIgnoreBatteryOptimizations(
+    action: (hasPermission: Boolean) -> Unit
+) {
+    requirePermissionRequester().requestPermission(
         SpecialPermission.IGNORE_BATTERY_OPTIMIZATIONS,
         PermissionRationale(
-            getString(R.string.allow_ignore_battery_restrictions, getString(R.string.app_name)),
+            getString(
+                R.string.allow_ignore_battery_restrictions,
+                getString(R.string.app_name)
+            ),
             MarkdownService(requireContext()).toMarkdown(
                 getString(
                     R.string.allow_ignore_battery_restrictions_instructions,
@@ -67,11 +68,25 @@ fun <T> T.requestIgnoreBatteryOptimizations(action: (hasPermission: Boolean) -> 
             requireContext(),
             SpecialPermission.IGNORE_BATTERY_OPTIMIZATIONS
         )
-        if (!isGranted){
-            alertBatteryUsageRestricted()
+        if (!isGranted) {
+            toast(getString(R.string.battery_usage_restricted), short = false)
         }
         action(isGranted)
     }
+}
+
+fun Fragment.getPermissionRequester(): IPermissionRequester? {
+    return if (this is IPermissionRequester) {
+        this
+    } else if (requireActivity() is IPermissionRequester) {
+        requireActivity() as IPermissionRequester
+    } else {
+        null
+    }
+}
+
+fun Fragment.requirePermissionRequester(): IPermissionRequester {
+    return getPermissionRequester()!!
 }
 
 fun <T> T.requestScheduleExactAlarms(action: (hasPermission: Boolean) -> Unit) where T : IPermissionRequester, T : Fragment {
@@ -93,7 +108,7 @@ fun <T> T.requestScheduleExactAlarms(action: (hasPermission: Boolean) -> Unit) w
             requireContext(),
             SpecialPermission.SCHEDULE_EXACT_ALARMS
         )
-        if (!isGranted){
+        if (!isGranted) {
             alertExactAlarmsDenied()
         }
         action(isGranted)
@@ -119,15 +134,20 @@ fun Permissions.canStartLocationForgroundService(context: Context): Boolean {
 /**
  * Request location permission when absolutely required to start a foreground service (Android 14+)
  */
-fun <T> T.requestBacktrackPermission(action: (hasPermission: Boolean) -> Unit) where T : IPermissionRequester, T : Fragment {
+fun Fragment.requestBacktrackPermission(action: (hasPermission: Boolean) -> Unit) {
     if (Permissions.canStartLocationForgroundService(requireContext())) {
         action(true)
         return
     }
 
-    requestPermissions(listOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)) {
+    requirePermissionRequester().requestPermissions(
+        listOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        )
+    ) {
         val hasPermission = Permissions.canStartLocationForgroundService(requireContext())
-        if (!hasPermission){
+        if (!hasPermission) {
             toast(getString(R.string.backtrack_no_permission))
         }
         action(hasPermission)

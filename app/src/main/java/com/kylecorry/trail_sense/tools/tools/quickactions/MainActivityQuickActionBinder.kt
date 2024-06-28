@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.tools.quickactions
 
 import android.widget.ImageButton
 import androidx.core.view.setMargins
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.flexbox.FlexboxLayout
 import com.kylecorry.andromeda.core.system.Resources
@@ -15,7 +16,7 @@ import com.kylecorry.trail_sense.shared.quickactions.QuickActionFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class MainActivityQuickActionBinder(
-    private val fragment: AndromedaFragment,
+    private val fragment: Fragment,
     private val binding: ActivityMainBinding
 ) : IQuickActionBinder {
 

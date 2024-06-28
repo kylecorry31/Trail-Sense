@@ -17,8 +17,8 @@ class RequestBackgroundLocationCommand<T>(
     ),
     alerter: IAlerter = BackgroundLocationAlerter(fragment),
     isRequired: Specification<Context> = IsBackgroundLocationRequired()
-) : RequestOptionalPermissionCommand<T>(
-    fragment,
+) : RequestOptionalPermissionCommand(
+    fragment.requireContext(),
     flag,
     alerter,
     isRequired
