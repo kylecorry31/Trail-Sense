@@ -19,15 +19,17 @@ class LowPowerMode(val context: Context) {
     fun enable(activity: Activity? = null) {
         prefs.isLowPowerModeOn = true
 
-        context.sendBroadcast(Intents.localIntent(context, BatteryToolRegistration.ACTION_POWER_SAVING_MODE_CHANGED).also {
-            it.putExtra(BatteryToolRegistration.PARAM_POWER_SAVING_MODE_ENABLED, true)
-        })
+        context.sendBroadcast(
+            Intents.localIntent(
+                context,
+                BatteryToolRegistration.ACTION_POWER_SAVING_MODE_CHANGED
+            ).also {
+                it.putExtra(BatteryToolRegistration.PARAM_POWER_SAVING_MODE_ENABLED, true)
+            })
 
         if (prefs.lowPowerModeDisablesBacktrack) {
             BacktrackScheduler.stop(context)
         }
-
-        StepCounterService.stop(context)
 
         activity?.recreate()
     }
@@ -35,11 +37,15 @@ class LowPowerMode(val context: Context) {
     fun disable(activity: Activity? = null) {
         prefs.isLowPowerModeOn = false
 
-        context.sendBroadcast(Intents.localIntent(context, BatteryToolRegistration.ACTION_POWER_SAVING_MODE_CHANGED).also {
-            it.putExtra(BatteryToolRegistration.PARAM_POWER_SAVING_MODE_ENABLED, false)
-        })
+        context.sendBroadcast(
+            Intents.localIntent(
+                context,
+                BatteryToolRegistration.ACTION_POWER_SAVING_MODE_CHANGED
+            ).also {
+                it.putExtra(BatteryToolRegistration.PARAM_POWER_SAVING_MODE_ENABLED, false)
+            })
 
-        if (activity != null){
+        if (activity != null) {
             activity.recreate()
             return
         }
@@ -47,10 +53,6 @@ class LowPowerMode(val context: Context) {
         scope.launch {
             if (BacktrackScheduler.isOn(context)) {
                 BacktrackScheduler.start(context, false)
-            }
-
-            if (prefs.pedometer.isEnabled) {
-                StepCounterService.start(context)
             }
         }
     }

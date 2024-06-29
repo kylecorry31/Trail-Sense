@@ -6,6 +6,8 @@ import com.kylecorry.trail_sense.shared.automations.Automation
 import com.kylecorry.trail_sense.shared.automations.AutomationReceiver
 import com.kylecorry.trail_sense.shared.automations.BooleanParameterTransformer
 import com.kylecorry.trail_sense.tools.battery.BatteryToolRegistration
+import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
+import com.kylecorry.trail_sense.tools.pedometer.receivers.SetPedometerStateReceiver
 import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 import com.kylecorry.trail_sense.tools.weather.receivers.SetWeatherMonitorStateReceiver
 
@@ -25,6 +27,16 @@ object PowerSavingModeAutomation {
                         )
                     ),
                     UserPreferences(context).lowPowerModeDisablesWeather
+                ),
+                AutomationReceiver(
+                    PedometerToolRegistration.RECEIVER_SET_PEDOMETER_STATE,
+                    listOf(
+                        BooleanParameterTransformer(
+                            BatteryToolRegistration.PARAM_POWER_SAVING_MODE_ENABLED,
+                            SetPedometerStateReceiver.PARAM_PEDOMETER_STATE,
+                            invert = true
+                        )
+                    )
                 )
             )
 
