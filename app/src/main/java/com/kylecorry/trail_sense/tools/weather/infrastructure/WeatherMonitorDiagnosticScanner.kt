@@ -16,7 +16,7 @@ class WeatherMonitorDiagnosticScanner : ToolDiagnosticScanner {
         val prefs = UserPreferences(context)
         if (Sensors.hasBarometer(context)) {
             val isRunning =
-                prefs.weather.shouldMonitorWeather && !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesWeather)
+                prefs.weather.shouldMonitorWeather && WeatherMonitorIsAvailable().isSatisfiedBy(context)
             if (!isRunning) {
                 return listOf(
                     ToolDiagnosticResult(

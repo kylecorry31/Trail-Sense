@@ -26,6 +26,7 @@ import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherCsvConverter
+import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorIsAvailable
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherPreferences
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeatherAlerter
@@ -80,8 +81,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         prefleftButton?.entryValues = actionValues.toTypedArray()
         prefrightButton?.entryValues = actionValues.toTypedArray()
 
-        prefMonitorWeather?.isEnabled =
-            !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesWeather)
+        prefMonitorWeather?.isEnabled = WeatherMonitorIsAvailable().isSatisfiedBy(requireContext())
         prefMonitorWeather?.setOnPreferenceClickListener {
             if (prefs.weather.shouldMonitorWeather) {
                 WeatherUpdateScheduler.start(requireContext())
@@ -159,12 +159,12 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
                     val readings = WeatherRepo.getInstance(requireContext()).getAll()
                         .zipWithNext { a, b -> Duration.between(a.time, b.time).seconds / 60f }
 
-                    if (readings.isEmpty()){
+                    if (readings.isEmpty()) {
                         return@onDefault
                     }
 
                     val mean = Statistics.mean(readings).safeRoundToInt()
-                    val stdev = Statistics.stdev(readings, mean=mean.toFloat()).safeRoundToInt()
+                    val stdev = Statistics.stdev(readings, mean = mean.toFloat()).safeRoundToInt()
                     val max = readings.maxOrNull()?.safeRoundToInt() ?: 0
                     val median = Statistics.median(readings).safeRoundToInt()
                     val quantile75 = Statistics.quantile(readings, 0.75f).safeRoundToInt()
