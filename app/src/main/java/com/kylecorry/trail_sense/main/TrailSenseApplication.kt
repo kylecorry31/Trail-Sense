@@ -15,6 +15,7 @@ class TrailSenseApplication : Application(), CameraXConfig.Provider {
     override fun onCreate() {
         super.onCreate()
         Log.d("TrailSenseApplication", "onCreate")
+        Automations.setup(this)
         NotificationChannels.createChannels(this)
         PreferenceMigrator.getInstance().migrate(this)
         RepoCleanupWorker.scheduler(this).interval(Duration.ofHours(6))

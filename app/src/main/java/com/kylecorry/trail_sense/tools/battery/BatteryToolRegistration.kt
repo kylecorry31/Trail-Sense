@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiag
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
 
@@ -55,7 +56,16 @@ object BatteryToolRegistration : ToolRegistration {
             ),
             diagnostics = listOf(
                 ToolDiagnosticFactory.battery(context),
+            ),
+            broadcasts = listOf(
+                ToolBroadcast(
+                    ACTION_LOW_POWER_MODE_CHANGED,
+                    context.getString(R.string.pref_low_power_mode_title)
+                )
             )
         )
     }
+
+    const val ACTION_LOW_POWER_MODE_CHANGED = "com.kylecorry.trail_sense.LOW_POWER_MODE_CHANGED"
+    const val PARAM_LOW_POWER_MODE_ENABLED = "enabled"
 }

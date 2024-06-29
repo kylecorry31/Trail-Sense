@@ -2,7 +2,9 @@ package com.kylecorry.trail_sense.tools.battery.infrastructure
 
 import android.app.Activity
 import android.content.Context
+import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.battery.BatteryToolRegistration
 import com.kylecorry.trail_sense.tools.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorIsEnabled
@@ -18,9 +20,10 @@ class LowPowerMode(val context: Context) {
 
     fun enable(activity: Activity? = null) {
         prefs.isLowPowerModeOn = true
-        if (prefs.lowPowerModeDisablesWeather) {
-            WeatherUpdateScheduler.stop(context)
-        }
+
+        context.sendBroadcast(Intents.localIntent(context, BatteryToolRegistration.ACTION_LOW_POWER_MODE_CHANGED).also {
+            it.putExtra(BatteryToolRegistration.PARAM_LOW_POWER_MODE_ENABLED, true)
+        })
 
         if (prefs.lowPowerModeDisablesBacktrack) {
             BacktrackScheduler.stop(context)
@@ -34,17 +37,16 @@ class LowPowerMode(val context: Context) {
     fun disable(activity: Activity? = null) {
         prefs.isLowPowerModeOn = false
 
+        context.sendBroadcast(Intents.localIntent(context, BatteryToolRegistration.ACTION_LOW_POWER_MODE_CHANGED).also {
+            it.putExtra(BatteryToolRegistration.PARAM_LOW_POWER_MODE_ENABLED, false)
+        })
+
         if (activity != null){
             activity.recreate()
             return
         }
 
         scope.launch {
-            // Only need to be restarted if the activity doesn't get recreated
-            if (WeatherMonitorIsEnabled().isSatisfiedBy(context)) {
-                WeatherUpdateScheduler.start(context)
-            }
-
             if (BacktrackScheduler.isOn(context)) {
                 BacktrackScheduler.start(context, false)
             }

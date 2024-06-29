@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiag
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolReceiver
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -22,6 +23,7 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeat
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.DailyWeatherAlerter
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.StormAlerter
 import com.kylecorry.trail_sense.tools.weather.quickactions.QuickActionWeatherMonitor
+import com.kylecorry.trail_sense.tools.weather.receivers.WeatherMonitorLowPowerModeReceiver
 
 object WeatherToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
@@ -115,7 +117,17 @@ object WeatherToolRegistration : ToolRegistration {
                 ),
                 ToolDiagnosticFactory.powerSaver(context),
                 ToolDiagnosticFactory.backgroundService(context)
-            ).distinctBy { it.id }
+            ).distinctBy { it.id },
+            receivers = listOf(
+                ToolReceiver(
+                    RECEIVER_WEATHER_MONITOR_LOW_POWER_MODE,
+                    context.getString(R.string.pref_low_power_mode_title),
+                    { UserPreferences(it).lowPowerModeDisablesWeather },
+                    WeatherMonitorLowPowerModeReceiver()
+                )
+            )
         )
     }
+
+    const val RECEIVER_WEATHER_MONITOR_LOW_POWER_MODE = "weather-monitor-low-power-mode"
 }
