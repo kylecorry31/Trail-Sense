@@ -7,8 +7,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.battery.BatteryToolRegistration
 import com.kylecorry.trail_sense.tools.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
-import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorIsEnabled
-import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherUpdateScheduler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,8 +19,8 @@ class LowPowerMode(val context: Context) {
     fun enable(activity: Activity? = null) {
         prefs.isLowPowerModeOn = true
 
-        context.sendBroadcast(Intents.localIntent(context, BatteryToolRegistration.ACTION_LOW_POWER_MODE_CHANGED).also {
-            it.putExtra(BatteryToolRegistration.PARAM_LOW_POWER_MODE_ENABLED, true)
+        context.sendBroadcast(Intents.localIntent(context, BatteryToolRegistration.ACTION_POWER_SAVING_MODE_CHANGED).also {
+            it.putExtra(BatteryToolRegistration.PARAM_POWER_SAVING_MODE_ENABLED, true)
         })
 
         if (prefs.lowPowerModeDisablesBacktrack) {
@@ -37,8 +35,8 @@ class LowPowerMode(val context: Context) {
     fun disable(activity: Activity? = null) {
         prefs.isLowPowerModeOn = false
 
-        context.sendBroadcast(Intents.localIntent(context, BatteryToolRegistration.ACTION_LOW_POWER_MODE_CHANGED).also {
-            it.putExtra(BatteryToolRegistration.PARAM_LOW_POWER_MODE_ENABLED, false)
+        context.sendBroadcast(Intents.localIntent(context, BatteryToolRegistration.ACTION_POWER_SAVING_MODE_CHANGED).also {
+            it.putExtra(BatteryToolRegistration.PARAM_POWER_SAVING_MODE_ENABLED, false)
         })
 
         if (activity != null){

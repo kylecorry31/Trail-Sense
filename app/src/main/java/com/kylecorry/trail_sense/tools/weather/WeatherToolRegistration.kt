@@ -23,7 +23,7 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeat
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.DailyWeatherAlerter
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.StormAlerter
 import com.kylecorry.trail_sense.tools.weather.quickactions.QuickActionWeatherMonitor
-import com.kylecorry.trail_sense.tools.weather.receivers.WeatherMonitorLowPowerModeReceiver
+import com.kylecorry.trail_sense.tools.weather.receivers.WeatherMonitorPowerSavingModeReceiver
 
 object WeatherToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
@@ -120,14 +120,14 @@ object WeatherToolRegistration : ToolRegistration {
             ).distinctBy { it.id },
             receivers = listOf(
                 ToolReceiver(
-                    RECEIVER_WEATHER_MONITOR_LOW_POWER_MODE,
+                    RECEIVER_WEATHER_MONITOR_POWER_SAVING_MODE,
                     context.getString(R.string.pref_low_power_mode_title),
                     { UserPreferences(it).lowPowerModeDisablesWeather },
-                    WeatherMonitorLowPowerModeReceiver()
+                    WeatherMonitorPowerSavingModeReceiver()
                 )
             )
         )
     }
 
-    const val RECEIVER_WEATHER_MONITOR_LOW_POWER_MODE = "weather-monitor-low-power-mode"
+    const val RECEIVER_WEATHER_MONITOR_POWER_SAVING_MODE = "weather-monitor-power-saving-mode"
 }

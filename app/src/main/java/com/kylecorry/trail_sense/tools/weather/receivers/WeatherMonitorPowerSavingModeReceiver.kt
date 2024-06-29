@@ -9,9 +9,9 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherUpdateSched
 
 // TODO: Make this more generic - ChangeWeatherMonitorStateReceiver
 // To do so, there probably needs to be a converter between the broadcast and receiver which converts the low power mode state to the enabled state
-class WeatherMonitorLowPowerModeReceiver : AutomationReceiver {
+class WeatherMonitorPowerSavingModeReceiver : AutomationReceiver {
     override fun onReceive(context: Context, data: Bundle) {
-        val isLowPower = data.getBoolean(BatteryToolRegistration.PARAM_LOW_POWER_MODE_ENABLED)
+        val isLowPower = data.getBoolean(BatteryToolRegistration.PARAM_POWER_SAVING_MODE_ENABLED)
 
         if (isLowPower) {
             WeatherUpdateScheduler.stop(context)
