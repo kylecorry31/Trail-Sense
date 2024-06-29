@@ -4,6 +4,6 @@ import android.content.Context
 import android.os.Bundle
 
 // TODO: Should receivers return a bundle that can be passed to the next receiver?
-interface AutomationReceiver {
+interface Receiver {
     fun onReceive(context: Context, data: Bundle)
 }

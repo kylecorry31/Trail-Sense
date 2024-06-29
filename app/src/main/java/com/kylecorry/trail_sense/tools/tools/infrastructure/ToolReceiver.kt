@@ -6,6 +6,6 @@ import android.content.Context
 data class ToolReceiver(
     val id: String,
     val name: String,
-    val isEnabled: (context: Context) -> Boolean,
-    val receiver: AutomationReceiver
+    val receiver: Receiver,
+    val isEnabled: (context: Context) -> Boolean = { true }
 )
