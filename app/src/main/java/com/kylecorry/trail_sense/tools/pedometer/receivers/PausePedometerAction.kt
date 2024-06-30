@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterServi
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Action
 
 class PausePedometerAction : Action {
-    override fun onReceive(context: Context, data: Bundle) {
+    override suspend fun onReceive(context: Context, data: Bundle) {
         StepCounterService.stop(context)
     }
 }

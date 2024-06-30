@@ -5,5 +5,5 @@ import android.os.Bundle
 
 // TODO: Should receivers return a bundle that can be passed to the next receiver?
 interface Action {
-    fun onReceive(context: Context, data: Bundle)
+    suspend fun onReceive(context: Context, data: Bundle)
 }

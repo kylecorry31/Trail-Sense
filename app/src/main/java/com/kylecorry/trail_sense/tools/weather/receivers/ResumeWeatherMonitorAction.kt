@@ -7,7 +7,7 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorIsEn
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherUpdateScheduler
 
 class ResumeWeatherMonitorAction : Action {
-    override fun onReceive(context: Context, data: Bundle) {
+    override suspend fun onReceive(context: Context, data: Bundle) {
         if (WeatherMonitorIsEnabled().isSatisfiedBy(context)) {
             WeatherUpdateScheduler.start(context)
         }

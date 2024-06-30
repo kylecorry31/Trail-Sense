@@ -7,7 +7,7 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorIsEn
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherUpdateScheduler
 
 class PauseWeatherMonitorAction : Action {
-    override fun onReceive(context: Context, data: Bundle) {
+    override suspend fun onReceive(context: Context, data: Bundle) {
         WeatherUpdateScheduler.stop(context)
     }
 }
