@@ -32,12 +32,7 @@ object Automations {
                         val toolReceiver = availableReceivers
                             .firstOrNull { r -> r.id == receiver.receiverId } ?: continue
 
-                        val parameters = bundleOf()
-                        receiver.parameterTransformers.forEach { transformer ->
-                            transformer.transform(intent.extras ?: bundleOf(), parameters)
-                        }
-
-                        toolReceiver.action.onReceive(context, parameters)
+                        toolReceiver.action.onReceive(context, intent.extras ?: bundleOf())
                     }
                 }
                 true
