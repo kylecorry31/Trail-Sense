@@ -5,6 +5,7 @@ import android.content.IntentFilter
 import androidx.core.os.bundleOf
 import com.kylecorry.andromeda.core.system.BroadcastReceiverTopic
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
+import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.trail_sense.shared.automations.Automation
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.runBlocking
@@ -13,32 +14,28 @@ object Automations {
 
     fun setup(context: Context) {
         val tools = Tools.getTools(context, false)
-        val actions = tools.flatMap { it.broadcasts.map { it.action } }
+        val broadcasts = tools.flatMap { it.broadcasts.map { it.id } }
 
-        actions.forEach { action ->
-            val topic = BroadcastReceiverTopic(context, IntentFilter(action))
+        broadcasts.forEach { broadcastId ->
+            val topic = BroadcastReceiverTopic(context, IntentFilter(broadcastId))
             val queue = CoroutineQueueRunner(10)
             // TODO: Should there be a way to unregister? Maybe only register when something is listening? When to cancel queue?
             topic.subscribe { intent ->
                 runBlocking {
                     queue.enqueue {
-                        val automationsToRun = getAutomations(context, action)
-                        val receiversToRun =
-                            automationsToRun.flatMap { it.receivers.map { it.receiverId } }
+                        val automationsToRun = getAutomations(context, broadcastId)
+                        val actionsToRun = automationsToRun.flatMap { it.actions }
 
-                        val availableReceivers = tools
+                        val availableActions = tools
                             .flatMap { it.actions }
-                            .filter { receiversToRun.contains(it.id) && it.isEnabled(context) }
+                            .filter { actionsToRun.contains(it.id) && it.isEnabled(context) }
 
                         automationsToRun.forEach {
-                            for (receiver in it.receivers) {
-                                if (!receiver.enabled) {
-                                    continue
-                                }
-                                val toolReceiver = availableReceivers
-                                    .firstOrNull { r -> r.id == receiver.receiverId } ?: continue
+                            for (action in it.actions) {
+                                val toolAction =
+                                    availableActions.firstOrNull { r -> r.id == action } ?: continue
 
-                                toolReceiver.action.onReceive(
+                                toolAction.action.onReceive(
                                     context,
                                     intent.extras ?: bundleOf()
                                 )
@@ -51,12 +48,13 @@ object Automations {
         }
     }
 
-    private suspend fun getAutomations(context: Context, action: String): List<Automation> {
-        // TODO: Load these from the DB
-        val automations = listOf(
-            PowerSavingModeAutomation.onEnabled(context),
-            PowerSavingModeAutomation.onDisabled(context)
-        )
-        return automations.filter { it.broadcast == action }
-    }
+    private suspend fun getAutomations(context: Context, broadcast: String): List<Automation> =
+        onIO {
+            // TODO: Load these from the DB
+            val automations = listOf(
+                PowerSavingModeAutomation.onEnabled(context),
+                PowerSavingModeAutomation.onDisabled()
+            )
+            automations.filter { it.broadcast == broadcast }
+        }
 }
