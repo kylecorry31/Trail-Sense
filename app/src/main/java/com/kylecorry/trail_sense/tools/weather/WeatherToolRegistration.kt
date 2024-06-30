@@ -23,8 +23,8 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeat
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.DailyWeatherAlerter
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.StormAlerter
 import com.kylecorry.trail_sense.tools.weather.quickactions.QuickActionWeatherMonitor
-import com.kylecorry.trail_sense.tools.weather.receivers.PauseWeatherMonitorAction
-import com.kylecorry.trail_sense.tools.weather.receivers.ResumeWeatherMonitorAction
+import com.kylecorry.trail_sense.tools.weather.actions.PauseWeatherMonitorAction
+import com.kylecorry.trail_sense.tools.weather.actions.ResumeWeatherMonitorAction
 
 object WeatherToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {

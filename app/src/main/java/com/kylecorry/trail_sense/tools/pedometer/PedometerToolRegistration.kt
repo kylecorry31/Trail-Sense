@@ -9,8 +9,8 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.DistanceAlerter
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.tools.pedometer.quickactions.QuickActionPedometer
-import com.kylecorry.trail_sense.tools.pedometer.receivers.PausePedometerAction
-import com.kylecorry.trail_sense.tools.pedometer.receivers.ResumePedometerAction
+import com.kylecorry.trail_sense.tools.pedometer.actions.PausePedometerAction
+import com.kylecorry.trail_sense.tools.pedometer.actions.ResumePedometerAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory

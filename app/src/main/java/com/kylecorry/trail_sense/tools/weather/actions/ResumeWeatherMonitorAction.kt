@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.weather.receivers
+package com.kylecorry.trail_sense.tools.weather.actions
 
 import android.content.Context
 import android.os.Bundle
