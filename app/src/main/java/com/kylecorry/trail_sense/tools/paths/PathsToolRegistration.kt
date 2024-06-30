@@ -61,20 +61,19 @@ object PathsToolRegistration : ToolRegistration {
                         BacktrackScheduler.isOn(it)
                     },
                     disable = {
-                        UserPreferences(it).backtrackEnabled = false
-                        BacktrackScheduler.stop(it)
+                        BacktrackSubsystem.getInstance(it).disable()
                     },
                     stop = {
-                        BacktrackService.stop(it)
+                        BacktrackScheduler.stop(it)
                     },
                     restart = {
                         val backtrack = BacktrackSubsystem.getInstance(context)
                         if (backtrack.getState() == FeatureState.On) {
                             if (!BacktrackService.isRunning) {
-                                backtrack.enable(false)
+                                BacktrackScheduler.start(it, false)
                             }
                         } else {
-                            backtrack.disable()
+                            BacktrackScheduler.stop(it)
                         }
                     }
                 )
