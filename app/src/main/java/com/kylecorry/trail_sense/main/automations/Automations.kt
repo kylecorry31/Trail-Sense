@@ -4,14 +4,8 @@ import android.content.Context
 import android.content.IntentFilter
 import androidx.core.os.bundleOf
 import com.kylecorry.andromeda.core.system.BroadcastReceiverTopic
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.automations.Automation
-import com.kylecorry.trail_sense.shared.automations.AutomationReceiver
-import com.kylecorry.trail_sense.shared.automations.BooleanParameterTransformer
-import com.kylecorry.trail_sense.tools.battery.BatteryToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
-import com.kylecorry.trail_sense.tools.weather.receivers.SetWeatherMonitorStateReceiver
 
 object Automations {
     fun setup(context: Context) {
@@ -27,7 +21,7 @@ object Automations {
                 val receiversToRun = automationsToRun.flatMap { it.receivers.map { it.receiverId } }
 
                 val availableReceivers = tools
-                    .flatMap { it.receivers }
+                    .flatMap { it.actions }
                     .filter { receiversToRun.contains(it.id) && it.isEnabled(context) }
 
                 automationsToRun.forEach {
@@ -43,7 +37,7 @@ object Automations {
                             transformer.transform(intent.extras ?: bundleOf(), parameters)
                         }
 
-                        toolReceiver.receiver.onReceive(context, parameters)
+                        toolReceiver.action.onReceive(context, parameters)
                     }
                 }
                 true
@@ -54,7 +48,8 @@ object Automations {
     private fun getAutomations(context: Context, action: String): List<Automation> {
         // TODO: Load these from the DB
         val automations = listOf(
-            PowerSavingModeAutomation.create(context)
+            PowerSavingModeAutomation.onEnabled(context),
+            PowerSavingModeAutomation.onDisabled(context)
         )
         return automations.filter { it.broadcast == action }
     }

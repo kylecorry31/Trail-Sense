@@ -6,7 +6,6 @@ import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.battery.BatteryToolRegistration
 import com.kylecorry.trail_sense.tools.paths.infrastructure.BacktrackScheduler
-import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,10 +21,9 @@ class LowPowerMode(val context: Context) {
         context.sendBroadcast(
             Intents.localIntent(
                 context,
-                BatteryToolRegistration.ACTION_POWER_SAVING_MODE_CHANGED
-            ).also {
-                it.putExtra(BatteryToolRegistration.PARAM_POWER_SAVING_MODE_ENABLED, true)
-            })
+                BatteryToolRegistration.BROADCAST_POWER_SAVING_MODE_ENABLED
+            )
+        )
 
         if (prefs.lowPowerModeDisablesBacktrack) {
             BacktrackScheduler.stop(context)
@@ -40,10 +38,9 @@ class LowPowerMode(val context: Context) {
         context.sendBroadcast(
             Intents.localIntent(
                 context,
-                BatteryToolRegistration.ACTION_POWER_SAVING_MODE_CHANGED
-            ).also {
-                it.putExtra(BatteryToolRegistration.PARAM_POWER_SAVING_MODE_ENABLED, false)
-            })
+                BatteryToolRegistration.BROADCAST_POWER_SAVING_MODE_DISABLED
+            )
+        )
 
         if (activity != null) {
             activity.recreate()

@@ -6,15 +6,15 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnostic
-import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolReceiver
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnostic
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorDiagnosticScanner
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorIsEnabled
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorService
@@ -23,7 +23,8 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeat
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.DailyWeatherAlerter
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.StormAlerter
 import com.kylecorry.trail_sense.tools.weather.quickactions.QuickActionWeatherMonitor
-import com.kylecorry.trail_sense.tools.weather.receivers.SetWeatherMonitorStateReceiver
+import com.kylecorry.trail_sense.tools.weather.receivers.PauseWeatherMonitorAction
+import com.kylecorry.trail_sense.tools.weather.receivers.ResumeWeatherMonitorAction
 
 object WeatherToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
@@ -118,16 +119,23 @@ object WeatherToolRegistration : ToolRegistration {
                 ToolDiagnosticFactory.powerSaver(context),
                 ToolDiagnosticFactory.backgroundService(context)
             ).distinctBy { it.id },
-            receivers = listOf(
-                ToolReceiver(
-                    RECEIVER_SET_WEATHER_MONITOR_STATE,
-                    context.getString(R.string.weather_monitor),
-                    SetWeatherMonitorStateReceiver()
+            actions = listOf(
+                ToolAction(
+                    ACTION_PAUSE_WEATHER_MONITOR,
+                    "Pause weather monitor",
+                    PauseWeatherMonitorAction()
+                ),
+                ToolAction(
+                    ACTION_RESUME_WEATHER_MONITOR,
+                    "Resume weather monitor",
+                    ResumeWeatherMonitorAction()
                 )
             )
         )
     }
 
-    const val RECEIVER_SET_WEATHER_MONITOR_STATE =
-        "com.kylecorry.trail_sense.tools.weather.RECEIVER_SET_WEATHER_MONITOR_STATE"
+    const val ACTION_PAUSE_WEATHER_MONITOR =
+        "com.kylecorry.trail_sense.tools.weather.ACTION_PAUSE_WEATHER_MONITOR"
+    const val ACTION_RESUME_WEATHER_MONITOR =
+        "com.kylecorry.trail_sense.tools.weather.ACTION_RESUME_WEATHER_MONITOR"
 }

@@ -59,14 +59,19 @@ object BatteryToolRegistration : ToolRegistration {
             ),
             broadcasts = listOf(
                 ToolBroadcast(
-                    ACTION_POWER_SAVING_MODE_CHANGED,
-                    context.getString(R.string.pref_low_power_mode_title)
+                    BROADCAST_POWER_SAVING_MODE_ENABLED,
+                    "Power saving mode enabled"
+                ),
+                ToolBroadcast(
+                    BROADCAST_POWER_SAVING_MODE_DISABLED,
+                    "Power saving mode disabled"
                 )
             )
         )
     }
 
-    const val ACTION_POWER_SAVING_MODE_CHANGED =
-        "com.kylecorry.trail_sense.tools.battery.ACTION_POWER_SAVING_MODE_CHANGED"
-    const val PARAM_POWER_SAVING_MODE_ENABLED = "enabled"
+    const val BROADCAST_POWER_SAVING_MODE_ENABLED =
+        "com.kylecorry.trail_sense.tools.battery.BROADCAST_POWER_SAVING_MODE_ENABLED"
+    const val BROADCAST_POWER_SAVING_MODE_DISABLED =
+        "com.kylecorry.trail_sense.tools.battery.BROADCAST_POWER_SAVING_MODE_DISABLED"
 }

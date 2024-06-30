@@ -9,12 +9,13 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.DistanceAlerter
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.tools.pedometer.quickactions.QuickActionPedometer
-import com.kylecorry.trail_sense.tools.pedometer.receivers.SetPedometerStateReceiver
+import com.kylecorry.trail_sense.tools.pedometer.receivers.PausePedometerAction
+import com.kylecorry.trail_sense.tools.pedometer.receivers.ResumePedometerAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolReceiver
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -98,16 +99,23 @@ object PedometerToolRegistration : ToolRegistration {
                 ToolDiagnosticFactory.powerSaver(context),
                 ToolDiagnosticFactory.backgroundService(context)
             ),
-            receivers = listOf(
-                ToolReceiver(
-                    RECEIVER_SET_PEDOMETER_STATE,
-                    context.getString(R.string.pedometer),
-                    SetPedometerStateReceiver()
+            actions = listOf(
+                ToolAction(
+                    ACTION_RESUME_PEDOMETER,
+                    "Resume pedometer",
+                    ResumePedometerAction()
+                ),
+                ToolAction(
+                    ACTION_PAUSE_PEDOMETER,
+                    "Pause pedometer",
+                    PausePedometerAction()
                 )
             )
         )
     }
 
-    const val RECEIVER_SET_PEDOMETER_STATE =
-        "com.kylecorry.trail_sense.tools.pedometer.RECEIVER_SET_PEDOMETER_STATE"
+    const val ACTION_RESUME_PEDOMETER =
+        "com.kylecorry.trail_sense.tools.pedometer.ACTION_RESUME_PEDOMETER"
+    const val ACTION_PAUSE_PEDOMETER =
+        "com.kylecorry.trail_sense.tools.pedometer.ACTION_PAUSE_PEDOMETER"
 }
