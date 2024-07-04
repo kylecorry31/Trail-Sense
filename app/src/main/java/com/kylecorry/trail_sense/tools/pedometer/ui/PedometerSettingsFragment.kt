@@ -18,7 +18,10 @@ import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.preferences.setupDistanceSetting
 import com.kylecorry.trail_sense.shared.preferences.setupNotificationSetting
+import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 
 class PedometerSettingsFragment : AndromedaPreferenceFragment() {
@@ -26,15 +29,11 @@ class PedometerSettingsFragment : AndromedaPreferenceFragment() {
     private lateinit var permissionPref: Preference
     private var enabledPref: SwitchPreferenceCompat? = null
     private val userPrefs by lazy { UserPreferences(requireContext()) }
-    private var wasEnabled = false
     private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
 
 
     private val intervalometer = CoroutineTimer {
         updatePermissionRequestPreference()
-        if (wasEnabled != userPrefs.pedometer.isEnabled) {
-            updatePedometerService()
-        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -50,11 +49,24 @@ class PedometerSettingsFragment : AndromedaPreferenceFragment() {
         onClick(enabledPref) {
             if (userPrefs.pedometer.isEnabled) {
                 requestActivityRecognition { hasPermission ->
-                    updatePedometerService()
-                    if (!hasPermission) {
+                    if (hasPermission) {
+                        if (cache.getBoolean("pedometer_battery_sent") != true) {
+                            Alerts.dialog(
+                                requireContext(),
+                                getString(R.string.pedometer),
+                                getString(R.string.pedometer_disclaimer),
+                                cancelText = null
+                            )
+                            cache.putBoolean("pedometer_battery_sent", true)
+                        }
+                        PedometerSubsystem.getInstance(requireContext()).enable()
+                    } else {
+                        PedometerSubsystem.getInstance(requireContext()).disable()
                         alertNoActivityRecognitionPermission()
                     }
                 }
+            } else {
+                PedometerSubsystem.getInstance(requireContext()).disable()
             }
         }
 
@@ -92,13 +104,25 @@ class PedometerSettingsFragment : AndromedaPreferenceFragment() {
 
     override fun onResume() {
         super.onResume()
-        wasEnabled = userPrefs.pedometer.isEnabled
         intervalometer.interval(20)
+        Tools.subscribe(PedometerToolRegistration.BROADCAST_PEDOMETER_ENABLED, ::onPedometerEnabled)
+        Tools.subscribe(
+            PedometerToolRegistration.BROADCAST_PEDOMETER_DISABLED,
+            ::onPedometerDisabled
+        )
     }
 
     override fun onPause() {
         intervalometer.stop()
         super.onPause()
+        Tools.unsubscribe(
+            PedometerToolRegistration.BROADCAST_PEDOMETER_ENABLED,
+            ::onPedometerEnabled
+        )
+        Tools.unsubscribe(
+            PedometerToolRegistration.BROADCAST_PEDOMETER_DISABLED,
+            ::onPedometerDisabled
+        )
     }
 
     private fun updatePermissionRequestPreference() {
@@ -109,23 +133,14 @@ class PedometerSettingsFragment : AndromedaPreferenceFragment() {
             ))
     }
 
-    private fun updatePedometerService() {
-        if (userPrefs.pedometer.isEnabled) {
-            if (cache.getBoolean("pedometer_battery_sent") != true) {
-                Alerts.dialog(
-                    requireContext(),
-                    getString(R.string.pedometer),
-                    getString(R.string.pedometer_disclaimer),
-                    cancelText = null
-                )
-                cache.putBoolean("pedometer_battery_sent", true)
-            }
-            StepCounterService.start(requireContext())
-        } else {
-            StepCounterService.stop(requireContext())
-        }
+    private fun onPedometerEnabled(data: Bundle): Boolean {
+        enabledPref?.isChecked = true
+        return true
+    }
 
-        wasEnabled = userPrefs.pedometer.isEnabled
+    private fun onPedometerDisabled(data: Bundle): Boolean {
+        enabledPref?.isChecked = false
+        return true
     }
 
 }

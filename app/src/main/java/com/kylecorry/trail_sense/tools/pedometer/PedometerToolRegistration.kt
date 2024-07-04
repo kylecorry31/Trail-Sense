@@ -6,13 +6,15 @@ import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.pedometer.infrastructure.DistanceAlerter
-import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
-import com.kylecorry.trail_sense.tools.pedometer.quickactions.QuickActionPedometer
 import com.kylecorry.trail_sense.tools.pedometer.actions.PausePedometerAction
 import com.kylecorry.trail_sense.tools.pedometer.actions.ResumePedometerAction
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.DistanceAlerter
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
+import com.kylecorry.trail_sense.tools.pedometer.quickactions.QuickActionPedometer
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolAction
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
@@ -69,8 +71,7 @@ object PedometerToolRegistration : ToolRegistration {
                         prefs.pedometer.isEnabled && !prefs.isLowPowerModeOn
                     },
                     disable = {
-                        UserPreferences(it).pedometer.isEnabled = false
-                        StepCounterService.stop(it)
+                        PedometerSubsystem.getInstance(it).disable()
                     },
                     stop = {
                         StepCounterService.stop(it)
@@ -99,6 +100,16 @@ object PedometerToolRegistration : ToolRegistration {
                 ToolDiagnosticFactory.powerSaver(context),
                 ToolDiagnosticFactory.backgroundService(context)
             ),
+            broadcasts = listOf(
+                ToolBroadcast(
+                    BROADCAST_PEDOMETER_ENABLED,
+                    "Pedometer enabled"
+                ),
+                ToolBroadcast(
+                    BROADCAST_PEDOMETER_DISABLED,
+                    "Pedometer disabled"
+                )
+            ),
             actions = listOf(
                 ToolAction(
                     ACTION_RESUME_PEDOMETER,
@@ -114,8 +125,9 @@ object PedometerToolRegistration : ToolRegistration {
         )
     }
 
-    const val ACTION_RESUME_PEDOMETER =
-        "com.kylecorry.trail_sense.tools.pedometer.ACTION_RESUME_PEDOMETER"
-    const val ACTION_PAUSE_PEDOMETER =
-        "com.kylecorry.trail_sense.tools.pedometer.ACTION_PAUSE_PEDOMETER"
+    const val BROADCAST_PEDOMETER_ENABLED = "pedometer-broadcast-pedometer-enabled"
+    const val BROADCAST_PEDOMETER_DISABLED = "pedometer-broadcast-pedometer-disabled"
+
+    const val ACTION_RESUME_PEDOMETER = "pedometer-action-resume-pedometer"
+    const val ACTION_PAUSE_PEDOMETER = "pedometer-action-pause-pedometer"
 }

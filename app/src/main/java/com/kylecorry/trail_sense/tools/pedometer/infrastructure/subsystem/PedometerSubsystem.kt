@@ -15,9 +15,11 @@ import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.ZERO_SPEED
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
 import com.kylecorry.trail_sense.tools.pedometer.domain.StrideLengthPaceCalculator
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounter
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
 import java.time.Instant
 import java.util.Optional
@@ -45,11 +47,13 @@ class PedometerSubsystem private constructor(private val context: Context) : IPe
 
     override fun enable() {
         prefs.pedometer.isEnabled = true
+        Tools.broadcast(PedometerToolRegistration.BROADCAST_PEDOMETER_ENABLED)
         StepCounterService.start(context)
     }
 
     override fun disable() {
         prefs.pedometer.isEnabled = false
+        Tools.broadcast(PedometerToolRegistration.BROADCAST_PEDOMETER_DISABLED)
         StepCounterService.stop(context)
     }
 
@@ -117,7 +121,7 @@ class PedometerSubsystem private constructor(private val context: Context) : IPe
         return !Permissions.canRecognizeActivity(context) && !prefs.isLowPowerModeOn
     }
 
-    fun recalculateState(){
+    fun recalculateState() {
         _state.publish(calculateState())
     }
 
