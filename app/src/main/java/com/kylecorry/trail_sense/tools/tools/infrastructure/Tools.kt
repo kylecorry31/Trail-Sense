@@ -1,7 +1,9 @@
 package com.kylecorry.trail_sense.tools.tools.infrastructure
 
 import android.content.Context
+import android.os.Bundle
 import com.kylecorry.andromeda.core.capitalizeWords
+import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.trail_sense.R
@@ -138,6 +140,14 @@ object Tools {
         }
 
         return listOf(none) + quickActions + toolActions
+    }
+
+    fun broadcast(context: Context, toolBroadcastId: String, data: Bundle? = null) {
+        context.sendBroadcast(Intents.localIntent(context, toolBroadcastId).also {
+            if (data != null) {
+                it.putExtras(data)
+            }
+        })
     }
 
     const val TOOL_QUICK_ACTION_OFFSET = 1000

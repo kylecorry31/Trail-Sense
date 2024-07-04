@@ -1,10 +1,15 @@
 package com.kylecorry.trail_sense.settings.ui
 
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.SwitchPreferenceCompat
+import com.kylecorry.andromeda.core.system.BroadcastReceiverTopic
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -13,6 +18,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.permissions.requestBacktrackPermission
 import com.kylecorry.trail_sense.shared.preferences.setupNotificationSetting
+import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.infrastructure.services.BacktrackService
 import com.kylecorry.trail_sense.tools.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ChangeBacktrackFrequencyCommand
@@ -23,6 +29,40 @@ class PathsSettingsFragment : AndromedaPreferenceFragment() {
     private var prefBacktrack: SwitchPreferenceCompat? = null
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
+    private val backtrackEnabledTopic by lazy {
+        BroadcastReceiverTopic(
+            requireContext(),
+            IntentFilter(PathsToolRegistration.BROADCAST_BACKTRACK_ENABLED)
+        )
+    }
+    private val backtrackDisabledTopic by lazy {
+        BroadcastReceiverTopic(
+            requireContext(),
+            IntentFilter(PathsToolRegistration.BROADCAST_BACKTRACK_DISABLED)
+        )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        backtrackEnabledTopic.subscribe(::onBacktrackEnabled)
+        backtrackDisabledTopic.subscribe(::onBacktrackDisabled)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        backtrackEnabledTopic.unsubscribe(::onBacktrackEnabled)
+        backtrackDisabledTopic.unsubscribe(::onBacktrackDisabled)
+    }
+
+    private fun onBacktrackEnabled(intent: Intent): Boolean {
+        prefBacktrack?.isChecked = true
+        return true
+    }
+
+    private fun onBacktrackDisabled(intent: Intent): Boolean {
+        prefBacktrack?.isChecked = false
+        return true
+    }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.paths_preferences, rootKey)

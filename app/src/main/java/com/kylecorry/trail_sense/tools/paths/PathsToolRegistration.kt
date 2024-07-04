@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.tools.paths.infrastructure.subsystem.BacktrackS
 import com.kylecorry.trail_sense.tools.paths.quickactions.QuickActionBacktrack
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolAction
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
@@ -90,6 +91,16 @@ object PathsToolRegistration : ToolRegistration {
                 ToolDiagnosticFactory.powerSaver(context),
                 ToolDiagnosticFactory.backgroundService(context)
             ).distinctBy { it.id },
+            broadcasts = listOf(
+                ToolBroadcast(
+                    BROADCAST_BACKTRACK_ENABLED,
+                    "Backtrack enabled"
+                ),
+                ToolBroadcast(
+                    BROADCAST_BACKTRACK_DISABLED,
+                    "Backtrack disabled"
+                )
+            ),
             actions = listOf(
                 ToolAction(
                     ACTION_RESUME_BACKTRACK,
@@ -104,6 +115,11 @@ object PathsToolRegistration : ToolRegistration {
             )
         )
     }
+
+    const val BROADCAST_BACKTRACK_ENABLED =
+        "com.kylecorry.trail_sense.tools.paths.BROADCAST_BACKTRACK_ENABLED"
+    const val BROADCAST_BACKTRACK_DISABLED =
+        "com.kylecorry.trail_sense.tools.paths.BROADCAST_BACKTRACK_DISABLED"
 
     const val ACTION_PAUSE_BACKTRACK =
         "com.kylecorry.trail_sense.tools.paths.ACTION_PAUSE_BACKTRACK"
