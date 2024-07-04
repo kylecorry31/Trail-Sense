@@ -138,7 +138,7 @@
     <string name="start">Começar</string>
     <plurals name="water_boil_timer_content">
         <item quantity="one">%d segundo até se tornar potável</item>
-        <item quantity="many" />
+        <item quantity="many"/>
         <item quantity="other">%d segundos até se tornar potável</item>
     </plurals>
     <string name="water_boil_timer_done_content">A água agora é potável</string>
@@ -304,7 +304,7 @@
     <string name="share_action_send">Enviar</string>
     <plurals name="beacon_group_summary">
         <item quantity="one">%d alfinete</item>
-        <item quantity="many" />
+        <item quantity="many"/>
         <item quantity="other">%d alfinetes</item>
     </plurals>
     <string name="sos">SOS</string>
@@ -788,7 +788,7 @@
     <string name="delete_path_group_message">%s e todos os seus percursos serão eliminados.</string>
     <plurals name="path_group_summary">
         <item quantity="one">%d percurso</item>
-        <item quantity="many" />
+        <item quantity="many"/>
         <item quantity="other">%d percursos</item>
     </plurals>
     <string name="path">Percurso</string>
@@ -1011,4 +1011,9 @@
     <string name="compass_source_legacy_android">Legado (Android)</string>
     <string name="accelerometer">Acelerómetro</string>
     <string name="gps_accuracy_tip">Assegure que você tenha uma vista desobstruída do céu e boa distância de edifícios altos e de árvores.</string>
+    <string name="map_auto_rotated">Rotação do mapa ajustada com calibração</string>
+    <string name="gps_location_accuracy">Precisão da localização do GPS</string>
+    <string name="gps_elevation_accuracy">Precisão da elevação do GPS</string>
+    <string name="gps_satellites">Satélites GPS</string>
+    <string name="illumination">Iluminação</string>
 </resources>
