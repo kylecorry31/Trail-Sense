@@ -132,7 +132,7 @@ object Tools {
         val quickActions = tools
             .flatMap { it.quickActions }
             .distinctBy { it.id }
-            .sortedBy { it.id }
+            .sortedBy { it.name }
             .map { it.copy(name = it.name.capitalizeWords()) }
 
         val toolActions = sortedTools.map {
