@@ -50,6 +50,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.shared.volume.VolumeAction
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
+import com.kylecorry.trail_sense.tools.battery.BatteryToolRegistration
 import com.kylecorry.trail_sense.tools.battery.infrastructure.commands.PowerSavingModeAlertCommand
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
@@ -223,11 +224,15 @@ class MainActivity : AndromedaActivity() {
         super.onResume()
         FlashlightSubsystem.getInstance(this).startSystemMonitor()
         PedometerSubsystem.getInstance(this).recalculateState()
+        Tools.subscribe(this, BatteryToolRegistration.BROADCAST_POWER_SAVING_MODE_ENABLED, ::onPowerSavingModeChanged)
+        Tools.subscribe(this, BatteryToolRegistration.BROADCAST_POWER_SAVING_MODE_DISABLED, ::onPowerSavingModeChanged)
     }
 
     override fun onPause() {
         super.onPause()
         FlashlightSubsystem.getInstance(this).stopSystemMonitor()
+        Tools.unsubscribe(BatteryToolRegistration.BROADCAST_POWER_SAVING_MODE_ENABLED, ::onPowerSavingModeChanged)
+        Tools.unsubscribe(BatteryToolRegistration.BROADCAST_POWER_SAVING_MODE_DISABLED, ::onPowerSavingModeChanged)
     }
 
     private fun startApp(shouldReloadNavigation: Boolean) {
@@ -455,6 +460,11 @@ class MainActivity : AndromedaActivity() {
         val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
         navGraph.setStartDestination(startDestination)
         navController.graph = navGraph
+    }
+
+    private fun onPowerSavingModeChanged(intent: Intent): Boolean {
+        recreate()
+        return true
     }
 
     companion object {

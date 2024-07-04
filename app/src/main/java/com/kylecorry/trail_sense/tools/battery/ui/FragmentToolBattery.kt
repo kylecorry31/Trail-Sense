@@ -116,10 +116,10 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
         binding.lowPowerModeSwitch.setOnClickListener {
             if (lowPowerMode.isEnabled()) {
                 prefs.power.userEnabledLowPower = false
-                lowPowerMode.disable(requireActivity())
+                lowPowerMode.disable()
             } else {
                 prefs.power.userEnabledLowPower = true
-                lowPowerMode.enable(requireActivity())
+                lowPowerMode.enable()
             }
             updateServices()
         }

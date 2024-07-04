@@ -32,10 +32,10 @@ class QuickActionLowPowerMode(button: ImageButton, fragment: Fragment) :
         super.onClick()
         if (lowerPowerMode.isEnabled()) {
             prefs.power.userEnabledLowPower = false
-            lowerPowerMode.disable(fragment.activity)
+            lowerPowerMode.disable()
         } else {
             prefs.power.userEnabledLowPower = true
-            lowerPowerMode.enable(fragment.activity)
+            lowerPowerMode.enable()
         }
     }
 }
