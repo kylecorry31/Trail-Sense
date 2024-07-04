@@ -116,13 +116,9 @@ object PathsToolRegistration : ToolRegistration {
         )
     }
 
-    const val BROADCAST_BACKTRACK_ENABLED =
-        "com.kylecorry.trail_sense.tools.paths.BROADCAST_BACKTRACK_ENABLED"
-    const val BROADCAST_BACKTRACK_DISABLED =
-        "com.kylecorry.trail_sense.tools.paths.BROADCAST_BACKTRACK_DISABLED"
+    const val BROADCAST_BACKTRACK_ENABLED = "paths-broadcast-backtrack-enabled"
+    const val BROADCAST_BACKTRACK_DISABLED = "paths-broadcast-backtrack-disabled"
 
-    const val ACTION_PAUSE_BACKTRACK =
-        "com.kylecorry.trail_sense.tools.paths.ACTION_PAUSE_BACKTRACK"
-    const val ACTION_RESUME_BACKTRACK =
-        "com.kylecorry.trail_sense.tools.paths.ACTION_RESUME_BACKTRACK"
+    const val ACTION_PAUSE_BACKTRACK = "paths-action-pause-backtrack"
+    const val ACTION_RESUME_BACKTRACK = "paths-action-resume-backtrack"
 }

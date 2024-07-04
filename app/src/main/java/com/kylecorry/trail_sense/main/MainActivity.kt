@@ -13,7 +13,6 @@ import android.view.KeyEvent
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
 import androidx.core.view.ViewCompat
@@ -39,13 +38,11 @@ import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.RestartServicesCommand
 import com.kylecorry.trail_sense.settings.backup.BackupService
 import com.kylecorry.trail_sense.settings.ui.SettingsMoveNotice
-import com.kylecorry.trail_sense.shared.CustomUiUtils.isDarkThemeOn
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.ComposedCommand
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils.setupWithNavController
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.shared.volume.VolumeAction
@@ -224,8 +221,14 @@ class MainActivity : AndromedaActivity() {
         super.onResume()
         FlashlightSubsystem.getInstance(this).startSystemMonitor()
         PedometerSubsystem.getInstance(this).recalculateState()
-        Tools.subscribe(this, BatteryToolRegistration.BROADCAST_POWER_SAVING_MODE_ENABLED, ::onPowerSavingModeChanged)
-        Tools.subscribe(this, BatteryToolRegistration.BROADCAST_POWER_SAVING_MODE_DISABLED, ::onPowerSavingModeChanged)
+        Tools.subscribe(
+            BatteryToolRegistration.BROADCAST_POWER_SAVING_MODE_ENABLED,
+            ::onPowerSavingModeChanged
+        )
+        Tools.subscribe(
+            BatteryToolRegistration.BROADCAST_POWER_SAVING_MODE_DISABLED,
+            ::onPowerSavingModeChanged
+        )
     }
 
     override fun onPause() {
@@ -462,7 +465,7 @@ class MainActivity : AndromedaActivity() {
         navController.graph = navGraph
     }
 
-    private fun onPowerSavingModeChanged(intent: Intent): Boolean {
+    private fun onPowerSavingModeChanged(data: Bundle): Boolean {
         recreate()
         return true
     }

@@ -82,7 +82,7 @@ class BacktrackSubsystem private constructor(private val context: Context) {
 
         prefs.backtrackEnabled = true
         if (!wasEnabled) {
-            Tools.broadcast(context, PathsToolRegistration.BROADCAST_BACKTRACK_ENABLED)
+            Tools.broadcast(PathsToolRegistration.BROADCAST_BACKTRACK_ENABLED)
         }
 
         tryStartForegroundOrNotify(context) {

@@ -6,13 +6,13 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryLogWorker
 import com.kylecorry.trail_sense.tools.battery.quickactions.QuickActionLowPowerMode
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 import java.time.Duration
 
 object BatteryToolRegistration : ToolRegistration {
@@ -70,8 +70,6 @@ object BatteryToolRegistration : ToolRegistration {
         )
     }
 
-    const val BROADCAST_POWER_SAVING_MODE_ENABLED =
-        "com.kylecorry.trail_sense.tools.battery.BROADCAST_POWER_SAVING_MODE_ENABLED"
-    const val BROADCAST_POWER_SAVING_MODE_DISABLED =
-        "com.kylecorry.trail_sense.tools.battery.BROADCAST_POWER_SAVING_MODE_DISABLED"
+    const val BROADCAST_POWER_SAVING_MODE_ENABLED = "battery-broadcast-power-saving-mode-enabled"
+    const val BROADCAST_POWER_SAVING_MODE_DISABLED = "battery-broadcast-power-saving-mode-disabled"
 }

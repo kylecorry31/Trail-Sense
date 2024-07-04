@@ -1,14 +1,13 @@
 package com.kylecorry.trail_sense.tools.tools.infrastructure
 
 import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
 import com.kylecorry.andromeda.core.capitalizeWords
-import com.kylecorry.andromeda.core.system.BroadcastReceiverTopic
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.luna.hooks.Hooks
+import com.kylecorry.luna.topics.generic.Topic
+import com.kylecorry.luna.topics.generic.ITopic
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.SettingsToolRegistration
 import com.kylecorry.trail_sense.shared.quickactions.QuickActionOpenTool
@@ -99,7 +98,7 @@ object Tools {
         LocalMessagingToolRegistration,
         LocalTalkToolRegistration
     )
-    private val topics = mutableMapOf<String, BroadcastReceiverTopic>()
+    private val topics = mutableMapOf<String, Topic<Bundle>>()
 
     fun isToolAvailable(context: Context, toolId: Long): Boolean {
         return getTool(context, toolId) != null
@@ -146,22 +145,18 @@ object Tools {
         return listOf(none) + quickActions + toolActions
     }
 
-    fun broadcast(context: Context, toolBroadcastId: String, data: Bundle? = null) {
-        context.sendBroadcast(Intents.localIntent(context, toolBroadcastId).also {
-            if (data != null) {
-                it.putExtras(data)
-            }
-        })
+    fun broadcast(toolBroadcastId: String, data: Bundle? = null) {
+        topics[toolBroadcastId]?.publish(data ?: Bundle())
     }
 
-    fun subscribe(context: Context, toolBroadcastId: String, callback: (Intent) -> Boolean) {
+    fun subscribe(toolBroadcastId: String, callback: (Bundle) -> Boolean) {
         val topic = topics.getOrPut(toolBroadcastId) {
-            BroadcastReceiverTopic(context, IntentFilter(toolBroadcastId))
+            Topic()
         }
         topic.subscribe(callback)
     }
 
-    fun unsubscribe(toolBroadcastId: String, callback: (Intent) -> Boolean) {
+    fun unsubscribe(toolBroadcastId: String, callback: (Bundle) -> Boolean) {
         val topic = topics[toolBroadcastId]
         topic?.unsubscribe(callback)
     }

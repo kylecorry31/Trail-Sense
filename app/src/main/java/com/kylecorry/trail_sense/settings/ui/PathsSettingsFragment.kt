@@ -31,12 +31,10 @@ class PathsSettingsFragment : AndromedaPreferenceFragment() {
     override fun onResume() {
         super.onResume()
         Tools.subscribe(
-            requireContext(),
             PathsToolRegistration.BROADCAST_BACKTRACK_ENABLED,
             ::onBacktrackEnabled
         )
         Tools.subscribe(
-            requireContext(),
             PathsToolRegistration.BROADCAST_BACKTRACK_DISABLED,
             ::onBacktrackDisabled
         )
@@ -48,12 +46,12 @@ class PathsSettingsFragment : AndromedaPreferenceFragment() {
         Tools.unsubscribe(PathsToolRegistration.BROADCAST_BACKTRACK_DISABLED, ::onBacktrackDisabled)
     }
 
-    private fun onBacktrackEnabled(intent: Intent): Boolean {
+    private fun onBacktrackEnabled(data: Bundle): Boolean {
         prefBacktrack?.isChecked = true
         return true
     }
 
-    private fun onBacktrackDisabled(intent: Intent): Boolean {
+    private fun onBacktrackDisabled(data: Bundle): Boolean {
         prefBacktrack?.isChecked = false
         return true
     }

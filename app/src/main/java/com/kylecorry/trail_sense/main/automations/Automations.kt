@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.main.automations
 
 import android.content.Context
-import androidx.core.os.bundleOf
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.trail_sense.shared.automations.Automation
@@ -17,7 +16,7 @@ object Automations {
         broadcasts.forEach { broadcastId ->
             val queue = CoroutineQueueRunner(10)
             // TODO: Should there be a way to unregister? Maybe only register when something is listening? When to cancel queue?
-            Tools.subscribe(context, broadcastId) { intent ->
+            Tools.subscribe(broadcastId) { data ->
                 runBlocking {
                     queue.enqueue {
                         val automationsToRun = getAutomations(context, broadcastId)
@@ -32,10 +31,7 @@ object Automations {
                                 val toolAction =
                                     availableActions.firstOrNull { r -> r.id == action } ?: continue
 
-                                toolAction.action.onReceive(
-                                    context,
-                                    intent.extras ?: bundleOf()
-                                )
+                                toolAction.action.onReceive(context, data)
                             }
                         }
                     }
