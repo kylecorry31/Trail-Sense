@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolAction
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
@@ -25,6 +26,8 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.StormAlerte
 import com.kylecorry.trail_sense.tools.weather.quickactions.QuickActionWeatherMonitor
 import com.kylecorry.trail_sense.tools.weather.actions.PauseWeatherMonitorAction
 import com.kylecorry.trail_sense.tools.weather.actions.ResumeWeatherMonitorAction
+import com.kylecorry.trail_sense.tools.weather.infrastructure.commands.StopWeatherMonitorCommand
+import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 
 object WeatherToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
@@ -77,8 +80,7 @@ object WeatherToolRegistration : ToolRegistration {
                         WeatherMonitorIsEnabled().isSatisfiedBy(it)
                     },
                     disable = {
-                        UserPreferences(it).weather.shouldMonitorWeather = false
-                        WeatherUpdateScheduler.stop(it)
+                        WeatherSubsystem.getInstance(it).disableMonitor()
                     },
                     stop = {
                         WeatherUpdateScheduler.stop(it)
@@ -119,6 +121,16 @@ object WeatherToolRegistration : ToolRegistration {
                 ToolDiagnosticFactory.powerSaver(context),
                 ToolDiagnosticFactory.backgroundService(context)
             ).distinctBy { it.id },
+            broadcasts = listOf(
+                ToolBroadcast(
+                    BROADCAST_WEATHER_MONITOR_ENABLED,
+                    "Weather monitor enabled"
+                ),
+                ToolBroadcast(
+                    BROADCAST_WEATHER_MONITOR_DISABLED,
+                    "Weather monitor disabled"
+                )
+            ),
             actions = listOf(
                 ToolAction(
                     ACTION_PAUSE_WEATHER_MONITOR,
@@ -134,8 +146,9 @@ object WeatherToolRegistration : ToolRegistration {
         )
     }
 
-    const val ACTION_PAUSE_WEATHER_MONITOR =
-        "com.kylecorry.trail_sense.tools.weather.ACTION_PAUSE_WEATHER_MONITOR"
-    const val ACTION_RESUME_WEATHER_MONITOR =
-        "com.kylecorry.trail_sense.tools.weather.ACTION_RESUME_WEATHER_MONITOR"
+    const val BROADCAST_WEATHER_MONITOR_ENABLED = "weather-broadcast-weather-monitor-enabled"
+    const val BROADCAST_WEATHER_MONITOR_DISABLED = "weather-broadcast-weather-monitor-disabled"
+
+    const val ACTION_PAUSE_WEATHER_MONITOR = "weather-action-pause-weather-monitor"
+    const val ACTION_RESUME_WEATHER_MONITOR = "weather-action-resume-weather-monitor"
 }

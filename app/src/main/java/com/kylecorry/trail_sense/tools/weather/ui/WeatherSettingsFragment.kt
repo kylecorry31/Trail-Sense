@@ -25,6 +25,7 @@ import com.kylecorry.trail_sense.shared.preferences.setupNotificationSetting
 import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherCsvConverter
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorIsAvailable
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherPreferences
@@ -32,6 +33,7 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherUpdateSched
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeatherAlerter
 import com.kylecorry.trail_sense.tools.weather.infrastructure.commands.ChangeWeatherFrequencyCommand
 import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.WeatherRepo
+import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.Duration
@@ -51,6 +53,30 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     private lateinit var prefs: UserPreferences
+
+    override fun onResume() {
+        super.onResume()
+        Tools.subscribe(
+            WeatherToolRegistration.BROADCAST_WEATHER_MONITOR_ENABLED,
+            ::onWeatherMonitorEnabled
+        )
+        Tools.subscribe(
+            WeatherToolRegistration.BROADCAST_WEATHER_MONITOR_DISABLED,
+            ::onWeatherMonitorDisabled
+        )
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Tools.unsubscribe(
+            WeatherToolRegistration.BROADCAST_WEATHER_MONITOR_ENABLED,
+            ::onWeatherMonitorEnabled
+        )
+        Tools.unsubscribe(
+            WeatherToolRegistration.BROADCAST_WEATHER_MONITOR_DISABLED,
+            ::onWeatherMonitorDisabled
+        )
+    }
 
     private fun bindPreferences() {
         prefMonitorWeather = switch(R.string.pref_monitor_weather)
@@ -84,10 +110,10 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         prefMonitorWeather?.isEnabled = WeatherMonitorIsAvailable().isSatisfiedBy(requireContext())
         prefMonitorWeather?.setOnPreferenceClickListener {
             if (prefs.weather.shouldMonitorWeather) {
-                WeatherUpdateScheduler.start(requireContext())
+                WeatherSubsystem.getInstance(requireContext()).enableMonitor()
                 RequestRemoveBatteryRestrictionCommand(this).execute()
             } else {
-                WeatherUpdateScheduler.stop(requireContext())
+                WeatherSubsystem.getInstance(requireContext()).disableMonitor()
             }
             true
         }
@@ -252,4 +278,13 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         }
     }
 
+    private fun onWeatherMonitorDisabled(data: Bundle): Boolean {
+        prefMonitorWeather?.isChecked = false
+        return true
+    }
+
+    private fun onWeatherMonitorEnabled(data: Bundle): Boolean {
+        prefMonitorWeather?.isChecked = true
+        return true
+    }
 }

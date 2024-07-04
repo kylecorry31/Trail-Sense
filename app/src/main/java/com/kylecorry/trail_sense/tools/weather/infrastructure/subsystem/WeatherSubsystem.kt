@@ -25,6 +25,8 @@ import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures.HistoricTemperatureRepo
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudRepo
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 import com.kylecorry.trail_sense.tools.weather.domain.CurrentWeather
 import com.kylecorry.trail_sense.tools.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherObservation
@@ -261,11 +263,13 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
 
     override fun enableMonitor() {
         prefs.weather.shouldMonitorWeather = true
+        Tools.broadcast(WeatherToolRegistration.BROADCAST_WEATHER_MONITOR_ENABLED)
         WeatherUpdateScheduler.start(context)
     }
 
     override fun disableMonitor() {
         prefs.weather.shouldMonitorWeather = false
+        Tools.broadcast(WeatherToolRegistration.BROADCAST_WEATHER_MONITOR_DISABLED)
         WeatherUpdateScheduler.stop(context)
     }
 

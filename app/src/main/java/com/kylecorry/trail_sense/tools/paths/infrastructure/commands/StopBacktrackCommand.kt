@@ -10,11 +10,8 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 class StopBacktrackCommand(private val context: Context) : Command {
     override fun execute() {
         val prefs = UserPreferences(context)
-        val wasEnabled = prefs.backtrackEnabled
         prefs.backtrackEnabled = false
-        if (wasEnabled) {
-            Tools.broadcast(PathsToolRegistration.BROADCAST_BACKTRACK_DISABLED)
-        }
+        Tools.broadcast(PathsToolRegistration.BROADCAST_BACKTRACK_DISABLED)
         BacktrackScheduler.stop(context)
     }
 }

@@ -4,11 +4,10 @@ import android.content.Context
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.Command
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherUpdateScheduler
+import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 
 class StopWeatherMonitorCommand(private val context: Context): Command {
     override fun execute() {
-        val prefs = UserPreferences(context)
-        prefs.weather.shouldMonitorWeather = false
-        WeatherUpdateScheduler.stop(context)
+        WeatherSubsystem.getInstance(context).disableMonitor()
     }
 }
