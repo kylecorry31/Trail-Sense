@@ -3,11 +3,13 @@ package com.kylecorry.trail_sense.tools.astronomy.ui
 import android.os.Bundle
 import android.view.View
 import androidx.preference.ListPreference
+import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.core.topics.generic.asLiveData
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.tools.astronomy.AstronomyToolRegistration
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
@@ -16,7 +18,31 @@ class AstronomySettingsFragment : AndromedaPreferenceFragment() {
     private lateinit var prefs: UserPreferences
     private var prefleftButton: ListPreference? = null
     private var prefrightButton: ListPreference? = null
+    private var prefSunsetAlertsSwitch: SwitchPreferenceCompat? = null
 
+    override fun onResume() {
+        super.onResume()
+        Tools.subscribe(
+            AstronomyToolRegistration.BROADCAST_SUNSET_ALERTS_ENABLED,
+            ::onSunsetAlertsEnabled
+        )
+        Tools.subscribe(
+            AstronomyToolRegistration.BROADCAST_SUNSET_ALERTS_DISABLED,
+            ::onSunsetAlertsDisabled
+        )
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Tools.unsubscribe(
+            AstronomyToolRegistration.BROADCAST_SUNSET_ALERTS_ENABLED,
+            ::onSunsetAlertsEnabled
+        )
+        Tools.unsubscribe(
+            AstronomyToolRegistration.BROADCAST_SUNSET_ALERTS_DISABLED,
+            ::onSunsetAlertsDisabled
+        )
+    }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.astronomy_preferences, rootKey)
@@ -25,6 +51,8 @@ class AstronomySettingsFragment : AndromedaPreferenceFragment() {
 
         prefleftButton = list(R.string.pref_astronomy_quick_action_left)
         prefrightButton = list(R.string.pref_astronomy_quick_action_right)
+
+        prefSunsetAlertsSwitch = switch(R.string.pref_sunset_alerts)
 
         val actions = Tools.getQuickActions(requireContext())
         val actionNames = actions.map { it.name }
@@ -38,19 +66,24 @@ class AstronomySettingsFragment : AndromedaPreferenceFragment() {
 
         switch(R.string.pref_start_camera_in_3d_view)?.isVisible =
             Tools.isToolAvailable(requireContext(), Tools.AUGMENTED_REALITY)
+
+        onClick(prefSunsetAlertsSwitch) {
+            if (prefs.astronomy.sendSunsetAlerts) {
+                SunsetAlarmReceiver.enable(this, true)
+            } else {
+                Tools.broadcast(AstronomyToolRegistration.BROADCAST_SUNSET_ALERTS_DISABLED)
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val alertTimePrefKey = getString(R.string.pref_sunset_alert_time)
-        val alertPrefKey = getString(R.string.pref_sunset_alerts)
 
         PreferencesSubsystem.getInstance(requireContext()).preferences.onChange.asLiveData()
             .observe(viewLifecycleOwner) {
                 if (it == alertTimePrefKey) {
                     restartSunsetAlerts(false)
-                } else if (it == alertPrefKey) {
-                    restartSunsetAlerts(true)
                 }
             }
     }
@@ -63,4 +96,13 @@ class AstronomySettingsFragment : AndromedaPreferenceFragment() {
         SunsetAlarmReceiver.enable(this, shouldRequestPermissions)
     }
 
+    private fun onSunsetAlertsEnabled(data: Bundle): Boolean {
+        prefSunsetAlertsSwitch?.isChecked = true
+        return true
+    }
+
+    private fun onSunsetAlertsDisabled(data: Bundle): Boolean {
+        prefSunsetAlertsSwitch?.isChecked = false
+        return true
+    }
 }

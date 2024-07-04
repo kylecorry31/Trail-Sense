@@ -11,13 +11,14 @@ import com.kylecorry.trail_sense.tools.astronomy.infrastructure.receivers.Sunset
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionNightMode
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunsetAlert
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 import java.time.Duration
 
 object AstronomyToolRegistration : ToolRegistration {
@@ -67,6 +68,7 @@ object AstronomyToolRegistration : ToolRegistration {
                     },
                     disable = {
                         UserPreferences(it).astronomy.sendSunsetAlerts = false
+                        Tools.broadcast(BROADCAST_SUNSET_ALERTS_DISABLED)
                     },
                     stop = {
                         SunsetAlarmReceiver.scheduler(it).cancel()
@@ -109,7 +111,20 @@ object AstronomyToolRegistration : ToolRegistration {
                     AstronomyAlertCommand.NOTIFICATION_CHANNEL,
                     context.getString(R.string.astronomy_alerts)
                 )
+            ),
+            broadcasts = listOf(
+                ToolBroadcast(
+                    BROADCAST_SUNSET_ALERTS_ENABLED,
+                    "Sunset alerts enabled"
+                ),
+                ToolBroadcast(
+                    BROADCAST_SUNSET_ALERTS_DISABLED,
+                    "Sunset alerts disabled"
+                )
             )
         )
     }
+
+    const val BROADCAST_SUNSET_ALERTS_ENABLED = "astronomy-broadcast-sunset-alerts-enabled"
+    const val BROADCAST_SUNSET_ALERTS_DISABLED = "astronomy-broadcast-sunset-alerts-disabled"
 }

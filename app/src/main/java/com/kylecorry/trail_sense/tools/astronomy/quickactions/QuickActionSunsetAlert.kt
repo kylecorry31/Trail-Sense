@@ -8,7 +8,9 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.astronomy.AstronomyToolRegistration
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.receivers.SunsetAlarmReceiver
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
 
 class QuickActionSunsetAlert(btn: ImageButton, fragment: Fragment) :
@@ -30,6 +32,7 @@ class QuickActionSunsetAlert(btn: ImageButton, fragment: Fragment) :
         super.onClick()
         if (isOn()) {
             prefs.astronomy.sendSunsetAlerts = false
+            Tools.broadcast(AstronomyToolRegistration.BROADCAST_SUNSET_ALERTS_DISABLED)
             updateState()
         } else if (fragment is IPermissionRequester) {
             SunsetAlarmReceiver.enable(fragment, true)

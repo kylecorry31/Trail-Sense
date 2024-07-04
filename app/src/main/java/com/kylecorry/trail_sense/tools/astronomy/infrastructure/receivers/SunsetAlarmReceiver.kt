@@ -10,7 +10,9 @@ import com.kylecorry.andromeda.fragments.IPermissionRequester
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.permissions.RequestBackgroundLocationCommand
 import com.kylecorry.trail_sense.shared.permissions.requestScheduleExactAlarms
+import com.kylecorry.trail_sense.tools.astronomy.AstronomyToolRegistration
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunsetAlarmCommand
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -61,6 +63,7 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
             shouldRequestPermissions: Boolean
         ) where T : Fragment, T : IPermissionRequester {
             UserPreferences(fragment.requireContext()).astronomy.sendSunsetAlerts = true
+            Tools.broadcast(AstronomyToolRegistration.BROADCAST_SUNSET_ALERTS_ENABLED)
             if (shouldRequestPermissions) {
                 fragment.requestScheduleExactAlarms {
                     start(fragment.requireContext())
