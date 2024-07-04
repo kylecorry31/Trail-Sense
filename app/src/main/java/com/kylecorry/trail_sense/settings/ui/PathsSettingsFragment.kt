@@ -1,15 +1,11 @@
 package com.kylecorry.trail_sense.settings.ui
 
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.SwitchPreferenceCompat
-import com.kylecorry.andromeda.core.system.BroadcastReceiverTopic
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -19,9 +15,11 @@ import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrict
 import com.kylecorry.trail_sense.shared.permissions.requestBacktrackPermission
 import com.kylecorry.trail_sense.shared.preferences.setupNotificationSetting
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
+import com.kylecorry.trail_sense.tools.paths.infrastructure.BacktrackIsAvailable
 import com.kylecorry.trail_sense.tools.paths.infrastructure.services.BacktrackService
 import com.kylecorry.trail_sense.tools.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ChangeBacktrackFrequencyCommand
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
 
 class PathsSettingsFragment : AndromedaPreferenceFragment() {
@@ -29,29 +27,25 @@ class PathsSettingsFragment : AndromedaPreferenceFragment() {
     private var prefBacktrack: SwitchPreferenceCompat? = null
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val backtrackEnabledTopic by lazy {
-        BroadcastReceiverTopic(
-            requireContext(),
-            IntentFilter(PathsToolRegistration.BROADCAST_BACKTRACK_ENABLED)
-        )
-    }
-    private val backtrackDisabledTopic by lazy {
-        BroadcastReceiverTopic(
-            requireContext(),
-            IntentFilter(PathsToolRegistration.BROADCAST_BACKTRACK_DISABLED)
-        )
-    }
 
     override fun onResume() {
         super.onResume()
-        backtrackEnabledTopic.subscribe(::onBacktrackEnabled)
-        backtrackDisabledTopic.subscribe(::onBacktrackDisabled)
+        Tools.subscribe(
+            requireContext(),
+            PathsToolRegistration.BROADCAST_BACKTRACK_ENABLED,
+            ::onBacktrackEnabled
+        )
+        Tools.subscribe(
+            requireContext(),
+            PathsToolRegistration.BROADCAST_BACKTRACK_DISABLED,
+            ::onBacktrackDisabled
+        )
     }
 
     override fun onPause() {
         super.onPause()
-        backtrackEnabledTopic.unsubscribe(::onBacktrackEnabled)
-        backtrackDisabledTopic.unsubscribe(::onBacktrackDisabled)
+        Tools.unsubscribe(PathsToolRegistration.BROADCAST_BACKTRACK_ENABLED, ::onBacktrackEnabled)
+        Tools.unsubscribe(PathsToolRegistration.BROADCAST_BACKTRACK_DISABLED, ::onBacktrackDisabled)
     }
 
     private fun onBacktrackEnabled(intent: Intent): Boolean {
@@ -68,7 +62,7 @@ class PathsSettingsFragment : AndromedaPreferenceFragment() {
         setPreferencesFromResource(R.xml.paths_preferences, rootKey)
         prefBacktrack = switch(R.string.pref_backtrack_enabled)
 
-        prefBacktrack?.isEnabled = !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesBacktrack)
+        prefBacktrack?.isEnabled = BacktrackIsAvailable().isSatisfiedBy(requireContext())
 
         prefBacktrack?.setOnPreferenceClickListener {
             val backtrack = BacktrackSubsystem.getInstance(requireContext())

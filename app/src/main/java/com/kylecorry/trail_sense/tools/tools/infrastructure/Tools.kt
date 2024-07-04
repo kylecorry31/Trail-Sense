@@ -1,8 +1,11 @@
 package com.kylecorry.trail_sense.tools.tools.infrastructure
 
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import com.kylecorry.andromeda.core.capitalizeWords
+import com.kylecorry.andromeda.core.system.BroadcastReceiverTopic
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.luna.hooks.Hooks
@@ -96,6 +99,7 @@ object Tools {
         LocalMessagingToolRegistration,
         LocalTalkToolRegistration
     )
+    private val topics = mutableMapOf<String, BroadcastReceiverTopic>()
 
     fun isToolAvailable(context: Context, toolId: Long): Boolean {
         return getTool(context, toolId) != null
@@ -148,6 +152,18 @@ object Tools {
                 it.putExtras(data)
             }
         })
+    }
+
+    fun subscribe(context: Context, toolBroadcastId: String, callback: (Intent) -> Boolean) {
+        val topic = topics.getOrPut(toolBroadcastId) {
+            BroadcastReceiverTopic(context, IntentFilter(toolBroadcastId))
+        }
+        topic.subscribe(callback)
+    }
+
+    fun unsubscribe(toolBroadcastId: String, callback: (Intent) -> Boolean) {
+        val topic = topics[toolBroadcastId]
+        topic?.unsubscribe(callback)
     }
 
     const val TOOL_QUICK_ACTION_OFFSET = 1000
