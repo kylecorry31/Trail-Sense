@@ -5,10 +5,10 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.battery.BatteryToolRegistration
 import com.kylecorry.trail_sense.tools.battery.infrastructure.BatteryLogWorker
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService2
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import java.time.Duration
 
-class BatteryLogToolService(private val context: Context) : ToolService2 {
+class BatteryLogToolService(private val context: Context) : ToolService {
     private val prefs = UserPreferences(context)
 
     override val id: String = BatteryToolRegistration.SERVICE_BATTERY_LOG

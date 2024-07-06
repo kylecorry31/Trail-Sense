@@ -10,11 +10,11 @@ import com.kylecorry.trail_sense.shared.extensions.tryStartForegroundOrNotify
 import com.kylecorry.trail_sense.shared.permissions.canStartLocationForgroundService
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.infrastructure.BacktrackScheduler
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService2
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
 
-class BacktrackToolService(private val context: Context) : ToolService2 {
+class BacktrackToolService(private val context: Context) : ToolService {
 
     private val prefs = UserPreferences(context)
 

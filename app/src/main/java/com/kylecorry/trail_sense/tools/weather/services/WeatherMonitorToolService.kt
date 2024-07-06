@@ -3,14 +3,14 @@ package com.kylecorry.trail_sense.tools.weather.services
 import android.content.Context
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService2
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorService
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherUpdateScheduler
 import java.time.Duration
 
-class WeatherMonitorToolService(private val context: Context) : ToolService2 {
+class WeatherMonitorToolService(private val context: Context) : ToolService {
 
     private val prefs = UserPreferences(context)
 

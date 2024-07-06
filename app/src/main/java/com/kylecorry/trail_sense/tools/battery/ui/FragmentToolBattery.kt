@@ -21,6 +21,7 @@ import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.list.ListView
+import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.sol.math.filters.IFilter
 import com.kylecorry.sol.math.filters.MedianFilter
 import com.kylecorry.trail_sense.R
@@ -107,8 +108,12 @@ class FragmentToolBattery : BoundFragment<FragmentToolBatteryBinding>() {
                 serviceBinding.description.text =
                     getString(R.string.dash_separated_pair, frequency, getBatteryUsage(service))
                 serviceBinding.disableBtn.setOnClickListener {
-                    service.disable()
-                    updateServices()
+                    runInBackground {
+                        service.disable()
+                        onMain {
+                            updateServices()
+                        }
+                    }
                 }
             }
         servicesList.addLineSeparator()

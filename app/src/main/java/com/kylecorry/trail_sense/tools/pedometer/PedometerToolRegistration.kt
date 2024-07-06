@@ -5,13 +5,12 @@ import android.hardware.Sensor
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.pedometer.actions.PausePedometerAction
 import com.kylecorry.trail_sense.tools.pedometer.actions.ResumePedometerAction
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.DistanceAlerter
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
-import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
 import com.kylecorry.trail_sense.tools.pedometer.quickactions.QuickActionPedometer
+import com.kylecorry.trail_sense.tools.pedometer.services.PedometerToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
@@ -19,10 +18,8 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
-import java.time.Duration
 
 object PedometerToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
@@ -62,30 +59,7 @@ object PedometerToolRegistration : ToolRegistration {
                     false
                 )
             ),
-            services = listOf(
-                ToolService(
-                    context.getString(R.string.pedometer),
-                    getFrequency = { Duration.ZERO },
-                    isActive = {
-                        val prefs = UserPreferences(it)
-                        prefs.pedometer.isEnabled && !prefs.isLowPowerModeOn
-                    },
-                    disable = {
-                        PedometerSubsystem.getInstance(it).disable()
-                    },
-                    stop = {
-                        StepCounterService.stop(it)
-                    },
-                    restart = {
-                        val prefs = UserPreferences(it)
-                        if (prefs.pedometer.isEnabled) {
-                            StepCounterService.start(it)
-                        } else {
-                            StepCounterService.stop(it)
-                        }
-                    }
-                )
-            ),
+            services = listOf(PedometerToolService(context)),
             diagnostics = listOf(
                 ToolDiagnosticFactory.pedometer(context),
                 ToolDiagnosticFactory.gps(context),
@@ -130,4 +104,6 @@ object PedometerToolRegistration : ToolRegistration {
 
     const val ACTION_RESUME_PEDOMETER = "pedometer-action-resume-pedometer"
     const val ACTION_PAUSE_PEDOMETER = "pedometer-action-pause-pedometer"
+
+    const val SERVICE_PEDOMETER = "pedometer-service-pedometer"
 }

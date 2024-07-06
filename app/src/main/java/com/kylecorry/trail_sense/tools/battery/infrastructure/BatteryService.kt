@@ -16,13 +16,13 @@ class BatteryService {
         val tools = Tools.getTools(context)
         return tools
             .flatMap { it.services }
-            .filter { it.isActive(context) }
+            .filter { it.isRunning() }
             .map {
                 RunningService(
                     it.name,
-                    it.getFrequency(context)
+                    it.getFrequency()
                 ) {
-                    it.disable(context)
+                    it.disable()
                 }
             }
     }

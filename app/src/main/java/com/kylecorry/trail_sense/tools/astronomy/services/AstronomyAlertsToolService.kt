@@ -5,10 +5,10 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.astronomy.AstronomyToolRegistration
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyDailyWorker
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService2
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import java.time.Duration
 
-class AstronomyAlertsToolService(private val context: Context) : ToolService2 {
+class AstronomyAlertsToolService(private val context: Context) : ToolService {
 
     private val prefs = UserPreferences(context)
 

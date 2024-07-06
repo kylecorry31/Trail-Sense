@@ -110,7 +110,7 @@ object Tools {
 
     fun getTools(context: Context, availableOnly: Boolean = true): List<Tool> {
         val tools = hooks.memo("tools", Resources.getLocale(context).language) {
-            registry.map { it.getTool(context) }
+            registry.map { it.getTool(context.applicationContext) }
         }
 
 

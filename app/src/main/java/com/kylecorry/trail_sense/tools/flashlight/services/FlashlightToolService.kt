@@ -5,10 +5,10 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.flashlight.FlashlightToolRegistration
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService2
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import java.time.Duration
 
-class FlashlightToolService(context: Context) : ToolService2 {
+class FlashlightToolService(context: Context) : ToolService {
 
     private val subsystem = FlashlightSubsystem.getInstance(context)
 

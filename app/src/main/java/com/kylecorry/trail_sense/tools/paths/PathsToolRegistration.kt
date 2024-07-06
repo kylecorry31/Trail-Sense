@@ -3,14 +3,11 @@ package com.kylecorry.trail_sense.tools.paths
 import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.FeatureState
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.paths.actions.PauseBacktrackAction
 import com.kylecorry.trail_sense.tools.paths.actions.ResumeBacktrackAction
-import com.kylecorry.trail_sense.tools.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.paths.infrastructure.services.BacktrackService
-import com.kylecorry.trail_sense.tools.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.tools.paths.quickactions.QuickActionBacktrack
+import com.kylecorry.trail_sense.tools.paths.services.BacktrackToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
@@ -18,7 +15,6 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 
@@ -54,31 +50,7 @@ object PathsToolRegistration : ToolRegistration {
                     muteSound = true
                 )
             ),
-            services = listOf(
-                ToolService(
-                    context.getString(R.string.backtrack),
-                    getFrequency = { UserPreferences(it).backtrackRecordFrequency },
-                    isActive = {
-                        BacktrackScheduler.isOn(it)
-                    },
-                    disable = {
-                        BacktrackSubsystem.getInstance(it).disable()
-                    },
-                    stop = {
-                        BacktrackScheduler.stop(it)
-                    },
-                    restart = {
-                        val backtrack = BacktrackSubsystem.getInstance(context)
-                        if (backtrack.getState() == FeatureState.On) {
-                            if (!BacktrackService.isRunning) {
-                                BacktrackScheduler.start(it, false)
-                            }
-                        } else {
-                            BacktrackScheduler.stop(it)
-                        }
-                    }
-                )
-            ),
+            services = listOf(BacktrackToolService(context)),
             diagnostics = listOf(
                 ToolDiagnosticFactory.gps(context),
                 *ToolDiagnosticFactory.altimeter(context),

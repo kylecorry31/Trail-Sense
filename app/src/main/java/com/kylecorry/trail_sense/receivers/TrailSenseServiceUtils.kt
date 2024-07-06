@@ -22,7 +22,7 @@ object TrailSenseServiceUtils {
 
             val tools = Tools.getTools(appContext, false)
             tools.flatMap { it.services }.forEach {
-                it.restart(appContext)
+                it.restart()
             }
 
             TileManager().setTilesEnabled(
@@ -35,12 +35,12 @@ object TrailSenseServiceUtils {
     /**
      * Temporarily stops all services (will restart when the app is opened again)
      */
-    fun stopServices(context: Context) {
+    suspend fun stopServices(context: Context) {
         val appContext = context.applicationContext
 
         val tools = Tools.getTools(appContext, false)
         tools.flatMap { it.services }.forEach {
-            it.stop(appContext)
+            it.stop()
         }
 
         TileManager().setTilesEnabled(appContext, false)
