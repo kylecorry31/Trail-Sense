@@ -76,4 +76,6 @@ object WhiteNoiseToolRegistration : ToolRegistration {
             )
         )
     }
+
+    const val SERVICE_WHITE_NOISE = "whitenoise-service-white-noise"
 }

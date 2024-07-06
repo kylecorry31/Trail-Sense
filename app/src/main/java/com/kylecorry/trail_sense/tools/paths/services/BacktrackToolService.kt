@@ -18,6 +18,8 @@ class BacktrackToolService(private val context: Context) : ToolService2 {
 
     private val prefs = UserPreferences(context)
 
+    override val id: String = PathsToolRegistration.SERVICE_BACKTRACK
+
     override val name: String = context.getString(R.string.backtrack)
 
     override fun getFrequency(): Duration {
@@ -46,9 +48,7 @@ class BacktrackToolService(private val context: Context) : ToolService2 {
 
         prefs.backtrackEnabled = true
         Tools.broadcast(PathsToolRegistration.BROADCAST_BACKTRACK_ENABLED)
-        if (!isBlocked()) {
-            start(true)
-        }
+        restart()
     }
 
     override suspend fun disable() {
@@ -71,6 +71,13 @@ class BacktrackToolService(private val context: Context) : ToolService2 {
     }
 
     private suspend fun start(startNewPath: Boolean) {
+        if (!isEnabled() || isBlocked()) {
+            // Can't start
+            return
+        }
+
+        // TODO: Check if the service is already running
+
         tryStartForegroundOrNotify(context) {
             BacktrackScheduler.start(context, startNewPath)
             // TODO: Broadcast

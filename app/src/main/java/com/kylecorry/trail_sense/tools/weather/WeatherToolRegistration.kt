@@ -151,4 +151,6 @@ object WeatherToolRegistration : ToolRegistration {
 
     const val ACTION_PAUSE_WEATHER_MONITOR = "weather-action-pause-weather-monitor"
     const val ACTION_RESUME_WEATHER_MONITOR = "weather-action-resume-weather-monitor"
+
+    const val SERVICE_WEATHER_MONITOR = "weather-service-weather-monitor"
 }

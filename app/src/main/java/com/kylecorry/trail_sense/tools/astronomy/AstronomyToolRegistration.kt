@@ -127,4 +127,7 @@ object AstronomyToolRegistration : ToolRegistration {
 
     const val BROADCAST_SUNSET_ALERTS_ENABLED = "astronomy-broadcast-sunset-alerts-enabled"
     const val BROADCAST_SUNSET_ALERTS_DISABLED = "astronomy-broadcast-sunset-alerts-disabled"
+
+    const val SERVICE_SUNSET_ALERTS = "astronomy-service-sunset-alerts"
+    const val SERVICE_ASTRONOMY_ALERTS = "astronomy-service-astronomy-alerts"
 }

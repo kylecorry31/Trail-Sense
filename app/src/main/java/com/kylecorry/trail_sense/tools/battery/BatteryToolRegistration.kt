@@ -72,4 +72,6 @@ object BatteryToolRegistration : ToolRegistration {
 
     const val BROADCAST_POWER_SAVING_MODE_ENABLED = "battery-broadcast-power-saving-mode-enabled"
     const val BROADCAST_POWER_SAVING_MODE_DISABLED = "battery-broadcast-power-saving-mode-disabled"
+
+    const val SERVICE_BATTERY_LOG = "battery-service-battery-log"
 }

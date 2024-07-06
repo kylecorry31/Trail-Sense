@@ -95,4 +95,6 @@ object FlashlightToolRegistration : ToolRegistration {
             )
         )
     }
+
+    const val SERVICE_FLASHLIGHT = "flashlight-service-flashlight"
 }

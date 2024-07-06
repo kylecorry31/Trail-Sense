@@ -5,6 +5,11 @@ import java.time.Duration
 interface ToolService2 {
 
     /**
+     * The unique ID of the service
+     */
+    val id: String
+
+    /**
      * The name of the service
      */
     val name: String
