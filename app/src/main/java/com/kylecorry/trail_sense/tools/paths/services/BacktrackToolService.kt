@@ -2,12 +2,14 @@ package com.kylecorry.trail_sense.tools.paths.services
 
 import android.content.Context
 import android.util.Log
+import androidx.core.os.bundleOf
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.receivers.ServiceRestartAlerter
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.tryStartForegroundOrNotify
 import com.kylecorry.trail_sense.shared.permissions.canStartLocationForgroundService
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.paths.infrastructure.services.BacktrackService
@@ -18,10 +20,24 @@ import java.time.Duration
 class BacktrackToolService(private val context: Context) : ToolService {
 
     private val prefs = UserPreferences(context)
+    private val sharedPreferences = PreferencesSubsystem.getInstance(context).preferences
+    private val stateChangePrefKeys = listOf(
+        R.string.pref_backtrack_enabled,
+        R.string.pref_low_power_mode,
+        R.string.pref_low_power_mode_backtrack
+    ).map { context.getString(it) }
+
+    private val frequencyChangePrefKeys = listOf(
+        R.string.pref_backtrack_frequency
+    ).map { context.getString(it) }
 
     override val id: String = PathsToolRegistration.SERVICE_BACKTRACK
 
     override val name: String = context.getString(R.string.backtrack)
+
+    init {
+        sharedPreferences.onChange.subscribe(this::onPreferencesChanged)
+    }
 
     override fun getFrequency(): Duration {
         return prefs.backtrackRecordFrequency
@@ -68,8 +84,6 @@ class BacktrackToolService(private val context: Context) : ToolService {
 
     override suspend fun stop() {
         BacktrackScheduler.stop(context)
-        // TODO: Broadcast that the service has stopped
-        Tools.broadcast(PathsToolRegistration.BROADCAST_BACKTRACK_STATE_CHANGED)
     }
 
     private suspend fun start(startNewPath: Boolean) {
@@ -85,9 +99,27 @@ class BacktrackToolService(private val context: Context) : ToolService {
 
         tryStartForegroundOrNotify(context) {
             BacktrackScheduler.start(context, startNewPath)
-            // TODO: Broadcast that the service has started
+        }
+    }
+
+    private fun onPreferencesChanged(preference: String): Boolean {
+        if (preference in stateChangePrefKeys) {
+            Tools.broadcast(PathsToolRegistration.BROADCAST_BACKTRACK_STATE_CHANGED)
         }
 
-        Tools.broadcast(PathsToolRegistration.BROADCAST_BACKTRACK_STATE_CHANGED)
+        if (preference in frequencyChangePrefKeys) {
+            Tools.broadcast(
+                PathsToolRegistration.BROADCAST_BACKTRACK_FREQUENCY_CHANGED,
+                bundleOf(
+                    PathsToolRegistration.BROADCAST_PARAM_BACKTRACK_FREQUENCY to prefs.backtrackRecordFrequency.toMillis()
+                )
+            )
+        }
+
+        return true
+    }
+
+    protected fun finalize() {
+        sharedPreferences.onChange.unsubscribe(this::onPreferencesChanged)
     }
 }
