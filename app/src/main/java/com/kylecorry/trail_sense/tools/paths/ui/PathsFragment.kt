@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.toast
-import com.kylecorry.andromeda.core.topics.generic.asLiveData
-import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
@@ -22,6 +20,7 @@ import com.kylecorry.trail_sense.shared.grouping.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.grouping.lists.bind
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.domain.IPath
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathGroup
@@ -32,7 +31,6 @@ import com.kylecorry.trail_sense.tools.paths.domain.pathsort.NamePathSortStrateg
 import com.kylecorry.trail_sense.tools.paths.domain.pathsort.ShortestPathSortStrategy
 import com.kylecorry.trail_sense.tools.paths.infrastructure.PathGroupLoader
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
-import com.kylecorry.trail_sense.tools.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ChangeBacktrackFrequencyCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.CreatePathCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.CreatePathGroupCommand
@@ -49,10 +47,17 @@ import com.kylecorry.trail_sense.tools.paths.ui.commands.SimplifyPathCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ToggleBacktrackCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.TogglePathVisibilityCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ViewPathCommand
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.getFeatureState
 
 class PathsFragment : BoundFragment<FragmentPathsBinding>() {
 
-    private val backtrack by lazy { BacktrackSubsystem.getInstance(requireContext()) }
+    private val service by lazy {
+        Tools.getService(
+            requireContext(),
+            PathsToolRegistration.SERVICE_BACKTRACK
+        )
+    }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val pathService by lazy {
         PathService.getInstance(requireContext())
@@ -136,10 +141,6 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
             ) { onUpdate() }.execute()
         }
 
-        backtrack.state.replay().asLiveData().observe(viewLifecycleOwner) { updateStatusBar() }
-
-        backtrack.frequency.replay().asLiveData().observe(viewLifecycleOwner) { updateStatusBar() }
-
         binding.backtrackPlayBar.setOnPlayButtonClickListener {
             val command = ToggleBacktrackCommand(this)
             command.execute()
@@ -148,17 +149,39 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         setupCreateMenu()
     }
 
+    override fun onResume() {
+        super.onResume()
+        Tools.subscribe(
+            PathsToolRegistration.BROADCAST_BACKTRACK_STATE_CHANGED,
+            this::onBacktrackChanged
+        )
+        Tools.subscribe(
+            PathsToolRegistration.BROADCAST_BACKTRACK_FREQUENCY_CHANGED,
+            this::onBacktrackChanged
+        )
+        updateStatusBar()
+    }
+
     override fun onPause() {
         super.onPause()
         tryOrNothing {
             lastRoot = manager.root
         }
+        Tools.unsubscribe(
+            PathsToolRegistration.BROADCAST_BACKTRACK_STATE_CHANGED,
+            this::onBacktrackChanged
+        )
+        Tools.unsubscribe(
+            PathsToolRegistration.BROADCAST_BACKTRACK_FREQUENCY_CHANGED,
+            this::onBacktrackChanged
+        )
     }
 
     private fun updateStatusBar() {
+        val service = service ?: return
         binding.backtrackPlayBar.setState(
-            backtrack.getState(),
-            backtrack.getFrequency()
+            service.getFeatureState(),
+            service.getFrequency()
         )
     }
 
@@ -353,6 +376,11 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
                 manager.refresh()
             }
         }
+    }
+
+    private fun onBacktrackChanged(data: Bundle): Boolean {
+        updateStatusBar()
+        return true
     }
 
 }
