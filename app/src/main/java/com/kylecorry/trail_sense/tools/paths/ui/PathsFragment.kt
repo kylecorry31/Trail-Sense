@@ -16,16 +16,12 @@ import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPathsBinding
-import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.onBackPressed
 import com.kylecorry.trail_sense.shared.grouping.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.grouping.lists.bind
 import com.kylecorry.trail_sense.shared.io.IOFactory
-import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
-import com.kylecorry.trail_sense.shared.permissions.requestBacktrackPermission
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.domain.IPath
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathGroup
@@ -50,10 +46,9 @@ import com.kylecorry.trail_sense.tools.paths.ui.commands.MoveIPathCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.RenamePathCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.RenamePathGroupGroupCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.SimplifyPathCommand
+import com.kylecorry.trail_sense.tools.paths.ui.commands.ToggleBacktrackCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.TogglePathVisibilityCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ViewPathCommand
-import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import com.kylecorry.trail_sense.tools.tools.infrastructure.getFeatureState
 
 class PathsFragment : BoundFragment<FragmentPathsBinding>() {
 
@@ -146,25 +141,8 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         backtrack.frequency.replay().asLiveData().observe(viewLifecycleOwner) { updateStatusBar() }
 
         binding.backtrackPlayBar.setOnPlayButtonClickListener {
-            val service =
-                Tools.getService(requireContext(), PathsToolRegistration.SERVICE_BACKTRACK)!!
-            inBackground {
-                when (service.getFeatureState()) {
-                    FeatureState.On -> service.disable()
-                    FeatureState.Off -> {
-                        requestBacktrackPermission { success ->
-                            if (success) {
-                                inBackground {
-                                    service.enable()
-                                    RequestRemoveBatteryRestrictionCommand(this@PathsFragment).execute()
-                                }
-                            }
-                        }
-                    }
-
-                    FeatureState.Unavailable -> toast(getString(R.string.backtrack_disabled_low_power_toast))
-                }
-            }
+            val command = ToggleBacktrackCommand(this)
+            command.execute()
         }
 
         setupCreateMenu()

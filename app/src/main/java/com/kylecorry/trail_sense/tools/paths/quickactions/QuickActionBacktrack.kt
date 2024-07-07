@@ -3,15 +3,11 @@ package com.kylecorry.trail_sense.tools.paths.quickactions
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.andromeda.alerts.toast
-import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
-import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
-import com.kylecorry.trail_sense.shared.permissions.requestBacktrackPermission
 import com.kylecorry.trail_sense.shared.quickactions.ToolServiceQuickAction
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
+import com.kylecorry.trail_sense.tools.paths.ui.commands.ToggleBacktrackCommand
 
 class QuickActionBacktrack(btn: ImageButton, fragment: Fragment) :
     ToolServiceQuickAction(
@@ -35,22 +31,7 @@ class QuickActionBacktrack(btn: ImageButton, fragment: Fragment) :
 
     override fun onClick() {
         super.onClick()
-        fragment.inBackground {
-            when (state) {
-                FeatureState.On -> service?.disable()
-                FeatureState.Off -> {
-                    fragment.requestBacktrackPermission { success ->
-                        if (success) {
-                            fragment.inBackground {
-                                service?.enable()
-                                RequestRemoveBatteryRestrictionCommand(fragment).execute()
-                            }
-                        }
-                    }
-                }
-
-                FeatureState.Unavailable -> fragment.toast(context.getString(R.string.backtrack_disabled_low_power_toast))
-            }
-        }
+        val command = ToggleBacktrackCommand(fragment)
+        command.execute()
     }
 }
