@@ -9,8 +9,10 @@ import com.kylecorry.andromeda.background.services.IntervalService
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.infrastructure.alerts.BacktrackAlerter
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.BacktrackCommand
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
 
 class BacktrackService :
@@ -60,7 +62,10 @@ class BacktrackService :
         const val FOREGROUND_CHANNEL_ID = "Backtrack"
 
         var isRunning = false
-            private set
+            private set(value) {
+                field = value
+                Tools.broadcast(PathsToolRegistration.BROADCAST_BACKTRACK_STATE_CHANGED)
+            }
 
         fun start(context: Context) {
             scheduler(context).start()

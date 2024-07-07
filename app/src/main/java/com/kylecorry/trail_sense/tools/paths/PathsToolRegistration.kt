@@ -71,6 +71,10 @@ object PathsToolRegistration : ToolRegistration {
                 ToolBroadcast(
                     BROADCAST_BACKTRACK_DISABLED,
                     "Backtrack disabled"
+                ),
+                ToolBroadcast(
+                    BROADCAST_BACKTRACK_STATE_CHANGED,
+                    "Backtrack state changed"
                 )
             ),
             actions = listOf(
@@ -90,6 +94,7 @@ object PathsToolRegistration : ToolRegistration {
 
     const val BROADCAST_BACKTRACK_ENABLED = "paths-broadcast-backtrack-enabled"
     const val BROADCAST_BACKTRACK_DISABLED = "paths-broadcast-backtrack-disabled"
+    const val BROADCAST_BACKTRACK_STATE_CHANGED = "paths-broadcast-backtrack-state-changed"
 
     const val ACTION_PAUSE_BACKTRACK = "paths-action-pause-backtrack"
     const val ACTION_RESUME_BACKTRACK = "paths-action-resume-backtrack"

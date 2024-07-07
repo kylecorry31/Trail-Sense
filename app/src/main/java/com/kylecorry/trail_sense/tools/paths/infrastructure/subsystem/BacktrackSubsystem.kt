@@ -2,24 +2,15 @@ package com.kylecorry.trail_sense.tools.paths.infrastructure.subsystem
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
-import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.topics.generic.ITopic
 import com.kylecorry.andromeda.core.topics.generic.Topic
 import com.kylecorry.andromeda.core.topics.generic.distinct
-import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.receivers.ServiceRestartAlerter
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.getOrNull
-import com.kylecorry.trail_sense.shared.extensions.tryStartForegroundOrNotify
-import com.kylecorry.trail_sense.shared.permissions.canStartLocationForgroundService
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.infrastructure.BacktrackScheduler
-import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.StopBacktrackCommand
-import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
 import java.util.Optional
 
@@ -69,26 +60,6 @@ class BacktrackSubsystem private constructor(private val context: Context) {
 
     fun getFrequency(): Duration {
         return frequency.getOrNull() ?: Duration.ofMinutes(30)
-    }
-
-    suspend fun enable(startNewPath: Boolean) {
-        if (!Permissions.canStartLocationForgroundService(context)) {
-            ServiceRestartAlerter(context).alert()
-            Log.d("BacktrackSubsystem", "Cannot start backtrack")
-            return
-        }
-
-
-        prefs.backtrackEnabled = true
-        Tools.broadcast(PathsToolRegistration.BROADCAST_BACKTRACK_ENABLED)
-
-        tryStartForegroundOrNotify(context) {
-            BacktrackScheduler.start(context, startNewPath)
-        }
-    }
-
-    fun disable() {
-        StopBacktrackCommand(context).execute()
     }
 
     private fun calculateBacktrackState(): FeatureState {

@@ -25,6 +25,7 @@ import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.permissions.requestBacktrackPermission
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.domain.IPath
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathGroup
@@ -51,6 +52,8 @@ import com.kylecorry.trail_sense.tools.paths.ui.commands.RenamePathGroupGroupCom
 import com.kylecorry.trail_sense.tools.paths.ui.commands.SimplifyPathCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.TogglePathVisibilityCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ViewPathCommand
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.getFeatureState
 
 class PathsFragment : BoundFragment<FragmentPathsBinding>() {
 
@@ -132,7 +135,10 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         }
 
         binding.backtrackPlayBar.setOnSubtitleClickListener {
-            ChangeBacktrackFrequencyCommand(requireContext(), lifecycleScope) { onUpdate() }.execute()
+            ChangeBacktrackFrequencyCommand(
+                requireContext(),
+                lifecycleScope
+            ) { onUpdate() }.execute()
         }
 
         backtrack.state.replay().asLiveData().observe(viewLifecycleOwner) { updateStatusBar() }
@@ -140,19 +146,24 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         backtrack.frequency.replay().asLiveData().observe(viewLifecycleOwner) { updateStatusBar() }
 
         binding.backtrackPlayBar.setOnPlayButtonClickListener {
-            when (backtrack.getState()) {
-                FeatureState.On -> backtrack.disable()
-                FeatureState.Off -> {
-                    requestBacktrackPermission { success ->
-                        if (success) {
-                            inBackground {
-                                backtrack.enable(true)
-                                RequestRemoveBatteryRestrictionCommand(this@PathsFragment).execute()
+            val service =
+                Tools.getService(requireContext(), PathsToolRegistration.SERVICE_BACKTRACK)!!
+            inBackground {
+                when (service.getFeatureState()) {
+                    FeatureState.On -> service.disable()
+                    FeatureState.Off -> {
+                        requestBacktrackPermission { success ->
+                            if (success) {
+                                inBackground {
+                                    service.enable()
+                                    RequestRemoveBatteryRestrictionCommand(this@PathsFragment).execute()
+                                }
                             }
                         }
                     }
+
+                    FeatureState.Unavailable -> toast(getString(R.string.backtrack_disabled_low_power_toast))
                 }
-                FeatureState.Unavailable -> toast(getString(R.string.backtrack_disabled_low_power_toast))
             }
         }
 

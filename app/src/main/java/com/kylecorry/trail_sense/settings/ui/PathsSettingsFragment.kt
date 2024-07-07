@@ -1,25 +1,25 @@
 package com.kylecorry.trail_sense.settings.ui
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.SwitchPreferenceCompat
+import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.permissions.requestBacktrackPermission
 import com.kylecorry.trail_sense.shared.preferences.setupNotificationSetting
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
-import com.kylecorry.trail_sense.tools.paths.infrastructure.BacktrackIsAvailable
 import com.kylecorry.trail_sense.tools.paths.infrastructure.services.BacktrackService
-import com.kylecorry.trail_sense.tools.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ChangeBacktrackFrequencyCommand
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.getFeatureState
 import java.time.Duration
 
 class PathsSettingsFragment : AndromedaPreferenceFragment() {
@@ -60,24 +60,32 @@ class PathsSettingsFragment : AndromedaPreferenceFragment() {
         setPreferencesFromResource(R.xml.paths_preferences, rootKey)
         prefBacktrack = switch(R.string.pref_backtrack_enabled)
 
-        prefBacktrack?.isEnabled = BacktrackIsAvailable().isSatisfiedBy(requireContext())
+        val backtrackService =
+            Tools.getService(requireContext(), PathsToolRegistration.SERVICE_BACKTRACK) ?: return
+
+        prefBacktrack?.isEnabled = !backtrackService.isBlocked()
 
         prefBacktrack?.setOnPreferenceClickListener {
-            val backtrack = BacktrackSubsystem.getInstance(requireContext())
-            if (prefs.backtrackEnabled) {
-                requestBacktrackPermission { success ->
-                    if (success) {
-                        inBackground {
-                            backtrack.enable(true)
-                            RequestRemoveBatteryRestrictionCommand(this@PathsSettingsFragment).execute()
+            val state = backtrackService.getFeatureState()
+
+            inBackground {
+                when (state) {
+                    FeatureState.On -> backtrackService.disable()
+                    FeatureState.Off -> {
+                        requestBacktrackPermission { success ->
+                            if (success) {
+                                inBackground {
+                                    backtrackService.enable()
+                                    RequestRemoveBatteryRestrictionCommand(this@PathsSettingsFragment).execute()
+                                }
+                            } else {
+                                prefBacktrack?.isChecked = false
+                            }
                         }
-                    } else {
-                        backtrack.disable()
-                        prefBacktrack?.isChecked = false
                     }
+
+                    FeatureState.Unavailable -> toast(getString(R.string.backtrack_disabled_low_power_toast))
                 }
-            } else {
-                backtrack.disable()
             }
             true
         }

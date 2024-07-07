@@ -4,12 +4,15 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.StopBacktrackCommand
+import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import kotlinx.coroutines.runBlocking
 
 class StopBacktrackReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         context ?: return
-        StopBacktrackCommand(context).execute()
+        val service = Tools.getService(context, PathsToolRegistration.SERVICE_BACKTRACK)
+        runBlocking { service?.disable() }
     }
 
     companion object {

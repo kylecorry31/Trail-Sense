@@ -161,6 +161,12 @@ object Tools {
         topic?.unsubscribe(callback)
     }
 
+    fun getService(context: Context, serviceId: String): ToolService? {
+        return getTools(context)
+            .flatMap { it.services }
+            .firstOrNull { it.id == serviceId }
+    }
+
     const val TOOL_QUICK_ACTION_OFFSET = 1000
 
     // Tool IDs

@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.shared.extensions.tryStartForegroundOrNotify
 import com.kylecorry.trail_sense.shared.permissions.canStartLocationForgroundService
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.infrastructure.BacktrackScheduler
+import com.kylecorry.trail_sense.tools.paths.infrastructure.services.BacktrackService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
@@ -27,7 +28,7 @@ class BacktrackToolService(private val context: Context) : ToolService {
     }
 
     override fun isRunning(): Boolean {
-        return isEnabled() && !isBlocked()
+        return BacktrackService.isRunning
     }
 
     override fun isEnabled(): Boolean {
@@ -67,7 +68,8 @@ class BacktrackToolService(private val context: Context) : ToolService {
 
     override suspend fun stop() {
         BacktrackScheduler.stop(context)
-        // TODO: Broadcast
+        // TODO: Broadcast that the service has stopped
+        Tools.broadcast(PathsToolRegistration.BROADCAST_BACKTRACK_STATE_CHANGED)
     }
 
     private suspend fun start(startNewPath: Boolean) {
@@ -76,11 +78,16 @@ class BacktrackToolService(private val context: Context) : ToolService {
             return
         }
 
-        // TODO: Check if the service is already running
+        if (isRunning()) {
+            // Already running
+            return
+        }
 
         tryStartForegroundOrNotify(context) {
             BacktrackScheduler.start(context, startNewPath)
-            // TODO: Broadcast
+            // TODO: Broadcast that the service has started
         }
+
+        Tools.broadcast(PathsToolRegistration.BROADCAST_BACKTRACK_STATE_CHANGED)
     }
 }
