@@ -17,6 +17,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPackListBinding
 import com.kylecorry.trail_sense.tools.packs.domain.Pack
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackRepo
+import com.kylecorry.trail_sense.tools.packs.ui.commands.ExportPackingListCommand
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.PackAction
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.PackListItemMapper
 import kotlinx.coroutines.Dispatchers
@@ -46,6 +47,7 @@ class PackListFragment : BoundFragment<FragmentPackListBinding>() {
             PackAction.Copy -> copyPack(pack)
             PackAction.Delete -> deletePack(pack)
             PackAction.Open -> openPack(pack.id)
+            PackAction.Export -> exportPack(pack)
         }
     }
 
@@ -76,6 +78,10 @@ class PackListFragment : BoundFragment<FragmentPackListBinding>() {
                 }
             }
         }
+    }
+
+    private fun exportPack(pack: Pack) {
+        ExportPackingListCommand(this).execute(pack)
     }
 
     private fun deletePack(pack: Pack) {

@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.packs.infrastructure
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
+import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.tools.packs.domain.Pack
 import com.kylecorry.trail_sense.tools.packs.domain.PackItem
@@ -13,8 +14,9 @@ class PackRepo private constructor(context: Context) : IPackRepo {
     private val packDao = AppDatabase.getInstance(context).packDao()
     private val mapper = PackMapper()
 
-    override suspend fun getItemsFromPackAsync(packId: Long) =
+    override suspend fun getItemsFromPackAsync(packId: Long) = onIO {
         inventoryItemDao.getFromPackAsync(packId).map { mapper.mapToPackItem(it) }
+    }
 
     override fun getItemsFromPack(packId: Long): LiveData<List<PackItem>> {
         return inventoryItemDao.getFromPack(packId).map {
@@ -39,7 +41,8 @@ class PackRepo private constructor(context: Context) : IPackRepo {
         return mapper.mapToPackItem(item)
     }
 
-    override suspend fun deleteItem(item: PackItem) = inventoryItemDao.delete(mapper.mapToItemEntity(item))
+    override suspend fun deleteItem(item: PackItem) =
+        inventoryItemDao.delete(mapper.mapToItemEntity(item))
 
     override suspend fun deletePack(pack: Pack) {
         inventoryItemDao.deleteAllFromPack(pack.id)

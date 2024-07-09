@@ -12,6 +12,7 @@ import com.kylecorry.trail_sense.tools.packs.domain.Pack
 enum class PackAction {
     Rename,
     Copy,
+    Export,
     Delete,
     Open
 }
@@ -40,6 +41,12 @@ class PackListItemMapper(
                     actionHandler(
                         value,
                         PackAction.Copy
+                    )
+                },
+                ListMenuItem(context.getString(R.string.export)) {
+                    actionHandler(
+                        value,
+                        PackAction.Export
                     )
                 },
                 ListMenuItem(context.getString(R.string.delete)) {

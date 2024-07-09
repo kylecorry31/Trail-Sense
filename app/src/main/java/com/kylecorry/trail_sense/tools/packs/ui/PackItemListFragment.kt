@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.tools.packs.domain.sort.CategoryPackItemSort
 import com.kylecorry.trail_sense.tools.packs.domain.sort.PackedPercentPackItemSort
 import com.kylecorry.trail_sense.tools.packs.domain.sort.WeightPackItemSort
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackRepo
+import com.kylecorry.trail_sense.tools.packs.ui.commands.ExportPackingListCommand
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.PackItemAction
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.PackItemListItemMapper
 import kotlinx.coroutines.Dispatchers
@@ -85,7 +86,10 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
             }
             binding.totalPercentPacked.text =
                 getString(R.string.percent_packed, formatService.formatPercentage(packedPercent))
-            binding.inventoryList.setItems(sorts[prefs.packs.packSort]?.sort(items) ?: items, listMapper)
+            binding.inventoryList.setItems(
+                sorts[prefs.packs.packSort]?.sort(items) ?: items,
+                listMapper
+            )
         }
 
         binding.addBtn.setOnClickListener {
@@ -96,22 +100,22 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
         }
 
         binding.inventoryListTitle.rightButton.setOnClickListener {
-            Pickers.menu(binding.inventoryListTitle.rightButton, R.menu.inventory_menu) {
+            Pickers.menu(
+                binding.inventoryListTitle.rightButton,
+                listOf(
+                    getString(R.string.sort),
+                    getString(R.string.rename),
+                    getString(R.string.export),
+                    getString(R.string.delete),
+                    getString(R.string.clear_amounts)
+                )
+            ) {
                 when (it) {
-                    R.id.action_pack_sort -> {
-                        changeSort()
-                    }
-                    R.id.action_pack_rename -> {
-                        pack?.let {
-                            renamePack(it)
-                        }
-                    }
-                    R.id.action_pack_delete -> {
-                        pack?.let {
-                            deletePack(it)
-                        }
-                    }
-                    R.id.action_pack_clear_packed -> {
+                    0 -> changeSort()
+                    1 -> pack?.let { renamePack(it) }
+                    2 -> pack?.let { exportPack(it) }
+                    3 -> pack?.let { deletePack(it) }
+                    4 -> pack?.let {
                         Alerts.dialog(
                             requireContext(),
                             getString(R.string.clear_amounts),
@@ -156,6 +160,10 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
                 }
             }
         }
+    }
+
+    private fun exportPack(pack: Pack) {
+        ExportPackingListCommand(this).execute(pack)
     }
 
     private fun deletePack(pack: Pack) {

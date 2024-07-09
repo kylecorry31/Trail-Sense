@@ -12,6 +12,7 @@ import com.kylecorry.trail_sense.shared.io.UriPicker
 import com.kylecorry.trail_sense.shared.io.UriService
 import com.kylecorry.trail_sense.tools.packs.domain.ItemCategory
 import com.kylecorry.trail_sense.tools.packs.domain.PackItem
+import kotlin.math.max
 
 /**
  * Imports/exports pack items to/from the LighterPack CSV format
@@ -32,15 +33,26 @@ class LighterPackIOService(uriPicker: UriPicker, uriService: UriService) :
     }
 
     private fun toCsv(pack: List<PackItem>): List<List<String>> {
-        val headers = listOf("Item Name", "Category", "desc", "qty", "weight", "unit")
+        val headers = listOf(
+            "item name",
+            "category",
+            "desc",
+            "qty",
+            "weight",
+            "unit",
+            "packed qty",
+            "desired qty"
+        )
         val items = pack.map {
             listOf(
                 it.name,
                 "${it.category.id} - ${it.category.name}",
-                "",
-                if (it.desiredAmount == 0.0) it.amount.toString() else it.desiredAmount.toString(),
-                it.weight?.weight.toString(),
-                it.weight?.units.toString() // TODO: Map units to match LighterPack
+                "", // No description, required for LighterPack
+                max(it.amount, it.desiredAmount).toString(),
+                (it.weight?.weight ?: 0f).toString(),
+                formatWeightUnit(it.weight?.units ?: WeightUnits.Grams),
+                it.amount.toString(),
+                it.desiredAmount.toString()
             )
         }
         return listOf(headers) + items
@@ -51,18 +63,20 @@ class LighterPackIOService(uriPicker: UriPicker, uriService: UriService) :
             return null
         }
 
-        return data.drop(1).map {
+        return data.drop(1).map { it ->
             val name = it.getOrNull(0) ?: ""
             val category = parseCategoryString(it.getOrNull(1) ?: "")
-            val qty = it.getOrNull(3)?.toDoubleCompat() ?: 0.0
             val weight = it.getOrNull(4)?.toFloatOrNull()
             val unit = it.getOrNull(5)?.let { parseWeightUnit(it) } ?: WeightUnits.Grams
+            val packedQty = it.getOrNull(6)?.toDoubleCompat() ?: 0.0
+            val desiredQty = it.getOrNull(7)?.toDoubleCompat() ?: 0.0
             PackItem(
                 0,
                 0,
                 name,
                 category,
-                desiredAmount = qty,
+                amount = packedQty,
+                desiredAmount = desiredQty,
                 weight = weight?.let { Weight(it, unit) })
         }
     }
@@ -82,6 +96,10 @@ class LighterPackIOService(uriPicker: UriPicker, uriService: UriService) :
         // Otherwise, use the name
         return ItemCategory.entries.find { it.name.lowercase() == category.lowercase() }
             ?: ItemCategory.Other
+    }
+
+    private fun formatWeightUnit(unit: WeightUnits): String {
+        return unit.name.lowercase()
     }
 
     private fun parseWeightUnit(unit: String): WeightUnits {
