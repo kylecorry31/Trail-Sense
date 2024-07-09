@@ -6,6 +6,7 @@ import androidx.preference.ListPreference
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.core.topics.generic.asLiveData
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -19,6 +20,12 @@ class AstronomySettingsFragment : AndromedaPreferenceFragment() {
     private var prefleftButton: ListPreference? = null
     private var prefrightButton: ListPreference? = null
     private var prefSunsetAlertsSwitch: SwitchPreferenceCompat? = null
+    private val service by lazy {
+        Tools.getService(
+            requireContext(),
+            AstronomyToolRegistration.SERVICE_SUNSET_ALERTS
+        )!!
+    }
 
     override fun onResume() {
         super.onResume()
@@ -68,10 +75,12 @@ class AstronomySettingsFragment : AndromedaPreferenceFragment() {
             Tools.isToolAvailable(requireContext(), Tools.AUGMENTED_REALITY)
 
         onClick(prefSunsetAlertsSwitch) {
-            if (prefs.astronomy.sendSunsetAlerts) {
-                SunsetAlarmReceiver.enable(this, true)
-            } else {
-                Tools.broadcast(AstronomyToolRegistration.BROADCAST_SUNSET_ALERTS_DISABLED)
+            inBackground {
+                if (prefs.astronomy.sendSunsetAlerts) {
+                    SunsetAlarmReceiver.enable(this@AstronomySettingsFragment, true)
+                } else {
+                    service.disable()
+                }
             }
         }
     }
@@ -83,17 +92,11 @@ class AstronomySettingsFragment : AndromedaPreferenceFragment() {
         PreferencesSubsystem.getInstance(requireContext()).preferences.onChange.asLiveData()
             .observe(viewLifecycleOwner) {
                 if (it == alertTimePrefKey) {
-                    restartSunsetAlerts(false)
+                    inBackground {
+                        service.restart()
+                    }
                 }
             }
-    }
-
-    private fun restartSunsetAlerts(shouldRequestPermissions: Boolean) {
-        if (!prefs.astronomy.sendSunsetAlerts) {
-            return
-        }
-
-        SunsetAlarmReceiver.enable(this, shouldRequestPermissions)
     }
 
     private fun onSunsetAlertsEnabled(data: Bundle): Boolean {
