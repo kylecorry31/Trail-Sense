@@ -49,8 +49,8 @@ class PackRepo private constructor(context: Context) : IPackRepo {
         packDao.delete(mapper.mapToPackEntity(pack))
     }
 
-    override suspend fun addPack(pack: Pack): Long {
-        return if (pack.id == 0L) {
+    override suspend fun addPack(pack: Pack): Long = onIO {
+        if (pack.id == 0L) {
             packDao.insert(mapper.mapToPackEntity(pack))
         } else {
             packDao.update(mapper.mapToPackEntity(pack))
@@ -73,9 +73,10 @@ class PackRepo private constructor(context: Context) : IPackRepo {
         return newId
     }
 
-    override suspend fun addItem(item: PackItem) {
+    override suspend fun addItem(item: PackItem) = onIO {
         if (item.id != 0L) {
             inventoryItemDao.update(mapper.mapToItemEntity(item))
+            item.id
         } else {
             inventoryItemDao.insert(mapper.mapToItemEntity(item))
         }

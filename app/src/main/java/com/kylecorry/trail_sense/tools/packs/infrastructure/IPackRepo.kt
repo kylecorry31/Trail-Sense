@@ -23,7 +23,7 @@ interface IPackRepo {
 
     suspend fun addPack(pack: Pack): Long
 
-    suspend fun addItem(item: PackItem)
+    suspend fun addItem(item: PackItem): Long
 
     suspend fun deleteAll()
 

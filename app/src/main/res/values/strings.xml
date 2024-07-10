@@ -1438,4 +1438,5 @@
     <string name="bottom_navigation_slot">Bottom navigation slot %d</string>
     <string name="pref_weather_forecast_source" translatable="false">pref_weather_forecast_source</string>
     <string name="forecast_algorithm">Forecast algorithm</string>
+    <string name="no_items_found">No items found</string>
 </resources>

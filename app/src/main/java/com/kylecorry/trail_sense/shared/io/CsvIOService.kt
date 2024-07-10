@@ -13,7 +13,16 @@ class CsvIOService(private val uriPicker: UriPicker, private val uriService: Uri
     }
 
     override suspend fun import(): List<List<String>>? = onIO {
-        val uri = uriPicker.open(listOf("text/csv")) ?: return@onIO null
+        val uri =
+            uriPicker.open(
+                listOf(
+                    "text/csv",
+                    "application/csv",
+                    "text/comma-separated-values",
+                    "text/plain"
+                )
+            )
+                ?: return@onIO null
         val stream = uriService.inputStream(uri) ?: return@onIO null
         CSVConvert.parse(stream.readText())
     }

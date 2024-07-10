@@ -18,6 +18,7 @@ import com.kylecorry.trail_sense.databinding.FragmentPackListBinding
 import com.kylecorry.trail_sense.tools.packs.domain.Pack
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackRepo
 import com.kylecorry.trail_sense.tools.packs.ui.commands.ExportPackingListCommand
+import com.kylecorry.trail_sense.tools.packs.ui.commands.ImportPackingListCommand
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.PackAction
 import com.kylecorry.trail_sense.tools.packs.ui.mappers.PackListItemMapper
 import kotlinx.coroutines.Dispatchers
@@ -60,6 +61,11 @@ class PackListFragment : BoundFragment<FragmentPackListBinding>() {
         }
 
         binding.addBtn.setOnClickListener { createPack() }
+
+        // TODO: Temporary
+        binding.packListTitle.rightButton.setOnClickListener {
+            ImportPackingListCommand(this).execute()
+        }
     }
 
     private fun renamePack(pack: Pack) {

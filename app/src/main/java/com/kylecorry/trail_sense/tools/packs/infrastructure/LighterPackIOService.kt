@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.packs.infrastructure
 
+import android.content.Context
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.luna.text.toDoubleCompat
 import com.kylecorry.sol.units.Weight
@@ -34,15 +35,16 @@ class LighterPackIOService(uriPicker: UriPicker, uriService: UriService) :
 
     private fun toCsv(pack: List<PackItem>): List<List<String>> {
         val headers = listOf(
-            "item name",
-            "category",
-            "desc",
-            "qty",
-            "weight",
-            "unit",
-            "packed qty",
-            "desired qty"
+            HEADER_ITEM_NAME,
+            HEADER_CATEGORY,
+            HEADER_DESCRIPTION,
+            HEADER_QUANTITY,
+            HEADER_WEIGHT_AMOUNT,
+            HEADER_WEIGHT_UNIT,
+            HEADER_PACKED_QUANTITY,
+            HEADER_DESIRED_QUANTITY
         )
+
         val items = pack.map {
             listOf(
                 it.name,
@@ -63,13 +65,23 @@ class LighterPackIOService(uriPicker: UriPicker, uriService: UriService) :
             return null
         }
 
+        val headerRow = data.first().map { it.lowercase() }
+        val nameIdx = headerRow.indexOf(HEADER_ITEM_NAME.lowercase())
+        val categoryIdx = headerRow.indexOf(HEADER_CATEGORY.lowercase())
+        val weightAmountIdx = headerRow.indexOf(HEADER_WEIGHT_AMOUNT.lowercase())
+        val weightUnitIdx = headerRow.indexOf(HEADER_WEIGHT_UNIT.lowercase())
+        val qtyIdx = headerRow.indexOf(HEADER_QUANTITY.lowercase())
+        val packedQtyIdx = headerRow.indexOf(HEADER_PACKED_QUANTITY.lowercase())
+        val desiredQtyIdx = headerRow.indexOf(HEADER_DESIRED_QUANTITY.lowercase())
+
         return data.drop(1).map { it ->
-            val name = it.getOrNull(0) ?: ""
-            val category = parseCategoryString(it.getOrNull(1) ?: "")
-            val weight = it.getOrNull(4)?.toFloatOrNull()
-            val unit = it.getOrNull(5)?.let { parseWeightUnit(it) } ?: WeightUnits.Grams
-            val packedQty = it.getOrNull(6)?.toDoubleCompat() ?: 0.0
-            val desiredQty = it.getOrNull(7)?.toDoubleCompat() ?: 0.0
+            val name = it.getOrNull(nameIdx) ?: ""
+            val category = parseCategoryString(it.getOrNull(categoryIdx) ?: "")
+            val weight = it.getOrNull(weightAmountIdx)?.toFloatOrNull()
+            val unit = it.getOrNull(weightUnitIdx)?.let { parseWeightUnit(it) } ?: WeightUnits.Grams
+            val packedQty = it.getOrNull(packedQtyIdx)?.toDoubleCompat() ?: 0.0
+            val desiredQty = it.getOrNull(desiredQtyIdx)?.toDoubleCompat() ?: it.getOrNull(qtyIdx)
+                ?.toDoubleCompat() ?: 0.0
             PackItem(
                 0,
                 0,
@@ -108,6 +120,16 @@ class LighterPackIOService(uriPicker: UriPicker, uriService: UriService) :
     }
 
     companion object {
+
+        private const val HEADER_ITEM_NAME = "item name"
+        private const val HEADER_CATEGORY = "category"
+        private const val HEADER_DESCRIPTION = "desc"
+        private const val HEADER_QUANTITY = "qty"
+        private const val HEADER_WEIGHT_AMOUNT = "weight"
+        private const val HEADER_WEIGHT_UNIT = "unit"
+        private const val HEADER_PACKED_QUANTITY = "packed qty"
+        private const val HEADER_DESIRED_QUANTITY = "desired qty"
+
         fun create(fragment: AndromedaFragment): LighterPackIOService {
             return LighterPackIOService(
                 FragmentUriPicker(fragment),

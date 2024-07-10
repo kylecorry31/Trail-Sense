@@ -8,8 +8,6 @@ import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.luna.text.slugify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.commands.generic.Command
-import com.kylecorry.trail_sense.shared.io.ExternalUriService
-import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
 import com.kylecorry.trail_sense.tools.packs.domain.Pack
 import com.kylecorry.trail_sense.tools.packs.domain.PackItem
 import com.kylecorry.trail_sense.tools.packs.infrastructure.LighterPackIOService
@@ -17,10 +15,7 @@ import com.kylecorry.trail_sense.tools.packs.infrastructure.PackRepo
 
 class ExportPackingListCommand(private val fragment: AndromedaFragment) : Command<Pack> {
 
-    private val exportService = LighterPackIOService(
-        FragmentUriPicker(fragment),
-        ExternalUriService(fragment.requireContext())
-    )
+    private val exportService = LighterPackIOService.create(fragment)
 
     private val repo = PackRepo.getInstance(fragment.requireContext())
 
