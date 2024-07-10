@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_import_packing_list"
+        android:icon="@drawable/ic_file"
+        android:title="@string/import_packing_list" />
+    <item
+        android:id="@+id/action_create_packing_list"
+        android:icon="@drawable/ic_tool_pack"
+        android:title="@string/new_packing_list" />
+</menu>

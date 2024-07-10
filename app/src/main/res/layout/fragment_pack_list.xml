@@ -12,7 +12,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rightButtonIcon="@drawable/ic_import_export"
         app:showSubtitle="false"
         app:title="@string/packing_lists" />
 
@@ -26,6 +25,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pack_list_title" />
+
+    <ImageView
+        android:id="@+id/overlay_mask"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.86"
+        android:background="?android:colorBackground"
+        android:clickable="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.kylecorry.trail_sense.shared.views.FloatingActionButtonMenu
+        android:id="@+id/create_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/add_btn"
+        app:layout_constraintEnd_toEndOf="@id/add_btn"
+        app:menu="@menu/add_pack_menu"
+        tools:visibility="visible" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_btn"

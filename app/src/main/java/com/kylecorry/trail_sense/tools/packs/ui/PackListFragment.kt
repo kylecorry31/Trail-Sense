@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
@@ -15,6 +16,7 @@ import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPackListBinding
+import com.kylecorry.trail_sense.shared.extensions.onBackPressed
 import com.kylecorry.trail_sense.tools.packs.domain.Pack
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackRepo
 import com.kylecorry.trail_sense.tools.packs.ui.commands.ExportPackingListCommand
@@ -62,10 +64,7 @@ class PackListFragment : BoundFragment<FragmentPackListBinding>() {
 
         binding.addBtn.setOnClickListener { createPack() }
 
-        // TODO: Temporary
-        binding.packListTitle.rightButton.setOnClickListener {
-            ImportPackingListCommand(this).execute()
-        }
+        bindCreateMenu()
     }
 
     private fun renamePack(pack: Pack) {
@@ -155,6 +154,60 @@ class PackListFragment : BoundFragment<FragmentPackListBinding>() {
                 }
             }
         }
+    }
+
+    private fun bindCreateMenu() {
+        binding.createMenu.setOverlay(binding.overlayMask)
+        binding.createMenu.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.action_import_packing_list -> {
+                    setCreateMenuVisibility(false)
+                    ImportPackingListCommand(this).execute()
+                }
+
+                R.id.action_create_packing_list -> {
+                    setCreateMenuVisibility(false)
+                    createPack()
+                }
+            }
+            true
+        }
+        binding.createMenu.setOnHideListener {
+            binding.addBtn.setImageResource(R.drawable.ic_add)
+        }
+
+        binding.createMenu.setOnShowListener {
+            binding.addBtn.setImageResource(R.drawable.ic_cancel)
+        }
+
+        binding.addBtn.setOnClickListener {
+            setCreateMenuVisibility(!isCreateMenuOpen())
+        }
+
+        onBackPressed {
+            when {
+                isCreateMenuOpen() -> {
+                    setCreateMenuVisibility(false)
+                }
+
+                else -> {
+                    remove()
+                    findNavController().navigateUp()
+                }
+            }
+        }
+    }
+
+    private fun setCreateMenuVisibility(isShowing: Boolean) {
+        if (isShowing) {
+            binding.createMenu.show()
+        } else {
+            binding.createMenu.hide()
+        }
+    }
+
+    private fun isCreateMenuOpen(): Boolean {
+        return binding.createMenu.isVisible
     }
 
 }
