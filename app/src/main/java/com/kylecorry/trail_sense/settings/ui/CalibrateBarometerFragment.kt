@@ -5,6 +5,7 @@ import android.view.View
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreferenceCompat
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.CoroutineTimer
@@ -138,6 +139,21 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
                     Pressure.hpa(newOffset).convertTo(units),
                     Units.getDecimalPlaces(units)
                 )
+            }
+        }
+
+        onClick(preference(R.string.pref_reset_barometer_calibration_key)) {
+            Alerts.dialog(
+                requireContext(),
+                getString(R.string.reset_calibration_question),
+            ) {
+                if (!it) {
+                    prefs.weather.barometerOffset = 0f
+                    barometerOffsetPref?.summary = formatService.formatPressure(
+                        Pressure.hpa(prefs.weather.barometerOffset).convertTo(units),
+                        Units.getDecimalPlaces(units)
+                    )
+                }
             }
         }
 

@@ -1443,4 +1443,5 @@
     <string name="pref_barometer_offset" translatable="false">pref_barometer_offset</string>
     <string name="barometer_offset">Barometer offset</string>
     <string name="pref_holder_barometer_offset" translatable="false">pref_holder_barometer_offset</string>
+    <string name="pref_reset_barometer_calibration_key" translatable="false">pref_reset_barometer_calibration_key</string>
 </resources>
