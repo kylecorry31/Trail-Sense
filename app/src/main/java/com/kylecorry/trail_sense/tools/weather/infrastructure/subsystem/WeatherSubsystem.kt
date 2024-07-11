@@ -104,7 +104,8 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         R.string.pref_altimeter_calibration_mode,
         R.string.pref_pressure_history,
         R.string.pref_temperature_smoothing,
-        R.string.pref_weather_forecast_source
+        R.string.pref_weather_forecast_source,
+        R.string.pref_barometer_offset
     ).map { context.getString(it) }
 
     private val weatherMonitorStatePrefKeys = listOf(
@@ -165,12 +166,14 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         val calibrator = SeaLevelCalibrationFactory().create(prefs)
         val pressures = calibrator.calibrate(precalibrated)
 
+        val offset = prefs.weather.barometerOffset
+
         val combined = pressures.map {
             val reading = precalibrated.firstOrNull { r -> r.time == it.time }
             WeatherObservation(
                 reading?.value?.id ?: 0L,
                 it.time,
-                it.value,
+                it.value.copy(pressure = it.value.pressure + offset),
                 Temperature.celsius(reading?.value?.temperature ?: 0f),
                 reading?.value?.humidity
             )
@@ -249,17 +252,30 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         return lookupLocation to lookupElevation
     }
 
-    override suspend fun getRawHistory(): List<Reading<RawWeatherObservation>> = onIO {
-        if (!isValid) {
-            refresh()
+    override suspend fun getRawHistory(applyPressureOffset: Boolean): List<Reading<RawWeatherObservation>> =
+        onIO {
+            if (!isValid) {
+                refresh()
+            }
+            val readings = weatherRepo.getAll()
+                .asSequence()
+                .sortedBy { it.time }
+                .filter { it.time <= Instant.now() }
+                .map {
+                    if (it.value.location == Coordinate.zero) it.copy(
+                        value = it.value.copy(
+                            location = location.location
+                        )
+                    ) else it
+                }
+                .toList()
+
+            if (applyPressureOffset) {
+                calibrateBarometerOffset(readings)
+            } else {
+                readings
+            }
         }
-        weatherRepo.getAll()
-            .asSequence()
-            .sortedBy { it.time }
-            .filter { it.time <= Instant.now() }
-            .map { if (it.value.location == Coordinate.zero) it.copy(value = it.value.copy(location = location.location)) else it }
-            .toList()
-    }
 
     override fun enableMonitor() {
         prefs.weather.shouldMonitorWeather = true
@@ -393,6 +409,14 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             { it.humidity ?: 0f }) { reading, smoothed ->
             reading.copy(humidity = if (smoothed == 0f) null else smoothed)
         }
+    }
+
+    private fun calibrateBarometerOffset(readings: List<Reading<RawWeatherObservation>>): List<Reading<RawWeatherObservation>> {
+        val offset = prefs.weather.barometerOffset
+        if (offset == 0f) {
+            return readings
+        }
+        return readings.map { it.copy(value = it.value.copy(pressure = it.value.pressure + offset)) }
     }
 
     companion object {

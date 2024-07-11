@@ -234,7 +234,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     private suspend fun loadRawWeatherReadings() {
         if (isDebug()) {
             if (prefs.weather.useSeaLevelPressure) {
-                val raw = weatherSubsystem.getRawHistory().filter {
+                val raw = weatherSubsystem.getRawHistory(true).filter {
                     Duration.between(
                         it.time,
                         Instant.now()

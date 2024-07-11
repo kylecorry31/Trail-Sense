@@ -57,7 +57,7 @@ interface IWeatherSubsystem {
     ): List<Pair<LocalDate, Range<Temperature>>>
 
     suspend fun getCloudHistory(): List<Reading<CloudGenus?>>
-    suspend fun getRawHistory(): List<Reading<RawWeatherObservation>>
+    suspend fun getRawHistory(applyPressureOffset: Boolean = false): List<Reading<RawWeatherObservation>>
 
     // Weather monitor
     fun enableMonitor()

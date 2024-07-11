@@ -1440,4 +1440,7 @@
     <string name="forecast_algorithm">Forecast algorithm</string>
     <string name="no_items_found">No items found</string>
     <string name="import_packing_list">Import packing list</string>
+    <string name="pref_barometer_offset" translatable="false">pref_barometer_offset</string>
+    <string name="barometer_offset">Barometer offset</string>
+    <string name="pref_holder_barometer_offset" translatable="false">pref_holder_barometer_offset</string>
 </resources>
