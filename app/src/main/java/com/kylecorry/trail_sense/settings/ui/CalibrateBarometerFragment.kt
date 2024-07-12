@@ -13,13 +13,12 @@ import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
-import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
-import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -113,25 +112,20 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
         )
 
         onClick(barometerOffsetPref) {
-            // TODO: Use a unit picker, since the user might be getting this from a localized source
-            Pickers.number(
+            CustomUiUtils.pickPressure(
                 requireContext(),
                 getString(R.string.pressure),
-                "Enter the current pressure in ${formatService.getPressureUnitName(units)}",
-                default = getCurrentPressure()
-                    .convertTo(units)
-                    .pressure
-                    .roundPlaces(Units.getDecimalPlaces(units)),
-                hint = getString(R.string.pressure),
+                getString(R.string.enter_the_current_pressure),
+                default = getCurrentPressure().convertTo(units)
             ) {
                 if (it == null) {
-                    return@number
+                    return@pickPressure
                 }
 
                 val currentOffset = prefs.weather.barometerOffset
                 val currentReading = getCurrentPressure().pressure
                 val rawReading = currentReading - currentOffset
-                val newOffset = Pressure(it.toFloat(), units).hpa().pressure - rawReading
+                val newOffset = it.hpa().pressure - rawReading
 
                 prefs.weather.barometerOffset = newOffset
 

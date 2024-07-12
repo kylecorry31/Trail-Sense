@@ -5,11 +5,13 @@ import android.content.res.Configuration
 import android.net.Uri
 import android.util.Size
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.core.view.isVisible
+import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.commit
@@ -30,6 +32,8 @@ import com.kylecorry.andromeda.views.list.AndromedaListView
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.sol.units.Pressure
+import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.camera.PhotoImportBottomSheetFragment
 import com.kylecorry.trail_sense.shared.colors.AppColor
@@ -40,6 +44,7 @@ import com.kylecorry.trail_sense.shared.views.ColorPickerView
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
 import com.kylecorry.trail_sense.shared.views.DurationInputView
 import com.kylecorry.trail_sense.shared.views.ElevationInputView
+import com.kylecorry.trail_sense.shared.views.PressureInputView
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.tools.qr.ui.ScanQRBottomSheet
 import com.kylecorry.trail_sense.tools.qr.ui.ViewQRBottomSheet
@@ -403,6 +408,37 @@ object CustomUiUtils {
                 }
             } else {
                 onDatetimePick(null)
+            }
+        }
+    }
+
+    fun pickPressure(
+        context: Context,
+        title: String,
+        message: CharSequence? = null,
+        default: Pressure? = null,
+        onPressurePick: (pressure: Pressure?) -> Unit
+    ) {
+        val view = PressureInputView(context)
+        view.layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        val padding = Resources.dp(context, 28f).toInt()
+        view.setPadding(padding, 0, padding, 0)
+        // TODO: Sort the units properly
+        view.units = PressureUnits.entries
+        view.value = default
+        var selected = default
+        view.setOnValueChangeListener {
+            selected = it
+        }
+
+        Alerts.dialog(context, title, message, contentView = view) {
+            if (!it) {
+                onPressurePick(selected)
+            } else {
+                onPressurePick(null)
             }
         }
     }
