@@ -6,7 +6,9 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.Command
-import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherUpdateScheduler
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
+import kotlinx.coroutines.runBlocking
 import java.time.Duration
 
 class ChangeWeatherFrequencyCommand(
@@ -14,6 +16,7 @@ class ChangeWeatherFrequencyCommand(
     private val onChange: (Duration) -> Unit
 ) : Command {
     private val prefs by lazy { UserPreferences(context) }
+
     override fun execute() {
         val title = context.getString(R.string.pref_weather_update_frequency_title)
         CustomUiUtils.pickDuration(
@@ -26,7 +29,10 @@ class ChangeWeatherFrequencyCommand(
             if (it != null && !it.isZero) {
                 prefs.weather.weatherUpdateFrequency = it
                 onChange(it)
-                WeatherUpdateScheduler.restart(context)
+                runBlocking {
+                    Tools.getService(context, WeatherToolRegistration.SERVICE_WEATHER_MONITOR)
+                        ?.restart()
+                }
                 if (it < Duration.ofMinutes(15)) {
                     Alerts.dialog(
                         context,

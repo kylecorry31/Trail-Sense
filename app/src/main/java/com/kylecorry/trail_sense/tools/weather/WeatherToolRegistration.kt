@@ -99,6 +99,14 @@ object WeatherToolRegistration : ToolRegistration {
                 ToolBroadcast(
                     BROADCAST_WEATHER_MONITOR_DISABLED,
                     "Weather monitor disabled"
+                ),
+                ToolBroadcast(
+                    BROADCAST_WEATHER_MONITOR_STATE_CHANGED,
+                    "Weather monitor state changed"
+                ),
+                ToolBroadcast(
+                    BROADCAST_WEATHER_MONITOR_FREQUENCY_CHANGED,
+                    "Weather monitor frequency changed"
                 )
             ),
             actions = listOf(
@@ -118,6 +126,13 @@ object WeatherToolRegistration : ToolRegistration {
 
     const val BROADCAST_WEATHER_MONITOR_ENABLED = "weather-broadcast-weather-monitor-enabled"
     const val BROADCAST_WEATHER_MONITOR_DISABLED = "weather-broadcast-weather-monitor-disabled"
+    const val BROADCAST_WEATHER_MONITOR_STATE_CHANGED =
+        "weather-broadcast-weather-monitor-state-changed"
+    const val BROADCAST_WEATHER_MONITOR_FREQUENCY_CHANGED =
+        "paths-broadcast-weather-monitor-frequency-changed"
+
+    const val BROADCAST_PARAM_WEATHER_MONITOR_FREQUENCY = "paths-broadcast-param-weather-monitor-frequency"
+
 
     const val ACTION_PAUSE_WEATHER_MONITOR = "weather-action-pause-weather-monitor"
     const val ACTION_RESUME_WEATHER_MONITOR = "weather-action-resume-weather-monitor"

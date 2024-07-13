@@ -16,7 +16,7 @@ import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.tools.weather.domain.CurrentWeather
 import com.kylecorry.trail_sense.tools.weather.infrastructure.IWeatherPreferences
-import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherUpdateScheduler
+import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorService
 import com.kylecorry.trail_sense.tools.weather.infrastructure.receivers.WeatherStopMonitoringReceiver
 
 class CurrentWeatherAlerter(
@@ -104,7 +104,7 @@ class CurrentWeatherAlerter(
     }
 
     private fun updateNotificationText(notification: Notification) {
-        Notify.update(context, WeatherUpdateScheduler.WEATHER_NOTIFICATION_ID, notification)
+        Notify.update(context, WeatherMonitorService.WEATHER_NOTIFICATION_ID, notification)
     }
 
     companion object {

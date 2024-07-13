@@ -10,20 +10,39 @@ import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.getFeatureState
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 @RequiresApi(Build.VERSION_CODES.N)
 abstract class ToolServiceTile(
     private val serviceId: String,
     private val stateChangeBroadcastId: String,
-    private val frequencyChangeBroadcastId: String? = null
+    private val frequencyChangeBroadcastId: String? = null,
+    private val isForegroundService: Boolean = false
 ) : AndromedaTileService() {
     protected val service by lazy { Tools.getService(this, serviceId) }
 
     private val formatter by lazy { FormatService.getInstance(this) }
 
-    abstract fun stop()
-    abstract fun start()
+    open fun stop() {
+        CoroutineScope(Dispatchers.Default).launch {
+            service?.disable()
+        }
+    }
+
+    open fun start() {
+        if (isForegroundService) {
+            startForegroundService {
+                service?.enable()
+            }
+        } else {
+            CoroutineScope(Dispatchers.Default).launch {
+                service?.enable()
+            }
+        }
+    }
 
     override fun onClick() {
         super.onClick()

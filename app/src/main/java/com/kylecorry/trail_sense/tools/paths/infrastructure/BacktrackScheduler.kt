@@ -4,9 +4,11 @@ import android.content.Context
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.infrastructure.alerts.BacktrackAlerter
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.paths.infrastructure.services.BacktrackService
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 object BacktrackScheduler {
 
@@ -36,10 +38,8 @@ object BacktrackScheduler {
     }
 
     fun isOn(context: Context): Boolean {
-        return BacktrackIsEnabled().isSatisfiedBy(context)
+        return Tools.getService(context, PathsToolRegistration.SERVICE_BACKTRACK)
+            ?.isEnabled() == true
     }
 
-    fun isDisabled(context: Context): Boolean {
-        return BacktrackIsAvailable().not().isSatisfiedBy(context)
-    }
 }

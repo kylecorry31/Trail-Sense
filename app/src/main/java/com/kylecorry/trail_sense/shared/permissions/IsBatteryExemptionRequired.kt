@@ -2,26 +2,23 @@ package com.kylecorry.trail_sense.shared.permissions
 
 import android.content.Context
 import com.kylecorry.andromeda.core.specifications.Specification
-import com.kylecorry.trail_sense.tools.paths.infrastructure.BacktrackIsEnabled
-import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorIsEnabled
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 
 class IsBatteryExemptionRequired(
     private val isBatteryUsageRestricted: Specification<Context> = IsBatteryUsageRestricted(),
-    private val areBackgroundServicesRequired: Specification<Context> = backgroundRequired
 ) : Specification<Context>() {
 
     override fun isSatisfiedBy(value: Context): Boolean {
         if (!isBatteryUsageRestricted.isSatisfiedBy(value)) {
             return false
         }
-        return areBackgroundServicesRequired.isSatisfiedBy(value)
+        return isServiceEnabled(value, WeatherToolRegistration.SERVICE_WEATHER_MONITOR) ||
+                isServiceEnabled(value, WeatherToolRegistration.SERVICE_WEATHER_MONITOR)
     }
 
-    companion object {
-
-        private val backtrack = BacktrackIsEnabled()
-        private val weather = WeatherMonitorIsEnabled()
-        private val backgroundRequired = backtrack.or(weather)
-
+    private fun isServiceEnabled(context: Context, serviceId: String): Boolean {
+        val service = Tools.getService(context, serviceId) ?: return false
+        return service.isEnabled() && !service.isBlocked()
     }
 }

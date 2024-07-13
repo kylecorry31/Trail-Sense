@@ -7,7 +7,6 @@ import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.topics.ITopic
 import com.kylecorry.andromeda.core.topics.Topic
-import com.kylecorry.andromeda.core.topics.generic.distinct
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
@@ -16,17 +15,13 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.data.DataUtils
 import com.kylecorry.trail_sense.shared.debugging.DebugWeatherCommand
-import com.kylecorry.trail_sense.shared.extensions.getOrNull
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures.HistoricTemperatureRepo
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudRepo
-import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 import com.kylecorry.trail_sense.tools.weather.domain.CurrentWeather
 import com.kylecorry.trail_sense.tools.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherObservation
@@ -36,9 +31,6 @@ import com.kylecorry.trail_sense.tools.weather.domain.forecasting.temperatures.C
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.temperatures.HistoricTemperatureService
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.temperatures.ITemperatureService
 import com.kylecorry.trail_sense.tools.weather.domain.sealevel.SeaLevelCalibrationFactory
-import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorIsAvailable
-import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorIsEnabled
-import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.tools.weather.infrastructure.commands.MonitorWeatherCommand
 import com.kylecorry.trail_sense.tools.weather.infrastructure.commands.SendWeatherAlertsCommand
 import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.WeatherRepo
@@ -49,7 +41,6 @@ import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZonedDateTime
-import java.util.Optional
 
 
 class WeatherSubsystem private constructor(private val context: Context) : IWeatherSubsystem {
@@ -68,32 +59,6 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
 
     private val _weatherChanged = Topic()
     override val weatherChanged: ITopic = _weatherChanged
-
-    private val _weatherMonitorState =
-        com.kylecorry.andromeda.core.topics.generic.Topic(
-            defaultValue = Optional.of(
-                calculateWeatherMonitorState()
-            )
-        )
-    override val weatherMonitorState: com.kylecorry.andromeda.core.topics.generic.ITopic<FeatureState>
-        get() = _weatherMonitorState.distinct()
-
-    private val _weatherMonitorFrequency =
-        com.kylecorry.andromeda.core.topics.generic.Topic(
-            defaultValue = Optional.of(
-                calculateWeatherMonitorFrequency()
-            )
-        )
-    override val weatherMonitorFrequency: com.kylecorry.andromeda.core.topics.generic.ITopic<Duration>
-        get() = _weatherMonitorFrequency.distinct()
-
-    override fun getWeatherMonitorState(): FeatureState {
-        return weatherMonitorState.getOrNull() ?: FeatureState.Off
-    }
-
-    override fun getWeatherMonitorFrequency(): Duration {
-        return weatherMonitorFrequency.getOrNull() ?: Duration.ofMinutes(15)
-    }
 
     private val invalidationPrefKeys = listOf(
         R.string.pref_use_sea_level_pressure,
@@ -119,25 +84,10 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     ).map { context.getString(it) }
 
     init {
-        // Keep them up to date
-        weatherMonitorFrequency.subscribe { true }
-        weatherMonitorState.subscribe { true }
-
         sharedPrefs.onChange.subscribe { key ->
             if (key in invalidationPrefKeys) {
                 invalidate()
             }
-
-            if (key in weatherMonitorStatePrefKeys) {
-                val state = calculateWeatherMonitorState()
-                _weatherMonitorState.publish(state)
-            }
-
-            if (key in weatherMonitorFrequencyPrefKeys) {
-                val frequency = calculateWeatherMonitorFrequency()
-                _weatherMonitorFrequency.publish(frequency)
-            }
-
             true
         }
         weatherRepo.readingsChanged.subscribe {
@@ -277,22 +227,10 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             }
         }
 
-    override fun enableMonitor() {
-        prefs.weather.shouldMonitorWeather = true
-        Tools.broadcast(WeatherToolRegistration.BROADCAST_WEATHER_MONITOR_ENABLED)
-        WeatherUpdateScheduler.start(context)
-    }
-
-    override fun disableMonitor() {
-        prefs.weather.shouldMonitorWeather = false
-        Tools.broadcast(WeatherToolRegistration.BROADCAST_WEATHER_MONITOR_DISABLED)
-        WeatherUpdateScheduler.stop(context)
-    }
-
     override suspend fun updateWeather() = onDefault {
         updateWeatherMutex.withLock {
             val last = weatherRepo.getLast()?.time
-            val maxPeriod = getWeatherMonitorFrequency().dividedBy(3)
+            val maxPeriod = prefs.weather.weatherUpdateFrequency.dividedBy(3)
 
             if (last != null && Duration.between(last, Instant.now()).abs() < maxPeriod) {
                 // Still send out the weather alerts, just don't log a new reading
@@ -369,20 +307,6 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             ?: this.location.elevation
 
         return location to elevation
-    }
-
-    private fun calculateWeatherMonitorFrequency(): Duration {
-        return prefs.weather.weatherUpdateFrequency
-    }
-
-    private fun calculateWeatherMonitorState(): FeatureState {
-        return if (WeatherMonitorIsEnabled().isSatisfiedBy(context)) {
-            FeatureState.On
-        } else if (WeatherMonitorIsAvailable().not().isSatisfiedBy(context)) {
-            FeatureState.Unavailable
-        } else {
-            FeatureState.Off
-        }
     }
 
     // TODO: Extract this
