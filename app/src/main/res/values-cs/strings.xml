@@ -1194,4 +1194,9 @@
     <string name="bottom_navigation_slot">Místo spodní navigace %d</string>
     <string name="tool_quick_action_summary">Dlouze stiskněte spodní navigaci nebo zobrazení na kartě nástrojů</string>
     <string name="forecast_algorithm">Algoritmus předpovědi</string>
+    <string name="exported">Exportováno</string>
+    <string name="no_items_found">Nenalezeny žádné položky</string>
+    <string name="enter_the_current_pressure">Zadejte aktuální tlak</string>
+    <string name="import_packing_list">Importovat seznam k zabalení</string>
+    <string name="barometer_offset">Posun barometru</string>
 </resources>
