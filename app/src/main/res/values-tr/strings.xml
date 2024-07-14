@@ -286,7 +286,7 @@
     <string name="never">Asla</string>
     <string name="pref_elevation_override_sea_level_title">Bilinen bir deniz seviyesi basınç değeri kullanılıyor</string>
     <string name="pref_elevation_override_sea_level_dialog_title">Deniz seviyesi basıncını girin</string>
-    <string name="pref_elevation_override_sea_level_dialog_msg">Deniz seviyesindeki mevcut basıncı hPa olarak girin</string>
+    <string name="pref_elevation_override_sea_level_dialog_msg">Deniz seviyesindeki geçerli basıncı hPa olarak girin</string>
     <string name="elevation_override_updated_toast">İrtifanın üzerine yazılan değer güncellendi</string>
     <string name="pref_elevation_override_title">İrtifanın üzerine yaz</string>
     <string name="elevation_from_pressure">Üzerine yazma değerini barometreden ayarla</string>
@@ -303,7 +303,7 @@
     <string name="calibrate_compass_dialog_content">Telefonunuzu havada 8 çizecek şekilde veya tüm yönlerde birkaç kez döndürün, işlemi bitirdiğinizde %s\'a tıklayın.</string>
     <string name="calibrate_compass_dialog_title">Pusulayı kalibre et</string>
     <string name="calibrate">Kalibre et</string>
-    <string name="pref_auto_declination_summary">Mevcut konumunuza göre</string>
+    <string name="pref_auto_declination_summary">Geçerli konumunuza göre</string>
     <string name="declination_override_updated_toast">Sapmanın üzerine yazılan değer güncellendi</string>
     <string name="compass_declination">Manyetik sapma</string>
     <string name="compass_azimuth">Azimut</string>
@@ -1173,4 +1173,9 @@
     <string name="quick_actions_are_unavailable">Hızlı eylemler kullanılamıyor</string>
     <string name="bottom_navigation_slot">Alt gezinme yuvası %d</string>
     <string name="forecast_algorithm">Hava tahmini algoritması</string>
+    <string name="no_items_found">Öge bulunamadı</string>
+    <string name="import_packing_list">Paketleme listesini içe aktar</string>
+    <string name="enter_the_current_pressure">Geçerli basıncı girin</string>
+    <string name="barometer_offset">Barometre dengelemesi</string>
+    <string name="exported">Dışa aktarıldı</string>
 </resources>
