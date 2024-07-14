@@ -4,7 +4,8 @@ The Packing Lists tool can be used to plan for a trip and remember to pack all t
 To create a new packing list:
 
 1. Click the '+' button in the bottom-right corner.
-2. Enter a name for the packing list. 
+2. Select 'New packing list'.
+3. Enter a name for the packing list. 
 
 ## Copying a packing list
 To copy an existing packing list:
@@ -63,3 +64,11 @@ You can also rename from the packing list itself by clicking the menu button on 
 ## Clearing packed amounts
 
 You can clear the packed amounts of all the items in a packing list by clicking the menu button on the right of the packing list and clicking "Clear amounts". This will set all the packed amounts to 0, but will not delete the items.
+
+## Exporting a packing list
+You can export a packing list by clicking the menu button on the right of the packing list and clicking "Export". This will prompt you to save a .csv file to your device. This file can be imported by Trail Sense or used in the 'LighterPack' website.
+
+## Importing a packing list
+You can import a packing list by clicking the '+' button in the bottom-right corner and clicking "Import packing list". This will prompt you to select a .csv file from your device. The csv file must be in the format exported by Trail Sense or LighterPack.
+
+You will be prompted to enter a name for the newly imported packing list. If the list had previously packed amounts, they will be imported, but you can clear them by following the steps in the 'Clearing packed amounts' section.

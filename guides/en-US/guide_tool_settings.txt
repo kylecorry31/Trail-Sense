@@ -95,6 +95,11 @@ To reduce noise in pressure readings, increase the smoothing setting. A value of
 ### Factor in temperature
 To get a more accurate pressure reading, you can factor in the temperature. This will make the reading more prone to noise from your phone's thermometer, but it will also give you a more accurate reading of the actual air pressure.
 
+### Barometer offset
+To calibrate the barometer, you can adjust the barometer offset. After tapping on the 'Barometer offset' setting, enter the current pressure as reported by a reliable source (must match your "sea level pressure" setting - most weather websites report sea level pressure). This will adjust the current pressure to match the reported pressure. Note, if you are using sea level pressure the calibration accuracy will vary with the GPS accuracy.
+
+You can click 'Reset calibration' to reset the calibration of the barometer. This will remove any offset that was previously set.
+
 ## Sensors > Thermometer
 Thermometer settings can be found in Trail Sense Settings > Sensors > Thermometer.
 
@@ -194,3 +199,8 @@ You can find additional information about Trail Sense in Settings > About.
 - **Email developer**: A link to send an email to the developer for feedback or support.
 - **GitHub**: A link to the GitHub repository (source code) for Trail Sense.
 - **Licenses**: A list of open source licenses used in Trail Sense.
+
+## Quick action
+You can enable the Settings quick action in the settings for the tab where you want it to appear.
+
+To use the quick action, tap the quick action button and settings page for the active tool will be opened. Long press the quick action to open the app settings.
