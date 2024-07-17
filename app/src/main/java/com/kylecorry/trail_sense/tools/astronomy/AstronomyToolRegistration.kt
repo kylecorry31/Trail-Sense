@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionNightMo
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunriseAlert
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunsetAlert
 import com.kylecorry.trail_sense.tools.astronomy.services.AstronomyAlertsToolService
+import com.kylecorry.trail_sense.tools.astronomy.services.SunriseAlertsToolService
 import com.kylecorry.trail_sense.tools.astronomy.services.SunsetAlertsToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
@@ -74,7 +75,7 @@ object AstronomyToolRegistration : ToolRegistration {
             services = listOf(
                 SunsetAlertsToolService(context),
                 AstronomyAlertsToolService(context),
-                SunriseAlertsToolsService(context)
+                SunriseAlertsToolService(context)
             ),
             diagnostics = listOf(
                 ToolDiagnosticFactory.gps(context),
@@ -114,6 +115,11 @@ object AstronomyToolRegistration : ToolRegistration {
     const val BROADCAST_SUNSET_ALERTS_DISABLED = "astronomy-broadcast-sunset-alerts-disabled"
     const val BROADCAST_SUNSET_ALERTS_STATE_CHANGED = "astronomy-broadcast-sunset-alerts-state-changed"
 
+    const val BROADCAST_SUNRISE_ALERTS_ENABLED = "astronomy-broadcast-sunrise-alerts-enabled"
+    const val BROADCAST_SUNRISE_ALERTS_DISABLED = "astronomy-broadcast-sunrise-alerts-disabled"
+    const val BROADCAST_SUNRISE_ALERTS_STATE_CHANGED = "astronomy-broadcast-sunrise-alerts-state-changed"
+
     const val SERVICE_SUNSET_ALERTS = "astronomy-service-sunset-alerts"
+    const val SERVICE_SUNRISE_ALERTS = "astronomy-service-sunrise-alerts"
     const val SERVICE_ASTRONOMY_ALERTS = "astronomy-service-astronomy-alerts"
 }

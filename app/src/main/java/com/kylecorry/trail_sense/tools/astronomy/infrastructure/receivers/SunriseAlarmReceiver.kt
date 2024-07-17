@@ -10,10 +10,13 @@ import com.kylecorry.andromeda.fragments.IPermissionRequester
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.permissions.RequestBackgroundLocationCommand
 import com.kylecorry.trail_sense.shared.permissions.requestScheduleExactAlarms
+import com.kylecorry.trail_sense.tools.astronomy.AstronomyToolRegistration
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunriseAlarmCommand
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class SunriseAlarmReceiver : BroadcastReceiver() {
 
@@ -56,18 +59,22 @@ class SunriseAlarmReceiver : BroadcastReceiver() {
         /**
          * Enable sunrise alerts and request permissions if needed
          */
-        fun <T> enable(
+        suspend fun <T> enable(
             fragment: T,
             shouldRequestPermissions: Boolean
         ) where T : Fragment, T : IPermissionRequester {
-            UserPreferences(fragment.requireContext()).astronomy.sendSunriseAlerts = true
+            val service = Tools.getService(
+                fragment.requireContext(),
+                AstronomyToolRegistration.SERVICE_SUNRISE_ALERTS
+            )
+            service?.enable()
             if (shouldRequestPermissions) {
                 fragment.requestScheduleExactAlarms {
-                    start(fragment.requireContext())
+                    runBlocking {
+                        service?.restart()
+                    }
                     RequestBackgroundLocationCommand(fragment).execute()
                 }
-            } else {
-                start(fragment.requireContext())
             }
         }
     }

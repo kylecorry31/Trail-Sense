@@ -125,7 +125,7 @@ class SunriseAlarmCommand(private val context: Context) : CoroutineCommand {
 
     companion object {
         const val TAG = "SunriseAlarmCommand"
-        const val NOTIFICATION_ID = 1231
+        const val NOTIFICATION_ID = 1232
         const val NOTIFICATION_CHANNEL_ID = "Sunrise alert"
     }
 
