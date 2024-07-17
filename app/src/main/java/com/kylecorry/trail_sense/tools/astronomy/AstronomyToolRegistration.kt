@@ -3,25 +3,23 @@ package com.kylecorry.trail_sense.tools.astronomy
 import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyDailyWorker
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.AstronomyAlertCommand
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunriseAlarmCommand
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunsetAlarmCommand
-import com.kylecorry.trail_sense.tools.astronomy.infrastructure.receivers.SunriseAlarmReceiver
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionNightMode
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunriseAlert
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunsetAlert
+import com.kylecorry.trail_sense.tools.astronomy.services.AstronomyAlertsToolService
+import com.kylecorry.trail_sense.tools.astronomy.services.SunsetAlertsToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import java.time.Duration
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 
 object AstronomyToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
@@ -74,59 +72,9 @@ object AstronomyToolRegistration : ToolRegistration {
                 )
             ),
             services = listOf(
-                ToolService(
-                    context.getString(R.string.sunrise_alerts),
-                    getFrequency = { Duration.ofDays(1) },
-                    isActive = {
-                        UserPreferences(it).astronomy.sendSunriseAlerts
-                    },
-                    disable = {
-                        UserPreferences(it).astronomy.sendSunriseAlerts = false
-                    },
-                    stop = {
-                        SunriseAlarmReceiver.scheduler(it).cancel()
-                    },
-                    restart = {
-                        SunriseAlarmReceiver.start(context)
-                    }
-                ),
-                ToolService(
-                    context.getString(R.string.sunset_alerts),
-                    getFrequency = { Duration.ofDays(1) },
-                    isActive = {
-                        UserPreferences(it).astronomy.sendSunsetAlerts
-                    },
-                    disable = {
-                        UserPreferences(it).astronomy.sendSunsetAlerts = false
-                    },
-                    stop = {
-                        SunsetAlarmReceiver.scheduler(it).cancel()
-                    },
-                    restart = {
-                        // Always starts - it short circuits if it doesn't need to run
-                        SunsetAlarmReceiver.start(context)
-                    }
-                ),
-                ToolService(
-                    context.getString(R.string.astronomy_alerts),
-                    getFrequency = { Duration.ofDays(1) },
-                    isActive = {
-                        UserPreferences(it).astronomy.sendAstronomyAlerts
-                    },
-                    disable = {
-                        val prefs = UserPreferences(it)
-                        prefs.astronomy.sendLunarEclipseAlerts = false
-                        prefs.astronomy.sendMeteorShowerAlerts = false
-                        prefs.astronomy.sendSolarEclipseAlerts = false
-                    },
-                    stop = {
-                        AstronomyDailyWorker.stop(it)
-                    },
-                    restart = {
-                        // Always starts - it short circuits if it doesn't need to run
-                        AstronomyDailyWorker.start(it)
-                    }
-                )
+                SunsetAlertsToolService(context),
+                AstronomyAlertsToolService(context),
+                SunriseAlertsToolsService(context)
             ),
             diagnostics = listOf(
                 ToolDiagnosticFactory.gps(context),
@@ -144,7 +92,28 @@ object AstronomyToolRegistration : ToolRegistration {
                     AstronomyAlertCommand.NOTIFICATION_CHANNEL,
                     context.getString(R.string.astronomy_alerts)
                 )
+            ),
+            broadcasts = listOf(
+                ToolBroadcast(
+                    BROADCAST_SUNSET_ALERTS_ENABLED,
+                    "Sunset alerts enabled"
+                ),
+                ToolBroadcast(
+                    BROADCAST_SUNSET_ALERTS_DISABLED,
+                    "Sunset alerts disabled"
+                ),
+                ToolBroadcast(
+                    BROADCAST_SUNSET_ALERTS_STATE_CHANGED,
+                    "Sunset alerts state changed"
+                )
             )
         )
     }
+
+    const val BROADCAST_SUNSET_ALERTS_ENABLED = "astronomy-broadcast-sunset-alerts-enabled"
+    const val BROADCAST_SUNSET_ALERTS_DISABLED = "astronomy-broadcast-sunset-alerts-disabled"
+    const val BROADCAST_SUNSET_ALERTS_STATE_CHANGED = "astronomy-broadcast-sunset-alerts-state-changed"
+
+    const val SERVICE_SUNSET_ALERTS = "astronomy-service-sunset-alerts"
+    const val SERVICE_ASTRONOMY_ALERTS = "astronomy-service-astronomy-alerts"
 }

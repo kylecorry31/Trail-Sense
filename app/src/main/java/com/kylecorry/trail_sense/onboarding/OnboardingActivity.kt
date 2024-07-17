@@ -3,7 +3,12 @@ package com.kylecorry.trail_sense.onboarding
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.view.ViewGroup
+import androidx.activity.enableEdgeToEdge
 import androidx.core.text.method.LinkMovementMethodCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.AndromedaActivity
 import com.kylecorry.andromeda.markdown.MarkdownService
@@ -25,9 +30,12 @@ class OnboardingActivity : AndromedaActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        bindLayoutInsets()
 
         load(pageIdx)
 
@@ -35,6 +43,17 @@ class OnboardingActivity : AndromedaActivity() {
             load(pageIdx + 1)
         }
 
+    }
+
+    private fun bindLayoutInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                topMargin = insets.top
+                bottomMargin = insets.bottom
+            }
+            WindowInsetsCompat.CONSUMED
+        }
     }
 
     private fun navigateToApp() {
@@ -73,7 +92,7 @@ class OnboardingActivity : AndromedaActivity() {
                 ColorStateList.valueOf(Resources.androidTextColorPrimary(this))
             binding.nextButton.text = pageContents.nextButtonText ?: getString(R.string.next)
             binding.pageContents.movementMethod = LinkMovementMethodCompat.getInstance()
-            if (pageContents.contents is String){
+            if (pageContents.contents is String) {
                 markdown.setMarkdown(binding.pageContents, pageContents.contents)
             } else {
                 binding.pageContents.text = pageContents.contents

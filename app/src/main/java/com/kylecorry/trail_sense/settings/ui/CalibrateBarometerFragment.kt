@@ -5,6 +5,7 @@ import android.view.View
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreferenceCompat
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.CoroutineTimer
@@ -17,7 +18,7 @@ import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.settings.ui.PressureChartPreference
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -71,7 +72,7 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
             inBackground {
                 runner.replace {
                     history = weatherSubsystem.getHistory()
-                    uncalibratedHistory = weatherSubsystem.getRawHistory()
+                    uncalibratedHistory = weatherSubsystem.getRawHistory(true)
                     onMain {
                         updateChart()
                     }
@@ -103,6 +104,52 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
                 android.R.attr.textColorSecondary
             )
         )
+
+        val barometerOffsetPref = preference(R.string.pref_holder_barometer_offset)
+        barometerOffsetPref?.summary = formatService.formatPressure(
+            Pressure.hpa(prefs.weather.barometerOffset).convertTo(units),
+            Units.getDecimalPlaces(units)
+        )
+
+        onClick(barometerOffsetPref) {
+            CustomUiUtils.pickPressure(
+                requireContext(),
+                getString(R.string.pressure),
+                getString(R.string.enter_the_current_pressure),
+                default = getCurrentPressure().convertTo(units)
+            ) {
+                if (it == null) {
+                    return@pickPressure
+                }
+
+                val currentOffset = prefs.weather.barometerOffset
+                val currentReading = getCurrentPressure().pressure
+                val rawReading = currentReading - currentOffset
+                val newOffset = it.hpa().pressure - rawReading
+
+                prefs.weather.barometerOffset = newOffset
+
+                barometerOffsetPref?.summary = formatService.formatPressure(
+                    Pressure.hpa(newOffset).convertTo(units),
+                    Units.getDecimalPlaces(units)
+                )
+            }
+        }
+
+        onClick(preference(R.string.pref_reset_barometer_calibration_key)) {
+            Alerts.dialog(
+                requireContext(),
+                getString(R.string.reset_calibration_question),
+            ) {
+                if (!it) {
+                    prefs.weather.barometerOffset = 0f
+                    barometerOffsetPref?.summary = formatService.formatPressure(
+                        Pressure.hpa(prefs.weather.barometerOffset).convertTo(units),
+                        Units.getDecimalPlaces(units)
+                    )
+                }
+            }
+        }
 
     }
 
@@ -152,13 +199,20 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
             return
         }
 
-        val pressure = history.lastOrNull()?.pressure ?: Pressure.hpa(0f)
+        val pressure = getCurrentPressure()
 
         pressureTxt?.summary =
             formatService.formatPressure(
                 pressure.convertTo(units),
                 Units.getDecimalPlaces(units)
             )
+
+        // Disable the offset preference until there's a reading
+        preference(R.string.pref_holder_barometer_offset)?.isEnabled = pressure.pressure != 0f
+    }
+
+    private fun getCurrentPressure(): Pressure {
+        return history.lastOrNull()?.pressure ?: Pressure.hpa(0f)
     }
 
 }

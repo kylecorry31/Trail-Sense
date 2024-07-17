@@ -23,7 +23,7 @@ class WeatherMonitorService :
     @SuppressLint("InlinedApi")
     override fun getForegroundInfo(): ForegroundInfo {
         return ForegroundInfo(
-            WeatherUpdateScheduler.WEATHER_NOTIFICATION_ID,
+            WEATHER_NOTIFICATION_ID,
             CurrentWeatherAlerter.getDefaultNotification(applicationContext),
             if (!Permissions.canStartLocationForgroundService(applicationContext)) {
                 listOf(ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
@@ -59,6 +59,8 @@ class WeatherMonitorService :
     }
 
     companion object {
+
+        const val WEATHER_NOTIFICATION_ID = 1
 
         var isRunning = false
             private set

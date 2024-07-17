@@ -9,14 +9,13 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeActionPriority
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
 import com.kylecorry.trail_sense.tools.whitenoise.quickactions.QuickActionWhiteNoise
-import java.time.Duration
+import com.kylecorry.trail_sense.tools.whitenoise.services.WhiteNoiseToolService
 
 object WhiteNoiseToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
@@ -50,24 +49,7 @@ object WhiteNoiseToolRegistration : ToolRegistration {
                     Notify.CHANNEL_IMPORTANCE_LOW
                 )
             ),
-            services = listOf(
-                ToolService(
-                    context.getString(R.string.tool_white_noise_title),
-                    getFrequency = { Duration.ZERO },
-                    isActive = {
-                        WhiteNoiseService.isRunning
-                    },
-                    disable = {
-                        WhiteNoiseService.stop(context)
-                    },
-                    stop = {
-                        WhiteNoiseService.stop(context)
-                    },
-                    restart = {
-                        // Does not support restarting
-                    }
-                )
-            ),
+            services = listOf(WhiteNoiseToolService(context)),
             diagnostics = listOf(
                 ToolDiagnosticFactory.notification(
                     WhiteNoiseService.NOTIFICATION_CHANNEL_ID,
@@ -76,4 +58,6 @@ object WhiteNoiseToolRegistration : ToolRegistration {
             )
         )
     }
+
+    const val SERVICE_WHITE_NOISE = "whitenoise-service-white-noise"
 }

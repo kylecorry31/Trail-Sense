@@ -15,7 +15,7 @@ import org.mockito.kotlin.whenever
 
 internal class RequestRemoveBatteryRestrictionCommandTest {
 
-    private lateinit var command: RequestRemoveBatteryRestrictionCommand<AndromedaFragment>
+    private lateinit var command: RequestRemoveBatteryRestrictionCommand
     private lateinit var flag: Flag
     private lateinit var alerter: IAlerter
     private lateinit var isRequired: Specification<Context>

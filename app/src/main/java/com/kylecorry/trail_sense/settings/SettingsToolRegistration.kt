@@ -4,9 +4,11 @@ import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.receivers.ServiceRestartAlerter
+import com.kylecorry.trail_sense.settings.quickactions.QuickActionSettings
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
@@ -44,7 +46,14 @@ object SettingsToolRegistration : ToolRegistration {
                     Notify.CHANNEL_IMPORTANCE_LOW,
                     true
                 )
-            )
+            ),
+            quickActions = listOf(
+                ToolQuickAction(
+                    Tools.QUICK_ACTION_SETTINGS,
+                    context.getString(R.string.settings),
+                    ::QuickActionSettings
+                )
+            ),
         )
     }
 }

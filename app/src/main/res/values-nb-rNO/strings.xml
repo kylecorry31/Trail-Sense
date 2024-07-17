@@ -1037,4 +1037,7 @@
     <string name="background">Bakgrunn</string>
     <string name="quick_actions_are_unavailable">Hurtighandlinger er utilgjengelige</string>
     <string name="pref_tiles_battery_log">Batterilogg</string>
+    <string name="mirror_camera">Speilkamera</string>
+    <string name="ar_calibration_instructions">Sentrer %s på skjermen og trykk \"Kalibrer\"</string>
+    <string name="locate">Lokaliser</string>
 </resources>

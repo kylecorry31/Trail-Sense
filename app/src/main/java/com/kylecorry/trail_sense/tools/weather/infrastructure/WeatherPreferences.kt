@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.weather.infrastructure
 
 import android.content.Context
 import com.kylecorry.andromeda.core.toIntCompat
+import com.kylecorry.andromeda.preferences.FloatPreference
 import com.kylecorry.andromeda.preferences.IntEnumPreference
 import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.andromeda.sense.Sensors
@@ -69,6 +70,12 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
 
     override val seaLevelFactorInTemp: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_adjust_for_temperature)) ?: false
+
+    override var barometerOffset by FloatPreference(
+        cache,
+        context.getString(R.string.pref_barometer_offset),
+        0f
+    )
 
     override val pressureHistory: Duration
         get() {

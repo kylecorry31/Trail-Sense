@@ -19,12 +19,6 @@ import java.time.ZonedDateTime
 interface IWeatherSubsystem {
     val weatherChanged: ITopic
 
-    // Weather monitor
-    val weatherMonitorState: com.kylecorry.andromeda.core.topics.generic.ITopic<FeatureState>
-    val weatherMonitorFrequency: com.kylecorry.andromeda.core.topics.generic.ITopic<Duration>
-    fun getWeatherMonitorState(): FeatureState
-    fun getWeatherMonitorFrequency(): Duration
-
     suspend fun getWeather(): CurrentWeather
     suspend fun getHistory(): List<WeatherObservation>
     suspend fun getTemperature(
@@ -57,10 +51,7 @@ interface IWeatherSubsystem {
     ): List<Pair<LocalDate, Range<Temperature>>>
 
     suspend fun getCloudHistory(): List<Reading<CloudGenus?>>
-    suspend fun getRawHistory(): List<Reading<RawWeatherObservation>>
+    suspend fun getRawHistory(applyPressureOffset: Boolean = false): List<Reading<RawWeatherObservation>>
 
-    // Weather monitor
-    fun enableMonitor()
-    fun disableMonitor()
     suspend fun updateWeather()
 }

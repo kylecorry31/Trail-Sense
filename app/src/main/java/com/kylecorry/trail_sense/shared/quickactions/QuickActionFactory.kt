@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.quickactions
 
 import android.widget.ImageButton
+import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.views.QuickActionNone
@@ -11,7 +12,7 @@ class QuickActionFactory {
     fun create(
         id: Int,
         button: ImageButton,
-        fragment: AndromedaFragment
+        fragment: Fragment
     ): QuickActionButton {
         val quickActions = Tools.getQuickActions(fragment.requireContext())
         return quickActions.firstOrNull { it.id == id }?.create?.invoke(button, fragment)

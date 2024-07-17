@@ -9,20 +9,20 @@ import com.kylecorry.trail_sense.shared.preferences.Flag
 import com.kylecorry.trail_sense.shared.preferences.PreferencesFlag
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 
-class RequestRemoveBatteryRestrictionCommand<T>(
-    private val fragment: T,
+class RequestRemoveBatteryRestrictionCommand(
+    private val fragment: Fragment,
     flag: Flag = PreferencesFlag(
         PreferencesSubsystem.getInstance(fragment.requireContext()).preferences,
         SHOWN_KEY
     ),
     alerter: IAlerter = RemoveBatteryRestrictionsAlerter(fragment),
     isRequired: Specification<Context> = IsBatteryExemptionRequired()
-) : RequestOptionalPermissionCommand<T>(
-    fragment,
+) : RequestOptionalPermissionCommand(
+    fragment.requireContext(),
     flag,
     alerter,
     isRequired
-) where T : Fragment, T : IPermissionRequester {
+) {
     companion object {
         private const val SHOWN_KEY = "cache_battery_exemption_requested"
     }

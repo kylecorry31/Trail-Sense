@@ -8,15 +8,15 @@ import com.kylecorry.trail_sense.shared.alerts.IAlerter
 import com.kylecorry.trail_sense.shared.commands.Command
 import com.kylecorry.trail_sense.shared.preferences.Flag
 
-abstract class RequestOptionalPermissionCommand<T>(
-    private val fragment: T,
+abstract class RequestOptionalPermissionCommand(
+    private val context: Context,
     private val flag: Flag,
     private val alerter: IAlerter,
     private val isRequired: Specification<Context>
-) : Command where T : Fragment, T : IPermissionRequester {
+) : Command {
 
     override fun execute() {
-        if (!isRequired.isSatisfiedBy(fragment.requireContext())) {
+        if (!isRequired.isSatisfiedBy(context)) {
             flag.set(false)
             return
         }

@@ -1079,6 +1079,7 @@
     <string name="allow_ignore_battery_restrictions_instructions">Removing battery restrictions for Trail Sense may improve accuracy.\n\nOn most devices, click \'%s\', then switch to all apps, and switch off battery optimization for Trail Sense.\n\nVisit [Don\'t kill my app](https://dontkillmyapp.com/) for device specific instructions.</string>
     <string name="exporting_map">Exporting map</string>
     <string name="map_exported">Map exported</string>
+    <string name="exported">Exported</string>
     <string name="camera_capture">Capture</string>
     <string name="file">File</string>
     <string name="map_file">File (JPG, PNG, PDF)</string>
@@ -1447,4 +1448,11 @@
     <string name="bottom_navigation_slot">Bottom navigation slot %d</string>
     <string name="pref_weather_forecast_source" translatable="false">pref_weather_forecast_source</string>
     <string name="forecast_algorithm">Forecast algorithm</string>
+    <string name="no_items_found">No items found</string>
+    <string name="import_packing_list">Import packing list</string>
+    <string name="pref_barometer_offset" translatable="false">pref_barometer_offset</string>
+    <string name="barometer_offset">Barometer offset</string>
+    <string name="pref_holder_barometer_offset" translatable="false">pref_holder_barometer_offset</string>
+    <string name="pref_reset_barometer_calibration_key" translatable="false">pref_reset_barometer_calibration_key</string>
+    <string name="enter_the_current_pressure">Enter the current pressure</string>
 </resources>

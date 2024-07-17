@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.weather.ui
 
 import android.os.Bundle
+import android.view.View
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
@@ -25,9 +26,10 @@ import com.kylecorry.trail_sense.shared.preferences.setupNotificationSetting
 import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.observe
+import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherCsvConverter
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherPreferences
-import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeatherAlerter
 import com.kylecorry.trail_sense.tools.weather.infrastructure.commands.ChangeWeatherFrequencyCommand
 import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.WeatherRepo
@@ -49,6 +51,13 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
     private var prefStormAlerts: SwitchPreferenceCompat? = null
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
+    private val weatherMonitorService by lazy {
+        Tools.getService(
+            requireContext(),
+            WeatherToolRegistration.SERVICE_WEATHER_MONITOR
+        )!!
+    }
+
     private lateinit var prefs: UserPreferences
 
     private fun bindPreferences() {
@@ -62,7 +71,6 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         prefleftButton = list(R.string.pref_weather_quick_action_left)
         prefrightButton = list(R.string.pref_weather_quick_action_right)
     }
-
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.weather_preferences, rootKey)
@@ -80,14 +88,15 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         prefleftButton?.entryValues = actionValues.toTypedArray()
         prefrightButton?.entryValues = actionValues.toTypedArray()
 
-        prefMonitorWeather?.isEnabled =
-            !(prefs.isLowPowerModeOn && prefs.lowPowerModeDisablesWeather)
+        prefMonitorWeather?.isEnabled = !weatherMonitorService.isBlocked()
         prefMonitorWeather?.setOnPreferenceClickListener {
-            if (prefs.weather.shouldMonitorWeather) {
-                WeatherUpdateScheduler.start(requireContext())
-                RequestRemoveBatteryRestrictionCommand(this).execute()
-            } else {
-                WeatherUpdateScheduler.stop(requireContext())
+            inBackground {
+                if (prefs.weather.shouldMonitorWeather) {
+                    weatherMonitorService.enable()
+                    RequestRemoveBatteryRestrictionCommand(this@WeatherSettingsFragment).execute()
+                } else {
+                    weatherMonitorService.disable()
+                }
             }
             true
         }
@@ -159,12 +168,12 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
                     val readings = WeatherRepo.getInstance(requireContext()).getAll()
                         .zipWithNext { a, b -> Duration.between(a.time, b.time).seconds / 60f }
 
-                    if (readings.isEmpty()){
+                    if (readings.isEmpty()) {
                         return@onDefault
                     }
 
                     val mean = Statistics.mean(readings).safeRoundToInt()
-                    val stdev = Statistics.stdev(readings, mean=mean.toFloat()).safeRoundToInt()
+                    val stdev = Statistics.stdev(readings, mean = mean.toFloat()).safeRoundToInt()
                     val max = readings.maxOrNull()?.safeRoundToInt() ?: 0
                     val median = Statistics.median(readings).safeRoundToInt()
                     val quantile75 = Statistics.quantile(readings, 0.75f).safeRoundToInt()
@@ -183,8 +192,19 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Tools.observe(this, WeatherToolRegistration.BROADCAST_WEATHER_MONITOR_STATE_CHANGED) {
+            prefMonitorWeather?.isEnabled = !weatherMonitorService.isBlocked()
+            prefMonitorWeather?.isChecked = weatherMonitorService.isEnabled()
+            true
+        }
+    }
+
     private fun restartWeatherMonitor() {
-        WeatherUpdateScheduler.restart(requireContext())
+        inBackground {
+            weatherMonitorService.restart()
+        }
     }
 
     private fun getForecastSensitivities(units: PressureUnits): Array<CharSequence> {
@@ -251,5 +271,4 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
             }
         }
     }
-
 }

@@ -4,24 +4,24 @@ import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolAction
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnostic
-import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnostic
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
+import com.kylecorry.trail_sense.tools.weather.actions.PauseWeatherMonitorAction
+import com.kylecorry.trail_sense.tools.weather.actions.ResumeWeatherMonitorAction
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorDiagnosticScanner
-import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorIsEnabled
-import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorService
-import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeatherAlerter
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.DailyWeatherAlerter
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.StormAlerter
 import com.kylecorry.trail_sense.tools.weather.quickactions.QuickActionWeatherMonitor
+import com.kylecorry.trail_sense.tools.weather.services.WeatherMonitorToolService
 
 object WeatherToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
@@ -66,32 +66,7 @@ object WeatherToolRegistration : ToolRegistration {
                     true
                 )
             ),
-            services = listOf(
-                ToolService(
-                    context.getString(R.string.weather_monitor),
-                    getFrequency = { UserPreferences(it).weather.weatherUpdateFrequency },
-                    isActive = {
-                        WeatherMonitorIsEnabled().isSatisfiedBy(it)
-                    },
-                    disable = {
-                        UserPreferences(it).weather.shouldMonitorWeather = false
-                        WeatherUpdateScheduler.stop(it)
-                    },
-                    stop = {
-                        WeatherUpdateScheduler.stop(it)
-                    },
-                    restart = {
-                        val prefs = UserPreferences(it)
-                        if (prefs.weather.shouldMonitorWeather) {
-                            if (!WeatherMonitorService.isRunning) {
-                                WeatherUpdateScheduler.start(it)
-                            }
-                        } else {
-                            WeatherUpdateScheduler.stop(it)
-                        }
-                    }
-                )
-            ),
+            services = listOf(WeatherMonitorToolService(context)),
             diagnostics = listOf(
                 ToolDiagnosticFactory.barometer(context),
                 *ToolDiagnosticFactory.altimeter(context),
@@ -115,7 +90,52 @@ object WeatherToolRegistration : ToolRegistration {
                 ),
                 ToolDiagnosticFactory.powerSaver(context),
                 ToolDiagnosticFactory.backgroundService(context)
-            ).distinctBy { it.id }
+            ).distinctBy { it.id },
+            broadcasts = listOf(
+                ToolBroadcast(
+                    BROADCAST_WEATHER_MONITOR_ENABLED,
+                    "Weather monitor enabled"
+                ),
+                ToolBroadcast(
+                    BROADCAST_WEATHER_MONITOR_DISABLED,
+                    "Weather monitor disabled"
+                ),
+                ToolBroadcast(
+                    BROADCAST_WEATHER_MONITOR_STATE_CHANGED,
+                    "Weather monitor state changed"
+                ),
+                ToolBroadcast(
+                    BROADCAST_WEATHER_MONITOR_FREQUENCY_CHANGED,
+                    "Weather monitor frequency changed"
+                )
+            ),
+            actions = listOf(
+                ToolAction(
+                    ACTION_PAUSE_WEATHER_MONITOR,
+                    "Pause weather monitor",
+                    PauseWeatherMonitorAction()
+                ),
+                ToolAction(
+                    ACTION_RESUME_WEATHER_MONITOR,
+                    "Resume weather monitor",
+                    ResumeWeatherMonitorAction()
+                )
+            )
         )
     }
+
+    const val BROADCAST_WEATHER_MONITOR_ENABLED = "weather-broadcast-weather-monitor-enabled"
+    const val BROADCAST_WEATHER_MONITOR_DISABLED = "weather-broadcast-weather-monitor-disabled"
+    const val BROADCAST_WEATHER_MONITOR_STATE_CHANGED =
+        "weather-broadcast-weather-monitor-state-changed"
+    const val BROADCAST_WEATHER_MONITOR_FREQUENCY_CHANGED =
+        "paths-broadcast-weather-monitor-frequency-changed"
+
+    const val BROADCAST_PARAM_WEATHER_MONITOR_FREQUENCY = "paths-broadcast-param-weather-monitor-frequency"
+
+
+    const val ACTION_PAUSE_WEATHER_MONITOR = "weather-action-pause-weather-monitor"
+    const val ACTION_RESUME_WEATHER_MONITOR = "weather-action-resume-weather-monitor"
+
+    const val SERVICE_WEATHER_MONITOR = "weather-service-weather-monitor"
 }

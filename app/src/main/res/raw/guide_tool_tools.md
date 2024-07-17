@@ -39,6 +39,8 @@ A user guide is available for each tool. You can access the user guide by long-p
 You can access the app settings by tapping the settings icon in the top right corner of the tool list. You can also access the settings by opening the 'Settings' tool in the tool list.
 
 ## Quick actions
-You can enable quick actions at the top of the tool list in 'Settings > Tools > Quick actions'. The quick actions can also be accessed by long pressing the bottom navigation.
+You can enable quick actions at the top of the tool list in 'Settings > Tools > Quick actions'.
+
+The quick actions can also be accessed by long pressing the bottom navigation. In addition to the quick actions you selected, you will also see contextual quick actions for the active tool, such as the user guide or settings.
 
 You can find more information about each quick action by viewing the user guide for its respective tool. All quick actions that begin with 'Tool:' will open the tool when clicked.

@@ -2,37 +2,13 @@ package com.kylecorry.trail_sense.tools.weather.tiles
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.kylecorry.andromeda.core.topics.generic.ITopic
-import com.kylecorry.andromeda.core.topics.generic.map
-import com.kylecorry.andromeda.core.topics.generic.replay
-import com.kylecorry.trail_sense.shared.FeatureState
-import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.tiles.TopicTile
-import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
+import com.kylecorry.trail_sense.shared.tiles.ToolServiceTile
+import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 
 @RequiresApi(Build.VERSION_CODES.N)
-class WeatherMonitorTile : TopicTile() {
-    private val weather by lazy { WeatherSubsystem.getInstance(this) }
-    private val formatter by lazy { FormatService.getInstance(this) }
-
-    override val stateTopic: ITopic<FeatureState>
-        get() = weather.weatherMonitorState.replay()
-
-    override val subtitleTopic: ITopic<String>
-        get() = weather.weatherMonitorFrequency.map {
-            formatter.formatDuration(
-                it,
-                includeSeconds = true
-            )
-        }.replay()
-
-    override fun stop() {
-        weather.disableMonitor()
-    }
-
-    override fun start() {
-        startForegroundService {
-            weather.enableMonitor()
-        }
-    }
-}
+class WeatherMonitorTile : ToolServiceTile(
+    WeatherToolRegistration.SERVICE_WEATHER_MONITOR,
+    WeatherToolRegistration.BROADCAST_WEATHER_MONITOR_STATE_CHANGED,
+    WeatherToolRegistration.BROADCAST_WEATHER_MONITOR_FREQUENCY_CHANGED,
+    isForegroundService = true
+)

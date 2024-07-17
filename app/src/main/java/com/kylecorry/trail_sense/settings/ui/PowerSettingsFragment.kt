@@ -21,10 +21,10 @@ class PowerSettingsFragment : AndromedaPreferenceFragment() {
             // TODO: Move preference to it's own repo
             if (prefs.isLowPowerModeOn) {
                 prefs.power.userEnabledLowPower = true
-                LowPowerMode(requireContext()).enable(requireActivity())
+                LowPowerMode(requireContext()).enable()
             } else {
                 prefs.power.userEnabledLowPower = false
-                LowPowerMode(requireContext()).disable(requireActivity())
+                LowPowerMode(requireContext()).disable()
             }
         }
 

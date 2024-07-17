@@ -13,10 +13,17 @@ class IOFactory {
         )
     }
 
-    fun createCsvService(activity: AndromedaActivity): ExportService<List<List<String>>> {
-        return CsvExportService(
+    fun createCsvService(activity: AndromedaActivity): IOService<List<List<String>>> {
+        return CsvIOService(
             ActivityUriPicker(activity),
             ExternalUriService(activity)
+        )
+    }
+
+    fun createCsvService(fragment: AndromedaFragment): IOService<List<List<String>>> {
+        return CsvIOService(
+            FragmentUriPicker(fragment),
+            ExternalUriService(fragment.requireContext())
         )
     }
 

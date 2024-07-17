@@ -3,20 +3,20 @@ package com.kylecorry.trail_sense.tools.paths
 import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.FeatureState
-import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.paths.infrastructure.BacktrackScheduler
+import com.kylecorry.trail_sense.tools.paths.actions.PauseBacktrackAction
+import com.kylecorry.trail_sense.tools.paths.actions.ResumeBacktrackAction
 import com.kylecorry.trail_sense.tools.paths.infrastructure.services.BacktrackService
-import com.kylecorry.trail_sense.tools.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.tools.paths.quickactions.QuickActionBacktrack
+import com.kylecorry.trail_sense.tools.paths.services.BacktrackToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolAction
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 
 object PathsToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
@@ -50,32 +50,7 @@ object PathsToolRegistration : ToolRegistration {
                     muteSound = true
                 )
             ),
-            services = listOf(
-                ToolService(
-                    context.getString(R.string.backtrack),
-                    getFrequency = { UserPreferences(it).backtrackRecordFrequency },
-                    isActive = {
-                        BacktrackScheduler.isOn(it)
-                    },
-                    disable = {
-                        UserPreferences(it).backtrackEnabled = false
-                        BacktrackScheduler.stop(it)
-                    },
-                    stop = {
-                        BacktrackService.stop(it)
-                    },
-                    restart = {
-                        val backtrack = BacktrackSubsystem.getInstance(context)
-                        if (backtrack.getState() == FeatureState.On) {
-                            if (!BacktrackService.isRunning) {
-                                backtrack.enable(false)
-                            }
-                        } else {
-                            backtrack.disable()
-                        }
-                    }
-                )
-            ),
+            services = listOf(BacktrackToolService(context)),
             diagnostics = listOf(
                 ToolDiagnosticFactory.gps(context),
                 *ToolDiagnosticFactory.altimeter(context),
@@ -87,7 +62,45 @@ object PathsToolRegistration : ToolRegistration {
                 ),
                 ToolDiagnosticFactory.powerSaver(context),
                 ToolDiagnosticFactory.backgroundService(context)
-            ).distinctBy { it.id }
+            ).distinctBy { it.id },
+            broadcasts = listOf(
+                ToolBroadcast(
+                    BROADCAST_BACKTRACK_ENABLED,
+                    "Backtrack enabled"
+                ),
+                ToolBroadcast(
+                    BROADCAST_BACKTRACK_DISABLED,
+                    "Backtrack disabled"
+                ),
+                ToolBroadcast(
+                    BROADCAST_BACKTRACK_STATE_CHANGED,
+                    "Backtrack state changed"
+                )
+            ),
+            actions = listOf(
+                ToolAction(
+                    ACTION_RESUME_BACKTRACK,
+                    "Resume backtrack",
+                    ResumeBacktrackAction()
+                ),
+                ToolAction(
+                    ACTION_PAUSE_BACKTRACK,
+                    "Pause backtrack",
+                    PauseBacktrackAction()
+                )
+            )
         )
     }
+
+    const val BROADCAST_BACKTRACK_ENABLED = "paths-broadcast-backtrack-enabled"
+    const val BROADCAST_BACKTRACK_DISABLED = "paths-broadcast-backtrack-disabled"
+    const val BROADCAST_BACKTRACK_STATE_CHANGED = "paths-broadcast-backtrack-state-changed"
+    const val BROADCAST_BACKTRACK_FREQUENCY_CHANGED = "paths-broadcast-backtrack-frequency-changed"
+
+    const val BROADCAST_PARAM_BACKTRACK_FREQUENCY = "paths-broadcast-param-backtrack-frequency"
+
+    const val ACTION_PAUSE_BACKTRACK = "paths-action-pause-backtrack"
+    const val ACTION_RESUME_BACKTRACK = "paths-action-resume-backtrack"
+
+    const val SERVICE_BACKTRACK = "paths-service-backtrack"
 }

@@ -29,8 +29,11 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.ResettableLoadingIndicator
 import com.kylecorry.trail_sense.shared.alerts.ViewLoadingIndicator
 import com.kylecorry.trail_sense.shared.debugging.isDebug
-import com.kylecorry.trail_sense.shared.extensions.getOrNull
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.getFeatureState
+import com.kylecorry.trail_sense.tools.tools.infrastructure.observe
+import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 import com.kylecorry.trail_sense.tools.weather.domain.CurrentWeather
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherObservation
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherLogger
@@ -86,6 +89,10 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         )
     }
 
+    private val weatherMonitorService by lazy {
+        Tools.getService(requireContext(), WeatherToolRegistration.SERVICE_WEATHER_MONITOR)!!
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -116,12 +123,16 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             updateWeather()
         }
 
-        weatherSubsystem.weatherMonitorState.replay().asLiveData().observe(viewLifecycleOwner) {
+        updateStatusBar()
+
+        Tools.observe(this, WeatherToolRegistration.BROADCAST_WEATHER_MONITOR_STATE_CHANGED){
             updateStatusBar()
+            true
         }
 
-        weatherSubsystem.weatherMonitorFrequency.replay().asLiveData().observe(viewLifecycleOwner) {
+        Tools.observe(this, WeatherToolRegistration.BROADCAST_WEATHER_MONITOR_FREQUENCY_CHANGED){
             updateStatusBar()
+            true
         }
 
         binding.weatherPlayBar.setOnSubtitleClickListener {
@@ -129,23 +140,24 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         }
 
         binding.weatherPlayBar.setOnPlayButtonClickListener {
-            when (weatherSubsystem.weatherMonitorState.getOrNull()) {
-                FeatureState.Unavailable -> toast(getString(R.string.weather_monitoring_disabled))
-                FeatureState.On -> weatherSubsystem.disableMonitor()
-                FeatureState.Off -> {
-                    weatherSubsystem.enableMonitor()
-                    RequestRemoveBatteryRestrictionCommand(this).execute()
-                }
+            inBackground {
+                when (weatherMonitorService.getFeatureState()) {
+                    FeatureState.On -> weatherMonitorService.disable()
+                    FeatureState.Off -> {
+                        weatherMonitorService.enable()
+                        RequestRemoveBatteryRestrictionCommand(this@WeatherFragment).execute()
+                    }
 
-                null -> {}
+                    FeatureState.Unavailable -> toast(getString(R.string.weather_monitoring_disabled))
+                }
             }
         }
     }
 
     private fun updateStatusBar() {
         binding.weatherPlayBar.setState(
-            weatherSubsystem.weatherMonitorState.getOrNull() ?: FeatureState.Off,
-            weatherSubsystem.weatherMonitorFrequency.getOrNull()
+            weatherMonitorService.getFeatureState(),
+            weatherMonitorService.getFrequency()
         )
     }
 
@@ -234,7 +246,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     private suspend fun loadRawWeatherReadings() {
         if (isDebug()) {
             if (prefs.weather.useSeaLevelPressure) {
-                val raw = weatherSubsystem.getRawHistory().filter {
+                val raw = weatherSubsystem.getRawHistory(true).filter {
                     Duration.between(
                         it.time,
                         Instant.now()

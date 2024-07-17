@@ -4,23 +4,21 @@ import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionFlashlight
 import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionScreenFlashlight
+import com.kylecorry.trail_sense.tools.flashlight.services.FlashlightToolService
 import com.kylecorry.trail_sense.tools.flashlight.volumeactions.FlashlightToggleVolumeAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
-import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeActionPriority
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import java.time.Duration
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 
 object FlashlightToolRegistration : ToolRegistration {
 
@@ -68,24 +66,7 @@ object FlashlightToolRegistration : ToolRegistration {
                     muteSound = true
                 )
             ),
-            services = listOf(
-                ToolService(
-                    context.getString(R.string.flashlight_title),
-                    getFrequency = { Duration.ZERO },
-                    isActive = {
-                        FlashlightSubsystem.getInstance(it).getMode() != FlashlightMode.Off
-                    },
-                    disable = {
-                        FlashlightSubsystem.getInstance(it).set(FlashlightMode.Off)
-                    },
-                    stop = {
-                        FlashlightSubsystem.getInstance(it).set(FlashlightMode.Off)
-                    },
-                    restart = {
-                        // Does not support restarting
-                    }
-                )
-            ),
+            services = listOf(FlashlightToolService(context)),
             diagnostics = listOf(
                 ToolDiagnosticFactory.flashlight(context),
                 ToolDiagnosticFactory.notification(
@@ -95,4 +76,6 @@ object FlashlightToolRegistration : ToolRegistration {
             )
         )
     }
+
+    const val SERVICE_FLASHLIGHT = "flashlight-service-flashlight"
 }

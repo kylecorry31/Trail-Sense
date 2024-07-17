@@ -46,6 +46,19 @@
             app:title="@string/pref_adjust_for_temperature_title" />
 
         <Preference
+            android:summary="-"
+            android:title="@string/barometer_offset"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_holder_barometer_offset"
+            app:singleLineTitle="false" />
+
+        <Preference
+            android:title="@string/reset_calibration"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_reset_barometer_calibration_key"
+            app:singleLineTitle="false" />
+
+        <Preference
             android:icon="@drawable/ic_info"
             android:summary="@string/pref_barometer_info_summary"
             app:key="@string/pref_barometer_info_holder"

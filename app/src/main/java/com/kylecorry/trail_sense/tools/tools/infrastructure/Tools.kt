@@ -1,9 +1,13 @@
 package com.kylecorry.trail_sense.tools.tools.infrastructure
 
 import android.content.Context
+import android.os.Bundle
 import com.kylecorry.andromeda.core.capitalizeWords
+import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.luna.hooks.Hooks
+import com.kylecorry.luna.topics.generic.Topic
+import com.kylecorry.luna.topics.generic.ITopic
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.SettingsToolRegistration
 import com.kylecorry.trail_sense.shared.quickactions.QuickActionOpenTool
@@ -94,6 +98,7 @@ object Tools {
         LocalMessagingToolRegistration,
         LocalTalkToolRegistration
     )
+    private val topics = mutableMapOf<String, Topic<Bundle>>()
 
     fun isToolAvailable(context: Context, toolId: Long): Boolean {
         return getTool(context, toolId) != null
@@ -105,7 +110,7 @@ object Tools {
 
     fun getTools(context: Context, availableOnly: Boolean = true): List<Tool> {
         val tools = hooks.memo("tools", Resources.getLocale(context).language) {
-            registry.map { it.getTool(context) }
+            registry.map { it.getTool(context.applicationContext) }
         }
 
 
@@ -127,7 +132,7 @@ object Tools {
         val quickActions = tools
             .flatMap { it.quickActions }
             .distinctBy { it.id }
-            .sortedBy { it.id }
+            .sortedBy { it.name }
             .map { it.copy(name = it.name.capitalizeWords()) }
 
         val toolActions = sortedTools.map {
@@ -138,6 +143,28 @@ object Tools {
         }
 
         return listOf(none) + quickActions + toolActions
+    }
+
+    fun broadcast(toolBroadcastId: String, data: Bundle? = null) {
+        topics[toolBroadcastId]?.publish(data ?: Bundle())
+    }
+
+    fun subscribe(toolBroadcastId: String, callback: (Bundle) -> Boolean) {
+        val topic = topics.getOrPut(toolBroadcastId) {
+            Topic()
+        }
+        topic.subscribe(callback)
+    }
+
+    fun unsubscribe(toolBroadcastId: String, callback: (Bundle) -> Boolean) {
+        val topic = topics[toolBroadcastId]
+        topic?.unsubscribe(callback)
+    }
+
+    fun getService(context: Context, serviceId: String): ToolService? {
+        return getTools(context)
+            .flatMap { it.services }
+            .firstOrNull { it.id == serviceId }
     }
 
     const val TOOL_QUICK_ACTION_OFFSET = 1000
@@ -203,4 +230,5 @@ object Tools {
     const val QUICK_ACTION_SCAN_CLOUD = 21
     const val QUICK_ACTION_OPEN_PHOTO_MAP = 22
     const val QUICK_ACTION_USER_GUIDE = 23
+    const val QUICK_ACTION_SETTINGS = 24
 }

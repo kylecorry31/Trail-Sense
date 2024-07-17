@@ -8,8 +8,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.alerts.IAlerter
 
-class RemoveBatteryRestrictionsAlerter<T>(private val fragment: T) :
-    IAlerter where T : Fragment, T : IPermissionRequester {
+class RemoveBatteryRestrictionsAlerter(private val fragment: Fragment) : IAlerter {
 
     override fun alert() {
         val context = fragment.requireContext()

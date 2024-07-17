@@ -1159,4 +1159,9 @@
     <string name="forecast_algorithm">预估算法</string>
     <string name="waning_crescent">残月</string>
     <string name="waxing_crescent">盈凸月</string>
+    <string name="exported">已导出</string>
+    <string name="import_packing_list">导入打包清单</string>
+    <string name="barometer_offset">气压计偏移</string>
+    <string name="enter_the_current_pressure">输入当前压力</string>
+    <string name="no_items_found">未找到项目</string>
 </resources>

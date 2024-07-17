@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.camera.camera2.Camera2Config
 import androidx.camera.core.CameraXConfig
+import com.kylecorry.trail_sense.main.automations.Automations
 import com.kylecorry.trail_sense.main.persistence.RepoCleanupWorker
 import com.kylecorry.trail_sense.settings.migrations.PreferenceMigrator
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
@@ -15,6 +16,7 @@ class TrailSenseApplication : Application(), CameraXConfig.Provider {
     override fun onCreate() {
         super.onCreate()
         Log.d("TrailSenseApplication", "onCreate")
+        Automations.setup(this)
         NotificationChannels.createChannels(this)
         PreferenceMigrator.getInstance().migrate(this)
         RepoCleanupWorker.scheduler(this).interval(Duration.ofHours(6))

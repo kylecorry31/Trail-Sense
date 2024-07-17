@@ -7,13 +7,17 @@ import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.background.IOneTimeTaskScheduler
 import com.kylecorry.andromeda.background.OneTimeTaskSchedulerFactory
 import com.kylecorry.andromeda.fragments.IPermissionRequester
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.permissions.RequestBackgroundLocationCommand
 import com.kylecorry.trail_sense.shared.permissions.requestScheduleExactAlarms
+import com.kylecorry.trail_sense.tools.astronomy.AstronomyToolRegistration
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunsetAlarmCommand
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class SunsetAlarmReceiver : BroadcastReceiver() {
 
@@ -56,18 +60,22 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
         /**
          * Enable sunset alerts and request permissions if needed
          */
-        fun <T> enable(
+        suspend fun <T> enable(
             fragment: T,
             shouldRequestPermissions: Boolean
         ) where T : Fragment, T : IPermissionRequester {
-            UserPreferences(fragment.requireContext()).astronomy.sendSunsetAlerts = true
+            val service = Tools.getService(
+                fragment.requireContext(),
+                AstronomyToolRegistration.SERVICE_SUNSET_ALERTS
+            )
+            service?.enable()
             if (shouldRequestPermissions) {
                 fragment.requestScheduleExactAlarms {
-                    start(fragment.requireContext())
+                    runBlocking {
+                        service?.restart()
+                    }
                     RequestBackgroundLocationCommand(fragment).execute()
                 }
-            } else {
-                start(fragment.requireContext())
             }
         }
     }

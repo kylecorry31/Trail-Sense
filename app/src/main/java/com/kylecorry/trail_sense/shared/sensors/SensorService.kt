@@ -223,15 +223,17 @@ class SensorService(ctx: Context) {
         return DeviceOrientation(context, ENVIRONMENT_SENSOR_DELAY)
     }
 
-    fun getBarometer(): IBarometer {
+    fun getBarometer(calibrated: Boolean = true): IBarometer {
         if (!userPrefs.weather.hasBarometer) {
             return MockBarometer()
         }
 
-        val barometer = CalibratedBarometer(
-            Barometer(context, ENVIRONMENT_SENSOR_DELAY),
-            0f // TODO: Read offset from prefs
-        )
+        val rawBarometer = Barometer(context, ENVIRONMENT_SENSOR_DELAY)
+
+        val barometer = if (calibrated) CalibratedBarometer(
+            rawBarometer,
+            userPrefs.weather.barometerOffset
+        ) else rawBarometer
 
         return FilteredBarometer(barometer, 3) {
             LowPassFilter(0.1f, it)

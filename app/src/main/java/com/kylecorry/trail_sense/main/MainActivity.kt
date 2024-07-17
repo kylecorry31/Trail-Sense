@@ -13,7 +13,6 @@ import android.view.KeyEvent
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
 import androidx.core.view.ViewCompat
@@ -39,17 +38,16 @@ import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.RestartServicesCommand
 import com.kylecorry.trail_sense.settings.backup.BackupService
 import com.kylecorry.trail_sense.settings.ui.SettingsMoveNotice
-import com.kylecorry.trail_sense.shared.CustomUiUtils.isDarkThemeOn
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.ComposedCommand
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils.setupWithNavController
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.shared.volume.VolumeAction
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
+import com.kylecorry.trail_sense.tools.battery.BatteryToolRegistration
 import com.kylecorry.trail_sense.tools.battery.infrastructure.commands.PowerSavingModeAlertCommand
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
@@ -77,6 +75,8 @@ class MainActivity : AndromedaActivity() {
         Manifest.permission.ACCESS_COARSE_LOCATION
     )
 
+    private var bottomInsets = 0
+
     init {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             permissions.add(Manifest.permission.POST_NOTIFICATIONS)
@@ -97,18 +97,7 @@ class MainActivity : AndromedaActivity() {
         val isBlackTheme =
             userPrefs.theme == UserPreferences.Theme.Black || userPrefs.theme == UserPreferences.Theme.Night
         setColorTheme(mode, userPrefs.useDynamicColors)
-        enableEdgeToEdge(
-            navigationBarStyle = if (isBlackTheme) {
-                SystemBarStyle.dark(Color.BLACK)
-            } else if (isDarkThemeOn()) {
-                SystemBarStyle.dark(Resources.androidBackgroundColorSecondary(this))
-            } else {
-                SystemBarStyle.light(
-                    Resources.androidBackgroundColorSecondary(this),
-                    Color.BLACK
-                )
-            }
-        )
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
         Screen.setAllowScreenshots(window, !userPrefs.privacy.isScreenshotProtectionOn)
@@ -202,7 +191,7 @@ class MainActivity : AndromedaActivity() {
     private fun setBottomNavLabelsVisibility() {
         binding.bottomNavigation.apply {
             if (userPrefs.useCompactMode) {
-                layoutParams.height = Resources.dp(context, 55f).toInt()
+                layoutParams.height = Resources.dp(context, 55f).toInt() + bottomInsets
                 labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_UNLABELED
             } else {
                 layoutParams.height = LayoutParams.WRAP_CONTENT
@@ -216,9 +205,10 @@ class MainActivity : AndromedaActivity() {
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 topMargin = insets.top
-                bottomMargin = insets.bottom
             }
-            WindowInsetsCompat.CONSUMED
+            bottomInsets = insets.bottom
+            setBottomNavLabelsVisibility()
+            windowInsets
         }
     }
 
@@ -231,11 +221,21 @@ class MainActivity : AndromedaActivity() {
         super.onResume()
         FlashlightSubsystem.getInstance(this).startSystemMonitor()
         PedometerSubsystem.getInstance(this).recalculateState()
+        Tools.subscribe(
+            BatteryToolRegistration.BROADCAST_POWER_SAVING_MODE_ENABLED,
+            ::onPowerSavingModeChanged
+        )
+        Tools.subscribe(
+            BatteryToolRegistration.BROADCAST_POWER_SAVING_MODE_DISABLED,
+            ::onPowerSavingModeChanged
+        )
     }
 
     override fun onPause() {
         super.onPause()
         FlashlightSubsystem.getInstance(this).stopSystemMonitor()
+        Tools.unsubscribe(BatteryToolRegistration.BROADCAST_POWER_SAVING_MODE_ENABLED, ::onPowerSavingModeChanged)
+        Tools.unsubscribe(BatteryToolRegistration.BROADCAST_POWER_SAVING_MODE_DISABLED, ::onPowerSavingModeChanged)
     }
 
     private fun startApp(shouldReloadNavigation: Boolean) {
@@ -433,8 +433,7 @@ class MainActivity : AndromedaActivity() {
             val item = binding.bottomNavigation.menu.getItem(i)
             val view = binding.bottomNavigation.findViewById<View>(item.itemId)
             view.setOnLongClickListener {
-                val fragment =
-                    getFragment() as? AndromedaFragment
+                val fragment = getFragment()
 
                 if (fragment == null) {
                     Alerts.toast(this, getString(R.string.quick_actions_are_unavailable))
@@ -464,6 +463,11 @@ class MainActivity : AndromedaActivity() {
         val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
         navGraph.setStartDestination(startDestination)
         navController.graph = navGraph
+    }
+
+    private fun onPowerSavingModeChanged(data: Bundle): Boolean {
+        recreate()
+        return true
     }
 
     companion object {

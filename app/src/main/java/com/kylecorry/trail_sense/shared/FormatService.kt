@@ -597,6 +597,16 @@ class FormatService private constructor(private val context: Context) {
         }
     }
 
+    fun getPressureUnitName(unit: PressureUnits): String {
+        return when (unit) {
+            PressureUnits.Hpa -> strings.getString(R.string.units_hpa)
+            PressureUnits.Mbar -> strings.getString(R.string.units_mbar)
+            PressureUnits.Inhg -> strings.getString(R.string.units_inhg)
+            PressureUnits.Psi -> strings.getString(R.string.units_psi)
+            PressureUnits.MmHg -> strings.getString(R.string.units_mmhg)
+        }
+    }
+
     fun getTemperatureUnitName(unit: TemperatureUnits, short: Boolean = false): String {
         return if (short) {
             when (unit) {

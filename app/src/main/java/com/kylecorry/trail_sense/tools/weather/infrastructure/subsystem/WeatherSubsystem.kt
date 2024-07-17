@@ -7,7 +7,6 @@ import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.topics.ITopic
 import com.kylecorry.andromeda.core.topics.Topic
-import com.kylecorry.andromeda.core.topics.generic.distinct
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
@@ -16,11 +15,9 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.data.DataUtils
 import com.kylecorry.trail_sense.shared.debugging.DebugWeatherCommand
-import com.kylecorry.trail_sense.shared.extensions.getOrNull
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures.HistoricTemperatureRepo
@@ -34,9 +31,6 @@ import com.kylecorry.trail_sense.tools.weather.domain.forecasting.temperatures.C
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.temperatures.HistoricTemperatureService
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.temperatures.ITemperatureService
 import com.kylecorry.trail_sense.tools.weather.domain.sealevel.SeaLevelCalibrationFactory
-import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorIsAvailable
-import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorIsEnabled
-import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherUpdateScheduler
 import com.kylecorry.trail_sense.tools.weather.infrastructure.commands.MonitorWeatherCommand
 import com.kylecorry.trail_sense.tools.weather.infrastructure.commands.SendWeatherAlertsCommand
 import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.WeatherRepo
@@ -47,7 +41,6 @@ import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZonedDateTime
-import java.util.Optional
 
 
 class WeatherSubsystem private constructor(private val context: Context) : IWeatherSubsystem {
@@ -67,32 +60,6 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     private val _weatherChanged = Topic()
     override val weatherChanged: ITopic = _weatherChanged
 
-    private val _weatherMonitorState =
-        com.kylecorry.andromeda.core.topics.generic.Topic(
-            defaultValue = Optional.of(
-                calculateWeatherMonitorState()
-            )
-        )
-    override val weatherMonitorState: com.kylecorry.andromeda.core.topics.generic.ITopic<FeatureState>
-        get() = _weatherMonitorState.distinct()
-
-    private val _weatherMonitorFrequency =
-        com.kylecorry.andromeda.core.topics.generic.Topic(
-            defaultValue = Optional.of(
-                calculateWeatherMonitorFrequency()
-            )
-        )
-    override val weatherMonitorFrequency: com.kylecorry.andromeda.core.topics.generic.ITopic<Duration>
-        get() = _weatherMonitorFrequency.distinct()
-
-    override fun getWeatherMonitorState(): FeatureState {
-        return weatherMonitorState.getOrNull() ?: FeatureState.Off
-    }
-
-    override fun getWeatherMonitorFrequency(): Duration {
-        return weatherMonitorFrequency.getOrNull() ?: Duration.ofMinutes(15)
-    }
-
     private val invalidationPrefKeys = listOf(
         R.string.pref_use_sea_level_pressure,
         R.string.pref_barometer_pressure_smoothing,
@@ -102,7 +69,8 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         R.string.pref_altimeter_calibration_mode,
         R.string.pref_pressure_history,
         R.string.pref_temperature_smoothing,
-        R.string.pref_weather_forecast_source
+        R.string.pref_weather_forecast_source,
+        R.string.pref_barometer_offset
     ).map { context.getString(it) }
 
     private val weatherMonitorStatePrefKeys = listOf(
@@ -116,25 +84,10 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     ).map { context.getString(it) }
 
     init {
-        // Keep them up to date
-        weatherMonitorFrequency.subscribe { true }
-        weatherMonitorState.subscribe { true }
-
         sharedPrefs.onChange.subscribe { key ->
             if (key in invalidationPrefKeys) {
                 invalidate()
             }
-
-            if (key in weatherMonitorStatePrefKeys) {
-                val state = calculateWeatherMonitorState()
-                _weatherMonitorState.publish(state)
-            }
-
-            if (key in weatherMonitorFrequencyPrefKeys) {
-                val frequency = calculateWeatherMonitorFrequency()
-                _weatherMonitorFrequency.publish(frequency)
-            }
-
             true
         }
         weatherRepo.readingsChanged.subscribe {
@@ -163,12 +116,14 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         val calibrator = SeaLevelCalibrationFactory().create(prefs)
         val pressures = calibrator.calibrate(precalibrated)
 
+        val offset = prefs.weather.barometerOffset
+
         val combined = pressures.map {
             val reading = precalibrated.firstOrNull { r -> r.time == it.time }
             WeatherObservation(
                 reading?.value?.id ?: 0L,
                 it.time,
-                it.value,
+                it.value.copy(pressure = it.value.pressure + offset),
                 Temperature.celsius(reading?.value?.temperature ?: 0f),
                 reading?.value?.humidity
             )
@@ -247,32 +202,35 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         return lookupLocation to lookupElevation
     }
 
-    override suspend fun getRawHistory(): List<Reading<RawWeatherObservation>> = onIO {
-        if (!isValid) {
-            refresh()
+    override suspend fun getRawHistory(applyPressureOffset: Boolean): List<Reading<RawWeatherObservation>> =
+        onIO {
+            if (!isValid) {
+                refresh()
+            }
+            val readings = weatherRepo.getAll()
+                .asSequence()
+                .sortedBy { it.time }
+                .filter { it.time <= Instant.now() }
+                .map {
+                    if (it.value.location == Coordinate.zero) it.copy(
+                        value = it.value.copy(
+                            location = location.location
+                        )
+                    ) else it
+                }
+                .toList()
+
+            if (applyPressureOffset) {
+                calibrateBarometerOffset(readings)
+            } else {
+                readings
+            }
         }
-        weatherRepo.getAll()
-            .asSequence()
-            .sortedBy { it.time }
-            .filter { it.time <= Instant.now() }
-            .map { if (it.value.location == Coordinate.zero) it.copy(value = it.value.copy(location = location.location)) else it }
-            .toList()
-    }
-
-    override fun enableMonitor() {
-        prefs.weather.shouldMonitorWeather = true
-        WeatherUpdateScheduler.start(context)
-    }
-
-    override fun disableMonitor() {
-        prefs.weather.shouldMonitorWeather = false
-        WeatherUpdateScheduler.stop(context)
-    }
 
     override suspend fun updateWeather() = onDefault {
         updateWeatherMutex.withLock {
             val last = weatherRepo.getLast()?.time
-            val maxPeriod = getWeatherMonitorFrequency().dividedBy(3)
+            val maxPeriod = prefs.weather.weatherUpdateFrequency.dividedBy(3)
 
             if (last != null && Duration.between(last, Instant.now()).abs() < maxPeriod) {
                 // Still send out the weather alerts, just don't log a new reading
@@ -351,20 +309,6 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         return location to elevation
     }
 
-    private fun calculateWeatherMonitorFrequency(): Duration {
-        return prefs.weather.weatherUpdateFrequency
-    }
-
-    private fun calculateWeatherMonitorState(): FeatureState {
-        return if (WeatherMonitorIsEnabled().isSatisfiedBy(context)) {
-            FeatureState.On
-        } else if (WeatherMonitorIsAvailable().not().isSatisfiedBy(context)) {
-            FeatureState.Unavailable
-        } else {
-            FeatureState.Off
-        }
-    }
-
     // TODO: Extract this
     private fun calibrateTemperatures(readings: List<Reading<RawWeatherObservation>>): List<Reading<RawWeatherObservation>> {
         val smoothing = prefs.thermometer.smoothing
@@ -389,6 +333,14 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             { it.humidity ?: 0f }) { reading, smoothed ->
             reading.copy(humidity = if (smoothed == 0f) null else smoothed)
         }
+    }
+
+    private fun calibrateBarometerOffset(readings: List<Reading<RawWeatherObservation>>): List<Reading<RawWeatherObservation>> {
+        val offset = prefs.weather.barometerOffset
+        if (offset == 0f) {
+            return readings
+        }
+        return readings.map { it.copy(value = it.value.copy(pressure = it.value.pressure + offset)) }
     }
 
     companion object {

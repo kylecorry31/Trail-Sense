@@ -1,26 +1,27 @@
 package com.kylecorry.trail_sense.tools.weather.quickactions
 
 import android.widget.ImageButton
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.toast
-import com.kylecorry.andromeda.core.topics.generic.ITopic
-import com.kylecorry.andromeda.core.topics.generic.replay
-import com.kylecorry.andromeda.fragments.AndromedaFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FeatureState
-import com.kylecorry.trail_sense.shared.extensions.getOrNull
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
-import com.kylecorry.trail_sense.shared.quickactions.TopicQuickAction
-import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
+import com.kylecorry.trail_sense.shared.quickactions.ToolServiceQuickAction
+import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 
 class QuickActionWeatherMonitor(
     btn: ImageButton,
-    private val andromedaFragment: AndromedaFragment
-) :
-    TopicQuickAction(btn, andromedaFragment, hideWhenUnavailable = false) {
-
-    private val weather = WeatherSubsystem.getInstance(context)
+    fragment: Fragment
+) : ToolServiceQuickAction(
+    btn,
+    fragment,
+    WeatherToolRegistration.SERVICE_WEATHER_MONITOR,
+    WeatherToolRegistration.BROADCAST_WEATHER_MONITOR_STATE_CHANGED,
+    hideWhenUnavailable = false
+) {
 
     override fun onCreate() {
         super.onCreate()
@@ -35,17 +36,16 @@ class QuickActionWeatherMonitor(
 
     override fun onClick() {
         super.onClick()
-        when (weather.weatherMonitorState.getOrNull()) {
-            FeatureState.On -> weather.disableMonitor()
-            FeatureState.Off -> {
-                weather.enableMonitor()
-                RequestRemoveBatteryRestrictionCommand(andromedaFragment).execute()
-            }
+        fragment.inBackground {
+            when (state) {
+                FeatureState.On -> service?.disable()
+                FeatureState.Off -> {
+                    service?.enable()
+                    RequestRemoveBatteryRestrictionCommand(fragment).execute()
+                }
 
-            else -> fragment.toast(context.getString(R.string.weather_monitoring_disabled))
+                else -> fragment.toast(context.getString(R.string.weather_monitoring_disabled))
+            }
         }
     }
-
-    override val state: ITopic<FeatureState> = weather.weatherMonitorState.replay()
-
 }

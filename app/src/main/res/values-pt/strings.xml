@@ -103,7 +103,7 @@
     <string name="notification_channel_clock_sync_description">Uma notificação para sincronizar o seu relógio com a hora do GPS</string>
     <string name="notification_channel_clock_sync">Sincronização do relógio</string>
     <string name="pip_notification_scheduled">Notificação programada para %s</string>
-    <string name="pip_button">Atualizar o relógio do sistema</string>
+    <string name="pip_button">Atualizar o tempo do sistema</string>
     <string name="could_not_triangulate">Não foi possível triangular</string>
     <string name="tool_triangulate_title">Triangular localização</string>
     <string name="tool_category_signaling">Sinalização</string>
@@ -151,7 +151,7 @@
     <string name="tool_solar_panel_summary">Posicionar painéis solares para otimizar a produção da energia</string>
     <string name="pref_privacy_policy_title">Política de privacidade</string>
     <string name="guide_recommended_apps_description">Aplicações úteis para situações de sobrevivência</string>
-    <string name="guide_recommended_apps">Aplicações recomendadas</string>
+    <string name="guide_recommended_apps">Apps recomendados</string>
     <string name="unit_nautical_miles">Milhas náuticas</string>
     <string name="unit_miles">Milhas</string>
     <string name="unit_feet">Pés</string>
@@ -266,7 +266,7 @@
     <string name="delete">Eliminar</string>
     <string name="subtract">Subtrair</string>
     <string name="add">Adicionar</string>
-    <string name="set_inclination_instructions">Toque em qualquer lugar para bloquear/desbloquear</string>
+    <string name="set_inclination_instructions">Toque ou segure em qualquer lugar para bloquear ou desbloquear</string>
     <string name="clinometer_rotate_device">Segure o seu telemóvel na vertical para medir a inclinação</string>
     <string name="tool_clinometer_summary">Estimar os riscos de avalanche e a altura dos objetos</string>
     <string name="clinometer_title">Inclinómetro</string>
@@ -420,7 +420,7 @@
     <string name="backtrack_disabled_low_power_toast">O voltar para trás é desativado no modo de economia de energia</string>
     <string name="dialog_leave">Sair</string>
     <string name="unsaved_changes_message">As alterações que fez não serão guardadas.</string>
-    <string name="unsaved_changes">Alterações por guardar</string>
+    <string name="unsaved_changes">Alterações não gravadas</string>
     <string name="low_power_mode_on_message">Modo de economia de energia ativado, algumas funcionalidades podem ter sido desativadas.</string>
     <string name="pref_low_power_mode_title">Modo de economia de energia</string>
     <string name="charging_wireless">A carregar (%s)</string>
@@ -478,8 +478,8 @@
 \n
 \n### Resolução
 \n%4$s</string>
-    <string name="gps_unavailable_resolution">Ative a localização ou mude o tipo de localização para \"apenas aparelho\" ou \"alta precisão\"</string>
-    <string name="battery_restricted_resolution">Definir o Trail Sense como \"não otimizado\"</string>
+    <string name="gps_unavailable_resolution">Ative a localização ou mude o tipo de localização para \"Somente dispositivo\" ou \"Alta precisão\"</string>
+    <string name="battery_restricted_resolution">Defina o Trail Sense como \"não otimizado\"</string>
     <string name="power_saving_mode_resolution">Desativar o modo de economia da bateria</string>
     <string name="location_override_not_set_resolution">Introduza a localização simulada nas configurações</string>
     <string name="location_override_resolution">Ativar o ajuste automático da localização nas configurações.</string>
@@ -521,12 +521,12 @@
     <string name="imperial_ounces_volume">Onças imperiais</string>
     <string name="imperial_quarts">Quartos imperiais</string>
     <string name="imperial_pints">Quartilhos imperiais</string>
-    <string name="imperial_cups">Taças imperiais</string>
+    <string name="imperial_cups">Copos imperiais</string>
     <string name="us_gallons">Galões dos EUA</string>
     <string name="us_ounces_volume">Onças dos EUA</string>
     <string name="us_quarts">Quartos dos EUA</string>
     <string name="us_pints">Quartilho dos EUA</string>
-    <string name="us_cups">Taças dos EUA</string>
+    <string name="us_cups">Copos dos EUA</string>
     <string name="milliliters">Millilitros</string>
     <string name="liters">Litros</string>
     <string name="gallon_format">%s gal</string>
@@ -575,8 +575,8 @@
     <string name="coordinates_tab">Coordenadas</string>
     <string name="distance">Distância</string>
     <string name="convert">Converter</string>
-    <string name="pref_nmea_elevation_summary">Utiliza compensações NMEA para conversão de altitude</string>
-    <string name="pref_nmea_elevation_title">Compensação de altitude NMEA</string>
+    <string name="pref_nmea_elevation_summary">Utilizar NMEA (satélite) para corrigir elevações, em vez do modelo integrado</string>
+    <string name="pref_nmea_elevation_title">Correção de altitude NMEA</string>
     <string name="pref_barometer_info_summary">A pressão pode ser diferente de estações próximas</string>
     <string name="battery_history">Histórico da bateria - últimos %s</string>
     <string name="weather_monitor">Monitor do tempo</string>
@@ -707,7 +707,7 @@
 \n
 \n**Azimute**: %3$s</string>
     <string name="weather_monitoring_disabled">Monitorização da meteorologia desativada</string>
-    <string name="no_clouds">Sem nuvens</string>
+    <string name="no_clouds">Nenhuma nuvem</string>
     <string name="precipitation_none">Sem precipitação</string>
     <string name="precipitation_rain">Chuva</string>
     <string name="precipitation_drizzle">Chuviscos</string>
@@ -716,7 +716,7 @@
     <string name="precipitation_hail">Granizo</string>
     <string name="precipitation_small_hail">Granizo pequeno</string>
     <string name="precipitation_snow_grains">Grãos de neve</string>
-    <string name="precipitation_ice_pellets">Flocos de gelo</string>
+    <string name="precipitation_ice_pellets">Paletas de gelo</string>
     <string name="humidity">Humidade</string>
     <string name="precipitation_chance">Probabilidade de precipitação: %s</string>
     <string name="take_photo">Tirar fotografia</string>
@@ -983,7 +983,7 @@
     <string name="coordinate_format_osgb">OSGB</string>
     <string name="center">Centro</string>
     <string name="size">Tamanho</string>
-    <string name="create_blank_map">Criar um mapa em branco</string>
+    <string name="create_blank_map">Criar mapa vazio</string>
     <string name="pref_include_leading_zero_title">Adicionar zero à esquerda no tempo</string>
     <string name="create_path">Criar percurso</string>
     <string name="solar_eclipses">Eclipses solares</string>
@@ -1011,4 +1011,87 @@
     <string name="compass_source_legacy_android">Legado (Android)</string>
     <string name="accelerometer">Acelerómetro</string>
     <string name="gps_accuracy_tip">Assegure que você tenha uma vista desobstruída do céu e boa distância de edifícios altos e de árvores.</string>
+    <string name="map_auto_rotated">Rotação do mapa ajustada com calibração</string>
+    <string name="gps_location_accuracy">Precisão da localização do GPS</string>
+    <string name="gps_elevation_accuracy">Precisão da elevação do GPS</string>
+    <string name="gps_satellites">Satélites GPS</string>
+    <string name="illumination">Iluminação</string>
+    <string name="times">Horários</string>
+    <string name="restore">Restaurar</string>
+    <string name="pref_keep_map_facing_up_summary">O mapa se alinhará com a parte superior do ecrã em vez do Norte verdadeiro.</string>
+    <string name="daylight_duration">%s luz do dia</string>
+    <string name="restore_complete_message">Restauração concluída, reiniciando para aplicar as mudanças</string>
+    <string name="horizon">Horizonte</string>
+    <string name="magnetic_north">Norte Magnético</string>
+    <string name="astronomy_rise">Nascente</string>
+    <string name="exact_alarm_permission_denied">Alarmes e lembretes negados, os alertas podem ser imprecisos.</string>
+    <string name="notifications_channel">Notificações (%s)</string>
+    <string name="triangulate_self_location_1_instructions">Escolha um local conhecido que possa ver e registe a direção de onde está até esse local.</string>
+    <string name="enter_manually">Pòr manualmente</string>
+    <string name="unpin">Desafixar</string>
+    <string name="pin">Fixar</string>
+    <string name="yes">Sim</string>
+    <string name="until_sunset">até o pôr-do sol</string>
+    <string name="astronomy_set">Poente</string>
+    <string name="no">Não</string>
+    <string name="distance_away_from_self">%s distante</string>
+    <string name="sunset_alerts_background_location_disclaimer">Os alertas de pôr do sol podem ser imprecisos durante a viagem</string>
+    <string name="learn_more">Saiba mais</string>
+    <string name="map_file">Ficheiro (JPG, PNG, PDF)</string>
+    <string name="crop_map_instructions_long">Alinhe os cantos da caixa com os cantos do mapa para gravá-lo.</string>
+    <string name="allow_ignore_battery_restrictions">Permitir que %s ignore as restrições de pilha</string>
+    <string name="battery_usage_allowed">Uso da pilha permitido</string>
+    <string name="allow_schedule_exact_alarms_instructions">Isto permite que %1$s defina alarmes e lembretes exatos, como alertas de pôr do sol. Sem isto, os alarmes podem não ser acionados no horário correto.
+\n
+\nPara permitir, clique em \'%2$s\' e ative a configuração para permitir alarmes e lembretes.</string>
+    <string name="reset_calibration">Redefinir calibragem</string>
+    <string name="backing_up_loading_message">A fazer backup…</string>
+    <string name="backup_disclaimer">Um ficheiro de backup será criado contendo todos os dados atuais. Isto inclui caminhos, pontos de orientação, mapas, configurações, etc.
+\n
+\nEste ficheiro não é criptografado. Não o partilhe com pessoas não confiáveis.</string>
+    <string name="triangulate_destination_location_2_instructions">Mova-se pelo menos %s da primeira posição e ponha a nova posição e a direção do destino novamente.</string>
+    <string name="direction">Direção</string>
+    <string name="augmented_reality">Realidade Aumentada</string>
+    <string name="augmented_reality_description">Ver pontos de orientação próximos, o sol e a lua com a câmara</string>
+    <string name="pinned">Fixado</string>
+    <string name="tool_long_press_hint_toast">Mantenha pressionado para ver mais opções da ferramenta</string>
+    <string name="beta">Beta</string>
+    <string name="season">Estação</string>
+    <string name="photo_map_summary">Usar uma foto como mapa</string>
+    <string name="triangulate_destination_location_1_instructions">Ponha a sua posição e a direção do destino.</string>
+    <string name="astronomy_altitude">Altitude</string>
+    <string name="pref_tiles_battery_log">Log de pilha</string>
+    <string name="pref_dialog_battery_log_summary">O log de pilha está desativado, o histórico e o tempo até que descarregue podem estar indisponíveis. Pode reativar isto nas configurações</string>
+    <string name="pref_tiles_enabled_battery_log_summary">Faz um log da percentagem da pilha a cada hora para estimar o tempo até estar descarregada</string>
+    <string name="no_sensor_message">O seu dispositivo não tem um sensor de %s</string>
+    <string name="no_qr_code_detected">Nenhum código QR detetado</string>
+    <string name="photo_map_disclaimer">Sempre leve um mapa físico como alternativa e verifique a precisão do Trail Sense.</string>
+    <string name="beta_disclaimer">Esta ferramenta está em desenvolvimento, por favor mande quaisquer problemas ou feedback para %s.</string>
+    <string name="i_agree">Eu concordo</string>
+    <string name="backtrack_no_permission">Recuo necessita da permissão de localização para funcionar</string>
+    <string name="restoring_loading_message">A restaurar…</string>
+    <string name="invalid_backup_file">Ficheiro de backup inválido</string>
+    <string name="zero_shutter_lag">Sem atraso no obturador</string>
+    <string name="my_location">A minha posição</string>
+    <string name="destination">Destino</string>
+    <string name="triangulate_self_location_2_instructions">Escolha outra posição conhecida que pode ver e registar a direção de onde está para a outra posição.</string>
+    <string name="location_to_triangulate">Posição para triangular</string>
+    <string name="distance_away_from_destination">%s do destino</string>
+    <string name="location_number">Posição %d</string>
+    <string name="direction_not_set">Direção não definida</string>
+    <string name="settings_have_moved">As configurações mudaram de lugar</string>
+    <string name="settings_have_moved_message">As configurações da app mudaram para a barra de ferramentas</string>
+    <string name="missing_sensor_message_1">O seu dispositivo %1$s não possui %2$s disponível. Infelizmente algumas funções do %3$s não estarão disponíveis.</string>
+    <string name="is_there_a_way_to_fix_this">Alguma forma de solucionar?</string>
+    <string name="scanning_image">A analisar imagem</string>
+    <string name="rotation_amount">Rotação: %s</string>
+    <string name="battery_settings_limit_accuracy">Restrições na pilha podem reduzir a precisão</string>
+    <string name="allow_schedule_exact_alarms">Permitir que %s crie alarmes e lembretes</string>
+    <string name="sunset_alert_scheduled">Alerta marcado para %s do pôr-do-sol</string>
+    <string name="backup_restore">Backup / restauração</string>
+    <string name="restore_failure_newer_version">Esse backup foi criado com uma versão do %s mais recente. Atualize a app e tente novamente.</string>
+    <string name="until_sunrise">até o nascer do sol</string>
+    <string name="pref_enable_analog_title">Relógio analógico</string>
+    <string name="pref_keep_map_facing_up_title">Manter o mapa voltado para cima</string>
+    <string name="rate">Taxa</string>
 </resources>

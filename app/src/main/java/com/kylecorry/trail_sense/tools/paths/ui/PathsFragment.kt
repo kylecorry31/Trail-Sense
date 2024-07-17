@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.toast
-import com.kylecorry.andromeda.core.topics.generic.asLiveData
-import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
@@ -16,15 +14,13 @@ import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPathsBinding
-import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.onBackPressed
 import com.kylecorry.trail_sense.shared.grouping.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.grouping.lists.bind
 import com.kylecorry.trail_sense.shared.io.IOFactory
-import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
-import com.kylecorry.trail_sense.shared.permissions.requestBacktrackPermission
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.domain.IPath
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathGroup
@@ -35,7 +31,6 @@ import com.kylecorry.trail_sense.tools.paths.domain.pathsort.NamePathSortStrateg
 import com.kylecorry.trail_sense.tools.paths.domain.pathsort.ShortestPathSortStrategy
 import com.kylecorry.trail_sense.tools.paths.infrastructure.PathGroupLoader
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
-import com.kylecorry.trail_sense.tools.paths.infrastructure.subsystem.BacktrackSubsystem
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ChangeBacktrackFrequencyCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.CreatePathCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.CreatePathGroupCommand
@@ -49,12 +44,20 @@ import com.kylecorry.trail_sense.tools.paths.ui.commands.MoveIPathCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.RenamePathCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.RenamePathGroupGroupCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.SimplifyPathCommand
+import com.kylecorry.trail_sense.tools.paths.ui.commands.ToggleBacktrackCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.TogglePathVisibilityCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ViewPathCommand
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.getFeatureState
 
 class PathsFragment : BoundFragment<FragmentPathsBinding>() {
 
-    private val backtrack by lazy { BacktrackSubsystem.getInstance(requireContext()) }
+    private val service by lazy {
+        Tools.getService(
+            requireContext(),
+            PathsToolRegistration.SERVICE_BACKTRACK
+        )
+    }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val pathService by lazy {
         PathService.getInstance(requireContext())
@@ -132,31 +135,31 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         }
 
         binding.backtrackPlayBar.setOnSubtitleClickListener {
-            ChangeBacktrackFrequencyCommand(requireContext(), lifecycleScope) { onUpdate() }.execute()
+            ChangeBacktrackFrequencyCommand(
+                requireContext(),
+                lifecycleScope
+            ) { onUpdate() }.execute()
         }
 
-        backtrack.state.replay().asLiveData().observe(viewLifecycleOwner) { updateStatusBar() }
-
-        backtrack.frequency.replay().asLiveData().observe(viewLifecycleOwner) { updateStatusBar() }
-
         binding.backtrackPlayBar.setOnPlayButtonClickListener {
-            when (backtrack.getState()) {
-                FeatureState.On -> backtrack.disable()
-                FeatureState.Off -> {
-                    requestBacktrackPermission { success ->
-                        if (success) {
-                            inBackground {
-                                backtrack.enable(true)
-                                RequestRemoveBatteryRestrictionCommand(this@PathsFragment).execute()
-                            }
-                        }
-                    }
-                }
-                FeatureState.Unavailable -> toast(getString(R.string.backtrack_disabled_low_power_toast))
-            }
+            val command = ToggleBacktrackCommand(this)
+            command.execute()
         }
 
         setupCreateMenu()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Tools.subscribe(
+            PathsToolRegistration.BROADCAST_BACKTRACK_STATE_CHANGED,
+            this::onBacktrackChanged
+        )
+        Tools.subscribe(
+            PathsToolRegistration.BROADCAST_BACKTRACK_FREQUENCY_CHANGED,
+            this::onBacktrackChanged
+        )
+        updateStatusBar()
     }
 
     override fun onPause() {
@@ -164,12 +167,21 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
         tryOrNothing {
             lastRoot = manager.root
         }
+        Tools.unsubscribe(
+            PathsToolRegistration.BROADCAST_BACKTRACK_STATE_CHANGED,
+            this::onBacktrackChanged
+        )
+        Tools.unsubscribe(
+            PathsToolRegistration.BROADCAST_BACKTRACK_FREQUENCY_CHANGED,
+            this::onBacktrackChanged
+        )
     }
 
     private fun updateStatusBar() {
+        val service = service ?: return
         binding.backtrackPlayBar.setState(
-            backtrack.getState(),
-            backtrack.getFrequency()
+            service.getFeatureState(),
+            service.getFrequency()
         )
     }
 
@@ -364,6 +376,11 @@ class PathsFragment : BoundFragment<FragmentPathsBinding>() {
                 manager.refresh()
             }
         }
+    }
+
+    private fun onBacktrackChanged(data: Bundle): Boolean {
+        updateStatusBar()
+        return true
     }
 
 }
