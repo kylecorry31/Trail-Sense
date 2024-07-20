@@ -139,42 +139,6 @@
         <item>osng</item>
     </string-array>
 
-    <string-array name="sunset_alert_time_entries">
-        <item>@string/update_30_minutes</item>
-        <item>@string/update_60_minutes</item>
-        <item>@string/update_90_minutes</item>
-        <item>@string/update_120_minutes</item>
-        <item>@string/update_150_minutes</item>
-        <item>@string/update_180_minutes</item>
-    </string-array>
-
-    <string-array name="sunrise_alert_time_entries">
-        <item>@string/update_30_minutes</item>
-        <item>@string/update_60_minutes</item>
-        <item>@string/update_90_minutes</item>
-        <item>@string/update_120_minutes</item>
-        <item>@string/update_150_minutes</item>
-        <item>@string/update_180_minutes</item>
-    </string-array>
-
-    <string-array name="sunset_alert_time_values">
-        <item>30</item>
-        <item>60</item>
-        <item>90</item>
-        <item>120</item>
-        <item>150</item>
-        <item>180</item>
-    </string-array>
-
-    <string-array name="sunrise_alert_time_values">
-        <item>30</item>
-        <item>60</item>
-        <item>90</item>
-        <item>120</item>
-        <item>150</item>
-        <item>180</item>
-    </string-array>
-
     <string-array name="altimeter_mode_entries">
         <item>@string/altimeter_mode_gps_barometer</item>
         <item>@string/gps</item>

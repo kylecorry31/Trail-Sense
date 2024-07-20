@@ -89,7 +89,7 @@ class AstronomyPreferences(private val context: Context) {
     val sunriseAlertMinutesBefore: Long
         get() {
             return (cache.getString(context.getString(R.string.pref_sunrise_alert_time))
-                ?: "60").toLong()
+                ?: "0").toLong()
         }
 
     val sunsetAlertLastSent: LocalDate

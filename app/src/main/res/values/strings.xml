@@ -1455,4 +1455,6 @@
     <string name="pref_holder_barometer_offset" translatable="false">pref_holder_barometer_offset</string>
     <string name="pref_reset_barometer_calibration_key" translatable="false">pref_reset_barometer_calibration_key</string>
     <string name="enter_the_current_pressure">Enter the current pressure</string>
+    <string name="sunset">Sunset</string>
+    <string name="sunrise">Sunrise</string>
 </resources>

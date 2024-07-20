@@ -39,12 +39,12 @@
             app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
+            android:summary="@string/pref_start_camera_in_3d_view_summary"
             app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_start_camera_in_3d_view"
             app:singleLineTitle="false"
-            app:title="@string/pref_start_camera_in_3d_view_title"
-            android:summary="@string/pref_start_camera_in_3d_view_summary"/>
+            app:title="@string/pref_start_camera_in_3d_view_title" />
 
     </PreferenceCategory>
 
@@ -58,13 +58,11 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_sunset_alerts"
             app:singleLineTitle="false"
-            app:title="@string/sunset_alerts" />
+            app:title="@string/sunset" />
 
         <ListPreference
             android:dependency="@string/pref_sunset_alerts"
             app:defaultValue="60"
-            app:entries="@array/sunset_alert_time_entries"
-            app:entryValues="@array/sunset_alert_time_values"
             app:iconSpaceReserved="false"
             app:key="@string/pref_sunset_alert_time"
             app:singleLineTitle="false"
@@ -76,13 +74,11 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_sunrise_alerts"
             app:singleLineTitle="false"
-            app:title="@string/sunrise_alerts" />
+            app:title="@string/sunrise" />
 
         <ListPreference
             android:dependency="@string/pref_sunrise_alerts"
-            app:defaultValue="60"
-            app:entries="@array/sunrise_alert_time_entries"
-            app:entryValues="@array/sunrise_alert_time_values"
+            app:defaultValue="0"
             app:iconSpaceReserved="false"
             app:key="@string/pref_sunrise_alert_time"
             app:singleLineTitle="false"
@@ -94,21 +90,21 @@
             app:iconSpaceReserved="false"
             app:key="@string/pref_send_meteor_shower_alerts"
             app:singleLineTitle="false"
-            app:title="@string/pref_meteor_showers_title"/>
+            app:title="@string/pref_meteor_showers_title" />
 
         <SwitchPreferenceCompat
             app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/pref_send_lunar_eclipse_alerts"
             app:singleLineTitle="false"
-            app:title="@string/lunar_eclipses"/>
+            app:title="@string/lunar_eclipses" />
 
         <SwitchPreferenceCompat
             app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/pref_send_solar_eclipse_alerts"
             app:singleLineTitle="false"
-            app:title="@string/solar_eclipses"/>
+            app:title="@string/solar_eclipses" />
 
     </PreferenceCategory>
 
