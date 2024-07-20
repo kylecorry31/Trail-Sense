@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.flexbox.FlexboxLayout
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityMainBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -51,11 +50,17 @@ class MainActivityQuickActionBinder(
         val selected = prefs.toolQuickActions.sorted()
 
         val navController = fragment.findNavController()
-        val activeTool = Tools.getTools(fragment.requireContext())
-            .firstOrNull { it.isOpen(navController.currentDestination?.id ?: 0) }
+        val tools = Tools.getTools(fragment.requireContext())
+        val currentDestination = navController.currentDestination?.id ?: 0
+        val activeTools = tools
+            .filter { it.isOpen(currentDestination) || it.settingsNavAction == currentDestination }
 
-        val recommended = (activeTool?.quickActions?.map { it.id }
-            ?: emptyList()) + listOf(Tools.QUICK_ACTION_USER_GUIDE, Tools.QUICK_ACTION_SETTINGS)
+        val activeToolQuickActions = activeTools.flatMap { it.quickActions }.map { it.id }.sorted()
+
+        val recommended = activeToolQuickActions + listOf(
+            Tools.QUICK_ACTION_USER_GUIDE,
+            Tools.QUICK_ACTION_SETTINGS
+        )
 
         val factory = QuickActionFactory()
 
