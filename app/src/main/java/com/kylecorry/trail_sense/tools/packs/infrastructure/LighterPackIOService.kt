@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.packs.infrastructure
 
-import android.content.Context
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.luna.text.toDoubleCompat
 import com.kylecorry.sol.units.Weight
@@ -111,12 +110,11 @@ class LighterPackIOService(uriPicker: UriPicker, uriService: UriService) :
     }
 
     private fun formatWeightUnit(unit: WeightUnits): String {
-        return unit.name.lowercase()
+        return weightUnitMap[unit] ?: "gram"
     }
 
     private fun parseWeightUnit(unit: String): WeightUnits {
-        return WeightUnits.entries.find { it.name.lowercase() == unit.lowercase() }
-            ?: WeightUnits.Grams
+        return weightUnitMap.entries.find { it.value == unit }?.key ?: WeightUnits.Grams
     }
 
     companion object {
@@ -129,6 +127,13 @@ class LighterPackIOService(uriPicker: UriPicker, uriService: UriService) :
         private const val HEADER_WEIGHT_UNIT = "unit"
         private const val HEADER_PACKED_QUANTITY = "packed qty"
         private const val HEADER_DESIRED_QUANTITY = "desired qty"
+
+        private val weightUnitMap = mapOf(
+            WeightUnits.Grams to "gram",
+            WeightUnits.Kilograms to "kilogram",
+            WeightUnits.Ounces to "ounce",
+            WeightUnits.Pounds to "pound",
+        )
 
         fun create(fragment: AndromedaFragment): LighterPackIOService {
             return LighterPackIOService(
