@@ -3,11 +3,9 @@ package com.kylecorry.trail_sense.tools.tools.infrastructure
 import android.content.Context
 import android.os.Bundle
 import com.kylecorry.andromeda.core.capitalizeWords
-import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.luna.topics.generic.Topic
-import com.kylecorry.luna.topics.generic.ITopic
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.SettingsToolRegistration
 import com.kylecorry.trail_sense.shared.quickactions.QuickActionOpenTool
@@ -52,6 +50,9 @@ import com.kylecorry.trail_sense.tools.waterpurification.WaterBoilTimerToolRegis
 import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 import com.kylecorry.trail_sense.tools.whistle.WhistleToolRegistration
 import com.kylecorry.trail_sense.tools.whitenoise.WhiteNoiseToolRegistration
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 object Tools {
 
@@ -99,6 +100,8 @@ object Tools {
         LocalTalkToolRegistration
     )
     private val topics = mutableMapOf<String, Topic<Bundle>>()
+    private val broadcastScope = CoroutineScope(Dispatchers.Main)
+
 
     fun isToolAvailable(context: Context, toolId: Long): Boolean {
         return getTool(context, toolId) != null
@@ -146,7 +149,9 @@ object Tools {
     }
 
     fun broadcast(toolBroadcastId: String, data: Bundle? = null) {
-        topics[toolBroadcastId]?.publish(data ?: Bundle())
+        broadcastScope.launch {
+            topics[toolBroadcastId]?.publish(data ?: Bundle())
+        }
     }
 
     fun subscribe(toolBroadcastId: String, callback: (Bundle) -> Boolean) {

@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.core.os.bundleOf
 import com.kylecorry.andromeda.permissions.Permissions
+import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.receivers.ServiceRestartAlerter
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -61,11 +62,12 @@ class BacktrackToolService(private val context: Context) : ToolService {
             Log.d("BacktrackSubsystem", "Cannot start backtrack")
             return
         }
-
-
+        
         prefs.backtrackEnabled = true
         Tools.broadcast(PathsToolRegistration.BROADCAST_BACKTRACK_ENABLED)
-        restart()
+        if (!isBlocked()) {
+            start(true)
+        }
     }
 
     override suspend fun disable() {
