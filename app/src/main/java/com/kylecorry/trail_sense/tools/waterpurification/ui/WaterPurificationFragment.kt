@@ -21,14 +21,20 @@ import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.waterpurification.domain.WaterService
 import com.kylecorry.trail_sense.tools.waterpurification.infrastructure.WaterPurificationTimerService
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.withTimeoutOrNull
 import java.time.Duration
 import java.time.Instant
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
-    private val formatService by lazy { FormatService.getInstance(requireContext()) }
+
+    @Inject
+    lateinit var formatService: FormatService
+
     private val altimeter by lazy { sensorService.getAltimeter() }
     private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
     private var duration: Duration? = null

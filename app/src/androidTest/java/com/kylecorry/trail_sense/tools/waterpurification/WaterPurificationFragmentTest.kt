@@ -13,18 +13,26 @@ import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.waterpurification.infrastructure.WaterPurificationTimerService
 import com.kylecorry.trail_sense.tools.waterpurification.ui.WaterPurificationFragment
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+@HiltAndroidTest
 class WaterPurificationFragmentTest {
+
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
 
     private lateinit var scenario: FragmentScenario<WaterPurificationFragment>
     private lateinit var context: Context
 
     @Before
     fun setUp() {
+        hiltRule.inject()
         scenario = FragmentScenario.launchInContainer(
             WaterPurificationFragment::class.java,
             themeResId = R.style.AppTheme

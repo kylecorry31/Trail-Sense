@@ -4,6 +4,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
+    id("com.google.dagger.hilt.android")
     id("kotlin-parcelize")
 }
 
@@ -18,7 +19,7 @@ android {
         targetSdk = 35
         versionCode = 121
         versionName = "6.2.0"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.kylecorry.trail_sense.test_utils.HiltTestRunner"
     }
     signingConfigs {
         create("nightly") {
@@ -52,7 +53,10 @@ android {
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
         // Staging build (a release build with a ID)
         create("staging") {
@@ -161,6 +165,12 @@ dependencies {
     implementation(libs.andromeda.list)
     implementation(libs.andromeda.views)
 
+    // Hilt
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.work)
+    ksp(libs.hilt.android.compiler)
+    ksp(libs.androidx.hilt.compiler)
+
     // Misc
     implementation(libs.subsampling.scale.image.view)
     implementation(libs.sol)
@@ -174,6 +184,8 @@ dependencies {
     androidTestImplementation(libs.android.x.test.runner)
     androidTestImplementation(libs.android.x.test.rules)
     androidTestImplementation(libs.android.x.fragment.testing)
+    androidTestImplementation(libs.hilt.android.testing)
+    kspAndroidTest(libs.hilt.android.compiler)
     debugImplementation(libs.android.x.fragment.testing.manifest)
     testImplementation(libs.junit.platform.runner)
     testImplementation(libs.junit.jupiter.api)

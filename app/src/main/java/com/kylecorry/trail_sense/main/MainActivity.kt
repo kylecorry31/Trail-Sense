@@ -54,7 +54,9 @@ import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.Pedome
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeActionPriority
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.quickactions.MainActivityQuickActionBinder
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AndromedaActivity() {
 
     private var _binding: ActivityMainBinding? = null
@@ -234,8 +236,14 @@ class MainActivity : AndromedaActivity() {
     override fun onPause() {
         super.onPause()
         FlashlightSubsystem.getInstance(this).stopSystemMonitor()
-        Tools.unsubscribe(BatteryToolRegistration.BROADCAST_POWER_SAVING_MODE_ENABLED, ::onPowerSavingModeChanged)
-        Tools.unsubscribe(BatteryToolRegistration.BROADCAST_POWER_SAVING_MODE_DISABLED, ::onPowerSavingModeChanged)
+        Tools.unsubscribe(
+            BatteryToolRegistration.BROADCAST_POWER_SAVING_MODE_ENABLED,
+            ::onPowerSavingModeChanged
+        )
+        Tools.unsubscribe(
+            BatteryToolRegistration.BROADCAST_POWER_SAVING_MODE_DISABLED,
+            ::onPowerSavingModeChanged
+        )
     }
 
     private fun startApp(shouldReloadNavigation: Boolean) {
@@ -450,7 +458,7 @@ class MainActivity : AndromedaActivity() {
         val leftMostItem = binding.bottomNavigation.menu.getItem(0)
 
         // Only initialize the nav graph once
-        effect("navGraph"){
+        effect("navGraph") {
             initializeNavGraph(leftMostItem.itemId)
         }
         // Bind to navigation
@@ -459,7 +467,7 @@ class MainActivity : AndromedaActivity() {
         updateBottomNavSelection()
     }
 
-    private fun initializeNavGraph(startDestination: Int){
+    private fun initializeNavGraph(startDestination: Int) {
         val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
         navGraph.setStartDestination(startDestination)
         navController.graph = navGraph

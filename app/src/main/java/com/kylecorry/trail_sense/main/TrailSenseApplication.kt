@@ -9,8 +9,10 @@ import com.kylecorry.trail_sense.main.persistence.RepoCleanupWorker
 import com.kylecorry.trail_sense.settings.migrations.PreferenceMigrator
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
+import dagger.hilt.android.HiltAndroidApp
 import java.time.Duration
 
+@HiltAndroidApp
 class TrailSenseApplication : Application(), CameraXConfig.Provider {
 
     override fun onCreate() {
