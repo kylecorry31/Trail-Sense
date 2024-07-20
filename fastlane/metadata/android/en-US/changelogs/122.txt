@@ -1,0 +1,15 @@
+Packing Lists
+- Import and export packing lists
+
+Whistle
+- Improve whistle sound
+
+Tools
+- Show quick actions for current tool when long pressing the bottom bar
+
+User Guide
+- Added quick action to show the guide for the current tool
+
+Settings
+- Added quick action to show the settings for the current tool
+- Barometer calibration
