@@ -12,7 +12,7 @@ import org.junit.Rule
 import org.junit.Test
 
 @HiltAndroidTest
-class WaterPurificationFragmentTest {
+class ToolWaterBoilTimerTest {
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
