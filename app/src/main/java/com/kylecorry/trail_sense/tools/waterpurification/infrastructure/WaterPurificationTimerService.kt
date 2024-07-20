@@ -106,7 +106,7 @@ class WaterPurificationTimerService : AndromedaService() {
     companion object {
 
         const val CHANNEL_ID = "Water_Boil_Timer"
-        private const val NOTIFICATION_ID = 57293759
+        const val NOTIFICATION_ID = 57293759
         private const val ONE_SECOND = 1000L
         private const val KEY_SECONDS = "seconds"
         private const val DEFAULT_SECONDS = 60L

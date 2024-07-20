@@ -1,5 +1,6 @@
 [versions]
 androidApplication = "8.5.0"
+androidXTest = "1.6.1"
 andromedaVersion = "18d6cb2575"
 cameraxVersion = "1.3.4"
 coreKtx = "1.13.1"
@@ -8,6 +9,7 @@ constraintlayout = "2.1.4"
 desugar_jdk_libs = "2.0.4"
 espressoCore = "3.6.1"
 flexbox = "3.0.0"
+fragment = "1.8.1"
 gridlayout = "1.0.0"
 junitJupiter = "5.10.2"
 junitPlatformRunner = "1.10.2"
@@ -29,6 +31,11 @@ workRuntimeKtx = "2.9.0"
 preferenceKtx = "1.2.1"
 
 [libraries]
+android-x-test-core = { module = "androidx.test:core", version.ref = "androidXTest" }
+android-x-test-runner = { module = "androidx.test:runner", version.ref = "androidXTest" }
+android-x-test-rules = { module = "androidx.test:rules", version.ref = "androidXTest" }
+android-x-fragment-testing = { module = "androidx.fragment:fragment-testing", version.ref = "fragment" }
+android-x-fragment-testing-manifest = { module = "androidx.fragment:fragment-testing-manifest", version.ref = "fragment" }
 andromeda-battery = { module = "com.github.kylecorry31.andromeda:battery", version.ref = "andromedaVersion" }
 andromeda-buzz = { module = "com.github.kylecorry31.andromeda:buzz", version.ref = "andromedaVersion" }
 andromeda-clipboard = { module = "com.github.kylecorry31.andromeda:clipboard", version.ref = "andromedaVersion" }
