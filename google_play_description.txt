@@ -30,7 +30,7 @@ PERMISSIONS
 - Background location: Allows Trail Sense to retrieve your location for sunset alerts while in the background. On some devices, this will also improve the reliability of backtrack and weather monitor.
 - Physical activity: Allows Trail Sense to use your phone's pedometer for distance calculation.
 - Camera: Allows Trail Sense to use your camera on the sighting compass, clinometer, and for taking photos used by the Cloud Scanner, QR Code Scanner, and Photo Maps.
-- Alarms & reminders: Allows Trail Sense to post a notification at an exact time. This is used by the Clock tool (when updating system time) and Sunset Alerts.
+- Alarms & reminders: Allows Trail Sense to post a notification at an exact time. This is used by the Clock tool (when updating system time) and Sunset and Sunrise Alerts.
 
 LINKS
 Privacy policy: https://kylecorry.com/Trail-Sense/#privacy

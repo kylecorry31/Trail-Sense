@@ -223,6 +223,7 @@ object Tools {
     const val QUICK_ACTION_WHISTLE = 8
     const val QUICK_ACTION_WHITE_NOISE = 9
     const val QUICK_ACTION_LOW_POWER_MODE = 10
+    const val QUICK_ACTION_SUNRISE_ALERT = 25
     const val QUICK_ACTION_SUNSET_ALERT = 13
     const val QUICK_ACTION_NIGHT_MODE = 14
     const val QUICK_ACTION_BACKTRACK = 15

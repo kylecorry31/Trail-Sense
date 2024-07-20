@@ -4,10 +4,14 @@ import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.AstronomyAlertCommand
+import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunriseAlarmCommand
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunsetAlarmCommand
+import com.kylecorry.trail_sense.tools.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionNightMode
+import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunriseAlert
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunsetAlert
 import com.kylecorry.trail_sense.tools.astronomy.services.AstronomyAlertsToolService
+import com.kylecorry.trail_sense.tools.astronomy.services.SunriseAlertsToolService
 import com.kylecorry.trail_sense.tools.astronomy.services.SunsetAlertsToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
@@ -35,6 +39,11 @@ object AstronomyToolRegistration : ToolRegistration {
                     ::QuickActionSunsetAlert
                 ),
                 ToolQuickAction(
+                    Tools.QUICK_ACTION_SUNRISE_ALERT,
+                    context.getString(R.string.sunrise_alerts),
+                    ::QuickActionSunriseAlert
+                ),
+                ToolQuickAction(
                     Tools.QUICK_ACTION_NIGHT_MODE,
                     context.getString(R.string.night),
                     ::QuickActionNightMode
@@ -49,6 +58,13 @@ object AstronomyToolRegistration : ToolRegistration {
                     false
                 ),
                 ToolNotificationChannel(
+                    SunriseAlarmCommand.NOTIFICATION_CHANNEL_ID,
+                    context.getString(R.string.sunrise_alert_channel_title),
+                    context.getString(R.string.sunrise_alerts),
+                    Notify.CHANNEL_IMPORTANCE_HIGH,
+                    false
+                ),
+                ToolNotificationChannel(
                     AstronomyAlertCommand.NOTIFICATION_CHANNEL,
                     context.getString(R.string.astronomy_alerts),
                     context.getString(R.string.astronomy_alerts),
@@ -58,7 +74,8 @@ object AstronomyToolRegistration : ToolRegistration {
             ),
             services = listOf(
                 SunsetAlertsToolService(context),
-                AstronomyAlertsToolService(context)
+                AstronomyAlertsToolService(context),
+                SunriseAlertsToolService(context)
             ),
             diagnostics = listOf(
                 ToolDiagnosticFactory.gps(context),
@@ -67,6 +84,10 @@ object AstronomyToolRegistration : ToolRegistration {
                 ToolDiagnosticFactory.notification(
                     SunsetAlarmCommand.NOTIFICATION_CHANNEL_ID,
                     context.getString(R.string.sunset_alerts)
+                ),
+                ToolDiagnosticFactory.notification(
+                    SunriseAlarmCommand.NOTIFICATION_CHANNEL_ID,
+                    context.getString(R.string.sunrise_alerts)
                 ),
                 ToolDiagnosticFactory.notification(
                     AstronomyAlertCommand.NOTIFICATION_CHANNEL,
@@ -94,6 +115,11 @@ object AstronomyToolRegistration : ToolRegistration {
     const val BROADCAST_SUNSET_ALERTS_DISABLED = "astronomy-broadcast-sunset-alerts-disabled"
     const val BROADCAST_SUNSET_ALERTS_STATE_CHANGED = "astronomy-broadcast-sunset-alerts-state-changed"
 
+    const val BROADCAST_SUNRISE_ALERTS_ENABLED = "astronomy-broadcast-sunrise-alerts-enabled"
+    const val BROADCAST_SUNRISE_ALERTS_DISABLED = "astronomy-broadcast-sunrise-alerts-disabled"
+    const val BROADCAST_SUNRISE_ALERTS_STATE_CHANGED = "astronomy-broadcast-sunrise-alerts-state-changed"
+
     const val SERVICE_SUNSET_ALERTS = "astronomy-service-sunset-alerts"
+    const val SERVICE_SUNRISE_ALERTS = "astronomy-service-sunrise-alerts"
     const val SERVICE_ASTRONOMY_ALERTS = "astronomy-service-astronomy-alerts"
 }

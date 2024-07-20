@@ -127,9 +127,13 @@
     <string name="first_quarter">First quarter</string>
     <string name="waxing_crescent">Waxing crescent</string>
     <string name="sunset_alert_notification_title">Sun is setting soon</string>
+    <string name="sunrise_alert_notification_title">Sun is rising soon</string>
     <string name="sunset_alert_notification_text">The sun will set at %s</string>
+    <string name="sunrise_alert_notification_text">The sun will rise at %s</string>
     <string name="sunset_alerts">Sunset alerts</string>
+    <string name="sunrise_alerts">Sunrise alerts</string>
     <string name="sunset_alert_channel_title">Sunset alert</string>
+    <string name="sunrise_alert_channel_title">Sunrise alert</string>
     <string name="moon_phase">Moon phase</string>
     <!--    The percent of the moon that is illuminated-->
     <string name="illumination">Illumination</string>
@@ -268,6 +272,7 @@
     <string name="update_30_minutes">30 minutes</string>
     <string name="update_60_minutes">1 hour</string>
     <string name="pref_sunset_alert_time_title">Sunset alert time</string>
+    <string name="pref_sunrise_alert_time_title">Sunrise alert time</string>
     <!--Settings - About-->
     <string name="pref_open_source_licenses_title">Licenses</string>
     <string name="pref_category_about">About</string>
@@ -300,7 +305,11 @@
     <string name="pref_forecast_sensitivity" translatable="false">pref_forecast_sensitivity</string>
     <string name="pref_coordinate_format" translatable="false">pref_coordinate_format</string>
     <string name="pref_sunset_alerts" translatable="false">pref_sunset_alerts</string>
+    <string name="pref_sunrise_alerts" translatable="false">pref_sunrise_alerts</string>
     <string name="pref_sunset_alert_time" translatable="false">pref_sunset_alert_time</string>
+    <string name="pref_sunrise_alert_time" translatable="false">pref_sunrise_alert_time</string>
+    <string name="pref_sunset_alert_last_sent_date" translatable="false">sunset_alert_last_sent_date</string>
+    <string name="pref_sunrise_alert_last_sent_date" translatable="false">sunrise_alert_last_sent_date</string>
     <string name="pref_compass_sensor" translatable="false">pref_compass_calibration</string>
     <string name="pref_holder_altitude" translatable="false">pref_holder_altitude</string>
     <string name="pref_auto_altitude" translatable="false">pref_auto_altitude</string>
@@ -1249,6 +1258,7 @@
     <string name="pref_pedometer_notification_link" translatable="false">pref_pedometer_notification_link</string>
     <!--    %s will be the formatted time, ex. 30m or 1h-->
     <string name="sunset_alert_scheduled">Alert scheduled for %s before sunset</string>
+    <string name="sunrise_alert_scheduled">Alert scheduled for %s before sunrise</string>
     <string name="reset_calibration">Reset calibration</string>
     <string name="pref_reset_thermometer_calibration_button" translatable="false">pref_reset_thermometer_calibration_button</string>
     <string name="pref_thermometer_user_guide_button" translatable="false">pref_thermometer_user_guide_button</string>

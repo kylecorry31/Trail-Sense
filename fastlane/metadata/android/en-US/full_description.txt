@@ -42,7 +42,7 @@ Use at your own risk, always have backup tools (ex. compass), and stay safe.</p>
     <li>Physical activity: Allows Trail Sense to use your phone's pedometer for distance calculation.</li>
     <li>Camera: Allows Trail Sense to use your camera on the sighting compass, clinometer, and for taking photos used by the Cloud Scanner, QR Code Scanner, and Photo Maps.</li>
     <li>Alarms & reminders: Allows Trail Sense to post a notification at an exact time.
-    This is used by the Clock tool (when updating system time) and Sunset Alerts.</li>
+    This is used by the Clock tool (when updating system time) and Sunset and Sunrise Alerts.</li>
 </ul>
 
 <h3>Links</h3>

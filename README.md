@@ -116,7 +116,7 @@ Location information gathered by this application does not leave your device (as
   - **When denied**: You will have the ability to mock your location under Settings > Sensors > GPS. On Android 14+, backtrack and weather will be unavailable due to Android OS constraints.
 - **ACCESS_BACKGROUND_LOCATION**
   - Allows Trail Sense to retrieve your location for sunset alerts while in the background. On some devices, this will also improve the reliability of backtrack and weather monitor (though shouldn't be needed on most devices).
-  - **When denied**: If you travel and do not open Trail Sense, but have Sunset Alerts enabled, the times will likely be inaccurate.
+  - **When denied**: If you travel and do not open Trail Sense, but have Sunset and Sunrise Alerts enabled, the times will likely be inaccurate.
 - **ACTIVITY_RECOGNITION**
   - Allows Trail Sense to use your phone's pedometer for distance calculation.
   - **When denied**: The pedometer will not work.
@@ -124,7 +124,7 @@ Location information gathered by this application does not leave your device (as
   - Allows Trail Sense to use your camera on the sighting compass, clinometer, and for taking photos used by the Cloud Scanner, QR Code Scanner, and Photo Maps.
   - **When denied**: You will not be able to use the sighting compass, camera clinometer, or QR Code Scanner. You will need to pick an existing photo to use for the Cloud Scanner or Photo Maps.
 - **SCHEDULE_EXACT_ALARM**
-  - Allows Trail Sense to post a notification at an exact time. This is used by the Clock tool (when updating system time) and Sunset Alerts.
+  - Allows Trail Sense to post a notification at an exact time. This is used by the Clock tool (when updating system time) and Sunset and Sunrise Alerts.
   - **When denied**: The clock and sunset alerts may not be accurate (can be off by several minutes).
  
 ### Not sensitive (always granted)

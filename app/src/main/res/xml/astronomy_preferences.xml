@@ -74,6 +74,24 @@
         <SwitchPreferenceCompat
             app:defaultValue="false"
             app:iconSpaceReserved="false"
+            app:key="@string/pref_sunrise_alerts"
+            app:singleLineTitle="false"
+            app:title="@string/sunrise_alerts" />
+
+        <ListPreference
+            android:dependency="@string/pref_sunrise_alerts"
+            app:defaultValue="60"
+            app:entries="@array/sunrise_alert_time_entries"
+            app:entryValues="@array/sunrise_alert_time_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_sunrise_alert_time"
+            app:singleLineTitle="false"
+            app:title="@string/pref_sunrise_alert_time_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
             app:key="@string/pref_send_meteor_shower_alerts"
             app:singleLineTitle="false"
             app:title="@string/pref_meteor_showers_title"/>
