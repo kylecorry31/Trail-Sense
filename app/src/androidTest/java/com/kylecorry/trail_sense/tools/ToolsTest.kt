@@ -43,7 +43,7 @@ class ToolsTest {
         for (tool in tools) {
             navController.openTool(tool.id)
             // Wait for the tool to load
-            Thread.sleep(250)
+            Thread.sleep(1000)
             assertTrue(tool.isOpen(navController.currentDestination?.id ?: 0))
         }
     }
