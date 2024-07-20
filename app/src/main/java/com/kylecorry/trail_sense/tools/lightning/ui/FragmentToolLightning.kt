@@ -16,6 +16,7 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolLightningBinding
+import com.kylecorry.trail_sense.main.persistence.IReadingRepo
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
@@ -23,13 +24,19 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.lightning.domain.LightningStrike
+import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.ILightningRepo
 import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningRepo
+import dagger.hilt.android.AndroidEntryPoint
 import java.time.Instant
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val repo by lazy { LightningRepo.getInstance(requireContext()) }
+
+    @Inject
+    lateinit var repo: ILightningRepo
 
     private lateinit var units: DistanceUnits
 
