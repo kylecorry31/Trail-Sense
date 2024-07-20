@@ -37,7 +37,6 @@ import com.kylecorry.trail_sense.main.errors.ExceptionHandler
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.RestartServicesCommand
 import com.kylecorry.trail_sense.settings.backup.BackupService
-import com.kylecorry.trail_sense.settings.ui.SettingsMoveNotice
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.ComposedCommand
 import com.kylecorry.trail_sense.shared.extensions.findNavController
@@ -270,8 +269,7 @@ class MainActivity : AndromedaActivity() {
         ComposedCommand(
             ShowDisclaimerCommand(this),
             PowerSavingModeAlertCommand(this),
-            RestartServicesCommand(this, false),
-            SettingsMoveNotice(this)
+            RestartServicesCommand(this, false)
         ).execute()
 
         if (!Tools.isToolAvailable(this, Tools.WEATHER)) {

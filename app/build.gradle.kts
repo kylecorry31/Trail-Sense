@@ -19,7 +19,7 @@ android {
         targetSdk = 35
         versionCode = 122
         versionName = "6.2.1"
-        testInstrumentationRunner = "com.kylecorry.trail_sense.test_utils.HiltTestRunner"in
+        testInstrumentationRunner = "com.kylecorry.trail_sense.test_utils.HiltTestRunner"
     }
     signingConfigs {
         create("nightly") {
@@ -184,6 +184,7 @@ dependencies {
     androidTestImplementation(libs.android.x.test.runner)
     androidTestImplementation(libs.android.x.test.rules)
     androidTestImplementation(libs.android.x.fragment.testing)
+    androidTestImplementation(libs.android.x.test.arch.core)
     androidTestImplementation(libs.hilt.android.testing)
     kspAndroidTest(libs.hilt.android.compiler)
     debugImplementation(libs.android.x.fragment.testing.manifest)
