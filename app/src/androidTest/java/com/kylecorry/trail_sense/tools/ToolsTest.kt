@@ -41,7 +41,7 @@ class ToolsTest {
     fun openAllTools() {
         val tools = Tools.getTools(TestUtils.context)
         for (tool in tools) {
-            navController.openTool(tool.id)
+            navController.navigate(tool.navAction)
             // Wait for the tool to load
             Thread.sleep(1000)
             assertTrue(tool.isOpen(navController.currentDestination?.id ?: 0))
