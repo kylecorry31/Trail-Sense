@@ -25,6 +25,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherObservation
+import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherLogger
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Duration
 import java.time.Instant
@@ -53,6 +54,14 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
     private val weatherSubsystem by lazy { WeatherSubsystem.getInstance(requireContext()) }
 
     private val runner = CoroutineQueueRunner()
+
+    private val logger by lazy {
+        WeatherLogger(
+            requireContext(),
+            Duration.ofSeconds(30),
+            Duration.ofMillis(500),
+        )
+    }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.barometer_calibration, rootKey)
@@ -186,11 +195,13 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
     override fun onResume() {
         super.onResume()
         updateTimer.interval(200)
+        logger.start()
     }
 
     override fun onPause() {
         super.onPause()
         updateTimer.stop()
+        logger.stop()
     }
 
     private fun update() {

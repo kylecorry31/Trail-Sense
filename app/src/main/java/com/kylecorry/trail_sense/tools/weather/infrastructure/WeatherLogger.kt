@@ -12,23 +12,23 @@ import java.time.Duration
 class WeatherLogger(
     context: Context,
     private val interval: Duration,
-    private val intialDelay: Duration = Duration.ZERO,
-    private val loadingIndicator: ILoadingIndicator
+    private val initialDelay: Duration = Duration.ZERO,
+    private val loadingIndicator: ILoadingIndicator? = null
 ) {
     private val weather = WeatherSubsystem.getInstance(context)
     private val runner = CoroutineQueueRunner()
     private val timer = CoroutineTimer {
         onIO {
             runner.skipIfRunning {
-                onMain { loadingIndicator.show() }
+                onMain { loadingIndicator?.show() }
                 weather.updateWeather()
-                onMain { loadingIndicator.hide() }
+                onMain { loadingIndicator?.hide() }
             }
         }
     }
 
     fun start() {
-        timer.interval(interval, intialDelay)
+        timer.interval(interval, initialDelay)
     }
 
     fun stop() {
