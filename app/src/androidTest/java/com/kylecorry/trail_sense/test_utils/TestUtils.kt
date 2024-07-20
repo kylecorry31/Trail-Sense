@@ -19,14 +19,19 @@ import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.main.NotificationChannels
-import com.kylecorry.trail_sense.main.TrailSenseApplication
+import com.kylecorry.trail_sense.main.automations.Automations
+import com.kylecorry.trail_sense.main.persistence.RepoCleanupWorker
+import com.kylecorry.trail_sense.settings.migrations.PreferenceMigrator
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
+import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Assert.assertEquals
 import org.junit.rules.TestRule
+import java.time.Duration
 
 object TestUtils {
 
@@ -35,13 +40,30 @@ object TestUtils {
 
     fun setupDefaultPreferences() {
         val prefs = PreferencesSubsystem.getInstance(context).preferences
+        prefs.putString(context.getString(R.string.pref_distance_units), "feet_miles")
+        prefs.putBoolean(context.getString(R.string.pref_use_24_hour), false)
         prefs.putBoolean(context.getString(R.string.pref_onboarding_completed), true)
         prefs.putBoolean(context.getString(R.string.pref_main_disclaimer_shown_key), true)
         prefs.putBoolean(context.getString(R.string.pref_require_satellites), false)
     }
 
-    fun setupNotificationChannels(){
+    /**
+     * Setup the application to match the actual application (Trail Sense application)
+     */
+    fun setupApplication(setDefaultPrefs: Boolean = true) {
+        if (setDefaultPrefs) {
+            setupDefaultPreferences()
+        }
+        Automations.setup(context)
         NotificationChannels.createChannels(context)
+        PreferenceMigrator.getInstance().migrate(context)
+        RepoCleanupWorker.scheduler(context).interval(Duration.ofHours(6))
+
+        // Start up the weather subsystem
+        WeatherSubsystem.getInstance(context)
+
+        // Start up the flashlight subsystem
+        FlashlightSubsystem.getInstance(context)
     }
 
     fun startWithTool(toolId: Long): ActivityScenario<MainActivity> {
@@ -105,13 +127,13 @@ object TestUtils {
             try {
                 action()
                 return
-            } catch (e: Throwable){
+            } catch (e: Throwable) {
                 lastException = e
             }
             Thread.sleep(interval)
             remaining -= interval
         }
-        if (lastException != null){
+        if (lastException != null) {
             throw lastException
         }
     }
@@ -140,16 +162,36 @@ object TestUtils {
         onView(withId(id)).perform(ViewActions.click())
     }
 
-    fun hasText(@IdRes id: Int, @StringRes textResId: Int) {
-        onView(withId(id)).check(matches(ViewMatchers.withText(textResId)))
+    fun hasText(@IdRes id: Int, @StringRes textResId: Int, checkDescendants: Boolean = false) {
+        if (checkDescendants) {
+            onView(withId(id)).check(
+                matches(ViewMatchers.hasDescendant(ViewMatchers.withText(textResId)))
+            )
+        } else {
+            onView(withId(id)).check(matches(ViewMatchers.withText(textResId)))
+        }
     }
 
-    fun hasText(@IdRes id: Int, text: String) {
-        onView(withId(id)).check(matches(ViewMatchers.withText(text)))
+    fun hasText(@IdRes id: Int, text: String, checkDescendants: Boolean = false) {
+        if (checkDescendants) {
+            onView(withId(id)).check(
+                matches(ViewMatchers.hasDescendant(ViewMatchers.withText(text)))
+            )
+        } else {
+            onView(withId(id)).check(matches(ViewMatchers.withText(text)))
+        }
     }
 
-    fun hasText(@IdRes id: Int, predicate: (text: String) -> Boolean) {
-        onView(withId(id)).check(matches(withText(predicate)))
+    fun hasText(
+        @IdRes id: Int,
+        checkDescendants: Boolean = false,
+        predicate: (text: String) -> Boolean
+    ) {
+        if (checkDescendants) {
+            onView(withId(id)).check(matches(ViewMatchers.hasDescendant(withText(predicate))))
+        } else {
+            onView(withId(id)).check(matches(withText(predicate)))
+        }
     }
 
     fun hasNotification(id: Int) {

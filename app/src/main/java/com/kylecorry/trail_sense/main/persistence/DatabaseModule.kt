@@ -98,11 +98,6 @@ object DatabaseModule {
     }
 
     @Provides
-    fun provideLightningDao(database: AppDatabase): LightningStrikeDao {
-        return database.lightningDao()
-    }
-
-    @Provides
     @Singleton
     fun provideDatabase(@ApplicationContext appContext: Context): AppDatabase {
         return AppDatabase.getInstance(appContext)

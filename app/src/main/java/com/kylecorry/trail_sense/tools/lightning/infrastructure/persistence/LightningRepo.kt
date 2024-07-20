@@ -7,8 +7,11 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.tools.lightning.domain.LightningStrike
 import java.time.Duration
 import java.time.Instant
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class LightningRepo(private val dao: LightningStrikeDao) : ILightningRepo {
+@Singleton
+class LightningRepo @Inject constructor(private val dao: LightningStrikeDao) : ILightningRepo {
 
     override suspend fun clean() = onIO {
         dao.deleteOlderThan(Instant.now().minus(LIGHTNING_HISTORY_DURATION).toEpochMilli())

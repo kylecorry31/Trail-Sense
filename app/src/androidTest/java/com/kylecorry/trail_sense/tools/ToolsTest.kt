@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.navigation.NavController
 import com.kylecorry.trail_sense.shared.extensions.findNavController
-import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -30,8 +29,7 @@ class ToolsTest {
     @Before
     fun setUp() {
         hiltRule.inject()
-        TestUtils.setupDefaultPreferences()
-        TestUtils.setupNotificationChannels()
+        TestUtils.setupApplication()
         val scenario = TestUtils.startWithTool(0L)
         scenario.onActivity {
             navController = it.findNavController()

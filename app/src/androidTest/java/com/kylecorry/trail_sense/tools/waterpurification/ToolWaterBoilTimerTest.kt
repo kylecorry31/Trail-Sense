@@ -26,8 +26,7 @@ class ToolWaterBoilTimerTest {
     @Before
     fun setUp() {
         hiltRule.inject()
-        TestUtils.setupDefaultPreferences()
-        TestUtils.setupNotificationChannels()
+        TestUtils.setupApplication()
         TestUtils.startWithTool(Tools.WATER_BOIL_TIMER)
     }
 
