@@ -339,6 +339,8 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_31_32,
                     MIGRATION_32_33
                 )
+                // TODO: Temporary for the android tests, will remove once AppDatabase is injected with hilt
+                .allowMainThreadQueries()
                 .build()
         }
     }

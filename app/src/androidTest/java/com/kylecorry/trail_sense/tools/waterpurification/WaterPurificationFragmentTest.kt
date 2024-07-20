@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.waterpurification
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -18,6 +19,9 @@ class WaterPurificationFragmentTest {
 
     @get:Rule
     val grantPermissionRule = TestUtils.mainPermissionsGranted()
+
+    @get:Rule
+    val instantExec = InstantTaskExecutorRule()
 
     @Before
     fun setUp() {

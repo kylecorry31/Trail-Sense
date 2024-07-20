@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.test_utils
 
 import android.Manifest
+import android.content.Context
 import android.os.Build
 import android.view.View
 import android.widget.TextView
@@ -26,19 +27,20 @@ import org.junit.rules.TestRule
 
 object TestUtils {
 
+    val context: Context
+        get() = InstrumentationRegistry.getInstrumentation().targetContext
+
     fun setupDefaultPreferences() {
-        val context = InstrumentationRegistry.getInstrumentation().targetContext
         val prefs = PreferencesSubsystem.getInstance(context).preferences
         prefs.putBoolean(context.getString(R.string.pref_onboarding_completed), true)
         prefs.putBoolean(context.getString(R.string.pref_main_disclaimer_shown_key), true)
         prefs.putBoolean(context.getString(R.string.pref_require_satellites), false)
     }
 
-    fun startWithTool(toolId: Long) {
-        val context = InstrumentationRegistry.getInstrumentation().targetContext
+    fun startWithTool(toolId: Long): ActivityScenario<MainActivity> {
         val prefs = UserPreferences(context)
         prefs.bottomNavigationTools = listOf(toolId)
-        ActivityScenario.launch(MainActivity::class.java)
+        return ActivityScenario.launch(MainActivity::class.java)
     }
 
     fun withText(predicate: (text: String) -> Boolean) = object : TypeSafeMatcher<View>() {
@@ -54,16 +56,34 @@ object TestUtils {
     }
 
     fun mainPermissionsGranted(): TestRule {
-        val permissions = arrayOf(
+        val permissions = mutableListOf(
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
         )
 
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            GrantPermissionRule.grant(*permissions, Manifest.permission.POST_NOTIFICATIONS)
-        } else {
-            GrantPermissionRule.grant(*permissions)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            permissions.add(Manifest.permission.POST_NOTIFICATIONS)
         }
+
+        return GrantPermissionRule.grant(*permissions.toTypedArray())
+    }
+
+    fun allPermissionsGranted(): TestRule {
+        val permissions = mutableListOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.CAMERA,
+        )
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            permissions.add(Manifest.permission.ACTIVITY_RECOGNITION)
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            permissions.add(Manifest.permission.POST_NOTIFICATIONS)
+        }
+
+        return GrantPermissionRule.grant(*permissions.toTypedArray())
     }
 
     fun click(@IdRes id: Int) {
@@ -83,21 +103,11 @@ object TestUtils {
     }
 
     fun hasNotification(id: Int) {
-        assertEquals(
-            Notify.isActive(
-                InstrumentationRegistry.getInstrumentation().targetContext,
-                id
-            ), true
-        )
+        assertEquals(Notify.isActive(context, id), true)
     }
 
     fun doesNotHaveNotification(id: Int) {
-        assertEquals(
-            Notify.isActive(
-                InstrumentationRegistry.getInstrumentation().targetContext,
-                id
-            ), false
-        )
+        assertEquals(Notify.isActive(context, id), false)
     }
 
 }
