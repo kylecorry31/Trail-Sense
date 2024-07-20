@@ -5,11 +5,14 @@ import android.widget.ImageButton
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.tools.ruler.ui.RulerView
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class QuickActionRuler(
     btn: ImageButton,
@@ -64,6 +67,12 @@ class QuickActionRuler(
             setState(true)
             ruler?.isVisible = true
         }
+    }
+
+    override fun onLongClick(): Boolean {
+        super.onLongClick()
+        fragment.findNavController().openTool(Tools.RULER)
+        return true
     }
 
     override fun onPause() {

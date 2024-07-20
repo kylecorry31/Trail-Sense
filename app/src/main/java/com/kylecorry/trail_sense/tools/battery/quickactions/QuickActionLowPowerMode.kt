@@ -2,10 +2,13 @@ package com.kylecorry.trail_sense.tools.battery.quickactions
 
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.tools.battery.infrastructure.LowPowerMode
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class QuickActionLowPowerMode(button: ImageButton, fragment: Fragment) :
     QuickActionButton(button, fragment) {
@@ -37,5 +40,11 @@ class QuickActionLowPowerMode(button: ImageButton, fragment: Fragment) :
             prefs.power.userEnabledLowPower = true
             lowerPowerMode.enable()
         }
+    }
+
+    override fun onLongClick(): Boolean {
+        super.onLongClick()
+        fragment.findNavController().openTool(Tools.BATTERY)
+        return true
     }
 }
