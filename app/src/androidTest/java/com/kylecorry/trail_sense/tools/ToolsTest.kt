@@ -31,6 +31,7 @@ class ToolsTest {
     fun setUp() {
         hiltRule.inject()
         TestUtils.setupDefaultPreferences()
+        TestUtils.setupNotificationChannels()
         val scenario = TestUtils.startWithTool(0L)
         scenario.onActivity {
             navController = it.findNavController()

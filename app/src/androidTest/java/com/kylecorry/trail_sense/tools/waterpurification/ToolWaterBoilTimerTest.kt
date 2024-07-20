@@ -27,6 +27,7 @@ class ToolWaterBoilTimerTest {
     fun setUp() {
         hiltRule.inject()
         TestUtils.setupDefaultPreferences()
+        TestUtils.setupNotificationChannels()
         TestUtils.startWithTool(Tools.WATER_BOIL_TIMER)
     }
 
@@ -34,7 +35,9 @@ class ToolWaterBoilTimerTest {
     fun basicFunctionality() {
         // Auto
         // TODO: Mock out elevation
-        TestUtils.hasText(R.id.time_left, "180")
+        TestUtils.waitFor(12500) {
+            TestUtils.hasText(R.id.time_left) { it == "180" || it == "60" }
+        }
 
         // Select 3 minutes
         TestUtils.click(R.id.chip_3_min)

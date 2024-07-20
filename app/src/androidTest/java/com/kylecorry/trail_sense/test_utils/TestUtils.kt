@@ -18,9 +18,12 @@ import androidx.test.rule.GrantPermissionRule
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
+import com.kylecorry.trail_sense.main.NotificationChannels
+import com.kylecorry.trail_sense.main.TrailSenseApplication
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import org.hamcrest.Description
+import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Assert.assertEquals
 import org.junit.rules.TestRule
@@ -35,6 +38,10 @@ object TestUtils {
         prefs.putBoolean(context.getString(R.string.pref_onboarding_completed), true)
         prefs.putBoolean(context.getString(R.string.pref_main_disclaimer_shown_key), true)
         prefs.putBoolean(context.getString(R.string.pref_require_satellites), false)
+    }
+
+    fun setupNotificationChannels(){
+        NotificationChannels.createChannels(context)
     }
 
     fun startWithTool(toolId: Long): ActivityScenario<MainActivity> {
@@ -85,6 +92,49 @@ object TestUtils {
 
         return GrantPermissionRule.grant(*permissions.toTypedArray())
     }
+
+    fun waitForIdle() {
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync()
+    }
+
+    fun waitFor(durationMillis: Long = 5000, action: () -> Unit) {
+        var remaining = durationMillis
+        val interval = 100L
+        var lastException: Throwable? = null
+        while (remaining > 0) {
+            try {
+                action()
+                return
+            } catch (e: Throwable){
+                lastException = e
+            }
+            Thread.sleep(interval)
+            remaining -= interval
+        }
+        if (lastException != null){
+            throw lastException
+        }
+    }
+
+    fun waitForMatch(matcher: Matcher<View>, durationMillis: Long = 5000) =
+        object : TypeSafeMatcher<View>() {
+            override fun describeTo(description: Description) {
+                description.appendText("wait for matcher")
+            }
+
+            override fun matchesSafely(item: View): Boolean {
+                var remaining = durationMillis
+                val interval = 100L
+                while (remaining > 0) {
+                    if (matcher.matches(item)) {
+                        return true
+                    }
+                    Thread.sleep(interval)
+                    remaining -= interval
+                }
+                return matcher.matches(item)
+            }
+        }
 
     fun click(@IdRes id: Int) {
         onView(withId(id)).perform(ViewActions.click())
