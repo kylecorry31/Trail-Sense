@@ -41,17 +41,25 @@ class ToolWaterBoilTimerTest {
     @Test
     fun basicFunctionality() {
         // Auto
+        waitFor {
+            view(R.id.chip_auto).hasText(R.string.auto)
+        }
+
         // TODO: Mock out elevation
         waitFor(12500) {
             view(R.id.time_left).hasText { it == "180" || it == "60" }
         }
 
         // Select 3 minutes
-        view(R.id.chip_3_min).click()
+        view(R.id.chip_3_min)
+            .hasText("3m")
+            .click()
         view(R.id.time_left).hasText("180")
 
         // Select 1 minute
-        view(R.id.chip_1_min).click()
+        view(R.id.chip_1_min)
+            .hasText("1m")
+            .click()
         view(R.id.time_left).hasText("60")
 
         // Start the timer

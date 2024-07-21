@@ -18,10 +18,11 @@ fun TestView.hasText(
 
 fun TestView.hasText(
     textResId: Int,
+    vararg args: Any,
     ignoreCase: Boolean = false,
     checkDescendants: Boolean = true
 ): TestView {
-    return hasText(TestUtils.getString(textResId), ignoreCase, checkDescendants)
+    return hasText(TestUtils.getString(textResId, *args), ignoreCase, checkDescendants)
 }
 
 fun TestView.hasText(regex: Regex, checkDescendants: Boolean = true): TestView {

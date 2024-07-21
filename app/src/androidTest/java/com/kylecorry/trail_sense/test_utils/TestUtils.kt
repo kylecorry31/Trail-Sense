@@ -31,8 +31,9 @@ object TestUtils {
     val device: UiDevice
         get() = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
-    fun getString(@StringRes id: Int): String {
-        return context.getString(id)
+
+    fun getString(@StringRes id: Int, vararg args: Any): String {
+        return context.getString(id, *args)
     }
 
     fun setWaitForIdleTimeout(timeout: Long) {
