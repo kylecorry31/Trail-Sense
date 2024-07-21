@@ -56,7 +56,14 @@ class ToolAstronomyTest {
         // Verify that today is selected
         TestUtils.hasText(R.id.display_date, R.string.today, checkDescendants = true)
 
-        // TODO: Verify the list items contain the sun and moon details
+        // Verify the list of astronomy events is displayed
+        TestUtils.hasText(R.id.astronomy_detail_list, checkDescendants = true) {
+            it.startsWith(TestUtils.getString(R.string.sun))
+        }
+
+        TestUtils.hasText(R.id.astronomy_detail_list, checkDescendants = true) {
+            it.startsWith(TestUtils.getString(R.string.moon))
+        }
 
         // Verify the View in 3D button is visible and works
         TestUtils.click(R.id.button_3d)
