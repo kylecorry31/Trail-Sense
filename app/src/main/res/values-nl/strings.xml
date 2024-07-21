@@ -1173,4 +1173,9 @@
     <string name="quick_actions_are_unavailable">Snelle acties zijn niet beschikbaar</string>
     <string name="bottom_navigation_slot">Onderste navigatieslot %d</string>
     <string name="forecast_algorithm">Voorspellingsalgoritme</string>
+    <string name="no_items_found">Geen items gevonden</string>
+    <string name="barometer_offset">Barometercompensatie</string>
+    <string name="enter_the_current_pressure">Voer de huidige druk in</string>
+    <string name="exported">Geëxporteerd</string>
+    <string name="import_packing_list">Importeer paklijst</string>
 </resources>

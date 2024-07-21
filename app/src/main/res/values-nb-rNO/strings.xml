@@ -1040,4 +1040,8 @@
     <string name="mirror_camera">Speilkamera</string>
     <string name="ar_calibration_instructions">Sentrer %s på skjermen og trykk \"Kalibrer\"</string>
     <string name="locate">Lokaliser</string>
+    <string name="exported">Eksportert</string>
+    <string name="no_items_found">Ingen elementer funnet</string>
+    <string name="import_packing_list">Importer pakkeliste</string>
+    <string name="enter_the_current_pressure">Angi gjeldende trykk</string>
 </resources>
