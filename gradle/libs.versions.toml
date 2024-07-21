@@ -1,5 +1,5 @@
 [versions]
-androidApplication = "8.5.0"
+androidApplication = "8.5.1"
 androidXTest = "1.6.1"
 androidXArchCore = "2.2.0"
 andromedaVersion = "18d6cb2575"
@@ -25,7 +25,7 @@ kotlinxCoroutinesAndroid = "1.8.0"
 ksp = "2.0.0-1.0.21"
 legacySupportV4 = "1.0.0"
 navVersion = "2.7.7"
-lifecycleVersion = "2.8.2"
+lifecycleVersion = "2.8.3"
 material = "1.10.0"
 luna = "0.3.5"
 mockitoKotlin = "5.1.0"
@@ -36,12 +36,12 @@ workRuntimeKtx = "2.9.0"
 preferenceKtx = "1.2.1"
 
 [libraries]
-android-x-test-core = { module = "androidx.test:core", version.ref = "androidXTest" }
-android-x-test-runner = { module = "androidx.test:runner", version.ref = "androidXTest" }
-android-x-test-rules = { module = "androidx.test:rules", version.ref = "androidXTest" }
-android-x-fragment-testing = { module = "androidx.fragment:fragment-testing", version.ref = "fragment" }
-android-x-fragment-testing-manifest = { module = "androidx.fragment:fragment-testing-manifest", version.ref = "fragment" }
-android-x-test-arch-core = { module = "androidx.arch.core:core-testing", version.ref = "androidXArchCore" }
+androidx-test-core = { module = "androidx.test:core", version.ref = "androidXTest" }
+androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidXTest" }
+androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidXTest" }
+androidx-fragment-testing = { module = "androidx.fragment:fragment-testing", version.ref = "fragment" }
+androidx-fragment-testing-manifest = { module = "androidx.fragment:fragment-testing-manifest", version.ref = "fragment" }
+androidx-test-arch-core = { module = "androidx.arch.core:core-testing", version.ref = "androidXArchCore" }
 androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltCompilerVersion" }
 androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hiltWorkVersion" }
 andromeda-battery = { module = "com.github.kylecorry31.andromeda:battery", version.ref = "andromedaVersion" }
