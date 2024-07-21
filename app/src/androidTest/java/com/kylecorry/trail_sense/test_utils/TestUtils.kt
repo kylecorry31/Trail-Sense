@@ -147,7 +147,7 @@ object TestUtils {
         @IdRes id: Int,
         @StringRes textResId: Int,
         @IdRes childId: Int? = null,
-        checkDescendants: Boolean = false,
+        checkDescendants: Boolean = true,
     ) {
         hasText(id, getString(textResId), childId, checkDescendants)
     }
@@ -156,7 +156,7 @@ object TestUtils {
         @IdRes id: Int,
         text: String,
         @IdRes childId: Int? = null,
-        checkDescendants: Boolean = false,
+        checkDescendants: Boolean = true,
     ) {
         hasText(id, childId, checkDescendants) {
             it == text
@@ -166,12 +166,12 @@ object TestUtils {
     fun hasText(
         @IdRes id: Int,
         @IdRes childId: Int? = null,
-        checkDescendants: Boolean = false,
+        checkDescendants: Boolean = true,
         predicate: (text: String) -> Boolean
     ) {
         val view = getView(id, childId)
         if (checkDescendants) {
-            assertTrue(hasChild(view) {
+            assertTrue(hasSelfOrChild(view) {
                 it.text != null && predicate(it.text)
             })
         } else {
@@ -209,7 +209,7 @@ object TestUtils {
         }
     }
 
-    private fun hasChild(
+    private fun hasSelfOrChild(
         parent: UiObject2,
         depth: Int = 10,
         predicate: (obj: UiObject2) -> Boolean
@@ -223,7 +223,7 @@ object TestUtils {
         }
 
         for (child in parent.children) {
-            if (hasChild(child, depth - 1, predicate)) {
+            if (hasSelfOrChild(child, depth - 1, predicate)) {
                 return true
             }
         }

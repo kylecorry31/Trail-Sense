@@ -40,7 +40,7 @@ class ToolAstronomyTest {
     @Test
     fun basicFunctionality() {
         // Verify the title
-        TestUtils.hasText(R.id.astronomy_title, checkDescendants = true) {
+        TestUtils.hasText(R.id.astronomy_title) {
             val valid = listOf(
                 TestUtils.getString(R.string.until_sunset),
                 TestUtils.getString(R.string.until_sunrise)
@@ -48,20 +48,20 @@ class ToolAstronomyTest {
             valid.contains(it)
         }
 
-        TestUtils.hasText(R.id.astronomy_title, checkDescendants = true) {
+        TestUtils.hasText(R.id.astronomy_title) {
             val regex = Regex("([0-9]+h)? ?([0-9]+m)?")
             regex.matches(it)
         }
 
         // Verify that today is selected
-        TestUtils.hasText(R.id.display_date, R.string.today, checkDescendants = true)
+        TestUtils.hasText(R.id.display_date, R.string.today)
 
         // Verify the list of astronomy events is displayed
-        TestUtils.hasText(R.id.astronomy_detail_list, checkDescendants = true) {
+        TestUtils.hasText(R.id.astronomy_detail_list) {
             it.startsWith(TestUtils.getString(R.string.sun))
         }
 
-        TestUtils.hasText(R.id.astronomy_detail_list, checkDescendants = true) {
+        TestUtils.hasText(R.id.astronomy_detail_list) {
             it.startsWith(TestUtils.getString(R.string.moon))
         }
 
