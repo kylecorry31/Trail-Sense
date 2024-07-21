@@ -1,21 +1,21 @@
 package com.kylecorry.trail_sense.test_utils
 
 import android.Manifest
-import android.accessibilityservice.AccessibilityService
+import android.app.Notification
+import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
+import androidx.core.content.getSystemService
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.GrantPermissionRule
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.BySelector
 import androidx.test.uiautomator.Configurator
-import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
-import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.main.NotificationChannels
@@ -26,11 +26,9 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
-import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.rules.TestRule
 import java.time.Duration
-import java.util.regex.Pattern
 
 object TestUtils {
 
@@ -46,6 +44,15 @@ object TestUtils {
 
     fun setWaitForIdleTimeout(timeout: Long) {
         Configurator.getInstance().setWaitForIdleTimeout(timeout)
+    }
+
+    fun not(action: () -> Unit) {
+        try {
+            action()
+        } catch (e: Throwable) {
+            return
+        }
+        throw Exception("Expected exception")
     }
 
     // STARTUP
@@ -152,11 +159,22 @@ object TestUtils {
     // TEXT
     fun hasText(
         @IdRes id: Int,
+        text: TextMatcher,
+        @IdRes childId: Int? = null,
+        checkDescendants: Boolean = true,
+    ) {
+        hasText(id, childId, checkDescendants) {
+            text.matches(it)
+        }
+    }
+
+    fun hasText(
+        @IdRes id: Int,
         @StringRes textResId: Int,
         @IdRes childId: Int? = null,
         checkDescendants: Boolean = true,
     ) {
-        hasText(id, getString(textResId), childId, checkDescendants)
+        hasText(id, TextMatcher.equals(textResId), childId, checkDescendants)
     }
 
     fun hasText(
@@ -165,9 +183,7 @@ object TestUtils {
         @IdRes childId: Int? = null,
         checkDescendants: Boolean = true,
     ) {
-        hasText(id, childId, checkDescendants) {
-            it == text
-        }
+        hasText(id, TextMatcher.equals(text), childId, checkDescendants)
     }
 
     fun hasText(
@@ -195,22 +211,22 @@ object TestUtils {
         device.swipe(0, device.displayHeight, 0, 0, 10)
     }
 
-//    fun hasNotification(text: String) {
-//        val notification = find(By.text(text))
-//        assertTrue(notification != null)
-//    }
-//
-//    fun hasNotification(regex: Pattern) {
-//        val notification = find(By.text(regex))
-//        assertTrue(notification != null)
-//    }
-
-    fun hasNotification(id: Int) {
-        assertEquals(Notify.isActive(context, id), true)
-    }
-
-    fun doesNotHaveNotification(id: Int) {
-        assertEquals(Notify.isActive(context, id), false)
+    fun hasNotification(
+        id: Int,
+        title: TextMatcher = TextMatcher.any(),
+        description: TextMatcher = TextMatcher.any()
+    ) {
+        val notifications =
+            context.getSystemService<NotificationManager>()?.activeNotifications ?: emptyArray()
+        assertTrue(notifications.any {
+            val notificationTitle =
+                it.notification.extras.getCharSequence(Notification.EXTRA_TITLE).toString()
+            val notificationDescription =
+                it.notification.extras.getCharSequence(Notification.EXTRA_TEXT).toString()
+            it.id == id && title.matches(notificationTitle) && description.matches(
+                notificationDescription
+            )
+        })
     }
 
     // HELPERS

@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.waterpurification
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.TestUtils
+import com.kylecorry.trail_sense.test_utils.TextMatcher
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.waterpurification.infrastructure.WaterPurificationTimerService
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -53,7 +54,10 @@ class ToolWaterBoilTimerTest {
         // Verify it is started
         TestUtils.hasText(R.id.boil_button, android.R.string.cancel)
         TestUtils.hasText(R.id.time_left) { it.toInt() <= 60 }
-        TestUtils.hasNotification(WaterPurificationTimerService.NOTIFICATION_ID)
+        TestUtils.hasNotification(
+            WaterPurificationTimerService.NOTIFICATION_ID,
+            TextMatcher.equals(R.string.water_boil_timer_title)
+        )
 
         // TODO: Wait for the timer to finish and verify the finished state (simulate time passing)
 
@@ -63,6 +67,6 @@ class ToolWaterBoilTimerTest {
         // Verify it is stopped
         TestUtils.hasText(R.id.boil_button, R.string.start)
         TestUtils.hasText(R.id.time_left, "60")
-        TestUtils.doesNotHaveNotification(WaterPurificationTimerService.NOTIFICATION_ID)
+        TestUtils.not { TestUtils.hasNotification(WaterPurificationTimerService.NOTIFICATION_ID) }
     }
 }
