@@ -31,6 +31,22 @@ object TestUtils {
     val device: UiDevice
         get() = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
+    fun mute(): Int {
+        val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as android.media.AudioManager
+        val currentVolume = audioManager.getStreamVolume(android.media.AudioManager.STREAM_MUSIC)
+        audioManager.setStreamVolume(android.media.AudioManager.STREAM_MUSIC, 0, 0)
+        return currentVolume
+    }
+
+    fun unmute(volume: Int) {
+        val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as android.media.AudioManager
+        audioManager.setStreamVolume(android.media.AudioManager.STREAM_MUSIC, volume, 0)
+    }
+
+    fun isPlayingMusic(): Boolean {
+        val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as android.media.AudioManager
+        return audioManager.isMusicActive
+    }
 
     fun getString(@StringRes id: Int, vararg args: Any): String {
         return context.getString(id, *args)
