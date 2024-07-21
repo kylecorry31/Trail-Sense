@@ -72,6 +72,9 @@ If a solar eclipse is happening on the selected date at your location, it will s
 ## Sunset alerts
 Alerts can be set for sunset to avoid being caught outside in the dark. To set an alert, open Settings > Astronomy and enable 'Sunset alerts'. You can adjust the 'Sunset alert time' setting to determine how far in advance you want to be notified. There is also a quick action available for the sunset alert. See below for more information.
 
+## Sunrise alerts
+Alerts can be configured for sunrise to ensure you don't miss the beginning of the day. To set up an alert, go to Settings > Astronomy and turn on 'Sunrise alerts'. You can adjust the 'Sunrise alert time' setting to decide how much advance notice you want. Additionally, there is a quick action option available for the sunrise alert. Refer to the information below for further details.
+
 ## Astronomy alerts
 Alerts can be set for astronomical events to ensure you don't miss them. To set an alert, open Settings > Astronomy and enable the alerts you want to be notified about for your location. You can receive notifications for meteor showers, lunar eclipses, and solar eclipses. The alert will be shown up to 24 hours in advance of the event start time.
 
@@ -81,6 +84,6 @@ If your phone has a compass, you will see a "View in 3D" button. Clicking this w
 You can choose to disable the camera when clicked by disabling the "Settings > Astronomy > Use camera for 3D viewing" setting.
 
 ## Quick action
-You can enable the Sunset Alert quick action in the settings for the tab where you want it to appear.
+You can enable the Sunset Alert and Sunrise Alert quick action in the settings for the tab where you want it to appear.
 
-To use the quick action, tap the sunset alert quick action button to toggle it on or off.
+To use the quick action, tap the sunset alert or sunrise alert quick action button to toggle it on or off.
