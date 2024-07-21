@@ -3,7 +3,11 @@ package com.kylecorry.trail_sense.tools.waterpurification
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.TestUtils
-import com.kylecorry.trail_sense.test_utils.TextMatcher
+import com.kylecorry.trail_sense.test_utils.notifications.hasTitle
+import com.kylecorry.trail_sense.test_utils.notifications.notification
+import com.kylecorry.trail_sense.test_utils.views.click
+import com.kylecorry.trail_sense.test_utils.views.hasText
+import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.waterpurification.infrastructure.WaterPurificationTimerService
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -37,36 +41,33 @@ class ToolWaterBoilTimerTest {
         // Auto
         // TODO: Mock out elevation
         TestUtils.waitFor(12500) {
-            TestUtils.hasText(R.id.time_left) { it == "180" || it == "60" }
+            view(R.id.time_left).hasText { it == "180" || it == "60" }
         }
 
         // Select 3 minutes
-        TestUtils.click(R.id.chip_3_min)
-        TestUtils.hasText(R.id.time_left, "180")
+        view(R.id.chip_3_min).click()
+        view(R.id.time_left).hasText("180")
 
         // Select 1 minute
-        TestUtils.click(R.id.chip_1_min)
-        TestUtils.hasText(R.id.time_left, "60")
+        view(R.id.chip_1_min).click()
+        view(R.id.time_left).hasText("60")
 
         // Start the timer
-        TestUtils.click(R.id.boil_button)
+        view(R.id.boil_button).click()
 
         // Verify it is started
-        TestUtils.hasText(R.id.boil_button, android.R.string.cancel)
-        TestUtils.hasText(R.id.time_left) { it.toInt() <= 60 }
-        TestUtils.hasNotification(
-            WaterPurificationTimerService.NOTIFICATION_ID,
-            TextMatcher.equals(R.string.water_boil_timer_title)
-        )
+        view(R.id.boil_button).hasText(android.R.string.cancel)
+        view(R.id.time_left).hasText { it.toInt() <= 60 }
+        notification(WaterPurificationTimerService.NOTIFICATION_ID).hasTitle(R.string.water_boil_timer_title)
 
         // TODO: Wait for the timer to finish and verify the finished state (simulate time passing)
 
         // Cancel the timer
-        TestUtils.click(R.id.boil_button)
+        view(R.id.boil_button).click()
 
         // Verify it is stopped
-        TestUtils.hasText(R.id.boil_button, R.string.start)
-        TestUtils.hasText(R.id.time_left, "60")
-        TestUtils.not { TestUtils.hasNotification(WaterPurificationTimerService.NOTIFICATION_ID) }
+        view(R.id.boil_button).hasText(R.string.start)
+        view(R.id.time_left).hasText("60")
+        TestUtils.not { notification(WaterPurificationTimerService.NOTIFICATION_ID) }
     }
 }

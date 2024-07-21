@@ -1,17 +1,12 @@
 package com.kylecorry.trail_sense.test_utils
 
 import android.Manifest
-import android.app.Notification
-import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
-import androidx.annotation.IdRes
 import androidx.annotation.StringRes
-import androidx.core.content.getSystemService
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.GrantPermissionRule
-import androidx.test.uiautomator.By
 import androidx.test.uiautomator.BySelector
 import androidx.test.uiautomator.Configurator
 import androidx.test.uiautomator.UiDevice
@@ -26,7 +21,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
-import org.junit.Assert.assertTrue
 import org.junit.rules.TestRule
 import java.time.Duration
 
@@ -147,61 +141,6 @@ object TestUtils {
         throw Exception("Timeout")
     }
 
-    // CLICK
-    fun click(@IdRes id: Int, @IdRes childId: Int? = null) {
-        getView(id, childId).click()
-    }
-
-    fun longClick(@IdRes id: Int, @IdRes childId: Int? = null) {
-        getView(id, childId).longClick()
-    }
-
-    // TEXT
-    fun hasText(
-        @IdRes id: Int,
-        text: TextMatcher,
-        @IdRes childId: Int? = null,
-        checkDescendants: Boolean = true,
-    ) {
-        hasText(id, childId, checkDescendants) {
-            text.matches(it)
-        }
-    }
-
-    fun hasText(
-        @IdRes id: Int,
-        @StringRes textResId: Int,
-        @IdRes childId: Int? = null,
-        checkDescendants: Boolean = true,
-    ) {
-        hasText(id, TextMatcher.equals(textResId), childId, checkDescendants)
-    }
-
-    fun hasText(
-        @IdRes id: Int,
-        text: String,
-        @IdRes childId: Int? = null,
-        checkDescendants: Boolean = true,
-    ) {
-        hasText(id, TextMatcher.equals(text), childId, checkDescendants)
-    }
-
-    fun hasText(
-        @IdRes id: Int,
-        @IdRes childId: Int? = null,
-        checkDescendants: Boolean = true,
-        predicate: (text: String) -> Boolean
-    ) {
-        val view = getView(id, childId)
-        if (checkDescendants) {
-            assertTrue(hasSelfOrChild(view) {
-                it.text != null && predicate(it.text)
-            })
-        } else {
-            assertTrue(view.text != null && predicate(view.text))
-        }
-    }
-
     // NOTIFICATIONS
     fun openNotificationShade() {
         device.openNotification()
@@ -211,51 +150,18 @@ object TestUtils {
         device.swipe(0, device.displayHeight, 0, 0, 10)
     }
 
-    fun hasNotification(
-        id: Int,
-        title: TextMatcher = TextMatcher.any(),
-        description: TextMatcher = TextMatcher.any()
-    ) {
-        val notifications =
-            context.getSystemService<NotificationManager>()?.activeNotifications ?: emptyArray()
-        assertTrue(notifications.any {
-            val notificationTitle =
-                it.notification.extras.getCharSequence(Notification.EXTRA_TITLE).toString()
-            val notificationDescription =
-                it.notification.extras.getCharSequence(Notification.EXTRA_TEXT).toString()
-            it.id == id && title.matches(notificationTitle) && description.matches(
-                notificationDescription
-            )
-        })
-    }
-
     // HELPERS
-    private fun resourceIdToName(id: Int): String {
+    fun resourceIdToName(id: Int): String {
         return context.resources.getResourceEntryName(id)
     }
 
-    private fun find(selector: BySelector): UiObject2? {
+    fun find(selector: BySelector): UiObject2? {
         return waitFor {
             device.findObject(selector)
         }
     }
 
-    private fun getView(@IdRes id: Int, @IdRes childId: Int? = null): UiObject2 {
-        return waitFor {
-            val obj = find(By.res(context.packageName, resourceIdToName(id)))
-            if (childId == null) {
-                return@waitFor requireNotNull(obj)
-            }
-
-            return@waitFor requireNotNull(obj!!.children.find {
-                it.resourceName == resourceIdToName(
-                    childId
-                )
-            })
-        }
-    }
-
-    private fun hasSelfOrChild(
+    fun matchesSelfOrChild(
         parent: UiObject2,
         depth: Int = 10,
         predicate: (obj: UiObject2) -> Boolean
@@ -269,7 +175,7 @@ object TestUtils {
         }
 
         for (child in parent.children) {
-            if (hasSelfOrChild(child, depth - 1, predicate)) {
+            if (matchesSelfOrChild(child, depth - 1, predicate)) {
                 return true
             }
         }

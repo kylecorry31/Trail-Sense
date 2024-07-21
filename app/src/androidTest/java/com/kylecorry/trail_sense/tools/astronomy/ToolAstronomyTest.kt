@@ -5,6 +5,9 @@ import androidx.navigation.NavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.test_utils.TestUtils
+import com.kylecorry.trail_sense.test_utils.views.click
+import com.kylecorry.trail_sense.test_utils.views.hasText
+import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -40,7 +43,7 @@ class ToolAstronomyTest {
     @Test
     fun basicFunctionality() {
         // Verify the title
-        TestUtils.hasText(R.id.astronomy_title) {
+        view(R.id.astronomy_title).hasText {
             val valid = listOf(
                 TestUtils.getString(R.string.until_sunset),
                 TestUtils.getString(R.string.until_sunrise)
@@ -48,25 +51,22 @@ class ToolAstronomyTest {
             valid.contains(it)
         }
 
-        TestUtils.hasText(R.id.astronomy_title) {
-            val regex = Regex("([0-9]+h)? ?([0-9]+m)?")
-            regex.matches(it)
-        }
+        view(R.id.astronomy_title).hasText(Regex("([0-9]+h)? ?([0-9]+m)?"))
 
         // Verify that today is selected
-        TestUtils.hasText(R.id.display_date, R.string.today)
+        view(R.id.display_date).hasText(R.string.today)
 
         // Verify the list of astronomy events is displayed
-        TestUtils.hasText(R.id.astronomy_detail_list) {
+        view(R.id.astronomy_detail_list).hasText {
             it.startsWith(TestUtils.getString(R.string.sun))
         }
 
-        TestUtils.hasText(R.id.astronomy_detail_list) {
+        view(R.id.astronomy_detail_list).hasText {
             it.startsWith(TestUtils.getString(R.string.moon))
         }
 
         // Verify the View in 3D button is visible and works
-        TestUtils.click(R.id.button_3d)
+        view(R.id.button_3d).click()
         TestUtils.waitFor {
             assertTrue(
                 Tools.getTool(TestUtils.context, Tools.AUGMENTED_REALITY)
