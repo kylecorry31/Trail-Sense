@@ -138,6 +138,10 @@ object TestUtils {
         perform(withId2(id, childId), ViewActions.click())
     }
 
+    fun longClick(@IdRes id: Int, @IdRes childId: Int? = null) {
+        perform(withId2(id, childId), ViewActions.longClick())
+    }
+
     // TEXT
     fun hasText(
         @IdRes id: Int,
@@ -165,7 +169,6 @@ object TestUtils {
     ) {
         checkMatch(withId2(id, childId), withText(predicate), checkDescendants)
     }
-
 
     // NOTIFICATIONS
     fun hasNotification(id: Int) {
@@ -201,16 +204,17 @@ object TestUtils {
         onView(viewMatcher).perform(*actions)
     }
 
-    private fun withText(predicate: (text: String) -> Boolean) = object : TypeSafeMatcher<View>() {
-        override fun describeTo(description: Description) {
-            description.appendText("with text (predicate)")
+    private fun withPredicate(predicate: (view: View) -> Boolean) =
+        object : TypeSafeMatcher<View>() {
+            override fun describeTo(description: Description) {
+                description.appendText("with predicate")
+            }
+
+            override fun matchesSafely(item: View): Boolean {
+                return predicate(item)
+            }
         }
 
-        override fun matchesSafely(item: View): Boolean {
-            if (item !is TextView) return false
-            val text = item.text.toString()
-            return predicate(text)
-        }
-    }
-
+    private fun withText(predicate: (text: String) -> Boolean) =
+        withPredicate { view -> view is TextView && predicate(view.text.toString()) }
 }
