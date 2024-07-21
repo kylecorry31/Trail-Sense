@@ -32,7 +32,7 @@ class ToolLightningStrikeDistanceTest {
     @Test
     fun basicFunctionality() {
         // Verify it is ready to record lightning
-        TestUtils.hasText(R.id.start_btn, R.string.lightning, true)
+        TestUtils.hasText(R.id.start_btn, R.string.lightning, checkDescendants = true)
 
         // Click the start button
         TestUtils.click(R.id.start_btn)
@@ -40,12 +40,12 @@ class ToolLightningStrikeDistanceTest {
         // Verify it is recording
         TestUtils.hasText(
             R.id.lightning_title,
-            true
+            checkDescendants = true
         ) {
             val regex = Regex("([0-9.]+) (ft|mi)")
             regex.matches(it)
         }
-        TestUtils.hasText(R.id.start_btn, R.string.thunder, true)
+        TestUtils.hasText(R.id.start_btn, R.string.thunder, checkDescendants = true)
 
         // Click the start button again
         TestUtils.click(R.id.start_btn)
@@ -54,7 +54,7 @@ class ToolLightningStrikeDistanceTest {
         var previousDistance: String? = null
         TestUtils.hasText(
             R.id.lightning_title,
-            true
+            checkDescendants = true
         ) {
             val regex = Regex("([0-9.]+) (ft|mi)")
             if (regex.matches(it)){
@@ -64,8 +64,8 @@ class ToolLightningStrikeDistanceTest {
                 false
             }
         }
-        TestUtils.hasText(R.id.start_btn, R.string.lightning, true)
-        TestUtils.hasText(R.id.lightning_title, R.string.lightning_dangerously_close, true)
+        TestUtils.hasText(R.id.start_btn, R.string.lightning, checkDescendants = true)
+        TestUtils.hasText(R.id.lightning_title, R.string.lightning_dangerously_close, checkDescendants = true)
 
         // Run it again and verify the last distance shows at the bottom of the screen
         TestUtils.click(R.id.start_btn)
