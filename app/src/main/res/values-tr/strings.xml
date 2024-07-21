@@ -1178,4 +1178,12 @@
     <string name="enter_the_current_pressure">Geçerli basıncı girin</string>
     <string name="barometer_offset">Barometre dengelemesi</string>
     <string name="exported">Dışa aktarıldı</string>
+    <string name="sunrise_alert_notification_title">Birazdan güneş doğacak</string>
+    <string name="sunrise_alerts">Gün doğumu alarmı</string>
+    <string name="sunrise_alert_channel_title">Gün doğumu alarmı</string>
+    <string name="pref_sunrise_alert_time_title">Gün doğumu uyarı zamanı</string>
+    <string name="sunrise_alert_notification_text">Güneş şu saatte doğacak: %s</string>
+    <string name="sunrise_alert_scheduled">Gün doğumundan %s öncesi için uyarı zamanlandı</string>
+    <string name="sunset">Gün batımı</string>
+    <string name="sunrise">Gün doğumu</string>
 </resources>
