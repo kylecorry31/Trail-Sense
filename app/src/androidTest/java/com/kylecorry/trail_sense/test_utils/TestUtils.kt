@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.test_utils
 
 import android.Manifest
+import android.accessibilityservice.AccessibilityService
 import android.content.Context
 import android.os.Build
 import androidx.annotation.IdRes
@@ -9,7 +10,9 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.GrantPermissionRule
 import androidx.test.uiautomator.By
+import androidx.test.uiautomator.BySelector
 import androidx.test.uiautomator.Configurator
+import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
 import com.kylecorry.andromeda.notify.Notify
@@ -27,11 +30,15 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.rules.TestRule
 import java.time.Duration
+import java.util.regex.Pattern
 
 object TestUtils {
 
     val context: Context
         get() = InstrumentationRegistry.getInstrumentation().targetContext
+
+    val device: UiDevice
+        get() = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
     fun getString(@StringRes id: Int): String {
         return context.getString(id)
@@ -180,6 +187,24 @@ object TestUtils {
     }
 
     // NOTIFICATIONS
+    fun openNotificationShade() {
+        device.openNotification()
+    }
+
+    fun closeNotificationShade() {
+        device.swipe(0, device.displayHeight, 0, 0, 10)
+    }
+
+//    fun hasNotification(text: String) {
+//        val notification = find(By.text(text))
+//        assertTrue(notification != null)
+//    }
+//
+//    fun hasNotification(regex: Pattern) {
+//        val notification = find(By.text(regex))
+//        assertTrue(notification != null)
+//    }
+
     fun hasNotification(id: Int) {
         assertEquals(Notify.isActive(context, id), true)
     }
@@ -193,15 +218,20 @@ object TestUtils {
         return context.resources.getResourceEntryName(id)
     }
 
+    private fun find(selector: BySelector): UiObject2? {
+        return waitFor {
+            device.findObject(selector)
+        }
+    }
+
     private fun getView(@IdRes id: Int, @IdRes childId: Int? = null): UiObject2 {
         return waitFor {
-            val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-            val obj = device.findObject(By.res(context.packageName, resourceIdToName(id)))
+            val obj = find(By.res(context.packageName, resourceIdToName(id)))
             if (childId == null) {
-                return@waitFor obj
+                return@waitFor requireNotNull(obj)
             }
 
-            return@waitFor requireNotNull(obj.children.find {
+            return@waitFor requireNotNull(obj!!.children.find {
                 it.resourceName == resourceIdToName(
                     childId
                 )
