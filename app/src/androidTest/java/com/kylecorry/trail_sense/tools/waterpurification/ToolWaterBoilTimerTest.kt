@@ -26,6 +26,7 @@ class ToolWaterBoilTimerTest {
     @Before
     fun setUp() {
         hiltRule.inject()
+        TestUtils.setWaitForIdleTimeout(100)
         TestUtils.setupApplication()
         TestUtils.startWithTool(Tools.WATER_BOIL_TIMER)
     }

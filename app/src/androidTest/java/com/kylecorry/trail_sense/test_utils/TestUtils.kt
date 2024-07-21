@@ -3,20 +3,15 @@ package com.kylecorry.trail_sense.test_utils
 import android.Manifest
 import android.content.Context
 import android.os.Build
-import android.view.View
-import android.widget.TextView
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.test.core.app.ActivityScenario
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.ViewAction
-import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA
-import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.GrantPermissionRule
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.Configurator
+import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.UiObject2
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
@@ -28,11 +23,8 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
-import org.hamcrest.Description
-import org.hamcrest.Matcher
-import org.hamcrest.Matchers.allOf
-import org.hamcrest.TypeSafeMatcher
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.rules.TestRule
 import java.time.Duration
 
@@ -40,6 +32,14 @@ object TestUtils {
 
     val context: Context
         get() = InstrumentationRegistry.getInstrumentation().targetContext
+
+    fun getString(@StringRes id: Int): String {
+        return context.getString(id)
+    }
+
+    fun setWaitForIdleTimeout(timeout: Long) {
+        Configurator.getInstance().setWaitForIdleTimeout(timeout)
+    }
 
     // STARTUP
     /**
@@ -114,14 +114,13 @@ object TestUtils {
         InstrumentationRegistry.getInstrumentation().waitForIdleSync()
     }
 
-    fun waitFor(durationMillis: Long = 5000, action: () -> Unit) {
+    fun <T> waitFor(durationMillis: Long = 5000, action: () -> T): T {
         var remaining = durationMillis
-        val interval = 100L
+        val interval = 10L
         var lastException: Throwable? = null
         while (remaining > 0) {
             try {
-                action()
-                return
+                return action()
             } catch (e: Throwable) {
                 lastException = e
             }
@@ -131,15 +130,16 @@ object TestUtils {
         if (lastException != null) {
             throw lastException
         }
+        throw Exception("Timeout")
     }
 
     // CLICK
     fun click(@IdRes id: Int, @IdRes childId: Int? = null) {
-        perform(withId2(id, childId), ViewActions.click())
+        getView(id, childId).click()
     }
 
     fun longClick(@IdRes id: Int, @IdRes childId: Int? = null) {
-        perform(withId2(id, childId), ViewActions.longClick())
+        getView(id, childId).longClick()
     }
 
     // TEXT
@@ -147,18 +147,20 @@ object TestUtils {
         @IdRes id: Int,
         @StringRes textResId: Int,
         @IdRes childId: Int? = null,
-        checkDescendants: Boolean = false
+        checkDescendants: Boolean = false,
     ) {
-        checkMatch(withId2(id, childId), ViewMatchers.withText(textResId), checkDescendants)
+        hasText(id, getString(textResId), childId, checkDescendants)
     }
 
     fun hasText(
         @IdRes id: Int,
         text: String,
         @IdRes childId: Int? = null,
-        checkDescendants: Boolean = false
+        checkDescendants: Boolean = false,
     ) {
-        checkMatch(withId2(id, childId), ViewMatchers.withText(text), checkDescendants)
+        hasText(id, childId, checkDescendants) {
+            it == text
+        }
     }
 
     fun hasText(
@@ -167,7 +169,14 @@ object TestUtils {
         checkDescendants: Boolean = false,
         predicate: (text: String) -> Boolean
     ) {
-        checkMatch(withId2(id, childId), withText(predicate), checkDescendants)
+        val view = getView(id, childId)
+        if (checkDescendants) {
+            assertTrue(hasChild(view) {
+                it.text != null && predicate(it.text)
+            })
+        } else {
+            assertTrue(view.text != null && predicate(view.text))
+        }
     }
 
     // NOTIFICATIONS
@@ -180,41 +189,45 @@ object TestUtils {
     }
 
     // HELPERS
-    private fun withId2(@IdRes parentId: Int, @IdRes childId: Int? = null): Matcher<View> {
-        if (childId == null) {
-            return withId(parentId)
-        }
-        return allOf(withId(childId), isDescendantOfA(withId(parentId)))
+    private fun resourceIdToName(id: Int): String {
+        return context.resources.getResourceEntryName(id)
     }
 
-    private fun checkMatch(
-        viewMatcher: Matcher<View>,
-        matcher: Matcher<View>,
-        checkDescendants: Boolean = false
-    ) {
-        val actualMatcher = if (checkDescendants) {
-            ViewMatchers.hasDescendant(matcher)
-        } else {
-            matcher
-        }
-        onView(viewMatcher).check(matches(actualMatcher))
-    }
-
-    private fun perform(viewMatcher: Matcher<View>, vararg actions: ViewAction) {
-        onView(viewMatcher).perform(*actions)
-    }
-
-    private fun withPredicate(predicate: (view: View) -> Boolean) =
-        object : TypeSafeMatcher<View>() {
-            override fun describeTo(description: Description) {
-                description.appendText("with predicate")
+    private fun getView(@IdRes id: Int, @IdRes childId: Int? = null): UiObject2 {
+        return waitFor {
+            val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+            val obj = device.findObject(By.res(context.packageName, resourceIdToName(id)))
+            if (childId == null) {
+                return@waitFor obj
             }
 
-            override fun matchesSafely(item: View): Boolean {
-                return predicate(item)
+            return@waitFor requireNotNull(obj.children.find {
+                it.resourceName == resourceIdToName(
+                    childId
+                )
+            })
+        }
+    }
+
+    private fun hasChild(
+        parent: UiObject2,
+        depth: Int = 10,
+        predicate: (obj: UiObject2) -> Boolean
+    ): Boolean {
+        if (depth == 0) {
+            return false
+        }
+
+        if (predicate(parent)) {
+            return true
+        }
+
+        for (child in parent.children) {
+            if (hasChild(child, depth - 1, predicate)) {
+                return true
             }
         }
 
-    private fun withText(predicate: (text: String) -> Boolean) =
-        withPredicate { view -> view is TextView && predicate(view.text.toString()) }
+        return false
+    }
 }

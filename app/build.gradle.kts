@@ -179,10 +179,10 @@ dependencies {
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.androidx.test.core)
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.androidx.test.rules)
+    androidTestImplementation(libs.androidx.test.uiautomator)
     androidTestImplementation(libs.androidx.fragment.testing)
     androidTestImplementation(libs.androidx.test.arch.core)
     androidTestImplementation(libs.hilt.android.testing)

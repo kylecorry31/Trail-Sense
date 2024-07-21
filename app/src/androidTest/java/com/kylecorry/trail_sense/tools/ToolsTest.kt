@@ -29,6 +29,7 @@ class ToolsTest {
     @Before
     fun setUp() {
         hiltRule.inject()
+        TestUtils.setWaitForIdleTimeout(100)
         TestUtils.setupApplication()
         val scenario = TestUtils.startWithTool(0L)
         scenario.onActivity {
