@@ -3,6 +3,8 @@ package com.kylecorry.trail_sense.tools.waterpurification
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.TestUtils
+import com.kylecorry.trail_sense.test_utils.TestUtils.not
+import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.notifications.hasTitle
 import com.kylecorry.trail_sense.test_utils.notifications.notification
 import com.kylecorry.trail_sense.test_utils.views.click
@@ -40,7 +42,7 @@ class ToolWaterBoilTimerTest {
     fun basicFunctionality() {
         // Auto
         // TODO: Mock out elevation
-        TestUtils.waitFor(12500) {
+        waitFor(12500) {
             view(R.id.time_left).hasText { it == "180" || it == "60" }
         }
 
@@ -68,6 +70,6 @@ class ToolWaterBoilTimerTest {
         // Verify it is stopped
         view(R.id.boil_button).hasText(R.string.start)
         view(R.id.time_left).hasText("60")
-        TestUtils.not { notification(WaterPurificationTimerService.NOTIFICATION_ID) }
+        not { notification(WaterPurificationTimerService.NOTIFICATION_ID) }
     }
 }

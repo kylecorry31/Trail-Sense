@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.lightning
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.TestUtils
+import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.views.click
 import com.kylecorry.trail_sense.test_utils.views.hasText
 import com.kylecorry.trail_sense.test_utils.views.view
@@ -36,7 +37,9 @@ class ToolLightningStrikeDistanceTest {
     @Test
     fun basicFunctionality() {
         // Verify it is ready to record lightning
-        view(R.id.start_btn).hasText(R.string.lightning)
+        waitFor {
+            view(R.id.start_btn).hasText(R.string.lightning)
+        }
 
         // Click the start button
         view(R.id.start_btn).click()

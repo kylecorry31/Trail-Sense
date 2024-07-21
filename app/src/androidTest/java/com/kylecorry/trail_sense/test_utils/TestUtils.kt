@@ -7,7 +7,6 @@ import androidx.annotation.StringRes
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.GrantPermissionRule
-import androidx.test.uiautomator.BySelector
 import androidx.test.uiautomator.Configurator
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
@@ -150,17 +149,7 @@ object TestUtils {
         device.swipe(0, device.displayHeight, 0, 0, 10)
     }
 
-    // HELPERS
-    fun resourceIdToName(id: Int): String {
-        return context.resources.getResourceEntryName(id)
-    }
-
-    fun find(selector: BySelector): UiObject2? {
-        return waitFor {
-            device.findObject(selector)
-        }
-    }
-
+    // Helpers
     fun matchesSelfOrChild(
         parent: UiObject2,
         depth: Int = 10,

@@ -9,3 +9,8 @@ fun TestView.longClick(): TestView {
     uiObject.longClick()
     return this
 }
+
+fun TestView.input(text: String): TestView {
+    uiObject.text = text
+    return this
+}

@@ -5,6 +5,7 @@ import androidx.navigation.NavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.test_utils.TestUtils
+import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.views.click
 import com.kylecorry.trail_sense.test_utils.views.hasText
 import com.kylecorry.trail_sense.test_utils.views.view
@@ -43,12 +44,14 @@ class ToolAstronomyTest {
     @Test
     fun basicFunctionality() {
         // Verify the title
-        view(R.id.astronomy_title).hasText {
-            val valid = listOf(
-                TestUtils.getString(R.string.until_sunset),
-                TestUtils.getString(R.string.until_sunrise)
-            )
-            valid.contains(it)
+        waitFor {
+            view(R.id.astronomy_title).hasText {
+                val valid = listOf(
+                    TestUtils.getString(R.string.until_sunset),
+                    TestUtils.getString(R.string.until_sunrise)
+                )
+                valid.contains(it)
+            }
         }
 
         view(R.id.astronomy_title).hasText(Regex("([0-9]+h)? ?([0-9]+m)?"))
@@ -67,7 +70,7 @@ class ToolAstronomyTest {
 
         // Verify the View in 3D button is visible and works
         view(R.id.button_3d).click()
-        TestUtils.waitFor {
+        waitFor {
             assertTrue(
                 Tools.getTool(TestUtils.context, Tools.AUGMENTED_REALITY)
                     ?.isOpen(navController.currentDestination?.id ?: 0) == true
