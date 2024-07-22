@@ -18,6 +18,11 @@ import com.kylecorry.trail_sense.main.persistence.RepoCleanupWorker
 import com.kylecorry.trail_sense.settings.migrations.PreferenceMigrator
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.test_utils.views.Side
+import com.kylecorry.trail_sense.test_utils.views.click
+import com.kylecorry.trail_sense.test_utils.views.longClick
+import com.kylecorry.trail_sense.test_utils.views.toolbarButton
+import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import org.junit.rules.TestRule
@@ -89,6 +94,14 @@ object TestUtils {
         val prefs = UserPreferences(context)
         prefs.bottomNavigationTools = listOf(toolId)
         return ActivityScenario.launch(MainActivity::class.java)
+    }
+
+    fun openQuickActions(){
+        view(R.id.bottom_navigation).longClick()
+    }
+
+    fun closeQuickActions(){
+        toolbarButton(R.id.quick_actions_toolbar, Side.Right).click()
     }
 
     // PERMISSIONS

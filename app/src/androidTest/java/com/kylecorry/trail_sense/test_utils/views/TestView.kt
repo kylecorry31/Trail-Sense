@@ -1,30 +1,26 @@
 package com.kylecorry.trail_sense.test_utils.views
 
 import androidx.annotation.IdRes
-import androidx.test.uiautomator.By
 import androidx.test.uiautomator.BySelector
 import androidx.test.uiautomator.UiObject2
-import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.test_utils.TestUtils.device
+import com.kylecorry.trail_sense.test_utils.byResId
 
 class TestView(val uiObject: UiObject2)
 
 fun view(
     @IdRes id: Int,
     @IdRes childId: Int? = null,
+    index: Int = 0
 ): TestView {
-    val resourceName = context.resources.getResourceEntryName(id)
-    val childResourceName = childId?.let { context.resources.getResourceEntryName(it) }
-    val obj = device.findObject(By.res(context.packageName, resourceName))
-    if (childId == null) {
-        return TestView(requireNotNull(obj))
+    val selector = if (childId == null) {
+        byResId(id)
+    } else {
+        byResId(childId).hasAncestor(byResId(id))
     }
-
-    return TestView(requireNotNull(obj!!.children.find {
-        it.resourceName == childResourceName
-    }))
+    return view(selector, index)
 }
 
-fun view(selector: BySelector): TestView {
-    return TestView(requireNotNull(device.findObject(selector)))
+fun view(selector: BySelector, index: Int = 0): TestView {
+    return TestView(requireNotNull(device.findObjects(selector).getOrNull(index)))
 }
