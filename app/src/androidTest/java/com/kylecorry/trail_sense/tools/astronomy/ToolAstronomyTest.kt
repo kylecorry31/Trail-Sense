@@ -97,6 +97,12 @@ class ToolAstronomyTest {
                 // TODO: Verify the color filter is applied
             }
         }
+
+        waitFor {
+            TestUtils.openQuickActions()
+        }
+        quickAction(Tools.QUICK_ACTION_NIGHT_MODE)
+            .click()
     }
 
     private fun verifyQuickActions() {
