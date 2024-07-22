@@ -39,7 +39,7 @@ class ToolWaterBoilTimerTest {
     }
 
     @Test
-    fun basicFunctionality() {
+    fun verifyBasicFunctionality() {
         // Auto
         waitFor {
             view(R.id.chip_auto).hasText(R.string.auto)

@@ -116,6 +116,9 @@ object TestUtils {
 
     fun openQuickActions() {
         view(R.id.bottom_navigation).longClick()
+        waitFor {
+            view(R.id.quick_actions_sheet)
+        }
     }
 
     fun closeQuickActions() {
@@ -157,6 +160,7 @@ object TestUtils {
     // PREFERENCES
     fun setupDefaultPreferences() {
         val prefs = PreferencesSubsystem.getInstance(context).preferences
+        prefs.clear()
         prefs.putString(context.getString(R.string.pref_distance_units), "feet_miles")
         prefs.putBoolean(context.getString(R.string.pref_use_24_hour), false)
         prefs.putBoolean(context.getString(R.string.pref_onboarding_completed), true)

@@ -35,7 +35,7 @@ class ToolLightningStrikeDistanceTest {
     }
 
     @Test
-    fun basicFunctionality() {
+    fun verifyBasicFunctionality() {
         // Verify it is ready to record lightning
         waitFor {
             view(R.id.start_btn).hasText(R.string.lightning)
