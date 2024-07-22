@@ -1199,4 +1199,12 @@
     <string name="enter_the_current_pressure">Zadejte aktuální tlak</string>
     <string name="import_packing_list">Importovat seznam k zabalení</string>
     <string name="barometer_offset">Posun barometru</string>
+    <string name="sunrise_alert_scheduled">Upozornění naplánováno %s před východem slunce</string>
+    <string name="sunrise_alert_notification_title">Slunce brzy vychází</string>
+    <string name="sunrise_alert_notification_text">Slunce vyjde v %s</string>
+    <string name="sunrise_alerts">Upozornění na východ slunce</string>
+    <string name="sunrise_alert_channel_title">Upozornění na východ slunce</string>
+    <string name="sunset">Západ slunce</string>
+    <string name="pref_sunrise_alert_time_title">Čas upozornění na východ</string>
+    <string name="sunrise">Východ slunce</string>
 </resources>

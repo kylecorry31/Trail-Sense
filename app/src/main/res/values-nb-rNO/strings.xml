@@ -146,7 +146,7 @@
     <string name="units_mbar">mbar</string>
     <string name="duration_minute_format">%dm</string>
     <string name="duration_hour_format">%dt</string>
-    <string name="sunset_alert_notification_text">Solen vil gå ned %s</string>
+    <string name="sunset_alert_notification_text">Solen går ned %s</string>
     <string name="waxing_crescent">Månesigd (ny)</string>
     <string name="first_quarter">Halvmåne (ny)</string>
     <string name="waxing_gibbous">Voksende måne (ny)</string>
@@ -1044,4 +1044,12 @@
     <string name="no_items_found">Ingen elementer funnet</string>
     <string name="import_packing_list">Importer pakkeliste</string>
     <string name="enter_the_current_pressure">Angi gjeldende trykk</string>
+    <string name="sunrise_alert_notification_text">Solen går opp %s</string>
+    <string name="sunrise">Soloppgang</string>
+    <string name="sunrise_alert_notification_title">Solen går snart opp</string>
+    <string name="sunrise_alerts">Soloppgangsvarsler</string>
+    <string name="sunrise_alert_channel_title">Soloppgangsvarsel</string>
+    <string name="pref_sunrise_alert_time_title">Tid for soloppgangsvarsel</string>
+    <string name="sunrise_alert_scheduled">Varsel planlagt for %s før soloppgang</string>
+    <string name="sunset">Solnedgang</string>
 </resources>
