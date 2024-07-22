@@ -1164,4 +1164,12 @@
     <string name="barometer_offset">气压计偏移</string>
     <string name="enter_the_current_pressure">输入当前压力</string>
     <string name="no_items_found">未找到项目</string>
+    <string name="sunrise_alert_notification_text">太阳将于 %s 升起</string>
+    <string name="sunrise_alerts">日出警报</string>
+    <string name="sunrise_alert_channel_title">日出警报</string>
+    <string name="sunrise_alert_scheduled">警报定于日出前 %s 发出</string>
+    <string name="sunrise_alert_notification_title">太阳不久后升起</string>
+    <string name="pref_sunrise_alert_time_title">日出警报时间</string>
+    <string name="sunset">日落</string>
+    <string name="sunrise">日出</string>
 </resources>
