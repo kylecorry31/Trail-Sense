@@ -17,6 +17,7 @@ import com.kylecorry.trail_sense.main.automations.Automations
 import com.kylecorry.trail_sense.main.persistence.RepoCleanupWorker
 import com.kylecorry.trail_sense.settings.migrations.PreferenceMigrator
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.click
@@ -24,6 +25,7 @@ import com.kylecorry.trail_sense.test_utils.views.longClick
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import org.junit.rules.TestRule
 import java.time.Duration
@@ -37,19 +39,22 @@ object TestUtils {
         get() = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
     fun mute(): Int {
-        val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as android.media.AudioManager
+        val audioManager =
+            context.getSystemService(Context.AUDIO_SERVICE) as android.media.AudioManager
         val currentVolume = audioManager.getStreamVolume(android.media.AudioManager.STREAM_MUSIC)
         audioManager.setStreamVolume(android.media.AudioManager.STREAM_MUSIC, 0, 0)
         return currentVolume
     }
 
     fun unmute(volume: Int) {
-        val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as android.media.AudioManager
+        val audioManager =
+            context.getSystemService(Context.AUDIO_SERVICE) as android.media.AudioManager
         audioManager.setStreamVolume(android.media.AudioManager.STREAM_MUSIC, volume, 0)
     }
 
     fun isPlayingMusic(): Boolean {
-        val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as android.media.AudioManager
+        val audioManager =
+            context.getSystemService(Context.AUDIO_SERVICE) as android.media.AudioManager
         return audioManager.isMusicActive
     }
 
@@ -91,16 +96,29 @@ object TestUtils {
     }
 
     fun startWithTool(toolId: Long): ActivityScenario<MainActivity> {
-        val prefs = UserPreferences(context)
-        prefs.bottomNavigationTools = listOf(toolId)
-        return ActivityScenario.launch(MainActivity::class.java)
+        val scenario = ActivityScenario.launch(MainActivity::class.java)
+        scenario.onActivity { activity ->
+            if (toolId == 0L) {
+                activity.findNavController().navigate(R.id.action_experimental_tools)
+            } else {
+                val tool = Tools.getTool(context, toolId)
+                tool?.let {
+                    activity.findNavController().navigate(tool.navAction)
+                }
+            }
+        }
+        return scenario
     }
 
-    fun openQuickActions(){
+    fun onMain(action: () -> Unit) {
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(action)
+    }
+
+    fun openQuickActions() {
         view(R.id.bottom_navigation).longClick()
     }
 
-    fun closeQuickActions(){
+    fun closeQuickActions() {
         toolbarButton(R.id.quick_actions_toolbar, Side.Right).click()
     }
 
@@ -144,6 +162,10 @@ object TestUtils {
         prefs.putBoolean(context.getString(R.string.pref_onboarding_completed), true)
         prefs.putBoolean(context.getString(R.string.pref_main_disclaimer_shown_key), true)
         prefs.putBoolean(context.getString(R.string.pref_require_satellites), false)
+
+        val userPrefs = UserPreferences(context)
+        // The settings tool is the fastest to get to idle, which allows the tests to run faster
+        userPrefs.bottomNavigationTools = listOf(Tools.SETTINGS)
     }
 
     // WAITING

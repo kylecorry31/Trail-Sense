@@ -81,10 +81,11 @@ class ToolWhistleTest {
         waitFor {
             assertFalse(TestUtils.isPlayingMusic())
         }
+
+        verifyQuickAction()
     }
 
-    @Test
-    fun verifyQuickAction() {
+    private fun verifyQuickAction() {
         TestUtils.openQuickActions()
         quickAction(Tools.QUICK_ACTION_WHISTLE)
             .click(200)

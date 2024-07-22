@@ -2,6 +2,9 @@ package com.kylecorry.trail_sense.tools
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.navigation.NavController
+import androidx.test.core.app.ActivityScenario
+import androidx.test.platform.app.InstrumentationRegistry
+import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -25,13 +28,14 @@ class ToolsTest {
     val instantExec = InstantTaskExecutorRule()
 
     private lateinit var navController: NavController
+    private lateinit var scenario: ActivityScenario<MainActivity>
 
     @Before
     fun setUp() {
         hiltRule.inject()
         TestUtils.setWaitForIdleTimeout(100)
         TestUtils.setupApplication()
-        val scenario = TestUtils.startWithTool(0L)
+        scenario = TestUtils.startWithTool(0L)
         scenario.onActivity {
             navController = it.findNavController()
         }
@@ -41,10 +45,14 @@ class ToolsTest {
     fun openAllTools() {
         val tools = Tools.getTools(TestUtils.context)
         for (tool in tools) {
-            navController.navigate(tool.navAction)
+            TestUtils.onMain {
+                navController.navigate(tool.navAction)
+            }
             // Wait for the tool to load
-            Thread.sleep(1000)
-            assertTrue(tool.isOpen(navController.currentDestination?.id ?: 0))
+            Thread.sleep(200)
+            TestUtils.waitFor {
+                assertTrue(tool.isOpen(navController.currentDestination?.id ?: 0))
+            }
         }
     }
 }
