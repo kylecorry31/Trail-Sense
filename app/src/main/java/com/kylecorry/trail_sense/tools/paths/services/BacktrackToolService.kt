@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.Log
 import androidx.core.os.bundleOf
 import com.kylecorry.andromeda.permissions.Permissions
-import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.receivers.ServiceRestartAlerter
 import com.kylecorry.trail_sense.shared.UserPreferences

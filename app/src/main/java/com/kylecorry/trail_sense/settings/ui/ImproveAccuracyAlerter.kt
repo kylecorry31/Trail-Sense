@@ -10,7 +10,6 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.ISensor
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.sense.compass.ICompass
-import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.andromeda.sense.mock.MockSensor
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor

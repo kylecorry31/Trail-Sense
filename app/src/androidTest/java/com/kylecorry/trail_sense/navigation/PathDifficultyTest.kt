@@ -3,9 +3,9 @@ package com.kylecorry.trail_sense.tools.navigation
 import androidx.test.platform.app.InstrumentationRegistry
 import com.kylecorry.andromeda.files.AssetFileSystem
 import com.kylecorry.andromeda.gpx.GPXSerializer
+import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingDifficulty
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
-import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test

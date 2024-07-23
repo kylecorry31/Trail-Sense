@@ -5,7 +5,6 @@ import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.Batter
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconDao
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconGroupDao
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudReadingDao
-import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningStrikeDao
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapDao
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapGroupDao
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteDao

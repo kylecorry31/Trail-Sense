@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.navigation.NavController
 import androidx.test.core.app.ActivityScenario
-import androidx.test.platform.app.InstrumentationRegistry
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.test_utils.TestUtils

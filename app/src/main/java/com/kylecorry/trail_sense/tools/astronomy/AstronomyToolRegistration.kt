@@ -6,7 +6,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.AstronomyAlertCommand
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunriseAlarmCommand
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunsetAlarmCommand
-import com.kylecorry.trail_sense.tools.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionNightMode
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunriseAlert
 import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunsetAlert

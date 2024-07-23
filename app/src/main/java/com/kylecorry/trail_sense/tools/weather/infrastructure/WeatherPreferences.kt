@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.weather.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.core.toIntCompat
 import com.kylecorry.andromeda.preferences.FloatPreference
-import com.kylecorry.andromeda.preferences.IntEnumPreference
 import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.science.meteorology.forecast.ForecastSource

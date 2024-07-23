@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.augmented_reality.ui
 import android.os.Bundle
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
-import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService

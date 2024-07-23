@@ -3,13 +3,8 @@ package com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics
 import android.content.Context
 import com.kylecorry.andromeda.battery.Battery
 import com.kylecorry.andromeda.battery.BatteryHealth
-import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.permissions.RemoveBatteryRestrictionsCommand
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 
 class BatteryDiagnosticScanner : ToolDiagnosticScanner {
