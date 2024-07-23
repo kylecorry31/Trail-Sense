@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -35,10 +34,9 @@ import kotlin.math.floor
 class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
 
     private val itemRepo by lazy { PackRepo.getInstance(requireContext()) }
-    private lateinit var itemsLiveData: LiveData<List<PackItem>>
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val packService = PackService()
-    private var items: List<PackItem> = listOf()
+    private var items by state(emptyList<PackItem>())
     private val prefs by lazy { UserPreferences(requireContext()) }
 
     private val listMapper by lazy { PackItemListItemMapper(requireContext(), this::handleAction) }
@@ -53,6 +51,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupUI()
         inBackground {
             withContext(Dispatchers.IO) {
                 loadPack(packId)
@@ -65,31 +64,15 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
             pack = itemRepo.getPack(packId)
         }
         withContext(Dispatchers.Main) {
-            // TODO: Move this transformation into the repo
-            itemsLiveData = itemRepo.getItemsFromPack(packId)
-            setupUI()
+            binding.inventoryListTitle.title.text = pack?.name
+
         }
     }
 
     private fun setupUI() {
-        binding.inventoryListTitle.title.text = pack?.name
         binding.inventoryList.emptyView = binding.inventoryEmptyText
-        observe(itemsLiveData) { items ->
-            this.items = items
-            val totalWeight = packService.getPackWeight(items, prefs.weightUnits)
-            val packedPercent = floor(packService.getPercentPacked(items))
-            binding.itemWeightOverview.isVisible = totalWeight != null
-            binding.totalPackedWeight.text = if (totalWeight != null) {
-                formatService.formatWeight(totalWeight, 1, false)
-            } else {
-                ""
-            }
-            binding.totalPercentPacked.text =
-                getString(R.string.percent_packed, formatService.formatPercentage(packedPercent))
-            binding.inventoryList.setItems(
-                sorts[prefs.packs.packSort]?.sort(items) ?: items,
-                listMapper
-            )
+        observe(itemRepo.getItemsFromPack(packId)) {
+            items = it
         }
 
         binding.addBtn.setOnClickListener {
@@ -308,6 +291,26 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
         container: ViewGroup?
     ): FragmentItemListBinding {
         return FragmentItemListBinding.inflate(layoutInflater, container, false)
+    }
+
+    override fun onUpdate() {
+        super.onUpdate()
+        effect("items", items, lifecycleHookTrigger.onResume()) {
+            val totalWeight = packService.getPackWeight(items, prefs.weightUnits)
+            val packedPercent = floor(packService.getPercentPacked(items))
+            binding.itemWeightOverview.isVisible = totalWeight != null
+            binding.totalPackedWeight.text = if (totalWeight != null) {
+                formatService.formatWeight(totalWeight, 1, false)
+            } else {
+                ""
+            }
+            binding.totalPercentPacked.text =
+                getString(R.string.percent_packed, formatService.formatPercentage(packedPercent))
+            binding.inventoryList.setItems(
+                sorts[prefs.packs.packSort]?.sort(items) ?: items,
+                listMapper
+            )
+        }
     }
 
 

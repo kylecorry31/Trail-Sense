@@ -1,11 +1,9 @@
 package com.kylecorry.trail_sense.tools.level
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.test.platform.app.InstrumentationRegistry
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
-import com.kylecorry.trail_sense.test_utils.views.click
 import com.kylecorry.trail_sense.test_utils.views.hasText
 import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools

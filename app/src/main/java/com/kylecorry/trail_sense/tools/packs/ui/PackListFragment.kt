@@ -29,8 +29,9 @@ import kotlinx.coroutines.withContext
 class PackListFragment : BoundFragment<FragmentPackListBinding>() {
 
     private val packRepo by lazy { PackRepo.getInstance(requireContext()) }
-    private lateinit var packs: LiveData<List<Pack>>
     private val listMapper by lazy { PackListItemMapper(requireContext(), this::handlePackAction) }
+
+    private var packs by state(emptyList<Pack>())
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,11 +56,10 @@ class PackListFragment : BoundFragment<FragmentPackListBinding>() {
     }
 
     private fun loadPacks() {
-        packs = packRepo.getPacks()
         binding.packList.emptyView = binding.emptyText
 
-        observe(packs) {
-            binding.packList.setItems(it.sortedWith(compareBy { -it.id }), listMapper)
+        observe(packRepo.getPacks()) {
+            packs = it.sortedWith(compareBy { -it.id })
         }
 
         binding.addBtn.setOnClickListener { createPack() }
@@ -208,6 +208,13 @@ class PackListFragment : BoundFragment<FragmentPackListBinding>() {
 
     private fun isCreateMenuOpen(): Boolean {
         return binding.createMenu.isVisible
+    }
+
+    override fun onUpdate() {
+        super.onUpdate()
+        effect("packs", packs, lifecycleHookTrigger.onResume()) {
+            binding.packList.setItems(packs, listMapper)
+        }
     }
 
 }

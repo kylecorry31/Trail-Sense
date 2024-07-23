@@ -162,6 +162,7 @@ object TestUtils {
         val prefs = PreferencesSubsystem.getInstance(context).preferences
         prefs.clear()
         prefs.putString(context.getString(R.string.pref_distance_units), "feet_miles")
+        prefs.putString(context.getString(R.string.pref_weight_units), "lbs")
         prefs.putBoolean(context.getString(R.string.pref_use_24_hour), false)
         prefs.putBoolean(context.getString(R.string.pref_onboarding_completed), true)
         prefs.putBoolean(context.getString(R.string.pref_main_disclaimer_shown_key), true)
