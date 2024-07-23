@@ -111,7 +111,7 @@ inline fun tryStartForegroundOrNotify(context: Context, action: () -> Unit) {
     try {
         action()
     } catch (e: Exception) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && e is ForegroundServiceStartNotAllowedException) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && (e is ForegroundServiceStartNotAllowedException || e is SecurityException)) {
             ServiceRestartAlerter(context.applicationContext).alert()
             Log.d("tryStartForegroundOrNotify", "Cannot start service")
         } else {
