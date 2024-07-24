@@ -27,6 +27,7 @@ import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
+import org.junit.Assert.assertTrue
 import org.junit.rules.TestRule
 import java.time.Duration
 
@@ -56,6 +57,10 @@ object TestUtils {
         val audioManager =
             context.getSystemService(Context.AUDIO_SERVICE) as android.media.AudioManager
         return audioManager.isMusicActive
+    }
+
+    fun back() {
+        assertTrue(device.pressBack())
     }
 
     fun getString(@StringRes id: Int, vararg args: Any): String {

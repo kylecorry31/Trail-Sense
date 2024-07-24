@@ -25,7 +25,7 @@ fun view(
     return view(selector, index)
 }
 
-fun viewWithText(text: String, index: Int = 0): TestView {
+fun viewWithText(text: String, parentId: Int? = null, index: Int = 0): TestView {
     return view(By.text(text), index)
 }
 
