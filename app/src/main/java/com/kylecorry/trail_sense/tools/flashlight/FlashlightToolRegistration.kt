@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionFlashl
 import com.kylecorry.trail_sense.tools.flashlight.quickactions.QuickActionScreenFlashlight
 import com.kylecorry.trail_sense.tools.flashlight.services.FlashlightToolService
 import com.kylecorry.trail_sense.tools.flashlight.volumeactions.FlashlightToggleVolumeAction
+import com.kylecorry.trail_sense.tools.flashlight.volumeactions.ScreenFlashlightBrightnessVolumeAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
@@ -55,6 +56,11 @@ object FlashlightToolRegistration : ToolRegistration {
                     ToolVolumeActionPriority.Normal,
                     { context, _ -> UserPreferences(context).flashlight.toggleWithVolumeButtons },
                     ::FlashlightToggleVolumeAction
+                ),
+                ToolVolumeAction(
+                    ToolVolumeActionPriority.High,
+                    { context, _ -> UserPreferences(context).flashlight.controlScreenFlashlightWithVolumeButtons },
+                    ::ScreenFlashlightBrightnessVolumeAction
                 )
             ),
             notificationChannels = listOf(
