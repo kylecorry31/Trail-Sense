@@ -77,6 +77,24 @@ class FragmentToolScreenFlashlight : BoundFragment<FragmentToolScreenFlashlightB
         flashlight.on(map(percent / 100f, 0f, 1f, 0.1f, 1f))
     }
 
+    fun increaseBrightness() {
+        val currentBrightness = cache.getInt(getString(R.string.pref_screen_torch_brightness)) ?: 100
+        setBrightness((currentBrightness + 10).coerceAtMost(100))
+    }
+
+    fun decreaseBrightness() {
+        val currentBrightness = cache.getInt(getString(R.string.pref_screen_torch_brightness)) ?: 100
+        setBrightness((currentBrightness - 10).coerceAtLeast(0))
+    }
+
+    fun handleVolumeButtonPress(isVolumeUp: Boolean) {
+        if (isVolumeUp) {
+            increaseBrightness()
+        } else {
+            decreaseBrightness()
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         turnOn()

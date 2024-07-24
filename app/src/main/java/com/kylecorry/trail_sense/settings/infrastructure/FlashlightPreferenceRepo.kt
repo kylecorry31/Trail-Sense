@@ -14,6 +14,12 @@ class FlashlightPreferenceRepo(context: Context) : PreferenceRepo(context) {
         false
     )
 
+    var controlScreenFlashlightWithVolumeButtons by BooleanPreference(
+        cache,
+        getString(R.string.pref_flashlight_control_screen_with_volume),
+        false
+    )
+
     val shouldTimeout by BooleanPreference(
         cache,
         context.getString(R.string.pref_flashlight_should_timeout),
