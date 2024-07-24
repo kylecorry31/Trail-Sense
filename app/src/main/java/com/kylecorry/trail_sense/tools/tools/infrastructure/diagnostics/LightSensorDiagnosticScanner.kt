@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
 
 class LightSensorDiagnosticScanner : ToolDiagnosticScanner {
     override fun quickScan(context: Context): List<ToolDiagnosticResult> {
@@ -42,7 +43,7 @@ class LightSensorDiagnosticScanner : ToolDiagnosticScanner {
                     )
                 )
             }
-            diagnosticResults
-        }.combine(flowOf(quickScan(context))) { a, b -> a + b }
+            diagnosticResults.toList()
+        }.onStart { emit(emptyList()) }.combine(flowOf(quickScan(context))) { a, b -> a + b }
     }
 }
