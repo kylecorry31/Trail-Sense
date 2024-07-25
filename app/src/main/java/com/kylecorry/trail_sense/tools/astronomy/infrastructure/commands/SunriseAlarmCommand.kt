@@ -26,6 +26,8 @@ class SunriseAlarmCommand(private val context: Context) : CoroutineCommand {
 
     // The window prior the alert time that the alert can be sent
     private val alertWindow = Duration.ofMinutes(20)
+    // The window after the alert time that the alert can be sent
+    private val alertWindowAfter = Duration.ofMinutes(5)
 
     override suspend fun execute() = onDefault {
         Log.i(TAG, "Started")
@@ -76,13 +78,13 @@ class SunriseAlarmCommand(private val context: Context) : CoroutineCommand {
     }
 
     private fun isPastSunrise(sunrise: ZonedDateTime): Boolean {
-        return ZonedDateTime.now().isAfter(sunrise)
+        return ZonedDateTime.now().isAfter(sunrise.plus(alertWindowAfter))
     }
 
     private fun withinAlertWindow(sunrise: ZonedDateTime, alertDuration: Duration): Boolean {
         val alertTime = sunrise.minus(alertDuration)
         val minAlertTime = alertTime.minus(alertWindow)
-        val alertRange = Range(minAlertTime, sunrise)
+        val alertRange = Range(minAlertTime, sunrise.plus(alertWindowAfter))
         return alertRange.contains(ZonedDateTime.now())
     }
 
