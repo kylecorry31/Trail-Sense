@@ -8,6 +8,7 @@ import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.CustomUiUtils.isDarkThemeOn
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.test_utils.TestUtils
+import com.kylecorry.trail_sense.test_utils.TestUtils.not
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.views.click
 import com.kylecorry.trail_sense.test_utils.views.hasText
@@ -76,12 +77,16 @@ class ToolAstronomyTest {
         verifyQuickActions()
 
         // Verify the View in 3D button is visible and works
-        view(R.id.button_3d).click()
-        waitFor {
-            assertTrue(
-                Tools.getTool(TestUtils.context, Tools.AUGMENTED_REALITY)
-                    ?.isOpen(navController.currentDestination?.id ?: 0) == true
-            )
+        if (Tools.isToolAvailable(TestUtils.context, Tools.AUGMENTED_REALITY)) {
+            view(R.id.button_3d).click()
+            waitFor {
+                assertTrue(
+                    Tools.getTool(TestUtils.context, Tools.AUGMENTED_REALITY)
+                        ?.isOpen(navController.currentDestination?.id ?: 0) == true
+                )
+            }
+        } else {
+            not { view(R.id.button_3d) }
         }
     }
 
