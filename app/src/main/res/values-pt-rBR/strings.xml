@@ -350,7 +350,7 @@
 \n
 \n\t- Maior precisão na previsão (não disponível em todos os dispositivos)
 \n
-\n\t- Recuo
+\n\t- Recuar
 \n
 \n\t- Tempos de sol e lua para sua localização atual (alertas de pôr-do-sol podem precisar da localização em segundo plano)
 \n
@@ -385,7 +385,7 @@
     <string name="compass_calibrate_toast">Precisão da bússola %s, recomenda-se a calibração</string>
     <string name="open_beacon_in_maps">Ver no mapa</string>
     <string name="pref_low_power_mode_summary">Desativa algumas funcionalidades para economizar energia</string>
-    <string name="backtrack_disabled_low_power_toast">O recuo é desativado em modo de economia da bateria</string>
+    <string name="backtrack_disabled_low_power_toast">A função \"Recuar\" é desativada no modo de economia da bateria</string>
     <string name="dialog_leave">Sair</string>
     <string name="unsaved_changes_message">As alterações que você fez não serão salvas.</string>
     <string name="unsaved_changes">Alterações não salvas</string>
@@ -395,7 +395,7 @@
     <string name="battery_power_wireless">Wireless</string>
     <string name="battery_power_usb">USB</string>
     <string name="battery_power_ac">AC</string>
-    <string name="delete_waypoint_prompt">Excluir o ponto do caminho\?</string>
+    <string name="delete_waypoint_prompt">Excluir ponto do percurso?</string>
     <string name="pref_gps_override_title">Localização simulada</string>
     <string name="location_input_help">Graus decimais (ex. 1.00, -2.00)
 \n
@@ -410,10 +410,10 @@
 \nUSNG (ex. 14S NJ 39521 41744)
 \n
 \nOSGB (ex. TG 51409 13177)</string>
-    <string name="pref_backtrack_frequency_title">Intervalo de recuo</string>
+    <string name="pref_backtrack_frequency_title">Intervalo para recuar</string>
     <string name="pref_backtrack_enabled_summary">Registrar histórico de localização</string>
     <string name="waypoint_time_format">%1$s, %2$s</string>
-    <string name="backtrack_notification_channel_description">Atualizações de localização do recuo</string>
+    <string name="backtrack_notification_channel_description">Atualizações de localização de recuar</string>
     <string name="backtrack">Recuar</string>
     <string name="create_at_distance">Criar à distância</string>
     <string name="map_scale_verbal">Verbal</string>
@@ -444,7 +444,7 @@
     <string name="set">Definir</string>
     <string name="location_not_set">Localização não definida</string>
     <string name="pref_backtrack_save_cell_title">Registrar sinal do celular</string>
-    <string name="pref_backtrack_save_cell_summary">Registra o sinal do celular no ponto do caminho. Sem usar Internet.</string>
+    <string name="pref_backtrack_save_cell_summary">Registra o sinal do celular no ponto do percurso. Sem usar Internet.</string>
     <string name="tool_light_meter_title">Medidor de luz</string>
     <string name="beam_distance">%s de distância do sinal</string>
     <string name="candela_format">%s cd</string>
@@ -480,7 +480,7 @@
     <string name="pref_show_last_signal_beacon_title">Último sinal do ponto de orientação</string>
     <string name="pref_tiles_enabled_summary">Pode impedir que o app que gerencia a economia da bateria suspenda o Trail Sense</string>
     <string name="battery_warning">Aviso do consumo da bateria</string>
-    <string name="pref_backtrack_history_days_title">Histórico do caminho de recuo</string>
+    <string name="pref_backtrack_history_days_title">Histórico do Recuar</string>
     <string name="delete_tide_prompt">Excluir maré\?</string>
     <string name="theme_sunset_sunrise">Nascer do sol/pôr do sol</string>
     <string name="no_data">Sem dados</string>
@@ -680,17 +680,17 @@
     <string name="elevation_history_length">Histórico de altitude</string>
     <string name="last_duration">Último %s</string>
     <plurals name="waypoints_to_be_deleted">
-        <item quantity="one">%d ponto de caminho será excluído</item>
-        <item quantity="many">%d pontos de caminhos serão excluídos</item>
-        <item quantity="other">%d pontos de caminho serão excluídos</item>
+        <item quantity="one">%d ponto do percurso será excluído</item>
+        <item quantity="many">%d pontos do percurso serão excluídos</item>
+        <item quantity="other">%d pontos do percurso serão excluídos</item>
     </plurals>
     <string name="new_text">Novo</string>
     <string name="old">Anterior</string>
     <string name="units_mmhg_short">mm</string>
-    <string name="delete_path">Eliminar o caminho\?</string>
+    <string name="delete_path">Excluir percurso?</string>
     <string name="auto">Automático</string>
     <string name="lightning_dangerously_close">O relâmpago está perigosamente perto</string>
-    <string name="export_path_error">Não foi possível exportar o caminho</string>
+    <string name="export_path_error">Não foi possível exportar o percurso</string>
     <string name="season_fall">Outono</string>
     <string name="season_summer">Verão</string>
     <string name="season_spring">Primavera</string>
@@ -707,8 +707,8 @@
     <string name="pick_file">Escolha o arquivo</string>
     <string name="navigate">Navegar</string>
     <string name="units_mmhg">mmHg</string>
-    <string name="path_exported">Caminho exportado</string>
-    <string name="no_paths">Sem caminhos</string>
+    <string name="path_exported">Percurso exportado</string>
+    <string name="no_paths">Não há percursos</string>
     <string name="duration_of_charge">Duração da carga</string>
     <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
     <string name="up_to_amount">Até %s</string>
@@ -727,9 +727,9 @@
     <string name="shortest">Mais curto</string>
     <string name="closest">Mais próximo</string>
     <plurals name="paths_imported">
-        <item quantity="one">%d caminho importado</item>
-        <item quantity="many">%d caminhos importados</item>
-        <item quantity="other">%d caminhos importados</item>
+        <item quantity="one">%d percurso importado</item>
+        <item quantity="many">%d percursos importados</item>
+        <item quantity="other">%d percursos importados</item>
     </plurals>
     <string name="most_recent">Mais recente</string>
     <string name="weather_monitoring_disabled">Monitoramento do clima desabilitado</string>
@@ -744,7 +744,7 @@
     <string name="precipitation_ice_pellets">Paletas de gelo</string>
     <string name="precipitation_snow_grains">Grãos de neve</string>
     <string name="precipitation_none">Sem precipitação</string>
-    <string name="path_color">Cor do caminho</string>
+    <string name="path_color">Cor do percurso</string>
     <string name="point_style">Estilo de ponto</string>
     <string name="line_style">Estilo de linha</string>
     <string name="hide">Esconder</string>
@@ -753,16 +753,16 @@
     <string name="precipitation_snow">Neve</string>
     <string name="precipitation_chance">Chance de precipitação: %s</string>
     <string name="take_photo">Tirar foto</string>
-    <string name="paths">Caminhos</string>
+    <string name="paths">Percursos</string>
     <string name="keep_forever">Mantenha para sempre</string>
     <string name="very_soon">Muito em breve</string>
     <string name="soon">Em breve</string>
     <string name="weather_no_change">Imutável</string>
     <string name="weather_storm">Tempestade</string>
     <plurals name="waypoints_deleted">
-        <item quantity="one">%d ponto do caminho excluído</item>
-        <item quantity="many">%d pontos do caminho excluídos</item>
-        <item quantity="other">%d pontos do caminho excluídos</item>
+        <item quantity="one">%d ponto do percurso excluído</item>
+        <item quantity="many">%d pontos do percurso excluídos</item>
+        <item quantity="other">%d pontos do percurso excluídos</item>
     </plurals>
     <string name="reset_distance_title">Resetar a distância\?</string>
     <string name="importing">Importando</string>
@@ -771,7 +771,7 @@
     <string name="elevation">Elevação</string>
     <string name="easy">Fácil</string>
     <string name="difficulty">Dificuldade</string>
-    <string name="waypoint">Ponto do caminho</string>
+    <string name="waypoint">Ponto do percurso</string>
     <string name="merging">Agregando</string>
     <string name="pref_clinometer_baseline_distance_title">Distância de referência</string>
     <string name="height">Altura</string>
@@ -784,7 +784,7 @@
     <string name="temp_f_short">°F</string>
     <string name="activity_recognition_permission_denied">A permissão de atividade física recusada, não é possível usar a funcionalidade do pedômetro. Você pode ativá-lo em configurações.</string>
     <string name="temp_c_short">°C</string>
-    <string name="pref_default_path_style_title">Estilo padrão do caminho</string>
+    <string name="pref_default_path_style_title">Estilo padrão do percurso</string>
     <string name="saving">Salvando</string>
     <string name="reduce_map_resolution">Reduzir a resolução do mapa</string>
     <string name="clinometer_measure_distance_instructions">Para medir a distância até um destino que é %s alto:
@@ -804,13 +804,13 @@
     <string name="clinometer_measure_height_title">Distância ao destino</string>
     <string name="weather_monitor_disabled_resolution">Ativar o monitoramento do tempo em configurações meteorológicas</string>
     <string name="tool_temperature_estimation_description">Estimar a temperatura em uma elevação diferente</string>
-    <string name="onboarding_explore">- Criado para caminhadas, mochilão, acampamento e geocaching
+    <string name="onboarding_explore">- Criado para caminhadas, mochileiro, acampamento e geocaching
 \n
 \n- Coloque pontos de orientação e navegue de volta para eles
 \n
-\n- Siga os caminhos
+\n- Siga percursos
 \n
-\n- Volte ao caminho anterior com o recurso de recuar
+\n- Volte ao percurso anterior com a função de recuar
 \n
 \n- Planeje o que levar
 \n
@@ -818,7 +818,7 @@
 \n
 \n- Prever o tempo
 \n
-\n- Use telefone como uma lanterna
+\n- Use o telefone como uma lanterna
 \n
 \n- E muito mais!</string>
     <string name="off">Desligado</string>
@@ -839,7 +839,7 @@
     <string name="merge">Agregar</string>
     <string name="append_onto">Anexar ao</string>
     <string name="simplify">Simplificar</string>
-    <string name="pref_auto_simplify_paths_title">Simplificar os caminhos ao importar</string>
+    <string name="pref_auto_simplify_paths_title">Simplificar percursos na importação</string>
     <string name="change_map_projection">Mudar projeção</string>
     <string name="map_projection_mercator">Mercator</string>
     <string name="map_projection_equidistant">Equidistante</string>
@@ -878,13 +878,13 @@
     <string name="current_speed_pedometer">Velocidade atual (Pedômetro)</string>
     <string name="current_speed_gps">Velocidade atual (GPS)</string>
     <string name="average_speed_pedometer">Velocidade média (Pedômetro)</string>
-    <string name="average_speed_backtrack">Velocidade média (Recuo)</string>
-    <string name="navigating_to_nearest_path_point">Navegando até o ponto mais próximo do caminho</string>
+    <string name="average_speed_backtrack">Velocidade média (Recuar)</string>
+    <string name="navigating_to_nearest_path_point">Navegando até o ponto mais próximo do percurso</string>
     <string name="beacons">Pontos de orientação</string>
     <string name="pref_start_on_boot_title">Executar ao iniciar</string>
     <string name="duration_second_format">%ds</string>
     <string name="since_time">desde %s</string>
-    <string name="pref_default_path_color_title">Cor padrão do caminho</string>
+    <string name="pref_default_path_color_title">Cor padrão do percurso</string>
     <string name="humidity_history">Histórico de umidade - último %s</string>
     <string name="temperature_history">Histórico de temperatura - último %s</string>
     <string name="estimate_stride_length">Estimar o comprimento de passos</string>
@@ -905,20 +905,20 @@
     <string name="pref_only_navigate_path_points_title">Navegar somente até pontos registrados</string>
     <string name="bearing">Rumo</string>
     <plurals name="path_group_summary">
-        <item quantity="one">%d caminho</item>
-        <item quantity="many">%d caminhos</item>
-        <item quantity="other">%d caminhos</item>
+        <item quantity="one">%d percurso</item>
+        <item quantity="many">%d percursos</item>
+        <item quantity="other">%d percursos</item>
     </plurals>
-    <string name="path">Caminho</string>
+    <string name="path">Percurso</string>
     <string name="exporting_map">Exportando mapa</string>
     <string name="map_exported">Mapa exportado</string>
     <string name="camera_capture">Capturar</string>
     <string name="file">Arquivo</string>
     <string name="tide_diurnal">Diurno</string>
     <string name="point">Ponto</string>
-    <string name="point_added">Ponto adicionado ao caminho</string>
+    <string name="point_added">Ponto adicionado ao percurso</string>
     <string name="tide_user_guide_recommendation">Os sites oficiais com tabela de marés podem ser encontrados em manual de instruções.</string>
-    <string name="delete_path_group_message">%s e todos os seus caminhos serão excluídos.</string>
+    <string name="delete_path_group_message">%s e todos os seus percursos serão excluídos.</string>
     <string name="map_export_error">Não foi possível exportar o mapa ao arquivo escolhido</string>
     <string name="tide_instructions">Use uma tabela oficial de marés para anotar marés de referência para o período da sua viagem.</string>
     <string name="change_resolution">Alteração da resolução</string>
@@ -1023,7 +1023,7 @@
     <string name="altimeter_cache">Cache do altímetro</string>
     <string name="no_sensor_message">Seu dispositivo não tem um sensor de %s</string>
     <string name="print">Imprimir</string>
-    <string name="create_path">Criar caminho</string>
+    <string name="create_path">Criar percurso</string>
     <string name="map_is_not_calibrated">Mapa não está calibrado</string>
     <string name="map_calibration">Calibração do mapa</string>
     <string name="blank">Vazio</string>
@@ -1049,7 +1049,7 @@
     <string name="daylight_duration">%s luz do dia</string>
     <string name="beta">Beta</string>
     <string name="rotation_amount">Rotação: %s</string>
-    <string name="backtrack_no_permission">Recuo necessita da permissão de localização para funcionar</string>
+    <string name="backtrack_no_permission">A função \"Recuar\" necessita da permissão de localização para funcionar</string>
     <string name="restore">Restaurar</string>
     <string name="restore_complete_message">Restauração concluída, reiniciando para aplicar as mudanças</string>
     <string name="notifications_channel">Notificações (%s)</string>
@@ -1058,7 +1058,7 @@
     <string name="no">Não</string>
     <string name="photo_map_summary">Usar uma foto como mapa</string>
     <string name="photo_map_disclaimer">Sempre leve um mapa físico como alternativa e verifique a precisão do Trail Sense.</string>
-    <string name="backup_disclaimer">Um arquivo de backup será criado contendo todos os dados atuais. Isso inclui caminhos, pontos de orientação, mapas, configurações, etc.
+    <string name="backup_disclaimer">Um arquivo de backup será criado contendo todos os dados atuais. Isso inclui percursos, pontos de orientação, mapas, configurações, etc.
 \n
 \nEsse arquivo não é criptografado. Não o compartilhe com pessoas não confiáveis.</string>
     <string name="invalid_backup_file">Arquivo de backup inválido</string>
@@ -1136,7 +1136,7 @@
     <string name="communication">Comunicação</string>
     <string name="local_talk">Conversa local</string>
     <string name="no_items_found">Nenhum item encontrado</string>
-    <string name="import_packing_list">Importar lista de embalagens</string>
+    <string name="import_packing_list">Importar lista de conteúdo</string>
     <string name="barometer_offset">Deslocamento do barômetro</string>
     <string name="enter_the_current_pressure">Digite a pressão atual</string>
     <string name="sunset">Pôr do sol</string>
@@ -1144,9 +1144,9 @@
     <string name="high_sensitivity">Alta sensibilidade</string>
     <string name="fused_altimeter_force_calibration">Intervalo de calibração de força</string>
     <string name="compass_dynamic_colors">Cores dinâmicas da bússola</string>
-    <string name="creating_beacon">Criando sinalizador</string>
+    <string name="creating_beacon">Criando ponto de orientação</string>
     <string name="augmented_reality_no_gyro_message">Você ainda pode usar a ferramenta de Realidade Aumentada, mas ela não será tão precisa.</string>
-    <string name="fast_path_rendering">Renderização de caminho rápido</string>
+    <string name="fast_path_rendering">Renderização de percurso rápido</string>
     <string name="view_in_3d">Visualizar em 3D</string>
     <string name="local_messaging">Mensagens locais</string>
     <string name="projection_manufacturer_intrinsics">Intrínsecos do fabricante</string>
@@ -1163,7 +1163,7 @@
     <string name="compact_mode">Modo compacto</string>
     <string name="locate">Localizar</string>
     <string name="show_dial_ticks_on_nearby_radar">Mostrar marcações de discagem nos radares próximos</string>
-    <string name="use_path_elevation">Usar elevação do caminho</string>
+    <string name="use_path_elevation">Usar elevação do percurso</string>
     <string name="select_from_gallery">Selecione na galeria</string>
     <string name="magnetometer_gyro_custom">Magnetômetro + giroscópio (personalizado)</string>
     <string name="feature_unavailable">%s indisponível</string>
@@ -1203,7 +1203,7 @@
     <string name="service_restart">Reinicialização do Serviço</string>
     <string name="fast_path_rendering_summary">Melhora o desempenho em detrimento da aparência</string>
     <string name="view_distance">Ver distância</string>
-    <string name="show_dial_ticks_on_nearby_radar_summary">Seu dispositivo não possui bússola, mas você ainda pode ver quais são os sinalizadores de direção.</string>
+    <string name="show_dial_ticks_on_nearby_radar_summary">Seu dispositivo não possui bússola, mas você ainda pode ver quais são os pontos de orientação.</string>
     <string name="ar_calibration_instructions">Centralize o %s na tela e pressione \"Calibrar\"</string>
     <string name="use_gyroscope_after_calibration">Use o giroscópio após a calibração</string>
     <string name="use_gyroscope_after_calibration_description">Em vez da bússola (evita o desvio magnético)</string>
