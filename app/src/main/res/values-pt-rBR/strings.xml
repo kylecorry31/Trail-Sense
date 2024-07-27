@@ -178,7 +178,7 @@
     <string name="group">Grupo</string>
     <string name="delete_beacon_group_message">%s e todos os seus pontos de orientação serão excluídos.</string>
     <string name="tool_user_guide_summary">Um guia de como usar o Trail Sense</string>
-    <string name="tool_user_guide_title">Guia de usuário</string>
+    <string name="tool_user_guide_title">Guia do Usuário</string>
     <string name="error_occurred_message">O Trail Sense encontrou um erro. Por favor, envie um e-mail ao desenvolvedor para corrigir este problema.</string>
     <string name="error_occurred">Ocorreu um erro</string>
     <string name="update_60_minutes">1 hora</string>
@@ -252,7 +252,7 @@
     <string name="distance_to">A</string>
     <string name="inventory_empty_text">Nenhum item</string>
     <string name="tool_whistle_title">Apito</string>
-    <string name="tool_cliff_height_disclaimer">Use esta ferramenta somente quando for seguro para fazê-lo, e certifique-se de verificar o que está abaixo do penhasco para evitar ferimentos. Consulte o guia do usuário para mais instruções.</string>
+    <string name="tool_cliff_height_disclaimer">Somente use essa ferramenta quando for seguro fazê-lo e certifique-se de verificar o que está abaixo do penhasco para evitar ferimentos. Consulte o Guia do Usuário para obter instruções.</string>
     <string name="tool_cliff_height_description">Medir a altura de um penhasco ou queda</string>
     <string name="tool_cliff_height_title">Altura de penhasco</string>
     <string name="toast_destination_bearing_set">Orientação do destino definida</string>
@@ -357,7 +357,7 @@
 \n- Se você optar por não conceder a permissão de localização, você pode digitar manualmente uma localização no menu de Configurações &gt; Calibração do GPS em Trail Sense.
 \n
 \n- Depois de clicar em continuar, você será solicitado a conceder a permissão de localização. A negação dessa permissão impedirá o Trail Sense de acessar sua localização, portanto, recomenda-se uma inserção manual de localização.</string>
-    <string name="onboarding_user_guide">Saiba como usar as funcionalidades de Trail Sense com o guia do usuário. Disponível na parte inferior da aba de Ferramentas.
+    <string name="onboarding_user_guide">Saiba como usar as funcionalidades do Trail Sense com o Guia do Usuário. Disponível na parte inferior da guia Ferramentas.
 \n
 \nMais guias estarão disponíveis em breve.</string>
     <string name="privacy_and_location">Privacidade e localização</string>
@@ -1069,14 +1069,14 @@
     <string name="reset_calibration">Redefinir calibragem</string>
     <string name="sunset_alert_scheduled">Alerta marcado para %s do pôr-do-sol</string>
     <string name="backup">Backup</string>
-    <string name="restore_disclaimer">Essa ação irá substituir todos os dados atuais. Verifique se possui um backup antes de continuar.
+    <string name="restore_disclaimer">Essa ação substituirá todos os seus dados atuais. Certifique-se de que você tenha um backup antes de continuar.
 \n
-\nApenas selecione um arquivo de backup que você criou com o %s e confie.</string>
+\nSelecione apenas um arquivo de backup que você tenha criado com %s e confie nele.</string>
     <string name="pref_keep_map_facing_up_title">Manter o mapa voltado para cima</string>
     <string name="restore_failure_newer_version">Esse backup foi criado com uma versão do %s mais recente. Atualize o aplicativo e tente novamente.</string>
     <string name="rate">Frequência</string>
     <string name="until_sunrise">até o nascer do sol</string>
-    <string name="reduce_map_resolution_crop_disclaimer">Cortar o mapa ainda reduzirá a resolução. Se precisar cortar o mapa em alta resolução, use um aplicativo editor de imagem. Está planejado consertar isso no futuro.</string>
+    <string name="reduce_map_resolution_crop_disclaimer">O corte do mapa ainda reduzirá a resolução. Se precisar cortar o mapa em alta resolução, use um aplicativo de edição de fotos. Há planos para corrigir isso no futuro.</string>
     <string name="zero_shutter_lag">Sem atraso no obturador</string>
     <string name="triangulate_destination_location_2_instructions">Mova-se pelo menos %s da primeira posição e coloque a nova posição e a direção do destino novamente.</string>
     <string name="restoring_loading_message">Restaurando…</string>
@@ -1119,4 +1119,94 @@
     <string name="exact_alarm_permission_denied">Alarmes e lembretes negados, os alertas podem ser imprecisos.</string>
     <string name="is_there_a_way_to_fix_this">Alguma forma de solucionar?</string>
     <string name="triangulate_self_location_2_instructions">Escolha outra posição conhecida que você pode ver e registrar a direção de onde você está para a outra posição.</string>
+    <string name="sunrise_alert_notification_title">O sol vai nascer em breve</string>
+    <string name="pref_sunrise_alert_time_title">Horário de alerta do nascer do sol</string>
+    <string name="exported">Exportado</string>
+    <string name="sunrise_alert_scheduled">Alerta agendado para %s antes do nascer do sol</string>
+    <string name="fused_altimeter_force_calibration_summary">Força uma calibração de GPS a cada %s</string>
+    <string name="projection_type">Projeção de realidade aumentada</string>
+    <string name="projection_estimated_intrinsics">Intrínsecos estimados</string>
+    <string name="projection_perspective">Perspectiva</string>
+    <string name="projection_linear">Linear</string>
+    <string name="turn_back_notification_title">É hora de voltar</string>
+    <string name="turn_back_alerts">Retornar aos alertas</string>
+    <string name="cloud_scanner">Cloud Scanner</string>
+    <string name="turn_back_notification_description">Volte agora para retornar em %s</string>
+    <string name="background">Segundo plano</string>
+    <string name="communication">Comunicação</string>
+    <string name="local_talk">Conversa local</string>
+    <string name="no_items_found">Nenhum item encontrado</string>
+    <string name="import_packing_list">Importar lista de embalagens</string>
+    <string name="barometer_offset">Deslocamento do barômetro</string>
+    <string name="enter_the_current_pressure">Digite a pressão atual</string>
+    <string name="sunset">Pôr do sol</string>
+    <string name="sunrise">Nascer do sol</string>
+    <string name="high_sensitivity">Alta sensibilidade</string>
+    <string name="fused_altimeter_force_calibration">Intervalo de calibração de força</string>
+    <string name="compass_dynamic_colors">Cores dinâmicas da bússola</string>
+    <string name="creating_beacon">Criando sinalizador</string>
+    <string name="augmented_reality_no_gyro_message">Você ainda pode usar a ferramenta de Realidade Aumentada, mas ela não será tão precisa.</string>
+    <string name="fast_path_rendering">Renderização de caminho rápido</string>
+    <string name="view_in_3d">Visualizar em 3D</string>
+    <string name="local_messaging">Mensagens locais</string>
+    <string name="projection_manufacturer_intrinsics">Intrínsecos do fabricante</string>
+    <string name="dynamic_colors">Cores dinâmicas</string>
+    <string name="no_recorded_cell_signal_nearby">Nenhum sinal de celular registrado nas proximidades</string>
+    <string name="compass_dynamic_colors_summary">Use cores dinâmicas para as direções cardeais</string>
+    <string name="screen_flashlight_full_name">Lanterna da tela</string>
+    <string name="navigate_to_nearest_cell_signal">Navegue até o sinal de celular mais próximo</string>
+    <string name="magnetic_north_description">Aponta para o \'Pólo Norte\' magnético. Isso se alinhará com a maioria das bússolas.</string>
+    <string name="continuous_calibration">Calibração contínua</string>
+    <string name="service_restart_channel_description">Uma notificação para reiniciar os serviços</string>
+    <string name="restart_services_title">Reiniciar serviços</string>
+    <string name="continuous_calibration_description">Calibra sempre que há um ponto de GPS</string>
+    <string name="compact_mode">Modo compacto</string>
+    <string name="locate">Localizar</string>
+    <string name="show_dial_ticks_on_nearby_radar">Mostrar marcações de discagem nos radares próximos</string>
+    <string name="use_path_elevation">Usar elevação do caminho</string>
+    <string name="select_from_gallery">Selecione na galeria</string>
+    <string name="magnetometer_gyro_custom">Magnetômetro + giroscópio (personalizado)</string>
+    <string name="feature_unavailable">%s indisponível</string>
+    <string name="default_string">Padrão</string>
+    <string name="audio_error_messsage">Ocorreu um erro ao tentar reproduzir o áudio.</string>
+    <string name="layers">Camadas</string>
+    <string name="grid">Grade</string>
+    <string name="date">Data</string>
+    <string name="max_s">Máx %s</string>
+    <string name="tool_quick_action_name">Ferramenta: %s</string>
+    <string name="pref_start_camera_in_3d_view_title">Use a câmera para visualização em 3D</string>
+    <string name="pref_start_camera_in_3d_view_summary">Abre a câmera quando você clica no botão \"Visualizar em 3D\"</string>
+    <string name="mirror_camera">Espelhar câmera</string>
+    <string name="tool_turn_back">Retornar</string>
+    <string name="open_photo_map">Abrir mapa de fotos</string>
+    <string name="return_time">Hora de retorno</string>
+    <string name="turn_back_instructions">Vire %1$s (%2$s) para retornar em %3$s</string>
+    <string name="return_before_dark">Retorne antes de escurecer</string>
+    <string name="turn_back_alert_set">Retornar ao alerta definido</string>
+    <string name="tool_quick_action_summary">Pressione e segure a navegação inferior ou visualize na guia de ferramentas</string>
+    <string name="quick_actions_are_unavailable">As ações rápidas não estão disponíveis</string>
+    <string name="bottom_navigation_slot">Slot de navegação inferior %d</string>
+    <string name="quick_actions">Ações rápidas</string>
+    <string name="why_missing_sensor">Meu dispositivo é novo/caro, por que ele não tem esse sensor?</string>
+    <string name="sunrise_alert_notification_text">O sol nascerá às %s</string>
+    <string name="sunrise_alerts">Alertas do nascer do sol</string>
+    <string name="sunrise_alert_channel_title">Alerta do nascer do sol</string>
+    <string name="ar_calibration_instructions_hint">Para calibrar a ferramenta de Realidade Aumentada, toque no ícone no canto superior esquerdo da tela e siga as instruções que aparecem.</string>
+    <string name="visible">Visível</string>
+    <string name="ar_layer_override_message">As configurações de camada podem ser substituídas por orientações, como o guia Astronomia.</string>
+    <string name="ar_calibration_disclaimer">Antes de cada uso da ferramenta de Realidade Aumentada, verifique se os ícones de sol ou lua estão alinhados corretamente com o mundo real. Caso contrário, clique no ícone da bússola no canto superior esquerdo da tela e siga as instruções para calibrar.</string>
+    <string name="forecast_algorithm">Algoritmo de previsão</string>
+    <string name="no_sensor_unable_to_fix">Não, infelizmente essa é uma função de hardware, portanto não há nada que possa ser feito para adicioná-lo.</string>
+    <string name="true_north_description">Aponta para o \'Pólo Norte\' geográfico usando a declinação da sua localização. Isso se alinhará com a maioria dos mapas.</string>
+    <string name="missing_sensor_explanation">Alguns fabricantes de telefones optam por não adicionar esse sensor, mesmo em dispositivos novos ou caros. Para obter mais informações, visite o site do fabricante do seu dispositivo ou entre em contato com ele.</string>
+    <string name="restart_services_message">Os serviços em segundo plano não puderam ser reiniciados. Toque para reiniciar.</string>
+    <string name="service_restart">Reinicialização do Serviço</string>
+    <string name="fast_path_rendering_summary">Melhora o desempenho em detrimento da aparência</string>
+    <string name="view_distance">Ver distância</string>
+    <string name="show_dial_ticks_on_nearby_radar_summary">Seu dispositivo não possui bússola, mas você ainda pode ver quais são os sinalizadores de direção.</string>
+    <string name="ar_calibration_instructions">Centralize o %s na tela e pressione \"Calibrar\"</string>
+    <string name="use_gyroscope_after_calibration">Use o giroscópio após a calibração</string>
+    <string name="use_gyroscope_after_calibration_description">Em vez da bússola (evita o desvio magnético)</string>
+    <string name="reset_calibration_question">Redefinir a calibração?</string>
+    <string name="smooth_gps_readings">Leituras de GPS suaves</string>
 </resources>
