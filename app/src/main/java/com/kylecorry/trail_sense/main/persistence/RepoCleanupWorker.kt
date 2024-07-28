@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.main.persistence
 
 import android.content.Context
+import android.util.Log
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
@@ -18,13 +19,15 @@ import kotlinx.coroutines.withContext
 
 @HiltWorker
 class RepoCleanupWorker @AssistedInject constructor(
-    @Assisted private val context: Context,
+    @Assisted val context: Context,
     @Assisted params: WorkerParameters,
-    private val lightningRepo: ILightningRepo
+    val lightningRepo: ILightningRepo
 ) :
     CoroutineWorker(context, params) {
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
+
+        Log.d("RepoCleanupWorker", "Cleaning up repositories")
 
         val cleanables: List<ICleanable> = listOf(
             PathService.getInstance(context),
@@ -38,6 +41,8 @@ class RepoCleanupWorker @AssistedInject constructor(
         }
 
         DeleteTempFilesCommand(context).execute()
+
+        Log.d("RepoCleanupWorker", "Finished cleaning up repositories")
 
         Result.success()
     }
