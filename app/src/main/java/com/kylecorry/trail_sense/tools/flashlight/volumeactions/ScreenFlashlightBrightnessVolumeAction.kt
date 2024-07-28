@@ -10,15 +10,12 @@ class ScreenFlashlightBrightnessVolumeAction(
 
     private val screenFlashlightFragment = fragment as? FragmentToolScreenFlashlight
 
-    override fun onButtonPress(): Boolean {
-        if (screenFlashlightFragment != null) {
-            screenFlashlightFragment.handleVolumeButtonPress(isVolumeUp = true)
-            return true
-        }
-        return false
+    override fun onButtonPress(isUpButton: Boolean): Boolean {
+        screenFlashlightFragment?.handleVolumeButtonPress(isVolumeUp = isUpButton)
+        return screenFlashlightFragment != null
     }
 
-    override fun onButtonRelease(): Boolean {
-        return false
+    override fun onButtonRelease(isUpButton: Boolean): Boolean {
+        return screenFlashlightFragment != null
     }
 }

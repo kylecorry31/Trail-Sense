@@ -25,7 +25,7 @@ object MirrorCameraToolRegistration : ToolRegistration {
             volumeActions = listOf(
                 ToolVolumeAction(
                     ToolVolumeActionPriority.Normal,
-                    { _, isOpen -> isOpen },
+                    { _, isOpen, _ -> isOpen },
                     ::SystemVolumeAction
                 )
             ),

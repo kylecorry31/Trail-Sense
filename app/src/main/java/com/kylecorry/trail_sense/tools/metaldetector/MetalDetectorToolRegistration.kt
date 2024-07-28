@@ -25,7 +25,7 @@ object MetalDetectorToolRegistration : ToolRegistration {
             volumeActions = listOf(
                 ToolVolumeAction(
                     ToolVolumeActionPriority.Normal,
-                    { context, isToolOpen -> isToolOpen && UserPreferences(context).metalDetector.isMetalAudioEnabled },
+                    { context, isToolOpen, _ -> isToolOpen && UserPreferences(context).metalDetector.isMetalAudioEnabled },
                     ::SystemVolumeAction
                 )
             ),
