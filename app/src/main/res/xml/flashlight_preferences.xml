@@ -23,6 +23,12 @@
             app:key="@string/pref_flashlight_timeout"
             app:singleLineTitle="false"
             app:title="@string/pref_flashlight_timeout_title" />
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="@string/pref_flashlight_control_screen_with_volume"
+            android:title="@string/pref_flashlight_control_screen_with_volume_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
     </PreferenceCategory>
 
 </PreferenceScreen>

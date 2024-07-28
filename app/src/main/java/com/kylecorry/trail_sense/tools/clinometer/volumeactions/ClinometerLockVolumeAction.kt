@@ -8,12 +8,12 @@ class ClinometerLockVolumeAction(fragment: AndromedaFragment) : VolumeAction {
 
     private val clinometerFragment = fragment as? ClinometerFragment
 
-    override fun onButtonPress(): Boolean {
+    override fun onButtonPress(isUpButton: Boolean): Boolean {
         clinometerFragment?.onTouchDown()
         return clinometerFragment != null
     }
 
-    override fun onButtonRelease(): Boolean {
+    override fun onButtonRelease(isUpButton: Boolean): Boolean {
         clinometerFragment?.onTouchUp()
         return clinometerFragment != null
     }

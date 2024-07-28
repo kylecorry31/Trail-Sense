@@ -366,7 +366,8 @@ class MainActivity : AndromedaActivity() {
             tool.volumeActions.filter {
                 it.priority == ToolVolumeActionPriority.High && it.isActive(
                     this,
-                    tool.isOpen(navigationId ?: 0)
+                    tool.isOpen(navigationId ?: 0),
+                    fragment
                 )
             }
         }.firstOrNull()
@@ -377,7 +378,7 @@ class MainActivity : AndromedaActivity() {
 
         val activeAction =
             tools.firstOrNull { it.isOpen(navigationId ?: 0) }?.volumeActions?.firstOrNull {
-                it.isActive(this, true)
+                it.isActive(this, true, fragment)
             }
 
         if (activeAction != null) {
@@ -388,7 +389,8 @@ class MainActivity : AndromedaActivity() {
             tool.volumeActions.filter {
                 it.priority == ToolVolumeActionPriority.Normal && it.isActive(
                     this,
-                    tool.isOpen(navigationId ?: 0)
+                    tool.isOpen(navigationId ?: 0),
+                    fragment
                 )
             }
         }.firstOrNull()
@@ -401,9 +403,9 @@ class MainActivity : AndromedaActivity() {
 
         if (action != null) {
             return if (isButtonPressed) {
-                action.onButtonPress()
+                action.onButtonPress(isVolumeUp)
             } else {
-                action.onButtonRelease()
+                action.onButtonRelease(isVolumeUp)
             }
         }
 

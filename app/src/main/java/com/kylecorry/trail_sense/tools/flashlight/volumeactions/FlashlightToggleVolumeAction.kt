@@ -11,7 +11,7 @@ class FlashlightToggleVolumeAction(
 
     private val flashlightFragment = fragment as? FragmentToolFlashlight
 
-    override fun onButtonPress(): Boolean {
+    override fun onButtonPress(isUpButton: Boolean): Boolean {
         if (flashlightFragment == null) {
             val flashlight = FlashlightSubsystem.getInstance(fragment.requireContext())
             flashlight.toggle()
@@ -21,7 +21,7 @@ class FlashlightToggleVolumeAction(
         return true
     }
 
-    override fun onButtonRelease(): Boolean {
+    override fun onButtonRelease(isUpButton: Boolean): Boolean {
         // Do nothing
         return true
     }

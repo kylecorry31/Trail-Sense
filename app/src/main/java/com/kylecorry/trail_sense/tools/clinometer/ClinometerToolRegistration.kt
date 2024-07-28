@@ -26,7 +26,7 @@ object ClinometerToolRegistration : ToolRegistration {
             volumeActions = listOf(
                 ToolVolumeAction(
                     ToolVolumeActionPriority.Normal,
-                    { context, isToolOpen -> isToolOpen && UserPreferences(context).clinometer.lockWithVolumeButtons },
+                    { context, isToolOpen, _ -> isToolOpen && UserPreferences(context).clinometer.lockWithVolumeButtons },
                     ::ClinometerLockVolumeAction
                 )
             ),

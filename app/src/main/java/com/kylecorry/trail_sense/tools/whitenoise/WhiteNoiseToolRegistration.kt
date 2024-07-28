@@ -37,7 +37,7 @@ object WhiteNoiseToolRegistration : ToolRegistration {
             volumeActions = listOf(
                 ToolVolumeAction(
                     ToolVolumeActionPriority.High,
-                    { _, isToolOpen -> isToolOpen || WhiteNoiseService.isRunning },
+                    { _, isToolOpen, _ -> isToolOpen || WhiteNoiseService.isRunning },
                     ::SystemVolumeAction
                 )
             ),
