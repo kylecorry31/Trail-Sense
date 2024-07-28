@@ -1457,6 +1457,6 @@
     <string name="enter_the_current_pressure">Enter the current pressure</string>
     <string name="sunset">Sunset</string>
     <string name="sunrise">Sunrise</string>
-    <string name="pref_flashlight_control_brightness_with_volume" translatable="false">pref_flashlight_control_brightness_with_volume</string>
-    <string name="pref_flashlight_control_brightness_with_volume_title">Control screen flashlight brightness with volume buttons</string>
+    <string name="pref_flashlight_control_screen_with_volume" translatable="false">pref_flashlight_control_screen_with_volume</string>
+    <string name="pref_flashlight_control_screen_with_volume_title">Control screen flashlight brightness with volume buttons</string>
 </resources>
