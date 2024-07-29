@@ -1173,4 +1173,8 @@
     <string name="pref_start_camera_in_3d_view_title">Utilice la cámara para visualización en 3D</string>
     <string name="pref_start_camera_in_3d_view_summary">Abrir la cámara al hacer clic en el botón Ver en 3D</string>
     <string name="pref_flashlight_control_screen_with_volume_title">Controla el brillo de la pantalla con los botones de volumen</string>
+    <string name="mirror_camera">Mirror Camera</string>
+    <string name="tool_turn_back">Volver</string>
+    <string name="turn_back_instructions">Gira por %1$s (%2$s) para volver a %3$s</string>
+    <string name="return_time">Hora de regreso</string>
 </resources>
