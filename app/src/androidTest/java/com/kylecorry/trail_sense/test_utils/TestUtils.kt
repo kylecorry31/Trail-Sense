@@ -4,12 +4,17 @@ import android.Manifest
 import android.content.Context
 import android.os.Build
 import androidx.annotation.StringRes
+import androidx.hilt.work.HiltWorkerFactory
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.GrantPermissionRule
 import androidx.test.uiautomator.Configurator
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
+import androidx.work.Configuration
+import androidx.work.WorkManager
+import androidx.work.WorkerFactory
+import androidx.work.impl.WorkManagerImpl
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.main.NotificationChannels
@@ -85,6 +90,16 @@ object TestUtils {
      * Setup the application to match the actual application (Trail Sense application)
      */
     fun setupApplication(setDefaultPrefs: Boolean = true) {
+        // TODO: Maybe look into this: https://github.com/jarnedemeulemeester/findroid/blob/e2fe0e354b32a66cc9510faf23f5462846456f34/app/phone/src/androidTest/kotlin/dev/jdtech/jellyfin/MainActivityTest.kt#L16
+        val workerFactory = WorkerFactory.getDefaultWorkerFactory()
+        val configuration = Configuration.Builder()
+            .setWorkerFactory(workerFactory)
+            .setMinimumLoggingLevel(android.util.Log.DEBUG)
+            .build()
+        val workManager = WorkManagerImpl(context, configuration)
+        WorkManagerImpl.setDelegate(workManager)
+
+
         if (setDefaultPrefs) {
             setupDefaultPreferences()
         }

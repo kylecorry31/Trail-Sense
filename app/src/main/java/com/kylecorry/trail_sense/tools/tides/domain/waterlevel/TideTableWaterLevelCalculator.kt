@@ -25,6 +25,7 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
     }
 
     private fun generatePiecewiseCalculator(): IWaterLevelCalculator {
+        // TODO: Allow before / after calculators to be harmonic, which may not line up with the tide table start/end (insert gap calculators)
         val calculators = mutableListOf(
             Range(MIN_TIME, tides.first().time) to getBeforeCalculator(),
             Range(tides.last().time, MAX_TIME) to getAfterCalculator()
