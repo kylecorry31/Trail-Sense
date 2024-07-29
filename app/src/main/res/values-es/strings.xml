@@ -641,8 +641,8 @@
     <string name="liters">Litros</string>
     <string name="us_cups">Tazas USA</string>
     <string name="us_gallons">Galón USA</string>
-    <string name="imperial_cups">Tazas Imperiales</string>
-    <string name="imperial_pints">Pintas Imperiales</string>
+    <string name="imperial_cups">Taza imperial</string>
+    <string name="imperial_pints">Pinta imperial</string>
     <string name="imperial_quarts">Cuartos Imperiales</string>
     <string name="imperial_ounces_volume">Onzas Imperiales</string>
     <string name="imperial_gallons">Galones imperiales</string>
@@ -1160,4 +1160,21 @@
     <string name="ar_calibration_disclaimer">Antes de cada uso de la herramienta de Realidad Aumentada, compruebe que los iconos del sol o la luna están correctamente alineados con el mundo real. Si no es así, haz clic en el icono de la brújula en la parte superior izquierda de la pantalla y sigue las instrucciones para calibrarlos.</string>
     <string name="pref_enable_analog_title">Reloj analógico</string>
     <string name="return_before_dark">Return before dark</string>
+    <string name="sunrise_alert_notification_title">Amanecerá pronto</string>
+    <string name="sunrise_alert_notification_text">El sol saldrá a las %s</string>
+    <string name="sunrise_alerts">Alertas de salida del sol</string>
+    <string name="sunrise_alert_channel_title">Alerta de salida del sol</string>
+    <string name="pref_sunrise_alert_time_title">Hora de aviso del amanecer</string>
+    <string name="exported">Exportado</string>
+    <string name="sunrise_alert_scheduled">Alerta programada para %s antes del amanecer</string>
+    <string name="no_recorded_cell_signal_nearby">Sin cobertura móvil cerca</string>
+    <string name="navigate_to_nearest_cell_signal">Ir a la zona de con cobertura más próxima</string>
+    <string name="tool_quick_action_name">Herramienta: %s</string>
+    <string name="pref_start_camera_in_3d_view_title">Utilice la cámara para visualización en 3D</string>
+    <string name="pref_start_camera_in_3d_view_summary">Abrir la cámara al hacer clic en el botón Ver en 3D</string>
+    <string name="pref_flashlight_control_screen_with_volume_title">Controla el brillo de la pantalla con los botones de volumen</string>
+    <string name="mirror_camera">Mirror Camera</string>
+    <string name="tool_turn_back">Volver</string>
+    <string name="turn_back_instructions">Gira por %1$s (%2$s) para volver a %3$s</string>
+    <string name="return_time">Hora de regreso</string>
 </resources>
