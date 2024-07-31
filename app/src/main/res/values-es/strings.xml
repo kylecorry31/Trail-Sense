@@ -678,7 +678,7 @@
     <string name="humidity">Humedad</string>
     <string name="elevation_history">Historial de altitud</string>
     <string name="beacon_qr_import_instructions">Escanea un código QR para importar</string>
-    <string name="quarter_moon">Cuarto de luna</string>
+    <string name="quarter_moon">Cuarto menguante</string>
     <string name="diagnostics">Diagnostico</string>
     <string name="battery_usage_restricted">Uso de batería restringido</string>
     <string name="overridden">Anulado</string>
@@ -693,7 +693,7 @@
     <string name="location_override_not_set_resolution">Establecer la anulación de la ubicación en la configuración</string>
     <string name="power_saving_mode_resolution">Desactivar el modo de ahorro de energía</string>
     <string name="battery_restricted_resolution">Establecer Trail Sense como no optimizado</string>
-    <string name="gps_unavailable_resolution">Habilite la ubicación o cambie su fuente de ubicación a Solo dispositivo o Alta precisión</string>
+    <string name="gps_unavailable_resolution">Activa la localización o cambia la fuente de localización a \"Solo dispositivo\" o \"Alta precisión\"</string>
     <string name="diagnostic_message_template">%1$s: %2$s
 \n
 \n### Herramientas afectadas
@@ -725,14 +725,14 @@
     <string name="tilt">Inclinación</string>
     <string name="weather_exported">Clima exportado</string>
     <string name="moon">Luna</string>
-    <string name="no_clouds">No hay nubes</string>
+    <string name="no_clouds">Sin nubes</string>
     <string name="precipitation_none">Sin precipitaciones</string>
     <string name="precipitation_snow">Nieve</string>
     <string name="precipitation_snow_pellets">Bolitas de nieve</string>
     <string name="precipitation_hail">Granizo</string>
-    <string name="precipitation_small_hail">Granizo pequeño</string>
-    <string name="precipitation_ice_pellets">Bolitas de hielo</string>
-    <string name="precipitation_snow_grains">Granos de nieve</string>
+    <string name="precipitation_small_hail">Celisca (granizo suave)</string>
+    <string name="precipitation_ice_pellets">Gránulos de hielo</string>
+    <string name="precipitation_snow_grains">Copos de nieve</string>
     <string name="take_photo">toma una foto</string>
     <string name="no_camera_access">No se puede acceder a la cámara</string>
     <string name="temporary">Temporal</string>
@@ -790,7 +790,7 @@
     <string name="tide_table">Tabla de mareas</string>
     <string name="high_tide_letter">A</string>
     <string name="pressure_tendency">Tendencia</string>
-    <string name="tool_temperature_estimation_title">Estimación de temperatura</string>
+    <string name="tool_temperature_estimation_title">Temperatura estimada</string>
     <string name="tool_temperature_estimation_description">Predecir la temperatura a distinta elevación</string>
     <plurals name="tides_entered_count">
         <item quantity="one">%d marea</item>
@@ -1028,8 +1028,8 @@
     <string name="no">No</string>
     <string name="rate">Tasa</string>
     <string name="season">Estación</string>
-    <string name="until_sunset">hasta el anochecer</string>
-    <string name="until_sunrise">hasta el amanecer</string>
+    <string name="until_sunset">Hasta el atardecer</string>
+    <string name="until_sunrise">Hasta el amanecer</string>
     <string name="astronomy_set">Puesta</string>
     <string name="astronomy_rise">Salida</string>
     <string name="horizon">Horizonte</string>
@@ -1072,7 +1072,7 @@
     <string name="restoring_loading_message">Restaurando…</string>
     <string name="restore_complete_message">Restaurado con éxito, reinicia para aplicar los cambios</string>
     <string name="invalid_backup_file">Archivo de copia de seguridad no válido</string>
-    <string name="backup_restore">Copia de seguridad / Restaurar</string>
+    <string name="backup_restore">Copia de seguridad / restaurar</string>
     <string name="restore_failure_newer_version">Esta copia de seguridad se creó con una versión más reciente de %s. Actualiza la aplicación e inténtalo de nuevo.</string>
     <string name="zero_shutter_lag">Sin retardo del obturador</string>
     <string name="my_location">Mi ubicación</string>
@@ -1090,7 +1090,7 @@
     <string name="direction">Dirección</string>
     <string name="augmented_reality">Realidad Aumentada</string>
     <string name="augmented_reality_description">Ver balizas cercanas y el sol / luna con tu cámara</string>
-    <string name="magnetic_north">El Norte magnético</string>
+    <string name="magnetic_north">Polo Norte magnético</string>
     <string name="tool_long_press_hint_toast">Pulsa prolongadamente en una herramienta para ver más opciones</string>
     <string name="unpin">Desbloquear</string>
     <string name="pinned">Fijado</string>
@@ -1114,10 +1114,10 @@
     <string name="fused_altimeter_force_calibration_summary">Fuerza una calibración del GPS cada %s</string>
     <string name="continuous_calibration">Calibración continua</string>
     <string name="service_restart_channel_description">Una notificación para reiniciar los servicios</string>
-    <string name="compass_dynamic_colors">Brújula colores dinámicos</string>
+    <string name="compass_dynamic_colors">Colores dinámicos de la brújula</string>
     <string name="dynamic_colors">Colores dinámicos</string>
-    <string name="screen_flashlight_full_name">Linterna de pantalla</string>
-    <string name="compass_dynamic_colors_summary">Utilice colores dinámicos para los puntos cardinales</string>
+    <string name="screen_flashlight_full_name">Brillo de pantalla</string>
+    <string name="compass_dynamic_colors_summary">Utiliza colores dinámicos para los puntos cardinales</string>
     <string name="view_in_3d">Ver en 3D</string>
     <string name="locate">Localizar</string>
     <string name="fast_path_rendering">Representación rápida de la ruta</string>
@@ -1141,8 +1141,8 @@
     <string name="pref_tiles_enabled_battery_log_summary">Registra el porcentaje de batería cada hora para estimar el tiempo hasta que se agote</string>
     <string name="pref_tiles_battery_log">Registro de batería</string>
     <string name="pref_dialog_battery_log_summary">El registro de la batería está deshabilitado, el historial y el tiempo hasta que se agote pueden no estar disponibles. Puedes volver a habilitar esto en la configuración</string>
-    <string name="projection_estimated_intrinsics">Intrínsecos estimados</string>
-    <string name="projection_manufacturer_intrinsics">Intrínsecos del fabricante</string>
+    <string name="projection_estimated_intrinsics">Valores intrínsecos estimados</string>
+    <string name="projection_manufacturer_intrinsics">Valores intrínsecos del fabricante</string>
     <string name="projection_perspective">Perspectiva</string>
     <string name="projection_linear">Lineal</string>
     <string name="default_string">Por defecto</string>
@@ -1159,7 +1159,7 @@
     <string name="max_s">Máx %s</string>
     <string name="ar_calibration_disclaimer">Antes de cada uso de la herramienta de Realidad Aumentada, compruebe que los iconos del sol o la luna están correctamente alineados con el mundo real. Si no es así, haz clic en el icono de la brújula en la parte superior izquierda de la pantalla y sigue las instrucciones para calibrarlos.</string>
     <string name="pref_enable_analog_title">Reloj analógico</string>
-    <string name="return_before_dark">Return before dark</string>
+    <string name="return_before_dark">Regresa antes de que oscurezca</string>
     <string name="sunrise_alert_notification_title">Amanecerá pronto</string>
     <string name="sunrise_alert_notification_text">El sol saldrá a las %s</string>
     <string name="sunrise_alerts">Alertas de salida del sol</string>
@@ -1177,4 +1177,25 @@
     <string name="tool_turn_back">Volver</string>
     <string name="turn_back_instructions">Gira por %1$s (%2$s) para volver a %3$s</string>
     <string name="return_time">Hora de regreso</string>
+    <string name="cloud_scanner">Cloud Scanner</string>
+    <string name="local_messaging">Mensajes locales</string>
+    <string name="communication">Comunicación</string>
+    <string name="tool_quick_action_summary">Presiona prolongadamente en la parte inferior de la navegación o vista en la pestaña de herramientas</string>
+    <string name="bottom_navigation_slot">Esquema de navegación inferior %d</string>
+    <string name="no_items_found">No se encontraron artículos</string>
+    <string name="import_packing_list">Lista de embalaje de importación</string>
+    <string name="barometer_offset">Compensación del barómetro</string>
+    <string name="enter_the_current_pressure">Introduce la presión actual</string>
+    <string name="sunset">Puesta del sol</string>
+    <string name="sunrise">Amanecer</string>
+    <string name="local_talk">Charla local</string>
+    <string name="open_photo_map">Abrir las fotografías en el mapa</string>
+    <string name="turn_back_alerts">Revocar las alertas</string>
+    <string name="turn_back_notification_title">Es hora de regresar</string>
+    <string name="turn_back_notification_description">Vuelve ahora para volver a %s</string>
+    <string name="background">En segundo plano</string>
+    <string name="quick_actions">Acciones rápidas</string>
+    <string name="forecast_algorithm">Algoritmo del pronóstico</string>
+    <string name="turn_back_alert_set">Volver a la alerta establecida</string>
+    <string name="quick_actions_are_unavailable">Las acciones rápidas no están disponibles</string>
 </resources>
