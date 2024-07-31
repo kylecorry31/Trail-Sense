@@ -1172,4 +1172,5 @@
     <string name="pref_sunrise_alert_time_title">日出警报时间</string>
     <string name="sunset">日落</string>
     <string name="sunrise">日出</string>
+    <string name="pref_flashlight_control_screen_with_volume_title">用音量键控制屏幕手电亮度</string>
 </resources>
