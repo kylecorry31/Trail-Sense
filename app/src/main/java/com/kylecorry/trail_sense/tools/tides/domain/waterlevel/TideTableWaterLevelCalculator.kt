@@ -2,6 +2,8 @@ package com.kylecorry.trail_sense.tools.tides.domain.waterlevel
 
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.SolMath.toRadians
+import com.kylecorry.sol.math.optimization.GoldenSearchExtremaFinder
+import com.kylecorry.sol.science.oceanography.OceanographyService
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.waterlevel.IWaterLevelCalculator
 import com.kylecorry.sol.science.oceanography.waterlevel.RuleOfTwelfthsWaterLevelCalculator
@@ -15,29 +17,28 @@ import java.time.LocalDate
 import java.time.ZonedDateTime
 
 class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelCalculator {
-
     private val range = TideTableRangeCalculator().getRange(table)
     private val tides = table.tides.sortedBy { it.time }.map { populateHeight(it) }
     private val piecewise by lazy { generatePiecewiseCalculator() }
+    private val ocean = OceanographyService()
+    private val extremaFinder = GoldenSearchExtremaFinder(30.0, 1.0)
 
     override fun calculate(time: ZonedDateTime): Float {
         return if (tides.isEmpty()) 0f else piecewise.calculate(time)
     }
 
     private fun generatePiecewiseCalculator(): IWaterLevelCalculator {
-        // TODO: Allow before / after calculators to be harmonic, which may not line up with the tide table start/end (insert gap calculators)
         val calculators = mutableListOf(
-            Range(MIN_TIME, tides.first().time) to getBeforeCalculator(),
-            Range(tides.last().time, MAX_TIME) to getAfterCalculator()
+            Range(MIN_TIME, tides.first().time) to getGapCalculator2(null, tides.first()),
+            Range(tides.last().time, MAX_TIME) to getGapCalculator2(tides.last(), null)
         )
 
         val tableCalculators = tides.zipWithNext().map {
-            if (hasGap(it.first, it.second)){
-               getGapCalculator(it.first, it.second)
-            } else {
-                val range = Range(it.first.time, it.second.time)
-                range to RuleOfTwelfthsWaterLevelCalculator(it.first, it.second)
-            }
+            val range = Range(it.first.time, it.second.time)
+            range to getGapCalculator2(
+                it.first,
+                it.second
+            )
         }
 
         calculators.addAll(tableCalculators)
@@ -51,6 +52,111 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
         val maxPeriod = hours(180 / frequency.toDouble() + 3.0)
         return first.isHigh == second.isHigh || period > maxPeriod
     }
+
+    private fun getGapCalculator2(
+        first: Tide?,
+        second: Tide?
+    ): IWaterLevelCalculator {
+        // If both are null, it should use the main calculator
+        if (first == null && second == null) {
+            return PiecewiseWaterLevelCalculator(listOf())
+        }
+
+        // The start is null
+        if (first == null && second != null) {
+            val estimateCalculator = getClockCalculator(second)
+            // First check to see if it lines up with the tide table
+            val lastTideBefore = getLastTideBefore(estimateCalculator, second.time, second.isHigh)
+            if (lastTideBefore?.time == second.time && lastTideBefore.height == second.height) {
+                return estimateCalculator
+            }
+
+            // Otherwise, a gap needs to be filled
+            val lastOtherTideBefore =
+                getLastTideBefore(estimateCalculator, second.time, !second.isHigh)
+            val gapCalculator = RuleOfTwelfthsWaterLevelCalculator(
+                lastOtherTideBefore ?: second,
+                second
+            )
+            return PiecewiseWaterLevelCalculator(
+                listOf(
+                    Range(MIN_TIME, lastOtherTideBefore?.time ?: second.time) to estimateCalculator,
+                    Range(lastOtherTideBefore?.time ?: second.time, second.time) to gapCalculator
+                )
+            )
+        }
+
+        // The end is null
+        if (first != null && second == null) {
+            val estimateCalculator = getClockCalculator(first)
+            // First check to see if it lines up with the tide table
+            val nextTideAfter = getNextTideAfter(estimateCalculator, first.time, first.isHigh)
+            if (nextTideAfter?.time == first.time && nextTideAfter.height == first.height) {
+                return estimateCalculator
+            }
+
+            // Otherwise, a gap needs to be filled
+            val nextOtherTideAfter = getNextTideAfter(estimateCalculator, first.time, !first.isHigh)
+            val gapCalculator = RuleOfTwelfthsWaterLevelCalculator(
+                first,
+                nextOtherTideAfter ?: first
+            )
+            return PiecewiseWaterLevelCalculator(
+                listOf(
+                    Range(first.time, nextOtherTideAfter?.time ?: first.time) to gapCalculator,
+                    Range(nextOtherTideAfter?.time ?: first.time, MAX_TIME) to estimateCalculator
+                )
+            )
+        }
+
+        // There may be a gap between the two tides
+        if (!hasGap(first!!, second!!)) {
+            return RuleOfTwelfthsWaterLevelCalculator(first, second)
+        }
+
+        // Fill either end of the gap if needed
+        // TODO: This should use the same gap filling logic as above
+        return getGapCalculator(first, second).second
+    }
+
+    private fun getLastTideBefore(
+        calculator: IWaterLevelCalculator,
+        time: ZonedDateTime,
+        isHigh: Boolean
+    ): Tide? {
+        val tides = getTides(calculator, time.minusDays(2), time)
+        return tides.filter { it.isHigh == isHigh }.maxByOrNull { it.time }
+    }
+
+    private fun getNextTideAfter(
+        calculator: IWaterLevelCalculator,
+        time: ZonedDateTime,
+        isHigh: Boolean
+    ): Tide? {
+        val tides = getTides(calculator, time, time.plusDays(2))
+        return tides.filter { it.isHigh == isHigh }.minByOrNull { it.time }
+    }
+
+    private fun getTides(
+        calculator: IWaterLevelCalculator,
+        start: ZonedDateTime,
+        end: ZonedDateTime
+    ): List<Tide> {
+        return ocean.getTides(calculator, start, end, extremaFinder)
+    }
+
+
+    private fun getClockCalculator(tide: Tide): IWaterLevelCalculator {
+        val amplitude = (if (!tide.isHigh) -1 else 1) * getAmplitude()
+        val z0 = tide.height!! - amplitude
+        return TideClockWaterLevelCalculator(
+            tide,
+            table.principalFrequency,
+            getAmplitude(),
+            z0
+        )
+    }
+
 
     private fun getGapCalculator(
         first: Tide,
@@ -126,5 +232,4 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
         private val MIN_TIME = LocalDate.of(2000, 1, 1).atStartOfDay().toZonedDateTime()
         private val MAX_TIME = LocalDate.of(3000, 1, 1).atStartOfDay().toZonedDateTime()
     }
-
 }
