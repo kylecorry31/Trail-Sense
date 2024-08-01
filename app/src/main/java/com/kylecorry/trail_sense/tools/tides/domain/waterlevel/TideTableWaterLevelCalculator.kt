@@ -147,7 +147,7 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
     }
 
     private fun getLunitidalCalculator(): IWaterLevelCalculator? {
-        if (!table.useLunitidalInterval || !table.isSemidiurnal || !tides.any { it.isHigh }) {
+        if (table.estimator != TideEstimator.LunitidalInterval || !table.isSemidiurnal || !tides.any { it.isHigh }) {
             return null
         }
 
