@@ -11,7 +11,9 @@ data class TideTable(
     val name: String? = null,
     val location: Coordinate? = null,
     val isSemidiurnal: Boolean = true,
-    val isVisible: Boolean = true
+    val isVisible: Boolean = true,
+    // TODO: Store the high / low lunitidal interval on the tide
+    val useLunitidalInterval: Boolean = false
 ) : Identifiable {
 
     val principalFrequency: Float

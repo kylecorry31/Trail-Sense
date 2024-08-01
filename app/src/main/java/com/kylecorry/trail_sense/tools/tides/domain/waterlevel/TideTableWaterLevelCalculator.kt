@@ -10,6 +10,7 @@ import com.kylecorry.sol.science.oceanography.waterlevel.RuleOfTwelfthsWaterLeve
 import com.kylecorry.sol.science.oceanography.waterlevel.TideClockWaterLevelCalculator
 import com.kylecorry.sol.time.Time.hours
 import com.kylecorry.sol.time.Time.toZonedDateTime
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import com.kylecorry.trail_sense.tools.tides.domain.range.TideTableRangeCalculator
 import java.time.Duration
@@ -64,7 +65,7 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
 
         // The start is null
         if (first == null && second != null) {
-            val estimateCalculator = getClockCalculator(second)
+            val estimateCalculator = getLunitidalCalculator() ?: getClockCalculator(second)
             // First check to see if it lines up with the tide table
             val lastTideBefore = getLastTideBefore(estimateCalculator, second.time, second.isHigh)
             if (lastTideBefore?.time == second.time && lastTideBefore.height == second.height) {
@@ -88,7 +89,7 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
 
         // The end is null
         if (first != null && second == null) {
-            val estimateCalculator = getClockCalculator(first)
+            val estimateCalculator = getLunitidalCalculator() ?: getClockCalculator(first)
             // First check to see if it lines up with the tide table
             val nextTideAfter = getNextTideAfter(estimateCalculator, first.time, first.isHigh)
             if (nextTideAfter?.time == first.time && nextTideAfter.height == first.height) {
@@ -145,6 +146,30 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
         return ocean.getTides(calculator, start, end, extremaFinder)
     }
 
+    private fun getLunitidalCalculator(): IWaterLevelCalculator? {
+        if (!table.useLunitidalInterval || !table.isSemidiurnal || !tides.any { it.isHigh }) {
+            return null
+        }
+
+        val highTides = tides.filter { it.isHigh }
+        val lowTides = tides.filter { !it.isHigh }
+
+        val highInterval = ocean.getMeanLunitidalInterval(
+            highTides.map { it.time },
+            table.location ?: Coordinate.zero
+        ) ?: return null
+        val lowInterval = ocean.getMeanLunitidalInterval(
+            lowTides.map { it.time },
+            table.location ?: Coordinate.zero
+        )
+        // TODO: The LunitidalWaterLevelCalculator is messed up on Newport, RI on 8/3 (has a random dip)
+        // TODO: Allow the amplitidue to be set
+        return LunitidalWaterLevelCalculator(
+            highInterval,
+            table.location ?: Coordinate.zero,
+            lowInterval
+        )
+    }
 
     private fun getClockCalculator(tide: Tide): IWaterLevelCalculator {
         val amplitude = (if (!tide.isHigh) -1 else 1) * getAmplitude()
@@ -195,25 +220,6 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
 
 
         return Range(first.time, second.time) to PiecewiseWaterLevelCalculator(calculators)
-    }
-
-    private fun getPastFutureCalculator(tide: Tide): IWaterLevelCalculator {
-        val amplitude = (if (!tide.isHigh) -1 else 1) * getAmplitude()
-        val z0 = tide.height!! - amplitude
-        return TideClockWaterLevelCalculator(
-            tide,
-            table.principalFrequency,
-            getAmplitude(),
-            z0
-        )
-    }
-
-    private fun getBeforeCalculator(): IWaterLevelCalculator {
-        return getPastFutureCalculator(tides.first())
-    }
-
-    private fun getAfterCalculator(): IWaterLevelCalculator {
-        return getPastFutureCalculator(tides.last())
     }
 
     private fun getHeight(tide: Tide): Float {
