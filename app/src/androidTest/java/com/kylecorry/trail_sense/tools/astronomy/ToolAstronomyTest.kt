@@ -41,6 +41,7 @@ class ToolAstronomyTest {
     fun setUp() {
         hiltRule.inject()
         TestUtils.setupApplication()
+        TestUtils.setWaitForIdleTimeout(100)
         scenario = TestUtils.startWithTool(Tools.ASTRONOMY)
         scenario.onActivity {
             navController = it.findNavController()

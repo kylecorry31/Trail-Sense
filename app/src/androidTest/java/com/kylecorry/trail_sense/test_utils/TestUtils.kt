@@ -191,6 +191,7 @@ object TestUtils {
         val userPrefs = UserPreferences(context)
         // The settings tool is the fastest to get to idle, which allows the tests to run faster
         userPrefs.bottomNavigationTools = listOf(Tools.SETTINGS)
+        userPrefs.useCompactMode = true
     }
 
     // WAITING

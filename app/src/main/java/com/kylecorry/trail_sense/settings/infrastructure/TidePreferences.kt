@@ -25,6 +25,6 @@ class TidePreferences(context: Context) : PreferenceRepo(context), ITidePreferen
 
     // TODO: Add an experimental setting for this
     override val useLunitidalInterval: Boolean
-        get() = isDebug()
+        get() = false
 
 }
