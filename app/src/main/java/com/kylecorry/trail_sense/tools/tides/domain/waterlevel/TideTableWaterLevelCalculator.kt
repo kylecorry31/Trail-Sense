@@ -4,7 +4,10 @@ import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.math.optimization.GoldenSearchExtremaFinder
 import com.kylecorry.sol.science.oceanography.OceanographyService
+import com.kylecorry.sol.science.oceanography.TidalHarmonic
 import com.kylecorry.sol.science.oceanography.Tide
+import com.kylecorry.sol.science.oceanography.TideConstituent
+import com.kylecorry.sol.science.oceanography.waterlevel.HarmonicWaterLevelCalculator
 import com.kylecorry.sol.science.oceanography.waterlevel.IWaterLevelCalculator
 import com.kylecorry.sol.science.oceanography.waterlevel.RuleOfTwelfthsWaterLevelCalculator
 import com.kylecorry.sol.science.oceanography.waterlevel.TideClockWaterLevelCalculator
@@ -65,7 +68,7 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
 
         // The start is null
         if (first == null && second != null) {
-            val estimateCalculator = getLunitidalCalculator() ?: getClockCalculator(second)
+            val estimateCalculator = getEstimateCalculator(second)
             // First check to see if it lines up with the tide table
             val lastTideBefore = getLastTideBefore(estimateCalculator, second.time, second.isHigh)
             if (lastTideBefore?.time == second.time && lastTideBefore.height == second.height) {
@@ -89,7 +92,7 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
 
         // The end is null
         if (first != null && second == null) {
-            val estimateCalculator = getLunitidalCalculator() ?: getClockCalculator(first)
+            val estimateCalculator = getEstimateCalculator(first)
             // First check to see if it lines up with the tide table
             val nextTideAfter = getNextTideAfter(estimateCalculator, first.time, first.isHigh)
             if (nextTideAfter?.time == first.time && nextTideAfter.height == first.height) {
@@ -118,6 +121,10 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
         // Fill either end of the gap if needed
         // TODO: This should use the same gap filling logic as above
         return getGapCalculator(first, second).second
+    }
+
+    private fun getEstimateCalculator(referenceTide: Tide): IWaterLevelCalculator {
+        return getHarmonicCalculator() ?: getLunitidalCalculator() ?: getClockCalculator(referenceTide)
     }
 
     private fun getLastTideBefore(
@@ -169,6 +176,64 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
             table.location ?: Coordinate.zero,
             lowInterval
         )
+    }
+
+    private fun getHarmonicCalculator(): IWaterLevelCalculator? {
+        if (table.estimator != TideEstimator.Harmonic) {
+            return null
+        }
+        // TODO: Check for the presence of constituents and use them
+
+        // TODO: This would be loaded from the DB (this is for Newport, RI)
+        val constituents = listOf(
+            Triple(1, 0.505968f, 2.3f),
+            Triple(2, 0.10668f, 25.0f),
+            Triple(3, 0.124968f, 345.8f),
+            Triple(4, 0.06096000000000001f, 166.1f),
+            Triple(5, 0.057912000000000005f, 35.8f),
+            Triple(6, 0.045720000000000004f, 202.0f),
+            Triple(7, 0.006096000000000001f, 220.1f),
+            Triple(8, 0.009144f, 19.5f),
+            Triple(9, 0.006096000000000001f, 5.1f),
+            Triple(10, 0.027432f, 347.9f),
+            Triple(11, 0.021336000000000004f, 341.0f),
+            Triple(12, 0.0f, 222.9f),
+            Triple(13, 0.024384000000000003f, 344.5f),
+            Triple(14, 0.018288f, 333.0f),
+            Triple(15, 0.0030480000000000004f, 195.7f),
+            Triple(16, 0.0030480000000000004f, 345.5f),
+            Triple(17, 0.006096000000000001f, 121.9f),
+            Triple(18, 0.0030480000000000004f, 204.0f),
+            Triple(19, 0.006096000000000001f, 181.1f),
+            Triple(20, 0.018288f, 73.9f),
+            Triple(21, 0.015240000000000002f, 75.1f),
+            Triple(22, 0.06096000000000001f, 145.3f),
+            Triple(23, 0.0f, 0.0f),
+            Triple(24, 0.0f, 0.0f),
+            Triple(25, 0.0030480000000000004f, 230.9f),
+            Triple(26, 0.012192000000000001f, 185.3f),
+            Triple(27, 0.009144f, 9.0f),
+            Triple(28, 0.0f, 252.2f),
+            Triple(29, 0.0030480000000000004f, 172.9f),
+            Triple(30, 0.021336000000000004f, 176.6f),
+            Triple(31, 0.0030480000000000004f, 48.8f),
+            Triple(32, 0.006096000000000001f, 34.1f),
+            Triple(33, 0.012192000000000001f, 349.9f),
+            Triple(34, 0.009144f, 357.1f),
+            Triple(35, 0.030480000000000004f, 21.7f),
+            Triple(36, 0.0f, 330.4f),
+            Triple(37, 0.015240000000000002f, 106.4f)
+        ).mapNotNull {
+            val (order, amplitude, phase) = it
+            val constituent = TideConstituent.entries.firstOrNull { it.id == order.toLong() }
+            if (constituent == null) {
+                null
+            } else {
+                TidalHarmonic(constituent, amplitude, phase)
+            }
+        }
+
+        return HarmonicWaterLevelCalculator(constituents)
     }
 
     private fun getClockCalculator(tide: Tide): IWaterLevelCalculator {
