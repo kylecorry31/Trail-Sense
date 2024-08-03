@@ -16,6 +16,7 @@ import com.kylecorry.trail_sense.test_utils.views.hasText
 import com.kylecorry.trail_sense.test_utils.views.input
 import com.kylecorry.trail_sense.test_utils.views.isChecked
 import com.kylecorry.trail_sense.test_utils.views.quickAction
+import com.kylecorry.trail_sense.test_utils.views.scrollToEnd
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.test_utils.views.viewWithText
@@ -84,6 +85,8 @@ class ToolTidesTest {
         view(R.id.tide_name).input("Tide 1")
         view(R.id.tide_frequency_semidiurnal).isChecked()
         view(R.id.utm).input("42, -72")
+
+        view(R.id.scroll_view).scrollToEnd()
 
         view(R.id.tide_type).hasText(R.string.high_tide_letter)
         view(R.id.tide_type).click()
@@ -165,7 +168,7 @@ class ToolTidesTest {
         // TODO: Verify the chart
     }
 
-    private fun canOpenTideList(){
+    private fun canOpenTideList() {
         toolbarButton(R.id.tide_title, Side.Right).click()
 
         waitFor {
