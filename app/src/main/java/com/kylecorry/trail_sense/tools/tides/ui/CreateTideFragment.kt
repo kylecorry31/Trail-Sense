@@ -25,7 +25,9 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
+import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import com.kylecorry.trail_sense.tools.tides.domain.TideTableIsDirtySpecification
@@ -90,9 +92,10 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
 
         binding.estimateAlgorithmSpinner.setHint(getString(R.string.estimate_method))
         binding.estimateAlgorithmSpinner.setItems(
-            listOf(
+            listOfNotNull(
                 getString(R.string.tide_clock),
-                getString(R.string.lunitidal_interval)
+                getString(R.string.lunitidal_interval),
+                if (isDebug()) getString(R.string.harmonic) + " (!! only for Newport, RI !!)" else null
             )
         )
         binding.estimateAlgorithmSpinner.setSelection(0)
@@ -290,11 +293,9 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
 
         val isSemidiurnal = binding.tideFrequency.checkedButtonId == R.id.tide_frequency_semidiurnal
 
-        val estimateAlgorithm = when (binding.estimateAlgorithmSpinner.selectedItemPosition) {
-            0 -> TideEstimator.Clock
-            1 -> TideEstimator.LunitidalInterval
-            else -> TideEstimator.Clock
-        }
+        val estimateAlgorithm =
+            TideEstimator.entries.withId(binding.estimateAlgorithmSpinner.selectedItemPosition.toLong() + 1)
+                ?: TideEstimator.Clock
 
         return TideTable(
             editingId,

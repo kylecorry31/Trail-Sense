@@ -1462,4 +1462,5 @@
     <string name="estimate_method">Estimate method</string>
     <string name="tide_clock">Tide clock</string>
     <string name="lunitidal_interval">Lunitidal interval</string>
+    <string name="harmonic">Harmonic</string>
 </resources>
