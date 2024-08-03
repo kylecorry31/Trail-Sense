@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.tides.domain.waterlevel
 
+import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.RingBuffer
 import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.sol.science.oceanography.Tide
@@ -13,7 +14,8 @@ import java.time.ZonedDateTime
 class LunitidalWaterLevelCalculator(
     private val lunitidalInterval: Duration,
     private val location: Coordinate = Coordinate.zero,
-    private val lowLunitidalInterval: Duration? = null
+    private val lowLunitidalInterval: Duration? = null,
+    private val waterLevelRange: Range<Float>? = null
 ) : IWaterLevelCalculator {
 
     private val moonTransits = RingBuffer<ZonedDateTime>(24)
@@ -37,13 +39,13 @@ class LunitidalWaterLevelCalculator(
             val low = previous.time.plus(durationBetween.dividedBy(2))
             if (low.isBefore(time)) {
                 getCalculator(
-                    Tide.low(low),
-                    Tide.high(next.time)
+                    Tide.low(low, waterLevelRange?.start),
+                    Tide.high(next.time, waterLevelRange?.end)
                 )
             } else {
                 getCalculator(
-                    Tide.high(previous.time),
-                    Tide.low(low)
+                    Tide.high(previous.time, waterLevelRange?.end),
+                    Tide.low(low, waterLevelRange?.start)
                 )
             }
         } else {
@@ -75,9 +77,9 @@ class LunitidalWaterLevelCalculator(
             val previousHigh = getHighTide(time, false)
             Time.getClosestPastTime(time, listOf(previousLow, previousHigh))?.let {
                 if (it == previousLow) {
-                    Tide.low(it)
+                    Tide.low(it, waterLevelRange?.start)
                 } else {
-                    Tide.high(it)
+                    Tide.high(it, waterLevelRange?.end)
                 }
             }
         } else {
@@ -86,9 +88,9 @@ class LunitidalWaterLevelCalculator(
             val low = previousHigh?.plus(Duration.between(previousHigh, nextHigh).dividedBy(2))
             Time.getClosestPastTime(time, listOf(previousHigh, low))?.let {
                 if (it == previousHigh) {
-                    Tide.high(it)
+                    Tide.high(it, waterLevelRange?.end)
                 } else {
-                    Tide.low(it)
+                    Tide.low(it, waterLevelRange?.start)
                 }
             }
         }
@@ -100,9 +102,9 @@ class LunitidalWaterLevelCalculator(
             val nextHigh = getHighTide(time, true)
             Time.getClosestFutureTime(time, listOf(nextLow, nextHigh))?.let {
                 if (it == nextLow) {
-                    Tide.low(it)
+                    Tide.low(it, waterLevelRange?.start)
                 } else {
-                    Tide.high(it)
+                    Tide.high(it, waterLevelRange?.end)
                 }
             }
         } else {
@@ -111,9 +113,9 @@ class LunitidalWaterLevelCalculator(
             val low = previousHigh?.plus(Duration.between(previousHigh, nextHigh).dividedBy(2))
             Time.getClosestFutureTime(time, listOf(nextHigh, low))?.let {
                 if (it == nextHigh) {
-                    Tide.high(it)
+                    Tide.high(it, waterLevelRange?.end)
                 } else {
-                    Tide.low(it)
+                    Tide.low(it, waterLevelRange?.start)
                 }
             }
         }

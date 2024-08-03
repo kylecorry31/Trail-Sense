@@ -174,7 +174,8 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
         return LunitidalWaterLevelCalculator(
             highInterval,
             table.location ?: Coordinate.zero,
-            lowInterval
+            lowInterval,
+            range
         )
     }
 
