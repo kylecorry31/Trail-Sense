@@ -27,7 +27,14 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
     private val ocean = OceanographyService()
     private val extremaFinder = GoldenSearchExtremaFinder(30.0, 1.0)
 
+    private val harmonic by lazy { getHarmonicCalculator() }
+
     override fun calculate(time: ZonedDateTime): Float {
+        // Harmonic tides don't require a table
+        if (tides.isEmpty() && table.estimator == TideEstimator.Harmonic) {
+            return harmonic?.calculate(time) ?: 0f
+        }
+
         return if (tides.isEmpty()) 0f else piecewise.calculate(time)
     }
 
@@ -124,7 +131,9 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
     }
 
     private fun getEstimateCalculator(referenceTide: Tide): IWaterLevelCalculator {
-        return getHarmonicCalculator() ?: getLunitidalCalculator() ?: getClockCalculator(referenceTide)
+        return getHarmonicCalculator() ?: getLunitidalCalculator() ?: getClockCalculator(
+            referenceTide
+        )
     }
 
     private fun getLastTideBefore(

@@ -279,11 +279,17 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
             )
         }
 
+        val estimateAlgorithm =
+            TideEstimator.entries.withId(binding.estimateAlgorithmSpinner.selectedItemPosition.toLong() + 1)
+                ?: TideEstimator.Clock
+
         if (editingId != 0L && editingTide == null) {
             return null
         }
 
-        if (tides.isEmpty()) {
+        // TODO: Eventually this will check for harmonics
+        // TODO: Eventually allow a lunitidal interval tide without any tides
+        if (tides.isEmpty() && estimateAlgorithm != TideEstimator.Harmonic) {
             return null
         }
 
@@ -292,10 +298,6 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         val location = binding.tideLocation.coordinate
 
         val isSemidiurnal = binding.tideFrequency.checkedButtonId == R.id.tide_frequency_semidiurnal
-
-        val estimateAlgorithm =
-            TideEstimator.entries.withId(binding.estimateAlgorithmSpinner.selectedItemPosition.toLong() + 1)
-                ?: TideEstimator.Clock
 
         return TideTable(
             editingId,
