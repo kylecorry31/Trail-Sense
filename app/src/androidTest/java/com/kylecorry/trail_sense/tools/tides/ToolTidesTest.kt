@@ -86,7 +86,16 @@ class ToolTidesTest {
         view(R.id.tide_frequency_semidiurnal).isChecked()
         view(R.id.utm).input("42, -72")
 
-        view(R.id.scroll_view).scrollToEnd()
+        view(R.id.estimate_algorithm_spinner).click()
+        waitFor {
+            viewWithText(R.string.tide_clock).isChecked()
+            viewWithText(R.string.lunitidal_interval)
+            viewWithText(android.R.string.ok).click()
+        }
+
+        waitFor {
+            view(R.id.scroll_view).scrollToEnd()
+        }
 
         view(R.id.tide_type).hasText(R.string.high_tide_letter)
         view(R.id.tide_type).click()
