@@ -1187,4 +1187,8 @@
     <string name="sunset">Gün batımı</string>
     <string name="sunrise">Gün doğumu</string>
     <string name="pref_flashlight_control_screen_with_volume_title">Ses düğmeleriyle ekran el feneri parlaklığını denetle</string>
+    <string name="tide_clock">Gelgit saati</string>
+    <string name="harmonic">Uyum</string>
+    <string name="lunitidal_interval">Ay gelgit aralığı</string>
+    <string name="estimate_method">Tahmin yöntemi</string>
 </resources>
