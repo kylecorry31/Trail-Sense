@@ -22,9 +22,4 @@ class TidePreferences(context: Context) : PreferenceRepo(context), ITidePreferen
                 cache.remove(context.getString(R.string.last_tide_id))
             }
         }
-
-    // TODO: Add an experimental setting for this
-    override val useLunitidalInterval: Boolean
-        get() = isDebug()
-
 }

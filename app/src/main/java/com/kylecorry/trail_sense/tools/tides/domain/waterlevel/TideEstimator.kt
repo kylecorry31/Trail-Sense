@@ -1,7 +1,9 @@
 package com.kylecorry.trail_sense.tools.tides.domain.waterlevel
 
-enum class TideEstimator {
-    Clock,
-    LunitidalInterval,
-    Harmonic,
+import com.kylecorry.trail_sense.shared.data.Identifiable
+
+enum class TideEstimator(override val id: Long): Identifiable {
+    Clock(1),
+    LunitidalInterval(2),
+    Harmonic(3),
 }

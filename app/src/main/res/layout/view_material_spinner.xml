@@ -17,7 +17,7 @@
             android:cursorVisible="false"
             android:drawableEnd="@drawable/ic_drop_down"
             android:focusable="false"
-            android:inputType="none" />
+            android:inputType="none|textNoSuggestions" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -29,6 +29,7 @@ import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import com.kylecorry.trail_sense.tools.tides.domain.TideTableIsDirtySpecification
+import com.kylecorry.trail_sense.tools.tides.domain.waterlevel.TideEstimator
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -86,6 +87,15 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         }
 
         CustomUiUtils.setButtonState(binding.createTideTitle.rightButton, true)
+
+        binding.estimateAlgorithmSpinner.setHint(getString(R.string.estimate_method))
+        binding.estimateAlgorithmSpinner.setItems(
+            listOf(
+                getString(R.string.tide_clock),
+                getString(R.string.lunitidal_interval)
+            )
+        )
+        binding.estimateAlgorithmSpinner.setSelection(0)
 
         binding.tideFrequencyDiurnal.text = buildSpannedString {
             bold {
@@ -249,6 +259,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
             )
         })
         tideTimesList.setData(tides)
+        binding.estimateAlgorithmSpinner.setSelection(tide.estimator.id.toInt() - 1)
     }
 
     private fun formIsValid(): Boolean {
@@ -279,13 +290,20 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
 
         val isSemidiurnal = binding.tideFrequency.checkedButtonId == R.id.tide_frequency_semidiurnal
 
+        val estimateAlgorithm = when (binding.estimateAlgorithmSpinner.selectedItemPosition) {
+            0 -> TideEstimator.Clock
+            1 -> TideEstimator.LunitidalInterval
+            else -> TideEstimator.Clock
+        }
+
         return TideTable(
             editingId,
             tides,
             name,
             location,
             isSemidiurnal = isSemidiurnal,
-            isVisible = editingTide?.isVisible ?: true
+            isVisible = editingTide?.isVisible ?: true,
+            estimator = estimateAlgorithm
         )
     }
 

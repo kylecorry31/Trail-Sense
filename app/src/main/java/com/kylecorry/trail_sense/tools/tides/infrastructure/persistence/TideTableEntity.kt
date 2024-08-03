@@ -6,7 +6,9 @@ import androidx.room.PrimaryKey
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.data.Identifiable
+import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
+import com.kylecorry.trail_sense.tools.tides.domain.waterlevel.TideEstimator
 
 @Entity(tableName = "tide_tables")
 data class TideTableEntity(
@@ -15,7 +17,8 @@ data class TideTableEntity(
     @ColumnInfo(name = "latitude") val latitude: Double?,
     @ColumnInfo(name = "longitude") val longitude: Double?,
     @ColumnInfo(name = "isSemidiurnal") val isSemidiurnal: Boolean,
-    @ColumnInfo(name = "isVisible") val isVisible: Boolean
+    @ColumnInfo(name = "isVisible") val isVisible: Boolean,
+    @ColumnInfo(name = "estimateType") val estimateType: Long
 ) : Identifiable {
 
     fun toTable(tides: List<Tide>): TideTable {
@@ -24,7 +27,15 @@ data class TideTableEntity(
         } else {
             null
         }
-        return TideTable(id, tides, name, coordinate, isSemidiurnal, isVisible)
+        return TideTable(
+            id,
+            tides,
+            name,
+            coordinate,
+            isSemidiurnal,
+            isVisible,
+            TideEstimator.entries.withId(estimateType) ?: TideEstimator.Clock
+        )
     }
 
     companion object {
@@ -35,7 +46,8 @@ data class TideTableEntity(
                 table.location?.latitude,
                 table.location?.longitude,
                 table.isSemidiurnal,
-                table.isVisible
+                table.isVisible,
+                table.estimator.id
             )
         }
     }

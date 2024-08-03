@@ -1459,4 +1459,7 @@
     <string name="sunrise">Sunrise</string>
     <string name="pref_flashlight_control_screen_with_volume" translatable="false">pref_flashlight_control_screen_with_volume</string>
     <string name="pref_flashlight_control_screen_with_volume_title">Control screen flashlight brightness with volume buttons</string>
+    <string name="estimate_method">Estimate method</string>
+    <string name="tide_clock">Tide clock</string>
+    <string name="lunitidal_interval">Lunitidal interval</string>
 </resources>

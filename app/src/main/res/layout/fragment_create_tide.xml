@@ -18,123 +18,134 @@
         app:showSubtitle="false"
         app:title="@string/tide_table" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/create_tide_title">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tide_name_holder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/name">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tide_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:imeOptions="actionNone"
-                android:inputType="text" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/frequency"
-            android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:text="@string/tide_frequency_description"
-            android:textAppearance="@style/TextAppearance.Material3.LabelSmall" />
-
-        <com.google.android.material.button.MaterialButtonToggleGroup
-            android:id="@+id/tide_frequency"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:singleSelection="true">
-
-            <Button
-                android:id="@+id/tide_frequency_diurnal"
-                style="?attr/materialButtonOutlinedStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="?attr/colorOnSurface"
-                tools:text="1 Diurnal" />
-
-            <Button
-                android:id="@+id/tide_frequency_semidiurnal"
-                style="?attr/materialButtonOutlinedStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="?attr/colorOnSurface"
-                tools:text="2 Semidiurnal" />
-        </com.google.android.material.button.MaterialButtonToggleGroup>
-
-        <com.kylecorry.trail_sense.shared.views.CoordinateInputView
-            android:id="@+id/tide_location"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/add_tide_entry"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:background="@drawable/rounded_rectangle"
-                android:backgroundTint="?attr/colorPrimary"
-                app:srcCompat="@drawable/ic_add"
-                app:tint="?attr/colorOnPrimary" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tide_name_holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tide_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNone"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/tide_time"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:padding="16dp"
-                android:text="@string/time" />
+                android:layout_marginTop="16dp"
+                android:text="@string/frequency"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
 
             <TextView
-                android:id="@+id/tide_height"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:padding="16dp"
-                android:text="@string/height" />
+                android:layout_marginTop="2dp"
+                android:text="@string/tide_frequency_description"
+                android:textAppearance="@style/TextAppearance.Material3.LabelSmall" />
 
-            <View
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="8dp" />
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/tide_frequency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:singleSelection="true">
+
+                <Button
+                    android:id="@+id/tide_frequency_diurnal"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="?attr/colorOnSurface"
+                    tools:text="1 Diurnal" />
+
+                <Button
+                    android:id="@+id/tide_frequency_semidiurnal"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="?attr/colorOnSurface"
+                    tools:text="2 Semidiurnal" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <com.kylecorry.trail_sense.shared.views.CoordinateInputView
+                android:id="@+id/tide_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
+
+            <com.kylecorry.trail_sense.shared.views.MaterialSpinnerView
+                android:id="@+id/estimate_algorithm_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/add_tide_entry"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/rounded_rectangle"
+                    android:backgroundTint="?attr/colorPrimary"
+                    app:srcCompat="@drawable/ic_add"
+                    app:tint="?attr/colorOnPrimary" />
+
+                <TextView
+                    android:id="@+id/tide_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="16dp"
+                    android:text="@string/time" />
+
+                <TextView
+                    android:id="@+id/tide_height"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:padding="16dp"
+                    android:text="@string/height" />
+
+                <View
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="8dp" />
+
+            </LinearLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/tide_times"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
 
         </LinearLayout>
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/tide_times"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

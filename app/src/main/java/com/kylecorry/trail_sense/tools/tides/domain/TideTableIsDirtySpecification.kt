@@ -16,6 +16,8 @@ class TideTableIsDirtySpecification(private val original: TideTable?) :
 
         return !(original.name == value.name &&
                 original.location == value.location &&
+                original.isSemidiurnal == value.isSemidiurnal &&
+                original.estimator == value.estimator &&
                 tidesEqual(original.tides, value.tides))
     }
 
