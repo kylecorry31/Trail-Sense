@@ -5,6 +5,7 @@ import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.removeLastCompat
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.BeaconLayer
@@ -58,7 +59,7 @@ class MapDistanceLayer(private val onPathChanged: (points: List<Coordinate>) -> 
 
     fun undo() {
         if (points.isNotEmpty()) {
-            points.removeLast()
+            points.removeLastOrNull()
             onPathChanged(points.toList())
             updateLayers()
         }

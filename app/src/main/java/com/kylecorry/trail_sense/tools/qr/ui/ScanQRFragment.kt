@@ -33,6 +33,7 @@ import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
+import com.kylecorry.trail_sense.shared.removeLastCompat
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteRepo
 import com.kylecorry.trail_sense.tools.qr.infrastructure.BeaconQREncoder
@@ -287,7 +288,7 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
         history.add(0, text)
 
         while (history.size > 10) {
-            history.removeLast()
+            history.removeLastOrNull()
         }
 
         updateHistoryList()
