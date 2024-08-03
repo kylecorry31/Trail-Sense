@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.Context
 import android.os.Build
 import androidx.annotation.StringRes
-import androidx.hilt.work.HiltWorkerFactory
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.GrantPermissionRule
@@ -12,7 +11,6 @@ import androidx.test.uiautomator.Configurator
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
 import androidx.work.Configuration
-import androidx.work.WorkManager
 import androidx.work.WorkerFactory
 import androidx.work.impl.WorkManagerImpl
 import com.kylecorry.trail_sense.R
@@ -25,10 +23,13 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.test_utils.views.Side
+import com.kylecorry.trail_sense.test_utils.views.childWithIndex
 import com.kylecorry.trail_sense.test_utils.views.click
+import com.kylecorry.trail_sense.test_utils.views.input
 import com.kylecorry.trail_sense.test_utils.views.longClick
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.test_utils.views.view
+import com.kylecorry.trail_sense.test_utils.views.viewWithText
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
@@ -248,5 +249,32 @@ object TestUtils {
         }
 
         return false
+    }
+
+    fun pickDate(year: Int, month: Int, day: Int, waitForClose: Boolean = true) {
+        waitFor {
+            view(com.google.android.material.R.id.mtrl_picker_header_toggle).click()
+        }
+
+        waitFor {
+            view(com.google.android.material.R.id.mtrl_picker_text_input_date)
+                .childWithIndex(0)
+                .childWithIndex(0)
+                .input(
+                    "${month.toString().padStart(2, '0')}/${
+                        day.toString().padStart(2, '0')
+                    }/${year}"
+                )
+        }
+
+        waitFor {
+            viewWithText(android.R.string.ok).click()
+        }
+
+        if (waitForClose) {
+            waitFor {
+                not { view(com.google.android.material.R.id.mtrl_calendar_main_pane) }
+            }
+        }
     }
 }

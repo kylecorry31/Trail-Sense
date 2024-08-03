@@ -40,3 +40,7 @@ fun viewWithText(@StringRes text: Int, index: Int = 0): TestView {
 fun view(selector: BySelector, index: Int = 0): TestView {
     return TestView(requireNotNull(device.findObjects(selector).getOrNull(index)))
 }
+
+fun TestView.childWithIndex(index: Int = 0): TestView {
+    return TestView(uiObject.children[index])
+}
