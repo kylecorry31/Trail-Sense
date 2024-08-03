@@ -258,7 +258,7 @@ class CustomGPS(
         // Verify satellite requirement for notification
         // If satellite count is null, then the phone doesn't support satellite count
         val satelliteCount = baseGPS.satellites
-        val hasFix = satelliteCount == null || (userPrefs.requiresSatellites && satelliteCount >= 4)
+        val hasFix = satelliteCount == null || !userPrefs.requiresSatellites || satelliteCount >= 4
         if (!hasFix) {
             shouldNotify = false
         } else {
