@@ -1207,4 +1207,5 @@
     <string name="sunset">Západ slunce</string>
     <string name="pref_sunrise_alert_time_title">Čas upozornění na východ</string>
     <string name="sunrise">Východ slunce</string>
+    <string name="pref_flashlight_control_screen_with_volume_title">Ovládat jas obrazovkové svítilny tlačítky hlasitosti</string>
 </resources>
