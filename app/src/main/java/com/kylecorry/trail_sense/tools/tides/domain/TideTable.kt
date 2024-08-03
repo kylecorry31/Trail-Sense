@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.tides.domain
 
+import com.kylecorry.sol.science.oceanography.TidalHarmonic
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideConstituent
 import com.kylecorry.sol.units.Coordinate
@@ -13,7 +14,8 @@ data class TideTable(
     val location: Coordinate? = null,
     val isSemidiurnal: Boolean = true,
     val isVisible: Boolean = true,
-    val estimator: TideEstimator = TideEstimator.Clock
+    val estimator: TideEstimator = TideEstimator.Clock,
+    val harmonics: List<TidalHarmonic> = listOf()
 ) : Identifiable {
 
     val principalFrequency: Float

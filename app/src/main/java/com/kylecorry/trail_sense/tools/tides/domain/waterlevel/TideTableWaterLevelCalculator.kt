@@ -178,8 +178,6 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
             lowTides.map { it.time },
             table.location ?: Coordinate.zero
         )
-        // TODO: The LunitidalWaterLevelCalculator is messed up on Newport, RI on 8/3 (has a random dip)
-        // TODO: Allow the amplitidue to be set
         return LunitidalWaterLevelCalculator(
             highInterval,
             table.location ?: Coordinate.zero,
@@ -192,58 +190,12 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
         if (table.estimator != TideEstimator.Harmonic) {
             return null
         }
-        // TODO: Check for the presence of constituents and use them
 
-        // TODO: This would be loaded from the DB (this is for Newport, RI)
-        val constituents = listOf(
-            Triple(1, 0.505f, 2.3f),
-            Triple(2, 0.108f, 25.0f),
-            Triple(3, 0.124f, 345.8f),
-            Triple(4, 0.062f, 166.1f),
-            Triple(5, 0.057f, 35.8f),
-            Triple(6, 0.047f, 202.0f),
-            Triple(7, 0.005f, 220.1f),
-            Triple(8, 0.008f, 19.5f),
-            Triple(9, 0.007f, 5.1f),
-            Triple(10, 0.026f, 347.9f),
-            Triple(11, 0.021f, 341.0f),
-            Triple(12, 0.001f, 222.9f),
-            Triple(13, 0.025f, 344.5f),
-            Triple(14, 0.018f, 333.0f),
-            Triple(15, 0.004f, 195.7f),
-            Triple(16, 0.002f, 345.5f),
-            Triple(17, 0.007f, 121.9f),
-            Triple(18, 0.004f, 204.0f),
-            Triple(19, 0.005f, 181.1f),
-            Triple(20, 0.017f, 73.9f),
-            Triple(21, 0.016f, 75.1f),
-            Triple(22, 0.061f, 145.3f),
-            Triple(23, 0.0f, 0.0f),
-            Triple(24, 0.0f, 0.0f),
-            Triple(25, 0.003f, 230.9f),
-            Triple(26, 0.013f, 185.3f),
-            Triple(27, 0.009f, 9.0f),
-            Triple(28, 0.001f, 252.2f),
-            Triple(29, 0.002f, 172.9f),
-            Triple(30, 0.022f, 176.6f),
-            Triple(31, 0.002f, 48.8f),
-            Triple(32, 0.006f, 34.1f),
-            Triple(33, 0.011f, 349.9f),
-            Triple(34, 0.01f, 357.1f),
-            Triple(35, 0.03f, 21.7f),
-            Triple(36, 0.001f, 330.4f),
-            Triple(37, 0.014f, 106.4f)
-        ).mapNotNull {
-            val (order, amplitude, phase) = it
-            val constituent = TideConstituent.entries.firstOrNull { it.id == order.toLong() }
-            if (constituent == null) {
-                null
-            } else {
-                TidalHarmonic(constituent, amplitude, phase)
-            }
+        if (table.harmonics.isEmpty()) {
+            return null
         }
 
-        return HarmonicWaterLevelCalculator(constituents)
+        return HarmonicWaterLevelCalculator(table.harmonics)
     }
 
     private fun getClockCalculator(tide: Tide): IWaterLevelCalculator {

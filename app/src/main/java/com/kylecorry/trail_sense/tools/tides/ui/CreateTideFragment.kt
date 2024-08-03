@@ -95,7 +95,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
             listOfNotNull(
                 getString(R.string.tide_clock),
                 getString(R.string.lunitidal_interval),
-                if (isDebug()) getString(R.string.harmonic) + " (!! only for Newport, RI !!)" else null
+                if (isDebug()) getString(R.string.harmonic) + " (!! NEED TO MANUALLY INSERT INTO DB !!)" else null
             )
         )
         binding.estimateAlgorithmSpinner.setSelection(0)

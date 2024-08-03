@@ -47,4 +47,21 @@ interface TideTableDao {
 
     @Query("DELETE FROM tide_table_rows WHERE table_id = :tableId")
     suspend fun deleteRowsForTable(tableId: Long)
+
+    // Tide constituents
+
+    @Query("SELECT * FROM tide_constituents WHERE table_id = :tableId")
+    suspend fun getTideConstituents(tableId: Long): List<TideConstituentEntry>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(constituent: TideConstituentEntry): Long
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun bulkInsertConstituents(constituents: List<TideConstituentEntry>)
+
+    @Delete
+    suspend fun delete(constituent: TideConstituentEntry)
+
+    @Query("DELETE FROM tide_constituents WHERE table_id = :tableId")
+    suspend fun deleteConstituentsForTable(tableId: Long)
 }

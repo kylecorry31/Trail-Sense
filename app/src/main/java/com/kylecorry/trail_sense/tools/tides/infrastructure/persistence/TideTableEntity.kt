@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.tides.infrastructure.persistence
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.kylecorry.sol.science.oceanography.TidalHarmonic
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.data.Identifiable
@@ -21,7 +22,7 @@ data class TideTableEntity(
     @ColumnInfo(name = "estimateType") val estimateType: Long
 ) : Identifiable {
 
-    fun toTable(tides: List<Tide>): TideTable {
+    fun toTable(tides: List<Tide>, harmonics: List<TidalHarmonic> = emptyList()): TideTable {
         val coordinate = if (latitude != null && longitude != null) {
             Coordinate(latitude, longitude)
         } else {
@@ -34,7 +35,8 @@ data class TideTableEntity(
             coordinate,
             isSemidiurnal,
             isVisible,
-            TideEstimator.entries.withId(estimateType) ?: TideEstimator.Clock
+            TideEstimator.entries.withId(estimateType) ?: TideEstimator.Clock,
+            harmonics
         )
     }
 

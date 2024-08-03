@@ -1,27 +1,30 @@
 package com.kylecorry.trail_sense.tools.tides.infrastructure.persistence
 
 import android.content.Context
+import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 
 class TideTableRepo private constructor(private val dao: TideTableDao) : ITideTableRepo {
 
-    override suspend fun getTideTables(): List<TideTable> {
+    override suspend fun getTideTables(): List<TideTable> = onIO {
         val tableEntities = dao.getTideTables()
         val tables = mutableListOf<TideTable>()
 
         for (entity in tableEntities) {
             val rows = dao.getTideTableRows(entity.id).map { it.toTide() }.sortedBy { it.time }
-            tables.add(entity.toTable(rows))
+            val harmonics = dao.getTideConstituents(entity.id).map { it.toHarmonic() }
+            tables.add(entity.toTable(rows, harmonics))
         }
 
-        return tables
+        tables
     }
 
     override suspend fun getTideTable(id: Long): TideTable? {
         val rows = dao.getTideTableRows(id).map { it.toTide() }.sortedBy { it.time }
-        return dao.getTideTable(id)?.toTable(rows)
+        val harmonics = dao.getTideConstituents(id).map { it.toHarmonic() }
+        return dao.getTideTable(id)?.toTable(rows, harmonics)
     }
 
     override suspend fun addTideTable(table: TideTable): Long {
