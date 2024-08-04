@@ -164,6 +164,7 @@ dependencies {
     implementation(libs.andromeda.print)
     implementation(libs.andromeda.list)
     implementation(libs.andromeda.views)
+    implementation(libs.andromeda.xml)
 
     // Hilt
     implementation(libs.hilt.android)

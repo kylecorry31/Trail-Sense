@@ -70,6 +70,7 @@ andromeda-gpx = { module = "com.github.kylecorry31.andromeda:gpx", version.ref =
 andromeda-camera = { module = "com.github.kylecorry31.andromeda:camera", version.ref = "andromedaVersion" }
 andromeda-background = { module = "com.github.kylecorry31.andromeda:background", version.ref = "andromedaVersion" }
 andromeda-csv = { module = "com.github.kylecorry31.andromeda:csv", version.ref = "andromedaVersion" }
+andromeda-xml = { module = "com.github.kylecorry31.andromeda:xml", version.ref = "andromedaVersion" }
 andromeda-forms = { module = "com.github.kylecorry31.andromeda:forms", version.ref = "andromedaVersion" }
 andromeda-fragments = { module = "com.github.kylecorry31.andromeda:fragments", version.ref = "andromedaVersion" }
 andromeda-torch = { module = "com.github.kylecorry31.andromeda:torch", version.ref = "andromedaVersion" }
