@@ -118,7 +118,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
 
     override fun onResume() {
         super.onResume()
-        binding.tideListDate.date = LocalDate.now()
+        displayDate = LocalDate.now()
         ShowTideDisclaimerCommand(this) {
             loadTideTable()
         }.execute()
@@ -132,6 +132,11 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
 
     override fun onUpdate() {
         super.onUpdate()
+
+        effect("displayDate", displayDate, lifecycleHookTrigger.onResume()) {
+            // This will only trigger a subsequent change event if it actually changes
+            binding.tideListDate.date = displayDate
+        }
 
         effect("update_daily", table, displayDate, lifecycleHookTrigger.onResume()) {
             inBackground {
