@@ -1,13 +1,12 @@
 package com.kylecorry.trail_sense.tools.tides
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.navigation.NavController
 import androidx.test.core.app.ActivityScenario
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
-import com.kylecorry.trail_sense.shared.CustomUiUtils.isDarkThemeOn
-import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.test_utils.TestUtils
+import com.kylecorry.trail_sense.test_utils.TestUtils.clickListItemMenu
+import com.kylecorry.trail_sense.test_utils.TestUtils.getString
 import com.kylecorry.trail_sense.test_utils.TestUtils.not
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.views.Side
@@ -15,7 +14,6 @@ import com.kylecorry.trail_sense.test_utils.views.click
 import com.kylecorry.trail_sense.test_utils.views.hasText
 import com.kylecorry.trail_sense.test_utils.views.input
 import com.kylecorry.trail_sense.test_utils.views.isChecked
-import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.test_utils.views.scrollToEnd
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.test_utils.views.view
@@ -23,7 +21,6 @@ import com.kylecorry.trail_sense.test_utils.views.viewWithText
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -72,6 +69,46 @@ class ToolTidesTest {
         canCreateTide()
         canViewTide()
         canOpenTideList()
+        canEditTide()
+    }
+
+    private fun canEditTide() {
+        clickListItemMenu(getString(R.string.edit), 0)
+
+        waitFor {
+            view(R.id.create_tide_title).hasText(R.string.tide_table)
+        }
+
+        // Verify the fields are set
+        view(R.id.tide_name).hasText { it.startsWith("Tide 1") }
+
+        // Select lunitidal interval
+        view(R.id.estimate_algorithm_spinner).click()
+        waitFor {
+            viewWithText(R.string.lunitidal_interval).click()
+            viewWithText(android.R.string.ok).click()
+        }
+
+        // Verify the fields are set
+        waitFor {
+            view(R.id.estimate_algorithm_spinner).hasText { it.contains(getString(R.string.lunitidal_interval)) }
+        }
+
+        // Save
+        toolbarButton(R.id.create_tide_title, Side.Right).click()
+
+        waitFor {
+            view(R.id.tide_list_title).hasText(R.string.tides)
+            view(com.kylecorry.andromeda.views.R.id.title).hasText("Tide 1")
+        }
+
+        // Open the tide
+        view(com.kylecorry.andromeda.views.R.id.title).click()
+
+        // Verify it is now using the lunitidal interval (just check times are shown)
+        waitFor {
+            view(R.id.tide_title).hasText(R.string.high_tide)
+        }
     }
 
     private fun canCreateTide() {

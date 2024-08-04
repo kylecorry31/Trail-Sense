@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.packs
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.TestUtils
+import com.kylecorry.trail_sense.test_utils.TestUtils.clickListItemMenu
 import com.kylecorry.trail_sense.test_utils.TestUtils.not
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.views.Side
@@ -357,13 +358,6 @@ class ToolPackingListTest {
         ).hasText("$amount / $desiredAmount")
         view(com.kylecorry.andromeda.views.R.id.data_2, index = index).hasText(weight)
         view(com.kylecorry.andromeda.views.R.id.checkbox, index = index).isChecked(isChecked)
-    }
-
-    private fun clickListItemMenu(label: String, index: Int = 0) {
-        view(com.kylecorry.andromeda.views.R.id.menu_btn, index = index).click()
-        waitFor {
-            viewWithText(label).click()
-        }
     }
 
     private fun clickToolbarMenuItem(label: String) {

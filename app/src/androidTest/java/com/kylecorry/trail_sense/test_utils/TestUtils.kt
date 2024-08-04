@@ -323,4 +323,11 @@ object TestUtils {
         }
         return false
     }
+
+    fun clickListItemMenu(label: String, index: Int = 0) {
+        view(com.kylecorry.andromeda.views.R.id.menu_btn, index = index).click()
+        waitFor {
+            viewWithText(label).click()
+        }
+    }
 }
