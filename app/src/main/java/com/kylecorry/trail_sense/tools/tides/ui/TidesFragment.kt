@@ -13,6 +13,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.sol.units.Distance
@@ -50,6 +51,9 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
     private val dailyTideCommand by lazy { DailyTideCommand(tideService) }
     private val loadTideCommand by lazy { LoadTideTableCommand(requireContext()) }
     private val triggers = HookTriggers()
+
+    private val currentTideRunner = CoroutineQueueRunner()
+    private val dailyTideRunner = CoroutineQueueRunner()
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -119,12 +123,20 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         }.execute()
     }
 
+    override fun onPause() {
+        super.onPause()
+        currentTideRunner.cancel()
+        dailyTideRunner.cancel()
+    }
+
     override fun onUpdate() {
         super.onUpdate()
 
         effect("update_daily", table, displayDate, lifecycleHookTrigger.onResume()) {
             inBackground {
-                daily = table?.let { dailyTideCommand.execute(it, displayDate) }
+                dailyTideRunner.replace {
+                    daily = table?.let { dailyTideCommand.execute(it, displayDate) }
+                }
             }
         }
 
@@ -136,7 +148,9 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
             triggers.frequency("tide_current", Duration.ofMinutes(1))
         ) {
             inBackground {
-                current = table?.let { currentTideCommand.execute(it) }
+                currentTideRunner.replace {
+                    current = table?.let { currentTideCommand.execute(it) }
+                }
             }
         }
 
