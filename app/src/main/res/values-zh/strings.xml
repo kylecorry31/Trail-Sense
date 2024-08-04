@@ -1173,4 +1173,8 @@
     <string name="sunset">日落</string>
     <string name="sunrise">日出</string>
     <string name="pref_flashlight_control_screen_with_volume_title">用音量键控制屏幕手电亮度</string>
+    <string name="estimate_method">估测方法</string>
+    <string name="tide_clock">潮汐钟</string>
+    <string name="lunitidal_interval">月潮间隔</string>
+    <string name="harmonic">和声</string>
 </resources>

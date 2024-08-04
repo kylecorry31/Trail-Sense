@@ -1210,4 +1210,8 @@
     <string name="reset_calibration_question">Redefinir a calibração?</string>
     <string name="smooth_gps_readings">Leituras de GPS suaves</string>
     <string name="pref_flashlight_control_screen_with_volume_title">Controlar o brilho da tela com botões de volume</string>
+    <string name="estimate_method">Método de estimativa</string>
+    <string name="lunitidal_interval">Intervalo lunar</string>
+    <string name="harmonic">Harmônica</string>
+    <string name="tide_clock">Relógio de marés</string>
 </resources>

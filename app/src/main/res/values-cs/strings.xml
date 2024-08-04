@@ -1208,4 +1208,8 @@
     <string name="pref_sunrise_alert_time_title">Čas upozornění na východ</string>
     <string name="sunrise">Východ slunce</string>
     <string name="pref_flashlight_control_screen_with_volume_title">Ovládat jas obrazovkové svítilny tlačítky hlasitosti</string>
+    <string name="estimate_method">Způsob odhadu</string>
+    <string name="tide_clock">Přílivové hodiny</string>
+    <string name="lunitidal_interval">Lunitidální interval</string>
+    <string name="harmonic">Harmonické</string>
 </resources>
