@@ -2,8 +2,13 @@ package com.kylecorry.trail_sense.test_utils
 
 import android.Manifest
 import android.content.Context
+import android.hardware.camera2.CameraCharacteristics
+import android.hardware.camera2.CameraManager
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import androidx.annotation.StringRes
+import androidx.core.content.getSystemService
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.GrantPermissionRule
@@ -38,6 +43,19 @@ import org.junit.rules.TestRule
 import java.time.Duration
 
 object TestUtils {
+
+    var inUseCameraIds: List<String> = emptyList()
+        private set
+
+    private var cameraAvailabilityCallback = object : CameraManager.AvailabilityCallback() {
+        override fun onCameraAvailable(cameraId: String) {
+            inUseCameraIds = inUseCameraIds.filter { it != cameraId }
+        }
+
+        override fun onCameraUnavailable(cameraId: String) {
+            inUseCameraIds = inUseCameraIds + cameraId
+        }
+    }
 
     val context: Context
         get() = InstrumentationRegistry.getInstrumentation().targetContext
@@ -75,6 +93,19 @@ object TestUtils {
 
     fun setWaitForIdleTimeout(timeout: Long) {
         Configurator.getInstance().setWaitForIdleTimeout(timeout)
+    }
+
+    fun listenForCameraUsage() {
+        val manager = context.getSystemService<CameraManager>()
+        manager?.registerAvailabilityCallback(
+            cameraAvailabilityCallback,
+            Handler(Looper.getMainLooper())
+        )
+    }
+
+    fun stopListeningForCameraUsage() {
+        val manager = context.getSystemService<CameraManager>()
+        manager?.unregisterAvailabilityCallback(cameraAvailabilityCallback)
     }
 
     fun not(action: () -> Unit) {
@@ -276,5 +307,20 @@ object TestUtils {
                 not { view(com.google.android.material.R.id.mtrl_calendar_main_pane) }
             }
         }
+    }
+
+    fun isCameraInUse(isBackFacing: Boolean? = null): Boolean {
+        val manager = context.getSystemService<CameraManager>() ?: return false
+        for (cameraId in inUseCameraIds) {
+            val characteristics = manager.getCameraCharacteristics(cameraId)
+            val facing = characteristics.get(CameraCharacteristics.LENS_FACING)
+            if (facing == CameraCharacteristics.LENS_FACING_FRONT && (isBackFacing == null || !isBackFacing)) {
+                return true
+            }
+            if (facing == CameraCharacteristics.LENS_FACING_BACK && (isBackFacing == null || isBackFacing)) {
+                return true
+            }
+        }
+        return false
     }
 }
