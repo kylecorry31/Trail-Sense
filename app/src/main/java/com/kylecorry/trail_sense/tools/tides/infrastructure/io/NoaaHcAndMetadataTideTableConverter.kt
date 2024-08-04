@@ -8,16 +8,18 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import com.kylecorry.trail_sense.tools.tides.domain.waterlevel.TideEstimator
+import java.io.InputStream
 
 /**
  * A converter for NOAA HC and metadata tide tables (https://opendap.co-ops.nos.noaa.gov/axis/webservices/harmonicconstituents/index.jsp)
  */
-class NoaaHcAndMetadataTideTableConverter {
+class NoaaHcAndMetadataTideTableConverter: TideTableParser {
 
-    fun parse(xml: String): TideTable? {
+    override fun parse(stream: InputStream): TideTable? {
         return tryOrDefault(null) {
             val converted =
-                XMLConvert.parse(xml).children.getOrNull(0)?.children?.getOrNull(0) ?: return null
+                XMLConvert.parse(stream, false).children.getOrNull(0)?.children?.getOrNull(0)
+                    ?: return null
 
             val stationName =
                 converted.children.find { it.tag == "stationName" }?.text

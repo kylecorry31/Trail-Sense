@@ -13,7 +13,7 @@ class NoaaHcAndMetadataTideTableConverterTest {
     @Test
     fun parse() {
         val converter = NoaaHcAndMetadataTideTableConverter()
-        assertNull(converter.parse(""))
+        assertNull(converter.parse("".byteInputStream()))
 
         val xml =
             """<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -47,7 +47,7 @@ class NoaaHcAndMetadataTideTableConverterTest {
 </soapenv:Body>
 </soapenv:Envelope>"""
 
-        val table = converter.parse(xml)
+        val table = converter.parse(xml.byteInputStream())
         val expected = TideTable(
             0,
             emptyList(),
