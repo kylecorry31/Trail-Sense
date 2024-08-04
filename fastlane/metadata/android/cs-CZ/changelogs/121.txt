@@ -1,0 +1,15 @@
+Seznam věcí k zabalení
+- Import a export seznamů
+
+Píšťalka
+- Zlepšení zvuku píšťalky
+
+Nástroje
+- Zobrazení rychlých akcí pro aktuální nástroj při dlouhém stisknutí spodní lišty
+
+Uživatelská příručka
+- Přidána rychlá akce pro zobrazení průvodce pro aktuální nástroj
+
+Nastavení
+- Přidána rychlá akce pro zobrazení nastavení aktuálního nástroje
+- Kalibrace barometru
