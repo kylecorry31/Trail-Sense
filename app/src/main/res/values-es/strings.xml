@@ -1198,4 +1198,8 @@
     <string name="forecast_algorithm">Algoritmo del pronóstico</string>
     <string name="turn_back_alert_set">Volver a la alerta establecida</string>
     <string name="quick_actions_are_unavailable">Las acciones rápidas no están disponibles</string>
+    <string name="estimate_method">Estimación</string>
+    <string name="tide_clock">Reloj de las mareas</string>
+    <string name="lunitidal_interval">Intervalo lunar</string>
+    <string name="harmonic">Armónico</string>
 </resources>
