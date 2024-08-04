@@ -5,6 +5,7 @@ import com.kylecorry.sol.math.Range
 import com.kylecorry.trail_sense.shared.extensions.range
 import com.kylecorry.trail_sense.tools.tides.domain.ITideService
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
+import com.kylecorry.trail_sense.tools.tides.domain.waterlevel.TideEstimator
 import com.kylecorry.trail_sense.tools.tides.ui.DailyTideData
 import java.time.LocalDate
 import kotlin.math.max
@@ -19,10 +20,14 @@ class DailyTideCommand(private val tideService: ITideService) {
 
         val actualRange = levels.map { it.value }.range()
 
-        val finalRange = Range(
-            min(actualRange?.start ?: range.start, range.start),
-            max(actualRange?.end ?: range.end, range.end)
-        )
+        val finalRange = if (table.estimator == TideEstimator.Harmonic && table.tides.isEmpty()) {
+            actualRange ?: range
+        } else {
+            Range(
+                min(actualRange?.start ?: range.start, range.start),
+                max(actualRange?.end ?: range.end, range.end)
+            )
+        }
 
         DailyTideData(levels, tides, finalRange)
     }

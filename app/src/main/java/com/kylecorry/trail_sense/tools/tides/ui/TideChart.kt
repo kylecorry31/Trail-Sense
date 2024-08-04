@@ -79,8 +79,10 @@ class TideChart(private val chart: Chart) {
     }
 
     private fun convert(readings: List<Reading<Float>>, range: Range<Float>): List<Vector2> {
+        val totalRange = range.end - range.start
+        val rangeDelta = (totalRange * 0.25f).coerceAtLeast(0.2f)
         return Chart.getDataFromReadings(readings, startTime) {
-            norm(it, range.start - 0.5f, range.end + 0.5f)
+            norm(it, range.start - rangeDelta, range.end + rangeDelta)
         }
     }
 }
