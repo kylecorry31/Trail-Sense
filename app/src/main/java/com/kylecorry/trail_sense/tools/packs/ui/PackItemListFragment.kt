@@ -12,6 +12,7 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentItemListBinding
 import com.kylecorry.trail_sense.shared.FormatService
@@ -41,7 +42,7 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
 
     private val listMapper by lazy { PackItemListItemMapper(requireContext(), this::handleAction) }
 
-    private var pack: Pack? = null
+    private var pack: Pack? by state(null)
     private var packId: Long = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,19 +54,13 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
         super.onViewCreated(view, savedInstanceState)
         setupUI()
         inBackground {
-            withContext(Dispatchers.IO) {
-                loadPack(packId)
-            }
+            loadPack(packId)
         }
     }
 
     private suspend fun loadPack(packId: Long) {
-        withContext(Dispatchers.IO) {
+        onIO {
             pack = itemRepo.getPack(packId)
-        }
-        withContext(Dispatchers.Main) {
-            binding.inventoryListTitle.title.text = pack?.name
-
         }
     }
 
@@ -134,12 +129,8 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
         ) {
             if (it != null) {
                 inBackground {
-                    withContext(Dispatchers.IO) {
-                        itemRepo.addPack(pack.copy(name = it))
-                    }
-                    withContext(Dispatchers.Main) {
-                        binding.inventoryListTitle.title.text = it
-                    }
+                    itemRepo.addPack(pack.copy(name = it))
+                    this@PackItemListFragment.pack = pack.copy(name = it)
                 }
             }
         }
@@ -295,6 +286,11 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
 
     override fun onUpdate() {
         super.onUpdate()
+
+        effect("pack name", pack?.name, lifecycleHookTrigger.onResume()) {
+            binding.inventoryListTitle.title.text = pack?.name
+        }
+
         effect("items", items, lifecycleHookTrigger.onResume()) {
             val totalWeight = packService.getPackWeight(items, prefs.weightUnits)
             val packedPercent = floor(packService.getPercentPacked(items))

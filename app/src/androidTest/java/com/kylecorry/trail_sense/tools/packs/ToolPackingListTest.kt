@@ -265,8 +265,7 @@ class ToolPackingListTest {
         waitFor {
             // TODO: Figure out how to click save
 //            viewWithText("SAVE").click()
-            // TODO: Once the rename bug is fixed, this will need to be updated to use test pack 2
-            viewWithText("test-pack-1.csv")
+            viewWithText("test-pack-2.csv")
         }
         waitFor {
             waitFor {
