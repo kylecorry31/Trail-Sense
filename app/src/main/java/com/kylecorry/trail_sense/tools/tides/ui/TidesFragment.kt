@@ -100,6 +100,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         inBackground {
             table = loadTideCommand.execute()
             onMain {
+                if (!isBound) return@onMain
                 binding.loading.isVisible = false
                 if (table == null) {
                     val cancelled = CoroutineAlerts.dialog(
