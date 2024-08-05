@@ -35,7 +35,7 @@ Používejte na vlastní nebezpečí, vždy mějte u sebe záložní nástroje (
 
 <h3>OPRÁVNĚNÍ</h3>
 <ul>
-    <li>Oznámení: umožňuje aplikaci zobrazovat oznámení (zpětné navádění, počasí, upozornění na západ slunce, astronomické události, časovač varu vody atd.)</li>
+    <li>Oznámení: umožňuje aplikaci zobrazovat oznámení (zpětné navádění, počasí, upozornění na východ a západ slunce, astronomické události, časovač varu vody atd.)</li>
     <li>Poloha: umožňuje aplikaci získávat vaši polohu pro navigaci, počasí (kalibrace nadmořské výšky) a astronomii.</li>
     <li>Poloha na pozadí: umožňuje aplikaci získávat vaši polohu pro upozornění na západ slunce, když běží na pozadí.
     Na některých zařízeních může tato funkce také vylepšit spolehlivost zpětného sledování a sledování počasí.</li>
