@@ -1187,4 +1187,8 @@
     <string name="sunrise_alert_channel_title">Zonsopkomstwekker</string>
     <string name="sunset">Zonsondergang</string>
     <string name="pref_flashlight_control_screen_with_volume_title">Helderheid van schermzaklamp met de volumeknoppen regelen</string>
+    <string name="estimate_method">Schattingsmethode</string>
+    <string name="tide_clock">Getijdenklok</string>
+    <string name="lunitidal_interval">Maangetijdeninterval</string>
+    <string name="harmonic">Harmonisch</string>
 </resources>
