@@ -26,13 +26,15 @@ class FragmentToolNotes : BoundFragment<FragmentToolNotesBinding>() {
     private lateinit var notesLiveData: LiveData<List<Note>>
     private val listMapper by lazy { NoteListItemMapper(requireContext(), this::handleAction) }
 
+    private var notes by state(emptyList<Note>())
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.noteList.emptyView = binding.notesEmptyText
         notesLiveData = notesRepo.getNotes()
         observe(notesLiveData) { items ->
-            binding.noteList.setItems(items.sortedByDescending { it.createdOn }, listMapper)
+            notes = items
         }
 
         binding.addBtn.setOnClickListener {
@@ -82,6 +84,13 @@ class FragmentToolNotes : BoundFragment<FragmentToolNotesBinding>() {
             R.id.action_fragmentToolNotes_to_fragmentToolNotesCreate,
             bundle
         )
+    }
+
+    override fun onUpdate() {
+        super.onUpdate()
+        effect("notes", notes, lifecycleHookTrigger.onResume()){
+            binding.noteList.setItems(notes.sortedByDescending { it.createdOn }, listMapper)
+        }
     }
 
     override fun generateBinding(
