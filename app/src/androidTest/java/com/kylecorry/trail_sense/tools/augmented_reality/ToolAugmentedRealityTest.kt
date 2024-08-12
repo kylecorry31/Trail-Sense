@@ -76,7 +76,9 @@ class ToolAugmentedRealityTest {
     }
 
     private fun canTurnOffCamera() {
-        view(R.id.camera_toggle).click()
+        waitFor {
+            view(R.id.camera_toggle).click()
+        }
 
         waitFor {
             assertFalse(isCameraInUse(isBackFacing = true))
