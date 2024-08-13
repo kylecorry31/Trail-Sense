@@ -220,6 +220,8 @@ object TestUtils {
         prefs.putBoolean(context.getString(R.string.pref_main_disclaimer_shown_key), true)
         prefs.putBoolean(context.getString(R.string.pref_require_satellites), false)
         prefs.putBoolean(context.getString(R.string.pref_cliff_height_enabled), true)
+        prefs.putString(context.getString(R.string.pref_altimeter_calibration_mode), "gps")
+        prefs.putInt(context.getString(R.string.pref_altimeter_accuracy), 1)
 
         val userPrefs = UserPreferences(context)
         // The settings tool is the fastest to get to idle, which allows the tests to run faster
