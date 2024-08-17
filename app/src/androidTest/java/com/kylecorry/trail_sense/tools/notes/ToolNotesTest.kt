@@ -92,7 +92,7 @@ class ToolNotesTest {
         waitFor {
             view(R.id.qr_title).hasText("Test note")
         }
-        back()
+        back(false)
     }
 
     private fun canCreateNote() {

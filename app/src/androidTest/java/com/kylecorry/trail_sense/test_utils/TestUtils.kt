@@ -83,8 +83,12 @@ object TestUtils {
         return audioManager.isMusicActive
     }
 
-    fun back() {
-        assertTrue(device.pressBack())
+    fun back(requireSuccess: Boolean = true) {
+        if (requireSuccess) {
+            assertTrue(device.pressBack())
+        } else {
+            device.pressBack()
+        }
     }
 
     fun getString(@StringRes id: Int, vararg args: Any): String {

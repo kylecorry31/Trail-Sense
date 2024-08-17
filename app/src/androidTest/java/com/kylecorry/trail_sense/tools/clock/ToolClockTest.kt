@@ -18,6 +18,7 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import java.util.regex.Pattern
 
 @HiltAndroidTest
 class ToolClockTest {
@@ -72,7 +73,7 @@ class ToolClockTest {
         // Verify the system time settings are opened
         // Check if the settings app is opened
         waitFor {
-            viewWithText("Date & time")
+            viewWithText(Pattern.compile("Date & time|Date and time"))
         }
     }
 }
