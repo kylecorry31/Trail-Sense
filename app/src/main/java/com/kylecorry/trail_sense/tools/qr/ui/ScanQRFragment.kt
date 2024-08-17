@@ -78,7 +78,7 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
                     else -> ScanType.Text
                 }
 
-                itemBinding.text.text = text.ifEmpty { null }
+                itemBinding.qrText.text = text.ifEmpty { null }
                 itemBinding.qrWeb.isVisible = type == ScanType.Url
                 itemBinding.qrLocation.isVisible = type == ScanType.Geo
                 itemBinding.qrBeacon.isVisible = type == ScanType.Geo
