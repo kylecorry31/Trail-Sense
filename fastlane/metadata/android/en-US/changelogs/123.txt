@@ -1,0 +1,14 @@
+Astronomy
+- Sunrise alerts
+
+Tides
+- Add lunitidal interval estimation method
+
+Paths
+- Change default backtrack interval to 15 minutes
+
+Flashlight
+- Control screen flashlight brightness with volume buttons (enable in Settings)
+
+Misc
+- Bug fixes and performance improvements
