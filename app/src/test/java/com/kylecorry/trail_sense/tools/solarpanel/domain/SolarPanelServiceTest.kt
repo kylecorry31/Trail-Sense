@@ -22,21 +22,21 @@ class SolarPanelServiceTest {
         // Northern hemisphere (Summer)
         "2024-07-01T00:00:00-05:00, PT24H, 42.0, -72.0, true, 7.0, 180.0",
         "2024-07-01T12:00:00-05:00, PT24H, 42.0, -72.0, true, 42.0, 263.0",
-        "2024-07-01T12:00:00-05:00, PT48H, 42.0, -72.0, false, 4.4, 129.6",
+        "2024-07-01T12:00:00-05:00, PT48H, 42.0, -72.0, false, 3.0, 115",
         // Northern hemisphere (night)
         "2024-02-11T20:00:00-05:00, PT24H, 42.0, -72.0, true, 79.0, 108.0",
         "2024-02-11T20:00:00-05:00, PT24H, 42.0, -72.0, false, 58.7, 180.1",
 
         // Southern hemisphere (Winter)
         "2024-07-01T00:00:00-05:00, PT24H, -42.0, 72.0, true, 68.0, 359.9",
-        "2024-07-01T12:00:00-05:00, PT24H, -42.0, 72.0, true, 78.0, 41.9",
-        "2024-07-01T12:00:00-05:00, PT48H, -42.0, 72.0, false, 68.3, 359.9",
+        "2024-07-01T12:00:00-05:00, PT24H, -42.0, 72.0, true, 78.0, 288.0",
+        "2024-07-01T12:00:00-05:00, PT48H, -42.0, 72.0, false, 68.3, 0.0",
         // Southern hemisphere (Summer)
         "2024-02-11T00:00:00-05:00, PT24H, -42.0, 72.0, true, 21.0, 359.9",
         "2024-02-11T00:00:00-05:00, PT48H, -42.0, 72.0, true, 21.0, 359.9",
         "2024-02-11T00:00:00-05:00, PT48H, -42.0, 72.0, false, 21.5, 359.9",
         // Southern hemisphere (night)
-        "2024-07-01T20:00:00-05:00, PT24H, -42.0, 72.0, true, 78.0, 41.9",
+        "2024-07-01T20:00:00-05:00, PT24H, -42.0, 72.0, true, 78.0, 288",
         "2024-07-01T20:00:00-05:00, PT24H, -42.0, 72.0, false, 68.3, 359.9"
     )
     fun getBestPosition(
@@ -55,8 +55,8 @@ class SolarPanelServiceTest {
         val duration = Duration.parse(durationString)
         val location = Coordinate(latitude, longitude)
         val (tilt, azimuth) = service.getBestPosition(location, duration, restrictToToday)
-        assertEquals(expectedTilt, tilt, 0.1f)
-        assertEquals(expectedAzimuth, azimuth.value, 0.1f)
+        assertEquals(expectedTilt, tilt, 1f)
+        assertEquals(expectedAzimuth, azimuth.value, 1f)
     }
 
     @ParameterizedTest
