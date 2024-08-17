@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
             app:layout_constraintBottom_toBottomOf="@+id/desired_azimuth"
-            app:layout_constraintStart_toStartOf="@+id/textView14"
+            app:layout_constraintStart_toStartOf="@+id/azimuth_label"
             app:layout_constraintTop_toTopOf="@+id/desired_azimuth"
             tools:text="10" />
 
@@ -99,7 +99,7 @@
             android:layout_marginTop="8dp"
             android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
             app:layout_constraintEnd_toEndOf="@+id/azimuth_complete"
-            app:layout_constraintTop_toBottomOf="@+id/textView14"
+            app:layout_constraintTop_toBottomOf="@+id/azimuth_label"
             tools:text="14" />
 
         <TextView
@@ -108,7 +108,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
             app:layout_constraintBottom_toBottomOf="@+id/desired_altitude"
-            app:layout_constraintStart_toStartOf="@+id/textView15"
+            app:layout_constraintStart_toStartOf="@+id/tilt_label"
             app:layout_constraintTop_toTopOf="@+id/desired_altitude"
             tools:text="12" />
 
@@ -119,11 +119,11 @@
             android:layout_marginTop="8dp"
             android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
             app:layout_constraintEnd_toEndOf="@+id/altitude_complete"
-            app:layout_constraintTop_toBottomOf="@+id/textView15"
+            app:layout_constraintTop_toBottomOf="@+id/tilt_label"
             tools:text="13" />
 
         <TextView
-            android:id="@+id/textView14"
+            android:id="@+id/azimuth_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="64dp"
@@ -133,7 +133,7 @@
             app:layout_constraintTop_toBottomOf="@+id/desired_altitude" />
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/tilt_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tilt"
@@ -147,9 +147,9 @@
             android:layout_height="24dp"
             android:layout_marginStart="24dp"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/textView14"
-            app:layout_constraintStart_toEndOf="@+id/textView14"
-            app:layout_constraintTop_toTopOf="@+id/textView14"
+            app:layout_constraintBottom_toBottomOf="@+id/azimuth_label"
+            app:layout_constraintStart_toEndOf="@+id/azimuth_label"
+            app:layout_constraintTop_toTopOf="@+id/azimuth_label"
             app:srcCompat="@drawable/ic_check"
             app:tint="@color/positive"
             tools:visibility="visible" />
@@ -160,9 +160,9 @@
             android:layout_height="24dp"
             android:layout_marginStart="24dp"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/textView15"
-            app:layout_constraintStart_toEndOf="@+id/textView15"
-            app:layout_constraintTop_toTopOf="@+id/textView15"
+            app:layout_constraintBottom_toBottomOf="@+id/tilt_label"
+            app:layout_constraintStart_toEndOf="@+id/tilt_label"
+            app:layout_constraintTop_toTopOf="@+id/tilt_label"
             app:srcCompat="@drawable/ic_check"
             app:tint="@color/positive"
             tools:visibility="visible" />

@@ -79,7 +79,7 @@ class SolarPanelService(
         ) { hours ->
             val t = start.plus(Time.hours(hours))
             Astronomy.getSolarRadiation(t, location, tilt, bearing, withRefraction = true)
-        }
+        }.coerceAtLeast(0.0)
     }
 
     private fun getBestPosition(
