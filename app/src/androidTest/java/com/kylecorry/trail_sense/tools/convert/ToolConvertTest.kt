@@ -200,7 +200,7 @@ class ToolConvertTest {
         // Swap
         view(R.id.swap_btn).click()
         waitFor {
-            view(R.id.result).hasText("60 m")
+            view(R.id.result).hasText("3600 m")
         }
     }
 
