@@ -40,13 +40,15 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
     private val files by lazy { FileSubsystem.getInstance(requireContext()) }
 
+    private var clouds by state(emptyList<Reading<CloudObservation>>())
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         observe(repo.getAllLive()) {
             val since = Instant.now().minus(Duration.ofHours(48))
-            binding.cloudList.setItems(it.sortedByDescending { cloud -> cloud.time }
-                .filter { cloud -> cloud.time >= since }, mapper)
+            clouds = it.sortedByDescending { cloud -> cloud.time }
+                .filter { cloud -> cloud.time >= since }
         }
 
         binding.cloudListTitle.rightButton.setOnClickListener {
@@ -149,6 +151,13 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
             if (!cancelled) {
                 repo.delete(reading)
             }
+        }
+    }
+
+    override fun onUpdate() {
+        super.onUpdate()
+        effect("clouds", clouds, lifecycleHookTrigger.onResume()) {
+            binding.cloudList.setItems(clouds, mapper)
         }
     }
 
