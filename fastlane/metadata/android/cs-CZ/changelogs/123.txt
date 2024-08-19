@@ -1,0 +1,14 @@
+Astronomie
+- Upozornění na východ slunce
+
+Přílivy a odlivy
+- Přidána metoda odhadu měsíčního intervalu
+
+Trasy
+- Změna výchozího intervalu zpětného trasování na 15 minut
+
+Svítilna
+- Ovládání jasu svítilny na obrazovce pomocí tlačítek hlasitosti (povolit v nastavení)
+
+Různé
+- Opravy chyb a vylepšení výkonu
