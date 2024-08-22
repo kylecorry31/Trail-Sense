@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.main.errors
 import android.content.Context
 import com.kylecorry.andromeda.exceptions.IBugReportGenerator
 import com.kylecorry.andromeda.fragments.AndromedaActivity
+import com.kylecorry.trail_sense.main.MainActivity
 
 class FragmentDetailsBugReportGenerator : IBugReportGenerator {
     override fun generate(context: Context, throwable: Throwable): String {
@@ -11,6 +12,6 @@ class FragmentDetailsBugReportGenerator : IBugReportGenerator {
         } else {
             null
         }
-        return "Fragment: ${fragment?.javaClass?.simpleName ?: "Unknown"}"
+        return "Fragment: ${fragment?.javaClass?.simpleName ?: MainActivity.lastKnownFragment ?: "Unknown"}"
     }
 }

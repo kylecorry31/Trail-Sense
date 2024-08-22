@@ -182,6 +182,8 @@ class MainActivity : AndromedaActivity() {
         }
 
         binding.bottomNavigation.menu.findItem(idToSelect)?.isChecked = true
+
+        lastKnownFragment = getFragment()?.javaClass?.simpleName
     }
 
     fun changeBottomNavLabelsVisibility(useCompactMode: Boolean) {
@@ -479,6 +481,9 @@ class MainActivity : AndromedaActivity() {
     }
 
     companion object {
+
+        var lastKnownFragment: String? = null
+
         fun intent(context: Context): Intent {
             return Intent(context, MainActivity::class.java)
         }
