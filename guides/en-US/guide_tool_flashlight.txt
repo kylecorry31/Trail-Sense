@@ -18,6 +18,8 @@ You can use your screen as a flashlight, which may be better for close-up work. 
 
 Press back or tap the 'Turn off' button to turn off the screen flashlight. Your settings will be saved for next time.
 
+You can choose to control the brightness of the screen flashlight by enabling 'Settings > Flashlight > Control screen flashlight brightness with volume buttons'.
+
 ## Automatically turn off
 You can set the flashlight to automatically turn off after a certain amount of time by enabling 'Settings > Flashlight > Automatically turn off' and selecting the desired time. This can be useful to save battery if you forget to turn off the flashlight.
 

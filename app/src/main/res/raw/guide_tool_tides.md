@@ -13,7 +13,8 @@ Before venturing into coastal areas, consult an official tide table for accurate
 8. Optionally, click the '-' in the 'Height' column to input the tide's height.
 9. To add another tide, tap the '+' button in the top-left corner of the table.
 10. You can delete a tide by clicking the 'X' icon to the right of the tide.
-11. Save the tide table by clicking the checkmark in the top-right corner.
+11. The tide estimation method can be changed by clicking the 'Estimation method' dropdown. Tide clock is the default and assumes a fixed tidal cycle. Lunitidal interval uses the moon's position to estimate tides, and may be more accurate in some locations.
+12. Save the tide table by clicking the checkmark in the top-right corner.
 
 For the best accuracy, input all tides for each relevant day. Trail Sense will distinguish between entered and estimated tides on the tide chart.
 
