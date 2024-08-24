@@ -28,3 +28,5 @@ release-builds-helper.sh
 .idea/deploymentTargetSelector.xml
 .kotlin/
 .idea/other.xml
+
+scripts/survival_guide/output/
