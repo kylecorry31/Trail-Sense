@@ -61,7 +61,7 @@ object Guides {
 
         val survival = listOf(
             UserGuideCategory(
-                context.getString(R.string.survival_manual),
+                context.getString(R.string.survival_guide),
                 listOf(
                     UserGuide(
                         "Chapter 1: Overview",
