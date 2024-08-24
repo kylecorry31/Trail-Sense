@@ -55,22 +55,25 @@ object UserGuideUtils {
     fun getGuideView(context: Context, text: String): View {
         val markdown = MarkdownService(context)
         val sections = TextUtils.groupSections(TextUtils.getSections(text), null)
-        val children = sections.mapNotNull {
-            val first = it.firstOrNull() ?: return@mapNotNull null
+        val children = sections.mapNotNull { section ->
+            val first = section.firstOrNull() ?: return@mapNotNull null
             if (first.level != null && first.title != null) {
                 // Create an expandable section
                 val expandable = expandable(
-                    context, first.title, markdown.toMarkdown(
-                        first.content + "\n" + it.drop(1)
+                    context, first.title
+                ) {
+                    markdown.setMarkdown(it,
+                        first.content + "\n" + section.drop(1)
                             .joinToString("\n") { it.toMarkdown() })
-                )
+                }
                 expandable
             } else {
                 // Only text nodes
-                Views.text(context, markdown.toMarkdown(it.joinToString("\n") { it.toMarkdown() }))
-                    .also {
-                        (it as TextView).movementMethod = LinkMovementMethodCompat.getInstance()
-                    }
+                val t = com.kylecorry.andromeda.core.ui.Views.text(context, null).also {
+                    (it as TextView).movementMethod = LinkMovementMethodCompat.getInstance()
+                }
+                markdown.setMarkdown(t as TextView, section.joinToString("\n") { it.toMarkdown() })
+                t
             }
         }
 
@@ -80,7 +83,7 @@ object UserGuideUtils {
     private fun expandable(
         context: Context,
         title: String,
-        content: CharSequence
+        setContent: (TextView) -> Unit
     ): ExpansionLayout {
         val expandable = ExpansionLayout(context, null)
 
@@ -109,9 +112,10 @@ object UserGuideUtils {
         expandable.addView(titleView)
 
         expandable.addView(
-            Views.text(context, content).also {
+            Views.text(context, null).also {
                 (it as TextView).movementMethod = LinkMovementMethodCompat.getInstance()
                 it.setPadding(margin)
+                setContent(it)
             }
         )
 

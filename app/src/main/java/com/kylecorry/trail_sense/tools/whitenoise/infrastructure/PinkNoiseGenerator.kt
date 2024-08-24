@@ -41,7 +41,7 @@ class PinkNoiseGenerator {
             SolMath.map(it, min, max, -1.0, 1.0)
         }.toMutableList()
 
-        return soundGenerator.getSound(sampleRate, durationSeconds) {
+        return soundGenerator.getSound(sampleRate, durationSeconds.toFloat()) {
             noise[it + sampleRate]
         }
     }
