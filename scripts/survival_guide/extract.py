@@ -191,6 +191,14 @@ for chapter in actual_chapters:
     markdown = re.sub(r"#+ WARNING", r"**WARNING**", markdown)
     markdown = re.sub(r"#+ CAUTION", r"**CAUTION**", markdown)
 
+    # Lowercase all headers (except for the first letter)
+    markdown = re.sub(r"(#+) (.*)", lambda m: f"{m.group(1)} {m.group(2).capitalize()}", markdown)
+
+    # Remove the \- and \.
+    markdown = markdown.replace("\\-", "-")
+    markdown = markdown.replace("\\.", ".")
+
+
     with open(f"output/guide_survival_{name.replace('-', '_')}.md", "w") as f:
         f.write(markdown)
     total_size += os.stat(f"output/guide_survival_{name.replace('-', '_')}.md").st_size
