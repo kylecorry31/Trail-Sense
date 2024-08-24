@@ -128,7 +128,7 @@ When conducting movement in a jungle environment, evaders must consider the foll
 
 - Promptly treat wounds and scratches to avoid dangerous infection,
 
-**WATER CROSSINGS**
+## Water crossings
 
 Almost every description can be applied to rivers and streams. They may be shallow or deep, slow or fast moving, narrow or wide. Before crossing a river or stream, a good plan will need to be developed. The first step is to look for a high place from which to get a good view of the river or stream. From here, the isolated persons can look for a place to cross.
 

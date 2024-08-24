@@ -104,7 +104,7 @@ object Guides {
                         R.raw.guide_survival_chapter_8
                     ),
                     UserGuide(
-                        "Appendix A",
+                        "Appendix A: Survival knots and rope",
                         null,
                         R.raw.guide_survival_appendix_a
                     )

@@ -51,7 +51,7 @@ Dressing the knot is the orientation of all knot parts so that they are properly
 
 ![](file:///android_asset/survival_guide/119.webp)
 
-**BASIC KNOTS**
+## Basic knots
 
 Descriptions of basic knots and the methods for tying them are discussed in paragraphs A-4-A-25.
 
@@ -384,48 +384,4 @@ At this point, slip the running end through the bight of the cord. The standing 
 **Figure A-25. Whipping the end of a rope**
 
 ![](file:///android_asset/survival_guide/143.webp)
-
-## Glossary
-
-## Section i - acronyms and abbreviations
-
-**ATP** Army tactics publication
-
-**CAT** combat application tourniquet
-
-**COLDER** clean, overheating, loose layers, dry, examine, and repair
-
-**DA** Department of the Army
-
-**EPA** Evasion plan of action
-
-**EVC** Evasion chart
-
-**FM** Field manual
-
-**GPS** Global Positioning System
-
-**IFAK** Improved first aid kit
-
-**ISG** Isolated Soldier guidance
-
-**IV** intravenous
-
-**JP** Joint publication
-
-**SERE** Survival, evasion, resistance, and escape
-
-**TC** Training circular
-
-**U.S.** United States
-
-## Section ii - terms
-
-**Army personnel recovery** The military efforts taken to prepare for and execute the recovery and reintegration of isolated personnel. (FM 3-50\)
-
-**planning** The art and science of understanding a situation, envisioning a desired future, and laying out effective ways of bringing that future about. (ADP 5-0\)
-
-**preparation** Those activities performed by units and Soldiers to improve their ability to execute an operation. (ADP 5-0\)
-
-**survival, evasion, resistance, and escape** Actions performed by isolated personnel designed to ensure their health, mobility, safety, and honor in anticipation of or preparation for their return to friendly control. (JP 3-50\)
 

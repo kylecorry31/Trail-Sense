@@ -116,7 +116,7 @@ Survival medicine capabilities in the Survival Kit. Prior to operations, personn
 
 - Gear that accomplishes more than one task (ex. Use a large bandana as a compress, sling, bandage, and eye patch).
 
-**LIFESAVING STEPS**
+## Lifesaving steps
 
 Once the Soldier has implemented their ISG/EPA, they become their own doctor, emergency medical technician, and surgeon; in an operational environment where they are being hunted, and without any of the medical capabilities that are typically needed to treat the recognized condition/symptoms. The isolated person's health is of primary importance; taking unnecessary risks, which could lead to injury, are prevented or mitigated. Once isolated, the fundamentals of the MARCH algorithm are applied through a flexible process that prioritizes actions relevant to physical, psychological, and environmental considerations that are continually assessed and prioritized for action by the isolated person. 
 

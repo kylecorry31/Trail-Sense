@@ -12,7 +12,7 @@ shutil.copytree("output", assets)
 # Remove all .md files
 for root, dirs, files in os.walk(assets):
     for file in files:
-        if file.endswith(".md"):
+        if file.endswith(".md") or file.endswith(".html"):
             os.remove(os.path.join(root, file))
 
 # Copy all .md files to the guides directory (guides already exists and has other guides in it)

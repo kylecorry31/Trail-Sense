@@ -69,6 +69,9 @@ for image in images:
     html = html.replace(image, f'<img src="{i}.webp" />')
     i += 1
 
+with open("output/guide.html", "w") as f:
+    f.write(html)
+
 print(f"Total size of images: {total_size / 1024} KB")
 
 # TODO: Fix tables
@@ -113,8 +116,8 @@ html = "\n".join([line for line in lines if line.strip() != ""])
 # Remove the introduction
 html = html[html.find('<div id="page0">\n<h3><b>Chapter 1</b></h3>') :]
 
-# Remove everything below references
-html = html[: html.find('<div id="page0">\n<h2><b>References </b></h2>')]
+# Remove everything below glossary
+html = html[: html.find('<div id="page0">\n<h2><b>Glossary </b></h2>')]
 
 # Make chapter titles h2
 html = re.sub(
@@ -129,9 +132,13 @@ html = re.sub(
 )
 
 # Remove unneeded bold tags
-# TODO: Generate IDs
 html = re.sub(r"<h2><b>(.*)</b></h2>", r"<h2>\1</h2>", html)
 html = re.sub(r"<h3><b>(.*)</b></h3>", r"<h3>\1</h3>", html)
+
+# Promote some other headers to h3
+html = html.replace('<p><b>LIFESAVING STEPS</b></p>', '<h3>LIFESAVING STEPS</h3>')
+html = html.replace('<p><b>WATER CROSSINGS</b></p>', '<h3>WATER CROSSINGS</h3>')
+html = html.replace('<p><b>BASIC KNOTS</b></p>', '<h3>BASIC KNOTS</h3>')
 
 # Restore broken paragraphs
 # TODO: Anything that isn't a <b>, - , or in the form ##-## should be part of the same paragraph. An image may also break a paragraph, so it should move up the sentence to be above the image.
