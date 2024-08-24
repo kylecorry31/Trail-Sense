@@ -3,7 +3,7 @@ Isolated persons require knowledge of many different survival skills to return t
 
 ## Survival medicine versus traditional medicine
 
-2-1. Excluding the enemy, medical related problems arising from combat and isolation pose the greatest threat to isolated personnel. Isolated personnel must understand the vast differences and transition of medical care that take place following combat, isolating events, and implementation of the isolated person's ISG/EPA. Isolated personnel must be able to perform fundamental survival medicine techniques throughout the duration of their isolation including during evasion, detention or captivity, and recovery. During combat operations, injured Soldiers follow Tactical Combat Casualty Care (TCCC) guidelines and protocols focused on the care of casualties in a combat or tactical environment at the point-of-injury. The TCCC program of instruction prepares Soldiers to provide self-aid or buddy-aid in the absence of a medical provider. Four transitions of medical care occur on the battlefield that includes isolation producing events.
+Excluding the enemy, medical related problems arising from combat and isolation pose the greatest threat to isolated personnel. Isolated personnel must understand the vast differences and transition of medical care that take place following combat, isolating events, and implementation of the isolated person's ISG/EPA. Isolated personnel must be able to perform fundamental survival medicine techniques throughout the duration of their isolation including during evasion, detention or captivity, and recovery. During combat operations, injured Soldiers follow Tactical Combat Casualty Care (TCCC) guidelines and protocols focused on the care of casualties in a combat or tactical environment at the point-of-injury. The TCCC program of instruction prepares Soldiers to provide self-aid or buddy-aid in the absence of a medical provider. Four transitions of medical care occur on the battlefield that includes isolation producing events.
 
 - Perform Care under Fire (CUF) at the point-of-injury on the battlefield. The Soldier is typically equipped with the Improved First Aid Kit (IFAK), Combat Pill Kit, and Eye Shield. The Soldier returns fire and takes cover while focused on the treatment of massive hemorrhage.
 
@@ -16,7 +16,7 @@ Isolated persons require knowledge of many different survival skills to return t
 
 - Perform medical care at the point-of-injury throughout isolation. Typically, the Soldier's IFAK and supporting medical supplies are already expended; therefore, Survival medicine takes over at this point. Survival medicine recognizes the fundamentals of the MARCH algorithm and provides a flexible approach that prioritizes actions relevant to physical, psychological, and environmental considerations that are continually assessed and prioritized for performance by isolated personnel.
 
-2-2. Survival medicine requires isolated personnel to- 
+Survival medicine requires isolated personnel to- 
 
 - Understand the fundamentals of trauma first aid (MARCH) and survival medicine.
 
@@ -28,7 +28,7 @@ Isolated persons require knowledge of many different survival skills to return t
 
 - Understand that medical personnel and facilities are rarely available.
 
-2-3. Survival medicine employs four techniques to facilitate isolated personnel performance of survival proficiencies. These techniques include- 
+Survival medicine employs four techniques to facilitate isolated personnel performance of survival proficiencies. These techniques include- 
 
 - **Prevention**. The common sense act of proactive prevention or hindrance of an action that could lead to a requirement to perform trauma first aid or survival medicine. For example, during evasion movement, the Soldier looks for alternate crossing points across a river instead of swimming across to decrease the chance of getting hypothermia and having to dry their clothing.
 
@@ -43,9 +43,9 @@ Isolated persons require knowledge of many different survival skills to return t
 
 **PERSONAL HYGIENE AND SANITATION**
 
-2-4. Isolated persons can avoid many different kinds of illnesses and infections by practicing good sanitation and hygiene. Maintaining a clean body and living area will prevent the spread of germs and bacteria whether alone or in a group. It will also allow isolated persons to stay organized and protect items from animal contact. 
+Isolated persons can avoid many different kinds of illnesses and infections by practicing good sanitation and hygiene. Maintaining a clean body and living area will prevent the spread of germs and bacteria whether alone or in a group. It will also allow isolated persons to stay organized and protect items from animal contact. 
 
-2-5. Application of the following guidelines regarding personal health and hygiene will enable isolated personnel to safeguard personal health and the health of others while detained or captive. 
+Application of the following guidelines regarding personal health and hygiene will enable isolated personnel to safeguard personal health and the health of others while detained or captive. 
 
 - Stay clean (daily regimen).
 	* Minimize infection by washing. (Use white ashes, sand, or loamy soil as soap substitutes.)
@@ -84,7 +84,7 @@ Isolated persons require knowledge of many different survival skills to return t
 	* Eat varied diet.
 	* Try to get 7-8 hours' sleep per day.
 
-2-6. Survival medicine capabilities in the Survival Kit. Prior to operations, personnel assess the survival kit to identify its survival medicine components. It is recommended that the Soldier rehearse appropriate survival medicine techniques using similar materials as those found in the actual survival kit. The survival medicine capabilities that should be considered for inclusion in the survival kit includes these items:
+Survival medicine capabilities in the Survival Kit. Prior to operations, personnel assess the survival kit to identify its survival medicine components. It is recommended that the Soldier rehearse appropriate survival medicine techniques using similar materials as those found in the actual survival kit. The survival medicine capabilities that should be considered for inclusion in the survival kit includes these items:
 
 - Water purification tablets.
 
@@ -118,9 +118,9 @@ Isolated persons require knowledge of many different survival skills to return t
 
 **LIFESAVING STEPS**
 
-2-7. Once the Soldier has implemented their ISG/EPA, they become their own doctor, emergency medical technician, and surgeon; in an operational environment where they are being hunted, and without any of the medical capabilities that are typically needed to treat the recognized condition/symptoms. The isolated person's health is of primary importance; taking unnecessary risks, which could lead to injury, are prevented or mitigated. Once isolated, the fundamentals of the MARCH algorithm are applied through a flexible process that prioritizes actions relevant to physical, psychological, and environmental considerations that are continually assessed and prioritized for action by the isolated person. 
+Once the Soldier has implemented their ISG/EPA, they become their own doctor, emergency medical technician, and surgeon; in an operational environment where they are being hunted, and without any of the medical capabilities that are typically needed to treat the recognized condition/symptoms. The isolated person's health is of primary importance; taking unnecessary risks, which could lead to injury, are prevented or mitigated. Once isolated, the fundamentals of the MARCH algorithm are applied through a flexible process that prioritizes actions relevant to physical, psychological, and environmental considerations that are continually assessed and prioritized for action by the isolated person. 
 
-2-8. The following list of actions enable assessment and lifesaving treatment of an isolated person/isolated personnel. The list is a guide that makes use of the MARCH algorithm. If the isolated person does not exhibit "massive hemorrhage", the priority for treatment follows the Airway, Respiration (breathing), Circulation, and Head/Hypothermia protocol. 
+The following list of actions enable assessment and lifesaving treatment of an isolated person/isolated personnel. The list is a guide that makes use of the MARCH algorithm. If the isolated person does not exhibit "massive hemorrhage", the priority for treatment follows the Airway, Respiration (breathing), Circulation, and Head/Hypothermia protocol. 
 
 - In an isolation situation, if an isolated person discovers another casualty they will determine if the casualty is alive or dead. If there are no signs of life -no pulse, no breathing- they will NOT attempt to perform lifesaving steps. The isolated person should note the Soldier's name, rank, and location. The isolated person should perform field recovery of equipment from the casualty that will aid the isolated person's survival effort.
 
@@ -130,7 +130,7 @@ Note. Steps 3 through 13 (from the Soldier's Manual of Common Tasks) are perform
 
 **BLEEDING**
 
-2-9. External, life-threatening bleeding. Bleeding is life threatening if any one of the following signs/symptoms are observed:
+External, life-threatening bleeding. Bleeding is life threatening if any one of the following signs/symptoms are observed:
 
 - There is a traumatic amputation of an arm or leg.
 
@@ -144,7 +144,7 @@ Note. Steps 3 through 13 (from the Soldier's Manual of Common Tasks) are perform
 
 - There was prior bleeding, and the casualty is now in shock (unconscious, confused, pale).
 
-2-10. Control external bleeding. External bleeding falls into the following classifications:
+Control external bleeding. External bleeding falls into the following classifications:
 
 - **Arterial**. Blood vessels called arteries carry oxygenated blood away from the heart and throughout the body. Arterial bleeding is the most serious type of bleeding. If not controlled promptly, it can be fatal. With this type of bleeding, the blood is typically bright red to yellowish in color and exits the wound in distinct spurts or pulses that correspond to the rhythm of the heartbeat rather than in a steady flow. Because the blood in the arteries is under high pressure, an individual can lose a large volume of blood in a short period.
 
@@ -152,19 +152,19 @@ Note. Steps 3 through 13 (from the Soldier's Manual of Common Tasks) are perform
 
 - **Capillary**. The capillaries are the extremely small vessels that connect the arteries with the veins. Capillary bleeding most commonly occurs in minor cuts and scrapes and generally oozes in small amounts as opposed to squirting (arterial) or flowing (venous). This type of bleeding is not difficult to control.
 
-2-11. If the casualty has severe, life-threatening bleeding from an extremity or has an amputation of an extremity, administer life-saving hemorrhage control by applying a combat application tourniquet (CAT) from the casualty's IFAK before moving the casualty. Personnel with life-threatening bleeding can bleed to death from a complete femoral artery and vein disruption within as little as three minutes. Isolated persons must control life-threatening bleeding immediately because replacement fluids are not available. 
+If the casualty has severe, life-threatening bleeding from an extremity or has an amputation of an extremity, administer life-saving hemorrhage control by applying a combat application tourniquet (CAT) from the casualty's IFAK before moving the casualty. Personnel with life-threatening bleeding can bleed to death from a complete femoral artery and vein disruption within as little as three minutes. Isolated persons must control life-threatening bleeding immediately because replacement fluids are not available. 
 
-2-12. If a CAT is unavailable, apply an improvised tourniquet made from a rod (made from a jack handle, stick, scabbard, cleaning rod, pipe, dowel), a band of material at least 1-1/2 inches wide (made from a cravat, bandana, towel, ace bandage, shirt, nylon webbing, rifle sling.
+If a CAT is unavailable, apply an improvised tourniquet made from a rod (made from a jack handle, stick, scabbard, cleaning rod, pipe, dowel), a band of material at least 1-1/2 inches wide (made from a cravat, bandana, towel, ace bandage, shirt, nylon webbing, rifle sling.
 
 Note. Belts, zip ties, should only be used as a last resort, and a securing mechanism as a constricting or compressing device to control arterial and venous blood flow to a damaged extremity for a short period of time. 
 
-2-13. The wide band of material is made into a loop that fits over the damaged limb, 2-3 inches above the site of arterial bleeding, and tied tightly with an overhand knot. Next, lay the rod across the overhand knot. The running ends of the loop are then used to tie another overhand knot on top of the rod forming a square knot with the rod through the center of the knot. The rod is then twisted, applying pressure circumferentially 
+The wide band of material is made into a loop that fits over the damaged limb, 2-3 inches above the site of arterial bleeding, and tied tightly with an overhand knot. Next, lay the rod across the overhand knot. The running ends of the loop are then used to tie another overhand knot on top of the rod forming a square knot with the rod through the center of the knot. The rod is then twisted, applying pressure circumferentially 
 
 around the limb tight enough to stop the arterial bleeding. Do not tighten the tourniquet more than necessary to stop the bleeding. In the case of amputation, dark oozing blood may continue for a short time. This is the blood trapped in the area between the wound and tourniquet. Fasten the tourniquet to the limb by looping the free ends of the tourniquet over the ends of the stick. Then bring the ends around the limb to prevent the stick from loosening. Tie them together on the side of the limb. 
 
-2-14. If bleeding remains, place a second tourniquet side by side to the first tourniquet. A tourniquet can be left in place up to two hours without damage to vessels, nerves, muscle or loss of limb. If isolated, the victim or buddy should release the pressure from the tourniquet after two hours, and then retighten if blood loss continues. 
+If bleeding remains, place a second tourniquet side by side to the first tourniquet. A tourniquet can be left in place up to two hours without damage to vessels, nerves, muscle or loss of limb. If isolated, the victim or buddy should release the pressure from the tourniquet after two hours, and then retighten if blood loss continues. 
 
-2-15. Ideally, the tourniquet will stop or considerably slow down the flow of arterial blood from the wound. As an open wound, the risk of infection is great. Before applying a pressure bandage, rinse the wound with sterile saline or clean water 
+Ideally, the tourniquet will stop or considerably slow down the flow of arterial blood from the wound. As an open wound, the risk of infection is great. Before applying a pressure bandage, rinse the wound with sterile saline or clean water 
 
 Note. In isolation or captivity; alcohol, vinegar, natural honey, hydrogen peroxide, and bleach are also highly effective antiseptics. Once gauze or bandage is applied it must not be removed.
 
@@ -185,7 +185,7 @@ Hypoxia is the result of insufficient oxygen in the blood. It is a potentially d
 
 **Figure 2-1. Jaw Thrust Method**
 
-2-16. With the casualty's airway open, pinch their nose closed with your thumb and forefinger and blow two complete breaths into their lungs. Allow the lungs to deflate after the second inflation and perform the following:
+With the casualty's airway open, pinch their nose closed with your thumb and forefinger and blow two complete breaths into their lungs. Allow the lungs to deflate after the second inflation and perform the following:
 
 - Look for the chest to rise and fall.
 
@@ -193,11 +193,11 @@ Hypoxia is the result of insufficient oxygen in the blood. It is a potentially d
 
 - Feel for flow of air on your cheek.
 
-2-17. If the forced breaths do not stimulate spontaneous breathing, maintain the casualty is breathing by performing mouth-to-mouth resuscitation.
+If the forced breaths do not stimulate spontaneous breathing, maintain the casualty is breathing by performing mouth-to-mouth resuscitation.
 
-2-18. There is danger of the victim vomiting during mouth-to-mouth resuscitation. Check the victim's mouth periodically for vomit and clear as needed.
+There is danger of the victim vomiting during mouth-to-mouth resuscitation. Check the victim's mouth periodically for vomit and clear as needed.
 
-2-19. If the casualty is unconscious, if respiratory rate is less than 2 in 15 seconds, and/or if the casualty is making snoring or gurgling sounds, insert a nasopharyngeal airway (NPA) from the casualty's IFAK. Remember these things when inserting the NPA:
+If the casualty is unconscious, if respiratory rate is less than 2 in 15 seconds, and/or if the casualty is making snoring or gurgling sounds, insert a nasopharyngeal airway (NPA) from the casualty's IFAK. Remember these things when inserting the NPA:
 
 - Keep the casualty in a face-up position.
 
@@ -211,29 +211,29 @@ Hypoxia is the result of insufficient oxygen in the blood. It is a potentially d
 
 Note: Cardiopulmonary resuscitation (CPR) may be necessary after cleaning the airway, but only after major bleeding is under control.
 
-2-20. Continue to check for bleeding by performing a blood sweep. Control external bleeding by the application of direct pressure, indirect pressure, elevation, or digital ligation. 
+Continue to check for bleeding by performing a blood sweep. Control external bleeding by the application of direct pressure, indirect pressure, elevation, or digital ligation. 
 
 **DIRECT PRESSURE**
 
-2-21. The most effective way to control external bleeding is by applying pressure directly over the wound. This pressure must not only be firm enough to stop the bleeding, but it must also be maintained long enough to "seal off" the damaged surface. 
+The most effective way to control external bleeding is by applying pressure directly over the wound. This pressure must not only be firm enough to stop the bleeding, but it must also be maintained long enough to "seal off" the damaged surface. 
 
-2-22. If bleeding continues after having applied direct pressure for 30 minutes, apply a pressure dressing. This dressing consists of a thick dressing of gauze or other suitable material applied directly over the wound and held in place with a tightly wrapped bandage. It should be tighter than an ordinary compression bandage but not so tight that it impairs
+If bleeding continues after having applied direct pressure for 30 minutes, apply a pressure dressing. This dressing consists of a thick dressing of gauze or other suitable material applied directly over the wound and held in place with a tightly wrapped bandage. It should be tighter than an ordinary compression bandage but not so tight that it impairs
 
 ![](file:///android_asset/survival_guide/1.webp)
 
-2-23. Circulation to the rest of the limb. Once you apply the dressing, do not remove it, even when the dressing becomes blood soaked. Leave the pressure dressing in place for 1 or 2 days, after which you can remove it and replace it with a smaller dressing. In a long-term survival environment, make fresh, daily dressing changes and inspect for signs of infection. Figure 2-2 shows applications for pressure dressings. 
+Circulation to the rest of the limb. Once you apply the dressing, do not remove it, even when the dressing becomes blood soaked. Leave the pressure dressing in place for 1 or 2 days, after which you can remove it and replace it with a smaller dressing. In a long-term survival environment, make fresh, daily dressing changes and inspect for signs of infection. Figure 2-2 shows applications for pressure dressings. 
 
 **Figure 2-2. Application of a pressure dressing**
 
-2-24. The isolated person can make field expedient dressings if a medical kit is unavailable. The purpose of a dressing is to control bleeding, absorb wound secretions, and to prevent bacteria from entering the wound. Materials that make functional field expedient dressings include cloth from a shirt, undergarments, socks, bandanas, handkerchiefs, thin towels, bedding and feminine care absorbent pads. Cut these materials to proper size to cover the wound and sterilized before use. To sterilize, the isolated person can steam the material for five minutes or boil the material in water for ten full minutes at a rolling boil. If needed, the isolated person can clean and sanitize used bandages by boiling them, then reusing them if no other option exists. 
+The isolated person can make field expedient dressings if a medical kit is unavailable. The purpose of a dressing is to control bleeding, absorb wound secretions, and to prevent bacteria from entering the wound. Materials that make functional field expedient dressings include cloth from a shirt, undergarments, socks, bandanas, handkerchiefs, thin towels, bedding and feminine care absorbent pads. Cut these materials to proper size to cover the wound and sterilized before use. To sterilize, the isolated person can steam the material for five minutes or boil the material in water for ten full minutes at a rolling boil. If needed, the isolated person can clean and sanitize used bandages by boiling them, then reusing them if no other option exists. 
 
 **Elevation** 
 
-2-25. Raising an injured extremity as high as possible above the heart's level slows blood loss by aiding the return of blood to the heart and lowering the blood pressure at the wound. However, elevation alone will not completely control bleeding; apply direct pressure over the wound. 
+Raising an injured extremity as high as possible above the heart's level slows blood loss by aiding the return of blood to the heart and lowering the blood pressure at the wound. However, elevation alone will not completely control bleeding; apply direct pressure over the wound. 
 
 **Pressure Points**
 
-2-26. A pressure point is a location where the main artery to the wound lies near the surface of the skin or where the artery passes directly over a bony prominence. Personnel can use digital pressure on a pressure point to slow arterial bleeding until a pressure dressing is applied. Pressure point control is not as effective 
+A pressure point is a location where the main artery to the wound lies near the surface of the skin or where the artery passes directly over a bony prominence. Personnel can use digital pressure on a pressure point to slow arterial bleeding until a pressure dressing is applied. Pressure point control is not as effective 
 
 ![](file:///android_asset/survival_guide/2.webp)
 
@@ -243,33 +243,33 @@ for controlling bleeding as direct pressure exerted on the wound. It is rare whe
 
 **Use caution when applying pressure to the neck. Too much pressure for too long may cause unconsciousness or death. Never place a tourniquet around the neck.**
 
-2-27. If an isolated person cannot remember the exact location of the pressure points, they should follow this rule: Apply pressure at the end of the joint just above the injured area. On hands, feet, and head, this will be the wrist, ankle, and neck, respectively. Maintain pressure points by placing a round stick in the joint, bending the joint over the stick, and then keeping it tightly bent by lashing. Using this method to maintain pressure frees the hands to work in other areas. Figure 2-3 shows key body pressure points. 
+If an isolated person cannot remember the exact location of the pressure points, they should follow this rule: Apply pressure at the end of the joint just above the injured area. On hands, feet, and head, this will be the wrist, ankle, and neck, respectively. Maintain pressure points by placing a round stick in the joint, bending the joint over the stick, and then keeping it tightly bent by lashing. Using this method to maintain pressure frees the hands to work in other areas. Figure 2-3 shows key body pressure points. 
 
 **Figure 2-3. Key body pressure points**
 
-2-28. If the bleeding is on the head, above the ears, press the point just in front of the ear, in a direct line to the corner of the eyes.
+If the bleeding is on the head, above the ears, press the point just in front of the ear, in a direct line to the corner of the eyes.
 
-2-29. If the lower part of the face is bleeding, press the point on the jaw bone halfway between the chin and the end of the jaw.
+If the lower part of the face is bleeding, press the point on the jaw bone halfway between the chin and the end of the jaw.
 
-2-30. If bleeding is from the neck, press the point on the carotid artery, located between the Adam's Apple and neck muscles. Stopping bleeding from here is a matter of life and death.
+If bleeding is from the neck, press the point on the carotid artery, located between the Adam's Apple and neck muscles. Stopping bleeding from here is a matter of life and death.
 
-2-31. If the bleeding is high on the arm, press the point just above the middle of the collar bone. If the bleeding is low on the arm, press the point in the fold opposite the elbow, on the inside of the arm.
+If the bleeding is high on the arm, press the point just above the middle of the collar bone. If the bleeding is low on the arm, press the point in the fold opposite the elbow, on the inside of the arm.
 
-2-32. There are two pressure points on the wrists. The first one is more common, where we normally feel our pulse. The other one is just alongside, down from the little finger.
+There are two pressure points on the wrists. The first one is more common, where we normally feel our pulse. The other one is just alongside, down from the little finger.
 
-2-33. If the bleeding is from the groin or thighs, find and press the femoral artery. It is located along the bikini line, half way between the hip and the groin. A lot of pressure is required to control the bleeding here, maybe even both your hands, due to the amount of blood that flows through this artery to supply oxygen to the legs.
+If the bleeding is from the groin or thighs, find and press the femoral artery. It is located along the bikini line, half way between the hip and the groin. A lot of pressure is required to control the bleeding here, maybe even both your hands, due to the amount of blood that flows through this artery to supply oxygen to the legs.
 
 ![](file:///android_asset/survival_guide/3.webp)
 
-2-34. The pressure point on the popliteal artery lies behind the knee. Press this to stop bleeding from the lower leg below the knee. 
+The pressure point on the popliteal artery lies behind the knee. Press this to stop bleeding from the lower leg below the knee. 
 
 **Digital Ligation** 
 
-2-35. Slow down major bleeding by applying pressure with a finger or two on the bleeding end of the vein or artery. Maintain the pressure until the bleeding stops or slows down enough to apply a pressure bandage, and elevation.
+Slow down major bleeding by applying pressure with a finger or two on the bleeding end of the vein or artery. Maintain the pressure until the bleeding stops or slows down enough to apply a pressure bandage, and elevation.
 
 **ASSESS FOR BREATHING AND CHEST INJURIES**
 
-2-36. Fractured ribs are common, painful, and disabling. The isolated person will not have access to pain medications and must understand that the pain associated with rib injuries can lead to reduced movement and cough suppression which can contribute to formation of secondary chest infection. To treat fractured ribs -
+Fractured ribs are common, painful, and disabling. The isolated person will not have access to pain medications and must understand that the pain associated with rib injuries can lead to reduced movement and cough suppression which can contribute to formation of secondary chest infection. To treat fractured ribs -
 
 - Protect the injured rib by supporting the arm on the injured side with a sling-and-swathe.
 
@@ -281,13 +281,13 @@ for controlling bleeding as direct pressure exerted on the wound. It is rare whe
 
 Do not wrap a band snugly around the person's chest.
 
-2-37. **Flail chest.** It is most commonly a result of serious blunt trauma (falling from a height, vehicle or aircraft wreck or other accident). Ribs are typically broken away from the sternum, or when two, three or more adjoining ribs are broken in two or more places. The condition will make breathing difficult and indicates possible internal bleeding. Detect "flail chest" by observing a section of ribs moving in and out opposite to the rest of the ribs during breathing due to air pressures. The isolated person can try applying a bulky dressing and wrapping it to immobilize. 
+**Flail chest.** It is most commonly a result of serious blunt trauma (falling from a height, vehicle or aircraft wreck or other accident). Ribs are typically broken away from the sternum, or when two, three or more adjoining ribs are broken in two or more places. The condition will make breathing difficult and indicates possible internal bleeding. Detect "flail chest" by observing a section of ribs moving in and out opposite to the rest of the ribs during breathing due to air pressures. The isolated person can try applying a bulky dressing and wrapping it to immobilize. 
 
-2-38. **Pneumothrax.** This is a common injury in isolation where isolated personnel fall or suffer chest trauma associated with blast injuries, blunt trauma and penetrating trauma (sucking chest wound). Sucking chest wounds are recognized by the sucking noise and appearance of foam or bubbles in the wound. This condition requires application of an occlusive dressing to the entry and exit wounds immediately before serious respiratory and circulatory complications occur. 
+**Pneumothrax.** This is a common injury in isolation where isolated personnel fall or suffer chest trauma associated with blast injuries, blunt trauma and penetrating trauma (sucking chest wound). Sucking chest wounds are recognized by the sucking noise and appearance of foam or bubbles in the wound. This condition requires application of an occlusive dressing to the entry and exit wounds immediately before serious respiratory and circulatory complications occur. 
 
-2-39. Ideally, the patient should attempt to exhale while holding the mouth and nose closed (the Valsalva maneuver) as the wound is closed. This inflates the lungs and reduces the air trapped in the pleural cavity. Frequently, a taped, airtight dressing is all that is needed, but sometimes it is necessary to suture the wound to make sure the wound is closed.
+Ideally, the patient should attempt to exhale while holding the mouth and nose closed (the Valsalva maneuver) as the wound is closed. This inflates the lungs and reduces the air trapped in the pleural cavity. Frequently, a taped, airtight dressing is all that is needed, but sometimes it is necessary to suture the wound to make sure the wound is closed.
 
-2-40. Begin rescue breathing as necessary to restore breathing and/or pulse (Cardiopulmonary Resuscitation (CPR).
+Begin rescue breathing as necessary to restore breathing and/or pulse (Cardiopulmonary Resuscitation (CPR).
 
 - Place the casualty on a firm, flat surface. Give 30 chest compressions by compressing the casualty's chest at least 2 inches deep.
 
@@ -300,9 +300,9 @@ Do not wrap a band snugly around the person's chest.
 
 **BURNS**
 
-2-41. The following treatments are extreme measures and are only meant to be applied with extreme caution under real-world experiences. Burns sustained during military operations constitute a relatively small, but very real percentage (5%) of combat-related injuries. Even burns to a small surface area can be incapacitating for the casualty and strain the resources of deployed military medical units. It is crucial to remember that burns may represent only one of the casualty's traumatic injuries, particularly when an explosion is the mechanism of injury. Optimal treatment includes management of homeostatic changes related to the burn and associated traumatic injuries. Resuscitation of the burn casualty is generally the most challenging aspect of care during the first 48 hours following injury, and optimal care requires a concerted effort on the part of all providers involved during the evacuation and treatment process.
+The following treatments are extreme measures and are only meant to be applied with extreme caution under real-world experiences. Burns sustained during military operations constitute a relatively small, but very real percentage (5%) of combat-related injuries. Even burns to a small surface area can be incapacitating for the casualty and strain the resources of deployed military medical units. It is crucial to remember that burns may represent only one of the casualty's traumatic injuries, particularly when an explosion is the mechanism of injury. Optimal treatment includes management of homeostatic changes related to the burn and associated traumatic injuries. Resuscitation of the burn casualty is generally the most challenging aspect of care during the first 48 hours following injury, and optimal care requires a concerted effort on the part of all providers involved during the evacuation and treatment process.
 
-2-42. Dress all non-life threatening injuries and any bleeding that has not been addressed earlier with appropriate dressings. Also- 
+Dress all non-life threatening injuries and any bleeding that has not been addressed earlier with appropriate dressings. Also- 
 
 - Check the casualty for burns.
 
@@ -313,11 +313,11 @@ Do not wrap a band snugly around the person's chest.
 
 - In case of electrical burns, remove the victim from the contact with electricity. Electrical burns typically affect cardiac or respiratory systems. Always care for cardiac and respiratory problems before caring for burns.
 
-2-43. Once the fire is out, assess the damage and begin to treat the burns. Initiate MARCH (see page 2-1\) and protect the casualty from shock and hypothermia. Cool the burning skin with cold water for 20 minutes if possible. For burns caused by white phosphorous, pick out the white phosphorous with tweezers; do not douse with water. 
+Once the fire is out, assess the damage and begin to treat the burns. Initiate MARCH (see page 2-1\) and protect the casualty from shock and hypothermia. Cool the burning skin with cold water for 20 minutes if possible. For burns caused by white phosphorous, pick out the white phosphorous with tweezers; do not douse with water. 
 
-2-44. First-degree burns involve only the outer layer of the skin known as the epidermis. First-degree burns do not blister; they become very red and are quite painful. After about two to three days, the pain should subside and peeling of the skin will begin. Soaking in cool water helps with the pain.
+First-degree burns involve only the outer layer of the skin known as the epidermis. First-degree burns do not blister; they become very red and are quite painful. After about two to three days, the pain should subside and peeling of the skin will begin. Soaking in cool water helps with the pain.
 
-2-45. Second-degree burns are known as superficial partial-thickness burns. These types of burns affect the upper layers of the dermis and have a tendency to swell and blister. They are more painful than first-degree burns. If you suspect a second-degree burn:
+Second-degree burns are known as superficial partial-thickness burns. These types of burns affect the upper layers of the dermis and have a tendency to swell and blister. They are more painful than first-degree burns. If you suspect a second-degree burn:
 
 - Remove jewelry or tight clothing from the burned area before the skin begins to swell.
 
@@ -331,29 +331,29 @@ Do not wrap a band snugly around the person's chest.
 
 - Cover the burn with a clean, dry, non-adhering no-fluff bandage such as a gauze pad.
 
-2-46. Third-degree burns or full-thickness burns involve all layers of the dermis. This type of burn causes a large amount of tissue damage and is extremely painful or painless if nerve damage has occurred. Skin will be leathery and dry and can appear black, white, or brown in color. Do not remove any embedded charred clothing or material. However, remove constrictive jewelry and unburned clothing from the area if they are not stuck on the burn. If you suspect a third-degree burn: 
+Third-degree burns or full-thickness burns involve all layers of the dermis. This type of burn causes a large amount of tissue damage and is extremely painful or painless if nerve damage has occurred. Skin will be leathery and dry and can appear black, white, or brown in color. Do not remove any embedded charred clothing or material. However, remove constrictive jewelry and unburned clothing from the area if they are not stuck on the burn. If you suspect a third-degree burn: 
 
 - Apply cool, wet compresses to the burned area for a very brief to help reduce the body temperature. Do not use ice or immerse the affected area in cold water.
 
 - Cover the burned area with cool, moist, sterile bandages.
 
-2-47. Be prepared to treat injured personnel for shock. If possible, elevate the burn above the heart to assist in reducing swelling and the likelihood or severity of shock. Staying hydrated will help control the loss of 
+Be prepared to treat injured personnel for shock. If possible, elevate the burn above the heart to assist in reducing swelling and the likelihood or severity of shock. Staying hydrated will help control the loss of 
 
 body fluids. Isolated persons should replace salt by consuming the cooked eyes and blood of animals or adding 1/4 teaspoon of regular salt per quart of water.
 
-2-48. Prevent/treat hypotension and hypoxia to prevent worsening of traumatic brain injury (TBI) and prevent/treat hypothermia.
+Prevent/treat hypotension and hypoxia to prevent worsening of traumatic brain injury (TBI) and prevent/treat hypothermia.
 
 **HEAD INJURY**
 
-2-49. During Tactical Field Care, Soldiers assess their condition for an altered mental status. Soldiers with an altered mental status may use their weapons or radios inappropriately and may not be able to accurately assess their condition in relation to isolation criteria and implementation of their ISG/EPA. Injuries to the head pose additional problems related to brain damage and may interference with breathing and eating. Bleeding is more profuse in the face and head area, but infections are less likely. This makes it somewhat safer to close such wounds earlier to maintain function. 
+During Tactical Field Care, Soldiers assess their condition for an altered mental status. Soldiers with an altered mental status may use their weapons or radios inappropriately and may not be able to accurately assess their condition in relation to isolation criteria and implementation of their ISG/EPA. Injuries to the head pose additional problems related to brain damage and may interference with breathing and eating. Bleeding is more profuse in the face and head area, but infections are less likely. This makes it somewhat safer to close such wounds earlier to maintain function. 
 
-2-50. Most important in treating a head injury is maintaining proper airway control. The lack of oxygen to an injured brain can have very detrimental effects. An emergency airway puncture may be necessary if breathing becomes difficult due to obstruction of the upper airways. In the event of unconsciousness, keep the patient still and under close observation. Even in the face of mild or impending shock, keep the head level or even slightly elevated if there is reason to expect brain damage. Do not give fluids or morphine to unconscious persons. 
+Most important in treating a head injury is maintaining proper airway control. The lack of oxygen to an injured brain can have very detrimental effects. An emergency airway puncture may be necessary if breathing becomes difficult due to obstruction of the upper airways. In the event of unconsciousness, keep the patient still and under close observation. Even in the face of mild or impending shock, keep the head level or even slightly elevated if there is reason to expect brain damage. Do not give fluids or morphine to unconscious persons. 
 
-2-51. Traumatic Brain Injury (TBI) is a common injury in isolation where isolated personnel fall or suffer head trauma associated with vehicle and aircraft crashes, blast injury, and blunt trauma. Hypotension (low blood pressure) and hypoxia (insufficient oxygen in the blood) manifest the condition with dizziness and fainting. 
+Traumatic Brain Injury (TBI) is a common injury in isolation where isolated personnel fall or suffer head trauma associated with vehicle and aircraft crashes, blast injury, and blunt trauma. Hypotension (low blood pressure) and hypoxia (insufficient oxygen in the blood) manifest the condition with dizziness and fainting. 
 
-2-52. For a bleeding scalp, apply several dressings with your gloved hand. Press gently because the skull may be fractured. On examination, if you feel a depression, spongy area or bone fragments, DO NOT put direct pressure on the wound. Control bleeding with a gauze dressing and diffuse pressure.
+For a bleeding scalp, apply several dressings with your gloved hand. Press gently because the skull may be fractured. On examination, if you feel a depression, spongy area or bone fragments, DO NOT put direct pressure on the wound. Control bleeding with a gauze dressing and diffuse pressure.
 
-2-53. The symptoms associated with mild brain injuries typically include short term memory loss, blurred vision, nausea, dizziness, extreme tiredness and possible neck pain or tenderness. Care for mild brain injury includes- 
+The symptoms associated with mild brain injuries typically include short term memory loss, blurred vision, nausea, dizziness, extreme tiredness and possible neck pain or tenderness. Care for mild brain injury includes- 
 
 - Apply pressure from a gauze dressing on the bleeding scalp.
 
@@ -363,7 +363,7 @@ body fluids. Isolated persons should replace salt by consuming the cooked eyes a
 
 - Awaken the person every 2 hours to check for signs and symptoms of serious brain damage.
 
-2-54. The symptoms associated with serious brain injury include-
+The symptoms associated with serious brain injury include-
 
 - Prolonged unconsciousness with no response to aggressive stimulation, such as shouting or tapping the shoulder.
 
@@ -400,7 +400,7 @@ body fluids. Isolated persons should replace salt by consuming the cooked eyes a
 
 - Unequal pupils.
 
-2-55. Care for serious brain injury includes-
+Care for serious brain injury includes-
 
 - Assessing the person for spinal injury.
 
@@ -410,15 +410,15 @@ body fluids. Isolated persons should replace salt by consuming the cooked eyes a
 
 - Being prepared to treat the person for reduced breathing.
 
-2-56. In a situation where a group of personnel are isolated, consideration should be given to removing all weapons and radios away from any casualty manifesting brain injury who is not alert and fully oriented to the tactical situation. The group must exercise the tenets of mission command and ensure that appropriate decisions about ISG/EPA, captivity, and detention are also implemented. 
+In a situation where a group of personnel are isolated, consideration should be given to removing all weapons and radios away from any casualty manifesting brain injury who is not alert and fully oriented to the tactical situation. The group must exercise the tenets of mission command and ensure that appropriate decisions about ISG/EPA, captivity, and detention are also implemented. 
 
-2-57. The individual isolated person with a brain injury should consider immediate movement to and occupation of a hide site to rest and relieve their condition.
+The individual isolated person with a brain injury should consider immediate movement to and occupation of a hide site to rest and relieve their condition.
 
-2-58. Administer pain medications and antibiotics from the combat pill pack if available. 
+Administer pain medications and antibiotics from the combat pill pack if available. 
 
 **SHOCK**
 
-2-59. Monitor the patient for shock and treat as appropriate. Shock is a condition of the body that describes the physiologic condition where oxygen delivery to the tissues of the body is not enough to meet the metabolic demands of those tissues. Early detection will be the key to limiting the effects on the body. Signs and symptoms of shock include the following:
+Monitor the patient for shock and treat as appropriate. Shock is a condition of the body that describes the physiologic condition where oxygen delivery to the tissues of the body is not enough to meet the metabolic demands of those tissues. Early detection will be the key to limiting the effects on the body. Signs and symptoms of shock include the following:
 
 - Apprehension, anxiety, restlessness and irritability.
 
@@ -432,7 +432,7 @@ body fluids. Isolated persons should replace salt by consuming the cooked eyes a
 
 - Excessive thirst.
 
-2-60. Anticipate shock in all injured personnel. Treat all injured persons as follows, regardless of what symptoms appear:
+Anticipate shock in all injured personnel. Treat all injured persons as follows, regardless of what symptoms appear:
 
 - If victims are conscious, place them on a level surface with the lower extremities elevated 6 to 8 inches.
 
@@ -458,15 +458,15 @@ body fluids. Isolated persons should replace salt by consuming the cooked eyes a
 
 - Reassess the victim constantly.
 
-2-61. Assess shock in all victims as shown in figure 2-4.
+Assess shock in all victims as shown in figure 2-4.
 
 **Figure 2-4. Treatment of Shock**
 
 **ILLNESS, INFECTION, SOFT TISSUE TRAUMA**
 
-2-62. Isolated persons will face debilitating illness, infection, and soft tissue trauma which can become life threatening during isolation when they are without adequate medical care and basic personal hygiene capabilities. 
+Isolated persons will face debilitating illness, infection, and soft tissue trauma which can become life threatening during isolation when they are without adequate medical care and basic personal hygiene capabilities. 
 
-2-63. Table 2-1 on page 2-14 lists typical illnesses and infection, their signs and symptoms and treatment. Keep in mind that some of the treatments are extreme measures and only meant to be applied with extreme caution during actual isolation.
+Table 2-1 on page 2-14 lists typical illnesses and infection, their signs and symptoms and treatment. Keep in mind that some of the treatments are extreme measures and only meant to be applied with extreme caution during actual isolation.
 
 ![](file:///android_asset/survival_guide/4.webp)
 
@@ -552,11 +552,11 @@ IV - intravenous DDT - Dichlorodiphenyltrichloroethane
 
 **INFECTION**
 
-2-64. During isolation, including detention or captivity, consider all breaks in the skin contaminated, and treat them appropriately. Clean even superficial scratches with soap and water and treated with antiseptics, if available.
+During isolation, including detention or captivity, consider all breaks in the skin contaminated, and treat them appropriately. Clean even superficial scratches with soap and water and treated with antiseptics, if available.
 
 **Basic treatment**
 
-2-65. Open wounds are serious in a survival situation, not only because of tissue damage and blood loss, but also because they may become infected. Bacteria on the object that made the wound, on the individual's skin and clothing, or on other foreign material or dirt that touches the wound may cause infection. By taking proper care of the wound, the isolated person reduces the chance of further contamination and promotes healing. Clean the wound as soon as possible by doing the following:
+Open wounds are serious in a survival situation, not only because of tissue damage and blood loss, but also because they may become infected. Bacteria on the object that made the wound, on the individual's skin and clothing, or on other foreign material or dirt that touches the wound may cause infection. By taking proper care of the wound, the isolated person reduces the chance of further contamination and promotes healing. Clean the wound as soon as possible by doing the following:
 
 - Removing or cutting clothing away from the wound.
 
@@ -570,17 +570,17 @@ IV - intravenous DDT - Dichlorodiphenyltrichloroethane
 
 **Open Treatment**
 
-2-66. The "open treatment" method is the safest way to manage wounds in survival situations. Leave the wound open to allow the drainage of any pus resulting from infection. As long as the wound can drain, it generally will not become life-threatening, regardless of how unpleasant it looks or smells. Cover the wound (including nerves, bone, and blood vessels) with a clean dressing. Place a bandage on the dressing to hold it in place. Change the dressing daily to check for infection.
+The "open treatment" method is the safest way to manage wounds in survival situations. Leave the wound open to allow the drainage of any pus resulting from infection. As long as the wound can drain, it generally will not become life-threatening, regardless of how unpleasant it looks or smells. Cover the wound (including nerves, bone, and blood vessels) with a clean dressing. Place a bandage on the dressing to hold it in place. Change the dressing daily to check for infection.
 
-2-67. Wounds, left open, heal by formation of infection resistant granulation tissue known as "proud flesh." This tissue is easily recognized by its moist red granular appearance, a good sign in any wound. A notable exception to "open treatment" is the early closure of facial wounds which interfere with breathing, eating, or drinking
+Wounds, left open, heal by formation of infection resistant granulation tissue known as "proud flesh." This tissue is easily recognized by its moist red granular appearance, a good sign in any wound. A notable exception to "open treatment" is the early closure of facial wounds which interfere with breathing, eating, or drinking
 
 **Gaping Wounds**
 
-2-68. If a wound is gaping, you can bring the edges together with adhesive tape cut in the form of a "butterfly" or "dumbbell". Use this method with extreme caution in the absence of antibiotics. You must always allow for proper drainage of the wound to avoid infection. Immobilization in a position to favor adequate circulation, both to and from the wound, will typically hasten the healing of major wounds/lacerations.
+If a wound is gaping, you can bring the edges together with adhesive tape cut in the form of a "butterfly" or "dumbbell". Use this method with extreme caution in the absence of antibiotics. You must always allow for proper drainage of the wound to avoid infection. Immobilization in a position to favor adequate circulation, both to and from the wound, will typically hasten the healing of major wounds/lacerations.
 
 **Infections in Wounds**
 
-2-69. In a survival situation, some degree of wound infection is almost inevitable. Pain, swelling, and redness around the wound, increased temperature, and pus in the wound or on the dressing indicate infection is present. If the wound becomes infected, treat it as follows:
+In a survival situation, some degree of wound infection is almost inevitable. Pain, swelling, and redness around the wound, increased temperature, and pus in the wound or on the dressing indicate infection is present. If the wound becomes infected, treat it as follows:
 
 - Place a warm, moist compress with lukewarm saltwater directly on the infected wound to help draw out infection and promote oozing of fluids from the wound, thereby removing toxic products.
 
@@ -602,7 +602,7 @@ IV - intravenous DDT - Dichlorodiphenyltrichloroethane
 
 **Use of Maggots**
 
-2-70. If you do not have antibiotics and the wound has become severely infected, does not heal, and ordinary debridement is impossible, consider maggot therapy. Maggots frequently infest deep open wounds. The natural tendency is to remove these maggots. But, they actually do a good job of cleansing a wound by removing dead tissue. Maggots exude calcium carbonate which alkalizes the wound and increases the destruction of bacteria and dead tissue by the body's white blood cells. A maggot's excretion also contains two chemicals (allantoin and urea) which stimulate growth of healthy tissue and hasten wound healing. Use the following process when using maggots. 
+If you do not have antibiotics and the wound has become severely infected, does not heal, and ordinary debridement is impossible, consider maggot therapy. Maggots frequently infest deep open wounds. The natural tendency is to remove these maggots. But, they actually do a good job of cleansing a wound by removing dead tissue. Maggots exude calcium carbonate which alkalizes the wound and increases the destruction of bacteria and dead tissue by the body's white blood cells. A maggot's excretion also contains two chemicals (allantoin and urea) which stimulate growth of healthy tissue and hasten wound healing. Use the following process when using maggots. 
 
 - Expose the wound to flies for one day and then cover it.
 
@@ -618,7 +618,7 @@ IV - intravenous DDT - Dichlorodiphenyltrichloroethane
 
 **Debridement**
 
-2-71. Debridement is the surgical removal of lacerated, devitalized, or contaminated tissue. The debridement of severe wounds may be necessary to minimize infection (particularly of the gas gangrene type) and to reduce septic (toxic) shock. In essence, debridement is the removal of foreign material and dead or dying tissue. The procedure requires skill and should be done by nonmedical personnel only in an emergency. If debridement is required, follow these general guidelines: 
+Debridement is the surgical removal of lacerated, devitalized, or contaminated tissue. The debridement of severe wounds may be necessary to minimize infection (particularly of the gas gangrene type) and to reduce septic (toxic) shock. In essence, debridement is the removal of foreign material and dead or dying tissue. The procedure requires skill and should be done by nonmedical personnel only in an emergency. If debridement is required, follow these general guidelines: 
 
 - Cut away dead skin.
 
@@ -632,17 +632,17 @@ IV - intravenous DDT - Dichlorodiphenyltrichloroethane
 
 **Suture**
 
-2-72. Despite the danger of infection, occasionally it may be necessary to suture a wound in order to control bleeding or increase the mobility of the patient. Procure thread from parachute lines, fabric, or clothing, and the wound closed by "suturing." If suturing is required, place the stitches individually and far enough apart to permit drainage of underlying parts. Do not worry about the cosmetic effect; just suture the tissue together. For a scalp wound, use hair to close it. Infection is less a danger in this area due to the rich blood supply. Remember that in most situations, it is imperative that the wound be left open and allowed to drain.
+Despite the danger of infection, occasionally it may be necessary to suture a wound in order to control bleeding or increase the mobility of the patient. Procure thread from parachute lines, fabric, or clothing, and the wound closed by "suturing." If suturing is required, place the stitches individually and far enough apart to permit drainage of underlying parts. Do not worry about the cosmetic effect; just suture the tissue together. For a scalp wound, use hair to close it. Infection is less a danger in this area due to the rich blood supply. Remember that in most situations, it is imperative that the wound be left open and allowed to drain.
 
 **Medicinal Plants**
 
-2-73. In using plants for medical treatment, positive identification of the plants involved is as critical as when using them for food. Proper use of these plants is equally important. Many natural remedies work slower than the medicines you know. Therefore, start with smaller doses and allow more time for them to take effect. 
+In using plants for medical treatment, positive identification of the plants involved is as critical as when using them for food. Proper use of these plants is equally important. Many natural remedies work slower than the medicines you know. Therefore, start with smaller doses and allow more time for them to take effect. 
 
 **WARNING**
 
 **The following remedies are for use only in a survival situation. Do not use them routinely as some can be potentially toxic and have serious long-term effects.**
 
-2-74. The following terms and their definitions are associated with medicinal plant use:
+The following terms and their definitions are associated with medicinal plant use:
 
 - **Poultice**. This is crushed leaves or other plant parts, possibly heated, that are applied to a wound or sore either directly or wrapped in cloth or paper. Poultices, when hot, increase the circulation in the affected area and help healing through the chemicals present in the plants. As the poultice dries out, it draws the toxins out of a wound. A poultice should be prepared to a "mashed potatoes- like" consistency and applied as warm as the patient can stand.
 
@@ -654,11 +654,11 @@ IV - intravenous DDT - Dichlorodiphenyltrichloroethane
 
 ## Survival medicine properties
 
-2-75. Survival medicine is practiced by isolated personnel to aid in their survival during isolation. 
+Survival medicine is practiced by isolated personnel to aid in their survival during isolation. 
 
 **SURVIVAL MEDICINE PROPERTY**
 
-2-76. Prevent or reduce the effects of dysentery/diarrhea (Anti-diarrheal). 
+Prevent or reduce the effects of dysentery/diarrhea (Anti-diarrheal). 
 
 - **Medicinal uses**. Diarrhea, dysentery, burns, skin problems, and parasites. Tannin/tannic acid solution prevents infection and aids healing.
 
@@ -666,7 +666,7 @@ IV - intravenous DDT - Dichlorodiphenyltrichloroethane
 
 **Preparation** 
 
-2-77. Tannic acid is also found in the moist inner bark of hardwood trees. Boil the inner bark of a hardwood tree for two hours or more to release the tannic acid. Although this solution has a vile, taste and smell, it will stop most cases of diarrhea. 
+Tannic acid is also found in the moist inner bark of hardwood trees. Boil the inner bark of a hardwood tree for two hours or more to release the tannic acid. Although this solution has a vile, taste and smell, it will stop most cases of diarrhea. 
 
 - Place crushed outer bark, acorns, or leaves in water.
 
@@ -680,7 +680,7 @@ IV - intravenous DDT - Dichlorodiphenyltrichloroethane
 
 **Treatment**
 
-2-78. Burns. 
+Burns. 
 
 - Moisten bandage with cooled tannin tea.
 
@@ -696,7 +696,7 @@ IV - intravenous DDT - Dichlorodiphenyltrichloroethane
 
 **SURVIVAL MEDICINE PROPERTY**
 
-2-79. Prevent or reduce the effects of Fever (Anti-pyretic). 
+Prevent or reduce the effects of Fever (Anti-pyretic). 
 
 - **Medicinal uses**. Aches, colds, fever, inflammation, pain, sprains, and sore throat are relieved through its aspirin-like qualities (Salicin/salicylic acid).
 
@@ -708,7 +708,7 @@ IV - intravenous DDT - Dichlorodiphenyltrichloroethane
 
 - Prepare tea
 
-2-80. Make poultice.
+Make poultice.
 
 - Crush the plant or stems.
 
@@ -726,7 +726,7 @@ IV - intravenous DDT - Dichlorodiphenyltrichloroethane
 
 **SURVIVAL MEDICINE PROPERTY**
 
-2-81. Prevent or reduce the effects of Hemorrhage and Bleeding (including Anti-hemorrhagic, Anti- microbial, tissue regeneration, pain relief). 
+Prevent or reduce the effects of Hemorrhage and Bleeding (including Anti-hemorrhagic, Anti- microbial, tissue regeneration, pain relief). 
 
 - **Medicinal uses**. A poultice of the leaves from common plantain, woundwort or common yarrow can be applied to wounds, stings, and sores in order to facilitate healing and prevent infection. The active chemical constituents in common plantain include aucubin (an anti-microbial agent), allantoin (which stimulates cellular growth and tissue regeneration), and mucilage (which reduces pain and discomfort). Plantain has astringent properties, and a tea made from the leaves can be ingested to treat diarrhea and soothe raw internal membranes as well as itching, wounds, abrasions, stings, diarrhea, and dysentery
 
@@ -750,7 +750,7 @@ IV - intravenous DDT - Dichlorodiphenyltrichloroethane
 
 **SURVIVAL MEDICINE PROPERTY**
 
-2-82. Prevent or reduce the effects of internal parasites and worms (Anti-helminthics). 
+Prevent or reduce the effects of internal parasites and worms (Anti-helminthics). 
 
 **WARNING**
 
@@ -772,7 +772,7 @@ IV - intravenous DDT - Dichlorodiphenyltrichloroethane
 
 **SURVIVAL MEDICINE PROPERTY**
 
-2-83. Prevent or reduce the growth of disease/infection (Anti-septic).
+Prevent or reduce the growth of disease/infection (Anti-septic).
 
 - **Medicinal uses**. Use antiseptics to cleanse wounds, snake bites, sores, boils, inflammations, burns or rashes. You can make antiseptics from the expressed juice of wild onion or garlic, chickweed leaves, or the crushed leaves of dock.
 
@@ -796,7 +796,7 @@ IV - intravenous DDT - Dichlorodiphenyltrichloroethane
 
 ## Poisonous plants
 
-2-84. Isolated persons can benefit greatly from using plants as a food source, medical aid, and shelter building material; however, successful use of plants in a survival situation depends on positive identification. Knowing poisonous plants is as important as knowing edible plants. Knowing poisonous plants will help isolated personnel avoid sustaining injuries from them. Plants generally poison by- 
+Isolated persons can benefit greatly from using plants as a food source, medical aid, and shelter building material; however, successful use of plants in a survival situation depends on positive identification. Knowing poisonous plants is as important as knowing edible plants. Knowing poisonous plants will help isolated personnel avoid sustaining injuries from them. Plants generally poison by- 
 
 - Contact. With a poisonous plant causes any type of skin irritation or dermatitis.
 
@@ -804,7 +804,7 @@ IV - intravenous DDT - Dichlorodiphenyltrichloroethane
 
 - Absorption or inhalation. This happens when a person either absorbs the poison through the skin or inhales it into the respiratory system.
 
-2-85. Isolated persons must understand that poisoning from plants ranges from minor irritation to death. It is difficult to say how poisonous a plant is because- 
+Isolated persons must understand that poisoning from plants ranges from minor irritation to death. It is difficult to say how poisonous a plant is because- 
 
 - Some plants require a large amount of contact before any adverse reaction occurs, while others will cause death with only a small amount of contact.
 
@@ -814,7 +814,7 @@ IV - intravenous DDT - Dichlorodiphenyltrichloroethane
 
 - Some persons may be more sensitive to a particular plant.
 
-2-86. The following are some common misconceptions about poisonous plants:
+The following are some common misconceptions about poisonous plants:
 
 - Watch the animals and eat what they eat. Most of the time this statement is true, but some animals can eat plants that are poisonous to humans.
 
@@ -824,17 +824,17 @@ IV - intravenous DDT - Dichlorodiphenyltrichloroethane
 
 - Many poisonous plants look like their edible relatives or like other edible plants. For example, poison hemlock appears very similar to wild carrot.
 
-2-87. Certain plants are safe to eat in certain seasons or stages of growth but poisonous in other stages. For example, the leaves of the pokeweed are edible when it first starts to grow, but they soon become poisonous. Some plants and their fruits are safe to eat only when they are ripe. For example, the ripe fruit of the May apple is edible, but all other parts and the green fruit are poisonous. Some plants contain both edible and poisonous parts; potatoes and tomatoes are common plant foods, but their green parts are poisonous. Some plants become toxic after wilting. For example, when the black cherry starts to wilt, hydrocyanic acid develops. Specific preparation methods make some plants edible that are poisonous raw. The thinly sliced and thoroughly dried (drying may take a year) corms of the jack-in-the-pulpit are safe to eat, but they are poisonous if not thoroughly dried. Learn to identify and use plants before a survival situation. 
+Certain plants are safe to eat in certain seasons or stages of growth but poisonous in other stages. For example, the leaves of the pokeweed are edible when it first starts to grow, but they soon become poisonous. Some plants and their fruits are safe to eat only when they are ripe. For example, the ripe fruit of the May apple is edible, but all other parts and the green fruit are poisonous. Some plants contain both edible and poisonous parts; potatoes and tomatoes are common plant foods, but their green parts are poisonous. Some plants become toxic after wilting. For example, when the black cherry starts to wilt, hydrocyanic acid develops. Specific preparation methods make some plants edible that are poisonous raw. The thinly sliced and thoroughly dried (drying may take a year) corms of the jack-in-the-pulpit are safe to eat, but they are poisonous if not thoroughly dried. Learn to identify and use plants before a survival situation. 
 
 **RULES FOR AVOIDING POISONOUS PLANTS**
 
-2-88. If isolated persons have little or no knowledge of the local vegetation, they should use the rules to select plants for the Universal Edibility Test. Remember to avoid all mushrooms. Mushrooms identification is very difficult and must be precise-even more so than with other plants. Some mushrooms cause death very quickly, and some mushrooms have no known antidote. Two general types of mushroom poisoning are gastrointestinal and central nervous system. Avoid contact with or touching unidentified plants unnecessarily.
+If isolated persons have little or no knowledge of the local vegetation, they should use the rules to select plants for the Universal Edibility Test. Remember to avoid all mushrooms. Mushrooms identification is very difficult and must be precise-even more so than with other plants. Some mushrooms cause death very quickly, and some mushrooms have no known antidote. Two general types of mushroom poisoning are gastrointestinal and central nervous system. Avoid contact with or touching unidentified plants unnecessarily.
 
 **CONTACT DERMATITIS**
 
-2-89. Contact dermatitis from plants will usually cause the most trouble for an isolated person. The effects may be persistent, spread by scratching, and be particularly dangerous if there is contact in or around the eyes. The principal toxin of these plants is usually oil that gets on the skin upon contact with the plant. The oil can also get on equipment and then infect whoever touches the equipment. Never burn a contact poisonous plant, because the smoke may be as harmful as the plant. Isolated persons have a greater danger of being affected when they are overheated and sweating. The infection may be local or it may spread over the body. Symptoms may take from a few hours to several days to appear. Symptoms can include burning, reddening, itching, swelling, and blisters. 
+Contact dermatitis from plants will usually cause the most trouble for an isolated person. The effects may be persistent, spread by scratching, and be particularly dangerous if there is contact in or around the eyes. The principal toxin of these plants is usually oil that gets on the skin upon contact with the plant. The oil can also get on equipment and then infect whoever touches the equipment. Never burn a contact poisonous plant, because the smoke may be as harmful as the plant. Isolated persons have a greater danger of being affected when they are overheated and sweating. The infection may be local or it may spread over the body. Symptoms may take from a few hours to several days to appear. Symptoms can include burning, reddening, itching, swelling, and blisters. 
 
-2-90. When isolated persons first have contact with the poisonous plants or when the first symptoms appear, they should try to remove the oil by washing with soap and cold water. If water is not available, they should wipe their skin repeatedly with dirt or sand. They should not use dirt if they have blisters. The dirt may break open the blisters and leave the body open to infection. After the removal of the oil, the area should be dried. The area can be washed with a tannic acid solution and jewelweed can be crushed and rubbed on the affected area to treat plant-caused rashes. Tannic acid can make from oak bark. Poisonous plants that cause contact dermatitis are- 
+When isolated persons first have contact with the poisonous plants or when the first symptoms appear, they should try to remove the oil by washing with soap and cold water. If water is not available, they should wipe their skin repeatedly with dirt or sand. They should not use dirt if they have blisters. The dirt may break open the blisters and leave the body open to infection. After the removal of the oil, the area should be dried. The area can be washed with a tannic acid solution and jewelweed can be crushed and rubbed on the affected area to treat plant-caused rashes. Tannic acid can make from oak bark. Poisonous plants that cause contact dermatitis are- 
 
 - Cowhage.
 
@@ -850,11 +850,11 @@ IV - intravenous DDT - Dichlorodiphenyltrichloroethane
 
 **INGESTION POISONING**
 
-2-91. Ingestion poisoning can be very serious and could lead to death very quickly. Isolated persons should not eat any plant unless they have positively identified it first. They should keep a log of all plants eaten and plants identified as inedible if tested.
+Ingestion poisoning can be very serious and could lead to death very quickly. Isolated persons should not eat any plant unless they have positively identified it first. They should keep a log of all plants eaten and plants identified as inedible if tested.
 
-2-92. Symptoms of ingestion poisoning can include nausea, vomiting, diarrhea, abdominal cramps, depressed heartbeat and respiration, headaches, hallucinations, dry mouth, unconsciousness, coma; which can lead to death. If plant poisoning is suspected, try to remove the poisonous material from the victim's mouth and stomach as soon as possible. If the victim is conscious, induce vomiting by tickling the back of the victim's throat or by giving the victim warm saltwater. If the victim is conscious, dilute the poison by administering large quantities of water or milk.
+Symptoms of ingestion poisoning can include nausea, vomiting, diarrhea, abdominal cramps, depressed heartbeat and respiration, headaches, hallucinations, dry mouth, unconsciousness, coma; which can lead to death. If plant poisoning is suspected, try to remove the poisonous material from the victim's mouth and stomach as soon as possible. If the victim is conscious, induce vomiting by tickling the back of the victim's throat or by giving the victim warm saltwater. If the victim is conscious, dilute the poison by administering large quantities of water or milk.
 
-2-93. The following plants can cause ingestion poisoning if eaten:
+The following plants can cause ingestion poisoning if eaten:
 
 - Castor bean.
 
@@ -880,19 +880,19 @@ IV - intravenous DDT - Dichlorodiphenyltrichloroethane
 
 **SOFT TISSUE TRAUMA**
 
-2-94. Soldiers face many threats in hostile fire environments. Whether conducting large-scale combat operations, low-intensity conflicts, or operations other than war; isolated personnel may wait for hours, days, weeks or longer before professional health-care is available. It is important to understand the implications over the long run, of trauma and the potential for infection if not treated and properly cared for. 
+Soldiers face many threats in hostile fire environments. Whether conducting large-scale combat operations, low-intensity conflicts, or operations other than war; isolated personnel may wait for hours, days, weeks or longer before professional health-care is available. It is important to understand the implications over the long run, of trauma and the potential for infection if not treated and properly cared for. 
 
 **Blisters** 
 
-2-95. Blisters are caused by friction and occur in areas where the epidermis is thick and tough enough to resist abrasion. At first there is a red, sore area called a hotspot. If the friction continues, the epidermis separates and fluid enters the space, causing a blister. The best treatment for blisters is to prevent them: make sure shoes/boots are properly fitted, keep your feet dry, wear two pairs of socks, check feet periodically, and stop at the first sign of rubbing. Apply a small piece of moleskin or athletic tape to areas that are causing problems. 
+Blisters are caused by friction and occur in areas where the epidermis is thick and tough enough to resist abrasion. At first there is a red, sore area called a hotspot. If the friction continues, the epidermis separates and fluid enters the space, causing a blister. The best treatment for blisters is to prevent them: make sure shoes/boots are properly fitted, keep your feet dry, wear two pairs of socks, check feet periodically, and stop at the first sign of rubbing. Apply a small piece of moleskin or athletic tape to areas that are causing problems. 
 
-2-96. The primary goal with blister treatment is to optimize comfort and continued activity, maximize prevention of infection, and prevent further blister enlargement. If a blister is smaller than a nickel, do not puncture it. Cut a doughnut shaped piece of moleskin and center it over the blister. The doughnut hole prevents the adhesive from sticking to the tender blister and ripping it away when the moleskin is changed. 
+The primary goal with blister treatment is to optimize comfort and continued activity, maximize prevention of infection, and prevent further blister enlargement. If a blister is smaller than a nickel, do not puncture it. Cut a doughnut shaped piece of moleskin and center it over the blister. The doughnut hole prevents the adhesive from sticking to the tender blister and ripping it away when the moleskin is changed. 
 
-2-97. If the blister is larger than a nickel, it is best to drain it. Drain the blister by washing your hands and the area around the blister to decrease the chance of infection. Begin by puncturing the blister with a small sterile object, such as a needle or a pin, to drain the blister of built-up fluid. The best covering for a blister to heal is the skin itself. Clean and wash the blister and cover it with a sterile dressing. 
+If the blister is larger than a nickel, it is best to drain it. Drain the blister by washing your hands and the area around the blister to decrease the chance of infection. Begin by puncturing the blister with a small sterile object, such as a needle or a pin, to drain the blister of built-up fluid. The best covering for a blister to heal is the skin itself. Clean and wash the blister and cover it with a sterile dressing. 
 
 **Boils** 
 
-2-98. A boil is a localized infection in the skin that begins as a reddened, tender area. Over time, the area becomes firm, hard, and increasingly tender. Eventually, the center of the boil softens and becomes filled with infection-fighting white blood cells from the bloodstream to eradicate the infection. This collection of white blood cells, bacteria, and proteins is known as pus. Finally, the pus forms a head which can be opened or may spontaneously drain out through the surface of the skin. Pus enclosed within tissue is referred to as an abscess. A boil is also referred to as a skin abscess. Boils can occur anywhere on the body, including the trunk, extremities, buttocks, groin, or other areas. The signs and symptoms of boils include the following:
+A boil is a localized infection in the skin that begins as a reddened, tender area. Over time, the area becomes firm, hard, and increasingly tender. Eventually, the center of the boil softens and becomes filled with infection-fighting white blood cells from the bloodstream to eradicate the infection. This collection of white blood cells, bacteria, and proteins is known as pus. Finally, the pus forms a head which can be opened or may spontaneously drain out through the surface of the skin. Pus enclosed within tissue is referred to as an abscess. A boil is also referred to as a skin abscess. Boils can occur anywhere on the body, including the trunk, extremities, buttocks, groin, or other areas. The signs and symptoms of boils include the following:
 
 - A firm, reddened bump.
 
@@ -916,33 +916,33 @@ Treatment for boils includes the application of warm compresses to bring the boi
 
 **Fungal Infections**
 
-2-99. Keep the skin clean and dry, and expose the infected area to as much sunlight as possible. Do not scratch the affected area. Antifungal powders, lye soap, chlorine bleach, alcohol, vinegar, concentrated salt water, and iodine were used by Soldiers to treat fungal infections during the Vietnam War.
+Keep the skin clean and dry, and expose the infected area to as much sunlight as possible. Do not scratch the affected area. Antifungal powders, lye soap, chlorine bleach, alcohol, vinegar, concentrated salt water, and iodine were used by Soldiers to treat fungal infections during the Vietnam War.
 
 **Facial Injury**
 
-2-100. Facial injuries are some of the most annoying and painful injuries-particularly injuries to the teeth and gums. Personnel should continue to clean and brush their teeth while isolated to prevent tooth decay and gingivitis. If a toothbrush is unavailable, make a chew stick by taking a small green stick, chewing the end, and using the fibers as a brush to clean the teeth. If tooth pain occurs, rinsing the mouth out with warm saltwater helps to soothe the pain. Personnel may also experience a painful mouth abscess. They can ease the pain and decrease the threat of infection by lancing the abscess and letting it drain. Other facial injuries may be soft tissue facial injuries such as abrasions, contusions, lacerations, and avulsions. Clean and cover the facial injury several times a day, which will help prevent infection and crusting over. 
+Facial injuries are some of the most annoying and painful injuries-particularly injuries to the teeth and gums. Personnel should continue to clean and brush their teeth while isolated to prevent tooth decay and gingivitis. If a toothbrush is unavailable, make a chew stick by taking a small green stick, chewing the end, and using the fibers as a brush to clean the teeth. If tooth pain occurs, rinsing the mouth out with warm saltwater helps to soothe the pain. Personnel may also experience a painful mouth abscess. They can ease the pain and decrease the threat of infection by lancing the abscess and letting it drain. Other facial injuries may be soft tissue facial injuries such as abrasions, contusions, lacerations, and avulsions. Clean and cover the facial injury several times a day, which will help prevent infection and crusting over. 
 
 **Eye Injury**
 
-2-101. If an injury to the eyes occurs, isolated personnel should know how to treat the injury to prevent loss of sight. 
+If an injury to the eyes occurs, isolated personnel should know how to treat the injury to prevent loss of sight. 
 
-2-102. Snow blindness occurs when an isolated person spends time in an area where bright sunrays reflect off the ice crystals in the snow. The eyes will become red, scratchy, and watery. The casualty may have headaches and eye pain with light exposure. The treatment for snow blindness is to cover the eyes with a dark cloth until the symptoms disappear. To prevent snow blindness, ultraviolet (UV) protection rated sunglasses should be worn or improvise a pair of sunshades for the eyes. Putting soot under the eyes, helps reduce the shine and glare as well. This blinding affect can also occur when the sun's rays reflect off water and other surfaces; the treatment and prevention methods remain the same. 
+Snow blindness occurs when an isolated person spends time in an area where bright sunrays reflect off the ice crystals in the snow. The eyes will become red, scratchy, and watery. The casualty may have headaches and eye pain with light exposure. The treatment for snow blindness is to cover the eyes with a dark cloth until the symptoms disappear. To prevent snow blindness, ultraviolet (UV) protection rated sunglasses should be worn or improvise a pair of sunshades for the eyes. Putting soot under the eyes, helps reduce the shine and glare as well. This blinding affect can also occur when the sun's rays reflect off water and other surfaces; the treatment and prevention methods remain the same. 
 
-2-103. Should the isolated person incur an eye impalement; never remove any object from the eye unless it is required to assist in their survival. Use an eye shield to cover the eye from further injury or if the eye shield is not available, make a protective cover from a cup, a bandage, or a similar item. This covering will protect 
+Should the isolated person incur an eye impalement; never remove any object from the eye unless it is required to assist in their survival. Use an eye shield to cover the eye from further injury or if the eye shield is not available, make a protective cover from a cup, a bandage, or a similar item. This covering will protect 
 
 the eye from further injury or movement. Cover both eyes because the eyes are sympathetic, and when one eye moves the other moves at the same time. 
 
-2-104. If chemicals or small objects get into the eye, flush the eyes with large amounts of water from inside the eye to the outside so the chemicals, etc. are not transferred from one eye and into the other.
+If chemicals or small objects get into the eye, flush the eyes with large amounts of water from inside the eye to the outside so the chemicals, etc. are not transferred from one eye and into the other.
 
 **BONE AND JOINT TRAUMA**
 
-2-105. The majority of isolated personnel will experience some form of bone or joint trauma during isolation. Broken bones are a serious survival emergency, removing the use of a limb and raising the risk of post-fracture infection. Additionally, the long term effects of detention and captivity highlight malnutrition and starvation's adverse impacts on bone health, bone quality, bone regeneration and decreased cortical strength. 
+The majority of isolated personnel will experience some form of bone or joint trauma during isolation. Broken bones are a serious survival emergency, removing the use of a limb and raising the risk of post-fracture infection. Additionally, the long term effects of detention and captivity highlight malnutrition and starvation's adverse impacts on bone health, bone quality, bone regeneration and decreased cortical strength. 
 
 **Sprains**
 
-2-106. A sprain is an injury to a tendon or ligament in the body. Signs and symptoms associated with sprains include pain, swelling, bruising, and loss of functional movement. There may be a pop or a tear associated with the injury when it occurs. The treatment for sprains and strains are similar. When treating sprains, you should follow the letters in RICE.
+A sprain is an injury to a tendon or ligament in the body. Signs and symptoms associated with sprains include pain, swelling, bruising, and loss of functional movement. There may be a pop or a tear associated with the injury when it occurs. The treatment for sprains and strains are similar. When treating sprains, you should follow the letters in RICE.
 
-2-107. RICE as defined- 
+RICE as defined- 
 
 - **R**-Rest injured area.
 
@@ -954,27 +954,27 @@ the eye from further injury or movement. Cover both eyes because the eyes are sy
 
 **Strains**
 
-2-108. Strains are an injury to the muscle or the tendon, the tissue that connects the muscle to the bone. Signs and symptoms of a strain typically include pain, muscle spasms, and muscle weakness. There can be swelling, cramping, inflammation and, in severe cases, some loss of muscle functions. Severe strains that partially or completely tear the muscle or the tendon can be very painful and disabling. Treatment follows the RICE algorithm used to treat sprains. 
+Strains are an injury to the muscle or the tendon, the tissue that connects the muscle to the bone. Signs and symptoms of a strain typically include pain, muscle spasms, and muscle weakness. There can be swelling, cramping, inflammation and, in severe cases, some loss of muscle functions. Severe strains that partially or completely tear the muscle or the tendon can be very painful and disabling. Treatment follows the RICE algorithm used to treat sprains. 
 
 **Fractures and Dislocations**
 
-2-109. Combat, isolating events, and accidents produces broken bones and compression fractures affecting the back. Broken bones should be treated early, before swelling complicates treatment. Perform the MARCH algorithm conditions first. Immobilize before moving, if possible, and finish treatment later.
+Combat, isolating events, and accidents produces broken bones and compression fractures affecting the back. Broken bones should be treated early, before swelling complicates treatment. Perform the MARCH algorithm conditions first. Immobilize before moving, if possible, and finish treatment later.
 
-2-110. There are basically two types of fractures: open and closed. 
+There are basically two types of fractures: open and closed. 
 
-2-111. With an open (or compound) fracture, the bone protrudes through the skin and complicates the actual fracture with an open wound. In open fractures, the soft tissue injury must be treated and properly dressed before splinting. Any bone protruding from the wound should be cleaned with an antiseptic and kept moist. You should splint the injured area and continually monitor blood flow past the injury. Only reposition the break if there is no blood flow.
+With an open (or compound) fracture, the bone protrudes through the skin and complicates the actual fracture with an open wound. In open fractures, the soft tissue injury must be treated and properly dressed before splinting. Any bone protruding from the wound should be cleaned with an antiseptic and kept moist. You should splint the injured area and continually monitor blood flow past the injury. Only reposition the break if there is no blood flow.
 
-2-112. The closed fracture has no open wounds. The signs and symptoms of a closed fracture are pain, tenderness, discoloration, swelling deformity, loss of function, and grating (a sound or feeling that occurs when broken bone ends rub together). Under normal conditions, the treatment of a fracture is beyond the abilities of normal first aid. However, in survival medicine, the risk of potential bone deformities is outweighed by the necessity to hasten the healing process and return the limb to function to enable the return of the isolated person.
+The closed fracture has no open wounds. The signs and symptoms of a closed fracture are pain, tenderness, discoloration, swelling deformity, loss of function, and grating (a sound or feeling that occurs when broken bone ends rub together). Under normal conditions, the treatment of a fracture is beyond the abilities of normal first aid. However, in survival medicine, the risk of potential bone deformities is outweighed by the necessity to hasten the healing process and return the limb to function to enable the return of the isolated person.
 
-2-113. Dangers associated with the treatment of a fracture include severing or compression of a nerve or blood vessel at the site of fracture. For this reason minimum manipulation should be done, and only very cautiously. If the area below the break becomes numb, swollen, cool to the touch, or turning pale, and the casualty showing signs of shock, a major vessel may have been severed and this internal bleeding must be controlled. Reset the fracture and treat the casualty for shock and replace lost fluids.
+Dangers associated with the treatment of a fracture include severing or compression of a nerve or blood vessel at the site of fracture. For this reason minimum manipulation should be done, and only very cautiously. If the area below the break becomes numb, swollen, cool to the touch, or turning pale, and the casualty showing signs of shock, a major vessel may have been severed and this internal bleeding must be controlled. Reset the fracture and treat the casualty for shock and replace lost fluids.
 
-2-114. Often during the treatment of fractures, traction (i.e. a slow, strong pull - not a tug) must be applied during the splinting process to facilitate healing. Fractures of the smaller bones (finger or hand) can usually be performed using hand traction. For larger bones and muscled areas, traction is applied by wedging the fractured leg or arm in the V-notch of a tree and pulling until the overriding edges of fractured bone are brought into line. Check the alignment against the other limb. Then splint and immobilize, keeping up the traction to ensure it does not slip back. A splint can be made from sticks, branches, parts of wreckage, driftwood, rolls of paper, and other rigid items.
+Often during the treatment of fractures, traction (i.e. a slow, strong pull - not a tug) must be applied during the splinting process to facilitate healing. Fractures of the smaller bones (finger or hand) can usually be performed using hand traction. For larger bones and muscled areas, traction is applied by wedging the fractured leg or arm in the V-notch of a tree and pulling until the overriding edges of fractured bone are brought into line. Check the alignment against the other limb. Then splint and immobilize, keeping up the traction to ensure it does not slip back. A splint can be made from sticks, branches, parts of wreckage, driftwood, rolls of paper, and other rigid items.
 
-2-115. Use field expedient methods to immobilize a fracture. (See figure 2-5\). Once an injury is immobilized, assess the pulse to ensure proper blood flow to the injury. Take your pulse multiple times at the farthest part of the injury. When immobilizing a fracture, it is crucial to splint the joints above and below the fracture site to prevent the bone ends from moving. If the mid forearm is fractured, the wrist and the elbow should be splinted to keep the bone ends from moving and achieve proper healing. Immobilize a joint in a fixed neutral functional position. This position is neither completely straight nor completely flexed, but in a position about midway between. Splint the finger, to about the same position that the finger would attain at rest. Use large straight strips of cloth material, vines, or braided plant material to secure the splints. To aid in controlling swelling, the limb should be elevated repeatedly throughout the day. 
+Use field expedient methods to immobilize a fracture. (See figure 2-5\). Once an injury is immobilized, assess the pulse to ensure proper blood flow to the injury. Take your pulse multiple times at the farthest part of the injury. When immobilizing a fracture, it is crucial to splint the joints above and below the fracture site to prevent the bone ends from moving. If the mid forearm is fractured, the wrist and the elbow should be splinted to keep the bone ends from moving and achieve proper healing. Immobilize a joint in a fixed neutral functional position. This position is neither completely straight nor completely flexed, but in a position about midway between. Splint the finger, to about the same position that the finger would attain at rest. Use large straight strips of cloth material, vines, or braided plant material to secure the splints. To aid in controlling swelling, the limb should be elevated repeatedly throughout the day. 
 
 **Figure 2-5. Building a splint**
 
-2-116. Improperly aligned bones and separation of bone joints are called a dislocation. These misalignments can be extremely painful and can cause impairment of nerve or circulatory function below the area affected. An isolated person must place these joints back into alignment as quickly as possible. Signs and symptoms of dislocations are joint pain, tenderness, swelling, discoloration, limited range of motion, and joint deformity. Manual traction or the use of weight (body weight) to pull the bones is the safest and easiest for "resetting" a dislocation and allows for normal function and circulation. Without an X-ray, judge the proper 
+Improperly aligned bones and separation of bone joints are called a dislocation. These misalignments can be extremely painful and can cause impairment of nerve or circulatory function below the area affected. An isolated person must place these joints back into alignment as quickly as possible. Signs and symptoms of dislocations are joint pain, tenderness, swelling, discoloration, limited range of motion, and joint deformity. Manual traction or the use of weight (body weight) to pull the bones is the safest and easiest for "resetting" a dislocation and allows for normal function and circulation. Without an X-ray, judge the proper 
 
 ![](file:///android_asset/survival_guide/5.webp)
 
@@ -984,41 +984,41 @@ alignment by the look and feel of the joint and by comparing it to the joint on 
 
 **BITES AND STINGS**
 
-2-117. Insects and related pests are hazards in a survival situation. They cause irritations and are often carriers of diseases that cause severe allergic reactions in some individuals. In many parts of the world, people can be exposed to serious, even fatal, diseases not encountered in the United States. Common insects and their hazards include the following:
+Insects and related pests are hazards in a survival situation. They cause irritations and are often carriers of diseases that cause severe allergic reactions in some individuals. In many parts of the world, people can be exposed to serious, even fatal, diseases not encountered in the United States. Common insects and their hazards include the following:
 
-2-118. **Ticks**. Ticks can carry and transmit diseases, such as Rocky Mountain spotted fever, common in many parts of the United States. They also transmit Lyme disease. Take care to remove the whole tick. Use tweezers if available. Grasp the tick where the mouthparts are attached to the skin and pull up with steady, even pressure. Do not twist or jerk the tick. Do not squeeze the tick's body. Wash hands after touching the tick. Clean the tick wound daily until healed.
+**Ticks**. Ticks can carry and transmit diseases, such as Rocky Mountain spotted fever, common in many parts of the United States. They also transmit Lyme disease. Take care to remove the whole tick. Use tweezers if available. Grasp the tick where the mouthparts are attached to the skin and pull up with steady, even pressure. Do not twist or jerk the tick. Do not squeeze the tick's body. Wash hands after touching the tick. Clean the tick wound daily until healed.
 
-2-119. **Mosquitoes**. Mosquitoes may carry malaria, dengue, and many other diseases.
+**Mosquitoes**. Mosquitoes may carry malaria, dengue, and many other diseases.
 
-2-120. **Flies**. Flies can spread disease from contact with infectious sources. They are carriers of sleeping sickness, typhoid, cholera, and dysentery.
+**Flies**. Flies can spread disease from contact with infectious sources. They are carriers of sleeping sickness, typhoid, cholera, and dysentery.
 
-2-121. **Fleas**. Fleas can transmit plague.
+**Fleas**. Fleas can transmit plague.
 
-2-122. **Lice**. Lice can transmit typhus and relapsing fever. 
+**Lice**. Lice can transmit typhus and relapsing fever. 
 
-2-123. The best method of preventing bites and stings is to be aware of your environment and the insects in the area. If insects cannot be avoided, wrap your face with a bandana, use netting, roll down your sleeves, wear gloves, and repellant.
+The best method of preventing bites and stings is to be aware of your environment and the insects in the area. If insects cannot be avoided, wrap your face with a bandana, use netting, roll down your sleeves, wear gloves, and repellant.
 
-2-124. If bitten or stung, do not scratch the bite or sting; it might become infected. Personnel should inspect their body at least once a day to ensure there are no insects attached to them. It is impossible to list the treatment for all the different types of bites and stings. However, bites and stings can generally be treated as follows:
+If bitten or stung, do not scratch the bite or sting; it might become infected. Personnel should inspect their body at least once a day to ensure there are no insects attached to them. It is impossible to list the treatment for all the different types of bites and stings. However, bites and stings can generally be treated as follows:
 
-2-125. Become familiar with available antibiotics and how to use them before deployment.
+Become familiar with available antibiotics and how to use them before deployment.
 
-2-126. Make sure immunizations are up-to-date before deployment; this can prevent most common diseases carried by mosquitoes and some carried by flies.
+Make sure immunizations are up-to-date before deployment; this can prevent most common diseases carried by mosquitoes and some carried by flies.
 
-2-127. Be aware that common fly-borne diseases are usually treatable with penicillin or erythromycin.
+Be aware that common fly-borne diseases are usually treatable with penicillin or erythromycin.
 
-2-128. Be aware that most tick, flea, louse, and mite-borne diseases are treatable with tetracycline.
+Be aware that most tick, flea, louse, and mite-borne diseases are treatable with tetracycline.
 
 ![](file:///android_asset/survival_guide/6.webp)
 
-2-129. Be aware that most antibiotics come in 250-milligram or 500-milligram tablets. If you cannot remember the exact dose rate to treat a disease, two tablets, four times a day for 10 to 14 days will usually kill any bacteria.
+Be aware that most antibiotics come in 250-milligram or 500-milligram tablets. If you cannot remember the exact dose rate to treat a disease, two tablets, four times a day for 10 to 14 days will usually kill any bacteria.
 
 **SNAKEBITES**
 
-2-130. Deaths from snakebites are rare. More than one-half of snakebite victims have little or no poisoning, and only about one-quarter develop serious systemic poisoning. The primary concern in the treatment of snakebites is to limit the amount of eventual tissue destruction around the bite area. A bite wound, regardless of the type of animal that inflicted it, can become infected from bacteria in the animal's mouth. With venomous and nonvenomous snakebites, this local infection is responsible for a large part of the residual damage that results. 
+Deaths from snakebites are rare. More than one-half of snakebite victims have little or no poisoning, and only about one-quarter develop serious systemic poisoning. The primary concern in the treatment of snakebites is to limit the amount of eventual tissue destruction around the bite area. A bite wound, regardless of the type of animal that inflicted it, can become infected from bacteria in the animal's mouth. With venomous and nonvenomous snakebites, this local infection is responsible for a large part of the residual damage that results. 
 
-2-131. Snake venoms contain poisons that attack the victim's central nervous system (neurotoxins) and blood circulation (hemotoxins) as well as poisonous digestive enzymes (cytotoxins) that aid in digesting their prey. These poisons can cause a very large area of tissue death, leaving a large, open wound. This condition could lead to the need for eventual amputation if not treated. Shock and panic in a snakebite victim can also affect the person's recovery. Excitement, hysteria, and panic can speed up circulation, causing the body to absorb the toxin quickly. Signs of shock occur within the first 30 minutes after a bite. 
+Snake venoms contain poisons that attack the victim's central nervous system (neurotoxins) and blood circulation (hemotoxins) as well as poisonous digestive enzymes (cytotoxins) that aid in digesting their prey. These poisons can cause a very large area of tissue death, leaving a large, open wound. This condition could lead to the need for eventual amputation if not treated. Shock and panic in a snakebite victim can also affect the person's recovery. Excitement, hysteria, and panic can speed up circulation, causing the body to absorb the toxin quickly. Signs of shock occur within the first 30 minutes after a bite. 
 
-2-132. Before isolated persons start treating a snakebite, they should determine whether the snake was venomous or nonvenomous. Bites from a nonvenomous snake will show rows of teeth marks. Bites from a venomous snake may have rows of teeth marks showing, but will have one or more distinctive puncture marks caused by fang penetration. Symptoms of a venomous bite may be spontaneous bleeding from the nose and anus, blood in the urine, pain at the site of the bite, and swelling at the site of the bite within a few minutes or up to 2 hours later. Breathing difficulty, paralysis, weakness, twitching, and numbness are also signs of neurotoxic venoms. These signs usually appear 1.5 to 2 hours after the bite. If personnel determine that a venomous snake bit an individual, use the following procedures:
+Before isolated persons start treating a snakebite, they should determine whether the snake was venomous or nonvenomous. Bites from a nonvenomous snake will show rows of teeth marks. Bites from a venomous snake may have rows of teeth marks showing, but will have one or more distinctive puncture marks caused by fang penetration. Symptoms of a venomous bite may be spontaneous bleeding from the nose and anus, blood in the urine, pain at the site of the bite, and swelling at the site of the bite within a few minutes or up to 2 hours later. Breathing difficulty, paralysis, weakness, twitching, and numbness are also signs of neurotoxic venoms. These signs usually appear 1.5 to 2 hours after the bite. If personnel determine that a venomous snake bit an individual, use the following procedures:
 
 - Keep the victim still and reassured.
 
@@ -1051,79 +1051,79 @@ alignment by the look and feel of the joint and by comparing it to the joint on 
 
 **ENVIRONMENTAL INJURY**
 
-2-133. The successful prevention and control of cold, heat and altitude injuries depend on vigorous command interest, the provision of adequate clothing, and a number of individual and group measures. 
+The successful prevention and control of cold, heat and altitude injuries depend on vigorous command interest, the provision of adequate clothing, and a number of individual and group measures. 
 
 **High altitude sickness**
 
-2-134. Isolated person's not acclimated to high altitude may experience several illnesses that could affect their body and require treatment. Rapid change of altitude-for example, going from sea level to high altitude- can cause loss of consciousness followed shortly by death. The typical person working in a high-altitude environment will need to acclimatize in order to prepare their body for functioning at altitude. Acclimatization is the process of physiologic adjustments made by the body's oxygen delivery system to the cells; this improves their hypoxic tolerance. 
+Isolated person's not acclimated to high altitude may experience several illnesses that could affect their body and require treatment. Rapid change of altitude-for example, going from sea level to high altitude- can cause loss of consciousness followed shortly by death. The typical person working in a high-altitude environment will need to acclimatize in order to prepare their body for functioning at altitude. Acclimatization is the process of physiologic adjustments made by the body's oxygen delivery system to the cells; this improves their hypoxic tolerance. 
 
-2-135. The first and maybe only sign of high-altitude illness is a headache. A high-altitude headache will have at least two of the following characteristics: bilateral, frontal, or frontal temporal; dull or pressing quality; mild or moderate in intensity; and aggravated by exertion, movement, straining coughing, or bending. Acute mountain sickness symptoms include headache plus one or more of the following: nausea, vomiting, fatigue, dizziness, and difficulty sleeping. 
+The first and maybe only sign of high-altitude illness is a headache. A high-altitude headache will have at least two of the following characteristics: bilateral, frontal, or frontal temporal; dull or pressing quality; mild or moderate in intensity; and aggravated by exertion, movement, straining coughing, or bending. Acute mountain sickness symptoms include headache plus one or more of the following: nausea, vomiting, fatigue, dizziness, and difficulty sleeping. 
 
 **High-altitude Pulmonary Edema**
 
-2-136. High-altitude pulmonary edema is one of the most severe high-altitude illnesses. This illness can be so severe it can cause death. Treatment for high-altitude pulmonary edema involves limiting exertion, staying warm, and rapidly descending from altitude. Signs of high-altitude pulmonary edema onset involve loss of appetite, low energy level, coughing spasms, and a headache. 
+High-altitude pulmonary edema is one of the most severe high-altitude illnesses. This illness can be so severe it can cause death. Treatment for high-altitude pulmonary edema involves limiting exertion, staying warm, and rapidly descending from altitude. Signs of high-altitude pulmonary edema onset involve loss of appetite, low energy level, coughing spasms, and a headache. 
 
-2-137. High-altitude cerebral edema is another risk at high altitudes that is serious. It is a severe high- altitude illness where the brain swells and stops functioning. This illness is so severe that it can cause death. Other than rest, hydration and descending to a lower altitude, further treatment is beyond the capabilities of nonmedical personnel.
+High-altitude cerebral edema is another risk at high altitudes that is serious. It is a severe high- altitude illness where the brain swells and stops functioning. This illness is so severe that it can cause death. Other than rest, hydration and descending to a lower altitude, further treatment is beyond the capabilities of nonmedical personnel.
 
 Note. At high altitudes, the body will require more calories to counteract weight loss and acute loss of appetite.
 
 **HEAT INJURIES**
 
-2-138. In a very warm climate, personnel may experience heat injuries. Heat injuries can occur suddenly and, if not treated properly, can quickly incapacitate and prevent mission completion. Personnel should limit their time in the hot sun, cover exposed skin or wear sunscreen, remain hydrated, and take plenty of rest breaks. Follow this formula otherwise; heat cramps, heat exhaustion, and heatstroke may occur. 
+In a very warm climate, personnel may experience heat injuries. Heat injuries can occur suddenly and, if not treated properly, can quickly incapacitate and prevent mission completion. Personnel should limit their time in the hot sun, cover exposed skin or wear sunscreen, remain hydrated, and take plenty of rest breaks. Follow this formula otherwise; heat cramps, heat exhaustion, and heatstroke may occur. 
 
-2-139. Heat cramps are muscle cramps in the arms, legs, and/or stomach. Other symptoms experienced may be wet skin and extreme thirst. The treatment for heat cramps involves resting in a cool, shaded area and loosening restrictive clothing. Personnel should slowly sip one quart of water per hour. Add one-fourth teaspoon salt to the water to help replace minerals lost through sweating. 
+Heat cramps are muscle cramps in the arms, legs, and/or stomach. Other symptoms experienced may be wet skin and extreme thirst. The treatment for heat cramps involves resting in a cool, shaded area and loosening restrictive clothing. Personnel should slowly sip one quart of water per hour. Add one-fourth teaspoon salt to the water to help replace minerals lost through sweating. 
 
-2-140. If untreated, heat cramps can progress into heat exhaustion. With heat exhaustion, personnel may experience cool, moist, and clammy skin; a loss of appetite; a headache; excessive sweating; and weakness. They may also experience faintness, dizziness, nausea, and muscle cramps. The treatment for heat exhaustion involves resting in a cool, shaded area and loosening restrictive clothing. Personnel should pour cool water over the person and fan to increase the cooling effect of evaporation. They should also slowly sip at least one quart of water per hour to replace lost fluids. Elevating the legs will help. 
+If untreated, heat cramps can progress into heat exhaustion. With heat exhaustion, personnel may experience cool, moist, and clammy skin; a loss of appetite; a headache; excessive sweating; and weakness. They may also experience faintness, dizziness, nausea, and muscle cramps. The treatment for heat exhaustion involves resting in a cool, shaded area and loosening restrictive clothing. Personnel should pour cool water over the person and fan to increase the cooling effect of evaporation. They should also slowly sip at least one quart of water per hour to replace lost fluids. Elevating the legs will help. 
 
-2-141. Heatstroke is the most dangerous heat injury. The casualty will stop sweating and have hot, dry skin. They may experience a headache, dizziness, nausea, vomiting, and a rapid pulse and respiration. They may have seizures and mental confusion, and may collapse and lose consciousness. The treatment for heatstroke involves rapidly cooling victims by immersing them in cool water. If a water bath is unavailable, then douse 
+Heatstroke is the most dangerous heat injury. The casualty will stop sweating and have hot, dry skin. They may experience a headache, dizziness, nausea, vomiting, and a rapid pulse and respiration. They may have seizures and mental confusion, and may collapse and lose consciousness. The treatment for heatstroke involves rapidly cooling victims by immersing them in cool water. If a water bath is unavailable, then douse 
 
 victims clothing with water making sure to cool the groin, the armpit, and the back and neck areas. Use caution to avoid overcooling the victims. If victims are conscious, have them consume one quart of water. 
 
 **COLD INJURIES**
 
-2-142. In cold environments, personnel may succumb to different types of cold injuries that can cause incapacitation and permanent damage and make it difficult or impossible to reach mission success. To reduce the possibility of cold injuries-limit your time in the extreme cold, cover exposed skin, and use the buddy system to check for cold injuries. Proper layering of clothing along with staying dry and hydrated with warm fluids can reduce the risk of cold injuries. Heat transfers to and from the body through radiation, convection, conduction, evaporation, and respiration (see figure 2-7\).
+In cold environments, personnel may succumb to different types of cold injuries that can cause incapacitation and permanent damage and make it difficult or impossible to reach mission success. To reduce the possibility of cold injuries-limit your time in the extreme cold, cover exposed skin, and use the buddy system to check for cold injuries. Proper layering of clothing along with staying dry and hydrated with warm fluids can reduce the risk of cold injuries. Heat transfers to and from the body through radiation, convection, conduction, evaporation, and respiration (see figure 2-7\).
 
 **Figure 2-7. Heat transfer**
 
-2-143. Radiation is the transfer of heat waves from the body to the environment or from the environment back to the body. It is the primary cause of heat loss. Radiation can contribute to heat loss of as 45 percent of body heat through exposed hands, feet, head, and neck, depending on the outside temperature. Use clothing to insulate exposed areas of the body. Convection is heat movement to or from an object by means of air or wind. The human body is always warming a thin layer of air next to the skin. When this warm layer of air is removed by convection, the body cools down. 
+Radiation is the transfer of heat waves from the body to the environment or from the environment back to the body. It is the primary cause of heat loss. Radiation can contribute to heat loss of as 45 percent of body heat through exposed hands, feet, head, and neck, depending on the outside temperature. Use clothing to insulate exposed areas of the body. Convection is heat movement to or from an object by means of air or wind. The human body is always warming a thin layer of air next to the skin. When this warm layer of air is removed by convection, the body cools down. 
 
-2-144. A major function of clothing is to keep a warm layer of air close to the body. By removing or disturbing this warm air layer, wind can reduce body temperature. Conduction is the transfer of heat from one object to another. Extreme examples of rapid heat transfer include deep frostbite and third-degree burns. In hot conditions, sitting on a cool rock in the shade can conduct some excess heat away from the body. Evaporation is the process by which liquid changes into vapor. Heat within the liquid escapes to the environment. The body uses this method to regulate its core temperature (sweat) in hot, dry climates. 
+A major function of clothing is to keep a warm layer of air close to the body. By removing or disturbing this warm air layer, wind can reduce body temperature. Conduction is the transfer of heat from one object to another. Extreme examples of rapid heat transfer include deep frostbite and third-degree burns. In hot conditions, sitting on a cool rock in the shade can conduct some excess heat away from the body. Evaporation is the process by which liquid changes into vapor. Heat within the liquid escapes to the environment. The body uses this method to regulate its core temperature (sweat) in hot, dry climates. 
 
-2-145. Clothing made of lightweight materials (cotton or linen) which have an open weave absorb sweat, allow air to circulate around the body, and help evaporation. Respiration works on the combined processes of convection, evaporation, and radiation. Air inhaled when breathing is rarely the same temperature as the air in lungs. 
+Clothing made of lightweight materials (cotton or linen) which have an open weave absorb sweat, allow air to circulate around the body, and help evaporation. Respiration works on the combined processes of convection, evaporation, and radiation. Air inhaled when breathing is rarely the same temperature as the air in lungs. 
 
 ![](file:///android_asset/survival_guide/7.webp)
 
 **Chilblains and Frostbite** 
 
-2-146. You can identify Chilblains or frost nip by red, swollen, hot, tender, itching skin. Continued exposure to the cold could lead to infected skin lesions. The affected area usually responds well to locally applied warming (body heat). Do not rub or massage the area. 
+You can identify Chilblains or frost nip by red, swollen, hot, tender, itching skin. Continued exposure to the cold could lead to infected skin lesions. The affected area usually responds well to locally applied warming (body heat). Do not rub or massage the area. 
 
-2-147. Frostbite, superficial and deep, are the next stages of cold injuries personnel should be aware of and treat if signs appear. Superficial frostbite will produce redness and blistering within twenty four to thirty six hours and potential shedding of skin. Deep frostbite will be preceded by superficial frostbite, but the skin will be painless and pale yellowish in color. The spot will appear wooden, waxy, or solid to the touch and blisters may form within twenty four to thirty six hours. 
+Frostbite, superficial and deep, are the next stages of cold injuries personnel should be aware of and treat if signs appear. Superficial frostbite will produce redness and blistering within twenty four to thirty six hours and potential shedding of skin. Deep frostbite will be preceded by superficial frostbite, but the skin will be painless and pale yellowish in color. The spot will appear wooden, waxy, or solid to the touch and blisters may form within twenty four to thirty six hours. 
 
-2-148. To treat frostbite personnel should not attempt to thaw the affected areas by placing them too close to an open flame. The loss of feeling in the affected limb could lead to a severe destruction of tissue. Instead, thaw the affected area using water that is between 99 and 109° Fahrenheit (F) \[(37 and 43° Celsius (C)]. Keep the tissue warm; decrease constricted clothing but increase exercise and insulation. Protect the affected area from further injury. 
+To treat frostbite personnel should not attempt to thaw the affected areas by placing them too close to an open flame. The loss of feeling in the affected limb could lead to a severe destruction of tissue. Instead, thaw the affected area using water that is between 99 and 109° Fahrenheit (F) \[(37 and 43° Celsius (C)]. Keep the tissue warm; decrease constricted clothing but increase exercise and insulation. Protect the affected area from further injury. 
 
 **Immersion Foot** 
 
-2-149. Immersion foot is caused by the foot being repeatedly exposed to wet, warm or cold conditions. A isolated person's mobility can be affected in a severe case of immersion foot. The affected areas will be cold and numb. As the feet warm up, they may begin to feel hot with burning, shooting pains. In an advanced stage of immersion foot, the affected skin will be bluish and pale in color. The distal pulse will weaken, and blistering and swelling may occur. Casualties may also experience heat hemorrhaging and potential gangrene. 
+Immersion foot is caused by the foot being repeatedly exposed to wet, warm or cold conditions. A isolated person's mobility can be affected in a severe case of immersion foot. The affected areas will be cold and numb. As the feet warm up, they may begin to feel hot with burning, shooting pains. In an advanced stage of immersion foot, the affected skin will be bluish and pale in color. The distal pulse will weaken, and blistering and swelling may occur. Casualties may also experience heat hemorrhaging and potential gangrene. 
 
-2-150. To treat immersion foot, gradually warm the affected area by exposing it to warm air. Do not massage or moisten the skin. Make sure to protect the affected area from trauma, dry the feet, and avoid walking. Personnel can prevent immersion foot by changing out of wet socks throughout the day. Washing and drying the feet daily also helps. 
+To treat immersion foot, gradually warm the affected area by exposing it to warm air. Do not massage or moisten the skin. Make sure to protect the affected area from trauma, dry the feet, and avoid walking. Personnel can prevent immersion foot by changing out of wet socks throughout the day. Washing and drying the feet daily also helps. 
 
 **Hypothermia** 
 
-2-151. Hypothermia is one of the most dangerous cold injuries personnel can experience. It can occur rapidly, and the temperatures do not have to be very cold to contract hypothermia. Personnel are predisposed to hypothermia because of lack of food, potential dehydration, and little rest. Symptoms of hypothermia are coldness, wetness, and uncontrollable shivering. The body's core temperature will drop below 95° F (35° C). 
+Hypothermia is one of the most dangerous cold injuries personnel can experience. It can occur rapidly, and the temperatures do not have to be very cold to contract hypothermia. Personnel are predisposed to hypothermia because of lack of food, potential dehydration, and little rest. Symptoms of hypothermia are coldness, wetness, and uncontrollable shivering. The body's core temperature will drop below 95° F (35° C). 
 
-2-152. The victim's movements can become uncoordinated, and unconsciousness may occur. Shock and coma may occur as the body temperature drops. To treat hypothermia, get victims out of wet clothing and into dry clothing, and have them slowly consume warm fluids. Begin to warm the body evenly and immediately. Keep victims dry and protect them from the elements. For severe hypothermia, quickly stabilize the victim's body temperature-this can include bare skin-on-skin contact inside a sleeping bag-and then prevent further heat loss.
+The victim's movements can become uncoordinated, and unconsciousness may occur. Shock and coma may occur as the body temperature drops. To treat hypothermia, get victims out of wet clothing and into dry clothing, and have them slowly consume warm fluids. Begin to warm the body evenly and immediately. Keep victims dry and protect them from the elements. For severe hypothermia, quickly stabilize the victim's body temperature-this can include bare skin-on-skin contact inside a sleeping bag-and then prevent further heat loss.
 
 **Dehydration** 
 
-2-153. The body continually loses water to supports its processes. A person typically loses 1.5 liters of water a day through urine. Rapid fluid loss may also come from vomiting and diarrhea (severe diarrhea can increase fluid loss at up to 25 quarts in a 24 hour period). Another large source of water loss in our bodies is through sweating, water is also lost from our body through breathing. Exposure to extreme hot and cold climate conditions and high altitudes expedite water loss. In extreme hot climates, the body can lose up to 3.5 quarts of water per hour when exposed to the elements. Additionally, intense activity burns, and illness, particularly the type that results in diarrhea, increases risk of dehydration. 
+The body continually loses water to supports its processes. A person typically loses 1.5 liters of water a day through urine. Rapid fluid loss may also come from vomiting and diarrhea (severe diarrhea can increase fluid loss at up to 25 quarts in a 24 hour period). Another large source of water loss in our bodies is through sweating, water is also lost from our body through breathing. Exposure to extreme hot and cold climate conditions and high altitudes expedite water loss. In extreme hot climates, the body can lose up to 3.5 quarts of water per hour when exposed to the elements. Additionally, intense activity burns, and illness, particularly the type that results in diarrhea, increases risk of dehydration. 
 
-2-154. To prevent dehydration, isolated persons should avoid or limit work during the hottest hours of the day. Sweat-not water-should be rationed when water is limited. If water is plentiful, drink enough water to ensure a steady urine output throughout the day. However, over-hydration can cause low serum sodium levels that can lead to death. Increase water intake in extreme climates. The body uses water more efficiently 
+To prevent dehydration, isolated persons should avoid or limit work during the hottest hours of the day. Sweat-not water-should be rationed when water is limited. If water is plentiful, drink enough water to ensure a steady urine output throughout the day. However, over-hydration can cause low serum sodium levels that can lead to death. Increase water intake in extreme climates. The body uses water more efficiently 
 
 when small amounts of water is consumed at regular intervals. Isolated persons always drink water when eating. Personnel acclimated to the environment require less water to maintain hydration.
 
-2-155. Do not use alcoholic beverages, urine, blood, and seawater as water substitutes. Alcohol causes dehydration and impairs physical and mental abilities. Urine contains harmful toxins the body is attempting to excrete. It is also comprised of about 2 percent salt. Blood is salty and contains proteins, and therefore requires water to digest. It is considered a food and may transmit disease is consumed without cooking it first. Seawater is comprised of about 4 percent salt and results in dehydration. 
+Do not use alcoholic beverages, urine, blood, and seawater as water substitutes. Alcohol causes dehydration and impairs physical and mental abilities. Urine contains harmful toxins the body is attempting to excrete. It is also comprised of about 2 percent salt. Blood is salty and contains proteins, and therefore requires water to digest. It is considered a food and may transmit disease is consumed without cooking it first. Seawater is comprised of about 4 percent salt and results in dehydration. 
 
-2-156. Common signs and symptoms of dehydration include- 
+Common signs and symptoms of dehydration include- 
 
 - Dark urine with strong odor.
 
@@ -1143,7 +1143,7 @@ when small amounts of water is consumed at regular intervals. Isolated persons a
 
 - Thirst. Thirst is not an adequate indicator of the need to drink water. Once personnel are thirsty, they are already dehydrated.
 
-2-157. Signs and symptoms can be assessed to approximate the degree of dehydration personnel are experiencing: * The person feeling them can only describe symptoms. If you are having pain, no one knows unless you tell him or her. It is the same with dizziness, numbness, lightheadedness, fatigue, vision disturbances, ringing in your ears, and a whole host of other feelings. Anyone who is not in your body is only going to know about these experiences if you describe them.
+Signs and symptoms can be assessed to approximate the degree of dehydration personnel are experiencing: * The person feeling them can only describe symptoms. If you are having pain, no one knows unless you tell him or her. It is the same with dizziness, numbness, lightheadedness, fatigue, vision disturbances, ringing in your ears, and a whole host of other feelings. Anyone who is not in your body is only going to know about these experiences if you describe them.
 * That does not mean other people do not notice when you are not feeling well. If your face is pale, you are unstable when you walk, or you are sweating, then you are showing signs. Signs have to be seen and read by someone (e.g., another Soldier or healthcare provider) rather than felt. Signs are just what they sound like: indicators of a problem.
 * A 2% loss results in thirst.
 * A 10% loss results in dizziness, headache, inability to walk, and a tingling sensation in the limbs.
@@ -1153,17 +1153,17 @@ when small amounts of water is consumed at regular intervals. Isolated persons a
 
 **INGESTION POISONING**
 
-2-158. Poisons can come from misidentified plants, animals, toxic water sources, toxic fungi, and chemicals. Poisons can enter the body through four means- eyes, nose, mouth and skin contact. The treatments for poison ingestion under field conditions include inducing vomiting and taking about 1 gram (0.04 ounce) of activated charcoal. Activated charcoal will attach and absorb the poison and carry it out of the gastrointestinal system. Activated can be made from a wide range of carbon rich materials like wood, coal, bones, coconut shells, nut shells and peat. The first step in making activated charcoal is to take the material and bring it to a temperature between 600-900 degrees Fahrenheit in a survival fire. Burn the material for about 4 1/2 hours. Cool the burnt material, crush it into a fine powder, and use for survival medicine remedies, and water filtration.
+Poisons can come from misidentified plants, animals, toxic water sources, toxic fungi, and chemicals. Poisons can enter the body through four means- eyes, nose, mouth and skin contact. The treatments for poison ingestion under field conditions include inducing vomiting and taking about 1 gram (0.04 ounce) of activated charcoal. Activated charcoal will attach and absorb the poison and carry it out of the gastrointestinal system. Activated can be made from a wide range of carbon rich materials like wood, coal, bones, coconut shells, nut shells and peat. The first step in making activated charcoal is to take the material and bring it to a temperature between 600-900 degrees Fahrenheit in a survival fire. Burn the material for about 4 1/2 hours. Cool the burnt material, crush it into a fine powder, and use for survival medicine remedies, and water filtration.
 
-2-159. In some cases, a laxative may be required to help the activated charcoal work to its full potential. If the poison is an acid, an alkali, or a petroleum product, vomiting should be avoided because the substance can burn the esophagus. These types of products can also be inhaled into the lungs during vomiting, causing 
+In some cases, a laxative may be required to help the activated charcoal work to its full potential. If the poison is an acid, an alkali, or a petroleum product, vomiting should be avoided because the substance can burn the esophagus. These types of products can also be inhaled into the lungs during vomiting, causing 
 
 pneumonia. Aggressively hydrate the body with clean, treated potable water to prevent renal failure and dilute the poison in the victim's system.
 
 **SANITATION AND HYGIENE**
 
-2-160. Application of the following simple guidelines regarding personal health and hygiene will enable the isolated person to safeguard personal health and the health of others while detained or captive. 
+Application of the following simple guidelines regarding personal health and hygiene will enable the isolated person to safeguard personal health and the health of others while detained or captive. 
 
-2-161. Stay clean (daily regimen) by-
+Stay clean (daily regimen) by-
 
 - Minimizing infection by washing. (Use white ashes, sand, or loamy soil as soap substitutes.)
 
@@ -1192,9 +1192,9 @@ pneumonia. Aggressively hydrate the body with clean, treated potable water to pr
 
 **AVOIDING ILLNESS**
 
-2-162. Isolated personnel can avoid many different kinds of illnesses and infections by practicing good sanitation and hygiene. Maintaining a clean body and living area will prevent the spread of germs and bacteria whether alone or in a group. It will also allow isolated persons to stay organized and protect items from animal contact. 
+Isolated personnel can avoid many different kinds of illnesses and infections by practicing good sanitation and hygiene. Maintaining a clean body and living area will prevent the spread of germs and bacteria whether alone or in a group. It will also allow isolated persons to stay organized and protect items from animal contact. 
 
-2-163. Rules for avoiding illness:
+Rules for avoiding illness:
 
 - Purify all water obtained from natural sources by using iodine tablets, bleach, or boiling for 5 minutes.
 
@@ -1212,7 +1212,7 @@ pneumonia. Aggressively hydrate the body with clean, treated potable water to pr
 
 Note. Purify all water obtained from natural sources before consumption, if possible.
 
-2-164. Application of the following simple guidelines regarding personal hygiene will enable isolated persons to safeguard personal health and the health of others:
+Application of the following simple guidelines regarding personal hygiene will enable isolated persons to safeguard personal health and the health of others:
 
 - Do not soil the ground in the camp area with urine or feces; use latrines. When no latrines are available, isolated persons should dig "cat holes" and cover their waste.
 
@@ -1236,9 +1236,9 @@ Note. Purify all water obtained from natural sources before consumption, if poss
 
 **INTESTINAL PARASITES**
 
-2-165. Though seldom fatal, worms are significant as they can lower an individual's general resistance to other illnesses. Common identifiers of worms include severe rectal itching, insomnia, and restlessness. Prevention can be a simple and readily obtainable goal. Undercooked or contaminated food, poor sanitation, and infected water sources are main causes of intestinal parasites and worms. 
+Though seldom fatal, worms are significant as they can lower an individual's general resistance to other illnesses. Common identifiers of worms include severe rectal itching, insomnia, and restlessness. Prevention can be a simple and readily obtainable goal. Undercooked or contaminated food, poor sanitation, and infected water sources are main causes of intestinal parasites and worms. 
 
-2-166. Eat hot peppers as treatment as they contain certain substances chemically similar to morphine. They are effective as a counterirritant for decreasing bowel activity. Grind pumpkin seeds and mix with water creating a "medicinal" porridge or make a cup of tea made from one to two grams (about 1/2 to 1 ounce) of thyme and drink several times a day.
+Eat hot peppers as treatment as they contain certain substances chemically similar to morphine. They are effective as a counterirritant for decreasing bowel activity. Grind pumpkin seeds and mix with water creating a "medicinal" porridge or make a cup of tea made from one to two grams (about 1/2 to 1 ounce) of thyme and drink several times a day.
 
-2-167. Honey makes an ideal topical wound ointment to reduce infection and promote healing. Its hypertonicity, low pH, and inhibins provide antimicrobial activity against many types of bacteria and at least two types of fungi.
+Honey makes an ideal topical wound ointment to reduce infection and promote healing. Its hypertonicity, low pH, and inhibins provide antimicrobial activity against many types of bacteria and at least two types of fungi.
 

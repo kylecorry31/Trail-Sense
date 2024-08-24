@@ -198,6 +198,8 @@ for chapter in actual_chapters:
     markdown = markdown.replace("\\-", "-")
     markdown = markdown.replace("\\.", ".")
 
+    # Remove paragraph passage numbers
+    markdown = re.sub(r"^[1-9A]+-\d+\.\s", "", markdown, flags=re.MULTILINE)
 
     with open(f"output/guide_survival_{name.replace('-', '_')}.md", "w") as f:
         f.write(markdown)
