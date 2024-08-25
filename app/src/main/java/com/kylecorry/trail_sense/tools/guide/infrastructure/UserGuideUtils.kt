@@ -2,6 +2,8 @@ package com.kylecorry.trail_sense.tools.guide.infrastructure
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.text.Layout
+import android.text.style.AlignmentSpan
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +20,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.ExpansionLayout
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.show
+import com.kylecorry.andromeda.markdown.MarkdownExtension
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -53,7 +56,9 @@ object UserGuideUtils {
     }
 
     fun getGuideView(context: Context, text: String): View {
-        val markdown = MarkdownService(context)
+        val markdown = MarkdownService(context, extensions = listOf(
+            MarkdownExtension(1, '+') { AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER) }
+        ))
         val sections = TextUtils.groupSections(TextUtils.getSections(text), null)
         val children = sections.mapNotNull { section ->
             val first = section.firstOrNull() ?: return@mapNotNull null
