@@ -1099,7 +1099,7 @@ You can identify Chilblains or frost nip by red, swollen, hot, tender, itching s
 
 Frostbite, superficial and deep, are the next stages of cold injuries personnel should be aware of and treat if signs appear. Superficial frostbite will produce redness and blistering within twenty four to thirty six hours and potential shedding of skin. Deep frostbite will be preceded by superficial frostbite, but the skin will be painless and pale yellowish in color. The spot will appear wooden, waxy, or solid to the touch and blisters may form within twenty four to thirty six hours. 
 
-To treat frostbite personnel should not attempt to thaw the affected areas by placing them too close to an open flame. The loss of feeling in the affected limb could lead to a severe destruction of tissue. Instead, thaw the affected area using water that is between 99 and 109° Fahrenheit (F) \[(37 and 43° Celsius (C)]. Keep the tissue warm; decrease constricted clothing but increase exercise and insulation. Protect the affected area from further injury. 
+To treat frostbite personnel should not attempt to thaw the affected areas by placing them too close to an open flame. The loss of feeling in the affected limb could lead to a severe destruction of tissue. Instead, thaw the affected area using water that is between 99 and 109Â° Fahrenheit (F) \[(37 and 43Â° Celsius (C)]. Keep the tissue warm; decrease constricted clothing but increase exercise and insulation. Protect the affected area from further injury. 
 
 **Immersion Foot** 
 
@@ -1109,7 +1109,7 @@ To treat immersion foot, gradually warm the affected area by exposing it to warm
 
 **Hypothermia** 
 
-Hypothermia is one of the most dangerous cold injuries personnel can experience. It can occur rapidly, and the temperatures do not have to be very cold to contract hypothermia. Personnel are predisposed to hypothermia because of lack of food, potential dehydration, and little rest. Symptoms of hypothermia are coldness, wetness, and uncontrollable shivering. The body's core temperature will drop below 95° F (35° C). 
+Hypothermia is one of the most dangerous cold injuries personnel can experience. It can occur rapidly, and the temperatures do not have to be very cold to contract hypothermia. Personnel are predisposed to hypothermia because of lack of food, potential dehydration, and little rest. Symptoms of hypothermia are coldness, wetness, and uncontrollable shivering. The body's core temperature will drop below 95Â° F (35Â° C). 
 
 The victim's movements can become uncoordinated, and unconsciousness may occur. Shock and coma may occur as the body temperature drops. To treat hypothermia, get victims out of wet clothing and into dry clothing, and have them slowly consume warm fluids. Begin to warm the body evenly and immediately. Keep victims dry and protect them from the elements. For severe hypothermia, quickly stabilize the victim's body temperature-this can include bare skin-on-skin contact inside a sleeping bag-and then prevent further heat loss.
 

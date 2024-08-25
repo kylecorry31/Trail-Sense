@@ -19,7 +19,7 @@ There are several general rules that apply to water and hydration. These include
 
 - Consider all surface water to be contaminated with human and animal waste with the possible exception of very high mountain streams or springs found in uninhabited areas.
 
-At a temperature of 68° F with limited physical activity, personnel will normally require 2 to 3 quarts of water a day to maintain efficiency. Water is necessary to replace what is lost through daily functions. Personnel lose about 1.4 quarts of water through urine loss, 1.0 quart of water through sweat, and 0.2 quarts of water through fecal matter per day. Water loss increases with heat exposure.
+At a temperature of 68Â° F with limited physical activity, personnel will normally require 2 to 3 quarts of water a day to maintain efficiency. Water is necessary to replace what is lost through daily functions. Personnel lose about 1.4 quarts of water through urine loss, 1.0 quart of water through sweat, and 0.2 quarts of water through fecal matter per day. Water loss increases with heat exposure.
 
 When personnel are exposed to high temperatures, water loss from sweat increases to as much as 3.5 quarts per hour. At this rate, body fluids are quickly depleted. Physical activity increases loss of water in two ways-increased respiration and sweating due to excessive body heat. The time and effort required obtaining water and the decrease in the thirst response in cold weather favors the development of dehydration. An isolated person that is burned may lose up to 5 quarts of water per day. When ill, they will lose water through vomiting and diarrhea.
 

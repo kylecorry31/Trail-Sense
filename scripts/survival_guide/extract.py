@@ -74,8 +74,6 @@ with open("output/guide.html", "w") as f:
 
 print(f"Total size of images: {total_size / 1024} KB")
 
-# TODO: Fix tables
-
 # Remove the footer
 html = html.replace("&#x14;&#x1b;&#x3;6HSWHPEHU&#x3;&#x15;&#x13;&#x14;&#x1b;", "")
 
@@ -92,8 +90,7 @@ html = html.replace("&#x2014;", "-")
 html = html.replace("&#xbc;", "1/4")
 html = html.replace("&#x201c;", '"')
 html = html.replace("&#x201d;", '"')
-# TODO: This isn't working in the markdown
-html = html.replace("&#xb0;", "&deg;")
+html = html.replace("&#xb0;", "DEGREEPLACEHOLDER")
 html = html.replace("&#xe8;", "&egrave;")
 html = html.replace("&#x3;", "")
 html = html.replace("This page intentionally left blank.", "")
@@ -140,20 +137,9 @@ html = html.replace('<p><b>LIFESAVING STEPS</b></p>', '<h3>LIFESAVING STEPS</h3>
 html = html.replace('<p><b>WATER CROSSINGS</b></p>', '<h3>WATER CROSSINGS</h3>')
 html = html.replace('<p><b>BASIC KNOTS</b></p>', '<h3>BASIC KNOTS</h3>')
 
-# Restore broken paragraphs
-# TODO: Anything that isn't a <b>, - , or in the form ##-## should be part of the same paragraph. An image may also break a paragraph, so it should move up the sentence to be above the image.
-# html = re.sub(r'</p>\n</div>\n<div id="page0">\n<p>([a-z])', r' \1', html)
-
 # Remove unnecessary tags
 html = re.sub(r"<p[^>]*>\s*</p>", "", html)
 html = re.sub(r"<div[^>]*>\s*</div>", "", html)
-# html = re.sub(r'</?div.*>', '', html)
-
-# Remove empty lines
-# html = re.sub(r'\n', '', html)
-
-# TODO: Generate a table of contents with links to each section
-# TODO: Delete images that aren't in the PDF
 
 # Split by chapter
 actual_chapters = []
@@ -208,7 +194,10 @@ for chapter in actual_chapters:
     # Remove paragraph passage numbers
     markdown = re.sub(r"^[1-9A]+-\d+\.\s", "", markdown, flags=re.MULTILINE)
 
-    with open(f"output/guide_survival_{name.replace('-', '_')}.md", "w") as f:
+    # Fix the DEGREEPLACEHOLDER
+    markdown = markdown.replace("DEGREEPLACEHOLDER", "°")
+
+    with open(f"output/guide_survival_{name.replace('-', '_')}.md", "w", encoding='utf-8') as f:
         f.write(markdown)
     total_size += os.stat(f"output/guide_survival_{name.replace('-', '_')}.md").st_size
 

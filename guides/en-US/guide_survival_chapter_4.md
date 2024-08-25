@@ -95,7 +95,7 @@ Fully cook wild game, large insects, freshwater fish, clams, mussels, snails and
 
 In some cases, cooking food properly can produce more calories from the food, as in the case of starches. Cooked starches have more calories for use as energy than raw starches. Cooking in many cases can destroy harmful anti-nutrients that bind minerals. The destruction of these anti-nutrients can assist in the absorption of beneficial nutrient food compounds. Cooking will destroy many bacteria that are present which work to break the food down causing it to spoil faster.
 
-Cooking methods that are the best for immediate consumption and provide the most nutrition are the least effective for food preservation. Reheat, boiled and steamed food every day until fully consumed. The danger zone for food bacteria growth is between 40 and 140° F. Heat meat to an internal temperature of 180° F. When food is reheated, it should be heated to an internal temperature of at least 165° F. The symptoms of food borne illness like diarrhea or vomiting can cause severe dehydration and can be serious to the isolated person.
+Cooking methods that are the best for immediate consumption and provide the most nutrition are the least effective for food preservation. Reheat, boiled and steamed food every day until fully consumed. The danger zone for food bacteria growth is between 40 and 140Â° F. Heat meat to an internal temperature of 180Â° F. When food is reheated, it should be heated to an internal temperature of at least 165Â° F. The symptoms of food borne illness like diarrhea or vomiting can cause severe dehydration and can be serious to the isolated person.
 
 **LEACHING**
 
@@ -151,7 +151,7 @@ Preserving food is very important for isolated persons. Food, especially meat, h
 
 Cooling is an effective method of storing food for short periods. Heat tends to accelerate the decomposition process where cooling retards decomposition. The colder food becomes, the less likely it is to deteriorate before freezing which eliminates decomposition. Cooling devices available include-
 
-- **Snow.** Food items buried in snow will maintain a temperature of approximately 32° F (0° C).
+- **Snow.** Food items buried in snow will maintain a temperature of approximately 32Â° F (0Â° C).
 
 - **Streams.** Food wrapped in waterproof material and placed in streams will remain cool in summer months. Take care to secure the food to prevent loss.
 
@@ -877,7 +877,7 @@ At night, in an area with high fish density, use a light to attract fish. Then, 
 
 **Poison**
 
-Poison may also be used to catch fish. Poison works quickly and allows an isolated person to remain concealed while it takes effect. It also enables an isolated person to catch several fish at one time. When using fish poison, be sure to gather all of the affected fish, because many dead fish floating downstream could arouse suspicion. Some plants that grow in warm regions of the world contain rotenone, a substance that stuns or kills cold-blooded animals but does not harm persons who eat the animals. The best place to use rotenone, or rotenone-producing plants, is in ponds or the headwaters of small streams containing fish. Rotenone works quickly on fish in water 70° F (21° C) or above. The fish rise helplessly to the surface. It works slowly in water 50 to 70° F (10 to 21° C) and is ineffective in water below 50° F (10° C). The following plants, used as indicated, will stun or kill fish (see figures 4-32a on page 4-42 and 4-32b, on page 4-43\):
+Poison may also be used to catch fish. Poison works quickly and allows an isolated person to remain concealed while it takes effect. It also enables an isolated person to catch several fish at one time. When using fish poison, be sure to gather all of the affected fish, because many dead fish floating downstream could arouse suspicion. Some plants that grow in warm regions of the world contain rotenone, a substance that stuns or kills cold-blooded animals but does not harm persons who eat the animals. The best place to use rotenone, or rotenone-producing plants, is in ponds or the headwaters of small streams containing fish. Rotenone works quickly on fish in water 70Â° F (21Â° C) or above. The fish rise helplessly to the surface. It works slowly in water 50 to 70Â° F (10 to 21Â° C) and is ineffective in water below 50Â° F (10Â° C). The following plants, used as indicated, will stun or kill fish (see figures 4-32a on page 4-42 and 4-32b, on page 4-43\):
 
 - **Anamirta cocculus**. This woody vine grows in southern Asia and on islands of the South Pacific. Crush the bean-shaped seeds and throw them in the water.
 

@@ -272,7 +272,7 @@ Using the sun and shadows. The earth's relationship to the sun can help you to d
 
 **SHADOW TIP METHOD**
 
-The shadow-tip method is ineffective for use beyond 66'/2° latitude in either hemisphere due to the position of the sun above the horizon. Whether the sun is north or south of an isolated person at mid- day depends on the latitude. North of 23.4°N, the sun is always due south at local noon and the shadow points north. South of 23.4°S, the sun is always due north at local noon and the shadow points south. In the tropics, the sun can be either north or south at noon, depending on the date and location, but the shadow progresses to the east regardless of the date. This method consists of four basic steps (see figure 7-8\):
+The shadow-tip method is ineffective for use beyond 66'/2Â° latitude in either hemisphere due to the position of the sun above the horizon. Whether the sun is north or south of an isolated person at mid- day depends on the latitude. North of 23.4Â°N, the sun is always due south at local noon and the shadow points north. South of 23.4Â°S, the sun is always due north at local noon and the shadow points south. In the tropics, the sun can be either north or south at noon, depending on the date and location, but the shadow progresses to the east regardless of the date. This method consists of four basic steps (see figure 7-8\):
 
 - **Step 1**. Place a stick or branch into the ground at a level spot where a distinct shadow will be cast. Mark the shadow tip with a stone, twig, or other means. This first shadow mark is always the West direction. (Note. The sun "rises in the east and sets in the west" (but rarely due east and due west). The shadow tip moves in just the opposite direction. Therefore, the first shadow-tip mark is always in the west direction, and the second mark in the east direction, any place on earth.
 
@@ -304,7 +304,7 @@ estimating the remaining duration of daylight. Shadow-clock time is closest to c
 
 **EQUAL-SHADOW METHOD**
 
-This method determines direction and is a variation of the shadow-tip method, (see figure 7-9\). It is more accurate and may be used at all latitudes less than 66° at all times of the year. It consists of the following four steps:
+This method determines direction and is a variation of the shadow-tip method, (see figure 7-9\). It is more accurate and may be used at all latitudes less than 66Â° at all times of the year. It consists of the following four steps:
 
 - **Step 1**. Place a stick or branch into the ground vertically at a level spot where a shadow at least 12 inches long will be cast. Mark the shadow tip with a stone, twig, or other means. This must be done 5 to 10 minutes before noon (when the sun is at its highest point \[zenith]).
 
@@ -444,11 +444,11 @@ When handling obstacles and detours on the route, follow these guidelines:
 
 - When an obstacle forces isolated persons to leave their original line of march and take up a parallel one, always return to the original line as soon as the terrain or situation permits.
 
-- To turn clockwise (right) 90°; 90° must be added to their original azimuth. To turn counterclockwise (left) 90° from their current direction, 90° must be subtracted from their present azimuth.
+- To turn clockwise (right) 90Â°; 90Â° must be added to their original azimuth. To turn counterclockwise (left) 90Â° from their current direction, 90Â° must be subtracted from their present azimuth.
 
 - When making a detour, be certain that only paces taken toward the final destination are counted as part of the forward progress. The forward progress paces should not be confused with the local pacing that takes place perpendicular to the route in order to avoid the problem area and in returning to the original line of march after the obstacle has been passed.
 
-Highly accurate distance estimates and precision compass work may not be required for a deliberate offset technique if the destination or an intermediate checkpoint is located on or near a large linear feature that runs nearly perpendicular to the direction of travel. Examples include roads or highways, railroads, power transmission lines, ridges, or streams. In these cases, isolated persons should apply a deliberate error (offset) of about 10° to the azimuth they planned to follow and then move, using the lensatic compass as a guide, in that direction until they encounter the linear feature. They will know exactly which way to turn (left or right) to find their destination or checkpoint, depending upon which way they planned their deliberate offset.
+Highly accurate distance estimates and precision compass work may not be required for a deliberate offset technique if the destination or an intermediate checkpoint is located on or near a large linear feature that runs nearly perpendicular to the direction of travel. Examples include roads or highways, railroads, power transmission lines, ridges, or streams. In these cases, isolated persons should apply a deliberate error (offset) of about 10Â° to the azimuth they planned to follow and then move, using the lensatic compass as a guide, in that direction until they encounter the linear feature. They will know exactly which way to turn (left or right) to find their destination or checkpoint, depending upon which way they planned their deliberate offset.
 
 Because no one can move along a given azimuth with absolute precision, it is better to plan a few extra steps than to begin an aimless search for the objective once reaching the linear feature. This method also copes with minor compass errors and the slight variations that always occur in the earth's magnetic field.
 
@@ -502,7 +502,7 @@ Note. Maps are drawn to a specific representation of a piece of the earth's surf
 
 Note. Use caution to ensure nothing (metal, mine and ore) in the area will alter the compass reading.
 
-The lensatic compass has a needle with a north direction marked on the bottom inside of the compass. A button or wrist compasses may have floating dials or floating needles. To determine the heading, line up the north-seeking arrow over 360° by rotating the compass, then read the desired heading. Orienting a map with a floating needle compass is similar to the method used with the floating dial. The only exception is with the adjustment for magnetic variation. If magnetic variation is to the east, turn the map and the compass to the left (the north axis of the compass should be aligned with the map north) so that the magnetic north- seeking arrow is pointing at the number of degrees on the compass which correspond with the angle of declination. See figure 7-13.
+The lensatic compass has a needle with a north direction marked on the bottom inside of the compass. A button or wrist compasses may have floating dials or floating needles. To determine the heading, line up the north-seeking arrow over 360Â° by rotating the compass, then read the desired heading. Orienting a map with a floating needle compass is similar to the method used with the floating dial. The only exception is with the adjustment for magnetic variation. If magnetic variation is to the east, turn the map and the compass to the left (the north axis of the compass should be aligned with the map north) so that the magnetic north- seeking arrow is pointing at the number of degrees on the compass which correspond with the angle of declination. See figure 7-13.
 
 **Figure 7-13. Floating needle compass**
 
@@ -614,7 +614,7 @@ Use the following steps to determine the grid azimuth of a line from one point t
 
 ![](file:///android_asset/survival_guide/105.webp)
 
-- **Step 3**. Keeping the index at this point, align the 0° to 180° line of the protractor on the vertical grid line.
+- **Step 3**. Keeping the index at this point, align the 0Â° to 180Â° line of the protractor on the vertical grid line.
 
 - **Step 4**. Read the value of the angle from the scale; this is the grid azimuth to the point.
 
@@ -626,11 +626,11 @@ Use the following steps to plot a direction line from a known point on a map (se
 
 - **Step 1**. Construct a north-south grid line through the known point.
 
-- **Step 2**. Generally, align the 0° to 180° line of the protractor in a north-south direction through the known point.
+- **Step 2**. Generally, align the 0Â° to 180Â° line of the protractor in a north-south direction through the known point.
 
-- **Step 3**. Holding the 0° to 180° line of the protractor on the known point, slide the protractor in the north-south direction until the horizontal line of the protractor (connecting the protractor index and the 90° tick mark) is aligned on an east-west grid line and draw a line connecting 0°, the known point, and 180°.
+- **Step 3**. Holding the 0Â° to 180Â° line of the protractor on the known point, slide the protractor in the north-south direction until the horizontal line of the protractor (connecting the protractor index and the 90Â° tick mark) is aligned on an east-west grid line and draw a line connecting 0Â°, the known point, and 180Â°.
 
-- **Step 4**. Holding the 0° to 180° line on the north-south line, slide the protractor index to the known point.
+- **Step 4**. Holding the 0Â° to 180Â° line on the north-south line, slide the protractor index to the known point.
 
 - **Step 5**. Make a mark on the map at the required angle. (Do not mark on the map.)
 
