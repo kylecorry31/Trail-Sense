@@ -41,7 +41,7 @@ Survival medicine employs four techniques to facilitate isolated personnel perfo
 
 - **Treatment**. The actions taken to manage and care for the isolated person with a disease or disorder and restore their health. The ability of the isolated person or personnel to plan, prepare, execute and assess appropriate actions to meet their survival needs significantly increases their overall chances of survival, increases morale, and aids in their ability to perform the survival proficiencies and eventual return to friendly forces.
 
-**PERSONAL HYGIENE AND SANITATION**
+## Personal hygiene and sanitation
 
 Isolated persons can avoid many different kinds of illnesses and infections by practicing good sanitation and hygiene. Maintaining a clean body and living area will prevent the spread of germs and bacteria whether alone or in a group. It will also allow isolated persons to stay organized and protect items from animal contact. 
 
@@ -128,7 +128,7 @@ The following list of actions enable assessment and lifesaving treatment of an i
 
 Note. Steps 3 through 13 (from the Soldier's Manual of Common Tasks) are performed as self- aid for the isolated person and buddy-aid for the casualty/other isolated personnel. 
 
-**BLEEDING**
+## Bleeding
 
 External, life-threatening bleeding. Bleeding is life threatening if any one of the following signs/symptoms are observed:
 
@@ -168,7 +168,7 @@ Ideally, the tourniquet will stop or considerably slow down the flow of arterial
 
 Note. In isolation or captivity; alcohol, vinegar, natural honey, hydrogen peroxide, and bleach are also highly effective antiseptics. Once gauze or bandage is applied it must not be removed.
 
-**HYPOXIA**
+## Hypoxia
 
 Hypoxia is the result of insufficient oxygen in the blood. It is a potentially deadly condition and one of the leading causes of cardiac arrest. Cardiac arrest is linked to an absence of circulation in the body, for any one of a number of reasons. For this reason, maintaining circulation is vital to moving oxygen to the tissues and carbon dioxide out of the body. Open an airway and maintain it by using the following steps:
 
@@ -213,7 +213,7 @@ Note: Cardiopulmonary resuscitation (CPR) may be necessary after cleaning the ai
 
 Continue to check for bleeding by performing a blood sweep. Control external bleeding by the application of direct pressure, indirect pressure, elevation, or digital ligation. 
 
-**DIRECT PRESSURE**
+## Direct pressure (this is out of place)
 
 The most effective way to control external bleeding is by applying pressure directly over the wound. This pressure must not only be firm enough to stop the bleeding, but it must also be maintained long enough to "seal off" the damaged surface. 
 
@@ -298,7 +298,7 @@ Begin rescue breathing as necessary to restore breathing and/or pulse (Cardiopul
 - Blow in for about 1 second to make the chest clearly rise. Give rescue breaths, one after the other. If chest does not rise with the initial rescue breath, retilt the head before giving the second breath.
 	* If the second breath does not make the chest rise, the person may be choking. After each subsequent set of chest compressions and before attempting breaths, look for an object and, if seen, remove it. Continue CPR.
 
-**BURNS**
+## Burns
 
 The following treatments are extreme measures and are only meant to be applied with extreme caution under real-world experiences. Burns sustained during military operations constitute a relatively small, but very real percentage (5%) of combat-related injuries. Even burns to a small surface area can be incapacitating for the casualty and strain the resources of deployed military medical units. It is crucial to remember that burns may represent only one of the casualty's traumatic injuries, particularly when an explosion is the mechanism of injury. Optimal treatment includes management of homeostatic changes related to the burn and associated traumatic injuries. Resuscitation of the burn casualty is generally the most challenging aspect of care during the first 48 hours following injury, and optimal care requires a concerted effort on the part of all providers involved during the evacuation and treatment process.
 
@@ -343,7 +343,7 @@ body fluids. Isolated persons should replace salt by consuming the cooked eyes a
 
 Prevent/treat hypotension and hypoxia to prevent worsening of traumatic brain injury (TBI) and prevent/treat hypothermia.
 
-**HEAD INJURY**
+## Head injury
 
 During Tactical Field Care, Soldiers assess their condition for an altered mental status. Soldiers with an altered mental status may use their weapons or radios inappropriately and may not be able to accurately assess their condition in relation to isolation criteria and implementation of their ISG/EPA. Injuries to the head pose additional problems related to brain damage and may interference with breathing and eating. Bleeding is more profuse in the face and head area, but infections are less likely. This makes it somewhat safer to close such wounds earlier to maintain function. 
 
@@ -416,7 +416,7 @@ The individual isolated person with a brain injury should consider immediate mov
 
 Administer pain medications and antibiotics from the combat pill pack if available. 
 
-**SHOCK**
+## Shock
 
 Monitor the patient for shock and treat as appropriate. Shock is a condition of the body that describes the physiologic condition where oxygen delivery to the tissues of the body is not enough to meet the metabolic demands of those tissues. Early detection will be the key to limiting the effects on the body. Signs and symptoms of shock include the following:
 
@@ -462,7 +462,7 @@ Assess shock in all victims as shown in figure 2-4.
 
 **Figure 2-4. Treatment of Shock**
 
-**ILLNESS, INFECTION, SOFT TISSUE TRAUMA**
+## Illness and infection
 
 Isolated persons will face debilitating illness, infection, and soft tissue trauma which can become life threatening during isolation when they are without adequate medical care and basic personal hygiene capabilities. 
 
@@ -878,7 +878,7 @@ The following plants can cause ingestion poisoning if eaten:
 
 - Strychnine tree.
 
-**SOFT TISSUE TRAUMA**
+## Soft tissue trauma
 
 Soldiers face many threats in hostile fire environments. Whether conducting large-scale combat operations, low-intensity conflicts, or operations other than war; isolated personnel may wait for hours, days, weeks or longer before professional health-care is available. It is important to understand the implications over the long run, of trauma and the potential for infection if not treated and properly cared for. 
 
@@ -934,7 +934,7 @@ the eye from further injury or movement. Cover both eyes because the eyes are sy
 
 If chemicals or small objects get into the eye, flush the eyes with large amounts of water from inside the eye to the outside so the chemicals, etc. are not transferred from one eye and into the other.
 
-**BONE AND JOINT TRAUMA**
+## Bone and joint trauma
 
 The majority of isolated personnel will experience some form of bone or joint trauma during isolation. Broken bones are a serious survival emergency, removing the use of a limb and raising the risk of post-fracture infection. Additionally, the long term effects of detention and captivity highlight malnutrition and starvation's adverse impacts on bone health, bone quality, bone regeneration and decreased cortical strength. 
 
@@ -982,7 +982,7 @@ alignment by the look and feel of the joint and by comparing it to the joint on 
 
 **Figure 2-6. Slings**
 
-**BITES AND STINGS**
+## Bites and stings
 
 Insects and related pests are hazards in a survival situation. They cause irritations and are often carriers of diseases that cause severe allergic reactions in some individuals. In many parts of the world, people can be exposed to serious, even fatal, diseases not encountered in the United States. Common insects and their hazards include the following:
 
@@ -1012,7 +1012,7 @@ Be aware that most tick, flea, louse, and mite-borne diseases are treatable with
 
 Be aware that most antibiotics come in 250-milligram or 500-milligram tablets. If you cannot remember the exact dose rate to treat a disease, two tablets, four times a day for 10 to 14 days will usually kill any bacteria.
 
-**SNAKEBITES**
+**Snakebites**
 
 Deaths from snakebites are rare. More than one-half of snakebite victims have little or no poisoning, and only about one-quarter develop serious systemic poisoning. The primary concern in the treatment of snakebites is to limit the amount of eventual tissue destruction around the bite area. A bite wound, regardless of the type of animal that inflicted it, can become infected from bacteria in the animal's mouth. With venomous and nonvenomous snakebites, this local infection is responsible for a large part of the residual damage that results. 
 
@@ -1049,7 +1049,7 @@ Before isolated persons start treating a snakebite, they should determine whethe
 	* Have the victim drink large amounts of fluids until the infection is gone.
 	* When treating a snakebite, be sure to keep the extremity lower than the heart.
 
-**ENVIRONMENTAL INJURY**
+## Environmental injury
 
 The successful prevention and control of cold, heat and altitude injuries depend on vigorous command interest, the provision of adequate clothing, and a number of individual and group measures. 
 
@@ -1067,7 +1067,7 @@ High-altitude cerebral edema is another risk at high altitudes that is serious. 
 
 Note. At high altitudes, the body will require more calories to counteract weight loss and acute loss of appetite.
 
-**HEAT INJURIES**
+**Heat injuries**
 
 In a very warm climate, personnel may experience heat injuries. Heat injuries can occur suddenly and, if not treated properly, can quickly incapacitate and prevent mission completion. Personnel should limit their time in the hot sun, cover exposed skin or wear sunscreen, remain hydrated, and take plenty of rest breaks. Follow this formula otherwise; heat cramps, heat exhaustion, and heatstroke may occur. 
 
@@ -1079,7 +1079,7 @@ Heatstroke is the most dangerous heat injury. The casualty will stop sweating an
 
 victims clothing with water making sure to cool the groin, the armpit, and the back and neck areas. Use caution to avoid overcooling the victims. If victims are conscious, have them consume one quart of water. 
 
-**COLD INJURIES**
+**Cold injuries**
 
 In cold environments, personnel may succumb to different types of cold injuries that can cause incapacitation and permanent damage and make it difficult or impossible to reach mission success. To reduce the possibility of cold injuries-limit your time in the extreme cold, cover exposed skin, and use the buddy system to check for cold injuries. Proper layering of clothing along with staying dry and hydrated with warm fluids can reduce the risk of cold injuries. Heat transfers to and from the body through radiation, convection, conduction, evaporation, and respiration (see figure 2-7\).
 
@@ -1151,7 +1151,7 @@ Signs and symptoms can be assessed to approximate the degree of dehydration pers
 * Death can result from a loss of greater than 15%.
 * Carry Alka-Seltzer tablets to add carbonation to water to help speed its use in the large intestine.
 
-**INGESTION POISONING**
+## Ingestion poisoning
 
 Poisons can come from misidentified plants, animals, toxic water sources, toxic fungi, and chemicals. Poisons can enter the body through four means- eyes, nose, mouth and skin contact. The treatments for poison ingestion under field conditions include inducing vomiting and taking about 1 gram (0.04 ounce) of activated charcoal. Activated charcoal will attach and absorb the poison and carry it out of the gastrointestinal system. Activated can be made from a wide range of carbon rich materials like wood, coal, bones, coconut shells, nut shells and peat. The first step in making activated charcoal is to take the material and bring it to a temperature between 600-900 degrees Fahrenheit in a survival fire. Burn the material for about 4 1/2 hours. Cool the burnt material, crush it into a fine powder, and use for survival medicine remedies, and water filtration.
 
@@ -1159,7 +1159,7 @@ In some cases, a laxative may be required to help the activated charcoal work to
 
 pneumonia. Aggressively hydrate the body with clean, treated potable water to prevent renal failure and dilute the poison in the victim's system.
 
-**SANITATION AND HYGIENE**
+## Sanitation and hygiene
 
 Application of the following simple guidelines regarding personal health and hygiene will enable the isolated person to safeguard personal health and the health of others while detained or captive. 
 
@@ -1190,7 +1190,7 @@ Stay clean (daily regimen) by-
 	* Wash clothing and use repellents.
 	* Use smoke to fumigate clothing and equipment.
 
-**AVOIDING ILLNESS**
+## Avoiding illness
 
 Isolated personnel can avoid many different kinds of illnesses and infections by practicing good sanitation and hygiene. Maintaining a clean body and living area will prevent the spread of germs and bacteria whether alone or in a group. It will also allow isolated persons to stay organized and protect items from animal contact. 
 
@@ -1222,7 +1222,7 @@ Application of the following simple guidelines regarding personal hygiene will e
 
 - Thoroughly clean the mouth and teeth at least once each day.
 
-- Avoid insect bites by keeping the body clean; wearing proper protective clothing; and using a head net, improvised bed nets, and insect repellants.
+- Avoid insect bites by keeping the body clean; wearing proper protective clothing; and using a head net, improvised bed nets, and insect repellents.
 
 - Exchange wet clothing for dry clothing as soon as possible to avoid unnecessary body heat loss. Keep clothing clean and in good repair.
 
@@ -1234,7 +1234,7 @@ Application of the following simple guidelines regarding personal hygiene will e
 
 - Take care of feet; clean them and keep them dry.
 
-**INTESTINAL PARASITES**
+## Intestinal parasites
 
 Though seldom fatal, worms are significant as they can lower an individual's general resistance to other illnesses. Common identifiers of worms include severe rectal itching, insomnia, and restlessness. Prevention can be a simple and readily obtainable goal. Undercooked or contaminated food, poor sanitation, and infected water sources are main causes of intestinal parasites and worms. 
 
