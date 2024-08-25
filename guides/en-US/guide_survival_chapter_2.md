@@ -168,7 +168,59 @@ Ideally, the tourniquet will stop or considerably slow down the flow of arterial
 
 Note. In isolation or captivity; alcohol, vinegar, natural honey, hydrogen peroxide, and bleach are also highly effective antiseptics. Once gauze or bandage is applied it must not be removed.
 
-## Hypoxia
+**Direct pressure**
+
+The most effective way to control external bleeding is by applying pressure directly over the wound. This pressure must not only be firm enough to stop the bleeding, but it must also be maintained long enough to "seal off" the damaged surface. 
+
+If bleeding continues after having applied direct pressure for 30 minutes, apply a pressure dressing. This dressing consists of a thick dressing of gauze or other suitable material applied directly over the wound and held in place with a tightly wrapped bandage. It should be tighter than an ordinary compression bandage but not so tight that it impairs circulation to the rest of the limb. Once you apply the dressing, do not remove it, even when the dressing becomes blood soaked. Leave the pressure dressing in place for 1 or 2 days, after which you can remove it and replace it with a smaller dressing. In a long-term survival environment, make fresh, daily dressing changes and inspect for signs of infection. Figure 2-2 shows applications for pressure dressings. 
+
+
+![](file:///android_asset/survival_guide/1.webp)
+
+
+**Figure 2-2. Application of a pressure dressing**
+
+The isolated person can make field expedient dressings if a medical kit is unavailable. The purpose of a dressing is to control bleeding, absorb wound secretions, and to prevent bacteria from entering the wound. Materials that make functional field expedient dressings include cloth from a shirt, undergarments, socks, bandanas, handkerchiefs, thin towels, bedding and feminine care absorbent pads. Cut these materials to proper size to cover the wound and sterilized before use. To sterilize, the isolated person can steam the material for five minutes or boil the material in water for ten full minutes at a rolling boil. If needed, the isolated person can clean and sanitize used bandages by boiling them, then reusing them if no other option exists. 
+
+**Elevation** 
+
+Raising an injured extremity as high as possible above the heart's level slows blood loss by aiding the return of blood to the heart and lowering the blood pressure at the wound. However, elevation alone will not completely control bleeding; apply direct pressure over the wound. 
+
+**Pressure Points**
+
+A pressure point is a location where the main artery to the wound lies near the surface of the skin or where the artery passes directly over a bony prominence. Personnel can use digital pressure on a pressure point to slow arterial bleeding until a pressure dressing is applied. Pressure point control is not as effective 
+
+![](file:///android_asset/survival_guide/2.webp)
+
+for controlling bleeding as direct pressure exerted on the wound. It is rare when a single major compressible artery supplies a damaged vessel. 
+
+**WARNING**
+
+**Use caution when applying pressure to the neck. Too much pressure for too long may cause unconsciousness or death. Never place a tourniquet around the neck.**
+
+If an isolated person cannot remember the exact location of the pressure points, they should follow this rule: Apply pressure at the end of the joint just above the injured area. On hands, feet, and head, this will be the wrist, ankle, and neck, respectively. Maintain pressure points by placing a round stick in the joint, bending the joint over the stick, and then keeping it tightly bent by lashing. Using this method to maintain pressure frees the hands to work in other areas. Figure 2-3 shows key body pressure points. 
+
+**Figure 2-3. Key body pressure points**
+
+If the bleeding is on the head, above the ears, press the point just in front of the ear, in a direct line to the corner of the eyes.
+
+If the lower part of the face is bleeding, press the point on the jaw bone halfway between the chin and the end of the jaw.
+
+If bleeding is from the neck, press the point on the carotid artery, located between the Adam's Apple and neck muscles. Stopping bleeding from here is a matter of life and death.
+
+If the bleeding is high on the arm, press the point just above the middle of the collar bone. If the bleeding is low on the arm, press the point in the fold opposite the elbow, on the inside of the arm.
+
+There are two pressure points on the wrists. The first one is more common, where we normally feel our pulse. The other one is just alongside, down from the little finger.
+
+If the bleeding is from the groin or thighs, find and press the femoral artery. It is located along the bikini line, half way between the hip and the groin. A lot of pressure is required to control the bleeding here, maybe even both your hands, due to the amount of blood that flows through this artery to supply oxygen to the legs.
+
+![](file:///android_asset/survival_guide/3.webp)
+
+The pressure point on the popliteal artery lies behind the knee. Press this to stop bleeding from the lower leg below the knee. 
+
+Slow down major bleeding by applying pressure with a finger or two on the bleeding end of the vein or artery. Maintain the pressure until the bleeding stops or slows down enough to apply a pressure bandage, and elevation.
+
+## Breathing issues
 
 Hypoxia is the result of insufficient oxygen in the blood. It is a potentially deadly condition and one of the leading causes of cardiac arrest. Cardiac arrest is linked to an absence of circulation in the body, for any one of a number of reasons. For this reason, maintaining circulation is vital to moving oxygen to the tissues and carbon dioxide out of the body. Open an airway and maintain it by using the following steps:
 
@@ -212,60 +264,6 @@ If the casualty is unconscious, if respiratory rate is less than 2 in 15 seconds
 Note: Cardiopulmonary resuscitation (CPR) may be necessary after cleaning the airway, but only after major bleeding is under control.
 
 Continue to check for bleeding by performing a blood sweep. Control external bleeding by the application of direct pressure, indirect pressure, elevation, or digital ligation. 
-
-## Direct pressure (this is out of place)
-
-The most effective way to control external bleeding is by applying pressure directly over the wound. This pressure must not only be firm enough to stop the bleeding, but it must also be maintained long enough to "seal off" the damaged surface. 
-
-If bleeding continues after having applied direct pressure for 30 minutes, apply a pressure dressing. This dressing consists of a thick dressing of gauze or other suitable material applied directly over the wound and held in place with a tightly wrapped bandage. It should be tighter than an ordinary compression bandage but not so tight that it impairs
-
-![](file:///android_asset/survival_guide/1.webp)
-
-Circulation to the rest of the limb. Once you apply the dressing, do not remove it, even when the dressing becomes blood soaked. Leave the pressure dressing in place for 1 or 2 days, after which you can remove it and replace it with a smaller dressing. In a long-term survival environment, make fresh, daily dressing changes and inspect for signs of infection. Figure 2-2 shows applications for pressure dressings. 
-
-**Figure 2-2. Application of a pressure dressing**
-
-The isolated person can make field expedient dressings if a medical kit is unavailable. The purpose of a dressing is to control bleeding, absorb wound secretions, and to prevent bacteria from entering the wound. Materials that make functional field expedient dressings include cloth from a shirt, undergarments, socks, bandanas, handkerchiefs, thin towels, bedding and feminine care absorbent pads. Cut these materials to proper size to cover the wound and sterilized before use. To sterilize, the isolated person can steam the material for five minutes or boil the material in water for ten full minutes at a rolling boil. If needed, the isolated person can clean and sanitize used bandages by boiling them, then reusing them if no other option exists. 
-
-**Elevation** 
-
-Raising an injured extremity as high as possible above the heart's level slows blood loss by aiding the return of blood to the heart and lowering the blood pressure at the wound. However, elevation alone will not completely control bleeding; apply direct pressure over the wound. 
-
-**Pressure Points**
-
-A pressure point is a location where the main artery to the wound lies near the surface of the skin or where the artery passes directly over a bony prominence. Personnel can use digital pressure on a pressure point to slow arterial bleeding until a pressure dressing is applied. Pressure point control is not as effective 
-
-![](file:///android_asset/survival_guide/2.webp)
-
-for controlling bleeding as direct pressure exerted on the wound. It is rare when a single major compressible artery supplies a damaged vessel. 
-
-**WARNING**
-
-**Use caution when applying pressure to the neck. Too much pressure for too long may cause unconsciousness or death. Never place a tourniquet around the neck.**
-
-If an isolated person cannot remember the exact location of the pressure points, they should follow this rule: Apply pressure at the end of the joint just above the injured area. On hands, feet, and head, this will be the wrist, ankle, and neck, respectively. Maintain pressure points by placing a round stick in the joint, bending the joint over the stick, and then keeping it tightly bent by lashing. Using this method to maintain pressure frees the hands to work in other areas. Figure 2-3 shows key body pressure points. 
-
-**Figure 2-3. Key body pressure points**
-
-If the bleeding is on the head, above the ears, press the point just in front of the ear, in a direct line to the corner of the eyes.
-
-If the lower part of the face is bleeding, press the point on the jaw bone halfway between the chin and the end of the jaw.
-
-If bleeding is from the neck, press the point on the carotid artery, located between the Adam's Apple and neck muscles. Stopping bleeding from here is a matter of life and death.
-
-If the bleeding is high on the arm, press the point just above the middle of the collar bone. If the bleeding is low on the arm, press the point in the fold opposite the elbow, on the inside of the arm.
-
-There are two pressure points on the wrists. The first one is more common, where we normally feel our pulse. The other one is just alongside, down from the little finger.
-
-If the bleeding is from the groin or thighs, find and press the femoral artery. It is located along the bikini line, half way between the hip and the groin. A lot of pressure is required to control the bleeding here, maybe even both your hands, due to the amount of blood that flows through this artery to supply oxygen to the legs.
-
-![](file:///android_asset/survival_guide/3.webp)
-
-The pressure point on the popliteal artery lies behind the knee. Press this to stop bleeding from the lower leg below the knee. 
-
-**Digital Ligation** 
-
-Slow down major bleeding by applying pressure with a finger or two on the bleeding end of the vein or artery. Maintain the pressure until the bleeding stops or slows down enough to apply a pressure bandage, and elevation.
 
 **ASSESS FOR BREATHING AND CHEST INJURIES**
 
@@ -337,11 +335,7 @@ Third-degree burns or full-thickness burns involve all layers of the dermis. Thi
 
 - Cover the burned area with cool, moist, sterile bandages.
 
-Be prepared to treat injured personnel for shock. If possible, elevate the burn above the heart to assist in reducing swelling and the likelihood or severity of shock. Staying hydrated will help control the loss of 
-
-body fluids. Isolated persons should replace salt by consuming the cooked eyes and blood of animals or adding 1/4 teaspoon of regular salt per quart of water.
-
-Prevent/treat hypotension and hypoxia to prevent worsening of traumatic brain injury (TBI) and prevent/treat hypothermia.
+Be prepared to treat injured personnel for shock. If possible, elevate the burn above the heart to assist in reducing swelling and the likelihood or severity of shock. Staying hydrated will help control the loss of body fluids. Isolated persons should replace salt by consuming the cooked eyes and blood of animals or adding 1/4 teaspoon of regular salt per quart of water.
 
 ## Head injury
 
@@ -634,7 +628,7 @@ Debridement is the surgical removal of lacerated, devitalized, or contaminated t
 
 Despite the danger of infection, occasionally it may be necessary to suture a wound in order to control bleeding or increase the mobility of the patient. Procure thread from parachute lines, fabric, or clothing, and the wound closed by "suturing." If suturing is required, place the stitches individually and far enough apart to permit drainage of underlying parts. Do not worry about the cosmetic effect; just suture the tissue together. For a scalp wound, use hair to close it. Infection is less a danger in this area due to the rich blood supply. Remember that in most situations, it is imperative that the wound be left open and allowed to drain.
 
-**Medicinal Plants**
+## Medicinal plants
 
 In using plants for medical treatment, positive identification of the plants involved is as critical as when using them for food. Proper use of these plants is equally important. Many natural remedies work slower than the medicines you know. Therefore, start with smaller doses and allow more time for them to take effect. 
 
@@ -652,7 +646,7 @@ The following terms and their definitions are associated with medicinal plant us
 
 - **Expressed juice**. These are liquids or saps squeezed from plant material and either applied to the wound or made into another medicine.
 
-## Survival medicine properties
+**Survival medicine properties**
 
 Survival medicine is practiced by isolated personnel to aid in their survival during isolation. 
 
@@ -1155,9 +1149,7 @@ Signs and symptoms can be assessed to approximate the degree of dehydration pers
 
 Poisons can come from misidentified plants, animals, toxic water sources, toxic fungi, and chemicals. Poisons can enter the body through four means- eyes, nose, mouth and skin contact. The treatments for poison ingestion under field conditions include inducing vomiting and taking about 1 gram (0.04 ounce) of activated charcoal. Activated charcoal will attach and absorb the poison and carry it out of the gastrointestinal system. Activated can be made from a wide range of carbon rich materials like wood, coal, bones, coconut shells, nut shells and peat. The first step in making activated charcoal is to take the material and bring it to a temperature between 600-900 degrees Fahrenheit in a survival fire. Burn the material for about 4 1/2 hours. Cool the burnt material, crush it into a fine powder, and use for survival medicine remedies, and water filtration.
 
-In some cases, a laxative may be required to help the activated charcoal work to its full potential. If the poison is an acid, an alkali, or a petroleum product, vomiting should be avoided because the substance can burn the esophagus. These types of products can also be inhaled into the lungs during vomiting, causing 
-
-pneumonia. Aggressively hydrate the body with clean, treated potable water to prevent renal failure and dilute the poison in the victim's system.
+In some cases, a laxative may be required to help the activated charcoal work to its full potential. If the poison is an acid, an alkali, or a petroleum product, vomiting should be avoided because the substance can burn the esophagus. These types of products can also be inhaled into the lungs during vomiting, causing pneumonia. Aggressively hydrate the body with clean, treated potable water to prevent renal failure and dilute the poison in the victim's system.
 
 ## Sanitation and hygiene
 
