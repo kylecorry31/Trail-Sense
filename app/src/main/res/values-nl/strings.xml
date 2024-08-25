@@ -1178,7 +1178,7 @@
     <string name="enter_the_current_pressure">Voer de huidige druk in</string>
     <string name="exported">Geëxporteerd</string>
     <string name="import_packing_list">Importeer paklijst</string>
-    <string name="sunrise_alerts">Zonsopkomstwekkers</string>
+    <string name="sunrise_alerts">Zonsopkomstwekker</string>
     <string name="pref_sunrise_alert_time_title">Tijd zonsopkomstwekker</string>
     <string name="sunrise">Zonsopkomst</string>
     <string name="sunrise_alert_scheduled">Waarschuwing %s voor zonsopkomst</string>
