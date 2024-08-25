@@ -127,7 +127,8 @@ The survival pattern is a tool that enables isolated personnel to mitigate the e
 In figure 1-1, the word SURVIVAL is a useful memory tool to aid isolated personnel in making sound decisions on what has to happen to meet their needs and appropriate actions.
 
 ![](file:///android_asset/survival_guide/0.webp)
-**Figure 1-1. Survival acronym**
+
++**Figure 1-1. Survival acronym**+
 
 Building and maintaining situational understanding is essential for isolated personnel to understand their isolation situation, develop effective plans, make quality decisions and execute their ISG or EPA.
 
