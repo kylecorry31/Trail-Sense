@@ -59,59 +59,6 @@ object Guides {
             )
         )
 
-        val survival = listOf(
-            UserGuideCategory(
-                context.getString(R.string.survival_guide),
-                listOf(
-                    UserGuide(
-                        "Chapter 1: Overview",
-                        null,
-                        R.raw.guide_survival_chapter_1
-                    ),
-                    UserGuide(
-                        "Chapter 2: Survival medicine",
-                        null,
-                        R.raw.guide_survival_chapter_2
-                    ),
-                    UserGuide(
-                        "Chapter 3: Water",
-                        null,
-                        R.raw.guide_survival_chapter_3
-                    ),
-                    UserGuide(
-                        "Chapter 4: Food",
-                        null,
-                        R.raw.guide_survival_chapter_4
-                    ),
-                    UserGuide(
-                        "Chapter 5: Fire",
-                        null,
-                        R.raw.guide_survival_chapter_5
-                    ),
-                    UserGuide(
-                        "Chapter 6: Shelter and clothing",
-                        null,
-                        R.raw.guide_survival_chapter_6
-                    ),
-                    UserGuide(
-                        "Chapter 7: Movement and navigation",
-                        null,
-                        R.raw.guide_survival_chapter_7
-                    ),
-                    UserGuide(
-                        "Chapter 8: Survival equipment",
-                        null,
-                        R.raw.guide_survival_chapter_8
-                    ),
-                    UserGuide(
-                        "Appendix A: Survival knots and rope",
-                        null,
-                        R.raw.guide_survival_appendix_a
-                    )
-                )
-            )
-        )
-
-        return general + toolGuides + survival
+        return general + toolGuides
     }
 }

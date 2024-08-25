@@ -356,6 +356,20 @@
         android:name="com.kylecorry.trail_sense.tools.metaldetector.ui.FragmentToolMetalDetector"
         android:label="FragmentToolMetalDetector" />
     <fragment
+        android:id="@+id/fragmentToolSurvivalGuideList"
+        android:name="com.kylecorry.trail_sense.tools.survival_guide.ui.FragmentToolSurvivalGuideList"
+        android:label="FragmentToolSurvivalGuideList" />
+    <fragment
+        android:id="@+id/fragmentToolSurvivalGuideReader"
+        android:name="com.kylecorry.trail_sense.tools.survival_guide.ui.FragmentToolSurvivalGuideReader"
+        android:label="FragmentToolSurvivalGuideReader">
+
+        <argument
+            android:name="chapter_resource_id"
+            app:argType="integer" />
+
+    </fragment>
+    <fragment
         android:id="@+id/fragmentToolNotes"
         android:name="com.kylecorry.trail_sense.tools.notes.ui.FragmentToolNotes"
         android:label="FragmentToolNotes">
