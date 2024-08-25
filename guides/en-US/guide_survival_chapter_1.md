@@ -13,23 +13,34 @@ Table 1-1 identifies the four SERE actions and their related proficiencies. Surv
 
 **Table 1-1. SERE proficiencies**
 
-***Survival Evasion Resistance Escape***
-
-Protection. Sustenance. Survival medicine. Navigation.
-
-Capture avoidance. Detection avoidance. Recognition avoidance. Communication. Recovery.
-
-Organization. Exploitation resistance. Captivity communication. Health. Honor.
-
-Restraint defeat. Cell defeat. Building defeat. Installation defeat.
+- Survival
+	- Protection
+	- Sustenance
+	- Survival medicine
+	- Navigation
+- Evasion
+	- Capture avoidance
+	- Detection avoidance
+	- Recognition avoidance
+	- Communication
+	- Recovery
+- Resistance
+	- Organization
+	- Exploitation resistance
+	- Captivity communication
+	- Health
+	- Honor
+- Escape
+	- Restraint defeat
+	- Cell defeat
+	- Building defeat
+	- Installation defeat
 
 The recovery of isolated personnel and their return to friendly control is dependent upon their ability to employ relevant knowledge and skills of the survival proficiencies tailored to their operational environment.
 
 **SURVIVAL MEDICINE**
 
-Survival medicine is characterized by remote and improvised care of isolated personnel with routine or exotic physical or psychological illnesses or trauma, limited resources and labor, and delayed evacuation to definitive care. There are four fundamentals common to survival medicine: prevention, recognition, mitigation, and treatment. Assess these fundamentals during planning and preparation activities and include relevant physical and psychological factors. Additionally, they form the basis for effective organization, training, and equipping efforts by the commander and staff, unit recovery force and the individual. *Planning*
-
-is the art and science of understanding a situation, envisioning a desired future, and laying out effective ways of bringing that future about (ADP 5-0\). 
+Survival medicine is characterized by remote and improvised care of isolated personnel with routine or exotic physical or psychological illnesses or trauma, limited resources and labor, and delayed evacuation to definitive care. There are four fundamentals common to survival medicine: prevention, recognition, mitigation, and treatment. Assess these fundamentals during planning and preparation activities and include relevant physical and psychological factors. Additionally, they form the basis for effective organization, training, and equipping efforts by the commander and staff, unit recovery force and the individual. *Planning* is the art and science of understanding a situation, envisioning a desired future, and laying out effective ways of bringing that future about (ADP 5-0\). 
 
 **Sustenance**
 
@@ -115,15 +126,12 @@ The survival pattern is a tool that enables isolated personnel to mitigate the e
 
 In figure 1-1, the word SURVIVAL is a useful memory tool to aid isolated personnel in making sound decisions on what has to happen to meet their needs and appropriate actions.
 
-**Figure 1-1. Survival acronym**
+![](file:///android_asset/survival_guide/0.webp)
+
++**Figure 1-1. Survival acronym**+
 
 Building and maintaining situational understanding is essential for isolated personnel to understand their isolation situation, develop effective plans, make quality decisions and execute their ISG or EPA.
 
-The typical isolation scenario includes the occurrence of an isolating event and the typical movement of personnel to their designated rally point. Once at the rally point, they assess their situation in relation to the mission and the isolation criteria specified in their ISG/EPA. The isolation criteria prescribes the set of circumstances under which a Soldier/isolated person may execute their ISG/EPA. The assessment of the
-
-![](file:///android_asset/survival_guide/0.webp)
-
-isolation criteria includes the operational political, military, economic, social, information, infrastructure, physical environment, and time (PMESII-PT) and mission variables mission, enemy, terrain and weather, troops and support available, time available, and civil considerations (METT-TC) and comprehension of the factors of isolation, individual capability (i.e. physical and psychological condition, proficiency of training, equipment), effects posed by an operational environment and the potential duration of the isolation situation. If the isolated person determines that they have met the isolation criteria stated in their ISG/EPA, they will report their isolation and begin appropriate movements and techniques detailed in their ISG/EPA. 
+The typical isolation scenario includes the occurrence of an isolating event and the typical movement of personnel to their designated rally point. Once at the rally point, they assess their situation in relation to the mission and the isolation criteria specified in their ISG/EPA. The isolation criteria prescribes the set of circumstances under which a Soldier/isolated person may execute their ISG/EPA. The assessment of the isolation criteria includes the operational political, military, economic, social, information, infrastructure, physical environment, and time (PMESII-PT) and mission variables mission, enemy, terrain and weather, troops and support available, time available, and civil considerations (METT-TC) and comprehension of the factors of isolation, individual capability (i.e. physical and psychological condition, proficiency of training, equipment), effects posed by an operational environment and the potential duration of the isolation situation. If the isolated person determines that they have met the isolation criteria stated in their ISG/EPA, they will report their isolation and begin appropriate movements and techniques detailed in their ISG/EPA. 
 
 Isolated personnel continue to adjust their plan to meet survival medicine, protection, sustenance, and navigation needs in order of priority and update their situational understanding as key tactical factors change while making appropriate adjustment decisions.
-
