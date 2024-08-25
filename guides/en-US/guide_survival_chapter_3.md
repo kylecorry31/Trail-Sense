@@ -54,15 +54,29 @@ Certain plants can provide water when no open sources are available:
 - **Water vines**: Many vines contain drinkable water. These vines are usually soft and easy to cut. Ensure a positive identification of the vine before drinking and ensure the water is clear and odorless.
 - **Coconut water**: Green coconuts are best for hydration, as they contain more fluid and less oil.
 
+![](file:///android_asset/survival_guide/13.webp)
+
 ### Solar stills
 
+**Belowground solar still**:
 A belowground solar still is a simple device that uses the sun’s heat to draw moisture from the soil or plants, which then condenses on a plastic sheet and can be collected in a container.
+
+![](file:///android_asset/survival_guide/16.webp)
 
 1. Dig a bowl-shaped hole in the ground about 3 feet (1 meter) across and 2 feet (0.6 meters) deep.
 2. Place a container in the center of the hole. Optionally place plants around the container to increase moisture (do not place in the container).
 3. Place a plastic sheet over the hole, securing the edges with rocks or soil.
 4. Place a small rock in the center of the sheet, directly over the container.
 5. Wait for the sun to heat the ground and evaporate moisture, which will condense on the plastic and drip into the container.
+
+**Transpiration bag**:
+A transpiration bag is a plastic bag tied around a leafy branch to collect water.
+
+![](file:///android_asset/survival_guide/15.webp)
+
+1. Tie a plastic bag around a leafy branch, ensuring that the bag is airtight.
+2. Wait for the sun to heat the plant, causing moisture to evaporate and condense on the bag.
+3. Collect the water that has condensed inside the bag.
 
 ## Making water safe to drink
 
@@ -73,6 +87,8 @@ Always ensure the water you collect is safe to drink. Boiling is the most reliab
 - **Boiling**: Bring water to a rolling boil for at least one minute. At higher altitudes, boil for 3 minutes.
 - **Chemical treatment**: Use water purification tablets or drops according to the instructions.
 - **Filtration**: Use a portable water filter to remove contaminants. If you construct a filter to remove sediment, still purify the water through boiling or chemical treatment. A filter can be constructed by layering grass/rocks, sand, and charcoal (top to bottom) in a container with a hole at the bottom to collect the filtered water.
+
+![](file:///android_asset/survival_guide/19.webp)
 
 ### Hazards
 - **Microorganisms**: Water may contain bacteria, viruses, and parasites that can cause illness. Boiling water kills most microorganisms, but some may require additional treatment. More likely to be present in stagnant water.
