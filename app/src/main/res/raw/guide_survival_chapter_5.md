@@ -18,7 +18,7 @@ Fire is a crucial survival tool in the wilderness, providing warmth, a means to 
 
 Fire needs three things to burn: heat, fuel, and oxygen. This is known as the fire triangle. Removing one of these elements will extinguish the fire.
 
-## Building a Fire
+## Building a fire
 
 ### Preparing a fire site
 - **Location**: Choose a flat, dry area protected from the wind, close to your shelter and a fuel supply.
@@ -67,7 +67,9 @@ A fire reflector is a wall built behind the fire to reflect heat towards you and
 - **Matches/lighters**: Always have waterproof matches or a reliable lighter in your kit.
 - **Fire steel**: Durable and works in all weather conditions, producing sparks to ignite your tinder.
 - **Magnifying glass / lens**: Focus sunlight through a lens onto tinder to create a fire. Glasses or even a clear bottle filled with water can work.
+
 ![](file:///android_asset/survival_guide/61.webp)
+
 - **Flint and steel**: Strike a flint rock with a steel tool to create sparks. The tinder must be very dry and fine.
 - **Bow drill**: Create friction by spinning a stick (drill) on a wooden base (fireboard) using a bow to rotate the drill.
 - **Hand drill**: Similar to the bow drill but uses hand power to spin the drill.
@@ -83,7 +85,7 @@ To operate, place the fireboard on the fire pan, hold the drill upright in the d
 
 ![](file:///android_asset/survival_guide/64.webp)
 
-## Maintaining and extinguishing your fire
+## Maintaining and extinguishing a fire
 
 **Maintaining**: Keep adding fuel to maintain your fire. Adjust the structure as needed to control the burn rate and heat distribution.
 
@@ -98,11 +100,13 @@ To operate, place the fireboard on the fire pan, hold the drill upright in the d
 ### Moving the fire
 
 **Fire bundle**
+
 A fire bundle is a portable fire that can be carried to a new location. It is made by wrapping a burning ember/coals in a bundle of dry punk wood, damp plant matter, and contained in bark. This allows you to transport a fire without needing to start a new one from scratch.
 
 ![](file:///android_asset/survival_guide/66.webp)
 
 **Charcloth**
+
 Charcloth is a material used to easily catch a spark and ignite a fire. It is made by charring natural fibers in a low-oxygen environment. To make charcloth:
 
 1. Cut a piece of natural fabric (cotton, linen, or jute) into small squares.
