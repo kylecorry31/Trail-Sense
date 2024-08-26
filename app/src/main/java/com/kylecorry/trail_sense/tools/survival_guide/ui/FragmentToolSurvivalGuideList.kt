@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ListItemMapper
+import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentSurvivalGuideChaptersBinding
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
@@ -19,7 +21,15 @@ class FragmentToolSurvivalGuideList : BoundFragment<FragmentSurvivalGuideChapter
 
     private val itemMapper = object : ListItemMapper<Chapter> {
         override fun map(value: Chapter): ListItem {
-            return ListItem(value.resource.toLong(), value.title, value.chapter) {
+            return ListItem(
+                value.resource.toLong(),
+                value.title,
+                value.chapter,
+                icon = ResourceListIcon(
+                    value.icon,
+                    Resources.androidTextColorSecondary(requireContext())
+                )
+            ) {
                 findNavController().navigateWithAnimation(
                     R.id.fragmentToolSurvivalGuideReader,
                     bundleOf("chapter_resource_id" to value.resource)
