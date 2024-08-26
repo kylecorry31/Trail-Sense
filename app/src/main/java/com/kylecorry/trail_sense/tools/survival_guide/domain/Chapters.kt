@@ -14,7 +14,7 @@ object Chapters {
             Chapter("Fire", "Chapter 5", R.raw.guide_survival_chapter_5, R.drawable.ic_category_fire),
             Chapter("Shelter and clothing", "Chapter 6", R.raw.guide_survival_chapter_6, R.drawable.ic_category_shelter),
             Chapter("Movement and navigation", "Chapter 7", R.raw.guide_survival_chapter_7, R.drawable.ic_category_navigation),
-            Chapter("Survival equipment", "Chapter 8", R.raw.guide_survival_chapter_8, R.drawable.ic_category_tools),
+            Chapter("Survival equipment", "Chapter 8", R.raw.guide_survival_chapter_8, R.drawable.ic_axe),
             Chapter("Survival knots and rope", "Appendix A", R.raw.guide_survival_appendix_a, R.drawable.ic_knots),
         )
     }
