@@ -57,35 +57,103 @@ Consider the following when moving in jungle environments:
 - **Assessment**: Look for the narrowest part of the river or a place where it breaks into several channels.
 - **Precautions**: Avoid crossing at areas with strong currents or near ledges that indicate rapids.
 
-**Rafts**
-TODO
+![](file:///android_asset/survival_guide/84.webp)
+
+![](file:///android_asset/survival_guide/86.webp)
 
 ## Navigation
 
-It is important to familiarize yourself with the terrain and use prominent features as landmarks. Although GPS devices are useful, it is essential to know how to navigate without them using a map and compass. In a pinch, you could use the sun and shadows to determine direction.
-
 ### GPS
-TODO
+
+A GPS device will help you determine your location and navigate to a specific point. However, it is essential to have a backup plan in case the device fails.
+
+**Current location**
+
+A GPS uses satellites to determine your current location. Ensure the device has a clear view of the sky to receive signals. Most GPS units will display your coordinates in latitude and longitude. This location can be plotted onto a map.
+
+**Waypoints**
+
+A waypoint is a specific location you want to navigate to. You can enter waypoints into your GPS device to help guide you to your destination. Most devices will let you enter waypoints before you start your trip, but you can also add them as you go. Be sure to place waypoints frequently so that you can backtrack if needed.
+
+If you are using Trail Sense, you can use the Navigation, Beacons, Paths, and Photo Maps tools to assist with navigation.
+
+**Battery**
+
+It is a very real possibility that your GPS device will run out of battery. Be sure to carry extra batteries or a portable charger to keep your device powered.
 
 ### Compass
-TODO
+
+A compass can help you determine which direction you are facing. It is essential to know how to use a compass in conjunction with a map to navigate effectively.
+
+**Declination**
+
+Declination is the difference between true north and magnetic north. You will need to adjust your compass to account for declination when navigating with a map. Some compasses have an adjustable declination ring, while others will require you to do the math yourself. Most maps will have the declination listed in the legend and be oriented to true north.
+
+**Bearings**
+
+A bearing is the direction you need to travel to reach a specific point. You can determine a bearing by aligning the compass needle with the desired direction on the compass housing. Once you have the bearing, you can follow it to reach your destination. It is best to pick a prominent feature in the distance to navigate towards it to avoid having to constantly check your compass and maintain your bearing.
+
+**Back bearings**
+
+A back bearing is the opposite direction of your current bearing. You can use back bearings to retrace your steps. To calculate a back bearing: if your bearing is less than 180 degrees, add 180 degrees. If your bearing is greater than 180 degrees, subtract 180 degrees.
 
 ### Map
-TODO
+
+A map can be used in conjunction with a compass to navigate.
+
+**Orientation**
+
+You can orient a map to point north using a compass:
+1. Place the compass on the map with the direction of travel arrow pointing towards the top of the map.
+2. Rotate the map and compass together until the compass is pointing north.
+
+![](file:///android_asset/survival_guide/93.webp)
+
+**Determining location**
+
+To determine your location on a map, you will need to identify prominent features around you and match them to the map. You can use a compass to determine which direction you are facing and align the map accordingly.
+
+To triangulate your location on the map:
+1. Orient the map to point north using your compass.
+2. Identify two prominent features around you and mark them on the map.
+3. Measure the bearing to each feature using your compass.
+4. Draw lines on the map from each feature in the direction of the bearing.
+5. The point where the lines intersect is your location.
+
+**Scale**
+
+Maps are drawn to scale, which allows you to determine distances between points. There should be a bar on the map that indicates the scale. Using this along with a ruler, string, stick, or even your finger, you can measure distances on the map.
+
+![](file:///android_asset/survival_guide/104.webp)
 
 **Topographic maps**
-TODO
+
+Topographic maps show elevation changes and terrain features. They are useful for navigating in mountainous or hilly terrain. Contour lines on the map indicate elevation changes, and the closer the lines are together, the steeper the terrain. These maps should also list the elevation on some contour lines, which allows you to determine if a point is a peak or valley.
+
+![](file:///android_asset/survival_guide/95.webp)
 
 ### Advanced techniques
 
 **Star navigation**
-TODO
+- **Northern hemisphere**: Identify the North Star (Polaris) using the Big Dipper and Cassiopeia as reference points. Polaris is located at the end of the Little Dipper's handle.
 
+![](file:///android_asset/survival_guide/91.webp)
+
+- **Southern hemisphere**: Use the Southern Cross to determine south. Extend a line from the top and bottom stars of the Cross's long axis, continuing approximately 4.5 times the distance between these stars towards the horizon to approximate the South Pole.
+
+![](file:///android_asset/survival_guide/92.webp)
+  
 **Environmental cues**
-TODO
+
+- **Vegetation**: Moss often grows more lushly on the more shaded and moist side of trees, which is generally the north side in the Northern Hemisphere and the south side in the Southern Hemisphere.
+- **Snow**: On slopes, snow melts more quickly on the side that receives more sun (south-facing in the Northern Hemisphere, north-facing in the Southern Hemisphere).
 
 **Sun and shadows**
-TODO
 
-## Grid search
-TODO
+- **Shadow tip method**: Place a stick vertically in the ground and mark the shadow tip. Wait 10-15 minutes, mark the new position of the tip, then draw a straight line between the two marks for an east-west line. North will be perpendicular to this line at midday.
+
+![](file:///android_asset/survival_guide/88.webp)
+
+- **Watch method**: Point the hour hand of an analog watch at the sun; south is roughly halfway between the hour hand and 12 o'clock in the Northern Hemisphere. If you are in the Southern Hemisphere, point the 12 o'clock position at the sun instead. If your watch is set to daylight saving time, use the 1 o'clock position instead of 12 o'clock.
+
+![](file:///android_asset/survival_guide/90.webp)
