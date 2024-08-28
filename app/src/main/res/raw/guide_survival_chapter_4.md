@@ -25,24 +25,54 @@ Starvation occurs when the body does not receive enough nutrients to function pr
 - Longer healing time for wounds and illnesses.
 
 ## Plants and mushrooms
+The safest method for consuming wild plants is through positive identification. Before your trip, it's wise to study local plants through guidebooks or plant identification cards.
 
 ### Foraging
 
-![](file:///android_asset/survival_guide/22.webp)
+Key considerations when choosing plants include:
 
-![](file:///android_asset/survival_guide/23.webp)
+- **Water safety**: Plants in or near contaminated water must be washed and possibly boiled to avoid consuming harmful bacteria or chemicals.
+- **Disease and decay**: Avoid plants that show signs of mildew, fungus, or spoilage.
+- **Toxicity variations**: Even within the same species, plants can vary in toxicity due to environmental factors.
+- **Personal sensitivities**: If you are sensitive to allergens like poison ivy, steer clear of similar plants such as mangoes or cashews which can cause similar reactions.
+- **Caloric / nutritional value**: Some plants are more nutritious than others. For example, nuts and seeds are high in calories and fats, while leafy greens are high in vitamins and minerals.
+- **Animal interactions**: Some plants are fine for animals but toxic to humans.
+- **Aggregate berries are generally safe**: These include raspberries and blackberries.
+- **Seaweed**: Seaweed that is washed onshore may be spoiled or decayed.
+- **Avoid the following** unless you are 100% sure of the identification:
+  - Mushrooms.
+  - Roadside plants.
+  - Plants with umbrella-shaped flowers.
+  - Plants with milky sap.
+  - Plants with shiny leaves.
+  - Plants with white, yellow, or red berries.
+  - Beans, bulbs, or seeds inside pods.
+  - Plants with a pungent odor.
+  - Plants with an almond scent in the leaves or woody parts.
+  - Plants with a bitter or soapy taste.
+  - Plants with thorns, fine hairs, or spines.
+  - Plants that resemble dill, carrot, parsnip, or parsley.
+  - Plants with three-leaved growth patterns.
 
-![](file:///android_asset/survival_guide/24.webp)
+**Edibility testing**
 
-![](file:///android_asset/survival_guide/26.webp)
+If unsure about a plant and are in extreme need, you can use the Universal Edibility Test to determine its safety:
 
-Unless you are absolutely certain of a mushroom's safety, do not eat it. Many mushrooms are poisonous and can cause severe illness or death.
+1. **Smell**: If the plant has an unpleasant odor, do not proceed.
+2. **Sap**: Crush or break part of the plant to check for colored or milky sap. Only proceed if the sap is clear.
+3. **Skin contact**: Touch the plant's sap or juice to the inner forearm. If there are no ill effects, such as a rash or burning sensation, proceed.
+4. **Lip test**: Place the plant's sap or juice on the outer lip for eight minutes. If there are no ill effects, proceed.
+5. **Taste test**: Taste a small pinch of the plant and leave it in the mouth for eight minutes. If there's an unpleasant taste or burning sensation, spit it out and rinse your mouth. If there are no ill effects, proceed.
+6. **Swallow**: Swallow the small pinch of the plant from step 5. Wait eight hours. If there are no ill effects, proceed.
+6. **Eat more**: Eat a handful of the plant and wait another eight hours. If there are no ill effects, the plant is safe to eat. Have restraint when eating large quantities of a new plant, as it may cause digestive issues.
+
+Note that each part of a plant needs to be tested separately, as some parts may be toxic while others are safe.
 
 ### Preparation
 Wash plants, then cut up into usable pieces. Some plants can be eaten raw, while others need to be cooked.
 
 **Leaching**
-Some plants contain toxins that can be removed by leaching. A common example is acorns, which can be shelled and soaked in water to remove tannins. Change the water every few hours until the water is clear.
+Some plants contain toxins that can be removed by leaching. A common example is acorns, which can be shelled and boiled in several changes of water to remove tannins.
 
 ### Preservation
 Plants can be dried by wind, air, sun, or fire.
