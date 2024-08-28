@@ -1191,4 +1191,5 @@
     <string name="tide_clock">Getijdenklok</string>
     <string name="lunitidal_interval">Maangetijdeninterval</string>
     <string name="harmonic">Harmonisch</string>
+    <string name="survival_guide">Overlevingsgids</string>
 </resources>
