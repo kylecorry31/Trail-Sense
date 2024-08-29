@@ -55,7 +55,7 @@ object UserGuideUtils {
         }
     }
 
-    fun getGuideView(context: Context, text: String): View {
+    fun getGuideView(context: Context, text: String, shouldUppercaseSubheadings: Boolean = false): View {
         val markdown = MarkdownService(context, extensions = listOf(
             MarkdownExtension(1, '+') { AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER) }
         ))
@@ -69,7 +69,7 @@ object UserGuideUtils {
                 ) {
                     markdown.setMarkdown(it,
                         first.content + "\n" + section.drop(1)
-                            .joinToString("\n") { it.toMarkdown() })
+                            .joinToString("\n") { it.toMarkdown(shouldUppercaseSubheadings) })
                 }
                 expandable
             } else {

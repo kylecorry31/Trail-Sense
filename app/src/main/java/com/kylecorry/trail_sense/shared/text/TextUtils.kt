@@ -61,12 +61,12 @@ object TextUtils {
     }
 
     data class TextSection(val title: String?, val level: Int?, val content: String) {
-        fun toMarkdown(): String {
+        fun toMarkdown(shouldUppercaseTitle: Boolean = false): String {
             if (title == null || level == null) {
                 return content
             }
 
-            return "#".repeat(level) + " $title\n$content"
+            return "#".repeat(level) + " ${if (shouldUppercaseTitle) title.uppercase() else title}\n$content"
         }
     }
 }

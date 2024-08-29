@@ -36,7 +36,13 @@ class FragmentToolSurvivalGuideReader : BoundFragment<FragmentSurvivalGuideBindi
             if (isBound) {
                 binding.guideScroll.removeAllViews()
                 // TODO: Extract user guide utils to shared package
-                binding.guideScroll.addView(UserGuideUtils.getGuideView(requireContext(), content))
+                binding.guideScroll.addView(
+                    UserGuideUtils.getGuideView(
+                        requireContext(),
+                        content,
+                        shouldUppercaseSubheadings = true
+                    )
+                )
             }
         }
     }
