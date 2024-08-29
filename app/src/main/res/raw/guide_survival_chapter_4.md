@@ -137,65 +137,34 @@ Clean and eat as soon as possible to avoid spoilage.
 
 ### Preservation
 
-## Birds
+## Other animals
 
-### Hunting
-
-### Trapping
-
-### Preparation
+### Birds
 
 **Note**: Sea birds should be skinned rather than plucked to remove oil glands.
 
-Eat or preserve as soon as possible to avoid spoilage.
+### Reptiles and amphibians
 
-## Mammals
+![](file:///android_asset/survival_guide/42.webp)
 
-### Hunting
-
-### Trapping
-
-### Preparation
-
-**Small mammals**
+### Small mammals
 1. Remove entrails by splitting the belly open and pulling them out.
 2. Skin the animal.
 3. Cut the meat into usable pieces.
 4. Cook the meat.
 
-**Large mammals**
-
+### Large mammals
 ![](file:///android_asset/survival_guide/39.webp)
-
-### Preservation
-
-## Reptiles and amphibians
-
-### Hunting
-
-### Trapping
-
-### Preparation
-
-![](file:///android_asset/survival_guide/42.webp)
-
-### Preservation
 
 ## Hunting
 
-### Hunting gear
-
 ### Hunting techniques
 
-### Firearms
-
-### Bows and arrows
+### Firearms, bows and arrows
 
 ### Clubs
 
 ### Spears
-
-![](file:///android_asset/survival_guide/51.webp)
 
 ### Throwing sticks and rocks
 
@@ -224,14 +193,6 @@ Eat or preserve as soon as possible to avoid spoilage.
 ![](file:///android_asset/survival_guide/49.webp)
 
 ![](file:///android_asset/survival_guide/50.webp)
-
-### Bird traps
-
-![](file:///android_asset/survival_guide/40.webp)
-
-![](file:///android_asset/survival_guide/41.webp)
-
-![](file:///android_asset/survival_guide/32.webp)
 
 ## Fishing
 

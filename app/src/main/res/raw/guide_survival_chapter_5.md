@@ -43,7 +43,6 @@ A fire reflector is a wall built behind the fire to reflect heat towards you and
   - Cotton balls (preferably soaked in petroleum jelly)
   - Lint
   - Paper
-  - Charcloth (see below)
 - **Kindling**: Small sticks and twigs that catch fire from the tinder and help build the flame.
   - Sticks and twigs (pencil to finger thickness)
   - Thinly split wood
@@ -104,12 +103,3 @@ To operate, place the fireboard on the fire pan, hold the drill upright in the d
 A fire bundle is a portable fire that can be carried to a new location. It is made by wrapping a burning ember/coals in a bundle of dry punk wood, damp plant matter, and contained in bark. This allows you to transport a fire without needing to start a new one from scratch.
 
 ![](file:///android_asset/survival_guide/66.webp)
-
-**Charcloth**
-
-Charcloth is a material used to easily catch a spark and ignite a fire. It is made by charring natural fibers in a low-oxygen environment. To make charcloth:
-
-1. Cut a piece of natural fabric (cotton, linen, or jute) into small squares.
-2. Place the fabric squares in a metal tin with a small hole in the lid.
-3. Heat the tin over a fire until smoke stops coming out of the hole.
-4. Remove the tin from the fire and let it cool.

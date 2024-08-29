@@ -16,6 +16,8 @@ Your first line of defense in any environment—whether hot, cold, tropical, des
   - **Examine**: Regularly check for wear and tear.
   - **Repair**: Mend tears and holes promptly.
 
+TODO: Talk about insulation using leaves
+
 ## Building shelters
 
 ### Choosing a shelter location

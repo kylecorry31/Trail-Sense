@@ -5,20 +5,20 @@ Water is crucial for anyone spending time in the wilderness, particularly for hi
 When hiking, conserving energy while maintaining hydration is vital. Here are some general rules:
 
 - **Choose running water**: If you have the option, always opt for running water over stagnant water. However, ensure that any water you drink is appropriately treated.
-  
-- **Avoid eating snow**: Eating snow directly lowers your body temperature and requires your body to expend energy to melt it. Instead, melt it before consumption.
-
-- **Avoid saltwater**: Do not drink saltwater, even in small amounts, as it leads to dehydration.
-
-- **Avoid stagnant water**: Water in natural depressions is often stagnant and may be contaminated with harmful substances.
-
-- **Do not drink urine or alcohol**: Neither is a safe source of hydration and can lead to further dehydration.
-
 - **Assume surface water is contaminated**: Most surface water may contain contaminants. Always purify it before drinking.
+- **Avoid the following**:
+  - **Snow (without melting)**: It lowers your core body temperature. Melt snow before drinking.
+  - **Urine or alcohol**: Both can lead to further dehydration.
+  - **Saltwater**: Drinking saltwater leads to dehydration and kidney damage.
+  - **Stagnant water**: Often contaminated with harmful substances.
 
 ### Daily water needs
 
 At a moderate temperature of 68°F, a hiker generally needs 2 to 3 quarts of water daily to stay hydrated. This amount increases with physical activity and exposure to higher temperatures. Under extreme conditions, such as intense heat or illness, water loss can be significant, necessitating even more intake.
+
+### Dehydration
+
+TODO: List the symptoms here.
 
 ## Finding water
 
