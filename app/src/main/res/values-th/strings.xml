@@ -58,4 +58,13 @@
     <string name="name">ชื่อ</string>
     <string name="beacon_invalid_name">ชื่อใช้ไม่ได้</string>
     <string name="units_mbar">มิลลิบาร์</string>
+    <string name="onboarding_user_guide">เรียนรู้ฟีเจอร์ต่างๆของ Trail Sense ด้วยคู่มือผู้ใช้ได้จากเมนูใต้แท็บเครื่องมือ
+\n
+\nคู่มือต่างๆจะมีเพื่มเติมเร็วๆนี้</string>
+    <string name="tool_user_guide_title">คู่มือผู้ใช้</string>
+    <string name="next">ต่อไป</string>
+    <string name="explore">การสำรวจ</string>
+    <string name="next_24_hours">24 ชั่วโมงข้างหน้า</string>
+    <string name="compass_source_legacy_android">ดั้งเดิม (แอนด์ดรอย์)</string>
+    <string name="tool_user_guide_summary">คู่มือสอนการใช้ Trail Sense</string>
 </resources>
