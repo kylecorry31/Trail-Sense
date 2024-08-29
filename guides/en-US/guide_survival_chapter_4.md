@@ -78,10 +78,9 @@ Some plants contain toxins that can be removed by leaching. A common example is 
 Plants can be dried by wind, air, sun, or fire.
 
 ## Insects
+Insects are a good source of protein, but need to be gathered in large numbers to provide a substantial meal. If you don't want to eat insects, you can use them as bait for fishing or trapping.
 
 ### Collection
-Insects are a good source of protein, but need to be gathered in large numbers to provide a substantial meal.
-
 Do not eat the following insects:
 - Biting or stinging insects.
 - Hairy or brightly colored insects.
@@ -120,24 +119,51 @@ Insects can be preserved through live storage. Keep them in a container with air
 ### Collection
 
 ### Preparation
-Clean and eat as soon as possible to avoid spoilage.
-
 Fully cook clams, mussels, snails, and crawfish to kill parasites.
-
-### Preservation
 
 ## Fish
 
 ### Fishing
+![](file:///android_asset/survival_guide/47.webp)
+
+![](file:///android_asset/survival_guide/46.webp)
+
+### Trapping
+![](file:///android_asset/survival_guide/48.webp)
+
+![](file:///android_asset/survival_guide/49.webp)
+
+![](file:///android_asset/survival_guide/50.webp)
+
+### Preparation
+
+## Other animals
+
+### Hunting
+
+**Firearms and bows**
+
+**Clubs**
+
+**Spears and gigs**
+
+**Throwing sticks and rocks**
 
 ### Trapping
 
-### Preparation
-Clean and eat as soon as possible to avoid spoilage.
+**Snares**
+![](file:///android_asset/survival_guide/27.webp)
 
-### Preservation
+![](file:///android_asset/survival_guide/29.webp)
 
-## Other animals
+![](file:///android_asset/survival_guide/30.webp)
+
+![](file:///android_asset/survival_guide/31.webp)
+
+**Deadfalls**
+![](file:///android_asset/survival_guide/34.webp)
+
+![](file:///android_asset/survival_guide/35.webp)
 
 ### Birds
 
@@ -156,56 +182,6 @@ Clean and eat as soon as possible to avoid spoilage.
 ### Large mammals
 ![](file:///android_asset/survival_guide/39.webp)
 
-## Hunting
-
-### Hunting techniques
-
-### Firearms, bows and arrows
-
-### Clubs
-
-### Spears
-
-### Throwing sticks and rocks
-
-## Trapping
-
-### Snares
-
-![](file:///android_asset/survival_guide/27.webp)
-
-![](file:///android_asset/survival_guide/29.webp)
-
-![](file:///android_asset/survival_guide/30.webp)
-
-![](file:///android_asset/survival_guide/31.webp)
-
-### Deadfalls
-
-![](file:///android_asset/survival_guide/34.webp)
-
-![](file:///android_asset/survival_guide/35.webp)
-
-### Fish and crab traps
-
-![](file:///android_asset/survival_guide/48.webp)
-
-![](file:///android_asset/survival_guide/49.webp)
-
-![](file:///android_asset/survival_guide/50.webp)
-
-## Fishing
-
-### Fishing gear
-
-![](file:///android_asset/survival_guide/47.webp)
-
-### Fishing techniques
-
-![](file:///android_asset/survival_guide/46.webp)
-
-See the trapping section for details on a gill net.
-
 ## Cooking
 
 ### Boiling
@@ -223,25 +199,16 @@ If you do not have a metal container:
 ### Baking
 
 ## Preservation
+In most survival scenarios, it is best to consume food as soon as possible to avoid spoilage. In a longer term scenario, you can use the following methods to preserve food:
 
-### Drying
-
-### Smoking
-
-### Freezing
-Once food is frozen, it will not decompose. Freeze food in meal-sized portions. If the temperature is above freezing, the food may start thawing.
-
-### Natural refrigeration
-
-- **Snow**: Burying food in snow can keep it cool.
-- **Streams**: Food wrapped in a waterproof container can be placed in a stream to keep it cool.
-- **Wet cloth**: Wrap food in a wet cloth and rewet it as needed to keep food cool.
-- **Underground**: In shady areas or along streams, dig a hole, line with grass or leaves, and place food inside. Cover to form a cool storage area.
-
-### Live storage
+- **Sun drying**: Hang or place on rocks in direct sunlight. Turn the food occasionally to ensure even drying.
+- **Smoking**: Hang food over a smoky fire to dry it out. For best results, use a fire with little flame and lots of smoke in a poorly ventilated area.
+- **Freezing**: Freeze food in meal-sized portions only if the temperature is consistently below freezing. If the temperature is above freezing, the food may start thawing.
+- **Natural refrigeration**: Bury food in snow, underground (lined with grass or leaves), or wrap in a wet cloth.
+- **Live storage**: Store fish in a trap or a pen made of rocks and sticks in a stream.
 
 ## Protection
 
 ### Bear bags
 
-### Caches
+### Bear canisters
