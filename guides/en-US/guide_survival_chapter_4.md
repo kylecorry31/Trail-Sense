@@ -1,3 +1,6 @@
+## What to pack
+TODO: List out some foods that are good to pack and how much to bring
+
 ## Food essentials
 Most people can survive for weeks without food, but it may take days or weeks to find a reliable food source. Without adequate food, the body and mind weaken, making it difficult to perform essential tasks.
 
@@ -139,28 +142,84 @@ For details on how to construct this trap, see the Fish section of this chapter.
 Fully cook clams, mussels, snails, and crawfish to kill parasites. Shellfish can be cooked in their shells.
 
 ## Fish
+If you are in a longer term survival situation or have access to fishing gear, fish can be a good source of protein and nutrients.
 
 ### Fishing
+Fish are most active:
+- Before a storm.
+- Near rocks or logs.
+- Under overhanging brush.
+
+There are no poisonous freshwater fish, but there are some poisonous saltwater fish. Most fish are edible.
+
+**Hooks**
+
+If you do not have fishhooks, you can make them:
+- **Wooden hooks**: Cut a piece of hardwood, put a notch in one end and secure a sharp object into the notch using cordage.
+- **Gorge hooks**: Carve a piece of wood or bone into the shape shown in the picture below. Tie a line to the middle of the hook and place into bait. When the fish swallows the bait, the hook will lodge in its throat - you do not need to pull the line to set the hook.
+- **Other hooks**: You can use metal wire or thorns as hooks. See the picture below.
+
 ![](file:///android_asset/survival_guide/47.webp)
+
+**Lines**
+
+If you do not have fishing line, you can make it from plant fibers, inner strands of paracord, or other strong cordage.
+
+**Poles**
+
+If you do not have a fishing pole, you can make one from a stick, bamboo, or other materials. You can also wrap the line around a short stick and use it as a hand line.
+
+**Bait**
+
+For best results, bait the hooks using insects, worms, or pieces of food.
+
+**Stakeout**
+
+Also known as a trotline, this method involves setting a line with multiple hooks across a stream or river. The line is secured to a tree or stake on each side of the water. Check the line every few hours to see if you have caught anything.
 
 ![](file:///android_asset/survival_guide/46.webp)
 
-### Trapping
+**Gill net**
+
+A gill net is a net that is set in the water to catch fish by their gills. The net is weighted at the bottom and floats at the top. Fish swim into the net and become entangled in the mesh. Check the net every few hours to see if you have caught anything.
+
+A gill net can be made by using the inner strands of paracord or other strong cordage.
+
+1. Tie a suspension line between two sticks.
+2. Attach lines to the guide line at intervals.
+3. Using overhand knots, form the net.
+
 ![](file:///android_asset/survival_guide/48.webp)
 
 ![](file:///android_asset/survival_guide/49.webp)
+
+**Traps**
+
+You can construct a basket fish trap by weaving together branches or other materials. Bait the trap with food and place it in the water. Check the trap every few hours to see if you have caught anything. This can also be used to catch crustaceans.
+
+Alternatively, you could use a funnel fish trap by placing sticks into a v-shape with a retaining area at the end. Fish swim into the trap and are unable to find their way out. In tidal areas, you can set up a wall of stones during low tide during the next low tide, fish may get trapped behind the wall.
 
 ![](file:///android_asset/survival_guide/50.webp)
 
 ### Preparation
 
+1. Remove scales by scraping them off with a knife.
+2. Remove entrails by cutting the belly open and pulling them out.
+3. Cut into usable pieces or fillet the fish. Alternatively, you could cook the fish whole.
+4. Cook the fish.
+
 ## Other animals
+Unless you have experience hunting and have the proper gear, it is not usually worth the energy expenditure to hunt other animals. The exception is reptiles which may be easier to catch.
 
 ### Hunting
 
 **Firearms and bows**
 
+If you have a firearm or bow with you, the odds are that you know how to use it. Aim for the vital organs to ensure a quick kill. It is not likely you will be able to construct a survival bow that is effective for hunting.
+
 **Clubs**
+
+A club can be as simple as a stick with a heavy end. This can be used to kill small fish or other animals using a quick, forceful blow to the head.
 
 **Spears and gigs**
 
