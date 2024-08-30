@@ -81,6 +81,8 @@ Plants can be dried by wind, air, sun, or fire.
 Insects are a good source of protein, but need to be gathered in large numbers to provide a substantial meal. If you don't want to eat insects, you can use them as bait for fishing or trapping.
 
 ### Collection
+Rotting logs, under rocks, and in grassy fields are good places to find insects.
+
 Do not eat the following insects:
 - Biting or stinging insects.
 - Hairy or brightly colored insects.
@@ -115,11 +117,26 @@ Worms can be placed in water for 15 minutes to purge their digestive tracts. Aft
 Insects can be preserved through live storage. Keep them in a container with air holes and a food source, such as leaves or fruit.
 
 ## Shellfish and crustaceans
+Shellfish and crustaceans are a good source of protein and can be found in both freshwater and saltwater. They are relatively easy to catch, so make a good survival food source.
 
 ### Collection
+Search shallow waters, tide pools, and rocky areas for shellfish and crustaceans. Snails and limpets can often be found attached to rocks, which may be easier to get to during low tide.
+
+In freshwater, crayfish can be located in water during the daytime under and around stones in streams or in soft mud. You can attach bait to a string and lower it into the water to attract crayfish. Once it grabs the bait, pull it to shore.
+
+In saltwater, lobsters, crabs, and shrimp can be found near the water's edge or in shallow water. Crabs will also come to shore if you leave bait at the water's edge, where they can be easily caught. Lobsters and crabs are more active at night and shrimp are attracted to light.
+
+Caution, mussels may be poisonous in tropical waters during the summer. If a red tide occurred within 3 days, do not eat fish or shellfish. Do not eat shellfish covered by water during high tide.
+
+### Trapping
+A basket fish trap can be used to catch crustaceans. Bait the trap with food and place it in the water. Check the trap every few hours to see if you have caught anything.
+
+![](file:///android_asset/survival_guide/50.webp)
+
+For details on how to construct this trap, see the Fish section of this chapter.
 
 ### Preparation
-Fully cook clams, mussels, snails, and crawfish to kill parasites.
+Fully cook clams, mussels, snails, and crawfish to kill parasites. Shellfish can be cooked in their shells.
 
 ## Fish
 

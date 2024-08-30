@@ -18,7 +18,17 @@ At a moderate temperature of 68°F, a hiker generally needs 2 to 3 quarts of wat
 
 ### Dehydration
 
-TODO: List the symptoms here.
+Dehydration occurs when the body loses more fluids than it takes in. Symptoms include:
+
+- Thirst.
+- Dry mouth and throat.
+- Fatigue.
+- Dizziness.
+- Dark urine.
+- Reduced urine output.
+- Dry skin.
+- Headache.
+- Confusion.
 
 ## Finding water
 

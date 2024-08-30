@@ -16,7 +16,7 @@ Your first line of defense in any environment—whether hot, cold, tropical, des
   - **Examine**: Regularly check for wear and tear.
   - **Repair**: Mend tears and holes promptly.
 
-TODO: Talk about insulation using leaves
+If you need extra insulation in a pinch, stuff your clothing with dry leaves, grass, or other insulating materials.
 
 ## Building shelters
 
