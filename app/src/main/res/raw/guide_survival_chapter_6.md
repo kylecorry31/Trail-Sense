@@ -1,5 +1,8 @@
 A well-constructed shelter can protect you from environmental hazards such as sun, wind, rain, snow, and extreme temperatures. It also boosts morale. This guide focuses on clothing as your primary shelter and details constructing both man-made and natural shelters.
 
+## Be prepared
+TODO: Mention what gear to bring
+
 ## Clothing
 
 Your first line of defense in any environment—whether hot, cold, tropical, desert, or arctic—is your clothing. Proper attire should keep you dry, regulate your body temperature, protect you from the sun, and prevent insect bites.

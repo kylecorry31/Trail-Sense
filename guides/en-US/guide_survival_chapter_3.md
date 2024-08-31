@@ -1,5 +1,8 @@
 Water is crucial for anyone spending time in the wilderness, particularly for hikers who might find themselves isolated. Proper hydration, knowing how to find water, and understanding how to make it safe to drink are essential skills for any hiker.
 
+## Be prepared
+TODO: Mention what to bring
+
 ## Hydration essentials
 
 When hiking, conserving energy while maintaining hydration is vital. Here are some general rules:

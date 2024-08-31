@@ -1,5 +1,8 @@
 Fire is a crucial survival tool in the wilderness, providing warmth, a means to cook food, a way to signal for help, and much more. This guide will help you understand the essentials of firecraft, including how to prepare a fire site, select materials, and utilize various methods to start and maintain a fire effectively.
 
+## Be prepared
+TODO: Mention what gear to bring
+
 ## Understanding fire
 
 **Key functions of fire:**

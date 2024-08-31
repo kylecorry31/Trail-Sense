@@ -1,6 +1,6 @@
 For hikers, the goal of survival is to return safely from an unplanned situation, such as getting lost or injured. This guide will cover essential survival skills and the situational awareness needed to navigate such scenarios.
 
-## Preparing for a trip
+## Be prepared
 Let someone know your plans before you leave. This way, if you don't return on time, they can get help. Stick to your planned route and avoid taking unnecessary risks.
 
 TODO: Mention what gear to bring

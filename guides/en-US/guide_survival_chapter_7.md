@@ -1,5 +1,8 @@
 Navigating and moving efficiently is crucial for safety, energy conservation, and increasing the chances of successful recovery or reaching your destination. This guide discusses essential considerations and techniques for land navigation and decision-making in various environments.
 
+## Be prepared
+TODO: Mention what gear to bring and how to prepare for navigation.
+
 ## Deciding whether to move or stay put
 
 When deciding whether to stay put or move, consider the following factors:

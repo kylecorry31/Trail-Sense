@@ -1,4 +1,4 @@
-## What to pack
+## Be prepared
 TODO: List out some foods that are good to pack and how much to bring
 
 ## Food essentials
@@ -16,7 +16,7 @@ The average person needs 2,000 calories per day. You should aim to balance carbo
 Food should be stored in airtight containers to prevent spoilage and contamination. Do not pack foods that spoil quickly or require refrigeration.
 
 ### Rationing
-
+TODO
 
 ### Starvation
 Starvation occurs when the body does not receive enough nutrients to function properly. Symptoms include:
@@ -191,6 +191,8 @@ A gill net can be made by using the inner strands of paracord or other strong co
 
 ![](file:///android_asset/survival_guide/48.webp)
 
+For the best results, place the net in a narrow part of the stream or river and near a bend.
+
 ![](file:///android_asset/survival_guide/49.webp)
 
 **Traps**
@@ -223,9 +225,19 @@ A club can be as simple as a stick with a heavy end. This can be used to kill sm
 
 **Spears and gigs**
 
+A spear can be made by sharpening a stick and optionally hardening the tip in a fire. While it can be thrown, without experience, it is more effective to use it as a thrusting weapon.
+
+For hunting smaller animals, such as frogs, a gig can be made by finding a forked stick and sharpening the ends. Optionally, you can also split the ends of a larger stick and insert smaller sticks to keep the split open.
+
 **Throwing sticks and rocks**
 
+In a pinch, you could use a throwing stick or rock to kill or stun small animals. Aim for the head to ensure a quick kill. The throwing stick can be made by finding a stick with a natural curve that has some weight to it. Throw it like you would throw a boomerang.
+
+![](file:///android_asset/survival_guide/112.webp)
+
 ### Trapping
+
+TODO
 
 **Snares**
 ![](file:///android_asset/survival_guide/27.webp)
@@ -243,25 +255,65 @@ A club can be as simple as a stick with a heavy end. This can be used to kill sm
 
 ### Birds
 
-**Note**: Sea birds should be skinned rather than plucked to remove oil glands.
+Without a firearm or bow, birds can be difficult to catch. They are most easily caught at night when they are roosting. You can use a club, throwing stick, or rock to kill or stun the bird.
+
+Also be on the lookout for bird nests, as they may contain eggs.
+
+To prepare a bird for cooking:
+1. Pluck features. You can place the bird in boiling water to make this easier. Optionally, you can skin the bird instead, but that will remove some of the fat.
+2. Cut open the body cavity and remove the entrails.
+3. For larger birds, cut off the feet and cut along the joints to separate out the bird into usable pieces.
+4. Cook the bird.
+
+**Notes**:
+
+- Sea birds should be skinned rather than plucked to remove oil glands.
+- Scavenger birds, such as vultures, should be boiled for at least 20 minutes to kill parasites.
 
 ### Reptiles and amphibians
 
+Reptiles and amphibians are easier to catch than mammals and birds. They can be found moving across open ground. Use a gig or pin it down with a stick, behind the head.
+
+Frogs can be caught near water sources using a gig.
+
+Traps with bait may also be effective for catching reptiles and amphibians.
+
+To clean a snake, cut off the head, then slit the belly and remove the entrails. Skin the snake and cut it into usable pieces. Bury the head to avoid accidentally stepping on it.
+
 ![](file:///android_asset/survival_guide/42.webp)
 
+Always wash your hands after handling reptiles and amphibians, as they can carry salmonella. Cook the meat thoroughly.
+
+Do not eat the following:
+- Box turtles.
+- Hawksbill turtles.
+- Brightly colored frogs.
+- Frogs with an X on their back.
+- Tree frogs.
+- Toads.
+- Salamanders.
+
 ### Small mammals
+
+TODO
+
 1. Remove entrails by splitting the belly open and pulling them out.
 2. Skin the animal.
 3. Cut the meat into usable pieces.
 4. Cook the meat.
 
 ### Large mammals
+
+TODO
+
 ![](file:///android_asset/survival_guide/39.webp)
 
 ## Cooking
 
 ### Boiling
 Boiling preserves the most nutrients in food and is the safest method of cooking. You can use a metal container filled with water suspended over a fire or placed onto hot coals.
+
+TODO: Move this to the water chapter
 
 If you do not have a metal container:
 
@@ -272,7 +324,11 @@ If you do not have a metal container:
 
 ### Roasting
 
+TODO
+
 ### Baking
+
+TODO
 
 ## Preservation
 In most survival scenarios, it is best to consume food as soon as possible to avoid spoilage. In a longer term scenario, you can use the following methods to preserve food:
@@ -287,4 +343,8 @@ In most survival scenarios, it is best to consume food as soon as possible to av
 
 ### Bear bags
 
+TODO
+
 ### Bear canisters
+
+TODO
