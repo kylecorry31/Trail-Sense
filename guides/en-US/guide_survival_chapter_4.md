@@ -16,7 +16,7 @@ The average person needs 2,000 calories per day. You should aim to balance carbo
 Food should be stored in airtight containers to prevent spoilage and contamination. Do not pack foods that spoil quickly or require refrigeration.
 
 ### Rationing
-TODO
+If you are in a survival situation, you may need to ration your food to make it last longer. A recommended method is to divide your food into thirds. Eat two-thirds of your food during the first half of the time you expect to be lost and save the last third for the second half. It may be difficult to estimate how long you will be lost, but figure around 2 - 3 days after your expected return date, assuming you shared your plans with someone.
 
 ### Starvation
 Starvation occurs when the body does not receive enough nutrients to function properly. Symptoms include:
@@ -75,10 +75,8 @@ Note that each part of a plant needs to be tested separately, as some parts may 
 Wash plants, then cut up into usable pieces. Some plants can be eaten raw, while others need to be cooked.
 
 **Leaching**
-Some plants contain toxins that can be removed by leaching. A common example is acorns, which can be shelled and boiled in several changes of water to remove tannins.
 
-### Preservation
-Plants can be dried by wind, air, sun, or fire.
+Some plants contain toxins that can be removed by leaching. A common example is acorns, which can be shelled and boiled in several changes of water to remove tannins.
 
 ## Insects
 Insects are a good source of protein, but need to be gathered in large numbers to provide a substantial meal. If you don't want to eat insects, you can use them as bait for fishing or trapping.
@@ -115,9 +113,6 @@ Remove the following parts before eating insects:
 Cook all insects though any of the cooking techniques in this chapter.
 
 Worms can be placed in water for 15 minutes to purge their digestive tracts. After purging, they can be eaten raw or cooked.
-
-### Preservation
-Insects can be preserved through live storage. Keep them in a container with air holes and a food source, such as leaves or fruit.
 
 ## Shellfish and crustaceans
 Shellfish and crustaceans are a good source of protein and can be found in both freshwater and saltwater. They are relatively easy to catch, so make a good survival food source.
@@ -163,7 +158,7 @@ If you do not have fishhooks, you can make them:
 
 **Lines**
 
-If you do not have fishing line, you can make it from plant fibers, inner strands of paracord, or other strong cordage.
+If you do not have fishing line, you can make it from plant fibers, inner strands of paracord (using a bend knot to join them together), or other strong cordage.
 
 **Poles**
 
@@ -211,7 +206,7 @@ Alternatively, you could use a funnel fish trap by placing sticks into a v-shape
 4. Cook the fish.
 
 ## Other animals
-Unless you have experience hunting and have the proper gear, it is not usually worth the energy expenditure to hunt other animals. The exception is reptiles which may be easier to catch.
+In a survival situation, it is best to focus on easier to catch animals, such as insects, shellfish, crustaceans, and fish. But if you have the means to catch other animals, they can provide a good source of protein and nutrients.
 
 ### Hunting
 
@@ -237,18 +232,33 @@ In a pinch, you could use a throwing stick or rock to kill or stun small animals
 
 ### Trapping
 
-TODO
+Traps and snares allow for the passive capture of small animals. They can be set up and left alone while you perform other tasks. Be sure to check the traps and snares every few hours to see if you have caught anything.
+
+Look for signs of animal activity, such as tracks, droppings, or chewed vegetation. Set up traps and snares in areas where animals are likely to pass through. You can construct funnels or walls to guide animals into the traps and snares.
+
+Baiting the traps and snares can increase their effectiveness. Use food that is native to the area and that the animals are likely to eat.
+
+Smoking the traps and snares can help mask your scent.
 
 **Snares**
+
+Wire is the best material for snares, but other cordage, such as paracord, can be used. The snare should be set at head height for the animal you are trying to catch. The snare should be set in a loop that tightens when the animal walks through it. Use small twigs to prop the snare open.
+
+To construct a snare:
+1. Tie the locking mechanism as shown in the pictures below.
+2. Run the cordage/wire through the locking mechanism to form a loop.
+3. Attach the other end of the cordage/wire to a tree or stake.
+
 ![](file:///android_asset/survival_guide/27.webp)
 
 ![](file:///android_asset/survival_guide/29.webp)
 
-![](file:///android_asset/survival_guide/30.webp)
-
-![](file:///android_asset/survival_guide/31.webp)
-
 **Deadfalls**
+
+Deadfall traps are good for catching small animals. They work by dropping a heavy object on the animal when it triggers the trap. The trigger mechanism can be made from a stick and a bait stick. The bait stick is propped up by the trigger stick. When the animal tries to take the bait, the trigger stick is released, causing the heavy object to fall.
+
+Here are some examples of deadfall traps:
+
 ![](file:///android_asset/survival_guide/34.webp)
 
 ![](file:///android_asset/survival_guide/35.webp)
@@ -295,40 +305,24 @@ Do not eat the following:
 
 ### Small mammals
 
-TODO
+Small mammals can be caught using traps, snares, or deadfalls. They can also be caught using a club, throwing stick, or rock.
 
-1. Remove entrails by splitting the belly open and pulling them out.
-2. Skin the animal.
-3. Cut the meat into usable pieces.
-4. Cook the meat.
+1. Make cuts down the insides of the back legs.
+2. Pull the skin off the body like a glove. You will need to sever the head and front feet to remove the skin.
+3. Cut the abdominal cavity open and remove the entrails. Be careful not to puncture the intestines.
 
-### Large mammals
-
-TODO
-
-![](file:///android_asset/survival_guide/39.webp)
+This guide does not cover the preparation of large mammals, as they are difficult to catch and require a lot of energy to process.
 
 ## Cooking
 
 ### Boiling
-Boiling preserves the most nutrients in food and is the safest method of cooking. You can use a metal container filled with water suspended over a fire or placed onto hot coals.
-
-TODO: Move this to the water chapter
-
-If you do not have a metal container:
-
-1. Find another container, dig a hole in the ground and line it with a waterproof material, or carve a depression into a log.
-2. Fill the container with water and food.
-3. Heat rocks in a fire and place them in the water to heat it. DO NOT use rocks with moisture (such as river rocks), as they can explode. Use two sticks in a chopstick fashion to move the rocks.
-4. Replace the rocks with hot ones as needed to keep the water boiling.
+Boiling preserves the most nutrients in food and is the safest method of cooking. You can use a metal container filled with water suspended over a fire or placed onto hot coals. See the Water chapter for more information on boiling water.
 
 ### Roasting
-
-TODO
+Roasting is a quick and easy method of cooking, but you will get less nutrients from the food. You can roast food on a stick over a fire or place it on hot coals.
 
 ### Baking
-
-TODO
+You can wrap food in leaves or clay and place it in the coals of a fire to bake it. This method is slower than roasting but preserves more nutrients. Do not skin fish or birds packed with clay, as the skin will stick to the clay and can be removed after cooking.
 
 ## Preservation
 In most survival scenarios, it is best to consume food as soon as possible to avoid spoilage. In a longer term scenario, you can use the following methods to preserve food:
@@ -337,14 +331,20 @@ In most survival scenarios, it is best to consume food as soon as possible to av
 - **Smoking**: Hang food over a smoky fire to dry it out. For best results, use a fire with little flame and lots of smoke in a poorly ventilated area.
 - **Freezing**: Freeze food in meal-sized portions only if the temperature is consistently below freezing. If the temperature is above freezing, the food may start thawing.
 - **Natural refrigeration**: Bury food in snow, underground (lined with grass or leaves), or wrap in a wet cloth.
-- **Live storage**: Store fish in a trap or a pen made of rocks and sticks in a stream.
+- **Live storage**: Store fish in a trap or a pen made of rocks and sticks in a stream. Insects can be stored in a container with holes in the lid.
 
 ## Protection
+You may need to protect your food from animals. Here are some methods to keep your food safe:
 
 ### Bear bags
+A bear bag is a bag of food that is hoisted up into a tree to keep it out of reach of bears and other animals.
 
-TODO
+1. Place food in a bag.
+2. Tie a rope to the bag.
+3. Throw the rope over a high branch and hoist the bag up.
+4. Tie the rope to a tree to keep the bag out of reach of animals.
 
 ### Bear canisters
+A bear canister is a hard plastic container that is used to store food. It is bear-proof and can be used to store food on the ground.
 
-TODO
+Some campsites may provide a bear box, which is a large metal box that is used to store food.

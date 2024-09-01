@@ -1,45 +1,45 @@
-# Be prepared
+## Be prepared
 
-# Personal hygiene
+## Personal hygiene
 
-# Medical kits
+## Medical kits
 
-# Allergic reactions
+## Allergic reactions
 
-# Breathing problems
+## Breathing problems
 
-# Bites and stings
+## Bites and stings
 
-# Bleeding
+## Bleeding
 
-# Burns
+## Burns
 
-# Fractures
+## Fractures
 
-# Sprains
+## Sprains
 
-# Dislocations
+## Dislocations
 
-# Concussion
+## Concussion
 
-# Dehydration
+## Dehydration
 
-# Cold emergencies
+## Cold emergencies
 
-# Heat emergencies
+## Heat emergencies
 
-# Gastrointestinal issues
+## Gastrointestinal issues
 
-# Heart problems
+## Heart problems
 
-# Shock
+## Shock
 
-# Illness and infection
+## Illness and infection
 
-# Altitude sickness
+## Altitude sickness
 
-# Poisoning
+## Poisoning
 
-# Medicinal plants
+## Medicinal plants
 
-# Poisonous plants
+## Poisonous plants

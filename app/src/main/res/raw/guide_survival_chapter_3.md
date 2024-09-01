@@ -97,11 +97,16 @@ Always ensure the water you collect is safe to drink. Boiling is the most reliab
 
 ### Purification methods
 
-- **Boiling**: Bring water to a rolling boil for at least one minute. At higher altitudes, boil for 3 minutes.
+- **Boiling**: Bring water to a rolling boil for at least one minute. At higher altitudes, boil for 3 minutes. If you do not have a metal container that can be used for boiling, then do the following:
+  1. Find another container, dig a hole in the ground and line it with a waterproof material, or carve a depression into a log.
+  2. Fill the container with water.
+  3. Heat rocks in a fire and place them in the water to heat it. DO NOT use rocks with moisture (such as river rocks), as they can explode. Use two sticks in a chopstick fashion to move the rocks.
+  4. Replace the rocks with hot ones as needed to keep the water boiling.
 - **Chemical treatment**: Use water purification tablets or drops according to the instructions.
 - **Filtration**: Use a portable water filter to remove contaminants. If you construct a filter to remove sediment, still purify the water through boiling or chemical treatment. A filter can be constructed by layering grass/rocks, sand, and charcoal (top to bottom) in a container with a hole at the bottom to collect the filtered water.
 
 ![](file:///android_asset/survival_guide/19.webp)
+
 
 ### Hazards
 - **Microorganisms**: Water may contain bacteria, viruses, and parasites that can cause illness. Boiling water kills most microorganisms, but some may require additional treatment. More likely to be present in stagnant water.
