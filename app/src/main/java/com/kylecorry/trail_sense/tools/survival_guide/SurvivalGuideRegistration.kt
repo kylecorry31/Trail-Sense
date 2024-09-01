@@ -12,7 +12,7 @@ object SurvivalGuideRegistration : ToolRegistration {
         return Tool(
             Tools.SURVIVAL_GUIDE,
             context.getString(R.string.survival_guide),
-            R.drawable.ic_user_guide, // TODO: Use a different icon
+            R.drawable.survival_guide,
             R.id.fragmentToolSurvivalGuideList,
             ToolCategory.Other,
             additionalNavigationIds = listOf(R.id.fragmentToolSurvivalGuideReader)
