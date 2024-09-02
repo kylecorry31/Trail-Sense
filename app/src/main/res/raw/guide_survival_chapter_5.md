@@ -17,6 +17,8 @@ TODO: Mention what gear to bring
 - **Sterilizing tools**: Heat can be used to sterilize tools and equipment.
 - **Charcoal**: Can be used for filtering water, medicinal purposes, or as a writing implement.
 
+TODO: Heating rocks
+
 **Principles of fire**: 
 
 Fire needs three things to burn: heat, fuel, and oxygen. This is known as the fire triangle. Removing one of these elements will extinguish the fire.
@@ -46,6 +48,7 @@ A fire reflector is a wall built behind the fire to reflect heat towards you and
   - Cotton balls (preferably soaked in petroleum jelly)
   - Lint
   - Paper
+  - Tinder fungus (chaga)
 - **Kindling**: Small sticks and twigs that catch fire from the tinder and help build the flame.
   - Sticks and twigs (pencil to finger thickness)
   - Thinly split wood
@@ -54,6 +57,8 @@ A fire reflector is a wall built behind the fire to reflect heat towards you and
 - **Fuel**: Larger pieces of wood that will burn longer and sustain your fire.
 
 ![](file:///android_asset/survival_guide/58.webp)
+
+TODO: Fatwood
 
 ### Fire structures
 
@@ -106,3 +111,7 @@ To operate, place the fireboard on the fire pan, hold the drill upright in the d
 A fire bundle is a portable fire that can be carried to a new location. It is made by wrapping a burning ember/coals in a bundle of dry punk wood, damp plant matter, and contained in bark. This allows you to transport a fire without needing to start a new one from scratch.
 
 ![](file:///android_asset/survival_guide/66.webp)
+
+**Tinder fungus (chaga)**
+
+TODO: Add content

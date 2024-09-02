@@ -64,6 +64,13 @@ Consider the following when moving in jungle environments:
 
 ![](file:///android_asset/survival_guide/86.webp)
 
+### Detours
+TODO: Add content
+
+
+### Grid search
+TODO: Add content
+
 ## GPS
 
 A GPS device will help you determine your location and navigate to a specific point. However, it is essential to have a backup plan in case the device fails.

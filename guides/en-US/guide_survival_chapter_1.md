@@ -5,6 +5,8 @@ Let someone know your plans before you leave. This way, if you don't return on t
 
 TODO: Mention what gear to bring
 
+TODO: Mention local laws and regulations
+
 ## Preparing for survival
 
 ### Understanding isolation

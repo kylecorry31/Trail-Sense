@@ -71,7 +71,8 @@ Certain plants can provide water when no open sources are available:
 
 ### Solar stills
 
-**Belowground solar still**:
+**Belowground solar still**
+
 A belowground solar still is a simple device that uses the sun’s heat to draw moisture from the soil or plants, which then condenses on a plastic sheet and can be collected in a container.
 
 ![](file:///android_asset/survival_guide/16.webp)
@@ -82,7 +83,8 @@ A belowground solar still is a simple device that uses the sun’s heat to draw 
 4. Place a small rock in the center of the sheet, directly over the container.
 5. Wait for the sun to heat the ground and evaporate moisture, which will condense on the plastic and drip into the container.
 
-**Transpiration bag**:
+**Transpiration bag**
+
 A transpiration bag is a plastic bag tied around a leafy branch to collect water.
 
 ![](file:///android_asset/survival_guide/15.webp)
@@ -90,6 +92,9 @@ A transpiration bag is a plastic bag tied around a leafy branch to collect water
 1. Tie a plastic bag around a leafy branch, ensuring that the bag is airtight.
 2. Wait for the sun to heat the plant, causing moisture to evaporate and condense on the bag.
 3. Collect the water that has condensed inside the bag.
+
+## Desalination
+TODO: Add content
 
 ## Making water safe to drink
 

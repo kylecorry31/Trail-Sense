@@ -1,5 +1,11 @@
 ## Be prepared
 
+TODO: First aid kit
+
+TODO: Medications
+
+## Calming down
+
 ## Allergic reactions
 
 ## Choking

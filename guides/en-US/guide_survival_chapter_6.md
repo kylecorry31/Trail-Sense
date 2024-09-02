@@ -3,6 +3,8 @@ A well-constructed shelter can protect you from environmental hazards such as su
 ## Be prepared
 TODO: Mention what gear to bring
 
+TODO: Section on getting warm fast
+
 ## Clothing
 
 Your first line of defense in any environment—whether hot, cold, tropical, desert, or arctic—is your clothing. Proper attire should keep you dry, regulate your body temperature, protect you from the sun, and prevent insect bites.
@@ -20,6 +22,8 @@ Your first line of defense in any environment—whether hot, cold, tropical, des
   - **Repair**: Mend tears and holes promptly.
 
 If you need extra insulation in a pinch, stuff your clothing with dry leaves, grass, or other insulating materials.
+
+TODO: More about layers
 
 ## Building shelters
 
@@ -66,11 +70,17 @@ A more enclosed shelter that provides better protection from the elements.
 
 Natural shelters that offer protection from the elements. Use caution when entering caves, as they can be home to animals or have poor ventilation. Avoid lighting a fire if possible since smoke can accumulate.
 
+**Emergency space blankets**
+
+TODO: Add content
+
 ### Shelter construction tips
 
 - **Insulation**: Use materials like leaves, straw, or clothing to insulate the ground and walls of your shelter.
 - **Size**: Keep the shelter compact to retain heat but large enough to lie down comfortably.
 - **Orientation**: Position the shelter to protect against prevailing winds and to maximize warming effects of the sun.
+
+TODO: Thatching and chinking
 
 ### Maintaining your shelter
 

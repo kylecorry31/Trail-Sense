@@ -315,6 +315,8 @@ This guide does not cover the preparation of large mammals, as they are difficul
 
 ## Cooking
 
+TODO: Utensils and stoves
+
 ### Boiling
 Boiling preserves the most nutrients in food and is the safest method of cooking. You can use a metal container filled with water suspended over a fire or placed onto hot coals. See the Water chapter for more information on boiling water.
 
