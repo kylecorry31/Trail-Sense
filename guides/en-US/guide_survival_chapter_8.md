@@ -1,17 +1,25 @@
-TODO: Ensure the following are fully covered in the referenced chapter.
-
 The following equipment is covered in other chapters, please refer to those chapters for more information:
-- **Fire starters**: Fire
-- **First aid kit**: Medical
-- **Compass**: Navigation
-- **Maps**: Navigation
-- **GPS**: Navigation
-- **Shelter**: Clothing and Shelter
-- **Clothing**: Clothing and Shelter
-- **Hand warmers**: Clothing and Shelter
-- **Water containers, purifiers, and filters**: Water
-- **Cooking stoves and utensils**: Cooking
-- **Cordage**: Knots and Cordage
+- **Fire**
+  - Fire starters
+- **Medical**
+  - First aid kit
+- **Navigation**
+  - Compass
+  - Maps
+  - GPS
+- **Clothing and Shelter**
+  - Shelter
+  - Clothing
+  - Hand warmers
+- **Water**
+  - Water containers
+  - Filters
+  - Chemical purifiers
+- **Food**
+  - Cooking stoves
+  - Utensils
+- **Knots and Cordage**
+  - Cordage
 
 ## Be prepared
 

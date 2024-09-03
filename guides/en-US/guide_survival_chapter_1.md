@@ -3,9 +3,12 @@ For hikers, the goal of survival is to return safely from an unplanned situation
 ## Be prepared
 Let someone know your plans before you leave. This way, if you don't return on time, they can get help. Stick to your planned route and avoid taking unnecessary risks.
 
+### Gear
 TODO: Mention what gear to bring
 
-TODO: Mention local laws and regulations
+### Knowledge and skills
+- Local laws and regulations
+- Read each chapter of this guide
 
 ## Preparing for survival
 
