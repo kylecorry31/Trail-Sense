@@ -15,8 +15,8 @@ for root, dirs, files in os.walk(assets):
         if file.endswith(".md") or file.endswith(".html"):
             os.remove(os.path.join(root, file))
 
-# Copy all .md files to the guides directory (guides already exists and has other guides in it)
-for root, dirs, files in os.walk("output"):
-    for file in files:
-        if file.endswith(".md"):
-            shutil.copy2(os.path.join(root, file), os.path.join(guides, file)) #.replace('.md', '.txt')))
+# # Copy all .md files to the guides directory (guides already exists and has other guides in it)
+# for root, dirs, files in os.walk("output"):
+#     for file in files:
+#         if file.endswith(".md"):
+#             shutil.copy2(os.path.join(root, file), os.path.join(guides, file)) #.replace('.md', '.txt')))

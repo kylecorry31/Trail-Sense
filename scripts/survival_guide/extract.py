@@ -61,7 +61,7 @@ for image in images:
     img = Image.open(f"output/{i}.png")
     # TODO: Most images can be smaller / lower quality
     img.thumbnail((1000, 400))
-    img.save(f"output/{i}.webp", "WEBP", quality=20)
+    img.save(f"output/{i}.webp", "WEBP", quality=75)
     img.close()
     total_size += os.stat(f"output/{i}.webp").st_size
     # Delete the png
