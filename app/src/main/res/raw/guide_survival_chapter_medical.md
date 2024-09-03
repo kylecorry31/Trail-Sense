@@ -1,0 +1,296 @@
+## Be prepared
+
+### Gear
+- Small tube of antibiotic ointment
+- Small tube of superglue
+- Dental floss
+- Sunscreen
+- Insect repellent
+- Assorted bandages
+- Gauze
+- Tourniquet
+- Tweezers
+- Prescription medications, contact lenses, and glasses
+- Antihistamine pills
+- Hydrocortisone cream
+- Moleskin
+- Safety pin or needle
+
+TODO: There's definitely more that isn't in the Army guide
+
+### Knowledge and skills
+
+## Panic attacks and calming techniques
+
+### Symptoms
+
+### Treatment
+
+## Allergic reactions
+
+### Symptoms
+
+### Treatment
+
+### Prevention
+
+## Choking
+
+### Symptoms
+
+### Treatment
+
+### Prevention
+
+## Bug bites and stings
+
+### Symptoms
+
+### Treatment
+
+### Prevention
+Prevent ticks by using insect repellent, wearing long sleeves and pants, and checking for ticks frequently.
+
+## Snake bites
+
+### Treatment
+
+### Prevention
+
+## Contact dermatitis (poison ivy)
+
+### Symptoms
+- Burning, reddening, and swelling rash
+- Itching
+- Blisters
+
+### Treatment
+1. Try to remove oil from the plant using soap and water. Sand or dirt can be used as a substitute, unless there are blisters.
+2. Dry the area.
+3. Apply calamine lotion or hydrocortisone cream to reduce the itch. If not available, apply a tannic acid solution (boil acorns or oak bark in water) or crushed jewelweed.
+4. Optionally, take antihistamine pills to reduce itching.
+
+Avoid scratching the rash, as it can cause infection. Leave blisters alone.
+
+### Prevention
+Learn to identify and avoid contact with the following plants:
+- Cowhage.
+- Poison ivy.
+- Poison oak.
+- Poison sumac.
+- Rengas tree.
+- Trumpet vine.
+
+If you come into contact with these plants, wash the area with soap and water as soon as possible. Do not wait for a rash to appear.
+
+Do not burn these plants, as the smoke can cause irritation.
+
+## Bleeding
+
+### Treatment
+
+![](file:///android_asset/survival_guide/2.webp)
+
+![](file:///android_asset/survival_guide/3.webp)
+
+### Prevention
+
+## Burns
+
+### Treatment
+
+### Prevention
+
+## Blisters
+
+### Symptoms
+- Red, sore area.
+- Blister.
+
+### Treatment
+TODO: What do other sources recommend for the sizing
+
+If the blister is small (under 1 inch / 2.5 cm):
+1. Cut a doughnut-shaped piece of moleskin.
+2. Place the moleskin around the blister, with the blister in the hole.
+
+If the blister is large (over 1 inch / 2.5 cm):
+1. Sterilize a needle with alcohol or heat.
+2. Pierce the blister and drain the fluid.
+3. Clean and wash the area.
+4. Apply a bandage and optionally antibiotic ointment.
+
+### Prevention
+- Keep feet dry.
+- Wear properly fitting shoes.
+- Wear two pairs of socks.
+- Check feet frequently for red areas and blisters.
+- Stop at the first sign of rubbing.
+- Apply adhesive tape or moleskin to prevent blisters.
+
+## Fractures
+
+### Symptoms
+
+### Treatment
+
+![](file:///android_asset/survival_guide/5.webp)
+
+![](file:///android_asset/survival_guide/6.webp)
+
+### Prevention
+
+## Sprains
+
+### Symptoms
+
+### Treatment
+
+### Prevention
+
+## Dislocations
+
+### Symptoms
+
+### Treatment
+
+### Prevention
+
+## Objects in the eye
+
+### Symptoms
+
+### Treatment
+
+### Prevention
+
+## Snow blindness
+
+### Symptoms
+
+### Treatment
+
+### Prevention
+
+## Sunburn
+
+### Symptoms
+
+### Treatment
+
+### Prevention
+
+## Concussion
+
+### Symptoms
+
+### Treatment
+
+### Prevention
+
+## Dehydration
+
+### Symptoms
+
+### Treatment
+
+### Prevention
+
+## Hypothermia
+
+### Symptoms
+
+### Treatment
+
+### Prevention
+
+## Frostbite
+
+### Symptoms
+
+### Treatment
+
+### Prevention
+
+## Heat exhaustion and heatstroke
+
+### Symptoms
+
+### Treatment
+
+### Prevention
+
+## Gastrointestinal issues
+
+### Symptoms
+
+### Treatment
+
+### Prevention
+
+## Heart problems
+
+### Symptoms
+
+### Treatment
+
+### Prevention
+
+## Illness
+
+### Symptoms
+
+### Treatment
+
+### Prevention
+
+## Infection
+
+### Symptoms
+
+### Treatment
+
+### Prevention
+
+## Altitude sickness
+
+### Symptoms
+
+### Treatment
+
+### Prevention
+
+## Poisoning
+
+### Symptoms
+
+### Treatment
+
+### Prevention
+
+## Hygiene
+
+### Washing
+If you do not have soap, you can use white ashes, sand, or loamy soil as a substitute.
+
+Wash hands:
+- Before and after preparing food.
+- Before eating.
+- After urinating or defecating.
+- Before dressing a wound.
+- After touching something likely to carry germs or be poisonous.
+
+### Teeth
+If you do not have a toothbrush, you can use a small stick (fray it by chewing on one end) or a piece of cloth to clean your teeth. An inner strand of paracord can be used as dental floss. You can ground up charcoal and combine it with water to make toothpaste.
+
+### Feet
+Do the following to prevent foot problems:
+- Change and wash socks daily.
+- Wash, dry, and massage your feet.
+- Check frequently for blisters and red areas. Use adhesive tape / moleskin to prevent blisters.
+
+### Clothing
+Keep clothing clean and dry. You can wash clothes with water and soap, or by boiling them. To dry clothes, hang them in the sun or near a fire (not too close).
+
+### Bowel movements and urination
+Locate latrines at least 200 feet (60 meters) from water sources.
