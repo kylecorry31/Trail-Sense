@@ -148,8 +148,17 @@ Only available on debug APKs / builds via Android Studio
 - Paths show statistics about timing (for backtrack service)
 
 # Contributing
-
 See the [CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md) file for details on contributing to Trail Sense.
+
+# Copying
+You are allowed to create copies of Trail Sense and rebrand to what you see fit. It is under the MIT license. 
+
+Please change the following if you are using this as the base for you app:
+- App name
+- App icon
+- Package name
+- Support email
+- Name of packages in the app (com.kylecorry.trail_sense.*)
 
 # FAQ
 The FAQ has moved [to the wiki](https://github.com/kylecorry31/Trail-Sense/wiki/Frequently-Asked-Questions-(FAQ))
