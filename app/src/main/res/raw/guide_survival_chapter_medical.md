@@ -53,18 +53,23 @@ Many insects can bite or sting you, causing pain, swelling, and itching. Some in
 ### Treatment
 
 **Ticks**
+
 Using tweezers if available, grasp the tick where it is attached to the skin and pull straight out with steady, even pressure. Do not twist or jerk the tick. Do not squeeze the tick's body. Treat as you would a bug bite.
 
 ***Leaches***
+
 TODO: Add content
 
 ***Bites***
+
 Avoid scratching and apply calamine lotion or hydrocortisone cream to reduce itching. You can use a cloth soaked in cold water or filled with snow/ice to reduce swelling.
 
 ***Stings***
+
 Remove any stingers, taking care not to squeeze the venom sac. Treat as you would a bug bite.
 
 **Bugs in eyes**
+
 See the section on objects in the eye.
 
 ### Prevention
