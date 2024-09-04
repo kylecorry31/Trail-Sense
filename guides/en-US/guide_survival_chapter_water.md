@@ -93,7 +93,7 @@ A transpiration bag is a plastic bag tied around a leafy branch to collect water
 2. Wait for the sun to heat the plant, causing moisture to evaporate and condense on the bag.
 3. Collect the water that has condensed inside the bag.
 
-## Desalination
+### Desalination
 TODO: Add content
 
 ## Making water safe to drink

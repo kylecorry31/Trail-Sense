@@ -43,13 +43,40 @@ TODO: There's definitely more that isn't in the Army guide
 ### Prevention
 
 ## Bug bites and stings
+Many insects can bite or sting you, causing pain, swelling, and itching. Some insects can also transmit diseases.
 
 ### Symptoms
+- Itching.
+- Swelling.
+- Redness.
 
 ### Treatment
 
+**Ticks**
+Using tweezers if available, grasp the tick where it is attached to the skin and pull straight out with steady, even pressure. Do not twist or jerk the tick. Do not squeeze the tick's body. Treat as you would a bug bite.
+
+***Leaches***
+TODO: Add content
+
+***Bites***
+Avoid scratching and apply calamine lotion or hydrocortisone cream to reduce itching. You can use a cloth soaked in cold water or filled with snow/ice to reduce swelling.
+
+***Stings***
+Remove any stingers, taking care not to squeeze the venom sac. Treat as you would a bug bite.
+
+**Bugs in eyes**
+See the section on objects in the eye.
+
 ### Prevention
-Prevent ticks by using insect repellent, wearing long sleeves and pants, and checking for ticks frequently.
+- Use insect repellent.
+- Wear long sleeves and pants.
+- Wrap your face with a bandana.
+- Wear glasses / sunglasses (keeps bugs out of your eyes).
+- Use a bug net.
+- Check for ticks / leeches frequently.
+- Ensure your immunizations are up to date for bug-borne diseases in the area.
+
+TODO: Improvised insect repellent
 
 ## Snake bites
 
@@ -57,7 +84,8 @@ Prevent ticks by using insect repellent, wearing long sleeves and pants, and che
 
 ### Prevention
 
-## Contact dermatitis (poison ivy)
+## Poison ivy and contact dermatitis
+Contact dermatitis is caused by contact with poisonous plants, such as poison ivy, poison oak, and poison sumac.
 
 ### Symptoms
 - Burning, reddening, and swelling rash
@@ -140,13 +168,29 @@ If the blister is large (over 1 inch / 2.5 cm):
 
 ### Prevention
 
-## Sprains
+## Sprains and strains
+Sprains are an injury to a tendon or ligament, while strains are an injury to a muscle or tendon.
 
 ### Symptoms
+- Pain.
+- Swelling.
+- Bruising.
+- Loss of functional movement.
+- Muscle spasms and cramping.
+- Muscle weakness.
+- A pop or tear may be heard or felt at the time of injury.
 
 ### Treatment
+1. Rest the injured area.
+2. Ice the area for 24 to 48 hours. You can improvise using a cloth soaked in cold water or filled with snow/ice.
+3. Compress the area with a bandage or splint.
+4. Elevate the area.
 
 ### Prevention
+- Warm up before physical activity.
+- Wear proper footwear.
+- Do not overexert yourself.
+- Watch your step.
 
 ## Dislocations
 
@@ -165,12 +209,18 @@ If the blister is large (over 1 inch / 2.5 cm):
 ### Prevention
 
 ## Snow blindness
+Snow blindness is caused when there is too much sunlight reflecting off snow, ice, or water into your eyes.
 
 ### Symptoms
+- Eyes are red, scratchy, and watery.
+- Sensitivity to light.
+- Headache.
 
 ### Treatment
+Cover eyes with a dark cloth until symptoms disappear.
 
 ### Prevention
+Wear UV protective sunglasses or snow goggles. If you do not have these, you can make snow goggles from a piece of cloth or a piece of bark with slits cut in it. You can also put soot under your eyes to reduce glare.
 
 ## Sunburn
 
