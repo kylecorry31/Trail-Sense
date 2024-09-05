@@ -252,20 +252,62 @@ Wear UV protective sunglasses or snow goggles. If you do not have these, you can
 ### Prevention
 
 ## Hypothermia
+Hyperthermia is caused by exposure to cold temperatures, causing the body to lose heat faster than it can produce it.
 
 ### Symptoms
+- Shivering.
+- Coldness.
+
+TODO: Add more symptoms, the Army guide does not have much
 
 ### Treatment
+- Change into dry clothes.
+- Increase layers of clothing.
+- Add insulation into clothing (such as dry leaves).
+- Consume warm liquids.
+- Warm near a fire.
+- Use a sleeping bag or blanket.
+- Use the body heat of another person.
 
 ### Prevention
+- Wear proper clothing.
+- Keep dry.
+- Keep moving.
+- Keep warm.
 
 ## Frostbite
+Frostbite is caused by exposure to cold temperatures, causing the skin and underlying tissues to freeze. This can lead to permanent damage if not treated.
 
 ### Symptoms
+Frost nip (first stage of frostbite):
+- Redness.
+- Swelling.
+- Itching.
+- Hot sensation.
+- Tenderness.
+
+Superficial frostbite (second stage of frostbite):
+- Redness.
+- Blisters.
+- Shedding of skin.
+- Numbness.
+
+Deep frostbite (third stage of frostbite):
+- White or grayish-yellow skin.
+- Hard or waxy skin.
+- Numbness.
 
 ### Treatment
+Early stages of frostbite can be treated by rewarming the area using body heat or warm water. Do not rub the area.
+
+For more severe frostbite, thaw using body temperature water. Do not use hot water or a fire. Do not rub the area. Keep the tissue warm. Seek medical attention as soon as possible.
 
 ### Prevention
+- Wear proper clothing.
+- Keep dry.
+- Keep moving.
+- Keep warm.
+- Treat at the first sign of frostbite.
 
 ## Heat exhaustion and heatstroke
 
@@ -276,12 +318,27 @@ Wear UV protective sunglasses or snow goggles. If you do not have these, you can
 ### Prevention
 
 ## Gastrointestinal issues
+Gastrointestinal issues can be caused by contaminated food or water.
 
 ### Symptoms
+- Diarrhea.
+- Vomiting.
+- Nausea.
+- Stomach cramps.
+- Gas.
 
 ### Treatment
+- Rehydrate with water.
+- Drink a cup of tea every few hours. You can make tea by boiling the following plants:
+  - Oak bark, leaves, and acorns. Boil for 2 or more hours. It won't taste good, but it will likely help.
+  - Common plantain leaves.
+- Make a solution of a handful of ground charcoal in a cup of water. Drink a couple spoonfuls every few hours.
 
 ### Prevention
+- Boil water before drinking.
+- Wash hands before eating.
+- Cook food thoroughly.
+- Store food properly.
 
 ## Heart problems
 
