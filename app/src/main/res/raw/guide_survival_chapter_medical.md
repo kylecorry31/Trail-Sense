@@ -89,8 +89,16 @@ TODO: Improvised insect repellent
 
 ### Prevention
 
+## Animal bites
+
+### Treatment
+
+### Prevention
+
 ## Poison ivy and contact dermatitis
 Contact dermatitis is caused by contact with poisonous plants, such as poison ivy, poison oak, and poison sumac.
+
+TODO: Stinging nettle
 
 ### Symptoms
 - Burning, reddening, and swelling rash
@@ -197,9 +205,7 @@ Sprains are an injury to a tendon or ligament, while strains are an injury to a 
 - Do not overexert yourself.
 - Watch your step.
 
-## Dislocations
-
-### Symptoms
+## Embedded fishhooks
 
 ### Treatment
 
@@ -235,7 +241,7 @@ Wear UV protective sunglasses or snow goggles. If you do not have these, you can
 
 ### Prevention
 
-## Concussion
+## Headache
 
 ### Symptoms
 
@@ -277,6 +283,8 @@ TODO: Add more symptoms, the Army guide does not have much
 
 ## Frostbite
 Frostbite is caused by exposure to cold temperatures, causing the skin and underlying tissues to freeze. This can lead to permanent damage if not treated.
+
+TODO: Immersion foot
 
 ### Symptoms
 Frost nip (first stage of frostbite):

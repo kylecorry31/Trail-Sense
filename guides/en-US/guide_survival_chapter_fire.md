@@ -48,7 +48,7 @@ A fire reflector is a wall built behind the fire to reflect heat towards you and
   - Cotton balls (preferably soaked in petroleum jelly)
   - Lint
   - Paper
-  - Tinder fungus (chaga)
+  - Tinder fungus (chaga) - can be found on birch trees
 - **Kindling**: Small sticks and twigs that catch fire from the tinder and help build the flame.
   - Sticks and twigs (pencil to finger thickness)
   - Thinly split wood
