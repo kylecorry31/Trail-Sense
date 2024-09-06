@@ -223,12 +223,14 @@ Fishhooks are designed to penetrate flesh and are difficult to remove without ca
 Do not attempt to remove a fishhook if it is embedded in the eye.
 
 **Method 1**
+
 1. Advance the hook through the skin until the barb is exposed.
 2. Cut the barb off with wire cutters, such as those on a multitool or pliers.
 3. Pull the hook out in the opposite direction it entered, it should come out easily.
 4. Clean the wound and apply antibiotic ointment.
 
 **Method 2**
+
 1. Run a piece of fishing line or cordage through the bend of the hook.
 2. Grab the ends of the string.
 3. Apply downward pressure on the eye of the hook.
