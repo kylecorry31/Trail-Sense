@@ -21,14 +21,17 @@ This chapter covers some basic medical knowledge and techniques for common injur
 TODO: There's definitely more that isn't in the Army guide
 
 ### Knowledge and skills
+TODO: Add content
 
 ## Panic attacks and calming techniques
+TODO: Add content
 
 ### Symptoms
 
 ### Treatment
 
 ## Allergic reactions
+TODO: Add content
 
 ### Symptoms
 
@@ -37,6 +40,7 @@ TODO: There's definitely more that isn't in the Army guide
 ### Prevention
 
 ## Choking
+TODO: Add content
 
 ### Symptoms
 
@@ -86,12 +90,14 @@ See the section on objects in the eye.
 TODO: Improvised insect repellent
 
 ## Snake bites
+TODO: Add content
 
 ### Treatment
 
 ### Prevention
 
 ## Animal bites
+TODO: Add content
 
 ### Treatment
 
@@ -129,6 +135,7 @@ If you come into contact with these plants, wash the area with soap and water as
 Do not burn these plants, as the smoke can cause irritation.
 
 ## Bleeding
+TODO: Add content
 
 ### Treatment
 
@@ -139,6 +146,7 @@ Do not burn these plants, as the smoke can cause irritation.
 ### Prevention
 
 ## Burns
+TODO: Add content
 
 ### Treatment
 
@@ -172,6 +180,7 @@ If the blister is large (over 1 inch / 2.5 cm):
 - Apply adhesive tape or moleskin to prevent blisters.
 
 ## Fractures
+TODO: Add content
 
 ### Symptoms
 
@@ -208,18 +217,50 @@ Sprains are an injury to a tendon or ligament, while strains are an injury to a 
 - Watch your step.
 
 ## Embedded fishhooks
+Fishhooks are designed to penetrate flesh and are difficult to remove without causing further injury. Unless you need to remove the hook to prevent further injury, it is best to leave the hook in place and seek medical attention.
 
 ### Treatment
+Do not attempt to remove a fishhook if it is embedded in the eye.
+
+**Method 1**
+1. Advance the hook through the skin until the barb is exposed.
+2. Cut the barb off with wire cutters, such as those on a multitool or pliers.
+3. Pull the hook out in the opposite direction it entered, it should come out easily.
+4. Clean the wound and apply antibiotic ointment.
+
+**Method 2**
+1. Run a piece of fishing line or cordage through the bend of the hook.
+2. Grab the ends of the string.
+3. Apply downward pressure on the eye of the hook.
+4. Quickly pull the string, causing the hook to come out the way it went in.
+5. Clean the wound and apply antibiotic ointment.
+
+TODO: Add an image
 
 ### Prevention
+- Be careful when handling fishhooks.
+- Use a barbless hook if possible (these don't work as well when fishing).
 
 ## Objects in the eye
+While in the wilderness it is common to get objects in your eye, such as dirt, sand, bugs, or an eyelash.
 
 ### Symptoms
+- Pain and discomfort of the eye.
+- Redness of the eye.
+- Excess tearing.
+- Difficulty keeping the eye open.
 
 ### Treatment
+1. Avoid rubbing the eye.
+2. Using clean water, irrigate the eye by pouring water into the eye.
+3. If the object is still in the eye, use a mirror to find the object and attempt to remove it using a damp cloth or cotton swab. Be very gentle.
+4. If the object is under the upper eyelid, and you have a partner: place the tip of a cotton swab in the middle of the upper eyelid and fold the eyelid over the cotton swab. You can then remove the object using a damp cloth or cotton swab.
+5. After the object is removed, if the eye feels scratchy, place a cold damp cloth over the eye, keep the eye closed and rest, use eye drops, or construct an eye patch using a bandage or cloth.
+6. Seek medical attention if the object is not removed or if symptoms persist.
 
 ### Prevention
+- Wear glasses or sunglasses.
+- Don't lift objects with dirt on them above your head without eye protection.
 
 ## Snow blindness
 Snow blindness is caused when there is too much sunlight reflecting off snow, ice, or water into your eyes.
@@ -236,6 +277,7 @@ Cover eyes with a dark cloth until symptoms disappear.
 Wear UV protective sunglasses or snow goggles. If you do not have these, you can make snow goggles from a piece of cloth or a piece of bark with slits cut in it. You can also put soot under your eyes to reduce glare.
 
 ## Sunburn
+TODO: Add content
 
 ### Symptoms
 
@@ -244,6 +286,7 @@ Wear UV protective sunglasses or snow goggles. If you do not have these, you can
 ### Prevention
 
 ## Headache
+TODO: Add content
 
 ### Symptoms
 
@@ -252,6 +295,7 @@ Wear UV protective sunglasses or snow goggles. If you do not have these, you can
 ### Prevention
 
 ## Dehydration
+TODO: Add content
 
 ### Symptoms
 
@@ -323,6 +367,7 @@ Only thaw the area if you can keep it thawed. Refreezing can cause more damage. 
 - Treat at the first sign of frostnip.
 
 ## Heat exhaustion and heatstroke
+TODO: Add content
 
 ### Symptoms
 
@@ -354,6 +399,7 @@ Gastrointestinal issues can be caused by contaminated food or water.
 - Store food properly.
 
 ## Heart problems
+TODO: Add content
 
 ### Symptoms
 
@@ -362,6 +408,7 @@ Gastrointestinal issues can be caused by contaminated food or water.
 ### Prevention
 
 ## Illness
+TODO: Add content
 
 ### Symptoms
 
@@ -370,6 +417,7 @@ Gastrointestinal issues can be caused by contaminated food or water.
 ### Prevention
 
 ## Infection
+TODO: Add content
 
 ### Symptoms
 
@@ -378,6 +426,7 @@ Gastrointestinal issues can be caused by contaminated food or water.
 ### Prevention
 
 ## Altitude sickness
+TODO: Add content
 
 ### Symptoms
 
@@ -386,6 +435,7 @@ Gastrointestinal issues can be caused by contaminated food or water.
 ### Prevention
 
 ## Poisoning
+TODO: Add content
 
 ### Symptoms
 
