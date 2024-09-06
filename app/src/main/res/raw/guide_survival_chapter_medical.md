@@ -1,3 +1,5 @@
+This chapter covers some basic medical knowledge and techniques for common injuries and illnesses you may encounter in the wilderness. It is not a substitute for professional medical advice/treatment or in depth first aid guides.
+
 ## Be prepared
 
 ### Gear
@@ -287,35 +289,38 @@ Frostbite is caused by exposure to cold temperatures, causing the skin and under
 TODO: Immersion foot
 
 ### Symptoms
-Frost nip (first stage of frostbite):
+Frostnip:
 - Redness.
-- Swelling.
-- Itching.
-- Hot sensation.
-- Tenderness.
-
-Superficial frostbite (second stage of frostbite):
-- Redness.
-- Blisters.
-- Shedding of skin.
 - Numbness.
+- Pale or white skin.
+- Area is still soft and pliable.
 
-Deep frostbite (third stage of frostbite):
+Frostbite:
 - White or grayish-yellow skin.
 - Hard or waxy skin.
 - Numbness.
 
 ### Treatment
-Early stages of frostbite can be treated by rewarming the area using body heat or warm water. Do not rub the area.
+Frostnip:
 
-For more severe frostbite, thaw using body temperature water. Do not use hot water or a fire. Do not rub the area. Keep the tissue warm. Seek medical attention as soon as possible.
+Rewarm the area using body heat (place hand under arm pit), warm water, or a hand warmer.
+
+Frostbite:
+
+Only thaw the area if you can keep it thawed. Refreezing can cause more damage. Do not use a fire to thaw the area. Do not rub the area. Seek medical attention as soon as possible.
+
+1. Take pain medicine before thawing.
+2. Prepare hot water (104-106°F / 40-41°C).
+3. Thaw the area for 30 to 45 minutes or until the area is pink/red and soft. Change the water if it cools - be sure to remove the area from the water before changing it.
+4. Wrap the area in a sterile dressing and keep warm.
 
 ### Prevention
 - Wear proper clothing.
 - Keep dry.
 - Keep moving.
 - Keep warm.
-- Treat at the first sign of frostbite.
+- Stay hydrated and well-fed.
+- Treat at the first sign of frostnip.
 
 ## Heat exhaustion and heatstroke
 
