@@ -3,22 +3,29 @@ This chapter covers some basic medical knowledge and techniques for common injur
 ## Be prepared
 
 ### Gear
-- Small tube of antibiotic ointment
-- Small tube of superglue
+- Assorted bandages
+- Wound closure strips / butterfly bandages
+- Moleskin
+- Molefoam
+- Gauze
+- Surgical tape
+- Tourniquet
+- Safety pin or needle
+- C-Splint
+- Tweezers
+- Antibiotic ointment
+- Aloe vera gel
+- Antiseptic wipes
+- Hydrocortisone cream
+- Antihistamine pills
+- Superglue
 - Dental floss
+- Cotton swabs
 - Sunscreen
 - Insect repellent
-- Assorted bandages
-- Gauze
-- Tourniquet
-- Tweezers
 - Prescription medications, contact lenses, and glasses
-- Antihistamine pills
-- Hydrocortisone cream
-- Moleskin
-- Safety pin or needle
-
-TODO: There's definitely more that isn't in the Army guide
+- Pain relievers (aspirin, ibuprofen, acetaminophen)
+- Antidiarrheal medication
 
 ### Knowledge and skills
 TODO: Add content
@@ -90,18 +97,54 @@ See the section on objects in the eye.
 TODO: Improvised insect repellent
 
 ## Snake bites
-TODO: Add content
+Always be on the lookout for snakes, especially in areas with tall grass, rocks, or logs. Snakes are most active during the day. Most snake bites are not venomous, but if you don't know what kind of snake bit you, treat it as if it is venomous.
 
 ### Treatment
+1. Rinse the bite area with water.
+2. Clean the wound and cover with a bandage.
+3. Remove any rings or jewelry from the affected limb.
+4. Wrap the limb with a bandage, starting at the bite and moving up the limb. The bandage should be tight but not cut off circulation. You should be able to slip a finger under the bandage.
+5. Keep the limb immobilized, as you would a fracture, and below the level of the heart.
+6. Seek medical attention as soon as possible. Call the hospital ahead of time so they can prepare antivenom if needed.
+
+Do not do the following:
+- Cut the wound.
+- Suck out the venom.
+- Apply a tourniquet.
+- Apply ice.
 
 ### Prevention
+- Watch where you step.
+- Wear high boots.
+- Do not put your hands or feet where you cannot see.
+- Do not try to catch or kill snakes unless you are sure they are not venomous.
 
-## Animal bites
-TODO: Add content
+## Animal bites and attacks
+Many animals bite when they feel threatened or cornered. Some animals can transmit diseases through their bites.
 
 ### Treatment
+1. Wash the wound with soap and water.
+2. Apply antibiotic ointment.
+3. Cover the wound with a bandage. Pack the wound with gauze if it is deep, but do not suture or tape it closed.
+4. Seek medical attention if the wound is deep, bleeding, or shows signs of infection.
+
+If you were bit by a mammal, seek medical attention as soon as possible. You may need rabies shots.
 
 ### Prevention
+- Do not approach or corner wild animals.
+- Do not feed wild animals.
+- Use a bear bell or make noise to alert animals of your presence.
+- Stay clear of any animal with young nearby.
+- If an animal is approaching you (most animals):
+  - Do not turn and run. It may trigger a chase response.
+  - Make yourself look big.
+  - Make noise, but do not make high-pitched screams.
+  - Pick up children and small pets.
+  - Back away slowly or move sideways.
+  - Use bear or pepper spray if available.
+  - Fight back if attacked (except for grizzly/brown bears - see next point). Use knives, sticks, rocks, or your hands. Aim for the eyes, nose, or throat.
+  - Play dead if it is a grizzly/brown bear attacking. Lay flat on the ground with your hands clasped behind your neck. The exception to grizzly attacks is if it attacks you in your tent, stalks you before attacking, or continues attacking after playing dead. In this case, fight back.
+  - Do not drop your pack, as it can provide protection.
 
 ## Poison ivy and contact dermatitis
 Contact dermatitis is caused by contact with poisonous plants, such as poison ivy, poison oak, and poison sumac.
@@ -159,15 +202,13 @@ TODO: Add content
 - Blister.
 
 ### Treatment
-TODO: What do other sources recommend for the sizing
-
-If the blister is small (under 1 inch / 2.5 cm):
+If the blister is small:
 1. Cut a doughnut-shaped piece of moleskin.
 2. Place the moleskin around the blister, with the blister in the hole.
 
-If the blister is large (over 1 inch / 2.5 cm):
+If the blister is large or painful:
 1. Sterilize a needle with alcohol or heat.
-2. Pierce the blister and drain the fluid.
+2. Pierce the blister near the edge and drain the fluid.
 3. Clean and wash the area.
 4. Apply a bandage and optionally antibiotic ointment.
 
@@ -309,10 +350,13 @@ TODO: Add content
 Hyperthermia is caused by exposure to cold temperatures, causing the body to lose heat faster than it can produce it.
 
 ### Symptoms
-- Shivering.
+- Shivering. If shivering stops, it is a sign of severe hypothermia.
 - Coldness.
-
-TODO: Add more symptoms, the Army guide does not have much
+- Impaired coordination.
+- Memory loss.
+- Slurred speech.
+- Drowsiness.
+- Slow breathing and heart rate.
 
 ### Treatment
 - Change into dry clothes.
