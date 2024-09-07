@@ -50,16 +50,10 @@ object Chapters {
                 R.drawable.ic_category_navigation
             ),
             Chapter(
-                context.getString(R.string.tools),
+                context.getString(R.string.crafting),
                 context.getString(R.string.chapter_number, 8),
-                R.raw.guide_survival_chapter_tools,
+                R.raw.guide_survival_chapter_crafting,
                 R.drawable.ic_axe
-            ),
-            Chapter(
-                context.getString(R.string.knots_and_cordage),
-                context.getString(R.string.chapter_number, 9),
-                R.raw.guide_survival_knots_and_cordage,
-                R.drawable.ic_knots
             ),
         )
     }

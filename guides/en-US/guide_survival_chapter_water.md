@@ -101,7 +101,7 @@ Always ensure the water you collect is safe to drink. Boiling is the most reliab
 ### Purification methods
 
 - **Boiling**: Bring water to a rolling boil for at least one minute. At higher altitudes, boil for 3 minutes. If you do not have a metal container that can be used for boiling, then do the following:
-  1. Find another container, dig a hole in the ground and line it with a waterproof material, or carve a depression into a log (placing hot coals in the log makes it easier to carve).
+  1. Find another container, dig a hole in the ground and line it with a waterproof material, or craft a bowl (see the Crafting chapter).
   2. Fill the container with water.
   3. Heat rocks in a fire and place them in the water to heat it. DO NOT use rocks with moisture (such as river rocks), as they can explode. Use two sticks in a chopstick fashion to move the rocks.
   4. Replace the rocks with hot ones as needed to keep the water boiling.

@@ -1,4 +1,75 @@
-## Basic knots
+## Be prepared
+
+## Woodworking
+
+### Cutting wood
+
+### Splitting wood
+
+### Cutting down trees
+
+### Stop cuts
+
+### Batoning wood
+
+## Sewing
+
+## Sharpening
+
+## Knives
+
+## Torches
+
+## Fishhooks
+- **Wooden hooks**: Cut a piece of hardwood, put a notch in one end and secure a sharp object into the notch using cordage.
+- **Gorge hooks**: Carve a piece of wood or bone into the shape shown in the picture below. Tie a line to the middle of the hook and place into bait. When the fish swallows the bait, the hook will lodge in its throat - you do not need to pull the line to set the hook.
+- **Other hooks**: You can use metal wire or thorns as hooks. See the picture below.
+
+![](file:///android_asset/survival_guide/47.webp)
+
+## Baskets
+
+## Bowls
+Carve a depression into a log by placing hot coals in the log and scraping them out with a stick.
+
+TODO: Image
+
+## Charcoal
+
+## Pitch (glue)
+
+## Cordage
+
+### Fibers
+You can use the following materials to make rope:
+- Grasses and sedges (sedges are stronger)
+- Bark or palm fiber
+
+### Twisting
+1. Gather the fibers into loosely held strands of even thickness.
+2. Twist each strand clockwise.
+3. Twist two or more strands together counterclockwise.
+4. Repeat the process until you have a rope. If a strand is running out, add more material to it and twist it in.
+
+![](file:///android_asset/survival_guide/139.webp)
+
+TODO: Improve this section and maybe put a custom graphic because this one is not very good.
+
+### Braiding
+TODO: What terminology should be used here?
+
+1. Make three twisted strands.
+2. Cross the right strand over the center strand and under the left strand.
+3. Repeat the process with the new rightmost strand.
+
+![](file:///android_asset/survival_guide/140.webp)
+
+### Whipping
+To prevent the end of a rope from unraveling, wrap the end with a small cord or tape. Whipping can also be used to wrap the handle of a tool.
+
+![](file:///android_asset/survival_guide/143.webp)
+
+## Knots
 
 ### Overhand knot
 Used to prevent the end of a rope from untwisting.
@@ -14,8 +85,6 @@ Used to anchor rope to a pole or tree.
 Used to form a larger knot than would be formed by an overhand knot at the end of a rope.
 
 ![](file:///android_asset/survival_guide/122.webp)
-
-## Knots for joining rope
 
 ### Square knot
 Used for tying two ropes of equal diameter together. Be sure to tie a true square knot to prevent slipping, if you reverse the procedure, the knot will slip under strain.
@@ -34,8 +103,6 @@ Used for tying two ropes of unequal diameter together. This knot will not slip o
 
 ![](file:///android_asset/survival_guide/125.webp)
 
-## Knots for making loops
-
 ### Bowline
 Useful for forming a loop in the end of a rope.
 
@@ -50,8 +117,6 @@ Useful for forming a loop at some point in a rope other than at the end.
 Used as a sling for lifting people. If used in this manner, one loop is used around the body under the arms.
 
 ![](file:///android_asset/survival_guide/128.webp)
-
-## Hitches
 
 ### Two half hitches
 Used to tie a rope to a timber or pole. The single half hitch is not very secure without load, so use an overhand or the two half hitches instead.
@@ -83,8 +148,6 @@ Used to tie a short rope around a longer rope in such a manner that the short ro
 ### Trucker's hitch
 TODO: Add content
 
-## Lashings
-
 ### Square lashing
 Used to secure one pole at a right angle to another pole. Can swap with the diagonal lashing if desired.
 
@@ -99,35 +162,3 @@ Used to secure one pole at a right angle to another pole. Can swap with the squa
 Used for lashing two or more poles in a series.
 
 ![](file:///android_asset/survival_guide/138.webp)
-
-## Rope construction
-
-### Fibers
-You can use the following materials to make rope:
-- Grasses and sedges (sedges are stronger)
-- Bark or palm fiber
-
-### Twisting
-1. Gather the fibers into loosely held strands of even thickness.
-2. Twist each strand clockwise.
-3. Twist two or more strands together counterclockwise.
-4. Repeat the process until you have a rope. If a strand is running out, add more material to it and twist it in.
-
-![](file:///android_asset/survival_guide/139.webp)
-
-TODO: Improve this section and maybe put a custom graphic because this one is not very good.
-
-### Braiding
-TODO: What terminology should be used here?
-
-1. Make three twisted strands.
-2. Cross the right strand over the center strand and under the left strand.
-3. Repeat the process with the new rightmost strand.
-
-![](file:///android_asset/survival_guide/140.webp)
-
-### Whipping
-To prevent the end of a rope from unraveling, wrap the end with a small cord or tape. Whipping can also be used to wrap the handle of a tool.
-
-![](file:///android_asset/survival_guide/143.webp)
-

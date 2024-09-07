@@ -150,12 +150,7 @@ There are no poisonous freshwater fish, but there are some poisonous saltwater f
 
 **Hooks**
 
-If you do not have fishhooks, you can make them:
-- **Wooden hooks**: Cut a piece of hardwood, put a notch in one end and secure a sharp object into the notch using cordage.
-- **Gorge hooks**: Carve a piece of wood or bone into the shape shown in the picture below. Tie a line to the middle of the hook and place into bait. When the fish swallows the bait, the hook will lodge in its throat - you do not need to pull the line to set the hook.
-- **Other hooks**: You can use metal wire or thorns as hooks. See the picture below.
-
-![](file:///android_asset/survival_guide/47.webp)
+See the Crafting chapter for how to make fishhooks.
 
 **Lines**
 
