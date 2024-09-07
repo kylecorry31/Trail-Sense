@@ -1,8 +1,9 @@
+Most people can survive for weeks without food, but without adequate food, the body and mind weaken, making it difficult to perform essential tasks.
+
 ## Be prepared
 TODO: List out some foods that are good to pack and how much to bring
 
 ## Food essentials
-Most people can survive for weeks without food, but it may take days or weeks to find a reliable food source. Without adequate food, the body and mind weaken, making it difficult to perform essential tasks.
 
 ### Caloric and nutritional needs
 The average person needs 2,000 calories per day. You should aim to balance carbohydrates, proteins, fats, vitamins, and minerals in your diet.

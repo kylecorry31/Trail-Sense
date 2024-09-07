@@ -1,27 +1,10 @@
-Fire is a crucial survival tool in the wilderness, providing warmth, a means to cook food, a way to signal for help, and much more. This guide will help you understand the essentials of firecraft, including how to prepare a fire site, select materials, and utilize various methods to start and maintain a fire effectively.
+Fire is a crucial survival tool in the wilderness, providing warmth, a means to cook food, a way to signal for help, and much more.
 
 ## Be prepared
 TODO: Mention what gear to bring
 
-## Understanding fire
-
-**Key functions of fire:**
-
-- **Warmth**: Reduces the energy your body needs to stay warm.
-- **Signaling**: Can be used to signal for help with smoke and light.
-- **Water purification**: Boiling water is a reliable method to make it safe for drinking.
-- **Cooking and preserving food**: Cooks food and can be used to smoke and preserve it.
-- **Drying clothes**: Helps in drying wet clothing and gear.
-- **Repelling wildlife**: Smoke can deter mosquitoes and other dangerous animals.
-- **Boosting morale**: Offers psychological comfort and a sense of security.
-- **Sterilizing tools**: Heat can be used to sterilize tools and equipment.
-- **Charcoal**: Can be used for filtering water, medicinal purposes, or as a writing implement.
-
 TODO: Heating rocks
-
-**Principles of fire**: 
-
-Fire needs three things to burn: heat, fuel, and oxygen. This is known as the fire triangle. Removing one of these elements will extinguish the fire.
+TODO: Charcoal
 
 ## Building a fire
 

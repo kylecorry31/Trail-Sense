@@ -7,17 +7,17 @@ TODO: Mention what to bring
 
 When hiking, conserving energy while maintaining hydration is vital. Here are some general rules:
 
-- **Choose running water**: If you have the option, always opt for running water over stagnant water. However, ensure that any water you drink is appropriately treated.
-- **Assume surface water is contaminated**: Most surface water may contain contaminants. Always purify it before drinking.
-- **Avoid the following**:
-  - **Snow (without melting)**: It lowers your core body temperature. Melt snow before drinking.
-  - **Urine or alcohol**: Both can lead to further dehydration.
-  - **Saltwater**: Drinking saltwater leads to dehydration and kidney damage.
-  - **Stagnant water**: Often contaminated with harmful substances.
+- Choose running water.
+- Assume surface water is contaminated, always purify it.
+- Avoid the following:
+  - Snow (without melting).
+  - Urine or alcohol.
+  - Saltwater.
+  - Stagnant water
 
 ### Daily water needs
 
-At a moderate temperature of 68°F, a hiker generally needs 2 to 3 quarts of water daily to stay hydrated. This amount increases with physical activity and exposure to higher temperatures. Under extreme conditions, such as intense heat or illness, water loss can be significant, necessitating even more intake.
+At 70°F (20°C), a hiker needs around 2 to 3 quarts/liters of water per day. This amount increases with physical activity and exposure to higher temperatures.
 
 ### Dehydration
 
@@ -35,11 +35,9 @@ Dehydration occurs when the body loses more fluids than it takes in. Symptoms in
 
 ## Finding water
 
-Water can be found in most environments if you know where to look. Here are some sources and tips for procuring water in different terrains:
-
 ### Common water sources
 
-- **Rainwater**: Fresh rainwater collected directly in containers does not need purification. However, if it has run over leaves or other surfaces, it should be purified.
+- **Rainwater**: Rainwater collected directly in containers does not need purification. However, if it has run over leaves or other surfaces, it should be purified.
 
 - **Snow and ice**: Melt snow and ice before drinking. Avoid eating snow directly as it can lower your core body temperature. Melted snow requires purification.
 
@@ -103,7 +101,7 @@ Always ensure the water you collect is safe to drink. Boiling is the most reliab
 ### Purification methods
 
 - **Boiling**: Bring water to a rolling boil for at least one minute. At higher altitudes, boil for 3 minutes. If you do not have a metal container that can be used for boiling, then do the following:
-  1. Find another container, dig a hole in the ground and line it with a waterproof material, or carve a depression into a log.
+  1. Find another container, dig a hole in the ground and line it with a waterproof material, or carve a depression into a log (placing hot coals in the log makes it easier to carve).
   2. Fill the container with water.
   3. Heat rocks in a fire and place them in the water to heat it. DO NOT use rocks with moisture (such as river rocks), as they can explode. Use two sticks in a chopstick fashion to move the rocks.
   4. Replace the rocks with hot ones as needed to keep the water boiling.
@@ -115,6 +113,4 @@ Always ensure the water you collect is safe to drink. Boiling is the most reliab
 
 ### Hazards
 - **Microorganisms**: Water may contain bacteria, viruses, and parasites that can cause illness. Boiling water kills most microorganisms, but some may require additional treatment. More likely to be present in stagnant water.
-  - **Giardia**: A common waterborne parasite that causes severe gastrointestinal distress.
-  - **Cryptosporidium**: Another common waterborne parasite that can cause severe diarrhea and other symptoms. Boil water to kill these parasites or use a commercial filter that states it can remove them.
 - **Chemicals**: Water may contain chemicals from industrial or agricultural runoff. Purification may not remove all chemical contaminants.
