@@ -18,6 +18,8 @@
 
 ## Knives
 
+## Compasses
+
 ## Torches
 
 ## Fishhooks
