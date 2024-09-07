@@ -87,6 +87,8 @@ To operate, place the fireboard on the fire pan, hold the drill upright in the d
 - Be aware of local fire regulations and conditions.
 - Always have a plan to extinguish the fire quickly if needed.
 
+TODO: Underground fires
+
 ### Moving the fire
 
 **Fire bundle**

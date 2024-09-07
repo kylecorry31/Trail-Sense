@@ -445,6 +445,15 @@ TODO: Add content
 
 ### Prevention
 
+## Submerged in water
+TODO: Add content
+
+### Falling through ice
+
+### Rip currents
+
+### Stay afloat
+
 ## Hygiene
 
 ### Washing
