@@ -6,6 +6,7 @@ Navigating and moving efficiently is crucial for safety, energy conservation, an
 **Necessities**:
 - Map
 - Compass
+- Flashlight / headlamp
 
 **Optional**:
 - GPS device

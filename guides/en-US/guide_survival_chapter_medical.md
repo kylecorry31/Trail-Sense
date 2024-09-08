@@ -3,17 +3,25 @@ This chapter covers some basic medical knowledge and techniques for common injur
 ## Be prepared
 
 ### Gear
+
+**Necessities**:
 - Assorted bandages
+- Gauze
+- Surgical tape
+- Safety pin or needle
+- Tweezers
+- Antibiotic ointment
+- Sunscreen
+- Insect repellent
+- Prescription medications, contact lenses, and glasses
+- Pain relievers (aspirin, ibuprofen, acetaminophen)
+
+**Optional**:
 - Wound closure strips / butterfly bandages
 - Moleskin
 - Molefoam
-- Gauze
-- Surgical tape
 - Tourniquet
-- Safety pin or needle
 - C-Splint
-- Tweezers
-- Antibiotic ointment
 - Aloe vera gel
 - Antiseptic wipes
 - Hydrocortisone cream
@@ -21,11 +29,8 @@ This chapter covers some basic medical knowledge and techniques for common injur
 - Superglue
 - Dental floss
 - Cotton swabs
-- Sunscreen
-- Insect repellent
-- Prescription medications, contact lenses, and glasses
-- Pain relievers (aspirin, ibuprofen, acetaminophen)
 - Antidiarrheal medication
+- Mirror
 
 ### Knowledge and skills
 Start by learning how to do the following:
