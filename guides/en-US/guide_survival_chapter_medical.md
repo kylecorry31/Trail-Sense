@@ -15,6 +15,7 @@ This chapter covers some basic medical knowledge and techniques for common injur
 - Insect repellent
 - Prescription medications, contact lenses, and glasses
 - Pain relievers (aspirin, ibuprofen, acetaminophen)
+- Hand sanitizer (unscented)
 
 **Optional**:
 - Wound closure strips / butterfly bandages
@@ -27,10 +28,19 @@ This chapter covers some basic medical knowledge and techniques for common injur
 - Hydrocortisone cream
 - Antihistamine pills
 - Superglue
-- Dental floss
 - Cotton swabs
 - Antidiarrheal medication
 - Mirror
+- Tampons / pads / menstrual cup
+- Dental floss
+- Toothbrush
+- Toothpaste (store this in your bear bag/container at night)
+- Toilet paper and/or portable bidet
+- Trash bags / container (check local regulations regarding toilet paper and human waste)
+- Trowel
+- Soap (unscented)
+- Washcloth / microfiber towel
+- Lip balm (unscented)
 
 ### Knowledge and skills
 Start by learning how to do the following:
