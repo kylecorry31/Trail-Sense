@@ -25,6 +25,7 @@ Once you have mastered these skills, you should learn how to do the following:
 - Take a detour.
 
 TODO: Route planning
+TODO: Night time navigation
 
 ## Deciding whether to move or stay put
 

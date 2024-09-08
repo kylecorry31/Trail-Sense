@@ -1,9 +1,52 @@
 A well-constructed shelter can protect you from environmental hazards such as sun, wind, rain, snow, and extreme temperatures. It also boosts morale. This guide focuses on clothing as your primary shelter and details constructing both man-made and natural shelters.
 
 ## Be prepared
-TODO: Mention what gear to bring
+
+### Gear
+
+**Necessities**:
+- Emergency space blanket
+- Poncho
+- Change of clothing
+- Extra socks
+- Boots or sturdy shoes
+- Sunglasses
+- Cordage (paracord)
+- In colder climates:
+  - Insulating layers (jacket, pants, hat, gloves)
+  - Waterproof outer layer
+  - Waterproof / insulated boots
+  - Thermal underlayers
+  - Hand warmers
+- For overnight stays:
+  - Sleeping bag
+  - Sleeping pad
+  - Tent
+  - Tarp
+
+**Optional**:
+- Additional changes of clothing
+- Hat or bandana
+- Pillow
+- Gloves
+- Bug net
+
+### Knowledge and skills
+
+Start by learning how to do the following:
+- Choose clothing appropriate for your environment.
+- Use an emergency space blanket.
+- Get warm quickly.
+- Layer clothing for warmth.
+- Set up a tent and sleeping bag.
+- Identify environmental hazards when selecting a shelter location.
+
+Once you have mastered these skills, you should learn how to do the following:
+- Construct a natural shelter.
+- Repair clothing.
 
 TODO: Section on getting warm fast
+TODO: Section on repairing clothing
 
 ## Clothing
 
@@ -24,8 +67,10 @@ Your first line of defense in any environment—whether hot, cold, tropical, des
 If you need extra insulation in a pinch, stuff your clothing with dry leaves, grass, or other insulating materials.
 
 TODO: More about layers
+TODO: Talk more about specific articles of clothing
 
 ## Building shelters
+TODO: How to set up a tent
 
 ### Choosing a shelter location
 

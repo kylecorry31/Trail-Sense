@@ -1,5 +1,29 @@
 ## Be prepared
 
+### Gear
+
+**Necessities**:
+- Knife
+- Cordage (paracord)
+- Sewing kit (needle and thread)
+
+**Optional**:
+- Axe
+- Saw
+- Metal container with a lid
+
+### Knowledge and skills
+
+Start by learning how to do the following:
+- Tie several types of knots.
+- Sew and repair clothing.
+
+Once you have mastered these skills, you should learn how to do the following:
+- Use wood to make tools, containers, and other items.
+- Make cordage, charcoal, and pitch.
+- Sharpen tools and knives.
+- Construct various crafted items (as covered in this chapter).
+
 ## Woodworking
 
 ### Cutting wood
@@ -60,7 +84,7 @@ Charcoal is made by burning wood in a low-oxygen environment. It can be used for
 
 **Instructions**
 1. Fill a metal container with wood.
-2. Cover the container with a lid, ensuring there is a small hole in the lid.
+2. Cover the container with a lid, ensuring there is a small gap or hole in the lid.
 3. Place the container on a fire, smoke will come out of the hole.
 4. When the smoke stops, remove the container from the fire and let it cool. For best results, flip the container upside down or cover the hole.
 
