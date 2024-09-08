@@ -1,7 +1,30 @@
 Water is crucial for anyone spending time in the wilderness, particularly for hikers who might find themselves isolated. Proper hydration, knowing how to find water, and understanding how to make it safe to drink are essential skills for any hiker.
 
 ## Be prepared
-TODO: Mention what to bring
+### Gear
+
+**Necessities**:
+- Water (enough for the duration of your trip, plus a bit extra).
+  - For longer duration trips, bring a water purification method and plan your route to include water sources.
+- Water containers (ensure you have a container that you could boil water in).
+
+**Optional**:
+- Water purification method (tablets or filter).
+- Cooking pot or container.
+- Clear plastic sheet / tarp.
+
+### Knowledge and skills
+Start by learning how to do the following:
+- Plan your water needs for the trip.
+- Locate water sources.
+- Purify water by boiling.
+
+Once you have mastered these skills, you should learn how to do the following:
+- Purify water using chemical treatment or filtration.
+- Collect water from plants and other sources.
+- Collect water using a solar still.
+- Boil water using hot rocks.
+- Desalinate water.
 
 ## Hydration essentials
 

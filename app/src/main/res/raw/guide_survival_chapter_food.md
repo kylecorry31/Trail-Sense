@@ -1,12 +1,40 @@
 Most people can survive for weeks without food, but without adequate food, the body and mind weaken, making it difficult to perform essential tasks.
 
 ## Be prepared
-TODO: List out some foods that are good to pack and how much to bring
+### Gear
+**Necessities**:
+- Food (enough for the duration of your trip, plus a bit extra). Some good options include:
+  - Nuts
+  - Seeds
+  - Dried fruit
+  - Jerky
+  - Energy bars
+  - Dehydrated meals (with extra water)
+  - Canned food (with a can opener if needed)
+- Knife or multi-tool
+- Bear bag or canister
+
+**Optional**:
+- Cooking pot or container
+- Utensils (a spork is a good option)
+- Cooking stove and fuel
+
+### Knowledge and skills
+Start by learning how to do the following:
+- Plan your meals for a trip.
+- Cook food by boiling or roasting over a fire.
+- Use a bear bag or canister to protect your food.
+
+Once you have mastered these skills, you should learn how to do the following:
+- Identify edible plants and mushrooms.
+- Find and catch insects, shellfish, crustaceans, fish, and other animals.
+- Preserve food.
+- Make traps and snares.
 
 ## Food essentials
 
 ### Caloric and nutritional needs
-The average person needs 2,000 calories per day. You should aim to balance carbohydrates, proteins, fats, vitamins, and minerals in your diet.
+The average person needs around 2,000 calories per day. You should aim to balance carbohydrates, proteins, fats, vitamins, and minerals in your diet.
 
 - **Carbohydrates**: Provides an immediate source of energy and are found in grains, fruits, and vegetables. Aim for 45-65% of your daily caloric intake.
 - **Fats**: Provides long-term energy and are used in essential bodily functions. They are found in meats, oils, nuts, and seeds. Aim for 20-35% of your daily caloric intake.

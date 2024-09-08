@@ -31,45 +31,110 @@
 
 ## Baskets
 
+## Tongs
+
 ## Bowls
-Carve a depression into a log by placing hot coals in the log and scraping them out with a stick.
+Bowls can be used for cooking, eating, and storing food.
+
+**Resources**
+- A small log (not decayed)
+- Hot coals
+
+**Instructions**
+1. Cut or obtain a small log.
+2. Using makeshift tongs, place hot coals into the log.
+3. Let the coals burn out.
+4. Scrape out the charred wood with a stick or rock.
+5. Repeat the process until you have a bowl.
 
 TODO: Image
 
 ## Charcoal
+Charcoal is made by burning wood in a low-oxygen environment. It can be used for filtering water, making pitch, medicine, and as fuel for fires. You can grind charcoal into powder by placing it in a container and crushing it with a stick or rock.
+
+### Container method
+
+**Resources**
+- Wood
+- Metal container with a lid
+
+**Instructions**
+1. Fill a metal container with wood.
+2. Cover the container with a lid, ensuring there is a small hole in the lid.
+3. Place the container on a fire, smoke will come out of the hole.
+4. When the smoke stops, remove the container from the fire and let it cool. For best results, flip the container upside down or cover the hole.
+
+### Extinguishing method
+
+**Resources**
+- Wood
+- Water or dirt
+
+**Instructions**
+1. Burn a fire down to coals.
+2. Douse the fire with water or dirt to quickly extinguish it.
+3. Wait for the coals to cool, there should be some charcoal among the ashes.
 
 ## Pitch (glue)
+Pitch is a natural glue made from tree resin. It can be used to repair tools, make waterproof containers, and as a fire starter.
+
+**Resources**
+- 2 parts tree resin (pine, spruce, or fir), preferably hardened chunks
+- 1 part ground charcoal
+- 1 part ground organic material (dried bark/leaves, sawdust, deer/moose droppings, animal fat, or wax)
+- Container or a rock with a depression
+- Stick or bone for stirring
+
+**Instructions**
+1. Melt the resin in a container over a fire. Be careful not to burn it.
+2. Remove from heat.
+3. Stir in the charcoal and organic material.
+4. You can either let it cool in the container or continue to step 5.
+5. Dip the end of a stick into the pitch to coat it.
+6. Remove the stick and let the pitch cool, ensuring it forms an even coat.
+7. Repeat steps 5 and 6 until you have a thick layer of pitch on the stick, it should look like a large matchstick.
+
+**Usage**
+1. Melt the pitch in a container over a fire.
+2. Apply the pitch to the object you want to repair, as you would with glue.
+3. Let the pitch cool and harden.
 
 ## Cordage
 
-### Fibers
-You can use the following materials to make rope:
+### Twine
+Twine is made by twisting fibers together. It is weaker than rope but can be used for sewing, fishing line, or light-duty cordage.
+
+**Resources**
+
+Any fibrous material can be used to make cordage. Some examples include:
 - Grasses and sedges (sedges are stronger)
 - Bark or palm fiber
 
-### Twisting
-1. Gather the fibers into loosely held strands of even thickness.
-2. Twist each strand clockwise.
-3. Twist two or more strands together counterclockwise.
-4. Repeat the process until you have a rope. If a strand is running out, add more material to it and twist it in.
+**Instructions**
+1. Gather the fibers into loosely held bundles of even thickness.
+2. Twist the top bundle clockwise.
+3. Twist the two bundles together counterclockwise.
+4. Repeat the process until you have a full strand. If a material is running out, add more material to it and twist it in.
 
 ![](file:///android_asset/survival_guide/139.webp)
 
 TODO: Improve this section and maybe put a custom graphic because this one is not very good.
 
-### Braiding
-TODO: What terminology should be used here?
+### Rope
+Rope is made by braiding multiple strands of twine together. It is stronger than twine and can be used for heavier tasks.
 
-1. Make three twisted strands.
+**Resources**
+- 3 or more strands of twine
+- A small strand, tape, or pitch
+
+**Instructions**
+1. Lay the strands parallel to each other.
 2. Cross the right strand over the center strand and under the left strand.
 3. Repeat the process with the new rightmost strand.
+4. Once you reach the ends, you can whip the ends or coat them with pitch to prevent unraveling. See the knots section for more information on whipping.
+5. You can repeat this process using ropes instead of twine to make even stronger rope.
 
 ![](file:///android_asset/survival_guide/140.webp)
-
-### Whipping
-To prevent the end of a rope from unraveling, wrap the end with a small cord or tape. Whipping can also be used to wrap the handle of a tool.
-
-![](file:///android_asset/survival_guide/143.webp)
 
 ## Knots
 
@@ -164,3 +229,10 @@ Used to secure one pole at a right angle to another pole. Can swap with the squa
 Used for lashing two or more poles in a series.
 
 ![](file:///android_asset/survival_guide/138.webp)
+
+### Whipping
+Used to prevent the end of a rope from fraying or for making a more comfortable handle on a tool.
+
+TODO: Better image
+
+![](file:///android_asset/survival_guide/143.webp)

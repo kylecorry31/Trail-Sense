@@ -28,7 +28,15 @@ This chapter covers some basic medical knowledge and techniques for common injur
 - Antidiarrheal medication
 
 ### Knowledge and skills
-TODO: Add content
+Start by learning how to do the following:
+- Perform basic first aid and CPR.
+- Calm yourself and others.
+
+Once you have mastered these skills, you should learn how to do the following:
+- Make charcoal (see the Crafting chapter).
+- Make tea from plants.
+- Identify medicinal plants in your area.
+- Perform advanced first aid techniques, such as setting a broken bone or suturing a wound.
 
 ## Panic attacks and calming techniques
 TODO: Add content
@@ -524,3 +532,5 @@ Keep clothing clean and dry. You can wash clothes with water and soap, or by boi
 
 ### Bowel movements and urination
 Locate latrines at least 200 feet (60 meters) from water sources.
+
+TODO: More content needed (cat holes, suitable plants for toilet paper, etc.)

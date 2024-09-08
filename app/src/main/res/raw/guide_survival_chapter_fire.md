@@ -1,10 +1,29 @@
 Fire is a crucial survival tool in the wilderness, providing warmth, a means to cook food, a way to signal for help, and much more.
 
 ## Be prepared
-TODO: Mention what gear to bring
+
+### Gear
+**Necessities**:
+- Fire starter (waterproof matches, lighters, or fire steel - carry at least two different types)
+
+**Optional**:
+- Tinder (dryer lint, cotton balls, or commercial fire starters)
+
+### Knowledge and skills
+Start by learning how to do the following:
+- Build a fire using multiple fire starters (matches, lighters, fire steel).
+- Gather and prepare tinder, kindling, and fuel.
+- Maintain a fire.
+- Extinguish a fire.
+- Build a fire in wet conditions.
+
+Once you have mastered these skills, you should learn how to do the following:
+- Protect a fire from wind and rain.
+- Construct and use a bow drill.
+- Make charcoal (see the Crafting chapter).
+- Construct a fire bundle and start a fire with it.
 
 TODO: Heating rocks
-TODO: Charcoal
 
 ## Building a fire
 

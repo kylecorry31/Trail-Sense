@@ -1,7 +1,30 @@
 Navigating and moving efficiently is crucial for safety, energy conservation, and increasing the chances of successful recovery or reaching your destination. This chapter discusses essential considerations and techniques for land navigation and decision-making in various environments.
 
 ## Be prepared
-TODO: Mention what gear to bring and how to prepare for navigation.
+
+### Gear
+**Necessities**:
+- Map
+- Compass
+
+**Optional**:
+- GPS device
+
+### Knowledge and skills
+Start by learning how to do the following:
+- Navigate with a map and compass.
+- Plan a route.
+- Set declination on a compass.
+- Determine your location on a map.
+- Measure distances on a map.
+- Read a topographic map.
+
+Once you have mastered these skills, you should learn how to do the following:
+- Use a GPS device to navigate.
+- Use advanced navigation techniques like the sun and stars.
+- Take a detour.
+
+TODO: Route planning
 
 ## Deciding whether to move or stay put
 
