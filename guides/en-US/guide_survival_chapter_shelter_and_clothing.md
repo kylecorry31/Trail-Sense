@@ -30,6 +30,9 @@ A well-constructed shelter can protect you from environmental hazards such as su
 - Pillow
 - Gloves
 - Bug net
+- Gaiters
+- Hammock
+- Duct tape
 
 ### Knowledge and skills
 

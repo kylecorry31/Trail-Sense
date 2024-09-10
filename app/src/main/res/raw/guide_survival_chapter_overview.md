@@ -7,6 +7,7 @@ Let someone know your plans before you leave. This way, if you don't return on t
 
 **Necessities**:
 - Cell phone
+- Money
 - Whistle
 - Spare batteries (for flashlight and a battery pack for your phone)
 - Assorted bandages
@@ -70,31 +71,43 @@ Start by learning how to do the following:
 ## What to do in a survival situation
 
 ### Stop
+TODO
 
 ### Think
+TODO
 
 ### Observe
+TODO
 
 ### Plan
+TODO
+
 When faced with a survival situation, prioritize your actions based on the environment and your immediate needs. For example:
 
 - In cold conditions, focus on building a fire and shelter first.
 - In hot climates, finding water might be your top priority.
 
 ### Act
+TODO
 
 ## Signaling for help
 
 ### Cell phone
+Even if you don't have a single with your carrier, you may still be able to call emergency services. If you can't make a call, try sending a text message. Check your phone periodically to see if you have a signal, but otherwise keep it off or in airplane mode to conserve battery. You may get a better signal by climbing to higher ground or moving to an open area.
 
 ### Whistle
+A whistle is a simple and effective signaling device. Three short blasts is the universal signal for help. You may want to cover your ears when using the whistle at full volume.
 
 ### Signal mirror
+TODO
 
 ### Smoke
+TODO
 
 ### Flares
+TODO
 
 ### Flashlight
+At night, a flashlight can be used to signal for help. Use the international distress signal, SOS, which is three short flashes, three long flashes, and three short flashes. If you don't remember the SOS signal, just flash the light repeatedly in groups of three. Aim it in the direction of aircraft or other potential rescuers.
 
 ### Ground-to-air signals
