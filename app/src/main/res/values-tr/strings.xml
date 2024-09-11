@@ -1192,4 +1192,9 @@
     <string name="lunitidal_interval">Ay gelgit aralığı</string>
     <string name="estimate_method">Tahmin yöntemi</string>
     <string name="survival_guide">Hayatta Kalma Kılavuzu</string>
+    <string name="crafting">İşçilik</string>
+    <string name="water">Su</string>
+    <string name="overview">Genel görünüm</string>
+    <string name="shelter_and_clothing">Barınma ve giyim</string>
+    <string name="chapter_number">Bölüm %d</string>
 </resources>
