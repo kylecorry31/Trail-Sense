@@ -1052,4 +1052,8 @@
     <string name="pref_sunrise_alert_time_title">Tid for soloppgangsvarsel</string>
     <string name="sunrise_alert_scheduled">Varsel planlagt for %s før soloppgang</string>
     <string name="sunset">Solnedgang</string>
+    <string name="pref_flashlight_control_screen_with_volume_title">Reguler lysstyrke på skjermlommelykt med volumknappene</string>
+    <string name="survival_guide">Overlevelsesguide</string>
+    <string name="tide_clock">Tidevannsklokke</string>
+    <string name="harmonic">Harmonisk</string>
 </resources>
