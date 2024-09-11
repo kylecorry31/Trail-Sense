@@ -88,15 +88,15 @@ Key considerations when choosing plants include:
 
 **Edibility testing**
 
-If unsure about a plant and are in extreme need, you can use the Universal Edibility Test to determine its safety:
+If unsure about a plant and are in **extreme need**, you can use the Universal Edibility Test to determine its safety. This should be a last resort, as it can be dangerous. The test is as follows:
 
-1. **Smell**: If the plant has an unpleasant odor, do not proceed.
-2. **Sap**: Crush or break part of the plant to check for colored or milky sap. Only proceed if the sap is clear.
-3. **Skin contact**: Touch the plant's sap or juice to the inner forearm. If there are no ill effects, such as a rash or burning sensation, proceed.
-4. **Lip test**: Place the plant's sap or juice on the outer lip for eight minutes. If there are no ill effects, proceed.
-5. **Taste test**: Taste a small pinch of the plant and leave it in the mouth for eight minutes. If there's an unpleasant taste or burning sensation, spit it out and rinse your mouth. If there are no ill effects, proceed.
-6. **Swallow**: Swallow the small pinch of the plant from step 5. Wait eight hours. If there are no ill effects, proceed.
-6. **Eat more**: Eat a handful of the plant and wait another eight hours. If there are no ill effects, the plant is safe to eat. Have restraint when eating large quantities of a new plant, as it may cause digestive issues.
+1. If the plant has an unpleasant odor, do not proceed.
+2. Crush or break part of the plant to check for colored or milky sap. Only proceed if the sap is clear.
+3. Touch the plant's sap or juice to the inner forearm. If there are no ill effects, such as a rash or burning sensation, proceed.
+4. Place the plant's sap or juice on the outer lip for eight minutes. If there are no ill effects, proceed.
+5. Taste a small pinch of the plant and leave it in the mouth for eight minutes. If there's an unpleasant taste or burning sensation, spit it out and rinse your mouth. If there are no ill effects, proceed.
+6. Swallow the small pinch of the plant from step 5. Wait eight hours. If there are no ill effects, proceed.
+6. Eat a handful of the plant and wait another eight hours. If there are no ill effects, the plant is safe to eat. Have restraint when eating large quantities of a new plant, as it may cause digestive issues.
 
 Note that each part of a plant needs to be tested separately, as some parts may be toxic while others are safe.
 
