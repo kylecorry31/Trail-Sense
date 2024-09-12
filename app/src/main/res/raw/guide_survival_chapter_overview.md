@@ -106,7 +106,13 @@ Make a plan for your next steps. Here's some general advice:
 Once you have a plan, act on it. If at any point you feel unsafe, nervous, or unsure, stop and reassess your situation.
 
 ## Planning a trip
-TODO
+Proper planning is crucial for a safe and enjoyable hiking experience. Here are some steps to help you prepare:
+
+1. Research the terrain, weather conditions, wildlife, and plants you might encounter. Also look into local regulations and any permits you may need.
+2. Using a map, plan your route. Be sure to consider trail conditions and alternate routes.
+3. Pack the necessary gear and supplies. See the "Be prepared" section for a list of essential items. Check all your gear before you leave.
+4. Check the weather forecast and adjust your plans accordingly.
+5. Share your itinerary with a trusted person. Include your planned route, expected return time, and check-in times.
 
 ## Signaling for help
 
@@ -117,15 +123,16 @@ Even if you don't have a signal with your carrier, you may still be able to call
 A whistle is a simple and effective signaling device. Three short blasts is the universal signal for help. You may want to cover your ears when using the whistle at full volume.
 
 ### Signal mirror
-TODO
+A signal mirror is a highly effective daytime signaling device, especially in sunny conditions. Hold the mirror with one hand and extend your other arm in front of you with your fingers in a V-shape. Reflect sunlight onto your fingers and slowly move the mirror to direct the reflected light toward potential rescuers or aircraft.
 
 ### Smoke
-TODO
+Smoke can attract attention during the day. You can create a lot of smoke by burning green vegetation. Be sure to do this in a safe manner.
 
 ### Flares
-TODO
+Flares can be seen best at night or in low visibility conditions. Be sure to follow the instructions on the flare packaging and be aware of any legal restrictions on their use.
 
 ### Flashlight
 At night, a flashlight can be used to signal for help. Use the international distress signal, SOS, which is three short flashes, three long flashes, and three short flashes. If you don't remember the SOS signal, just flash the light repeatedly in groups of three. Aim it in the direction of aircraft or other potential rescuers.
 
 ### Ground-to-air signals
+Ground-to-air signals are large markers you create on the ground to communicate with aircraft. Use rocks, logs, or other materials to create a large "V" (means you require assistance) or an "X" (means you require medical assistance). It is recommended to use contrasting or artificial colors to make the signal more visible.

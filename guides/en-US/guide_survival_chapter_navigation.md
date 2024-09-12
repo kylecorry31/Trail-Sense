@@ -167,11 +167,15 @@ Maps are drawn to scale, which allows you to determine distances between points.
 
 Topographic maps show elevation changes and terrain features. They are useful for navigating in mountainous or hilly terrain. Contour lines on the map indicate elevation changes, and the closer the lines are together, the steeper the terrain. These maps should also list the elevation on some contour lines, which allows you to determine if a point is a peak or valley.
 
+TODO: Map colors
+
 ![](file:///android_asset/survival_guide/95.webp)
 
 ## Advanced navigation techniques
 
 ### Sun
+
+TODO: Time left until sunset
 
 - **Shadow tip method**: Place a stick vertically in the ground and mark the shadow tip. Wait 10-15 minutes, mark the new position of the tip, then draw a straight line between the two marks for an east-west line. North will be perpendicular to this line at midday.
 

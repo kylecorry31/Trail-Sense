@@ -5,13 +5,13 @@ Water is crucial for anyone spending time in the wilderness, particularly for hi
 
 **Necessities**:
 - Water (enough for the duration of your trip, plus a bit extra).
-  - For longer duration trips, bring a water purification method and plan your route to include water sources.
-- Water containers (ensure you have a container that you could boil water in).
+  - For longer trips, bring a water purification method and plan your route to include water sources.
+- Water containers (ensure you have a container that you can boil water in).
 
 **Optional**:
 - Water purification method (tablets or filter).
 - Cooking pot or container.
-- Clear plastic sheet / tarp.
+- Clear plastic sheet/tarp.
 
 ### Knowledge and skills
 Start by learning how to do the following:
@@ -30,13 +30,13 @@ Once you have mastered these skills, you should learn how to do the following:
 
 When hiking, conserving energy while maintaining hydration is vital. Here are some general rules:
 
-- Choose running water.
-- Assume surface water is contaminated, always purify it.
+- Choose running water when possible.
+- Assume surface water is contaminated; always purify it.
 - Avoid the following:
-  - Snow (without melting).
+  - Consuming snow without melting it.
   - Urine or alcohol.
   - Saltwater.
-  - Stagnant water
+  - Stagnant water.
 
 ### Daily water needs
 
@@ -75,9 +75,9 @@ Dehydration occurs when the body loses more fluids than it takes in. Symptoms in
 - **Deserts**:
   - **Groundwater**: Look for green vegetation, valleys and low areas, or dry riverbeds.
 
-- **Beaches / sea**:
-  - **Groundwater**: Dig a deep hole to allow water to seep in. Should be purified and may need desalination.
-  - **Sea water**: Sea water can be desalinated to render it drinkable.
+- **Beaches/sea**:
+  - **Groundwater**: Dig a deep hole to allow water to seep in. This water should be purified and may need desalination.
+  - **Sea water**: Sea water can be desalinated to make it drinkable.
   - **Sea ice**: If it is gray or opaque, it may be salty. Crystalline ice that has a bluish tint is usually safe to melt for drinking water.
 
 ### Water from plants
@@ -85,7 +85,7 @@ Dehydration occurs when the body loses more fluids than it takes in. Symptoms in
 Certain plants can provide water when no open sources are available:
 
 - **Green bamboo**: Shake the bamboo to check for water, then cut it to extract the water inside.
-- **Water vines**: Many vines contain drinkable water. These vines are usually soft and easy to cut. Ensure a positive identification of the vine before drinking and ensure the water is clear and odorless.
+- **Water vines**: Many vines contain drinkable water. These vines are usually soft and easy to cut. Ensure a positive identification of the vine before drinking, and make sure the water is clear and odorless.
 - **Coconut water**: Green coconuts are best for hydration, as they contain more fluid and less oil.
 
 ![](file:///android_asset/survival_guide/13.webp)
@@ -99,7 +99,7 @@ A belowground solar still is a simple device that uses the sun’s heat to draw 
 ![](file:///android_asset/survival_guide/16.webp)
 
 1. Dig a bowl-shaped hole in the ground about 3 feet (1 meter) across and 2 feet (0.6 meters) deep.
-2. Place a container in the center of the hole. Optionally place plants around the container to increase moisture (do not place in the container).
+2. Place a container in the center of the hole. Optionally, place plants around the container to increase moisture (do not place them in the container).
 3. Place a plastic sheet over the hole, securing the edges with rocks or soil.
 4. Place a small rock in the center of the sheet, directly over the container.
 5. Wait for the sun to heat the ground and evaporate moisture, which will condense on the plastic and drip into the container.
@@ -123,17 +123,16 @@ Always ensure the water you collect is safe to drink. Boiling is the most reliab
 
 ### Purification methods
 
-- **Boiling**: Bring water to a rolling boil for at least one minute. At higher altitudes, boil for 3 minutes. If you do not have a metal container that can be used for boiling, then do the following:
+- **Boiling**: Bring water to a rolling boil for at least one minute. At higher altitudes, boil for three minutes. If you do not have a metal container that can be used for boiling, then do the following:
   1. Find another container, dig a hole in the ground and line it with a waterproof material, or craft a bowl (see the Crafting chapter).
   2. Fill the container with water.
-  3. Heat rocks in a fire and place them in the water to heat it. DO NOT use rocks with moisture (such as river rocks), as they can explode. Use two sticks in a chopstick fashion to move the rocks.
+  3. Heat rocks in a fire and place them in the water to heat it. **Do not** use rocks that may contain moisture (such as river rocks), as they can explode. Use two sticks in a chopstick fashion to move the rocks.
   4. Replace the rocks with hot ones as needed to keep the water boiling.
 - **Chemical treatment**: Use water purification tablets or drops according to the instructions.
-- **Filtration**: Use a portable water filter to remove contaminants. If you construct a filter to remove sediment, still purify the water through boiling or chemical treatment. A filter can be constructed by layering grass/rocks, sand, and charcoal (top to bottom) in a container with a hole at the bottom to collect the filtered water.
+- **Filtration**: Use a portable water filter to remove contaminants. If you construct a filter to remove sediment, still purify the water through boiling or chemical treatment. A filter can be constructed by layering grass or small rocks, sand, and charcoal (from top to bottom) in a container with a hole at the bottom to collect the filtered water.
 
 ![](file:///android_asset/survival_guide/19.webp)
 
-
 ### Hazards
-- **Microorganisms**: Water may contain bacteria, viruses, and parasites that can cause illness. Boiling water kills most microorganisms, but some may require additional treatment. More likely to be present in stagnant water.
-- **Chemicals**: Water may contain chemicals from industrial or agricultural runoff. Purification may not remove all chemical contaminants.
+- **Microorganisms**: Water may contain bacteria, viruses, and parasites that can cause illness. Boiling water kills most microorganisms, but some may require additional treatment. Microorganisms are more likely to be present in stagnant water.
+- **Chemicals**: Water may contain chemicals from industrial or agricultural runoff. Purification methods may not remove all chemical contaminants.
