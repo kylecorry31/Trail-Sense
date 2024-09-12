@@ -1203,4 +1203,8 @@
     <string name="lunitidal_interval">Intervalo lunar</string>
     <string name="harmonic">Armónico</string>
     <string name="survival_guide">Guía de supervivencia</string>
+    <string name="crafting">Elaboración</string>
+    <string name="water">Agua</string>
+    <string name="chapter_number">Capítulo %d</string>
+    <string name="overview">Resumen</string>
 </resources>
