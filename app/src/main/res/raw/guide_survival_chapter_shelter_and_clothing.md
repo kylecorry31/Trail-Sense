@@ -1,5 +1,7 @@
 A well-constructed shelter can protect you from environmental hazards such as sun, wind, rain, snow, and extreme temperatures. It also boosts morale. This guide focuses on clothing as your primary shelter and details constructing both man-made and natural shelters.
 
+TODO: Get warm fast
+
 ## Be prepared
 
 ### Gear
@@ -48,29 +50,51 @@ Once you have mastered these skills, you should learn how to do the following:
 - Construct a natural shelter.
 - Repair clothing.
 
-TODO: Section on getting warm fast
-TODO: Section on repairing clothing
-
 ## Clothing
 
-Your first line of defense in any environment—whether hot, cold, tropical, desert, or arctic—is your clothing. Proper attire should keep you dry, regulate your body temperature, protect you from the sun, and prevent insect bites.
+Your first line of defense in any environment is your clothing. Proper attire should keep you dry, regulate your body temperature, protect you from the sun, and prevent insect bites.
 
-### Clothing considerations
+### Materials
+When choosing clothing, consider the following materials:
+- Wool: Retains warmth even when wet.
+- Polyester/nylon: Quick-drying and moisture-wicking.
+- Down: Lightweight and insulating but loses warmth when wet.
+- Cotton: Retains moisture and loses warmth when wet. Do not wear cotton in cold or wet environments.
 
-- **Footwear**: Ensure boots are well-broken in to avoid blisters. Choose socks made from materials suited to your environment: wool for insulation, cotton for coolness, and polypropylene for moisture-wicking.
-- **Layering**: Wear clothing in loose layers to adjust easily for temperature changes and to trap insulating air.
-- **Maintenance**: Keep clothing clean and dry. Use the "COLDER" principle for care:
-  - **Clean**: Dirty clothing loses insulation.
-  - **Overheating**: Avoid excessive sweating.
-  - **Loose and layers**: Opt for loose clothing in layers.
-  - **Dry**: Keep garments dry to maintain warmth.
-  - **Examine**: Regularly check for wear and tear.
-  - **Repair**: Mend tears and holes promptly.
+### Layers
+You should plan to wear multiple layers of clothing to protect against the elements. Layering allows you to adjust your clothing to changing conditions and maintain body temperature.
+
+In cold environments, remove or add layers as needed to prevent sweating while staying warm.
+
+In warm environments, you may only need to wear a base and middle layer. But you should always pack rain gear, such as an emergency poncho, in case of sudden weather changes.
 
 If you need extra insulation in a pinch, stuff your clothing with dry leaves, grass, or other insulating materials.
 
-TODO: More about layers
-TODO: Talk more about specific articles of clothing
+- **Base layer**: Wicks moisture away from the skin. This layer should be tight-fitting.
+  - Undergarments
+  - Socks
+  - Pants
+  - Shirt
+- **Middle layer**: Insulates and retains heat. This layer should be loose-fitting.
+  - Sweater
+  - Fleece jacket
+  - Insulated pants
+  - Vest
+- **Outer layer**: Protects against wind, rain, and snow. This layer should be loose-fitting.
+  - Rain gear
+  - Windbreaker
+- **Accessories**: Protect against sun, wind, cold, and insects.
+  - Hat
+  - Sunglasses
+  - Gloves
+  - Scarf or bandana
+
+### Footwear
+Be sure to choose footwear that is appropriate for your environment. In cold climates, wear insulated, waterproof boots. In hot climates, wear breathable, lightweight shoes. Always break in new footwear before a trip to avoid blisters.
+
+If you plan to be hiking in wet conditions, consider wearing waterproof boots.
+
+Bring extra pairs of socks, preferably made from wool, and ensure they are taller than your boots to avoid blisters.
 
 ## Shelters
 
@@ -124,6 +148,10 @@ Wrap yourself in an emergency space blanket to reflect body heat and protect aga
 **Tents**
 
 If you have a tent, set it up according to the manufacturer's instructions. Ensure the tent is staked securely and the rainfly is in place. Most tents can be set up by inserting poles into sleeves or clips and securing the tent to the ground with stakes.
+
+**Hammocks**
+
+If you have a hammock, set it up between two trees or supports. Ensure the hammock is secure and the rainfly is in place. Be sure the trees or supports are strong enough to hold your weight.
 
 ### Insulation
 
