@@ -72,8 +72,7 @@ If you need extra insulation in a pinch, stuff your clothing with dry leaves, gr
 TODO: More about layers
 TODO: Talk more about specific articles of clothing
 
-## Building shelters
-TODO: How to set up a tent
+## Shelters
 
 ### Choosing a shelter location
 
@@ -120,17 +119,30 @@ Natural shelters that offer protection from the elements. Use caution when enter
 
 **Emergency space blankets**
 
-TODO: Add content
+Wrap yourself in an emergency space blanket to reflect body heat and protect against the elements. You can also use it to create a shelter by tying it between two trees or supports.
 
-### Shelter construction tips
+**Tents**
 
-- **Insulation**: Use materials like leaves, straw, or clothing to insulate the ground and walls of your shelter.
-- **Size**: Keep the shelter compact to retain heat but large enough to lie down comfortably.
-- **Orientation**: Position the shelter to protect against prevailing winds and to maximize warming effects of the sun.
+If you have a tent, set it up according to the manufacturer's instructions. Ensure the tent is staked securely and the rainfly is in place. Most tents can be set up by inserting poles into sleeves or clips and securing the tent to the ground with stakes.
 
-TODO: Thatching and chinking
+### Insulation
 
-### Maintaining your shelter
+To retain body heat, you can place insulating materials like leaves, straw, or clothing between you and the shelter walls. This barrier prevents heat loss and keeps you warm. If you have a sleeping bag or extra clothing, use them.
 
-- **Ventilation**: Ensure adequate airflow to manage condensation and smoke.
-- **Check and repair**: Regularly inspect and repair any damage to maintain the shelter's integrity and effectiveness.
+To insulate yourself from the ground, use materials like leaves, straw, or clothing. These materials create a barrier between you and the cold ground, preventing heat loss. If you have a sleeping pad, place it under your sleeping bag for additional insulation.
+
+### Tips
+
+- Use materials like leaves, straw, or clothing to insulate the ground and walls of your shelter.
+- Keep the shelter compact to retain heat but large enough to lie down comfortably.
+- Position the shelter to protect against prevailing winds and to maximize warming effects of the sun.
+- Fill gaps in the shelter with leaves, grass, mud, or other insulating materials.
+- Ensure adequate airflow to manage condensation and smoke.
+
+## Repair
+
+### Sewing
+TODO: Put sewing techniques here
+
+### Other methods
+If you do not have a sewing kit, you can use duct tape, safety pins, super glue, cordage, or pitch (see the Crafting chapter for how to make pitch) as temporary fixes.

@@ -94,12 +94,12 @@ Certain plants can provide water when no open sources are available:
 
 **Belowground solar still**
 
-A belowground solar still is a simple device that uses the sun’s heat to draw moisture from the soil or plants, which then condenses on a plastic sheet and can be collected in a container.
+A belowground solar still is a simple device that uses the sun’s heat to draw moisture from the soil or plants, which then condenses on a plastic sheet and can be collected in a container. You can also pour saltwater into the hole to desalinate it.
 
 ![](file:///android_asset/survival_guide/16.webp)
 
 1. Dig a bowl-shaped hole in the ground about 3 feet (1 meter) across and 2 feet (0.6 meters) deep.
-2. Place a container in the center of the hole. Optionally, place plants around the container to increase moisture (do not place them in the container).
+2. Place a container in the center of the hole. Optionally, place plants/water around the container to increase moisture (do not place them in the container).
 3. Place a plastic sheet over the hole, securing the edges with rocks or soil.
 4. Place a small rock in the center of the sheet, directly over the container.
 5. Wait for the sun to heat the ground and evaporate moisture, which will condense on the plastic and drip into the container.
@@ -113,9 +113,6 @@ A transpiration bag is a plastic bag tied around a leafy branch to collect water
 1. Tie a plastic bag around a leafy branch, ensuring that the bag is airtight.
 2. Wait for the sun to heat the plant, causing moisture to evaporate and condense on the bag.
 3. Collect the water that has condensed inside the bag.
-
-### Desalination
-TODO: Add content
 
 ## Making water safe to drink
 

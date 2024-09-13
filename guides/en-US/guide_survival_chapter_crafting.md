@@ -36,8 +36,6 @@ Once you have mastered these skills, you should learn how to do the following:
 
 ### Batoning wood
 
-## Sewing
-
 ## Sharpening
 
 ## Knives
