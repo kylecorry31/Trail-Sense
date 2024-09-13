@@ -1192,4 +1192,9 @@
     <string name="lunitidal_interval">Maangetijdeninterval</string>
     <string name="harmonic">Harmonisch</string>
     <string name="survival_guide">Overlevingsgids</string>
+    <string name="overview">Overzicht</string>
+    <string name="water">Water</string>
+    <string name="crafting">Handwerk</string>
+    <string name="shelter_and_clothing">Schuilplaats en kleding</string>
+    <string name="chapter_number">Hoofdstuk %d</string>
 </resources>
