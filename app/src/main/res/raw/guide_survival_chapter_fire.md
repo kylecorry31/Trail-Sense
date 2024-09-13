@@ -29,7 +29,7 @@ TODO: Heating rocks
 
 ### Preparing a fire site
 - **Location**: Choose a flat, dry area protected from the wind, close to your shelter and a fuel supply.
-- **Preparation**: Clear the ground to expose soil and remove any flammable materials to prevent unintended spreading. If in snowy conditions, use a platform of green logs to build the fire on.
+- **Preparation**: Clear the ground to expose soil and remove any flammable materials to prevent unintended spreading. In snowy conditions, use a platform of green logs to build the fire on.
 
 ### Fire reflector (optional)
 A fire reflector is a wall built behind the fire to reflect heat towards you and protect the fire from wind. Use rocks, logs, or snow to build a barrier. It is easier to build a reflector before starting the fire.
@@ -50,7 +50,7 @@ A fire reflector is a wall built behind the fire to reflect heat towards you and
   - Cotton balls (preferably soaked in petroleum jelly)
   - Lint
   - Paper
-  - Tinder fungus (chaga) - can be found on birch trees
+  - Tinder fungus (chaga) - found on birch trees
 - **Kindling**: Small sticks and twigs that catch fire from the tinder and help build the flame.
   - Sticks and twigs (pencil to finger thickness)
   - Thinly split wood
@@ -64,7 +64,7 @@ TODO: Fatwood
 
 ### Fire structures
 
-- **Tepee**: Start with a tinder bundle and build a cone of kindling around it. This structure is easy to light and good for heating. This fire burns well with even wet wood.
+- **Tepee**: Start with a tinder bundle and build a cone of kindling around it. This structure is easy to light and good for heating. It burns well, even with wet wood.
 - **Lean-to**: Place a long green stick in the ground at an angle, leaning kindling against it. Place tinder underneath the lean-to.
 - **Cross-ditch**: Dig an X in the ground and place tinder in the center. Build a kindling pyramid over the tinder. The ditch allows air to flow under the fire.
 - **Pyramid**: Lay small logs or branches in parallel on the ground to form a platform. Build additional layers in a crisscross pattern, leaving space for air to circulate. Start the fire at the top of the pyramid. This fire requires less attention.
@@ -85,8 +85,8 @@ TODO: Fatwood
 
 ### Making a bow drill
 - **Socket**: A small, flat stone or piece of hardwood to hold the drill in place. It should have a small depression to fit the top of the drill.
-- **Drill**: A straight, dry stick about 10 - 12 inches long and 3/4 inches in diameter.
-- **Fireboard**: A flat piece of dry wood with a notch cut into it to collect the ember. Soft wood such as yucca, tamarack, aspen, balsam fir, basswood, poplar, cypress, cottonwood, alder, red cedar, and willow are preferred. Cut a depression about 1/2 to 3/4 inches from the edge of one side. On the underside of the board, make a V-shaped cut from the edge of the board to the depression. Avoid resinous woods like pine.
+- **Drill**: A straight, dry stick about 10-12 inches long and ¾ inch in diameter.
+- **Fireboard**: A flat piece of dry wood with a notch cut into it to collect the ember. Soft wood such as yucca, tamarack, aspen, balsam fir, basswood, poplar, cypress, cottonwood, alder, red cedar, and willow are preferred. Cut a depression about ½ to ¾ inch from the edge. On the underside of the board, make a V-shaped cut from the edge of the board to the depression. Avoid resinous woods like pine.
 - **Bow**: A flexible, curved stick with a cord attached to both ends. The cord should be wrapped around the drill. A shoelace can be used as the cord.
 - **Fire pan**: A flat piece of bark or wood to catch the ember.
 
@@ -98,10 +98,9 @@ To operate, place the fireboard on the fire pan, hold the drill upright in the d
 
 **Maintaining**: Keep adding fuel to maintain your fire. Adjust the structure as needed to control the burn rate and heat distribution.
 
-**Extinguishing**: Thoroughly extinguish your fire by dousing it with water or covering it with dirt. Make sure no embers remain that could reignite or cause a wildfire. If on a beach, do not cover the fire with sand, as it can insulate the heat and cause burns.
+**Extinguishing**: Thoroughly extinguish your fire by dousing it with water or covering it with dirt. Make sure no embers remain that could reignite or cause a wildfire. On a beach, do not cover the fire with sand, as it can insulate the heat and cause burns.
 
 **Safety Tips**:
-
 - Never leave a fire unattended.
 - Be aware of local fire regulations and conditions.
 - Always have a plan to extinguish the fire quickly if needed.
@@ -112,7 +111,7 @@ TODO: Underground fires
 
 **Fire bundle**
 
-A fire bundle is a portable fire that can be carried to a new location. It is made by wrapping a burning ember/coals in a bundle of dry punk wood, damp plant matter, and contained in bark. This allows you to transport a fire without needing to start a new one from scratch.
+A fire bundle is a portable fire that can be carried to a new location. It is made by wrapping a burning ember or coals in a bundle of dry punk wood and damp plant matter, contained in bark. This allows you to transport a fire without needing to start a new one from scratch.
 
 ![](file:///android_asset/survival_guide/66.webp)
 
