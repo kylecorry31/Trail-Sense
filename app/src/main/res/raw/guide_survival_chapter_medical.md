@@ -172,6 +172,10 @@ If you were bit by a mammal, seek medical attention as soon as possible. You may
 ## Poison ivy and contact dermatitis
 Contact dermatitis is caused by contact with poisonous plants, such as poison ivy, poison oak, and poison sumac.
 
+Poison ivy:
+
+![](file:///android_asset/survival_guide/poison_ivy.webp)
+
 TODO: Stinging nettle
 
 ### Symptoms
