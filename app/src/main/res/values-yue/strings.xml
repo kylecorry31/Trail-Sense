@@ -1015,4 +1015,27 @@
     <string name="max_s">最高 %s</string>
     <string name="background">幕後</string>
     <string name="quick_actions">快速動作</string>
+    <string name="sunrise_alert_notification_title">太陽就快上山</string>
+    <string name="sunrise_alert_notification_text">太陽會喺 %s 上山</string>
+    <string name="sunrise_alerts">日出警示</string>
+    <string name="sunrise_alert_channel_title">日出警示</string>
+    <string name="tool_solar_panel_title">集結光伏板</string>
+    <string name="exported">匯出咗</string>
+    <string name="compact_mode">樓底啲分頁牌面要隱匿胖列</string>
+    <string name="turn_back_notification_description">而家一個屈尾十折返，就趕得切 %s 返歸</string>
+    <string name="return_before_dark">入黑之前要返歸</string>
+    <string name="turn_back_alert_set">折返警示設定好</string>
+    <string name="import_packing_list">匯入照單執嘢</string>
+    <string name="sunset">日落</string>
+    <string name="sunrise">日出</string>
+    <string name="tool_quick_action_name">架生：%s</string>
+    <string name="tool_turn_back">夠鐘好返歸</string>
+    <string name="mirror_camera">一鏡在前</string>
+    <string name="return_time">幾點鐘要返歸</string>
+    <string name="turn_back_notification_title">夠鐘要返歸喇</string>
+    <string name="turn_back_alerts">折返警示</string>
+    <string name="chapter_number">第 %d 章</string>
+    <string name="duration_of_charge">集結幾耐</string>
+    <string name="pref_sunrise_alert_time_title">日出警示時間</string>
+    <string name="turn_back_instructions">最遲 %1$s 一個屈尾十折返 (仲有 %2$s) 就趕得切 %3$s 返歸</string>
 </resources>
