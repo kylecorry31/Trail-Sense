@@ -5,15 +5,18 @@ import matplotlib.pyplot as plt
 import os
 import cv2
 import numpy as np
+import shutil
 
 # Choose the file
 root = tk.Tk()
 root.withdraw()
-file_path = filedialog.askopenfilename()
+
+source_folder = "scripts/survival_guide/output"
+dest_folder = "app/src/main/assets/survival_guide"
 
 def convert_to_webp(file_path, quality):
     image = Image.open(file_path)
-    image.thumbnail((1000, 300))
+    image.thumbnail((1000, 400))
     image.save("converted.webp", "WEBP", quality=quality)
     size = os.path.getsize("converted.webp") / 1024
     return Image.open("converted.webp"), size
@@ -62,35 +65,48 @@ def botanical_sketch(image_path, output_path):
     illustration_bgr = cv2.cvtColor(illustration, cv2.COLOR_RGB2BGR)
     cv2.imwrite(output_path, illustration_bgr)
 
-original = Image.open(file_path)
-original_size = os.path.getsize(file_path) / 1024
-original.thumbnail((1000, 300))
+def process_image(file_path):
+    original = Image.open(file_path)
+    original_size = os.path.getsize(file_path) / 1024
+    original.thumbnail((1000, 400))
 
-# Display the images side by side in a window
-def update_quality(val):
-    quality = int(val)
+    # Display the images side by side in a window
+    def update_quality(val):
+        quality = int(val)
+        converted = convert_to_webp(file_path, quality)
+        ax[1].imshow(converted[0])
+        ax[1].axis("off")
+        ax[1].set_title(f"{quality}% ({converted[1]:.2f} KB)")
+        fig.canvas.draw_idle()
+
+    fig, ax = plt.subplots(1, 2, figsize=(10, 5))
+    ax[0].imshow(original)
+    ax[0].axis("off")
+    ax[0].set_title(f"Original Image ({original_size:.2f} KB)")
+
+    quality = 75
     converted = convert_to_webp(file_path, quality)
     ax[1].imshow(converted[0])
     ax[1].axis("off")
     ax[1].set_title(f"{quality}% ({converted[1]:.2f} KB)")
-    fig.canvas.draw_idle()
 
-fig, ax = plt.subplots(1, 2, figsize=(10, 5))
-ax[0].imshow(original)
-ax[0].axis("off")
-ax[0].set_title(f"Original Image ({original_size:.2f} KB)")
+    slider_ax = plt.axes([0.25, 0.01, 0.50, 0.03], facecolor='lightgoldenrodyellow')
+    quality_slider = plt.Slider(slider_ax, 'Quality', 1, 100, valinit=quality)
+    quality_slider.on_changed(update_quality)
 
-quality = 75
-converted = convert_to_webp(file_path, quality)
-ax[1].imshow(converted[0])
-ax[1].axis("off")
-ax[1].set_title(f"{quality}% ({converted[1]:.2f} KB)")
+    # TODO: Apply the botanical sketch effect to the image
+    # botanical_sketch(file_path, "botanical_sketch.jpg")
 
-slider_ax = plt.axes([0.25, 0.01, 0.50, 0.03], facecolor='lightgoldenrodyellow')
-quality_slider = plt.Slider(slider_ax, 'Quality', 1, 100, valinit=quality)
-quality_slider.on_changed(update_quality)
+    plt.show()
 
-# TODO: Apply the botanical sketch effect to the image
-# botanical_sketch(file_path, "botanical_sketch.jpg")
+# For each file in the destination folder
+# Find the corresponding file in the source folder
+# Process the image
+# Copy the converted.webp file to the destination folder
+# for file_name in os.listdir(dest_folder):
+#     source_file_path = os.path.join(source_folder, file_name)
+#     dest_file_path = os.path.join(dest_folder, file_name)
+#     process_image(source_file_path)
+#     shutil.copy("converted.webp", dest_file_path)
 
-plt.show()
+process_image(filedialog.askopenfilename())
