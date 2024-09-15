@@ -122,3 +122,4 @@ A fire bundle is a portable fire that can be carried to a new location. It is ma
 Chaga is a fungus that grows on birch trees. Once it forms an ember, it can be transported to a new location to start a fire. To restart the fire, place the chaga ember in a tinder bundle and blow gently to ignite it.
 
 ![](file:///android_asset/survival_guide/chaga.webp)
+[Image source](https://en.wikipedia.org/wiki/File:Fomes_fomentarius_2010_G2.jpg)
