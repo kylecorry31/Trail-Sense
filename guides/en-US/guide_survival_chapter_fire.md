@@ -23,8 +23,6 @@ Once you have mastered these skills, you should learn how to do the following:
 - Make charcoal (see the Crafting chapter).
 - Construct a fire bundle and start a fire with it.
 
-TODO: Heating rocks
-
 ## Building a fire
 
 ### Preparing a fire site
@@ -41,6 +39,7 @@ A fire reflector is a wall built behind the fire to reflect heat towards you and
 - **Tinder**: Dry, fine materials that catch fire easily. You can dry out damp tinder by placing it near your body or in your sleeping bag.
   - Shredded inner bark (birch, cedar, chestnut, red elm)
   - Fine wood scrapings or shavings
+  - Fatwood: Resin-rich wood from pine trees, typically found at the base of dead branches.
   - Dry grass, leaves, or pine needles
   - Dry powdered sap from pine trees
   - Crushed fibers from dead plants
@@ -59,8 +58,6 @@ A fire reflector is a wall built behind the fire to reflect heat towards you and
 - **Fuel**: Larger pieces of wood that will burn longer and sustain your fire.
 
 ![](file:///android_asset/survival_guide/58.webp)
-
-TODO: Fatwood
 
 ### Fire structures
 
@@ -104,10 +101,15 @@ To operate, place the fireboard on the fire pan, hold the drill upright in the d
 - Never leave a fire unattended.
 - Be aware of local fire regulations and conditions.
 - Always have a plan to extinguish the fire quickly if needed.
-
-TODO: Underground fires
+- If possible, line the fire pit with dry rocks, dirt, or sand to prevent underground fires. Do not construct a fire pit over a root system or peat.
 
 ### Moving the fire
+
+**Transporting heat**
+
+If you want the heat from your fire to last longer, heat rocks **near** the fire and place them in your shelter or sleeping area. Don't let the rocks get too hot (they should be warm to the touch) to avoid burns or fires. Be sure to check how hot the rocks are before touching them.
+
+Alternatively, you could heat water and place it in a container or bottle to keep you warm.
 
 **Fire bundle**
 
@@ -117,4 +119,6 @@ A fire bundle is a portable fire that can be carried to a new location. It is ma
 
 **Tinder fungus (chaga)**
 
-TODO: Add content
+Chaga is a fungus that grows on birch trees. Once it forms an ember, it can be transported to a new location to start a fire. To restart the fire, place the chaga ember in a tinder bundle and blow gently to ignite it.
+
+TODO: Picture

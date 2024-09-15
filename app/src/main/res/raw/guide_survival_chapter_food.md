@@ -68,14 +68,13 @@ The safest method for consuming wild plants is through positive identification. 
 
 Key considerations when choosing plants include:
 
-- **Water safety**: Plants in or near contaminated water must be washed and possibly boiled to avoid consuming harmful bacteria or chemicals.
-- **Disease and decay**: Avoid plants that show signs of mildew, fungus, or spoilage.
-- **Toxicity variations**: Even within the same species, plants can vary in toxicity due to environmental factors.
-- **Personal sensitivities**: If you are sensitive to allergens like poison ivy, steer clear of similar plants such as mangoes or cashews, which can cause similar reactions.
-- **Caloric/nutritional value**: Some plants are more nutritious than others. For example, nuts and seeds are high in calories and fats, while leafy greens are high in vitamins and minerals.
-- **Animal interactions**: Some plants are fine for animals but toxic to humans.
-- **Aggregate berries are generally safe**: These include raspberries and blackberries.
-- **Seaweed**: Seaweed washed ashore may be spoiled or decayed.
+- Plants in or near contaminated water must be washed and possibly boiled to avoid consuming harmful bacteria or chemicals.
+- Even within the same species, plants can vary in toxicity due to environmental factors.
+- If you are sensitive to allergens like poison ivy, steer clear of similar plants such as mangoes or cashews, which can cause similar reactions.
+- Some plants are more nutritious than others. For example, nuts and seeds are high in calories and fats, while leafy greens are high in vitamins and minerals.
+- Some plants are fine for animals but toxic to humans.
+- Aggregate berries are generally safe. These include raspberries and blackberries.
+- Seaweed washed ashore may be spoiled or decayed.
 - **Avoid the following** unless you are 100% sure of the identification:
   - Mushrooms.
   - Roadside plants.
@@ -90,10 +89,11 @@ Key considerations when choosing plants include:
   - Plants with thorns, fine hairs, or spines.
   - Plants that resemble dill, carrot, parsnip, or parsley.
   - Plants with three-leaved growth patterns.
+  - Plants with signs of mildew, fungus, or spoilage.
 
 **Edibility testing**
 
-If unsure about a plant and are in **extreme need**, you can use the Universal Edibility Test to determine its safety. This should be a last resort, as it can be dangerous. The test is as follows:
+If unsure about a plant and are in **extreme need**, you can use the Universal Edibility Test to determine its safety. This should be a last resort and is not advised, as it can be dangerous. The test is as follows:
 
 1. If the plant has an unpleasant odor, do not proceed.
 2. Crush or break part of the plant to check for colored or milky sap. Only proceed if the sap is clear.
