@@ -10,4 +10,4 @@ file_path = filedialog.askopenfilename()
 image = Image.open(file_path)
 
 image.thumbnail((1000, 300))
-image.save("converted.webp", "WEBP", quality=75)
+image.save("converted.webp", "WEBP", quality=90)
