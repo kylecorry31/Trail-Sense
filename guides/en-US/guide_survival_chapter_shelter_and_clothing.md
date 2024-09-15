@@ -1,7 +1,5 @@
 A well-constructed shelter can protect you from environmental hazards such as sun, wind, rain, snow, and extreme temperatures. It also boosts morale. This guide focuses on clothing as your primary shelter and details constructing both man-made and natural shelters.
 
-TODO: Get warm fast
-
 ## Be prepared
 
 ### Gear

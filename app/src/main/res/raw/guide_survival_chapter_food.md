@@ -363,7 +363,10 @@ This guide does not cover the preparation of large mammals, as they are difficul
 
 ## Cooking
 
-TODO: Utensils and stoves
+### Stoves
+Portable stoves are a convenient way to cook food. They can be fueled by wood, alcohol, or gas. Follow the manufacturer's instructions for use.
+
+Be sure to let the stove cool down before packing it away.
 
 ### Boiling
 
@@ -376,6 +379,9 @@ Roasting is a quick and easy method of cooking, but you will get fewer nutrients
 ### Baking
 
 You can wrap food in leaves or clay and place it in the coals of a fire to bake it. This method is slower than roasting but preserves more nutrients. Do not skin fish or birds packed with clay, as the skin will stick to the clay and can be removed after cooking.
+
+### Utensils
+If you are packing utensils, a spork is a good option. Otherwise, you can use a stick or your hands to handle food. Be sure to wash your hands before eating.
 
 ## Preservation
 
