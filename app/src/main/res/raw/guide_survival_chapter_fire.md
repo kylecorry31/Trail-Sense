@@ -49,7 +49,7 @@ A fire reflector is a wall built behind the fire to reflect heat towards you and
   - Cotton balls (preferably soaked in petroleum jelly)
   - Lint
   - Paper
-  - Tinder fungus (chaga) - found on birch trees
+  - Tinder fungus or chaga
 - **Kindling**: Small sticks and twigs that catch fire from the tinder and help build the flame.
   - Sticks and twigs (pencil to finger thickness)
   - Thinly split wood
@@ -117,9 +117,14 @@ A fire bundle is a portable fire that can be carried to a new location. It is ma
 
 ![](file:///android_asset/survival_guide/66.webp)
 
-**Tinder fungus (chaga)**
+**Tinder fungus and chaga**
 
-Chaga is a fungus that grows on birch trees. Once it forms an ember, it can be transported to a new location to start a fire. To restart the fire, place the chaga ember in a tinder bundle and blow gently to ignite it.
+TODO: Talk about tinder fungus
 
 ![](file:///android_asset/survival_guide/chaga.webp)
 [Image source](https://en.wikipedia.org/wiki/File:Fomes_fomentarius_2010_G2.jpg)
+
+Chaga is a fungus that grows on birch trees. Once it forms an ember, it can be transported to a new location to start a fire. To restart the fire, place the chaga ember in a tinder bundle and blow gently to ignite it.
+
+
+TODO: Image of chaga
