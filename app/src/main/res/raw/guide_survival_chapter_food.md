@@ -239,9 +239,9 @@ Alternatively, use a funnel fish trap by placing sticks into a V-shape with a re
 
 ### Preparation
 
-1. Remove scales by scraping them off with a knife.
-2. Remove entrails by cutting the belly open and pulling them out.
-3. Cut into usable pieces or fillet the fish. Alternatively, you can cook the fish whole.
+1. Remove scales by scraping them off with a knife (tail to head).
+2. Remove entrails by cutting the belly open and pulling them out. You can also cut off the head and tail to make this easier.
+3. Cut into usable pieces or fillet the fish. If it is a small fish, you can also just cook it whole.
 4. Cook the fish.
 
 ## Other animals
