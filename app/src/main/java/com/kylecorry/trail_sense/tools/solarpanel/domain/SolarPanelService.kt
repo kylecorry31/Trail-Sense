@@ -39,7 +39,7 @@ class SolarPanelService(
             location,
             tilt,
             azimuth
-        ).toFloat()
+        ).toFloat().coerceAtLeast(0f)
     }
 
     fun getBestPosition(
@@ -69,10 +69,10 @@ class SolarPanelService(
         location: Coordinate,
         tilt: Float,
         bearing: Bearing,
-        dt: Duration = Duration.ofMinutes(15)
+        dt: Duration = Duration.ofMinutes(15),
     ): Double {
         val secondsToHours = 1.0 / (60 * 60)
-        return Calculus.integral(
+        val original = Calculus.integral(
             0.0,
             Duration.between(start, end).seconds * secondsToHours,
             dt.seconds * secondsToHours
@@ -80,6 +80,20 @@ class SolarPanelService(
             val t = start.plus(Time.hours(hours))
             Astronomy.getSolarRadiation(t, location, tilt, bearing, withRefraction = true)
                 .coerceAtLeast(0.0)
+        }
+
+        if (original > 0) {
+            return original
+        }
+
+        // Try again, but allowing negative values
+        return Calculus.integral(
+            0.0,
+            Duration.between(start, end).seconds * secondsToHours,
+            dt.seconds * secondsToHours
+        ) { hours ->
+            val t = start.plus(Time.hours(hours))
+            Astronomy.getSolarRadiation(t, location, tilt, bearing, withRefraction = true)
         }
     }
 
