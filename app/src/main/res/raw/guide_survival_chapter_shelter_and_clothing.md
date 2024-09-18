@@ -168,7 +168,26 @@ To insulate yourself from the ground, use materials like leaves, straw, or cloth
 ## Repair
 
 ### Sewing
-TODO: Put sewing techniques here
+
+**Back stitch**
+
+Used for seams that require strength, such as on backpacks or tents.
+
+![](file:///android_asset/survival_guide/back_stitch.webp)
+
+**Running stitch**
+
+Used for quick repairs on clothing or gear in places where strength is not critical.
+
+![](file:///android_asset/survival_guide/running_stitch.webp)
+[Image source](https://commons.wikimedia.org/wiki/File:Running_stitch.gif)
+
+**Whip stitch**
+
+Used to repair tears or holes in fabric. It can also be used to connect two pieces of fabric.
+
+![](file:///android_asset/survival_guide/whip_stitch.webp)
+[Image source](https://commons.wikimedia.org/wiki/File:Whip_stitch.jpg)
 
 ### Other methods
 If you do not have a sewing kit, you can use duct tape, safety pins, super glue, cordage, or pitch (see the Crafting chapter for how to make pitch) as temporary fixes.
