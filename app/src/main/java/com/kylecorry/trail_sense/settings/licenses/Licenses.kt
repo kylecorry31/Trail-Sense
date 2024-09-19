@@ -244,7 +244,26 @@ ETOPO 2022 metadata may be accessed here: ETOPO 2022 metadata landing page"""
             "Uptide",
             "https://github.com/stephankramer/uptide",
             ::lgpl3
-        )
+        ),
+        Library(
+            "Survival guide",
+            ""
+        ) {
+            """
+The Survival Guide was written by Kyle Corry. It is based on information from the US Army's survival guide and other sources.
+
+The images in the survival guide are from the following sources:
+- SURVIVAL; Department of the Army: https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/ARN12086_ATP%203-50x21%20FINAL%20WEB%202.pdf, public domain
+
+- https://en.wikipedia.org/wiki/File:Fomes_fomentarius_2010_G2.jpg (Modified from original), public domain
+
+- https://commons.wikimedia.org/wiki/File:Inonotus_obliquus.jpg (Modified from original), CC SA 3.0
+
+- https://commons.wikimedia.org/wiki/File:Running_stitch.gif, public domain
+
+- https://commons.wikimedia.org/wiki/File:Whip_stitch.jpg, CC SA 3.0
+                    """.trimIndent()
+        }
     )
 
     private fun bsd(year: String, owner: String): String {

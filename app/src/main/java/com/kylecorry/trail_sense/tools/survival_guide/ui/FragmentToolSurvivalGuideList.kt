@@ -13,6 +13,7 @@ import com.kylecorry.andromeda.views.list.ListItemMapper
 import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentSurvivalGuideChaptersBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.tools.survival_guide.domain.Chapter
 import com.kylecorry.trail_sense.tools.survival_guide.domain.Chapters
@@ -49,7 +50,13 @@ class FragmentToolSurvivalGuideList : BoundFragment<FragmentSurvivalGuideChapter
 
     override fun onResume() {
         super.onResume()
-        // TODO: Show disclaimer
+        CustomUiUtils.disclaimer(
+            requireContext(),
+            getString(R.string.survival_guide),
+            getString(R.string.survival_guide_disclaimer),
+            "pref_survival_guide_disclaimer_shown",
+            cancelText = null
+        )
     }
 
     override fun generateBinding(
