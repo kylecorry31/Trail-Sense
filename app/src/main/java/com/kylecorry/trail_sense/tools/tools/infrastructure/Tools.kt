@@ -41,7 +41,7 @@ import com.kylecorry.trail_sense.tools.qr.QRCodeScannerToolRegistration
 import com.kylecorry.trail_sense.tools.ruler.RulerToolRegistration
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
 import com.kylecorry.trail_sense.tools.solarpanel.SolarPanelAlignerToolRegistration
-import com.kylecorry.trail_sense.tools.survival_guide.SurvivalGuideRegistration
+import com.kylecorry.trail_sense.tools.survival_guide.SurvivalGuideToolRegistration
 import com.kylecorry.trail_sense.tools.temperature_estimation.TemperatureEstimateToolRegistration
 import com.kylecorry.trail_sense.tools.tides.TidesToolRegistration
 import com.kylecorry.trail_sense.tools.tools.ui.sort.AlphabeticalToolSort
@@ -99,7 +99,7 @@ object Tools {
         TurnBackToolRegistration,
         LocalMessagingToolRegistration,
         LocalTalkToolRegistration,
-        SurvivalGuideRegistration
+        SurvivalGuideToolRegistration
     )
     private val topics = mutableMapOf<String, Topic<Bundle>>()
     private val broadcastScope = CoroutineScope(Dispatchers.Main)

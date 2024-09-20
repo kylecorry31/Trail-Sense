@@ -7,7 +7,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
-object SurvivalGuideRegistration : ToolRegistration {
+object SurvivalGuideToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
         return Tool(
             Tools.SURVIVAL_GUIDE,
@@ -15,6 +15,7 @@ object SurvivalGuideRegistration : ToolRegistration {
             R.drawable.survival_guide,
             R.id.fragmentToolSurvivalGuideList,
             ToolCategory.Other,
+            guideId = R.raw.guide_tool_survival_guide,
             additionalNavigationIds = listOf(R.id.fragmentToolSurvivalGuideReader)
         )
     }
