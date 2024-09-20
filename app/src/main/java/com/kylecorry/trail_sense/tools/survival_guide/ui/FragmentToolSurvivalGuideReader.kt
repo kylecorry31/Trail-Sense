@@ -25,8 +25,7 @@ import com.kylecorry.trail_sense.databinding.FragmentSurvivalGuideBinding
 import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideService
-import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
+import com.kylecorry.trail_sense.shared.text.TextUtils
 import com.kylecorry.trail_sense.tools.survival_guide.domain.Chapters
 import kotlinx.coroutines.delay
 
@@ -48,14 +47,12 @@ class FragmentToolSurvivalGuideReader : BoundFragment<FragmentSurvivalGuideBindi
         inBackground {
             val res = chapterResourceId ?: return@inBackground
             val content = onIO {
-                // TODO: Extract this to the shared package
-                UserGuideService(requireContext()).load(res)
+                TextUtils.loadTextFromResources(requireContext(), res)
             }
             if (isBound) {
                 binding.guideScroll.removeAllViews()
-                // TODO: Extract user guide utils to shared package
                 binding.guideScroll.addView(
-                    UserGuideUtils.getGuideView(
+                    TextUtils.getMarkdownView(
                         requireContext(),
                         content,
                         shouldUppercaseSubheadings = true
@@ -77,9 +74,8 @@ class FragmentToolSurvivalGuideReader : BoundFragment<FragmentSurvivalGuideBindi
                         printer.setScaleMode(ScaleMode.Fit)
                         printer.setOrientation(Orientation.Portrait)
                         val content =
-                            "# ${chapter.chapter}: ${chapter.title}\n" + UserGuideService(
-                                requireContext()
-                            ).load(
+                            "# ${chapter.chapter}: ${chapter.title}\n" + TextUtils.loadTextFromResources(
+                                requireContext(),
                                 chapterResourceId ?: return@onIO
                             )
                         val files = FileSubsystem.getInstance(requireContext())
