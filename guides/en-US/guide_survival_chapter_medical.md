@@ -41,6 +41,7 @@ This chapter covers some basic medical knowledge and techniques for common injur
 - Soap (unscented)
 - Washcloth / microfiber towel
 - Lip balm (unscented)
+- Electrolyte mix
 
 ### Knowledge and skills
 Start by learning how to do the following:
@@ -247,6 +248,30 @@ If the blister is large or painful:
 - Check feet frequently for red areas and blisters.
 - Stop at the first sign of rubbing.
 - Apply adhesive tape or moleskin to prevent blisters.
+
+## Cramps
+Cramps are caused by muscle spasms and can be caused by dehydration, overexertion, or lack of electrolytes.
+
+### Symptoms
+- Muscle pain.
+- Muscle spasms.
+- Muscle weakness.
+
+### Treatment
+- Gently stretch the muscle.
+- Massage the muscle.
+- Apply heat or cold to the muscle.
+- Drink water or an electrolyte solution with salt (sodium chloride) and potassium chloride.
+- Eat salty foods.
+- Eat potassium-rich foods (bananas, potatoes, sweet potatoes, spinach, and lentils).
+- Slow down or stop physical activity.
+
+### Prevention
+- Stay hydrated.
+- Replenish electrolytes.
+- Warm up before physical activity.
+- Stretch before and after physical activity.
+- Maintain a slow and steady pace.
 
 ## Fractures
 TODO: Add content
