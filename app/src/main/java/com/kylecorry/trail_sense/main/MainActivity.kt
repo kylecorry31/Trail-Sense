@@ -273,7 +273,8 @@ class MainActivity : AndromedaActivity() {
         ComposedCommand(
             ShowDisclaimerCommand(this),
             PowerSavingModeAlertCommand(this),
-            RestartServicesCommand(this, false)
+            RestartServicesCommand(this, false),
+            NotifyForkPoliciesCommand(this)
         ).execute()
 
         if (!Tools.isToolAvailable(this, Tools.WEATHER)) {
@@ -439,17 +440,17 @@ class MainActivity : AndromedaActivity() {
             4,
             getString(R.string.tools)
         ).setIcon(R.drawable.apps)
-        .setOnMenuItemClickListener {
-            if(navController.currentDestination?.id == R.id.action_experimental_tools && !binding.quickActionsSheet.isVisible) {
-                val searchinput = findViewById<TextInputEditText>(R.id.search_view_edit_text)
-                if (searchinput.requestFocus()) {
-                    val imm = getSystemService(InputMethodManager::class.java)
-                    imm.showSoftInput(searchinput, InputMethodManager.SHOW_IMPLICIT)
-                    return@setOnMenuItemClickListener true
+            .setOnMenuItemClickListener {
+                if (navController.currentDestination?.id == R.id.action_experimental_tools && !binding.quickActionsSheet.isVisible) {
+                    val searchinput = findViewById<TextInputEditText>(R.id.search_view_edit_text)
+                    if (searchinput.requestFocus()) {
+                        val imm = getSystemService(InputMethodManager::class.java)
+                        imm.showSoftInput(searchinput, InputMethodManager.SHOW_IMPLICIT)
+                        return@setOnMenuItemClickListener true
+                    }
                 }
+                false
             }
-            false
-        }
 
         // Loop through each item of the bottom navigation and override the long press behavior
         for (i in 0 until binding.bottomNavigation.menu.size()) {
