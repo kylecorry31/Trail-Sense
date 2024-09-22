@@ -158,7 +158,6 @@ Please change the following if you are using this as the base for you app:
 - Package name
 - Support email
 - App icon (optional)
-- Name of packages in the app (com.kylecorry.trail_sense.*) (optional)
 
 # FAQ
 The FAQ has moved [to the wiki](https://github.com/kylecorry31/Trail-Sense/wiki/Frequently-Asked-Questions-(FAQ))
