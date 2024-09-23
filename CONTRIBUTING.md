@@ -13,3 +13,8 @@ If you would like to work on an issue that isn't marked with help-wanted, please
 If you submit an issue, please be civil and constructive - I will consider all feedback, and if I choose not to implement your suggestion I will post my reasoning. If you are experiencing an issue, please include all relevant details to help me understand and reproduce the issue. If you disagree with a change, please describe why you disagree and how I can improve it. Finally, if applicable, please provide research / evidence so I can cross verify.
 
 All contributors will be credited in the Licenses section of Trail Sense setting (updated weekly).
+
+## Survival Guide
+The survival guide is heavily curated and all information must be easy to follow and relevant to wilderness survival for the average person. I do not want to include advanced topics or bushcraft in the guide.
+
+I may publish and sell a physical copy of the survival guide at some point, so I ask that all content is written by me. I'm open to suggestions for areas to improve or add.
