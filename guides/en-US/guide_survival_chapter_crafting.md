@@ -242,7 +242,9 @@ Used to tie a short rope around a longer rope in such a manner that the short ro
 ![](file:///android_asset/survival_guide/135.webp)
 
 ### Trucker's hitch
-TODO: Add content
+Used to secure a load or tighten a line.
+
+![](file:///android_asset/survival_guide/truckers_hitch.webp)
 
 ### Square lashing
 Used to secure one pole at a right angle to another pole. Can swap with the diagonal lashing if desired.

@@ -197,6 +197,10 @@ Poison ivy:
 
 TODO: Stinging nettle
 
+Stinging nettle:
+![](file:///android_asset/survival_guide/stinging_nettle.webp)
+[Image source](https://commons.wikimedia.org/wiki/File:Kopiva.JPG)
+
 ### Symptoms
 - Burning, reddening, and swelling rash
 - Itching
