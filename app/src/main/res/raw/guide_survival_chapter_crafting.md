@@ -27,22 +27,27 @@ Once you have mastered these skills, you should learn how to do the following:
 ## Woodworking
 
 ### Cutting wood
+In the majority of cases, use fallen wood. If you need to trim the wood to a specific size, break it by hand or foot. To break a larger piece of wood, you can insert it between two live trees at the point you want to break it and push it to the side until it snaps.
 
-### Splitting wood
-
-### Cutting down trees
+A saw or axe can also be used to cut wood. Be sure to cut away from your body and use proper technique.
 
 ### Stop cuts
+Stop cuts are used to prevent wood from splitting when you are cutting it. To make a stop cut, make a small cut perpendicular to the grain of the wood where you want to stop the cut. This cut should be about 1/3 of the way through the wood. You can baton the knife to form a stop cut.
 
 ### Batoning wood
+Batoning is the process of using a knife to split wood. To baton wood, place the knife on the wood where you want to split it and hit the back of the knife with a piece of wood. Be sure to use a knife with a full tang and a fixed blade.
 
 ## Sharpening
+If you find a smooth rock, you can use it to sharpen your knife or axe. Preferably the rock will be small enough to hold in your hand. To sharpen your tool, rub the rock in a circular motion along the edge of the blade. Be sure to match the angle of the blade when sharpening.
 
 ## Knives
+TODO: Add content
 
 ## Compasses
+TODO: Add content
 
 ## Torches
+TODO: Add content
 
 ## Fishhooks
 - **Wooden hooks**: Cut a piece of hardwood, put a notch in one end and secure a sharp object into the notch using cordage.
@@ -52,8 +57,10 @@ Once you have mastered these skills, you should learn how to do the following:
 ![](file:///android_asset/survival_guide/47.webp)
 
 ## Baskets
+TODO: Add content
 
 ## Tongs
+TODO: Add content
 
 ## Bowls
 Bowls can be used for cooking, eating, and storing food.
