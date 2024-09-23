@@ -55,11 +55,28 @@ Once you have mastered these skills, you should learn how to do the following:
 - Perform advanced first aid techniques, such as setting a broken bone or suturing a wound.
 
 ## Panic attacks and calming techniques
-TODO: Add content
 
 ### Symptoms
+- Rapid heartbeat.
+- Sweating.
+- Trembling.
+- Shortness of breath.
+- Chest pain.
+- Nausea.
+- Dizziness.
+- Fear.
+- Numbness or tingling.
 
 ### Treatment
+1. Sit down.
+2. Close your eyes.
+3. Do one or more of the following:
+   - Take slow, deep breaths.
+   - Count to 10.
+   - Recite a calming phrase.
+   - Visualize a calming place.
+   - Meditate.
+   - Ensure yourself that you will be okay.
 
 ## Allergic reactions
 TODO: Add content
@@ -373,13 +390,29 @@ Cover eyes with a dark cloth until symptoms disappear.
 Wear UV protective sunglasses or snow goggles. If you do not have these, you can make snow goggles from a piece of cloth or a piece of bark with slits cut in it. You can also put soot under your eyes to reduce glare.
 
 ## Sunburn
-TODO: Add content
+Sunburn is caused by prolonged exposure to ultraviolet (UV) radiation from the sun.
 
 ### Symptoms
+- Redness.
+- Pain.
+- Swelling.
+- Blisters.
 
 ### Treatment
+1. Get out of the sun.
+2. Run cool water over the burn or apply a cold compress to relieve pain.
+3. Apply aloe vera gel, calamine lotion, or hydrocortisone cream to reduce pain and swelling.
+4. Optionally, take pain relievers.
+5. Drink extra water.
+
+Do not pop blisters.
 
 ### Prevention
+- Wear sunscreen with an SPF of at least 30.
+- Wear a hat.
+- Wear long sleeves and pants.
+- Stay in the shade.
+- Take extra precaution on days with a high UV index.
 
 ## Headache
 TODO: Add content
@@ -525,13 +558,28 @@ TODO: Add content
 ### Prevention
 
 ## Altitude sickness
-TODO: Add content
+Altitude sickness is caused low oxygen levels at high altitudes.
 
 ### Symptoms
+- Headache.
+- Nausea.
+- Fatigue.
+- Dizziness.
+- Shortness of breath.
+- Poor sleep.
+- Loss of appetite.
+- Rapid heartbeat.
+- Coughing.
 
 ### Treatment
+- Pain relievers for headache (ibuprofen).
+- Do not ascend until symptoms are gone.
+- Descend to a lower altitude if symptoms are severe or do not improve within a day.
 
 ### Prevention
+- Ascend slowly.
+- Acclimate to the altitude before ascending further.
+- Look out for symptoms if traveling above 6,500 feet (2,000 meters).
 
 ## Poisoning
 TODO: Add content
