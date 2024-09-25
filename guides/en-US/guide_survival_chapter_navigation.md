@@ -92,9 +92,6 @@ When navigating jungle environments, remember:
 ### Detours  
 TODO: Add content
 
-### Grid search  
-TODO: Add content
-
 ## GPS
 
 A GPS device can help you determine your location and navigate to a specific point, but always have a backup plan in case the device fails.
@@ -174,8 +171,6 @@ TODO: Map colors
 
 ### Sun
 
-TODO: Time left until sunset
-
 - **Shadow tip method**: Place a stick vertically in the ground and mark the shadow tip. After 10-15 minutes, mark the new position of the shadow tip and draw a line between the two points for an east-west line. North will be perpendicular to this line at midday.
 
 ![](file:///android_asset/survival_guide/88.webp)
@@ -184,6 +179,8 @@ TODO: Time left until sunset
 - **Watch method**: Point the hour hand of an analog watch at the sun; south is roughly halfway between the hour hand and 12 o’clock in the Northern Hemisphere. In the Southern Hemisphere, point the 12 o’clock position at the sun. If on daylight saving time, use 1 o’clock instead of 12.
 
 ![](file:///android_asset/survival_guide/90.webp)
+
+- **Time until sunset**: You can estimate the time until sunset by holding your hand horizontally with fingers together and counting the number of finger widths between the sun and the horizon. Each finger width is roughly 15 minutes.
 
 ### Stars
 

@@ -135,7 +135,7 @@ See the section on objects in the eye.
 - Check for ticks / leeches frequently.
 - Ensure your immunizations are up to date for bug-borne diseases in the area.
 
-TODO: Improvised insect repellent
+You can make an improvised bug repellent by applying mud to your skin or using the smoke from a fire.
 
 ## Snake bites
 Always be on the lookout for snakes, especially in areas with tall grass, rocks, or logs. Snakes are most active during the day. Most snake bites are not venomous, but if you don't know what kind of snake bit you, treat it as if it is venomous.
@@ -188,14 +188,12 @@ If you were bit by a mammal, seek medical attention as soon as possible. You may
   - Do not drop your pack, as it can provide protection.
 
 ## Poison ivy and contact dermatitis
-Contact dermatitis is caused by contact with poisonous plants, such as poison ivy, poison oak, and poison sumac.
+Contact dermatitis is caused by contact with poisonous plants, such as poison ivy, poison oak, poison sumac, and stinging nettle.
 
 Poison ivy:
 
 ![](file:///android_asset/survival_guide/poison_ivy.webp)
 [Image source](https://commons.wikimedia.org/wiki/File:Poison_ivy_in_May_beside_Appalachian_Trail_in_Rockfish_Gap_VA_area_1.jpg)
-
-TODO: Stinging nettle
 
 Stinging nettle:
 ![](file:///android_asset/survival_guide/stinging_nettle.webp)
@@ -212,6 +210,8 @@ Stinging nettle:
 3. Apply calamine lotion or hydrocortisone cream to reduce the itch. If not available, apply a tannic acid solution (boil acorns or oak bark in water) or crushed jewelweed.
 4. Optionally, take antihistamine pills to reduce itching.
 
+If you touched stinging nettle, you can also apply mud to the area and remove it when it dries.
+
 Avoid scratching the rash, as it can cause infection. Leave blisters alone.
 
 ### Prevention
@@ -222,6 +222,7 @@ Learn to identify and avoid contact with the following plants:
 - Poison sumac.
 - Rengas tree.
 - Trumpet vine.
+- Stinging nettle.
 
 If you come into contact with these plants, wash the area with soap and water as soon as possible. Do not wait for a rash to appear.
 
@@ -419,22 +420,38 @@ Do not pop blisters.
 - Take extra precaution on days with a high UV index.
 
 ## Headache
-TODO: Add content
-
-### Symptoms
+Headaches can be caused by a variety of factors, such as dehydration, stress, lack of sleep, or illness.
 
 ### Treatment
+- Take pain relievers (aspirin, ibuprofen, acetaminophen).
+- Drink water.
+- Rest.
+- Drink water or an electrolyte solution with salt (sodium chloride) and potassium chloride.
+- Eat salty foods.
 
 ### Prevention
+- Stay hydrated.
+- Replenish electrolytes.
+- Do not overexert yourself.
 
 ## Dehydration
-TODO: Add content
 
 ### Symptoms
+- Thirst.
+- Dry mouth and throat.
+- Fatigue.
+- Dizziness.
+- Dark urine.
+- Reduced urine output.
+- Dry skin.
+- Headache.
+- Confusion.
 
 ### Treatment
+Rehydrate by drinking water, an electrolyte solution, or tea.
 
 ### Prevention
+- Drink water frequently, increasing intake during physical activity.
 
 ## Hypothermia
 Hyperthermia is caused by exposure to cold temperatures, causing the body to lose heat faster than it can produce it.
