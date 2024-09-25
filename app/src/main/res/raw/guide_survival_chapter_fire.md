@@ -124,7 +124,6 @@ Both tinder fungus and chaga can be used to transport fire. The inside of these 
 
 Tinder fungus:
 ![](file:///android_asset/survival_guide/tinder_fungus.webp)
-[Image source; modified from original](https://en.wikipedia.org/wiki/File:Fomes_fomentarius_2010_G2.jpg)
 
 Chaga:
 ![](file:///android_asset/survival_guide/chaga.webp)
