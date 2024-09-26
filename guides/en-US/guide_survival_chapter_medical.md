@@ -112,7 +112,14 @@ Using tweezers if available, grasp the tick where it is attached to the skin and
 
 ***Leaches***
 
-TODO: Add content
+To remove a leach:
+1. Pull it taut (but not too tight).
+2. Slide a fingernail or other flat object between the leach and your skin to detach it.
+3. Flick the leach away before it can reattach.
+4. Clean the wound and apply antibiotic ointment.
+5. Apply a bandage to control bleeding. It is normal for the wound to bleed for a while.
+
+Do not salt, burn, or pull the leach off, as this can cause the leach to regurgitate into the wound.
 
 ***Bites***
 
@@ -612,13 +619,18 @@ TODO: Add content
 ### Prevention
 
 ## Submerged in water
-TODO: Add content
 
 ### Falling through ice
+If you fall through ice, do the following:
+1. Turn back the way you came.
+2. Kick your legs to push yourself onto the ice.
+3. Roll away from the hole.
+4. Crawl on your stomach to safety.
+5. Get out of wet clothes and into dry clothes.
+6. Use leaves or dry grass as insulation and warm up near a fire.
 
 ### Rip currents
-
-### Stay afloat
+If you are caught in a rip current, swim parallel to the shore until you are out of the current. Then swim back to shore.
 
 ## Hygiene
 
@@ -645,6 +657,8 @@ Do the following to prevent foot problems:
 Keep clothing clean and dry. You can wash clothes with water and soap, or by boiling them. To dry clothes, hang them in the sun or near a fire (not too close).
 
 ### Bowel movements and urination
-Locate latrines at least 200 feet (60 meters) from water sources.
-
-TODO: More content needed (cat holes, suitable plants for toilet paper, etc.)
+- Dig a hole 6 to 8 inches (15 to 20 centimeters) deep for bowel movements and cover it with dirt.
+  - If you do not have a trowel, use a stick to dig the hole.
+- If you do not have toilet paper or a bidet, use non-poisonous leaves, moss, or a smooth rocks to clean yourself.
+- Always wash your hands after using the bathroom.
+- Do not defecate or urinate near water sources (at least 200 feet / 60 meters away).
