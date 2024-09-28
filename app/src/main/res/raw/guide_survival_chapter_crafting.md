@@ -41,10 +41,37 @@ Batoning is the process of using a knife to split wood. To baton wood, place the
 If you find a smooth rock, you can use it to sharpen your knife or axe. Preferably the rock will be small enough to hold in your hand. To sharpen your tool, rub the rock in a circular motion along the edge of the blade. Be sure to match the angle of the blade when sharpening.
 
 ## Knives
-TODO: Add content
+
+### Bone knife
+
+**Resources**
+- Large bone
+- Rock with a coarse surface
+
+**Instructions**
+1. Break off a large shard of the bone. You can do this by hitting the bone with a rock. You may want to use a sharp rock to make a groove in the bone that is the shape you want the knife to be prior to breaking it.
+2. Grind an edge onto the shard using a rock with a coarse surface.
+
+### Stone knife
+
+**Resources**
+- Flint, chert, or obsidian
+- A second rock
+
+**Instructions**
+Break off a shard of the flint/chert/obsidian by hitting the edge with another rock using a glancing blow. This shard will likely have a sharp edge, if it does not, break off another shard and try again.
 
 ## Compasses
-TODO: Add content
+
+**Resources**
+- Needle
+- Knife
+- Leaf or bottle cap
+- Water
+
+**Instructions**
+1. Magnetize the needle by stroking it with the knife in one direction (to avoid dulling the blade, use the back of the knife). Stroke at least 50 times.
+2. Place the needle on the leaf/cap and float it in water. The needle will slowly align to the north-south axis. Ensure there are no currents or wind that could affect the needle.
 
 ## Torches
 TODO: Add content
@@ -55,9 +82,6 @@ TODO: Add content
 - **Other hooks**: You can use metal wire or thorns as hooks. See the picture below.
 
 ![](file:///android_asset/survival_guide/47.webp)
-
-## Baskets
-TODO: Add content
 
 ## Tongs
 TODO: Add content
