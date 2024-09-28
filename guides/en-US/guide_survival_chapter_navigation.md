@@ -25,72 +25,64 @@ Once you have mastered these skills, you should learn how to do the following:
 - Utilize advanced navigation techniques, like using the sun and stars.
 - Take a detour.
 
-TODO: Route planning  
-TODO: Nighttime navigation
-
-## Deciding whether to move or stay put
-
-When deciding whether to stay put or move, consider the following factors:
-
-- **Safety and security**: Assess any threats, including natural or human factors that might compromise your safety.
-- **Resource availability**: Ensure the location has or is near essential resources like water and shelter.
-- **Health and capability**: Evaluate physical and mental health; avoid travel if you're injured or not mentally prepared.
-- **Environmental conditions**: Consider environmental factors that could impact movement, such as extreme weather or difficult terrain.
-- **Recovery likelihood**: Stay put if recovery is likely soon; move if it improves your chances of rescue or meeting basic needs.
+## Route planning
+Plan your route in advance to avoid getting lost and ensure you reach your destination safely. Consider the following factors when planning your route:
+- Choose a route that matches your skill level and fitness. Use the contour lines on a map to gauge the terrain difficulty.
+- Identify landmarks along the way to help you stay on track.
+- Plan for rest stops and water sources.
+- Identify alternative routes in case of obstacles or emergencies.
+- Share your route with someone who can alert authorities if you don't return on time.
+- If you need to take a detour, mark your new route on the map and adjust your bearings accordingly.
 
 ## Movement
+- If you are lost, it is typically best to stay put and wait for rescue.
+- Keep your body weight balanced over your feet.
+- Use zigzag paths on steep slopes and maintain a bend in your knees when descending to protect your joints.
+- Take breaks to rest and rehydrate.
+- Be cautious of animal trails, which may lead to resources like water but can also get you lost.
 
-Proper movement techniques can help conserve energy and maintain speed:
-
-- **Posture and balance**: Keep your body weight balanced over your feet. Use a flat-footed stance to maintain stability.
-- **Terrain navigation**: Adjust your movement to the terrain. Use zigzag paths on steep slopes and maintain a bend in your knees when descending to protect your joints.
-- **Environmental awareness**: Be aware of natural paths like animal trails, which may offer easier travel and potential resources like water.
-- **Planning**: Study the terrain and plan your route in advance. Set up camp early to ensure enough time for shelter construction.
-
-### Environments
+### Terrain considerations
 
 **Mountainous/cold**:
 
-When moving in mountainous or cold environments, consider the following:
-
-- **Avalanche risk**: Avoid areas prone to avalanches and be cautious when crossing snow-covered slopes.
-- **Altitude sickness**: Acclimate to high altitudes to avoid symptoms like headaches, nausea, and fatigue.
-- **Wind chill**: Protect against wind chill by wearing appropriate clothing and taking shelter when necessary.
-- **Snow travel**: Use snowshoes or skis for easier travel in snowy conditions. Test ice and snow conditions with a pole or stick before stepping.
-- **Frozen water**: Avoid walking on frozen bodies of water unless you're certain of the ice thickness.
+- Avoid areas prone to avalanches and be cautious when crossing snow-covered slopes.
+- Acclimate to high altitudes to avoid symptoms like headaches, nausea, and fatigue.
+- Protect against wind chill by wearing appropriate clothing and taking shelter when necessary.
+- Use snowshoes or skis for easier travel in snowy conditions. Test ice and snow conditions with a pole or stick before stepping.
+- Avoid walking on frozen bodies of water unless you're certain of the ice thickness.
 
 **Desert**:
 
-When navigating desert environments, keep in mind:
-
-- **Hydration**: Conserve water by traveling during cooler hours and wearing appropriate clothing to reduce sweating.
-- **Salt marshes**: Avoid salt marshes, as they can be dangerous and difficult to navigate.
-- **Temperature shifts**: Prepare for the drastic temperature shifts between day and night. Wear appropriate clothing to protect against sun exposure and cold nights.
-- **Electronics**: Protect electronic devices from extreme heat and direct sunlight.
-- **Shadows**: Stick to the shadows to avoid direct sun exposure and reduce the risk of heat exhaustion.
-- **Distance perception**: Distance can be deceiving in the desert (paths often look shorter than they are); plan your route carefully and carry enough water and supplies.
+- Conserve water by traveling during cooler hours and wearing appropriate clothing to reduce sweating.
+- Avoid salt marshes.
+- Prepare for the drastic temperature shifts between day and night. Wear appropriate clothing to protect against sun exposure and cold nights.
+- Protect electronic devices from extreme heat and direct sunlight.
+- Stick to the shadows to avoid direct sun exposure and reduce the risk of heat exhaustion.
+- Distance can be deceiving in the desert (paths often look shorter than they are); plan your route carefully and carry enough water and supplies.
 
 **Jungle**:
 
-When navigating jungle environments, remember:
+- It will be harder to find you under a dense canopy.
+- Move with the vegetation rather than fighting against it to conserve energy.
+- Focus on distant landmarks rather than near objects to maintain direction.
+- Wear protective clothing to avoid insect bites and stings.
+- Treat any wounds and scratches promptly to avoid infection.
 
-- **Recovery**: It will be harder to find you under a dense canopy.
-- **Vegetation**: Move with the vegetation rather than fighting against it to conserve energy.
-- **Navigation**: Focus on distant landmarks rather than near objects to maintain direction.
-- **Insects**: Wear protective clothing to avoid insect bites and stings.
-- **Wounds**: Treat any wounds and scratches promptly to avoid infection.
+**Night**:
 
-### Crossing water
+- Use a flashlight or headlamp to illuminate your path.
+- Move slowly and carefully to avoid tripping or getting lost.
+- Stay on established paths or trails to reduce the risk of getting lost.
+- Listen for sounds that can help you identify your surroundings, such as running water or roadways.
 
-- **Assessment**: Look for the narrowest part of the river or a place where it breaks into several channels.
-- **Precautions**: Avoid crossing areas with strong currents or near ledges that indicate rapids.
+**Rivers and streams**:
 
-![](file:///android_asset/survival_guide/84.webp)
-
-![](file:///android_asset/survival_guide/86.webp)
-
-### Detours  
-TODO: Add content
+- If you need to cross:
+  - Look for the narrowest part or a place where it breaks into several channels.
+  - Prefer crossing on bridges, fallen trees, or rocks. Watch out for slippery or loose surfaces.
+  - Do not cross areas with strong currents or near ledges.
+  - Unbuckle your pack and carry it in front of you to avoid being pulled under by its weight.
+- In dire situations following a river downstream may lead to civilization.
 
 ## GPS
 
@@ -163,9 +155,15 @@ Maps are drawn to scale, allowing you to determine distances between points. A b
 
 Topographic maps show elevation changes and terrain features, making them useful for navigating in mountainous or hilly areas. Contour lines indicate elevation, and the closer the lines are together, the steeper the terrain. Elevation markers on contour lines help identify peaks and valleys.
 
-TODO: Map colors
-
 ![](file:///android_asset/survival_guide/95.webp)
+
+Typical map colors include:
+- **Black**: Human-made features like buildings and bridges.
+- **Red**: Roads.
+- **Green**: Vegetation.
+- **White**: Lack of vegetation.
+- **Brown**: Contour lines.
+- **Blue**: Water.
 
 ## Advanced navigation techniques
 
@@ -192,8 +190,3 @@ TODO: Map colors
 - **Southern Hemisphere**: Use the Southern Cross to determine south. Extend a line from the top and bottom stars of the Cross’s long axis, continuing about 4.5 times the distance between these stars toward the horizon to approximate the South Pole.
 
 ![](file:///android_asset/survival_guide/92.webp)
-
-### Environmental cues
-
-- **Vegetation**: Moss often grows more thickly on the shaded and moist side of trees, generally the north side in the Northern Hemisphere and the south side in the Southern Hemisphere.
-- **Snow**: On slopes, snow melts faster on the side receiving more sunlight (south-facing in the Northern Hemisphere, north-facing in the Southern Hemisphere).
