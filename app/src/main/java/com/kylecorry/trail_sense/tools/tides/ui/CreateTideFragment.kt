@@ -113,6 +113,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         }
         binding.lunitidalIntervalMethod.check(R.id.lunitidal_interval_method_auto)
         binding.lunitidalIntervalDuration.showSeconds = false
+        binding.lunitidalIntervalDuration.allowNegative = true
 
         binding.tideFrequencyDiurnal.text = buildSpannedString {
             bold {
@@ -278,7 +279,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         tideTimesList.setData(tides)
         binding.estimateAlgorithmSpinner.setSelection(tide.estimator.id.toInt() - 1)
         binding.lunitidalIntervalMethod.check(if (tide.lunitidalInterval != null) R.id.lunitidal_interval_method_manual else R.id.lunitidal_interval_method_auto)
-        binding.lunitidalIntervalDuration.duration = tide.lunitidalInterval
+        binding.lunitidalIntervalDuration.updateDuration(tide.lunitidalInterval)
     }
 
     private fun formIsValid(): Boolean {

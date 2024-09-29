@@ -2,10 +2,12 @@ package com.kylecorry.trail_sense.shared.views
 
 import android.content.Context
 import android.util.AttributeSet
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
 import androidx.core.text.scale
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -18,12 +20,15 @@ import java.time.Duration
 class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(context, attrs) {
 
     var duration: Duration? = null
+        private set
     private var changeListener: ((duration: Duration?) -> Unit)? = null
 
     private lateinit var input: TextInputEditText
     private lateinit var inputHolder: TextInputLayout
+    private lateinit var negateButton: ImageButton
 
     private var durationText = "000000"
+    private var isNegative = false
 
     private val PLACES_MINUTES = 3
     private val PLACES_SECONDS = 5
@@ -48,17 +53,38 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
             field = value
         }
 
+    var allowNegative: Boolean = false
+        set(value) {
+            negateButton.isVisible = value
+            if (!value && field) {
+                isNegative = false
+                onDurationTextChanged()
+            }
+            field = value
+        }
+
     init {
         context?.let {
             inflate(it, R.layout.view_duration_input, this)
             input = findViewById(R.id.duration)
             inputHolder = findViewById(R.id.duration_holder)
+            negateButton = findViewById(R.id.negate_btn)
 
             inputHolder.setEndIconOnClickListener {
                 // Clear
                 durationText = "000000"
+                isNegative = false
                 onDurationTextChanged()
             }
+
+            negateButton.isVisible = allowNegative
+            negateButton.background = null
+            negateButton.setOnClickListener {
+                isNegative = !isNegative
+                onDurationTextChanged()
+            }
+
+            inputHolder.isStartIconVisible = allowNegative
 
             hint = context.getString(R.string.duration)
 
@@ -68,10 +94,11 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
                 val oldText = lastDurationText ?: return@addTextChangedListener
                 val newText = it.toString()
 
-                if (newText.length < oldText.length){
+                if (newText.length < oldText.length) {
                     removeDigit(if (showSeconds) PLACES_SECONDS else PLACES_MINUTES)
-                } else if (newText.length > oldText.length){
-                    val digit = newText.last().toString().toIntOrNull() ?: return@addTextChangedListener
+                } else if (newText.length > oldText.length) {
+                    val digit =
+                        newText.last().toString().toIntOrNull() ?: return@addTextChangedListener
                     appendDigit(digit, if (showSeconds) PLACES_SECONDS else PLACES_MINUTES)
                 }
 
@@ -109,7 +136,14 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
         val h = durationText.substring(0, 2).toInt()
         val m = durationText.substring(2, 4).toInt()
         val s = durationText.substring(4, 6).toInt()
-        duration = Duration.ofHours(h.toLong()).plusMinutes(m.toLong()).plusSeconds(s.toLong())
+        duration =
+            Duration.ofHours(h.toLong()).plusMinutes(m.toLong()).plusSeconds(s.toLong()).let {
+                if (isNegative) {
+                    it.negated()
+                } else {
+                    it
+                }
+            }
         updateTextView()
         if (shouldEvent) {
             changeListener?.invoke(duration)
@@ -164,6 +198,13 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
     }
 
     private fun updateTextView() {
+        // If negatives are allowed, display the start icon as a plus or minus
+        if (allowNegative) {
+            negateButton.setImageResource(
+                if (isNegative) R.drawable.ic_minus else R.drawable.ic_add
+            )
+        }
+
         val text = createDurationText()
         lastDurationText = text
         input.setText(text)
@@ -180,6 +221,9 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
         val m = clamped.toMinutes().toInt() % 60
         val s = clamped.seconds.toInt() % 60
 
+        if (allowNegative && duration?.isNegative == true) {
+            isNegative = true
+        }
 
         // Set the duration text
         durationText = "%02d%02d%02d".format(h, m, s)
