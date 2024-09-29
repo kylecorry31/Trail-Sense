@@ -28,11 +28,17 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
     private val extremaFinder = GoldenSearchExtremaFinder(30.0, 1.0)
 
     private val harmonic by lazy { getHarmonicCalculator() }
+    private val lunitidal by lazy { getLunitidalCalculator() }
 
     override fun calculate(time: ZonedDateTime): Float {
         // Harmonic tides don't require a table
         if (tides.isEmpty() && table.estimator == TideEstimator.Harmonic) {
             return harmonic?.calculate(time) ?: 0f
+        }
+
+        // Lunitidal tides don't require a table if the interval is specified
+        if (tides.isEmpty() && table.estimator == TideEstimator.LunitidalInterval && table.lunitidalInterval != null) {
+            return lunitidal?.calculate(time) ?: 0f
         }
 
         return if (tides.isEmpty()) 0f else piecewise.calculate(time)
@@ -163,7 +169,22 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
     }
 
     private fun getLunitidalCalculator(): IWaterLevelCalculator? {
-        if (table.estimator != TideEstimator.LunitidalInterval || !table.isSemidiurnal || !tides.any { it.isHigh }) {
+        if (table.estimator != TideEstimator.LunitidalInterval || !table.isSemidiurnal){
+            return null
+        }
+
+        // If the lunitidal interval is specified, use it
+        if (table.lunitidalInterval != null){
+            return LunitidalWaterLevelCalculator(
+                table.lunitidalInterval,
+                Coordinate.zero,
+                null,
+                range
+            )
+        }
+
+        // Otherwise, calculate it
+        if (!tides.any { it.isHigh }) {
             return null
         }
 

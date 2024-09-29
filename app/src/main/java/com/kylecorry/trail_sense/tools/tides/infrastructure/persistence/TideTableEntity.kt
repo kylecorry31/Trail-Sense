@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.shared.data.Identifiable
 import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import com.kylecorry.trail_sense.tools.tides.domain.waterlevel.TideEstimator
+import java.time.Duration
 
 @Entity(tableName = "tide_tables")
 data class TideTableEntity(
@@ -19,7 +20,8 @@ data class TideTableEntity(
     @ColumnInfo(name = "longitude") val longitude: Double?,
     @ColumnInfo(name = "isSemidiurnal") val isSemidiurnal: Boolean,
     @ColumnInfo(name = "isVisible") val isVisible: Boolean,
-    @ColumnInfo(name = "estimateType") val estimateType: Long
+    @ColumnInfo(name = "estimateType") val estimateType: Long,
+    @ColumnInfo(name = "lunitidalInterval") val lunitidalInterval: Duration? = null
 ) : Identifiable {
 
     fun toTable(tides: List<Tide>, harmonics: List<TidalHarmonic> = emptyList()): TideTable {
@@ -36,7 +38,8 @@ data class TideTableEntity(
             isSemidiurnal,
             isVisible,
             TideEstimator.entries.withId(estimateType) ?: TideEstimator.Clock,
-            harmonics
+            harmonics,
+            lunitidalInterval
         )
     }
 
@@ -49,7 +52,8 @@ data class TideTableEntity(
                 table.location?.longitude,
                 table.isSemidiurnal,
                 table.isVisible,
-                table.estimator.id
+                table.estimator.id,
+                table.lunitidalInterval
             )
         }
     }

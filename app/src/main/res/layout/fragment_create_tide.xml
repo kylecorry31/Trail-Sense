@@ -19,9 +19,9 @@
         app:title="@string/tide_table" />
 
     <ScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:id="@+id/scroll_view"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,6 +100,46 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp" />
+
+            <TextView
+                android:id="@+id/lunitidal_interval_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/lunitidal_interval_utc"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/lunitidal_interval_method"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:singleSelection="true">
+
+                <Button
+                    android:id="@+id/lunitidal_interval_method_auto"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/auto"
+                    android:textColor="?attr/colorOnSurface" />
+
+                <Button
+                    android:id="@+id/lunitidal_interval_method_manual"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/manual"
+                    android:textColor="?attr/colorOnSurface" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <com.kylecorry.trail_sense.shared.views.DurationInputView
+                android:id="@+id/lunitidal_interval_duration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -57,6 +57,9 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         binding.createTideTitle.rightButton.isVisible = formIsValid()
     }
 
+    private var estimateAlgorithm by state(TideEstimator.Clock)
+    private var lunitidalIntervalAuto by state(true)
+
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
@@ -99,6 +102,17 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
             )
         )
         binding.estimateAlgorithmSpinner.setSelection(0)
+
+        binding.estimateAlgorithmSpinner.setOnItemSelectedListener { position ->
+            estimateAlgorithm = TideEstimator.entries.withId((position?.toLong() ?: 0L) + 1)
+                ?: TideEstimator.Clock
+        }
+
+        binding.lunitidalIntervalMethod.addOnButtonCheckedListener { _, _, _ ->
+            lunitidalIntervalAuto = binding.lunitidalIntervalMethod.checkedButtonId == R.id.lunitidal_interval_method_auto
+        }
+        binding.lunitidalIntervalMethod.check(R.id.lunitidal_interval_method_auto)
+        binding.lunitidalIntervalDuration.showSeconds = false
 
         binding.tideFrequencyDiurnal.text = buildSpannedString {
             bold {
@@ -263,6 +277,8 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         })
         tideTimesList.setData(tides)
         binding.estimateAlgorithmSpinner.setSelection(tide.estimator.id.toInt() - 1)
+        binding.lunitidalIntervalMethod.check(if (tide.lunitidalInterval != null) R.id.lunitidal_interval_method_manual else R.id.lunitidal_interval_method_auto)
+        binding.lunitidalIntervalDuration.duration = tide.lunitidalInterval
     }
 
     private fun formIsValid(): Boolean {
@@ -287,9 +303,20 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
             return null
         }
 
+        val lunitidalInterval = if (estimateAlgorithm == TideEstimator.LunitidalInterval && !lunitidalIntervalAuto) {
+            binding.lunitidalIntervalDuration.duration
+        } else {
+            null
+        }
+
         // TODO: Eventually this will check for harmonics
-        // TODO: Eventually allow a lunitidal interval tide without any tides
-        if (tides.isEmpty() && estimateAlgorithm != TideEstimator.Harmonic) {
+        if (
+            // Tide clock requires at least one tide
+            (tides.isEmpty() && estimateAlgorithm == TideEstimator.Clock) ||
+            // Lunitidal interval requires either a manual interval or at least one tide
+            (tides.isEmpty() && estimateAlgorithm == TideEstimator.LunitidalInterval && lunitidalInterval == null)
+            // Harmonics doesn't require anything right now
+        ) {
             return null
         }
 
@@ -306,13 +333,21 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
             location,
             isSemidiurnal = isSemidiurnal,
             isVisible = editingTide?.isVisible ?: true,
-            estimator = estimateAlgorithm
+            estimator = estimateAlgorithm,
+            lunitidalInterval = lunitidalInterval
         )
     }
 
     private fun hasChanges(): Boolean {
         val specification = TideTableIsDirtySpecification(editingTide)
         return specification.isSatisfiedBy(getTide())
+    }
+
+    override fun onUpdate() {
+        super.onUpdate()
+        binding.lunitidalIntervalMethod.isVisible = estimateAlgorithm == TideEstimator.LunitidalInterval
+        binding.lunitidalIntervalLabel.isVisible = estimateAlgorithm == TideEstimator.LunitidalInterval
+        binding.lunitidalIntervalDuration.isVisible = estimateAlgorithm == TideEstimator.LunitidalInterval && !lunitidalIntervalAuto
     }
 
 

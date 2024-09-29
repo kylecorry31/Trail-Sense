@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
 import com.kylecorry.trail_sense.tools.packs.domain.ItemCategory
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
+import java.time.Duration
 import java.time.Instant
 
 class Converters {
@@ -53,6 +54,16 @@ class Converters {
     @TypeConverter
     fun toInstant(value: Long): Instant {
         return Instant.ofEpochMilli(value)
+    }
+
+    @TypeConverter
+    fun fromDuration(value: Duration): Long {
+        return value.toMillis()
+    }
+
+    @TypeConverter
+    fun toDuration(value: Long): Duration {
+        return Duration.ofMillis(value)
     }
 
     @TypeConverter

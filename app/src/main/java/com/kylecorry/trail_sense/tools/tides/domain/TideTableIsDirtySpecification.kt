@@ -18,7 +18,8 @@ class TideTableIsDirtySpecification(private val original: TideTable?) :
                 original.location == value.location &&
                 original.isSemidiurnal == value.isSemidiurnal &&
                 original.estimator == value.estimator &&
-                tidesEqual(original.tides, value.tides))
+                tidesEqual(original.tides, value.tides) &&
+                original.lunitidalInterval == value.lunitidalInterval)
     }
 
     private fun tidesEqual(original: List<Tide>, updated: List<Tide>): Boolean {

@@ -6,6 +6,7 @@ import com.kylecorry.sol.science.oceanography.TideConstituent
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.data.Identifiable
 import com.kylecorry.trail_sense.tools.tides.domain.waterlevel.TideEstimator
+import java.time.Duration
 
 data class TideTable(
     override val id: Long,
@@ -15,7 +16,8 @@ data class TideTable(
     val isSemidiurnal: Boolean = true,
     val isVisible: Boolean = true,
     val estimator: TideEstimator = TideEstimator.Clock,
-    val harmonics: List<TidalHarmonic> = listOf()
+    val harmonics: List<TidalHarmonic> = listOf(),
+    val lunitidalInterval: Duration? = null
 ) : Identifiable {
 
     val principalFrequency: Float
