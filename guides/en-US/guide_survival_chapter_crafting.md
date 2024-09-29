@@ -73,9 +73,6 @@ Break off a shard of the flint/chert/obsidian by hitting the edge with another r
 1. Magnetize the needle by stroking it with the knife in one direction (to avoid dulling the blade, use the back of the knife). Stroke at least 50 times.
 2. Place the needle on the leaf/cap and float it in water. The needle will slowly align to the north-south axis. Ensure there are no currents or wind that could affect the needle.
 
-## Torches
-TODO: Add content
-
 ## Fishhooks
 - **Wooden hooks**: Cut a piece of hardwood, put a notch in one end and secure a sharp object into the notch using cordage.
 - **Gorge hooks**: Carve a piece of wood or bone into the shape shown in the picture below. Tie a line to the middle of the hook and place into bait. When the fish swallows the bait, the hook will lodge in its throat - you do not need to pull the line to set the hook.
@@ -84,7 +81,15 @@ TODO: Add content
 ![](file:///android_asset/survival_guide/47.webp)
 
 ## Tongs
-TODO: Add content
+
+**Resources**
+- Green wood
+
+**Instructions**
+1. Cut a length of green wood.
+2. Split the wood down the middle to create a flat surface.
+3. Optionally, carve a small notch in the center of the stick to allow it to bend more easily.
+4. Bend the wood in half to create tongs.
 
 ## Bowls
 Bowls can be used for cooking, eating, and storing food.
