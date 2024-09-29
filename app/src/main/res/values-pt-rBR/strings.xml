@@ -1221,4 +1221,5 @@
     <string name="chapter_number">Capítulo %d</string>
     <string name="overview">Resumo</string>
     <string name="survival_guide_disclaimer">Como acontece com todas as ferramentas do Trail Sense, este guia tem o objetivo de fornecer informações gerais e não deve ser considerado um substituto para treinamento ou experiência profissional. Ele serve apenas para fins educacionais. Os autores não se responsabilizam por quaisquer acidentes, lesões ou outros danos que possam resultar do uso dessas informações. Sempre use o bom senso e a cautela ao ar livre.</string>
+    <string name="lunitidal_interval_utc">Intervalo lunar (GMT/UTC)</string>
 </resources>
