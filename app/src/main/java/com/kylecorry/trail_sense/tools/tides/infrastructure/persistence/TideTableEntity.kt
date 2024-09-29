@@ -21,7 +21,8 @@ data class TideTableEntity(
     @ColumnInfo(name = "isSemidiurnal") val isSemidiurnal: Boolean,
     @ColumnInfo(name = "isVisible") val isVisible: Boolean,
     @ColumnInfo(name = "estimateType") val estimateType: Long,
-    @ColumnInfo(name = "lunitidalInterval") val lunitidalInterval: Duration? = null
+    @ColumnInfo(name = "lunitidalInterval") val lunitidalInterval: Duration? = null,
+    @ColumnInfo(name = "lunitidalIntervalIsUtc") val lunitidalIntervalIsUtc: Boolean = true
 ) : Identifiable {
 
     fun toTable(tides: List<Tide>, harmonics: List<TidalHarmonic> = emptyList()): TideTable {
@@ -39,7 +40,8 @@ data class TideTableEntity(
             isVisible,
             TideEstimator.entries.withId(estimateType) ?: TideEstimator.Clock,
             harmonics,
-            lunitidalInterval
+            lunitidalInterval,
+            lunitidalIntervalIsUtc
         )
     }
 
@@ -53,7 +55,8 @@ data class TideTableEntity(
                 table.isSemidiurnal,
                 table.isVisible,
                 table.estimator.id,
-                table.lunitidalInterval
+                table.lunitidalInterval,
+                table.lunitidalIntervalIsUtc
             )
         }
     }

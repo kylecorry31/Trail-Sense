@@ -169,15 +169,16 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
     }
 
     private fun getLunitidalCalculator(): IWaterLevelCalculator? {
-        if (table.estimator != TideEstimator.LunitidalInterval || !table.isSemidiurnal){
+        if (table.estimator != TideEstimator.LunitidalInterval || !table.isSemidiurnal) {
             return null
         }
 
         // If the lunitidal interval is specified, use it
-        if (table.lunitidalInterval != null){
+        if (table.lunitidalInterval != null) {
             return LunitidalWaterLevelCalculator(
                 table.lunitidalInterval,
-                Coordinate.zero,
+                if (table.lunitidalIntervalIsUtc) Coordinate.zero else table.location
+                    ?: Coordinate.zero,
                 null,
                 range
             )

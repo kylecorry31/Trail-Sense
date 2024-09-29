@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import com.google.android.material.textfield.TextInputLayout
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.sense.location.IGPS
@@ -51,11 +52,23 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
         }
     private var _coordinate: Coordinate? = null
 
+    var required: Boolean = false
+        set(value) {
+            field = value
+            if (value) {
+                locationEditHolder.hint =
+                    context.getString(R.string.field_required, context.getString(R.string.location))
+            } else {
+                locationEditHolder.hint = context.getString(R.string.location)
+            }
+        }
+
     private var changeListener: ((coordinate: Coordinate?) -> Unit)? = null
     private var beaconListener: ((beacon: Beacon) -> Unit)? = null
     private var autofillListener: (() -> Unit)? = null
 
     private lateinit var locationEdit: EditText
+    private lateinit var locationEditHolder: TextInputLayout
     private lateinit var gpsBtn: ImageButton
     private lateinit var beaconBtn: ImageButton
     private lateinit var helpBtn: ImageButton
@@ -70,6 +83,7 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
             helpBtn = findViewById(R.id.coordinate_input_help_btn)
             gpsBtn = findViewById(R.id.gps_btn)
             beaconBtn = findViewById(R.id.beacon_btn)
+            locationEditHolder = findViewById(R.id.location_edit_holder)
 
             CustomUiUtils.setButtonState(gpsBtn, true)
             CustomUiUtils.setButtonState(beaconBtn, true)

@@ -1462,6 +1462,9 @@
     <string name="estimate_method">Estimate method</string>
     <string name="tide_clock">Tide clock</string>
     <string name="lunitidal_interval">Lunitidal interval</string>
+    <string name="lunitidal_interval_auto">Lunitidal interval (auto)</string>
+    <string name="lunitidal_interval_local">Lunitidal interval (local)</string>
+    <string name="lunitidal_interval_utc">Lunitidal interval (UTC/Greenwich)</string>
     <string name="harmonic">Harmonic</string>
     <string name="survival_guide">Survival Guide</string>
     <string name="water">Water</string>
@@ -1470,5 +1473,5 @@
     <string name="overview">Overview</string>
     <string name="crafting">Crafting</string>
     <string name="survival_guide_disclaimer">As with all tools in Trail Sense, this guide is meant to provide general information and should not be considered a substitute for professional training or experience. This is for educational purposes only. The authors are not responsible for any accidents, injuries, or other damage that may result from the use of this information. Always exercise common sense and caution when outdoors.</string>
-    <string name="lunitidal_interval_utc">Lunitidal interval (Greenwich/UTC)</string>
+    <string name="field_required">%s (required)</string>
 </resources>

@@ -49,7 +49,7 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.Pressu
 @Suppress("LocalVariableName")
 @Database(
     entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class],
-    version = 36,
+    version = 37,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -323,6 +323,12 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
+            val MIGRATION_36_37 = object : Migration(36, 37) {
+                override fun migrate(database: SupportSQLiteDatabase) {
+                    database.execSQL("ALTER TABLE `tide_tables` ADD COLUMN `lunitidalIntervalIsUtc` INTEGER NOT NULL DEFAULT 1")
+                }
+            }
+
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
                 .addMigrations(
                     MIGRATION_1_2,
@@ -359,7 +365,8 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_32_33,
                     MIGRATION_33_34,
                     MIGRATION_34_35,
-                    MIGRATION_35_36
+                    MIGRATION_35_36,
+                    MIGRATION_36_37
                 )
                 // TODO: Temporary for the android tests, will remove once AppDatabase is injected with hilt
                 .allowMainThreadQueries()
