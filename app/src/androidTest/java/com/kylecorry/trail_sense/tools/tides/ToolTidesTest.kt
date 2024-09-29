@@ -85,14 +85,16 @@ class ToolTidesTest {
         // Select lunitidal interval
         view(R.id.estimate_algorithm_spinner).click()
         waitFor {
-            viewWithText(R.string.lunitidal_interval).click()
+            viewWithText(R.string.lunitidal_interval_auto).click()
             viewWithText(android.R.string.ok).click()
         }
 
         // Verify the fields are set
         waitFor {
-            view(R.id.estimate_algorithm_spinner).hasText { it.contains(getString(R.string.lunitidal_interval)) }
+            view(R.id.estimate_algorithm_spinner).hasText { it.contains(getString(R.string.lunitidal_interval_auto)) }
         }
+
+        // TODO: Manual lunitidal interval
 
         // Save
         toolbarButton(R.id.create_tide_title, Side.Right).click()
@@ -126,7 +128,7 @@ class ToolTidesTest {
         view(R.id.estimate_algorithm_spinner).click()
         waitFor {
             viewWithText(R.string.tide_clock).isChecked()
-            viewWithText(R.string.lunitidal_interval)
+            viewWithText(R.string.lunitidal_interval_auto)
             viewWithText(android.R.string.ok).click()
         }
 
