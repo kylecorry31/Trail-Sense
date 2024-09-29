@@ -17,3 +17,30 @@ An offline maps application. Prior to going on a hike, download the maps you nee
 An offline maps application. Prior to going on a hike, download the maps you need. From Trail Sense, you can also open a beacon with this app by selecting the "Maps" option on the beacon select screen. This app is free via F-Droid.
 
 [Download](market://details?id=net.osmand.plus)
+
+## PlantNet
+
+This app can help identify plants through image recognition. After taking a photo it presents a list of likely species with images, descriptions, and confidence. As with all image recognition apps, it is not always accurate.
+
+[Download](market://details?id=org.plantnet)
+
+## iNaturalist
+
+This app is a social network for naturalists. You can use it to record your observations of plants and animals, share them with others, and discuss your findings. It is also useful to obtaining species identification, either from another person or through image recognition.
+
+[Download](market://details?id=org.inaturalist.android)
+
+## Seek by iNaturalist
+
+This app can help identify plants and animals through image recognition. After taking a photo it presents the most likely species with images and descriptions. As with all image recognition apps, it is not always accurate.
+
+It does work offline to get a species name, but you will need an internet connection to get more information.
+
+[Download](market://details?id=org.inaturalist.seek)
+
+## Shroomify
+
+This app can help you identify mushrooms by having you fill out a questionnaire about the mushroom's characteristics or by viewing images of common mushrooms in your area. Be sure to select the correct region.
+
+[Download](market://details?id=com.mushroom.shroomify)
+
