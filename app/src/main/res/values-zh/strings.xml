@@ -1183,4 +1183,5 @@
     <string name="crafting">手工</string>
     <string name="water">水</string>
     <string name="shelter_and_clothing">帐篷和衣服</string>
+    <string name="survival_guide_disclaimer">和 Trail Sense 中的所有工具类似，此指南意在提供常规信息，不应被视为专业训练或经验的替代。此指南仅用作教育目的。作者不为任何使用这些信息可能导致的任何事故、受伤、或其他损害负责。在户外时，应始终运用常识并谨慎行事。</string>
 </resources>
