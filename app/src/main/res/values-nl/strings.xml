@@ -1197,4 +1197,9 @@
     <string name="crafting">Handwerk</string>
     <string name="shelter_and_clothing">Schuilplaats en kleding</string>
     <string name="chapter_number">Hoofdstuk %d</string>
+    <string name="lunitidal_interval_utc">Lunaire getijdeninterval (UTC/Greenwich)</string>
+    <string name="lunitidal_interval_auto">Lunaire getijdeninterval (auto)</string>
+    <string name="lunitidal_interval_local">Lunaire getijdeninterval (lokaal)</string>
+    <string name="field_required">%s (vereist)</string>
+    <string name="survival_guide_disclaimer">Zoals met alle hulpmiddelen in Trail Sense, is deze gids bedoeld om algemene informatie te bieden en mag deze niet worden beschouwd als een vervanging voor professionele training of ervaring. Dit is alleen voor educatieve doeleinden. De auteurs zijn niet verantwoordelijk voor ongevallen, verwondingen of andere schade die kan voortvloeien uit het gebruik van deze informatie. Gebruik altijd gezond verstand en wees voorzichtig wanneer je buiten bent.</string>
 </resources>
