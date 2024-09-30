@@ -11,6 +11,7 @@ import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTideListBinding
 import com.kylecorry.trail_sense.shared.FormatService
@@ -23,6 +24,9 @@ import com.kylecorry.trail_sense.tools.tides.domain.commands.ToggleTideTableVisi
 import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTableRepo
 import com.kylecorry.trail_sense.tools.tides.ui.mappers.TideTableAction
 import com.kylecorry.trail_sense.tools.tides.ui.mappers.TideTableListItemMapper
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Semaphore
 
 class TideListFragment : BoundFragment<FragmentTideListBinding>() {
 
@@ -31,8 +35,17 @@ class TideListFragment : BoundFragment<FragmentTideListBinding>() {
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
-    private val mapper by lazy { TideTableListItemMapper(requireContext(), this::onTideTableAction) }
+    private val mapper by lazy {
+        TideTableListItemMapper(
+            requireContext(),
+            this::onTideTableAction
+        )
+    }
     private val tideTypeCommand by lazy { CurrentTideTypeCommand(TideService()) }
+
+    private val tideLock = Any()
+    private val semaphore = Semaphore(4)
+    private var tides by state(emptyList<Pair<TideTable, TideType?>>())
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -72,8 +85,8 @@ class TideListFragment : BoundFragment<FragmentTideListBinding>() {
         }
     }
 
-    private fun onTideTableAction(tide: TideTable, action: TideTableAction){
-        when(action){
+    private fun onTideTableAction(tide: TideTable, action: TideTableAction) {
+        when (action) {
             TideTableAction.Select -> selectTide(tide)
             TideTableAction.Edit -> editTide(tide)
             TideTableAction.Delete -> deleteTide(tide)
@@ -81,7 +94,7 @@ class TideListFragment : BoundFragment<FragmentTideListBinding>() {
         }
     }
 
-    private fun toggleVisibility(tide: TideTable){
+    private fun toggleVisibility(tide: TideTable) {
         inBackground {
             ToggleTideTableVisibilityCommand(requireContext()).execute(tide)
             refreshTides()
@@ -113,22 +126,41 @@ class TideListFragment : BoundFragment<FragmentTideListBinding>() {
 
     private fun refreshTides() {
         inBackground {
-            val tides = onIO {
-                tideRepo.getTideTables().map {
-                    it to tideTypeCommand.execute(it)
-                }
-            }
+            tides = tideRepo.getTideTables().sortedBy { tide ->
+                tide.location?.distanceTo(gps.location) ?: Float.POSITIVE_INFINITY
+            }.map { it to (null as TideType?) }
 
-            onMain {
-                if (isBound) {
-                    // TODO: Extract sort strategy
-                    val sorted = tides.sortedBy { tide ->
-                        tide.first.location?.distanceTo(gps.location) ?: Float.POSITIVE_INFINITY
+            // Update the tide types in parallel and update each time one is done
+            val jobs = mutableListOf<Job>()
+            for (i in tides.indices) {
+                val tide = tides[i].first
+                jobs.add(
+                    launch {
+                        // TODO: Extract the parallel runner
+                        semaphore.acquire()
+                        try {
+                            val type = tideTypeCommand.execute(tide)
+                            synchronized(tideLock) {
+                                val t = tides.toMutableList()
+                                t[i] = tide to type
+                                tides = t
+                            }
+                        } finally {
+                            semaphore.release()
+                        }
                     }
-
-                    binding.tideList.setItems(sorted, mapper)
-                }
+                )
             }
+
+            jobs.forEach { it.join() }
+
+        }
+    }
+
+    override fun onUpdate() {
+        super.onUpdate()
+        effect("tides", tides, lifecycleHookTrigger.onResume()) {
+            binding.tideList.setItems(tides, mapper)
         }
     }
 
