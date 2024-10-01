@@ -1198,5 +1198,8 @@
     <string name="shelter_and_clothing">Barınma ve giyim</string>
     <string name="chapter_number">Bölüm %d</string>
     <string name="survival_guide_disclaimer">Trail Sense\'teki tüm araçlarda olduğu gibi, bu kılavuz da genel bilgi sağlama amaçlıdır ve profesyonel eğitim veya deneyimin yerine geçmemelidir. Bu kılavuz yalnızca eğitim amaçlıdır. Yazarlar, bu bilgilerin kullanımından kaynaklanabilecek herhangi bir kaza, yaralanma veya diğer hasarlardan sorumlu değildir. Dışarıdayken her zaman sağduyulu ve dikkatli olun.</string>
-    <string name="lunitidal_interval_utc">Ay gelgit aralığı (Greenwich/UTC)</string>
+    <string name="lunitidal_interval_utc">Ay gelgit aralığı (UTC/Greenwich)</string>
+    <string name="lunitidal_interval_auto">Ay gelgit aralığı (otomatik)</string>
+    <string name="lunitidal_interval_local">Ay gelgit aralığı (yerel)</string>
+    <string name="field_required">%s (gerekli)</string>
 </resources>
