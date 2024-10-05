@@ -105,8 +105,6 @@ Bowls can be used for cooking, eating, and storing food.
 4. Scrape out the charred wood with a stick or rock.
 5. Repeat the process until you have a bowl.
 
-TODO: Image
-
 ## Charcoal
 Charcoal is made by burning wood in a low-oxygen environment. It can be used for filtering water, making pitch, medicine, and as fuel for fires. You can grind charcoal into powder by placing it in a container and crushing it with a stick or rock.
 
@@ -169,14 +167,14 @@ Any fibrous material can be used to make cordage. Some examples include:
 - Bark or palm fiber
 
 **Instructions**
-1. Gather the fibers into loosely held bundles of even thickness.
-2. Twist the top bundle clockwise.
-3. Twist the two bundles together counterclockwise.
-4. Repeat the process until you have a full strand. If a material is running out, add more material to it and twist it in.
+1. Gather the fibers into a loose bundle.
+2. Hold the bundle near the center and twist one side clockwise until a kink forms.
+3. Fold the bundle in half at the kink.
+4. Twist the top half clockwise.
+5. Twist the two halves together counterclockwise.
+6. Repeat the process until you have a full strand. If a material is running out, add more material to it and twist it in.
 
 ![](file:///android_asset/survival_guide/139.webp)
-
-TODO: Improve this section and maybe put a custom graphic because this one is not very good.
 
 ### Rope
 Rope is made by braiding multiple strands of twine together. It is stronger than twine and can be used for heavier tasks.
@@ -292,7 +290,5 @@ Used for lashing two or more poles in a series.
 
 ### Whipping
 Used to prevent the end of a rope from fraying or for making a more comfortable handle on a tool.
-
-TODO: Better image
 
 ![](file:///android_asset/survival_guide/143.webp)
