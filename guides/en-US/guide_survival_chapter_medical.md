@@ -317,17 +317,46 @@ Do not attempt to remove a fishhook if it is embedded in the eye.
 - Use a barbless hook if possible (these don't work as well when fishing).
 
 ## Fractures
-TODO: Add content
+A fracture is a broken bone. A fracture can be closed (bone is broken but skin is intact) or open (bone is broken and protruding from the skin).
 
 ### Symptoms
+- Pain.
+- Swelling.
+- Bruising.
+- Deformity.
+- Loss of function.
+- Inability to bear weight.
+- Bone protruding from the skin.
 
 ### Treatment
+If the bone is out of place and you will not be able to receive medical attention within several hours, you may need to set the bone. Otherwise, splint the bone in place and seek medical attention.
+
+**Setting a bone**
+
+1. Irrigate and clean the wound if the bone is protruding.
+2. Grab the limb below the fracture.
+3. Pull the limb to straighten the bone. It may pop into place and pain may decrease.
+4. Splint the bone while holding the bone in place.
+5. Cover the open wound with a sterile dressing and bandage.
+
+**Splinting a bone**
+
+1. Remove all jewelry and tight clothing from the area.
+2. Apply padding around the fracture.
+3. Construct a splint using a rigid object (such as a stick, trekking pole, or tent pole). It should extend past the bone break on both sides.
+4. Secure the splint in place with bandages, tape, or cordage. The splint should be tight but not cut off circulation. If splinting a finger, tape it to the finger next to it.
+5. Apply a sling if the fracture is in the arm to help immobilize the limb.
+
 
 ![](file:///android_asset/survival_guide/5.webp)
 
 ![](file:///android_asset/survival_guide/6.webp)
 
 ### Prevention
+- Be cautious when walking on uneven terrain.
+- Wear proper footwear.
+- Do not overexert yourself.
+- Be careful when handling heavy objects.
 
 ## Frostbite
 Frostbite is caused by exposure to cold temperatures, causing the skin and underlying tissues to freeze. This can lead to permanent damage if not treated.
