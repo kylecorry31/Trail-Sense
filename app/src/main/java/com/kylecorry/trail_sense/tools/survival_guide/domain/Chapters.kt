@@ -9,49 +9,46 @@ object Chapters {
         return listOf(
             Chapter(
                 context.getString(R.string.overview),
-                context.getString(R.string.chapter_number, 1),
                 R.raw.guide_survival_chapter_overview,
                 R.drawable.ic_user_guide
             ),
             Chapter(
                 context.getString(R.string.category_medical),
-                context.getString(R.string.chapter_number, 2),
                 R.raw.guide_survival_chapter_medical,
                 R.drawable.ic_category_medical
             ),
             Chapter(
                 context.getString(R.string.water),
-                context.getString(R.string.chapter_number, 3),
                 R.raw.guide_survival_chapter_water,
                 R.drawable.ic_category_water
             ),
             Chapter(
                 context.getString(R.string.category_food),
-                context.getString(R.string.chapter_number, 4),
                 R.raw.guide_survival_chapter_food,
                 R.drawable.ic_category_food
             ),
             Chapter(
                 context.getString(R.string.category_fire),
-                context.getString(R.string.chapter_number, 5),
                 R.raw.guide_survival_chapter_fire,
                 R.drawable.ic_category_fire
             ),
             Chapter(
                 context.getString(R.string.shelter_and_clothing),
-                context.getString(R.string.chapter_number, 6),
                 R.raw.guide_survival_chapter_shelter_and_clothing,
                 R.drawable.ic_category_shelter
             ),
             Chapter(
                 context.getString(R.string.navigation),
-                context.getString(R.string.chapter_number, 7),
                 R.raw.guide_survival_chapter_navigation,
                 R.drawable.ic_category_navigation
             ),
             Chapter(
+                context.getString(R.string.weather),
+                R.raw.guide_survival_chapter_weather,
+                R.drawable.cloud
+            ),
+            Chapter(
                 context.getString(R.string.crafting),
-                context.getString(R.string.chapter_number, 8),
                 R.raw.guide_survival_chapter_crafting,
                 R.drawable.ic_axe
             ),

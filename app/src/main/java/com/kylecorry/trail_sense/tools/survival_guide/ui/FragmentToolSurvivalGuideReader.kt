@@ -43,7 +43,6 @@ class FragmentToolSurvivalGuideReader : BoundFragment<FragmentSurvivalGuideBindi
         val chapters = Chapters.getChapters(requireContext())
         val chapter = chapters.firstOrNull { it.resource == chapterResourceId } ?: return
         binding.guideName.title.text = chapter.title
-        binding.guideName.subtitle.text = chapter.chapter
         inBackground {
             val res = chapterResourceId ?: return@inBackground
             val content = onIO {
@@ -74,7 +73,7 @@ class FragmentToolSurvivalGuideReader : BoundFragment<FragmentSurvivalGuideBindi
                         printer.setScaleMode(ScaleMode.Fit)
                         printer.setOrientation(Orientation.Portrait)
                         val content =
-                            "# ${chapter.chapter}: ${chapter.title}\n" + TextUtils.loadTextFromResources(
+                            "# ${chapter.title}\n" + TextUtils.loadTextFromResources(
                                 requireContext(),
                                 chapterResourceId ?: return@onIO
                             )

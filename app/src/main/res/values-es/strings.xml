@@ -1205,7 +1205,6 @@
     <string name="survival_guide">Guía de supervivencia</string>
     <string name="crafting">Elaboración</string>
     <string name="water">Agua</string>
-    <string name="chapter_number">Capítulo %d</string>
     <string name="overview">Resumen</string>
     <string name="survival_guide_disclaimer">Al igual que con todas las herramientas de Trail Sense, esta guía tiene como objetivo brindar información general y no debe considerarse un sustituto de la capacitación o la experiencia profesional. Se ofrece únicamente con fines educativos. Los autores no son responsables de ningún accidente, lesión u otro daño que pueda resultar del uso de esta información. Siempre ejerza el sentido común y la precaución cuando esté al aire libre.</string>
     <string name="shelter_and_clothing">Refugio y ropa</string>

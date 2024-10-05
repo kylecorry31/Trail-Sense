@@ -1034,7 +1034,6 @@
     <string name="return_time">幾點鐘要返歸</string>
     <string name="turn_back_notification_title">夠鐘要返歸喇</string>
     <string name="turn_back_alerts">折返警示</string>
-    <string name="chapter_number">第 %d 章</string>
     <string name="duration_of_charge">集結幾耐</string>
     <string name="pref_sunrise_alert_time_title">日出警示時間</string>
     <string name="turn_back_instructions">最遲 %1$s 一個屈尾十折返 (仲有 %2$s) 就趕得切 %3$s 返歸</string>

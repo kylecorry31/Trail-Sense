@@ -25,7 +25,6 @@ class FragmentToolSurvivalGuideList : BoundFragment<FragmentSurvivalGuideChapter
             return ListItem(
                 value.resource.toLong(),
                 value.title,
-                value.chapter,
                 icon = ResourceListIcon(
                     value.icon,
                     Resources.androidTextColorSecondary(requireContext())
