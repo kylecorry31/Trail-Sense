@@ -1219,4 +1219,8 @@
     <string name="overview">Přehled</string>
     <string name="chapter_number">Kapitola %d</string>
     <string name="survival_guide_disclaimer">Stejně jako u všech nástrojů v aplikaci Trail Sense je i tato příručka určena k poskytování obecných informací a neměla by být považována za náhradu odborného školení nebo zkušeností. Slouží pouze pro vzdělávací účely. Autoři nenesou odpovědnost za případné nehody, zranění nebo jiné škody, které mohou vzniknout v důsledku použití těchto informací. Při práci venku vždy dbejte zdravého rozumu a opatrnosti.</string>
+    <string name="lunitidal_interval_utc">Lunitidální interval (UTC/Greenwich)</string>
+    <string name="lunitidal_interval_auto">Lunitidální interval (automaticky)</string>
+    <string name="lunitidal_interval_local">Lunitidální interval (místní)</string>
+    <string name="field_required">%s (vyžadováno)</string>
 </resources>
