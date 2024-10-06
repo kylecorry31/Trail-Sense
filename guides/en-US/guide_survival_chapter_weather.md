@@ -28,6 +28,9 @@ Once you have mastered these skills, you should learn how to do the following:
 - Predict tides
 
 ## Weather
+Weather conditions can change rapidly and significantly impact your outdoor activities.
+
+In mountainous regions, take extra precautions when above the treeline, as weather can be more severe and you are more exposed to the elements.
 
 ### Precipitation
 You can generally continue outdoor activities in light precipitation. However, if it starts precipitating heavily, seek shelter. Be aware of the risk of hypothermia, and take steps to stay warm and dry.
@@ -40,6 +43,8 @@ Blizzards can lead to whiteout conditions, severely reducing visibility. If caug
 In cold weather, dress in layers and wear a hat and gloves to prevent heat loss. Stay dry, as wet clothing can cause you to lose body heat more quickly.
 
 In hot weather, stay hydrated and take breaks in the shade. Wear sunscreen and sun-protective clothing to protect yourself from sun exposure. High humidity can make it feel hotter and make cooling off more difficult.
+
+Temperature decreases by about 3.5°F (2°C) for every 1,000 feet (305 meters) of elevation gain.
 
 ### Wind
 In cold conditions, wind can make it feel even colder, increasing the risk of hypothermia and frostbite. Dress in layers and wear a hat and gloves to protect yourself from the wind.
