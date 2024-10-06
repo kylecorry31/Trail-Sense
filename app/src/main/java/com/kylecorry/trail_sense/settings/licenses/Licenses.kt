@@ -262,6 +262,9 @@ The images in the survival guide are from the following sources:
 - https://commons.wikimedia.org/wiki/File:Whip_stitch.jpg, CC SA 3.0
 
 - https://commons.wikimedia.org/wiki/File:Kopiva.JPG, CC SA 3.0
+
+- https://oceanservice.noaa.gov/education/tutorial_tides/tides07_cycles.html#1, public domain
+
                     """.trimIndent()
         }
     )

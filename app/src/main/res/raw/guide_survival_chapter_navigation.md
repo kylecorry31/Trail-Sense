@@ -178,8 +178,6 @@ Typical map colors include:
 
 ![](file:///android_asset/survival_guide/90.webp)
 
-- **Time until sunset**: You can estimate the time until sunset by holding your hand horizontally with fingers together and counting the number of finger widths between the sun and the horizon. Each finger width is roughly 15 minutes.
-
 ### Stars
 
 - **Northern Hemisphere**: Identify Polaris (the North Star) using the Big Dipper and Cassiopeia as reference points. Polaris is located at the end of the Little Dipper’s handle.
