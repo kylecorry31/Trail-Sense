@@ -45,12 +45,14 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 - [Open Source Credits](#open-source-credits)
 - [License](#license)
 
-## Feature Roadmap (2024)
+## Feature Roadmap (2024-2025)
 The feature roadmap is a tentative outline of the major features that are planned to be completed in the next year. Smaller features may end up being implemented in between.
 - [x] Augmented reality
 - [x] Customization
 - [ ] Stability / performance
+- [ ] Survival guide
 - [ ] Harmonic tides
+- [ ] Improved photo maps resolution
 - [ ] Experiment with the first plugin (Comms)
 
 ## Goals
