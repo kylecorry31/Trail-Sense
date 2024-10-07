@@ -186,15 +186,30 @@ See the section on objects in the eye.
 You can make an improvised bug repellent by applying mud to your skin or using the smoke from a fire.
 
 ## Bleeding
-TODO: Add content
 
 ### Treatment
 
+**Scrapes and small cuts**
+1. Clean the wound with water.
+2. Optionally, apply antibiotic ointment.
+3. Apply a bandage.
+
+**Deeper cuts**
+1. Apply pressure to the wound with a clean cloth or bandage. You may need to apply pressure for a while, about 10 to 20 minutes.
+2. Clean the wound and irrigate it with water.
+3. Bandage the wound with a sterile dressing.
+4. Place new bandages over the old ones if they become soaked with blood.
+5. Raise the wound above the level of the heart.
+6. Seek medical attention if bleeding does not stop or if the wound is deep.
+
+If direct pressure does not work on a limb, you can apply a tourniquet to stop blood flow. This should only be done as a last resort, as it can cause permanent damage to the limb. Only a medical professional should remove a tourniquet.
+
 ![](file:///android_asset/survival_guide/2.webp)
 
-![](file:///android_asset/survival_guide/3.webp)
-
 ### Prevention
+- Use caution when handling sharp objects.
+- Do not cut towards yourself.
+- Watch your footing.
 
 ## Blisters
 
@@ -222,11 +237,44 @@ If the blister is large or painful:
 - Apply adhesive tape or moleskin to prevent blisters.
 
 ## Burns
-TODO: Add content
 
 ### Treatment
 
+**First-degree burns**
+
+This is about the level of a mild sunburn.
+
+1. Soak with cool water for 5 minutes.
+2. Optionally, take pain relievers.
+3. Apply aloe vera gel, calamine lotion, or hydrocortisone cream.
+
+**Second-degree burns**
+
+This is a burn that blisters. These burns can be very painful.
+
+1. Soak with cool water for at least 15 minutes.
+2. Take pain relievers.
+3. Pat the area dry.
+4. Apply a loose bandage.
+
+Do not pop blisters.
+
+**Third-degree burns**
+
+This is a burn that goes through all layers of skin. These burns can be life-threatening. Pain may be minimal due to nerve damage. Second-degree burns are likely also present.
+
+1. Call emergency services.
+2. Soak with cool water.
+3. Remove clothing and jewelry from the area.
+4. Drink water with electrolytes.
+5. Bandage loosely.
+
+
 ### Prevention
+- Use caution around fires.
+- Do not touch hot objects.
+- Wear sunscreen.
+- If your clothes catch on fire, stop, drop to the ground, and roll to extinguish the flames.
 
 ## Choking
 If you are choking and someone is nearby, place your hands on your throat to signal that you are choking.

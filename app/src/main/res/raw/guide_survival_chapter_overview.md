@@ -122,10 +122,10 @@ Proper planning is crucial for a safe and enjoyable hiking experience. Here are 
 Even if you don't have a signal with your carrier, you may still be able to call emergency services. If you can't make a call, try sending a text message. Check your phone periodically to see if you have a signal, but otherwise keep it off or in airplane mode to conserve battery. You may get a better signal by climbing to higher ground or moving to an open area.
 
 ### Whistle
-A whistle is a simple and effective signaling device. Three short blasts are the universal signal for help. You may want to cover your ears when using the whistle at full volume.
+Three short blasts are the universal signal for help. You may want to cover your ears when using the whistle at full volume.
 
 ### Signal mirror
-A signal mirror is a highly effective daytime signaling device, especially in sunny conditions. Hold the mirror with one hand and extend your other arm in front of you with your fingers in a V-shape. Reflect sunlight onto your fingers and slowly move the mirror to direct the reflected light toward potential rescuers or aircraft.
+Hold the mirror with one hand and extend your other arm in front of you with your fingers in a V-shape. Reflect sunlight onto your fingers and slowly move the mirror to direct the reflected light toward potential rescuers or aircraft.
 
 ### Smoke
 Smoke can attract attention during the day. You can create a lot of smoke by burning green vegetation. Be sure to do this safely.
