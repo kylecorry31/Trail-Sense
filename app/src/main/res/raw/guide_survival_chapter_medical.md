@@ -16,6 +16,7 @@ This chapter covers some basic medical knowledge and techniques for common injur
 - Prescription medications, contact lenses, and glasses
 - Pain relievers (aspirin, ibuprofen, acetaminophen)
 - Hand sanitizer (unscented)
+- Epinephrine auto-injector (if you have severe allergies)
 
 **Optional**:
 - Wound closure strips / butterfly bandages
@@ -55,13 +56,45 @@ Once you have mastered these skills, you should learn how to do the following:
 - Perform advanced first aid techniques, such as setting a broken bone or suturing a wound.
 
 ## Allergic reactions
-TODO: Add content
+Allergic reactions can range from contact dermatitis (ex. poison ivy) or bug bites to anaphylaxis, a severe allergic reaction that can be life-threatening.
 
 ### Symptoms
 
+- Rash.
+- Itching.
+- Swelling.
+- Hives.
+- Runny nose.
+- Sneezing.
+- Coughing.
+- Scratchy throat.
+
+**Severe**
+
+- Difficulty breathing.
+- Swelling of the face, lips, or tongue.
+
 ### Treatment
+1. Remove the allergen if possible.
+2. If there is a rash, apply calamine lotion or hydrocortisone cream.
+3. Take antihistamine pills.
+
+**Severe**
+
+Severe allergic reactions that affect breathing or cause swelling of the face, lips, or tongue require immediate medical attention. If you have an epinephrine auto-injector, use it as follows:
+
+1. Remove the safety cap.
+2. Hold the injector with the tip against the thigh, abut halfway between the hip and knee.
+3. Press the injector against the thigh until it clicks.
+4. Hold the injector in place for 10 seconds.
+5. Repeat in 5 to 15 minutes if symptoms persist.
+6. Seek medical attention as soon as possible.
 
 ### Prevention
+- Avoid known allergens.
+- Carry an epinephrine auto-injector if you have severe allergies.
+- Take precautions for bug bites and poisonous plants (see the relevant sections).
+- Let others know about your allergies and where you keep your epinephrine auto-injector.
 
 ## Altitude sickness
 Altitude sickness is caused low oxygen levels at high altitudes.

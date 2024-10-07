@@ -21,6 +21,7 @@ Let someone know your plans before you leave. This way, if you don't return on t
 - Prescription medications, contact lenses, and glasses
 - Pain relievers (aspirin, ibuprofen, acetaminophen)
 - Hand sanitizer
+- Epinephrine auto-injector (if you have severe allergies)
 - Water (enough for the duration of your trip, plus a bit extra)
   - For longer trips, bring a water purification method and plan your route to include water sources.
 - Water containers (ensure you have a container that you can boil water in)
