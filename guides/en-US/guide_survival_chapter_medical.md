@@ -17,6 +17,7 @@ This chapter covers some basic medical knowledge and techniques for common injur
 - Pain relievers (aspirin, ibuprofen, acetaminophen)
 - Hand sanitizer (unscented)
 - Epinephrine auto-injector (if you have severe allergies)
+- Asthma inhaler (if you have asthma)
 
 **Optional**:
 - Wound closure strips / butterfly bandages
@@ -89,6 +90,8 @@ Severe allergic reactions that affect breathing or cause swelling of the face, l
 4. Hold the injector in place for 10 seconds.
 5. Repeat in 5 to 15 minutes if symptoms persist.
 6. Seek medical attention as soon as possible.
+
+If you have asthma and are having an attack, use your inhaler.
 
 ### Prevention
 - Avoid known allergens.
@@ -515,13 +518,45 @@ Headaches can be caused by a variety of factors, such as dehydration, stress, la
 - Do not overexert yourself.
 
 ## Heart problems
-TODO: Add content
+To be on the safe side, if you experience chest pain, seek medical attention as soon as possible.
 
 ### Symptoms
+- Chest pain.
+- Shortness of breath.
+- Pain in the arms, back, neck, jaw, or stomach.
+- Nausea.
+- Lightheadedness.
+- Cold sweat.
 
 ### Treatment
+1. Stop and sit comfortably.
+2. If you are on an as-needed heart medication, take it. Otherwise, take aspirin.
+3. Call emergency services and have help come to you.
+
+If someone else does not have a pulse, perform CPR.
+
+CPR:
+1. Check for responsiveness and pulse.
+2. If there is no pulse, call emergency services, then start CPR.
+3. Place the heel of one hand on the center of the chest.
+4. Place the heel of the other hand on top of the first hand.
+5. Interlock fingers.
+6. Keep your arms straight and your shoulders directly over your hands.
+7. Push hard and fast at least 2 inches (5 centimeters) at a rate of 100 to 120 compressions per minute.
+8. Let the chest rise completely between compressions.
+9. Continue until the patient is responsive, emergency services arrive, or you are too tired to continue.
+
+If you are fully trained in CPR, perform rescue breathing after 30 compressions, otherwise, just perform the compression steps. To do this:
+1. Tilt the head back and lift the chin.
+2. Pinch the nose shut.
+3. Give two breaths, each lasting about 1 second and causing the chest to rise.
+5. Repeat the cycle of 30 compressions and 2 breaths.
 
 ### Prevention
+- Stay hydrated.
+- Do not overexert yourself.
+- Talk to your doctor about your heart health.
+- Seek medical attention if you have any chest pain.
 
 ## Heat exhaustion and heatstroke
 Heat exhaustion and heatstroke are caused by exposure to high temperatures and dehydration.
