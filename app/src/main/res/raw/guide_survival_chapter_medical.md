@@ -202,9 +202,13 @@ Do not salt, burn, or pull the leach off, as this can cause the leach to regurgi
 
 Avoid scratching and apply calamine lotion or hydrocortisone cream to reduce itching. You can use a cloth soaked in cold water or filled with snow/ice to reduce swelling.
 
+If you were bit by a spider that you believe to be venomous, treat as you would a snake bite and seek medical attention.
+
 ***Stings***
 
 Remove any stingers, taking care not to squeeze the venom sac. Treat as you would a bug bite.
+
+If you were stung by a scorpion or insect that you believe to be venomous, treat as you would a snake bite and seek medical attention.
 
 **Bugs in eyes**
 
@@ -224,6 +228,7 @@ You can make an improvised bug repellent by applying mud to your skin or using t
 ## Bleeding
 
 ### Treatment
+Seek medical attention if the wound is deep, bleeding profusely, or shows signs of infection. Infected wounds can be identified by redness, swelling, warmth, and pus.
 
 **Scrapes and small cuts**
 1. Clean the wound with water.
@@ -246,6 +251,10 @@ If direct pressure does not work on a limb, you can apply a tourniquet to stop b
 - Use caution when handling sharp objects.
 - Do not cut towards yourself.
 - Watch your footing.
+- To prevent infection:
+  - Clean wounds
+  - Use antibiotic ointment
+  - Change bandages frequently.
 
 ## Blisters
 
@@ -495,6 +504,7 @@ Gastrointestinal issues can be caused by contaminated food or water.
   - Oak bark, leaves, and acorns. Boil for 2 or more hours. It won't taste good, but it will likely help.
   - Common plantain leaves.
 - Make a solution of a handful of ground charcoal in a cup of water. Drink a couple spoonfuls every few hours.
+  - If you ate something poisonous, drink charcoal and do not induce vomiting.
 
 ### Prevention
 - Boil water before drinking.
@@ -657,24 +667,6 @@ Hyperthermia is caused by exposure to cold temperatures, causing the body to los
 - Keep moving.
 - Keep warm.
 
-## Illness
-TODO: Add content
-
-### Symptoms
-
-### Treatment
-
-### Prevention
-
-## Infection
-TODO: Add content
-
-### Symptoms
-
-### Treatment
-
-### Prevention
-
 ## Objects in the eye
 While in the wilderness it is common to get objects in your eye, such as dirt, sand, bugs, or an eyelash.
 
@@ -719,15 +711,6 @@ While in the wilderness it is common to get objects in your eye, such as dirt, s
    - Visualize a calming place.
    - Meditate.
    - Ensure yourself that you will be okay.
-
-## Poisoning
-TODO: Add content
-
-### Symptoms
-
-### Treatment
-
-### Prevention
 
 ## Poison ivy and contact dermatitis
 Contact dermatitis is caused by contact with poisonous plants, such as poison ivy, poison oak, poison sumac, and stinging nettle.
