@@ -85,7 +85,7 @@ Allergic reactions can range from contact dermatitis (ex. poison ivy) or bug bit
 Severe allergic reactions that affect breathing or cause swelling of the face, lips, or tongue require immediate medical attention. If you have an epinephrine auto-injector, use it as follows:
 
 1. Remove the safety cap.
-2. Hold the injector with the tip against the thigh, abut halfway between the hip and knee.
+2. Hold the injector with the tip against the thigh, about halfway between the hip and knee.
 3. Press the injector against the thigh until it clicks.
 4. Hold the injector in place for 10 seconds.
 5. Repeat in 5 to 15 minutes if symptoms persist.
@@ -100,7 +100,7 @@ If you have asthma and are having an attack, use your inhaler.
 - Let others know about your allergies and where you keep your epinephrine auto-injector.
 
 ## Altitude sickness
-Altitude sickness is caused low oxygen levels at high altitudes.
+Altitude sickness is caused by low oxygen levels at high altitudes.
 
 ### Symptoms
 - Headache.
@@ -132,7 +132,7 @@ Many animals bite when they feel threatened or cornered. Some animals can transm
 3. Cover the wound with a bandage. Pack the wound with gauze if it is deep, but do not suture or tape it closed.
 4. Seek medical attention if the wound is deep, bleeding, or shows signs of infection.
 
-If you were bit by a mammal, seek medical attention as soon as possible. You may need rabies shots.
+If you were bitten by a mammal, seek medical attention as soon as possible. You may need rabies shots.
 
 ### Prevention
 - Do not approach or corner wild animals.
@@ -151,7 +151,7 @@ If you were bit by a mammal, seek medical attention as soon as possible. You may
   - Do not drop your pack, as it can provide protection.
 
 ## Bites: Snakes
-Always be on the lookout for snakes, especially in areas with tall grass, rocks, or logs. Snakes are most active during the day. Most snake bites are not venomous, but if you don't know what kind of snake bit you, treat it as if it is venomous.
+Always be on the lookout for snakes, especially in areas with tall grass, rocks, or logs. Snakes are most active during the day. Most snake bites are not venomous, but if you don't know the type of snake, treat the bite as venomous.
 
 ### Treatment
 1. Rinse the bite area with water.
@@ -185,18 +185,18 @@ Many insects can bite or sting you, causing pain, swelling, and itching. Some in
 
 **Ticks**
 
-Using tweezers if available, grasp the tick where it is attached to the skin and pull straight out with steady, even pressure. Do not twist or jerk the tick. Do not squeeze the tick's body. Treat as you would a bug bite.
+Using tweezers if available, grasp the tick where it is attached to the skin and pull straight out with steady, even pressure. Do not twist or jerk the tick. Do not squeeze the tick's body. Treat the area as you would for a bug bite.
 
-***Leaches***
+***Leeches***
 
-To remove a leach:
+To remove a leech:
 1. Pull it taut (but not too tight).
-2. Slide a fingernail or other flat object between the leach and your skin to detach it.
-3. Flick the leach away before it can reattach.
+2. Slide a fingernail or other flat object between the leech and your skin to detach it.
+3. Flick the leech away before it can reattach.
 4. Clean the wound and apply antibiotic ointment.
 5. Apply a bandage to control bleeding. It is normal for the wound to bleed for a while.
 
-Do not salt, burn, or pull the leach off, as this can cause the leach to regurgitate into the wound.
+Do not salt, burn, or pull the leech off, as this can cause the leech to regurgitate into the wound.
 
 ***Bites***
 
@@ -351,7 +351,7 @@ Cramps are caused by muscle spasms and can be caused by dehydration, overexertio
 - Gently stretch the muscle.
 - Massage the muscle.
 - Apply heat or cold to the muscle.
-- Drink water or an electrolyte solution with salt (sodium chloride) and potassium chloride.
+- Drink water or an electrolyte solution containing sodium and potassium.
 - Eat salty foods.
 - Eat potassium-rich foods (bananas, potatoes, sweet potatoes, spinach, and lentils).
 - Slow down or stop physical activity.
@@ -422,7 +422,7 @@ A fracture is a broken bone. A fracture can be closed (bone is broken but skin i
 - Bone protruding from the skin.
 
 ### Treatment
-If the bone is out of place and you will not be able to receive medical attention within several hours, you may need to set the bone. Otherwise, splint the bone in place and seek medical attention.
+If the bone is out of place and medical attention is unavailable for several hours, you may need to set the bone. Otherwise, splint the bone in place and seek medical attention.
 
 **Setting a bone**
 
@@ -503,7 +503,7 @@ Gastrointestinal issues can be caused by contaminated food or water.
 - Drink a cup of tea every few hours. You can make tea by boiling the following plants:
   - Oak bark, leaves, and acorns. Boil for 2 or more hours. It won't taste good, but it will likely help.
   - Common plantain leaves.
-- Make a solution of a handful of ground charcoal in a cup of water. Drink a couple spoonfuls every few hours.
+- Make a solution of a handful of ground charcoal in a cup of water. Drink a couple of spoonfuls every few hours.
   - If you ate something poisonous, drink charcoal and do not induce vomiting.
 
 ### Prevention
@@ -554,7 +554,7 @@ CPR:
 6. Keep your arms straight and your shoulders directly over your hands.
 7. Push hard and fast at least 2 inches (5 centimeters) at a rate of 100 to 120 compressions per minute.
 8. Let the chest rise completely between compressions.
-9. Continue until the patient is responsive, emergency services arrive, or you are too tired to continue.
+9. Continue until the patient is responsive, emergency services arrive, or you are too exhausted to continue.
 
 If you are fully trained in CPR, perform rescue breathing after 30 compressions, otherwise, just perform the compression steps. To do this:
 1. Tilt the head back and lift the chin.
@@ -641,7 +641,7 @@ Keep clothing clean and dry. You can wash clothes with water and soap, or by boi
 - Do not defecate or urinate near water sources (at least 200 feet / 60 meters away).
 
 ## Hypothermia
-Hyperthermia is caused by exposure to cold temperatures, causing the body to lose heat faster than it can produce it.
+Hypothermia is caused by exposure to cold temperatures, causing the body to lose heat faster than it can produce it.
 
 ### Symptoms
 - Shivering. If shivering stops, it is a sign of severe hypothermia.
@@ -680,7 +680,7 @@ While in the wilderness it is common to get objects in your eye, such as dirt, s
 1. Avoid rubbing the eye.
 2. Using clean water, irrigate the eye by pouring water into the eye.
 3. If the object is still in the eye, use a mirror to find the object and attempt to remove it using a damp cloth or cotton swab. Be very gentle.
-4. If the object is under the upper eyelid, and you have a partner: place the tip of a cotton swab in the middle of the upper eyelid and fold the eyelid over the cotton swab. You can then remove the object using a damp cloth or cotton swab.
+4. If the object is under the upper eyelid and you have a partner: have them place the tip of a cotton swab in the middle of your upper eyelid and gently fold the eyelid over the cotton swab. They can then remove the object using a damp cloth or cotton swab.
 5. After the object is removed, if the eye feels scratchy, place a cold damp cloth over the eye, keep the eye closed and rest, use eye drops, or construct an eye patch using a bandage or cloth.
 6. Seek medical attention if the object is not removed or if symptoms persist.
 
@@ -799,8 +799,9 @@ If you fall through ice, do the following:
 2. Kick your legs to push yourself onto the ice.
 3. Roll away from the hole.
 4. Crawl on your stomach to safety.
-5. Get out of wet clothes and into dry clothes.
-6. Use leaves or dry grass as insulation and warm up near a fire.
+5. Move to a safe, warm location as quickly as possible.
+6. Get out of wet clothes and into dry clothes.
+7. Use leaves or dry grass as insulation and warm up near a fire.
 
 ### Rip currents
 If you are caught in a rip current, swim parallel to the shore until you are out of the current. Then swim back to shore.
