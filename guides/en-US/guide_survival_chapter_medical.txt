@@ -185,9 +185,11 @@ Many insects can bite or sting you, causing pain, swelling, and itching. Some in
 
 **Ticks**
 
-Using tweezers if available, grasp the tick where it is attached to the skin and pull straight out with steady, even pressure. Do not twist or jerk the tick. Do not squeeze the tick's body. Treat the area as you would for a bug bite.
+1. Using tweezers if available, grasp the tick where it is attached to the skin.
+2. Pull straight out with steady, even pressure. Do not twist or jerk the tick. Do not squeeze the tick's body.
+3. Treat the area as you would for a bug bite.
 
-***Leeches***
+**Leeches**
 
 To remove a leech:
 1. Pull it taut (but not too tight).
@@ -198,13 +200,13 @@ To remove a leech:
 
 Do not salt, burn, or pull the leech off, as this can cause the leech to regurgitate into the wound.
 
-***Bites***
+**Bites**
 
 Avoid scratching and apply calamine lotion or hydrocortisone cream to reduce itching. You can use a cloth soaked in cold water or filled with snow/ice to reduce swelling.
 
 If you were bit by a spider that you believe to be venomous, treat as you would a snake bite and seek medical attention.
 
-***Stings***
+**Stings**
 
 Remove any stingers, taking care not to squeeze the venom sac. Treat as you would a bug bite.
 
@@ -252,8 +254,8 @@ If direct pressure does not work on a limb, you can apply a tourniquet to stop b
 - Do not cut towards yourself.
 - Watch your footing.
 - To prevent infection:
-  - Clean wounds
-  - Use antibiotic ointment
+  - Clean wounds.
+  - Use antibiotic ointment.
   - Change bandages frequently.
 
 ## Blisters
@@ -517,9 +519,8 @@ Headaches can be caused by a variety of factors, such as dehydration, stress, la
 
 ### Treatment
 - Take pain relievers (aspirin, ibuprofen, acetaminophen).
-- Drink water.
+- Drink water or an electrolyte solution.
 - Rest.
-- Drink water or an electrolyte solution with salt (sodium chloride) and potassium chloride.
 - Eat salty foods.
 
 ### Prevention
@@ -636,7 +637,7 @@ Keep clothing clean and dry. You can wash clothes with water and soap, or by boi
 ### Bowel movements and urination
 - Dig a hole 6 to 8 inches (15 to 20 centimeters) deep for bowel movements and cover it with dirt.
   - If you do not have a trowel, use a stick to dig the hole.
-- If you do not have toilet paper or a bidet, use non-poisonous leaves, moss, or a smooth rocks to clean yourself.
+- If you do not have toilet paper or a bidet, use non-poisonous leaves, moss, or smooth rocks to clean yourself.
 - Always wash your hands after using the bathroom.
 - Do not defecate or urinate near water sources (at least 200 feet / 60 meters away).
 

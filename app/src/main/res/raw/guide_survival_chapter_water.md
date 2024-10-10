@@ -1,4 +1,4 @@
-Water is crucial for anyone spending time in the wilderness, particularly for hikers who might find themselves isolated. Proper hydration, knowing how to find water, and understanding how to make it safe to drink are essential skills for any hiker.
+This chapter covers how to find and purify water.
 
 ## Be prepared
 ### Gear
@@ -96,13 +96,13 @@ Certain plants can provide water when no open sources are available:
 
 A belowground solar still is a simple device that uses the sun’s heat to draw moisture from the soil or plants, which then condenses on a plastic sheet and can be collected in a container. You can also pour saltwater into the hole to desalinate it.
 
-![](file:///android_asset/survival_guide/16.webp)
-
-1. Dig a bowl-shaped hole in the ground about 3 feet (1 meter) across and 2 feet (0.6 meters) deep.
+1. Dig a bowl-shaped hole in the ground about 3 feet (1 meter) across and 2 feet (0.6 meters) deep. Ensure it is in direct sunlight.
 2. Place a container in the center of the hole. Optionally, place plants/water around the container to increase moisture (do not place them in the container).
 3. Place a plastic sheet over the hole, securing the edges with rocks or soil.
 4. Place a small rock in the center of the sheet, directly over the container.
 5. Wait for the sun to heat the ground and evaporate moisture, which will condense on the plastic and drip into the container.
+
+![](file:///android_asset/survival_guide/16.webp)
 
 **Transpiration bag**
 

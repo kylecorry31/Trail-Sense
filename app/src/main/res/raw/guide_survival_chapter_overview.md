@@ -1,4 +1,4 @@
-For hikers, the goal of survival is returning safely from an unplanned situation, such as getting lost or injured. This guide covers essential survival skills needed for these scenarios. It is not a substitute for professional training or experience and should only be used as a reference.
+This guide covers essential survival skills needed to return safely from a survival situation. It is not a substitute for professional training or experience and should only be used as a reference.
 
 ## Be prepared
 Let someone know your plans before you leave. This way, if you don't return on time, they can get help. Stick to your planned route and avoid taking unnecessary risks.
