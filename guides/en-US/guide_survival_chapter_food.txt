@@ -1,4 +1,4 @@
-Most people can survive for weeks without food, but without adequate nutrition, the body and mind weaken, making it difficult to perform essential tasks.
+This chapter covers how to find and prepare food in a survival situation.
 
 ## Be prepared
 
@@ -68,14 +68,14 @@ The safest method for consuming wild plants is through positive identification. 
 
 Key considerations when choosing plants include:
 
-- Plants in or near contaminated water must be washed and possibly boiled to avoid consuming harmful bacteria or chemicals.
+- Plants in or near contaminated water must be washed and cooked to avoid consuming harmful bacteria or chemicals.
 - Even within the same species, plants can vary in toxicity due to environmental factors.
 - If you are sensitive to allergens like poison ivy, steer clear of similar plants such as mangoes or cashews, which can cause similar reactions.
 - Some plants are more nutritious than others. For example, nuts and seeds are high in calories and fats, while leafy greens are high in vitamins and minerals.
 - Some plants are fine for animals but toxic to humans.
 - Aggregate berries are generally safe. These include raspberries and blackberries.
 - Seaweed washed ashore may be spoiled or decayed.
-- **Avoid the following** unless you are 100% sure of the identification:
+- **Avoid the following**:
   - Mushrooms.
   - Roadside plants.
   - Plants with umbrella-shaped flowers.
@@ -119,7 +119,7 @@ Insects are a good source of protein but need to be gathered in large numbers to
 
 ### Collection
 
-Rotting logs, under rocks, and in grassy fields are good places to find insects.
+Good places to find insects include rotting logs, under rocks, and in grassy fields.
 
 Do not eat the following insects:
 - Biting or stinging insects.
@@ -135,7 +135,6 @@ Common edible insects include:
 - Ants and termites.
 - Locusts, grasshoppers, and crickets.
 - Dragonflies.
-- Bee or wasp larvae.
 - Worms and grubs.
 
 Many flying insects can be attracted to a light source at night, making them easier to catch.
@@ -193,6 +192,8 @@ There are no poisonous freshwater fish, but there are some poisonous saltwater f
 
 **Hooks**
 
+Hooks with barbs are more effective than barbless hooks at keeping fish on the line.
+
 See the Crafting chapter for how to make fishhooks.
 
 **Lines**
@@ -239,10 +240,11 @@ Alternatively, use a funnel fish trap by placing sticks into a V-shape with a re
 
 ### Preparation
 
-1. Remove scales by scraping them off with a knife (tail to head).
-2. Remove entrails by cutting the belly open and pulling them out. You can also cut off the head and tail to make this easier.
-3. Cut into usable pieces or fillet the fish. If it is a small fish, you can also just cook it whole.
-4. Cook the fish.
+1. Kill the fish by hitting it on the head with a club or rock. Use a hard, quick blow. You can then use a knife to cut the gills or pierce the brain to ensure the fish is dead.
+2. Remove scales by scraping them off with a knife (tail to head).
+3. Remove entrails by cutting the belly open and pulling them out. You can also cut off the head and tail to make this easier.
+4. Cut into usable pieces or fillet the fish. If it is a small fish, you can also just cook it whole.
+5. Cook the fish.
 
 ## Other animals
 
