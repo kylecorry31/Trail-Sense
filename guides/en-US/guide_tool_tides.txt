@@ -18,6 +18,11 @@ Before venturing into coastal areas, consult an official tide table for accurate
 
 For the best accuracy, input all tides for each relevant day. Trail Sense will distinguish between entered and estimated tides on the tide chart.
 
+For lunitidal estimations, you can choose between the following:
+- **Auto**: This will automatically calculate the lunitidal interval based on the entered high tides. Requires at least one high tide to be entered.
+- **Local**: Enter the lunitidal interval in hours and minutes for your location. This requires the location to be set, but does not require a tide table.
+- **UTC/Greenwich**: Enter the lunitidal interval in hours and minutes for UTC/Greenwich. This does not require a location or tide table.
+
 ## Viewing a tide table
 By default, the Tides tool displays the closest tide to your location when you open it. To change this, go to Settings > Tides > 'Show closest tide' to toggle between displaying the closest tide and the last tide you viewed.
 
