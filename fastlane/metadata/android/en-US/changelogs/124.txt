@@ -1,0 +1,9 @@
+Survival Guide
+- Add a survival guide
+- Not a replacement for professional advice and resources
+
+Tides
+- Manual lunitidal interval estimation method
+
+Tools
+- When on the tools tab, press the tools icon again to quickly search for a tool
