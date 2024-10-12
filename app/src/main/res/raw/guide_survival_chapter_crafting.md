@@ -1,11 +1,12 @@
+This chapter covers how to craft essential items in a survival situation.
+
 ## Be prepared
 
 ### Gear
 
 **Necessities**:
-- Knife
+- Knife or multi-tool
 - Cordage (paracord)
-- Sewing kit (needle and thread)
 
 **Optional**:
 - Axe
@@ -16,7 +17,6 @@
 
 Start by learning how to do the following:
 - Tie several types of knots.
-- Sew and repair clothing.
 
 Once you have mastered these skills, you should learn how to do the following:
 - Use wood to make tools, containers, and other items.
@@ -59,6 +59,7 @@ If you find a smooth rock, you can use it to sharpen your knife or axe. Preferab
 - A second rock
 
 **Instructions**
+
 Break off a shard of the flint/chert/obsidian by hitting the edge with another rock using a glancing blow. This shard will likely have a sharp edge, if it does not, break off another shard and try again.
 
 ## Compasses

@@ -1,4 +1,4 @@
-Navigating and moving efficiently is crucial for safety, conserving energy, and increasing the chances of successful recovery or reaching your destination. This chapter discusses essential considerations and techniques for land navigation and decision-making in various environments.
+This chapter covers navigation techniques and tools.
 
 ## Be prepared
 
@@ -47,7 +47,6 @@ Plan your route in advance to avoid getting lost and ensure you reach your desti
 
 - Avoid areas prone to avalanches and be cautious when crossing snow-covered slopes.
 - Acclimate to high altitudes to avoid symptoms like headaches, nausea, and fatigue.
-- Protect against wind chill by wearing appropriate clothing and taking shelter when necessary.
 - Use snowshoes or skis for easier travel in snowy conditions. Test ice and snow conditions with a pole or stick before stepping.
 - Avoid walking on frozen bodies of water unless you're certain of the ice thickness.
 
@@ -55,7 +54,7 @@ Plan your route in advance to avoid getting lost and ensure you reach your desti
 
 - Conserve water by traveling during cooler hours and wearing appropriate clothing to reduce sweating.
 - Avoid salt marshes.
-- Prepare for the drastic temperature shifts between day and night. Wear appropriate clothing to protect against sun exposure and cold nights.
+- Prepare for the drastic temperature shifts between day and night.
 - Protect electronic devices from extreme heat and direct sunlight.
 - Stick to the shadows to avoid direct sun exposure and reduce the risk of heat exhaustion.
 - Distance can be deceiving in the desert (paths often look shorter than they are); plan your route carefully and carry enough water and supplies.
@@ -147,7 +146,7 @@ To triangulate your location:
 
 ### Scale
 
-Maps are drawn to scale, allowing you to determine distances between points. A bar on the map indicates the scale. Using a ruler, string, or even your finger, you can measure distances.
+Maps are drawn to scale, allowing you to determine distances between points. A bar on the map indicates the scale. Using a ruler, string, or your finger, you can measure distances.
 
 ![](file:///android_asset/survival_guide/104.webp)
 

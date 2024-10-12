@@ -1,4 +1,4 @@
-A well-constructed shelter can protect you from environmental hazards such as sun, wind, rain, snow, and extreme temperatures. It also boosts morale. This guide focuses on clothing as your primary shelter and details constructing both man-made and natural shelters.
+This chapter covers how to dress appropriately for the environment and build shelters to protect yourself from the elements.
 
 ## Be prepared
 
@@ -12,6 +12,7 @@ A well-constructed shelter can protect you from environmental hazards such as su
 - Boots or sturdy shoes
 - Sunglasses
 - Cordage (paracord)
+- Sewing kit (needle and thread)
 - In colder climates:
   - Insulating layers (jacket, pants, hat, gloves)
   - Waterproof outer layer
@@ -64,7 +65,7 @@ You should plan to wear multiple layers of clothing to protect against the eleme
 
 In cold environments, remove or add layers as needed to prevent sweating while staying warm.
 
-In warm environments, you may only need to wear a base and middle layer. But you should always pack rain gear, such as an emergency poncho, in case of sudden weather changes.
+In warm environments, you may only need to wear a base layer. But you should always pack rain gear, such as an emergency poncho, in case of sudden weather changes.
 
 If you need extra insulation in a pinch, stuff your clothing with dry leaves, grass, or other insulating materials.
 

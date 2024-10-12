@@ -43,6 +43,7 @@ Let someone know your plans before you leave. This way, if you don't return on t
 - Boots or sturdy shoes
 - Sunglasses
 - Cordage (paracord)
+- Sewing kit (needle and thread)
 - In colder climates:
   - Insulating layers (jacket, pants, hat, gloves)
   - Waterproof outer layer
@@ -57,6 +58,7 @@ Let someone know your plans before you leave. This way, if you don't return on t
 - Map
 - Compass
 - Flashlight or headlamp
+- 7-day weather forecast
 
 **Optional**:
 - Signal mirror

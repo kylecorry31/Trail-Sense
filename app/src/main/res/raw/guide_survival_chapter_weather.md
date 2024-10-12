@@ -1,4 +1,4 @@
-Weather is one of the most important factors to consider when planning an outdoor adventure. This chapter will help you understand how to prepare for different types of weather and how to forecast it.
+This chapter covers how to prepare for different types of weather and how to forecast it.
 
 ## Be prepared
 
@@ -6,7 +6,7 @@ Weather is one of the most important factors to consider when planning an outdoo
 
 **Necessities**:
 - 7-day weather forecast
-- Appropriate clothing and shelter for the weather (see Shelter and Clothing guide)
+- Appropriate clothing and shelter for the weather (see the Shelter and Clothing chapter)
 - Poncho
 - Sunglasses
 
@@ -17,15 +17,15 @@ Weather is one of the most important factors to consider when planning an outdoo
 
 ### Knowledge and skills
 Start by learning how to do the following:
-- Read a weather forecast
-- Deal with different types of weather
-- Identify signs of worsening weather
+- Read a weather forecast.
+- Deal with different types of weather.
+- Identify signs of worsening weather.
 
 Once you have mastered these skills, you should learn how to do the following:
-- Identify signs of improving weather
-- Forecast weather based on observations
-- Understand your region's climate
-- Predict tides
+- Identify signs of improving weather.
+- Forecast weather based on observations.
+- Understand your region's climate.
+- Predict tides.
 
 ## Weather
 Weather conditions can change rapidly and significantly impact your outdoor activities.

@@ -1,4 +1,4 @@
-Fire is a crucial survival tool in the wilderness, providing warmth, a means to cook food, a way to signal for help, and much more.
+This chapter covers how to make a fire in a survival situation.
 
 ## Be prepared
 
@@ -26,8 +26,9 @@ Once you have mastered these skills, you should learn how to do the following:
 ## Building a fire
 
 ### Preparing a fire site
-- **Location**: Choose a flat, dry area protected from the wind, close to your shelter and a fuel supply.
-- **Preparation**: Clear the ground to expose soil and remove any flammable materials to prevent unintended spreading. In snowy conditions, use a platform of green logs to build the fire on.
+- Choose a flat, dry area protected from the wind, close to your shelter and a fuel supply.
+- Clear the ground to expose soil and remove any flammable materials to prevent unintended spreading.
+- In snowy conditions, use a platform of green logs to build the fire on.
 
 ### Fire reflector (optional)
 A fire reflector is a wall built behind the fire to reflect heat towards you and protect the fire from wind. Use rocks, logs, or snow to build a barrier. It is easier to build a reflector before starting the fire.
@@ -71,14 +72,14 @@ A fire reflector is a wall built behind the fire to reflect heat towards you and
 ## Starting a fire
 
 - **Matches/lighters**: Always have waterproof matches or a reliable lighter in your kit.
-- **Fire steel**: Durable and works in all weather conditions, producing sparks to ignite your tinder.
-- **Magnifying glass / lens**: Focus sunlight through a lens onto tinder to create a fire. Glasses or even a clear bottle filled with water can work.
+- **Fire steel**: Durable and works in all weather conditions, producing sparks to ignite your tinder. Scrape it quickly with the back of a knife or scraper to create sparks. For best results, pin the fire steel against the tinder and ground and scrape the steel towards the tinder.
+- **Magnifying glass / lens**: Focus sunlight through a lens onto tinder to create a fire. Glasses or even a clear bottle filled with water can work. This will take a while and requires direct sunlight.
 
 ![](file:///android_asset/survival_guide/61.webp)
 
 - **Flint and steel**: Strike a flint rock with a steel tool to create sparks. The tinder must be very dry and fine.
 - **Bow drill**: Create friction by spinning a stick (drill) on a wooden base (fireboard) using a bow to rotate the drill.
-- **Hand drill**: Similar to the bow drill but uses hand power to spin the drill.
+- **Hand drill**: Create friction by spinning a stick (drill) between your hands on a wooden base (fireboard). Apply downward pressure while spinning.
 
 ### Making a bow drill
 - **Socket**: A small, flat stone or piece of hardwood to hold the drill in place. It should have a small depression to fit the top of the drill.
