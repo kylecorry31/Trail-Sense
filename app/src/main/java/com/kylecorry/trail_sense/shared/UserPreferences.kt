@@ -14,6 +14,7 @@ import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.CustomBottomNavigationView
 import com.kylecorry.trail_sense.settings.infrastructure.AltimeterPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.AugmentedRealityPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.CameraPreferences
@@ -367,7 +368,7 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
 
     var bottomNavigationTools: List<Long>
         get() {
-            val maxLength = 4
+            val maxLength = CustomBottomNavigationView.MAX_ITEM_COUNT - 1
             return (cache.getIntArray(context.getString(R.string.pref_bottom_navigation_tools))
                 ?.map { it.toLong() }
                 ?: listOf(

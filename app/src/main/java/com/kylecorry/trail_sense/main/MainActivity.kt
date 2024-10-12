@@ -424,7 +424,7 @@ class MainActivity : AndromedaActivity() {
 
         val tools = Tools.getTools(this)
         binding.bottomNavigation.menu.clear()
-        bottomNavTools.take(4).forEachIndexed { index, toolId ->
+        bottomNavTools.forEachIndexed { index, toolId ->
             val toolItem = tools.firstOrNull { it.id == toolId } ?: return@forEachIndexed
             binding.bottomNavigation.menu.add(
                 Menu.NONE,
@@ -437,7 +437,7 @@ class MainActivity : AndromedaActivity() {
         binding.bottomNavigation.menu.add(
             Menu.NONE,
             R.id.action_experimental_tools,
-            4,
+            bottomNavTools.size,
             getString(R.string.tools)
         ).setIcon(R.drawable.apps)
             .setOnMenuItemClickListener {
