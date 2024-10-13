@@ -19,6 +19,7 @@ class PDFRenderer(
 ) {
 
     private val dpi = Screen.dpi(context)
+    private val lock = Any()
 
     fun getSize(): Size {
         return context.contentResolver.openFileDescriptor(uri, "r")?.use { fd ->
@@ -37,58 +38,60 @@ class PDFRenderer(
         @ColorInt backgroundColor: Int = Color.WHITE,
         srcRegion: RectF? = null
     ): Bitmap? {
-        return context.contentResolver.openFileDescriptor(uri, "r")?.use { fd ->
-            PdfRenderer(fd).use { renderer ->
+        synchronized(lock) {
+            return context.contentResolver.openFileDescriptor(uri, "r")?.use { fd ->
+                PdfRenderer(fd).use { renderer ->
 
-                val pageCount = renderer.pageCount
-                if (page >= pageCount) {
-                    return null
-                }
+                    val pageCount = renderer.pageCount
+                    if (page >= pageCount) {
+                        return null
+                    }
 
-                val pdfPage = renderer.openPage(page)
+                    val pdfPage = renderer.openPage(page)
 
-                val bitmap =
-                    Bitmap.createBitmap(
-                        outputSize.width,
-                        outputSize.height,
-                        Bitmap.Config.ARGB_8888
+                    val bitmap =
+                        Bitmap.createBitmap(
+                            outputSize.width,
+                            outputSize.height,
+                            Bitmap.Config.ARGB_8888
+                        )
+                    if (backgroundColor != Color.TRANSPARENT) {
+                        val canvas = Canvas(bitmap)
+                        canvas.drawColor(backgroundColor)
+                    }
+
+                    val transform = if (srcRegion != null) {
+                        val matrix = Matrix()
+
+                        val dpiScale = inchesToPixels ?: (dpi / 72f)
+
+                        // Scale the PDF to the screen DPI
+                        matrix.postScale(dpiScale, dpiScale)
+
+                        // Translate the PDF to the top left corner
+                        matrix.postTranslate(-srcRegion.left, -srcRegion.top)
+
+                        // Scale the PDF to the output size
+                        matrix.postScale(
+                            outputSize.width.toFloat() / srcRegion.width(),
+                            outputSize.height.toFloat() / srcRegion.height()
+                        )
+
+                        matrix
+                    } else {
+                        null
+                    }
+
+                    pdfPage.render(
+                        bitmap,
+                        null,
+                        transform,
+                        PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY
                     )
-                if (backgroundColor != Color.TRANSPARENT) {
-                    val canvas = Canvas(bitmap)
-                    canvas.drawColor(backgroundColor)
+
+                    pdfPage.close()
+                    bitmap
                 }
-
-                val transform = if (srcRegion != null) {
-                    val matrix = Matrix()
-
-                    val dpiScale = inchesToPixels ?: (dpi / 72f)
-
-                    // Scale the PDF to the screen DPI
-                    matrix.postScale(dpiScale, dpiScale)
-
-                    // Translate the PDF to the top left corner
-                    matrix.postTranslate(-srcRegion.left, -srcRegion.top)
-
-                    // Scale the PDF to the output size
-                    matrix.postScale(
-                        outputSize.width.toFloat() / srcRegion.width(),
-                        outputSize.height.toFloat() / srcRegion.height()
-                    )
-
-                    matrix
-                } else {
-                    null
-                }
-
-                pdfPage.render(
-                    bitmap,
-                    null,
-                    transform,
-                    PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY
-                )
-
-                pdfPage.close()
-                bitmap
             }
         }
     }
