@@ -13,7 +13,6 @@ import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 class PdfImageRegionDecoder(private val bitmapConfig: Bitmap.Config? = null) : ImageRegionDecoder {
 
     private lateinit var renderer: PDFRenderer
-    private val lock = Any()
 
     override fun init(
         context: Context?,
@@ -21,6 +20,7 @@ class PdfImageRegionDecoder(private val bitmapConfig: Bitmap.Config? = null) : I
     ): Point {
         val scale = PhotoMap.PDF_SCALE
         renderer = PDFRenderer(context!!, uri, scale)
+        // TODO: Should the size be scaled?
         val size = renderer.getSize()
         return Point((size.width * scale).toInt(), (size.height * scale).toInt())
     }
@@ -29,13 +29,11 @@ class PdfImageRegionDecoder(private val bitmapConfig: Bitmap.Config? = null) : I
         sRect: Rect,
         sampleSize: Int
     ): Bitmap {
-        synchronized(lock) {
-            val scaledSize = Size(sRect.width() / sampleSize, sRect.height() / sampleSize)
-            return renderer.toBitmap(
-                scaledSize,
-                srcRegion = sRect.toRectF()
-            )!!
-        }
+        val scaledSize = Size(sRect.width() / sampleSize, sRect.height() / sampleSize)
+        return renderer.toBitmap(
+            scaledSize,
+            srcRegion = sRect.toRectF()
+        )!!
     }
 
     override fun isReady(): Boolean {
