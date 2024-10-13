@@ -14,6 +14,7 @@ import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
+import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
@@ -48,6 +49,7 @@ import com.kylecorry.trail_sense.tools.maps.ui.commands.CreatePathCommand
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyAccuracyLayer
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyElevationLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.NavigationLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.PathLayer
@@ -79,6 +81,15 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val myAccuracyLayer = MyAccuracyLayer()
     private val navigationLayer = NavigationLayer()
     private val selectedPointLayer = BeaconLayer()
+    private val myElevationLayer by lazy {
+        MyElevationLayer(
+            formatService,
+            PixelCoordinate(
+                Resources.dp(requireContext(), 16f),
+                -Resources.dp(requireContext(), 16f)
+            )
+        )
+    }
     private var layerManager: ILayerManager? = null
 
     // Paths
@@ -95,6 +106,9 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val throttle = Throttle(20)
 
     private var shouldLockOnMapLoad = false
+
+    // State
+    private var elevation by state(0f)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -125,7 +139,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 ),
                 TideLayerManager(requireContext(), tideLayer),
                 BeaconLayerManager(requireContext(), beaconLayer),
-                NavigationLayerManager(requireContext(), navigationLayer)
+                NavigationLayerManager(requireContext(), navigationLayer),
                 // selectedPointLayer and distanceLayer do not need to be managed
             )
         )
@@ -148,7 +162,8 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 tideLayer,
                 beaconLayer,
                 selectedPointLayer,
-                distanceLayer
+                distanceLayer,
+                myElevationLayer
             )
         )
         distanceLayer.setOutlineColor(Color.WHITE)
@@ -273,6 +288,8 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         if (throttle.isThrottled()) {
             return
         }
+
+        elevation = altimeter.altitude
 
         val beacon = destination ?: return
         binding.navigationSheet.show(
@@ -472,6 +489,15 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     fun recenter() {
         binding.map.recenter()
+    }
+
+    override fun onUpdate() {
+        super.onUpdate()
+
+        effect("elevation", elevation, lifecycleHookTrigger.onResume()) {
+            myElevationLayer.elevation =
+                Distance.meters(elevation).convertTo(prefs.baseDistanceUnits)
+        }
     }
 
     private fun getNextLockMode(mode: MapLockMode): MapLockMode {
