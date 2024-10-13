@@ -12,7 +12,11 @@ import android.util.Size
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.core.system.Screen
 
-class PDFRenderer(private val context: Context, private val uri: Uri) {
+class PDFRenderer(
+    private val context: Context,
+    private val uri: Uri,
+    private val inchesToPixels: Float? = null
+) {
 
     private val dpi = Screen.dpi(context)
 
@@ -57,7 +61,7 @@ class PDFRenderer(private val context: Context, private val uri: Uri) {
                 val transform = if (srcRegion != null) {
                     val matrix = Matrix()
 
-                    val dpiScale = dpi / 72f
+                    val dpiScale = inchesToPixels ?: (dpi / 72f)
 
                     // Scale the PDF to the screen DPI
                     matrix.postScale(dpiScale, dpiScale)

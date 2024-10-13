@@ -118,6 +118,9 @@ class WarpMapFragment : BoundFragment<FragmentMapsPerspectiveBinding>() {
                 } catch (e: IOException) {
                     return@onIO
                 }
+
+                // Delete the pdf file if it exists
+                files.delete(map.pdfFileName)
             }
             mapRepo.addMap(map.copy(calibration = map.calibration.copy(warped = true)))
         }

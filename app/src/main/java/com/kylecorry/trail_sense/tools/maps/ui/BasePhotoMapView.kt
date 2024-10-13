@@ -10,6 +10,7 @@ import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.views.EnhancedImageView
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.ILayer
@@ -24,6 +25,7 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
     private var projection: IMapProjection? = null
     private var fullMetersPerPixel = 1f
     protected val layers = mutableListOf<ILayer>()
+    private val files = FileSubsystem.getInstance(context)
 
     private var shouldRecenter = true
 
@@ -67,8 +69,9 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
     }
 
     override var mapCenter: Coordinate
-        get(){
-            val viewNoRotation = toViewNoRotation(center ?: PointF(width / 2f, height / 2f)) ?: return Coordinate.zero
+        get() {
+            val viewNoRotation = toViewNoRotation(center ?: PointF(width / 2f, height / 2f))
+                ?: return Coordinate.zero
             return toCoordinate(toPixel(viewNoRotation))
         }
         set(value) {
@@ -103,7 +106,7 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
         }
 
     override var mapRotation: Float = 0f
-        protected set(value){
+        protected set(value) {
             field = value
             invalidate()
         }
@@ -168,10 +171,15 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
         mapRotation = SolMath.deltaAngle(rotation, map.baseRotation().toFloat())
         fullMetersPerPixel = map.distancePerPixel()?.meters()?.distance ?: 1f
         projection = map.projection
-        if (keepMapUp){
+        if (keepMapUp) {
             mapAzimuth = 0f
         }
-        setImage(map.filename, rotation)
+
+        if (files.get(map.pdfFileName).exists()) {
+            setImage(map.pdfFileName, rotation)
+        } else {
+            setImage(map.filename, rotation)
+        }
     }
 
     override fun onImageLoaded() {

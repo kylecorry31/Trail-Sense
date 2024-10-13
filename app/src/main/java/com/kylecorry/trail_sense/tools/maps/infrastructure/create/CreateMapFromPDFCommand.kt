@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.maps.infrastructure.create
 import android.content.Context
 import android.net.Uri
 import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.pdf.GeospatialPDFParser
 import com.kylecorry.andromeda.pdf.PDFRenderer
 import com.kylecorry.sol.math.geometry.Size
@@ -17,12 +18,18 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.IMapRepo
 import java.io.IOException
 import java.util.UUID
 
-class CreateMapFromPDFCommand(private val context: Context, private val repo: IMapRepo, private val name: String) {
+class CreateMapFromPDFCommand(
+    private val context: Context,
+    private val repo: IMapRepo,
+    private val name: String,
+    private val shouldCopyAsPdf: Boolean = true
+) {
 
     private val files = FileSubsystem.getInstance(context)
 
     suspend fun execute(uri: Uri): PhotoMap? = onIO {
-        val filename = "maps/" + UUID.randomUUID().toString() + ".webp"
+        val uuid = UUID.randomUUID().toString()
+        val filename = "maps/$uuid.webp"
         val calibrationPoints = mutableListOf<MapCalibrationPoint>()
         var projection = MapProjectionType.CylindricalEquidistant
 
@@ -53,6 +60,12 @@ class CreateMapFromPDFCommand(private val context: Context, private val repo: IM
             files.save(filename, bp, recycleOnSave = true)
         } catch (e: IOException) {
             return@onIO null
+        }
+
+        if (shouldCopyAsPdf) {
+            tryOrNothing {
+                files.copyToLocal(uri, "maps", "$uuid.pdf")
+            }
         }
 
         val imageSize = files.imageSize(filename)

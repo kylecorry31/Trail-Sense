@@ -27,6 +27,9 @@ abstract class BaseMapReduce(
                 mapRepo.addMap(map.copy(filename = newFileName))
             }
         }
+
+        // Delete the pdf file if it exists
+        files.delete(map.pdfFileName)
     }
 
 }

@@ -10,12 +10,16 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+import com.davemorrissey.labs.subscaleview.decoder.SkiaImageDecoder
+import com.davemorrissey.labs.subscaleview.decoder.SkiaImageRegionDecoder
 import com.kylecorry.andromeda.canvas.CanvasDrawer
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.roundNearestAngle
 import com.kylecorry.sol.math.geometry.Size
+import com.kylecorry.trail_sense.shared.canvas.tiles.PdfImageDecoder
+import com.kylecorry.trail_sense.shared.canvas.tiles.PdfImageRegionDecoder
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import kotlin.math.max
 
@@ -156,6 +160,16 @@ open class EnhancedImageView : SubsamplingScaleImageView {
 
         if (lastImage != filename) {
             val uri = files.uri(filename)
+
+            // If the image is a PDF, use the PDF renderer
+            if (filename.lowercase().endsWith(".pdf")) {
+                setBitmapDecoderClass(PdfImageDecoder::class.java)
+                setRegionDecoderClass(PdfImageRegionDecoder::class.java)
+            } else {
+                setBitmapDecoderClass(SkiaImageDecoder::class.java)
+                setRegionDecoderClass(SkiaImageRegionDecoder::class.java)
+            }
+
             setImage(ImageSource.uri(uri))
             lastImage = filename
         }
@@ -212,7 +226,8 @@ open class EnhancedImageView : SubsamplingScaleImageView {
 
     override fun onImageLoaded() {
         super.onImageLoaded()
-        val rotatedImageSize = Size(imageWidth.toFloat(), imageHeight.toFloat()).rotate(rotationOffset)
+        val rotatedImageSize =
+            Size(imageWidth.toFloat(), imageHeight.toFloat()).rotate(rotationOffset)
         val percentIncrease = max(
             rotatedImageSize.width / imageWidth,
             rotatedImageSize.height / imageHeight
@@ -259,8 +274,8 @@ open class EnhancedImageView : SubsamplingScaleImageView {
         val view = sourceToViewCoord(source.x, source.y) ?: return null
 
         // Apply the rotation
-        if (withRotation){
-            transform(view, inPlace = true){
+        if (withRotation) {
+            transform(view, inPlace = true) {
                 postRotate(-imageRotation + rotationOffset, width / 2f, height / 2f)
             }
         }

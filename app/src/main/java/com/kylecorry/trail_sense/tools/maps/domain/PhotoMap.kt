@@ -21,6 +21,8 @@ data class PhotoMap(
     override val isGroup = false
     override val count: Int? = null
 
+    val pdfFileName = filename.replace(".webp", ".pdf")
+
     private val hooks = Hooks()
 
     /**
@@ -91,6 +93,11 @@ data class PhotoMap(
 
             CoordinateBounds.from(listOf(topLeft, bottomLeft, topRight, bottomRight))
         }
+    }
+
+    companion object {
+        // TODO: Make it so the scale only exists in the PDF image region decoder
+        const val PDF_SCALE = 100f
     }
 
 }

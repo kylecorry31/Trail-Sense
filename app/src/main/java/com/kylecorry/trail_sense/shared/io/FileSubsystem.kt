@@ -113,22 +113,27 @@ class FileSubsystem private constructor(private val context: Context) {
         return get(path, create).toUri()
     }
 
-    suspend fun copyToLocal(uri: Uri, directory: String): File? = onIO {
-        val type = context.contentResolver.getType(uri)
-        val extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(type)
-        val filename = "$directory/${UUID.randomUUID()}.$extension"
-        val file = get(filename, true)
-        val stream = stream(uri) ?: return@onIO null
+    suspend fun copyToLocal(uri: Uri, directory: String, destinationName: String? = null): File? =
+        onIO {
+            val filename = if (destinationName != null) {
+                "$directory/$destinationName"
+            } else {
+                val type = context.contentResolver.getType(uri)
+                val extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(type)
+                "$directory/${UUID.randomUUID()}.$extension"
+            }
+            val file = get(filename, true)
+            val stream = stream(uri) ?: return@onIO null
 
-        try {
-            val saver = FileSaver()
-            saver.save(stream, file)
-        } catch (e: Exception) {
-            return@onIO null
+            try {
+                val saver = FileSaver()
+                saver.save(stream, file)
+            } catch (e: Exception) {
+                return@onIO null
+            }
+
+            file
         }
-
-        file
-    }
 
     suspend fun copyToTemp(from: Uri): File? {
         return copyToLocal(from, TEMP_DIR)
