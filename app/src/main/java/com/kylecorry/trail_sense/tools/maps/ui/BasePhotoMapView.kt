@@ -157,6 +157,11 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
         layers.forEach { it.draw(drawer, this) }
     }
 
+    override fun drawOverlay() {
+        super.drawOverlay()
+        layers.forEach { it.drawOverlay(drawer, this) }
+    }
+
     open fun showMap(map: PhotoMap) {
         this.map = map
         val rotation = map.calibration.rotation

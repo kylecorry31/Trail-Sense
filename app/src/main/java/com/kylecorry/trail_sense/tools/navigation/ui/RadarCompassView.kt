@@ -95,6 +95,10 @@ class RadarCompassView : BaseCompassView, IMapView {
         pop()
     }
 
+    private fun drawOverlays() {
+        layers.forEach { it.drawOverlay(this, this) }
+    }
+
     private fun drawCompass() {
         imageMode(ImageMode.Center)
 
@@ -207,6 +211,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         drawLayers()
         drawCompassLayers()
         pop()
+        drawOverlays()
     }
 
     override fun draw(reference: IMappableReferencePoint, size: Int?) {

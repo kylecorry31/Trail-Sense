@@ -129,6 +129,7 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
 
         drawLayers()
         drawScale()
+        drawOverlays()
     }
 
     private fun drawLayers() {
@@ -186,6 +187,10 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         return center.plus(Distance.meters(distance), Bearing(angle + 90))
     }
 
+    private fun drawOverlays() {
+        layers.forEach { it.drawOverlay(this, this) }
+    }
+
     private fun drawScale() {
         noFill()
         stroke(Color.WHITE)
@@ -227,8 +232,8 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     }
 
     @Suppress("MemberVisibilityCanBePrivate")
-    fun zoomTo(newScale: Float){
-        if (newScale == scale){
+    fun zoomTo(newScale: Float) {
+        if (newScale == scale) {
             return
         }
         zoom(newScale / scale)

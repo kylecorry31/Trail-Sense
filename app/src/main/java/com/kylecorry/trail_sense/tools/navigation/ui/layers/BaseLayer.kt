@@ -39,6 +39,13 @@ open class BaseLayer : ILayer {
         }
     }
 
+    override fun drawOverlay(
+        drawer: ICanvasDrawer,
+        map: IMapView
+    ) {
+        // Do nothing
+    }
+
     override fun invalidate() {
 
     }

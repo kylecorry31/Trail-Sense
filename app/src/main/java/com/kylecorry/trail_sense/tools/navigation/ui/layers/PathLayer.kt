@@ -100,6 +100,13 @@ class PathLayer : ILayer, IPathLayer {
         drawer.noPathEffect()
     }
 
+    override fun drawOverlay(
+        drawer: ICanvasDrawer,
+        map: IMapView
+    ) {
+        // Do nothing
+    }
+
     private fun renderInBackground(renderer: IRenderedPathFactory) {
         renderInProgress = true
         scope.launch {

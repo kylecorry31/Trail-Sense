@@ -83,6 +83,18 @@ class MapDistanceLayer(private val onPathChanged: (points: List<Coordinate>) -> 
         pointLayer.draw(drawer, map)
     }
 
+    override fun drawOverlay(
+        drawer: ICanvasDrawer,
+        map: IMapView
+    ) {
+        if (!isEnabled) {
+            return
+        }
+
+        pathLayer.drawOverlay(drawer, map)
+        pointLayer.drawOverlay(drawer, map)
+    }
+
     override fun invalidate() {
         pointLayer.invalidate()
         pathLayer.invalidate()

@@ -4,7 +4,21 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 
 interface ILayer {
+    /**
+     * Draw the layer on the map.
+     * Transforms are already applied to the canvas.
+     */
     fun draw(drawer: ICanvasDrawer, map: IMapView)
+
+    /**
+     * Draw the overlay on the map.
+     * This is drawn on top of the map and is not transformed.
+     */
+    fun drawOverlay(drawer: ICanvasDrawer, map: IMapView)
+
+    /**
+     * Invalidate the layer
+     */
     fun invalidate()
 
     /**
