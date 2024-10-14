@@ -19,7 +19,7 @@ class PdfImageRegionDecoder(private val bitmapConfig: Bitmap.Config? = null) : I
         uri: Uri
     ): Point {
         val scale = PhotoMap.PDF_SCALE
-        renderer = PDFRenderer(context!!, uri, scale)
+        renderer = PDFRenderer(context!!, uri, scale, bitmapConfig ?: Bitmap.Config.RGB_565)
         // TODO: Should the size be scaled?
         val size = renderer.getSize()
         return Point((size.width * scale).toInt(), (size.height * scale).toInt())

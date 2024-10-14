@@ -12,7 +12,8 @@ class PdfImageDecoder(private val bitmapConfig: Bitmap.Config? = null) : ImageDe
         context: Context?,
         uri: Uri
     ): Bitmap {
-        val renderer = PDFRenderer(context!!, uri)
+        val renderer =
+            PDFRenderer(context!!, uri, config = bitmapConfig ?: Bitmap.Config.RGB_565)
         val originalSize = renderer.getSize()
         // Constrict to 1000x1000
         val scale = 1000f / originalSize.width.coerceAtLeast(originalSize.height)

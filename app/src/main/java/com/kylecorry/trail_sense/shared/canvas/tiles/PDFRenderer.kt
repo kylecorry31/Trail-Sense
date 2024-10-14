@@ -15,7 +15,8 @@ import com.kylecorry.andromeda.core.system.Screen
 class PDFRenderer(
     private val context: Context,
     private val uri: Uri,
-    private val inchesToPixels: Float? = null
+    private val inchesToPixels: Float? = null,
+    private val config: Bitmap.Config = Bitmap.Config.RGB_565,
 ) {
 
     private val dpi = Screen.dpi(context)
@@ -90,7 +91,15 @@ class PDFRenderer(
                     )
 
                     pdfPage.close()
-                    bitmap
+
+                    // Convert the bitmap to rgb 565
+                    if (config == bitmap.config) {
+                        return bitmap
+                    }
+
+                    val reconfigured = bitmap.copy(config, false)
+                    bitmap.recycle()
+                    reconfigured
                 }
             }
         }
