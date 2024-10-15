@@ -7,6 +7,7 @@ import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
+import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
 import com.kylecorry.trail_sense.shared.canvas.tiles.PDFRenderer
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.MapEntity
@@ -21,7 +22,9 @@ class MapRepo private constructor(private val context: Context) : IMapRepo {
     private val files = FileSubsystem.getInstance(context)
 
     override suspend fun getAllMaps(): List<PhotoMap> = onIO {
-        mapDao.getAll().map { convertToMap(it) }
+        val maps = mapDao.getAll()
+        val runner = ParallelCoroutineRunner(MAX_PARALLEL)
+        runner.map(maps, ::convertToMap)
     }
 
     override suspend fun getMapGroup(id: Long): MapGroup? = onIO {
@@ -61,7 +64,9 @@ class MapRepo private constructor(private val context: Context) : IMapRepo {
     }
 
     override suspend fun getMaps(parentId: Long?): List<PhotoMap> = onIO {
-        mapDao.getAllWithParent(parentId).map { convertToMap(it) }
+        val maps = mapDao.getAllWithParent(parentId)
+        val runner = ParallelCoroutineRunner(MAX_PARALLEL)
+        runner.map(maps, ::convertToMap)
     }
 
     override suspend fun getMapGroups(parentId: Long?): List<MapGroup> = onIO {
@@ -70,6 +75,7 @@ class MapRepo private constructor(private val context: Context) : IMapRepo {
 
     private fun convertToMap(map: MapEntity): PhotoMap {
         val newMap = map.toMap()
+        // TODO: Save the size in the DB
         val size = files.imageSize(newMap.filename)
         val fileSize = files.size(newMap.filename) + files.size(newMap.pdfFileName)
 
@@ -94,6 +100,8 @@ class MapRepo private constructor(private val context: Context) : IMapRepo {
     companion object {
         @SuppressLint("StaticFieldLeak")
         private var instance: MapRepo? = null
+
+        private val MAX_PARALLEL = 10
 
         @Synchronized
         fun getInstance(context: Context): MapRepo {

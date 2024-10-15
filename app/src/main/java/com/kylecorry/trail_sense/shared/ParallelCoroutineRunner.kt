@@ -24,4 +24,28 @@ class ParallelCoroutineRunner(maxParallel: Int) {
         jobs.forEach { it.join() }
     }
 
+    suspend fun <R> run(items: List<R>, coroutine: suspend (R) -> Unit) {
+        run(items.map { { coroutine(it) } })
+    }
+
+    suspend fun <T> map(coroutines: List<suspend () -> T>): List<T> {
+        val items = mutableListOf<Pair<Int, T>>()
+        val lock = Any()
+
+        run(coroutines.mapIndexed { index, coroutine ->
+            {
+                val item = coroutine()
+                synchronized(lock) {
+                    items.add(index to item)
+                }
+            }
+        })
+
+        return items.sortedBy { it.first }.map { it.second }
+    }
+
+    suspend fun <R, T> map(items: List<R>, coroutine: suspend (R) -> T): List<T> {
+        return map(items.map { { coroutine(it) } })
+    }
+
 }
