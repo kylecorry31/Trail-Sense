@@ -1162,4 +1162,26 @@
     <string name="bottom_navigation_slot">底部導航欄 %d</string>
     <string name="quick_actions_are_unavailable">快速動作不能使用</string>
     <string name="forecast_algorithm">預報演算法</string>
+    <string name="sunrise_alert_notification_title">太陽很快就要升起</string>
+    <string name="sunrise_alerts">日出警報</string>
+    <string name="pref_sunrise_alert_time_title">日出警報時間</string>
+    <string name="exported">已匯出</string>
+    <string name="import_packing_list">匯入打包列表</string>
+    <string name="barometer_offset">氣壓計偏移</string>
+    <string name="sunset">日落</string>
+    <string name="sunrise">日出</string>
+    <string name="sunrise_alert_channel_title">日出警報</string>
+    <string name="no_items_found">找不到項目</string>
+    <string name="survival_guide">生存指南</string>
+    <string name="lunitidal_interval_auto">月潮間隔（自動）</string>
+    <string name="lunitidal_interval_local">月潮間隔（本地）</string>
+    <string name="water">水</string>
+    <string name="crafting">製作</string>
+    <string name="overview">概覽</string>
+    <string name="pref_flashlight_control_screen_with_volume_title">使用音量按鈕控制螢幕手電筒亮度</string>
+    <string name="enter_the_current_pressure">輸入目前氣壓</string>
+    <string name="estimate_method">估算方法</string>
+    <string name="tide_clock">潮汐時鐘</string>
+    <string name="lunitidal_interval">月潮間隔</string>
+    <string name="harmonic">諧波</string>
 </resources>
