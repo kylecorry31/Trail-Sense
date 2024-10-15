@@ -5,5 +5,5 @@ import com.kylecorry.sol.math.geometry.Size
 data class MapMetadata(
     val size: Size,
     val fileSize: Long,
-    val projection: MapProjectionType = MapProjectionType.Mercator
+    val projection: MapProjectionType = MapProjectionType.Mercator,
 )

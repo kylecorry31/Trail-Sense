@@ -22,7 +22,9 @@ data class MapEntity(
     @ColumnInfo(name = "rotated") val rotated: Boolean,
     @ColumnInfo(name = "projection") val projection: MapProjectionType = MapProjectionType.Mercator,
     @ColumnInfo(name = "rotation") val rotation: Int = 0,
-    @ColumnInfo(name = "parent") val parent: Long? = null
+    @ColumnInfo(name = "parent") val parent: Long? = null,
+    @ColumnInfo(name = "pdfWidth") val pdfWidth: Int? = null,
+    @ColumnInfo(name = "pdfHeight") val pdfHeight: Int? = null
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
