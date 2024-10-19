@@ -1235,7 +1235,7 @@
     <string name="beta_disclaimer">This tool is currently in beta, so please report any issues or feedback to %s.</string>
     <string name="reduce_map_resolution_crop_disclaimer">Cropping the map will still reduce resolution. If you need to crop the map at a high resolution, please use a photo editor app. There are plans to fix this in the future.</string>
     <string name="reduce_map_resolution_crop_disclaimer_shown" translatable="false">reduce_map_resolution_crop_disclaimer_shown</string>
-    <string name="crop_map_instructions_long">Drag the corners of the box to the corners of the map to outline.</string>
+    <string name="crop_map_instructions_long">Drag the corners of the box to the corners of the map to outline. Cropping will reduce resolution of the map.</string>
     <string name="rotation_amount">Rotation: %s</string>
     <string name="i_agree">I Agree</string>
     <string name="tag_play_bar" translatable="false">play_bar</string>
