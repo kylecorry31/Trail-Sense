@@ -755,6 +755,7 @@
     <string name="pref_flashlight_toggle_with_volume_summary">While Trail Sense is open</string>
     <string name="pref_flashlight_toggle_with_volume_title">Toggle with volume buttons</string>
     <string name="pref_low_resolution_maps" translatable="false">pref_low_resolution_maps</string>
+    <string name="pref_low_resolution_pdf_maps" translatable="false">pref_low_resolution_pdf_maps</string>
     <string name="pref_auto_low_power" translatable="false">pref_auto_low_power</string>
     <string name="pref_auto_low_power_summary">When your battery is low</string>
     <string name="pref_auto_low_power_title">Automatic power saving</string>
@@ -1473,4 +1474,8 @@
     <string name="crafting">Crafting</string>
     <string name="survival_guide_disclaimer">As with all tools in Trail Sense, this guide is meant to provide general information and should not be considered a substitute for professional training or experience. This is for educational purposes only. The authors are not responsible for any accidents, injuries, or other damage that may result from the use of this information. Always exercise common sense and caution when outdoors.</string>
     <string name="field_required">%s (required)</string>
+    <string name="reduce_photo_resolution">Reduce photo resolution</string>
+    <!--Occurs when the data/photo/file is imported. Shown as a summary in settings.-->
+    <string name="on_import">On import</string>
+    <string name="reduce_pdf_resolution">Reduce PDF resolution</string>
 </resources>

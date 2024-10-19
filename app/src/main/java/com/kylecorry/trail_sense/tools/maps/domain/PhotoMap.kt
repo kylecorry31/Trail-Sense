@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.maps.domain
 
+import android.content.Context
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.SolMath.roundNearestAngle
 import com.kylecorry.sol.math.Vector2
@@ -7,6 +8,7 @@ import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.projections.PhotoMapProjection
 import com.kylecorry.trail_sense.tools.maps.domain.projections.distancePerPixel
 
@@ -21,7 +23,7 @@ data class PhotoMap(
     override val isGroup = false
     override val count: Int? = null
 
-    val pdfFileName = filename.replace(".webp", ".pdf")
+    val pdfFileName = filename.replace(".webp", "") + ".pdf"
 
     private val hooks = Hooks()
 
@@ -93,6 +95,10 @@ data class PhotoMap(
 
             CoordinateBounds.from(listOf(topLeft, bottomLeft, topRight, bottomRight))
         }
+    }
+
+    fun hasPdf(context: Context): Boolean {
+        return FileSubsystem.getInstance(context).get(pdfFileName).exists()
     }
 
     companion object {

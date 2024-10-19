@@ -277,6 +277,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                         )
                     )
                 }
+
                 R.id.action_import_map_camera -> {
                     createMap(
                         CreateMapFromCameraCommand(
@@ -286,9 +287,11 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                         )
                     )
                 }
+
                 R.id.action_create_map_group -> {
                     createMapGroup()
                 }
+
                 R.id.action_create_blank_map -> {
                     createMap(
                         CreateBlankMapCommand(
@@ -345,7 +348,9 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
                 }
             }
 
-            if (prefs.navigation.autoReduceMaps) {
+            val isPdfMap = map.hasPdf(requireContext())
+
+            if ((isPdfMap && prefs.navigation.autoReducePdfMaps) || (!isPdfMap && prefs.navigation.autoReducePhotoMaps)) {
                 mapImportingIndicator.show()
                 val reducer = HighQualityMapReducer(requireContext())
                 reducer.reduce(map)

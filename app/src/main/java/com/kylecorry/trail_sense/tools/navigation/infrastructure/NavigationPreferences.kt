@@ -215,9 +215,15 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         SpeedometerMode.GPS
     )
 
-    override val autoReduceMaps by BooleanPreference(
+    override val autoReducePhotoMaps by BooleanPreference(
         cache,
         context.getString(R.string.pref_low_resolution_maps),
+        true
+    )
+
+    override val autoReducePdfMaps by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_low_resolution_pdf_maps),
         true
     )
 

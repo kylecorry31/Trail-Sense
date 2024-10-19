@@ -21,15 +21,16 @@ abstract class BaseMapReduce(
     override suspend fun reduce(map: PhotoMap) = onIO {
         val bmp = files.bitmap(map.filename, maxSize?.toAndroidSize()) ?: return@onIO
         files.save(map.filename, bmp, quality, true)
+
+        // Remove the PDF
+        files.delete(map.pdfFileName)
+
         if (!map.filename.endsWith(".webp")) {
             val newFileName = "maps/" + UUID.randomUUID().toString() + ".webp"
             if (files.rename(map.filename, newFileName)) {
                 mapRepo.addMap(map.copy(filename = newFileName))
             }
         }
-
-        // Delete the pdf file if it exists
-        files.delete(map.pdfFileName)
     }
 
 }

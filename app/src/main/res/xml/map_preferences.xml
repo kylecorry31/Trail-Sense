@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:singleLineTitle="false"
         app:title="@string/maps">
 
         <SwitchPreferenceCompat
+            android:summary="@string/on_import"
             app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_low_resolution_maps"
             app:singleLineTitle="false"
-            app:title="@string/reduce_map_resolution"/>
+            app:title="@string/reduce_photo_resolution" />
+
+        <SwitchPreferenceCompat
+            android:summary="@string/on_import"
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_low_resolution_pdf_maps"
+            app:singleLineTitle="false"
+            app:title="@string/reduce_pdf_resolution" />
 
         <SwitchPreferenceCompat
             app:defaultValue="true"
@@ -21,12 +30,12 @@
             app:title="@string/pref_show_map_previews_title" />
 
         <SwitchPreferenceCompat
+            android:summary="@string/pref_keep_map_facing_up_summary"
             app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_keep_map_facing_up"
             app:singleLineTitle="false"
-            app:title="@string/pref_keep_map_facing_up_title"
-            android:summary="@string/pref_keep_map_facing_up_summary"/>
+            app:title="@string/pref_keep_map_facing_up_title" />
 
     </PreferenceCategory>
 </PreferenceScreen>

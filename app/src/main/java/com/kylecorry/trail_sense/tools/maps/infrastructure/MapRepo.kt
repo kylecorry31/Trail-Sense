@@ -84,14 +84,17 @@ class MapRepo private constructor(private val context: Context) : IMapRepo {
         val size = files.imageSize(newMap.filename)
         val fileSize = files.size(newMap.filename) + files.size(newMap.pdfFileName)
 
-        val pdfSize = if (map.pdfHeight != null && map.pdfWidth != null) {
-            Size(
-                map.pdfWidth.toFloat() * PhotoMap.PDF_SCALE,
-                map.pdfHeight.toFloat() * PhotoMap.PDF_SCALE
-            )
-        } else {
-            null
-        }
+        val pdfSize =
+            if (map.pdfHeight != null && map.pdfWidth != null && files.get(newMap.pdfFileName)
+                    .exists()
+            ) {
+                Size(
+                    map.pdfWidth.toFloat() * PhotoMap.PDF_SCALE,
+                    map.pdfHeight.toFloat() * PhotoMap.PDF_SCALE
+                )
+            } else {
+                null
+            }
 
         return newMap.copy(
             metadata = newMap.metadata.copy(

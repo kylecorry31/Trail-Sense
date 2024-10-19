@@ -10,22 +10,31 @@ class MapSettingsFragment : AndromedaPreferenceFragment() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.map_preferences, rootKey)
 
-        val reduceResolutionPreference = switch(R.string.pref_low_resolution_maps)
+        val reducePhotoResolutionPreference = switch(R.string.pref_low_resolution_maps)
+        val reducePdfResolutionPreference = switch(R.string.pref_low_resolution_pdf_maps)
 
-        onClick(reduceResolutionPreference) {
-            if (reduceResolutionPreference?.isChecked == true) {
-                return@onClick
-            }
-
-            CustomUiUtils.disclaimer(
-                requireContext(),
-                getString(R.string.reduce_map_resolution),
-                getString(R.string.reduce_map_resolution_crop_disclaimer),
-                getString(R.string.reduce_map_resolution_crop_disclaimer_shown),
-                cancelText = null
-            )
+        onClick(reducePhotoResolutionPreference) {
+            onReduceResolutionChange(reducePdfResolutionPreference?.isChecked == true)
         }
 
+        onClick(reducePdfResolutionPreference) {
+            onReduceResolutionChange(reducePhotoResolutionPreference?.isChecked == true)
+        }
+
+    }
+
+    private fun onReduceResolutionChange(shouldReduce: Boolean) {
+        if (shouldReduce) {
+            return
+        }
+
+        CustomUiUtils.disclaimer(
+            requireContext(),
+            getString(R.string.reduce_map_resolution),
+            getString(R.string.reduce_map_resolution_crop_disclaimer),
+            getString(R.string.reduce_map_resolution_crop_disclaimer_shown),
+            cancelText = null
+        )
     }
 
 }
