@@ -12,12 +12,10 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.infrastructure.IBeaconPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ICompassStylePreferences
-import com.kylecorry.trail_sense.settings.infrastructure.IMapPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.sort.BeaconSortMethod
-import com.kylecorry.trail_sense.tools.maps.domain.sort.MapSortMethod
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
 import com.kylecorry.trail_sense.tools.paths.domain.PathStyle
@@ -27,7 +25,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
 
 class NavigationPreferences(private val context: Context) : ICompassStylePreferences,
-    IPathPreferences, IBeaconPreferences, IMapPreferences {
+    IPathPreferences, IBeaconPreferences {
 
     private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
     private val sensors by lazy { SensorService(context) }
@@ -213,37 +211,6 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
             "instant" to SpeedometerMode.GPS
         ),
         SpeedometerMode.GPS
-    )
-
-    override val autoReducePhotoMaps by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_low_resolution_maps),
-        true
-    )
-
-    override val autoReducePdfMaps by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_low_resolution_pdf_maps),
-        true
-    )
-
-    override val showMapPreviews by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_show_map_previews),
-        true
-    )
-
-    override var mapSort: MapSortMethod by IntEnumPreference(
-        cache,
-        context.getString(R.string.pref_map_sort),
-        MapSortMethod.values().associateBy { it.id.toInt() },
-        MapSortMethod.MostRecent
-    )
-
-    override val keepMapFacingUp by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_keep_map_facing_up),
-        true
     )
 
     enum class SpeedometerMode {

@@ -197,7 +197,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             onLongPress(it)
         }
 
-        val keepMapUp = prefs.navigation.keepMapFacingUp
+        val keepMapUp = prefs.maps.keepMapFacingUp
 
         // TODO: Don't show if location not on map
 
@@ -421,7 +421,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         this.map = map
         binding.map.onImageLoadedListener = {
             if (shouldLockOnMapLoad) {
-                updateMapLockMode(MapLockMode.Location, prefs.navigation.keepMapFacingUp)
+                updateMapLockMode(MapLockMode.Location, prefs.maps.keepMapFacingUp)
                 shouldLockOnMapLoad = false
             }
         }
