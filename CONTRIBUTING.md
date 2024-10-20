@@ -1,4 +1,4 @@
-- [Request a new feature](https://github.com/kylecorry31/Trail-Sense/issues/1911)
+- [Request a new feature](https://github.com/kylecorry31/Trail-Sense/issues/2590)
 - [Submit an issue](https://github.com/kylecorry31/Trail-Sense/issues)
 - [Translate Trail Sense](https://github.com/kylecorry31/Trail-Sense/issues/213)
 - [Test out nightly builds](https://github.com/kylecorry31/Trail-Sense/discussions/1940)
