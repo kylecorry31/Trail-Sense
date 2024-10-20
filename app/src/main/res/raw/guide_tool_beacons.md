@@ -33,6 +33,21 @@ If you have locations saved in a GPX file, you can import them into Trail Sense 
 4. Confirm that you want to import the beacons by clicking 'OK'. You can uncheck any beacons you don't want to import.
 5. The beacons will be created in the current group.
 
+### Creating from OSM data
+There are several online tools that can be used to query OpenStreetMap data and export it as a GPX file.
+
+To use Overpass Turbo:
+
+1. Open [Overpass Turbo](https://overpass-turbo.eu/).
+2. Adjust the map to the area you want to query.
+3. Enter the query. This will be filled in if you use one of the links below.
+4. Click 'Run'.
+5. Click 'Export' and select 'GPX'.
+6. Save the GPX file to your device.
+7. Follow the steps above to import the beacons.
+
+- [**Peaks**](https://overpass-turbo.eu/s/1SVW): Query for mountain peaks. Change the 1000 in the query to the desired elevation in meters for minimum peak height.
+
 ## Viewing a beacon
 Beacons will be shown in the beacon list and will display the distance to the beacon from your current location.
 
