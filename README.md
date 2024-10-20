@@ -50,7 +50,7 @@ The feature roadmap is a tentative outline of the major features that are planne
 - [x] Augmented reality
 - [x] Customization
 - [ ] Stability / performance
-- [ ] Survival guide
+- [x] Survival guide
 - [ ] Harmonic tides
 - [ ] Improved photo maps resolution
 - [ ] Experiment with the first plugin (Comms)
