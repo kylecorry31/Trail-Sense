@@ -4,8 +4,10 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.util.Size
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.rotate
+import com.kylecorry.andromeda.files.FileSaver
 import com.kylecorry.andromeda.pdf.Datum
 import com.kylecorry.andromeda.pdf.GeographicCoordinateSystem
+import com.kylecorry.andromeda.pdf.GeospatialPDFParser
 import com.kylecorry.andromeda.pdf.PDFObject
 import com.kylecorry.andromeda.pdf.PdfConvert
 import com.kylecorry.andromeda.pdf.ProjectedCoordinateSystem
@@ -27,7 +29,7 @@ import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 
 class MapExportService(
-    context: Context,
+    private val context: Context,
     private val uriPicker: UriPicker,
     private val uriService: UriService
 ) : ExportService<PhotoMap> {
@@ -35,12 +37,31 @@ class MapExportService(
     private val files = FileSubsystem.getInstance(context)
 
     override suspend fun export(data: PhotoMap, filename: String): Boolean {
+        // If the map was auto calibrated and the PDF exists, just copy it
+        if (data.hasPdf(context) && isGeospatialPdf(data.pdfFileName)) {
+            val uri = uriPicker.create(filename, "application/pdf") ?: return false
+            val outputStream = files.output(uri) ?: return false
+            val saver = FileSaver()
+            saver.save(files.get(data.pdfFileName), outputStream)
+            return true
+        }
+
+
         val pdf = getPDFData(data)
         val uri = uriPicker.create(filename, "application/pdf") ?: return false
         uriService.outputStream(uri)?.use {
             PdfConvert.toPDF(pdf, it)
         }
         return true
+    }
+
+    private suspend fun isGeospatialPdf(filename: String): Boolean {
+        val parser = GeospatialPDFParser()
+        val metadata = files.stream(files.uri(filename))?.use {
+            parser.parse(it)
+        }
+
+        return metadata != null
     }
 
     @Suppress("FoldInitializerAndIfToElvis")
