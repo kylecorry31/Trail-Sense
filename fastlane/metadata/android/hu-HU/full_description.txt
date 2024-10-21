@@ -22,6 +22,18 @@
 
 <p>Egyedül fejlesztem a Trail Sense-t, úgyhogy igyekszem minden problémát megoldani - de korlátozott számú eszközöm van, amiken tesztelni tudok.</p>
 
+
+<h3>ENGEDÉLYEK</h3>
+<ul>
+    <li>Értesítések: Lehetővé teszi a Trail Sense számára, hogy értesítéseket jelenítsen meg (visszakövetés, időjárás, napnyugta figyelmeztetések, csillagászati események, vízforralás időzítő, stb)</li>
+    <li>Hely: Lehetővé teszi a Trail Sense számára, hogy beolvassa a helyzetedet navigációhoz, időjáráshoz (tengerszint kalibráció), és csillagászathoz.</li>
+    <li>Background location: Allows Trail Sense to retrieve your location for sunset alerts while in the background.
+    On some devices, this will also improve the reliability of backtrack and weather monitor.</li>
+    <li>Physical activity: Allows Trail Sense to use your phone's pedometer for distance calculation.</li>
+    <li>Camera: Allows Trail Sense to use your camera on the sighting compass, clinometer, and for taking photos used by the Cloud Scanner, QR Code Scanner, and Photo Maps.</li>
+    <li>Alarms & reminders: Allows Trail Sense to post a notification at an exact time.
+    This is used by the Clock tool (when updating system time) and Sunset and Sunrise Alerts.</li>
+</ul>
 <p>Adatvédelmi szabályzat: https://kylecorry.com/Trail-Sense/#privacy</p>
 <p>GYIK: https://github.com/kylecorry31/Trail-Sense#faq</p>
 <p>A Trail Sense az MIT Licensz szerint elérhető: https://opensource.org/license/mit/</p>

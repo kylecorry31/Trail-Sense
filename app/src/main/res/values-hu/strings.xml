@@ -7,7 +7,7 @@
     <string name="tomorrow">Holnap</string>
     <string name="today">Ma</string>
     <string name="notification_monitoring_weather">Időjárás figyelése a háttérben</string>
-    <string name="notification_storm_alert_title">Vihar Riasztás</string>
+    <string name="notification_storm_alert_title">Viharjelzés</string>
     <string name="notification_storm_alert_text">Vihar közeledhet</string>
     <string name="storm_alerts">Vihar riasztások</string>
     <string name="alerts">Riasztások</string>
@@ -61,7 +61,7 @@
     <string name="navigation">Navigáció</string>
     <string name="unit_nautical_miles">Tengeri mérföld</string>
     <string name="unit_miles">Mérföld</string>
-    <string name="feet_miles">Láb / Mérföld</string>
+    <string name="feet_miles">Láb / mérföld</string>
     <string name="precise_miles_format">%s mérf.</string>
     <string name="unit_kilometers">Kilométer</string>
     <string name="unit_meters">Méter</string>
@@ -123,7 +123,7 @@
     <string name="map_scale_verbal">Szóbeli</string>
     <string name="location_input_help_title">Támogatott helyformátumok</string>
     <string name="pref_privacy_screenshot_protection_title">Képernyőképek megakadályozása</string>
-    <string name="us_gallons">US Gallon</string>
+    <string name="us_gallons">US gallon</string>
     <string name="minutes_format">%s p</string>
     <string name="gps_unavailable">GPS nem elérhető</string>
     <string name="off">Ki</string>
@@ -179,7 +179,7 @@
     <string name="dashed">Szaggatott</string>
     <string name="battery_warning">Akkumerülési figyelmeztetés</string>
     <string name="activity_recognition_permission_denied">Testmozgáshoz való hozzáférés megtagadva, a lépésszámláló funkciókat nem lehet bekapcsolni. A beállításokban engedélyezheted.</string>
-    <string name="pref_nmea_elevation_summary">NMEA eltéréseket használ a magasság átalakításához</string>
+    <string name="pref_nmea_elevation_summary">NMEA (műhold) használata a magasság korrigálásához, a beépített modell helyett</string>
     <string name="no_groups">Nincsenek csoportok</string>
     <string name="move">Áthelyezés</string>
     <string name="map_perspective_instructions">Rajzold körbe a térképet</string>
@@ -194,10 +194,10 @@
     <string name="cup_format">%s csé.</string>
     <string name="quart_format">%s qt</string>
     <string name="milliliters">Mililiter</string>
-    <string name="us_cups">US Csésze</string>
-    <string name="us_pints">US Pint</string>
-    <string name="us_quarts">US Quart</string>
-    <string name="us_ounces_volume">US Uncia</string>
+    <string name="us_cups">US csésze</string>
+    <string name="us_pints">US pint</string>
+    <string name="us_quarts">US negyedgallon</string>
+    <string name="us_ounces_volume">US uncia</string>
     <string name="ounces_weight_format">%s oz</string>
     <string name="grams_format">%s g</string>
     <string name="weight">Tömeg</string>
@@ -259,9 +259,9 @@
     <string name="precise_feet_format">%s láb</string>
     <string name="precise_nautical_miles_format">%s teng. mérf.</string>
     <string name="disclaimer_message_title">Felelősségi Nyilatkozat</string>
-    <string name="app_disclaimer_message_title">Felelősségi Nyilatkozat / Felhasználási Feltételek</string>
+    <string name="app_disclaimer_message_title">Felelősségi Nyilatkozat / felhasználási feltételek</string>
     <string name="pressure_48_hours">48 óra</string>
-    <string name="true_north">Valós Észak</string>
+    <string name="true_north">Valós észak</string>
     <string name="compass_auto_declination">Elhajlás automatikus állítása</string>
     <string name="pref_num_visible_beacons_title">Közeli jelzőpontok</string>
     <string name="tool_cliff_height_disclaimer">Csak akkor használd ezt az eszközt, ha biztonságos, és ellenőrizd a szakadék alját a sérülések elkerülése érdekében. Utasításokért lásd a felhasználói útmutatót.</string>
@@ -339,7 +339,7 @@
     <string name="hide">Elrejt</string>
     <string name="altocumulus_desc">Középszintű, vattapamacsra hasonlító felhők. Általában fehérek, sötétebb aljjal, valamint lehetnek elszórtak, vagy lepelt képzők.</string>
     <string name="cirrostratus_desc">Magas, az eget beborító felhő. Áttetsző, a nap körül gyűrűt (halo) alakíthat ki.</string>
-    <string name="privacy_and_location">Adatvédelem és Hely</string>
+    <string name="privacy_and_location">Adatvédelem és hely</string>
     <string name="solid">Folytonos</string>
     <string name="move_to">Áthelyezés ide</string>
     <string name="moved_to">Áthelyezés ide: %s</string>
@@ -356,7 +356,7 @@
     <string name="theme_black">Fekete</string>
     <string name="theme_system">Rendszertéma</string>
     <string name="theme_sunset_sunrise">Napkelte/Napnyugta</string>
-    <string name="coordinate_format_decimal_degrees">Tizedes Fok</string>
+    <string name="coordinate_format_decimal_degrees">Tizedes fokok</string>
     <string name="pref_sensor_details_title">Érzékelő részletek</string>
     <string name="tool_clock_title">Óra</string>
     <string name="lightning">Villámlás</string>
@@ -372,7 +372,7 @@
     <string name="create_beacon">Jelzőpont létrehozása</string>
     <string name="time_not_set">Nincs beállítva idő</string>
     <string name="noon">Dél</string>
-    <string name="imperial_cups">Angolszász Csésze</string>
+    <string name="imperial_cups">Angolszász csésze</string>
     <string name="time">Idő</string>
     <string name="supermoon">Szuperhold</string>
     <string name="moon">Hold</string>
@@ -382,7 +382,7 @@
     <string name="sun_up_no_set">Fent van a Nap</string>
     <string name="sun_down_no_set">Lent van a Nap</string>
     <string name="moon_phase">Hold fázis</string>
-    <string name="coordinate_format_degrees_minutes_seconds">Fok Perc Másodperc</string>
+    <string name="coordinate_format_degrees_minutes_seconds">Fokok percek másodpercek</string>
     <string name="coordinate_format_utm">UTM</string>
     <string name="coordinate_format_mgrs">MGRS</string>
     <string name="pref_coordinate_format_title">Koordináta formátum</string>
@@ -468,8 +468,8 @@
     <string name="pref_flashlight_toggle_with_volume_title">Kapcsolás hangerőgombokkal</string>
     <string name="ounces_volume_format">%s oz</string>
     <string name="gallon_format">%s gal</string>
-    <string name="imperial_pints">Angolszász Pint</string>
-    <string name="imperial_quarts">Angolszász Quart</string>
+    <string name="imperial_pints">Angolszász pint</string>
+    <string name="imperial_quarts">Angolszász negyedgallon</string>
     <string name="volume">Térfogat</string>
     <string name="pounds">Font</string>
     <string name="grams">Gramm</string>
@@ -511,7 +511,7 @@
     <string name="pref_export_weather_csv_title">Időjárási adatok exportálása</string>
     <string name="precipitation_small_hail">Apró jégeső</string>
     <string name="precipitation_ice_pellets">Jégdara</string>
-    <string name="precipitation_snow_grains">Szemcsés Hó</string>
+    <string name="precipitation_snow_grains">Szemcsés hó</string>
     <string name="precipitation_chance">Csapadék valószínűsége: %s</string>
     <string name="no_camera_access">Kamera nem elérhető</string>
     <string name="sort_by">Rendezés: %s</string>
@@ -550,7 +550,7 @@
     <string name="right_quick_action">Jobb gyorsgomb</string>
     <string name="pref_odometer_reset_daily_title">Nullázás naponta</string>
     <string name="import_map">Térkép importálása</string>
-    <string name="imperial_ounces_volume">Angolszász Uncia</string>
+    <string name="imperial_ounces_volume">Angolszász uncia</string>
     <plurals name="path_group_summary">
         <item quantity="one">%d ösvény</item>
         <item quantity="other">%d ösvény</item>
@@ -577,22 +577,22 @@
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="weather_no_change">Változatlan marad</string>
-    <string name="waning_crescent">Fogyó Sarló</string>
+    <string name="waning_crescent">Fogyó sarló</string>
     <string name="weather_storm">Vihar</string>
     <string name="very_soon">Nagyon hamar</string>
-    <string name="third_quarter">Utolsó Negyed</string>
-    <string name="first_quarter">Első Negyed</string>
-    <string name="waxing_crescent">Növő Sarló</string>
-    <string name="waxing_gibbous">Növő Domború</string>
+    <string name="third_quarter">Utolsó negyed</string>
+    <string name="first_quarter">Első negyed</string>
+    <string name="waxing_crescent">Növekvő sarló</string>
+    <string name="waxing_gibbous">Növő domború</string>
     <string name="full_moon">Telihold</string>
-    <string name="waning_gibbous">Fogyó Domború</string>
+    <string name="waning_gibbous">Fogyó domború</string>
     <string name="clinometer_title">Dőlésmérő</string>
     <string name="tool_clinometer_summary">Lavinaveszély és tárgyak magasságának becslése</string>
     <string name="set_inclination_instructions">Nyomj bárhova a zároláshoz vagy feloldáshoz</string>
     <string name="add">Hozzáadás</string>
     <string name="subtract">Kivonás</string>
-    <string name="create_item_title">Elem Létrehozása</string>
-    <string name="edit_item_title">Elem Szerkesztése</string>
+    <string name="create_item_title">Elem létrehozása</string>
+    <string name="edit_item_title">Elem szerkesztése</string>
     <string name="general">Általános</string>
     <string name="delete">Törlés</string>
     <string name="edit">Szerkesztés</string>
@@ -646,9 +646,9 @@
     <string name="tool_category_signaling">Jelzés</string>
     <string name="could_not_triangulate">Nem lehet háromszögelni</string>
     <string name="battery_health_dead">Lemerült</string>
-    <string name="pip_button">Rendszer Órájának Frissítése</string>
+    <string name="pip_button">Rendszer órájának frissítése</string>
     <string name="notification_channel_clock_sync_description">Egy értesítés az órád GPS-hez való szinkronizálásához</string>
-    <string name="clock_sync_notification">Óra Szinkronizálás - %s</string>
+    <string name="clock_sync_notification">Óra szinkronizálás - %s</string>
     <string name="clock_sync_time_settings">Megnyitod az óra beállításokat\?</string>
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="clock_sync_instructions">Állítsd az órát %s időpontra, mikor megkapod az értesítést</string>
@@ -672,7 +672,7 @@
     <string name="delete_tide_prompt">Árapály törlése\?</string>
     <string name="tool_thermometer_title">Hőmérő</string>
     <string name="battery_power_ac">AC</string>
-    <string name="unsaved_changes">Nem Mentett Változtatások</string>
+    <string name="unsaved_changes">Nem mentett módosítások</string>
     <string name="cumulonimbus_desc">Alacsony, pufi, nagyon magas felhők. Általában üllő alakúak és sötét színűek.</string>
     <string name="stratocumulus_desc">Alacsony felhők, melyek vattapamacsokból alkotott, hézagos lepelre hasonlítanak. Színük fehértől sötétszürkéig terjed.</string>
     <string name="cumulus_desc">Alacsony, vattapamacsra hasonlító felhők. Elszórtan fordulnak elő, aljuk pedig sötétebb.</string>
@@ -687,7 +687,7 @@
     <string name="distance_from_flashlight">Telefon és zseblámpa távolsága</string>
     <string name="location_not_set">Hely nincs beállítva</string>
     <string name="location_disabled">Hely letiltva</string>
-    <string name="gps_cache">GPS Gyorsítótár</string>
+    <string name="gps_cache">GPS gyorsítótár</string>
     <string name="guide_light_meter_description">Hogyan határozzuk meg zseblámpák hatósugarát</string>
     <string name="todays_forecast">Mai előrejelzés</string>
     <string name="tomorrows_forecast">Holnapi előrejelzés</string>
@@ -709,10 +709,10 @@
     <string name="pref_default_path_color_title">Alapértelmezett ösvény szín</string>
     <string name="battery_history">Akkuelőzmények - elmúlt %s</string>
     <string name="temperature_history">Hőmérséklet előzmények - elmúlt %s</string>
-    <string name="weather_monitor">Időjárás Figyelő</string>
+    <string name="weather_monitor">Időjárás megfigyelő</string>
     <string name="convert">Átalakítás</string>
     <string name="pref_barometer_info_summary">A nyomás eltérhet a közeli állomásokétól</string>
-    <string name="pref_nmea_elevation_title">NMEA magassági eltérések</string>
+    <string name="pref_nmea_elevation_title">NMEA magasságkorrekció</string>
     <string name="distance">Távolság</string>
     <string name="pref_navigation_lock_screen_presence_title">Mutatás a zárolt képernyőn navigálás közben</string>
     <string name="pref_cell_signal_refresh_cache_summary">Kényszeríti a legfrissebb térerőadat betöltését</string>
@@ -779,7 +779,7 @@
     <string name="tide_user_guide_recommendation">A felhasználói útmutatóban találhatóak hivatalos árapály táblázat webhelyek.</string>
     <string name="pref_ruler_calibration_title">Vonalzó méretaránya</string>
     <string name="pref_use_24_hour_title">24 órás formátum használata</string>
-    <string name="coordinate_format_degrees_decimal_minutes">Fok Tizedes Perc</string>
+    <string name="coordinate_format_degrees_decimal_minutes">Fokok és tizedes percek</string>
     <string name="sensors">Érzékelők</string>
     <string name="pref_ruler_calibration_summary">"Kalibrálási eljárás:
 \n
@@ -803,7 +803,7 @@
     <string name="pref_backtrack_frequency_title">Visszakövetés intervalluma</string>
     <string name="battery_health_overheat">Túlmelegedett</string>
     <string name="pip_notification_scheduled">Értesítés ütemezve ekkorra: %s</string>
-    <string name="notification_channel_clock_sync">Óra Szinkronizálás</string>
+    <string name="notification_channel_clock_sync">Óra szinkronizálás</string>
     <string name="location_input_help">Tizedes fok (pl. 1.00, -2.00)
 \n
 \nFok tizedes perc (pl. 1°23.12\'N, 3°12.1\'W)
@@ -848,27 +848,7 @@
     <string name="highest_point_elevation">Legmagasabb pont</string>
     <string name="lowest_point_elevation">Legalacsonyabb pont</string>
     <string name="path_slope">Lejtés</string>
-    <string name="onboarding_privacy">- A Trail Sense tiszteletben tartja a magánszférád, a helyadatok pedig sosem hagyják el a készüléked
-\n
-\n- A Trail Sense-nek sosem lesz szüksége internetkapcsolatra
-\n
-\n- Tekintsd meg az [Adatvédelmi Irányelveket](https://kylecorry.com/Trail-Sense/privacy_policy.html) (a telefonod böngészőjében, angolul nyílik meg)
-\n
-\n- A Trail Sense néhány funkciója hozzáférést igényel a helyadataidhoz
-\n
-\n- A helyhozzáférés megadása a következő funkciókat teszi lehetővé:
-\n
-\n\t- Jelzőpontokhoz navigálás
-\n
-\n\t- Jobb előrejelzési pontosság (nem minden készüléken elérhető)
-\n
-\n\t- Visszakövetés
-\n
-\n\t- Nap és Hold időpontok az aktuális helyed szerint (a naplemente figyelmeztetésnek szüksége lehet háttérbeli helyadatokhoz)
-\n
-\n- Ha úgy döntesz, nem adod meg a helyhozzáférési engedélyt, kézzel is megadhatsz egy helyet a Trail Sense Beállítások &gt; GPS kalibráció menüjében.
-\n
-\n- A folytatás megnyomása után felugró ablakban dönthetsz a helyadatok engedélyének megadásáról. Az engedély megtagadása meggátolja a Trail Sense hozzáférését a helyzetedhez, így a manuális helymegadás javasolt.</string>
+    <string name="onboarding_privacy">- A Trail Sense tiszteletben tartja a magánszférád, a helyadatok pedig sosem hagyják el a készüléked\n\n- A Trail Sense-nek sosem lesz szüksége internetkapcsolatra\n\n- Tekintsd meg az [adatvédelmi irányelveket](https://kylecorry.com/Trail-Sense/privacy_policy.html) (a telefonod böngészőjében, angolul nyílik meg)\n\n- A Trail Sense néhány funkciója hozzáférést igényel a helyadataidhoz\n\n- A helyhozzáférés megadása a következő funkciókat teszi lehetővé:\n\n\t- Jelzőpontokhoz navigálás\n\n\t- Jobb előrejelzési pontosság (nem minden készüléken elérhető)\n\n\t- Visszakövetés\n\n\t- Nap és Hold időpontok az aktuális helyed szerint (a naplemente figyelmeztetésnek szüksége lehet háttérbeli helyadatokhoz)\n\n- Ha úgy döntesz, nem adod meg a helyhozzáférési engedélyt, kézzel is megadhatsz egy helyet a Trail Sense Beállítások &gt; GPS kalibráció menüjében.\n\n- A folytatás megnyomása után felugró ablakban dönthetsz a helyadatok engedélyének megadásáról. Az engedély megtagadása meggátolja a Trail Sense hozzáférését a helyzetedhez, így a manuális helymegadás javasolt.</string>
     <string name="pref_daily_weather_time_title">Napi időjárás ideje</string>
     <string name="time_until_empty">múlva lemerül</string>
     <string name="actual_frequency_disclaimer">A valós frekvencia változó lehet, mivel egyes eszközöknek vannak háttérbeli korlátozásai.</string>
@@ -884,7 +864,7 @@
     <string name="liters">Liter</string>
     <string name="pref_backtrack_history_days_title">VIsszakövetés előzmények</string>
     <string name="pref_tiles_enabled_summary">Megakadályozhatja az akkuoptimalizáló appokat a Trail Sense teljes leállításában</string>
-    <string name="imperial_gallons">Angolszász Gallon</string>
+    <string name="imperial_gallons">Angolszász gallon</string>
     <string name="sort">Rendezés</string>
     <string name="lightning_dangerously_close">Veszélyesen közeli villámlás</string>
     <string name="pref_auto_low_power_summary">Amikor az akkutöltöttség alacsony</string>
@@ -892,10 +872,10 @@
     <string name="clear_amounts">Mennyiségek törlése</string>
     <string name="delete_pack">Csomag törlése\?</string>
     <string name="pack_sort_percent_low_to_high">Becsomagolt százalék (növekvő)</string>
-    <string name="quarter_moon">Negyed Hold</string>
+    <string name="quarter_moon">Negyed hold</string>
     <string name="camera">Kamera</string>
-    <string name="battery_restricted_resolution">Állítsd be a Trail Sense-t Nem Optimalizált-ként</string>
-    <string name="gps_unavailable_resolution">Kapcsold be a Hely-et vagy állítsd a helyforrást Csak eszköz, vagy Nagy Pontosság-ra</string>
+    <string name="battery_restricted_resolution">Trail Sense beállítása nem korlátozottként</string>
+    <string name="gps_unavailable_resolution">Kapcsold be a helyet vagy állítsd a helyforrást \'Csak eszköz\'-re, vagy \'Nagy Pontosság\'-ra</string>
     <string name="no_permission">Hozzáférés megtagadva</string>
     <string name="new_text">Új</string>
     <string name="path_exported">Ösvény exportálva</string>
@@ -905,7 +885,7 @@
     <string name="duration_of_charge">Termelés időtartama</string>
     <string name="precipitation_snow_pellets">Hódara</string>
     <string name="season_spring">Tavasz</string>
-    <string name="no_clouds">Nincsenek Felhők</string>
+    <string name="no_clouds">Nincsenek felhők</string>
     <string name="clinometer_measure_distance_instructions">Egy %s magas célpont távolságának méréséhez:
 \n
 \n1. Állítsd a dőlésmérőt a célpont aljához
@@ -984,7 +964,7 @@
     <string name="restore">Visszaállítás</string>
     <string name="compass_source_legacy_android">Régi (Android)</string>
     <string name="compass_source_legacy_ts">Régi (Trail Sense)</string>
-    <string name="until_sunset">napnyugtáig</string>
+    <string name="until_sunset">Napnyugtáig</string>
     <string name="cold">Hideg</string>
     <string name="weather_alert_cold_description">Készülj fel a hideg hőmérsékletre. Tégy fokozott óvintézkedéseket a kihűlés és fagyás ellen.</string>
     <string name="allow_schedule_exact_alarms">Engedélyezd a %s számára riasztások és emlékeztetők beállítását</string>
@@ -1028,7 +1008,7 @@
     <string name="pref_backfill_temperatures_description">Minden rögzített hőmérséklet helyett a kalibrált történelmi hőmérséklet lesz megadva.</string>
     <string name="battery_settings_limit_accuracy">Az akkumulátorra vonatkozó korlátozások csökkenthetik a pontosságot</string>
     <string name="gps_location_accuracy">GPS hely pontossága</string>
-    <string name="until_sunrise">napkeltéig</string>
+    <string name="until_sunrise">Napkeltéig</string>
     <string name="at_time">%s-kor</string>
     <string name="pref_show_temperature_in_notification_title">Hőmérséklet megjelenítése az értesítésben</string>
     <string name="exact_alarm_permission_denied">A riasztások és emlékeztetők engedélye megtagadva, a riasztások pontatlanok lehetnek.</string>
@@ -1043,7 +1023,7 @@
 \n
 \nCsak olyan mentésfájlt válassz ki amit a %s-szel készítettél és amiben megbízol.</string>
     <string name="historic_temperatures_full_disclaimer" tools:ignore="PluralsCandidate">A hőmérsékletek a múltbeli adatok %d éves átlagán alapulnak, és nem feltétlenül tükrözik az aktuális időjárási viszonyokat.</string>
-    <string name="beta_disclaimer">Ez az eszköz jelenleg béta állapotban van, ezért kérjük, jelentsd a problémákat vagy visszajelzéseket a(z) %s címen.</string>
+    <string name="beta_disclaimer">Ez az eszköz jelenleg béta állapotban van, ezért kérjük, jelentsd a problémákat vagy visszajelzéseket a(z) %s címre.</string>
     <string name="compass_source_mag_gyro">Magnetométer + giroszkóp</string>
     <string name="reduce_map_resolution_crop_disclaimer">A térkép körbevágása továbbra is csökkenti a felbontást. Ha nagy felbontásban kell körbevágnod a térképet, kérjük, használj egy fotószerkesztő alkalmazást. Ennek tervben van a jövőbeli javítása.</string>
     <string name="solar_eclipse">Napfogyatkozás</string>
@@ -1066,7 +1046,7 @@
     <string name="invalid_backup_file">Érvénytelen mentésfájl</string>
     <string name="missing_sensor_explanation">Néhány telefongyártó úgy dönt, hogy nem szerel ilyen szenzort még az új vagy drága eszközeire sem. További információt az eszközöd gyártójának weboldaláról vagy ügyfélszolgálatától kaphatsz.</string>
     <string name="no_sensor_unable_to_fix">Nem, sajnos ez egy hardveres tulajdonság, ezért sehogyan nem lehet utólag hozzáadni.</string>
-    <string name="backup_restore">Mentés / Visszaállítás</string>
+    <string name="backup_restore">Mentés / visszaállítás</string>
     <string name="settings_have_moved_message">Az alkalmazás beállításai az Eszközök lapra kerültek</string>
     <string name="settings_have_moved">A beállítások átköltöztek</string>
     <string name="pinned">Kitűzöttek</string>
@@ -1078,7 +1058,7 @@
         <item quantity="one">%d térkép</item>
         <item quantity="other">%d térkép</item>
     </plurals>
-    <string name="magnetic_north">Mágneses Észak</string>
+    <string name="magnetic_north">Mágneses észak</string>
     <string name="true_north_description">A földrajzi Északi Sark felé mutat a helyedhez tartozó elhajlás alapján. Ez a legtöbb térképpel meg fog egyezni.</string>
     <string name="direction_not_set">Irány nincs beállítva</string>
     <string name="location_number">%d. Hely</string>
@@ -1095,4 +1075,106 @@
     <string name="destination">Úticél</string>
     <string name="pin">Kitűzés</string>
     <string name="distance_away_from_self">%s távolságra</string>
+    <string name="turn_back_alert_set">Visszafordulás értesítés beállítva</string>
+    <string name="sunrise_alert_notification_title">A Nap hamarosan kel</string>
+    <string name="sunrise_alert_notification_text">A nap %s-kor fog kelni</string>
+    <string name="sunrise_alerts">Napkelte jelzések</string>
+    <string name="sunrise_alert_channel_title">Napkelte jelzés</string>
+    <string name="pref_sunrise_alert_time_title">Napkelte jelzés ideje</string>
+    <string name="no_qr_code_detected">Nem található QR kód</string>
+    <string name="exported">Exportálva</string>
+    <string name="sunrise_alert_scheduled">Jelzés időzítve napkelte előtt %s időre</string>
+    <string name="service_restart">Szolgáltatások Újraindítása</string>
+    <string name="service_restart_channel_description">Egy értesítés, hogy indítsd újra a szolgáltatásokat</string>
+    <string name="restart_services_title">Indítsd újra a szolgáltatásokat</string>
+    <string name="fused_altimeter_force_calibration">Kalibrációs intervallum kényszerítése</string>
+    <string name="fused_altimeter_force_calibration_summary">Kikényszerít egy GPS kalibrációt %s időközönként</string>
+    <string name="screen_flashlight_full_name">Kijelző zseblámpa</string>
+    <string name="magnetometer_gyro_custom">Mágnesességmérő + Giro (Egyéni)</string>
+    <string name="projection_type">Kiterjesztett valóság kivetítés</string>
+    <string name="feature_unavailable">%s nem elérhető</string>
+    <string name="fast_path_rendering_summary">Javítja a teljesítményt a megjelenés kárára</string>
+    <string name="show_dial_ticks_on_nearby_radar_summary">Az eszközödnek nincs iránytűje, de továbbra is láthatod, milyen irányban vannak a jelzőpontok.</string>
+    <string name="augmented_reality_no_gyro_message">Továbbra is használhatod a Kiterjesztett Valóság eszközt, de nem lesz olyan pontos.</string>
+    <string name="creating_beacon">Jelzőpont létrehozása</string>
+    <string name="ar_calibration_instructions">Igazítsd a képernyő közepére a %s-*t és nyomd meg a \"Kalibrálás\"-t</string>
+    <string name="use_gyroscope_after_calibration">Giroszkóp használata kalibrálás után</string>
+    <string name="reset_calibration_question">Kalibráció visszaállítása?</string>
+    <string name="smooth_gps_readings">Simított GPS leolvasások</string>
+    <string name="navigate_to_nearest_cell_signal">Navigálás a legközelebbi mobilhálózati jelhez</string>
+    <string name="tool_quick_action_name">Eszköz: %s</string>
+    <string name="mirror_camera">Kamera Tükör</string>
+    <string name="tool_turn_back">Visszafordulás</string>
+    <string name="return_time">Visszaérés ideje</string>
+    <string name="turn_back_instructions">Fordulj vissza %1$s-kor (%2$s múlva), hogy visszaérj %3$s-kor</string>
+    <string name="turn_back_notification_title">Ideje visszafordulni</string>
+    <string name="communication">Kommunikáció</string>
+    <string name="local_talk">Helyi Beszélgetés</string>
+    <string name="quick_actions">Gyorsműveletek</string>
+    <string name="tool_quick_action_summary">Tartsd nyomva az alsó navigációs gombokat vagy lásd az eszközök lapon</string>
+    <string name="quick_actions_are_unavailable">A gyorsműveletek nem elérhetőek</string>
+    <string name="no_items_found">Nem található elem</string>
+    <string name="import_packing_list">Csomagjegyzék importálása</string>
+    <string name="barometer_offset">Barométer eltérése</string>
+    <string name="restart_services_message">A háttérbeli szolgáltatásokat nem lehetett újraindítani. Nyomj az újraindításhoz.</string>
+    <string name="continuous_calibration_description">Kalibrál, valahányszor sikeres a GPS bemérés</string>
+    <string name="dynamic_colors">Dinamikus színek</string>
+    <string name="continuous_calibration">Folytonos kalibráció</string>
+    <string name="no_recorded_cell_signal_nearby">Nincs a közelben felvett mobilhálózati jel</string>
+    <string name="pref_enable_analog_title">Analóg óra</string>
+    <string name="survival_guide_disclaimer">Akárcsak az összes eszköz a Trail Sense-ben, ez az útmutató is általános információátadásra hivatott, és nem ajánlott a professzionális kiképzés és tapasztalat helyettesítőjeként tekinteni. Ez az útmutató csak tájékoztató jellegű. Az alkotók nem vállalnak felelősséget ezen információ használatából eredő bármilyen balesetért, sérülésért vagy egyéb kárért. A természetben minden esetben óvatossággal és józan ésszel járjunk el.</string>
+    <string name="pref_dialog_battery_log_summary">Az akkumulátornapló le van tiltva, az előzmények és a lemerülésig hátralévő idő lehet, hogy nem elérhető. A beállításokban újra engedélyezheted</string>
+    <string name="compact_mode">Kompakt mód</string>
+    <string name="view_in_3d">Megtekintés 3D-ben</string>
+    <string name="background">Háttér</string>
+    <string name="turn_back_notification_description">Fordulj vissza most, hogy %s-kor visszaérj</string>
+    <string name="return_before_dark">Visszaérés sötétedés előtt</string>
+    <string name="bottom_navigation_slot">%d. alsó navigációs hely</string>
+    <string name="turn_back_alerts">Visszafordulás jelzések</string>
+    <string name="ar_calibration_disclaimer">A Kiterjesztett Valóság eszköz minden használata előtt ellenőrizd, hogy a nap vagy hold ikonok helyesen igazodnak a valósághoz. Ha nem, nyomj a bal felül lévő iránytű ikonra és kövesd az utasításokat a kalibráláshoz.</string>
+    <string name="local_messaging">Helyi Üzenetváltás</string>
+    <string name="sunset">Napnyugta</string>
+    <string name="enter_the_current_pressure">Add meg a jelenlegi nyomást</string>
+    <string name="sunrise">Napkelte</string>
+    <string name="use_gyroscope_after_calibration_description">Az iránytű helyett (kiküszöböli a mágneses elcsúszást)</string>
+    <string name="projection_estimated_intrinsics">Becsült belső értékek</string>
+    <string name="max_s">Max %s</string>
+    <string name="ar_calibration_instructions_hint">A Kiterjesztett Valóság eszköz kalibrálásához nyomj a képernyő bal felső részén lévő ikonra, és kövesd a megjelenő utasításokat.</string>
+    <string name="harmonic">Harmonikus</string>
+    <string name="survival_guide">Túlélési Útmutató</string>
+    <string name="water">Víz</string>
+    <string name="shelter_and_clothing">Menedék és ruházat</string>
+    <string name="overview">Áttekintés</string>
+    <string name="crafting">Barkácsolás</string>
+    <string name="field_required">%s (kötelező)</string>
+    <string name="astronomy_altitude">Magasság</string>
+    <string name="forecast_algorithm">Előrejelző algoritmus</string>
+    <string name="pref_flashlight_control_screen_with_volume_title">Kijelző zseblámpa fényerejének állítása a hangerőgombokkal</string>
+    <string name="compass_dynamic_colors">Iránytű dinamikus színekben</string>
+    <string name="compass_dynamic_colors_summary">Dinamikus színek használata a kiemelt irányokhoz</string>
+    <string name="show_dial_ticks_on_nearby_radar">Tárcsaosztások megjelenítése a közelbeni radaron</string>
+    <string name="scanning_image">Kép beolvasása</string>
+    <string name="locate">Keresett égitest</string>
+    <string name="cloud_scanner">Felhő Szkenner</string>
+    <string name="open_photo_map">Fotó térkép megnyitása</string>
+    <string name="fast_path_rendering">Gyors ösvényábrázolás</string>
+    <string name="view_distance"/>
+    <string name="estimate_method">Becslési módszer</string>
+    <string name="tide_clock">Árapály óra</string>
+    <string name="pref_start_camera_in_3d_view_summary">Megnyitja a kamerát, mikor a megtekintés 3D-ben gombra nyomsz</string>
+    <string name="pref_start_camera_in_3d_view_title">Kamera használata 3D megtekintéséhez</string>
+    <string name="select_from_gallery">Kiválasztás a galériából</string>
+    <string name="projection_manufacturer_intrinsics">Gyártói belső értékek</string>
+    <string name="projection_perspective">Perspektíva</string>
+    <string name="projection_linear">Lineáris</string>
+    <string name="default_string">Alapértelmezett</string>
+    <string name="pref_tiles_enabled_battery_log_summary">Óránként naplózza az akkumulátor töltöttségét, hogy megbecsülje a lemerülésig hátralévő időt</string>
+    <string name="pref_tiles_battery_log">Akkumulátornapló</string>
+    <string name="use_path_elevation">Ösvény emelkedésének használata</string>
+    <string name="layers">Rétegek</string>
+    <string name="visible">Látható</string>
+    <string name="grid">Rács</string>
+    <string name="ar_layer_override_message">A réteg beállításokat felülírhatják az útmutatók, mint például a Csillagászati útmutató.</string>
+    <string name="date">Dátum</string>
+    <string name="audio_error_messsage">Hiba történt a hang lejátszásakor.</string>
 </resources>

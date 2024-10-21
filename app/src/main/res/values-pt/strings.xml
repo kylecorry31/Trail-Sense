@@ -138,7 +138,7 @@
     <string name="start">Começar</string>
     <plurals name="water_boil_timer_content">
         <item quantity="one">%d segundo até se tornar potável</item>
-        <item quantity="many" />
+        <item quantity="many"/>
         <item quantity="other">%d segundos até se tornar potável</item>
     </plurals>
     <string name="water_boil_timer_done_content">A água agora é potável</string>
@@ -304,7 +304,7 @@
     <string name="share_action_send">Enviar</string>
     <plurals name="beacon_group_summary">
         <item quantity="one">%d alfinete</item>
-        <item quantity="many" />
+        <item quantity="many"/>
         <item quantity="other">%d alfinetes</item>
     </plurals>
     <string name="sos">SOS</string>
@@ -788,7 +788,7 @@
     <string name="delete_path_group_message">%s e todos os seus percursos serão eliminados.</string>
     <plurals name="path_group_summary">
         <item quantity="one">%d percurso</item>
-        <item quantity="many" />
+        <item quantity="many"/>
         <item quantity="other">%d percursos</item>
     </plurals>
     <string name="path">Percurso</string>
