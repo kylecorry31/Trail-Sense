@@ -1040,7 +1040,7 @@
     <string name="map_file">Soubor (JPG, PNG, PDF)</string>
     <string name="data_source">Zdroj: %s</string>
     <string name="reduce_map_resolution_crop_disclaimer">Oříznutí mapy sníží rozlišení. Pokud potřebujete oříznout mapu ve vysokém rozlišení, použijte program na úpravu obrázků. Tuto chybu plánujeme v budoucnu vyřešit.</string>
-    <string name="crop_map_instructions_long">Posuňte rohy výběru na obrysy mapy.</string>
+    <string name="crop_map_instructions_long">Přesuňte rohy výběru na rohy obrysu mapy. Oříznutím snížíte rozlišení mapy.</string>
     <string name="map_auto_rotated">Otáčení mapy upraveno kalibrací</string>
     <string name="times">Časy</string>
     <string name="rate">Četnost</string>
@@ -1222,4 +1222,7 @@
     <string name="lunitidal_interval_auto">Lunitidální interval (automaticky)</string>
     <string name="lunitidal_interval_local">Lunitidální interval (místní)</string>
     <string name="field_required">%s (vyžadováno)</string>
+    <string name="on_import">Při importu</string>
+    <string name="reduce_photo_resolution">Snížit rozlišení fotky</string>
+    <string name="reduce_pdf_resolution">Snížit rozlišení PDF</string>
 </resources>
