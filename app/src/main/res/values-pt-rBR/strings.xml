@@ -804,23 +804,7 @@
     <string name="clinometer_measure_height_title">Distância ao destino</string>
     <string name="weather_monitor_disabled_resolution">Ativar o monitoramento do tempo em configurações meteorológicas</string>
     <string name="tool_temperature_estimation_description">Estimar a temperatura em uma elevação diferente</string>
-    <string name="onboarding_explore">- Criado para caminhadas, mochileiro, acampamento e geocaching
-\n
-\n- Coloque pontos de orientação e navegue de volta para eles
-\n
-\n- Siga percursos
-\n
-\n- Volte ao percurso anterior com a função de recuar
-\n
-\n- Planeje o que levar
-\n
-\n- Seja alertado antes do pôr-do-sol
-\n
-\n- Prever o tempo
-\n
-\n- Use o telefone como uma lanterna
-\n
-\n- E muito mais!</string>
+    <string name="onboarding_explore">- Feito para caminhadas, mochileiro, acampamento e geocaching (caça ao tesouro)\n\n- Coloque pontos de orientação e navegue de volta para eles\n\n- Seguir percursos\n\n- Volte ao percurso anterior usando a função Recuar\n\n- Planeje o que levar na mala\n\n- Seja alertado antes que o sol se ponha\n\n- Prever o tempo\n\n- Use o telefone como uma lanterna\n\n- E muito mais!</string>
     <string name="off">Desligado</string>
     <string name="no_qr_code_found">Nenhum código QR encontrado</string>
     <string name="saved_to_note">Salvo em anotações</string>
@@ -1058,9 +1042,7 @@
     <string name="no">Não</string>
     <string name="photo_map_summary">Usar uma foto como mapa</string>
     <string name="photo_map_disclaimer">Sempre leve um mapa físico como alternativa e verifique a precisão do Trail Sense.</string>
-    <string name="backup_disclaimer">Um arquivo de backup será criado contendo todos os dados atuais. Isso inclui percursos, pontos de orientação, mapas, configurações, etc.
-\n
-\nEsse arquivo não é criptografado. Não o compartilhe com pessoas não confiáveis.</string>
+    <string name="backup_disclaimer">Será feito um arquivo de backup contendo todos os seus dados atuais. Ele incluirá configurações, percursos, pontos de orientação, mapas, etc.\n\nEsse arquivo não é criptografado. Não o compartilhe com ninguém que não seja de sua confiança.</string>
     <string name="invalid_backup_file">Arquivo de backup inválido</string>
     <string name="map_calibration_instructions">Toque em um local conhecido no mapa e insira as coordenadas do mundo real. Você pode salvar a calibração clicando no botão “Concluído”.
 \n
@@ -1069,11 +1051,9 @@
     <string name="reset_calibration">Redefinir calibragem</string>
     <string name="sunset_alert_scheduled">Alerta marcado para %s do pôr-do-sol</string>
     <string name="backup">Backup</string>
-    <string name="restore_disclaimer">Essa ação substituirá todos os seus dados atuais. Certifique-se de que você tenha um backup antes de continuar.
-\n
-\nSelecione apenas um arquivo de backup que você tenha criado com %s e confie nele.</string>
+    <string name="restore_disclaimer">Essa ação substituirá todos os seus dados atuais. Certifique-se de que você tenha um backup antes de continuar.\n\nSelecione apenas um arquivo de backup que você tenha feito com %s e confie nele.</string>
     <string name="pref_keep_map_facing_up_title">Manter o mapa voltado para cima</string>
-    <string name="restore_failure_newer_version">Esse backup foi criado com uma versão do %s mais recente. Atualize o aplicativo e tente novamente.</string>
+    <string name="restore_failure_newer_version">Esse backup foi feito com uma versão do %s mais recente. Atualize o aplicativo e tente novamente.</string>
     <string name="rate">Frequência</string>
     <string name="until_sunrise">até o nascer do sol</string>
     <string name="reduce_map_resolution_crop_disclaimer">O corte do mapa ainda reduzirá a resolução. Se precisar cortar o mapa em alta resolução, use um aplicativo de edição de fotos. Há planos para corrigir isso no futuro.</string>
