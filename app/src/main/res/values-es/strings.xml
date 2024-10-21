@@ -1212,4 +1212,5 @@
     <string name="lunitidal_interval_auto">Intervalo lunitidal (automático)</string>
     <string name="lunitidal_interval_local">Intervalo lunitidal (local)</string>
     <string name="field_required">%s (obligatorio)</string>
+    <string name="reduce_pdf_resolution">Reducir la resolución del PDF</string>
 </resources>
