@@ -1009,7 +1009,7 @@
     <string name="triangulate_self_location_1_instructions">Kies een bekende locatie waar je zicht op hebt en neem de richting op vanaf waar jij bent ten opzichte van die locatie.</string>
     <string name="restoring_loading_message">Herstellen…</string>
     <string name="triangulate_self_location_2_instructions">Kies een andere bekende locatie waar je zicht op hebt een neem de richting op vanaf waar jij bent ten opzichte van die locatie.</string>
-    <string name="crop_map_instructions_long">Sleep de hoeken van het kader naar de hoeken van de kaart.</string>
+    <string name="crop_map_instructions_long">Sleep de hoeken van het kader naar de hoeken van de kaart. Bijsnijden zal de resolutie van de kaart verlagen.</string>
     <string name="map_auto_rotated">Kaartrotatie aangepast met kalibratie</string>
     <string name="pref_backfill_temperatures_title">Werk opgenomen temperaturen bij</string>
     <string name="backup">Back-up</string>
@@ -1034,9 +1034,7 @@
     <string name="astronomy_direction_peak">Maximum richting</string>
     <string name="direction">Richting</string>
     <string name="battery_usage_allowed">Batterijgebruik toelaten</string>
-    <string name="map_calibration_instructions">Kik op een bekende locatie op de kaart, voer vervolgens de coördinaten uit de echte wereld in. Je kan de kalibratie bewaren door op de \"Klaar\" knop te klikken.
-\n
-\nVoorbeelden van gunstige kalibratiepunten zijn: een parkeerplaats, een bewegwijzeringsbord, een bekende plaats of een kruispunt.</string>
+    <string name="map_calibration_instructions">Kik op een bekende locatie op de kaart, voer vervolgens de coördinaten uit de echte wereld in. Je kan de kalibratie bewaren door op de \"Volgende\" knop te klikken. \n \nVoorbeelden van gunstige kalibratiepunten zijn: een parkeerplaats, een bewegwijzeringsbord, een bekende plaats of een kruispunt.</string>
     <string name="photo_map_summary">Gebruik een foto als kaart</string>
     <string name="zero_shutter_lag">Geen sluitervertraging</string>
     <string name="blank">Leeg</string>
@@ -1201,4 +1199,7 @@
     <string name="lunitidal_interval_local">Lunaire getijdeninterval (lokaal)</string>
     <string name="field_required">%s (vereist)</string>
     <string name="survival_guide_disclaimer">Zoals met alle hulpmiddelen in Trail Sense, is deze gids bedoeld om algemene informatie te bieden en mag deze niet worden beschouwd als een vervanging voor professionele training of ervaring. Dit is alleen voor educatieve doeleinden. De auteurs zijn niet verantwoordelijk voor ongevallen, verwondingen of andere schade die kan voortvloeien uit het gebruik van deze informatie. Gebruik altijd gezond verstand en wees voorzichtig wanneer je buiten bent.</string>
+    <string name="reduce_pdf_resolution">PDF-resolutie verlagen</string>
+    <string name="reduce_photo_resolution">Fotoresolutie verlagen</string>
+    <string name="on_import">Bij importeren</string>
 </resources>
