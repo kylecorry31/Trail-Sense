@@ -1158,7 +1158,7 @@
     <string name="cloud_scanner">Felhő Szkenner</string>
     <string name="open_photo_map">Fotó térkép megnyitása</string>
     <string name="fast_path_rendering">Gyors ösvényábrázolás</string>
-    <string name="view_distance"></string>
+    <string name="view_distance"/>
     <string name="estimate_method">Becslési módszer</string>
     <string name="tide_clock">Árapály óra</string>
     <string name="pref_start_camera_in_3d_view_summary">Megnyitja a kamerát, mikor a megtekintés 3D-ben gombra nyomsz</string>
