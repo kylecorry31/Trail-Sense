@@ -1029,4 +1029,13 @@
     <string name="pressure_system">Σύστημα πίεσης</string>
     <string name="weather_clear">Καθαρός</string>
     <string name="center">Κέντρο</string>
+    <string name="sunrise_alert_notification_title">Ο ήλιος θα ανατείλει σύντομα</string>
+    <string name="sunrise_alert_notification_text">Ο ήλιος θα ανατείλει στις %s</string>
+    <string name="sunrise_alerts">Ειδοποιήσεις ανατολής</string>
+    <string name="sunrise_alert_channel_title">Ειδοποίηση ανατολής</string>
+    <string name="pref_sunrise_alert_time_title">Χρόνος ειδοποίησης ανατολής</string>
+    <string name="pref_tiles_enabled_battery_log_summary">Καταγράφει το ποσοστό της μπαταρίας κάθε ώρα για να εκτιμήσει το χρόνο μέχρι να αδειάσει</string>
+    <string name="scanning_image">Σάρωση εικόνας</string>
+    <string name="pref_tiles_battery_log">Αρχείο καταγραφής μπαταρίας</string>
+    <string name="pref_dialog_battery_log_summary">Το αρχείο καταγραφής της μπαταρίας είναι απενεργοποιημένο. Το ιστορικό και ο χρόνος μέχρι να αδειάσει ενδέχεται να μην είναι διαθέσιμοι. Μπορείτε να το ενεργοποιήσετε ξανά στις ρυθμίσεις</string>
 </resources>
