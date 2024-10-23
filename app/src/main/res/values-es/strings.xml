@@ -891,11 +891,7 @@
     <string name="average_speed_backtrack">Velocidad media (Retroceso)</string>
     <string name="navigating_to_nearest_path_point">Navegando al punto más cercano de la ruta</string>
     <string name="average_speed">Velocidad media</string>
-    <string name="allow_ignore_battery_restrictions_instructions">Eliminar las restricciones de batería para Trail Sense puede mejorar la precisión.
-\n
-\nEn la mayoría de los dispositivos, haz clic en \"%s\", cambia a todas las aplicaciones y desactiva la optimización de la batería para Trail Sense.
-\n
-\nVisita [Don\'t kill my app](https://dontkillmyapp.com/) para obtener instrucciones específicas para cada dispositivo.</string>
+    <string name="allow_ignore_battery_restrictions_instructions">La eliminación de las restricciones de batería para Trail Sense puede mejorar la precisión.\n\nEn la mayoría de los dispositivos, haz clic en \'%s\', luego cambia a todas las aplicaciones y apaga la optimización de la batería para Trail Sense.\n\nVisita [Don\'t kill my app](https://dontkillmyapp.com/) para obtener instrucciones específicas del dispositivo.</string>
     <string name="point">Punto</string>
     <string name="map_export_error">No fue posible exportar el mapa al archivo seleccionado</string>
     <string name="point_added">Punto añadido a ruta</string>
@@ -1038,7 +1034,7 @@
     <string name="beta_disclaimer">Esta herramienta se encuentra actualmente en versión beta, así que informe de cualquier problema o comentario a %s.</string>
     <string name="photo_map_summary">Usar una imágen como mapa</string>
     <string name="beta">Beta</string>
-    <string name="crop_map_instructions_long">Arrastra las esquinas del recuadro hasta las esquinas del mapa que deseas contornear.</string>
+    <string name="crop_map_instructions_long">Arrastra las esquinas del recuadro hasta las esquinas del mapa que deseas contornear. Recortar reducirá la resolución del mapa.</string>
     <string name="reduce_map_resolution_crop_disclaimer">Recortar el mapa seguirá reduciendo la resolución. Si necesitas recortar el mapa a alta resolución, utiliza una aplicación de edición fotográfica. Hay planes para solucionar este problema en el futuro.</string>
     <string name="rotation_amount">Rotación: %s</string>
     <string name="battery_settings_limit_accuracy">Las restricciones de batería limitan la precisión</string>
@@ -1048,9 +1044,7 @@
     <string name="sunset_alerts_background_location_disclaimer">Las alertas de puesta de sol pueden ser imprecisas durante los viajes</string>
     <string name="allow_ignore_battery_restrictions">Permitir que %s ignore las restricciones de la batería</string>
     <string name="exact_alarm_permission_denied">Alarmas y recordatorios denegados, las alertas pueden ser inexactas.</string>
-    <string name="allow_schedule_exact_alarms_instructions">Esto permite a %1$s establecer alarmas y recordatorios exactos, como alertas de la puesta de sol. Sin esto, es posible que las alarmas no se activen a la hora correcta.
-\n
-\nPara permitirlo, haga clic en \"%2$s\" y active el ajuste para permitir alarmas y recordatorios.</string>
+    <string name="allow_schedule_exact_alarms_instructions">Esto permite que %1$s establezca alarmas y recordatorios exactos, como alertas de puesta de sol. Sin esto, las alarmas no pueden activarse en el momento correcto.\n\nPara permitir, haga clic en \'%2$s\' y active la configuración para permitir alarmas y recordatorios.</string>
     <string name="allow_schedule_exact_alarms">Permitir a %s establecer alarmas y recordatorios</string>
     <string name="backtrack_no_permission">Retroceso (vuelta atrás) requiere permiso de ubicación para ejecutarse</string>
     <string name="sunset_alert_scheduled">Alerta programada para %s antes de la puesta de sol</string>
@@ -1062,12 +1056,8 @@
     <string name="gps_elevation_accuracy">Precisión de elevación del GPS</string>
     <string name="backup">Copia de seguridad</string>
     <string name="restore">Restaurar</string>
-    <string name="restore_disclaimer">Esta acción sobrescribirá todos tus datos actuales. Por favor, asegúrate de tener una copia de seguridad antes de continuar.
-\n
-\nSelecciona únicamente un archivo de copia de seguridad que hayas creado con %s y en el que confíes.</string>
-    <string name="backup_disclaimer">Se creará un archivo de copia de seguridad con todos tus datos actuales. Incluirá ajustes, rutas, balizas, mapas, etc.
-\n
-\nEste archivo no está encriptado. No lo compartas con nadie en quien no confíes.</string>
+    <string name="restore_disclaimer">Esta acción sobrescribirá todos sus datos actuales. Por favor, asegúrese de tener una copia de seguridad antes de continuar.\n\nSeleccione solo un archivo de copia de seguridad que haya creado con %s y confianza.</string>
+    <string name="backup_disclaimer">Se creará un archivo de copia de seguridad que contendrá todos sus datos actuales. Incluirá configuraciones, rutas, balizas, mapas, etc.\n\nEste archivo no está encriptado. No lo comparta con nadie en quien no confíe.</string>
     <string name="backing_up_loading_message">Copia de seguridad…</string>
     <string name="restoring_loading_message">Restaurando…</string>
     <string name="restore_complete_message">Restaurado con éxito, reinicia para aplicar los cambios</string>
@@ -1213,4 +1203,6 @@
     <string name="lunitidal_interval_local">Intervalo lunitidal (local)</string>
     <string name="field_required">%s (obligatorio)</string>
     <string name="reduce_pdf_resolution">Reducir la resolución del PDF</string>
+    <string name="reduce_photo_resolution">Reducir la resolución de la foto</string>
+    <string name="on_import">Sobre la importación</string>
 </resources>
