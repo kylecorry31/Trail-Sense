@@ -28,12 +28,10 @@ class MoonListItemProducer(context: Context) : BaseAstroListItemProducer(context
         val tilt = if (date == LocalDate.now()) {
             astronomyService.getMoonTilt(location)
         } else {
-            // If the transit isn't found, it's likely a full moon
-            val tiltTime = times.transit ?: date.atStartOfDay().atZone(ZoneId.systemDefault())
-
             astronomyService.getMoonTilt(
                 location,
-                tiltTime
+                date.atTime(12, 0).atZone(ZoneId.systemDefault()),
+                useNearestTransit = true
             )
         }
 
