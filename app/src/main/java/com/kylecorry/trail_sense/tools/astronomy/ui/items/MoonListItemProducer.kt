@@ -28,10 +28,12 @@ class MoonListItemProducer(context: Context) : BaseAstroListItemProducer(context
         val tilt = if (date == LocalDate.now()) {
             astronomyService.getMoonTilt(location)
         } else {
+            // If the transit isn't found, it's likely a full moon
+            val tiltTime = times.transit ?: date.atStartOfDay().atZone(ZoneId.systemDefault())
+
             astronomyService.getMoonTilt(
                 location,
-                times.transit ?: times.rise ?: times.set ?: date.atTime(12, 0)
-                    .atZone(ZoneId.systemDefault())
+                tiltTime
             )
         }
 
@@ -50,8 +52,7 @@ class MoonListItemProducer(context: Context) : BaseAstroListItemProducer(context
             2,
             context.getString(R.string.moon),
             percent(formatter.formatMoonPhase(phase.phase), phase.illumination),
-            // TODO: Add tilt support to list icon
-            ResourceListIcon(MoonPhaseImageMapper().getPhaseImage(phase.phase)),
+            ResourceListIcon2(MoonPhaseImageMapper().getPhaseImage(phase.phase), rotation = tilt),
             data = riseSetTransit(times)
         ) {
             val advancedData = listOf(
