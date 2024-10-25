@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.util.Size
 import com.davemorrissey.labs.subscaleview.decoder.ImageDecoder
+import com.kylecorry.andromeda.pdf.PDFRenderer2
 
 class PdfImageDecoder(private val bitmapConfig: Bitmap.Config? = null) : ImageDecoder {
 
@@ -13,7 +14,7 @@ class PdfImageDecoder(private val bitmapConfig: Bitmap.Config? = null) : ImageDe
         uri: Uri
     ): Bitmap {
         val renderer =
-            PDFRenderer(context!!, uri, config = bitmapConfig ?: Bitmap.Config.RGB_565)
+            PDFRenderer2(context!!, uri, config = bitmapConfig ?: Bitmap.Config.RGB_565)
         val originalSize = renderer.getSize()
         // Constrict to 1000x1000
         val scale = 1000f / originalSize.width.coerceAtLeast(originalSize.height)
