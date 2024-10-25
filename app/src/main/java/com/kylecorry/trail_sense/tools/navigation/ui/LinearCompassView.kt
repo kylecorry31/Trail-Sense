@@ -137,11 +137,11 @@ class LinearCompassView : BaseCompassView {
         opacity((255 * reference.opacity).toInt())
         val bitmap = getBitmap(reference.drawableId, sizeDp)
         imageMode(ImageMode.Corner)
-        image(
-            bitmap,
-            x - sizeDp / 2f,
-            (iconSize - sizeDp) * 0.6f
-        )
+        push()
+        translate(x - sizeDp / 2f, (iconSize - sizeDp) * 0.6f)
+        rotate(reference.rotation, bitmap.width / 2f, bitmap.height / 2f)
+        image(bitmap, 0f, 0f)
+        pop()
         noTint()
         opacity(255)
 

@@ -44,12 +44,14 @@ class UpdateAstronomyLayerCommand(
                 )
             }
 
+
             if (astro.isMoonUp) {
                 markers.add(
                     MappableReferencePoint(
                         2,
                         MoonPhaseImageMapper().getPhaseImage(astro.moonPhase),
-                        fromTrueNorth(astro.moonBearing)
+                        fromTrueNorth(astro.moonBearing),
+                        rotation = astro.moonTilt
                     )
                 )
             } else if (showWhenDown) {
@@ -58,7 +60,8 @@ class UpdateAstronomyLayerCommand(
                         2,
                         MoonPhaseImageMapper().getPhaseImage(astro.moonPhase),
                         fromTrueNorth(astro.moonBearing),
-                        opacity = 0.5f
+                        opacity = 0.5f,
+                        rotation = astro.moonTilt
                     )
                 )
             }

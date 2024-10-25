@@ -19,6 +19,7 @@ interface IMappableReferencePoint : Identifiable {
     val tint: Int?
     val opacity: Float
     val bearing: Bearing
+    val rotation: Float
 }
 
 data class MappableReferencePoint(
@@ -27,6 +28,7 @@ data class MappableReferencePoint(
     override val bearing: Bearing,
     override val tint: Int? = null,
     override val opacity: Float = 1f,
+    override val rotation: Float = 0f
 ) : IMappableReferencePoint
 
 

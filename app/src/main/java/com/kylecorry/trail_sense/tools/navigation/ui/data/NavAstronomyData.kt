@@ -8,5 +8,6 @@ data class NavAstronomyData(
     val moonBearing: Bearing,
     val isSunUp: Boolean,
     val isMoonUp: Boolean,
-    val moonPhase: MoonTruePhase
+    val moonPhase: MoonTruePhase,
+    val moonTilt: Float
 )
