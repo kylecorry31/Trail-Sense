@@ -5,10 +5,10 @@ import android.content.Context
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.core.tryOrNothing
+import com.kylecorry.andromeda.pdf.PDFRenderer2
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
-import com.kylecorry.trail_sense.shared.canvas.tiles.PDFRenderer
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.MapEntity
 import com.kylecorry.trail_sense.tools.maps.domain.MapGroup
@@ -58,7 +58,7 @@ class MapRepo private constructor(private val context: Context) : IMapRepo {
         if (map.id == 0L) {
             var entity = MapEntity.from(map)
             val pdfSize = tryOrDefault(null) {
-                PDFRenderer(context, files.uri(map.pdfFileName)).getSize()
+                PDFRenderer2(context, files.uri(map.pdfFileName)).getSize()
             }
             entity = entity.copy(pdfWidth = pdfSize?.width, pdfHeight = pdfSize?.height)
             mapDao.insert(entity)

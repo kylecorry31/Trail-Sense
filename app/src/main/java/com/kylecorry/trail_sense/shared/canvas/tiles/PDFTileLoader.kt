@@ -6,6 +6,7 @@ import android.graphics.RectF
 import android.net.Uri
 import android.util.Size
 import com.kylecorry.andromeda.core.system.Screen
+import com.kylecorry.andromeda.pdf.PDFRenderer2
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.luna.coroutines.onIO
@@ -29,7 +30,7 @@ class PDFTileLoader(
     private val tileMap = ConcurrentHashMap<ImageTile, Bitmap>()
     private val tileUpdateQueue = CoroutineQueueRunner()
     private var imageSize = Size(0, 0)
-    private var renderer: PDFRenderer? = null
+    private var renderer: PDFRenderer2? = null
     private var onTilesChangedListener: (() -> Unit)? = null
 
     override suspend fun updateTiles(zoom: Float, clipBounds: RectF) {
@@ -39,7 +40,7 @@ class PDFTileLoader(
                     println("RENDERING")
 
                     if (renderer == null) {
-                        renderer = PDFRenderer(context, uri)
+                        renderer = PDFRenderer2(context, uri)
                     }
 
                     if (imageSize.width == 0 || imageSize.height == 0) {
@@ -151,7 +152,6 @@ class PDFTileLoader(
         baseImage?.second?.recycle()
         baseImage = null
         tileMap.clear()
-        renderer?.release()
         renderer = null
     }
 
