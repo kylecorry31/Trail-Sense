@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.tools.astronomy.ui.MoonPhaseImageMapper
 import java.time.LocalDate
+import java.time.ZoneId
 
 class MoonListItemProducer(context: Context) : BaseAstroListItemProducer(context) {
 
@@ -23,6 +24,15 @@ class MoonListItemProducer(context: Context) : BaseAstroListItemProducer(context
             astronomyService.getCurrentMoonPhase()
         } else {
             astronomyService.getMoonPhase(date)
+        }
+        val tilt = if (date == LocalDate.now()) {
+            astronomyService.getMoonTilt(location)
+        } else {
+            astronomyService.getMoonTilt(
+                location,
+                times.transit ?: times.rise ?: times.set ?: date.atTime(12, 0)
+                    .atZone(ZoneId.systemDefault())
+            )
         }
 
         // Advanced
@@ -40,6 +50,7 @@ class MoonListItemProducer(context: Context) : BaseAstroListItemProducer(context
             2,
             context.getString(R.string.moon),
             percent(formatter.formatMoonPhase(phase.phase), phase.illumination),
+            // TODO: Add tilt support to list icon
             ResourceListIcon(MoonPhaseImageMapper().getPhaseImage(phase.phase)),
             data = riseSetTransit(times)
         ) {

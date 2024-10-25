@@ -90,7 +90,7 @@ class AstroChart(private val chart: Chart, private val onImageClick: () -> Unit)
         true
     }
 
-    private val moonImage = BitmapChartLayer(
+    private val moonImage = BitmapChartLayer2(
         emptyList(),
         bitmapLoader.load(R.drawable.ic_moon, imageSize.toInt()),
         16f
@@ -162,12 +162,13 @@ class AstroChart(private val chart: Chart, private val onImageClick: () -> Unit)
         chart.invalidate()
     }
 
-    fun moveMoon(position: Reading<Float>?) {
+    fun moveMoon(position: Reading<Float>?, tilt: Float? = null) {
         moonImage.data = if (position == null) {
             emptyList()
         } else {
             Chart.getDataFromReadings(listOf(position), startTime) { it }
         }
+        moonImage.rotation = tilt ?: 0f
         updateMoonArea()
         chart.invalidate()
     }

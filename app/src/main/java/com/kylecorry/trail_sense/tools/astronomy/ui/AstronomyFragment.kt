@@ -87,6 +87,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     private var location by state(Coordinate.zero)
     private var currentSeekChartTime by state(ZonedDateTime.now())
     private var isSeeking by state(false)
+    private var currentMoonTilt by state(0f)
 
     private val astroChartDataProvider by lazy {
         if (prefs.astronomy.centerSunAndMoon) {
@@ -277,7 +278,10 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             astronomyService.getMoonAzimuth(location, time).withDeclination(-declination).value
 
         return AstroPositions(
-            moonAltitude, sunAltitude, moonAzimuth, sunAzimuth
+            moonAltitude,
+            sunAltitude,
+            moonAzimuth,
+            sunAzimuth
         )
     }
 
@@ -332,6 +336,8 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             }
         }
 
+        currentMoonTilt = onDefault { astronomyService.getMoonTilt(location) }
+
         withContext(Dispatchers.Main) {
             chart.setMoonImage(getMoonImage(moonPhase.phase))
         }
@@ -374,13 +380,15 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     }
 
     private fun plotMoonImage(
-        altitudes: List<Reading<Float>>, time: ZonedDateTime = ZonedDateTime.now()
+        altitudes: List<Reading<Float>>,
+        time: ZonedDateTime = ZonedDateTime.now(),
+        tilt: Float? = null
     ) {
         val instant = time.toInstant()
         val current = altitudes.minByOrNull {
             Duration.between(instant, it.time).abs()
         }
-        chart.moveMoon(current)
+        chart.moveMoon(current, tilt ?: currentMoonTilt)
     }
 
     private suspend fun updateAstronomyDetails() {
@@ -510,6 +518,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             currentSeekChartTime,
             isSeeking,
             location,
+            currentMoonTilt,
             triggers.frequency("chart", Duration.ofMinutes(1)),
             lifecycleHookTrigger.onResume()
         ) {
@@ -518,8 +527,11 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                     return@inBackground
                 }
                 updateAstronomyChart()
+
+                val tilt = astronomyService.getMoonTilt(location, currentSeekChartTime)
+
                 if (isSeeking) {
-                    plotMoonImage(data.moon, currentSeekChartTime)
+                    plotMoonImage(data.moon, currentSeekChartTime, tilt)
                     plotSunImage(data.sun, currentSeekChartTime)
                 }
             }

@@ -4,5 +4,5 @@ data class AstroPositions(
     val moonAltitude: Float,
     val sunAltitude: Float,
     val moonAzimuth: Float,
-    val sunAzimuth: Float
+    val sunAzimuth: Float,
 )
