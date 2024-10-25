@@ -29,7 +29,7 @@ class AstronomyARGuide(
 
     private var timeOverride: ZonedDateTime? = null
 
-    fun setDate(date: LocalDate){
+    fun setDate(date: LocalDate) {
         binding?.arGuideDatePicker?.date = date
     }
 
@@ -118,6 +118,7 @@ class AstronomyARGuide(
 
     private fun updateTrackingIcon() {
         binding?.arGuideIcon?.setImageResource(getOptionIcon(objectToTrack, ZonedDateTime.now()))
+        binding?.arGuideIcon?.rotation = getOptionIconRotation(objectToTrack, ZonedDateTime.now())
     }
 
     override fun stop(arView: AugmentedRealityView, panel: FrameLayout) {
@@ -146,6 +147,15 @@ class AstronomyARGuide(
             AstronomyObject.Moon -> {
                 val phase = Astronomy.getMoonPhase(time).phase
                 MoonPhaseImageMapper().getPhaseImage(phase)
+            }
+        }
+    }
+
+    private fun getOptionIconRotation(option: AstronomyObject, time: ZonedDateTime): Float {
+        return when (option) {
+            AstronomyObject.Sun -> 0f
+            AstronomyObject.Moon -> {
+                astro.getMoonTilt(arView?.location ?: return 0f, time)
             }
         }
     }

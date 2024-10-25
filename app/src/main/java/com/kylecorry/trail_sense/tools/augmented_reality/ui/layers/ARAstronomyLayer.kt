@@ -224,6 +224,7 @@ class ARAstronomyLayer(
                 val moonIconId = MoonPhaseImageMapper().getPhaseImage(phase.phase)
                 val moonImageSize = drawer.dp(24f).toInt()
                 val moonBitmap = bitmapLoader?.load(moonIconId, moonImageSize)
+                val moonTilt = astro.getMoonTilt(location, time)
 
                 val moon = ARMarker(
                     SphericalARPoint(
@@ -232,7 +233,7 @@ class ARAstronomyLayer(
                         isTrueNorth = true,
                         angularDiameter = 2f
                     ),
-                    canvasObject = moonBitmap?.let { CanvasBitmap(moonBitmap) }
+                    canvasObject = moonBitmap?.let { CanvasBitmap(moonBitmap, rotation = moonTilt) }
                         ?: CanvasCircle(Color.WHITE),
                     onFocusedFn = {
                         onMoonFocus(time, phase)

@@ -39,7 +39,8 @@ class CanvasBitmap(
     private val bitmap: android.graphics.Bitmap,
     private val scale: Float = 1f,
     private val opacity: Int = 255,
-    private val tint: Int? = null
+    private val tint: Int? = null,
+    private val rotation: Float = 0f
 ) : CanvasObject {
 
     private val aspectRatio = bitmap.width.toFloat() / bitmap.height.toFloat()
@@ -56,13 +57,17 @@ class CanvasBitmap(
         val width = area.radius * 2f * scale
         val height = width / aspectRatio
         drawer.imageMode(ImageMode.Center)
+        drawer.push()
+        drawer.translate(area.center.x, area.center.y)
+        drawer.rotate(rotation, 0f, 0f)
         drawer.image(
             bitmap,
-            area.center.x,
-            area.center.y,
+            0f,
+            0f,
             width,
             height
         )
+        drawer.pop()
 
         drawer.noTint()
     }
