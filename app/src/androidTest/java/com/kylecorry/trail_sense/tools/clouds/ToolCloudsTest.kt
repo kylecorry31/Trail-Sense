@@ -117,11 +117,15 @@ class ToolCloudsTest {
         // The file picker is opened
         waitFor {
             not { view(R.id.add_btn) }
-            back()
         }
 
         waitFor {
-            view(R.id.cloud_list_title)
+            waitFor {
+                back()
+            }
+            waitFor {
+                view(R.id.cloud_list_title)
+            }
         }
     }
 
