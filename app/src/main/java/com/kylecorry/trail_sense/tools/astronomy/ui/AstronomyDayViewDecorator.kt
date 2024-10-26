@@ -1,7 +1,15 @@
 package com.kylecorry.trail_sense.tools.astronomy.ui
 
 import android.content.Context
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.InsetDrawable
+import android.graphics.drawable.RotateDrawable
+import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
+import androidx.core.graphics.drawable.toBitmap
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils.rotate
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.pickers.material.AndromedaDayViewDecorator
 import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
@@ -9,19 +17,11 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import java.time.LocalDate
+import java.time.ZoneId
 
 class AstronomyDayViewDecorator(private val location: Coordinate) : AndromedaDayViewDecorator() {
 
-    private val moonIconMap = mapOf(
-        MoonTruePhase.Full to R.drawable.ic_moon,
-        MoonTruePhase.New to R.drawable.ic_moon_new,
-        MoonTruePhase.FirstQuarter to R.drawable.ic_moon_first_quarter,
-        MoonTruePhase.ThirdQuarter to R.drawable.ic_moon_third_quarter,
-        MoonTruePhase.WaningCrescent to R.drawable.ic_moon_waning_crescent,
-        MoonTruePhase.WaningGibbous to R.drawable.ic_moon_waning_gibbous,
-        MoonTruePhase.WaxingCrescent to R.drawable.ic_moon_waxing_crescent,
-        MoonTruePhase.WaxingGibbous to R.drawable.ic_moon_waxing_gibbous,
-    )
+    private val phaseImageMapper = MoonPhaseImageMapper()
 
     override fun getBottomDrawable(
         context: Context,
@@ -32,15 +32,26 @@ class AstronomyDayViewDecorator(private val location: Coordinate) : AndromedaDay
 
         val size = Resources.dp(context, 12f).toInt()
         val phase = astronomy.getMoonPhase(date).phase
+        val moonTilt =
+            astronomy.getMoonTilt(
+                location,
+                date.atTime(12, 0).atZone(ZoneId.systemDefault()),
+                useNearestTransit = true
+            )
         val hasMeteorShower = astronomy.getMeteorShower(location, date) != null
         val lunarEclipse = astronomy.getLunarEclipse(location, date)
         val hasPartialLunar = lunarEclipse != null && !lunarEclipse.isTotal
-        val hasTotalLunar = lunarEclipse?.isTotal ?: false
+        val hasTotalLunar = lunarEclipse?.isTotal == true
         val solarEclipse = astronomy.getSolarEclipse(location, date)
         val hasPartialSolar = solarEclipse != null && !solarEclipse.isTotal
-        val hasTotalSolar = solarEclipse?.isTotal ?: false
+        val hasTotalSolar = solarEclipse?.isTotal == true
         val drawables = listOfNotNull(
-            moonIconMap[phase]?.let { createIndicatorDrawable(context, it, size) },
+            createIndicatorDrawable(
+                context,
+                phaseImageMapper.getPhaseImage(phase),
+                size,
+                rotation = moonTilt
+            ),
             if (hasMeteorShower) createIndicatorDrawable(
                 context,
                 R.drawable.ic_meteor,
@@ -75,5 +86,4 @@ class AstronomyDayViewDecorator(private val location: Coordinate) : AndromedaDay
             createIndicatorDrawableGrid(drawables, drawables.size.coerceAtMost(2), size, size / 4)
         }
     }
-
 }
