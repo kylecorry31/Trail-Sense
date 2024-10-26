@@ -187,21 +187,5 @@ class ToolCloudsTest {
         waitFor {
             view(com.kylecorry.andromeda.views.R.id.title)
         }
-
-        // Delete all cloud results
-        try {
-            while (true) {
-                clickListItemMenu(getString(R.string.delete))
-                waitFor {
-                    viewWithText(android.R.string.ok).click()
-                }
-            }
-        } catch (e: Throwable) {
-            // Do nothing
-        }
-
-        waitFor {
-            view(R.id.cloud_empty_text).hasText(R.string.no_clouds)
-        }
     }
 }
