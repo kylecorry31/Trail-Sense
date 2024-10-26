@@ -45,7 +45,7 @@ If you have Internet access, you can look up the coordinates of a map feature (e
 A good source for geospatial PDFs is [CalTopo](https://caltopo.com), though there are many other sources available online.
 
 ## Using a map
-Once you've created a map, you can use it for navigation. The map displays your location, paths, and beacons.
+Once you've created a map, you can use it for navigation. The map displays your location, elevation, paths, and beacons.
 
 You can drag to pan, pinch to zoom, or tap the zoom buttons in the bottom-right. To recenter the map on your screen, click the recenter button in the top-right. The map's scale is shown in the bottom-right.
 
@@ -97,7 +97,7 @@ To print a map, click the menu button on the map row you want to print, then sel
 ## Change the resolution of a map
 To alter the resolution of a map, click the menu button on the map row you want to adjust, then select 'Change resolution'. A dialog will appear, allowing you to switch between low (lowest quality and smallest file size), medium (moderate quality and file size), and high (highest quality and largest file size) resolutions. Keep in mind that changing the resolution is a permanent action and cannot be undone.
 
-By default, Trail Sense will automatically reduce the map resolution on import. To change this, disable Settings > Photo Maps > 'Reduce map resolution'.
+By default, Trail Sense will automatically reduce the map resolution on import. To change this, disable Settings > Photo Maps > 'Reduce photo resolution' or 'Reduce PDF resolution'.
 
 ## Organizing maps
 You can organize maps into groups. To create a group, click the '+' button in the bottom-right of the map list and select 'Group'. Give the group a name and click 'OK'. To add maps to the group, click on the group in the list and follow the map creation instructions. The map will be added to the chosen group.

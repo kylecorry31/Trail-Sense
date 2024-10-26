@@ -185,6 +185,7 @@ Theme related settings can be adjusted in Settings > Theme.
   - **Dark**: A theme with a dark background.
   - **Black**: A theme with a black background.
   - **System**: A theme that follows the system settings.
+  - **System (black)**: A theme that follows the system settings with a black background when dark mode is enabled.
   - **Sunrise/sunset**: A theme that changes between light and dark based on the time of day.
   - **Night**: A theme with a black background and a red filter to help maintain night vision.
 - **Dynamic colors**: Whether to use your device's dynamic colors in the app, if disabled or unavailable colors in Trail Sense will be a shade of orange.
