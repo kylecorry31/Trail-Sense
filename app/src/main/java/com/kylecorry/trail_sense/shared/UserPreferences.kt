@@ -162,7 +162,8 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
             "black" to Theme.Black,
             "sunrise_sunset" to Theme.SunriseSunset,
             "night" to Theme.Night,
-            "system" to Theme.System
+            "system" to Theme.System,
+            "system_black" to Theme.SystemBlack
         ),
         Theme.System
     )
@@ -176,7 +177,8 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
             "black" to Theme.Black,
             "sunrise_sunset" to Theme.SunriseSunset,
             "night" to Theme.Night,
-            "system" to Theme.System
+            "system" to Theme.System,
+            "system_black" to Theme.SystemBlack
         ),
         Theme.System
     )
@@ -410,7 +412,7 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
     }
 
     enum class Theme {
-        Light, Dark, Black, System, SunriseSunset, Night
+        Light, Dark, Black, System, SunriseSunset, Night, SystemBlack
     }
 
     enum class AltimeterMode {
