@@ -53,17 +53,6 @@ class PreferenceMigrator private constructor() {
                     prefs.remove("pref_use_camera_features")
                 }
             },
-            PreferenceMigration(1, 2) { context, prefs ->
-                if (prefs.getBoolean(context.getString(R.string.pref_onboarding_completed)) == true) {
-                    if (!prefs.contains(context.getString(R.string.pref_sunset_alerts))) {
-                        prefs.putBoolean(context.getString(R.string.pref_sunset_alerts), true)
-                    }
-
-                    if (!prefs.contains(context.getString(R.string.pref_monitor_weather))) {
-                        prefs.putBoolean(context.getString(R.string.pref_monitor_weather), true)
-                    }
-                }
-            },
             PreferenceMigration(2, 3) { _, prefs ->
                 prefs.remove("cache_pressure_setpoint")
                 prefs.remove("cache_pressure_setpoint_altitude")
@@ -104,11 +93,6 @@ class PreferenceMigrator private constructor() {
                 }
                 prefs.remove("odometer_distance")
                 prefs.remove("last_odometer_location")
-
-                prefs.putBoolean(
-                    context.getString(R.string.pref_pedometer_enabled),
-                    prefs.getString("pref_odometer_source") == "pedometer"
-                )
             },
             PreferenceMigration(7, 8) { context, _ ->
                 val prefs = UserPreferences(context).navigation

@@ -7,6 +7,7 @@ import android.hardware.camera2.CameraManager
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.annotation.StringRes
 import androidx.core.content.getSystemService
 import androidx.test.core.app.ActivityScenario
@@ -16,8 +17,10 @@ import androidx.test.uiautomator.Configurator
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
 import androidx.work.Configuration
-import androidx.work.WorkerFactory
-import androidx.work.impl.WorkManagerImpl
+import androidx.work.testing.SynchronousExecutor
+import androidx.work.testing.WorkManagerTestInitHelper
+import com.kylecorry.andromeda.permissions.Permissions
+import com.kylecorry.andromeda.permissions.SpecialPermission
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.main.NotificationChannels
@@ -126,16 +129,6 @@ object TestUtils {
      * Setup the application to match the actual application (Trail Sense application)
      */
     fun setupApplication(setDefaultPrefs: Boolean = true) {
-        // TODO: Maybe look into this: https://github.com/jarnedemeulemeester/findroid/blob/e2fe0e354b32a66cc9510faf23f5462846456f34/app/phone/src/androidTest/kotlin/dev/jdtech/jellyfin/MainActivityTest.kt#L16
-        val workerFactory = WorkerFactory.getDefaultWorkerFactory()
-        val configuration = Configuration.Builder()
-            .setWorkerFactory(workerFactory)
-            .setMinimumLoggingLevel(android.util.Log.DEBUG)
-            .build()
-        val workManager = WorkManagerImpl(context, configuration)
-        WorkManagerImpl.setDelegate(workManager)
-
-
         if (setDefaultPrefs) {
             setupDefaultPreferences()
         }
@@ -199,7 +192,7 @@ object TestUtils {
         val permissions = mutableListOf(
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.CAMERA,
+            Manifest.permission.CAMERA
         )
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -335,6 +328,22 @@ object TestUtils {
         view(com.kylecorry.andromeda.views.R.id.menu_btn, index = index).click()
         waitFor {
             viewWithText(label).click()
+        }
+    }
+
+    fun handleExactAlarmsDialog() {
+        // TODO: Add the option to grant the permission
+        if (!Permissions.hasPermission(
+                context,
+                SpecialPermission.SCHEDULE_EXACT_ALARMS
+            )
+        ) {
+            waitFor {
+                viewWithText(android.R.string.cancel).click()
+            }
+            waitFor {
+                not { viewWithText(android.R.string.cancel) }
+            }
         }
     }
 }

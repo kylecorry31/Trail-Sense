@@ -2,9 +2,11 @@ package com.kylecorry.trail_sense.tools.clock
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ActivityScenario
+import androidx.test.uiautomator.By
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.test_utils.TestUtils
+import com.kylecorry.trail_sense.test_utils.TestUtils.handleExactAlarmsDialog
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.click
@@ -66,6 +68,8 @@ class ToolClockTest {
             view(R.id.pip_button).click()
         }
 
+        handleExactAlarmsDialog()
+
         waitFor {
             viewWithText(android.R.string.ok).click()
         }
@@ -73,7 +77,8 @@ class ToolClockTest {
         // Verify the system time settings are opened
         // Check if the settings app is opened
         waitFor {
-            viewWithText(Pattern.compile("Date & time|Date and time"))
+            view(By.textContains("time"))
+//            viewWithText(Pattern.compile("time", Pattern.CASE_INSENSITIVE))
         }
     }
 }

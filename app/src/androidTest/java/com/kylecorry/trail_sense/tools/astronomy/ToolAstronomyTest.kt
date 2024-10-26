@@ -3,17 +3,22 @@ package com.kylecorry.trail_sense.tools.astronomy
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.navigation.NavController
 import androidx.test.core.app.ActivityScenario
+import com.kylecorry.andromeda.permissions.Permissions
+import com.kylecorry.andromeda.permissions.SpecialPermission
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.CustomUiUtils.isDarkThemeOn
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.test_utils.TestUtils
+import com.kylecorry.trail_sense.test_utils.TestUtils.context
+import com.kylecorry.trail_sense.test_utils.TestUtils.handleExactAlarmsDialog
 import com.kylecorry.trail_sense.test_utils.TestUtils.not
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.views.click
 import com.kylecorry.trail_sense.test_utils.views.hasText
 import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.test_utils.views.view
+import com.kylecorry.trail_sense.test_utils.views.viewWithText
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -49,7 +54,8 @@ class ToolAstronomyTest {
     }
 
     @Test
-    fun verifyBasicFunctionality() {
+    fun
+            verifyBasicFunctionality() {
         // Verify the title
         waitFor {
             view(R.id.astronomy_title).hasText {
@@ -116,10 +122,19 @@ class ToolAstronomyTest {
         TestUtils.openQuickActions()
         quickAction(Tools.QUICK_ACTION_SUNSET_ALERT)
             .click()
+
+        handleExactAlarmsDialog()
+
+        quickAction(Tools.QUICK_ACTION_SUNSET_ALERT)
             .click()
+
 
         quickAction(Tools.QUICK_ACTION_SUNRISE_ALERT)
             .click()
+
+        handleExactAlarmsDialog()
+
+        quickAction(Tools.QUICK_ACTION_SUNRISE_ALERT)
             .click()
 
         // TODO: Simulate time passing to verify the alerts are shown
