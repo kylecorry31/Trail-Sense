@@ -90,7 +90,7 @@ class AstroChart(private val chart: Chart, private val onImageClick: () -> Unit)
         true
     }
 
-    private val moonImage = BitmapChartLayer2(
+    private val moonImage = BitmapChartLayer(
         emptyList(),
         bitmapLoader.load(R.drawable.ic_moon, imageSize.toInt()),
         16f
