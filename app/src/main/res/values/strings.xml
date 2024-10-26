@@ -164,6 +164,7 @@
     <string name="theme_dark">Dark</string>
     <string name="theme_black">Black</string>
     <string name="theme_system">System</string>
+    <string name="theme_system_black">System (black)</string>
     <string name="theme_sunset_sunrise">Sunrise/sunset</string>
     <string name="coordinate_format_decimal_degrees">Decimal degrees</string>
     <!--A coordinate format as such:  X° X.XXX' N-->

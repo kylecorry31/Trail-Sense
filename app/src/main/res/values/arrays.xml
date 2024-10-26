@@ -40,6 +40,7 @@
         <item>@string/theme_dark</item>
         <item>@string/theme_black</item>
         <item>@string/theme_system</item>
+        <item>@string/theme_system_black</item>
         <item>@string/theme_sunset_sunrise</item>
         <item>@string/night</item>
     </string-array>
@@ -49,6 +50,7 @@
         <item>dark</item>
         <item>black</item>
         <item>system</item>
+        <item>system_black</item>
         <item>sunrise_sunset</item>
         <item>night</item>
     </string-array>

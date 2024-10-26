@@ -39,6 +39,7 @@ import com.kylecorry.trail_sense.main.errors.ExceptionHandler
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.RestartServicesCommand
 import com.kylecorry.trail_sense.settings.backup.BackupService
+import com.kylecorry.trail_sense.shared.CustomUiUtils.isDarkThemeOn
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.ComposedCommand
 import com.kylecorry.trail_sense.shared.extensions.findNavController
@@ -94,12 +95,16 @@ class MainActivity : AndromedaActivity() {
         val mode = when (userPrefs.theme) {
             UserPreferences.Theme.Light -> ColorTheme.Light
             UserPreferences.Theme.Dark, UserPreferences.Theme.Black, UserPreferences.Theme.Night -> ColorTheme.Dark
-            UserPreferences.Theme.System -> ColorTheme.System
+            UserPreferences.Theme.System, UserPreferences.Theme.SystemBlack -> ColorTheme.System
             UserPreferences.Theme.SunriseSunset -> sunriseSunsetTheme()
         }
-        val isBlackTheme =
-            userPrefs.theme == UserPreferences.Theme.Black || userPrefs.theme == UserPreferences.Theme.Night
         setColorTheme(mode, userPrefs.useDynamicColors)
+
+        val isBlackTheme =
+            userPrefs.theme == UserPreferences.Theme.Black
+                    || userPrefs.theme == UserPreferences.Theme.Night
+                    || (isDarkThemeOn() && userPrefs.theme == UserPreferences.Theme.SystemBlack)
+
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
