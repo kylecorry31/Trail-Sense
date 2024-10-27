@@ -164,7 +164,9 @@ object TestUtils {
     }
 
     fun openQuickActions() {
-        view(R.id.bottom_navigation).longClick()
+        waitFor {
+            view(R.id.bottom_navigation).longClick()
+        }
         waitFor {
             view(R.id.quick_actions_sheet)
         }
