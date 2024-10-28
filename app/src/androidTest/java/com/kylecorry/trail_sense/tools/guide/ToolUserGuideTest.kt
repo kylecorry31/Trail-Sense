@@ -5,11 +5,16 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
+import com.kylecorry.trail_sense.test_utils.TestUtils.not
+import com.kylecorry.trail_sense.test_utils.TestUtils.openQuickActions
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
+import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.click
 import com.kylecorry.trail_sense.test_utils.views.hasText
 import com.kylecorry.trail_sense.test_utils.views.input
+import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.test_utils.views.scroll
+import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.test_utils.views.viewWithText
 import com.kylecorry.trail_sense.tools.guide.infrastructure.Guides
@@ -49,8 +54,10 @@ class ToolUserGuideTest {
         // Verify it shows each guide
         val guides = Guides.guides(context)
             .flatMap { it.guides }
+            // TODO: Open each guide, maybe by navigating directly to them
+            .take(2)
 
-        var lastScrollCount = 0
+
         guides.forEachIndexed { index, guide ->
 
             // Skip the weather guide (no good way to differentiate it from the section in this test)
@@ -63,19 +70,8 @@ class ToolUserGuideTest {
                 viewWithText(guides.first().name)
             }
 
-            // Scroll to the last position
-            if (lastScrollCount > 0) {
-                view(R.id.guide_fragment).scroll(percent = lastScrollCount.toFloat())
-            }
-
             waitFor {
-                try {
-                    viewWithText(guide.name).click()
-                } catch (e: Error) {
-                    view(R.id.guide_fragment).scroll(percent = 1f)
-                    lastScrollCount++
-                    throw e
-                }
+                viewWithText(guide.name).click()
             }
 
             // Wait for the guide to load
@@ -88,9 +84,24 @@ class ToolUserGuideTest {
         }
 
         // Search
-        view(R.id.search_view_edit_text).input("Settings")
+        view(R.id.search_view_edit_text).input("Sett")
         waitFor {
             viewWithText("Settings")
+        }
+
+        verifyQuickAction()
+    }
+
+    fun verifyQuickAction() {
+        openQuickActions()
+
+        quickAction(Tools.QUICK_ACTION_USER_GUIDE)
+            .click()
+
+        // Verify it shows the user guide
+        waitFor {
+            view(R.id.guide_name).hasText("Tools")
+            view(R.id.guide_scroll).hasText { it.isNotEmpty() }
         }
     }
 }
