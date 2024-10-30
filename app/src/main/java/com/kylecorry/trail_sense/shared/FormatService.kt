@@ -299,6 +299,10 @@ class FormatService private constructor(private val context: Context) {
             )
 
             DistanceUnits.Yards -> strings.getString(R.string.yards_format, formatted)
+            DistanceUnits.Millimeters -> strings.getString(
+                R.string.milliliter_format,
+                formatted
+            )
         }
     }
 
@@ -337,6 +341,13 @@ class FormatService private constructor(private val context: Context) {
             )
 
             VolumeUnits.ImperialGallons -> strings.getString(R.string.gallon_format, formatted)
+            VolumeUnits.USTeaspoons -> strings.getString(R.string.teaspooon_format, formatted)
+            VolumeUnits.USTablespoons -> strings.getString(R.string.tablespoon_format, formatted)
+            VolumeUnits.ImperialTeaspoons -> strings.getString(R.string.teaspooon_format, formatted)
+            VolumeUnits.ImperialTablespoons -> strings.getString(
+                R.string.tablespoon_format,
+                formatted
+            )
         }
     }
 
@@ -644,6 +655,10 @@ class FormatService private constructor(private val context: Context) {
 
                 DistanceUnits.Inches -> strings.getString(R.string.precise_inches_format, "")
                 DistanceUnits.Yards -> strings.getString(R.string.yards_format, "")
+                DistanceUnits.Millimeters -> strings.getString(
+                    R.string.milliliter_format,
+                    ""
+                )
             }.replace(" ", "")
         }
         return when (unit) {
@@ -655,6 +670,7 @@ class FormatService private constructor(private val context: Context) {
             DistanceUnits.Centimeters -> strings.getString(R.string.unit_centimeters)
             DistanceUnits.Inches -> strings.getString(R.string.unit_inches)
             DistanceUnits.Yards -> strings.getString(R.string.unit_yards)
+            DistanceUnits.Millimeters -> strings.getString(R.string.unit_millimeters)
         }
     }
 
