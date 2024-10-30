@@ -18,7 +18,8 @@ import kotlinx.coroutines.launch
 class SightingCompassView(
     private val camera: CameraView,
     private val reticle: View,
-    private val compass: LinearCompassView
+    private val compass: LinearCompassView,
+    private val onClick: () -> Unit = {}
 ) {
 
     private val prefs by lazy {
@@ -60,6 +61,10 @@ class SightingCompassView(
                     prefs.putFloat(NavigatorFragment.CACHE_CAMERA_ZOOM, it)
                 }
             }
+        }
+
+        camera.setOnClickListener {
+            onClick()
         }
 
         camera.setZoom(prefs.getFloat(NavigatorFragment.CACHE_CAMERA_ZOOM) ?: 0.5f)
