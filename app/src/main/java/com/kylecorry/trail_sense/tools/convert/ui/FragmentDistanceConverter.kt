@@ -12,6 +12,7 @@ class FragmentDistanceConverter :
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     override val units = listOf(
+        DistanceUnits.Millimeters,
         DistanceUnits.Centimeters,
         DistanceUnits.Meters,
         DistanceUnits.Kilometers,
@@ -33,6 +34,7 @@ class FragmentDistanceConverter :
             DistanceUnits.Centimeters -> getString(R.string.unit_centimeters)
             DistanceUnits.Inches -> getString(R.string.unit_inches)
             DistanceUnits.Yards -> getString(R.string.unit_yards)
+            DistanceUnits.Millimeters -> getString(R.string.unit_millimeters)
         }
     }
 

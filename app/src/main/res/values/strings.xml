@@ -763,6 +763,7 @@
     <string name="daylight">Daylight</string>
     <string name="find_next_occurrence">Find next occurrence</string>
     <string name="yards_format">%s yd</string>
+    <string name="millimeters_format">%s mm</string>
     <string name="unit_yards">Yards</string>
     <string name="base_elevation">Base elevation</string>
     <string name="base_temperature">Base temperature</string>
@@ -778,6 +779,8 @@
     <string name="quart_format">%s qt</string>
     <string name="ounces_volume_format">%s oz</string>
     <string name="gallon_format">%s gal</string>
+    <string name="teaspooon_format">%s tsp</string>
+    <string name="tablespoon_format">%s tbsp</string>
     <string name="liters">Liters</string>
     <string name="milliliters">Milliliters</string>
     <string name="us_cups">US cups</string>
@@ -1479,4 +1482,9 @@
     <!--Occurs when the data/photo/file is imported. Shown as a summary in settings.-->
     <string name="on_import">On import</string>
     <string name="reduce_pdf_resolution">Reduce PDF resolution</string>
+    <string name="us_teaspoons">US teaspoons</string>
+    <string name="us_tablespoons">US tablespoons</string>
+    <string name="unit_millimeters">Millimeters</string>
+    <string name="imperial_teaspoons">Imperial teaspoons</string>
+    <string name="imperial_tablespoons">Imperial tablespoons</string>
 </resources>
