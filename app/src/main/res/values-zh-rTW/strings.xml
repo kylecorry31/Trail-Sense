@@ -1140,7 +1140,7 @@
     <string name="historic_temperature_years" tools:ignore="PluralsCandidate">歷史值（%d 年）</string>
     <string name="weather_alert_storm_description">為應對大風和強降雨做好準備。</string>
     <string name="historic_temperatures_full_disclaimer" tools:ignore="PluralsCandidate">溫度是根據過去 %d 年歷史資料的平均值，可能無法反映目前的天氣狀況。</string>
-    <string name="crop_map_instructions_long">將框的角落拖曳到地圖的角落以繪製輪廓。</string>
+    <string name="crop_map_instructions_long">將框的角落拖曳至地圖的角落以繪製輪廓。裁切會降低地圖的解析度。</string>
     <string name="tilt">傾斜</string>
     <string name="clinometer_measure_distance_instructions">如何測量目標有 %s 高的距離：
 \n
@@ -1184,4 +1184,14 @@
     <string name="tide_clock">潮汐時鐘</string>
     <string name="lunitidal_interval">月潮間隔</string>
     <string name="harmonic">諧波</string>
+    <string name="sunrise_alert_notification_text">太陽將於 %s 升起</string>
+    <string name="sunrise_alert_scheduled">預定在日出前 %s 發出警報</string>
+    <string name="reduce_photo_resolution">降低照片解析度</string>
+    <string name="theme_system_black">系統（黑色）</string>
+    <string name="on_import">匯入時</string>
+    <string name="reduce_pdf_resolution">降低 PDF 解析度</string>
+    <string name="lunitidal_interval_utc">月潮間隔（UTC／格林威治）</string>
+    <string name="survival_guide_disclaimer">與 Trail Sense 中的所有工具一樣，此指南旨在提供一般資訊，不應被視為專業培訓或經驗的替代品。此僅用於教育目的。作者對因使用此資訊而可能導致的任何事故、傷害或其他損害不承擔任何責任。在戶外時總是保持常識並且小心謹慎。</string>
+    <string name="shelter_and_clothing">庇護所和服裝</string>
+    <string name="field_required">%s（必填）</string>
 </resources>
