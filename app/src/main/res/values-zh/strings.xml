@@ -1190,4 +1190,5 @@
     <string name="reduce_photo_resolution">降低照片分辨率</string>
     <string name="on_import">导入时</string>
     <string name="reduce_pdf_resolution">降低 PDF 分辨率</string>
+    <string name="theme_system_black">系统（黑色）</string>
 </resources>
