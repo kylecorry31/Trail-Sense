@@ -14,7 +14,7 @@
     <string name="celsius">Stupně Celsia</string>
     <string name="fahrenheit">Stupně Fahrenheita</string>
     <string name="pref_coordinate_format_title">Formát souřadnic</string>
-    <string name="theme_system">Výchozí vzhled systému</string>
+    <string name="theme_system">Systémový</string>
     <string name="theme_black">Černý</string>
     <string name="theme_dark">Tmavý</string>
     <string name="theme_light">Světlý</string>
@@ -1225,4 +1225,5 @@
     <string name="on_import">Při importu</string>
     <string name="reduce_photo_resolution">Snížit rozlišení fotky</string>
     <string name="reduce_pdf_resolution">Snížit rozlišení PDF</string>
+    <string name="theme_system_black">Systémový (černý)</string>
 </resources>
