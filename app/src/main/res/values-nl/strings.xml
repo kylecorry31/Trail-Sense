@@ -1202,4 +1202,5 @@
     <string name="reduce_pdf_resolution">PDF-resolutie verlagen</string>
     <string name="reduce_photo_resolution">Fotoresolutie verlagen</string>
     <string name="on_import">Bij importeren</string>
+    <string name="theme_system_black">Systeem (zwart)</string>
 </resources>
