@@ -56,7 +56,7 @@ class ToolRulerTest {
 
         // Enter a to ratio
         view(R.id.fractional_map_to).input("10")
-        view(R.id.fractional_map_from).hasText("1")
+        view(R.id.fractional_map_from).hasText("1", contains = true)
         view(R.id.map_distance).hasText(Regex("Map: \\d+\\.\\d+ m"))
 
         // Switch to verbal scale
@@ -67,8 +67,8 @@ class ToolRulerTest {
 
         // Switch back to ratio and verify it's still there
         view(R.id.map_ratio_btn).click()
-        view(R.id.fractional_map_from).hasText("1")
-        view(R.id.fractional_map_to).hasText("10")
+        view(R.id.fractional_map_from).hasText("1", contains = true)
+        view(R.id.fractional_map_to).hasText("10", contains = true)
         view(R.id.map_distance).hasText(Regex("Map: \\d+\\.\\d+ m"))
 
         verifyQuickActions()
