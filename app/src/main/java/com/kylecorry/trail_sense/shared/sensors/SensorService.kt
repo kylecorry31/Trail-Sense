@@ -46,6 +46,7 @@ import com.kylecorry.sol.units.Pressure
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.altimeter.AltimeterWrapper
+import com.kylecorry.trail_sense.shared.sensors.altimeter.AutoInitializeBarometricAltimeter
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrapper
 import com.kylecorry.trail_sense.shared.sensors.altimeter.GaussianAltimeterWrapper
@@ -179,6 +180,13 @@ class SensorService(ctx: Context) {
             )
         } else {
             if (!GPS.isAvailable(context)) {
+                if (mode == UserPreferences.AltimeterMode.GPSBarometer && hasBarometer) {
+                    return AutoInitializeBarometricAltimeter(
+                        getBarometer(),
+                        CachedAltimeter(context)
+                    )
+                }
+
                 return CachedAltimeter(context)
             }
 
