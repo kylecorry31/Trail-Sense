@@ -80,6 +80,7 @@ class ActiveMapSelectorTest {
                 ),
             ), MapMetadata(
                 size,
+                null,
                 0
             ), null
         )

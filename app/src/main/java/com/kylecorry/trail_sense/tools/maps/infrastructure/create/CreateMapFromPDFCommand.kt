@@ -3,9 +3,11 @@ package com.kylecorry.trail_sense.tools.maps.infrastructure.create
 import android.content.Context
 import android.net.Uri
 import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.pdf.GeospatialPDFParser
 import com.kylecorry.andromeda.pdf.PDFRenderer
+import com.kylecorry.andromeda.pdf.PDFRenderer2
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.MapCalibration
@@ -71,6 +73,14 @@ class CreateMapFromPDFCommand(
         val imageSize = files.imageSize(filename)
         val fileSize = files.size(filename)
 
+        val pdfSize = if (shouldCopyAsPdf) {
+            tryOrDefault(null) {
+                PDFRenderer2(context, uri).getSize()
+            }
+        } else {
+            null
+        }
+
         val map = PhotoMap(
             0,
             name,
@@ -83,6 +93,7 @@ class CreateMapFromPDFCommand(
             ),
             MapMetadata(
                 Size(imageSize.width.toFloat(), imageSize.height.toFloat()),
+                pdfSize?.let { Size(it.width.toFloat(), it.height.toFloat()) },
                 fileSize,
                 projection = projection
             )

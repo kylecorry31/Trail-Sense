@@ -56,12 +56,7 @@ class MapRepo private constructor(private val context: Context) : IMapRepo {
 
     override suspend fun addMap(map: PhotoMap): Long = onIO {
         if (map.id == 0L) {
-            var entity = MapEntity.from(map)
-            val pdfSize = tryOrDefault(null) {
-                PDFRenderer2(context, files.uri(map.pdfFileName)).getSize()
-            }
-            entity = entity.copy(pdfWidth = pdfSize?.width, pdfHeight = pdfSize?.height)
-            mapDao.insert(entity)
+            mapDao.insert(MapEntity.from(map))
         } else {
             mapDao.update(MapEntity.from(map))
             map.id
