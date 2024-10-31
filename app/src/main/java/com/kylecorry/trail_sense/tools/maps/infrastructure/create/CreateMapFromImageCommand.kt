@@ -36,6 +36,7 @@ class CreateMapFromImageCommand(context: Context, private val repo: IMapRepo, pr
             MapCalibration.uncalibrated().copy(rotation = rotation.toFloat()),
             MapMetadata(
                 Size(imageSize.width.toFloat(), imageSize.height.toFloat()),
+                null,
                 fileSize
             )
         )

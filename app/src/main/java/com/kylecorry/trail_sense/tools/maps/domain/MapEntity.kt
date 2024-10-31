@@ -56,6 +56,10 @@ data class MapEntity(
         // This gets populated by the repo
         val metadata = MapMetadata(
             Size(0f, 0f),
+            if (pdfWidth != null && pdfHeight != null) Size(
+                pdfWidth.toFloat(),
+                pdfHeight.toFloat()
+            ) else null,
             0,
             projection = projection
         )
@@ -81,7 +85,9 @@ data class MapEntity(
                 calibration.rotated,
                 map.metadata.projection,
                 (calibration.rotation * 10).toInt(),
-                map.parentId
+                map.parentId,
+                map.metadata.unscaledPdfSize?.width?.toInt(),
+                map.metadata.unscaledPdfSize?.height?.toInt()
             ).also {
                 it.id = map.id
             }
