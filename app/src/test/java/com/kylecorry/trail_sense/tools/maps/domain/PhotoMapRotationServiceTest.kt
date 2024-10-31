@@ -61,7 +61,7 @@ internal class PhotoMapRotationServiceTest {
                     )
                 )
             ),
-            MapMetadata(Size(100f, 200f), 0)
+            MapMetadata(Size(100f, 200f), null, 0)
         )
 
         val service = PhotoMapRotationService(map)
