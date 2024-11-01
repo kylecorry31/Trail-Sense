@@ -1191,4 +1191,12 @@
     <string name="on_import">导入时</string>
     <string name="reduce_pdf_resolution">降低 PDF 分辨率</string>
     <string name="theme_system_black">系统（黑色）</string>
+    <string name="millimeters_format">%s 毫米</string>
+    <string name="teaspooon_format">%s 茶匙</string>
+    <string name="unit_millimeters">毫米</string>
+    <string name="imperial_teaspoons">英制茶匙</string>
+    <string name="imperial_tablespoons">英制汤匙</string>
+    <string name="tablespoon_format">%s 汤匙</string>
+    <string name="us_teaspoons">美制茶匙</string>
+    <string name="us_tablespoons">美制汤匙</string>
 </resources>
