@@ -1,0 +1,14 @@
+Photo Maps
+- Add setting to keep PDFs at full resolution
+- Show current elevation
+
+Astronomy
+- Adjust moon orientation based on location
+
+Convert
+- Add millimeters, teaspooons, and tablespoons
+
+Misc
+- Allow up to 7 tools in the bottom navigation
+- Add system black theme
+- Bug fixes
