@@ -1206,4 +1206,8 @@
     <string name="reduce_photo_resolution">Reducir la resolución de la foto</string>
     <string name="on_import">Sobre la importación</string>
     <string name="theme_system_black">Sistema (negro)</string>
+    <string name="millimeters_format">%s mm</string>
+    <string name="tablespoon_format">%s cucharada</string>
+    <string name="teaspooon_format">%s cucharadita</string>
+    <string name="unit_millimeters">Milímetros</string>
 </resources>

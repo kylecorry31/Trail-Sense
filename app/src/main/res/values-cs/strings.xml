@@ -1226,4 +1226,12 @@
     <string name="reduce_photo_resolution">Snížit rozlišení fotky</string>
     <string name="reduce_pdf_resolution">Snížit rozlišení PDF</string>
     <string name="theme_system_black">Systémový (černý)</string>
+    <string name="imperial_tablespoons">Imperiální polévkové lžíce</string>
+    <string name="imperial_teaspoons">Imperiální čajové lžičky</string>
+    <string name="tablespoon_format">%s pol. lž.</string>
+    <string name="millimeters_format">%s mm</string>
+    <string name="teaspooon_format">%s č. lž.</string>
+    <string name="us_teaspoons">Americké čajové lžičky</string>
+    <string name="us_tablespoons">Americké polévkové lžíce</string>
+    <string name="unit_millimeters">Milimetry</string>
 </resources>
