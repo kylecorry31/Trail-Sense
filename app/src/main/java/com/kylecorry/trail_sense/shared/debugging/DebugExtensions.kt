@@ -7,8 +7,16 @@ fun isDebug(): Boolean {
     return BuildConfig.DEBUG
 }
 
-fun ifDebug(fn: () -> Unit){
-    if (isDebug()){
+fun ifDebug(fn: () -> Unit) {
+    if (isDebug()) {
         tryOrLog(fn)
     }
+}
+
+fun getBuildType(): String {
+    return BuildConfig.BUILD_TYPE
+}
+
+fun isPlayStoreBuild(): Boolean {
+    return getBuildType() == "playStore"
 }
