@@ -1,0 +1,14 @@
+Fotomapy
+- Přidání nastavení pro zachování plného rozlišení souborů PDF
+- Zobrazení aktuální nadmořské výšky
+
+Astronomie
+- Nastavení orientace Měsíce podle polohy
+
+Převod
+- Přidání milimetrů, čajových lžiček a polévkových lžic
+
+Různé
+- Povolení až 7 nástrojů ve spodní navigaci
+- Přidat systémové černé téma
+- Opravy chyb
