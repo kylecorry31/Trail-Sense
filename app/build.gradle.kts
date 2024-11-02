@@ -64,6 +64,10 @@ android {
             applicationIdSuffix = ".staging"
             versionNameSuffix = "-staging"
         }
+        // Play store build
+        create("playStore"){
+            initWith(getByName("release"))
+        }
         // Debug build (GitHub)
         create("dev") {
             initWith(getByName("debug"))

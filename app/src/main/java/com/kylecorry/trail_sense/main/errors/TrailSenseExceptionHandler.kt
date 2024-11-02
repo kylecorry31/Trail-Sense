@@ -17,6 +17,7 @@ class TrailSenseExceptionHandler(
         listOf(
             AppDetailsBugReportGenerator(context.getString(R.string.app_name)),
             PackageNameBugReportGenerator(),
+            BuildTypeBugReportGenerator(),
             AndroidDetailsBugReportGenerator(),
             DeviceDetailsBugReportGenerator(),
             FragmentDetailsBugReportGenerator(),
