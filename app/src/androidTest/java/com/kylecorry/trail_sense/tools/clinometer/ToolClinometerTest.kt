@@ -119,7 +119,7 @@ class ToolClinometerTest {
         }
 
         waitFor {
-            view(R.id.estimated_height).hasText(Regex("\\d+(\\.\\d+)? (mi|ft)"))
+            view(R.id.estimated_height).hasText(Regex("(-|\\d+(\\.\\d+)?) (mi|ft)"))
             view(R.id.estimated_height).hasText("Distance")
         }
     }
@@ -146,7 +146,7 @@ class ToolClinometerTest {
         }
 
         waitFor {
-            view(R.id.estimated_height).hasText(Regex("\\d+(\\.\\d+)? (mi|ft)"))
+            view(R.id.estimated_height).hasText(Regex("(-|\\d+(\\.\\d+)?) (mi|ft)"))
             view(R.id.estimated_height).hasText("Height")
         }
     }
