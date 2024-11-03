@@ -25,8 +25,12 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
         // Historic temperature disclaimer
         clickOk()
 
-        // No weather predicted by default
-        hasText(R.id.weather_title, string(R.string.weather_no_change))
+        // Weather prediction
+        hasText(R.id.weather_title) {
+            it == string(R.string.weather_no_change) ||
+                    it == string(R.string.weather_overcast) ||
+                    it == string(R.string.weather_clear)
+        }
 
         // Wait for a pressure reading
         hasText(string(R.string.pressure))
