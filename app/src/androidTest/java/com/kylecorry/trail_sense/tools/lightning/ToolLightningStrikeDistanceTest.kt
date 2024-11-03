@@ -1,37 +1,16 @@
 package com.kylecorry.trail_sense.tools.lightning
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
-import com.kylecorry.trail_sense.test_utils.TestUtils
+import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
 @HiltAndroidTest
-class ToolLightningStrikeDistanceTest {
-
-    @get:Rule
-    var hiltRule = HiltAndroidRule(this)
-
-    @get:Rule
-    val grantPermissionRule = TestUtils.mainPermissionsGranted()
-
-    @get:Rule
-    val instantExec = InstantTaskExecutorRule()
-
-    @Before
-    fun setUp() {
-        hiltRule.inject()
-        TestUtils.setWaitForIdleTimeout()
-        TestUtils.setupApplication()
-        TestUtils.startWithTool(Tools.LIGHTNING_STRIKE_DISTANCE)
-    }
+class ToolLightningStrikeDistanceTest : ToolTestBase(Tools.LIGHTNING_STRIKE_DISTANCE) {
 
     @Test
     fun verifyBasicFunctionality() {
@@ -66,6 +45,9 @@ class ToolLightningStrikeDistanceTest {
         click(R.id.start_btn)
         click(R.id.start_btn)
 
-        hasText(R.id.previous_strike, Regex("Last strike at [0-9]+:[0-9]+ [AP]M - $previousDistance"))
+        hasText(
+            R.id.previous_strike,
+            Regex("Last strike at [0-9]+:[0-9]+ [AP]M - $previousDistance")
+        )
     }
 }

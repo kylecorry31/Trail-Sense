@@ -140,9 +140,13 @@ object TestUtils {
         FlashlightSubsystem.getInstance(context)
     }
 
-    fun startWithTool(toolId: Long): ActivityScenario<MainActivity> {
+    fun startWithTool(
+        toolId: Long,
+        onActivityCallback: (activity: MainActivity) -> Unit = {}
+    ): ActivityScenario<MainActivity> {
         val scenario = ActivityScenario.launch(MainActivity::class.java)
         scenario.onActivity { activity ->
+            onActivityCallback(activity)
             if (toolId == 0L) {
                 activity.findNavController().navigate(R.id.action_experimental_tools)
             } else {
