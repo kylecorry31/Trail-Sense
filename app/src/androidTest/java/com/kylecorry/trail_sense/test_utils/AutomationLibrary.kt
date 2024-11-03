@@ -7,8 +7,10 @@ import com.kylecorry.trail_sense.test_utils.views.click
 import com.kylecorry.trail_sense.test_utils.views.hasText
 import com.kylecorry.trail_sense.test_utils.views.input
 import com.kylecorry.trail_sense.test_utils.views.isChecked
+import com.kylecorry.trail_sense.test_utils.views.scrollToEnd
 import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.test_utils.views.viewWithText
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 
 object AutomationLibrary {
@@ -19,10 +21,12 @@ object AutomationLibrary {
         ignoreCase: Boolean = false,
         checkDescendants: Boolean = true,
         contains: Boolean = false,
+        index: Int = 0,
+        childId: Int? = null,
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
     ) {
         waitFor(waitForTime) {
-            view(id).hasText(
+            view(id, childId = childId, index = index).hasText(
                 text,
                 ignoreCase = ignoreCase,
                 checkDescendants = checkDescendants,
@@ -35,11 +39,12 @@ object AutomationLibrary {
         id: Int,
         checkDescendants: Boolean = true,
         message: String? = null,
+        index: Int = 0,
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT,
         predicate: (String) -> Boolean
     ) {
         waitFor(waitForTime) {
-            view(id).hasText(
+            view(id, index = index).hasText(
                 checkDescendants = checkDescendants,
                 message = message,
                 predicate = predicate
@@ -51,16 +56,17 @@ object AutomationLibrary {
         id: Int,
         text: Regex,
         checkDescendants: Boolean = true,
+        index: Int = 0,
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
     ) {
         waitFor(waitForTime) {
-            view(id).hasText(text, checkDescendants = checkDescendants)
+            view(id, index = index).hasText(text, checkDescendants = checkDescendants)
         }
     }
 
-    fun hasText(text: String, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
+    fun hasText(text: String, index: Int = 0, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
         waitFor(waitForTime) {
-            viewWithText(text)
+            viewWithText(text, index = index)
         }
     }
 
@@ -75,12 +81,31 @@ object AutomationLibrary {
         }
     }
 
+    fun isChecked(
+        viewText: String,
+        isChecked: Boolean = true,
+        index: Int = 0,
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
+    ) {
+        waitFor(waitForTime) {
+            viewWithText(viewText, index = index).isChecked(isChecked)
+        }
+    }
+
     fun isNotChecked(
         id: Int,
         index: Int = 0,
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
     ) {
         isChecked(id, isChecked = false, index = index, waitForTime = waitForTime)
+    }
+
+    fun isNotChecked(
+        viewText: String,
+        index: Int = 0,
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
+    ) {
+        isChecked(viewText, isChecked = false, index = index, waitForTime = waitForTime)
     }
 
     fun string(@StringRes id: Int, vararg args: Any): String {
@@ -101,21 +126,35 @@ object AutomationLibrary {
         }
     }
 
-    fun click(id: Int, index: Int = 0, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
+    fun click(
+        id: Int,
+        index: Int = 0,
+        holdDuration: Long? = null,
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
+    ) {
         waitFor(waitForTime) {
-            view(id, index = index).click()
+            view(id, index = index).click(holdDuration)
         }
     }
 
-    fun click(view: TestView, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
+    fun click(
+        view: TestView,
+        holdDuration: Long? = null,
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
+    ) {
         waitFor(waitForTime) {
-            view.click()
+            view.click(holdDuration)
         }
     }
 
-    fun click(text: String, index: Int = 0, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
+    fun click(
+        text: String,
+        index: Int = 0,
+        holdDuration: Long? = null,
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
+    ) {
         waitFor(waitForTime) {
-            viewWithText(text, index = index).click()
+            viewWithText(text, index = index).click(holdDuration)
         }
     }
 
@@ -145,21 +184,44 @@ object AutomationLibrary {
         }
     }
 
-    fun isNotVisible(id: Int, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
+    fun input(
+        viewText: String,
+        text: String,
+        checkDescendants: Boolean = true,
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
+    ) {
         waitFor(waitForTime) {
-            not { view(id) }
+            viewWithText(viewText).input(text, checkDescendants)
         }
     }
 
-    fun isVisible(id: Int, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
+    fun isNotVisible(id: Int, index: Int = 0, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
         waitFor(waitForTime) {
-            view(id)
+            not { view(id, index = index) }
+        }
+    }
+
+    fun isVisible(id: Int, index: Int = 0, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
+        waitFor(waitForTime) {
+            view(id, index = index)
         }
     }
 
     fun isTrue(waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT, predicate: () -> Boolean) {
         waitFor(waitForTime) {
             assertTrue(predicate())
+        }
+    }
+
+    fun isFalse(waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT, predicate: () -> Boolean) {
+        waitFor(waitForTime) {
+            assertFalse(predicate())
+        }
+    }
+
+    fun scrollToEnd(id: Int, index: Int = 0, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
+        waitFor(waitForTime) {
+            view(id, index = index).scrollToEnd()
         }
     }
 

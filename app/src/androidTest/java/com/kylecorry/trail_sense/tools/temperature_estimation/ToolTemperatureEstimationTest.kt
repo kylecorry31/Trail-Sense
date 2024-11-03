@@ -3,11 +3,11 @@ package com.kylecorry.trail_sense.tools.temperature_estimation
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kylecorry.luna.text.toFloatCompat
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
-import com.kylecorry.trail_sense.test_utils.views.click
-import com.kylecorry.trail_sense.test_utils.views.hasText
-import com.kylecorry.trail_sense.test_utils.views.input
 import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -42,26 +42,24 @@ class ToolTemperatureEstimationTest {
             view(R.id.temperature_title)
         }
 
-        view(R.id.temp_est_base_elevation, R.id.amount).input("100")
-        view(R.id.temp_est_dest_elevation, R.id.amount).input("1000")
-        view(R.id.temp_est_base_temperature, R.id.amount).input("15")
+        input(R.id.temp_est_base_elevation, "100")
+        input(R.id.temp_est_dest_elevation, "1000")
+        input(R.id.temp_est_base_temperature, "15")
 
-        view(R.id.temperature_title).hasText("12 °F")
+        hasText(R.id.temperature_title, "12 °F")
 
         // Clear all views
-        view(R.id.temp_est_base_elevation, R.id.amount).input("")
-        view(R.id.temp_est_base_temperature, R.id.amount).input("")
+        input(R.id.temp_est_base_elevation, "")
+        input(R.id.temp_est_base_temperature, "")
 
         // Autofill
-        view(R.id.temp_est_autofill).click()
+        click(R.id.temp_est_autofill)
 
-        waitFor(12000) {
-            view(R.id.temp_est_base_elevation, R.id.amount).hasText {
-                it.split(",").first().toFloatCompat() != null
-            }
-            view(R.id.temp_est_base_temperature, R.id.amount).hasText {
-                it.split(",").first().toFloatCompat() != null
-            }
+        hasText(R.id.temp_est_base_elevation, waitForTime = 12000) {
+            it.split(",").first().toFloatCompat() != null
+        }
+        hasText(R.id.temp_est_base_temperature) {
+            it.split(",").first().toFloatCompat() != null
         }
     }
 }

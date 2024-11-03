@@ -12,7 +12,6 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.TestUtils.clickListItemMenu
-import com.kylecorry.trail_sense.test_utils.TestUtils.getString
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.quickAction
@@ -120,7 +119,7 @@ class ToolCloudsTest {
         click(toolbarButton(R.id.cloud_title, Side.Right))
 
         // Delete the cloud result
-        clickListItemMenu(getString(R.string.delete))
+        clickListItemMenu(string(R.string.delete))
         clickOk()
 
         hasText(R.id.cloud_empty_text, string(R.string.no_clouds))

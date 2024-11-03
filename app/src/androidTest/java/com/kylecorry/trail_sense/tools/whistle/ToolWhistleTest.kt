@@ -2,17 +2,15 @@ package com.kylecorry.trail_sense.tools.whistle
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isFalse
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isTrue
 import com.kylecorry.trail_sense.test_utils.TestUtils
-import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
-import com.kylecorry.trail_sense.test_utils.views.click
 import com.kylecorry.trail_sense.test_utils.views.quickAction
-import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.After
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -39,47 +37,37 @@ class ToolWhistleTest {
         TestUtils.setWaitForIdleTimeout(100)
         TestUtils.setupApplication()
         TestUtils.startWithTool(Tools.WHISTLE)
-
-        // Wait for the tool to open
-        waitFor {
-            view(R.id.whistle_btn)
-        }
     }
 
     @Test
     fun verifyBasicFunctionality() {
         // Whistle button (needs to press and hold)
-        view(R.id.whistle_btn).click(200)
+        click(R.id.whistle_btn, holdDuration = 200)
 
         // SOS button
-        view(R.id.whistle_sos_btn)
-            .click()
+        click(R.id.whistle_sos_btn)
 
-        waitFor {
-            assertTrue(TestUtils.isPlayingMusic())
+        isTrue {
+            TestUtils.isPlayingMusic()
         }
 
-        view(R.id.whistle_sos_btn)
-            .click()
+        click(R.id.whistle_sos_btn)
 
-        waitFor {
-            assertFalse(TestUtils.isPlayingMusic())
+        isFalse {
+            TestUtils.isPlayingMusic()
         }
 
         // Emergency button
-        view(R.id.whistle_emergency_btn)
-            .click()
+        click(R.id.whistle_emergency_btn)
 
-        waitFor {
-            assertTrue(TestUtils.isPlayingMusic())
+        isTrue {
+            TestUtils.isPlayingMusic()
         }
 
-        view(R.id.whistle_emergency_btn)
-            .click()
+        click(R.id.whistle_emergency_btn)
 
-
-        waitFor {
-            assertFalse(TestUtils.isPlayingMusic())
+        isFalse {
+            TestUtils.isPlayingMusic()
         }
 
         verifyQuickAction()
@@ -87,8 +75,7 @@ class ToolWhistleTest {
 
     private fun verifyQuickAction() {
         TestUtils.openQuickActions()
-        quickAction(Tools.QUICK_ACTION_WHISTLE)
-            .click(200)
+        click(quickAction(Tools.QUICK_ACTION_WHISTLE), holdDuration = 200)
         TestUtils.closeQuickActions()
     }
 

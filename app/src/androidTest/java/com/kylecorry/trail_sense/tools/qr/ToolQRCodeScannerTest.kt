@@ -4,16 +4,16 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ActivityScenario
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isTrue
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.isCameraInUse
-import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
-import com.kylecorry.trail_sense.test_utils.views.hasText
-import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.After
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -43,14 +43,13 @@ class ToolQRCodeScannerTest {
 
     @Test
     fun verifyBasicFunctionality() {
-        waitFor(10000) {
-            view(R.id.camera)
-            assertTrue(isCameraInUse(isBackFacing = true))
+        isVisible(R.id.camera)
+
+        isTrue(10000) {
+            isCameraInUse(isBackFacing = true)
         }
 
-        waitFor {
-            view(R.id.qr_text).hasText(R.string.no_qr_code_detected)
-        }
+        hasText(R.id.qr_text, string(R.string.no_qr_code_detected))
     }
 
     @After
