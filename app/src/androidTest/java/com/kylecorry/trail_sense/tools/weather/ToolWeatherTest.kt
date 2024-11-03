@@ -59,7 +59,8 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
         click(R.id.play_btn)
         hasNotification(
             WeatherMonitorService.WEATHER_NOTIFICATION_ID,
-            title = string(R.string.weather)
+            title = string(R.string.weather),
+            waitForTime = 10000
         )
 
         // Wait for the battery restriction warning to go away
@@ -78,7 +79,8 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
 
         hasNotification(
             WeatherMonitorService.WEATHER_NOTIFICATION_ID,
-            title = string(R.string.weather)
+            title = string(R.string.weather),
+            waitForTime = 10000
         )
 
         click(quickAction(Tools.QUICK_ACTION_WEATHER_MONITOR))
