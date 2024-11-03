@@ -230,22 +230,18 @@ object TestUtils {
     }
 
     fun <T> waitFor(durationMillis: Long = 5000, action: () -> T): T {
-        var remaining = durationMillis
+        val endTime = System.currentTimeMillis() + durationMillis
         val interval = 10L
         var lastException: Throwable? = null
-        while (remaining > 0) {
+        do {
             try {
                 return action()
             } catch (e: Throwable) {
                 lastException = e
             }
             Thread.sleep(interval)
-            remaining -= interval
-        }
-        if (lastException != null) {
-            throw lastException
-        }
-        throw Exception("Timeout")
+        } while (System.currentTimeMillis() < endTime)
+        throw lastException
     }
 
     // NOTIFICATIONS

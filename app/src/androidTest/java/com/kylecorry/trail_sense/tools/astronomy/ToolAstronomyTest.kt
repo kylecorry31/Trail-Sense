@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isTrue
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.handleExactAlarmsDialog
@@ -79,6 +80,13 @@ class ToolAstronomyTest {
 
         // Verify the View in 3D button is visible and works
         if (Tools.isToolAvailable(TestUtils.context, Tools.AUGMENTED_REALITY)) {
+            // Wait for the toast do disappear
+            not {
+                hasText(
+                    string(R.string.sunset_alerts_background_location_disclaimer),
+                    waitForTime = 0
+                )
+            }
             click(R.id.button_3d)
             isTrue {
                 Tools.getTool(TestUtils.context, Tools.AUGMENTED_REALITY)
