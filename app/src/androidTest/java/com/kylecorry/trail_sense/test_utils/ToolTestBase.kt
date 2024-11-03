@@ -23,6 +23,9 @@ open class ToolTestBase(private val toolId: Long) {
     @get:Rule
     val instantExec = InstantTaskExecutorRule()
 
+    @get:Rule
+    val screenshotRule = ScreenshotFailureRule()
+
     protected lateinit var scenario: ActivityScenario<MainActivity>
     protected lateinit var navController: NavController
 
