@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.whitenoise
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
@@ -9,41 +8,18 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isTrue
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
+import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.notifications.hasTitle
 import com.kylecorry.trail_sense.test_utils.notifications.notification
 import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
-import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
 
 @HiltAndroidTest
-class ToolWhiteNoiseTest {
-
-    @get:Rule
-    var hiltRule = HiltAndroidRule(this)
-
-    @get:Rule
-    val grantPermissionRule = TestUtils.mainPermissionsGranted()
-
-    @get:Rule
-    val instantExec = InstantTaskExecutorRule()
-
-    private var currentVolume = 0
-
-    @Before
-    fun setUp() {
-        hiltRule.inject()
-        currentVolume = TestUtils.mute()
-        TestUtils.setWaitForIdleTimeout()
-        TestUtils.setupApplication()
-        TestUtils.startWithTool(Tools.WHITE_NOISE)
-    }
+class ToolWhiteNoiseTest : ToolTestBase(Tools.WHITE_NOISE) {
 
     @Test
     fun verifyBasicFunctionality() {
@@ -117,10 +93,5 @@ class ToolWhiteNoiseTest {
         isFalse { TestUtils.isPlayingMusic() }
 
         TestUtils.closeQuickActions()
-    }
-
-    @After
-    fun tearDown() {
-        TestUtils.unmute(currentVolume)
     }
 }

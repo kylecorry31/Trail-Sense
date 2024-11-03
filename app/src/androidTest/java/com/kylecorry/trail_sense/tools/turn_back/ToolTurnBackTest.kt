@@ -1,41 +1,20 @@
 package com.kylecorry.trail_sense.tools.turn_back
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
-import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.handleExactAlarmsDialog
 import com.kylecorry.trail_sense.test_utils.TestUtils.pickTime
+import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
 @HiltAndroidTest
-class ToolTurnBackTest {
-
-    @get:Rule
-    var hiltRule = HiltAndroidRule(this)
-
-    @get:Rule
-    val grantPermissionRule = TestUtils.mainPermissionsGranted()
-
-    @get:Rule
-    val instantExec = InstantTaskExecutorRule()
-
-    @Before
-    fun setUp() {
-        hiltRule.inject()
-        TestUtils.setupApplication()
-        TestUtils.setWaitForIdleTimeout()
-        TestUtils.startWithTool(Tools.TURN_BACK)
-    }
+class ToolTurnBackTest : ToolTestBase(Tools.TURN_BACK) {
 
     @Test
     fun verifyBasicFunctionality() {

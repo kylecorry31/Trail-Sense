@@ -1,12 +1,7 @@
 package com.kylecorry.trail_sense.tools.astronomy
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.navigation.NavController
-import androidx.test.core.app.ActivityScenario
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.CustomUiUtils.isDarkThemeOn
-import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotVisible
@@ -16,40 +11,15 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.handleExactAlarmsDialog
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
+import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Assert.assertTrue
-import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
 @HiltAndroidTest
-class ToolAstronomyTest {
-
-    @get:Rule
-    var hiltRule = HiltAndroidRule(this)
-
-    @get:Rule
-    val grantPermissionRule = TestUtils.allPermissionsGranted()
-
-    @get:Rule
-    val instantExec = InstantTaskExecutorRule()
-
-    private lateinit var navController: NavController
-    private lateinit var scenario: ActivityScenario<MainActivity>
-
-    @Before
-    fun setUp() {
-        hiltRule.inject()
-        TestUtils.setupApplication()
-        TestUtils.setWaitForIdleTimeout()
-        scenario = TestUtils.startWithTool(Tools.ASTRONOMY)
-        scenario.onActivity {
-            navController = it.findNavController()
-        }
-    }
+class ToolAstronomyTest : ToolTestBase(Tools.ASTRONOMY) {
 
     @Test
     fun verifyBasicFunctionality() {

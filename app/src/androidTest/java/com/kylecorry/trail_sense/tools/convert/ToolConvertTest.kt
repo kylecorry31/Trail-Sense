@@ -1,39 +1,17 @@
 package com.kylecorry.trail_sense.tools.convert
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
-import com.kylecorry.trail_sense.test_utils.TestUtils
+import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
 @HiltAndroidTest
-class ToolConvertTest {
-
-    @get:Rule
-    var hiltRule = HiltAndroidRule(this)
-
-    @get:Rule
-    val grantPermissionRule = TestUtils.mainPermissionsGranted()
-
-    @get:Rule
-    val instantExec = InstantTaskExecutorRule()
-
-    @Before
-    fun setUp() {
-        hiltRule.inject()
-        TestUtils.setWaitForIdleTimeout()
-        TestUtils.setupApplication()
-        TestUtils.startWithTool(Tools.CONVERT)
-    }
-
+class ToolConvertTest : ToolTestBase(Tools.CONVERT) {
     @Test
     fun verifyBasicFunctionality() {
         canConvertCoordinates()
