@@ -7,7 +7,6 @@ import android.hardware.camera2.CameraManager
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import androidx.annotation.StringRes
 import androidx.core.content.getSystemService
 import androidx.test.core.app.ActivityScenario
@@ -16,9 +15,6 @@ import androidx.test.rule.GrantPermissionRule
 import androidx.test.uiautomator.Configurator
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
-import androidx.work.Configuration
-import androidx.work.testing.SynchronousExecutor
-import androidx.work.testing.WorkManagerTestInitHelper
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.permissions.SpecialPermission
 import com.kylecorry.trail_sense.R
@@ -282,6 +278,29 @@ object TestUtils {
         }
 
         return false
+    }
+
+    fun getMatchingChild(
+        parent: UiObject2,
+        depth: Int = 10,
+        predicate: (obj: UiObject2) -> Boolean
+    ): UiObject2? {
+        if (depth == 0) {
+            return null
+        }
+
+        if (predicate(parent)) {
+            return parent
+        }
+
+        for (child in parent.children) {
+            val matchingChild = getMatchingChild(child, depth - 1, predicate)
+            if (matchingChild != null) {
+                return matchingChild
+            }
+        }
+
+        return null
     }
 
     fun pickDate(year: Int, month: Int, day: Int, waitForClose: Boolean = true) {

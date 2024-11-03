@@ -4,13 +4,12 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ActivityScenario
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.pickDate
-import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
-import com.kylecorry.trail_sense.test_utils.views.click
-import com.kylecorry.trail_sense.test_utils.views.hasText
-import com.kylecorry.trail_sense.test_utils.views.input
-import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -43,23 +42,18 @@ class ToolClimateTest {
     @Test
     fun verifyBasicFunctionality() {
         // Verify the title
-        waitFor {
-            view(R.id.climate_title).hasText(R.string.temperature_high_low)
-        }
+        hasText(R.id.climate_title, string(R.string.temperature_high_low))
 
         // Verify today is selected by default
-        view(R.id.display_date).hasText(R.string.today)
-
-        view(R.id.utm).input("42, -72")
-        view(R.id.elevation_input, R.id.amount).input("1000")
+        hasText(R.id.display_date, string(R.string.today))
+        input(R.id.utm, "42, -72")
+        input(R.id.elevation_input, "1000")
 
         // Change the date
-        view(R.id.date_btn).click()
+        click(R.id.date_btn)
         pickDate(2024, 8, 5)
 
         // Verify the temperature is displayed
-        waitFor {
-            view(R.id.climate_title).hasText("81 °F / 59 °F")
-        }
+        hasText(R.id.climate_title, "81 °F / 59 °F")
     }
 }

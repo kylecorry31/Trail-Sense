@@ -2,13 +2,14 @@ package com.kylecorry.trail_sense.tools.turn_back
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.handleExactAlarmsDialog
 import com.kylecorry.trail_sense.test_utils.TestUtils.pickTime
-import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
-import com.kylecorry.trail_sense.test_utils.views.click
-import com.kylecorry.trail_sense.test_utils.views.hasText
-import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -38,35 +39,33 @@ class ToolTurnBackTest {
 
     @Test
     fun verifyBasicFunctionality() {
-        waitFor {
-            view(R.id.instructions).hasText(R.string.time_not_set)
-        }
+        hasText(R.string.instructions, string(R.string.time_not_set))
 
         // Enter a time
-        view(R.id.edittext).click()
+        click(R.id.edittext)
         pickTime(8, 0, false)
 
         handleExactAlarmsDialog()
 
-        waitFor {
-            view(R.id.edittext).hasText("8:00 PM", contains = true)
-            view(R.id.instructions).hasText(Regex("Turn around by \\d+:\\d+ (AM|PM) \\(.*\\) to return at 8:00 PM"))
-        }
-
-        // Cancel
-        view(R.id.cancel_button).click()
-
-        waitFor {
-            view(R.id.instructions).hasText(R.string.time_not_set)
-        }
+        hasText(R.id.edittext, "8:00 PM", contains = true)
+        hasText(
+            R.id.instructions,
+            Regex("Turn around by \\d+:\\d+ (AM|PM) \\(.*\\) to return at 8:00 PM")
+        )
+        click(R.id.cancel_button)
+        hasText(R.id.instructions, string(R.string.time_not_set))
 
         // Return before dark
-        view(R.id.sunset_button).click()
+        click(R.id.sunset_button)
 
-        // Verify a time is set
-        waitFor(12000) {
-            handleExactAlarmsDialog()
-            view(R.id.edittext).hasText(Regex("\\d+:\\d+ (AM|PM).*"))
+        // Loading dialog is possible
+        optional {
+            hasText(string(R.string.loading))
+            not(12000) { hasText(string(R.string.loading), waitForTime = 0) }
         }
+
+        handleExactAlarmsDialog()
+        hasText(R.id.edittext, Regex("\\d+:\\d+ (AM|PM).*"))
     }
+
 }
