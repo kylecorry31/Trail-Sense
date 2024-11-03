@@ -2,13 +2,11 @@ package com.kylecorry.trail_sense.tools.convert
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils
-import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
-import com.kylecorry.trail_sense.test_utils.views.click
-import com.kylecorry.trail_sense.test_utils.views.hasText
-import com.kylecorry.trail_sense.test_utils.views.input
-import com.kylecorry.trail_sense.test_utils.views.view
-import com.kylecorry.trail_sense.test_utils.views.viewWithText
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -47,161 +45,96 @@ class ToolConvertTest {
     }
 
     private fun canConvertCoordinates() {
-        waitFor {
-            view(R.id.utm).input("42, -72")
-        }
-        view(R.id.to_units).click()
-        waitFor {
-            viewWithText(R.string.coordinate_format_usng).click()
-        }
-        waitFor {
-            view(R.id.result).hasText("19T BG 51535 54131")
-        }
+        input(R.id.utm, "42, -72")
+        click(R.id.to_units)
+        click(string(R.string.coordinate_format_usng))
+        hasText(R.id.result, "19T BG 51535 54131")
     }
 
     private fun canConvertDistance() {
-        viewWithText(R.string.distance).click()
-        waitFor {
-            viewWithText(R.string.unit_meters)
-            view(R.id.unit_edit).input("1")
-        }
-        view(R.id.from_units).click()
-        waitFor {
-            viewWithText(R.string.unit_meters).click()
-        }
+        click(string(R.string.distance))
+        hasText(string(R.string.unit_meters))
+        input(R.id.unit_edit, "1")
 
-        waitFor {
-            view(R.id.to_units).click()
-        }
-        waitFor {
-            viewWithText(R.string.unit_feet).click()
-        }
+        click(R.id.from_units)
+        click(string(R.string.unit_meters))
 
-        waitFor {
-            view(R.id.result).hasText("3.2808 ft")
-        }
+        click(R.id.to_units)
+        click(string(R.string.unit_feet))
+
+        hasText(R.id.result, "3.2808 ft")
 
         // Swap
-        view(R.id.swap_btn).click()
-        waitFor {
-            view(R.id.result).hasText("0.3048 m")
-        }
+        click(R.id.swap_btn)
+        hasText(R.id.result, "0.3048 m")
     }
 
     private fun canConvertTemperature() {
-        viewWithText(R.string.temperature).click()
-        waitFor {
-            viewWithText(R.string.celsius)
-            view(R.id.unit_edit).input("0")
-        }
-        view(R.id.from_units).click()
-        waitFor {
-            viewWithText(R.string.celsius).click()
-        }
+        click(string(R.string.temperature))
+        hasText(string(R.string.celsius))
+        input(R.id.unit_edit, "0")
+        click(R.id.from_units)
+        click(string(R.string.celsius))
 
-        waitFor {
-            view(R.id.to_units).click()
-        }
-        waitFor {
-            viewWithText(R.string.fahrenheit).click()
-        }
+        click(R.id.to_units)
+        click(string(R.string.fahrenheit))
 
-        waitFor {
-            view(R.id.result).hasText("32 °F")
-        }
+        hasText(R.id.result, "32 °F")
 
         // Swap
-        view(R.id.swap_btn).click()
-        waitFor {
-            view(R.id.result).hasText("-17.7778 °C")
-        }
+        click(R.id.swap_btn)
+        hasText(R.id.result, "-17.7778 °C")
     }
 
     private fun canConvertVolume() {
-        viewWithText(R.string.volume).click()
-        waitFor {
-            viewWithText(R.string.liters)
-            view(R.id.unit_edit).input("1")
-        }
-        view(R.id.from_units).click()
-        waitFor {
-            viewWithText(R.string.liters).click()
-        }
+        click(string(R.string.volume))
+        hasText(string(R.string.liters))
+        input(R.id.unit_edit, "1")
+        click(R.id.from_units)
+        click(string(R.string.liters))
 
-        waitFor {
-            view(R.id.to_units).click()
-        }
-        waitFor {
-            viewWithText(R.string.us_gallons).click()
-        }
+        click(R.id.to_units)
+        click(string(R.string.us_gallons))
 
-        waitFor {
-            view(R.id.result).hasText("0.2642 gal")
-        }
+        hasText(R.id.result, "0.2642 gal")
 
         // Swap
-        view(R.id.swap_btn).click()
-        waitFor {
-            view(R.id.result).hasText("3.7854 l")
-        }
+        click(R.id.swap_btn)
+        hasText(R.id.result, "3.7854 l")
     }
 
     private fun canConvertWeight() {
-        viewWithText(R.string.weight).click()
-        waitFor {
-            viewWithText(R.string.kilograms)
-            view(R.id.unit_edit).input("1")
-        }
-        view(R.id.from_units).click()
-        waitFor {
-            viewWithText(R.string.kilograms).click()
-        }
+        click(string(R.string.weight))
+        hasText(string(R.string.kilograms))
+        input(R.id.unit_edit, "1")
+        click(R.id.from_units)
+        click(string(R.string.kilograms))
 
-        waitFor {
-            view(R.id.to_units).click()
-        }
-        waitFor {
-            viewWithText(R.string.pounds).click()
-        }
+        click(R.id.to_units)
+        click(string(R.string.pounds))
 
-        waitFor {
-            view(R.id.result).hasText("2.2046 lb")
-        }
+        hasText(R.id.result, "2.2046 lb")
 
         // Swap
-        view(R.id.swap_btn).click()
-        waitFor {
-            view(R.id.result).hasText("0.4536 kg")
-        }
+        click(R.id.swap_btn)
+        hasText(R.id.result, "0.4536 kg")
     }
 
     private fun canConvertTime() {
-        viewWithText(R.string.time).click()
-        waitFor {
-            viewWithText(R.string.minutes)
-            view(R.id.unit_edit).input("60")
-        }
-        view(R.id.from_units).click()
-        waitFor {
-            viewWithText(R.string.minutes).click()
-        }
+        click(string(R.string.time))
+        hasText(string(R.string.minutes))
+        input(R.id.unit_edit, "60")
+        click(R.id.from_units)
+        click(string(R.string.minutes))
 
-        waitFor {
-            view(R.id.to_units).click()
-        }
-        waitFor {
-            viewWithText(R.string.hours).click()
-        }
+        click(R.id.to_units)
+        click(string(R.string.hours))
 
-        waitFor {
-            view(R.id.result).hasText("1 h")
-        }
+        hasText(R.id.result, "1 h")
 
         // Swap
-        view(R.id.swap_btn).click()
-        waitFor {
-            view(R.id.result).hasText("3600 m")
-        }
+        click(R.id.swap_btn)
+        hasText(R.id.result, "3600 m")
     }
 
 }

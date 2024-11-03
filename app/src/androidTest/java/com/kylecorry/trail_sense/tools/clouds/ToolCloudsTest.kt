@@ -2,20 +2,22 @@ package com.kylecorry.trail_sense.tools.clouds
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isChecked
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotVisible
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.TestUtils.clickListItemMenu
 import com.kylecorry.trail_sense.test_utils.TestUtils.getString
-import com.kylecorry.trail_sense.test_utils.TestUtils.not
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.views.Side
-import com.kylecorry.trail_sense.test_utils.views.click
-import com.kylecorry.trail_sense.test_utils.views.hasText
-import com.kylecorry.trail_sense.test_utils.views.isChecked
 import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.test_utils.views.view
-import com.kylecorry.trail_sense.test_utils.views.viewWithText
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -45,10 +47,8 @@ class ToolCloudsTest {
 
     @Test
     fun verifyBasicFunctionality() {
-        waitFor {
-            view(R.id.cloud_list_title).hasText(R.string.clouds)
-            view(R.id.cloud_empty_text).hasText(R.string.no_clouds)
-        }
+        hasText(R.id.cloud_list_title, string(R.string.clouds))
+        hasText(R.id.cloud_empty_text, string(R.string.no_clouds))
 
         canScanCloudFromCamera()
         canScanCloudFromFile()
@@ -57,135 +57,90 @@ class ToolCloudsTest {
     }
 
     private fun canScanCloudFromCamera() {
-        view(R.id.add_btn).click()
+        click(R.id.add_btn)
 
-        waitFor {
-            viewWithText(R.string.camera).click()
-        }
+        click(string(R.string.camera))
 
-        waitFor {
-            view(R.id.capture_button).click()
-        }
+        click(R.id.capture_button)
 
-        waitFor {
-            view(R.id.cloud_title).hasText(R.string.clouds)
-        }
+        hasText(R.id.cloud_title, string(R.string.clouds))
 
         // Verify a cloud is selected (the top one)
-        waitFor {
-            view(com.kylecorry.andromeda.views.R.id.checkbox).isChecked()
-        }
+        isChecked(com.kylecorry.andromeda.views.R.id.checkbox)
 
-        toolbarButton(R.id.cloud_title, Side.Right).click()
+        click(toolbarButton(R.id.cloud_title, Side.Right))
 
-        waitFor {
-            view(com.kylecorry.andromeda.views.R.id.title).click()
-        }
-
-        waitFor {
-            viewWithText(android.R.string.ok).click()
-        }
-
-        waitFor {
-            view(com.kylecorry.andromeda.views.R.id.title)
-        }
+        // Back on cloud log
+        isVisible(R.id.add_btn)
+        click(com.kylecorry.andromeda.views.R.id.title)
+        clickOk()
+        isVisible(com.kylecorry.andromeda.views.R.id.title)
 
         // Delete all cloud results
         try {
             while (true) {
-                clickListItemMenu(getString(R.string.delete))
-                waitFor {
-                    viewWithText(android.R.string.ok).click()
-                }
+                clickListItemMenu(string(R.string.delete))
+                clickOk()
             }
         } catch (e: Throwable) {
             // Do nothing
         }
 
-        waitFor {
-            view(R.id.cloud_empty_text).hasText(R.string.no_clouds)
-        }
+        hasText(R.id.cloud_empty_text, string(R.string.no_clouds))
     }
 
     private fun canScanCloudFromFile() {
-        view(R.id.add_btn).click()
-
-        waitFor {
-            viewWithText(R.string.file).click()
-        }
+        click(R.id.add_btn)
+        click(string(R.string.file))
 
         // The file picker is opened
-        waitFor {
-            not { view(R.id.add_btn) }
-        }
+        isNotVisible(R.id.add_btn)
 
         waitFor {
             waitFor {
                 back()
             }
-            waitFor {
-                view(R.id.cloud_list_title)
-            }
+            isVisible(R.id.cloud_list_title)
         }
     }
 
     private fun canManuallyEnterCloud() {
-        view(R.id.add_btn).click()
+        click(view(R.id.add_btn))
 
-        waitFor {
-            viewWithText(R.string.manual).click()
-        }
+        click(string(R.string.manual))
 
-        waitFor {
-            view(R.id.cloud_title).hasText(R.string.clouds)
-        }
+        hasText(R.id.cloud_title, string(R.string.clouds))
 
         // Select the first cloud type
-        waitFor {
-            view(com.kylecorry.andromeda.views.R.id.checkbox).click()
-        }
+        click(com.kylecorry.andromeda.views.R.id.checkbox)
 
         // Verify it is selected
-        waitFor {
-            view(com.kylecorry.andromeda.views.R.id.checkbox).isChecked()
-        }
+        isChecked(com.kylecorry.andromeda.views.R.id.checkbox)
 
-        toolbarButton(R.id.cloud_title, Side.Right).click()
+        click(toolbarButton(R.id.cloud_title, Side.Right))
 
         // Delete the cloud result
-        waitFor {
-            clickListItemMenu(getString(R.string.delete))
-            waitFor {
-                viewWithText(android.R.string.ok).click()
-            }
-        }
+        clickListItemMenu(getString(R.string.delete))
+        clickOk()
 
-        waitFor {
-            view(R.id.cloud_empty_text).hasText(R.string.no_clouds)
-        }
+        hasText(R.id.cloud_empty_text, string(R.string.no_clouds))
     }
 
     private fun verifyQuickAction() {
         TestUtils.openQuickActions()
-        quickAction(Tools.QUICK_ACTION_SCAN_CLOUD).click()
+        click(quickAction(Tools.QUICK_ACTION_SCAN_CLOUD))
 
-        waitFor {
-            view(R.id.capture_button).click()
-        }
+        click(R.id.capture_button)
 
-        waitFor {
-            view(R.id.cloud_title).hasText(R.string.clouds)
-        }
+        hasText(R.id.cloud_title, string(R.string.clouds))
 
         // Verify a cloud is selected (the top one)
-        waitFor {
-            view(com.kylecorry.andromeda.views.R.id.checkbox).isChecked()
-        }
+        isChecked(com.kylecorry.andromeda.views.R.id.checkbox)
 
-        toolbarButton(R.id.cloud_title, Side.Right).click()
+        click(toolbarButton(R.id.cloud_title, Side.Right))
 
-        waitFor {
-            view(com.kylecorry.andromeda.views.R.id.title)
-        }
+        // Back on cloud log
+        isVisible(R.id.add_btn)
+        isVisible(com.kylecorry.andromeda.views.R.id.title)
     }
 }

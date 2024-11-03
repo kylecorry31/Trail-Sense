@@ -1,10 +1,12 @@
 package com.kylecorry.trail_sense.test_utils
 
+import androidx.annotation.StringRes
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.views.TestView
 import com.kylecorry.trail_sense.test_utils.views.click
 import com.kylecorry.trail_sense.test_utils.views.hasText
 import com.kylecorry.trail_sense.test_utils.views.input
+import com.kylecorry.trail_sense.test_utils.views.isChecked
 import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.test_utils.views.viewWithText
 import org.junit.Assert.assertTrue
@@ -62,8 +64,27 @@ object AutomationLibrary {
         }
     }
 
-    fun string(id: Int): String {
-        return TestUtils.getString(id)
+    fun isChecked(
+        id: Int,
+        isChecked: Boolean = true,
+        index: Int = 0,
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
+    ) {
+        waitFor(waitForTime) {
+            view(id, index = index).isChecked(isChecked)
+        }
+    }
+
+    fun isNotChecked(
+        id: Int,
+        index: Int = 0,
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
+    ) {
+        isChecked(id, isChecked = false, index = index, waitForTime = waitForTime)
+    }
+
+    fun string(@StringRes id: Int, vararg args: Any): String {
+        return TestUtils.getString(id, *args)
     }
 
     fun optional(block: () -> Unit) {
@@ -127,6 +148,12 @@ object AutomationLibrary {
     fun isNotVisible(id: Int, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
         waitFor(waitForTime) {
             not { view(id) }
+        }
+    }
+
+    fun isVisible(id: Int, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
+        waitFor(waitForTime) {
+            view(id)
         }
     }
 

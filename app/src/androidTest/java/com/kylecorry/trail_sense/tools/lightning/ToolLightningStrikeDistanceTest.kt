@@ -2,11 +2,10 @@ package com.kylecorry.trail_sense.tools.lightning
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils
-import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
-import com.kylecorry.trail_sense.test_utils.views.click
-import com.kylecorry.trail_sense.test_utils.views.hasText
-import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -37,23 +36,21 @@ class ToolLightningStrikeDistanceTest {
     @Test
     fun verifyBasicFunctionality() {
         // Verify it is ready to record lightning
-        waitFor {
-            view(R.id.start_btn).hasText(R.string.lightning)
-        }
+        hasText(R.id.start_btn, string(R.string.lightning))
 
         // Click the start button
-        view(R.id.start_btn).click()
+        click(R.id.start_btn)
 
         // Verify it is recording
-        view(R.id.lightning_title).hasText(Regex("([0-9.]+) (ft|mi)"))
-        view(R.id.start_btn).hasText(R.string.thunder)
+        hasText(R.id.lightning_title, Regex("([0-9.]+) (ft|mi)"))
+        hasText(R.id.start_btn, string(R.string.thunder))
 
         // Click the start button again
-        view(R.id.start_btn).click()
+        click(R.id.start_btn)
 
         // Verify it recorded the distance
         var previousDistance: String? = null
-        view(R.id.lightning_title).hasText {
+        hasText(R.id.lightning_title) {
             val regex = Regex("([0-9.]+) (ft|mi)")
             if (regex.matches(it)) {
                 previousDistance = it
@@ -62,14 +59,13 @@ class ToolLightningStrikeDistanceTest {
                 false
             }
         }
-        view(R.id.start_btn).hasText(R.string.lightning)
-        view(R.id.lightning_title).hasText(R.string.lightning_dangerously_close)
+        hasText(R.id.start_btn, string(R.string.lightning))
+        hasText(R.id.lightning_title, string(R.string.lightning_dangerously_close))
 
         // Run it again and verify the last distance shows at the bottom of the screen
-        view(R.id.start_btn)
-            .click()
-            .click()
+        click(R.id.start_btn)
+        click(R.id.start_btn)
 
-        view(R.id.previous_strike).hasText(Regex("Last strike at [0-9]+:[0-9]+ [AP]M - $previousDistance"))
+        hasText(R.id.previous_strike, Regex("Last strike at [0-9]+:[0-9]+ [AP]M - $previousDistance"))
     }
 }
