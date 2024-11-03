@@ -7,7 +7,6 @@ import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -34,7 +33,7 @@ class ToolCliffHeightTest {
     fun setUp() {
         hiltRule.inject()
         TestUtils.setupApplication()
-        TestUtils.setWaitForIdleTimeout(100)
+        TestUtils.setWaitForIdleTimeout()
         scenario = TestUtils.startWithTool(Tools.CLIFF_HEIGHT)
     }
 

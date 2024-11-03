@@ -30,7 +30,7 @@ class ToolRulerTest {
     fun setUp() {
         hiltRule.inject()
         TestUtils.setupApplication()
-        TestUtils.setWaitForIdleTimeout(100)
+        TestUtils.setWaitForIdleTimeout()
         TestUtils.startWithTool(Tools.RULER)
     }
 

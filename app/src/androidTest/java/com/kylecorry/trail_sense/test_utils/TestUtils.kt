@@ -94,7 +94,7 @@ object TestUtils {
         return context.getString(id, *args)
     }
 
-    fun setWaitForIdleTimeout(timeout: Long) {
+    fun setWaitForIdleTimeout(timeout: Long = 100) {
         Configurator.getInstance().setWaitForIdleTimeout(timeout)
     }
 
@@ -230,18 +230,22 @@ object TestUtils {
     }
 
     fun <T> waitFor(durationMillis: Long = 5000, action: () -> T): T {
-        val endTime = System.currentTimeMillis() + durationMillis
+        var remaining = durationMillis
         val interval = 10L
         var lastException: Throwable? = null
-        do {
+        while (remaining > 0) {
             try {
                 return action()
             } catch (e: Throwable) {
                 lastException = e
             }
             Thread.sleep(interval)
-        } while (System.currentTimeMillis() < endTime)
-        throw lastException
+            remaining -= interval
+        }
+        if (lastException != null) {
+            throw lastException
+        }
+        throw Exception("Timeout")
     }
 
     // NOTIFICATIONS

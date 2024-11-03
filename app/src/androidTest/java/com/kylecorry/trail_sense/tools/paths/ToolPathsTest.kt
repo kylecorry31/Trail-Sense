@@ -39,7 +39,7 @@ class ToolPathsTest {
     @Before
     fun setUp() {
         hiltRule.inject()
-        TestUtils.setWaitForIdleTimeout(100)
+        TestUtils.setWaitForIdleTimeout()
         TestUtils.setupApplication()
         TestUtils.startWithTool(Tools.PATHS)
     }

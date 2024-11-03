@@ -35,7 +35,7 @@ class ToolClimateTest {
     fun setUp() {
         hiltRule.inject()
         TestUtils.setupApplication()
-        TestUtils.setWaitForIdleTimeout(100)
+        TestUtils.setWaitForIdleTimeout()
         scenario = TestUtils.startWithTool(Tools.CLIMATE)
     }
 
