@@ -2,18 +2,19 @@ package com.kylecorry.trail_sense.tools.packs
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isChecked
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.clickListItemMenu
-import com.kylecorry.trail_sense.test_utils.TestUtils.not
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.views.Side
-import com.kylecorry.trail_sense.test_utils.views.click
-import com.kylecorry.trail_sense.test_utils.views.hasText
-import com.kylecorry.trail_sense.test_utils.views.input
-import com.kylecorry.trail_sense.test_utils.views.isChecked
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.test_utils.views.view
-import com.kylecorry.trail_sense.test_utils.views.viewWithText
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -39,14 +40,12 @@ class ToolPackingListTest {
         TestUtils.setWaitForIdleTimeout(50)
         TestUtils.setupApplication()
         TestUtils.startWithTool(Tools.PACKING_LISTS)
-
-        waitFor {
-            view(R.id.pack_list_title).hasText(R.string.packing_lists)
-        }
     }
 
     @Test
     fun verifyBasicFunctionality() {
+        hasText(R.id.pack_list_title, string(R.string.packing_lists))
+
         shouldHaveNoPacks()
         canCreateAPack()
         canCreateAnItem()
@@ -74,7 +73,7 @@ class ToolPackingListTest {
     }
 
     private fun shouldHaveNoPacks() {
-        view(R.id.empty_text).hasText(R.string.no_packing_lists)
+        hasText(R.id.empty_text, string(R.string.no_packing_lists))
     }
 
     private fun canCreateAPack() {
@@ -82,50 +81,48 @@ class ToolPackingListTest {
     }
 
     private fun canCreateAnItem() {
-        createItem("Test Item 1", 1, 2, TestUtils.getString(R.string.category_food), 1.1f)
+        createItem("Test Item 1", 1, 2, string(R.string.category_food), 1.1f)
         waitFor {
             hasItem(
                 "Test Item 1",
                 1,
                 2,
-                TestUtils.getString(R.string.category_food),
+                string(R.string.category_food),
                 "1 lb",
                 false
             )
         }
-        view(R.id.total_percent_packed).hasText("50% packed")
-        view(R.id.total_packed_weight).hasText("1.1 lb")
+        hasText(R.id.total_percent_packed, "50% packed")
+        hasText(R.id.total_packed_weight, "1.1 lb")
     }
 
     private fun canCheckAnItem() {
-        view(com.kylecorry.andromeda.views.R.id.checkbox).click()
+        click(com.kylecorry.andromeda.views.R.id.checkbox)
         waitFor {
             hasItem(
                 "Test Item 1",
                 2,
                 2,
-                TestUtils.getString(R.string.category_food),
+                string(R.string.category_food),
                 "2 lb",
                 true
             )
         }
-        view(R.id.total_percent_packed).hasText("100% packed")
-        view(R.id.total_packed_weight).hasText("2.2 lb")
+        hasText(R.id.total_percent_packed, "100% packed")
+        hasText(R.id.total_packed_weight, "2.2 lb")
     }
 
     private fun canEditAnItemOnClick() {
-        view(com.kylecorry.andromeda.views.R.id.title).click()
-        waitFor {
-            view(R.id.create_item_title).hasText(R.string.edit_item_title)
-        }
-        hasItemForm("Test Item 1", 2, 2, TestUtils.getString(R.string.category_food), 1.1f)
-        view(R.id.create_btn).click()
+        click(com.kylecorry.andromeda.views.R.id.title)
+        hasText(R.id.create_item_title, string(R.string.edit_item_title))
+        hasItemForm("Test Item 1", 2, 2, string(R.string.category_food), 1.1f)
+        click(R.id.create_btn)
         waitFor {
             hasItem(
                 "Test Item 1",
                 2,
                 2,
-                TestUtils.getString(R.string.category_food),
+                string(R.string.category_food),
                 "2 lb",
                 true
             )
@@ -133,18 +130,16 @@ class ToolPackingListTest {
     }
 
     private fun canEditAnItemFromMenu() {
-        clickListItemMenu(TestUtils.getString(R.string.edit), 1)
-        waitFor {
-            view(R.id.create_item_title).hasText(R.string.edit_item_title)
-        }
-        hasItemForm("Test Item 1", 2, 2, TestUtils.getString(R.string.category_food), 1.1f)
-        view(R.id.create_btn).click()
+        clickListItemMenu(string(R.string.edit), 1)
+        hasText(R.id.create_item_title, string(R.string.edit_item_title))
+        hasItemForm("Test Item 1", 2, 2, string(R.string.category_food), 1.1f)
+        click(R.id.create_btn)
         waitFor {
             hasItem(
                 "Test Item 1",
                 2,
                 2,
-                TestUtils.getString(R.string.category_food),
+                string(R.string.category_food),
                 "2 lb",
                 true,
                 1
@@ -153,13 +148,13 @@ class ToolPackingListTest {
     }
 
     private fun canAddASecondItem() {
-        createItem("Test Item 2", 1, 2, TestUtils.getString(R.string.category_clothing), 0.5f)
+        createItem("Test Item 2", 1, 2, string(R.string.category_clothing), 0.5f)
         waitFor {
             hasItem(
                 "Test Item 2",
                 1,
                 2,
-                TestUtils.getString(R.string.category_clothing),
+                string(R.string.category_clothing),
                 "1 lb",
                 false,
                 0
@@ -168,28 +163,26 @@ class ToolPackingListTest {
                 "Test Item 1",
                 2,
                 2,
-                TestUtils.getString(R.string.category_food),
+                string(R.string.category_food),
                 "2 lb",
                 true,
                 1
             )
         }
-        view(R.id.total_percent_packed).hasText("75% packed")
-        view(R.id.total_packed_weight).hasText("2.7 lb")
+        hasText(R.id.total_percent_packed, "75% packed")
+        hasText(R.id.total_packed_weight, "2.7 lb")
     }
 
     private fun canIncrementItem() {
-        clickListItemMenu(TestUtils.getString(R.string.add), 0)
-        waitFor {
-            viewWithText(R.string.dialog_item_amount).input("1")
-        }
-        viewWithText(android.R.string.ok).click()
+        clickListItemMenu(string(R.string.add), 0)
+        input(string(R.string.dialog_item_amount), "1")
+        clickOk()
         waitFor {
             hasItem(
                 "Test Item 2",
                 2,
                 2,
-                TestUtils.getString(R.string.category_clothing),
+                string(R.string.category_clothing),
                 "1 lb",
                 true,
                 0
@@ -198,17 +191,15 @@ class ToolPackingListTest {
     }
 
     private fun canDecrementItem() {
-        clickListItemMenu(TestUtils.getString(R.string.subtract), 0)
-        waitFor {
-            viewWithText(R.string.dialog_item_amount).input("2")
-        }
-        viewWithText(android.R.string.ok).click()
+        clickListItemMenu(string(R.string.subtract), 0)
+        input(string(R.string.dialog_item_amount), "2")
+        clickOk()
         waitFor {
             hasItem(
                 "Test Item 2",
                 0,
                 2,
-                TestUtils.getString(R.string.category_clothing),
+                string(R.string.category_clothing),
                 "0 lb",
                 false,
                 0
@@ -217,44 +208,36 @@ class ToolPackingListTest {
     }
 
     private fun canDeleteAnItem() {
-        clickListItemMenu(TestUtils.getString(R.string.delete), 0)
-        waitFor {
-            not {
-                hasItem(
-                    "Test Item 2",
-                    0,
-                    2,
-                    TestUtils.getString(R.string.category_clothing),
-                    "0 lb",
-                    false,
-                    0
-                )
-            }
+        clickListItemMenu(string(R.string.delete), 0)
+        not {
+            hasItem(
+                "Test Item 2",
+                0,
+                2,
+                string(R.string.category_clothing),
+                "0 lb",
+                false,
+                0
+            )
         }
     }
 
     private fun canRenamePack() {
-        clickToolbarMenuItem(TestUtils.getString(R.string.rename))
-        waitFor {
-            viewWithText("Test Pack 1").input("Test Pack 2")
-            viewWithText(android.R.string.ok).click()
-        }
-        waitFor {
-            view(R.id.inventory_list_title).hasText("Test Pack 2")
-        }
+        clickToolbarMenuItem(string(R.string.rename))
+        input("Test Pack 1", "Test Pack 2")
+        clickOk()
+        hasText(R.id.inventory_list_title, "Test Pack 2")
     }
 
     private fun canClearPackAmounts() {
-        clickToolbarMenuItem(TestUtils.getString(R.string.clear_amounts))
-        waitFor {
-            viewWithText(android.R.string.ok).click()
-        }
+        clickToolbarMenuItem(string(R.string.clear_amounts))
+        clickOk()
         waitFor {
             hasItem(
                 "Test Item 1",
                 0,
                 2,
-                TestUtils.getString(R.string.category_food),
+                string(R.string.category_food),
                 "0 lb",
                 false
             )
@@ -262,19 +245,15 @@ class ToolPackingListTest {
     }
 
     private fun canExportPack() {
-        clickToolbarMenuItem(TestUtils.getString(R.string.export))
-        waitFor {
-            // TODO: Figure out how to click save
+        clickToolbarMenuItem(string(R.string.export))
+        // TODO: Figure out how to click save
 //            viewWithText("SAVE").click()
-            viewWithText("test-pack-2.csv")
-        }
+        hasText("test-pack-2.csv")
         waitFor {
             waitFor {
                 TestUtils.back()
             }
-            waitFor {
-                view(R.id.inventory_list_title).hasText("Test Pack 2")
-            }
+            hasText(R.id.inventory_list_title, "Test Pack 2")
         }
     }
 
@@ -282,47 +261,37 @@ class ToolPackingListTest {
         waitFor {
             TestUtils.back()
         }
-        waitFor {
-            view(R.id.pack_list_title).hasText(R.string.packing_lists)
-            view(com.kylecorry.andromeda.views.R.id.title).hasText("Test Pack 2")
-        }
+        hasText(R.id.pack_list_title, string(R.string.packing_lists))
+        hasText(com.kylecorry.andromeda.views.R.id.title, "Test Pack 2")
     }
 
     private fun canCopyPack() {
-        clickListItemMenu(TestUtils.getString(android.R.string.copy))
-        waitFor {
-            viewWithText(R.string.name).input("Copied Pack")
-            viewWithText(android.R.string.ok).click()
-        }
-        waitFor {
-            view(R.id.inventory_list_title).hasText("Copied Pack")
-        }
+        clickListItemMenu(string(android.R.string.copy))
+        input(string(R.string.name), "Copied Pack")
+        clickOk()
+        hasText(R.id.inventory_list_title, "Copied Pack")
         hasItem(
             "Test Item 1",
             0,
             2,
-            TestUtils.getString(R.string.category_food),
+            string(R.string.category_food),
             "0 lb",
             false
         )
     }
 
-    private fun canDeletePack(){
-        clickToolbarMenuItem(TestUtils.getString(R.string.delete))
-        waitFor {
-            viewWithText(android.R.string.ok).click()
-        }
-        waitFor {
-            view(R.id.pack_list_title).hasText(R.string.packing_lists)
-            not {
-                view(com.kylecorry.andromeda.views.R.id.title).hasText("Copied Pack")
-            }
+    private fun canDeletePack() {
+        clickToolbarMenuItem(string(R.string.delete))
+        clickOk()
+        hasText(R.id.pack_list_title, string(R.string.packing_lists))
+        not {
+            hasText(com.kylecorry.andromeda.views.R.id.title, "Copied Pack")
         }
     }
 
-    private fun canImportPack(){
-        view(R.id.add_btn).click()
-        viewWithText(R.string.import_packing_list).click()
+    private fun canImportPack() {
+        click(R.id.add_btn)
+        click(string(R.string.import_packing_list))
         // TODO: Actually import a pack and verify it
     }
 
@@ -334,11 +303,11 @@ class ToolPackingListTest {
         category: String,
         weight: Float
     ) {
-        view(R.id.name_edit).hasText { it.startsWith(name) }
-        view(R.id.count_edit).hasText { it.startsWith(amount.toString()) }
-        view(R.id.desired_amount_edit).hasText { it.startsWith(desiredAmount.toString()) }
-        view(R.id.category_spinner).hasText { it.startsWith(category) }
-        view(R.id.item_weight_input, R.id.amount).hasText { it.startsWith(weight.toString()) }
+        hasText(R.id.name_edit) { it.startsWith(name) }
+        hasText(R.id.count_edit) { it.startsWith(amount.toString()) }
+        hasText(R.id.desired_amount_edit) { it.startsWith(desiredAmount.toString()) }
+        hasText(R.id.category_spinner) { it.startsWith(category) }
+        hasText(R.id.item_weight_input) { it.startsWith(weight.toString()) }
     }
 
     private fun hasItem(
@@ -350,21 +319,20 @@ class ToolPackingListTest {
         isChecked: Boolean,
         index: Int = 0
     ) {
-        view(com.kylecorry.andromeda.views.R.id.title, index = index).hasText(name)
-        view(com.kylecorry.andromeda.views.R.id.tag, index = index).hasText(category)
-        view(
+        hasText(com.kylecorry.andromeda.views.R.id.title, name, index = index)
+        hasText(com.kylecorry.andromeda.views.R.id.tag, category, index = index)
+        hasText(
             com.kylecorry.andromeda.views.R.id.data_1,
+            "$amount / $desiredAmount",
             index = index
-        ).hasText("$amount / $desiredAmount")
-        view(com.kylecorry.andromeda.views.R.id.data_2, index = index).hasText(weight)
-        view(com.kylecorry.andromeda.views.R.id.checkbox, index = index).isChecked(isChecked)
+        )
+        hasText(com.kylecorry.andromeda.views.R.id.data_2, weight, index = index)
+        isChecked(com.kylecorry.andromeda.views.R.id.checkbox, isChecked, index = index)
     }
 
     private fun clickToolbarMenuItem(label: String) {
-        toolbarButton(R.id.inventory_list_title, Side.Right).click()
-        waitFor {
-            viewWithText(label).click()
-        }
+        click(toolbarButton(R.id.inventory_list_title, Side.Right))
+        click(label)
     }
 
     private fun createItem(
@@ -374,39 +342,28 @@ class ToolPackingListTest {
         category: String,
         weight: Float
     ) {
-        // Create a new item
-        view(R.id.add_btn).click()
-        waitFor {
-            view(R.id.create_item_title).hasText(R.string.create_item_title)
-        }
+        click(R.id.add_btn)
+        hasText(R.id.create_item_title, string(R.string.create_item_title))
 
-        view(R.id.name_edit).input(name)
-        view(R.id.count_edit).input(amount.toString())
-        view(R.id.desired_amount_edit).input(desiredAmount.toString())
-        view(R.id.category_spinner).click()
-        waitFor {
-            viewWithText(category).click()
-            viewWithText(android.R.string.ok).click()
-        }
-        waitFor {
-            view(R.id.item_weight_input, R.id.amount).input(weight.toString())
-        }
-        view(R.id.create_btn).click()
+        input(R.id.name_edit, name)
+        input(R.id.count_edit, amount.toString())
+        input(R.id.desired_amount_edit, desiredAmount.toString())
+        click(R.id.category_spinner)
+        click(category)
+        clickOk()
+        input(R.id.item_weight_input, weight.toString())
+        click(R.id.create_btn)
     }
 
     private fun createPackingList(name: String) {
         // Create a new packing list
-        view(R.id.add_btn).click()
-        viewWithText(R.string.new_packing_list).click()
-        waitFor {
-            viewWithText(R.string.name).input(name)
-            viewWithText(android.R.string.ok).click()
-        }
+        click(R.id.add_btn)
+        click(string(R.string.new_packing_list))
+        input(string(R.string.name), name)
+        clickOk()
 
         // Verify the new pack is created
-        waitFor {
-            view(R.id.inventory_list_title).hasText(name)
-            view(R.id.inventory_empty_text).hasText(R.string.inventory_empty_text)
-        }
+        hasText(R.id.inventory_list_title, name)
+        hasText(R.id.inventory_empty_text, string(R.string.inventory_empty_text))
     }
 }

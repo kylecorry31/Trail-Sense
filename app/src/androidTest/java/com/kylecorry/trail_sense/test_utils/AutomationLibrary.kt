@@ -19,10 +19,12 @@ object AutomationLibrary {
         ignoreCase: Boolean = false,
         checkDescendants: Boolean = true,
         contains: Boolean = false,
+        index: Int = 0,
+        childId: Int? = null,
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
     ) {
         waitFor(waitForTime) {
-            view(id).hasText(
+            view(id, childId = childId, index = index).hasText(
                 text,
                 ignoreCase = ignoreCase,
                 checkDescendants = checkDescendants,
@@ -35,11 +37,12 @@ object AutomationLibrary {
         id: Int,
         checkDescendants: Boolean = true,
         message: String? = null,
+        index: Int = 0,
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT,
         predicate: (String) -> Boolean
     ) {
         waitFor(waitForTime) {
-            view(id).hasText(
+            view(id, index = index).hasText(
                 checkDescendants = checkDescendants,
                 message = message,
                 predicate = predicate
@@ -51,16 +54,17 @@ object AutomationLibrary {
         id: Int,
         text: Regex,
         checkDescendants: Boolean = true,
+        index: Int = 0,
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
     ) {
         waitFor(waitForTime) {
-            view(id).hasText(text, checkDescendants = checkDescendants)
+            view(id, index = index).hasText(text, checkDescendants = checkDescendants)
         }
     }
 
-    fun hasText(text: String, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
+    fun hasText(text: String, index: Int = 0, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
         waitFor(waitForTime) {
-            viewWithText(text)
+            viewWithText(text, index = index)
         }
     }
 
@@ -142,6 +146,17 @@ object AutomationLibrary {
     ) {
         waitFor(waitForTime) {
             view(id).input(text, checkDescendants)
+        }
+    }
+
+    fun input(
+        viewText: String,
+        text: String,
+        checkDescendants: Boolean = true,
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
+    ) {
+        waitFor(waitForTime) {
+            viewWithText(viewText).input(text, checkDescendants)
         }
     }
 

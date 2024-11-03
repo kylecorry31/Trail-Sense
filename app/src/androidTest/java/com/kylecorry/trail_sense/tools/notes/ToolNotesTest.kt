@@ -2,21 +2,15 @@ package com.kylecorry.trail_sense.tools.notes
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.TestUtils.clickListItemMenu
-import com.kylecorry.trail_sense.test_utils.TestUtils.getString
-import com.kylecorry.trail_sense.test_utils.TestUtils.not
-import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
-import com.kylecorry.trail_sense.test_utils.notifications.hasTitle
-import com.kylecorry.trail_sense.test_utils.notifications.notification
-import com.kylecorry.trail_sense.test_utils.views.click
-import com.kylecorry.trail_sense.test_utils.views.hasText
-import com.kylecorry.trail_sense.test_utils.views.input
 import com.kylecorry.trail_sense.test_utils.views.quickAction
-import com.kylecorry.trail_sense.test_utils.views.view
-import com.kylecorry.trail_sense.test_utils.views.viewWithText
-import com.kylecorry.trail_sense.tools.paths.infrastructure.alerts.BacktrackAlerter
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -46,10 +40,8 @@ class ToolNotesTest {
 
     @Test
     fun verifyBasicFunctionality() {
-        waitFor {
-            view(R.id.notes_title).hasText(R.string.tool_notes_title)
-            view(R.id.notes_empty_text).hasText(R.string.notes_empty_text)
-        }
+        hasText(R.id.notes_title, string(R.string.tool_notes_title))
+        hasText(R.id.notes_empty_text, string(R.string.notes_empty_text))
 
         canCreateNote()
         canCreateQRCode()
@@ -58,77 +50,55 @@ class ToolNotesTest {
         verifyQuickAction()
     }
 
-    private fun canEditNote(){
-        view(com.kylecorry.andromeda.views.R.id.title).click()
-        waitFor {
-            view(R.id.title_edit).hasText { it.contains("Test note") }
-            view(R.id.content_edit).hasText { it.contains("This is a test note") }
-        }
+    private fun canEditNote() {
+        click(com.kylecorry.andromeda.views.R.id.title)
+        hasText(R.id.title_edit, "Test note", contains = true)
+        hasText(R.id.content_edit, "This is a test note", contains = true)
 
-        view(R.id.title_edit).input("Test note 2")
-        view(R.id.content_edit).input("This is a test note 2")
+        input(R.id.title_edit, "Test note 2")
+        input(R.id.content_edit, "This is a test note 2")
 
-        view(R.id.note_create_btn).click()
+        click(R.id.note_create_btn)
 
-        waitFor {
-            view(com.kylecorry.andromeda.views.R.id.title).hasText("Test note 2")
-            view(com.kylecorry.andromeda.views.R.id.description).hasText("This is a test note 2")
-        }
+        hasText(com.kylecorry.andromeda.views.R.id.title, "Test note 2")
+        hasText(com.kylecorry.andromeda.views.R.id.description, "This is a test note 2")
     }
 
-    private fun canDeleteNote(){
-        clickListItemMenu(getString(R.string.delete))
-        waitFor {
-            viewWithText(android.R.string.ok).click()
-        }
+    private fun canDeleteNote() {
+        clickListItemMenu(string(R.string.delete))
+        clickOk()
 
-        waitFor {
-            view(R.id.notes_empty_text).hasText(R.string.notes_empty_text)
-        }
+        hasText(R.id.notes_empty_text, string(R.string.notes_empty_text))
     }
 
-    private fun canCreateQRCode(){
-        clickListItemMenu(getString(R.string.qr_code))
-        waitFor {
-            view(R.id.qr_title).hasText("Test note")
-        }
+    private fun canCreateQRCode() {
+        clickListItemMenu(string(R.string.qr_code))
+        hasText(R.id.qr_title, "Test note")
         back(false)
     }
 
     private fun canCreateNote() {
-        view(R.id.add_btn).click()
+        click(R.id.add_btn)
 
-        waitFor {
-            view(R.id.title_edit)
-        }
+        input(R.id.title_edit, "Test note")
+        input(R.id.content_edit, "This is a test note")
 
-        view(R.id.title_edit).input("Test note")
-        view(R.id.content_edit).input("This is a test note")
+        click(R.id.note_create_btn)
 
-        view(R.id.note_create_btn).click()
-
-        waitFor {
-            view(com.kylecorry.andromeda.views.R.id.title).hasText("Test note")
-            view(com.kylecorry.andromeda.views.R.id.description).hasText("This is a test note")
-        }
+        hasText(com.kylecorry.andromeda.views.R.id.title, "Test note")
+        hasText(com.kylecorry.andromeda.views.R.id.description, "This is a test note")
     }
 
-    private fun verifyQuickAction(){
+    private fun verifyQuickAction() {
         TestUtils.openQuickActions()
-        quickAction(Tools.QUICK_ACTION_CREATE_NOTE).click()
+        click(quickAction(Tools.QUICK_ACTION_CREATE_NOTE))
 
-        waitFor {
-            view(R.id.title_edit)
-        }
+        input(R.id.title_edit, "Quick action note")
+        input(R.id.content_edit, "This is a quick action note")
 
-        view(R.id.title_edit).input("Quick action note")
-        view(R.id.content_edit).input("This is a quick action note")
+        click(R.id.note_create_btn)
 
-        view(R.id.note_create_btn).click()
-        
-        waitFor {
-            view(com.kylecorry.andromeda.views.R.id.title).hasText("Quick action note")
-            view(com.kylecorry.andromeda.views.R.id.description).hasText("This is a quick action note")
-        }
+        hasText(com.kylecorry.andromeda.views.R.id.title, "Quick action note")
+        hasText(com.kylecorry.andromeda.views.R.id.description, "This is a quick action note")
     }
 }
