@@ -14,7 +14,6 @@ import com.kylecorry.trail_sense.test_utils.TestUtils.clickListItemMenu
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
-import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -82,32 +81,28 @@ class ToolPackingListTest {
 
     private fun canCreateAnItem() {
         createItem("Test Item 1", 1, 2, string(R.string.category_food), 1.1f)
-        waitFor {
-            hasItem(
-                "Test Item 1",
-                1,
-                2,
-                string(R.string.category_food),
-                "1 lb",
-                false
-            )
-        }
+        hasItem(
+            "Test Item 1",
+            1,
+            2,
+            string(R.string.category_food),
+            "1 lb",
+            false
+        )
         hasText(R.id.total_percent_packed, "50% packed")
         hasText(R.id.total_packed_weight, "1.1 lb")
     }
 
     private fun canCheckAnItem() {
         click(com.kylecorry.andromeda.views.R.id.checkbox)
-        waitFor {
-            hasItem(
-                "Test Item 1",
-                2,
-                2,
-                string(R.string.category_food),
-                "2 lb",
-                true
-            )
-        }
+        hasItem(
+            "Test Item 1",
+            2,
+            2,
+            string(R.string.category_food),
+            "2 lb",
+            true
+        )
         hasText(R.id.total_percent_packed, "100% packed")
         hasText(R.id.total_packed_weight, "2.2 lb")
     }
@@ -117,16 +112,14 @@ class ToolPackingListTest {
         hasText(R.id.create_item_title, string(R.string.edit_item_title))
         hasItemForm("Test Item 1", 2, 2, string(R.string.category_food), 1.1f)
         click(R.id.create_btn)
-        waitFor {
-            hasItem(
-                "Test Item 1",
-                2,
-                2,
-                string(R.string.category_food),
-                "2 lb",
-                true
-            )
-        }
+        hasItem(
+            "Test Item 1",
+            2,
+            2,
+            string(R.string.category_food),
+            "2 lb",
+            true
+        )
     }
 
     private fun canEditAnItemFromMenu() {
@@ -134,41 +127,37 @@ class ToolPackingListTest {
         hasText(R.id.create_item_title, string(R.string.edit_item_title))
         hasItemForm("Test Item 1", 2, 2, string(R.string.category_food), 1.1f)
         click(R.id.create_btn)
-        waitFor {
-            hasItem(
-                "Test Item 1",
-                2,
-                2,
-                string(R.string.category_food),
-                "2 lb",
-                true,
-                1
-            )
-        }
+        hasItem(
+            "Test Item 1",
+            2,
+            2,
+            string(R.string.category_food),
+            "2 lb",
+            true,
+            1
+        )
     }
 
     private fun canAddASecondItem() {
         createItem("Test Item 2", 1, 2, string(R.string.category_clothing), 0.5f)
-        waitFor {
-            hasItem(
-                "Test Item 2",
-                1,
-                2,
-                string(R.string.category_clothing),
-                "1 lb",
-                false,
-                0
-            )
-            hasItem(
-                "Test Item 1",
-                2,
-                2,
-                string(R.string.category_food),
-                "2 lb",
-                true,
-                1
-            )
-        }
+        hasItem(
+            "Test Item 2",
+            1,
+            2,
+            string(R.string.category_clothing),
+            "1 lb",
+            false,
+            0
+        )
+        hasItem(
+            "Test Item 1",
+            2,
+            2,
+            string(R.string.category_food),
+            "2 lb",
+            true,
+            1
+        )
         hasText(R.id.total_percent_packed, "75% packed")
         hasText(R.id.total_packed_weight, "2.7 lb")
     }
@@ -177,34 +166,30 @@ class ToolPackingListTest {
         clickListItemMenu(string(R.string.add), 0)
         input(string(R.string.dialog_item_amount), "1")
         clickOk()
-        waitFor {
-            hasItem(
-                "Test Item 2",
-                2,
-                2,
-                string(R.string.category_clothing),
-                "1 lb",
-                true,
-                0
-            )
-        }
+        hasItem(
+            "Test Item 2",
+            2,
+            2,
+            string(R.string.category_clothing),
+            "1 lb",
+            true,
+            0
+        )
     }
 
     private fun canDecrementItem() {
         clickListItemMenu(string(R.string.subtract), 0)
         input(string(R.string.dialog_item_amount), "2")
         clickOk()
-        waitFor {
-            hasItem(
-                "Test Item 2",
-                0,
-                2,
-                string(R.string.category_clothing),
-                "0 lb",
-                false,
-                0
-            )
-        }
+        hasItem(
+            "Test Item 2",
+            0,
+            2,
+            string(R.string.category_clothing),
+            "0 lb",
+            false,
+            0
+        )
     }
 
     private fun canDeleteAnItem() {
@@ -232,16 +217,14 @@ class ToolPackingListTest {
     private fun canClearPackAmounts() {
         clickToolbarMenuItem(string(R.string.clear_amounts))
         clickOk()
-        waitFor {
-            hasItem(
-                "Test Item 1",
-                0,
-                2,
-                string(R.string.category_food),
-                "0 lb",
-                false
-            )
-        }
+        hasItem(
+            "Test Item 1",
+            0,
+            2,
+            string(R.string.category_food),
+            "0 lb",
+            false
+        )
     }
 
     private fun canExportPack() {
