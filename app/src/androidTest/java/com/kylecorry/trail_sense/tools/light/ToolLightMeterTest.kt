@@ -29,7 +29,7 @@ class ToolLightMeterTest {
     fun setUp() {
         hiltRule.inject()
         TestUtils.setupApplication()
-        TestUtils.setWaitForIdleTimeout(100)
+        TestUtils.setWaitForIdleTimeout()
         TestUtils.startWithTool(Tools.LIGHT_METER)
     }
 

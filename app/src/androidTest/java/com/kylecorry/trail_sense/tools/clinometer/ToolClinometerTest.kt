@@ -37,7 +37,7 @@ class ToolClinometerTest {
     @Before
     fun setUp() {
         hiltRule.inject()
-        TestUtils.setWaitForIdleTimeout(100)
+        TestUtils.setWaitForIdleTimeout()
         TestUtils.setupApplication()
         TestUtils.listenForCameraUsage()
         TestUtils.startWithTool(Tools.CLINOMETER)

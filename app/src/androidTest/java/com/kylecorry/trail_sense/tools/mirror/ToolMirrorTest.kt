@@ -34,7 +34,7 @@ class ToolMirrorTest {
     @Before
     fun setUp() {
         hiltRule.inject()
-        TestUtils.setWaitForIdleTimeout(100)
+        TestUtils.setWaitForIdleTimeout()
         TestUtils.setupApplication()
         TestUtils.listenForCameraUsage()
         scenario = TestUtils.startWithTool(Tools.MIRROR_CAMERA)

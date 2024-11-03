@@ -38,7 +38,7 @@ class ToolMetalDetectorTest {
     @Before
     fun setUp() {
         hiltRule.inject()
-        TestUtils.setWaitForIdleTimeout(100)
+        TestUtils.setWaitForIdleTimeout()
         TestUtils.setupApplication()
         scenario = TestUtils.startWithTool(Tools.METAL_DETECTOR)
     }

@@ -20,7 +20,6 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.util.regex.Pattern
 
 @HiltAndroidTest
 class ToolClockTest {
@@ -39,7 +38,7 @@ class ToolClockTest {
     @Before
     fun setUp() {
         hiltRule.inject()
-        TestUtils.setWaitForIdleTimeout(100)
+        TestUtils.setWaitForIdleTimeout()
         TestUtils.setupApplication()
         scenario = TestUtils.startWithTool(Tools.CLOCK)
     }

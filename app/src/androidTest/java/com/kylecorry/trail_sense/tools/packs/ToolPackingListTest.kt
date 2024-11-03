@@ -36,7 +36,7 @@ class ToolPackingListTest {
     @Before
     fun setUp() {
         hiltRule.inject()
-        TestUtils.setWaitForIdleTimeout(50)
+        TestUtils.setWaitForIdleTimeout()
         TestUtils.setupApplication()
         TestUtils.startWithTool(Tools.PACKING_LISTS)
     }

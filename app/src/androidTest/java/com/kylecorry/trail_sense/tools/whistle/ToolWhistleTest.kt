@@ -34,7 +34,7 @@ class ToolWhistleTest {
     fun setUp() {
         hiltRule.inject()
         currentVolume = TestUtils.mute()
-        TestUtils.setWaitForIdleTimeout(100)
+        TestUtils.setWaitForIdleTimeout()
         TestUtils.setupApplication()
         TestUtils.startWithTool(Tools.WHISTLE)
     }
