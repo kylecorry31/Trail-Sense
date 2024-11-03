@@ -47,6 +47,5 @@ open class ToolTestBase(private val toolId: Long) {
     fun tearDown() {
         TestUtils.unmute(volume)
         TestUtils.stopListeningForCameraUsage()
-        scenario.close()
     }
 }
