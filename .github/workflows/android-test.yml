@@ -42,6 +42,12 @@ jobs:
         with:
           api-level: ${{ matrix.api-level }}
           arch: ${{ matrix.api-level == 23 && 'x86' || 'x86_64' }}
-          script: ./gradlew connectedCheck --full-stacktrace --debug
+          script: ./gradlew connectedCheck --full-stacktrace
         env:
           API_LEVEL: ${{ matrix.api-level }}
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: android-test-results
+          path: app/build/reports/androidTests/connected/debug/index.html

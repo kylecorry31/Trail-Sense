@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.test_utils
 
 import android.graphics.Bitmap.CompressFormat
 import android.util.Base64
+import android.util.Log
 import androidx.test.core.app.takeScreenshot
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
@@ -17,7 +18,10 @@ class ScreenshotFailureRule : TestWatcher() {
         screenshot.compress(CompressFormat.WEBP, 25, stream)
         val bitmapBytes = stream.toByteArray()
         val encodedImage = Base64.encodeToString(bitmapBytes, Base64.DEFAULT)
-        println("Screenshot: $encodedImage")
+        val chunked = encodedImage.chunked(1000)
+        chunked.forEach {
+            Log.e("Screenshot", it)
+        }
     }
 
 }
