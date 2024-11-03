@@ -38,16 +38,28 @@ jobs:
       - uses: gradle/actions/setup-gradle@v3
 
       - name: Run Tests
+        id: testing
         uses: reactivecircus/android-emulator-runner@v2
+        continue-on-error: true
         with:
           api-level: ${{ matrix.api-level }}
           arch: ${{ matrix.api-level == 23 && 'x86' || 'x86_64' }}
-          script: ./gradlew connectedCheck --full-stacktrace
+          script: |
+            adb logcat -c
+            touch app/emulator.log
+            chmod 777 app/emulator.log
+            adb logcat >> app/emulator.log &
+            ./gradlew connectedCheck
         env:
           API_LEVEL: ${{ matrix.api-level }}
 
       - name: Upload Test Results
+        if: steps.testing.outcome != 'success'
         uses: actions/upload-artifact@v3
         with:
-          name: android-test-results
-          path: app/build/reports/androidTests/connected/debug/index.html
+          name: logs
+          path: app/emulator.log
+      
+      - name: Raise error on test failure
+        if: steps.testing.outcome != 'success'
+        run: exit 1
