@@ -1203,4 +1203,12 @@
     <string name="reduce_photo_resolution">Fotoresolutie verlagen</string>
     <string name="on_import">Bij importeren</string>
     <string name="theme_system_black">Systeem (zwart)</string>
+    <string name="millimeters_format">%s mm</string>
+    <string name="tablespoon_format">%s eetlepel</string>
+    <string name="teaspooon_format">%s theelepel</string>
+    <string name="us_teaspoons">Amerikaanse theelepels</string>
+    <string name="us_tablespoons">Amerikaanse eetlepels</string>
+    <string name="unit_millimeters">Millimeter</string>
+    <string name="imperial_teaspoons">Imperiale theelepels</string>
+    <string name="imperial_tablespoons">Imperiale eetlepels</string>
 </resources>

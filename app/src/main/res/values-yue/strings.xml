@@ -541,7 +541,7 @@
     <string name="stratocumulus">層積雲</string>
     <string name="cumulonimbus">積雨雲</string>
     <string name="general">一般</string>
-    <string name="theme_system">跟返系統噉樣</string>
+    <string name="theme_system">跟大路</string>
     <string name="other">其他</string>
     <string name="lunar_eclipses">月食</string>
     <string name="start_time">開始</string>
@@ -1037,4 +1037,20 @@
     <string name="duration_of_charge">集結幾耐</string>
     <string name="pref_sunrise_alert_time_title">日出警示時間</string>
     <string name="turn_back_instructions">最遲 %1$s 一個屈尾十折返 (仲有 %2$s) 就趕得切 %3$s 返歸</string>
+    <string name="survival_guide_disclaimer">一如 Trail Sense 入面嘅所有架生，本指南旨在提供一般資訊，不該視之為專業訓練或經驗嘅替代。僅供教育用途。所載資訊嘅運用，如導致任何意外、傷亡或其他損害，作者俱不負責。當身處戶外，請時刻按常識判斷，並小心行事。</string>
+    <string name="survival_guide">生還之法則</string>
+    <string name="theme_system_black">跟大路 (未復光)</string>
+    <string name="overview">概論</string>
+    <string name="crafting">手工</string>
+    <string name="millimeters_format">%s 毫米</string>
+    <string name="teaspooon_format">%s 茶匙</string>
+    <string name="tablespoon_format">%s 湯匙</string>
+    <string name="water">食水</string>
+    <string name="shelter_and_clothing">遮蔽與衣著</string>
+    <string name="field_required">%s (必要)</string>
+    <string name="us_tablespoons">美制湯匙</string>
+    <string name="us_teaspoons">美制茶匙</string>
+    <string name="unit_millimeters">毫米</string>
+    <string name="imperial_teaspoons">英制茶匙</string>
+    <string name="imperial_tablespoons">英制湯匙</string>
 </resources>
