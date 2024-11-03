@@ -311,6 +311,51 @@ object TestUtils {
         }
     }
 
+    fun pickTime(hour: Int, minute: Int, am: Boolean, waitForClose: Boolean = true) {
+        waitFor {
+            view(com.google.android.material.R.id.material_timepicker_mode_button).click()
+        }
+
+        waitFor {
+            view(com.google.android.material.R.id.material_hour_text_input).click()
+            view(com.google.android.material.R.id.material_hour_text_input)
+                .childWithIndex(0)
+                .childWithIndex(0)
+                .childWithIndex(0)
+                .input(
+                    hour.toString()
+                )
+        }
+
+        view(com.google.android.material.R.id.material_minute_text_input).click()
+
+        waitFor {
+            view(com.google.android.material.R.id.material_minute_text_input)
+                .childWithIndex(0)
+                .childWithIndex(0)
+                .childWithIndex(0)
+                .input(
+                    minute.toString()
+                )
+        }
+
+        if (am) {
+            view(com.google.android.material.R.id.material_clock_period_am_button).click()
+        } else {
+            view(com.google.android.material.R.id.material_clock_period_pm_button).click()
+        }
+
+        waitFor {
+            viewWithText(android.R.string.ok).click()
+        }
+
+        if (waitForClose) {
+            waitFor {
+                not { viewWithText(android.R.string.ok) }
+            }
+        }
+    }
+
     fun isCameraInUse(isBackFacing: Boolean? = null): Boolean {
         val manager = context.getSystemService<CameraManager>() ?: return false
         for (cameraId in inUseCameraIds) {
@@ -341,10 +386,23 @@ object TestUtils {
             )
         ) {
             waitFor {
+                viewWithText(
+                    context.getString(
+                        R.string.allow_schedule_exact_alarms,
+                        context.getString(R.string.app_name)
+                    )
+                )
                 viewWithText(android.R.string.cancel).click()
             }
             waitFor {
-                not { viewWithText(android.R.string.cancel) }
+                not {
+                    viewWithText(
+                        context.getString(
+                            R.string.allow_schedule_exact_alarms,
+                            R.string.app_name
+                        )
+                    )
+                }
             }
         }
     }
