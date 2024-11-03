@@ -4,16 +4,16 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ActivityScenario
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isChecked
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotChecked
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.mute
 import com.kylecorry.trail_sense.test_utils.TestUtils.unmute
-import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.views.Side
-import com.kylecorry.trail_sense.test_utils.views.click
-import com.kylecorry.trail_sense.test_utils.views.hasText
-import com.kylecorry.trail_sense.test_utils.views.isChecked
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
-import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -46,28 +46,24 @@ class ToolMetalDetectorTest {
     @Test
     fun verifyBasicFunctionality() {
         // Verify the title
-        waitFor {
-            view(R.id.metal_detector_title).hasText(Regex("\\d+ uT"))
-        }
+        hasText(R.id.metal_detector_title, Regex("\\d+ uT"))
 
         // Make sure the chart is visible
-        view(R.id.metal_chart)
+        isVisible(R.id.metal_chart)
 
         // Can turn on high sensitivity
-        view(R.id.high_sensitivity_toggle)
-            .isChecked(false)
-            .click()
-            .isChecked()
+        isNotChecked(R.id.high_sensitivity_toggle)
+        click(R.id.high_sensitivity_toggle)
+        isChecked(R.id.high_sensitivity_toggle)
 
         // Can adjust threshold (just verify it is set)
-        view(R.id.threshold)
-        view(R.id.threshold_amount).hasText("5.0 uT")
+        isVisible(R.id.threshold)
+        hasText(R.id.threshold_amount, "5.0 uT")
 
         // Can play sound
         val originalVolume = mute()
-        toolbarButton(R.id.metal_detector_title, Side.Right)
-            .click()
-            .click()
+        click(toolbarButton(R.id.metal_detector_title, Side.Right))
+        click(toolbarButton(R.id.metal_detector_title, Side.Right))
         unmute(originalVolume)
     }
 }

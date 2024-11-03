@@ -2,21 +2,15 @@ package com.kylecorry.trail_sense.tools.guide
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
-import com.kylecorry.trail_sense.test_utils.TestUtils.not
 import com.kylecorry.trail_sense.test_utils.TestUtils.openQuickActions
-import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
-import com.kylecorry.trail_sense.test_utils.views.Side
-import com.kylecorry.trail_sense.test_utils.views.click
-import com.kylecorry.trail_sense.test_utils.views.hasText
-import com.kylecorry.trail_sense.test_utils.views.input
 import com.kylecorry.trail_sense.test_utils.views.quickAction
-import com.kylecorry.trail_sense.test_utils.views.scroll
-import com.kylecorry.trail_sense.test_utils.views.toolbarButton
-import com.kylecorry.trail_sense.test_utils.views.view
-import com.kylecorry.trail_sense.test_utils.views.viewWithText
 import com.kylecorry.trail_sense.tools.guide.infrastructure.Guides
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -47,9 +41,7 @@ class ToolUserGuideTest {
 
     @Test
     fun verifyBasicFunctionality() {
-        waitFor {
-            view(R.id.searchbox)
-        }
+        isVisible(R.id.searchbox)
 
         // Verify it shows each guide
         val guides = Guides.guides(context)
@@ -66,28 +58,20 @@ class ToolUserGuideTest {
             }
 
             // Wait for the guides to load
-            waitFor {
-                viewWithText(guides.first().name)
-            }
+            hasText(guides.first().name)
 
-            waitFor {
-                viewWithText(guide.name).click()
-            }
+            click(guide.name)
 
             // Wait for the guide to load
-            waitFor {
-                view(R.id.guide_name).hasText(guide.name)
-                view(R.id.guide_scroll).hasText { it.isNotEmpty() }
-            }
+            hasText(R.id.guide_name, guide.name)
+            hasText(R.id.guide_scroll) { it.isNotEmpty() }
 
             back()
         }
 
         // Search
-        view(R.id.search_view_edit_text).input("Sett")
-        waitFor {
-            viewWithText("Settings")
-        }
+        input(R.id.search_view_edit_text, "Sett")
+        hasText("Settings")
 
         verifyQuickAction()
     }
@@ -95,13 +79,10 @@ class ToolUserGuideTest {
     fun verifyQuickAction() {
         openQuickActions()
 
-        quickAction(Tools.QUICK_ACTION_USER_GUIDE)
-            .click()
+        click(quickAction(Tools.QUICK_ACTION_USER_GUIDE))
 
         // Verify it shows the user guide
-        waitFor {
-            view(R.id.guide_name).hasText("Tools")
-            view(R.id.guide_scroll).hasText { it.isNotEmpty() }
-        }
+        hasText(R.id.guide_name, "Tools")
+        hasText(R.id.guide_scroll) { it.isNotEmpty() }
     }
 }

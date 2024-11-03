@@ -3,22 +3,19 @@ package com.kylecorry.trail_sense.tools.astronomy
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.navigation.NavController
 import androidx.test.core.app.ActivityScenario
-import com.kylecorry.andromeda.permissions.Permissions
-import com.kylecorry.andromeda.permissions.SpecialPermission
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.CustomUiUtils.isDarkThemeOn
 import com.kylecorry.trail_sense.shared.extensions.findNavController
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotVisible
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isTrue
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils
-import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.test_utils.TestUtils.handleExactAlarmsDialog
-import com.kylecorry.trail_sense.test_utils.TestUtils.not
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
-import com.kylecorry.trail_sense.test_utils.views.click
-import com.kylecorry.trail_sense.test_utils.views.hasText
 import com.kylecorry.trail_sense.test_utils.views.quickAction
-import com.kylecorry.trail_sense.test_utils.views.view
-import com.kylecorry.trail_sense.test_utils.views.viewWithText
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -54,30 +51,27 @@ class ToolAstronomyTest {
     }
 
     @Test
-    fun
-            verifyBasicFunctionality() {
+    fun verifyBasicFunctionality() {
         // Verify the title
-        waitFor {
-            view(R.id.astronomy_title).hasText {
-                val valid = listOf(
-                    TestUtils.getString(R.string.until_sunset),
-                    TestUtils.getString(R.string.until_sunrise)
-                )
-                valid.contains(it)
-            }
+        hasText(R.id.astronomy_title) {
+            val valid = listOf(
+                TestUtils.getString(R.string.until_sunset),
+                TestUtils.getString(R.string.until_sunrise)
+            )
+            valid.contains(it)
         }
 
-        view(R.id.astronomy_title).hasText(Regex("([0-9]+h)? ?([0-9]+m)?"))
+        hasText(R.id.astronomy_title, Regex("([0-9]+h)? ?([0-9]+m)?"))
 
         // Verify that today is selected
-        view(R.id.display_date).hasText(R.string.today)
+        hasText(R.id.display_date, string(R.string.today))
 
         // Verify the list of astronomy events is displayed
-        view(R.id.astronomy_detail_list).hasText {
+        hasText(R.id.astronomy_detail_list) {
             it.startsWith(TestUtils.getString(R.string.sun))
         }
 
-        view(R.id.astronomy_detail_list).hasText {
+        hasText(R.id.astronomy_detail_list) {
             it.startsWith(TestUtils.getString(R.string.moon))
         }
 
@@ -85,23 +79,20 @@ class ToolAstronomyTest {
 
         // Verify the View in 3D button is visible and works
         if (Tools.isToolAvailable(TestUtils.context, Tools.AUGMENTED_REALITY)) {
-            view(R.id.button_3d).click()
-            waitFor {
-                assertTrue(
-                    Tools.getTool(TestUtils.context, Tools.AUGMENTED_REALITY)
-                        ?.isOpen(navController.currentDestination?.id ?: 0) == true
-                )
+            click(R.id.button_3d)
+            isTrue {
+                Tools.getTool(TestUtils.context, Tools.AUGMENTED_REALITY)
+                    ?.isOpen(navController.currentDestination?.id ?: 0) == true
             }
         } else {
-            not { view(R.id.button_3d) }
+            isNotVisible(R.id.button_3d)
         }
     }
 
     @Test
     fun verifyNightMode() {
         TestUtils.openQuickActions()
-        quickAction(Tools.QUICK_ACTION_NIGHT_MODE)
-            .click()
+        click(quickAction(Tools.QUICK_ACTION_NIGHT_MODE))
 
         waitFor {
             scenario.onActivity {
@@ -110,32 +101,25 @@ class ToolAstronomyTest {
             }
         }
 
-        waitFor {
-            TestUtils.openQuickActions()
-        }
-        quickAction(Tools.QUICK_ACTION_NIGHT_MODE)
-            .click()
+        TestUtils.openQuickActions()
+        click(quickAction(Tools.QUICK_ACTION_NIGHT_MODE))
     }
 
     private fun verifyQuickActions() {
         // Verify the sunset alert quick action
         TestUtils.openQuickActions()
-        quickAction(Tools.QUICK_ACTION_SUNSET_ALERT)
-            .click()
+        click(quickAction(Tools.QUICK_ACTION_SUNSET_ALERT))
 
         handleExactAlarmsDialog()
 
-        quickAction(Tools.QUICK_ACTION_SUNSET_ALERT)
-            .click()
+        click(quickAction(Tools.QUICK_ACTION_SUNSET_ALERT))
 
 
-        quickAction(Tools.QUICK_ACTION_SUNRISE_ALERT)
-            .click()
+        click(quickAction(Tools.QUICK_ACTION_SUNRISE_ALERT))
 
         handleExactAlarmsDialog()
 
-        quickAction(Tools.QUICK_ACTION_SUNRISE_ALERT)
-            .click()
+        click(quickAction(Tools.QUICK_ACTION_SUNRISE_ALERT))
 
         // TODO: Simulate time passing to verify the alerts are shown
 

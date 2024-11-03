@@ -5,23 +5,22 @@ import androidx.test.core.app.ActivityScenario
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotVisible
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isTrue
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.test_utils.TestUtils.isCameraInUse
-import com.kylecorry.trail_sense.test_utils.TestUtils.not
-import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.views.Side
-import com.kylecorry.trail_sense.test_utils.views.click
-import com.kylecorry.trail_sense.test_utils.views.isChecked
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.test_utils.views.view
-import com.kylecorry.trail_sense.test_utils.views.viewWithText
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.After
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -56,18 +55,14 @@ class ToolAugmentedRealityTest {
         }
 
         // Click OK on the prompts
-        waitFor {
-            viewWithText(android.R.string.ok).click()
-        }
+        clickOk()
 
         if (!Sensors.hasGyroscope(context)) {
-            waitFor {
-                viewWithText(android.R.string.ok).click()
-            }
+            clickOk()
         }
 
-        waitFor(10000) {
-            assertTrue(isCameraInUse(isBackFacing = true))
+        isTrue(10000) {
+            isCameraInUse(isBackFacing = true)
         }
 
         canTurnOffCamera()
@@ -76,42 +71,30 @@ class ToolAugmentedRealityTest {
     }
 
     private fun canTurnOffCamera() {
-        waitFor {
-            view(R.id.camera_toggle).click()
-        }
+        click(R.id.camera_toggle)
 
-        waitFor {
-            assertFalse(isCameraInUse(isBackFacing = true))
+        isTrue {
+            !isCameraInUse(isBackFacing = true)
         }
     }
 
     private fun canCalibrate() {
-        view(R.id.calibrate_btn).click()
-
-        waitFor {
-            viewWithText(android.R.string.ok).click()
-        }
-
-        waitFor {
-            view(R.id.confirm_calibration_button).click()
-        }
+        click(view(R.id.calibrate_btn))
+        clickOk()
+        click(R.id.confirm_calibration_button)
     }
 
     private fun canToggleLayers() {
-        view(R.id.layers_btn).click()
+        click(view(R.id.layers_btn))
         // Verify the layers panel is visible
-        waitFor {
-            viewWithText(R.string.beacons)
-        }
+        hasText(string(R.string.beacons))
 
         // Turn off the beacons layer
-        viewWithText(R.string.visible, index = 0).click()
+        click(string(R.string.visible), index = 0)
 
         // Close the layers panel
-        toolbarButton(R.id.title, Side.Right).click()
-        waitFor {
-            not { view(R.id.title) }
-        }
+        click(toolbarButton(R.id.title, Side.Right))
+        isNotVisible(R.id.title)
     }
 
     @After
