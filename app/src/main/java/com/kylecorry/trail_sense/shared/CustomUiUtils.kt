@@ -13,9 +13,13 @@ import androidx.annotation.ColorInt
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.Resources
@@ -29,6 +33,7 @@ import com.kylecorry.andromeda.pickers.material.MaterialPickers
 import com.kylecorry.andromeda.views.chart.Chart
 import com.kylecorry.andromeda.views.list.AndromedaListView
 import com.kylecorry.andromeda.views.list.ListItem
+import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Pressure
@@ -50,6 +55,7 @@ import com.kylecorry.trail_sense.tools.qr.ui.ViewQRBottomSheet
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -409,6 +415,29 @@ object CustomUiUtils {
                 onDatetimePick(null)
             }
         }
+    }
+
+    fun MaterialPickers.time(
+        fragmentManager: FragmentManager,
+        use24Hours: Boolean,
+        default: LocalTime = LocalTime.now(),
+        onTimePick: (time: LocalTime?) -> Unit
+    ) {
+        val builder = MaterialTimePicker.Builder()
+            .setHour(default.hour)
+            .setMinute(default.minute)
+            .setTimeFormat(if (use24Hours) TimeFormat.CLOCK_24H else TimeFormat.CLOCK_12H)
+
+        val picker = builder.build()
+
+        picker.addOnPositiveButtonClickListener {
+            onTimePick(LocalTime.of(picker.hour, picker.minute))
+        }
+
+        picker.addOnCancelListener { onTimePick(null) }
+        picker.addOnNegativeButtonClickListener { onTimePick(null) }
+
+        picker.show(fragmentManager, picker.toString())
     }
 
     fun pickPressure(

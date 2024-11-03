@@ -12,10 +12,12 @@ import com.kylecorry.andromeda.core.ui.setTextDistinct
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.andromeda.pickers.material.MaterialPickers
 import com.kylecorry.sol.science.astronomy.SunTimesMode
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolTurnBackBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils.time
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
@@ -52,8 +54,8 @@ class TurnBackFragment : BoundFragment<FragmentToolTurnBackBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.edittext.setOnClickListener {
-            Pickers.time(
-                requireContext(),
+            MaterialPickers.time(
+                requireActivity().supportFragmentManager,
                 prefs.use24HourTime,
                 returnTime?.toZonedDateTime()?.toLocalTime() ?: LocalTime.now()
             ) {
