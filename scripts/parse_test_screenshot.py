@@ -8,7 +8,7 @@ def load_screenshot_base64():
     with open(log_file, 'r') as f:
         text = f.readlines()
     
-    lines = [line[line.index('Screenshot: ') + len('Screenshot: '):].strip() for line in text if line.strip()]
+    lines = [line[line.index('Screenshot: ') + len('Screenshot: '):].strip() for line in text if 'Screenshot: ' in line]
     return ''.join(lines)
 
 def convert_base64_to_image(base64_string):
