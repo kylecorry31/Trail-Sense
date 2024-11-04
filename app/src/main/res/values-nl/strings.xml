@@ -966,9 +966,7 @@
     <string name="start_time">Begin</string>
     <string name="weather_alert_hot_description">Bereid je voor op hoge temperaturen. Neem extra voorzorgsmaatregelen tegen uitputting en hitteberoerte.</string>
     <string name="create_path">Maak pad</string>
-    <string name="allow_schedule_exact_alarms_instructions">Dit laat %1$s toe wekkers en meldingen, zoals zonsondergangsherinneringen te starten. Zonder, gaan wekkers misschien niet op de correcte tijd af.
-\n
-\nOm te accepteren, druk op \'%2$s \' een machtig de instelling voor het toelaten van wekkers en meldingen.</string>
+    <string name="allow_schedule_exact_alarms_instructions">Dit laat %1$s toe wekkers en meldingen, zoals zonsondergangswekkers te starten. Zonder, gaan wekkers misschien niet op de correcte tijd af. \n \nOm te accepteren, druk op \'%2$s \' een machtig de instelling voor het toelaten van wekkers en meldingen.</string>
     <string name="coordinate_format_osgb">OSGB</string>
     <string name="no">Nee</string>
     <string name="astronomy_rise">Opgang</string>
@@ -994,7 +992,7 @@
     <string name="peak_time">Maximum</string>
     <string name="for_historic_temperatures">Voor historische temperaturen</string>
     <string name="invalid_backup_file">Ongeldig bestand</string>
-    <string name="sunset_alert_scheduled">Wekker ingesteld om %s voor zonsondergang</string>
+    <string name="sunset_alert_scheduled">Wekker %s voor zonsondergang</string>
     <string name="photo_maps">Fotokaarten</string>
     <string name="next_24_hours">Volgende 24 uur</string>
     <string name="backup_restore">Back-up / Herstel</string>
@@ -1179,7 +1177,7 @@
     <string name="sunrise_alerts">Zonsopkomstwekker</string>
     <string name="pref_sunrise_alert_time_title">Tijd zonsopkomstwekker</string>
     <string name="sunrise">Zonsopkomst</string>
-    <string name="sunrise_alert_scheduled">Waarschuwing %s voor zonsopkomst</string>
+    <string name="sunrise_alert_scheduled">Wekker %s voor zonsopkomst</string>
     <string name="sunrise_alert_notification_title">Zon komt binnenkort op</string>
     <string name="sunrise_alert_notification_text">De zon zal om %s opkomen</string>
     <string name="sunrise_alert_channel_title">Zonsopkomstwekker</string>
