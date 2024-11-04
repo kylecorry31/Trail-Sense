@@ -236,8 +236,9 @@ object TestUtils {
     fun <T> waitFor(durationMillis: Long = 5000, action: () -> T): T {
         var remaining = durationMillis
         val interval = 10L
+        var times = 0
         var lastException: Throwable? = null
-        while (remaining > 0) {
+        while (remaining > 0 || times == 0) {
             try {
                 return action()
             } catch (e: Throwable) {
@@ -245,6 +246,7 @@ object TestUtils {
             }
             Thread.sleep(interval)
             remaining -= interval
+            times++
         }
         if (lastException != null) {
             throw lastException

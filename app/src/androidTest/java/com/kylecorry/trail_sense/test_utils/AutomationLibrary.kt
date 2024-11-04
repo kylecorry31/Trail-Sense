@@ -2,6 +2,8 @@ package com.kylecorry.trail_sense.test_utils
 
 import androidx.annotation.StringRes
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
+import com.kylecorry.trail_sense.test_utils.notifications.hasTitle
+import com.kylecorry.trail_sense.test_utils.notifications.notification
 import com.kylecorry.trail_sense.test_utils.views.TestView
 import com.kylecorry.trail_sense.test_utils.views.click
 import com.kylecorry.trail_sense.test_utils.views.hasText
@@ -67,6 +69,12 @@ object AutomationLibrary {
     fun hasText(text: String, index: Int = 0, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
         waitFor(waitForTime) {
             viewWithText(text, index = index)
+        }
+    }
+
+    fun hasText(regex: Regex, index: Int = 0, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
+        waitFor(waitForTime) {
+            viewWithText(regex.toPattern(), index = index)
         }
     }
 
@@ -197,7 +205,7 @@ object AutomationLibrary {
 
     fun isNotVisible(id: Int, index: Int = 0, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
         waitFor(waitForTime) {
-            not { view(id, index = index) }
+            TestUtils.not { view(id, index = index) }
         }
     }
 
@@ -225,9 +233,25 @@ object AutomationLibrary {
         }
     }
 
-    fun childView(id: Int, childId: Int, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT): TestView {
-        return waitFor(waitForTime) {
-            view(id, childId)
+    fun hasNotification(
+        id: Int,
+        title: String? = null,
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
+    ) {
+        waitFor(waitForTime) {
+            val n = notification(id)
+            if (title != null) {
+                n.hasTitle(title)
+            }
+        }
+    }
+
+    fun doesNotHaveNotification(
+        id: Int,
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
+    ) {
+        waitFor(waitForTime) {
+            TestUtils.not { notification(id) }
         }
     }
 

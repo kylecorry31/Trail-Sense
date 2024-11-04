@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 
@@ -21,6 +22,9 @@ open class ToolTestBase(private val toolId: Long) {
 
     @get:Rule
     val instantExec = InstantTaskExecutorRule()
+
+    @get:Rule
+    val screenshotRule = ScreenshotFailureRule()
 
     protected lateinit var scenario: ActivityScenario<MainActivity>
     protected lateinit var navController: NavController
@@ -39,9 +43,9 @@ open class ToolTestBase(private val toolId: Long) {
         }
     }
 
+    @After
     fun tearDown() {
         TestUtils.unmute(volume)
         TestUtils.stopListeningForCameraUsage()
-        scenario.close()
     }
 }
