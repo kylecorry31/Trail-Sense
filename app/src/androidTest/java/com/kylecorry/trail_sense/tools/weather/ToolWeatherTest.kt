@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils
+import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -23,6 +24,10 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
 
     @Test
     fun verifyBasicFunctionality() {
+        if (!Tools.isToolAvailable(context, Tools.WEATHER)) {
+            return
+        }
+
         // Historic temperature disclaimer
         clickOk()
 

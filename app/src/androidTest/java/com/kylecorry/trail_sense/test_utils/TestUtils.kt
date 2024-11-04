@@ -17,6 +17,7 @@ import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.permissions.SpecialPermission
+import com.kylecorry.andromeda.torch.TorchStateChangedTopic
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.main.NotificationChannels
@@ -46,6 +47,9 @@ object TestUtils {
     var inUseCameraIds: List<String> = emptyList()
         private set
 
+    var isTorchOn: Boolean = false
+        private set
+
     private var cameraAvailabilityCallback = object : CameraManager.AvailabilityCallback() {
         override fun onCameraAvailable(cameraId: String) {
             inUseCameraIds = inUseCameraIds.filter { it != cameraId }
@@ -55,6 +59,8 @@ object TestUtils {
             inUseCameraIds = inUseCameraIds + cameraId
         }
     }
+
+    private var torchTopic: TorchStateChangedTopic? = null
 
     val context: Context
         get() = InstrumentationRegistry.getInstrumentation().targetContext
@@ -109,6 +115,16 @@ object TestUtils {
     fun stopListeningForCameraUsage() {
         val manager = context.getSystemService<CameraManager>()
         manager?.unregisterAvailabilityCallback(cameraAvailabilityCallback)
+    }
+
+    fun listenForTorchUsage() {
+        torchTopic = TorchStateChangedTopic(context)
+        torchTopic?.subscribe(this::onTorchStateChanged)
+    }
+
+    fun stopListeningForTorchUsage() {
+        torchTopic?.unsubscribe(this::onTorchStateChanged)
+        torchTopic = null
     }
 
     fun not(action: () -> Unit) {
@@ -428,5 +444,10 @@ object TestUtils {
                 }
             }
         }
+    }
+
+    private fun onTorchStateChanged(isOn: Boolean): Boolean {
+        isTorchOn = isOn
+        return true
     }
 }
