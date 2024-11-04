@@ -3,8 +3,11 @@ package com.kylecorry.trail_sense.test_utils
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.navigation.NavController
 import androidx.test.core.app.ActivityScenario
+import com.kylecorry.andromeda.core.tryOrNothing
+import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.extensions.findNavController
+import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.After
@@ -37,6 +40,7 @@ open class ToolTestBase(private val toolId: Long) {
         TestUtils.setWaitForIdleTimeout()
         TestUtils.setupApplication()
         TestUtils.listenForCameraUsage()
+        TestUtils.listenForTorchUsage()
         volume = TestUtils.mute()
         scenario = TestUtils.startWithTool(toolId) {
             navController = it.findNavController()
@@ -47,5 +51,11 @@ open class ToolTestBase(private val toolId: Long) {
     fun tearDown() {
         TestUtils.unmute(volume)
         TestUtils.stopListeningForCameraUsage()
+        TestUtils.stopListeningForTorchUsage()
+        tryOrNothing {
+            if (TestUtils.isTorchOn) {
+                Torch(context).off()
+            }
+        }
     }
 }
