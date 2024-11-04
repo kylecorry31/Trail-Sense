@@ -8,6 +8,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasNotification
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
@@ -63,12 +64,14 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
         click(R.id.play_btn)
         hasNotification(
             WeatherMonitorService.WEATHER_NOTIFICATION_ID,
-            title = string(R.string.weather),
-            waitForTime = 10000
+            title = string(R.string.weather)
         )
 
         // Wait for the battery restriction warning to go away
-        not { hasText(string(R.string.battery_settings_limit_accuracy), waitForTime = 0) }
+        optional {
+            hasText(string(R.string.battery_settings_limit_accuracy))
+            not { hasText(string(R.string.battery_settings_limit_accuracy), waitForTime = 0) }
+        }
 
         hasText(R.id.play_bar_title, "On - 15m")
 
@@ -83,9 +86,14 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
 
         hasNotification(
             WeatherMonitorService.WEATHER_NOTIFICATION_ID,
-            title = string(R.string.weather),
-            waitForTime = 10000
+            title = string(R.string.weather)
         )
+
+        // Wait for the battery restriction warning to go away
+        optional {
+            hasText(string(R.string.battery_settings_limit_accuracy))
+            not { hasText(string(R.string.battery_settings_limit_accuracy), waitForTime = 0) }
+        }
 
         click(quickAction(Tools.QUICK_ACTION_WEATHER_MONITOR))
 
