@@ -34,8 +34,7 @@ object FlashlightToolRegistration : ToolRegistration {
             R.id.fragmentToolFlashlight,
             ToolCategory.Signaling,
             guideId = R.raw.guide_tool_flashlight,
-            // The only settings available are for the physical flashlight
-            settingsNavAction = if (hasFlashlight) R.id.flashlightSettingsFragment else null,
+            settingsNavAction = R.id.flashlightSettingsFragment,
             quickActions = listOfNotNull(
                 if (hasFlashlight)
                     ToolQuickAction(

@@ -6,6 +6,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 
 class FlashlightSettingsFragment : AndromedaPreferenceFragment() {
 
@@ -14,6 +15,14 @@ class FlashlightSettingsFragment : AndromedaPreferenceFragment() {
 
         val formatter = FormatService.getInstance(requireContext())
         val prefs = UserPreferences(requireContext()).flashlight
+
+        val hasFlashlight = FlashlightSubsystem.getInstance(requireContext()).isAvailable()
+        if (!hasFlashlight){
+            preference(R.string.pref_flashlight_toggle_with_volume)?.isVisible = false
+            preference(R.string.pref_flashlight_should_timeout)?.isVisible = false
+            preference(R.string.pref_flashlight_timeout)?.isVisible = false
+
+        }
 
         val timeout = preference(R.string.pref_flashlight_timeout)
         timeout?.summary =
