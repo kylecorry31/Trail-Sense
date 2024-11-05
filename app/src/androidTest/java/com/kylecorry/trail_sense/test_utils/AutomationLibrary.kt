@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.test_utils.views.click
 import com.kylecorry.trail_sense.test_utils.views.hasText
 import com.kylecorry.trail_sense.test_utils.views.input
 import com.kylecorry.trail_sense.test_utils.views.isChecked
+import com.kylecorry.trail_sense.test_utils.views.longClick
 import com.kylecorry.trail_sense.test_utils.views.scrollToEnd
 import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.test_utils.views.viewWithText
@@ -163,6 +164,35 @@ object AutomationLibrary {
     ) {
         waitFor(waitForTime) {
             viewWithText(text, index = index).click(holdDuration)
+        }
+    }
+
+    fun longClick(
+        id: Int,
+        index: Int = 0,
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
+    ) {
+        waitFor(waitForTime) {
+            view(id, index = index).longClick()
+        }
+    }
+
+    fun longClick(
+        text: String,
+        index: Int = 0,
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
+    ) {
+        waitFor(waitForTime) {
+            viewWithText(text, index = index).longClick()
+        }
+    }
+
+    fun longClick(
+        view: TestView,
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
+    ) {
+        waitFor(waitForTime) {
+            view.longClick()
         }
     }
 
