@@ -1056,4 +1056,5 @@
     <string name="survival_guide">Overlevelsesguide</string>
     <string name="tide_clock">Tidevannsklokke</string>
     <string name="harmonic">Harmonisk</string>
+    <string name="unit_millimeters">Millimeter</string>
 </resources>
