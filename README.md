@@ -49,10 +49,11 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 The feature roadmap is a tentative outline of the major features that are planned to be completed in the next year. Smaller features may end up being implemented in between.
 - [x] Augmented reality
 - [x] Customization
-- [ ] Stability / performance
+- [x] Stability / performance
 - [x] Survival guide
-- [ ] Harmonic tides
+- [ ] More quick actions and summaries
 - [ ] Improved photo maps resolution
+- [ ] Harmonic tides
 - [ ] Experiment with the first plugin (Comms)
 
 ## Goals
