@@ -1037,7 +1037,7 @@
     <string name="duration_of_charge">集結幾耐</string>
     <string name="pref_sunrise_alert_time_title">日出警示時間</string>
     <string name="turn_back_instructions">最遲 %1$s 一個屈尾十折返 (仲有 %2$s) 就趕得切 %3$s 返歸</string>
-    <string name="survival_guide_disclaimer">一如 Trail Sense 入面嘅所有架生，本指南旨在提供一般資訊，不該視之為專業訓練或經驗嘅替代。僅供教育用途。所載資訊嘅運用，如導致任何意外、傷亡或其他損害，作者俱不負責。當身處戶外，請時刻按常識判斷，並小心行事。</string>
+    <string name="survival_guide_disclaimer">一如 Trail Sense 入面嘅所有架生，本指南旨在提供一般資訊，不該視之為專業訓練或經驗嘅替代。僅供教育用途。所載嘅資訊，若其運用導致任何意外、傷亡或其他損害，作者俱不負責。當身處戶外，請時刻按常識判斷，並小心行事。</string>
     <string name="survival_guide">生還之法則</string>
     <string name="theme_system_black">跟大路 (未復光)</string>
     <string name="overview">概論</string>
@@ -1053,4 +1053,17 @@
     <string name="unit_millimeters">毫米</string>
     <string name="imperial_teaspoons">英制茶匙</string>
     <string name="imperial_tablespoons">英制湯匙</string>
+    <string name="weather_front">鋒面</string>
+    <string name="tilt">傾斜</string>
+    <string name="dynamic_colors">扣建調和色水共同體</string>
+    <string name="reduce_photo_resolution">降低相片解像度</string>
+    <string name="reduce_pdf_resolution">降低 PDF 解像度</string>
+    <string name="bottom_navigation_slot">樓底分頁第 %d 格</string>
+    <string name="forecast_algorithm">預測演算法</string>
+    <string name="quick_actions_are_unavailable">快速動作欠奉</string>
+    <string name="compass_dynamic_colors">羅經融入調和色水大局</string>
+    <string name="compass_dynamic_colors_summary">東南西北都要用返系統嘅調和色水</string>
+    <string name="zero_shutter_lag">快門零秒出擊</string>
+    <string name="estimate_method">斷估方法</string>
+    <string name="tool_quick_action_summary">撳實樓底分頁或者喺架生分頁睇過</string>
 </resources>
