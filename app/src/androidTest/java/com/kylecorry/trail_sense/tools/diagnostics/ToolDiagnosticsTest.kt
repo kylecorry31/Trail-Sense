@@ -20,6 +20,8 @@ class ToolDiagnosticsTest : ToolTestBase(Tools.DIAGNOSTICS) {
 
         // Battery usage always starts restricted, so just check for that
         hasText(string(R.string.battery_usage_restricted), waitForTime = 15000)
+        click(string(R.string.battery_usage_restricted))
+        click(string(android.R.string.cancel))
 
         click(toolbarButton(R.id.diagnostics_title, Side.Right))
         hasText(R.id.sensor_details_title, string(R.string.pref_sensor_details_title))
