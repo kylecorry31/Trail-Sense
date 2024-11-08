@@ -22,6 +22,8 @@
 -keepnames class * extends android.os.Parcelable
 -keepnames class * extends java.io.Serializable
 -keep class * extends androidx.fragment.app.Fragment{}
+-keep class * extends com.davemorrissey.labs.subscaleview.decoder.ImageDecoder
+-keep class * extends com.davemorrissey.labs.subscaleview.decoder.ImageRegionDecoder
 
 -dontwarn com.caverock.androidsvg.SVG
 -dontwarn com.caverock.androidsvg.SVGParseException
