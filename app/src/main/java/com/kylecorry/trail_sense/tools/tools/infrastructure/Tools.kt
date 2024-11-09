@@ -226,7 +226,6 @@ object Tools {
     const val QUICK_ACTION_WHISTLE = 8
     const val QUICK_ACTION_WHITE_NOISE = 9
     const val QUICK_ACTION_LOW_POWER_MODE = 10
-    const val QUICK_ACTION_SUNRISE_ALERT = 25
     const val QUICK_ACTION_SUNSET_ALERT = 13
     const val QUICK_ACTION_NIGHT_MODE = 14
     const val QUICK_ACTION_BACKTRACK = 15
@@ -239,4 +238,6 @@ object Tools {
     const val QUICK_ACTION_OPEN_PHOTO_MAP = 22
     const val QUICK_ACTION_USER_GUIDE = 23
     const val QUICK_ACTION_SETTINGS = 24
+    const val QUICK_ACTION_SUNRISE_ALERT = 25
+    const val QUICK_ACTION_TOOL_SUMMARIES = 26
 }

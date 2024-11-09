@@ -1498,4 +1498,5 @@
     <string name="unable_to_create_an_automatic_backup">Unable to create an automatic backup.</string>
     <string name="automatic_backup_invalid_directory">Invalid directory</string>
     <string name="automatic_backup_invalid_directory_resolution">Turn automatic backup off and then turn it back on to select a new directory.</string>
+    <string name="tool_summaries">Tool summaries</string>
 </resources>
