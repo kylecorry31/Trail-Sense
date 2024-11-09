@@ -3,8 +3,8 @@ package com.kylecorry.trail_sense.tools.tides.infrastructure.io
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.trail_sense.shared.io.ExternalUriService
-import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
 import com.kylecorry.trail_sense.shared.io.ImportService
+import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.shared.io.UriPicker
 import com.kylecorry.trail_sense.shared.io.UriService
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
@@ -37,7 +37,7 @@ class TideImportService(private val uriPicker: UriPicker, private val uriService
     companion object {
         fun create(fragment: AndromedaFragment): TideImportService {
             return TideImportService(
-                FragmentUriPicker(fragment),
+                IntentUriPicker(fragment, fragment.requireContext()),
                 ExternalUriService(fragment.requireContext())
             )
         }

@@ -23,7 +23,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.onBackPressed
 import com.kylecorry.trail_sense.shared.grouping.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.grouping.lists.bind
-import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
+import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.maps.domain.IMap
@@ -69,7 +69,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
 
     private var lastRoot: IMap? = null
 
-    private val uriPicker = FragmentUriPicker(this)
+    private val uriPicker by lazy { IntentUriPicker(this, requireContext()) }
     private val mapImportingIndicator by lazy {
         AlertLoadingIndicator(
             requireContext(),

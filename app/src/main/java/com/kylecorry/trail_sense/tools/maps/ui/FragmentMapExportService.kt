@@ -7,13 +7,13 @@ import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.alerts.AlertLoadingIndicator
 import com.kylecorry.trail_sense.shared.io.ExternalUriService
-import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
+import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapExportService
 import com.kylecorry.trail_sense.tools.maps.infrastructure.commands.ExportMapCommand
 
 class FragmentMapExportService(private val fragment: AndromedaFragment) {
-    private val uriPicker = FragmentUriPicker(fragment)
+    private val uriPicker = IntentUriPicker(fragment, fragment.requireContext())
     private val loading = AlertLoadingIndicator(
         fragment.requireContext(),
         fragment.getString(R.string.exporting_map)

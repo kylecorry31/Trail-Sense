@@ -1,16 +1,19 @@
 package com.kylecorry.trail_sense.shared.io
 
+import android.content.Context
 import android.net.Uri
-import com.kylecorry.andromeda.fragments.AndromedaFragment
+import com.kylecorry.andromeda.core.system.IntentResultRetriever
+import com.kylecorry.andromeda.core.system.createFile
+import com.kylecorry.andromeda.core.system.pickFile
 import com.kylecorry.trail_sense.R
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-class FragmentUriPicker(private val fragment: AndromedaFragment) :
+class IntentUriPicker(private val resolver: IntentResultRetriever, private val context: Context) :
     UriPicker {
     override suspend fun open(types: List<String>): Uri? {
         return suspendCoroutine { cont ->
-            fragment.pickFile(types, fragment.getString(R.string.pick_file)) {
+            resolver.pickFile(types, context.getString(R.string.pick_file)) {
                 cont.resume(it)
             }
         }
@@ -18,7 +21,7 @@ class FragmentUriPicker(private val fragment: AndromedaFragment) :
 
     override suspend fun create(filename: String, type: String): Uri? {
         return suspendCoroutine { cont ->
-            fragment.createFile(filename, type, fragment.getString(R.string.pick_file)) {
+            resolver.createFile(filename, listOf(type), context.getString(R.string.pick_file)) {
                 cont.resume(it)
             }
         }

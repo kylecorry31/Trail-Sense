@@ -17,7 +17,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.backup.BackupCommand
 import com.kylecorry.trail_sense.settings.backup.RestoreCommand
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.io.ActivityUriPicker
+import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -38,7 +38,7 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         R.string.pref_diagnostics to R.id.action_settings_to_diagnostics
     )
 
-    private val uriPicker by lazy { ActivityUriPicker(requireMainActivity()) }
+    private val uriPicker by lazy { IntentUriPicker(this, requireContext()) }
     private val backupCommand by lazy { BackupCommand(requireContext(), uriPicker) }
     private val restoreCommand by lazy { RestoreCommand(requireContext(), uriPicker) }
     private val prefs by lazy { UserPreferences(requireContext()) }

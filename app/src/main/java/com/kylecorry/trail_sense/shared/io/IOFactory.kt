@@ -8,21 +8,21 @@ class IOFactory {
 
     fun createGpxService(fragment: AndromedaFragment): IOService<GPXData> {
         return GpxIOService(
-            FragmentUriPicker(fragment),
+            IntentUriPicker(fragment, fragment.requireContext()),
             ExternalUriService(fragment.requireContext())
         )
     }
 
     fun createCsvService(activity: AndromedaActivity): IOService<List<List<String>>> {
         return CsvIOService(
-            ActivityUriPicker(activity),
+            IntentUriPicker(activity, activity),
             ExternalUriService(activity)
         )
     }
 
     fun createCsvService(fragment: AndromedaFragment): IOService<List<List<String>>> {
         return CsvIOService(
-            FragmentUriPicker(fragment),
+            IntentUriPicker(fragment, fragment.requireContext()),
             ExternalUriService(fragment.requireContext())
         )
     }
