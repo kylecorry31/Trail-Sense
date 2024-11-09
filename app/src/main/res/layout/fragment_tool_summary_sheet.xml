@@ -12,14 +12,20 @@
         app:showSubtitle="false"
         app:title="@string/tool_summaries" />
 
-    <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/summaries"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:alignItems="center"
-        app:flexWrap="wrap"
-        app:justifyContent="flex_start">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-    </com.google.android.flexbox.FlexboxLayout>
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/summaries"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:alignItems="center"
+            app:flexWrap="wrap"
+            app:justifyContent="flex_start">
+
+        </com.google.android.flexbox.FlexboxLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
