@@ -7,9 +7,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import com.google.android.material.color.DynamicColors
+import com.kylecorry.andromeda.alerts.dialog
+import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.system.pickDirectory
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.pickers.Pickers
@@ -102,6 +105,40 @@ class SettingsFragment : AndromedaPreferenceFragment() {
                     0 -> backup()
                     1 -> restore()
                 }
+            }
+        }
+
+        val autoBackupSwitch = switch(R.string.pref_auto_backup_enabled)
+        autoBackupSwitch?.summary = if (prefs.backup.isAutoBackupEnabled) {
+            prefs.backup.userFriendlyAutoBackupPathName
+        } else {
+            null
+        }
+
+        onClick(autoBackupSwitch) {
+            if (prefs.backup.isAutoBackupEnabled) {
+                pickDirectory(getString(R.string.select_backup_directory), true, true, true) {
+                    if (it == null) {
+                        toast(getString(R.string.no_directory_selected))
+                        prefs.backup.isAutoBackupEnabled = false
+                        autoBackupSwitch?.summary = null
+                        return@pickDirectory
+                    }
+                    Intents.acceptPersistentUri(requireContext(), it)
+                    prefs.backup.autoBackupUri = it
+                    autoBackupSwitch?.summary = prefs.backup.userFriendlyAutoBackupPathName
+                    dialog(
+                        getString(R.string.automatic_backup),
+                        getString(
+                            R.string.auto_backup_instructions,
+                            prefs.backup.userFriendlyAutoBackupPathName,
+                            prefs.backup.autoBackupCount
+                        ),
+                        cancelText = null
+                    )
+                }
+            } else {
+                autoBackupSwitch?.summary = null
             }
         }
 

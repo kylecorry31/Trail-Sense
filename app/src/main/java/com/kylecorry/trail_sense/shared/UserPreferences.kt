@@ -15,6 +15,7 @@ import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.CustomBottomNavigationView
+import com.kylecorry.trail_sense.settings.backup.BackupPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.AltimeterPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.AugmentedRealityPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.CameraPreferences
@@ -71,6 +72,7 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
     val camera by lazy { CameraPreferences(context) }
     val altimeter by lazy { AltimeterPreferences(context) }
     val augmentedReality by lazy { AugmentedRealityPreferences(context) }
+    val backup by lazy { BackupPreferences(context) }
 
     private val isMetricPreferred = Resources.isMetricPreferred(context)
 

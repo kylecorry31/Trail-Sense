@@ -4,6 +4,8 @@ import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.receivers.ServiceRestartAlerter
+import com.kylecorry.trail_sense.settings.backup.BackupFailedAlerter
+import com.kylecorry.trail_sense.settings.backup.BackupToolService
 import com.kylecorry.trail_sense.settings.quickactions.QuickActionSettings
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
@@ -45,6 +47,13 @@ object SettingsToolRegistration : ToolRegistration {
                     context.getString(R.string.service_restart_channel_description),
                     Notify.CHANNEL_IMPORTANCE_LOW,
                     true
+                ),
+                ToolNotificationChannel(
+                    BackupFailedAlerter.CHANNEL_BACKUP_FAILED,
+                    context.getString(R.string.backup_failed),
+                    context.getString(R.string.backup_failed),
+                    Notify.CHANNEL_IMPORTANCE_LOW,
+                    true
                 )
             ),
             quickActions = listOf(
@@ -54,6 +63,11 @@ object SettingsToolRegistration : ToolRegistration {
                     ::QuickActionSettings
                 )
             ),
+            services = listOf(
+                BackupToolService(context)
+            )
         )
     }
+
+    const val SERVICE_AUTO_BACKUP = "settings-service-auto-backup"
 }
