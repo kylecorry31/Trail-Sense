@@ -4,6 +4,9 @@ import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.receivers.ServiceRestartAlerter
+import com.kylecorry.trail_sense.settings.backup.AutomaticBackupDiagnosticScanner
+import com.kylecorry.trail_sense.settings.backup.BackupFailedAlerter
+import com.kylecorry.trail_sense.settings.backup.BackupToolService
 import com.kylecorry.trail_sense.settings.quickactions.QuickActionSettings
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
@@ -11,6 +14,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChan
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnostic
 
 object SettingsToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
@@ -45,6 +49,13 @@ object SettingsToolRegistration : ToolRegistration {
                     context.getString(R.string.service_restart_channel_description),
                     Notify.CHANNEL_IMPORTANCE_LOW,
                     true
+                ),
+                ToolNotificationChannel(
+                    BackupFailedAlerter.CHANNEL_BACKUP_FAILED,
+                    context.getString(R.string.backup_failed),
+                    context.getString(R.string.backup_failed),
+                    Notify.CHANNEL_IMPORTANCE_LOW,
+                    true
                 )
             ),
             quickActions = listOf(
@@ -54,6 +65,18 @@ object SettingsToolRegistration : ToolRegistration {
                     ::QuickActionSettings
                 )
             ),
+            services = listOf(
+                BackupToolService(context)
+            ),
+            diagnostics = listOf(
+                ToolDiagnostic(
+                    "settings-auto-backup",
+                    context.getString(R.string.automatic_backup),
+                    scanner = AutomaticBackupDiagnosticScanner()
+                )
+            )
         )
     }
+
+    const val SERVICE_AUTO_BACKUP = "settings-service-auto-backup"
 }

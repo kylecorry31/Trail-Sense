@@ -1329,7 +1329,7 @@
     <string name="continuous_calibration">Continuous calibration</string>
     <string name="continuous_calibration_description">Calibrates whenever there is a GPS fix</string>
     <string name="pref_altimeter_continuous_calibration" translatable="false">pref_altimeter_continuous_calibration</string>
-    <string name="service_restart">Service Restart</string>
+    <string name="service_restart">Service restart</string>
     <string name="service_restart_channel_description">A notification to restart services</string>
     <string name="restart_services_title">Restart services</string>
     <string name="restart_services_message">Background services could not be restarted. Tap to restart.</string>
@@ -1487,4 +1487,15 @@
     <string name="unit_millimeters">Millimeters</string>
     <string name="imperial_teaspoons">Imperial teaspoons</string>
     <string name="imperial_tablespoons">Imperial tablespoons</string>
+    <string name="automatic_backup">Automatic backup</string>
+    <string name="pref_auto_backup_enabled" translatable="false">pref_auto_backup_enabled</string>
+    <string name="select_backup_directory">Select backup directory</string>
+    <string name="no_directory_selected">No directory selected</string>
+    <string name="pref_auto_backup_uri" translatable="false">pref_auto_backup_uri</string>
+    <!--  %1$s is the directory name, %2$d is the number of backups to keep.  -->
+    <string name="auto_backup_instructions">A backup will be created once a day to %1$s. Only the last %2$d backups will be kept.</string>
+    <string name="backup_failed">Backup failed</string>
+    <string name="unable_to_create_an_automatic_backup">Unable to create an automatic backup.</string>
+    <string name="automatic_backup_invalid_directory">Invalid directory</string>
+    <string name="automatic_backup_invalid_directory_resolution">Turn automatic backup off and then turn it back on to select a new directory.</string>
 </resources>

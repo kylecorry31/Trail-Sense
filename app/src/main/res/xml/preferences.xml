@@ -31,12 +31,18 @@
             android:key="backup_restore"
             android:title="@string/backup_restore"
             app:icon="@drawable/backup_restore" />
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:icon="@drawable/backup_restore"
+            app:key="@string/pref_auto_backup_enabled"
+            app:singleLineTitle="false"
+            app:title="@string/automatic_backup" />
     </PreferenceCategory>
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
-        app:singleLineTitle="false"
         app:key="@string/pref_tool_category_holder_key"
+        app:singleLineTitle="false"
         app:title="@string/tools">
 
         <Preference

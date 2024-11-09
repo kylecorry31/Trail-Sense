@@ -15,6 +15,7 @@ import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.backup.BackupCommand
+import com.kylecorry.trail_sense.settings.backup.ChangeAutomaticBackupDirectoryCommand
 import com.kylecorry.trail_sense.settings.backup.RestoreCommand
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.IntentUriPicker
@@ -102,6 +103,28 @@ class SettingsFragment : AndromedaPreferenceFragment() {
                     0 -> backup()
                     1 -> restore()
                 }
+            }
+        }
+
+        val autoBackupSwitch = switch(R.string.pref_auto_backup_enabled)
+        autoBackupSwitch?.summary = if (prefs.backup.isAutoBackupEnabled) {
+            prefs.backup.userFriendlyAutoBackupPathName
+        } else {
+            null
+        }
+
+        onClick(autoBackupSwitch) {
+            if (prefs.backup.isAutoBackupEnabled) {
+                ChangeAutomaticBackupDirectoryCommand(requireContext(), this) {
+                    if (!it) {
+                        prefs.backup.isAutoBackupEnabled = false
+                        autoBackupSwitch?.summary = null
+                    } else {
+                        autoBackupSwitch?.summary = prefs.backup.userFriendlyAutoBackupPathName
+                    }
+                }.execute()
+            } else {
+                autoBackupSwitch?.summary = null
             }
         }
 
