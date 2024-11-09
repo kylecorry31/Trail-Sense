@@ -55,13 +55,19 @@ class MainActivityQuickActionBinder(
         val activeTools = tools
             .filter { it.isOpen(currentDestination) || it.settingsNavAction == currentDestination }
 
-        val activeToolQuickActions = activeTools.flatMap { it.quickActions }.map { it.id }.sorted()
-
-        val recommended = activeToolQuickActions + listOf(
+        val alwaysRecommended = listOf(
             Tools.QUICK_ACTION_USER_GUIDE,
             Tools.QUICK_ACTION_SETTINGS,
             Tools.QUICK_ACTION_TOOL_SUMMARIES
         )
+
+        val activeToolQuickActions = activeTools
+            .flatMap { it.quickActions }
+            .map { it.id }
+            .filterNot { it in alwaysRecommended }
+            .sorted()
+
+        val recommended = activeToolQuickActions + alwaysRecommended
 
         val factory = QuickActionFactory()
 
