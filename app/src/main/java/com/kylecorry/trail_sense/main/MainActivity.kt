@@ -262,10 +262,7 @@ class MainActivity : AndromedaActivity() {
 
         errorBanner.dismissAll()
 
-        if (cache.getBoolean(BackupService.RECENTLY_BACKED_UP_KEY) == true) {
-            cache.remove(BackupService.RECENTLY_BACKED_UP_KEY)
-            navController.navigate(R.id.action_settings)
-        } else if (shouldReloadNavigation) {
+        if (shouldReloadNavigation) {
             navController.navigate(
                 binding.bottomNavigation.selectedItemId,
                 null,
