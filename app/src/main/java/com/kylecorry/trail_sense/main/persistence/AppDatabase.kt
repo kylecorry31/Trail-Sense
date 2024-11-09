@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.room.migration.Migration
+import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
@@ -87,6 +88,10 @@ abstract class AppDatabase : RoomDatabase() {
                 instance?.close()
                 instance = null
             }
+        }
+
+        fun createCheckpoint(context: Context) {
+            getInstance(context).query(SimpleSQLiteQuery("pragma wal_checkpoint(full)"))
         }
 
         private fun buildDatabase(context: Context): AppDatabase {

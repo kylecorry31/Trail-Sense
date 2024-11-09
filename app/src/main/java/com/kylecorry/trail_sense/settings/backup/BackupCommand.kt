@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.settings.backup
 import android.content.Context
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.CoroutineAlerts
-import com.kylecorry.andromeda.core.system.CurrentApp
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.io.UriPicker
@@ -39,8 +38,5 @@ class BackupCommand(private val context: Context, private val uriPicker: UriPick
         }
 
         Alerts.toast(context, context.getString(R.string.done))
-
-        // Restart the app
-        CurrentApp.restart(context)
     }
 }

@@ -6,7 +6,6 @@ import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.system.AppData
 import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.files.ZipUtils
-import com.kylecorry.andromeda.preferences.SharedPreferences
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.receivers.TrailSenseServiceUtils
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
@@ -29,12 +28,9 @@ class BackupService(
         appVersionFile.createNewFile()
         filesToBackup.add(appVersionFile)
 
-        // Stop the services while backing up to prevent DB corruption
-        TrailSenseServiceUtils.stopServices(context)
-
         try {
-            // Close the DB before backing up
-            AppDatabase.close()
+            // Create a DB checkpoint to avoid losing data
+            AppDatabase.createCheckpoint(context)
 
             // Create the zip file
             fileSubsystem.output(destination)?.use {
@@ -43,10 +39,6 @@ class BackupService(
         } finally {
             // Delete the app version file
             appVersionFile.delete()
-
-            // Indicate that a backup just happened
-            val prefs = SharedPreferences(context, commitChanges = true)
-            prefs.putBoolean(RECENTLY_BACKED_UP_KEY, true)
         }
     }
 
@@ -113,9 +105,12 @@ class BackupService(
 
     private fun getFilesToBackup(): List<File> {
         val files = AppData.getFilesDirectory(context)
-        val databases = AppData.getDatabaseDirectory(context, "trail_sense")
+        val database = AppData.getDatabaseDirectory(
+            context,
+            "trail_sense"
+        )
         val sharedPrefsDir = AppData.getSharedPrefsDirectory(context)
-        return listOfNotNull(files, databases, sharedPrefsDir)
+        return listOfNotNull(files, database, sharedPrefsDir)
     }
 
     private fun extractVersionCode(path: String): Long? {
@@ -129,7 +124,6 @@ class BackupService(
 
     companion object {
         private const val MAX_ZIP_FILE_COUNT = 1000
-        const val RECENTLY_BACKED_UP_KEY = "backup_just_happened"
     }
 
 }
