@@ -4,6 +4,7 @@ import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.receivers.ServiceRestartAlerter
+import com.kylecorry.trail_sense.settings.backup.AutomaticBackupDiagnosticScanner
 import com.kylecorry.trail_sense.settings.backup.BackupFailedAlerter
 import com.kylecorry.trail_sense.settings.backup.BackupToolService
 import com.kylecorry.trail_sense.settings.quickactions.QuickActionSettings
@@ -13,6 +14,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChan
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnostic
 
 object SettingsToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
@@ -65,6 +67,13 @@ object SettingsToolRegistration : ToolRegistration {
             ),
             services = listOf(
                 BackupToolService(context)
+            ),
+            diagnostics = listOf(
+                ToolDiagnostic(
+                    "settings-auto-backup",
+                    context.getString(R.string.automatic_backup),
+                    scanner = AutomaticBackupDiagnosticScanner()
+                )
             )
         )
     }

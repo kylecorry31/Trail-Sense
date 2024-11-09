@@ -7,17 +7,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import com.google.android.material.color.DynamicColors
-import com.kylecorry.andromeda.alerts.dialog
-import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.system.pickDirectory
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.backup.BackupCommand
+import com.kylecorry.trail_sense.settings.backup.ChangeAutomaticBackupDirectoryCommand
 import com.kylecorry.trail_sense.settings.backup.RestoreCommand
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.IntentUriPicker
@@ -117,26 +115,14 @@ class SettingsFragment : AndromedaPreferenceFragment() {
 
         onClick(autoBackupSwitch) {
             if (prefs.backup.isAutoBackupEnabled) {
-                pickDirectory(getString(R.string.select_backup_directory), true, true, true) {
-                    if (it == null) {
-                        toast(getString(R.string.no_directory_selected))
+                ChangeAutomaticBackupDirectoryCommand(requireContext(), this) {
+                    if (!it) {
                         prefs.backup.isAutoBackupEnabled = false
                         autoBackupSwitch?.summary = null
-                        return@pickDirectory
+                    } else {
+                        autoBackupSwitch?.summary = prefs.backup.userFriendlyAutoBackupPathName
                     }
-                    Intents.acceptPersistentUri(requireContext(), it)
-                    prefs.backup.autoBackupUri = it
-                    autoBackupSwitch?.summary = prefs.backup.userFriendlyAutoBackupPathName
-                    dialog(
-                        getString(R.string.automatic_backup),
-                        getString(
-                            R.string.auto_backup_instructions,
-                            prefs.backup.userFriendlyAutoBackupPathName,
-                            prefs.backup.autoBackupCount
-                        ),
-                        cancelText = null
-                    )
-                }
+                }.execute()
             } else {
                 autoBackupSwitch?.summary = null
             }
