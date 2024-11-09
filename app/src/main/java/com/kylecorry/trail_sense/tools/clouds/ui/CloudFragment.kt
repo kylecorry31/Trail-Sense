@@ -21,7 +21,7 @@ import com.kylecorry.trail_sense.databinding.FragmentCloudsBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
+import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.tools.clouds.domain.classification.SoftmaxCloudClassifier
@@ -111,7 +111,7 @@ class CloudFragment : BoundFragment<FragmentCloudsBinding>() {
     private fun addFromFile() {
         inBackground(BackgroundMinimumState.Created) {
             val uri =
-                FragmentUriPicker(this@CloudFragment).open(listOf("image/*"))
+                IntentUriPicker(this@CloudFragment, requireContext()).open(listOf("image/*"))
             val temp = uri?.let { onIO { files.copyToTemp(it) }?.toUri() }
             temp?.let {
                 findNavController().navigate(

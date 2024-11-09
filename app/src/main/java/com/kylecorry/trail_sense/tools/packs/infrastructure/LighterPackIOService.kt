@@ -6,8 +6,8 @@ import com.kylecorry.sol.units.Weight
 import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.shared.io.CsvIOService
 import com.kylecorry.trail_sense.shared.io.ExternalUriService
-import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
 import com.kylecorry.trail_sense.shared.io.IOService
+import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.shared.io.UriPicker
 import com.kylecorry.trail_sense.shared.io.UriService
 import com.kylecorry.trail_sense.tools.packs.domain.ItemCategory
@@ -137,7 +137,7 @@ class LighterPackIOService(uriPicker: UriPicker, uriService: UriService) :
 
         fun create(fragment: AndromedaFragment): LighterPackIOService {
             return LighterPackIOService(
-                FragmentUriPicker(fragment),
+                IntentUriPicker(fragment, fragment.requireContext()),
                 ExternalUriService(fragment.requireContext())
             )
         }

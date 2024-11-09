@@ -30,7 +30,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.shared.io.FragmentUriPicker
+import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
@@ -125,7 +125,7 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
     private fun scanFromGallery() {
         inBackground(BackgroundMinimumState.Created) {
             val uri =
-                FragmentUriPicker(this@ScanQRFragment).open(listOf("image/*"))
+                IntentUriPicker(this@ScanQRFragment, requireContext()).open(listOf("image/*"))
                     ?: return@inBackground
 
             try {
