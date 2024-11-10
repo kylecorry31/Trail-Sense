@@ -49,6 +49,9 @@ abstract class ToolSummaryView(
         root.removeAllViews()
         root.isVisible = true
         root.addOnAttachStateChangeListener(attachStateChangeListener)
+        root.setOnClickListener {
+            onClick()
+        }
     }
 
     open fun onResume() {
@@ -61,5 +64,9 @@ abstract class ToolSummaryView(
 
     open fun onDestroy() {
         root.removeOnAttachStateChangeListener(attachStateChangeListener)
+    }
+
+    open fun onClick() {
+        // Do nothing
     }
 }
