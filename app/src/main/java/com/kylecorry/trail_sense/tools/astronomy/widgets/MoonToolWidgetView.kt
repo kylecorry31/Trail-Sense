@@ -38,8 +38,8 @@ class MoonToolWidgetView : SimpleToolWidgetView() {
         val moon = astronomy.moon
         val image = MoonPhaseImageMapper().getPhaseImage(moon.phase)
         val bitmap = Resources.drawable(context, image)?.toBitmap(
-            Resources.dp(context, 36f).toInt(),
-            Resources.dp(context, 36f).toInt(),
+            Resources.dp(context, 32f).toInt(),
+            Resources.dp(context, 32f).toInt(),
         )
         val rotated = bitmap?.let { rotate(it, moon.tilt) }
         bitmap?.recycle()

@@ -40,7 +40,8 @@ class ToolWidgetViewBottomSheet :
 
         binding.widgets.removeAllViews()
 
-        val summaryHeight = Resources.dp(requireContext(), 150f).toInt()
+        // 2 cells on a Pixel phone = 102dp
+        val summaryHeight = Resources.dp(requireContext(), 102f).toInt()
         val summaryGap = Resources.dp(requireContext(), 4f).toInt()
 
         widgets.forEach { widget ->
