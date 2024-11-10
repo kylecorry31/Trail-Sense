@@ -5,14 +5,14 @@ import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionButton
-import com.kylecorry.trail_sense.tools.tools.ui.summaries.ToolSummaryViewBottomSheet
+import com.kylecorry.trail_sense.tools.tools.ui.widgets.ToolWidgetViewBottomSheet
 
-class QuickActionToolSummaries(button: ImageButton, fragment: Fragment) : QuickActionButton(
+class QuickActionToolWidgets(button: ImageButton, fragment: Fragment) : QuickActionButton(
     button,
     fragment
 ) {
 
-    private var sheet: ToolSummaryViewBottomSheet? = null
+    private var sheet: ToolWidgetViewBottomSheet? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -22,13 +22,13 @@ class QuickActionToolSummaries(button: ImageButton, fragment: Fragment) : QuickA
     override fun onClick() {
         super.onClick()
         sheet?.dismiss()
-        sheet = ToolSummaryViewBottomSheet()
+        sheet = ToolWidgetViewBottomSheet()
         sheet?.show(fragment)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        sheet?.dismiss()
+    override fun onPause() {
+        super.onPause()
+        sheet?.dismissAllowingStateLoss()
         sheet = null
     }
 

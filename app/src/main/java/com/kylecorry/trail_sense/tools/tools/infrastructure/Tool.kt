@@ -17,7 +17,7 @@ data class Tool(
     val isExperimental: Boolean = false,
     @IdRes val settingsNavAction: Int? = null,
     val quickActions: List<ToolQuickAction> = emptyList(),
-    val summaries: List<ToolSummary> = emptyList(),
+    val widgets: List<ToolWidget> = emptyList(),
     val additionalNavigationIds: List<Int> = emptyList(),
     val volumeActions: List<ToolVolumeAction> = emptyList(),
     val tiles: List<String> = emptyList(),

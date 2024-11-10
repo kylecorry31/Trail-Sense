@@ -6,11 +6,11 @@
     android:orientation="vertical">
 
     <com.kylecorry.andromeda.views.toolbar.Toolbar
-        android:id="@+id/tool_summaries_title"
+        android:id="@+id/tool_widgets_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:showSubtitle="false"
-        app:title="@string/tool_summaries" />
+        app:title="@string/widgets" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
         android:layout_weight="1">
 
         <com.google.android.flexbox.FlexboxLayout
-            android:id="@+id/summaries"
+            android:id="@+id/widgets"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:alignItems="center"
