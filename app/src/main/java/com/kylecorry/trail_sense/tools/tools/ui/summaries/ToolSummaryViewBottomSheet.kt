@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.tools.ui
+package com.kylecorry.trail_sense.tools.tools.ui.summaries
 
 import android.content.res.ColorStateList
 import android.os.Bundle
