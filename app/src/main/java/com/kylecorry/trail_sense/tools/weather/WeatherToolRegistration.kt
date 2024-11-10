@@ -45,10 +45,10 @@ object WeatherToolRegistration : ToolRegistration {
             ),
             widgets = listOf(
                 ToolWidget(
-                    SUMMARY_WEATHER,
+                    WIDGET_WEATHER,
                     context.getString(R.string.weather),
                     ToolSummarySize.Half,
-                    R.layout.summary_small_simple,
+                    R.layout.widget_small_simple,
                     WeatherToolWidgetView()
                 )
             ),
@@ -152,5 +152,5 @@ object WeatherToolRegistration : ToolRegistration {
 
     const val SERVICE_WEATHER_MONITOR = "weather-service-weather-monitor"
 
-    const val SUMMARY_WEATHER = "weather-summary-weather"
+    const val WIDGET_WEATHER = "weather-widget-weather"
 }

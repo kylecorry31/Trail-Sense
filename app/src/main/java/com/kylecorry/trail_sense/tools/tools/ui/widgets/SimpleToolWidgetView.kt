@@ -7,10 +7,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 
 abstract class SimpleToolWidgetView : ToolWidgetView {
-    protected val ROOT = R.id.summary_frame
-    protected val TITLE_TEXTVIEW = R.id.summary_title
-    protected val SUBTITLE_TEXTVIEW = R.id.summary_subtitle
-    protected val ICON_IMAGEVIEW = R.id.summary_icon
+    protected val ROOT = R.id.widget_frame
+    protected val TITLE_TEXTVIEW = R.id.widget_title
+    protected val SUBTITLE_TEXTVIEW = R.id.widget_subtitle
+    protected val ICON_IMAGEVIEW = R.id.widget_icon
 
     protected var scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/summary_frame"
+    android:id="@+id/widget_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/rounded_rectangle"
@@ -10,7 +10,7 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/summary_title"
+        android:id="@+id/widget_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top|center_horizontal"
@@ -18,13 +18,13 @@
         tools:text="Title" />
 
     <ImageView
-        android:id="@+id/summary_icon"
+        android:id="@+id/widget_icon"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_gravity="center" />
 
     <TextView
-        android:id="@+id/summary_subtitle"
+        android:id="@+id/widget_subtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"

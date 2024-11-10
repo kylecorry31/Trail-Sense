@@ -54,17 +54,17 @@ object AstronomyToolRegistration : ToolRegistration {
             ),
             widgets = listOf(
                 ToolWidget(
-                    SUMMARY_SUN,
+                    WIDGET_SUN,
                     context.getString(R.string.sun),
                     ToolSummarySize.Half,
-                    R.layout.summary_small_simple,
+                    R.layout.widget_small_simple,
                     SunToolWidgetView()
                 ),
                 ToolWidget(
-                    SUMMARY_MOON,
+                    WIDGET_MOON,
                     context.getString(R.string.moon),
                     ToolSummarySize.Half,
-                    R.layout.summary_small_simple,
+                    R.layout.widget_small_simple,
                     MoonToolWidgetView()
                 )
             ),
@@ -144,6 +144,6 @@ object AstronomyToolRegistration : ToolRegistration {
     const val SERVICE_SUNRISE_ALERTS = "astronomy-service-sunrise-alerts"
     const val SERVICE_ASTRONOMY_ALERTS = "astronomy-service-astronomy-alerts"
 
-    const val SUMMARY_SUN = "astronomy-summary-sun"
-    const val SUMMARY_MOON = "astronomy-summary-moon"
+    const val WIDGET_SUN = "astronomy-widget-sun"
+    const val WIDGET_MOON = "astronomy-widget-moon"
 }

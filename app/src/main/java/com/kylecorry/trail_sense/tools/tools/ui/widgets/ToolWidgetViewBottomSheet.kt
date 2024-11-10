@@ -12,12 +12,12 @@ import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.luna.timer.CoroutineTimer
-import com.kylecorry.trail_sense.databinding.FragmentToolSummarySheetBinding
+import com.kylecorry.trail_sense.databinding.FragmentToolWidgetSheetBinding
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummarySize
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class ToolWidgetViewBottomSheet :
-    BoundBottomSheetDialogFragment<FragmentToolSummarySheetBinding>() {
+    BoundBottomSheetDialogFragment<FragmentToolWidgetSheetBinding>() {
 
     private val updateTimers = mutableListOf<Pair<CoroutineTimer, Long>>()
     private val widgets = mutableListOf<ToolWidgetView>()
@@ -25,8 +25,8 @@ class ToolWidgetViewBottomSheet :
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentToolSummarySheetBinding {
-        return FragmentToolSummarySheetBinding.inflate(layoutInflater, container, false)
+    ): FragmentToolWidgetSheetBinding {
+        return FragmentToolWidgetSheetBinding.inflate(layoutInflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
