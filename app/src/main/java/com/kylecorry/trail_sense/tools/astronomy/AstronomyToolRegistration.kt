@@ -12,12 +12,16 @@ import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunsetA
 import com.kylecorry.trail_sense.tools.astronomy.services.AstronomyAlertsToolService
 import com.kylecorry.trail_sense.tools.astronomy.services.SunriseAlertsToolService
 import com.kylecorry.trail_sense.tools.astronomy.services.SunsetAlertsToolService
+import com.kylecorry.trail_sense.tools.astronomy.summaries.MoonToolSummaryView
+import com.kylecorry.trail_sense.tools.astronomy.summaries.SunToolSummaryView
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummary
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummarySize
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 
@@ -46,6 +50,20 @@ object AstronomyToolRegistration : ToolRegistration {
                     Tools.QUICK_ACTION_NIGHT_MODE,
                     context.getString(R.string.night),
                     ::QuickActionNightMode
+                )
+            ),
+            summaries = listOf(
+                ToolSummary(
+                    SUMMARY_SUN,
+                    context.getString(R.string.sun),
+                    ToolSummarySize.Half,
+                    ::SunToolSummaryView
+                ),
+                ToolSummary(
+                    SUMMARY_MOON,
+                    context.getString(R.string.moon),
+                    ToolSummarySize.Half,
+                    ::MoonToolSummaryView
                 )
             ),
             notificationChannels = listOf(
@@ -112,13 +130,18 @@ object AstronomyToolRegistration : ToolRegistration {
 
     const val BROADCAST_SUNSET_ALERTS_ENABLED = "astronomy-broadcast-sunset-alerts-enabled"
     const val BROADCAST_SUNSET_ALERTS_DISABLED = "astronomy-broadcast-sunset-alerts-disabled"
-    const val BROADCAST_SUNSET_ALERTS_STATE_CHANGED = "astronomy-broadcast-sunset-alerts-state-changed"
+    const val BROADCAST_SUNSET_ALERTS_STATE_CHANGED =
+        "astronomy-broadcast-sunset-alerts-state-changed"
 
     const val BROADCAST_SUNRISE_ALERTS_ENABLED = "astronomy-broadcast-sunrise-alerts-enabled"
     const val BROADCAST_SUNRISE_ALERTS_DISABLED = "astronomy-broadcast-sunrise-alerts-disabled"
-    const val BROADCAST_SUNRISE_ALERTS_STATE_CHANGED = "astronomy-broadcast-sunrise-alerts-state-changed"
+    const val BROADCAST_SUNRISE_ALERTS_STATE_CHANGED =
+        "astronomy-broadcast-sunrise-alerts-state-changed"
 
     const val SERVICE_SUNSET_ALERTS = "astronomy-service-sunset-alerts"
     const val SERVICE_SUNRISE_ALERTS = "astronomy-service-sunrise-alerts"
     const val SERVICE_ASTRONOMY_ALERTS = "astronomy-service-astronomy-alerts"
+
+    const val SUMMARY_SUN = "astronomy-summary-sun"
+    const val SUMMARY_MOON = "astronomy-summary-moon"
 }
