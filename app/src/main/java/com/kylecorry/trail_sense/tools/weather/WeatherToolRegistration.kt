@@ -11,7 +11,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummary
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolWidget
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummarySize
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnostic
@@ -24,7 +24,7 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.DailyWeathe
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.StormAlerter
 import com.kylecorry.trail_sense.tools.weather.quickactions.QuickActionWeatherMonitor
 import com.kylecorry.trail_sense.tools.weather.services.WeatherMonitorToolService
-import com.kylecorry.trail_sense.tools.weather.summaries.WeatherToolSummaryView
+import com.kylecorry.trail_sense.tools.weather.widgets.WeatherToolWidgetView
 
 object WeatherToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
@@ -43,12 +43,13 @@ object WeatherToolRegistration : ToolRegistration {
                     ::QuickActionWeatherMonitor
                 )
             ),
-            summaries = listOf(
-                ToolSummary(
+            widgets = listOf(
+                ToolWidget(
                     SUMMARY_WEATHER,
                     context.getString(R.string.weather),
                     ToolSummarySize.Half,
-                    ::WeatherToolSummaryView
+                    R.layout.summary_small_simple,
+                    WeatherToolWidgetView()
                 )
             ),
             isAvailable = { Sensors.hasBarometer(it) },

@@ -15,7 +15,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnostic
-import com.kylecorry.trail_sense.tools.tools.quickactions.QuickActionToolSummaries
+import com.kylecorry.trail_sense.tools.tools.quickactions.QuickActionToolWidgets
 
 object SettingsToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
@@ -66,9 +66,9 @@ object SettingsToolRegistration : ToolRegistration {
                     ::QuickActionSettings
                 ),
                 ToolQuickAction(
-                    Tools.QUICK_ACTION_TOOL_SUMMARIES,
-                    context.getString(R.string.tool_summaries),
-                    ::QuickActionToolSummaries
+                    Tools.QUICK_ACTION_TOOL_WIDGETS,
+                    context.getString(R.string.widgets),
+                    ::QuickActionToolWidgets
                 )
             ),
             services = listOf(
