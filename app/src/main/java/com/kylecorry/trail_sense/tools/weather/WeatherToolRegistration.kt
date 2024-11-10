@@ -11,6 +11,8 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummary
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummarySize
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnostic
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
@@ -22,6 +24,7 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.DailyWeathe
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.StormAlerter
 import com.kylecorry.trail_sense.tools.weather.quickactions.QuickActionWeatherMonitor
 import com.kylecorry.trail_sense.tools.weather.services.WeatherMonitorToolService
+import com.kylecorry.trail_sense.tools.weather.summaries.WeatherToolSummaryView
 
 object WeatherToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
@@ -38,6 +41,14 @@ object WeatherToolRegistration : ToolRegistration {
                     Tools.QUICK_ACTION_WEATHER_MONITOR,
                     context.getString(R.string.weather_monitor),
                     ::QuickActionWeatherMonitor
+                )
+            ),
+            summaries = listOf(
+                ToolSummary(
+                    SUMMARY_WEATHER,
+                    context.getString(R.string.weather),
+                    ToolSummarySize.Half,
+                    ::WeatherToolSummaryView
                 )
             ),
             isAvailable = { Sensors.hasBarometer(it) },
@@ -131,11 +142,14 @@ object WeatherToolRegistration : ToolRegistration {
     const val BROADCAST_WEATHER_MONITOR_FREQUENCY_CHANGED =
         "paths-broadcast-weather-monitor-frequency-changed"
 
-    const val BROADCAST_PARAM_WEATHER_MONITOR_FREQUENCY = "paths-broadcast-param-weather-monitor-frequency"
+    const val BROADCAST_PARAM_WEATHER_MONITOR_FREQUENCY =
+        "paths-broadcast-param-weather-monitor-frequency"
 
 
     const val ACTION_PAUSE_WEATHER_MONITOR = "weather-action-pause-weather-monitor"
     const val ACTION_RESUME_WEATHER_MONITOR = "weather-action-resume-weather-monitor"
 
     const val SERVICE_WEATHER_MONITOR = "weather-service-weather-monitor"
+
+    const val SUMMARY_WEATHER = "weather-summary-weather"
 }
