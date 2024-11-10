@@ -16,11 +16,9 @@ abstract class AppWidgetBase(private val widgetId: String) : AppWidgetProvider()
         appWidgetIds: IntArray
     ) {
         // There may be multiple widgets active, so update all of them
-        val result = goAsync()
         for (appWidgetId in appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId)
         }
-        result.finish()
     }
 
     override fun onEnabled(context: Context) {
