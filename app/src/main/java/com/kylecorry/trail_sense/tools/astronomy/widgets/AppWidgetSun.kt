@@ -4,4 +4,4 @@ import com.kylecorry.trail_sense.tools.astronomy.AstronomyToolRegistration
 import com.kylecorry.trail_sense.tools.tools.widgets.AppWidgetBase
 
 
-class AppWidgetMoon : AppWidgetBase(AstronomyToolRegistration.WIDGET_MOON)
+class AppWidgetSun : AppWidgetBase(AstronomyToolRegistration.WIDGET_SUN)

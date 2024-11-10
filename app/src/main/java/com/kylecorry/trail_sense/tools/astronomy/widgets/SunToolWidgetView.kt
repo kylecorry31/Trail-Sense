@@ -12,8 +12,6 @@ import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyTransition
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.ui.widgets.SimpleToolWidgetView
 import kotlinx.coroutines.launch
-import java.time.Duration
-import java.time.LocalDateTime
 
 class SunToolWidgetView : SimpleToolWidgetView() {
     override fun onUpdate(context: Context, views: RemoteViews, commit: () -> Unit) {
@@ -31,15 +29,10 @@ class SunToolWidgetView : SimpleToolWidgetView() {
         val sun = astronomy.sun
 
         if (sun.nextRise != null && sun.nextTransition == AstronomyTransition.Rise) {
-            val time =
+            views.setTextViewText(
+                SUBTITLE_TEXTVIEW,
                 formatService.formatTime(sun.nextRise.toLocalTime(), includeSeconds = false)
-            val timeUntil = formatService.formatDuration(
-                Duration.between(
-                    LocalDateTime.now(),
-                    sun.nextRise
-                )
             )
-            views.setTextViewText(SUBTITLE_TEXTVIEW, "$time ($timeUntil)")
             views.setTextViewText(TITLE_TEXTVIEW, context.getString(R.string.sunrise))
             views.setImageViewResourceAsIcon(
                 context,
@@ -47,15 +40,10 @@ class SunToolWidgetView : SimpleToolWidgetView() {
                 R.drawable.ic_sunrise_notification
             )
         } else if (sun.nextSet != null && sun.nextTransition == AstronomyTransition.Set) {
-            val time =
+            views.setTextViewText(
+                SUBTITLE_TEXTVIEW,
                 formatService.formatTime(sun.nextSet.toLocalTime(), includeSeconds = false)
-            val timeUntil = formatService.formatDuration(
-                Duration.between(
-                    LocalDateTime.now(),
-                    sun.nextSet
-                )
             )
-            views.setTextViewText(SUBTITLE_TEXTVIEW, "$time ($timeUntil)")
             views.setTextViewText(TITLE_TEXTVIEW, context.getString(R.string.sunset))
             views.setImageViewResourceAsIcon(
                 context,
