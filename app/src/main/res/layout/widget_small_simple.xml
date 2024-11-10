@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/rounded_rectangle"
-    android:backgroundTint="?attr/colorBackgroundFloating"
     android:elevation="4dp"
     android:padding="8dp">
 

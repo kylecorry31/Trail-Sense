@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.astronomy.widgets
 
 import android.content.Context
 import android.widget.RemoteViews
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService

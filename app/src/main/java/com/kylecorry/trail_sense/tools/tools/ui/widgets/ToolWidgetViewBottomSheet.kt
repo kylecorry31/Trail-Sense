@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.tools.ui.widgets
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -63,12 +64,20 @@ class ToolWidgetViewBottomSheet :
             val timer = CoroutineTimer {
                 widget.widget.onUpdate(requireContext(), views) {
                     layout.removeAllViews()
-                    layout.addView(views.apply(requireContext(), layout))
+                    val widgetView = views.apply(requireContext(), layout)
+                    widgetView.backgroundTintList = ColorStateList.valueOf(
+                        Resources.androidBackgroundColorSecondary(requireContext())
+                    )
+                    layout.addView(widgetView)
                 }
             }
             updateTimers.add(timer to widget.updateFrequencyMs)
             this.widgets.add(widget.widget)
-            layout.addView(views.apply(requireContext(), layout))
+            val widgetView = views.apply(requireContext(), layout)
+            widgetView.backgroundTintList = ColorStateList.valueOf(
+                Resources.androidBackgroundColorSecondary(requireContext())
+            )
+            layout.addView(widgetView)
         }
 
         this.widgets.forEach { it.onEnabled(requireContext()) }
