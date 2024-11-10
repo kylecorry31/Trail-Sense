@@ -4,7 +4,7 @@ import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.databinding.SummarySmallSimpleBinding
 
-open class SmallSimpleToolSummaryView(root: FrameLayout, fragment: Fragment) :
+abstract class SmallSimpleToolSummaryView(root: FrameLayout, fragment: Fragment) :
     ToolSummaryView(root, fragment) {
 
     private var _binding: SummarySmallSimpleBinding? = null
