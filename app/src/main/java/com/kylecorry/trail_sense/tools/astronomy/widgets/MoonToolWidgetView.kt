@@ -14,6 +14,8 @@ import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomySubsystem
 import com.kylecorry.trail_sense.tools.astronomy.ui.MoonPhaseImageMapper
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.ui.widgets.SimpleToolWidgetView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MoonToolWidgetView : SimpleToolWidgetView() {
@@ -22,7 +24,7 @@ class MoonToolWidgetView : SimpleToolWidgetView() {
     private var nextBitmap: Bitmap? = null
 
     override fun onUpdate(context: Context, views: RemoteViews, commit: () -> Unit) {
-        scope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             populateMoonDetails(context, views)
             onMain {
                 commit()

@@ -11,6 +11,7 @@ import androidx.core.view.setPadding
 import com.google.android.flexbox.FlexboxLayout
 import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.luna.timer.CoroutineTimer
 import com.kylecorry.trail_sense.databinding.FragmentToolWidgetSheetBinding
@@ -64,12 +65,14 @@ class ToolWidgetViewBottomSheet :
                 RemoteViews(Package.getPackageName(requireContext()), widget.widgetResourceId)
             val timer = CoroutineTimer {
                 widget.widget.onUpdate(requireContext(), views) {
-                    layout.removeAllViews()
-                    val widgetView = views.apply(requireContext(), layout)
-                    widgetView.backgroundTintList = ColorStateList.valueOf(
-                        Resources.androidBackgroundColorSecondary(requireContext())
-                    )
-                    layout.addView(widgetView)
+                    tryOrLog {
+                        layout.removeAllViews()
+                        val widgetView = views.apply(requireContext(), layout)
+                        widgetView.backgroundTintList = ColorStateList.valueOf(
+                            Resources.androidBackgroundColorSecondary(requireContext())
+                        )
+                        layout.addView(widgetView)
+                    }
                 }
             }
             updateTimers.add(timer to widget.updateFrequencyMs)
