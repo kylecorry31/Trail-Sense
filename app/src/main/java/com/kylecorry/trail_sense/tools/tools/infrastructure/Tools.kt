@@ -174,6 +174,12 @@ object Tools {
             .firstOrNull { it.id == serviceId }
     }
 
+    fun getWidget(context: Context, widgetId: String): ToolWidget? {
+        return getTools(context)
+            .flatMap { it.widgets }
+            .firstOrNull { it.id == widgetId }
+    }
+
     const val TOOL_QUICK_ACTION_OFFSET = 1000
 
     // Tool IDs
