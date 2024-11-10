@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/widget_background"
-    android:theme="@style/AppTheme"
     android:elevation="4dp"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:theme="@style/AppTheme">
 
-    <TextView
+    <android.widget.TextView
         android:id="@+id/widget_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,13 +17,13 @@
         android:textAlignment="center"
         tools:text="Title" />
 
-    <ImageView
+    <android.widget.ImageView
         android:id="@+id/widget_icon"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_gravity="center" />
 
-    <TextView
+    <android.widget.TextView
         android:id="@+id/widget_subtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
