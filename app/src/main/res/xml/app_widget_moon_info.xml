@@ -8,7 +8,7 @@
     android:previewImage="@drawable/rounded_rectangle"
     android:previewLayout="@layout/widget_small_simple"
     android:resizeMode="horizontal|vertical"
-    android:targetCellWidth="1"
+    android:targetCellWidth="2"
     android:targetCellHeight="1"
     android:updatePeriodMillis="60000"
     android:widgetCategory="home_screen" />
