@@ -1097,7 +1097,7 @@
     <string name="is_there_a_way_to_fix_this">¿Hay alguna forma de solucionarlo?</string>
     <string name="high_sensitivity">Alta sensibilidad</string>
     <string name="restart_services_message">No se han podido reiniciar los servicios en segundo plano. Pulse para reiniciar.</string>
-    <string name="service_restart">Reinicio de los servicios</string>
+    <string name="service_restart">Reinicio del servicio</string>
     <string name="restart_services_title">Reiniciar los servicios</string>
     <string name="fused_altimeter_force_calibration">Intervalo de calibración forzada</string>
     <string name="continuous_calibration_description">Se calibra siempre que hay un punto de GPS</string>
