@@ -101,6 +101,11 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             invalidate()
             true
         }
+
+        weatherChanged.subscribe {
+            Tools.triggerWidgetUpdate(context, WeatherToolRegistration.WIDGET_WEATHER)
+            true
+        }
     }
 
     override suspend fun getWeather(): CurrentWeather = onIO {
@@ -277,7 +282,6 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             isValid = false
         }
         _weatherChanged.publish()
-        Tools.triggerWidgetUpdate(context, WeatherToolRegistration.WIDGET_WEATHER)
     }
 
     private suspend fun refresh() {
