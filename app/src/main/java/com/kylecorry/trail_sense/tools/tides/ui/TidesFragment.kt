@@ -15,7 +15,6 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.science.oceanography.Tide
-import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentTideBinding
@@ -162,7 +161,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
 
         effect("current", current, lifecycleHookTrigger.onResume()) {
             val current = current ?: return@effect
-            val name = getTideTypeName(current.type)
+            val name = TideFormatter(requireContext()).getTideTypeName(current.type)
             val waterLevel = if (current.waterLevel != null) {
                 val height = Distance.meters(current.waterLevel).convertTo(units)
                 " (${formatService.formatDistance(height, 2, true)})"
@@ -209,11 +208,4 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
 
     }
 
-    private fun getTideTypeName(tideType: TideType?): String {
-        return when (tideType) {
-            TideType.High -> getString(R.string.high_tide)
-            TideType.Low -> getString(R.string.low_tide)
-            null -> getString(R.string.half_tide)
-        }
-    }
 }

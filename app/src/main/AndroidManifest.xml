@@ -334,7 +334,8 @@
         <!-- Widgets -->
         <receiver
             android:name="com.kylecorry.trail_sense.tools.astronomy.widgets.AppWidgetMoon"
-            android:exported="false">
+            android:exported="false"
+            android:label="@string/moon">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -346,7 +347,8 @@
 
         <receiver
             android:name="com.kylecorry.trail_sense.tools.astronomy.widgets.AppWidgetSun"
-            android:exported="false">
+            android:exported="false"
+            android:label="@string/sun">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -358,7 +360,8 @@
 
         <receiver
             android:name="com.kylecorry.trail_sense.tools.weather.widgets.AppWidgetWeather"
-            android:exported="false">
+            android:exported="false"
+            android:label="@string/weather">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -366,6 +369,19 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/app_widget_weather_info" />
+        </receiver>
+
+        <receiver
+            android:name="com.kylecorry.trail_sense.tools.tides.widgets.AppWidgetTides"
+            android:exported="false"
+            android:label="@string/tides">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_tides_info" />
         </receiver>
 
     </application>
