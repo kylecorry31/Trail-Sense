@@ -1210,4 +1210,5 @@
     <string name="tablespoon_format">%s cucharada</string>
     <string name="teaspooon_format">%s cucharadita</string>
     <string name="unit_millimeters">Milímetros</string>
+    <string name="us_teaspoons">cucharaditas estadounidenses</string>
 </resources>
