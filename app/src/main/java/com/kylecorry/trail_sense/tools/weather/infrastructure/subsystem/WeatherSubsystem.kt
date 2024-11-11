@@ -103,7 +103,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         }
 
         weatherChanged.subscribe {
-            Tools.triggerWidgetUpdate(context, WeatherToolRegistration.WIDGET_WEATHER)
+            Tools.broadcast(WeatherToolRegistration.BROADCAST_WEATHER_PREDICTION_CHANGED)
             true
         }
     }

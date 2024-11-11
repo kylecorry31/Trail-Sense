@@ -17,6 +17,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnostic
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 import com.kylecorry.trail_sense.tools.weather.actions.PauseWeatherMonitorAction
+import com.kylecorry.trail_sense.tools.weather.actions.RefreshWeatherWidgetAction
 import com.kylecorry.trail_sense.tools.weather.actions.ResumeWeatherMonitorAction
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorDiagnosticScanner
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeatherAlerter
@@ -121,6 +122,10 @@ object WeatherToolRegistration : ToolRegistration {
                 ToolBroadcast(
                     BROADCAST_WEATHER_MONITOR_FREQUENCY_CHANGED,
                     "Weather monitor frequency changed"
+                ),
+                ToolBroadcast(
+                    BROADCAST_WEATHER_PREDICTION_CHANGED,
+                    "Weather prediction changed"
                 )
             ),
             actions = listOf(
@@ -133,6 +138,11 @@ object WeatherToolRegistration : ToolRegistration {
                     ACTION_RESUME_WEATHER_MONITOR,
                     "Resume weather monitor",
                     ResumeWeatherMonitorAction()
+                ),
+                ToolAction(
+                    ACTION_REFRESH_WEATHER_WIDGET,
+                    "Refresh weather widget",
+                    RefreshWeatherWidgetAction()
                 )
             )
         )
@@ -144,6 +154,7 @@ object WeatherToolRegistration : ToolRegistration {
         "weather-broadcast-weather-monitor-state-changed"
     const val BROADCAST_WEATHER_MONITOR_FREQUENCY_CHANGED =
         "paths-broadcast-weather-monitor-frequency-changed"
+    const val BROADCAST_WEATHER_PREDICTION_CHANGED = "weather-broadcast-weather-prediction-changed"
 
     const val BROADCAST_PARAM_WEATHER_MONITOR_FREQUENCY =
         "paths-broadcast-param-weather-monitor-frequency"
@@ -151,6 +162,7 @@ object WeatherToolRegistration : ToolRegistration {
 
     const val ACTION_PAUSE_WEATHER_MONITOR = "weather-action-pause-weather-monitor"
     const val ACTION_RESUME_WEATHER_MONITOR = "weather-action-resume-weather-monitor"
+    const val ACTION_REFRESH_WEATHER_WIDGET = "weather-action-refresh-weather-widget"
 
     const val SERVICE_WEATHER_MONITOR = "weather-service-weather-monitor"
 
