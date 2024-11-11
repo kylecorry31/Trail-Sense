@@ -1234,4 +1234,13 @@
     <string name="us_teaspoons">Americké čajové lžičky</string>
     <string name="us_tablespoons">Americké polévkové lžíce</string>
     <string name="unit_millimeters">Milimetry</string>
+    <string name="backup_failed">Záloha selhala</string>
+    <string name="auto_backup_instructions">Do adresáře %1$s bude jednou za den vytvořena záloha. Bude ponecháno pouze posledních %2$d záloh.</string>
+    <string name="automatic_backup">Automatická záloha</string>
+    <string name="select_backup_directory">Zvolte adresář zálohy</string>
+    <string name="unable_to_create_an_automatic_backup">Nepodařilo se vytvořit automatickou zálohu.</string>
+    <string name="automatic_backup_invalid_directory">Neplatný adresář</string>
+    <string name="widgets">Widgety</string>
+    <string name="no_directory_selected">Nebyl vybrán žádný adresář</string>
+    <string name="automatic_backup_invalid_directory_resolution">Vypněte a znovu zapněte automatickou zálohu pro zvolení nového adresáře.</string>
 </resources>
