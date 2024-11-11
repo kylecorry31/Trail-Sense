@@ -16,8 +16,8 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolWidget
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnostic
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
+import com.kylecorry.trail_sense.tools.tools.widgets.RefreshWidgetAction
 import com.kylecorry.trail_sense.tools.weather.actions.PauseWeatherMonitorAction
-import com.kylecorry.trail_sense.tools.weather.actions.RefreshWeatherWidgetAction
 import com.kylecorry.trail_sense.tools.weather.actions.ResumeWeatherMonitorAction
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorDiagnosticScanner
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeatherAlerter
@@ -142,7 +142,7 @@ object WeatherToolRegistration : ToolRegistration {
                 ToolAction(
                     ACTION_REFRESH_WEATHER_WIDGET,
                     "Refresh weather widget",
-                    RefreshWeatherWidgetAction()
+                    RefreshWidgetAction(WIDGET_WEATHER)
                 )
             )
         )
