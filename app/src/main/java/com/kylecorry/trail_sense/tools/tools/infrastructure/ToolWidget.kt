@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.tools.infrastructure
 
+import android.appwidget.AppWidgetProvider
 import com.kylecorry.trail_sense.tools.tools.ui.widgets.ToolWidgetView
 
 data class ToolWidget(
@@ -7,8 +8,9 @@ data class ToolWidget(
     val name: String,
     val size: ToolSummarySize = ToolSummarySize.Full,
     val widgetResourceId: Int,
-    val widget: ToolWidgetView,
-    val updateFrequencyMs: Long = 60000
+    val widgetView: ToolWidgetView,
+    val widgetClass: Class<out AppWidgetProvider>,
+    val inAppUpdateFrequencyMs: Long = 60000
 )
 
 enum class ToolSummarySize {

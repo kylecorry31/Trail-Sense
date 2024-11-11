@@ -64,7 +64,7 @@ class ToolWidgetViewBottomSheet :
             val views =
                 RemoteViews(Package.getPackageName(requireContext()), widget.widgetResourceId)
             val timer = CoroutineTimer {
-                widget.widget.onUpdate(requireContext(), views) {
+                widget.widgetView.onUpdate(requireContext(), views) {
                     tryOrLog {
                         layout.removeAllViews()
                         val widgetView = views.apply(requireContext(), layout)
@@ -75,8 +75,8 @@ class ToolWidgetViewBottomSheet :
                     }
                 }
             }
-            updateTimers.add(timer to widget.updateFrequencyMs)
-            this.widgets.add(widget.widget)
+            updateTimers.add(timer to widget.inAppUpdateFrequencyMs)
+            this.widgets.add(widget.widgetView)
             val widgetView = views.apply(requireContext(), layout)
             widgetView.backgroundTintList = ColorStateList.valueOf(
                 Resources.androidBackgroundColorSecondary(requireContext())

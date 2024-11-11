@@ -22,6 +22,8 @@ import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures.HistoricTemperatureRepo
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudRepo
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 import com.kylecorry.trail_sense.tools.weather.domain.CurrentWeather
 import com.kylecorry.trail_sense.tools.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherObservation
@@ -275,6 +277,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             isValid = false
         }
         _weatherChanged.publish()
+        Tools.triggerWidgetUpdate(context, WeatherToolRegistration.WIDGET_WEATHER)
     }
 
     private suspend fun refresh() {
