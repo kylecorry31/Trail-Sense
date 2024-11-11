@@ -1210,5 +1210,16 @@
     <string name="tablespoon_format">%s cucharada</string>
     <string name="teaspooon_format">%s cucharadita</string>
     <string name="unit_millimeters">Milímetros</string>
-    <string name="us_teaspoons">cucharaditas estadounidenses</string>
+    <string name="us_teaspoons">Cucharaditas estadounidenses</string>
+    <string name="automatic_backup">Copia de seguridad automática</string>
+    <string name="select_backup_directory">Seleccionar carpeta de copia de seguridad</string>
+    <string name="no_directory_selected">No se ha seleccionado ninguna carpeta</string>
+    <string name="backup_failed">Fallo en la copia de seguridad</string>
+    <string name="unable_to_create_an_automatic_backup">No se pudo crear una copia de seguridad automática.</string>
+    <string name="automatic_backup_invalid_directory">Carpeta no válida</string>
+    <string name="automatic_backup_invalid_directory_resolution">Desactiva la copia de seguridad automática y después actívala para seleccionar una nueva carpeta.</string>
+    <string name="auto_backup_instructions">Se creará una copia de seguridad una vez al día en %1$s. Solo se conservarán las últimas %2$d copias de seguridad.</string>
+    <string name="imperial_teaspoons">Cucharaditas imperiales</string>
+    <string name="us_tablespoons">Cucharadas estadounidenses</string>
+    <string name="imperial_tablespoons">Cucharadas imperiales</string>
 </resources>
