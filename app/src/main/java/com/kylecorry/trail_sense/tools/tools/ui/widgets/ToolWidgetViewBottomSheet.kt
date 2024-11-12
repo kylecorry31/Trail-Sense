@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.RemoteViews
 import androidx.core.view.setPadding
+import androidx.lifecycle.Lifecycle
 import com.google.android.flexbox.FlexboxLayout
 import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.core.system.Resources
@@ -16,13 +17,13 @@ import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.luna.timer.CoroutineTimer
 import com.kylecorry.trail_sense.databinding.FragmentToolWidgetSheetBinding
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummarySize
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolWidget
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class ToolWidgetViewBottomSheet :
     BoundBottomSheetDialogFragment<FragmentToolWidgetSheetBinding>() {
 
-    private val updateTimers = mutableListOf<Pair<CoroutineTimer, Long>>()
-    private val widgets = mutableListOf<ToolWidgetView>()
+    private val widgets = mutableListOf<WidgetInstance>()
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -63,7 +64,7 @@ class ToolWidgetViewBottomSheet :
 
             val views =
                 RemoteViews(Package.getPackageName(requireContext()), widget.widgetResourceId)
-            val timer = CoroutineTimer {
+            val updateFunction = {
                 widget.widgetView.onUpdate(requireContext(), views) {
                     tryOrLog {
                         layout.removeAllViews()
@@ -75,8 +76,11 @@ class ToolWidgetViewBottomSheet :
                     }
                 }
             }
-            updateTimers.add(timer to widget.inAppUpdateFrequencyMs)
-            this.widgets.add(widget.widgetView)
+
+            val timer = CoroutineTimer {
+                updateFunction()
+            }
+            this.widgets.add(WidgetInstance(widget, timer, updateFunction))
             val widgetView = views.apply(requireContext(), layout)
             widgetView.backgroundTintList = ColorStateList.valueOf(
                 Resources.androidBackgroundColorSecondary(requireContext())
@@ -84,25 +88,58 @@ class ToolWidgetViewBottomSheet :
             layout.addView(widgetView)
         }
 
-        this.widgets.forEach { it.onEnabled(requireContext()) }
+        this.widgets.forEach {
+            it.widget.widgetView.onInAppEvent(
+                requireContext(),
+                Lifecycle.Event.ON_CREATE,
+                it.updateFunction
+            )
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        updateTimers.forEach { (timer, frequency) ->
-            timer.interval(frequency)
+        widgets.forEach {
+            it.timer.interval(it.widget.inAppUpdateFrequencyMs)
+        }
+        this.widgets.forEach {
+            it.widget.widgetView.onInAppEvent(
+                requireContext(),
+                Lifecycle.Event.ON_RESUME,
+                it.updateFunction
+            )
         }
     }
 
     override fun onPause() {
         super.onPause()
-        updateTimers.forEach { (timer, _) ->
-            timer.stop()
+        widgets.forEach {
+            it.timer.stop()
+        }
+        this.widgets.forEach {
+            it.widget.widgetView.onInAppEvent(
+                requireContext(),
+                Lifecycle.Event.ON_PAUSE,
+                it.updateFunction
+            )
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        widgets.forEach { it.onDisabled(requireContext()) }
+        this.widgets.forEach {
+            it.widget.widgetView.onInAppEvent(
+                requireContext(),
+                Lifecycle.Event.ON_DESTROY,
+                it.updateFunction
+            )
+        }
+        this.widgets.clear()
     }
+
+    private data class WidgetInstance(
+        val widget: ToolWidget,
+        var timer: CoroutineTimer,
+        val updateFunction: () -> Unit = {}
+    )
 }

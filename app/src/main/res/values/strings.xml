@@ -1499,4 +1499,5 @@
     <string name="automatic_backup_invalid_directory">Invalid directory</string>
     <string name="automatic_backup_invalid_directory_resolution">Turn automatic backup off and then turn it back on to select a new directory.</string>
     <string name="widgets">Widgets</string>
+    <string name="widget_updater">Widget updater</string>
 </resources>

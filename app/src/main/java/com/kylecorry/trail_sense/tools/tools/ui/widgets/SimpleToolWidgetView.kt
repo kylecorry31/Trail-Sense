@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.tools.ui.widgets
 
 import android.content.Context
+import androidx.lifecycle.Lifecycle
 import com.kylecorry.trail_sense.R
 
 abstract class SimpleToolWidgetView : ToolWidgetView {
@@ -14,6 +15,10 @@ abstract class SimpleToolWidgetView : ToolWidgetView {
     }
 
     override fun onDisabled(context: Context) {
+        // Do nothing
+    }
+
+    override fun onInAppEvent(context: Context, event: Lifecycle.Event, triggerUpdate: () -> Unit) {
         // Do nothing
     }
 }
