@@ -16,6 +16,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnostic
 import com.kylecorry.trail_sense.tools.tools.quickactions.QuickActionToolWidgets
+import com.kylecorry.trail_sense.tools.tools.services.WidgetUpdateToolService
 
 object SettingsToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
@@ -72,7 +73,8 @@ object SettingsToolRegistration : ToolRegistration {
                 )
             ),
             services = listOf(
-                BackupToolService(context)
+                BackupToolService(context),
+                WidgetUpdateToolService(context)
             ),
             diagnostics = listOf(
                 ToolDiagnostic(
@@ -85,4 +87,5 @@ object SettingsToolRegistration : ToolRegistration {
     }
 
     const val SERVICE_AUTO_BACKUP = "settings-service-auto-backup"
+    const val SERVICE_WIDGET_UPDATER = "settings-service-widget-updater"
 }
