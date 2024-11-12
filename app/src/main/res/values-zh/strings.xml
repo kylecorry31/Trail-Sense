@@ -1199,4 +1199,13 @@
     <string name="tablespoon_format">%s 汤匙</string>
     <string name="us_teaspoons">美制茶匙</string>
     <string name="us_tablespoons">美制汤匙</string>
+    <string name="automatic_backup">自动备份</string>
+    <string name="select_backup_directory">选择备份目录</string>
+    <string name="backup_failed">备份失败了</string>
+    <string name="unable_to_create_an_automatic_backup">无法创建自动备份。</string>
+    <string name="automatic_backup_invalid_directory">无效目录</string>
+    <string name="automatic_backup_invalid_directory_resolution">关闭自动备份，接着再开启来选择一个新目录。</string>
+    <string name="no_directory_selected">未选中目录</string>
+    <string name="auto_backup_instructions">每天创建一个备份文件到 %1$s。仅保留最近的 %2$d 个备份文件。</string>
+    <string name="widgets">小部件</string>
 </resources>
