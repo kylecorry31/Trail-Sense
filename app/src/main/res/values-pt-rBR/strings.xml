@@ -1065,7 +1065,7 @@
     <string name="astronomy_set">Poente</string>
     <string name="astronomy_rise">Nascente</string>
     <string name="beta_disclaimer">Esta ferramenta está em desenvolvimento, por favor mande quaisquer problemas ou feedback para %s.</string>
-    <string name="crop_map_instructions_long">Alinhe os cantos da caixa com os cantos do mapa para salvá-lo.</string>
+    <string name="crop_map_instructions_long">Alinhe os cantos da caixa com os cantos do mapa para salvá-lo. O corte reduzirá a resolução do mapa.</string>
     <string name="battery_settings_limit_accuracy">Restrições na bateria podem reduzir a precisão</string>
     <string name="backing_up_loading_message">Fazendo backup…</string>
     <string name="backup_restore">Backup / restauração</string>
@@ -1204,4 +1204,25 @@
     <string name="lunitidal_interval_local">Intervalo lunar (local)</string>
     <string name="lunitidal_interval_auto">Intervalo lunar (auto)</string>
     <string name="field_required">%s (obrigatório)</string>
+    <string name="automatic_backup">Backup automático</string>
+    <string name="select_backup_directory">Selecione o diretório de backup</string>
+    <string name="no_directory_selected">Nenhum diretório selecionado</string>
+    <string name="backup_failed">Falha no backup</string>
+    <string name="unable_to_create_an_automatic_backup">Não foi possível criar um backup automático.</string>
+    <string name="automatic_backup_invalid_directory">Diretório inválido</string>
+    <string name="automatic_backup_invalid_directory_resolution">Desative o backup automático e o ative novamente para selecionar um novo diretório.</string>
+    <string name="widgets">Widgets</string>
+    <string name="auto_backup_instructions">Um backup será criado uma vez por dia para %1$s. Somente os últimos %2$d backups serão mantidos.</string>
+    <string name="theme_system_black">Sistema (preto)</string>
+    <string name="millimeters_format">%s mm</string>
+    <string name="teaspooon_format">%s cch</string>
+    <string name="tablespoon_format">%s csp</string>
+    <string name="reduce_photo_resolution">Reduza a resolução da foto</string>
+    <string name="on_import">Sobre a importação</string>
+    <string name="reduce_pdf_resolution">Reduza a resolução do PDF</string>
+    <string name="us_teaspoons">Colheres de chá Americana</string>
+    <string name="us_tablespoons">Colheres de sopa Americana</string>
+    <string name="unit_millimeters">Milímetros</string>
+    <string name="imperial_teaspoons">Colheres de chá Imperial</string>
+    <string name="imperial_tablespoons">Colheres de sopa Imperial</string>
 </resources>
