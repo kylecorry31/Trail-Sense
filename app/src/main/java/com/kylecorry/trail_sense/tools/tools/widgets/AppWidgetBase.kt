@@ -23,13 +23,13 @@ abstract class AppWidgetBase(private val widgetId: String) : AppWidgetProvider()
 
     override fun onEnabled(context: Context) {
         val widget = getWidget(context) ?: return
-        widget.widget.onEnabled(context)
+        widget.widgetView.onEnabled(context)
         Log.d("Widget", "Enabled widget $widgetId")
     }
 
     override fun onDisabled(context: Context) {
         val widget = getWidget(context) ?: return
-        widget.widget.onDisabled(context)
+        widget.widgetView.onDisabled(context)
         Log.d("Widget", "Disabled widget $widgetId")
     }
 
@@ -43,7 +43,7 @@ abstract class AppWidgetBase(private val widgetId: String) : AppWidgetProvider()
         val views = RemoteViews(context.packageName, widget.widgetResourceId)
 
         Log.d("Widget", "Updating widget $widgetId")
-        widget.widget.onUpdate(context, views) {
+        widget.widgetView.onUpdate(context, views) {
             appWidgetManager.updateAppWidget(appWidgetId, views)
             Log.d("Widget", "Finished updating widget $widgetId")
         }

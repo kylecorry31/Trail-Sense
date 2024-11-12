@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.SettingsToolRegistration
 import com.kylecorry.trail_sense.shared.quickactions.QuickActionOpenTool
 import com.kylecorry.trail_sense.shared.views.QuickActionNone
+import com.kylecorry.trail_sense.shared.widgets.WidgetUtils
 import com.kylecorry.trail_sense.tools.astronomy.AstronomyToolRegistration
 import com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityToolRegistration
 import com.kylecorry.trail_sense.tools.battery.BatteryToolRegistration
@@ -178,6 +179,11 @@ object Tools {
         return getTools(context)
             .flatMap { it.widgets }
             .firstOrNull { it.id == widgetId }
+    }
+
+    fun triggerWidgetUpdate(context: Context, widgetId: String) {
+        val widget = getWidget(context, widgetId) ?: return
+        WidgetUtils.triggerUpdate(context, widget.widgetClass)
     }
 
     const val TOOL_QUICK_ACTION_OFFSET = 1000

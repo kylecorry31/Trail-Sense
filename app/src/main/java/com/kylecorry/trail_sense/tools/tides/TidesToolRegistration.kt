@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.tides
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.tools.tides.widgets.AppWidgetTides
 import com.kylecorry.trail_sense.tools.tides.widgets.TidesToolWidgetView
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
@@ -34,7 +35,8 @@ object TidesToolRegistration : ToolRegistration {
                     context.getString(R.string.tides),
                     ToolSummarySize.Half,
                     R.layout.widget_small_simple,
-                    TidesToolWidgetView()
+                    TidesToolWidgetView(),
+                    AppWidgetTides::class.java
                 )
             )
         )

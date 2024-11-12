@@ -12,6 +12,8 @@ import com.kylecorry.trail_sense.tools.astronomy.quickactions.QuickActionSunsetA
 import com.kylecorry.trail_sense.tools.astronomy.services.AstronomyAlertsToolService
 import com.kylecorry.trail_sense.tools.astronomy.services.SunriseAlertsToolService
 import com.kylecorry.trail_sense.tools.astronomy.services.SunsetAlertsToolService
+import com.kylecorry.trail_sense.tools.astronomy.widgets.AppWidgetMoon
+import com.kylecorry.trail_sense.tools.astronomy.widgets.AppWidgetSun
 import com.kylecorry.trail_sense.tools.astronomy.widgets.MoonToolWidgetView
 import com.kylecorry.trail_sense.tools.astronomy.widgets.SunToolWidgetView
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
@@ -20,8 +22,8 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
-import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolWidget
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummarySize
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolWidget
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 
@@ -58,14 +60,16 @@ object AstronomyToolRegistration : ToolRegistration {
                     context.getString(R.string.sun),
                     ToolSummarySize.Half,
                     R.layout.widget_small_simple,
-                    SunToolWidgetView()
+                    SunToolWidgetView(),
+                    AppWidgetSun::class.java
                 ),
                 ToolWidget(
                     WIDGET_MOON,
                     context.getString(R.string.moon),
                     ToolSummarySize.Half,
                     R.layout.widget_small_simple,
-                    MoonToolWidgetView()
+                    MoonToolWidgetView(),
+                    AppWidgetMoon::class.java
                 )
             ),
             notificationChannels = listOf(
