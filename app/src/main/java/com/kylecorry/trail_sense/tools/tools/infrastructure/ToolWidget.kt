@@ -10,7 +10,8 @@ data class ToolWidget(
     val widgetResourceId: Int,
     val widgetView: ToolWidgetView,
     val widgetClass: Class<out AppWidgetProvider>,
-    val inAppUpdateFrequencyMs: Long = 60000
+    val inAppUpdateFrequencyMs: Long = 60000,
+    val updateBroadcasts: List<String> = emptyList()
 )
 
 enum class ToolSummarySize {

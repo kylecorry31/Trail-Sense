@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.main.automations.Automations
 import com.kylecorry.trail_sense.main.persistence.RepoCleanupWorker
 import com.kylecorry.trail_sense.settings.migrations.PreferenceMigrator
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
+import com.kylecorry.trail_sense.tools.tools.widgets.WidgetBroadcastManager
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import dagger.hilt.android.HiltAndroidApp
 import java.time.Duration
@@ -26,6 +27,7 @@ class TrailSenseApplication : Application(), CameraXConfig.Provider, Configurati
         super.onCreate()
         Log.d("TrailSenseApplication", "onCreate")
         Automations.setup(this)
+        WidgetBroadcastManager.setup(this)
         NotificationChannels.createChannels(this)
         PreferenceMigrator.getInstance().migrate(this)
         RepoCleanupWorker.scheduler(this).cancel()

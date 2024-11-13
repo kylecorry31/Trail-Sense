@@ -121,7 +121,8 @@ object PedometerToolRegistration : ToolRegistration {
                     ToolSummarySize.Half,
                     R.layout.widget_small_simple,
                     PedometerToolWidgetView(),
-                    AppWidgetPedometer::class.java
+                    AppWidgetPedometer::class.java,
+                    updateBroadcasts = listOf(BROADCAST_STEPS_CHANGED, BROADCAST_DISTANCE_CHANGED)
                 )
             )
         )

@@ -24,6 +24,7 @@ class ToolWidgetViewBottomSheet :
     BoundBottomSheetDialogFragment<FragmentToolWidgetSheetBinding>() {
 
     private val widgets = mutableListOf<WidgetInstance>()
+    private val broadcastSubscriptions = mutableMapOf<String, (Bundle) -> Boolean>()
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -86,6 +87,16 @@ class ToolWidgetViewBottomSheet :
                 Resources.androidBackgroundColorSecondary(requireContext())
             )
             layout.addView(widgetView)
+
+            // Subscribe to broadcasts
+            widget.updateBroadcasts.forEach { broadcastId ->
+                val subscription: (Bundle) -> Boolean = { _ ->
+                    updateFunction()
+                    true
+                }
+                Tools.subscribe(broadcastId, subscription)
+                broadcastSubscriptions[broadcastId] = subscription
+            }
         }
 
         this.widgets.forEach {
@@ -127,6 +138,11 @@ class ToolWidgetViewBottomSheet :
 
     override fun onDestroy() {
         super.onDestroy()
+        // Unsubscribe from broadcasts
+        broadcastSubscriptions.forEach { (broadcastId, subscription) ->
+            Tools.unsubscribe(broadcastId, subscription)
+        }
+        broadcastSubscriptions.clear()
         this.widgets.forEach {
             it.widget.widgetView.onInAppEvent(
                 requireContext(),

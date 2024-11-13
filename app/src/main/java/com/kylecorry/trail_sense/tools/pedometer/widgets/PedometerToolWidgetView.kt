@@ -24,8 +24,6 @@ import kotlin.jvm.optionals.getOrNull
 
 class PedometerToolWidgetView : SimpleToolWidgetView() {
 
-    private var triggerUpdate: (() -> Unit)? = null
-
     override fun onUpdate(context: Context, views: RemoteViews, commit: () -> Unit) {
         CoroutineScope(Dispatchers.Default).launch {
             populatePedometerDetails(context, views)
@@ -33,35 +31,6 @@ class PedometerToolWidgetView : SimpleToolWidgetView() {
                 commit()
             }
         }
-    }
-
-    override fun onInAppEvent(context: Context, event: Lifecycle.Event, triggerUpdate: () -> Unit) {
-        super.onInAppEvent(context, event, triggerUpdate)
-        this.triggerUpdate = triggerUpdate
-        when (event) {
-            Lifecycle.Event.ON_RESUME -> {
-                Tools.subscribe(
-                    PedometerToolRegistration.BROADCAST_DISTANCE_CHANGED,
-                    this::onPedometerDistanceChanged
-                )
-            }
-
-            Lifecycle.Event.ON_PAUSE -> {
-                Tools.unsubscribe(
-                    PedometerToolRegistration.BROADCAST_DISTANCE_CHANGED,
-                    this::onPedometerDistanceChanged
-                )
-            }
-
-            else -> {
-                // Do nothing
-            }
-        }
-    }
-
-    private fun onPedometerDistanceChanged(data: Bundle): Boolean {
-        triggerUpdate?.invoke()
-        return true
     }
 
     private fun populatePedometerDetails(context: Context, views: RemoteViews) {
