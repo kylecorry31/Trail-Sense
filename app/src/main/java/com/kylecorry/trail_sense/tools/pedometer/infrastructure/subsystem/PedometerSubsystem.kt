@@ -81,8 +81,14 @@ class PedometerSubsystem private constructor(private val context: Context) : IPe
     init {
         // Keep them up to date
         state.subscribe { true }
-        steps.subscribe { true }
-        distance.subscribe { true }
+        steps.subscribe {
+            Tools.broadcast(PedometerToolRegistration.BROADCAST_STEPS_CHANGED)
+            true
+        }
+        distance.subscribe {
+            Tools.broadcast(PedometerToolRegistration.BROADCAST_DISTANCE_CHANGED)
+            true
+        }
         pace.subscribe { true }
 
         prefsChanged.subscribe {

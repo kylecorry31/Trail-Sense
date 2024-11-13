@@ -27,20 +27,29 @@ class TidesToolWidgetView : SimpleToolWidgetView() {
     }
 
     private suspend fun populateTideDetails(context: Context, views: RemoteViews) {
-        val loader = TideLoaderFactory().getTideLoader(context)
+        val loader = TideLoaderFactory().getTideLoader(context, false)
         val service = TideService()
         val table = loader.getTideTable()
         val formatter = TideFormatter(context)
         val tide = table?.let { service.getCurrentTide(it) }
+        val isRising = table?.let { service.isRising(it) } ?: false
 
         views.setImageViewResourceAsIcon(context, ICON_IMAGEVIEW, formatter.getTideTypeImage(tide))
+
         views.setTextViewText(
             TITLE_TEXTVIEW,
             if (table == null) context.getString(R.string.no_tides) else table.name
         )
+        views.setTextViewCompoundDrawables(
+            SUBTITLE_TEXTVIEW,
+            if (isRising) R.drawable.ic_arrow_up_widget else R.drawable.ic_arrow_down_widget,
+            0,
+            0,
+            0
+        )
         views.setTextViewText(
             SUBTITLE_TEXTVIEW,
-            if (table == null) null else formatter.getTideTypeName(tide)
+            if (table == null) null else formatter.getTideTypeName(tide) + "  "
         )
         views.setOnClickPendingIntent(
             ROOT,

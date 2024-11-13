@@ -9,6 +9,7 @@ abstract class SimpleToolWidgetView : ToolWidgetView {
     protected val TITLE_TEXTVIEW = R.id.widget_title
     protected val SUBTITLE_TEXTVIEW = R.id.widget_subtitle
     protected val ICON_IMAGEVIEW = R.id.widget_icon
+    protected val ICON_IMAGEVIEW_TEXT_COLOR = R.id.widget_icon_text_color
 
     override fun onEnabled(context: Context) {
         // Do nothing
