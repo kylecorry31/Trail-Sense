@@ -24,7 +24,6 @@ class ToolWidgetViewBottomSheet :
     BoundBottomSheetDialogFragment<FragmentToolWidgetSheetBinding>() {
 
     private val widgets = mutableListOf<WidgetInstance>()
-    private val broadcastSubscriptions = mutableMapOf<String, (Bundle) -> Boolean>()
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -81,12 +80,8 @@ class ToolWidgetViewBottomSheet :
             val timer = CoroutineTimer {
                 updateFunction()
             }
-            this.widgets.add(WidgetInstance(widget, timer, updateFunction))
-            val widgetView = views.apply(requireContext(), layout)
-            widgetView.backgroundTintList = ColorStateList.valueOf(
-                Resources.androidBackgroundColorSecondary(requireContext())
-            )
-            layout.addView(widgetView)
+
+            val subscriptions = mutableMapOf<String, (Bundle) -> Boolean>()
 
             // Subscribe to broadcasts
             widget.updateBroadcasts.forEach { broadcastId ->
@@ -95,8 +90,15 @@ class ToolWidgetViewBottomSheet :
                     true
                 }
                 Tools.subscribe(broadcastId, subscription)
-                broadcastSubscriptions[broadcastId] = subscription
+                subscriptions[broadcastId] = subscription
             }
+
+            this.widgets.add(WidgetInstance(widget, timer, updateFunction, subscriptions))
+            val widgetView = views.apply(requireContext(), layout)
+            widgetView.backgroundTintList = ColorStateList.valueOf(
+                Resources.androidBackgroundColorSecondary(requireContext())
+            )
+            layout.addView(widgetView)
         }
 
         this.widgets.forEach {
@@ -138,12 +140,10 @@ class ToolWidgetViewBottomSheet :
 
     override fun onDestroy() {
         super.onDestroy()
-        // Unsubscribe from broadcasts
-        broadcastSubscriptions.forEach { (broadcastId, subscription) ->
-            Tools.unsubscribe(broadcastId, subscription)
-        }
-        broadcastSubscriptions.clear()
         this.widgets.forEach {
+            it.subscriptions.forEach { (broadcastId, subscription) ->
+                Tools.unsubscribe(broadcastId, subscription)
+            }
             it.widget.widgetView.onInAppEvent(
                 requireContext(),
                 Lifecycle.Event.ON_DESTROY,
@@ -156,6 +156,7 @@ class ToolWidgetViewBottomSheet :
     private data class WidgetInstance(
         val widget: ToolWidget,
         var timer: CoroutineTimer,
-        val updateFunction: () -> Unit = {}
+        val updateFunction: () -> Unit = {},
+        val subscriptions: Map<String, (Bundle) -> Boolean> = emptyMap()
     )
 }
