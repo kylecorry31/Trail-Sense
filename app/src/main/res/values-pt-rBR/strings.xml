@@ -56,8 +56,8 @@
     <string name="pref_use_sea_level_pressure_title">Pressão ao nível do mar</string>
     <string name="general">Geral</string>
     <string name="pressure">Pressão</string>
-    <string name="pref_use_24_hour_title">Use o formato 24 horas</string>
-    <string name="pref_sun_time_mode_title">Horas do nascer do sol / pôr do sol</string>
+    <string name="pref_use_24_hour_title">Usar o formato de 24 horas</string>
+    <string name="pref_sun_time_mode_title">Horário do nascer e pôr do sol</string>
     <string name="continue_button">CONTINUA</string>
     <string name="stop">Parar</string>
     <string name="smoothing_summary">Valores altos podem reduzir o ruído</string>
@@ -104,7 +104,7 @@
     <string name="waxing_crescent">Lua crescente</string>
     <string name="always">Sempre</string>
     <string name="sun_moon_compass_when_up">Quando subir</string>
-    <string name="pref_center_sun_and_moon_title">Mantenha o sol/lua centrado</string>
+    <string name="pref_center_sun_and_moon_title">Mantenha o sol/lua centralizado</string>
     <string name="pref_forecast_sensitivity_title">Sensibilidade de previsão</string>
     <string name="notification_monitoring_weather">Monitoramento do tempo em segundo plano</string>
     <string name="notification_storm_alert_text">Uma tempestade pode estar se aproximando</string>
@@ -259,7 +259,7 @@
     <string name="category_natural">Natural</string>
     <string name="category_safety">Segurança</string>
     <string name="category_shelter">Abrigo</string>
-    <string name="category_medical">Medicina</string>
+    <string name="category_medical">Medicamento</string>
     <string name="category_clothing">Vestuário</string>
     <string name="category_hydration">Hidratação</string>
     <string name="category_food">Comida</string>
@@ -288,7 +288,7 @@
     <string name="pip_notification_scheduled">Notificação programada para %s</string>
     <string name="pip_button">Atualizar o tempo do sistema</string>
     <string name="could_not_triangulate">Não foi possível triangular</string>
-    <string name="tool_triangulate_title">Triangular localização</string>
+    <string name="tool_triangulate_title">Localização triangular</string>
     <string name="tool_category_signaling">Sinalização</string>
     <string name="tool_category_angles">Ângulos</string>
     <string name="power">Energia</string>
@@ -458,7 +458,7 @@
     <string name="hygrometer">Higrômetro</string>
     <string name="satellites">satélites</string>
     <string name="dbm_format">%s dBm</string>
-    <string name="cell_signal">Sinal de telefone</string>
+    <string name="cell_signal">Sinal da rede móvel</string>
     <string name="barometer">Barômetro</string>
     <string name="network_no_signal">Sem sinal</string>
     <string name="network_3g">3G</string>
@@ -492,7 +492,7 @@
     <string name="pref_auto_low_power_title">A economia de bateria automática</string>
     <string name="pref_auto_low_power_summary">Quando sua bateria está fraca</string>
     <string name="pref_flashlight_toggle_with_volume_title">Alternar com botões de volume</string>
-    <string name="pref_flashlight_toggle_with_volume_summary">Enquanto o Trail Sense está aberto</string>
+    <string name="pref_flashlight_toggle_with_volume_summary">Enquanto o Trail Sense estiver em uso</string>
     <string name="pref_tiles_enabled_title">Tiles do sistema</string>
     <string name="location_not_mocked">Usando localização real</string>
     <string name="location_mocked">Usando localização simulada</string>
@@ -918,14 +918,14 @@
     <string name="high_pressure">Alta</string>
     <string name="low_pressure">Baixa</string>
     <string name="weather_wind">Vento</string>
-    <string name="pref_include_leading_zero_title">Adicionar zero à esquerda no tempo</string>
+    <string name="pref_include_leading_zero_title">Adicionar zero à esquerda ao tempo</string>
     <string name="descent">Descida</string>
     <string name="clouds_clear">Limpar</string>
     <string name="weather_precipitation">Precipitação</string>
     <string name="pref_show_temperature_in_notification_title">Mostrar temperatura na notificação</string>
     <string name="camera_unavailable">Câmara indisponível</string>
     <string name="weather_cold_front">Fria</string>
-    <string name="photo_maps">Mapas de fotografias</string>
+    <string name="photo_maps">Mapas fotográficos</string>
     <string name="start_time">Início</string>
     <string name="magnitude">Magnitude</string>
     <string name="peak_time">Pico</string>
@@ -971,7 +971,7 @@
     <string name="weather_front">Frente meteorológica</string>
     <string name="path_slope">Declive</string>
     <string name="cloud_stratus_forecast" tools:ignore="PluralsCandidate">Pode indicar tempo bom nas próximas %d horas se estiver nebuloso, caso contrário, pode indicar precipitação em breve.</string>
-    <string name="pref_backfill_temperatures_title">Atualizar as temperaturas registradas</string>
+    <string name="pref_backfill_temperatures_title">Atualizar temperaturas registradas</string>
     <string name="pref_backfill_temperatures_description">Todas as temperaturas registradas serão substituídas pela temperatura histórica calibrada.</string>
     <string name="i_agree">Eu concordo</string>
     <string name="samples">Amostras</string>
@@ -1048,7 +1048,7 @@
 \n
 \nExemplos de bons pontos de calibração são um estacionamento, um ponto de sinalização, um ponto de referência ou uma junção ao longo de uma trilha.</string>
     <string name="until_sunset">até o pôr-do sol</string>
-    <string name="reset_calibration">Redefinir calibragem</string>
+    <string name="reset_calibration">Restaurar calibragem</string>
     <string name="sunset_alert_scheduled">Alerta marcado para %s do pôr-do-sol</string>
     <string name="backup">Backup</string>
     <string name="restore_disclaimer">Essa ação substituirá todos os seus dados atuais. Certifique-se de que você tenha um backup antes de continuar.\n\nSelecione apenas um arquivo de backup que você tenha feito com %s e confie nele.</string>
@@ -1218,7 +1218,7 @@
     <string name="teaspooon_format">%s cch</string>
     <string name="tablespoon_format">%s csp</string>
     <string name="reduce_photo_resolution">Reduza a resolução da foto</string>
-    <string name="on_import">Sobre a importação</string>
+    <string name="on_import">Ao importar</string>
     <string name="reduce_pdf_resolution">Reduza a resolução do PDF</string>
     <string name="us_teaspoons">Colheres de chá Americana</string>
     <string name="us_tablespoons">Colheres de sopa Americana</string>
