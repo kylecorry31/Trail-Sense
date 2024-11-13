@@ -1222,4 +1222,11 @@
     <string name="imperial_teaspoons">Cucharaditas imperiales</string>
     <string name="us_tablespoons">Cucharadas estadounidenses</string>
     <string name="imperial_tablespoons">Cucharadas imperiales</string>
+    <string name="widgets">Widgets</string>
+    <plurals name="number_steps">
+        <item quantity="one">%d paso</item>
+        <item quantity="many">%d pasos</item>
+        <item quantity="other">%d pasos</item>
+    </plurals>
+    <string name="widget_updater">Actualizador de widgets</string>
 </resources>
