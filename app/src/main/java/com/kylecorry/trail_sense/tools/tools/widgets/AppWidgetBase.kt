@@ -15,9 +15,24 @@ abstract class AppWidgetBase(private val widgetId: String) : AppWidgetProvider()
         appWidgetManager: AppWidgetManager,
         appWidgetIds: IntArray
     ) {
-        // There may be multiple widgets active, so update all of them
-        for (appWidgetId in appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId)
+        val widget = getWidget(context) ?: return
+
+        val pendingResult = goAsync()
+        try {
+            val views = RemoteViews(context.packageName, widget.widgetResourceId)
+
+            Log.d("Widget", "Updating widget $widgetId")
+            widget.widgetView.onUpdate(context, views)
+            {
+                for (appWidgetId in appWidgetIds) {
+                    appWidgetManager.updateAppWidget(appWidgetId, views)
+                }
+                Log.d("Widget", "Finished updating widget $widgetId")
+                pendingResult.finish()
+            }
+        } catch (e: Exception) {
+            Log.e("Widget", "Error updating widget $widgetId", e)
+            pendingResult.finish()
         }
     }
 
@@ -31,22 +46,6 @@ abstract class AppWidgetBase(private val widgetId: String) : AppWidgetProvider()
         val widget = getWidget(context) ?: return
         widget.widgetView.onDisabled(context)
         Log.d("Widget", "Disabled widget $widgetId")
-    }
-
-    private fun updateAppWidget(
-        context: Context,
-        appWidgetManager: AppWidgetManager,
-        appWidgetId: Int
-    ) {
-        val widget = getWidget(context) ?: return
-
-        val views = RemoteViews(context.packageName, widget.widgetResourceId)
-
-        Log.d("Widget", "Updating widget $widgetId")
-        widget.widgetView.onUpdate(context, views) {
-            appWidgetManager.updateAppWidget(appWidgetId, views)
-            Log.d("Widget", "Finished updating widget $widgetId")
-        }
     }
 
     private fun getWidget(context: Context): ToolWidget? {
