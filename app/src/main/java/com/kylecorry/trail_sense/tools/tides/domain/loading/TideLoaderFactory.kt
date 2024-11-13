@@ -11,14 +11,16 @@ import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTabl
 
 class TideLoaderFactory {
 
-    fun getTideLoader(context: Context): ITideLoader {
+    fun getTideLoader(context: Context, useLastTide: Boolean = true): ITideLoader {
         val prefs = TidePreferences(context)
         val location = LocationSubsystem.getInstance(context)
-        val strategy = if (prefs.showNearestTide) {
+        val strategy = if (prefs.showNearestTide && useLastTide) {
             FallbackTideSelectionStrategy(
                 LastTideSelectionStrategy(prefs, true),
                 NearestTideSelectionStrategy { location.location }
             )
+        } else if (prefs.showNearestTide) {
+            NearestTideSelectionStrategy { location.location }
         } else {
             LastTideSelectionStrategy(prefs, false)
         }
