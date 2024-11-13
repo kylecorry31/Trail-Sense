@@ -23,6 +23,14 @@
         android:layout_height="32dp"
         android:layout_gravity="center" />
 
+    <android.widget.ImageView
+        android:id="@+id/widget_icon_text_color"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:tint="?android:attr/textColorSecondary"
+        android:visibility="gone" />
+
     <android.widget.TextView
         android:id="@+id/widget_subtitle"
         android:layout_width="wrap_content"

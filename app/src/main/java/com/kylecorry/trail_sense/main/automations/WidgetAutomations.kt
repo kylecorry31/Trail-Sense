@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.main.automations
 
 import com.kylecorry.trail_sense.shared.automations.Automation
+import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
 import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 
 object WidgetAutomations {
@@ -9,6 +10,10 @@ object WidgetAutomations {
             Automation(
                 WeatherToolRegistration.BROADCAST_WEATHER_PREDICTION_CHANGED,
                 listOf(WeatherToolRegistration.ACTION_REFRESH_WEATHER_WIDGET)
+            ),
+            Automation(
+                PedometerToolRegistration.BROADCAST_DISTANCE_CHANGED,
+                listOf(PedometerToolRegistration.ACTION_REFRESH_PEDOMETER_WIDGET)
             )
         )
     }

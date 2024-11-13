@@ -11,6 +11,8 @@ import com.kylecorry.trail_sense.tools.pedometer.infrastructure.DistanceAlerter
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.tools.pedometer.quickactions.QuickActionPedometer
 import com.kylecorry.trail_sense.tools.pedometer.services.PedometerToolService
+import com.kylecorry.trail_sense.tools.pedometer.widgets.AppWidgetPedometer
+import com.kylecorry.trail_sense.tools.pedometer.widgets.PedometerToolWidgetView
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
@@ -18,8 +20,11 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummarySize
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolWidget
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
+import com.kylecorry.trail_sense.tools.tools.widgets.RefreshWidgetAction
 
 object PedometerToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
@@ -82,6 +87,14 @@ object PedometerToolRegistration : ToolRegistration {
                 ToolBroadcast(
                     BROADCAST_PEDOMETER_DISABLED,
                     "Pedometer disabled"
+                ),
+                ToolBroadcast(
+                    BROADCAST_STEPS_CHANGED,
+                    "Steps changed"
+                ),
+                ToolBroadcast(
+                    BROADCAST_DISTANCE_CHANGED,
+                    "Distance changed"
                 )
             ),
             actions = listOf(
@@ -94,6 +107,21 @@ object PedometerToolRegistration : ToolRegistration {
                     ACTION_PAUSE_PEDOMETER,
                     "Pause pedometer",
                     PausePedometerAction()
+                ),
+                ToolAction(
+                    ACTION_REFRESH_PEDOMETER_WIDGET,
+                    "Refresh widget",
+                    RefreshWidgetAction(WIDGET_PEDOMETER)
+                )
+            ),
+            widgets = listOf(
+                ToolWidget(
+                    WIDGET_PEDOMETER,
+                    context.getString(R.string.pedometer),
+                    ToolSummarySize.Half,
+                    R.layout.widget_small_simple,
+                    PedometerToolWidgetView(),
+                    AppWidgetPedometer::class.java
                 )
             )
         )
@@ -101,9 +129,14 @@ object PedometerToolRegistration : ToolRegistration {
 
     const val BROADCAST_PEDOMETER_ENABLED = "pedometer-broadcast-pedometer-enabled"
     const val BROADCAST_PEDOMETER_DISABLED = "pedometer-broadcast-pedometer-disabled"
+    const val BROADCAST_STEPS_CHANGED = "pedometer-broadcast-steps-changed"
+    const val BROADCAST_DISTANCE_CHANGED = "pedometer-broadcast-distance-changed"
 
     const val ACTION_RESUME_PEDOMETER = "pedometer-action-resume-pedometer"
     const val ACTION_PAUSE_PEDOMETER = "pedometer-action-pause-pedometer"
+    const val ACTION_REFRESH_PEDOMETER_WIDGET = "pedometer-action-refresh-pedometer-widget"
 
     const val SERVICE_PEDOMETER = "pedometer-service-pedometer"
+
+    const val WIDGET_PEDOMETER = "pedometer-widget-pedometer"
 }

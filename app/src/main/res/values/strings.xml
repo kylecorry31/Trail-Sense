@@ -1377,6 +1377,10 @@
         <item quantity="one">%d map</item>
         <item quantity="other">%d maps</item>
     </plurals>
+    <plurals name="number_steps">
+        <item quantity="one">%d step</item>
+        <item quantity="other">%d steps</item>
+    </plurals>
     <plurals name="tides_entered_count">
         <item quantity="one">%d tide</item>
         <item quantity="other">%d tides</item>
