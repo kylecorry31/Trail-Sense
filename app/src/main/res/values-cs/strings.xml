@@ -1243,4 +1243,10 @@
     <string name="widgets">Widgety</string>
     <string name="no_directory_selected">Nebyl vybrán žádný adresář</string>
     <string name="automatic_backup_invalid_directory_resolution">Vypněte a znovu zapněte automatickou zálohu pro zvolení nového adresáře.</string>
+    <string name="widget_updater">Aktualizace widgetů</string>
+    <plurals name="number_steps">
+        <item quantity="one">%d krok</item>
+        <item quantity="few">%d kroky</item>
+        <item quantity="other">%d kroků</item>
+    </plurals>
 </resources>
