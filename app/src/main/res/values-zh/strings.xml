@@ -1208,4 +1208,8 @@
     <string name="no_directory_selected">未选中目录</string>
     <string name="auto_backup_instructions">每天创建一个备份文件到 %1$s。仅保留最近的 %2$d 个备份文件。</string>
     <string name="widgets">小部件</string>
+    <plurals name="number_steps">
+        <item quantity="other">%d 步</item>
+    </plurals>
+    <string name="widget_updater">小部件更新器</string>
 </resources>
