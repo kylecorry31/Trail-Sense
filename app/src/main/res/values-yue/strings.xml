@@ -1066,4 +1066,21 @@
     <string name="zero_shutter_lag">快門零秒出擊</string>
     <string name="estimate_method">斷估方法</string>
     <string name="tool_quick_action_summary">撳實樓底分頁或者喺架生分頁睇過</string>
+    <string name="change_map_projection">更改投影方式</string>
+    <string name="projection_manufacturer_intrinsics">生產商內在矩陣運算</string>
+    <string name="map_projection_equidistant">等距投影</string>
+    <string name="map_projection_mercator">墨卡托投影</string>
+    <string name="pref_start_camera_in_3d_view_title">用 3D 睇過要開埋鏡頭</string>
+    <string name="default_string">預設值</string>
+    <plurals name="number_steps">
+        <item quantity="other">%d 步</item>
+    </plurals>
+    <string name="solar_panel_instructions">將部機放喺光伏板上面躺平，好調校集結方向。</string>
+    <string name="pref_enable_analog_title">用返行針鐘面</string>
+    <string name="pref_start_camera_in_3d_view_summary">相機要心領神會，貢獻「用 3D 睇過」</string>
+    <string name="on_import">把守匯入大門</string>
+    <string name="projection_perspective">透視投影</string>
+    <string name="projection_linear">線性投影</string>
+    <string name="projection_estimated_intrinsics">估計內在矩陣運算</string>
+    <string name="projection_type">擴充實境投影方式</string>
 </resources>
