@@ -121,8 +121,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
                 it.title.toString()
             ) { elevation, _ ->
                 if (elevation != null) {
-                    prefs.altitudeOverride = elevation.meters().distance
-                    updateAltitude()
+                    setAltitudeOverride(elevation)
                 }
             }
             true
@@ -340,5 +339,29 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         return true
     }
 
+    private fun setAltitudeOverride(elevation: Distance) {
+        inBackground {
+            onDefault {
+                overridePopulationRunner.replace {
+                    if (prefs.altimeterMode == UserPreferences.AltimeterMode.Barometer) {
+                        // Calculate sea level pressure from the new elevation
+                        barometer.read()
+                        val seaLevelPressure = Meteorology.getSeaLevelPressure(
+                            Pressure.hpa(barometer.pressure),
+                            elevation.meters()
+                        )
+                        prefs.altitudeOverride = elevation.meters().distance
+                        prefs.seaLevelPressureOverride = seaLevelPressure.pressure
+                    } else {
+                        prefs.altitudeOverride = elevation.meters().distance
+                    }
+
+                    onMain {
+                        updateAltitude()
+                    }
+                }
+            }
+        }
+    }
 
 }
