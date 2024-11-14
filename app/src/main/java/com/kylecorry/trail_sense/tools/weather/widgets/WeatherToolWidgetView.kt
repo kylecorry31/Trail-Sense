@@ -30,35 +30,6 @@ class WeatherToolWidgetView : SimpleToolWidgetView() {
         }
     }
 
-    override fun onInAppEvent(context: Context, event: Lifecycle.Event, triggerUpdate: () -> Unit) {
-        super.onInAppEvent(context, event, triggerUpdate)
-        this.triggerUpdate = triggerUpdate
-        when (event) {
-            Lifecycle.Event.ON_RESUME -> {
-                Tools.subscribe(
-                    WeatherToolRegistration.BROADCAST_WEATHER_PREDICTION_CHANGED,
-                    this::onWeatherPredictionChanged
-                )
-            }
-
-            Lifecycle.Event.ON_PAUSE -> {
-                Tools.unsubscribe(
-                    WeatherToolRegistration.BROADCAST_WEATHER_PREDICTION_CHANGED,
-                    this::onWeatherPredictionChanged
-                )
-            }
-
-            else -> {
-                // Do nothing
-            }
-        }
-    }
-
-    private fun onWeatherPredictionChanged(data: Bundle): Boolean {
-        triggerUpdate?.invoke()
-        return true
-    }
-
     private suspend fun populateWeatherDetails(context: Context, views: RemoteViews) {
         val weather = WeatherSubsystem.getInstance(context)
         val formatter = FormatService.getInstance(context)

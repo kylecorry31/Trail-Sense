@@ -80,7 +80,20 @@ class ToolWidgetViewBottomSheet :
             val timer = CoroutineTimer {
                 updateFunction()
             }
-            this.widgets.add(WidgetInstance(widget, timer, updateFunction))
+
+            val subscriptions = mutableMapOf<String, (Bundle) -> Boolean>()
+
+            // Subscribe to broadcasts
+            widget.updateBroadcasts.forEach { broadcastId ->
+                val subscription: (Bundle) -> Boolean = { _ ->
+                    updateFunction()
+                    true
+                }
+                Tools.subscribe(broadcastId, subscription)
+                subscriptions[broadcastId] = subscription
+            }
+
+            this.widgets.add(WidgetInstance(widget, timer, updateFunction, subscriptions))
             val widgetView = views.apply(requireContext(), layout)
             widgetView.backgroundTintList = ColorStateList.valueOf(
                 Resources.androidBackgroundColorSecondary(requireContext())
@@ -128,6 +141,9 @@ class ToolWidgetViewBottomSheet :
     override fun onDestroy() {
         super.onDestroy()
         this.widgets.forEach {
+            it.subscriptions.forEach { (broadcastId, subscription) ->
+                Tools.unsubscribe(broadcastId, subscription)
+            }
             it.widget.widgetView.onInAppEvent(
                 requireContext(),
                 Lifecycle.Event.ON_DESTROY,
@@ -140,6 +156,7 @@ class ToolWidgetViewBottomSheet :
     private data class WidgetInstance(
         val widget: ToolWidget,
         var timer: CoroutineTimer,
-        val updateFunction: () -> Unit = {}
+        val updateFunction: () -> Unit = {},
+        val subscriptions: Map<String, (Bundle) -> Boolean> = emptyMap()
     )
 }

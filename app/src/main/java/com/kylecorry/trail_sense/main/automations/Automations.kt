@@ -48,8 +48,7 @@ object Automations {
             // TODO: Load these from the DB
             val automations = listOf(
                 PowerSavingModeAutomation.onEnabled(context),
-                PowerSavingModeAutomation.onDisabled(),
-                *WidgetAutomations.refresh().toTypedArray()
+                PowerSavingModeAutomation.onDisabled()
             )
             automations.filter { it.broadcast == broadcast }
         }

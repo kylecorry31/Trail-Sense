@@ -52,7 +52,8 @@ object WeatherToolRegistration : ToolRegistration {
                     ToolSummarySize.Half,
                     R.layout.widget_small_simple,
                     WeatherToolWidgetView(),
-                    AppWidgetWeather::class.java
+                    AppWidgetWeather::class.java,
+                    updateBroadcasts = listOf(BROADCAST_WEATHER_PREDICTION_CHANGED)
                 )
             ),
             isAvailable = { Sensors.hasBarometer(it) },
