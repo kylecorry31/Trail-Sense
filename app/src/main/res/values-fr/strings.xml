@@ -7,7 +7,7 @@
     <string name="astronomy">Astronomie</string>
     <string name="sunrise_label">Lever du soleil</string>
     <string name="sunset_label">Coucher du soleil</string>
-    <string name="true_north">Indiquer le vrai Nord</string>
+    <string name="true_north">Indiquer le vrai nord</string>
     <string name="pref_use_sea_level_pressure_title">Pression au niveau de la mer</string>
     <string name="general">Général</string>
     <string name="pressure">Unité de pression</string>
@@ -23,7 +23,7 @@
     <string name="pref_show_sun_moon_compass_title">Afficher les astres sur la boussole</string>
     <string name="pref_show_linear_compass_title">Afficher la boussole linéaire</string>
     <string name="pref_show_linear_compass_summary">Lorsque le téléphone est vertical</string>
-    <string name="feet_miles">Pieds / Miles</string>
+    <string name="feet_miles">Pieds / miles</string>
     <string name="units_hpa">hPa</string>
     <string name="units_inhg">inHg</string>
     <string name="units_mbar">mbar</string>
@@ -287,7 +287,7 @@
     <string name="notification_channel_clock_sync_description">Une notification pour synchroniser votre horloge sur le temps GPS</string>
     <string name="notification_channel_clock_sync">Synchronisation de l\'horloge</string>
     <string name="pip_notification_scheduled">Notification planifiée pour %s</string>
-    <string name="pip_button">Mettre à jour l\'horloge du téléphone</string>
+    <string name="pip_button">Mettre à jour l\'heure du système</string>
     <string name="could_not_triangulate">Impossible d\'effectuer la triangulation</string>
     <string name="tool_triangulate_title">Triangulation</string>
     <string name="tool_category_signaling">Signalisation</string>
@@ -405,7 +405,7 @@
     <string name="no_data">Aucune donnée</string>
     <string name="turn_off">Éteindre</string>
     <string name="battery_capacity_format">%s mAh</string>
-    <string name="app_disclaimer_message_title">Avis de non-responsabilité / Conditions d\'utilisation</string>
+    <string name="app_disclaimer_message_title">Avis de non-responsabilité / conditions d\'utilisation</string>
     <string name="disclaimer_message_title">Avertissement</string>
     <string name="cumulonimbus">Cumulonimbus</string>
     <string name="cumulus">Cumulus</string>
@@ -1097,4 +1097,16 @@
     <string name="destination">Destination</string>
     <string name="pin">Épingler</string>
     <string name="distance_away_from_self">éloigné de %s</string>
+    <string name="sunrise_alert_notification_title">Le soleil se lève bientôt</string>
+    <string name="sunrise_alert_notification_text">Le soleil se lèvera à %s</string>
+    <string name="sunrise_alerts">Alertes au lever du soleil</string>
+    <string name="sunrise_alert_channel_title">Alerte au lever du soleil</string>
+    <string name="no_sensor_message">Votre appareil n\'a pas de capteur %s</string>
+    <string name="pref_tiles_battery_log">Journaux de la batterie</string>
+    <string name="pref_sunrise_alert_time_title">Heure d\'alerte du lever du soleil</string>
+    <string name="pref_enable_analog_title">Horloge analogique</string>
+    <string name="exported">Exporté</string>
+    <string name="astronomy_altitude">Altitude</string>
+    <string name="theme_system_black">Système (noir)</string>
+    <string name="no_qr_code_detected">Aucun code QR détecté</string>
 </resources>
