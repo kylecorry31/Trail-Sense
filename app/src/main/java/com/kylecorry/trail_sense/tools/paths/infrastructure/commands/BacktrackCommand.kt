@@ -11,9 +11,11 @@ import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.networkQuality
 import com.kylecorry.trail_sense.shared.sensors.MockCellSignalSensor
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.infrastructure.alerts.BacktrackAlerter
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
 import java.time.Instant
 
@@ -38,6 +40,7 @@ class BacktrackCommand(
         val point = recordWaypoint()
         CreateLastSignalBeaconCommand(context).execute(point)
         showNotification()
+        Tools.broadcast(PathsToolRegistration.BROADCAST_PATHS_CHANGED)
     }
 
     private suspend fun showNotification() {

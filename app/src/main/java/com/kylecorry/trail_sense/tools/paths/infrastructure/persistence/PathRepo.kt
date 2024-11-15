@@ -4,8 +4,10 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
+import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathGroup
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -15,16 +17,19 @@ class PathRepo private constructor(context: Context) : IPathRepo {
     private val groupDao = AppDatabase.getInstance(context).pathGroupDao()
 
     override suspend fun add(value: Path): Long {
-        return if (value.id != 0L) {
+        val id = if (value.id != 0L) {
             pathDao.update(PathEntity.from(value))
             value.id
         } else {
             pathDao.insert(PathEntity.from(value))
         }
+        Tools.broadcast(PathsToolRegistration.BROADCAST_PATHS_CHANGED)
+        return id
     }
 
     override suspend fun delete(value: Path) {
         pathDao.delete(PathEntity.from(value))
+        Tools.broadcast(PathsToolRegistration.BROADCAST_PATHS_CHANGED)
     }
 
     override suspend fun get(id: Long): Path? {
