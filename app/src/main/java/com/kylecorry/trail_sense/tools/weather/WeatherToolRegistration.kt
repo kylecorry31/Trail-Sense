@@ -25,7 +25,9 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.DailyWeathe
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.StormAlerter
 import com.kylecorry.trail_sense.tools.weather.quickactions.QuickActionWeatherMonitor
 import com.kylecorry.trail_sense.tools.weather.services.WeatherMonitorToolService
+import com.kylecorry.trail_sense.tools.weather.widgets.AppWidgetPressure
 import com.kylecorry.trail_sense.tools.weather.widgets.AppWidgetWeather
+import com.kylecorry.trail_sense.tools.weather.widgets.PressureWidgetView
 import com.kylecorry.trail_sense.tools.weather.widgets.WeatherToolWidgetView
 
 object WeatherToolRegistration : ToolRegistration {
@@ -53,6 +55,15 @@ object WeatherToolRegistration : ToolRegistration {
                     R.layout.widget_small_simple,
                     WeatherToolWidgetView(),
                     AppWidgetWeather::class.java,
+                    updateBroadcasts = listOf(BROADCAST_WEATHER_PREDICTION_CHANGED)
+                ),
+                ToolWidget(
+                    WIDGET_PRESSURE_TENDENCY,
+                    context.getString(R.string.pressure),
+                    ToolSummarySize.Half,
+                    R.layout.widget_small_simple,
+                    PressureWidgetView(),
+                    AppWidgetPressure::class.java,
                     updateBroadcasts = listOf(BROADCAST_WEATHER_PREDICTION_CHANGED)
                 )
             ),
@@ -168,4 +179,5 @@ object WeatherToolRegistration : ToolRegistration {
     const val SERVICE_WEATHER_MONITOR = "weather-service-weather-monitor"
 
     const val WIDGET_WEATHER = "weather-widget-weather"
+    const val WIDGET_PRESSURE_TENDENCY = "weather-widget-pressure-tendency"
 }
