@@ -409,6 +409,18 @@
                 android:resource="@xml/app_widget_backtrack_info" />
         </receiver>
 
+        <receiver
+            android:name="com.kylecorry.trail_sense.tools.weather.widgets.AppWidgetPressure"
+            android:exported="false"
+            android:label="@string/pressure">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_pressure_info" />
+        </receiver>
+
     </application>
 
 </manifest>
