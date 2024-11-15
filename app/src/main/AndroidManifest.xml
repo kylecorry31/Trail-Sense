@@ -397,6 +397,18 @@
                 android:resource="@xml/app_widget_pedometer_info" />
         </receiver>
 
+        <receiver
+            android:name="com.kylecorry.trail_sense.tools.paths.widgets.AppWidgetBacktrack"
+            android:exported="false"
+            android:label="@string/backtrack">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_backtrack_info" />
+        </receiver>
+
     </application>
 
 </manifest>
