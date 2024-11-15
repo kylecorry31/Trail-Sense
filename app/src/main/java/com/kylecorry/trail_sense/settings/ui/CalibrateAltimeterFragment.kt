@@ -357,7 +357,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
                     }
 
                     onMain {
-                        updateAltitude()
+                        restartAltimeter()
                     }
                 }
             }
