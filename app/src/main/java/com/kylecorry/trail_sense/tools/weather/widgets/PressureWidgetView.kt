@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 class PressureWidgetView : SimpleToolWidgetView() {
 
     override fun onUpdate(context: Context, views: RemoteViews, commit: () -> Unit) {
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.Default).launch {
             populatePressureDetails(context, views)
             onMain {
                 commit()
