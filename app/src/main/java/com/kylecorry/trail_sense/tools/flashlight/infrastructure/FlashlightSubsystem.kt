@@ -16,7 +16,9 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.getOrNull
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.tools.flashlight.FlashlightToolRegistration
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -58,7 +60,10 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
     private var systemMonitorCount = 0
 
     init {
-        _mode.subscribe { true }
+        _mode.subscribe {
+            Tools.broadcast(FlashlightToolRegistration.BROADCAST_FLASHLIGHT_STATE_CHANGED)
+            true
+        }
         scope.launch {
             brightness = prefs.flashlight.brightness
             torch = Torch(context)
@@ -66,19 +71,19 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
         }
     }
 
-    fun startSystemMonitor(){
-        synchronized(systemMonitorLock){
+    fun startSystemMonitor() {
+        synchronized(systemMonitorLock) {
             systemMonitorCount++
-            if (systemMonitorCount == 1){
+            if (systemMonitorCount == 1) {
                 torchChanged.subscribe(this@FlashlightSubsystem::onTorchStateChanged)
             }
         }
     }
 
-    fun stopSystemMonitor(){
-        synchronized(systemMonitorLock){
+    fun stopSystemMonitor() {
+        synchronized(systemMonitorLock) {
             systemMonitorCount--
-            if (systemMonitorCount == 0){
+            if (systemMonitorCount == 0) {
                 torchChanged.unsubscribe(this@FlashlightSubsystem::onTorchStateChanged)
             }
         }
