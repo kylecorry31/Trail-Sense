@@ -1230,4 +1230,10 @@
     <string name="mirror_camera">Rifletti Fotocamera</string>
     <string name="tool_turn_back">Torna Indietro</string>
     <string name="return_time">Tempo per tornare</string>
+    <plurals name="number_steps">
+        <item quantity="one">%d passo</item>
+        <item quantity="many">%d di passi</item>
+        <item quantity="other">%d passi</item>
+    </plurals>
+    <string name="widget_updater">Aggiornatore dei widget</string>
 </resources>
