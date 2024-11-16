@@ -131,6 +131,10 @@ fun Permissions.canStartLocationForgroundService(context: Context): Boolean {
     return isBackgroundLocationEnabled(context) || canGetLocation(context, checkAppOps = true)
 }
 
+fun Permissions.canGetLocationCustom(context: Context): Boolean {
+    return isBackgroundLocationEnabled(context) || canGetLocation(context, checkAppOps = false)
+}
+
 /**
  * Request location permission when absolutely required to start a foreground service (Android 14+)
  */
