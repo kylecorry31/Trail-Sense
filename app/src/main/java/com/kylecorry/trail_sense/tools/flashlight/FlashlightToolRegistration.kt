@@ -38,6 +38,7 @@ object FlashlightToolRegistration : ToolRegistration {
             R.drawable.flashlight,
             R.id.fragmentToolFlashlight,
             ToolCategory.Signaling,
+            initialize = { FlashlightSubsystem.getInstance(it) },
             guideId = R.raw.guide_tool_flashlight,
             settingsNavAction = R.id.flashlightSettingsFragment,
             quickActions = listOfNotNull(

@@ -23,6 +23,7 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorDiag
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeatherAlerter
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.DailyWeatherAlerter
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.StormAlerter
+import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import com.kylecorry.trail_sense.tools.weather.quickactions.QuickActionWeatherMonitor
 import com.kylecorry.trail_sense.tools.weather.services.WeatherMonitorToolService
 import com.kylecorry.trail_sense.tools.weather.widgets.AppWidgetPressure
@@ -40,6 +41,7 @@ object WeatherToolRegistration : ToolRegistration {
             ToolCategory.Weather,
             guideId = R.raw.guide_tool_weather,
             settingsNavAction = R.id.weatherSettingsFragment,
+            initialize = { WeatherSubsystem.getInstance(it) },
             quickActions = listOf(
                 ToolQuickAction(
                     Tools.QUICK_ACTION_WEATHER_MONITOR,

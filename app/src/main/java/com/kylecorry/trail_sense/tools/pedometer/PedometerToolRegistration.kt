@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.tools.pedometer.actions.PausePedometerAction
 import com.kylecorry.trail_sense.tools.pedometer.actions.ResumePedometerAction
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.DistanceAlerter
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
+import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
 import com.kylecorry.trail_sense.tools.pedometer.quickactions.QuickActionPedometer
 import com.kylecorry.trail_sense.tools.pedometer.services.PedometerToolService
 import com.kylecorry.trail_sense.tools.pedometer.widgets.AppWidgetPedometer
@@ -36,6 +37,7 @@ object PedometerToolRegistration : ToolRegistration {
             ToolCategory.Distance,
             guideId = R.raw.guide_tool_pedometer,
             settingsNavAction = R.id.calibrateOdometerFragment,
+            initialize = { PedometerSubsystem.getInstance(it) },
             quickActions = listOf(
                 ToolQuickAction(
                     Tools.QUICK_ACTION_PEDOMETER,
