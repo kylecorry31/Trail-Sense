@@ -8,6 +8,7 @@ import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.permissions.canGetLocationCustom
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.altimeter.OverrideAltimeter
 import java.time.Duration
@@ -38,7 +39,7 @@ class SensorSubsystem private constructor(private val context: Context) {
                     context
                 )
 
-                UserPreferences.AltimeterMode.GPS -> if (Permissions.canGetLocation(context)) CachedAltimeter(
+                UserPreferences.AltimeterMode.GPS -> if (Permissions.canGetLocationCustom(context)) CachedAltimeter(
                     context
                 ) else OverrideAltimeter(context)
             }

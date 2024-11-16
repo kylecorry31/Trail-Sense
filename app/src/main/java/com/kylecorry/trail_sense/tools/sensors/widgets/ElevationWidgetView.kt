@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.setImageViewResourceAsIcon
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
+import com.kylecorry.trail_sense.shared.permissions.canGetLocationCustom
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem.SensorRefreshPolicy
@@ -39,7 +40,7 @@ class ElevationWidgetView : SimpleToolWidgetView() {
         // Check if elevation is stale and attempt to get a new reading
         val isStale = locationSubsystem.elevationAge.toMinutes() > 30
         val elevation =
-            if (isStale && Permissions.isBackgroundLocationEnabled(context)) {
+            if (isStale && Permissions.canGetLocationCustom(context)) {
                 val sensors = SensorSubsystem.getInstance(context)
                 sensors.getElevation(SensorRefreshPolicy.Refresh)
             } else {

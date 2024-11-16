@@ -5,8 +5,8 @@ import android.widget.RemoteViews
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
+import com.kylecorry.trail_sense.shared.permissions.canGetLocationCustom
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem.SensorRefreshPolicy
@@ -29,13 +29,12 @@ class LocationWidgetView : SimpleToolWidgetView() {
 
     private suspend fun populateLocationDetails(context: Context, views: RemoteViews) {
         val formatter = FormatService.getInstance(context)
-        val userPrefs = UserPreferences(context)
         val locationSubsystem = LocationSubsystem.getInstance(context)
 
         // Check if location is stale and attempt to get a new location
         val isStale = locationSubsystem.locationAge.toMinutes() > 30
         val location =
-            if (isStale && Permissions.isBackgroundLocationEnabled(context) && userPrefs.useAutoLocation) {
+            if (isStale && Permissions.canGetLocationCustom(context)) {
                 val sensors = SensorSubsystem.getInstance(context)
                 sensors.getLocation(SensorRefreshPolicy.Refresh)
             } else {
