@@ -181,9 +181,11 @@ class SensorService(ctx: Context) {
         } else {
             if (!GPS.isAvailable(context)) {
                 if (mode == UserPreferences.AltimeterMode.GPSBarometer && hasBarometer) {
-                    return AutoInitializeBarometricAltimeter(
-                        getBarometer(),
-                        CachedAltimeter(context)
+                    return CachingAltimeterWrapper(
+                        context, AutoInitializeBarometricAltimeter(
+                            getBarometer(),
+                            CachedAltimeter(context)
+                        )
                     )
                 }
 

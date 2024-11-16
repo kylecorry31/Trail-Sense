@@ -5,6 +5,7 @@ import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import java.time.Instant
 
 class CachingAltimeterWrapper(context: Context, override val altimeter: IAltimeter) :
     AbstractSensor(),
@@ -16,7 +17,9 @@ class CachingAltimeterWrapper(context: Context, override val altimeter: IAltimet
         get() = if (altimeter is AltimeterWrapper) altimeter.altitudeAccuracy else null
 
     override val altitude: Float
-        get() = altimeter.altitude
+        get() = if (altimeter.hasValidReading || altimeter.altitude != 0f) altimeter.altitude else cache.getFloat(
+            LAST_ALTITUDE_KEY
+        ) ?: 0f
 
     override val hasValidReading: Boolean
         get() = altimeter.hasValidReading
@@ -34,11 +37,13 @@ class CachingAltimeterWrapper(context: Context, override val altimeter: IAltimet
 
     private fun onReading(): Boolean {
         cache.putFloat(LAST_ALTITUDE_KEY, altitude)
+        cache.putInstant(LAST_UPDATE_KEY, Instant.now())
         notifyListeners()
         return true
     }
 
     companion object {
         const val LAST_ALTITUDE_KEY = "last_altitude_2"
+        const val LAST_UPDATE_KEY = "last_altitude_update_2"
     }
 }

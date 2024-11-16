@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.altimeter.OverrideAltimeter
+import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrapper
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -20,7 +21,6 @@ import java.time.Instant
 class LocationSubsystem private constructor(private val context: Context) {
 
     private val sensorService by lazy { SensorService(context) }
-    private val altimeterCache by lazy { CachedAltimeter(context) }
     private val altimeterOverride by lazy { OverrideAltimeter(context) }
     private val weather by lazy { WeatherSubsystem.getInstance(context) }
     private val paths by lazy { PathService.getInstance(context) }
@@ -36,7 +36,7 @@ class LocationSubsystem private constructor(private val context: Context) {
 
     val locationAge: Duration
         get() {
-            if (!userPrefs.useAutoLocation) {
+            if (isGPSOverridden()) {
                 return Duration.ZERO
             }
 
@@ -45,10 +45,16 @@ class LocationSubsystem private constructor(private val context: Context) {
         }
 
     val elevation: Distance
+        get() = sensorSubsystem.lastKnownElevation
+
+    val elevationAge: Duration
         get() {
-            val raw =
-                if (isAltimeterOverridden()) altimeterOverride.altitude else altimeterCache.altitude
-            return Distance.meters(raw.real(0f))
+            if (isAltimeterOverridden()) {
+                return Duration.ZERO
+            }
+
+            val lastUpdate = prefs.getInstant(CachingAltimeterWrapper.LAST_UPDATE_KEY) ?: Instant.EPOCH
+            return Duration.between(lastUpdate, Instant.now())
         }
 
     init {
@@ -80,6 +86,10 @@ class LocationSubsystem private constructor(private val context: Context) {
         return usesOverride || (usesGPS && !sensorService.hasLocationPermission())
     }
 
+    private fun isGPSOverridden(): Boolean {
+        return !userPrefs.useAutoLocation || !sensorService.hasLocationPermission()
+    }
+
     companion object {
         @SuppressLint("StaticFieldLeak")
         private var instance: LocationSubsystem? = null
@@ -91,7 +101,5 @@ class LocationSubsystem private constructor(private val context: Context) {
             }
             return instance!!
         }
-
     }
-
 }
