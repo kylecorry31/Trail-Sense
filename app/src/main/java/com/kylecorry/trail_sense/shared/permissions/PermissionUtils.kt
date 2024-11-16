@@ -132,7 +132,7 @@ fun Permissions.canStartLocationForgroundService(context: Context): Boolean {
 }
 
 fun Permissions.canGetLocationCustom(context: Context): Boolean {
-    return isBackgroundLocationEnabled(context) || canGetLocation(context, checkAppOps = false)
+    return isBackgroundLocationEnabled(context) || canGetLocation(context, checkAppOps = true)
 }
 
 /**
