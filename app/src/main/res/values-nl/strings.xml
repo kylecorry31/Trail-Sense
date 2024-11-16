@@ -1209,4 +1209,18 @@
     <string name="unit_millimeters">Millimeter</string>
     <string name="imperial_teaspoons">Imperiale theelepels</string>
     <string name="imperial_tablespoons">Imperiale eetlepels</string>
+    <string name="select_backup_directory">Back-up map selecteren</string>
+    <string name="backup_failed">Back-up mislukt</string>
+    <string name="no_directory_selected">Geen map geselecteerd</string>
+    <plurals name="number_steps">
+        <item quantity="one">%d stap</item>
+        <item quantity="other">%d stappen</item>
+    </plurals>
+    <string name="unable_to_create_an_automatic_backup">Niet in staat om een automatische back-up maken.</string>
+    <string name="automatic_backup_invalid_directory">Ongeldige map</string>
+    <string name="automatic_backup_invalid_directory_resolution">Zet automatische back-up uit en weer aan om een nieuwe map te selecteren.</string>
+    <string name="widgets">Widgets</string>
+    <string name="widget_updater">Widget-bijwerker</string>
+    <string name="automatic_backup">Automatische back-up</string>
+    <string name="auto_backup_instructions">Een back-up zal één keer per dag gemaakt worden naar %1$s. Alleen de laatste %2$d back-ups zullen bewaard blijven.</string>
 </resources>
