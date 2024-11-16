@@ -14,14 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top|center_horizontal"
-        android:textAlignment="center"
-        tools:text="Title" />
+        android:text="@string/loading"
+        android:textAlignment="center" />
 
     <android.widget.ImageView
         android:id="@+id/widget_icon"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:src="@color/gray" />
 
     <android.widget.ImageView
         android:id="@+id/widget_icon_text_color"
