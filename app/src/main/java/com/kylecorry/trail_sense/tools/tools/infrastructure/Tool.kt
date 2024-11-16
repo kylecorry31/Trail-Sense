@@ -27,7 +27,8 @@ data class Tool(
     val intentHandlers: List<ToolIntentHandler> = emptyList(),
     val isAvailable: (context: Context) -> Boolean = { true },
     val broadcasts: List<ToolBroadcast> = emptyList(),
-    val actions: List<ToolAction> = emptyList()
+    val actions: List<ToolAction> = emptyList(),
+    val initialize: (context: Context) -> Unit = {}
 ) : Identifiable {
     fun isOpen(currentNavId: Int): Boolean {
         return navAction == currentNavId || additionalNavigationIds.contains(currentNavId)

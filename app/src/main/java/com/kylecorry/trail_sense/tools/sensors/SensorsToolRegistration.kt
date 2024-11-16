@@ -2,6 +2,8 @@ package com.kylecorry.trail_sense.tools.sensors
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
+import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.tools.sensors.widgets.AppWidgetElevation
 import com.kylecorry.trail_sense.tools.sensors.widgets.AppWidgetLocation
 import com.kylecorry.trail_sense.tools.sensors.widgets.ElevationWidgetView
@@ -24,6 +26,10 @@ object SensorsToolRegistration : ToolRegistration {
             R.id.sensorDetailsFragment,
             ToolCategory.Other,
             guideId = R.raw.guide_tool_sensors,
+            initialize = {
+                LocationSubsystem.getInstance(it)
+                SensorSubsystem.getInstance(it)
+            },
             diagnostics = listOf(
                 ToolDiagnosticFactory.magnetometer(context),
                 ToolDiagnosticFactory.accelerometer(context),

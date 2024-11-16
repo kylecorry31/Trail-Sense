@@ -9,12 +9,8 @@ import androidx.work.Configuration
 import com.kylecorry.trail_sense.main.automations.Automations
 import com.kylecorry.trail_sense.main.persistence.RepoCleanupWorker
 import com.kylecorry.trail_sense.settings.migrations.PreferenceMigrator
-import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
-import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
-import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
-import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.widgets.WidgetBroadcastManager
-import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import dagger.hilt.android.HiltAndroidApp
 import java.time.Duration
 import javax.inject.Inject
@@ -36,13 +32,11 @@ class TrailSenseApplication : Application(), CameraXConfig.Provider, Configurati
         RepoCleanupWorker.scheduler(this).cancel()
         RepoCleanupWorker.scheduler(this).interval(Duration.ofHours(6))
 
-        // Initialize some subsystems
-        // TODO: Move this into the tool registry
-        WeatherSubsystem.getInstance(this)
-        FlashlightSubsystem.getInstance(this)
-        PedometerSubsystem.getInstance(this)
-        LocationSubsystem.getInstance(this)
-        SensorSubsystem.getInstance(this)
+        // Initialize all tools
+        val tools = Tools.getTools(this)
+        tools.forEach {
+            it.initialize(this)
+        }
     }
 
     override fun getCameraXConfig(): CameraXConfig {
