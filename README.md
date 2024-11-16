@@ -51,7 +51,7 @@ The feature roadmap is a tentative outline of the major features that are planne
 - [x] Customization
 - [x] Stability / performance
 - [x] Survival guide
-- [ ] More quick actions and summaries
+- [ ] More quick actions and widgets
 - [ ] Improved photo maps resolution
 - [ ] Harmonic tides
 - [ ] Experiment with the first plugin (Comms)
