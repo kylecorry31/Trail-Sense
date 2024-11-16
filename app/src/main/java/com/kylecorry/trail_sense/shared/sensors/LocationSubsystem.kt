@@ -66,11 +66,18 @@ class LocationSubsystem private constructor(private val context: Context) {
             context.getString(R.string.pref_auto_location),
             // TODO: Technically not true - this should probably by another broadcast
             context.getString(R.string.pref_coordinate_format)
-
+        )
+        val elevationChangedPrefs = listOf(
+            CachingAltimeterWrapper.LAST_UPDATE_KEY,
+            context.getString(R.string.pref_altitude_override),
+            context.getString(R.string.pref_altimeter_calibration_mode)
         )
         prefs.onChange.subscribe { key ->
             if (locationChangedPrefs.contains(key)) {
                 Tools.broadcast(SensorsToolRegistration.BROADCAST_LOCATION_CHANGED)
+            }
+            if (elevationChangedPrefs.contains(key)) {
+                Tools.broadcast(SensorsToolRegistration.BROADCAST_ELEVATION_CHANGED)
             }
             true
         }

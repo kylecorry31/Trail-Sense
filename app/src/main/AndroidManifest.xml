@@ -434,6 +434,18 @@
                 android:resource="@xml/app_widget_location_info" />
         </receiver>
 
+        <receiver
+            android:name="com.kylecorry.trail_sense.tools.sensors.widgets.AppWidgetElevation"
+            android:exported="false"
+            android:label="@string/elevation">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_elevation_info" />
+        </receiver>
+
     </application>
 
 </manifest>

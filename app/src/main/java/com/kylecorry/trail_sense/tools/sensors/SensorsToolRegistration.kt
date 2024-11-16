@@ -2,7 +2,9 @@ package com.kylecorry.trail_sense.tools.sensors
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.tools.sensors.widgets.AppWidgetElevation
 import com.kylecorry.trail_sense.tools.sensors.widgets.AppWidgetLocation
+import com.kylecorry.trail_sense.tools.sensors.widgets.ElevationWidgetView
 import com.kylecorry.trail_sense.tools.sensors.widgets.LocationWidgetView
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
@@ -40,18 +42,33 @@ object SensorsToolRegistration : ToolRegistration {
                     LocationWidgetView(),
                     AppWidgetLocation::class.java,
                     updateBroadcasts = listOf(BROADCAST_LOCATION_CHANGED)
+                ),
+                ToolWidget(
+                    WIDGET_ELEVATION,
+                    context.getString(R.string.elevation),
+                    ToolSummarySize.Half,
+                    R.layout.widget_small_simple,
+                    ElevationWidgetView(),
+                    AppWidgetElevation::class.java,
+                    updateBroadcasts = listOf(BROADCAST_ELEVATION_CHANGED)
                 )
             ),
             broadcasts = listOf(
                 ToolBroadcast(
                     BROADCAST_LOCATION_CHANGED,
                     "Location changed"
+                ),
+                ToolBroadcast(
+                    BROADCAST_ELEVATION_CHANGED,
+                    "Elevation changed"
                 )
             )
         )
     }
 
     const val BROADCAST_LOCATION_CHANGED = "sensors-broadcast-location-changed"
+    const val BROADCAST_ELEVATION_CHANGED = "sensors-broadcast-elevation-changed"
 
     const val WIDGET_LOCATION = "sensors-widget-location"
+    const val WIDGET_ELEVATION = "sensors-widget-elevation"
 }
