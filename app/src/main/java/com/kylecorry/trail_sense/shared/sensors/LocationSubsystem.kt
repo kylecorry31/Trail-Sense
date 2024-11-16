@@ -5,12 +5,17 @@ import android.content.Context
 import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.altimeter.OverrideAltimeter
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Duration
+import java.time.Instant
 
 class LocationSubsystem private constructor(private val context: Context) {
 
@@ -24,14 +29,46 @@ class LocationSubsystem private constructor(private val context: Context) {
     private val maxElevationHistoryDuration = Duration.ofDays(1)
     private val maxElevationFilterHistoryDuration = maxElevationHistoryDuration.plusHours(6)
 
+    private val prefs by lazy { PreferencesSubsystem.getInstance(context).preferences }
+
     val location: Coordinate
         get() = sensorSubsystem.lastKnownLocation
 
+    val locationAge: Duration
+        get() {
+            if (!userPrefs.useAutoLocation) {
+                return Duration.ZERO
+            }
+
+            val lastUpdate = Instant.ofEpochMilli(prefs.getLong(CustomGPS.LAST_UPDATE) ?: 0)
+            return Duration.between(lastUpdate, Instant.now())
+        }
+
     val elevation: Distance
-        get(){
-            val raw = if (isAltimeterOverridden()) altimeterOverride.altitude else altimeterCache.altitude
+        get() {
+            val raw =
+                if (isAltimeterOverridden()) altimeterOverride.altitude else altimeterCache.altitude
             return Distance.meters(raw.real(0f))
         }
+
+    init {
+        val locationChangedPrefs = listOf(
+            CustomGPS.LAST_LATITUDE,
+            CustomGPS.LAST_LONGITUDE,
+            context.getString(R.string.pref_latitude_override),
+            context.getString(R.string.pref_longitude_override),
+            context.getString(R.string.pref_auto_location),
+            // TODO: Technically not true - this should probably by another broadcast
+            context.getString(R.string.pref_coordinate_format)
+
+        )
+        prefs.onChange.subscribe { key ->
+            if (locationChangedPrefs.contains(key)) {
+                Tools.broadcast(SensorsToolRegistration.BROADCAST_LOCATION_CHANGED)
+            }
+            true
+        }
+    }
 
     private val userPrefs by lazy { UserPreferences(context) }
 
