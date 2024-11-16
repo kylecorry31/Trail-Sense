@@ -5,6 +5,7 @@ import android.os.Build
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.tiles.TileManager
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.tools.widgets.WidgetManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,6 +30,8 @@ object TrailSenseServiceUtils {
                 appContext,
                 UserPreferences(appContext).power.areTilesEnabled && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
             )
+
+            WidgetManager().registerWidgets(appContext)
         }
     }
 
