@@ -7,12 +7,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 
-class ParallelCoroutineRunner(maxParallel: Int) {
+class ParallelCoroutineRunner(maxParallel: Int = 8) {
 
     private val semaphore = Semaphore(maxParallel)
     private val coroutineScope = CoroutineScope(Dispatchers.Default)
 
-    suspend fun run(coroutines: List<suspend () -> Unit>) {
+    suspend fun run(coroutines: List<suspend () -> Any>) {
         val jobs = mutableListOf<Job>()
 
         for (coroutine in coroutines) {
