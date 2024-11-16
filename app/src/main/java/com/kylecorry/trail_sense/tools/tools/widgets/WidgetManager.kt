@@ -13,7 +13,7 @@ class WidgetManager {
                 Package.setComponentEnabled(
                     context,
                     widget.widgetClass.name,
-                    isAvailable
+                    isAvailable && widget.isEnabled(context)
                 )
             }
         }

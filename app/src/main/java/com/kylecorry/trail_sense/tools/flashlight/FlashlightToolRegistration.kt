@@ -12,13 +12,18 @@ import com.kylecorry.trail_sense.tools.flashlight.services.FlashlightToolService
 import com.kylecorry.trail_sense.tools.flashlight.ui.FragmentToolScreenFlashlight
 import com.kylecorry.trail_sense.tools.flashlight.volumeactions.FlashlightToggleVolumeAction
 import com.kylecorry.trail_sense.tools.flashlight.volumeactions.ScreenFlashlightBrightnessVolumeAction
+import com.kylecorry.trail_sense.tools.flashlight.widgets.AppWidgetFlashlight
+import com.kylecorry.trail_sense.tools.flashlight.widgets.FlashlightToolWidgetView
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummarySize
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeActionPriority
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolWidget
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 
@@ -77,6 +82,24 @@ object FlashlightToolRegistration : ToolRegistration {
                 )
             ),
             services = listOf(FlashlightToolService(context)),
+            widgets = listOf(
+                ToolWidget(
+                    WIDGET_FLASHLIGHT,
+                    context.getString(R.string.flashlight_title),
+                    ToolSummarySize.Half,
+                    R.layout.widget_small_simple,
+                    FlashlightToolWidgetView(),
+                    AppWidgetFlashlight::class.java,
+                    updateBroadcasts = listOf(BROADCAST_FLASHLIGHT_STATE_CHANGED),
+                    isEnabled = { hasFlashlight }
+                )
+            ),
+            broadcasts = listOf(
+                ToolBroadcast(
+                    BROADCAST_FLASHLIGHT_STATE_CHANGED,
+                    "Flashlight state changed"
+                )
+            ),
             diagnostics = listOf(
                 ToolDiagnosticFactory.flashlight(context),
                 ToolDiagnosticFactory.notification(
@@ -88,4 +111,7 @@ object FlashlightToolRegistration : ToolRegistration {
     }
 
     const val SERVICE_FLASHLIGHT = "flashlight-service-flashlight"
+    const val WIDGET_FLASHLIGHT = "flashlight-widget-flashlight"
+
+    const val BROADCAST_FLASHLIGHT_STATE_CHANGED = "flashlight-broadcast-flashlight-state-changed"
 }
