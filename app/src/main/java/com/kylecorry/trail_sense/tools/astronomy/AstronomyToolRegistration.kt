@@ -14,7 +14,9 @@ import com.kylecorry.trail_sense.tools.astronomy.services.SunriseAlertsToolServi
 import com.kylecorry.trail_sense.tools.astronomy.services.SunsetAlertsToolService
 import com.kylecorry.trail_sense.tools.astronomy.widgets.AppWidgetMoon
 import com.kylecorry.trail_sense.tools.astronomy.widgets.AppWidgetSun
+import com.kylecorry.trail_sense.tools.astronomy.widgets.AppWidgetSunAndMoonChart
 import com.kylecorry.trail_sense.tools.astronomy.widgets.MoonToolWidgetView
+import com.kylecorry.trail_sense.tools.astronomy.widgets.SunAndMoonChartToolWidgetView
 import com.kylecorry.trail_sense.tools.astronomy.widgets.SunToolWidgetView
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
@@ -68,6 +70,13 @@ object AstronomyToolRegistration : ToolRegistration {
                     ToolSummarySize.Half,
                     MoonToolWidgetView(),
                     AppWidgetMoon::class.java
+                ),
+                ToolWidget(
+                    WIDGET_SUN_AND_MOON_CHART,
+                    context.getString(R.string.sun_moon_chart),
+                    ToolSummarySize.Full,
+                    SunAndMoonChartToolWidgetView(),
+                    AppWidgetSunAndMoonChart::class.java
                 )
             ),
             notificationChannels = listOf(
@@ -148,4 +157,5 @@ object AstronomyToolRegistration : ToolRegistration {
 
     const val WIDGET_SUN = "astronomy-widget-sun"
     const val WIDGET_MOON = "astronomy-widget-moon"
+    const val WIDGET_SUN_AND_MOON_CHART = "astronomy-widget-sun-and-moon-chart"
 }

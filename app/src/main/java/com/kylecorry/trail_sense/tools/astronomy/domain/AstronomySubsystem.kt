@@ -4,11 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Context
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import java.time.Duration
 import java.time.LocalDate
+import java.time.ZonedDateTime
 
 class AstronomySubsystem(context: Context) {
 
@@ -71,6 +73,22 @@ class AstronomySubsystem(context: Context) {
                 tilt
             )
         }
+
+    fun getSunAltitudes(): List<Reading<Float>> {
+        return if (prefs.astronomy.centerSunAndMoon) {
+            astronomyService.getSunAltitudes(location.location, LocalDate.now())
+        } else {
+            astronomyService.getCenteredSunAltitudes(location.location, ZonedDateTime.now())
+        }
+    }
+
+    fun getMoonAltitudes(): List<Reading<Float>> {
+        return if (prefs.astronomy.centerSunAndMoon) {
+            astronomyService.getMoonAltitudes(location.location, LocalDate.now())
+        } else {
+            astronomyService.getCenteredMoonAltitudes(location.location, ZonedDateTime.now())
+        }
+    }
 
     companion object {
         @SuppressLint("StaticFieldLeak")
