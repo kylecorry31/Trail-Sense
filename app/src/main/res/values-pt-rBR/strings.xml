@@ -1231,4 +1231,6 @@
         <item quantity="other">%d etapa</item>
     </plurals>
     <string name="widget_updater">Atualização de widgets</string>
+    <string name="widget_pref_title">Widgets no aplicativo</string>
+    <string name="widget_bottom_sheet_instructions">Use a ação rápida de Widgets para visualizar</string>
 </resources>
