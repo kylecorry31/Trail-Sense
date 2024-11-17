@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_background"
+    android:elevation="4dp"
+    android:padding="8dp"
+    android:theme="@style/AppTheme">
+
+    <android.widget.TextView
+        android:id="@+id/widget_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:text="XX m"
+        android:textAlignment="center" />
+
+    <android.widget.ImageView
+        android:id="@+id/widget_icon_text_color"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:src="@drawable/steps"
+        android:tint="?android:attr/textColorSecondary" />
+
+    <android.widget.TextView
+        android:id="@+id/widget_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:drawablePadding="4dp"
+        android:drawableTint="?android:attr/textColorSecondary"
+        android:text="XX steps"
+        android:textAlignment="center" />
+
+</FrameLayout>

@@ -4,6 +4,7 @@
     android:initialLayout="@layout/widget_small_simple"
     android:minWidth="40dp"
     android:minHeight="40dp"
+    android:previewLayout="@layout/widget_preview_flashlight"
     android:resizeMode="horizontal|vertical"
     android:targetCellWidth="1"
     android:targetCellHeight="1"

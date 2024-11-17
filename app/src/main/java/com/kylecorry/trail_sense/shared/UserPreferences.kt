@@ -415,7 +415,7 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
             // The user hasn't made a selection, so default to all widgets
             return Tools.getTools(context)
                 .flatMap { it.widgets }
-                .map { it.name }
+                .map { it.id }
                 .distinct()
         }
         set(value) {
