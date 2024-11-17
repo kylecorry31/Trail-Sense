@@ -8,7 +8,6 @@ import android.widget.RemoteViews
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.widget.RemoteViewsCompat.setViewRotation
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.extensions.setImageViewResourceAsIcon
@@ -17,27 +16,14 @@ import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomySubsystem
 import com.kylecorry.trail_sense.tools.astronomy.ui.MoonPhaseImageMapper
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.ui.widgets.SimpleToolWidgetView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class MoonToolWidgetView : SimpleToolWidgetView() {
 
     private var lastBitmap: Bitmap? = null
     private var nextBitmap: Bitmap? = null
 
-    override fun onUpdate(context: Context, views: RemoteViews, commit: () -> Unit) {
-        CoroutineScope(Dispatchers.IO).launch {
-            populateMoonDetails(context, views)
-            onMain {
-                commit()
-            }
-            lastBitmap?.recycle()
-            lastBitmap = nextBitmap
-        }
-    }
-
-    private fun populateMoonDetails(context: Context, views: RemoteViews) {
+    override suspend fun getPopulatedView(context: Context): RemoteViews {
+        val views = getView(context)
         val astronomy = AstronomySubsystem.getInstance(context)
         val formatter = FormatService.getInstance(context)
         val moon = astronomy.moon
@@ -61,6 +47,9 @@ class MoonToolWidgetView : SimpleToolWidgetView() {
             ROOT,
             NavigationUtils.toolPendingIntent(context, Tools.ASTRONOMY)
         )
+        lastBitmap?.recycle()
+        lastBitmap = nextBitmap
+        return views
     }
 
     private fun rotate(bitmap: Bitmap, degrees: Float): Bitmap {

@@ -50,7 +50,6 @@ object PathsToolRegistration : ToolRegistration {
                     WIDGET_BACKTRACK,
                     context.getString(R.string.backtrack),
                     ToolSummarySize.Half,
-                    R.layout.widget_small_simple,
                     BacktrackToolWidgetView(),
                     AppWidgetBacktrack::class.java,
                     updateBroadcasts = listOf(

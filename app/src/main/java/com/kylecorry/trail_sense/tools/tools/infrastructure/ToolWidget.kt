@@ -8,7 +8,6 @@ data class ToolWidget(
     val id: String,
     val name: String,
     val size: ToolSummarySize = ToolSummarySize.Full,
-    val widgetResourceId: Int,
     val widgetView: ToolWidgetView,
     val widgetClass: Class<out AppWidgetProvider>,
     val inAppUpdateFrequencyMs: Long = 60000,

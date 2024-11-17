@@ -44,7 +44,6 @@ object SensorsToolRegistration : ToolRegistration {
                     WIDGET_LOCATION,
                     context.getString(R.string.location),
                     ToolSummarySize.Half,
-                    R.layout.widget_title_only,
                     LocationWidgetView(),
                     AppWidgetLocation::class.java,
                     updateBroadcasts = listOf(BROADCAST_LOCATION_CHANGED)
@@ -53,7 +52,6 @@ object SensorsToolRegistration : ToolRegistration {
                     WIDGET_ELEVATION,
                     context.getString(R.string.elevation),
                     ToolSummarySize.Half,
-                    R.layout.widget_small_simple,
                     ElevationWidgetView(),
                     AppWidgetElevation::class.java,
                     updateBroadcasts = listOf(BROADCAST_ELEVATION_CHANGED)

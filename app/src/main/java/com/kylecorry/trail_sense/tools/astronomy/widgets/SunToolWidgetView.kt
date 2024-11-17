@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.astronomy.widgets
 
 import android.content.Context
 import android.widget.RemoteViews
-import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.extensions.setImageViewResourceAsIcon
@@ -11,21 +10,10 @@ import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomySubsystem
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyTransition
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.ui.widgets.SimpleToolWidgetView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class SunToolWidgetView : SimpleToolWidgetView() {
-    override fun onUpdate(context: Context, views: RemoteViews, commit: () -> Unit) {
-        CoroutineScope(Dispatchers.IO).launch {
-            populateSunDetails(context, views)
-            onMain {
-                commit()
-            }
-        }
-    }
-
-    private fun populateSunDetails(context: Context, views: RemoteViews) {
+    override suspend fun getPopulatedView(context: Context): RemoteViews {
+        val views = getView(context)
         val formatService = FormatService.getInstance(context)
         val astronomy = AstronomySubsystem.getInstance(context)
         val sun = astronomy.sun
@@ -65,5 +53,6 @@ class SunToolWidgetView : SimpleToolWidgetView() {
             ROOT,
             NavigationUtils.toolPendingIntent(context, Tools.ASTRONOMY)
         )
+        return views
     }
 }

@@ -34,7 +34,6 @@ object TidesToolRegistration : ToolRegistration {
                     WIDGET_TIDES,
                     context.getString(R.string.tides),
                     ToolSummarySize.Half,
-                    R.layout.widget_small_simple,
                     TidesToolWidgetView(),
                     AppWidgetTides::class.java
                 )
