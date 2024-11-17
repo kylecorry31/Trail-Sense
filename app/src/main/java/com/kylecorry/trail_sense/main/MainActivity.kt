@@ -38,7 +38,6 @@ import com.kylecorry.trail_sense.databinding.ActivityMainBinding
 import com.kylecorry.trail_sense.main.errors.ExceptionHandler
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.RestartServicesCommand
-import com.kylecorry.trail_sense.settings.backup.BackupService
 import com.kylecorry.trail_sense.shared.CustomUiUtils.isDarkThemeOn
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.ComposedCommand
@@ -229,6 +228,7 @@ class MainActivity : AndromedaActivity() {
 
     override fun onResume() {
         super.onResume()
+        updateAllWidgets()
         FlashlightSubsystem.getInstance(this).startSystemMonitor()
         PedometerSubsystem.getInstance(this).recalculateState()
         Tools.subscribe(
@@ -494,6 +494,12 @@ class MainActivity : AndromedaActivity() {
     private fun onPowerSavingModeChanged(data: Bundle): Boolean {
         recreate()
         return true
+    }
+
+    private fun updateAllWidgets() {
+        Tools.getTools(this).flatMap { it.widgets }.forEach {
+            Tools.triggerWidgetUpdate(this, it.id)
+        }
     }
 
     companion object {

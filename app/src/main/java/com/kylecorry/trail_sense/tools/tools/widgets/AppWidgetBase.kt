@@ -5,6 +5,7 @@ import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.util.Log
 import com.kylecorry.luna.coroutines.onMain
+import com.kylecorry.trail_sense.shared.widgets.WidgetUtils
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolWidget
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.CoroutineScope
@@ -19,6 +20,8 @@ abstract class AppWidgetBase(private val widgetId: String) : AppWidgetProvider()
         appWidgetIds: IntArray
     ) {
         val widget = getWidget(context) ?: return
+
+        WidgetUtils.reloadTheme(context)
 
         val pendingResult = goAsync()
         try {

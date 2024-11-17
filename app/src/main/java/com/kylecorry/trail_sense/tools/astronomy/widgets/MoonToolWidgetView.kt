@@ -19,9 +19,6 @@ import com.kylecorry.trail_sense.tools.tools.ui.widgets.SimpleToolWidgetView
 
 class MoonToolWidgetView : SimpleToolWidgetView() {
 
-    private var lastBitmap: Bitmap? = null
-    private var nextBitmap: Bitmap? = null
-
     override suspend fun getPopulatedView(context: Context): RemoteViews {
         val views = getView(context)
         val astronomy = AstronomySubsystem.getInstance(context)
@@ -35,7 +32,6 @@ class MoonToolWidgetView : SimpleToolWidgetView() {
             )
             val rotated = bitmap?.let { rotate(it, moon.tilt) }
             bitmap?.recycle()
-            nextBitmap = rotated
             views.setImageViewBitmap(ICON_IMAGEVIEW, rotated)
         } else {
             views.setImageViewResourceAsIcon(context, ICON_IMAGEVIEW, image)
@@ -47,8 +43,6 @@ class MoonToolWidgetView : SimpleToolWidgetView() {
             ROOT,
             NavigationUtils.toolPendingIntent(context, Tools.ASTRONOMY)
         )
-        lastBitmap?.recycle()
-        lastBitmap = nextBitmap
         return views
     }
 

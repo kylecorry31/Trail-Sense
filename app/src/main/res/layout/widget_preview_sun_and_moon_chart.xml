@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_background"
+    android:elevation="4dp"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:theme="@style/AppTheme">
+
+    <android.widget.ImageView
+        android:id="@+id/widget_chart"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_chart"
+        android:tint="?android:attr/textColorSecondary" />
+
+</android.widget.LinearLayout>

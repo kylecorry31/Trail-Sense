@@ -49,7 +49,8 @@ class ToolWidgetViewBottomSheet :
         binding.widgets.removeAllViews()
 
         // 2 cells on a Pixel phone = 102dp
-        val summaryHeight = Resources.dp(requireContext(), 102f).toInt()
+        val halfSummaryHeight = Resources.dp(requireContext(), 102f).toInt()
+        val fullSummaryHeight = halfSummaryHeight * 2
         val summaryGap = Resources.dp(requireContext(), 4f).toInt()
 
         widgets.forEach { widget ->
@@ -57,7 +58,7 @@ class ToolWidgetViewBottomSheet :
             val layout = FrameLayout(requireContext())
             layout.layoutParams = FlexboxLayout.LayoutParams(
                 FlexboxLayout.LayoutParams.MATCH_PARENT,
-                summaryHeight
+                if (widget.size == ToolSummarySize.Full) fullSummaryHeight else halfSummaryHeight
             ).apply {
                 flexBasisPercent = when (widget.size) {
                     ToolSummarySize.Full -> 1f
