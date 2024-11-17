@@ -4,8 +4,9 @@
     android:initialLayout="@layout/widget_chart"
     android:minWidth="150dp"
     android:minHeight="40dp"
+    android:previewLayout="@layout/widget_preview_sun_and_moon_chart"
     android:resizeMode="horizontal|vertical"
-    android:targetCellWidth="3"
+    android:targetCellWidth="4"
     android:targetCellHeight="2"
     android:updatePeriodMillis="14400000"
     android:widgetCategory="home_screen" />
