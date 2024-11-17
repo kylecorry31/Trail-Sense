@@ -8,12 +8,12 @@ import com.kylecorry.andromeda.background.PeriodicTaskSchedulerFactory
 import com.kylecorry.andromeda.core.system.Wakelocks
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.permissions.Permissions
+import com.kylecorry.andromeda.widgets.Widgets
 import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
 import com.kylecorry.trail_sense.shared.permissions.canGetLocationCustom
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem.SensorRefreshPolicy
-import com.kylecorry.trail_sense.shared.widgets.WidgetUtils
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
 
@@ -31,7 +31,7 @@ class WidgetUpdateWorker(context: Context, params: WorkerParameters) :
 
             // Update all widgets
             Tools.getTools(applicationContext).flatMap { it.widgets }.forEach {
-                WidgetUtils.triggerUpdate(applicationContext, it.widgetClass)
+                Widgets.requestUpdate(applicationContext, it.widgetClass)
             }
         } finally {
             wakelock?.release()

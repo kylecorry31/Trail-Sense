@@ -4,13 +4,13 @@ import android.content.Context
 import android.os.Bundle
 import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.widgets.Widgets
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.luna.topics.generic.Topic
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.SettingsToolRegistration
 import com.kylecorry.trail_sense.shared.quickactions.QuickActionOpenTool
 import com.kylecorry.trail_sense.shared.views.QuickActionNone
-import com.kylecorry.trail_sense.shared.widgets.WidgetUtils
 import com.kylecorry.trail_sense.tools.astronomy.AstronomyToolRegistration
 import com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityToolRegistration
 import com.kylecorry.trail_sense.tools.battery.BatteryToolRegistration
@@ -183,7 +183,7 @@ object Tools {
 
     fun triggerWidgetUpdate(context: Context, widgetId: String) {
         val widget = getWidget(context, widgetId) ?: return
-        WidgetUtils.triggerUpdate(context, widget.widgetClass)
+        Widgets.requestUpdate(context, widget.widgetClass)
     }
 
     const val TOOL_QUICK_ACTION_OFFSET = 1000

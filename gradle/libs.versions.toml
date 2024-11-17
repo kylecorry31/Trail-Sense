@@ -5,7 +5,7 @@ androidXTestRunner = "1.6.2"
 androidXTestUiAutomator = "2.3.0"
 androidXArchCore = "2.2.0"
 androidXCoreRemoteViews = "1.1.0"
-andromedaVersion = "11.0.0"
+andromedaVersion = "11.1.0"
 cameraxVersion = "1.4.0"
 coreKtx = "1.15.0"
 appcompat = "1.7.0"
@@ -78,6 +78,7 @@ andromeda-forms = { module = "com.github.kylecorry31.andromeda:forms", version.r
 andromeda-fragments = { module = "com.github.kylecorry31.andromeda:fragments", version.ref = "andromedaVersion" }
 andromeda-torch = { module = "com.github.kylecorry31.andromeda:torch", version.ref = "andromedaVersion" }
 andromeda-views = { module = "com.github.kylecorry31.andromeda:views", version.ref = "andromedaVersion" }
+andromeda-widgets = { module = "com.github.kylecorry31.andromeda:widgets", version.ref = "andromedaVersion" }
 camera-view = { module = "androidx.camera:camera-view", version.ref = "cameraxVersion" }
 camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "cameraxVersion" }
 camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraxVersion" }

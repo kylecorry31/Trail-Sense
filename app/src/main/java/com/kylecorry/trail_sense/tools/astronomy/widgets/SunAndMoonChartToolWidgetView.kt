@@ -5,11 +5,11 @@ import android.view.View
 import android.widget.RemoteViews
 import androidx.lifecycle.Lifecycle
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Views
 import com.kylecorry.andromeda.views.chart.Chart
 import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
-import com.kylecorry.trail_sense.shared.widgets.WidgetUtils
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomySubsystem
 import com.kylecorry.trail_sense.tools.astronomy.ui.AstroChart
 import com.kylecorry.trail_sense.tools.astronomy.ui.MoonPhaseImageMapper
@@ -57,7 +57,7 @@ class SunAndMoonChartToolWidgetView : ToolWidgetView {
 
             val width = Resources.dp(context, 400f).toInt()
             val height = Resources.dp(context, 200f).toInt()
-            WidgetUtils.renderViewAsBitmap(chart, width, height)
+            Views.renderViewAsBitmap(chart, width, height)
         }
 
         val views = getView(context)
