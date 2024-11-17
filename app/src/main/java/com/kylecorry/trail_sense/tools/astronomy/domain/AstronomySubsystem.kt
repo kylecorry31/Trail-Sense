@@ -75,7 +75,7 @@ class AstronomySubsystem(context: Context) {
         }
 
     fun getSunAltitudes(): List<Reading<Float>> {
-        return if (prefs.astronomy.centerSunAndMoon) {
+        return if (!prefs.astronomy.centerSunAndMoon) {
             astronomyService.getSunAltitudes(location.location, LocalDate.now())
         } else {
             astronomyService.getCenteredSunAltitudes(location.location, ZonedDateTime.now())
@@ -83,7 +83,7 @@ class AstronomySubsystem(context: Context) {
     }
 
     fun getMoonAltitudes(): List<Reading<Float>> {
-        return if (prefs.astronomy.centerSunAndMoon) {
+        return if (!prefs.astronomy.centerSunAndMoon) {
             astronomyService.getMoonAltitudes(location.location, LocalDate.now())
         } else {
             astronomyService.getCenteredMoonAltitudes(location.location, ZonedDateTime.now())
