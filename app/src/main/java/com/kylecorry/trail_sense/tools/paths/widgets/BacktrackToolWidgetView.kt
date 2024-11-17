@@ -3,8 +3,6 @@ package com.kylecorry.trail_sense.tools.paths.widgets
 import android.content.Context
 import android.view.View
 import android.widget.RemoteViews
-import com.kylecorry.andromeda.core.coroutines.onDefault
-import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
@@ -16,24 +14,11 @@ import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.ui.widgets.SimpleToolWidgetView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class BacktrackToolWidgetView : SimpleToolWidgetView() {
 
-    override fun onUpdate(context: Context, views: RemoteViews, commit: () -> Unit) {
-        CoroutineScope(Dispatchers.Default).launch {
-            onDefault {
-                populateBacktrackDetails(context, views)
-            }
-            onMain {
-                commit()
-            }
-        }
-    }
-
-    private suspend fun populateBacktrackDetails(context: Context, views: RemoteViews) {
+    override suspend fun getPopulatedView(context: Context): RemoteViews {
+        val views = getView(context)
         val pathService = PathService.getInstance(context)
         val isBacktrackActive =
             Tools.getService(context, PathsToolRegistration.SERVICE_BACKTRACK)?.isEnabled() == true
@@ -61,5 +46,6 @@ class BacktrackToolWidgetView : SimpleToolWidgetView() {
             }
         )
         views.setOnClickPendingIntent(ROOT, NavigationUtils.toolPendingIntent(context, Tools.PATHS))
+        return views
     }
 }

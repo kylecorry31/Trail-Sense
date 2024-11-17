@@ -54,7 +54,6 @@ object WeatherToolRegistration : ToolRegistration {
                     WIDGET_WEATHER,
                     context.getString(R.string.weather),
                     ToolSummarySize.Half,
-                    R.layout.widget_small_simple,
                     WeatherToolWidgetView(),
                     AppWidgetWeather::class.java,
                     updateBroadcasts = listOf(BROADCAST_WEATHER_PREDICTION_CHANGED)
@@ -63,7 +62,6 @@ object WeatherToolRegistration : ToolRegistration {
                     WIDGET_PRESSURE_TENDENCY,
                     context.getString(R.string.pressure),
                     ToolSummarySize.Half,
-                    R.layout.widget_small_simple,
                     PressureWidgetView(),
                     AppWidgetPressure::class.java,
                     updateBroadcasts = listOf(BROADCAST_WEATHER_PREDICTION_CHANGED)

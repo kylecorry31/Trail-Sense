@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.weather.widgets
 import android.content.Context
 import android.view.View
 import android.widget.RemoteViews
-import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
@@ -13,22 +12,11 @@ import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.ui.widgets.SimpleToolWidgetView
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class PressureWidgetView : SimpleToolWidgetView() {
 
-    override fun onUpdate(context: Context, views: RemoteViews, commit: () -> Unit) {
-        CoroutineScope(Dispatchers.Default).launch {
-            populatePressureDetails(context, views)
-            onMain {
-                commit()
-            }
-        }
-    }
-
-    private suspend fun populatePressureDetails(context: Context, views: RemoteViews) {
+    override suspend fun getPopulatedView(context: Context): RemoteViews {
+        val views = getView(context)
         val weather = WeatherSubsystem.getInstance(context)
         val formatter = FormatService.getInstance(context)
         val prefs = UserPreferences(context)
@@ -73,5 +61,6 @@ class PressureWidgetView : SimpleToolWidgetView() {
             ROOT,
             NavigationUtils.toolPendingIntent(context, Tools.WEATHER)
         )
+        return views
     }
 }

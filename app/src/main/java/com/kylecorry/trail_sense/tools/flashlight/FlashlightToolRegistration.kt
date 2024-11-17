@@ -88,7 +88,6 @@ object FlashlightToolRegistration : ToolRegistration {
                     WIDGET_FLASHLIGHT,
                     context.getString(R.string.flashlight_title),
                     ToolSummarySize.Half,
-                    R.layout.widget_small_simple,
                     FlashlightToolWidgetView(),
                     AppWidgetFlashlight::class.java,
                     updateBroadcasts = listOf(BROADCAST_FLASHLIGHT_STATE_CHANGED),

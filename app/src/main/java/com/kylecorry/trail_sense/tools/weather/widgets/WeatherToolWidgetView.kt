@@ -1,10 +1,7 @@
 package com.kylecorry.trail_sense.tools.weather.widgets
 
 import android.content.Context
-import android.os.Bundle
 import android.widget.RemoteViews
-import androidx.lifecycle.Lifecycle
-import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -12,25 +9,11 @@ import com.kylecorry.trail_sense.shared.extensions.setImageViewResourceAsIcon
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.ui.widgets.SimpleToolWidgetView
-import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class WeatherToolWidgetView : SimpleToolWidgetView() {
-    private var triggerUpdate: (() -> Unit)? = null
-
-    override fun onUpdate(context: Context, views: RemoteViews, commit: () -> Unit) {
-        CoroutineScope(Dispatchers.IO).launch {
-            populateWeatherDetails(context, views)
-            onMain {
-                commit()
-            }
-        }
-    }
-
-    private suspend fun populateWeatherDetails(context: Context, views: RemoteViews) {
+    override suspend fun getPopulatedView(context: Context): RemoteViews {
+        val views = getView(context)
         val weather = WeatherSubsystem.getInstance(context)
         val formatter = FormatService.getInstance(context)
         val prefs = UserPreferences(context)
@@ -59,5 +42,6 @@ class WeatherToolWidgetView : SimpleToolWidgetView() {
             ROOT,
             NavigationUtils.toolPendingIntent(context, Tools.WEATHER)
         )
+        return views
     }
 }

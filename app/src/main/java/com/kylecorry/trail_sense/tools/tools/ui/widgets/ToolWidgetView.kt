@@ -6,12 +6,13 @@ import androidx.lifecycle.Lifecycle
 
 interface ToolWidgetView {
 
-    fun onEnabled(context: Context)
-
-    fun onDisabled(context: Context)
-
     fun onInAppEvent(context: Context, event: Lifecycle.Event, triggerUpdate: () -> Unit)
 
-    fun onUpdate(context: Context, views: RemoteViews, commit: () -> Unit)
+    suspend fun getPopulatedView(context: Context): RemoteViews
+
+    /**
+     * Get the view for the widget without any content (used for the loading state and by the onUpdate method)
+     */
+    fun getView(context: Context): RemoteViews
 
 }

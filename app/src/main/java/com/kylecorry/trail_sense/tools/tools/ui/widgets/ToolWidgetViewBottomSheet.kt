@@ -6,14 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.RemoteViews
 import androidx.core.view.setPadding
 import androidx.lifecycle.Lifecycle
 import com.google.android.flexbox.FlexboxLayout
-import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
+import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.luna.coroutines.onDefault
+import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.luna.timer.CoroutineTimer
 import com.kylecorry.trail_sense.databinding.FragmentToolWidgetSheetBinding
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -67,17 +68,20 @@ class ToolWidgetViewBottomSheet :
 
             binding.widgets.addView(layout)
 
-            val views =
-                RemoteViews(Package.getPackageName(requireContext()), widget.widgetResourceId)
             val updateFunction = {
-                widget.widgetView.onUpdate(requireContext(), views) {
-                    tryOrLog {
-                        layout.removeAllViews()
-                        val widgetView = views.apply(requireContext(), layout)
-                        widgetView.backgroundTintList = ColorStateList.valueOf(
-                            Resources.androidBackgroundColorSecondary(requireContext())
-                        )
-                        layout.addView(widgetView)
+                inBackground {
+                    val views = onDefault {
+                        widget.widgetView.getPopulatedView(requireContext())
+                    }
+                    onMain {
+                        tryOrLog {
+                            layout.removeAllViews()
+                            val widgetView = views.apply(requireContext(), layout)
+                            widgetView.backgroundTintList = ColorStateList.valueOf(
+                                Resources.androidBackgroundColorSecondary(requireContext())
+                            )
+                            layout.addView(widgetView)
+                        }
                     }
                 }
             }
@@ -99,7 +103,8 @@ class ToolWidgetViewBottomSheet :
             }
 
             this.widgets.add(WidgetInstance(widget, timer, updateFunction, subscriptions))
-            val widgetView = views.apply(requireContext(), layout)
+            val widgetView =
+                widget.widgetView.getView(requireContext()).apply(requireContext(), layout)
             widgetView.backgroundTintList = ColorStateList.valueOf(
                 Resources.androidBackgroundColorSecondary(requireContext())
             )

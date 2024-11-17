@@ -59,7 +59,6 @@ object AstronomyToolRegistration : ToolRegistration {
                     WIDGET_SUN,
                     context.getString(R.string.sun),
                     ToolSummarySize.Half,
-                    R.layout.widget_small_simple,
                     SunToolWidgetView(),
                     AppWidgetSun::class.java
                 ),
@@ -67,7 +66,6 @@ object AstronomyToolRegistration : ToolRegistration {
                     WIDGET_MOON,
                     context.getString(R.string.moon),
                     ToolSummarySize.Half,
-                    R.layout.widget_small_simple,
                     MoonToolWidgetView(),
                     AppWidgetMoon::class.java
                 )
