@@ -16,6 +16,7 @@ import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.luna.timer.CoroutineTimer
 import com.kylecorry.trail_sense.databinding.FragmentToolWidgetSheetBinding
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummarySize
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolWidget
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -24,6 +25,7 @@ class ToolWidgetViewBottomSheet :
     BoundBottomSheetDialogFragment<FragmentToolWidgetSheetBinding>() {
 
     private val widgets = mutableListOf<WidgetInstance>()
+    private val prefs by lazy { UserPreferences(requireContext()) }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -35,10 +37,13 @@ class ToolWidgetViewBottomSheet :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO: Filter to what the user selected
-        val widgets = Tools.getTools(requireContext())
+        val selectedWidgets = prefs.toolWidgets
+        val allWidgets = Tools.getTools(requireContext())
             .flatMap { it.widgets }
             .sortedByDescending { it.size.ordinal }
+
+        // Only show the selected widgets
+        val widgets = allWidgets.filter { selectedWidgets.contains(it.id) }
 
         binding.widgets.removeAllViews()
 

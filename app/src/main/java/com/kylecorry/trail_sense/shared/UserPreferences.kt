@@ -405,6 +405,23 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
             cache.putLongArray(context.getString(R.string.pref_pinned_tools), value)
         }
 
+    var toolWidgets: List<String>
+        get() {
+            val value = cache.getString(context.getString(R.string.pref_tool_widgets))?.split(",")
+            if (value != null) {
+                return value
+            }
+
+            // The user hasn't made a selection, so default to all widgets
+            return Tools.getTools(context)
+                .flatMap { it.widgets }
+                .map { it.name }
+                .distinct()
+        }
+        set(value) {
+            cache.putString(context.getString(R.string.pref_tool_widgets), value.joinToString(","))
+        }
+
     private fun getString(id: Int): String {
         return context.getString(id)
     }

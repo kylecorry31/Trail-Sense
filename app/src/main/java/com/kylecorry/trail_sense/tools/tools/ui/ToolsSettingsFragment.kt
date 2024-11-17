@@ -19,6 +19,7 @@ class ToolsSettingsFragment : AndromedaPreferenceFragment() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.tool_preferences, rootKey)
         bindQuickActionPreference()
+        bindWidgetPreference()
         bindBottomNavPreferences()
     }
 
@@ -95,6 +96,33 @@ class ToolsSettingsFragment : AndromedaPreferenceFragment() {
             ) {
                 if (it != null) {
                     prefs.toolQuickActions = it.map { potentialActions[it].id }
+                }
+            }
+        }
+    }
+
+    private fun bindWidgetPreference() {
+        onClick(findPreference(getString(R.string.pref_tool_widgets_header_key))) {
+            val tools = Tools.getTools(requireContext())
+            val potentialWidgets = tools
+                .flatMap { it.widgets }
+                .distinctBy { it.id }
+                .sortedBy { it.name }
+
+            val selected = prefs.toolWidgets
+
+            val selectedIndices = potentialWidgets.mapIndexedNotNull { index, widget ->
+                if (selected.contains(widget.id)) index else null
+            }
+
+            Pickers.items(
+                requireContext(),
+                getString(R.string.widget_pref_title),
+                potentialWidgets.map { it.name },
+                selectedIndices
+            ) {
+                if (it != null) {
+                    prefs.toolWidgets = it.map { potentialWidgets[it].id }
                 }
             }
         }
