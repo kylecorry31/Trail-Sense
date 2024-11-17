@@ -13,5 +13,12 @@
             app:summary="@string/tool_quick_action_summary"
             app:title="@string/quick_actions" />
 
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_tool_widgets_header_key"
+            app:singleLineTitle="false"
+            app:summary="@string/widget_bottom_sheet_instructions"
+            app:title="@string/widget_pref_title" />
+
     </PreferenceCategory>
 </PreferenceScreen>
