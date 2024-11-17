@@ -1249,4 +1249,6 @@
         <item quantity="few">%d kroky</item>
         <item quantity="other">%d kroků</item>
     </plurals>
+    <string name="widget_bottom_sheet_instructions">K zobrazení použijte rychlou akci widgetů</string>
+    <string name="widget_pref_title">Widgety v aplikaci</string>
 </resources>
