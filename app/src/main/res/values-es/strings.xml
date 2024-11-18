@@ -1229,4 +1229,6 @@
         <item quantity="other">%d pasos</item>
     </plurals>
     <string name="widget_updater">Actualizador de widgets</string>
+    <string name="widget_bottom_sheet_instructions">Utilice la acción rápida del widget para ver</string>
+    <string name="widget_pref_title">Widgets en la aplicación</string>
 </resources>

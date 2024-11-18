@@ -1223,4 +1223,7 @@
     <string name="widget_updater">Widget-bijwerker</string>
     <string name="automatic_backup">Automatische back-up</string>
     <string name="auto_backup_instructions">Een back-up zal één keer per dag gemaakt worden naar %1$s. Alleen de laatste %2$d back-ups zullen bewaard blijven.</string>
+    <string name="widget_pref_title">In-app-widgets</string>
+    <string name="widget_bottom_sheet_instructions">Gebruik de Widget snelle actie om te bekijken</string>
+    <string name="sun_moon_chart"><![CDATA[Zon & maan grafiek]]></string>
 </resources>
