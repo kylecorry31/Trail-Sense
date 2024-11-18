@@ -26,6 +26,9 @@
         <item name="preferenceTheme">@style/AppThemePreferenceThemeOverlay</item>
     </style>
 
+    <style name="WidgetTheme" parent="Theme.Material3.DynamicColors.DayNight" />
+
+
     <!--Override this for other Android versions-->
     <style name="AppTheme" parent="BaseAppTheme" />
 
