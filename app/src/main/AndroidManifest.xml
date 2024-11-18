@@ -473,6 +473,18 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/app_widget_sun_and_moon_chart_info" />
         </receiver>
+
+        <receiver
+            android:name="com.kylecorry.trail_sense.tools.weather.widgets.AppWidgetPressureChart"
+            android:exported="false"
+            android:label="@string/pressure_chart">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_pressure_chart_info" />
+        </receiver>
     </application>
 
 </manifest>
