@@ -4,10 +4,8 @@ import android.content.Context
 import android.view.View
 import android.widget.RemoteViews
 import androidx.lifecycle.Lifecycle
-import com.google.android.material.color.DynamicColors
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Views
-import com.kylecorry.andromeda.fragments.useDynamicColors
 import com.kylecorry.andromeda.views.chart.Chart
 import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.trail_sense.R
