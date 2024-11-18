@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.weather.widgets
 import android.content.Context
 import android.view.View
 import android.widget.RemoteViews
+import android.widget.TextView
 import androidx.lifecycle.Lifecycle
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Views
@@ -46,9 +47,13 @@ class PressureChartToolWidgetView : ToolWidgetView {
             val pressureChart = PressureChart(chart)
             pressureChart.plot(displayReadings)
 
+            val text = Views.text(context, context.getString(R.string.pressure)) as TextView
+            text.textAlignment = View.TEXT_ALIGNMENT_CENTER
+            val layout = Views.linear(listOf(text, chart))
+
             val width = Resources.dp(context, 400f).toInt()
             val height = Resources.dp(context, 200f).toInt()
-            Views.renderViewAsBitmap(chart, width, height)
+            Views.renderViewAsBitmap(layout, width, height)
         }
 
         val views = getView(context)
