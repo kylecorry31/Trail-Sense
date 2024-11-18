@@ -597,11 +597,11 @@
     <string name="ounces_weight">Onças</string>
     <string name="pounds">Libras</string>
     <string name="volume">Volume</string>
-    <string name="imperial_gallons">Galões imperiais</string>
-    <string name="imperial_ounces_volume">Onças imperiais</string>
-    <string name="imperial_quarts">Quartos imperiais</string>
-    <string name="imperial_pints">Quartilhos imperiais</string>
-    <string name="imperial_cups">Copos imperiais</string>
+    <string name="imperial_gallons">Galões Imperial</string>
+    <string name="imperial_ounces_volume">Onças Imperial</string>
+    <string name="imperial_quarts">Quartos Imperial</string>
+    <string name="imperial_pints">Quartilhos Imperial</string>
+    <string name="imperial_cups">Copos Imperial</string>
     <string name="us_gallons">Galões Americano</string>
     <string name="us_ounces_volume">Onças Americana</string>
     <string name="us_quarts">Quartos Americano</string>
@@ -1227,5 +1227,5 @@
     <string name="widget_updater">Atualização de widgets</string>
     <string name="widget_pref_title">Widgets no aplicativo</string>
     <string name="widget_bottom_sheet_instructions">Use a ação rápida de Widgets para visualizar</string>
-    <string name="sun_moon_chart"><![CDATA[Gráficos solar & lunar]]></string>
+    <string name="sun_moon_chart">Gráficos solar &amp; lunar</string>
 </resources>
