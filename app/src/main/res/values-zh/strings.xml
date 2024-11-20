@@ -1215,4 +1215,5 @@
     <string name="widget_bottom_sheet_instructions">使用小部件快速操作查看</string>
     <string name="widget_pref_title">应用内小部件</string>
     <string name="sun_moon_chart">太阳和月亮图表</string>
+    <string name="pressure_chart">气压图</string>
 </resources>

@@ -1226,4 +1226,5 @@
     <string name="widget_pref_title">In-app-widgets</string>
     <string name="widget_bottom_sheet_instructions">Gebruik de Widget snelle actie om te bekijken</string>
     <string name="sun_moon_chart">Zon &amp; maan grafiek</string>
+    <string name="pressure_chart">Drukgrafiek</string>
 </resources>

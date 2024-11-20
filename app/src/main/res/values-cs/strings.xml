@@ -1252,4 +1252,5 @@
     <string name="widget_bottom_sheet_instructions">K zobrazení použijte rychlou akci widgetů</string>
     <string name="widget_pref_title">Widgety v aplikaci</string>
     <string name="sun_moon_chart">Graf slunce a měsíce</string>
+    <string name="pressure_chart">Graf tlaku</string>
 </resources>
