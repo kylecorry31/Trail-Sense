@@ -1083,4 +1083,10 @@
     <string name="projection_linear">線性投影</string>
     <string name="projection_estimated_intrinsics">估計內在矩陣運算</string>
     <string name="projection_type">擴充實境投影方式</string>
+    <string name="tool_solar_panel_summary">調研光伏板方向，好天日昭昭之下高舉發動集結光伏</string>
+    <string name="create_at_distance">離遠整</string>
+    <string name="audio_error_messsage">嘗試播聲時發生錯誤。</string>
+    <string name="grid">格線</string>
+    <string name="sun_moon_chart">日月圖</string>
+    <string name="pressure_chart">氣壓圖</string>
 </resources>

@@ -106,7 +106,7 @@
     <string name="sun_moon_compass_when_up">Quando subir</string>
     <string name="pref_center_sun_and_moon_title">Manter sol/lua centralizado</string>
     <string name="pref_forecast_sensitivity_title">Sensibilidade de previsão</string>
-    <string name="notification_monitoring_weather">Monitoramento do tempo em segundo plano</string>
+    <string name="notification_monitoring_weather">Monitoramento do clima em segundo plano</string>
     <string name="notification_storm_alert_text">Uma tempestade pode estar se aproximando</string>
     <string name="notification_storm_alert_title">Alerta de tempestade</string>
     <string name="coordinate_format_decimal_degrees">Graus decimais</string>
@@ -146,10 +146,8 @@
     <string name="request_permission">Solicitar permissão</string>
     <string name="calibrate">Calibrar</string>
     <string name="calibrate_compass_dialog_title">Calibrar bússola</string>
-    <string name="calibrate_compass_dialog_content">Gire seu celular várias vezes num padrão de número 8 ou em todas as direções, clique em %s quando terminar.</string>
-    <string name="calibrate_compass_on_navigate_dialog_content">Gire seu celular várias vezes num padrão de número 8 ou em todas as direções, clique em %s quando terminar.
-\n
-\nEste alerta pode ser desativado nas configurações do aplicativo.</string>
+    <string name="calibrate_compass_dialog_content">Gire seu celular várias vezes num padrão de número 8 ou em todas as direções, toque em \"%s\" quando terminar.</string>
+    <string name="calibrate_compass_on_navigate_dialog_content">Gire seu celular várias vezes num padrão de número 8 ou em todas as direções, toque em \"%s\" quando terminar. \n \nEste alerta pode ser desativado nas configurações do aplicativo.</string>
     <string name="compass_reported_accuracy">Precisão relatada: %s</string>
     <string name="compass_accuracy_improved">Precisão da bússola melhorada para %s</string>
     <string name="pref_elevation_override_sea_level_title">Usando uma pressão conhecida ao nível do mar</string>
@@ -202,7 +200,7 @@
     <string name="sos">SOS</string>
     <string name="tap_to_turn_off">Toque para desligar</string>
     <string name="flashlight_title">Lanterna</string>
-    <string name="access_background_location_rationale">O Trail Sense utiliza dados de localização em segundo plano. Ele é usado para a calibração da pressão ao nível do mar no monitoramento meteorológico e para fornecer alertas mais precisos do pôr do sol. [Ver política de privacidade](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">O Trail Sense utiliza dados de localização em segundo plano. Ele é usado para a calibração da pressão ao nível do mar no monitoramento de clima e para fornecer alertas mais precisos do pôr do sol. [Ver política de privacidade](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Atualizar as configurações de localização</string>
     <string name="copied_to_clipboard_toast">Copiado para área de transferência</string>
     <string name="distance_from">De</string>
@@ -336,27 +334,7 @@
     <string name="gps_user">Usuário</string>
     <string name="import_btn">Importar</string>
     <string name="export">Exportar</string>
-    <string name="onboarding_privacy">- Trail Sense respeita sua privacidade e seus dados de localização nunca deixam seu dispositivo
-\n
-\n- Trail Sense nunca exigirá permissão da Internet
-\n
-\n- Veja a [Política de Privacidade](https://kylecorry.com/Trail-Sense/privacy_policy.html) (abre no navegador do seu telefone)
-\n
-\n- Algumas funcionalidades do Trail Sense exigem acesso à sua localização
-\n
-\n- A concessão da permissão de localização permitirá as seguintes funcionalidades:
-\n
-\n\t- Navegação até os pontos de orientação
-\n
-\n\t- Maior precisão na previsão (não disponível em todos os dispositivos)
-\n
-\n\t- Recuar
-\n
-\n\t- Tempos de sol e lua para sua localização atual (alertas de pôr-do-sol podem precisar da localização em segundo plano)
-\n
-\n- Se você optar por não conceder a permissão de localização, você pode digitar manualmente uma localização no menu de Configurações &gt; Calibração do GPS em Trail Sense.
-\n
-\n- Depois de clicar em continuar, você será solicitado a conceder a permissão de localização. A negação dessa permissão impedirá o Trail Sense de acessar sua localização, portanto, recomenda-se uma inserção manual de localização.</string>
+    <string name="onboarding_privacy">- Trail Sense respeita sua privacidade e seus dados de localização nunca deixam seu dispositivo \n \n- Trail Sense nunca exigirá permissão da Internet \n \n- Veja a [Política de Privacidade](https://kylecorry.com/Trail-Sense/privacy_policy.html) (abre no navegador do seu telefone) \n \n- Algumas funcionalidades do Trail Sense exigem acesso à sua localização \n \n- A concessão da permissão de localização permitirá as seguintes funcionalidades: \n \n\t- Navegação até os pontos de orientação \n \n\t- Maior precisão na previsão (não disponível em todos os dispositivos) \n \n\t- Recuar \n \n\t- Horários do sol e lua para sua localização atual (alertas de pôr-do-sol podem precisar da localização em segundo plano) \n \n- Se você optar por não conceder a permissão de localização, você pode digitar manualmente uma localização no menu de Configurações &gt; Calibração do GPS em Trail Sense. \n \n- Depois de clicar em continuar, você será solicitado a conceder a permissão de localização. A negação dessa permissão impedirá o Trail Sense de acessar sua localização, portanto, recomenda-se uma inserção manual de localização.</string>
     <string name="onboarding_user_guide">Saiba como usar as funcionalidades do Trail Sense com o Guia do Usuário. Disponível na parte inferior da guia Ferramentas.
 \n
 \nMais guias estarão disponíveis em breve.</string>
@@ -787,19 +765,9 @@
     <string name="pref_default_path_style_title">Estilo padrão do percurso</string>
     <string name="saving">Salvando</string>
     <string name="reduce_map_resolution">Reduzir a resolução do mapa</string>
-    <string name="clinometer_measure_distance_instructions">Para medir a distância até um destino que é %s alto:
-\n
-\n1. Alinhe o clinômetro com a base do destino
-\n2. Faça clique longo na tela
-\n3. Realinhe o clinômetro com o topo do destino
-\n4. Solte para fixar e veja a distância do destino</string>
+    <string name="clinometer_measure_distance_instructions">Para medir a distância até um destino que é %s alto: \n \n1. Alinhe o clinômetro com a base do destino\n2. Toque na tela e mantenha pressionado\n3. Realinhe o clinômetro com o topo do destino\n4. Solte para fixar e veja a distância do destino</string>
     <string name="pref_clinometer_lock_with_volume_buttons_title">Fixar com botões de volume</string>
-    <string name="clinometer_measure_height_instructions">Para medir a altura de um destino que está a %s de distância:
-\n
-\n1. Alinhe o clinômetro com a base do destino
-\n2. Faça clique longo na tela
-\n3. Realinhe o clinômetro com o topo do destino
-\n4. Solte para fixar e veja a altura do destino</string>
+    <string name="clinometer_measure_height_instructions">Para medir a altura de um destino que está a %s de distância: \n \n1. Alinhe o clinômetro com a base do destino\n2. Toque na tela e mantenha pressionado\n3. Realinhe o clinômetro com o topo do destino\n4. Solte para fixar e veja a altura do destino</string>
     <string name="clinometer_measure_distance_title">Altura do destino</string>
     <string name="clinometer_measure_height_title">Distância até o destino</string>
     <string name="weather_monitor_disabled_resolution">Habilitar o monitoramento do clima nas configurações de clima</string>
@@ -857,7 +825,7 @@
     <string name="distance_alert_distance_reached">Você chegou a %s</string>
     <string name="save">Salvar</string>
     <string name="saved">Salvo</string>
-    <string name="stride_length_walk">Caminhe em uma linha reta e toque em \"parar\" quando terminar</string>
+    <string name="stride_length_walk">Caminhe em uma linha reta e toque em \"Parar\" quando terminar</string>
     <string name="current_speed">Velocidade atual</string>
     <string name="current_speed_pedometer">Velocidade atual (Pedômetro)</string>
     <string name="current_speed_gps">Velocidade atual (GPS)</string>
@@ -958,7 +926,7 @@
     <string name="icon">Ícone</string>
     <string name="altocumulus_forecast">Pode indicar precipitação ou uma trovoada nas próximas %d horas.</string>
     <string name="altostratus_forecast">Pode indicar precipitação nas próximas %d horas.</string>
-    <string name="cloud_fair_forecast_hours">Pode indicar tempo bom para as próximas %d horas.</string>
+    <string name="cloud_fair_forecast_hours">Pode indicar um clima bom para as próximas %d horas.</string>
     <string name="pref_show_map_previews_title">Mostrar pré-visualizações no mapa</string>
     <string name="path_slope_steep">Íngreme</string>
     <string name="next_24_hours">Próximas 24 horas</string>
@@ -966,7 +934,7 @@
     <string name="for_historic_temperatures">Para temperaturas históricas</string>
     <string name="weather_front">Frente climática</string>
     <string name="path_slope">Declive</string>
-    <string name="cloud_stratus_forecast" tools:ignore="PluralsCandidate">Pode indicar a um clima bom nas próximas %d horas se estiver nebuloso, caso contrário, pode indicar precipitação em breve.</string>
+    <string name="cloud_stratus_forecast" tools:ignore="PluralsCandidate">Pode indicar um clima bom nas próximas %d horas se estiver nebuloso, caso contrário, pode indicar precipitação em breve.</string>
     <string name="pref_backfill_temperatures_title">Atualizar temperaturas registradas</string>
     <string name="pref_backfill_temperatures_description">Todas as temperaturas registradas serão substituídas pela temperatura histórica calibrada.</string>
     <string name="i_agree">Eu concordo</string>
@@ -980,7 +948,7 @@
         <item quantity="other">%d mapas</item>
     </plurals>
     <string name="illumination">Iluminação</string>
-    <string name="cumulus_forecast" tools:ignore="PluralsCandidate">Pode indicar tempo bom. Se crescer em altura, pode indicar precipitação ou trovoadas nas próximas %d horas.</string>
+    <string name="cumulus_forecast" tools:ignore="PluralsCandidate">Pode indicar um clima bom. Se crescer em altura, pode indicar precipitação ou trovoadas nas próximas %d horas.</string>
     <string name="map_auto_rotated">Rotação do mapa ajustada com calibração</string>
     <string name="then_weather">em seguida %s</string>
     <string name="weather_alert_hot_description">Prepare-se para altas temperaturas. Tome precauções adicionais contra exaustão de calor e insolação.</string>
@@ -1034,7 +1002,7 @@
     <string name="restore_complete_message">Restauração concluída, reiniciando para aplicar as mudanças</string>
     <string name="notifications_channel">Notificações (%s)</string>
     <string name="destination">Destino</string>
-    <string name="my_location">Minha posição</string>
+    <string name="my_location">Minha localização</string>
     <string name="no">Não</string>
     <string name="photo_map_summary">Usar uma foto como mapa</string>
     <string name="photo_map_disclaimer">Sempre leve um mapa físico como alternativa e verifique a precisão do Trail Sense.</string>
@@ -1052,7 +1020,7 @@
     <string name="until_sunrise">até o nascer do sol</string>
     <string name="reduce_map_resolution_crop_disclaimer">O corte do mapa ainda reduzirá a resolução. Se precisar cortar o mapa em alta resolução, use um aplicativo de edição de fotos. Há planos para corrigir isso no futuro.</string>
     <string name="zero_shutter_lag">Sem atraso no obturador</string>
-    <string name="triangulate_destination_location_2_instructions">Mova-se pelo menos %s da primeira posição e coloque a nova posição e a direção do destino novamente.</string>
+    <string name="triangulate_destination_location_2_instructions">Mova-se pelo menos %s da primeira localização e coloque a nova localização e a direção do destino novamente.</string>
     <string name="restoring_loading_message">Restaurando…</string>
     <string name="pref_keep_map_facing_up_summary">O mapa se alinhará com a parte superior da tela em vez do Norte verdadeiro.</string>
     <string name="times">Horários</string>
@@ -1063,7 +1031,7 @@
     <string name="battery_settings_limit_accuracy">Restrições na bateria podem reduzir a precisão</string>
     <string name="backing_up_loading_message">Fazendo backup…</string>
     <string name="backup_restore">Backup / restauração</string>
-    <string name="triangulate_destination_location_1_instructions">Coloque a sua posição e a direção do destino.</string>
+    <string name="triangulate_destination_location_1_instructions">Coloque a sua localização e a direção do destino.</string>
     <string name="augmented_reality_description">Ver pontos de orientação próximos, o sol e a lua com a câmera</string>
     <string name="magnetic_north">Norte Magnético</string>
     <string name="pinned">Fixado</string>
@@ -1071,12 +1039,12 @@
     <string name="tool_long_press_hint_toast">Mantenha pressionado para ver mais opções da ferramenta</string>
     <string name="direction_not_set">Direção não definida</string>
     <string name="distance_away_from_self">%s distante</string>
-    <string name="location_to_triangulate">Posição em triangular</string>
+    <string name="location_to_triangulate">Localização em triangular</string>
     <string name="missing_sensor_message_1">Seu dispositivo %1$s não possui %2$s disponível. Infelizmente algumas funções do %3$s não estarão disponíveis.</string>
     <string name="settings_have_moved">As configurações mudaram de lugar</string>
     <string name="settings_have_moved_message">As configurações do aplicativo mudaram para a barra de ferramentas</string>
     <string name="enter_manually">Colocar manualmente</string>
-    <string name="location_number">Posição %d</string>
+    <string name="location_number">Localização %d</string>
     <string name="direction">Direção</string>
     <string name="pin">Fixar</string>
     <string name="distance_away_from_destination">%s do destino</string>
@@ -1087,10 +1055,10 @@
     <string name="sunset_alerts_background_location_disclaimer">Os alertas de pôr do sol podem ser imprecisos durante a viagem</string>
     <string name="horizon">Horizonte</string>
     <string name="allow_schedule_exact_alarms">Permitir que %s crie alarmes e lembretes</string>
-    <string name="allow_schedule_exact_alarms_instructions">Isso permite que %1$s defina alarmes e lembretes exatos, como alertas de pôr do sol. Sem isso, os alarmes podem não ser acionados no horário correto. \n \nPara permitir, toque em \'%2$s\' e ative a configuração para permitir alarmes e lembretes.</string>
+    <string name="allow_schedule_exact_alarms_instructions">Isso permite que %1$s defina alarmes e lembretes exatos, como alertas de pôr do sol. Sem isso, os alarmes podem não ser acionados no horário correto. \n \nPara permitir, toque em \"%2$s\" e ative a configuração para permitir alarmes e lembretes.</string>
     <string name="exact_alarm_permission_denied">Alarmes e lembretes negados, os alertas podem ser imprecisos.</string>
     <string name="is_there_a_way_to_fix_this">Alguma forma de solucionar?</string>
-    <string name="triangulate_self_location_2_instructions">Escolha outra posição conhecida que você pode ver e registrar a direção de onde você está para a outra posição.</string>
+    <string name="triangulate_self_location_2_instructions">Escolha outra localização conhecida que você pode ver e registrar a direção de onde você está para a outra localização.</string>
     <string name="sunrise_alert_notification_title">O sol vai nascer em breve</string>
     <string name="pref_sunrise_alert_time_title">Horário de alerta do nascer do sol</string>
     <string name="exported">Exportado</string>
@@ -1127,7 +1095,7 @@
     <string name="compass_dynamic_colors_summary">Use cores dinâmicas para as direções cardeais</string>
     <string name="screen_flashlight_full_name">Usar tela do celular como lanterna</string>
     <string name="navigate_to_nearest_cell_signal">Navegue até o sinal da rede móvel mais próximo</string>
-    <string name="magnetic_north_description">Aponta para o \'Pólo Norte\' magnético. Isso se alinhará com a maioria das bússolas.</string>
+    <string name="magnetic_north_description">Aponta para o \"Pólo Norte\" magnético. Isso se alinhará com a maioria das bússolas.</string>
     <string name="continuous_calibration">Calibração contínua</string>
     <string name="service_restart_channel_description">Uma notificação para reiniciar os serviços</string>
     <string name="restart_services_title">Reiniciar serviços</string>
@@ -1166,10 +1134,10 @@
     <string name="ar_calibration_instructions_hint">Para calibrar a ferramenta de Realidade Aumentada, toque no ícone no canto superior esquerdo da tela e siga as instruções que aparecem.</string>
     <string name="visible">Visível</string>
     <string name="ar_layer_override_message">As configurações de camada podem ser substituídas por orientações, como o guia Astronomia.</string>
-    <string name="ar_calibration_disclaimer">Antes de cada uso da ferramenta de Realidade Aumentada, verifique se os ícones de sol ou lua estão alinhados corretamente com o mundo real. Caso contrário, clique no ícone da bússola no canto superior esquerdo da tela e siga as instruções para calibrar.</string>
+    <string name="ar_calibration_disclaimer">Antes de cada uso da ferramenta de Realidade Aumentada, verifique se os ícones de sol ou lua estão alinhados corretamente com o mundo real. Caso contrário, toque no ícone da bússola no canto superior esquerdo da tela e siga as instruções para calibrar.</string>
     <string name="forecast_algorithm">Algoritmo de previsão</string>
     <string name="no_sensor_unable_to_fix">Não, infelizmente essa é uma função de hardware, portanto não há nada que possa ser feito para adicioná-lo.</string>
-    <string name="true_north_description">Aponta para o \'Pólo Norte\' geográfico usando a declinação da sua localização. Isso se alinhará com a maioria dos mapas.</string>
+    <string name="true_north_description">Aponta para o \"Pólo Norte\" geográfico usando a declinação da sua localização. Isso se alinhará com a maioria dos mapas.</string>
     <string name="missing_sensor_explanation">Alguns fabricantes de telefones optam por não adicionar esse sensor, mesmo em dispositivos novos ou caros. Para obter mais informações, visite o site do fabricante do seu dispositivo ou entre em contato com ele.</string>
     <string name="restart_services_message">Os serviços em segundo plano não puderam ser reiniciados. Toque para reiniciar.</string>
     <string name="service_restart">Reinicialização do Serviço</string>
