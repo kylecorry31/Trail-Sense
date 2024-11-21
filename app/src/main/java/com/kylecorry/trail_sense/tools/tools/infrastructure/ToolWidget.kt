@@ -12,7 +12,8 @@ data class ToolWidget(
     val widgetClass: Class<out AppWidgetProvider>,
     val inAppUpdateFrequencyMs: Long = 60000,
     val updateBroadcasts: List<String> = emptyList(),
-    val isEnabled: (context: Context) -> Boolean = { true }
+    val isEnabled: (context: Context) -> Boolean = { true },
+    val usesLocation: Boolean = false,
 )
 
 enum class ToolSummarySize {

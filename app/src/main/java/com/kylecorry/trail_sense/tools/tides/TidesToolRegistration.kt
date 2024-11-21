@@ -35,7 +35,8 @@ object TidesToolRegistration : ToolRegistration {
                     context.getString(R.string.tides),
                     ToolSummarySize.Half,
                     TidesToolWidgetView(),
-                    AppWidgetTides::class.java
+                    AppWidgetTides::class.java,
+                    usesLocation = true
                 )
             )
         )
