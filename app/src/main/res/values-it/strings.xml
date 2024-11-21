@@ -1239,4 +1239,5 @@
     <string name="widget_bottom_sheet_instructions">Usa i Widget di azioni rapide per visualizzare</string>
     <string name="sun_moon_chart">Grafico di sole e luna</string>
     <string name="widget_pref_title">Widget in-app</string>
+    <string name="pressure_chart">Grafico della pressione</string>
 </resources>
