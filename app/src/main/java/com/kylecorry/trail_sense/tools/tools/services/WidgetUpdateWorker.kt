@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.tools.services
 
 import android.content.Context
+import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.kylecorry.andromeda.background.IPeriodicTaskScheduler
@@ -24,9 +25,13 @@ class WidgetUpdateWorker(context: Context, params: WorkerParameters) :
         val wakelock = Wakelocks.get(applicationContext, "WidgetUpdateWorker")
         wakelock?.acquire(Duration.ofSeconds(30).toMillis())
         try {
+            Log.d("WidgetUpdateWorker", "Updating widgets")
             // Update stale location/elevation data if needed
             tryOrLog {
-                updateStaleSensorData()
+                if (Tools.hasAnyWidgetsOnHomeScreen(applicationContext) { it.usesLocation }) {
+                    Log.d("WidgetUpdateWorker", "Updating stale sensor data")
+                    updateStaleSensorData()
+                }
             }
 
             // Update all widgets
@@ -36,6 +41,7 @@ class WidgetUpdateWorker(context: Context, params: WorkerParameters) :
         } finally {
             wakelock?.release()
         }
+        Log.d("WidgetUpdateWorker", "Widgets updated")
         return Result.success()
     }
 

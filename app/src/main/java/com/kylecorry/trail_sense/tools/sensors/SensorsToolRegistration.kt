@@ -46,7 +46,8 @@ object SensorsToolRegistration : ToolRegistration {
                     ToolSummarySize.Half,
                     LocationWidgetView(),
                     AppWidgetLocation::class.java,
-                    updateBroadcasts = listOf(BROADCAST_LOCATION_CHANGED)
+                    updateBroadcasts = listOf(BROADCAST_LOCATION_CHANGED),
+                    usesLocation = true
                 ),
                 ToolWidget(
                     WIDGET_ELEVATION,
@@ -54,7 +55,8 @@ object SensorsToolRegistration : ToolRegistration {
                     ToolSummarySize.Half,
                     ElevationWidgetView(),
                     AppWidgetElevation::class.java,
-                    updateBroadcasts = listOf(BROADCAST_ELEVATION_CHANGED)
+                    updateBroadcasts = listOf(BROADCAST_ELEVATION_CHANGED),
+                    usesLocation = true
                 )
             ),
             broadcasts = listOf(

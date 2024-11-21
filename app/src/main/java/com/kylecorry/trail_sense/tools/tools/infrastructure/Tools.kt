@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.tools.tools.infrastructure
 
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.content.Context
 import android.os.Bundle
 import com.kylecorry.andromeda.core.capitalizeWords
@@ -184,6 +186,27 @@ object Tools {
     fun triggerWidgetUpdate(context: Context, widgetId: String) {
         val widget = getWidget(context, widgetId) ?: return
         Widgets.requestUpdate(context, widget.widgetClass)
+    }
+
+    fun hasAnyWidgetsOnHomeScreen(
+        context: Context,
+        predicate: (widget: ToolWidget) -> Boolean = { true }
+    ): Boolean {
+        return getTools(context)
+            .flatMap { it.widgets }
+            .filter(predicate)
+            .any { isWidgetOnHomeScreen(context, it) }
+    }
+
+    fun isWidgetOnHomeScreen(context: Context, widgetId: String): Boolean {
+        val widget = getWidget(context, widgetId) ?: return false
+        return isWidgetOnHomeScreen(context, widget)
+    }
+
+    private fun isWidgetOnHomeScreen(context: Context, widget: ToolWidget): Boolean {
+        return AppWidgetManager.getInstance(context)
+            .getAppWidgetIds(ComponentName(context, widget.widgetClass))
+            .isNotEmpty()
     }
 
     const val TOOL_QUICK_ACTION_OFFSET = 1000

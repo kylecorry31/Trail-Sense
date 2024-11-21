@@ -62,21 +62,24 @@ object AstronomyToolRegistration : ToolRegistration {
                     context.getString(R.string.sun),
                     ToolSummarySize.Half,
                     SunToolWidgetView(),
-                    AppWidgetSun::class.java
+                    AppWidgetSun::class.java,
+                    usesLocation = true
                 ),
                 ToolWidget(
                     WIDGET_MOON,
                     context.getString(R.string.moon),
                     ToolSummarySize.Half,
                     MoonToolWidgetView(),
-                    AppWidgetMoon::class.java
+                    AppWidgetMoon::class.java,
+                    usesLocation = true
                 ),
                 ToolWidget(
                     WIDGET_SUN_AND_MOON_CHART,
                     context.getString(R.string.sun_moon_chart),
                     ToolSummarySize.Full,
                     SunAndMoonChartToolWidgetView(),
-                    AppWidgetSunAndMoonChart::class.java
+                    AppWidgetSunAndMoonChart::class.java,
+                    usesLocation = true
                 )
             ),
             notificationChannels = listOf(
