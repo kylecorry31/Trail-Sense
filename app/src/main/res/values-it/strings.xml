@@ -1240,4 +1240,5 @@
     <string name="sun_moon_chart">Grafico di sole e luna</string>
     <string name="widget_pref_title">Widget in-app</string>
     <string name="pressure_chart">Grafico della pressione</string>
+    <string name="tide_chart">Grafico delle maree</string>
 </resources>
