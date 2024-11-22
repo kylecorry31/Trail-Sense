@@ -67,4 +67,19 @@
     <string name="next_24_hours">24 ชั่วโมงข้างหน้า</string>
     <string name="compass_source_legacy_android">ดั้งเดิม (แอนด์ดรอย์)</string>
     <string name="tool_user_guide_summary">คู่มือสอนการใช้ Trail Sense</string>
+    <string name="diagnostics">การวินิจฉัย</string>
+    <string name="barometer">บารอมิเตอร์</string>
+    <string name="pref_email_title">ที่อยู่อีเมลของผู้พัฒนา</string>
+    <string name="privacy_and_location">ความเป็นส่วนตัวและตำแหน่ง</string>
+    <string name="tool_battery_title">แบตเตอรี่</string>
+    <string name="battery_usage_allowed">อนุญาตให้ใช้แบตเตอรี่</string>
+    <string name="onboarding_explore">- ออกแบบมาเพื่อการเดินป่าเดินเขา การจัดกระเป๋า การออกค่าย และการทำ geocaching\n\n- วาง beacons และนำทางไปยังจุดนั้น\n\n- เดินตามเส้นทางที่วางไว้\n\n- ย้อนรอยกลับไปยังที่ๆคุณเคยก้าวมาด้วย with backtrack\n\n- วางแผนว่าจะจัดของอะไรในกระเป๋าบ้าง\n\n- แจ้งเตือนก่อนที่พระอาทิตย์ตก\n\n- คาดเดาสภาพอากาศ์\n\n- ใช้โทรศัพท์เป็นไฟฉาย\n\n- และอื่นๆอีกมาก!</string>
+    <string name="onboarding_privacy">- Trail Sense เคารพความเป็นส่วนตัวและข้อมูลตำแหน่งไม่ส่งออกไปนอกอุปกรณ์\n\n- Trail Sense จะไม่ขอสิทธิ์การเข้าถึงอินเตอร์เน็ต\n- ดู [นโยบายความเป็นส่วนตัว](https://kylecorry.com/Trail-Sense/privacy_policy.html) (เปิดจากเว็บเบราว์เซอร์ในอุปกรณ์ของคุณ)\n\n- บางฟีเจอร์ของ Trail Sense จำเป็นต้องขอสิทธิ์เข้าถึงตำแหน่งปัจจุบันของคุณ\n\n- การอนุญาตสิทธิ์ตำแหน่งจะใช้กับฟีเจอร์ดังกล่าว:\n\n\t- การนำทางไปยัง beacon\n\n\t- เพื่มความแม่นยำของการคาดเดาสภาพอากาศ (ไม่พร้อมใช้งานในบางอุปกรณ์)\n\n\t- Backtrack\n\n\t- ตำแหน่งดวงอาทิตย์และดวงจันทร์ในตำแหน่งของคุณ (การแจ้งเตือนพระอาทิตย์ตกอาจต้องการตำแหน่งในเบื้องหลัง)\n\n- หากคุณเลือกไม่ให้สิทธิ์เข้าถึงตำแหน่งของอุปกรณ์ คุณสามารถกรอกพิกัดตำแหน่งได้ด้วยตนเองที่การตั้งค่า &gt; เซ็นเซอร์ &gt; GPS ใน Trail Sense.\n\n- หลังจากกดปุ่มต่อไป คุณอาจจะเจอหน้าต่างขอสิทธิ์การเข้าถึงตำแหน่ง การปฎิเสธสิทธิ์จะไม่ให้ Trail Sense เข้าถึงตำแหน่งของคุณได้ ขอแนะนำให้กรอกพิกัดตำแหน่งด้วยตนเอง</string>
+    <string name="tool_long_press_hint_toast">กดค้างที่เครื่องมือเพื่อดูตัวเลือกเพื่มเติม</string>
+    <string name="pref_privacy_policy_title">นโยบายความเป็นส่วนตัว</string>
+    <string name="pref_altimeter_calibration_title">เซ็นเซอร์วัดความสูง</string>
+    <string name="pref_open_source_licenses_title">สัญญาอนุญาต</string>
+    <string name="pref_app_version_title">เวอร์ชั่น</string>
+    <string name="battery_usage_restricted">การใช้แบตเตอรี่ถูกจำกัด</string>
+    <string name="accelerometer">เซ็นเซอร์วัดความเร่ง</string>
 </resources>
