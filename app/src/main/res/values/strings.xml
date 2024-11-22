@@ -1510,4 +1510,5 @@
     <string name="pref_tool_widgets" translatable="false">pref_tool_widgets</string>
     <string name="sun_moon_chart">Sun &amp; moon chart</string>
     <string name="pressure_chart">Pressure chart</string>
+    <string name="tide_chart">Tide chart</string>
 </resources>
