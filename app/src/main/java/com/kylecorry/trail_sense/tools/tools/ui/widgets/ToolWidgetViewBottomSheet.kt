@@ -1,7 +1,8 @@
 package com.kylecorry.trail_sense.tools.tools.ui.widgets
 
-import android.appwidget.AppWidgetHostView
-import android.content.res.ColorStateList
+import android.appwidget.AppWidgetHost
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +16,8 @@ import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.luna.coroutines.onMain
-import com.kylecorry.luna.timer.CoroutineTimer
 import com.kylecorry.trail_sense.databinding.FragmentToolWidgetSheetBinding
+import com.kylecorry.trail_sense.settings.SettingsToolRegistration
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummarySize
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolWidget
@@ -54,9 +55,19 @@ class ToolWidgetViewBottomSheet :
         val fullSummaryHeight = halfSummaryHeight * 2
         val summaryGap = Resources.dp(requireContext(), 4f).toInt()
 
-        widgets.forEach { widget ->
-            // The wrapper which allows for a gap between the widgets
-            val layout = AppWidgetHostView(requireContext())
+        val host = AppWidgetHost(requireContext(), 1)
+
+        widgets.forEachIndexed { index, widget ->
+            val layout = host.createView(
+                requireContext(),
+                host.allocateAppWidgetId(),
+                AppWidgetManager.getInstance(context).installedProviders?.find {
+                    it.provider == ComponentName(
+                        requireContext(),
+                        widget.widgetClass
+                    )
+                })
+
             layout.layoutParams = FlexboxLayout.LayoutParams(
                 FlexboxLayout.LayoutParams.MATCH_PARENT,
                 if (widget.size == ToolSummarySize.Full) fullSummaryHeight else halfSummaryHeight
@@ -77,44 +88,16 @@ class ToolWidgetViewBottomSheet :
                     }
                     onMain {
                         tryOrLog {
-                            if (layout.childCount > 0) {
-                                views.reapply(context, layout.getChildAt(0))
-                            } else {
-                                val widgetView = views.apply(requireContext(), layout)
-                                widgetView.backgroundTintList = ColorStateList.valueOf(
-                                    Resources.androidBackgroundColorSecondary(requireContext())
-                                )
-
-                                layout.addView(widgetView)
-                            }
+                            layout.updateAppWidget(views)
                         }
                     }
                 }
             }
 
-            val timer = CoroutineTimer {
-                updateFunction()
-            }
-
-            val subscriptions = mutableMapOf<String, (Bundle) -> Boolean>()
-
-            // Subscribe to broadcasts
-            widget.updateBroadcasts.forEach { broadcastId ->
-                val subscription: (Bundle) -> Boolean = { _ ->
-                    updateFunction()
-                    true
-                }
-                Tools.subscribe(broadcastId, subscription)
-                subscriptions[broadcastId] = subscription
-            }
-
-            this.widgets.add(WidgetInstance(widget, timer, updateFunction, subscriptions))
+            this.widgets.add(WidgetInstance(widget, updateFunction))
             val widgetView =
-                widget.widgetView.getView(requireContext()).apply(requireContext(), layout)
-            widgetView.backgroundTintList = ColorStateList.valueOf(
-                Resources.androidBackgroundColorSecondary(requireContext())
-            )
-            layout.addView(widgetView)
+                widget.widgetView.getView(requireContext())
+            layout.updateAppWidget(widgetView)
         }
 
         this.widgets.forEach {
@@ -128,9 +111,12 @@ class ToolWidgetViewBottomSheet :
 
     override fun onResume() {
         super.onResume()
-        widgets.forEach {
-            it.timer.interval(it.widget.inAppUpdateFrequencyMs)
-        }
+        Tools.subscribe(SettingsToolRegistration.BROADCAST_UPDATE_IN_APP_WIDGET, this::onUpdate)
+
+        // TODO: Get a GPS / elevation reading
+
+        // Update all widgets
+        widgets.forEach { it.updateFunction() }
         this.widgets.forEach {
             it.widget.widgetView.onInAppEvent(
                 requireContext(),
@@ -142,9 +128,7 @@ class ToolWidgetViewBottomSheet :
 
     override fun onPause() {
         super.onPause()
-        widgets.forEach {
-            it.timer.stop()
-        }
+        Tools.unsubscribe(SettingsToolRegistration.BROADCAST_UPDATE_IN_APP_WIDGET, this::onUpdate)
         this.widgets.forEach {
             it.widget.widgetView.onInAppEvent(
                 requireContext(),
@@ -157,22 +141,25 @@ class ToolWidgetViewBottomSheet :
     override fun onDestroy() {
         super.onDestroy()
         this.widgets.forEach {
-            it.subscriptions.forEach { (broadcastId, subscription) ->
-                Tools.unsubscribe(broadcastId, subscription)
-            }
             it.widget.widgetView.onInAppEvent(
                 requireContext(),
                 Lifecycle.Event.ON_DESTROY,
                 it.updateFunction
             )
         }
+        AppWidgetHost.deleteAllHosts()
         this.widgets.clear()
+    }
+
+    private fun onUpdate(data: Bundle): Boolean {
+        val widgetId = data.getString("widgetId") ?: return true
+        val widget = widgets.find { it.widget.id == widgetId } ?: return true
+        widget.updateFunction()
+        return true
     }
 
     private data class WidgetInstance(
         val widget: ToolWidget,
-        var timer: CoroutineTimer,
-        val updateFunction: () -> Unit = {},
-        val subscriptions: Map<String, (Bundle) -> Boolean> = emptyMap()
+        val updateFunction: () -> Unit = {}
     )
 }

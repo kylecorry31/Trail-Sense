@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.settings.backup.BackupFailedAlerter
 import com.kylecorry.trail_sense.settings.backup.BackupToolService
 import com.kylecorry.trail_sense.settings.quickactions.QuickActionSettings
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
@@ -82,10 +83,18 @@ object SettingsToolRegistration : ToolRegistration {
                     context.getString(R.string.automatic_backup),
                     scanner = AutomaticBackupDiagnosticScanner()
                 )
+            ),
+            broadcasts = listOf(
+                ToolBroadcast(
+                    BROADCAST_UPDATE_IN_APP_WIDGET,
+                    "Update in-app widget"
+                )
             )
         )
     }
 
     const val SERVICE_AUTO_BACKUP = "settings-service-auto-backup"
     const val SERVICE_WIDGET_UPDATER = "settings-service-widget-updater"
+
+    const val BROADCAST_UPDATE_IN_APP_WIDGET = "settings-broadcast-update-in-app-widget"
 }

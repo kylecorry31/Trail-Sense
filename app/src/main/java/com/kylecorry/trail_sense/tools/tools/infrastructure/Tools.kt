@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Context
 import android.os.Bundle
+import androidx.core.os.bundleOf
 import com.kylecorry.andromeda.core.capitalizeWords
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.widgets.Widgets
@@ -186,6 +187,10 @@ object Tools {
     fun triggerWidgetUpdate(context: Context, widgetId: String) {
         val widget = getWidget(context, widgetId) ?: return
         Widgets.requestUpdate(context, widget.widgetClass)
+        broadcast(
+            SettingsToolRegistration.BROADCAST_UPDATE_IN_APP_WIDGET,
+            bundleOf("widgetId" to widgetId)
+        )
     }
 
     fun hasAnyWidgetsOnHomeScreen(
