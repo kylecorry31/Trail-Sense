@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.tools.beacons.quickactions.QuickActionPlaceBeacon
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolIntentHandler
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
@@ -55,7 +56,12 @@ object BeaconsToolRegistration : ToolRegistration {
                 ToolDiagnosticFactory.camera(context),
                 *ToolDiagnosticFactory.sightingCompass(context)
             ).distinctBy { it.id },
-            intentHandlers = listOf(geoIntentHandler)
+            intentHandlers = listOf(geoIntentHandler),
+            broadcasts = listOf(
+                ToolBroadcast(BROADCAST_BEACONS_CHANGED, "Beacons changed")
+            )
         )
     }
+
+    const val BROADCAST_BEACONS_CHANGED = "beacons-broadcast-beacons-changed"
 }

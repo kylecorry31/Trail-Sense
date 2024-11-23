@@ -7,6 +7,7 @@ import com.kylecorry.sol.science.geology.NavigationVector
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.beacons.domain.NearbyBeaconFilter
 import java.time.Duration
 import kotlin.math.abs
 import kotlin.math.max
@@ -71,14 +72,13 @@ class NavigationService {
         minDistance: Float = 0f,
         maxDistance: Float = Float.POSITIVE_INFINITY
     ): Collection<Beacon> {
-        return beacons.asSequence()
-            .filter { it.visible }
-            .map { Pair(it, location.distanceTo(it.coordinate)) }
-            .filter { it.second in minDistance..maxDistance }
-            .sortedBy { it.second }
-            .take(numNearby)
-            .map { it.first }
-            .toList()
+        return NearbyBeaconFilter().filterNearbyBeacons(
+            location,
+            beacons,
+            numNearby,
+            minDistance,
+            maxDistance
+        )
     }
 
     private fun isFacingBearing(azimuth: Float, bearing: Float): Boolean {
