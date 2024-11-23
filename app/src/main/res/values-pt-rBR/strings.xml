@@ -1195,4 +1195,5 @@
     <string name="widget_bottom_sheet_instructions">Use a ação rápida de Widgets para visualizar</string>
     <string name="sun_moon_chart">Gráficos solar &amp; lunar</string>
     <string name="pressure_chart">Gráfico do nível de pressão</string>
+    <string name="tide_chart">Gráfico de marés</string>
 </resources>
