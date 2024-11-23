@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.beacons
 
 import android.content.Context
+import android.os.Build
 import androidx.core.os.bundleOf
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.trail_sense.R
@@ -89,7 +90,7 @@ object BeaconsToolRegistration : ToolRegistration {
                         SensorsToolRegistration.BROADCAST_LOCATION_CHANGED
                     ),
                     usesLocation = true,
-                    canPlaceInApp = false
+                    canPlaceInApp = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
                 )
             )
         )

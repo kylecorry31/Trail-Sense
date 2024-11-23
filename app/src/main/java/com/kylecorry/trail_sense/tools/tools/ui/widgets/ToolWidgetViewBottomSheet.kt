@@ -1,11 +1,11 @@
 package com.kylecorry.trail_sense.tools.tools.ui.widgets
 
+import android.appwidget.AppWidgetHostView
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.core.view.setPadding
 import androidx.lifecycle.Lifecycle
 import com.google.android.flexbox.FlexboxLayout
@@ -56,7 +56,7 @@ class ToolWidgetViewBottomSheet :
 
         widgets.forEach { widget ->
             // The wrapper which allows for a gap between the widgets
-            val layout = FrameLayout(requireContext())
+            val layout = AppWidgetHostView(requireContext())
             layout.layoutParams = FlexboxLayout.LayoutParams(
                 FlexboxLayout.LayoutParams.MATCH_PARENT,
                 if (widget.size == ToolSummarySize.Full) fullSummaryHeight else halfSummaryHeight
@@ -77,12 +77,16 @@ class ToolWidgetViewBottomSheet :
                     }
                     onMain {
                         tryOrLog {
-                            layout.removeAllViews()
-                            val widgetView = views.apply(requireContext(), layout)
-                            widgetView.backgroundTintList = ColorStateList.valueOf(
-                                Resources.androidBackgroundColorSecondary(requireContext())
-                            )
-                            layout.addView(widgetView)
+                            if (layout.childCount > 0) {
+                                views.reapply(context, layout.getChildAt(0))
+                            } else {
+                                val widgetView = views.apply(requireContext(), layout)
+                                widgetView.backgroundTintList = ColorStateList.valueOf(
+                                    Resources.androidBackgroundColorSecondary(requireContext())
+                                )
+
+                                layout.addView(widgetView)
+                            }
                         }
                     }
                 }

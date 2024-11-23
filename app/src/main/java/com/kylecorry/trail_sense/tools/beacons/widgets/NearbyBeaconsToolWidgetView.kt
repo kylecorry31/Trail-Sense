@@ -100,6 +100,11 @@ class NearbyBeaconsToolWidgetView : ToolWidgetView {
             setRemoteAdapter(context, views, id, R.id.widget_list, items)
         }
 
+        if (appWidgetIds.isEmpty()){
+            // Running in app, no widgets exist
+            setRemoteAdapter(context, views, 0, R.id.widget_list, items)
+        }
+
         views.setTextViewText(R.id.widget_list_empty, context.getString(R.string.no_beacons))
         views.setEmptyView(R.id.widget_list, R.id.widget_list_empty)
 
