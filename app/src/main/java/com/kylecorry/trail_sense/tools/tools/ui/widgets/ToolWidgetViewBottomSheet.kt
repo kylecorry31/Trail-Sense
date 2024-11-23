@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.tools.ui.widgets
 
-import android.appwidget.AppWidgetHost
+import android.appwidget.AppWidgetHostView
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.os.Bundle
@@ -55,18 +55,17 @@ class ToolWidgetViewBottomSheet :
         val fullSummaryHeight = halfSummaryHeight * 2
         val summaryGap = Resources.dp(requireContext(), 4f).toInt()
 
-        val host = AppWidgetHost(requireContext(), 1)
-
         widgets.forEachIndexed { index, widget ->
-            val layout = host.createView(
-                requireContext(),
-                host.allocateAppWidgetId(),
+            val layout = AppWidgetHostView(context)
+            layout.setAppWidget(
+                index,
                 AppWidgetManager.getInstance(context).installedProviders?.find {
                     it.provider == ComponentName(
                         requireContext(),
                         widget.widgetClass
                     )
-                })
+                }
+            )
 
             layout.layoutParams = FlexboxLayout.LayoutParams(
                 FlexboxLayout.LayoutParams.MATCH_PARENT,
@@ -147,7 +146,6 @@ class ToolWidgetViewBottomSheet :
                 it.updateFunction
             )
         }
-        AppWidgetHost.deleteAllHosts()
         this.widgets.clear()
     }
 
