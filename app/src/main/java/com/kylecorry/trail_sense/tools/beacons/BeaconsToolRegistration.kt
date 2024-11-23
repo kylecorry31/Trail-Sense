@@ -36,6 +36,20 @@ object BeaconsToolRegistration : ToolRegistration {
             true
         }
 
+    private val openBeaconIntentHandler =
+        ToolIntentHandler { activity, intent ->
+            val beaconId = intent.getLongExtra("beacon_id", -1L)
+            println(intent.data)
+            println(intent.extras)
+            if (beaconId == -1L) return@ToolIntentHandler false
+            val bundle = bundleOf("beacon_id" to beaconId)
+            activity.findNavController().navigate(
+                R.id.beaconDetailsFragment,
+                bundle
+            )
+            true
+        }
+
     override fun getTool(context: Context): Tool {
         return Tool(
             Tools.BEACONS,
@@ -61,7 +75,7 @@ object BeaconsToolRegistration : ToolRegistration {
                 ToolDiagnosticFactory.camera(context),
                 *ToolDiagnosticFactory.sightingCompass(context)
             ).distinctBy { it.id },
-            intentHandlers = listOf(geoIntentHandler),
+            intentHandlers = listOf(geoIntentHandler, openBeaconIntentHandler),
             broadcasts = listOf(
                 ToolBroadcast(BROADCAST_BEACONS_CHANGED, "Beacons changed")
             ),

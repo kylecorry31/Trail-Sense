@@ -14,6 +14,7 @@ import com.kylecorry.andromeda.core.system.Package
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
@@ -38,13 +39,14 @@ class NearbyBeaconsToolWidgetView : ToolWidgetView {
         val location = LocationSubsystem.getInstance(context).location
         val formatter = FormatService.getInstance(context)
 
-        // TODO: Open the beacon details
+        views.setOnClickPendingIntent(
+            R.id.widget_frame,
+            NavigationUtils.toolPendingIntent(context, Tools.BEACONS)
+        )
+
         views.setPendingIntentTemplate(
             R.id.widget_list,
-            NavigationUtils.toolPendingIntent(
-                context,
-                Tools.BEACONS
-            )
+            MainActivity.pendingIntent(context, 1279381, true)
         )
 
         val items = RemoteViewsCompat.RemoteCollectionItems.Builder()
@@ -84,7 +86,9 @@ class NearbyBeaconsToolWidgetView : ToolWidgetView {
                             context,
                             R.drawable.circle,
                         ).also { it.setTint(beacon.color) })
-                    itemViews.setOnClickFillInIntent(R.id.root, Intent())
+                    itemViews.setOnClickFillInIntent(R.id.root, Intent().also {
+                        it.putExtra("beacon_id", beacon.id)
+                    })
                     it.addItem(beacon.id, itemViews)
                 }
             }
