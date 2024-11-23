@@ -14,6 +14,8 @@ data class ToolWidget(
     val updateBroadcasts: List<String> = emptyList(),
     val isEnabled: (context: Context) -> Boolean = { true },
     val usesLocation: Boolean = false,
+    val canPlaceOnHomeScreen: Boolean = true,
+    val canPlaceInApp: Boolean = true
 )
 
 enum class ToolSummarySize {

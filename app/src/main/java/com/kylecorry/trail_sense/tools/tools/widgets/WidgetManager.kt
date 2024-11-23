@@ -13,7 +13,7 @@ class WidgetManager {
                 Package.setComponentEnabled(
                     context,
                     widget.widgetClass.name,
-                    isAvailable && widget.isEnabled(context)
+                    isAvailable && widget.canPlaceOnHomeScreen && widget.isEnabled(context)
                 )
             }
         }
