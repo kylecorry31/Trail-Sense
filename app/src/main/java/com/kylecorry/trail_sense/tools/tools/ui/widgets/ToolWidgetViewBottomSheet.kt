@@ -6,11 +6,12 @@ import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListView
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.setPadding
+import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.Lifecycle
 import com.google.android.flexbox.FlexboxLayout
 import com.kylecorry.andromeda.core.system.Resources
@@ -19,7 +20,6 @@ import com.kylecorry.andromeda.fragments.BoundFullscreenDialogFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.luna.coroutines.onMain
-import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolWidgetSheetBinding
 import com.kylecorry.trail_sense.settings.SettingsToolRegistration
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -52,7 +52,7 @@ class ToolWidgetViewBottomSheet :
         val allWidgets = Tools.getTools(requireContext())
             .flatMap { it.widgets }
             .filter { it.isEnabled(requireContext()) && it.canPlaceInApp }
-            .sortedWith(compareBy({ -it.size.ordinal }, { it.isScrollable }))
+            .sortedByDescending { it.size.ordinal }
 
         // Only show the selected widgets
         val widgets = allWidgets.filter { selectedWidgets.contains(it.id) }
@@ -97,12 +97,6 @@ class ToolWidgetViewBottomSheet :
                     onMain {
                         tryOrLog {
                             layout.updateAppWidget(views)
-                            val list = layout.findViewById<ListView>(R.id.widget_list)
-                            list?.setOnTouchListener { _, event ->
-                                binding.toolWidgetsScroll.isScrollable =
-                                    event.action == MotionEvent.ACTION_UP
-                                false
-                            }
                         }
                     }
                 }
@@ -120,6 +114,17 @@ class ToolWidgetViewBottomSheet :
                 Lifecycle.Event.ON_CREATE,
                 it.updateFunction
             )
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                topMargin = insets.top
+                bottomMargin = insets.bottom
+                leftMargin = insets.left
+                rightMargin = insets.right
+            }
+            windowInsets
         }
     }
 

@@ -14,7 +14,7 @@
         app:showSubtitle="false"
         app:title="@string/widgets" />
 
-    <com.kylecorry.andromeda.list.LockableScrollView
+    <ScrollView
         android:id="@+id/tool_widgets_scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -33,6 +33,6 @@
             app:justifyContent="flex_start">
 
         </com.google.android.flexbox.FlexboxLayout>
-    </com.kylecorry.andromeda.list.LockableScrollView>
+    </ScrollView>
 
 </LinearLayout>

@@ -8,6 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.camera.view.PreviewView
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import com.kylecorry.andromeda.fragments.BoundFullscreenDialogFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
@@ -62,6 +65,17 @@ class SightingCompassBottomSheetFragment(
 
         binding.captureButton.setOnClickListener {
             confirmBearing()
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                topMargin = insets.top
+                bottomMargin = insets.bottom
+                leftMargin = insets.left
+                rightMargin = insets.right
+            }
+            windowInsets
         }
 
         updateUI()

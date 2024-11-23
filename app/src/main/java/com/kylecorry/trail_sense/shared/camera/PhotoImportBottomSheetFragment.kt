@@ -12,8 +12,11 @@ import android.view.ViewGroup
 import androidx.camera.core.ImageCapture
 import androidx.camera.view.PreviewView
 import androidx.core.net.toUri
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import com.kylecorry.andromeda.camera.ImageCaptureSettings
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.coroutines.onMain
@@ -68,6 +71,17 @@ class PhotoImportBottomSheetFragment(
 
         binding.captureButton.setOnClickListener {
             takePhoto()
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                topMargin = insets.top
+                bottomMargin = insets.bottom
+                leftMargin = insets.left
+                rightMargin = insets.right
+            }
+            windowInsets
         }
     }
 
