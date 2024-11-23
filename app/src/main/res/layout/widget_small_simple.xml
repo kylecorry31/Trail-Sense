@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/widget_background"
-    android:elevation="4dp"
     android:padding="8dp"
     android:theme="@style/AppTheme">
 
