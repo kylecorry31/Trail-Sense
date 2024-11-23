@@ -90,7 +90,8 @@ object BeaconsToolRegistration : ToolRegistration {
                         SensorsToolRegistration.BROADCAST_LOCATION_CHANGED
                     ),
                     usesLocation = true,
-                    canPlaceInApp = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+                    canPlaceInApp = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S,
+                    isScrollable = true
                 )
             )
         )

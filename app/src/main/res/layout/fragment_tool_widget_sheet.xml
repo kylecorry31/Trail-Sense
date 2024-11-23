@@ -12,10 +12,12 @@
         app:showSubtitle="false"
         app:title="@string/widgets" />
 
-    <androidx.core.widget.NestedScrollView
+    <com.kylecorry.andromeda.list.LockableScrollView
+        android:id="@+id/tool_widgets_scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:nestedScrollingEnabled="true">
 
         <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/widgets"
@@ -26,6 +28,6 @@
             app:justifyContent="flex_start">
 
         </com.google.android.flexbox.FlexboxLayout>
-    </androidx.core.widget.NestedScrollView>
+    </com.kylecorry.andromeda.list.LockableScrollView>
 
 </LinearLayout>
