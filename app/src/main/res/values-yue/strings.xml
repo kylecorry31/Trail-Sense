@@ -1089,4 +1089,5 @@
     <string name="grid">格線</string>
     <string name="sun_moon_chart">日月圖</string>
     <string name="pressure_chart">氣壓圖</string>
+    <string name="tide_chart">潮汐圖</string>
 </resources>

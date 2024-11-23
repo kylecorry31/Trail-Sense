@@ -1231,4 +1231,7 @@
     <string name="widget_updater">Actualizador de widgets</string>
     <string name="widget_bottom_sheet_instructions">Utilice la acción rápida del widget para ver</string>
     <string name="widget_pref_title">Widgets en la aplicación</string>
+    <string name="sun_moon_chart">Gráfico del sol y la luna</string>
+    <string name="pressure_chart">Gráfica de presiones</string>
+    <string name="tide_chart">Gráfica de mareas</string>
 </resources>
