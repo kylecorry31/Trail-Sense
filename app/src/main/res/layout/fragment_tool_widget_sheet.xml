@@ -9,6 +9,8 @@
         android:id="@+id/tool_widgets_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:flattenButtons="true"
+        app:rightButtonIcon="@drawable/ic_cancel"
         app:showSubtitle="false"
         app:title="@string/widgets" />
 
@@ -23,6 +25,9 @@
             android:id="@+id/widgets"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:paddingBottom="16dp"
             app:alignItems="center"
             app:flexWrap="wrap"
             app:justifyContent="flex_start">

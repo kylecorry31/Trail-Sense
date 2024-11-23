@@ -15,7 +15,7 @@ import androidx.lifecycle.Lifecycle
 import com.google.android.flexbox.FlexboxLayout
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrLog
-import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
+import com.kylecorry.andromeda.fragments.BoundFullscreenDialogFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.luna.coroutines.onMain
@@ -28,7 +28,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolWidget
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class ToolWidgetViewBottomSheet :
-    BoundBottomSheetDialogFragment<FragmentToolWidgetSheetBinding>() {
+    BoundFullscreenDialogFragment<FragmentToolWidgetSheetBinding>() {
 
     private val widgets = mutableListOf<WidgetInstance>()
     private val prefs by lazy { UserPreferences(requireContext()) }
@@ -43,6 +43,10 @@ class ToolWidgetViewBottomSheet :
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.toolWidgetsTitle.rightButton.setOnClickListener {
+            dismiss()
+        }
 
         val selectedWidgets = prefs.toolWidgets
         val allWidgets = Tools.getTools(requireContext())
