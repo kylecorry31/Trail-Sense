@@ -6,12 +6,17 @@ import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.tools.beacons.quickactions.QuickActionPlaceBeacon
+import com.kylecorry.trail_sense.tools.beacons.widgets.AppWidgetNearbyBeacons
+import com.kylecorry.trail_sense.tools.beacons.widgets.NearbyBeaconsToolWidgetView
+import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolIntentHandler
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummarySize
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolWidget
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
 
@@ -59,9 +64,25 @@ object BeaconsToolRegistration : ToolRegistration {
             intentHandlers = listOf(geoIntentHandler),
             broadcasts = listOf(
                 ToolBroadcast(BROADCAST_BEACONS_CHANGED, "Beacons changed")
+            ),
+            widgets = listOf(
+                ToolWidget(
+                    WIDGET_NEARBY_BEACONS,
+                    context.getString(R.string.nearby_beacons),
+                    ToolSummarySize.Full,
+                    NearbyBeaconsToolWidgetView(),
+                    AppWidgetNearbyBeacons::class.java,
+                    updateBroadcasts = listOf(
+                        BROADCAST_BEACONS_CHANGED,
+                        SensorsToolRegistration.BROADCAST_LOCATION_CHANGED
+                    ),
+                    usesLocation = true,
+                    canPlaceInApp = false
+                )
             )
         )
     }
 
     const val BROADCAST_BEACONS_CHANGED = "beacons-broadcast-beacons-changed"
+    const val WIDGET_NEARBY_BEACONS = "beacons-widget-nearby-beacons"
 }

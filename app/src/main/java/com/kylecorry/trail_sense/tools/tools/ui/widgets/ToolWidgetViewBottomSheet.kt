@@ -41,6 +41,7 @@ class ToolWidgetViewBottomSheet :
         val selectedWidgets = prefs.toolWidgets
         val allWidgets = Tools.getTools(requireContext())
             .flatMap { it.widgets }
+            .filter { it.isEnabled(requireContext()) && it.canPlaceInApp }
             .sortedByDescending { it.size.ordinal }
 
         // Only show the selected widgets

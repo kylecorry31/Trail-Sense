@@ -106,6 +106,7 @@ class ToolsSettingsFragment : AndromedaPreferenceFragment() {
             val tools = Tools.getTools(requireContext())
             val potentialWidgets = tools
                 .flatMap { it.widgets }
+                .filter { it.isEnabled(requireContext()) && it.canPlaceInApp }
                 .distinctBy { it.id }
                 .sortedBy { it.name }
 
