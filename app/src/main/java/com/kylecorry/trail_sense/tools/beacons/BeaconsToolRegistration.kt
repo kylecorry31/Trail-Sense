@@ -39,8 +39,6 @@ object BeaconsToolRegistration : ToolRegistration {
     private val openBeaconIntentHandler =
         ToolIntentHandler { activity, intent ->
             val beaconId = intent.getLongExtra("beacon_id", -1L)
-            println(intent.data)
-            println(intent.extras)
             if (beaconId == -1L) return@ToolIntentHandler false
             val bundle = bundleOf("beacon_id" to beaconId)
             activity.findNavController().navigate(
