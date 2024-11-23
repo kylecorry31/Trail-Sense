@@ -28,7 +28,7 @@
     <string name="direction_south">ใต้</string>
     <string name="precise_miles_format">%s ไมล์</string>
     <string name="accuracy_info_title">เคล็ดลับเพื่อเพื่มความแม่นยำของข้อมูลจากเซนเซอร์</string>
-    <string name="sos">สัญญาณฉุกเฉิน</string>
+    <string name="sos">สัญญาณขอความช่วยเหลือ</string>
     <string name="discharging_slow">กำลังคายประจุอย่างช้าๆ (%s)</string>
     <string name="disclaimer_message_title">หมายเหตุ</string>
     <string name="copied_to_clipboard_toast">คัดลอกไปยังคลิปบอร์ดแล้ว</string>
@@ -82,4 +82,28 @@
     <string name="pref_app_version_title">เวอร์ชั่น</string>
     <string name="battery_usage_restricted">การใช้แบตเตอรี่ถูกจำกัด</string>
     <string name="accelerometer">เซ็นเซอร์วัดความเร่ง</string>
+    <string name="units_hpa">เฮกโตปาสคาล</string>
+    <string name="general">ทั่วไป</string>
+    <string name="temperature">อุณหภูมิ</string>
+    <string name="unit_centimeters_abbreviation">ซม.</string>
+    <string name="unit_centimeters">เซนติเมตร</string>
+    <string name="distance">ระยะทาง</string>
+    <string name="pack_sort_weight_low_to_high">น้ำหนัก (จากต่ำไปสูง)</string>
+    <string name="pack_sort_weight_high_to_low">น้ำหนัก (จากสูงไปต่ำ)</string>
+    <string name="units">หน่วยวัด</string>
+    <string name="ounces_weight">ออนซ์</string>
+    <string name="ounces_weight_format">%s ออนซ์</string>
+    <string name="unit_meters">เมตร</string>
+    <string name="unit_kilometers">กิโลเมตร</string>
+    <string name="units_mmhg_short">มม.</string>
+    <string name="unit_millimeters">มิลลิเมตร</string>
+    <string name="fahrenheit">ฟาเร็นไฮต์</string>
+    <string name="celsius">เซลเซียส</string>
+    <string name="gps_searching">กำลังค้นหา</string>
+    <string name="precise_centimeters_format">%s ซม.</string>
+    <string name="search">ค้นหา</string>
+    <string name="pinned">ที่ปักหมุดไว้</string>
+    <string name="millimeters_format">%s มม.</string>
+    <string name="weight">น้ำหนัก</string>
+    <string name="weight_per_item">น้ำหนักแต่ละชิ้น</string>
 </resources>
