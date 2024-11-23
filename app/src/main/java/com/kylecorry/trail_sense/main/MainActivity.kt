@@ -510,16 +510,12 @@ class MainActivity : AndromedaActivity() {
             return Intent(context, MainActivity::class.java)
         }
 
-        fun pendingIntent(
-            context: Context,
-            requestCode: Int? = null,
-            mutable: Boolean = false
-        ): PendingIntent {
+        fun pendingIntent(context: Context): PendingIntent {
             return PendingIntent.getActivity(
                 context,
-                requestCode ?: 27383254,
+                27383254,
                 intent(context),
-                PendingIntent.FLAG_CANCEL_CURRENT or (if (mutable) PendingIntent.FLAG_MUTABLE else PendingIntent.FLAG_IMMUTABLE)
+                PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
         }
     }

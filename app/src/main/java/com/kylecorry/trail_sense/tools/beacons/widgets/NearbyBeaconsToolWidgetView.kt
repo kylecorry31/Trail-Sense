@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.beacons.widgets
 
+import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Context
@@ -46,7 +47,12 @@ class NearbyBeaconsToolWidgetView : ToolWidgetView {
 
         views.setPendingIntentTemplate(
             R.id.widget_list,
-            MainActivity.pendingIntent(context, 1279381, true)
+            PendingIntent.getActivity(
+                context,
+                1279381,
+                MainActivity.intent(context),
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+            )
         )
 
         val items = RemoteViewsCompat.RemoteCollectionItems.Builder()
@@ -100,7 +106,7 @@ class NearbyBeaconsToolWidgetView : ToolWidgetView {
             setRemoteAdapter(context, views, id, R.id.widget_list, items)
         }
 
-        if (appWidgetIds.isEmpty()){
+        if (appWidgetIds.isEmpty()) {
             // Running in app, no widgets exist
             setRemoteAdapter(context, views, 0, R.id.widget_list, items)
         }
