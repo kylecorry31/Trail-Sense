@@ -1253,4 +1253,5 @@
     <string name="widget_pref_title">Widgety v aplikaci</string>
     <string name="sun_moon_chart">Graf slunce a měsíce</string>
     <string name="pressure_chart">Graf tlaku</string>
+    <string name="tide_chart">Graf přílivu a odlivu</string>
 </resources>
