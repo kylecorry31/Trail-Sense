@@ -4,6 +4,7 @@ import android.content.Context
 import com.kylecorry.trail_sense.settings.infrastructure.TidePreferences
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.tides.domain.selection.DefaultTideSelectionStrategy
+import com.kylecorry.trail_sense.tools.tides.domain.selection.EstimateTideSelectionStrategy
 import com.kylecorry.trail_sense.tools.tides.domain.selection.FallbackTideSelectionStrategy
 import com.kylecorry.trail_sense.tools.tides.domain.selection.LastTideSelectionStrategy
 import com.kylecorry.trail_sense.tools.tides.domain.selection.NearestTideSelectionStrategy
@@ -27,7 +28,11 @@ class TideLoaderFactory {
 
         return TideLoaderImpl(
             TideTableRepo.getInstance(context),
-            FallbackTideSelectionStrategy(strategy, DefaultTideSelectionStrategy())
+            FallbackTideSelectionStrategy(
+                strategy,
+                EstimateTideSelectionStrategy(),
+                DefaultTideSelectionStrategy()
+            )
         )
     }
 

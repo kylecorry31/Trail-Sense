@@ -36,7 +36,7 @@ import java.time.LocalDate
 class TidesFragment : BoundFragment<FragmentTideBinding>() {
 
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
-    private val tideService = TideService()
+    private val tideService by lazy { TideService(requireContext()) }
     private var table: TideTable? by state(null)
     private lateinit var chart: TideChart
     private val prefs by lazy { UserPreferences(requireContext()) }

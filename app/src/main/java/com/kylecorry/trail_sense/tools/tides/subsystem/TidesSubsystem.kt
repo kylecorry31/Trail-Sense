@@ -15,7 +15,7 @@ import java.time.LocalDate
 
 class TidesSubsystem private constructor(private val context: Context) {
 
-    private val tideService = TideService()
+    private val tideService = TideService(context)
     private val tideLoaderFactory = TideLoaderFactory()
 
     private var lastTable: TideTable? = null

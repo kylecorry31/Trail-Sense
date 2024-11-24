@@ -38,7 +38,7 @@ class TideListFragment : BoundFragment<FragmentTideListBinding>() {
             this::onTideTableAction
         )
     }
-    private val tideTypeCommand by lazy { CurrentTideTypeCommand(TideService()) }
+    private val tideTypeCommand by lazy { CurrentTideTypeCommand(TideService(requireContext())) }
 
     private val tideLock = Any()
     private val tideTypeRunner = ParallelCoroutineRunner(4)

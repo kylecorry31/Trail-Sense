@@ -12,7 +12,7 @@ class UpdateTideLayerCommand(private val context: Context, private val layer: Ti
     CoroutineCommand {
     override suspend fun execute() = onDefault {
         val tables = LoadAllTideTablesCommand(context).execute()
-        val currentTideCommand = CurrentTideTypeCommand(TideService())
+        val currentTideCommand = CurrentTideTypeCommand(TideService(context))
         val tides = tables.filter { it.location != null && it.isVisible }.map {
             it to currentTideCommand.execute(it)
         }

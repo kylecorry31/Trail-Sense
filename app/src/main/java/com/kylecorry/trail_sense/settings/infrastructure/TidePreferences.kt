@@ -22,4 +22,12 @@ class TidePreferences(context: Context) : PreferenceRepo(context), ITidePreferen
                 cache.remove(context.getString(R.string.last_tide_id))
             }
         }
+
+    override val tideModelEnabled: Boolean by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_tide_model_enabled),
+        false
+    )
+
+
 }

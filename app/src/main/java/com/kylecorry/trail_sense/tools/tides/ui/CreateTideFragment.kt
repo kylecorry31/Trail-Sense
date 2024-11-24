@@ -64,17 +64,21 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
             EstimateType.LunitidalIntervalAuto to getString(R.string.lunitidal_interval_auto),
             EstimateType.LunitidalIntervalManualLocal to getString(R.string.lunitidal_interval_local),
             EstimateType.LunitidalIntervalManualUTC to getString(R.string.lunitidal_interval_utc),
+            EstimateType.TideModel to getString(R.string.tide_model_auto),
             EstimateType.Harmonic to getString(R.string.harmonic) + " (!! NEED TO MANUALLY INSERT INTO DB !!)"
         )
     }
 
-    private val estimateTypes = listOf(
-        EstimateType.Clock,
-        EstimateType.LunitidalIntervalAuto,
-        EstimateType.LunitidalIntervalManualLocal,
-        EstimateType.LunitidalIntervalManualUTC,
-        if (isDebug()) EstimateType.Harmonic else null
-    )
+    private val estimateTypes by lazy {
+        listOfNotNull(
+            EstimateType.Clock,
+            EstimateType.LunitidalIntervalAuto,
+            EstimateType.LunitidalIntervalManualLocal,
+            EstimateType.LunitidalIntervalManualUTC,
+            if (prefs.tides.tideModelEnabled) EstimateType.TideModel else null,
+            if (isDebug()) EstimateType.Harmonic else null
+        )
+    }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -111,7 +115,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
 
         binding.estimateAlgorithmSpinner.setHint(getString(R.string.estimate_method))
         binding.estimateAlgorithmSpinner.setItems(
-            EstimateType.entries.map { estimateTypeNameMap[it]!! },
+            estimateTypes.map { estimateTypeNameMap[it] ?: "" },
         )
         binding.estimateAlgorithmSpinner.setSelection(0)
 
@@ -119,7 +123,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
             estimateType = if (position == null) {
                 EstimateType.Clock
             } else {
-                estimateTypes[position] ?: EstimateType.Clock
+                estimateTypes[position]
             }
         }
         binding.lunitidalIntervalDuration.showSeconds = false
@@ -304,9 +308,11 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
             }
 
             tide.estimator == TideEstimator.Harmonic -> EstimateType.Harmonic
+            tide.estimator == TideEstimator.TideModel -> EstimateType.TideModel
             else -> EstimateType.Clock
         }
-        binding.estimateAlgorithmSpinner.setSelection(estimateTypes.indexOf(estimateType))
+        val estimateIndex = estimateTypes.indexOf(estimateType)
+        binding.estimateAlgorithmSpinner.setSelection(if (estimateIndex == -1) 0 else estimateIndex)
         binding.lunitidalIntervalDuration.updateDuration(tide.lunitidalInterval)
     }
 
@@ -316,13 +322,13 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
 
     private fun getEstimateAlgorithm(): TideEstimator {
         val estimateType = estimateTypes[binding.estimateAlgorithmSpinner.selectedItemPosition]
-            ?: return TideEstimator.Clock
         return when (estimateType) {
             EstimateType.Clock -> TideEstimator.Clock
             EstimateType.LunitidalIntervalAuto -> TideEstimator.LunitidalInterval
             EstimateType.LunitidalIntervalManualLocal -> TideEstimator.LunitidalInterval
             EstimateType.LunitidalIntervalManualUTC -> TideEstimator.LunitidalInterval
             EstimateType.Harmonic -> TideEstimator.Harmonic
+            EstimateType.TideModel -> TideEstimator.TideModel
         }
     }
 
@@ -363,6 +369,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
             // Auto lunitidal interval requires at least one tide
             (tides.isEmpty() && estimateType == EstimateType.LunitidalIntervalAuto)
         // Harmonics doesn't require anything right now
+        // Tide model doesn't require anything right now
         ) {
             return null
         }
@@ -409,7 +416,8 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         LunitidalIntervalAuto,
         LunitidalIntervalManualLocal,
         LunitidalIntervalManualUTC,
-        Harmonic
+        Harmonic,
+        TideModel
     }
 
 }

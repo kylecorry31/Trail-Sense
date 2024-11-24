@@ -12,6 +12,7 @@ import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
+import com.kylecorry.trail_sense.tools.tides.domain.waterlevel.TideEstimator
 
 class TideTableListItemMapper(
     private val context: Context,
@@ -61,7 +62,7 @@ class TideTableListItemMapper(
 
     @DrawableRes
     private fun getTideIcon(tide: TideType?): Int {
-        return when(tide){
+        return when (tide) {
             TideType.High -> R.drawable.ic_tide_high
             TideType.Low -> R.drawable.ic_tide_low
             null -> R.drawable.ic_tide_half
@@ -69,7 +70,11 @@ class TideTableListItemMapper(
     }
 
     private fun getDescription(tide: TideTable): String {
-        return context.resources.getQuantityString(
+        return if (tide.estimator == TideEstimator.TideModel) {
+            context.getString(R.string.auto) + " " + context.getString(R.string.dot) + " "
+        } else {
+            ""
+        } + context.resources.getQuantityString(
             R.plurals.tides_entered_count,
             tide.tides.size,
             tide.tides.size

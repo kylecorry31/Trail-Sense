@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.tides.domain
 
+import android.content.Context
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.optimization.GoldenSearchExtremaFinder
 import com.kylecorry.sol.science.oceanography.OceanographyService
@@ -16,7 +17,7 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
-class TideService : ITideService {
+class TideService(private val context: Context) : ITideService {
 
     private val maxSearchIterations = 10
 
@@ -102,6 +103,6 @@ class TideService : ITideService {
     }
 
     private fun getTableCalculator(table: TideTable): IWaterLevelCalculator {
-        return cache.getOrPut(table) { TideTableWaterLevelCalculator(table) }
+        return cache.getOrPut(table) { TideTableWaterLevelCalculator(context, table) }
     }
 }

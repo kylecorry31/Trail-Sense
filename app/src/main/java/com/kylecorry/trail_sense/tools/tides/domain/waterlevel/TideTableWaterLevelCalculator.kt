@@ -1,12 +1,11 @@
 package com.kylecorry.trail_sense.tools.tides.domain.waterlevel
 
+import android.content.Context
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.math.optimization.GoldenSearchExtremaFinder
 import com.kylecorry.sol.science.oceanography.OceanographyService
-import com.kylecorry.sol.science.oceanography.TidalHarmonic
 import com.kylecorry.sol.science.oceanography.Tide
-import com.kylecorry.sol.science.oceanography.TideConstituent
 import com.kylecorry.sol.science.oceanography.waterlevel.HarmonicWaterLevelCalculator
 import com.kylecorry.sol.science.oceanography.waterlevel.IWaterLevelCalculator
 import com.kylecorry.sol.science.oceanography.waterlevel.RuleOfTwelfthsWaterLevelCalculator
@@ -14,25 +13,29 @@ import com.kylecorry.sol.science.oceanography.waterlevel.TideClockWaterLevelCalc
 import com.kylecorry.sol.time.Time.hours
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import com.kylecorry.trail_sense.tools.tides.domain.range.TideTableRangeCalculator
+import com.kylecorry.trail_sense.tools.tides.infrastructure.model.TideModel
+import kotlinx.coroutines.runBlocking
 import java.time.Duration
 import java.time.LocalDate
 import java.time.ZonedDateTime
 
-class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelCalculator {
+class TideTableWaterLevelCalculator(private val context: Context, private val table: TideTable) :
+    IWaterLevelCalculator {
     private val range = TideTableRangeCalculator().getRange(table)
     private val tides = table.tides.sortedBy { it.time }.map { populateHeight(it) }
     private val piecewise by lazy { generatePiecewiseCalculator() }
     private val ocean = OceanographyService()
     private val extremaFinder = GoldenSearchExtremaFinder(30.0, 1.0)
-
+    private val locationSubsystem = LocationSubsystem.getInstance(context)
     private val harmonic by lazy { getHarmonicCalculator() }
     private val lunitidal by lazy { getLunitidalCalculator() }
 
     override fun calculate(time: ZonedDateTime): Float {
         // Harmonic tides don't require a table
-        if (tides.isEmpty() && table.estimator == TideEstimator.Harmonic) {
+        if (tides.isEmpty() && (table.estimator == TideEstimator.Harmonic || table.estimator == TideEstimator.TideModel)) {
             return harmonic?.calculate(time) ?: 0f
         }
 
@@ -137,7 +140,7 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
     }
 
     private fun getEstimateCalculator(referenceTide: Tide): IWaterLevelCalculator {
-        return getHarmonicCalculator() ?: getLunitidalCalculator() ?: getClockCalculator(
+        return harmonic ?: lunitidal ?: getClockCalculator(
             referenceTide
         )
     }
@@ -209,15 +212,26 @@ class TideTableWaterLevelCalculator(private val table: TideTable) : IWaterLevelC
     }
 
     private fun getHarmonicCalculator(): IWaterLevelCalculator? {
-        if (table.estimator != TideEstimator.Harmonic) {
+        if (table.estimator != TideEstimator.Harmonic && table.estimator != TideEstimator.TideModel) {
             return null
         }
 
-        if (table.harmonics.isEmpty()) {
+        val harmonics = if (table.estimator == TideEstimator.Harmonic) {
+            table.harmonics
+        } else {
+            runBlocking {
+                TideModel.getHarmonics(
+                    context,
+                    table.location ?: locationSubsystem.location
+                )
+            }
+        }
+
+        if (harmonics.isEmpty()) {
             return null
         }
 
-        return HarmonicWaterLevelCalculator(table.harmonics)
+        return HarmonicWaterLevelCalculator(harmonics)
     }
 
     private fun getClockCalculator(tide: Tide): IWaterLevelCalculator {

@@ -6,4 +6,5 @@ enum class TideEstimator(override val id: Long): Identifiable {
     Clock(1),
     LunitidalInterval(2),
     Harmonic(3),
+    TideModel(4)
 }
