@@ -1217,4 +1217,5 @@
     <string name="sun_moon_chart">太阳和月亮图表</string>
     <string name="pressure_chart">气压图表</string>
     <string name="tide_chart">潮汐图表</string>
+    <string name="nearby_beacons">附近的信标</string>
 </resources>

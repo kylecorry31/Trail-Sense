@@ -1196,4 +1196,5 @@
     <string name="sun_moon_chart">Gráficos solar &amp; lunar</string>
     <string name="pressure_chart">Gráfico do nível de pressão</string>
     <string name="tide_chart">Gráfico de marés</string>
+    <string name="nearby_beacons">Ponto de orientações próximos</string>
 </resources>
