@@ -18,13 +18,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.textfield.TextInputEditText
-import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.tryOrNothing
@@ -54,7 +52,6 @@ import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsy
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeActionPriority
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import com.kylecorry.trail_sense.tools.tools.quickactions.MainActivityQuickActionBinder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -130,15 +127,8 @@ class MainActivity : AndromedaActivity() {
         updateBottomNavigation()
 
         navController.addOnDestinationChangedListener { _, _, _ ->
-            // Reset the quick actions
-            binding.quickActions.removeAllViews()
-            binding.quickActionsSheet.isVisible = false
-
+            binding.quickActionsSheet.close()
             updateBottomNavSelection()
-        }
-
-        binding.quickActionsToolbar.rightButton.setOnClickListener {
-            binding.quickActionsSheet.isVisible = false
         }
 
         bindLayoutInsets()
@@ -443,7 +433,7 @@ class MainActivity : AndromedaActivity() {
             getString(R.string.tools)
         ).setIcon(R.drawable.apps)
             .setOnMenuItemClickListener {
-                if (navController.currentDestination?.id == R.id.action_experimental_tools && !binding.quickActionsSheet.isVisible) {
+                if (navController.currentDestination?.id == R.id.action_experimental_tools && !binding.quickActionsSheet.isOpen()) {
                     val searchinput = findViewById<TextInputEditText>(R.id.search_view_edit_text)
                     if (searchinput.requestFocus()) {
                         val imm = getSystemService(InputMethodManager::class.java)
@@ -459,15 +449,7 @@ class MainActivity : AndromedaActivity() {
             val item = binding.bottomNavigation.menu.getItem(i)
             val view = binding.bottomNavigation.findViewById<View>(item.itemId)
             view.setOnLongClickListener {
-                val fragment = getFragment()
-
-                if (fragment == null) {
-                    Alerts.toast(this, getString(R.string.quick_actions_are_unavailable))
-                    return@setOnLongClickListener true
-                }
-
-                MainActivityQuickActionBinder(fragment, binding).bind()
-                binding.quickActionsSheet.isVisible = true
+                binding.quickActionsSheet.show(this)
                 true
             }
         }

@@ -8,6 +8,7 @@ import com.google.android.flexbox.FlexboxLayout
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityMainBinding
+import com.kylecorry.trail_sense.databinding.ViewQuickActionSheetBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.quickactions.IQuickActionBinder
@@ -16,7 +17,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class MainActivityQuickActionBinder(
     private val fragment: Fragment,
-    private val binding: ActivityMainBinding
+    private val binding: ViewQuickActionSheetBinding
 ) : IQuickActionBinder {
 
     private val prefs by lazy { UserPreferences(fragment.requireContext()) }
