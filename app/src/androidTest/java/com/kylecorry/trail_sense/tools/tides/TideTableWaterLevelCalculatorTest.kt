@@ -1,9 +1,11 @@
-package com.kylecorry.trail_sense.tools.tides.domain.waterlevel
+package com.kylecorry.trail_sense.tools.tides
 
 import com.kylecorry.sol.science.oceanography.Tide
+import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Test
+import com.kylecorry.trail_sense.tools.tides.domain.waterlevel.TideTableWaterLevelCalculator
+import org.junit.Assert.assertEquals
+import org.junit.Test
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.ZoneId
@@ -23,7 +25,7 @@ internal class TideTableWaterLevelCalculatorTest {
             )
         )
 
-        val calculator = TideTableWaterLevelCalculator(table)
+        val calculator = TideTableWaterLevelCalculator(context, table)
 
         check(calculator, time(9, 13, 7), 3.25f)
         check(calculator, time(9, 18, 33), 0.39f)
