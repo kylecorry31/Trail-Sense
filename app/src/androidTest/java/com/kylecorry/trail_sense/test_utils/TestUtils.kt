@@ -27,12 +27,11 @@ import com.kylecorry.trail_sense.settings.migrations.PreferenceMigrator
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.test_utils.views.Side
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.views.childWithIndex
 import com.kylecorry.trail_sense.test_utils.views.click
 import com.kylecorry.trail_sense.test_utils.views.input
 import com.kylecorry.trail_sense.test_utils.views.longClick
-import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.test_utils.views.viewWithText
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
@@ -189,7 +188,7 @@ object TestUtils {
     }
 
     fun closeQuickActions() {
-        toolbarButton(R.id.quick_actions_toolbar, Side.Right).click()
+        click(R.id.close_button)
     }
 
     // PERMISSIONS
