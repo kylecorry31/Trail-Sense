@@ -29,11 +29,11 @@ class GeographicImageSource(
         var x = (location.longitude + 180) * longitudePixelsPerDegree
         var y = (180 - (location.latitude + 90)) * latitudePixelsPerDegree
 
-        if (x.isNaN()){
+        if (x.isNaN()) {
             x = 0.0
         }
 
-        if (y.isNaN()){
+        if (y.isNaN()) {
             y = 0.0
         }
         return PixelCoordinate(
@@ -44,6 +44,10 @@ class GeographicImageSource(
 
     suspend fun read(stream: InputStream, location: Coordinate): List<Float> = onIO {
         val pixel = getPixel(location)
+        read(stream, pixel)
+    }
+
+    suspend fun read(stream: InputStream, pixel: PixelCoordinate): List<Float> = onIO {
         val data = reader.getPixel(stream, pixel.x, pixel.y, true)
         decoder(data)
     }
@@ -53,15 +57,25 @@ class GeographicImageSource(
         read(fileSystem.stream(filename), location)
     }
 
+    suspend fun read(context: Context, filename: String, pixel: PixelCoordinate): List<Float> = onIO {
+        val fileSystem = AssetFileSystem(context)
+        read(fileSystem.stream(filename), pixel)
+    }
+
     companion object {
 
-        fun scaledDecoder(a: Float, b: Float): (Int?) -> List<Float> {
+        fun scaledDecoder(a: Float, b: Float, convertZero: Boolean = true): (Int?) -> List<Float> {
             return {
                 val red = it?.red?.toFloat() ?: 0f
                 val green = it?.green?.toFloat() ?: 0f
                 val blue = it?.blue?.toFloat() ?: 0f
                 val alpha = it?.alpha?.toFloat() ?: 0f
-                listOf(red / a - b, green / a - b, blue / a - b, alpha / a - b)
+
+                if (!convertZero && red == 0f && green == 0f && blue == 0f) {
+                    listOf(0f, 0f, 0f, alpha)
+                } else {
+                    listOf(red / a - b, green / a - b, blue / a - b, alpha / a - b)
+                }
             }
         }
 

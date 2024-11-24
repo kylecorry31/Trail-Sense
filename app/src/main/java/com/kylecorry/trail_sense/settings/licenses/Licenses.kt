@@ -232,6 +232,12 @@ F. Point of Contact: Any Recipient contact with Government Agency is to be direc
             """Global Modeling and Assimilation Office (GMAO) (2015), MERRA-2 statM_2d_slv_Nx: 2d,Monthly,Aggregated Statistics,Single-Level,Assimilation,Single-Level Diagnostics V5.12.4, Greenbelt, MD, USA, Goddard Earth Sciences Data and Information Services Center (GES DISC), Accessed: 2023-05-22, 10.5067/KVIMOMCUO83U"""
         },
         Library(
+            "EOT20",
+            "https://doi.org/10.17882/79489"
+        ){
+            """Hart-Davis Michael, Piccioni Gaia, Dettmering Denise, Schwatke Christian, Passaro Marcello, Seitz Florian (2021). EOT20 - A global Empirical Ocean Tide model from multi-mission satellite altimetry. SEANOE. https://doi.org/10.17882/79489"""
+        },
+        Library(
             "ETOPO 2022",
             "https://doi.org/10.25921/fd45-gt74"
         ) {
