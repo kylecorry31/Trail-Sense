@@ -1,44 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/quick_actions_sheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/colorSurfaceContainer"
-    android:orientation="vertical"
     android:padding="8dp"
     android:visibility="visible">
 
-    <com.kylecorry.andromeda.views.toolbar.Toolbar
-        android:id="@+id/quick_actions_toolbar"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSurfaceContainer"
+        android:elevation="0dp"
+        app:layout_constraintEnd_toStartOf="@id/close_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabMode="auto" />
+
+    <ImageButton
+        android:id="@+id/close_button"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_cancel"
+        app:layout_constraintBottom_toBottomOf="@id/tabs"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="?android:attr/textColorSecondary" />
+
+    <LinearLayout
+        android:id="@+id/quick_actions_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:flattenButtons="true"
-        app:rightButtonIcon="@drawable/ic_cancel"
-        app:showSubtitle="false"
-        app:title="@string/quick_actions" />
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/tabs">
 
-    <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/recommended_quick_actions"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:alignItems="center"
-        app:flexWrap="wrap"
-        app:justifyContent="center" />
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/recommended_quick_actions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:alignItems="center"
+            app:flexWrap="wrap"
+            app:justifyContent="center" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:src="@drawable/rectangle"
-        app:tint="?android:textColorSecondary" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/rectangle"
+            app:tint="?android:textColorSecondary" />
 
-    <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/quick_actions"
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/quick_actions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:alignItems="center"
+            app:flexWrap="wrap"
+            app:justifyContent="center" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/widgets_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:alignItems="center"
-        app:flexWrap="wrap"
-        app:justifyContent="center" />
-</LinearLayout>
+        android:layout_height="0dp"
+        android:nestedScrollingEnabled="true"
+        app:layout_constraintHeight_max="350dp"
+        app:layout_constraintTop_toBottomOf="@id/tabs">
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/widgets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            app:alignItems="center"
+            app:flexWrap="wrap"
+            app:justifyContent="flex_start">
+
+        </com.google.android.flexbox.FlexboxLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

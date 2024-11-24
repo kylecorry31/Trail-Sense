@@ -484,6 +484,10 @@ class MainActivity : AndromedaActivity() {
         }
     }
 
+    fun openWidgets(){
+        binding.quickActionsSheet.show(this, 1)
+    }
+
     companion object {
 
         var lastKnownFragment: String? = null

@@ -7,7 +7,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.flexbox.FlexboxLayout
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.ActivityMainBinding
 import com.kylecorry.trail_sense.databinding.ViewQuickActionSheetBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -58,8 +57,7 @@ class MainActivityQuickActionBinder(
 
         val alwaysRecommended = listOf(
             Tools.QUICK_ACTION_USER_GUIDE,
-            Tools.QUICK_ACTION_SETTINGS,
-            Tools.QUICK_ACTION_TOOL_WIDGETS
+            Tools.QUICK_ACTION_SETTINGS
         )
 
         val activeToolQuickActions = activeTools

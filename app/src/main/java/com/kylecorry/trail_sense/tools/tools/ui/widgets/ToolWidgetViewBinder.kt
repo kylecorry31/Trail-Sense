@@ -4,54 +4,49 @@ import android.annotation.SuppressLint
 import android.appwidget.AppWidgetHostView
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
+import android.content.res.ColorStateList
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.setPadding
-import androidx.core.view.updateLayoutParams
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import com.google.android.flexbox.FlexboxLayout
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrLog
-import com.kylecorry.andromeda.fragments.BoundFullscreenDialogFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.luna.coroutines.onMain
-import com.kylecorry.trail_sense.databinding.FragmentToolWidgetSheetBinding
+import com.kylecorry.trail_sense.databinding.ViewQuickActionSheetBinding
 import com.kylecorry.trail_sense.settings.SettingsToolRegistration
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummarySize
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolWidget
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
-class ToolWidgetViewBottomSheet :
-    BoundFullscreenDialogFragment<FragmentToolWidgetSheetBinding>() {
+class ToolWidgetViewBinder(
+    private val fragment: Fragment,
+    private val binding: ViewQuickActionSheetBinding
+) {
 
     private val widgets = mutableListOf<WidgetInstance>()
-    private val prefs by lazy { UserPreferences(requireContext()) }
+    private val prefs by lazy { UserPreferences(fragment.requireContext()) }
+    private val context by lazy { fragment.requireContext() }
 
-    override fun generateBinding(
-        layoutInflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentToolWidgetSheetBinding {
-        return FragmentToolWidgetSheetBinding.inflate(layoutInflater, container, false)
+    private val lifecycleEventObserver = LifecycleEventObserver { _, event ->
+        when (event) {
+            Lifecycle.Event.ON_RESUME -> onResume()
+            Lifecycle.Event.ON_PAUSE -> onPause()
+            Lifecycle.Event.ON_DESTROY -> onDestroy()
+            else -> {}
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.toolWidgetsTitle.rightButton.setOnClickListener {
-            dismiss()
-        }
-
+    fun bind() {
         val selectedWidgets = prefs.toolWidgets
-        val allWidgets = Tools.getTools(requireContext())
+        val allWidgets = Tools.getTools(context)
             .flatMap { it.widgets }
-            .filter { it.isEnabled(requireContext()) && it.canPlaceInApp }
+            .filter { it.isEnabled(context) && it.canPlaceInApp }
             .sortedByDescending { it.size.ordinal }
 
         // Only show the selected widgets
@@ -60,9 +55,9 @@ class ToolWidgetViewBottomSheet :
         binding.widgets.removeAllViews()
 
         // 2 cells on a Pixel phone = 102dp
-        val halfSummaryHeight = Resources.dp(requireContext(), 102f).toInt()
+        val halfSummaryHeight = Resources.dp(context, 102f).toInt()
         val fullSummaryHeight = halfSummaryHeight * 2
-        val summaryGap = Resources.dp(requireContext(), 4f).toInt()
+        val summaryGap = Resources.dp(context, 4f).toInt()
 
         widgets.forEachIndexed { index, widget ->
             val layout = AppWidgetHostView(context)
@@ -70,7 +65,7 @@ class ToolWidgetViewBottomSheet :
                 index,
                 AppWidgetManager.getInstance(context).installedProviders?.find {
                     it.provider == ComponentName(
-                        requireContext(),
+                        context,
                         widget.widgetClass
                     )
                 }
@@ -90,13 +85,19 @@ class ToolWidgetViewBottomSheet :
             binding.widgets.addView(layout)
 
             val updateFunction = {
-                inBackground {
+                fragment.inBackground {
                     val views = onDefault {
-                        widget.widgetView.getPopulatedView(requireContext())
+                        widget.widgetView.getPopulatedView(context)
                     }
                     onMain {
                         tryOrLog {
                             layout.updateAppWidget(views)
+                            layout.getChildAt(0)?.backgroundTintList =
+                                ColorStateList.valueOf(
+                                    Resources.androidBackgroundColorSecondary(
+                                        context
+                                    )
+                                )
                         }
                     }
                 }
@@ -104,32 +105,29 @@ class ToolWidgetViewBottomSheet :
 
             this.widgets.add(WidgetInstance(widget, updateFunction))
             val widgetView =
-                widget.widgetView.getView(requireContext())
+                widget.widgetView.getView(context)
             layout.updateAppWidget(widgetView)
+            layout.getChildAt(0)?.backgroundTintList =
+                ColorStateList.valueOf(Resources.androidBackgroundColorSecondary(context))
         }
 
         this.widgets.forEach {
             it.widget.widgetView.onInAppEvent(
-                requireContext(),
+                context,
                 Lifecycle.Event.ON_CREATE,
                 it.updateFunction
             )
         }
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                topMargin = insets.top
-                bottomMargin = insets.bottom
-                leftMargin = insets.left
-                rightMargin = insets.right
-            }
-            windowInsets
-        }
+        fragment.lifecycle.addObserver(lifecycleEventObserver)
     }
 
-    override fun onResume() {
-        super.onResume()
+    fun unbind() {
+        fragment.lifecycle.removeObserver(lifecycleEventObserver)
+        onDestroy()
+    }
+
+    private fun onResume() {
         Tools.subscribe(SettingsToolRegistration.BROADCAST_UPDATE_IN_APP_WIDGET, this::onUpdate)
 
         // TODO: Get a GPS / elevation reading
@@ -138,30 +136,28 @@ class ToolWidgetViewBottomSheet :
         widgets.forEach { it.updateFunction() }
         this.widgets.forEach {
             it.widget.widgetView.onInAppEvent(
-                requireContext(),
+                context,
                 Lifecycle.Event.ON_RESUME,
                 it.updateFunction
             )
         }
     }
 
-    override fun onPause() {
-        super.onPause()
+    private fun onPause() {
         Tools.unsubscribe(SettingsToolRegistration.BROADCAST_UPDATE_IN_APP_WIDGET, this::onUpdate)
         this.widgets.forEach {
             it.widget.widgetView.onInAppEvent(
-                requireContext(),
+                context,
                 Lifecycle.Event.ON_PAUSE,
                 it.updateFunction
             )
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    private fun onDestroy() {
         this.widgets.forEach {
             it.widget.widgetView.onInAppEvent(
-                requireContext(),
+                context,
                 Lifecycle.Event.ON_DESTROY,
                 it.updateFunction
             )
