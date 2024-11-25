@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
 import android.util.Size
+import androidx.core.graphics.green
 import androidx.core.graphics.red
 import com.kylecorry.andromeda.core.cache.LRUCache
 import com.kylecorry.andromeda.core.coroutines.onIO
@@ -93,7 +94,7 @@ object TideModel {
             var bitmap: Bitmap? = null
             try {
                 bitmap = BitmapFactory.decodeStream(stream, null, BitmapFactory.Options().also {
-                    it.inPreferredConfig = Bitmap.Config.RGB_565
+                    it.inPreferredConfig = Bitmap.Config.ARGB_8888
                 }) ?: return actualPixel
 
                 // Get the nearest non-zero pixel, wrapping around the image
@@ -113,20 +114,20 @@ object TideModel {
 
                     // Check the top and bottom rows
                     for (j in leftX..rightX) {
-                        if (bitmap.getPixel(j, topY).red > 0) {
+                        if (hasValue(bitmap.getPixel(j, topY))) {
                             hits.add(PixelCoordinate(j.toFloat(), topY.toFloat()))
                         }
-                        if (bitmap.getPixel(j, bottomY).red > 0) {
+                        if (hasValue(bitmap.getPixel(j, bottomY))) {
                             hits.add(PixelCoordinate(j.toFloat(), bottomY.toFloat()))
                         }
                     }
 
                     // Check the left and right columns
                     for (j in topY..bottomY) {
-                        if (bitmap.getPixel(leftX, j).red > 0) {
+                        if (hasValue(bitmap.getPixel(leftX, j))) {
                             hits.add(PixelCoordinate(leftX.toFloat(), j.toFloat()))
                         }
-                        if (bitmap.getPixel(rightX, j).red > 0) {
+                        if (hasValue(bitmap.getPixel(rightX, j))) {
                             hits.add(PixelCoordinate(rightX.toFloat(), j.toFloat()))
                         }
                     }
@@ -141,6 +142,10 @@ object TideModel {
         }
 
         return actualPixel
+    }
+
+    private fun hasValue(pixel: Int): Boolean {
+        return pixel.red > 0 || pixel.green > 0
     }
 
     private suspend fun load(
