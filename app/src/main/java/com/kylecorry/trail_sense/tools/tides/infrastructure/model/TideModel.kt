@@ -3,10 +3,13 @@ package com.kylecorry.trail_sense.tools.tides.infrastructure.model
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.Rect
 import android.util.Log
 import android.util.Size
 import androidx.core.graphics.green
 import androidx.core.graphics.red
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils
 import com.kylecorry.andromeda.core.cache.LRUCache
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -14,12 +17,12 @@ import com.kylecorry.andromeda.files.AssetFileSystem
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.power
 import com.kylecorry.sol.math.SolMath.roundPlaces
-import com.kylecorry.sol.math.SolMath.square
 import com.kylecorry.sol.math.SolMath.wrap
 import com.kylecorry.sol.science.oceanography.TidalHarmonic
 import com.kylecorry.sol.science.oceanography.TideConstituent
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.data.GeographicImageSource
+import java.io.InputStream
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -84,6 +87,7 @@ object TideModel {
         }
     }
 
+    // TODO: Extract to andromeda (nearest pixel meeting a criteria within a region - maybe just update the ImageSource with a nearest non-zero pixel option)
     private suspend fun getNearestPixel(context: Context, location: Coordinate): PixelCoordinate {
         val actualPixel = source.getPixel(location)
         val file = "tides/constituents-M2.webp"
@@ -95,22 +99,19 @@ object TideModel {
         fileSystem.stream(file).use { stream ->
             var bitmap: Bitmap? = null
             try {
-                bitmap = BitmapFactory.decodeStream(stream, null, BitmapFactory.Options().also {
-                    it.inPreferredConfig = Bitmap.Config.ARGB_8888
-                }) ?: return actualPixel
+                val regionSize = 10
+                bitmap = loadRegion(stream, actualPixel, regionSize, size)
 
                 // Get the nearest non-zero pixel, wrapping around the image
-                val x = actualPixel.x.roundToInt()
-                val y = actualPixel.y.roundToInt()
-                val width = bitmap.width
-                val height = bitmap.height
+                val x = regionSize
+                val y = regionSize
 
                 // Search in a grid pattern
-                for (i in 1..10) {
-                    val topY = max(0, y - i)
-                    val bottomY = min(height - 1, y + i)
-                    val leftX = wrap((x - i).toDouble(), 0.0, (width - 1).toDouble()).toInt()
-                    val rightX = wrap((x + i).toDouble(), 0.0, (width - 1).toDouble()).toInt()
+                for (i in 1 until regionSize) {
+                    val topY = y - i
+                    val bottomY = y + i
+                    val leftX = (x - i)
+                    val rightX = (x + i)
 
                     val hits = mutableListOf<PixelCoordinate>()
 
@@ -135,7 +136,19 @@ object TideModel {
                     }
 
                     if (hits.isNotEmpty()) {
-                        return hits.minByOrNull { it.distanceTo(actualPixel) } ?: actualPixel
+                        val globalHits = hits.map {
+                            // Only x is wrapped
+                            val globalX =
+                                wrap(
+                                    actualPixel.x + it.x - regionSize,
+                                    0f,
+                                    size.width.toFloat()
+                                )
+                            val globalY = actualPixel.y + it.y - regionSize
+
+                            PixelCoordinate(globalX, globalY)
+                        }
+                        return globalHits.minByOrNull { it.distanceTo(actualPixel) } ?: actualPixel
                     }
                 }
             } finally {
@@ -144,6 +157,104 @@ object TideModel {
         }
 
         return actualPixel
+    }
+
+    // TODO: Extract to andromeda
+    private fun loadRegion(
+        stream: InputStream,
+        center: PixelCoordinate,
+        size: Int,
+        fullImageSize: Size
+    ): Bitmap {
+        val bitmap = Bitmap.createBitmap(2 * size + 1, 2 * size + 1, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+
+        val cx = center.x.roundToInt()
+        val cy = center.y.roundToInt()
+
+        // Step 1: Calculate the region bounds
+        val left = cx - size
+        val top = cy - size
+        val right = cx + size
+        val bottom = cy + size
+
+        // Step 2: Load as much of the region as possible
+        val rect = Rect(
+            max(0, left),
+            max(0, top),
+            min(fullImageSize.width - 1, right),
+            min(fullImageSize.height - 1, bottom)
+        )
+        var region: Bitmap? = null
+        try {
+            region = BitmapUtils.decodeRegion(stream, rect, BitmapFactory.Options().also {
+                it.inPreferredConfig = Bitmap.Config.ARGB_8888
+            }) ?: return bitmap
+
+            val startX = if (left < 0) {
+                size - cx
+            } else {
+                0
+            }
+            val startY = if (top < 0) {
+                size - cy
+            } else {
+                0
+            }
+
+            canvas.drawBitmap(region, startX.toFloat(), startY.toFloat(), null)
+        } finally {
+            region?.recycle()
+        }
+
+        // Step 3: If the region extends beyond the image left/right, load the missing part from the other side
+        var additionalRect: Rect? = null
+        if (left < 0) {
+            val remaining = size - cx
+            additionalRect = Rect(
+                fullImageSize.width - remaining,
+                rect.top,
+                fullImageSize.width - 1,
+                rect.bottom
+            )
+        } else if (right >= fullImageSize.width) {
+            val remaining = size - fullImageSize.width - cx
+            additionalRect = Rect(
+                0,
+                rect.top,
+                remaining,
+                rect.bottom
+            )
+        }
+
+        if (additionalRect != null) {
+            try {
+                region = BitmapFactory.decodeStream(
+                    stream,
+                    additionalRect,
+                    BitmapFactory.Options().also {
+                        it.inPreferredConfig = Bitmap.Config.ARGB_8888
+                    }) ?: return bitmap
+
+                val startX = if (left < 0) {
+                    0
+                } else {
+                    rect.width()
+                }
+
+                val startY = if (top < 0) {
+                    size - cy
+                } else {
+                    0
+                }
+
+                canvas.drawBitmap(region, startX.toFloat(), startY.toFloat(), null)
+            } finally {
+                region?.recycle()
+            }
+        }
+
+        return bitmap
     }
 
     private fun hasValue(pixel: Int): Boolean {
