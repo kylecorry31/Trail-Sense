@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.tides.infrastructure.model
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.util.Log
 import android.util.Size
 import androidx.core.graphics.red
 import com.kylecorry.andromeda.core.cache.LRUCache
@@ -157,7 +158,7 @@ object TideModel {
             }
             val file = "tides/constituents-${name}.webp"
             val data = source.read(context, file, pixel)
-            if (data[0] <= 0.001f) {
+            if (data[0] <= 0) {
                 continue
             }
 
@@ -173,7 +174,7 @@ object TideModel {
                 )
             )
         }
-        println(loaded)
+        Log.d("TideModel", loaded.toString())
         loaded
     }
 
