@@ -12,6 +12,7 @@ import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.tools.tides.infrastructure.model.TideModel
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.time.Duration
 import java.time.LocalDate
@@ -72,6 +73,10 @@ class TideModelTest {
 //                time(6, 15) to false,
 //                time(20, 33) to true,
 //            )
+            // New moon
+            // Full moon
+            // First quarter
+            // Third quarter
         )
 
         val deltas = tests.flatMap {
@@ -83,6 +88,8 @@ class TideModelTest {
         println("90%: ${Statistics.quantile(deltas, 0.9f).roundToInt()} m")
         println("Min: ${deltas.minOrNull()?.roundToInt()} m")
         println("Max: ${deltas.maxOrNull()?.roundToInt()} m")
+
+        assertTrue(Statistics.quantile(deltas, 0.9f) < 60)
     }
 
     private val rhodeIsland = Coordinate(41.49008, -71.312796)
