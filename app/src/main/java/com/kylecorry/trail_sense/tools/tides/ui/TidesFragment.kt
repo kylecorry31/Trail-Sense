@@ -92,12 +92,12 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         binding.tideList.setItems(updatedTides, mapper)
     }
 
-    private fun loadTideTable() {
+    private fun loadTideTable(newTable: TideTable? = null) {
         if (!isBound) return
         binding.loading.isVisible = true
         binding.tideList.setItems(emptyList())
         inBackground {
-            table = loadTideCommand.execute()
+            table = newTable ?: loadTideCommand.execute()
             onMain {
                 if (!isBound) return@onMain
                 binding.loading.isVisible = false
