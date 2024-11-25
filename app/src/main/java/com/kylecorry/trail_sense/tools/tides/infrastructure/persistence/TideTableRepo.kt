@@ -3,10 +3,16 @@ package com.kylecorry.trail_sense.tools.tides.infrastructure.persistence
 import android.content.Context
 import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.sol.science.oceanography.Tide
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
+import com.kylecorry.trail_sense.tools.tides.domain.waterlevel.TideEstimator
 
-class TideTableRepo private constructor(private val dao: TideTableDao) : ITideTableRepo {
+class TideTableRepo private constructor(
+    private val dao: TideTableDao,
+    private val context: Context
+) : ITideTableRepo {
 
     override suspend fun getTideTables(): List<TideTable> = onIO {
         val tableEntities = dao.getTideTables()
@@ -18,7 +24,19 @@ class TideTableRepo private constructor(private val dao: TideTableDao) : ITideTa
             tables.add(entity.toTable(rows, harmonics))
         }
 
-        tables
+        listOfNotNull(
+            if (UserPreferences(context).tides.tideModelEnabled) {
+                TideTable(
+                    -1,
+                    emptyList(),
+                    context.getString(R.string.navigation_nearby_category),
+                    estimator = TideEstimator.TideModel,
+                    isEditable = false
+                )
+            } else {
+                null
+            }
+        ) + tables
     }
 
     override suspend fun getTideTable(id: Long): TideTable? {
@@ -60,7 +78,10 @@ class TideTableRepo private constructor(private val dao: TideTableDao) : ITideTa
         @Synchronized
         fun getInstance(context: Context): TideTableRepo {
             if (instance == null) {
-                instance = TideTableRepo(AppDatabase.getInstance(context).tideTableDao())
+                instance = TideTableRepo(
+                    AppDatabase.getInstance(context).tideTableDao(),
+                    context.applicationContext
+                )
             }
             return instance!!
         }

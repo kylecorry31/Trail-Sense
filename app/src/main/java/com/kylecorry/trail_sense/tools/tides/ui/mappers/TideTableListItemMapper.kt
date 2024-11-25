@@ -12,7 +12,6 @@ import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
-import com.kylecorry.trail_sense.tools.tides.domain.waterlevel.TideEstimator
 
 class TideTableListItemMapper(
     private val context: Context,
@@ -28,7 +27,7 @@ class TideTableListItemMapper(
             getTideTitle(table),
             getDescription(table),
             icon = getIcon(table, value.second),
-            menu = listOf(
+            menu = if (value.first.isEditable) listOf(
                 ListMenuItem(context.getString(R.string.edit)) {
                     actionHandler(
                         table,
@@ -46,7 +45,7 @@ class TideTableListItemMapper(
                         TideTableAction.Delete
                     )
                 },
-            )
+            ) else emptyList()
         ) {
             actionHandler(table, TideTableAction.Select)
         }
@@ -70,11 +69,11 @@ class TideTableListItemMapper(
     }
 
     private fun getDescription(tide: TideTable): String {
-        return if (tide.estimator == TideEstimator.TideModel) {
-            context.getString(R.string.auto) + " " + context.getString(R.string.dot) + " "
-        } else {
-            ""
-        } + context.resources.getQuantityString(
+        if (!tide.isEditable) {
+            return context.getString(R.string.tide_model_auto)
+        }
+
+        return context.resources.getQuantityString(
             R.plurals.tides_entered_count,
             tide.tides.size,
             tide.tides.size

@@ -18,7 +18,8 @@ data class TideTable(
     val estimator: TideEstimator = TideEstimator.Clock,
     val harmonics: List<TidalHarmonic> = listOf(),
     val lunitidalInterval: Duration? = null,
-    val lunitidalIntervalIsUtc: Boolean = false
+    val lunitidalIntervalIsUtc: Boolean = false,
+    val isEditable: Boolean = true
 ) : Identifiable {
 
     val principalFrequency: Float

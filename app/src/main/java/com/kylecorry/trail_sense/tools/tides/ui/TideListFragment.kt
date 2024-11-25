@@ -123,9 +123,9 @@ class TideListFragment : BoundFragment<FragmentTideListBinding>() {
 
     private fun refreshTides() {
         inBackground {
-            tides = tideRepo.getTideTables().sortedBy { tide ->
+            tides = tideRepo.getTideTables().sortedWith(compareBy({ it.isEditable }, { tide ->
                 tide.location?.distanceTo(gps.location) ?: Float.POSITIVE_INFINITY
-            }.map { it to (null as TideType?) }
+            })).map { it to (null as TideType?) }
 
             // Update the tide types in parallel and update each time one is done
             tideTypeRunner.run(tides.mapIndexed { index, tide ->
