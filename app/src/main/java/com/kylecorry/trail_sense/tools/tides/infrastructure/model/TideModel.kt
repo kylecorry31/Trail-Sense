@@ -9,9 +9,8 @@ import com.kylecorry.andromeda.core.cache.LRUCache
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.AssetFileSystem
-import com.kylecorry.sol.math.ComplexNumber
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.roundPlaces
-import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.SolMath.wrap
 import com.kylecorry.sol.science.oceanography.TidalHarmonic
 import com.kylecorry.sol.science.oceanography.TideConstituent
@@ -31,36 +30,37 @@ object TideModel {
     private const val latitudePixelsPerDegree = 2.0
     private const val longitudePixelsPerDegree = 2.0
     private val size = Size(720, 360)
+    private val minAmplitude = 0f
+    private val minPhase = -180f
+    private val maxPhase = 180f
 
-    private val scaleMap = mutableMapOf(
-        TideConstituent._2N2 to Pair(11.356071472167969, 11.140035629272461),
-        TideConstituent.J1 to Pair(10.40841007232666, 13.524446487426758),
-        TideConstituent.K1 to Pair(0.49884647130966187, 254.1129608154297),
-        TideConstituent.K2 to Pair(2.659036874771118, 51.51428985595703),
-        TideConstituent.M2 to Pair(0.2973381578922272, 393.4219665527344),
-        TideConstituent.M4 to Pair(3.337411642074585, 42.507568359375),
-        TideConstituent.MF to Pair(8.843782424926758, 11.178329467773438),
-        TideConstituent.MM to Pair(11.158853530883789, 5.290022373199463),
-        TideConstituent.N2 to Pair(1.4540624618530273, 73.89794158935547),
-        TideConstituent.O1 to Pair(1.0482910871505737, 99.1529541015625),
-        TideConstituent.P1 to Pair(1.1195718050003052, 89.13236236572266),
-        TideConstituent.Q1 to Pair(6.170979976654053, 19.15773582458496),
-        TideConstituent.S1 to Pair(0.05546007305383682, 1235.134521484375),
-        TideConstituent.S2 to Pair(0.05975821986794472, 2014.5478515625),
-        TideConstituent.SA to Pair(1.1215876340866089, 197.72166442871094),
-        TideConstituent.SSA to Pair(38.392425537109375, 3.450453281402588),
-        TideConstituent.T2 to Pair(0.4328470230102539, 93.9348373413086),
+    private val source = GeographicImageSource(
+        size,
+        latitudePixelsPerDegree,
+        longitudePixelsPerDegree,
+        interpolate = false,
+        decoder = GeographicImageSource.scaledDecoder(255.0, 0.0, false)
     )
 
-    private val sourceMap = scaleMap.mapValues {
-        GeographicImageSource(
-            size,
-            latitudePixelsPerDegree,
-            longitudePixelsPerDegree,
-            interpolate = false,
-            decoder = GeographicImageSource.scaledDecoder(it.value.first, it.value.second, false)
-        )
-    }
+    private val amplitudes = mutableMapOf(
+        TideConstituent._2N2 to 35.5627555847168,
+        TideConstituent.J1 to 20.58492088317871,
+        TideConstituent.K1 to 293.3113098144531,
+        TideConstituent.K2 to 136.46533203125,
+        TideConstituent.M2 to 496.5640869140625,
+        TideConstituent.M4 to 136.4740753173828,
+        TideConstituent.MF to 26.572229385375977,
+        TideConstituent.MM to 38.845985412597656,
+        TideConstituent.N2 to 109.4218978881836,
+        TideConstituent.O1 to 163.941162109375,
+        TideConstituent.P1 to 1101.8448486328125,
+        TideConstituent.Q1 to 31.578903198242188,
+        TideConstituent.S1 to 4575.712890625,
+        TideConstituent.S2 to 3101.253662109375,
+        TideConstituent.SA to 1361.9013671875,
+        TideConstituent.SSA to 8.6279935836792,
+        TideConstituent.T2 to 2687.74365234375,
+    )
 
     suspend fun getHarmonics(
         context: Context,
@@ -81,9 +81,9 @@ object TideModel {
     }
 
     private suspend fun getNearestPixel(context: Context, location: Coordinate): PixelCoordinate {
-        val actualPixel = sourceMap[TideConstituent.M2]!!.getPixel(location)
+        val actualPixel = source.getPixel(location)
         val file = "tides/constituents-M2.webp"
-        if (sourceMap[TideConstituent.M2]!!.read(context, file, location)[0] != 0f) {
+        if (source.read(context, file, location)[0] > 0f) {
             return actualPixel
         }
 
@@ -112,20 +112,20 @@ object TideModel {
 
                     // Check the top and bottom rows
                     for (j in leftX..rightX) {
-                        if (bitmap.getPixel(j, topY).red != 0) {
+                        if (bitmap.getPixel(j, topY).red > 0) {
                             hits.add(PixelCoordinate(j.toFloat(), topY.toFloat()))
                         }
-                        if (bitmap.getPixel(j, bottomY).red != 0) {
+                        if (bitmap.getPixel(j, bottomY).red > 0) {
                             hits.add(PixelCoordinate(j.toFloat(), bottomY.toFloat()))
                         }
                     }
 
                     // Check the left and right columns
                     for (j in topY..bottomY) {
-                        if (bitmap.getPixel(leftX, j).red != 0) {
+                        if (bitmap.getPixel(leftX, j).red > 0) {
                             hits.add(PixelCoordinate(leftX.toFloat(), j.toFloat()))
                         }
-                        if (bitmap.getPixel(rightX, j).red != 0) {
+                        if (bitmap.getPixel(rightX, j).red > 0) {
                             hits.add(PixelCoordinate(rightX.toFloat(), j.toFloat()))
                         }
                     }
@@ -147,7 +147,7 @@ object TideModel {
         pixel: PixelCoordinate
     ): List<TidalHarmonic> = onIO {
         val loaded = mutableListOf<TidalHarmonic>()
-        val harmonics = scaleMap.keys
+        val harmonics = amplitudes.keys
 
         for (harmonic in harmonics) {
             val name = if (harmonic == TideConstituent._2N2) {
@@ -156,17 +156,20 @@ object TideModel {
                 harmonic.name
             }
             val file = "tides/constituents-${name}.webp"
-            val data = sourceMap[harmonic]?.read(context, file, pixel) ?: continue
-            val complex = ComplexNumber(data[0], data[1])
-            if (data[0] == 0f) {
+            val data = source.read(context, file, pixel)
+            if (data[0] <= 0.001f) {
                 continue
             }
 
             loaded.add(
                 TidalHarmonic(
                     harmonic,
-                    complex.magnitude / 100,
-                    wrap(complex.phase.toDegrees(), 0f, 360f)
+                    SolMath.lerp(
+                        data[0].toDouble(),
+                        minAmplitude.toDouble(),
+                        amplitudes[harmonic]!!
+                    ).toFloat() / 100f,
+                    wrap(SolMath.lerp(data[1], minPhase, maxPhase), 0f, 360f)
                 )
             )
         }
