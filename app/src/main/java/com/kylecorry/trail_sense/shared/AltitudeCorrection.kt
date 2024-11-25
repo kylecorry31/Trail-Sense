@@ -14,8 +14,8 @@ object AltitudeCorrection {
     private var cache = LRUCache<PixelCoordinate, Float>(size = 5)
 
     // Image data source
-    private const val a = 1.3350785f
-    private const val b = 106f
+    private const val a = 1.3350785
+    private const val b = 106.0
     private const val file = "geoids.webp"
     private val source = GeographicImageSource(
         Size(361, 181),

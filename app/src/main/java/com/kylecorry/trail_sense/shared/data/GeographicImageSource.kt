@@ -57,14 +57,19 @@ class GeographicImageSource(
         read(fileSystem.stream(filename), location)
     }
 
-    suspend fun read(context: Context, filename: String, pixel: PixelCoordinate): List<Float> = onIO {
-        val fileSystem = AssetFileSystem(context)
-        read(fileSystem.stream(filename), pixel)
-    }
+    suspend fun read(context: Context, filename: String, pixel: PixelCoordinate): List<Float> =
+        onIO {
+            val fileSystem = AssetFileSystem(context)
+            read(fileSystem.stream(filename), pixel)
+        }
 
     companion object {
 
-        fun scaledDecoder(a: Float, b: Float, convertZero: Boolean = true): (Int?) -> List<Float> {
+        fun scaledDecoder(
+            a: Double,
+            b: Double,
+            convertZero: Boolean = true
+        ): (Int?) -> List<Float> {
             return {
                 val red = it?.red?.toFloat() ?: 0f
                 val green = it?.green?.toFloat() ?: 0f
@@ -74,7 +79,12 @@ class GeographicImageSource(
                 if (!convertZero && red == 0f && green == 0f && blue == 0f) {
                     listOf(0f, 0f, 0f, alpha)
                 } else {
-                    listOf(red / a - b, green / a - b, blue / a - b, alpha / a - b)
+                    listOf(
+                        red / a - b,
+                        green / a - b,
+                        blue / a - b,
+                        alpha / a - b
+                    ).map { it.toFloat() }
                 }
             }
         }
