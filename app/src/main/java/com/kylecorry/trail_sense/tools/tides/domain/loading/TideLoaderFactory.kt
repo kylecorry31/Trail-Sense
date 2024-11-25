@@ -20,7 +20,7 @@ class TideLoaderFactory {
                 LastTideSelectionStrategy(prefs, true),
                 NearestTideSelectionStrategy { location.location }
             )
-        } else if (prefs.showNearestTide) {
+        } else if (prefs.showNearestTide || !useLastTide) {
             NearestTideSelectionStrategy { location.location }
         } else {
             LastTideSelectionStrategy(prefs, false)
@@ -31,6 +31,7 @@ class TideLoaderFactory {
             FallbackTideSelectionStrategy(
                 strategy,
                 EstimateTideSelectionStrategy(),
+                LastTideSelectionStrategy(prefs, false),
                 DefaultTideSelectionStrategy()
             )
         )

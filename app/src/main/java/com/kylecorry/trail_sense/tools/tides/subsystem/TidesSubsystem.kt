@@ -24,7 +24,7 @@ class TidesSubsystem private constructor(private val context: Context) {
     private val mutex = Mutex()
 
     suspend fun getNearestTide(): TideDetails? {
-        val loader = tideLoaderFactory.getTideLoader(context, true)
+        val loader = tideLoaderFactory.getTideLoader(context, false)
         val table = loader.getTideTable() ?: return null
         val tide = CurrentTideCommand(tideService).execute(table)
         val times = mutex.withLock {
