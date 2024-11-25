@@ -12,7 +12,9 @@ import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.AssetFileSystem
 import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.SolMath.power
 import com.kylecorry.sol.math.SolMath.roundPlaces
+import com.kylecorry.sol.math.SolMath.square
 import com.kylecorry.sol.math.SolMath.wrap
 import com.kylecorry.sol.science.oceanography.TidalHarmonic
 import com.kylecorry.sol.science.oceanography.TideConstituent
@@ -171,7 +173,7 @@ object TideModel {
                 TidalHarmonic(
                     harmonic,
                     SolMath.lerp(
-                        data[0].toDouble(),
+                        power(data[0].toDouble(), 4),
                         minAmplitude.toDouble(),
                         amplitudes[harmonic]!!
                     ).toFloat() / 100f,

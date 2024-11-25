@@ -60,12 +60,12 @@ class TideModelTest {
                 time(19, 3) to true
             ),
             // Diurnal tides
-//            perth to tides(
-//                LocalDate.of(2024, 12, 3),
-//                awst,
-//                time(6, 42) to false,
-//                time(21, 51) to true
-//            ),
+            perth to tides(
+                LocalDate.of(2024, 12, 3),
+                awst,
+                time(6, 42) to false,
+                time(21, 51) to true
+            ),
 //            louisiana to tides(
 //                LocalDate.of(2024, 11, 28),
 //                cst,
