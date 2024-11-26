@@ -124,6 +124,7 @@ class ToolWidgetViewBinder(
 
     fun unbind() {
         fragment.lifecycle.removeObserver(lifecycleEventObserver)
+        onPause()
         onDestroy()
     }
 
