@@ -16,8 +16,8 @@ import java.io.InputStream
 
 class GeographicImageSource(
     imageSize: Size,
-    private val latitudePixelsPerDegree: Double = 1.0,
-    private val longitudePixelsPerDegree: Double = 1.0,
+    private val latitudePixelsPerDegree: Double = ((imageSize.height - 1) / 180.0),
+    private val longitudePixelsPerDegree: Double = ((imageSize.width - 1) / 360.0),
     private val precision: Int = 2,
     interpolate: Boolean = true,
     private val decoder: (Int?) -> List<Float> = { listOf(it?.toFloat() ?: 0f) }

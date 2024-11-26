@@ -13,7 +13,6 @@ import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.tools.tides.infrastructure.model.TideModel
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.time.Duration
 import java.time.LocalDate
@@ -181,18 +180,26 @@ class TideModelTest {
             )
         )
 
-        val deltas = tests.flatMap {
+        val errors = tests.flatMap {
             val harmonics = TideModel.getHarmonics(context, it.first)
             check(harmonics, it.second)
-        }.map { it.absoluteValue }
+        }
 
-        println("50%: ${Statistics.quantile(deltas, 0.5f).roundToInt()} m")
-        println("90%: ${Statistics.quantile(deltas, 0.9f).roundToInt()} m")
-        println("Min: ${deltas.minOrNull()?.roundToInt()} m")
-        println("Max: ${deltas.maxOrNull()?.roundToInt()} m")
+        val absoluteErrors = errors.map { it.absoluteValue }
 
-        // The majority of tide predictions should be within 45 minutes of the actual tide
-        assertTrue(Statistics.quantile(deltas, 0.9f) < 45)
+        println("50%: ${Statistics.quantile(absoluteErrors, 0.5f).roundToInt()} m")
+        println("90%: ${Statistics.quantile(absoluteErrors, 0.9f).roundToInt()} m")
+        println("Min: ${absoluteErrors.minOrNull()?.roundToInt()} m")
+        println("Max: ${absoluteErrors.maxOrNull()?.roundToInt()} m")
+
+        // Check the average error and standard deviation
+        val absAverageError = Statistics.mean(absoluteErrors)
+        val abs90QuantileError = Statistics.quantile(absoluteErrors, 0.9f)
+        val standardDeviation = Statistics.stdev(absoluteErrors)
+
+        assertEquals("Average", 0f, absAverageError, 30f)
+        assertEquals("90% Quantile", 0f, abs90QuantileError, 45f)
+        assertEquals("Standard Deviation", 0f, standardDeviation, 15f)
     }
 
     private val rhodeIsland = Coordinate(41.49008, -71.312796)

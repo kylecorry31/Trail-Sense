@@ -34,8 +34,6 @@ object TideModel {
     private val locationToPixelCache = LRUCache<Coordinate, PixelCoordinate>(size = 20)
 
     // Image data source
-    private const val latitudePixelsPerDegree = 2.0
-    private const val longitudePixelsPerDegree = 2.0
     private val size = Size(720, 360)
     private val minAmplitude = 0f
     private val minPhase = -180f
@@ -43,8 +41,6 @@ object TideModel {
 
     private val source = GeographicImageSource(
         size,
-        latitudePixelsPerDegree,
-        longitudePixelsPerDegree,
         interpolate = false,
         decoder = GeographicImageSource.scaledDecoder(255.0, 0.0, false)
     )

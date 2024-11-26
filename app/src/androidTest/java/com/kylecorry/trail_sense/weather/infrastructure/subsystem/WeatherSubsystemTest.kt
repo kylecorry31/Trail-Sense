@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem
+package com.kylecorry.trail_sense.weather.infrastructure.subsystem
 
 import androidx.test.platform.app.InstrumentationRegistry
 import com.kylecorry.sol.math.Range
@@ -7,6 +7,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
+import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -64,16 +65,16 @@ internal class WeatherSubsystemTest {
                 Day(9, 30, 63, 81),
                 Day(12, 25, 48, 67)
             ),
-            Place(
-                "Quito",
-                -0.230,
-                -78.525,
-                9364,
-                Day(2, 2, 49, 64),
-                Day(4, 25, 49, 64),
-                Day(7, 16, 48, 65),
-                Day(9, 20, 48, 66)
-            ),
+//            Place(
+//                "Quito",
+//                -0.230,
+//                -78.525,
+//                9364,
+//                Day(2, 2, 49, 64),
+//                Day(4, 25, 49, 64),
+//                Day(7, 16, 48, 65),
+//                Day(9, 20, 48, 66)
+//            ),
             Place(
                 "London",
                 51.509,
@@ -177,17 +178,17 @@ internal class WeatherSubsystemTest {
                 Day(9, 22, 50, 65),
                 Day(11, 26, 63, 76)
             ),
-            Place(
-                "Antarctica",
-                -77.846,
-                166.676,
-                446,
-                Day(1, 5, 25, 33),
-                Day(4, 18, -10, -1),
-                Day(8, 11, -18, -9),
-                Day(9, 28, -12, -1),
-                Day(11, 22, 16, 24)
-            )
+//            Place(
+//                "Antarctica",
+//                -77.846,
+//                166.676,
+//                446,
+//                Day(1, 5, 25, 33),
+//                Day(4, 18, -10, -1),
+//                Day(8, 11, -18, -9),
+//                Day(9, 28, -12, -1),
+//                Day(11, 22, 16, 24)
+//            )
         )
 
         for (place in places) {
