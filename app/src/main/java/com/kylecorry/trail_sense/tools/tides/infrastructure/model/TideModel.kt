@@ -87,7 +87,8 @@ object TideModel {
     private suspend fun getNearestPixel(context: Context, location: Coordinate): PixelCoordinate {
         val actualPixel = source.getPixel(location)
         val file = "tides/constituents-M2.webp"
-        if (source.read(context, file, location)[0] > 0f) {
+        val sourceValue = source.read(context, file, actualPixel)
+        if (sourceValue[0] > 0f || sourceValue[1] > 0f) {
             return actualPixel
         }
 
