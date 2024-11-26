@@ -1218,4 +1218,5 @@
     <string name="pressure_chart">气压图表</string>
     <string name="tide_chart">潮汐图表</string>
     <string name="nearby_beacons">附近的信标</string>
+    <string name="tide_model_auto">潮汐模式（自动）</string>
 </resources>

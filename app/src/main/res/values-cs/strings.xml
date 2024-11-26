@@ -1255,4 +1255,5 @@
     <string name="pressure_chart">Graf tlaku</string>
     <string name="tide_chart">Graf přílivu a odlivu</string>
     <string name="nearby_beacons">Majáky v okolí</string>
+    <string name="tide_model_auto">Model přílivu a odlivu (automaticky)</string>
 </resources>
