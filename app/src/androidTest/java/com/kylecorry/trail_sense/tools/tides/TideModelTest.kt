@@ -120,13 +120,12 @@ class TideModelTest {
                 time(6, 42) to false,
                 time(21, 51) to true
             ),
-            // TODO: Tides in the mexico gulf are not working
-//            louisiana to tides(
-//                LocalDate.of(2024, 11, 28),
-//                cst,
-//                time(4, 30) to true,
-//                time(16, 25) to false,
-//            ),
+            louisiana to tides(
+                LocalDate.of(2024, 11, 26),
+                cst,
+                time(4, 58) to false,
+                time(18, 28) to true,
+            ),
             // New moon
             rhodeIsland to tides(
                 LocalDate.of(2024, 12, 1),
@@ -180,7 +179,7 @@ class TideModelTest {
     }
 
     private val rhodeIsland = Coordinate(41.49008, -71.312796)
-    private val louisiana = Coordinate(30.03, -90.11)
+    private val louisiana = Coordinate(29.06, -90.96)
     private val california = Coordinate(33.7833, -118.4167)
     private val dublin = Coordinate(53.35, -6.22)
     private val hongKong = Coordinate(22.28, 114.18)
