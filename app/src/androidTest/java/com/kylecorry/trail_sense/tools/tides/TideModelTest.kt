@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.tides
 
+import com.kylecorry.sol.math.optimization.GoldenSearchExtremaFinder
 import com.kylecorry.sol.math.statistics.Statistics
 import com.kylecorry.sol.science.oceanography.OceanographyService
 import com.kylecorry.sol.science.oceanography.TidalHarmonic
@@ -226,7 +227,7 @@ class TideModelTest {
         val ocean = OceanographyService()
         val start = expected.first().time.atStartOfDay()
         val end = expected.first().time.atEndOfDay()
-        val actual = ocean.getTides(calculator, start, end)
+        val actual = ocean.getTides(calculator, start, end, GoldenSearchExtremaFinder(30.0, 1.0))
         assertEquals(expected.size, actual.size)
         return actual.zip(expected).map {
             check(it.first, it.second)
