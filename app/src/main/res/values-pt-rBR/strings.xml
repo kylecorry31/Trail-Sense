@@ -1197,4 +1197,5 @@
     <string name="pressure_chart">Gráfico do nível de pressão</string>
     <string name="tide_chart">Gráfico de marés</string>
     <string name="nearby_beacons">Ponto de orientações próximos</string>
+    <string name="tide_model_auto">Modelo de maré (auto)</string>
 </resources>
