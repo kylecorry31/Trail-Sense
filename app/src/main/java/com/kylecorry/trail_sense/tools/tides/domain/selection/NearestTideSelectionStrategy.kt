@@ -11,9 +11,6 @@ class NearestTideSelectionStrategy(
 ) : ITideSelectionStrategy {
     override suspend fun getTide(tides: List<TideTable>): TideTable? = onIO {
         val tidesWithLocation = tides.filter { it.location != null }
-        if (tidesWithLocation.size <= 1) {
-            return@onIO tidesWithLocation.firstOrNull()
-        }
         val nearest = tidesWithLocation.minByOrNull { it.location!!.distanceTo(locationProvider()) }
             ?: return@onIO null
 
