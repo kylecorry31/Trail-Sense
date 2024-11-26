@@ -85,6 +85,22 @@ class TideModelTest {
                 time(15, 22) to true,
                 time(21, 40) to false
             ),
+            southAfrica to tides(
+                LocalDate.of(2024, 11, 26),
+                sast,
+                time(0, 22) to true,
+                time(6, 13) to false,
+                time(12, 29) to true,
+                time(18, 54) to false
+            ),
+            italy to tides(
+                LocalDate.of(2024, 11, 28),
+                cet,
+                time(1, 2) to false,
+                time(7, 19) to true,
+                time(13, 11) to false,
+                time(19, 9) to true
+            ),
             // Mixed tides
             penzhinaBay to tides(
                 LocalDate.of(2024, 11, 26),
@@ -192,6 +208,8 @@ class TideModelTest {
     private val penzhinaBay = Coordinate(62.38, 164.50)
     private val indonesia = Coordinate(-3.68, 128.18)
     private val mexico = Coordinate(22.22, -97.86)
+    private val southAfrica = Coordinate(-33.9, 18.42)
+    private val italy = Coordinate(40.86, 14.28)
 
     private val utc = "UTC"
     private val pst = "America/Los_Angeles"
@@ -204,6 +222,8 @@ class TideModelTest {
     private val fijiTimeZone = "Pacific/Fiji"
     private val penzhinaBayTimeZone = "Asia/Kamchatka"
     private val wit = "Asia/Jayapura"
+    private val sast = "Africa/Johannesburg"
+    private val cet = "CET"
 
     private fun time(hour: Int, minute: Int): LocalTime {
         return LocalTime.of(hour, minute)
