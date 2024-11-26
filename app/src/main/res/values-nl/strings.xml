@@ -1229,4 +1229,5 @@
     <string name="pressure_chart">Drukgrafiek</string>
     <string name="nearby_beacons">Nabije bakens</string>
     <string name="tide_chart">Tijgrafiek</string>
+    <string name="tide_model_auto">Getijdenmodel (automatisch)</string>
 </resources>
