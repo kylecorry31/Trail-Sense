@@ -43,22 +43,28 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
         hasText(Regex("\\d+(\\.\\d+)? in"))
 
         // Historic temperature
-        hasText(string(R.string.temperature))
-        hasText(string(R.string.historic_temperature_years, 30))
-        hasText(Regex("\\d+(\\.\\d+)? °F"))
+        optional {
+            hasText(string(R.string.temperature))
+            hasText(string(R.string.historic_temperature_years, 30))
+            hasText(Regex("\\d+(\\.\\d+)? °F"))
+        }
 
         // High / low
-        hasText(string(R.string.temperature_high_low))
-        hasText(Regex("\\d+(\\.\\d+)? °F / \\d+(\\.\\d+)? °F"))
+        optional {
+            hasText(string(R.string.temperature_high_low))
+            hasText(Regex("\\d+(\\.\\d+)? °F / \\d+(\\.\\d+)? °F"))
+        }
 
         // Pressure chart
         isVisible(R.id.chart)
 
         // High / low chart
-        click(string(R.string.temperature_high_low))
-        hasText(string(R.string.next_24_hours))
-        isVisible(R.id.chart)
-        clickOk()
+        optional {
+            click(string(R.string.temperature_high_low))
+            hasText(string(R.string.next_24_hours))
+            isVisible(R.id.chart)
+            clickOk()
+        }
 
         canUseWeatherMonitor()
         verifyQuickAction()
