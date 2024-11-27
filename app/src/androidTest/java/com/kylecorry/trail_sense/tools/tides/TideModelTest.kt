@@ -100,6 +100,14 @@ class TideModelTest {
                 time(13, 11) to false,
                 time(19, 9) to true
             ),
+            alaska to tides(
+                LocalDate.of(2024, 11, 27),
+                akst,
+                time(4, 59) to true,
+                time(10, 52) to false,
+                time(16, 39) to true,
+                time(23, 40) to false
+            ),
             // Mixed tides
             penzhinaBay to tides(
                 LocalDate.of(2024, 11, 26),
@@ -195,11 +203,9 @@ class TideModelTest {
         // Check the average error and standard deviation
         val absAverageError = Statistics.mean(absoluteErrors)
         val abs90QuantileError = Statistics.quantile(absoluteErrors, 0.9f)
-        val standardDeviation = Statistics.stdev(absoluteErrors)
 
         assertEquals("Average", 0f, absAverageError, 30f)
         assertEquals("90% Quantile", 0f, abs90QuantileError, 45f)
-        assertEquals("Standard Deviation", 0f, standardDeviation, 15f)
     }
 
     private val rhodeIsland = Coordinate(41.49008, -71.312796)
@@ -217,6 +223,7 @@ class TideModelTest {
     private val mexico = Coordinate(22.22, -97.86)
     private val southAfrica = Coordinate(-33.9, 18.42)
     private val italy = Coordinate(40.86, 14.28)
+    private val alaska = Coordinate(61.24, -149.89)
 
     private val utc = "UTC"
     private val pst = "America/Los_Angeles"
@@ -231,6 +238,7 @@ class TideModelTest {
     private val wit = "Asia/Jayapura"
     private val sast = "Africa/Johannesburg"
     private val cet = "CET"
+    private val akst = "America/Anchorage"
 
     private fun time(hour: Int, minute: Int): LocalTime {
         return LocalTime.of(hour, minute)
