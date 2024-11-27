@@ -15,7 +15,6 @@ import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.AssetFileSystem
 import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.power
 import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.math.SolMath.wrap
 import com.kylecorry.sol.science.oceanography.TidalHarmonic
@@ -45,24 +44,30 @@ object TideModel {
         decoder = GeographicImageSource.scaledDecoder(255.0, 0.0, false)
     )
 
-    private val amplitudes = mutableMapOf(
-        TideConstituent._2N2 to 35.5627555847168,
-        TideConstituent.J1 to 20.58492088317871,
-        TideConstituent.K1 to 293.3113098144531,
-        TideConstituent.K2 to 136.46533203125,
+    private val amplitudes = mapOf(
+        TideConstituent._2N2 to 13.116927146911621,
+        TideConstituent.J1 to 13.746432304382324,
+        TideConstituent.K1 to 263.0484313964844,
+        TideConstituent.K2 to 55.006473541259766,
         TideConstituent.M2 to 496.5640869140625,
-        TideConstituent.M4 to 136.4740753173828,
-        TideConstituent.MF to 26.572229385375977,
-        TideConstituent.MM to 38.845985412597656,
-        TideConstituent.N2 to 109.4218978881836,
-        TideConstituent.O1 to 163.941162109375,
-        TideConstituent.P1 to 1101.8448486328125,
-        TideConstituent.Q1 to 31.578903198242188,
-        TideConstituent.S1 to 4575.712890625,
-        TideConstituent.S2 to 3101.253662109375,
-        TideConstituent.SA to 1361.9013671875,
-        TideConstituent.SSA to 8.6279935836792,
-        TideConstituent.T2 to 2687.74365234375,
+        TideConstituent.M4 to 42.92106628417969,
+        TideConstituent.MF to 17.715930938720703,
+        TideConstituent.MM to 18.341230392456055,
+        TideConstituent.N2 to 101.52593994140625,
+        TideConstituent.O1 to 149.45440673828125,
+        TideConstituent.P1 to 175.63946533203125,
+        TideConstituent.Q1 to 22.561424255371094,
+        TideConstituent.S1 to 381.7482604980469,
+        TideConstituent.S2 to 299.8392333984375,
+        TideConstituent.SA to 253.0474395751953,
+        TideConstituent.SSA to 3.453131914138794,
+        TideConstituent.T2 to 79.61186981201172,
+    )
+
+    private val largeAmplitudes = listOf(
+        listOf(TideConstituent.S1, 181, 257, 3582),
+        listOf(TideConstituent.S2, 181, 257, 3022),
+        listOf(TideConstituent.T2, 181, 257, 504),
     )
 
     suspend fun getHarmonics(
@@ -271,6 +276,12 @@ object TideModel {
             } else {
                 harmonic.name
             }
+
+            // If there's a match in the large amplitudes array, use that for the amplitude
+            val largeAmplitude =
+                (largeAmplitudes.firstOrNull { it[0] == harmonic && it[1] == pixel.x.roundToInt() && it[2] == pixel.y.roundToInt() }
+                    ?.get(3) as Double?)?.toFloat()
+
             val file = "tides/constituents-${name}.webp"
             val data = source.read(context, file, pixel)
             if (data[0] <= 0) {
@@ -280,11 +291,11 @@ object TideModel {
             loaded.add(
                 TidalHarmonic(
                     harmonic,
-                    SolMath.lerp(
-                        power(data[0].toDouble(), 4),
+                    (largeAmplitude ?: SolMath.lerp(
+                        data[0].toDouble(),
                         minAmplitude.toDouble(),
                         amplitudes[harmonic]!!
-                    ).toFloat() / 100f,
+                    ).toFloat()) / 100f,
                     wrap(SolMath.lerp(data[1], minPhase, maxPhase), 0f, 360f)
                 )
             )
