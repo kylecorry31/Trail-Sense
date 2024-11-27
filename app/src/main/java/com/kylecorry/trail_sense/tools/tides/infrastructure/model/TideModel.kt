@@ -12,7 +12,6 @@ import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils
-import com.kylecorry.andromeda.core.bitmap.ImagePixelReader
 import com.kylecorry.andromeda.core.cache.LRUCache
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -24,6 +23,7 @@ import com.kylecorry.sol.science.oceanography.TidalHarmonic
 import com.kylecorry.sol.science.oceanography.TideConstituent
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.data.GeographicImageSource
+import com.kylecorry.trail_sense.shared.data.ImagePixelReader2
 import java.io.InputStream
 import kotlin.math.max
 import kotlin.math.min
@@ -44,11 +44,12 @@ object TideModel {
 
     private val source = GeographicImageSource(
         size,
+        precision = 0,
         interpolate = false,
         decoder = GeographicImageSource.scaledDecoder(1.0, 0.0, false)
     )
 
-    private val imageReader = ImagePixelReader(condensedSize, interpolate = false)
+    private val imageReader = ImagePixelReader2(condensedSize, interpolate = false)
 
     private val amplitudes = mapOf(
         TideConstituent._2N2 to 13.116927146911621,
@@ -183,15 +184,27 @@ object TideModel {
         // Step 1: Calculate the region bounds
         val left = cx - size
         val top = cy - size
-        val right = cx + size
-        val bottom = cy + size
+        val right = cx + size + 1
+        val bottom = cy + size + 1
+
+        var offsetX = if (left % 2 == 0) {
+            0
+        } else {
+            1
+        }
+
+        val offsetY = if (top % 2 == 0) {
+            0
+        } else {
+            1
+        }
 
         // Step 2: Load as much of the region as possible
         val rect = Rect(
-            max(0, left),
-            max(0, top),
-            min(fullImageSize.width - 1, right),
-            min(fullImageSize.height - 1, bottom)
+            max(0, left - offsetX),
+            max(0, top - offsetY),
+            min(fullImageSize.width, right),
+            min(fullImageSize.height, bottom)
         )
         var region: Bitmap? = null
         try {
@@ -202,12 +215,12 @@ object TideModel {
             val startX = if (left < 0) {
                 size - cx
             } else {
-                0
+                -offsetX
             }
             val startY = if (top < 0) {
                 size - cy
             } else {
-                0
+                -offsetY
             }
 
             canvas.drawBitmap(region, startX.toFloat(), startY.toFloat(), null)
@@ -216,17 +229,27 @@ object TideModel {
         }
 
         // Step 3: If the region extends beyond the image left/right, load the missing part from the other side
+        // TODO: Calculate offsets here
         var additionalRect: Rect? = null
         if (left < 0) {
             val remaining = size - cx
+            val newLeft = fullImageSize.width - remaining
+
+            offsetX = if (newLeft % 2 == 0) {
+                0
+            } else {
+                1
+            }
+
             additionalRect = Rect(
-                fullImageSize.width - remaining,
+                newLeft - offsetX,
                 rect.top,
                 fullImageSize.width - 1,
                 rect.bottom
             )
         } else if (right >= fullImageSize.width) {
             val remaining = size - fullImageSize.width - cx
+            offsetX = 0
             additionalRect = Rect(
                 0,
                 rect.top,
@@ -245,7 +268,7 @@ object TideModel {
                     }) ?: return bitmap
 
                 val startX = if (left < 0) {
-                    0
+                    -offsetX
                 } else {
                     rect.width()
                 }
@@ -253,7 +276,7 @@ object TideModel {
                 val startY = if (top < 0) {
                     size - cy
                 } else {
-                    0
+                    -offsetY
                 }
 
                 canvas.drawBitmap(region, startX.toFloat(), startY.toFloat(), null)
