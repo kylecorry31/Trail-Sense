@@ -1,0 +1,50 @@
+<p>Tutki maailmaa internetin saavuttamattomissa Trail Sensen avulla.</p>
+
+<ul>
+    <li>Suunniteltu vaelluksille, patikointiin, telttailuun, ulkoiluun ja geokätköilyyn</li>
+    <li>Luo majakoita ja navigoi niiden luo</li>
+    <li>Käytä kompassina (vain laitteilla joissa on sisäänrakennettu kompassianturi)</li>
+    <li>Seuraa polkuja</li>
+    <li>Palaa takaisin omia askeliasi reitintallennuksen avulla</li>
+    <li>Käytä kuvaa karttana</li>
+    <li>Suunnittele mitä pakata mukaan</li>
+    <li>Saa ilmoitus milloin aurinko on laskemassa</li>
+    <li>Ennusta säätä (vain laitteilla joissa on sisäänrakennettu barometri)</li>
+    <li>Käytä puhelintasi taskulamppuna</li>
+    <li>Ja paljon muuta!</li>
+</ul>
+
+<p>Trail Sense on työkalu ja aivan kuten muidenkin työkalujen kohdalla joita otetaan mukaan erämaahan, on oleellista pitää mukana varavarusteita sekä taitoja.
+Tämä sovellus on tarkoitettu pelkästään informatiivisiin käyttötarkoituksiin, ja sen antamien ennusteiden tarkkuus riippuu monesta tekjistä, mm. kalibroinnista, anturien laadusta, ulkoisista lähteistä, yms.
+Käytä omalla vastuullasi, pidä aina mukana varatyökaluja (kuten mm. kompassi), ja pysy turvassa.</p>
+
+<p>Tämä sovellus ei käytä, eikä tule käyttämään, internettiä missään muodossa - kaikki Trail Sensen tiedot tulevat suoraan puhelimesi antureista, eikä mitään dataa tule koskaan lähtemään sovelluksesta.</p>
+
+<h3>YLEISIÄ ONGELMIA</h3>
+<ul>
+    <li>Ei kompassia: Jos puhelimessasi ei ole kompassianturia, ei ole mitään mitä asialle voi tehdä, sillä kyse on laitteistosta.
+    Voit siitä huolimatta käyttää Trail Sensen muita ominaisuuksia.</li>
+    <li>Ei säätä: Säänseuranta on käytettävissä vain, jos puhelimessasi on barometri.</li>
+</ul>
+
+<p>Löysitkö ongelman tai haluaisitko uuden ominaisuuden? Ota yhteyttä sähköpostilla osoitteeseen trailsense@protonmail.com tai avaa uusi ongelma GitHubissa: github.com/kylecorry31/Trail-Sense</p>
+
+<p>Olen Trail Sensen ainoa kehittäjä, joten teen parhaani auttaakseni ongelmien kanssa - mutta minulla on vain rajoittu laitevalikoima joilla testata ratkaisuja.</p>
+
+<h3>LUVAT</h3>
+<ul>
+    <li>Ilmoitukset: Mahdollistaa Trail Sensen näyttää ilmoituksia (reitintallennus, säänseuranta, auringonlaskut, astronomiset tapahtumat, veden kiehutusajastin, yms.) </li>
+    <li>Sijanti: Mahdollistaa Trail Sensen selvittää sijaintisi navigointia, säätä (merenpinnan kalibroitia), ja astronomiaa varten.</li>
+    <li>Taustasijainti: Mahdollistaa Trail Sensen selvittää sijaintisi auringonlaskuilmoituksia varten taustalla.
+    Joillain laitteilla tämä lupa parantaa myös reitintallennuksen ja säänseurannan luotettavuutta.</li>
+    <li>Liikkumistiedot: Mahdollistaa Trail Sensen käyttää puhelimesi askelmittaria matkojen mittaamiseen.</li>
+    <li>Kamera: Mahdollistaa Trail Sensen käyttää puhelimesi kameraa näkökompassissa, kulmamittauksessa sekä kuvien ottamiseen Pilviskanneriin, QR-koodilukijaan ja valokuvakarttoihin.</li>
+    <li>Herätykset & muistutukset: Mahdollistaa Trail Sensen luomaan ajoitettuja ilmoituksia. Tätä käyttää Kellotyökalu (kun järjestelmän aikaa päivitetään) sekä Auringonnousu ja -laskuilmoitukset.</li>
+</ul>
+
+<h3>Linkit</h3>
+<ul>
+    <li>Tietosuojakäytäntö: https://kylecorry.com/Trail-Sense/#privacy</li>
+    <li>UKK: https://github.com/kylecorry31/Trail-Sense#faq</li>
+    <li>Trail Sense on julkaisu MIT lisenssin alaisena: https://opensource.org/license/mit/</li>
+</ul>
