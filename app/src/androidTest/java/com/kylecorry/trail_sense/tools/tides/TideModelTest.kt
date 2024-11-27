@@ -180,9 +180,9 @@ class TideModelTest {
             )
         )
 
-        val errors = tests.flatMap {
-            val harmonics = TideModel.getHarmonics(context, it.first)
-            check(harmonics, it.second)
+        val errors = tests.flatMapIndexed { index, test ->
+            val harmonics = TideModel.getHarmonics(context, test.first)
+            check(index, harmonics, test.second)
         }
 
         val absoluteErrors = errors.map { it.absoluteValue }
@@ -247,6 +247,7 @@ class TideModelTest {
     }
 
     private fun check(
+        index: Int,
         harmonics: List<TidalHarmonic>,
         expected: List<Tide>
     ): List<Float> {
@@ -255,19 +256,20 @@ class TideModelTest {
         val start = expected.first().time.atStartOfDay()
         val end = expected.first().time.atEndOfDay()
         val actual = ocean.getTides(calculator, start, end, GoldenSearchExtremaFinder(30.0, 1.0))
-        assertEquals(expected.size, actual.size)
+        assertEquals(index.toString(), expected.size, actual.size)
         return actual.zip(expected).map {
-            check(it.first, it.second)
+            check(index, it.first, it.second)
         }
     }
 
     private fun check(
+        index: Int,
         actual: Tide,
         expected: Tide
     ): Float {
         assertEquals(expected.isHigh, actual.isHigh)
         val delta = Duration.between(actual.time, expected.time).seconds / 60f
-        assertEquals(0f, delta, 90f)
+        assertEquals(index.toString(), 0f, delta, 90f)
         return delta
     }
 
