@@ -7,9 +7,12 @@ import android.graphics.Canvas
 import android.graphics.Rect
 import android.util.Log
 import android.util.Size
+import androidx.core.graphics.alpha
+import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils
+import com.kylecorry.andromeda.core.bitmap.ImagePixelReader
 import com.kylecorry.andromeda.core.cache.LRUCache
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -34,15 +37,18 @@ object TideModel {
 
     // Image data source
     private val size = Size(720, 360)
+    private val condensedSize = Size(250, 55)
     private val minAmplitude = 0f
-    private val minPhase = -180f
-    private val maxPhase = 180f
+    private val minPhase = -180.0
+    private val maxPhase = 180.0
 
     private val source = GeographicImageSource(
         size,
         interpolate = false,
-        decoder = GeographicImageSource.scaledDecoder(255.0, 0.0, false)
+        decoder = GeographicImageSource.scaledDecoder(1.0, 0.0, false)
     )
+
+    private val imageReader = ImagePixelReader(condensedSize, interpolate = false)
 
     private val amplitudes = mapOf(
         TideConstituent._2N2 to 13.116927146911621,
@@ -91,7 +97,7 @@ object TideModel {
     // TODO: Extract to andromeda (nearest pixel meeting a criteria within a region - maybe just update the ImageSource with a nearest non-zero pixel option)
     private suspend fun getNearestPixel(context: Context, location: Coordinate): PixelCoordinate {
         val actualPixel = source.getPixel(location)
-        val file = "tides/constituents-M2.webp"
+        val file = "tides/tide-indices-1-2.webp"
         val sourceValue = source.read(context, file, actualPixel)
         if (sourceValue[0] > 0f || sourceValue[1] > 0f) {
             return actualPixel
@@ -267,41 +273,86 @@ object TideModel {
         context: Context,
         pixel: PixelCoordinate
     ): List<TidalHarmonic> = onIO {
+
+        // Step 1: Get the indices into the amplitudes/phase array
+        val indicesFile = "tides/tide-indices-1-2.webp"
+        val indices = source.read(context, indicesFile, pixel)
+        val x = indices[0].toInt() - 1
+        val y = indices[1].toInt() - 1
+        print("Indices: $x, $y\n")
+
+        // For each constituent, load the amplitude and phase (grouped 4 per file)
+        val constituents = listOf(
+            TideConstituent._2N2,
+            TideConstituent.J1,
+            TideConstituent.K1,
+            TideConstituent.K2,
+            TideConstituent.M2,
+            TideConstituent.M4,
+            TideConstituent.MF,
+            TideConstituent.MM,
+            TideConstituent.N2,
+            TideConstituent.O1,
+            TideConstituent.P1,
+            TideConstituent.Q1,
+            TideConstituent.S1,
+            TideConstituent.S2,
+            TideConstituent.SA,
+            TideConstituent.SSA,
+            TideConstituent.T2
+        )
+
         val loaded = mutableListOf<TidalHarmonic>()
-        val harmonics = amplitudes.keys
+        var i = 1
+        val constituentsPerImage = 3
+        val fileSystem = AssetFileSystem(context)
+        for (groupedConstituents in constituents.chunked(constituentsPerImage)) {
+            val amplitudeFile = "tides/tide-amplitudes-${i}-${i + constituentsPerImage - 1}.webp"
+            val phaseFile = "tides/tide-phases-${i}-${i + constituentsPerImage - 1}.webp"
+            i += constituentsPerImage
+            val amplitudePixel = fileSystem.stream(amplitudeFile)
+                .use { imageReader.getPixel(it, x.toFloat(), y.toFloat(), false) } ?: continue
+            val phasePixel = fileSystem.stream(phaseFile)
+                .use { imageReader.getPixel(it, x.toFloat(), y.toFloat(), false) } ?: continue
 
-        for (harmonic in harmonics) {
-            val name = if (harmonic == TideConstituent._2N2) {
-                "2N2"
-            } else {
-                harmonic.name
+            // Construct the harmonics
+            for (j in groupedConstituents.indices) {
+                val harmonic = groupedConstituents[j]
+
+                // If there's a match in the large amplitudes array, use that for the amplitude
+                val largeAmplitude =
+                    (largeAmplitudes.firstOrNull { it[0] == harmonic && it[1] == pixel.x.roundToInt() && it[2] == pixel.y.roundToInt() }
+                        ?.get(3) as Double?)?.toFloat()
+
+                val amplitude = (largeAmplitude ?: SolMath.lerp(
+                    (getColorIndex(amplitudePixel, j).toDouble() / 255),
+                    minAmplitude.toDouble(),
+                    amplitudes[harmonic]!!
+                ).toFloat()) / 100f
+                val phase = wrap(
+                    SolMath.lerp(
+                        (getColorIndex(phasePixel, j).toDouble() / 255),
+                        minPhase,
+                        maxPhase
+                    ), 0.0, 360.0
+                ).toFloat()
+
+                loaded.add(TidalHarmonic(harmonic, amplitude, phase))
             }
-
-            // If there's a match in the large amplitudes array, use that for the amplitude
-            val largeAmplitude =
-                (largeAmplitudes.firstOrNull { it[0] == harmonic && it[1] == pixel.x.roundToInt() && it[2] == pixel.y.roundToInt() }
-                    ?.get(3) as Double?)?.toFloat()
-
-            val file = "tides/constituents-${name}.webp"
-            val data = source.read(context, file, pixel)
-            if (data[0] <= 0) {
-                continue
-            }
-
-            loaded.add(
-                TidalHarmonic(
-                    harmonic,
-                    (largeAmplitude ?: SolMath.lerp(
-                        data[0].toDouble(),
-                        minAmplitude.toDouble(),
-                        amplitudes[harmonic]!!
-                    ).toFloat()) / 100f,
-                    wrap(SolMath.lerp(data[1], minPhase, maxPhase), 0f, 360f)
-                )
-            )
         }
+
         Log.d("TideModel", loaded.toString())
         loaded
+    }
+
+    private fun getColorIndex(color: Int, index: Int): Int {
+        return when (index) {
+            0 -> color.red
+            1 -> color.green
+            2 -> color.blue
+            3 -> color.alpha
+            else -> 0
+        }
     }
 
 }
