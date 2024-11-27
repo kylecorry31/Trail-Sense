@@ -23,7 +23,7 @@ class GeographicImageSource(
     private val decoder: (Int?) -> List<Float> = { listOf(it?.toFloat() ?: 0f) }
 ) {
 
-    private val reader = ImagePixelReader(imageSize, interpolate)
+    private val reader = ImagePixelReader2(imageSize, interpolate)
 
     fun getPixel(location: Coordinate): PixelCoordinate {
         var x = (location.longitude + 180) * longitudePixelsPerDegree
