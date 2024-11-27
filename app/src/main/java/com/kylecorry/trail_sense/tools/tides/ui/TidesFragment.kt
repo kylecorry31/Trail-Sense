@@ -66,6 +66,7 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         chart = TideChart(binding.chart)
 
         binding.tideTitle.rightButton.setOnClickListener {
+            table = null
             findNavController().navigate(R.id.action_tides_to_tideList)
         }
 
@@ -117,10 +118,12 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
 
     override fun onResume() {
         super.onResume()
-        displayDate = LocalDate.now()
-        ShowTideDisclaimerCommand(this) {
-            loadTideTable()
-        }.execute()
+        if (table == null) {
+            displayDate = LocalDate.now()
+            ShowTideDisclaimerCommand(this) {
+                loadTideTable()
+            }.execute()
+        }
     }
 
     override fun onPause() {
