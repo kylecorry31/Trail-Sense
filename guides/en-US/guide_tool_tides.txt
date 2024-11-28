@@ -1,4 +1,4 @@
-The Tides tool helps you keep track of tides at a specific location. Trail Sense operates offline, so you'll need to manually input the tides you wish to monitor.
+The Tides tool helps you keep track of tides at a specific location.
 
 ## Create a tide table
 Before venturing into coastal areas, consult an official tide table for accurate times and water heights. Once you have this information, follow these steps to import it into Trail Sense's Tide tool:
@@ -13,20 +13,31 @@ Before venturing into coastal areas, consult an official tide table for accurate
 8. Optionally, click the '-' in the 'Height' column to input the tide's height.
 9. To add another tide, tap the '+' button in the top-left corner of the table.
 10. You can delete a tide by clicking the 'X' icon to the right of the tide.
-11. The tide estimation method can be changed by clicking the 'Estimation method' dropdown. Tide clock is the default and assumes a fixed tidal cycle. Lunitidal interval uses the moon's position to estimate tides, and may be more accurate in some locations.
+11. The tide estimation method can be changed by clicking the 'Estimation method' dropdown. Lunitidal interval uses the moon's position to estimate tides, and may be more accurate in some locations.
 12. Save the tide table by clicking the checkmark in the top-right corner.
 
 For the best accuracy, input all tides for each relevant day. Trail Sense will distinguish between entered and estimated tides on the tide chart.
 
-For lunitidal estimations, you can choose between the following:
-- **Auto**: This will automatically calculate the lunitidal interval based on the entered high tides. Requires at least one high tide to be entered.
-- **Local**: Enter the lunitidal interval in hours and minutes for your location. This requires the location to be set, but does not require a tide table.
-- **UTC/Greenwich**: Enter the lunitidal interval in hours and minutes for UTC/Greenwich. This does not require a location or tide table.
+### Estimation methods
+
+- **Tide clock**: Assumes a fixed tidal cycle and requires at least one known tide to operate.
+- **Lunitidal interval**: Uses the moon's position to estimate tides.
+    - **Auto**: Requires at least one known tide, it will automatically calculate the lunitidal interval.
+    - **Local**: Enter the lunitidal interval in hours and minutes for your location. This requires the location to be set, but does not require a tide table.
+    - **UTC/Greenwich**: Enter the lunitidal interval in hours and minutes for UTC/Greenwich. This does not require a location or tide table.
+- **Tide model (auto)**: [EXPERIMENTAL] Estimates the tide near the entered location or if no location is entered, near you.
 
 ## Viewing a tide table
 By default, the Tides tool displays the closest tide to your location when you open it. To change this, go to Settings > Tides > 'Show closest tide' to toggle between displaying the closest tide and the last tide you viewed.
 
 To select a different tide, click the tides button in the top-right corner of the screen. This opens a list of all the tide tables you've created. Simply click on a tide to view it.
+
+### Nearby tide [EXPERIMENTAL]
+This shows the tide near your location using an offline tide modal. For most locations, tides should be accurate to within an hour, but always use official tide tables if possible. If you are not close to a tide you entered, this will be shown by default.
+
+This may be inaccurate in some areas, especially in areas with complicated geography.
+
+The nearby tide table can't be modified or deleted.
 
 ## Tide chart
 The tide chart displays the tides for the current day. The X-axis represents time, while the Y-axis represents the tide height. A dot marks the current time on the chart. By default, today is selected, but you can change it by tapping the calendar icon at the top of the screen. Additionally, you can use the arrows to move to the next/previous date or long press the calendar to quickly jump to today's date.
