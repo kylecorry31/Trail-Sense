@@ -44,3 +44,8 @@ You can enable quick actions at the top of the tool list in 'Settings > Tools > 
 The quick actions can also be accessed by long pressing the bottom navigation. In addition to the quick actions you selected, you will also see contextual quick actions for the active tool, such as the user guide or settings.
 
 You can find more information about each quick action by viewing the user guide for its respective tool. All quick actions that begin with 'Tool:' will open the tool when clicked.
+
+## In-app widgets
+In-app widgets can be accessed by long pressing the bottom navigation and changing to the "Widgets" tab. For the most part, these are the same widgets that you can place on your device's homescreen.
+
+You can customize which widgets are shown in-app in 'Settings > Tools > In-app widgets'.

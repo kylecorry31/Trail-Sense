@@ -35,3 +35,8 @@ To use the quick action, tap the flashlight quick action button to toggle it on 
 
 ### Screen flashlight
 You can enable the Screen Flashlight quick action in the settings for the tab you want it on. Tap the quick action button to open the screen flashlight.
+
+## Widgets
+The following widgets can be placed on your device's homescreen or viewed in-app:
+
+- **Flashlight**: Toggle the flashlight on or off.

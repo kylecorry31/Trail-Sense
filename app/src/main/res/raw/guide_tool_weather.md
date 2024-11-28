@@ -64,3 +64,10 @@ The weather prediction is a best guess using available sensor data and may not b
 Climate normals (historic temperatures) are based on the 30-year average of the historic data and indicate what the weather usually is. The actual values may differ for a variety of reasons but should remain fairly close to the historic values. Large differences are normally due to a storm or other weather event.
 
 Historic temperatures are estimated using a custom 30-year "climate normal" model derived from the NASA Global Modeling and Assimilation Office - MERRA-2 data (1991 - 2020).
+
+## Widgets
+The following widgets can be placed on your device's homescreen or viewed in-app:
+
+- **Weather**: Shows the current weather and temperature prediction.
+- **Pressure**: Shows the current pressure and tendency arrow.
+- **Pressure chart**: The pressure chart. 

@@ -85,5 +85,11 @@ To locate an official tide table, search the Internet for tides at your location
 - [NOAA Tides & Currents](https://tidesandcurrents.noaa.gov/tide_predictions.html)
 - [Tides.net](https://tides.net/)
 
+## Widgets
+The following widgets can be placed on your device's homescreen or viewed in-app:
+
+- **Tides**: Displays the status of the nearest tide.
+- **Tide chart**: The chart of water level of the nearest tide.
+
 ## Disclaimer
 Tide predictions are estimates and should not be relied upon exclusively. Whenever possible, use an official tide table and input the data into Trail Sense for accuracy.

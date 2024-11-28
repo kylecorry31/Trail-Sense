@@ -99,3 +99,9 @@ Your speed is shown at the top-right of the screen. You can change the source of
 - **Average speed (Backtrack)**: The average speed calculated by Backtrack. This requires Backtrack to be running. See the Paths guide for more information.
 - **Current speed (Pedometer)**: The speed calculated by your phone's pedometer. This requires the pedometer to be running. See the Pedometer guide for more information.
 - **Average speed (Pedometer)**: The average speed calculated by your phone's pedometer since you started tracking. This requires the pedometer to be running. See the Pedometer guide for more information.
+
+## Widgets
+The following widgets can be placed on your device's homescreen or viewed in-app:
+
+- **Elevation**: Shows your current elevation.
+- **Location**: Shows your current location.

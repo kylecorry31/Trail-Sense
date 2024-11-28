@@ -105,3 +105,8 @@ If you are experiencing performance issues with the Paths tool, you can enable S
 You can enable the Backtrack quick action in the settings for the desired tab.
 
 To use the quick action, tap the Backtrack quick action button to toggle it on or off. You can long press the button to open the Paths tool.
+
+## Widgets
+The following widgets can be placed on your device's homescreen or viewed in-app:
+
+- **Backtrack**: Display the distance travelled if Backtrack is enabled.

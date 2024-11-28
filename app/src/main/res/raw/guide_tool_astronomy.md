@@ -87,3 +87,10 @@ You can choose to disable the camera when clicked by disabling the "Settings > A
 You can enable the Sunset Alert and Sunrise Alert quick action in the settings for the tab where you want it to appear.
 
 To use the quick action, tap the sunset alert or sunrise alert quick action button to toggle it on or off.
+
+## Widgets
+The following widgets can be placed on your device's homescreen or viewed in-app:
+
+- **Sun**: Shows the time of the next sunrise or sunset.
+- **Moon**: Shows the phase of the moon.
+- **Sun & moon chart**: The chart of the height of the sun and moon in the sky.

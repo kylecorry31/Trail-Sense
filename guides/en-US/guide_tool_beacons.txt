@@ -112,3 +112,8 @@ You can also choose to navigate to the nearest cell signal by clicking the menu 
 You can enable the Create Beacon quick action in the settings for the desired tab.
 
 To use the quick action, tap the Beacon quick action button to create a beacon at your current location. The title of the beacon will be set to the current date and time. Once created you will see a notification at the bottom of the screen with a button to view the beacon.
+
+## Widgets
+The following widgets can be placed on your device's homescreen or viewed in-app:
+
+- **Nearby beacons**: Displays the beacons within 1 km (0.62 miles) of your location.

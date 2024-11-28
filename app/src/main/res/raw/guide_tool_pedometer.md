@@ -24,3 +24,8 @@ Before using the pedometer in Trail Sense, you should calibrate it based on your
 You can enable the Pedometer quick action in the settings for the tab you want it on.
 
 To use the quick action, tap the Pedometer quick action button to toggle it on or off.
+
+## Widgets
+The following widgets can be placed on your device's homescreen or viewed in-app:
+
+- **Pedometer**: Display the distance and steps taken if the pedometer is enabled.
