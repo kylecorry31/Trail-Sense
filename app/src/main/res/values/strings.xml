@@ -1514,4 +1514,9 @@
     <string name="nearby_beacons">Nearby beacons</string>
     <string name="pref_tide_model_enabled" translatable="false">pref_tide_model_enabled</string>
     <string name="tide_model_auto">Tide model (auto)</string>
+    <string name="tide_estimation_description_tide_clock">Uses the clock to estimate tides. Requires at least one known tide.</string>
+    <string name="tide_estimation_description_lunitidal_interval_auto">Uses the moon\'s position to estimate tides. Requires at least one known tide.</string>
+    <string name="tide_estimation_description_lunitidal_interval_local">Uses the moon\'s position to estimate tides. Requires the local lunitidal interval and the location.</string>
+    <string name="tide_estimation_description_lunitidal_interval_utc">Uses the moon\'s position to estimate tides. Requires the UTC lunitidal interval.</string>
+    <string name="tide_estimation_description_tide_model">Uses a built-in tide model to estimate tides for the entered location or your location if none is entered.</string>
 </resources>

@@ -65,7 +65,18 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
             EstimateType.LunitidalIntervalManualLocal to getString(R.string.lunitidal_interval_local),
             EstimateType.LunitidalIntervalManualUTC to getString(R.string.lunitidal_interval_utc),
             EstimateType.TideModel to getString(R.string.tide_model_auto),
-            EstimateType.Harmonic to getString(R.string.harmonic) + " (!! NEED TO MANUALLY INSERT INTO DB !!)"
+            EstimateType.Harmonic to getString(R.string.harmonic)
+        )
+    }
+
+    private val estimateTypeDescriptionMap by lazy {
+        mapOf(
+            EstimateType.Clock to getString(R.string.tide_estimation_description_tide_clock),
+            EstimateType.LunitidalIntervalAuto to getString(R.string.tide_estimation_description_lunitidal_interval_auto),
+            EstimateType.LunitidalIntervalManualLocal to getString(R.string.tide_estimation_description_lunitidal_interval_local),
+            EstimateType.LunitidalIntervalManualUTC to getString(R.string.tide_estimation_description_lunitidal_interval_utc),
+            EstimateType.TideModel to getString(R.string.tide_estimation_description_tide_model),
+            EstimateType.Harmonic to "!! NEED TO MANUALLY INSERT INTO DB !!"
         )
     }
 
@@ -116,6 +127,9 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         binding.estimateAlgorithmSpinner.setHint(getString(R.string.estimate_method))
         binding.estimateAlgorithmSpinner.setItems(
             estimateTypes.map { estimateTypeNameMap[it] ?: "" },
+        )
+        binding.estimateAlgorithmSpinner.setDescriptions(
+            estimateTypes.map { estimateTypeDescriptionMap[it] ?: "" }
         )
         binding.estimateAlgorithmSpinner.setSelection(0)
 
