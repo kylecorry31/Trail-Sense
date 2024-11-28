@@ -173,6 +173,7 @@ When switching to a new device or reinstalling the app, it may be helpful to bac
 
 - **Backup**: Creates a backup of your data and settings. This will save as a zip file which is unencrypted and contains location data, so only send it to people you trust.
 - **Restore**: Restores a backup of your data and settings. This will permanently overwrite your current data and settings. You can restore from an older version of the app, but cannot restore from a newer version.
+- **Automatic backup**: Creates a backup of your data and settings every day in the folder of your choosing. It will only keep the last 2 backups.
 
 ## Tools
 Settings for each tool can be adjusted in the Settings > Tools section. For more information, see the guide for each tool.
