@@ -36,7 +36,7 @@ class NearbyBeaconsToolWidgetView : ToolWidgetView {
 
         val subsystem = BeaconsSubsystem.getInstance(context)
         val prefs = UserPreferences(context)
-        val beacons = subsystem.getNearbyBeacons().take(prefs.navigation.numberOfVisibleBeacons)
+        val beacons = subsystem.getNearbyBeacons().take(10)
         val location = LocationSubsystem.getInstance(context).location
         val formatter = FormatService.getInstance(context)
 
