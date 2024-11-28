@@ -5,7 +5,6 @@ import android.content.Context
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.domain.NearbyBeaconFilter
@@ -16,16 +15,15 @@ class BeaconsSubsystem(context: Context) {
 
     private val service = BeaconService(context)
     private val location = LocationSubsystem.getInstance(context)
-    private val prefs = UserPreferences(context)
 
     /**
      * Get nearby beacons. The max distance is specified through user preferences.
-     * @param bounds: The bounds to search within. If null, the search will be in a geofence around the last known location with the radius of the maxBeaconDistance user preference.
+     * @param bounds: The bounds to search within. If null, the search will be in a geofence around the last known location with a radius of 1 kilometer.
      * @return A list of nearby beacons, sorted by distance ascending.
      */
     suspend fun getNearbyBeacons(bounds: CoordinateBounds? = null): List<Beacon> {
         val maxDistance = if (bounds == null) {
-            prefs.navigation.maxBeaconDistance
+            Distance.kilometers(1f).meters().distance
         } else {
             max(bounds.height().meters().distance, bounds.width().meters().distance)
         }
