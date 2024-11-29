@@ -30,7 +30,7 @@
     <string name="duration_hour_format">%do</string>
     <string name="miles_per_hour_format">%.1f mph</string>
     <string name="kilometers_per_hour_format">%.1f km/h</string>
-    <string name="access_background_location">Kokapen ezarpenak eguneratu</string>
+    <string name="access_background_location">Eguneratu kokapen ezarpenak</string>
     <string name="copied_to_clipboard_toast">Arbelera kopiatuta</string>
     <string name="tools">Tresnak</string>
     <string name="astronomy">Astronomia</string>
