@@ -41,6 +41,7 @@ object TideModel {
     private val minAmplitude = 0f
     private val minPhase = -180.0
     private val maxPhase = 180.0
+    private val searchSize = 5
 
     private val source = GeographicImageSource(
         size,
@@ -108,15 +109,14 @@ object TideModel {
         fileSystem.stream(file).use { stream ->
             var bitmap: Bitmap? = null
             try {
-                val regionSize = 10
-                bitmap = loadRegion(stream, actualPixel, regionSize, size)
+                bitmap = loadRegion(stream, actualPixel, searchSize, size)
 
                 // Get the nearest non-zero pixel, wrapping around the image
-                val x = regionSize
-                val y = regionSize
+                val x = searchSize
+                val y = searchSize
 
                 // Search in a grid pattern
-                for (i in 1 until regionSize) {
+                for (i in 1 until searchSize) {
                     val topY = y - i
                     val bottomY = y + i
                     val leftX = (x - i)
@@ -149,11 +149,11 @@ object TideModel {
                             // Only x is wrapped
                             val globalX =
                                 wrap(
-                                    actualPixel.x + it.x - regionSize,
+                                    actualPixel.x + it.x - searchSize,
                                     0f,
                                     size.width.toFloat()
                                 )
-                            val globalY = actualPixel.y + it.y - regionSize
+                            val globalY = actualPixel.y + it.y - searchSize
 
                             PixelCoordinate(globalX, globalY)
                         }
