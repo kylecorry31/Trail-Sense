@@ -28,6 +28,7 @@ const guides = [
   "tool_sensors",
   "tool_settings",
   "tool_solar_panel_aligner",
+  "tool_survival_guide",
   "tool_temperature_estimation",
   "tool_tides",
   "tool_tools",

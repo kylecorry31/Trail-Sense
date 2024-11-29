@@ -17,15 +17,19 @@ function loadGuide(guide) {
     window.history.replaceState({}, '', `${location.pathname}?${params}`);
 
     // Get the title from the ID
-    const title = guide.split('_').slice(1).map(w => w[0].toUpperCase() + w.slice(1)).join(' ');
+    const sliceAmount = guide.startsWith('survival') ? 2 : 1;
+    const title = guide.split('_').slice(sliceAmount).map(w => w[0].toUpperCase() + w.slice(1)).join(' ');
 
     // Load the markdown
     return fetch(`${baseUrl}/guide_${guide}.md`)
         .then(response => response.text())
         .then(text => {
-            let html = toHTML(`# ${title}\n${text}`);
+            let html = toHTML(`# ${title}${guide === "tool_survival_guide" ? "\n[View survival guide online](survival_guides)\n" : ""}\n${text}`);
             // Shift all the headers down by one h1 -> h2, h2 -> h3, etc.
             html = html.replace(/<h(\d).*>(.*)<\/h(\d)>/gm, (match, p1, p2, p3) => `<h${parseInt(p1) + 1}>${p2}</h${parseInt(p1) + 1}>`);
+            // Resolve all images
+            html = html.replaceAll('file:///android_asset/', 'https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/');
+
             document.querySelector('#guide-text').innerHTML = html;
         });
 }
