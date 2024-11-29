@@ -25,16 +25,21 @@ fun view(
     return view(selector, index)
 }
 
-fun viewWithText(text: String, parentId: Int? = null, index: Int = 0): TestView {
-    return view(By.text(text), index)
+fun viewWithText(
+    text: String,
+    contains: Boolean = false,
+    parentId: Int? = null,
+    index: Int = 0
+): TestView {
+    return view(if (contains) By.textContains(text) else By.text(text), index)
 }
 
 fun viewWithText(text: Pattern, index: Int = 0): TestView {
     return view(By.text(text), index)
 }
 
-fun viewWithText(@StringRes text: Int, index: Int = 0): TestView {
-    return view(By.text(TestUtils.getString(text)), index)
+fun viewWithText(@StringRes text: Int, contains: Boolean = false, index: Int = 0): TestView {
+    return viewWithText(TestUtils.getString(text), contains, index = index)
 }
 
 fun view(selector: BySelector, index: Int = 0): TestView {

@@ -49,7 +49,7 @@ class ToolTidesTest : ToolTestBase(Tools.TIDES) {
 
         // Select lunitidal interval
         click(R.id.estimate_algorithm_spinner)
-        click(string(R.string.lunitidal_interval_auto))
+        click(string(R.string.lunitidal_interval_auto), contains=true)
         clickOk()
 
         // Verify the fields are set
@@ -85,8 +85,8 @@ class ToolTidesTest : ToolTestBase(Tools.TIDES) {
         input(R.id.utm, "42, -72")
 
         click(R.id.estimate_algorithm_spinner)
-        isChecked(string(R.string.tide_clock))
-        hasText(string(R.string.lunitidal_interval_auto))
+        isChecked(string(R.string.tide_clock), contains = true)
+        hasText(string(R.string.lunitidal_interval_auto), contains = true)
         clickOk()
 
         scrollToEnd(R.id.scroll_view)

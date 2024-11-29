@@ -67,9 +67,14 @@ object AutomationLibrary {
         }
     }
 
-    fun hasText(text: String, index: Int = 0, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
+    fun hasText(
+        text: String,
+        contains: Boolean = false,
+        index: Int = 0,
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
+    ) {
         waitFor(waitForTime) {
-            viewWithText(text, index = index)
+            viewWithText(text, index = index, contains = contains)
         }
     }
 
@@ -94,10 +99,11 @@ object AutomationLibrary {
         viewText: String,
         isChecked: Boolean = true,
         index: Int = 0,
+        contains: Boolean = false,
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
     ) {
         waitFor(waitForTime) {
-            viewWithText(viewText, index = index).isChecked(isChecked)
+            viewWithText(viewText, contains, index = index).isChecked(isChecked)
         }
     }
 
@@ -112,9 +118,16 @@ object AutomationLibrary {
     fun isNotChecked(
         viewText: String,
         index: Int = 0,
+        contains: Boolean = false,
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
     ) {
-        isChecked(viewText, isChecked = false, index = index, waitForTime = waitForTime)
+        isChecked(
+            viewText,
+            isChecked = false,
+            contains = contains,
+            index = index,
+            waitForTime = waitForTime
+        )
     }
 
     fun string(@StringRes id: Int, vararg args: Any): String {
@@ -160,10 +173,11 @@ object AutomationLibrary {
         text: String,
         index: Int = 0,
         holdDuration: Long? = null,
+        contains: Boolean = false,
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
     ) {
         waitFor(waitForTime) {
-            viewWithText(text, index = index).click(holdDuration)
+            viewWithText(text, index = index, contains = contains).click(holdDuration)
         }
     }
 
