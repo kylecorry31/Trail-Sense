@@ -1091,4 +1091,9 @@
     <string name="pressure_chart">氣壓圖</string>
     <string name="tide_chart">潮汐圖</string>
     <string name="nearby_beacons">就近嘅地標</string>
+    <string name="visible">埋位貢獻</string>
+    <string name="layers">片區大集會</string>
+    <string name="no_recorded_cell_signal_nearby">就近未有紀錄低嘅基站訊號</string>
+    <string name="navigate_to_nearest_cell_signal">定向去最就近嘅基站訊號</string>
+    <string name="ar_layer_override_message">片區大集會喺 (譬如「天文」指引) 引導之下，旁觀者或被指導成行動派。</string>
 </resources>
