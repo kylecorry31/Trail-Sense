@@ -678,7 +678,7 @@
     <string name="estimated">Geschat</string>
     <string name="tide_table">Getijdetabel</string>
     <string name="low_tide_letter">L</string>
-    <string name="tide_deleted">Tij verwijderd</string>
+    <string name="tide_deleted">Getijde verwijderd</string>
     <string name="disclaimer_estimated_tide">Geschatte getijden kunnen onnauwkeurig zijn. Gebruik liever een officiële tabel voor de nauwkeurige tijden.</string>
     <string name="tool_temperature_estimation_title">Geschatte temperatuur</string>
     <string name="explore">Verkennen</string>
@@ -817,7 +817,7 @@
     <string name="instructions">Uitleg</string>
     <string name="error_banners">Balken met foutmelding</string>
     <string name="pref_flashlight_should_timeout_title">Vanzelf uitzetten</string>
-    <string name="disclaimer_estimated_tide_title">Geschatte tij</string>
+    <string name="disclaimer_estimated_tide_title">Geschatte getijde</string>
     <string name="pressure_tendency">Veranderlijkheid</string>
     <string name="distance_alert_distance_reached">U heeft %s bereikt</string>
     <string name="estimate_stride_length">Lengte van passen inschatten</string>
@@ -1228,6 +1228,11 @@
     <string name="sun_moon_chart">Zon &amp; maan grafiek</string>
     <string name="pressure_chart">Drukgrafiek</string>
     <string name="nearby_beacons">Nabije bakens</string>
-    <string name="tide_chart">Tijgrafiek</string>
+    <string name="tide_chart">Getijdengrafiek</string>
     <string name="tide_model_auto">Getijdenmodel (automatisch)</string>
+    <string name="tide_estimation_description_lunitidal_interval_utc">Gebruikt de positie van de maan om getijden te schatten. Vereist de UTC maangetijdeninterval.</string>
+    <string name="tide_estimation_description_tide_clock">Gebruikt de klok om getijden te schatten. Vereist tenminste één bekend getijde.</string>
+    <string name="tide_estimation_description_lunitidal_interval_auto">Gebruikt de positie van de maan om getijden te schatten. Vereist tenminste één bekend getijde.</string>
+    <string name="tide_estimation_description_lunitidal_interval_local">Gebruikt de positie van de maan om getijden te schatten. Vereist de lokale maangetijdeninterval en locatie.</string>
+    <string name="tide_estimation_description_tide_model">Gebruikt een ingebouwd getijdenmodel om getijden te schatten voor de ingevoerde locatie, of jouw locatie als geen is ingevoerd.</string>
 </resources>
