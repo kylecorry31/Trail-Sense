@@ -38,6 +38,11 @@ h3 {
   line-height: 30px;
 }
 
+h4 {
+  font-size: 20px;
+  line-height: 24px;
+}
+
 p {
   margin-top: 0;
   margin-bottom: 10px;
