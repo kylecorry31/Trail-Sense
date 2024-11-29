@@ -1219,4 +1219,9 @@
     <string name="tide_chart">潮汐图表</string>
     <string name="nearby_beacons">附近的信标</string>
     <string name="tide_model_auto">潮汐模式（自动）</string>
+    <string name="tide_estimation_description_lunitidal_interval_local">使用月亮位置预测潮汐。需要本地月潮间隔和位置。</string>
+    <string name="tide_estimation_description_tide_model">使用内置的潮汐模型预测所输入位置或者未输入的话你所在位置的潮汐。</string>
+    <string name="tide_estimation_description_tide_clock">使用时钟预测潮汐。需要至少一个已知的潮汐。</string>
+    <string name="tide_estimation_description_lunitidal_interval_auto">使用月亮位置预测潮汐。需要至少一个已知的潮汐。</string>
+    <string name="tide_estimation_description_lunitidal_interval_utc">使用月亮位置预测潮汐。需要 UTC 月潮间隔。</string>
 </resources>
