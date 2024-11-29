@@ -24,7 +24,7 @@ function loadGuide(guide) {
     return fetch(`${baseUrl}/guide_${guide}.md`)
         .then(response => response.text())
         .then(text => {
-            let html = toHTML(`# ${title}${guide === "tool_survival_guide" ? "\n[View survival guide online](survival_guides)\n" : ""}\n${text}`);
+            let html = toHTML(`# ${title}${guide === "tool_survival_guide" ? "\n[View survival guide online](survival_guide)\n" : ""}\n${text}`);
             // Shift all the headers down by one h1 -> h2, h2 -> h3, etc.
             html = html.replace(/<h(\d).*>(.*)<\/h(\d)>/gm, (match, p1, p2, p3) => `<h${parseInt(p1) + 1}>${p2}</h${parseInt(p1) + 1}>`);
             // Resolve all images
