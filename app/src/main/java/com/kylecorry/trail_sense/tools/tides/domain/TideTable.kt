@@ -31,4 +31,7 @@ data class TideTable(
             }
         }
 
+    val isAutomaticNearbyTide: Boolean
+        get() = estimator == TideEstimator.TideModel && location == null
+
 }

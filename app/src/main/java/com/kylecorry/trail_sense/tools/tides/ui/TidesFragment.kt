@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
+import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.tides.domain.TideService
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import com.kylecorry.trail_sense.tools.tides.domain.commands.CurrentTideCommand
@@ -98,7 +99,16 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
         binding.loading.isVisible = true
         binding.tideList.setItems(emptyList())
         inBackground {
-            table = newTable ?: loadTideCommand.execute()
+            val updatedTable = newTable ?: loadTideCommand.execute()
+            val locationSubsystem = LocationSubsystem.getInstance(requireContext())
+            if (updatedTable?.isAutomaticNearbyTide == true && locationSubsystem.locationAge > Duration.ofMinutes(
+                    30
+                )
+            ) {
+                locationSubsystem.updateLocation()
+            }
+
+            table = updatedTable
             onMain {
                 if (!isBound) return@onMain
                 binding.loading.isVisible = false

@@ -2,15 +2,13 @@ package com.kylecorry.trail_sense.shared.sensors
 
 import android.annotation.SuppressLint
 import android.content.Context
-import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.shared.sensors.altimeter.CachedAltimeter
-import com.kylecorry.trail_sense.shared.sensors.altimeter.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrapper
+import com.kylecorry.trail_sense.shared.sensors.altimeter.OverrideAltimeter
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -53,7 +51,8 @@ class LocationSubsystem private constructor(private val context: Context) {
                 return Duration.ZERO
             }
 
-            val lastUpdate = prefs.getInstant(CachingAltimeterWrapper.LAST_UPDATE_KEY) ?: Instant.EPOCH
+            val lastUpdate =
+                prefs.getInstant(CachingAltimeterWrapper.LAST_UPDATE_KEY) ?: Instant.EPOCH
             return Duration.between(lastUpdate, Instant.now())
         }
 
@@ -81,6 +80,10 @@ class LocationSubsystem private constructor(private val context: Context) {
             }
             true
         }
+    }
+
+    suspend fun updateLocation() {
+        sensorSubsystem.getLocation(SensorSubsystem.SensorRefreshPolicy.Refresh)
     }
 
     private val userPrefs by lazy { UserPreferences(context) }
