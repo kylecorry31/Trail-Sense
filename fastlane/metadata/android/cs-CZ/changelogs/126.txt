@@ -20,4 +20,7 @@ Přílivy a odlivy
 - Příliv a odliv v okolí
 
 Záloha
-- Nastavení automatického zálohování (jednou denně, uchovává poslední 2 zálohy)
+- Nastavení autom. zálohování (jednou denně, uchovává poslední 2 zálohy)
+
+Rozšířená realita
+- Zobrazení hvězd v noci
