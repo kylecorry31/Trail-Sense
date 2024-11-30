@@ -82,13 +82,11 @@ class TidesFragment : BoundFragment<FragmentTideBinding>() {
 
     private fun updateTideList(tides: List<Tide>) {
         val updatedTides = tides.map {
-            val isEstimated = this.table?.tides?.firstOrNull { t -> t.time == it.time } == null
-
-            if (isEstimated) {
-                it.copy(height = null)
-            } else {
-                it
+            val matchingTide = table?.tides?.firstOrNull { t ->
+                Duration.between(t.time, it.time).abs() < Duration.ofMinutes(2)
             }
+
+            it.copy(height = matchingTide?.height)
         }
 
         binding.tideList.setItems(updatedTides, mapper)
