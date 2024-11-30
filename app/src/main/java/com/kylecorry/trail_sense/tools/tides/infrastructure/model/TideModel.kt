@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.tools.tides.infrastructure.model
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Canvas
+import android.graphics.Point
 import android.graphics.Rect
 import android.util.Log
 import android.util.Size
@@ -175,9 +175,6 @@ object TideModel {
         size: Int,
         fullImageSize: Size
     ): Bitmap {
-        val bitmap = Bitmap.createBitmap(2 * size + 1, 2 * size + 1, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(bitmap)
-
         val cx = center.x.roundToInt()
         val cy = center.y.roundToInt()
 
@@ -189,86 +186,90 @@ object TideModel {
 
 
         // Step 2: Load as much of the region as possible
-        val rect = Rect(
-            max(0, left),
-            max(0, top),
-            min(fullImageSize.width, right),
-            min(fullImageSize.height, bottom)
-        )
-        var region: Bitmap? = null
-        try {
-            region = BitmapUtils.decodeRegion(stream, rect, BitmapFactory.Options().also {
-                it.inPreferredConfig = Bitmap.Config.ARGB_8888
-            }, enforceBounds = true) ?: return bitmap
+        val rect = Rect(left, top, right, bottom)
 
-            val startX = if (left < 0) {
-                size - cx
-            } else {
-                0
-            }
-            val startY = if (top < 0) {
-                size - cy
-            } else {
-                0
-            }
+        return decodeBitmapRegionWrapped(stream, rect, fullImageSize)
+    }
 
-            canvas.drawBitmap(region, startX.toFloat(), startY.toFloat(), null)
-        } finally {
-            region?.recycle()
+    fun decodeBitmapRegionWrapped(stream: InputStream, rect: Rect, imageSize: Size): Bitmap {
+        val left = rect.left
+        val top = rect.top
+        val right = rect.right
+        val width = rect.width()
+        val height = rect.height()
+        val fullImageWidth = imageSize.width
+
+        val resultBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(resultBitmap)
+
+        val rectsToLoad = mutableListOf<Pair<Point, Rect>>()
+
+        // Center
+        val centerIntersection = getIntersection(rect, imageSize)
+        val centerOffsetX = centerIntersection.left - left
+        val centerOffsetY = centerIntersection.top - top
+        if (centerIntersection.width() > 0 && centerIntersection.height() > 0) {
+            rectsToLoad.add(
+                Pair(
+                    Point(centerOffsetX, centerOffsetY),
+                    centerIntersection
+                )
+            )
         }
 
-        // Step 3: If the region extends beyond the image left/right, load the missing part from the other side
-        // TODO: Calculate offsets here
-        var additionalRect: Rect? = null
-        if (left < 0) {
-            val remaining = size - cx
-            val newLeft = fullImageSize.width - remaining
-
-            additionalRect = Rect(
-                newLeft,
-                rect.top,
-                fullImageSize.width,
-                rect.bottom
+        // Left (display the right side of the image)
+        if (centerOffsetX > 0) {
+            val leftRect = Rect(
+                fullImageWidth - centerOffsetX,
+                centerIntersection.top,
+                fullImageWidth,
+                centerIntersection.bottom
             )
-        } else if (right >= fullImageSize.width) {
-            val remaining = size + cx - fullImageSize.width
-            additionalRect = Rect(
+            rectsToLoad.add(
+                Pair(
+                    Point(0, centerOffsetY),
+                    leftRect
+                )
+            )
+        }
+
+        // Right (display the left side of the image)
+        if (right > fullImageWidth) {
+            val rightRect = Rect(
                 0,
-                rect.top,
-                remaining,
-                rect.bottom
+                centerIntersection.top,
+                right - fullImageWidth,
+                centerIntersection.bottom
+            )
+            rectsToLoad.add(
+                Pair(
+                    Point(centerIntersection.width() + centerOffsetX, centerOffsetY),
+                    rightRect
+                )
             )
         }
 
-        if (additionalRect != null) {
-            try {
-                region = BitmapUtils.decodeRegion(
-                    stream,
-                    additionalRect,
-                    BitmapFactory.Options().also {
-                        it.inPreferredConfig = Bitmap.Config.ARGB_8888
-                    }, enforceBounds = true
-                ) ?: return bitmap
-
-                val startX = if (left < 0) {
-                    0
-                } else {
-                    rect.width()
-                }
-
-                val startY = if (top < 0) {
-                    size - cy
-                } else {
-                    0
-                }
-
-                canvas.drawBitmap(region, startX.toFloat(), startY.toFloat(), null)
-            } finally {
-                region?.recycle()
-            }
+        for ((offset, rectToLoad) in rectsToLoad) {
+            val bitmap = BitmapUtils.decodeRegion(
+                stream,
+                rectToLoad,
+                null,
+                autoClose = false,
+                enforceBounds = true
+            ) ?: continue
+            canvas.drawBitmap(bitmap, offset.x.toFloat(), offset.y.toFloat(), null)
+            bitmap.recycle()
         }
 
-        return bitmap
+        return resultBitmap
+    }
+
+    private fun getIntersection(rect: Rect, imageSize: Size): Rect {
+        val left = max(0, rect.left)
+        val top = max(0, rect.top)
+        val right = min(imageSize.width, rect.right)
+        val bottom = min(imageSize.height, rect.bottom)
+        return Rect(left, top, right, bottom)
     }
 
     private fun hasValue(pixel: Int): Boolean {
