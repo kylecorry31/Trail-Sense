@@ -227,11 +227,11 @@ object TideModel {
             additionalRect = Rect(
                 newLeft,
                 rect.top,
-                fullImageSize.width - 1,
+                fullImageSize.width,
                 rect.bottom
             )
         } else if (right >= fullImageSize.width) {
-            val remaining = size - fullImageSize.width - cx
+            val remaining = size + cx - fullImageSize.width
             additionalRect = Rect(
                 0,
                 rect.top,
