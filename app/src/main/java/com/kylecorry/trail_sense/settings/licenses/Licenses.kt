@@ -348,10 +348,10 @@ F. Point of Contact: Any Recipient contact with Government Agency is to be direc
             """Hart-Davis Michael, Piccioni Gaia, Dettmering Denise, Schwatke Christian, Passaro Marcello, Seitz Florian (2021). EOT20 - A global Empirical Ocean Tide model from multi-mission satellite altimetry. SEANOE. https://doi.org/10.17882/79489"""
         },
         Library(
-            "Gaia DR3",
-            "https://www.cosmos.esa.int/gaia"
+            "SIMBAD",
+            "https://doi.org/10.1051/aas:2000332"
         ) {
-            """This work has made use of data from the European Space Agency (ESA) mission Gaia (https://www.cosmos.esa.int/gaia), processed by the Gaia Data Processing and Analysis Consortium (DPAC, https://www.cosmos.esa.int/web/gaia/dpac/consortium). Funding for the DPAC has been provided by national institutions, in particular the institutions participating in the Gaia Multilateral Agreement."""
+            """This research has made use of the SIMBAD database, operated at CDS, Strasbourg, France. 2000,A&AS,143,9 , "The SIMBAD astronomical database", Wenger et al."""
         },
         Library(
             "ETOPO 2022",
