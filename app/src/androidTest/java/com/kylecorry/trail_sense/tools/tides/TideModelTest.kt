@@ -116,8 +116,72 @@ class TideModelTest {
                 time(13, 6) to false,
                 time(19, 42) to true
             ),
+            brazil to tides(
+                LocalDate.of(2024, 11, 30),
+                "America/Sao_Paulo",
+                time(5, 50) to false,
+                time(10, 38) to true,
+                time(17, 57) to false,
+                time(22, 50) to true
+            ),
+            chile to tides(
+                LocalDate.of(2024, 11, 30),
+                "America/Santiago",
+                time(4, 38) to false,
+                time(10, 15) to true,
+                time(15, 57) to false,
+                time(22, 32) to true
+            ),
+            nigeria to tides(
+                date(2024, 11, 30),
+                "Africa/Lagos",
+                high(3, 37),
+                low(9, 54),
+                high(4, 23, true),
+                low(9, 55, true)
+            ),
+            madagascar to tides(
+                date(2024, 11, 30),
+                "Indian/Antananarivo",
+                low(4, 38),
+                high(11, 0),
+                low(5, 23, true),
+                high(11, 27, true)
+            ),
+            egypt to tides(
+                date(2024, 11, 30),
+                "Africa/Cairo",
+                high(5, 20),
+                low(11, 29),
+                high(5, 23, true),
+                low(11, 47, true)
+            ),
+            bulgaria to tides(
+                date(2024, 11, 30),
+                "Europe/Sofia",
+                high(2, 30),
+                low(8, 42),
+                high(1, 45, true),
+                low(8, 2, true)
+            ),
+            canada to tides(
+                date(2024, 11, 30),
+                est,
+                high(2, 24),
+                low(8, 47),
+                high(2, 50, true),
+                low(9, 8, true)
+            ),
+            greenland to tides(
+                date(2024, 11, 30),
+                "UTC-3",
+                low(5, 41),
+                high(12, 6),
+                low(5, 56, true),
+                high(11, 47, true)
+            ),
             // Mixed tides
-            penzhinaBay to tides(
+            russia to tides(
                 LocalDate.of(2024, 11, 26),
                 penzhinaBayTimeZone,
                 time(3, 35) to true,
@@ -145,6 +209,14 @@ class TideModelTest {
                 time(16, 47) to false,
                 time(22, 13) to true
             ),
+            japan to tides(
+                date(2024, 11, 30),
+                "Asia/Tokyo",
+                low(0, 55),
+                high(7, 21),
+                low(1, 10, true),
+                high(6, 47, true)
+            ),
             // Diurnal tides
             perth to tides(
                 LocalDate.of(2024, 12, 3),
@@ -157,6 +229,12 @@ class TideModelTest {
                 cst,
                 time(4, 58) to false,
                 time(18, 28) to true,
+            ),
+            dominicanRepublic to tides(
+                date(2024, 11, 30),
+                "America/Santo_Domingo",
+                low(0, 14),
+                high(10, 26)
             ),
             // New moon
             rhodeIsland to tides(
@@ -197,6 +275,9 @@ class TideModelTest {
         )
 
         val errors = tests.flatMapIndexed { index, test ->
+//            if (index != 16){
+//                return@flatMapIndexed listOf(0f)
+//            }
             val harmonics = TideModel.getHarmonics(context, test.first)
             check(index, harmonics, test.second)
         }
@@ -226,13 +307,23 @@ class TideModelTest {
     private val antarctica = Coordinate(-68.0, 78.5)
     private val hawaii = Coordinate(19.73, -155.06)
     private val fiji = Coordinate(-18.13, 178.43)
-    private val penzhinaBay = Coordinate(62.38, 164.50)
+    private val russia = Coordinate(62.38, 164.50)
     private val indonesia = Coordinate(-3.68, 128.18)
     private val mexico = Coordinate(22.22, -97.86)
     private val southAfrica = Coordinate(-33.9, 18.42)
     private val italy = Coordinate(40.86, 14.28)
     private val alaska = Coordinate(61.24, -149.89)
     private val india = Coordinate(13.10, 80.30)
+    private val brazil = Coordinate(-1.51, -48.63)
+    private val chile = Coordinate(-27.07, -70.83)
+    private val nigeria = Coordinate(4.30, 6.24)
+    private val madagascar = Coordinate(-22.13, 48.02)
+    private val egypt = Coordinate(27.24, 33.84)
+    private val bulgaria = Coordinate(43.22, 27.95)
+    private val japan = Coordinate(31.85, 130.22)
+    private val canada = Coordinate(55.28, -85.10)
+    private val dominicanRepublic = Coordinate(18.45, -69.61)
+    private val greenland = Coordinate( 81.07, -61.08)
 
     private val utc = "UTC"
     private val pst = "America/Los_Angeles"
@@ -250,8 +341,24 @@ class TideModelTest {
     private val akst = "America/Anchorage"
     private val ist = "Asia/Kolkata"
 
+    private fun low(hour: Int, minute: Int, add12Hours: Boolean = false): Pair<LocalTime, Boolean> {
+        return time(hour + if (add12Hours) 12 else 0, minute) to false
+    }
+
+    private fun high(
+        hour: Int,
+        minute: Int,
+        add12Hours: Boolean = false
+    ): Pair<LocalTime, Boolean> {
+        return time(hour + if (add12Hours) 12 else 0, minute) to true
+    }
+
     private fun time(hour: Int, minute: Int): LocalTime {
         return LocalTime.of(hour, minute)
+    }
+
+    private fun date(year: Int, month: Int, day: Int): LocalDate {
+        return LocalDate.of(year, month, day)
     }
 
     private fun tides(
@@ -271,11 +378,24 @@ class TideModelTest {
     ): List<Float> {
         val calculator = HarmonicWaterLevelCalculator(harmonics)
         val ocean = OceanographyService()
-        val start = expected.first().time.atStartOfDay()
-        val end = expected.first().time.atEndOfDay()
+        val start = expected.first().time.atStartOfDay().minusHours(12)
+        val end = expected.first().time.atEndOfDay().plusHours(12)
         val actual = ocean.getTides(calculator, start, end, GoldenSearchExtremaFinder(30.0, 1.0))
-        assertEquals(index.toString(), expected.size, actual.size)
-        return actual.zip(expected).map {
+        // Match each tide
+        val matchedTides = expected.map {
+            val closest = actual.minBy { actualTide ->
+                Duration.between(actualTide.time, it.time).abs()
+            }
+            closest
+        }
+
+        // Verify there are no tides between the first matched tide and the last matched tide that are not matched
+        val firstIdx = actual.indexOf(matchedTides.first())
+        for (i in firstIdx until (firstIdx + matchedTides.size)) {
+            assertEquals(index.toString(), matchedTides[i - firstIdx], actual[i])
+        }
+
+        return matchedTides.zip(expected).map {
             check(index, it.first, it.second)
         }
     }
@@ -285,7 +405,7 @@ class TideModelTest {
         actual: Tide,
         expected: Tide
     ): Float {
-        assertEquals(expected.isHigh, actual.isHigh)
+        assertEquals(index.toString(), expected.isHigh, actual.isHigh)
         val delta = Duration.between(actual.time, expected.time).seconds / 60f
         assertEquals(index.toString(), 0f, delta, 90f)
         return delta
