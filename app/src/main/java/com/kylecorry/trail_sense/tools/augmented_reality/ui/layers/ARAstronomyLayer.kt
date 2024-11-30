@@ -6,6 +6,7 @@ import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.hooks.Hooks
+import com.kylecorry.sol.math.SolMath.map
 import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
 import com.kylecorry.sol.science.astronomy.stars.Star
@@ -305,7 +306,14 @@ class ARAstronomyLayer(
                                 it.second.first.value,
                                 it.second.second,
                                 isTrueNorth = true,
-                                angularDiameter = 0.5f
+                                angularDiameter = map(
+                                    -it.first.magnitude,
+                                    -2f,
+                                    1.5f,
+                                    0.4f,
+                                    0.8f,
+                                    true
+                                )
                             ),
                             canvasObject = CanvasCircle(Color.WHITE),
                             onFocusedFn = {
