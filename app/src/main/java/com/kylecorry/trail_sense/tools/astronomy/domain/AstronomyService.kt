@@ -8,6 +8,7 @@ import com.kylecorry.sol.science.astronomy.eclipse.EclipseType
 import com.kylecorry.sol.science.astronomy.meteors.MeteorShowerPeak
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
 import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
+import com.kylecorry.sol.science.astronomy.stars.Star
 import com.kylecorry.sol.science.shared.Season
 import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.time.Time.toZonedDateTime
@@ -270,6 +271,21 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         return getEclipse(location, date, EclipseType.Solar, 1) {
             getSunAzimuth(location, it) to getSunAltitude(location, it)
         }
+    }
+
+    fun getVisibleStars(
+        location: Coordinate,
+        time: ZonedDateTime = ZonedDateTime.now()
+    ): List<Pair<Star, Pair<Bearing, Float>>> {
+        if (isSunUp(location, time)) {
+            return emptyList()
+        }
+
+        return Star.entries.map {
+            val azimuth = Astronomy.getStarAzimuth(it, time, location)
+            val altitude = Astronomy.getStarAltitude(it, time, location, true)
+            it to (azimuth to altitude)
+        }.filter { it.second.second > 0 }
     }
 
     private fun getEclipse(

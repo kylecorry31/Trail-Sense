@@ -59,6 +59,14 @@
             app:singleLineTitle="false"
             app:title="@string/visible" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:dependency="@string/pref_show_ar_astronomy_layer"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_ar_stars"
+            app:singleLineTitle="false"
+            app:title="@string/show_stars" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

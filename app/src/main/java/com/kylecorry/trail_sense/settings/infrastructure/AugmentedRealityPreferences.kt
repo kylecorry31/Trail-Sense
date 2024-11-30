@@ -74,4 +74,10 @@ class AugmentedRealityPreferences(context: Context) : PreferenceRepo(context) {
     )
 
     var showSatelliteLayer = false
+
+    var showStars by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_show_ar_stars),
+        true
+    )
 }

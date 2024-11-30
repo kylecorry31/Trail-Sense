@@ -201,3 +201,8 @@ fun <T> List<T>.padRight(minLength: Int, value: T): List<T> {
         this + List(minLength - size) { value }
     }
 }
+
+fun formatEnumName(name: String): String {
+    return name.map { if (it.isUpperCase()) " $it" else it }
+        .joinToString("").trim()
+}

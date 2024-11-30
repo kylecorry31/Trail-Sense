@@ -1518,4 +1518,7 @@
     <string name="tide_estimation_description_lunitidal_interval_local">Uses the moon\'s position to estimate tides. Requires the local lunitidal interval and the location.</string>
     <string name="tide_estimation_description_lunitidal_interval_utc">Uses the moon\'s position to estimate tides. Requires the UTC lunitidal interval.</string>
     <string name="tide_estimation_description_tide_model">Uses a built-in tide model to estimate tides for the entered location or your location if none is entered.</string>
+    <string name="star">Star</string>
+    <string name="pref_show_ar_stars" translatable="false">pref_show_ar_stars</string>
+    <string name="show_stars">Show stars</string>
 </resources>

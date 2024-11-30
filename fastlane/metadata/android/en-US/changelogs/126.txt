@@ -21,3 +21,6 @@ Tides
 
 Backup
 - Setting for automatic backup (once daily, keeps last 2 backups)
+
+Augmented Reality
+- Show stars at night (top 50 brightest)

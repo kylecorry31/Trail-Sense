@@ -8,6 +8,7 @@ import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
+import com.kylecorry.sol.science.astronomy.stars.Star
 import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -31,8 +32,10 @@ import java.time.ZonedDateTime
 
 class ARAstronomyLayer(
     private val drawBelowHorizon: Boolean,
+    private val drawStars: Boolean,
     private val onSunFocus: (time: ZonedDateTime) -> Boolean,
-    private val onMoonFocus: (time: ZonedDateTime, phase: MoonPhase) -> Boolean
+    private val onMoonFocus: (time: ZonedDateTime, phase: MoonPhase) -> Boolean,
+    private val onStarFocus: (star: Star) -> Boolean
 ) : ARLayer {
 
     private val scope = CoroutineScope(Dispatchers.Default)
@@ -47,6 +50,8 @@ class ARAstronomyLayer(
 
     private val moonLayer = ARMarkerLayer()
     private val currentMoonLayer = ARMarkerLayer()
+
+    private val starLayer = ARMarkerLayer()
 
     private val astro = AstronomyService()
 
@@ -80,6 +85,7 @@ class ARAstronomyLayer(
         moonLayer.update(drawer, view)
         currentSunLayer.update(drawer, view)
         currentMoonLayer.update(drawer, view)
+        starLayer.update(drawer, view)
     }
 
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
@@ -92,6 +98,7 @@ class ARAstronomyLayer(
         if (timeOverride == null || timeOverride?.toLocalDate() == LocalDate.now()) {
             currentSunLayer.draw(drawer, view)
             currentMoonLayer.draw(drawer, view)
+            starLayer.draw(drawer, view)
         }
     }
 
@@ -101,6 +108,7 @@ class ARAstronomyLayer(
         sunLayer.invalidate()
         currentMoonLayer.invalidate()
         currentSunLayer.invalidate()
+        starLayer.invalidate()
     }
 
     override fun onClick(
@@ -111,14 +119,16 @@ class ARAstronomyLayer(
         return currentSunLayer.onClick(drawer, view, pixel) ||
                 currentMoonLayer.onClick(drawer, view, pixel) ||
                 sunLayer.onClick(drawer, view, pixel) ||
-                moonLayer.onClick(drawer, view, pixel)
+                moonLayer.onClick(drawer, view, pixel) ||
+                starLayer.onClick(drawer, view, pixel)
     }
 
     override fun onFocus(drawer: ICanvasDrawer, view: AugmentedRealityView): Boolean {
         return currentSunLayer.onFocus(drawer, view) ||
                 currentMoonLayer.onFocus(drawer, view) ||
                 sunLayer.onFocus(drawer, view) ||
-                moonLayer.onFocus(drawer, view)
+                moonLayer.onFocus(drawer, view) ||
+                starLayer.onFocus(drawer, view)
     }
 
     private fun updatePositions(
@@ -286,6 +296,27 @@ class ARAstronomyLayer(
                     )
                 }
 
+                // STARS
+                val starMarkers = if (drawStars) {
+                    val stars = astro.getVisibleStars(location, time)
+                    stars.map {
+                        ARMarker(
+                            SphericalARPoint(
+                                it.second.first.value,
+                                it.second.second,
+                                isTrueNorth = true,
+                                angularDiameter = 0.5f
+                            ),
+                            canvasObject = CanvasCircle(Color.WHITE),
+                            onFocusedFn = {
+                                onStarFocus(it.first)
+                            }
+                        )
+                    }
+                } else {
+                    emptyList()
+                }
+
                 lineLayer.setLines(sunLines + moonLines)
                 sunLayer.setMarkers(sunPointsToDraw.flatten())
                 moonLayer.setMarkers(moonPointsToDraw.flatten())
@@ -293,6 +324,7 @@ class ARAstronomyLayer(
                 // The sun and moon can be drawn below the horizon
                 currentSunLayer.setMarkers(listOf(sun))
                 currentMoonLayer.setMarkers(listOf(moon))
+                starLayer.setMarkers(starMarkers)
             }
         }
     }

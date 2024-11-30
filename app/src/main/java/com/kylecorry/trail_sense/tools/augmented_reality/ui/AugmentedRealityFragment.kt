@@ -25,6 +25,7 @@ import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.location.Satellite
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
+import com.kylecorry.sol.science.astronomy.stars.Star
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.time.Time.toZonedDateTime
@@ -38,6 +39,7 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.formatEnumName
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.withId
@@ -94,8 +96,10 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     private val astronomyLayer by lazy {
         ARAstronomyLayer(
             drawBelowHorizon = false,
+            drawStars = userPrefs.augmentedReality.showStars,
             onSunFocus = this::onSunFocused,
-            onMoonFocus = this::onMoonFocused
+            onMoonFocus = this::onMoonFocused,
+            onStarFocus = this::onStarFocused
         )
     }
 
@@ -351,6 +355,11 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
                     phase.illumination
                 )
             })"
+        return true
+    }
+
+    private fun onStarFocused(star: Star): Boolean {
+        binding.arView.focusText = getString(R.string.star) + "\n" + formatEnumName(star.name)
         return true
     }
 
