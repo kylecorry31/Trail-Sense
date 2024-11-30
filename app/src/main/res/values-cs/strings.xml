@@ -1261,4 +1261,6 @@
     <string name="tide_estimation_description_lunitidal_interval_auto">Využívá polohu Měsíce k odhadu přílivu a odlivu. Vyžaduje alespoň jeden známý příliv nebo odliv.</string>
     <string name="tide_estimation_description_lunitidal_interval_local">Využívá polohu Měsíce k odhadu přílivu a odlivu. Vyžaduje místní lunitidální interval a polohu.</string>
     <string name="tide_estimation_description_tide_model">Používá vestavěný model přílivu a odlivu k odhadu přílivu a odlivu pro zadanou polohu nebo vaši polohu, pokud není zadána.</string>
+    <string name="show_stars">Zobrazit hvězdy</string>
+    <string name="star">Hvězda</string>
 </resources>
