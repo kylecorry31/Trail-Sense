@@ -25,13 +25,14 @@ class ToolTidesTest : ToolTestBase(Tools.TIDES) {
         // Wait for the disclaimer
         clickOk()
 
-        // Wait for the no tides dialog
-        hasText(string(R.string.no_tides))
-        clickOk()
+        // Wait for the nearby tides to load
+        hasText(string(R.string.navigation_nearby_category), waitForTime = 150000)
+        click(toolbarButton(R.id.tide_title, Side.Right))
 
         // Tide list
         hasText(R.id.tide_list_title, string(R.string.tides))
-        hasText(R.id.tides_empty_text, string(R.string.no_tides))
+        hasText(string(R.string.navigation_nearby_category))
+        hasText(string(R.string.tide_model_auto))
 
         canCreateTide()
         canViewTide()
@@ -40,7 +41,7 @@ class ToolTidesTest : ToolTestBase(Tools.TIDES) {
     }
 
     private fun canEditTide() {
-        clickListItemMenu(string(R.string.edit), 0)
+        clickListItemMenu(string(R.string.edit))
 
         hasText(R.id.create_tide_title, string(R.string.tide_table))
 
@@ -49,7 +50,7 @@ class ToolTidesTest : ToolTestBase(Tools.TIDES) {
 
         // Select lunitidal interval
         click(R.id.estimate_algorithm_spinner)
-        click(string(R.string.lunitidal_interval_auto), contains=true)
+        click(string(R.string.lunitidal_interval_auto), contains = true)
         clickOk()
 
         // Verify the fields are set
@@ -65,10 +66,10 @@ class ToolTidesTest : ToolTestBase(Tools.TIDES) {
         click(toolbarButton(R.id.create_tide_title, Side.Right))
 
         hasText(R.id.tide_list_title, string(R.string.tides))
-        hasText(com.kylecorry.andromeda.views.R.id.title, "Tide 1")
+        hasText(com.kylecorry.andromeda.views.R.id.title, "Tide 1", index = 1)
 
         // Open the tide
-        click(com.kylecorry.andromeda.views.R.id.title)
+        click(com.kylecorry.andromeda.views.R.id.title, index = 1)
 
         // Verify it is now using the lunitidal interval (just check times are shown)
         hasText(R.id.tide_title, string(R.string.high_tide))
@@ -120,12 +121,12 @@ class ToolTidesTest : ToolTestBase(Tools.TIDES) {
         click(toolbarButton(R.id.create_tide_title, Side.Right))
 
         hasText(R.id.tide_list_title, string(R.string.tides))
-        hasText(com.kylecorry.andromeda.views.R.id.title, "Tide 1")
-        hasText(com.kylecorry.andromeda.views.R.id.description, "1 tide")
+        hasText(com.kylecorry.andromeda.views.R.id.title, "Tide 1", index = 1)
+        hasText(com.kylecorry.andromeda.views.R.id.description, "1 tide", index = 1)
     }
 
     private fun canViewTide() {
-        click(com.kylecorry.andromeda.views.R.id.title)
+        click(com.kylecorry.andromeda.views.R.id.title, index = 1)
         hasText(R.id.tide_title, string(R.string.high_tide))
         hasText(R.id.tide_title, "Tide 1")
 
@@ -157,6 +158,6 @@ class ToolTidesTest : ToolTestBase(Tools.TIDES) {
         click(toolbarButton(R.id.tide_title, Side.Right))
 
         hasText(R.id.tide_list_title, string(R.string.tides))
-        hasText(com.kylecorry.andromeda.views.R.id.title, "Tide 1")
+        hasText(com.kylecorry.andromeda.views.R.id.title, "Tide 1", index = 1)
     }
 }

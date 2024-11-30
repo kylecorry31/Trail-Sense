@@ -86,7 +86,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
             EstimateType.LunitidalIntervalAuto,
             EstimateType.LunitidalIntervalManualLocal,
             EstimateType.LunitidalIntervalManualUTC,
-            if (prefs.tides.tideModelEnabled) EstimateType.TideModel else null,
+            EstimateType.TideModel,
             if (isDebug()) EstimateType.Harmonic else null
         )
     }

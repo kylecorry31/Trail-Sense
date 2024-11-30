@@ -16,8 +16,8 @@ Widgets
   - Nearby beacons
 
 Tides
-- [Experimental] Worldwide tide model (offline)
-- [Experimental] Nearby tide (displays the tide for your location)
+- Worldwide tide model (offline)
+- Nearby tide (displays the tide for your location)
 
 Backup
 - Setting for automatic backup (once daily, keeps last 2 backups)

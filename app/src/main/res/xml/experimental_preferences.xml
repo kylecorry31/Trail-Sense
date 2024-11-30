@@ -50,15 +50,6 @@
             app:title="@string/forecast_algorithm"
             app:useSimpleSummaryProvider="true" />
 
-        <SwitchPreferenceCompat
-            app:defaultValue="false"
-            app:disableDependentsState="true"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_tide_model_enabled"
-            app:singleLineTitle="false"
-            app:title="@string/tide_model_auto" />
-
-
     </PreferenceCategory>
 
 </PreferenceScreen>

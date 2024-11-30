@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.settings.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.debugging.isDebug
 
 class TidePreferences(context: Context) : PreferenceRepo(context), ITidePreferences {
 
@@ -22,12 +21,4 @@ class TidePreferences(context: Context) : PreferenceRepo(context), ITidePreferen
                 cache.remove(context.getString(R.string.last_tide_id))
             }
         }
-
-    override val tideModelEnabled: Boolean by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_tide_model_enabled),
-        false
-    )
-
-
 }

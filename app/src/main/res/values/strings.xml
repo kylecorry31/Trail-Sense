@@ -1512,7 +1512,6 @@
     <string name="pressure_chart">Pressure chart</string>
     <string name="tide_chart">Tide chart</string>
     <string name="nearby_beacons">Nearby beacons</string>
-    <string name="pref_tide_model_enabled" translatable="false">pref_tide_model_enabled</string>
     <string name="tide_model_auto">Tide model (auto)</string>
     <string name="tide_estimation_description_tide_clock">Uses the clock to estimate tides. Requires at least one known tide.</string>
     <string name="tide_estimation_description_lunitidal_interval_auto">Uses the moon\'s position to estimate tides. Requires at least one known tide.</string>
