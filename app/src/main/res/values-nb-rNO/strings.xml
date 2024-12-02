@@ -1057,4 +1057,13 @@
     <string name="tide_clock">Tidevannsklokke</string>
     <string name="harmonic">Harmonisk</string>
     <string name="unit_millimeters">Millimeter</string>
+    <string name="show_stars">Vis stjerner</string>
+    <string name="star">Stjerne</string>
+    <plurals name="number_steps">
+        <item quantity="one">%d skritt</item>
+        <item quantity="other">%d skritt</item>
+    </plurals>
+    <string name="reduce_pdf_resolution">Reduser PDF-oppløsning</string>
+    <string name="theme_system_black">System (svart)</string>
+    <string name="reduce_photo_resolution">Reduser bildeoppløsning</string>
 </resources>
