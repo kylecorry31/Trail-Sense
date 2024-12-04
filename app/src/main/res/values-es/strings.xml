@@ -1241,4 +1241,6 @@
     <string name="tide_estimation_description_tide_model">Utiliza un modelo de mareas incorporado para estimar las mareas de la ubicación introducida o de su ubicación si no se ha introducido ninguna.</string>
     <string name="tide_model_auto">Modelo de mareas (automático)</string>
     <string name="nearby_beacons">Faros cercanos</string>
+    <string name="star">Estrella</string>
+    <string name="show_stars">Mostrar estrellas</string>
 </resources>
