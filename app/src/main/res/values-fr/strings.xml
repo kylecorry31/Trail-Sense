@@ -1118,4 +1118,5 @@
     <string name="is_there_a_way_to_fix_this">Existe-t-il un moyen de résoudre ce problème ?</string>
     <string name="no_sensor_unable_to_fix">Non, il s\'agit malheureusement d\'une fonctionnalité du matériel, il n\'y a donc rien à faire pour l\'ajouter.</string>
     <string name="missing_sensor_explanation">Certains fabricants de téléphones choisissent de ne pas ajouter ce capteur, même sur les appareils nouveaux ou chers. Vous pouvez obtenir plus d\'informations en visitant le site web du fabricant de votre appareil ou en prenant contact avec lui.</string>
+    <string name="reset_calibration_question">Réinitialiser l\'étalonnage ?</string>
 </resources>
