@@ -1235,4 +1235,6 @@
     <string name="tide_estimation_description_lunitidal_interval_auto">Gebruikt de positie van de maan om getijden te schatten. Vereist tenminste één bekend getijde.</string>
     <string name="tide_estimation_description_lunitidal_interval_local">Gebruikt de positie van de maan om getijden te schatten. Vereist de lokale maangetijdeninterval en locatie.</string>
     <string name="tide_estimation_description_tide_model">Gebruikt een ingebouwd getijdenmodel om getijden te schatten voor de ingevoerde locatie, of jouw locatie als geen is ingevoerd.</string>
+    <string name="star">Ster</string>
+    <string name="show_stars">Toon sterren</string>
 </resources>
