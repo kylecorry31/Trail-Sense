@@ -58,6 +58,12 @@ android {
                 "proguard-rules.pro"
             )
         }
+        getByName("debug"){
+            testProguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
         // Staging build (a release build with a ID)
         create("staging") {
             initWith(getByName("release"))
