@@ -32,6 +32,15 @@
     <!--Override this for other Android versions-->
     <style name="AppTheme" parent="BaseAppTheme" />
 
+    <style name="Theme.Transparent" parent="android:Theme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
     <style name="AppTheme.CircleImageView">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
