@@ -1,0 +1,26 @@
+Widgets
+- Homescreen and in-app widgets (long press bottom navigation):
+  - Weather
+  - Pressure
+  - Pressure chart
+  - Sun
+  - Moon
+  - Sun & moon chart
+  - Elevation
+  - Location
+  - Tide
+  - Tide chart
+  - Pedometer
+  - Backtrack
+  - Flashlight
+  - Nearby beacons
+
+Tides
+- Worldwide tide model (offline)
+- Nearby tide (displays the tide for your location)
+
+Backup
+- Setting for automatic backup (once daily, keeps last 2 backups)
+
+Augmented Reality
+- Show stars at night (top 50 brightest)
