@@ -37,6 +37,7 @@ import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
 import com.kylecorry.trail_sense.shared.canvas.InteractionUtils
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
+import com.kylecorry.trail_sense.shared.safeRoundPlaces
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.text
@@ -134,6 +135,8 @@ class AugmentedRealityView : CanvasView {
      */
     val altitude: Float
         get() = altimeter.altitude
+
+    var inclinationDecimalPlaces = 0
 
     var passThroughTouchEvents = false
 
@@ -293,9 +296,10 @@ class AugmentedRealityView : CanvasView {
         val directionText = hooks.memo("direction_text", bearing.direction) {
             formatter.formatDirection(bearing.direction).padStart(2, ' ')
         }
-        val altitudeText = hooks.memo("altitude_text", inclination.safeRoundToInt()) {
-            formatter.formatDegrees(inclination)
-        }
+        val altitudeText =
+            hooks.memo("altitude_text", inclination.safeRoundPlaces(inclinationDecimalPlaces)) {
+                formatter.formatDegrees(inclination, inclinationDecimalPlaces)
+            }
 
         @SuppressLint("SetTextI18n")
         val text = "$azimuthText   $directionText\n${altitudeText}"
@@ -520,7 +524,8 @@ class AugmentedRealityView : CanvasView {
         val camera = camera ?: return
         calibrationBearingOffset = 0f
         // Switch to the reference orientation sensor and recalculate the orientation
-        orientationSensor = if (useGyro && hasGyro) gyroOrientationSensor else geomagneticOrientationSensor
+        orientationSensor =
+            if (useGyro && hasGyro) gyroOrientationSensor else geomagneticOrientationSensor
         updateOrientation()
 
         // Calculate the offset

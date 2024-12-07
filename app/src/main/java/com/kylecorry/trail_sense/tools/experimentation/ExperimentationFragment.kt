@@ -35,6 +35,7 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
         binding.camera.setShowTorch(false)
         binding.arView.bind(binding.camera)
         binding.arView.backgroundFillColor = Color.TRANSPARENT
+        binding.arView.inclinationDecimalPlaces = 2
 
         binding.recordBtn.setOnClickListener {
             val inclination = binding.arView.inclination

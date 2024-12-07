@@ -184,6 +184,16 @@ fun Float.safeRoundToInt(default: Int = 0): Int {
     }
 }
 
+fun Float.safeRoundPlaces(places: Int, default: Float = 0f): Float {
+    return tryOrDefault(default) {
+        if (isNaN() || isInfinite()) {
+            default
+        } else {
+            roundPlaces(places)
+        }
+    }
+}
+
 fun Double.safeRoundToInt(default: Int = 0): Int {
     return tryOrDefault(default) {
         if (isNaN() || isInfinite()) {
