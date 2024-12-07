@@ -24,9 +24,11 @@ import com.kylecorry.andromeda.camera.ICamera
 import com.kylecorry.andromeda.camera.ImageCaptureSettings
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
 import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
+import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.trail_sense.R
 import java.io.File
+import kotlin.math.roundToInt
 
 class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
 
@@ -53,6 +55,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     private var isTorchOn = false
     private var zoom: Float = -1f
     private var isCapturing = false
+    private var exposureCompensation = 0f
 
     var passThroughTouchEvents = false
 
@@ -180,8 +183,21 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         preview.scaleType = type
     }
 
-    fun setPreviewBackgroundColor(@ColorInt color: Int){
+    fun setPreviewBackgroundColor(@ColorInt color: Int) {
         preview.setBackgroundColor(color)
+    }
+
+    fun setExposureCompensation(value: Float) {
+        exposureCompensation = value
+
+        val range = camera?.getExposureCompensationRange() ?: Range(0, 0)
+        val mapped = if (range.start == range.end) {
+            range.start
+        } else {
+            SolMath.map(value, -1f, 1f, range.start.toFloat(), range.end.toFloat()).roundToInt()
+        }
+
+        camera?.setExposure(mapped)
     }
 
     @SuppressLint("UnsafeOptInUsageError")
@@ -190,6 +206,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
             setZoomRatio(1f)
         }
         setZoom(zoom)
+        setExposureCompensation(exposureCompensation)
         camera?.setTorch(isTorchOn)
         if (captureListener == null && imageListener == null) {
             camera?.image?.close()
@@ -227,7 +244,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
             setTorch(!isTorchOn)
         }
 
-        if(a.getBoolean(R.styleable.CameraView_flipEnable,false)) {
+        if (a.getBoolean(R.styleable.CameraView_flipEnable, false)) {
             changeCameraBtn.visibility = View.VISIBLE
             changeCameraBtn.setOnClickListener {
                 camera?.flipCamera()

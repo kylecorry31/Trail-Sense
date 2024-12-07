@@ -148,8 +148,7 @@ class AugmentedRealityView : CanvasView {
     /**
      * The diameter of the reticle in pixels
      */
-    val reticleDiameter: Float
-        get() = dp(InteractionUtils.CLICK_SIZE_DP * 2f)
+    var reticleDiameter: Float = 0f
 
     private val layers = mutableListOf<ARLayer>()
     private val layerLock = Any()
@@ -248,6 +247,9 @@ class AugmentedRealityView : CanvasView {
 
 
     override fun setup() {
+        if (reticleDiameter == 0f) {
+            reticleDiameter = dp(InteractionUtils.CLICK_SIZE_DP * 2f)
+        }
         isSetup = true
         updateOrientation()
     }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.camera.view.PreviewView
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.CoroutinePickers
@@ -33,9 +34,11 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
         super.onViewCreated(view, savedInstanceState)
         binding.camera.setScaleType(PreviewView.ScaleType.FILL_CENTER)
         binding.camera.setShowTorch(false)
+        binding.camera.setExposureCompensation(1f)
         binding.arView.bind(binding.camera)
         binding.arView.backgroundFillColor = Color.TRANSPARENT
         binding.arView.inclinationDecimalPlaces = 2
+        binding.arView.reticleDiameter = Resources.dp(requireContext(), 8f)
 
         binding.recordBtn.setOnClickListener {
             val inclination = binding.arView.inclination
@@ -74,7 +77,10 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
     override fun onResume() {
         super.onResume()
         binding.arView.start()
-        binding.camera.start()
+        binding.camera.start(
+            readFrames = false,
+            shouldStabilizePreview = false
+        )
     }
 
     override fun onPause() {
