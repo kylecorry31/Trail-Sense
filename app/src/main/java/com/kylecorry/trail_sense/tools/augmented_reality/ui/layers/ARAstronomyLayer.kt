@@ -2,9 +2,11 @@ package com.kylecorry.trail_sense.tools.augmented_reality.ui.layers
 
 import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
+import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.SolMath.map
 import com.kylecorry.sol.science.astronomy.Astronomy
@@ -14,6 +16,7 @@ import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.fromColorTemperature
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.tools.astronomy.ui.MoonPhaseImageMapper
@@ -297,33 +300,7 @@ class ARAstronomyLayer(
                     )
                 }
 
-                // STARS
-                val starMarkers = if (drawStars) {
-                    val stars = astro.getVisibleStars(location, time)
-                    stars.map {
-                        ARMarker(
-                            SphericalARPoint(
-                                it.second.first.value,
-                                it.second.second,
-                                isTrueNorth = true,
-                                angularDiameter = map(
-                                    -it.first.magnitude,
-                                    -2f,
-                                    1.5f,
-                                    0.4f,
-                                    0.8f,
-                                    true
-                                )
-                            ),
-                            canvasObject = CanvasCircle(Color.WHITE),
-                            onFocusedFn = {
-                                onStarFocus(it.first)
-                            }
-                        )
-                    }
-                } else {
-                    emptyList()
-                }
+                updateStarLayer(location, time)
 
                 lineLayer.setLines(sunLines + moonLines)
                 sunLayer.setMarkers(sunPointsToDraw.flatten())
@@ -332,9 +309,45 @@ class ARAstronomyLayer(
                 // The sun and moon can be drawn below the horizon
                 currentSunLayer.setMarkers(listOf(sun))
                 currentMoonLayer.setMarkers(listOf(moon))
-                starLayer.setMarkers(starMarkers)
             }
         }
+    }
+
+    private suspend fun updateStarLayer(location: Coordinate, time: ZonedDateTime) = onDefault {
+        val starMarkers = if (drawStars) {
+            val stars = astro.getVisibleStars(location, time)
+            stars.map {
+                ARMarker(
+                    SphericalARPoint(
+                        it.second.first.value,
+                        it.second.second,
+                        isTrueNorth = true,
+                        angularDiameter = map(
+                            -it.first.magnitude,
+                            -2f,
+                            1.5f,
+                            0.4f,
+                            0.8f,
+                            true
+                        )
+                    ),
+                    canvasObject = CanvasCircle(
+                        Colors.fromColorTemperature(
+                            Astronomy.getColorTemperature(
+                                it.first
+                            )
+                        )
+                    ),
+                    onFocusedFn = {
+                        onStarFocus(it.first)
+                    }
+                )
+            }
+        } else {
+            emptyList()
+        }
+
+        starLayer.setMarkers(starMarkers)
     }
 
     private fun getMarkersAboveHorizon(points: List<ARMarker>): List<List<ARMarker>> {

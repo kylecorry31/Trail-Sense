@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.Window
@@ -11,9 +12,12 @@ import androidx.navigation.NavOptions
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.tryOrDefault
+import com.kylecorry.andromeda.core.ui.Colors
+import com.kylecorry.andromeda.core.ui.colormaps.RgbInterpolationColorMap
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.signal.CellNetworkQuality
 import com.kylecorry.andromeda.signal.ICellSignalSensor
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Rectangle
@@ -215,4 +219,26 @@ fun <T> List<T>.padRight(minLength: Int, value: T): List<T> {
 fun formatEnumName(name: String): String {
     return name.map { if (it.isUpperCase()) " $it" else it }
         .joinToString("").trim()
+}
+
+fun Colors.fromColorTemperature(temp: Float): Int {
+    // http://www.vendian.org/mncharity/dir3/blackbody/UnstableURLs/bbr_color.html
+    val map = RgbInterpolationColorMap(
+        arrayOf(
+            Color.rgb(255, 51, 0), // 1000K
+            Color.rgb(255, 137, 18), // 2000K
+            Color.rgb(255, 185, 105), // 3000K
+            Color.rgb(255, 209, 163), // 4000K
+            Color.rgb(255, 231, 204), // 5000K
+            Color.rgb(255, 244, 237), // 6000K
+            Color.rgb(245, 243, 255), // 7000K
+            Color.rgb(229, 233, 255), // 8000K
+            Color.rgb(217, 225, 255), // 9000K
+            Color.rgb(207, 218, 255), // 10000K
+        )
+    )
+
+    val percent = SolMath.map(temp, 1000f, 10000f, 0f, 1f, true)
+
+    return map.getColor(percent)
 }
