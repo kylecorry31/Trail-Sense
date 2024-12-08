@@ -1,0 +1,26 @@
+Widgety
+- Widgety:
+  - Počasí
+  - Tlak
+  - Graf tlaku
+  - Slunce
+  - Měsíc
+  - Graf Slunce a Měsíc
+  - Výška
+  - Poloha
+  - Příliv a odliv
+  - Graf přílivu a odlivu
+  - Krokoměr
+  - Zpětná stopa
+  - Svítilna
+  - Blízké majáky
+
+Přílivy a odlivy
+- Celosvětový model přílivu a odlivu (offline)
+- Příliv a odliv v okolí (pro vaši polohu)
+
+Záložní stránka
+- Nastavení automatického zálohování (jednou denně, uchovává poslední 2 zálohy)
+
+Rozšířená realita
+- Zobrazení hvězd v noci (50 nejjasnějších)

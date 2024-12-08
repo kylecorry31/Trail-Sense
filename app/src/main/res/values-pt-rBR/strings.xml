@@ -1198,4 +1198,11 @@
     <string name="tide_chart">Gráfico de marés</string>
     <string name="nearby_beacons">Ponto de orientações próximos</string>
     <string name="tide_model_auto">Modelo de maré (auto)</string>
+    <string name="tide_estimation_description_tide_clock">Usa o relógio para estimar as marés. Requer pelo menos uma maré conhecida.</string>
+    <string name="tide_estimation_description_lunitidal_interval_auto">Use o relógio para estimar as marés. Requer pelo menos uma maré conhecida.</string>
+    <string name="tide_estimation_description_lunitidal_interval_local">Usa a posição da lua para estimar as marés. Requer o intervalo lunitidal local e a localização.</string>
+    <string name="tide_estimation_description_tide_model">Usa um modelo de maré integrado para estimar as marés para o local inserido ou para o seu local, se nenhum for inserido.</string>
+    <string name="star">Estrela</string>
+    <string name="show_stars">Mostrar estrelas</string>
+    <string name="tide_estimation_description_lunitidal_interval_utc">Usa a posição da lua para estimar as marés. Requer o intervalo lunitidal UTC.</string>
 </resources>
