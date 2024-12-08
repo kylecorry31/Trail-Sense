@@ -76,7 +76,7 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
 
     override fun onResume() {
         super.onResume()
-        binding.arView.start()
+        binding.arView.start(useGPS = false)
         binding.camera.start(
             readFrames = false,
             shouldStabilizePreview = false
