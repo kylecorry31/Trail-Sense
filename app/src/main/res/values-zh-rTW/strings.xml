@@ -1218,4 +1218,6 @@
     <string name="tablespoon_format">%s 湯匙</string>
     <string name="sun_moon_chart">太陽和月亮圖</string>
     <string name="auto_backup_instructions">每天將建立一次備份至 %1$s。僅保留最近 %2$d 個備份。</string>
+    <string name="tide_chart">潮汐圖</string>
+    <string name="pressure_chart">氣壓圖</string>
 </resources>
