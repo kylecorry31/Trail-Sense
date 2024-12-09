@@ -1221,4 +1221,5 @@
     <string name="tide_chart">潮汐圖</string>
     <string name="pressure_chart">氣壓圖</string>
     <string name="nearby_beacons">鄰近的信標</string>
+    <string name="tide_model_auto">潮汐模型（自動）</string>
 </resources>
