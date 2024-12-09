@@ -230,7 +230,7 @@
     <string name="pressure_reading_time_ago">%1$s - %2$s 之前</string>
     <string name="pressure_tendency_format_2">%s／3 小時</string>
     <string name="share_action_send">傳送</string>
-    <string name="accuracy_info_title">改善感測器數據精確度的訣竅</string>
+    <string name="accuracy_info_title">改善感測器數據準確度的訣竅</string>
     <string name="discharging_fast">正在快速放電（%s）</string>
     <string name="discharging_slow">正在慢速放電（%s）</string>
     <string name="precise_percent_format">%s%%</string>
@@ -1222,4 +1222,11 @@
     <string name="pressure_chart">氣壓圖</string>
     <string name="nearby_beacons">鄰近的信標</string>
     <string name="tide_model_auto">潮汐模型（自動）</string>
+    <string name="tide_estimation_description_tide_clock">使用時鐘來估計潮汐。需要至少一種已知潮汐。</string>
+    <string name="tide_estimation_description_lunitidal_interval_local">利用月球的位置估計潮汐。需要當地月潮間隔和位置。</string>
+    <string name="tide_estimation_description_lunitidal_interval_auto">利用月球的位置估計潮汐。需要至少一種已知潮汐。</string>
+    <string name="tide_estimation_description_lunitidal_interval_utc">利用月球的位置估計潮汐。需要 UTC 月潮間隔。</string>
+    <string name="tide_estimation_description_tide_model">使用內建潮汐模型估計輸入位置或你所在位置的潮汐。</string>
+    <string name="star">星星</string>
+    <string name="show_stars">顯示星星</string>
 </resources>
