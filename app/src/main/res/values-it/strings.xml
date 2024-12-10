@@ -1241,4 +1241,13 @@
     <string name="widget_pref_title">Widget in-app</string>
     <string name="pressure_chart">Grafico della pressione</string>
     <string name="tide_chart">Grafico delle maree</string>
+    <string name="tide_estimation_description_tide_clock">Utilizza l\'orologio per stimare le maree. Richiede almeno una marea nota.</string>
+    <string name="tide_estimation_description_lunitidal_interval_local">Utilizza la posizione della luna per stimare le maree. Richiede l\'intervallo lunare locale e la località.</string>
+    <string name="tide_estimation_description_lunitidal_interval_utc">Utilizza la posizione della luna per stimare le maree. Richiede l\'intervallo lunare UTC.</string>
+    <string name="tide_estimation_description_lunitidal_interval_auto">Utilizza la posizione della luna per stimare le maree. Richiede almeno una marea nota.</string>
+    <string name="tide_estimation_description_tide_model">Utilizza un modello di marea incorporato per stimare le maree per la località inserita o per la propria località se non è stata inserita.</string>
+    <string name="star">Stella</string>
+    <string name="show_stars">Mostra stelle</string>
+    <string name="tide_model_auto">Modello marea (auto)</string>
+    <string name="nearby_beacons">Segnaposti vicini</string>
 </resources>

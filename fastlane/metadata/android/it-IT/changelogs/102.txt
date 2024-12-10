@@ -1,0 +1,20 @@
+Backtrack
+- Mostra sempre la notifica durante l'esecuzione
+
+Meteo
+- Mostra sempre la notifica durante l'esecuzione
+- Migliorata accuratezza della temperatura storica
+- Migliorate previsioni meteo utilizzando le nuvole
+
+Astronomia
+- Aggiunge un'azione rapida per l'avviso del tramonto.
+Mappe fotografiche
+- Migliora la rotazione automatica
+
+Pedometro
+- Consente di fermare il contapassi dalla notifica
+
+Varie
+- Supporto Android 14
+- Migliora il flusso di richiesta di autorizzazione
+- Correzioni di bug

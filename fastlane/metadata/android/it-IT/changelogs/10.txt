@@ -1,0 +1,9 @@
+- Mostra la velocità nella scheda di navigazione
+- Mostra il tempo approssimativo per raggiungere i radiofari
+- Riorganizzazione della scheda di navigazione
+- Mostra l'accuratezza di GPS e bussola
+- Aggiungi note ed elevazione ai segnaposti
+- Aggiungi la possibilità di modificare i segnaposti
+- Aggiungi l'impostazione per la sensibilità delle previsioni
+- Aggiungi le informazioni meteo alla notifica
+- Migliora il calcolo della pressione al livello del mare
