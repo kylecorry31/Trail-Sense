@@ -1,0 +1,16 @@
+Mappe fotografiche (Beta)
+- Lo strumento Mappe fotografiche è disponibile per tutti in versione beta, utilizza una foto come mappa
+- Gestisce le mappe che non puntano al vero Nord
+
+Astronomia
+- Astronomia ridisegnata per un utilizzo più semplice a colpo d'occhio
+- Mostra l'orario di inizio e fine delle piogge di meteoriti
+- Mostra l'orario di picco delle eclissi
+- Aggiunge un pulsante di ricerca per trovare il prossimo evento astronomico
+- Clicca sulle voci dell'elenco del sole e della luna per vedere i dettagli avanzati
+
+Meteo / Clima
+- Migliora l'accuratezza della temperatura storica
+
+Misc
+- Correzioni di bug
