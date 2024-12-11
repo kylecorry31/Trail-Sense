@@ -200,7 +200,7 @@
     <string name="preview">Esikatselu</string>
     <string name="high_amount">Korkea (%s)</string>
     <string name="pref_include_leading_zero_title">Lisää alkunolla aikaan</string>
-    <string name="precipitation_chance">Sateen todennäköisyys: %s</string>
+    <string name="precipitation_chance">Sateen mahdollisuus: %s</string>
     <string name="compass_unavailable">Kompassi ei ole käytettävissä</string>
     <string name="clinometer_measure_distance_instructions">Etäisyyden mittaaminen kohteeseen, joka on %s korkea: \n \n1. Kohdista klinometri kohteen pohjaan \n2. Napauta näyttöä ja pidä sitä painettuna \n3. Kohdista klinometri uudelleen kohteen huippuun \n4. Vapauta lukitaksesi ja nähdäksesi etäisyyden kohteeseen</string>
     <string name="power">Teho</string>
@@ -316,7 +316,7 @@
     <string name="notes_empty_text">Ei muistiinpanoja</string>
     <string name="delete_path">Poistetaanko polku\?</string>
     <string name="no_groups">Ei ryhmiä</string>
-    <string name="clear_amounts">Selkeät summat</string>
+    <string name="clear_amounts">Nollaa määrät</string>
     <string name="sensor">Anturi</string>
     <string name="saved">Tallennettu</string>
     <string name="allow_schedule_exact_alarms_instructions">Tämän avulla %1$s voi asettaa tarkat herätykset ja muistutukset, kuten auringonlaskun ilmoitukset. Ilman tätä herätykset eivät välttämättä toimi oikeaan aikaan.\n\nSalli napsauttamalla %2$s ja ota käyttöön herätysten ja muistutusten salliva asetus.</string>
@@ -611,7 +611,7 @@
     <string name="pref_navigation_lock_screen_presence_title">Näytä lukitusnäytöllä navigoinnin aikana</string>
     <string name="delete_waypoint_prompt">Poistetaanko majakka?</string>
     <string name="manual">Manuaalinen</string>
-    <string name="action_inventory_clear_confirm">Tyhjennä kaikki pakatut määrät\?</string>
+    <string name="action_inventory_clear_confirm">Nollaa pakattujen esineiden määrät?</string>
     <string name="updating">Päivitetään</string>
     <string name="unit_kilometers">Kilometriä</string>
     <string name="lunar_eclipse">Kuunpimennys</string>
@@ -711,7 +711,7 @@
     <string name="partial">Osittainen (%s)</string>
     <string name="until_sunrise">auringonnousuun</string>
     <string name="map_distance">Kartta: %s</string>
-    <string name="weather_clear">Kirkasta</string>
+    <string name="weather_clear">Selkeää</string>
     <string name="at_time">klo %s</string>
     <string name="cloud_fair_forecast_hours" tools:ignore="PluralsCandidate">Saattaa osoittaa hyvää säätä seuraavalle %d tunnille.</string>
     <string name="pref_default_path_color_title">Polun oletusväri</string>
@@ -876,9 +876,9 @@
     <string name="precipitation_hail">Rakeita</string>
     <string name="simplification_quality">Yksikertaistamisen laatu</string>
     <string name="sunrise_alert_scheduled">Ilmoitus ajoitettu %s ennen aurigonnousua</string>
-    <string name="triangulate_self_location_1_instructions">Valitse tunnettu kohde jonka voit nähdä ja tallenna suunta, missä itse olet kohteesta katsottuna.</string>
+    <string name="triangulate_self_location_1_instructions">Valitse tunnettu kohde jonka voit nähdä, ja tallenna suunta, missä itse olet kohteesta katsottuna.</string>
     <string name="augmented_reality">Paranneltu todellisuus</string>
-    <string name="triangulate_self_location_2_instructions">Valitse toinen tunnettu kohde jonka voit nähdä ja tallenna suunta, missä itse olet kohteesta katsottuna.</string>
+    <string name="triangulate_self_location_2_instructions">Valitse toinen tunnettu kohde jonka voit nähdä, ja tallenna suunta, missä itse olet kohteesta katsottuna.</string>
     <string name="location_to_triangulate">Kolmiolaskettava sijainti</string>
     <string name="use_gyroscope_after_calibration">Käytä gyroskooppia kalibroinnin jälkeen</string>
     <string name="battery_capacity_format">%s mAh</string>
@@ -958,7 +958,7 @@
     <string name="beta">Beta</string>
     <string name="backtrack_no_permission">Reitintallennus vaatii sijaintiluvan toimiakseen</string>
     <string name="missing_sensor_message_1">Puhelimesi %1$s ei sisällä sisäänrakennettua %2$s anturia. Valitettavasti tästä johtuen jotkut %3$s-sovelluksen ominaisuudet eivät ole saatavilla.</string>
-    <string name="triangulate_destination_location_2_instructions">Liiku vähintään %s ensimmäisestä sijainnistasi ja tallenna sijainti sekä suunta samaan kohteeseen uudestaan.</string>
+    <string name="triangulate_destination_location_2_instructions">Liiku vähintään %s ensimmäisestä sijainnistasi. Sen jälkeen tallenna uusi sijaintisi sekä uusi suunta valitsemaasi kohteeseen.</string>
     <string name="augmented_reality_description">Tarkastele läheisiä majakoita sekä aurinkoa että kuuta kameran avulla</string>
     <string name="backtrack">Reitintallennus</string>
     <string name="hours_format">%s t</string>
@@ -1060,7 +1060,7 @@
     <string name="compass_dynamic_colors">Dynaamiset värit kompassissa</string>
     <string name="compass_dynamic_colors_summary">Käytä dynaamisia värejä pääilmansuunnissa</string>
     <string name="screen_flashlight_full_name">Näyttötaskulamppu</string>
-    <string name="view_in_3d">Näytä 3D-muodossa</string>
+    <string name="view_in_3d">Näytä 3D-tilassa</string>
     <string name="show_dial_ticks_on_nearby_radar">Näytä säätöasteikkon piirut läheisessä tutkassa</string>
     <string name="show_dial_ticks_on_nearby_radar_summary">Laitteessa ei ole kompassia, mutta voit silti nähdä missä suunnassa majakat ovat.</string>
     <string name="augmented_reality_no_gyro_message">Voit silti käyttää Parannettu todellisuus -työkalua, mutta se ei tule olemaan yhtä tarkka.</string>
@@ -1071,7 +1071,7 @@
     <string name="projection_manufacturer_intrinsics">Valmistajan sisäiset ominaisuudet</string>
     <string name="default_string">Oletus</string>
     <string name="ar_layer_override_message">Tasojen asetukest saattavat olla ohjeistuksen ohittamia, kuten mm. Astronomiaohjeen.</string>
-    <string name="tool_turn_back">Palaa takaisin</string>
+    <string name="tool_turn_back">Käänny takaisin</string>
     <string name="select_backup_directory">Valitse varmuuskopioiden kansio</string>
     <string name="widgets">Pienoisohjelmat</string>
     <string name="automatic_backup_invalid_directory_resolution">Kytke automaattinen varmuuskopiointi pois päältä ja laita se uudelleen päälle valitaksesi uuden kansion.</string>
@@ -1081,7 +1081,7 @@
     <string name="visible">Näkyvä</string>
     <string name="max_s">Max %s</string>
     <string name="pref_start_camera_in_3d_view_title">Käytä kameraa 3D-katselemiseen</string>
-    <string name="turn_back_notification_description">Aloita paluu nyt ollaksesi takaisin klo %s</string>
+    <string name="turn_back_notification_description">Aloita paluumatka nyt ollaksesi takaisin klo %s</string>
     <string name="return_before_dark">Palaa ennen pimeää</string>
     <string name="open_photo_map">Avaa kuvakartta</string>
     <string name="local_talk">Paikallinen puhe</string>
@@ -1158,4 +1158,11 @@
     <string name="sunrise">Auringonnousu</string>
     <string name="reduce_photo_resolution">Vähennä kuvan tarkkuutta</string>
     <string name="on_import">Tuomisen yhteydessä</string>
+    <string name="tide_estimation_description_tide_clock">Käyttää kelloa vuorovesien arvioimiseen. Vaatii vähintään yhden tunnetun vuoroveden.</string>
+    <string name="tide_estimation_description_lunitidal_interval_auto">Käyttää kuun sijaintia vuorovesien arvioimiseen. Vaatii vähintään yhden tunnetun vuoroveden.</string>
+    <string name="tide_estimation_description_lunitidal_interval_local">Käyttää kuun sijaintia vuorovesien arvioimiseen. Vaatii paikallisen lunitidaalisen intervallin ja sijainnin.</string>
+    <string name="tide_estimation_description_lunitidal_interval_utc">Käyttää kuun sijaintia vuorovesien arvioimiseen. Vaatii UTC-lunitidaalisen intervallin.</string>
+    <string name="tide_estimation_description_tide_model">Käyttää sisäänrakennettua mallia vuorovesien arvioimiseen annetussa sijainissa. Käyttää puhelimen sijaintia jos sijaintia ei ole annettu erikseen.</string>
+    <string name="star">Tähti</string>
+    <string name="show_stars">Näytä tähdet</string>
 </resources>
