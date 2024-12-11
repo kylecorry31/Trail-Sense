@@ -22,10 +22,12 @@ import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.sense.Sensors
+import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.Euler
 import com.kylecorry.sol.math.Quaternion
+import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
@@ -86,6 +88,7 @@ class AugmentedRealityView : CanvasView {
     private var calibrationBearingOffset: Float = 0f
     val geomagneticOrientationSensor = sensors.getOrientation()
     val gyroOrientationSensor = sensors.getGyroscope()
+    private var customOrientationSensor: IOrientationSensor? = null
     private val hasGyro = Sensors.hasGyroscope(context)
     var orientationSensor = geomagneticOrientationSensor
     val gps = sensors.getGPS(frequency = Duration.ofMillis(200))
@@ -192,14 +195,16 @@ class AugmentedRealityView : CanvasView {
         }
     }
 
-    fun start(useGPS: Boolean = true) {
+    fun start(useGPS: Boolean = true, customOrientationSensor: IOrientationSensor? = null) {
+        this.customOrientationSensor = customOrientationSensor
         if (useGPS) {
             gps.start(this::onSensorUpdate)
             altimeter.start(this::onSensorUpdate)
         }
-        orientationSensor = geomagneticOrientationSensor
+        orientationSensor = customOrientationSensor ?: geomagneticOrientationSensor
         calibrationBearingOffset = 0f
         geomagneticOrientationSensor.start(this::onSensorUpdate)
+        customOrientationSensor?.start(this::onSensorUpdate)
         if (hasGyro) {
             gyroOrientationSensor.start(this::onSensorUpdate)
         }
@@ -211,6 +216,7 @@ class AugmentedRealityView : CanvasView {
         altimeter.stop(this::onSensorUpdate)
         geomagneticOrientationSensor.stop(this::onSensorUpdate)
         gyroOrientationSensor.stop(this::onSensorUpdate)
+        customOrientationSensor?.stop(this::onSensorUpdate)
         updateTimer.stop()
     }
 
@@ -520,6 +526,14 @@ class AugmentedRealityView : CanvasView {
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         previewRect = null
         syncWithCamera()
+    }
+
+    fun switchToGyro() {
+        val lastAzimuth = azimuth
+        val lastInclination = inclination
+        orientationSensor = if (hasGyro) gyroOrientationSensor else geomagneticOrientationSensor
+        updateOrientation()
+        calibrationBearingOffset = deltaAngle(azimuth, lastAzimuth)
     }
 
     suspend fun calibrate(calibrator: IARCalibrator, useGyro: Boolean = true) {

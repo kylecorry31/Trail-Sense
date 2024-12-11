@@ -327,7 +327,7 @@ class SensorService(ctx: Context) {
     }
 
     companion object {
-        private const val MOTION_SENSOR_DELAY = SensorManager.SENSOR_DELAY_GAME
+        const val MOTION_SENSOR_DELAY = SensorManager.SENSOR_DELAY_GAME
         private const val ENVIRONMENT_SENSOR_DELAY = SensorManager.SENSOR_DELAY_NORMAL
     }
 

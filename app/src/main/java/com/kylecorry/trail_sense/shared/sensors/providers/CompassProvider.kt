@@ -192,8 +192,8 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
 
     companion object {
 
-        private const val MAGNETOMETER_LOW_PASS = 0.3f
-        private const val ACCELEROMETER_LOW_PASS = 0.1f
+        const val MAGNETOMETER_LOW_PASS = 0.3f
+        const val ACCELEROMETER_LOW_PASS = 0.1f
 
         /**
          * Returns the available compass sources in order of quality
