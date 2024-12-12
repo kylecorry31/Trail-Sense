@@ -10,8 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
+          persist-credentials: false
           fetch-depth: 0
 
       - name: Generate changelog
@@ -39,7 +40,7 @@ jobs:
           NIGHTLY_STORE_FILE: ${{ secrets.NIGHTLY_STORE_FILE }}
 
       - name: Upload APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Trail-Sense-Nightly.apk
           path: ./app/build/outputs/apk/nightly/*.apk

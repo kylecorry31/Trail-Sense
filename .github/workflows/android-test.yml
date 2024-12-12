@@ -17,6 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          persist-credentials: false
           fetch-depth: 0
 
       - name: set up JDK 17
@@ -55,7 +56,7 @@ jobs:
 
       - name: Upload Test Results
         if: steps.testing.outcome != 'success'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: logs
           path: app/emulator.log

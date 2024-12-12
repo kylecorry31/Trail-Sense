@@ -9,8 +9,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
+          persist-credentials: false
           ref: ${{ github.event.release.tag_name }}
 
       - name: Setup Java
@@ -33,7 +34,7 @@ jobs:
           DEV_STORE_FILE: ${{ secrets.DEV_STORE_FILE }}
 
       - name: Upload to release
-        uses: Shopify/upload-to-release@v1.0.1
+        uses: Shopify/upload-to-release@v2.0.0
         with:
           name: Trail-Sense-${{ github.event.release.tag_name }}-dev.apk
           path: ./app/build/outputs/apk/dev/app-dev.apk
