@@ -36,12 +36,12 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <Button
+    <com.kylecorry.trail_sense.shared.camera.ShutterButton
         android:id="@+id/record_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         android:text="Record" />
 
 </LinearLayout>

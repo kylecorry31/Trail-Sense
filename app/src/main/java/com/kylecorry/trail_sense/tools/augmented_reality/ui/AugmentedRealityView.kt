@@ -139,7 +139,7 @@ class AugmentedRealityView : CanvasView {
     val altitude: Float
         get() = altimeter.altitude
 
-    var inclinationDecimalPlaces = 0
+    var decimalPlaces = 0
 
     var passThroughTouchEvents = false
 
@@ -298,15 +298,16 @@ class AugmentedRealityView : CanvasView {
 
     private fun drawPosition() {
         val bearing = Bearing(azimuth)
-        val azimuthText = hooks.memo("azimuth_text", bearing.value.safeRoundToInt()) {
-            formatter.formatDegrees(bearing.value, replace360 = true).padStart(4, ' ')
+        val azimuthText = hooks.memo("azimuth_text", bearing.value.safeRoundPlaces(decimalPlaces)) {
+            formatter.formatDegrees(bearing.value, decimalPlaces = decimalPlaces, replace360 = true)
+                .padStart(4 + if (decimalPlaces == 0) 0 else (decimalPlaces + 1), ' ')
         }
         val directionText = hooks.memo("direction_text", bearing.direction) {
             formatter.formatDirection(bearing.direction).padStart(2, ' ')
         }
         val altitudeText =
-            hooks.memo("altitude_text", inclination.safeRoundPlaces(inclinationDecimalPlaces)) {
-                formatter.formatDegrees(inclination, inclinationDecimalPlaces)
+            hooks.memo("altitude_text", inclination.safeRoundPlaces(decimalPlaces)) {
+                formatter.formatDegrees(inclination, decimalPlaces)
             }
 
         @SuppressLint("SetTextI18n")

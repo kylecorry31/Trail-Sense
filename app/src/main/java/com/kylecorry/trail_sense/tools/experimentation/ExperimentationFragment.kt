@@ -17,11 +17,12 @@ import com.kylecorry.andromeda.sense.magnetometer.LowPassMagnetometer
 import com.kylecorry.andromeda.sense.orientation.CustomRotationSensor
 import com.kylecorry.andromeda.sense.orientation.Gyroscope
 import com.kylecorry.luna.coroutines.onDefault
-import com.kylecorry.luna.timer.CoroutineTimer
 import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.sol.science.astronomy.stars.Star
 import com.kylecorry.sol.science.astronomy.stars.StarReading
+import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentExperimentationBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.formatEnumName
@@ -36,6 +37,7 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
 
     private var stars by state(listOf<StarReading>())
     private var location by state<Coordinate?>(null)
+    private var calculating by state(false)
 
     private val orientationSensor by lazy {
         val magnetometer =
@@ -87,16 +89,20 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
         binding.camera.setExposureCompensation(1f)
         binding.arView.bind(binding.camera)
         binding.arView.backgroundFillColor = Color.TRANSPARENT
-        binding.arView.inclinationDecimalPlaces = 2
+        binding.arView.decimalPlaces = 2
         binding.arView.reticleDiameter = Resources.dp(requireContext(), 8f)
         binding.arView.setLayers(listOf(gridLayer))
 
         binding.recordBtn.setOnClickListener {
             val inclination = binding.arView.inclination
             // TODO: Maybe set true north to false and calculate using a location suggested by the user
-            val azimuth = binding.arView.azimuth
+            val azimuth = Bearing.getBearing(binding.arView.azimuth)
             // TODO: Let the user specify the last known location (choose source: last known GPS location, timezone, manual)
             val approximateLocation: Coordinate? = null //locationSubsystem.location
+            // TODO: Get preview image and find the offset of the star from the center of the image to get an X (azimuth) and Y (inclination) offset
+            // TODO: This will be the nearest cluster of white pixels from the center of the image
+//            val image = binding.camera.previewImage
+//            val fov = binding.camera.fov
             inBackground {
                 val allStars = Star.entries.sortedBy { it.name }
                 val starIdx = CoroutinePickers.item(
@@ -110,8 +116,10 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
                         azimuth,
                         ZonedDateTime.now()
                     )
+                    calculating = true
                     location =
                         onDefault { Astronomy.getLocationFromStars(stars, approximateLocation) }
+                    calculating = false
                 }
             }
         }
@@ -121,11 +129,15 @@ class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() 
     override fun onUpdate() {
         super.onUpdate()
         effect2(stars) {
-            binding.text.text = stars.joinToString("\n") { "${it.star.name}: ${it.altitude}" }
+            binding.text.text =
+                stars.joinToString("\n") { "${it.star.name}: ${it.altitude}, ${it.azimuth}" }
         }
 
-        effect2(location) {
-            binding.location.text = location?.toString() ?: "Unknown"
+        effect2(location, calculating) {
+            binding.location.text =
+                if (calculating) getString(R.string.loading) else location?.toString() ?: getString(
+                    R.string.unknown
+                )
         }
     }
 
