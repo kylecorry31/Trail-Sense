@@ -1393,6 +1393,10 @@
         <item quantity="one">%d path imported</item>
         <item quantity="other">%d paths imported</item>
     </plurals>
+    <plurals name="star_count">
+        <item quantity="one">%d star</item>
+        <item quantity="other">%d stars</item>
+    </plurals>
     <string name="select_from_gallery">Select from gallery</string>
     <string name="magnetometer_gyro_custom">Magnetometer + Gyro (Custom)</string>
     <string name="pref_augmented_reality_mapper" translatable="false">pref_augmented_reality_mapper</string>
@@ -1521,4 +1525,9 @@
     <string name="star">Star</string>
     <string name="pref_show_ar_stars" translatable="false">pref_show_ar_stars</string>
     <string name="show_stars">Show stars</string>
+    <string name="celestial_navigation">Celestial Navigation</string>
+    <string name="celestial_navigation_description">Estimate your location using the stars</string>
+    <string name="approximate_location">Approximate location</string>
+    <string name="last_known_gps_location">Last known GPS location</string>
+    <string name="timezone">Timezone</string>
 </resources>
