@@ -103,6 +103,7 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         binding.camera.setScaleType(PreviewView.ScaleType.FILL_CENTER)
         binding.camera.setShowTorch(false)
         binding.camera.setExposureCompensation(1f)
+        binding.camera.setFocus(1f)
         binding.arView.bind(binding.camera)
         binding.arView.backgroundFillColor = Color.TRANSPARENT
         binding.arView.decimalPlaces = 2

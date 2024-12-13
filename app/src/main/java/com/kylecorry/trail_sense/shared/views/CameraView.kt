@@ -56,6 +56,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     private var zoom: Float = -1f
     private var isCapturing = false
     private var exposureCompensation = 0f
+    private var focus: Float? = null
 
     var passThroughTouchEvents = false
 
@@ -200,6 +201,11 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         camera?.setExposure(mapped)
     }
 
+    fun setFocus(value: Float?) {
+        focus = value
+        camera?.setFocusDistancePercentage(value)
+    }
+
     @SuppressLint("UnsafeOptInUsageError")
     private fun onCameraUpdate(): Boolean {
         if (zoom == -1f) {
@@ -207,6 +213,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         }
         setZoom(zoom)
         setExposureCompensation(exposureCompensation)
+        setFocus(focus)
         camera?.setTorch(isTorchOn)
         if (captureListener == null && imageListener == null) {
             camera?.image?.close()
