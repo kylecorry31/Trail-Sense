@@ -1237,4 +1237,16 @@
     <string name="tide_estimation_description_tide_model">Gebruikt een ingebouwd getijdenmodel om getijden te schatten voor de ingevoerde locatie, of jouw locatie als geen is ingevoerd.</string>
     <string name="star">Ster</string>
     <string name="show_stars">Toon sterren</string>
+    <string name="nearest_stars">Dichtstbijzijnde sterren</string>
+    <string name="last_known_gps_location">Laatst bekende GPS-locatie</string>
+    <string name="select_star">Selecteer ster</string>
+    <plurals name="star_count">
+        <item quantity="one">%d ster</item>
+        <item quantity="other">%d sterren</item>
+    </plurals>
+    <string name="celestial_navigation">Hemelnavigatie</string>
+    <string name="celestial_navigation_description">Schat je locatie met behulp van de sterren</string>
+    <string name="approximate_location">Geschatte locatie</string>
+    <string name="timezone">Tijdzone</string>
+    <string name="stars">Sterren</string>
 </resources>
