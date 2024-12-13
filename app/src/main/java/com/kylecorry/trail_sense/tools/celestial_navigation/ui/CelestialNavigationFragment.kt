@@ -6,34 +6,45 @@ import android.util.Range
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.camera.view.PreviewView
+import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.pickers.CoroutinePickers
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sense.accelerometer.LowPassAccelerometer
 import com.kylecorry.andromeda.sense.magnetometer.LowPassMagnetometer
 import com.kylecorry.andromeda.sense.orientation.CustomRotationSensor
 import com.kylecorry.andromeda.sense.orientation.Gyroscope
+import com.kylecorry.andromeda.views.list.ListItem
+import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.luna.coroutines.onDefault
+import com.kylecorry.sol.math.SolMath.deltaAngle
+import com.kylecorry.sol.math.SolMath.map
+import com.kylecorry.sol.math.SolMath.square
 import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.sol.science.astronomy.stars.Star
 import com.kylecorry.sol.science.astronomy.stars.StarReading
+import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCelestialNavigationBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.formatEnumName
+import com.kylecorry.trail_sense.shared.fromColorTemperature
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.providers.CompassProvider.Companion.ACCELEROMETER_LOW_PASS
 import com.kylecorry.trail_sense.shared.sensors.providers.CompassProvider.Companion.MAGNETOMETER_LOW_PASS
 import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARGridLayer
+import java.time.ZoneId
 import java.time.ZonedDateTime
 
 class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBinding>() {
@@ -107,7 +118,7 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         }
 
         binding.celestialNavigationTitle.leftButton.setOnClickListener {
-            // TODO: Open sky map bottom sheet
+            showStarList()
         }
 
         binding.celestialNavigationTitle.title.setOnLongClickListener {
@@ -117,32 +128,32 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
             true
         }
 
-        // TODO: Show the sky map with constellations to help orient the user - use their approximate location
+        binding.celestialNavigationTitle.subtitle.setOnClickListener {
+            // TODO: Let the user delete readings
+            CustomUiUtils.showList(
+                requireContext(),
+                getString(R.string.stars),
+                stars.map { ListItem(it.star.ordinal.toLong(), formatEnumName(it.star.name)) }
+            )
+        }
 
         binding.recordBtn.setOnClickListener {
             val inclination = binding.arView.inclination
             // TODO: Maybe set true north to false and calculate using a location suggested by the user
             val azimuth = Bearing.getBearing(binding.arView.azimuth)
-            // TODO: Let the user specify the last known location (choose source: last known GPS location, timezone, manual)
             // TODO: Get preview image and find the offset of the star from the center of the image to get an X (azimuth) and Y (inclination) offset
             // TODO: This will be the nearest cluster of white pixels from the center of the image
 //            val image = binding.camera.previewImage
 //            val fov = binding.camera.fov
-            inBackground {
-                val allStars = Star.entries.sortedBy { it.name }.filterNot { star ->
-                    stars.any { it.star == star }
-                }
-                val starIdx = CoroutinePickers.item(
-                    requireContext(),
-                    getString(R.string.star),
-                    allStars.map { formatEnumName(it.name) })
-                if (starIdx != null) {
-                    stars = stars + StarReading(
-                        allStars[starIdx],
-                        inclination,
-                        azimuth,
-                        ZonedDateTime.now()
-                    )
+            showStarList(true) { star ->
+                toast(formatEnumName(star.name))
+                stars = stars + StarReading(
+                    star,
+                    inclination,
+                    azimuth,
+                    ZonedDateTime.now()
+                )
+                inBackground {
                     calculating = true
                     location =
                         onDefault { Astronomy.getLocationFromStars(stars, approximateLocation) }
@@ -207,6 +218,73 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
                     locationSubsystem.location
                 }
             }
+        }
+    }
+
+    private fun showStarList(onlyUnselected: Boolean = false, onClick: ((Star) -> Unit)? = null) {
+        val allStars = getNearestStars().filter { (star, _, _) ->
+            !onlyUnselected || stars.none { it.star == star }
+        }
+
+        var dialog: AlertDialog? = null
+
+        val starItems = allStars.map { (star, starAltitude, starAzimuth) ->
+
+            val azimuthText = formatter.formatDegrees(starAzimuth.value, replace360 = true)
+                .padStart(4, ' ')
+            val directionText = formatter.formatDirection(starAzimuth.direction)
+                .padStart(2, ' ')
+
+            ListItem(
+                star.ordinal.toLong(),
+                formatEnumName(star.name),
+                "$azimuthText   $directionText\n${formatter.formatDegrees(starAltitude)}",
+                icon = ResourceListIcon(
+                    R.drawable.bubble,
+                    Colors.fromColorTemperature(Astronomy.getColorTemperature(star)),
+                    foregroundSize = map(
+                        -star.magnitude,
+                        -2f,
+                        1.5f,
+                        10f,
+                        24f,
+                        true
+                    )
+                ),
+                action = {
+                    dialog?.dismiss()
+                    onClick?.invoke(star)
+                }
+            )
+        }
+        dialog = CustomUiUtils.showList(
+            requireContext(),
+            if (onClick != null) getString(R.string.select_star) else getString(R.string.nearest_stars),
+            starItems,
+            okText = if (onClick != null) {
+                getString(android.R.string.cancel)
+            } else {
+                getString(android.R.string.ok)
+            }
+        )
+    }
+
+    private fun getNearestStars(): List<Triple<Star, Float, Bearing>> {
+        val azimuth = binding.arView.azimuth
+        val inclination = binding.arView.inclination
+
+        val lookupLocation =
+            approximateLocation ?: Time.getLocationFromTimeZone(ZoneId.systemDefault())
+
+        return Star.entries.map {
+            Triple(
+                it,
+                Astronomy.getStarAltitude(it, ZonedDateTime.now(), lookupLocation, true),
+                Astronomy.getStarAzimuth(it, ZonedDateTime.now(), lookupLocation)
+            )
+        }.sortedBy {
+            val addition = if (it.second < -5) 100000f else 0f
+            square(inclination - it.second) + square(deltaAngle(azimuth, it.third.value)) + addition
         }
     }
 

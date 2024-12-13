@@ -1530,4 +1530,7 @@
     <string name="approximate_location">Approximate location</string>
     <string name="last_known_gps_location">Last known GPS location</string>
     <string name="timezone">Timezone</string>
+    <string name="nearest_stars">Nearest stars</string>
+    <string name="select_star">Select star</string>
+    <string name="stars">Stars</string>
 </resources>

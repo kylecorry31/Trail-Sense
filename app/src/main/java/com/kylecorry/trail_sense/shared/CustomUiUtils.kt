@@ -10,13 +10,13 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.annotation.ColorInt
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
@@ -33,7 +33,6 @@ import com.kylecorry.andromeda.pickers.material.MaterialPickers
 import com.kylecorry.andromeda.views.chart.Chart
 import com.kylecorry.andromeda.views.list.AndromedaListView
 import com.kylecorry.andromeda.views.list.ListItem
-import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Pressure
@@ -498,8 +497,9 @@ object CustomUiUtils {
         context: Context,
         title: String,
         listItems: List<ListItem>,
-        emptyText: String? = null
-    ) {
+        emptyText: String? = null,
+        okText: String = context.getString(android.R.string.ok)
+    ): AlertDialog {
         val view = View.inflate(context, R.layout.view_list_dialog, null)
         val list = view.findViewById<AndromedaListView>(R.id.list)
         val empty = view.findViewById<TextView>(R.id.empty_text)
@@ -510,11 +510,12 @@ object CustomUiUtils {
 
         list.setItems(listItems)
 
-        Alerts.dialog(
+        return Alerts.dialog(
             context,
             title,
             contentView = view,
-            cancelText = null
+            cancelText = null,
+            okText = okText
         )
     }
 
