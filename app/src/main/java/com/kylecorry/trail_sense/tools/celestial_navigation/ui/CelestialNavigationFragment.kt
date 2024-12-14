@@ -50,7 +50,7 @@ import com.kylecorry.trail_sense.shared.sensors.providers.CompassProvider.Compan
 import com.kylecorry.trail_sense.shared.sensors.providers.CompassProvider.Companion.MAGNETOMETER_LOW_PASS
 import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARGridLayer
-import com.kylecorry.trail_sense.tools.celestial_navigation.domain.SimpleStarFinder
+import com.kylecorry.trail_sense.tools.celestial_navigation.domain.StandardDeviationStarFinder
 import kotlinx.coroutines.launch
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -114,7 +114,7 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         binding.camera.setShowTorch(false)
         binding.camera.setExposureCompensation(1f)
         binding.camera.setFocus(1f)
-        val threshold = Colors.createGrayscaleThresholdMatrix(200)
+        val threshold = Colors.createGrayscaleThresholdMatrix(170)
         val thresholdFilter = ColorMatrixColorFilter(threshold)
         binding.camera.setPreviewColorFilter(thresholdFilter)
         binding.arView.bind(binding.camera)
@@ -235,7 +235,7 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
                 val fov = binding.camera.fov
 
                 if (image != null) {
-                    val starPixels = onDefault { SimpleStarFinder().findStars(image) }
+                    val starPixels = onDefault { StandardDeviationStarFinder().findStars(image) }
 
                     if (starPixels.isEmpty()) {
                         return@launch
