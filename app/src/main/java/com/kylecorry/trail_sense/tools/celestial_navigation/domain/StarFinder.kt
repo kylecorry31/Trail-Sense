@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.tools.celestial_navigation.domain
 
 import android.graphics.Bitmap
-import com.kylecorry.trail_sense.shared.canvas.PixelCircle
+import com.kylecorry.andromeda.core.units.PixelCoordinate
 
 interface StarFinder {
-    fun findStars(image: Bitmap): List<PixelCircle>
+    fun findStars(image: Bitmap): List<PixelCoordinate>
 }

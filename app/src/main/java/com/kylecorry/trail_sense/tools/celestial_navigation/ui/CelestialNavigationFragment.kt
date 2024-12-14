@@ -242,17 +242,17 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
                     }
 
                     val nearestToCenter = starPixels.minByOrNull {
-                        val x = it.center.x
-                        val y = it.center.y
+                        val x = it.x
+                        val y = it.y
                         square(x - image.width / 2) + square(y - image.height / 2)
                     }
 
-                    val xPct = nearestToCenter?.center?.x?.div(image.width) ?: 0.5f
-                    val yPct = nearestToCenter?.center?.y?.div(image.height) ?: 0.5f
+                    val xPct = nearestToCenter?.x?.div(image.width) ?: 0.5f
+                    val yPct = nearestToCenter?.y?.div(image.height) ?: 0.5f
                     val azimuthAdjustment = (xPct - 0.5f) * fov.first
                     val inclinationAdjustment = (yPct - 0.5f) * fov.second
                     azimuth += azimuthAdjustment
-                    inclination += inclinationAdjustment
+                    inclination -= inclinationAdjustment
                     Log.d(
                         "CelestialNavigation",
                         "Adjustment: $azimuthAdjustment, $inclinationAdjustment"
