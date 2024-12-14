@@ -242,9 +242,6 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
 
                 if (image != null) {
                     val starPixels = onDefault { StandardDeviationStarFinder().findStars(image) }
-                    if (starPixels.isEmpty()) {
-                        return@launch
-                    }
 
                     if (isDebug()) {
                         val markers = starPixels.map {
@@ -258,6 +255,10 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
                             )
                         }
                         debugLayer.setMarkers(markers)
+                    }
+
+                    if (starPixels.isEmpty()) {
+                        return@launch
                     }
 
                     val nearestToCenter = starPixels.minByOrNull {
