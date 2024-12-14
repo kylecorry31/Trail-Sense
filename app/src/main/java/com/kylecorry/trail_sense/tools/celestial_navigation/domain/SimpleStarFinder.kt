@@ -8,7 +8,7 @@ import com.kylecorry.trail_sense.shared.camera.GrayscalePointFinder
 
 class SimpleStarFinder(private val threshold: Float = 200f) : StarFinder {
     override fun findStars(image: Bitmap): List<PixelCoordinate> {
-        val resized = image.resizeToFit(400, 400)
+        val resized = image.resizeToFit(500, 500)
 
         val xScale = resized.width.toFloat() / image.width
         val yScale = resized.height.toFloat() / image.height

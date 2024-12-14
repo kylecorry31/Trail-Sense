@@ -40,6 +40,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.createGrayscaleThresholdMatrix
+import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.formatEnumName
 import com.kylecorry.trail_sense.shared.fromColorTemperature
@@ -48,7 +49,11 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.providers.CompassProvider.Companion.ACCELEROMETER_LOW_PASS
 import com.kylecorry.trail_sense.shared.sensors.providers.CompassProvider.Companion.MAGNETOMETER_LOW_PASS
 import com.kylecorry.trail_sense.shared.sharing.Share
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.SphericalARPoint
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMarker
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasCircle
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARGridLayer
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARMarkerLayer
 import com.kylecorry.trail_sense.tools.celestial_navigation.domain.StandardDeviationStarFinder
 import kotlinx.coroutines.launch
 import java.time.ZoneId
@@ -99,6 +104,8 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         )
     }
 
+    private val debugLayer = ARMarkerLayer()
+
     private val locationSubsystem by lazy { LocationSubsystem.getInstance(requireContext()) }
 
     override fun generateBinding(
@@ -120,7 +127,7 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         binding.arView.backgroundFillColor = Color.TRANSPARENT
         binding.arView.decimalPlaces = 2
         binding.arView.reticleDiameter = Resources.dp(requireContext(), 8f)
-        binding.arView.setLayers(listOf(gridLayer))
+        binding.arView.setLayers(listOfNotNull(gridLayer, if (isDebug()) debugLayer else null))
 
         chooseApproximateLocation()
 
@@ -236,6 +243,22 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
                     val starPixels = onDefault { StandardDeviationStarFinder().findStars(image) }
                     if (starPixels.isEmpty()) {
                         return@launch
+                    }
+
+                    if (isDebug()) {
+                        val markers = starPixels.map {
+                            val point = binding.arView.toCoordinate(
+                                it,
+                                isClippedToScreen = true,
+                                azimuthOverride = azimuth,
+                                inclinationOverride = inclination
+                            )
+                            ARMarker(
+                                SphericalARPoint(point.bearing, point.elevation),
+                                CanvasCircle(Color.RED.withAlpha(1), Color.RED)
+                            )
+                        }
+                        debugLayer.setMarkers(markers)
                     }
 
                     val nearestToCenter = starPixels.minByOrNull {
