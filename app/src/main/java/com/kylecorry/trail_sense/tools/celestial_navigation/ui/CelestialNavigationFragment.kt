@@ -3,12 +3,14 @@ package com.kylecorry.trail_sense.tools.celestial_navigation.ui
 import android.graphics.Color
 import android.graphics.ColorMatrixColorFilter
 import android.os.Bundle
+import android.util.Log
 import android.util.Range
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.camera.view.PreviewView
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
@@ -20,6 +22,7 @@ import com.kylecorry.andromeda.sense.accelerometer.LowPassAccelerometer
 import com.kylecorry.andromeda.sense.magnetometer.LowPassMagnetometer
 import com.kylecorry.andromeda.sense.orientation.CustomRotationSensor
 import com.kylecorry.andromeda.sense.orientation.Gyroscope
+import com.kylecorry.andromeda.views.list.ListIcon
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.luna.coroutines.onDefault
@@ -38,6 +41,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.createGrayscaleThresholdMatrix
+import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.formatEnumName
 import com.kylecorry.trail_sense.shared.fromColorTemperature
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
@@ -46,6 +50,8 @@ import com.kylecorry.trail_sense.shared.sensors.providers.CompassProvider.Compan
 import com.kylecorry.trail_sense.shared.sensors.providers.CompassProvider.Companion.MAGNETOMETER_LOW_PASS
 import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARGridLayer
+import com.kylecorry.trail_sense.tools.celestial_navigation.domain.SimpleStarFinder
+import kotlinx.coroutines.launch
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
@@ -57,6 +63,7 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
     private var approximateLocation by state<Coordinate?>(null)
     private var calculating by state(false)
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
+    private val correctUsingCamera = true
 
     private val orientationSensor by lazy {
         val magnetometer =
@@ -140,33 +147,19 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
             CustomUiUtils.showList(
                 requireContext(),
                 getString(R.string.stars),
-                stars.map { ListItem(it.star.ordinal.toLong(), formatEnumName(it.star.name)) }
+                stars.map {
+                    ListItem(
+                        it.star.ordinal.toLong(),
+                        formatEnumName(it.star.name),
+                        formatAzimuthAndAltitude(Bearing(it.azimuth ?: 0f), it.altitude),
+                        icon = getStarIcon(it.star),
+                    )
+                }
             )
         }
 
         binding.recordBtn.setOnClickListener {
-            val inclination = binding.arView.inclination
-            // TODO: Maybe set true north to false and calculate using a location suggested by the user
-            val azimuth = Bearing.getBearing(binding.arView.azimuth)
-            // TODO: Get preview image and find the offset of the star from the center of the image to get an X (azimuth) and Y (inclination) offset
-            // TODO: This will be the nearest cluster of white pixels from the center of the image
-//            val image = binding.camera.previewImage
-//            val fov = binding.camera.fov
-            showStarList(true) { star ->
-                toast(formatEnumName(star.name))
-                stars = stars + StarReading(
-                    star,
-                    inclination,
-                    azimuth,
-                    ZonedDateTime.now()
-                )
-                inBackground {
-                    calculating = true
-                    location =
-                        onDefault { Astronomy.getLocationFromStars(stars, approximateLocation) }
-                    calculating = false
-                }
-            }
+            recordStar()
         }
     }
 
@@ -228,6 +221,70 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         }
     }
 
+    private fun recordStar() {
+        var inclination = binding.arView.inclination
+        // TODO: Maybe set true north to false and calculate using a location suggested by the user
+        var azimuth = Bearing.getBearing(binding.arView.azimuth)
+        inBackground {
+            val job = launch {
+                if (!correctUsingCamera) {
+                    return@launch
+                }
+
+                val image = binding.camera.previewImage
+                val fov = binding.camera.fov
+
+                if (image != null) {
+                    val starPixels = onDefault { SimpleStarFinder().findStars(image) }
+
+                    if (starPixels.isEmpty()) {
+                        return@launch
+                    }
+
+                    val nearestToCenter = starPixels.minByOrNull {
+                        val x = it.center.x
+                        val y = it.center.y
+                        square(x - image.width / 2) + square(y - image.height / 2)
+                    }
+
+                    val xPct = nearestToCenter?.center?.x?.div(image.width) ?: 0.5f
+                    val yPct = nearestToCenter?.center?.y?.div(image.height) ?: 0.5f
+                    val azimuthAdjustment = (xPct - 0.5f) * fov.first
+                    val inclinationAdjustment = (yPct - 0.5f) * fov.second
+                    azimuth += azimuthAdjustment
+                    inclination += inclinationAdjustment
+                    Log.d(
+                        "CelestialNavigation",
+                        "Adjustment: $azimuthAdjustment, $inclinationAdjustment"
+                    )
+                }
+            }
+
+            Alerts.withCancelableLoading(
+                requireContext(),
+                getString(R.string.loading),
+                onCancel = { job.cancel() }) {
+                job.join()
+            }
+
+            showStarList(true) { star ->
+                toast(formatEnumName(star.name))
+                stars = stars + StarReading(
+                    star,
+                    inclination,
+                    azimuth,
+                    ZonedDateTime.now()
+                )
+                inBackground {
+                    calculating = true
+                    location =
+                        onDefault { Astronomy.getLocationFromStars(stars, approximateLocation) }
+                    calculating = false
+                }
+            }
+        }
+    }
+
     private fun showStarList(onlyUnselected: Boolean = false, onClick: ((Star) -> Unit)? = null) {
         val allStars = getNearestStars().filter { (star, _, _) ->
             !onlyUnselected || stars.none { it.star == star }
@@ -236,28 +293,11 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         var dialog: AlertDialog? = null
 
         val starItems = allStars.map { (star, starAltitude, starAzimuth) ->
-
-            val azimuthText = formatter.formatDegrees(starAzimuth.value, replace360 = true)
-                .padStart(4, ' ')
-            val directionText = formatter.formatDirection(starAzimuth.direction)
-                .padStart(2, ' ')
-
             ListItem(
                 star.ordinal.toLong(),
                 formatEnumName(star.name),
-                "$azimuthText   $directionText\n${formatter.formatDegrees(starAltitude)}",
-                icon = ResourceListIcon(
-                    R.drawable.bubble,
-                    Colors.fromColorTemperature(Astronomy.getColorTemperature(star)),
-                    foregroundSize = map(
-                        -star.magnitude,
-                        -2f,
-                        1.5f,
-                        10f,
-                        24f,
-                        true
-                    )
-                ),
+                formatAzimuthAndAltitude(starAzimuth, starAltitude),
+                icon = getStarIcon(star),
                 action = {
                     dialog?.dismiss()
                     onClick?.invoke(star)
@@ -293,5 +333,28 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
             val addition = if (it.second < -5) 100000f else 0f
             square(inclination - it.second) + square(deltaAngle(azimuth, it.third.value)) + addition
         }
+    }
+
+    private fun formatAzimuthAndAltitude(azimuth: Bearing, altitude: Float): String {
+        val azimuthText = formatter.formatDegrees(azimuth.value, replace360 = true)
+            .padStart(4, ' ')
+        val directionText = formatter.formatDirection(azimuth.direction)
+            .padStart(2, ' ')
+        return "$azimuthText   $directionText\n${formatter.formatDegrees(altitude)}"
+    }
+
+    private fun getStarIcon(star: Star): ListIcon {
+        return ResourceListIcon(
+            R.drawable.bubble,
+            Colors.fromColorTemperature(Astronomy.getColorTemperature(star)),
+            foregroundSize = map(
+                -star.magnitude,
+                -2f,
+                1.5f,
+                10f,
+                24f,
+                true
+            )
+        )
     }
 }
