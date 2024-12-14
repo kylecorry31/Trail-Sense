@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.celestial_navigation.ui
 import android.graphics.Color
 import android.graphics.ColorMatrixColorFilter
 import android.os.Bundle
-import android.util.Log
 import android.util.Range
 import android.view.LayoutInflater
 import android.view.View
@@ -245,18 +244,15 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
                         val x = it.x
                         val y = it.y
                         square(x - image.width / 2) + square(y - image.height / 2)
-                    }
-
-                    val xPct = nearestToCenter?.x?.div(image.width) ?: 0.5f
-                    val yPct = nearestToCenter?.y?.div(image.height) ?: 0.5f
-                    val azimuthAdjustment = (xPct - 0.5f) * fov.first
-                    val inclinationAdjustment = (yPct - 0.5f) * fov.second
-                    azimuth += azimuthAdjustment
-                    inclination -= inclinationAdjustment
-                    Log.d(
-                        "CelestialNavigation",
-                        "Adjustment: $azimuthAdjustment, $inclinationAdjustment"
+                    } ?: return@launch
+                    val arPoint = binding.arView.toCoordinate(
+                        nearestToCenter,
+                        isClippedToScreen = true,
+                        azimuthOverride = azimuth,
+                        inclinationOverride = inclination
                     )
+                    azimuth = arPoint.bearing
+                    inclination = arPoint.elevation
                 }
             }
 

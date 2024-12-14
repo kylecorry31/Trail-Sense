@@ -40,7 +40,6 @@ import com.kylecorry.trail_sense.shared.canvas.InteractionUtils
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.safeRoundPlaces
-import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.text
 import com.kylecorry.trail_sense.shared.textDimensions
@@ -444,6 +443,34 @@ class AugmentedRealityView : CanvasView {
             if (camera?.isStarted == true) cameraMapper ?: defaultMapper else defaultMapper
         )
         return PixelCoordinate(screenPixel.x - x, screenPixel.y - y)
+    }
+
+    fun toCoordinate(
+        pixel: PixelCoordinate,
+        isClippedToScreen: Boolean = false,
+        azimuthOverride: Float? = null,
+        inclinationOverride: Float? = null
+    ): AugmentedRealityCoordinate {
+        // TODO: Adjust for side inclination
+        // TODO: Allow the user to pass in a rotation matrix (rather than azimuth/inclination)
+        val mapper = if (camera?.isStarted == true) cameraMapper ?: defaultMapper else defaultMapper
+        val screenPixel = Vector3(pixel.x + x, pixel.y + y, 0f)
+        var rect = previewRect ?: RectF(0f, 0f, width.toFloat(), height.toFloat())
+        if (isClippedToScreen) {
+            rect = RectF(
+                rect.left.coerceAtLeast(0f),
+                rect.top.coerceAtLeast(0f),
+                rect.right.coerceAtMost(width.toFloat()),
+                rect.bottom.coerceAtMost(height.toFloat())
+            )
+        }
+        val angle = mapper.getAngle(screenPixel.x, screenPixel.y, rect, fov)
+        return AugmentedRealityCoordinate.fromSpherical(
+            (azimuthOverride ?: azimuth) + angle.x,
+            (inclinationOverride ?: inclination) + angle.y,
+            Float.MAX_VALUE,
+            isTrueNorth
+        )
     }
 
     fun getActualPoint(point: Vector3, isPointTrueNorth: Boolean): Vector3 {
