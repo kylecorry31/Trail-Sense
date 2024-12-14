@@ -228,6 +228,7 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
     }
 
     private fun recordStar() {
+        val rotationMatrix = binding.arView.rotationMatrix.copyOf()
         var inclination = binding.arView.inclination
         // TODO: Maybe set true north to false and calculate using a location suggested by the user
         var azimuth = Bearing.getBearing(binding.arView.azimuth)
@@ -249,9 +250,7 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
                         val markers = starPixels.map {
                             val point = binding.arView.toCoordinate(
                                 it,
-                                isClippedToScreen = true,
-                                azimuthOverride = azimuth,
-                                inclinationOverride = inclination
+                                rotationMatrixOverride = rotationMatrix
                             )
                             ARMarker(
                                 SphericalARPoint(point.bearing, point.elevation),
@@ -268,9 +267,7 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
                     } ?: return@launch
                     val arPoint = binding.arView.toCoordinate(
                         nearestToCenter,
-                        isClippedToScreen = true,
-                        azimuthOverride = azimuth,
-                        inclinationOverride = inclination
+                        rotationMatrixOverride = rotationMatrix
                     )
                     azimuth = arPoint.bearing
                     inclination = arPoint.elevation

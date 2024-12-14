@@ -14,6 +14,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.CameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.LinearCameraAnglePixelMapper
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.SphericalARPoint
 import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.cos
@@ -23,6 +24,7 @@ object AugmentedRealityUtils {
 
     private val worldVectorLock = Any()
     private val tempWorldVector = FloatArray(4)
+    private val tempRotationMatrix = FloatArray(16)
 
     // Constants for perspective projection
     private const val minDistance = 0.1f
@@ -31,7 +33,7 @@ object AugmentedRealityUtils {
     private val linear = LinearCameraAnglePixelMapper()
     private val rect = RectF()
     private val rectLock = Any()
-    
+
     /**
      * Gets the pixel coordinate of a point on the screen given the bearing and azimuth. The point is considered to be on a plane.
      * @param bearing The compass bearing in degrees of the point
@@ -128,6 +130,29 @@ object AugmentedRealityUtils {
         )
     }
 
+    fun getCoordinate(
+        pixel: PixelCoordinate,
+        rotationMatrix: FloatArray,
+        rect: RectF,
+        fov: Size,
+        mapper: CameraAnglePixelMapper
+    ): Vector3 {
+        val world = mapper.getAngle(pixel.x, pixel.y, rect, fov)
+        // TODO: Get this working for all mappers
+//        val inversePerspective = Optics.inversePerspectiveProjection(
+////            Vector2(pixel.x, pixel.y),
+//            pixel.toVector2(rect.top),
+//            Vector2(
+//                Optics.getFocalLength(fov.width, rect.width()),
+//                Optics.getFocalLength(fov.height, rect.height())
+//            ),
+//            PixelCoordinate(rect.centerX(), rect.centerY()).toVector2(rect.top),
+//            100f
+//        )
+        val spherical = SphericalARPoint(world.x, world.y).coordinate.position
+        return arToEnu(spherical, rotationMatrix)
+    }
+
 
     /**
      * Computes the orientation of the device in the AR coordinate system.
@@ -205,6 +230,21 @@ object AugmentedRealityUtils {
             Matrix.multiplyMV(tempWorldVector, 0, rotationMatrix, 0, tempWorldVector, 0)
             // Swap y and z to convert to AR coordinate system
             Vector3(tempWorldVector[0], tempWorldVector[2], tempWorldVector[1])
+        }
+    }
+
+    fun arToEnu(ar: Vector3, rotationMatrix: FloatArray): Vector3 {
+        return synchronized(worldVectorLock) {
+            tempWorldVector[0] = ar.x
+            tempWorldVector[1] = ar.y
+            tempWorldVector[2] = ar.z
+            tempWorldVector[3] = 1f
+
+            // Invert the rotation matrix
+            Matrix.invertM(tempRotationMatrix, 0, rotationMatrix, 0)
+
+            Matrix.multiplyMV(tempWorldVector, 0, tempRotationMatrix, 0, tempWorldVector, 0)
+            Vector3(tempWorldVector[0], tempWorldVector[1], tempWorldVector[2])
         }
     }
 
