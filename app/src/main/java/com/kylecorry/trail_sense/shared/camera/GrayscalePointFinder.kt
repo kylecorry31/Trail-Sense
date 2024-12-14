@@ -1,73 +1,97 @@
 package com.kylecorry.trail_sense.shared.camera
 
 import android.graphics.Bitmap
+import android.graphics.Rect
+import android.util.Range
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.shared.colors.ColorUtils
-import com.kylecorry.trail_sense.shared.extensions.squaredDistanceTo
+import kotlin.math.max
 
 class GrayscalePointFinder(
     private val threshold: Float,
     private val minRadius: Float,
-    maxClusterDistance: Float = 10f
+    private val aspectRatioRange: Range<Float>
 ) {
-
-    private val squaredMaxClusterDistance = maxClusterDistance * maxClusterDistance
 
     fun getPoints(bitmap: Bitmap): List<PixelCircle> {
 
-        val points = mutableListOf<PixelCoordinate>()
+        val clusters = mutableListOf<Rect>()
 
-        for (x in 0 until bitmap.width) {
-            for (y in 0 until bitmap.height) {
-                val pixel = bitmap.getPixel(x, y)
-                val brightness = ColorUtils.average(pixel)
-                if (brightness >= threshold) {
-                    points.add(PixelCoordinate(x.toFloat(), y.toFloat()))
+        var x = 0
+        while (x < bitmap.width) {
+            var y = 0
+            while (y < bitmap.height) {
+                // Check if the point is already in a cluster
+                val hit = clusters.firstOrNull { it.contains(x, y) }
+                if (hit != null) {
+                    y = hit.bottom + 1
+                    continue
                 }
+
+                val star = getCluster(x, y, bitmap)
+                if (star != null) {
+                    clusters.add(star)
+                }
+                y = star?.bottom ?: y
+                y++
             }
+            x++
         }
 
-        // Cluster the points
-        val clusters = mutableListOf<Cluster>()
-
-        for (point in points) {
-            val cluster = clusters.firstOrNull { it.shouldBelongToCluster(point) }
-            if (cluster != null) {
-                cluster.add(point)
-            } else {
-                val newCluster = Cluster(squaredMaxClusterDistance)
-                newCluster.add(point)
-                clusters.add(newCluster)
+        return clusters
+            .filter {
+                val aspectRatio = it.width().toFloat() / it.height().toFloat()
+                aspectRatioRange.contains(aspectRatio)
             }
-        }
-
-        // Calculate the center and radius of each cluster
-        return clusters.map { cluster ->
-            PixelCircle(cluster.center, cluster.radius)
-        }.filter { it.radius > minRadius }.sortedBy { it.radius }
-
+            .map {
+                PixelCircle(
+                    PixelCoordinate(it.centerX().toFloat(), it.centerY().toFloat()),
+                    max(it.width().toFloat() / 2f, it.height().toFloat() / 2f)
+                )
+            }.filter {
+                it.radius > minRadius
+            }.sortedBy { it.radius }
     }
 
-    private class Cluster(private val squaredMaxClusterDistance: Float) {
-        var center: PixelCoordinate = PixelCoordinate(0f, 0f)
-        val points = mutableListOf<PixelCoordinate>()
+    private fun getCluster(startX: Int, startY: Int, bitmap: Bitmap): Rect? {
+        val hits = mutableListOf<PixelCoordinate>()
+        val visited = mutableSetOf<PixelCoordinate>()
+        val toVisit = mutableListOf(PixelCoordinate(startX.toFloat(), startY.toFloat()))
 
-        val radius: Float
-            get() {
-                return points.maxOf { center.squaredDistanceTo(it) }
+        while (toVisit.isNotEmpty()) {
+            val current = toVisit.removeAt(0)
+            if (visited.contains(current)) {
+                continue
             }
-
-        fun add(point: PixelCoordinate) {
-            points.add(point)
-            val x = points.sumOf { it.x.toDouble() } / points.size
-            val y = points.sumOf { it.y.toDouble() } / points.size
-            center = PixelCoordinate(x.toFloat(), y.toFloat())
+            visited.add(current)
+            val x = current.x.toInt()
+            val y = current.y.toInt()
+            if (x < 0 || x >= bitmap.width || y < 0 || y >= bitmap.height) {
+                continue
+            }
+            val pixel = bitmap.getPixel(x, y)
+            val brightness = ColorUtils.average(pixel)
+            if (brightness >= threshold) {
+                hits.add(current)
+                toVisit.add(PixelCoordinate(x + 1f, y.toFloat()))
+                toVisit.add(PixelCoordinate(x - 1f, y.toFloat()))
+                toVisit.add(PixelCoordinate(x.toFloat(), y + 1f))
+                toVisit.add(PixelCoordinate(x.toFloat(), y - 1f))
+            }
         }
 
-        fun shouldBelongToCluster(point: PixelCoordinate): Boolean {
-            return center.squaredDistanceTo(point) < squaredMaxClusterDistance
+        if (hits.isEmpty()) {
+            return null
         }
+
+        return Rect(
+            hits.minOf { it.x.toInt() },
+            hits.minOf { it.y.toInt() },
+            hits.maxOf { it.x.toInt() } + 1,
+            hits.maxOf { it.y.toInt() } + 1
+        )
     }
+
 
 }

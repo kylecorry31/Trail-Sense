@@ -231,11 +231,9 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
                 }
 
                 val image = binding.camera.previewImage
-                val fov = binding.camera.fov
 
                 if (image != null) {
                     val starPixels = onDefault { StandardDeviationStarFinder().findStars(image) }
-
                     if (starPixels.isEmpty()) {
                         return@launch
                     }
