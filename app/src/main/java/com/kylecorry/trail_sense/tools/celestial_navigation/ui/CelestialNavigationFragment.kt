@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.celestial_navigation.ui
 
 import android.graphics.Color
+import android.graphics.ColorMatrixColorFilter
 import android.os.Bundle
 import android.util.Range
 import android.view.LayoutInflater
@@ -36,6 +37,7 @@ import com.kylecorry.trail_sense.databinding.FragmentCelestialNavigationBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.createGrayscaleThresholdMatrix
 import com.kylecorry.trail_sense.shared.formatEnumName
 import com.kylecorry.trail_sense.shared.fromColorTemperature
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
@@ -46,6 +48,7 @@ import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARGridLayer
 import java.time.ZoneId
 import java.time.ZonedDateTime
+
 
 class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBinding>() {
 
@@ -104,6 +107,9 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         binding.camera.setShowTorch(false)
         binding.camera.setExposureCompensation(1f)
         binding.camera.setFocus(1f)
+        val threshold = Colors.createGrayscaleThresholdMatrix(200)
+        val thresholdFilter = ColorMatrixColorFilter(threshold)
+        binding.camera.setPreviewColorFilter(thresholdFilter)
         binding.arView.bind(binding.camera)
         binding.arView.backgroundFillColor = Color.TRANSPARENT
         binding.arView.decimalPlaces = 2
@@ -288,5 +294,4 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
             square(inclination - it.second) + square(deltaAngle(azimuth, it.third.value)) + addition
         }
     }
-
 }

@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared
 
 import android.graphics.Color
+import android.graphics.ColorMatrix
 import android.os.Bundle
 import android.view.View
 import android.view.Window
@@ -241,4 +242,21 @@ fun Colors.fromColorTemperature(temp: Float): Int {
     val percent = SolMath.map(temp, 1000f, 10000f, 0f, 1f, true)
 
     return map.getColor(percent)
+}
+
+
+/**
+ * Anything below the threshold will be black, anything above will be grayscale
+ */
+fun Colors.createGrayscaleThresholdMatrix(threshold: Int): ColorMatrix {
+    val range = 255 - threshold.toFloat()
+    val scale = 255 / range
+    return ColorMatrix(
+        floatArrayOf(
+            0.3333333f * scale, 0.3333333f * scale, 0.3333333f * scale, 0f, -threshold.toFloat() * scale,
+            0.3333333f * scale, 0.3333333f * scale, 0.3333333f * scale, 0f, -threshold.toFloat() * scale,
+            0.3333333f * scale, 0.3333333f * scale, 0.3333333f * scale, 0f, -threshold.toFloat() * scale,
+            0f, 0f, 0f, 1f, 0f
+        )
+    )
 }
