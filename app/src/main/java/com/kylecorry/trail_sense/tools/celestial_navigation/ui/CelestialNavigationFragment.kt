@@ -55,6 +55,7 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARGridLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARMarkerLayer
 import com.kylecorry.trail_sense.tools.celestial_navigation.domain.DifferenceOfGaussiansStarFinder
 import kotlinx.coroutines.launch
+import java.time.Duration
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
@@ -67,7 +68,7 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
     private var calculating by state(false)
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
     private val correctUsingCamera = true
-    private val starFinder = DifferenceOfGaussiansStarFinder(0.3f)
+    private val starFinder = DifferenceOfGaussiansStarFinder(0.4f)
 
     private val orientationSensor by lazy {
         val magnetometer =
@@ -118,10 +119,9 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         super.onViewCreated(view, savedInstanceState)
         binding.camera.setScaleType(PreviewView.ScaleType.FILL_CENTER)
         binding.camera.setShowTorch(false)
-//        binding.camera.setManualExposure(Duration.ofMillis(100), 6400)
-        val defaultExposure = 0.5f
-        binding.camera.setExposureCompensation(defaultExposure)
-        binding.exposureSlider.progress = (defaultExposure * 100).toInt()
+        // TODO: Maybe let the user set the exposure manually
+        // TODO: Adjust this for aperture (shutter speed)
+        binding.camera.setManualExposure(Duration.ofMillis(100), 6400)
         binding.camera.setFocus(1f)
         binding.arView.bind(binding.camera)
         binding.arView.backgroundFillColor = Color.TRANSPARENT
@@ -133,6 +133,7 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
 
         binding.exposureSlider.setOnProgressChangeListener { progress, _ ->
             val exposure = progress / 100f
+            binding.camera.setManualExposure(null, null)
             binding.camera.setExposureCompensation(exposure)
         }
 
@@ -255,7 +256,11 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
                                 rotationMatrixOverride = rotationMatrix
                             )
                             ARMarker(
-                                SphericalARPoint(point.bearing, point.elevation),
+                                SphericalARPoint(
+                                    point.bearing,
+                                    point.elevation,
+                                    angularDiameter = 0.2f
+                                ),
                                 CanvasCircle(Color.RED.withAlpha(1), Color.RED)
                             )
                         }
@@ -280,11 +285,20 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
                 }
             }
 
+            var isCancelled = false
+
             Alerts.withCancelableLoading(
                 requireContext(),
                 getString(R.string.loading),
-                onCancel = { job.cancel() }) {
+                onCancel = {
+                    job.cancel()
+                    isCancelled = true
+                }) {
                 job.join()
+            }
+
+            if (isCancelled) {
+                return@inBackground
             }
 
             showStarList(true) { star ->
