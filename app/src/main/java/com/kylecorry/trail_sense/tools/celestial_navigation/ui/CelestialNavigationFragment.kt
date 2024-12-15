@@ -52,7 +52,7 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMarker
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasCircle
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARGridLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARMarkerLayer
-import com.kylecorry.trail_sense.tools.celestial_navigation.domain.StandardDeviationStarFinder
+import com.kylecorry.trail_sense.tools.celestial_navigation.domain.DifferenceOfGaussiansStarFinder
 import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.ZoneId
@@ -67,6 +67,7 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
     private var calculating by state(false)
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
     private val correctUsingCamera = true
+    private val starFinder = DifferenceOfGaussiansStarFinder(0.3f)
 
     private val orientationSensor by lazy {
         val magnetometer =
@@ -237,7 +238,7 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
                 val image = binding.camera.previewImage
 
                 if (image != null) {
-                    val starPixels = onDefault { StandardDeviationStarFinder().findStars(image) }
+                    val starPixels = onDefault { starFinder.findStars(image) }
 
                     if (isDebug()) {
                         val markers = starPixels.map {
