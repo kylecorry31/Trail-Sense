@@ -15,8 +15,8 @@ class GrayscaleMomentFinder(private val threshold: Int, private val minPixels: I
 
         val startX = rect?.left ?: 0
         val startY = rect?.top ?: 0
-        val endX = rect?.right?.plus(1) ?: bitmap.width
-        val endY = rect?.bottom?.plus(1) ?: bitmap.height
+        val endX = rect?.right ?: bitmap.width
+        val endY = rect?.bottom ?: bitmap.height
 
         for (x in startX until endX) {
             for (y in startY until endY) {
