@@ -4,7 +4,6 @@ import android.graphics.BitmapFactory
 import androidx.test.platform.app.InstrumentationRegistry
 import com.kylecorry.andromeda.files.AssetFileSystem
 import com.kylecorry.trail_sense.tools.celestial_navigation.domain.DifferenceOfGaussiansStarFinder
-import com.kylecorry.trail_sense.tools.celestial_navigation.domain.PercentOfMaxStarFinder
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 

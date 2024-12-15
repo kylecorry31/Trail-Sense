@@ -13,6 +13,7 @@ import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
+import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
@@ -54,7 +55,6 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARGridLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARMarkerLayer
 import com.kylecorry.trail_sense.tools.celestial_navigation.domain.DifferenceOfGaussiansStarFinder
 import kotlinx.coroutines.launch
-import java.time.Duration
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
@@ -118,7 +118,10 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         super.onViewCreated(view, savedInstanceState)
         binding.camera.setScaleType(PreviewView.ScaleType.FILL_CENTER)
         binding.camera.setShowTorch(false)
-        binding.camera.setManualExposure(Duration.ofMillis(100), 6400)
+//        binding.camera.setManualExposure(Duration.ofMillis(100), 6400)
+        val defaultExposure = 0.5f
+        binding.camera.setExposureCompensation(defaultExposure)
+        binding.exposureSlider.progress = (defaultExposure * 100).toInt()
         binding.camera.setFocus(1f)
         binding.arView.bind(binding.camera)
         binding.arView.backgroundFillColor = Color.TRANSPARENT
@@ -127,6 +130,11 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         binding.arView.setLayers(listOfNotNull(gridLayer, if (isDebug()) debugLayer else null))
 
         chooseApproximateLocation()
+
+        binding.exposureSlider.setOnProgressChangeListener { progress, _ ->
+            val exposure = progress / 100f
+            binding.camera.setExposureCompensation(exposure)
+        }
 
         binding.celestialNavigationTitle.rightButton.setOnClickListener {
             stars = emptyList()

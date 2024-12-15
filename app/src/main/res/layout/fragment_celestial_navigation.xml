@@ -32,6 +32,17 @@
             android:layout_gravity="center" />
     </FrameLayout>
 
+    <SeekBar
+        android:id="@+id/exposure_slider"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:max="100"
+        android:progress="50"
+        app:layout_constraintBottom_toTopOf="@id/record_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
     <com.kylecorry.trail_sense.shared.camera.ShutterButton
         android:id="@+id/record_btn"
