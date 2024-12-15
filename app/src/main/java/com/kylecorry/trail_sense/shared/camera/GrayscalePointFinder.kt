@@ -16,6 +16,8 @@ class GrayscalePointFinder(
     private val aspectRatioRange: Range<Float>
 ) {
 
+    private val momentFinder = GrayscaleMomentFinder(threshold.toInt(), 1)
+
     fun getPoints(bitmap: Bitmap): List<PixelCircle> {
 
         val clusters = mutableListOf<Rect>()
@@ -48,7 +50,7 @@ class GrayscalePointFinder(
             }
             .map {
                 PixelCircle(
-                    PixelCoordinate(it.centerX().toFloat(), it.centerY().toFloat()),
+                    getCentroid(bitmap, it),
                     max(it.width().toFloat() / 2f, it.height().toFloat() / 2f)
                 )
             }.filter {
@@ -56,8 +58,7 @@ class GrayscalePointFinder(
             }.sortedBy { it.radius }
 
         if (isDebug()) {
-            val debugImage =
-                Bitmap.createBitmap(bitmap.width, bitmap.height, Bitmap.Config.ARGB_8888)
+            val debugImage = bitmap.copy(Bitmap.Config.ARGB_8888, true)
             for (cluster in clusters) {
                 val aspectRatio = cluster.width().toFloat() / cluster.height().toFloat()
                 val radius = max(cluster.width().toFloat() / 2f, cluster.height().toFloat() / 2f)
@@ -83,6 +84,13 @@ class GrayscalePointFinder(
         }
 
         return filtered
+    }
+
+    private fun getCentroid(bitmap: Bitmap, rect: Rect): PixelCoordinate {
+        return momentFinder.getMoment(bitmap, rect) ?: PixelCoordinate(
+            rect.centerX().toFloat(),
+            rect.centerY().toFloat()
+        )
     }
 
     private fun getCluster(startX: Int, startY: Int, bitmap: Bitmap): Rect? {
