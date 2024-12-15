@@ -1205,4 +1205,17 @@
     <string name="star">Estrela</string>
     <string name="show_stars">Mostrar estrelas</string>
     <string name="tide_estimation_description_lunitidal_interval_utc">Usa a posição da lua para estimar as marés. Requer o intervalo lunitidal UTC.</string>
+    <string name="celestial_navigation">Navegação celestial</string>
+    <string name="approximate_location">Localização aproximada</string>
+    <string name="last_known_gps_location">Última localização conhecida a partir do GPS</string>
+    <string name="timezone">Fuso-horário</string>
+    <string name="select_star">Escolha uma estrela</string>
+    <string name="nearest_stars">Estrelas mais próximas</string>
+    <string name="stars">Estrelas</string>
+    <plurals name="star_count">
+        <item quantity="one">%d estrela</item>
+        <item quantity="many">%d estrelas</item>
+        <item quantity="other">%d estrelas</item>
+    </plurals>
+    <string name="celestial_navigation_description">Estimar sua localização usando as estrelas</string>
 </resources>

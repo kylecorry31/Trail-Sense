@@ -1226,4 +1226,15 @@
     <string name="tide_estimation_description_lunitidal_interval_utc">使用月亮位置预测潮汐。需要 UTC 月潮间隔。</string>
     <string name="star">星星</string>
     <string name="show_stars">显示星星</string>
+    <string name="nearest_stars">最近的星星</string>
+    <string name="select_star">选择星星</string>
+    <string name="stars">星星</string>
+    <plurals name="star_count">
+        <item quantity="other">%d 颗星星</item>
+    </plurals>
+    <string name="celestial_navigation">天文导航</string>
+    <string name="celestial_navigation_description">使用星星估计你的位置</string>
+    <string name="approximate_location">大概位置</string>
+    <string name="last_known_gps_location">上个已知的 GPS 位置</string>
+    <string name="timezone">时区</string>
 </resources>
