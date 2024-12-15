@@ -7,9 +7,13 @@ import com.kylecorry.sol.math.SolMath.square
 import com.kylecorry.trail_sense.shared.colors.ColorUtils
 import kotlin.math.sqrt
 
-class StandardDeviationStarFinder : StarFinder {
+class StandardDeviationStarFinder(
+    private val sigma: Float = 4f,
+    private val minBrightness: Float = 40f,
+    private val maxBrightness: Float = 240f
+) : StarFinder {
     override fun findStars(image: Bitmap): List<PixelCoordinate> {
-        val resized = image.resizeToFit(400, 400)
+        val resized = image.resizeToFit(600, 600)
 
         try {
             var mean = 0.0
@@ -36,7 +40,12 @@ class StandardDeviationStarFinder : StarFinder {
             resized.recycle()
 
             val simpleFinder =
-                SimpleStarFinder((mean.toFloat() + 5 * stdDev.toFloat()).coerceIn(100f, 240f))
+                SimpleStarFinder(
+                    (mean.toFloat() + sigma * stdDev.toFloat()).coerceIn(
+                        minBrightness,
+                        maxBrightness
+                    )
+                )
             return simpleFinder.findStars(image)
         } finally {
             resized.recycle()

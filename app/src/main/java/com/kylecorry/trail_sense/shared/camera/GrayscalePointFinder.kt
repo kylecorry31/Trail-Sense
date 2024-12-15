@@ -50,7 +50,7 @@ class GrayscalePointFinder(
                     max(it.width().toFloat() / 2f, it.height().toFloat() / 2f)
                 )
             }.filter {
-                it.radius > minRadius
+                it.radius >= minRadius
             }.sortedBy { it.radius }
     }
 

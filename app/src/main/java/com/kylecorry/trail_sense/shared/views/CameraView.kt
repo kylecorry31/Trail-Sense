@@ -30,6 +30,7 @@ import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.trail_sense.R
 import java.io.File
+import java.time.Duration
 import kotlin.math.roundToInt
 
 class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
@@ -58,6 +59,8 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     private var zoom: Float = -1f
     private var isCapturing = false
     private var exposureCompensation = 0f
+    private var exposureTime: Duration? = null
+    private var sensitivity: Int? = null
     private var focus: Float? = null
 
     var passThroughTouchEvents = false
@@ -203,6 +206,13 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         camera?.setExposure(mapped)
     }
 
+    fun setManualExposure(exposureTime: Duration?, sensitivity: Int?) {
+        this.exposureTime = exposureTime
+        this.sensitivity = sensitivity
+        camera?.setExposureTime(exposureTime)
+        camera?.setSensitivity(sensitivity)
+    }
+
     fun setFocus(value: Float?) {
         focus = value
         camera?.setFocusDistancePercentage(value)
@@ -228,6 +238,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         setZoom(zoom)
         setExposureCompensation(exposureCompensation)
         setFocus(focus)
+        setManualExposure(exposureTime, sensitivity)
         camera?.setTorch(isTorchOn)
         if (captureListener == null && imageListener == null) {
             camera?.image?.close()
