@@ -1263,4 +1263,17 @@
     <string name="tide_estimation_description_tide_model">Používá vestavěný model přílivu a odlivu k odhadu přílivu a odlivu pro zadanou polohu nebo vaši polohu, pokud není zadána.</string>
     <string name="show_stars">Zobrazit hvězdy</string>
     <string name="star">Hvězda</string>
+    <string name="select_star">Vybrat hvězdu</string>
+    <plurals name="star_count">
+        <item quantity="one">%d hvězda</item>
+        <item quantity="few">%d hvězdy</item>
+        <item quantity="other">%d hvězd</item>
+    </plurals>
+    <string name="approximate_location">Přibližná poloha</string>
+    <string name="last_known_gps_location">Poslední známá poloha GPS</string>
+    <string name="timezone">Časové pásmo</string>
+    <string name="stars">Hvězdy</string>
+    <string name="celestial_navigation">Navigace pomocí hvězd</string>
+    <string name="nearest_stars">Nejbližší hvězdy</string>
+    <string name="celestial_navigation_description">Odhadněte svou polohu pomocí věc</string>
 </resources>
