@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Rect
 import android.util.Range
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils.threshold
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.shared.colors.ColorUtils
@@ -16,16 +17,18 @@ class GrayscalePointFinder(
     private val aspectRatioRange: Range<Float>
 ) {
 
-    private val momentFinder = GrayscaleMomentFinder(threshold.toInt(), 1)
+    private val momentFinder = GrayscaleMomentFinder(0, 0)
 
     fun getPoints(bitmap: Bitmap): List<PixelCircle> {
+
+        val thresholdImage = bitmap.threshold(threshold.toInt(), false)
 
         val clusters = mutableListOf<Rect>()
 
         var x = 0
-        while (x < bitmap.width) {
+        while (x < thresholdImage.width) {
             var y = 0
-            while (y < bitmap.height) {
+            while (y < thresholdImage.height) {
                 // Check if the point is already in a cluster
                 val hit = clusters.firstOrNull { it.contains(x, y) }
                 if (hit != null) {
@@ -33,7 +36,7 @@ class GrayscalePointFinder(
                     continue
                 }
 
-                val star = getCluster(x, y, bitmap)
+                val star = getCluster(x, y, thresholdImage)
                 if (star != null) {
                     clusters.add(star)
                 }
@@ -50,12 +53,14 @@ class GrayscalePointFinder(
             }
             .map {
                 PixelCircle(
-                    getCentroid(bitmap, it),
+                    getCentroid(thresholdImage, it),
                     max(it.width().toFloat() / 2f, it.height().toFloat() / 2f)
                 )
             }.filter {
                 it.radius >= minRadius
             }.sortedBy { it.radius }
+
+        thresholdImage.recycle()
 
         if (isDebug()) {
             val debugImage = bitmap.copy(Bitmap.Config.ARGB_8888, true)
@@ -111,7 +116,7 @@ class GrayscalePointFinder(
             }
             val pixel = bitmap.getPixel(x, y)
             val brightness = ColorUtils.average(pixel)
-            if (brightness >= threshold) {
+            if (brightness > 0) {
                 hits.add(current)
                 toVisit.add(PixelCoordinate(x + 1f, y.toFloat()))
                 toVisit.add(PixelCoordinate(x - 1f, y.toFloat()))

@@ -1,11 +1,10 @@
 package com.kylecorry.trail_sense.tools.celestial_navigation.domain
 
 import android.graphics.Bitmap
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils.average
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeToFit
+import com.kylecorry.andromeda.core.bitmap.BitmapUtils.standardDeviation
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.sol.math.SolMath.square
-import com.kylecorry.trail_sense.shared.colors.ColorUtils
-import kotlin.math.sqrt
 
 class StandardDeviationStarFinder(
     private val sigma: Float = 4f,
@@ -16,32 +15,13 @@ class StandardDeviationStarFinder(
         val resized = image.resizeToFit(600, 600)
 
         try {
-            var mean = 0.0
-            for (x in 0 until resized.width) {
-                for (y in 0 until resized.height) {
-                    val pixel = resized.getPixel(x, y)
-                    val brightness = ColorUtils.average(pixel)
-                    mean += brightness
-                }
-            }
-
-            mean /= resized.width * resized.height
-
-            var stdDev = 0.0
-            for (x in 0 until resized.width) {
-                for (y in 0 until resized.height) {
-                    val pixel = resized.getPixel(x, y)
-                    val brightness = ColorUtils.average(pixel)
-                    stdDev += square(brightness - mean)
-                }
-            }
-
-            stdDev = sqrt(stdDev / (resized.width * resized.height))
+            val mean = resized.average()
+            val stdDev = resized.standardDeviation(average = mean)
             resized.recycle()
 
             val simpleFinder =
                 SimpleStarFinder(
-                    (mean.toFloat() + sigma * stdDev.toFloat()).coerceIn(
+                    (mean + sigma * stdDev).coerceIn(
                         minBrightness,
                         maxBrightness
                     )
