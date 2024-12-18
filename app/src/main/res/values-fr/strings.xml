@@ -541,7 +541,7 @@
     <string name="elevation_override_resolution">Activer le calibrage automatique dans les paramètres.</string>
     <string name="battery_usage_restricted">Utilisation de la batterie bridée</string>
     <string name="power_saving_mode_resolution">Désactiver l’économiseur de batterie</string>
-    <string name="battery_restricted_resolution">Définir Trail Sense comme Non Optimisé</string>
+    <string name="battery_restricted_resolution">Définir Trail Sense comme non optimisé</string>
     <string name="delete_path">Effacer chemin \?</string>
     <string name="old">Ancien</string>
     <string name="export_path_error">Erreur d’exportation du chemin</string>
@@ -600,7 +600,7 @@
     <string name="packing_lists">Liste de bagage</string>
     <string name="percent_packed">%s empaqueté</string>
     <string name="wgs84">WGS 84</string>
-    <string name="quarter_moon">Quartier de Lune</string>
+    <string name="quarter_moon">Quartier de lune</string>
     <string name="no_permission">Permission non accordée</string>
     <string name="no_issues">Pas d’erreur détectée</string>
     <string name="notifications_blocked">Notifications bloquées</string>
@@ -614,7 +614,7 @@
     <string name="pref_show_last_signal_beacon_summary">Crée une balise à la dernière position avec signal réseau</string>
     <string name="hygiene">Hygiène</string>
     <string name="sighting_compass">Boussole</string>
-    <string name="gps_unavailable_resolution">Activer la position ou changer la source vers Appareil seulement ou Haute précision</string>
+    <string name="gps_unavailable_resolution">Activer la position ou changer la source vers « Appareil seulement » ou « Haute précision »</string>
     <string name="high_tide">Haute</string>
     <string name="low_tide">Basse</string>
     <string name="us_quarts">Quarts US</string>
@@ -974,7 +974,7 @@
     <string name="weather_alert_storm_description">Préparez-vous à des vents forts et à de fortes précipitations.</string>
     <string name="pref_backfill_temperatures_title">Mettre à jour les températures enregistrées</string>
     <string name="pref_backfill_temperatures_description">Toutes les températures enregistrées seront remplacées par les températures historiques calibrées.</string>
-    <string name="crop_map_instructions_long">Faites glisser les coins de la zone vers les coins de la carte à définir.</string>
+    <string name="crop_map_instructions_long">Faites glisser les coins de la zone vers les coins de la carte à définir. Le recadrage réduit la résolution de la carte.</string>
     <string name="pref_show_temperature_in_notification_title">Afficher la température dans la notification</string>
     <string name="backup">Sauvegarde</string>
     <string name="restore">Restaurer</string>
@@ -983,7 +983,7 @@
 \nNe sélectionnez qu\'un fichier de sauvegarde que vous avez créé avec %s et en qui vous avez confiance.</string>
     <string name="backing_up_loading_message">En cours de sauvegarde…</string>
     <string name="invalid_backup_file">Fichier de sauvegarde invalide</string>
-    <string name="backup_restore">Sauvegarde / Restauration</string>
+    <string name="backup_restore">Sauvegarde / restauration</string>
     <string name="historic_temperatures">Températures historiques</string>
     <string name="loading">Chargement</string>
     <string name="calibrate_map_point">Calibrer avec des emplacements connus (%1$d / %2$d)</string>
@@ -1071,7 +1071,7 @@
     <string name="obscuration">Obscurcissement</string>
     <string name="backtrack_no_permission">Historique de l\'itinéraire nécessite une autorisation d\'emplacement pour fonctionner</string>
     <string name="reset_calibration">Réinitialiser la calibration</string>
-    <string name="beta_disclaimer">Cet outil est actuellement en version bêta, veuillez donc signaler tout problème ou commentaire à %s.</string>
+    <string name="beta_disclaimer">Cet outil est actuellement en version bêta, veuillez signaler tout problème ou commentaire à %s.</string>
     <string name="i_agree">J\'accepte</string>
     <string name="enter_manually">Saisir manuellement</string>
     <string name="augmented_reality">Réalité augmentée</string>
@@ -1119,4 +1119,6 @@
     <string name="no_sensor_unable_to_fix">Non, il s\'agit malheureusement d\'une fonctionnalité du matériel, il n\'y a donc rien à faire pour l\'ajouter.</string>
     <string name="missing_sensor_explanation">Certains fabricants de téléphones choisissent de ne pas ajouter ce capteur, même sur les appareils nouveaux ou chers. Vous pouvez obtenir plus d\'informations en visitant le site web du fabricant de votre appareil ou en prenant contact avec lui.</string>
     <string name="reset_calibration_question">Réinitialiser l\'étalonnage ?</string>
+    <string name="sunrise_alert_scheduled">Alerte planifiée pour %s avant le levé du soleil</string>
+    <string name="missing_sensor_message_1">Votre %1$s ne possède pas de capteur %2$s intégré. Malheureusement, cela signifie que certaines fonctionnalités de %3$s ne seront pas disponibles.</string>
 </resources>
