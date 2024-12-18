@@ -7,10 +7,10 @@ import com.kylecorry.andromeda.core.bitmap.BitmapUtils.threshold
 import com.kylecorry.andromeda.core.bitmap.BitmapUtils.use
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 
-class GrayscaleMomentFinder(private val threshold: Int, private val minPixels: Int) {
+class GrayscaleMomentFinder(private val threshold: Float, private val minPixels: Int) {
 
     fun getMoment(bitmap: Bitmap, rect: Rect? = null): PixelCoordinate? {
-        if (threshold == 0) {
+        if (threshold == 0f) {
             return bitmap.moment(rect = rect)
         }
 

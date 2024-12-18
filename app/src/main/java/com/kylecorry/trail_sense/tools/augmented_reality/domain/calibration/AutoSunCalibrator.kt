@@ -23,7 +23,7 @@ class AutoSunCalibrator : IARCalibrator {
                 image.recycle()
             }
 
-            val momentFinder = GrayscaleMomentFinder(245, 5)
+            val momentFinder = GrayscaleMomentFinder(245f, 5)
 
             try {
                 val moment = momentFinder.getMoment(scaled) ?: return@onDefault null
