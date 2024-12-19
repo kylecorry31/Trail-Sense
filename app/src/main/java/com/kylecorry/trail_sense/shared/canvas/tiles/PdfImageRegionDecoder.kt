@@ -7,7 +7,7 @@ import android.graphics.Rect
 import android.net.Uri
 import android.util.Size
 import androidx.core.graphics.toRectF
-import com.davemorrissey.labs.subscaleview.decoder.ImageRegionDecoder
+import com.kylecorry.andromeda.views.subscaleview.decoder.ImageRegionDecoder
 import com.kylecorry.andromeda.pdf.PDFRenderer2
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 

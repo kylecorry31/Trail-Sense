@@ -5,7 +5,8 @@ androidXTestRunner = "1.6.2"
 androidXTestUiAutomator = "2.3.0"
 androidXArchCore = "2.2.0"
 androidXCoreRemoteViews = "1.1.0"
-andromedaVersion = "12.0.0"
+androidXExifinterfaceVersion = "1.3.7"
+andromedaVersion = "12.1.0"
 cameraxVersion = "1.4.1"
 coreKtx = "1.15.0"
 appcompat = "1.7.0"
@@ -33,7 +34,6 @@ luna = "0.3.6"
 mockitoKotlin = "5.1.0"
 roomVersion = "2.6.1"
 sol = "10.0.3"
-subsamplingScaleImageView = "3.11.9"
 workRuntimeKtx = "2.10.0"
 preferenceKtx = "1.2.1"
 
@@ -48,6 +48,7 @@ androidx-test-arch-core = { module = "androidx.arch.core:core-testing", version.
 androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltCompilerVersion" }
 androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hiltWorkVersion" }
 androidx-core-remoteviews = { module = "androidx.core:core-remoteviews", version.ref = "androidXCoreRemoteViews" }
+androidx-exifinterface = { module = "androidx.exifinterface:exifinterface", version.ref = "androidXExifinterfaceVersion" }
 andromeda-battery = { module = "com.kylecorry.andromeda:battery", version.ref = "andromedaVersion" }
 andromeda-haptics = { module = "com.kylecorry.andromeda:haptics", version.ref = "andromedaVersion" }
 andromeda-clipboard = { module = "com.kylecorry.andromeda:clipboard", version.ref = "andromedaVersion" }
@@ -110,7 +111,6 @@ room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomVersion" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomVersion" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomVersion" }
 sol = { module = "com.kylecorry:sol", version.ref = "sol" }
-subsampling-scale-image-view = { module = "com.github.kylecorry31:subsampling-scale-image-view", version.ref = "subsamplingScaleImageView" }
 work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntimeKtx" }
 preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "preferenceKtx" }
 hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hiltAndroidVersion" }

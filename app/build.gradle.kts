@@ -138,6 +138,7 @@ dependencies {
     implementation(libs.camera.lifecycle)
     implementation(libs.camera.view)
     implementation(libs.androidx.core.remoteviews)
+    implementation(libs.androidx.exifinterface)
 
     // Material
     implementation(libs.material)
@@ -186,7 +187,6 @@ dependencies {
     ksp(libs.androidx.hilt.compiler)
 
     // Misc
-    implementation(libs.subsampling.scale.image.view)
     implementation(libs.sol)
     implementation(libs.luna)
 

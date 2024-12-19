@@ -8,10 +8,10 @@ import android.graphics.PointF
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
-import com.davemorrissey.labs.subscaleview.ImageSource
-import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
-import com.davemorrissey.labs.subscaleview.decoder.SkiaImageDecoder
-import com.davemorrissey.labs.subscaleview.decoder.SkiaImageRegionDecoder
+import com.kylecorry.andromeda.views.subscaleview.ImageSource
+import com.kylecorry.andromeda.views.subscaleview.SubsamplingScaleImageView
+import com.kylecorry.andromeda.views.subscaleview.decoder.SkiaImageDecoder
+import com.kylecorry.andromeda.views.subscaleview.decoder.SkiaImageRegionDecoder
 import com.kylecorry.andromeda.canvas.CanvasDrawer
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.tryOrNothing
