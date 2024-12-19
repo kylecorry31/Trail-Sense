@@ -5,7 +5,7 @@ androidXTestRunner = "1.6.2"
 androidXTestUiAutomator = "2.3.0"
 androidXArchCore = "2.2.0"
 androidXCoreRemoteViews = "1.1.0"
-andromedaVersion = "fe2a20b99f"
+andromedaVersion = "12.0.0"
 cameraxVersion = "1.4.1"
 coreKtx = "1.15.0"
 appcompat = "1.7.0"
@@ -29,10 +29,10 @@ legacySupportV4 = "1.0.0"
 navVersion = "2.8.5"
 lifecycleVersion = "2.8.7"
 material = "1.10.0"
-luna = "0.3.5"
+luna = "0.3.6"
 mockitoKotlin = "5.1.0"
 roomVersion = "2.6.1"
-sol = "10.0.2"
+sol = "10.0.3"
 subsamplingScaleImageView = "3.11.9"
 workRuntimeKtx = "2.10.0"
 preferenceKtx = "1.2.1"
@@ -48,37 +48,38 @@ androidx-test-arch-core = { module = "androidx.arch.core:core-testing", version.
 androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltCompilerVersion" }
 androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hiltWorkVersion" }
 androidx-core-remoteviews = { module = "androidx.core:core-remoteviews", version.ref = "androidXCoreRemoteViews" }
-andromeda-battery = { module = "com.github.kylecorry31.andromeda:battery", version.ref = "andromedaVersion" }
-andromeda-buzz = { module = "com.github.kylecorry31.andromeda:buzz", version.ref = "andromedaVersion" }
-andromeda-clipboard = { module = "com.github.kylecorry31.andromeda:clipboard", version.ref = "andromedaVersion" }
-andromeda-exceptions = { module = "com.github.kylecorry31.andromeda:exceptions", version.ref = "andromedaVersion" }
-andromeda-compression = { module = "com.github.kylecorry31.andromeda:compression", version.ref = "andromedaVersion" }
-andromeda-markdown = { module = "com.github.kylecorry31.andromeda:markdown", version.ref = "andromedaVersion" }
-andromeda-list = { module = "com.github.kylecorry31.andromeda:list", version.ref = "andromedaVersion" }
-andromeda-alerts = { module = "com.github.kylecorry31.andromeda:alerts", version.ref = "andromedaVersion" }
-andromeda-notify = { module = "com.github.kylecorry31.andromeda:notify", version.ref = "andromedaVersion" }
-andromeda-files = { module = "com.github.kylecorry31.andromeda:files", version.ref = "andromedaVersion" }
-andromeda-canvas = { module = "com.github.kylecorry31.andromeda:canvas", version.ref = "andromedaVersion" }
-andromeda-core = { module = "com.github.kylecorry31.andromeda:core", version.ref = "andromedaVersion" }
-andromeda-pdf = { module = "com.github.kylecorry31.andromeda:pdf", version.ref = "andromedaVersion" }
-andromeda-permissions = { module = "com.github.kylecorry31.andromeda:permissions", version.ref = "andromedaVersion" }
-andromeda-pickers = { module = "com.github.kylecorry31.andromeda:pickers", version.ref = "andromedaVersion" }
-andromeda-preferences = { module = "com.github.kylecorry31.andromeda:preferences", version.ref = "andromedaVersion" }
-andromeda-print = { module = "com.github.kylecorry31.andromeda:print", version.ref = "andromedaVersion" }
-andromeda-qr = { module = "com.github.kylecorry31.andromeda:qr", version.ref = "andromedaVersion" }
-andromeda-signal = { module = "com.github.kylecorry31.andromeda:signal", version.ref = "andromedaVersion" }
-andromeda-sense = { module = "com.github.kylecorry31.andromeda:sense", version.ref = "andromedaVersion" }
-andromeda-sound = { module = "com.github.kylecorry31.andromeda:sound", version.ref = "andromedaVersion" }
-andromeda-gpx = { module = "com.github.kylecorry31.andromeda:gpx", version.ref = "andromedaVersion" }
-andromeda-camera = { module = "com.github.kylecorry31.andromeda:camera", version.ref = "andromedaVersion" }
-andromeda-background = { module = "com.github.kylecorry31.andromeda:background", version.ref = "andromedaVersion" }
-andromeda-csv = { module = "com.github.kylecorry31.andromeda:csv", version.ref = "andromedaVersion" }
-andromeda-xml = { module = "com.github.kylecorry31.andromeda:xml", version.ref = "andromedaVersion" }
-andromeda-forms = { module = "com.github.kylecorry31.andromeda:forms", version.ref = "andromedaVersion" }
-andromeda-fragments = { module = "com.github.kylecorry31.andromeda:fragments", version.ref = "andromedaVersion" }
-andromeda-torch = { module = "com.github.kylecorry31.andromeda:torch", version.ref = "andromedaVersion" }
-andromeda-views = { module = "com.github.kylecorry31.andromeda:views", version.ref = "andromedaVersion" }
-andromeda-widgets = { module = "com.github.kylecorry31.andromeda:widgets", version.ref = "andromedaVersion" }
+andromeda-battery = { module = "com.kylecorry.andromeda:battery", version.ref = "andromedaVersion" }
+andromeda-haptics = { module = "com.kylecorry.andromeda:haptics", version.ref = "andromedaVersion" }
+andromeda-clipboard = { module = "com.kylecorry.andromeda:clipboard", version.ref = "andromedaVersion" }
+andromeda-exceptions = { module = "com.kylecorry.andromeda:exceptions", version.ref = "andromedaVersion" }
+andromeda-compression = { module = "com.kylecorry.andromeda:compression", version.ref = "andromedaVersion" }
+andromeda-markdown = { module = "com.kylecorry.andromeda:markdown", version.ref = "andromedaVersion" }
+andromeda-list = { module = "com.kylecorry.andromeda:list", version.ref = "andromedaVersion" }
+andromeda-alerts = { module = "com.kylecorry.andromeda:alerts", version.ref = "andromedaVersion" }
+andromeda-notify = { module = "com.kylecorry.andromeda:notify", version.ref = "andromedaVersion" }
+andromeda-files = { module = "com.kylecorry.andromeda:files", version.ref = "andromedaVersion" }
+andromeda-canvas = { module = "com.kylecorry.andromeda:canvas", version.ref = "andromedaVersion" }
+andromeda-core = { module = "com.kylecorry.andromeda:core", version.ref = "andromedaVersion" }
+andromeda-bitmaps = { module = "com.kylecorry.andromeda:bitmaps", version.ref = "andromedaVersion" }
+andromeda-pdf = { module = "com.kylecorry.andromeda:pdf", version.ref = "andromedaVersion" }
+andromeda-permissions = { module = "com.kylecorry.andromeda:permissions", version.ref = "andromedaVersion" }
+andromeda-pickers = { module = "com.kylecorry.andromeda:pickers", version.ref = "andromedaVersion" }
+andromeda-preferences = { module = "com.kylecorry.andromeda:preferences", version.ref = "andromedaVersion" }
+andromeda-print = { module = "com.kylecorry.andromeda:print", version.ref = "andromedaVersion" }
+andromeda-qr = { module = "com.kylecorry.andromeda:qr", version.ref = "andromedaVersion" }
+andromeda-signal = { module = "com.kylecorry.andromeda:signal", version.ref = "andromedaVersion" }
+andromeda-sense = { module = "com.kylecorry.andromeda:sense", version.ref = "andromedaVersion" }
+andromeda-sound = { module = "com.kylecorry.andromeda:sound", version.ref = "andromedaVersion" }
+andromeda-gpx = { module = "com.kylecorry.andromeda:gpx", version.ref = "andromedaVersion" }
+andromeda-camera = { module = "com.kylecorry.andromeda:camera", version.ref = "andromedaVersion" }
+andromeda-background = { module = "com.kylecorry.andromeda:background", version.ref = "andromedaVersion" }
+andromeda-csv = { module = "com.kylecorry.andromeda:csv", version.ref = "andromedaVersion" }
+andromeda-xml = { module = "com.kylecorry.andromeda:xml", version.ref = "andromedaVersion" }
+andromeda-forms = { module = "com.kylecorry.andromeda:forms", version.ref = "andromedaVersion" }
+andromeda-fragments = { module = "com.kylecorry.andromeda:fragments", version.ref = "andromedaVersion" }
+andromeda-torch = { module = "com.kylecorry.andromeda:torch", version.ref = "andromedaVersion" }
+andromeda-views = { module = "com.kylecorry.andromeda:views", version.ref = "andromedaVersion" }
+andromeda-widgets = { module = "com.kylecorry.andromeda:widgets", version.ref = "andromedaVersion" }
 camera-view = { module = "androidx.camera:camera-view", version.ref = "cameraxVersion" }
 camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "cameraxVersion" }
 camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraxVersion" }
@@ -100,7 +101,7 @@ kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutine
 legacy-support-v4 = { module = "androidx.legacy:legacy-support-v4", version.ref = "legacySupportV4" }
 lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleVersion" }
 lifecycle-service = { module = "androidx.lifecycle:lifecycle-service", version.ref = "lifecycleVersion" }
-luna = { module = "com.github.kylecorry31:luna", version.ref = "luna" }
+luna = { module = "com.kylecorry:luna", version.ref = "luna" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
 navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navVersion" }
@@ -108,7 +109,7 @@ navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-kt
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomVersion" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomVersion" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomVersion" }
-sol = { module = "com.github.kylecorry31:sol", version.ref = "sol" }
+sol = { module = "com.kylecorry:sol", version.ref = "sol" }
 subsampling-scale-image-view = { module = "com.github.kylecorry31:subsampling-scale-image-view", version.ref = "subsamplingScaleImageView" }
 work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntimeKtx" }
 preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "preferenceKtx" }

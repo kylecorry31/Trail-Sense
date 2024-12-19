@@ -5,7 +5,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Rect
 import android.graphics.RectF
 import android.util.Size
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils
+import com.kylecorry.andromeda.bitmaps.BitmapUtils
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.luna.coroutines.onIO

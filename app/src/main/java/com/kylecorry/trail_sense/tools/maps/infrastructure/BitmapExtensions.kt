@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.maps.infrastructure
 
 import android.graphics.Bitmap
 import androidx.annotation.ColorInt
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.fixPerspective
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.fixPerspective
 import com.kylecorry.trail_sense.tools.maps.domain.PixelBounds
 
 

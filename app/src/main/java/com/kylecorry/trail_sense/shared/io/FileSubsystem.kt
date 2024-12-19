@@ -8,7 +8,7 @@ import android.net.Uri
 import android.util.Size
 import android.webkit.MimeTypeMap
 import androidx.core.net.toUri
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils
+import com.kylecorry.andromeda.bitmaps.BitmapUtils
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.files.ExternalFileSystem

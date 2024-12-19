@@ -2,9 +2,9 @@ package com.kylecorry.trail_sense.shared.camera
 
 import android.graphics.Bitmap
 import android.graphics.Rect
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.moment
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.threshold
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.use
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.moment
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.threshold
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.use
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 
 class GrayscaleMomentFinder(private val threshold: Float, private val minPixels: Int) {

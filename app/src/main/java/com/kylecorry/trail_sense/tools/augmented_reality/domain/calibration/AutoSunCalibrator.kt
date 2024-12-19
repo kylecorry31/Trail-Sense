@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.augmented_reality.domain.calibration
 
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeToFit
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.resizeToFit
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.trail_sense.shared.camera.GrayscaleMomentFinder

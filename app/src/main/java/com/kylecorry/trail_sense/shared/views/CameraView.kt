@@ -24,7 +24,7 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.andromeda.camera.ICamera
 import com.kylecorry.andromeda.camera.ImageCaptureSettings
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.toBitmap
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.toBitmap
 import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.SolMath

@@ -10,9 +10,9 @@ import androidx.core.net.toFile
 import androidx.core.view.isVisible
 import androidx.exifinterface.media.ExifInterface
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeExact
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.rotate
+import com.kylecorry.andromeda.bitmaps.BitmapUtils
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.resizeExact
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.rotate
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.coroutines.onMain

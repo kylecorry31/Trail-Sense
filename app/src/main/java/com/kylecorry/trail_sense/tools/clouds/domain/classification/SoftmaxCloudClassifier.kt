@@ -2,8 +2,8 @@ package com.kylecorry.trail_sense.tools.clouds.domain.classification
 
 import android.graphics.Bitmap
 import android.graphics.Rect
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.glcm
-import com.kylecorry.andromeda.core.bitmap.ColorChannel
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.glcm
+import com.kylecorry.andromeda.bitmaps.ColorChannel
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.classifiers.LogisticRegressionClassifier
 import com.kylecorry.sol.math.statistics.Statistics

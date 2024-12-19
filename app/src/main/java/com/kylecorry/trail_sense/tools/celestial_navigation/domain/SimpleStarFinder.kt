@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.celestial_navigation.domain
 
 import android.graphics.Bitmap
 import android.util.Range
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeToFit
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.resizeToFit
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.shared.camera.GrayscalePointFinder
 

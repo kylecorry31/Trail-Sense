@@ -6,7 +6,7 @@ import androidx.core.graphics.alpha
 import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
-import com.kylecorry.andromeda.core.bitmap.ImagePixelReader
+import com.kylecorry.andromeda.bitmaps.ImagePixelReader
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.AssetFileSystem

@@ -4,8 +4,8 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Rect
 import android.util.Range
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.blobs
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.threshold
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.blobs
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.threshold
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.shared.debugging.isDebug

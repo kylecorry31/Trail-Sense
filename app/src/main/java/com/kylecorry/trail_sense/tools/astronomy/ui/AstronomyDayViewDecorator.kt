@@ -8,8 +8,8 @@ import android.graphics.drawable.RotateDrawable
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.toBitmap
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.rotate
+import com.kylecorry.andromeda.bitmaps.BitmapUtils
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.rotate
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.pickers.material.AndromedaDayViewDecorator
 import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase

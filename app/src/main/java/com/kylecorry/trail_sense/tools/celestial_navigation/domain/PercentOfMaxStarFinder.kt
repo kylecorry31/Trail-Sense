@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.tools.celestial_navigation.domain
 
 import android.graphics.Bitmap
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.minMax
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeToFit
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.minMax
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.resizeToFit
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 
 class PercentOfMaxStarFinder(private val percent: Float = 0.8f) : StarFinder {

@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.maps.infrastructure
 import android.content.Context
 import android.graphics.Bitmap
 import android.util.Size
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.rotate
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.rotate
 import com.kylecorry.andromeda.files.FileSaver
 import com.kylecorry.andromeda.pdf.Datum
 import com.kylecorry.andromeda.pdf.GeographicCoordinateSystem

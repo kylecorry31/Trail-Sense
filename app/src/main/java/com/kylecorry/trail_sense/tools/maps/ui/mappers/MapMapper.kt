@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.util.Size
 import androidx.lifecycle.LifecycleOwner
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.rotate
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.rotate
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.print.Printer
