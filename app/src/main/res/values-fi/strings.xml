@@ -37,7 +37,7 @@
     <string name="discharging_slow">Purkautuu hitaasti (%s)</string>
     <string name="charging_slow">Latautuu hitaasti (%s)</string>
     <string name="charging_fast">Latautuu nopeasti (%s)</string>
-    <string name="precise_percent_format">%s%%</string>
+    <string name="precise_percent_format">%s %%</string>
     <string name="degree">%s°</string>
     <string name="degree_format">%.0f°</string>
     <string name="elevation_diff_format">%1$s%2$s</string>

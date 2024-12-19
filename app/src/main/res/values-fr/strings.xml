@@ -1121,4 +1121,6 @@
     <string name="reset_calibration_question">Réinitialiser l\'étalonnage ?</string>
     <string name="sunrise_alert_scheduled">Alerte planifiée pour %s avant le levé du soleil</string>
     <string name="missing_sensor_message_1">Votre %1$s ne possède pas de capteur %2$s intégré. Malheureusement, cela signifie que certaines fonctionnalités de %3$s ne seront pas disponibles.</string>
+    <string name="stars">Étoiles</string>
+    <string name="visible">Visible</string>
 </resources>
