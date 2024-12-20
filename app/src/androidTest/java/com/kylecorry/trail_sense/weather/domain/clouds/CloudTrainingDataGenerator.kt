@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.tools.weather.domain.clouds
 
 import androidx.test.platform.app.InstrumentationRegistry
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils
-import com.kylecorry.andromeda.core.bitmap.BitmapUtils.resizeExact
+import com.kylecorry.andromeda.bitmaps.BitmapUtils
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.resizeExact
 import com.kylecorry.andromeda.csv.CSVConvert
 import com.kylecorry.andromeda.files.AssetFileSystem
 import com.kylecorry.andromeda.files.BaseFileSystem
