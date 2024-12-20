@@ -1,0 +1,8 @@
+Sentieri
+- Importazione/esportazione di gruppi di sentieri
+- Miglioramento della misurazione della difficoltà delle escursioni per tenere conto dei tratti ripidi
+
+Varie
+- Aggiunta di un backup/ripristino completo delle impostazioni (impostazioni e dati)
+- Aggiunta di un'impostazione sperimentale per utilizzare la modalità zero shutter lag per scattare le foto
+- Correzioni di bug
