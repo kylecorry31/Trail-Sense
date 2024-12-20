@@ -1,0 +1,18 @@
+Strumenti
+- Ridisegnare la scheda Strumenti
+- Spostare le impostazioni negli strumenti
+- Aggiungere azioni rapide agli strumenti (personalizzare nelle impostazioni)
+- Aggiungere il pinning degli strumenti
+- Aggiungere l'ordinamento degli strumenti (categoria, alfabetico)
+
+Navigazione
+- Migliorare l'allineamento della fotocamera della bussola di puntamento
+- Aggiungere l'etichetta per il Nord vero e magnetico
+
+Realtà aumentata (sperimentale)
+- Aggiungere lo strumento Realtà aumentata (attivare nelle impostazioni sperimentali)
+- Mostrare i fari vicini in AR
+- Mostrare le posizioni del sole e della luna in AR
+
+Varie
+- Nuove azioni rapide: Pedometro, Monitoraggio meteo, Backtrack (toggle) e Modalità notturna.

@@ -1,0 +1,12 @@
+Mappe fotografiche
+- Non più in beta
+- Anteprima dei livelli della mappa durante la calibrazione
+
+Percorsi
+- Importazione di percorsi da percorsi GPX
+
+Varie
+- Miglioramento della messaggistica quando il dispositivo non ha una bussola
+- Selezione automatica delle unità di misura
+- Miglioramenti delle prestazioni
+- Correzioni di bug

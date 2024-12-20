@@ -1,0 +1,7 @@
+Triangolazione della posizione
+- Triangolazione di una posizione in lontananza
+- Riprogettazione dello strumento di triangolazione per includere mappa, istruzioni e bussola di avvistamento
+
+Varie
+- Aumento delle dimensioni di alcune anteprime della fotocamera
+- Correzioni di bug
