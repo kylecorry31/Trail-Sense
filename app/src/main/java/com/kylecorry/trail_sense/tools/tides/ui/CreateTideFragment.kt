@@ -191,7 +191,11 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
                 }
             }
 
-            itemBinding.tideTime.text = getString(R.string.time_not_set)
+            itemBinding.tideTime.text = if (isTideTableRequired()) {
+                getString(R.string.field_required, getString(R.string.time_not_set))
+            } else {
+                getString(R.string.time_not_set)
+            }
 
             tide.time?.let {
                 itemBinding.tideTime.text = formatService.formatDateTime(
@@ -290,6 +294,10 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
 
         backCallback = promptIfUnsavedChanges(this::hasChanges)
 
+    }
+
+    private fun isTideTableRequired(): Boolean {
+        return estimateType == EstimateType.Clock || estimateType == EstimateType.LunitidalIntervalAuto
     }
 
 
@@ -416,6 +424,11 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         binding.lunitidalIntervalDuration.isVisible =
             estimateType == EstimateType.LunitidalIntervalManualLocal || estimateType == EstimateType.LunitidalIntervalManualUTC
         binding.tideLocation.required = estimateType == EstimateType.LunitidalIntervalManualLocal
+
+        effect2(estimateType) {
+            tideTimesList.setData(tides)
+        }
+
     }
 
 
