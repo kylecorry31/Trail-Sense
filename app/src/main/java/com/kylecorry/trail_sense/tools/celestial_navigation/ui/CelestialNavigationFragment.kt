@@ -14,6 +14,8 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
+import com.kylecorry.andromeda.files.CacheFileSystem
+import com.kylecorry.andromeda.files.LocalFileSystem
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
@@ -44,6 +46,7 @@ import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.formatEnumName
 import com.kylecorry.trail_sense.shared.fromColorTemperature
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.providers.CompassProvider.Companion.ACCELEROMETER_LOW_PASS
@@ -284,6 +287,14 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
                         // TODO: Record all the stars (present this to the user - draw over the image?)
                         println(plate)
                         toast("Detected ${plate.size} stars: ${plate.map { it.second.name }}")
+
+                        // Write the image to a file
+                        val fileSystem = FileSubsystem.getInstance(requireContext())
+                        fileSystem.save(
+                            "debug/stars-${System.currentTimeMillis()}-${azimuth}-${inclination}-${binding.arView.fov.width}-${binding.arView.fov.height}.webp",
+                            image,
+                            100
+                        )
                     }
 
                     if (starPixels.isEmpty()) {

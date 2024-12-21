@@ -67,7 +67,8 @@ class AugmentedRealityView : CanvasView {
         defStyleAttr
     )
 
-    private var fov: Size = Size(45f, 45f)
+    var fov: Size = Size(45f, 45f)
+        private set
 
     var focusText: String? = null
     private var hadFocus = false
