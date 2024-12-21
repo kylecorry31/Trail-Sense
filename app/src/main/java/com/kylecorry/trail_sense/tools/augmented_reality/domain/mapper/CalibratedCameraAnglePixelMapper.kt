@@ -40,8 +40,38 @@ class CalibratedCameraAnglePixelMapper(
         imageRect: RectF,
         fieldOfView: Size
     ): Vector2 {
-        // TODO: Use inverse perspective after converting the point to the pre-active array
-        return fallback.getAngle(x, y, imageRect, fieldOfView)
+        val focalLength = getFocalLength()
+        val opticalCenter = getOpticalCenter()
+        val preActiveArray = getPreActiveArraySize() ?: getActiveArraySize()
+        val activeArray = getActiveArraySize()
+
+        if (focalLength == null || opticalCenter == null || preActiveArray == null || activeArray == null) {
+            return fallback.getAngle(x, y, imageRect, fieldOfView)
+        }
+
+        val zoom = getZoom()
+        val rectLeft = imageRect.centerX() - zoom * imageRect.width() / 2f
+        val rectWidth = zoom * imageRect.width()
+        val rectTop = imageRect.centerY() - zoom * imageRect.height() / 2f
+        val rectHeight = zoom * imageRect.height()
+
+        val pctX = (x - rectLeft) / rectWidth
+        val pctY = (y - rectTop) / rectHeight
+        val activeX = pctX * activeArray.width()
+        val invertedY = pctY * activeArray.height()
+        val activeY = activeArray.height() - invertedY
+
+        val correctedX = activeX + activeArray.left
+        val correctedY = activeY + activeArray.top
+
+        // TODO: Distort
+        val pre = Vector2(correctedX, correctedY)
+
+        val world = Optics.inversePerspectiveProjection(pre, focalLength, opticalCenter)
+
+        val spherical = CameraAnglePixelMapper.toSpherical(world)
+
+        return Vector2(spherical.z, spherical.y)
     }
 
     private fun updateCalibration() {

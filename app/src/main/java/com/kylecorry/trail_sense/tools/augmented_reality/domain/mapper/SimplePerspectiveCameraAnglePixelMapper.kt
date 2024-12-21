@@ -24,8 +24,16 @@ class SimplePerspectiveCameraAnglePixelMapper : CameraAnglePixelMapper {
         imageRect: RectF,
         fieldOfView: Size
     ): Vector2 {
-        // TODO: Inverse perspective?
-        return linear.getAngle(x, y, imageRect, fieldOfView)
+        val fx = Optics.getFocalLength(fieldOfView.width, imageRect.width())
+        val fy = Optics.getFocalLength(fieldOfView.height, imageRect.height())
+
+        val worldZ = 1f
+        val worldX = (x - imageRect.centerX()) * worldZ / fx
+        val worldY = -(y - imageRect.centerY()) * worldZ / fy
+
+        val world = Vector3(worldX, worldY, worldZ)
+        val spherical = CameraAnglePixelMapper.toSpherical(world)
+        return Vector2(spherical.z, spherical.y)
     }
 
     override fun getPixel(
@@ -44,7 +52,7 @@ class SimplePerspectiveCameraAnglePixelMapper : CameraAnglePixelMapper {
         if (world.z < 0) {
             return linear.getPixel(world, imageRect, fieldOfView)
         }
-        
+
         val fy = Optics.getFocalLength(fieldOfView.height, imageRect.height())
         val fx = Optics.getFocalLength(fieldOfView.width, imageRect.width())
 
