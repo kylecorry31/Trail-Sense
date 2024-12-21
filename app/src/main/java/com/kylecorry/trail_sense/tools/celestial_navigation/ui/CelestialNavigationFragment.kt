@@ -29,6 +29,7 @@ import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.SolMath.map
 import com.kylecorry.sol.math.SolMath.square
 import com.kylecorry.sol.science.astronomy.Astronomy
+import com.kylecorry.sol.science.astronomy.stars.AltitudeAzimuth
 import com.kylecorry.sol.science.astronomy.stars.Star
 import com.kylecorry.sol.science.astronomy.stars.StarReading
 import com.kylecorry.sol.time.Time
@@ -265,6 +266,24 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
                             )
                         }
                         debugLayer.setMarkers(markers)
+
+                        // Plate solve
+                        val starReadings = starPixels.map {
+                            val point = binding.arView.toCoordinate(
+                                it,
+                                rotationMatrixOverride = rotationMatrix
+                            )
+                            AltitudeAzimuth(point.elevation, point.bearing)
+                        }
+
+                        val plate = Astronomy.plateSolve(
+                            starReadings,
+                            ZonedDateTime.now()
+                        )
+
+                        // TODO: Record all the stars (present this to the user - draw over the image?)
+                        println(plate)
+                        toast("Detected ${plate.size} stars: ${plate.map { it.second.name }}")
                     }
 
                     if (starPixels.isEmpty()) {

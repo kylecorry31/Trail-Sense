@@ -14,7 +14,7 @@ class SimpleStarFinder(private val threshold: Float = 200f) : StarFinder {
         val yScale = resized.height.toFloat() / image.height
 
         try {
-            val pointFinder = GrayscalePointFinder(threshold, 0.5f, Range(0.5f, 1.5f))
+            val pointFinder = GrayscalePointFinder(threshold, 0.5f, Range(0.5f, 2f))
             return pointFinder.getPoints(resized).map {
                 PixelCoordinate(it.center.x / xScale, it.center.y / yScale)
             }
