@@ -1165,4 +1165,16 @@
     <string name="tide_estimation_description_tide_model">Käyttää sisäänrakennettua mallia vuorovesien arvioimiseen annetussa sijainissa. Käyttää puhelimen sijaintia jos sijaintia ei ole annettu erikseen.</string>
     <string name="star">Tähti</string>
     <string name="show_stars">Näytä tähdet</string>
+    <string name="nearest_stars">Lähimmät tähdet</string>
+    <string name="stars">Tähdet</string>
+    <string name="celestial_navigation">Tähtinavigointi</string>
+    <string name="celestial_navigation_description">Arvioi sijaintisi tähtien avulla</string>
+    <string name="approximate_location">Arvioitu sijainti</string>
+    <string name="last_known_gps_location">Viimeisin tunnettu GPS-sijainti</string>
+    <string name="timezone">Aikavyöhyke</string>
+    <string name="select_star">Valitse tähti</string>
+    <plurals name="star_count">
+        <item quantity="one">%d tähti</item>
+        <item quantity="other">%d tähteä</item>
+    </plurals>
 </resources>
