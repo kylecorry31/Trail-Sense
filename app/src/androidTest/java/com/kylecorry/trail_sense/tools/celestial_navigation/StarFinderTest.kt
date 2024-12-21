@@ -64,7 +64,7 @@ class StarFinderTest {
             val expected = expectedStars[images.indexOf(file)]
             if (expected.isNotEmpty()) {
                 assertEquals(expected.size, plate.size)
-                assertTrue(plate.map { it.second }.containsAll(expected))
+                assertTrue(plate.map { it.star }.containsAll(expected))
             }
         }
     }

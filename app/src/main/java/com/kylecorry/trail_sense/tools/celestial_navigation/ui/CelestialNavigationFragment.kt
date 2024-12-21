@@ -14,8 +14,6 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
-import com.kylecorry.andromeda.files.CacheFileSystem
-import com.kylecorry.andromeda.files.LocalFileSystem
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
@@ -62,6 +60,7 @@ import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.ZoneId
 import java.time.ZonedDateTime
+import kotlin.math.roundToInt
 
 
 class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBinding>() {
@@ -281,12 +280,13 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
 
                         val plate = Astronomy.plateSolve(
                             starReadings,
-                            ZonedDateTime.now()
+                            ZonedDateTime.now(),
+                            tolerance = 0.1f
                         )
 
                         // TODO: Record all the stars (present this to the user - draw over the image?)
                         println(plate)
-                        toast("Detected ${plate.size} stars: ${plate.map { it.second.name }}")
+                        toast(plate.joinToString(", ") { it.star.name + " (${(it.confidence * 100).roundToInt()})" })
 
                         // Write the image to a file
                         val fileSystem = FileSubsystem.getInstance(requireContext())
