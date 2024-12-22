@@ -123,11 +123,8 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         super.onViewCreated(view, savedInstanceState)
         binding.camera.setScaleType(PreviewView.ScaleType.FILL_CENTER)
         binding.camera.setShowTorch(false)
-        // TODO: Maybe let the user set the exposure manually
-        // TODO: Adjust this for aperture (shutter speed)
-        binding.camera.setManualExposure(Duration.ofMillis(100), 6400)
-//        binding.camera.setExposureCompensation(0.5f)
-//        binding.exposureSlider.progress = 50
+        binding.camera.setExposureCompensation(0.5f)
+        binding.exposureSlider.progress = 50
         binding.camera.setFocus(1f)
         binding.arView.bind(binding.camera)
         binding.arView.backgroundFillColor = Color.TRANSPARENT
