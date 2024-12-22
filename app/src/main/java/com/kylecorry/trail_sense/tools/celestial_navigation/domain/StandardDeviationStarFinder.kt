@@ -9,10 +9,11 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 class StandardDeviationStarFinder(
     private val sigma: Float = 4f,
     private val minBrightness: Float = 40f,
-    private val maxBrightness: Float = 240f
+    private val maxBrightness: Float = 240f,
+    private val imageSize: Int = 600
 ) : StarFinder {
     override fun findStars(image: Bitmap): List<PixelCoordinate> {
-        val resized = image.resizeToFit(1000, 1000)
+        val resized = image.resizeToFit(imageSize, imageSize)
 
         try {
             val mean = resized.average()
@@ -25,7 +26,7 @@ class StandardDeviationStarFinder(
                         minBrightness,
                         maxBrightness
                     ),
-                    imageSize = 1000
+                    imageSize = imageSize
                 )
             return simpleFinder.findStars(image)
         } finally {

@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.camera.view.PreviewView
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.average
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
@@ -250,8 +251,9 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
                 }
 
                 val image = binding.camera.previewImage
+                val brightness = image?.average()
 
-                if (image != null) {
+                if (image != null && brightness != null && brightness < 100) {
                     val starPixels = onDefault { starFinder.findStars(image) }
 
                     if (isDebug()) {
