@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.Rect
 import android.util.Range
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.blobs
-import com.kylecorry.andromeda.bitmaps.BitmapUtils.threshold
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 import com.kylecorry.trail_sense.shared.debugging.isDebug
@@ -17,12 +16,9 @@ class GrayscalePointFinder(
     private val aspectRatioRange: Range<Float>
 ) {
 
-    private val momentFinder = GrayscaleMomentFinder(0f, 0)
-
     fun getPoints(bitmap: Bitmap): List<PixelCircle> {
         val clusters = bitmap.blobs(threshold)
 
-        val thresholdImage = bitmap.threshold(threshold, false)
         val filtered = clusters
             .filter {
                 val aspectRatio = it.width().toFloat() / it.height().toFloat()
@@ -30,14 +26,13 @@ class GrayscalePointFinder(
             }
             .map {
                 PixelCircle(
-                    getCentroid(thresholdImage, it),
+                    getCenter(it),
                     max(it.width().toFloat() / 2f, it.height().toFloat() / 2f)
                 )
             }.filter {
                 it.radius >= minRadius
             }.sortedBy { it.radius }
 
-        thresholdImage.recycle()
 
         if (isDebug()) {
             val debugImage = bitmap.copy(Bitmap.Config.ARGB_8888, true)
@@ -68,11 +63,8 @@ class GrayscalePointFinder(
         return filtered
     }
 
-    private fun getCentroid(bitmap: Bitmap, rect: Rect): PixelCoordinate {
-        return momentFinder.getMoment(bitmap, rect) ?: PixelCoordinate(
-            rect.centerX().toFloat(),
-            rect.centerY().toFloat()
-        )
+    private fun getCenter(rect: Rect): PixelCoordinate {
+        return PixelCoordinate(rect.centerX().toFloat(), rect.centerY().toFloat())
     }
 
 
