@@ -8,7 +8,6 @@ class PercentOfMaxStarFinder(private val percent: Float = 0.8f) :
     StarFinder {
     override fun findStars(image: Bitmap): List<PixelCoordinate> {
         val range = image.minMax()
-        val simpleFinder = SimpleStarFinder(range.end * percent)
-        return simpleFinder.findStars(image)
+        return SimpleStarFinder(range.end * percent).findStars(image)
     }
 }

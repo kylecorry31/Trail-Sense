@@ -1,11 +1,10 @@
 package com.kylecorry.trail_sense.tools.celestial_navigation.domain
 
 import android.graphics.Bitmap
-import android.graphics.Color
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.add
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.blur
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.minMax
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.trail_sense.shared.colors.ColorUtils
-import kotlin.math.absoluteValue
 
 class DifferenceOfGaussiansStarFinder(
     private val percent: Float = 0.3f,
@@ -17,27 +16,12 @@ class DifferenceOfGaussiansStarFinder(
         val blurred2 = image.blur(secondBlur)
 
         try {
-            var maxDiff = 0
-            for (x in 0 until blurred1.width) {
-                for (y in 0 until blurred1.height) {
-                    val pixel1 = ColorUtils.average(blurred1.getPixel(x, y))
-                    val pixel2 = ColorUtils.average(blurred2.getPixel(x, y))
-                    val diffValue = (pixel1 - pixel2).toInt().absoluteValue
-                    if (diffValue > maxDiff) {
-                        maxDiff = diffValue
-                    }
-                    blurred1.setPixel(x, y, Color.rgb(diffValue, diffValue, diffValue))
-                }
-            }
+            blurred1.add(blurred2, 1f, -1f, absolute = true, inPlace = true)
+            val maxDiff = blurred1.minMax().end
 
             blurred2.recycle()
 
-            val xScale = blurred1.width.toFloat() / image.width
-            val yScale = blurred1.height.toFloat() / image.height
-            val simpleFinder = SimpleStarFinder(percent * maxDiff)
-            return simpleFinder.findStars(blurred1).map {
-                PixelCoordinate(it.x / xScale, it.y / yScale)
-            }
+            return SimpleStarFinder(percent * maxDiff).findStars(blurred1)
         } finally {
             blurred1.recycle()
             blurred2.recycle()

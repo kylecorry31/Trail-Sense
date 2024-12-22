@@ -14,13 +14,11 @@ class StandardDeviationStarFinder(
         val mean = image.average()
         val stdDev = image.standardDeviation(average = mean)
 
-        val simpleFinder =
-            SimpleStarFinder(
-                (mean + sigma * stdDev).coerceIn(
-                    minBrightness,
-                    maxBrightness
-                )
-            )
-        return simpleFinder.findStars(image)
+        val threshold = (mean + sigma * stdDev).coerceIn(
+            minBrightness,
+            maxBrightness
+        )
+
+        return SimpleStarFinder(threshold).findStars(image)
     }
 }
