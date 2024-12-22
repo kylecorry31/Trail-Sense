@@ -12,7 +12,7 @@ class StandardDeviationStarFinder(
     private val maxBrightness: Float = 240f
 ) : StarFinder {
     override fun findStars(image: Bitmap): List<PixelCoordinate> {
-        val resized = image.resizeToFit(600, 600)
+        val resized = image.resizeToFit(1000, 1000)
 
         try {
             val mean = resized.average()
@@ -24,7 +24,8 @@ class StandardDeviationStarFinder(
                     (mean + sigma * stdDev).coerceIn(
                         minBrightness,
                         maxBrightness
-                    )
+                    ),
+                    imageSize = 1000
                 )
             return simpleFinder.findStars(image)
         } finally {

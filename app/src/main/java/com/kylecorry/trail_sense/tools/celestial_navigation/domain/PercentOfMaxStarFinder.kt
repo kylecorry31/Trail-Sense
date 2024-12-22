@@ -7,12 +7,12 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 
 class PercentOfMaxStarFinder(private val percent: Float = 0.8f) : StarFinder {
     override fun findStars(image: Bitmap): List<PixelCoordinate> {
-        val resized = image.resizeToFit(600, 600)
+        val resized = image.resizeToFit(1000, 1000)
 
         try {
             val range = resized.minMax()
             resized.recycle()
-            val simpleFinder = SimpleStarFinder(range.end * percent)
+            val simpleFinder = SimpleStarFinder(range.end * percent, imageSize = 1000)
             return simpleFinder.findStars(image)
         } finally {
             resized.recycle()

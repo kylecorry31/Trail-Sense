@@ -55,7 +55,7 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMarker
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasCircle
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARGridLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARMarkerLayer
-import com.kylecorry.trail_sense.tools.celestial_navigation.domain.DifferenceOfGaussiansStarFinder
+import com.kylecorry.trail_sense.tools.celestial_navigation.domain.StarFinderFactory
 import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.ZoneId
@@ -71,7 +71,7 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
     private var calculating by state(false)
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
     private val correctUsingCamera = true
-    private val starFinder = DifferenceOfGaussiansStarFinder(0.4f)
+    private val starFinder = StarFinderFactory().getStarFinder()
 
     private val orientationSensor by lazy {
         val magnetometer =
@@ -125,6 +125,8 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         // TODO: Maybe let the user set the exposure manually
         // TODO: Adjust this for aperture (shutter speed)
         binding.camera.setManualExposure(Duration.ofMillis(100), 6400)
+//        binding.camera.setExposureCompensation(0.5f)
+//        binding.exposureSlider.progress = 50
         binding.camera.setFocus(1f)
         binding.arView.bind(binding.camera)
         binding.arView.backgroundFillColor = Color.TRANSPARENT
