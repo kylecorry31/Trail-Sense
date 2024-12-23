@@ -26,6 +26,8 @@ import com.kylecorry.andromeda.views.list.ListIcon
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.luna.coroutines.onDefault
+import com.kylecorry.luna.coroutines.onMain
+import com.kylecorry.luna.timer.CoroutineTimer
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.SolMath.map
 import com.kylecorry.sol.math.SolMath.square
@@ -41,6 +43,7 @@ import com.kylecorry.trail_sense.databinding.FragmentCelestialNavigationBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.camera.LongExposure
 import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.formatEnumName
@@ -57,6 +60,7 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasCircle
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARGridLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARMarkerLayer
 import com.kylecorry.trail_sense.tools.celestial_navigation.domain.StarFinderFactory
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.ZoneId
@@ -73,6 +77,16 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
     private val correctUsingCamera = true
     private val starFinder = StarFinderFactory().getStarFinder()
+    private val longExposure = LongExposure(10)
+    private var isAutoMode = true
+
+    private val exposureTimer = CoroutineTimer {
+        val image = onMain { binding.camera.previewImage } ?: return@CoroutineTimer
+        onDefault { longExposure.addFrame(image) }
+        if (longExposure.isComplete()) {
+            cancelTimer(true)
+        }
+    }
 
     private val orientationSensor by lazy {
         val magnetometer =
@@ -123,8 +137,12 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         super.onViewCreated(view, savedInstanceState)
         binding.camera.setScaleType(PreviewView.ScaleType.FILL_CENTER)
         binding.camera.setShowTorch(false)
-        binding.camera.setExposureCompensation(0.5f)
-        binding.exposureSlider.progress = 50
+        if (isAutoMode) {
+            binding.camera.setManualExposure(Duration.ofMillis(500), 3200)
+        } else {
+            binding.camera.setExposureCompensation(0.5f)
+            binding.exposureSlider.progress = 50
+        }
         binding.camera.setFocus(1f)
         binding.arView.bind(binding.camera)
         binding.arView.backgroundFillColor = Color.TRANSPARENT
@@ -174,7 +192,12 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         }
 
         binding.recordBtn.setOnClickListener {
-            recordStar()
+            if (isAutoMode) {
+                longExposure.reset()
+                exposureTimer.interval(600, 2000)
+            } else {
+                recordStar()
+            }
         }
     }
 
@@ -205,7 +228,7 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         binding.arView.start(useGPS = false, customOrientationSensor = orientationSensor)
         binding.camera.start(
             readFrames = false,
-            shouldStabilizePreview = false
+            shouldStabilizePreview = true
         )
     }
 
@@ -213,6 +236,75 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         super.onPause()
         binding.arView.stop()
         binding.camera.stop()
+        cancelTimer(false)
+    }
+
+    private fun cancelTimer(processImage: Boolean) {
+        exposureTimer.stop()
+        if (processImage) {
+            inBackground {
+                val rotationMatrix = binding.arView.rotationMatrix.copyOf()
+                val inclination = binding.arView.inclination
+                val azimuth = binding.arView.azimuth
+                val image = longExposure.getLongExposure() ?: return@inBackground
+                val brightness = image.average()
+
+                if (brightness < 100) {
+                    val starPixels = onDefault { starFinder.findStars(image) }
+
+                    if (isDebug()) {
+                        val markers = starPixels.map {
+                            val point = binding.arView.toCoordinate(
+                                it,
+                                rotationMatrixOverride = rotationMatrix
+                            )
+                            ARMarker(
+                                SphericalARPoint(
+                                    point.bearing,
+                                    point.elevation,
+                                    angularDiameter = 0.2f
+                                ),
+                                CanvasCircle(Color.RED.withAlpha(1), Color.RED)
+                            )
+                        }
+                        debugLayer.setMarkers(markers)
+
+                        // Plate solve
+                        val starReadings = starPixels.map {
+                            val point = binding.arView.toCoordinate(
+                                it,
+                                rotationMatrixOverride = rotationMatrix
+                            )
+                            AltitudeAzimuth(point.elevation, point.bearing)
+                        }
+
+                        val plate = Astronomy.plateSolve(
+                            starReadings,
+                            ZonedDateTime.now(),
+                            tolerance = 0.1f
+                        )
+
+                        // TODO: Record all the stars (present this to the user - draw over the image?)
+                        println(plate)
+                        toast(plate.joinToString(", ") { it.star.name + " (${(it.confidence * 100).roundToInt()})" })
+
+                        // Write the image to a file
+                        val fileSystem = FileSubsystem.getInstance(requireContext())
+                        fileSystem.save(
+                            "debug/stars-${System.currentTimeMillis()}-${azimuth}-${inclination}-${binding.arView.fov.width}-${binding.arView.fov.height}.webp",
+                            image,
+                            100
+                        )
+                    }
+                }
+                image.recycle()
+                binding.camera.setTorch(true)
+                onDefault { delay(500) }
+                binding.camera.setTorch(false)
+            }
+        } else {
+            longExposure.reset()
+        }
     }
 
     private fun chooseApproximateLocation() {
