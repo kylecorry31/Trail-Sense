@@ -78,7 +78,7 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
     private val correctUsingCamera = true
     private val starFinder = StarFinderFactory().getStarFinder()
     private val longExposure = LongExposure(10)
-    private var isAutoMode = true
+    private var isAutoMode = false
 
     private val exposureTimer = CoroutineTimer {
         val image = onMain { binding.camera.previewImage } ?: return@CoroutineTimer
