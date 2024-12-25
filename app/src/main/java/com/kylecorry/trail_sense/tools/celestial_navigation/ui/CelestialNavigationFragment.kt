@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.celestial_navigation.ui
 
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Range
@@ -11,10 +12,13 @@ import androidx.camera.view.PreviewView
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.average
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.crop
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.resizeToFit
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.ui.setOnProgressChangeListener
+import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.pickers.Pickers
@@ -80,6 +84,12 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
     private val longExposure = LongExposure(10)
     private var isAutoMode = false
 
+    private val imageLock = Any()
+    private var lastImage: Bitmap? = null
+    private var lastRotationMatrix: FloatArray? = null
+    private var lastInclination = 0f
+    private var lastAzimuth = 0f
+
     private val exposureTimer = CoroutineTimer {
         val image = onMain { binding.camera.previewImage } ?: return@CoroutineTimer
         onDefault { longExposure.addFrame(image) }
@@ -140,8 +150,9 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         if (isAutoMode) {
             binding.camera.setManualExposure(Duration.ofMillis(500), 3200)
         } else {
-            binding.camera.setExposureCompensation(0.5f)
-            binding.exposureSlider.progress = 50
+            binding.camera.setManualExposure(Duration.ofMillis(250), 3200)
+//            binding.camera.setExposureCompensation(0.5f)
+//            binding.exposureSlider.progress = 50
         }
         binding.camera.setFocus(1f)
         binding.arView.bind(binding.camera)
@@ -227,9 +238,18 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
         super.onResume()
         binding.arView.start(useGPS = false, customOrientationSensor = orientationSensor)
         binding.camera.start(
-            readFrames = false,
-            shouldStabilizePreview = true
-        )
+            readFrames = true,
+            shouldStabilizePreview = false
+        ) {
+            synchronized(imageLock) {
+                lastImage?.recycle()
+                lastImage = it
+                lastRotationMatrix = binding.arView.rotationMatrix.copyOf()
+                lastInclination = binding.arView.inclination
+                // TODO: Maybe set true north to false and calculate using a location suggested by the user
+                lastAzimuth = Bearing.getBearing(binding.arView.azimuth)
+            }
+        }
     }
 
     override fun onPause() {
@@ -329,21 +349,42 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
     }
 
     private fun recordStar() {
-        val rotationMatrix = binding.arView.rotationMatrix.copyOf()
-        var inclination = binding.arView.inclination
-        // TODO: Maybe set true north to false and calculate using a location suggested by the user
-        var azimuth = Bearing.getBearing(binding.arView.azimuth)
+        val image: Bitmap
+        val rotationMatrix: FloatArray
+        var azimuth: Float
+        var inclination: Float
+        val offsetX: Float
+        val offsetY: Float
+        val scaleX: Float
+        val scaleY: Float
+        synchronized(imageLock) {
+            // TODO: Calculate crop
+            val rect = binding.camera.camera?.getPreviewRect(false) ?: return
+            offsetX = rect.left
+            offsetY = rect.top
+            image = lastImage?.resizeToFit(2000, 2000) ?: return
+            scaleX = image.width.toFloat() / rect.width()
+            scaleY = image.height.toFloat() / rect.height()
+            rotationMatrix = lastRotationMatrix ?: return
+            azimuth = lastAzimuth
+            inclination = lastInclination
+        }
+
+
         inBackground {
             val job = launch {
                 if (!correctUsingCamera) {
                     return@launch
                 }
 
-                val image = binding.camera.previewImage
-                val brightness = image?.average()
+                val brightness = image.average()
 
-                if (image != null && brightness != null && brightness < 100) {
-                    val starPixels = onDefault { starFinder.findStars(image) }
+                if (brightness < 100) {
+                    val starPixels = onDefault {
+                        starFinder.findStars(image).map {
+                            PixelCoordinate(it.x / scaleX + offsetX, it.y / scaleY + offsetY)
+                        }
+                    }
 
                     if (isDebug()) {
                         val markers = starPixels.map {

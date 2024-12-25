@@ -4,9 +4,13 @@ import android.graphics.Bitmap
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.resizeToFit
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 
-class ScaledStarFinder(private val finder: StarFinder, private val maxImageSize: Int): StarFinder {
+class ScaledStarFinder(private val finder: StarFinder, private val maxImageSize: Int) : StarFinder {
     override fun findStars(image: Bitmap): List<PixelCoordinate> {
-        val resized = image.resizeToFit(maxImageSize, maxImageSize)
+        val resized =
+            if (image.width <= maxImageSize && image.height <= maxImageSize) image else image.resizeToFit(
+                maxImageSize,
+                maxImageSize
+            )
         val xScale = resized.width.toFloat() / image.width
         val yScale = resized.height.toFloat() / image.height
 
@@ -15,7 +19,9 @@ class ScaledStarFinder(private val finder: StarFinder, private val maxImageSize:
                 PixelCoordinate(it.x / xScale, it.y / yScale)
             }
         } finally {
-            resized.recycle()
+            if (resized != image) {
+                resized.recycle()
+            }
         }
 
     }

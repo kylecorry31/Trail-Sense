@@ -62,6 +62,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     private var exposureTime: Duration? = null
     private var sensitivity: Int? = null
     private var focus: Float? = null
+    private var hasPendingChanges = false
 
     var passThroughTouchEvents = false
 
@@ -125,6 +126,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
             isBackCamera = useBackCamera,
             shouldStabilizePreview = shouldStabilizePreview
         )
+        hasPendingChanges = true
         camera?.start(this::onCameraUpdate)
     }
 
@@ -157,6 +159,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         isTorchOn = isOn
         torchBtn.setImageResource(if (isOn) R.drawable.ic_torch_on else R.drawable.ic_torch_off)
         camera?.setTorch(isTorchOn)
+        hasPendingChanges = true
     }
 
     fun setShowTorch(shouldShow: Boolean) {
@@ -170,6 +173,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         val min = state?.ratioRange?.start ?: 1f
         val max = state?.ratioRange?.end ?: 2f
         camera?.setZoomRatio(SolMath.map(zoom, 0f, 1f, min, max))
+        hasPendingChanges = true
     }
 
     @Suppress("MemberVisibilityCanBePrivate")
@@ -204,6 +208,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         }
 
         camera?.setExposure(mapped)
+        hasPendingChanges = true
     }
 
     fun setManualExposure(exposureTime: Duration?, sensitivity: Int?) {
@@ -211,11 +216,13 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         this.sensitivity = sensitivity
         camera?.setExposureTime(exposureTime)
         camera?.setSensitivity(sensitivity)
+        hasPendingChanges = true
     }
 
     fun setFocus(value: Float?) {
         focus = value
         camera?.setFocusDistancePercentage(value)
+        hasPendingChanges = true
     }
 
     fun setPreviewColorFilter(filter: ColorFilter?) {
@@ -235,11 +242,15 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         if (zoom == -1f) {
             setZoomRatio(1f)
         }
-        setZoom(zoom)
-        setExposureCompensation(exposureCompensation)
-        setFocus(focus)
-        setManualExposure(exposureTime, sensitivity)
-        camera?.setTorch(isTorchOn)
+        if (hasPendingChanges) {
+            println("Applying changes")
+            setZoom(zoom)
+            setExposureCompensation(exposureCompensation)
+            setFocus(focus)
+            setManualExposure(exposureTime, sensitivity)
+            camera?.setTorch(isTorchOn)
+            hasPendingChanges = false
+        }
         if (captureListener == null && imageListener == null) {
             camera?.image?.close()
             return true

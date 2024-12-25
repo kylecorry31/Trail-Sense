@@ -13,7 +13,7 @@ class StarFinderFactory {
                     mergeDistance = 5f
                 ),
                 inPlace = true
-            ), 1000
+            ), 2000
         )
     }
 
