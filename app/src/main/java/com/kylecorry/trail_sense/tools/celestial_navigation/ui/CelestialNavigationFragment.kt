@@ -362,7 +362,7 @@ class CelestialNavigationFragment : BoundFragment<FragmentCelestialNavigationBin
             val rect = binding.camera.camera?.getPreviewRect(false) ?: return
             offsetX = rect.left
             offsetY = rect.top
-            image = lastImage?.resizeToFit(2000, 2000) ?: return
+            image = lastImage?.resizeToFit(1000, 1000) ?: return
             scaleX = image.width.toFloat() / rect.width()
             scaleY = image.height.toFloat() / rect.height()
             rotationMatrix = lastRotationMatrix ?: return
