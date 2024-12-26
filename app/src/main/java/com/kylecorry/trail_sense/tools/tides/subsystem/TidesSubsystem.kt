@@ -2,12 +2,14 @@ package com.kylecorry.trail_sense.tools.tides.subsystem
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.tides.domain.TideDetails
 import com.kylecorry.trail_sense.tools.tides.domain.TideService
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import com.kylecorry.trail_sense.tools.tides.domain.commands.CurrentTideCommand
 import com.kylecorry.trail_sense.tools.tides.domain.commands.DailyTideCommand
 import com.kylecorry.trail_sense.tools.tides.domain.loading.TideLoaderFactory
+import com.kylecorry.trail_sense.tools.tides.domain.waterlevel.TideEstimator
 import com.kylecorry.trail_sense.tools.tides.ui.DailyTideData
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -23,9 +25,8 @@ class TidesSubsystem private constructor(private val context: Context) {
     private var lastDailyTide: DailyTideData? = null
     private val mutex = Mutex()
 
-    suspend fun getNearestTide(): TideDetails? {
-        val loader = tideLoaderFactory.getTideLoader(context, false)
-        val table = loader.getTideTable() ?: return null
+    suspend fun getNearestTide(location: Coordinate? = null): TideDetails? {
+        val table = getTideTable(location) ?: return null
         val tide = CurrentTideCommand(tideService).execute(table)
         val times = mutex.withLock {
             if (isDailyStillValid(table)) {
@@ -38,7 +39,30 @@ class TidesSubsystem private constructor(private val context: Context) {
                 newDaily
             }
         }
+
+        if (times.waterLevels.all { it.value == 0f }) {
+            return null
+        }
+
         return TideDetails(table, tide, times)
+    }
+
+    private suspend fun getTideTable(location: Coordinate?): TideTable? {
+        val loader = tideLoaderFactory.getTideLoader(context, false, location)
+        val table = loader.getTideTable() ?: return null
+
+        if (table.isEditable || location == null) {
+            return table
+        }
+
+        return TideTable(
+            -1,
+            emptyList(),
+            null,
+            estimator = TideEstimator.TideModel,
+            isEditable = false,
+            location = location
+        )
     }
 
     private fun isDailyStillValid(table: TideTable): Boolean {

@@ -1533,4 +1533,5 @@
     <string name="nearest_stars">Nearest stars</string>
     <string name="select_star">Select star</string>
     <string name="stars">Stars</string>
+    <string name="tide">Tide</string>
 </resources>

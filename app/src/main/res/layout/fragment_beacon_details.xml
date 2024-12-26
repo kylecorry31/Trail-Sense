@@ -69,6 +69,15 @@
             app:dataPointIcon="@drawable/ic_sunset_notification"
             app:layout_columnWeight="1" />
 
+        <com.kylecorry.trail_sense.shared.views.DataPointView
+            android:id="@+id/beacon_tide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:dataPointDescription="@string/tide"
+            app:dataPointIcon="@drawable/ic_tide_half"
+            app:layout_columnWeight="1" />
+
     </androidx.gridlayout.widget.GridLayout>
 
     <ScrollView

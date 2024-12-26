@@ -33,7 +33,7 @@ object TideModel {
 
     // Cache
     private val cache = LRUCache<PixelCoordinate, List<TidalHarmonic>>(size = 5)
-    private val locationToPixelCache = LRUCache<Coordinate, PixelCoordinate>(size = 20)
+    private val locationToPixelCache = LRUCache<Coordinate, PixelCoordinate?>(size = 20)
 
     // Image data source
     private val size = Size(720, 360)
@@ -91,13 +91,17 @@ object TideModel {
             getNearestPixel(context, location)
         }
 
+        if (pixel == null) {
+            return@onIO emptyList()
+        }
+
         cache.getOrPut(pixel) {
             load(context, pixel)
         }
     }
 
     // TODO: Extract to andromeda (nearest pixel meeting a criteria within a region - maybe just update the ImageSource with a nearest non-zero pixel option)
-    private suspend fun getNearestPixel(context: Context, location: Coordinate): PixelCoordinate {
+    private suspend fun getNearestPixel(context: Context, location: Coordinate): PixelCoordinate? {
         val actualPixel = source.getPixel(location)
         val file = "tides/tide-indices-1-2.webp"
         val sourceValue = source.read(context, file, actualPixel)
@@ -165,7 +169,7 @@ object TideModel {
             }
         }
 
-        return actualPixel
+        return null
     }
 
     // TODO: Extract to andromeda
@@ -286,7 +290,6 @@ object TideModel {
         val indices = source.read(context, indicesFile, pixel)
         val x = indices[0].toInt() - 1
         val y = indices[1].toInt() - 1
-        print("Indices: $x, $y\n")
 
         // For each constituent, load the amplitude and phase (grouped 4 per file)
         val constituents = listOf(
