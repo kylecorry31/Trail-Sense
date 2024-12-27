@@ -1104,7 +1104,7 @@
     <string name="reset_calibration_question">重置校准吗？</string>
     <string name="use_gyroscope_after_calibration">校准后使用陀螺仪</string>
     <string name="use_gyroscope_after_calibration_description">而不是用指南针（避免磁偏移）</string>
-    <string name="ar_calibration_instructions">使%s位于屏幕中心，然后按下“校准”</string>
+    <string name="ar_calibration_instructions">使 %s 位于屏幕中心，然后按下“校准”</string>
     <string name="use_path_elevation">使用路径提升</string>
     <string name="smooth_gps_readings">平滑 GPS 读数</string>
     <string name="select_from_gallery">从相册选择</string>
@@ -1235,4 +1235,5 @@
     <string name="approximate_location">大概位置</string>
     <string name="last_known_gps_location">上个已知的 GPS 位置</string>
     <string name="timezone">时区</string>
+    <string name="tide">潮汐</string>
 </resources>
