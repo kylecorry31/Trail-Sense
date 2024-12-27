@@ -1062,9 +1062,7 @@
     <string name="allow_ignore_battery_restrictions">Povolit %s ignorovat omezení baterie</string>
     <string name="exact_alarm_permission_denied">Budíky a připomenutí odepřeny, upozornění mohou být nepřesná.</string>
     <string name="allow_schedule_exact_alarms">Povolit %s nastavit budíky a připomenutí</string>
-    <string name="allow_schedule_exact_alarms_instructions">To umožňuje %1$s nastavit přesné alarmy a připomenutí, například upozornění na západ slunce. Bez toho se alarmy nemusí spustit ve správný čas.
-\n
-\nChcete-li povolit, klikněte na \"%2$s\" a povolte nastavení pro povolení alarmů a připomenutí.</string>
+    <string name="allow_schedule_exact_alarms_instructions">Toto umožňuje aplikaci %1$s nastavit přesné budíky a připomenutí, například upozornění na západ slunce. Bez toho se budíky nemusí spustit ve správný čas. \n \nChcete-li oprávnění povolit, klepněte na „%2$s“ a povolte nastavení pro povolení budíků a připomenutí.</string>
     <string name="sunset_alerts_background_location_disclaimer">Upozornění na západ slunce mohou být při cestování nepřesná</string>
     <string name="backup">Záloha</string>
     <string name="restore">Obnovení</string>
@@ -1276,4 +1274,5 @@
     <string name="celestial_navigation">Navigace pomocí hvězd</string>
     <string name="nearest_stars">Nejbližší hvězdy</string>
     <string name="celestial_navigation_description">Odhadněte svou polohu pomocí věc</string>
+    <string name="tide">Příliv a odliv</string>
 </resources>
