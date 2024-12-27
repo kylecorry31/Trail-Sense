@@ -49,3 +49,9 @@ This app can help you identify mushrooms by having you fill out a questionnaire 
 This app can be used for fine tuned control over your phone's flashlight. You can also use it to send custom morse code messages.
 
 [Download](market://details?id=com.cyb3rko.flashdim)
+
+## Look4Sat
+
+This app can be used to see the positions of satellites. You can use this to find a place with a better GPS signal for improved accuracy.
+
+[Download](market://details?id=com.rtbishop.look4sat)
