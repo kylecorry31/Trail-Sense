@@ -18,7 +18,9 @@ If you submit an issue, please be civil and constructive - I will consider all f
 - Requires a lot of effort to use (external data from a website, many steps, external tools, etc.)
 - Dangerous (to the user or their device)
 - Requires Internet (may be better as a plugin)
-- Significantly increases APK size (definition of significant varies by feature usefulness - APK should be under 10 MB) 
+- Significantly increases APK size (definition of significant varies by feature usefulness - APK should be under 10 MB)
+- Clutters the UI
+- High maintenance burden
 
 All contributors will be credited in the Licenses section of Trail Sense setting (updated weekly).
 
