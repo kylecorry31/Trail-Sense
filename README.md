@@ -46,12 +46,17 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 - [License](#license)
 
 ## Feature Roadmap
-Items tagged with 'p2' are high priority and are likely to be prioritized this year: https://github.com/kylecorry31/Trail-Sense/issues?q=is%3Aopen+is%3Aissue+label%3Ap2
+In 2025, the main focus will be:
+- Photo Maps (improvements)
+- Survival Guide (improvements)
+- Cell Signal Finder (new)
 
-In 2025, the focus tools will be:
-- Photo Maps
-- Survival Guide
-- Cell Signal Finder
+### Priorities
+Issue priority is denoted by labels on issues.
+- **p1**: Critical priority, requires a hotfix in most cases.
+- **p2**: High priority, at least one is likely to be included in each release during the year. These are typically the goals for the year.
+- **p3**: Moderate priority, may be included in a couple releases during the year. These will get promoted to p2 as features are completed.
+- **p4**: Low priority, I may not have time to implement these or are likely years away. Many are open for community contribution.
 
 ## Goals
 - Trail Sense must not use the Internet in any way, as I want the entire app usable when there is no Internet connection
