@@ -1525,8 +1525,6 @@
     <string name="star">Star</string>
     <string name="pref_show_ar_stars" translatable="false">pref_show_ar_stars</string>
     <string name="show_stars">Show stars</string>
-    <string name="celestial_navigation">Celestial Navigation</string>
-    <string name="celestial_navigation_description">Estimate your location using the stars</string>
     <string name="approximate_location">Approximate location</string>
     <string name="last_known_gps_location">Last known GPS location</string>
     <string name="timezone">Timezone</string>

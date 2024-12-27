@@ -1232,8 +1232,6 @@
     <plurals name="star_count">
         <item quantity="other">%d 颗星星</item>
     </plurals>
-    <string name="celestial_navigation">天文导航</string>
-    <string name="celestial_navigation_description">使用星星估计你的位置</string>
     <string name="approximate_location">大概位置</string>
     <string name="last_known_gps_location">上个已知的 GPS 位置</string>
     <string name="timezone">时区</string>

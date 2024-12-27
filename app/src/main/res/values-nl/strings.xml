@@ -1244,8 +1244,6 @@
         <item quantity="one">%d ster</item>
         <item quantity="other">%d sterren</item>
     </plurals>
-    <string name="celestial_navigation">Hemelnavigatie</string>
-    <string name="celestial_navigation_description">Schat je locatie met behulp van de sterren</string>
     <string name="approximate_location">Geschatte locatie</string>
     <string name="timezone">Tijdzone</string>
     <string name="stars">Sterren</string>

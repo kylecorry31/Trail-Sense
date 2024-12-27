@@ -1167,8 +1167,6 @@
     <string name="show_stars">Näytä tähdet</string>
     <string name="nearest_stars">Lähimmät tähdet</string>
     <string name="stars">Tähdet</string>
-    <string name="celestial_navigation">Tähtinavigointi</string>
-    <string name="celestial_navigation_description">Arvioi sijaintisi tähtien avulla</string>
     <string name="approximate_location">Arvioitu sijainti</string>
     <string name="last_known_gps_location">Viimeisin tunnettu GPS-sijainti</string>
     <string name="timezone">Aikavyöhyke</string>

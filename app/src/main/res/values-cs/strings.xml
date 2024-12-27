@@ -1273,7 +1273,5 @@
     <string name="last_known_gps_location">Poslední známá poloha GPS</string>
     <string name="timezone">Časové pásmo</string>
     <string name="stars">Hvězdy</string>
-    <string name="celestial_navigation">Navigace pomocí hvězd</string>
     <string name="nearest_stars">Nejbližší hvězdy</string>
-    <string name="celestial_navigation_description">Odhadněte svou polohu pomocí věc</string>
-</resources>
+    </resources>
