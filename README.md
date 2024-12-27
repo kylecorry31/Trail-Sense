@@ -45,16 +45,13 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 - [Open Source Credits](#open-source-credits)
 - [License](#license)
 
-## Feature Roadmap (2024-2025)
-The feature roadmap is a tentative outline of the major features that are planned to be completed in the next year. Smaller features may end up being implemented in between.
-- [x] Augmented reality
-- [x] Customization
-- [x] Stability / performance
-- [x] Survival guide
-- [ ] More quick actions and widgets
-- [ ] Improved photo maps resolution
-- [ ] Harmonic tides
-- [ ] Experiment with the first plugin (Comms)
+## Feature Roadmap
+Items tagged with 'p2' are high priority and are likely to be prioritized this year: https://github.com/kylecorry31/Trail-Sense/issues?q=is%3Aopen+is%3Aissue+label%3Ap2
+
+In 2025, the focus tools will be:
+- Photo Maps
+- Survival Guide
+- Cell Signal Finder
 
 ## Goals
 - Trail Sense must not use the Internet in any way, as I want the entire app usable when there is no Internet connection
