@@ -55,3 +55,15 @@ This app can be used for fine tuned control over your phone's flashlight. You ca
 This app can be used to see the positions of satellites. You can use this to find a place with a better GPS signal for improved accuracy.
 
 [Download](market://details?id=com.rtbishop.look4sat)
+
+## Tack: Metronome
+
+This app provides a metronome and can be used for camp music or meditation.
+
+[Download](market://details?id=xyz.zedler.patrick.tack)
+
+## Briar
+
+This app allows for offline encrypted communication using bluetooth or WiFi direct.
+
+[Download](market://details?id=org.briarproject.briar.android)
