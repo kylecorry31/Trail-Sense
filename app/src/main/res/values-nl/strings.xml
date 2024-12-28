@@ -1247,4 +1247,5 @@
     <string name="approximate_location">Geschatte locatie</string>
     <string name="timezone">Tijdzone</string>
     <string name="stars">Sterren</string>
+    <string name="tide">Getij</string>
 </resources>
