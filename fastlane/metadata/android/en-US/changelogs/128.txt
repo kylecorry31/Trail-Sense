@@ -1,0 +1,9 @@
+Beacons
+- Show tide on beacon details
+
+Augmented Reality
+- Display more stars at night
+- Add color to stars
+
+Tides
+- Specify which fields are required
