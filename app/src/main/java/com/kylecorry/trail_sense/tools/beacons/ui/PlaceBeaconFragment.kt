@@ -98,7 +98,6 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         super.onViewCreated(view, savedInstanceState)
         form.bind(binding)
         CustomUiUtils.setButtonState(binding.createBeaconTitle.rightButton, true)
-        binding.createBeaconTitle.title.text = getString(R.string.create_beacon).capitalizeWords()
 
         // TODO: Prevent interaction until loaded
         updateIcon()

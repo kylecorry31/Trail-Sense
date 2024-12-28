@@ -19,6 +19,7 @@
         app:title="@string/create_beacon" />
 
     <ScrollView
+        android:id="@+id/create_beacon_scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

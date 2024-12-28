@@ -7,9 +7,14 @@ enum class Side {
     Right
 }
 
+val TOOLBAR_LEFT_BUTTON_ID: Int = com.kylecorry.andromeda.views.R.id.andromeda_toolbar_left_button
+val TOOLBAR_RIGHT_BUTTON_ID: Int =
+    com.kylecorry.andromeda.views.R.id.andromeda_toolbar_right_button
+
 fun toolbarButton(@IdRes toolbarId: Int, side: Side): TestView {
     return view(
         toolbarId,
-        if (side == Side.Left) com.kylecorry.andromeda.views.R.id.andromeda_toolbar_left_button else com.kylecorry.andromeda.views.R.id.andromeda_toolbar_right_button
+        if (side == Side.Left) TOOLBAR_LEFT_BUTTON_ID else TOOLBAR_RIGHT_BUTTON_ID,
+        0
     )
 }
