@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.databinding.FragmentBeaconDetailsBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.toRelativeDistance
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
@@ -31,6 +32,7 @@ import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.share.BeaconSender
 import com.kylecorry.trail_sense.tools.tides.subsystem.TidesSubsystem
 import com.kylecorry.trail_sense.tools.tides.ui.TideFormatter
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import com.kylecorry.trail_sense.tools.weather.ui.dialogs.ShowHighLowTemperatureDialogCommand
 import kotlinx.coroutines.Dispatchers
@@ -86,10 +88,7 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
 
                     binding.navigateBtn.setOnClickListener {
                         val bundle = bundleOf("destination" to id)
-                        findNavController().navigate(
-                            R.id.action_beaconDetailsFragment_to_action_navigation,
-                            bundle
-                        )
+                        findNavController().openTool(Tools.NAVIGATION, bundle)
                     }
 
                     binding.editBtn.isVisible = !temporary

@@ -16,13 +16,6 @@
             app:argType="long" />
 
         <action
-            android:id="@+id/action_navigatorFragment_to_beaconListFragment"
-            app:destination="@id/beacon_list"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
             android:id="@+id/action_navigatorFragment_to_calibrateGPSFragment"
             app:destination="@id/calibrateGPSFragment"
             app:enterAnim="@anim/slide_in_right"
@@ -251,14 +244,6 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
-
-        <action
-            android:id="@+id/action_beaconDetailsFragment_to_action_navigation"
-            app:destination="@id/action_navigation"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
 
     <fragment

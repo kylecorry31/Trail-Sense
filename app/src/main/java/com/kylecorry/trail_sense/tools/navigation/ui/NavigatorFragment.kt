@@ -43,6 +43,7 @@ import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
+import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -311,7 +312,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         binding.beaconBtn.setOnClickListener {
             if (destination == null) {
-                findNavController().navigate(R.id.action_navigatorFragment_to_beaconListFragment)
+                findNavController().openTool(Tools.BEACONS)
             } else {
                 destination = null
                 navigator.cancelNavigation()
@@ -326,13 +327,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                         if (altimeter.hasValidReading) altimeter.altitude else gps.altitude
                     )
                 )
-                findNavController().navigate(
-                    R.id.action_navigatorFragment_to_beaconListFragment,
-                    bundle
-                )
+                findNavController().openTool(Tools.BEACONS, bundle)
             } else {
-                findNavController().navigate(R.id.action_navigatorFragment_to_beaconListFragment)
-
+                findNavController().openTool(Tools.BEACONS)
             }
             true
         }
