@@ -6,6 +6,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotChecked
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollToEnd
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollToStart
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.TOOLBAR_RIGHT_BUTTON_ID
@@ -57,6 +58,8 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS) {
         hasText(R.id.beacon_icon_picker, string(R.string.icon))
 
         input(R.id.comment, "Test notes")
+
+        scrollToStart(R.id.create_beacon_scroll)
 
         click(TOOLBAR_RIGHT_BUTTON_ID)
 

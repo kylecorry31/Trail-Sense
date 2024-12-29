@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.test_utils
 
 import androidx.annotation.StringRes
+import androidx.test.uiautomator.Direction
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.notifications.hasTitle
 import com.kylecorry.trail_sense.test_utils.notifications.notification
@@ -274,6 +275,12 @@ object AutomationLibrary {
     fun scrollToEnd(id: Int, index: Int = 0, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
         waitFor(waitForTime) {
             view(id, index = index).scrollToEnd()
+        }
+    }
+
+    fun scrollToStart(id: Int, index: Int = 0, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
+        waitFor(waitForTime) {
+            view(id, index = index).scrollToEnd(Direction.UP)
         }
     }
 
