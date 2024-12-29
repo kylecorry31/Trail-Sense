@@ -50,6 +50,7 @@ In 2025, the main focus will be:
 - Photo Maps (improvements)
 - Survival Guide (improvements)
 - Cell Signal Finder (new)
+- Add official support for foraging, fishing, and hunting
 
 ### Priorities
 Issue priority is denoted by labels on issues.
