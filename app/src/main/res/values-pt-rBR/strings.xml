@@ -1216,4 +1216,5 @@
         <item quantity="many">%d estrelas</item>
         <item quantity="other">%d estrelas</item>
     </plurals>
-    </resources>
+    <string name="tide">Maré</string>
+</resources>
