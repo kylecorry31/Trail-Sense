@@ -6,9 +6,7 @@ data class Species(
     override val id: Long,
     val name: String,
     val images: List<String> = emptyList(),
-    val habitats: List<Habitat> = emptyList(),
-    val isEdible: Boolean = false,
-    val isDangerous: Boolean = false,
+    val tags: List<String> = emptyList(),
     val notes: String? = null,
 
     // User specific fields (not exported)

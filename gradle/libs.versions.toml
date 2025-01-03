@@ -76,6 +76,7 @@ andromeda-camera = { module = "com.kylecorry.andromeda:camera", version.ref = "a
 andromeda-background = { module = "com.kylecorry.andromeda:background", version.ref = "andromedaVersion" }
 andromeda-csv = { module = "com.kylecorry.andromeda:csv", version.ref = "andromedaVersion" }
 andromeda-xml = { module = "com.kylecorry.andromeda:xml", version.ref = "andromedaVersion" }
+andromeda-json = { module = "com.kylecorry.andromeda:json", version.ref = "andromedaVersion" }
 andromeda-forms = { module = "com.kylecorry.andromeda:forms", version.ref = "andromedaVersion" }
 andromeda-fragments = { module = "com.kylecorry.andromeda:fragments", version.ref = "andromedaVersion" }
 andromeda-torch = { module = "com.kylecorry.andromeda:torch", version.ref = "andromedaVersion" }
