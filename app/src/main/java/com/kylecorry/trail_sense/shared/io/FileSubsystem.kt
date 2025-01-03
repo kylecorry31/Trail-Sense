@@ -47,6 +47,10 @@ class FileSubsystem private constructor(private val context: Context) {
         return local.getFile(path, create)
     }
 
+    fun getDirectory(path: String, create: Boolean = false): File {
+        return local.getDirectory(path, create)
+    }
+
     fun list(path: String): List<File> {
         return local.list(path)
     }
@@ -146,6 +150,11 @@ class FileSubsystem private constructor(private val context: Context) {
     suspend fun createTemp(extension: String): File = onIO {
         val filename = "${TEMP_DIR}/${UUID.randomUUID()}.$extension"
         get(filename, true)
+    }
+
+    suspend fun createTempDirectory(): File = onIO {
+        val filename = "${TEMP_DIR}/${UUID.randomUUID()}"
+        getDirectory(filename, true)
     }
 
     fun getLocalPath(file: File): String {

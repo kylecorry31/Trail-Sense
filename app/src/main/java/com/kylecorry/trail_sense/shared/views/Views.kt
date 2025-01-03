@@ -1,8 +1,10 @@
 package com.kylecorry.trail_sense.shared.views
 
 import android.content.Context
+import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
@@ -51,6 +53,18 @@ object Views {
         return TextView(context).apply {
             layoutParams = ViewGroup.LayoutParams(width, height)
             this.text = text
+        }
+    }
+
+    fun image(
+        context: Context,
+        uri: Uri,
+        width: Int = ViewGroup.LayoutParams.WRAP_CONTENT,
+        height: Int = ViewGroup.LayoutParams.WRAP_CONTENT
+    ): View {
+        return ImageView(context).apply {
+            setImageURI(uri)
+            layoutParams = ViewGroup.LayoutParams(width, height)
         }
     }
 
