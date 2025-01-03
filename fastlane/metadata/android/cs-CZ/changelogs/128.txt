@@ -1,0 +1,9 @@
+Majáky
+- Zobrazení přílivu a odlivu na majáku
+
+Rozšířená realita
+- Zobrazení více hvězd v noci
+- Přidána barva hvězd
+
+Přílivy a odlivy
+- Určení, která pole jsou povinná
