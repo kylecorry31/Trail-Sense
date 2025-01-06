@@ -1066,4 +1066,21 @@
     <string name="reduce_pdf_resolution">Reduser PDF-oppløsning</string>
     <string name="theme_system_black">System (svart)</string>
     <string name="reduce_photo_resolution">Reduser bildeoppløsning</string>
+    <string name="nearest_stars">Nærmeste stjerner</string>
+    <string name="select_star">Velg stjerne</string>
+    <string name="augmented_reality_description">Vis navigeringsmarkører i nærheten og solen/månen med kameraet</string>
+    <plurals name="star_count">
+        <item quantity="one">%d stjerne</item>
+        <item quantity="other">%d stjerner</item>
+    </plurals>
+    <string name="approximate_location">Omtrentlig posisjon</string>
+    <string name="last_known_gps_location">Sist kjente GPS-posisjon</string>
+    <string name="timezone">Tidssone</string>
+    <string name="stars">Stjerner</string>
+    <string name="magnetometer_gyro_custom">Magnetometer + Gyro (Tilpasset)</string>
+    <string name="tide">Tidevann</string>
+    <string name="tool_long_press_hint_toast">Lang-trykk et verktøy for å se flere alternativer</string>
+    <string name="location_number">Posisjon %d</string>
+    <string name="millimeters_format">%s mm</string>
+    <string name="select_from_gallery">Velg fra galleri</string>
 </resources>
