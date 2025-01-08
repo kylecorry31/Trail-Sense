@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.experimentation
+package com.kylecorry.trail_sense.tools.field_guide.infrastructure
 
 import com.kylecorry.andromeda.files.ZipUtils
 import com.kylecorry.andromeda.fragments.AndromedaFragment
@@ -11,8 +11,8 @@ import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.shared.io.UriPicker
 import com.kylecorry.trail_sense.shared.io.UriService
 import com.kylecorry.trail_sense.shared.withId
-import com.kylecorry.trail_sense.tools.species_catalog.FieldGuidePage
-import com.kylecorry.trail_sense.tools.species_catalog.FieldGuidePageTag
+import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
+import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
 import java.io.InputStream
 import java.util.Base64
 

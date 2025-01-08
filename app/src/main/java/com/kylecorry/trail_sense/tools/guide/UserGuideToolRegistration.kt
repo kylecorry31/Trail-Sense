@@ -16,7 +16,7 @@ object UserGuideToolRegistration : ToolRegistration {
             context.getString(R.string.tool_user_guide_title),
             R.drawable.ic_user_guide,
             R.id.guideListFragment,
-            ToolCategory.Other,
+            ToolCategory.Books,
             context.getString(R.string.tool_user_guide_summary),
             additionalNavigationIds = listOf(
                 R.id.guideFragment

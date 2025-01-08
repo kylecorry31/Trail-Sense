@@ -9,5 +9,6 @@ enum class ToolCategory {
     Power,
     Weather,
     Communication,
+    Books,
     Other
 }

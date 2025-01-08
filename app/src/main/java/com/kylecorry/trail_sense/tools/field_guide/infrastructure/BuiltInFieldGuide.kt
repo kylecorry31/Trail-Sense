@@ -1,8 +1,10 @@
-package com.kylecorry.trail_sense.tools.species_catalog
+package com.kylecorry.trail_sense.tools.field_guide.infrastructure
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.text.TextUtils
+import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
+import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
 
 object BuiltInFieldGuide {
 

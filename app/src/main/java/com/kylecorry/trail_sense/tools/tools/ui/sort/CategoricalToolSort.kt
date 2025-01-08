@@ -16,6 +16,7 @@ class CategoricalToolSort(context: Context) : ToolSort {
         ToolCategory.Power to context.getString(R.string.power),
         ToolCategory.Weather to context.getString(R.string.weather),
         ToolCategory.Communication to context.getString(R.string.communication),
+        ToolCategory.Books to context.getString(R.string.books),
         ToolCategory.Other to context.getString(R.string.other)
     )
 

@@ -1,22 +1,23 @@
-package com.kylecorry.trail_sense.tools.survival_guide
+package com.kylecorry.trail_sense.tools.field_guide
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
-object SurvivalGuideToolRegistration : ToolRegistration {
+object FieldGuideToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
         return Tool(
-            Tools.SURVIVAL_GUIDE,
-            context.getString(R.string.survival_guide),
+            Tools.FIELD_GUIDE,
+            context.getString(R.string.field_guide),
             R.drawable.survival_guide,
-            R.id.fragmentToolSurvivalGuideList,
+            R.id.fieldGuideFragment,
             ToolCategory.Books,
-            guideId = R.raw.guide_tool_survival_guide,
-            additionalNavigationIds = listOf(R.id.fragmentToolSurvivalGuideReader)
+            isExperimental = true,
+            isAvailable = { isDebug() }
         )
     }
 }

@@ -28,6 +28,7 @@ import com.kylecorry.trail_sense.tools.comms.talk.LocalTalkToolRegistration
 import com.kylecorry.trail_sense.tools.convert.ConvertToolRegistration
 import com.kylecorry.trail_sense.tools.diagnostics.DiagnosticsToolRegistration
 import com.kylecorry.trail_sense.tools.experimentation.ExperimentationToolRegistration
+import com.kylecorry.trail_sense.tools.field_guide.FieldGuideToolRegistration
 import com.kylecorry.trail_sense.tools.flashlight.FlashlightToolRegistration
 import com.kylecorry.trail_sense.tools.guide.UserGuideToolRegistration
 import com.kylecorry.trail_sense.tools.level.BubbleLevelToolRegistration
@@ -103,7 +104,8 @@ object Tools {
         TurnBackToolRegistration,
         LocalMessagingToolRegistration,
         LocalTalkToolRegistration,
-        SurvivalGuideToolRegistration
+        SurvivalGuideToolRegistration,
+        FieldGuideToolRegistration
     )
     private val topics = mutableMapOf<String, Topic<Bundle>>()
     private val broadcastScope = CoroutineScope(Dispatchers.Main)
@@ -258,6 +260,7 @@ object Tools {
     const val LOCAL_MESSAGING = 39L
     const val LOCAL_TALK = 40L
     const val SURVIVAL_GUIDE = 41L
+    const val FIELD_GUIDE = 42L
 
     // Quick Action IDs
     const val QUICK_ACTION_NONE = -1

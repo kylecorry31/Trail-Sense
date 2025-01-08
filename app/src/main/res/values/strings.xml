@@ -1532,4 +1532,6 @@
     <string name="select_star">Select star</string>
     <string name="stars">Stars</string>
     <string name="tide">Tide</string>
+    <string name="field_guide">Field Guide</string>
+    <string name="books">Books</string>
 </resources>

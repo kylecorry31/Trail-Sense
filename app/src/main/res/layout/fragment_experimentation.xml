@@ -4,14 +4,4 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.kylecorry.trail_sense.shared.views.SearchView
-        android:id="@+id/search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp" />
-
-    <com.kylecorry.andromeda.views.list.AndromedaListView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 </LinearLayout>
