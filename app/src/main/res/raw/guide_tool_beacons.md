@@ -58,6 +58,7 @@ To open a beacon, click the beacon in the list. This will open the beacon detail
 - **Distance**: The distance to the beacon from your current location.
 - **Historic high/low temperature**: The historical average high and low temperature for the beacon's location. See the 'Climate' guide for more information.
 - **Sunrise/sunset**: The sunrise and sunset times for the beacon's location.
+- **Tide**: The estimated tide near the beacon's location.
 - **Notes**: Any notes you recorded about the beacon.
 
 ## Navigate to a beacon
