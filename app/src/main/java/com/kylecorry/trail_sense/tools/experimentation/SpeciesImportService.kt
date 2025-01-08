@@ -10,7 +10,9 @@ import com.kylecorry.trail_sense.shared.io.ImportService
 import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.shared.io.UriPicker
 import com.kylecorry.trail_sense.shared.io.UriService
-import com.kylecorry.trail_sense.tools.species_catalog.Species
+import com.kylecorry.trail_sense.shared.withId
+import com.kylecorry.trail_sense.tools.species_catalog.FieldGuidePage
+import com.kylecorry.trail_sense.tools.species_catalog.FieldGuidePageTag
 import java.io.InputStream
 import java.util.Base64
 
@@ -19,42 +21,9 @@ class SpeciesImportService(
     private val uriService: UriService,
     private val files: FileSubsystem
 ) :
-    ImportService<List<Species>> {
+    ImportService<List<FieldGuidePage>> {
 
-    // TODO: Use an enum for tags
-    private val idToTag = mapOf(
-        "Africa" to 1,
-        "Antarctica" to 2,
-        "Asia" to 3,
-        "Australia" to 4,
-        "Europe" to 5,
-        "North America" to 6,
-        "South America" to 7,
-        "Plant" to 8,
-        "Animal" to 9,
-        "Fungus" to 10,
-        "Bird" to 11,
-        "Mammal" to 12,
-        "Reptile" to 13,
-        "Amphibian" to 14,
-        "Fish" to 15,
-        "Insect" to 16,
-        "Arachnid" to 17,
-        "Crustacean" to 18,
-        "Mollusk" to 19,
-        "Forest" to 20,
-        "Desert" to 21,
-        "Grassland" to 22,
-        "Wetland" to 23,
-        "Mountain" to 24,
-        "Urban" to 25,
-        "Marine" to 26,
-        "Freshwater" to 27,
-        "Cave" to 28,
-        "Tundra" to 29,
-    ).map { it.value to it.key }.toMap()
-
-    override suspend fun import(): List<Species>? = onIO {
+    override suspend fun import(): List<FieldGuidePage>? = onIO {
         val uri = uriPicker.open(
             listOf(
                 "application/json",
@@ -70,12 +39,12 @@ class SpeciesImportService(
         }
     }
 
-    private suspend fun parseZip(stream: InputStream): List<Species>? {
+    private suspend fun parseZip(stream: InputStream): List<FieldGuidePage>? {
         val root = files.createTempDirectory()
         ZipUtils.unzip(stream, root, MAX_ZIP_FILE_COUNT)
 
         // Parse each file as a JSON file
-        val species = mutableListOf<Species>()
+        val species = mutableListOf<FieldGuidePage>()
 
         for (file in root.listFiles() ?: return null) {
             if (file.extension == "json") {
@@ -86,17 +55,17 @@ class SpeciesImportService(
         return species
     }
 
-    private suspend fun parseJson(stream: InputStream): List<Species>? {
+    private suspend fun parseJson(stream: InputStream): List<FieldGuidePage>? {
         val json = stream.bufferedReader().use { it.readText() }
         return try {
             val parsed = JsonConvert.fromJson<SpeciesJson>(json) ?: return null
             val images = parsed.images.map { saveImage(it) }
             listOf(
-                Species(
+                FieldGuidePage(
                     0,
                     parsed.name,
                     images,
-                    parsed.tags.mapNotNull { idToTag[it] },
+                    parsed.tags.mapNotNull { FieldGuidePageTag.entries.withId(it) },
                     parsed.notes ?: ""
                 )
             )
@@ -117,7 +86,7 @@ class SpeciesImportService(
     class SpeciesJson {
         var name: String = ""
         var images: List<String> = emptyList()
-        var tags: List<Int> = emptyList()
+        var tags: List<Long> = emptyList()
         var notes: String? = null
     }
 

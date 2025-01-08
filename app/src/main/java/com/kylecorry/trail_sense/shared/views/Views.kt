@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.views
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
@@ -64,6 +65,18 @@ object Views {
     ): View {
         return ImageView(context).apply {
             setImageURI(uri)
+            layoutParams = ViewGroup.LayoutParams(width, height)
+        }
+    }
+
+    fun image(
+        context: Context,
+        drawable: Drawable?,
+        width: Int = ViewGroup.LayoutParams.WRAP_CONTENT,
+        height: Int = ViewGroup.LayoutParams.WRAP_CONTENT
+    ): View {
+        return ImageView(context).apply {
+            setImageDrawable(drawable)
             layoutParams = ViewGroup.LayoutParams(width, height)
         }
     }

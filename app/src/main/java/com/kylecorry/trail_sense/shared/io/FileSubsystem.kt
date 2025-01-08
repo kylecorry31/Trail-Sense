@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.util.Size
 import android.webkit.MimeTypeMap
@@ -32,7 +33,25 @@ class FileSubsystem private constructor(private val context: Context) {
         return bitmap(path, Size(maxWidth, maxHeight))
     }
 
+    fun drawable(path: String, maxSize: Size? = null): Drawable? {
+        // TODO: Handle maxSize
+        return if (path.startsWith("android-assets://")){
+            context.assets.open(path.replace("android-assets://", "")).use {
+                Drawable.createFromStream(it, null)
+            }
+        } else {
+            Drawable.createFromPath(get(path).path)
+        }
+    }
+
     fun bitmap(path: String, maxSize: Size? = null): Bitmap? {
+        if (path.startsWith("android-assets://")){
+            context.assets.open(path.replace("android-assets://", "")).use {
+                // TODO: Handle maxSize
+                return BitmapFactory.decodeStream(it)
+            }
+        }
+
         return if (maxSize != null) {
             if (maxSize.width <= 0 || maxSize.height <= 0) {
                 return null
