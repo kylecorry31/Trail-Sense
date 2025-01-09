@@ -1248,4 +1248,6 @@
     <string name="timezone">Tijdzone</string>
     <string name="stars">Sterren</string>
     <string name="tide">Getij</string>
+    <string name="books">Boeken</string>
+    <string name="field_guide">Veldgids</string>
 </resources>
