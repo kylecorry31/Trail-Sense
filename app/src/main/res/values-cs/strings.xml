@@ -1273,4 +1273,6 @@
     <string name="stars">Hvězdy</string>
     <string name="nearest_stars">Nejbližší hvězdy</string>
     <string name="tide">Příliv a odliv</string>
+    <string name="field_guide">Terénní průvodce</string>
+    <string name="books">Knihy</string>
 </resources>
