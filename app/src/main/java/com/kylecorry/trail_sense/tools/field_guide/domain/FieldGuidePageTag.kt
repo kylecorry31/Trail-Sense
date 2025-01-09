@@ -9,7 +9,7 @@ enum class FieldGuidePageTagType {
     ActivityPattern
 }
 
-enum class FieldGuidePageTag(override val id: Long, type: FieldGuidePageTagType) : Identifiable {
+enum class FieldGuidePageTag(override val id: Long, val type: FieldGuidePageTagType) : Identifiable {
     Africa(1, FieldGuidePageTagType.Continent),
     Antarctica(2, FieldGuidePageTagType.Continent),
     Asia(3, FieldGuidePageTagType.Continent),

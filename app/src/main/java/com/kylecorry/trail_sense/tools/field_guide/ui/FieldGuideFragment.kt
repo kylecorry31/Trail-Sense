@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.field_guide.ui
 
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Size
 import android.view.LayoutInflater
@@ -15,12 +16,15 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.views.list.AsyncListIcon
 import com.kylecorry.andromeda.views.list.ListItem
+import com.kylecorry.andromeda.views.list.ListItemTag
 import com.kylecorry.trail_sense.databinding.FragmentFieldGuideBinding
+import com.kylecorry.trail_sense.shared.formatEnumName
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.views.Views
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
+import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTagType
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.BuiltInFieldGuide
 
 class FieldGuideFragment : BoundFragment<FragmentFieldGuideBinding>() {
@@ -81,12 +85,21 @@ class FieldGuideFragment : BoundFragment<FragmentFieldGuideBinding>() {
                 }
             }
 
+            val displayedTagTypes = listOf(
+                FieldGuidePageTagType.Habitat,
+                FieldGuidePageTagType.ActivityPattern
+            )
+
             binding.list.setItems(filteredSpecies.map {
                 val firstSentence = it.notes?.substringBefore(".")?.plus(".") ?: ""
                 ListItem(
                     it.id,
                     it.name,
-                    it.tags.joinToString(", ") + "\n\n" + firstSentence.take(200),
+                    firstSentence.take(200),
+                    // TODO: Each tag should be assigned a color and icon
+                    tags = it.tags
+                        .filter { it.type in displayedTagTypes }
+                        .map { ListItemTag(formatEnumName(it.name), null, Color.WHITE) },
                     icon = AsyncListIcon(
                         viewLifecycleOwner,
                         { loadThumbnail(it) },
