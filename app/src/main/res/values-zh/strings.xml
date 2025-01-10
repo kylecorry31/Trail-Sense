@@ -1236,4 +1236,6 @@
     <string name="last_known_gps_location">上个已知的 GPS 位置</string>
     <string name="timezone">时区</string>
     <string name="tide">潮汐</string>
+    <string name="field_guide">野外指南</string>
+    <string name="books">书籍</string>
 </resources>
