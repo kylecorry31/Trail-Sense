@@ -283,7 +283,7 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
         index: Int = 0
     ) {
         hasText(com.kylecorry.andromeda.views.R.id.title, name, index = index)
-        hasText(com.kylecorry.andromeda.views.R.id.tag, category, index = index)
+        hasText(com.kylecorry.andromeda.views.R.id.tags, category, index = index)
         hasText(
             com.kylecorry.andromeda.views.R.id.data_1,
             "$amount / $desiredAmount",
