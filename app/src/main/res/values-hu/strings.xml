@@ -1176,4 +1176,17 @@
     <string name="ar_layer_override_message">A réteg beállításokat felülírhatják az útmutatók, mint például a Csillagászati útmutató.</string>
     <string name="date">Dátum</string>
     <string name="audio_error_messsage">Hiba történt a hang lejátszásakor.</string>
+    <string name="view_distance">Látótávolság</string>
+    <string name="theme_system_black">Rendszer (fekete)</string>
+    <plurals name="star_count">
+        <item quantity="one">%d csillag</item>
+        <item quantity="other">%d csillag</item>
+    </plurals>
+    <plurals name="number_steps">
+        <item quantity="one">%d lépés</item>
+        <item quantity="other">%d lépés</item>
+    </plurals>
+    <string name="millimeters_format">%s mm</string>
+    <string name="teaspooon_format">%s tk</string>
+    <string name="tablespoon_format">%s ek</string>
 </resources>
