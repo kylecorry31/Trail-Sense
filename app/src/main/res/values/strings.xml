@@ -68,6 +68,10 @@
         <item quantity="one">%d beacon</item>
         <item quantity="other">%d beacons</item>
     </plurals>
+    <plurals name="page_group_summary">
+        <item quantity="one">%d page</item>
+        <item quantity="other">%d pages</item>
+    </plurals>
     <plurals name="path_group_summary">
         <item quantity="one">%d path</item>
         <item quantity="other">%d paths</item>

@@ -334,7 +334,7 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.NorthAmerica,
                 FieldGuidePageTag.SouthAmerica,
                 FieldGuidePageTag.Animal,
-                FieldGuidePageTag.Insect,
+                FieldGuidePageTag.Worm,
                 FieldGuidePageTag.Forest,
                 FieldGuidePageTag.Grassland,
                 FieldGuidePageTag.Urban,
@@ -432,7 +432,9 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.NorthAmerica,
                 FieldGuidePageTag.SouthAmerica,
                 FieldGuidePageTag.Forest,
-                FieldGuidePageTag.Marine
+                FieldGuidePageTag.Marine,
+                FieldGuidePageTag.Plant,
+                FieldGuidePageTag.Other
             )
         ),
         BuiltInFieldGuidePage(
@@ -613,7 +615,8 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.NorthAmerica,
                 FieldGuidePageTag.Mountain,
                 FieldGuidePageTag.Marine,
-                FieldGuidePageTag.Freshwater
+                FieldGuidePageTag.Freshwater,
+                FieldGuidePageTag.Rock
             )
         ),
         BuiltInFieldGuidePage(
@@ -624,7 +627,8 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Asia,
                 FieldGuidePageTag.Grassland,
                 FieldGuidePageTag.Marine,
-                FieldGuidePageTag.Freshwater
+                FieldGuidePageTag.Freshwater,
+                FieldGuidePageTag.Rock
             )
         ),
         BuiltInFieldGuidePage(
@@ -636,7 +640,8 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Australia,
                 FieldGuidePageTag.Grassland,
                 FieldGuidePageTag.Mountain,
-                FieldGuidePageTag.Freshwater
+                FieldGuidePageTag.Freshwater,
+                FieldGuidePageTag.Rock
             )
         ),
         BuiltInFieldGuidePage(
@@ -649,7 +654,8 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.NorthAmerica,
                 FieldGuidePageTag.Urban,
                 FieldGuidePageTag.Marine,
-                FieldGuidePageTag.Freshwater
+                FieldGuidePageTag.Freshwater,
+                FieldGuidePageTag.Rock
             )
         ),
     )
