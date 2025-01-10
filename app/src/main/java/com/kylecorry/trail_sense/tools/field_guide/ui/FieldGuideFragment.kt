@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.tools.field_guide.ui
 
 import android.graphics.Bitmap
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Size
 import android.view.LayoutInflater
@@ -17,6 +16,7 @@ import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.views.list.AsyncListIcon
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ListItemTag
+import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.trail_sense.databinding.FragmentFieldGuideBinding
 import com.kylecorry.trail_sense.shared.formatEnumName
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
@@ -99,7 +99,13 @@ class FieldGuideFragment : BoundFragment<FragmentFieldGuideBinding>() {
                     // TODO: Each tag should be assigned a color and icon
                     tags = it.tags
                         .filter { it.type in displayedTagTypes }
-                        .map { ListItemTag(formatEnumName(it.name), null, Color.WHITE) },
+                        .map {
+                            ListItemTag(
+                                formatEnumName(it.name),
+                                it.icon?.let { ResourceListIcon(it, size = 16f) },
+                                it.color
+                            )
+                        },
                     icon = AsyncListIcon(
                         viewLifecycleOwner,
                         { loadThumbnail(it) },
