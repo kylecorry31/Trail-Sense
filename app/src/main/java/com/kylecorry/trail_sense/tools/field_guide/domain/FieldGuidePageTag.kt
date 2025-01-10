@@ -11,7 +11,8 @@ enum class FieldGuidePageTagType {
     Continent,
     Habitat,
     Classification,
-    ActivityPattern
+    ActivityPattern,
+    HumanInteraction
 }
 
 enum class FieldGuidePageTag(
@@ -113,4 +114,9 @@ enum class FieldGuidePageTag(
         icon = R.drawable.ic_sun,
         color = AppColor.Orange.color
     ),
+    Edible(34, FieldGuidePageTagType.HumanInteraction),
+    Inedible(35, FieldGuidePageTagType.HumanInteraction),
+    Dangerous(36, FieldGuidePageTagType.HumanInteraction),
+    Crafting(37, FieldGuidePageTagType.HumanInteraction),
+    Medicinal(38, FieldGuidePageTagType.HumanInteraction),
 }

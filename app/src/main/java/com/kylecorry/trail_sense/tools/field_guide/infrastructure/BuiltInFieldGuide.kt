@@ -33,7 +33,8 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Mountain,
                 FieldGuidePageTag.Urban,
                 FieldGuidePageTag.Tundra,
-                FieldGuidePageTag.Diurnal
+                FieldGuidePageTag.Diurnal,
+                FieldGuidePageTag.Edible
             )
         ),
         BuiltInFieldGuidePage(
@@ -49,7 +50,8 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Animal,
                 FieldGuidePageTag.Fish,
                 FieldGuidePageTag.Freshwater,
-                FieldGuidePageTag.Diurnal
+                FieldGuidePageTag.Diurnal,
+                FieldGuidePageTag.Edible
             )
         ),
         BuiltInFieldGuidePage(
@@ -65,7 +67,8 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Animal,
                 FieldGuidePageTag.Fish,
                 FieldGuidePageTag.Freshwater,
-                FieldGuidePageTag.Diurnal
+                FieldGuidePageTag.Diurnal,
+                FieldGuidePageTag.Edible
             )
         ),
         BuiltInFieldGuidePage(
@@ -82,7 +85,8 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Fish,
                 FieldGuidePageTag.Freshwater,
                 FieldGuidePageTag.Nocturnal,
-                FieldGuidePageTag.Crepuscular
+                FieldGuidePageTag.Crepuscular,
+                FieldGuidePageTag.Edible
             )
         ),
         BuiltInFieldGuidePage(
@@ -99,7 +103,8 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Crustacean,
                 FieldGuidePageTag.Wetland,
                 FieldGuidePageTag.Freshwater,
-                FieldGuidePageTag.Nocturnal
+                FieldGuidePageTag.Nocturnal,
+                FieldGuidePageTag.Edible
             )
         ),
         BuiltInFieldGuidePage(
@@ -117,7 +122,8 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Marine,
                 FieldGuidePageTag.Freshwater,
                 FieldGuidePageTag.Crepuscular,
-                FieldGuidePageTag.Nocturnal
+                FieldGuidePageTag.Nocturnal,
+                FieldGuidePageTag.Edible
             )
         ),
         BuiltInFieldGuidePage(
@@ -133,7 +139,8 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Animal,
                 FieldGuidePageTag.Mollusk,
                 FieldGuidePageTag.Marine,
-                FieldGuidePageTag.Freshwater
+                FieldGuidePageTag.Freshwater,
+                FieldGuidePageTag.Edible
             )
         ),
         BuiltInFieldGuidePage(
@@ -149,7 +156,8 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Animal,
                 FieldGuidePageTag.Mollusk,
                 FieldGuidePageTag.Marine,
-                FieldGuidePageTag.Freshwater
+                FieldGuidePageTag.Freshwater,
+                FieldGuidePageTag.Edible
             )
         ),
         BuiltInFieldGuidePage(
@@ -163,7 +171,8 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.NorthAmerica,
                 FieldGuidePageTag.SouthAmerica,
                 FieldGuidePageTag.Animal,
-                FieldGuidePageTag.Marine
+                FieldGuidePageTag.Marine,
+                FieldGuidePageTag.Edible
             )
         ),
         BuiltInFieldGuidePage(
@@ -184,7 +193,8 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Wetland,
                 FieldGuidePageTag.Mountain,
                 FieldGuidePageTag.Tundra,
-                FieldGuidePageTag.Crepuscular
+                FieldGuidePageTag.Crepuscular,
+                FieldGuidePageTag.Edible
             )
         ),
         BuiltInFieldGuidePage(
@@ -207,7 +217,8 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Tundra,
                 FieldGuidePageTag.Urban,
                 FieldGuidePageTag.Cave,
-                FieldGuidePageTag.Nocturnal
+                FieldGuidePageTag.Nocturnal,
+                FieldGuidePageTag.Edible
             )
         ),
         BuiltInFieldGuidePage(
@@ -222,7 +233,8 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Forest,
                 FieldGuidePageTag.Grassland,
                 FieldGuidePageTag.Tundra,
-                FieldGuidePageTag.Diurnal
+                FieldGuidePageTag.Diurnal,
+                FieldGuidePageTag.Edible
             )
         ),
         BuiltInFieldGuidePage(
@@ -241,7 +253,8 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Grassland,
                 FieldGuidePageTag.Wetland,
                 FieldGuidePageTag.Urban,
-                FieldGuidePageTag.Nocturnal
+                FieldGuidePageTag.Nocturnal,
+                FieldGuidePageTag.Edible
             )
         ),
         BuiltInFieldGuidePage(
@@ -261,7 +274,8 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Grassland,
                 FieldGuidePageTag.Mountain,
                 FieldGuidePageTag.Urban,
-                FieldGuidePageTag.Diurnal
+                FieldGuidePageTag.Diurnal,
+                FieldGuidePageTag.Edible
             )
         ),
         BuiltInFieldGuidePage(
@@ -282,7 +296,8 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Mountain,
                 FieldGuidePageTag.Urban,
                 FieldGuidePageTag.Cave,
-                FieldGuidePageTag.Nocturnal
+                FieldGuidePageTag.Nocturnal,
+                FieldGuidePageTag.Edible
             )
         ),
         BuiltInFieldGuidePage(
@@ -303,7 +318,8 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Mountain,
                 FieldGuidePageTag.Urban,
                 FieldGuidePageTag.Wetland,
-                FieldGuidePageTag.Diurnal
+                FieldGuidePageTag.Diurnal,
+                FieldGuidePageTag.Edible
             )
         ),
         BuiltInFieldGuidePage(
@@ -322,7 +338,8 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Grassland,
                 FieldGuidePageTag.Urban,
                 FieldGuidePageTag.Wetland,
-                FieldGuidePageTag.Nocturnal
+                FieldGuidePageTag.Nocturnal,
+                FieldGuidePageTag.Edible
             )
         ),
         BuiltInFieldGuidePage(
@@ -342,7 +359,8 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Urban,
                 FieldGuidePageTag.Wetland,
                 FieldGuidePageTag.Mountain,
-                FieldGuidePageTag.Nocturnal
+                FieldGuidePageTag.Nocturnal,
+                FieldGuidePageTag.Edible
             )
         ),
         // TODO: The below have not been updated
