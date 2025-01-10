@@ -171,6 +171,7 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.NorthAmerica,
                 FieldGuidePageTag.SouthAmerica,
                 FieldGuidePageTag.Animal,
+                FieldGuidePageTag.Mollusk,
                 FieldGuidePageTag.Marine,
                 FieldGuidePageTag.Edible
             )

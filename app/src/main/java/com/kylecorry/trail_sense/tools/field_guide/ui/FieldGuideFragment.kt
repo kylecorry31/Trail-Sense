@@ -15,16 +15,12 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.views.list.AsyncListIcon
 import com.kylecorry.andromeda.views.list.ListItem
-import com.kylecorry.andromeda.views.list.ListItemTag
-import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.trail_sense.databinding.FragmentFieldGuideBinding
-import com.kylecorry.trail_sense.shared.formatEnumName
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.views.Views
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
-import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTagType
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.BuiltInFieldGuide
 
 class FieldGuideFragment : BoundFragment<FragmentFieldGuideBinding>() {
@@ -85,27 +81,12 @@ class FieldGuideFragment : BoundFragment<FragmentFieldGuideBinding>() {
                 }
             }
 
-            val displayedTagTypes = listOf(
-                FieldGuidePageTagType.Habitat,
-                FieldGuidePageTagType.ActivityPattern
-            )
-
             binding.list.setItems(filteredSpecies.map {
                 val firstSentence = it.notes?.substringBefore(".")?.plus(".") ?: ""
                 ListItem(
                     it.id,
                     it.name,
                     firstSentence.take(200),
-                    // TODO: Each tag should be assigned a color and icon
-                    tags = it.tags
-                        .filter { it.type in displayedTagTypes }
-                        .map {
-                            ListItemTag(
-                                formatEnumName(it.name),
-                                it.icon?.let { ResourceListIcon(it, size = 16f) },
-                                it.color
-                            )
-                        },
                     icon = AsyncListIcon(
                         viewLifecycleOwner,
                         { loadThumbnail(it) },
@@ -114,6 +95,7 @@ class FieldGuideFragment : BoundFragment<FragmentFieldGuideBinding>() {
                         clearOnPause = true
                     ),
                 ) {
+                    // TODO: Open a separate page
                     dialog(
                         it.name,
                         it.notes ?: "",

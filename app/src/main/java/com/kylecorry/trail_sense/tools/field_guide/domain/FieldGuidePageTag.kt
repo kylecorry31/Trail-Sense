@@ -1,10 +1,5 @@
 package com.kylecorry.trail_sense.tools.field_guide.domain
 
-import android.graphics.Color
-import androidx.annotation.ColorInt
-import androidx.annotation.DrawableRes
-import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.data.Identifiable
 
 enum class FieldGuidePageTagType {
@@ -17,9 +12,7 @@ enum class FieldGuidePageTagType {
 
 enum class FieldGuidePageTag(
     override val id: Long,
-    val type: FieldGuidePageTagType,
-    @DrawableRes val icon: Int? = null,
-    @ColorInt val color: Int = Color.WHITE
+    val type: FieldGuidePageTagType
 ) : Identifiable {
     Africa(1, FieldGuidePageTagType.Continent),
     Antarctica(2, FieldGuidePageTagType.Continent),
@@ -40,79 +33,55 @@ enum class FieldGuidePageTag(
     Arachnid(17, FieldGuidePageTagType.Classification),
     Crustacean(18, FieldGuidePageTagType.Classification),
     Mollusk(19, FieldGuidePageTagType.Classification),
-    Forest(20, FieldGuidePageTagType.Habitat, icon = R.drawable.tree, color = AppColor.Green.color),
+    Forest(20, FieldGuidePageTagType.Habitat),
     Desert(
         21,
-        FieldGuidePageTagType.Habitat,
-        icon = R.drawable.thermometer,
-        color = AppColor.Yellow.color
+        FieldGuidePageTagType.Habitat
     ),
     Grassland(
         22,
-        FieldGuidePageTagType.Habitat,
-        icon = R.drawable.ic_grass,
-        color = AppColor.Green.color
+        FieldGuidePageTagType.Habitat
     ),
     Wetland(
         23,
-        FieldGuidePageTagType.Habitat,
-        icon = R.drawable.ic_grass,
-        color = AppColor.Brown.color
+        FieldGuidePageTagType.Habitat
     ),
     Mountain(
         24,
-        FieldGuidePageTagType.Habitat,
-        icon = R.drawable.ic_altitude,
-        color = AppColor.Gray.color
+        FieldGuidePageTagType.Habitat
     ),
     Urban(
         25,
-        FieldGuidePageTagType.Habitat,
-        icon = R.drawable.ic_building,
-        color = AppColor.Gray.color
+        FieldGuidePageTagType.Habitat
     ),
     Marine(
         26,
-        FieldGuidePageTagType.Habitat,
-        icon = R.drawable.ic_tide_table,
-        color = AppColor.Blue.color
+        FieldGuidePageTagType.Habitat
     ),
     Freshwater(
         27,
-        FieldGuidePageTagType.Habitat,
-        icon = R.drawable.ic_category_water,
-        color = AppColor.Blue.color
+        FieldGuidePageTagType.Habitat
     ),
     Cave(
         28,
-        FieldGuidePageTagType.Habitat,
-        icon = R.drawable.ic_ruins,
-        color = AppColor.Gray.color
+        FieldGuidePageTagType.Habitat
     ),
     Tundra(
         29,
-        FieldGuidePageTagType.Habitat,
-        icon = R.drawable.ic_precipitation_snow,
-        color = AppColor.Gray.color
+        FieldGuidePageTagType.Habitat
     ),
     Rock(30, FieldGuidePageTagType.Classification),
     Diurnal(
         31,
-        FieldGuidePageTagType.ActivityPattern,
-        icon = R.drawable.ic_sun,
-        color = AppColor.Yellow.color
+        FieldGuidePageTagType.ActivityPattern
     ),
     Nocturnal(
         32,
-        FieldGuidePageTagType.ActivityPattern,
-        icon = R.drawable.ic_moon,
-        color = AppColor.Gray.color
+        FieldGuidePageTagType.ActivityPattern
     ),
     Crepuscular(
         33,
-        FieldGuidePageTagType.ActivityPattern,
-        icon = R.drawable.ic_sun,
-        color = AppColor.Orange.color
+        FieldGuidePageTagType.ActivityPattern
     ),
     Edible(34, FieldGuidePageTagType.HumanInteraction),
     Inedible(35, FieldGuidePageTagType.HumanInteraction),
