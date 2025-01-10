@@ -490,6 +490,18 @@ object BuiltInFieldGuide {
             )
         ),
         BuiltInFieldGuidePage(
+            R.raw.rubus,
+            "field_guide/Rubus.webp",
+            listOf(
+                FieldGuidePageTag.Asia,
+                FieldGuidePageTag.Europe,
+                FieldGuidePageTag.NorthAmerica,
+                FieldGuidePageTag.Plant,
+                FieldGuidePageTag.Grassland,
+                FieldGuidePageTag.Urban
+            )
+        ),
+        BuiltInFieldGuidePage(
             R.raw.laetiporus,
             "field_guide/Laetiporus.webp",
             listOf(
