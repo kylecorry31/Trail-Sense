@@ -1238,4 +1238,7 @@
     <string name="tide">潮汐</string>
     <string name="field_guide">野外指南</string>
     <string name="books">书籍</string>
+    <plurals name="page_group_summary">
+        <item quantity="other">%d 页</item>
+    </plurals>
 </resources>
