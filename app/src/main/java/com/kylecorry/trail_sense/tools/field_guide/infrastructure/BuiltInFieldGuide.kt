@@ -552,17 +552,19 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Edible
             )
         ),
-        // TODO: Update the below guides
         BuiltInFieldGuidePage(
-            // Bolete
-            R.raw.boletales,
-            "field_guide/Boletales.webp",
+            R.raw.field_guide_bolete,
+            "field_guide/bolete.webp",
             listOf(
+                FieldGuidePageTag.Africa,
                 FieldGuidePageTag.Asia,
+                FieldGuidePageTag.Australia,
                 FieldGuidePageTag.Europe,
                 FieldGuidePageTag.NorthAmerica,
+                FieldGuidePageTag.SouthAmerica,
                 FieldGuidePageTag.Fungus,
-                FieldGuidePageTag.Forest
+                FieldGuidePageTag.Forest,
+                FieldGuidePageTag.Edible
             )
         ),
         BuiltInFieldGuidePage(
@@ -604,18 +606,6 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Forest,
                 FieldGuidePageTag.Grassland,
                 FieldGuidePageTag.Freshwater
-            )
-        ),
-        BuiltInFieldGuidePage(
-            // Lion's Mane
-            R.raw.hericium_erinaceus,
-            "field_guide/Hericium erinaceus.webp",
-            listOf(
-                FieldGuidePageTag.Asia,
-                FieldGuidePageTag.Europe,
-                FieldGuidePageTag.NorthAmerica,
-                FieldGuidePageTag.Fungus,
-                FieldGuidePageTag.Mountain
             )
         ),
         BuiltInFieldGuidePage(
