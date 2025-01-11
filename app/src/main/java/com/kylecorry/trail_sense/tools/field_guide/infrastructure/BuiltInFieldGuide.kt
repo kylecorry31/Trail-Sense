@@ -364,38 +364,23 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Edible
             )
         ),
-        // TODO: The below have not been updated
         BuiltInFieldGuidePage(
-            R.raw.toxicodendron_radicans,
+            R.raw.field_guide_poison_ivy,
             "survival_guide/poison_ivy.webp",
             listOf(
                 FieldGuidePageTag.Asia,
                 FieldGuidePageTag.NorthAmerica,
-                FieldGuidePageTag.SouthAmerica,
                 FieldGuidePageTag.Plant,
                 FieldGuidePageTag.Forest,
                 FieldGuidePageTag.Grassland,
-                FieldGuidePageTag.Wetland
+                FieldGuidePageTag.Urban,
+                FieldGuidePageTag.Wetland,
+                FieldGuidePageTag.Dangerous,
+                FieldGuidePageTag.Inedible
             )
         ),
         BuiltInFieldGuidePage(
-            R.raw.toxicodendron_diversilobum,
-            "field_guide/Toxicodendron diversilobum.webp",
-            listOf(
-                FieldGuidePageTag.NorthAmerica,
-                FieldGuidePageTag.Plant,
-                FieldGuidePageTag.Forest,
-                FieldGuidePageTag.Grassland,
-                FieldGuidePageTag.Freshwater
-            )
-        ),
-        BuiltInFieldGuidePage(
-            R.raw.toxicodendron_vernix,
-            "field_guide/Toxicodendron vernix.webp",
-            listOf(FieldGuidePageTag.Plant, FieldGuidePageTag.Wetland)
-        ),
-        BuiltInFieldGuidePage(
-            R.raw.urtica_dioica,
+            R.raw.field_guide_stinging_nettle,
             "survival_guide/stinging_nettle.webp",
             listOf(
                 FieldGuidePageTag.Africa,
@@ -405,22 +390,33 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.NorthAmerica,
                 FieldGuidePageTag.SouthAmerica,
                 FieldGuidePageTag.Plant,
+                FieldGuidePageTag.Forest,
                 FieldGuidePageTag.Grassland,
-                FieldGuidePageTag.Wetland
+                FieldGuidePageTag.Urban,
+                FieldGuidePageTag.Wetland,
+                FieldGuidePageTag.Edible,
+                FieldGuidePageTag.Dangerous
             )
         ),
         BuiltInFieldGuidePage(
-            R.raw.taraxacum,
-            "field_guide/Taraxacum.webp",
+            R.raw.field_guide_dandelion,
+            "field_guide/dandelion.webp",
             listOf(
-                FieldGuidePageTag.Antarctica,
+                FieldGuidePageTag.Africa,
                 FieldGuidePageTag.Asia,
+                FieldGuidePageTag.Australia,
                 FieldGuidePageTag.Europe,
                 FieldGuidePageTag.NorthAmerica,
+                FieldGuidePageTag.SouthAmerica,
                 FieldGuidePageTag.Plant,
-                FieldGuidePageTag.Urban
+                FieldGuidePageTag.Urban,
+                FieldGuidePageTag.Grassland,
+                FieldGuidePageTag.Mountain,
+                FieldGuidePageTag.Edible,
+                FieldGuidePageTag.Medicinal
             )
         ),
+        // TODO: Update the below guides
         BuiltInFieldGuidePage(
             R.raw.laminariales,
             "field_guide/Laminariales.webp",

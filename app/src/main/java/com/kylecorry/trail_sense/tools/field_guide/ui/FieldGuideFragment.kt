@@ -111,7 +111,6 @@ class FieldGuideFragment : BoundFragment<FragmentFieldGuideBinding>() {
             val iconTint = Resources.androidTextColorSecondary(requireContext())
             val listItems = if (tagFilter == null && filter.isBlank()) {
                 tags.map { tag ->
-                    // TODO: Add an icon for each category
                     // TODO: Add a translatable name
                     val numPages = species.count { it.tags.contains(tag) }
                     ListItem(
