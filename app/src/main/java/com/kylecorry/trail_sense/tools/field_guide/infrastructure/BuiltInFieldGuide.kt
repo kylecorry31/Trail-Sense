@@ -429,40 +429,46 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.SouthAmerica,
                 FieldGuidePageTag.Marine,
                 FieldGuidePageTag.Plant,
-                FieldGuidePageTag.Other
+                FieldGuidePageTag.Other,
+                FieldGuidePageTag.Edible
             )
         ),
-        // TODO: Update the below guides
         BuiltInFieldGuidePage(
-            // Dock
-            R.raw.rumex_acetosa,
-            "field_guide/Rumex acetosa.webp",
+            R.raw.field_guide_dock,
+            "field_guide/dock.webp",
             listOf(
+                FieldGuidePageTag.Africa,
                 FieldGuidePageTag.Asia,
                 FieldGuidePageTag.Australia,
                 FieldGuidePageTag.Europe,
                 FieldGuidePageTag.NorthAmerica,
+                FieldGuidePageTag.SouthAmerica,
                 FieldGuidePageTag.Plant,
-                FieldGuidePageTag.Grassland
+                FieldGuidePageTag.Grassland,
+                FieldGuidePageTag.Forest,
+                FieldGuidePageTag.Wetland,
+                FieldGuidePageTag.Urban,
+                FieldGuidePageTag.Edible
             )
         ),
         BuiltInFieldGuidePage(
-            // Clover
-            R.raw.trifolium,
-            "field_guide/Trifolium.webp",
+            R.raw.field_guide_clover,
+            "field_guide/clover.webp",
             listOf(
                 FieldGuidePageTag.Africa,
                 FieldGuidePageTag.Asia,
+                FieldGuidePageTag.Australia,
                 FieldGuidePageTag.Europe,
+                FieldGuidePageTag.NorthAmerica,
                 FieldGuidePageTag.SouthAmerica,
                 FieldGuidePageTag.Plant,
-                FieldGuidePageTag.Forest,
                 FieldGuidePageTag.Grassland,
-                FieldGuidePageTag.Mountain,
+                FieldGuidePageTag.Forest,
                 FieldGuidePageTag.Urban,
-                FieldGuidePageTag.Marine
+                FieldGuidePageTag.Edible
             )
         ),
+        // TODO: Update the below guides
         BuiltInFieldGuidePage(
             // Cattail
             R.raw.typha,
