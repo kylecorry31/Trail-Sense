@@ -416,24 +416,25 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Medicinal
             )
         ),
-        // TODO: Update the below guides
         BuiltInFieldGuidePage(
-            R.raw.laminariales,
-            "field_guide/Laminariales.webp",
+            R.raw.field_guide_kelp,
+            "field_guide/kelp.webp",
             listOf(
                 FieldGuidePageTag.Africa,
                 FieldGuidePageTag.Antarctica,
                 FieldGuidePageTag.Asia,
                 FieldGuidePageTag.Australia,
+                FieldGuidePageTag.Europe,
                 FieldGuidePageTag.NorthAmerica,
                 FieldGuidePageTag.SouthAmerica,
-                FieldGuidePageTag.Forest,
                 FieldGuidePageTag.Marine,
                 FieldGuidePageTag.Plant,
                 FieldGuidePageTag.Other
             )
         ),
+        // TODO: Update the below guides
         BuiltInFieldGuidePage(
+            // Dock
             R.raw.rumex_acetosa,
             "field_guide/Rumex acetosa.webp",
             listOf(
@@ -446,6 +447,7 @@ object BuiltInFieldGuide {
             )
         ),
         BuiltInFieldGuidePage(
+            // Clover
             R.raw.trifolium,
             "field_guide/Trifolium.webp",
             listOf(
@@ -462,6 +464,7 @@ object BuiltInFieldGuide {
             )
         ),
         BuiltInFieldGuidePage(
+            // Cattail
             R.raw.typha,
             "field_guide/Typha.webp",
             listOf(
@@ -477,6 +480,7 @@ object BuiltInFieldGuide {
             )
         ),
         BuiltInFieldGuidePage(
+            // Bamboo
             R.raw.bambusoideae,
             "field_guide/Bambusoideae.webp",
             listOf(
@@ -495,6 +499,7 @@ object BuiltInFieldGuide {
             )
         ),
         BuiltInFieldGuidePage(
+            // Common Plantain
             R.raw.plantago_major,
             "field_guide/Plantago major.webp",
             listOf(
@@ -507,6 +512,7 @@ object BuiltInFieldGuide {
             )
         ),
         BuiltInFieldGuidePage(
+            // Brambles
             R.raw.rubus,
             "field_guide/Rubus.webp",
             listOf(
@@ -519,6 +525,7 @@ object BuiltInFieldGuide {
             )
         ),
         BuiltInFieldGuidePage(
+            // Chicken of the Woods
             R.raw.laetiporus,
             "field_guide/Laetiporus.webp",
             listOf(
@@ -532,6 +539,7 @@ object BuiltInFieldGuide {
             )
         ),
         BuiltInFieldGuidePage(
+            // Bolete
             R.raw.boletales,
             "field_guide/Boletales.webp",
             listOf(
@@ -543,6 +551,7 @@ object BuiltInFieldGuide {
             )
         ),
         BuiltInFieldGuidePage(
+            // Morel
             R.raw.morchella,
             "field_guide/Morchella.webp",
             listOf(
@@ -558,6 +567,7 @@ object BuiltInFieldGuide {
             )
         ),
         BuiltInFieldGuidePage(
+            // Oyster Mushroom
             R.raw.pleurotus,
             "field_guide/Pleurotus.webp",
             listOf(
@@ -571,6 +581,7 @@ object BuiltInFieldGuide {
             )
         ),
         BuiltInFieldGuidePage(
+            // Giant Puffball
             R.raw.calvatia_gigantea,
             "field_guide/Calvatia gigantea.webp",
             listOf(
@@ -581,6 +592,7 @@ object BuiltInFieldGuide {
             )
         ),
         BuiltInFieldGuidePage(
+            // Lion's Mane
             R.raw.hericium_erinaceus,
             "field_guide/Hericium erinaceus.webp",
             listOf(
@@ -592,6 +604,7 @@ object BuiltInFieldGuide {
             )
         ),
         BuiltInFieldGuidePage(
+            // Reindeer Lichen
             R.raw.cladonia_rangiferina,
             "field_guide/Cladonia rangiferina.webp",
             listOf(
