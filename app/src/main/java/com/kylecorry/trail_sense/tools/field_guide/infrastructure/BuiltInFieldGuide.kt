@@ -468,27 +468,25 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Edible
             )
         ),
-        // TODO: Update the below guides
         BuiltInFieldGuidePage(
-            // Cattail
-            R.raw.typha,
-            "field_guide/Typha.webp",
+            R.raw.field_guide_cattail,
+            "field_guide/cattail.webp",
             listOf(
                 FieldGuidePageTag.Africa,
                 FieldGuidePageTag.Asia,
                 FieldGuidePageTag.Australia,
                 FieldGuidePageTag.Europe,
                 FieldGuidePageTag.NorthAmerica,
+                FieldGuidePageTag.SouthAmerica,
                 FieldGuidePageTag.Plant,
-                FieldGuidePageTag.Grassland,
                 FieldGuidePageTag.Wetland,
-                FieldGuidePageTag.Freshwater
+                FieldGuidePageTag.Freshwater,
+                FieldGuidePageTag.Edible
             )
         ),
         BuiltInFieldGuidePage(
-            // Bamboo
-            R.raw.bambusoideae,
-            "field_guide/Bambusoideae.webp",
+            R.raw.field_guide_bamboo,
+            "field_guide/bamboo.webp",
             listOf(
                 FieldGuidePageTag.Africa,
                 FieldGuidePageTag.Asia,
@@ -500,50 +498,61 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Forest,
                 FieldGuidePageTag.Grassland,
                 FieldGuidePageTag.Mountain,
-                FieldGuidePageTag.Marine,
-                FieldGuidePageTag.Freshwater
+                FieldGuidePageTag.Wetland,
+                FieldGuidePageTag.Edible,
+                FieldGuidePageTag.Crafting
             )
         ),
         BuiltInFieldGuidePage(
-            // Common Plantain
-            R.raw.plantago_major,
-            "field_guide/Plantago major.webp",
-            listOf(
-                FieldGuidePageTag.Asia,
-                FieldGuidePageTag.Europe,
-                FieldGuidePageTag.NorthAmerica,
-                FieldGuidePageTag.Plant,
-                FieldGuidePageTag.Grassland,
-                FieldGuidePageTag.Urban
-            )
-        ),
-        BuiltInFieldGuidePage(
-            // Brambles
-            R.raw.rubus,
-            "field_guide/Rubus.webp",
-            listOf(
-                FieldGuidePageTag.Asia,
-                FieldGuidePageTag.Europe,
-                FieldGuidePageTag.NorthAmerica,
-                FieldGuidePageTag.Plant,
-                FieldGuidePageTag.Grassland,
-                FieldGuidePageTag.Urban
-            )
-        ),
-        BuiltInFieldGuidePage(
-            // Chicken of the Woods
-            R.raw.laetiporus,
-            "field_guide/Laetiporus.webp",
+            R.raw.field_guide_common_plantain,
+            "field_guide/common_plantain.webp",
             listOf(
                 FieldGuidePageTag.Africa,
                 FieldGuidePageTag.Asia,
+                FieldGuidePageTag.Australia,
+                FieldGuidePageTag.Europe,
+                FieldGuidePageTag.NorthAmerica,
+                FieldGuidePageTag.SouthAmerica,
+                FieldGuidePageTag.Plant,
+                FieldGuidePageTag.Grassland,
+                FieldGuidePageTag.Urban,
+                FieldGuidePageTag.Edible,
+                FieldGuidePageTag.Medicinal
+            )
+        ),
+        BuiltInFieldGuidePage(
+            R.raw.field_guide_brambles,
+            "field_guide/brambles.webp",
+            listOf(
+                FieldGuidePageTag.Africa,
+                FieldGuidePageTag.Asia,
+                FieldGuidePageTag.Australia,
+                FieldGuidePageTag.Europe,
+                FieldGuidePageTag.NorthAmerica,
+                FieldGuidePageTag.SouthAmerica,
+                FieldGuidePageTag.Plant,
+                FieldGuidePageTag.Grassland,
+                FieldGuidePageTag.Forest,
+                FieldGuidePageTag.Urban,
+                FieldGuidePageTag.Edible
+            )
+        ),
+        BuiltInFieldGuidePage(
+            R.raw.field_guide_chicken_of_the_woods,
+            "field_guide/chicken_of_the_woods.webp",
+            listOf(
+                FieldGuidePageTag.Africa,
+                FieldGuidePageTag.Asia,
+                FieldGuidePageTag.Australia,
                 FieldGuidePageTag.Europe,
                 FieldGuidePageTag.NorthAmerica,
                 FieldGuidePageTag.SouthAmerica,
                 FieldGuidePageTag.Fungus,
-                FieldGuidePageTag.Forest
+                FieldGuidePageTag.Forest,
+                FieldGuidePageTag.Edible
             )
         ),
+        // TODO: Update the below guides
         BuiltInFieldGuidePage(
             // Bolete
             R.raw.boletales,
