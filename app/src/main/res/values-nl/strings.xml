@@ -1250,4 +1250,8 @@
     <string name="tide">Getij</string>
     <string name="books">Boeken</string>
     <string name="field_guide">Veldgids</string>
+    <plurals name="page_group_summary">
+        <item quantity="one">%d pagina</item>
+        <item quantity="other">%d pagina\'s</item>
+    </plurals>
 </resources>
