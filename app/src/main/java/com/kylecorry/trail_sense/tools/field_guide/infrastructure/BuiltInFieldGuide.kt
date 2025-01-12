@@ -568,25 +568,8 @@ object BuiltInFieldGuide {
             )
         ),
         BuiltInFieldGuidePage(
-            // Morel
-            R.raw.morchella,
-            "field_guide/Morchella.webp",
-            listOf(
-                FieldGuidePageTag.Asia,
-                FieldGuidePageTag.Australia,
-                FieldGuidePageTag.Europe,
-                FieldGuidePageTag.NorthAmerica,
-                FieldGuidePageTag.Fungus,
-                FieldGuidePageTag.Forest,
-                FieldGuidePageTag.Mountain,
-                FieldGuidePageTag.Urban,
-                FieldGuidePageTag.Cave
-            )
-        ),
-        BuiltInFieldGuidePage(
-            // Oyster Mushroom
-            R.raw.pleurotus,
-            "field_guide/Pleurotus.webp",
+            R.raw.field_guide_morel,
+            "field_guide/morel.webp",
             listOf(
                 FieldGuidePageTag.Africa,
                 FieldGuidePageTag.Asia,
@@ -594,84 +577,39 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Europe,
                 FieldGuidePageTag.NorthAmerica,
                 FieldGuidePageTag.SouthAmerica,
-                FieldGuidePageTag.Fungus
-            )
-        ),
-        BuiltInFieldGuidePage(
-            // Giant Puffball
-            R.raw.calvatia_gigantea,
-            "field_guide/Calvatia gigantea.webp",
-            listOf(
                 FieldGuidePageTag.Fungus,
                 FieldGuidePageTag.Forest,
-                FieldGuidePageTag.Grassland,
-                FieldGuidePageTag.Freshwater
+                FieldGuidePageTag.Edible
             )
         ),
         BuiltInFieldGuidePage(
-            // Reindeer Lichen
-            R.raw.cladonia_rangiferina,
-            "field_guide/Cladonia rangiferina.webp",
-            listOf(
-                FieldGuidePageTag.Fungus,
-                FieldGuidePageTag.Forest,
-                FieldGuidePageTag.Grassland,
-                FieldGuidePageTag.Mountain,
-                FieldGuidePageTag.Tundra
-            )
-        ),
-        BuiltInFieldGuidePage(
-            R.raw.chert,
-            "field_guide/Chert.webp",
+            R.raw.field_guide_oyster_mushroom,
+            "field_guide/oyster_mushroom.webp",
             listOf(
                 FieldGuidePageTag.Africa,
-                FieldGuidePageTag.Australia,
-                FieldGuidePageTag.NorthAmerica,
-                FieldGuidePageTag.Mountain,
-                FieldGuidePageTag.Marine,
-                FieldGuidePageTag.Freshwater,
-                FieldGuidePageTag.Rock
-            )
-        ),
-        BuiltInFieldGuidePage(
-            R.raw.basalt,
-            "field_guide/Basalt.webp",
-            listOf(
-                FieldGuidePageTag.Africa,
-                FieldGuidePageTag.Asia,
-                FieldGuidePageTag.Grassland,
-                FieldGuidePageTag.Marine,
-                FieldGuidePageTag.Freshwater,
-                FieldGuidePageTag.Rock
-            )
-        ),
-        BuiltInFieldGuidePage(
-            R.raw.granite,
-            "field_guide/Granite.webp",
-            listOf(
-                FieldGuidePageTag.Antarctica,
-                FieldGuidePageTag.Asia,
-                FieldGuidePageTag.Australia,
-                FieldGuidePageTag.Grassland,
-                FieldGuidePageTag.Mountain,
-                FieldGuidePageTag.Freshwater,
-                FieldGuidePageTag.Rock
-            )
-        ),
-        BuiltInFieldGuidePage(
-            R.raw.obsidian,
-            "field_guide/Obsidian.webp",
-            listOf(
                 FieldGuidePageTag.Asia,
                 FieldGuidePageTag.Australia,
                 FieldGuidePageTag.Europe,
                 FieldGuidePageTag.NorthAmerica,
-                FieldGuidePageTag.Urban,
-                FieldGuidePageTag.Marine,
-                FieldGuidePageTag.Freshwater,
-                FieldGuidePageTag.Rock
+                FieldGuidePageTag.SouthAmerica,
+                FieldGuidePageTag.Fungus,
+                FieldGuidePageTag.Forest,
+                FieldGuidePageTag.Edible
             )
         ),
+        BuiltInFieldGuidePage(
+            R.raw.field_guide_chert,
+            "field_guide/chert.webp",
+            listOf(
+                FieldGuidePageTag.Africa,
+                FieldGuidePageTag.Asia,
+                FieldGuidePageTag.Australia,
+                FieldGuidePageTag.Europe,
+                FieldGuidePageTag.NorthAmerica,
+                FieldGuidePageTag.SouthAmerica,
+                FieldGuidePageTag.Rock
+            )
+        )
     )
 
     fun getFieldGuide(context: Context): List<FieldGuidePage> {
