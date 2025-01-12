@@ -1275,4 +1275,9 @@
     <string name="tide">Příliv a odliv</string>
     <string name="field_guide">Terénní průvodce</string>
     <string name="books">Knihy</string>
+    <plurals name="page_group_summary">
+        <item quantity="one">%d stránka</item>
+        <item quantity="few">%d stránky</item>
+        <item quantity="other">%d stránek</item>
+    </plurals>
 </resources>
