@@ -792,7 +792,7 @@
     <string name="battery_warning">Akun tyhjenemisen varoitus</string>
     <string name="backup_disclaimer">Luodaan varmuuskopiotiedosto, joka sisältää kaikki nykyiset tietosi. Se sisältää asetuksia, polkuja, majakoita, karttoja jne.\n\nTätä tiedostoa ei ole salattu. Älä jaa sitä kenellekään, johon et luota.</string>
     <string name="reset_calibration">Nollaa kalibrointi</string>
-    <string name="tides">Vuorovesi</string>
+    <string name="tides">Vuorovedet</string>
     <string name="now">Nyt</string>
     <string name="sun">Aurinko</string>
     <string name="privacy">Yksityisyys</string>
@@ -1175,4 +1175,11 @@
         <item quantity="one">%d tähti</item>
         <item quantity="other">%d tähteä</item>
     </plurals>
+    <string name="books">Kirjat</string>
+    <plurals name="page_group_summary">
+        <item quantity="one">%d sivu</item>
+        <item quantity="other">%d sivua</item>
+    </plurals>
+    <string name="field_guide">Kenttäopas</string>
+    <string name="tide">Vuorovesi</string>
 </resources>
