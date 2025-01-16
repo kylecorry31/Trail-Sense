@@ -1123,4 +1123,33 @@
     <string name="missing_sensor_message_1">Votre %1$s ne possède pas de capteur %2$s intégré. Malheureusement, cela signifie que certaines fonctionnalités de %3$s ne seront pas disponibles.</string>
     <string name="stars">Étoiles</string>
     <string name="visible">Visible</string>
+    <string name="screen_flashlight_full_name">Lampe de poche à écran</string>
+    <string name="view_in_3d">Voir en 3D</string>
+    <plurals name="page_group_summary">
+        <item quantity="one">%d page</item>
+        <item quantity="many">%d pages</item>
+        <item quantity="other">%d pages</item>
+    </plurals>
+    <string name="high_sensitivity">Haute sensibilité</string>
+    <string name="restart_services_title">Redémarrer les services</string>
+    <string name="fused_altimeter_force_calibration">Intervalle d\'étalonnage de la force</string>
+    <string name="compact_mode">Mode compact</string>
+    <string name="creating_beacon">Création d\'une balise</string>
+    <string name="continuous_calibration_description">Calibre chaque fois qu\'il y a une position GPS</string>
+    <string name="dynamic_colors">Couleurs dynamiques</string>
+    <string name="locate">Localiser</string>
+    <string name="restart_services_message">Les services en arrière-plan n\'ont pas pu être redémarrés. Appuyez pour redémarrer.</string>
+    <string name="fused_altimeter_force_calibration_summary">Force un étalonnage du GPS toutes les %s</string>
+    <string name="use_gyroscope_after_calibration">Utiliser le gyroscope après la calibration</string>
+    <string name="service_restart">Redémarrage du service</string>
+    <string name="service_restart_channel_description">Une notification pour redémarrer les services</string>
+    <string name="fast_path_rendering">Rendu rapide de la trajectoire</string>
+    <string name="fast_path_rendering_summary">Améliore les performances au détriment de l’apparence</string>
+    <string name="compass_dynamic_colors">Couleurs dynamiques de la boussole</string>
+    <string name="view_distance">Voir la distance</string>
+    <string name="compass_dynamic_colors_summary">Utiliser des couleurs dynamiques pour les directions cardinales</string>
+    <string name="show_dial_ticks_on_nearby_radar">Afficher les graduations du cadran sur le radar à proximité</string>
+    <string name="show_dial_ticks_on_nearby_radar_summary">Votre appareil n\'est pas équipé d\'une boussole, mais vous pouvez tout de même voir dans quelle direction se trouvent les balises.</string>
+    <string name="augmented_reality_no_gyro_message">Vous pouvez toujours utiliser l\'outil de réalité augmentée, mais il ne sera pas aussi précis.</string>
+    <string name="ar_calibration_instructions">Centrez les %s sur l\'écran et appuyez sur \"Calibrer\"</string>
 </resources>
