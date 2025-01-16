@@ -1,0 +1,9 @@
+- Gezinme sekmesinde hızı göster
+- İşaretlere yaklaşık süreyi göster
+- Gezinme sekmesi yeniden düzenlendi
+- GPS/Pusula doğruluğunu göster
+- İşaretlere notlar ve yükseklik ekleyin
+- İşaretleri düzenleme yeteneği eklendi
+- Tahmin hassasiyeti için ayar ekleyin
+- Bildirime hava durumu bilgisi ekleyin
+- Deniz seviyesi basınç hesaplamasını iyileştirin
