@@ -332,7 +332,7 @@
     <string name="coordinate_format_degrees_decimal_minutes">Derece, ondalık dakika</string>
     <string name="coordinate_format_decimal_degrees">Ondalık dereceler</string>
     <string name="theme_sunset_sunrise">Gün doğumu/gün batımı</string>
-    <string name="theme_system">Sistemdeki ayarlı tema</string>
+    <string name="theme_system">Sistem</string>
     <string name="theme_black">Siyah</string>
     <string name="theme_dark">Koyu</string>
     <string name="theme_light">Açık</string>
@@ -444,7 +444,7 @@
     <string name="access_background_location">Konum bilgisini güncelle</string>
     <string name="copied_to_clipboard_toast">Panoya kopyalandı</string>
     <string name="tools">Araçlar</string>
-    <string name="astronomy">Astronomi</string>
+    <string name="astronomy">Gök bilim</string>
     <string name="settings">Ayarlar</string>
     <string name="weather">Hava durumu</string>
     <string name="navigation">Gezinme</string>
@@ -561,7 +561,7 @@
         <item quantity="one">%d ara nokta silinecek</item>
         <item quantity="other">%d ara nokta silinecek</item>
     </plurals>
-    <string name="astronomy_alerts">Astronomi uyarıları</string>
+    <string name="astronomy_alerts">Gök bilimi uyarıları</string>
     <string name="lunar_eclipse">Ay tutulması</string>
     <string name="partial">Kısmi (%s)</string>
     <string name="total">Toplam</string>
@@ -1036,7 +1036,7 @@
     <string name="restoring_loading_message">Geri yükleniyor…</string>
     <string name="augmented_reality_description">Kameranızla yakındaki işaretleri ve güneşi / ayı görüntüleyin</string>
     <string name="triangulate_self_location_2_instructions">Görebildiğiniz bilinen başka bir konum seçin ve bulunduğunuz yerden o konuma olan yönü kaydedin.</string>
-    <string name="crop_map_instructions_long">Çerçevelemek için kutunun köşelerini haritanın köşelerine sürükleyin.</string>
+    <string name="crop_map_instructions_long">Ana hatlarını çizmek için kutunun köşelerini haritanın köşelerine sürükleyin. Kırpma haritanın çözünürlüğünü azaltır.</string>
     <string name="map_auto_rotated">Harita yönü kalibrasyon ile ayarlandı</string>
     <string name="backup">Yedekle</string>
     <string name="times">Zamanlar</string>
@@ -1091,7 +1091,7 @@
     <string name="why_missing_sensor">Aygıtım yeni/pahalı, neden bu sensör eksik?</string>
     <string name="magnetic_north_description">Manyetik Kuzey Kutbunu gösterir. Bu, çoğu pusula ile uyumlu olacaktır.</string>
     <string name="restart_services_message">Arka plan hizmetleri yeniden başlatılamadı. Yeniden başlatmak için dokunun.</string>
-    <string name="service_restart">Hizmet Yeniden Başlatma</string>
+    <string name="service_restart">Hizmet yeniden başlat</string>
     <string name="restart_services_title">Hizmetleri yeniden başlat</string>
     <string name="high_sensitivity">Yüksek hassasiyet</string>
     <string name="missing_sensor_explanation">Bazı telefon üreticileri, yeni veya pahalı aygıtlarda bile bu sensörü eklememeyi tercih etmektedir. Aygıt üreticinizin web sitesini ziyaret ederek veya onlarla iletişime geçerek daha fazla bilgi edinebilirsiniz.</string>
@@ -1143,7 +1143,7 @@
     <string name="layers">Katmanlar</string>
     <string name="visible">Görünür</string>
     <string name="grid">Izgara</string>
-    <string name="ar_layer_override_message">Katman ayarları, Astronomi kılavuzu gibi yönlendirmelerle geçersiz kılınabilir.</string>
+    <string name="ar_layer_override_message">Katman ayarları, gök bilim kılavuzu gibi yönlendirmelerle geçersiz kılınabilir.</string>
     <string name="date">Tarih</string>
     <string name="max_s">En fazla %s</string>
     <string name="ar_calibration_disclaimer">Artırılmış Gerçeklik aracını her kullanmadan önce, güneş veya ay simgelerinin gerçek dünyaya uygun şekilde hizalandığını doğrulayın. Değilse, ekranın sol üst köşesindeki pusula simgesine tıklayın ve kalibre etmek için talimatları izleyin.</string>
@@ -1201,4 +1201,57 @@
     <string name="lunitidal_interval_auto">Ay gelgit aralığı (otomatik)</string>
     <string name="lunitidal_interval_local">Ay gelgit aralığı (yerel)</string>
     <string name="field_required">%s (gerekli)</string>
+    <string name="select_star">Yıldız seç</string>
+    <string name="no_directory_selected">Hiçbir dizin seçilmedi</string>
+    <string name="sun_moon_chart">Güneş ve ay çizelgesi</string>
+    <string name="unit_millimeters">Milimetre</string>
+    <string name="select_backup_directory">Yedekleme dizinini seçin</string>
+    <string name="tide_estimation_description_lunitidal_interval_auto">Gelgitleri tahmin etmek için ayın konumunu kullanır. Bilinen en az bir gelgit gerektirir.</string>
+    <string name="nearby_beacons">Yakındaki işaretçiler</string>
+    <string name="tide_estimation_description_lunitidal_interval_utc">Gelgitleri tahmin etmek için ayın konumunu kullanır. UTC gelgit aralığını gerektirir.</string>
+    <string name="star">Yıldız</string>
+    <string name="approximate_location">Yaklaşık konum</string>
+    <string name="timezone">Saat dilimi</string>
+    <string name="last_known_gps_location">Bilinen son GPS konumu</string>
+    <string name="millimeters_format">%s mm</string>
+    <string name="teaspooon_format">%s çay k.</string>
+    <string name="tablespoon_format">%s yemek k.</string>
+    <plurals name="number_steps">
+        <item quantity="one">%d adım</item>
+        <item quantity="other">%d adım</item>
+    </plurals>
+    <plurals name="star_count">
+        <item quantity="one">%d yıldız</item>
+        <item quantity="other">%d yıldız</item>
+    </plurals>
+    <string name="reduce_photo_resolution">Fotoğraf çözünürlüğünü azalt</string>
+    <string name="pressure_chart">Basınç çizelgesi</string>
+    <string name="show_stars">Yıldızları göster</string>
+    <string name="field_guide">Saha Rehberi</string>
+    <string name="books">Kitaplar</string>
+    <string name="automatic_backup">Otomatik yedekle</string>
+    <string name="backup_failed">Yedekleme başarısız oldu</string>
+    <string name="auto_backup_instructions">%1$s\'a günde bir kez yedek oluşturulacak. Yalnızca son %2$d yedek saklanacak.</string>
+    <string name="tide_estimation_description_tide_clock">Gelgitleri tahmin etmek için saati kullanır. Bilinen en az bir gelgit gerektirir.</string>
+    <string name="tide_estimation_description_tide_model">Girilen konum veya girilmediyse konumunuz için gelgitleri tahmin etmek üzere yerleşik bir gelgit modeli kullanır.</string>
+    <string name="tide_model_auto">Gelgit modeli (oto)</string>
+    <string name="widget_pref_title">Uygulama içi bileşenler</string>
+    <string name="widget_bottom_sheet_instructions">Görüntülemek için bileşenler hızlı eylemini kullanın</string>
+    <string name="unable_to_create_an_automatic_backup">Otomatik yedekleme oluşturulamıyor.</string>
+    <string name="automatic_backup_invalid_directory">Geçersiz dizin</string>
+    <string name="automatic_backup_invalid_directory_resolution">Otomatik yedeklemeyi kapatın ve yeni bir dizin seçmek için tekrar açın.</string>
+    <string name="widgets">Bileşenler</string>
+    <string name="widget_updater">Bileşen güncelleyici</string>
+    <string name="tide_chart">Gelgit çizelgesi</string>
+    <plurals name="page_group_summary">
+        <item quantity="one">%d sayfa</item>
+        <item quantity="other">%d sayfa</item>
+    </plurals>
+    <string name="tide_estimation_description_lunitidal_interval_local">Gelgitleri tahmin etmek için ayın konumunu kullanır. Yerel gelgit aralığını ve konumu gerektirir.</string>
+    <string name="on_import">İçe aktarmada</string>
+    <string name="theme_system_black">Sistem (siyah)</string>
+    <string name="nearest_stars">En yakın yıldızlar</string>
+    <string name="stars">Yıldızlar</string>
+    <string name="tide">Gelgit</string>
+    <string name="reduce_pdf_resolution">PDF çözünürlüğünü azalt</string>
 </resources>
