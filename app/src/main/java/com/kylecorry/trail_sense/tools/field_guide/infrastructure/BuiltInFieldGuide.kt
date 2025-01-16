@@ -623,7 +623,8 @@ object BuiltInFieldGuide {
                 name,
                 listOf("android-assets://${page.imagePath}"),
                 page.tags,
-                notes
+                notes,
+                isReadOnly = true
             )
         }
     }

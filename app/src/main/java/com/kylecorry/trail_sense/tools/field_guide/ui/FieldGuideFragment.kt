@@ -25,7 +25,7 @@ import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.views.Views
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
-import com.kylecorry.trail_sense.tools.field_guide.infrastructure.BuiltInFieldGuide
+import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
 
 class FieldGuideFragment : BoundFragment<FragmentFieldGuideBinding>() {
 
@@ -33,10 +33,7 @@ class FieldGuideFragment : BoundFragment<FragmentFieldGuideBinding>() {
     private var filter by state("")
     private var tagFilter by state<FieldGuidePageTag?>(null)
     private val files by lazy { FileSubsystem.getInstance(requireContext()) }
-
-    private fun loadFromAssets(): List<FieldGuidePage> {
-        return BuiltInFieldGuide.getFieldGuide(requireContext())
-    }
+    private val repo by lazy { FieldGuideRepo.getInstance(requireContext()) }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater, container: ViewGroup?
@@ -47,7 +44,7 @@ class FieldGuideFragment : BoundFragment<FragmentFieldGuideBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         inBackground(BackgroundMinimumState.Created) {
-            species = loadFromAssets().sortedBy { it.name }
+            species = repo.getAllPages().sortedBy { it.name }
         }
 
         binding.search.setOnSearchListener {
