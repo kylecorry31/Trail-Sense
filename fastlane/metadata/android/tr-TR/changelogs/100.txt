@@ -1,0 +1,16 @@
+Fotoğraf Haritaları (Beta)
+- Fotoğraf Haritaları beta herkesin kullanımına açık; fotoğrafı harita olarak kullanın
+- Gerçek kuzeyi göstermeyen haritalar
+
+Gök Bilim
+- Yeniden tasarlanan gök bilim
+- Meteor yağmurlarının başlangıç ve bitiş saatleri
+- Tutulmanın yoğun zamanını görüntüle
+- Bir sonraki gök bilim olayını bulmak için arama düğmesi
+- Ayrıntıları görmek için güneş/ay ögelerine tıklayın
+
+Hava/İklim
+- Geçmiş sıcaklık doğruluğu iyileştirildi
+
+Çeşitli
+- Hata düzeltmeleri
