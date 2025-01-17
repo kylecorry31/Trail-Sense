@@ -63,7 +63,10 @@ class FieldGuidePageFragment : BoundFragment<FragmentFieldGuidePageBinding>() {
                 image?.let { files.drawable(it) }
             )
 
-            binding.fieldGuidePageTitle.subtitle.text = tags.getMostSpecific()?.readableName()
+            binding.fieldGuidePageTitle.subtitle.text = tags
+                .filter { it.type == FieldGuidePageTagType.Classification }
+                .getMostSpecific()
+                ?.readableName()
 
             displayTags(
                 tags.filter { it.type == FieldGuidePageTagType.Location },
