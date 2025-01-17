@@ -607,7 +607,8 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Europe,
                 FieldGuidePageTag.NorthAmerica,
                 FieldGuidePageTag.SouthAmerica,
-                FieldGuidePageTag.Rock
+                FieldGuidePageTag.Rock,
+                FieldGuidePageTag.Crafting
             )
         )
     )

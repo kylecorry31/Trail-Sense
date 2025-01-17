@@ -80,28 +80,28 @@ class FieldGuidePageFragment : BoundFragment<FragmentFieldGuidePageBinding>() {
                 binding.habitats
             )
 
-            displayTags(
-                tags.filter { it.type == FieldGuidePageTagType.ActivityPattern },
-                binding.behaviorsLabel,
-                binding.behaviors
-            )
+            displayActivityPattern()
 
             displayTags(
                 tags.filter { it.type == FieldGuidePageTagType.HumanInteraction },
-                binding.humanInteractionsLabel,
+                null,
                 binding.humanInteractions
             )
         }
     }
 
-    private fun displayTags(tags: List<FieldGuidePageTag>, label: TextView, layout: FlexboxLayout) {
+    private fun displayTags(
+        tags: List<FieldGuidePageTag>,
+        label: TextView?,
+        layout: FlexboxLayout
+    ) {
         if (tags.isEmpty()) {
-            label.isVisible = false
+            label?.isVisible = false
             layout.isVisible = false
             return
         }
 
-        label.isVisible = true
+        label?.isVisible = true
         layout.isVisible = true
         layout.removeAllViews()
 
@@ -126,6 +126,19 @@ class FieldGuidePageFragment : BoundFragment<FragmentFieldGuidePageBinding>() {
             }
             layout.addView(tagView)
         }
+    }
+
+    private fun displayActivityPattern() {
+        val tags = page?.tags ?: emptyList()
+        val isNocturnal = tags.any { it == FieldGuidePageTag.Nocturnal }
+        val isDiurnal = tags.any { it == FieldGuidePageTag.Diurnal }
+        val isCrepuscular = tags.any { it == FieldGuidePageTag.Crepuscular }
+
+        val offAlpha = 0.1f
+
+        binding.nocturnal.alpha = if (isNocturnal) 1f else offAlpha
+        binding.diurnal.alpha = if (isDiurnal) 1f else offAlpha
+        binding.crepuscular.alpha = if (isCrepuscular) 1f else offAlpha
     }
 
 }

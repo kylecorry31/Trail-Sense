@@ -30,6 +30,45 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp" />
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <ImageView
+                    android:id="@+id/crepuscular"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/ic_sunset_notification"
+                    app:layout_constraintBottom_toBottomOf="@id/nocturnal"
+                    app:layout_constraintEnd_toStartOf="@id/diurnal"
+                    app:layout_constraintTop_toTopOf="@id/nocturnal"
+                    app:tint="?android:textColorPrimary" />
+
+                <ImageView
+                    android:id="@+id/diurnal"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/ic_new_sun"
+                    app:layout_constraintBottom_toBottomOf="@id/nocturnal"
+                    app:layout_constraintEnd_toStartOf="@id/nocturnal"
+                    app:layout_constraintTop_toTopOf="@id/nocturnal"
+                    app:tint="?android:textColorPrimary" />
+
+                <ImageView
+                    android:id="@+id/nocturnal"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_astronomy"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="?android:textColorPrimary" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <!--LOCATION TAGS-->
             <TextView
                 android:id="@+id/locations_label"
@@ -68,34 +107,16 @@
                 app:flexWrap="wrap"
                 app:justifyContent="flex_start" />
 
-            <!--BEHAVIOR TAGS-->
+            <!--NOTES-->
             <TextView
-                android:id="@+id/behaviors_label"
+                android:id="@+id/notes_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Behavior"
+                android:text="@string/tool_notes_title"
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall" />
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/behaviors"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:alignItems="center"
-                app:flexDirection="row"
-                app:flexWrap="wrap"
-                app:justifyContent="flex_start" />
 
             <!--HUMAN INTERACTION TAGS-->
-            <TextView
-                android:id="@+id/human_interactions_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Human interactions"
-                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall" />
-
             <com.google.android.flexbox.FlexboxLayout
                 android:id="@+id/human_interactions"
                 android:layout_width="match_parent"
@@ -105,15 +126,6 @@
                 app:flexDirection="row"
                 app:flexWrap="wrap"
                 app:justifyContent="flex_start" />
-
-            <!--NOTES-->
-            <TextView
-                android:id="@+id/notes_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/tool_notes_title"
-                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall" />
 
             <TextView
                 android:id="@+id/notes"
