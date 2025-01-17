@@ -139,6 +139,12 @@ class FieldGuidePageFragment : BoundFragment<FragmentFieldGuidePageBinding>() {
         binding.nocturnal.alpha = if (isNocturnal) 1f else offAlpha
         binding.diurnal.alpha = if (isDiurnal) 1f else offAlpha
         binding.crepuscular.alpha = if (isCrepuscular) 1f else offAlpha
+
+        // If all are off, hide them entirely
+        val allOff = !isNocturnal && !isDiurnal && !isCrepuscular
+        binding.nocturnal.isVisible = !allOff
+        binding.diurnal.isVisible = !allOff
+        binding.crepuscular.isVisible = !allOff
     }
 
 }
