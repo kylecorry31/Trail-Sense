@@ -11,6 +11,10 @@ class FieldGuideRepo private constructor(private val context: Context) {
         BuiltInFieldGuide.getFieldGuide(context)
     }
 
+    suspend fun getPage(id: Long): FieldGuidePage? {
+        return BuiltInFieldGuide.getFieldGuidePage(context, id)
+    }
+
     companion object {
         @SuppressLint("StaticFieldLeak")
         private var instance: FieldGuideRepo? = null

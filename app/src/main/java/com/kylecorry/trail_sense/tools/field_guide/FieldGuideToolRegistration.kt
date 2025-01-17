@@ -17,7 +17,8 @@ object FieldGuideToolRegistration : ToolRegistration {
             R.id.fieldGuideFragment,
             ToolCategory.Books,
             isExperimental = true,
-            isAvailable = { isDebug() }
+            isAvailable = { isDebug() },
+            additionalNavigationIds = listOf(R.id.fieldGuidePageFragment)
         )
     }
 }

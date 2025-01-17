@@ -612,20 +612,32 @@ object BuiltInFieldGuide {
         )
     )
 
+    fun getFieldGuidePage(context: Context, id: Long): FieldGuidePage? {
+        return pages.getOrNull(-id.toInt())?.let { loadPage(context, it, -id.toInt()) }
+    }
+
     fun getFieldGuide(context: Context): List<FieldGuidePage> {
         return pages.mapIndexed { index, page ->
-            val text = TextUtils.loadTextFromResources(context, page.resourceId)
-            val lines = text.split("\n")
-            val name = lines.first()
-            val notes = lines.drop(1).joinToString("\n").trim()
-            FieldGuidePage(
-                -index.toLong(),
-                name,
-                listOf("android-assets://${page.imagePath}"),
-                page.tags,
-                notes,
-                isReadOnly = true
-            )
+            loadPage(context, page, index)
         }
+    }
+
+    private fun loadPage(
+        context: Context,
+        page: BuiltInFieldGuidePage,
+        index: Int
+    ): FieldGuidePage {
+        val text = TextUtils.loadTextFromResources(context, page.resourceId)
+        val lines = text.split("\n")
+        val name = lines.first()
+        val notes = lines.drop(1).joinToString("\n").trim()
+        return FieldGuidePage(
+            -index.toLong(),
+            name,
+            listOf("android-assets://${page.imagePath}"),
+            page.tags,
+            notes,
+            isReadOnly = true
+        )
     }
 }

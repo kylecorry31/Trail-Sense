@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
@@ -141,18 +142,9 @@ class FieldGuideFragment : BoundFragment<FragmentFieldGuideBinding>() {
                             clearOnPause = true
                         ),
                     ) {
-                        // TODO: Open a separate page
-                        dialog(
-                            it.name,
-                            it.notes ?: "",
-                            allowLinks = true,
-                            contentView = Views.image(
-                                requireContext(),
-                                files.drawable(it.images.first()),
-                                width = ViewGroup.LayoutParams.MATCH_PARENT,
-                                height = Resources.dp(requireContext(), 200f).toInt()
-                            ),
-                            scrollable = true
+                        findNavController().navigate(
+                            R.id.fieldGuidePageFragment,
+                            bundleOf("page_id" to it.id)
                         )
                     }
                 }

@@ -116,6 +116,16 @@
         android:name="com.kylecorry.trail_sense.tools.field_guide.ui.FieldGuideFragment"
         android:label="FieldGuideFragment" />
     <fragment
+        android:id="@+id/fieldGuidePageFragment"
+        android:name="com.kylecorry.trail_sense.tools.field_guide.ui.FieldGuidePageFragment"
+        android:label="FieldGuidePageFragment">
+
+        <argument
+            android:name="page_id"
+            android:defaultValue="0L"
+            app:argType="long" />
+    </fragment>
+    <fragment
         android:id="@+id/beacon_list"
         android:name="com.kylecorry.trail_sense.tools.beacons.ui.list.BeaconListFragment"
         android:label="BeaconListFragment">
