@@ -1,23 +1,24 @@
 package com.kylecorry.trail_sense.tools.field_guide.ui
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.view.isVisible
 import com.google.android.flexbox.FlexboxLayout
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.views.badge.Badge
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.trail_sense.databinding.FragmentFieldGuidePageBinding
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.readableName
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTagType
-import com.kylecorry.trail_sense.tools.field_guide.domain.getMostSpecific
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
 
 class FieldGuidePageFragment : BoundFragment<FragmentFieldGuidePageBinding>() {
@@ -56,61 +57,40 @@ class FieldGuidePageFragment : BoundFragment<FragmentFieldGuidePageBinding>() {
 
         effect2(page) {
             binding.fieldGuidePageTitle.title.text = page?.name
-            val tags = page?.tags ?: emptyList()
             binding.notes.text = page?.notes
             val image = page?.images?.firstOrNull()
             binding.image.setImageDrawable(
                 image?.let { files.drawable(it) }
             )
 
-            binding.fieldGuidePageTitle.subtitle.text = tags
-                .filter { it.type == FieldGuidePageTagType.Classification }
-                .getMostSpecific()
-                ?.readableName()
-
-            displayTags(
-                tags.filter { it.type == FieldGuidePageTagType.Location },
-                binding.locationsLabel,
-                binding.locations
-            )
-
-            displayTags(
-                tags.filter { it.type == FieldGuidePageTagType.Habitat },
-                binding.habitatsLabel,
-                binding.habitats
-            )
-
-            displayActivityPattern()
-
-            displayTags(
-                tags.filter { it.type == FieldGuidePageTagType.HumanInteraction },
-                null,
-                binding.humanInteractions
-            )
+            displayTags()
         }
     }
 
-    private fun displayTags(
-        tags: List<FieldGuidePageTag>,
-        label: TextView?,
-        layout: FlexboxLayout
-    ) {
+    private val tagTypeColorMap = mapOf(
+        FieldGuidePageTagType.Location to AppColor.Gray,
+        FieldGuidePageTagType.Habitat to AppColor.Green,
+        FieldGuidePageTagType.Classification to AppColor.Blue,
+        FieldGuidePageTagType.ActivityPattern to AppColor.Yellow,
+        FieldGuidePageTagType.HumanInteraction to AppColor.Brown
+    )
+
+    private fun displayTags() {
+        val tags =
+            (page?.tags ?: emptyList()).sortedWith(compareBy({ it.type.ordinal }, { it.ordinal }))
         if (tags.isEmpty()) {
-            label?.isVisible = false
-            layout.isVisible = false
+            binding.tags.isVisible = false
             return
         }
 
-        label?.isVisible = true
-        layout.isVisible = true
-        layout.removeAllViews()
+        binding.tags.isVisible = true
+        binding.tags.removeAllViews()
 
-        val badgeColor =
-            Resources.getAndroidColorAttr(requireContext(), android.R.attr.colorBackgroundFloating)
-        val foregroundColor = Resources.androidTextColorPrimary(requireContext())
         val margin = Resources.dp(requireContext(), 8f).toInt()
 
         for (tag in tags) {
+            val badgeColor = (tagTypeColorMap[tag.type] ?: AppColor.Gray).color
+            val foregroundColor = Colors.mostContrastingColor(Color.WHITE, Color.BLACK, badgeColor)
             val tagView = Badge(requireContext(), null).apply {
                 statusImage.isVisible = false
                 statusText.textSize = 12f
@@ -124,27 +104,13 @@ class FieldGuidePageFragment : BoundFragment<FragmentFieldGuidePageBinding>() {
                     setMargins(0, 0, margin, margin)
                 }
             }
-            layout.addView(tagView)
+            tagView.setOnClickListener { onTagClicked(tag) }
+            binding.tags.addView(tagView)
         }
     }
 
-    private fun displayActivityPattern() {
-        val tags = page?.tags ?: emptyList()
-        val isNocturnal = tags.any { it == FieldGuidePageTag.Nocturnal }
-        val isDiurnal = tags.any { it == FieldGuidePageTag.Diurnal }
-        val isCrepuscular = tags.any { it == FieldGuidePageTag.Crepuscular }
-
-        val offAlpha = 0.1f
-
-        binding.nocturnal.alpha = if (isNocturnal) 1f else offAlpha
-        binding.diurnal.alpha = if (isDiurnal) 1f else offAlpha
-        binding.crepuscular.alpha = if (isCrepuscular) 1f else offAlpha
-
-        // If all are off, hide them entirely
-        val allOff = !isNocturnal && !isDiurnal && !isCrepuscular
-        binding.nocturnal.isVisible = !allOff
-        binding.diurnal.isVisible = !allOff
-        binding.crepuscular.isVisible = !allOff
+    private fun onTagClicked(tag: FieldGuidePageTag) {
+        // TODO: Handle tag click
     }
 
 }
