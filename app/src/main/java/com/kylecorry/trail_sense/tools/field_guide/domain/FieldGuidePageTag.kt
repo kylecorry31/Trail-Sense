@@ -106,3 +106,8 @@ enum class FieldGuidePageTag(
     Crafting(403, FieldGuidePageTagType.HumanInteraction),
     Medicinal(404, FieldGuidePageTagType.HumanInteraction),
 }
+
+fun List<FieldGuidePageTag>.getMostSpecific(): FieldGuidePageTag? {
+    val parents = map { it.parentId }.toSet()
+    return firstOrNull { it.id !in parents && it.parentId != null } ?: firstOrNull()
+}

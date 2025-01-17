@@ -15,24 +15,111 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp">
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="@dimen/default_bottom_margin">
 
             <ImageView
                 android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="250dp" />
 
+            <!--LOCATION TAGS-->
+            <TextView
+                android:id="@+id/locations_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/location"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall" />
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/locations"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:alignItems="center"
+                app:flexDirection="row"
+                app:flexWrap="wrap"
+                app:justifyContent="flex_start" />
+
+            <!--HABITAT TAGS-->
+            <TextView
+                android:id="@+id/habitats_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Habitat"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall" />
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/habitats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:alignItems="center"
+                app:flexDirection="row"
+                app:flexWrap="wrap"
+                app:justifyContent="flex_start" />
+
+            <!--BEHAVIOR TAGS-->
+            <TextView
+                android:id="@+id/behaviors_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Behavior"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall" />
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/behaviors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:alignItems="center"
+                app:flexDirection="row"
+                app:flexWrap="wrap"
+                app:justifyContent="flex_start" />
+
+            <!--HUMAN INTERACTION TAGS-->
+            <TextView
+                android:id="@+id/human_interactions_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Human interactions"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall" />
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/human_interactions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:alignItems="center"
+                app:flexDirection="row"
+                app:flexWrap="wrap"
+                app:justifyContent="flex_start" />
+
+            <!--NOTES-->
+            <TextView
+                android:id="@+id/notes_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/tool_notes_title"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall" />
+
             <TextView
                 android:id="@+id/notes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:textIsSelectable="true"
                 tools:text="Notes" />
         </LinearLayout>
