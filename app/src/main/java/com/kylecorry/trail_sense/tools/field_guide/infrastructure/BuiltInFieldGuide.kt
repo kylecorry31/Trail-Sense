@@ -614,7 +614,7 @@ object BuiltInFieldGuide {
     )
 
     fun getFieldGuidePage(context: Context, id: Long): FieldGuidePage? {
-        return pages.getOrNull(-id.toInt())?.let { loadPage(context, it, -id.toInt()) }
+        return pages.getOrNull(-id.toInt() - 1)?.let { loadPage(context, it, -id.toInt()) }
     }
 
     fun getFieldGuide(context: Context): List<FieldGuidePage> {
@@ -633,7 +633,7 @@ object BuiltInFieldGuide {
         val name = lines.first()
         val notes = lines.drop(1).joinToString("\n").trim()
         return FieldGuidePage(
-            -index.toLong(),
+            -(index.toLong() + 1),
             name,
             listOf("android-assets://${page.imagePath}"),
             page.tags,

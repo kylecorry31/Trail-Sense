@@ -18,6 +18,8 @@ import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconGroupEntity
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudReadingDao
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudReadingEntity
+import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuidePageDao
+import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuidePageEntity
 import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningStrikeDao
 import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningStrikeEntity
 import com.kylecorry.trail_sense.tools.maps.domain.MapEntity
@@ -49,8 +51,8 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.Pressu
  */
 @Suppress("LocalVariableName")
 @Database(
-    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class],
-    version = 38,
+    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class],
+    version = 39,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -70,6 +72,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun pathDao(): PathDao
     abstract fun pathGroupDao(): PathGroupDao
     abstract fun lightningDao(): LightningStrikeDao
+    abstract fun fieldGuidePageDao(): FieldGuidePageDao
 
     companion object {
 
@@ -341,6 +344,12 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
+            val MIGRATION_38_39 = object : Migration(38, 39) {
+                override fun migrate(database: SupportSQLiteDatabase) {
+                    database.execSQL("CREATE TABLE IF NOT EXISTS `field_guide_pages` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `images` TEXT NOT NULL, `tags` TEXT NOT NULL, `notes` TEXT DEFAULT NULL)")
+                }
+            }
+
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
                 .addMigrations(
                     MIGRATION_1_2,
@@ -379,7 +388,8 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_34_35,
                     MIGRATION_35_36,
                     MIGRATION_36_37,
-                    MIGRATION_37_38
+                    MIGRATION_37_38,
+                    MIGRATION_38_39
                 )
                 // TODO: Temporary for the android tests, will remove once AppDatabase is injected with hilt
                 .allowMainThreadQueries()
