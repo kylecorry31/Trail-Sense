@@ -13,6 +13,7 @@ data class FieldGuidePage(
 
     // User specific fields (not exported)
     val sightings: List<Sighting> = emptyList(),
+    val importId: Long? = null
 ) : Identifiable {
     val tags: List<FieldGuidePageTag> by lazy {
         val tagQueue = directTags.toMutableList()

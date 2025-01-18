@@ -4,11 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Context
 import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 
 class FieldGuideRepo private constructor(private val context: Context) {
 
     private val dao = AppDatabase.getInstance(context).fieldGuidePageDao()
+    private val files = FileSubsystem.getInstance(context)
 
     suspend fun getAllPages(): List<FieldGuidePage> = onIO {
         val saved = dao.getAllPages().map { it.toFieldGuidePage() }
@@ -27,6 +29,7 @@ class FieldGuideRepo private constructor(private val context: Context) {
         if (page.isReadOnly) {
             return
         }
+        page.images.forEach { files.delete(it) }
         dao.delete(FieldGuidePageEntity.fromFieldGuidePage(page))
     }
 

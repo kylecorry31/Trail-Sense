@@ -14,6 +14,7 @@ data class FieldGuidePageEntity(
     @ColumnInfo(name = "images") val images: String,
     @ColumnInfo(name = "tags") val tags: String,
     @ColumnInfo(name = "notes") val notes: String? = null,
+    @ColumnInfo(name = "import_id") val importId: Long? = null
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
@@ -30,7 +31,8 @@ data class FieldGuidePageEntity(
             },
             notes,
             isReadOnly = false,
-            sightings = emptyList()
+            sightings = emptyList(),
+            importId = importId
         )
     }
 
@@ -40,7 +42,8 @@ data class FieldGuidePageEntity(
                 page.name,
                 page.images.joinToString(","),
                 page.tags.joinToString(",") { it.id.toString() },
-                page.notes
+                page.notes,
+                page.importId
             ).apply {
                 id = page.id
             }
