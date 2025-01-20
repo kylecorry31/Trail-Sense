@@ -125,6 +125,22 @@
             android:defaultValue="0L"
             app:argType="long" />
     </fragment>
+
+    <fragment
+        android:id="@+id/createFieldGuidePageFragment"
+        android:name="com.kylecorry.trail_sense.tools.field_guide.ui.CreateFieldGuidePageFragment"
+        android:label="CreateFieldGuidePageFragment">
+
+        <argument
+            android:name="page_id"
+            android:defaultValue="0L"
+            app:argType="long" />
+
+        <argument
+            android:name="classification_id"
+            android:defaultValue="0L"
+            app:argType="long" />
+    </fragment>
     <fragment
         android:id="@+id/beacon_list"
         android:name="com.kylecorry.trail_sense.tools.beacons.ui.list.BeaconListFragment"

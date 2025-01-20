@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.system.Resources
@@ -23,7 +22,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentFieldGuideBinding
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.shared.views.Views
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
@@ -63,6 +61,14 @@ class FieldGuideFragment : BoundFragment<FragmentFieldGuideBinding>() {
                     findNavController().navigateUp()
                 }
             }
+        }
+
+        binding.addBtn.setOnClickListener {
+            findNavController().navigate(
+                R.id.createFieldGuidePageFragment, bundleOf(
+                    "classification_id" to (tagFilter?.id ?: 0L)
+                )
+            )
         }
     }
 
