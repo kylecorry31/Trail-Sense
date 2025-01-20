@@ -1,0 +1,26 @@
+Vimpaimet
+- Aloitusnäyttö ja sovelluksen sisäiset vimpaimet (pitkä painallus alhaalta):
+ - Sää
+ - Paine
+ - Painekaavio
+ - Aurinko
+ - Kuu
+ - Aurinko ja kuu kartta
+ - Korkeus
+ - Sijainti
+ - Vuorovesi
+ - Vuorovesikaavio
+ - Askelmittari
+ - Takaisin
+ - Taskulamppu
+ - Läheiset majakat
+
+Vuorovesi
+- Maailmanlaajuinen vuorovesimalli (ei-verkko)
+- Lähellä oleva vuorovesi (näyttää sijaintisi vuoroveden)
+
+Varmuuskopio
+- Automaattisen varmuuskopioinnin asetus (kerran päivässä, säilyttää kaksi viimeistä varmuuskopiota)
+
+Lisätty todellisuus
+- Näytä tähdet yöllä (50 kirkkainta)
