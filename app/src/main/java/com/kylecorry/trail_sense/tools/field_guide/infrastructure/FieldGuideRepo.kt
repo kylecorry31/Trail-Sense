@@ -17,28 +17,28 @@ class FieldGuideRepo private constructor(private val context: Context) {
         BuiltInFieldGuide.getFieldGuide(context) + saved
     }
 
-    suspend fun getPage(id: Long): FieldGuidePage? {
-        return if (id < 0) {
+    suspend fun getPage(id: Long): FieldGuidePage? = onIO {
+        if (id < 0) {
             BuiltInFieldGuide.getFieldGuidePage(context, id)
         } else {
             dao.getPage(id)?.toFieldGuidePage()
         }
     }
 
-    suspend fun delete(page: FieldGuidePage) {
+    suspend fun delete(page: FieldGuidePage) = onIO {
         if (page.isReadOnly) {
-            return
+            return@onIO
         }
         page.images.forEach { files.delete(it) }
         dao.delete(FieldGuidePageEntity.fromFieldGuidePage(page))
     }
 
-    suspend fun add(page: FieldGuidePage): Long {
+    suspend fun add(page: FieldGuidePage): Long = onIO {
         if (page.isReadOnly) {
-            return -1
+            return@onIO -1
         }
         val entity = FieldGuidePageEntity.fromFieldGuidePage(page)
-        return dao.upsert(entity)
+        dao.upsert(entity)
     }
 
     companion object {
