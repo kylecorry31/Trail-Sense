@@ -16,7 +16,7 @@ class AugmentedRealityPreferences(context: Context) : PreferenceRepo(context) {
         1000f
     )
 
-    val maxPathViewDistanceMeters by lazy {
+    val maxRecommendedPathViewDistanceMeters by lazy {
         if (UserPreferences(context).baseDistanceUnits == DistanceUnits.Meters) {
             30f
         } else {
@@ -24,13 +24,7 @@ class AugmentedRealityPreferences(context: Context) : PreferenceRepo(context) {
         }
     }
 
-    var pathViewDistance: Float
-        get() = _pathViewDistance.coerceAtMost(maxPathViewDistanceMeters)
-        set(value) {
-            _pathViewDistance = value.coerceAtMost(maxPathViewDistanceMeters)
-        }
-
-    private var _pathViewDistance by FloatPreference(
+    var pathViewDistance by FloatPreference(
         cache,
         context.getString(R.string.pref_augmented_reality_view_distance_paths),
         20f

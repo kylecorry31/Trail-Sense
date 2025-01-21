@@ -20,7 +20,7 @@ class AugmentedRealitySettingsFragment : AndromedaPreferenceFragment() {
         val formattedMaxDistance = FormatService.getInstance(requireContext())
             .formatDistance(
                 relative(
-                    Distance.meters(userPrefs.augmentedReality.maxPathViewDistanceMeters),
+                    Distance.meters(userPrefs.augmentedReality.maxRecommendedPathViewDistanceMeters),
                     userPrefs
                 )
             )
@@ -45,7 +45,10 @@ class AugmentedRealitySettingsFragment : AndromedaPreferenceFragment() {
                 }
             },
             DistanceUtils.hikingDistanceUnits,
-            description = getString(R.string.max_s, formattedMaxDistance)
+            description = getString(
+                R.string.path_distance_performance_disclaimer,
+                formattedMaxDistance
+            )
         )
 
         preference(R.string.pref_ar_use_gyro_only_after_calibration)?.isVisible =
