@@ -1280,4 +1280,5 @@
         <item quantity="few">%d stránky</item>
         <item quantity="other">%d stránek</item>
     </plurals>
+    <string name="path_distance_performance_disclaimer">Doporučené maximum %s</string>
 </resources>
