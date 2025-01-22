@@ -8,6 +8,7 @@ import com.kylecorry.andromeda.background.services.ForegroundInfo
 import com.kylecorry.andromeda.background.services.IntervalService
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.receivers.ServiceRestartAlerter
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.infrastructure.alerts.BacktrackAlerter
@@ -48,7 +49,13 @@ class BacktrackService :
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         isRunning = true
-        return super.onStartCommand(intent, flags, startId)
+        try {
+            return super.onStartCommand(intent, flags, startId)
+        } catch (e: Exception) {
+            ServiceRestartAlerter(this).alert()
+            stopSelf()
+            return START_NOT_STICKY
+        }
     }
 
     override fun onDestroy() {
