@@ -1182,4 +1182,5 @@
     </plurals>
     <string name="field_guide">Kenttäopas</string>
     <string name="tide">Vuorovesi</string>
+    <string name="path_distance_performance_disclaimer">Suositeltu maksimi: %s</string>
 </resources>

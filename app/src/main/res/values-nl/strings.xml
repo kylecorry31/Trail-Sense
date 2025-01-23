@@ -812,7 +812,7 @@
     <string name="height">Hoogte</string>
     <string name="saving">Opslaan</string>
     <string name="clinometer_measure_height_title">Afstand tot doel</string>
-    <string name="weather_monitor_disabled_resolution">Schakel weermetingen in in de weerinstellingen</string>
+    <string name="weather_monitor_disabled_resolution">Weermetingen inschakelen via de weerinstellingen</string>
     <string name="clinometer_measure_distance_title">Hoogte van doel</string>
     <string name="instructions">Uitleg</string>
     <string name="error_banners">Balken met foutmelding</string>
@@ -1254,4 +1254,5 @@
         <item quantity="one">%d pagina</item>
         <item quantity="other">%d pagina\'s</item>
     </plurals>
+    <string name="path_distance_performance_disclaimer">Aanbevolen maximum van %s</string>
 </resources>
