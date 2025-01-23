@@ -1241,4 +1241,5 @@
     <plurals name="page_group_summary">
         <item quantity="other">%d 页</item>
     </plurals>
+    <string name="path_distance_performance_disclaimer">推荐最大值 %s</string>
 </resources>
