@@ -17,7 +17,7 @@ interface IBeaconRepo {
     suspend fun addBeacon(beacon: BeaconEntity): Long
 
     suspend fun addBeaconGroup(group: BeaconGroupEntity): Long
-    suspend fun deleteBeaconGroup(group: BeaconGroupEntity)
+    suspend fun deleteBeaconGroup(group: BeaconGroupEntity?)
     suspend fun getGroupsWithParent(parent: Long?): List<BeaconGroupEntity>
     suspend fun getGroup(id: Long): BeaconGroupEntity?
 

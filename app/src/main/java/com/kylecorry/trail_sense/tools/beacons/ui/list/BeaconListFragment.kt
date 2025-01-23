@@ -126,13 +126,15 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                 it, listOf(
                     getString(R.string.sort_by, getSortString(defaultSort)),
                     getString(R.string.export),
-                    getString(R.string.navigate_to_nearest_cell_signal)
+                    getString(R.string.navigate_to_nearest_cell_signal),
+                    getString(R.string.delete)
                 )
             ) { selected ->
                 when (selected) {
                     0 -> changeSort()
                     1 -> onExportBeacons()
                     2 -> navigateToNearestCellSignal()
+                    3 -> deleteCurrentGroup()
                 }
                 true
             }
@@ -416,6 +418,11 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         navController.navigate(R.id.action_navigation)
     }
 
+    private fun deleteCurrentGroup() {
+        val group = manager.root
+        delete(group as BeaconGroup?)
+    }
+
     private fun delete(beacon: Beacon) {
         val command = DeleteBeaconCommand(
             requireContext(),
@@ -427,14 +434,14 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         command.execute(beacon)
     }
 
-    private fun delete(group: BeaconGroup) {
+    private fun delete(group: BeaconGroup?) {
         Alerts.dialog(
             requireContext(),
             getString(R.string.delete),
-            getString(
+            group?.name?.let { getString(
                 R.string.delete_beacon_group_message,
-                group.name
-            ),
+                it
+            )} ?: getString(R.string.delete_all_beacons),
         ) { cancelled ->
             if (!cancelled) {
                 inBackground {
@@ -443,6 +450,9 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                     }
 
                     onMain {
+                        if (group == manager.root) {
+                            manager.up()
+                        }
                         refresh()
                     }
                 }

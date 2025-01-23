@@ -34,6 +34,6 @@ interface IBeaconService {
     suspend fun getBeaconsInRegion(region: CoordinateBounds): List<Beacon>
 
     // Delete
-    suspend fun delete(group: BeaconGroup)
+    suspend fun delete(group: BeaconGroup?)
     suspend fun delete(beacon: Beacon)
 }

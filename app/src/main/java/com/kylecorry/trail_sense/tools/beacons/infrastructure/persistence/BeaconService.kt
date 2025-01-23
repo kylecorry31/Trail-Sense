@@ -94,8 +94,8 @@ class BeaconService(context: Context) : IBeaconService {
         return repo.getBeaconsInRegion(region).map { it.toBeacon() }
     }
 
-    override suspend fun delete(group: BeaconGroup) {
-        repo.deleteBeaconGroup(BeaconGroupEntity.from(group))
+    override suspend fun delete(group: BeaconGroup?) {
+        repo.deleteBeaconGroup(group?.let { BeaconGroupEntity.from(it) })
     }
 
     override suspend fun delete(beacon: Beacon) {
