@@ -1183,4 +1183,5 @@
     <string name="field_guide">Kenttäopas</string>
     <string name="tide">Vuorovesi</string>
     <string name="path_distance_performance_disclaimer">Suositeltu maksimi: %s</string>
+    <string name="delete_all_beacons">Kaikki majakat poistetaan.</string>
 </resources>
