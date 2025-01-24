@@ -1242,4 +1242,5 @@
         <item quantity="other">%d 页</item>
     </plurals>
     <string name="path_distance_performance_disclaimer">推荐最大值 %s</string>
+    <string name="delete_all_beacons">所有信标都将被删除。</string>
 </resources>
