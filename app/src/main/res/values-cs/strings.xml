@@ -1281,4 +1281,5 @@
         <item quantity="other">%d stránek</item>
     </plurals>
     <string name="path_distance_performance_disclaimer">Doporučené maximum %s</string>
+    <string name="delete_all_beacons">Všechny majáky budou odstraněny.</string>
 </resources>
