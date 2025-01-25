@@ -12,6 +12,7 @@ import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.onBackPressed
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentFieldGuideBinding
+import com.kylecorry.trail_sense.shared.text.TextUtils
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
@@ -87,13 +88,11 @@ class FieldGuideFragment : BoundFragment<FragmentFieldGuideBinding>() {
                 FieldGuidePageTag.Other
             )
 
-
-            val trimmedFilter = filter.trim().lowercase()
-
-            val filteredPages = pages.filter {
-                it.name.lowercase().contains(trimmedFilter) || it.tags.any { tag ->
-                    tagNameMapper.getName(tag).lowercase().contains(trimmedFilter)
-                } || it.notes?.lowercase()?.contains(trimmedFilter) == true
+            val filteredPages = TextUtils.search(filter, pages) { page ->
+                listOf(
+                    page.name,
+                    page.notes ?: "",
+                    page.tags.joinToString { tagNameMapper.getName(it) })
             }.filter { pages ->
                 tagFilter == null || pages.tags.contains(tagFilter)
             }

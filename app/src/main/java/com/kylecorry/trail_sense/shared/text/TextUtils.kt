@@ -23,6 +23,13 @@ import com.kylecorry.trail_sense.shared.views.Views
 
 object TextUtils {
 
+    fun <T> search(query: String, values: List<T>, propertySelector: (T) -> List<String>): List<T> {
+        val modifiedQuery = query.trim().lowercase()
+        return values.filter { value ->
+            propertySelector(value).any { it.lowercase().contains(modifiedQuery) }
+        }
+    }
+
     fun getSections(markdown: String): List<TextSection> {
         val sections = mutableListOf<TextSection>()
         val lines = markdown.split("\n")
