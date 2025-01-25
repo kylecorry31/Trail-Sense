@@ -15,7 +15,6 @@ import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.trail_sense.databinding.FragmentFieldGuidePageBinding
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.shared.readableName
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTagType
@@ -25,6 +24,7 @@ class FieldGuidePageFragment : BoundFragment<FragmentFieldGuidePageBinding>() {
 
     private val repo by lazy { FieldGuideRepo.getInstance(requireContext()) }
     private val files by lazy { FileSubsystem.getInstance(requireContext()) }
+    private val tagNameMapper by lazy { FieldGuideTagNameMapper(requireContext()) }
 
     private var pageId by state<Long?>(null)
     private var page by state<FieldGuidePage?>(null)
@@ -94,7 +94,7 @@ class FieldGuidePageFragment : BoundFragment<FragmentFieldGuidePageBinding>() {
             val tagView = Badge(requireContext(), null).apply {
                 statusImage.isVisible = false
                 statusText.textSize = 12f
-                setStatusText(tag.readableName())
+                setStatusText(tagNameMapper.getName(tag))
                 statusText.setTextColor(foregroundColor)
                 setBackgroundTint(badgeColor)
                 layoutParams = FlexboxLayout.LayoutParams(

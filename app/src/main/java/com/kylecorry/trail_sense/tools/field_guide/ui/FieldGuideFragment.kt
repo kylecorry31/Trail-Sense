@@ -33,6 +33,7 @@ class FieldGuideFragment : BoundFragment<FragmentFieldGuideBinding>() {
     private var tagFilter by state<FieldGuidePageTag?>(null)
     private val files by lazy { FileSubsystem.getInstance(requireContext()) }
     private val repo by lazy { FieldGuideRepo.getInstance(requireContext()) }
+    private val tagNameMapper by lazy { FieldGuideTagNameMapper(requireContext()) }
 
     override fun generateBinding(
         layoutInflater: LayoutInflater, container: ViewGroup?
@@ -75,7 +76,6 @@ class FieldGuideFragment : BoundFragment<FragmentFieldGuideBinding>() {
     override fun onUpdate() {
         super.onUpdate()
         effect2(species, filter, tagFilter, lifecycleHookTrigger.onResume()) {
-            // TODO: Add a way to select pages that don't have any of these tags
             val tags = listOf(
                 FieldGuidePageTag.Plant,
                 FieldGuidePageTag.Fungus,
@@ -104,9 +104,11 @@ class FieldGuideFragment : BoundFragment<FragmentFieldGuideBinding>() {
                 FieldGuidePageTag.Other to R.drawable.ic_help
             )
 
+            val trimmedFilter = filter.trim().lowercase()
+
             val filteredSpecies = species.filter {
-                it.name.lowercase().contains(filter.trim()) || it.tags.any { tag ->
-                    tag.name.lowercase().contains(filter.trim())
+                it.name.lowercase().contains(trimmedFilter) || it.tags.any { tag ->
+                    tagNameMapper.getName(tag).lowercase().contains(trimmedFilter)
                 }
             }.filter { species ->
                 tagFilter == null || species.tags.contains(tagFilter)
@@ -115,11 +117,10 @@ class FieldGuideFragment : BoundFragment<FragmentFieldGuideBinding>() {
             val iconTint = Resources.androidTextColorSecondary(requireContext())
             val listItems = if (tagFilter == null && filter.isBlank()) {
                 tags.map { tag ->
-                    // TODO: Add a translatable name
                     val numPages = species.count { it.tags.contains(tag) }
                     ListItem(
                         tag.id,
-                        tag.name,
+                        tagNameMapper.getName(tag),
                         resources.getQuantityString(
                             R.plurals.page_group_summary,
                             numPages,
