@@ -45,6 +45,7 @@ import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
 import com.kylecorry.trail_sense.tools.qr.QRCodeScannerToolRegistration
 import com.kylecorry.trail_sense.tools.ruler.RulerToolRegistration
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
+import com.kylecorry.trail_sense.tools.signal_finder.SignalFinderToolRegistration
 import com.kylecorry.trail_sense.tools.solarpanel.SolarPanelAlignerToolRegistration
 import com.kylecorry.trail_sense.tools.survival_guide.SurvivalGuideToolRegistration
 import com.kylecorry.trail_sense.tools.temperature_estimation.TemperatureEstimateToolRegistration
@@ -105,7 +106,8 @@ object Tools {
         LocalMessagingToolRegistration,
         LocalTalkToolRegistration,
         SurvivalGuideToolRegistration,
-        FieldGuideToolRegistration
+        FieldGuideToolRegistration,
+        SignalFinderToolRegistration
     )
     private val topics = mutableMapOf<String, Topic<Bundle>>()
     private val broadcastScope = CoroutineScope(Dispatchers.Main)
@@ -261,6 +263,7 @@ object Tools {
     const val LOCAL_TALK = 40L
     const val SURVIVAL_GUIDE = 41L
     const val FIELD_GUIDE = 42L
+    const val SIGNAL_FINDER = 43L
 
     // Quick Action IDs
     const val QUICK_ACTION_NONE = -1

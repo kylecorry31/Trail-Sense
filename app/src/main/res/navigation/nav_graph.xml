@@ -142,6 +142,10 @@
             app:argType="long" />
     </fragment>
     <fragment
+        android:id="@+id/signalFinderFragment"
+        android:name="com.kylecorry.trail_sense.tools.signal_finder.ui.ToolSignalFinderFragment"
+        android:label="SignalFinderFragment" />
+    <fragment
         android:id="@+id/beacon_list"
         android:name="com.kylecorry.trail_sense.tools.beacons.ui.list.BeaconListFragment"
         android:label="BeaconListFragment">
