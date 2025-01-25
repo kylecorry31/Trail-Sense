@@ -1083,4 +1083,10 @@
     <string name="location_number">Posisjon %d</string>
     <string name="millimeters_format">%s mm</string>
     <string name="select_from_gallery">Velg fra galleri</string>
+    <plurals name="page_group_summary">
+        <item quantity="one">%d side</item>
+        <item quantity="other">%d sider</item>
+    </plurals>
+    <string name="books">Bøker</string>
+    <string name="delete_all_beacons">Alle navigeringsmarkører blir slettet.</string>
 </resources>
