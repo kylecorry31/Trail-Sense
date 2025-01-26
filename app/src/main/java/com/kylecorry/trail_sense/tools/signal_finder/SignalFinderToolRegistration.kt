@@ -16,6 +16,7 @@ object SignalFinderToolRegistration : ToolRegistration {
             R.drawable.signal_cellular_2,
             R.id.signalFinderFragment,
             ToolCategory.Signaling,
+            description = context.getString(R.string.signal_finder_description),
             diagnostics = listOf(
                 ToolDiagnosticFactory.gps(context)
             )

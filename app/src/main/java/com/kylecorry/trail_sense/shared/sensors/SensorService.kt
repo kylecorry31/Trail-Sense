@@ -289,11 +289,15 @@ class SensorService(ctx: Context) {
         return MockHygrometer()
     }
 
-    fun getCellSignal(): ICellSignalSensor {
+    fun getCellSignal(removeUnregisteredSignals: Boolean = true): ICellSignalSensor {
         if (!hasLocationPermission()) {
             return MockCellSignalSensor()
         }
-        return CellSignalSensor(context, userPrefs.cellSignal.populateCache)
+        return CellSignalSensor(
+            context,
+            userPrefs.cellSignal.populateCache,
+            removeUnregisteredSignals
+        )
     }
 
     fun getGravity(): IAccelerometer {

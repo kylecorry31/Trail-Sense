@@ -17,16 +17,20 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentSignalFinderBinding
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.Units
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.toRelativeDistance
 import com.kylecorry.trail_sense.tools.signal_finder.infrastructure.CellTowerModel
 
 class ToolSignalFinderFragment : BoundFragment<FragmentSignalFinderBinding>() {
 
     private val sensors by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensors.getGPS() }
-    private val cellSignal by lazy { sensors.getCellSignal() }
+    private val cellSignal by lazy { sensors.getCellSignal(false) }
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
+    private val prefs by lazy { UserPreferences(requireContext()) }
 
     private var location by state<Coordinate?>(null)
     private var signals by state<List<CellSignal>>(emptyList())
@@ -57,7 +61,15 @@ class ToolSignalFinderFragment : BoundFragment<FragmentSignalFinderBinding>() {
 
     override fun onUpdate() {
         super.onUpdate()
-        effect2(signals, nearby, lifecycleHookTrigger.onResume()) {
+        val resolution = memo2 {
+            val accuracy =
+                CellTowerModel.accuracy.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+            formatter.formatDistance(accuracy, Units.getDecimalPlaces(accuracy.units))
+        }
+
+        effect2(signals, nearby, location, lifecycleHookTrigger.onResume()) {
+
+            // TODO: Indicate if the signal is from the user's carrier
             val signalItems = signals.mapIndexed { index, signal ->
                 ListItem(
                     index.toLong(),
@@ -66,13 +78,26 @@ class ToolSignalFinderFragment : BoundFragment<FragmentSignalFinderBinding>() {
                 )
             }
 
-            // TODO: Display distance, direction, and option to navigate
-            val nearbyItems = nearby.flatMapIndexed { index, (location, networks) ->
+            // TODO: Option to navigate
+            val nearbyItems = nearby.flatMapIndexed { index, (towerLocation, networks) ->
+                val distance =
+                    Distance.meters((location ?: Coordinate.zero).distanceTo(towerLocation))
+                        .convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+                val direction = (location ?: Coordinate.zero).bearingTo(towerLocation)
+                val formattedDistance =
+                    formatter.formatDistance(distance, Units.getDecimalPlaces(distance.units))
+                val formattedBearing = formatter.formatDegrees(direction.value, replace360 = true)
+                val formattedDirection = formatter.formatDirection(direction.direction)
                 networks.mapIndexed { networkIndex, network ->
                     ListItem(
                         (index * 1000 + networkIndex).toLong(),
                         formatter.formatCellNetwork(network),
-                        formatter.formatLocation(location)
+                        getString(
+                            R.string.dot_separated_pair,
+                            formattedDistance,
+                            // TODO: Add an approximate disclaimer/link at the bottom of the screen
+                            "${formattedBearing} ${formattedDirection}\nApproximate from OpenCelliD (± ${resolution})"
+                        )
                     )
                 }
             }
@@ -84,21 +109,21 @@ class ToolSignalFinderFragment : BoundFragment<FragmentSignalFinderBinding>() {
             triggers.distance("location", location ?: Coordinate.zero, Distance.meters(100f)),
             lifecycleHookTrigger.onResume()
         ) {
-            location?.let {
-                inBackground {
-                    loading = true
-                    queue.replace {
-                        nearby = CellTowerModel.getTowers(
-                            requireContext(),
-                            Geofence(it, Distance.kilometers(20f))
-                        )
-                        loading = false
-                    }
+            val location = location ?: return@effect2
+            inBackground {
+                loading = true
+                queue.replace {
+                    nearby = CellTowerModel.getTowers(
+                        requireContext(),
+                        Geofence(location, Distance.kilometers(20f)),
+                        5
+                    ).sortedBy { location.distanceTo(it.first) }
+                    loading = false
                 }
             }
         }
 
-        effect2(loading){
+        effect2(loading) {
             binding.title.subtitle.text = if (loading) {
                 getString(R.string.loading)
             } else {

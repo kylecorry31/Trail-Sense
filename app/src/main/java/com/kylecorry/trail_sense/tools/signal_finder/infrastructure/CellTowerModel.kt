@@ -10,8 +10,8 @@ import com.kylecorry.sol.math.SolMath.roundNearest
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.data.GeographicImageSource
-import kotlin.math.min
 
 object CellTowerModel {
 
@@ -23,6 +23,8 @@ object CellTowerModel {
     private val size = Size(7200, 3600)
     private val resolution = 0.05
 
+    val accuracy = Distance.nauticalMiles(resolution.toFloat() * 60 / 2f).meters()
+
     private val source = GeographicImageSource(
         size,
         interpolate = false,
@@ -32,7 +34,8 @@ object CellTowerModel {
     // TODO: Load the whole region of the image and get the towers from it
     suspend fun getTowers(
         context: Context,
-        geofence: Geofence
+        geofence: Geofence,
+        count: Int? = null
     ): List<Pair<Coordinate, List<CellNetwork>>> = onIO {
         val bounds = CoordinateBounds.from(geofence)
         val locations = mutableListOf<Coordinate>()
@@ -50,11 +53,23 @@ object CellTowerModel {
         // Remove locations that are outside the geofence
         locations.removeIf { !geofence.contains(it) }
 
-        println(locations)
+        val towers = mutableListOf<Pair<Coordinate, List<CellNetwork>>>()
 
-        locations.distinct().map { location ->
-            getTowers(context, location)
+        val sortedLocations = locations
+            .sortedBy { it.distanceTo(geofence.center) }
+            .distinct()
+
+        for (location in sortedLocations) {
+            val tower = getTowers(context, location)
+            if (tower.second.isNotEmpty()) {
+                towers.add(tower)
+            }
+            if (count != null && towers.size >= count) {
+                break
+            }
         }
+
+        towers
     }
 
     suspend fun getTowers(

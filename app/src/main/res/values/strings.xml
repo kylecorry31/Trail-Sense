@@ -1588,4 +1588,6 @@
     <string name="medicinal">Medicinal</string>
     <string name="tool_signal_finder">Signal Finder</string>
     <string name="cell_towers">Cell towers</string>
+    <string name="signal_finder_description">View nearby cell towers and signals.</string>
+    <string name="no_cell_towers_found">No cell towers found</string>
 </resources>
