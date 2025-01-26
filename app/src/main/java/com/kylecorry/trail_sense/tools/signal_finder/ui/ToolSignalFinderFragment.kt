@@ -4,25 +4,38 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.core.text.method.LinkMovementMethodCompat
+import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.core.system.GeoUri
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
+import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.andromeda.signal.CellSignal
 import com.kylecorry.andromeda.views.list.ListItem
+import com.kylecorry.andromeda.views.list.ListMenuItem
+import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentSignalFinderBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
+import com.kylecorry.trail_sense.shared.openTool
+import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.toRelativeDistance
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.signal_finder.infrastructure.CellTowerModel
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class ToolSignalFinderFragment : BoundFragment<FragmentSignalFinderBinding>() {
 
@@ -31,6 +44,8 @@ class ToolSignalFinderFragment : BoundFragment<FragmentSignalFinderBinding>() {
     private val cellSignal by lazy { sensors.getCellSignal(false) }
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
+    private val markdown by lazy { MarkdownService(requireContext()) }
+    private val navigator by lazy { Navigator.getInstance(requireContext()) }
 
     private var location by state<Coordinate?>(null)
     private var signals by state<List<CellSignal>>(emptyList())
@@ -57,28 +72,45 @@ class ToolSignalFinderFragment : BoundFragment<FragmentSignalFinderBinding>() {
             // TODO: Trilaterate
             signals = cellSignal.signals
         }
+
+        binding.list.emptyView = binding.emptyText
+
+        binding.disclaimer.text =
+            markdown.toMarkdown(getString(R.string.cell_tower_disclaimer))
+        binding.disclaimer.movementMethod = LinkMovementMethodCompat.getInstance()
     }
 
     override fun onUpdate() {
         super.onUpdate()
-        val resolution = memo2 {
-            val accuracy =
-                CellTowerModel.accuracy.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
-            formatter.formatDistance(accuracy, Units.getDecimalPlaces(accuracy.units))
-        }
+        effect2(
+            signals,
+            nearby,
+            triggers.distance("location1", location ?: Coordinate.zero, Distance.meters(100f)),
+            lifecycleHookTrigger.onResume()
+        ) {
 
-        effect2(signals, nearby, location, lifecycleHookTrigger.onResume()) {
-
-            // TODO: Indicate if the signal is from the user's carrier
             val signalItems = signals.mapIndexed { index, signal ->
                 ListItem(
                     index.toLong(),
                     formatter.formatCellNetwork(signal.network),
-                    formatter.formatPercentage(signal.strength)
+                    getString(
+                        R.string.dot_separated_pair,
+                        "${formatter.formatPercentage(signal.strength)} (${
+                            formatter.formatDbm(signal.dbm)
+                        })",
+                        if (signal.isRegistered) {
+                            getString(R.string.full_service)
+                        } else {
+                            getString(R.string.emergency_calls_only)
+                        }
+                    ),
+                    icon = ResourceListIcon(
+                        CellSignalUtils.getCellQualityImage(signal.quality),
+                        CustomUiUtils.getQualityColor(signal.quality)
+                    )
                 )
             }
 
-            // TODO: Option to navigate
             val nearbyItems = nearby.flatMapIndexed { index, (towerLocation, networks) ->
                 val distance =
                     Distance.meters((location ?: Coordinate.zero).distanceTo(towerLocation))
@@ -95,8 +127,23 @@ class ToolSignalFinderFragment : BoundFragment<FragmentSignalFinderBinding>() {
                         getString(
                             R.string.dot_separated_pair,
                             formattedDistance,
-                            // TODO: Add an approximate disclaimer/link at the bottom of the screen
-                            "${formattedBearing} ${formattedDirection}\nApproximate from OpenCelliD (± ${resolution})"
+                            "$formattedBearing $formattedDirection"
+                        ),
+                        icon = ResourceListIcon(
+                            R.drawable.cell_tower,
+                            Resources.androidTextColorSecondary(requireContext())
+                        ),
+                        menu = listOf(
+                            ListMenuItem(getString(R.string.navigate)) {
+                                navigator.navigateTo(towerLocation, getString(R.string.cell_tower))
+                                findNavController().openTool(Tools.NAVIGATION)
+                            },
+                            ListMenuItem(getString(R.string.create_beacon)) {
+                                val bundle = bundleOf(
+                                    "initial_location" to GeoUri(towerLocation)
+                                )
+                                findNavController().navigate(R.id.placeBeaconFragment, bundle)
+                            }
                         )
                     )
                 }
@@ -106,7 +153,7 @@ class ToolSignalFinderFragment : BoundFragment<FragmentSignalFinderBinding>() {
         }
 
         effect2(
-            triggers.distance("location", location ?: Coordinate.zero, Distance.meters(100f)),
+            triggers.distance("location2", location ?: Coordinate.zero, Distance.meters(100f)),
             lifecycleHookTrigger.onResume()
         ) {
             val location = location ?: return@effect2

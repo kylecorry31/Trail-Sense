@@ -1590,4 +1590,8 @@
     <string name="cell_towers">Cell towers</string>
     <string name="signal_finder_description">View nearby cell towers and signals.</string>
     <string name="no_cell_towers_found">No cell towers found</string>
+    <string name="cell_tower_disclaimer">Tower locations are approximated from OpenCelliD.\n\n[OpenCelliD Project](https://opencellid.org/) is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/)</string>
+    <string name="full_service">Full service</string>
+    <string name="emergency_calls_only">Emergency calls only</string>
+    <string name="cell_tower">Cell tower</string>
 </resources>

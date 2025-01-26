@@ -17,26 +17,39 @@
 
     <com.kylecorry.andromeda.views.list.AndromedaListView
         android:id="@+id/list"
-        style="@style/AppTheme.ListViewWithFab"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/disclaimer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
     <TextView
-        android:id="@+id/beacon_empty_text"
+        android:id="@+id/empty_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/no_cell_towers_found"
         android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/list"
         tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/disclaimer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="@dimen/default_bottom_margin"
+        android:text="@string/cell_tower_disclaimer"
+        android:textAlignment="center"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
