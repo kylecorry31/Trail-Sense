@@ -20,8 +20,9 @@ object CellTowerModel {
     private val locationToPixelCache = LRUCache<Coordinate, PixelCoordinate?>(size = 20)
 
     // Image data source
-    private val size = Size(7200, 3600)
-    private val resolution = 0.05
+    private val resolution = 0.03
+    private val pixelsPerDegree = 1 / resolution
+    private val size = Size((360 * pixelsPerDegree).toInt(), (180 * pixelsPerDegree).toInt())
 
     val accuracy = Distance.nauticalMiles(resolution.toFloat() * 60 / 2f).meters()
 
