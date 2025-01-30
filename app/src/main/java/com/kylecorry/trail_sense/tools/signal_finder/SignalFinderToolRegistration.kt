@@ -19,7 +19,8 @@ object SignalFinderToolRegistration : ToolRegistration {
             description = context.getString(R.string.signal_finder_description),
             diagnostics = listOf(
                 ToolDiagnosticFactory.gps(context)
-            )
+            ),
+            guideId = R.raw.guide_tool_signal_finder
         )
     }
 }

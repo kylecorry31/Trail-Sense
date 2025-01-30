@@ -29,7 +29,9 @@ object CellTowerModel {
     private val source = GeographicImageSource(
         size,
         interpolate = false,
-        decoder = GeographicImageSource.scaledDecoder(1.0, 0.0, false)
+        decoder = GeographicImageSource.scaledDecoder(1.0, 0.0, false),
+        latitudePixelsPerDegree = pixelsPerDegree,
+        longitudePixelsPerDegree = pixelsPerDegree
     )
 
     // TODO: Load the whole region of the image and get the towers from it

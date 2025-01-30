@@ -752,6 +752,16 @@ class FormatService private constructor(private val context: Context) {
         return if (value) context.getString(R.string.yes) else context.getString(R.string.no)
     }
 
+    fun join(vararg strings: String, separator: Separator = Separator.Comma): String {
+        val separatorString = when (separator) {
+            Separator.Dot -> " • "
+            Separator.Comma -> ", "
+            Separator.Space -> " "
+            Separator.Dash -> " - "
+        }
+        return strings.joinToString(separatorString)
+    }
+
     @DrawableRes
     fun getCompassReferenceIcon(isTrueNorth: Boolean = prefs.compass.useTrueNorth): Int {
         return if (isTrueNorth) {
@@ -759,6 +769,13 @@ class FormatService private constructor(private val context: Context) {
         } else {
             R.drawable.ic_tool_metal_detector
         }
+    }
+
+    enum class Separator {
+        Dot,
+        Comma,
+        Space,
+        Dash
     }
 
     companion object {

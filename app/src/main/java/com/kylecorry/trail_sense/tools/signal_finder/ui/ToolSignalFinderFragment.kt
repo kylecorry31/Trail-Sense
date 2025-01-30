@@ -93,16 +93,15 @@ class ToolSignalFinderFragment : BoundFragment<FragmentSignalFinderBinding>() {
                 ListItem(
                     index.toLong(),
                     formatter.formatCellNetwork(signal.network),
-                    getString(
-                        R.string.dot_separated_pair,
-                        "${formatter.formatPercentage(signal.strength)} (${
-                            formatter.formatDbm(signal.dbm)
-                        })",
+                    formatter.join(
+                        formatter.formatPercentage(signal.strength),
+                        formatter.formatTime(signal.time),
                         if (signal.isRegistered) {
                             getString(R.string.full_service)
                         } else {
                             getString(R.string.emergency_calls_only)
-                        }
+                        },
+                        separator = FormatService.Separator.Dot
                     ),
                     icon = ResourceListIcon(
                         CellSignalUtils.getCellQualityImage(signal.quality),
@@ -124,10 +123,11 @@ class ToolSignalFinderFragment : BoundFragment<FragmentSignalFinderBinding>() {
                     ListItem(
                         (index * 1000 + networkIndex).toLong(),
                         formatter.formatCellNetwork(network),
-                        getString(
-                            R.string.dot_separated_pair,
+                        formatter.join(
+                            getString(R.string.cell_tower),
                             formattedDistance,
-                            "$formattedBearing $formattedDirection"
+                            "$formattedBearing $formattedDirection",
+                            separator = FormatService.Separator.Dot
                         ),
                         icon = ResourceListIcon(
                             R.drawable.cell_tower,
