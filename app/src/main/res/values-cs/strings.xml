@@ -1325,4 +1325,12 @@
     <string name="diurnal">Denní</string>
     <string name="nocturnal">Noční</string>
     <string name="crepuscular">Krepuskulární</string>
+    <string name="tool_signal_finder">Hledání signálu</string>
+    <string name="cell_towers">Mobilní věže</string>
+    <string name="no_cell_towers_found">Nenalezeny žádné mobilní věže</string>
+    <string name="cell_tower">Mobilní věž</string>
+    <string name="signal_finder_description">Zobrazit mobilní věže a signály v okolí.</string>
+    <string name="full_service">Plná služba</string>
+    <string name="emergency_calls_only">Pouze tísňová volání</string>
+    <string name="cell_tower_disclaimer">Umístění věží je aproximováno ze služby OpenCelliD.\n\n[Projekt OpenCelliD](https://opencellid.org/) je licencován pod [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/)</string>
 </resources>
