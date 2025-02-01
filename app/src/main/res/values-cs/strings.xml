@@ -1333,4 +1333,5 @@
     <string name="full_service">Plná služba</string>
     <string name="emergency_calls_only">Pouze tísňová volání</string>
     <string name="cell_tower_disclaimer">Umístění věží je aproximováno ze služby OpenCelliD.\n\n[Projekt OpenCelliD](https://opencellid.org/) je licencován pod [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/)</string>
+    <string name="create_page">Vytvořit stránku</string>
 </resources>
