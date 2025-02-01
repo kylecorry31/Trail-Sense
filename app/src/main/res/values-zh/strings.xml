@@ -1294,4 +1294,5 @@
     <string name="emergency_calls_only">仅紧急呼叫</string>
     <string name="cell_tower_disclaimer">信号塔位置是根据 OpenCelliD 数据粗略估计的。\n\n[OpenCelliD 项目](https://opencellid.org/) 依据 [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/) 许可</string>
     <string name="full_service">完整服务</string>
+    <string name="create_page">创建页面</string>
 </resources>
