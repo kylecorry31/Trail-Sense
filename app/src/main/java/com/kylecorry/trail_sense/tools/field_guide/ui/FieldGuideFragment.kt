@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
@@ -42,7 +43,7 @@ class FieldGuideFragment : BoundFragment<FragmentFieldGuideBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         inBackground(BackgroundMinimumState.Created) {
-            pages = repo.getAllPages().sortedBy { it.name }
+            reloadPages()
         }
 
         binding.search.setOnSearchListener {
@@ -113,14 +114,41 @@ class FieldGuideFragment : BoundFragment<FragmentFieldGuideBinding>() {
         super.onResume()
         pageMapper = FieldGuidePageListItemMapper(
             requireContext(),
-            viewLifecycleOwner
-        ) { action, page ->
-            if (action == FieldGuidePageListItemActionType.View) {
+            viewLifecycleOwner,
+            this::onPageAction
+        )
+    }
+
+    private fun onPageAction(action: FieldGuidePageListItemActionType, page: FieldGuidePage) {
+        when (action) {
+            FieldGuidePageListItemActionType.View -> {
                 findNavController().navigate(
                     R.id.fieldGuidePageFragment,
                     bundleOf("page_id" to page.id)
                 )
             }
+
+            FieldGuidePageListItemActionType.Edit -> {
+                findNavController().navigate(
+                    R.id.createFieldGuidePageFragment,
+                    bundleOf("page_id" to page.id)
+                )
+            }
+
+            FieldGuidePageListItemActionType.Delete -> {
+                dialog(getString(R.string.delete), page.name) { cancelled ->
+                    if (!cancelled) {
+                        inBackground {
+                            repo.delete(page)
+                            reloadPages()
+                        }
+                    }
+                }
+            }
         }
+    }
+
+    private suspend fun reloadPages() {
+        pages = repo.getAllPages().sortedBy { it.name }
     }
 }

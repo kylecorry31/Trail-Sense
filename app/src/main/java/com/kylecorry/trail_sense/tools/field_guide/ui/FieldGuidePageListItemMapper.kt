@@ -10,11 +10,15 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.views.list.AsyncListIcon
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ListItemMapper
+import com.kylecorry.andromeda.views.list.ListMenuItem
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 
 enum class FieldGuidePageListItemActionType {
-    View
+    View,
+    Edit,
+    Delete
 }
 
 class FieldGuidePageListItemMapper(
@@ -38,6 +42,20 @@ class FieldGuidePageListItemMapper(
                 scaleType = ImageView.ScaleType.CENTER_CROP,
                 clearOnPause = true
             ),
+            menu = listOfNotNull(
+                if (!value.isReadOnly) ListMenuItem(context.getString(R.string.edit)) {
+                    action(
+                        FieldGuidePageListItemActionType.Edit,
+                        value
+                    )
+                } else null,
+                if (!value.isReadOnly) ListMenuItem(context.getString(R.string.delete)) {
+                    action(
+                        FieldGuidePageListItemActionType.Delete,
+                        value
+                    )
+                } else null
+            )
         ) {
             action(FieldGuidePageListItemActionType.View, value)
         }
