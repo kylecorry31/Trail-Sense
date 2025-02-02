@@ -1278,4 +1278,8 @@
     <string name="inedible">Não comestível</string>
     <string name="dangerous">Perigoso</string>
     <string name="delete_all_beacons">Todos os pontos de orientação serão excluídos.</string>
+    <string name="classification">Classificações</string>
+    <string name="human_interaction">Interação humana</string>
+    <string name="habitat">Habitat</string>
+    <string name="activity_pattern">Padrão de atividade</string>
 </resources>
