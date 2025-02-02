@@ -1307,4 +1307,5 @@
     <string name="dangerous">Gevaarlijk</string>
     <string name="medicinal">Medicinaal</string>
     <string name="delete_all_beacons">Alle bakens worden verwijderd.</string>
+    <string name="create_page">Pagina aanmaken</string>
 </resources>
