@@ -40,6 +40,12 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.kylecorry.trail_sense.shared.views.MaterialMultiSpinnerView
+                android:id="@+id/tag_classifications"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
+
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.Material3.CardView.Outlined"
                 android:layout_width="match_parent"
@@ -57,6 +63,30 @@
                     android:padding="16dp"
                     android:scrollbars="vertical" />
             </com.google.android.material.card.MaterialCardView>
+
+            <com.kylecorry.trail_sense.shared.views.MaterialMultiSpinnerView
+                android:id="@+id/tag_locations"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
+
+            <com.kylecorry.trail_sense.shared.views.MaterialMultiSpinnerView
+                android:id="@+id/tag_habitats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
+
+            <com.kylecorry.trail_sense.shared.views.MaterialMultiSpinnerView
+                android:id="@+id/tag_human_interactions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
+
+            <com.kylecorry.trail_sense.shared.views.MaterialMultiSpinnerView
+                android:id="@+id/tag_activity_patterns"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

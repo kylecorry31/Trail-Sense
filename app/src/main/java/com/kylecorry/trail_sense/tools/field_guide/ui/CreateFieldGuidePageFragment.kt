@@ -9,18 +9,27 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.luna.coroutines.onMain
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateFieldGuidePageBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.views.MaterialMultiSpinnerView
 import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
+import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTagType
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
 
 class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageBinding>() {
 
-    private var originalPage by state(FieldGuidePage(0))
     private val repo by lazy { FieldGuideRepo.getInstance(requireContext()) }
+    private val tagNameMapper by lazy { FieldGuideTagNameMapper(requireContext()) }
+
+    private var originalPage by state(FieldGuidePage(0))
     private var page by state(originalPage)
+
+    // Tags
+    private val tags =
+        FieldGuidePageTag.entries.sortedWith(compareBy({ it.type.ordinal }, { it.ordinal }))
 
     override fun generateBinding(
         layoutInflater: LayoutInflater,
@@ -66,6 +75,37 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
             page = page.copy(notes = it.toString())
         }
 
+
+        initializeTags(
+            binding.tagLocations,
+            getString(R.string.location),
+            FieldGuidePageTagType.Location
+        )
+
+        initializeTags(
+            binding.tagHabitats,
+            getString(R.string.habitat),
+            FieldGuidePageTagType.Habitat
+        )
+
+        initializeTags(
+            binding.tagClassifications,
+            getString(R.string.classification),
+            FieldGuidePageTagType.Classification
+        )
+
+        initializeTags(
+            binding.tagActivityPatterns,
+            getString(R.string.activity_pattern),
+            FieldGuidePageTagType.ActivityPattern
+        )
+
+        initializeTags(
+            binding.tagHumanInteractions,
+            getString(R.string.human_interaction),
+            FieldGuidePageTagType.HumanInteraction
+        )
+
         // TODO: Add dirty checking
     }
 
@@ -79,7 +119,23 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
         }
 
         effect2(page.tags) {
-            // TODO: Update the tags holder
+            setTags(binding.tagLocations, page.directTags, FieldGuidePageTagType.Location)
+            setTags(binding.tagHabitats, page.directTags, FieldGuidePageTagType.Habitat)
+            setTags(
+                binding.tagClassifications,
+                page.directTags,
+                FieldGuidePageTagType.Classification
+            )
+            setTags(
+                binding.tagActivityPatterns,
+                page.directTags,
+                FieldGuidePageTagType.ActivityPattern
+            )
+            setTags(
+                binding.tagHumanInteractions,
+                page.directTags,
+                FieldGuidePageTagType.HumanInteraction
+            )
         }
     }
 
@@ -90,6 +146,30 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
                 findNavController().navigateUp()
             }
         }
+    }
+
+    private fun initializeTags(
+        view: MaterialMultiSpinnerView,
+        hint: String,
+        type: FieldGuidePageTagType
+    ) {
+        val tagsOfType = tags.filter { it.type == type }
+        view.setHint(hint)
+        view.setItems(tagsOfType.map { tagNameMapper.getName(it) })
+        view.setOnSelectionChangeListener {
+            page =
+                page.copy(directTags = page.directTags.filter { it.type != type } + it.map { tagsOfType[it] })
+        }
+    }
+
+    private fun setTags(
+        view: MaterialMultiSpinnerView,
+        selection: List<FieldGuidePageTag>,
+        type: FieldGuidePageTagType
+    ) {
+        val tagsOfType = tags.filter { it.type == type }
+        val selectionOfType = selection.filter { it.type == type }
+        view.setSelection(selectionOfType.map { tagsOfType.indexOf(it) })
     }
 
 

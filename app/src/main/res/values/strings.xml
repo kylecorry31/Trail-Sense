@@ -1595,4 +1595,9 @@
     <string name="emergency_calls_only">Emergency calls only</string>
     <string name="cell_tower">Cell tower</string>
     <string name="create_page">Create page</string>
+    <string name="habitat">Habitat</string>
+    <string name="classification">Classification</string>
+    <!--The activity pattern of an animal (ex. diurnal)-->
+    <string name="activity_pattern">Activity pattern</string>
+    <string name="human_interaction">Human interaction</string>
 </resources>
