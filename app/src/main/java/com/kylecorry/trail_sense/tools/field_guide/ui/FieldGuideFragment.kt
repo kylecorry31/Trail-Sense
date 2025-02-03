@@ -74,7 +74,7 @@ class FieldGuideFragment : BoundFragment<FragmentFieldGuideBinding>() {
 
     override fun onUpdate() {
         super.onUpdate()
-        effect2(pages, filter, tagFilter, lifecycleHookTrigger.onResume()) {
+        useEffect(pages, filter, tagFilter, lifecycleHookTrigger.onResume()) {
             val tags = listOf(
                 FieldGuidePageTag.Plant,
                 FieldGuidePageTag.Fungus,

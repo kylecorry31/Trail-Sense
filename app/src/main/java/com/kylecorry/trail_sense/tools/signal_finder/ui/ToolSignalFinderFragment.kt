@@ -82,7 +82,7 @@ class ToolSignalFinderFragment : BoundFragment<FragmentSignalFinderBinding>() {
 
     override fun onUpdate() {
         super.onUpdate()
-        effect2(
+        useEffect(
             signals,
             nearby,
             triggers.distance("location1", location ?: Coordinate.zero, Distance.meters(100f)),
@@ -152,11 +152,11 @@ class ToolSignalFinderFragment : BoundFragment<FragmentSignalFinderBinding>() {
             binding.list.setItems(signalItems + nearbyItems)
         }
 
-        effect2(
+        useEffect(
             triggers.distance("location2", location ?: Coordinate.zero, Distance.meters(100f)),
             lifecycleHookTrigger.onResume()
         ) {
-            val location = location ?: return@effect2
+            val location = location ?: return@useEffect
             inBackground {
                 loading = true
                 queue.replace {
@@ -170,7 +170,7 @@ class ToolSignalFinderFragment : BoundFragment<FragmentSignalFinderBinding>() {
             }
         }
 
-        effect2(loading) {
+        useEffect(loading) {
             binding.title.subtitle.text = if (loading) {
                 getString(R.string.loading)
             } else {

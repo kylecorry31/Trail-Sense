@@ -425,7 +425,7 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
             estimateType == EstimateType.LunitidalIntervalManualLocal || estimateType == EstimateType.LunitidalIntervalManualUTC
         binding.tideLocation.required = estimateType == EstimateType.LunitidalIntervalManualLocal
 
-        effect2(estimateType) {
+        useEffect(estimateType) {
             tideTimesList.setData(tides)
         }
 

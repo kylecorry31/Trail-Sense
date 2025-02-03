@@ -45,7 +45,7 @@ class FieldGuidePageFragment : BoundFragment<FragmentFieldGuidePageBinding>() {
 
     override fun onUpdate() {
         super.onUpdate()
-        effect2(pageId) {
+        useEffect(pageId) {
             inBackground {
                 if (pageId == null) {
                     loader.replace { page = null }
@@ -55,7 +55,7 @@ class FieldGuidePageFragment : BoundFragment<FragmentFieldGuidePageBinding>() {
             }
         }
 
-        effect2(page) {
+        useEffect(page) {
             binding.fieldGuidePageTitle.title.text = page?.name
             binding.notes.text = page?.notes
             val image = page?.images?.firstOrNull()
