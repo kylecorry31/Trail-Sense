@@ -1295,4 +1295,8 @@
     <string name="cell_tower_disclaimer">信号塔位置是根据 OpenCelliD 数据粗略估计的。\n\n[OpenCelliD 项目](https://opencellid.org/) 依据 [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/) 许可</string>
     <string name="full_service">完整服务</string>
     <string name="create_page">创建页面</string>
+    <string name="habitat">栖息地</string>
+    <string name="activity_pattern">活动模式</string>
+    <string name="human_interaction">人类交互</string>
+    <string name="classification">分类</string>
 </resources>
