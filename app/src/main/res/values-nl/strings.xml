@@ -1308,4 +1308,8 @@
     <string name="medicinal">Medicinaal</string>
     <string name="delete_all_beacons">Alle bakens worden verwijderd.</string>
     <string name="create_page">Pagina aanmaken</string>
+    <string name="classification">Classificatie</string>
+    <string name="habitat">Leefgebied</string>
+    <string name="activity_pattern">Activiteitenpatroon</string>
+    <string name="human_interaction">Menselijke interactie</string>
 </resources>
