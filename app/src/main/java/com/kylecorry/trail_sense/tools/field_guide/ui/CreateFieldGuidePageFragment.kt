@@ -113,12 +113,12 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
         super.onUpdate()
 
         // Original content
-        effect2(originalPage) {
+        useEffect(originalPage) {
             binding.name.setText(originalPage.name)
             binding.notes.setText(originalPage.notes)
         }
 
-        effect2(page.tags) {
+        useEffect(page.tags) {
             setTags(binding.tagLocations, page.directTags, FieldGuidePageTagType.Location)
             setTags(binding.tagHabitats, page.directTags, FieldGuidePageTagType.Habitat)
             setTags(
