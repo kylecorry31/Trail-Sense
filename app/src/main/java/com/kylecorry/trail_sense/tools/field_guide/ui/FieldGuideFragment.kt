@@ -16,6 +16,7 @@ import com.kylecorry.trail_sense.databinding.FragmentFieldGuideBinding
 import com.kylecorry.trail_sense.shared.text.TextUtils
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
+import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideCleanupCommand
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
 
 class FieldGuideFragment : BoundFragment<FragmentFieldGuideBinding>() {
@@ -117,6 +118,10 @@ class FieldGuideFragment : BoundFragment<FragmentFieldGuideBinding>() {
             viewLifecycleOwner,
             this::onPageAction
         )
+
+        inBackground {
+            FieldGuideCleanupCommand(requireContext()).execute()
+        }
     }
 
     private fun onPageAction(action: FieldGuidePageListItemActionType, page: FieldGuidePage) {

@@ -29,7 +29,6 @@
             android:layout_width="225dp"
             android:layout_height="102dp"
             android:layout_marginTop="16dp"
-            app:srcCompat="@drawable/flashlight_sos"
             app:tileIcon="@drawable/ic_screen_flashlight"
             app:tileText="@string/screen_flashlight" />
 

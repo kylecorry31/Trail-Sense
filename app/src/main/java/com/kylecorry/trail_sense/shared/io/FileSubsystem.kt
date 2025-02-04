@@ -40,6 +40,7 @@ class FileSubsystem private constructor(private val context: Context) {
                 Drawable.createFromStream(it, null)
             }
         } else {
+            println(get(path).path)
             Drawable.createFromPath(get(path).path)
         }
     }
