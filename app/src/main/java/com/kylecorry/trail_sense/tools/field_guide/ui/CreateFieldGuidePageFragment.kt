@@ -6,6 +6,7 @@ import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.net.toFile
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
@@ -21,6 +22,7 @@ import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateFieldGuidePageBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.shared.views.MaterialMultiSpinnerView
@@ -40,6 +42,8 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
 
     private var originalPage by state(FieldGuidePage(0))
     private var page by state(originalPage)
+
+    private var backCallback: OnBackPressedCallback? = null
 
     // Tags
     private val tags =
@@ -140,7 +144,7 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
             FieldGuidePageTagType.HumanInteraction
         )
 
-        // TODO: Add dirty checking
+        backCallback = promptIfUnsavedChanges(this::hasChanges)
     }
 
     override fun onUpdate() {
@@ -187,9 +191,14 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
         inBackground {
             repo.add(page)
             onMain {
+                backCallback?.remove()
                 findNavController().navigateUp()
             }
         }
+    }
+
+    private fun hasChanges(): Boolean {
+        return originalPage != page
     }
 
     private suspend fun uploadPhoto(uri: Uri?) = onIO {
