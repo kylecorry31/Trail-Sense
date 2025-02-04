@@ -30,7 +30,9 @@ class FieldGuidePageListItemMapper(
     private val files by lazy { FileSubsystem.getInstance(context) }
 
     override fun map(value: FieldGuidePage): ListItem {
-        val firstSentence = value.notes?.substringBefore(".")?.plus(".") ?: ""
+        val firstSentence =
+            value.notes?.substringBefore(".")?.plus(if (value.notes.contains(".")) "." else "")
+                ?: ""
         return ListItem(
             value.id,
             value.name,
