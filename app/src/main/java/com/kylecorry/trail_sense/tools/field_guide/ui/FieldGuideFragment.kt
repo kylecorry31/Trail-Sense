@@ -47,6 +47,8 @@ class FieldGuideFragment : BoundFragment<FragmentFieldGuideBinding>() {
             reloadPages()
         }
 
+        binding.list.emptyView = binding.emptyText
+
         binding.search.setOnSearchListener {
             filter = it
         }

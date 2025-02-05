@@ -3,7 +3,9 @@ package com.kylecorry.trail_sense.tools.field_guide.ui
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.method.LinkMovementMethodCompat
 import androidx.core.view.isVisible
 import com.google.android.flexbox.FlexboxLayout
 import com.kylecorry.andromeda.core.system.Resources
@@ -41,6 +43,11 @@ class FieldGuidePageFragment : BoundFragment<FragmentFieldGuidePageBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pageId = arguments?.getLong("page_id")
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.notes.movementMethod = LinkMovementMethodCompat.getInstance()
     }
 
     override fun onUpdate() {
