@@ -1579,9 +1579,9 @@
     <string name="freshwater">Freshwater</string>
     <string name="cave">Cave</string>
     <string name="tundra">Tundra</string>
-    <string name="diurnal">Diurnal</string>
-    <string name="nocturnal">Nocturnal</string>
-    <string name="crepuscular">Crepuscular</string>
+    <string name="diurnal">Diurnal (day)</string>
+    <string name="nocturnal">Nocturnal (night)</string>
+    <string name="crepuscular">Crepuscular (dusk / dawn)</string>
     <string name="edible">Edible</string>
     <string name="inedible">Inedible</string>
     <string name="dangerous">Dangerous</string>

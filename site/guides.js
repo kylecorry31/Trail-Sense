@@ -11,6 +11,7 @@ const guides = [
   "tool_clouds",
   "tool_convert",
   "tool_diagnostics",
+  "tool_field_guide",
   "tool_flashlight",
   "tool_light_meter",
   "tool_lightning_strike_distance",
@@ -37,7 +38,7 @@ const guides = [
   "tool_water_boil_timer",
   "tool_weather",
   "tool_whistle",
-  "tool_white_noise"
+  "tool_white_noise",
 ];
 
 // Populate the guide list
