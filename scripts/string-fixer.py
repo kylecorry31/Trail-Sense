@@ -12,12 +12,21 @@ def read_xml(file) -> ET.ElementTree:
     return ET.parse(file, parser=parser)
 
 def write_xml(tree: ET.ElementTree, file):
+    with open(file, 'r', encoding='utf-8') as f:
+        text = f.read()
+        closing_tag = '</resources>'
+        closing_tag_index = text.rfind(closing_tag)
+        if closing_tag_index > -1:
+            ending = text[(text.rfind(closing_tag) + len(closing_tag)):]
+        else:
+            ending = ''
+
     tree.write(file, encoding='utf-8', xml_declaration=True, short_empty_elements=True)
     # Replace the single quotes with double quotes
     with open(file, 'r', encoding='utf-8') as f:
         content = f.read()
     with open(file, 'w', encoding='utf-8') as f:
-        f.write(content.replace("<?xml version='1.0' encoding='utf-8'?>", '<?xml version="1.0" encoding="utf-8"?>'))
+        f.write(content.replace("<?xml version='1.0' encoding='utf-8'?>", '<?xml version="1.0" encoding="utf-8"?>').strip() + ending)
 
 def delete_element(tree, element):
     root = tree.getroot()
@@ -50,7 +59,7 @@ class StringDiagnostic(object):
 
     def fix(self, source_tree, tree, element) -> bool:
         return False
-    
+
     def is_warning(self) -> bool:
         return False
 
@@ -66,7 +75,7 @@ class NonTranslatableTranslated(StringDiagnostic):
     def fix(self, source_tree, tree, element) -> bool:
         delete_element(tree, element)
         return True
-    
+
     def is_warning(self) -> bool:
         return True
 
@@ -82,13 +91,13 @@ class URLMismatch(StringDiagnostic):
 
         if len(source_urls) != len(urls):
             return True
-        
+
         for i in range(len(source_urls)):
             if source_urls[i] != urls[i]:
                 return True
-            
+
         return False
-    
+
     def __get_urls(self, text):
         # Regex to get all URLs
         r = r'(https?://[^\s]+)'
@@ -98,7 +107,7 @@ class URLMismatch(StringDiagnostic):
     def fix(self, source_tree, tree, element) -> bool:
         delete_element(tree, element)
         return True
-    
+
     def is_warning(self) -> bool:
         return False
 
@@ -115,7 +124,7 @@ class PreferenceKeyTranslatable(StringDiagnostic):
     def fix(self, source_tree, tree, element) -> bool:
         add_attribute(element, 'translatable', 'false')
         return True
-    
+
     def is_warning(self) -> bool:
         return True
 
@@ -126,7 +135,7 @@ class FormattingDoesNotMatch(StringDiagnostic):
         source_element = get_string_element(source_tree, element.get('name'))
         if source_element is None:
             return False
-        
+
         # Get the format arguments from the source string
         source_format_args = self.__get_format_args(source_element.text)
 
@@ -136,7 +145,7 @@ class FormattingDoesNotMatch(StringDiagnostic):
         # If the number of format arguments does not match, return true
         if len(source_format_args) != len(format_args):
             return True
-        
+
         # If the format arguments do not match, return true
         remaining = format_args.copy()
         for source_format_arg in source_format_args:
@@ -144,13 +153,13 @@ class FormattingDoesNotMatch(StringDiagnostic):
                 remaining.remove(source_format_arg)
             else:
                 return True
-            
+
         return False
 
     def fix(self, source_tree, tree, element) -> bool:
         delete_element(tree, element)
         return True
-    
+
     def is_warning(self) -> bool:
         return False
 
@@ -184,7 +193,7 @@ class PositionalFormattingUnspecified(StringDiagnostic):
         for i, match in enumerate(matches):
             replace_text(element, element.text.replace(match, '%' + str(i + 1) + '$' + match[1], 1))
         return True
-    
+
     def is_warning(self) -> bool:
         return True
 
@@ -198,7 +207,7 @@ class NotInSource(StringDiagnostic):
     def fix(self, source_tree, tree, element) -> bool:
         delete_element(tree, element)
         return True
-    
+
     def is_warning(self) -> bool:
         return True
 
@@ -212,7 +221,7 @@ class TranslatedAppName(StringDiagnostic):
 
     def fix(self, source_tree, tree, element) -> bool:
         return False
-    
+
     def is_warning(self) -> bool:
         return True
 
@@ -228,7 +237,7 @@ class HardCodedAppName(StringDiagnostic):
 
     def fix(self, source_tree, tree, element) -> bool:
         return False
-    
+
     def is_warning(self) -> bool:
         return True
 
@@ -241,7 +250,7 @@ class EmptyTranslation(StringDiagnostic):
     def fix(self, source_tree, tree, element) -> bool:
         delete_element(tree, element)
         return True
-    
+
     def is_warning(self) -> bool:
         return True
 
