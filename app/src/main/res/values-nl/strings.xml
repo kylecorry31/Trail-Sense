@@ -1312,4 +1312,5 @@
     <string name="habitat">Leefgebied</string>
     <string name="activity_pattern">Activiteitenpatroon</string>
     <string name="human_interaction">Menselijke interactie</string>
+    <string name="no_pages">Geen pagina\'s</string>
 </resources>
