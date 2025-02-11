@@ -1,0 +1,13 @@
+Field Guide (new)
+- Prepopulated guide pages with important, common species for survival
+- Add new guide pages for a variety of categories
+
+Signal Finder (new)
+- See detected cell signals
+- See distance and direction to nearby cell towers (approximate)
+
+Beacons
+- Menu item to delete all beacons in the current group
+
+Augmented Reality
+- Remove maximum path view distance (large distances might be laggy)
