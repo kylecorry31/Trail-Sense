@@ -1110,4 +1110,15 @@
     <string name="automatic_backup_invalid_directory">Ungültiges Verzeichnis</string>
     <string name="automatic_backup_invalid_directory_resolution">Deaktivieren Sie die automatische Sicherung und schalten Sie es wieder ein, um ein neues Verzeichnis auszuwählen.</string>
     <string name="widget_updater">Widget Aktualisierer</string>
+    <string name="no_sensor_message">Ihr Gerät hat keinen %s Sensor</string>
+    <string name="exported">Exportiert</string>
+    <string name="pref_tiles_enabled_battery_log_summary">Speichert den Ladestand der Batterie jede Stunde, um die Restlaufzeit abzuschätzen</string>
+    <string name="pref_enable_analog_title">Analoge Uhr</string>
+    <string name="restoring_loading_message">Lade neue Einstellungen…</string>
+    <string name="sunrise_alert_scheduled">Alarm vermerkt für %s vor Sonnenaufgang</string>
+    <string name="restore">Wiederherstellen</string>
+    <string name="no_qr_code_detected">Kein QR-Code erkannt</string>
+    <string name="backup_disclaimer">Eine Backup-Datei mit allen Ihren aktuellen Daten wird erstellt. Diese wird Einstellungen, Pfade, Leuchtfeuer, Karten, etc. beinhalten\n\nDiese Datei ist nicht verschlüsselt. Teilen Sie sie mit niemandem, dem Sie nicht vertrauen.</string>
+    <string name="astronomy_altitude">Höhe</string>
+    <string name="backup">Backup</string>
 </resources>

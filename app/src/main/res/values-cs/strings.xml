@@ -1322,9 +1322,9 @@
     <string name="grassland">Pastvina</string>
     <string name="wetland">Mokřad</string>
     <string name="tundra">Tundra</string>
-    <string name="diurnal">Denní</string>
-    <string name="nocturnal">Noční</string>
-    <string name="crepuscular">Krepuskulární</string>
+    <string name="diurnal">Denní (den)</string>
+    <string name="nocturnal">Noční (noc)</string>
+    <string name="crepuscular">Krepuskulární (východ / západ)</string>
     <string name="tool_signal_finder">Hledání signálu</string>
     <string name="cell_towers">Mobilní věže</string>
     <string name="no_cell_towers_found">Nenalezeny žádné mobilní věže</string>
@@ -1338,4 +1338,5 @@
     <string name="classification">Klasifikace</string>
     <string name="human_interaction">Lidská interakce</string>
     <string name="activity_pattern">Vzor chování</string>
+    <string name="no_pages">Žádné stránky</string>
 </resources>

@@ -1287,7 +1287,7 @@
     <string name="tundra">冻原</string>
     <string name="diurnal">昼行性</string>
     <string name="nocturnal">夜行性</string>
-    <string name="crepuscular">黄昏时出没</string>
+    <string name="crepuscular">黎明/黄昏时出没</string>
     <string name="edible">可食用</string>
     <string name="inedible">不可食用</string>
     <string name="cell_tower">信号塔</string>
@@ -1299,4 +1299,5 @@
     <string name="activity_pattern">活动模式</string>
     <string name="human_interaction">人类交互</string>
     <string name="classification">分类</string>
+    <string name="no_pages">无页面</string>
 </resources>
