@@ -2,12 +2,13 @@ package com.kylecorry.trail_sense.tools.field_guide.ui
 
 import android.graphics.Color
 import android.os.Bundle
-import android.text.util.Linkify
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.text.method.LinkMovementMethodCompat
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import com.google.android.flexbox.FlexboxLayout
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
@@ -15,6 +16,7 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.views.badge.Badge
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentFieldGuidePageBinding
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
@@ -49,6 +51,13 @@ class FieldGuidePageFragment : BoundFragment<FragmentFieldGuidePageBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.notes.movementMethod = LinkMovementMethodCompat.getInstance()
+        binding.fieldGuidePageTitle.rightButton.isVisible = false
+        binding.fieldGuidePageTitle.rightButton.setOnClickListener {
+            findNavController().navigate(
+                R.id.createFieldGuidePageFragment,
+                bundleOf("page_id" to page?.id)
+            )
+        }
     }
 
     override fun onUpdate() {
@@ -64,6 +73,7 @@ class FieldGuidePageFragment : BoundFragment<FragmentFieldGuidePageBinding>() {
         }
 
         useEffect(page) {
+            binding.fieldGuidePageTitle.rightButton.isVisible = page?.isReadOnly == false
             binding.fieldGuidePageTitle.title.text = page?.name
             binding.notes.text = page?.notes
             val image = page?.images?.firstOrNull()
@@ -73,6 +83,11 @@ class FieldGuidePageFragment : BoundFragment<FragmentFieldGuidePageBinding>() {
 
             displayTags()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        resetHooks()
     }
 
     private val tagTypeColorMap = mapOf(
