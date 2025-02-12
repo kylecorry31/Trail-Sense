@@ -1,0 +1,13 @@
+Průvodce terénem (nový)
+- Předvyplněné stránky průvodce s důležitými, běžnými druhy pro přežití
+- Přidání nových stránek průvodce pro různé kategorie
+
+Vyhledávač signálů (nové)
+- Zobrazení detekovaných mobilních signálů
+- Zobrazení vzdálenosti a směru k blízkým mobilním věžím (přibližně)
+
+Majáky
+- Položka nabídky pro odstranění všech majáků v aktuální skupině
+
+Rozšířená realita
+- Odstranění maximální vzdálenosti zobrazení cesty (velké vzdálenosti se mohou sekat)
