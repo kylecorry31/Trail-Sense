@@ -13,6 +13,7 @@ import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.onBackPressed
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentFieldGuideBinding
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.text.TextUtils
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
@@ -124,6 +125,14 @@ class FieldGuideFragment : BoundFragment<FragmentFieldGuideBinding>() {
         inBackground {
             FieldGuideCleanupCommand(requireContext()).execute()
         }
+
+        CustomUiUtils.disclaimer(
+            requireContext(),
+            getString(R.string.disclaimer_message_title),
+            getString(R.string.field_guide_disclaimer),
+            "field_guide_disclaimer",
+            cancelText = null
+        )
     }
 
     private fun onPageAction(action: FieldGuidePageListItemActionType, page: FieldGuidePage) {

@@ -37,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textIsSelectable="true"
+                android:autoLink="web"
                 tools:text="Notes" />
 
             <com.google.android.flexbox.FlexboxLayout

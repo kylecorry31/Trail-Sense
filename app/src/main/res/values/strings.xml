@@ -1601,4 +1601,5 @@
     <string name="activity_pattern">Activity pattern</string>
     <string name="human_interaction">Human interaction</string>
     <string name="no_pages">No pages</string>
+    <string name="field_guide_disclaimer">This tool is intended for educational purposes only. Always use caution when identifying plants, animals, or mushrooms. Some species may be dangerous or protected. If you are unsure about an identification, consult a professional.</string>
 </resources>

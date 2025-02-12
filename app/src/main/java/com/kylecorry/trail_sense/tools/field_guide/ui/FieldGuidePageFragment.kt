@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.field_guide.ui
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.util.Linkify
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
