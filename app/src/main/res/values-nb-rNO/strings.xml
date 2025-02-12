@@ -1089,4 +1089,10 @@
     </plurals>
     <string name="books">Bøker</string>
     <string name="delete_all_beacons">Alle navigeringsmarkører blir slettet.</string>
+    <string name="emergency_calls_only">Kun nødanrop</string>
+    <string name="africa">Afrika</string>
+    <string name="antarctica">Antarktis</string>
+    <string name="europe">Europa</string>
+    <string name="north_america">Nord-Amerika</string>
+    <string name="south_america">Sør-Amerika</string>
 </resources>
