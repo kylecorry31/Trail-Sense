@@ -16,8 +16,6 @@ object FieldGuideToolRegistration : ToolRegistration {
             R.drawable.survival_guide,
             R.id.fieldGuideFragment,
             ToolCategory.Books,
-            isExperimental = true,
-            isAvailable = { isDebug() },
             additionalNavigationIds = listOf(R.id.fieldGuidePageFragment),
             guideId = R.raw.guide_tool_field_guide
         )
