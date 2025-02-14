@@ -1300,4 +1300,5 @@
     <string name="human_interaction">人类交互</string>
     <string name="classification">分类</string>
     <string name="no_pages">无页面</string>
+    <string name="field_guide_disclaimer">此工具仅用于教育目的。识别植物、动物或蘑菇时请始终谨慎行事。一些品种可能有危险或受保护。如果您对识别结果不确定，请咨询专家。</string>
 </resources>
