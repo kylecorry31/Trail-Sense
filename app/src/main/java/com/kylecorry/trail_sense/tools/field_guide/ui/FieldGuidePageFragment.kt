@@ -6,7 +6,6 @@ import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.core.text.method.LinkMovementMethodCompat
 import androidx.core.view.isVisible
-import androidx.navigation.fragment.findNavController
 import com.google.android.flexbox.FlexboxLayout
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
@@ -32,34 +31,22 @@ class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_fiel
         val notesView = useView<TextView>(R.id.notes)
         val imageView = useView<ImageView>(R.id.image)
         val tagsView = useView<FlexboxLayout>(R.id.tags)
-
-        // Arguments
-        val pageId = useArgument<Long?>("page_id")
+        val navController = useNavController()
 
         // State
-        val (page, setPage) = useState<FieldGuidePage?>(null)
+        val page = usePage()
 
         // Services
-        val queue = useCoroutineQueue()
-        val repo = useService<FieldGuideRepo>()
         val files = useService<FileSubsystem>()
-
-        useBackgroundEffect(pageId) {
-            if (pageId == null) {
-                queue.replace { setPage(null) }
-            } else {
-                queue.replace { setPage(repo.getPage(pageId)) }
-            }
-        }
 
         useEffect(notesView) {
             notesView.movementMethod = LinkMovementMethodCompat.getInstance()
         }
 
-        useEffect(page, titleView, notesView, imageView, tagsView) {
+        useEffect(page, titleView, notesView, imageView, tagsView, navController) {
             titleView.rightButton.isVisible = page?.isReadOnly == false
             titleView.rightButton.setOnClickListener {
-                findNavController().navigate(
+                navController.navigate(
                     R.id.createFieldGuidePageFragment,
                     bundleOf("page_id" to page?.id)
                 )
@@ -117,6 +104,21 @@ class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_fiel
             tagView.setOnClickListener { onTagClicked(tag) }
             view.addView(tagView)
         }
+    }
+
+    private fun usePage(): FieldGuidePage? {
+        val pageId = useArgument<Long?>("page_id")
+        val queue = useCoroutineQueue()
+        val repo = useService<FieldGuideRepo>()
+        val (page, setPage) = useState<FieldGuidePage?>(null)
+        useBackgroundEffect(pageId) {
+            if (pageId == null) {
+                queue.replace { setPage(null) }
+            } else {
+                queue.replace { setPage(repo.getPage(pageId)) }
+            }
+        }
+        return page
     }
 
     private fun onTagClicked(tag: FieldGuidePageTag) {
