@@ -6,7 +6,6 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class DiagnosticsBugReportGenerator : IBugReportGenerator {
     override fun generate(context: Context, throwable: Throwable): String {
-        // TODO: Update this to use the new diagnostic system
         val diagnostics = Tools.getTools(context)
             .flatMap { it.diagnostics }
             .distinctBy { it.id }

@@ -327,24 +327,37 @@ class FormatService private constructor(private val context: Context) {
         return when (volume.units) {
             VolumeUnits.Liters -> strings.getString(R.string.liter_format, formatted)
             VolumeUnits.Milliliter -> strings.getString(R.string.milliliter_format, formatted)
-            VolumeUnits.USCups -> strings.getString(R.string.cup_format, formatted)
-            VolumeUnits.USPints -> strings.getString(R.string.pint_format, formatted)
-            VolumeUnits.USQuarts -> strings.getString(R.string.quart_format, formatted)
-            VolumeUnits.USOunces -> strings.getString(R.string.ounces_volume_format, formatted)
-            VolumeUnits.USGallons -> strings.getString(R.string.gallon_format, formatted)
-            VolumeUnits.ImperialCups -> strings.getString(R.string.cup_format, formatted)
-            VolumeUnits.ImperialPints -> strings.getString(R.string.pint_format, formatted)
-            VolumeUnits.ImperialQuarts -> strings.getString(R.string.quart_format, formatted)
-            VolumeUnits.ImperialOunces -> strings.getString(
+            VolumeUnits.USCups, VolumeUnits.ImperialCups -> strings.getString(
+                R.string.cup_format,
+                formatted
+            )
+
+            VolumeUnits.USPints, VolumeUnits.ImperialPints -> strings.getString(
+                R.string.pint_format,
+                formatted
+            )
+
+            VolumeUnits.USQuarts, VolumeUnits.ImperialQuarts -> strings.getString(
+                R.string.quart_format,
+                formatted
+            )
+
+            VolumeUnits.USOunces, VolumeUnits.ImperialOunces -> strings.getString(
                 R.string.ounces_volume_format,
                 formatted
             )
 
-            VolumeUnits.ImperialGallons -> strings.getString(R.string.gallon_format, formatted)
-            VolumeUnits.USTeaspoons -> strings.getString(R.string.teaspooon_format, formatted)
-            VolumeUnits.USTablespoons -> strings.getString(R.string.tablespoon_format, formatted)
-            VolumeUnits.ImperialTeaspoons -> strings.getString(R.string.teaspooon_format, formatted)
-            VolumeUnits.ImperialTablespoons -> strings.getString(
+            VolumeUnits.USGallons, VolumeUnits.ImperialGallons -> strings.getString(
+                R.string.gallon_format,
+                formatted
+            )
+
+            VolumeUnits.USTeaspoons, VolumeUnits.ImperialTeaspoons -> strings.getString(
+                R.string.teaspooon_format,
+                formatted
+            )
+
+            VolumeUnits.USTablespoons, VolumeUnits.ImperialTablespoons -> strings.getString(
                 R.string.tablespoon_format,
                 formatted
             )

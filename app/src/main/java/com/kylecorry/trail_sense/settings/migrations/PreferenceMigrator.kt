@@ -47,7 +47,7 @@ class PreferenceMigrator private constructor() {
 
         private const val version = 17
         private val migrations = listOf(
-            PreferenceMigration(0, 1) { context, prefs ->
+            PreferenceMigration(0, 1) { _, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
                     prefs.remove("pref_enable_experimental")
                     prefs.remove("pref_use_camera_features")
@@ -158,7 +158,7 @@ class PreferenceMigrator private constructor() {
                 userPrefs.compass.source = sources.firstOrNull() ?: CompassSource.CustomMagnetometer
                 prefs.remove("pref_use_legacy_compass_2")
             },
-            PreferenceMigration(14, 15) { context, prefs ->
+            PreferenceMigration(14, 15) { context, _ ->
                 val userPrefs = UserPreferences(context)
 
                 // By grabbing the preferences, it will solidify the defaults

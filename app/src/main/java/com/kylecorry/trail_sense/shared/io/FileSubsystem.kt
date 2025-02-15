@@ -29,25 +29,26 @@ class FileSubsystem private constructor(private val context: Context) {
     private val external = ExternalFileSystem(context)
     private val local = LocalFileSystem(context)
 
+    private val SCHEME_ASSETS = "android-assets://"
+
     fun bitmap(path: String, maxWidth: Int, maxHeight: Int): Bitmap? {
         return bitmap(path, Size(maxWidth, maxHeight))
     }
 
     fun drawable(path: String, maxSize: Size? = null): Drawable? {
         // TODO: Handle maxSize
-        return if (path.startsWith("android-assets://")){
-            context.assets.open(path.replace("android-assets://", "")).use {
+        return if (path.startsWith(SCHEME_ASSETS)) {
+            context.assets.open(path.replace(SCHEME_ASSETS, "")).use {
                 Drawable.createFromStream(it, null)
             }
         } else {
-            println(get(path).path)
             Drawable.createFromPath(get(path).path)
         }
     }
 
     fun bitmap(path: String, maxSize: Size? = null): Bitmap? {
-        if (path.startsWith("android-assets://")){
-            context.assets.open(path.replace("android-assets://", "")).use {
+        if (path.startsWith(SCHEME_ASSETS)) {
+            context.assets.open(path.replace(SCHEME_ASSETS, "")).use {
                 // TODO: Handle maxSize
                 return BitmapFactory.decodeStream(it)
             }

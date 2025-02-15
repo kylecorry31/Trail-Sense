@@ -7,8 +7,8 @@ import android.graphics.Rect
 import android.net.Uri
 import android.util.Size
 import androidx.core.graphics.toRectF
-import com.kylecorry.andromeda.views.subscaleview.decoder.ImageRegionDecoder
 import com.kylecorry.andromeda.pdf.PDFRenderer2
+import com.kylecorry.andromeda.views.subscaleview.decoder.ImageRegionDecoder
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 
 class PdfImageRegionDecoder(private val bitmapConfig: Bitmap.Config? = null) : ImageRegionDecoder {
@@ -21,7 +21,6 @@ class PdfImageRegionDecoder(private val bitmapConfig: Bitmap.Config? = null) : I
     ): Point {
         val scale = PhotoMap.PDF_SCALE
         renderer = PDFRenderer2(context!!, uri, scale, bitmapConfig ?: Bitmap.Config.RGB_565)
-        // TODO: Should the size be scaled?
         val size = renderer.getSize()
         return Point((size.width * scale).toInt(), (size.height * scale).toInt())
     }
@@ -42,6 +41,7 @@ class PdfImageRegionDecoder(private val bitmapConfig: Bitmap.Config? = null) : I
     }
 
     override fun recycle() {
+        // Do nothing
     }
 
 }

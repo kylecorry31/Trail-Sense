@@ -329,14 +329,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         start: LocalDate = LocalDate.now(),
         maxSearch: Duration = Duration.ofDays(365 * 2L)
     ): LocalDate? {
-        // TODO: The updated algorithm should do the following:
-        // 1. Get the next event
-        // 2. If the event starts after today, return the start date
-        // 3. If the event starts on or before today, increment the date by one day and repeat
-        // For the algorithms that don't have a findNextEvent method, we can use the existing logic
-
-
-        // TODO: Add method to get date of true moon phase in TS Core and remove the is in event logic
+        // An update to this algorithm is planned to make it more efficient
         var isInEvent = when (event) {
             AstronomyEvent.FullMoon -> getMoonPhase(start).phase == MoonTruePhase.Full
             AstronomyEvent.NewMoon -> getMoonPhase(start).phase == MoonTruePhase.New

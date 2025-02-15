@@ -8,7 +8,6 @@ import com.kylecorry.andromeda.background.IPeriodicTaskScheduler
 import com.kylecorry.andromeda.background.TaskSchedulerFactory
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudRepo
-import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.ILightningRepo
 import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningRepo
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.WeatherRepo

@@ -11,7 +11,6 @@ import com.kylecorry.andromeda.core.topics.generic.asLiveData
 import com.kylecorry.andromeda.core.ui.setTextDistinct
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.pickers.material.MaterialPickers
 import com.kylecorry.sol.science.astronomy.SunTimesMode
 import com.kylecorry.sol.time.Time.toZonedDateTime

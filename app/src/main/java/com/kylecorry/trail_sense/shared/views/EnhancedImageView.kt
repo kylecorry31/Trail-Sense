@@ -8,13 +8,13 @@ import android.graphics.PointF
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
+import com.kylecorry.andromeda.canvas.CanvasDrawer
+import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.views.subscaleview.ImageSource
 import com.kylecorry.andromeda.views.subscaleview.SubsamplingScaleImageView
 import com.kylecorry.andromeda.views.subscaleview.decoder.SkiaImageDecoder
 import com.kylecorry.andromeda.views.subscaleview.decoder.SkiaImageRegionDecoder
-import com.kylecorry.andromeda.canvas.CanvasDrawer
-import com.kylecorry.andromeda.canvas.ICanvasDrawer
-import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.roundNearestAngle
 import com.kylecorry.sol.math.geometry.Size
@@ -23,7 +23,6 @@ import com.kylecorry.trail_sense.shared.canvas.tiles.PdfImageRegionDecoder
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import kotlin.math.max
 
-// TODO: Fix panning and zooming while rotated
 open class EnhancedImageView : SubsamplingScaleImageView {
 
     protected lateinit var drawer: ICanvasDrawer
@@ -140,7 +139,7 @@ open class EnhancedImageView : SubsamplingScaleImageView {
     }
 
     protected open fun setup() {
-
+        // Do nothing
     }
 
     fun setImage(filename: String, rotation: Float = 0f) {

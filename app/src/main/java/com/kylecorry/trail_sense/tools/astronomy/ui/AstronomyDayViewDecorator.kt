@@ -1,18 +1,9 @@
 package com.kylecorry.trail_sense.tools.astronomy.ui
 
 import android.content.Context
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.InsetDrawable
-import android.graphics.drawable.RotateDrawable
-import androidx.annotation.ColorInt
-import androidx.annotation.DrawableRes
-import androidx.core.graphics.drawable.toBitmap
-import com.kylecorry.andromeda.bitmaps.BitmapUtils
-import com.kylecorry.andromeda.bitmaps.BitmapUtils.rotate
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.pickers.material.AndromedaDayViewDecorator
-import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService

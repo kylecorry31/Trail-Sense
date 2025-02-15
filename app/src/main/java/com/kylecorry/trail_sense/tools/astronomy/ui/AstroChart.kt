@@ -22,10 +22,6 @@ import java.time.Instant
 
 class AstroChart(private val chart: Chart, private val onImageClick: () -> Unit) {
 
-    // TODO: Experiment with this, if it isn't needed, remove it
-    private val fillSunArea = true
-    private val fillMoonArea = true
-
     private var startTime = Instant.now()
 
     private val bitmapLoader = BitmapLoader(chart.context)
@@ -119,8 +115,8 @@ class AstroChart(private val chart: Chart, private val onImageClick: () -> Unit)
             listOfNotNull(
                 horizon,
                 horizonLabel,
-                if (fillMoonArea) moonArea else null,
-                if (fillSunArea) sunArea else null,
+                moonArea,
+                sunArea,
                 moonLine,
                 sunLine,
                 moonImage,
@@ -173,24 +169,18 @@ class AstroChart(private val chart: Chart, private val onImageClick: () -> Unit)
         chart.invalidate()
     }
 
-    private fun updateSunArea(){
-        if (!fillSunArea){
-            return
-        }
+    private fun updateSunArea() {
         val position = sunImage.data.firstOrNull()
-        if (position == null){
+        if (position == null) {
             sunArea.data = emptyList()
         } else {
             sunArea.data = sunLine.data.filter { it.x <= position.x } + position
         }
     }
 
-    private fun updateMoonArea(){
-        if (!fillMoonArea){
-            return
-        }
+    private fun updateMoonArea() {
         val position = moonImage.data.firstOrNull()
-        if (position == null){
+        if (position == null) {
             moonArea.data = emptyList()
         } else {
             moonArea.data = moonLine.data.filter { it.x <= position.x } + position

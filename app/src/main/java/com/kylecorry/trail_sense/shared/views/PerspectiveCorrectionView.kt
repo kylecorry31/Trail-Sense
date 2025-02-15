@@ -7,9 +7,9 @@ import android.graphics.Matrix
 import android.util.AttributeSet
 import android.view.MotionEvent
 import androidx.annotation.ColorInt
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.resizeToFit
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.ImageMode
-import com.kylecorry.andromeda.bitmaps.BitmapUtils.resizeToFit
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.geometry.Size
@@ -257,46 +257,64 @@ class PerspectiveCorrectionView : CanvasView {
                 when {
                     topLeft.distanceTo(position) <= radius -> {
                         movingCorner = Corner.TopLeft
-                        movingOffset = PixelCoordinate(position.x - topLeft.x, position.y - topLeft.y)
+                        movingOffset =
+                            PixelCoordinate(position.x - topLeft.x, position.y - topLeft.y)
                     }
+
                     topRight.distanceTo(position) <= radius -> {
                         movingCorner = Corner.TopRight
-                        movingOffset = PixelCoordinate(position.x - topRight.x, position.y - topRight.y)
+                        movingOffset =
+                            PixelCoordinate(position.x - topRight.x, position.y - topRight.y)
                     }
+
                     bottomLeft.distanceTo(position) <= radius -> {
                         movingCorner = Corner.BottomLeft
-                        movingOffset = PixelCoordinate(position.x - bottomLeft.x, position.y - bottomLeft.y)
+                        movingOffset =
+                            PixelCoordinate(position.x - bottomLeft.x, position.y - bottomLeft.y)
                     }
+
                     bottomRight.distanceTo(position) <= radius -> {
                         movingCorner = Corner.BottomRight
-                        movingOffset = PixelCoordinate(position.x - bottomRight.x, position.y - bottomRight.y)
+                        movingOffset =
+                            PixelCoordinate(position.x - bottomRight.x, position.y - bottomRight.y)
                     }
                 }
             }
+
             MotionEvent.ACTION_MOVE -> {
-                val actualPosition = PixelCoordinate(position.x - movingOffset.x, position.y - movingOffset.y)
+                val actualPosition =
+                    PixelCoordinate(position.x - movingOffset.x, position.y - movingOffset.y)
                 when (movingCorner) {
                     Corner.TopLeft -> {
-                        topLeft = constrain(actualPosition, null, bottomLeft.y, null, topRight.x, radius)
+                        topLeft =
+                            constrain(actualPosition, null, bottomLeft.y, null, topRight.x, radius)
                         hasChanges = true
                     }
+
                     Corner.TopRight -> {
-                        topRight = constrain(actualPosition, null, bottomRight.y, topLeft.x, null, radius)
+                        topRight =
+                            constrain(actualPosition, null, bottomRight.y, topLeft.x, null, radius)
                         hasChanges = true
                     }
+
                     Corner.BottomLeft -> {
                         bottomLeft =
                             constrain(actualPosition, topLeft.y, null, null, bottomRight.x, radius)
                         hasChanges = true
                     }
+
                     Corner.BottomRight -> {
                         bottomRight =
                             constrain(actualPosition, topRight.y, null, bottomLeft.x, null, radius)
                         hasChanges = true
                     }
-                    null -> {}
+
+                    null -> {
+                        // Do nothing, not a valid corner
+                    }
                 }
             }
+
             MotionEvent.ACTION_UP -> {
                 movingCorner = null
             }

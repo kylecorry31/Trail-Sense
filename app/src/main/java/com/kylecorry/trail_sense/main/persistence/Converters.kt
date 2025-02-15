@@ -25,15 +25,16 @@ class Converters {
         return ItemCategory.values().first { it.id == value }
     }
 
-    // TODO: Add an id to the cloud genus
     @TypeConverter
     fun fromCloudGenus(value: CloudGenus?): Int? {
-        return value?.ordinal
+        // This was previously the ordinal (zero-indexed), which is why I need to subtract 1
+        return value?.id?.toInt()?.minus(1)
     }
 
     @TypeConverter
     fun toCloudGenus(value: Int?): CloudGenus? {
-        return CloudGenus.values().firstOrNull { it.ordinal == value }
+        // This was previously the ordinal (zero-indexed), which is why I need to add 1
+        return CloudGenus.entries.firstOrNull { it.id == value?.plus(1)?.toLong() }
     }
 
     @TypeConverter

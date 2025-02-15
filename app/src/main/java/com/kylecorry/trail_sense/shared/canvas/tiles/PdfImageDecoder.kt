@@ -4,8 +4,8 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import android.util.Size
-import com.kylecorry.andromeda.views.subscaleview.decoder.ImageDecoder
 import com.kylecorry.andromeda.pdf.PDFRenderer2
+import com.kylecorry.andromeda.views.subscaleview.decoder.ImageDecoder
 
 class PdfImageDecoder(private val bitmapConfig: Bitmap.Config? = null) : ImageDecoder {
 

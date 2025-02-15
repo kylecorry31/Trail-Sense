@@ -22,7 +22,9 @@ abstract class TopicTile : AndromedaTileService() {
         when (stateTopic.value.get()) {
             FeatureState.On -> stop()
             FeatureState.Off -> start()
-            else -> {}
+            else -> {
+                // Do nothing, the feature is disabled
+            }
         }
     }
 
