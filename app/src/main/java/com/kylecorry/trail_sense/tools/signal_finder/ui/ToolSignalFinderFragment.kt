@@ -1,33 +1,30 @@
 package com.kylecorry.trail_sense.tools.signal_finder.ui
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.core.text.method.LinkMovementMethodCompat
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.signal.CellNetwork
-import com.kylecorry.andromeda.signal.CellSignal
+import com.kylecorry.andromeda.views.list.AndromedaListView
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ListMenuItem
 import com.kylecorry.andromeda.views.list.ResourceListIcon
+import com.kylecorry.andromeda.views.toolbar.Toolbar
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentSignalFinderBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.XmlReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.useTopic
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
 import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
@@ -37,7 +34,7 @@ import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.signal_finder.infrastructure.CellTowerModel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
-class ToolSignalFinderFragment : BoundFragment<FragmentSignalFinderBinding>() {
+class ToolSignalFinderFragment : XmlReactiveFragment(R.layout.fragment_signal_finder) {
 
     private val sensors by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensors.getGPS() }
@@ -47,46 +44,41 @@ class ToolSignalFinderFragment : BoundFragment<FragmentSignalFinderBinding>() {
     private val markdown by lazy { MarkdownService(requireContext()) }
     private val navigator by lazy { Navigator.getInstance(requireContext()) }
 
-    private var location by state<Coordinate?>(null)
-    private var signals by state<List<CellSignal>>(emptyList())
-    private var nearby by state<List<Pair<Coordinate, List<CellNetwork>>>>(emptyList())
-    private var loading by state(false)
-
     private val triggers = HookTriggers()
 
     private val queue = CoroutineQueueRunner()
 
-    override fun generateBinding(
-        layoutInflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentSignalFinderBinding {
-        return FragmentSignalFinderBinding.inflate(layoutInflater, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        observe(gps) {
-            location = gps.location
-        }
-        observe(cellSignal) {
-            // TODO: Trilaterate
-            signals = cellSignal.signals
-        }
-
-        binding.list.emptyView = binding.emptyText
-
-        binding.disclaimer.text =
-            markdown.toMarkdown(getString(R.string.cell_tower_disclaimer))
-        binding.disclaimer.movementMethod = LinkMovementMethodCompat.getInstance()
-    }
-
     override fun onUpdate() {
-        super.onUpdate()
+        // Views
+        val list = useView<AndromedaListView>(R.id.list)
+        val disclaimer = useView<TextView>(R.id.disclaimer)
+        val emptyText = useView<TextView>(R.id.empty_text)
+        val title = useView<Toolbar>(R.id.title)
+
+        // Topics
+        val signals = useTopic(cellSignal, emptyList()) { it.signals }
+        val location = useTopic(gps) { it.location }
+
+        // State
+        val (nearby, setNearby) = useState<List<Pair<Coordinate, List<CellNetwork>>>>(emptyList())
+        val (loading, setLoading) = useState(false)
+
+        list.emptyView = emptyText
+
+        // Set up the disclaimer
+        useEffect(disclaimer) {
+            disclaimer.text = markdown.toMarkdown(getString(R.string.cell_tower_disclaimer))
+            disclaimer.movementMethod = LinkMovementMethodCompat.getInstance()
+        }
+
+
+        // List items
         useEffect(
+            list,
             signals,
             nearby,
             triggers.distance("location1", location ?: Coordinate.zero, Distance.meters(100f)),
-            lifecycleHookTrigger.onResume()
+            resetOnResume
         ) {
 
             val signalItems = signals.mapIndexed { index, signal ->
@@ -149,29 +141,31 @@ class ToolSignalFinderFragment : BoundFragment<FragmentSignalFinderBinding>() {
                 }
             }
 
-            binding.list.setItems(signalItems + nearbyItems)
+            list.setItems(signalItems + nearbyItems)
         }
 
+        // Cell tower updating
         useEffect(
             triggers.distance("location2", location ?: Coordinate.zero, Distance.meters(100f)),
-            lifecycleHookTrigger.onResume()
+            resetOnResume
         ) {
-            val location = location ?: return@useEffect
+            location ?: return@useEffect
             inBackground {
-                loading = true
+                setLoading(true)
                 queue.replace {
-                    nearby = CellTowerModel.getTowers(
+                    setNearby(CellTowerModel.getTowers(
                         requireContext(),
                         Geofence(location, Distance.kilometers(20f)),
                         5
-                    ).sortedBy { location.distanceTo(it.first) }
-                    loading = false
+                    ).sortedBy { location.distanceTo(it.first) })
+                    setLoading(false)
                 }
             }
         }
 
-        useEffect(loading) {
-            binding.title.subtitle.text = if (loading) {
+        // Loading
+        useEffect(title, loading, resetOnResume) {
+            title.subtitle.text = if (loading) {
                 getString(R.string.loading)
             } else {
                 null

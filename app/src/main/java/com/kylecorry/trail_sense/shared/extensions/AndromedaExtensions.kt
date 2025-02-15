@@ -11,7 +11,10 @@ import androidx.appcompat.app.AlertDialog
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.topics.ITopic
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.andromeda.fragments.AndromedaFragment
+import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.sol.math.SolMath.square
 import com.kylecorry.trail_sense.receivers.ServiceRestartAlerter
 import com.kylecorry.trail_sense.shared.safeRoundToInt
@@ -118,4 +121,48 @@ inline fun tryStartForegroundOrNotify(context: Context, action: () -> Unit) {
             throw e
         }
     }
+}
+
+// TODO: ANDROMEDA
+fun <T : ITopic, V> AndromedaFragment.useTopic(topic: T, default: V, mapper: (T) -> V): V {
+    val (state, setState) = useState(default)
+
+    // Note: This does not change when the mapper changes
+    useEffect(topic) {
+        observe(topic) {
+            setState(mapper(topic))
+        }
+    }
+
+    return state
+}
+
+// TODO: ANDROMEDA
+fun <T : ITopic, V> AndromedaFragment.useTopic(topic: T, mapper: (T) -> V?): V? {
+    return useTopic(topic, null, mapper)
+}
+
+// TODO: ANDROMEDA
+fun <T : Any, V> AndromedaFragment.useTopic(
+    topic: com.kylecorry.andromeda.core.topics.generic.ITopic<T>,
+    default: V,
+    mapper: (T) -> V
+): V {
+    val (state, setState) = useState(default)
+
+    // Note: This does not change when the mapper changes
+    useEffect(topic) {
+        observe(topic) {
+            setState(mapper(it))
+        }
+    }
+
+    return state
+}
+
+fun <T : Any, V> AndromedaFragment.useTopic(
+    topic: com.kylecorry.andromeda.core.topics.generic.ITopic<T>,
+    mapper: (T) -> V?
+): V? {
+    return useTopic(topic, null, mapper)
 }
