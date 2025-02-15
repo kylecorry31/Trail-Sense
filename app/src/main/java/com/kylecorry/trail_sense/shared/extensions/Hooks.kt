@@ -6,19 +6,12 @@ import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.shared.hooks.HookTriggers
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import java.time.Duration
 
 fun ReactiveComponent.useCoroutineQueue(): CoroutineQueueRunner {
     return useMemo {
         CoroutineQueueRunner()
-    }
-}
-
-fun ReactiveComponent.useTriggers(): HookTriggers {
-    return useMemo {
-        HookTriggers()
     }
 }
 

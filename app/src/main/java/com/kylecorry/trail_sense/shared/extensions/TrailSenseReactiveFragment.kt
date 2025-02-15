@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -68,6 +70,10 @@ abstract class TrailSenseReactiveFragment(@LayoutRes private val layoutId: Int) 
     override fun onUpdate() {
         currentTriggerIndex = 0
         update()
+    }
+
+    fun useNavController(): NavController {
+        return useMemo(useRootView()) { findNavController() }
     }
 
     abstract fun update()
