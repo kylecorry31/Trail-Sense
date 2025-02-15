@@ -101,6 +101,7 @@ class ToolWidgetViewBinder(
                         }
                     }
                 }
+                Unit
             }
 
             this.widgets.add(WidgetInstance(widget, updateFunction))
