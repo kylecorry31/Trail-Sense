@@ -52,9 +52,7 @@ import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsy
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.subsystem.PedometerSubsystem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolVolumeActionPriority
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class MainActivity : AndromedaActivity() {
 
     private var _binding: ActivityMainBinding? = null

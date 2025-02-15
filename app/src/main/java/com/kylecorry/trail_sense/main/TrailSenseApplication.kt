@@ -4,23 +4,16 @@ import android.app.Application
 import android.util.Log
 import androidx.camera.camera2.Camera2Config
 import androidx.camera.core.CameraXConfig
-import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import com.kylecorry.trail_sense.main.automations.Automations
 import com.kylecorry.trail_sense.main.persistence.RepoCleanupWorker
 import com.kylecorry.trail_sense.settings.migrations.PreferenceMigrator
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.widgets.WidgetBroadcastManager
-import dagger.hilt.android.HiltAndroidApp
 import java.time.Duration
-import javax.inject.Inject
 
 
-@HiltAndroidApp
-class TrailSenseApplication : Application(), CameraXConfig.Provider, Configuration.Provider {
-
-    @Inject
-    lateinit var workerFactory: HiltWorkerFactory
+class TrailSenseApplication : Application(), CameraXConfig.Provider {
 
     override fun onCreate() {
         super.onCreate()
@@ -43,11 +36,4 @@ class TrailSenseApplication : Application(), CameraXConfig.Provider, Configurati
         return CameraXConfig.Builder.fromConfig(Camera2Config.defaultConfig())
             .setMinimumLoggingLevel(Log.ERROR).build()
     }
-
-    override val workManagerConfiguration: Configuration
-        get() = Configuration.Builder()
-            .setWorkerFactory(workerFactory)
-            .setMinimumLoggingLevel(Log.DEBUG)
-            .build()
-
 }

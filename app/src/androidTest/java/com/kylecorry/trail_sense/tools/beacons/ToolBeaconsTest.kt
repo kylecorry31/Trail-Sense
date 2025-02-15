@@ -11,10 +11,8 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.TOOLBAR_RIGHT_BUTTON_ID
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Test
 
-@HiltAndroidTest
 class ToolBeaconsTest : ToolTestBase(Tools.BEACONS) {
 
     @Test

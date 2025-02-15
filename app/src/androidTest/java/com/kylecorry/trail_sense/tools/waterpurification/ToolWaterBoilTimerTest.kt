@@ -10,10 +10,8 @@ import com.kylecorry.trail_sense.test_utils.notifications.hasTitle
 import com.kylecorry.trail_sense.test_utils.notifications.notification
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.waterpurification.infrastructure.WaterPurificationTimerService
-import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Test
 
-@HiltAndroidTest
 class ToolWaterBoilTimerTest : ToolTestBase(Tools.WATER_BOIL_TIMER) {
 
     @Test

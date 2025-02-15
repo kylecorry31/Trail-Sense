@@ -11,10 +11,8 @@ import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.tools.survival_guide.domain.Chapters
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Test
 
-@HiltAndroidTest
 class ToolSurvivalGuideTest : ToolTestBase(Tools.SURVIVAL_GUIDE) {
     @Test
     fun verifyBasicFunctionality() {

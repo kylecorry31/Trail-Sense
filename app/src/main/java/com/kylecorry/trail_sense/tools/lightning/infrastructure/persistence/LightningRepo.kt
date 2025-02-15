@@ -1,17 +1,16 @@
 package com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.sol.units.Reading
+import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.tools.lightning.domain.LightningStrike
 import java.time.Duration
 import java.time.Instant
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class LightningRepo @Inject constructor(private val dao: LightningStrikeDao) : ILightningRepo {
+class LightningRepo private constructor(private val dao: LightningStrikeDao) : ILightningRepo {
 
     override suspend fun clean() = onIO {
         dao.deleteOlderThan(Instant.now().minus(LIGHTNING_HISTORY_DURATION).toEpochMilli())
@@ -54,5 +53,18 @@ class LightningRepo @Inject constructor(private val dao: LightningStrikeDao) : I
 
     companion object {
         private val LIGHTNING_HISTORY_DURATION = Duration.ofHours(2)
+
+        private var instance: LightningRepo? = null
+
+        @Synchronized
+        fun getInstance(context: Context): LightningRepo {
+            if (instance == null) {
+                instance = LightningRepo(
+                    AppDatabase.getInstance(context.applicationContext).lightningDao()
+                )
+            }
+            return instance!!
+        }
+
     }
 }

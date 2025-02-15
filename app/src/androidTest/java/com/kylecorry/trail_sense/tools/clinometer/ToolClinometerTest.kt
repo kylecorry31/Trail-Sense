@@ -13,11 +13,9 @@ import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Test
 import kotlin.text.Regex
 
-@HiltAndroidTest
 class ToolClinometerTest : ToolTestBase(Tools.CLINOMETER) {
 
     @Test

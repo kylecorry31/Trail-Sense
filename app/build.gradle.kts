@@ -4,7 +4,6 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
-    id("com.google.dagger.hilt.android")
     id("kotlin-parcelize")
 }
 
@@ -19,7 +18,7 @@ android {
         targetSdk = 35
         versionCode = 130
         versionName = "6.9.0"
-        testInstrumentationRunner = "com.kylecorry.trail_sense.test_utils.HiltTestRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
         create("nightly") {
@@ -181,12 +180,6 @@ dependencies {
     implementation(libs.andromeda.json)
     implementation(libs.andromeda.widgets)
 
-    // Hilt
-    implementation(libs.hilt.android)
-    implementation(libs.androidx.hilt.work)
-    ksp(libs.hilt.android.compiler)
-    ksp(libs.androidx.hilt.compiler)
-
     // Misc
     implementation(libs.sol)
     implementation(libs.luna)
@@ -200,9 +193,7 @@ dependencies {
     androidTestImplementation(libs.androidx.test.uiautomator)
     androidTestImplementation(libs.androidx.fragment.testing)
     androidTestImplementation(libs.androidx.test.arch.core)
-    androidTestImplementation(libs.hilt.android.testing)
     androidTestImplementation(libs.work.testing)
-    kspAndroidTest(libs.hilt.android.compiler)
     debugImplementation(libs.androidx.fragment.testing.manifest)
     testImplementation(libs.junit.platform.runner)
     testImplementation(libs.junit.jupiter.api)

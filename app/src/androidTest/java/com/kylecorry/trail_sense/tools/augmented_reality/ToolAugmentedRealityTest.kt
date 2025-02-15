@@ -15,10 +15,8 @@ import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Test
 
-@HiltAndroidTest
 class ToolAugmentedRealityTest : ToolTestBase(Tools.AUGMENTED_REALITY) {
 
     @Test

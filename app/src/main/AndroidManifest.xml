@@ -330,19 +330,6 @@
             android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
             tools:remove="true" />
 
-        <provider
-            android:name="androidx.startup.InitializationProvider"
-            android:authorities="${applicationId}.androidx-startup"
-            android:exported="false"
-            tools:node="merge">
-            <!-- If you are using androidx.startup to initialize other components -->
-            <meta-data
-                android:name="androidx.work.WorkManagerInitializer"
-                android:value="androidx.startup"
-                tools:node="remove" />
-        </provider>
-
-
         <!-- Widgets -->
         <receiver
             android:name="com.kylecorry.trail_sense.tools.astronomy.widgets.AppWidgetMoon"

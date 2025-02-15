@@ -18,11 +18,9 @@ import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.DistanceAlerter
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Test
 import kotlin.text.Regex
 
-@HiltAndroidTest
 class ToolPedometerTest : ToolTestBase(Tools.PEDOMETER) {
 
     @Test

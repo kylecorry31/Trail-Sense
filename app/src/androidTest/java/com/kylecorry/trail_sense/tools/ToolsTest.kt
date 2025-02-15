@@ -4,10 +4,8 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isTrue
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Test
 
-@HiltAndroidTest
 class ToolsTest : ToolTestBase(0L) {
 
     @Test

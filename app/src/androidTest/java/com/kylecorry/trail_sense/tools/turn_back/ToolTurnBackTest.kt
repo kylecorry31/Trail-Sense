@@ -10,10 +10,8 @@ import com.kylecorry.trail_sense.test_utils.TestUtils.handleExactAlarmsDialog
 import com.kylecorry.trail_sense.test_utils.TestUtils.pickTime
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Test
 
-@HiltAndroidTest
 class ToolTurnBackTest : ToolTestBase(Tools.TURN_BACK) {
 
     @Test

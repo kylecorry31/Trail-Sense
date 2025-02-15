@@ -14,11 +14,9 @@ import com.kylecorry.trail_sense.test_utils.notifications.notification
 import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
-import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Test
 
 
-@HiltAndroidTest
 class ToolWhiteNoiseTest : ToolTestBase(Tools.WHITE_NOISE) {
 
     @Test

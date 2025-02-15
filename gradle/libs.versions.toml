@@ -15,10 +15,6 @@ desugar_jdk_libs = "2.1.4"
 flexbox = "3.0.0"
 fragment = "1.8.5"
 gridlayout = "1.0.0"
-hiltAndroidCompilerVersion = "2.49"
-hiltAndroidVersion = "2.49"
-hiltCompilerVersion = "1.2.0"
-hiltWorkVersion = "1.2.0"
 junitJupiter = "5.11.3"
 junitPlatformRunner = "1.11.3"
 junitVersion = "1.2.1"
@@ -45,8 +41,6 @@ androidx-test-uiautomator = { module = "androidx.test.uiautomator:uiautomator", 
 androidx-fragment-testing = { module = "androidx.fragment:fragment-testing", version.ref = "fragment" }
 androidx-fragment-testing-manifest = { module = "androidx.fragment:fragment-testing-manifest", version.ref = "fragment" }
 androidx-test-arch-core = { module = "androidx.arch.core:core-testing", version.ref = "androidXArchCore" }
-androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltCompilerVersion" }
-androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hiltWorkVersion" }
 androidx-core-remoteviews = { module = "androidx.core:core-remoteviews", version.ref = "androidXCoreRemoteViews" }
 androidx-exifinterface = { module = "androidx.exifinterface:exifinterface", version.ref = "androidXExifinterfaceVersion" }
 andromeda-battery = { module = "com.kylecorry.andromeda:battery", version.ref = "andromedaVersion" }
@@ -92,8 +86,6 @@ desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref 
 ext-junit = { module = "androidx.test.ext:junit", version.ref = "junitVersion" }
 flexbox = { module = "com.google.android.flexbox:flexbox", version.ref = "flexbox" }
 gridlayout = { module = "androidx.gridlayout:gridlayout", version.ref = "gridlayout" }
-hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompilerVersion" }
-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroidVersion" }
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junitJupiter" }
 junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junitJupiter" }
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiter" }
@@ -114,11 +106,9 @@ room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomVer
 sol = { module = "com.kylecorry:sol", version.ref = "sol" }
 work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntimeKtx" }
 preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "preferenceKtx" }
-hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hiltAndroidVersion" }
 work-testing = { module = "androidx.work:work-testing", version.ref = "workRuntimeKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidApplication" }
-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroidVersion" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinAndroidVersion" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
