@@ -12,6 +12,7 @@ import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.topics.ITopic
+import com.kylecorry.andromeda.core.ui.ReactiveComponent
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.observe
@@ -160,9 +161,17 @@ fun <T : Any, V> AndromedaFragment.useTopic(
     return state
 }
 
+// TODO: ANDROMEDA
 fun <T : Any, V> AndromedaFragment.useTopic(
     topic: com.kylecorry.andromeda.core.topics.generic.ITopic<T>,
     mapper: (T) -> V?
 ): V? {
     return useTopic(topic, null, mapper)
+}
+
+// TODO: ANDROMEDA
+inline fun <reified T : Any> ReactiveComponent.useService(): T {
+    return useMemo {
+        AppServiceRegistry.get<T>()
+    }
 }

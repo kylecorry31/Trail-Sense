@@ -14,7 +14,6 @@ import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ListMenuItem
 import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.andromeda.views.toolbar.Toolbar
-import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -24,8 +23,10 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.XmlReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.useCoroutineQueue
+import com.kylecorry.trail_sense.shared.extensions.useService
 import com.kylecorry.trail_sense.shared.extensions.useTopic
-import com.kylecorry.trail_sense.shared.hooks.HookTriggers
+import com.kylecorry.trail_sense.shared.extensions.useTriggers
 import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -36,24 +37,25 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class ToolSignalFinderFragment : XmlReactiveFragment(R.layout.fragment_signal_finder) {
 
-    private val sensors by lazy { SensorService(requireContext()) }
-    private val gps by lazy { sensors.getGPS() }
-    private val cellSignal by lazy { sensors.getCellSignal(false) }
-    private val formatter by lazy { FormatService.getInstance(requireContext()) }
-    private val prefs by lazy { UserPreferences(requireContext()) }
-    private val markdown by lazy { MarkdownService(requireContext()) }
-    private val navigator by lazy { Navigator.getInstance(requireContext()) }
-
-    private val triggers = HookTriggers()
-
-    private val queue = CoroutineQueueRunner()
-
     override fun onUpdate() {
         // Views
-        val list = useView<AndromedaListView>(R.id.list)
-        val disclaimer = useView<TextView>(R.id.disclaimer)
-        val emptyText = useView<TextView>(R.id.empty_text)
-        val title = useView<Toolbar>(R.id.title)
+        val list = useView2<AndromedaListView>(R.id.list)
+        val disclaimer = useView2<TextView>(R.id.disclaimer)
+        val emptyText = useView2<TextView>(R.id.empty_text)
+        val title = useView2<Toolbar>(R.id.title)
+
+        // Services
+        val formatter = useService<FormatService>()
+        val prefs = useService<UserPreferences>()
+        val markdown = useService<MarkdownService>()
+        val sensors = useService<SensorService>()
+        val navigator = useService<Navigator>()
+
+        // Other objects
+        val gps = useMemo(sensors) { sensors.getGPS() }
+        val cellSignal = useMemo(sensors) { sensors.getCellSignal(false) }
+        val queue = useCoroutineQueue()
+        val triggers = useTriggers()
 
         // Topics
         val signals = useTopic(cellSignal, emptyList()) { it.signals }
@@ -71,14 +73,12 @@ class ToolSignalFinderFragment : XmlReactiveFragment(R.layout.fragment_signal_fi
             disclaimer.movementMethod = LinkMovementMethodCompat.getInstance()
         }
 
-
         // List items
         useEffect(
             list,
             signals,
             nearby,
-            triggers.distance("location1", location ?: Coordinate.zero, Distance.meters(100f)),
-            resetOnResume
+            triggers.distance("location1", location ?: Coordinate.zero, Distance.meters(100f))
         ) {
 
             val signalItems = signals.mapIndexed { index, signal ->
@@ -146,8 +146,7 @@ class ToolSignalFinderFragment : XmlReactiveFragment(R.layout.fragment_signal_fi
 
         // Cell tower updating
         useEffect(
-            triggers.distance("location2", location ?: Coordinate.zero, Distance.meters(100f)),
-            resetOnResume
+            triggers.distance("location2", location ?: Coordinate.zero, Distance.meters(100f))
         ) {
             location ?: return@useEffect
             inBackground {
@@ -164,7 +163,7 @@ class ToolSignalFinderFragment : XmlReactiveFragment(R.layout.fragment_signal_fi
         }
 
         // Loading
-        useEffect(title, loading, resetOnResume) {
+        useEffect(title, loading) {
             title.subtitle.text = if (loading) {
                 getString(R.string.loading)
             } else {

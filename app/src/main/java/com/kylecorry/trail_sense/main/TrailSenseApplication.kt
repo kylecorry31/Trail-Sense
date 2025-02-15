@@ -17,6 +17,7 @@ class TrailSenseApplication : Application(), CameraXConfig.Provider {
     override fun onCreate() {
         super.onCreate()
         Log.d("TrailSenseApplication", "onCreate")
+        TrailSenseServiceRegister.setup(this)
         Automations.setup(this)
         WidgetBroadcastManager.setup(this)
         NotificationChannels.createChannels(this)
