@@ -1,10 +1,8 @@
 package com.kylecorry.trail_sense.tools.field_guide.ui
 
 import android.graphics.Color
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.core.text.method.LinkMovementMethodCompat
 import androidx.core.view.isVisible
@@ -12,82 +10,70 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.flexbox.FlexboxLayout
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
-import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.andromeda.core.ui.useService
+import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.views.badge.Badge
-import com.kylecorry.luna.coroutines.CoroutineQueueRunner
+import com.kylecorry.andromeda.views.toolbar.Toolbar
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentFieldGuidePageBinding
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.useCoroutineQueue
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTagType
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
 
-class FieldGuidePageFragment : BoundFragment<FragmentFieldGuidePageBinding>() {
+class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_field_guide_page) {
 
-    private val repo by lazy { FieldGuideRepo.getInstance(requireContext()) }
-    private val files by lazy { FileSubsystem.getInstance(requireContext()) }
-    private val tagNameMapper by lazy { FieldGuideTagNameMapper(requireContext()) }
+    override fun update() {
+        // Views
+        val titleView = useView<Toolbar>(R.id.field_guide_page_title)
+        val notesView = useView<TextView>(R.id.notes)
+        val imageView = useView<ImageView>(R.id.image)
+        val tagsView = useView<FlexboxLayout>(R.id.tags)
 
-    private var pageId by state<Long?>(null)
-    private var page by state<FieldGuidePage?>(null)
+        // Arguments
+        val pageId = useArgument<Long?>("page_id")
 
-    private val loader = CoroutineQueueRunner()
+        // State
+        val (page, setPage) = useState<FieldGuidePage?>(null)
 
-    override fun generateBinding(
-        layoutInflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentFieldGuidePageBinding {
-        return FragmentFieldGuidePageBinding.inflate(layoutInflater, container, false)
-    }
+        // Services
+        val queue = useCoroutineQueue()
+        val repo = useService<FieldGuideRepo>()
+        val files = useService<FileSubsystem>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        pageId = arguments?.getLong("page_id")
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.notes.movementMethod = LinkMovementMethodCompat.getInstance()
-        binding.fieldGuidePageTitle.rightButton.isVisible = false
-        binding.fieldGuidePageTitle.rightButton.setOnClickListener {
-            findNavController().navigate(
-                R.id.createFieldGuidePageFragment,
-                bundleOf("page_id" to page?.id)
-            )
-        }
-    }
-
-    override fun onUpdate() {
-        super.onUpdate()
-        useEffect(pageId) {
-            inBackground {
-                if (pageId == null) {
-                    loader.replace { page = null }
-                } else {
-                    loader.replace { page = repo.getPage(pageId ?: return@replace) }
-                }
+        useBackgroundEffect(pageId) {
+            if (pageId == null) {
+                queue.replace { setPage(null) }
+            } else {
+                queue.replace { setPage(repo.getPage(pageId)) }
             }
         }
 
-        useEffect(page) {
-            binding.fieldGuidePageTitle.rightButton.isVisible = page?.isReadOnly == false
-            binding.fieldGuidePageTitle.title.text = page?.name
-            binding.notes.text = page?.notes
+        useEffect(notesView) {
+            notesView.movementMethod = LinkMovementMethodCompat.getInstance()
+        }
+
+        useEffect(page, titleView, notesView, imageView, tagsView) {
+            titleView.rightButton.isVisible = page?.isReadOnly == false
+            titleView.rightButton.setOnClickListener {
+                findNavController().navigate(
+                    R.id.createFieldGuidePageFragment,
+                    bundleOf("page_id" to page?.id)
+                )
+            }
+            titleView.title.text = page?.name
+            notesView.text = page?.notes
             val image = page?.images?.firstOrNull()
-            binding.image.setImageDrawable(
+            imageView.setImageDrawable(
                 image?.let { files.drawable(it) }
             )
 
-            displayTags()
+            displayTags(tagsView, page?.tags)
         }
-    }
 
-    override fun onResume() {
-        super.onResume()
-        resetHooks()
     }
 
     private val tagTypeColorMap = mapOf(
@@ -98,26 +84,27 @@ class FieldGuidePageFragment : BoundFragment<FragmentFieldGuidePageBinding>() {
         FieldGuidePageTagType.HumanInteraction to AppColor.Brown
     )
 
-    private fun displayTags() {
-        val tags =
-            (page?.tags ?: emptyList()).sortedWith(compareBy({ it.type.ordinal }, { it.ordinal }))
-        if (tags.isEmpty()) {
-            binding.tags.isVisible = false
+    private fun displayTags(view: FlexboxLayout, tags: List<FieldGuidePageTag>? = null) {
+        val mapper = FieldGuideTagNameMapper(requireContext())
+        val sortedTags =
+            (tags ?: emptyList()).sortedWith(compareBy({ it.type.ordinal }, { it.ordinal }))
+        if (sortedTags.isEmpty()) {
+            view.isVisible = false
             return
         }
 
-        binding.tags.isVisible = true
-        binding.tags.removeAllViews()
+        view.isVisible = true
+        view.removeAllViews()
 
         val margin = Resources.dp(requireContext(), 8f).toInt()
 
-        for (tag in tags) {
+        for (tag in sortedTags) {
             val badgeColor = (tagTypeColorMap[tag.type] ?: AppColor.Gray).color
             val foregroundColor = Colors.mostContrastingColor(Color.WHITE, Color.BLACK, badgeColor)
             val tagView = Badge(requireContext(), null).apply {
                 statusImage.isVisible = false
                 statusText.textSize = 12f
-                setStatusText(tagNameMapper.getName(tag))
+                setStatusText(mapper.getName(tag))
                 statusText.setTextColor(foregroundColor)
                 setBackgroundTint(badgeColor)
                 layoutParams = FlexboxLayout.LayoutParams(
@@ -128,7 +115,7 @@ class FieldGuidePageFragment : BoundFragment<FragmentFieldGuidePageBinding>() {
                 }
             }
             tagView.setOnClickListener { onTagClicked(tag) }
-            binding.tags.addView(tagView)
+            view.addView(tagView)
         }
     }
 

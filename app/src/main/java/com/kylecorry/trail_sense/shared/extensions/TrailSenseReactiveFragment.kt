@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.extensions
 
+import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -38,6 +39,18 @@ abstract class TrailSenseReactiveFragment(@LayoutRes private val layoutId: Int) 
 
     fun useNavController(): NavController {
         return useMemo(useRootView()) { findNavController() }
+    }
+
+    fun useArguments(): Bundle {
+        return requireArguments()
+    }
+
+    fun <T> useArgument(key: String): T {
+        val arguments = useArguments()
+        return useMemo(arguments, key) {
+            @Suppress("DEPRECATION", "UNCHECKED_CAST")
+            arguments.get(key) as T
+        }
     }
 
     /**
