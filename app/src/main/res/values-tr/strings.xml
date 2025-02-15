@@ -290,7 +290,7 @@
     <string name="elevation_override_updated_toast">İrtifanın üzerine yazılan değer güncellendi</string>
     <string name="pref_elevation_override_title">İrtifanın üzerine yaz</string>
     <string name="elevation_from_pressure">Üzerine yazma değerini barometreden ayarla</string>
-    <string name="pref_altimeter_calibration_title">Yükseklikölçer</string>
+    <string name="pref_altimeter_calibration_title">Yükseklik ölçer</string>
     <string name="request_permission">İzin talep et</string>
     <string name="pref_auto_location_title">Konumu otomatik ayarla</string>
     <string name="location">Konum</string>
@@ -334,8 +334,8 @@
     <string name="theme_sunset_sunrise">Gün doğumu/gün batımı</string>
     <string name="theme_system">Sistem</string>
     <string name="theme_black">Siyah</string>
-    <string name="theme_dark">Koyu</string>
-    <string name="theme_light">Açık</string>
+    <string name="theme_dark">Karanlık</string>
+    <string name="theme_light">Aydınlık</string>
     <string name="pref_theme_title">Tema</string>
     <string name="pref_use_24_hour_title">24 saatlik zaman biçimini kullan</string>
     <string name="pressure">Basınç</string>
@@ -393,8 +393,8 @@
     <string name="units_inhg">inç cıva</string>
     <string name="units_hpa">hPa</string>
     <string name="beacon_comment">Notlar (İsteğe bağlı)</string>
-    <string name="beacon_invalid_name">Geçersiz isim</string>
-    <string name="name">İsim</string>
+    <string name="beacon_invalid_name">Geçersiz ad</string>
+    <string name="name">Ad</string>
     <string name="maps">Haritalar</string>
     <string name="share_action_send">Gönder</string>
     <plurals name="beacon_group_summary">
@@ -508,7 +508,7 @@
     <string name="always_on">Her zaman açık</string>
     <string name="pref_daily_weather_notification_title">Günlük hava durumu bildirimi</string>
     <string name="guide_light_meter_description">El fenerlerinin ışın mesafesi nasıl belirlenir</string>
-    <string name="gps_cache">GPS önbelleği</string>
+    <string name="gps_cache">GPS ön belleği</string>
     <string name="location_disabled">Konum devre dışı bırakıldı</string>
     <string name="set">Ayarla</string>
     <string name="location_not_set">Konum ayarlanmadı</string>
@@ -536,7 +536,7 @@
     <string name="pref_navigation_lock_screen_presence_title">Gezinirken kilit ekranında göster</string>
     <string name="import_map">Haritayı içe aktar</string>
     <string name="pref_cell_signal_refresh_cache_summary">En yeni sinyal güçlerini yüklemeye zorlar</string>
-    <string name="pref_cell_signal_refresh_cache_title">Sinyal önbelleğini yenile</string>
+    <string name="pref_cell_signal_refresh_cache_title">Sinyal ön belleğini yenile</string>
     <string name="days">Günler</string>
     <plurals name="number_days">
         <item quantity="one">%d gün</item>
@@ -656,7 +656,7 @@
     <string name="milliliter_format">%s ml</string>
     <string name="liter_format">%s l</string>
     <string name="pref_map_url_source_title">Konum paylaşımı haritası</string>
-    <string name="clear_cache">Önbelleği temizle</string>
+    <string name="clear_cache">Ön belleği temizle</string>
     <string name="destination_elevation">Hedef yüksekliği</string>
     <string name="base_temperature">Temel sıcaklık</string>
     <string name="base_elevation">Temel yükseklik</string>
@@ -699,8 +699,8 @@
     <string name="simplification_quality">Sadeleştirme kalitesi</string>
     <string name="pref_auto_simplify_paths_title">İçe aktarma sırasında yolları sadeleştir</string>
     <string name="dashed">Kesikli</string>
-    <string name="pref_default_path_style_title">Öntanımlı yol şekli</string>
-    <string name="pref_default_path_color_title">Öntanımlı yol rengi</string>
+    <string name="pref_default_path_style_title">Ön tanımlı yol şekli</string>
+    <string name="pref_default_path_color_title">Ön tanımlı yol rengi</string>
     <string name="pref_export_weather_csv_title">Hava durumu okumalarını dışa aktar</string>
     <string name="weather_exported">Hava durumu dışa aktarıldı</string>
     <string name="pref_show_nearest_tide_title">En yakın gelgiti göster</string>
@@ -944,9 +944,9 @@
     <string name="pref_show_map_previews_title">Harita ön izlemelerini göster</string>
     <string name="smoothing">Düzeltme</string>
     <string name="samples">Örnekler</string>
-    <string name="sensor_summary">Pusula, GPS, yükseklikölçer, barometre vb.</string>
+    <string name="sensor_summary">Pusula, GPS, yükseklik ölçer, barometre vb.</string>
     <string name="sensor">Sensör</string>
-    <string name="altimeter_cache">Yükseklikölçer önbelleği</string>
+    <string name="altimeter_cache">Yükseklik ölçer ön belleği</string>
     <string name="historic">Geçmiş</string>
     <string name="temperature_high_low">Yüksek / Düşük</string>
     <string name="next_24_hours">Sonraki 24 saat</string>
@@ -997,7 +997,7 @@
     <string name="astronomy_direction_peak">Tepe yönü</string>
     <string name="print">Yazdır</string>
     <string name="autofill_source">Otomatik doldurma kaynağı</string>
-    <string name="pref_keep_map_facing_up_summary">Harita, Gerçek Kuzey yerine ekranın üst kısmı ile hizalanacaktır.</string>
+    <string name="pref_keep_map_facing_up_summary">Harita, gerçek kuzey yerine ekranın üst kısmı ile hizalanacaktır.</string>
     <string name="rate">Oran</string>
     <string name="enter_manually">Elle gir</string>
     <string name="rotation_amount">Dönüş: %s</string>
@@ -1117,7 +1117,7 @@
     <string name="creating_beacon">İşaret oluşturuluyor</string>
     <string name="augmented_reality_no_gyro_message">Artırılmış Gerçeklik aracını kullanmaya devam edebilirsiniz, ancak o kadar doğru olmayacaktır.</string>
     <string name="compact_mode">Sıkı mod</string>
-    <string name="ar_calibration_instructions">%s\'yi ekranda ortalayın ve \"Kalibre Et\\e basın</string>
+    <string name="ar_calibration_instructions">%s\'yi ekranda ortalayın ve \"Kalibre et\" düğmesine basın</string>
     <string name="use_gyroscope_after_calibration">Kalibrasyondan sonra jiroskopu kullan</string>
     <string name="use_gyroscope_after_calibration_description">Pusula yerine (manyetik sapmayı önler)</string>
     <string name="reset_calibration_question">Kalibrasyon sıfırlansın mı?</string>
@@ -1134,7 +1134,7 @@
     <string name="projection_manufacturer_intrinsics">Üretici içselleri</string>
     <string name="projection_perspective">Bakış Açısı</string>
     <string name="projection_linear">Doğrusal</string>
-    <string name="default_string">Öntanımlı</string>
+    <string name="default_string">Ön tanımlı</string>
     <string name="feature_unavailable">%s kullanılabilir değil</string>
     <string name="audio_error_messsage">Ses oynatmaya çalışırken bir hata oluştu.</string>
     <string name="ar_calibration_instructions_hint">Artırılmış Gerçeklik aracını kalibre etmek için ekranın sol üst köşesindeki simgeye dokunun ve gösterilen talimatları izleyin.</string>
@@ -1307,4 +1307,15 @@
     <string name="us_teaspoons">çay kaşığı(ABD)</string>
     <string name="imperial_teaspoons">çay kaşığı(Emperyal)</string>
     <string name="imperial_tablespoons">yemek kaşığı(Emperyal)</string>
+    <string name="habitat">Doğal ortam</string>
+    <string name="classification">Sınıflandırma</string>
+    <string name="human_interaction">İnsan etkileşimi</string>
+    <string name="activity_pattern">Aktivite paterni</string>
+    <string name="rock">Taş</string>
+    <string name="nocturnal">Gececil (noktürnal)</string>
+    <string name="diurnal">Gündüzcül</string>
+    <string name="crepuscular">Krepüsküler (alacakaranlık / şafak)</string>
+    <string name="no_pages">Sayfa yok</string>
+    <string name="field_guide_disclaimer">Bu araç yalnızca eğitim amaçlıdır. Bitkileri, hayvanları veya mantarları tanımlarken daima dikkatli olun. Bazı türler tehlikeli veya koruma altında olabilir. Tanımlamadan emin değilseniz, bir uzmana danışın.</string>
+    <string name="create_page">Sayfa oluştur</string>
 </resources>
