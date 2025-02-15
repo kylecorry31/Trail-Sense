@@ -4,7 +4,9 @@ import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.core.text.method.LinkMovementMethodCompat
 import com.kylecorry.andromeda.core.system.GeoUri
+import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
+import com.kylecorry.andromeda.fragments.useTopic
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.andromeda.signal.CellSignal
@@ -18,8 +20,6 @@ import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useCellSignalSensor
 import com.kylecorry.trail_sense.shared.extensions.useCoroutineQueue
 import com.kylecorry.trail_sense.shared.extensions.useLocation
-import com.kylecorry.trail_sense.shared.extensions.useService
-import com.kylecorry.trail_sense.shared.extensions.useTopic
 import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.signal_finder.infrastructure.CellTowerModel
@@ -32,24 +32,20 @@ class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_si
         val context = useAndroidContext()
 
         // Views
-        val list = useView2<AndromedaListView>(R.id.list)
-        val disclaimer = useView2<TextView>(R.id.disclaimer)
-        val emptyText = useView2<TextView>(R.id.empty_text)
-        val title = useView2<Toolbar>(R.id.title)
+        val list = useView<AndromedaListView>(R.id.list)
+        val disclaimer = useView<TextView>(R.id.disclaimer)
+        val emptyText = useView<TextView>(R.id.empty_text)
+        val title = useView<Toolbar>(R.id.title)
         val navController = useNavController()
 
         // Services
         val markdown = useService<MarkdownService>()
         val navigator = useService<Navigator>()
-
-        // Other objects
         val queue = useCoroutineQueue()
 
-        // Sensor readings
+        // State
         val signals = useCellSignals()
         val location = useLocation(Duration.ofSeconds(5))
-
-        // State
         val (nearby, setNearby) = useState<List<Pair<Coordinate, List<CellNetwork>>>>(emptyList())
         val (loading, setLoading) = useState(false)
 

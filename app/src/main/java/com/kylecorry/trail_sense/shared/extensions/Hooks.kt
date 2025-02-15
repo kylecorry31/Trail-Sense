@@ -1,7 +1,9 @@
 package com.kylecorry.trail_sense.shared.extensions
 
 import com.kylecorry.andromeda.core.ui.ReactiveComponent
+import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.AndromedaFragment
+import com.kylecorry.andromeda.fragments.useTopic
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner

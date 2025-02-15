@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.signal_finder.ui
 
 import android.content.Context
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.andromeda.views.list.ListItem
@@ -13,7 +14,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.extensions.AppServiceRegistry
 import com.kylecorry.trail_sense.shared.toRelativeDistance
 
 enum class CellTowerListItemAction {

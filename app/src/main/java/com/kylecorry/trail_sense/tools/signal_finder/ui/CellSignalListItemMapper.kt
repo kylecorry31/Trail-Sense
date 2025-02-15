@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.signal_finder.ui
 
 import android.content.Context
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.signal.CellSignal
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ListItemMapper
@@ -8,7 +9,6 @@ import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.extensions.AppServiceRegistry
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
 
 class CellSignalListItemMapper(private val context: Context) : ListItemMapper<CellSignal> {
