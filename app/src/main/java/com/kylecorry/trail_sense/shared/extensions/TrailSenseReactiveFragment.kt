@@ -37,22 +37,6 @@ abstract class TrailSenseReactiveFragment(@LayoutRes private val layoutId: Int) 
         update()
     }
 
-    fun useNavController(): NavController {
-        return useMemo(useRootView()) { findNavController() }
-    }
-
-    fun useArguments(): Bundle {
-        return requireArguments()
-    }
-
-    fun <T> useArgument(key: String): T {
-        val arguments = useArguments()
-        return useMemo(arguments, key) {
-            @Suppress("DEPRECATION", "UNCHECKED_CAST")
-            arguments.get(key) as T
-        }
-    }
-
     /**
      * Called whenever the fragment should update its content. Mostly due to changes in state.
      */

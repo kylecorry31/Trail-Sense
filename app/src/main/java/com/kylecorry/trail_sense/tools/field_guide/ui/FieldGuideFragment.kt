@@ -1,170 +1,208 @@
 package com.kylecorry.trail_sense.tools.field_guide.ui
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.os.bundleOf
-import androidx.navigation.fragment.findNavController
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.alerts.dialog
-import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
-import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.core.ui.useCallback
+import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.fragments.onBackPressed
+import com.kylecorry.andromeda.fragments.useBackgroundEffect
+import com.kylecorry.andromeda.views.list.AndromedaListView
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentFieldGuideBinding
-import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.useBackPressedCallback
+import com.kylecorry.trail_sense.shared.extensions.useClickCallback
+import com.kylecorry.trail_sense.shared.extensions.useNavController
+import com.kylecorry.trail_sense.shared.extensions.useSearch
+import com.kylecorry.trail_sense.shared.extensions.useShowDisclaimer
 import com.kylecorry.trail_sense.shared.text.TextUtils
+import com.kylecorry.trail_sense.shared.views.SearchView
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideCleanupCommand
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
 
-class FieldGuideFragment : BoundFragment<FragmentFieldGuideBinding>() {
+class FieldGuideFragment : TrailSenseReactiveFragment(R.layout.fragment_field_guide) {
 
-    private var pages by state<List<FieldGuidePage>>(emptyList())
-    private var filter by state("")
-    private var tagFilter by state<FieldGuidePageTag?>(null)
-    private val repo by lazy { FieldGuideRepo.getInstance(requireContext()) }
-    private val tagNameMapper by lazy { FieldGuideTagNameMapper(requireContext()) }
-    private lateinit var pageMapper: FieldGuidePageListItemMapper
-    private val tagMapper by lazy {
-        FieldGuidePageTagListItemMapper(requireContext()) { action, tag ->
-            if (action == FieldGuidePageTagListItemActionType.View) {
-                tagFilter = tag
-            }
-        }
-    }
+    private val headingTags = listOf(
+        FieldGuidePageTag.Plant,
+        FieldGuidePageTag.Fungus,
+        FieldGuidePageTag.Animal,
+        FieldGuidePageTag.Mammal,
+        FieldGuidePageTag.Bird,
+        FieldGuidePageTag.Reptile,
+        FieldGuidePageTag.Amphibian,
+        FieldGuidePageTag.Fish,
+        FieldGuidePageTag.Invertebrate,
+        FieldGuidePageTag.Rock,
+        FieldGuidePageTag.Other
+    )
 
-    override fun generateBinding(
-        layoutInflater: LayoutInflater, container: ViewGroup?
-    ): FragmentFieldGuideBinding {
-        return FragmentFieldGuideBinding.inflate(layoutInflater, container, false)
-    }
+    override fun update() {
+        val context = useAndroidContext()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        inBackground(BackgroundMinimumState.Created) {
-            reloadPages()
-        }
+        // Views
+        val listView = useView<AndromedaListView>(R.id.list)
+        val addButtonView = useView<FloatingActionButton>(R.id.add_btn)
+        val searchView = useView<SearchView>(R.id.search)
+        val emptyView = useView<TextView>(R.id.empty_text)
+        val navController = useNavController()
 
-        binding.list.emptyView = binding.emptyText
+        listView.emptyView = emptyView
 
-        binding.search.setOnSearchListener {
-            filter = it
-        }
+        // State
+        val (tagFilter, setTagFilter) = useState<FieldGuidePageTag?>(null)
+        val (filter, setFilter) = useState("")
+        val (pages, reloadPages) = useLoadPages(filter, tagFilter)
 
-        onBackPressed {
-            when {
-                tagFilter != null -> {
-                    tagFilter = null
-                }
+        // Services
+        val repo = useService<FieldGuideRepo>()
 
-                else -> {
-                    remove()
-                    findNavController().navigateUp()
-                }
-            }
-        }
+        // Callbacks
+        val createPage = useCreatePage()
+        val editPage = useEditPage()
+        val viewPage = useViewPage()
 
-        binding.addBtn.setOnClickListener {
-            findNavController().navigate(
-                R.id.createFieldGuidePageFragment, bundleOf(
-                    "classification_id" to (tagFilter?.id ?: 0L)
-                )
-            )
-        }
-    }
-
-    override fun onUpdate() {
-        super.onUpdate()
-        useEffect(pages, filter, tagFilter, lifecycleHookTrigger.onResume()) {
-            val tags = listOf(
-                FieldGuidePageTag.Plant,
-                FieldGuidePageTag.Fungus,
-                FieldGuidePageTag.Animal,
-                FieldGuidePageTag.Mammal,
-                FieldGuidePageTag.Bird,
-                FieldGuidePageTag.Reptile,
-                FieldGuidePageTag.Amphibian,
-                FieldGuidePageTag.Fish,
-                FieldGuidePageTag.Invertebrate,
-                FieldGuidePageTag.Rock,
-                FieldGuidePageTag.Other
-            )
-
-            val filteredPages = TextUtils.search(filter, pages) { page ->
-                listOf(
-                    page.name,
-                    page.notes ?: "",
-                    page.tags.joinToString { tagNameMapper.getName(it) })
-            }.filter { pages ->
-                tagFilter == null || pages.tags.contains(tagFilter)
-            }
-
-            if (tagFilter == null && filter.isBlank()) {
-                val items = tags.map { tag ->
-                    val numPages = pages.count { it.tags.contains(tag) }
-                    tag to numPages
-                }
-                binding.list.setItems(items, tagMapper)
-            } else {
-                binding.list.setItems(filteredPages, pageMapper)
-            }
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        pageMapper = FieldGuidePageListItemMapper(
-            requireContext(),
-            viewLifecycleOwner,
-            this::onPageAction
-        )
-
-        inBackground {
-            FieldGuideCleanupCommand(requireContext()).execute()
+        // Handle back press
+        useBackPressedCallback(filter, tagFilter, searchView) {
+            setTagFilter(null)
+            setFilter("")
+            searchView.query = ""
+            // If the filter was not set, don't consume the event
+            tagFilter != null || filter.isNotBlank()
         }
 
-        CustomUiUtils.disclaimer(
-            requireContext(),
+        // One time setup
+        useShowDisclaimer(
             getString(R.string.disclaimer_message_title),
             getString(R.string.field_guide_disclaimer),
             "field_guide_disclaimer",
             cancelText = null
         )
-    }
+        useCleanupPages()
 
-    private fun onPageAction(action: FieldGuidePageListItemActionType, page: FieldGuidePage) {
-        when (action) {
-            FieldGuidePageListItemActionType.View -> {
-                findNavController().navigate(
-                    R.id.fieldGuidePageFragment,
-                    bundleOf("page_id" to page.id)
-                )
-            }
+        // Search
+        useSearch(searchView, setFilter)
 
-            FieldGuidePageListItemActionType.Edit -> {
-                findNavController().navigate(
-                    R.id.createFieldGuidePageFragment,
-                    bundleOf("page_id" to page.id)
-                )
-            }
+        // Create button
+        useClickCallback(addButtonView, createPage, tagFilter) {
+            createPage(tagFilter)
+        }
 
-            FieldGuidePageListItemActionType.Delete -> {
-                dialog(getString(R.string.delete), page.name) { cancelled ->
-                    if (!cancelled) {
-                        inBackground {
-                            repo.delete(page)
-                            reloadPages()
+        // List
+        useEffect(
+            pages,
+            filter,
+            tagFilter,
+            listView,
+            context,
+            viewLifecycleOwner,
+            navController,
+            resetOnResume
+        ) {
+            val tagMapper = FieldGuidePageTagListItemMapper(context, setTagFilter)
+
+            val pageMapper = FieldGuidePageListItemMapper(
+                context,
+                viewLifecycleOwner
+            ) { action, page ->
+                when (action) {
+                    FieldGuidePageListItemActionType.View -> viewPage(page)
+                    FieldGuidePageListItemActionType.Edit -> editPage(page)
+
+                    FieldGuidePageListItemActionType.Delete -> {
+                        dialog(getString(R.string.delete), page.name) { cancelled ->
+                            if (!cancelled) {
+                                inBackground {
+                                    repo.delete(page)
+                                    reloadPages()
+                                }
+                            }
                         }
                     }
                 }
             }
+
+            if (tagFilter == null && filter.isBlank()) {
+                val items = headingTags.map { tag ->
+                    val numPages = pages.count { it.tags.contains(tag) }
+                    tag to numPages
+                }
+                listView.setItems(items, tagMapper)
+            } else {
+                listView.setItems(pages, pageMapper)
+            }
         }
     }
 
-    private suspend fun reloadPages() {
-        pages = repo.getAllPages().sortedBy { it.name }
+    private fun useCleanupPages() {
+        val context = useAndroidContext()
+        useBackgroundEffect(context, resetOnResume) {
+            FieldGuideCleanupCommand(context).execute()
+        }
     }
+
+    private fun useLoadPages(
+        filter: String,
+        tagFilter: FieldGuidePageTag?
+    ): Pair<List<FieldGuidePage>, () -> Unit> {
+        val repo = useService<FieldGuideRepo>()
+        val context = useAndroidContext()
+        val (pages, setPages) = useState(listOf<FieldGuidePage>())
+        val reload = useCallback<Unit> {
+            inBackground {
+                setPages(repo.getAllPages().sortedBy { it.name })
+            }
+        }
+
+        useEffect(resetOnResume) {
+            reload()
+        }
+
+        val filteredPages = useMemo(pages, filter, tagFilter) {
+            val mapper = FieldGuideTagNameMapper(context)
+            TextUtils.search(filter, pages) { page ->
+                listOf(
+                    page.name,
+                    page.notes ?: "",
+                    page.tags.joinToString { mapper.getName(it) })
+            }.filter { pages ->
+                tagFilter == null || pages.tags.contains(tagFilter)
+            }
+        }
+
+        return filteredPages to reload
+    }
+
+    private fun useCreatePage(): (tag: FieldGuidePageTag?) -> Unit {
+        val navController = useNavController()
+        return useCallback { tag ->
+            navController.navigate(
+                R.id.createFieldGuidePageFragment,
+                bundleOf("classification_id" to (tag?.id ?: 0L))
+            )
+        }
+    }
+
+    private fun useEditPage(): (page: FieldGuidePage) -> Unit {
+        val navController = useNavController()
+        return useCallback(navController) { page ->
+            navController.navigate(
+                R.id.createFieldGuidePageFragment,
+                bundleOf("page_id" to page.id)
+            )
+        }
+    }
+
+    private fun useViewPage(): (page: FieldGuidePage) -> Unit {
+        val navController = useNavController()
+        return useCallback(navController) { page ->
+            navController.navigate(
+                R.id.fieldGuidePageFragment,
+                bundleOf("page_id" to page.id)
+            )
+        }
+    }
+
 }

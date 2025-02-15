@@ -8,13 +8,10 @@ import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
 
-enum class FieldGuidePageTagListItemActionType {
-    View
-}
 
 class FieldGuidePageTagListItemMapper(
     private val context: Context,
-    private val action: (FieldGuidePageTagListItemActionType, FieldGuidePageTag) -> Unit,
+    private val onOpen: (FieldGuidePageTag) -> Unit,
 ) : ListItemMapper<Pair<FieldGuidePageTag, Int>> {
 
     private val tagNameMapper = FieldGuideTagNameMapper(context)
@@ -47,7 +44,7 @@ class FieldGuidePageTagListItemMapper(
                 tint = iconTint
             )
         ) {
-            action(FieldGuidePageTagListItemActionType.View, value.first)
+            onOpen(value.first)
         }
     }
 }
