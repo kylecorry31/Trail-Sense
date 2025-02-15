@@ -7,12 +7,17 @@ import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import com.kylecorry.andromeda.fragments.AndromedaFragment
+import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.shared.hooks.HookTriggers
+import java.time.Duration
 
 // TODO: ANDROMEDA
-abstract class XmlReactiveFragment(@LayoutRes private val layoutId: Int) : AndromedaFragment() {
+abstract class TrailSenseReactiveFragment(@LayoutRes private val layoutId: Int) :
+    AndromedaFragment() {
 
-    private var layoutEffects: MutableList<String> = mutableListOf()
-    private var tempCurrentHookIndex = 0
+    private var currentTriggerIndex = 0
+    private val triggers = HookTriggers()
 
     protected val resetOnResume
         get() = lifecycleHookTrigger.onResume()
@@ -44,5 +49,26 @@ abstract class XmlReactiveFragment(@LayoutRes private val layoutId: Int) : Andro
         }
     }
 
-    abstract override fun onUpdate()
+    fun distance(
+        location: Coordinate,
+        threshold: Distance,
+        highAccuracy: Boolean = true
+    ): Boolean {
+        val key = "trigger-$currentTriggerIndex"
+        currentTriggerIndex++
+        return triggers.distance(key, location, threshold, highAccuracy)
+    }
+
+    fun frequency(threshold: Duration): Boolean {
+        val key = "trigger-$currentTriggerIndex"
+        currentTriggerIndex++
+        return triggers.frequency(key, threshold)
+    }
+
+    override fun onUpdate() {
+        currentTriggerIndex = 0
+        update()
+    }
+
+    abstract fun update()
 }

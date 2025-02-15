@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.signal.CellNetwork
+import com.kylecorry.andromeda.signal.CellSignal
 import com.kylecorry.andromeda.views.list.AndromedaListView
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ListMenuItem
@@ -22,22 +23,24 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.extensions.XmlReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.useCellSignalSensor
 import com.kylecorry.trail_sense.shared.extensions.useCoroutineQueue
+import com.kylecorry.trail_sense.shared.extensions.useLocation
 import com.kylecorry.trail_sense.shared.extensions.useService
 import com.kylecorry.trail_sense.shared.extensions.useTopic
 import com.kylecorry.trail_sense.shared.extensions.useTriggers
 import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
-import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.toRelativeDistance
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.signal_finder.infrastructure.CellTowerModel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import java.time.Duration
 
-class ToolSignalFinderFragment : XmlReactiveFragment(R.layout.fragment_signal_finder) {
+class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_signal_finder) {
 
-    override fun onUpdate() {
+    override fun update() {
         // Views
         val list = useView2<AndromedaListView>(R.id.list)
         val disclaimer = useView2<TextView>(R.id.disclaimer)
@@ -48,18 +51,15 @@ class ToolSignalFinderFragment : XmlReactiveFragment(R.layout.fragment_signal_fi
         val formatter = useService<FormatService>()
         val prefs = useService<UserPreferences>()
         val markdown = useService<MarkdownService>()
-        val sensors = useService<SensorService>()
         val navigator = useService<Navigator>()
 
         // Other objects
-        val gps = useMemo(sensors) { sensors.getGPS() }
-        val cellSignal = useMemo(sensors) { sensors.getCellSignal(false) }
         val queue = useCoroutineQueue()
         val triggers = useTriggers()
 
-        // Topics
-        val signals = useTopic(cellSignal, emptyList()) { it.signals }
-        val location = useTopic(gps) { it.location }
+        // Sensor readings
+        val signals = useCellSignals()
+        val location = useLocation(Duration.ofSeconds(5))
 
         // State
         val (nearby, setNearby) = useState<List<Pair<Coordinate, List<CellNetwork>>>>(emptyList())
@@ -78,7 +78,7 @@ class ToolSignalFinderFragment : XmlReactiveFragment(R.layout.fragment_signal_fi
             list,
             signals,
             nearby,
-            triggers.distance("location1", location ?: Coordinate.zero, Distance.meters(100f))
+            distance(location, Distance.meters(100f))
         ) {
 
             val signalItems = signals.mapIndexed { index, signal ->
@@ -146,9 +146,8 @@ class ToolSignalFinderFragment : XmlReactiveFragment(R.layout.fragment_signal_fi
 
         // Cell tower updating
         useEffect(
-            triggers.distance("location2", location ?: Coordinate.zero, Distance.meters(100f))
+            distance(location, Distance.meters(100f))
         ) {
-            location ?: return@useEffect
             inBackground {
                 setLoading(true)
                 queue.replace {
@@ -170,5 +169,10 @@ class ToolSignalFinderFragment : XmlReactiveFragment(R.layout.fragment_signal_fi
                 null
             }
         }
+    }
+
+    private fun useCellSignals(): List<CellSignal> {
+        val cellSignal = useCellSignalSensor(false)
+        return useTopic(cellSignal, emptyList()) { it.signals }
     }
 }
