@@ -128,6 +128,17 @@ object TextUtils {
         return Views.linear(children, padding = Resources.dp(context, 16f).toInt())
     }
 
+    fun getKeywords(
+        text: String,
+        additionalContractions: Map<String, List<String>> = emptyMap(),
+        additionalStopWords: Set<String> = emptySet(),
+        additionalStemWords: Map<String, String> = emptyMap()
+    ): Set<String> {
+        val tokenizer =
+            KeywordTokenizer(additionalContractions, additionalStopWords, additionalStemWords)
+        return tokenizer.tokenize(text).toSet()
+    }
+
     private fun expandable(
         context: Context,
         title: String,

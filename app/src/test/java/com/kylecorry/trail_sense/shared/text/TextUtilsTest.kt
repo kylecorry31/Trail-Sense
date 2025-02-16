@@ -6,6 +6,28 @@ import org.junit.jupiter.api.Test
 class TextUtilsTest {
 
     @Test
+    fun getKeywords(){
+        val text = """
+            This is a test of the keyword tokenizer. It should return a list of keywords.
+            Here's an example of contractions: don't, can't, won't, shouldn't, wouldn't.
+        """.trimIndent()
+
+        val keywords = TextUtils.getKeywords(text)
+        val expected = setOf(
+            "test",
+            "keyword",
+            "token",
+            "return",
+            "list",
+            "exampl", // This is how the stemmer works
+            "contraction",
+            "here"
+        )
+
+        assertEquals(expected, keywords)
+    }
+
+    @Test
     fun getSections() {
         val text = """
             Start
