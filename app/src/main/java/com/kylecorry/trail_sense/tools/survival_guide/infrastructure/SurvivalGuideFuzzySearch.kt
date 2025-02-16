@@ -75,7 +75,6 @@ class SurvivalGuideFuzzySearch(private val context: Context) {
         chapter: Chapter
     ): List<SurvivalGuideSearchResult> {
         // TODO: Other languages?
-        // Load the guide text
         val content = onIO {
             TextUtils.loadTextFromResources(context, chapter.resource)
         }
@@ -90,57 +89,42 @@ class SurvivalGuideFuzzySearch(private val context: Context) {
 
         val matches = mutableListOf<SurvivalGuideSearchResult>()
 
+        val chapterMatch = TextUtils.getQueryMatchPercent(
+            query,
+            chapter.title,
+            preservedWords = preservedWords,
+            additionalContractions = additionalContractions,
+            additionalStemWords = additionalStemWords
+        )
+
         for ((index, section) in sections.withIndex()) {
-            val titleMatch =
-                TextUtils.getQueryMatchPercent(
-                    query,
-                    section.title ?: "",
-                    preservedWords = preservedWords,
-                    additionalContractions = additionalContractions,
-                    additionalStemWords = additionalStemWords
-                )
-            val sectionMatches =
-                TextUtils.fuzzySearch(
-                    query,
-                    section.content,
-                    preservedWords = preservedWords,
-                    additionalContractions = additionalContractions,
-                    additionalStemWords = additionalStemWords
-                )
+            val fullContent = chapter.title + "\n" + (section.title ?: "") + "\n" + section.content
 
-            for (match in sectionMatches) {
-                val content = section.content.substring(
-                    match.second.start,
-                    match.second.end.coerceAtMost(section.content.length)
-                )
+            val titleMatch = TextUtils.getQueryMatchPercent(
+                query,
+                section.title ?: "",
+                preservedWords = preservedWords,
+                additionalContractions = additionalContractions,
+                additionalStemWords = additionalStemWords
+            )
 
-                // If the content is a markdown image, continue
-                if (content.trim().startsWith("![") || content.trim().startsWith("[]")) {
-                    continue
-                }
+            val sectionMatch = TextUtils.getQueryMatchPercent(
+                query,
+                fullContent,
+                preservedWords = preservedWords,
+                additionalContractions = additionalContractions,
+                additionalStemWords = additionalStemWords
+            )
 
-                matches.add(
-                    SurvivalGuideSearchResult(
-                        chapter,
-                        match.first + titleMatch,
-                        index,
-                        section.title ?: context.getString(R.string.overview),
-                        content
-                    )
+            matches.add(
+                SurvivalGuideSearchResult(
+                    chapter,
+                    sectionMatch + titleMatch + chapterMatch,
+                    index,
+                    section.title ?: context.getString(R.string.overview),
+                    section.content
                 )
-            }
-
-            if (titleMatch > 0.5f && sectionMatches.isEmpty()) {
-                matches.add(
-                    SurvivalGuideSearchResult(
-                        chapter,
-                        titleMatch,
-                        0,
-                        section.title ?: context.getString(R.string.overview),
-                        ""
-                    )
-                )
-            }
+            )
 
         }
 
