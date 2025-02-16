@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.shared.text
 
-import com.kylecorry.sol.math.Range
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -19,11 +18,13 @@ class TextUtilsTest {
             A-frame
             
             Digging, Dig
+            
+            two words
         """.trimIndent()
 
         val keywords = TextUtils.getKeywords(
             text,
-            preservedWords = setOf("a-frame"),
+            preservedWords = setOf("a-frame", "two words"),
             additionalStemWords = mapOf("knives" to "knife")
         )
         val expected = setOf(
@@ -38,7 +39,8 @@ class TextUtilsTest {
             "knife",
             "compass",
             "a-frame",
-            "dig"
+            "dig",
+            "two words"
         )
 
         assertEquals(expected, keywords)
@@ -59,43 +61,6 @@ class TextUtilsTest {
             TextUtils.getQueryMatchPercent("Something about a keyword", text),
             0.001f
         )
-    }
-
-    @Test
-    fun fuzzySearch() {
-        val text = """
-            This is a test of the keyword tokenizer. It should return a list of keywords.
-            Here's an example of contractions: don't, can't, won't, shouldn't, wouldn't.
-        """.trimIndent()
-
-        assertFuzzySearchEqual(
-            listOf(
-                1f to Range(0, 40),
-            ), TextUtils.fuzzySearch("This is a test", text)
-        )
-        assertFuzzySearchEqual(
-            listOf(
-                1f to Range(0, 40),
-                1f to Range(41, 77),
-            ), TextUtils.fuzzySearch("keyword", text)
-        )
-        assertFuzzySearchEqual(
-            listOf(
-                1f to Range(78, 154),
-            ), TextUtils.fuzzySearch("contractions", text)
-        )
-    }
-
-    private fun assertFuzzySearchEqual(
-        expected: List<Pair<Float, Range<Int>>>,
-        actual: List<Pair<Float, Range<Int>>>
-    ) {
-        assertEquals(expected.size, actual.size)
-        for (i in expected.indices) {
-            assertEquals(expected[i].first, actual[i].first, 0.001f)
-            assertEquals(expected[i].second.start, actual[i].second.start)
-            assertEquals(expected[i].second.end, actual[i].second.end)
-        }
     }
 
     @Test

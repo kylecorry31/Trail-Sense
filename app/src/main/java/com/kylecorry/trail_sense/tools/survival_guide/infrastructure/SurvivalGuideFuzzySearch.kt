@@ -30,8 +30,63 @@ class SurvivalGuideFuzzySearch(private val context: Context) {
         "knives" to "knife"
     )
 
+    // These are words which the user may type as two words or hyphenated words
     private val preservedWords: Set<String> = setOf(
-        "a-frame"
+        "a-frame",
+        "bowel movement",
+        "bowel movements",
+        "head ache",
+        "head aches"
+    )
+
+    // These are words which have nearly the same meaning when searched
+    private val synonyms: List<Set<String>> = listOf(
+        // MEDICAL
+        // Headache
+        setOf(
+            // Preserved
+            "head ache",
+            "head aches",
+            // Stemmed (so misspellings are expected)
+            "headach",
+            "migrain",
+            "concuss"
+        ),
+        // Defecation
+        setOf(
+            // Preserved
+            "bowel movement",
+            "bowel movements",
+            // Stemmed (so misspellings are expected)
+            "poop",
+            "defec", // Defecate
+            "diahrrea",
+            "bowel",
+            "fece" // Feces
+        ),
+        // Urination
+        setOf(
+            // Stemmed (so misspellings are expected)
+            "urin", // Urine
+            "pee"
+        ),
+        // Bathroom
+        setOf(
+            "bathroom",
+            "restroom",
+            "toilet",
+            "latrin", // Latrine
+            "outhous", // Outhouse
+            "cathol", // Cathole
+            "bidet",
+        ),
+        // Fractures (not just medical)
+        setOf(
+            // Stemmed (so misspellings are expected)
+            "fractur",
+            "broken",
+            "broke"
+        )
     )
 
     private val chapters = Chapters.getChapters(context)
@@ -93,6 +148,7 @@ class SurvivalGuideFuzzySearch(private val context: Context) {
             query,
             chapter.title,
             preservedWords = preservedWords,
+            synonyms = synonyms,
             additionalContractions = additionalContractions,
             additionalStemWords = additionalStemWords
         )
@@ -104,6 +160,7 @@ class SurvivalGuideFuzzySearch(private val context: Context) {
                 query,
                 section.title ?: "",
                 preservedWords = preservedWords,
+                synonyms = synonyms,
                 additionalContractions = additionalContractions,
                 additionalStemWords = additionalStemWords
             )
@@ -112,6 +169,7 @@ class SurvivalGuideFuzzySearch(private val context: Context) {
                 query,
                 fullContent,
                 preservedWords = preservedWords,
+                synonyms = synonyms,
                 additionalContractions = additionalContractions,
                 additionalStemWords = additionalStemWords
             )
