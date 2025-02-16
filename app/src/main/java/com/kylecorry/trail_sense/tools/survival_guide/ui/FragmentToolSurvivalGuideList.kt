@@ -13,6 +13,7 @@ import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.useBackPressedCallback
 import com.kylecorry.trail_sense.shared.extensions.useCoroutineQueue
 import com.kylecorry.trail_sense.shared.extensions.useNavController
 import com.kylecorry.trail_sense.shared.extensions.useSearch
@@ -49,6 +50,16 @@ class FragmentToolSurvivalGuideList :
             "pref_survival_guide_disclaimer_shown",
             cancelText = null
         )
+
+        useBackPressedCallback(query, searchView) {
+            if (query.isNotBlank()) {
+                setQuery("")
+                searchView.query = ""
+                true
+            } else {
+                false
+            }
+        }
 
         useSearch(searchView, setQuery)
 
