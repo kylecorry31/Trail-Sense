@@ -131,7 +131,12 @@ class StopWordRemover(private val additionalStopWords: Set<String> = emptySet())
         "should",
         "need",
         "were",
-        "would"
+        "would",
+        "went",
+        "like",
+        "at",
+        "much",
+        "onto"
     )
 
     /**

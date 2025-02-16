@@ -17,6 +17,7 @@ import com.kylecorry.andromeda.core.ui.ExpansionLayout
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.markdown.MarkdownExtension
 import com.kylecorry.andromeda.markdown.MarkdownService
+import com.kylecorry.sol.math.Range
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.views.Views
@@ -137,6 +138,75 @@ object TextUtils {
         val tokenizer =
             KeywordTokenizer(additionalContractions, additionalStopWords, additionalStemWords)
         return tokenizer.tokenize(text).toSet()
+    }
+
+    fun getQueryMatchPercent(
+        query: String,
+        text: String,
+        additionalContractions: Map<String, List<String>> = emptyMap(),
+        additionalStopWords: Set<String> = emptySet(),
+        additionalStemWords: Map<String, String> = emptyMap()
+    ): Float {
+        val queryKeywords =
+            getKeywords(query, additionalContractions, additionalStopWords, additionalStemWords)
+        val textKeywords =
+            getKeywords(text, additionalContractions, additionalStopWords, additionalStemWords)
+        val distanceMetric = LevenshteinDistance()
+        val scores = mutableMapOf<String, Float>()
+
+        for (qWord in queryKeywords) {
+            if (qWord in textKeywords) {
+                scores[qWord] = 1f
+                continue
+            }
+
+            for (lWord in textKeywords) {
+                val distance = distanceMetric.percentSimilarity(qWord, lWord)
+                if (qWord !in scores) {
+                    scores[qWord] = distance
+                } else {
+                    scores[qWord] = maxOf(scores[qWord] ?: 0f, distance)
+                }
+            }
+        }
+
+        var total = 0f
+        for (word in queryKeywords) {
+            if (word in scores) {
+                total += scores[word] ?: 0f
+            }
+        }
+
+        return total / queryKeywords.size
+    }
+
+    fun fuzzySearch(
+        query: String,
+        text: String,
+        additionalContractions: Map<String, List<String>> = emptyMap(),
+        additionalStopWords: Set<String> = emptySet(),
+        additionalStemWords: Map<String, String> = emptyMap(),
+        minPercentMatch: Float = 0.6f
+    ): List<Pair<Float, Range<Int>>> {
+        val sentenceTokenizer = SentenceTokenizer()
+        val sentences = sentenceTokenizer.tokenize(text)
+
+        val matches = mutableListOf<Pair<Float, Range<Int>>>()
+        for (sentence in sentences) {
+            val matchPercent = getQueryMatchPercent(
+                query,
+                sentence,
+                additionalContractions,
+                additionalStopWords,
+                additionalStemWords
+            )
+            if (matchPercent >= minPercentMatch) {
+                val index = text.indexOf(sentence)
+                matches.add(matchPercent to Range(index, index + sentence.length))
+            }
+        }
+
+        return matches.sortedByDescending { it.first }
     }
 
     private fun expandable(
