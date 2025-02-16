@@ -11,9 +11,13 @@ class TextUtilsTest {
         val text = """
             This is a test of the keyword tokenizer. It should return a list of keywords.
             Here's an example of contractions: don't, can't, won't, shouldn't, wouldn't.
+            
+            Knife, Knives
+            
+            Compasses, Compass
         """.trimIndent()
 
-        val keywords = TextUtils.getKeywords(text)
+        val keywords = TextUtils.getKeywords(text, additionalStemWords = mapOf("knives" to "knife"))
         val expected = setOf(
             "test",
             "keyword",
@@ -22,7 +26,9 @@ class TextUtilsTest {
             "list",
             "exampl", // This is how the stemmer works
             "contraction",
-            "here"
+            "here",
+            "knife",
+            "compass"
         )
 
         assertEquals(expected, keywords)
