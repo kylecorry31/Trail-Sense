@@ -36,7 +36,7 @@ class PorterStemmer(private val additionalReplacements: Map<String, String> = em
         }
 
         if (endsWithDoubleConsonant(updated) && getCharacter(updated, -1) !in lsz) {
-            return removeEnd(word, 1)
+            return removeEnd(updated, 1)
         }
 
         if (measure(updated) == 1 && endsWithCVC(updated)) {

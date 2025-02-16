@@ -15,9 +15,17 @@ class TextUtilsTest {
             Knife, Knives
             
             Compasses, Compass
+            
+            A-frame
+            
+            Digging, Dig
         """.trimIndent()
 
-        val keywords = TextUtils.getKeywords(text, additionalStemWords = mapOf("knives" to "knife"))
+        val keywords = TextUtils.getKeywords(
+            text,
+            preservedWords = setOf("a-frame"),
+            additionalStemWords = mapOf("knives" to "knife")
+        )
         val expected = setOf(
             "test",
             "keyword",
@@ -28,7 +36,9 @@ class TextUtilsTest {
             "contraction",
             "here",
             "knife",
-            "compass"
+            "compass",
+            "a-frame",
+            "dig"
         )
 
         assertEquals(expected, keywords)

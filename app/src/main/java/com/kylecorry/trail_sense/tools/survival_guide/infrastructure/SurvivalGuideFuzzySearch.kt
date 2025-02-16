@@ -30,6 +30,10 @@ class SurvivalGuideFuzzySearch(private val context: Context) {
         "knives" to "knife"
     )
 
+    private val preservedWords: Set<String> = setOf(
+        "a-frame"
+    )
+
     private val chapters = Chapters.getChapters(context)
 
     suspend fun search(
@@ -91,14 +95,16 @@ class SurvivalGuideFuzzySearch(private val context: Context) {
                 TextUtils.getQueryMatchPercent(
                     query,
                     section.title ?: "",
-                    additionalContractions,
+                    preservedWords = preservedWords,
+                    additionalContractions = additionalContractions,
                     additionalStemWords = additionalStemWords
                 )
             val sectionMatches =
                 TextUtils.fuzzySearch(
                     query,
                     section.content,
-                    additionalContractions,
+                    preservedWords = preservedWords,
+                    additionalContractions = additionalContractions,
                     additionalStemWords = additionalStemWords
                 )
 

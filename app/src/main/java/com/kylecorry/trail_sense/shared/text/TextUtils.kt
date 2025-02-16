@@ -131,26 +131,45 @@ object TextUtils {
 
     fun getKeywords(
         text: String,
+        preservedWords: Set<String> = emptySet(),
         additionalContractions: Map<String, List<String>> = emptyMap(),
         additionalStopWords: Set<String> = emptySet(),
         additionalStemWords: Map<String, String> = emptyMap()
     ): Set<String> {
         val tokenizer =
-            KeywordTokenizer(additionalContractions, additionalStopWords, additionalStemWords)
+            KeywordTokenizer(
+                preservedWords,
+                additionalContractions,
+                additionalStopWords,
+                additionalStemWords + preservedWords.associateWith { it }
+            )
         return tokenizer.tokenize(text).toSet()
     }
 
     fun getQueryMatchPercent(
         query: String,
         text: String,
+        preservedWords: Set<String> = emptySet(),
         additionalContractions: Map<String, List<String>> = emptyMap(),
         additionalStopWords: Set<String> = emptySet(),
         additionalStemWords: Map<String, String> = emptyMap()
     ): Float {
         val queryKeywords =
-            getKeywords(query, additionalContractions, additionalStopWords, additionalStemWords)
+            getKeywords(
+                query,
+                preservedWords,
+                additionalContractions,
+                additionalStopWords,
+                additionalStemWords
+            )
         val textKeywords =
-            getKeywords(text, additionalContractions, additionalStopWords, additionalStemWords)
+            getKeywords(
+                text,
+                preservedWords,
+                additionalContractions,
+                additionalStopWords,
+                additionalStemWords
+            )
         val distanceMetric = LevenshteinDistance()
         val scores = mutableMapOf<String, Float>()
 
@@ -183,6 +202,7 @@ object TextUtils {
     fun fuzzySearch(
         query: String,
         text: String,
+        preservedWords: Set<String> = emptySet(),
         additionalContractions: Map<String, List<String>> = emptyMap(),
         additionalStopWords: Set<String> = emptySet(),
         additionalStemWords: Map<String, String> = emptyMap(),
@@ -196,6 +216,7 @@ object TextUtils {
             val matchPercent = getQueryMatchPercent(
                 query,
                 sentence,
+                preservedWords,
                 additionalContractions,
                 additionalStopWords,
                 additionalStemWords

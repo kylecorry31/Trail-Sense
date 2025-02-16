@@ -1,12 +1,13 @@
 package com.kylecorry.trail_sense.shared.text
 
 class KeywordTokenizer(
+    preservedWords: Set<String> = emptySet(),
     additionalContractions: Map<String, List<String>> = emptyMap(),
     additionalStopWords: Set<String> = emptySet(),
     additionalStemWords: Map<String, String> = emptyMap()
 ) : Tokenizer {
 
-    private val wordTokenizer = SimpleWordTokenizer()
+    private val wordTokenizer = SimpleWordTokenizer(preservedWords)
     private val contractionSplitter = ContractionSplitter(additionalContractions)
     private val stopWordRemover = StopWordRemover(additionalStopWords)
     private val stemmer = PorterStemmer(additionalStemWords)
