@@ -1284,4 +1284,5 @@
     <string name="activity_pattern">Padrão de atividade</string>
     <string name="no_pages">Sem páginas</string>
     <string name="field_guide_disclaimer">Esta ferramenta destina-se apenas a fins educacionais. Sempre tenha cuidado ao identificar plantas, animais ou cogumelos. Algumas espécies podem ser perigosas ou protegidas. Se você não tiver certeza sobre uma identificação, consulte um profissional.</string>
+    <string name="no_results">Sem resultados</string>
 </resources>
