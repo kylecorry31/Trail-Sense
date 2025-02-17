@@ -1,5 +1,5 @@
 %% K: shelter, clothing, insulate, warm, heat, sleep %%
-%% S: In a survival situation, focus on insulating your clothes and construct a small shelter using debris to stay warm. %%
+%% S: Layer clothing and build a shelter. %%
 
 This chapter covers how to dress appropriately for the environment and build shelters to protect yourself from the elements.
 

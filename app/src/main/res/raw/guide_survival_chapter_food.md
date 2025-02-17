@@ -1,5 +1,5 @@
 %% K: food, eat, meal, hunger, hungry, forage, identify, edible, inedible %%
-%% S: In a survival situation, ration out the food you have and only forage (plants, insects, shellfish) as a last resort. %%
+%% S: Ration food and forage when there's none left. %%
 
 This chapter covers how to find and prepare food in a survival situation.
 

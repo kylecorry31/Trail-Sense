@@ -1,5 +1,5 @@
 %% K: overview, survival, situation, rescue, lost %%
-%% S: In a survival situation, your priority is to return home safely. Try to remain calm and carefully plan before acting. In most cases, it's best to stay where you are and wait for help. %%
+%% S: Be prepared, stop if lost, and think before acting. %%
 
 This guide covers essential survival skills needed to return safely from a survival situation. It is not a substitute for professional training or experience and should only be used as a reference.
 

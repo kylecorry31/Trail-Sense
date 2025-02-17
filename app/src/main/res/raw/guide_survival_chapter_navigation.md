@@ -1,5 +1,5 @@
 %% K: navigate %%
-%% S: In a survival situation, stay where you are. If you are sure of their accuracy, you can navigate out using your GPS, phone, or map and compass. %%
+%% S: Plan a route and determine your location. %%
 
 This chapter covers navigation techniques and tools.
 

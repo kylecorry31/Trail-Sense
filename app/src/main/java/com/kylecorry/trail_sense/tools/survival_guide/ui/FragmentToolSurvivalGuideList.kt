@@ -19,8 +19,8 @@ import com.kylecorry.trail_sense.shared.extensions.useSearch
 import com.kylecorry.trail_sense.shared.extensions.useShowDisclaimer
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.views.SearchView
-import com.kylecorry.trail_sense.tools.survival_guide.domain.Chapter
-import com.kylecorry.trail_sense.tools.survival_guide.domain.Chapters
+import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.GuideDetails
+import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.GuideLoader
 import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.SurvivalGuideFuzzySearch
 import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.SurvivalGuideSearchResult
 import kotlinx.coroutines.delay
@@ -68,16 +68,17 @@ class FragmentToolSurvivalGuideList :
             if (query.isBlank()) {
                 chapters.map {
                     ListItem(
-                        it.resource.toLong(),
-                        it.title,
+                        it.chapter.resource.toLong(),
+                        it.chapter.title,
+                        it.sections.firstOrNull()?.summary,
                         icon = ResourceListIcon(
-                            it.icon,
+                            it.chapter.icon,
                             Resources.androidTextColorSecondary(requireContext())
                         )
                     ) {
                         navController.navigateWithAnimation(
                             R.id.fragmentToolSurvivalGuideReader,
-                            bundleOf("chapter_resource_id" to it.resource)
+                            bundleOf("chapter_resource_id" to it.chapter.resource)
                         )
                     }
                 }
@@ -115,11 +116,16 @@ class FragmentToolSurvivalGuideList :
         }
     }
 
-    private fun useChapters(): List<Chapter> {
+    private fun useChapters(): List<GuideDetails> {
         val context = useAndroidContext()
-        return useMemo(context) {
-            Chapters.getChapters(context)
+        val (chapters, setChapters) = useState(emptyList<GuideDetails>())
+
+        useBackgroundEffect(context) {
+            val loader = GuideLoader(context)
+            setChapters(loader.load(includeContent = false))
         }
+
+        return chapters
     }
 
     private fun useSearchResults(query: String): List<SurvivalGuideSearchResult> {

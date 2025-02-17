@@ -1,5 +1,5 @@
 %% K: medicine, medical, heal, health, injury, sick, ill, first-aid, symptom, treat, prevent %%
-%% S: In a survival situation, minor medical issues can become life threatening. Try to stay calm and treat issues to the best of your ability and call for help if needed/possible. %%
+%% S: Calm down and apply first aid. %%
 
 This chapter covers some basic medical knowledge and techniques for common injuries and illnesses you may encounter in the wilderness. It is not a substitute for professional medical advice/treatment or in depth first aid guides.
 

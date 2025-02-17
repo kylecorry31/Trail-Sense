@@ -1,5 +1,5 @@
 %% K: crafting, tool %%
-%% S: In a survival situation, you can craft some basic gear from natural materials. %%
+%% S: Craft basic gear from natural materials. %%
 
 This chapter covers how to craft essential items in a survival situation.
 

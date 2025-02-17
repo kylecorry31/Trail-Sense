@@ -25,7 +25,7 @@ class ToolSurvivalGuideTest : ToolTestBase(Tools.SURVIVAL_GUIDE) {
         // Verify it shows each chapter
         val chapters = Chapters.getChapters(context)
         chapters.forEachIndexed { index, chapter ->
-            if (index > 6) {
+            if (index > 5) {
                 scrollToEnd(R.id.list)
             }
 

@@ -1,5 +1,5 @@
 %% K: weather, condition %%
-%% S: In a survival situation, weather can be life threatening. Take shelter during storms and view the forecast before your trip. %%
+%% S: Know the weather forecast. %%
 
 This chapter covers how to prepare for different types of weather and how to forecast it.
 

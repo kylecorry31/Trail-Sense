@@ -1,5 +1,5 @@
 %% K: water, thirst, thirsty, drink %%
-%% S: In a survival situation, keep drinking the water you have to avoid dehydration. Look for water sources near your location, but be sure to purify it before drinking. %%
+%% S: Stay hydrated and purify water. %%
 
 This chapter covers how to find and purify water.
 
