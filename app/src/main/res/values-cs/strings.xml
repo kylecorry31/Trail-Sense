@@ -1340,4 +1340,5 @@
     <string name="activity_pattern">Vzor chování</string>
     <string name="no_pages">Žádné stránky</string>
     <string name="field_guide_disclaimer">Tento nástroj je určen pouze pro vzdělávací účely. Při určování rostlin, živočichů nebo hub buďte vždy opatrní. Některé druhy mohou být nebezpečné nebo chráněné. Pokud si nejste jisti určením, poraďte se s odborníkem.</string>
+    <string name="no_results">Žádné výsledky</string>
 </resources>
