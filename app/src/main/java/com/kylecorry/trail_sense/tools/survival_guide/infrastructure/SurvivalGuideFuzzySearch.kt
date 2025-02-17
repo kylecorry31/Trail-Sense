@@ -23,7 +23,8 @@ class SurvivalGuideFuzzySearch(private val context: Context) {
         "fishhook" to listOf("fish", "hook"),
         "fishhooks" to listOf("fish", "hooks"),
         "firestarter" to listOf("fire", "starter"),
-        "firestarters" to listOf("fire", "starters")
+        "firestarters" to listOf("fire", "starters"),
+        "firewood" to listOf("fire", "wood"),
     )
 
     private val additionalStemWords = mapOf(
@@ -86,7 +87,29 @@ class SurvivalGuideFuzzySearch(private val context: Context) {
             "fractur",
             "broken",
             "broke"
-        )
+        ),
+
+        // Actions
+        // Building
+        setOf(
+            // Stemmed (so misspellings are expected)
+            "build",
+            "construct",
+            "assembl", // Assemble
+            "creat", // Create
+            "make",
+            "craft"
+        ),
+        // Gather
+        setOf(
+            // Stemmed (so misspellings are expected)
+            "gather",
+            "collect",
+            "harvest",
+            "pick",
+            "forag", // Forage
+            "get"
+        ),
     )
 
     private val chapters = Chapters.getChapters(context)
