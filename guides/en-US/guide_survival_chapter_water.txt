@@ -65,7 +65,7 @@ Dehydration occurs when the body loses more fluids than it takes in. Symptoms in
 - Confusion.
 
 ## Finding water
-%% K: find, source, collect, plant, solar-still, solar, dew, rain, river, groundwater, sea, ice, bamboo, coconut, dig, hole, snow, rainwater, desert, beach, ocean, salt, transpiration %%
+%% K: find, source, collect, plant, solar-still, solar, still, dew, rain, river, groundwater, sea, ice, bamboo, coconut, dig, hole, snow, rainwater, desert, beach, ocean, salt, transpiration %%
 %% S: Find water from streams, snow, rain, dew, or groundwater. Purify all water before drinking. %%
 
 ### Common water sources
