@@ -128,6 +128,89 @@ object TextUtils {
         return Views.linear(children, padding = Resources.dp(context, 16f).toInt())
     }
 
+    fun getKeywords(
+        text: String,
+        preservedWords: Set<String> = emptySet(),
+        additionalContractions: Map<String, List<String>> = emptyMap(),
+        additionalStopWords: Set<String> = emptySet(),
+        additionalStemWords: Map<String, String> = emptyMap()
+    ): Set<String> {
+        val tokenizer =
+            KeywordTokenizer(
+                preservedWords,
+                additionalContractions,
+                additionalStopWords,
+                additionalStemWords + preservedWords.associateWith { it }
+            )
+        return tokenizer.tokenize(text).toSet()
+    }
+
+    fun getQueryMatchPercent(
+        query: String,
+        text: String,
+        preservedWords: Set<String> = emptySet(),
+        synonyms: List<Set<String>> = emptyList(),
+        additionalContractions: Map<String, List<String>> = emptyMap(),
+        additionalStopWords: Set<String> = emptySet(),
+        additionalStemWords: Map<String, String> = emptyMap()
+    ): Float {
+        val queryKeywords =
+            getKeywords(
+                query,
+                preservedWords,
+                additionalContractions,
+                additionalStopWords,
+                additionalStemWords
+            )
+        val textKeywords =
+            getKeywords(
+                text,
+                preservedWords,
+                additionalContractions,
+                additionalStopWords,
+                additionalStemWords
+            ).toMutableSet()
+
+        // Add the synonyms to the text keywords (but not query keywords, since that will skew the results)
+        val toAdd = mutableSetOf<String>()
+        for (keyword in textKeywords) {
+            for (synonymSet in synonyms) {
+                if (keyword in synonymSet) {
+                    toAdd.addAll(synonymSet)
+                }
+            }
+        }
+        textKeywords.addAll(toAdd)
+
+        val distanceMetric = LevenshteinDistance()
+        val scores = mutableMapOf<String, Float>()
+
+        for (qWord in queryKeywords) {
+            if (qWord in textKeywords) {
+                scores[qWord] = 1f
+                continue
+            }
+
+            for (lWord in textKeywords) {
+                val distance = distanceMetric.percentSimilarity(qWord, lWord)
+                if (qWord !in scores) {
+                    scores[qWord] = distance
+                } else {
+                    scores[qWord] = maxOf(scores[qWord] ?: 0f, distance)
+                }
+            }
+        }
+
+        var total = 0f
+        for (word in queryKeywords) {
+            if (word in scores) {
+                total += scores[word] ?: 0f
+            }
+        }
+
+        return total / queryKeywords.size
+    }
+
     private fun expandable(
         context: Context,
         title: String,
