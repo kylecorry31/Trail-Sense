@@ -45,13 +45,13 @@ Stop cuts are used to prevent wood from splitting when you are cutting it. To ma
 Batoning is the process of using a knife to split wood. To baton wood, place the knife on the wood where you want to split it and hit the back of the knife with a piece of wood. Be sure to use a knife with a full tang and a fixed blade.
 
 ## Sharpening
-%% K: sharpen, tool, knife, axe, blade, repair %%
+%% K: sharpen, rock, tool, knife, axe, blade, repair %%
 %% S: Use a smooth rock to sharpen your tools. %%
 
 If you find a smooth rock, you can use it to sharpen your knife or axe. Preferably the rock will be small enough to hold in your hand. To sharpen your tool, rub the rock in a circular motion along the edge of the blade. Be sure to match the angle of the blade when sharpening.
 
 ## Knives
-%% K: knife, flint, chert, obsidian, cut, blade %%
+%% K: knife, rock, flint, chert, obsidian, cut, blade %%
 %% S: You can craft a knife from bone or certain types of rock. %%
 
 ### Bone knife

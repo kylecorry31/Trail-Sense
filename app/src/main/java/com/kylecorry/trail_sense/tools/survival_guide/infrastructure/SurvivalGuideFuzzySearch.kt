@@ -1,11 +1,14 @@
 package com.kylecorry.trail_sense.tools.survival_guide.infrastructure
 
 import android.content.Context
+import android.util.Log
 import androidx.annotation.IdRes
 import com.kylecorry.luna.cache.LRUCache
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.text.TextUtils
 import com.kylecorry.trail_sense.tools.survival_guide.domain.Chapter
 import com.kylecorry.trail_sense.tools.survival_guide.domain.Chapters
+import kotlin.math.max
 
 data class SurvivalGuideSearchResult(
     val chapter: Chapter,
@@ -45,7 +48,32 @@ class SurvivalGuideFuzzySearch(private val context: Context) {
         "woods",
         "outdoors",
         "outdoor",
-        "got"
+        "got",
+        "wild",
+        "survival",
+        "situation",
+        "situations",
+        "nature",
+        "natural",
+        "safe",
+        "safely",
+        "safety",
+        "avoid",
+        "best",
+        "tell",
+        "found",
+        "common",
+        "nearby",
+        "dangerous",
+        "deadly",
+        "humans",
+        "human",
+        "people",
+        "use",
+        "uses",
+        "used",
+        "using",
+        "emergency"
     )
 
     // These are words which have nearly the same meaning when searched
@@ -289,6 +317,16 @@ class SurvivalGuideFuzzySearch(private val context: Context) {
     ): List<SurvivalGuideSearchResult> {
         // TODO: Other languages?
 
+//        Log.d(
+//            "SurvivalGuideFuzzySearch", TextUtils.getKeywords(
+//                query,
+//                preservedWords = preservedWords,
+//                additionalStopWords = additionalStopWords,
+//                additionalContractions = additionalContractions,
+//                additionalStemWords = additionalStemWords
+//            ).joinToString(", ")
+//        )
+
         val sections = loadChapter(chapter).sections
 
         val matches = mutableListOf<SurvivalGuideSearchResult>()
@@ -317,16 +355,32 @@ class SurvivalGuideFuzzySearch(private val context: Context) {
                 additionalStemWords = additionalStemWords
             )
 
+            val headerMatch = TextUtils.getQueryMatchPercent(
+                query,
+                section.title ?: context.getString(R.string.overview),
+                preservedWords = preservedWords + additionalPreservedWords,
+                additionalStopWords = additionalStopWords,
+                synonyms = synonyms + additionalSynonyms,
+                additionalContractions = additionalContractions,
+                additionalStemWords = additionalStemWords
+            )
+
+            // If the user exactly matched the header, they probably want to see that
+            val score = if (headerMatch == 1f) {
+                1.1f
+            } else {
+                max(sectionMatch, headerMatch)
+            }
+
             matches.add(
                 SurvivalGuideSearchResult(
                     chapter,
-                    sectionMatch,
+                    score,
                     index,
                     section.title,
                     section.summary
                 )
             )
-
         }
 
         return matches

@@ -1,4 +1,4 @@
-%% K: food, eat, meal, hunger, hungry, forage %%
+%% K: food, eat, meal, hunger, hungry, forage, identify, edible, inedible %%
 %% S: In a survival situation, ration out the food you have and only forage (plants, insects, shellfish) as a last resort. %%
 
 This chapter covers how to find and prepare food in a survival situation.
@@ -69,7 +69,7 @@ Starvation occurs when the body does not receive enough nutrients to function pr
 - Longer healing time for wounds and illnesses.
 
 ## Plants and mushrooms
-%% K: plant, mushroom, forage, edible, inedible, poison, toxic, identify, leach, test %%
+%% K: plant, mushroom, seaweed, weeds, green, sap, fungus, forage, poison, toxic, leach, test, berries %%
 %% S: Only eat plants you can confidently identity as safe and don't eat any mushrooms. Aggregate berries, like raspberries and blackberries, are generally safe. %%
 
 The safest method for consuming wild plants is through positive identification. Before your trip, it's wise to study local plants through guidebooks or plant identification cards.
@@ -164,7 +164,7 @@ Cook all insects using any of the cooking techniques in this chapter.
 Worms can be placed in water for 15 minutes to purge their digestive tracts. After purging, they should be cooked before eating.
 
 ## Shellfish and crustaceans
-%% K: shellfish, crustacean, clam, mussel, snail, limpet, crayfish, lobster, crab, shrimp, shell, bait, basket, trap, seafood %%
+%% K: shellfish, crustacean, clam, mussel, snail, limpet, crayfish, lobster, crab, shrimp, shell, bait, basket, trap, seafood, algae, tide, coastal, coast %%
 %% S: Many shellfish and crustaceans are found along the shoreline and most can be eaten when cooked. %%
 
 Shellfish and crustaceans are a good source of protein and can be found in both freshwater and saltwater. They are relatively easy to catch, so they make a good survival food source.
@@ -263,7 +263,7 @@ Alternatively, use a funnel fish trap by placing sticks into a V-shape with a re
 5. Cook the fish.
 
 ## Other animals
-%% K: animal, hunt, bow, trap, snare, deadfall, bird, reptile, amphibian, frog, snake, mammal, skin, kill, meat %%
+%% K: animal, hunt, bow, trap, snare, deadfall, bird, reptile, amphibian, frog, snake, mammal, skin, kill, meat, butcher, skin %%
 %% S: Hunting or trapping can be energy consuming and difficult without proper tools. %%
 
 In a survival situation, it's best to focus on easier-to-catch animals like insects, shellfish, crustaceans, and fish. But if you have the means to catch other animals, they can provide a good source of protein and nutrients.

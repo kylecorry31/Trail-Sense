@@ -55,11 +55,11 @@ Once you have mastered these skills, you should learn how to do the following:
 - Repair clothing.
 
 ## Clothing
-%% K: wool, polyester, nylon, down, cotton, layer, material, garment, socks, pants, shirt, jacket, fleece, vest, underwear, undergarments, windbreaker, rain, hat, sunglasses, glasses, scarf, bandana, footwear, shoes, boots %%
+%% K: wear, dress, wool, polyester, nylon, down, cotton, layer, material, garment, socks, pants, shirt, jacket, fleece, vest, underwear, undergarments, windbreaker, rain, hat, sunglasses, glasses, scarf, bandana, footwear, shoes, boots %%
 %% S: Dress in layers and choose clothing made from wool, polyester, or nylon. Only wear shoes that you have worn in. %%
 
 Your first line of defense in any environment is your clothing. Proper attire should keep you dry, regulate your body temperature, protect you from the sun, and prevent insect bites.
-
+textutils
 ### Materials
 When choosing clothing, consider the following materials:
 - Wool: Retains warmth even when wet.
@@ -103,7 +103,7 @@ If you plan to be hiking in wet conditions, consider wearing waterproof boots.
 Bring extra pairs of socks, preferably made from wool, and ensure they are taller than your boots to avoid blisters.
 
 ## Shelters
-%% K: location, lean-to, a-frame, cave, emergency-space-blanket, space-blanket, blanket, tent, hammock, ground, wall, sleep, bag, pad, airflow %%
+%% K: build, location, lean-to, a-frame, cave, emergency-space-blanket, space-blanket, blanket, tent, hammock, ground, wall, sleep, bag, pad, airflow %%
 %% S: Construct a shelter using natural materials or a tarp. Insulate the shelter with leaves, straw, or clothing. %%
 
 ### Choosing a shelter location

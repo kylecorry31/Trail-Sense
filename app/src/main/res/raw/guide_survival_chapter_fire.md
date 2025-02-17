@@ -1,4 +1,4 @@
-%% K: fire, flame, light, heat, warm %%
+%% K: fire, flame, light, heat, warm, burn %%
 %% S: In a survival situation, make a tepee fire if you have a fire starter and gather plenty of wood. Otherwise, focus on insulating your clothes and shelter. %%
 
 This chapter covers how to make a fire in a survival situation.

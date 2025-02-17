@@ -1,4 +1,4 @@
-%% K: medicine, medical, heal, health, injury, sick, ill, first-aid %%
+%% K: medicine, medical, heal, health, injury, sick, ill, first-aid, symptom, treat, prevent %%
 %% S: In a survival situation, minor medical issues can become life threatening. Try to stay calm and treat issues to the best of your ability and call for help if needed/possible. %%
 
 This chapter covers some basic medical knowledge and techniques for common injuries and illnesses you may encounter in the wilderness. It is not a substitute for professional medical advice/treatment or in depth first aid guides.
@@ -308,7 +308,7 @@ If the blister is large or painful:
 - Apply adhesive tape or moleskin to prevent blisters.
 
 ## Burns
-%% K: burn, scald, blister, red, pain, aloe, vera, fire %%
+%% K: burn, scald, blister, red, pain, aloe, vera, fire, skin %%
 %% S: Treat minor burns by soaking with cool water and loosly bandage. Seek medical attention for severe burns. Prevent by using caution around fires and hot objects. %%
 
 ### Treatment
@@ -666,7 +666,7 @@ Heatstroke:
 - Do not overexert yourself.
 
 ## Hygiene
-%% K: hygiene, clean, wash, soap, sanitize, toothbrush, teeth, tooth, toothpaste, brush, feet, socks, dry, clothes, defecate, urinate, bathroom, trowel %%
+%% K: hygiene, clean, wash, soap, shampoo, sanitize, toothbrush, teeth, tooth, toothpaste, brush, feet, socks, dry, clothes, defecate, urinate, bathroom, trowel %%
 %% S: Wash hands frequently, especially before eating and after using the bathroom. %%
 
 ### Washing
@@ -779,7 +779,7 @@ While in the wilderness it is common to get objects in your eye, such as dirt, s
    - Ensure yourself that you will be okay.
 
 ## Poison ivy and contact dermatitis
-%% K: poison, ivy, oak, sumac, trumpet, rengas, stinging, nettle, rash, itch, blister, burn, red, swell, dermatitis, contact %%
+%% K: poison, ivy, oak, sumac, trumpet, rengas, stinging, nettle, rash, itch, blister, red, swell, dermatitis, contact %%
 %% S: Symptoms include a rash, itching, and blisters. Treat by washing the area with soap and water, applying calamine lotion, and taking antihistamines. Prevent by learning to identify and avoid poisonous plants. %%
 
 Contact dermatitis is caused by contact with poisonous plants, such as poison ivy, poison oak, poison sumac, and stinging nettle.
@@ -884,7 +884,7 @@ If you fall through ice, do the following:
 If you are caught in a rip current, swim parallel to the shore until you are out of the current. Then swim back to shore.
 
 ## Sunburn
-%% K: sunburn, burn, sunscreen, uv, sun, red, pain, swell, blister, spf %%
+%% K: sunburn, burn, sunscreen, uv, sun, red, pain, swell, blister, spf, skin %%
 %% S: Symptoms include redness, pain, swelling, and blisters. Treat by getting out of the sun, applying a burn cream, and taking pain relievers. Prevent by wearing sunscreen, proper clothing, and staying in the shade. %%
 
 Sunburn is caused by prolonged exposure to ultraviolet (UV) radiation from the sun.
