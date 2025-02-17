@@ -1,56 +1,54 @@
-This guide covers essential survival skills needed to return safely from a survival situation. It is not a substitute for professional training or experience and should only be used as a reference.
+This guide teaches important survival skills to help you return safely. It is not the same as expert training and should only be used as a guide.
 
-## Be prepared
-Let someone know your plans before you leave. This way, if you don't return on time, they can get help. Stick to your planned route and avoid taking unnecessary risks.
+## Be ready
+Tell someone your plans before you go. If you do not come back on time, they can call for help. Stay on your planned path and do not take risks you do not need to take.
 
 ### Gear
 
-**Necessities**:
-- Cell phone
+**Important items**:
+- Mobile phone
 - Money
 - Whistle
-- Spare batteries (for flashlight) and a battery pack for your phone
-- Assorted bandages
+- Extra batteries (for flashlight) and power bank for phone
+- Different types of bandages
 - Gauze
-- Surgical tape
+- Medical tape
 - Safety pin or needle
 - Tweezers
-- Antibiotic ointment
+- Antibiotic cream
 - Sunscreen
-- Insect repellent
-- Prescription medications, contact lenses, and glasses
-- Pain relievers (aspirin, ibuprofen, acetaminophen)
+- Bug spray
+- Prescription medicine, contact lenses, and glasses
+- Pain medicine (aspirin, ibuprofen, acetaminophen)
 - Hand sanitizer
-- Epinephrine auto-injector (if you have severe allergies)
+- Epinephrine injector (if you have bad allergies)
 - Asthma inhaler (if you have asthma)
-- Water (enough for the duration of your trip, plus a bit extra)
-  - For longer trips, bring a water purification method and plan your route to include water sources.
-- Water containers (ensure you have a container that you can boil water in)
-- Food (enough for the duration of your trip, plus a bit extra). Some good options include:
+- Water (enough for your trip, plus extra)
+  - If your trip is long, bring a way to clean water and plan for water sources.
+- Water container (one that can be used to boil water)
+- Food (enough for your trip, plus extra). Good choices include:
   - Nuts
   - Seeds
   - Dried fruit
-  - Jerky
+  - Dried meat
   - Energy bars
-  - Dehydrated meals (with extra water)
-  - Canned food (with a can opener if needed)
+  - Dried meals (with extra water)
+  - Canned food (bring a can opener if needed)
 - Knife or multi-tool
-- Bear bag or canister
-- Emergency space blanket
+- Bear bag or container
+- Emergency blanket
 - Poncho
-- Change of clothing
+- Extra clothes
 - Extra socks
-- Boots or sturdy shoes
+- Boots or shoes
 - Sunglasses
-- Cordage (paracord)
+- Rope (paracord)
 - Sewing kit (needle and thread)
-- In colder climates:
-  - Insulating layers (jacket, pants, hat, gloves)
-  - Waterproof outer layer
-  - Waterproof or insulated boots
-  - Thermal underlayers
+- If it is cold:
+  - Warm clothes (jacket, pants, hat, gloves)
+  - Waterproof clothes and boots
   - Hand warmers
-- For overnight stays:
+- For night:
   - Sleeping bag
   - Sleeping pad
   - Tent
@@ -58,90 +56,90 @@ Let someone know your plans before you leave. This way, if you don't return on t
 - Map
 - Compass
 - Flashlight or headlamp
-- 7-day weather forecast
+- Weather forecast for 7 days
 
 **Optional**:
 - Signal mirror
 
-See each chapter for additional gear recommendations.
+Each chapter gives more gear advice.
 
 ### Knowledge and skills
-Start by learning how to do the following:
-- Abide by local laws and regulations.
+Learn how to:
+- Follow local rules.
 - Act in a survival situation.
 - Signal for help.
 - Plan a trip.
 
-See each chapter for additional knowledge and skills recommendations.
+Each chapter gives more knowledge and skill advice.
 
 ## What to do in a survival situation
-If you find yourself in a survival situation, don't panic and follow these steps.
+If you are in a survival situation, do not panic. Follow these steps.
 
 ### Stop
-If you are lost and not in immediate danger, stop moving. Continuing to move can make it harder for rescuers to find you.
+If you are lost and not in danger, stay where you are. Moving around can make it harder for people to find you.
 
-If you are nervous, take a few deep breaths to calm down. If that doesn't help, see the Medical chapter for more tips.
+If you are scared, take deep breaths to calm down. If this does not help, check the Medical chapter for advice.
 
-If you have a GPS receiver or smartphone, note your current location and place a waypoint or beacon. This will help you find your way back if you move around.
+If you have a GPS device or smartphone, save your location. This helps you find your way back if needed.
 
 ### Think
-Take a moment to think about your situation. Answer the following questions:
-- What are your immediate needs?
-- What resources do you have available?
-- Did you tell someone your plans before you left? If so, when are they expecting you back?
-- Which way did you come from?
+Ask yourself:
+- What do I need now?
+- What things do I have with me?
+- Did I tell someone my plans? When are they expecting me back?
+- Which way did I come from?
 
 ### Observe
-Next, observe your surroundings and assess your situation:
-- Check for any potential hazards or resources that could help you.
-- Check your smartphone or GPS receiver for your last known location.
-- Check your cell phone for a signal.
+Check your surroundings:
+- Look for dangers and useful things.
+- Check your GPS or smartphone for your last location.
+- Check your phone for a signal.
 - Listen for people or vehicles.
 
 ### Plan
-Make a plan for your next steps. Here's some general advice:
-- If it is close to dark, set up a shelter and maybe a fire.
-- If you are injured, treat your injuries.
-- If you are lost, try to determine your location using a map or GPS.
+Decide what to do next. Here are general tips:
+- If it is getting dark, make a shelter and maybe a fire.
+- If you are hurt, treat your wounds.
+- If you are lost, try to find your location using a map or GPS.
 - If it is hot, find shade and water.
-- If it is cold, get warm through insulation, shelter, and fire.
-- Tie a bright piece of clothing to a nearby tree and search the nearby area for signs of a trail. Keep the marker in sight at all times. You may also use a GPS receiver to return to your starting point; just ensure the batteries are charged.
-- If you are lost, it may be best to stay put and wait for help. Try to signal for help and make yourself visible to rescuers.
+- If it is cold, stay warm with clothes, shelter, and fire.
+- Tie a bright piece of clothing to a tree and look for a trail. Keep the marker in sight. You can also use a GPS device to go back to where you started, but make sure it has enough battery power.
+- If lost, it may be best to stay in one place, wait, and signal for help.
 
 ### Act
-Once you have a plan, act on it. If at any point you feel unsafe, nervous, or unsure, stop and reassess your situation.
+Follow your plan. If you feel unsafe, scared, or unsure, stop and think again.
 
 ## Planning a trip
-Proper planning is crucial for a safe and enjoyable hiking experience. Here are some steps to help you prepare:
+Good planning makes your hike safe and fun. Follow these steps:
 
-1. Research the terrain, weather conditions, wildlife, and plants you might encounter. Also, look into local regulations and any permits you may need.
-2. Using a map, plan your route. Be sure to consider trail conditions and alternate routes.
-3. Pack the necessary gear and supplies. See the "Be prepared" section for a list of essential items. Check all your gear before you leave.
-4. Check the weather forecast and adjust your plans accordingly.
-5. Share your itinerary with a trusted person. Include your planned route, expected return time, and check-in times.
+1. Learn about the area, weather, animals, and plants. Also, check the local rules and needed permission.
+2. Plan your route using a map. Think about trail conditions and backup routes.
+3. Pack the right gear. See "Be ready" for a list of items. Check all gear before leaving.
+4. Look at the weather forecast and change plans if needed.
+5. Tell a trusted person your plans, route, return time, and check-in times.
 
 ## Signaling for help
 
-### Cell phone
-Even if you don't have a signal with your carrier, you may still be able to call emergency services. If you can't make a call, try sending a text message. Check your phone periodically to see if you have a signal, but otherwise keep it off or in airplane mode to conserve battery. You may get a better signal by climbing to higher ground or moving to an open area.
+### Mobile phone
+Even if you do not have a signal, you may still be able to call emergency services. If calling does not work, try sending a text. Check for a signal now and then, but keep your phone off or in airplane mode to save battery. A better signal may be found on higher ground or in open areas.
 
 ### Whistle
-Three short blasts are the universal signal for help. You may want to cover your ears when using the whistle at full volume.
+Three short blows mean "help." Cover your ears when blowing loudly.
 
 ### Signal mirror
-Hold the mirror with one hand and extend your other arm in front of you with your fingers in a V-shape. Reflect sunlight onto your fingers and slowly move the mirror to direct the reflected light toward potential rescuers or aircraft.
+Hold the mirror in one hand. Use your other hand to make a "V" with your fingers. Shine the sunlight onto your fingers, then move the mirror to point the light at people or aircraft.
 
 ### Smoke
-Smoke can attract attention during the day. You can create a lot of smoke by burning green vegetation. Be sure to do this safely.
+Smoke can be seen from far away. Burn green plants to make a lot of smoke, but do it safely.
 
 ### Flares
-Flares are best seen at night or in low-visibility conditions. Follow the instructions on the flare packaging and be aware of any legal restrictions on their use.
+Flares work best at night or in bad weather. Read the instructions on the package and check if using them is allowed in your area.
 
 ### Flashlight
-At night, a flashlight can be used to signal for help. Use the international distress signal, SOS, which is three short flashes, three long flashes, and three short flashes. If you don't remember the SOS signal, flash the light repeatedly in groups of three. Aim it in the direction of aircraft or other potential rescuers.
+At night, use a flashlight to signal for help. The SOS signal is three short flashes, three long flashes, and three short flashes. If you forget SOS, flash the light in groups of three. Point it toward planes or people.
 
-### Ground-to-air signals
-Ground-to-air signals are large markers you create on the ground to communicate with aircraft. Use rocks, logs, or other materials to create a large "V" (means you require assistance) or an "X" (means you require medical assistance). Use contrasting or artificial colors to make the signal more visible.
+### Ground signals
+Use big objects like rocks or logs to make large symbols on the ground. A "V" means you need help. An "X" means you need medical help. Use bright or different-colored materials to make them easy to see.
 
 ## Disclaimer
-As with all tools in Trail Sense, this guide is meant to provide general information and should not be considered a substitute for professional training or experience. This is for educational purposes only. The authors are not responsible for any accidents, injuries, or other damage that may result from the use of this information. Always exercise common sense and caution when outdoors.
+Like all tools in Trail Sense, this guide gives general advice and is not a replacement for expert training. It is only for educational use. The authors are not responsible for any injuries or problems caused by using this information. Always use good judgment and be careful outdoors.
