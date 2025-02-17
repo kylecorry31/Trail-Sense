@@ -5,6 +5,7 @@ import androidx.navigation.NavController
 import androidx.test.core.app.ActivityScenario
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.torch.Torch
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
@@ -12,7 +13,10 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 
-open class ToolTestBase(private val toolId: Long) {
+open class ToolTestBase(
+    private val toolId: Long,
+    private val locationOverride: Coordinate? = null
+) {
 
     @get:Rule
     val grantPermissionRule = TestUtils.allPermissionsGranted()
@@ -32,6 +36,11 @@ open class ToolTestBase(private val toolId: Long) {
     fun setUp() {
         TestUtils.setWaitForIdleTimeout()
         TestUtils.setupApplication()
+
+        if (locationOverride != null) {
+            TestUtils.setLocationOverride(locationOverride)
+        }
+
         TestUtils.listenForCameraUsage()
         TestUtils.listenForTorchUsage()
         volume = TestUtils.mute()

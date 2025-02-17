@@ -1,6 +1,11 @@
+%% K: medicine, medical, heal, health, injury, sick, ill, first-aid %%
+%% S: In a survival situation, minor medical issues can become life threatening. Try to stay calm and treat issues to the best of your ability and call for help if needed/possible. %%
+
 This chapter covers some basic medical knowledge and techniques for common injuries and illnesses you may encounter in the wilderness. It is not a substitute for professional medical advice/treatment or in depth first aid guides.
 
 ## Be prepared
+%% K: prepare, gear, knowledge, skill, painkiller, bandage, gauze, tape, pin, needle, tweezer, antibiotic, ointment, cream, sunscreen, repellent, spray, medicine, medication, prescription, pill, lenses, glasses, reliever, sanitizer, epinephrine, epi-pen, epipen, inhaler, moleskin, molefoam, tourniquet, splint, alo, vera, gel, swab, mirror, tampon, pad, menstrual, cup, floss, toothbrush, toothpaste, toilet-paper, bidet, bag, trowel, soap, towel, lip-balm, electrolyte %%
+%% S: Bring a first aid kit. Learn basic first aid and CPR. %%
 
 ### Gear
 
@@ -57,6 +62,9 @@ Once you have mastered these skills, you should learn how to do the following:
 - Perform advanced first aid techniques, such as setting a broken bone or suturing a wound.
 
 ## Allergic reactions
+%% K: allergy, allergic, reaction, rash, itch, swell, hives, sneeze, cough, throat, breath, epinephrine, epi-pen, epipen, inject, ashthma, anaphylaxis %%
+%% S: Symptoms include rash, itching, swelling, hives, and difficulty breathing. Treat by removing the allergen, using antihistimines, or an epinephrine auto-injector as needed. Prevent by avoiding known allergens. %%
+
 Allergic reactions can range from contact dermatitis (ex. poison ivy) or bug bites to anaphylaxis, a severe allergic reaction that can be life-threatening.
 
 ### Symptoms
@@ -100,6 +108,9 @@ If you have asthma and are having an attack, use your inhaler.
 - Let others know about your allergies and where you keep your epinephrine auto-injector.
 
 ## Altitude sickness
+%% K: altitude, mountain, headache, nausea, fatigue, dizziness, breath, sleep, appetite, heartbeat, cough, acclimate, descend %%
+%% S: Symptoms include headache, nausea, fatigue, dizziness, and shortness of breath. Treat by descending to a lower altitude or with pain relievers. Prevent by ascending slowly. %%
+
 Altitude sickness is caused by low oxygen levels at high altitudes.
 
 ### Symptoms
@@ -124,6 +135,9 @@ Altitude sickness is caused by low oxygen levels at high altitudes.
 - Look out for symptoms if traveling above 6,500 feet (2,000 meters).
 
 ## Bites / attacks: mammals and other animals
+%% K: bite, attack, animal, mammal, bell, fight, pepper-spray, bear %%
+%% S: Treat by washing the wound with soap and water, applying anitibiotics, bandaging, and seeking medical attention. Prevent by avoiding wild animals and making noise to alert them of your presence. %%
+
 Many animals bite when they feel threatened or cornered. Some animals can transmit diseases through their bites.
 
 ### Treatment
@@ -151,6 +165,9 @@ If you were bitten by a mammal, seek medical attention as soon as possible. You 
   - Do not drop your pack, as it can provide protection.
 
 ## Bites: Snakes
+%% K: snake, bite, venom, poison, antivenom, snakebite %%
+%% S: Treat by cleaning the wound, applying a bandage, immobilizing the limb, and seeking medical attention. Prevent by watching where you step and wearing high boots. %%
+
 Always be on the lookout for snakes, especially in areas with tall grass, rocks, or logs. Snakes are most active during the day. Most snake bites are not venomous, but if you don't know the type of snake, treat the bite as venomous.
 
 ### Treatment
@@ -174,6 +191,9 @@ Do not do the following:
 - Do not try to catch or kill snakes unless you are sure they are not venomous.
 
 ## Bites / stings: bugs
+%% K: bug, bite, repel, spray, sting, insect, tick, leech, spider, scorpion, mosquito, ant, bee, wasp, hornet, fly, itch, swell, red %%
+%% S: Treat by removing the stinger/tick/leech, cleaning the area, and if needed seek medical attention. Prevent by using insect repellent and wearing long sleeves and pants. %%
+
 Many insects can bite or sting you, causing pain, swelling, and itching. Some insects can also transmit diseases.
 
 ### Symptoms
@@ -228,6 +248,8 @@ See the section on objects in the eye.
 You can make an improvised bug repellent by applying mud to your skin or using the smoke from a fire.
 
 ## Bleeding
+%% K: bleed, blood, wound, cut, scrape, deep, clot, pressure, tourniquet, bandage, red, swell, warm, pus %%
+%% S: Treat by applying pressure, cleaning the wound, bandaging, and if needed seek medical attention. Prevent infection by cleaning wounds and changing bandages frequently. %%
 
 ### Treatment
 Seek medical attention if the wound is deep, bleeding profusely, or shows signs of infection. Infected wounds can be identified by redness, swelling, warmth, and pus.
@@ -259,6 +281,8 @@ If direct pressure does not work on a limb, you can apply a tourniquet to stop b
   - Change bandages frequently.
 
 ## Blisters
+%% K: blister, rub, shoe, sock, moleskin, red, sore %%
+%% S: Treat small blisters by applying moleskin and large blisters by draining with a sterilized needle, cleaning, and bandaging. Prevent by keeping feet dry and wearing properly fitting shoes. %%
 
 ### Symptoms
 - Red, sore area.
@@ -284,6 +308,8 @@ If the blister is large or painful:
 - Apply adhesive tape or moleskin to prevent blisters.
 
 ## Burns
+%% K: burn, scald, blister, red, pain, aloe, vera, fire %%
+%% S: Treat minor burns by soaking with cool water and loosly bandage. Seek medical attention for severe burns. Prevent by using caution around fires and hot objects. %%
 
 ### Treatment
 
@@ -324,6 +350,9 @@ This is a burn that goes through all layers of skin. These burns can be life-thr
 - If your clothes catch on fire, stop, drop to the ground, and roll to extinguish the flames.
 
 ## Choking
+%% K: choke, throat, breath, heimlich, maneuver %%
+%% S: Perform the Heimlich maneuver. %%
+
 If you are choking and someone is nearby, place your hands on your throat to signal that you are choking.
 
 ### Treatment
@@ -342,6 +371,9 @@ Perform the Heimlich maneuver on someone else by doing the following:
 
 
 ## Cramps
+%% K: cramp, muscle, pain, spasm, weak, electrolyte %%
+%% S: Treat by stretching, massaging, applying heat or cold, and hydrating. Prevent by staying hydrated and replenishing electrolytes. %%
+
 Cramps are caused by muscle spasms and can be caused by dehydration, overexertion, or lack of electrolytes.
 
 ### Symptoms
@@ -366,6 +398,8 @@ Cramps are caused by muscle spasms and can be caused by dehydration, overexertio
 - Maintain a slow and steady pace.
 
 ## Dehydration
+%% K: dehydrate, water, thirst, dry, fatigue, dizziness, dark, urine, headache, confusion, electrolyte, drink %%
+%% S: Rehydrate by drinking water with electrolytes. Prevent by drinking water frequently, increasing intake during physical activity. %%
 
 ### Symptoms
 - Thirst.
@@ -385,6 +419,9 @@ Rehydrate by drinking water, an electrolyte solution, or tea.
 - Drink water frequently, increasing intake during physical activity.
 
 ## Embedded fishhooks
+%% K: fishhook, hook, remove %%
+%% S: Hooks can be removed by running a line through the bend and pulling quickly while pushing down on the hook. Prevent by handling hooks with care. %%
+
 Fishhooks are designed to penetrate flesh and are difficult to remove without causing further injury. Unless you need to remove the hook to prevent further injury, it is best to leave the hook in place and seek medical attention.
 
 ### Treatment
@@ -412,6 +449,9 @@ Do not attempt to remove a fishhook if it is embedded in the eye.
 - Use a barbless hook if possible (these don't work as well when fishing).
 
 ## Fractures
+%% K: fracture, break, broken, bone, pain, swelling, bruise, deform, weight, splint, sling, set %%
+%% S: Treat by splinting and seeking medical attention. Prevent by being cautious and wearing proper footwear. %%
+
 A fracture is a broken bone. A fracture can be closed (bone is broken but skin is intact) or open (bone is broken and protruding from the skin).
 
 ### Symptoms
@@ -454,6 +494,9 @@ If the bone is out of place and medical attention is unavailable for several hou
 - Be careful when handling heavy objects.
 
 ## Frostbite
+%% K: frostbite, frost, cold, freeze, frozen, numb, white, gray, yellow, waxy, pain, thaw, warm, heat, red, frostnip %%
+%% S: Treat by rewarming the area and seeking medical attention. Prevent by staying warm and dry. %%
+
 Frostbite is caused by exposure to cold temperatures, causing the skin and underlying tissues to freeze. This can lead to permanent damage if not treated.
 
 ### Symptoms
@@ -491,6 +534,9 @@ Only thaw the area if you can keep it thawed. Refreezing can cause more damage. 
 - Treat at the first sign of frostnip.
 
 ## Gastrointestinal issues
+%% K: gastrointestinal, stomach, gut, diarrhea, vomit, nausea, cramp, gas, food, water, poison, charcoal, tea, parasite, constipated %%
+%% S: Treat by rehydrating or using medicine. Prevent by boiling water, washing hands, cooking food, and storing food properly. %%
+
 Gastrointestinal issues can be caused by contaminated food or water.
 
 ### Symptoms
@@ -515,6 +561,9 @@ Gastrointestinal issues can be caused by contaminated food or water.
 - Store food properly.
 
 ## Headache
+%% K: headache, pain, electrolyte %%
+%% S: Treat by taking pain relievers, drinking water, and resting. Prevent by staying hydrated and replenishing electrolytes. %%
+
 Headaches can be caused by a variety of factors, such as dehydration, stress, lack of sleep, or illness.
 
 ### Treatment
@@ -529,6 +578,9 @@ Headaches can be caused by a variety of factors, such as dehydration, stress, la
 - Do not overexert yourself.
 
 ## Heart problems
+%% K: heart, chest, pain, arm, back, neck, jaw, stomach, attack, stroke, exhaustion, sweat, nausea, lightheaded, breath, heartbeat, cpr %%
+%% S: Seek medical attention for chest pain. Symptoms include chest pain, shortness of breath, pain in limbs, nausia, lightheadedness, and cold sweats. %%
+
 To be on the safe side, if you experience chest pain, seek medical attention as soon as possible.
 
 ### Symptoms
@@ -570,6 +622,9 @@ If you are fully trained in CPR, perform rescue breathing after 30 compressions,
 - Seek medical attention if you have any chest pain.
 
 ## Heat exhaustion and heatstroke
+%% K: heat, exhaustion, stroke, heatstroke, pale, hot, sweat, fatigue, heartbeat, dizziness, nausea, vomit, cramp, muscle, headache, chill, confusion, seizure, unconscious, electrolyte, shade, break, overexert %%
+%% S: Symptoms include pale skin, sweating, fatigue, rapid heartbeat, dizziness, nausea, muscle cramps, headache, and chills. Treat by moving to a cooling down and drinking water. Prevent by staying hydrated, wearing proper clothing, and taking breaks in the shade. %%
+
 Heat exhaustion and heatstroke are caused by exposure to high temperatures and dehydration.
 
 ### Symptoms
@@ -611,6 +666,8 @@ Heatstroke:
 - Do not overexert yourself.
 
 ## Hygiene
+%% K: hygiene, clean, wash, soap, sanitize, toothbrush, teeth, tooth, toothpaste, brush, feet, socks, dry, clothes, defecate, urinate, bathroom, trowel %%
+%% S: Wash hands frequently, especially before eating and after using the bathroom. %%
 
 ### Washing
 If you do not have soap, you can use white ashes, sand, or loamy soil as a substitute.
@@ -642,6 +699,9 @@ Keep clothing clean and dry. You can wash clothes with water and soap, or by boi
 - Do not defecate or urinate near water sources (at least 200 feet / 60 meters away).
 
 ## Hypothermia
+%% K: hypothermia, cold, freeze, frozen, shiver, coordination, memory, speech, slur, speak, drowsiness, breath, heartbeat, heat, warm, fire %%
+%% S: Symptoms include shivering, coldness, impaired coordination, memory loss, slurred speech, and drowsiness. Treat by getting dry and warming up. Prevent by wearing proper clothing, keeping dry, moving, and keeping warm. %%
+
 Hypothermia is caused by exposure to cold temperatures, causing the body to lose heat faster than it can produce it.
 
 ### Symptoms
@@ -669,6 +729,9 @@ Hypothermia is caused by exposure to cold temperatures, causing the body to lose
 - Keep warm.
 
 ## Objects in the eye
+%% K: eye, object, something, bug %%
+%% S: Treat by irrigating the eye with clean water and removing the object with a damp cloth or cotton swab. Prevent by wearing glasses or sunglasses. %%
+
 While in the wilderness it is common to get objects in your eye, such as dirt, sand, bugs, or an eyelash.
 
 ### Symptoms
@@ -690,6 +753,8 @@ While in the wilderness it is common to get objects in your eye, such as dirt, s
 - Don't lift objects with dirt on them above your head without eye protection.
 
 ## Panic attacks and calming techniques
+%% K: panic, attack, fear, heartbeat, sweat, tremble, breath, chest, pain, nausea, dizziness, numb, tingle, calm, meditate, technique %%
+%% S: Symptoms include rapid heartbeat, sweating, trembling, shortness of breath, chest pain, nausea, dizziness, fear, numbness, and tingling. Treat using a calming technique, such as meditation. %%
 
 ### Symptoms
 - Rapid heartbeat.
@@ -714,6 +779,9 @@ While in the wilderness it is common to get objects in your eye, such as dirt, s
    - Ensure yourself that you will be okay.
 
 ## Poison ivy and contact dermatitis
+%% K: poison, ivy, oak, sumac, trumpet, rengas, stinging, nettle, rash, itch, blister, burn, red, swell, dermatitis, contact %%
+%% S: Symptoms include a rash, itching, and blisters. Treat by washing the area with soap and water, applying calamine lotion, and taking antihistamines. Prevent by learning to identify and avoid poisonous plants. %%
+
 Contact dermatitis is caused by contact with poisonous plants, such as poison ivy, poison oak, poison sumac, and stinging nettle.
 
 Poison ivy:
@@ -755,6 +823,9 @@ If you come into contact with these plants, wash the area with soap and water as
 Do not burn these plants, as the smoke can cause irritation.
 
 ## Snow blindness
+%% K: snow, blind, eye, headache, light, sensitivity, red, scratchy, itch, uv %%
+%% S: Symptoms include red, scratchy, and watery eyes, sensitivity to light, and headache. Treat by covering eyes with a dark cloth. Prevent by wearing UV protective sunglasses or snow goggles. %%
+
 Snow blindness is caused when there is too much sunlight reflecting off snow, ice, or water into your eyes.
 
 ### Symptoms
@@ -769,6 +840,9 @@ Cover eyes with a dark cloth until symptoms disappear.
 Wear UV protective sunglasses or snow goggles. If you do not have these, you can make snow goggles from a piece of cloth or a piece of bark with slits cut in it. You can also put soot under your eyes to reduce glare.
 
 ## Sprains and strains
+%% K: sprain, strain, tendon, ligament, muscle, pain, swell, bruise, move, spasm, cramp, weakness, pop, tear %%
+%% S: Symptoms include pain, swelling, bruising, loss of motion, muscle spasms, cramping, and weakness. Treat by resting, icing, compressing, and elevating the area. Prevent by doing warm-ups, wearing proper footwear, and watching your step. %%
+
 Sprains are an injury to a tendon or ligament, while strains are an injury to a muscle or tendon.
 
 ### Symptoms
@@ -793,6 +867,8 @@ Sprains are an injury to a tendon or ligament, while strains are an injury to a 
 - Watch your step.
 
 ## Submerged in water
+%% K: water, drown, float, submerge, swim, current, rip, tide, snow, hypothermia, fall %%
+%% S: If caught in a rip current, swim parallel to the shore until you are out. If you fell through ice, kick with your legs to crawl back onto the ice, then treat for hypothermia. %%
 
 ### Falling through ice
 If you fall through ice, do the following:
@@ -808,6 +884,9 @@ If you fall through ice, do the following:
 If you are caught in a rip current, swim parallel to the shore until you are out of the current. Then swim back to shore.
 
 ## Sunburn
+%% K: sunburn, burn, sunscreen, uv, sun, red, pain, swell, blister, spf %%
+%% S: Symptoms include redness, pain, swelling, and blisters. Treat by getting out of the sun, applying a burn cream, and taking pain relievers. Prevent by wearing sunscreen, proper clothing, and staying in the shade. %%
+
 Sunburn is caused by prolonged exposure to ultraviolet (UV) radiation from the sun.
 
 ### Symptoms

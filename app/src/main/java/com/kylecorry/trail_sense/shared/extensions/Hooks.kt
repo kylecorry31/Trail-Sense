@@ -57,11 +57,11 @@ fun AndromedaFragment.useArguments(): Bundle {
     return requireArguments()
 }
 
-fun <T> AndromedaFragment.useArgument(key: String): T {
+fun <T> AndromedaFragment.useArgument(key: String): T? {
     val arguments = useArguments()
     return useMemo(arguments, key) {
         @Suppress("DEPRECATION", "UNCHECKED_CAST")
-        arguments.get(key) as T
+        arguments.get(key) as? T?
     }
 }
 

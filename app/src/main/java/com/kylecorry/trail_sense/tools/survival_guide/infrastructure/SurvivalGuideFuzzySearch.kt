@@ -2,8 +2,7 @@ package com.kylecorry.trail_sense.tools.survival_guide.infrastructure
 
 import android.content.Context
 import androidx.annotation.IdRes
-import com.kylecorry.andromeda.core.coroutines.onIO
-import com.kylecorry.trail_sense.R
+import com.kylecorry.luna.cache.LRUCache
 import com.kylecorry.trail_sense.shared.text.TextUtils
 import com.kylecorry.trail_sense.tools.survival_guide.domain.Chapter
 import com.kylecorry.trail_sense.tools.survival_guide.domain.Chapters
@@ -12,8 +11,8 @@ data class SurvivalGuideSearchResult(
     val chapter: Chapter,
     val score: Float,
     val headingIndex: Int,
-    val heading: String,
-    val snippet: String
+    val heading: String?,
+    val summary: String?
 )
 
 class SurvivalGuideFuzzySearch(private val context: Context) {
@@ -28,16 +27,25 @@ class SurvivalGuideFuzzySearch(private val context: Context) {
     )
 
     private val additionalStemWords = mapOf(
-        "knives" to "knife"
+        "knives" to "knife",
+        "burnt" to "burn",
     )
 
     // These are words which the user may type as two words or hyphenated words
     private val preservedWords: Set<String> = setOf(
-        "a-frame",
         "bowel movement",
         "bowel movements",
         "head ache",
-        "head aches"
+        "head aches",
+        "heart rate",
+        "heart beat"
+    )
+
+    private val additionalStopWords = setOf(
+        "woods",
+        "outdoors",
+        "outdoor",
+        "got"
     )
 
     // These are words which have nearly the same meaning when searched
@@ -71,6 +79,31 @@ class SurvivalGuideFuzzySearch(private val context: Context) {
             "urin", // Urine
             "pee"
         ),
+        // Painkillers
+        setOf(
+            "painkiller",
+            "aspirin",
+            "ibuprofen",
+            "acetaminophen",
+            "tylonol",
+            "advil"
+        ),
+        // Heartbeat
+        setOf(
+            // Preserved
+            "heart rate",
+            "heart beat",
+            // Stemmed (so misspellings are expected)
+            "heartbeat",
+            "puls", // Pulse
+            "heartrat" // Heartrate
+        ),
+        // Trowel
+        setOf(
+            "trowel",
+            "shovel",
+            "spade"
+        ),
         // Bathroom
         setOf(
             "bathroom",
@@ -88,7 +121,11 @@ class SurvivalGuideFuzzySearch(private val context: Context) {
             "broken",
             "broke"
         ),
-
+        // Snow
+        setOf(
+            "snow",
+            "ice"
+        ),
         // Actions
         // Building
         setOf(
@@ -110,9 +147,116 @@ class SurvivalGuideFuzzySearch(private val context: Context) {
             "forag", // Forage
             "get"
         ),
+        // Move
+        setOf(
+            "move",
+            "movement",
+            "walk",
+            "hike"
+        ),
+        // River
+        setOf(
+            "river",
+            "stream",
+            "creek",
+            "brook",
+            "waterwai" // Waterway
+        ),
+        // Location
+        setOf(
+            "locat", // Location
+            "place",
+            "spot",
+            "area",
+            "site",
+            "position",
+            "coordin" // Coordinate
+        ),
+        // Issue
+        setOf(
+            "issu", // Issue
+            "problem"
+        ),
+        // Phone
+        setOf(
+            "phone",
+            "smartphon", // Smartphone
+            "cell"
+        ),
+        // Technique
+        setOf(
+            "techniqu", // Technique
+            "method",
+            "approach",
+            "process",
+            "wai"
+        ),
+        // Flashlight
+        setOf(
+            "flashlight",
+            "headlamp",
+            "lamp",
+            "lantern",
+            "torch"
+        ),
+        // Cordage
+        setOf(
+            "cordag", // Cordage
+            "rope",
+            "cord",
+            "paracord",
+            "twine",
+            "string",
+            "shoelac" // Shoelace
+        ),
+        // Container
+        setOf(
+            "contain", // Container
+            "bottl", // Bottle
+            "pot",
+            "jar",
+            "bladder",
+            "cup"
+        ),
+        // Glue
+        setOf(
+            "glue",
+            "pitch",
+            "adhes" // Adhesive
+        ),
+        // Tape
+        setOf(
+            "tape",
+            "duct"
+        ),
+        // Towel
+        setOf(
+            "towel",
+            "washcloth",
+            "facecloth",
+            "rag"
+        ),
+        // Utensil
+        setOf(
+            "utensil",
+            "fork",
+            "spoon"
+        ),
+        // Animals
+        setOf(
+            "anim", // Animal
+            "game"
+        ),
+        // Birds
+        setOf(
+            "bird",
+            "fowl"
+        ),
     )
 
     private val chapters = Chapters.getChapters(context)
+
+    private val cache = LRUCache<Int, GuideDetails>(20)
 
     suspend fun search(
         query: String,
@@ -125,27 +269,18 @@ class SurvivalGuideFuzzySearch(private val context: Context) {
             chapters.flatMap {
                 searchChapter(query, it)
             }
+        }.sortedByDescending { it.score }
+
+        val maxScore = results.firstOrNull()?.score ?: 0f
+
+        // TODO: Rank results higher if the keyword matches the section header
+        return results.filter { it.score > 0f && it.score >= maxScore * 0.8 }
+    }
+
+    private suspend fun loadChapter(chapter: Chapter): GuideDetails {
+        return cache.getOrPut(chapter.resource) {
+            GuideLoader(context).load(chapter, false)
         }
-            .groupBy { it.chapter to it.headingIndex }
-            .mapNotNull { (_, results) ->
-                val bestResultSnippet = results
-                    .maxBy { it.score }.snippet
-                    .trim()
-                    .trimStart('#', '-')
-                    .trim()
-                SurvivalGuideSearchResult(
-                    results.first().chapter,
-                    results.maxOf { it.score },
-                    results.first().headingIndex,
-                    results.first().heading.trimStart('#').trim(),
-                    bestResultSnippet
-                )
-            }
-            .sortedByDescending { it.score }
-
-        val maxScore = results.maxOfOrNull { it.score } ?: 0f
-
-        return results.filter { it.score >= maxScore * 0.5 }
     }
 
     private suspend fun searchChapter(
@@ -153,46 +288,31 @@ class SurvivalGuideFuzzySearch(private val context: Context) {
         chapter: Chapter
     ): List<SurvivalGuideSearchResult> {
         // TODO: Other languages?
-        val content = onIO {
-            TextUtils.loadTextFromResources(context, chapter.resource)
-        }
 
-        val sections = TextUtils.groupSections(TextUtils.getSections(content), null).mapNotNull {
-            val heading = it.firstOrNull() ?: return@mapNotNull null
-            TextUtils.TextSection(
-                heading.title,
-                1,
-                heading.content + "\n" + it.drop(1).joinToString("\n") { it.content })
-        }
+        val sections = loadChapter(chapter).sections
 
         val matches = mutableListOf<SurvivalGuideSearchResult>()
 
-        val chapterMatch = TextUtils.getQueryMatchPercent(
-            query,
-            chapter.title,
-            preservedWords = preservedWords,
-            synonyms = synonyms,
-            additionalContractions = additionalContractions,
-            additionalStemWords = additionalStemWords
-        )
-
         for ((index, section) in sections.withIndex()) {
-            val fullContent = chapter.title + "\n" + (section.title ?: "") + "\n" + section.content
+            val sectionKeywords = section.keywords.joinToString(", ")
 
-            val titleMatch = TextUtils.getQueryMatchPercent(
-                query,
-                section.title ?: "",
-                preservedWords = preservedWords,
-                synonyms = synonyms,
-                additionalContractions = additionalContractions,
-                additionalStemWords = additionalStemWords
-            )
+            val additionalPreservedWords =
+                section.keywords.filter { it.contains(" ") || it.contains("-") }.toMutableSet()
+
+            // Any keywords with a dash should have a synonym with a space
+            val additionalSynonyms = section.keywords
+                .filter { it.contains("-") }
+                .map { setOf(it, it.replace("-", " ")) }
+
+            // Add the synonyms to the preserved words
+            additionalPreservedWords.addAll(additionalSynonyms.flatten())
 
             val sectionMatch = TextUtils.getQueryMatchPercent(
                 query,
-                fullContent,
-                preservedWords = preservedWords,
-                synonyms = synonyms,
+                sectionKeywords,
+                preservedWords = preservedWords + additionalPreservedWords,
+                additionalStopWords = additionalStopWords,
+                synonyms = synonyms + additionalSynonyms,
                 additionalContractions = additionalContractions,
                 additionalStemWords = additionalStemWords
             )
@@ -200,10 +320,10 @@ class SurvivalGuideFuzzySearch(private val context: Context) {
             matches.add(
                 SurvivalGuideSearchResult(
                     chapter,
-                    sectionMatch + titleMatch + chapterMatch,
+                    sectionMatch,
                     index,
-                    section.title ?: context.getString(R.string.overview),
-                    section.content
+                    section.title,
+                    section.summary
                 )
             )
 

@@ -21,6 +21,7 @@ import androidx.work.testing.WorkManagerTestInitHelper
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.permissions.SpecialPermission
 import com.kylecorry.andromeda.torch.TorchStateChangedTopic
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.main.NotificationChannels
@@ -161,6 +162,12 @@ object TestUtils {
 
         // Start up the flashlight subsystem
         FlashlightSubsystem.getInstance(context)
+    }
+
+    fun setLocationOverride(coordinate: Coordinate) {
+        val prefs = UserPreferences(context)
+        prefs.useAutoLocation = false
+        prefs.locationOverride = coordinate
     }
 
     fun startWithTool(

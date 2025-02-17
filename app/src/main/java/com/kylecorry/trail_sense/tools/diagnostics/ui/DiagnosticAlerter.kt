@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.diagnostics.ui
 
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
@@ -25,7 +26,7 @@ class DiagnosticAlerter(private val fragment: AndromedaFragment) {
         Alerts.dialog(
             context,
             item.result.name,
-            MarkdownService(context).toMarkdown(message),
+            AppServiceRegistry.get<MarkdownService>().toMarkdown(message),
             cancelText = if (item.result.action != null) context.getString(android.R.string.cancel) else null,
             okText = item.result.action?.name ?: context.getString(android.R.string.ok)
         ) { cancelled ->

@@ -1,6 +1,11 @@
+%% K: fire, flame, light, heat, warm %%
+%% S: In a survival situation, make a tepee fire if you have a fire starter and gather plenty of wood. Otherwise, focus on insulating your clothes and shelter. %%
+
 This chapter covers how to make a fire in a survival situation.
 
 ## Be prepared
+%% K: prepare, gear, knowledge, skill, starter, matches, lighter, steel, ferro, ferrocerium, tinder %%
+%% S: Bring a fire starter. Learn how to build and maintain a fire. %%
 
 ### Gear
 **Necessities**:
@@ -24,6 +29,8 @@ Once you have mastered these skills, you should learn how to do the following:
 - Construct a fire bundle and start a fire with it.
 
 ## Building a fire
+%% K: build, gather, prepare, tinder, kindling, fuel, location, fatwood, structure, tepee, lean-to, cross-ditch, pyramid %%
+%% S: Choose a flat, dry area protected from the wind. Gather tinder, kindling, and fuel. Use the tepee structure to get a fire going quickly. %%
 
 ### Preparing a fire site
 - Choose a flat, dry area protected from the wind, close to your shelter and a fuel supply.
@@ -70,6 +77,8 @@ A fire reflector is a wall built behind the fire to reflect heat towards you and
 ![](file:///android_asset/survival_guide/59.webp)
 
 ## Starting a fire
+%% K: start, light, ignite, matches, lighters, steel, ferro, ferrocerium, magnesium, flint, bow-drill, hand-drill, drill, magnifying, lens %%
+%% S: If you have a fire starter, use it. You can improvise if required, but it will be more difficult and requires practice. %%
 
 - **Matches/lighters**: Always have waterproof matches or a reliable lighter in your kit.
 - **Fire steel**: Durable and works in all weather conditions, producing sparks to ignite your tinder. Scrape it quickly with the back of a knife or scraper to create sparks. For best results, pin the fire steel against the tinder and ground and scrape the steel towards the tinder.
@@ -93,6 +102,8 @@ To operate, place the fireboard on the fire pan, hold the drill upright in the d
 ![](file:///android_asset/survival_guide/64.webp)
 
 ## Maintaining and extinguishing a fire
+%% K: maintain, extinguish, safety, transport, move, bundle, tinder-fungus, chaga %%
+%% S: Keep adding fuel to maintain your fire. Thoroughly extinguish your fire with water or dirt. %%
 
 **Maintaining**: Keep adding fuel to maintain your fire. Adjust the structure as needed to control the burn rate and heat distribution.
 

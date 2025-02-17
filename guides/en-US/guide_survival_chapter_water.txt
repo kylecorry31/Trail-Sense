@@ -1,6 +1,12 @@
+%% K: water, thirst, thirsty, drink %%
+%% S: In a survival situation, keep drinking the water you have to avoid dehydration. Look for water sources near your location, but be sure to purify it before drinking. %%
+
 This chapter covers how to find and purify water.
 
 ## Be prepared
+%% K: prepare, gear, knowledge, skill, container, filter, sheet, tarp, tablet %%
+%% S: Bring extra water, a water container, and purification method. Learn how to locate water sources and purify water. %%
+
 ### Gear
 
 **Necessities**:
@@ -27,6 +33,8 @@ Once you have mastered these skills, you should learn how to do the following:
 - Desalinate water.
 
 ## Hydration essentials
+%% K: hydration, essential, daily, dehydration %%
+%% S: Stay hydrated by drinking at least 2 to 3 quarts/liters of water per day. Recognize the signs of dehydration. %%
 
 When hiking, conserving energy while maintaining hydration is vital. Here are some general rules:
 
@@ -57,6 +65,8 @@ Dehydration occurs when the body loses more fluids than it takes in. Symptoms in
 - Confusion.
 
 ## Finding water
+%% K: find, source, collect, plant, solar-still, solar, dew, rain, river, groundwater, sea, ice, bamboo, coconut, dig, hole, snow, rainwater, desert, beach, ocean, salt, transpiration %%
+%% S: Find water from streams, snow, rain, dew, or groundwater. Purify all water before drinking. %%
 
 ### Common water sources
 
@@ -115,6 +125,8 @@ A transpiration bag is a plastic bag tied around a leafy branch to collect water
 3. Collect the water that has condensed inside the bag.
 
 ## Making water safe to drink
+%% K: make, safe, purify, boil, purification, chemical, filter, filtration, treat, bacteria, virus, parasite, stagnant, technique %%
+%% S: Always purify water before drinking. Boil water for 1 - 3 minutes, use purification tablets, or filter it. %%
 
 Always ensure the water you collect is safe to drink. Boiling is the most reliable method, but chemical purification tablets and filters are also effective. If you cannot purify the water immediately, prioritize finding and storing water until you can treat it.
 

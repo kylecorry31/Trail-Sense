@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.camera.Camera
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.IPermissionRequester
 import com.kylecorry.andromeda.markdown.MarkdownService
@@ -55,7 +56,7 @@ fun Fragment.requestIgnoreBatteryOptimizations(
                 R.string.allow_ignore_battery_restrictions,
                 getString(R.string.app_name)
             ),
-            MarkdownService(requireContext()).toMarkdown(
+            AppServiceRegistry.get<MarkdownService>().toMarkdown(
                 getString(
                     R.string.allow_ignore_battery_restrictions_instructions,
                     getString(R.string.settings)
@@ -94,7 +95,7 @@ fun <T> T.requestScheduleExactAlarms(action: (hasPermission: Boolean) -> Unit) w
         SpecialPermission.SCHEDULE_EXACT_ALARMS,
         PermissionRationale(
             getString(R.string.allow_schedule_exact_alarms, getString(R.string.app_name)),
-            MarkdownService(requireContext()).toMarkdown(
+            AppServiceRegistry.get<MarkdownService>().toMarkdown(
                 getString(
                     R.string.allow_schedule_exact_alarms_instructions,
                     getString(R.string.app_name),

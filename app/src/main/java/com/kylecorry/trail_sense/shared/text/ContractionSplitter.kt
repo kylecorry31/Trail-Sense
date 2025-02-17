@@ -13,6 +13,7 @@ class ContractionSplitter(private val additionalContractions: Map<String, List<S
             "'ll" to "will",
             "'re" to "are",
             "'d" to "would",
+            "'m" to "am",
         )
 
         // Contractions that aren't just the base word + a suffix

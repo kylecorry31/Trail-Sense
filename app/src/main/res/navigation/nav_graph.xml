@@ -387,6 +387,11 @@
             android:name="chapter_resource_id"
             app:argType="integer" />
 
+        <argument
+            android:name="header_index"
+            android:defaultValue="0"
+            app:argType="integer" />
+
     </fragment>
     <fragment
         android:id="@+id/fragmentToolNotes"

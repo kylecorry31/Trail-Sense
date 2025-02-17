@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.alerts
 import android.content.Context
 import android.os.Build
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Android
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
@@ -41,7 +42,7 @@ class MissingSensorAlert(private val context: Context) : IValueAlerter<String> {
 
             val markdown = "$part1\n\n## $part2Title\n\n$part2\n\n## $part3Title\n\n$part3"
 
-            return MarkdownService(context).toMarkdown(markdown)
+            return AppServiceRegistry.get<MarkdownService>().toMarkdown(markdown)
         }
     }
 

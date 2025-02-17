@@ -14,8 +14,6 @@ class SimpleWordTokenizer(private val preservedWords: Set<String> = emptySet()) 
             wordRegex
         }
 
-        println(fullWordRegex)
-
         return fullWordRegex.findAll(text).map { it.value }.toList()
     }
 

@@ -1,6 +1,11 @@
+%% K: crafting, tool %%
+%% S: In a survival situation, you can craft some basic gear from natural materials. %%
+
 This chapter covers how to craft essential items in a survival situation.
 
 ## Be prepared
+%% K: prepare, gear, knowledge, skill, knife, multitool, multi-tool, cordage, axe, saw, container %%
+%% S: Bring a knife and some cordage. Learn how to tie basic knots. %%
 
 ### Gear
 
@@ -25,6 +30,8 @@ Once you have mastered these skills, you should learn how to do the following:
 - Construct various crafted items (as covered in this chapter).
 
 ## Woodworking
+%% K: wood, cut, baton, chop, woodworking, saw, axe, split, carve %%
+%% S: Use fallen wood if possible. %%
 
 ### Cutting wood
 In the majority of cases, use fallen wood. If you need to trim the wood to a specific size, break it by hand or foot. To break a larger piece of wood, you can insert it between two live trees at the point you want to break it and push it to the side until it snaps.
@@ -38,9 +45,14 @@ Stop cuts are used to prevent wood from splitting when you are cutting it. To ma
 Batoning is the process of using a knife to split wood. To baton wood, place the knife on the wood where you want to split it and hit the back of the knife with a piece of wood. Be sure to use a knife with a full tang and a fixed blade.
 
 ## Sharpening
+%% K: sharpen, tool, knife, axe, blade, repair %%
+%% S: Use a smooth rock to sharpen your tools. %%
+
 If you find a smooth rock, you can use it to sharpen your knife or axe. Preferably the rock will be small enough to hold in your hand. To sharpen your tool, rub the rock in a circular motion along the edge of the blade. Be sure to match the angle of the blade when sharpening.
 
 ## Knives
+%% K: knife, flint, chert, obsidian, cut, blade %%
+%% S: You can craft a knife from bone or certain types of rock. %%
 
 ### Bone knife
 
@@ -63,6 +75,8 @@ If you find a smooth rock, you can use it to sharpen your knife or axe. Preferab
 Break off a shard of the flint/chert/obsidian by hitting the edge with another rock using a glancing blow. This shard will likely have a sharp edge, if it does not, break off another shard and try again.
 
 ## Compasses
+%% K: compass, needle, magnet, north, south, east, west, direction %%
+%% S: You can make a compass using a needle, knife, and a leaf. %%
 
 **Resources**
 - Needle
@@ -75,6 +89,9 @@ Break off a shard of the flint/chert/obsidian by hitting the edge with another r
 2. Place the needle on the leaf/cap and float it in water. The needle will slowly align to the north-south axis. Ensure there are no currents or wind that could affect the needle.
 
 ## Fishhooks
+%% K: fishhook, gorge %%
+%% S: You can make fishhooks from bone, wood, or metal wire. %%
+
 - **Wooden hooks**: Cut a piece of hardwood, put a notch in one end and secure a sharp object into the notch using cordage.
 - **Gorge hooks**: Carve a piece of wood or bone into the shape shown in the picture below. Tie a line to the middle of the hook and place into bait. When the fish swallows the bait, the hook will lodge in its throat - you do not need to pull the line to set the hook.
 - **Other hooks**: You can use metal wire or thorns as hooks. See the picture below.
@@ -82,6 +99,8 @@ Break off a shard of the flint/chert/obsidian by hitting the edge with another r
 ![](file:///android_asset/survival_guide/47.webp)
 
 ## Tongs
+%% K: tongs %%
+%% S: You can make tongs from green wood. %%
 
 **Resources**
 - Green wood
@@ -93,6 +112,9 @@ Break off a shard of the flint/chert/obsidian by hitting the edge with another r
 4. Bend the wood in half to create tongs.
 
 ## Bowls
+%% K: bowl, cook, store, container %%
+%% S: You can make a bowl from a small log by burning a bowl shape into it using hot coals. %%
+
 Bowls can be used for cooking, eating, and storing food.
 
 **Resources**
@@ -107,6 +129,9 @@ Bowls can be used for cooking, eating, and storing food.
 5. Repeat the process until you have a bowl.
 
 ## Charcoal
+%% K: charcoal, filter, coal %%
+%% S: You can make charcoal by not allowing wood to fully burn. %%
+
 Charcoal is made by burning wood in a low-oxygen environment. It can be used for filtering water, making pitch, medicine, and as fuel for fires. You can grind charcoal into powder by placing it in a container and crushing it with a stick or rock.
 
 ### Container method
@@ -133,6 +158,9 @@ Charcoal is made by burning wood in a low-oxygen environment. It can be used for
 3. Wait for the coals to cool, there should be some charcoal among the ashes.
 
 ## Pitch (glue)
+%% K: pitch, glue, resin, pine, repair %%
+%% S: You can make pitch from tree resin, charcoal, and organic material. %%
+
 Pitch is a natural glue made from tree resin. It can be used to repair tools, make waterproof containers, and as a fire starter.
 
 **Resources**
@@ -157,6 +185,8 @@ Pitch is a natural glue made from tree resin. It can be used to repair tools, ma
 3. Let the pitch cool and harden.
 
 ## Cordage
+%% K: cordage, rope, twine, fiber, twist, cord, strand, paracord %%
+%% S: You can make cordage from grasses and sedges. %%
 
 ### Twine
 Twine is made by twisting fibers together. It is weaker than rope but can be used for sewing, fishing line, or light-duty cordage.
@@ -194,6 +224,8 @@ Rope is made by braiding multiple strands of twine together. It is stronger than
 ![](file:///android_asset/survival_guide/140.webp)
 
 ## Knots
+%% K: knot, tie, cordage, cord, rope, paracord, overhand, square, bowline, figure-eight, 8, sheet-bend, bight, hitch, lash, sheepshank, prussic, whip %%
+%% S: The following knots are easy to learn and can be used in most situations: overhand, square, two half-hitches, bowline, and shear lashing. %%
 
 ### Overhand knot
 Used to prevent the end of a rope from untwisting.

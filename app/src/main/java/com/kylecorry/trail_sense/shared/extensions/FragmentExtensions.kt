@@ -5,6 +5,7 @@ import androidx.activity.addCallback
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
 
@@ -40,6 +41,6 @@ fun Fragment.promptIfUnsavedChanges(
 }
 
 fun Fragment.getMarkdown(@StringRes resId: Int, vararg formatArgs: Any?): CharSequence {
-    val service = MarkdownService(requireContext())
+    val service = AppServiceRegistry.get<MarkdownService>()
     return service.toMarkdown(getString(resId, *formatArgs))
 }

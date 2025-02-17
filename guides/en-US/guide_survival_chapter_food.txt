@@ -1,6 +1,11 @@
+%% K: food, eat, meal, hunger, hungry, forage %%
+%% S: In a survival situation, ration out the food you have and only forage (plants, insects, shellfish) as a last resort. %%
+
 This chapter covers how to find and prepare food in a survival situation.
 
 ## Be prepared
+%% K: prepare, gear, knowledge, skill, nuts, seeds, dried, fruit, jerky, energy, bar, mre, can, knife, multitool, multi-tool, bag, canister, utensil, stove, fuel %%
+%% S: Bring extra food. Learn how to find food and cook in the wilderness. %%
 
 ### Gear
 
@@ -34,6 +39,8 @@ Once you have mastered these skills, you should learn how to do the following:
 - Make traps and snares.
 
 ## Food essentials
+%% K: nutrition, caloric, calorie, carbohydrate, protein, fat, vitamin, mineral, storage, starvation, ration %%
+%% S: You need around 2,000 calories per day, but you can ration your food to make it last longer. You should properly store your food to avoid spoilage. %%
 
 ### Caloric and nutritional needs
 The average person needs around 2,000 calories per day. You should aim to balance carbohydrates, proteins, fats, vitamins, and minerals in your diet.
@@ -62,6 +69,9 @@ Starvation occurs when the body does not receive enough nutrients to function pr
 - Longer healing time for wounds and illnesses.
 
 ## Plants and mushrooms
+%% K: plant, mushroom, forage, edible, inedible, poison, toxic, identify, leach, test %%
+%% S: Only eat plants you can confidently identity as safe and don't eat any mushrooms. Aggregate berries, like raspberries and blackberries, are generally safe. %%
+
 The safest method for consuming wild plants is through positive identification. Before your trip, it's wise to study local plants through guidebooks or plant identification cards.
 
 ### Foraging
@@ -114,6 +124,8 @@ Wash plants, then cut them into usable pieces. Some plants can be eaten raw, whi
 Some plants contain toxins that can be removed by leaching. A common example is acorns, which can be shelled and boiled in several changes of water to remove tannins.
 
 ## Insects
+%% K: insect, bug, grub, worm, ant, termite, locust, grasshopper, cricket, dragonfly, bait %%
+%% S: Most insects can be eaten when cooked or used as fishing bait. %%
 
 Insects are a good source of protein but need to be gathered in large numbers to provide a substantial meal. If you don't want to eat insects, you can use them as bait for fishing or trapping.
 
@@ -152,6 +164,8 @@ Cook all insects using any of the cooking techniques in this chapter.
 Worms can be placed in water for 15 minutes to purge their digestive tracts. After purging, they should be cooked before eating.
 
 ## Shellfish and crustaceans
+%% K: shellfish, crustacean, clam, mussel, snail, limpet, crayfish, lobster, crab, shrimp, shell, bait, basket, trap, seafood %%
+%% S: Many shellfish and crustaceans are found along the shoreline and most can be eaten when cooked. %%
 
 Shellfish and crustaceans are a good source of protein and can be found in both freshwater and saltwater. They are relatively easy to catch, so they make a good survival food source.
 
@@ -175,9 +189,11 @@ For details on how to construct this trap, see the Fish section of this chapter.
 
 ### Preparation
 
-Fully cook clams, mussels, snails, and crawfish to kill parasites. Shellfish can be cooked in their shells.
+Fully cook to kill parasites. Shellfish can be cooked in their shells.
 
 ## Fish
+%% K: fish, hook, line, pole, bait, stakeout, gill, net, basket, trap, funnel, kill, seafood, meat %%
+%% S: Most fish are edible once cooked, but will require some fishing gear. %%
 
 If you are in a longer-term survival situation or have access to fishing gear, fish can be a good source of protein and nutrients.
 
@@ -247,6 +263,8 @@ Alternatively, use a funnel fish trap by placing sticks into a V-shape with a re
 5. Cook the fish.
 
 ## Other animals
+%% K: animal, hunt, bow, trap, snare, deadfall, bird, reptile, amphibian, frog, snake, mammal, skin, kill, meat %%
+%% S: Hunting or trapping can be energy consuming and difficult without proper tools. %%
 
 In a survival situation, it's best to focus on easier-to-catch animals like insects, shellfish, crustaceans, and fish. But if you have the means to catch other animals, they can provide a good source of protein and nutrients.
 
@@ -364,6 +382,8 @@ To prepare a small mammal for cooking:
 This guide does not cover the preparation of large mammals, as they are difficult to catch and require a lot of energy to process.
 
 ## Cooking
+%% K: cook, boil, roast, bake, utensil, container, stove %%
+%% S: You should boil, roast, or bake most foods to avoid getting sick. This will require you to start fire or have a portable stove. %%
 
 ### Stoves
 Portable stoves are a convenient way to cook food. They can be fueled by wood, alcohol, or gas. Follow the manufacturer's instructions for use.
@@ -386,6 +406,8 @@ You can wrap food in leaves or clay and place it in the coals of a fire to bake 
 If you are packing utensils, a spork is a good option. Otherwise, you can use a stick or your hands to handle food. Be sure to wash your hands before eating.
 
 ## Preservation
+%% K: preserve, dry, smoke, freeze, refrigerate, store %%
+%% S: In a long-term survival situation, you should preserve excess food to avoid spoilage. %%
 
 In most survival scenarios, it's best to consume food as soon as possible to avoid spoilage. In a longer-term scenario, you can use the following methods to preserve food:
 
@@ -396,6 +418,8 @@ In most survival scenarios, it's best to consume food as soon as possible to avo
 - **Live storage**: Store fish in a trap or a pen made of rocks and sticks in a stream. Insects can be stored in a container with holes in the lid.
 
 ## Protection
+%% K: protect, bear, bag, canister, box %%
+%% S: Use bear bags or canisters to prevent animals from stealing your food. %%
 
 You may need to protect your food from animals. Here are some methods to keep your food safe:
 

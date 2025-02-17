@@ -1,6 +1,11 @@
+%% K: shelter, clothing, insulate, warm, heat, sleep %%
+%% S: In a survival situation, focus on insulating your clothes and construct a small shelter using debris to stay warm. %%
+
 This chapter covers how to dress appropriately for the environment and build shelters to protect yourself from the elements.
 
 ## Be prepared
+%% K: prepare, gear, knowledge, skill, emergency-space-blanket, space-blanket, blanket, poncho, socks, boots, shoes, sunglasses, cordage, sewing, needle, thread, jacket, pants, hat, gloves, hand-warmer, bag, pad, tent, tarp, hat, bandana, pillow, gloves, net, gaiters, hammock, tape %%
+%% S: Bring an emergency space blanket, cordage, and proper clothing. Be sure to plan for night time temperatures and bad weather. Learn how to dress in layers and increase insulation. %%
 
 ### Gear
 
@@ -50,6 +55,8 @@ Once you have mastered these skills, you should learn how to do the following:
 - Repair clothing.
 
 ## Clothing
+%% K: wool, polyester, nylon, down, cotton, layer, material, garment, socks, pants, shirt, jacket, fleece, vest, underwear, undergarments, windbreaker, rain, hat, sunglasses, glasses, scarf, bandana, footwear, shoes, boots %%
+%% S: Dress in layers and choose clothing made from wool, polyester, or nylon. Only wear shoes that you have worn in. %%
 
 Your first line of defense in any environment is your clothing. Proper attire should keep you dry, regulate your body temperature, protect you from the sun, and prevent insect bites.
 
@@ -96,6 +103,8 @@ If you plan to be hiking in wet conditions, consider wearing waterproof boots.
 Bring extra pairs of socks, preferably made from wool, and ensure they are taller than your boots to avoid blisters.
 
 ## Shelters
+%% K: location, lean-to, a-frame, cave, emergency-space-blanket, space-blanket, blanket, tent, hammock, ground, wall, sleep, bag, pad, airflow %%
+%% S: Construct a shelter using natural materials or a tarp. Insulate the shelter with leaves, straw, or clothing. %%
 
 ### Choosing a shelter location
 
@@ -114,7 +123,7 @@ You can construct various shelters using materials like tarps, ponchos, or natur
 
 **Lean-to**
 
-A simple shelter made by leaning a large sheet of material against a support like a tree or a ridgepole. It provides protection from wind and rain. 
+A simple shelter made by leaning a large sheet of material against a support like a tree or a ridgepole. It provides protection from wind and rain.
 
 1. Lash a ridgepole to two trees or supports. This can be a cord if you are using a tarp or poncho.
 2. Lay a tarp or poncho over the ridgepole, allowing one side to touch the ground. If using natural materials, lay branches and leaves over the ridgepole.
@@ -167,6 +176,8 @@ To insulate yourself from the ground, use materials like leaves, straw, or cloth
 - Ensure adequate airflow to manage condensation and smoke.
 
 ## Repair
+%% K: repair, sewing, stitch, back-stitch, running-stitch, whip-stitch, duct-tape, tape, pin, safety-pin, glue, cordage, pitch %%
+%% S: Use a sewing kit, duct tape, safety pins, glue, or cordage to repair tears or holes in clothing or gear. %%
 
 ### Sewing
 

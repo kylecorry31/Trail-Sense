@@ -2,14 +2,13 @@ package com.kylecorry.trail_sense.tools.survival_guide.ui
 
 import android.widget.TextView
 import androidx.core.os.bundleOf
-import androidx.core.text.buildSpannedString
-import androidx.core.text.scale
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.views.list.AndromedaListView
 import com.kylecorry.andromeda.views.list.ListItem
+import com.kylecorry.andromeda.views.list.ListItemTag
 import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
@@ -83,25 +82,28 @@ class FragmentToolSurvivalGuideList :
                     }
                 }
             } else {
+                val textColor = Resources.androidTextColorSecondary(requireContext())
                 searchResults.map {
                     ListItem(
                         it.chapter.resource.toLong(),
-                        it.chapter.title + " > " + it.heading,
-                        if (it.snippet.isBlank()) {
-                            null
-                        } else {
-                            buildSpannedString { scale(0.8f) { append(markdown.toMarkdown(it.snippet)) } }
-                        },
-                        icon = ResourceListIcon(
-                            it.chapter.icon,
-                            Resources.androidTextColorSecondary(requireContext())
-                        ),
-                        subtitleMaxLines = 4
+                        it.heading ?: getString(R.string.overview),
+                        it.summary,
+                        icon = ResourceListIcon(it.chapter.icon, textColor),
+                        tags = listOf(
+                            ListItemTag(
+                                it.chapter.title,
+                                ResourceListIcon(it.chapter.icon, size = 12f),
+                                textColor
+                            )
+                        )
                     ) {
                         // TODO: Scroll to the heading
                         navController.navigateWithAnimation(
                             R.id.fragmentToolSurvivalGuideReader,
-                            bundleOf("chapter_resource_id" to it.chapter.resource)
+                            bundleOf(
+                                "chapter_resource_id" to it.chapter.resource,
+                                "header_index" to it.headingIndex
+                            )
                         )
                     }
                 }

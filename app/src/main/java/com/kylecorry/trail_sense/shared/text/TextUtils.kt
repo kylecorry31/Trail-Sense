@@ -2,8 +2,6 @@ package com.kylecorry.trail_sense.shared.text
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.text.Layout
-import android.text.style.AlignmentSpan
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +10,10 @@ import android.widget.TextView
 import androidx.annotation.RawRes
 import androidx.core.text.method.LinkMovementMethodCompat
 import androidx.core.view.setPadding
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.ExpansionLayout
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
-import com.kylecorry.andromeda.markdown.MarkdownExtension
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -99,9 +97,7 @@ object TextUtils {
         text: String,
         shouldUppercaseSubheadings: Boolean = false
     ): View {
-        val markdown = MarkdownService(context, extensions = listOf(
-            MarkdownExtension(1, '+') { AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER) }
-        ))
+        val markdown = AppServiceRegistry.get<MarkdownService>()
         val sections = groupSections(getSections(text), null)
         val children = sections.mapNotNull { section ->
             val first = section.firstOrNull() ?: return@mapNotNull null
@@ -111,7 +107,7 @@ object TextUtils {
                     context, first.title
                 ) {
                     markdown.setMarkdown(it,
-                        first.content + "\n" + section.drop(1)
+                        removeMarkdownComments(first.content) + "\n" + section.drop(1)
                             .joinToString("\n") { it.toMarkdown(shouldUppercaseSubheadings) })
                 }
                 expandable
@@ -126,6 +122,19 @@ object TextUtils {
         }
 
         return Views.linear(children, padding = Resources.dp(context, 16f).toInt())
+    }
+
+    fun getMarkdownKeywords(text: String): Set<String> {
+        val regex = Regex("%% K: (.*?)%%")
+        return regex.findAll(text)
+            .flatMap { it.groupValues[1].split(",") }
+            .map { it.trim() }
+            .toSet()
+    }
+
+    fun getMarkdownSummary(text: String): String? {
+        val regex = Regex("%% S: (.*?)%%")
+        return regex.find(text)?.groupValues?.get(1)
     }
 
     fun getKeywords(
@@ -258,13 +267,21 @@ object TextUtils {
         return expandable
     }
 
+    fun removeMarkdownComments(text: String): String {
+        val commentRegex = Regex("%%.*?%%")
+        return text.replace(commentRegex, "").trim()
+    }
+
+
     data class TextSection(val title: String?, val level: Int?, val content: String) {
         fun toMarkdown(shouldUppercaseTitle: Boolean = false): String {
+            val contentWithoutComments = removeMarkdownComments(content)
+
             if (title == null || level == null) {
-                return content
+                return contentWithoutComments
             }
 
-            return "#".repeat(level) + " ${if (shouldUppercaseTitle) title.uppercase() else title}\n$content"
+            return "#".repeat(level) + " ${if (shouldUppercaseTitle) title.uppercase() else title}\n$contentWithoutComments"
         }
     }
 }
