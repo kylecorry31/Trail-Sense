@@ -7,7 +7,6 @@ import android.hardware.camera2.CameraManager
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import androidx.annotation.StringRes
 import androidx.core.content.getSystemService
 import androidx.test.core.app.ActivityScenario
@@ -16,7 +15,6 @@ import androidx.test.rule.GrantPermissionRule
 import androidx.test.uiautomator.Configurator
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
-import androidx.work.Configuration
 import androidx.work.testing.WorkManagerTestInitHelper
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.permissions.SpecialPermission
@@ -24,10 +22,7 @@ import com.kylecorry.andromeda.torch.TorchStateChangedTopic
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
-import com.kylecorry.trail_sense.main.NotificationChannels
-import com.kylecorry.trail_sense.main.automations.Automations
-import com.kylecorry.trail_sense.main.persistence.RepoCleanupWorker
-import com.kylecorry.trail_sense.settings.migrations.PreferenceMigrator
+import com.kylecorry.trail_sense.main.TrailSenseApplicationInitializer
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -38,12 +33,9 @@ import com.kylecorry.trail_sense.test_utils.views.input
 import com.kylecorry.trail_sense.test_utils.views.longClick
 import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.test_utils.views.viewWithText
-import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import org.junit.Assert.assertTrue
 import org.junit.rules.TestRule
-import java.time.Duration
 
 object TestUtils {
 
@@ -144,24 +136,12 @@ object TestUtils {
      * Setup the application to match the actual application (Trail Sense application)
      */
     fun setupApplication(setDefaultPrefs: Boolean = true) {
-        val config = Configuration.Builder()
-            .setMinimumLoggingLevel(Log.DEBUG)
-            .build()
-        WorkManagerTestInitHelper.initializeTestWorkManager(context, config)
+        WorkManagerTestInitHelper.initializeTestWorkManager(context)
+        TrailSenseApplicationInitializer.initialize(context)
 
         if (setDefaultPrefs) {
             setupDefaultPreferences()
         }
-        Automations.setup(context)
-        NotificationChannels.createChannels(context)
-        PreferenceMigrator.getInstance().migrate(context)
-        RepoCleanupWorker.scheduler(context).interval(Duration.ofHours(6))
-
-        // Start up the weather subsystem
-        WeatherSubsystem.getInstance(context)
-
-        // Start up the flashlight subsystem
-        FlashlightSubsystem.getInstance(context)
     }
 
     fun setLocationOverride(coordinate: Coordinate) {

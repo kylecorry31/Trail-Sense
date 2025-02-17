@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
@@ -74,6 +75,12 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS) {
 
         waitFor {
             notification(BacktrackAlerter.NOTIFICATION_ID).hasTitle(R.string.backtrack)
+        }
+
+        // Wait for the battery restriction warning to go away
+        optional {
+            hasText(string(R.string.battery_settings_limit_accuracy))
+            not { hasText(string(R.string.battery_settings_limit_accuracy), waitForTime = 0) }
         }
 
         hasText(R.id.play_bar_title, "On - 15m")
