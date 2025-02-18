@@ -1270,8 +1270,8 @@
     <string name="asia">Azië</string>
     <string name="australia">Australië</string>
     <string name="europe">Europa</string>
-    <string name="north_america">Noord Amerika</string>
-    <string name="south_america">Zuid Amerika</string>
+    <string name="north_america">Noord-Amerika</string>
+    <string name="south_america">Zuid-Amerika</string>
     <string name="plant">Plant</string>
     <string name="animal">Dier</string>
     <string name="fungus">Paddenstoel</string>
@@ -1313,4 +1313,6 @@
     <string name="activity_pattern">Activiteitenpatroon</string>
     <string name="human_interaction">Menselijke interactie</string>
     <string name="no_pages">Geen pagina\'s</string>
+    <string name="field_guide_disclaimer">Dit hulpmiddel is alleen bedoeld voor educatieve doeleinden. Wees altijd voorzichtig bij het identificeren van planten, dieren of paddenstoelen. Sommige soorten kunnen gevaarlijk of beschermd zijn. Als je niet zeker bent over een identificatie, raadpleeg dan een deskundige.</string>
+    <string name="no_results">Geen resultaten</string>
 </resources>
