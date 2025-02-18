@@ -158,10 +158,4 @@ At night, a flashlight can be used to signal for help. Use the international dis
 Ground-to-air signals are large markers you create on the ground to communicate with aircraft. Use rocks, logs, or other materials to create a large "V" (means you require assistance) or an "X" (means you require medical assistance). Use contrasting or artificial colors to make the signal more visible.
 
 ## Disclaimer
-This guide is for educational purposes only. The author makes no guarantees about the accuracy, safety, or reliability of the information provided. Wilderness survival, foraging, and first aid involve inherent risks, and readers assume full responsibility for their actions.
-
-This guide is not a substitute for professional medical advice. Always consult qualified professionals before attempting survival techniques, consuming wild plants, or administering first aid.
-
-Laws regarding foraging, hunting, and survival vary by location. It is the reader’s responsibility to research and comply with all applicable laws. The author disclaims any liability for injuries, losses, or legal consequences resulting from the use of this book.
-
-By reading, you agree to use this information at your own risk.
+This guide is provided for informational purposes only, and neither the author, publisher, or any contributors guarantee its accuracy or suitability for any purpose. By using this guide, you acknowledge that outdoor activities involve risks, and you do so at your own risk, agreeing to hold harmless and indemnify the author, publisher, and any contributors from any claims or damages arising from your use of this guide. Always consult professionals for advice specific to your situation, as this guide does not substitute for professional guidance. Furthermore, be aware that local laws and regulations may affect the legal use of the techniques described herein, and compliance is your responsibility.
