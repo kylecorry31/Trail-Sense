@@ -1113,7 +1113,6 @@
     <string name="auto_backup_instructions">Varmuuskopio luodaan kerran päivässä kohteeseen %1$s. Vain viimeiset %2$d varmuuskopiota säilytetään.</string>
     <string name="tide_clock">Vuorovesikello</string>
     <string name="tide_chart">Vuorovesikaavio</string>
-    <string name="survival_guide_disclaimer">Kuten kaikkien Trail Sensen työkalujen kanssa, tämä ohjekirja on tarkoitettu antamaan yleistä tietoa eikä sitä ole tarkoitettu korvaamaan ammattiopetusta tai kokemusta. Opas on olemassa vain sivistykselliseen tarkoitukseen. Tekstin kirjoittaja ei ole vastuussa mistään onnettomuuksista, loukkaantumisista tai muusta vahingosta mitkä saattavat seurata oppaan sisällön noudattamisesta. Käytä aina maalaisjärkeä ja varovaisuutta kun liikut luonnossa.</string>
     <string name="quick_actions">Pikatoiminnot</string>
     <string name="widget_pref_title">Sovelluksen sisäiset pienoisohjelmat</string>
     <string name="bottom_navigation_slot">Alarivin työkaluvalinta %d</string>

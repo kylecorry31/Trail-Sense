@@ -1297,7 +1297,6 @@
     <string name="last_known_gps_location">Последнее известное местоположение GPS</string>
     <string name="communication">Связь</string>
     <string name="arachnid">Арахнид</string>
-    <string name="survival_guide_disclaimer">Как и все инструменты в Trail Sense, это руководство предназначено для предоставления общей информации и не должно считаться заменой профессиональной подготовки или опыта. Это только для образовательных целей. Авторы не несут ответственности за любые несчастные случаи, травмы или другие повреждения, которые могут возникнуть в результате использования этой информации. Всегда проявляйте здравый смысл и осторожность когда вы на природе.</string>
     <string name="path_distance_performance_disclaimer">Рекомендуемый максимум %s</string>
     <string name="australia">Австралия</string>
     <string name="europe">Европа</string>

@@ -1191,7 +1191,6 @@
     <string name="on_import">匯入時</string>
     <string name="reduce_pdf_resolution">降低 PDF 解析度</string>
     <string name="lunitidal_interval_utc">月潮間隔（UTC／格林威治）</string>
-    <string name="survival_guide_disclaimer">與 Trail Sense 中的所有工具一樣，此指南旨在提供一般資訊，不應被視為專業培訓或經驗的替代品。此僅用於教育目的。作者對因使用此資訊而可能導致的任何事故、傷害或其他損害不承擔任何責任。在戶外時總是保持常識並且小心謹慎。</string>
     <string name="shelter_and_clothing">庇護所和服裝</string>
     <string name="field_required">%s（必填）</string>
     <string name="no_directory_selected">未選擇目錄</string>

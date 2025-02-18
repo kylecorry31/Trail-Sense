@@ -1164,7 +1164,6 @@
     <string name="widgets">Widget</string>
     <string name="navigate_to_nearest_cell_signal">Navigare fino al segnale cellulare più vicino</string>
     <string name="tool_quick_action_name">Strumento: %s</string>
-    <string name="survival_guide_disclaimer">Come tutti gli strumenti di Trail Sense, questa guida ha lo scopo di fornire informazioni generali e non deve essere considerata un sostituto della formazione o dell\'esperienza professionale. Il suo scopo è esclusivamente educativo. Gli autori non sono responsabili di eventuali incidenti, lesioni o altri danni che possono derivare dall\'uso di queste informazioni. Esercitare sempre il buon senso e la cautela quando si è all\'aperto.</string>
     <string name="sunrise_alert_notification_title">Il sole sta per sorgere</string>
     <string name="sunrise_alert_notification_text">Il sole sorgerà alle %s</string>
     <string name="pref_sunrise_alert_time_title">Orario di avviso dell\'alba</string>

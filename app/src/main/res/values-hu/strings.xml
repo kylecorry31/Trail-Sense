@@ -1122,7 +1122,6 @@
     <string name="continuous_calibration">Folytonos kalibráció</string>
     <string name="no_recorded_cell_signal_nearby">Nincs a közelben felvett mobilhálózati jel</string>
     <string name="pref_enable_analog_title">Analóg óra</string>
-    <string name="survival_guide_disclaimer">Akárcsak az összes eszköz a Trail Sense-ben, ez az útmutató is általános információátadásra hivatott, és nem ajánlott a professzionális kiképzés és tapasztalat helyettesítőjeként tekinteni. Ez az útmutató csak tájékoztató jellegű. Az alkotók nem vállalnak felelősséget ezen információ használatából eredő bármilyen balesetért, sérülésért vagy egyéb kárért. A természetben minden esetben óvatossággal és józan ésszel járjunk el.</string>
     <string name="pref_dialog_battery_log_summary">Az akkumulátornapló le van tiltva, az előzmények és a lemerülésig hátralévő idő lehet, hogy nem elérhető. A beállításokban újra engedélyezheted</string>
     <string name="compact_mode">Kompakt mód</string>
     <string name="view_in_3d">Megtekintés 3D-ben</string>
