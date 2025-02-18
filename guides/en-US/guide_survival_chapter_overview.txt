@@ -7,7 +7,7 @@ This guide covers essential survival skills needed to return safely from a survi
 %% K: prepare, gear, knowledge, skill %%
 %% S: Bring a survival kit with you on all trips, and let others know your plans. Learn how to act in a survival situation and signal for help. %%
 
-Let someone know your plans before you leave. This way, if you don't return on time, they can get help. Stick to your planned route and avoid taking unnecessary risks.
+Tell someone your plans, so they can get help if you don't come back on time. Stick to your planned route and avoid taking unnecessary risks.
 
 ### Gear
 
@@ -73,7 +73,7 @@ See each chapter for additional gear recommendations.
 
 ### Knowledge and skills
 Start by learning how to do the following:
-- Abide by local laws and regulations.
+- Follow local laws and regulations.
 - Act in a survival situation.
 - Signal for help.
 - Plan a trip.
@@ -89,7 +89,7 @@ If you find yourself in a survival situation, don't panic and follow these steps
 ### Stop
 If you are lost and not in immediate danger, stop moving. Continuing to move can make it harder for rescuers to find you.
 
-If you are nervous, take a few deep breaths to calm down. If that doesn't help, see the Medical chapter for more tips.
+If you are panicing, take a few deep breaths to calm down. If that doesn't help, see the Medical chapter for more tips.
 
 If you have a GPS receiver or smartphone, note your current location and place a waypoint or beacon. This will help you find your way back if you move around.
 
@@ -137,7 +137,7 @@ Proper planning is crucial for a safe and enjoyable hiking experience. Here are 
 %% S: Try your cell phone, it may be able to make emergency calls. Otherwise, use a whistle, signal mirror, smoke, flares, flashlight, or ground-to-air signals to attract attention. %%
 
 ### Cell phone
-Even if you don't have a signal with your carrier, you may still be able to call emergency services. If you can't make a call, try sending a text message. Check your phone periodically to see if you have a signal, but otherwise keep it off or in airplane mode to conserve battery. You may get a better signal by climbing to higher ground or moving to an open area.
+Many phones can call emergency services even without a signal from your carrier. If you can't make a call, try sending a text message. Check your phone periodically to see if you have a signal, but otherwise keep it off or in airplane mode to conserve battery. You may get a better signal by climbing to higher ground or moving to an open area.
 
 ### Whistle
 Three short blasts are the universal signal for help. You may want to cover your ears when using the whistle at full volume.
@@ -158,4 +158,10 @@ At night, a flashlight can be used to signal for help. Use the international dis
 Ground-to-air signals are large markers you create on the ground to communicate with aircraft. Use rocks, logs, or other materials to create a large "V" (means you require assistance) or an "X" (means you require medical assistance). Use contrasting or artificial colors to make the signal more visible.
 
 ## Disclaimer
-As with all tools in Trail Sense, this guide is meant to provide general information and should not be considered a substitute for professional training or experience. This is for educational purposes only. The authors are not responsible for any accidents, injuries, or other damage that may result from the use of this information. Always exercise common sense and caution when outdoors.
+This guide is for educational purposes only. The author makes no guarantees about the accuracy, safety, or reliability of the information provided. Wilderness survival, foraging, and first aid involve inherent risks, and readers assume full responsibility for their actions.
+
+This guide is not a substitute for professional medical advice. Always consult qualified professionals before attempting survival techniques, consuming wild plants, or administering first aid.
+
+Laws regarding foraging, hunting, and survival vary by location. It is the reader’s responsibility to research and comply with all applicable laws. The author disclaims any liability for injuries, losses, or legal consequences resulting from the use of this book.
+
+By reading, you agree to use this information at your own risk.
