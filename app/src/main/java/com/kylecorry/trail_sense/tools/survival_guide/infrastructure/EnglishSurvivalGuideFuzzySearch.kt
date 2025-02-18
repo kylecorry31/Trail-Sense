@@ -1,24 +1,11 @@
 package com.kylecorry.trail_sense.tools.survival_guide.infrastructure
 
 import android.content.Context
-import android.util.Log
-import androidx.annotation.IdRes
-import com.kylecorry.luna.cache.LRUCache
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.text.TextUtils
-import com.kylecorry.trail_sense.tools.survival_guide.domain.Chapter
-import com.kylecorry.trail_sense.tools.survival_guide.domain.Chapters
 import kotlin.math.max
 
-data class SurvivalGuideSearchResult(
-    val chapter: Chapter,
-    val score: Float,
-    val headingIndex: Int,
-    val heading: String?,
-    val summary: String?
-)
-
-class SurvivalGuideFuzzySearch(private val context: Context) {
+class EnglishSurvivalGuideFuzzySearch(context: Context) : BaseSurvivalGuideSearch(context) {
 
     private val additionalContractions = mapOf(
         "saltwater" to listOf("salt", "water"),
@@ -282,38 +269,10 @@ class SurvivalGuideFuzzySearch(private val context: Context) {
         ),
     )
 
-    private val chapters = Chapters.getChapters(context)
 
-    private val cache = LRUCache<Int, GuideDetails>(20)
-
-    suspend fun search(
+    override fun searchChapter(
         query: String,
-        @IdRes guideId: Int? = null
-    ): List<SurvivalGuideSearchResult> {
-        val chapter = chapters.firstOrNull { it.resource == guideId }
-        val results = if (chapter != null) {
-            searchChapter(query, chapter)
-        } else {
-            chapters.flatMap {
-                searchChapter(query, it)
-            }
-        }.sortedByDescending { it.score }
-
-        val maxScore = results.firstOrNull()?.score ?: 0f
-
-        // TODO: Rank results higher if the keyword matches the section header
-        return results.filter { it.score > 0f && it.score >= maxScore * 0.8 }
-    }
-
-    private suspend fun loadChapter(chapter: Chapter): GuideDetails {
-        return cache.getOrPut(chapter.resource) {
-            GuideLoader(context).load(chapter, false)
-        }
-    }
-
-    private suspend fun searchChapter(
-        query: String,
-        chapter: Chapter
+        guide: GuideDetails
     ): List<SurvivalGuideSearchResult> {
         // TODO: Other languages?
 
@@ -327,7 +286,7 @@ class SurvivalGuideFuzzySearch(private val context: Context) {
 //            ).joinToString(", ")
 //        )
 
-        val sections = loadChapter(chapter).sections
+        val sections = guide.sections
 
         val matches = mutableListOf<SurvivalGuideSearchResult>()
 
@@ -374,7 +333,7 @@ class SurvivalGuideFuzzySearch(private val context: Context) {
 
             matches.add(
                 SurvivalGuideSearchResult(
-                    chapter,
+                    guide.chapter,
                     score,
                     index,
                     section.title,
