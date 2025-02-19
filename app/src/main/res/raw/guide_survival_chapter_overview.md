@@ -87,11 +87,9 @@ See each chapter for additional knowledge and skills recommendations.
 If you find yourself in a survival situation, don't panic and follow these steps.
 
 ### Stop
-If you are lost and not in immediate danger, stop moving. Continuing to move can make it harder for rescuers to find you.
-
-If you are panicing, take a few deep breaths to calm down. If that doesn't help, see the Medical chapter for more tips.
-
-If you have a GPS receiver or smartphone, note your current location and place a waypoint or beacon. This will help you find your way back if you move around.
+The first and most important thing to do when lost is to stop moving.
+- If not in immediate danger, stop moving.
+- Calm down with deep breaths if panicking.
 
 ### Think
 Take a moment to think about your situation. Answer the following questions:
