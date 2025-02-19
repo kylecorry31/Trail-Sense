@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.shared.views.SearchView
 import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.EnglishSurvivalGuideFuzzySearch
 import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.GuideDetails
 import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.GuideLoader
+import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.MultilingualSurvivalGuideFuzzySearch
 import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.SurvivalGuideSearchResult
 import kotlinx.coroutines.delay
 
@@ -140,7 +141,12 @@ class FragmentToolSurvivalGuideList :
                 if (query.isBlank()) {
                     setResults(emptyList())
                 } else {
-                    val search = EnglishSurvivalGuideFuzzySearch(context)
+                    val language = Resources.getLocale(context).language
+                    val search = if (language.startsWith("en")) {
+                        EnglishSurvivalGuideFuzzySearch(context)
+                    } else {
+                        MultilingualSurvivalGuideFuzzySearch(context)
+                    }
                     setResults(search.search(query))
                 }
             }
