@@ -1095,4 +1095,8 @@
     <string name="europe">Europa</string>
     <string name="north_america">Nord-Amerika</string>
     <string name="south_america">Sør-Amerika</string>
+    <string name="cell_towers">Mobilmaster</string>
+    <string name="cell_tower_disclaimer">Mobilmastenes plassering er beregnet ut fra OpenCelliD.\n\n[OpenCelliD Project](https://opencellid.org/) er lisensiert under en [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/)</string>
+    <string name="cell_tower">Mobilmast</string>
+    <string name="no_results">Ingen resultater</string>
 </resources>
