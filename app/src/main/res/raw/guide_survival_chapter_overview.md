@@ -1,11 +1,11 @@
-%% K: overview, survival, situation, rescue, lost %%
-%% S: Be prepared, stop if lost, and think before acting. %%
+<!-- K: overview, survival, situation, rescue, lost -->
+<!-- S: Be prepared, stop if lost, and think before acting. -->
 
 This guide covers essential survival skills needed to return safely from a survival situation. It is not a substitute for professional training or experience and should only be used as a reference.
 
 ## Be prepared
-%% K: prepare, gear, knowledge, skill %%
-%% S: Bring a survival kit with you on all trips, and let others know your plans. Learn how to act in a survival situation and signal for help. %%
+<!-- K: prepare, gear, knowledge, skill -->
+<!-- S: Bring a survival kit with you on all trips, and let others know your plans. Learn how to act in a survival situation and signal for help. -->
 
 Tell someone your plans, so they can get help if you don't come back on time. Stick to your planned route and avoid taking unnecessary risks.
 
@@ -81,8 +81,8 @@ Start by learning how to do the following:
 See each chapter for additional knowledge and skills recommendations.
 
 ## What to do in a survival situation
-%% K: steps, stop, think, observe, plan, act %%
-%% S: Stop, think, observe, plan, and then act. In many cases, the plan may be to stay where you are and wait for help. %%
+<!-- K: steps, stop, think, observe, plan, act -->
+<!-- S: Stop, think, observe, plan, and then act. In many cases, the plan may be to stay where you are and wait for help. -->
 
 If you find yourself in a survival situation, don't panic and follow these steps.
 
@@ -119,8 +119,8 @@ Make a plan for your next steps. Here's some general advice:
 Once you have a plan, act on it. If at any point you feel unsafe, nervous, or unsure, stop and reassess your situation.
 
 ## Planning a trip
-%% K: plan, trip %%
-%% S: Research the terrain, weather, and wildlife before going out. Plan a route on a map and bring the necessary supplies. Share this plan with someone you trust. %%
+<!-- K: plan, trip -->
+<!-- S: Research the terrain, weather, and wildlife before going out. Plan a route on a map and bring the necessary supplies. Share this plan with someone you trust. -->
 
 Proper planning is crucial for a safe and enjoyable hiking experience. Here are some steps to help you prepare:
 
@@ -131,8 +131,8 @@ Proper planning is crucial for a safe and enjoyable hiking experience. Here are 
 5. Share your itinerary with a trusted person. Include your planned route, expected return time, and check-in times.
 
 ## Signaling for help
-%% K: signal, help, contact, call, text, phone, whistle, mirror, smoke, flare, flashlight, ground-to-air %%
-%% S: Try your cell phone, it may be able to make emergency calls. Otherwise, use a whistle, signal mirror, smoke, flares, flashlight, or ground-to-air signals to attract attention. %%
+<!-- K: signal, help, contact, call, text, phone, whistle, mirror, smoke, flare, flashlight, ground-to-air -->
+<!-- S: Try your cell phone, it may be able to make emergency calls. Otherwise, use a whistle, signal mirror, smoke, flares, flashlight, or ground-to-air signals to attract attention. -->
 
 ### Cell phone
 Many phones can call emergency services even without a signal from your carrier. If you can't make a call, try sending a text message. Check your phone periodically to see if you have a signal, but otherwise keep it off or in airplane mode to conserve battery. You may get a better signal by climbing to higher ground or moving to an open area.

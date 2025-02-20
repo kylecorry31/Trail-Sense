@@ -1,11 +1,11 @@
-%% K: navigate %%
-%% S: Plan a route and determine your location. %%
+<!-- K: navigate -->
+<!-- S: Plan a route and determine your location. -->
 
 This chapter covers navigation techniques and tools.
 
 ## Be prepared
-%% K: prepare, gear, knowledge, skill, map, compass, flashlight, gps %%
-%% S: Bring a map, compass, and flashlight. Learn how to navigate with a map and compass and how to plan routes. %%
+<!-- K: prepare, gear, knowledge, skill, map, compass, flashlight, gps -->
+<!-- S: Bring a map, compass, and flashlight. Learn how to navigate with a map and compass and how to plan routes. -->
 
 ### Gear
 **Necessities**:
@@ -31,8 +31,8 @@ Once you have mastered these skills, you should learn how to do the following:
 - Take a detour.
 
 ## Route planning
-%% K: route, plan, trip, detour %%
-%% S: Plan your route in advance to avoid getting lost and ensure you reach your destination safely. %%
+<!-- K: route, plan, trip, detour -->
+<!-- S: Plan your route in advance to avoid getting lost and ensure you reach your destination safely. -->
 
 Plan your route in advance to avoid getting lost and ensure you reach your destination safely. Consider the following factors when planning your route:
 - Choose a route that matches your skill level and fitness. Use the contour lines on a map to gauge the terrain difficulty.
@@ -43,8 +43,8 @@ Plan your route in advance to avoid getting lost and ensure you reach your desti
 - If you need to take a detour, mark your new route on the map and adjust your bearings accordingly.
 
 ## Movement
-%% K: move, terrain, mountain, cold, desert, jungle, night, river, cross %%
-%% S: Move carefully and adapt to the terrain. Avoid following animal trails. %%
+<!-- K: move, terrain, mountain, cold, desert, jungle, night, river, cross -->
+<!-- S: Move carefully and adapt to the terrain. Avoid following animal trails. -->
 
 - If you are lost, it is typically best to stay put and wait for rescue.
 - Keep your body weight balanced over your feet.
@@ -95,8 +95,8 @@ Plan your route in advance to avoid getting lost and ensure you reach your desti
 - In dire situations following a river downstream may lead to civilization.
 
 ## GPS
-%% K: gps, satellite, device, location, waypoint, beacon, battery, maps %%
-%% S: A GPS device can help you determine your location and navigate to a specific point, but always have a backup plan in case the device fails. %%
+<!-- K: gps, satellite, device, location, waypoint, beacon, battery, maps -->
+<!-- S: A GPS device can help you determine your location and navigate to a specific point, but always have a backup plan in case the device fails. -->
 
 A GPS device can help you determine your location and navigate to a specific point, but always have a backup plan in case the device fails.
 
@@ -119,8 +119,8 @@ Your GPS device may run out of battery, so carry extra batteries or a portable c
 If your GPS supports digital maps, download maps of your area in advance to navigate even if you lose the signal.
 
 ## Compass
-%% K: compass, bearing, declination, direction, north, south, east, west, orient %%
-%% S: A compass helps you determine direction. Be sure to set the same declination as your map. %%
+<!-- K: compass, bearing, declination, direction, north, south, east, west, orient -->
+<!-- S: A compass helps you determine direction. Be sure to set the same declination as your map. -->
 
 A compass helps you determine direction and is essential for navigation, especially when used with a map.
 
@@ -137,8 +137,8 @@ A back bearing is the opposite direction of your current bearing. To calculate a
 Declination is the difference between true north and magnetic north. Adjust your compass for declination when navigating with a map. Some compasses have an adjustable declination ring; otherwise, you’ll need to calculate it manually. Most maps list declination in the legend and are oriented to true north.
 
 ## Map
-%% K: map, location, scale, topographic, orientation, triangulate %%
-%% S: You can use a map to navigate once you learn how to read it. Be sure it is up to date. %%
+<!-- K: map, location, scale, topographic, orientation, triangulate -->
+<!-- S: You can use a map to navigate once you learn how to read it. Be sure it is up to date. -->
 
 A map is a key tool for navigation, especially when paired with a compass.
 
@@ -182,8 +182,8 @@ Typical map colors include:
 - **Blue**: Water.
 
 ## Advanced navigation techniques
-%% K: sun, star, shadow, watch, north, south, east, west, polaris, big dipper, cassiopeia, southern cross, constellation, advanced, technique %%
-%% S: You can use the sun or stars to determine direction. If you find yourself needing this, it's best to stay where you are and wait for help. %%
+<!-- K: sun, star, shadow, watch, north, south, east, west, polaris, big dipper, cassiopeia, southern cross, constellation, advanced, technique -->
+<!-- S: You can use the sun or stars to determine direction. If you find yourself needing this, it's best to stay where you are and wait for help. -->
 
 ### Sun
 

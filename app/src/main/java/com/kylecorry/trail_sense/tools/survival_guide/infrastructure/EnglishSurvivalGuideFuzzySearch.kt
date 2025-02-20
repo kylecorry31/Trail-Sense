@@ -267,6 +267,14 @@ class EnglishSurvivalGuideFuzzySearch(context: Context) : BaseSurvivalGuideSearc
             "bird",
             "fowl"
         ),
+        // Gear
+        setOf(
+            "gear",
+            "equip",
+            "stuff",
+            "item",
+            "thing"
+        )
     )
 
 

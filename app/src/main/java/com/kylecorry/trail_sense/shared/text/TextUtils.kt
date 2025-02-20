@@ -125,7 +125,7 @@ object TextUtils {
     }
 
     fun getMarkdownKeywords(text: String): Set<String> {
-        val regex = Regex("%% K: (.*?)%%")
+        val regex = Regex("<!-- K: (.*?)-->")
         return regex.findAll(text)
             .flatMap { it.groupValues[1].split(",") }
             .map { it.trim() }
@@ -133,7 +133,7 @@ object TextUtils {
     }
 
     fun getMarkdownSummary(text: String): String? {
-        val regex = Regex("%% S: (.*?)%%")
+        val regex = Regex("<!-- S: (.*?)-->")
         return regex.find(text)?.groupValues?.get(1)
     }
 
@@ -268,7 +268,7 @@ object TextUtils {
     }
 
     fun removeMarkdownComments(text: String): String {
-        val commentRegex = Regex("%%.*?%%")
+        val commentRegex = Regex("<!--.*?-->")
         return text.replace(commentRegex, "").trim()
     }
 

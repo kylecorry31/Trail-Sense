@@ -1,11 +1,11 @@
-%% K: weather, condition %%
-%% S: Know the weather forecast. %%
+<!-- K: weather, condition -->
+<!-- S: Know the weather forecast. -->
 
 This chapter covers how to prepare for different types of weather and how to forecast it.
 
 ## Be prepared
-%% K: prepare, gear, knowledge, skill, forecast, clothes, shelter, poncho, sunglasses, barometer, thermometer %%
-%% S: Bring appropriate clothing and shelter for the weather. Learn how to identify signs of worsening weather. %%
+<!-- K: prepare, gear, knowledge, skill, forecast, clothes, shelter, poncho, sunglasses, barometer, thermometer -->
+<!-- S: Bring appropriate clothing and shelter for the weather. Learn how to identify signs of worsening weather. -->
 
 ### Gear
 
@@ -33,8 +33,8 @@ Once you have mastered these skills, you should learn how to do the following:
 - Predict tides.
 
 ## Weather
-%% K: storm, precipitation, rain, snow, hail, sleet, temperature, humidity, wind, fog, lightning, sun, smoke, wildfire, uv, uv-index %%
-%% S: Take shelter during severe storms. Be prepared for a variety of conditions, such as precipitation, temperature, humidity, and strong wind. %%
+<!-- K: storm, precipitation, rain, snow, hail, sleet, temperature, humidity, wind, fog, lightning, sun, smoke, wildfire, uv, uv-index -->
+<!-- S: Take shelter during severe storms. Be prepared for a variety of conditions, such as precipitation, temperature, humidity, and strong wind. -->
 
 Weather conditions can change rapidly and significantly impact your outdoor activities.
 
@@ -86,8 +86,8 @@ On days with a high UV index, wear sunscreen and sun-protective clothing. In hot
 Wildfires can cause smoke that travels long distances. Avoid outdoor activities on days with poor air quality if possible.
 
 ## Climate
-%% K: climate, average %%
-%% S: The climate of your region can indicate what weather is common for the time of year. %%
+<!-- K: climate, average -->
+<!-- S: The climate of your region can indicate what weather is common for the time of year. -->
 
 The climate of a region refers to its average weather conditions over time. Understanding the climate helps you prepare for the typical weather you'll encounter.
 
@@ -98,8 +98,8 @@ Key factors to consider when thinking about climate include:
 - Wind patterns
 
 ## Forecasting
-%% K: forecast, predict, signs, worsen, improve %%
-%% S: Signs of worsening weather include increasing cloud cover, darkening skies, strong wind, and sudden drops in temperature. %%
+<!-- K: forecast, predict, signs, worsen, improve -->
+<!-- S: Signs of worsening weather include increasing cloud cover, darkening skies, strong wind, and sudden drops in temperature. -->
 
 You can learn to forecast weather by observing the signs around you. The more signs you notice, the more accurate your forecast will be.
 
@@ -130,8 +130,8 @@ You can learn to forecast weather by observing the signs around you. The more si
 - Humidity decreases
 
 ## Tides
-%% K: tide, water, coast, rise, fall, moon, ocean, sea, semidiurnal, diurnal, mixed %%
-%% S: Most places have two high tides and two low tides each day. Check tide tables before heading to the coast. %%
+<!-- K: tide, water, coast, rise, fall, moon, ocean, sea, semidiurnal, diurnal, mixed -->
+<!-- S: Most places have two high tides and two low tides each day. Check tide tables before heading to the coast. -->
 
 Tides are the rise and fall of sea levels caused by the gravitational pull of the moon and sun. Tides can affect outdoor activities, especially near the coast.
 
@@ -153,8 +153,8 @@ Mixed tides are a type of semidiurnal tide, but the heights of the high and/or l
 Diurnal tides have one high tide and one low tide each day. If you know the time of high tide, the next low tide will be about 12 hours later, and the next high tide will be about 12 hours after that.
 
 ## Night
-%% K: night, dark, light, moon, stars, flashlight %%
-%% S: Be aware of when the sun will set to avoid being caught in the dark. Use a flashlight to navigate at night. %%
+<!-- K: night, dark, light, moon, stars, flashlight -->
+<!-- S: Be aware of when the sun will set to avoid being caught in the dark. Use a flashlight to navigate at night. -->
 
 You can estimate the time until sunset by holding your hand horizontally with your fingers together and counting the number of finger widths between the sun and the horizon. Each finger width represents roughly 15 minutes.
 
