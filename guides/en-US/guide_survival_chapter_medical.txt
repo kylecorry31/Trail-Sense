@@ -787,7 +787,6 @@ Contact dermatitis is caused by contact with poisonous plants, such as poison iv
 Poison ivy:
 
 ![](file:///android_asset/survival_guide/poison_ivy.webp)
-[Image source](https://commons.wikimedia.org/wiki/File:Poison_ivy_in_May_beside_Appalachian_Trail_in_Rockfish_Gap_VA_area_1.jpg)
 
 Stinging nettle:
 ![](file:///android_asset/survival_guide/stinging_nettle.webp)
