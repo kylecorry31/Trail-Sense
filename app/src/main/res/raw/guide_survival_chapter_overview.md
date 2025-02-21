@@ -7,7 +7,10 @@ This guide covers essential survival skills needed to return safely from a survi
 <!-- K: prepare, gear, knowledge, skill -->
 <!-- S: Bring a survival kit with you on all trips, and let others know your plans. Learn how to act in a survival situation and signal for help. -->
 
-Tell someone your plans, so they can get help if you don't come back on time. Stick to your planned route and avoid taking unnecessary risks.
+- Tell someone your plans: route, alternative routes, who you are going with, when you will be back, when you will make contact with them.
+- Stick to your planned route.
+- Avoid unnecessary risks.
+- Bring the proper gear.
 
 ### Gear
 
@@ -112,8 +115,9 @@ Make a plan for your next steps. Here's some general advice:
 - If you are lost, try to determine your location using a map or GPS.
 - If it is hot, find shade and water.
 - If it is cold, get warm through insulation, shelter, and fire.
-- Tie a bright piece of clothing to a nearby tree and search the nearby area for signs of a trail. Keep the marker in sight at all times. You may also use a GPS receiver to return to your starting point; just ensure the batteries are charged.
-- If you are lost, it may be best to stay put and wait for help. Try to signal for help and make yourself visible to rescuers.
+- If the weather is bad, take shelter.
+- Tie a bright piece of clothing to a nearby tree and search the nearby area for signs of a trail. **Keep the marker in sight at all times.** You may also use a GPS receiver to return to your starting point; just ensure the batteries are charged.
+- If you are lost, it is best to stay put and wait for help. Try to signal for help and make yourself visible to rescuers.
 
 ### Act
 Once you have a plan, act on it. If at any point you feel unsafe, nervous, or unsure, stop and reassess your situation.
@@ -122,10 +126,8 @@ Once you have a plan, act on it. If at any point you feel unsafe, nervous, or un
 <!-- K: plan, trip -->
 <!-- S: Research the terrain, weather, and wildlife before going out. Plan a route on a map and bring the necessary supplies. Share this plan with someone you trust. -->
 
-Proper planning is crucial for a safe and enjoyable hiking experience. Here are some steps to help you prepare:
-
 1. Research the terrain, weather conditions, wildlife, and plants you might encounter. Also, look into local regulations and any permits you may need.
-2. Using a map, plan your route. Be sure to consider trail conditions and alternate routes.
+2. Using an up-to-date map, plan your route. Be sure to consider trail conditions and alternate routes.
 3. Pack the necessary gear and supplies. See the "Be prepared" section for a list of essential items. Check all your gear before you leave.
 4. Check the weather forecast and adjust your plans accordingly.
 5. Share your itinerary with a trusted person. Include your planned route, expected return time, and check-in times.

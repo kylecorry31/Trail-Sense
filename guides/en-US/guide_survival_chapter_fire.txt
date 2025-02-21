@@ -82,7 +82,7 @@ A fire reflector is a wall built behind the fire to reflect heat towards you and
 
 - **Matches/lighters**: Always have waterproof matches or a reliable lighter in your kit.
 - **Fire steel**: Durable and works in all weather conditions, producing sparks to ignite your tinder. Scrape it quickly with the back of a knife or scraper to create sparks. For best results, pin the fire steel against the tinder and ground and scrape the steel towards the tinder.
-- **Magnifying glass / lens**: Focus sunlight through a lens onto tinder to create a fire. Glasses or even a clear bottle filled with water can work. This will take a while and requires direct sunlight.
+- **Magnifying glass / lens**: Focus sunlight through a lens onto tinder to create a fire. Glasses or even a clear bottle filled with water can work. This will take a while and requires direct sunlight. Credit card sized freznel lenses are also effective.
 
 ![](file:///android_asset/survival_guide/61.webp)
 
