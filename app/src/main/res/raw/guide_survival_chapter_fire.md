@@ -139,4 +139,3 @@ Tinder fungus:
 
 Chaga:
 ![](file:///android_asset/survival_guide/chaga.webp)
-[Image source; modified from original](https://commons.wikimedia.org/wiki/File:Inonotus_obliquus.jpg)
