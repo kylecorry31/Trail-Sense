@@ -33,7 +33,7 @@ Once you have mastered these skills, you should learn how to do the following:
 - Predict tides.
 
 ## Weather
-<!-- K: storm, precipitation, rain, snow, hail, sleet, temperature, humidity, wind, fog, lightning, sun, smoke, wildfire, uv, uv-index -->
+<!-- K: storm, precipitation, rain, snow, hail, sleet, temperature, humidity, wind, fog, lightning, sun, smoke, wildfire, uv, uv-index, thunder, thunderstorm -->
 <!-- S: Take shelter during severe storms. Be prepared for a variety of conditions, such as precipitation, temperature, humidity, and strong wind. -->
 
 Weather conditions can change rapidly and significantly impact your outdoor activities.
@@ -98,7 +98,7 @@ Key factors to consider when thinking about climate include:
 - Wind patterns
 
 ## Forecasting
-<!-- K: forecast, predict, signs, worsen, improve -->
+<!-- K: forecast, predict, signs, worsen, improve, cloud, cumulus, cirrus, cumulonimbus, altocumulus, stratus, altostratus, clear, cirrostratus, nimbostratus, cirrocumulus -->
 <!-- S: Signs of worsening weather include increasing cloud cover, darkening skies, strong wind, and sudden drops in temperature. -->
 
 You can learn to forecast weather by observing the signs around you. The more signs you notice, the more accurate your forecast will be.
@@ -128,6 +128,17 @@ You can learn to forecast weather by observing the signs around you. The more si
 - Wind direction changes to match the prevailing wind
 - Animals become active
 - Humidity decreases
+
+### Clouds
+Identifying the type of cloud can help to forecast the weather. Below are some common cloud types.
+
+**Cumulus**
+
+Low puffy clouds that look like cotton balls. They are spaced out and are typically white with darker patches below.
+
+Usually indicates fair weather, but if it is growing taller, then precipitation or a thunderstorm could be possible in the next few hours.
+
+![](file:///android_asset/survival_guide/cumulus.webp)
 
 ## Tides
 <!-- K: tide, water, coast, rise, fall, moon, ocean, sea, semidiurnal, diurnal, mixed -->
