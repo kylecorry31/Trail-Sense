@@ -140,6 +140,14 @@ Usually indicates fair weather, but if it is growing taller, then precipitation 
 
 ![](file:///android_asset/survival_guide/cumulus.webp)
 
+**Cumulonimbus**
+
+Low puffy clouds that are very tall. They typically have an anvil shape and are dark.
+
+May indicate a thunderstorm in a few minutes.
+
+![](file:///android_asset/survival_guide/cumulonimbus.webp)
+
 ## Tides
 <!-- K: tide, water, coast, rise, fall, moon, ocean, sea, semidiurnal, diurnal, mixed -->
 <!-- S: Most places have two high tides and two low tides each day. Check tide tables before heading to the coast. -->
