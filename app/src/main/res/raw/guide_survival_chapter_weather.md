@@ -148,6 +148,14 @@ May indicate a thunderstorm in a few minutes.
 
 ![](file:///android_asset/survival_guide/cumulonimbus.webp)
 
+**Cirrus**
+
+High wispy clouds that look like tufts of white hair.
+
+May indicate precipitation in the next 12 to 24 hours.
+
+![](file:///android_asset/survival_guide/cirrus.webp)
+
 ## Tides
 <!-- K: tide, water, coast, rise, fall, moon, ocean, sea, semidiurnal, diurnal, mixed -->
 <!-- S: Most places have two high tides and two low tides each day. Check tide tables before heading to the coast. -->
