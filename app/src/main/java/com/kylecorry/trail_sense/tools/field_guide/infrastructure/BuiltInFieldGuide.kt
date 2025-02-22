@@ -345,7 +345,7 @@ object BuiltInFieldGuide {
         ),
         BuiltInFieldGuidePage(
             R.raw.field_guide_grub,
-            "field_guide/grub.webp",
+            "survival_guide/grub.webp",
             listOf(
                 FieldGuidePageTag.Africa,
                 FieldGuidePageTag.Asia,
