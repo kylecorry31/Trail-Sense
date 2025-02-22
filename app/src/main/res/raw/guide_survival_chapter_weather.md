@@ -156,6 +156,14 @@ May indicate precipitation in the next 12 to 24 hours.
 
 ![](file:///android_asset/survival_guide/cirrus.webp)
 
+**Altocumulus**
+
+Mid level puffy clouds that look like cotton balls. They are typically white with darker patches below and can be spaced out or sheet-like.
+
+May indicate precipitation or a thunderstorm in the next 12 hours.
+
+![](file:///android_asset/survival_guide/altocumulus.webp)
+
 ## Tides
 <!-- K: tide, water, coast, rise, fall, moon, ocean, sea, semidiurnal, diurnal, mixed -->
 <!-- S: Most places have two high tides and two low tides each day. Check tide tables before heading to the coast. -->
