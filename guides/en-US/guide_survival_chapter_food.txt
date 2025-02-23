@@ -151,10 +151,6 @@ Common edible insects include:
 
 Many flying insects can be attracted to a light source at night, making them easier to catch.
 
-Grub:
-
-![](file:///android_asset/survival_guide/grub.webp)
-
 ### Preparation
 
 Remove the following parts before eating insects:
