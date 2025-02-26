@@ -7,7 +7,7 @@
     <string name="astronomy">Astronomie</string>
     <string name="sunrise_label">Sonnenaufgang</string>
     <string name="sunset_label">Sonnenuntergang</string>
-    <string name="true_north">Geographischer Norden</string>
+    <string name="true_north">Wahrer Norden</string>
     <string name="pref_use_sea_level_pressure_title">Luftdruck auf Meereshöhe</string>
     <string name="general">Allgemein</string>
     <string name="pressure">Luftdruck</string>
@@ -80,8 +80,8 @@
     <string name="alerts">Warnungen</string>
     <string name="storm_alerts">Sturmwarnungen</string>
     <string name="pref_coordinate_format_title">Koordinatenformat</string>
-    <string name="coordinate_format_decimal_degrees">Dezimalgrad</string>
-    <string name="coordinate_format_degrees_decimal_minutes">Grad und Dezimalminuten</string>
+    <string name="coordinate_format_decimal_degrees">Dezimalgrade</string>
+    <string name="coordinate_format_degrees_decimal_minutes">Grad Dezimalminuten</string>
     <string name="coordinate_format_degrees_minutes_seconds">Grad Minuten Sekunden</string>
     <string name="notification_storm_alert_title">Sturmwarnung</string>
     <string name="notification_storm_alert_text">Ein Sturm könnte sich nähern</string>
@@ -249,7 +249,7 @@
     <string name="unit_feet">Fuß</string>
     <string name="unit_kilometers">Kilometer</string>
     <string name="unit_meters">Meter</string>
-    <string name="notification_channel_clock_sync">Zeit Synchronisation</string>
+    <string name="notification_channel_clock_sync">Uhr synchronisieren</string>
     <string name="tool_battery_title">Akku</string>
     <string name="strobe_warning_content">Das Stroboskob erzeugt Blitzlicht, welches gefährlich für manche Nutzer sein kann.</string>
     <string name="clock_waiting_for_gps">Zeit wird mittels GPS aktualisiert…</string>
@@ -296,7 +296,7 @@
     <string name="max_temp_uncalibrated">Maximale Gerätetemperatur (nicht geeicht)</string>
     <string name="max_temp_calibrated">Maximale Umgebungstemperatur (geeicht)</string>
     <string name="map_scale_ratio">Verhältnis</string>
-    <string name="map_scale_title">Karten-Maßstab</string>
+    <string name="map_scale_title">Kartenmaßstab</string>
     <string name="tool_white_noise_summary">Hilft beim Einschlafen</string>
     <string name="tool_white_noise_title">Weißes Rauschen</string>
     <string name="clock_sync_instructions">Bei Benachrichtigung Zeit auf %s setzen</string>
@@ -325,7 +325,7 @@
     <string name="pref_backtrack_frequency_title">Abstand der Wegpunkte</string>
     <string name="pref_backtrack_enabled_summary">Wegpunkte aufzeichnen</string>
     <string name="waypoint_time_format">%1$s, %2$s</string>
-    <string name="clock_sync_notification">Zeit-Synchronisation - %s</string>
+    <string name="clock_sync_notification">Uhrsynchronisierung – %s</string>
     <string name="could_not_triangulate">Triangulation fehlgeschlagen</string>
     <string name="strobe_warning_title">Blitzlicht</string>
     <string name="toast_destination_bearing_set">Zielrichtung gesetzt</string>
@@ -400,7 +400,7 @@
     <string name="unavailable">Nicht verfügbar</string>
     <string name="gps_searching">Suche</string>
     <string name="gps_stale">Veraltet</string>
-    <string name="privacy_and_location">Datenschutz und Ortsbestimmung</string>
+    <string name="privacy_and_location">Datenschutz und Standort</string>
     <string name="gps_user">Benutzer</string>
     <string name="quality_poor">Schlecht</string>
     <string name="quality_good">Gut</string>
@@ -430,7 +430,7 @@
     <string name="always_on">Immer an</string>
     <string name="pref_daily_weather_notification_title">Tägliche Wetter-Benachrichtigung</string>
     <string name="todays_forecast">Vorhersage für heute</string>
-    <string name="gps_cache">GPS Cache</string>
+    <string name="gps_cache">GPS-Cache</string>
     <string name="location_disabled">Standort ist deaktiviert</string>
     <string name="location_not_set">Standort nicht gesetzt</string>
     <string name="pref_backtrack_save_cell_title">Mobilfunksignal aufnehmen</string>
@@ -519,8 +519,8 @@
     <string name="whistle_signal_where_are_you">Wo bist du\?</string>
     <string name="noon">Mittag</string>
     <string name="weather_monitor">Wettermonitor</string>
-    <string name="pref_nmea_elevation_summary">Nutzt NMEA-Ausgleiche für die Höhenumrechnung</string>
-    <string name="pref_nmea_elevation_title">NMEA-Höhenausgleich</string>
+    <string name="pref_nmea_elevation_summary">Verwenden Sie NMEA (Satellit) zur Korrektur von Höhen anstelle des integrierten Modells</string>
+    <string name="pref_nmea_elevation_title">NMEA-Höhenkorrektur</string>
     <string name="pref_barometer_info_summary">Der Druck könnte von dem von benachbarten Stationen abweichen</string>
     <string name="battery_history">Batterienutzung - letzte %s</string>
     <string name="no_data">Keine Daten</string>
@@ -562,7 +562,7 @@
     <string name="pref_auto_low_power_title">Automatisches Energiesparen</string>
     <string name="pref_auto_low_power_summary">Wenn die Batterieladung niedrig ist</string>
     <string name="imperial_ounces_volume">Unzen (Angloamerikanisch)</string>
-    <string name="us_ounces_volume">Unzen (US)</string>
+    <string name="us_ounces_volume">Amerikanische Unzen</string>
     <string name="time">Zeit</string>
     <string name="days_format">%s d</string>
     <string name="hours_format">%s h</string>
@@ -586,10 +586,10 @@
     <string name="imperial_quarts">Quarts (Angloamerikanisch)</string>
     <string name="imperial_pints">Pints (Angloamerikanisch)</string>
     <string name="imperial_cups">Cups (Angloamerikanisch)</string>
-    <string name="us_gallons">Gallons (US)</string>
-    <string name="us_cups">Cups (US)</string>
-    <string name="us_pints">Pints (US)</string>
-    <string name="us_quarts">Quarts (US)</string>
+    <string name="us_gallons">US-Gallonen</string>
+    <string name="us_cups">US-Cups</string>
+    <string name="us_pints">US-Pints</string>
+    <string name="us_quarts">Amerikanische Quarts</string>
     <string name="cup_format">%s cup</string>
     <string name="milliliters">Milliliter</string>
     <string name="liters">Liter</string>
@@ -655,9 +655,9 @@
 \n
 \n### Lösungen
 \n%4$s</string>
-    <string name="gps_unavailable_resolution">Standort aktivieren oder änder deine Standortquelle zu Nur Gerät oder Hohe Genauigkeit</string>
+    <string name="gps_unavailable_resolution">Aktivieren Sie die Standortbestimmung oder ändern Sie Ihre Standortquelle auf „Nur Gerät“ oder „Hohe Genauigkeit“.</string>
     <string name="background_location_permission">Standort (Immer zulassen)</string>
-    <string name="battery_restricted_resolution">Trail Sense auf Uneingeschränkt setzen</string>
+    <string name="battery_restricted_resolution">Trail Sense als nicht optimiert festlegen</string>
     <string name="power_saving_mode_resolution">Stromsparmodus deaktivieren</string>
     <string name="location_override_not_set_resolution">Standort in den Einstellungen überschreiben</string>
     <string name="location_override_resolution">Automatisches Anpassen des Standorts in den Einstellungen aktivieren.</string>
@@ -1120,4 +1120,11 @@
     <string name="backup_disclaimer">Eine Backup-Datei mit allen Ihren aktuellen Daten wird erstellt. Diese wird Einstellungen, Pfade, Leuchtfeuer, Karten, etc. beinhalten\n\nDiese Datei ist nicht verschlüsselt. Teilen Sie sie mit niemandem, dem Sie nicht vertrauen.</string>
     <string name="astronomy_altitude">Höhe</string>
     <string name="backup">Backup</string>
+    <string name="pref_sunrise_alert_time_title">Sonnenaufgangs-Alarmzeit</string>
+    <string name="scanning_image">Bild scannen</string>
+    <string name="pref_tiles_battery_log">Batterieprotokoll</string>
+    <string name="pref_dialog_battery_log_summary">Das Batterieprotokoll ist deaktiviert, Verlauf und Zeit bis zum Entladen sind möglicherweise nicht verfügbar. Sie können dies in den Einstellungen wieder aktivieren</string>
+    <string name="millimeters_format">%s mm</string>
+    <string name="teaspooon_format">%s tsp</string>
+    <string name="tablespoon_format">%s tbsp</string>
 </resources>
