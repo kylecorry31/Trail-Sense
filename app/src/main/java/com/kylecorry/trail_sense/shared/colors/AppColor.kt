@@ -13,7 +13,8 @@ enum class AppColor(override val id: Long, @ColorInt override val color: Int): I
     Pink(6, -34903), // #ff77a9
     Gray(7, -6381922), // #9e9e9e
     Brown(8, -5668236), // #a98274
-    DarkBlue(9, -13611010) // #304ffe
+    DarkBlue(9, -13611010), // #304ffe
+    SkyBlue(10, -8077345), // #84bfdf
 }
 
 fun Array<AppColor>.fromColor(@ColorInt color: Int): AppColor? {

@@ -61,7 +61,7 @@ internal class CloudSelectionListItemMapper(
             ) else emptyList(),
             icon = ResourceListIcon(
                 details.getCloudImage(value.genus),
-                if (value.genus == null) AppColor.Blue.color else null,
+                if (value.genus == null) AppColor.SkyBlue.color else null,
                 size = 48f,
                 backgroundId = R.drawable.rounded_rectangle,
                 clipToBackground = true

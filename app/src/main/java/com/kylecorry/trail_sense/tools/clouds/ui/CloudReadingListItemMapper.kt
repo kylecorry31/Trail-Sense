@@ -47,7 +47,7 @@ internal class CloudReadingListItemMapper(
             ),
             icon = ResourceListIcon(
                 details.getCloudImage(cloud),
-                if (cloud == null) AppColor.Blue.color else null,
+                if (cloud == null) AppColor.SkyBlue.color else null,
                 size = 48f,
                 backgroundId = R.drawable.rounded_rectangle,
                 clipToBackground = true
