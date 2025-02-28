@@ -156,6 +156,14 @@ May indicate precipitation in the next 12 to 24 hours.
 
 ![](file:///android_asset/survival_guide/cirrus.webp)
 
+**Cirrocumulus**
+
+High level clouds that form a wavy sheet. The sheet is composed of small dots which almost look two dimensional.
+
+May indicate precipitation in the next 8 to 12 hours.
+
+![](file:///android_asset/survival_guide/cirrocumulus.webp)
+
 **Altocumulus**
 
 Mid level puffy clouds that look like cotton balls. They are typically white with darker patches below and can be spaced out or sheet-like.
