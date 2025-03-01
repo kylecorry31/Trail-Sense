@@ -69,6 +69,8 @@ Prevailing winds are winds that blow consistently in one direction over time. Wh
 - 30° S to 60° S: Winds generally blow from the west.
 - 60° S to 90° S: Winds generally blow from the east.
 
+These directions also indicate where weather will most likely come from. For example, if you are at 40° N and see a thunderstorm to the west, it will likely arrive at your location soon.
+
 ### Fog
 Fog reduces visibility, making navigation difficult. If hiking in fog, stay on marked trails and use a map, compass, or GPS to navigate. Watch your footing carefully.
 
@@ -132,22 +134,6 @@ You can learn to forecast weather by observing the signs around you. The more si
 ### Clouds
 Identifying the type of cloud can help to forecast the weather. Below are some common cloud types.
 
-**Cumulus**
-
-Low puffy clouds that look like cotton balls. They are spaced out and are typically white with darker patches below.
-
-Usually indicates fair weather, but if it is growing taller, then precipitation or a thunderstorm could be possible in the next few hours.
-
-![](file:///android_asset/survival_guide/cumulus.webp)
-
-**Cumulonimbus**
-
-Low puffy clouds that are very tall. They typically have an anvil shape and are dark.
-
-May indicate a thunderstorm in a few minutes.
-
-![](file:///android_asset/survival_guide/cumulonimbus.webp)
-
 **Cirrus**
 
 High wispy clouds that look like tufts of white hair.
@@ -164,6 +150,14 @@ May indicate precipitation in the next 8 to 12 hours.
 
 ![](file:///android_asset/survival_guide/cirrocumulus.webp)
 
+**Cirrostratus**
+
+A high cloud that covers the sky. It is transparent and typically causes a halo to form around the sun.
+
+May indicate precipitation in the next 10 to 15 hours.
+
+![](file:///android_asset/survival_guide/cirrostratus.webp)
+
 **Altocumulus**
 
 Mid level puffy clouds that look like cotton balls. They are typically white with darker patches below and can be spaced out or sheet-like.
@@ -171,6 +165,54 @@ Mid level puffy clouds that look like cotton balls. They are typically white wit
 May indicate precipitation or a thunderstorm in the next 12 hours.
 
 ![](file:///android_asset/survival_guide/altocumulus.webp)
+
+**Altostratus**
+
+A mid level cloud that covers the sky. The sun can barely be seen as a bright patch.
+
+May indicate precipitation in the next 8 hours.
+
+![](file:///android_asset/survival_guide/altostratus.webp)
+
+**Cumulus**
+
+Low puffy clouds that look like cotton balls. They are spaced out and are typically white with darker patches below.
+
+Usually indicates fair weather, but if it is growing taller, then precipitation or a thunderstorm could be possible in the next few hours.
+
+![](file:///android_asset/survival_guide/cumulus.webp)
+
+**Cumulonimbus**
+
+Low puffy clouds that are very tall. They typically have an anvil shape and are dark.
+
+May indicate a thunderstorm in a few minutes.
+
+![](file:///android_asset/survival_guide/cumulonimbus.webp)
+
+**Stratocumulus**
+
+Low clouds that look like a sheet of cotton balls with small gaps. The color ranges from white to dark gray.
+
+May indicate fair weather for the next 3 hours.
+
+![](file:///android_asset/survival_guide/stratocumulus.webp)
+
+**Stratus**
+
+A low cloud that covers the sky. Objects don't cast shadows and it may be foggy.
+
+May indicate fair weather for the next 3 hours if it is foggy, otherwise it may indicate precipitation soon.
+
+![](file:///android_asset/survival_guide/stratus.webp)
+
+**Nimbostratus**
+
+A mid level cloud that is dark gray and covers the sky. If it is not raining, it may be a stratus cloud.
+
+May have precipitation for the next 4 hours.
+
+![](file:///android_asset/survival_guide/nimbostratus.webp)
 
 ## Tides
 <!-- K: tide, water, coast, rise, fall, moon, ocean, sea, semidiurnal, diurnal, mixed -->
