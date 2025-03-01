@@ -1301,4 +1301,5 @@
     <string name="select_star">選擇星星</string>
     <string name="stars">星星</string>
     <string name="create_page">建立頁面</string>
+    <string name="no_results">沒有結果</string>
 </resources>
