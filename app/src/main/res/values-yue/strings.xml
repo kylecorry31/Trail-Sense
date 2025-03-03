@@ -1095,4 +1095,43 @@
     <string name="no_recorded_cell_signal_nearby">就近未有紀錄低嘅基站訊號</string>
     <string name="navigate_to_nearest_cell_signal">定向去最就近嘅基站訊號</string>
     <string name="ar_layer_override_message">片區大集會喺 (譬如「天文」指引) 引導之下，旁觀者或被指導成行動派。</string>
+    <string name="books">秘笈</string>
+    <string name="field_guide">自然要識野</string>
+    <plurals name="star_count">
+        <item quantity="other">%d 粒星星</item>
+    </plurals>
+    <plurals name="page_group_summary">
+        <item quantity="other">%d 版</item>
+    </plurals>
+    <string name="open_photo_map">開啟相片地圖</string>
+    <string name="jellyfish">水母</string>
+    <string name="worm">蠕蟲</string>
+    <string name="africa">非洲</string>
+    <string name="antarctica">南極洲</string>
+    <string name="asia">亞洲</string>
+    <string name="australia">大洋洲</string>
+    <string name="europe">歐洲</string>
+    <string name="north_america">北美洲</string>
+    <string name="south_america">南美洲</string>
+    <string name="plant">植物</string>
+    <string name="animal">動物</string>
+    <string name="fungus">真菌</string>
+    <string name="bird">鳥類</string>
+    <string name="mammal">哺乳類</string>
+    <string name="reptile">爬行類</string>
+    <string name="amphibian">兩棲類</string>
+    <string name="fish">魚類</string>
+    <string name="invertebrate">無脊椎動物</string>
+    <string name="rock">岩石</string>
+    <string name="insect">昆蟲</string>
+    <string name="arachnid">蛛形綱</string>
+    <string name="crustacean">甲殼類</string>
+    <string name="mollusk">軟體動物</string>
+    <string name="sponge">多孔動物</string>
+    <string name="coral">珊瑚</string>
+    <string name="echinoderm">棘皮動物</string>
+    <string name="delete_all_beacons">啲地標統統都會剷走晒個囉噃。</string>
+    <string name="tide">潮汐</string>
+    <string name="cloud_scanner">凌雲解名掃</string>
+    <string name="survival_guide_disclaimer">本指南僅供資訊用途，作者、發行者或任何貢獻者無一擔保其準確或適合作任何用途。使用本指南之時，您確認戶外活動涉及風險，而您乃按自身風險行事，倘有任何因您使用本指南而起之申索或索償，則您同意作出彌償，使作者、發行者及任何貢獻者無須負責。請一概諮詢專業人士，尋求針對您處境而言之意見，因本指南並不替代專業指導。再者，請注意本地法例及規則或影響文中所描述技巧之合法使用，其遵守歸於您嘅責任之中。</string>
 </resources>
