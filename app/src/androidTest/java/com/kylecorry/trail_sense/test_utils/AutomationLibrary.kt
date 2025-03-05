@@ -171,6 +171,16 @@ object AutomationLibrary {
     }
 
     fun click(
+        viewLookup: () -> TestView,
+        holdDuration: Long? = null,
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
+    ) {
+        waitFor(waitForTime) {
+            viewLookup().click(holdDuration)
+        }
+    }
+
+    fun click(
         text: String,
         index: Int = 0,
         holdDuration: Long? = null,

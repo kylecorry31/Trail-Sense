@@ -98,7 +98,7 @@ class ToolsTabTest : ToolTestBase(0L) {
         longClick(string(R.string.flashlight_title))
         click(string(R.string.tool_user_guide_title))
         hasText("SOS")
-        back()
+        back(false)
     }
 
     private fun canOpenToolSettings() {
