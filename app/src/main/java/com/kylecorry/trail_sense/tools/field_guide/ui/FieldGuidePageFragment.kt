@@ -113,7 +113,7 @@ class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_fiel
         val queue = useCoroutineQueue()
         val repo = useService<FieldGuideRepo>()
         val (page, setPage) = useState<FieldGuidePage?>(null)
-        useBackgroundEffect(pageId) {
+        useBackgroundEffect(pageId, lifecycleHookTrigger.onResume()) {
             if (pageId == null) {
                 queue.replace { setPage(null) }
             } else {

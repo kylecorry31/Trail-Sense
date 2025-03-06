@@ -15,6 +15,7 @@
         app:title="@string/create_page" />
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -24,7 +25,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="16dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/name_holder"
