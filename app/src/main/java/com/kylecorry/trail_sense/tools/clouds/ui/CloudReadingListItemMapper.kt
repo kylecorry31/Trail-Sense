@@ -11,6 +11,7 @@ import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.andromeda_temp.DrawableListIcon
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.CloudDetailsService
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudObservation
@@ -45,11 +46,10 @@ internal class CloudReadingListItemMapper(
                     )
                 )
             ),
-            icon = ResourceListIcon(
-                details.getCloudImage(cloud),
-                if (cloud == null) AppColor.SkyBlue.color else null,
+            icon = DrawableListIcon(
+                details.getCloudImage(context, cloud),
                 size = 48f,
-                backgroundId = R.drawable.rounded_rectangle,
+                backgroundDrawable = Resources.drawable(context, R.drawable.rounded_rectangle),
                 clipToBackground = true
             ) {
                 imageModal.show(cloud)

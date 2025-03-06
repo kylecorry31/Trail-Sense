@@ -10,7 +10,7 @@ import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.andromeda_temp.DrawableListIcon
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.CloudDetailsService
 
 
@@ -59,11 +59,10 @@ internal class CloudSelectionListItemMapper(
                     )
                 } else null
             ) else emptyList(),
-            icon = ResourceListIcon(
-                details.getCloudImage(value.genus),
-                if (value.genus == null) AppColor.SkyBlue.color else null,
+            icon = DrawableListIcon(
+                details.getCloudImage(context, value.genus),
                 size = 48f,
-                backgroundId = R.drawable.rounded_rectangle,
+                backgroundDrawable = Resources.drawable(context, R.drawable.rounded_rectangle),
                 clipToBackground = true
             ) {
                 imageModal.show(value.genus)

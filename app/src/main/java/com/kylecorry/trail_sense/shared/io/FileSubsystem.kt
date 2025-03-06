@@ -29,7 +29,7 @@ class FileSubsystem private constructor(private val context: Context) {
     private val external = ExternalFileSystem(context)
     private val local = LocalFileSystem(context)
 
-    private val SCHEME_ASSETS = "android-assets://"
+    val SCHEME_ASSETS = "android-assets://"
 
     fun bitmap(path: String, maxWidth: Int, maxHeight: Int): Bitmap? {
         return bitmap(path, Size(maxWidth, maxHeight))

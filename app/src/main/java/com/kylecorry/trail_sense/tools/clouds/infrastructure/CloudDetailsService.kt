@@ -1,9 +1,13 @@
 package com.kylecorry.trail_sense.tools.clouds.infrastructure
 
 import android.content.Context
-import androidx.annotation.DrawableRes
+import android.graphics.Color
+import android.graphics.drawable.Drawable
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
 
 class CloudDetailsService(private val context: Context) {
 
@@ -30,11 +34,13 @@ class CloudDetailsService(private val context: Context) {
                 8,
                 12
             )
+
             CloudGenus.Cirrostratus -> context.getString(
                 R.string.cloud_precipitation_forecast_hour_range,
                 10,
                 15
             )
+
             CloudGenus.Altocumulus -> context.getString(R.string.altocumulus_forecast, 12)
             CloudGenus.Altostratus -> context.getString(R.string.altostratus_forecast, 8)
             CloudGenus.Nimbostratus -> context.getString(R.string.nimbostratus_forecast, 4)
@@ -47,6 +53,7 @@ class CloudDetailsService(private val context: Context) {
                 12,
                 24
             )
+
             null -> "-"
         }
     }
@@ -67,20 +74,21 @@ class CloudDetailsService(private val context: Context) {
         }
     }
 
-    @DrawableRes
-    fun getCloudImage(type: CloudGenus?): Int {
+    fun getCloudImage(context: Context, type: CloudGenus?): Drawable? {
+        val files = AppServiceRegistry.get<FileSubsystem>()
         return when (type) {
-            CloudGenus.Cirrus -> R.drawable.cirrus
-            CloudGenus.Cirrocumulus -> R.drawable.cirrocumulus
-            CloudGenus.Cirrostratus -> R.drawable.cirrostratus
-            CloudGenus.Altocumulus -> R.drawable.altocumulus
-            CloudGenus.Altostratus -> R.drawable.altostratus
-            CloudGenus.Nimbostratus -> R.drawable.nimbostratus
-            CloudGenus.Stratus -> R.drawable.stratus
-            CloudGenus.Stratocumulus -> R.drawable.stratocumulus
-            CloudGenus.Cumulus -> R.drawable.cumulus
-            CloudGenus.Cumulonimbus -> R.drawable.cumulonimbus
-            null -> R.drawable.rectangle
+            CloudGenus.Cirrus -> files.drawable("${files.SCHEME_ASSETS}survival_guide/cirrus.webp")
+            CloudGenus.Cirrocumulus -> files.drawable("${files.SCHEME_ASSETS}survival_guide/cirrocumulus.webp")
+            CloudGenus.Cirrostratus -> files.drawable("${files.SCHEME_ASSETS}survival_guide/cirrostratus.webp")
+            CloudGenus.Altocumulus -> files.drawable("${files.SCHEME_ASSETS}survival_guide/altocumulus.webp")
+            CloudGenus.Altostratus -> files.drawable("${files.SCHEME_ASSETS}survival_guide/altostratus.webp")
+            CloudGenus.Nimbostratus -> files.drawable("${files.SCHEME_ASSETS}survival_guide/nimbostratus.webp")
+            CloudGenus.Stratus -> files.drawable("${files.SCHEME_ASSETS}survival_guide/stratus.webp")
+            CloudGenus.Stratocumulus -> files.drawable("${files.SCHEME_ASSETS}survival_guide/stratocumulus.webp")
+            CloudGenus.Cumulus -> files.drawable("${files.SCHEME_ASSETS}survival_guide/cumulus.webp")
+            CloudGenus.Cumulonimbus -> files.drawable("${files.SCHEME_ASSETS}survival_guide/cumulonimbus.webp")
+            null -> Resources.drawable(context, R.drawable.rectangle)
+                ?.also { it.setTint(Color.parseColor("#84bfdf")) }
         }
     }
 
