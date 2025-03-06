@@ -221,4 +221,6 @@
     <string name="unavailable">ไม่พร้อมใช้งาน</string>
     <string name="most_recent">ล่าสุด</string>
     <string name="until_sunset">จนถึงพระอาทิตย์ตก</string>
+    <string name="compass_dynamic_colors">สีของเข็มทิศแบบไดนามิก</string>
+    <string name="reduce_photo_resolution">ลดความละเอียดรูปภาพ</string>
 </resources>
