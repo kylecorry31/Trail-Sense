@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.coroutines.onMain
@@ -195,8 +195,8 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
     }
 
     private fun updateSubmitButton() {
-        binding.createBeaconTitle.rightButton.isInvisible =
-            !isComplete.isSatisfiedBy(form.data)
+        binding.createBeaconTitle.rightButton.isVisible =
+            isComplete.isSatisfiedBy(form.data)
     }
 
 
