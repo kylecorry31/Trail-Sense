@@ -80,6 +80,13 @@ android {
             applicationIdSuffix = ".dev"
             versionNameSuffix = "-dev"
         }
+        // Release build (GitHub) - uses the same signing as the dev build
+        create("github") {
+            initWith(getByName("release"))
+            signingConfig = signingConfigs.getByName("dev")
+            applicationIdSuffix = ".github"
+            versionNameSuffix = "-github"
+        }
         create("nightly") {
             initWith(getByName("debug"))
             signingConfig = signingConfigs.getByName("nightly")
