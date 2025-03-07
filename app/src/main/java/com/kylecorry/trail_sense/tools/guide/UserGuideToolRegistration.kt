@@ -14,7 +14,7 @@ object UserGuideToolRegistration : ToolRegistration {
         return Tool(
             Tools.USER_GUIDE,
             context.getString(R.string.tool_user_guide_title),
-            R.drawable.ic_user_guide,
+            R.drawable.user_guide,
             R.id.guideListFragment,
             ToolCategory.Books,
             context.getString(R.string.tool_user_guide_summary),

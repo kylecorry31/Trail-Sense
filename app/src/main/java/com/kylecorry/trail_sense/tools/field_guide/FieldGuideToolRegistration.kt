@@ -12,7 +12,7 @@ object FieldGuideToolRegistration : ToolRegistration {
         return Tool(
             Tools.FIELD_GUIDE,
             context.getString(R.string.field_guide),
-            R.drawable.survival_guide,
+            R.drawable.field_guide,
             R.id.fieldGuideFragment,
             ToolCategory.Books,
             additionalNavigationIds = listOf(R.id.fieldGuidePageFragment),

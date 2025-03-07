@@ -13,7 +13,7 @@ class QuickActionUserGuide(btn: ImageButton, fragment: Fragment) :
     QuickActionButton(btn, fragment) {
     override fun onCreate() {
         super.onCreate()
-        setIcon(R.drawable.ic_user_guide)
+        setIcon(R.drawable.user_guide)
     }
 
     override fun onClick() {

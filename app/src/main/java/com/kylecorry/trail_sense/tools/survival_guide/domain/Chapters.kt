@@ -10,7 +10,7 @@ object Chapters {
             Chapter(
                 context.getString(R.string.overview),
                 R.raw.guide_survival_chapter_overview,
-                R.drawable.ic_user_guide
+                R.drawable.ic_open_book
             ),
             Chapter(
                 context.getString(R.string.category_medical),

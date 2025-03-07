@@ -12,7 +12,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rightButtonIcon="@drawable/ic_user_guide"
+        app:rightButtonIcon="@drawable/user_guide"
         tools:title="10 m" />
 
 
