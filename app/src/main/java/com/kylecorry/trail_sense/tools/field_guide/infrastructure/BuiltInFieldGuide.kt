@@ -610,7 +610,32 @@ object BuiltInFieldGuide {
                 FieldGuidePageTag.Rock,
                 FieldGuidePageTag.Crafting
             )
-        )
+        ),
+        BuiltInFieldGuidePage(
+            R.raw.field_guide_tinder_fungus,
+            "survival_guide/tinder_fungus.webp",
+            listOf(
+                FieldGuidePageTag.Africa,
+                FieldGuidePageTag.NorthAmerica,
+                FieldGuidePageTag.Europe,
+                FieldGuidePageTag.Asia,
+                FieldGuidePageTag.Fungus,
+                FieldGuidePageTag.Forest,
+                FieldGuidePageTag.Crafting
+            )
+        ),
+        BuiltInFieldGuidePage(
+            R.raw.field_guide_chaga,
+            "survival_guide/chaga.webp",
+            listOf(
+                FieldGuidePageTag.NorthAmerica,
+                FieldGuidePageTag.Europe,
+                FieldGuidePageTag.Asia,
+                FieldGuidePageTag.Fungus,
+                FieldGuidePageTag.Forest,
+                FieldGuidePageTag.Crafting
+            )
+        ),
     )
 
     fun getFieldGuidePage(context: Context, id: Long): FieldGuidePage? {
