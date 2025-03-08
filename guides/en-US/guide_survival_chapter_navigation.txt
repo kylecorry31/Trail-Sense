@@ -95,7 +95,7 @@ Plan your route in advance to avoid getting lost and ensure you reach your desti
 - In dire situations following a river downstream may lead to civilization.
 
 ## Trail markers
-<!-- K: trail, blaze, marker, cairn, sign, pile -->
+<!-- K: trail, blaze, marker, cairn, sign, pile, block, stack, paint, flag -->
 <!-- S: Trail markers help you to stay on the trail. -->
 
 Trail markers are used to indicate where the trail is and to distinguish one trail from another. There are many ways that trails are marked, but there is no universal standard.
