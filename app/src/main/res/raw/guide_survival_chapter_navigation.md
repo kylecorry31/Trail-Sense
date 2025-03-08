@@ -94,6 +94,38 @@ Plan your route in advance to avoid getting lost and ensure you reach your desti
   - Unbuckle your pack and carry it in front of you to avoid being pulled under by its weight.
 - In dire situations following a river downstream may lead to civilization.
 
+## Trail markers
+<!-- K: trail, blaze, marker, cairn, sign, pile -->
+<!-- S: Trail markers help you to stay on the trail. -->
+
+Trail markers are used to indicate where the trail is and to distinguish one trail from another. There are many ways that trails are marked, but there is no universal standard.
+
+### Blazes
+Blazes are painted symbols on trees or rocks. Typically, they are a rectangle, square, circle, triangle, or cross. In most places, each trail is painted with a different color and/or shape of blaze.
+
+Some blazes may indicate the direction of the trail as well, but this may not apply everywhere.
+
+![](file:///android_asset/survival_guide/trail_blazes.webp)
+
+1. **Two blazes, top blaze to the left**: Continue to the left
+2. **Two blazes, top blaze to the right**: Continue to the right
+3. **One blaze**: Continue straight
+
+If a trail is new, it may have small plastic strips or flags tied onto a tree in place of a blaze.
+
+While not always true, the color and/or shape of the blazes should match what appears on a map, except that white blazes are typically black on a map.
+
+### Cairns
+Cairns are piles of rocks, typically used in places without large trees to blaze. Cairns are usually placed on the side of the trail, and you should be able to see multiple cairns at a time.
+
+In some places, cairns may be small stacks of stones (typically 3) and could be hard to locate.
+
+### Signs
+Trail signs provide information about which trail you are on, distance/direction to points of interest, or offer general information/alerts. Always read and abide by trail signs.
+
+### Blockers
+In some places, downed trees or debris are intentionally placed in front of a path to indicate it should not be used.
+
 ## GPS
 <!-- K: gps, satellite, device, location, waypoint, beacon, battery, maps -->
 <!-- S: A GPS device can help you determine your location and navigate to a specific point, but always have a backup plan in case the device fails. -->
