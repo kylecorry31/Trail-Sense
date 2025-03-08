@@ -34,6 +34,14 @@ fun viewWithText(
     return view(if (contains) By.textContains(text) else By.text(text), index)
 }
 
+fun viewWithHint(
+    text: String,
+    contains: Boolean = false,
+    index: Int = 0
+): TestView {
+    return view(if (contains) By.hintContains(text) else By.hint(text), index)
+}
+
 fun viewWithText(text: Pattern, index: Int = 0): TestView {
     return view(By.text(text), index)
 }

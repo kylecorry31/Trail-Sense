@@ -1,14 +1,39 @@
 package com.kylecorry.trail_sense.test_utils.views
 
+import android.graphics.Point
 import androidx.test.uiautomator.Direction
 import com.kylecorry.trail_sense.test_utils.TestUtils.getMatchingChild
 
-fun TestView.click(durationMillis: Long? = null): TestView {
-    if (durationMillis != null) {
-        uiObject.click(durationMillis)
+fun TestView.click(
+    durationMillis: Long? = null,
+    xPercent: Float? = null,
+    yPercent: Float? = null
+): TestView {
+
+    val point = if (xPercent != null && yPercent != null) {
+        val bounds = uiObject.visibleBounds
+        Point(
+            bounds.left + (bounds.width() * xPercent).toInt(),
+            bounds.top + (bounds.height() * yPercent).toInt()
+        )
     } else {
-        uiObject.click()
+        null
     }
+
+    if (point == null) {
+        if (durationMillis != null) {
+            uiObject.click(durationMillis)
+        } else {
+            uiObject.click()
+        }
+    } else {
+        if (durationMillis != null) {
+            uiObject.click(point, durationMillis)
+        } else {
+            uiObject.click(point)
+        }
+    }
+
     return this
 }
 

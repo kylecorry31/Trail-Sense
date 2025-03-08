@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.test_utils.views.isChecked
 import com.kylecorry.trail_sense.test_utils.views.longClick
 import com.kylecorry.trail_sense.test_utils.views.scrollToEnd
 import com.kylecorry.trail_sense.test_utils.views.view
+import com.kylecorry.trail_sense.test_utils.views.viewWithHint
 import com.kylecorry.trail_sense.test_utils.views.viewWithText
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -153,30 +154,36 @@ object AutomationLibrary {
         id: Int,
         index: Int = 0,
         holdDuration: Long? = null,
+        xPercent: Float? = null,
+        yPercent: Float? = null,
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
     ) {
         waitFor(waitForTime) {
-            view(id, index = index).click(holdDuration)
+            view(id, index = index).click(holdDuration, xPercent, yPercent)
         }
     }
 
     fun click(
         view: TestView,
         holdDuration: Long? = null,
+        xPercent: Float? = null,
+        yPercent: Float? = null,
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
     ) {
         waitFor(waitForTime) {
-            view.click(holdDuration)
+            view.click(holdDuration, xPercent, yPercent)
         }
     }
 
     fun click(
         viewLookup: () -> TestView,
         holdDuration: Long? = null,
+        xPercent: Float? = null,
+        yPercent: Float? = null,
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
     ) {
         waitFor(waitForTime) {
-            viewLookup().click(holdDuration)
+            viewLookup().click(holdDuration, xPercent, yPercent)
         }
     }
 
@@ -185,10 +192,16 @@ object AutomationLibrary {
         index: Int = 0,
         holdDuration: Long? = null,
         contains: Boolean = false,
+        xPercent: Float? = null,
+        yPercent: Float? = null,
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
     ) {
         waitFor(waitForTime) {
-            viewWithText(text, index = index, contains = contains).click(holdDuration)
+            viewWithText(text, index = index, contains = contains).click(
+                holdDuration,
+                xPercent,
+                yPercent
+            )
         }
     }
 
@@ -251,10 +264,17 @@ object AutomationLibrary {
         viewText: String,
         text: String,
         checkDescendants: Boolean = true,
+        contains: Boolean = false,
+        isHint: Boolean = false,
+        index: Int = 0,
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
     ) {
         waitFor(waitForTime) {
-            viewWithText(viewText).input(text, checkDescendants)
+            if (isHint) {
+                viewWithHint(viewText, contains, index = index)
+            } else {
+                viewWithText(viewText, contains, index = index)
+            }.input(text, checkDescendants)
         }
     }
 

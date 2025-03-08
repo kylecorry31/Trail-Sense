@@ -23,7 +23,12 @@ class CreateMapFromUriCommand(
     override suspend fun execute(): PhotoMap? = onIO {
         val filename = files.getFileName(uri, withExtension = false, fallbackToPathName = false)
         val name = onMain {
-            CoroutinePickers.text(context, context.getString(R.string.name), default = filename)
+            CoroutinePickers.text(
+                context,
+                context.getString(R.string.name),
+                hint = context.getString(R.string.name),
+                default = filename
+            )
         } ?: return@onIO null
 
         try {
