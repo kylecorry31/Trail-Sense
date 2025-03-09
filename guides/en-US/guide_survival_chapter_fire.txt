@@ -1,7 +1,7 @@
 <!-- K: fire, flame, light, heat, warm, burn -->
 <!-- S: Build and maintain a fire. -->
 
-This chapter covers how to make a fire in a survival situation.
+This chapter covers how to make a fire.
 
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill, starter, matches, lighter, steel, ferro, ferrocerium, tinder -->
@@ -28,14 +28,15 @@ Once you have mastered these skills, you should learn how to do the following:
 - Make charcoal.
 - Construct a fire bundle and start a fire with it.
 
-## Building a fire
-<!-- K: build, gather, prepare, tinder, kindling, fuel, location, fatwood, structure, tepee, lean-to, cross-ditch, pyramid -->
-<!-- S: Choose a flat, dry area protected from the wind. Gather tinder, kindling, and fuel. Use the tepee structure to get a fire going quickly. -->
+## Preparing a fire site
+<!-- K: build, gather, prepare, tinder, kindling, fuel, location, fatwood -->
+<!-- S: Choose a flat, dry area protected from the wind. Gather tinder, kindling, and fuel. -->
 
-### Preparing a fire site
 - Choose a flat, dry area protected from the wind, close to your shelter and a fuel supply.
 - Clear the ground to expose soil and remove any flammable materials to prevent unintended spreading.
-- In snowy conditions, use a platform of green logs to build the fire on.
+- In snowy conditions, use a platform of logs to build the fire on.
+- If possible, line the fire pit with dry rocks, dirt, or sand to prevent underground fires. Do not construct a fire pit over a root system or peat.
+- Some areas may ban the construction of fires, so be aware of local laws and regulations.
 
 ### Fire reflector (optional)
 A fire reflector is a wall built behind the fire to reflect heat towards you and protect the fire from wind. Use rocks, logs, or snow to build a barrier. It is easier to build a reflector before starting the fire.
@@ -69,53 +70,70 @@ A fire reflector is a wall built behind the fire to reflect heat towards you and
 
 ![](file:///android_asset/survival_guide/58.webp)
 
-### Fire structures
-
-- **Tepee**: Start with a tinder bundle and build a cone of kindling around it. This structure is easy to light and good for heating. It burns well, even with wet wood.
-- **Lean-to**: Place a long green stick in the ground at an angle, leaning kindling against it. Place tinder underneath the lean-to.
-- **Cross-ditch**: Dig an X in the ground and place tinder in the center. Build a kindling pyramid over the tinder. The ditch allows air to flow under the fire.
-- **Pyramid**: Lay small logs or branches in parallel on the ground to form a platform. Build additional layers in a crisscross pattern, leaving space for air to circulate. Start the fire at the top of the pyramid. This fire requires less attention.
-
-![](file:///android_asset/survival_guide/59.webp)
-
 ## Starting a fire
-<!-- K: start, light, ignite, matches, lighters, steel, ferro, ferrocerium, magnesium, flint, bow-drill, hand-drill, drill, magnifying, lens -->
+<!-- K: start, light, ignite, matches, lighters, steel, ferro, ferrocerium, magnesium, flint, bow-drill, hand-drill, drill, magnifying, lens, tepee, structure -->
 <!-- S: If you have a fire starter, use it. You can improvise if required, but it will be more difficult and requires practice. -->
 
-- **Matches/lighters**: Always have waterproof matches or a reliable lighter in your kit.
-- **Fire steel**: Durable and works in all weather conditions, producing sparks to ignite your tinder. Scrape it quickly with the back of a knife or scraper to create sparks. For best results, pin the fire steel against the tinder and ground and scrape the steel towards the tinder.
-- **Magnifying glass / lens**: Focus sunlight through a lens onto tinder to create a fire. Glasses or even a clear bottle filled with water can work. This will take a while and requires direct sunlight. Credit card sized freznel lenses are also effective.
+1. Have a sufficient supply of tinder, kindling, and fuel nearby.
+2. Form the tinder into a small bundle or nest and place it on the ground.
+3. Lean a few pieces of kindling against the tinder in a tepee shape.
+4. Light the tinder.
+5. Carefully add kindling to the fire, being careful not to smother the flame by always leaving a section with open flame exposed. Blow into it to encourage growth.
+6. Once your fire is steady, start adding fuel while trying to maintain a tepee structure.
+
+**Note**: When blowing into a fire, be gentle and take breaths away from the smoke.
+
+### Nursing an ember
+An ember is a small piece of tinder that is burning, but has not formed a flame. Once you have an ember, gently blow into it and feed it more tinder until a flame appears.
+
+Sometimes it is easier to hold the tinder containing an ember and cup your hands closer together to find the right balance of oxygen and fuel.
+
+### Fire starters
+
+- **Matches/lighters**: Always have waterproof matches or a reliable lighter in your kit. These are the easiest methods of starting a fire: just put the flame to the tinder.
+- **Fire steel**: Durable and works in all weather conditions, producing sparks to ignite your tinder. Scrape it quickly with the back of a knife or scraper to create sparks. For best results, pin the fire steel against the tinder and ground and scrape the steel towards the tinder. Some fire steel comes with a magnesium block, which you can scrape off shavings into the tinder before striking to help cactch a spark.
+- **Magnifying glass / lens**: Focus sunlight through a lens onto tinder to create an ember. Glasses or even a clear bottle filled with water can work. This will take a while and requires direct sunlight. Credit card sized freznel lenses are also effective.
 
 ![](file:///android_asset/survival_guide/61.webp)
+
+The following methods are more difficult to create a fire with and require practice. If you find yourself here, it may be best to focus on insulation and shelter to stay warm.
 
 - **Flint and steel**: Strike a flint rock with a steel tool to create sparks. The tinder must be very dry and fine.
 - **Bow drill**: Create friction by spinning a stick (drill) on a wooden base (fireboard) using a bow to rotate the drill.
 - **Hand drill**: Create friction by spinning a stick (drill) between your hands on a wooden base (fireboard). Apply downward pressure while spinning.
 
-### Making a bow drill
-- **Socket**: A small, flat stone or piece of hardwood to hold the drill in place. It should have a small depression to fit the top of the drill.
-- **Drill**: A straight, dry stick about 10-12 inches long and ¾ inch in diameter.
-- **Fireboard**: A flat piece of dry wood with a notch cut into it to collect the ember. Soft wood such as yucca, tamarack, aspen, balsam fir, basswood, poplar, cypress, cottonwood, alder, red cedar, and willow are preferred. Cut a depression about ½ to ¾ inch from the edge. On the underside of the board, make a V-shaped cut from the edge of the board to the depression. Avoid resinous woods like pine.
-- **Bow**: A flexible, curved stick with a cord attached to both ends. The cord should be wrapped around the drill. A shoelace can be used as the cord.
-- **Fire pan**: A flat piece of bark or wood to catch the ember.
-
-To operate, place the fireboard on the fire pan, hold the drill upright in the depression, and use the bow to spin the drill. The friction will create an ember that can be transferred to your tinder bundle. Place a foot on the fireboard to hold it steady.
+### Using a bow drill
+1. Create the socket by finding a small, flat stone or piece of hardwood with a small depression near the center.
+2. Create the drill by finding a straight, dry stick about 10-12 inches long and ¾ inch in diameter.
+3. For the fireboard, find a flat, dry piece of soft wood. Yucca, tamarack, aspen, balsam fir, basswood, poplar, cypress, cottonwood, alder, red cedar, and willow are preferred. Avoid resinous woods like pine.
+4. Carve a small dpression about ½ to ¾ inch from the edge of the fireboard.
+5. On the underside of the fireboard, make a V-shaped cut from the edge of the board to the depression.
+6. Find a curved stick that can be used for the bow. It should be about 12-14 inches long and ½ inch in diameter.
+7. Attach a cord or shoelace to both ends of the bow.
+8. Fire the fire pan, a flat piece of bark or wood to catch the ember.
+9. Wrap the drill into the bow string so that it can roll as it moves along the string.
+10. Place the fireboard on top of the fire pan so the V-shaped is touching.
+11. Place the drill (attached to the bow) into the depression you carved into the fireboard.
+12. Place the depression in the socket onto the top end of the drill and apply downward pressure with your non-dominant hand.
+13. Place your foot onto the fireboard (same side as non-dominant hand) and rest the hand holding the socket onto your knee.
+14. With your dominant hand, start moving the bow side to side to cause the drill to spin. Be sure to go the full length of the bow string. Keep a steady, fast pace.
+15. You will start to see smoke after a while, keep going until you are sure there's an ember created.
+16. The ember should be transfered onto the fire pan (it may already be there), and moved to a tinder bundle where you can nurse it into a fire.
 
 ![](file:///android_asset/survival_guide/64.webp)
 
-## Maintaining and extinguishing a fire
-<!-- K: maintain, extinguish, safety, transport, move, bundle, tinder-fungus, chaga -->
-<!-- S: Keep adding fuel to maintain your fire. Thoroughly extinguish your fire with water or dirt. -->
+If you are using a hand drill, follow the same steps as the bow drill except don't create the bow and socket and instead roll the drill between your palms until your reach the bottom, then start again from the top.
 
-**Maintaining**: Keep adding fuel to maintain your fire. Adjust the structure as needed to control the burn rate and heat distribution.
+## Extinguishing or moving a fire
+<!-- K: extinguish, safety, transport, move, bundle, tinder-fungus, chaga -->
+<!-- S: Thoroughly extinguish your fire with water or dirt. -->
 
-**Extinguishing**: Thoroughly extinguish your fire by dousing it with water or covering it with dirt. Make sure no embers remain that could reignite or cause a wildfire. On a beach, do not cover the fire with sand, as it can insulate the heat and cause burns.
+Thoroughly extinguish your fire by dousing it with water or covering it with dirt.
 
-**Safety Tips**:
 - Never leave a fire unattended.
-- Be aware of local fire regulations and conditions.
+- Make sure no embers remain that could reignite or cause a wildfire.
 - Always have a plan to extinguish the fire quickly if needed.
-- If possible, line the fire pit with dry rocks, dirt, or sand to prevent underground fires. Do not construct a fire pit over a root system or peat.
+- On a beach, do not cover the fire with sand, as it can insulate the heat and cause burns.
 
 ### Moving the fire
 
@@ -131,36 +149,13 @@ A fire bundle is a portable fire that can be carried to a new location. It is ma
 
 ![](file:///android_asset/survival_guide/66.webp)
 
-**Tinder fungus and chaga**
-
-Both tinder fungus and chaga can be used to transport fire. The inside of these fungi can smolder for hours, allowing you to carry them to a new location to start a fire. To restart the fire, place the ember in a tinder bundle and blow gently to ignite it.
-
-
-Tinder fungus:
-![](file:///android_asset/survival_guide/tinder_fungus.webp)
-
-Chaga:
-![](file:///android_asset/survival_guide/chaga.webp)
+You can also use tinder fungus or chaga as a self contained fire bundle, as the inside will hold an ember for hours.
 
 ## Craft: charcoal
 <!-- K: charcoal, filter, coal, craft -->
 <!-- S: You can make charcoal by not allowing wood to fully burn. -->
 
-Charcoal is made by burning wood in a low-oxygen environment. It can be used for filtering water, making pitch, medicine, and as fuel for fires. You can grind charcoal into powder by placing it in a container and crushing it with a stick or rock.
-
-### Container method
-
-**Resources**
-- Wood
-- Metal container with a lid
-
-**Instructions**
-1. Fill a metal container with wood.
-2. Cover the container with a lid, ensuring there is a small gap or hole in the lid.
-3. Place the container on a fire, smoke will come out of the hole.
-4. When the smoke stops, remove the container from the fire and let it cool. For best results, flip the container upside down or cover the hole.
-
-### Extinguishing method
+Charcoal is made by preventing wood from completely burning. It can be used for filtering water, making pitch, medicine, and as fuel for fires. You can grind charcoal into powder by placing it in a container and crushing it with a stick or rock.
 
 **Resources**
 - Wood
@@ -169,4 +164,4 @@ Charcoal is made by burning wood in a low-oxygen environment. It can be used for
 **Instructions**
 1. Burn a fire down to coals.
 2. Douse the fire with water or dirt to quickly extinguish it.
-3. Wait for the coals to cool, there should be some charcoal among the ashes.
+3. Wait for the coals to cool, there should be some charcoal among the ashes. Charcoal is very light and entirely black.
