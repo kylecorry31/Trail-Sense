@@ -7,8 +7,8 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = f"{script_dir}/.."
 
 # TODO: Better looking title page
-# TODO: Add field guide
 # TODO: Add index using keywords
+# TODO: Links (replace with text)
 
 chapters = [
     {
@@ -42,6 +42,10 @@ chapters = [
     {
         "title": "Weather",
         "file": "app/src/main/res/raw/guide_survival_chapter_weather.md"
+    },
+    {
+        "title": "Field Guide",
+        "file": "survival-guide-book/field_guide.md"
     }
 ]
 
@@ -77,7 +81,12 @@ for chapter in chapters:
                 'for',
                 "GPS"
             ]
-            return '## ' + ' '.join([word.title() if word.lower() not in ignored_words else word for word in match.group(1).split()])
+
+            prefix = ''
+            if chapter['title'] == 'Medical':
+                prefix = '\\pagebreak\n\n'
+
+            return f'{prefix}## ' + ' '.join([word.title() if word.lower() not in ignored_words else word for word in match.group(1).split()])
         file_content = h2_regex.sub(title_case_h2, file_content)
 
         # Replace all images with their base64 content as a JPG
