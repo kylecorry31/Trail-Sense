@@ -25,7 +25,7 @@ Start by learning how to do the following:
 Once you have mastered these skills, you should learn how to do the following:
 - Protect a fire from wind and rain.
 - Construct and use a bow drill.
-- Make charcoal (see the Crafting chapter).
+- Make charcoal.
 - Construct a fire bundle and start a fire with it.
 
 ## Building a fire
@@ -64,6 +64,8 @@ A fire reflector is a wall built behind the fire to reflect heat towards you and
   - Plastics, such as straws or spoons
   - Wood soaked in a flammable liquid such as bug spray (use caution)
 - **Fuel**: Larger pieces of wood that will burn longer and sustain your fire.
+  - Prefer fallen wood that you can break by hand
+  - To break a larger piece of wood, insert it between two live trees at the point you want to break it and push it to the side until it snaps
 
 ![](file:///android_asset/survival_guide/58.webp)
 
@@ -139,3 +141,32 @@ Tinder fungus:
 
 Chaga:
 ![](file:///android_asset/survival_guide/chaga.webp)
+
+## Craft: charcoal
+<!-- K: charcoal, filter, coal, craft -->
+<!-- S: You can make charcoal by not allowing wood to fully burn. -->
+
+Charcoal is made by burning wood in a low-oxygen environment. It can be used for filtering water, making pitch, medicine, and as fuel for fires. You can grind charcoal into powder by placing it in a container and crushing it with a stick or rock.
+
+### Container method
+
+**Resources**
+- Wood
+- Metal container with a lid
+
+**Instructions**
+1. Fill a metal container with wood.
+2. Cover the container with a lid, ensuring there is a small gap or hole in the lid.
+3. Place the container on a fire, smoke will come out of the hole.
+4. When the smoke stops, remove the container from the fire and let it cool. For best results, flip the container upside down or cover the hole.
+
+### Extinguishing method
+
+**Resources**
+- Wood
+- Water or dirt
+
+**Instructions**
+1. Burn a fire down to coals.
+2. Douse the fire with water or dirt to quickly extinguish it.
+3. Wait for the coals to cool, there should be some charcoal among the ashes.

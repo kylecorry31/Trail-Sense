@@ -7,7 +7,6 @@ const guides = [
   "survival_chapter_shelter_and_clothing",
   "survival_chapter_navigation",
   "survival_chapter_weather",
-  "survival_chapter_crafting"
 ];
 
 // Populate the guide list

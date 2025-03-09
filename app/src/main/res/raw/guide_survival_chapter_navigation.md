@@ -151,7 +151,7 @@ Your GPS device may run out of battery, so carry extra batteries or a portable c
 If your GPS supports digital maps, download maps of your area in advance to navigate even if you lose the signal.
 
 ## Compass
-<!-- K: compass, bearing, declination, direction, north, south, east, west, orient -->
+<!-- K: compass, bearing, declination, direction, north, south, east, west, orient, craft -->
 <!-- S: A compass helps you determine direction. Be sure to set the same declination as your map. -->
 
 A compass helps you determine direction and is essential for navigation, especially when used with a map.
@@ -238,3 +238,17 @@ Typical map colors include:
 - **Southern Hemisphere**: Use the Southern Cross to determine south. Extend a line from the top and bottom stars of the Cross’s long axis, continuing about 4.5 times the distance between these stars toward the horizon to approximate the South Pole.
 
 ![](file:///android_asset/survival_guide/92.webp)
+
+## Craft: Compass
+<!-- K: compass, needle, magnet, north, south, east, west, direction, craft -->
+<!-- S: You can make a compass using a needle, knife, and a leaf. -->
+
+**Resources**
+- Needle
+- Knife
+- Leaf or bottle cap
+- Water
+
+**Instructions**
+1. Magnetize the needle by stroking it with the knife in one direction (to avoid dulling the blade, use the back of the knife). Stroke at least 50 times.
+2. Place the needle on the leaf/cap and float it in water. The needle will slowly align to the north-south axis. Ensure there are no currents or wind that could affect the needle.

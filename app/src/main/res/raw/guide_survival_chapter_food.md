@@ -210,7 +210,13 @@ There are no poisonous freshwater fish, but there are some poisonous saltwater f
 
 Hooks with barbs are more effective than barbless hooks at keeping fish on the line.
 
-See the Crafting chapter for how to make fishhooks.
+You can craft a hook if needed:
+
+- Wooden hooks: Cut a piece of hardwood, put a notch in one end and secure a sharp object into the notch using cordage.
+- Gorge hooks: Carve a piece of wood or bone into the shape shown in the picture below. Tie a line to the middle of the hook and place into bait. When the fish swallows the bait, the hook will lodge in its throat - you do not need to pull the line to set the hook.
+- Other hooks: You can use metal wire or thorns as hooks. See the picture below.
+
+![](file:///android_asset/survival_guide/47.webp)
 
 **Lines**
 
@@ -323,6 +329,8 @@ Examples of deadfall traps:
 ![](file:///android_asset/survival_guide/34.webp)
 
 ![](file:///android_asset/survival_guide/35.webp)
+
+Stop cuts are used to prevent wood from splitting when you are cutting it. To make a stop cut, make a small cut perpendicular to the grain of the wood where you want to stop the cut. This cut should be about 1/3 of the way through the wood. You can baton the knife to form a stop cut by placing the knife where you want to make the cut and hitting it with a stick - only do this on full tang knives.
 
 ### Birds
 
@@ -437,3 +445,16 @@ A bear bag is a bag of food hoisted into a tree to keep it out of reach of bears
 A bear canister is a hard plastic container used to store food. It is bear-proof and can be left on the ground.
 
 Some campsites may provide a bear box, which is a large metal box used to store food.
+
+## Craft: Tongs
+<!-- K: tongs, craft -->
+<!-- S: You can make tongs from green wood. -->
+
+**Resources**
+- Green wood
+
+**Instructions**
+1. Cut a length of green wood.
+2. Split the wood down the middle to create a flat surface.
+3. Optionally, carve a small notch in the center of the stick to allow it to bend more easily.
+4. Bend the wood in half to create tongs.

@@ -136,91 +136,75 @@ Identifying the type of cloud can help to forecast the weather. Below are some c
 
 **Cirrus**
 
-High wispy clouds that look like tufts of white hair.
-
-May indicate precipitation in the next 12 to 24 hours.
-
 ![](file:///android_asset/survival_guide/cirrus.webp)
+
+High wispy clouds that look like tufts of white hair. May indicate precipitation in the next 12 to 24 hours.
+
+
 
 **Cirrocumulus**
 
-High level clouds that form a wavy sheet. The sheet is composed of small dots which almost look two dimensional.
-
-May indicate precipitation in the next 8 to 12 hours.
-
 ![](file:///android_asset/survival_guide/cirrocumulus.webp)
+
+High level clouds that form a wavy sheet. The sheet is composed of small dots which almost look two dimensional. May indicate precipitation in the next 8 to 12 hours.
 
 **Cirrostratus**
 
-A high cloud that covers the sky. It is transparent and typically causes a halo to form around the sun.
-
-May indicate precipitation in the next 10 to 15 hours.
-
 ![](file:///android_asset/survival_guide/cirrostratus.webp)
+
+A high cloud that covers the sky. It is transparent and typically causes a halo to form around the sun. May indicate precipitation in the next 10 to 15 hours.
+
 
 **Altocumulus**
 
-Mid level puffy clouds that look like cotton balls. They are typically white with darker patches below and can be spaced out or sheet-like.
-
-May indicate precipitation or a thunderstorm in the next 12 hours.
-
 ![](file:///android_asset/survival_guide/altocumulus.webp)
+
+Mid level puffy clouds that look like cotton balls. They are typically white with darker patches below and can be spaced out or sheet-like. May indicate precipitation or a thunderstorm in the next 12 hours.
 
 **Altostratus**
 
-A mid level cloud that covers the sky. The sun can barely be seen as a bright patch.
-
-May indicate precipitation in the next 8 hours.
-
 ![](file:///android_asset/survival_guide/altostratus.webp)
+
+A mid level cloud that covers the sky. The sun can barely be seen as a bright patch. May indicate precipitation in the next 8 hours.
+
 
 **Cumulus**
 
-Low puffy clouds that look like cotton balls. They are spaced out and are typically white with darker patches below.
-
-Usually indicates fair weather, but if it is growing taller, then precipitation or a thunderstorm could be possible in the next few hours.
-
 ![](file:///android_asset/survival_guide/cumulus.webp)
+
+Low puffy clouds that look like cotton balls. They are spaced out and are typically white with darker patches below. Usually indicates fair weather, but if it is growing taller, then precipitation or a thunderstorm could be possible in the next few hours.
+
 
 **Cumulonimbus**
 
-Low puffy clouds that are very tall. They typically have an anvil shape and are dark.
-
-May indicate a thunderstorm in a few minutes.
-
 ![](file:///android_asset/survival_guide/cumulonimbus.webp)
+
+Low puffy clouds that are very tall. They typically have an anvil shape and are dark. May indicate a thunderstorm in a few minutes.
+
 
 **Stratocumulus**
 
-Low clouds that look like a sheet of cotton balls with small gaps. The color ranges from white to dark gray.
-
-May indicate fair weather for the next 3 hours.
-
 ![](file:///android_asset/survival_guide/stratocumulus.webp)
+
+Low clouds that look like a sheet of cotton balls with small gaps. The color ranges from white to dark gray. May indicate fair weather for the next 3 hours.
 
 **Stratus**
 
-A low cloud that covers the sky. Objects don't cast shadows and it may be foggy.
-
-May indicate fair weather for the next 3 hours if it is foggy, otherwise it may indicate precipitation soon.
-
 ![](file:///android_asset/survival_guide/stratus.webp)
+
+A low cloud that covers the sky. Objects don't cast shadows and it may be foggy. May indicate fair weather for the next 3 hours if it is foggy, otherwise it may indicate precipitation soon.
 
 **Nimbostratus**
 
-A mid level cloud that is dark gray and covers the sky. If it is not raining, it may be a stratus cloud.
-
-May have precipitation for the next 4 hours.
-
 ![](file:///android_asset/survival_guide/nimbostratus.webp)
+
+A mid level cloud that is dark gray and covers the sky. If it is not raining, it may be a stratus cloud. May have precipitation for the next 4 hours.
 
 ## Tides
 <!-- K: tide, water, coast, rise, fall, moon, ocean, sea, semidiurnal, diurnal, mixed -->
 <!-- S: Most places have two high tides and two low tides each day. Check tide tables before heading to the coast. -->
 
-Tides are the rise and fall of sea levels caused by the gravitational pull of the moon and sun. Tides can affect outdoor activities, especially near the coast.
-
-A receding tide can lead to rip currents, which are dangerous for swimmers.
+Tides can affect outdoor activities near the coast. A receding tide can lead to rip currents, which are dangerous for swimmers.
 
 Check the tide tables before heading to the coast. Tide tables can be found online or in local newspapers.
 
