@@ -56,7 +56,7 @@ Food should be stored in airtight containers to prevent spoilage and contaminati
 
 ### Rationing
 
-If you are in a survival situation, you may need to ration your food to make it last longer. A recommended method is to divide your food into thirds. Eat two-thirds of your food during the first half of the time you expect to be lost and save the last third for the second half. It may be difficult to estimate how long you will be lost, but figure around 2–3 days after your expected return date, assuming you shared your plans with someone.
+If you are in a survival situation, you may need to ration your food to make it last longer. Eat two-thirds of your food in the first half of your survival situation (about 2-3 days after your expected return date), and the remaining third in the days that follow. Eating your food will give you the energy you need to construct a shelter and plan.
 
 ### Starvation
 
@@ -69,22 +69,25 @@ Starvation occurs when the body does not receive enough nutrients to function pr
 - Longer healing time for wounds and illnesses.
 
 ## Plants and mushrooms
-<!-- K: plant, mushroom, seaweed, weeds, green, sap, fungus, forage, poison, toxic, leach, test, berries -->
+<!-- K: plant, mushroom, seaweed, weeds, green, sap, fungus, forage, poison, toxic, leach, berries -->
 <!-- S: Only eat plants you can confidently identity as safe and don't eat any mushrooms. Aggregate berries, like raspberries and blackberries, are generally safe. -->
 
-The safest method for consuming wild plants is through positive identification. Before your trip, it's wise to study local plants through guidebooks or plant identification cards.
+Only eat wild plants that you can positively identify as safe. Before your trip, it's wise to study local plants through guidebooks or plant identification cards.
+
+If you are unable to identify plants, just eat bugs; most plants don't have a lot of calories.
 
 ### Foraging
 
 Key considerations when choosing plants include:
 
+- Aggregate berries are generally edible. These include raspberries and blackberries.
 - Plants in or near contaminated water must be washed and cooked to avoid consuming harmful bacteria or chemicals.
 - Even within the same species, plants can vary in toxicity due to environmental factors.
 - If you are sensitive to allergens like poison ivy, steer clear of similar plants such as mangoes or cashews, which can cause similar reactions.
 - Some plants are more nutritious than others. For example, nuts and seeds are high in calories and fats, while leafy greens are high in vitamins and minerals.
 - Some plants are fine for animals but toxic to humans.
-- Aggregate berries are generally safe. These include raspberries and blackberries.
 - Seaweed washed ashore may be spoiled or decayed.
+- Some plants or nuts, such as acorns, should be boiled a few times before eating to leach out toxins.
 - **Avoid the following**:
   - Mushrooms.
   - Roadside plants.
@@ -101,27 +104,9 @@ Key considerations when choosing plants include:
   - Plants with three-leaved growth patterns.
   - Plants with signs of mildew, fungus, or spoilage.
 
-**Edibility testing**
-
-If unsure about a plant and are in **extreme need**, you can use the Universal Edibility Test to determine its safety. This should be a last resort and is not advised, as it can be dangerous. The test is as follows:
-
-1. If the plant has an unpleasant odor, do not proceed.
-2. Crush or break part of the plant to check for colored or milky sap. Only proceed if the sap is clear.
-3. Touch the plant's sap or juice to the inner forearm. If there are no ill effects, such as a rash or burning sensation, proceed.
-4. Place the plant's sap or juice on the outer lip for eight minutes. If there are no ill effects, proceed.
-5. Taste a small pinch of the plant and leave it in your mouth for eight minutes. If there's an unpleasant taste or burning sensation, spit it out and rinse your mouth. If there are no ill effects, proceed.
-6. Swallow the small pinch of the plant from step 5. Wait eight hours. If there are no ill effects, proceed.
-7. Eat a handful of the plant and wait another eight hours. If there are no ill effects, the plant is safe to eat. Exercise restraint when eating large quantities of a new plant, as it may cause digestive issues.
-
-Note that each part of a plant needs to be tested separately, as some parts may be toxic while others are safe.
-
 ### Preparation
 
 Wash plants, then cut them into usable pieces. Some plants can be eaten raw, while others need to be cooked.
-
-**Leaching**
-
-Some plants contain toxins that can be removed by leaching. A common example is acorns, which can be shelled and boiled in several changes of water to remove tannins.
 
 ## Insects
 <!-- K: insect, bug, grub, worm, ant, termite, locust, grasshopper, cricket, dragonfly, bait -->
@@ -256,21 +241,19 @@ In a survival situation, it's best to focus on easier-to-catch animals like inse
 
 **Firearms and bows**
 
-If you have a firearm or bow with you, the odds are that you know how to use it. Aim for the vital organs to ensure a quick kill. It is unlikely you will be able to construct a survival bow that is effective for hunting.
+If you have a firearm or bow with you, aim for the vital organs to ensure a quick kill. It is unlikely you will be able to construct a survival bow that is effective for hunting.
 
 **Clubs**
 
 A club can be as simple as a stick with a heavy end. This can be used to kill fish or other small animals with a quick, forceful blow to the head.
 
-**Spears and gigs**
+**Spears**
 
-A spear can be made by sharpening a stick and optionally hardening the tip in a fire. While it can be thrown, it's more effective to use it as a thrusting weapon without experience.
-
-For hunting smaller animals like frogs, a gig can be made by finding a forked stick and sharpening the ends. Optionally, split the ends of a larger stick and insert smaller sticks to keep the split open.
+A spear can be made by sharpening a stick and optionally hardening the tip in a fire. Unless you have experience, it's best to stab with the spear instead of throwing it. To make it easier to hit your target, you can construct multiple spear points if you use a forked branch.
 
 **Throwing sticks and rocks**
 
-In a pinch, you can use a throwing stick or rock to kill or stun small animals. Aim for the head to ensure a quick kill. The throwing stick can be made by finding a stick with a natural curve that has some weight to it. Throw it like you would throw a boomerang.
+In a pinch, you can throw a heavy stick or rock to kill or stun small animals. Aim for the head to ensure a quick kill.
 
 ### Trapping
 
@@ -294,9 +277,7 @@ Stop cuts are used to prevent wood from splitting when you are cutting it. To ma
 
 ### Birds
 
-Without a firearm or bow, birds can be difficult to catch. They are most easily caught at night when roosting. Use a club, throwing stick, or rock to kill or stun the bird.
-
-Also, look for bird nests, as they may contain eggs.
+Birds are most easily caught at night when roosting or you can eat eggs from nests. Use a club, throwing stick, or rock to kill or stun the bird.
 
 To prepare a bird for cooking:
 
@@ -318,14 +299,6 @@ Frogs can be caught near water sources using a gig.
 
 Traps with bait may also be effective for catching reptiles and amphibians.
 
-To clean a snake:
-
-1. Cut off the head and bury it to avoid accidentally stepping on it.
-2. Slit the belly and remove the entrails.
-3. Skin the snake and cut it into usable pieces.
-
-![](file:///android_asset/survival_guide/42.webp)
-
 Always wash your hands after handling reptiles and amphibians, as they can carry salmonella. Cook the meat thoroughly.
 
 **Do not eat the following**:
@@ -336,6 +309,8 @@ Always wash your hands after handling reptiles and amphibians, as they can carry
 - Tree frogs.
 - Toads.
 - Salamanders.
+- Snakes - edible, but may be dangerous to catch.
+  - If you kill a snake, cut off and bury its head before cleaning. Never touch the head with your hands, use sticks instead.
 
 ### Small mammals
 
@@ -352,6 +327,8 @@ This guide does not cover the preparation of large mammals, as they are difficul
 ## Cooking
 <!-- K: cook, boil, roast, bake, utensil, container, stove -->
 <!-- S: You should boil, roast, or bake most foods to avoid getting sick. This will require you to start fire or have a portable stove. -->
+
+Do not try to preserve food you catch, just cook and eat it.
 
 ### Stoves
 Portable stoves are a convenient way to cook food. They can be fueled by wood, alcohol, or gas. Follow the manufacturer's instructions for use.
@@ -372,18 +349,6 @@ You can wrap food in leaves or clay and place it in the coals of a fire to bake 
 
 ### Utensils
 If you are packing utensils, a spork is a good option. Otherwise, you can use a stick or your hands to handle food. Be sure to wash your hands before eating.
-
-## Preservation
-<!-- K: preserve, dry, smoke, freeze, refrigerate, store -->
-<!-- S: In a long-term survival situation, you should preserve excess food to avoid spoilage. -->
-
-In most survival scenarios, it's best to consume food as soon as possible to avoid spoilage. In a longer-term scenario, you can use the following methods to preserve food:
-
-- **Sun drying**: Hang or place food on rocks in direct sunlight. Turn the food occasionally to ensure even drying.
-- **Smoking**: Hang food over a smoky fire to dry it out. For best results, use a fire with little flame and lots of smoke in a poorly ventilated area.
-- **Freezing**: Freeze food in meal-sized portions only if the temperature is consistently below freezing. If the temperature is above freezing, the food may start thawing.
-- **Natural refrigeration**: Bury food in snow, underground (lined with grass or leaves), or wrap it in a wet cloth.
-- **Live storage**: Store fish in a trap or a pen made of rocks and sticks in a stream. Insects can be stored in a container with holes in the lid.
 
 ## Protection
 <!-- K: protect, bear, bag, canister, box -->
