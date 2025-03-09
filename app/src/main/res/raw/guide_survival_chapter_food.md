@@ -36,7 +36,7 @@ Once you have mastered these skills, you should learn how to do the following:
 - Identify edible plants and mushrooms.
 - Find and catch insects, shellfish, crustaceans, fish, and other animals.
 - Preserve food.
-- Make traps and snares.
+- Make traps.
 
 ## Food essentials
 <!-- K: nutrition, caloric, calorie, carbohydrate, protein, fat, vitamin, mineral, storage, starvation, ration -->
@@ -269,7 +269,7 @@ Alternatively, use a funnel fish trap by placing sticks into a V-shape with a re
 5. Cook the fish.
 
 ## Other animals
-<!-- K: animal, hunt, bow, trap, snare, deadfall, bird, reptile, amphibian, frog, snake, mammal, skin, kill, meat, butcher, skin -->
+<!-- K: animal, hunt, bow, trap, deadfall, bird, reptile, amphibian, frog, snake, mammal, skin, kill, meat, butcher, skin -->
 <!-- S: Hunting or trapping can be energy consuming and difficult without proper tools. -->
 
 In a survival situation, it's best to focus on easier-to-catch animals like insects, shellfish, crustaceans, and fish. But if you have the means to catch other animals, they can provide a good source of protein and nutrients.
@@ -298,27 +298,11 @@ In a pinch, you can use a throwing stick or rock to kill or stun small animals. 
 
 ### Trapping
 
-Traps and snares allow for the passive capture of small animals. They can be set up and left alone while you perform other tasks. Check them every few hours.
+Traps allow for the passive capture of small animals. They can be set up and left alone while you perform other tasks. Check them every few hours.
 
-Look for signs of animal activity like tracks, droppings, or chewed vegetation. Set up traps and snares in areas where animals are likely to pass through. You can construct funnels or walls to guide animals into them.
+Look for signs of animal activity like tracks, droppings, or chewed vegetation. Set up traps in areas where animals are likely to pass through. You can construct funnels or walls to guide animals into them.
 
-Baiting the traps and snares can increase their effectiveness. Use food native to the area that animals are likely to eat.
-
-Smoking the traps and snares can help mask your scent.
-
-**Snares**
-
-Wire is the best material for snares, but other cordage like paracord can be used. Set the snare at head height for the animal you're trying to catch. The snare should form a loop that tightens when the animal walks through it. Use small twigs to prop the snare open.
-
-To construct a snare:
-
-1. Tie the locking mechanism as shown in the pictures below.
-2. Run the cordage or wire through the locking mechanism to form a loop.
-3. Attach the other end of the cordage or wire to a tree or stake.
-
-![](file:///android_asset/survival_guide/27.webp)
-
-![](file:///android_asset/survival_guide/29.webp)
+Baiting the traps can increase their effectiveness. Use food native to the area that animals are likely to eat. Smoking the traps can help mask your scent.
 
 **Deadfalls**
 
@@ -379,7 +363,7 @@ Always wash your hands after handling reptiles and amphibians, as they can carry
 
 ### Small mammals
 
-Small mammals can be caught using traps, snares, or deadfalls. They can also be caught using a club, throwing stick, or rock.
+Small mammals can be caught using traps. They can also be caught using a club, throwing stick, or rock.
 
 To prepare a small mammal for cooking:
 
