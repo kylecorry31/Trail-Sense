@@ -158,19 +158,17 @@ Shellfish and crustaceans are a good source of protein and can be found in both 
 
 Search shallow waters, tide pools, and rocky areas for shellfish and crustaceans. Snails and limpets can often be found attached to rocks, which may be easier to access during low tide.
 
-In freshwater, crayfish can be located under and around stones in streams or in soft mud during the daytime. You can attach bait to a string and lower it into the water to attract crayfish. Once it grabs the bait, pull it to shore.
+Crayfish, lobsters, and crabs can be found under and around stones, in soft mud or sand, and may be more active at night. You can catch them using a variety of techniques:
 
-In saltwater, lobsters, crabs, and shrimp can be found near the water's edge or in shallow water. Crabs will come to shore if you leave bait at the water's edge, where they can be easily caught. Lobsters and crabs are more active at night, and shrimp are attracted to light.
+- Attach bait onto a line and lower it into the water. Once it grabs the bait, pull it to shore.
+- For crabs, leave bait near the shoreline and catch them by hand or using a spear.
+- Use a fish basket trap with bait in it (see the Fish section below).
 
-**Caution**: Mussels may be poisonous in tropical waters during the summer. If a red tide occurred within three days, do not eat fish or shellfish. Do not eat shellfish covered by water during high tide.
+**Caution**
 
-### Trapping
-
-A basket fish trap can be used to catch crustaceans. Bait the trap with food and place it in the water. Check the trap every few hours to see if you have caught anything.
-
-![](file:///android_asset/survival_guide/50.webp)
-
-For details on how to construct this trap, see the Fish section of this chapter.
+- Mussels may be poisonous in tropical waters during the summer.
+- If a red tide occurred within three days, do not eat fish or shellfish.
+- Do not eat shellfish covered by water during high tide.
 
 ### Preparation
 
@@ -267,13 +265,11 @@ Baiting the traps can increase their effectiveness. Use food native to the area 
 
 Deadfall traps are good for catching small animals. They work by dropping a heavy object on the animal when it triggers the trap. The trigger mechanism can be made from a stick and a bait stick. When the animal takes the bait, the trigger releases, causing the heavy object to fall.
 
-Examples of deadfall traps:
+Place one or more of these traps near your shelter to possibly catch mice.
 
 ![](file:///android_asset/survival_guide/34.webp)
 
 ![](file:///android_asset/survival_guide/35.webp)
-
-Stop cuts are used to prevent wood from splitting when you are cutting it. To make a stop cut, make a small cut perpendicular to the grain of the wood where you want to stop the cut. This cut should be about 1/3 of the way through the wood. You can baton the knife to form a stop cut by placing the knife where you want to make the cut and hitting it with a stick - only do this on full tang knives.
 
 ### Birds
 

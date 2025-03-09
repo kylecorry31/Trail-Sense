@@ -26,7 +26,6 @@ Once you have mastered these skills, you should learn how to do the following:
 - Protect a fire from wind and rain.
 - Construct and use a bow drill.
 - Make charcoal.
-- Construct a fire bundle and start a fire with it.
 
 ## Preparing a fire site
 <!-- K: build, gather, prepare, tinder, kindling, fuel, location, fatwood -->
@@ -37,11 +36,6 @@ Once you have mastered these skills, you should learn how to do the following:
 - In snowy conditions, use a platform of logs to build the fire on.
 - If possible, line the fire pit with dry rocks, dirt, or sand to prevent underground fires. Do not construct a fire pit over a root system or peat.
 - Some areas may ban the construction of fires, so be aware of local laws and regulations.
-
-### Fire reflector (optional)
-A fire reflector is a wall built behind the fire to reflect heat towards you and protect the fire from wind. Use rocks, logs, or snow to build a barrier. It is easier to build a reflector before starting the fire.
-
-![](file:///android_asset/survival_guide/56.webp)
 
 ### Gathering materials
 
@@ -124,8 +118,8 @@ The following methods are more difficult to create a fire with and require pract
 
 If you are using a hand drill, follow the same steps as the bow drill except don't create the bow and socket and instead roll the drill between your palms until your reach the bottom, then start again from the top.
 
-## Extinguishing or moving a fire
-<!-- K: extinguish, safety, transport, move, bundle, tinder-fungus, chaga -->
+## Extinguishing a fire
+<!-- K: extinguish, safety -->
 <!-- S: Thoroughly extinguish your fire with water or dirt. -->
 
 Thoroughly extinguish your fire by dousing it with water or covering it with dirt.
@@ -135,27 +129,26 @@ Thoroughly extinguish your fire by dousing it with water or covering it with dir
 - Always have a plan to extinguish the fire quickly if needed.
 - On a beach, do not cover the fire with sand, as it can insulate the heat and cause burns.
 
-### Moving the fire
+## Increasing warmth
+<!-- K: rock, reflector, hand-warmer -->
+<!-- S: Thoroughly extinguish your fire with water or dirt. -->
 
-**Transporting heat**
+### Fire reflector
+A fire reflector is a wall built behind the fire to reflect heat towards you and protect the fire from wind. Use rocks, logs, or snow to build a barrier.
 
-If you want the heat from your fire to last longer, heat rocks **near** the fire and place them in your shelter or sleeping area. Don't let the rocks get too hot (they should be warm to the touch) to avoid burns or fires. Be sure to check how hot the rocks are before touching them.
+![](file:///android_asset/survival_guide/56.webp)
 
-Alternatively, you could heat water and place it in a container or bottle to keep you warm.
+### Heating rocks
 
-**Fire bundle**
+You can also heat rocks **near** the fire and place them in your shelter or sleeping area. Don't let the rocks get too hot (they should be warm to the touch) to avoid burns or fires. Be sure to check how hot the rocks are before touching them.
 
-A fire bundle is a portable fire that can be carried to a new location. It is made by wrapping a burning ember or coals in a bundle of dry punk wood and damp plant matter, contained in bark. This allows you to transport a fire without needing to start a new one from scratch.
-
-![](file:///android_asset/survival_guide/66.webp)
-
-You can also use tinder fungus or chaga as a self contained fire bundle, as the inside will hold an ember for hours.
+Instead of rocks, you could heat water and place it in a container or bottle to keep you warm.
 
 ## Craft: charcoal
 <!-- K: charcoal, filter, coal, craft -->
 <!-- S: You can make charcoal by not allowing wood to fully burn. -->
 
-Charcoal is made by preventing wood from completely burning. It can be used for filtering water, making pitch, medicine, and as fuel for fires. You can grind charcoal into powder by placing it in a container and crushing it with a stick or rock.
+Charcoal is made by preventing wood from completely burning. It can be used for filtering water, medicine, and as fuel for fires. You can grind charcoal into powder by placing it in a container and crushing it with a stick or rock.
 
 **Resources**
 - Wood
