@@ -25,7 +25,7 @@ Start by learning how to do the following:
 Once you have mastered these skills, you should learn how to do the following:
 - Protect a fire from wind and rain.
 - Construct and use a bow drill.
-- Make charcoal (see the Crafting chapter).
+- Make charcoal.
 - Construct a fire bundle and start a fire with it.
 
 ## Building a fire
@@ -142,7 +142,10 @@ Tinder fungus:
 Chaga:
 ![](file:///android_asset/survival_guide/chaga.webp)
 
-## Crafting charcoal
+## Craft: charcoal
+<!-- K: charcoal, filter, coal, craft -->
+<!-- S: You can make charcoal by not allowing wood to fully burn. -->
+
 Charcoal is made by burning wood in a low-oxygen environment. It can be used for filtering water, making pitch, medicine, and as fuel for fires. You can grind charcoal into powder by placing it in a container and crushing it with a stick or rock.
 
 ### Container method

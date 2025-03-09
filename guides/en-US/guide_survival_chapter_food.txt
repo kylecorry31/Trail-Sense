@@ -413,14 +413,6 @@ You can wrap food in leaves or clay and place it in the coals of a fire to bake 
 ### Utensils
 If you are packing utensils, a spork is a good option. Otherwise, you can use a stick or your hands to handle food. Be sure to wash your hands before eating.
 
-If you do not have a knife, you can break off a shard of the flint/chert/obsidian by hitting the edge with another rock using a glancing blow. This shard will likely have a sharp edge, if it does not, break off another shard and try again.
-
-To make tongs:
-1. Cut a length of green wood.
-2. Split the wood down the middle to create a flat surface.
-3. Optionally, carve a small notch in the center of the stick to allow it to bend more easily.
-4. Bend the wood in half to create tongs.
-
 ## Preservation
 <!-- K: preserve, dry, smoke, freeze, refrigerate, store -->
 <!-- S: In a long-term survival situation, you should preserve excess food to avoid spoilage. -->
@@ -453,3 +445,16 @@ A bear bag is a bag of food hoisted into a tree to keep it out of reach of bears
 A bear canister is a hard plastic container used to store food. It is bear-proof and can be left on the ground.
 
 Some campsites may provide a bear box, which is a large metal box used to store food.
+
+## Craft: Tongs
+<!-- K: tongs, craft -->
+<!-- S: You can make tongs from green wood. -->
+
+**Resources**
+- Green wood
+
+**Instructions**
+1. Cut a length of green wood.
+2. Split the wood down the middle to create a flat surface.
+3. Optionally, carve a small notch in the center of the stick to allow it to bend more easily.
+4. Bend the wood in half to create tongs.

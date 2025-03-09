@@ -41,10 +41,11 @@ When hiking, conserving energy while maintaining hydration is vital. Here are so
 - Choose running water when possible.
 - Assume surface water is contaminated; always purify it.
 - Avoid the following:
-  - Consuming snow without melting it.
-  - Urine or alcohol.
-  - Saltwater.
-  - Stagnant water.
+  - Consuming snow without melting it
+  - Urine
+  - Alcohol
+  - Saltwater
+  - Stagnant water
 
 ### Daily water needs
 

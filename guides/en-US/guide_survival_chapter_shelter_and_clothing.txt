@@ -60,7 +60,7 @@ Once you have mastered these skills, you should learn how to do the following:
 <!-- S: Dress in layers and choose clothing made from wool, polyester, or nylon. Only wear shoes that you have worn in. -->
 
 Your first line of defense in any environment is your clothing. Proper attire should keep you dry, regulate your body temperature, protect you from the sun, and prevent insect bites.
-textutils
+
 ### Materials
 When choosing clothing, consider the following materials:
 - Wool: Retains warmth even when wet.
@@ -206,7 +206,7 @@ Used to repair tears or holes in fabric. It can also be used to connect two piec
 [Image source](https://commons.wikimedia.org/wiki/File:Whip_stitch.jpg)
 
 ### Other methods
-If you do not have a sewing kit, you can use duct tape, safety pins, super glue, cordage, or pitch (see the Crafting chapter for how to make pitch) as temporary fixes.
+If you do not have a sewing kit, you can use duct tape, safety pins, super glue, cordage, or pitch as temporary fixes.
 
 ## Knots
 <!-- K: knot, tie, cordage, cord, rope, paracord, overhand, square, bowline, figure-eight, 8, sheet-bend, bight, hitch, lash, sheepshank, prussic, whip -->
@@ -311,33 +311,6 @@ Used to prevent the end of a rope from fraying or for making a more comfortable 
 
 ![](file:///android_asset/survival_guide/143.webp)
 
-## Craft: Pitch (glue)
-<!-- K: pitch, glue, resin, pine, repair, craft -->
-<!-- S: You can make pitch from tree resin, charcoal, and organic material. -->
-
-Pitch is a natural glue made from tree resin. It can be used to repair tools, make waterproof containers, and as a fire starter.
-
-**Resources**
-- 2 parts tree resin (pine, spruce, or fir), preferably hardened chunks
-- 1 part ground charcoal
-- 1 part ground organic material (dried bark/leaves, sawdust, deer/moose droppings, animal fat, or wax)
-- Container or a rock with a depression
-- Stick or bone for stirring
-
-**Instructions**
-1. Melt the resin in a container over a fire. Be careful not to burn it.
-2. Remove from heat.
-3. Stir in the charcoal and organic material.
-4. You can either let it cool in the container or continue to step 5.
-5. Dip the end of a stick into the pitch to coat it.
-6. Remove the stick and let the pitch cool, ensuring it forms an even coat.
-7. Repeat steps 5 and 6 until you have a thick layer of pitch on the stick, it should look like a large matchstick.
-
-**Usage**
-1. Melt the pitch in a container over a fire.
-2. Apply the pitch to the object you want to repair, as you would with glue.
-3. Let the pitch cool and harden.
-
 ## Craft: Cordage
 <!-- K: cordage, rope, twine, fiber, twist, cord, strand, paracord, craft -->
 <!-- S: You can make cordage from grasses and sedges. -->
@@ -376,3 +349,30 @@ Rope is made by braiding multiple strands of twine together. It is stronger than
 5. You can repeat this process using ropes instead of twine to make even stronger rope.
 
 ![](file:///android_asset/survival_guide/140.webp)
+
+## Craft: Pitch (glue)
+<!-- K: pitch, glue, resin, pine, repair, craft -->
+<!-- S: You can make pitch from tree resin, charcoal, and organic material. -->
+
+Pitch is a natural glue made from tree resin. It can be used to repair tools, make waterproof containers, and as a fire starter.
+
+**Resources**
+- 2 parts tree resin (pine, spruce, or fir), preferably hardened chunks
+- 1 part ground charcoal
+- 1 part ground organic material (dried bark/leaves, sawdust, deer/moose droppings, animal fat, or wax)
+- Container or a rock with a depression
+- Stick or bone for stirring
+
+**Instructions**
+1. Melt the resin in a container over a fire. Be careful not to burn it.
+2. Remove from heat.
+3. Stir in the charcoal and organic material.
+4. You can either let it cool in the container or continue to step 5.
+5. Dip the end of a stick into the pitch to coat it.
+6. Remove the stick and let the pitch cool, ensuring it forms an even coat.
+7. Repeat steps 5 and 6 until you have a thick layer of pitch on the stick, it should look like a large matchstick.
+
+**Usage**
+1. Melt the pitch in a container over a fire.
+2. Apply the pitch to the object you want to repair, as you would with glue.
+3. Let the pitch cool and harden.

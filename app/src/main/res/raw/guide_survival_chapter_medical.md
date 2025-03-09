@@ -56,7 +56,7 @@ Start by learning how to do the following:
 - Calm yourself and others.
 
 Once you have mastered these skills, you should learn how to do the following:
-- Make charcoal (see the Crafting chapter).
+- Make charcoal (see the Fire chapter).
 - Make tea from plants.
 - Identify medicinal plants in your area.
 - Perform advanced first aid techniques, such as setting a broken bone or suturing a wound.
