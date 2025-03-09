@@ -1133,5 +1133,26 @@
     <string name="delete_all_beacons">啲地標統統都會剷走晒個囉噃。</string>
     <string name="tide">潮汐</string>
     <string name="cloud_scanner">凌雲解名掃</string>
-    <string name="survival_guide_disclaimer">本指南僅供資訊用途，作者、發行者或任何貢獻者無一擔保其準確或適合作任何用途。使用本指南之時，您確認戶外活動涉及風險，而您乃按自身風險行事，倘有任何因您使用本指南而起之申索或索償，則您同意作出彌償，使作者、發行者及任何貢獻者無須負責。請一概諮詢專業人士，尋求針對您處境而言之意見，因本指南並不替代專業指導。再者，請注意本地法例及規則或影響文中所描述技巧之合法使用，其遵守歸於您嘅責任之中。</string>
+    <string name="survival_guide_disclaimer">本指南僅供資訊用途，作者、發行者或任何貢獻者無一擔保其準確或適合作任何用途。使用本指南之時，您確認戶外活動涉及風險，而您乃自負風險行事，倘有任何因您使用本指南而起之申索或索償，則您同意作出彌償，使作者、發行者及任何貢獻者無須負責。請一概諮詢專業人士，尋求針對您處境而言之意見，因本指南並不替代專業指導。再者，請注意本地法例及規則或影響文中所描述技巧之合法使用，其遵守歸於您嘅責任之中。</string>
+    <string name="tool_signal_finder">收到收唔到</string>
+    <string name="cell_towers">基站</string>
+    <string name="signal_finder_description">睇過就近嘅基站同訊號。</string>
+    <string name="habitat">棲息地</string>
+    <string name="forest">森林</string>
+    <string name="desert">沙漠</string>
+    <string name="grassland">草原</string>
+    <string name="wetland">濕地</string>
+    <string name="mountain">山</string>
+    <string name="urban">市區</string>
+    <string name="marine">海洋</string>
+    <string name="freshwater">淡水</string>
+    <string name="cave">洞穴</string>
+    <string name="tundra">凍原</string>
+    <string name="diurnal">晝行性 (日頭)</string>
+    <string name="edible">食得</string>
+    <string name="inedible">唔食得</string>
+    <string name="dangerous">危險</string>
+    <string name="medicinal">藥用</string>
+    <string name="nocturnal">夜行性 (夜晚)</string>
+    <string name="crepuscular">曙暮性 (晨昏)</string>
 </resources>
