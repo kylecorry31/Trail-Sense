@@ -4,12 +4,11 @@ import base64
 from PIL import Image
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
-root_dir = f"{script_dir}/../.."
+root_dir = f"{script_dir}/.."
 
-# TODO: Move disclaimer out of overview
-# TODO: Inline images
+# TODO: Better looking title page
 # TODO: Add field guide
-# TODO: Index
+# TODO: Add index using keywords
 
 chapters = [
     {
@@ -46,6 +45,8 @@ chapters = [
     }
 ]
 
+full_resolution_directory = "survival-guide-book/images"
+
 content = ""
 
 # Grab the disclaimer section from the overview chapter
@@ -73,6 +74,7 @@ for chapter in chapters:
                 'and',
                 'the',
                 'to',
+                'for',
                 "GPS"
             ]
             return '## ' + ' '.join([word.title() if word.lower() not in ignored_words else word for word in match.group(1).split()])
@@ -82,7 +84,12 @@ for chapter in chapters:
         image_regex = re.compile(r'!\[(.*?)\]\((.*?)\)')
         images = image_regex.findall(file_content)
         for image in images:
-            with open(image[1], 'rb') as image_file:
+
+            file_path = image[1]
+            if os.path.exists(f'{root_dir}/{full_resolution_directory}/{file_path.split('/')[-1]}'):
+                file_path = f'{root_dir}/{full_resolution_directory}/{file_path.split('/')[-1]}'
+
+            with open(file_path, 'rb') as image_file:
                 image_bytes = image_file.read()
                 pil_image = Image.open(image_file)
                 # Save to a temp jpg and then read the bytes as base 64
@@ -102,6 +109,8 @@ for chapter in chapters:
         lines = file_content.split('\n')
         for i in range(len(lines)):
             if lines[i].startswith('- ') and (i == 0 or not lines[i-1].startswith('- ')):
+                indices.append(i)
+            if lines[i].startswith('1.'):
                 indices.append(i)
 
         lines_with_spacing = []
@@ -123,7 +132,8 @@ with open("temp.md", 'w') as file:
 
 # Generate PDF
 metadata = {
-    "title": "Trail Sense Survival Guide",
+    "title": "Survival Guide",
+    "subtitle": "Trail Sense",
     "author": "Kyle Corry",
     "rights": "Copyright © 2025 Kyle Corry"
 }

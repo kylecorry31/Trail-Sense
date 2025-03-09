@@ -10,6 +10,12 @@
 \fancyhf{}
 \renewcommand{\headrulewidth}{0pt}
 \fancyhead[C]{\leftmark}
+\fancyfoot[C]{\thepage}
 \usepackage{etoolbox}
 \patchcmd{\chapter}{\cleardoublepage}{\clearpage}{}{}
-\AtEndDocument{\clearpage}
+\makeatletter
+\@openrightfalse
+\makeatother
+\raggedbottom
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{0.5in}{20pt}
