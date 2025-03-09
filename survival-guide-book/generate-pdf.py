@@ -9,6 +9,7 @@ root_dir = f"{script_dir}/.."
 # TODO: Better looking title page
 # TODO: Add index using keywords
 # TODO: Links (replace with text)
+# TODO: Add copyright / identifier page
 
 chapters = [
     {
@@ -58,8 +59,6 @@ with open(f"{root_dir}/{chapters[0]["file"]}", 'r') as overview_file:
     overview_content = overview_file.read()
     disclaimer_idx = overview_content.index("## Disclaimer")
     disclaimer = overview_content[disclaimer_idx + len("## Disclaimer"):]
-
-    content += f"# Disclaimer\n\n{disclaimer}\n\n"
 
 for chapter in chapters:
     content += f"# {chapter['title']}\n\n"
@@ -141,13 +140,50 @@ with open("temp.md", 'w') as file:
 
 # Generate PDF
 metadata = {
-    "title": "Survival Guide",
+    "title": "Wilderness Survival Guide",
     "subtitle": "Trail Sense",
     "author": "Kyle Corry",
-    "rights": "Copyright © 2025 Kyle Corry"
+    "year": "2025",
+    "identifier": "9798313546445",
+    "disclaimer": disclaimer
 }
 
-command = 'pandoc -H head.tex -o Book.pdf temp.md --pdf-engine=xelatex --toc --toc-depth=2 --top-level-division=chapter'
+# Create copyright page content
+copyright_page = """
+\\thispagestyle{{empty}}
+\\vspace*{{\\fill}}
+\\begin{{center}}
+Copyright © {year} {author}\\\\
+All rights reserved.\\\\
+\\
+ISBN: {identifier}
+\\end{{center}}
+\\vspace*{{\\fill}}
+\\newpage
+""".format(**metadata)
+
+# Write copyright page to temporary file
+with open("copyright.tex", "w") as f:
+    f.write(copyright_page)
+
+# Create disclaimer page content
+disclaimer_page = """
+\\thispagestyle{{empty}}
+\\vspace*{{\\fill}}
+\\begin{{center}}
+\\textbf{{DISCLAIMER}}\\\\
+\\
+{disclaimer}\\\\
+\\end{{center}}
+\\vspace*{{\\fill}}
+\\newpage
+""".format(**metadata)
+
+# Write disclaimer page to temporary file
+with open("disclaimer.tex", "w") as f:
+    f.write(disclaimer_page)
+
+command = 'pandoc -H head.tex -B copyright.tex -B disclaimer.tex -o Book.pdf temp.md --pdf-engine=xelatex --toc --toc-depth=2 --top-level-division=chapter'
 for entry in metadata:
     command += f' --metadata {entry}="{metadata[entry]}"'
 
@@ -156,3 +192,5 @@ os.system(command)
 # Delete temp files
 os.remove('temp.md')
 os.remove('temp.jpg')
+os.remove('copyright.tex')
+os.remove('disclaimer.tex')
