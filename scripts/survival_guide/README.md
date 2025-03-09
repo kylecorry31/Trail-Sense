@@ -1,0 +1,1 @@
+Install pandoc and texlive
