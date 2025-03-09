@@ -260,7 +260,7 @@ If you have a firearm or bow with you, the odds are that you know how to use it.
 
 **Clubs**
 
-A club can be as simple as a stick with a heavy end. This can be used to kill small fish or other animals with a quick, forceful blow to the head.
+A club can be as simple as a stick with a heavy end. This can be used to kill fish or other small animals with a quick, forceful blow to the head.
 
 **Spears and gigs**
 
@@ -271,8 +271,6 @@ For hunting smaller animals like frogs, a gig can be made by finding a forked st
 **Throwing sticks and rocks**
 
 In a pinch, you can use a throwing stick or rock to kill or stun small animals. Aim for the head to ensure a quick kill. The throwing stick can be made by finding a stick with a natural curve that has some weight to it. Throw it like you would throw a boomerang.
-
-![](file:///android_asset/survival_guide/112.webp)
 
 ### Trapping
 
