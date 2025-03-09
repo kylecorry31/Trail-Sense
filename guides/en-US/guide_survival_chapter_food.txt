@@ -210,7 +210,13 @@ There are no poisonous freshwater fish, but there are some poisonous saltwater f
 
 Hooks with barbs are more effective than barbless hooks at keeping fish on the line.
 
-See the Crafting chapter for how to make fishhooks.
+You can craft a hook if needed:
+
+- Wooden hooks: Cut a piece of hardwood, put a notch in one end and secure a sharp object into the notch using cordage.
+- Gorge hooks: Carve a piece of wood or bone into the shape shown in the picture below. Tie a line to the middle of the hook and place into bait. When the fish swallows the bait, the hook will lodge in its throat - you do not need to pull the line to set the hook.
+- Other hooks: You can use metal wire or thorns as hooks. See the picture below.
+
+![](file:///android_asset/survival_guide/47.webp)
 
 **Lines**
 
@@ -324,6 +330,8 @@ Examples of deadfall traps:
 
 ![](file:///android_asset/survival_guide/35.webp)
 
+Stop cuts are used to prevent wood from splitting when you are cutting it. To make a stop cut, make a small cut perpendicular to the grain of the wood where you want to stop the cut. This cut should be about 1/3 of the way through the wood. You can baton the knife to form a stop cut by placing the knife where you want to make the cut and hitting it with a stick - only do this on full tang knives.
+
 ### Birds
 
 Without a firearm or bow, birds can be difficult to catch. They are most easily caught at night when roosting. Use a club, throwing stick, or rock to kill or stun the bird.
@@ -404,6 +412,14 @@ You can wrap food in leaves or clay and place it in the coals of a fire to bake 
 
 ### Utensils
 If you are packing utensils, a spork is a good option. Otherwise, you can use a stick or your hands to handle food. Be sure to wash your hands before eating.
+
+If you do not have a knife, you can break off a shard of the flint/chert/obsidian by hitting the edge with another rock using a glancing blow. This shard will likely have a sharp edge, if it does not, break off another shard and try again.
+
+To make tongs:
+1. Cut a length of green wood.
+2. Split the wood down the middle to create a flat surface.
+3. Optionally, carve a small notch in the center of the stick to allow it to bend more easily.
+4. Bend the wood in half to create tongs.
 
 ## Preservation
 <!-- K: preserve, dry, smoke, freeze, refrigerate, store -->

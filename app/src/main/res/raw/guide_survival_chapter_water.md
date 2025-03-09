@@ -133,7 +133,7 @@ Always ensure the water you collect is safe to drink. Boiling is the most reliab
 ### Purification methods
 
 - **Boiling**: Bring water to a rolling boil for at least one minute. At higher altitudes, boil for three minutes. If you do not have a single-walled metal container that can be used for boiling, then do the following:
-  1. Find another container, dig a hole in the ground and line it with a waterproof material, or craft a bowl (see the Crafting chapter).
+  1. Find another container, dig a hole in the ground and line it with a waterproof material, or craft a bowl.
   2. Fill the container with water.
   3. Heat rocks in a fire and place them in the water to heat it. **Do not** use rocks that may contain moisture (such as river rocks), as they can explode. Use two sticks in a chopstick fashion to move the rocks.
   4. Replace the rocks with hot ones as needed to keep the water boiling.
@@ -145,3 +145,20 @@ Always ensure the water you collect is safe to drink. Boiling is the most reliab
 ### Hazards
 - **Microorganisms**: Water may contain bacteria, viruses, and parasites that can cause illness. Boiling water kills most microorganisms, but some may require additional treatment. Microorganisms are more likely to be present in stagnant water.
 - **Chemicals**: Water may contain chemicals from industrial or agricultural runoff. Purification methods may not remove all chemical contaminants.
+
+## Craft: Bowl
+<!-- K: bowl, cook, store, container -->
+<!-- S: You can make a bowl from a small log by burning a bowl shape into it using hot coals. -->
+
+A wooden bowl can be used to boil water using hot rocks.
+
+**Resources**
+- A small log (not decayed)
+- Hot coals
+
+**Instructions**
+1. Cut or obtain a small log.
+2. Using makeshift tongs (see the Utensils section of the Food chapter), place hot coals into the log.
+3. Let the coals burn out.
+4. Scrape out the charred wood with a stick or rock.
+5. Repeat the process until you have a bowl.

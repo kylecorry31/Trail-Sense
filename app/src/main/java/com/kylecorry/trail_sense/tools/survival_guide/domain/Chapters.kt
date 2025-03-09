@@ -47,11 +47,6 @@ object Chapters {
                 R.raw.guide_survival_chapter_weather,
                 R.drawable.cloud
             ),
-            Chapter(
-                context.getString(R.string.crafting),
-                R.raw.guide_survival_chapter_crafting,
-                R.drawable.ic_axe
-            ),
         )
     }
 

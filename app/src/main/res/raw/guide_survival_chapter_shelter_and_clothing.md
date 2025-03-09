@@ -49,6 +49,7 @@ Start by learning how to do the following:
 - Layer clothing for warmth.
 - Set up a tent and sleeping bag.
 - Identify environmental hazards when selecting a shelter location.
+- Tie several types of knots.
 
 Once you have mastered these skills, you should learn how to do the following:
 - Construct a natural shelter.
@@ -116,6 +117,9 @@ When selecting a site for your shelter, consider the following:
 - Free of threat from avalanches, rockslides, or flooding.
 - Free of insects, poisonous plants, or dangerous animals.
 - Suitable for signaling for help if needed.
+
+### Gathering materials
+Prefer wood and debris that are already on the ground and require minimal effort to use. Avoid logs that are too thick to break by hand.
 
 ### Shelter types
 
@@ -203,3 +207,172 @@ Used to repair tears or holes in fabric. It can also be used to connect two piec
 
 ### Other methods
 If you do not have a sewing kit, you can use duct tape, safety pins, super glue, cordage, or pitch (see the Crafting chapter for how to make pitch) as temporary fixes.
+
+## Knots
+<!-- K: knot, tie, cordage, cord, rope, paracord, overhand, square, bowline, figure-eight, 8, sheet-bend, bight, hitch, lash, sheepshank, prussic, whip -->
+<!-- S: The following knots are easy to learn and can be used in most situations: overhand, square, two half-hitches, bowline, and shear lashing. -->
+
+### Overhand knot
+Used to prevent the end of a rope from untwisting.
+
+![](file:///android_asset/survival_guide/120.webp)
+
+### Round turn and two half hitches
+Used to anchor rope to a pole or tree.
+
+![](file:///android_asset/survival_guide/121.webp)
+
+### Figure-eight knot
+Used to form a larger knot than would be formed by an overhand knot at the end of a rope.
+
+![](file:///android_asset/survival_guide/122.webp)
+
+### Square knot
+Used for tying two ropes of equal diameter together. Be sure to tie a true square knot to prevent slipping, if you reverse the procedure, the knot will slip under strain.
+
+Untie by grasping the bends of the two bights and pulling the knot apart.
+
+![](file:///android_asset/survival_guide/123.webp)
+
+### Single sheet bend
+Used for tying two ropes of unequal diameter together. This knot will draw tight under light loads but may loosen or slip when the tension is released.
+
+![](file:///android_asset/survival_guide/124.webp)
+
+### Double sheet bend
+Used for tying two ropes of unequal diameter together. This knot will not slip or draw tight under heavy loads.
+
+![](file:///android_asset/survival_guide/125.webp)
+
+### Bowline
+Useful for forming a loop in the end of a rope.
+
+![](file:///android_asset/survival_guide/126.webp)
+
+### Bowline on a bight
+Useful for forming a loop at some point in a rope other than at the end.
+
+![](file:///android_asset/survival_guide/127.webp)
+
+### French bowline
+Used as a sling for lifting people. If used in this manner, one loop is used around the body under the arms.
+
+![](file:///android_asset/survival_guide/128.webp)
+
+### Two half hitches
+Used to tie a rope to a timber or pole. The single half hitch is not very secure without load, so use an overhand or the two half hitches instead.
+
+![](file:///android_asset/survival_guide/130.webp)
+
+### Timber hitch
+Used for moving heavy timbers or poles. You can make a tighter hold on heavy poles for lifting or dragging by combining a timber hitch and half hitch.
+
+![](file:///android_asset/survival_guide/131.webp)
+
+![](file:///android_asset/survival_guide/132.webp)
+
+### Clove hitch
+Used to fasten a rope to a timber, pipe, or post. It can be tied at any point in a rope.
+
+![](file:///android_asset/survival_guide/133.webp)
+
+### Sheepshank
+Used to shorten a rope or take the load off a weak spot in the rope.
+
+![](file:///android_asset/survival_guide/134.webp)
+
+### Prussic
+Used to tie a short rope around a longer rope in such a manner that the short rope will slide on the other rope if no tension is applied, and will hold if tension is applied on the short rope.
+
+![](file:///android_asset/survival_guide/135.webp)
+
+### Trucker's hitch
+Used to secure a load or tighten a line.
+
+![](file:///android_asset/survival_guide/truckers_hitch.webp)
+
+### Square lashing
+Used to secure one pole at a right angle to another pole. Can swap with the diagonal lashing if desired.
+
+![](file:///android_asset/survival_guide/136.webp)
+
+### Diagonal lashing
+Used to secure one pole at a right angle to another pole. Can swap with the square lashing if desired.
+
+![](file:///android_asset/survival_guide/137.webp)
+
+### Shear lashing
+Used for lashing two or more poles in a series.
+
+![](file:///android_asset/survival_guide/138.webp)
+
+### Whipping
+Used to prevent the end of a rope from fraying or for making a more comfortable handle on a tool.
+
+![](file:///android_asset/survival_guide/143.webp)
+
+## Craft: Pitch (glue)
+<!-- K: pitch, glue, resin, pine, repair, craft -->
+<!-- S: You can make pitch from tree resin, charcoal, and organic material. -->
+
+Pitch is a natural glue made from tree resin. It can be used to repair tools, make waterproof containers, and as a fire starter.
+
+**Resources**
+- 2 parts tree resin (pine, spruce, or fir), preferably hardened chunks
+- 1 part ground charcoal
+- 1 part ground organic material (dried bark/leaves, sawdust, deer/moose droppings, animal fat, or wax)
+- Container or a rock with a depression
+- Stick or bone for stirring
+
+**Instructions**
+1. Melt the resin in a container over a fire. Be careful not to burn it.
+2. Remove from heat.
+3. Stir in the charcoal and organic material.
+4. You can either let it cool in the container or continue to step 5.
+5. Dip the end of a stick into the pitch to coat it.
+6. Remove the stick and let the pitch cool, ensuring it forms an even coat.
+7. Repeat steps 5 and 6 until you have a thick layer of pitch on the stick, it should look like a large matchstick.
+
+**Usage**
+1. Melt the pitch in a container over a fire.
+2. Apply the pitch to the object you want to repair, as you would with glue.
+3. Let the pitch cool and harden.
+
+## Craft: Cordage
+<!-- K: cordage, rope, twine, fiber, twist, cord, strand, paracord, craft -->
+<!-- S: You can make cordage from grasses and sedges. -->
+
+### Twine
+Twine is made by twisting fibers together. It is weaker than rope but can be used for sewing, fishing line, or light-duty cordage.
+
+**Resources**
+
+Any fibrous material can be used to make cordage. Some examples include:
+- Grasses and sedges (sedges are stronger)
+- Bark or palm fiber
+
+**Instructions**
+1. Gather the fibers into a loose bundle.
+2. Hold the bundle near the center and twist one side clockwise until a kink forms.
+3. Fold the bundle in half at the kink.
+4. Twist the top half clockwise.
+5. Twist the two halves together counterclockwise.
+6. Repeat the process until you have a full strand. If a material is running out, add more material to it and twist it in.
+
+![](file:///android_asset/survival_guide/139.webp)
+
+### Rope
+Rope is made by braiding multiple strands of twine together. It is stronger than twine and can be used for heavier tasks.
+
+**Resources**
+- 3 or more strands of twine
+- A small strand, tape, or pitch
+
+**Instructions**
+1. Lay the strands parallel to each other.
+2. Cross the right strand over the center strand and under the left strand.
+3. Repeat the process with the new rightmost strand.
+4. Once you reach the ends, you can whip the ends or coat them with pitch to prevent unraveling. See the knots section for more information on whipping.
+5. You can repeat this process using ropes instead of twine to make even stronger rope.
+
+![](file:///android_asset/survival_guide/140.webp)
