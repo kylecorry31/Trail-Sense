@@ -62,6 +62,22 @@ for chapter in chapters:
         file_content = file.read()
         file_content = file_content.replace("file:///android_asset/", f"{root_dir}/app/src/main/assets/")
 
+        # Title case level 2 headers
+        h2_regex = re.compile(r'^## (.*?)$', re.MULTILINE)
+        def title_case_h2(match):
+            ignored_words = [
+                'a',
+                'or',
+                'of',
+                'in',
+                'and',
+                'the',
+                'to',
+                "GPS"
+            ]
+            return '## ' + ' '.join([word.title() if word.lower() not in ignored_words else word for word in match.group(1).split()])
+        file_content = h2_regex.sub(title_case_h2, file_content)
+
         # Replace all images with their base64 content as a JPG
         image_regex = re.compile(r'!\[(.*?)\]\((.*?)\)')
         images = image_regex.findall(file_content)
@@ -81,8 +97,20 @@ for chapter in chapters:
         if disclaimer_index != None and disclaimer_index > 0:
             file_content = file_content[:disclaimer_index]
 
-        # Automatically insert a newline before the first line of a list
-        file_content = file_content.replace("\n- ", "\n\n- ")
+        # Automatically insert a newline before the first list item
+        indices = []
+        lines = file_content.split('\n')
+        for i in range(len(lines)):
+            if lines[i].startswith('- ') and (i == 0 or not lines[i-1].startswith('- ')):
+                indices.append(i)
+
+        lines_with_spacing = []
+        for i in range(len(lines)):
+            if i in indices:
+                lines_with_spacing.append('')
+            lines_with_spacing.append(lines[i])
+
+        file_content = '\n'.join(lines_with_spacing)
 
         content += file_content
     content += "\n\n"
