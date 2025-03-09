@@ -192,7 +192,7 @@ For details on how to construct this trap, see the Fish section of this chapter.
 Fully cook to kill parasites. Shellfish can be cooked in their shells.
 
 ## Fish
-<!-- K: fish, hook, line, pole, bait, stakeout, gill, net, basket, trap, funnel, kill, seafood, meat -->
+<!-- K: fish, hook, line, pole, bait, basket, trap, funnel, kill, seafood, meat -->
 <!-- S: Most fish are edible once cooked, but will require some fishing gear. -->
 
 If you are in a longer-term survival situation or have access to fishing gear, fish can be a good source of protein and nutrients.
@@ -229,28 +229,6 @@ If you do not have a fishing pole, you can make one from a stick, bamboo, or oth
 **Bait**
 
 For best results, bait the hooks using insects, worms, or pieces of food.
-
-**Stakeout**
-
-Also known as a trotline, this method involves setting a line with multiple hooks across a stream or river. The line is secured to a tree or stake on each side of the water. Check the line every few hours to see if you have caught anything.
-
-![](file:///android_asset/survival_guide/46.webp)
-
-**Gill net**
-
-A gill net is set in the water to catch fish by their gills. The net is weighted at the bottom and floats at the top. Fish swim into the net and become entangled in the mesh. Check the net every few hours.
-
-A gill net can be made using the inner strands of paracord or other strong cordage:
-
-1. Tie a suspension line between two sticks.
-2. Attach lines to the guide line at intervals.
-3. Using overhand knots, form the net.
-
-![](file:///android_asset/survival_guide/48.webp)
-
-For best results, place the net in a narrow part of the stream or river near a bend.
-
-![](file:///android_asset/survival_guide/49.webp)
 
 **Traps**
 
