@@ -4,193 +4,6 @@ This chapter contains some common animals, plants, fungi, and rocks that may be 
 
 \pagebreak
 
-## Mouse
-
-![](file:///android_asset/field_guide/mouse.webp)
-
-A small rodent with a long, thin tail. Mice are nocturnal and opportunistic feeders, consuming grains, seeds, fruits, and small insects. They often nest in sheltered areas such as burrows, dense vegetation, or hidden spaces indoors.
-
-
-Image by Ilmari Karonen (Public domain)
-
-\pagebreak
-
-## Rabbit
-
-![](file:///android_asset/field_guide/rabbit.webp)
-
-A small to medium-sized mammal with long ears, a short tail, and powerful hind legs. Rabbits are most active at dawn and dusk, and can be found feeding on vegetation. They live in burrows or dense vegetation, often in groups.
-
-Also known as: hare, bunny
-
-
-Image by Tomer T (CC BY-SA 2.0)
-
-\pagebreak
-
-## Squirrel
-
-![](file:///android_asset/field_guide/squirrel.webp)
-
-A small to medium-sized rodent that primarily lives in trees or burrows. They tend to be most active during the day. Squirrels eat nuts, seeds, fruits, and insects.
-
-
-Image by JeffreyGammon (CC BY-SA 4.0)
-
-\pagebreak
-
-## Grouse
-
-![](file:///android_asset/field_guide/grouse.webp)
-
-A medium-sized game bird with mottled feathers that provide excellent camouflage. Grouse are primarily ground-dwelling and feed on a variety of foods, including vegetation, seeds, berries, and insects. They are most active during the day and can often be found foraging near forest edges or open clearings.
-
-
-Image by File Upload Bot (Magnus Manske) (CC BY-SA 3.0)
-
-\pagebreak
-
-## Black Bass
-
-![](file:///android_asset/field_guide/black_bass.webp)
-
-A freshwater fish with an elongated body and sharp dorsal spines. They are commonly found in shallow waters around lily pads and logs. Bass are opportunistic feeders, consuming nearly anything that moves, and are most active in the evening.
-
-Common species include: largemouth bass, smallmouth bass, and spotted bass.
-
-
-Image by Common Good (Public domain)
-
-\pagebreak
-
-## Carp
-
-![](file:///android_asset/field_guide/carp.webp)
-
-A freshwater fish with thick, large scales. They are commonly found in slow-moving or still waters and often travel in groups. Carp consume a variety of foods and are most active at night.
-
-
-Image by Dezidor (CC BY-SA 3.0)
-
-\pagebreak
-
-## Sunfish
-
-![](file:///android_asset/field_guide/sunfish.webp)
-
-A small freshwater fish with a tall and flat body shape and sharp dorsal spines. They are typically found near the shore in weedy areas and are most active during the day. Sunfish feed on small insects and worms but can also be caught using vibrantly colored lures.
-
-Common species include: bluegill, pumpkinseed, and redear.
-
-
-Image by Pvmoutside (Public domain)
-
-\pagebreak
-
-## Crab
-
-![](file:///android_asset/field_guide/crab.webp)
-
-A crustacean with a short, broad body commonly found along the shorelines of most saltwater bodies. Many crabs scavenge at night, dusk and dawn, or between low and high tide. They also often hide in gaps between rocks along the shoreline.
-
-
-Image by Bhny (Public Domain)
-
-\pagebreak
-
-## Crayfish
-
-![](file:///android_asset/field_guide/crayfish.webp)
-
-A freshwater crustacean that resembles a small lobster. They are commonly found at the bottom of streams, rivers, and lakes. Crayfish are omnivorous, feeding on plants, insects, and small fish, and are most active at night.
-
-Also known as: crawfish, crawdads, freshwater lobsters, mudbugs, or yabbies.
-
-
-Image by Canis85 (CC BY-SA 3.0)
-
-\pagebreak
-
-## Clam
-
-![](file:///android_asset/field_guide/clam.webp)
-
-A bivalve mollusk with many varieties, many of which are edible. They are found in both saltwater and freshwater environments, typically halfway buried in sand. During low tide, clams can be located along the shoreline by digging where small holes or bubbles appear.
-
-\pagebreak
-
-## Mussel
-
-![](file:///android_asset/field_guide/mussel.webp)
-
-A bivalve mollusk with an elongated shell, usually attached to rocks or other hard surfaces along the shoreline. Mussels are found in both saltwater and freshwater. Many species are edible, but mussels can retain toxins from the water, especially during summer months, so only those harvested from clean sources should be consumed.
-
-\pagebreak
-
-## Periwinkle
-
-![](file:///android_asset/field_guide/periwinkle.webp)
-
-A small marine snail with a spiral shell, typically found clinging to rocks, tidal pools, and other hard surfaces along the shoreline. While many are edible, periwinkles should only be collected from clean water sources, as they can accumulate toxins from polluted environments.
-
-\pagebreak
-
-## Ant
-
-![](file:///android_asset/field_guide/ant.webp)
-
-A small insect that lives in large colonies, commonly found in soil, trees, or under rocks. They are omnivorous and are active during the day. Most ants are edible.
-
-\pagebreak
-
-## Cricket
-
-![](file:///android_asset/field_guide/cricket.webp)
-
-Small nocturnal insects with the ability to jump and produce chirps. They feed on plants, decaying organic matter, and small insects. Crickets are edible.
-
-
-Image by Jeffdelonge (Attribution)
-
-\pagebreak
-
-## Grasshopper
-
-![](file:///android_asset/field_guide/grasshopper.webp)
-
-A small to medium-sized insect known for its powerful hind legs and ability to jump great distances. They are herbivores, feeding on grasses and leaves, and are commonly found in open fields during the day. Grasshoppers and locusts are edible.
-
-Also known as: locust
-
-
-Image by Diliff (CC BY 3.0)
-
-\pagebreak
-
-## Grub (Beetle Larva)
-
-![](file:///android_asset/survival_guide/grub.webp)
-
-The larva of various beetles, typically found in decaying wood or soil. They feed on organic material and may emerge at night. Many grubs are edible and are commonly used as fishing bait.
-
-\pagebreak
-
-## Termite
-
-![](file:///android_asset/field_guide/termite.webp)
-
-Small insects that live in colonies within wood, soil, or mounds. They are most active in warm, humid conditions and can often be located by observing mud tubes or hollowed-out wood. Most termites are edible.
-
-\pagebreak
-
-## Earthworm
-
-![](file:///android_asset/field_guide/earthworm.webp)
-
-A segmented, soil-dwelling worm that feeds on decaying organic matter. They are commonly found in moist environments and are active at night or after a rainfall. Many earthworms are edible and commonly used as fishing bait.
-
-\pagebreak
-
 ## Bamboo
 
 ![](file:///android_asset/field_guide/bamboo.webp)
@@ -358,6 +171,193 @@ A hoof shaped fungus that grows on hardwoods such as birch, beech, and oak. Tind
 
 \pagebreak
 
+## Ant
+
+![](file:///android_asset/field_guide/ant.webp)
+
+A small insect that lives in large colonies, commonly found in soil, trees, or under rocks. They are omnivorous and are active during the day. Most ants are edible.
+
+\pagebreak
+
+## Cricket
+
+![](file:///android_asset/field_guide/cricket.webp)
+
+Small nocturnal insects with the ability to jump and produce chirps. They feed on plants, decaying organic matter, and small insects. Crickets are edible.
+
+
+Image by Jeffdelonge (Attribution)
+
+\pagebreak
+
+## Grasshopper
+
+![](file:///android_asset/field_guide/grasshopper.webp)
+
+A small to medium-sized insect known for its powerful hind legs and ability to jump great distances. They are herbivores, feeding on grasses and leaves, and are commonly found in open fields during the day. Grasshoppers and locusts are edible.
+
+Also known as: locust
+
+
+Image by Diliff (CC BY 3.0)
+
+\pagebreak
+
+## Grub (Beetle Larva)
+
+![](file:///android_asset/survival_guide/grub.webp)
+
+The larva of various beetles, typically found in decaying wood or soil. They feed on organic material and may emerge at night. Many grubs are edible and are commonly used as fishing bait.
+
+\pagebreak
+
+## Termite
+
+![](file:///android_asset/field_guide/termite.webp)
+
+Small insects that live in colonies within wood, soil, or mounds. They are most active in warm, humid conditions and can often be located by observing mud tubes or hollowed-out wood. Most termites are edible.
+
+\pagebreak
+
+## Earthworm
+
+![](file:///android_asset/field_guide/earthworm.webp)
+
+A segmented, soil-dwelling worm that feeds on decaying organic matter. They are commonly found in moist environments and are active at night or after a rainfall. Many earthworms are edible and commonly used as fishing bait.
+
+\pagebreak
+
+## Clam
+
+![](file:///android_asset/field_guide/clam.webp)
+
+A bivalve mollusk with many varieties, many of which are edible. They are found in both saltwater and freshwater environments, typically halfway buried in sand. During low tide, clams can be located along the shoreline by digging where small holes or bubbles appear.
+
+\pagebreak
+
+## Mussel
+
+![](file:///android_asset/field_guide/mussel.webp)
+
+A bivalve mollusk with an elongated shell, usually attached to rocks or other hard surfaces along the shoreline. Mussels are found in both saltwater and freshwater. Many species are edible, but mussels can retain toxins from the water, especially during summer months, so only those harvested from clean sources should be consumed.
+
+\pagebreak
+
+## Periwinkle
+
+![](file:///android_asset/field_guide/periwinkle.webp)
+
+A small marine snail with a spiral shell, typically found clinging to rocks, tidal pools, and other hard surfaces along the shoreline. While many are edible, periwinkles should only be collected from clean water sources, as they can accumulate toxins from polluted environments.
+
+\pagebreak
+
+## Crab
+
+![](file:///android_asset/field_guide/crab.webp)
+
+A crustacean with a short, broad body commonly found along the shorelines of most saltwater bodies. Many crabs scavenge at night, dusk and dawn, or between low and high tide. They also often hide in gaps between rocks along the shoreline.
+
+
+Image by Bhny (Public Domain)
+
+\pagebreak
+
+## Crayfish
+
+![](file:///android_asset/field_guide/crayfish.webp)
+
+A freshwater crustacean that resembles a small lobster. They are commonly found at the bottom of streams, rivers, and lakes. Crayfish are omnivorous, feeding on plants, insects, and small fish, and are most active at night.
+
+Also known as: crawfish, crawdads, freshwater lobsters, mudbugs, or yabbies.
+
+
+Image by Canis85 (CC BY-SA 3.0)
+
+\pagebreak
+
+## Mouse
+
+![](file:///android_asset/field_guide/mouse.webp)
+
+A small rodent with a long, thin tail. Mice are nocturnal and opportunistic feeders, consuming grains, seeds, fruits, and small insects. They often nest in sheltered areas such as burrows, dense vegetation, or hidden spaces indoors.
+
+
+Image by Ilmari Karonen (Public domain)
+
+\pagebreak
+
+## Rabbit
+
+![](file:///android_asset/field_guide/rabbit.webp)
+
+A small to medium-sized mammal with long ears, a short tail, and powerful hind legs. Rabbits are most active at dawn and dusk, and can be found feeding on vegetation. They live in burrows or dense vegetation, often in groups.
+
+Also known as: hare, bunny
+
+
+Image by Tomer T (CC BY-SA 2.0)
+
+\pagebreak
+
+## Squirrel
+
+![](file:///android_asset/field_guide/squirrel.webp)
+
+A small to medium-sized rodent that primarily lives in trees or burrows. They tend to be most active during the day. Squirrels eat nuts, seeds, fruits, and insects.
+
+
+Image by JeffreyGammon (CC BY-SA 4.0)
+
+\pagebreak
+
+## Grouse
+
+![](file:///android_asset/field_guide/grouse.webp)
+
+A medium-sized game bird with mottled feathers that provide excellent camouflage. Grouse are primarily ground-dwelling and feed on a variety of foods, including vegetation, seeds, berries, and insects. They are most active during the day and can often be found foraging near forest edges or open clearings.
+
+
+Image by File Upload Bot (Magnus Manske) (CC BY-SA 3.0)
+
+\pagebreak
+
+## Black Bass
+
+![](file:///android_asset/field_guide/black_bass.webp)
+
+A freshwater fish with an elongated body and sharp dorsal spines. They are commonly found in shallow waters around lily pads and logs. Bass are opportunistic feeders, consuming nearly anything that moves, and are most active in the evening.
+
+Common species include: largemouth bass, smallmouth bass, and spotted bass.
+
+
+Image by Common Good (Public domain)
+
+\pagebreak
+
+## Carp
+
+![](file:///android_asset/field_guide/carp.webp)
+
+A freshwater fish with thick, large scales. They are commonly found in slow-moving or still waters and often travel in groups. Carp consume a variety of foods and are most active at night.
+
+
+Image by Dezidor (CC BY-SA 3.0)
+
+\pagebreak
+
+## Sunfish
+
+![](file:///android_asset/field_guide/sunfish.webp)
+
+A small freshwater fish with a tall and flat body shape and sharp dorsal spines. They are typically found near the shore in weedy areas and are most active during the day. Sunfish feed on small insects and worms but can also be caught using vibrantly colored lures.
+
+Common species include: bluegill, pumpkinseed, and redear.
+
+
+Image by Pvmoutside (Public domain)
+
+\pagebreak
+
 ## Chert
 
 ![](file:///android_asset/field_guide/chert.webp)
@@ -368,30 +368,6 @@ Also known as flint or jasper.
 
 
 Image by Saperaud~commonswiki (Public domain)
-
-\pagebreak
-
-## Cirrus
-
-![](file:///android_asset/survival_guide/cirrus.webp)
-
-High wispy clouds that look like tufts of white hair. May indicate precipitation in the next 12 to 24 hours.
-
-\pagebreak
-
-## Cirrocumulus
-
-![](file:///android_asset/survival_guide/cirrocumulus.webp)
-
-High level clouds that form a wavy sheet. The sheet is composed of small dots which almost look two dimensional. May indicate precipitation in the next 8 to 12 hours.
-
-\pagebreak
-
-## Cirrostratus
-
-![](file:///android_asset/survival_guide/cirrostratus.webp)
-
-A high cloud that covers the sky. It is transparent and typically causes a halo to form around the sun. May indicate precipitation in the next 10 to 15 hours.
 
 \pagebreak
 
@@ -411,11 +387,27 @@ A mid level cloud that covers the sky. The sun can barely be seen as a bright pa
 
 \pagebreak
 
-## Cumulus
+## Cirrocumulus
 
-![](file:///android_asset/survival_guide/cumulus.webp)
+![](file:///android_asset/survival_guide/cirrocumulus.webp)
 
-Low puffy clouds that look like cotton balls. They are spaced out and are typically white with darker patches below. Usually indicates fair weather, but if it is growing taller, then precipitation or a thunderstorm could be possible in the next few hours.
+High level clouds that form a wavy sheet. The sheet is composed of small dots which almost look two dimensional. May indicate precipitation in the next 8 to 12 hours.
+
+\pagebreak
+
+## Cirrostratus
+
+![](file:///android_asset/survival_guide/cirrostratus.webp)
+
+A high cloud that covers the sky. It is transparent and typically causes a halo to form around the sun. May indicate precipitation in the next 10 to 15 hours.
+
+\pagebreak
+
+## Cirrus
+
+![](file:///android_asset/survival_guide/cirrus.webp)
+
+High wispy clouds that look like tufts of white hair. May indicate precipitation in the next 12 to 24 hours.
 
 \pagebreak
 
@@ -424,6 +416,22 @@ Low puffy clouds that look like cotton balls. They are spaced out and are typica
 ![](file:///android_asset/survival_guide/cumulonimbus.webp)
 
 Low puffy clouds that are very tall. They typically have an anvil shape and are dark. May indicate a thunderstorm in a few minutes.
+
+\pagebreak
+
+## Cumulus
+
+![](file:///android_asset/survival_guide/cumulus.webp)
+
+Low puffy clouds that look like cotton balls. They are spaced out and are typically white with darker patches below. Usually indicates fair weather, but if it is growing taller, then precipitation or a thunderstorm could be possible in the next few hours.
+
+\pagebreak
+
+## Nimbostratus
+
+![](file:///android_asset/survival_guide/nimbostratus.webp)
+
+A mid level cloud that is dark gray and covers the sky. If it is not raining, it may be a stratus cloud. May have precipitation for the next 4 hours.
 
 \pagebreak
 
@@ -440,11 +448,3 @@ Low clouds that look like a sheet of cotton balls with small gaps. The color ran
 ![](file:///android_asset/survival_guide/stratus.webp)
 
 A low cloud that covers the sky. Objects don't cast shadows and it may be foggy. May indicate fair weather for the next 3 hours if it is foggy, otherwise it may indicate precipitation soon.
-
-\pagebreak
-
-## Nimbostratus
-
-![](file:///android_asset/survival_guide/nimbostratus.webp)
-
-A mid level cloud that is dark gray and covers the sky. If it is not raining, it may be a stratus cloud. May have precipitation for the next 4 hours.
