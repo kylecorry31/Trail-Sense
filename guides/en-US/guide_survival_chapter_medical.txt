@@ -269,8 +269,6 @@ Seek medical attention if the wound is deep, bleeding profusely, or shows signs 
 
 If direct pressure does not work on a limb, you can apply a tourniquet to stop blood flow. This should only be done as a last resort, as it can cause permanent damage to the limb. Only a medical professional should remove a tourniquet.
 
-![](file:///android_asset/survival_guide/2.webp)
-
 ### Prevention
 - Use caution when handling sharp objects.
 - Do not cut towards yourself.
@@ -783,14 +781,6 @@ While in the wilderness it is common to get objects in your eye, such as dirt, s
 <!-- S: Symptoms include a rash, itching, and blisters. Treat by washing the area with soap and water, applying calamine lotion, and taking antihistamines. Prevent by learning to identify and avoid poisonous plants. -->
 
 Contact dermatitis is caused by contact with poisonous plants, such as poison ivy, poison oak, poison sumac, and stinging nettle.
-
-Poison ivy:
-
-![](file:///android_asset/survival_guide/poison_ivy.webp)
-
-Stinging nettle:
-![](file:///android_asset/survival_guide/stinging_nettle.webp)
-[Image source](https://commons.wikimedia.org/wiki/File:Kopiva.JPG)
 
 ### Symptoms
 - Burning, reddening, and swelling rash

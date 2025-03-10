@@ -180,7 +180,7 @@ To insulate yourself from the ground, use materials like leaves, straw, or cloth
 - Ensure adequate airflow to manage condensation and smoke.
 
 ## Repair
-<!-- K: repair, sewing, stitch, back-stitch, running-stitch, whip-stitch, duct-tape, tape, pin, safety-pin, glue, cordage, pitch -->
+<!-- K: repair, sewing, stitch, back-stitch, running-stitch, whip-stitch, duct-tape, tape, pin, safety-pin, glue, cordage -->
 <!-- S: Use a sewing kit, duct tape, safety pins, glue, or cordage to repair tears or holes in clothing or gear. -->
 
 ### Sewing
@@ -206,7 +206,7 @@ Used to repair tears or holes in fabric. It can also be used to connect two piec
 [Image source](https://commons.wikimedia.org/wiki/File:Whip_stitch.jpg)
 
 ### Other methods
-If you do not have a sewing kit, you can use duct tape, safety pins, super glue, cordage, or pitch as temporary fixes.
+If you do not have a sewing kit, you can use duct tape, safety pins, super glue, or cordage as temporary fixes.
 
 ## Knots
 <!-- K: knot, tie, cordage, cord, rope, paracord, overhand, square, bowline, figure-eight, 8, sheet-bend, bight, hitch, lash, sheepshank, prussic, whip -->
@@ -278,8 +278,7 @@ Used for lashing two or more poles next to eachother. Can be used to construct a
 <!-- K: cordage, rope, twine, fiber, twist, cord, strand, paracord, craft -->
 <!-- S: You can make cordage from grasses and sedges. -->
 
-### Twine
-Twine is made by twisting fibers together. It is weaker than rope but can be used for sewing, fishing line, or light-duty cordage.
+Cordage can be made by twisting fibers together. It is weaker than rope but can be used for sewing, fishing line, or light-duty cordage.
 
 **Resources**
 
@@ -296,46 +295,3 @@ Any fibrous material can be used to make cordage. Some examples include:
 6. Repeat the process until you have a full strand. If a material is running out, add more material to it and twist it in.
 
 ![](file:///android_asset/survival_guide/139.webp)
-
-### Rope
-Rope is made by braiding multiple strands of twine together. It is stronger than twine and can be used for heavier tasks.
-
-**Resources**
-- 3 or more strands of twine
-- A small strand, tape, or pitch
-
-**Instructions**
-1. Lay the strands parallel to each other.
-2. Cross the right strand over the center strand and under the left strand.
-3. Repeat the process with the new rightmost strand.
-4. Once you reach the ends, you can whip the ends or coat them with pitch to prevent unraveling. See the knots section for more information on whipping.
-5. You can repeat this process using ropes instead of twine to make even stronger rope.
-
-![](file:///android_asset/survival_guide/140.webp)
-
-## Craft: Pitch (glue)
-<!-- K: pitch, glue, resin, pine, repair, craft -->
-<!-- S: You can make pitch from tree resin, charcoal, and organic material. -->
-
-Pitch is a natural glue made from tree resin. It can be used to repair tools, make waterproof containers, and as a fire starter.
-
-**Resources**
-- 2 parts tree resin (pine, spruce, or fir), preferably hardened chunks
-- 1 part ground charcoal
-- 1 part ground organic material (dried bark/leaves, sawdust, deer/moose droppings, animal fat, or wax)
-- Container or a rock with a depression
-- Stick or bone for stirring
-
-**Instructions**
-1. Melt the resin in a container over a fire. Be careful not to burn it.
-2. Remove from heat.
-3. Stir in the charcoal and organic material.
-4. You can either let it cool in the container or continue to step 5.
-5. Dip the end of a stick into the pitch to coat it.
-6. Remove the stick and let the pitch cool, ensuring it forms an even coat.
-7. Repeat steps 5 and 6 until you have a thick layer of pitch on the stick, it should look like a large matchstick.
-
-**Usage**
-1. Melt the pitch in a container over a fire.
-2. Apply the pitch to the object you want to repair, as you would with glue.
-3. Let the pitch cool and harden.

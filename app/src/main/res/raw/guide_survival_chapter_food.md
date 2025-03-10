@@ -72,18 +72,12 @@ Starvation occurs when the body does not receive enough nutrients to function pr
 <!-- K: plant, mushroom, seaweed, weeds, green, sap, fungus, forage, poison, toxic, leach, berries -->
 <!-- S: Only eat plants you can confidently identity as safe and don't eat any mushrooms. Aggregate berries, like raspberries and blackberries, are generally safe. -->
 
-Only eat wild plants that you can positively identify as safe. Before your trip, it's wise to study local plants through guidebooks or plant identification cards.
-
-If you are unable to identify plants, just eat bugs; most plants don't have a lot of calories.
+Only eat wild plants that you can positively identify as safe. Before your trip, it's wise to study local plants through guidebooks or plant identification cards. If you are unable to identify plants, just eat bugs and shellfish; eating unknown plants is not worth the small number of calories.
 
 ### Foraging
 
-Key considerations when choosing plants include:
-
 - Aggregate berries are generally edible. These include raspberries and blackberries.
 - Plants in or near contaminated water must be washed and cooked to avoid consuming harmful bacteria or chemicals.
-- Even within the same species, plants can vary in toxicity due to environmental factors.
-- If you are sensitive to allergens like poison ivy, steer clear of similar plants such as mangoes or cashews, which can cause similar reactions.
 - Some plants are more nutritious than others. For example, nuts and seeds are high in calories and fats, while leafy greens are high in vitamins and minerals.
 - Some plants are fine for animals but toxic to humans.
 - Seaweed washed ashore may be spoiled or decayed.
@@ -116,35 +110,19 @@ Insects are a good source of protein but need to be gathered in large numbers to
 
 ### Collection
 
-Good places to find insects include rotting logs, under rocks, and in grassy fields.
+Good places to find insects include rotting logs, under rocks, and in grassy fields. Common edible bugs include ants, termites, locusts, grasshoppers, crickets, dragonflies, grubs and worms. At night, many flying insects can be attracted to a light source.
 
-Do not eat the following insects:
+Do not eat the following:
 - Biting or stinging insects.
 - Hairy or brightly colored insects.
 - Insects with a pungent odor.
 - Hairy caterpillars.
 - Spiders.
-- Ticks.
-- Flies.
-- Mosquitoes.
-
-Common edible insects include:
-- Ants and termites.
-- Locusts, grasshoppers, and crickets.
-- Dragonflies.
-- Worms and grubs.
-
-Many flying insects can be attracted to a light source at night, making them easier to catch.
+- Anything that feeds off of blood, such as ticks, flies, and mosquitoes.
 
 ### Preparation
 
-Remove the following parts before eating insects:
-- Stingers.
-- Legs.
-- Wings.
-- Head.
-
-Cook all insects using any of the cooking techniques in this chapter.
+Remove stingers and optionally the legs, wings, and head before eating insects. Cook all insects using any of the cooking techniques in this chapter.
 
 Worms can be placed in water for 15 minutes to purge their digestive tracts. After purging, they should be cooked before eating.
 
@@ -178,26 +156,17 @@ Fully cook to kill parasites. Shellfish can be cooked in their shells.
 <!-- K: fish, hook, line, pole, bait, basket, trap, funnel, kill, seafood, meat -->
 <!-- S: Most fish are edible once cooked, but will require some fishing gear. -->
 
-If you are in a longer-term survival situation or have access to fishing gear, fish can be a good source of protein and nutrients.
+If you are in a longer-term survival situation or have access to fishing gear, fish can be a good source of protein and nutrients. Most fish are edible, but be sure to research which fish may be poisonous in your area.
 
 ### Fishing
 
-Fish are most active:
-- Before a storm.
-- Near rocks or logs.
-- Under overhanging brush.
-
-There are no poisonous freshwater fish, but there are some poisonous saltwater fish. Most fish are edible.
+Fish are most active before a storm, near rocks or logs, and under overhanging brush.
 
 **Hooks**
 
-Hooks with barbs are more effective than barbless hooks at keeping fish on the line.
+Hooks with barbs are more effective than barbless hooks at keeping fish on the line. For best results, bait the hooks using insects, worms, or pieces of food.
 
-You can craft a hook if needed:
-
-- Wooden hooks: Cut a piece of hardwood, put a notch in one end and secure a sharp object into the notch using cordage.
-- Gorge hooks: Carve a piece of wood or bone into the shape shown in the picture below. Tie a line to the middle of the hook and place into bait. When the fish swallows the bait, the hook will lodge in its throat - you do not need to pull the line to set the hook.
-- Other hooks: You can use metal wire or thorns as hooks. See the picture below.
+If you need to craft a hook, go with a gorge hook. They are easy to craft and you don't need to manually set the hook. One downside is that any fish caught with a gorge hook will almost certainly die if released. To carve a gorge hook, sharpen both sides of a small section of wood or bone, and taper at the center. Place the hook into the bait.
 
 ![](file:///android_asset/survival_guide/47.webp)
 
@@ -205,13 +174,11 @@ You can craft a hook if needed:
 
 If you do not have fishing line, you can make it from plant fibers, inner strands of paracord (using a bend knot to join them together), or other strong cordage.
 
-**Poles**
+**Pole**
 
-If you do not have a fishing pole, you can make one from a stick, bamboo, or other materials. You can also wrap the line around a short stick and use it as a hand line.
+If you do not have a fishing pole, you can tie the line to both the base and tip of a sturdy stick - try to mimic what an actual fishing pole looks like. You can also wrap the line around a short stick and use it as a hand line.
 
-**Bait**
-
-For best results, bait the hooks using insects, worms, or pieces of food.
+To reduce the effort of fishing, you can tie the line to a tree branch and check on it frequently.
 
 **Traps**
 
@@ -223,23 +190,20 @@ Alternatively, use a funnel fish trap by placing sticks into a V-shape with a re
 
 ### Preparation
 
-1. Kill the fish by hitting it on the head with a club or rock. Use a hard, quick blow. You can then use a knife to cut the gills or pierce the brain to ensure the fish is dead.
-2. Remove scales by scraping them off with a knife (tail to head).
-3. Remove entrails by cutting the belly open and pulling them out. You can also cut off the head and tail to make this easier.
-4. Cut into usable pieces or fillet the fish. If it is a small fish, you can also just cook it whole.
-5. Cook the fish.
+1. Once you catch a fish, do not hold or place it near the water before killing it.
+2. Kill the fish by hitting it on the head with a club or rock. Use a hard, quick blow. You can then use a knife to cut the gills or pierce the brain to ensure the fish is dead.
+3. Remove scales by scraping them off with a knife (tail to head).
+4. Remove entrails by cutting the belly open and pulling them out. You can also cut off the head and tail to make this easier.
+5. Cut into usable pieces or fillet the fish. If it is a small fish, you can also just cook it whole.
+6. Cook the fish.
 
 ## Other animals
 <!-- K: animal, hunt, bow, trap, deadfall, bird, reptile, amphibian, frog, snake, mammal, skin, kill, meat, butcher, skin -->
 <!-- S: Hunting or trapping can be energy consuming and difficult without proper tools. -->
 
-In a survival situation, it's best to focus on easier-to-catch animals like insects, shellfish, crustaceans, and fish. But if you have the means to catch other animals, they can provide a good source of protein and nutrients.
+In a survival situation, it's best to focus on easier-to-catch animals like insects, shellfish, crustaceans, and fish. But if you have the means to catch other animals, they can provide a good source of protein and nutrients. Unless you are a hunter with hunting gear, do not try to hunt large animals.
 
 ### Hunting
-
-**Firearms and bows**
-
-If you have a firearm or bow with you, aim for the vital organs to ensure a quick kill. It is unlikely you will be able to construct a survival bow that is effective for hunting.
 
 **Clubs**
 
@@ -255,17 +219,11 @@ In a pinch, you can throw a heavy stick or rock to kill or stun small animals. A
 
 ### Trapping
 
-Traps allow for the passive capture of small animals. They can be set up and left alone while you perform other tasks. Check them every few hours.
-
-Look for signs of animal activity like tracks, droppings, or chewed vegetation. Set up traps in areas where animals are likely to pass through. You can construct funnels or walls to guide animals into them.
-
-Baiting the traps can increase their effectiveness. Use food native to the area that animals are likely to eat. Smoking the traps can help mask your scent.
+Traps allow for the passive capture of small animals. They can be set up and left alone while you perform other tasks. Check them every few hours. Look for signs of animal activity like tracks, droppings, or chewed vegetation. Set up traps in areas where animals are likely to pass through. You can construct funnels or walls to guide animals into them. Baiting the traps can increase their effectiveness. Smoking the traps can help mask your scent.
 
 **Deadfalls**
 
-Deadfall traps are good for catching small animals. They work by dropping a heavy object on the animal when it triggers the trap. The trigger mechanism can be made from a stick and a bait stick. When the animal takes the bait, the trigger releases, causing the heavy object to fall.
-
-Place one or more of these traps near your shelter to possibly catch mice.
+Deadfall traps work by dropping a heavy object on the animal when it triggers the trap. The trigger mechanism can be made from a stick and a bait stick. When the animal takes the bait, the trigger releases, causing the heavy object to fall. Place one or more of these traps near your shelter to possibly catch mice.
 
 ![](file:///android_asset/survival_guide/34.webp)
 
@@ -289,11 +247,7 @@ To prepare a bird for cooking:
 
 ### Reptiles and amphibians
 
-Reptiles and amphibians are easier to catch than mammals and birds. They can be found moving across open ground. Use a gig or pin them down with a stick behind the head.
-
-Frogs can be caught near water sources using a gig.
-
-Traps with bait may also be effective for catching reptiles and amphibians.
+Reptiles and amphibians are easier to catch than mammals and birds. Many can be found basking in open ground, on logs, or at the water's edge. Use a gig or pin them down with a stick behind the head.
 
 Always wash your hands after handling reptiles and amphibians, as they can carry salmonella. Cook the meat thoroughly.
 
@@ -344,7 +298,7 @@ Roasting is a quick and easy method of cooking, but you will get fewer nutrients
 You can wrap food in leaves or clay and place it in the coals of a fire to bake it. This method is slower than roasting but preserves more nutrients. Do not skin fish or birds packed with clay, as the skin will stick to the clay and can be removed after cooking.
 
 ### Utensils
-If you are packing utensils, a spork is a good option. Otherwise, you can use a stick or your hands to handle food. Be sure to wash your hands before eating.
+If you are packing utensils, a spork is a good option. Otherwise, you can use a stick or your hands to handle food. Be sure to wash your hands before and after eating.
 
 ## Protection
 <!-- K: protect, bear, bag, canister, box -->
@@ -363,9 +317,7 @@ A bear bag is a bag of food hoisted into a tree to keep it out of reach of bears
 
 ### Bear canisters
 
-A bear canister is a hard plastic container used to store food. It is bear-proof and can be left on the ground.
-
-Some campsites may provide a bear box, which is a large metal box used to store food.
+A bear canister is a hard plastic container used to store food. It is bear-proof and can be left on the ground. Some campsites may provide a bear box, which is a large metal box used to store food.
 
 ## Craft: Tongs
 <!-- K: tongs, craft -->

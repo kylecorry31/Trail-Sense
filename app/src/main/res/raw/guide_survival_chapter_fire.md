@@ -62,8 +62,6 @@ Once you have mastered these skills, you should learn how to do the following:
   - Prefer fallen wood that you can break by hand
   - To break a larger piece of wood, insert it between two live trees at the point you want to break it and push it to the side until it snaps
 
-![](file:///android_asset/survival_guide/58.webp)
-
 ## Starting a fire
 <!-- K: start, light, ignite, matches, lighters, steel, ferro, ferrocerium, magnesium, flint, bow-drill, hand-drill, drill, magnifying, lens, tepee, structure -->
 <!-- S: If you have a fire starter, use it. You can improvise if required, but it will be more difficult and requires practice. -->
