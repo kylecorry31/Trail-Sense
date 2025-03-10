@@ -6,7 +6,7 @@ root_dir = f"{script_dir}/.."
 
 with open(f"{root_dir}/app/src/main/res/raw/field_guide_pages.json", 'r') as file:
     pages = json.load(file)['pages']
-    tags = ['Plant', 'Fungus', 'Insect', 'Worm', 'Mollusk', 'Crustacean', 'Mammal', 'Bird', 'Reptile', 'Amphibian', 'Fish', 'Rock', 'Weather']
+    tags = ['C_Plant', 'C_Fungus', 'C_Insect', 'C_Worm', 'C_Mollusk', 'C_Crustacean', 'C_Mammal', 'C_Bird', 'C_Reptile', 'C_Amphibian', 'C_Fish', 'C_Rock', 'C_Weather']
     # Sort pages by min index of the above tags, then by name - pages contain multiple tags
     pages.sort(key=lambda x: (min([tags.index(tag) if tag in tags else 1000 for tag in x['tags']]), x['content']))
 
@@ -21,6 +21,44 @@ for page in pages:
         file_content = '\n'.join([line for line in file_content.split('\n') if not line.startswith('http')])
 
         file_content = file_content.strip()
+
+        # Add the tags to the bottom
+        # TODO: Use icons
+        # Group tags by category
+        tag_groups = {
+            'Location': [],
+            'Habitat': [],
+            'Activity Pattern': []
+        }
+
+        for tag in page['tags']:
+            # Insert spaces between capital letters
+            tag_with_spaces = ''.join([' ' + c if c.isupper() and i > 0 else c for i, c in enumerate(tag)]).strip()
+            tag_name = tag_with_spaces.split('_')[1].strip()
+
+            if tag.startswith('L_'):
+                tag_groups['Location'].append(tag_name)
+            elif tag.startswith('H_'):
+                tag_groups['Habitat'].append(tag_name)
+            elif tag.startswith('A_'):
+                tag_groups['Activity Pattern'].append(tag_name)
+
+        if len(tag_groups['Location']) == 7:
+            tag_groups['Location'] = ['Worldwide']
+
+        if 'C_Weather' in page['tags']:
+            tag_groups['Location'] = []
+
+        # Build the tag string
+        tag_strings = []
+        for category, tags in tag_groups.items():
+            if tags:
+                tag_strings.append(f"### {category}\n{', '.join(tags)}")
+
+        file_content += '\n\n' + '\n\n'.join(tag_strings)
+
+
+
         content += '\n\n' + file_content
 
 content = content.strip()

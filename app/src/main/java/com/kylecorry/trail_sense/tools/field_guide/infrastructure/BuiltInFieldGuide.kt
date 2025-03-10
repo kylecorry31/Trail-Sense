@@ -56,7 +56,7 @@ object BuiltInFieldGuide {
             -(index.toLong() + 1),
             name,
             listOf("android-assets://${page.image}"),
-            page.tags.map { FieldGuidePageTag.valueOf(it) },
+            page.tags.map { FieldGuidePageTag.valueOf(it.split("_").last()) },
             notes,
             isReadOnly = true
         )
