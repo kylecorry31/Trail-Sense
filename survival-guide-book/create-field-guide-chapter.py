@@ -162,6 +162,48 @@ pages = [
     {
         "file": "app/src/main/res/raw/field_guide_chert.txt",
         "image": "field_guide/chert.webp"
+    },
+
+    # Clouds
+    {
+        "file": "app/src/main/res/raw/field_guide_cirrus.txt",
+        "image": "survival_guide/cirrus.webp"
+    },
+    {
+        "file": "app/src/main/res/raw/field_guide_cirrocumulus.txt",
+        "image": "survival_guide/cirrocumulus.webp"
+    },
+    {
+        "file": "app/src/main/res/raw/field_guide_cirrostratus.txt",
+        "image": "survival_guide/cirrostratus.webp"
+    },
+    {
+        "file": "app/src/main/res/raw/field_guide_altocumulus.txt",
+        "image": "survival_guide/altocumulus.webp"
+    },
+    {
+        "file": "app/src/main/res/raw/field_guide_altostratus.txt",
+        "image": "survival_guide/altostratus.webp"
+    },
+    {
+        "file": "app/src/main/res/raw/field_guide_cumulus.txt",
+        "image": "survival_guide/cumulus.webp"
+    },
+    {
+        "file": "app/src/main/res/raw/field_guide_cumulonimbus.txt",
+        "image": "survival_guide/cumulonimbus.webp"
+    },
+    {
+        "file": "app/src/main/res/raw/field_guide_stratocumulus.txt",
+        "image": "survival_guide/stratocumulus.webp"
+    },
+    {
+        "file": "app/src/main/res/raw/field_guide_stratus.txt",
+        "image": "survival_guide/stratus.webp"
+    },
+    {
+        "file": "app/src/main/res/raw/field_guide_nimbostratus.txt",
+        "image": "survival_guide/nimbostratus.webp"
     }
 ]
 

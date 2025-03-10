@@ -45,6 +45,7 @@ enum class FieldGuidePageTag(
     Worm(117, FieldGuidePageTagType.Classification, 108),
     Echinoderm(118, FieldGuidePageTagType.Classification, 108),
     Other(119, FieldGuidePageTagType.Classification),
+    Weather(120, FieldGuidePageTagType.Classification),
 
     // Habitat
     Forest(200, FieldGuidePageTagType.Habitat),

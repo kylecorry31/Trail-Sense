@@ -26,6 +26,7 @@ class FieldGuidePageTagListItemMapper(
         FieldGuidePageTag.Fish to R.drawable.fish,
         FieldGuidePageTag.Invertebrate to R.drawable.ant,
         FieldGuidePageTag.Rock to R.drawable.gem,
+        FieldGuidePageTag.Weather to R.drawable.cloud,
         FieldGuidePageTag.Other to R.drawable.ic_help
     )
     private val iconTint = Resources.androidTextColorSecondary(context)

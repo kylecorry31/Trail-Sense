@@ -53,6 +53,7 @@ class FieldGuideTagNameMapper(private val context: Context) {
             FieldGuidePageTag.Dangerous -> context.getString(R.string.dangerous)
             FieldGuidePageTag.Crafting -> context.getString(R.string.crafting)
             FieldGuidePageTag.Medicinal -> context.getString(R.string.medicinal)
+            FieldGuidePageTag.Weather -> context.getString(R.string.weather)
         }
     }
 

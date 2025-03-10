@@ -189,9 +189,6 @@ Small insects that live in colonies within wood, soil, or mounds. They are most 
 
 A segmented, soil-dwelling worm that feeds on decaying organic matter. They are commonly found in moist environments and are active at night or after a rainfall. Many earthworms are edible and commonly used as fishing bait.
 
-
-Image by File Upload Bot (Magnus Manske) (CC BY-SA 3.0)
-
 \pagebreak
 
 ## Bamboo
@@ -291,9 +288,6 @@ A toxic plant with three glossy, pointed leaflets, commonly found in forests, fi
 
 Closely related to poison oak and poison sumac, which are also skin irritants.
 
-
-Image by Cramyourspam (CC BY-SA 4.0), modified by Kyle Corry
-
 \pagebreak
 
 ## Stinging Nettle
@@ -343,9 +337,6 @@ Image by Jean-Pol GRANDMONT (CC BY 2.5)
 
 A hollow mushroom with a honeycomb-like, conical cap that is connected to the stem at the base. They are edible and can be found during the Spring. Be cautious of inedible lookalikes with a brain-like appearence or caps attached only at the top.
 
-
-Image by Denniss (CC BY-SA 4.0)
-
 \pagebreak
 
 ## Oyster Mushroom
@@ -377,3 +368,83 @@ Also known as flint or jasper.
 
 
 Image by Saperaud~commonswiki (Public domain)
+
+\pagebreak
+
+## Cirrus
+
+![](file:///android_asset/survival_guide/cirrus.webp)
+
+High wispy clouds that look like tufts of white hair. May indicate precipitation in the next 12 to 24 hours.
+
+\pagebreak
+
+## Cirrocumulus
+
+![](file:///android_asset/survival_guide/cirrocumulus.webp)
+
+High level clouds that form a wavy sheet. The sheet is composed of small dots which almost look two dimensional. May indicate precipitation in the next 8 to 12 hours.
+
+\pagebreak
+
+## Cirrostratus
+
+![](file:///android_asset/survival_guide/cirrostratus.webp)
+
+A high cloud that covers the sky. It is transparent and typically causes a halo to form around the sun. May indicate precipitation in the next 10 to 15 hours.
+
+\pagebreak
+
+## Altocumulus
+
+![](file:///android_asset/survival_guide/altocumulus.webp)
+
+Mid level puffy clouds that look like cotton balls. They are typically white with darker patches below and can be spaced out or sheet-like. May indicate precipitation or a thunderstorm in the next 12 hours.
+
+\pagebreak
+
+## Altostratus
+
+![](file:///android_asset/survival_guide/altostratus.webp)
+
+A mid level cloud that covers the sky. The sun can barely be seen as a bright patch. May indicate precipitation in the next 8 hours.
+
+\pagebreak
+
+## Cumulus
+
+![](file:///android_asset/survival_guide/cumulus.webp)
+
+Low puffy clouds that look like cotton balls. They are spaced out and are typically white with darker patches below. Usually indicates fair weather, but if it is growing taller, then precipitation or a thunderstorm could be possible in the next few hours.
+
+\pagebreak
+
+## Cumulonimbus
+
+![](file:///android_asset/survival_guide/cumulonimbus.webp)
+
+Low puffy clouds that are very tall. They typically have an anvil shape and are dark. May indicate a thunderstorm in a few minutes.
+
+\pagebreak
+
+## Stratocumulus
+
+![](file:///android_asset/survival_guide/stratocumulus.webp)
+
+Low clouds that look like a sheet of cotton balls with small gaps. The color ranges from white to dark gray. May indicate fair weather for the next 3 hours.
+
+\pagebreak
+
+## Stratus
+
+![](file:///android_asset/survival_guide/stratus.webp)
+
+A low cloud that covers the sky. Objects don't cast shadows and it may be foggy. May indicate fair weather for the next 3 hours if it is foggy, otherwise it may indicate precipitation soon.
+
+\pagebreak
+
+## Nimbostratus
+
+![](file:///android_asset/survival_guide/nimbostratus.webp)
+
+A mid level cloud that is dark gray and covers the sky. If it is not raining, it may be a stratus cloud. May have precipitation for the next 4 hours.

@@ -36,6 +36,7 @@ class FieldGuideFragment : TrailSenseReactiveFragment(R.layout.fragment_field_gu
         FieldGuidePageTag.Fish,
         FieldGuidePageTag.Invertebrate,
         FieldGuidePageTag.Rock,
+        FieldGuidePageTag.Weather,
         FieldGuidePageTag.Other
     )
 
