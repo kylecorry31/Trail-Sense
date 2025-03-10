@@ -99,8 +99,6 @@ Certain plants can provide water when no open sources are available:
 - **Water vines**: Many vines contain drinkable water. These vines are usually soft and easy to cut. Ensure a positive identification of the vine before drinking, and make sure the water is clear and odorless.
 - **Coconut water**: Green coconuts are best for hydration, as they contain more fluid and less oil.
 
-![](file:///android_asset/survival_guide/13.webp)
-
 ### Solar stills
 
 **Belowground solar still**
