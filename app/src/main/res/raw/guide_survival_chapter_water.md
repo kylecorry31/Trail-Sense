@@ -137,7 +137,7 @@ Always ensure the water you collect is safe to drink. Boiling is the most reliab
   3. Heat rocks in a fire and place them in the water to heat it. **Do not** use rocks that may contain moisture (such as river rocks), as they can explode. Use two sticks in a chopstick fashion to move the rocks.
   4. Replace the rocks with hot ones as needed to keep the water boiling.
 - **Chemical treatment**: Use water purification tablets or drops according to the instructions.
-- **Filtration**: Use a portable water filter to remove contaminants. If you construct a filter to remove sediment, still purify the water through boiling or chemical treatment. A filter can be constructed by layering grass or small rocks, sand, and charcoal (from top to bottom) in a container with a hole at the bottom to collect the filtered water.
+- **Filtration**: Use a portable water filter to remove contaminants. Some filters are rated to remove nearly all bacteria and viruses and can be used without additional purification. If you do not have a filter, you can construct one to remove sediment, but you must also purify the water through boiling or chemical treatment. A filter can be constructed by layering grass or small rocks, sand, and charcoal (from top to bottom) in a container with a hole at the bottom to collect the filtered water.
 
 ![](file:///android_asset/survival_guide/19.webp)
 

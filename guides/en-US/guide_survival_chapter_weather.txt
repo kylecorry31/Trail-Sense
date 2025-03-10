@@ -140,8 +140,6 @@ Identifying the type of cloud can help to forecast the weather. Below are some c
 
 High wispy clouds that look like tufts of white hair. May indicate precipitation in the next 12 to 24 hours.
 
-
-
 **Cirrocumulus**
 
 ![](file:///android_asset/survival_guide/cirrocumulus.webp)

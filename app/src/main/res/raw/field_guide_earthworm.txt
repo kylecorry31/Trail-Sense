@@ -2,5 +2,3 @@ Earthworm
 A segmented, soil-dwelling worm that feeds on decaying organic matter. They are commonly found in moist environments and are active at night or after a rainfall. Many earthworms are edible and commonly used as fishing bait.
 
 https://en.m.wikipedia.org/wiki/Earthworm
-
-Image by File Upload Bot (Magnus Manske) (CC BY-SA 3.0)

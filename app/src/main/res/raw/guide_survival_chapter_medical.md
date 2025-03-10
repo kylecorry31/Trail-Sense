@@ -807,9 +807,7 @@ Learn to identify and avoid contact with the following plants:
 - Trumpet vine.
 - Stinging nettle.
 
-If you come into contact with these plants, wash the area with soap and water as soon as possible. Do not wait for a rash to appear.
-
-Do not burn these plants, as the smoke can cause irritation.
+If you come into contact with these plants, wash the area with soap and water as soon as possible. Do not wait for a rash to appear. Do not burn these plants, as the smoke can cause irritation.
 
 ## Snow blindness
 <!-- K: snow, blind, eye, headache, light, sensitivity, red, scratchy, itch, uv -->

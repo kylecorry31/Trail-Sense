@@ -129,6 +129,8 @@ for chapter in chapters:
 
         file_content = '\n'.join(lines_with_spacing)
 
+        file_content = file_content.replace('<!-- \\pagebreak -->', '\\pagebreak')
+
         content += file_content
     content += "\n\n"
 
