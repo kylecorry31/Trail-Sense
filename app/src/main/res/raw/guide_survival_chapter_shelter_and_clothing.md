@@ -217,11 +217,6 @@ Used to prevent the end of a rope from untwisting. This is hard to undo, but ver
 
 ![](file:///android_asset/survival_guide/120.webp)
 
-### Figure-eight knot
-Used to a knot in a line that is larger than the overhand knot.
-
-![](file:///android_asset/survival_guide/122.webp)
-
 ### Double sheet bend
 Used for tying two lines together.
 
@@ -233,16 +228,6 @@ Used to create a loop at the end of a line. You can pass a line around a tree an
 You can use a bowline to attach a line to a grommet on a tarp.
 
 ![](file:///android_asset/survival_guide/126.webp)
-
-### Two half hitches
-Used to tie a rope to a timber or pole. The single half hitch is not very secure without load, so use an overhand or the two half hitches instead.
-
-![](file:///android_asset/survival_guide/130.webp)
-
-### Timber hitch
-Used for moving wood bundles. You can make a tighter hold on heavy poles for lifting or dragging by combining a timber hitch and half hitch.
-
-![](file:///android_asset/survival_guide/131.webp)
 
 ### Clove hitch
 Used to fasten a rope to a timber or pole. It can be tied at any point in a rope.
