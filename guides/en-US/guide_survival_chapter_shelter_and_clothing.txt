@@ -209,8 +209,8 @@ Used to repair tears or holes in fabric. It can also be used to connect two piec
 If you do not have a sewing kit, you can use duct tape, safety pins, super glue, or cordage as temporary fixes.
 
 ## Knots
-<!-- K: knot, tie, cordage, cord, rope, paracord, overhand, square, bowline, figure-eight, 8, sheet-bend, bight, hitch, lash, sheepshank, prussic, whip -->
-<!-- S: The following knots are easy to learn and can be used in most situations: overhand, square, two half-hitches, bowline, and shear lashing. -->
+<!-- K: knot, tie, cordage, cord, rope, paracord, overhand, square, bowline, sheet-bend, bight, hitch, lash -->
+<!-- S: Learn several knots to make the most of your cordage. -->
 
 ### Overhand knot
 Used to prevent the end of a rope from untwisting. This is hard to undo, but very easy to tie.
@@ -228,6 +228,11 @@ Used to create a loop at the end of a line. You can pass a line around a tree an
 You can use a bowline to attach a line to a grommet on a tarp.
 
 ![](file:///android_asset/survival_guide/126.webp)
+
+### Jam Knot
+Used to fasten a rope to a timber or pole. This can be used in place of lashings. It can be loosend by pulling on the knot on the end. It is hard to untie this knot.
+
+![](file:///android_asset/survival_guide/jam_knot.webp)
 
 ### Clove hitch
 Used to fasten a rope to a timber or pole. It can be tied at any point in a rope.

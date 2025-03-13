@@ -2,7 +2,7 @@ import PIL.Image as Image
 import base64
 import io
 
-log_file = 'test_screenshot_log.txt'
+log_file = 'emulator.log'
 
 def load_screenshot_base64():
     with open(log_file, 'r') as f:

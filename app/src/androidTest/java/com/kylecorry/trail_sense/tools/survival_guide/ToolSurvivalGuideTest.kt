@@ -32,7 +32,7 @@ class ToolSurvivalGuideTest : ToolTestBase(Tools.SURVIVAL_GUIDE) {
             click(chapter.title)
 
             // Wait for the chapter to load
-            hasText(R.id.guide_name, chapter.title)
+            hasText(R.id.guide_name, chapter.title, contains = true, ignoreCase = true)
             hasText(R.id.guide_scroll) { it.isNotEmpty() }
             click("Be prepared")
 
