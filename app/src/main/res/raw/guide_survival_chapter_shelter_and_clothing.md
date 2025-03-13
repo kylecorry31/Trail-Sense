@@ -213,29 +213,24 @@ If you do not have a sewing kit, you can use duct tape, safety pins, super glue,
 <!-- S: The following knots are easy to learn and can be used in most situations: overhand, square, two half-hitches, bowline, and shear lashing. -->
 
 ### Overhand knot
-Used to prevent the end of a rope from untwisting.
+Used to prevent the end of a rope from untwisting. This is hard to undo, but very easy to tie.
 
 ![](file:///android_asset/survival_guide/120.webp)
 
 ### Figure-eight knot
-Used to form a larger knot than would be formed by an overhand knot at the end of a rope.
+Used to a knot in a line that is larger than the overhand knot.
 
 ![](file:///android_asset/survival_guide/122.webp)
 
-### Square knot
-Used for tying two ropes of equal diameter together. Be sure to tie a true square knot to prevent slipping, if you reverse the procedure, the knot will slip under strain.
-
-Untie by grasping the bends of the two bights and pulling the knot apart.
-
-![](file:///android_asset/survival_guide/123.webp)
-
 ### Double sheet bend
-Used for tying two ropes of unequal diameter together. This knot will not slip or draw tight under heavy loads.
+Used for tying two lines together.
 
 ![](file:///android_asset/survival_guide/125.webp)
 
 ### Bowline
-Useful for forming a loop in the end of a rope.
+Used to create a loop at the end of a line. You can pass a line around a tree and through the bowline loop to secure the end of a line to the tree.
+
+You can use a bowline to attach a line to a grommet on a tarp.
 
 ![](file:///android_asset/survival_guide/126.webp)
 
@@ -245,19 +240,14 @@ Used to tie a rope to a timber or pole. The single half hitch is not very secure
 ![](file:///android_asset/survival_guide/130.webp)
 
 ### Timber hitch
-Used for moving heavy timbers or poles. You can make a tighter hold on heavy poles for lifting or dragging by combining a timber hitch and half hitch.
+Used for moving wood bundles. You can make a tighter hold on heavy poles for lifting or dragging by combining a timber hitch and half hitch.
 
 ![](file:///android_asset/survival_guide/131.webp)
 
 ### Clove hitch
-Used to fasten a rope to a timber, pipe, or post. It can be tied at any point in a rope.
+Used to fasten a rope to a timber or pole. It can be tied at any point in a rope.
 
 ![](file:///android_asset/survival_guide/133.webp)
-
-### Prussic
-Used to tie a short rope around a longer rope in such a manner that the short rope will slide on the other rope if no tension is applied, and will hold if tension is applied on the short rope.
-
-![](file:///android_asset/survival_guide/135.webp)
 
 ### Trucker's hitch
 Used to secure a load or tighten a line.
