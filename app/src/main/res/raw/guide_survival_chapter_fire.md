@@ -39,7 +39,11 @@ Once you have mastered these skills, you should learn how to do the following:
 
 ### Gathering materials
 
-- **Tinder**: Dry, fine materials that catch fire easily. You can dry out damp tinder by placing it near your body or in your sleeping bag.
+When building a fire, you need three groups of materials to start and maintain it. Tinder is dry, fine material that catches fire easily and is used to start the fire. Kindling consists of small sticks and twigs that burn easily and are used to build up the fire after lighting the tinder. Finally, fuel is used to sustain the fire and consists of larger sticks or logs. To make a fire, find about a handful of tinder, two handfuls of kindling, and a pile of fuel - double the amount you estimate you'll need.
+
+Finding dry wood can be difficult, but look for dead branches on trees, fallen branches that aren't fully touching the ground, and sticks that break cleanly when snapped. You can dry out damp tinder by placing it near your body or in your sleeping bag. You can dry out fuel by placing it near the fire.
+
+- **Tinder**
   - Shredded inner bark (birch, cedar, chestnut, red elm)
   - Fine wood scrapings or shavings
   - Fatwood: Resin-rich wood from pine trees, typically found at the base of dead branches.
@@ -53,14 +57,27 @@ Once you have mastered these skills, you should learn how to do the following:
   - Lint
   - Paper
   - Tinder fungus or chaga
-- **Kindling**: Small sticks and twigs that catch fire from the tinder and help build the flame.
+- **Kindling**
   - Sticks and twigs (pencil to finger thickness)
   - Thinly split wood
   - Plastics, such as straws or spoons
   - Wood soaked in a flammable liquid such as bug spray (use caution)
-- **Fuel**: Larger pieces of wood that will burn longer and sustain your fire.
+- **Fuel**
   - Prefer fallen wood that you can break by hand
   - To break a larger piece of wood, insert it between two live trees at the point you want to break it and push it to the side until it snaps
+
+### Feather sticks
+A feather stick can be used as tinder and kindling to help start a fire when other tinder is hard to find.
+
+To make a feather stick:
+
+1. Find a straight, thick, dry stick.
+2. Starting near the top, use a knife to cut a curl of wood. Slice down to the base of the stick, but don't cut it off.
+3. Repeat this process, but cut along the ridge created by your last cut. Be careful not to cut off the previous curls.
+4. Gather any curls that fell off.
+5. To start a fire, follow the next sectoin using the feather stick as your tinder bundle.
+
+![](file:///android_asset/survival_guide/feather_stick.webp)
 
 ## Starting a fire
 <!-- K: start, light, ignite, matches, lighters, steel, ferro, ferrocerium, magnesium, flint, bow-drill, hand-drill, drill, magnifying, lens, tepee, structure -->
