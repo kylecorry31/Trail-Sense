@@ -1,16 +1,15 @@
 <!-- K: overview, survival, situation, rescue, lost -->
 <!-- S: Be prepared, stop if lost, and think before acting. -->
 
-This guide covers essential survival skills needed to return safely from a survival situation. It is not a substitute for professional training or experience and should only be used as a reference.
+This guide covers essential survival skills needed to return safely from a survival situation. It is not a substitute for professional training or experience and should only be used as a reference. This guide is intended to be practical and to the point with the sole purpose of getting you out of a survival situation. Therefore, most bushcraft and impractical techniques for the average hiker have been left out.
+
+If you are in a survival situation, try to stay calm and start with this chapter's "What to Do in a Survival Situation" section.
 
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill -->
 <!-- S: Bring a survival kit with you on all trips, and let others know your plans. Learn how to act in a survival situation and signal for help. -->
 
-- Tell someone your plans: your route, alternative routes, who you are going with, when you will be back, and when you will contact them.
-- Stick to your planned route.
-- Avoid unnecessary risks.
-- Bring the proper gear.
+Before entering the wilderness, you should be as prepared as possible. This means you should plan your route and alternative routes, pack the proper gear, learn the necessary skills, and tell someone your plans.
 
 ### Gear
 
@@ -90,9 +89,7 @@ See each chapter for additional knowledge and skills recommendations.
 If you are in a survival situation, don't panic and follow these steps.
 
 ### Stop
-The first and most important thing to do when lost is to stop moving.
-- If not in immediate danger, stop moving.
-- Calm down with deep breaths if panicking.
+The first and most important thing to do when lost is to stop moving. If you are in immediate danger in your current position, you can move, but otherwise, stay where you are. Use this time to calm down with deep breaths; you will get home.
 
 ### Think
 Take a moment to think about your situation. Answer the following questions:
@@ -102,51 +99,60 @@ Take a moment to think about your situation. Answer the following questions:
 - Which way did you come from?
 
 ### Observe
-Next, observe your surroundings and assess your situation:
-- Check for any potential hazards or resources that could help you.
-- Check your smartphone or GPS receiver for your last known location.
-- Check your cell phone for a signal.
-- Listen for people or vehicles.
+Next, observe your surroundings and assess your situation. The first thing to do is check your smartphone or GBS receiver for your location. If you have a maps app, open it and check if a map is available. You can also check for a signal to call for help. If you have no luck there, then look around and listen for signs of people, vehicles, or trails. Last, observe where you are and look for potential hazards or resources.
 
 ### Plan
-Make a plan for your next steps. Here's some general advice:
-- If it is close to dark, set up a shelter and maybe a fire.
-- If you are injured, treat your injuries.
-- If you are lost, try to determine your location using a map or GPS.
-- If it is hot, find shade and water.
-- If it is cold, get warm through insulation, shelter, and fire.
+Make a plan for your next steps. First, try to put in a call or text for help if you are not in immediate danger. What you do next is going to depend on your current situation. Here's some general advice for actions you can take ordered by importance:
+
+- If you are badly injured, treat your injuries.
+- If it is cold, get warm through insulation, shelter, and then fire (if easily started).
 - If the weather is bad, take shelter.
-- Tie a bright piece of clothing to a nearby tree and search the area for signs of a trail. **Keep the marker in sight at all times.** You may also use a GPS receiver to return to your starting point; ensure the batteries are charged.
-- If you are lost, it is best to stay put and wait for help. Try to signal for help and make yourself visible to rescuers.
+- If it is hot, find shade and drink water.
+- If it is close to dark, set up a shelter and maybe a fire.
+- Start conserving food and water, but don't let yourself get thirsty.
+- If you have a minor injury, treat it.
+- Record your current location in your phone or GPS; if you have a bright piece of clothing, tie it to a tree where you can see it.
+- If you are out of water or just about to run out, find a water source and purify it.
+- Signal for help using the techniques later in this chapter. Do this often for the best odds of being found.
+- Try to determine your location using a map.
+- Check for signs of the trail nearby, but always keep your initial location in sight.
+- Identify nearby points of interest that you might be able to find on a map or hike to at a later point if needed.
+- If you are out of food, start thinking about how you will forage or catch something to eat. You can survive for a while without food but will weaken over time.
+- If you have been out for several days to a week, you may need to consider hiking out. Leave a sign that you were here and in which direction you went, such as something tied to a tree and an arrow made of natural materials.
+
+In summary, the priority is to treat severe injuries, seek shelter, signal for help, find water, build a fire (to stay warm and boil water), determine your location, check for ways out, find food, and last and only if you've been out there for a long time, hike out. 
+
+Your plan should adapt to your situation as it changes. Reevaluate often and stay hopeful that you will be found.
 
 ### Act
-Once you have a plan, act on it. If at any point you feel unsafe, nervous, or unsure, stop and reassess your situation.
+Once you have a plan, act on it. If at any point you feel unsafe, nervous, unsure, or your situation changes, then stop and reassess.
 
 ## Planning a trip
 <!-- K: plan, trip -->
 <!-- S: Research the terrain, weather, and wildlife before leaving. Plan a route on a map and bring the necessary supplies. Share this plan with someone you trust. -->
 
-1. Research the terrain, weather conditions, wildlife, and plants you might encounter. Also, look into local regulations and any permits you may need.
-2. Plan your route using an up-to-date map. Consider trail conditions and alternate routes.
-3. Pack the necessary gear and supplies. See the "Be prepared" section for a list of essential items. Check all your gear before you leave.
-4. Check the weather forecast and adjust your plans accordingly.
-5. Share your itinerary with a trusted person. Include your planned route, expected return time, and check-in times.
+Before going into the wilderness, have a plan that you can stick to. Research the terrain, weather conditions, wildlife, and plants you might encounter. Check local regulations and any permits you may need. Use an up-to-date map to plan your route and some alternative routes if the trails are impassable. Also, look up trail conditions and the weather forecast for your trip.
+
+Once you have a trip planned out, pack the necessary gear and supplies and check all of it to ensure it is functional. You should share your plan with a trusted person, which includes the routes, who you are going with, when you will be back, and when you will contact them. If you don't have someone to whom you can tell these plans, leave a note with this information in a very visible place in your home. While you are hiking, stick to your route and avoid unnecessary risks.
+
 
 ## Signaling for help
 <!-- K: signal, help, contact, call, text, phone, whistle, mirror, smoke, flare, flashlight, ground-to-air -->
 <!-- S: Try your cell phone; it may be able to make emergency calls. Otherwise, use a whistle, signal mirror, smoke, flares, flashlight, or ground-to-air signals to attract attention. -->
 
+Signaling for help will increase your odds of being found. You should do this often, even if you don't think anyone is nearby or can hear you.
+
 ### Cell phone
-Many phones can call emergency services even without a signal from your carrier. If you can't make a call, try sending a text message. Check your phone periodically to see if you have a signal, but otherwise, keep it off or in airplane mode to conserve battery. You may get a better signal by climbing to higher ground or moving to an open area.
+Many phones can call emergency services even without a signal from your carrier. If you can't make a call, try sending a text message. Check your phone periodically to see if you have a signal, but otherwise, keep it off or in airplane mode to conserve battery. You may get a better signal by moving to higher ground or an open area.
 
 ### Whistle
-Three short blasts are the universal signal for help. When using the whistle at full volume, you may want to cover your ears.
+Three short blasts are the universal signal for help. You may want to cover your ears when using the whistle at full volume.
 
 ### Signal mirror
-Hold the mirror with one hand and extend your other arm in front of you with your fingers in a V-shape. Reflect sunlight onto your fingers and slowly move the mirror to direct the reflected light toward potential rescuers or aircraft.
+Hold the mirror with one hand and extend your other arm in front of you with your fingers in a V-shape and the target between your fingers. Reflect sunlight onto your fingers and slowly move the mirror up and down to flash sunlight at the potential rescuers. You can use a phone screen as a signal mirror, but it will be nowhere near as effective as an actual mirror and should be combined with another signal, such as smoke or a ground-to-air signal.
 
 ### Smoke
-Smoke can attract attention during the day. Burning green vegetation can create a lot of smoke, but be sure to do this safely.
+Smoke can attract attention during the day. Burning green vegetation can create a lot of smoke, but be sure to do this safely. A fire at night can also be used to attract attention.
 
 ### Flares
 Flares are best seen at night or in low-visibility conditions. Follow the instructions on the flare packaging and be aware of any legal restrictions on their use.
