@@ -33,10 +33,12 @@ This chapter covers some basic medical knowledge and techniques for common injur
 - Aloe vera gel
 - Antiseptic wipes
 - Hydrocortisone cream
-- Antihistamine pills
+- Antihistamine pills (diphenhydramine)
 - Superglue
 - Cotton swabs
-- Antidiarrheal medication
+- Antidiarrheal medication (loperamide)
+- Gas relievers (simethicone)
+- Antacid tablets
 - Mirror
 - Tampons / pads / menstrual cup
 - Dental floss
@@ -60,6 +62,22 @@ Once you have mastered these skills, you should learn how to do the following:
 - Make tea from plants.
 - Identify medicinal plants in your area.
 - Perform advanced first aid techniques, such as setting a broken bone or suturing a wound.
+
+## Common medications
+<!-- K: medication, medicine, pill, drug, aspirin, ibuprofen, acetaminophen, diphenhydramine, loperamide, simethicone, antacid, hydrocortisone, antibiotic, ointment, cream -->
+<!-- S: Bring common medications with you. Only use as directed by your doctor and follow the manufacturer's instructions. -->
+
+The following is a list of common medications that hikers may have on them. This is not a complete list and there are other medications that may perform the same role. Only use as directed by your doctor and follow the manufacturer's instructions. Be sure to learn about the side effects of each medication and how many/often to take them before bringing them with you.
+
+- **Aspirin**: A pain reliever that can be used for headaches, sore muscles, joint pain, inflamation, and fevers. Many doctors recommend taking an aspirin at the first signs of a heart attack, since it can help to prevent further blood clots.
+- **Ibuprofen**: A pain reliever that can be used for headaches, sore muscles, joint pain, inflamation, and fevers. Can cause stomachaches for some people.
+- **Acetaminophen**: A pain reliever that can be used for headaches, sore muscles, joint pain, or fevers.
+- **Diphenhydramine**: An antihistine that can be used for allergies, itching, and sleeplessness. May cause drowsiness.
+- **Loperamide**: An antidirrheal medication.
+- **Simethicone**: A gas reliever that can be used if you have gas pains.
+- **Antacid tablets**: Used to treat heartburn and indigestion.
+- **Hydrocortisone cream**: Calms itchy or red skin from bites, rashes, or irritation.
+- **Antibiotic ointment**: Helps to prevent small cuts, scrapes, or burns from getting infected.
 
 ## Allergic reactions
 <!-- K: allergy, allergic, reaction, rash, itch, swell, hives, sneeze, cough, throat, breath, epinephrine, epi-pen, epipen, inject, ashthma, anaphylaxis -->
