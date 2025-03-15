@@ -67,13 +67,13 @@ Once you have mastered these skills, you should learn how to do the following:
 <!-- K: medication, medicine, pill, drug, aspirin, ibuprofen, acetaminophen, diphenhydramine, loperamide, simethicone, antacid, hydrocortisone, antibiotic, ointment, cream -->
 <!-- S: Bring common medications with you. Only use as directed by your doctor and follow the manufacturer's instructions. -->
 
-The following is a list of common medications that hikers may have on them. This is not a complete list and there are other medications that may perform the same role. Only use as directed by your doctor and follow the manufacturer's instructions. Be sure to learn about the side effects of each medication and how many/often to take them before bringing them with you.
+This is a list of common medications hikers might carry. It’s not everything—other options can work too. Only use these as your doctor says and follow the package instructions. Know the side effects, how much to take, and when to take them before your trip.
 
-- **Aspirin**: A pain reliever that can be used for headaches, sore muscles, joint pain, inflamation, and fevers. Many doctors recommend taking an aspirin at the first signs of a heart attack, since it can help to prevent further blood clots.
-- **Ibuprofen**: A pain reliever that can be used for headaches, sore muscles, joint pain, inflamation, and fevers. Can cause stomachaches for some people.
+- **Aspirin**: A pain reliever that can be used for headaches, sore muscles, joint pain, inflammation, and fevers. Many doctors recommend taking an aspirin at the first signs of a heart attack, since it can help to prevent further blood clots.
+- **Ibuprofen**: A pain reliever that can be used for headaches, sore muscles, joint pain, inflammation, and fevers. Can cause stomachaches for some people.
 - **Acetaminophen**: A pain reliever that can be used for headaches, sore muscles, joint pain, or fevers.
-- **Diphenhydramine**: An antihistine that can be used for allergies, itching, and sleeplessness. May cause drowsiness.
-- **Loperamide**: An antidirrheal medication.
+- **Diphenhydramine**: An antihistamine that can be used for allergies, itching, and sleeplessness. May cause drowsiness.
+- **Loperamide**: Used to treat diarrhea.
 - **Simethicone**: A gas reliever that can be used if you have gas pains.
 - **Antacid tablets**: Used to treat heartburn and indigestion.
 - **Hydrocortisone cream**: Calms itchy or red skin from bites, rashes, or irritation.
