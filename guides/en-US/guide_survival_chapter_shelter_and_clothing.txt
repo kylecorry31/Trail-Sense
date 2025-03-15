@@ -114,7 +114,7 @@ When selecting a site for your shelter, consider the following:
 - Proximity to water and food sources.
 - Protection from the elements.
 - Free of dead trees and branches that could fall.
-- Free of threat from avalanches, rockslides, or flooding.
+- Free of threat from avalanches, rock slides, or flooding.
 - Free of insects, poisonous plants, or dangerous animals.
 - Suitable for signaling for help if needed.
 
@@ -137,7 +137,7 @@ A simple shelter made by leaning a large sheet of material against a support lik
 
 ![](file:///android_asset/survival_guide/76.webp)
 
-If you're constructing a ridgeline with cordage, form a bowline at one end, wrap the cordage around a tree, and pass the free end through the bowline's loop. Secure the other end to a second tree using either a taut-line hitch or a trucker's hitch, then tighten it. To attach a tarp, pull a small section of the ridgeline through the grommets and insert a stick through the resulting loop to hold it in place.
+If you're constructing a ridge line with cordage, form a bowline at one end, wrap the cordage around a tree, and pass the free end through the bowline's loop. Secure the other end to a second tree using either a taut-line hitch or a trucker's hitch, then tighten it. To attach a tarp, pull a small section of the ridge line through the grommets and insert a stick through the resulting loop to hold it in place.
 
 **A-frame**
 
@@ -238,7 +238,7 @@ You can use a bowline to attach a line to a grommet on a tarp.
 ![](file:///android_asset/survival_guide/126.webp)
 
 ### Jam Knot
-Used to fasten a rope to a timber or pole. This can be used in place of lashings. It can be loosend by pulling on the knot on the end. It is hard to untie this knot.
+Used to fasten a rope to a timber or pole. This can be used in place of lashings. It can be loosened by pulling on the knot on the end. It is hard to untie this knot.
 
 ![](file:///android_asset/survival_guide/jam_knot.webp)
 
@@ -258,7 +258,7 @@ Used to secure one pole at a right angle to another pole. Can swap with the diag
 ![](file:///android_asset/survival_guide/136.webp)
 
 ### Shear lashing
-Used for lashing two or more poles next to eachother. Can be used to construct a tripod.
+Used for lashing two or more poles next to each other. Can be used to construct a tripod.
 
 ![](file:///android_asset/survival_guide/138.webp)
 

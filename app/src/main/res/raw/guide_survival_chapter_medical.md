@@ -80,8 +80,8 @@ This is a list of common medications hikers might carry. Itâ€™s not everythingâ€
 - **Antibiotic ointment**: Helps to prevent small cuts, scrapes, or burns from getting infected.
 
 ## Allergic reactions
-<!-- K: allergy, allergic, reaction, rash, itch, swell, hives, sneeze, cough, throat, breath, epinephrine, epi-pen, epipen, inject, ashthma, anaphylaxis -->
-<!-- S: Symptoms include rash, itching, swelling, hives, and difficulty breathing. Treat by removing the allergen, using antihistimines, or an epinephrine auto-injector as needed. Prevent by avoiding known allergens. -->
+<!-- K: allergy, allergic, reaction, rash, itch, swell, hives, sneeze, cough, throat, breath, epinephrine, epi-pen, epipen, inject, asthma, anaphylaxis -->
+<!-- S: Symptoms include rash, itching, swelling, hives, and difficulty breathing. Treat by removing the allergen, using antihistamines, or an epinephrine auto-injector as needed. Prevent by avoiding known allergens. -->
 
 Allergic reactions can range from contact dermatitis (ex. poison ivy) or bug bites to anaphylaxis, a severe allergic reaction that can be life-threatening.
 
@@ -154,7 +154,7 @@ Altitude sickness is caused by low oxygen levels at high altitudes.
 
 ## Bites / attacks: mammals and other animals
 <!-- K: bite, attack, animal, mammal, bell, fight, pepper-spray, bear -->
-<!-- S: Treat by washing the wound with soap and water, applying anitibiotics, bandaging, and seeking medical attention. Prevent by avoiding wild animals and making noise to alert them of your presence. -->
+<!-- S: Treat by washing the wound with soap and water, applying antibiotics, bandaging, and seeking medical attention. Prevent by avoiding wild animals and making noise to alert them of your presence. -->
 
 Many animals bite when they feel threatened or cornered. Some animals can transmit diseases through their bites.
 
@@ -325,7 +325,7 @@ If the blister is large or painful:
 
 ## Burns
 <!-- K: burn, scald, blister, red, pain, aloe, vera, fire, skin -->
-<!-- S: Treat minor burns by soaking with cool water and loosly bandage. Seek medical attention for severe burns. Prevent by using caution around fires and hot objects. -->
+<!-- S: Treat minor burns by soaking with cool water and loosely bandage. Seek medical attention for severe burns. Prevent by using caution around fires and hot objects. -->
 
 ### Treatment
 
@@ -595,7 +595,7 @@ Headaches can be caused by a variety of factors, such as dehydration, stress, la
 
 ## Heart problems
 <!-- K: heart, chest, pain, arm, back, neck, jaw, stomach, attack, stroke, exhaustion, sweat, nausea, lightheaded, breath, heartbeat, cpr -->
-<!-- S: Seek medical attention for chest pain. Symptoms include chest pain, shortness of breath, pain in limbs, nausia, lightheadedness, and cold sweats. -->
+<!-- S: Seek medical attention for chest pain. Symptoms include chest pain, shortness of breath, pain in limbs, nausea, lightheadedness, and cold sweats. -->
 
 To be on the safe side, if you experience chest pain, seek medical attention as soon as possible.
 

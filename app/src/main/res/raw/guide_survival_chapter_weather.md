@@ -120,7 +120,7 @@ You can learn to forecast weather by observing the signs around you. The more si
 - Animals become quiet
 - Humidity increases
 - You see lightning or hear thunder
-- You smell rain (called petrichor)
+- You smell rain
 
 ### Signs of improving weather
 - Cloud cover decreases

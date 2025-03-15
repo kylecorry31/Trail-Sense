@@ -75,7 +75,7 @@ To make a feather stick:
 2. Starting near the top, use a knife to cut a curl of wood. Slice down to the base of the stick, but don't cut it off.
 3. Repeat this process, but cut along the ridge created by your last cut. Be careful not to cut off the previous curls.
 4. Gather any curls that fell off.
-5. To start a fire, follow the next sectoin using the feather stick as your tinder bundle.
+5. To start a fire, follow the next section using the feather stick as your tinder bundle.
 
 ![](file:///android_asset/survival_guide/feather_stick.webp)
 
@@ -100,8 +100,8 @@ Sometimes it is easier to hold the tinder containing an ember and cup your hands
 ### Fire starters
 
 - **Matches/lighters**: Always have waterproof matches or a reliable lighter in your kit. These are the easiest methods of starting a fire: just put the flame to the tinder.
-- **Fire steel**: Durable and works in all weather conditions, producing sparks to ignite your tinder. Scrape it quickly with the back of a knife or scraper to create sparks. For best results, pin the fire steel against the tinder and ground and scrape the steel towards the tinder. Some fire steel comes with a magnesium block, which you can scrape off shavings into the tinder before striking to help cactch a spark.
-- **Magnifying glass / lens**: Focus sunlight through a lens onto tinder to create an ember. Glasses or even a clear bottle filled with water can work. This will take a while and requires direct sunlight. Credit card sized freznel lenses are also effective.
+- **Fire steel**: Durable and works in all weather conditions, producing sparks to ignite your tinder. Scrape it quickly with the back of a knife or scraper to create sparks. For best results, pin the fire steel against the tinder and ground and scrape the steel towards the tinder. Some fire steel comes with a magnesium block, which you can scrape off shavings into the tinder before striking to help catch a spark.
+- **Magnifying glass / lens**: Focus sunlight through a lens onto tinder to create an ember. Glasses or even a clear bottle filled with water can work. This will take a while and requires direct sunlight. Credit card sized fresnel lenses are also effective.
 
 ![](file:///android_asset/survival_guide/61.webp)
 
@@ -115,7 +115,7 @@ The following methods are more difficult to create a fire with and require pract
 1. Create the socket by finding a small, flat stone or piece of hardwood with a small depression near the center.
 2. Create the drill by finding a straight, dry stick about 10-12 inches long and ¾ inch in diameter.
 3. For the fireboard, find a flat, dry piece of soft wood. Yucca, tamarack, aspen, balsam fir, basswood, poplar, cypress, cottonwood, alder, red cedar, and willow are preferred. Avoid resinous woods like pine.
-4. Carve a small dpression about ½ to ¾ inch from the edge of the fireboard.
+4. Carve a small depression about ½ to ¾ inch from the edge of the fireboard.
 5. On the underside of the fireboard, make a V-shaped cut from the edge of the board to the depression.
 6. Find a curved stick that can be used for the bow. It should be about 12-14 inches long and ½ inch in diameter.
 7. Attach a cord or shoelace to both ends of the bow.
@@ -127,7 +127,7 @@ The following methods are more difficult to create a fire with and require pract
 13. Place your foot onto the fireboard (same side as non-dominant hand) and rest the hand holding the socket onto your knee.
 14. With your dominant hand, start moving the bow side to side to cause the drill to spin. Be sure to go the full length of the bow string. Keep a steady, fast pace.
 15. You will start to see smoke after a while, keep going until you are sure there's an ember created.
-16. The ember should be transfered onto the fire pan (it may already be there), and moved to a tinder bundle where you can nurse it into a fire.
+16. The ember should be transferred onto the fire pan (it may already be there), and moved to a tinder bundle where you can nurse it into a fire.
 
 ![](file:///android_asset/survival_guide/64.webp)
 
