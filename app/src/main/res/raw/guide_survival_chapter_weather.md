@@ -34,11 +34,11 @@ Once you have mastered these skills, you should learn how to do the following:
 
 ## Weather
 <!-- K: storm, precipitation, rain, snow, hail, sleet, temperature, humidity, wind, fog, lightning, sun, smoke, wildfire, uv, uv-index, thunder, thunderstorm -->
-<!-- S: Take shelter during severe storms. Be prepared for a variety of conditions, such as precipitation, temperature, humidity, and strong wind. -->
+<!-- S: Take shelter during severe storms. Be prepared for various conditions, such as precipitation, temperature, humidity, and strong wind. -->
 
 Weather conditions can change rapidly and significantly impact your outdoor activities.
 
-In mountainous regions, take extra precautions when above the treeline, as weather can be more severe and you are more exposed to the elements.
+In mountainous regions, take extra precautions when above the tree line, as weather can be more severe and you are more exposed to the elements.
 
 ### Precipitation
 You can generally continue outdoor activities in light precipitation. However, if it starts precipitating heavily, seek shelter. Be aware of the risk of hypothermia, and take steps to stay warm and dry.
@@ -55,11 +55,11 @@ In hot weather, stay hydrated and take breaks in the shade. Wear sunscreen and s
 Temperature decreases by about 3.5°F (2°C) for every 1,000 feet (305 meters) of elevation gain.
 
 ### Wind
-In cold conditions, wind can make it feel even colder, increasing the risk of hypothermia and frostbite. Dress in layers and wear a hat and gloves to protect yourself from the wind.
+Wind can make cold conditions feel even colder, increasing the risk of hypothermia and frostbite. Dress in layers and wear a hat and gloves to protect yourself from the wind.
 
 Be cautious of unstable trees and branches in windy conditions, as they can be hazardous.
 
-In desert environments, wind can cause sandstorms, which reduce visibility and make breathing difficult. Seek shelter during a sandstorm and protect your eyes and mouth with a bandana or cloth.
+Wind can cause sandstorms in desert environments, reducing visibility and making breathing difficult. Seek shelter during a sandstorm and protect your eyes and mouth with a bandana or cloth.
 
 Prevailing winds are winds that blow consistently in one direction over time. While local geography and bodies of water can affect wind patterns, general patterns are as follows:
 - 60° N to 90° N: Winds generally blow from the east.
@@ -69,7 +69,7 @@ Prevailing winds are winds that blow consistently in one direction over time. Wh
 - 30° S to 60° S: Winds generally blow from the west.
 - 60° S to 90° S: Winds generally blow from the east.
 
-These directions also indicate where weather will most likely come from. For example, if you are at 40° N and see a thunderstorm to the west, it will likely arrive at your location soon.
+These directions also indicate where the weather will most likely come from. For example, if you are at 40° N and see a thunderstorm to the west, it will likely arrive at your location soon.
 
 ### Fog
 Fog reduces visibility, making navigation difficult. If hiking in fog, stay on marked trails and use a map, compass, or GPS to navigate. Watch your footing carefully.
@@ -82,14 +82,14 @@ If you feel your hair stand on end or hear a crackling noise, you are in danger 
 You can estimate how far away a thunderstorm is by counting the seconds between a flash of lightning and the sound of thunder. Divide the number of seconds by 5 to get the distance in miles. One mile is about 1.6 kilometers. Any storm within 6 miles (10 kilometers) is a threat.
 
 ### Sun
-On days with a high UV index, wear sunscreen and sun-protective clothing. In hot climates, stay hydrated and take breaks in the shade.
+Wear sunscreen and sun-protective clothing on days with a high UV index. In hot climates, stay hydrated and take breaks in the shade.
 
 ### Smoke
-Wildfires can cause smoke that travels long distances. Avoid outdoor activities on days with poor air quality if possible.
+Wildfires can cause smoke to travel long distances. If possible, avoid outdoor activities on days with poor air quality.
 
 ## Climate
 <!-- K: climate, average -->
-<!-- S: The climate of your region can indicate what weather is common for the time of year. -->
+<!-- S: Your region's climate can indicate what weather is common for the time of year. -->
 
 The climate of a region refers to its average weather conditions over time. Understanding the climate helps you prepare for the typical weather you'll encounter.
 
@@ -116,7 +116,7 @@ You can learn to forecast weather by observing the signs around you. The more si
 - Temperature suddenly drops
 - Barometric pressure drops
   - Faster drops indicate more severe weather
-- Wind direction changes, opposite the prevailing wind
+- Wind direction changes to be opposite the prevailing wind
 - Animals become quiet
 - Humidity increases
 - You see lightning or hear thunder
@@ -133,7 +133,7 @@ You can learn to forecast weather by observing the signs around you. The more si
 
 ## Tides
 <!-- K: tide, water, coast, rise, fall, moon, ocean, sea, semidiurnal, diurnal, mixed -->
-<!-- S: Most places have two high tides and two low tides each day. Check tide tables before heading to the coast. -->
+<!-- S: Most places have two high tides and two low tides daily. Check tide tables before heading to the coast. -->
 
 Tides can affect outdoor activities near the coast. A receding tide can lead to rip currents, which are dangerous for swimmers.
 
@@ -150,7 +150,7 @@ Semidiurnal tides have two high tides and two low tides each day. If you know th
 Mixed tides are a type of semidiurnal tide, but the heights of the high and/or low tides vary throughout the day.
 
 ### Diurnal tides
-Diurnal tides have one high tide and one low tide each day. If you know the time of high tide, the next low tide will be about 12 hours later, and the next high tide will be about 12 hours after that.
+Diurnal tides have one high tide and one low tide each day. If you know the time of high tide, the next low tide will be about 12 hours later, and the next high tide will be about 12 hours later.
 
 ## Night
 <!-- K: night, dark, light, moon, stars, flashlight -->
@@ -160,4 +160,4 @@ You can estimate the time until sunset by holding your hand horizontally with yo
 
 On nights with a nearly full moon, you can use the moonlight to help navigate.
 
-Navigating in the dark is not recommended, but if necessary, use a flashlight or headlamp to light your way.
+Navigating in the dark is not recommended; if necessary, use a flashlight or headlamp to light your way.

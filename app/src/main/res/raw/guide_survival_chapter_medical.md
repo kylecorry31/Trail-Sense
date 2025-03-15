@@ -1,7 +1,7 @@
 <!-- K: medicine, medical, heal, health, injury, sick, ill, first-aid, symptom, treat, prevent -->
 <!-- S: Calm down and apply first aid. -->
 
-This chapter covers some basic medical knowledge and techniques for common injuries and illnesses you may encounter in the wilderness. It is not a substitute for professional medical advice/treatment or in depth first aid guides.
+This chapter covers basic medical knowledge and techniques for common injuries and illnesses in the wilderness. It does not substitute professional medical advice/treatment or in-depth first aid guides.
 
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill, painkiller, bandage, gauze, tape, pin, needle, tweezer, antibiotic, ointment, cream, sunscreen, repellent, spray, medicine, medication, prescription, pill, lenses, glasses, reliever, sanitizer, epinephrine, epi-pen, epipen, inhaler, moleskin, molefoam, tourniquet, splint, alo, vera, gel, swab, mirror, tampon, pad, menstrual, cup, floss, toothbrush, toothpaste, toilet-paper, bidet, bag, trowel, soap, towel, lip-balm, electrolyte -->
@@ -25,7 +25,7 @@ This chapter covers some basic medical knowledge and techniques for common injur
 - Asthma inhaler (if you have asthma)
 
 **Optional**:
-- Wound closure strips / butterfly bandages
+- Wound closure strips/butterfly bandages
 - Moleskin
 - Molefoam
 - Tourniquet
@@ -40,15 +40,15 @@ This chapter covers some basic medical knowledge and techniques for common injur
 - Gas relievers (simethicone)
 - Antacid tablets
 - Mirror
-- Tampons / pads / menstrual cup
+- Tampons/pads / menstrual cup
 - Dental floss
 - Toothbrush
 - Toothpaste (store this in your bear bag/container at night)
 - Toilet paper and/or portable bidet
-- Trash bags / container (check local regulations regarding toilet paper and human waste)
+- Trash bags/container (check local regulations regarding toilet paper and human waste)
 - Trowel
 - Soap (unscented)
-- Washcloth / microfiber towel
+- Washcloth/microfiber towel
 - Lip balm (unscented)
 - Electrolyte mix
 
@@ -67,21 +67,21 @@ Once you have mastered these skills, you should learn how to do the following:
 <!-- K: medication, medicine, pill, drug, aspirin, ibuprofen, acetaminophen, diphenhydramine, loperamide, simethicone, antacid, hydrocortisone, antibiotic, ointment, cream -->
 <!-- S: Bring common medications with you. Only use as directed by your doctor and follow the manufacturer's instructions. -->
 
-This is a list of common medications hikers might carry. It’s not everything—other options can work too. Only use these as your doctor says and follow the package instructions. Know the side effects, how much to take, and when to take them before your trip.
+This is a list of common medications hikers might carry. It's not a complete list. Only use these as your doctor says and follow the package instructions. Know the side effects, how much to take, and when to take them before your trip.
 
-- **Aspirin**: A pain reliever that can be used for headaches, sore muscles, joint pain, inflammation, and fevers. Many doctors recommend taking an aspirin at the first signs of a heart attack, since it can help to prevent further blood clots.
-- **Ibuprofen**: A pain reliever that can be used for headaches, sore muscles, joint pain, inflammation, and fevers. Can cause stomachaches for some people.
+- **Aspirin**: A pain reliever that can be used for headaches, sore muscles, joint pain, inflammation, and fevers. Many doctors recommend taking aspirin at the first signs of a heart attack since it can help to prevent further blood clots.
+- **Ibuprofen**: A pain reliever that can be used for headaches, sore muscles, joint pain, inflammation, and fevers. It can also cause stomachaches for some people.
 - **Acetaminophen**: A pain reliever that can be used for headaches, sore muscles, joint pain, or fevers.
-- **Diphenhydramine**: An antihistamine that can be used for allergies, itching, and sleeplessness. May cause drowsiness.
+- **Diphenhydramine**: An antihistamine used for allergies, itching, and sleeplessness. It may cause drowsiness.
 - **Loperamide**: Used to treat diarrhea.
-- **Simethicone**: A gas reliever that can be used if you have gas pains.
+- **Simethicone**: A gas reliever that can be used for gas pains.
 - **Antacid tablets**: Used to treat heartburn and indigestion.
 - **Hydrocortisone cream**: Calms itchy or red skin from bites, rashes, or irritation.
-- **Antibiotic ointment**: Helps to prevent small cuts, scrapes, or burns from getting infected.
+- **Antibiotic ointment**: Helps to prevent minor cuts, scrapes, or burns from getting infected.
 
 ## Allergic reactions
 <!-- K: allergy, allergic, reaction, rash, itch, swell, hives, sneeze, cough, throat, breath, epinephrine, epi-pen, epipen, inject, asthma, anaphylaxis -->
-<!-- S: Symptoms include rash, itching, swelling, hives, and difficulty breathing. Treat by removing the allergen, using antihistamines, or an epinephrine auto-injector as needed. Prevent by avoiding known allergens. -->
+<!-- S: Symptoms include rash, itching, swelling, hives, and difficulty breathing. Treat by removing the allergen, using antihistamines, or using an epinephrine auto-injector. Prevent by avoiding known allergens. -->
 
 Allergic reactions can range from contact dermatitis (ex. poison ivy) or bug bites to anaphylaxis, a severe allergic reaction that can be life-threatening.
 
@@ -123,7 +123,7 @@ If you have asthma and are having an attack, use your inhaler.
 - Avoid known allergens.
 - Carry an epinephrine auto-injector if you have severe allergies.
 - Take precautions for bug bites and poisonous plants (see the relevant sections).
-- Let others know about your allergies and where you keep your epinephrine auto-injector.
+- Tell others about your allergies and where you keep your epinephrine auto-injector.
 
 ## Altitude sickness
 <!-- K: altitude, mountain, headache, nausea, fatigue, dizziness, breath, sleep, appetite, heartbeat, cough, acclimate, descend -->
@@ -152,9 +152,9 @@ Altitude sickness is caused by low oxygen levels at high altitudes.
 - Acclimate to the altitude before ascending further.
 - Look out for symptoms if traveling above 6,500 feet (2,000 meters).
 
-## Bites / attacks: mammals and other animals
+## Bites/attacks: mammals and other animals
 <!-- K: bite, attack, animal, mammal, bell, fight, pepper-spray, bear -->
-<!-- S: Treat by washing the wound with soap and water, applying antibiotics, bandaging, and seeking medical attention. Prevent by avoiding wild animals and making noise to alert them of your presence. -->
+<!-- S: Treat by washing the wound with soap and water, applying antibiotics, bandaging, and seeking medical attention. Prevent this by avoiding wild animals and making noise to alert them of your presence. -->
 
 Many animals bite when they feel threatened or cornered. Some animals can transmit diseases through their bites.
 
@@ -164,7 +164,7 @@ Many animals bite when they feel threatened or cornered. Some animals can transm
 3. Cover the wound with a bandage. Pack the wound with gauze if it is deep, but do not suture or tape it closed.
 4. Seek medical attention if the wound is deep, bleeding, or shows signs of infection.
 
-If you were bitten by a mammal, seek medical attention as soon as possible. You may need rabies shots.
+If a mammal bit you, seek medical attention as soon as possible. You may need rabies shots.
 
 ### Prevention
 - Do not approach or corner wild animals.
@@ -178,15 +178,15 @@ If you were bitten by a mammal, seek medical attention as soon as possible. You 
   - Pick up children and small pets.
   - Back away slowly or move sideways.
   - Use bear or pepper spray if available.
-  - Fight back if attacked (except for grizzly/brown bears - see next point). Use knives, sticks, rocks, or your hands. Aim for the eyes, nose, or throat.
-  - Play dead if it is a grizzly/brown bear attacking. Lay flat on the ground with your hands clasped behind your neck. The exception to grizzly attacks is if it attacks you in your tent, stalks you before attacking, or continues attacking after playing dead. In this case, fight back.
+  - Fight back if attacked (except for grizzly or brown bears - see next point). Use knives, sticks, rocks, or your hands. Aim for the eyes, nose, or throat.
+  - Play dead if a grizzly/brown bear is attacking. Lay flat on the ground with your hands clasped behind your neck. The exception to grizzly attacks is if it attacks you in your tent, stalks you before attacking, or continues attacking after playing dead. In this case, fight back.
   - Do not drop your pack, as it can provide protection.
 
 ## Bites: Snakes
 <!-- K: snake, bite, venom, poison, antivenom, snakebite -->
-<!-- S: Treat by cleaning the wound, applying a bandage, immobilizing the limb, and seeking medical attention. Prevent by watching where you step and wearing high boots. -->
+<!-- S: Treat by cleaning the wound, applying a bandage, immobilizing the limb, and seeking medical attention. Prevent this by watching where you step and wearing high boots. -->
 
-Always be on the lookout for snakes, especially in areas with tall grass, rocks, or logs. Snakes are most active during the day. Most snake bites are not venomous, but if you don't know the type of snake, treat the bite as venomous.
+Always look for snakes, especially in areas with tall grass, rocks, or logs. Snakes are most active during the day. Most snake bites are not venomous, but if you don't know the type of snake, treat the bite as venomous.
 
 ### Treatment
 1. Rinse the bite area with water.
@@ -206,11 +206,11 @@ Do not do the following:
 - Watch where you step.
 - Wear high boots.
 - Do not put your hands or feet where you cannot see.
-- Do not try to catch or kill snakes unless you are sure they are not venomous.
+- Do not try to catch or kill snakes unless you know they are not venomous.
 
-## Bites / stings: bugs
+## Bites/stings: bugs
 <!-- K: bug, bite, repel, spray, sting, insect, tick, leech, spider, scorpion, mosquito, ant, bee, wasp, hornet, fly, itch, swell, red -->
-<!-- S: Treat by removing the stinger/tick/leech, cleaning the area, and if needed seek medical attention. Prevent by using insect repellent and wearing long sleeves and pants. -->
+<!-- S: Treat by removing the stinger/tick/leech, cleaning the area, and, if needed, seeking medical attention. Prevent this by using insect repellent and wearing long sleeves and pants. -->
 
 Many insects can bite or sting you, causing pain, swelling, and itching. Some insects can also transmit diseases.
 
@@ -234,21 +234,21 @@ To remove a leech:
 2. Slide a fingernail or other flat object between the leech and your skin to detach it.
 3. Flick the leech away before it can reattach.
 4. Clean the wound and apply antibiotic ointment.
-5. Apply a bandage to control bleeding. It is normal for the wound to bleed for a while.
+5. Apply a bandage to control bleeding. It is usual for the wound to bleed for a while.
 
 Do not salt, burn, or pull the leech off, as this can cause the leech to regurgitate into the wound.
 
 **Bites**
 
-Avoid scratching and apply calamine lotion or hydrocortisone cream to reduce itching. You can use a cloth soaked in cold water or filled with snow/ice to reduce swelling.
+To reduce itching, avoid scratching and apply calamine lotion or hydrocortisone cream. To reduce swelling, use a cloth soaked in cold water or filled with snow/ice.
 
-If you were bit by a spider that you believe to be venomous, treat as you would a snake bite and seek medical attention.
+If you were bitten by a spider that you believe to be venomous, treat it as you would a snake bite and seek medical attention.
 
 **Stings**
 
-Remove any stingers, taking care not to squeeze the venom sac. Treat as you would a bug bite.
+Remove any stingers, taking care not to squeeze the venom sac. Treat it as if it were a bug bite.
 
-If you were stung by a scorpion or insect that you believe to be venomous, treat as you would a snake bite and seek medical attention.
+If you were stung by a scorpion or insect that you believe to be venomous, treat it as if it were a snakebite and seek medical attention.
 
 **Bugs in eyes**
 
@@ -258,34 +258,34 @@ See the section on objects in the eye.
 - Use insect repellent.
 - Wear long sleeves and pants.
 - Wrap your face with a bandana.
-- Wear glasses / sunglasses (keeps bugs out of your eyes).
+- Wear glasses/sunglasses (keeps bugs out of your eyes).
 - Use a bug net.
-- Check for ticks / leeches frequently.
-- Ensure your immunizations are up to date for bug-borne diseases in the area.
+- Check for ticks/leeches frequently.
+- Ensure your immunizations are current for bug-borne diseases in the area.
 
-You can make an improvised bug repellent by applying mud to your skin or using the smoke from a fire.
+You can make an improvised bug repellent by applying mud to your skin or using fire smoke.
 
 ## Bleeding
 <!-- K: bleed, blood, wound, cut, scrape, deep, clot, pressure, tourniquet, bandage, red, swell, warm, pus -->
-<!-- S: Treat by applying pressure, cleaning the wound, bandaging, and if needed seek medical attention. Prevent infection by cleaning wounds and changing bandages frequently. -->
+<!-- S: Treat by applying pressure, cleaning the wound, bandaging, and, if needed, seek medical attention. Prevent infection by cleaning wounds and changing bandages frequently. -->
 
 ### Treatment
 Seek medical attention if the wound is deep, bleeding profusely, or shows signs of infection. Infected wounds can be identified by redness, swelling, warmth, and pus.
 
-**Scrapes and small cuts**
+**Scrapes and minor cuts**
 1. Clean the wound with water.
 2. Optionally, apply antibiotic ointment.
 3. Apply a bandage.
 
 **Deeper cuts**
-1. Apply pressure to the wound with a clean cloth or bandage. You may need to apply pressure for a while, about 10 to 20 minutes.
+1. Apply pressure to the wound with a clean cloth or bandage. You may need to apply pressure for about 10 to 20 minutes.
 2. Clean the wound and irrigate it with water.
 3. Bandage the wound with a sterile dressing.
 4. Place new bandages over the old ones if they become soaked with blood.
 5. Raise the wound above the level of the heart.
 6. Seek medical attention if bleeding does not stop or if the wound is deep.
 
-If direct pressure does not work on a limb, you can apply a tourniquet to stop blood flow. This should only be done as a last resort, as it can cause permanent damage to the limb. Only a medical professional should remove a tourniquet.
+You can apply a tourniquet to stop blood flow if direct pressure does not work on a limb. This should only be done as a last resort, as it can cause permanent damage to the limb. Only a medical professional should remove a tourniquet.
 
 ### Prevention
 - Use caution when handling sharp objects.
@@ -298,7 +298,7 @@ If direct pressure does not work on a limb, you can apply a tourniquet to stop b
 
 ## Blisters
 <!-- K: blister, rub, shoe, sock, moleskin, red, sore -->
-<!-- S: Treat small blisters by applying moleskin and large blisters by draining with a sterilized needle, cleaning, and bandaging. Prevent by keeping feet dry and wearing properly fitting shoes. -->
+<!-- S: Treat small blisters by applying moleskin and large blisters by draining with a sterilized needle, cleaning, and bandaging. Preventing this by keeping feet dry and wearing properly fitting shoes. -->
 
 ### Symptoms
 - Red, sore area.
@@ -313,7 +313,7 @@ If the blister is large or painful:
 1. Sterilize a needle with alcohol or heat.
 2. Pierce the blister near the edge and drain the fluid.
 3. Clean and wash the area.
-4. Apply a bandage and optionally antibiotic ointment.
+4. Apply a bandage and, optionally, antibiotic ointment.
 
 ### Prevention
 - Keep feet dry.
@@ -339,7 +339,7 @@ This is about the level of a mild sunburn.
 
 **Second-degree burns**
 
-This is a burn that blisters. These burns can be very painful.
+This is a burn that blisters. These burns can be excruciating.
 
 1. Soak with cool water for at least 15 minutes.
 2. Take pain relievers.
@@ -363,7 +363,7 @@ This is a burn that goes through all layers of skin. These burns can be life-thr
 - Use caution around fires.
 - Do not touch hot objects.
 - Wear sunscreen.
-- If your clothes catch on fire, stop, drop to the ground, and roll to extinguish the flames.
+- If your clothes catch fire, stop, drop to the ground, and roll to extinguish the flames.
 
 ## Choking
 <!-- K: choke, throat, breath, heimlich, maneuver -->
@@ -375,7 +375,7 @@ If you are choking and someone is nearby, place your hands on your throat to sig
 Perform the Heimlich maneuver on yourself by doing the following:
 1. If possible, bend over a hard surface.
 2. Make a fist with one hand.
-3. Place the thumb side of your fist against your abdomen, below your ribcage and above your navel.
+3. Place the thumb side of your fist against your abdomen, below your ribcage, and above your navel.
 4. Grasp your fist with your other hand and press into your abdomen with a quick upward thrust.
 
 Perform the Heimlich maneuver on someone else by doing the following:
@@ -390,7 +390,7 @@ Perform the Heimlich maneuver on someone else by doing the following:
 <!-- K: cramp, muscle, pain, spasm, weak, electrolyte -->
 <!-- S: Treat by stretching, massaging, applying heat or cold, and hydrating. Prevent by staying hydrated and replenishing electrolytes. -->
 
-Cramps are caused by muscle spasms and can be caused by dehydration, overexertion, or lack of electrolytes.
+Cramps can be caused by dehydration, overexertion, or lack of electrolytes.
 
 ### Symptoms
 - Muscle pain.
@@ -415,7 +415,7 @@ Cramps are caused by muscle spasms and can be caused by dehydration, overexertio
 
 ## Dehydration
 <!-- K: dehydrate, water, thirst, dry, fatigue, dizziness, dark, urine, headache, confusion, electrolyte, drink -->
-<!-- S: Rehydrate by drinking water with electrolytes. Prevent by drinking water frequently, increasing intake during physical activity. -->
+<!-- S: Rehydrate by drinking water with electrolytes. Prevent by drinking water frequently and increasing intake during physical activity. -->
 
 ### Symptoms
 - Thirst.
@@ -446,16 +446,16 @@ Do not attempt to remove a fishhook if it is embedded in the eye.
 **Method 1**
 
 1. Advance the hook through the skin until the barb is exposed.
-2. Cut the barb off with wire cutters, such as those on a multitool or pliers.
-3. Pull the hook out in the opposite direction it entered, it should come out easily.
+2. Cut the barb off with wire cutters like those on a multitool or pliers.
+3. Pull the hook opposite from how it entered; it should come out easily.
 4. Clean the wound and apply antibiotic ointment.
 
 **Method 2**
 
-1. Run a piece of fishing line or cordage through the bend of the hook.
+1. Run a fishing line or cordage through the bend of the hook.
 2. Grab the ends of the string.
 3. Apply downward pressure on the eye of the hook.
-4. Quickly pull the string, causing the hook to come out the way it went in.
+4. Quickly pull the string, causing the hook to come out the way it went.
 5. Clean the wound and apply antibiotic ointment.
 
 ![](file:///android_asset/survival_guide/hook_removal.webp)
@@ -466,9 +466,9 @@ Do not attempt to remove a fishhook if it is embedded in the eye.
 
 ## Fractures
 <!-- K: fracture, break, broken, bone, pain, swelling, bruise, deform, weight, splint, sling, set -->
-<!-- S: Treat by splinting and seeking medical attention. Prevent by being cautious and wearing proper footwear. -->
+<!-- S: Treat by splinting and seeking medical attention. Prevent this by being cautious and wearing proper footwear. -->
 
-A fracture is a broken bone. A fracture can be closed (bone is broken but skin is intact) or open (bone is broken and protruding from the skin).
+A fracture is a broken bone. A fracture can be closed (bone is broken, but skin is intact) or open (bone is broken and protruding from the skin).
 
 ### Symptoms
 - Pain.
@@ -480,13 +480,13 @@ A fracture is a broken bone. A fracture can be closed (bone is broken but skin i
 - Bone protruding from the skin.
 
 ### Treatment
-If the bone is out of place and medical attention is unavailable for several hours, you may need to set the bone. Otherwise, splint the bone in place and seek medical attention.
+If the bone is out of place and medical attention is unavailable for several hours, you may need to set it. Otherwise, splint it in place and seek medical attention.
 
 **Setting a bone**
 
 1. Irrigate and clean the wound if the bone is protruding.
 2. Grab the limb below the fracture.
-3. Pull the limb to straighten the bone. It may pop into place and pain may decrease.
+3. Pull the limb to straighten the bone. It may pop into place, and pain may decrease.
 4. Splint the bone while holding the bone in place.
 5. Cover the open wound with a sterile dressing and bandage.
 
@@ -495,7 +495,7 @@ If the bone is out of place and medical attention is unavailable for several hou
 1. Remove all jewelry and tight clothing from the area.
 2. Apply padding around the fracture.
 3. Construct a splint using a rigid object (such as a stick, trekking pole, or tent pole). It should extend past the bone break on both sides.
-4. Secure the splint in place with bandages, tape, or cordage. The splint should be tight but not cut off circulation. If splinting a finger, tape it to the finger next to it.
+4. Secure the splint with bandages, tape, or cordage. The splint should be tight but not cut off circulation. If splinting a finger, tape it to the finger next to it.
 5. Apply a sling if the fracture is in the arm to help immobilize the limb.
 
 
@@ -513,14 +513,14 @@ If the bone is out of place and medical attention is unavailable for several hou
 <!-- K: frostbite, frost, cold, freeze, frozen, numb, white, gray, yellow, waxy, pain, thaw, warm, heat, red, frostnip -->
 <!-- S: Treat by rewarming the area and seeking medical attention. Prevent by staying warm and dry. -->
 
-Frostbite is caused by exposure to cold temperatures, causing the skin and underlying tissues to freeze. This can lead to permanent damage if not treated.
+Frostbite is caused by exposure to cold temperatures, which freezes the skin and underlying tissues. If not treated, it can lead to permanent damage.
 
 ### Symptoms
 Frostnip:
 - Redness.
 - Numbness.
 - Pale or white skin.
-- Area is still soft and pliable.
+- The area is still soft and pliable.
 
 Frostbite:
 - White or grayish-yellow skin.
@@ -530,7 +530,7 @@ Frostbite:
 ### Treatment
 Frostnip:
 
-Rewarm the area using body heat (place hand under arm pit), warm water, or a hand warmer.
+Rewarm the area using body heat (place a hand under the armpit), warm water, or a hand warmer.
 
 Frostbite:
 
@@ -538,7 +538,7 @@ Only thaw the area if you can keep it thawed. Refreezing can cause more damage. 
 
 1. Take pain medicine before thawing.
 2. Prepare hot water (104-106°F / 40-41°C).
-3. Thaw the area for 30 to 45 minutes or until the area is pink/red and soft. Change the water if it cools - be sure to remove the area from the water before changing it.
+3. Thaw the area for 30 to 45 minutes or until it is pink/red and soft. If the water cools, change it - remove the area from the water before changing it.
 4. Wrap the area in a sterile dressing and keep warm.
 
 ### Prevention
@@ -551,7 +551,7 @@ Only thaw the area if you can keep it thawed. Refreezing can cause more damage. 
 
 ## Gastrointestinal issues
 <!-- K: gastrointestinal, stomach, gut, diarrhea, vomit, nausea, cramp, gas, food, water, poison, charcoal, tea, parasite, constipated -->
-<!-- S: Treat by rehydrating or using medicine. Prevent by boiling water, washing hands, cooking food, and storing food properly. -->
+<!-- S: Treat by rehydrating or using medicine. Prevent this by boiling water, washing hands, cooking, and storing food properly. -->
 
 Gastrointestinal issues can be caused by contaminated food or water.
 
@@ -565,7 +565,7 @@ Gastrointestinal issues can be caused by contaminated food or water.
 ### Treatment
 - Rehydrate with water.
 - Drink a cup of tea every few hours. You can make tea by boiling the following plants:
-  - Oak bark, leaves, and acorns. Boil for 2 or more hours. It won't taste good, but it will likely help.
+  - Oak bark, leaves, and acorns. Boil for two or more hours. It won't taste good, but it will likely help.
   - Common plantain leaves.
 - Make a solution of a handful of ground charcoal in a cup of water. Drink a couple of spoonfuls every few hours.
   - If you ate something poisonous, drink charcoal and do not induce vomiting.
@@ -580,7 +580,7 @@ Gastrointestinal issues can be caused by contaminated food or water.
 <!-- K: headache, pain, electrolyte -->
 <!-- S: Treat by taking pain relievers, drinking water, and resting. Prevent by staying hydrated and replenishing electrolytes. -->
 
-Headaches can be caused by a variety of factors, such as dehydration, stress, lack of sleep, or illness.
+Headaches can be caused by various factors, such as dehydration, stress, lack of sleep, or illness.
 
 ### Treatment
 - Take pain relievers (aspirin, ibuprofen, acetaminophen).
@@ -597,7 +597,7 @@ Headaches can be caused by a variety of factors, such as dehydration, stress, la
 <!-- K: heart, chest, pain, arm, back, neck, jaw, stomach, attack, stroke, exhaustion, sweat, nausea, lightheaded, breath, heartbeat, cpr -->
 <!-- S: Seek medical attention for chest pain. Symptoms include chest pain, shortness of breath, pain in limbs, nausea, lightheadedness, and cold sweats. -->
 
-To be on the safe side, if you experience chest pain, seek medical attention as soon as possible.
+To be safe, seek medical attention if you experience chest pain as soon as possible.
 
 ### Symptoms
 - Chest pain.
@@ -616,20 +616,20 @@ If someone else does not have a pulse, perform CPR.
 
 CPR:
 1. Check for responsiveness and pulse.
-2. If there is no pulse, call emergency services, then start CPR.
+2. Call emergency services if there is no pulse, then start CPR.
 3. Place the heel of one hand on the center of the chest.
 4. Place the heel of the other hand on top of the first hand.
 5. Interlock fingers.
 6. Keep your arms straight and your shoulders directly over your hands.
-7. Push hard and fast at least 2 inches (5 centimeters) at a rate of 100 to 120 compressions per minute.
+7. Push hard and fast at least 2 inches (5 centimeters) at 100 to 120 compressions per minute.
 8. Let the chest rise completely between compressions.
 9. Continue until the patient is responsive, emergency services arrive, or you are too exhausted to continue.
 
-If you are fully trained in CPR, perform rescue breathing after 30 compressions, otherwise, just perform the compression steps. To do this:
+If you are fully trained in CPR, perform rescue breathing after 30 compressions; otherwise, just perform the compression steps. To do this:
 1. Tilt the head back and lift the chin.
 2. Pinch the nose shut.
 3. Give two breaths, each lasting about 1 second and causing the chest to rise.
-5. Repeat the cycle of 30 compressions and 2 breaths.
+5. Repeat the cycle of 30 compressions and two breaths.
 
 ### Prevention
 - Stay hydrated.
@@ -639,7 +639,7 @@ If you are fully trained in CPR, perform rescue breathing after 30 compressions,
 
 ## Heat exhaustion and heatstroke
 <!-- K: heat, exhaustion, stroke, heatstroke, pale, hot, sweat, fatigue, heartbeat, dizziness, nausea, vomit, cramp, muscle, headache, chill, confusion, seizure, unconscious, electrolyte, shade, break, overexert -->
-<!-- S: Symptoms include pale skin, sweating, fatigue, rapid heartbeat, dizziness, nausea, muscle cramps, headache, and chills. Treat by moving to a cooling down and drinking water. Prevent by staying hydrated, wearing proper clothing, and taking breaks in the shade. -->
+<!-- S: Symptoms include pale skin, sweating, fatigue, rapid heartbeat, dizziness, nausea, muscle cramps, headache, and chills. Treat by moving to a cooling down and drinking water. Prevent this by staying hydrated, wearing proper clothing, and taking breaks in the shade. -->
 
 Heat exhaustion and heatstroke are caused by exposure to high temperatures and dehydration.
 
@@ -671,7 +671,7 @@ Heatstroke:
 2. Move to a cool place.
 3. Remove excess clothing.
 4. Immerse yourself in water.
-5. Be cautious when rehydrating as seizures and vomiting can lead to choking.
+5. Be cautious when rehydrating, as seizures and vomiting can lead to choking.
 
 ### Prevention
 - Stay hydrated.
@@ -686,7 +686,7 @@ Heatstroke:
 <!-- S: Wash hands frequently, especially before eating and after using the bathroom. -->
 
 ### Washing
-If you do not have soap, you can use white ashes, sand, or loamy soil as a substitute.
+If you do not have soap, you can substitute white ashes, sand, or loamy soil.
 
 Wash hands:
 - Before and after preparing food.
@@ -696,16 +696,16 @@ Wash hands:
 - After touching something likely to carry germs or be poisonous.
 
 ### Teeth
-If you do not have a toothbrush, you can use a small stick (fray it by chewing on one end) or a piece of cloth to clean your teeth. An inner strand of paracord can be used as dental floss. You can ground up charcoal and combine it with water to make toothpaste.
+If you do not have a toothbrush, you can clean your teeth with a small stick (fray it by chewing on one end) or a piece of cloth. An inner strand of paracord can be used as dental floss. You can grind up charcoal and combine it with water to make toothpaste.
 
 ### Feet
 Do the following to prevent foot problems:
 - Change and wash socks daily.
 - Wash, dry, and massage your feet.
-- Check frequently for blisters and red areas. Use adhesive tape / moleskin to prevent blisters.
+- Check frequently for blisters and red areas. Use adhesive tape/moleskin to prevent blisters.
 
 ### Clothing
-Keep clothing clean and dry. You can wash clothes with water and soap, or by boiling them. To dry clothes, hang them in the sun or near a fire (not too close).
+Keep clothing clean and dry. Wash clothes with water and soap or boil them. To dry clothes, hang them in the sun or near a fire (not too close).
 
 ### Bowel movements and urination
 - Dig a hole 6 to 8 inches (15 to 20 centimeters) deep for bowel movements and cover it with dirt.
@@ -718,7 +718,7 @@ Keep clothing clean and dry. You can wash clothes with water and soap, or by boi
 <!-- K: hypothermia, cold, freeze, frozen, shiver, coordination, memory, speech, slur, speak, drowsiness, breath, heartbeat, heat, warm, fire -->
 <!-- S: Symptoms include shivering, coldness, impaired coordination, memory loss, slurred speech, and drowsiness. Treat by getting dry and warming up. Prevent by wearing proper clothing, keeping dry, moving, and keeping warm. -->
 
-Hypothermia is caused by exposure to cold temperatures, causing the body to lose heat faster than it can produce it.
+Hypothermia is caused by exposure to cold temperatures, causing the body to lose heat faster than it can produce.
 
 ### Symptoms
 - Shivering. If shivering stops, it is a sign of severe hypothermia.
@@ -748,7 +748,7 @@ Hypothermia is caused by exposure to cold temperatures, causing the body to lose
 <!-- K: eye, object, something, bug -->
 <!-- S: Treat by irrigating the eye with clean water and removing the object with a damp cloth or cotton swab. Prevent by wearing glasses or sunglasses. -->
 
-While in the wilderness it is common to get objects in your eye, such as dirt, sand, bugs, or an eyelash.
+It is common to get objects in your eye while in the wilderness, such as dirt, sand, bugs, or an eyelash.
 
 ### Symptoms
 - Pain and discomfort of the eye.
@@ -759,10 +759,10 @@ While in the wilderness it is common to get objects in your eye, such as dirt, s
 ### Treatment
 1. Avoid rubbing the eye.
 2. Using clean water, irrigate the eye by pouring water into the eye.
-3. If the object is still in the eye, use a mirror to find the object and attempt to remove it using a damp cloth or cotton swab. Be very gentle.
-4. If the object is under the upper eyelid and you have a partner: have them place the tip of a cotton swab in the middle of your upper eyelid and gently fold the eyelid over the cotton swab. They can then remove the object using a damp cloth or cotton swab.
-5. After the object is removed, if the eye feels scratchy, place a cold damp cloth over the eye, keep the eye closed and rest, use eye drops, or construct an eye patch using a bandage or cloth.
-6. Seek medical attention if the object is not removed or if symptoms persist.
+3. If the object is still in the eye, use a mirror to locate it and attempt to remove it using a damp cloth or cotton swab. Be very gentle.
+4. If the object is under the upper eyelid and you have a partner, have them place the tip of a cotton swab in the middle of your upper eyelid and gently fold the eyelid over the cotton swab. They can then remove the object using a damp cloth or cotton swab.
+5. After the object is removed, if the eye feels scratchy, place a cold, damp cloth over it, keep the eye closed and rest, use eye drops, or construct an eye patch using a bandage or cloth.
+6. Seek medical attention if the object is not removed or symptoms persist.
 
 ### Prevention
 - Wear glasses or sunglasses.
@@ -806,9 +806,9 @@ Contact dermatitis is caused by contact with poisonous plants, such as poison iv
 - Blisters
 
 ### Treatment
-1. Try to remove oil from the plant using soap and water. Sand or dirt can be used as a substitute, unless there are blisters.
+1. Try to remove oil from the plant using soap and water. Sand or dirt can be used as a substitute unless there are blisters.
 2. Dry the area.
-3. Apply calamine lotion or hydrocortisone cream to reduce the itch. If not available, apply a tannic acid solution (boil acorns or oak bark in water) or crushed jewelweed.
+3. Apply calamine lotion or hydrocortisone cream to reduce the itch. If unavailable, apply a tannic acid solution (boil acorns or oak bark in water) or crushed jewelweed.
 4. Optionally, take antihistamine pills to reduce itching.
 
 If you touched stinging nettle, you can also apply mud to the area and remove it when it dries.
@@ -829,9 +829,9 @@ If you come into contact with these plants, wash the area with soap and water as
 
 ## Snow blindness
 <!-- K: snow, blind, eye, headache, light, sensitivity, red, scratchy, itch, uv -->
-<!-- S: Symptoms include red, scratchy, and watery eyes, sensitivity to light, and headache. Treat by covering eyes with a dark cloth. Prevent by wearing UV protective sunglasses or snow goggles. -->
+<!-- S: Symptoms include red, scratchy, and watery eyes, sensitivity to light, and headache. Treat by covering your eyes with a dark cloth. Prevent by wearing UV-protective sunglasses or snow goggles. -->
 
-Snow blindness is caused when there is too much sunlight reflecting off snow, ice, or water into your eyes.
+Snow blindness is caused when too much sunlight reflects off snow, ice, or water into your eyes.
 
 ### Symptoms
 - Eyes are red, scratchy, and watery.
@@ -839,16 +839,16 @@ Snow blindness is caused when there is too much sunlight reflecting off snow, ic
 - Headache.
 
 ### Treatment
-Cover eyes with a dark cloth until symptoms disappear.
+Cover your eyes with a dark cloth until symptoms disappear.
 
 ### Prevention
-Wear UV protective sunglasses or snow goggles. If you do not have these, you can make snow goggles from a piece of cloth or a piece of bark with slits cut in it. You can also put soot under your eyes to reduce glare.
+Wear UV-protective sunglasses or snow goggles. If you do not have these, you can make snow goggles from a piece of cloth or a piece of bark with slits cut in it. You can also put soot under your eyes to reduce glare.
 
 ## Sprains and strains
 <!-- K: sprain, strain, tendon, ligament, muscle, pain, swell, bruise, move, spasm, cramp, weakness, pop, tear -->
-<!-- S: Symptoms include pain, swelling, bruising, loss of motion, muscle spasms, cramping, and weakness. Treat by resting, icing, compressing, and elevating the area. Prevent by doing warm-ups, wearing proper footwear, and watching your step. -->
+<!-- S: Symptoms include pain, swelling, bruising, loss of motion, muscle spasms, cramping, and weakness. Treat by resting, icing, compressing, and elevating the area. Prevent this by doing warm-ups, wearing proper footwear, and watching your steps. -->
 
-Sprains are an injury to a tendon or ligament, while strains are an injury to a muscle or tendon.
+Sprains are injuries to a tendon or ligament, while strains are injuries to a muscle or tendon.
 
 ### Symptoms
 - Pain.
@@ -857,7 +857,7 @@ Sprains are an injury to a tendon or ligament, while strains are an injury to a 
 - Loss of functional movement.
 - Muscle spasms and cramping.
 - Muscle weakness.
-- A pop or tear may be heard or felt at the time of injury.
+- A pop or tear may be heard or felt during injury.
 
 ### Treatment
 1. Rest the injured area.
@@ -873,10 +873,10 @@ Sprains are an injury to a tendon or ligament, while strains are an injury to a 
 
 ## Submerged in water
 <!-- K: water, drown, float, submerge, swim, current, rip, tide, snow, hypothermia, fall -->
-<!-- S: If caught in a rip current, swim parallel to the shore until you are out. If you fell through ice, kick with your legs to crawl back onto the ice, then treat for hypothermia. -->
+<!-- S: If caught in a rip current, swim parallel to the shore until you are out. If you fall through the ice, kick with your legs to crawl back onto the ice, then treat for hypothermia. -->
 
 ### Falling through ice
-If you fall through ice, do the following:
+If you fall through the ice, do the following:
 1. Turn back the way you came.
 2. Kick your legs to push yourself onto the ice.
 3. Roll away from the hole.
@@ -886,13 +886,13 @@ If you fall through ice, do the following:
 7. Use leaves or dry grass as insulation and warm up near a fire.
 
 ### Rip currents
-If you are caught in a rip current, swim parallel to the shore until you are out of the current. Then swim back to shore.
+If caught in a rip current, swim parallel to the shore until you are out of the current. Then, swim back to shore.
 
 ## Sunburn
 <!-- K: sunburn, burn, sunscreen, uv, sun, red, pain, swell, blister, spf, skin -->
-<!-- S: Symptoms include redness, pain, swelling, and blisters. Treat by getting out of the sun, applying a burn cream, and taking pain relievers. Prevent by wearing sunscreen, proper clothing, and staying in the shade. -->
+<!-- S: Symptoms include redness, pain, swelling, and blisters. Treat by getting out of the sun, applying a burn cream, and taking pain relievers. Prevent this by wearing sunscreen, proper clothing, and staying in the shade. -->
 
-Sunburn is caused by prolonged exposure to ultraviolet (UV) radiation from the sun.
+Sunburn is caused by prolonged exposure to the sun's ultraviolet (UV) radiation.
 
 ### Symptoms
 - Redness.
@@ -903,7 +903,7 @@ Sunburn is caused by prolonged exposure to ultraviolet (UV) radiation from the s
 ### Treatment
 1. Get out of the sun.
 2. Run cool water over the burn or apply a cold compress to relieve pain.
-3. Apply aloe vera gel, calamine lotion, or hydrocortisone cream to reduce pain and swelling.
+3. To reduce pain and swelling, apply aloe vera gel, calamine lotion, or hydrocortisone cream.
 4. Optionally, take pain relievers.
 5. Drink extra water.
 
@@ -914,4 +914,4 @@ Do not pop blisters.
 - Wear a hat.
 - Wear long sleeves and pants.
 - Stay in the shade.
-- Take extra precaution on days with a high UV index.
+- Take extra precautions on days with a high UV index.

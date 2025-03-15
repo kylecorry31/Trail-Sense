@@ -7,7 +7,7 @@ This guide covers essential survival skills needed to return safely from a survi
 <!-- K: prepare, gear, knowledge, skill -->
 <!-- S: Bring a survival kit with you on all trips, and let others know your plans. Learn how to act in a survival situation and signal for help. -->
 
-- Tell someone your plans: route, alternative routes, who you are going with, when you will be back, when you will make contact with them.
+- Tell someone your plans: your route, alternative routes, who you are going with, when you will be back, and when you will contact them.
 - Stick to your planned route.
 - Avoid unnecessary risks.
 - Bring the proper gear.
@@ -33,7 +33,7 @@ This guide covers essential survival skills needed to return safely from a survi
 - Epinephrine auto-injector (if you have severe allergies)
 - Asthma inhaler (if you have asthma)
 - Water (enough for the duration of your trip, plus a bit extra)
-  - For longer trips, bring a water purification method and plan your route to include water sources.
+  - Bring a water purification method for longer trips and plan your route to include water sources.
 - Water containers (ensure you have a container that you can boil water in)
 - Food (enough for the duration of your trip, plus a bit extra). Some good options include:
   - Nuts
@@ -85,9 +85,9 @@ See each chapter for additional knowledge and skills recommendations.
 
 ## What to do in a survival situation
 <!-- K: steps, stop, think, observe, plan, act -->
-<!-- S: Stop, think, observe, plan, and then act. In many cases, the plan may be to stay where you are and wait for help. -->
+<!-- S: Stop, think, observe, plan, and act. The plan may often be to stay where you are and wait for help. -->
 
-If you find yourself in a survival situation, don't panic and follow these steps.
+If you are in a survival situation, don't panic and follow these steps.
 
 ### Stop
 The first and most important thing to do when lost is to stop moving.
@@ -116,7 +116,7 @@ Make a plan for your next steps. Here's some general advice:
 - If it is hot, find shade and water.
 - If it is cold, get warm through insulation, shelter, and fire.
 - If the weather is bad, take shelter.
-- Tie a bright piece of clothing to a nearby tree and search the nearby area for signs of a trail. **Keep the marker in sight at all times.** You may also use a GPS receiver to return to your starting point; just ensure the batteries are charged.
+- Tie a bright piece of clothing to a nearby tree and search the area for signs of a trail. **Keep the marker in sight at all times.** You may also use a GPS receiver to return to your starting point; ensure the batteries are charged.
 - If you are lost, it is best to stay put and wait for help. Try to signal for help and make yourself visible to rescuers.
 
 ### Act
@@ -124,29 +124,29 @@ Once you have a plan, act on it. If at any point you feel unsafe, nervous, or un
 
 ## Planning a trip
 <!-- K: plan, trip -->
-<!-- S: Research the terrain, weather, and wildlife before going out. Plan a route on a map and bring the necessary supplies. Share this plan with someone you trust. -->
+<!-- S: Research the terrain, weather, and wildlife before leaving. Plan a route on a map and bring the necessary supplies. Share this plan with someone you trust. -->
 
 1. Research the terrain, weather conditions, wildlife, and plants you might encounter. Also, look into local regulations and any permits you may need.
-2. Using an up-to-date map, plan your route. Be sure to consider trail conditions and alternate routes.
+2. Plan your route using an up-to-date map. Consider trail conditions and alternate routes.
 3. Pack the necessary gear and supplies. See the "Be prepared" section for a list of essential items. Check all your gear before you leave.
 4. Check the weather forecast and adjust your plans accordingly.
 5. Share your itinerary with a trusted person. Include your planned route, expected return time, and check-in times.
 
 ## Signaling for help
 <!-- K: signal, help, contact, call, text, phone, whistle, mirror, smoke, flare, flashlight, ground-to-air -->
-<!-- S: Try your cell phone, it may be able to make emergency calls. Otherwise, use a whistle, signal mirror, smoke, flares, flashlight, or ground-to-air signals to attract attention. -->
+<!-- S: Try your cell phone; it may be able to make emergency calls. Otherwise, use a whistle, signal mirror, smoke, flares, flashlight, or ground-to-air signals to attract attention. -->
 
 ### Cell phone
-Many phones can call emergency services even without a signal from your carrier. If you can't make a call, try sending a text message. Check your phone periodically to see if you have a signal, but otherwise keep it off or in airplane mode to conserve battery. You may get a better signal by climbing to higher ground or moving to an open area.
+Many phones can call emergency services even without a signal from your carrier. If you can't make a call, try sending a text message. Check your phone periodically to see if you have a signal, but otherwise, keep it off or in airplane mode to conserve battery. You may get a better signal by climbing to higher ground or moving to an open area.
 
 ### Whistle
-Three short blasts are the universal signal for help. You may want to cover your ears when using the whistle at full volume.
+Three short blasts are the universal signal for help. When using the whistle at full volume, you may want to cover your ears.
 
 ### Signal mirror
 Hold the mirror with one hand and extend your other arm in front of you with your fingers in a V-shape. Reflect sunlight onto your fingers and slowly move the mirror to direct the reflected light toward potential rescuers or aircraft.
 
 ### Smoke
-Smoke can attract attention during the day. You can create a lot of smoke by burning green vegetation. Be sure to do this safely.
+Smoke can attract attention during the day. Burning green vegetation can create a lot of smoke, but be sure to do this safely.
 
 ### Flares
 Flares are best seen at night or in low-visibility conditions. Follow the instructions on the flare packaging and be aware of any legal restrictions on their use.

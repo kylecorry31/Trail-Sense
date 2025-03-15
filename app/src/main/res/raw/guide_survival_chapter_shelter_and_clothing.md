@@ -5,7 +5,7 @@ This chapter covers how to dress appropriately for the environment and build she
 
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill, emergency-space-blanket, space-blanket, blanket, poncho, socks, boots, shoes, sunglasses, cordage, sewing, needle, thread, jacket, pants, hat, gloves, hand-warmer, bag, pad, tent, tarp, hat, bandana, pillow, gloves, net, gaiters, hammock, tape -->
-<!-- S: Bring an emergency space blanket, cordage, and proper clothing. Be sure to plan for night time temperatures and bad weather. Learn how to dress in layers and increase insulation. -->
+<!-- S: Bring an emergency space blanket, cordage, and proper clothing. Be sure to plan for nighttime temperatures and bad weather. Learn how to dress in layers and increase insulation. -->
 
 ### Gear
 
@@ -21,7 +21,7 @@ This chapter covers how to dress appropriately for the environment and build she
 - In colder climates:
   - Insulating layers (jacket, pants, hat, gloves)
   - Waterproof outer layer
-  - Waterproof / insulated boots
+  - Waterproof/insulated boots
   - Thermal underlayers
   - Hand warmers
 - For overnight stays:
@@ -64,14 +64,14 @@ Your first line of defense in any environment is your clothing. Proper attire sh
 ### Materials
 When choosing clothing, consider the following materials:
 - Wool: Retains warmth even when wet.
-- Polyester/nylon: Quick-drying and moisture-wicking.
+- Polyester/nylon: Quick drying and moisture-wicking.
 - Down: Lightweight and insulating but loses warmth when wet.
 - Cotton: Retains moisture and loses warmth when wet. Do not wear cotton in cold or wet environments.
 
 ### Layers
 You should plan to wear multiple layers of clothing to protect against the elements. Layering allows you to adjust your clothing to changing conditions and maintain body temperature.
 
-In cold environments, remove or add layers as needed to prevent sweating while staying warm.
+In cold environments, remove or add layers to prevent sweating while staying warm.
 
 In warm environments, you may only need to wear a base layer. But you should always pack rain gear, such as an emergency poncho, in case of sudden weather changes.
 
@@ -101,7 +101,7 @@ Be sure to choose footwear that is appropriate for your environment. In cold cli
 
 If you plan to be hiking in wet conditions, consider wearing waterproof boots.
 
-Bring extra pairs of socks, preferably made from wool, and ensure they are taller than your boots to avoid blisters.
+Bring extra socks, preferably made from wool, and ensure they are taller than your boots to avoid blisters.
 
 ## Shelters
 <!-- K: build, location, lean-to, a-frame, cave, emergency-space-blanket, space-blanket, blanket, tent, hammock, ground, wall, sleep, bag, pad, airflow -->
@@ -123,13 +123,13 @@ Prefer wood and debris that are already on the ground and require minimal effort
 
 ### Shelter types
 
-You can construct various shelters using materials like tarps, ponchos, or natural elements. Here are some common types:
+You can construct various shelters using tarps, ponchos, or natural elements. Here are some common types:
 
 **Lean-to**
 
-A simple shelter made by leaning a large sheet of material against a support like a tree or a ridgepole. It provides protection from wind and rain.
+A simple shelter made by leaning a large sheet of material against a support like a tree or a ridgepole. It protects from wind and rain.
 
-1. Lash a ridgepole to two trees or supports. This can be a cord if you are using a tarp or poncho.
+1. Lash a ridgepole to two trees or supports. If you are using a tarp or poncho, this can be a cord.
 2. Lay a tarp or poncho over the ridgepole, allowing one side to touch the ground. If using natural materials, lay branches and leaves over the ridgepole.
 3. Secure the sides with stakes or rocks.
 
@@ -153,7 +153,7 @@ A more enclosed shelter that provides better protection from the elements.
 
 **Caves**
 
-Natural shelters that offer protection from the elements. Use caution when entering caves, as they can be home to animals or have poor ventilation. Avoid lighting a fire if possible since smoke can accumulate.
+Natural shelters that offer protection from the elements. Use caution when entering caves; they can be home to animals or have poor ventilation. Avoid lighting a fire if possible since smoke can accumulate.
 
 **Emergency space blankets**
 
@@ -169,15 +169,15 @@ If you have a hammock, set it up between two trees or supports. Ensure the hammo
 
 ### Insulation
 
-To retain body heat, you can place insulating materials like leaves, straw, or clothing between you and the shelter walls. This barrier prevents heat loss and keeps you warm. If you have a sleeping bag or extra clothing, use them.
+You can place insulating materials like leaves, straw, or clothing between you and the shelter walls to retain body heat. This barrier prevents heat loss and keeps you warm. If you have a sleeping bag or extra clothing, use them.
 
-To insulate yourself from the ground, use materials like leaves, straw, or clothing. These materials create a barrier between you and the cold ground, preventing heat loss. If you have a sleeping pad, place it under your sleeping bag for additional insulation.
+Use materials like leaves, straw, or clothing to insulate yourself from the ground. These materials create a barrier between you and the cold ground, preventing heat loss. If you have a sleeping pad, place it under your sleeping bag for additional insulation.
 
 ### Tips
 
 - Use materials like leaves, straw, or clothing to insulate the ground and walls of your shelter.
-- Keep the shelter compact to retain heat but large enough to lie down comfortably.
-- Position the shelter to protect against prevailing winds and to maximize warming effects of the sun.
+- Keep the shelter compact to retain heat but large enough to lie comfortably.
+- Position the shelter to protect against prevailing winds and to maximize the warming effects of the sun.
 - Fill gaps in the shelter with leaves, grass, mud, or other insulating materials.
 - Ensure adequate airflow to manage condensation and smoke.
 
@@ -209,9 +209,9 @@ Used to repair tears or holes in fabric. It can also be used to connect two piec
 
 ### Tarps
 
-If the grommet of your tarp breaks, you can still attach it to a rope by creating a button. A button is formed by wrapping a small rock in the tarp and then securing your cordage around that using a clove hitch or jam knot.
+If your tarp's grommet breaks, you can still attach it to a rope by creating a button. A button is formed by wrapping a small rock in the tarp and securing your cordage around that using a clove hitch or jam knot.
 
-If you have a hole in your tarp, you can repair using duct tape or by sewing it shut.
+If your tarp has a hole, you can repair it using duct tape or by sewing it shut.
 
 ### Other methods
 If you do not have a sewing kit, you can use duct tape, safety pins, super glue, or cordage as temporary fixes.
@@ -221,7 +221,7 @@ If you do not have a sewing kit, you can use duct tape, safety pins, super glue,
 <!-- S: Learn several knots to make the most of your cordage. -->
 
 ### Overhand knot
-Used to prevent the end of a rope from untwisting. This is hard to undo, but very easy to tie.
+Used to prevent the end of a rope from untwisting. This is hard to undo but very easy to tie.
 
 ![](file:///android_asset/survival_guide/120.webp)
 
@@ -253,12 +253,12 @@ Used to secure a load or tighten a line.
 ![](file:///android_asset/survival_guide/truckers_hitch.webp)
 
 ### Square lashing
-Used to secure one pole at a right angle to another pole. Can swap with the diagonal lashing if desired.
+Used to secure one pole at a right angle to another pole. You can swap with the diagonal lashing if desired.
 
 ![](file:///android_asset/survival_guide/136.webp)
 
 ### Shear lashing
-Used for lashing two or more poles next to each other. Can be used to construct a tripod.
+Used for lashing two or more poles next to each other. It can be used to construct a tripod.
 
 ![](file:///android_asset/survival_guide/138.webp)
 
@@ -280,7 +280,7 @@ Any fibrous material can be used to make cordage. Some examples include:
 3. Fold the bundle in half at the kink.
 4. Twist the top half clockwise.
 5. Twist the two halves together counterclockwise.
-6. Repeat the process until you have a full strand. If a material is running out, add more material to it and twist it in.
+6. Repeat the process until you have a full strand. If a material is running out, add more material and twist it in.
 
 ![](file:///android_asset/survival_guide/139.webp)
 

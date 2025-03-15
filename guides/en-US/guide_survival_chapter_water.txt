@@ -11,7 +11,7 @@ This chapter covers how to find and purify water.
 
 **Necessities**:
 - Water (enough for the duration of your trip, plus a bit extra).
-  - For longer trips, bring a water purification method and plan your route to include water sources.
+  - Bring a water purification method for longer trips and plan your route to include water sources.
 - Water containers (ensure you have a container that you can boil water in).
 
 **Optional**:
@@ -34,7 +34,7 @@ Once you have mastered these skills, you should learn how to do the following:
 
 ## Hydration essentials
 <!-- K: hydration, essential, daily, dehydration -->
-<!-- S: Stay hydrated by drinking at least 2 to 3 quarts/liters of water per day. Recognize the signs of dehydration. -->
+<!-- S: Drink at least 2 to 3 quarts/liters of water daily. Recognize the signs of dehydration. -->
 
 When hiking, conserving energy while maintaining hydration is vital. Here are some general rules:
 
@@ -49,7 +49,7 @@ When hiking, conserving energy while maintaining hydration is vital. Here are so
 
 ### Daily water needs
 
-At 70°F (20°C), a hiker needs around 2 to 3 quarts/liters of water per day. This amount increases with physical activity and exposure to higher temperatures.
+At 70°F (20°C), a hiker needs around 2 to 3 quarts/liters of water daily. This amount increases with physical activity and exposure to higher temperatures.
 
 ### Dehydration
 
@@ -71,15 +71,15 @@ Dehydration occurs when the body loses more fluids than it takes in. Symptoms in
 
 ### Common water sources
 
-- **Rainwater**: Rainwater collected directly in containers does not need purification. However, if it has run over leaves or other surfaces, it should be purified.
+- **Rainwater**: Rainwater collected directly in containers does not need purification. However, it should be purified if it has run over leaves or other surfaces.
 
-- **Snow and ice**: Melt snow and ice before drinking. Avoid eating snow directly as it can lower your core body temperature. Melted snow requires purification.
+- **Snow and ice**: Melt snow and ice before drinking. Avoid eating snow directly, as it can lower your core body temperature. Melted snow requires purification.
 
-- **Streams and rivers**: Flowing water is typically safer than stagnant water but still should be purified.
+- **Streams and rivers**: Flowing water is typically safer than stagnant water but should still be purified.
 
 - **Dew**: Collect dew from plants or grass by wringing out a cloth or sponge.
 
-- **Groundwater**: Dig a deep hole and allow water to seep in. This water should be purified before drinking.
+- **Groundwater**: Dig a deep hole and allow water to seep in. Purify the water before drinking it.
 
 ### Specific environments
 
@@ -89,26 +89,26 @@ Dehydration occurs when the body loses more fluids than it takes in. Symptoms in
 - **Beaches/sea**:
   - **Groundwater**: Dig a deep hole to allow water to seep in. This water should be purified and may need desalination.
   - **Sea water**: Sea water can be desalinated to make it drinkable.
-  - **Sea ice**: If it is gray or opaque, it may be salty. Crystalline ice that has a bluish tint is usually safe to melt for drinking water.
+  - **Sea ice**: It may be salty if it is gray or opaque. Crystalline ice with a bluish tint is usually safe to melt for drinking water.
 
 ### Water from plants
 
 Certain plants can provide water when no open sources are available:
 
 - **Green bamboo**: Shake the bamboo to check for water, then cut it to extract the water inside.
-- **Water vines**: Many vines contain drinkable water. These vines are usually soft and easy to cut. Ensure a positive identification of the vine before drinking, and make sure the water is clear and odorless.
+- **Water vines**: Many vines contain drinkable water. These vines are usually soft and easy to cut. Ensure the vine is identified positively before drinking, and make sure the water is clear and odorless.
 - **Coconut water**: Green coconuts are best for hydration, as they contain more fluid and less oil.
 
 ### Solar stills
 
 **Below ground solar still**
 
-A below ground solar still is a simple device that uses the sun’s heat to draw moisture from the soil or plants, which then condenses on a plastic sheet and can be collected in a container. You can also pour saltwater into the hole to desalinate it.
+A below-ground solar still is a simple device that uses the sun’s heat to draw moisture from the soil or plants. The moisture then condenses on a plastic sheet and can be collected in a container. You can also pour salt water into the hole to desalinate it.
 
-1. Dig a bowl-shaped hole in the ground about 3 feet (1 meter) across and 2 feet (0.6 meters) deep. Ensure it is in direct sunlight.
-2. Place a container in the center of the hole. Optionally, place plants/water around the container to increase moisture (do not place them in the container).
+1. Dig a bowl-shaped hole about 3 feet (1 meter) across and 2 feet (0.6 meters) deep. Ensure it is in direct sunlight.
+2. Place a container in the center of the hole. Optionally, place plants or water around the container to increase moisture (do not place them in the container).
 3. Place a plastic sheet over the hole, securing the edges with rocks or soil.
-4. Place a small rock in the center of the sheet, directly over the container.
+4. Place a small rock in the center of the sheet directly over the container.
 5. Wait for the sun to heat the ground and evaporate moisture, which will condense on the plastic and drip into the container.
 
 ![](file:///android_asset/survival_guide/16.webp)
@@ -135,9 +135,9 @@ Always ensure the water you collect is safe to drink. Boiling is the most reliab
   1. Find another container, dig a hole in the ground and line it with a waterproof material, or craft a bowl.
   2. Fill the container with water.
   3. Heat rocks in a fire and place them in the water to heat it. **Do not** use rocks that may contain moisture (such as river rocks), as they can explode. Use two sticks in a chopstick fashion to move the rocks.
-  4. Replace the rocks with hot ones as needed to keep the water boiling.
+  4. Replace the rocks with hot ones to keep the water boiling.
 - **Chemical treatment**: Use water purification tablets or drops according to the instructions.
-- **Filtration**: Use a portable water filter to remove contaminants. Some filters are rated to remove nearly all bacteria and viruses and can be used without additional purification. If you do not have a filter, you can construct one to remove sediment, but you must also purify the water through boiling or chemical treatment. A filter can be constructed by layering grass or small rocks, sand, and charcoal (from top to bottom) in a container with a hole at the bottom to collect the filtered water.
+- **Filtration**: Use a portable water filter to remove contaminants. Some filters are rated to remove nearly all bacteria and viruses and can be used without additional purification. If you do not have a filter, you can construct one to remove sediment, but you must also purify the water through boiling or chemical treatment. A filter can be built by layering grass or small rocks, sand, and charcoal (from top to bottom) in a container with a hole at the bottom to collect the filtered water.
 
 ![](file:///android_asset/survival_guide/19.webp)
 
@@ -157,7 +157,7 @@ A wooden bowl can be used to boil water using hot rocks.
 
 **Instructions**
 1. Cut or obtain a small log.
-2. Using makeshift tongs (see the Utensils section of the Food chapter), place hot coals into the log.
+2. Place hot coals into the log using makeshift tongs (see the Food chapter).
 3. Let the coals burn out.
 4. Scrape out the charred wood with a stick or rock.
 5. Repeat the process until you have a bowl.
