@@ -137,6 +137,8 @@ A simple shelter made by leaning a large sheet of material against a support lik
 
 ![](file:///android_asset/survival_guide/76.webp)
 
+If you're constructing a ridgeline with cordage, form a bowline at one end, wrap the cordage around a tree, and pass the free end through the bowline's loop. Secure the other end to a second tree using either a taut-line hitch or a trucker's hitch, then tighten it. To attach a tarp, pull a small section of the ridgeline through the grommets and insert a stick through the resulting loop to hold it in place.
+
 **A-frame**
 
 A more enclosed shelter that provides better protection from the elements.
@@ -204,6 +206,12 @@ Used to repair tears or holes in fabric. It can also be used to connect two piec
 
 ![](file:///android_asset/survival_guide/whip_stitch.webp)
 [Image source](https://commons.wikimedia.org/wiki/File:Whip_stitch.jpg)
+
+### Tarps
+
+If the grommet of your tarp breaks, you can still attach it to a rope by creating a button. A button is formed by wrapping a small rock in the tarp and then securing your cordage around that using a clove hitch or jam knot.
+
+If you have a hole in your tarp, you can repair using duct tape or by sewing it shut.
 
 ### Other methods
 If you do not have a sewing kit, you can use duct tape, safety pins, super glue, or cordage as temporary fixes.
@@ -275,3 +283,20 @@ Any fibrous material can be used to make cordage. Some examples include:
 6. Repeat the process until you have a full strand. If a material is running out, add more material to it and twist it in.
 
 ![](file:///android_asset/survival_guide/139.webp)
+
+## Craft: Tent stakes
+<!-- K: tent, stake, peg, craft -->
+<!-- S: You can make tent stakes from sticks. -->
+
+**Resources**
+
+- A short stick
+- A knife
+- Something to use as a hammer, such as a rock or thick stick
+
+**Instructions**
+
+1. Sharpen one end of a stake to a point.
+2. Hammer the stake into the ground at a slight angle, leaning away from your shelter.
+3. Secure a line to your tent or tarp with a bowline.
+4. Secure the other end of the line to the stake with a jam knot, clove hitch, or taut-line hitch.
