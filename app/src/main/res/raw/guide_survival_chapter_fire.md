@@ -5,7 +5,7 @@ Knowing how to make fire can help you stay warm, purify water, and cook food. Yo
 
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill, starter, matches, lighter, steel, ferro, ferrocerium, tinder -->
-<!-- S: Bring a fire starter. Learn how to build and maintain a fire. -->
+<!-- S: Bring a firestarter. Learn how to build and maintain a fire. -->
 
 ### Gear
 **Necessities**:
