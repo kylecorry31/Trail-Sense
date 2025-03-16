@@ -157,7 +157,22 @@ A wooden bowl can be used to boil water using hot rocks.
 
 **Instructions**
 1. Cut or obtain a small log.
-2. Place hot coals into the log using makeshift tongs (see the Food chapter).
+2. Place hot coals into the log using makeshift tongs.
 3. Let the coals burn out.
 4. Scrape out the charred wood with a stick or rock.
 5. Repeat the process until you have a bowl.
+
+## Craft: Tongs
+<!-- K: tongs, craft -->
+<!-- S: You can make tongs from green wood. -->
+
+You can use tongs to move around hot coals or rocks without getting burned.
+
+**Resources**
+- Green wood
+
+**Instructions**
+1. Cut a length of green wood.
+2. Split the wood down the middle to create a flat surface.
+3. Optionally, carve a small notch in the stick's center to allow it to bend more easily.
+4. Bend the wood in half to create tongs.

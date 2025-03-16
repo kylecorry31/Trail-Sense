@@ -1,7 +1,7 @@
 <!-- K: food, eat, meal, hunger, hungry, forage, identify, edible, inedible -->
 <!-- S: Ration food and forage when there's none left. -->
 
-This chapter covers how to find and prepare food in a survival situation.
+Food gives you energy but is a low priority in most survival situations since you can go weeks without food. If you haven't eaten in a while, focus on foraging for bugs, shellfish, and aggregate berries.
 
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill, nuts, seeds, dried, fruit, jerky, energy, bar, mre, can, knife, multitool, multitool, bag, canister, utensil, stove, fuel -->
@@ -43,7 +43,7 @@ Once you have mastered these skills, you should learn how to do the following:
 <!-- S: You need around 2,000 calories daily, but you can ration your food to make it last longer. You should properly store your food to avoid spoilage. -->
 
 ### Caloric and nutritional needs
-The average person needs around 2,000 calories per day. In your diet, balance carbohydrates, proteins, fats, vitamins, and minerals.
+The average person needs around 2,000 calories per day. Balance carbohydrates, proteins, fats, vitamins, and minerals in your diet.
 
 - **Carbohydrates**: Provide an immediate source of energy and are found in grains, fruits, and vegetables. Aim for 45–65% of your daily caloric intake.
 - **Fats**: Provide long-term energy and are used in essential bodily functions. They are found in meats, oils, nuts, and seeds. Aim for 20–35% of your daily caloric intake.
@@ -52,55 +52,47 @@ The average person needs around 2,000 calories per day. In your diet, balance ca
 
 ### Storage
 
-Food should be stored in airtight containers to prevent spoilage and contamination. Do not pack foods that spoil quickly or require refrigeration.
+Food should be stored in airtight containers to prevent spoilage and contamination. Do not pack foods that spoil quickly or require refrigeration. If you bring zipper storage bags, you can also use them for water procurement.
 
 ### Rationing
 
-If you are in a survival situation, you may need to ration your food to make it last longer. Eat two-thirds of your food in the first half of your survival situation (about 2-3 days after your expected return date) and the remaining third in the following days. Eating food will give you the energy to construct a shelter and plan.
+If you are in a survival situation, ration your food to make it last longer. Eat two-thirds of your food in the first half of your survival situation (about 2-3 days after your expected return date) and the remaining third in the following days. Eating food will give you the energy to construct a shelter and plan.
 
 ### Starvation
 
-Starvation occurs when the body does not receive enough nutrients to function correctly. Symptoms include:
-- Loss of body fat.
-- Difficulty breathing.
-- Lower body temperature.
-- Reduced muscle mass.
-- Fatigue.
-- Longer healing time for wounds and illnesses.
+Starvation occurs when the body does not receive enough nutrients to function correctly. Symptoms include losing body fat, difficulty breathing, feeling colder, fatigue, and increased healing times.
 
 ## Plants and mushrooms
 <!-- K: plant, mushroom, seaweed, weeds, green, sap, fungus, forage, poison, toxic, leach, berries -->
 <!-- S: Only eat plants you can confidently identify as safe, and don't eat mushrooms. Aggregate berries, like raspberries and blackberries, are generally safe. -->
 
-Only eat wild plants that you can positively identify as safe. Before your trip, studying local plants through guidebooks or plant identification cards is wise. If you cannot identify plants, just eat bugs and shellfish; eating unknown plants is not worth the few calories.
+Plants typically have fewer calories than animals but can be easier to obtain if you can identify them. If you can't identify which plants are safe, just focus on bugs and shellfish. You should also avoid mushrooms unless you are experienced in foraging since many can make you sick. Familiarize yourself with local plants and mushrooms before your trip.
 
 ### Foraging
 
-- Aggregate berries are generally edible. These include raspberries and blackberries.
-- Plants in or near contaminated water must be washed and cooked to avoid consuming harmful bacteria or chemicals.
-- Some plants are more nutritious than others. For example, nuts and seeds are high in calories and fats, while leafy greens are high in vitamins and minerals.
-- Some plants are fine for animals but toxic to humans.
-- Seaweed washed ashore may be spoiled or decayed.
-- Some plants or nuts, such as acorns, should be boiled a few times before eating to leach out toxins.
-- **Avoid the following**:
-  - Mushrooms.
-  - Roadside plants.
-  - Plants with umbrella-shaped flowers.
-  - Plants with milky sap.
-  - Plants with shiny leaves.
-  - Plants with white, yellow, or red berries.
-  - Beans, bulbs, or seeds inside pods.
-  - Plants with a pungent odor.
-  - Plants with an almond scent in the leaves or woody parts.
-  - Plants with a bitter or soapy taste.
-  - Plants with thorns, fine hairs, or spines.
-  - Plants that resemble dill, carrot, parsnip, or parsley.
-  - Plants with three-leaved growth patterns.
-  - Plants with signs of mildew, fungus, or spoilage.
+The safest plant to forage is aggregate berries, such as raspberries and blackberries, since they have a distinctive look and are generally edible. Nuts and seeds are higher in calories than leafy greens, but some nuts, such as acorns, require multiple batches of boiling. Also, just because you see an animal eating a plant doesn't mean it is safe for human consumption. Never eat a plant you aren't certain is edible; even if you are certain, only eat a small amount and be on the lookout for side effects.
+
+**The following should be avoided as the risk isn't worth the calories:**
+- Mushrooms
+- Plants that have:
+  - Umbrella-shaped flowers
+  - Milky sap
+  - Shiny leaves
+  - White, yellow, or red berries (except aggregate berries)
+  - Beans, bulbs, or seeds inside pods
+  - Pungent odor
+  - An almond/cyanide scent in the leaves or wood
+  - Bitter or soapy taste
+  - Thorns, hairs, or spines
+  - A three-leaved growth pattern
+  - Mildew or fungus
+- Plants that look like dill, carrot, parsnip, or parsley
+- Spoiled plants/mushrooms/seaweed
+- Anything growing alongside a road or in dirty water
 
 ### Preparation
 
-Wash plants and cut them into usable pieces. Some can be eaten raw, while others need to be cooked.
+All plants you gather should be washed and cooked. Many can be eaten raw, but if you have the means to cook it will be safer to avoid the risk of contamination.
 
 ## Insects
 <!-- K: insect, bug, grub, worm, ant, termite, locust, grasshopper, cricket, dragonfly, bait -->
@@ -113,72 +105,56 @@ Insects are a good source of protein but need to be gathered in large numbers to
 Good places to find insects include rotting logs, under rocks, and in grassy fields. Common edible bugs include ants, termites, locusts, grasshoppers, crickets, dragonflies, grubs, and worms. At night, many flying insects can be attracted to a light source.
 
 Do not eat the following:
-- Biting or stinging insects.
-- Hairy or brightly colored insects.
-- Insects with a pungent odor.
-- Hairy caterpillars.
-- Spiders.
-- Anything that feeds off blood, such as ticks, flies, and mosquitoes.
+- Biting or stinging insects
+- Hairy or brightly colored insects
+- Insects with a pungent odor
+- Hairy caterpillars
+- Spiders
+- Anything that feeds off blood, such as ticks, flies, and mosquitoes
 
 ### Preparation
 
-Remove stingers and optionally the legs, wings, and head before eating insects. Cook all insects using any of the cooking techniques in this chapter.
-
-Worms can be placed in water for 15 minutes to purge their digestive tracts. After purging, they should be cooked before eating.
+To prepare bugs for cooking, remove any stingers and optionally the legs, wings, and head before eating insects. You should cook all bugs before eating them. Worms can be placed in water for 15 minutes to purge their digestive tracts before cooking.
 
 ## Shellfish and crustaceans
 <!-- K: shellfish, crustacean, clam, mussel, snail, limpet, crayfish, lobster, crab, shrimp, shell, bait, basket, trap, seafood, algae, tide, coastal, coast -->
 <!-- S: Many shellfish and crustaceans are found along the shoreline; most can be eaten when cooked. -->
 
-Shellfish and crustaceans are good sources of protein and can be found in both freshwater and saltwater. They are relatively easy to catch, so they make good survival food sources.
+Shellfish and crustaceans are good sources of protein and can be found in both freshwater and saltwater. They are relatively easy to catch, making good survival food sources.
 
 ### Collection
 
-Search shallow waters, tide pools, and rocky areas for shellfish and crustaceans. Snails and limpets can often be found attached to rocks, which may be easier to access during low tide.
-
-Crayfish, lobsters, and crabs can be found under and around stones, in soft mud or sand, and may be more active at night. You can catch them using a variety of techniques:
-
-- Attach bait onto a line and lower it into the water. Once it grabs the bait, pull it to shore.
-- For crabs, leave bait near the shoreline and catch them by hand or spear.
-- Use a fish basket trap with bait (see the Fish section below).
+Search shallow waters, tide pools, and rocky areas for shellfish and crustaceans. Snails and limpets are often attached to rocks, which may be easier to access during low tide. Crayfish, lobsters, and crabs can be found under and around stones, in soft mud or sand, and may be more active at night. Crustaceans can be caught by attaching bait onto a line (no hook required, they'll grab it), baiting the shoreline and waiting for them to leave the water, or using a fish basket trap with bait.
 
 **Caution**
 
-- Mussels may be poisonous in tropical waters during the summer.
-- Do not eat fish or shellfish if a red tide occurred within three days.
-- Do not eat shellfish covered by water during high tide.
+Some shellfish may be poisonous, but be especially cautious of mussels in tropical waters during the Summer, any shellfish within three days of a red tide, or shellfish covered by water during high tide.
 
 ### Preparation
 
-Fully cook to kill parasites. Shellfish can be cooked in their shells.
+You should cook all shellfish and crustaceans before eating, and you can cook them in their shells.
 
 ## Fish
 <!-- K: fish, hook, line, pole, bait, basket, trap, funnel, kill, seafood, meat -->
 <!-- S: Most fish are edible once cooked but will require some fishing gear. -->
 
-If you are in a longer-term survival situation or have access to fishing gear, fish can be a good source of protein and nutrients. Most fish are edible, but research which fish may be poisonous in your area.
+If you are in a longer-term survival situation or have access to fishing gear, fish can be a good source of protein and nutrients. Most fish are edible, but research which fish may be dangerous in your area.
 
 ### Fishing
 
 Fish are most active before a storm, near rocks or logs, and under overhanging brush.
 
-**Hooks**
+**Hook and line**
 
-Hooks with barbs are more effective than barbless hooks at keeping fish on the line. For best results, bait the hooks using insects, worms, or pieces of food.
+Fishing with a hook and line fishing is likely your most familiar technique. You will need to secure a hook onto a line and optionally tie it to a pole.
 
-If you need to craft a hook, go with a gorge hook since it is easy to craft, and you don't need to set it manually. One downside is that any fish caught with a gorge hook will almost certainly die if released. To carve a gorge hook, sharpen both sides of a small section of wood or bone, and taper at the center. Place the hook into the bait.
+Hooks with barbs are more effective than barbless hooks at keeping fish on the line. For best results, bait the hooks using insects, worms, or pieces of food. If you need to craft a hook, go with a gorge hook since it is easy to craft, and you don't need to set it manually. One downside is that any fish caught with a gorge hook will almost certainly die if released. To carve a gorge hook, sharpen both sides of a small section of wood or bone and taper at the center. Place the hook into the bait.
 
 ![](file:///android_asset/survival_guide/47.webp)
 
-**Lines**
-
 If you do not have a fishing line, you can make it from plant fibers, inner strands of paracord (using a bend knot to join them together), or other strong cordage.
 
-**Pole**
-
-If you do not have a fishing pole, you can tie the line to both the base and tip of a sturdy stick - try to mimic what an actual fishing pole looks like. You can also wrap the line around a short stick and use it as a hand line.
-
-To reduce the effort of fishing, you can tie the line to a tree branch and check on it frequently.
+If you do not have a fishing pole, you can tie the line to both the base and tip of a sturdy stick - try to mimic what an actual fishing pole looks like. You can also wrap the line around a short stick and use it as a hand line. An easier technique may be to tie the line to a tree branch so you can do other things and check on it frequently.
 
 **Traps**
 
@@ -190,10 +166,10 @@ Alternatively, use a funnel fish trap by placing sticks into a V-shape with a re
 
 ### Preparation
 
-1. Once you catch a fish, do not hold or place it near the water before killing it.
-2. Kill the fish by hitting it on the head with a club or rock. Use a hard, quick blow. You can then use a knife to cut the gills or pierce the brain to ensure the fish is dead.
+1. Once you catch a fish, bring it away from the shoreline. Do not hold or place it near the water before killing it, as it may flop back into the water.
+2. Stun the fish by hitting it hard on the head with a club or rock. You can then use a knife to cut the gills or pierce the brain to ensure the fish is dead.
 3. Remove scales by scraping them off with a knife (tail to head).
-4. Remove the entrails by cutting the belly open and pulling them out. To make this easier, you can also cut off the head and tail.
+4. Remove the entrails by cutting the belly open and pulling them out. You can also cut off the head and tail to make this easier.
 5. Cut the fish into usable pieces or fillet it. If it is small, you can cook it whole.
 6. Cook the fish.
 
@@ -207,11 +183,11 @@ In a survival situation, it's best to focus on easier-to-catch animals like inse
 
 **Clubs**
 
-A club can be as simple as a stick with a heavy end. This can kill fish or other small animals with a quick, forceful blow to the head.
+A club can be as simple as a stick with a heavy end. This can kill or stun fish or other small animals with a quick, forceful blow to the head.
 
 **Spears**
 
-A spear can be made by sharpening a stick and optionally hardening the tip in a fire. Unless you have experience, stabbing with the spear instead of throwing it is best. To make it easier to hit your target, you can construct multiple spear points if you use a forked branch.
+A spear can be made by sharpening a stick. Unless you have experience, stabbing with the spear instead of throwing it is best. To make it easier to hit your target, you can construct multiple spear points if you use a forked branch.
 
 **Throwing sticks and rocks**
 
@@ -240,26 +216,23 @@ To prepare a bird for cooking:
 3. For larger birds, cut off the feet and separate the bird into usable pieces along the joints.
 4. Cook the bird.
 
-**Notes**:
-
-- Sea birds should be skinned rather than plucked to remove oil glands.
-- Scavenger birds, such as vultures, should be boiled for at least 20 minutes to kill parasites.
+If you catch a seabird, skin it instead of plucking the feathers to remove the oil glands. If you catch a scavenger bird like a vulture, boil it for at least 20 minutes to kill parasites.
 
 ### Reptiles and amphibians
 
-Reptiles and amphibians are easier to catch than mammals and birds. Many can be found basking in open ground, on logs, or at the water's edge. Use a gig or pin them down with a stick behind the head.
+Reptiles and amphibians are easier to catch than mammals and birds. Many can be found basking in open ground, on logs, or at the water's edge. Use a multi-pointed spear or pin them down with a stick behind the head.
 
 Always wash your hands after handling reptiles and amphibians, as they can carry salmonella. Cook the meat thoroughly.
 
 **Do not eat the following**:
-- Box turtles.
-- Hawksbill turtles.
-- Brightly colored frogs.
-- Frogs with an X on their back.
-- Tree frogs.
-- Toads.
-- Salamanders.
-- Snakes are edible but may be dangerous to catch.
+- Box turtles
+- Hawksbill turtles
+- Brightly colored frogs
+- Frogs with an X on their back
+- Tree frogs
+- Toads
+- Salamanders
+- Snakes: they are edible but may be dangerous to catch
   - If you kill a snake, cut off and bury its head before cleaning. Never touch the head with your hands; use sticks instead.
 
 ### Small mammals
@@ -276,14 +249,12 @@ This guide does not cover the preparation of large mammals, as they are challeng
 
 ## Cooking
 <!-- K: cook, boil, roast, bake, utensil, container, stove -->
-<!-- S: To avoid getting sick, you should boil, roast, or bake most foods. This will require you to start a fire or have a portable stove. -->
+<!-- S: To avoid getting sick, boil, roast, or bake most foods. This will require you to start a fire or have a portable stove. -->
 
 Do not try to preserve the food you catch; just cook and eat it.
 
 ### Stoves
-Portable stoves are a convenient way to cook food. They can be fueled by wood, alcohol, or gas. Follow the manufacturer's instructions for use.
-
-Be sure to let the stove cool down before packing it away.
+Portable stoves are convenient ways to cook food. They can be fueled by wood, alcohol, or gas. Follow the manufacturer's instructions for use. You'll most likely use this to boil water rather than cook the food directly on the flame. Be sure to let the stove cool down before packing it away.
 
 ### Boiling
 
@@ -291,7 +262,7 @@ Boiling preserves the most nutrients in food and is the safest cooking method. A
 
 ### Roasting
 
-Roasting is a quick and easy method of cooking, but the food is less nutritious. You can roast food on a stick over a fire or place it on hot coals.
+Roasting is a quick and easy cooking method, but the food is less nutritious. You can roast food on a stick over a fire or place it on hot coals.
 
 ### Baking
 
@@ -308,11 +279,12 @@ You may need to protect your food from animals. Here are some methods to keep yo
 
 ### Bear bags
 
-A bear bag is a bag of food hoisted into a tree to keep it out of reach of bears and other animals.
+A bear bag is a bag of food hoisted into a tree to keep it out of reach of bears and other animals. Find a tree with a branch about 20 feet (6 meters) off the ground and thick enough to support the weight of your food at about 10 feet (3 meters) from the trunk.
 
 1. Place food in a bag.
 2. Tie a rope to the bag.
-3. Throw the other end of the rope over a high branch and hoist the bag up. To give the line weight, attach a short stick to the end of it. Secure the stick with a clove hitch or jam knot.
+3. Throw the other end of the rope over a branch. To give the line weight, attach a short stick to the end of it. Secure the stick with a clove hitch or jam knot.
+4. Hoist the bag about 15 feet (4.5 meters) above the ground.
 4. Tie the rope to a tree to keep the bag elevated. Use either a hitch or bowline knot.
 
 See the Shelter and Clothing chapter for details on how to tie knots.
@@ -320,16 +292,3 @@ See the Shelter and Clothing chapter for details on how to tie knots.
 ### Bear canisters
 
 A bear canister is a rigid plastic container used to store food. It is bear-proof and can be left on the ground. Some campsites may provide a bear box, a large metal box used to store food.
-
-## Craft: Tongs
-<!-- K: tongs, craft -->
-<!-- S: You can make tongs from green wood. -->
-
-**Resources**
-- Green wood
-
-**Instructions**
-1. Cut a length of green wood.
-2. Split the wood down the middle to create a flat surface.
-3. Optionally, carve a small notch in the stick's center to allow it to bend more easily.
-4. Bend the wood in half to create tongs.
