@@ -126,8 +126,6 @@ Shellfish and crustaceans are good sources of protein and can be found in both f
 
 Search shallow waters, tide pools, and rocky areas for shellfish and crustaceans. Snails and limpets are often attached to rocks, which may be easier to access during low tide. Crayfish, lobsters, and crabs can be found under and around stones, in soft mud or sand, and may be more active at night. Crustaceans can be caught by attaching bait onto a line (no hook required, they'll grab it), baiting the shoreline and waiting for them to leave the water, or using a fish basket trap with bait.
 
-**Caution**
-
 Some shellfish may be poisonous, but be especially cautious of mussels in tropical waters during the Summer, any shellfish within three days of a red tide, or shellfish covered by water during high tide.
 
 ### Preparation
