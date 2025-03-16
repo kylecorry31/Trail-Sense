@@ -135,12 +135,12 @@ You can learn to forecast weather by observing the signs around you. The more si
 <!-- K: tide, water, coast, rise, fall, moon, ocean, sea, semidiurnal, diurnal, mixed -->
 <!-- S: Most places have two high tides and two low tides daily. Check tide tables before heading to the coast. -->
 
-Tides can affect outdoor activities near the coast. A receding tide can lead to rip currents, which are dangerous for swimmers.
+Tides can affect outdoor activities near the coast. A receding tide can lead to rip currents, which are dangerous for swimmers. Check the tide tables before heading to the coast. Tide tables can be found online or in local newspapers.
 
-Check the tide tables before heading to the coast. Tide tables can be found online or in local newspapers.
+This map shows the tide types around the world. Green is semidiurnal, blue is mixed, and orange is diurnal.
 
 ![](file:///android_asset/survival_guide/tides.webp)
-[Image source](https://oceanservice.noaa.gov/education/tutorial_tides/tides07_cycles.html#1)
+
 
 ### Semidiurnal tides
 Semidiurnal tides have two high tides and two low tides each day. If you know the time of high tide, the next low tide will be about 6 hours later, and the following high tide will be about 6 hours after that.
