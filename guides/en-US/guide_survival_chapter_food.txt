@@ -150,7 +150,7 @@ Fishing with a hook and line fishing is likely your most familiar technique. You
 
 Hooks with barbs are more effective than barbless hooks at keeping fish on the line. For best results, bait the hooks using insects, worms, or pieces of food. If you need to craft a hook, go with a gorge hook since it is easy to craft, and you don't need to set it manually. One downside is that any fish caught with a gorge hook will almost certainly die if released. To carve a gorge hook, sharpen both sides of a small section of wood or bone and taper at the center. Place the hook into the bait.
 
-![](file:///android_asset/survival_guide/47.webp)
+![](file:///android_asset/survival_guide/gorge_hook.webp)
 
 If you do not have a fishing line, you can make it from plant fibers, inner strands of paracord (using a bend knot to join them together), or other strong cordage.
 
