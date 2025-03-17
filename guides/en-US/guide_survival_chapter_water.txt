@@ -101,7 +101,7 @@ Certain plants can provide water when no open sources are available:
 
 ### Solar stills
 
-**Below ground solar still**
+**Below-ground solar still**
 
 A below-ground solar still is a simple device that uses the sun’s heat to draw moisture from the soil or plants. The moisture then condenses on a plastic sheet and can be collected in a container. You can also pour salt water into the hole to desalinate it.
 
