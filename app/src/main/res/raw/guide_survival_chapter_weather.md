@@ -158,6 +158,8 @@ Diurnal tides have one high tide and one low tide each day. If you know the time
 
 You can estimate the time until sunset by holding your hand horizontally with your fingers together and counting the number of finger widths between the sun and the horizon. Each finger width represents roughly 15 minutes.
 
+![](file:///android_asset/survival_guide/sunset_hand.webp)
+
 On nights with a nearly full moon, you can use the moonlight to help navigate.
 
 Navigating in the dark is not recommended; if necessary, use a flashlight or headlamp to light your way.
