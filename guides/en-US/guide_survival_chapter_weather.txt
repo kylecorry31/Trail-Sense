@@ -1,7 +1,7 @@
 <!-- K: weather, condition -->
 <!-- S: Know the weather forecast. -->
 
-This chapter covers how to prepare for different types of weather and how to forecast it.
+Weather can quickly change from a nice day to a life-threatening situation. You should always be prepared for the weather in your area and keep tabs on the forecast.
 
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill, forecast, clothes, shelter, poncho, sunglasses, barometer, thermometer -->
@@ -36,14 +36,10 @@ Once you have mastered these skills, you should learn how to do the following:
 <!-- K: storm, precipitation, rain, snow, hail, sleet, temperature, humidity, wind, fog, lightning, sun, smoke, wildfire, uv, uv-index, thunder, thunderstorm -->
 <!-- S: Take shelter during severe storms. Be prepared for various conditions, such as precipitation, temperature, humidity, and strong wind. -->
 
-Weather conditions can change rapidly and significantly impact your outdoor activities.
-
-In mountainous regions, take extra precautions when above the tree line, as weather can be more severe and you are more exposed to the elements.
+Weather conditions can change rapidly and significantly impact your outdoor activities. In mountainous regions, take extra precautions when above the tree line, as weather can be more severe and you are more exposed to the elements.
 
 ### Precipitation
-You can generally continue outdoor activities in light precipitation. However, if it starts precipitating heavily, seek shelter. Be aware of the risk of hypothermia, and take steps to stay warm and dry.
-
-Be cautious near rivers and streams during heavy rainfall, as they can rise rapidly and become dangerous.
+You can generally continue outdoor activities in light precipitation. However, if it starts precipitating heavily, seek shelter. Rivers and streams can rise rapidly and become dangerous during heavy rainfall. Be aware of the risk of hypothermia, and take steps to stay warm and dry.
 
 Blizzards can lead to whiteout conditions, severely reducing visibility. If caught in a blizzard, seek shelter immediately and stay warm and dry.
 
@@ -52,12 +48,10 @@ In cold weather, dress in layers and wear a hat and gloves to prevent heat loss.
 
 In hot weather, stay hydrated and take breaks in the shade. Wear sunscreen and sun-protective clothing to protect yourself from sun exposure. High humidity can make it feel hotter and make cooling off more difficult.
 
-Temperature decreases by about 3.5°F (2°C) for every 1,000 feet (305 meters) of elevation gain.
+Temperature changes as you change elevation, decreasing by about 3.5°F (2°C) for every 1,000 feet (305 meters) of elevation gain. If you are hiking in a mountainous region, it may be warm at the bottom, but also be prepared for cold, windy temperatures at the top.
 
 ### Wind
-Wind can make cold conditions feel even colder, increasing the risk of hypothermia and frostbite. Dress in layers and wear a hat and gloves to protect yourself from the wind.
-
-Be cautious of unstable trees and branches in windy conditions, as they can be hazardous.
+Wind can make cold conditions feel even colder, increasing the risk of hypothermia and frostbite. Dress in layers and wear a hat and gloves to protect yourself from the wind. During wind storms, unstable trees and branches can become hazardous.
 
 Wind can cause sandstorms in desert environments, reducing visibility and making breathing difficult. Seek shelter during a sandstorm and protect your eyes and mouth with a bandana or cloth.
 
@@ -91,13 +85,7 @@ Wildfires can cause smoke to travel long distances. If possible, avoid outdoor a
 <!-- K: climate, average -->
 <!-- S: Your region's climate can indicate what weather is common for the time of year. -->
 
-The climate of a region refers to its average weather conditions over time. Understanding the climate helps you prepare for the typical weather you'll encounter.
-
-Key factors to consider when thinking about climate include:
-- Daily high and low temperatures
-- Precipitation amounts
-- Humidity levels
-- Wind patterns
+The climate of a region refers to its average weather conditions over time. You should look up the average daily high and low temperatures, how often it rains or snows, what the humidity normally is, and where the prevailing wind blows from. You should prepare for conditions to return to the climate normals in a longer-term scenario, so if it is unusually warm during your hike but the average low is below freezing, bring cold weather gear with you.
 
 ## Forecasting
 <!-- K: forecast, predict, signs, worsen, improve, cloud, cumulus, cirrus, cumulonimbus, altocumulus, stratus, altostratus, clear, cirrostratus, nimbostratus, cirrocumulus -->
@@ -160,6 +148,4 @@ You can estimate the time until sunset by holding your hand horizontally with yo
 
 ![](file:///android_asset/survival_guide/sunset_hand.webp)
 
-On nights with a nearly full moon, you can use the moonlight to help navigate.
-
-Navigating in the dark is not recommended; if necessary, use a flashlight or headlamp to light your way.
+Navigating in the dark is not recommended; if necessary, use a flashlight or headlamp to light your way. On nights with a nearly full moon, you can use the moonlight to help navigate.
