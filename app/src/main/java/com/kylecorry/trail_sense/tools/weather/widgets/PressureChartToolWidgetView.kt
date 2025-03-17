@@ -22,6 +22,7 @@ class PressureChartToolWidgetView : ChartToolWidgetViewBase() {
     override suspend fun getPopulatedView(context: Context): RemoteViews {
         val weather = WeatherSubsystem.getInstance(context)
         val prefs = UserPreferences(context)
+        val units = prefs.pressureUnits
 
         val history = weather.getHistory()
         val displayReadings = history.filter {
@@ -29,7 +30,9 @@ class PressureChartToolWidgetView : ChartToolWidgetViewBase() {
                 it.time,
                 Instant.now()
             ) <= prefs.weather.pressureHistory
-        }.map { it.pressureReading() }
+        }
+            .map { it.pressureReading() }
+            .map { it.copy(value = it.value.convertTo(units)) }
 
 
         val views = getView(context)
