@@ -9,6 +9,8 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 matches = []
 for root, dirs, files in os.walk(parent_dir):
+    if 'survival-guide-book' in root:
+        continue
     for file in files:
         if file == sys.argv[2]:
             matches.append(os.path.join(root, file))
