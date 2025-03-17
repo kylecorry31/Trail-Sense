@@ -223,7 +223,7 @@ If you do not have a sewing kit, you can use duct tape, safety pins, super glue,
 ### Overhand knot
 Used to prevent the end of a rope from untwisting. This is hard to undo but very easy to tie.
 
-![](file:///android_asset/survival_guide/120.webp)
+![](file:///android_asset/survival_guide/knot_overhand.webp)
 
 ### Double sheet bend
 Used for tying two lines together.
