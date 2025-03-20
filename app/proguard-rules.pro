@@ -24,6 +24,8 @@
 -keep class * extends androidx.fragment.app.Fragment{}
 -keep class * extends com.kylecorry.andromeda.views.subscaleview.decoder.ImageDecoder
 -keep class * extends com.kylecorry.andromeda.views.subscaleview.decoder.ImageRegionDecoder
+-keep class com.kylecorry.andromeda.bitmaps.Range2d { *; }
+-keep class com.kylecorry.andromeda.bitmaps.Toolkit { *; }
 
 -dontwarn com.caverock.androidsvg.SVG
 -dontwarn com.caverock.androidsvg.SVGParseException
