@@ -16,7 +16,8 @@ class NotifyForkPoliciesCommand(private val context: Context) : Command {
             "com.kylecorry.trail_sense",
             "com.kylecorry.trail_sense.staging",
             "com.kylecorry.trail_sense.dev",
-            "com.kylecorry.trail_sense.nightly"
+            "com.kylecorry.trail_sense.nightly",
+            "com.kylecorry.trail_sense.github",
         )
 
         val trailSenseAppNames = listOf(
