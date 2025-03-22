@@ -8,14 +8,15 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.text.TextUtils
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
+import java.io.Serializable
 
 object BuiltInFieldGuide {
 
-    private class Pages {
+    private class Pages : Serializable {
         var pages: List<BuiltInFieldGuidePage> = emptyList()
     }
 
-    private class BuiltInFieldGuidePage {
+    private class BuiltInFieldGuidePage : Serializable {
         var content: String = ""
         var image: String = ""
         var tags: List<String> = emptyList()
