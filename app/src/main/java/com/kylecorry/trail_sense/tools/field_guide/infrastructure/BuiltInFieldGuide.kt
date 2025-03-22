@@ -5,18 +5,18 @@ import android.content.Context
 import com.kylecorry.andromeda.json.JsonConvert
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.ProguardIgnore
 import com.kylecorry.trail_sense.shared.text.TextUtils
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePage
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
-import java.io.Serializable
 
 object BuiltInFieldGuide {
 
-    private class Pages : Serializable {
+    private class Pages : ProguardIgnore {
         var pages: List<BuiltInFieldGuidePage> = emptyList()
     }
 
-    private class BuiltInFieldGuidePage : Serializable {
+    private class BuiltInFieldGuidePage : ProguardIgnore {
         var content: String = ""
         var image: String = ""
         var tags: List<String> = emptyList()
