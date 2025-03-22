@@ -1,0 +1,40 @@
+name: Create Release APKs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: 17
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Build GitHub Release APK
+        run: |
+          echo ${DEV_STORE_FILE} | base64 -d > KEY_DEV.jks
+          DEV_KEY_ALIAS=$(echo -n $DEV_KEY_ALIAS | base64 -d)
+          ./gradlew assembleGithub -Ddev_store_file=../KEY_DEV.jks -Ddev_store_password="${DEV_STORE_PASSWORD}" -Ddev_key_alias="${DEV_KEY_ALIAS}" -Ddev_key_password="${DEV_STORE_PASSWORD}"
+        env:
+          DEV_STORE_PASSWORD: ${{ secrets.DEV_STORE_PASSWORD }}
+          DEV_KEY_ALIAS: ${{ secrets.DEV_KEY_ALIAS }}
+          DEV_STORE_FILE: ${{ secrets.DEV_STORE_FILE }}
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Trail-Sense-GitHub-Release.apk
+          path: ./app/build/outputs/apk/github/app-github.apk
+          retention-days: 7
