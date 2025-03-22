@@ -46,7 +46,6 @@
     <string name="precise_feet_format">%s ft</string>
     <string name="precise_miles_format">%s mi</string>
     <string name="precise_meters_format">%s மீ</string>
-    <string name="precise_kilometers_format">கி.மீ.</string>
     <string name="kilometers_per_hour_format">%.1f கிமீ/மணி</string>
     <string name="miles_per_hour_format">%.1f Mph</string>
     <string name="duration_hour_format">%d.எச்</string>
