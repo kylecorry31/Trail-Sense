@@ -672,7 +672,7 @@ class FormatService private constructor(private val context: Context) {
                 DistanceUnits.Inches -> strings.getString(R.string.precise_inches_format, "")
                 DistanceUnits.Yards -> strings.getString(R.string.yards_format, "")
                 DistanceUnits.Millimeters -> strings.getString(
-                    R.string.milliliter_format,
+                    R.string.millimeters_format,
                     ""
                 )
             }.replace(" ", "")
