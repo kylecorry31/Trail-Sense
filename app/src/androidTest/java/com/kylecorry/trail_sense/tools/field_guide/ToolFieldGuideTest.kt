@@ -69,7 +69,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
     private fun canDeletePage() {
         clickListItemMenu("Delete")
         clickOk()
-        not { hasText("A Test 3") }
+        not { hasText("A Test 3", waitForTime = 0) }
     }
 
     private fun canEditPage() {

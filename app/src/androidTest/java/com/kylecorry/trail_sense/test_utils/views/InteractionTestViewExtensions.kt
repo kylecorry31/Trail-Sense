@@ -61,6 +61,8 @@ fun TestView.input(text: String, checkDescendants: Boolean = false): TestView {
 
 fun TestView.scroll(direction: Direction = Direction.DOWN, percent: Float = 0.5f): TestView {
     uiObject.scroll(direction, percent)
+    // Wait after scrolling (Android 16 issue)
+    Thread.sleep(500)
     return this
 }
 
@@ -68,5 +70,7 @@ fun TestView.scrollToEnd(direction: Direction = Direction.DOWN): TestView {
     while (uiObject.scroll(direction, 1f)) {
         // Do nothing
     }
+    // Wait after scrolling (Android 16 issue)
+    Thread.sleep(500)
     return this
 }
