@@ -803,10 +803,12 @@
     <string name="ounces_weight">Ounces</string>
     <string name="kilograms">Kilograms</string>
     <string name="grams">Grams</string>
+    <string name="milligrams">Milligrams</string>
     <string name="pounds_format">%s lb</string>
     <string name="ounces_weight_format">%s oz</string>
     <string name="kilograms_format">%s kg</string>
     <string name="grams_format">%s g</string>
+    <string name="milligrams_format">%s mg</string>
     <string name="weight">Weight</string>
     <string name="seconds">Seconds</string>
     <string name="minutes">Minutes</string>
@@ -1603,4 +1605,13 @@
     <string name="no_pages">No pages</string>
     <string name="field_guide_disclaimer">This tool is intended for educational purposes only. Always use caution when identifying plants, animals, or mushrooms. Some species may be dangerous or protected. If you are unsure about an identification, consult a professional.</string>
     <string name="no_results">No results</string>
+    <string name="ballistics">Ballistics</string>
+    <string name="left">Left</string>
+    <string name="right">Right</string>
+    <string name="up">Up</string>
+    <string name="down">Down</string>
+    <string name="miss_amount_up_down">Miss amount up/down</string>
+    <string name="miss_amount_left_right">Miss amount left/right</string>
+    <string name="distance_to_target">Distance to target</string>
+    <string name="scope_adjustment">Scope adjustment</string>
 </resources>

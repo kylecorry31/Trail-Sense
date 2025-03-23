@@ -56,7 +56,8 @@ object DistanceUtils {
      */
     val rulerDistanceUnits = listOf(
         DistanceUnits.Inches,
-        DistanceUnits.Centimeters
+        DistanceUnits.Centimeters,
+        DistanceUnits.Millimeters
     )
 
 }

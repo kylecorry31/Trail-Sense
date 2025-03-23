@@ -16,6 +16,7 @@ import com.kylecorry.trail_sense.shared.quickactions.QuickActionOpenTool
 import com.kylecorry.trail_sense.shared.views.QuickActionNone
 import com.kylecorry.trail_sense.tools.astronomy.AstronomyToolRegistration
 import com.kylecorry.trail_sense.tools.augmented_reality.AugmentedRealityToolRegistration
+import com.kylecorry.trail_sense.tools.ballistics.BallisticsToolRegistration
 import com.kylecorry.trail_sense.tools.battery.BatteryToolRegistration
 import com.kylecorry.trail_sense.tools.beacons.BeaconsToolRegistration
 import com.kylecorry.trail_sense.tools.cliffheight.CliffHeightToolRegistration
@@ -107,7 +108,8 @@ object Tools {
         LocalTalkToolRegistration,
         SurvivalGuideToolRegistration,
         FieldGuideToolRegistration,
-        SignalFinderToolRegistration
+        SignalFinderToolRegistration,
+        BallisticsToolRegistration
     )
     private val topics = mutableMapOf<String, Topic<Bundle>>()
     private val broadcastScope = CoroutineScope(Dispatchers.Main)
@@ -264,6 +266,7 @@ object Tools {
     const val SURVIVAL_GUIDE = 41L
     const val FIELD_GUIDE = 42L
     const val SIGNAL_FINDER = 43L
+    const val BALLISTICS = 44L
 
     // Quick Action IDs
     const val QUICK_ACTION_NONE = -1
