@@ -30,15 +30,21 @@
             android:layout_marginEnd="16dp"
             android:orientation="vertical">
 
+            <com.kylecorry.trail_sense.shared.views.MaterialSpinnerView
+                android:id="@+id/click_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
             <com.kylecorry.trail_sense.shared.views.DistanceInputView
                 android:id="@+id/distance_to_target"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/windage_miss"
                 android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
 
@@ -77,7 +83,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/elevation_miss"
                 android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
 
@@ -100,7 +106,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/up"
+                    android:text="@string/above"
                     android:textColor="?attr/colorOnSurface" />
 
                 <Button
@@ -109,7 +115,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/down"
+                    android:text="@string/below"
                     android:textColor="?attr/colorOnSurface" />
             </com.google.android.material.button.MaterialButtonToggleGroup>
 

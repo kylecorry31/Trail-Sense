@@ -1608,10 +1608,11 @@
     <string name="ballistics">Ballistics</string>
     <string name="left">Left</string>
     <string name="right">Right</string>
-    <string name="up">Up</string>
-    <string name="down">Down</string>
+    <string name="above">Above</string>
+    <string name="below">Below</string>
     <string name="distance_to_target">Distance to target</string>
     <string name="scope_adjustment">Scope adjustment</string>
     <string name="windage_miss">Windage miss</string>
     <string name="elevation_miss">Elevation miss</string>
+    <string name="adjustment_per_click">Adjustment per click</string>
 </resources>

@@ -9,15 +9,15 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
+import com.kylecorry.trail_sense.shared.views.MaterialSpinnerView
 import kotlin.math.roundToInt
 
 class FragmentToolBallistics : TrailSenseReactiveFragment(R.layout.fragment_ballistics) {
 
-    // TODO: Allow entry of MOA per click
     private val referenceDistance = Distance(100f, DistanceUnits.Yards)
-    private val referenceInchesPerClick = 0.25f
 
     override fun update() {
         val toolbarView = useView<Toolbar>(R.id.ballistics_title)
@@ -26,21 +26,30 @@ class FragmentToolBallistics : TrailSenseReactiveFragment(R.layout.fragment_ball
         val missDistanceYView = useView<DistanceInputView>(R.id.miss_distance_y)
         val missDirectionXView = useView<MaterialButtonToggleGroup>(R.id.miss_direction_x)
         val missDirectionYView = useView<MaterialButtonToggleGroup>(R.id.miss_direction_y)
+        val clickAmountView = useView<MaterialSpinnerView>(R.id.click_amount)
 
         val formatter = useService<FormatService>()
+        val prefs = useService<UserPreferences>()
 
         val (offsetX, setOffsetX) = useState(Distance(0f, DistanceUnits.Inches))
         val (offsetY, setOffsetY) = useState(Distance(0f, DistanceUnits.Inches))
         val (offsetDirectionX, setOffsetDirectionX) = useState(Direction.Left)
         val (offsetDirectionY, setOffsetDirectionY) = useState(Direction.Up)
         val (distanceToTarget, setDistanceToTarget) = useState(Distance(0f, DistanceUnits.Yards))
+        val (distancePerClick, setDistancePerClick) = useState(
+            Distance(
+                0.25f,
+                DistanceUnits.Inches
+            )
+        )
 
         useEffect(
             distanceToTargetView,
             missDistanceXView,
             missDistanceYView,
             missDirectionXView,
-            missDirectionYView
+            missDirectionYView,
+            clickAmountView
         ) {
             distanceToTargetView.units =
                 formatter.sortDistanceUnits(DistanceUtils.hikingDistanceUnits)
@@ -84,12 +93,37 @@ class FragmentToolBallistics : TrailSenseReactiveFragment(R.layout.fragment_ball
                     )
                 }
             }
+
+            clickAmountView.setHint(getString(R.string.adjustment_per_click))
+            // TODO: Save selection
+            val clickAmounts = listOf(
+                "1/8 MOA" to Distance(0.125f, DistanceUnits.Inches),
+                "1/4 MOA" to Distance(0.25f, DistanceUnits.Inches),
+                "1/2 MOA" to Distance(0.5f, DistanceUnits.Inches),
+                "1 MOA" to Distance(1f, DistanceUnits.Inches),
+                "0.1 mil" to Distance(0.36f, DistanceUnits.Inches),
+                "0.05 mil" to Distance(0.18f, DistanceUnits.Inches),
+            )
+
+            val selectedIdx = if (prefs.distanceUnits == UserPreferences.DistanceUnits.Feet) {
+                1
+            } else {
+                4
+            }
+            setDistancePerClick(clickAmounts[selectedIdx].second)
+            clickAmountView.setItems(clickAmounts.map { it.first })
+            clickAmountView.setSelection(selectedIdx)
+            clickAmountView.setOnItemSelectedListener {
+                if (it != null) {
+                    setDistancePerClick(clickAmounts[it].second)
+                }
+            }
         }
 
 
-        val adjustmentX = useMemo(offsetX, offsetDirectionX, distanceToTarget) {
+        val adjustmentX = useMemo(offsetX, offsetDirectionX, distanceToTarget, distancePerClick) {
             getAdjustment(
-                referenceInchesPerClick,
+                distancePerClick,
                 referenceDistance,
                 offsetX,
                 offsetDirectionX,
@@ -97,9 +131,9 @@ class FragmentToolBallistics : TrailSenseReactiveFragment(R.layout.fragment_ball
             )
         }
 
-        val adjustmentY = useMemo(offsetY, offsetDirectionY, distanceToTarget) {
+        val adjustmentY = useMemo(offsetY, offsetDirectionY, distanceToTarget, distancePerClick) {
             getAdjustment(
-                referenceInchesPerClick,
+                distancePerClick,
                 referenceDistance,
                 offsetY,
                 offsetDirectionY,
@@ -124,7 +158,7 @@ class FragmentToolBallistics : TrailSenseReactiveFragment(R.layout.fragment_ball
 
 
     private fun getAdjustment(
-        inchesPerClick: Float,
+        distancePerClick: Distance,
         referenceDistance: Distance,
         offset: Distance,
         offsetDirection: Direction,
@@ -133,6 +167,7 @@ class FragmentToolBallistics : TrailSenseReactiveFragment(R.layout.fragment_ball
         val offsetInches = offset.convertTo(DistanceUnits.Inches).distance
         val distanceToTargetYards = distanceToTarget.convertTo(DistanceUnits.Yards).distance
         val referenceYards = referenceDistance.convertTo(DistanceUnits.Yards).distance
+        val inchesPerClick = distancePerClick.convertTo(DistanceUnits.Inches).distance
 
         if (SolMath.isZero(inchesPerClick) || SolMath.isZero(distanceToTargetYards)) {
             return null
