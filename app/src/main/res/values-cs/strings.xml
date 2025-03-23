@@ -1341,4 +1341,16 @@
     <string name="field_guide_disclaimer">Tento nástroj je určen pouze pro vzdělávací účely. Při určování rostlin, živočichů nebo hub buďte vždy opatrní. Některé druhy mohou být nebezpečné nebo chráněné. Pokud si nejste jisti určením, poraďte se s odborníkem.</string>
     <string name="no_results">Žádné výsledky</string>
     <string name="survival_guide_disclaimer">Tato příručka má pouze informativní charakter a autor, vydavatel ani žádný z přispěvatelů nezaručuje její přesnost ani vhodnost pro jakýkoli účel. Používáním této příručky berete na vědomí, že venkovní aktivity s sebou nesou rizika, a činíte tak na vlastní nebezpečí, přičemž souhlasíte s tím, že autorovi, vydavateli a všem přispěvatelům nebudete činit žádné nároky na odškodnění za jakékoli škody vzniklé v souvislosti s používáním této příručky. Vždy se obraťte na odborníky, kteří vám poradí v konkrétní situaci, protože tato příručka nenahrazuje odborné poradenství. Dále si uvědomte, že místní zákony a předpisy mohou ovlivnit legální použití technik popsaných v tomto dokumentu a jejich dodržování je na vaší zodpovědnosti.</string>
+    <string name="above">Nahoře</string>
+    <string name="elevation_miss">Odchylka výšky</string>
+    <string name="below">Dole</string>
+    <string name="milligrams">Miligramy</string>
+    <string name="milligrams_format">%s mg</string>
+    <string name="adjustment_per_click">Úprava na kliknutí</string>
+    <string name="ballistics">Balistika</string>
+    <string name="left">Vlevo</string>
+    <string name="right">Vpravo</string>
+    <string name="distance_to_target">Vzdálenost od cíle</string>
+    <string name="scope_adjustment">Úprava rozsahu</string>
+    <string name="windage_miss">Odchylka směru větru</string>
 </resources>
