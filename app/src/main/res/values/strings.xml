@@ -1610,8 +1610,8 @@
     <string name="right">Right</string>
     <string name="up">Up</string>
     <string name="down">Down</string>
-    <string name="miss_amount_up_down">Miss amount up/down</string>
-    <string name="miss_amount_left_right">Miss amount left/right</string>
     <string name="distance_to_target">Distance to target</string>
     <string name="scope_adjustment">Scope adjustment</string>
+    <string name="windage_miss">Windage miss</string>
+    <string name="elevation_miss">Elevation miss</string>
 </resources>
