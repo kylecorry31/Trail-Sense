@@ -1285,4 +1285,16 @@
     <string name="field_guide_disclaimer">Esta ferramenta destina-se apenas a fins educacionais. Sempre tenha cuidado ao identificar plantas, animais ou cogumelos. Algumas espécies podem ser perigosas ou protegidas. Se você não tiver certeza sobre uma identificação, consulte um profissional.</string>
     <string name="no_results">Sem resultados</string>
     <string name="survival_guide_disclaimer">Este guia é fornecido apenas para fins informativos, e nem o autor, a editora ou qualquer colaborador garante sua precisão ou adequação para qualquer finalidade. Ao usar este guia, você reconhece que as atividades ao ar livre envolvem riscos e o faz por sua própria conta e risco, concordando em isentar e indenizar o autor, o editor e quaisquer colaboradores de quaisquer reivindicações ou danos decorrentes do uso deste guia. Sempre consulte profissionais para obter orientação específica para sua situação, pois este guia não substitui a orientação profissional. Além disso, esteja ciente de que as leis e os regulamentos locais podem afetar o uso legal das técnicas aqui descritas, e a conformidade é de sua responsabilidade.</string>
+    <string name="above">Acima</string>
+    <string name="adjustment_per_click">Ajuste por clique</string>
+    <string name="distance_to_target">Distância até o destino</string>
+    <string name="elevation_miss">Erro de elevação</string>
+    <string name="milligrams">Miligramas</string>
+    <string name="milligrams_format">%s mg</string>
+    <string name="left">Esquerda</string>
+    <string name="right">Direita</string>
+    <string name="ballistics">Balístico</string>
+    <string name="windage_miss">Erro de direção do vento</string>
+    <string name="scope_adjustment">Ajuste da distância</string>
+    <string name="below">Abaixo</string>
 </resources>
