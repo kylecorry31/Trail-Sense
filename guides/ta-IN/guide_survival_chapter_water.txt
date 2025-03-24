@@ -1,0 +1,178 @@
+<!-- K: water, thirst, thirsty, drink -->
+<!-- S: Stay hydrated and purify water. -->
+
+This பாடங்கள் மறையம் how பெறுநர் கண்டுபிடி and purify water.
+
+## Be prepared
+<!-- K: prepare, gear, knowledge, skill, container, filter, sheet, tarp, tablet -->
+<!-- S: Bring extra water, a water container, and purification method. Learn how பெறுநர் locate water மூலங்கள் and purify water. -->
+
+### Gear
+
+**Necessities**:
+- Water (enough க்கு the duration of your trip, plus a துணுக்கு extra).
+  - Bring a water purification method க்கு longer trips and plan your route பெறுநர் include water sources.
+- Water containers (ensure you have a சரக்குப் பெட்டகம் that you can boil water in).
+
+**Optional**:
+- Water purification method (tablets or filter).
+- Cooking pot or container.
+- Clear நெகிழி sheet/tarp.
+
+### Knowledge and skills
+Start by learning how பெறுநர் do the following:
+- Plan your water needs க்கு the trip.
+- Locate water sources.
+- Purify water by boiling.
+
+Once you have mastered these skills, you should learn how பெறுநர் do the following:
+- Purify water using chemical treatment or filtration.
+- Collect water இருந்து plants and மற்றொன்று sources.
+- Collect water using a solar still.
+- Boil water using hot rocks.
+- Desalinate water.
+
+## Hydration essentials
+<!-- K: hydration, essential, daily, நீரகற்றம் -->
+<!-- S: Drink at least 2 பெறுநர் 3 quarts/liters of water daily. Recognize the signs of dehydration. -->
+
+When hiking, conserving energy while maintaining hydration is vital. Here அரே some பொது rules:
+
+- Choose running water when possible.
+- Assume surface water is contaminated; எப்போதும் purify it.
+- Avoid the following:
+  - Consuming பனி without melting it
+  - Urine
+  - Alcohol
+  - Saltwater
+  - Stagnant water
+
+### Daily water needs
+
+At 70°F (20°C), a hiker needs around 2 பெறுநர் 3 quarts/liters of water daily. This amount increases with physical செய்கைப்பாடு and exposure பெறுநர் higher temperatures.
+
+### Dehydration
+
+Dehydration occurs when the body loses more fluids than it takes in. Symptoms include:
+
+- Thirst.
+- Dry mouth and throat.
+- Fatigue.
+- Dizziness.
+- Dark urine.
+- Reduced urine output.
+- Dry skin.
+- Headache.
+- Confusion.
+
+## Finding water
+<!-- K: find, source, collect, plant, solar-still, solar, still, dew, rain, river, groundwater, sea, ice, bamboo, coconut, dig, hole, snow, rainwater, desert, beach, ocean, salt, நீராவிப் போக்கு -->
+<!-- S: கண்டுபிடி water இருந்து streams, snow, rain, dew, or groundwater. Purify அனைத்தும் water before drinking. -->
+
+### Common water sources
+
+- **Rainwater**: Rainwater collected directly in containers does not need purification. However, it should be purified if it has ஓடு வீச்சலகு leaves or மற்றொன்று surfaces.
+
+- **Snow and ice**: Melt பனி and ice before drinking. Avoid eating பனி directly, அச் it can lower your வயிரம் body temperature. Melted பனி requires purification.
+
+- **Streams and rivers**: Flowing water is typically safer than stagnant water but should still be purified.
+
+- **Dew**: Collect dew இருந்து plants or grass by wringing out a cloth or sponge.
+
+- **Groundwater**: Dig a deep hole and allow water பெறுநர் seep in. Purify the water before drinking it.
+
+### Specific environments
+
+- **Deserts**:
+  - **Groundwater**: Look க்கு பச்சை vegetation, valleys and low areas, or dry riverbeds.
+
+- **Beaches/sea**:
+  - **Groundwater**: Dig a deep hole பெறுநர் allow water பெறுநர் seep in. This water should be purified and சி-வைகாசி need desalination.
+  - **Sea water**: Sea water can be desalinated பெறுநர் make it drinkable.
+  - **Sea ice**: It சி-வைகாசி be salty if it is சாம்பல் or opaque. Crystalline ice with a bluish tint is usually safe பெறுநர் melt க்கு drinking water.
+
+### Water இருந்து plants
+
+Certain plants can provide water when இல்லை திற மூலங்கள் அரே available:
+
+- **Green bamboo**: Shake the bamboo பெறுநர் சரிபார் க்கு water, then வெட்டு it பெறுநர் extract the water inside.
+- **Water vines**: Many vines contain drinkable water. These vines அரே usually soft and easy பெறுநர் cut. Ensure the vine is identified positively before drinking, and make sure the water is clear and odorless.
+- **Coconut water**: பச்சை coconuts அரே best க்கு hydration, அச் they contain more பாய்மம் and less oil.
+
+### Solar stills
+
+**Below-ground solar still**
+
+A below-ground solar still is a simple device that uses the sun’s heat பெறுநர் draw moisture இருந்து the soil or plants. The moisture then condenses on a நெகிழி sheet and can be collected in a container. You can also pour salt water into the hole பெறுநர் desalinate it.
+
+1. Dig a bowl-shaped hole பற்றி 3 feet (1 meter) across and 2 feet (0.6 meters) deep. Ensure it is in direct sunlight.
+2. Place a சரக்குப் பெட்டகம் in the center of the hole. Optionally, place plants or water around the சரக்குப் பெட்டகம் பெறுநர் increase moisture (do not place them in the container).
+3. Place a நெகிழி sheet வீச்சலகு the hole, securing the edges with rocks or soil.
+4. Place a small rock in the center of the sheet directly வீச்சலகு the container.
+5. Wait க்கு the sun பெறுநர் heat the ground and evaporate moisture, which will condense on the நெகிழி and drip into the container.
+
+![](file:///android_asset/survival_guide/16.webp)
+
+**Transpiration bag**
+
+A நீராவிப் போக்கு bag is a நெகிழி bag tied around a leafy branch பெறுநர் collect water.
+
+![](file:///android_asset/survival_guide/15.webp)
+
+1. Tie a நெகிழி bag around a leafy branch, ensuring that the bag is airtight.
+2. Wait க்கு the sun பெறுநர் heat the plant, causing moisture பெறுநர் evaporate and condense on the bag.
+3. Collect the water that has condensed inside the bag.
+
+## Making water safe பெறுநர் drink
+<!-- K: make, safe, purify, boil, purification, chemical, filter, filtration, treat, bacteria, virus, parasite, stagnant, technique -->
+<!-- S: எப்போதும் purify water before drinking. Boil water க்கு 1 - 3 minutes, use purification tablets, or வடிப்பி it. -->
+
+Always ensure the water you collect is safe பெறுநர் drink. Boiling is the பெரும்பாலானவை reliable method, but chemical purification tablets and filters அரே also effective. If you cannot purify the water immediately, prioritize finding and storing water until you can treat it.
+
+### Purification methods
+
+- **Boiling**: Bring water பெறுநர் a rolling boil க்கு at least one minute. At higher altitudes, boil க்கு three minutes. If you do not have a single-walled மாழை சரக்குப் பெட்டகம் that can be used க்கு boiling, then do the following:
+  1. கண்டுபிடி another container, dig a hole in the ground and வரி it with a waterproof material, or craft a bowl.
+  2. Fill the சரக்குப் பெட்டகம் with water.
+  3. Heat rocks in a fire and place them in the water பெறுநர் heat it. **Do not** use rocks that சி-வைகாசி contain moisture (such அச் river rocks), அச் they can explode. Use two sticks in a chopstick fashion பெறுநர் move the rocks.
+  4. மாற்றவும் the rocks with hot ones பெறுநர் keep the water boiling.
+- **Chemical treatment**: Use water purification tablets or drops according பெறுநர் the instructions.
+- **Filtration**: Use a portable water வடிப்பி பெறுநர் அகற்று contaminants. Some filters அரே rated பெறுநர் அகற்று nearly அனைத்தும் bacteria and viruses and can be used without additional purification. If you do not have a filter, you can construct one பெறுநர் அகற்று sediment, but you must also purify the water through boiling or chemical treatment. A வடிப்பி can be built by பதியம் போடுதல் grass or small rocks, sand, and charcoal (from மேலே பெறுநர் bottom) in a சரக்குப் பெட்டகம் with a hole at the கீழே பெறுநர் collect the filtered water.
+
+![](file:///android_asset/survival_guide/19.webp)
+
+### Hazards
+- **Microorganisms**: Water சி-வைகாசி contain bacteria, viruses, and parasites that can cause illness. Boiling water kills பெரும்பாலானவை microorganisms, but some சி-வைகாசி require additional treatment. Microorganisms அரே more likely பெறுநர் be present in stagnant water.
+- **Chemicals**: Water சி-வைகாசி contain chemicals இருந்து industrial or agricultural runoff. Purification முறைகள் சி-வைகாசி not அகற்று அனைத்தும் chemical contaminants.
+
+## Craft: Bowl
+<!-- K: bowl, cook, store, சரக்குப் பெட்டகம் -->
+<!-- S: You can make a bowl இருந்து a small log by burning a bowl வடிவம் into it using hot coals. -->
+
+A wooden bowl can be used பெறுநர் boil water using hot rocks.
+
+**Resources**
+- A small log (not decayed)
+- Hot coals
+
+**Instructions**
+1. வெட்டு or obtain a small log.
+2. Place hot coals into the log using makeshift tongs.
+3. Let the coals burn out.
+4. Scrape out the charred மரம் with a stick or rock.
+5. Repeat the process until you have a bowl.
+
+## Craft: Tongs
+<!-- K: tongs, craft -->
+<!-- S: You can make tongs இருந்து பச்சை wood. -->
+
+You can use tongs பெறுநர் move around hot coals or rocks without getting burned.
+
+**Resources**
+- பச்சை wood
+
+**Instructions**
+1. வெட்டு a length of பச்சை wood.
+2. Split the மரம் down the middle பெறுநர் create a கிடைவளைவு surface.
+3. Optionally, carve a small notch in the stick's center பெறுநர் allow it பெறுநர் bend more easily.
+4. Bend the மரம் in half பெறுநர் create tongs.

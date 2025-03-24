@@ -1,0 +1,119 @@
+The Photo Maps கருவி can be used பெறுநர் convert a photo into a map. It's essential பெறுநர் எப்போதும் carry a physical map அச் a backup and validate Trail Sense's accuracy. Photo Maps complements மற்றொன்று map apps and physical maps, serving அச் a convenient way பெறுநர் convert photos into maps rather than a மாற்று க்கு them.
+
+## Creating a map
+To create a map, you have three options: take a photo of an existing map, இறக்குமதி a file, or generate a blank map.
+
+1. Tap the '+' button located in the bottom-right corner and தேர்ந்தெடு your preferred method க்கு importing the map:
+    - **Camera**: Capture a picture of your map, ensuring the entire map is within the frame.
+    - **File**: Choose a கோப்பு இருந்து your device (JPG, PNG, or PDF). If your PDF contains geospatial data, it will be used க்கு automatic map calibration.
+    - **Blank**: Generate a blank map based on a specified location and map size. By default, it centers the map on your மின்னோட்ட்ம், ஓட்டம் location. The அளவு is the distance இருந்து the center பெறுநர் the corner. இல்லை further calibration is required when using this option.
+2. Enter a பெயர் க்கு the map and click 'OK'.
+3. Crop the photo பெறுநர் match the map's boundaries by dragging the crop box's corners பெறுநர் the map edges. You can click 'Preview' பெறுநர் visualize the cropped map. குறிப்பு that changes பெறுநர் the crop cannot be made after clicking 'Next'.
+4. Calibrate the map using two known locations:
+    - Input the real-world location in the provided field, such அச் a trail sign, trailhead, or புள்ளியம் of interest.
+    - Tap on the map பெறுநர் தேர்ந்தெடு where the location is.
+    - Utilize 'Previous'/'Next' பெறுநர் ஆளி, நிலைமாறி between calibration points.
+    - Once you have two calibration points, click 'Preview' பெறுநர் preview the calibrated map, displaying nearby paths and beacons.
+    - You can recenter the map on your screen by clicking the recenter button in the top-right corner.
+    - Use pinch-to-zoom or the zoom buttons in the bottom-right பெறுநர் more accurately தேர்ந்தெடு locations.
+    - Calibration automatically aligns the map with வடக்கு facing up, with the calculated சுழற்சி amount displayed under the map பெயர் at the top.
+    - At any point, you can சேமி the calibration by clicking 'Next' + 'Done'.
+5. சேமி the calibration by tapping 'Done'.
+
+## Calibration tips
+
+### Calibrating while hiking
+- புள்ளியம் 1: Choose the trail sign where you photographed the map or the trailhead.
+- புள்ளியம் 2: தேர்ந்தெடு the first trail fork you encounter. If இல்லை trail fork is present, use a புள்ளியம் of interest on the map, such அச் a lake, peak, or landmark.
+
+### Calibrating இருந்து the map grid
+If your map நற்பொருத்தங்கள் gridlines:
+
+1. கண்டுபிடி the UTM மண்டலம் number, which is a one or two-digit எண் followed by a letter (ex. "16T"). If it's not present on the map, estimate it by entering your approximate அகலாங்கு and நெட்டாங்கு in Trail Sense's Convert tool. க்கு example, you can enter 10 க்கு அகலாங்கு and 45 க்கு longitude.
+2. Locate the Easting and Northing values on the map's borders. They அரே usually marked and can have 3 பெறுநர் 6 or 7 digits. கூட்டு three zeros if there அரே only 3 digits (e.g., 123 becomes 123000). Easting will be on the மேலே or bottom, Northing will be on the இடது or right.
+3. Look at the வலைவாய் வரிகள் on the map பெறுநர் identify the வலைவாய் மண்டலம் where your location is. These வரிகள் represent the first digits of your location (e.g., 123000E and 234000N).
+4. க்கு increased precision, divide the வலைவாய் into 10 equal பிரிவுகள் vertically and horizontally. Determine which வரி your location is closest பெறுநர் within the grid. Use a ruler, like the one in Trail Sense, க்கு accuracy. க்கு example, if your location is two-tenths பெறுநர் the வலது and one-tenth மேலே இருந்து the bottom-right corner of the grid, your புதிய location will be 123200E and 234100N.
+5. In Trail Sense, enter the UTM location and tap the same புள்ளியம் on the photo map. க்கு example, enter "16T 123200E 234100N".
+6. Repeat க்கு the second calibration point. க்கு the best accuracy, use a புள்ளியம் that is far away இருந்து the first point.
+
+The intersections of gridlines அரே the easiest calibration points.
+
+### Calibrating இருந்து an online source
+If you have Internet access, you can look மேலே the coordinates of a map feature (e.g., mountain summit, trailhead). Then in Trail Sense, tap the same location on the map and enter the coordinates.
+
+### Finding a geospatial PDF
+A good மூலம் க்கு geospatial PDFs is [CalTopo](https://caltopo.com), though there அரே many மற்றொன்று மூலங்கள் available online.
+
+## Using a map
+Once you've உருவாக்கப்பட்டது a map, you can use it க்கு navigation. The map displays your location, elevation, paths, and beacons.
+
+You can பின்னிழுப்பு, பின்னிழுவிசை பெறுநர் pan, pinch பெறுநர் zoom, or tap the zoom buttons in the bottom-right. பெறுநர் recenter the map on your screen, click the recenter button in the top-right. The map's scale is shown in the bottom-right.
+
+Click the உலக இடம் காட்டும் அமைப்பு button in the bottom-right பெறுநர் center the map on your location. Clicking it again will lock both your location and orientation, while a final click unlocks it. The compass icon in the top-right எப்போதும் பிரிவகம் North.
+
+By default, the map will align with North, roughly facing மேலே so that the map is square with the screen. You can change this so the map is aligned with வடக்கு facing மேலே (rotated) by disabling அமைப்புகள் > Photo Maps > 'Keep map facing up'. குறிப்பு: There's currently a பிழை where panning and zooming அரே a துணுக்கு அணை when this setting is disabled.
+
+### Using beacons and navigating
+If you've உருவாக்கப்பட்டது beacons, they will appear on the map.
+
+When navigating பெறுநர் a beacon, the distance, direction, and estimated time of arrival (ETA) அரே displayed at the bottom. A வரி is drawn இருந்து your location பெறுநர் the beacon. பெறுநர் ரத்துசெய் navigation, click the 'ஃச்' button in the bottom-right.
+
+You can initiate வானோடல் இருந்து the map by tapping a சுழலொளி or long-pressing a map புள்ளியம் and selecting 'Navigate'.
+
+To create a சுழலொளி இருந்து the map, long-press a map புள்ளியம் and choose 'Beacon.' This திறப்புகள் the 'Create Beacon' screen with the location filled in.
+
+For further details on beacons, refer பெறுநர் the 'Beacons' guide.
+
+### Using paths
+If you've உருவாக்கப்பட்டது paths, they will be visible on the map.
+
+To create a பாதை இருந்து the map, follow the instructions in the 'Measuring distance on a map' பிரிவு below.
+
+For further details on paths, refer பெறுநர் the 'Paths' guide.
+
+## Measuring distance on a map
+You can measure distances on a map by opening the map, clicking the பட்டியல் button in the top-right, and selecting 'Measure' or 'Create path'. Tap the map பெறுநர் place markers, and the total distance will be displayed at the bottom. பெறுநர் செயல்தவிர் the last marker, click the செயல்தவிர் button in the கீழே left. ரத்துசெய் by clicking the 'ஃச்' button in the bottom-right. You can also convert the drawn பாதை into a saved பாதை by clicking the 'Create path' button at the bottom.
+
+For a quick measurement இருந்து your location பெறுநர் a point, long-press that புள்ளியம் on the map and click 'Distance'.
+
+## Recalibrating a map
+To recalibrate a map, திற the map, click the பட்டியல் button in the top-right, and choose 'Calibrate'. Follow the instructions above பெறுநர் recalibrate.
+
+## Changing map projection
+If your map பிரிவகம் அரே not aligning correctly after calibrating (try calibrating again with different பிரிவகம் first), consider changing the map projection. பெறுநர் do this, திற the map, click the பட்டியல் button in the top-right, and தேர்ந்தெடு 'Change projection'.
+
+## Rename a map
+To rename a map, click the பட்டியல் button on the map நிரை you wish பெறுநர் rename, then தேர்ந்தெடு 'Rename' and provide a புதிய name. Alternatively, திற the map, click the பட்டியல் button in the top-right, and choose 'Rename'.
+
+## நீக்கு a map
+To நீக்கு a map, click the பட்டியல் button on the map நிரை you want பெறுநர் remove, then தேர்ந்தெடு 'Delete'. Alternatively, திற the map, click the பட்டியல் button in the top-right, and choose 'Delete'.
+
+## ஏற்றுமதி a map
+To ஏற்றுமதி a map, click the பட்டியல் button on the map நிரை you want பெறுநர் export, then தேர்ந்தெடு 'Export'. Alternatively, திற the map, click the பட்டியல் button in the top-right, and choose 'Export'. This செயல் exports the map அச் a PDF, and if calibrated, it will convert it into a geospatial PDF.
+
+## அச்சிடுக a map
+To அச்சிடுக a map, click the பட்டியல் button on the map நிரை you want பெறுநர் print, then தேர்ந்தெடு 'Print'. Alternatively, திற the map, click the பட்டியல் button in the top-right, and choose 'Print'. This திறப்புகள் the மண்டலம் அச்சிடுக dialog, enabling you பெறுநர் அச்சிடுக the map.
+
+## Change the பகுத்தல் of a map
+To alter the பகுத்தல் of a map, click the பட்டியல் button on the map நிரை you want பெறுநர் adjust, then தேர்ந்தெடு 'Change resolution'. A dialog will appear, allowing you பெறுநர் ஆளி, நிலைமாறி between low (lowest quality and smallest கோப்பு size), சராசரி (moderate quality and கோப்பு size), and high (highest quality and largest கோப்பு size) resolutions. Keep in mind that changing the பகுத்தல் is a permanent செயல் and cannot be undone.
+
+By default, Trail புலன் will automatically reduce the map பகுத்தல் on import. பெறுநர் change this, முடக்கு அமைப்புகள் > Photo Maps > 'Reduce photo பகுத்தல்' or 'Reduce PDF resolution'.
+
+## Organizing maps
+You can organize maps into groups. பெறுநர் create a group, click the '+' button in the bottom-right of the map பட்டியல் and தேர்ந்தெடு 'Group'. Give the குழு a பெயர் and click 'OK'. பெறுநர் கூட்டு maps பெறுநர் the group, click on the குழு in the பட்டியல் and follow the map creation instructions. The map will be added பெறுநர் the chosen group.
+
+To change the குழு of an existing map, click the பட்டியல் button on the map நிரை you want பெறுநர் move, தேர்ந்தெடு 'Move to', and choose the target group.
+
+To rename a group, click the பட்டியல் button on the குழு நிரை you want பெறுநர் rename, then தேர்ந்தெடு 'Rename' and provide a புதிய name.
+
+You can நீக்கு a குழு (along with அனைத்தும் maps within it) by clicking the பட்டியல் button on the குழு நிரை you wish பெறுநர் remove, then selecting 'Delete'.
+
+## Searching க்கு maps
+To தேடல் through your உருவாக்கப்பட்டது maps, use the தேடல் மதுக்கூடம் at the மேலே of the map list. This தேடல் encompasses the மின்னோட்ட்ம், ஓட்டம் குழு and அனைத்தும் subgroups. Additionally, you can வரிசைப்படுத்து maps by distance, time, or பெயர் by clicking the பட்டியல் button in the top-right and selecting 'Sort'.
+
+The preview of the map is displayed on the இடது பக்கம் of the map row. You can முடக்கு this preview in அமைப்புகள் > Photo Maps > 'Show map previews'.
+
+## Quick action
+You can enable the திற Photo Map quick செயல் in the அமைப்புகள் க்கு the தாவல் where you want it பெறுநர் appear.
+
+To use the quick action, tap the quick செயல் button and the செயலில் map will be opened and பூட்டப்பட்டுள்ளது பெறுநர் your location. If இல்லை map is active, the map பட்டியல் will be displayed. Long press the quick செயல் பெறுநர் திற the Photo Maps tool.

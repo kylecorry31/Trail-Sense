@@ -1,0 +1,120 @@
+The Beacons கருவி can be used பெறுநர் சேமி locations and navigate பெறுநர் them later.
+
+## Creating a beacon
+1. Tap the '+' button in the bottom-right corner of the screen.
+2. Click 'Beacon'.
+3. Enter a பெயர் க்கு the beacon.
+4. Enter a location க்கு the beacon. You can tap the உலக இடம் காட்டும் அமைப்பு icon அடுத்தது பெறுநர் the location புலம் பெறுநர் use your மின்னோட்ட்ம், ஓட்டம் location.
+5. Fill out any of the விரும்பினால் புலங்கள் you want பெறுநர் record.
+6. Click the checkmark button in the top-right corner of the screen.
+
+### விரும்பினால் fields
+- **Elevation**: The உயர்வு கோடு of the beacon. You can click the உயர்வு கோடு icon அடுத்தது பெறுநர் the உயர்வு கோடு புலம் பெறுநர் use your மின்னோட்ட்ம், ஓட்டம் elevation.
+- **Create at distance**: If you want பெறுநர் place a சுழலொளி at a known distance and direction இருந்து a location, you can toggle this on. You will then need பெறுநர் enter the distance away and கணம் the direction பெறுநர் the புதிய location before you can சேமி the beacon. The புதிய சுழலொளி will be placed at the distance and direction away இருந்து the location entered above.
+- **Group**: The குழு பெறுநர் கூட்டு the சுழலொளி to. Tap a குழு and click 'OK' பெறுநர் கூட்டு the சுழலொளி பெறுநர் that group. பெறுநர் create a புதிய group, see the 'Organizing beacons' பிரிவு below.
+- **Color**: The color பெறுநர் use க்கு the beacon.
+- **Icon**: The icon பெறுநர் use க்கு the beacon.
+- **Notes**: Any notes you want பெறுநர் record பற்றி the beacon.
+
+### Creating இருந்து a QR code
+Beacons can be shared அச் a QR குறியீடு by clicking the பட்டியல் button on the சுழலொளி நிரை you want பெறுநர் share, then selecting 'Share...'. You can then பங்கு the QR குறியீடு with Trail புலன் பெறுநர் create a சுழலொளி இருந்து it.
+
+1. Tap the '+' button in the bottom-right corner of the screen.
+2. Click 'QR code'.
+3. Scan the QR குறியீடு you want பெறுநர் create a சுழலொளி from.
+4. Follow the படிகள் above பெறுநர் fill out the சுழலொளி information. Any செய்தி இருந்து the QR குறியீடு will be prefilled.
+
+### Creating இருந்து a GPX file
+If you have locations saved in a GPX file, you can இறக்குமதி them into Trail புலன் அச் beacons.
+
+1. Tap the '+' button in the bottom-right corner of the screen.
+2. Click 'GPX file'.
+3. தேர்ந்தெடு the GPX கோப்பு you want பெறுநர் load beacons from.
+4. உறுதிப்படுத்தவும் that you want பெறுநர் இறக்குமதி the beacons by clicking 'OK'. You can uncheck any beacons you don't want பெறுநர் import.
+5. The beacons will be உருவாக்கப்பட்டது in the மின்னோட்ட்ம், ஓட்டம் group.
+
+### Creating இருந்து OSM data
+There அரே several online கருவிகள் that can be used பெறுநர் query OpenStreetMap தகவல்கள் and ஏற்றுமதி it அச் a GPX file.
+
+To use Overpass Turbo:
+
+1. திற [Overpass Turbo](https://overpass-turbo.eu/).
+2. Adjust the map பெறுநர் the area you want பெறுநர் query.
+3. Enter the query. This will be filled in if you use one of the links below.
+4. Click 'Run'.
+5. Click 'Export' and தேர்ந்தெடு 'GPX'.
+6. சேமி the GPX கோப்பு பெறுநர் your device.
+7. Follow the படிகள் above பெறுநர் இறக்குமதி the beacons.
+
+- [**Peaks**](https://overpass-turbo.eu/s/1SVW): Query க்கு mountain peaks. Change the 1000 in the query பெறுநர் the desired உயர்வு கோடு in meters க்கு சிறுமம் peak height.
+
+## Viewing a beacon
+Beacons will be shown in the சுழலொளி பட்டியல் and will காட்சி the distance பெறுநர் the சுழலொளி இருந்து your மின்னோட்ட்ம், ஓட்டம் location.
+
+To திற a beacon, click the சுழலொளி in the list. This will திற the சுழலொளி details page. The following செய்தி will be shown:
+- **Name**: The பெயர் of the beacon.
+- **Location**: The location of the beacon.
+- **Elevation**: The உயர்வு கோடு of the beacon.
+- **Distance**: The distance பெறுநர் the சுழலொளி இருந்து your மின்னோட்ட்ம், ஓட்டம் location.
+- **Historic high/low temperature**: The historical average high and low temperature க்கு the beacon's location. See the 'Climate' guide க்கு more information.
+- **Sunrise/sunset**: The sunrise and sunset பெருக்கல் க்கு the beacon's location.
+- **Tide**: The estimated tide near the beacon's location.
+- **Notes**: Any notes you recorded பற்றி the beacon.
+
+## Navigate பெறுநர் a beacon
+To navigate பெறுநர் a beacon, திற the சுழலொளி you want பெறுநர் navigate பெறுநர் and click the 'Navigate' button at the bottom. This will திற the வானோடல் கருவி with the சுழலொளி அச் the destination. Alternatively, you can click the பட்டியல் button on the சுழலொளி நிரை you want பெறுநர் navigate to, then தேர்ந்தெடு 'Navigate'.
+
+See the 'Navigation' guide க்கு more செய்தி on how பெறுநர் use the வானோடல் tool.
+
+## சுழலொளி visibility
+You can choose which beacons அரே visible on the வானோடல் and Photo Maps கருவிகள் by clicking the eye icon on the வலது பக்கம் of the சுழலொளி row. This will toggle the விழிமை of the beacon.
+
+## பங்கு a beacon
+You can பங்கு a சுழலொளி by clicking the பட்டியல் button on the சுழலொளி நிரை you want பெறுநர் share, then selecting 'Share...'. Alternatively, திற the சுழலொளி and click the பட்டியல் button in the top-right, then choose 'Share...'. You can choose இருந்து the following options:
+
+- **Copy**: நகல்கள் the சுழலொளி details பெறுநர் your clipboard.
+- **QR code**: பங்குகள் a QR குறியீடு க்கு the beacon.
+- **Maps**: பங்குகள் the சுழலொளி பெறுநர் a maps application.
+- **Send**: பங்குகள் the சுழலொளி details பெறுநர் another பயன்பாடு அச் text.
+
+## தொகு a beacon
+To தொகு a beacon, திற the சுழலொளி and click the தொகு button at the bottom. Alternatively, click the பட்டியல் button on the சுழலொளி நிரை you want பெறுநர் edit, then தேர்ந்தெடு 'Edit'.
+
+See the 'Creating a beacon' பிரிவு above க்கு செய்தி on the புலங்கள் you can edit.
+
+## நீக்கு a beacon
+To நீக்கு a beacon, click the பட்டியல் button on the சுழலொளி நிரை you want பெறுநர் remove, then தேர்ந்தெடு 'Delete'. Alternatively, திற the beacon, click the பட்டியல் button in the top-right, and choose 'Delete'.
+
+## Exporting beacons
+To ஏற்றுமதி beacons, திற the குழு you want பெறுநர் ஏற்றுமதி and click the பட்டியல் button in the top-right corner of the screen. தேர்ந்தெடு 'Export', unselect any beacons you don't want பெறுநர் export, then click 'OK'. The beacons will be exported பெறுநர் a GPX file.
+
+## Organizing beacons
+You can organize beacons into groups. பெறுநர் create a group, click the '+' button in the bottom-right of the சுழலொளி பட்டியல் and தேர்ந்தெடு 'Group'. Give the குழு a பெயர் and click 'OK'. Click the குழு in the பட்டியல் பெறுநர் பார்வை the beacons in that group.
+
+If you create a சுழலொளி or குழு while the குழு is open, the புதிய சுழலொளி or குழு will be added பெறுநர் the currently திற group.
+
+To change the குழு of an existing beacon, click the பட்டியல் button on the சுழலொளி நிரை you want பெறுநர் move, தேர்ந்தெடு 'Move to', and choose the target group.
+
+To rename a group, click the பட்டியல் button on the குழு நிரை you want பெறுநர் rename, then தேர்ந்தெடு 'Rename' and provide a புதிய name.
+
+You can நீக்கு a குழு (along with அனைத்தும் beacons within it) by clicking the பட்டியல் button on the குழு நிரை you wish பெறுநர் remove, then selecting 'Delete'.
+
+## Searching க்கு beacons
+To தேடல் through your உருவாக்கப்பட்டது beacons, use the தேடல் மதுக்கூடம் at the மேலே of the சுழலொளி list. This தேடல் encompasses the மின்னோட்ட்ம், ஓட்டம் குழு and அனைத்தும் subgroups. Additionally, you can வரிசைப்படுத்து beacons by distance, time, or பெயர் by clicking the பட்டியல் button in the top-right and selecting 'Sort'.
+
+## Last கலன் குறிகை beacon
+If you have Backtrack இயக்கப்பட்டது (see the 'Paths' guide) and it is configured பெறுநர் record கலன் signal, you will see a சுழலொளி உருவாக்கப்பட்டது க்கு the last known location where you had a கலன் signal.
+
+You can முடக்கு this சுழலொளி in அமைப்புகள் > Paths > 'Last குறிகை beacon'.
+
+You can also choose பெறுநர் navigate பெறுநர் the nearest கலன் குறிகை by clicking the பட்டியல் button at the top-right of the சுழலொளி பட்டியல் and selecting 'Navigate பெறுநர் nearest கலன் signal'. This will தொடங்கு வானோடல் பெறுநர் the nearest recorded location that has a கலன் signal.
+
+## Quick action
+You can enable the Create சுழலொளி quick செயல் in the அமைப்புகள் க்கு the desired tab.
+
+To use the quick action, tap the சுழலொளி quick செயல் button பெறுநர் create a சுழலொளி at your மின்னோட்ட்ம், ஓட்டம் location. The title of the சுழலொளி will be கணம் பெறுநர் the மின்னோட்ட்ம், ஓட்டம் திகதி and time. Once உருவாக்கப்பட்டது you will see a notification at the கீழே of the screen with a button பெறுநர் பார்வை the beacon.
+
+## Widgets
+The following நிரல்பலகை can be placed on your device's homescreen or viewed in-app:
+
+- **Nearby beacons**: Displays the beacons within 1 km (0.62 miles) of your location.

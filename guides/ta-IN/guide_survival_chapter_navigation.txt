@@ -1,0 +1,254 @@
+<!-- K: navigate -->
+<!-- S: Plan a route and determine your location. -->
+
+This பாடங்கள் மறையம் வானோடல் techniques and tools.
+
+## Be prepared
+<!-- K: prepare, gear, knowledge, skill, map, compass, flashlight, உலக இடம் காட்டும் அமைப்பு -->
+<!-- S: Bring a map, compass, and flashlight. Learn how பெறுநர் navigate with a map and compass and plan routes. -->
+
+### Gear
+**Necessities**:
+- Map
+- Compass
+- Flashlight/headlamp
+
+**Optional**:
+- உலக இடம் காட்டும் அமைப்பு device
+
+### Knowledge and skills
+Start by learning how பெறுநர் do the following:
+- Navigate with a map and compass.
+- Plan a route.
+- கணம் declination on a compass.
+- Determine your location on a map.
+- Measure distances on a map.
+- Read a topographic map.
+
+Once you have mastered these skills, you should learn how பெறுநர் do the following:
+- Use a உலக இடம் காட்டும் அமைப்பு device க்கு navigation.
+- Utilize மேம்பட்ட வானோடல் techniques, like using the sun and stars.
+- Take a detour.
+
+## Route planning
+<!-- K: route, plan, trip, detour -->
+<!-- S: Plan your route பெறுநர் avoid getting lost and ensure you reach your destination safely. -->
+
+Plan your route பெறுநர் avoid getting lost and ensure you reach your destination safely. Consider the following factors when planning your route:
+- Choose a route that matches your skill நிலை and fitness. Use the contour வரிகள் on a map பெறுநர் gauge the பரப்புக்கூறு difficulty.
+- Identify landmarks along the way பெறுநர் உதவி you stay on track.
+- Plan க்கு rest stops and water sources.
+- Identify alternative routes in case of obstacles or emergencies.
+- பங்கு your route with someone who can alert authorities if you don't return on time.
+- If you need பெறுநர் detour, mark your புதிய route on the map and adjust your bearings accordingly.
+
+## Movement
+<!-- K: move, terrain, mountain, cold, desert, jungle, night, river, cross -->
+<!-- S: Move carefully and adapt பெறுநர் the terrain. Avoid following animal trails. -->
+
+- If you அரே lost, staying put and waiting க்கு rescue is typically best.
+- Keep your body weight balanced வீச்சலகு your feet.
+- Use zigzag paths on steep slopes and maintain a bend in your knees when இறங்கு பெறுநர் protect your joints.
+- Take breaks பெறுநர் rest and rehydrate.
+- Be cautious of animal trails, which சி-வைகாசி ஈயம் பெறுநர் resources like water but can also get you lost.
+
+### பரப்புக்கூறு considerations
+
+**Mountainous/cold**:
+
+- Avoid areas prone பெறுநர் avalanches and be cautious when crossing snow-covered slopes.
+- Acclimate பெறுநர் high altitudes பெறுநர் avoid symptoms like headaches, nausea, and fatigue.
+- Use snowshoes or skis க்கு easier travel in snowy conditions. தேர்வு ice and பனி conditions with a முனைமம் or stick before stepping.
+- Avoid walking on frozen bodies of water unless you know the ice thickness.
+
+**Desert**:
+
+- Conserve water by traveling during cooler hours and wearing appropriate clothing பெறுநர் reduce sweating.
+- Avoid salt marshes.
+- Prepare க்கு the drastic temperature shifts between நாள் and night.
+- Protect மின்னணு devices இருந்து extreme heat and direct sunlight.
+- Stick பெறுநர் the shadows பெறுநர் avoid direct sun exposure and reduce the இடர் of heat exhaustion.
+- Distance can be deceiving in the desert (paths often look shorter than they are); plan your route carefully and carry enough water and supplies.
+
+**Jungle**:
+
+- It will be harder பெறுநர் கண்டுபிடி you under a dense canopy.
+- Move with the vegetation rather than fighting against it பெறுநர் conserve energy.
+- குவி on distant landmarks rather than near objects பெறுநர் maintain direction.
+- Wear protective clothing பெறுநர் avoid insect bites and stings.
+- Treat any wounds and scratches promptly பெறுநர் avoid infection.
+
+**Night**:
+
+- Use a flashlight or headlamp பெறுநர் illuminate your path.
+- Move slowly and carefully பெறுநர் avoid tripping or getting lost.
+- Stay on established paths or trails பெறுநர் reduce the இடர் of getting lost.
+- Listen க்கு sounds that can உதவி you identify your surroundings, such அச் running water or roadways.
+
+**Rivers and streams**:
+
+- If you need பெறுநர் cross:
+  - Look க்கு the narrowest பகுதி or a place where it breaks into several channels.
+  - Prefer crossing on bridges, fallen trees, or rocks. Watch out க்கு slippery or loose surfaces.
+  - Do not cross areas with strong currents or near ledges.
+  - Unbuckle your pack and carry it in front of you பெறுநர் avoid being pulled under by its weight.
+- In dire situations, following a river downstream சி-வைகாசி ஈயம் பெறுநர் civilization.
+
+## Trail markers
+<!-- K: trail, blaze, marker, cairn, sign, pile, block, stack, paint, flag -->
+<!-- S: Trail markers உதவி you பெறுநர் stay on the trail. -->
+
+Trail markers indicate where the trail is and distinguish one trail இருந்து another. Many ways அரே used பெறுநர் mark trails, but there is இல்லை universal standard.
+
+### Blazes
+Blazes அரே painted குறியிடுகள் on trees or rocks. Typically, they அரே rectangles, squares, circles, triangles, or crosses. In பெரும்பாலானவை places, each trail is painted with a different color and/or வடிவம் of blaze.
+
+Some blazes சி-வைகாசி also indicate the trail's direction, but this சி-வைகாசி not இடு everywhere.
+
+![](file:///android_asset/survival_guide/trail_blazes.webp)
+
+1. **Two blazes, மேலே blaze பெறுநர் the left**: தொடரவும் பெறுநர் the left
+2. **Two blazes, மேலே blaze பெறுநர் the right**: தொடரவும் பெறுநர் the right
+3. **One blaze**: தொடரவும் straight
+
+If a trail is new, it சி-வைகாசி have small நெகிழி strips or flags tied பெறுநர் a tree instead of a blaze.
+
+While not எப்போதும் true, the color and/or வடிவம் of the blazes should match what appears on a map, except that வெள்ளை blazes அரே typically கருப்பு on a map.
+
+### Cairns
+Cairns அரே piles of rocks, typically used in places without large trees பெறுநர் blaze. Cairns அரே usually placed on the பக்கம் of the trail, and you should be able பெறுநர் see multiple cairns at a time.
+
+In some places, cairns சி-வைகாசி be small stacks of stones (typically 3) and could be hard பெறுநர் locate.
+
+### Signs
+Trail signs provide செய்தி பற்றி which trail you அரே on, distance/direction பெறுநர் பிரிவகம் of interest, or offer பொது information/alerts. எப்போதும் read and abide by trail signs.
+
+### Blockers
+In some places, downed trees or debris அரே intentionally placed in front of a பாதை பெறுநர் indicate it should not be used.
+
+## GPS
+<!-- K: gps, satellite, device, location, waypoint, beacon, battery, maps -->
+<!-- S: A உலக இடம் காட்டும் அமைப்பு device can உதவி you determine your location and navigate பெறுநர் a specific point, but எப்போதும் have a backup plan in case the device fails. -->
+
+A உலக இடம் காட்டும் அமைப்பு device can உதவி you determine your location and navigate பெறுநர் a specific புள்ளியம் but எப்போதும் have a backup plan in case the device fails.
+
+### Location
+
+A உலக இடம் காட்டும் அமைப்பு uses satellites பெறுநர் determine your மின்னோட்ட்ம், ஓட்டம் location. Ensure the device has a clear பார்வை of the sky so it receives signals. பெரும்பாலானவை உலக இடம் காட்டும் அமைப்பு units காட்சி your coordinates in அகலாங்கு and longitude, which can be plotted on a map.
+
+### Waypoints
+
+A பாதைப்புள்ளி is a specific location you want பெறுநர் navigate to. You can enter waypoints into your உலக இடம் காட்டும் அமைப்பு பெறுநர் guide you பெறுநர் your destination. பெரும்பாலானவை devices allow you பெறுநர் enter waypoints before your trip, but you can also கூட்டு them அச் you go. Place waypoints frequently so you can backtrack if necessary.
+
+If you use Trail Sense, you can use the Navigation, Beacons, Paths, and Photo Maps கருவிகள் பெறுநர் assist with navigation.
+
+### Battery
+
+Your உலக இடம் காட்டும் அமைப்பு device சி-வைகாசி ஓடு out of battery, so carry extra batteries or a portable மின்னூட்டி பெறுநர் keep it powered.
+
+### Digital maps
+
+If your உலக இடம் காட்டும் அமைப்பு supports digital maps, பதிவிறக்கம் maps of your area in முன்பணம் பெறுநர் navigate இரட்டை if you lose the signal.
+
+## Compass
+<!-- K: compass, bearing, declination, direction, north, south, east, west, orient, craft -->
+<!-- S: A compass helps you determine direction. Be sure பெறுநர் கணம் the same declination அச் your map. -->
+
+A compass helps you determine direction and is essential க்கு navigation, especially with a map.
+
+### Bearings
+
+A bearing is the direction you must travel பெறுநர் reach a specific point. You can determine a bearing by aligning the compass needle with the desired direction on the compass housing. Once you have the bearing, follow it பெறுநர் your destination. Pick a prominent feature in the distance பெறுநர் navigate toward, avoiding the need க்கு மாறா, மாறிலி compass checks.
+
+### பின் bearings
+
+A பின் bearing is the opposite direction of your மின்னோட்ட்ம், ஓட்டம் bearing. பெறுநர் calculate a பின் bearing, if your bearing is less than 180 degrees, கூட்டு 180. If it's more than 180, subtract 180.
+
+### Declination
+
+Declination is the வேறுபாடு between true வடக்கு and காந்தம் north. Adjust your compass க்கு declination when navigating with a map. Some compasses have an adjustable declination ring; otherwise, you must calculate it manually. பெரும்பாலானவை maps பட்டியல் declination in the legend and அரே oriented பெறுநர் true north.
+
+## Map
+<!-- K: map, location, scale, topographic, orientation, triangulate -->
+<!-- S: You can use a map பெறுநர் navigate once you learn how பெறுநர் read it. Be sure it is மேலே பெறுநர் date. -->
+
+A map is a key கருவி க்கு navigation, especially when paired with a compass.
+
+### Orientation
+
+You can orient a map பெறுநர் புள்ளியம் வடக்கு using a compass:
+1. Place the compass on the map with the direction of travel arrow pointing toward the மேலே of the map.
+2. Rotate the map and compass together until the compass பிரிவகம் north.
+
+![](file:///android_asset/survival_guide/93.webp)
+
+### Determining location
+
+To determine your location on a map, identify prominent நற்பொருத்தங்கள் around you and match them பெறுநர் the map. Use a compass பெறுநர் determine your direction and align the map accordingly.
+
+To triangulate your location:
+1. Orient the map பெறுநர் புள்ளியம் வடக்கு using your compass.
+2. Identify and mark two prominent நற்பொருத்தங்கள் around you on the map.
+3. Measure the bearing பெறுநர் each feature using your compass.
+4. Draw வரிகள் இருந்து each feature in the direction of the bearing on the map.
+5. The புள்ளியம் where the வரிகள் intersect is your location.
+
+### Scale
+
+Maps அரே drawn பெறுநர் scale, allowing you பெறுநர் determine distances between points. A மதுக்கூடம் on the map indicates the scale. You can measure distances using a ruler, string, or finger.
+
+![](file:///android_asset/survival_guide/104.webp)
+
+### Topographic maps
+
+Topographic maps காட்டு உயர்வு கோடு changes and பரப்புக்கூறு features, making them helpful in navigating mountainous or hilly areas. Contour வரிகள் indicate elevation; the closer the வரிகள் are, the steeper the terrain. உயர்வு கோடு markers on contour வரிகள் உதவி identify peaks and valleys.
+
+![](file:///android_asset/survival_guide/95.webp)
+
+Typical map colors include:
+- **Black**: Human-made நற்பொருத்தங்கள் like buildings and bridges.
+- **Red**: Roads.
+- **Green**: Vegetation.
+- **White**: Lack of vegetation.
+- **Brown**: Contour lines.
+- **Blue**: Water.
+
+## மேம்பட்ட வானோடல் techniques
+<!-- K: sun, star, shadow, watch, north, south, east, west, polaris, big dipper, cassiopeia, தெற்கு cross, constellation, advanced, technique -->
+<!-- S: You can use the sun or stars பெறுநர் determine direction. If you need this, it's best பெறுநர் stay where you அரே and wait க்கு help. -->
+
+### Sun
+
+- **Shadow tip method**: Place a stick vertically in the ground and mark the shadow tip. After 10-15 minutes, mark the புதிய position of the shadow tip and draw a வரி between the two பிரிவகம் க்கு an east-west line. வடக்கு will be செங்குத்து, செங்குத்தான பெறுநர் this வரி at midday.
+
+![](file:///android_asset/survival_guide/88.webp)
+
+
+- **Watch method**: புள்ளியம் the hour hand of an analog watch at the sun; தெற்கு is roughly halfway between the hour hand and 12 o'clock in the வடக்கு Hemisphere. In the தெற்கு Hemisphere, புள்ளியம் the 12 o'clock position at the sun. If on daylight saving time, use 1 o'clock instead of 12.
+
+![](file:///android_asset/survival_guide/90.webp)
+
+### Stars
+
+- **Northern Hemisphere**: Identify Polaris (the வடக்கு Star) using the Big Dipper and Cassiopeia அச் குறிப்பு points. Polaris is located at the end of the Little Dipper's handle.
+
+![](file:///android_asset/survival_guide/91.webp)
+
+
+- **Southern Hemisphere**: Use the தெற்கு Cross பெறுநர் determine south. Extend a வரி இருந்து the மேலே and கீழே stars of the Cross's long axis, continuing பற்றி 4.5 பெருக்கல் the distance between these stars toward the horizon பெறுநர் approximate the தெற்கு Pole.
+
+![](file:///android_asset/survival_guide/92.webp)
+
+## Craft: Compass
+<!-- K: compass, needle, magnet, north, south, east, west, direction, craft -->
+<!-- S: You can make a compass using a needle, knife, and a leaf. -->
+
+**Resources**
+- Needle
+- Knife
+- Leaf or bottle cap
+- Water
+
+**Instructions**
+1. Magnetize the needle by stroking it with the knife in one direction (to avoid dulling the blade, use the பின் of the knife). Stroke at least 50 times.
+2. Place the needle on the leaf/cap and float it in water. The needle will slowly align பெறுநர் the north-south axis. Ensure இல்லை currents or wind could affect the needle.
