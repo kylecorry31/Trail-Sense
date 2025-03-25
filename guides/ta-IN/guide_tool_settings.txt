@@ -1,0 +1,208 @@
+## Units
+The units can be சருசெய்த in அமைப்புகள் > Units. By default, the units அரே கணம் based on your device's மொழி settings.
+
+- **Distance**: The அலகு பெறுநர் காட்சி distance measurements.
+- **Pressure**: The அலகு பெறுநர் காட்சி barometric அழுத்தம் measurements.
+- **Temperature**: The அலகு பெறுநர் காட்சி temperature measurements.
+- **Weight**: The அலகு பெறுநர் காட்சி weight measurements.
+- **Coordinate format**: The வடிவம் பெறுநர் காட்சி geographic coordinates.
+- **Location பங்கு map**: The இணைப்பு பெறுநர் use when sharing a location.
+- **Use 24-hour format**: Whether பெறுநர் use a 24-hour clock.
+- **Add leading சுழிமம் பெறுநர் time**: Whether பெறுநர் கூட்டு a leading சுழிமம் பெறுநர் the time (for example, 01:00 instead of 1:00).
+
+## Sensors > Compass
+Compass அமைப்புகள் can be found in Trail புலன் அமைப்புகள் > Sensors > Compass. Some devices சி-வைகாசி not have a compass sensor, but you will still be able பெறுநர் கணம் declination.
+
+### Azimuth
+The மின்னோட்ட்ம், ஓட்டம் compass direction (azimuth) is displayed at the மேலே of the compass settings. அச் you change settings, it will புதுப்பிப்பு பெறுநர் காட்டு the புதிய direction.
+
+### Calibrate
+The reported accuracy of the compass is shown. If it is low, you can click this சூதம் பெறுநர் பார்வை instructions on how பெறுநர் calibrate.
+
+### Source
+- **Magnetometer + Gyro**: This is the இயல்புநிலை மூலம் and should வேலை on பெரும்பாலானவை devices. It uses the காந்தமானி and gyroscope sensors பெறுநர் determine the direction. When the gyroscope is added in, the படித்தல் is typically less noisy. This மூலம் is provided by your phone's manufacturer.
+- **Magnetometer**: This மூலம் only uses the காந்தமானி உணரி பெறுநர் determine the direction. This மூலம் is provided by your phone's manufacturer.
+- **Magnetometer + Gyro (Custom)**: This மூலம் is similar பெறுநர் the காந்தமானி + Gyro source, but the calculations அரே முடிந்தது by Trail Sense. If the காந்தமானி + Gyro மூலம் is not working correctly, try this source.
+- **Legacy (Trail Sense)**: This மூலம் is similar பெறுநர் the காந்தமானி source, but the calculations அரே முடிந்தது by Trail Sense. If the காந்தமானி மூலம் is not working correctly, try this source.
+- **Legacy (Android)**: This மூலம் is provided by ஆண்ட்ராய்டு and is not recommended பெறுநர் use. It is only included க்கு compatibility with older devices, but could potentially வேலை well on some devices.
+
+### Smoothing
+To reduce இரைச்சல் in compass readings, you can increase the smoothing setting. If using a மூலம் that has a gyroscope, a மதிப்பு of 1 is recommended. Otherwise, experiment with increasing this மதிப்பு until the compass appears பெறுநர் be working correctly when you rotate your phone. However, if you increase the smoothing too much, Trail புலன் சி-வைகாசி ignore real compass changes.
+
+### True north
+To காட்சி true வடக்கு instead of காந்தம் north, enable the "True north" setting. This will adjust the compass படித்தல் பெறுநர் account க்கு காந்தம் declination, and it will match பெரும்பாலானவை maps.
+
+### காந்தம் declination
+Magnetic declination is the வேறுபாடு between காந்தம் வடக்கு and true north. You should ensure this is சரியான regardless of whether you அரே using true வடக்கு or காந்தம் north.
+
+### தானி adjust declination
+Enabling the "Auto adjust declination" setting will automatically adjust the declination based on your location.
+
+### Declination override
+If you would prefer பெறுநர் manually கணம் the declination, you can முடக்கு the "Auto adjust declination" setting and use the "Declination override" setting பெறுநர் கணம் the declination. You can கண்டுபிடி the declination க்கு your location on பெரும்பாலானவை maps or online. You can also click the "Set override இருந்து GPS" சூதம் பெறுநர் கணம் the declination based on your மின்னோட்ட்ம், ஓட்டம் location (only sets it once).
+
+## Sensors > GPS
+GPS அமைப்புகள் can be found in Trail புலன் அமைப்புகள் > Sensors > GPS. If your phone supports it, multiple GNSS systems will be used (such அச் GPS, GLONASS, Galileo, and BeiDou).
+
+### Location Source
+You can choose பெறுநர் mock your location by disabling the "Auto adjust location" setting. This will enable the "Location override" setting where you can manually கணம் your location.
+
+When "Auto adjust location" is enabled, the location will be determined by your device's GPS.
+
+### Require செயற்கைக் கோள் fix
+To get a more accurate location, Trail புலன் requires at least 4 satellites பெறுநர் have a fix. If you அரே having trouble getting a location, you can முடக்கு this setting பெறுநர் allow க்கு a location with fewer satellites (or if your phone does not support செயற்கைக் கோள் counts).
+
+### Cache
+Trail புலன் automatically caches your last location பெறுநர் quickly load details in certain tools. You can clear this cache temporarily using the "Clear cache" சூதம் in the உலக இடம் காட்டும் அமைப்பு settings.
+
+## Sensors > Altimeter
+The உயரமானி is used பெறுநர் measure altitude. பெறுநர் adjust உயரமானி settings, go பெறுநர் Trail புலன் அமைப்புகள் > Sensors > Altimeter.
+
+### Elevation
+The மின்னோட்ட்ம், ஓட்டம் உயர்வு கோடு is displayed at the மேலே of the உயரமானி settings. அச் you change settings, it will புதுப்பிப்பு பெறுநர் காட்டு the புதிய elevation.
+
+### Source
+- **GPS + Barometer**: This is the இயல்புநிலை மூலம் and should வேலை on பெரும்பாலானவை devices with a barometer. It combines the உலக இடம் காட்டும் அமைப்பு and barometer பெறுநர் determine the altitude.
+- **GPS**: This மூலம் only uses the உலக இடம் காட்டும் அமைப்பு பெறுநர் determine the altitude. It is less accurate than the உலக இடம் காட்டும் அமைப்பு + Barometer source.
+- **Barometer**: This மூலம் only uses the barometer பெறுநர் determine the altitude. It is more accurate than the உலக இடம் காட்டும் அமைப்பு source, but சி-வைகாசி drift வீச்சலகு time and you will need பெறுநர் calibrate it before use.
+- **Manual**: This மூலம் allows you பெறுநர் manually கணம் the altitude. This is useful if you know the குத்துயரம் of your location and it will not change.
+
+### உலக இடம் காட்டும் அமைப்பு + Barometer settings
+- **Force calibration interval**: You can choose பெறுநர் force the உயரமானி பெறுநர் recalibrate using the உலக இடம் காட்டும் அமைப்பு every so often. This is useful பெறுநர் compensate க்கு drift in the barometer, which சி-வைகாசி be due பெறுநர் changes in weather or location.
+- **Continuous calibration**: You can choose பெறுநர் continuously calibrate the உயரமானி using the GPS. This is useful if you அரே moving around a நிறைய and want the பெரும்பாலானவை accurate குத்துயரம் reading. When this is enabled, it prefers the barometer reading, but will slightly adjust it based on the உலக இடம் காட்டும் அமைப்பு reading.
+- **Reset calibration**: You can choose பெறுநர் மீட்டமை the calibration of the altimeter. This is useful if you அரே in a புதிய location and want பெறுநர் recalibrate the barometer.
+
+### உலக இடம் காட்டும் அமைப்பு settings
+- **Samples**: The எண் of உலக இடம் காட்டும் அமைப்பு samples பெறுநர் use when determining the altitude. A higher எண் will give a more accurate reading, but will take longer பெறுநர் calculate.
+- **NMEA உயர்வு கோடு correction**: The உயர்வு கோடு provided by the உலக இடம் காட்டும் அமைப்பு needs பெறுநர் be corrected பெறுநர் match the actual elevation. If this setting is enabled, it will use the correction factor provided by the GPS. If it is disabled, it will use the correction factor provided by Trail Sense, which சி-வைகாசி be more accurate.
+
+### Barometer / manual settings
+- **Elevation override**: If you அரே using the barometer or manual source, you can கணம் the உயர்வு கோடு manually. This is useful if you know the உயர்வு கோடு of your location. If using the barometer source, this setting is used பெறுநர் calibrate the barometer and will change அச் you move.
+- **Set override இருந்து GPS**: You can choose பெறுநர் கணம் the உயர்வு கோடு override using the உலக இடம் காட்டும் அமைப்பு if you don't know your மின்னோட்ட்ம், ஓட்டம் உயர்வு கோடு (only sets it once).
+- **Set override இருந்து barometer**: If you know the மின்னோட்ட்ம், ஓட்டம் sea நிலை அழுத்தம் க்கு your location, you can கணம் the உயர்வு கோடு override using the barometer (only sets it once). Only available on devices with a barometer.
+
+## Sensors > Barometer
+The barometer is used பெறுநர் measure காற்று pressure. It can be used பெறுநர் predict the weather or determine your altitude. பெறுநர் adjust barometer settings, go பெறுநர் Trail புலன் அமைப்புகள் > Sensors > Barometer.
+
+If you have the Weather Monitor (see the Weather tool) enabled, you will see a chart of the barometric அழுத்தம் வரலாறு அச் recorded by your device. The colored வரி represents the calibrated அழுத்தம் while the சாம்பல் வரி represents the raw pressure. When you adjust the settings, the chart will புதுப்பிப்பு பெறுநர் காட்டு the புதிய calibrated pressure. The goal is பெறுநர் have the colored வரி smoothly follow the சாம்பல் line.
+
+### Sea நிலை pressure
+Barometric அழுத்தம் changes with altitude, which makes it difficult பெறுநர் compare அழுத்தம் readings இருந்து different locations. பெறுநர் make அழுத்தம் readings more consistent, enable the "Sea நிலை pressure" setting. This will adjust the அழுத்தம் படித்தல் பெறுநர் what it would be at sea level. Using this setting will increase the accuracy of weather predictions.
+
+### Smoothing
+To reduce இரைச்சல் in அழுத்தம் readings, increase the smoothing setting. A மதிப்பு of around 15% is recommended. However, if you increase the smoothing too much, Trail புலன் சி-வைகாசி ignore real அழுத்தம் changes.
+
+### Factor in temperature
+To get a more accurate அழுத்தம் reading, you can factor in the temperature. This will make the படித்தல் more prone பெறுநர் இரைச்சல் இருந்து your phone's thermometer, but it will also give you a more accurate படித்தல் of the actual காற்று pressure.
+
+### Barometer offset
+To calibrate the barometer, you can adjust the barometer offset. After tapping on the 'Barometer offset' setting, enter the மின்னோட்ட்ம், ஓட்டம் அழுத்தம் அச் reported by a reliable மூலம் (must match your "sea நிலை pressure" setting - பெரும்பாலானவை weather websites report sea நிலை pressure). This will adjust the மின்னோட்ட்ம், ஓட்டம் அழுத்தம் பெறுநர் match the reported pressure. Note, if you அரே using sea நிலை அழுத்தம் the calibration accuracy will vary with the உலக இடம் காட்டும் அமைப்பு accuracy.
+
+You can click 'Reset calibration' பெறுநர் மீட்டமை the calibration of the barometer. This will அகற்று any offset that was previously set.
+
+## Sensors > Thermometer
+Thermometer அமைப்புகள் can be found in Trail புலன் அமைப்புகள் > Sensors > Thermometer.
+
+### Source
+On பெரும்பாலானவை phones, you should use the historic temperature மூலம் அச் it will be more accurate.
+
+- **Historic** temperature is estimated இருந்து 30 years of historical data. It's usually accurate, but not during extreme weather. You can calibrate it if it's wrong க்கு your location.
+- **Sensor** temperature is read இருந்து the phone's built-in thermometer. It's often inaccurate because it's affected by the phone's சிபியு and battery. You can calibrate it பெறுநர் improve its accuracy. If you விசை அணை your phone க்கு a while, you will get a more accurate படித்தல் இருந்து the sensor.
+
+### Smoothing
+To reduce இரைச்சல் in temperature readings, you can increase the smoothing setting. If using the historic temperature source, this is normally not needed.
+
+If the Weather Monitor (see the Weather tool) is enabled, you will see a chart of the temperature வரலாறு அச் recorded by your device. The colored வரி represents the calibrated temperature while the சாம்பல் வரி represents the raw temperature. When you adjust the settings, the chart will புதுப்பிப்பு பெறுநர் காட்டு the புதிய calibrated temperature. The goal is பெறுநர் have the colored வரி smoothly follow the சாம்பல் line.
+
+#### Updating recorded temperatures
+
+If you change the temperature மூலம் பெறுநர் "Historic", you can choose பெறுநர் புதுப்பிப்பு அனைத்தும் previously recorded temperatures. This will மாற்றவும் the old temperatures with the estimated temperature இருந்து the historic data. This is useful if you previously recorded temperatures with the உணரி and then switched பெறுநர் historic temperatures.
+
+### Calibrating
+
+1. மீட்டமை the thermometer calibration in Trail Sense.
+2. Put your phone in a cold place க்கு 10 minutes.
+3. குறிப்பு the temperature shown in Trail புலன் அச் the சிறுமம் phone temperature.
+4. குறிப்பு the actual temperature of the cold place using an actual thermometer.
+5. Put your phone in a warm place க்கு 10 minutes.
+6. குறிப்பு the temperature shown in Trail புலன் அச் the பெருமம் phone temperature.
+7. குறிப்பு the actual temperature of the warm place using an actual thermometer.
+8. Go பெறுநர் the Thermometer உணரி அமைப்புகள் in Trail புலன் and enter the சிறுமம் and பெருமம் temperatures you recorded, along with the actual temperatures you recorded.
+
+**Caution:** Refer பெறுநர் your phone's manual பெறுநர் identify the designed operating temperatures, do not exceed these when performing calibration.
+
+## Sensors > Camera
+Camera அமைப்புகள் can be found in Trail புலன் அமைப்புகள் > Sensors > Camera.
+
+### Augmented reality projection
+The projection method determines how பிரிவகம் get displayed onto the camera view. If you அரே experiencing issues with the பிரிவகம் not aligning with the real world, try changing the projection method.
+
+- **Estimated Intrinsics**: This is the இயல்புநிலை method and should வேலை on பெரும்பாலானவை devices. It uses the camera's பண்புகள் பெறுநர் estimate the projection.
+- **Manual Intrinsics**: This is similar பெறுநர் the estimated intrinsics method, except that the calculations அரே முடிந்தது by the manufacturer. On some devices this does not வேலை correctly.
+- **Perspective**: This is a simple projection method that factors in the distance of the புள்ளியம் இருந்து the camera. It is similar பெறுநர் intrinsics, but சி-வைகாசி be less accurate in some cases.
+- **Linear**: This is the simplest projection method (also the fastest). It does not factor in distances.
+
+## Sensors > கலன் signal
+Cell குறிகை அமைப்புகள் can be found in Trail புலன் அமைப்புகள் > Sensors > கலன் signal.
+
+### புதுப்பிப்பு குறிகை cache
+Your phone reports the மின்னோட்ட்ம், ஓட்டம் கலன் குறிகை strength, but it சி-வைகாசி be outdated. You can choose பெறுநர் forcefully புதுப்பிப்பு the கலன் குறிகை cache பெறுநர் get the மின்னோட்ட்ம், ஓட்டம் குறிகை strength. This feature is only used by the Paths கருவி (Backtrack) when அமைப்புகள் > Paths > Record கலன் குறிகை is enabled.
+
+## Privacy
+Privacy அமைப்புகள் can be சருசெய்த in அமைப்புகள் > Privacy.
+
+- **Location**: Clicking this will take you பெறுநர் the உலக இடம் காட்டும் அமைப்பு settings, where you can choose பெறுநர் use a mocked location.
+- **Prevent screenshots**: Prevents திரைக்காட்சிகள் இருந்து being taken while the பயன்பாடு is open.
+
+**Note**: Trail புலன் does not use the Internet and அனைத்தும் தகவல்கள் is stored locally on your device.
+
+## Errors
+Some கருவிகள் such அச் வானோடல் and Astronomy காட்சி பிழை banners at the மேலே of the screen. These banners can be முடக்கப்பட்டது in அமைப்புகள் > Errors.
+
+- **Compass unavailable**: The compass is not available on your device.
+- **GPS unavailable**: The உலக இடம் காட்டும் அமைப்பு is not available on your device.
+- **Location not set**: The location is mocked but has not been கணம் (uses 0, 0).
+- **Compass accuracy**: The compass accuracy is low.
+- **GPS timeouts**: The உலக இடம் காட்டும் அமைப்பு has timed out and was unable பெறுநர் determine your location.
+
+## Experimental
+Experimental நற்பொருத்தங்கள் can be இயக்கப்பட்டது in அமைப்புகள் > Experimental. These நற்பொருத்தங்கள் அரே not ready க்கு பொது use and சி-வைகாசி not வேலை அச் expected.
+
+## Backup / restore
+When switching பெறுநர் a புதிய device or reinstalling the பயன்பாடு, it சி-வைகாசி be helpful பெறுநர் backup your தகவல்கள் and settings. This can be முடிந்தது in அமைப்புகள் > Backup / Restore.
+
+- **Backup**: Creates a backup of your தகவல்கள் and settings. This will சேமி அச் a zip கோப்பு which is unencrypted and contains location data, so only send it பெறுநர் people you trust.
+- **Restore**: Restores a backup of your தகவல்கள் and settings. This will permanently overwrite your மின்னோட்ட்ம், ஓட்டம் தகவல்கள் and settings. You can restore இருந்து an older version of the பயன்பாடு, but cannot restore இருந்து a newer version.
+- **Automatic backup**: Creates a backup of your தகவல்கள் and அமைப்புகள் every நாள் in the folder of your choosing. It will only keep the last 2 backups.
+
+## Tools
+Settings க்கு each கருவி can be சருசெய்த in the அமைப்புகள் > கருவிகள் section. க்கு more information, see the guide க்கு each tool.
+
+## Theme
+Theme related அமைப்புகள் can be சருசெய்த in அமைப்புகள் > Theme.
+
+- **Theme**: The theme பெறுநர் use க்கு the app.
+  - **Light**: A theme with a வெள்ளை background.
+  - **Dark**: A theme with a dark background.
+  - **Black**: A theme with a கருப்பு background.
+  - **System**: A theme that follows the மண்டலம் settings.
+  - **System (black)**: A theme that follows the மண்டலம் அமைப்புகள் with a கருப்பு பின்னணி when dark பயன்முறை is enabled.
+  - **Sunrise/sunset**: A theme that changes between light and dark based on the time of day.
+  - **Night**: A theme with a கருப்பு பின்னணி and a சிவப்பு வடிப்பி பெறுநர் உதவி maintain night vision.
+- **Dynamic colors**: Whether பெறுநர் use your device's dynamic colors in the பயன்பாடு, if முடக்கப்பட்டது or unavailable colors in Trail புலன் will be a shade of orange.
+- **Compass dynamic colors**: Whether பெறுநர் use your device's dynamic colors in the compass (cardinal directions and certain markers on maps).
+- **Compact mode**: Whether பெறுநர் use a more compact மனையமைவு க்கு the கீழே மதுக்கூடம் (thinner and does not காட்சி labels).
+
+## About
+You can கண்டுபிடி additional செய்தி பற்றி Trail புலன் in அமைப்புகள் > About.
+
+- **Version**: The version of the பயன்பாடு you அரே using.
+- **Privacy policy**: A இணைப்பு பெறுநர் the privacy policy.
+- **Email developer**: A இணைப்பு பெறுநர் send an email பெறுநர் the உருவாக்குநர் க்கு feedback or support.
+- **GitHub**: A இணைப்பு பெறுநர் the GitHub களஞ்சியம் (source code) க்கு Trail Sense.
+- **Licenses**: A பட்டியல் of திற மூலம் licenses used in Trail Sense.
+
+## Quick action
+You can enable the அமைப்புகள் quick செயல் in the அமைப்புகள் க்கு the தாவல் where you want it பெறுநர் appear.
+
+To use the quick action, tap the quick செயல் button and அமைப்புகள் page க்கு the செயலில் கருவி will be opened. Long press the quick செயல் பெறுநர் திற the பயன்பாடு settings.

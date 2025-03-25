@@ -1,0 +1,112 @@
+The Paths கருவி can be used பெறுநர் record waypoints while hiking or பெறுநர் follow a trail.
+
+## Backtrack
+The Backtrack feature can be used பெறுநர் automatically record a பாதை while you hike. பெறுநர் தொடங்கு Backtrack, click the தொடங்கு button in the bottom-right corner of the screen. A notification will appear showing how far you have traveled. You can நிறுத்து Backtrack by clicking the நிறுத்து button in the notification or by clicking the நிறுத்து button in the bottom-right corner of the screen.
+
+To change the recording frequency, click the time under the Backtrack சிட்டை at the bottom-left and enter a புதிய interval.
+
+Backtrack can record the கலன் குறிகை strength at each point. This can be இயக்கப்பட்டது in அமைப்புகள் > Paths > 'Record கலன் signal'. If you also have அமைப்புகள் > வானோடல் > 'Last குறிகை beacon' enabled, a சுழலொளி will be உருவாக்கப்பட்டது க்கு the last known location where you had a கலன் signal.
+
+By default, Backtrack paths அரே temporary and will be deleted after the எண் of days specified by அமைப்புகள் > Paths > 'Backtrack history'. You can choose பெறுநர் keep a Backtrack பாதை forever by clicking the பட்டியல் button on the Backtrack பாதை நிரை and selecting 'Keep forever'.
+
+## Creating a path
+You can choose பெறுநர் manually create a பாதை by doing the following:
+
+1. Tap the '+' button in the bottom-right corner of the screen.
+2. Click 'Path'.
+3. Give the பாதை a பெயர் and click 'OK'.
+4. Click the '+ Point' button பெறுநர் கூட்டு a புள்ளியம் பெறுநர் the பாதை at your மின்னோட்ட்ம், ஓட்டம் location. You can கூட்டு அச் many பிரிவகம் அச் you want.
+
+## Importing paths
+If you have tracks or routes saved in a GPX file, you can இறக்குமதி them into Trail புலன் அச் paths.
+
+1. Tap the '+' button in the bottom-right corner of the screen.
+2. Click 'GPX File'.
+3. தேர்ந்தெடு the GPX கோப்பு you want பெறுநர் load paths from.
+4. உறுதிப்படுத்தவும் that you want பெறுநர் இறக்குமதி the paths by clicking 'OK'. You can uncheck any paths you don't want பெறுநர் import.
+5. The paths will be உருவாக்கப்பட்டது in the மின்னோட்ட்ம், ஓட்டம் group.
+
+## Viewing a path
+To பார்வை a path, click the பாதை in the list. This will திற the பாதை details page. The following செய்தி will be shown:
+
+- **Name**: The பெயர் of the path.
+- **Group**: The குழு the பாதை is in. You can click the குழு பெயர் பெறுநர் move the பாதை பெறுநர் a different group.
+- **Map**: A map showing the பாதை and your மின்னோட்ட்ம், ஓட்டம் location. You can பின்னிழுப்பு, பின்னிழுவிசை பெறுநர் move the map and pinch பெறுநர் zoom. You can also click a புள்ளியம் on the map பெறுநர் தேர்ந்தெடு it. A scale is shown at the bottom-right of the map. You can make the map larger by clicking the expand button in the bottom-left corner of the map.
+- **Selected point**: The currently தேர்ந்தெடுக்கப்பட்டது புள்ளியம் on the map. It will காட்டு the time, கலன் குறிகை strength, elevation, and slope of the point. You can click the பட்டியல் button on the புள்ளியம் பெறுநர் navigate பெறுநர் it, create a சுழலொளி க்கு it, or நீக்கு it. Tap the தேர்ந்தெடுக்கப்பட்டது புள்ளியம் on the map பெறுநர் deselect it.
+- **Duration**: The time it took பெறுநர் record the path.
+- **Distance**: The distance of the path.
+- **Points**: The எண் of பிரிவகம் in the path.
+- **Difficulty**: An estimate of the difficulty of the path. Calculated based on the distance, உயர்வு கோடு change, and slope.
+- **Ascent**: The total உயர்வு கோடு பெருக்கம் of the path.
+- **Descent**: The total உயர்வு கோடு loss of the path.
+- **Lowest point**: The lowest உயர்வு கோடு of the path. Click பெறுநர் தேர்ந்தெடு on the map.
+- **Highest point**: The highest உயர்வு கோடு of the path. Click பெறுநர் தேர்ந்தெடு on the map.
+- **Elevation chart**: A chart showing the path's உயர்வு கோடு வீச்சலகு distance. Click a புள்ளியம் on the chart பெறுநர் தேர்ந்தெடு it.
+- **Points**: பெறுநர் see the பட்டியல் of பிரிவகம் in the path, click the பட்டியல் button in the top-right and தேர்ந்தெடு 'Points'. Click a புள்ளியம் பெறுநர் தேர்ந்தெடு it. Click the பட்டியல் button on a புள்ளியம் பெறுநர் navigate பெறுநர் it, create a சுழலொளி க்கு it, or நீக்கு it.
+
+## பாதை styles
+Adjust the path's தோற்றம் by opening it and selecting the வரி சூல் தண்டு or வரி color இருந்து the dropdowns at the மேலே of the screen. Change the தோற்றம் of the path's பிரிவகம் by selecting the புள்ளியம் சூல் தண்டு இருந்து the dropdown on the top-right. Choose between the following புள்ளியம் styles:
+
+- **None**: இல்லை பிரிவகம் shown.
+- **Cell signal**: காட்டு கலன் குறிகை strength at each point.
+- **Elevation**: காட்டு உயர்வு கோடு at each point.
+- **Time**: காட்டு the time each புள்ளியம் was recorded.
+- **Slope**: காட்டு the slope at each point.
+
+A key below the பாதை map explains the colors.
+
+Set the இயல்புநிலை பாதை styles in அமைப்புகள் > Paths > 'Default பாதை style' க்கு the வரி சூல் தண்டு and அமைப்புகள் > வானோடல் > 'Default பாதை color' க்கு the வரி color.
+
+## Simplify a path
+Paths can be simplified பெறுநர் reduce the எண் of பிரிவகம் in the path. This can be useful பெறுநர் improve the performance of the பாதை rendering and சி-வைகாசி improve the accuracy of the பாதை by removing உலக இடம் காட்டும் அமைப்பு errors.
+
+To simplify a path, திற the பாதை and click the பட்டியல் button in the top-right corner of the screen. தேர்ந்தெடு 'Simplify path' and choose the desired simplification quality. High quality means fewer பிரிவகம் will be removed, while low quality means more பிரிவகம் will be removed.
+
+Once the பாதை has been simplified, it is not possible பெறுநர் செயல்தவிர் the simplification.
+
+You can choose பெறுநர் automatically simplify paths imported இருந்து a GPX கோப்பு by enabling அமைப்புகள் > Paths > 'Simplify paths on import'.
+
+## Navigate பெறுநர் a path
+You can navigate பெறுநர் the nearest புள்ளியம் on a பாதை by opening the பாதை and clicking the 'Navigate' button at the bottom. This will திற the வானோடல் கருவி with the பாதை அச் the destination. Alternatively, you can click the பட்டியல் button on the பாதை நிரை you want பெறுநர் navigate பெறுநர் and then தேர்ந்தெடு 'Navigate'.
+
+By default, this will only navigate பெறுநர் recorded waypoints on the path. However, you can choose பெறுநர் navigate பெறுநர் any position on the பாதை by disabling அமைப்புகள் > Paths > 'Only navigate பெறுநர் recorded points'. This will assume that the பாதை is a straight வரி between points.
+
+Paths அரே also visible on the கதிரலைக் கும்பா compass (see the 'Navigation' guide) and photo maps (see the 'Photo Maps' guide).
+
+## பாதை visibility
+You can choose which paths அரே visible on the வானோடல் and Photo Maps கருவிகள் by clicking the பட்டியல் icon on the வலது பக்கம் of the பாதை நிரை and selecting either மறை or Show.
+
+## நீக்கு a path
+To நீக்கு a path, click the பட்டியல் button on the பாதை நிரை you want பெறுநர் remove, then தேர்ந்தெடு 'Delete'.
+
+## Exporting paths
+To ஏற்றுமதி paths, திற the குழு you want பெறுநர் ஏற்றுமதி and click the பட்டியல் button in the top-right corner of the screen. தேர்ந்தெடு 'Export', unselect any paths you don't want பெறுநர் export, then click 'OK'. The paths will be exported பெறுநர் a GPX file. 
+
+Alternatively, you can ஏற்றுமதி a ஒற்றை பாதை by clicking the பட்டியல் button on the பாதை நிரை you want பெறுநர் export, then selecting 'Export'.
+
+## Organizing paths
+You can organize paths into groups. பெறுநர் create a group, click the '+' button in the bottom-right of the பாதை பட்டியல் and தேர்ந்தெடு 'Group'. Give the குழு a பெயர் and click 'OK'. Click the குழு in the பட்டியல் பெறுநர் பார்வை the paths in that group.
+
+If you create a பாதை or குழு while the குழு is open, the புதிய பாதை or குழு will be added பெறுநர் the currently திற group.
+
+To change the குழு of an existing path, click the பட்டியல் button on the பாதை நிரை you want பெறுநர் move, தேர்ந்தெடு 'Move to', and choose the target group.
+
+To rename a group, click the பட்டியல் button on the குழு நிரை you want பெறுநர் rename, then தேர்ந்தெடு 'Rename' and provide a புதிய name.
+
+You can நீக்கு a குழு (along with அனைத்தும் paths within it) by clicking the பட்டியல் button on the குழு நிரை you wish பெறுநர் remove, then selecting 'Delete'.
+
+## Searching க்கு paths
+To தேடல் through your உருவாக்கப்பட்டது paths, use the தேடல் மதுக்கூடம் at the மேலே of the பாதை list. This தேடல் encompasses the மின்னோட்ட்ம், ஓட்டம் குழு and அனைத்தும் subgroups. Additionally, you can வரிசைப்படுத்து paths by distance away, time, length or பெயர் by clicking the பட்டியல் button in the top-right and selecting 'Sort'.
+
+## Improving performance
+If you அரே experiencing performance issues with the Paths tool, you can enable அமைப்புகள் > Paths > 'Fast பாதை rendering' which will render paths faster, at the cost of appearance.
+
+## Quick action
+You can enable the Backtrack quick செயல் in the அமைப்புகள் க்கு the desired tab.
+
+To use the quick action, tap the Backtrack quick செயல் button பெறுநர் toggle it on or off. You can long press the button பெறுநர் திற the Paths tool.
+
+## Widgets
+The following நிரல்பலகை can be placed on your device's homescreen or viewed in-app:
+
+- **Backtrack**: காட்சி the distance travelled if Backtrack is enabled.

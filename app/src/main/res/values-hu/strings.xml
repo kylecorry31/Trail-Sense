@@ -981,7 +981,7 @@
     <string name="autofill_source">Forrás automatikus kitöltése</string>
     <string name="create_blank_map">Üres térkép létrehozása</string>
     <string name="gps_accuracy_tip">Biztosítsd, hogy az ég nincs takarásban és menj távol magas épületektől és fáktól.</string>
-    <string name="crop_map_instructions_long">Húzd a négyzet sarkait a térkép sarkaihoz a körvonalazáshoz.</string>
+    <string name="crop_map_instructions_long">Húzd a négyzet sarkait a térkép sarkaihoz a körvonalazáshoz. A körülvágás csökkenti a térkép felbontását.</string>
     <string name="map_auto_rotated">A térkép elforgatása kalibrálással igazított</string>
     <string name="pref_backfill_temperatures_title">Rögzített hőmérsékletek frissítése</string>
     <string name="backup">Biztonsági mentés</string>
@@ -1188,4 +1188,10 @@
     <string name="millimeters_format">%s mm</string>
     <string name="teaspooon_format">%s tk</string>
     <string name="tablespoon_format">%s ek</string>
+    <string name="milligrams">Milligramm</string>
+    <string name="milligrams_format">%s mg</string>
+    <plurals name="page_group_summary">
+        <item quantity="one">%d oldal</item>
+        <item quantity="other">%d oldal</item>
+    </plurals>
 </resources>

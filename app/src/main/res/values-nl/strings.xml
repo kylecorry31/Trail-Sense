@@ -1315,4 +1315,16 @@
     <string name="field_guide_disclaimer">Dit hulpmiddel is alleen bedoeld voor educatieve doeleinden. Wees altijd voorzichtig bij het identificeren van planten, dieren of paddenstoelen. Sommige soorten kunnen gevaarlijk of beschermd zijn. Als je niet zeker bent over een identificatie, raadpleeg dan een deskundige.</string>
     <string name="no_results">Geen resultaten</string>
     <string name="survival_guide_disclaimer">Deze gids wordt uitsluitend ter informatie verstrekt, en noch de auteur, noch de uitgever, noch enige bijdragers garanderen de nauwkeurigheid of geschiktheid voor enig doel. Door deze gids te gebruiken, erkent u dat buitensportactiviteiten risico\'s met zich meebrengen, en doet u dit op eigen risico, waarbij u ermee instemt de auteur, de uitgever en eventuele bijdragers te vrijwaren en schadeloos te stellen voor eventuele claims of schade die voortvloeien uit uw gebruik van deze gids. Raadpleeg altijd deskundigen voor advies dat specifiek is voor uw situatie, aangezien deze gids geen vervanging is voor professionele begeleiding. Wees bovendien bewust dat lokale wetten en regelgeving de wettelijke toepassing van de hierin beschreven technieken kunnen beïnvloeden, en dat naleving uw verantwoordelijkheid is.</string>
+    <string name="adjustment_per_click">Aanpassing per klik</string>
+    <string name="milligrams">Milligram</string>
+    <string name="milligrams_format">%s mg</string>
+    <string name="ballistics">Ballistiek</string>
+    <string name="left">Links</string>
+    <string name="right">Rechts</string>
+    <string name="distance_to_target">Afstand tot doel</string>
+    <string name="scope_adjustment">Aanpassing vizier</string>
+    <string name="windage_miss">Afwijking windrichting</string>
+    <string name="elevation_miss">Afwijking hoogte</string>
+    <string name="below">Onder</string>
+    <string name="above">Boven</string>
 </resources>
