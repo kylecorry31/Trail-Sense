@@ -1,0 +1,106 @@
+The Tides கருவி helps you keep மின்தடம் of tides at a specific location.
+
+## Create a tide table
+Before venturing into coastal areas, consult an official tide table க்கு accurate பெருக்கல் and water heights. Once you have this information, follow these படிகள் பெறுநர் இறக்குமதி it into Trail Sense's Tide tool:
+
+1. Click the tides button in the top-right corner of the screen.
+2. Tap the '+' button in the bottom-right corner.
+3. Optionally, provide a பெயர் and location க்கு the tide.
+4. Adjust the tide frequency, indicating how many high tides typically occur in a நாள் (most places have 2, known அச் Semidiurnal).
+5. Scroll down பெறுநர் the tide table section.
+6. Click either 'H' க்கு high tide or 'L' க்கு low tide பெறுநர் toggle between them.
+7. தேர்ந்தெடு 'Time not set' and enter the திகதி and time of the tide.
+8. Optionally, click the '-' in the 'Height' நெடுவரிசை பெறுநர் input the tide's height.
+9. பெறுநர் கூட்டு another tide, tap the '+' button in the top-left corner of the table.
+10. You can நீக்கு a tide by clicking the 'ஃச்' icon பெறுநர் the வலது of the tide.
+11. The tide estimation method can be changed by clicking the 'Estimation method' dropdown. Lunitidal இடைவேளை uses the moon's position பெறுநர் estimate tides, and சி-வைகாசி be more accurate in some locations.
+12. சேமி the tide table by clicking the checkmark in the top-right corner.
+
+For the best accuracy, input அனைத்தும் tides க்கு each relevant day. Trail புலன் will distinguish between entered and estimated tides on the tide chart.
+
+### Estimation methods
+
+- **Tide clock**: Assumes a fixed வற்றுப்பெருக்கு cycle and requires at least one known tide பெறுநர் operate.
+- **Lunitidal interval**: Uses the moon's position பெறுநர் estimate tides.
+    - **Auto**: Requires at least one known tide, it will automatically calculate the lunitidal interval.
+    - **Local**: Enter the lunitidal இடைவேளை in hours and minutes க்கு your location. This requires the location பெறுநர் be set, but does not require a tide table.
+    - **UTC/Greenwich**: Enter the lunitidal இடைவேளை in hours and minutes க்கு UTC/Greenwich. This does not require a location or tide table.
+- **Tide மாதிரியுரு (auto)**: Estimates the tide near the entered location or if இல்லை location is entered, near you. க்கு பெரும்பாலானவை locations, tides should be accurate பெறுநர் within an hour.
+
+## Viewing a tide table
+By default, the Tides கருவி displays the closest tide பெறுநர் your location when you திற it. பெறுநர் change this, go பெறுநர் அமைப்புகள் > Tides > 'Show closest tide' பெறுநர் toggle between displaying the closest tide and the last tide you viewed.
+
+To தேர்ந்தெடு a different tide, click the tides button in the top-right corner of the screen. This திறப்புகள் a பட்டியல் of அனைத்தும் the tide அட்டவணைகள் you've created. Simply click on a tide பெறுநர் பார்வை it.
+
+### Nearby tide
+This shows the tide near your location using an இணையமில்லாமல் tide modal. க்கு பெரும்பாலானவை locations, tides should be accurate பெறுநர் within an hour, but எப்போதும் use official tide அட்டவணைகள் if possible. If you அரே not மூடு பெறுநர் a tide you entered, this will be shown by default.
+
+This சி-வைகாசி be inaccurate in some areas, especially in areas with complicated geography.
+
+The nearby tide table can't be மாற்றியமைக்கப்பட்ட or deleted.
+
+## Tide chart
+The tide chart displays the tides க்கு the மின்னோட்ட்ம், ஓட்டம் day. The X-axis represents time, while the Y-axis represents the tide height. A dot marks the மின்னோட்ட்ம், ஓட்டம் time on the chart. By default, இன்று is selected, but you can change it by tapping the நாட்காட்டி icon at the மேலே of the screen. Additionally, you can use the அம்புகள் பெறுநர் move பெறுநர் the next/previous திகதி or long press the நாட்காட்டி பெறுநர் quickly தாவு பெறுநர் today's date.
+
+At the மேலே of the screen, you'll கண்டுபிடி the மின்னோட்ட்ம், ஓட்டம் tide நிலை and, if available, the tide's height. A down arrow means a falling tide, while an மேலே arrow means a rising tide.
+
+The கீழே of the screen displays a tide table க்கு the மின்னோட்ட்ம், ஓட்டம் day. If the tide height is entered, it will be shown here; otherwise, it will be estimated. Estimated tides சி-வைகாசி not be entirely accurate and அரே based on the inputted tides.
+
+## Editing a tide table
+You can தொகு a tide table with the following steps:
+
+1. Click the tides button in the top-right corner of the screen.
+2. Click the பட்டியல் button பெறுநர் the வலது of the tide you wish பெறுநர் edit.
+3. தேர்ந்தெடு 'Edit.'
+4. You'll be taken பெறுநர் the same screen used பெறுநர் create the tide table. தொகு the table அச் needed.
+5. சேமி your changes by clicking the checkmark in the top-right corner.
+
+## Deleting a tide table
+You can நீக்கு a tide table using the following steps:
+
+1. Click the tides button in the top-right corner of the screen.
+2. Click the பட்டியல் button பெறுநர் the வலது of the tide you want பெறுநர் delete.
+3. Choose 'Delete.'
+
+## Viewing tides on the map
+By default, tides with a location entered will appear on the வானோடல் tool's கதிரலைக் கும்பா compass and Photo Maps. பெறுநர் hide/show a tide, follow these steps:
+
+1. Click the tides button in the top-right corner of the screen.
+2. Click the பட்டியல் button பெறுநர் the வலது of the tide you wish பெறுநர் மறை or show.
+3. தேர்ந்தெடு 'Hide' or 'Show.'
+
+## Estimating tides without a tide table
+If you don't have access பெறுநர் a tide table, you can estimate tides using the Tides tool. Keep in mind that this is just an estimate, so it's எப்போதும் best பெறுநர் consult an officially published tide table when possible. If you know whether the tide is currently high or low, you can create a tide table with a ஒற்றை நுழைவு (using the மின்னோட்ட்ம், ஓட்டம் time and tide level), and the Tides கருவி will estimate the வற்றுப்பெருக்கு cycle. This should only be used க்கு short-term predictions, அச் accuracy decreases further away இருந்து the குறிப்பு tide.
+
+## Finding official tide tables
+To locate an official tide table, தேடல் the Internet க்கு tides at your location. Here அரே some community-recommended sites offering tide tables:
+
+### Worldwide
+- [tides4fishing](https://tides4fishing.com/)
+- [tide-forecast.com](https://www.tide-forecast.com/)
+- [SHOM](https://maree.shom.fr/)
+
+### Germany
+- [BSH](https://www.bsh.de/DE/DATEN/Vorhersagen/Gezeiten/gezeiten_node.html)
+
+### Netherlands
+- [Rijkswaterstaat](https://www.rijkswaterstaat.nl/water/waterdata-en-waterberichtgeving/waterdata/getij)
+
+### UK
+- [UK Hydrographic Office: EasyTide](https://easytide.admiralty.co.uk/)
+
+### UK + Ireland
+- [NTSLF Tides](https://ntslf.org/tides/predictions)
+
+### USA
+- [NOAA Tides & Currents](https://tidesandcurrents.noaa.gov/tide_predictions.html)
+- [Tides.net](https://tides.net/)
+
+## Widgets
+The following நிரல்பலகை can be placed on your device's homescreen or viewed in-app:
+
+- **Tides**: Displays the நிலை of the nearest tide.
+- **Tide chart**: The chart of water நிலை of the nearest tide.
+
+## Disclaimer
+Tide predictions அரே estimates and should not be relied upon exclusively. Whenever possible, use an official tide table and input the தகவல்கள் into Trail புலன் க்கு accuracy.

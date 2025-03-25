@@ -1,0 +1,151 @@
+<!-- K: weather, condition -->
+<!-- S: Know the weather forecast. -->
+
+Weather can quickly change இருந்து a nice நாள் பெறுநர் a life-threatening situation. You should எப்போதும் be prepared க்கு the weather in your area and keep தாவல்கள் on the forecast.
+
+## Be prepared
+<!-- K: prepare, gear, knowledge, skill, forecast, clothes, shelter, poncho, sunglasses, barometer, thermometer -->
+<!-- S: Bring appropriate clothing and shelter க்கு the weather. Learn how பெறுநர் identify signs of worsening weather. -->
+
+### Gear
+
+**Necessities**:
+- 7-day weather forecast
+- Appropriate clothing and shelter க்கு the weather (see the Shelter and Clothing chapter)
+- Poncho
+- Sunglasses
+
+**Optional**:
+- Barometer
+  - Many smartphones have barometers; you can use the Weather கருவி in Trail புலன் பெறுநர் monitor pressure
+- Thermometer
+
+### Knowledge and skills
+Start by learning how பெறுநர் do the following:
+- Read a weather forecast.
+- Deal with different வகைகள் of weather.
+- Identify signs of worsening weather.
+
+Once you have mastered these skills, you should learn how பெறுநர் do the following:
+- Identify signs of improving weather.
+- Forecast weather based on observations.
+- Understand your region's climate.
+- Predict tides.
+
+## Weather
+<!-- K: storm, precipitation, rain, snow, hail, sleet, temperature, humidity, wind, fog, lightning, sun, smoke, wildfire, uv, uv-index, thunder, thunderstorm -->
+<!-- S: Take shelter during severe storms. Be prepared க்கு பல்வேறு conditions, such அச் precipitation, temperature, humidity, and strong wind. -->
+
+Weather conditions can change rapidly and significantly impact your outdoor activities. In mountainous regions, take extra precautions when above the tree line, அச் weather can be more severe and you அரே more exposed பெறுநர் the elements.
+
+### Precipitation
+You can generally தொடரவும் outdoor activities in light precipitation. However, if it starts precipitating heavily, seek shelter. நதிகள் and streams can rise rapidly and become dangerous during heavy rainfall. Be aware of the இடர் of hypothermia, and take படிகள் பெறுநர் stay warm and dry.
+
+Blizzards can ஈயம் பெறுநர் whiteout conditions, severely reducing visibility. If caught in a blizzard, seek shelter உடனடியாக and stay warm and dry.
+
+### Temperature and humidity
+In cold weather, dress in layers and wear a hat and gloves பெறுநர் prevent heat loss. Stay dry, அச் wet clothing can cause you பெறுநர் lose body heat more quickly.
+
+In hot weather, stay hydrated and take breaks in the shade. Wear sunscreen and sun-protective clothing பெறுநர் protect yourself இருந்து sun exposure. High humidity can make it feel hotter and make cooling அணை more difficult.
+
+Temperature changes அச் you change elevation, decreasing by பற்றி 3.5°F (2°C) க்கு every 1,000 feet (305 meters) of உயர்வு கோடு gain. If you அரே hiking in a mountainous region, it சி-வைகாசி be warm at the bottom, but also be prepared க்கு cold, windy temperatures at the top.
+
+### Wind
+Wind can make cold conditions feel இரட்டை colder, increasing the இடர் of hypothermia and frostbite. Dress in layers and wear a hat and gloves பெறுநர் protect yourself இருந்து the wind. During wind storms, unstable trees and branches can become hazardous.
+
+Wind can cause sandstorms in desert environments, reducing விழிமை and making breathing difficult. Seek shelter during a sandstorm and protect your eyes and mouth with a bandana or cloth.
+
+Prevailing winds அரே winds that blow consistently in one direction வீச்சலகு time. While local geography and bodies of water can affect wind patterns, பொது patterns அரே அச் follows:
+- 60° N பெறுநர் 90° N: Winds generally blow இருந்து the east.
+- 30° N பெறுநர் 60° N: Winds generally blow இருந்து the west.
+- 0° பெறுநர் 30° N: Winds generally blow இருந்து the northeast.
+- 0° பெறுநர் 30° S: Winds generally blow இருந்து the southeast.
+- 30° S பெறுநர் 60° S: Winds generally blow இருந்து the west.
+- 60° S பெறுநர் 90° S: Winds generally blow இருந்து the east.
+
+These directions also indicate where the weather will பெரும்பாலானவை likely come from. க்கு example, if you அரே at 40° N and see a thunderstorm பெறுநர் the west, it will likely arrive at your location soon.
+
+### Fog
+Fog reduces visibility, making வானோடல் difficult. If hiking in fog, stay on marked trails and use a map, compass, or உலக இடம் காட்டும் அமைப்பு பெறுநர் navigate. Watch your footing carefully.
+
+### Lightning
+If caught outdoors during a thunderstorm, seek shelter immediately. Avoid tall trees and bodies of water, but get out of திற areas. If you're in an திற area, crouch down on the balls of your feet and cover your ears பெறுநர் reduce the இடர் of lightning strikes.
+
+If you feel your hair stand on end or hear a crackling noise, you அரே in danger of being struck by lightning.
+
+You can estimate how far away a thunderstorm is by counting the நொடிகள் between a flash of lightning and the sound of thunder. Divide the எண் of நொடிகள் by 5 பெறுநர் get the distance in miles. One mile is பற்றி 1.6 kilometers. Any storm within 6 miles (10 kilometers) is a threat.
+
+### Sun
+Wear sunscreen and sun-protective clothing on days with a high UV index. In hot climates, stay hydrated and take breaks in the shade.
+
+### Smoke
+Wildfires can cause smoke பெறுநர் travel long distances. If possible, avoid outdoor activities on days with poor காற்று quality.
+
+## Climate
+<!-- K: climate, average -->
+<!-- S: Your region's climate can indicate what weather is common க்கு the time of year. -->
+
+The climate of a region refers பெறுநர் its average weather conditions வீச்சலகு time. You should look மேலே the average daily high and low temperatures, how often it rains or snows, what the humidity normally is, and where the prevailing wind blows from. You should prepare க்கு conditions பெறுநர் return பெறுநர் the climate normals in a longer-term scenario, so if it is unusually warm during your hike but the average low is below freezing, bring cold weather பற்சக்கரம் with you.
+
+## Forecasting
+<!-- K: forecast, predict, signs, worsen, improve, cloud, cumulus, cirrus, cumulonimbus, altocumulus, stratus, altostratus, clear, cirrostratus, nimbostratus, cirrocumulus -->
+<!-- S: Signs of worsening weather include increasing முகில் cover, darkening skies, strong wind, and sudden drops in temperature. -->
+
+You can learn பெறுநர் forecast weather by observing the signs around you. The more signs you notice, the more accurate your forecast will be. Identifying the முகில் வகை can improve your திறமை பெறுநர் forecast weather. The main முகில் வகைகள் அரே available in the புலம் Guide.
+
+### Signs of worsening weather
+- முகில் cover increases
+- Clouds தொடங்கு growing vertically (into an anvil shape)
+  - This indicates a thunderstorm
+- Clouds darken
+- Clouds move quickly
+- Clouds lower
+- Wind விரைவு increases
+- Temperature suddenly drops
+- Barometric அழுத்தம் drops
+  - Faster drops indicate more severe weather
+- Wind direction changes பெறுநர் be opposite the prevailing wind
+- Animals become quiet
+- Humidity increases
+- You see lightning or hear thunder
+- You smell rain
+
+### Signs of improving weather
+- முகில் cover decreases
+- Wind விரைவு decreases
+- Temperature rises
+- Barometric அழுத்தம் rises
+- Wind direction changes பெறுநர் match the prevailing wind
+- Animals become active
+- Humidity decreases
+
+## Tides
+<!-- K: tide, water, coast, rise, fall, moon, ocean, sea, semidiurnal, diurnal, mixed -->
+<!-- S: பெரும்பாலானவை places have two high tides and two low tides daily. சரிபார் tide அட்டவணைகள் before heading பெறுநர் the coast. -->
+
+Tides can affect outdoor activities near the coast. A receding tide can ஈயம் பெறுநர் rip currents, which அரே dangerous க்கு swimmers. சரிபார் the tide அட்டவணைகள் before heading பெறுநர் the coast. Tide அட்டவணைகள் can be found online or in local newspapers.
+
+This map shows the tide வகைகள் around the world. பச்சை is semidiurnal, நீலம் is mixed, and ஆரஞ்சு is diurnal.
+
+![](file:///android_asset/survival_guide/tides.webp)
+
+
+### Semidiurnal tides
+Semidiurnal tides have two high tides and two low tides each day. If you know the time of high tide, the அடுத்தது low tide will be பற்றி 6 hours later, and the following high tide will be பற்றி 6 hours after that.
+
+**Mixed tides**
+
+Mixed tides அரே a வகை of semidiurnal tide, but the heights of the high and/or low tides vary throughout the day.
+
+### Diurnal tides
+Diurnal tides have one high tide and one low tide each day. If you know the time of high tide, the அடுத்தது low tide will be பற்றி 12 hours later, and the அடுத்தது high tide will be பற்றி 12 hours later.
+
+## Night
+<!-- K: night, dark, light, moon, stars, flashlight -->
+<!-- S: Be aware of when the sun will கணம் பெறுநர் avoid being caught in the dark. Use a flashlight பெறுநர் navigate at night. -->
+
+You can estimate the time until sunset by holding your hand horizontally with your fingers together and counting the எண் of finger widths between the sun and the horizon. Each finger width represents roughly 15 minutes.
+
+![](file:///android_asset/survival_guide/sunset_hand.webp)
+
+Navigating in the dark is not recommended; if necessary, use a flashlight or headlamp பெறுநர் light your way. On nights with a nearly full moon, you can use the moonlight பெறுநர் உதவி navigate.

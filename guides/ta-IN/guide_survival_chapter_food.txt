@@ -1,0 +1,292 @@
+<!-- K: food, eat, meal, hunger, hungry, forage, identify, edible, inedible -->
+<!-- S: Ration food and forage when there's எதுவுமில்லை left. -->
+
+Food gives you energy but is a low priority in பெரும்பாலானவை survival situations since you can go weeks without food. If you haven't eaten in a while, குவி on foraging க்கு bugs, shellfish, and aggregate berries.
+
+## Be prepared
+<!-- K: prepare, gear, knowledge, skill, nuts, seeds, dried, fruit, jerky, energy, bar, mre, can, knife, multitool, multitool, bag, canister, utensil, stove, எரிபொருள் -->
+<!-- S: Bring extra food. Learn how பெறுநர் கண்டுபிடி food and cook in the wilderness. -->
+
+### Gear
+
+**Necessities**:
+- Food (enough க்கு the duration of your trip, plus a துணுக்கு extra). Some good விருப்பங்கள் include:
+  - Nuts
+  - Seeds
+  - Dried fruit
+  - Jerky
+  - Energy bars
+  - Dehydrated meals (with extra water)
+  - Canned food (with a can opener if needed)
+- Knife or multitool
+- Bear bag or canister
+
+**Optional**:
+- Cooking pot or container
+- Utensils (a spork is a good option)
+- Cooking stove and fuel
+
+### Knowledge and skills
+Start by learning how பெறுநர் do the following:
+- Plan your meals க்கு a trip.
+- Cook food by boiling or roasting வீச்சலகு a fire.
+- Use a bear bag or canister பெறுநர் protect your food.
+
+Once you have mastered these skills, you should learn how பெறுநர் do the following:
+- Identify edible plants and mushrooms.
+- கண்டுபிடி and catch insects, shellfish, crustaceans, fish, and மற்றொன்று animals.
+- Preserve food.
+- Make traps.
+
+## Food essentials
+<!-- K: nutrition, caloric, calorie, carbohydrate, protein, fat, vitamin, mineral, storage, starvation, ration -->
+<!-- S: You need around 2,000 calories daily, but you can ration your food பெறுநர் make it last longer. You should properly store your food பெறுநர் avoid spoilage. -->
+
+### Caloric and nutritional needs
+The average ஆள் needs around 2,000 calories per day. Balance carbohydrates, proteins, fats, vitamins, and minerals in your diet.
+
+- **Carbohydrates**: Provide an immediate மூலம் of energy and அரே found in grains, fruits, and vegetables. Aim க்கு 45–65% of your daily caloric intake.
+- **Fats**: Provide long-term energy and அரே used in essential bodily functions. They அரே found in meats, oils, nuts, and seeds. Aim க்கு 20–35% of your daily caloric intake.
+- **Proteins**: உருவாக்கு and repair tissues and அரே found in meats, legumes, nuts, and seeds.
+- **Vitamins and minerals**: Essential க்கு overall health and அரே found in பெரும்பாலானவை foods, but a varied diet is necessary பெறுநர் ensure you get அனைத்தும் the essential nutrients.
+
+### Storage
+
+Food should be stored in airtight containers பெறுநர் prevent spoilage and contamination. Do not pack foods that spoil quickly or require refrigeration. If you bring zipper storage bags, you can also use them க்கு water procurement.
+
+### Rationing
+
+If you அரே in a survival situation, ration your food பெறுநர் make it last longer. Eat two-thirds of your food in the first half of your survival situation (about 2-3 days after your expected return date) and the remaining third in the following days. Eating food will give you the energy பெறுநர் construct a shelter and plan.
+
+### Starvation
+
+Starvation occurs when the body does not receive enough nutrients பெறுநர் சார்பு correctly. Symptoms include losing body fat, difficulty breathing, feeling colder, fatigue, and increased healing times.
+
+## Plants and mushrooms
+<!-- K: plant, mushroom, seaweed, weeds, green, sap, fungus, forage, poison, toxic, leach, berries -->
+<!-- S: Only eat plants you can confidently identify அச் safe, and don't eat mushrooms. Aggregate berries, like raspberries and blackberries, அரே generally safe. -->
+
+Plants typically have fewer calories than animals but can be easier பெறுநர் obtain if you can identify them. If you can't identify which plants அரே safe, just குவி on bugs and shellfish. You should also avoid mushrooms unless you அரே experienced in foraging since many can make you sick. Familiarize yourself with local plants and mushrooms before your trip.
+
+### Foraging
+
+The safest plant பெறுநர் forage is aggregate berries, such அச் raspberries and blackberries, since they have a distinctive look and அரே generally edible. Nuts and seeds அரே higher in calories than leafy greens, but some nuts, such அச் acorns, require multiple batches of boiling. Also, just because you see an animal eating a plant doesn't இடை, சராசரி it is safe க்கு human consumption. ஒருபோதும் eat a plant you aren't certain is edible; இரட்டை if you அரே certain, only eat a small amount and be on the lookout க்கு பக்கம் effects.
+
+**The following should be avoided அச் the இடர் isn't worth the calories:**
+- Mushrooms
+- Plants that have:
+  - Umbrella-shaped flowers
+  - Milky sap
+  - Shiny leaves
+  - White, yellow, or சிவப்பு berries (except aggregate berries)
+  - Beans, bulbs, or seeds inside pods
+  - Pungent odor
+  - An almond/cyanide scent in the leaves or wood
+  - Bitter or soapy taste
+  - Thorns, hairs, or spines
+  - A three-leaved growth pattern
+  - Mildew or fungus
+- Plants that look like dill, carrot, parsnip, or parsley
+- Spoiled plants/mushrooms/seaweed
+- Anything growing alongside a road or in dirty water
+
+### Preparation
+
+All plants you gather should be washed and cooked. Many can be eaten raw, but if you have the means பெறுநர் cook it will be safer பெறுநர் avoid the இடர் of contamination.
+
+## Insects
+<!-- K: insect, bug, grub, worm, ant, termite, locust, grasshopper, cricket, dragonfly, bait -->
+<!-- S: பெரும்பாலானவை பூச்சு can be eaten when cooked or used அச் fishing bait. -->
+
+Insects அரே a good மூலம் of புரதம் but need பெறுநர் be gathered in large numbers பெறுநர் provide a substantial meal. If you don't want பெறுநர் eat insects, you can use them அச் bait க்கு fishing or trapping.
+
+### Collection
+
+Good places பெறுநர் கண்டுபிடி பூச்சு include rotting logs, under rocks, and in grassy fields. Common edible bugs include ants, termites, locusts, grasshoppers, crickets, dragonflies, grubs, and worms. At night, many flying பூச்சு can be attracted பெறுநர் a light source.
+
+Do not eat the following:
+- Biting or stinging insects
+- Hairy or brightly colored insects
+- பூச்சு with a pungent odor
+- Hairy caterpillars
+- Spiders
+- Anything that feeds அணை blood, such அச் ticks, flies, and mosquitoes
+
+### Preparation
+
+To prepare bugs க்கு cooking, அகற்று any stingers and optionally the legs, wings, and head before eating insects. You should cook அனைத்தும் bugs before eating them. Worms can be placed in water க்கு 15 minutes பெறுநர் purge their digestive tracts before cooking.
+
+## Shellfish and crustaceans
+<!-- K: shellfish, crustacean, clam, mussel, snail, limpet, crayfish, lobster, crab, shrimp, shell, bait, basket, trap, seafood, algae, tide, coastal, கடற்கரை -->
+<!-- S: Many shellfish and crustaceans அரே found along the shoreline; பெரும்பாலானவை can be eaten when cooked. -->
+
+Shellfish and crustaceans அரே good மூலங்கள் of புரதம் and can be found in both freshwater and saltwater. They அரே relatively easy பெறுநர் catch, making good survival food sources.
+
+### Collection
+
+Search shallow waters, tide pools, and rocky areas க்கு shellfish and crustaceans. Snails and limpets அரே often attached பெறுநர் rocks, which சி-வைகாசி be easier பெறுநர் access during low tide. Crayfish, lobsters, and crabs can be found under and around stones, in soft mud or sand, and சி-வைகாசி be more செயலில் at night. Crustaceans can be caught by attaching bait onto a வரி (no hook required, they'll grab it), baiting the shoreline and waiting க்கு them பெறுநர் leave the water, or using a fish basket trap with bait.
+
+Some shellfish சி-வைகாசி be poisonous, but be especially cautious of mussels in tropical waters during the Summer, any shellfish within three days of a சிவப்பு tide, or shellfish covered by water during high tide.
+
+### Preparation
+
+You should cook அனைத்தும் shellfish and crustaceans before eating, and you can cook them in their shells.
+
+## Fish
+<!-- K: fish, hook, line, pole, bait, basket, trap, funnel, kill, seafood, meat -->
+<!-- S: பெரும்பாலானவை fish அரே edible once cooked but will require some fishing gear. -->
+
+If you அரே in a longer-term survival situation or have access பெறுநர் fishing gear, fish can be a good மூலம் of புரதம் and nutrients. பெரும்பாலானவை fish அரே edible, but research which fish சி-வைகாசி be dangerous in your area.
+
+### Fishing
+
+Fish அரே பெரும்பாலானவை செயலில் before a storm, near rocks or logs, and under overhanging brush.
+
+**Hook and line**
+
+Fishing with a hook and வரி fishing is likely your பெரும்பாலானவை familiar technique. You will need பெறுநர் secure a hook onto a வரி and optionally tie it பெறுநர் a pole.
+
+Hooks with barbs அரே more effective than barbless hooks at keeping fish on the line. க்கு best results, bait the hooks using insects, worms, or pieces of food. If you need பெறுநர் craft a hook, go with a gorge hook since it is easy பெறுநர் craft, and you don't need பெறுநர் கணம் it manually. One downside is that any fish caught with a gorge hook will almost certainly பகடை if released. பெறுநர் carve a gorge hook, sharpen both sides of a small பிரிவு of மரம் or bone and taper at the center. Place the hook into the bait.
+
+![](file:///android_asset/survival_guide/gorge_hook.webp)
+
+If you do not have a fishing line, you can make it இருந்து plant fibers, inner strands of paracord (using a bend knot பெறுநர் join them together), or மற்றொன்று strong cordage.
+
+If you do not have a fishing pole, you can tie the வரி பெறுநர் both the காரம் and tip of a sturdy stick - try பெறுநர் mimic what an actual fishing முனைமம் looks like. You can also wrap the வரி around a குறுக்கு stick and use it அச் a hand line. An easier technique சி-வைகாசி be பெறுநர் tie the வரி பெறுநர் a tree branch so you can do மற்றொன்று things and சரிபார் on it frequently.
+
+**Traps**
+
+You can construct a basket fish trap by weaving branches or மற்றொன்று materials together. Bait the trap with food and place it in the water. சரிபார் it every few hours. This can also be used பெறுநர் catch crustaceans.
+
+Alternatively, use a funnel fish trap by placing sticks into a V-shape with a retaining area at the end. Fish swim into the trap and அரே unable பெறுநர் கண்டுபிடி their way out. In வற்றுப்பெருக்கு areas, you can கணம் மேலே a wall of stones during low tide; அச் the tide recedes, fish சி-வைகாசி get trapped behind the wall.
+
+![](file:///android_asset/survival_guide/50.webp)
+
+### Preparation
+
+1. Once you catch a fish, bring it away இருந்து the shoreline. Do not hold or place it near the water before killing it, அச் it சி-வைகாசி flop பின் into the water.
+2. Stun the fish by hitting it hard on the head with a club or rock. You can then use a knife பெறுநர் வெட்டு the gills or pierce the brain பெறுநர் ensure the fish is dead.
+3. அகற்று scales by scraping them அணை with a knife (tail பெறுநர் head).
+4. அகற்று the entrails by cutting the belly திற and pulling them out. You can also வெட்டு அணை the head and tail பெறுநர் make this easier.
+5. வெட்டு the fish into usable pieces or fillet it. If it is small, you can cook it whole.
+6. Cook the fish.
+
+## மற்றொன்று animals
+<!-- K: animal, hunt, bow, trap, deadfall, bird, reptile, amphibian, frog, snake, mammal, skin, kill, meat, butcher, skin -->
+<!-- S: Hunting or trapping can be energy-consuming and difficult without proper tools. -->
+
+In a survival situation, it's best பெறுநர் குவி on easier-to-catch animals like insects, shellfish, crustaceans, and fish. But if you have the means பெறுநர் catch மற்றொன்று animals, they can provide a good மூலம் of புரதம் and nutrients. Unless you அரே a hunter with hunting gear, do not try பெறுநர் hunt large animals.
+
+### Hunting
+
+**Clubs**
+
+A club can be அச் simple அச் a stick with a heavy end. This can kill or stun fish or மற்றொன்று small animals with a quick, forceful blow பெறுநர் the head.
+
+**Spears**
+
+A spear can be made by sharpening a stick. Unless you have experience, stabbing with the spear instead of throwing it is best. பெறுநர் make it easier பெறுநர் hit your target, you can construct multiple spear பிரிவகம் if you use a forked branch.
+
+**Throwing sticks and rocks**
+
+In a pinch, you can throw a heavy stick or rock பெறுநர் kill or stun small animals. Aim க்கு the head பெறுநர் ensure a quick kill.
+
+### Trapping
+
+Traps allow க்கு the passive capture of small animals. They can be கணம் மேலே and இடது alone while you perform மற்றொன்று tasks. சரிபார் them every few hours. Look க்கு signs of animal செய்கைப்பாடு like tracks, droppings, or chewed vegetation. கணம் மேலே traps in areas where animals அரே likely பெறுநர் கணவாய் through. You can construct funnels or walls பெறுநர் guide animals into them. Baiting the traps can increase their effectiveness. Smoking the traps can உதவி மறைப்பு your scent.
+
+**Deadfalls**
+
+Deadfall traps வேலை by dropping a heavy பொருள் on the animal when it தூண்டுதல்கள் the trap. The trigger mechanism can be made இருந்து a stick and a bait stick. The trigger is released when the animal takes the bait, causing the heavy பொருள் பெறுநர் fall. Place one or more of these traps near your shelter பெறுநர் catch mice.
+
+![](file:///android_asset/survival_guide/34.webp)
+
+![](file:///android_asset/survival_guide/35.webp)
+
+### Birds
+
+Birds அரே பெரும்பாலானவை easily caught at night when roosting, or you can eat eggs இருந்து nests. Use a club, throwing stick, or rock பெறுநர் kill or stun the bird.
+
+To prepare a பறவை க்கு cooking:
+
+1. Pluck feathers. பெறுநர் make this easier, place the பறவை in boiling water. Optionally, you can skin the bird, but that removes some fat.
+2. வெட்டு திற the body cavity and அகற்று the entrails.
+3. க்கு larger birds, வெட்டு அணை the feet and separate the பறவை into usable pieces along the joints.
+4. Cook the bird.
+
+If you catch a seabird, skin it instead of plucking the feathers பெறுநர் அகற்று the oil glands. If you catch a scavenger பறவை like a vulture, boil it க்கு at least 20 minutes பெறுநர் kill parasites.
+
+### Reptiles and amphibians
+
+Reptiles and amphibians அரே easier பெறுநர் catch than mammals and birds. Many can be found basking in திற ground, on logs, or at the water's edge. Use a multi-pointed spear or முள் them down with a stick behind the head.
+
+Always wash your hands after handling reptiles and amphibians, அச் they can carry salmonella. Cook the meat thoroughly.
+
+**Do not eat the following**:
+- Box turtles
+- Hawksbill turtles
+- Brightly colored frogs
+- Frogs with an ஃச் on their back
+- Tree frogs
+- Toads
+- Salamanders
+- Snakes: they அரே edible but சி-வைகாசி be dangerous பெறுநர் catch
+  - If you kill a snake, வெட்டு அணை and புதர் its head before cleaning. ஒருபோதும் touch the head with your hands; use sticks instead.
+
+### Small mammals
+
+Small mammals can be caught using traps, clubs, throwing sticks, or rocks.
+
+To prepare a small mammal க்கு cooking:
+
+1. Make cuts down the insides of the பின் legs.
+2. Pull the skin அணை the body like a glove. You'll need பெறுநர் sever the head and front feet பெறுநர் அகற்று the skin.
+3. வெட்டு திற the abdominal cavity and அகற்று the entrails. Be careful not பெறுநர் puncture the intestines.
+
+This guide does not cover the preparation of large mammals, அச் they அரே challenging பெறுநர் catch and require a நிறைய of energy பெறுநர் process.
+
+## Cooking
+<!-- K: cook, boil, roast, bake, utensil, container, stove -->
+<!-- S: பெறுநர் avoid getting sick, boil, roast, or சுட்டுக்கொள் பெரும்பாலானவை foods. This will require you பெறுநர் தொடங்கு a fire or have a portable stove. -->
+
+Do not try பெறுநர் preserve the food you catch; just cook and eat it.
+
+### Stoves
+Portable stoves அரே convenient ways பெறுநர் cook food. They can be fueled by wood, alcohol, or gas. Follow the manufacturer's instructions க்கு use. You'll பெரும்பாலானவை likely use this பெறுநர் boil water rather than cook the food directly on the flame. Be sure பெறுநர் let the stove cool down before packing it away.
+
+### Boiling
+
+Boiling preserves the பெரும்பாலானவை nutrients in food and is the safest cooking method. A மாழை சரக்குப் பெட்டகம் filled with water can be suspended வீச்சலகு a fire or placed onto hot coals. See the Water பாடங்கள் க்கு more செய்தி on boiling water.
+
+### Roasting
+
+Roasting is a quick and easy cooking method, but the food is less nutritious. You can roast food on a stick வீச்சலகு a fire or place it on hot coals.
+
+### Baking
+
+You can wrap food in leaves or clay and place it in the coals of a fire பெறுநர் சுட்டுக்கொள் it. This method is slower than roasting but preserves more nutrients. Do not skin fish or birds packed with clay; the skin will stick பெறுநர் the clay and can be removed after cooking.
+
+### Utensils
+If you அரே packing utensils, a spork is a good option. Otherwise, you can கைப்பிடி food with a stick or your hands. Be sure பெறுநர் wash your hands before and after eating.
+
+## Protection
+<!-- K: protect, bear, bag, canister, box -->
+<!-- S: Use bear bags or canisters பெறுநர் prevent animals இருந்து stealing your food. -->
+
+You சி-வைகாசி need பெறுநர் protect your food இருந்து animals. Here அரே some முறைகள் பெறுநர் keep your food safe:
+
+### Bear bags
+
+A bear bag is a bag of food hoisted into a tree பெறுநர் keep it out of reach of bears and மற்றொன்று animals. கண்டுபிடி a tree with a branch பற்றி 20 feet (6 meters) அணை the ground and thick enough பெறுநர் support the weight of your food at பற்றி 10 feet (3 meters) இருந்து the trunk.
+
+1. Place food in a bag.
+2. Tie a rope பெறுநர் the bag.
+3. Throw the மற்றொன்று end of the rope வீச்சலகு a branch. பெறுநர் give the வரி weight, attach a குறுக்கு stick பெறுநர் the end of it. Secure the stick with a clove hitch or நெரிசல் knot.
+4. Hoist the bag பற்றி 15 feet (4.5 meters) above the ground.
+4. Tie the rope பெறுநர் a tree பெறுநர் keep the bag elevated. Use either a hitch or bowline knot.
+
+See the Shelter and Clothing பாடங்கள் க்கு details on how பெறுநர் tie knots.
+
+### Bear canisters
+
+A bear canister is a rigid நெகிழி சரக்குப் பெட்டகம் used பெறுநர் store food. It is bear-proof and can be இடது on the ground. Some campsites சி-வைகாசி provide a bear box, a large மாழை box used பெறுநர் store food.

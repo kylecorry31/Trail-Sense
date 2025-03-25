@@ -1,0 +1,73 @@
+The Weather கருவி can be used பெறுநர் roughly predict the weather.
+
+## Weather prediction
+The weather prediction appears at the மேலே of your screen. This does not use the Internet and factors in அழுத்தம் history, historical (30-year average) temperatures, and the clouds இருந்து the Clouds tool. It also attempts பெறுநர் estimate when the weather change will occur, displayed beneath the prediction. The accuracy of the time frame depends on if the clouds indicate a weather front; if it's detected, an approximate time will be displayed, otherwise, it's more vague, like "soon" or "later."
+
+If the weather monitor is on, it records அழுத்தம் வரலாறு automatically. Otherwise, அழுத்தம் updates only occur when you திற the Weather tool. க்கு accuracy, it's best பெறுநர் record அழுத்தம் every 30 minutes.
+
+You can adjust prediction sensitivity in அமைப்புகள் > Weather > Forecast sensitivity. Higher sensitivity சி-வைகாசி detect more patterns but might விளைச்சல் more false predictions.
+
+## Weather monitor
+The weather monitor runs in the பின்னணி பெறுநர் record அழுத்தம் history. Enable it by clicking the தொடங்கு icon at the bottom-right. This causes a notification பெறுநர் appear with the மின்னோட்ட்ம், ஓட்டம் prediction and an சூதம் பெறுநர் நிறுத்து the weather monitor. You can also நிறுத்து it by clicking the நிறுத்து icon in the bottom-right.
+
+To change the recording frequency, click the time under the weather monitor சிட்டை at the கீழே இடது and enter a புதிய interval.
+
+For better accuracy, grant Trail புலன் Location permission பெறுநர் determine your உயர்வு கோடு வழிமம் GPS. This helps convert அழுத்தம் பெறுநர் sea நிலை pressure, improving prediction accuracy.
+
+In அமைப்புகள் > Weather, you can customize the notification பெறுநர் show:
+- **Pressure**: Displays the மின்னோட்ட்ம், ஓட்டம் pressure.
+- **Temperature**:  Displays the மின்னோட்ட்ம், ஓட்டம் temperature (refer பெறுநர் Thermometer guide க்கு details).
+
+You can also enable daily weather notifications in அமைப்புகள் > Weather > Daily weather notification. Without the weather monitor being active, you won't receive these notifications. The நேரவிவரம் of this notification is configurable in அமைப்புகள் > Weather > Daily weather time.
+
+You can முடக்கு weather monitor notifications in Android's notification அமைப்புகள் க்கு Trail Sense.
+
+## Storm alert
+If the weather monitor is active, Trail புலன் can notify you of storms. Enable this in அமைப்புகள் > Weather > Storm alert. You can adjust the sensitivity in அமைப்புகள் > Weather > Storm sensitivity. Higher sensitivity might trigger false alerts, while lower sensitivity could miss some storms.
+
+## Weather details
+The Weather கருவி also provides more செய்தி பற்றி the மின்னோட்ட்ம், ஓட்டம் and predicted weather.
+
+### Alerts
+The Weather கருவி displays alerts when a storm is detected or historical temperatures suggest hot or cold conditions.
+
+### Pressure
+A அழுத்தம் வரலாறு chart is displayed at the மேலே of the screen. Falling அழுத்தம் சி-வைகாசி indicate an incoming storm, rising அழுத்தம் suggests clearing weather, and steady அழுத்தம் indicates இல்லை significant changes. The மின்னோட்ட்ம், ஓட்டம் அழுத்தம் and its tendency (change வீச்சலகு time) அரே listed below the chart.
+
+The மின்னோட்ட்ம், ஓட்டம் அழுத்தம் மண்டலம் is also displayed. Low அழுத்தம் often means poor weather, while high அழுத்தம் indicates fair conditions. Clicking on it provides a விவரம் of the அழுத்தம் system.
+
+You can change the வரலாறு duration in அமைப்புகள் > Weather > "Pressure history".
+
+### Temperature
+The மின்னோட்ட்ம், ஓட்டம் temperature, sourced இருந்து historical தகவல்கள் or the onboard thermometer, is shown in the weather list. Daily high/low temperatures அரே also provided using historical data. Clicking on the மின்னோட்ட்ம், ஓட்டம் temperature reveals a temperature வரலாறு chart, while clicking on high/low temperatures displays a 24-hour temperature prediction chart based on historical temperatures.
+
+### Humidity
+If your device has a humidity sensor, the மின்னோட்ட்ம், ஓட்டம் humidity is displayed. Clicking on it reveals a humidity வரலாறு chart.
+
+### Clouds
+The last logged முகில் வகை appears in the weather list. Clicking on it provides a விவரம் of the முகில் type.
+
+### Weather front
+The மின்னோட்ட்ம், ஓட்டம் weather front is displayed in the weather list. Fronts typically indicate weather changes and அரே often associated with precipitation and wind. Clicking on it provides a விவரம் of the weather front.
+
+## Exporting weather data
+You can ஏற்றுமதி the recorded weather தகவல்கள் பெறுநர் a காபிம கோப்பு with அமைப்புகள் > Weather > ஏற்றுமதி weather records.
+
+## Quick action
+You can enable the Weather Monitor quick செயல் in the அமைப்புகள் க்கு the தாவல் you want it on.
+
+To use the quick action, tap the Weather Monitor quick செயல் button பெறுநர் toggle it on or off.
+
+## Accuracy
+The weather prediction is a best guess using available உணரி தகவல்கள் and சி-வைகாசி not be accurate. If Trail புலன் says it is going பெறுநர் be clear but you see what appears பெறுநர் be storm clouds rolling in, trust your instincts - sometimes storms உருளம் in with gradual changes in pressure. Seek shelter if you புலன் a storm approaching, regardless of Trail Sense's prediction.
+
+Climate normals (historic temperatures) அரே based on the 30-year average of the historic தகவல்கள் and indicate what the weather usually is. The actual values சி-வைகாசி differ க்கு a variety of reasons but should remain fairly மூடு பெறுநர் the historic values. Large differences அரே normally due பெறுநர் a storm or மற்றொன்று weather event.
+
+Historic temperatures அரே estimated using a தனிப்பயன் 30-year "climate normal" மாதிரியுரு derived இருந்து the NASA உலகளாவிய Modeling and தன்மயமாக்கம் Office - MERRA-2 தகவல்கள் (1991 - 2020).
+
+## Widgets
+The following நிரல்பலகை can be placed on your device's homescreen or viewed in-app:
+
+- **Weather**: Shows the மின்னோட்ட்ம், ஓட்டம் weather and temperature prediction.
+- **Pressure**: Shows the மின்னோட்ட்ம், ஓட்டம் அழுத்தம் and tendency arrow.
+- **Pressure chart**: The அழுத்தம் chart.

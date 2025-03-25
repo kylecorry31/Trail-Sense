@@ -1,0 +1,107 @@
+The வானோடல் கருவி can be used பெறுநர் navigate பெறுநர் a beacon, follow a path, or follow a bearing.
+
+## Compass
+
+The compass can be used க்கு both நோக்குநிலை and navigation. Your bearing is displayed at the மேலே of the screen.
+
+This feature is not available if your device does not have a compass.
+
+### Nearby
+
+You can choose பெறுநர் காட்சி nearby beacons on the compass. The following அமைப்புகள் control the nearby beacons:
+
+- **Settings > வானோடல் > காட்டு nearby beacons**: Determines if nearby beacons அரே shown on the compass.
+- **Settings > வானோடல் > Nearby சுழலொளி radius**: Determines the பெருமம் distance a சுழலொளி can be இருந்து your location பெறுநர் be shown on the compass.
+- **Settings > வானோடல் > Nearby beacons**: Limits the எண் of nearby beacons shown on the compass.
+
+Nearby beacons will be shown அச் அம்புகள் around the compass. The அம்புகள் will புள்ளியம் பெறுநர் the beacon, and when you அரே facing the beacon, more செய்தி பற்றி it will be shown at the கீழே of the screen.
+
+If you have the கதிரலைக் கும்பா compass enabled, the nearby beacons will be shown on the compass itself.
+
+### கதிரலைக் கும்பா compass
+
+The கதிரலைக் கும்பா compass shows nearby beacons, paths, and tides அச் a map-like கதிரலைக் கும்பா display. The கதிரலைக் கும்பா compass is available with nearby beacons enabled. Once nearby beacons அரே enabled, you can turn on the கதிரலைக் கும்பா compass using "Settings > வானோடல் > காட்டு nearby கதிரலைக் கும்பா compass".
+
+You can pinch பெறுநர் zoom the கதிரலைக் கும்பா compass, which will change the nearby சுழலொளி radius.
+
+If your device does not have a compass, you can still choose பெறுநர் காட்சி the compass dial ticks by enabling the அமைப்புகள் > வானோடல் > 'Show dial ticks on nearby radar' option. Please note, that without a compass sensor, moving your device will not change the direction of the கதிரலைக் கும்பா compass.
+
+### நேரியல் compass
+
+The நேரியல் compass is displayed when you hold your phone vertically. You can also use the sighting compass feature with the நேரியல் compass by tapping the camera icon on the வலது பக்கம் of the screen. This will காட்சி the compass overlaid on a camera viewfinder. With the sighting compass active, you can pinch பெறுநர் zoom the camera viewfinder.
+
+You can enable or முடக்கு the நேரியல் compass under அமைப்புகள் > வானோடல் > காட்டு நேரியல் compass.
+
+### வடக்கு reference
+
+By default, it will புள்ளியம் பெறுநர் True North, but it can be configured பெறுநர் புள்ளியம் பெறுநர் காந்தம் வடக்கு in the compass settings. The வடக்கு குறிப்பு is displayed at the கீழே of the screen.
+
+### Sun and moon
+
+The compass shows the direction of the sun and moon, allowing you பெறுநர் navigate using them and verify the accuracy of the compass. You can configure the sun and moon காட்சி in அமைப்புகள் > வானோடல் > காட்டு sun/moon on compass. The விருப்பங்கள் are:
+
+- **Always**: எப்போதும் காட்டு the sun and moon on the compass.
+- **When up**: Only காட்டு the sun and moon when they அரே above the horizon.
+- **Never**: ஒருபோதும் காட்டு the sun and moon on the compass.
+
+### Calibration
+
+Phone compasses அரே not எப்போதும் accurate, so you should frequently calibrate your compass. You can calibrate your compass by waving your phone in a figure-8 pattern. க்கு more detailed instructions and a visual, click the நிலை icons in the bottom-left of the வானோடல் tool. This will guide you in calibrating your compass and also காட்டு details பற்றி location accuracy.
+
+## சுழலொளி navigation
+
+You can navigate பெறுநர் a சுழலொளி by tapping the navigate button in the bottom-right. This will திற the Beacons tool, where you can தேர்ந்தெடு a சுழலொளி பெறுநர் navigate to. See the Beacons guide க்கு more information.
+
+While navigating பெறுநர் a beacon, the direction will be displayed on the compass and அனைத்தும் மற்றொன்று nearby beacons will become transparent. A வானோடல் panel will காட்சி at the கீழே of your screen with the following information:
+- **Name**: The பெயர் of the சுழலொளி you அரே navigating to.
+- **Distance**: The distance பெறுநர் the beacon.
+- **Bearing**: The bearing பெறுநர் the beacon.
+- **ETA**: The estimated time of arrival பெறுநர் the beacon.
+- **Elevation**: The உயர்வு கோடு of the சுழலொளி and வேறுபாடு இருந்து your மின்னோட்ட்ம், ஓட்டம் elevation.
+- **Notes**: Any notes you have க்கு the beacon. This will காட்டு அச் an icon if there அரே notes, and you can tap it பெறுநர் see the notes.
+
+You can நிறுத்து navigating பெறுநர் a சுழலொளி by tapping the 'ஃச்' button in the bottom-right.
+
+You can quickly create a சுழலொளி இருந்து your மின்னோட்ட்ம், ஓட்டம் location by long-pressing the வானோடல் icon at the bottom-right. This will திற the Beacons கருவி with the location and உயர்வு கோடு pre-filled.
+
+For more செய்தி on beacons, see the Beacons guide.
+
+## Bearing navigation
+
+You can navigate using a bearing by tapping the compass பெறுநர் கணம் a bearing. The கணம் bearing will be displayed on the compass. You can tap the compass again பெறுநர் clear the bearing.
+
+## பாதை navigation
+
+If you have the கதிரலைக் கும்பா compass enabled, you can see nearby paths on the compass. You can't currently navigate along a path, but you can use the compass பெறுநர் see where the பாதை is relative பெறுநர் you. If you have Backtrack running, you can see your மின்னோட்ட்ம், ஓட்டம் position on the path. க்கு more information, see the Paths guide.
+
+## Location
+
+Your மின்னோட்ட்ம், ஓட்டம் location is shown at the மேலே of the screen. You can tap it பெறுநர் see more details பற்றி your location. The details panel shows the following information:
+
+- **Share**: Choose பெறுநர் நகலெடு your location பெறுநர் your clipboard, பங்கு it அச் a QR code, திற it in a map பயன்பாடு, or பங்கு it அச் a உரை message.
+- **Format**: The ஆயம் வடிவம் பெறுநர் see your location in. This defaults பெறுநர் the வடிவம் you have in அமைப்புகள் > Units > ஆயம் format. Changes made here அரே temporary and will not change your இயல்புநிலை ஆயம் format.
+- **Accuracy**: The accuracy of your location.
+- **Satellites**: The எண் of satellites used பெறுநர் calculate your location.
+- **Time since last fix**: The time since your location was last updated.
+- **Datum**: The datum of the location. This will எப்போதும் be WGS 84.
+
+You can long-press the location பெறுநர் quickly bring மேலே the பங்கு menu.
+
+## Elevation
+
+Your உயர்வு கோடு is shown at the top-left of the screen. You can tap it பெறுநர் see a வரலாறு of your elevation. The வரலாறு is only available if you have Backtrack or the weather monitor running - see the Paths or Weather guide க்கு details on how பெறுநர் turn this on. You can adjust the length of the வரலாறு by clicking the "Last 24h" dropdown at the மேலே of the வரலாறு panel.
+
+## Speed
+
+Your விரைவு is shown at the top-right of the screen. You can change the மூலம் of the விரைவு in அமைப்புகள் > வானோடல் > Speedometer. The விருப்பங்கள் are:
+
+- **Current விரைவு (GPS)**: The விரைவு reported by your GPS.
+- **Average விரைவு (Backtrack)**: The average விரைவு calculated by Backtrack. This requires Backtrack பெறுநர் be running. See the Paths guide க்கு more information.
+- **Current விரைவு (Pedometer)**: The விரைவு calculated by your phone's pedometer. This requires the pedometer பெறுநர் be running. See the Pedometer guide க்கு more information.
+- **Average விரைவு (Pedometer)**: The average விரைவு calculated by your phone's pedometer since you started tracking. This requires the pedometer பெறுநர் be running. See the Pedometer guide க்கு more information.
+
+## Widgets
+The following நிரல்பலகை can be placed on your device's homescreen or viewed in-app:
+
+- **Elevation**: Shows your மின்னோட்ட்ம், ஓட்டம் elevation.
+- **Location**: Shows your மின்னோட்ட்ம், ஓட்டம் location.

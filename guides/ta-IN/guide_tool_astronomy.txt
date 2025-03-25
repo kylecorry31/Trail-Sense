@@ -1,0 +1,96 @@
+The Astronomy கருவி can be used பெறுநர் see when the sun or moon is up. It can also be used பெறுநர் know when astronomical நிகழ்வுகள் அரே happening, such அச் a meteor shower or lunar eclipse.
+
+With the exception of the time until sunrise or sunset (always today), அனைத்தும் செய்தி shown on the page is க்கு the தேர்ந்தெடுக்கப்பட்டது date. By default, இன்று is selected, but you can change it by tapping the நாட்காட்டி icon at the மேலே of the screen. On the நாட்காட்டி, you will see the moon phase, meteor showers, and eclipses க்கு each day. Additionally, you can use the அம்புகள் பெறுநர் move பெறுநர் the next/previous திகதி or long press the நாட்காட்டி பெறுநர் quickly தாவு பெறுநர் today's date.
+
+You can also click the தேடல் icon பெறுநர் கண்டுபிடி the அடுத்தது occurrence of an astronomical event at your location, such அச் the அடுத்தது full moon or meteor shower.
+
+## Time until sunrise/sunset
+
+The time until sunrise or sunset is shown at the மேலே of the screen. This respects the 'Sunrise/sunset times' in அமைப்புகள் > Astronomy. க்கு a விவரம் of each time, see the Sun பிரிவு below.
+
+## Chart
+The chart shows the position of the sun and moon throughout the day. The X-axis is time, and the Y-axis is the குத்துயரம் or height in the sky. You can tap on the sun or moon icon in the chart பெறுநர் see its மின்னோட்ட்ம், ஓட்டம் position. When you do this, a slider will appear so you can see its position at a different time of the day.
+
+You can also choose பெறுநர் keep the மின்னோட்ட்ம், ஓட்டம் time centered in the chart by enabling 'Keep sun/moon centered' in அமைப்புகள் > Astronomy. This will keep the மின்னோட்ட்ம், ஓட்டம் time centered in the chart when you have இன்று தேர்ந்தெடுக்கப்பட்டது and will காட்டு 12 hours before and after the மின்னோட்ட்ம், ஓட்டம் time. If you have a different திகதி selected, it will காட்டு the entire நாள் instead.
+
+## Sun
+All பெருக்கல் related பெறுநர் the sun respect the 'Sunrise/sunset times' in அமைப்புகள் > Astronomy. க்கு a விவரம் of each time, see below.
+
+The time until sunrise or sunset is shown at the மேலே of the screen.
+
+The time of sunrise, sunset, and நூன் is shown below the chart, அச் well அச் the length of the day. If you tap this section, you will see more details பற்றி the sun க்கு the மின்னோட்ட்ம், ஓட்டம் day:
+
+- **Actual**: This is the actual time of sunrise, sunset, and noon. It is the time when the sun is at the horizon.
+- **Civil**: This is the time of sunrise, sunset, and நூன் when the sun is between 0 and 6 degrees below the horizon. There is enough light பெறுநர் see objects clearly.
+- **Nautical**: This is the time of sunrise, sunset, and நூன் when the sun is between 6 and 12 degrees below the horizon. The horizon is still visible, but it is too dark பெறுநர் see objects clearly.
+- **Astronomical**: This is the time of sunrise, sunset, and நூன் when the sun is between 12 and 18 degrees below the horizon. It is completely dark, but it is perfect க்கு stargazing.
+- **Peak altitude**: This is the highest புள்ளியம் the sun reaches in the sky. It is shown in degrees above the horizon.
+- **Daylight**: This is the amount of time when the sun is up.
+- **Night**: This is the amount of time when the sun is down.
+- **Season**: This is the astronomical season based on the Earth's position around the sun. It will be one of the following: spring, summer, fall, or winter.
+- **Altitude**: This is the மின்னோட்ட்ம், ஓட்டம் angle of the sun above the horizon. It is shown in degrees.
+- **Direction**: This is the மின்னோட்ட்ம், ஓட்டம் direction the sun is in. It is shown in degrees.
+
+## Moon
+The time of moonrise, moonset, and lunar நூன் அரே shown below the chart, அச் well அச் the மின்னோட்ட்ம், ஓட்டம் moon கட்டம் and illumination percentage. If you tap this section, you will see more details பற்றி the moon க்கு the மின்னோட்ட்ம், ஓட்டம் day:
+
+- **Times**: This is the time of moonrise, moonset, and lunar noon.
+- **Moon phase**: This is the மின்னோட்ட்ம், ஓட்டம் கட்டம் of the moon அச் it appears in the sky.
+- **Illumination**: This is the percentage of the moon that is illuminated. A full moon is 100% illuminated, and a புதிய moon is 0% illuminated.
+- **Peak altitude**: This is the highest புள்ளியம் the moon reaches in the sky. It is shown in degrees above the horizon.
+- **Supermoon**: This is when the moon is closer பெறுநர் the Earth than normal, making it appear larger and brighter in the sky.
+
+## Meteor showers
+If a meteor shower peak is happening on the தேர்ந்தெடுக்கப்பட்டது திகதி at your location, it will காட்டு in the list. It displays the start, peak, and end பெருக்கல் of the shower, அச் well அச் the average எண் of meteors per hour. You can tap on the shower பெறுநர் see more details:
+
+- **Times**: This is the start, peak, and end பெருக்கல் of the shower.
+- **Name**: This is the பெயர் of the shower.
+- **Rate**: This is the average எண் of meteors per hour.
+- **Peak altitude**: This is the highest புள்ளியம் the radiant (area where the meteors appear பெறுநர் come from) reaches in the sky. It is shown in degrees above the horizon.
+- **Peak direction**: This is the direction the radiant is in.
+
+## Lunar eclipses
+If a lunar eclipse is happening on the தேர்ந்தெடுக்கப்பட்டது திகதி at your location, it will காட்டு in the list. It displays the start, peak, and end பெருக்கல் of the eclipse, அச் well அச் how much of the moon is eclipsed. You can tap on the eclipse பெறுநர் see more details:
+
+- **Times**: This is the start, peak, and end பெருக்கல் of the eclipse.
+- **Duration**: This is the duration of the eclipse.
+- **Obscuration**: This is the percentage of the moon that is eclipsed.
+- **Magnitude**: This is the வீச்சளவு of the eclipse. It is the fraction of the moon's விட்டம் that is eclipsed.
+- **Peak altitude**: This is the குத்துயரம் of the moon at the peak of the eclipse. It is shown in degrees above the horizon.
+- **Peak direction**: This is the direction the moon is in at the peak of the eclipse.
+
+## Solar eclipses
+If a solar eclipse is happening on the தேர்ந்தெடுக்கப்பட்டது திகதி at your location, it will காட்டு in the list. It displays the start, peak, and end பெருக்கல் of the eclipse, அச் well அச் how much of the sun is eclipsed. You can tap on the eclipse பெறுநர் see more details:
+
+- **Times**: This is the start, peak, and end பெருக்கல் of the eclipse.
+- **Duration**: This is the duration of the eclipse.
+- **Obscuration**: This is the percentage of the sun that is eclipsed.
+- **Magnitude**: This is the வீச்சளவு of the eclipse. It is the fraction of the sun's விட்டம் that is eclipsed.
+- **Peak altitude**: This is the குத்துயரம் of the sun at the peak of the eclipse, shown in degrees above the horizon.
+- **Peak direction**: This is the direction the sun is in at the peak of the eclipse.
+
+## Sunset alerts
+Alerts can be கணம் க்கு sunset பெறுநர் avoid being caught outside in the dark. பெறுநர் கணம் an alert, திற அமைப்புகள் > Astronomy and enable 'Sunset alerts'. You can adjust the 'Sunset alert time' setting பெறுநர் determine how far in முன்பணம் you want பெறுநர் be notified. There is also a quick செயல் available க்கு the sunset alert. See below க்கு more information.
+
+## Sunrise alerts
+Alerts can be configured க்கு sunrise பெறுநர் ensure you don't miss the beginning of the day. பெறுநர் கணம் மேலே an alert, go பெறுநர் அமைப்புகள் > Astronomy and turn on 'Sunrise alerts'. You can adjust the 'Sunrise alert time' setting பெறுநர் decide how much முன்பணம் notice you want. Additionally, there is a quick செயல் சூதம் available க்கு the sunrise alert. Refer பெறுநர் the செய்தி below க்கு further details.
+
+## Astronomy alerts
+Alerts can be கணம் க்கு astronomical நிகழ்வுகள் பெறுநர் ensure you don't miss them. பெறுநர் கணம் an alert, திற அமைப்புகள் > Astronomy and enable the alerts you want பெறுநர் be notified பற்றி க்கு your location. You can receive notifications க்கு meteor showers, lunar eclipses, and solar eclipses. The alert will be shown மேலே பெறுநர் 24 hours in முன்பணம் of the event தொடங்கு time.
+
+## பார்வை in 3D
+If your phone has a compass, you will see a "View in 3D" button. Clicking this will திற the Augmented Reality கருவி with the தேர்ந்தெடுக்கப்பட்டது திகதி and allow you பெறுநர் see where the sun and moon will be throughout the நாள் using your camera.
+
+You can choose பெறுநர் முடக்கு the camera when clicked by disabling the "Settings > Astronomy > Use camera க்கு 3D viewing" setting.
+
+## Quick action
+You can enable the Sunset Alert and Sunrise Alert quick செயல் in the அமைப்புகள் க்கு the தாவல் where you want it பெறுநர் appear.
+
+To use the quick action, tap the sunset alert or sunrise alert quick செயல் button பெறுநர் toggle it on or off.
+
+## Widgets
+The following நிரல்பலகை can be placed on your device's homescreen or viewed in-app:
+
+- **Sun**: Shows the time of the அடுத்தது sunrise or sunset.
+- **Moon**: Shows the கட்டம் of the moon.
+- **Sun & moon chart**: The chart of the height of the sun and moon in the sky.
