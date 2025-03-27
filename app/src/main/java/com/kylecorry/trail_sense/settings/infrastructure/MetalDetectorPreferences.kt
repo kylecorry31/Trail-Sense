@@ -24,5 +24,9 @@ class MetalDetectorPreferences(context: Context): PreferenceRepo(context) {
         context.getString(R.string.pref_use_metal_audio),
         false
     )
-
+    var isMetalVibrationDisabled by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_no_use_metal_vibration),
+        false
+    )
 }

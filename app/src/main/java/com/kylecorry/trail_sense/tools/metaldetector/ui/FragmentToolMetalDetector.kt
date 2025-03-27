@@ -96,6 +96,7 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
             prefs.metalDetector.isMetalAudioEnabled
         )
 
+        // Configure button: Metal Audio Toggle
         binding.metalDetectorTitle.rightButton.setOnClickListener {
             if (prefs.metalDetector.isMetalAudioEnabled) {
                 prefs.metalDetector.isMetalAudioEnabled = false
@@ -107,6 +108,25 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
             CustomUiUtils.setButtonState(
                 binding.metalDetectorTitle.rightButton,
                 prefs.metalDetector.isMetalAudioEnabled
+            )
+        }
+
+        // Configure button: Metal Vibration Toggle
+        CustomUiUtils.setButtonState(
+            binding.metalDetectorTitle.leftButton,
+            !prefs.metalDetector.isMetalVibrationDisabled
+        )
+
+        binding.metalDetectorTitle.leftButton.setOnClickListener {
+            if (prefs.metalDetector.isMetalVibrationDisabled) {
+                prefs.metalDetector.isMetalVibrationDisabled = false
+            } else {
+                prefs.metalDetector.isMetalVibrationDisabled = true
+                haptics.off()
+            }
+            CustomUiUtils.setButtonState(
+                binding.metalDetectorTitle.leftButton,
+                !prefs.metalDetector.isMetalVibrationDisabled
             )
         }
     }
@@ -208,15 +228,27 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
             Resources.androidTextColorSecondary(requireContext())
         )
 
-        if (metalDetected && !isVibrating) {
-            isVibrating = true
-            haptics.interval(VIBRATION_DURATION)
-        } else if (!metalDetected) {
-            isVibrating = false
-            haptics.off()
-        }
+        maybeVibrate(metalDetected)
 
         updateMetalSoundIntensity(magneticField)
+    }
+
+    /**
+     * [maybeVibrate] turns off vibration (haptics) if vibration is disabled
+     * or there is no metal detected.
+     * Otherwise vibration is triggered.
+     */
+    private fun maybeVibrate(metalDetected: Boolean) {
+        if (!metalDetected || prefs.metalDetector.isMetalVibrationDisabled) {
+            isVibrating = false
+            haptics.off()
+            return
+        }
+
+        if (!isVibrating) {
+            isVibrating = true
+            haptics.interval(VIBRATION_DURATION)
+        }
     }
 
     private fun updateMetalSoundIntensity(reading: Float) {
