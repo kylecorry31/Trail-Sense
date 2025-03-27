@@ -23,6 +23,19 @@ def check_new_lines(original_text: str, translated_text: str) -> bool:
     # Make sure the translated guide has the same number of lines as the original guide
     return len(original_lines) == len(translated_lines)
 
+def check_is_translated(original_text: str, translated_text: str) -> bool:
+    """Returns True if the translated guide is mostly translated. Otherwise, returns False."""
+    original_words = original_text.split()
+    translated_words = translated_text.split()
+
+    # Distinct
+    original_words = set(original_words)
+    translated_words = set(translated_words)
+    translated_words_not_in_original = len(translated_words - original_words)
+
+    # Greater than 75 % translated can pass through
+    return translated_words_not_in_original / len(translated_words) > 0.75
+
 def check_markdown_integrity(original_text: str, translated_text: str) -> bool:
     """Returns True if the translated guide has the same number of markdown elements as the original guide. Otherwise, returns False."""
     headers = ["#", "##", "###", "####", "#####", "######"]
@@ -66,6 +79,9 @@ def get_issues(original, translated):
 
     if not check_markdown_integrity(original_text, translated_text):
         issues.append("markdown")
+    
+    if not check_is_translated(original_text, translated_text):
+        issues.append("not-fully-translated")
 
     return issues
 
