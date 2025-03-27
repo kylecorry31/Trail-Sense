@@ -1194,4 +1194,20 @@
         <item quantity="one">%d oldal</item>
         <item quantity="other">%d oldal</item>
     </plurals>
+    <string name="select_backup_directory">Biztonsági mentés könyvtárának kiválasztása</string>
+    <string name="backup_failed">Sikertelen biztonsági mentés</string>
+    <string name="no_directory_selected">Nincs könyvtár kiválasztva</string>
+    <string name="unit_millimeters">Milliméter</string>
+    <string name="reduce_photo_resolution">Fotó felbontás csökkentése</string>
+    <string name="on_import">Importáláskor</string>
+    <string name="automatic_backup">Automatikus biztonsági mentés</string>
+    <string name="unable_to_create_an_automatic_backup">Automatikus biztonsági mentés létrehozása sikertelen.</string>
+    <string name="automatic_backup_invalid_directory_resolution">Kapcsold ki az automatikus biztonsági mentést, majd kapcsold vissza, hogy új könyvtárat válassz.</string>
+    <string name="widgets">Widgetek</string>
+    <string name="widget_updater">Widget frissítő</string>
+    <string name="reduce_pdf_resolution">PDF felbontás csökkentése</string>
+    <string name="us_teaspoons">US teáskanál</string>
+    <string name="us_tablespoons">US evőkanál</string>
+    <string name="auto_backup_instructions">Naponta egyszer biztonsági mentés lesz létrehozva a %1$s helyen. Csak a legutóbbi %2$d mentés kerül megőrzésre.</string>
+    <string name="automatic_backup_invalid_directory">Érvénytelen könyvtár</string>
 </resources>
