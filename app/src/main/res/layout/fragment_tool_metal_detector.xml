@@ -13,7 +13,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:leftButtonIcon="@drawable/ic_notification"
+        app:leftButtonIcon="@drawable/vibrate"
         app:rightButtonIcon="@drawable/volume_up"
         app:showSubtitle="false"
         tools:title="65 uT" />
