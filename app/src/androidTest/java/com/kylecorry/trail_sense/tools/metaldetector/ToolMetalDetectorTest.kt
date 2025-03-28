@@ -43,5 +43,11 @@ class ToolMetalDetectorTest : ToolTestBase(Tools.METAL_DETECTOR) {
         click(toolbarButton(R.id.metal_detector_title, Side.Right))
         click(toolbarButton(R.id.metal_detector_title, Side.Right))
         unmute(originalVolume)
+
+        // Can disable vibration
+        var buttonVibrationToggle = toolbarButton(R.id.metal_detector_title, Side.Left)
+        click(buttonVibrationToggle)
+        // TODO: assert button state and vibration subsystem state
+
     }
 }
