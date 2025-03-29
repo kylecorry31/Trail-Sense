@@ -5,9 +5,14 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotVisible
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.longClick
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
+import com.kylecorry.trail_sense.test_utils.TestUtils.clickListItemMenu
+import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
@@ -30,9 +35,16 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         canViewMap()
         canCreateBlankMap()
         canCreateMapFromFile()
-        canGroup()
+        canCreateGroup()
+        canRenameGroup()
         canSearch()
-        verifyMapListItemOptions()
+        canRenameMap()
+        canMoveMap()
+        canChangeMapResolution()
+        canExportMap()
+        canPrintMap()
+        canDeleteGroup()
+        canDeleteMap()
     }
 
     private fun canCreateMapFromCamera() {
@@ -63,23 +75,74 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
     }
 
     private fun canCreateMapFromFile() {
-        // TODO
+        click(R.id.add_btn)
+        click(string(R.string.map_file))
+
+        // The file picker is opened
+        isNotVisible(R.id.add_btn)
+
+        waitFor {
+            waitFor {
+                back()
+            }
+            isVisible(R.id.map_list_title)
+        }
     }
 
     private fun canCreateBlankMap() {
-        // TODO
+        click(R.id.add_btn)
+        click(string(R.string.blank))
+
+        clickOk()
+        input("Name", "Blank Map", index = 1, contains = true)
+        clickOk()
+
+        hasText(R.id.map_title, "Blank Map")
+        back()
     }
 
-    private fun canGroup() {
-        // TODO
+    private fun canCreateGroup() {
+        click(R.id.add_btn)
+        click(string(R.string.group))
+
+        input("Name", "Test Group", index = 1, contains = true)
+        clickOk()
+        hasText("Test Group")
+        hasText("0 maps")
+        click("Test Group")
+        hasText(string(R.string.no_maps))
+
+        // Create a map in the group
+        canCreateBlankMap()
+
+        hasText("Blank Map")
+        back()
+        hasText("Test Map")
+        hasText("Test Group")
+        hasText("1 map")
     }
 
     private fun canSearch() {
-        // TODO
+        input(R.id.searchbox, "Blank")
+        hasText("Blank Map")
+        hasText("Blank Map", index = 1)
+        not { hasText("Test Map", waitForTime = 0) }
+        input(R.id.searchbox, "")
+        hasText("Test Group 2")
     }
 
-    private fun verifyMapListItemOptions() {
-        // TODO
+    private fun canDeleteGroup() {
+        clickListItemMenu(string(R.string.delete), index = 0)
+        clickOk()
+        not { hasText("Test Group 2", waitForTime = 0) }
+    }
+
+    private fun canRenameGroup() {
+        clickListItemMenu(string(R.string.rename), index = 0)
+        input("Test Group", "Test Group 2", contains = true)
+        clickOk()
+        hasText("Test Group 2")
+        hasText("1 map")
     }
 
     private fun canViewMap() {
@@ -135,7 +198,68 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
 
     private fun verifyMapMenuOptions() {
         // TODO
+        // Calibrate
+        // User Guide
+        // Rename
+        // Change projection
+        // Measure
+        // Create path
+        // Export
+        // Print
+        // Delete
     }
 
+    private fun canRenameMap() {
+        clickListItemMenu(string(R.string.rename), index = 2)
+        input("Test Map", "Test Map 2", contains = true)
+        clickOk()
+        hasText("Test Map 2")
+    }
+
+    private fun canMoveMap() {
+        clickListItemMenu(string(R.string.move_to), index = 2)
+        click("Test Group 2")
+        click("Move")
+        hasText("2 maps")
+        not { hasText("Test Map 2", waitForTime = 0) }
+        click("Test Group 2")
+        hasText("Test Map 2")
+        back(false)
+    }
+
+    private fun canChangeMapResolution() {
+        clickListItemMenu(string(R.string.change_resolution), index = 1)
+        click("Moderate")
+        clickOk()
+        waitFor { hasText("Blank Map") }
+    }
+
+    private fun canExportMap() {
+        clickListItemMenu(string(R.string.export), index = 1)
+        hasText("blank-map.pdf", contains = true)
+        waitFor {
+            waitFor {
+                back()
+            }
+            isVisible(R.id.map_list_title)
+        }
+    }
+
+    private fun canPrintMap() {
+        clickListItemMenu(string(R.string.print), index = 1)
+        hasText("Copies", contains = true)
+        waitFor {
+            waitFor {
+                back()
+            }
+            isVisible(R.id.map_list_title)
+        }
+    }
+
+    private fun canDeleteMap() {
+        clickListItemMenu(string(R.string.delete))
+        clickOk()
+        not { hasText("Blank Map", waitForTime = 0) }
+    }
 
 }

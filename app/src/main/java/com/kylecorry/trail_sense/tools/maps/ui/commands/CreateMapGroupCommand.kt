@@ -14,7 +14,11 @@ class CreateMapGroupCommand(
 ) : CoroutineCommand<Long?> {
     override suspend fun execute(value: Long?) {
         val name = onMain {
-            CoroutinePickers.text(context, context.getString(R.string.name))
+            CoroutinePickers.text(
+                context,
+                context.getString(R.string.name),
+                hint = context.getString(R.string.name)
+            )
         } ?: return
         mapService.add(MapGroup(0, name, value))
     }
