@@ -30,12 +30,12 @@ fun Fragment.promptIfUnsavedChanges(
             ) { cancelled ->
                 if (!cancelled) {
                     remove()
-                    activity.onBackPressed()
+                    activity.onBackPressedDispatcher.onBackPressed()
                 }
             }
         } else {
             remove()
-            activity.onBackPressed()
+            activity.onBackPressedDispatcher.onBackPressed()
         }
     }
 }

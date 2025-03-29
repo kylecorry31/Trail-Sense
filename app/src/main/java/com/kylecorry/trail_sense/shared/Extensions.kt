@@ -144,14 +144,18 @@ fun ICanvasDrawer.textDimensions(str: String, lineSpacing: Float): Pair<Float, F
     return maxWidth to totalTextHeight + totalSpacing
 }
 
-fun NavController.navigateWithAnimation(@IdRes resId: Int, args: Bundle? = null) {
+fun NavController.navigateWithAnimation(
+    @IdRes resId: Int,
+    args: Bundle? = null
+) {
     try {
-        val options = NavOptions.Builder()
+        val builder = NavOptions.Builder()
             .setEnterAnim(R.anim.slide_in_right)
             .setExitAnim(R.anim.slide_out_left)
             .setPopEnterAnim(R.anim.slide_in_left)
             .setPopExitAnim(R.anim.slide_out_right)
-            .build()
+
+        val options = builder.build()
         navigate(resId, args, options)
     } catch (e: Exception) {
         // If for some reason the animation fails, just navigate without it
@@ -253,10 +257,26 @@ fun Colors.createGrayscaleThresholdMatrix(threshold: Int): ColorMatrix {
     val scale = 255 / range
     return ColorMatrix(
         floatArrayOf(
-            0.3333333f * scale, 0.3333333f * scale, 0.3333333f * scale, 0f, -threshold.toFloat() * scale,
-            0.3333333f * scale, 0.3333333f * scale, 0.3333333f * scale, 0f, -threshold.toFloat() * scale,
-            0.3333333f * scale, 0.3333333f * scale, 0.3333333f * scale, 0f, -threshold.toFloat() * scale,
-            0f, 0f, 0f, 1f, 0f
+            0.3333333f * scale,
+            0.3333333f * scale,
+            0.3333333f * scale,
+            0f,
+            -threshold.toFloat() * scale,
+            0.3333333f * scale,
+            0.3333333f * scale,
+            0.3333333f * scale,
+            0f,
+            -threshold.toFloat() * scale,
+            0.3333333f * scale,
+            0.3333333f * scale,
+            0.3333333f * scale,
+            0f,
+            -threshold.toFloat() * scale,
+            0f,
+            0f,
+            0f,
+            1f,
+            0f
         )
     )
 }

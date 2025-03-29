@@ -29,7 +29,7 @@ class FragmentToolScreenFlashlight : BoundFragment<FragmentToolScreenFlashlightB
         super.onViewCreated(view, savedInstanceState)
         binding.offBtn.setOnClickListener {
             flashlight.off()
-            requireActivity().onBackPressed()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
         if (cache.getBoolean("cache_red_light") == null) {
