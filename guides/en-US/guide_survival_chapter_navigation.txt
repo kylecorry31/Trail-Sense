@@ -232,7 +232,7 @@ Typical map colors include:
 
 - **Northern Hemisphere**: Identify Polaris (the North Star) using the Big Dipper and Cassiopeia as reference points. Polaris is located at the end of the Little Dipper's handle.
 
-![](file:///android_asset/survival_guide/91.webp)
+![](file:///android_asset/survival_guide/northern_stars.webp)
 
 
 - **Southern Hemisphere**: Use the Southern Cross to determine south. Extend a line from the top and bottom stars of the Cross's long axis, continuing about 4.5 times the distance between these stars toward the horizon to approximate the South Pole.
