@@ -237,7 +237,7 @@ Typical map colors include:
 
 - **Southern Hemisphere**: Use the Southern Cross to determine south. Extend a line from the top and bottom stars of the Cross's long axis, continuing about 4.5 times the distance between these stars toward the horizon to approximate the South Pole.
 
-![](file:///android_asset/survival_guide/92.webp)
+![](file:///android_asset/survival_guide/southern_stars.webp)
 
 ## Craft: Compass
 <!-- K: compass, needle, magnet, north, south, east, west, direction, craft -->
