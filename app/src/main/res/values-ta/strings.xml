@@ -300,7 +300,6 @@
     <string name="path_distance_performance_disclaimer">பரிந்துரைக்கப்பட்ட அதிகபட்சம் %s</string>
     <string name="no_recorded_cell_signal_nearby">அருகிலேயே பதிவுசெய்யப்பட்ட செல் சமிக்ஞை இல்லை</string>
     <string name="navigate_to_nearest_cell_signal">அருகிலுள்ள செல் சிக்னலுக்கு செல்லவும்</string>
-    <string name="tool_quick_action_name">கருவிகள்</string>
     <string name="pref_start_camera_in_3d_view_summary">3D பொத்தானில் உள்ள காட்சியைக் சொடுக்கு செய்யும் போது கேமராவைத் திறக்கும்</string>
     <string name="cloud_scanner">முகில் ச்கேனர்</string>
     <string name="open_photo_map">புகைப்பட வரைபடத்தைத் திறக்கவும்</string>
@@ -366,7 +365,6 @@
     <string name="right">வலது</string>
     <string name="distance_to_target">இலக்குக்கான தூரம்</string>
     <string name="scope_adjustment">நோக்கம் சரிசெய்தல்</string>
-    <string name="precise_kilometers_format">கி.மீ.</string>
     <string name="error_occurred">பிழை ஏற்பட்டது</string>
     <string name="group">குழு</string>
     <string name="no_group">குழு இல்லை</string>
@@ -539,7 +537,6 @@
     <string name="projection_perspective">முன்னோக்கு</string>
     <string name="projection_linear">நேரியல்</string>
     <string name="default_string">இயல்புநிலை</string>
-    <string name="feature_unavailable">%கிடைக்கவில்லை</string>
     <string name="audio_error_messsage">ஆடியோவை இயக்க முயற்சிக்கும்போது பிழை ஏற்பட்டது.</string>
     <string name="layers">அடுக்குகள்</string>
     <string name="visible">தெரியும்</string>
@@ -617,7 +614,6 @@
     <string name="reset">மீட்டமை</string>
     <string name="tool_lightning_description">மின்னல் வேலைநிறுத்தத்திலிருந்து தூரத்தை அளவிடவும்</string>
     <string name="tool_lightning_title">மின்னல் வேலைநிறுத்த தூரம்</string>
-    <string name="precise_centimeters_format">%கிமு செ.மீ.</string>
     <string name="precise_inches_format">%s</string>
     <string name="tool_ruler_title">ஆட்சியாளர்</string>
     <string name="two">2</string>
@@ -655,7 +651,6 @@
     <string name="unit_centimeters_abbreviation">முதல்வர்</string>
     <string name="unit_inches_abbreviation">இல்</string>
     <string name="unit_inches">அங்குலங்கள்</string>
-    <string name="map_distance">வரைபடங்கள்</string>
     <string name="map_fractional_separator">:</string>
     <string name="tool_white_noise_title">வெண்ணிறைச்சல்</string>
     <string name="tool_white_noise_summary">நீங்கள் தூங்க உதவுகிறது</string>
@@ -866,7 +861,6 @@
     <string name="imperial_gallons">ஏகாதிபத்திய கேலன்</string>
     <string name="volume">தொகுதி</string>
     <string name="ounces_weight_format">%s oz</string>
-    <string name="kilograms_format">%கிலோ</string>
     <string name="grams_format">%s</string>
     <string name="weight">எடை</string>
     <string name="seconds">நொடிகள்</string>
@@ -919,13 +913,11 @@
     <string name="grant_permission">%s இசைவு வழங்கவும்</string>
     <string name="activity_recognition">செயல்பாட்டு ஏற்பு</string>
     <string name="get_gps_signal">வானத்தின் தடையற்ற பார்வையுடன் வெளியே செல்லுங்கள்.</string>
-    <string name="unblock_notification_channel">பாதை உணர்வுக்கு %அறிவிப்பைத் தடைசெய்க</string>
     <string name="elevation_override_resolution">அமைப்புகளில் தானாக அளவுத்திருத்தத்தை இயக்கவும்.</string>
     <string name="location_override_resolution">அமைப்புகளில் ஆட்டோ சரிசெய்தல் இருப்பிடத்தை இயக்கவும்.</string>
     <string name="location_override_not_set_resolution">அமைப்புகளில் இருப்பிடத்தை மேலெழுதவும்</string>
     <string name="battery_restricted_resolution">உகந்ததாக இல்லாதபடி பாதை உணர்வை அமைக்கவும்</string>
     <string name="gps_unavailable_resolution">இருப்பிடத்தை இயக்கவும் அல்லது உங்கள் இருப்பிட மூலத்தை \'சாதனம் மட்டும்\' அல்லது \'உயர் துல்லியம்\' என மாற்றவும்</string>
-    <string name="diagnostic_message_template">%1$s: %2$s\n\n ### பாதிக்கப்பட்ட கருவிகள்\n %3$s\n\n ### தீர்மானம்\n %4 $ கள்</string>
     <string name="autofill">ஆட்டோஃபில்</string>
     <string name="lightning_dangerously_close">மின்னல் ஆபத்தான முறையில் மூடு</string>
     <string name="navigate">செல்லவும்</string>
@@ -1001,7 +993,6 @@
     <string name="map_projection_mercator">மெர்கேட்டர்</string>
     <string name="map_projection_equidistant">சமமான</string>
     <string name="reduce_map_resolution">வரைபடத் தீர்மானத்தைக் குறைக்கவும்</string>
-    <string name="slope_amount">%சாய்வு</string>
     <string name="distance_unset">தூரம் அமைக்கப்படாதது</string>
     <string name="clinometer_measure_height_instructions">%s தொலைவில் உள்ள இலக்கின் உயரத்தை அளவிட:\n\n 1. கிளினோமீட்டரை இலக்கின் அடிப்பகுதிக்கு சீரமைக்கவும்\n 2. திரையைத் தட்டி வைத்திருங்கள்\n 3. கிளினோமீட்டரை இலக்கின் உச்சியில் மாற்றவும்\n 4. பூட்டவும், இலக்கின் உயரத்தைப் பார்க்கவும் வெளியீடு</string>
     <string name="clinometer_measure_distance_instructions">%s உயரம் கொண்ட இலக்குக்கான தூரத்தை அளவிட:\n\n 1. கிளினோமீட்டரை இலக்கின் அடிப்பகுதிக்கு சீரமைக்கவும்\n 2. திரையைத் தட்டி வைத்திருங்கள்\n 3. கிளினோமீட்டரை இலக்கின் உச்சியில் மாற்றவும்\n 4. பூட்டவும், இலக்குக்கான தூரத்தைக் காணவும் வெளியீடு</string>
