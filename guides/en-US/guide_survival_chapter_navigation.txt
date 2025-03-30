@@ -217,14 +217,23 @@ Typical map colors include:
 <!-- K: sun, star, shadow, watch, north, south, east, west, polaris, big dipper, cassiopeia, southern cross, constellation, advanced, technique -->
 <!-- S: You can use the sun or stars to determine direction. If you need this, it's best to stay where you are and wait for help. -->
 
+You can use the sun or stars to determine direction. If you need this, it's best to stay where you are and wait for help.
+
 ### Sun
 
-- **Shadow tip method**: Place a stick vertically in the ground and mark the shadow tip. After 10-15 minutes, mark the new position of the shadow tip and draw a line between the two points for an east-west line. North will be perpendicular to this line at midday.
+**Shadow tip method**
 
-![](file:///android_asset/survival_guide/88.webp)
+1. Place a stick vertically in the ground and mark the shadow tip.
+2. After 10-15 minutes, mark the new position of the shadow tip.
+3. Draw a line between the two points for an East-West line. West will be in the direction of the first point.
+4. Draw a line at a right angle to the East-West line. South (or North in the Southern hemisphere) will point toward the sun.
+
+![](file:///android_asset/survival_guide/direction_shadow.webp)
 
 
-- **Watch method**: Point the hour hand of an analog watch at the sun; south is roughly halfway between the hour hand and 12 o'clock in the Northern Hemisphere. In the Southern Hemisphere, point the 12 o'clock position at the sun. If on daylight saving time, use 1 o'clock instead of 12.
+**Watch method**
+
+Point the hour hand of an analog watch at the sun; south is roughly halfway between the hour hand and 12 o'clock in the Northern Hemisphere. In the Southern Hemisphere, point the 12 o'clock position at the sun. If on daylight saving time, use 1 o'clock instead of 12.
 
 ![](file:///android_asset/survival_guide/90.webp)
 
