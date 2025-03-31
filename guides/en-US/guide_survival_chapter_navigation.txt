@@ -235,7 +235,7 @@ You can use the sun or stars to determine direction. If you need this, it's best
 
 Point the hour hand of an analog watch at the sun; south is roughly halfway between the hour hand and 12 o'clock in the Northern Hemisphere. In the Southern Hemisphere, point the 12 o'clock position at the sun. If on daylight saving time, use 1 o'clock instead of 12.
 
-![](file:///android_asset/survival_guide/90.webp)
+![](file:///android_asset/survival_guide/direction_watch.webp)
 
 ### Stars
 
