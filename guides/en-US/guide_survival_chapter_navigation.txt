@@ -197,7 +197,7 @@ To triangulate your location:
 
 Maps are drawn to scale, allowing you to determine distances between points. A bar on the map indicates the scale. You can measure distances using a ruler, string, or finger.
 
-![](file:///android_asset/survival_guide/104.webp)
+![](file:///android_asset/survival_guide/map_scale.webp)
 
 ### Topographic maps
 
