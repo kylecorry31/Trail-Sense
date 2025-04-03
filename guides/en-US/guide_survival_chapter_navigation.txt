@@ -252,6 +252,8 @@ Point the hour hand of an analog watch at the sun; south is roughly halfway betw
 <!-- K: compass, needle, magnet, north, south, east, west, direction, craft -->
 <!-- S: You can make a compass using a needle, knife, and a leaf. -->
 
+![](file:///android_asset/survival_guide/bushcraft_compass.webp)
+
 **Resources**
 - Needle
 - Knife
