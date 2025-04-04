@@ -2,5 +2,3 @@ Carp
 A freshwater fish with thick, large scales. They are commonly found in slow-moving or still waters and often travel in groups. Carp consume a variety of foods and are most active at night.
 
 https://en.m.wikipedia.org/wiki/Cyprinus
-
-Image by Dezidor (CC BY-SA 3.0)
