@@ -2,5 +2,3 @@ Grouse
 A medium-sized game bird with mottled feathers that provide excellent camouflage. Grouse are primarily ground-dwelling and feed on a variety of foods, including vegetation, seeds, berries, and insects. They are most active during the day and can often be found foraging near forest edges or open clearings.
 
 https://en.m.wikipedia.org/wiki/Grouse
-
-Image by File Upload Bot (Magnus Manske) (CC BY-SA 3.0)
