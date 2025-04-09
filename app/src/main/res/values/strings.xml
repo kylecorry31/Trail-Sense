@@ -1612,8 +1612,14 @@
     <string name="above">Above</string>
     <string name="below">Below</string>
     <string name="distance_to_target">Distance to target</string>
+    <string name="scope">Scope</string>
     <string name="scope_adjustment">Scope adjustment</string>
     <string name="windage_miss">Windage miss</string>
     <string name="elevation_miss">Elevation miss</string>
     <string name="adjustment_per_click">Adjustment per click</string>
+    <!--The height of the scope above the center of the barrel-->
+    <string name="scope_height">Scope height</string>
+    <string name="initial_velocity">Initial velocity</string>
+    <!--The distance that the firearm is sighted in for-->
+    <string name="sight_in_range">Sight-in range</string>
 </resources>
