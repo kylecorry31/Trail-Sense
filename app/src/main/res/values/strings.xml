@@ -1622,4 +1622,6 @@
     <string name="initial_velocity">Initial velocity</string>
     <!--The distance that the firearm is sighted in for-->
     <string name="sight_in_range">Sight-in range</string>
+    <!--Bullet drop, %s is the distance of drop-->
+    <string name="drop_amount">%s drop</string>
 </resources>

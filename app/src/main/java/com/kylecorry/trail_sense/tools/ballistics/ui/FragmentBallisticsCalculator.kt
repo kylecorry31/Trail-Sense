@@ -1,8 +1,9 @@
 package com.kylecorry.trail_sense.tools.ballistics.ui
 
-import android.widget.TextView
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.ui.useService
+import com.kylecorry.andromeda.views.list.AndromedaListView
+import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.physics.NoDragModel
 import com.kylecorry.sol.science.physics.PhysicsService
@@ -24,7 +25,7 @@ class FragmentBallisticsCalculator :
     TrailSenseReactiveFragment(R.layout.fragment_ballistics_calculator) {
 
     override fun update() {
-        val ballisticsTableView = useView<TextView>(R.id.ballistics_table)
+        val ballisticsTableView = useView<AndromedaListView>(R.id.ballistics_table)
         val zeroDistanceView = useView<DistanceInputView>(R.id.zero_distance)
         val scopeHeightView = useView<DistanceInputView>(R.id.scope_height)
         val bulletSpeedView = useView<DistanceInputView>(R.id.bullet_speed)
@@ -98,15 +99,13 @@ class FragmentBallisticsCalculator :
             }
         }
 
-        // TODO: Render as a table
         useEffect(ballisticsTableView, trajectory, zeroDistance) {
-            val text = StringBuilder()
             val smallUnits = if (prefs.distanceUnits == UserPreferences.DistanceUnits.Feet) {
                 DistanceUnits.Inches
             } else {
                 DistanceUnits.Centimeters
             }
-            for (point in trajectory) {
+            val listItems = trajectory.mapIndexed { index, point ->
                 val seconds =
                     formatter.formatDuration(
                         Duration.ZERO,
@@ -122,10 +121,15 @@ class FragmentBallisticsCalculator :
                     Units.getDecimalPlaces(smallUnits)
                 )
 
-                text.appendLine("$seconds      $distance      $drop")
+                ListItem(
+                    index.toLong(),
+                    distance,
+                    seconds,
+                    trailingText = getString(R.string.drop_amount, drop)
+                )
             }
 
-            ballisticsTableView.text = text.toString()
+            ballisticsTableView.setItems(listItems)
         }
     }
 

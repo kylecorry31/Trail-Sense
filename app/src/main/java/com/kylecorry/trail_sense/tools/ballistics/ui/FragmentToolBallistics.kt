@@ -30,6 +30,8 @@ class FragmentToolBallistics : TrailSenseReactiveFragment(R.layout.fragment_tabs
 
         useEffect(tabsView, viewPagerView) {
             viewPagerView.adapter = CustomViewPagerAdapter(this, pages)
+            // Disable view pager scroll
+            viewPagerView.isUserInputEnabled = false
             TabLayoutMediator(tabsView, viewPagerView) { tab, position ->
                 tab.text = pageNames[position]
             }.attach()
