@@ -1619,7 +1619,7 @@
     <string name="adjustment_per_click">Adjustment per click</string>
     <!--The height of the scope above the center of the barrel-->
     <string name="scope_height">Scope height</string>
-    <string name="initial_velocity">Initial velocity</string>
+    <string name="muzzle_velocity">Muzzle velocity</string>
     <!--The distance that the firearm is sighted in for-->
     <string name="sight_in_range">Sight-in range</string>
     <!--Bullet drop, %s is the distance of drop-->

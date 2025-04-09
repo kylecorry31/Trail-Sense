@@ -79,7 +79,7 @@ class FragmentBallisticsCalculator :
             }
 
             bulletSpeedView.units = formatter.sortDistanceUnits(DistanceUtils.hikingDistanceUnits)
-            bulletSpeedView.hint = getString(R.string.initial_velocity)
+            bulletSpeedView.hint = getString(R.string.muzzle_velocity)
             bulletSpeedView.setOnValueChangeListener {
                 setBulletSpeed(
                     Speed(
