@@ -1295,6 +1295,11 @@
     <string name="right">Direita</string>
     <string name="ballistics">Balístico</string>
     <string name="windage_miss">Erro de direção do vento</string>
-    <string name="scope_adjustment">Ajuste da distância</string>
+    <string name="scope_adjustment">Ajuste da mira</string>
     <string name="below">Abaixo</string>
+    <string name="drop_amount">%s queda</string>
+    <string name="scope">Mira</string>
+    <string name="scope_height">Altura da mira</string>
+    <string name="sight_in_range">Alcance da mira</string>
+    <string name="muzzle_velocity">Velocidade do disparo</string>
 </resources>
