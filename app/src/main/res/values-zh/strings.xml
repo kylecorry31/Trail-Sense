@@ -1314,4 +1314,9 @@
     <string name="scope_adjustment">范围调整</string>
     <string name="elevation_miss">高度偏差</string>
     <string name="windage_miss">风力扰动偏差</string>
+    <string name="drop_amount">弹道降落距离 %s</string>
+    <string name="scope_height">瞄准镜高度</string>
+    <string name="scope">瞄准镜</string>
+    <string name="sight_in_range">瞄准器校准范围</string>
+    <string name="muzzle_velocity">枪口初速</string>
 </resources>

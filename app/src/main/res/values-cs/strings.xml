@@ -1353,4 +1353,9 @@
     <string name="distance_to_target">Vzdálenost od cíle</string>
     <string name="scope_adjustment">Úprava rozsahu</string>
     <string name="windage_miss">Odchylka směru větru</string>
+    <string name="drop_amount">%s pád</string>
+    <string name="scope">Rozsah</string>
+    <string name="scope_height">Výška rozsahu</string>
+    <string name="sight_in_range">Rozsah dohledu</string>
+    <string name="muzzle_velocity">Rychlost střely</string>
 </resources>
