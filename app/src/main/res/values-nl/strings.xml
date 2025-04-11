@@ -1327,4 +1327,9 @@
     <string name="elevation_miss">Afwijking hoogte</string>
     <string name="below">Onder</string>
     <string name="above">Boven</string>
+    <string name="drop_amount">%s val</string>
+    <string name="scope">Vizier</string>
+    <string name="scope_height">Vizierhoogte</string>
+    <string name="sight_in_range">Vizierbereik</string>
+    <string name="muzzle_velocity">Mondingssnelheid</string>
 </resources>
