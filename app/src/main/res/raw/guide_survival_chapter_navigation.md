@@ -1,7 +1,7 @@
 <!-- K: navigate -->
 <!-- S: Plan a route and determine your location. -->
 
-This chapter covers navigation techniques and tools.
+Being able to navigate in the wilderness can help prevent you from getting lost or allow you to find your way back to safety.
 
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill, map, compass, flashlight, gps -->
@@ -34,65 +34,41 @@ Once you have mastered these skills, you should learn how to do the following:
 <!-- K: route, plan, trip, detour -->
 <!-- S: Plan your route to avoid getting lost and ensure you reach your destination safely. -->
 
-Plan your route to avoid getting lost and ensure you reach your destination safely. Consider the following factors when planning your route:
-- Choose a route that matches your skill level and fitness. Use the contour lines on a map to gauge the terrain difficulty.
-- Identify landmarks along the way to help you stay on track.
-- Plan for rest stops and water sources.
-- Identify alternative routes in case of obstacles or emergencies.
-- Share your route with someone who can alert authorities if you don't return on time.
-- If you need to detour, mark your new route on the map and adjust your bearings accordingly.
+When planning a route, choose one that matches your skill and fitness levels using a topographical map to gauge terrain difficulty. Use the map to identify landmarks along the way to help you stay on track. Also be sure to identify water sources, alternative routes, and the direction to roads or towns.
 
 ## Movement
 <!-- K: move, terrain, mountain, cold, desert, jungle, night, river, cross -->
 <!-- S: Move carefully and adapt to the terrain. Avoid following animal trails. -->
 
-- If you are lost, staying put and waiting for rescue is typically best.
-- Keep your body weight balanced over your feet.
-- Use zigzag paths on steep slopes and maintain a bend in your knees when descending to protect your joints.
-- Take breaks to rest and rehydrate.
-- Be cautious of animal trails, which may lead to resources like water but can also get you lost.
+Moving carefully and adapting to the terrain are important for preventing injury or getting lost. In general, keep your body weight balanced over your feet, watch where you step, and take frequent breaks to rest. Stay on the designated trails at all times and be cautious of animal trails; they may lead to resources like water but can also get you lost.
 
-### Terrain considerations
+### Mountains
 
-**Mountainous/cold**:
+The steep slopes of mountainous terrain can tire you out or injure your joints, so be extra vigilant about taking breaks. To make it easier to follow uphill trails, walk in a zigzag path; this pattern will increase the distance you travel but it will be less steep. When descending, maintain a bend in your knees to protect your joints. If you are climbing a tall mountain, take your time so that you can acclimate to higher altitudes without getting sick.
 
-- Avoid areas prone to avalanches and be cautious when crossing snow-covered slopes.
-- Acclimate to high altitudes to avoid symptoms like headaches, nausea, and fatigue.
-- Use snowshoes or skis for easier travel in snowy conditions. Test ice and snow conditions with a pole or stick before stepping.
-- Avoid walking on frozen bodies of water unless you know the ice thickness.
+### Snow
 
-**Desert**:
+It can be taxing to travel in snowy conditions and you don't know for sure what you are stepping on; the snow may be hiding a patch of ice, a hole, or water. You can use a pole or stick to test ice and snow conditions before stepping. Avoid walking on frozen bodies of water unless you know the ice thickness. If you have snowshoes or skis, use them to help prevent your feet from sinking into the snow.
 
-- Conserve water by traveling during cooler hours and wearing appropriate clothing to reduce sweating.
-- Avoid salt marshes.
-- Prepare for the drastic temperature shifts between day and night.
-- Protect electronic devices from extreme heat and direct sunlight.
-- Stick to the shadows to avoid direct sun exposure and reduce the risk of heat exhaustion.
-- Distance can be deceiving in the desert (paths often look shorter than they are); plan your route carefully and carry enough water and supplies.
+Watch out for areas prone to avalanches. They are usually marked.
 
-**Jungle**:
+### Desert
 
-- It will be harder to find you under a dense canopy.
-- Move with the vegetation rather than fighting against it to conserve energy.
-- Focus on distant landmarks rather than near objects to maintain direction.
-- Wear protective clothing to avoid insect bites and stings.
-- Treat any wounds and scratches promptly to avoid infection.
+Deserts are typically hot and dry, with potentially cold nights, so be prepared by bringing appropriate clothing and extra water. Avoid traveling during the hottest part of the day and stick to areas of shade if possible. Due to the lack of visual features, paths in a desert may appear shorter than they actually are. If you are carrying electronic devices, be sure to protect them from extreme heat and direct sunlight.
 
-**Night**:
+### Jungle
 
-- Use a flashlight or headlamp to illuminate your path.
-- Move slowly and carefully to avoid tripping or getting lost.
-- Stay on established paths or trails to reduce the risk of getting lost.
-- Listen for sounds that can help you identify your surroundings, such as running water or roadways.
+Jungles feature dense vegetation, high humidity, and precipitation. Move with the vegetation rather than against it to conserve energy, and focus on distant landmarks rather than nearby objects to maintain your direction. The dense canopy makes it harder for search parties to find you and GPS devices may not be reliable. Always wear protective clothing to avoid insect bites and stings, and treat any wounds or scratches promptly to prevent infection.
 
-**Rivers and streams**:
+### Night
 
-- If you need to cross:
-  - Look for the narrowest part or a place where it breaks into several channels.
-  - Prefer crossing on bridges, fallen trees, or rocks. Watch out for slippery or loose surfaces.
-  - Do not cross areas with strong currents or near ledges.
-  - Unbuckle your pack and carry it in front of you to avoid being pulled under by its weight.
-- In dire situations, following a river downstream may lead to civilization.
+If you can avoid traveling at night, then don't do it. If you have to travel, use a flashlight or headlamp to illuminate your path while moving slowly and carefully to avoid accidents. Use your hearing to identify helpful environmental cues like running water or distant roadways that can aid in orientation.
+
+### Rivers and streams
+
+When crossing rivers or streams, search for the narrowest section or areas where the water splits into multiple channels. Whenever possible, use bridges, fallen trees, or rocks as crossing points, but be cautious of slippery or loose surfaces. Avoid crossing where currents are strong or near ledges. If you have to wade through water to cross, then find another spot. Anytime you cross a river or stream, unbuckle your backpack and carry it in front of you to prevent being pulled underwater by its weight if you fall.
+
+In emergency situations, following a river downstream may eventually lead to civilization, as many settlements are built near water sources.
 
 ## Trail markers
 <!-- K: trail, blaze, marker, cairn, sign, pile, block, stack, paint, flag -->
@@ -107,18 +83,14 @@ Some blazes may also indicate the trail's direction, but this may not apply ever
 
 ![](file:///android_asset/survival_guide/trail_blazes.webp)
 
-1. **Two blazes, top blaze to the left**: Continue to the left
-2. **Two blazes, top blaze to the right**: Continue to the right
+1. **Two blazes, top blaze to the left**: Continue to the left  
+2. **Two blazes, top blaze to the right**: Continue to the right  
 3. **One blaze**: Continue straight
 
-If a trail is new, it may have small plastic strips or flags tied to a tree instead of a blaze.
-
-While not always true, the color and/or shape of the blazes should match what appears on a map, except that white blazes are typically black on a map.
+While not always true, the color and/or shape of the blazes should match what appears on a map, except that white blazes are typically black on a map. If a trail is new, it may have small plastic strips or flags tied to a tree instead of a blaze.
 
 ### Cairns
-Cairns are piles of rocks, typically used in places without large trees to blaze. Cairns are usually placed on the side of the trail, and you should be able to see multiple cairns at a time.
-
-In some places, cairns may be small stacks of stones (typically 3) and could be hard to locate.
+Cairns are piles of rocks, typically used in places without large trees to blaze. Cairns are usually placed on the side of the trail, and you should be able to see multiple cairns at a time. In some places, cairns may be small stacks of stones (typically 3) and could be hard to locate.
 
 ### Signs
 Trail signs provide information about which trail you are on, distance/direction to points of interest, or offer general information/alerts. Always read and abide by trail signs.
@@ -130,11 +102,11 @@ In some places, downed trees or debris are intentionally placed in front of a pa
 <!-- K: gps, satellite, device, location, waypoint, beacon, battery, maps -->
 <!-- S: A GPS device can help you determine your location and navigate to a specific point, but always have a backup plan in case the device fails. -->
 
-A GPS device can help you determine your location and navigate to a specific point but always have a backup plan in case the device fails.
+A GPS device can help you determine your location and navigate to a specific point, but always have a backup plan in case the device fails.
 
 ### Location
 
-A GPS uses satellites to determine your current location. Ensure the device has a clear view of the sky so it receives signals. Most GPS units display your coordinates in latitude and longitude, which can be plotted on a map.
+A GPS uses satellites to determine your location. Ensure the device has a clear view of the sky so it can receive signals. Most GPS units display your coordinates in latitude and longitude, which can be plotted on a map.
 
 ### Waypoints
 
@@ -162,7 +134,7 @@ A bearing is the direction you must travel to reach a specific point. You can de
 
 ### Back bearings
 
-A back bearing is the opposite direction of your current bearing. To calculate a back bearing, if your bearing is less than 180 degrees, add 180. If it's more than 180, subtract 180.
+A back bearing is the opposite direction of your current bearing. To calculate a back bearing: if your bearing is less than 180 degrees, add 180. If it's more than 180, subtract 180.
 
 ### Declination
 
@@ -206,12 +178,12 @@ Topographic maps show elevation changes and terrain features, making them helpfu
 ![](file:///android_asset/survival_guide/95.webp)
 
 Typical map colors include:
-- **Black**: Human-made features like buildings and bridges.
-- **Red**: Roads.
-- **Green**: Vegetation.
-- **White**: Lack of vegetation.
-- **Brown**: Contour lines.
-- **Blue**: Water.
+- **Black**: Structures  
+- **Red**: Roads  
+- **Green**: Vegetation  
+- **White**: Lack of vegetation  
+- **Brown**: Contour lines  
+- **Blue**: Water  
 
 ## Advanced navigation techniques
 <!-- K: sun, star, shadow, watch, north, south, east, west, polaris, big dipper, cassiopeia, southern cross, constellation, advanced, technique -->
@@ -219,38 +191,40 @@ Typical map colors include:
 
 You can use the sun or stars to determine direction. If you need this, it's best to stay where you are and wait for help.
 
-### Sun
+### Shadows
 
-**Shadow tip method**
+If you measure which way shadows are moving over time, you can determine direction. This is because the Sun moves East to West throughout the sky, and therefore shadows move in the opposite direction.
 
 1. Place a stick vertically in the ground and mark the shadow tip.
 2. After 10-15 minutes, mark the new position of the shadow tip.
 3. Draw a line between the two points for an East-West line. West will be in the direction of the first point.
-4. Draw a line at a right angle to the East-West line. South (or North in the Southern hemisphere) will point toward the sun.
+4. Draw a line at a right angle to the East-West line. South (or North in the Southern Hemisphere) will point toward the sun.
 
 ![](file:///android_asset/survival_guide/direction_shadow.webp)
 
+### Time
 
-**Watch method**
-
-Point the hour hand of an analog watch at the sun; south is roughly halfway between the hour hand and 12 o'clock in the Northern Hemisphere. In the Southern Hemisphere, point the 12 o'clock position at the sun. If on daylight saving time, use 1 o'clock instead of 12.
+You can determine your direction using the position of the sun and the current time. This will be a rough approximation, but it's better than nothing. Point the hour hand of an analog watch at the sun; south is roughly halfway between the hour hand and 12 o'clock in the Northern Hemisphere. In the Southern Hemisphere, point the 12 o'clock position at the sun. If on daylight saving time, use 1 o'clock instead of 12.
 
 ![](file:///android_asset/survival_guide/direction_watch.webp)
 
 ### Stars
 
-- **Northern Hemisphere**: Identify Polaris (the North Star) using the Big Dipper and Cassiopeia as reference points. Polaris is located at the end of the Little Dipper's handle.
+Being able to identify a handful of constellations will help you determine direction at night.
+
+In the Northern Hemisphere, identify Polaris (the North Star) using the Big Dipper and Cassiopeia as reference points. Polaris is directly to the North.
 
 ![](file:///android_asset/survival_guide/northern_stars.webp)
 
-
-- **Southern Hemisphere**: Use the Southern Cross to determine south. Extend a line from the top and bottom stars of the Cross's long axis, continuing about 4.5 times the distance between these stars toward the horizon to approximate the South Pole.
+In the Southern Hemisphere, you can use the Southern Cross to determine south. Extend a line from the top and bottom stars of the Cross's long axis, continuing about 4.5 times the distance between these stars toward the horizon to approximate the South Pole. This method is more difficult than the one used in the Northern Hemisphere.
 
 ![](file:///android_asset/survival_guide/southern_stars.webp)
 
 ## Craft: Compass
 <!-- K: compass, needle, magnet, north, south, east, west, direction, craft -->
 <!-- S: You can make a compass using a needle, knife, and a leaf. -->
+
+You can craft a makeshift compass by magnetizing a needle and floating it in water.
 
 ![](file:///android_asset/survival_guide/bushcraft_compass.webp)
 
