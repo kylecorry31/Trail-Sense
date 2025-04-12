@@ -156,6 +156,14 @@ Many phones can call emergency services even without a signal from your carrier.
 ### Whistle
 Three short blasts are the universal signal for help. You may want to cover your ears when using the whistle at full volume.
 
+If you don't have a whistle, you can use your fingers, but it will likely take practice.
+
+1. Clean your fingers using hand sanitizer or soap and water.
+2. Create a V-shape by touching your index finger and thumb together.
+3. Press the tip of your tongue into the bottom of your mouth, right behind your front teeth.
+4. Put the two fingers into your mouth and press down on the tip of your tongue.
+5. Seal your lips around your fingers and blow to create a whistle.
+
 ### Signal mirror
 Hold the mirror with one hand and extend your other arm in front of you with your fingers in a V-shape and the target between your fingers. Reflect sunlight onto your fingers and slowly move the mirror up and down to flash sunlight at the potential rescuers. You can use a phone screen as a signal mirror, but it will be nowhere near as effective as an actual mirror and should be combined with another signal, such as smoke or a ground-to-air signal.
 
