@@ -159,8 +159,8 @@ If you don't have a whistle, you can use your fingers, but it will likely take p
 
 1. Clean your fingers using hand sanitizer or soap and water.
 2. Create a V-shape by touching your index finger and thumb together.
-3. Press the tip of your tongue into the bottom of your mouth, right behind your front teeth.
-4. Put the two fingers into your mouth and press down on the tip of your tongue.
+3. Press the tip of your tongue into the top of your mouth.
+4. Put the two fingers into your mouth and press on the tip of your tongue.
 5. Seal your lips around your fingers and blow to create a whistle.
 
 ### Signal mirror
