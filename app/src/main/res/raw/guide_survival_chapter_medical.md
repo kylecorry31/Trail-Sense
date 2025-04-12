@@ -189,7 +189,7 @@ If a mammal bit you, seek medical attention as soon as possible; you may need ra
     - If a **grizzly** attacks, play dead unless it stalks you, attacks in your tent, or continues attacking - then fight back.
   - Keep your backpack on; it can offer protection.
 
-  ## Bites: Snakes
+## Bites: Snakes
 <!-- K: snake, bite, venom, poison, antivenom, snakebite -->
 <!-- S: Treat by cleaning the wound, applying a bandage, immobilizing the limb, and seeking medical attention. Prevent this by watching where you step and wearing high boots. -->
 
@@ -282,7 +282,7 @@ Seek medical attention if the wound is deep, bleeding profusely, or shows signs 
 **Scrapes and minor cuts**  
 1. Clean the wound with water.  
 2. Optionally, apply antibiotic ointment.  
-3. Apply a bandage.
+3. Apply a bandage. You can use medical grade superglue if needed.
 
 **Deeper cuts**  
 1. Apply pressure to the wound with a clean cloth or bandage. You may need to apply pressure for about 10 to 20 minutes.  
@@ -544,7 +544,7 @@ Rewarm the area using body heat (place a hand under the armpit), warm water, or 
 Only thaw the area if you can keep it thawed. Refreezing can cause more damage. Do not use a fire to thaw the area. Do not rub the area. Seek medical attention as soon as possible.
 
 1. Take pain medicine before thawing.  
-2. Prepare hot water (104-106°F / 40-41°C).  
+2. Prepare hot water (104-108°F / 40-42°C).  
 3. Thaw the area for 30 to 45 minutes or until it is pink/red and soft. If the water cools, change it - remove the area from the water before changing it.
 4. Wrap the area in a sterile dressing and keep warm.
 
@@ -575,7 +575,7 @@ Gastrointestinal issues can be caused by contaminated food or water.
   - Oak bark, leaves, and acorns. Boil for two or more hours. It won't taste good, but it may help.  
   - Common plantain leaves.
 - Make a solution of a handful of ground charcoal in a cup of water. Drink a couple of spoonfuls every few hours.
-  - If you ate something poisonous, drink charcoal and do not induce vomiting.
+  - If you ate something poisonous, seek medical help immediately. If you can't contact help, drinking charcoal may help. Do not induce vomiting.
 
 ### Prevention  
 - Boil water before drinking.  
@@ -616,7 +616,7 @@ To be safe, seek medical attention if you experience chest pain as soon as possi
 
 ### Treatment  
 1. Stop and sit comfortably.  
-2. If you have as-needed heart medication, take it. Otherwise, take aspirin.  
+2. If you have as-needed heart medication, take it. Otherwise, take aspirin. Chew the aspirin for faster absorption.  
 3. Call emergency services and have help come to you.
 
 If someone else does not have a pulse, perform CPR.

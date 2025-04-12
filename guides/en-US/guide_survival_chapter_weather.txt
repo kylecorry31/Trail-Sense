@@ -69,7 +69,7 @@ These directions also indicate where the weather will most likely come from. For
 Fog reduces visibility, making navigation difficult. If hiking in fog, stay on marked trails and use a map, compass, or GPS to navigate. Watch your footing carefully.
 
 ### Lightning
-If caught outdoors during a thunderstorm, seek shelter immediately. Avoid tall trees and bodies of water, but get out of open areas. If you're in an open area, crouch down on the balls of your feet and cover your ears to reduce the risk of lightning strikes.
+If caught outdoors during a thunderstorm, seek shelter immediately. Avoid tall trees and bodies of water, but get out of open areas. If you're in an open area and can't take shelter, crouch down on the balls of your feet and cover your ears to reduce the risk of lightning strikes.
 
 If you feel your hair stand on end or hear a crackling noise, you are in danger of being struck by lightning.
 
