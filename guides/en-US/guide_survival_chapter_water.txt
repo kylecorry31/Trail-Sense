@@ -15,22 +15,22 @@ You can only survive a few days without water in most cases, and sometimes not e
 - Water containers (ensure you have a container that you can boil water in).
 
 **Optional**:
-- Water purification method (tablets or filter).
-- Cooking pot or container.
-- Clear plastic sheet/tarp.
+- Water purification method (tablets or filter)
+- Cooking pot or container
+- Clear plastic sheet/tarp
 
 ### Knowledge and skills
 Start by learning how to do the following:
-- Plan your water needs for the trip.
-- Locate water sources.
-- Purify water by boiling.
+- Plan your water needs for the trip
+- Locate water sources
+- Purify water by boiling
 
 Once you have mastered these skills, you should learn how to do the following:
-- Purify water using chemical treatment or filtration.
-- Collect water from plants and other sources.
-- Collect water using a solar still.
-- Boil water using hot rocks.
-- Desalinate water.
+- Purify water using chemical treatment or filtration
+- Collect water from plants and other sources
+- Collect water using a solar still
+- Boil water using hot rocks
+- Desalinate water
 
 ## Hydration essentials
 <!-- K: hydration, essential, daily, dehydration -->
@@ -101,10 +101,10 @@ Always ensure the water you collect is safe to drink. Boiling is the most reliab
 ### Boiling
 
 Bring water to a rolling boil for at least one minute. At higher altitudes, boil for three minutes. If you do not have a single-walled metal container that can be used for boiling, then do the following:
-  1. Find another container, dig a hole in the ground and line it with a waterproof material, or craft a bowl.
-  2. Fill the container with water.
-  3. Heat rocks in a fire and place them in the water to heat it. **Do not** use rocks that may contain moisture (such as river rocks), as they can explode. Use two sticks in a chopstick fashion to move the rocks.
-  4. Replace the rocks with hot ones to keep the water boiling.
+1. Find another container, dig a hole in the ground and line it with a waterproof material, or craft a bowl.
+2. Fill the container with water.
+3. Heat rocks in a fire and place them in the water to heat it. **Do not** use rocks that may contain moisture (such as river rocks), as they can explode. Use two sticks in a chopstick fashion to move the rocks.
+4. Replace the rocks with hot ones to keep the water boiling.
 
 ### Filtration
 
@@ -118,7 +118,7 @@ You can buy chemical water purification tablets or drops. Use them according to 
 
 ### Hazards
 
-Water may contain bacteria, viruses, and parasites that can cause illness. Boiling water kills most microorganisms, but some may require additional treatment. Microorganisms are more likely to be present in stagnant water. 
+Water may contain bacteria, viruses, and parasites that can cause illness. Boiling water kills most microorganisms, but some may require additional treatment. Microorganisms are more likely to be present in stagnant water.
 
 Water may contain chemicals from industrial or agricultural runoff. Purification methods may not remove all chemical contaminants. Avoid drinking water next to roads, farms, or other inhabited areas.
 
