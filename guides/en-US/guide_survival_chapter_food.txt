@@ -11,12 +11,12 @@ Food gives you energy but is a low priority in most survival situations since yo
 
 **Necessities**:
 - Food (enough for the duration of your trip, plus a bit extra). Some good options include:
-  - Nuts  
-  - Seeds  
-  - Dried fruit  
-  - Jerky  
-  - Energy bars  
-  - Dehydrated meals (with extra water)  
+  - Nuts
+  - Seeds
+  - Dried fruit
+  - Jerky
+  - Energy bars
+  - Dehydrated meals (with extra water)
   - Canned food (with a can opener if needed)
 - Knife or multitool
 - Bear bag or canister
@@ -223,14 +223,14 @@ Reptiles and amphibians are easier to catch than mammals and birds. Many can be 
 Always wash your hands after handling reptiles and amphibians, as they can carry salmonella. Cook the meat thoroughly.
 
 **Do not eat the following**:
-- Box turtles  
-- Hawksbill turtles  
-- Brightly colored frogs  
-- Frogs with an X on their back  
-- Tree frogs  
-- Toads  
-- Salamanders  
-- Snakes: they are edible but may be dangerous to catch  
+- Box turtles
+- Hawksbill turtles
+- Brightly colored frogs
+- Frogs with an X on their back
+- Tree frogs
+- Toads
+- Salamanders
+- Snakes: they are edible but may be dangerous to catch
   - If you kill a snake, cut off and bury its head before cleaning. Never touch the head with your hands; use sticks instead.
 
 ### Small mammals
@@ -281,10 +281,10 @@ You may need to protect your food from animals. Here are some methods to keep yo
 
 A bear bag is a bag of food hoisted into a tree to keep it out of reach of bears and other animals. Find a tree with a branch about 20 feet (6 meters) off the ground and thick enough to support the weight of your food at about 10 feet (3 meters) from the trunk.
 
-1. Place food in a bag.  
-2. Tie a rope to the bag.  
-3. Throw the other end of the rope over a branch. To give the line weight, attach a short stick to the end of it. Secure the stick with a clove hitch or jam knot.  
-4. Hoist the bag about 15 feet (4.5 meters) above the ground.  
+1. Place food in a bag.
+2. Tie a rope to the bag.
+3. Throw the other end of the rope over a branch. To give the line weight, attach a short stick to the end of it. Secure the stick with a clove hitch or jam knot.
+4. Hoist the bag about 15 feet (4.5 meters) above the ground.
 5. Tie the rope to a tree to keep the bag elevated. Use either a hitch or bowline knot.
 
 See the Shelter and Clothing chapter for details on how to tie knots.

@@ -83,8 +83,8 @@ Some blazes may also indicate the trail's direction, but this may not apply ever
 
 ![](file:///android_asset/survival_guide/trail_blazes.webp)
 
-1. **Two blazes, top blaze to the left**: Continue to the left  
-2. **Two blazes, top blaze to the right**: Continue to the right  
+1. **Two blazes, top blaze to the left**: Continue to the left
+2. **Two blazes, top blaze to the right**: Continue to the right
 3. **One blaze**: Continue straight
 
 While not always true, the color and/or shape of the blazes should match what appears on a map, except that white blazes are typically black on a map. If a trail is new, it may have small plastic strips or flags tied to a tree instead of a blaze.
@@ -178,12 +178,12 @@ Topographic maps show elevation changes and terrain features, making them helpfu
 ![](file:///android_asset/survival_guide/95.webp)
 
 Typical map colors include:
-- **Black**: Structures  
-- **Red**: Roads  
-- **Green**: Vegetation  
-- **White**: Lack of vegetation  
-- **Brown**: Contour lines  
-- **Blue**: Water  
+- **Black**: Structures
+- **Red**: Roads
+- **Green**: Vegetation
+- **White**: Lack of vegetation
+- **Brown**: Contour lines
+- **Blue**: Water
 
 ## Advanced navigation techniques
 <!-- K: sun, star, shadow, watch, north, south, east, west, polaris, big dipper, cassiopeia, southern cross, constellation, advanced, technique -->

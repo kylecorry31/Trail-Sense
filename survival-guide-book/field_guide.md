@@ -10,9 +10,6 @@ This chapter contains some common animals, plants, fungi, and rocks that may be 
 
 A tall, fast-growing grass with hollow stems. Young shoots are edible when properly cooked to remove bitterness. Bamboo can also be used as a building material.
 
-
-Image by Kamakura (CC BY-SA 3.0)
-
 ### Location
 Africa, Asia, Australia, Europe, North America, South America
 
@@ -48,9 +45,6 @@ A wetland plant with tall, cylindrical flower spikes, commonly found near ponds,
 
 Also known as bulrush, reed, raupo, cumbungi, and punks.
 
-
-Image by Tysto (Public domain)
-
 ### Location
 Africa, Asia, Australia, Europe, North America, South America
 
@@ -78,9 +72,6 @@ Grassland, Forest, Urban
 ![](file:///android_asset/field_guide/common_plantain.webp)
 
 A low-growing plant with broad, oval leaves, often found in lawns and disturbed areas. Its leaves are edible, and have medicinal properties as a poultice for bites or wounds.
-
-
-Image by Rasbak (CC BY-SA 3.0)
 
 ### Location
 Africa, Asia, Australia, Europe, North America, South America
@@ -179,9 +170,6 @@ Forest, Grassland, Urban, Wetland
 ![](file:///android_asset/field_guide/bolete.webp)
 
 A mushroom with a spongy, porous underside instead of gills, commonly found near trees. Many boletes are edible, but some are toxic, so avoid ones with red or orange pores or turn blue when cut.
-
-
-Image by Slick-o-bot (Public domain)
 
 ### Location
 Africa, Asia, Australia, Europe, North America, South America
@@ -290,9 +278,6 @@ Diurnal
 
 Small nocturnal insects with the ability to jump and produce chirps. They feed on plants, decaying organic matter, and small insects. Crickets are edible.
 
-
-Image by Jeffdelonge (Attribution)
-
 ### Location
 Africa, Asia, Australia, Europe, North America, South America
 
@@ -311,9 +296,6 @@ Nocturnal
 A small to medium-sized insect known for its powerful hind legs and ability to jump great distances. They are herbivores, feeding on grasses and leaves, and are commonly found in open fields during the day. Grasshoppers and locusts are edible.
 
 Also known as: locust
-
-
-Image by Diliff (CC BY 3.0)
 
 ### Location
 Africa, Asia, Australia, Europe, North America, South America
@@ -447,9 +429,6 @@ A freshwater crustacean that resembles a small lobster. They are commonly found 
 
 Also known as: crawfish, crawdads, freshwater lobsters, mudbugs, or yabbies.
 
-
-Image by Canis85 (CC BY-SA 3.0)
-
 ### Location
 Africa, Asia, Australia, Europe, North America, South America
 
@@ -509,9 +488,6 @@ Crepuscular
 
 A small to medium-sized rodent that primarily lives in trees or burrows. They tend to be most active during the day. Squirrels eat nuts, seeds, fruits, and insects.
 
-
-Image by JeffreyGammon (CC BY-SA 4.0)
-
 ### Location
 Africa, Asia, Australia, Europe, North America, South America
 
@@ -528,9 +504,6 @@ Diurnal
 ![](file:///android_asset/field_guide/grouse.webp)
 
 A medium-sized game bird with mottled feathers that provide excellent camouflage. Grouse are primarily ground-dwelling and feed on a variety of foods, including vegetation, seeds, berries, and insects. They are most active during the day and can often be found foraging near forest edges or open clearings.
-
-
-Image by File Upload Bot (Magnus Manske) (CC BY-SA 3.0)
 
 ### Location
 Asia, Europe, North America
@@ -551,9 +524,6 @@ A freshwater fish with an elongated body and sharp dorsal spines. They are commo
 
 Common species include: largemouth bass, smallmouth bass, and spotted bass.
 
-
-Image by Common Good (Public domain)
-
 ### Location
 Africa, Asia, Australia, Europe, North America, South America
 
@@ -570,9 +540,6 @@ Diurnal
 ![](file:///android_asset/field_guide/carp.webp)
 
 A freshwater fish with thick, large scales. They are commonly found in slow-moving or still waters and often travel in groups. Carp consume a variety of foods and are most active at night.
-
-
-Image by Dezidor (CC BY-SA 3.0)
 
 ### Location
 Africa, Asia, Australia, Europe, North America, South America
@@ -592,9 +559,6 @@ Nocturnal, Crepuscular
 A small freshwater fish with a tall and flat body shape and sharp dorsal spines. They are typically found near the shore in weedy areas and are most active during the day. Sunfish feed on small insects and worms but can also be caught using vibrantly colored lures.
 
 Common species include: bluegill, pumpkinseed, and redear.
-
-
-Image by Pvmoutside (Public domain)
 
 ### Location
 Africa, Asia, Australia, Europe, North America, South America
