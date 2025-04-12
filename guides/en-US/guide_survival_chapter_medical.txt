@@ -199,7 +199,7 @@ Always look for snakes, especially in areas with tall grass, rocks, or logs. Sna
 1. Rinse the bite area with water.
 2. Clean the wound and cover with a bandage.
 3. Remove any rings or jewelry from the affected limb.
-4. Wrap the limb with a bandage, starting at the bite and moving up the limb. The bandage should be tight but not cut off circulation. You should be able to slip a finger under the bandage.
+4. Wrap the limb with a bandage, starting at the bite and moving up the limb. The bandage should be tight but not cut off circulation. You should be able to slip a finger under the bandage. If you are bitten by a pit viper (like a rattlesnake), do not bandage or apply compression as this can lead to increased tissue damage.
 5. Keep the limb immobilized, as you would a fracture, and below the level of the heart.
 6. Seek medical attention as soon as possible. Call the hospital ahead of time so they can prepare antivenom if needed.
 
