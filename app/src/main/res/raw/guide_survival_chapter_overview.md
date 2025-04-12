@@ -107,7 +107,7 @@ Take a moment to think about your situation. Answer the following questions:
 - Which way did you come from?
 
 ### Observe
-Next, observe your surroundings and assess your situation. The first thing to do is check your smartphone or GBS receiver for your location. If you have a maps app, open it and check if a map is available. You can also check for a signal to call for help. If you have no luck there, then look around and listen for signs of people, vehicles, or trails. Last, observe where you are and look for potential hazards or resources.
+Next, observe your surroundings and assess your situation. The first thing to do is check your smartphone or GPS receiver for your location. If you have a maps app, open it and check if a map is available. You can also check for a signal to call for help. If you have no luck there, then look around and listen for signs of people, vehicles, or trails. Last, observe where you are and look for potential hazards or resources.
 
 ### Plan
 Make a plan for your next steps. First, try to put in a call or text for help if you are not in immediate danger. What you do next is going to depend on your current situation. Here's some general advice for actions you can take ordered by importance:
