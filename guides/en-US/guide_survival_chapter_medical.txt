@@ -810,6 +810,8 @@ It is common to get objects in your eye while in the wilderness, such as dirt, s
    - Recite a calming phrase.
    - Visualize a calming place.
    - Meditate.
+   - Tense up and relax each muscle.
+   - Listen to music or white noise.
    - Assure yourself that you will be okay.
 
 ## Poison ivy and contact dermatitis
@@ -844,6 +846,14 @@ Learn to identify and avoid contact with the following plants:
 - Stinging nettle
 
 If you come into contact with these plants, wash the area with soap and water as soon as possible. Do not wait for a rash to appear. Do not burn these plants, as the smoke can cause irritation.
+
+## Sleeping
+<!-- K: sleep, asleep, rest, nap -->
+<!-- S: To fall asleep you should calm your mind, ensure you aren't too hot or cold, and use comfortable bedding. -->
+
+Falling asleep can be difficult in the wilderness, but getting adequate rest is important for maintaining energy. To help yourself fall asleep, wind down at night by avoiding strenuous activity and calming your mind, perhaps using meditation. Ensure you aren't too hot or cold and that your sleeping area is comfortable. You might find it easier to sleep if you make a pillow by stuffing spare clothing or a stuff sack with dry leaves or other soft materials.
+
+Some people may also find it necessary to block out noise using earplugs or listening to music or white noise if available.
 
 ## Snow blindness
 <!-- K: snow, blind, eye, headache, light, sensitivity, red, scratchy, itch, uv -->
