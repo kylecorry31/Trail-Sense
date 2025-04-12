@@ -1,7 +1,7 @@
 <!-- K: fire, flame, light, heat, warm, burn -->
 <!-- S: Build and maintain a fire. -->
 
-Knowing how to make fire can help you stay warm, purify water, and cook food. You should never leave a fire unattended and be careful to avoid it spreading.
+Knowing how to make fire can help you stay warm, purify water, and cook food. You should never leave a fire unattended and must be careful to avoid it spreading.
 
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill, starter, matches, lighter, steel, ferro, ferrocerium, tinder -->
@@ -16,25 +16,24 @@ Knowing how to make fire can help you stay warm, purify water, and cook food. Yo
 
 ### Knowledge and skills
 Start by learning how to do the following:
-- Build a fire using multiple fire starters (matches, lighters, fire steel).
-- Gather and prepare tinder, kindling, and fuel.
-- Maintain a fire.
-- Extinguish a fire.
-- Build a fire in wet conditions.
+- Build a fire using multiple fire starters (matches, lighters, fire steel)
+- Gather and prepare tinder, kindling, and fuel
+- Maintain a fire
+- Extinguish a fire
+- Build a fire in wet conditions
 
 Once you have mastered these skills, you should learn how to do the following:
-- Protect a fire from wind and rain.
-- Construct and use a bow drill.
-- Make charcoal.
+- Protect a fire from wind and rain
+- Construct and use a bow drill
+- Make charcoal
 
 ## Preparing a fire site
 <!-- K: build, gather, prepare, tinder, kindling, fuel, location, fatwood -->
 <!-- S: Choose a flat, dry area protected from the wind. Gather tinder, kindling, and fuel. -->
 
-You should prepare the fire site before attempting to start a fire. Choose a flat, dry area protected from the wind that is close to your shelter and a fuel supply. Clear the ground of flammable material and if possible, line the area with dry rocks, dirt, or sand. Do not construct a fire over a root system or peat. In snowy environments, lay down logs to prevent the fire from touching the snow. Gather all materials before trying to start the fire.
+You should prepare the fire site before attempting to start a fire. Choose a flat, dry area protected from the wind that is close to your shelter and a fuel supply. Clear the ground of flammable material and, if possible, line the area with dry rocks, dirt, or sand. Do not construct a fire over a root system or peat. In snowy environments, lay down logs to prevent the fire from touching the snow. Gather all materials before trying to start the fire.
 
 You should also be aware of local laws and regulations, as some areas may not allow fires.
-
 
 ### Gathering materials
 
@@ -45,7 +44,7 @@ Finding dry wood can be difficult, but look for dead branches on trees, fallen b
 - **Tinder**
   - Shredded inner bark (birch, cedar, chestnut, red elm)
   - Fine wood scrapings or shavings
-  - Fatwood: Resin-rich wood from pine trees, typically found at the base of dead branches.
+  - Fatwood: resin-rich wood from pine trees, typically found at the base of dead branches
   - Dry grass, leaves, or pine needles
   - Dry powdered sap from pine trees
   - Crushed fibers from dead plants
@@ -55,7 +54,7 @@ Finding dry wood can be difficult, but look for dead branches on trees, fallen b
   - Cotton balls (preferably soaked in petroleum jelly)
   - Lint
   - Paper
-  - Tinder fungus or Chaga
+  - Tinder fungus or chaga
 - **Kindling**
   - Sticks and twigs (pencil to finger thickness)
   - Thinly split wood
@@ -82,7 +81,7 @@ To make a feather stick:
 <!-- K: start, light, ignite, matches, lighters, steel, ferro, ferrocerium, magnesium, flint, bow-drill, hand-drill, drill, magnifying, lens, tepee, structure -->
 <!-- S: If you have a fire starter, use it. You can improvise if required, but it will be more difficult and requires practice. -->
 
-Once you have a site prepared and a sufficient supply of tinder, kindling, and fuel, you are ready to start the fire. As you are building up the fire, be careful not to smother the fire by always leaving a section with an open flame exposed. Also, avoid adding damp or green wood until your fire is hot and burning fuel.
+Once you have a site prepared and a sufficient supply of tinder, kindling, and fuel, you are ready to start the fire. As you build up the fire, be careful not to smother it by always leaving a section with an open flame exposed. Also, avoid adding damp or green wood until your fire is hot and burning fuel.
 
 Here are the steps you can follow to get it going:
 
@@ -95,17 +94,17 @@ Here are the steps you can follow to get it going:
 **Note**: When blowing into a fire, be gentle and take breaths away from the smoke.
 
 ### Nursing an ember
-An ember is a small piece of tinder that is burning but has not formed a flame. Once you have an ember, gently blow into it and feed it more tinder until a flame appears. Sometimes, it is easier to hold the tinder containing an ember and cup your hands closer together to find the right balance of oxygen and fuel.
+An ember is a small piece of tinder that is burning but has not formed a flame. Once you have an ember, gently blow into it and feed it more tinder until a flame appears. Sometimes, it is easier to hold the tinder containing the ember and cup your hands closer together to find the right balance of oxygen and fuel.
 
 ### Firestarters
 
 - **Matches/lighters**: Always have waterproof matches or a reliable lighter in your kit. These are the easiest methods to start a fire: just put the flame to the tinder.
-- **Fire steel**: Durable and works in all weather conditions, producing sparks to ignite your tinder. Scrape it quickly with the back of a knife or scraper to create sparks. For best results, pin the fire steel against the tinder and ground and scrape the steel towards the tinder. Some fire steel comes with a magnesium block, which you can scrape off shavings into the tinder before striking to help catch a spark.
+- **Fire steel**: Durable and works in all weather conditions, producing sparks to ignite your tinder. Scrape it quickly with the back of a knife or scraper to create sparks. For best results, pin the fire steel against the tinder and ground, and scrape the steel toward the tinder. Some fire steels come with a magnesium block, which you can scrape into the tinder before striking to help catch a spark.
 - **Magnifying glass/lens**: Using a lens, focus sunlight into a small point on the tinder. As the tinder starts to smoke, gently blow into it and move the lens closer to maintain a small point. A magnifying glass, prescription glasses, a fresnel lens, or even a clear bottle filled with water can work. This may take a while, and direct sunlight is required.
 
 ![](file:///android_asset/survival_guide/61.webp)
 
-The following methods are more challenging to create a fire with and require practice. If you find yourself here, it may be best to focus on insulation and shelter to stay warm.
+The following methods are more challenging and require practice. If you find yourself here, it may be best to focus on insulation and shelter to stay warm.
 
 - **Flint and steel**: Strike a flint rock with a steel tool to create sparks. The tinder must be very dry and delicate.
 - **Bow drill**: Create friction by spinning a stick (drill) on a wooden base (fireboard) using a bow to rotate the drill.
@@ -119,15 +118,15 @@ The following methods are more challenging to create a fire with and require pra
 5. On the underside of the fireboard, make a V-shaped cut from the board's edge to the depression.
 6. Find a curved stick that can be used for the bow. It should be about 12-14 inches long and ½ inch in diameter.
 7. Attach a cord or shoelace to both ends of the bow.
-8. Find the fire pan, a flat piece of bark or wood to catch the ember.
+8. Find the fire pan - a flat piece of bark or wood to catch the ember.
 9. Wrap the drill into the bowstring so that it can roll as it moves along the string.
-10. Place the fireboard on top of the fire pan so the V-shaped is touching.
-11. Place the drill (attached to the bow) into the depression you carved into the fireboard.
-12. Place the depression in the socket onto the top end of the drill and apply downward pressure with your non-dominant hand.
-13. Place your foot onto the fireboard (on the same side as your non-dominant hand) and rest the hand holding the socket onto your knee.
-14. With your dominant hand, move the bow side to side to cause the drill to spin. Be sure to go the entire length of the bow string. Keep a steady, fast pace.
+10. Place the fireboard on top of the fire pan so the V-shaped notch is touching it.
+11. Place the drill (attached to the bow) into the depression in the fireboard.
+12. Place the socket onto the top end of the drill and apply downward pressure with your non-dominant hand.
+13. Place your foot on the fireboard (on the same side as your non-dominant hand) and rest the hand holding the socket on your knee.
+14. With your dominant hand, move the bow side to side to cause the drill to spin. Be sure to use the full length of the bowstring. Keep a steady, fast pace.
 15. You will start to see smoke after a while. Keep going until you are sure an ember has been created.
-16. The ember should be transferred onto the fire pan (it may already be there) and moved to a tinder bundle where you can nurse it into a fire.
+16. The ember should be transferred onto the fire pan (it may already be there) and moved to a tinder bundle, where you can nurse it into a fire.
 
 ![](file:///android_asset/survival_guide/64.webp)
 
@@ -146,13 +145,13 @@ You should always have a plan to quickly extinguish your fire in case it begins 
 To maximize the heat from your fire, you can add more dry fuel, build a fire reflector, heat up rocks, or increase the insulation of your clothing and shelter.
 
 ### Fire reflector
-A fire reflector is a wall built behind the fire to reflect heat towards you and protect the fire from wind. Use rocks, logs, or snow to create a barrier.
+A fire reflector is a wall built behind the fire to reflect heat toward you and protect the fire from wind. Use rocks, logs, or snow to create a barrier.
 
 ![](file:///android_asset/survival_guide/56.webp)
 
 ### Heating rocks
 
-You can also heat rocks **near** the fire and place them in your shelter or sleeping area. To avoid burns or fires, don't let the rocks get too hot; they should be warm to the touch. Be sure to check how hot the stones are before touching them. Do not use rocks found near water sources, as they can explode in a fire. Alternatively, you could heat water and place it in a container or bottle to keep you warm.
+You can also heat rocks **near** the fire and place them in your shelter or sleeping area. To avoid burns or fires, don't let the rocks get too hot; they should be warm to the touch. Be sure to check how hot the stones are before touching them. Do not use rocks found near water sources, as they can explode in a fire. Alternatively, you can heat water and place it in a container or bottle to keep warm.
 
 ## Craft: charcoal
 <!-- K: charcoal, filter, coal, craft -->
