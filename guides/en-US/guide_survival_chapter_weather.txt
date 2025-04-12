@@ -10,15 +10,15 @@ Weather can quickly change from a nice day to a life-threatening situation. You 
 ### Gear
 
 **Necessities**:
-- 7-day weather forecast
-- Appropriate clothing and shelter for the weather (see the Shelter and Clothing chapter)
-- Poncho
-- Sunglasses
+- 7-day weather forecast  
+- Appropriate clothing and shelter for the weather (see the Shelter and Clothing chapter)  
+- Poncho  
+- Sunglasses  
 
 **Optional**:
-- Barometer
-  - Many smartphones have barometers; you can use the Weather tool in Trail Sense to monitor pressure
-- Thermometer
+- Barometer  
+  - Many smartphones have barometers; you can use the Weather tool in Trail Sense to monitor pressure  
+- Thermometer  
 
 ### Knowledge and skills
 Start by learning how to do the following:
@@ -48,19 +48,19 @@ In cold weather, dress in layers and wear a hat and gloves to prevent heat loss.
 
 In hot weather, stay hydrated and take breaks in the shade. Wear sunscreen and sun-protective clothing to protect yourself from sun exposure. High humidity can make it feel hotter and make cooling off more difficult.
 
-Temperature changes as you change elevation, decreasing by about 3.5°F (2°C) for every 1,000 feet (305 meters) of elevation gain. If you are hiking in a mountainous region, it may be warm at the bottom, but also be prepared for cold, windy temperatures at the top.
+Temperature changes as you change elevation, decreasing by about 3.5°F (2°C) for every 1,000 feet (305 meters) of elevation gain. If you are hiking in a mountainous region, it may be warm at the bottom, but be prepared for cold, windy temperatures at the top.
 
 ### Wind
-Wind can make cold conditions feel even colder, increasing the risk of hypothermia and frostbite. Dress in layers and wear a hat and gloves to protect yourself from the wind. During wind storms, unstable trees and branches can become hazardous.
+Wind can make cold conditions feel even colder, increasing the risk of hypothermia and frostbite. Dress in layers and wear a hat and gloves to protect yourself from the wind. During windstorms, unstable trees and branches can become hazardous.
 
 Wind can cause sandstorms in desert environments, reducing visibility and making breathing difficult. Seek shelter during a sandstorm and protect your eyes and mouth with a bandana or cloth.
 
 Prevailing winds are winds that blow consistently in one direction over time. While local geography and bodies of water can affect wind patterns, general patterns are as follows:
-- 60° N to 90° N: Winds generally blow from the east.
-- 30° N to 60° N: Winds generally blow from the west.
-- 0° to 30° N: Winds generally blow from the northeast.
-- 0° to 30° S: Winds generally blow from the southeast.
-- 30° S to 60° S: Winds generally blow from the west.
+- 60° N to 90° N: Winds generally blow from the east.  
+- 30° N to 60° N: Winds generally blow from the west.  
+- 0° to 30° N: Winds generally blow from the northeast.  
+- 0° to 30° S: Winds generally blow from the southeast.  
+- 30° S to 60° S: Winds generally blow from the west.  
 - 60° S to 90° S: Winds generally blow from the east.
 
 These directions also indicate where the weather will most likely come from. For example, if you are at 40° N and see a thunderstorm to the west, it will likely arrive at your location soon.
@@ -94,30 +94,30 @@ The climate of a region refers to its average weather conditions over time. You 
 You can learn to forecast weather by observing the signs around you. The more signs you notice, the more accurate your forecast will be. Identifying the cloud type can improve your ability to forecast weather. The main cloud types are available in the Field Guide.
 
 ### Signs of worsening weather
-- Cloud cover increases
-- Clouds start growing vertically (into an anvil shape)
-  - This indicates a thunderstorm
-- Clouds darken
-- Clouds move quickly
-- Clouds lower
-- Wind speed increases
-- Temperature suddenly drops
-- Barometric pressure drops
-  - Faster drops indicate more severe weather
-- Wind direction changes to be opposite the prevailing wind
-- Animals become quiet
-- Humidity increases
-- You see lightning or hear thunder
-- You smell rain
+- Cloud cover increases  
+- Clouds start growing vertically (into an anvil shape)  
+  - This indicates a thunderstorm  
+- Clouds darken  
+- Clouds move quickly  
+- Clouds lower  
+- Wind speed increases  
+- Temperature suddenly drops  
+- Barometric pressure drops  
+  - Faster drops indicate more severe weather  
+- Wind direction changes to be opposite the prevailing wind  
+- Animals become quiet  
+- Humidity increases  
+- You see lightning or hear thunder  
+- You smell rain  
 
 ### Signs of improving weather
-- Cloud cover decreases
-- Wind speed decreases
-- Temperature rises
-- Barometric pressure rises
-- Wind direction changes to match the prevailing wind
-- Animals become active
-- Humidity decreases
+- Cloud cover decreases  
+- Wind speed decreases  
+- Temperature rises  
+- Barometric pressure rises  
+- Wind direction changes to match the prevailing wind  
+- Animals become active  
+- Humidity decreases  
 
 ## Tides
 <!-- K: tide, water, coast, rise, fall, moon, ocean, sea, semidiurnal, diurnal, mixed -->
@@ -129,16 +129,14 @@ This map shows the tide types around the world. Green is semidiurnal, blue is mi
 
 ![](file:///android_asset/survival_guide/tides.webp)
 
-
 ### Semidiurnal tides
 Semidiurnal tides have two high tides and two low tides each day. If you know the time of high tide, the next low tide will be about 6 hours later, and the following high tide will be about 6 hours after that.
 
-**Mixed tides**
-
+### Mixed tides
 Mixed tides are a type of semidiurnal tide, but the heights of the high and/or low tides vary throughout the day.
 
 ### Diurnal tides
-Diurnal tides have one high tide and one low tide each day. If you know the time of high tide, the next low tide will be about 12 hours later, and the next high tide will be about 12 hours later.
+Diurnal tides have one high tide and one low tide each day. If you know the time of high tide, the next low tide will be about 12 hours later, and the next high tide will be about 12 hours after that.
 
 ## Night
 <!-- K: night, dark, light, moon, stars, flashlight -->
