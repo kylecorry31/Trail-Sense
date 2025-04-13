@@ -1,9 +1,14 @@
 package com.kylecorry.trail_sense.tools.ballistics.ui
 
+import androidx.core.widget.addTextChangedListener
+import com.google.android.material.textfield.TextInputEditText
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.ui.useService
+import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.views.list.AndromedaListView
 import com.kylecorry.andromeda.views.list.ListItem
+import com.kylecorry.luna.text.toFloatCompat
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.physics.NoDragModel
 import com.kylecorry.sol.science.physics.PhysicsService
@@ -18,7 +23,9 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.useCoroutineQueue
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
+import com.kylecorry.trail_sense.tools.ballistics.domain.G1DragModel
 import java.time.Duration
 
 class FragmentBallisticsCalculator :
@@ -29,9 +36,12 @@ class FragmentBallisticsCalculator :
         val zeroDistanceView = useView<DistanceInputView>(R.id.zero_distance)
         val scopeHeightView = useView<DistanceInputView>(R.id.scope_height)
         val bulletSpeedView = useView<DistanceInputView>(R.id.bullet_speed)
+        // TODO: Picker for different bullet types with option for Custom BC
+        val ballisticCoefficientView = useView<TextInputEditText>(R.id.ballistic_coefficient)
 
         val formatter = useService<FormatService>()
         val prefs = useService<UserPreferences>()
+        val queue = useCoroutineQueue()
 
         val referenceDistance = useMemo {
             Distance(
@@ -57,11 +67,14 @@ class FragmentBallisticsCalculator :
                 TimeUnits.Seconds
             )
         )
+        val (ballisticCoefficient, setBallisticCoefficient) = useState<Float?>(null)
+        val (trajectory, setTrajectory) = useState(emptyList<TrajectoryPoint2D>())
 
         useEffect(
             zeroDistanceView,
             scopeHeightView,
-            bulletSpeedView
+            bulletSpeedView,
+            ballisticCoefficientView
         ) {
             zeroDistanceView.units =
                 formatter.sortDistanceUnits(DistanceUtils.hikingDistanceUnits)
@@ -89,13 +102,26 @@ class FragmentBallisticsCalculator :
                     )
                 )
             }
+
+            ballisticCoefficientView.addTextChangedListener {
+                setBallisticCoefficient(it?.toString()?.toFloatCompat())
+            }
         }
 
-        val trajectory = useMemo(zeroDistance, scopeHeight, bulletSpeed) {
-            if (bulletSpeed.speed > 0) {
-                calculateTrajectory(zeroDistance, scopeHeight, bulletSpeed)
-            } else {
-                emptyList()
+        useBackgroundEffect(zeroDistance, scopeHeight, bulletSpeed, ballisticCoefficient) {
+            queue.replace {
+                setTrajectory(
+                    if (bulletSpeed.speed > 0) {
+                        calculateTrajectory(
+                            zeroDistance,
+                            scopeHeight,
+                            bulletSpeed,
+                            ballisticCoefficient
+                        )
+                    } else {
+                        emptyList()
+                    }
+                )
             }
         }
 
@@ -137,9 +163,16 @@ class FragmentBallisticsCalculator :
     private fun calculateTrajectory(
         zeroDistance: Distance,
         scopeHeight: Distance,
-        bulletSpeed: Speed
+        bulletSpeed: Speed,
+        ballisticCoefficient: Float?
     ): List<TrajectoryPoint2D> {
         val physics = PhysicsService()
+
+        val dragModel = if (ballisticCoefficient == null || SolMath.isZero(ballisticCoefficient)) {
+            NoDragModel()
+        } else {
+            G1DragModel(ballisticCoefficient)
+        }
 
         val initialVelocity = physics.getVelocityVectorForImpact(
             Vector2(zeroDistance.meters().distance, 0f),
@@ -149,13 +182,14 @@ class FragmentBallisticsCalculator :
             maxTime = 2f,
             minAngle = 0f,
             maxAngle = 1f,
-            angleStep = 0.001f
+            angleStep = 0.001f,
+            dragModel = dragModel
         )
 
         return physics.getTrajectory2D(
             initialPosition = Vector2(0f, -scopeHeight.meters().distance),
             initialVelocity = initialVelocity,
-            dragModel = NoDragModel(),
+            dragModel = dragModel,
             timeStep = 0.01f,
             maxTime = 2f
         ).filter { it.position.x < 500f }
