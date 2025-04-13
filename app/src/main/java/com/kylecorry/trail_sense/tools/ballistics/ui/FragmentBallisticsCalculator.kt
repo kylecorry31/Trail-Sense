@@ -12,7 +12,6 @@ import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.physics.NoDragModel
 import com.kylecorry.sol.science.physics.PhysicsService
-import com.kylecorry.sol.science.physics.TrajectoryPoint2D
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
@@ -26,6 +25,7 @@ import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useCoroutineQueue
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
 import com.kylecorry.trail_sense.tools.ballistics.domain.G1DragModel
+import com.kylecorry.trail_sense.tools.ballistics.domain.LinearInterpolator
 import java.time.Duration
 
 class FragmentBallisticsCalculator :
@@ -68,7 +68,7 @@ class FragmentBallisticsCalculator :
             )
         )
         val (ballisticCoefficient, setBallisticCoefficient) = useState<Float?>(null)
-        val (trajectory, setTrajectory) = useState(emptyList<TrajectoryPoint2D>())
+        val (trajectory, setTrajectory) = useState(emptyList<TrajectoryPoint>())
 
         useEffect(
             zeroDistanceView,
@@ -139,11 +139,11 @@ class FragmentBallisticsCalculator :
                         includeSeconds = true
                     ).replace("0", DecimalFormatter.format(point.time, 2))
                 val distance = formatter.formatDistance(
-                    Distance.meters(point.position.x).convertTo(zeroDistance.units),
+                    point.distance.convertTo(zeroDistance.units),
                     Units.getDecimalPlaces(zeroDistance.units)
                 )
                 val drop = formatter.formatDistance(
-                    Distance.meters(point.position.y).convertTo(smallUnits),
+                    point.drop.convertTo(smallUnits),
                     Units.getDecimalPlaces(smallUnits)
                 )
 
@@ -165,7 +165,7 @@ class FragmentBallisticsCalculator :
         scopeHeight: Distance,
         bulletSpeed: Speed,
         ballisticCoefficient: Float?
-    ): List<TrajectoryPoint2D> {
+    ): List<TrajectoryPoint> {
         val physics = PhysicsService()
 
         val dragModel = if (ballisticCoefficient == null || SolMath.isZero(ballisticCoefficient)) {
@@ -186,13 +186,52 @@ class FragmentBallisticsCalculator :
             dragModel = dragModel
         )
 
-        // TODO: Adjust this to be a distance step instead of a time step
-        return physics.getTrajectory2D(
+        val trajectory = physics.getTrajectory2D(
             initialPosition = Vector2(0f, -scopeHeight.meters().distance),
             initialVelocity = initialVelocity,
             dragModel = dragModel,
             timeStep = 0.01f,
             maxTime = 2f
-        ).filter { it.position.x < 500f }
+        )
+
+        val maxDistance = trajectory.maxOf { it.position.x }
+
+        val interpolator = LinearInterpolator()
+
+        // Recalculate using interpolation
+        val xs = trajectory.map { it.position.x }
+        val ys = trajectory.map { it.position.y }
+        val times = trajectory.map { it.time }
+        val velocities = trajectory.map { it.velocity.x }
+
+        val newXs = (0..500 step 10).map {
+            Distance(
+                it.toFloat(), if (zeroDistance.units.isMetric) {
+                    DistanceUnits.Meters
+                } else {
+                    DistanceUnits.Yards
+                }
+            ).meters().distance
+        }.filter { it <= maxDistance }
+
+        return newXs.filter { it <= maxDistance }.map {
+            TrajectoryPoint(
+                interpolator.interpolate(it, xs, times),
+                Distance.meters(it),
+                Speed(
+                    interpolator.interpolate(it, xs, velocities),
+                    DistanceUnits.Meters,
+                    TimeUnits.Seconds
+                ),
+                Distance.meters(interpolator.interpolate(it, xs, ys))
+            )
+        }
     }
+
+    data class TrajectoryPoint(
+        val time: Float,
+        val distance: Distance,
+        val velocity: Speed,
+        val drop: Distance
+    )
 }
