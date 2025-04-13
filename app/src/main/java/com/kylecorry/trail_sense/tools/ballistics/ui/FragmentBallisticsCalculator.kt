@@ -186,6 +186,7 @@ class FragmentBallisticsCalculator :
             dragModel = dragModel
         )
 
+        // TODO: Adjust this to be a distance step instead of a time step
         return physics.getTrajectory2D(
             initialPosition = Vector2(0f, -scopeHeight.meters().distance),
             initialVelocity = initialVelocity,

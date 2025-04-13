@@ -9,13 +9,13 @@ abstract class TabulatedDragModel(val bc: Float = 1f) : DragModel {
 
     abstract val dragTable: Map<Float, Float>
 
-    private val interpolator = TableInterpolator()
+    private val interpolator by lazy { TableInterpolator(dragTable) }
 
 
     override fun getDragAcceleration(velocity: Vector2): Vector2 {
         val magnitude = velocity.magnitude()
         val angle = velocity.angle()
-        val drag = interpolator.interpolate(magnitude, dragTable)
+        val drag = interpolator.interpolate(magnitude)
         val dragX = drag * SolMath.cosDegrees(angle)
         val dragY = drag * SolMath.sinDegrees(angle)
 
