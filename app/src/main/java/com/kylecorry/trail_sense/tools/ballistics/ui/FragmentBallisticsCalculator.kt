@@ -144,7 +144,7 @@ class FragmentBallisticsCalculator :
                 )
                 val drop = formatter.formatDistance(
                     point.drop.convertTo(smallUnits),
-                    Units.getDecimalPlaces(smallUnits)
+                    1
                 )
 
                 ListItem(
