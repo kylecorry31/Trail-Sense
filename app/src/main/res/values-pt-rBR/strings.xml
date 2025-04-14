@@ -1302,4 +1302,9 @@
     <string name="scope_height">Altura da mira</string>
     <string name="sight_in_range">Alcance da mira</string>
     <string name="muzzle_velocity">Velocidade do disparo</string>
+    <string name="drop_header_units">Queda (%s)</string>
+    <string name="ballistic_coefficient">Coeficiente balístico</string>
+    <string name="time_header_units">Duração (%s)</string>
+    <string name="range_header_units">Intervalo (%s)</string>
+    <string name="velocity_header_units">Velocidade (%s)</string>
 </resources>
