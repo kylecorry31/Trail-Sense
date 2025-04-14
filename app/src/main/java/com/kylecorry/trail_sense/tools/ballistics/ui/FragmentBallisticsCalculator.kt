@@ -1,6 +1,8 @@
 package com.kylecorry.trail_sense.tools.ballistics.ui
 
+import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
@@ -41,6 +43,7 @@ class FragmentBallisticsCalculator :
         val zeroDistanceView = useView<DistanceInputView>(R.id.zero_distance)
         val scopeHeightView = useView<DistanceInputView>(R.id.scope_height)
         val bulletSpeedView = useView<DistanceInputView>(R.id.bullet_speed)
+        val loadingView = useView<ProgressBar>(R.id.loading)
         // TODO: Picker for different bullet types with option for Custom BC
         val ballisticCoefficientView = useView<TextInputEditText>(R.id.ballistic_coefficient)
 
@@ -74,6 +77,7 @@ class FragmentBallisticsCalculator :
         )
         val (ballisticCoefficient, setBallisticCoefficient) = useState<Float?>(null)
         val (trajectory, setTrajectory) = useState(emptyList<TrajectoryPoint>())
+        val (loading, setLoading) = useState(false)
 
         useEffect(
             zeroDistanceView,
@@ -118,6 +122,7 @@ class FragmentBallisticsCalculator :
 
         useBackgroundEffect(zeroDistance, scopeHeight, bulletSpeed, ballisticCoefficient) {
             queue.replace {
+                setLoading(true)
                 setTrajectory(
                     if (bulletSpeed.speed > 0) {
                         calculateTrajectory(
@@ -130,6 +135,7 @@ class FragmentBallisticsCalculator :
                         emptyList()
                     }
                 )
+                setLoading(false)
             }
         }
 
@@ -182,6 +188,11 @@ class FragmentBallisticsCalculator :
             }
 
             ballisticsGrid.setData(listItems)
+        }
+
+        useEffect(loadingView, ballisticsTableView, loading) {
+            ballisticsTableView.isVisible = !loading
+            loadingView.isVisible = loading
         }
     }
 

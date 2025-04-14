@@ -17,14 +17,16 @@ class FragmentToolBallistics : TrailSenseReactiveFragment(R.layout.fragment_tabs
         val pages = useMemo {
             listOf(
                 FragmentScopeAdjustment(),
-                FragmentBallisticsCalculator()
+                FragmentBallisticsCalculator(),
+                FragmentEnergyCalculator()
             )
         }
 
         val pageNames = useMemo {
             listOf(
                 getString(R.string.scope),
-                getString(R.string.ballistics)
+                getString(R.string.ballistics),
+                getString(R.string.energy)
             )
         }
 

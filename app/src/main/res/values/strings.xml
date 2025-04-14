@@ -1629,4 +1629,6 @@
     <string name="range_header_units">Range (%s)</string>
     <string name="velocity_header_units">Velocity (%s)</string>
     <string name="drop_header_units">Drop (%s)</string>
+    <string name="energy">Energy</string>
+    <string name="bullet_weight">Bullet weight</string>
 </resources>
