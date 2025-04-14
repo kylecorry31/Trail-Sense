@@ -79,13 +79,14 @@
             android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.kylecorry.andromeda.views.list.AndromedaListView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ballistics_table"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ballistics_title" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

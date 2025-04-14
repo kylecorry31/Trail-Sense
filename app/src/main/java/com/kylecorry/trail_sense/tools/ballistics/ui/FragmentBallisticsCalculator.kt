@@ -1,12 +1,13 @@
 package com.kylecorry.trail_sense.tools.ballistics.ui
 
+import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
-import com.kylecorry.andromeda.views.list.AndromedaListView
-import com.kylecorry.andromeda.views.list.ListItem
+import com.kylecorry.andromeda.list.GridView
 import com.kylecorry.luna.text.toFloatCompat
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.Vector2
@@ -26,13 +27,17 @@ import com.kylecorry.trail_sense.shared.extensions.useCoroutineQueue
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
 import com.kylecorry.trail_sense.tools.ballistics.domain.G1DragModel
 import com.kylecorry.trail_sense.tools.ballistics.domain.LinearInterpolator
-import java.time.Duration
 
 class FragmentBallisticsCalculator :
     TrailSenseReactiveFragment(R.layout.fragment_ballistics_calculator) {
 
     override fun update() {
-        val ballisticsTableView = useView<AndromedaListView>(R.id.ballistics_table)
+        val ballisticsTableView = useView<RecyclerView>(R.id.ballistics_table)
+        val ballisticsGrid = useMemo(ballisticsTableView) {
+            GridView(ballisticsTableView, R.layout.list_item_grid_cell, 4) { view, value: String ->
+                view.findViewById<TextView>(R.id.content).text = value
+            }
+        }
         val zeroDistanceView = useView<DistanceInputView>(R.id.zero_distance)
         val scopeHeightView = useView<DistanceInputView>(R.id.scope_height)
         val bulletSpeedView = useView<DistanceInputView>(R.id.bullet_speed)
@@ -74,7 +79,8 @@ class FragmentBallisticsCalculator :
             zeroDistanceView,
             scopeHeightView,
             bulletSpeedView,
-            ballisticCoefficientView
+            ballisticCoefficientView,
+            ballisticsGrid
         ) {
             zeroDistanceView.units =
                 formatter.sortDistanceUnits(DistanceUtils.hikingDistanceUnits)
@@ -106,6 +112,8 @@ class FragmentBallisticsCalculator :
             ballisticCoefficientView.addTextChangedListener {
                 setBallisticCoefficient(it?.toString()?.toFloatCompat())
             }
+
+            ballisticsGrid.addLineSeparator()
         }
 
         useBackgroundEffect(zeroDistance, scopeHeight, bulletSpeed, ballisticCoefficient) {
@@ -125,37 +133,55 @@ class FragmentBallisticsCalculator :
             }
         }
 
-        useEffect(ballisticsTableView, trajectory, zeroDistance) {
+        useEffect(ballisticsTableView, trajectory, zeroDistance, bulletSpeed) {
             val smallUnits = if (prefs.distanceUnits == UserPreferences.DistanceUnits.Feet) {
                 DistanceUnits.Inches
             } else {
                 DistanceUnits.Centimeters
             }
-            val listItems = trajectory.mapIndexed { index, point ->
-                val seconds =
-                    formatter.formatDuration(
-                        Duration.ZERO,
-                        short = true,
-                        includeSeconds = true
-                    ).replace("0", DecimalFormatter.format(point.time, 2))
-                val distance = formatter.formatDistance(
-                    point.distance.convertTo(zeroDistance.units),
+            // TODO: Set units in header
+            val listItems = listOf(
+                getString(R.string.time_header_units, "s"),
+                getString(
+                    R.string.range_header_units,
+                    formatter.getDistanceUnitName(zeroDistance.units, true)
+                ),
+                getString(R.string.velocity_header_units, "fps"),
+                getString(
+                    R.string.drop_header_units,
+                    formatter.getDistanceUnitName(smallUnits, true)
+                )
+            ) + trajectory.flatMap { point ->
+                val seconds = DecimalFormatter.format(
+                    point.time,
+                    2
+                )
+                val distance = DecimalFormatter.format(
+                    point.distance.convertTo(zeroDistance.units).distance,
                     Units.getDecimalPlaces(zeroDistance.units)
                 )
-                val drop = formatter.formatDistance(
-                    point.drop.convertTo(smallUnits),
+                val drop = DecimalFormatter.format(
+                    point.drop.convertTo(smallUnits).distance,
                     1
                 )
 
-                ListItem(
-                    index.toLong(),
-                    distance,
+                val velocity = DecimalFormatter.format(
+                    point.velocity.convertTo(
+                        bulletSpeed.distanceUnits,
+                        bulletSpeed.timeUnits
+                    ).speed,
+                    0
+                )
+
+                listOf(
                     seconds,
-                    trailingText = getString(R.string.drop_amount, drop)
+                    distance,
+                    velocity,
+                    drop
                 )
             }
 
-            ballisticsTableView.setItems(listItems)
+            ballisticsGrid.setData(listItems)
         }
     }
 

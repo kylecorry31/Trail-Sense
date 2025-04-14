@@ -1625,4 +1625,8 @@
     <!--Bullet drop, %s is the distance of drop-->
     <string name="drop_amount">%s drop</string>
     <string name="ballistic_coefficient">Ballistic coefficient</string>
+    <string name="time_header_units">Time (%s)</string>
+    <string name="range_header_units">Range (%s)</string>
+    <string name="velocity_header_units">Velocity (%s)</string>
+    <string name="drop_header_units">Drop (%s)</string>
 </resources>
