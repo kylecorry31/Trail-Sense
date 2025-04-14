@@ -1358,4 +1358,9 @@
     <string name="scope_height">Výška rozsahu</string>
     <string name="sight_in_range">Rozsah dohledu</string>
     <string name="muzzle_velocity">Rychlost střely</string>
+    <string name="ballistic_coefficient">Balistický koeficient</string>
+    <string name="time_header_units">Čas (%s)</string>
+    <string name="range_header_units">Rozsah (%s)</string>
+    <string name="drop_header_units">Pád (%s)</string>
+    <string name="velocity_header_units">Rychlost (%s)</string>
 </resources>
