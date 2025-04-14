@@ -767,6 +767,7 @@
     <string name="daylight">Daylight</string>
     <string name="find_next_occurrence">Find next occurrence</string>
     <string name="yards_format">%s yd</string>
+    <string name="caliber_format">%s cal</string>
     <string name="millimeters_format">%s mm</string>
     <string name="unit_yards">Yards</string>
     <string name="base_elevation">Base elevation</string>
@@ -804,11 +805,14 @@
     <string name="kilograms">Kilograms</string>
     <string name="grams">Grams</string>
     <string name="milligrams">Milligrams</string>
+    <!--Weight unit grains-->
+    <string name="grains">Grains</string>
     <string name="pounds_format">%s lb</string>
     <string name="ounces_weight_format">%s oz</string>
     <string name="kilograms_format">%s kg</string>
     <string name="grams_format">%s g</string>
     <string name="milligrams_format">%s mg</string>
+    <string name="grains_format">%s gr</string>
     <string name="weight">Weight</string>
     <string name="seconds">Seconds</string>
     <string name="minutes">Minutes</string>
@@ -1504,6 +1508,7 @@
     <string name="us_teaspoons">US teaspoons</string>
     <string name="us_tablespoons">US tablespoons</string>
     <string name="unit_millimeters">Millimeters</string>
+    <string name="unit_caliber">Caliber</string>
     <string name="imperial_teaspoons">Imperial teaspoons</string>
     <string name="imperial_tablespoons">Imperial tablespoons</string>
     <string name="automatic_backup">Automatic backup</string>
@@ -1631,4 +1636,7 @@
     <string name="drop_header_units">Drop (%s)</string>
     <string name="energy">Energy</string>
     <string name="bullet_weight">Bullet weight</string>
+    <string name="format_joules">%s joules</string>
+    <!--    Foot pound equivalent (used for bullets)-->
+    <string name="format_fpe">%s FPE</string>
 </resources>

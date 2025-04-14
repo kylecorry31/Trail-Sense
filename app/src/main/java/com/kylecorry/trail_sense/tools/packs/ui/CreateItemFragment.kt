@@ -40,7 +40,7 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.itemWeightInput.units = formatService.sortWeightUnits(WeightUnits.values().toList())
+        binding.itemWeightInput.units = formatService.sortWeightUnits(WeightUnits.entries)
 
         binding.createBtn.setOnClickListener {
             val name = binding.nameEdit.text?.toString()

@@ -19,7 +19,7 @@ import com.kylecorry.sol.math.Quaternion
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.filters.LowPassFilter
-import com.kylecorry.sol.science.physics.PhysicsService
+import com.kylecorry.sol.science.physics.Physics
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolMetalDetectorBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -35,7 +35,6 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
     private val sensors by lazy { SensorService(requireContext()) }
     private val magnetometer by lazy { sensors.getMagnetometer() }
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
-    private val metalDetectionService = PhysicsService()
     private val lowPassMagnetometer by lazy { sensors.getMagnetometer(true) }
     private val orientation by lazy { SensorService(requireContext()).getGyroscope() }
     private val gravity by lazy { sensors.getGravity() }
@@ -188,12 +187,12 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
 
         // Update the metal direction dial
         if (prefs.metalDetector.showMetalDirection) {
-            val metal = metalDetectionService.removeGeomagneticField(
+            val metal = Physics.removeGeomagneticField(
                 lowPassMagnetometer.magneticField,
                 calibratedField,
                 null // TODO: Once a better orientation is calculated, use that
             )
-            val direction = metalDetectionService.getMetalDirection(
+            val direction = Physics.getMetalDirection(
                 metal,
                 gravity.acceleration
             )

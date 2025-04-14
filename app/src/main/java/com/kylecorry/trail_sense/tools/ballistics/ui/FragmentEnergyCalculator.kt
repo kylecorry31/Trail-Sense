@@ -3,7 +3,9 @@ package com.kylecorry.trail_sense.tools.ballistics.ui
 import android.widget.TextView
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.ui.useService
+import com.kylecorry.sol.science.physics.Physics
 import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.sol.units.EnergyUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.sol.units.Weight
@@ -48,7 +50,7 @@ class FragmentEnergyCalculator : TrailSenseReactiveFragment(R.layout.fragment_en
             }
 
             bulletWeightView.units = formatter.sortWeightUnits(WeightUnits.entries)
-            // TODO: Select grains or grams depending on metric or imperial settings
+            bulletWeightView.unit = WeightUnits.Grains
             bulletWeightView.hint = getString(R.string.bullet_weight)
             bulletWeightView.setOnValueChangeListener {
                 setBulletWeight(it)
@@ -56,7 +58,13 @@ class FragmentEnergyCalculator : TrailSenseReactiveFragment(R.layout.fragment_en
         }
 
         val energy = useMemo(bulletSpeed, bulletWeight) {
-            getBulletEnergy(bulletSpeed, bulletWeight ?: return@useMemo null)
+            Physics.getKineticEnergy(bulletWeight ?: return@useMemo null, bulletSpeed).convertTo(
+                if (bulletSpeed.distanceUnits.isMetric) {
+                    EnergyUnits.Joules
+                } else {
+                    EnergyUnits.FootPounds
+                }
+            )
         }
 
         useEffect(energyView, energy) {
@@ -65,21 +73,18 @@ class FragmentEnergyCalculator : TrailSenseReactiveFragment(R.layout.fragment_en
                 return@useEffect
             }
 
-            // TODO: Add energy types to Sol and format accordingly
             val formatted = DecimalFormatter.format(
-                energy * 0.73756f,
+                energy.value,
                 1
             )
 
-            energyView.text = "$formatted FPE"
+            energyView.text = if (energy.units == EnergyUnits.Joules) {
+                getString(R.string.format_joules, formatted)
+            } else {
+                getString(R.string.format_fpe, formatted)
+            }
         }
 
 
-    }
-
-    private fun getBulletEnergy(bulletSpeed: Speed, bulletWeight: Weight): Float {
-        val speedMs = bulletSpeed.convertTo(DistanceUnits.Meters, TimeUnits.Seconds).speed
-        val weightKg = bulletWeight.convertTo(WeightUnits.Kilograms).weight
-        return 0.5f * weightKg * speedMs * speedMs
     }
 }

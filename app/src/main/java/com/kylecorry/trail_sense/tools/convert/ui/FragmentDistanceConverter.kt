@@ -35,6 +35,7 @@ class FragmentDistanceConverter :
             DistanceUnits.Inches -> getString(R.string.unit_inches)
             DistanceUnits.Yards -> getString(R.string.unit_yards)
             DistanceUnits.Millimeters -> getString(R.string.unit_millimeters)
+            DistanceUnits.Caliber -> getString(R.string.unit_caliber)
         }
     }
 

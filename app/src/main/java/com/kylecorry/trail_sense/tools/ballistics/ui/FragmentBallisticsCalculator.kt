@@ -13,8 +13,9 @@ import com.kylecorry.andromeda.list.GridView
 import com.kylecorry.luna.text.toFloatCompat
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.Vector2
+import com.kylecorry.sol.math.interpolation.LinearInterpolator
 import com.kylecorry.sol.science.physics.NoDragModel
-import com.kylecorry.sol.science.physics.PhysicsService
+import com.kylecorry.sol.science.physics.Physics
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
@@ -28,7 +29,6 @@ import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useCoroutineQueue
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
 import com.kylecorry.trail_sense.tools.ballistics.domain.G1DragModel
-import com.kylecorry.trail_sense.tools.ballistics.domain.LinearInterpolator
 
 class FragmentBallisticsCalculator :
     TrailSenseReactiveFragment(R.layout.fragment_ballistics_calculator) {
@@ -203,15 +203,13 @@ class FragmentBallisticsCalculator :
         bulletSpeed: Speed,
         ballisticCoefficient: Float?
     ): List<TrajectoryPoint> {
-        val physics = PhysicsService()
-
         val dragModel = if (ballisticCoefficient == null || SolMath.isZero(ballisticCoefficient)) {
             NoDragModel()
         } else {
             G1DragModel(ballisticCoefficient)
         }
 
-        val initialVelocity = physics.getVelocityVectorForImpact(
+        val initialVelocity = Physics.getVelocityVectorForImpact(
             Vector2(zeroDistance.meters().distance, 0f),
             bulletSpeed.convertTo(DistanceUnits.Meters, TimeUnits.Seconds).speed,
             Vector2(0f, -scopeHeight.meters().distance),
@@ -223,7 +221,7 @@ class FragmentBallisticsCalculator :
             dragModel = dragModel
         )
 
-        val trajectory = physics.getTrajectory2D(
+        val trajectory = Physics.getTrajectory2D(
             initialPosition = Vector2(0f, -scopeHeight.meters().distance),
             initialVelocity = initialVelocity,
             dragModel = dragModel,
