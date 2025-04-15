@@ -117,6 +117,7 @@ When selecting a site for your shelter, consider the following:
 - Free of threat from avalanches, rock slides, or flooding.
 - Free of insects, poisonous plants, or dangerous animals.
 - Suitable for signaling for help if needed.
+- Avoid staying above the treeline in mountainous regions, as you will be exposed to the elements.
 
 ### Gathering materials
 Prefer wood and debris that are already on the ground and require minimal effort to use. Avoid logs that are too thick to break by hand.

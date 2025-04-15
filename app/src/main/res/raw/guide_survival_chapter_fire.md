@@ -10,6 +10,7 @@ Knowing how to make fire can help you stay warm, purify water, and cook food. Yo
 ### Gear
 **Necessities**:
 - Firestarter (waterproof matches, lighters, or fire steel - carry at least two different types)
+  - You can carry a credit card sized fresnel lens in your wallet or phone case as an emergency backup firestarter.
 
 **Optional**:
 - Tinder (dryer lint, cotton balls, or commercial fire starters)
