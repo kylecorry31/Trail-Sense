@@ -1307,4 +1307,12 @@
     <string name="time_header_units">Duração (%s)</string>
     <string name="range_header_units">Intervalo (%s)</string>
     <string name="velocity_header_units">Velocidade (%s)</string>
+    <string name="caliber_format">%s cal</string>
+    <string name="grains_format">%s gr</string>
+    <string name="grains">Grãos</string>
+    <string name="format_fpe">%s lb-ft</string>
+    <string name="format_joules">%s joules</string>
+    <string name="unit_caliber">Calibre</string>
+    <string name="energy">Energia</string>
+    <string name="bullet_weight">Peso do projétil</string>
 </resources>
