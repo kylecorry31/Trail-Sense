@@ -1363,4 +1363,12 @@
     <string name="range_header_units">Rozsah (%s)</string>
     <string name="drop_header_units">Pád (%s)</string>
     <string name="velocity_header_units">Rychlost (%s)</string>
+    <string name="unit_caliber">Ráže</string>
+    <string name="format_joules">%s joulů</string>
+    <string name="energy">Energie</string>
+    <string name="caliber_format">%s cal</string>
+    <string name="grains_format">%s zr.</string>
+    <string name="format_fpe">%s FPE</string>
+    <string name="grains">Zrna</string>
+    <string name="bullet_weight">Váha střely</string>
 </resources>
