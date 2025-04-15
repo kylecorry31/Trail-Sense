@@ -1319,4 +1319,9 @@
     <string name="scope">瞄准镜</string>
     <string name="sight_in_range">瞄准器校准范围</string>
     <string name="muzzle_velocity">枪口初速</string>
+    <string name="ballistic_coefficient">弹道系数</string>
+    <string name="time_header_units">时间（%s）</string>
+    <string name="range_header_units">射程（%s）</string>
+    <string name="velocity_header_units">速度（%s）</string>
+    <string name="drop_header_units">弹道降落距离（%s）</string>
 </resources>

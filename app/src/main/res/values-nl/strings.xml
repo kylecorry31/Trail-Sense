@@ -1332,4 +1332,9 @@
     <string name="scope_height">Vizierhoogte</string>
     <string name="sight_in_range">Vizierbereik</string>
     <string name="muzzle_velocity">Mondingssnelheid</string>
+    <string name="ballistic_coefficient">Ballistische coëfficiënt</string>
+    <string name="time_header_units">Tijd (%s)</string>
+    <string name="range_header_units">Bereik (%s)</string>
+    <string name="velocity_header_units">Snelheid (%s)</string>
+    <string name="drop_header_units">Val (%s)</string>
 </resources>
