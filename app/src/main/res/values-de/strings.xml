@@ -1168,4 +1168,5 @@
         <item quantity="other">%d Schritte</item>
     </plurals>
     <string name="return_time">Rückkehr-Zeit</string>
+    <string name="location_number">Punkt %d</string>
 </resources>
