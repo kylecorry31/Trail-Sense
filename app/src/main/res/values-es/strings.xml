@@ -394,8 +394,8 @@
     <string name="battery_health_overheat">Sobrecalentar</string>
     <string name="battery_health_cold">Frío</string>
     <string name="battery_health_over_voltage">Sobretensión</string>
-    <string name="battery_health">Salúd: %s</string>
-    <string name="power">Energía</string>
+    <string name="battery_health">Salud: %s</string>
+    <string name="power">Carga</string>
     <string name="clock_sync_notification">Sincronización del reloj - %s</string>
     <string name="units_mmhg">mm Hg</string>
     <string name="water_boil_timer">Temporizador de hervir agua</string>
@@ -522,9 +522,9 @@
     <string name="water_boil_timer_title">El agua está hirviendo</string>
     <string name="water_boil_timer_done_title">El agua ha terminado de hervir</string>
     <string name="water_boil_timer_done_content">Ahora el agua es potable</string>
-    <string name="strobe_warning_title">Luces Destellantes</string>
+    <string name="strobe_warning_title">Luces destellantes</string>
     <string name="tool_category_signaling">Señalización</string>
-    <string name="tool_triangulate_title">Triangular Ubicación</string>
+    <string name="tool_triangulate_title">Triangular ubicación</string>
     <string name="could_not_triangulate">No se pudo triangular</string>
     <string name="pip_button">Actualizar la hora del sistema</string>
     <string name="pip_notification_scheduled">Notificacion programada para las %s</string>
@@ -1318,4 +1318,7 @@
     <string name="dangerous">Peligroso</string>
     <string name="medicinal">Medicinal</string>
     <string name="cave">Cueva</string>
+    <string name="format_joules">%s julios</string>
+    <string name="unit_caliber">Calibre</string>
+    <string name="energy">Energía</string>
 </resources>
