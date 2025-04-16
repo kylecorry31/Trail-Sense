@@ -360,4 +360,12 @@
     <string name="crustacean">Crustaci</string>
     <string name="automatic_backup">Còpia de seguretat automàtica</string>
     <string name="velocity_header_units">Velocitat (%s)</string>
+    <string name="on_import">En importar</string>
+    <plurals name="map_group_summary">
+        <item quantity="one">%d mapa</item>
+        <item quantity="many">%d mapes</item>
+        <item quantity="other">%d mapes</item>
+    </plurals>
+    <string name="reset_calibration_question">Voleu reinicialitzar la calibració?</string>
+    <string name="energy">Energia</string>
 </resources>
