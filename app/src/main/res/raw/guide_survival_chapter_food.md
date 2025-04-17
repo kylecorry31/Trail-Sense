@@ -209,9 +209,6 @@ Deadfall traps work by dropping a heavy object on the animal when it triggers th
 4. Bait
 5. Rock
 
-
-![](file:///android_asset/survival_guide/35.webp)
-
 ### Birds
 
 Birds are most easily caught at night when roosting, or you can eat eggs from nests. Use a club, throwing stick, or rock to kill or stun the bird.
