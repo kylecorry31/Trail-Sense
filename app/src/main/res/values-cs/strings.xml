@@ -1371,4 +1371,5 @@
     <string name="format_fpe">%s FPE</string>
     <string name="grains">Zrna</string>
     <string name="bullet_weight">Váha střely</string>
+    <string name="ballistics_calculator">Balistická kalkulačka</string>
 </resources>
