@@ -1641,4 +1641,7 @@
     <string name="format_fpe">%s FPE</string>
     <string name="ballistics_calculator">Ballistics calculator</string>
     <string name="pref_ballistics_calculator_enabled" translatable="false">pref_ballistics_calculator_enabled</string>
+    <!--A document as in a hunting permit-->
+    <string name="permits">Permits</string>
+    <string name="no_permits">No permits</string>
 </resources>
