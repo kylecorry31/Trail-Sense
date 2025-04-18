@@ -40,6 +40,7 @@ import com.kylecorry.trail_sense.shared.extensions.putLongArray
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sharing.MapSite
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyPreferences
+import com.kylecorry.trail_sense.tools.ballistics.infrastructure.BallisticsPreferences
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapPreferences
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -73,6 +74,7 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
     val altimeter by lazy { AltimeterPreferences(context) }
     val augmentedReality by lazy { AugmentedRealityPreferences(context) }
     val backup by lazy { BackupPreferences(context) }
+    val ballistics by lazy { BallisticsPreferences(context) }
 
     private val isMetricPreferred = Resources.isMetricPreferred(context)
 

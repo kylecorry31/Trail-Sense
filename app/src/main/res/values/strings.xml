@@ -1639,4 +1639,6 @@
     <string name="format_joules">%s joules</string>
     <!--    Foot pound equivalent (used for bullets)-->
     <string name="format_fpe">%s FPE</string>
+    <string name="ballistics_calculator">Ballistics calculator</string>
+    <string name="pref_ballistics_calculator_enabled" translatable="false">pref_ballistics_calculator_enabled</string>
 </resources>
