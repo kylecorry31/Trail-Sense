@@ -179,5 +179,7 @@ At night, a flashlight can be used to signal for help. Use the international dis
 ### Ground-to-air signals
 Ground-to-air signals are large markers you create on the ground to communicate with aircraft. Use rocks, logs, or other materials to create a large "V" (means you require assistance) or an "X" (means you require medical assistance). Use contrasting or artificial colors to make the signal more visible.
 
+![](file:///android_asset/survival_guide/ground_to_air.webp)
+
 ## Disclaimer
 This guide is provided for informational purposes only, and neither the author, publisher, nor any contributors guarantee its accuracy or suitability for any purpose. By using this guide, you acknowledge that outdoor activities involve risks, and you do so at your own risk, agreeing to hold harmless and indemnify the author, publisher, and any contributors from any claims or damages arising from your use of this guide. Always consult professionals for advice specific to your situation, as this guide does not substitute for professional guidance. Furthermore, be aware that local laws and regulations may affect the legal use of the techniques described herein, and compliance is your responsibility.
