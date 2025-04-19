@@ -46,6 +46,7 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.NavigationLaye
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.TideLayerManager
 import com.kylecorry.trail_sense.tools.maps.ui.commands.CreatePathCommand
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScreenLock
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyAccuracyLayer
@@ -71,6 +72,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val prefs by lazy { UserPreferences(requireContext()) }
 
     private val navigator by lazy { Navigator.getInstance(requireContext()) }
+    private val screenLock by lazy { NavigationScreenLock() }
 
     // Map layers
     private val tideLayer = TideLayer()
@@ -402,12 +404,14 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         destination = beacon
         binding.cancelNavigationBtn.show()
         updateDestination()
+        activity?.let { screenLock.updateLock(it) }
         return true
     }
 
     private fun hideNavigation() {
         binding.cancelNavigationBtn.hide()
         binding.navigationSheet.hide()
+        activity?.let { screenLock.updateLock(it) }
         destination = null
     }
 
@@ -489,6 +493,11 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     fun recenter() {
         binding.map.recenter()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        activity?.let { screenLock.releaseLock(it) }
     }
 
     override fun onUpdate() {
