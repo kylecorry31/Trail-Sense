@@ -1345,4 +1345,7 @@
     <string name="grains">Grein</string>
     <string name="grains_format">%s gr</string>
     <string name="format_joules">%s joules</string>
+    <string name="ballistics_calculator">Ballistische rekenmachine</string>
+    <string name="no_permits">Geen vergunningen</string>
+    <string name="permits">Vergunningen</string>
 </resources>

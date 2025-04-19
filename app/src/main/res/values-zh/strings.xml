@@ -1332,4 +1332,7 @@
     <string name="format_fpe">%s 英尺磅当量</string>
     <string name="unit_caliber">口径</string>
     <string name="caliber_format">%s 口径</string>
+    <string name="permits">许可</string>
+    <string name="no_permits">无许可</string>
+    <string name="ballistics_calculator">弹道计算器</string>
 </resources>
