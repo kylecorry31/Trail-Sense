@@ -1315,4 +1315,7 @@
     <string name="unit_caliber">Calibre</string>
     <string name="energy">Energia</string>
     <string name="bullet_weight">Peso do projétil</string>
+    <string name="ballistics_calculator">Calculadora balística</string>
+    <string name="no_permits">Sem licenças</string>
+    <string name="permits">Licenças</string>
 </resources>
