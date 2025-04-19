@@ -15,9 +15,7 @@ import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.time.CoroutineTimer
-import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.core.ui.setTextDistinct
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
@@ -62,6 +60,7 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.TideLayerManag
 import com.kylecorry.trail_sense.tools.navigation.domain.CompassStyle
 import com.kylecorry.trail_sense.tools.navigation.domain.CompassStyleChooser
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScreenLock
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.quickactions.NavigationQuickActionBinder
 import com.kylecorry.trail_sense.tools.navigation.ui.data.UpdateAstronomyLayerCommand
@@ -160,9 +159,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val nearbyDistance
         get() = userPrefs.navigation.maxBeaconDistance
     private val useRadarCompass by lazy { userPrefs.navigation.useRadarCompass }
-    private val lockScreenPresence by lazy { userPrefs.navigation.lockScreenPresence }
     private val styleChooser by lazy { CompassStyleChooser(userPrefs.navigation, hasCompass) }
     private val useTrueNorth by lazy { userPrefs.compass.useTrueNorth }
+    private val screenLock by lazy { NavigationScreenLock() }
 
 
     // State
@@ -180,11 +179,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        activity?.let {
-            tryOrNothing {
-                Screen.setShowWhenLocked(it, false)
-            }
-        }
+        activity?.let { screenLock.releaseLock(it) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -384,13 +379,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun handleShowWhenLocked() {
-        activity?.let {
-            val shouldShow =
-                isBound && lockScreenPresence && (destination != null || destinationBearing != null)
-            tryOrNothing {
-                Screen.setShowWhenLocked(it, shouldShow)
-            }
-        }
+        activity?.let { screenLock.updateLock(it) }
     }
 
     fun displayAccuracyTips() {
