@@ -9,5 +9,6 @@ enum class MapContextualAction {
     CreatePath,
     Export,
     Print,
-    Delete
+    Delete,
+    Trace
 }

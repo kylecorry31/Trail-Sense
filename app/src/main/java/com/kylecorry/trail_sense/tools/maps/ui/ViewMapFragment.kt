@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.coroutines.onIO
@@ -18,6 +19,7 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
+import com.kylecorry.andromeda.torch.ScreenTorch
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -73,6 +75,8 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     private val navigator by lazy { Navigator.getInstance(requireContext()) }
     private val screenLock by lazy { NavigationScreenLock() }
+
+    private val screenLight by lazy { ScreenTorch(requireActivity().window) }
 
     // Map layers
     private val tideLayer = TideLayer()
@@ -150,6 +154,11 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         // Populate the last known location and map bounds
         layerManager?.onBoundsChanged(map?.boundary())
         layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
+
+        if (mapLockMode == MapLockMode.Trace) {
+            // Full brightness
+            screenLight.on()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -177,7 +186,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
             updateDestination()
 
-            if (mapLockMode != MapLockMode.Free) {
+            if (mapLockMode == MapLockMode.Location || mapLockMode == MapLockMode.Compass) {
                 binding.map.mapCenter = gps.location
             }
         }
@@ -373,6 +382,10 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         binding.distanceSheet.hide()
     }
 
+    fun trace() {
+        updateMapLockMode(MapLockMode.Trace, prefs.maps.keepMapFacingUp)
+    }
+
     private fun navigateTo(location: Coordinate) {
         inBackground {
             // Create a temporary beacon
@@ -435,6 +448,12 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     private fun updateMapLockMode(mode: MapLockMode, keepMapUp: Boolean) {
         mapLockMode = mode
+
+        // Show zoom buttons
+        binding.zoomInBtn.isVisible = true
+        binding.zoomOutBtn.isVisible = true
+        binding.map.isZoomEnabled = true
+
         when (mapLockMode) {
             MapLockMode.Location -> {
                 // Disable pan
@@ -451,6 +470,9 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 // Show as locked
                 binding.lockBtn.setImageResource(R.drawable.satellite)
                 CustomUiUtils.setButtonState(binding.lockBtn, true)
+
+                // Reset brightness
+                screenLight.off()
             }
 
             MapLockMode.Compass -> {
@@ -467,6 +489,9 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 // Show as locked
                 binding.lockBtn.setImageResource(R.drawable.ic_compass_icon)
                 CustomUiUtils.setButtonState(binding.lockBtn, true)
+
+                // Reset brightness
+                screenLight.off()
             }
 
             MapLockMode.Free -> {
@@ -480,6 +505,33 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 // Show as unlocked
                 binding.lockBtn.setImageResource(R.drawable.satellite)
                 CustomUiUtils.setButtonState(binding.lockBtn, false)
+
+                // Reset brightness
+                screenLight.off()
+            }
+
+            MapLockMode.Trace -> {
+                CustomUiUtils.disclaimer(
+                    requireContext(),
+                    getString(R.string.trace),
+                    getString(R.string.map_trace_instructions),
+                    "disclaimer_shown_map_trace"
+                )
+
+                // Disable pan
+                binding.map.setPanEnabled(false, false)
+                binding.map.isZoomEnabled = false
+
+                // Show as locked
+                binding.lockBtn.setImageResource(R.drawable.lock)
+                CustomUiUtils.setButtonState(binding.lockBtn, true)
+
+                // Full brightness
+                screenLight.on()
+
+                // Hide zoom buttons
+                binding.zoomInBtn.isVisible = false
+                binding.zoomOutBtn.isVisible = false
             }
         }
     }
@@ -489,6 +541,9 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         layerManager?.stop()
         layerManager = null
         lastDistanceToast?.cancel()
+
+        // Reset brightness
+        screenLight.off()
     }
 
     fun recenter() {
@@ -526,13 +581,18 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             MapLockMode.Free -> {
                 MapLockMode.Location
             }
+
+            MapLockMode.Trace -> {
+                MapLockMode.Free
+            }
         }
     }
 
     private enum class MapLockMode {
         Location,
         Compass,
-        Free
+        Free,
+        Trace
     }
 
     companion object {

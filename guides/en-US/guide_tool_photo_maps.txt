@@ -94,6 +94,11 @@ To export a map, click the menu button on the map row you want to export, then s
 ## Print a map
 To print a map, click the menu button on the map row you want to print, then select 'Print'. Alternatively, open the map, click the menu button in the top-right, and choose 'Print'. This opens the system print dialog, enabling you to print the map.
 
+## Trace a map
+To trace a map, open it, click the menu button in the top-right, and choose 'Trace'. Move into a shady area or block out the sun using a cloth and place paper over your screen so that you can see the map through the paper. Use a pen or pencil to trace the map, but avoid markers or pens that can bleed through the paper. Be careful not to slide the paper while tracing.
+
+When you are finished tracing, click the lock icon in the bottom-right to turn off trace mode.
+
 ## Change the resolution of a map
 To alter the resolution of a map, click the menu button on the map row you want to adjust, then select 'Change resolution'. A dialog will appear, allowing you to switch between low (lowest quality and smallest file size), medium (moderate quality and file size), and high (highest quality and largest file size) resolutions. Keep in mind that changing the resolution is a permanent action and cannot be undone.
 
