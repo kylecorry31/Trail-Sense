@@ -557,6 +557,9 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     }
 
     fun recenter() {
+        if (mapLockMode == MapLockMode.Trace) {
+            return
+        }
         binding.map.recenter()
     }
 
