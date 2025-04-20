@@ -201,6 +201,8 @@ Traps allow for the passive capture of small animals. They can be set up and lef
 
 Deadfall traps work by dropping a heavy object on the animal when it triggers the trap. The trigger mechanism can be made from a stick and a bait stick. The trigger is released when the animal takes the bait, causing the heavy object to fall. Place one or more of these traps near your shelter to catch mice.
 
+To avoid getting injured while setting the trap, support the rock/log using your knee or free hand until the trap is set. Be ready to quickly pull your hand away if it begins to fall.
+
 ![](file:///android_asset/survival_guide/figure_4_trap.webp)
 
 1. Support stick (front / side)
