@@ -368,4 +368,30 @@
     </plurals>
     <string name="reset_calibration_question">Voleu reinicialitzar la calibració?</string>
     <string name="energy">Energia</string>
+    <string name="units">Unitats</string>
+    <string name="volume">Volum</string>
+    <string name="kilograms">Quilograms</string>
+    <string name="pounds">Lliures</string>
+    <string name="seconds">Segons</string>
+    <string name="privacy">Privadesa</string>
+    <string name="liters">Litres</string>
+    <string name="milligrams">Mil·ligrams</string>
+    <string name="time">Temps</string>
+    <string name="ballistics_calculator">Calculadora de balística</string>
+    <string name="hours">Hores</string>
+    <string name="ounces_weight">Unces</string>
+    <string name="grams">Grams</string>
+    <string name="milliliters">Mil·lilitres</string>
+    <string name="imperial_quarts">Quarts imperials</string>
+    <string name="imperial_ounces_volume">Unces imperials</string>
+    <string name="weight">Pes</string>
+    <plurals name="number_days">
+        <item quantity="one">%d dia</item>
+        <item quantity="many">%d dies</item>
+        <item quantity="other">%d dies</item>
+    </plurals>
+    <string name="grains">Grans</string>
+    <string name="imperial_gallons">Galons imperials</string>
+    <string name="minutes">Minuts</string>
+    <string name="days">Dies</string>
 </resources>
