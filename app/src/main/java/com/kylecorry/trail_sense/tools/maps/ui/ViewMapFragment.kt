@@ -31,6 +31,7 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.ActionItem
 import com.kylecorry.trail_sense.shared.sharing.Share
@@ -156,8 +157,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
 
         if (mapLockMode == MapLockMode.Trace) {
-            // Full brightness
-            screenLight.on()
+            updateMapLockMode(MapLockMode.Trace, prefs.maps.keepMapFacingUp)
         }
     }
 
@@ -454,6 +454,9 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         binding.zoomOutBtn.isVisible = true
         binding.map.isZoomEnabled = true
 
+        // Show the bottom navigation
+        requireMainActivity().setBottomNavigationEnabled(true)
+
         when (mapLockMode) {
             MapLockMode.Location -> {
                 // Disable pan
@@ -515,7 +518,8 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                     requireContext(),
                     getString(R.string.trace),
                     getString(R.string.map_trace_instructions),
-                    "disclaimer_shown_map_trace"
+                    "disclaimer_shown_map_trace",
+                    cancelText = null
                 )
 
                 // Disable pan
@@ -532,6 +536,9 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
                 // Hide zoom buttons
                 binding.zoomInBtn.isVisible = false
                 binding.zoomOutBtn.isVisible = false
+
+                // Hide the bottom navigation
+                requireMainActivity().setBottomNavigationEnabled(false)
             }
         }
     }
@@ -544,6 +551,9 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
         // Reset brightness
         screenLight.off()
+
+        // Show the bottom navigation
+        requireMainActivity().setBottomNavigationEnabled(true)
     }
 
     fun recenter() {

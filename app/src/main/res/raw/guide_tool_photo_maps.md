@@ -97,6 +97,8 @@ To print a map, click the menu button on the map row you want to print, then sel
 ## Trace a map
 To trace a map, open it, click the menu button in the top-right, and choose 'Trace'. Move into a shady area or block out the sun using a cloth and place paper over your screen so that you can see the map through the paper. Use a pen or pencil to trace the map, but avoid markers or pens that can bleed through the paper. Be careful not to slide the paper while tracing.
 
+Bottom navigation will be disabled until you turn off trace mode.
+
 When you are finished tracing, click the lock icon in the bottom-right to turn off trace mode.
 
 ## Change the resolution of a map

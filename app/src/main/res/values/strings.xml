@@ -1645,5 +1645,5 @@
     <string name="permits">Permits</string>
     <string name="no_permits">No permits</string>
     <string name="trace">Trace</string>
-    <string name="map_trace_instructions">Move into a shady area or block out the sun using a cloth and place paper over your screen so that you can see the map through the paper. Use a pen or pencil to trace the map, but avoid markers or pens that can bleed through the paper.</string>
+    <string name="map_trace_instructions">Move into a shady area or block out the sun using a cloth and place paper over your screen so that you can see the map through the paper. Use a pen or pencil to trace the map, but avoid markers or pens that can bleed through the paper.\n\nBottom navigation will be disabled until you turn off trace mode.</string>
 </resources>
