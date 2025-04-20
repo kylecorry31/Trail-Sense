@@ -91,12 +91,12 @@
     <string name="clinometer_title">Inclinómetro</string>
     <string name="moon_phase">Fase lunar</string>
     <string name="sunset_alert_notification_text">El sol se pondrá a las %s</string>
-    <string name="first_quarter">Primer cuarto</string>
-    <string name="waxing_gibbous">Luna menguante</string>
+    <string name="first_quarter">Cuarto creciente</string>
+    <string name="waxing_gibbous">Gibosa creciente</string>
     <string name="full_moon">Luna llena</string>
-    <string name="waning_gibbous">Cuarto menguante</string>
+    <string name="waning_gibbous">Gibosa menguante</string>
     <string name="third_quarter">Cuarto menguante</string>
-    <string name="waning_crescent">Menguante y creciente</string>
+    <string name="waning_crescent">Media luna menguante</string>
     <string name="new_moon">Luna nueva</string>
     <string name="notification_monitoring_weather">Monitorización del clima en segundo plano</string>
     <plurals name="beacon_group_summary">
@@ -240,7 +240,7 @@
     <string name="sunset_alert_channel_title">Alerta de puesta de sol</string>
     <string name="sunset_alerts">Alertas de puesta de sol</string>
     <string name="sunset_alert_notification_title">El sol se pondrá pronto</string>
-    <string name="waxing_crescent">Luna creciente</string>
+    <string name="waxing_crescent">Media luna creciente</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
     <string name="pref_elevation_override_title">Anulación de altitud</string>
@@ -1321,4 +1321,14 @@
     <string name="format_joules">%s julios</string>
     <string name="unit_caliber">Calibre</string>
     <string name="energy">Energía</string>
+    <string name="stars">Estrellas</string>
+    <string name="nearest_stars">Estrellas más cercanas</string>
+    <string name="select_star">Seleccionar estrella</string>
+    <string name="ballistics_calculator">Calculadora de balística</string>
+    <string name="ballistics">Balística</string>
+    <string name="permits">Permisos</string>
+    <string name="no_permits">Ningún permiso</string>
+    <string name="tide">Marea</string>
+    <string name="path_distance_performance_disclaimer">Máximo recomendado de %s</string>
+    <string name="grains">Granos</string>
 </resources>
