@@ -1318,4 +1318,6 @@
     <string name="ballistics_calculator">Calculadora balística</string>
     <string name="no_permits">Sem licenças</string>
     <string name="permits">Licenças</string>
+    <string name="trace">Rotas</string>
+    <string name="map_trace_instructions">Vá para uma área com sombra ou bloqueie o sol com um pano e coloque papel sobre a tela para que você possa ver o mapa através do papel. Use uma caneta ou lápis para rotear o mapa, mas evite marcadores ou canetas que possam vazar através do papel.\n\nA navegação inferior ficará desativada até que você desative o modo de rotas.</string>
 </resources>
