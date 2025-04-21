@@ -1,0 +1,1 @@
+Soluciona un cierre inesperado al abrir las herramientas en algunos dispositivos

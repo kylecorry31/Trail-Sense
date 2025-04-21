@@ -1324,7 +1324,7 @@
     <string name="range_header_units">射程（%s）</string>
     <string name="velocity_header_units">速度（%s）</string>
     <string name="drop_header_units">弹道降落距离（%s）</string>
-    <string name="energy">能源</string>
+    <string name="energy">能量</string>
     <string name="bullet_weight">弹头重量</string>
     <string name="grains">格令</string>
     <string name="grains_format">%s 格令</string>
@@ -1335,4 +1335,6 @@
     <string name="permits">许可</string>
     <string name="no_permits">无许可</string>
     <string name="ballistics_calculator">弹道计算器</string>
+    <string name="trace">描摹</string>
+    <string name="map_trace_instructions">移至背阴区域或或衣服遮住阳光，将纸放在屏幕上，让你能透过纸看到地图。用钢笔或铅笔描摹地图，但要避免使用渗穿纸张的记号笔或钢笔。\n\n在你关闭描摹模式之前底部导航将被停用。</string>
 </resources>
