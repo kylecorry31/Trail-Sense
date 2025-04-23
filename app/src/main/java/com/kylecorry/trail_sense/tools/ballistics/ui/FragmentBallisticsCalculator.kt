@@ -27,6 +27,9 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useCoroutineQueue
+import com.kylecorry.trail_sense.shared.extensions.useDistancePreference
+import com.kylecorry.trail_sense.shared.extensions.useFloatPreference
+import com.kylecorry.trail_sense.shared.extensions.useSpeedPreference
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
 import com.kylecorry.trail_sense.tools.ballistics.domain.G1DragModel
 
@@ -51,33 +54,23 @@ class FragmentBallisticsCalculator :
         val prefs = useService<UserPreferences>()
         val queue = useCoroutineQueue()
 
-        val referenceDistance = useMemo {
-            Distance(
-                100f, if (prefs.distanceUnits == UserPreferences.DistanceUnits.Feet) {
-                    DistanceUnits.Yards
-                } else {
-                    DistanceUnits.Meters
-                }
-            )
-        }
-
         // TODO: Determine normal value for metric
         val normalScopeHeight = useMemo {
             Distance(1.5f, DistanceUnits.Inches)
         }
 
-        val (zeroDistance, setZeroDistance) = useState(referenceDistance)
-        val (scopeHeight, setScopeHeight) = useState(normalScopeHeight)
-        val (bulletSpeed, setBulletSpeed) = useState(
-            Speed(
-                0f,
-                DistanceUnits.Feet,
-                TimeUnits.Seconds
-            )
-        )
-        val (ballisticCoefficient, setBallisticCoefficient) = useState<Float?>(null)
+        val (zeroDistance, setZeroDistance) = useDistancePreference("cache-ballistics-sight-in-range")
+        val (scopeHeight, setScopeHeight) = useDistancePreference("cache-ballistics-scope-height")
+        val (bulletSpeed, setBulletSpeed) = useSpeedPreference("cache-ballistics-bullet-speed")
+        val (ballisticCoefficient, setBallisticCoefficient) = useFloatPreference("cache-ballistics-ballistic-coefficient")
         val (trajectory, setTrajectory) = useState(emptyList<TrajectoryPoint>())
         val (loading, setLoading) = useState(false)
+
+        useEffect(scopeHeight, normalScopeHeight) {
+            if (scopeHeight == null) {
+                setScopeHeight(normalScopeHeight)
+            }
+        }
 
         useEffect(
             zeroDistanceView,
@@ -89,7 +82,9 @@ class FragmentBallisticsCalculator :
             zeroDistanceView.units =
                 formatter.sortDistanceUnits(DistanceUtils.hikingDistanceUnits)
             zeroDistanceView.hint = getString(R.string.sight_in_range)
-            zeroDistanceView.value = referenceDistance
+            if (zeroDistance != null) {
+                zeroDistanceView.value = zeroDistance
+            }
             zeroDistanceView.setOnValueChangeListener {
                 setZeroDistance(it ?: Distance(0f, DistanceUnits.Yards))
             }
@@ -103,6 +98,11 @@ class FragmentBallisticsCalculator :
 
             bulletSpeedView.units = formatter.sortDistanceUnits(DistanceUtils.hikingDistanceUnits)
             bulletSpeedView.hint = getString(R.string.muzzle_velocity)
+
+            if (bulletSpeed != null) {
+                bulletSpeedView.value = Distance(bulletSpeed.speed, bulletSpeed.distanceUnits)
+            }
+
             bulletSpeedView.setOnValueChangeListener {
                 setBulletSpeed(
                     Speed(
@@ -113,6 +113,15 @@ class FragmentBallisticsCalculator :
                 )
             }
 
+            if (ballisticCoefficient != null) {
+                ballisticCoefficientView.setText(
+                    DecimalFormatter.format(
+                        ballisticCoefficient,
+                        5,
+                        false
+                    )
+                )
+            }
             ballisticCoefficientView.addTextChangedListener {
                 setBallisticCoefficient(it?.toString()?.toFloatCompat())
             }
@@ -124,7 +133,7 @@ class FragmentBallisticsCalculator :
             queue.replace {
                 setLoading(true)
                 setTrajectory(
-                    if (bulletSpeed.speed > 0) {
+                    if (bulletSpeed != null && bulletSpeed.speed > 0 && zeroDistance != null && scopeHeight != null) {
                         calculateTrajectory(
                             zeroDistance,
                             scopeHeight,
@@ -150,7 +159,7 @@ class FragmentBallisticsCalculator :
                 getString(R.string.time_header_units, "s"),
                 getString(
                     R.string.range_header_units,
-                    formatter.getDistanceUnitName(zeroDistance.units, true)
+                    formatter.getDistanceUnitName(zeroDistance?.units ?: DistanceUnits.Feet, true)
                 ),
                 getString(R.string.velocity_header_units, "fps"),
                 getString(
@@ -163,8 +172,8 @@ class FragmentBallisticsCalculator :
                     2
                 )
                 val distance = DecimalFormatter.format(
-                    point.distance.convertTo(zeroDistance.units).distance,
-                    Units.getDecimalPlaces(zeroDistance.units)
+                    point.distance.convertTo(zeroDistance?.units ?: DistanceUnits.Feet).distance,
+                    Units.getDecimalPlaces(zeroDistance?.units ?: DistanceUnits.Feet)
                 )
                 val drop = DecimalFormatter.format(
                     point.drop.convertTo(smallUnits).distance,
@@ -173,8 +182,8 @@ class FragmentBallisticsCalculator :
 
                 val velocity = DecimalFormatter.format(
                     point.velocity.convertTo(
-                        bulletSpeed.distanceUnits,
-                        bulletSpeed.timeUnits
+                        bulletSpeed?.distanceUnits ?: DistanceUnits.Feet,
+                        bulletSpeed?.timeUnits ?: TimeUnits.Seconds
                     ).speed,
                     0
                 )

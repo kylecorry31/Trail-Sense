@@ -4,16 +4,18 @@ import android.widget.TextView
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.sol.science.physics.Physics
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.EnergyUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
-import com.kylecorry.sol.units.Weight
 import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.useSpeedPreference
+import com.kylecorry.trail_sense.shared.extensions.useWeightPreference
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
 import com.kylecorry.trail_sense.shared.views.WeightInputView
 
@@ -26,19 +28,15 @@ class FragmentEnergyCalculator : TrailSenseReactiveFragment(R.layout.fragment_en
 
         val formatter = useService<FormatService>()
 
-        val (bulletSpeed, setBulletSpeed) = useState(
-            Speed(
-                0f,
-                DistanceUnits.Feet,
-                TimeUnits.Seconds
-            )
-        )
-
-        val (bulletWeight, setBulletWeight) = useState<Weight?>(null)
+        val (bulletSpeed, setBulletSpeed) = useSpeedPreference("cache-ballistics-bullet-speed")
+        val (bulletWeight, setBulletWeight) = useWeightPreference("cache-ballistics-bullet-weight")
 
         useEffect(bulletSpeedView, bulletWeightView) {
             bulletSpeedView.units = formatter.sortDistanceUnits(DistanceUtils.hikingDistanceUnits)
             bulletSpeedView.hint = getString(R.string.muzzle_velocity)
+            if (bulletSpeed != null) {
+                bulletSpeedView.value = Distance(bulletSpeed.speed, bulletSpeed.distanceUnits)
+            }
             bulletSpeedView.setOnValueChangeListener {
                 setBulletSpeed(
                     Speed(
@@ -52,13 +50,19 @@ class FragmentEnergyCalculator : TrailSenseReactiveFragment(R.layout.fragment_en
             bulletWeightView.units = formatter.sortWeightUnits(WeightUnits.entries)
             bulletWeightView.unit = WeightUnits.Grains
             bulletWeightView.hint = getString(R.string.bullet_weight)
+            if (bulletWeight != null) {
+                bulletWeightView.value = bulletWeight
+            }
             bulletWeightView.setOnValueChangeListener {
                 setBulletWeight(it)
             }
         }
 
         val energy = useMemo(bulletSpeed, bulletWeight) {
-            Physics.getKineticEnergy(bulletWeight ?: return@useMemo null, bulletSpeed).convertTo(
+            Physics.getKineticEnergy(
+                bulletWeight ?: return@useMemo null,
+                bulletSpeed ?: return@useMemo null
+            ).convertTo(
                 if (bulletSpeed.distanceUnits.isMetric) {
                     EnergyUnits.Joules
                 } else {

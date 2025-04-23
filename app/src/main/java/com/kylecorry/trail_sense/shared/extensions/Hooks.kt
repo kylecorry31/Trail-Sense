@@ -2,19 +2,27 @@ package com.kylecorry.trail_sense.shared.extensions
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.ui.ReactiveComponent
+import com.kylecorry.andromeda.core.ui.useCallback
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.useTopic
+import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.sol.units.Speed
+import com.kylecorry.sol.units.TimeUnits
+import com.kylecorry.sol.units.Weight
+import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.SearchView
 import java.time.Duration
@@ -123,4 +131,115 @@ fun ReactiveComponent.useClickCallback(view: View, vararg values: Any?, callback
             callback()
         }
     }
+}
+
+// Preferences
+
+fun <T> ReactiveComponent.usePreference(
+    key: String,
+    load: (IPreferences, String) -> T?,
+    save: (IPreferences, String, T) -> Unit
+): Pair<T?, (T?) -> Unit> {
+    val prefs = useService<PreferencesSubsystem>()
+
+    val initialValue = useMemo(prefs, key) {
+        load(prefs.preferences, key)
+    }
+
+    val (value, setValue) = useState(initialValue)
+
+    val updatePreference = useCallback(key, prefs) { newValue: T? ->
+        if (newValue == null) {
+            prefs.preferences.remove(key)
+        } else {
+            save(prefs.preferences, key, newValue)
+        }
+        setValue(newValue)
+    }
+
+    return value to updatePreference
+}
+
+fun ReactiveComponent.useFloatPreference(
+    key: String
+): Pair<Float?, (Float?) -> Unit> {
+    return usePreference(key, IPreferences::getFloat, IPreferences::putFloat)
+}
+
+fun ReactiveComponent.useIntPreference(
+    key: String
+): Pair<Int?, (Int?) -> Unit> {
+    return usePreference(key, IPreferences::getInt, IPreferences::putInt)
+}
+
+fun ReactiveComponent.useDistancePreference(
+    key: String
+): Pair<Distance?, (Distance?) -> Unit> {
+    val (value, setValue) = useFloatPreference("$key-value")
+    val (unit, setUnit) = useIntPreference("$key-unit")
+
+    val setter = useCallback { distance: Distance? ->
+        setValue(distance?.distance)
+        setUnit(distance?.units?.id)
+    }
+
+    val distance = useMemo(value, unit) {
+        if (value == null || unit == null) {
+            return@useMemo null
+        }
+
+        Distance(value, DistanceUnits.entries.firstOrNull { it.id == unit } ?: DistanceUnits.Meters)
+    }
+
+    return distance to setter
+}
+
+fun ReactiveComponent.useWeightPreference(
+    key: String
+): Pair<Weight?, (Weight?) -> Unit> {
+    val (value, setValue) = useFloatPreference("$key-value")
+    val (unit, setUnit) = useIntPreference("$key-unit")
+
+    val setter = useCallback { weight: Weight? ->
+        setValue(weight?.weight)
+        setUnit(weight?.units?.id)
+    }
+
+    val weight = useMemo(value, unit) {
+        if (value == null || unit == null) {
+            return@useMemo null
+        }
+
+        Weight(value, WeightUnits.entries.firstOrNull { it.id == unit } ?: WeightUnits.Kilograms)
+    }
+
+    return weight to setter
+}
+
+fun ReactiveComponent.useSpeedPreference(
+    key: String
+): Pair<Speed?, (Speed?) -> Unit> {
+    val (value, setValue) = useFloatPreference("$key-value")
+    val (distanceUnit, setDistanceUnit) = useIntPreference("$key-distance-unit")
+    val (timeUnit, setTimeUnit) = useIntPreference("$key-time-unit")
+
+    val setter = useCallback { speed: Speed? ->
+        setValue(speed?.speed)
+        setDistanceUnit(speed?.distanceUnits?.id)
+        setTimeUnit(speed?.timeUnits?.id)
+    }
+
+    val speed = useMemo(value, distanceUnit, timeUnit) {
+        if (value == null || distanceUnit == null || timeUnit == null) {
+            return@useMemo null
+        }
+
+        Speed(
+            value,
+            DistanceUnits.entries.firstOrNull { it.id == distanceUnit } ?: DistanceUnits.Meters,
+            TimeUnits.entries.firstOrNull { it.id == timeUnit } ?: TimeUnits.Seconds
+        )
+    }
+
+    return speed to setter
 }

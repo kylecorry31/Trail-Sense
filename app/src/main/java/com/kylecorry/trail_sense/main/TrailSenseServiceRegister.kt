@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.text.HiddenSpan
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
@@ -21,8 +22,11 @@ object TrailSenseServiceRegister {
 
         // Shared services
         AppServiceRegistry.register(FormatService.getInstance(appContext))
+        AppServiceRegistry.register(PreferencesSubsystem.getInstance(appContext))
         AppServiceRegistry.register(UserPreferences(appContext))
-        AppServiceRegistry.register(MarkdownService(appContext, extensions = listOf(
+        AppServiceRegistry.register(
+            MarkdownService(
+            appContext, extensions = listOf(
             MarkdownExtension(2, '%') {
                 HiddenSpan()
             },

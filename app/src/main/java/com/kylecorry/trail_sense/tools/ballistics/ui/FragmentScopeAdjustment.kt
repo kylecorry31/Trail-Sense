@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.useDistancePreference
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
 import com.kylecorry.trail_sense.shared.views.MaterialSpinnerView
 import kotlin.math.roundToInt
@@ -35,13 +36,19 @@ class FragmentScopeAdjustment : TrailSenseReactiveFragment(R.layout.fragment_sco
         val (offsetY, setOffsetY) = useState(Distance(0f, DistanceUnits.Inches))
         val (offsetDirectionX, setOffsetDirectionX) = useState(Direction.Left)
         val (offsetDirectionY, setOffsetDirectionY) = useState(Direction.Up)
-        val (distanceToTarget, setDistanceToTarget) = useState(Distance(0f, DistanceUnits.Yards))
-        val (distancePerClick, setDistancePerClick) = useState(
-            Distance(
-                0.25f,
-                DistanceUnits.Inches
-            )
-        )
+        val (distanceToTarget, setDistanceToTarget) = useDistancePreference("cache-ballistics-sight-in-range")
+        val (distancePerClick, setDistancePerClick) = useDistancePreference("cache-ballistics-scope-click-adjustment")
+
+        useEffect(distancePerClick) {
+            if (distancePerClick == null) {
+                setDistancePerClick(
+                    Distance(
+                        0.25f,
+                        DistanceUnits.Inches
+                    )
+                )
+            }
+        }
 
         useEffect(
             distanceToTargetView,
@@ -54,6 +61,10 @@ class FragmentScopeAdjustment : TrailSenseReactiveFragment(R.layout.fragment_sco
             distanceToTargetView.units =
                 formatter.sortDistanceUnits(DistanceUtils.hikingDistanceUnits)
             distanceToTargetView.hint = getString(R.string.distance_to_target)
+
+            if (distanceToTarget != null) {
+                distanceToTargetView.value = distanceToTarget
+            }
             distanceToTargetView.setOnValueChangeListener {
                 setDistanceToTarget(it ?: Distance(0f, DistanceUnits.Yards))
             }
@@ -95,7 +106,6 @@ class FragmentScopeAdjustment : TrailSenseReactiveFragment(R.layout.fragment_sco
             }
 
             clickAmountView.setHint(getString(R.string.adjustment_per_click))
-            // TODO: Save selection
             val clickAmounts = listOf(
                 "1/8 MOA" to Distance(0.125f, DistanceUnits.Inches),
                 "1/4 MOA" to Distance(0.25f, DistanceUnits.Inches),
@@ -105,7 +115,14 @@ class FragmentScopeAdjustment : TrailSenseReactiveFragment(R.layout.fragment_sco
                 "0.05 mil" to Distance(0.18f, DistanceUnits.Inches),
             )
 
-            val selectedIdx = if (prefs.distanceUnits == UserPreferences.DistanceUnits.Feet) {
+            val selectedIdx = if (distancePerClick != null) {
+                val selection = clickAmounts.indexOfFirst { it.second == distancePerClick }
+                if (selection != -1) {
+                    selection
+                } else {
+                    1
+                }
+            } else if (prefs.distanceUnits == UserPreferences.DistanceUnits.Feet) {
                 1
             } else {
                 4
@@ -123,21 +140,21 @@ class FragmentScopeAdjustment : TrailSenseReactiveFragment(R.layout.fragment_sco
 
         val adjustmentX = useMemo(offsetX, offsetDirectionX, distanceToTarget, distancePerClick) {
             getAdjustment(
-                distancePerClick,
+                distancePerClick ?: return@useMemo null,
                 referenceDistance,
                 offsetX,
                 offsetDirectionX,
-                distanceToTarget
+                distanceToTarget ?: return@useMemo null
             )
         }
 
         val adjustmentY = useMemo(offsetY, offsetDirectionY, distanceToTarget, distancePerClick) {
             getAdjustment(
-                distancePerClick,
+                distancePerClick ?: return@useMemo null,
                 referenceDistance,
                 offsetY,
                 offsetDirectionY,
-                distanceToTarget
+                distanceToTarget ?: return@useMemo null
             )
         }
 
