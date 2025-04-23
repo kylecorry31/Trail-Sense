@@ -32,6 +32,7 @@ import com.kylecorry.trail_sense.shared.extensions.useFloatPreference
 import com.kylecorry.trail_sense.shared.extensions.useSpeedPreference
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
 import com.kylecorry.trail_sense.tools.ballistics.domain.G1DragModel
+import java.time.Duration
 
 class FragmentBallisticsCalculator :
     TrailSenseReactiveFragment(R.layout.fragment_ballistics_calculator) {
@@ -156,7 +157,12 @@ class FragmentBallisticsCalculator :
             }
             // TODO: Set units in header
             val listItems = listOf(
-                getString(R.string.time_header_units, "s"),
+                getString(
+                    R.string.time_header_units, formatter.formatDuration(
+                        Duration.ZERO, short = true,
+                        includeSeconds = true
+                    ).replace("0", "").trim()
+                ),
                 getString(
                     R.string.range_header_units,
                     formatter.getDistanceUnitName(zeroDistance?.units ?: DistanceUnits.Feet, true)
