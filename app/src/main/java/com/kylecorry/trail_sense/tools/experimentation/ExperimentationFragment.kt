@@ -1,14 +1,27 @@
 package com.kylecorry.trail_sense.tools.experimentation
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.trail_sense.databinding.FragmentExperimentationBinding
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
+import java.time.Duration
 
-class ExperimentationFragment : BoundFragment<FragmentExperimentationBinding>() {
-    override fun generateBinding(
-        layoutInflater: LayoutInflater, container: ViewGroup?
-    ): FragmentExperimentationBinding {
-        return FragmentExperimentationBinding.inflate(layoutInflater, container, false)
+class ExperimentationFragment : TrailSenseReactiveFragment(R.layout.fragment_experimentation) {
+    override fun update() {
+        val context = useAndroidContext()
+        val haptics = useMemo {
+            HapticSubsystem.getInstance(context)
+        }
+
+        useEffectWithCleanup {
+            haptics.interval(Duration.ofMillis(700), Duration.ofMillis(900))
+            return@useEffectWithCleanup {
+                haptics.off()
+            }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        resetHooks()
     }
 }
