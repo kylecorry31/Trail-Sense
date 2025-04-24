@@ -191,11 +191,15 @@ Typical map colors include:
 - **Brown**: Contour lines
 - **Blue**: Water
 
-## Advanced navigation techniques
-<!-- K: sun, star, shadow, watch, north, south, east, west, polaris, big dipper, cassiopeia, southern cross, constellation, advanced, technique -->
-<!-- S: You can use the sun or stars to determine direction. If you need this, it's best to stay where you are and wait for help. -->
+## Finding direction without a compass
+<!-- K: sun, moon, star, shadow, watch, north, south, east, west, polaris, big dipper, cassiopeia, southern cross, constellation, advanced, technique -->
+<!-- S: You can use the sun, moon, or stars to determine direction. If you need this, it's best to stay where you are and wait for help. -->
 
 You can use the sun or stars to determine direction. If you need this, it's best to stay where you are and wait for help.
+
+### Sun/Moon
+
+In the early morning, the sun will be close to the east, and in the late afternoon, it will be close to the west. The same applies to the moon at moonrise and moonset. During the day, the sun will be in the southern half of the sky in the northern hemisphere, and in the northern half in the southern hemisphere.
 
 ### Shadows
 
