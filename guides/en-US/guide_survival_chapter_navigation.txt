@@ -70,6 +70,10 @@ When crossing rivers or streams, search for the narrowest section or areas where
 
 In emergency situations, following a river downstream may eventually lead to civilization, as many settlements are built near water sources.
 
+### Detours
+
+If there's an obstacle in your path, you may need to take a detour. To do this, find a feature to navigate to on the other side of the obstacle, then turn 90 degrees and walk to the end of the obstacle. Once there, turn back 90 degrees to your original heading and pass the obstacle. Finally, turn 90 degrees again and walk to the feature you picked out. Now you can resume following your original bearing.
+
 ## Trail markers
 <!-- K: trail, blaze, marker, cairn, sign, pile, block, stack, paint, flag -->
 <!-- S: Trail markers help you to stay on the trail. -->
@@ -134,7 +138,9 @@ A bearing is the direction you must travel to reach a specific point. You can de
 
 ### Back bearings
 
-A back bearing is the opposite direction of your current bearing. To calculate a back bearing: if your bearing is less than 180 degrees, add 180. If it's more than 180, subtract 180.
+A back bearing is the opposite direction of your current bearing. To calculate a back bearing: if your bearing is less than 180 degrees, add 180. If it's more than 180, subtract 180. On a compass, the back bearing is directly across from the bearing.
+
+To use a back bearing to navigate, you need to take a bearing before hiking out. Keep this bearing written down or memorized, and as long as you didn't drastically change direction, following the back bearing will lead you to the close to you starting location. Every time you make a turn, you should record a bearing.
 
 ### Declination
 
