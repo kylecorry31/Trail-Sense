@@ -130,7 +130,7 @@ If your GPS supports digital maps, download maps of your area in advance to navi
 <!-- K: compass, bearing, declination, direction, north, south, east, west, orient, craft -->
 <!-- S: A compass helps you determine direction. Be sure to set the same declination as your map. -->
 
-A compass helps you determine direction and is essential for navigation, especially with a map.
+A compass helps you determine direction and is essential for navigation, especially with a map. Do not use the compass around metal objects, as it will cause the reading to be inaccurate. If you are using a digital compass on a smartphone, it will need to be calibrated by rotating your device in a figure-8 pattern (the pattern may vary by device).
 
 ### Bearings
 
