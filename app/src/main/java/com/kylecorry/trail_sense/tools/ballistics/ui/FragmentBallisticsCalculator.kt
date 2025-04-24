@@ -30,6 +30,7 @@ import com.kylecorry.trail_sense.shared.extensions.useCoroutineQueue
 import com.kylecorry.trail_sense.shared.extensions.useDistancePreference
 import com.kylecorry.trail_sense.shared.extensions.useFloatPreference
 import com.kylecorry.trail_sense.shared.extensions.useSpeedPreference
+import com.kylecorry.trail_sense.shared.views.BulletSpeedInputView
 import com.kylecorry.trail_sense.shared.views.DistanceInputView
 import com.kylecorry.trail_sense.tools.ballistics.domain.G1DragModel
 import java.time.Duration
@@ -46,7 +47,7 @@ class FragmentBallisticsCalculator :
         }
         val zeroDistanceView = useView<DistanceInputView>(R.id.zero_distance)
         val scopeHeightView = useView<DistanceInputView>(R.id.scope_height)
-        val bulletSpeedView = useView<DistanceInputView>(R.id.bullet_speed)
+        val bulletSpeedView = useView<BulletSpeedInputView>(R.id.bullet_speed)
         val loadingView = useView<ProgressBar>(R.id.loading)
         // TODO: Picker for different bullet types with option for Custom BC
         val ballisticCoefficientView = useView<TextInputEditText>(R.id.ballistic_coefficient)
@@ -97,21 +98,16 @@ class FragmentBallisticsCalculator :
                 setScopeHeight(it ?: Distance(0f, DistanceUnits.Inches))
             }
 
-            bulletSpeedView.units = formatter.sortDistanceUnits(DistanceUtils.hikingDistanceUnits)
+            bulletSpeedView.units =
+                formatter.sortDistanceUnits(listOf(DistanceUnits.Feet, DistanceUnits.Meters))
             bulletSpeedView.hint = getString(R.string.muzzle_velocity)
 
             if (bulletSpeed != null) {
-                bulletSpeedView.value = Distance(bulletSpeed.speed, bulletSpeed.distanceUnits)
+                bulletSpeedView.value = bulletSpeed
             }
 
             bulletSpeedView.setOnValueChangeListener {
-                setBulletSpeed(
-                    Speed(
-                        it?.distance ?: 0f,
-                        it?.units ?: DistanceUnits.Feet,
-                        TimeUnits.Seconds
-                    )
-                )
+                setBulletSpeed(it)
             }
 
             if (ballisticCoefficient != null) {

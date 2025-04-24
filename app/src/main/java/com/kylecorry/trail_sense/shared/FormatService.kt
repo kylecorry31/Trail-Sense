@@ -629,6 +629,23 @@ class FormatService private constructor(private val context: Context) {
         }
     }
 
+    fun getBulletSpeedUnitName(unit: DistanceUnits, short: Boolean = false): String {
+        // Only supports Feet and Meters
+        if (short) {
+            return when (unit) {
+                DistanceUnits.Feet -> context.getString(R.string.speed_format_feet_per_second, "")
+                DistanceUnits.Meters -> context.getString(R.string.speed_format_meters_per_second, "")
+                else -> ""
+            }.replace(" ", "")
+        }
+
+        return when (unit) {
+            DistanceUnits.Feet -> context.getString(R.string.feet_per_second)
+            DistanceUnits.Meters -> context.getString(R.string.meters_per_second)
+            else -> ""
+        }
+    }
+
     fun getPressureUnitName(unit: PressureUnits): String {
         return when (unit) {
             PressureUnits.Hpa -> strings.getString(R.string.units_hpa)

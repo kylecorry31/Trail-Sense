@@ -1646,4 +1646,9 @@
     <string name="no_permits">No permits</string>
     <string name="trace">Trace</string>
     <string name="map_trace_instructions">Move into a shady area or block out the sun using a cloth and place paper over your screen so that you can see the map through the paper. Use a pen or pencil to trace the map, but avoid markers or pens that can bleed through the paper.\n\nBottom navigation will be disabled until you turn off trace mode.</string>
+    <string name="speed_format_feet_per_second">%s fps</string>
+    <string name="speed_format_meters_per_second">%s m/s</string>
+    <string name="feet_per_second">Feet per second</string>
+    <string name="meters_per_second">Meters per second</string>
+    <string name="speed">Speed</string>
 </resources>

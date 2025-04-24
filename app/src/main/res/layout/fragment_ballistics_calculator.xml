@@ -37,8 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp" />
 
-            <!--TODO: Speed input view-->
-            <com.kylecorry.trail_sense.shared.views.DistanceInputView
+            <com.kylecorry.trail_sense.shared.views.BulletSpeedInputView
                 android:id="@+id/bullet_speed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
