@@ -1376,4 +1376,9 @@
     <string name="no_permits">Žádná povolení</string>
     <string name="trace">Obkreslení</string>
     <string name="map_trace_instructions">Přesuňte se do stínu nebo zablokujte slunce pomocí látky a položte papír přes obrazovku, abyste skrze něj mohli vidět mapu. Použijte pero nebo tužku pro obkreslení mapy, ale vyvarujte se fixům nebo perům, které dokáží propsat papír.\n\nSpodní navigace bude zakázána, dokud nevypnete režim obkreslování.</string>
+    <string name="feet_per_second">Stopy za sekundu</string>
+    <string name="meters_per_second">Metry za sekundu</string>
+    <string name="speed">Rychlost</string>
+    <string name="speed_format_feet_per_second">%s ft/s</string>
+    <string name="speed_format_meters_per_second">%s m/s</string>
 </resources>
