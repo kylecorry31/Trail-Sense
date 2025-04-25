@@ -199,14 +199,12 @@ Used for seams that require strength, such as on backpacks or tents.
 Used for quick repairs on clothing or gear in places where strength is not critical.
 
 ![](file:///android_asset/survival_guide/running_stitch.webp)
-[Image source](https://commons.wikimedia.org/wiki/File:Running_stitch.gif)
 
 **Whip stitch**
 
 Used to repair tears or holes in fabric. It can also be used to connect two pieces of fabric.
 
 ![](file:///android_asset/survival_guide/whip_stitch.webp)
-[Image source](https://commons.wikimedia.org/wiki/File:Whip_stitch.jpg)
 
 ### Tarps
 
