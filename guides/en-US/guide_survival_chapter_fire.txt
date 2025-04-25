@@ -101,6 +101,9 @@ An ember is a small piece of tinder that is burning but has not formed a flame. 
 
 - **Matches/lighters**: Always have waterproof matches or a reliable lighter in your kit. These are the easiest methods to start a fire: just put the flame to the tinder.
 - **Fire steel**: Durable and works in all weather conditions, producing sparks to ignite your tinder. Scrape it quickly with the back of a knife or scraper to create sparks - you can also use a sharp piece of quartz or flint as a striker. For best results, pin the fire steel against the tinder and ground, and scrape the steel toward the tinder. Some fire steels come with a magnesium block, which you can scrape into the tinder before striking to help catch a spark.
+
+![](file:///android_asset/survival_guide/ferrorod.webp)
+
 - **Magnifying glass/lens**: Using a lens, focus sunlight into a small point on the tinder. As the tinder starts to smoke, gently blow into it and move the lens closer to maintain a small point. A magnifying glass, prescription glasses, a fresnel lens, or even a clear bottle filled with water can work. This may take a while, and direct sunlight is required.
 
 ![](file:///android_asset/survival_guide/61.webp)
