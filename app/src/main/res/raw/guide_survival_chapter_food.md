@@ -295,6 +295,8 @@ A bear bag is a bag of food hoisted into a tree to keep it out of reach of bears
 4. Hoist the bag about 15 feet (4.5 meters) above the ground.
 5. Tie the rope to a tree to keep the bag elevated. Use either a hitch or bowline knot.
 
+![](file:///android_asset/survival_guide/bear_bag.webp)
+
 See the Shelter and Clothing chapter for details on how to tie knots.
 
 ### Bear canisters
