@@ -147,6 +147,8 @@ A wooden bowl can be used to boil water using hot rocks.
 
 You can use tongs to move around hot coals or rocks without getting burned.
 
+![](file:///android_asset/survival_guide/tongs.webp)
+
 **Resources**
 - Green wood
 
