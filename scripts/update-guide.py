@@ -5,15 +5,30 @@ import re
 root = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/') + '/..'
 
 def check_url_integrity(original_text: str, translated_text: str) -> bool:
-    """Returns True if the URLs in the translated guide are the same as the URLs in the original guide. Otherwise, returns False."""    
+    """Returns True if the URLs in the translated guide are the same as the URLs in the original guide, 
+    except for Wikipedia URLs which can have different locales. Otherwise, returns False."""    
     # Regex to get all URLs
     expression = r'(https?://[^\s\)]+)'
     
     original_urls = re.findall(expression, original_text)
     translated_urls = re.findall(expression, translated_text)
 
-    # Make sure they have the same number of URLs and that each URL is the same
-    return len(original_urls) == len(translated_urls) and all(original_urls[i] == translated_urls[i] for i in range(len(original_urls)))
+    if len(original_urls) != len(translated_urls):
+        return False
+
+    for original_url, translated_url in zip(original_urls, translated_urls):
+        if original_url == translated_url:
+            return True
+
+        # If the URLs don't match, but it's for wikipedia, let it through with a warning
+        wikipedia_regex = r'^https://[a-zA-Z]{2}(\.m)?\.wikipedia\.org/wiki/.*'
+        if re.match(wikipedia_regex, original_url) and re.match(wikipedia_regex, translated_url):
+            print(f'[WARN] Allowed {original_url} -> {translated_url}')
+            return True
+        
+        return False
+
+    return True
 
 def check_new_lines(original_text: str, translated_text: str) -> bool:
     """Returns True if the translated guide is complete (based on the number of new lines). Otherwise, returns False."""
