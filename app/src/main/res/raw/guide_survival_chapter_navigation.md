@@ -140,7 +140,7 @@ A bearing is the direction you must travel to reach a specific point. You can de
 
 A back bearing is the opposite direction of your current bearing. To calculate a back bearing: if your bearing is less than 180 degrees, add 180. If it's more than 180, subtract 180. On a compass, the back bearing is directly across from the bearing.
 
-To use a back bearing to navigate, you need to take a bearing before hiking out. Keep this bearing written down or memorized, and as long as you didn't drastically change direction, following the back bearing will lead you to the close to you starting location. Every time you make a turn, you should record a bearing.
+To use a back bearing to navigate, you need to take a bearing before hiking out. Keep this bearing written down or memorized, and as long as you didn't drastically change direction, following the back bearing will lead you close to your starting location. Every time you make a turn, you should record a bearing.
 
 ### Declination
 
