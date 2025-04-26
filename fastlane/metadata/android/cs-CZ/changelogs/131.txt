@@ -1,0 +1,19 @@
+Balistika
+- Nový nástroj pro výpočet nastavení zaměřovače a energie
+- Experimentální funkce pro výpočty balistiky (rychlost/pád)
+
+Fotomapy
+- Respektuje možnost "Zobrazit na zamčené obrazovce při navigaci" v nastavení navigace
+- Možnost obkreslit mapu na papír
+
+Převod
+- Přidány miligramy a zrna
+
+Detektor kovů
+- Tlačítko pro vypnutí vibrací
+
+Průvodce přežitím
+- Úprava obsahu a grafiky
+
+Průvodce polem
+- Nahrazení všech obrázků vlastní grafikou
