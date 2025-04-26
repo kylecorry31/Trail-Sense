@@ -110,3 +110,6 @@ To use the quick action, tap the Backtrack quick action button to toggle it on o
 The following widgets can be placed on your device's homescreen or viewed in-app:
 
 - **Backtrack**: Display the distance travelled if Backtrack is enabled.
+
+## Video guide
+If you prefer a video guide on using Backtrack, here's a video by one of Trail Sense's users: [YouTube: Trail Sense: Learning How To Use BackTrack To Track Cell Service On Hikes by DeathfireD](https://www.youtube.com/watch?v=7IC69LgBcRk)

@@ -124,3 +124,6 @@ The preview of the map is displayed on the left side of the map row. You can dis
 You can enable the Open Photo Map quick action in the settings for the tab where you want it to appear.
 
 To use the quick action, tap the quick action button and the active map will be opened and locked to your location. If no map is active, the map list will be displayed. Long press the quick action to open the Photo Maps tool.
+
+## Video guide
+If you prefer a video guide on using Photo Maps, here's a video by one of Trail Sense's users: [YouTube: Turn Photos into Navigational Maps with Trail Sense! by DeathfireD](https://www.youtube.com/watch?v=RT4PmBODdzw)
