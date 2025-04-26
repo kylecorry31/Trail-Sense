@@ -26,9 +26,6 @@ A thorny shrub, typically found in forests and fields, often bearing aggregate b
 
 Common species include: blackberry, dewberry, and raspberry.
 
-
-Image by Kolforn (CC BY-SA 4.0)
-
 ### Location
 Africa, Asia, Australia, Europe, North America, South America
 
@@ -87,9 +84,6 @@ Grassland, Urban
 
 A common plant with yellow flowers and deeply toothed leaves, found in lawns, fields, and roadsides. All parts are edible, but the leaves are bitter when mature. Dandelions have potential to help with constipation or inflammation. They are also a diuretic, which could lead to an increased risk of dehydration.
 
-
-Image by Greg5030 (CC BY-SA 3.0)
-
 ### Location
 Africa, Asia, Australia, Europe, North America, South America
 
@@ -104,9 +98,6 @@ Urban, Grassland, Mountain
 
 A plant with broad, green leaves, often found in fields, along roadsides, and near water. Its leaves are edible when cooked.
 
-
-Image by Sten Porse (CC BY-SA 3.0)
-
 ### Location
 Africa, Asia, Australia, Europe, North America, South America
 
@@ -120,9 +111,6 @@ Grassland, Forest, Wetland, Urban
 ![](file:///android_asset/field_guide/kelp.webp)
 
 A large, brown seaweed found in coastal saltwater environments, often forming dense underwater forests. It is edible and can be harvested after washing up to the shore. Kelp is not technically a plant, but it has similar characteristics.
-
-
-Image by Uspn (CC BY-SA 3.0)
 
 ### Location
 Worldwide
@@ -153,9 +141,6 @@ Forest, Grassland, Urban, Wetland
 ![](file:///android_asset/survival_guide/stinging_nettle.webp)
 
 A plant with serrated leaves and tiny, stinging hairs, commonly found in moist, shaded areas. Contact causes a painful, itchy rash, but cooking or drying neutralizes the sting. It is edible after boiled, but harvesting should be done with gloves to avoid skin irritation.
-
-
-Image by Pokrajac (CC BY-SA 3.0)
 
 ### Location
 Africa, Asia, Australia, Europe, North America, South America
@@ -199,9 +184,6 @@ Forest
 
 A bright orange-yellow shelf mushroom that grows on trees, often found on hardwoods in forests. The underside will have pores instead of gills and be white or yellow. It is edible when young and tender, but can cause gastrointestinal upset in some individuals.
 
-
-Image by Jean-Pol GRANDMONT (CC BY 2.5)
-
 ### Location
 Africa, Asia, Australia, Europe, North America, South America
 
@@ -214,7 +196,7 @@ Forest
 
 ![](file:///android_asset/field_guide/morel.webp)
 
-A hollow mushroom with a honeycomb-like, conical cap that is connected to the stem at the base. They are edible and can be found during the Spring. Be cautious of inedible lookalikes with a brain-like appearence or caps attached only at the top.
+A hollow mushroom with a honeycomb-like, conical cap that is connected to the stem at the base. They are edible and can be found during the Spring. Be cautious of inedible lookalikes with a brain-like appearance or caps attached only at the top.
 
 ### Location
 Africa, Asia, Australia, Europe, North America, South America
@@ -230,9 +212,6 @@ Forest
 
 A gilled mushroom that grows on decaying hardwood, often in clusters. It can be identified by its fan or oyster shape and white gills that extend down the short stem. Oyster mushrooms are edible.
 
-
-Image by Harmil~commonswiki (CC BY 2.5)
-
 ### Location
 Africa, Asia, Australia, Europe, North America, South America
 
@@ -245,7 +224,7 @@ Forest
 
 ![](file:///android_asset/survival_guide/tinder_fungus.webp)
 
-A hoof shaped fungus that grows on hardwoods such as birch, beech, and oak. Tinder fungus has a hard exterior and the inside can be used as tinder or to hold an ember for hours.
+A hoof-shaped fungus that grows on hardwoods such as birch, beech, and oak. Tinder fungus has a hard exterior and the inside can be used as tinder or to hold an ember for hours.
 
 ### Location
 Africa, North America, Europe, Asia
@@ -407,9 +386,6 @@ Marine
 
 A crustacean with a short, broad body commonly found along the shorelines of most saltwater bodies. Many crabs scavenge at night, dusk and dawn, or between low and high tide. They also often hide in gaps between rocks along the shoreline.
 
-
-Image by Bhny (Public Domain)
-
 ### Location
 Africa, Asia, Australia, Europe, North America, South America
 
@@ -446,9 +422,6 @@ Nocturnal
 
 A small rodent with a long, thin tail. Mice are nocturnal and opportunistic feeders, consuming grains, seeds, fruits, and small insects. They often nest in sheltered areas such as burrows, dense vegetation, or hidden spaces indoors.
 
-
-Image by Ilmari Karonen (Public domain)
-
 ### Location
 Africa, Asia, Australia, Europe, North America, South America
 
@@ -467,9 +440,6 @@ Nocturnal
 A small to medium-sized mammal with long ears, a short tail, and powerful hind legs. Rabbits are most active at dawn and dusk, and can be found feeding on vegetation. They live in burrows or dense vegetation, often in groups.
 
 Also known as: hare, bunny
-
-
-Image by Tomer T (CC BY-SA 2.0)
 
 ### Location
 Africa, Asia, Australia, Europe, North America, South America
@@ -578,9 +548,6 @@ Diurnal
 A sedimentary rock that forms sharp edges when fractured, often used for tools or fire-starting. It has a dull shine and comes in white, red, brown, black, or gray. Chert is commonly found in sedimentary rock outcroppings, along roads, rivers, and shorelines.
 
 Also known as flint or jasper.
-
-
-Image by Saperaud~commonswiki (Public domain)
 
 ### Location
 Africa, Asia, Australia, Europe, North America, South America
