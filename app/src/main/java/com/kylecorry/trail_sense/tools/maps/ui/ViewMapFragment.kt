@@ -81,7 +81,13 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
     // Map layers
     private val tideLayer = TideLayer()
-    private val beaconLayer = BeaconLayer { navigateTo(it) }
+    private val beaconLayer = BeaconLayer {
+        if (mapLockMode != MapLockMode.Trace) {
+            navigateTo(it)
+        } else {
+            true
+        }
+    }
     private val pathLayer = PathLayer()
     private val distanceLayer = MapDistanceLayer { onDistancePathChange(it) }
     private val myLocationLayer = MyLocationLayer()
@@ -253,7 +259,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     }
 
     private fun onLongPress(location: Coordinate) {
-        if (map?.isCalibrated != true || distanceLayer.isEnabled) {
+        if (map?.isCalibrated != true || distanceLayer.isEnabled || mapLockMode == MapLockMode.Trace) {
             return
         }
 
@@ -429,6 +435,10 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     }
 
     private fun cancelNavigation() {
+        if (mapLockMode == MapLockMode.Trace){
+            return
+        }
+
         navigator.cancelNavigation()
         destination = null
         hideNavigation()
