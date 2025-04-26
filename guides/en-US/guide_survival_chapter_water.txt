@@ -82,7 +82,7 @@ A below-ground solar still is a simple device that uses the sun's heat to draw m
 4. Place a small rock in the center of the sheet directly over the container.
 5. Wait for the sun to heat the ground and evaporate moisture, which will condense on the plastic and drip into the container.
 
-![](file:///android_asset/survival_guide/16.webp)
+![](file:///android_asset/survival_guide/solar_still.webp)
 
 **Transpiration bag**
 
