@@ -16,8 +16,7 @@ object BallisticsToolRegistration : ToolRegistration {
             R.drawable.ballistics,
             R.id.fragmentToolBallistics,
             ToolCategory.Other,
-            isExperimental = true,
-            isAvailable = { isDebug() }
+            guideId = R.raw.guide_tool_ballistics
         )
     }
 }
