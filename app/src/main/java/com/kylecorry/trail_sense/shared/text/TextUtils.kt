@@ -115,6 +115,7 @@ object TextUtils {
                 // Only text nodes
                 val t = Views.text(context, null).also {
                     (it as TextView).movementMethod = LinkMovementMethodCompat.getInstance()
+                    it.setTextIsSelectable(true)
                 }
                 markdown.setMarkdown(t as TextView, section.joinToString("\n") { it.toMarkdown() })
                 t
@@ -229,6 +230,7 @@ object TextUtils {
 
         val titleView = Views.text(context, title) as TextView
         titleView.setCompoundDrawables(right = R.drawable.ic_drop_down)
+        titleView.setTextIsSelectable(true)
         CustomUiUtils.setImageColor(titleView, Resources.androidTextColorSecondary(context))
         titleView.compoundDrawablePadding = Resources.dp(context, 8f).toInt()
         val padding = Resources.dp(context, 16f).toInt()
@@ -256,6 +258,7 @@ object TextUtils {
                 (it as TextView).movementMethod = LinkMovementMethodCompat.getInstance()
                 it.setPadding(margin)
                 setContent(it)
+                it.setTextIsSelectable(true)
             }
         )
 
