@@ -10,7 +10,7 @@ Knowing how to make fire can help you stay warm, purify water, and cook food. Yo
 ### Gear
 **Necessities**:
 - Firestarter (waterproof matches, lighters, or fire steel - carry at least two different types)
-  - You can carry a credit card sized fresnel lens in your wallet or phone case as an emergency backup firestarter.
+  - You can carry a credit-card-sized Fresnel lens in your wallet or phone case as an emergency backup firestarter.
 
 **Optional**:
 - Tinder (dryer lint, cotton balls, or commercial fire starters)
@@ -104,7 +104,7 @@ An ember is a small piece of tinder that is burning but has not formed a flame. 
 
 ![](file:///android_asset/survival_guide/ferrorod.webp)
 
-- **Magnifying glass/lens**: Using a lens, focus sunlight into a small point on the tinder. As the tinder starts to smoke, gently blow into it and move the lens closer to maintain a small point. A magnifying glass, prescription glasses, a fresnel lens, or even a clear bottle filled with water can work. This may take a while, and direct sunlight is required.
+- **Magnifying glass/lens**: Using a lens, focus sunlight into a small point on the tinder. As the tinder starts to smoke, gently blow into it and move the lens closer to maintain a small point. A magnifying glass, prescription glasses, a Fresnel lens, or even a clear bottle filled with water can work. This may take a while, and direct sunlight is required.
 
 ![](file:///android_asset/survival_guide/61.webp)
 

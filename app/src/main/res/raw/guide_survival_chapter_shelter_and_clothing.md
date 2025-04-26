@@ -138,7 +138,7 @@ A simple shelter made by leaning a large sheet of material against a support lik
 
 ![](file:///android_asset/survival_guide/76.webp)
 
-If you're constructing a ridge line with cordage, form a bowline at one end, wrap the cordage around a tree, and pass the free end through the bowline's loop. Secure the other end to a second tree using either a taut-line hitch or a trucker's hitch, then tighten it. To attach a tarp, pull a small section of the ridge line through the grommets and insert a stick through the resulting loop to hold it in place.
+If you're constructing a ridgeline with cordage, form a bowline at one end, wrap the cordage around a tree, and pass the free end through the bowline's loop. Secure the other end to a second tree using either a taut-line hitch or a trucker's hitch, then tighten it. To attach a tarp, pull a small section of the ridgeline through the grommets and insert a stick through the resulting loop to hold it in place.
 
 **A-frame**
 
@@ -279,7 +279,7 @@ Any fibrous material can be used to make cordage. Some examples include:
 3. Fold the bundle in half at the kink.
 4. Twist the top half clockwise.
 5. Twist the two halves together counterclockwise.
-6. Repeat the process until you have a full strand. If a material is running out, add more material and twist it in.
+6. Repeat the process until you have a full strand. If material is running out, add more material and twist it in.
 
 ![](file:///android_asset/survival_guide/139.webp)
 

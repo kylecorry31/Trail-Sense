@@ -39,7 +39,7 @@ Once you have mastered these skills, you should learn how to do the following:
 Weather conditions can change rapidly and significantly impact your outdoor activities. In mountainous regions, take extra precautions when above the tree line, as weather can be more severe and you are more exposed to the elements.
 
 ### Precipitation
-You can generally continue outdoor activities in light precipitation. However, if it starts precipitating heavily, seek shelter. Rivers and streams can rise rapidly and become dangerous during heavy rainfall. Be aware of the risk of hypothermia, and take steps to stay warm and dry.
+You can generally continue outdoor activities in light precipitation. However, if it starts precipitating heavily, seek shelter. Rivers and streams can rise rapidly and become dangerous during heavy rainfall. Be aware of the risk of hypothermia and take steps to stay warm and dry.
 
 Blizzards can lead to whiteout conditions, severely reducing visibility. If caught in a blizzard, seek shelter immediately and stay warm and dry.
 

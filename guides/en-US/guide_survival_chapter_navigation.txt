@@ -34,7 +34,7 @@ Once you have mastered these skills, you should learn how to do the following:
 <!-- K: route, plan, trip, detour -->
 <!-- S: Plan your route to avoid getting lost and ensure you reach your destination safely. -->
 
-When planning a route, choose one that matches your skill and fitness levels using a topographical map to gauge terrain difficulty. Use the map to identify landmarks along the way to help you stay on track. Also be sure to identify water sources, alternative routes, and the direction to roads or towns.
+When planning a route, choose one that matches your skill and fitness levels using a topographic map to gauge terrain difficulty. Use the map to identify landmarks along the way to help you stay on track. Also be sure to identify water sources, alternative routes, and the direction to roads or towns.
 
 ## Movement
 <!-- K: move, terrain, mountain, cold, desert, jungle, night, river, cross -->
@@ -203,12 +203,12 @@ In the early morning, the sun will be close to the east, and in the late afterno
 
 ### Shadows
 
-If you measure which way shadows are moving over time, you can determine direction. This is because the Sun moves East to West throughout the sky, and therefore shadows move in the opposite direction.
+If you measure which way shadows are moving over time, you can determine direction. This is because the Sun moves east to west throughout the sky, and therefore shadows move in the opposite direction.
 
 1. Place a stick vertically in the ground and mark the shadow tip.
 2. After 10-15 minutes, mark the new position of the shadow tip.
-3. Draw a line between the two points for an East-West line. West will be in the direction of the first point.
-4. Draw a line at a right angle to the East-West line. South (or North in the Southern Hemisphere) will point toward the sun.
+3. Draw a line between the two points for an east-west line. West will be in the direction of the first point.
+4. Draw a line at a right angle to the east-west line. South (or north in the Southern Hemisphere) will point toward the sun.
 
 ![](file:///android_asset/survival_guide/direction_shadow.webp)
 
@@ -222,7 +222,7 @@ You can determine your direction using the position of the sun and the current t
 
 Being able to identify a handful of constellations will help you determine direction at night.
 
-In the Northern Hemisphere, identify Polaris (the North Star) using the Big Dipper and Cassiopeia as reference points. Polaris is directly to the North.
+In the Northern Hemisphere, identify Polaris (the North Star) using the Big Dipper and Cassiopeia as reference points. Polaris is directly to the north.
 
 ![](file:///android_asset/survival_guide/northern_stars.webp)
 
