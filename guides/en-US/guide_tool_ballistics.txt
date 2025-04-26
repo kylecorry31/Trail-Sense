@@ -28,4 +28,4 @@ You can use the Energy calculator to determine how much energy your projectile w
 - **Muzzle velocity**: The speed of the bullet as it leaves the muzzle. This can normally be found on the ammo box, looked up online, or measured with a chronograph.
 - **Bullet weight**: The weight of the bullet. This can normally be found on the ammo box, looked up online, or measured with a scale.
 
-Once you enter the above fields, the energy will be displayed at the bottom. A general rule of thumb target rating will also be displayed, but always check local laws and regulations. All fields will be remembered.
+Once you enter the above fields, the energy will be displayed at the bottom. Check with local laws, regulations, and ethics guidelines to determine the minimum energy for a legal and ethical hunt. All fields will be remembered.
