@@ -117,14 +117,14 @@ Do not eat the following:
 To prepare bugs for cooking, remove any stingers and optionally the legs, wings, and head before eating. You should cook all bugs before eating them. Worms can be placed in water for 15 minutes to purge their digestive tracts before cooking.
 
 ## Shellfish and crustaceans
-<!-- K: shellfish, crustacean, clam, mussel, snail, limpet, crayfish, lobster, crab, shrimp, shell, bait, basket, trap, seafood, algae, tide, coastal, coast -->
+<!-- K: shellfish, crustacean, clam, mussel, snail, limpet, crayfish, lobster, crab, shrimp, shell, bait, trap, seafood, algae, tide, coastal, coast -->
 <!-- S: Many shellfish and crustaceans are found along the shoreline; most can be eaten when cooked. -->
 
 Shellfish and crustaceans are good sources of protein and can be found in both freshwater and saltwater. They are relatively easy to catch, making them good survival food sources.
 
 ### Collection
 
-Search shallow waters, tide pools, and rocky areas for shellfish and crustaceans. Snails and limpets are often attached to rocks, which may be easier to access during low tide. Crayfish, lobsters, and crabs can be found under and around stones, in soft mud or sand, and may be more active at night. Crustaceans can be caught by attaching bait onto a line (no hook required, they'll grab it), baiting the shoreline and waiting for them to leave the water, or using a fish basket trap with bait.
+Search shallow waters, tide pools, and rocky areas for shellfish and crustaceans. Snails and limpets are often attached to rocks, which may be easier to access during low tide. Crayfish, lobsters, and crabs can be found under and around stones, in soft mud or sand, and may be more active at night. Crustaceans can be caught by attaching bait onto a line (no hook required, they'll grab it), baiting the shoreline and waiting for them to leave the water, or using a fish trap with bait.
 
 Some shellfish may be poisonous, and be especially cautious of mussels in tropical waters during the summer, any shellfish within three days of a red tide, or shellfish covered by water during high tide.
 
@@ -133,7 +133,7 @@ Some shellfish may be poisonous, and be especially cautious of mussels in tropic
 You should cook all shellfish and crustaceans before eating. You can cook them in their shells.
 
 ## Fish
-<!-- K: fish, hook, line, pole, bait, basket, trap, funnel, kill, seafood, meat -->
+<!-- K: fish, hook, line, pole, bait, basket, bottle, trap, funnel, kill, seafood, meat -->
 <!-- S: Most fish are edible once cooked but will require some fishing gear. -->
 
 If you are in a longer-term survival situation or have access to fishing gear, fish can be a good source of protein and nutrients. Most fish are edible, but research which fish may be dangerous in your area.
