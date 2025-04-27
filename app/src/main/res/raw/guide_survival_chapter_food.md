@@ -158,11 +158,16 @@ If you do not have a fishing pole, you can tie the line to both the base and tip
 
 **Traps**
 
-You can construct a basket fish trap by weaving branches or other materials together. Bait the trap with food and place it in the water. Check it every few hours. This can also be used to catch crustaceans.
+Traps are a passive way to catch small fish or crustaceans with little effort required. Be sure to check your traps every few hours.
 
-Alternatively, use a funnel fish trap by placing sticks into a V-shape with a retaining area at the end. Fish swim into the trap and are unable to find their way out. In tidal areas, you can set up a wall of stones during low tide; as the tide recedes, fish may get trapped behind the wall.
+You can construct a bottle fish trap by cutting off the cap and top quarter of a spare water bottle. Bait the trap with food and use a small rock to weight it down. Place the top inverted into the rest of the bottle and place it in shallow water. If needed, you can tie a string to the bottle to allow for easy access.
+
+Alternatively, use a funnel fish trap by placing sticks into a V-shape with a retaining area at the end. Fish swim into the trap and are unable to find their way out.
 
 ![](file:///android_asset/survival_guide/50.webp)
+
+
+![](file:///android_asset/survival_guide/fish_trap_bottle.webp)
 
 ### Preparation
 
