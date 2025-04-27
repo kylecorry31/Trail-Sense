@@ -181,11 +181,11 @@
     <string name="pref_coordinate_format_title">Format de les coordenades</string>
     <string name="coordinate_format_mgrs">MGRS</string>
     <string name="coordinate_format_utm">UTM</string>
-    <string name="coordinate_format_degrees_minutes_seconds">Graus, Minuts i Segons</string>
+    <string name="coordinate_format_degrees_minutes_seconds">Graus, minuts i segons</string>
     <string name="coordinate_format_degrees_decimal_minutes">Mixte</string>
     <string name="coordinate_format_decimal_degrees">Graus decimals</string>
     <string name="theme_sunset_sunrise">Sortida/posta de sol</string>
-    <string name="theme_system">Sistema</string>
+    <string name="theme_system">Del sistema</string>
     <string name="theme_black">Negre</string>
     <string name="theme_dark">Fosc</string>
     <string name="theme_light">Clar</string>
@@ -513,4 +513,15 @@
     <string name="descent">Descens</string>
     <string name="pressure_system">Sistema de pressió</string>
     <string name="highest_point_elevation">Punt més alt</string>
+    <string name="hygrometer">Higròmetre</string>
+    <string name="unavailable">No disponible</string>
+    <string name="gravity">Gravetat</string>
+    <string name="magnetometer">Magnetòmetre</string>
+    <string name="help">Ajuda</string>
+    <string name="learn_more">Més informació</string>
+    <string name="speed">Velocitat</string>
+    <string name="meters_per_second">Metres per segon</string>
+    <string name="feet_per_second">Peus per segon</string>
+    <string name="theme_system_black">Del sistema (negre)</string>
+    <string name="create_beacon">Crea una balisa</string>
 </resources>
