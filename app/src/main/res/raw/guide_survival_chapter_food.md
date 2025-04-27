@@ -102,7 +102,7 @@ Insects are a good source of protein but need to be gathered in large numbers to
 
 ### Collection
 
-Good places to find insects include rotting logs, under rocks, and in grassy fields. Common edible bugs include ants, termites, locusts, grasshoppers, crickets, dragonflies, grubs, and worms. At night, many flying insects can be attracted to a light source.
+Good places to find insects include rotting logs, under rocks, and in grassy fields. If you are looking for earthworms, you can use a stick to dig small holes in the ground or check the surface after rain or at night. At night, many flying insects can be attracted to a light source. Common edible bugs include ants, termites, locusts, grasshoppers, crickets, dragonflies, grubs, and worms.
 
 Do not eat the following:
 - Biting or stinging insects
