@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.text
+package com.kylecorry.trail_sense.shared.text.nlp.tokenizers
 
 class SimpleWordTokenizer(private val preservedWords: Set<String> = emptySet()) : Tokenizer {
 

@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.text
+package com.kylecorry.trail_sense.shared.text.nlp.tokenizers
 
 class SentenceTokenizer : Tokenizer {
 

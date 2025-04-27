@@ -1,6 +1,7 @@
-package com.kylecorry.trail_sense.shared.text
+package com.kylecorry.trail_sense.shared.text.nlp.processors
 
-class ContractionSplitter(private val additionalContractions: Map<String, List<String>> = emptyMap()) {
+class EnglishContractionSplitter(private val additionalContractions: Map<String, List<String>> = emptyMap()) :
+    TokenProcessor {
 
     fun split(words: List<String>): List<String> {
         return words.flatMap { split(it) }
@@ -45,6 +46,10 @@ class ContractionSplitter(private val additionalContractions: Map<String, List<S
         }
 
         return listOf(word)
+    }
+
+    override fun process(tokens: List<String>): List<String> {
+        return split(tokens)
     }
 
 }

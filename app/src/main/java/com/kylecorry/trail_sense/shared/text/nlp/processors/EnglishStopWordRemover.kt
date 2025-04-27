@@ -1,6 +1,6 @@
-package com.kylecorry.trail_sense.shared.text
+package com.kylecorry.trail_sense.shared.text.nlp.processors
 
-class StopWordRemover(private val additionalStopWords: Set<String> = emptySet()) {
+class EnglishStopWordRemover(private val additionalStopWords: Set<String> = emptySet()): TokenProcessor {
     private val stopWords = setOf(
         "i",
         "me",
@@ -184,5 +184,9 @@ class StopWordRemover(private val additionalStopWords: Set<String> = emptySet())
                 it
             }
         }
+    }
+
+    override fun process(tokens: List<String>): List<String> {
+        return clean(tokens)
     }
 }

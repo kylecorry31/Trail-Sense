@@ -1,7 +1,8 @@
-package com.kylecorry.trail_sense.shared.text
+package com.kylecorry.trail_sense.shared.text.nlp.processors
 
 // From https://www.tartarus.org/~martin/PorterStemmer/
-class PorterStemmer(private val additionalReplacements: Map<String, String> = emptyMap()) {
+class PorterStemmer(private val additionalReplacements: Map<String, String> = emptyMap()) :
+    TokenProcessor {
     private fun step1a(word: String): String {
         for ((suffix, replacement) in replacements1a) {
             if (word.endsWith(suffix)) {
@@ -141,6 +142,10 @@ class PorterStemmer(private val additionalReplacements: Map<String, String> = em
 
     fun stem(words: List<String>): List<String> {
         return words.map { stem(it) }
+    }
+
+    override fun process(tokens: List<String>): List<String> {
+        return stem(tokens)
     }
 
     companion object {
