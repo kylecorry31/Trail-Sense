@@ -144,7 +144,7 @@ You should always have a plan to quickly extinguish your fire in case it begins 
 
 ## Increasing warmth
 <!-- K: rock, reflector, hand-warmer -->
-<!-- S: Thoroughly extinguish your fire with water or dirt. -->
+<!-- S: Maximize heat by using a fire reflector or heated rocks. -->
 
 To maximize the heat from your fire, you can add more dry fuel, build a fire reflector, heat up rocks, or increase the insulation of your clothing and shelter.
 
