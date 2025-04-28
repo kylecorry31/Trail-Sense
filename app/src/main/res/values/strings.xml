@@ -1651,4 +1651,8 @@
     <string name="feet_per_second">Feet per second</string>
     <string name="meters_per_second">Meters per second</string>
     <string name="speed">Speed</string>
+    <string name="climate_temperature_amount">Temperature: %s</string>
+    <string name="climate_precipitation_amount">Precipitation: %s monthly total</string>
+    <string name="source_era5">Source: ERA5</string>
+    <string name="source_merra_2">Source: MERRA-2</string>
 </resources>

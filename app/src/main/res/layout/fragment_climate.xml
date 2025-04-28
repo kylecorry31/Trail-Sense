@@ -9,7 +9,7 @@
         android:id="@+id/climate_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:subtitle="@string/temperature_high_low" />
+        app:title="@string/tool_climate" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -42,11 +42,18 @@
                 android:layout_marginBottom="@dimen/default_bottom_margin" />
 
             <TextView
+                android:id="@+id/temperature_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/temperature"
                 android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/source_merra_2"
+                android:textSize="10sp" />
 
             <com.kylecorry.andromeda.views.chart.Chart
                 android:id="@+id/temperature_chart"
@@ -55,11 +62,18 @@
                 android:layout_marginTop="8dp" />
 
             <TextView
+                android:id="@+id/precipitation_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/weather_precipitation"
                 android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/source_era5"
+                android:textSize="10sp" />
 
             <com.kylecorry.andromeda.views.chart.Chart
                 android:id="@+id/precipitation_chart"

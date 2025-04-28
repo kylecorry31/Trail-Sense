@@ -60,7 +60,7 @@ class MonthlyPrecipitationChart(
         chart.configureYAxis(
             labelCount = 5,
             drawGridLines = true,
-            minimum = range.start,
+            minimum = 0f,
             maximum = range.end
         )
         chart.configureXAxis(

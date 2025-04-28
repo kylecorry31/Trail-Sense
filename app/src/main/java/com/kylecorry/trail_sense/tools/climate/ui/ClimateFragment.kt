@@ -61,6 +61,8 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.climateTitle.subtitle.text = getString(R.string.historic_temperature_years, 30)
+
         // Populate the initial location and elevation
         binding.location.coordinate = location.location
         val elevation = location.elevation.convertTo(distanceUnits)
@@ -153,22 +155,40 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
                     if (isBound) {
                         plotTemperatures(temperatures)
                         plotPrecipitation(precipitation)
-                        updateTitle(range)
+                        updateTemperatureTitle(range)
+                        updatePrecipitationTitle(
+                            precipitation[binding.displayDate.date.month] ?: Distance.meters(0f)
+                        )
                     }
                 }
             }
         }
     }
 
-    private fun updateTitle(range: Range<Temperature>) {
+    private fun updateTemperatureTitle(range: Range<Temperature>) {
         val lowValue = formatter.formatTemperature(
             range.start.convertTo(temperatureUnits)
         )
         val highValue = formatter.formatTemperature(
             range.end.convertTo(temperatureUnits)
         )
-        binding.climateTitle.title.text =
+        binding.temperatureTitle.text = getString(
+            R.string.climate_temperature_amount,
             getString(R.string.slash_separated_pair, highValue, lowValue)
+        )
+    }
+
+    private fun updatePrecipitationTitle(precipitation: Distance) {
+        val value = precipitation.convertTo(precipitationDistanceUnits)
+        val formattedValue = formatter.formatDistance(
+            value, if (precipitationDistanceUnits.isMetric) {
+                0
+            } else {
+                1
+            }
+        )
+        binding.precipitationTitle.text =
+            getString(R.string.climate_precipitation_amount, formattedValue)
     }
 
     private fun plotTemperatures(data: List<Pair<LocalDate, Range<Temperature>>>) {
@@ -177,7 +197,6 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
     }
 
     private fun plotPrecipitation(data: Map<Month, Distance>) {
-        println(data)
         precipitationChart.plot(data, precipitationDistanceUnits)
         precipitationChart.highlight(binding.displayDate.date.month)
     }
