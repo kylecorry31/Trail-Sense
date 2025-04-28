@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.tools.weather.domain.CurrentWeather
 import com.kylecorry.trail_sense.tools.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherObservation
 import java.time.LocalDate
+import java.time.Month
 import java.time.ZonedDateTime
 
 // TODO: Split into two subsystems: Weather and Weather Monitor
@@ -50,6 +51,8 @@ interface IWeatherSubsystem {
 
     suspend fun getCloudHistory(): List<Reading<CloudGenus?>>
     suspend fun getRawHistory(applyPressureOffset: Boolean = false): List<Reading<RawWeatherObservation>>
+
+    suspend fun getMonthlyPrecipitation(location: Coordinate? = null): Map<Month, Distance>
 
     suspend fun updateWeather()
 }

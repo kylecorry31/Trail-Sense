@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.weather.ui.charts
+package com.kylecorry.trail_sense.tools.climate.ui
 
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
@@ -47,7 +47,7 @@ class YearlyTemperatureRangeChart(
         chart.configureXAxis(
             labelCount = 5,
             drawGridLines = true,
-            labelFormatter = MonthChartLabelFormatter(chart.context, year)
+            labelFormatter = DayOfYearChartLabelFormatter(chart.context, year)
         )
         chart.configureYAxis(labelCount = 5, drawGridLines = true)
         chart.plot(freezingArea, lowLine, highLine, highlight)
@@ -87,7 +87,7 @@ class YearlyTemperatureRangeChart(
         chart.configureXAxis(
             labelCount = 5,
             drawGridLines = true,
-            labelFormatter = MonthChartLabelFormatter(chart.context, year)
+            labelFormatter = DayOfYearChartLabelFormatter(chart.context, year)
         )
         freezingArea.top = freezing.temperature
         freezingArea.bottom = range.start

@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.shared.data.DataUtils
 import com.kylecorry.trail_sense.shared.debugging.DebugWeatherCommand
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
+import com.kylecorry.trail_sense.tools.climate.infrastructure.precipitation.HistoricMonthlyPrecipitationRepo
 import com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures.HistoricTemperatureRepo
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudRepo
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -42,6 +43,7 @@ import kotlinx.coroutines.sync.withLock
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
+import java.time.Month
 import java.time.ZonedDateTime
 
 
@@ -198,10 +200,11 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         val lookupElevation: Distance
         if (location == null || elevation == null) {
             val last = weatherRepo.getLast()
-            lookupLocation = last?.value?.location ?: this@WeatherSubsystem.location.location
+            lookupLocation =
+                location ?: last?.value?.location ?: this@WeatherSubsystem.location.location
             lookupElevation =
-                last?.value?.altitude?.let { Distance.meters(it) }
-                    ?: this@WeatherSubsystem.location.elevation
+                elevation ?: last?.value?.altitude?.let { Distance.meters(it) }
+                        ?: this@WeatherSubsystem.location.elevation
         } else {
             lookupLocation = location
             lookupElevation = elevation
@@ -234,6 +237,14 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
                 readings
             }
         }
+
+    override suspend fun getMonthlyPrecipitation(location: Coordinate?): Map<Month, Distance> {
+        val resolved = resolveLocation(location, null)
+        return HistoricMonthlyPrecipitationRepo.getMonthlyPrecipitation(
+            context,
+            resolved.first
+        )
+    }
 
     override suspend fun updateWeather() = onDefault {
         updateWeatherMutex.withLock {

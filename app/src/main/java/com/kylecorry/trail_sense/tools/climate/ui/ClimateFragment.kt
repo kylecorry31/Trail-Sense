@@ -12,6 +12,7 @@ import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentClimateBinding
@@ -20,8 +21,8 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
-import com.kylecorry.trail_sense.tools.weather.ui.charts.YearlyTemperatureRangeChart
 import java.time.LocalDate
+import java.time.Month
 
 class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
 
@@ -30,14 +31,28 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val temperatureUnits by lazy { prefs.temperatureUnits }
     private val distanceUnits by lazy { prefs.baseDistanceUnits }
+    private val precipitationDistanceUnits by lazy {
+        if (distanceUnits.isMetric) {
+            DistanceUnits.Millimeters
+        } else {
+            DistanceUnits.Inches
+        }
+    }
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
 
     private var temperatures: List<Pair<LocalDate, Range<Temperature>>> = emptyList()
+    private var precipitation: Map<Month, Distance> = emptyMap()
     private var currentYear = 0
 
-    private val chart by lazy {
+    private val temperatureChart by lazy {
         YearlyTemperatureRangeChart(binding.temperatureChart) {
             binding.displayDate.date = it
+        }
+    }
+
+    private val precipitationChart by lazy {
+        MonthlyPrecipitationChart(binding.precipitationChart) {
+            binding.displayDate.date = binding.displayDate.date.withMonth(it.value)
         }
     }
 
@@ -49,7 +64,11 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
         // Populate the initial location and elevation
         binding.location.coordinate = location.location
         val elevation = location.elevation.convertTo(distanceUnits)
-        val roundedElevation = elevation.copy(distance = elevation.distance.roundPlaces(Units.getDecimalPlaces(distanceUnits)))
+        val roundedElevation = elevation.copy(
+            distance = elevation.distance.roundPlaces(
+                Units.getDecimalPlaces(distanceUnits)
+            )
+        )
         binding.elevation.elevation = roundedElevation
 
         reloadTemperatures()
@@ -101,7 +120,7 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
     }
 
     private fun reloadTemperatures(recalculate: Boolean = true) {
-        loadTemperatures(
+        loadData(
             binding.displayDate.date,
             binding.location.coordinate ?: location.location,
             binding.elevation.elevation ?: Distance.meters(0f),
@@ -109,7 +128,7 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
         )
     }
 
-    private fun loadTemperatures(
+    private fun loadData(
         date: LocalDate,
         location: Coordinate,
         elevation: Distance,
@@ -118,7 +137,13 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
         inBackground {
             runner.replace {
                 if (recalculate) {
-                    temperatures = weather.getTemperatureRanges(date.year, location, elevation, calibrated = false)
+                    temperatures = weather.getTemperatureRanges(
+                        date.year,
+                        location,
+                        elevation,
+                        calibrated = false
+                    )
+                    precipitation = weather.getMonthlyPrecipitation(location)
                     currentYear = date.year
                 }
 
@@ -127,6 +152,7 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
                 onMain {
                     if (isBound) {
                         plotTemperatures(temperatures)
+                        plotPrecipitation(precipitation)
                         updateTitle(range)
                     }
                 }
@@ -146,8 +172,14 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
     }
 
     private fun plotTemperatures(data: List<Pair<LocalDate, Range<Temperature>>>) {
-        chart.plot(data, temperatureUnits)
-        chart.highlight(binding.displayDate.date)
+        temperatureChart.plot(data, temperatureUnits)
+        temperatureChart.highlight(binding.displayDate.date)
+    }
+
+    private fun plotPrecipitation(data: Map<Month, Distance>) {
+        println(data)
+        precipitationChart.plot(data, precipitationDistanceUnits)
+        precipitationChart.highlight(binding.displayDate.date.month)
     }
 
 }

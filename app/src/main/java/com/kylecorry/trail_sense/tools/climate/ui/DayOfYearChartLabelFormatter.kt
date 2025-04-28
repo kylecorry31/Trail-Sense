@@ -1,11 +1,11 @@
-package com.kylecorry.trail_sense.tools.weather.ui.charts
+package com.kylecorry.trail_sense.tools.climate.ui
 
 import android.content.Context
 import com.kylecorry.andromeda.views.chart.label.ChartLabelFormatter
 import com.kylecorry.trail_sense.shared.FormatService
 import java.time.LocalDate
 
-class MonthChartLabelFormatter(context: Context, private val year: Int) : ChartLabelFormatter {
+class DayOfYearChartLabelFormatter(context: Context, private val year: Int) : ChartLabelFormatter {
 
     private val formatter = FormatService.getInstance(context)
 
