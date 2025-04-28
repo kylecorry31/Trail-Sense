@@ -1302,4 +1302,10 @@
     <string name="stars">星星</string>
     <string name="create_page">建立頁面</string>
     <string name="no_results">沒有結果</string>
+    <string name="milligrams">毫克</string>
+    <string name="milligrams_format">%s 毫克</string>
+    <string name="right">右</string>
+    <string name="unit_caliber">口徑</string>
+    <string name="ballistics">彈道</string>
+    <string name="left">左</string>
 </resources>
