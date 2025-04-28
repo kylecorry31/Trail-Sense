@@ -17,16 +17,12 @@ object HistoricMonthlyPrecipitationRepo {
     private val cache = LRUCache<PixelCoordinate, Map<Month, Distance>>(size = 5)
 
     // Image data source
-    private const val a = 2.5986549854278564
+    private const val a = 2.826690912246704
     private const val b = 0.0
-    private const val latitudePixelsPerDegree = 2.0
-    private const val longitudePixelsPerDegree = 1.6
-    private val size = Size(576, 361)
+    private val size = Size(720, 360)
 
     private val source = GeographicImageSource(
         size,
-        latitudePixelsPerDegree,
-        longitudePixelsPerDegree,
         decoder = GeographicImageSource.scaledDecoder(a, b)
     )
 
