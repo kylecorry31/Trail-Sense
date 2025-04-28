@@ -14,9 +14,6 @@ class ToolClimateTest : ToolTestBase(Tools.CLIMATE) {
 
     @Test
     fun verifyBasicFunctionality() {
-        // Verify the title
-        hasText(R.id.climate_title, string(R.string.temperature_high_low))
-
         // Verify today is selected by default
         hasText(R.id.display_date, string(R.string.today))
         input(R.id.utm, "42, -72")
@@ -27,6 +24,6 @@ class ToolClimateTest : ToolTestBase(Tools.CLIMATE) {
         pickDate(2024, 8, 5)
 
         // Verify the temperature is displayed
-        hasText(R.id.climate_title, "81 °F / 59 °F")
+        hasText(R.id.temperature_title, "81 °F / 59 °F", contains = true)
     }
 }
