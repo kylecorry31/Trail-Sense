@@ -10,6 +10,10 @@ import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.SolMath.roundPlaces
+import com.kylecorry.sol.science.meteorology.KoppenGeigerClimateGroup
+import com.kylecorry.sol.science.meteorology.KoppenGeigerSeasonalPrecipitationPattern
+import com.kylecorry.sol.science.meteorology.KoppenGeigerTemperaturePattern
+import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
@@ -43,6 +47,8 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
     private var temperatures: List<Pair<LocalDate, Range<Temperature>>> = emptyList()
     private var precipitation: Map<Month, Distance> = emptyMap()
     private var currentYear = 0
+    private var climateName: String = ""
+    private var climateDescription: String = ""
 
     private val temperatureChart by lazy {
         YearlyTemperatureRangeChart(binding.temperatureChart) {
@@ -147,6 +153,9 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
                     )
                     precipitation = weather.getMonthlyPrecipitation(location)
                     currentYear = date.year
+                    val climate = getClimateDescription(temperatures, precipitation)
+                    climateName = climate.first
+                    climateDescription = climate.second
                 }
 
                 val range = temperatures.first { it.first == date }.second
@@ -159,6 +168,7 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
                         updatePrecipitationTitle(
                             precipitation[binding.displayDate.date.month] ?: Distance.meters(0f)
                         )
+                        updateClimateZoneDetails()
                     }
                 }
             }
@@ -199,6 +209,85 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
     private fun plotPrecipitation(data: Map<Month, Distance>) {
         precipitationChart.plot(data, precipitationDistanceUnits)
         precipitationChart.highlight(binding.displayDate.date.month)
+    }
+
+    private fun updateClimateZoneDetails() {
+        binding.climateZoneTitle.text = climateName
+        binding.climateZoneDescription.text = climateDescription
+    }
+
+    private fun getClimateDescription(
+        temperatures: List<Pair<LocalDate, Range<Temperature>>>,
+        precipitation: Map<Month, Distance>
+    ): Pair<String, String> {
+
+        // TODO: List out dangers
+        // TODO: Extract strings
+
+        val monthlyAverageTemperatures = temperatures
+            .filter { it.first.dayOfMonth == 15 }
+            .map { it.first.month to Temperature.celsius((it.second.start.celsius().temperature + it.second.end.celsius().temperature) / 2) }
+            .toMap()
+
+        val climate = Meteorology.getKoppenGeigerClimateClassification(
+            monthlyAverageTemperatures,
+            precipitation
+        )
+
+        val sentences = mutableListOf<String>()
+        sentences.add(
+            when (climate.climateGroup) {
+                KoppenGeigerClimateGroup.Tropical -> "A hot and humid climate with significant precipitation throughout the year."
+                KoppenGeigerClimateGroup.Dry -> "An arid climate with low precipitation and sparse vegetation."
+                KoppenGeigerClimateGroup.Temperate -> "A mild climate with distinct seasons and moderate precipitation."
+                KoppenGeigerClimateGroup.Continental -> "A cold climate with warm summers, cold winters, and large seasonal changes."
+                KoppenGeigerClimateGroup.Polar -> "An extremely cold climate with short summers."
+            }
+        )
+        sentences.add(
+            when (climate.seasonalPrecipitationPattern) {
+                KoppenGeigerSeasonalPrecipitationPattern.Rainforest -> "The dense foliage may disrupt GPS signals."
+                KoppenGeigerSeasonalPrecipitationPattern.Monsoon -> "There is a short dry season."
+                KoppenGeigerSeasonalPrecipitationPattern.Savanna -> "There is a dry season. It may contain grasslands with sparse trees."
+                KoppenGeigerSeasonalPrecipitationPattern.Desert -> "An extreme lack of precipitation makes for loose terrain and difficulty in finding water."
+                KoppenGeigerSeasonalPrecipitationPattern.Steppe -> "There may be scattered grasslands."
+                KoppenGeigerSeasonalPrecipitationPattern.DrySummer -> "There is a dry season during the summer."
+                KoppenGeigerSeasonalPrecipitationPattern.DryWinter -> "There is a dry season during hte winter."
+                KoppenGeigerSeasonalPrecipitationPattern.NoDrySeason -> "There is no dry season."
+                KoppenGeigerSeasonalPrecipitationPattern.Tundra -> "Some ice may thaw during the summer, but vegetation will be minimal."
+                KoppenGeigerSeasonalPrecipitationPattern.IceCap -> "The ice does not melt during the year and vegetation is absent."
+                null -> ""
+            }
+        )
+        sentences.add(
+            when (climate.temperaturePattern) {
+                KoppenGeigerTemperaturePattern.Hot -> "Plan for hot temperatures all year."
+                KoppenGeigerTemperaturePattern.Cold -> "Plan for cold temperatures all year."
+                KoppenGeigerTemperaturePattern.HotSummer -> "Plan for hot temperatures during the summer."
+                KoppenGeigerTemperaturePattern.WarmSummer -> "Plan for warm temperatures during the summer."
+                KoppenGeigerTemperaturePattern.ColdSummer -> "Plan for cool temperatures during the summer."
+                KoppenGeigerTemperaturePattern.VeryColdWinter -> "Plan for extremely cold temperatures during the winter."
+                null -> ""
+            }
+        )
+
+        val name = when {
+            climate.seasonalPrecipitationPattern == KoppenGeigerSeasonalPrecipitationPattern.Monsoon -> "Tropical monsoon"
+            climate.seasonalPrecipitationPattern == KoppenGeigerSeasonalPrecipitationPattern.Savanna -> "Tropical savanna"
+            climate.seasonalPrecipitationPattern == KoppenGeigerSeasonalPrecipitationPattern.Rainforest -> "Tropical rainforest"
+            climate.seasonalPrecipitationPattern == KoppenGeigerSeasonalPrecipitationPattern.Desert -> "Desert"
+            climate.seasonalPrecipitationPattern == KoppenGeigerSeasonalPrecipitationPattern.Steppe -> "Steppe"
+            climate.seasonalPrecipitationPattern == KoppenGeigerSeasonalPrecipitationPattern.Tundra -> "Tundra"
+            climate.seasonalPrecipitationPattern == KoppenGeigerSeasonalPrecipitationPattern.IceCap -> "Ice cap"
+            // TODO: Break these down (ex. borreal, tiaga)
+            climate.climateGroup == KoppenGeigerClimateGroup.Temperate -> "Temperate"
+            climate.climateGroup == KoppenGeigerClimateGroup.Continental -> "Continental"
+            else -> "Unknown"
+        }
+
+        return name to sentences.filter { it.isNotEmpty() }.joinToString(" ")
+
+
     }
 
 }
