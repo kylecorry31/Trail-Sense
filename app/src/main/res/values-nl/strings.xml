@@ -1355,4 +1355,8 @@
     <string name="speed">Snelheid</string>
     <string name="speed_format_meters_per_second">%s m/s</string>
     <string name="speed_format_feet_per_second">%s ft/s</string>
+    <string name="source_era5">Bron: ERA5</string>
+    <string name="climate_temperature_amount">Temperatuur: %s</string>
+    <string name="source_merra_2">Bron: MERRA-2</string>
+    <string name="climate_precipitation_amount">Neerslag: %s maandelijks totaal</string>
 </resources>
