@@ -1381,4 +1381,8 @@
     <string name="speed">Rychlost</string>
     <string name="speed_format_feet_per_second">%s ft/s</string>
     <string name="speed_format_meters_per_second">%s m/s</string>
+    <string name="climate_precipitation_amount">Předpověď: měsíční úhrn %s</string>
+    <string name="climate_temperature_amount">Teplota: %s</string>
+    <string name="source_era5">Zdroj: ERA5</string>
+    <string name="source_merra_2">Zdroj: MERRA-2</string>
 </resources>

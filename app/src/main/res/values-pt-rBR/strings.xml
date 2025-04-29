@@ -1325,4 +1325,8 @@
     <string name="speed">Velocidade</string>
     <string name="speed_format_feet_per_second">%s fps</string>
     <string name="feet_per_second">Pés por segundo</string>
+    <string name="climate_precipitation_amount">Precipitação: %s total mensal</string>
+    <string name="source_era5">Fonte: ERA5</string>
+    <string name="source_merra_2">Fonte: MERRA-2</string>
+    <string name="climate_temperature_amount">Temperatura: %s</string>
 </resources>

@@ -1336,10 +1336,14 @@
     <string name="no_permits">无许可</string>
     <string name="ballistics_calculator">弹道计算器</string>
     <string name="trace">描摹</string>
-    <string name="map_trace_instructions">移至背阴区域或或衣服遮住阳光，将纸放在屏幕上，让你能透过纸看到地图。用钢笔或铅笔描摹地图，但要避免使用渗穿纸张的记号笔或钢笔。\n\n在你关闭描摹模式之前底部导航将被停用。</string>
+    <string name="map_trace_instructions">移至背阴区域或用衣服遮住阳光，将纸放在屏幕上，让你能透过纸看到地图。用钢笔或铅笔描摹地图，但要避免使用渗穿纸张的记号笔或钢笔。\n\n在你关闭描摹模式之前底部导航将被停用。</string>
     <string name="speed_format_feet_per_second">%s 英尺/秒</string>
     <string name="speed_format_meters_per_second">%s 米/秒</string>
     <string name="feet_per_second">英尺/秒</string>
     <string name="meters_per_second">米/秒</string>
     <string name="speed">速度</string>
+    <string name="climate_temperature_amount">气温：%s</string>
+    <string name="climate_precipitation_amount">降水量：%s 月总计</string>
+    <string name="source_era5">数据源：ERA5</string>
+    <string name="source_merra_2">数据源：MERRA-2</string>
 </resources>
