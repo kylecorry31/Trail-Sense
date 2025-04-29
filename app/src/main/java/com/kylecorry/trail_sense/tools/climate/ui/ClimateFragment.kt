@@ -252,7 +252,7 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
                 KoppenGeigerSeasonalPrecipitationPattern.Desert -> "An extreme lack of precipitation makes for loose terrain and difficulty in finding water."
                 KoppenGeigerSeasonalPrecipitationPattern.Steppe -> "There may be scattered grasslands."
                 KoppenGeigerSeasonalPrecipitationPattern.DrySummer -> "There is a dry season during the summer."
-                KoppenGeigerSeasonalPrecipitationPattern.DryWinter -> "There is a dry season during hte winter."
+                KoppenGeigerSeasonalPrecipitationPattern.DryWinter -> "There is a dry season during the winter."
                 KoppenGeigerSeasonalPrecipitationPattern.NoDrySeason -> "There is no dry season."
                 KoppenGeigerSeasonalPrecipitationPattern.Tundra -> "Some ice may thaw during the summer, but vegetation will be minimal."
                 KoppenGeigerSeasonalPrecipitationPattern.IceCap -> "The ice does not melt during the year and vegetation is absent."
