@@ -17,20 +17,12 @@ object HistoricMonthlyPrecipitationRepo {
     private val cache = LRUCache<PixelCoordinate, Map<Month, Distance>>(size = 5)
 
     // Image data source
-    private const val a = 2.826690912246704
-    private const val b = 0.0
-    private val size = Size(720, 360)
+    private val size = Size(360, 180)
 
     private val source = GeographicImageSource(
         size,
-        decoder = GeographicImageSource.scaledDecoder(a, b)
-    )
-
-    private val extensionMap = mapOf(
-        "1-3" to Triple(Month.JANUARY, Month.FEBRUARY, Month.MARCH),
-        "4-6" to Triple(Month.APRIL, Month.MAY, Month.JUNE),
-        "7-9" to Triple(Month.JULY, Month.AUGUST, Month.SEPTEMBER),
-        "10-12" to Triple(Month.OCTOBER, Month.NOVEMBER, Month.DECEMBER)
+        interpolate = false,
+        decoder = GeographicImageSource.split16BitDecoder()
     )
 
     suspend fun getMonthlyPrecipitation(
@@ -54,12 +46,10 @@ object HistoricMonthlyPrecipitationRepo {
     ): Map<Month, Float> = onIO {
         val loaded = mutableMapOf<Month, Float>()
 
-        for ((extension, months) in extensionMap) {
-            val file = "precipitation/precipitation-${extension}.webp"
+        for (month in Month.entries) {
+            val file = "precipitation/precipitation-${month.value}.webp"
             val data = source.read(context, file, location)
-            loaded[months.first] = data[0]
-            loaded[months.second] = data[1]
-            loaded[months.third] = data[2]
+            loaded[month] = data.first() / 30f
         }
 
         loaded

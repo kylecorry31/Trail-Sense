@@ -89,6 +89,21 @@ class GeographicImageSource(
             }
         }
 
+        fun split16BitDecoder(): (Int?) -> List<Float> {
+            return {
+                val red = it?.red ?: 0
+                val green = it?.green ?: 0
+                val blue = it?.blue ?: 0
+                val alpha = it?.alpha ?: 0
+
+                listOf(
+                    green shl 8 or red,
+                    alpha shl 8 or blue
+                ).map { it.toFloat() }
+
+            }
+        }
+
     }
 
 }
