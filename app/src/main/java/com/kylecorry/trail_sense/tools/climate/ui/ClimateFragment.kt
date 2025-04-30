@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
+import com.kylecorry.trail_sense.tools.climate.domain.PhenologyService
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.LocalDate
 import java.time.Month
@@ -156,6 +157,11 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
                     val climate = getClimateDescription(temperatures, precipitation)
                     climateName = climate.first
                     climateDescription = climate.second
+                    println(
+                        PhenologyService(WeatherSubsystem.getInstance(requireContext())).getYearlyMosquitoActiveDays(
+                            currentYear, location, elevation, calibrated = false
+                        )
+                    )
                 }
 
                 val range = temperatures.first { it.first == date }.second
