@@ -222,7 +222,6 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
     ): Pair<String, String> {
 
         // TODO: List out dangers
-        // TODO: Extract strings
 
         val monthlyAverageTemperatures = temperatures
             .filter { it.first.dayOfMonth == 15 }
@@ -237,52 +236,72 @@ class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
         val sentences = mutableListOf<String>()
         sentences.add(
             when (climate.climateGroup) {
-                KoppenGeigerClimateGroup.Tropical -> "A hot and humid climate with significant precipitation throughout the year."
-                KoppenGeigerClimateGroup.Dry -> "An arid climate with low precipitation and sparse vegetation."
-                KoppenGeigerClimateGroup.Temperate -> "A mild climate with distinct seasons and moderate precipitation."
-                KoppenGeigerClimateGroup.Continental -> "A cold climate with warm summers, cold winters, and large seasonal changes."
-                KoppenGeigerClimateGroup.Polar -> "An extremely cold climate with short summers."
+                KoppenGeigerClimateGroup.Tropical -> getString(R.string.climate_tropical_description)
+                KoppenGeigerClimateGroup.Dry -> getString(R.string.climate_dry_description)
+                KoppenGeigerClimateGroup.Temperate -> getString(R.string.climate_temperate_description)
+                KoppenGeigerClimateGroup.Continental -> getString(R.string.climate_continental_description)
+                KoppenGeigerClimateGroup.Polar -> getString(R.string.climate_polar_description)
             }
         )
         sentences.add(
             when (climate.seasonalPrecipitationPattern) {
-                KoppenGeigerSeasonalPrecipitationPattern.Rainforest -> "The dense foliage may disrupt GPS signals."
-                KoppenGeigerSeasonalPrecipitationPattern.Monsoon -> "There is a short dry season."
-                KoppenGeigerSeasonalPrecipitationPattern.Savanna -> "There is a dry season. It may contain grasslands with sparse trees."
-                KoppenGeigerSeasonalPrecipitationPattern.Desert -> "An extreme lack of precipitation makes for loose terrain and difficulty in finding water."
-                KoppenGeigerSeasonalPrecipitationPattern.Steppe -> "There may be scattered grasslands."
-                KoppenGeigerSeasonalPrecipitationPattern.DrySummer -> "There is a dry season during the summer."
-                KoppenGeigerSeasonalPrecipitationPattern.DryWinter -> "There is a dry season during the winter."
-                KoppenGeigerSeasonalPrecipitationPattern.NoDrySeason -> "There is no dry season."
-                KoppenGeigerSeasonalPrecipitationPattern.Tundra -> "Some ice may thaw during the summer, but vegetation will be minimal."
-                KoppenGeigerSeasonalPrecipitationPattern.IceCap -> "The ice does not melt during the year and vegetation is absent."
+                KoppenGeigerSeasonalPrecipitationPattern.Rainforest -> getString(R.string.climate_rainforest_description)
+                KoppenGeigerSeasonalPrecipitationPattern.Monsoon -> getString(R.string.climate_monsoon_description)
+                KoppenGeigerSeasonalPrecipitationPattern.Savanna -> getString(R.string.climate_savanna_description)
+                KoppenGeigerSeasonalPrecipitationPattern.Desert -> getString(R.string.climate_desert_description)
+                KoppenGeigerSeasonalPrecipitationPattern.Steppe -> getString(R.string.climate_steppe_description)
+                KoppenGeigerSeasonalPrecipitationPattern.DrySummer -> getString(R.string.climate_dry_summer_description)
+                KoppenGeigerSeasonalPrecipitationPattern.DryWinter -> getString(R.string.climate_dry_winter_description)
+                KoppenGeigerSeasonalPrecipitationPattern.NoDrySeason -> getString(R.string.climate_no_dry_season_description)
+                KoppenGeigerSeasonalPrecipitationPattern.Tundra -> getString(R.string.climate_tundra_description)
+                KoppenGeigerSeasonalPrecipitationPattern.IceCap -> getString(R.string.climate_ice_cap_description)
                 null -> ""
             }
         )
         sentences.add(
             when (climate.temperaturePattern) {
-                KoppenGeigerTemperaturePattern.Hot -> "Plan for hot temperatures all year."
-                KoppenGeigerTemperaturePattern.Cold -> "Plan for cold temperatures all year."
-                KoppenGeigerTemperaturePattern.HotSummer -> "Plan for hot temperatures during the summer."
-                KoppenGeigerTemperaturePattern.WarmSummer -> "Plan for warm temperatures during the summer."
-                KoppenGeigerTemperaturePattern.ColdSummer -> "Plan for cool temperatures during the summer."
-                KoppenGeigerTemperaturePattern.VeryColdWinter -> "Plan for extremely cold temperatures during the winter."
+                KoppenGeigerTemperaturePattern.Hot -> getString(R.string.climate_hot_description)
+                KoppenGeigerTemperaturePattern.Cold -> getString(R.string.climate_cold_description)
+                KoppenGeigerTemperaturePattern.HotSummer -> getString(R.string.climate_hot_summer_description)
+                KoppenGeigerTemperaturePattern.WarmSummer -> getString(R.string.climate_warm_summer_description)
+                KoppenGeigerTemperaturePattern.ColdSummer -> getString(R.string.climate_cold_summer_description)
+                KoppenGeigerTemperaturePattern.VeryColdWinter -> getString(R.string.climate_very_cold_winter_description)
                 null -> ""
             }
         )
 
         val name = when {
-            climate.seasonalPrecipitationPattern == KoppenGeigerSeasonalPrecipitationPattern.Monsoon -> "Tropical monsoon"
-            climate.seasonalPrecipitationPattern == KoppenGeigerSeasonalPrecipitationPattern.Savanna -> "Tropical savanna"
-            climate.seasonalPrecipitationPattern == KoppenGeigerSeasonalPrecipitationPattern.Rainforest -> "Tropical rainforest"
-            climate.seasonalPrecipitationPattern == KoppenGeigerSeasonalPrecipitationPattern.Desert -> "Desert"
-            climate.seasonalPrecipitationPattern == KoppenGeigerSeasonalPrecipitationPattern.Steppe -> "Steppe"
-            climate.seasonalPrecipitationPattern == KoppenGeigerSeasonalPrecipitationPattern.Tundra -> "Tundra"
-            climate.seasonalPrecipitationPattern == KoppenGeigerSeasonalPrecipitationPattern.IceCap -> "Ice cap"
+            climate.seasonalPrecipitationPattern == KoppenGeigerSeasonalPrecipitationPattern.Monsoon -> getString(
+                R.string.climate_tropical_monsoon
+            )
+
+            climate.seasonalPrecipitationPattern == KoppenGeigerSeasonalPrecipitationPattern.Savanna -> getString(
+                R.string.climate_tropical_savanna
+            )
+
+            climate.seasonalPrecipitationPattern == KoppenGeigerSeasonalPrecipitationPattern.Rainforest -> getString(
+                R.string.climate_tropical_rainforest
+            )
+
+            climate.seasonalPrecipitationPattern == KoppenGeigerSeasonalPrecipitationPattern.Desert -> getString(
+                R.string.climate_desert
+            )
+
+            climate.seasonalPrecipitationPattern == KoppenGeigerSeasonalPrecipitationPattern.Steppe -> getString(
+                R.string.climate_steppe
+            )
+
+            climate.seasonalPrecipitationPattern == KoppenGeigerSeasonalPrecipitationPattern.Tundra -> getString(
+                R.string.climate_tundra
+            )
+
+            climate.seasonalPrecipitationPattern == KoppenGeigerSeasonalPrecipitationPattern.IceCap -> getString(
+                R.string.climate_ice_cap
+            )
             // TODO: Break these down (ex. borreal, tiaga)
-            climate.climateGroup == KoppenGeigerClimateGroup.Temperate -> "Temperate"
-            climate.climateGroup == KoppenGeigerClimateGroup.Continental -> "Continental"
-            else -> "Unknown"
+            climate.climateGroup == KoppenGeigerClimateGroup.Temperate -> getString(R.string.climate_temperate)
+            climate.climateGroup == KoppenGeigerClimateGroup.Continental -> getString(R.string.climate_continental)
+            else -> getString(R.string.unknown)
         }
 
         return name to sentences.filter { it.isNotEmpty() }.joinToString(" ")
