@@ -4,7 +4,7 @@
     <string name="category_safety">Seguretat</string>
     <string name="category_shelter">Refugi</string>
     <string name="category_fire">Foc</string>
-    <string name="category_medical">Equipament Mèdic</string>
+    <string name="category_medical">Equipament mèdic</string>
     <string name="category_clothing">Abric</string>
     <string name="category_hydration">Hidratació</string>
     <string name="category_food">Menjar</string>
@@ -157,13 +157,13 @@
 \n
 \nAquesta alerta pot ser desactivada en configuració de l\'aplicació.</string>
     <string name="calibrate_compass_dialog_content">Gira diverses vegades el seu dispositiu en un patró de 8 (o en totes les direccions); pulsi %s quan hagi acabat.</string>
-    <string name="calibrate_compass_dialog_title">Calibrar la brúixola</string>
-    <string name="calibrate">Calibrar</string>
-    <string name="pref_auto_declination_summary">Basat en la teva ubicació actual</string>
+    <string name="calibrate_compass_dialog_title">Calibra la brúixola</string>
+    <string name="calibrate">Calibra</string>
+    <string name="pref_auto_declination_summary">Basat en la vostra ubicació actual</string>
     <string name="declination_override_updated_toast">Sobreescriptura de la declinació actualizada</string>
     <string name="compass_declination">Declinació magnètica</string>
     <string name="compass_azimuth">Azimut</string>
-    <string name="compass_auto_declination">Autoajustar la declinació</string>
+    <string name="compass_auto_declination">Ajusta la declinació automàticament</string>
     <string name="compass_declination_override">Sobrescriure la declinació</string>
     <string name="override_from_gps">Utilitzar el valor del GPS</string>
     <string name="smoothing_summary">Valors alts poden reduir el soroll</string>
@@ -524,4 +524,41 @@
     <string name="feet_per_second">Peus per segon</string>
     <string name="theme_system_black">Del sistema (negre)</string>
     <string name="create_beacon">Crea una balisa</string>
+    <string name="previous">Anterior</string>
+    <string name="coordinates_tab">Coordenades</string>
+    <string name="sensor_gyroscope">Giroscopi</string>
+    <string name="change_map_projection">Canvia la projecció</string>
+    <string name="pref_low_power_mode_title">Mode d’estalvi d’energia</string>
+    <string name="odometer">Odòmetre</string>
+    <string name="pedometer">Podòmetre</string>
+    <string name="menu">Menú</string>
+    <string name="map_auto_calibrated">El mapa s’ha calibrat automàticament; verifiqueu-ne la precisió</string>
+    <string name="search">Cerca</string>
+    <string name="convert">Converteix</string>
+    <string name="distance">Distància</string>
+    <string name="power_saving_mode_resolution">Desactiva el mode d’estalvi d’energia</string>
+    <string name="map_projection_mercator">Mercator</string>
+    <string name="elevation">Elevació</string>
+    <string name="map_projection_equidistant">Equidistant</string>
+    <string name="speedometer">Velocímetre</string>
+    <string name="next">Següent</string>
+    <string name="time_until_empty">fins que estigui buit</string>
+    <string name="time_until_full">fins que estigui ple</string>
+    <string name="whistle_signal_where_are_you">On sou?</string>
+    <string name="auto">Automàtic</string>
+    <string name="color">Color</string>
+    <string name="tides">Marees</string>
+    <string name="import_gpx">Importa GPX</string>
+    <string name="icon">Icona</string>
+    <plurals name="tides_entered_count">
+        <item quantity="one">%d marea</item>
+        <item quantity="many">%d marees</item>
+        <item quantity="other">%d marees</item>
+    </plurals>
+    <string name="daylight">Llum del dia</string>
+    <string name="arrow">Fletxa</string>
+    <string name="source_merra_2">Font: MERRA-2</string>
+    <string name="source_era5">Font: ERA5</string>
+    <string name="climate_temperature_amount">Temperatura: %s</string>
+    <string name="duration">Durada</string>
 </resources>
