@@ -13,7 +13,7 @@ class PhenologyService(private val weather: IWeatherSubsystem) {
     // https://www.nrcc.cornell.edu/industry/mosquito/degreedays.html
     private val MOSQUITO_PHENOLOGY = SpeciesPhenology(
         Temperature.celsius(10f),
-        listOf(LifecycleEvent("ADULT_EMERGENCE", 230f))
+        listOf(LifecycleEvent("ADULT_EMERGENCE", 230f * 5 / 9f))
     )
 
     suspend fun getYearlyMosquitoActiveDays(
@@ -30,6 +30,7 @@ class PhenologyService(private val weather: IWeatherSubsystem) {
             MOSQUITO_PHENOLOGY,
             Range(LocalDate.of(year - 1, 1, 1), LocalDate.of(year, 12, 31))
         ) { date ->
+            // TODO: Make Phenology operate on min/max temps instead
             val match =
                 if (date.month == Month.FEBRUARY && date.dayOfMonth == 29 && !containsLeapDay) {
                     temperatures.first { it.first.month == Month.FEBRUARY && it.first.dayOfMonth == 28 }
