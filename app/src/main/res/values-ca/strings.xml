@@ -156,7 +156,7 @@
     <string name="calibrate_compass_on_navigate_dialog_content">Gira diverses vegades el seu dispositiu en un patró de 8 (o en totes les direccions); pulsi %s quan hagi acabat.
 \n
 \nAquesta alerta pot ser desactivada en configuració de l\'aplicació.</string>
-    <string name="calibrate_compass_dialog_content">Gira diverses vegades el seu dispositiu en un patró de 8 (o en totes les direccions); pulsi %s quan hagi acabat.</string>
+    <string name="calibrate_compass_dialog_content">Gireu el dispositiu en un patró de 8 (o en totes les direccions) diverses vegades; toqueu %s quan acabeu.</string>
     <string name="calibrate_compass_dialog_title">Calibra la brúixola</string>
     <string name="calibrate">Calibra</string>
     <string name="pref_auto_declination_summary">Basat en la vostra ubicació actual</string>
@@ -561,4 +561,13 @@
     <string name="source_era5">Font: ERA5</string>
     <string name="climate_temperature_amount">Temperatura: %s</string>
     <string name="duration">Durada</string>
+    <string name="climate_tropical_rainforest">Selva tropical</string>
+    <string name="climate_tropical_monsoon">Monsó tropical</string>
+    <string name="climate_desert">Desert</string>
+    <string name="climate_tropical_savanna">Sabana tropical</string>
+    <string name="climate_steppe">Estepa</string>
+    <string name="climate_tundra">Tundra</string>
+    <string name="climate_ice_cap">Casquet glacial</string>
+    <string name="climate_temperate">Temperat</string>
+    <string name="climate_continental">Continental</string>
 </resources>
