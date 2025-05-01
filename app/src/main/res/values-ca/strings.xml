@@ -148,14 +148,12 @@
     <string name="elevation_from_pressure">Utilitzar les dades del baròmetre per l\'altitud</string>
     <string name="pref_altimeter_calibration_title">Altímetre</string>
     <string name="request_permission">Sol·licitar permís</string>
-    <string name="pref_auto_location_title">Autoajustar la ubicació</string>
+    <string name="pref_auto_location_title">Ajusta la ubicació automàticament</string>
     <string name="location">Ubicació</string>
     <string name="gps">GPS</string>
     <string name="compass_accuracy_improved">Precisió de brúixola millorada en %s</string>
     <string name="compass_reported_accuracy">Precisió reportada: %s</string>
-    <string name="calibrate_compass_on_navigate_dialog_content">Gira diverses vegades el seu dispositiu en un patró de 8 (o en totes les direccions); pulsi %s quan hagi acabat.
-\n
-\nAquesta alerta pot ser desactivada en configuració de l\'aplicació.</string>
+    <string name="calibrate_compass_on_navigate_dialog_content">Gireu el dispositiu en un patró de 8 (o en totes les direccions) diverses vegades; toqueu %s quan acabeu. \n \nAquesta alerta es pot desactivar als paràmetres de l’aplicació.</string>
     <string name="calibrate_compass_dialog_content">Gireu el dispositiu en un patró de 8 (o en totes les direccions) diverses vegades; toqueu %s quan acabeu.</string>
     <string name="calibrate_compass_dialog_title">Calibra la brúixola</string>
     <string name="calibrate">Calibra</string>
@@ -570,4 +568,5 @@
     <string name="climate_ice_cap">Casquet glacial</string>
     <string name="climate_temperate">Temperat</string>
     <string name="climate_continental">Continental</string>
+    <string name="mosquitoes">Mosquits</string>
 </resources>
