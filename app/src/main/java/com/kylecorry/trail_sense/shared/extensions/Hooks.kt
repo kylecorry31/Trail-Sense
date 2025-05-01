@@ -5,10 +5,12 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.ui.ReactiveComponent
 import com.kylecorry.andromeda.core.ui.useCallback
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.AndromedaFragment
+import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.fragments.useTopic
 import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.andromeda.sense.location.IGPS
@@ -25,6 +27,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.SearchView
+import kotlinx.coroutines.CoroutineScope
 import java.time.Duration
 
 fun ReactiveComponent.useCoroutineQueue(): CoroutineQueueRunner {
@@ -242,4 +245,20 @@ fun ReactiveComponent.useSpeedPreference(
     }
 
     return speed to setter
+}
+
+fun <T> AndromedaFragment.useBackgroundMemo(
+    vararg values: Any?,
+    state: BackgroundMinimumState = BackgroundMinimumState.Resumed,
+    cancelWhenBelowState: Boolean = true,
+    cancelWhenRerun: Boolean = false,
+    block: suspend CoroutineScope.() -> T
+): T? {
+    val (currentState, setCurrentState) = useState<T?>(null)
+
+    useBackgroundEffect(values, state, cancelWhenBelowState, cancelWhenRerun) {
+        setCurrentState(block())
+    }
+
+    return currentState
 }

@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.climate.ui
 
 import android.content.Context
+import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.views.chart.label.ChartLabelFormatter
 import com.kylecorry.trail_sense.shared.FormatService
 import java.time.LocalDate
@@ -11,7 +12,9 @@ class DayOfYearChartLabelFormatter(context: Context, private val year: Int) : Ch
 
     override fun format(value: Float): String {
         val dayOfYear = value.toInt()
-        val date = LocalDate.ofYearDay(year, dayOfYear)
+        val date = tryOrDefault(null) {
+            LocalDate.ofYearDay(year, dayOfYear)
+        } ?: return ""
         return formatter.formatMonth(date.month, true)
     }
 }

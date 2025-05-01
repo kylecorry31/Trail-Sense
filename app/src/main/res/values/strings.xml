@@ -1685,4 +1685,6 @@
     <string name="climate_warm_summer_description">Plan for warm temperatures during the summer.</string>
     <string name="climate_cold_summer_description">Plan for cool temperatures during the summer.</string>
     <string name="climate_very_cold_winter_description">Plan for extremely cold temperatures during the winter.</string>
+    <string name="insect_activity">Insect activity</string>
+    <string name="mosquitoes">Mosquitoes</string>
 </resources>

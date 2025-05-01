@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem
 
 import com.kylecorry.andromeda.core.topics.ITopic
 import com.kylecorry.sol.math.Range
+import com.kylecorry.sol.science.meteorology.KoppenGeigerClimateClassification
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -53,6 +54,12 @@ interface IWeatherSubsystem {
     suspend fun getRawHistory(applyPressureOffset: Boolean = false): List<Reading<RawWeatherObservation>>
 
     suspend fun getMonthlyPrecipitation(location: Coordinate? = null): Map<Month, Distance>
+
+    suspend fun getClimateClassification(
+        location: Coordinate? = null,
+        elevation: Distance? = null,
+        calibrated: Boolean = true
+    ): KoppenGeigerClimateClassification
 
     suspend fun updateWeather()
 }

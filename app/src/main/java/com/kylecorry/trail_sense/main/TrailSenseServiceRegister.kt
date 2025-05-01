@@ -11,10 +11,12 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.text.HiddenSpan
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
+import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 
 object TrailSenseServiceRegister {
     fun setup(context: Context) {
@@ -38,9 +40,11 @@ object TrailSenseServiceRegister {
         AppServiceRegistry.register(SensorService(appContext))
         AppServiceRegistry.register(FileSubsystem.getInstance(appContext))
         AppServiceRegistry.register(AppDatabase.getInstance(appContext))
+        AppServiceRegistry.register(LocationSubsystem.getInstance(appContext))
 
         // Tool services (TODO: Make this part of the tool registration process)
         AppServiceRegistry.register(Navigator.getInstance(appContext))
         AppServiceRegistry.register(FieldGuideRepo.getInstance(appContext))
+        AppServiceRegistry.register(WeatherSubsystem.getInstance(appContext))
     }
 }

@@ -1,225 +1,302 @@
 package com.kylecorry.trail_sense.tools.climate.ui
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.kylecorry.andromeda.core.coroutines.onMain
-import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.luna.coroutines.CoroutineQueueRunner
+import android.widget.TextView
+import androidx.core.view.isVisible
+import com.kylecorry.andromeda.core.ui.useService
+import com.kylecorry.andromeda.views.chart.Chart
+import com.kylecorry.andromeda.views.toolbar.Toolbar
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.science.meteorology.KoppenGeigerClimateGroup
 import com.kylecorry.sol.science.meteorology.KoppenGeigerSeasonalPrecipitationPattern
 import com.kylecorry.sol.science.meteorology.KoppenGeigerTemperaturePattern
 import com.kylecorry.sol.science.meteorology.Meteorology
-import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentClimateBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.useBackgroundMemo
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
+import com.kylecorry.trail_sense.shared.views.CoordinateInputView
+import com.kylecorry.trail_sense.shared.views.DatePickerView
+import com.kylecorry.trail_sense.shared.views.ElevationInputView
+import com.kylecorry.trail_sense.tools.climate.domain.BiologicalActivity
+import com.kylecorry.trail_sense.tools.climate.domain.BiologicalActivityType
 import com.kylecorry.trail_sense.tools.climate.domain.PhenologyService
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.LocalDate
 import java.time.Month
 
-class ClimateFragment : BoundFragment<FragmentClimateBinding>() {
+class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_climate) {
 
-    private val weather by lazy { WeatherSubsystem.getInstance(requireContext()) }
-    private val location by lazy { LocationSubsystem.getInstance(requireContext()) }
-    private val prefs by lazy { UserPreferences(requireContext()) }
-    private val temperatureUnits by lazy { prefs.temperatureUnits }
-    private val distanceUnits by lazy { prefs.baseDistanceUnits }
-    private val precipitationDistanceUnits by lazy {
-        if (distanceUnits.isMetric) {
-            DistanceUnits.Millimeters
-        } else {
-            DistanceUnits.Inches
+    override fun update() {
+        // Views
+        val locationInput = useView<CoordinateInputView>(R.id.location)
+        val elevationInput = useView<ElevationInputView>(R.id.elevation)
+        val datePickerInput = useView<DatePickerView>(R.id.display_date)
+        val titleView = useView<Toolbar>(R.id.climate_title)
+        val temperatureChartView = useView<Chart>(R.id.temperature_chart)
+        val precipitationChartView = useView<Chart>(R.id.precipitation_chart)
+        val climateZoneTitleView = useView<TextView>(R.id.climate_zone_title)
+        val climateZoneDescriptionView = useView<TextView>(R.id.climate_zone_description)
+        val temperatureTitleView = useView<TextView>(R.id.temperature_title)
+        val precipitationTitleView = useView<TextView>(R.id.precipitation_title)
+        val insectActivityTitleView = useView<TextView>(R.id.insect_activity)
+        val insectActivityDescriptionView = useView<TextView>(R.id.insect_activity_description)
+
+        // Services
+        val locationSubsystem = useService<LocationSubsystem>()
+        val weatherSubsystem = useService<WeatherSubsystem>()
+        val formatter = useService<FormatService>()
+        val prefs = useService<UserPreferences>()
+
+        // State
+        val (date, setDate) = useState(LocalDate.now())
+        val (location, setLocation) = useState(locationSubsystem.location)
+        val (elevation, setElevation) = useState(locationSubsystem.elevation)
+
+        // Prefs
+        val temperatureUnits = useMemo(prefs) {
+            prefs.temperatureUnits
         }
-    }
-    private val formatter by lazy { FormatService.getInstance(requireContext()) }
-
-    private var temperatures: List<Pair<LocalDate, Range<Temperature>>> = emptyList()
-    private var precipitation: Map<Month, Distance> = emptyMap()
-    private var currentYear = 0
-    private var climateName: String = ""
-    private var climateDescription: String = ""
-
-    private val temperatureChart by lazy {
-        YearlyTemperatureRangeChart(binding.temperatureChart) {
-            binding.displayDate.date = it
+        val distanceUnits = useMemo(prefs) {
+            prefs.baseDistanceUnits
         }
-    }
-
-    private val precipitationChart by lazy {
-        MonthlyPrecipitationChart(binding.precipitationChart) {
-            binding.displayDate.date = binding.displayDate.date.withMonth(it.value)
+        val precipitationDistanceUnits = useMemo(distanceUnits) {
+            if (distanceUnits.isMetric) {
+                DistanceUnits.Millimeters
+            } else {
+                DistanceUnits.Inches
+            }
         }
-    }
 
-    private val runner = CoroutineQueueRunner()
+        // Charts
+        val temperatureChart = useMemo(temperatureChartView) {
+            YearlyTemperatureRangeChart(temperatureChartView) {
+                setDate(it)
+            }
+        }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        val precipitationChart = useMemo(precipitationChartView) {
+            MonthlyPrecipitationChart(precipitationChartView) {
+                // TODO: This really needs the prev version of a setter
+                setDate(LocalDate.now().withDayOfMonth(15).withMonth(it.value))
+            }
+        }
 
-        binding.climateTitle.subtitle.text = getString(R.string.historic_temperature_years, 30)
-
-        // Populate the initial location and elevation
-        binding.location.coordinate = location.location
-        val elevation = location.elevation.convertTo(distanceUnits)
-        val roundedElevation = elevation.copy(
-            distance = elevation.distance.roundPlaces(
-                Units.getDecimalPlaces(distanceUnits)
+        val temperatures = useBackgroundMemo(
+            date.year,
+            location,
+            elevation,
+            cancelWhenRerun = true
+        ) {
+            weatherSubsystem.getTemperatureRanges(
+                date.year,
+                location,
+                elevation,
+                calibrated = false
             )
-        )
-        binding.elevation.elevation = roundedElevation
-
-        reloadTemperatures()
-
-        // TODO: Make this a dialog
-        binding.location.setOnCoordinateChangeListener {
-            reloadTemperatures()
         }
 
-        binding.location.setOnBeaconSelectedListener {
-            it.elevation?.let { elevation ->
-                binding.elevation.elevation = Distance.meters(elevation).convertTo(distanceUnits)
+        val precipitation = useBackgroundMemo(
+            date.year,
+            location,
+            cancelWhenRerun = true
+        ) {
+            weatherSubsystem.getMonthlyPrecipitation(location)
+        }
+
+        val climateClassification = useMemo(
+            temperatures,
+            precipitation
+        ) {
+            if (temperatures == null || precipitation == null) {
+                return@useMemo null
             }
-            reloadTemperatures()
+            getClimateDescription(temperatures, precipitation)
         }
 
-        binding.location.setOnAutoLocationClickListener {
-            if (binding.elevation.elevation == null) {
-                binding.elevation.autofill()
+        val activityPatterns =
+            useBackgroundMemo(date.year, location, elevation, cancelWhenRerun = true) {
+                PhenologyService(weatherSubsystem).getYearlyActiveDays(
+                    date.year, location, elevation, calibrated = false
+                )
+            }
+
+        // View effects
+        useEffectWithCleanup(
+            lifecycleHookTrigger.onResume(),
+            locationInput,
+            elevationInput,
+            datePickerInput,
+            titleView,
+            locationSubsystem
+        ) {
+
+            titleView.title.text = getString(R.string.historic_temperature_years, 30)
+
+            // Set initial values
+            val roundedElevation = locationSubsystem.elevation.convertTo(distanceUnits).copy(
+                distance = elevation.distance.roundPlaces(
+                    Units.getDecimalPlaces(distanceUnits)
+                )
+            )
+            elevationInput.elevation = roundedElevation
+            locationInput.coordinate = locationSubsystem.location
+            datePickerInput.date = LocalDate.now()
+
+            // On change listeners
+            locationInput.setOnCoordinateChangeListener {
+                setLocation(it ?: locationSubsystem.location)
+            }
+
+            elevationInput.setOnElevationChangeListener {
+                setElevation(it ?: locationSubsystem.elevation)
+            }
+
+            locationInput.setOnAutoLocationClickListener {
+                if (elevationInput.elevation == null) {
+                    elevationInput.autofill()
+                }
+            }
+
+            elevationInput.setOnAutoElevationClickListener {
+                if (locationInput.coordinate == null) {
+                    locationInput.autofill()
+                }
+            }
+
+            locationInput.setOnBeaconSelectedListener {
+                it.elevation?.let { elevation ->
+                    elevationInput.elevation = Distance.meters(elevation).convertTo(distanceUnits)
+                }
+            }
+
+            datePickerInput.setOnDateChangeListener {
+                setDate(it)
+            }
+
+            return@useEffectWithCleanup {
+                locationInput.pause()
+                elevationInput.pause()
             }
         }
 
-        binding.elevation.setOnAutoElevationClickListener {
-            if (binding.location.coordinate == null) {
-                binding.location.autofill()
+        useEffect(date, datePickerInput) {
+            datePickerInput.date = date
+        }
+
+        // Temperature
+        useEffect(temperatures, temperatureTitleView, date) {
+            val range = temperatures?.firstOrNull { it.first == date }?.second ?: return@useEffect
+            val lowValue = formatter.formatTemperature(
+                range.start.convertTo(temperatureUnits)
+            )
+            val highValue = formatter.formatTemperature(
+                range.end.convertTo(temperatureUnits)
+            )
+            temperatureTitleView.text = getString(
+                R.string.climate_temperature_amount,
+                getString(R.string.slash_separated_pair, highValue, lowValue)
+            )
+        }
+
+        useEffect(temperatures, temperatureChart, date) {
+            temperatures ?: return@useEffect
+            temperatureChart.plot(temperatures, temperatureUnits)
+            temperatureChart.highlight(date)
+        }
+
+        // Precipitation
+        useEffect(precipitation, precipitationTitleView, date) {
+            val value = precipitation?.get(date.month)?.convertTo(precipitationDistanceUnits)
+                ?: return@useEffect
+            val formattedValue = formatter.formatDistance(
+                value, if (precipitationDistanceUnits.isMetric) {
+                    0
+                } else {
+                    1
+                }
+            )
+            precipitationTitleView.text =
+                getString(R.string.climate_precipitation_amount, formattedValue)
+        }
+
+        useEffect(precipitation, precipitationChart, date.month) {
+            precipitation ?: return@useEffect
+            precipitationChart.plot(precipitation, precipitationDistanceUnits)
+            precipitationChart.highlight(date.month)
+        }
+
+        // Climate zone
+        useEffect(climateClassification, climateZoneTitleView, climateZoneDescriptionView) {
+            climateClassification?.let {
+                climateZoneTitleView.text = it.first
+                climateZoneDescriptionView.text = it.second
             }
         }
 
-        binding.elevation.setOnElevationChangeListener {
-            reloadTemperatures()
-        }
+        // Activity
+        useEffect(activityPatterns, insectActivityDescriptionView, formatter) {
+            activityPatterns ?: return@useEffect
+            val insects = activityPatterns.entries
+                .filter { it.key.type == BiologicalActivityType.Insect && it.value.isNotEmpty() }
 
-        binding.displayDate.setOnDateChangeListener {
-            reloadTemperatures(recalculate = it.year != currentYear)
+            insectActivityDescriptionView.text = insects
+                .joinToString("\n") {
+                    "${getBiologicalActivityName(it.key)}: ${formatActivity(formatter, it.value)}"
+                }
+
+            insectActivityDescriptionView.isVisible = insects.isNotEmpty()
+            insectActivityTitleView.isVisible = insects.isNotEmpty()
         }
     }
 
     override fun onPause() {
         super.onPause()
-        binding.location.pause()
-        binding.elevation.pause()
+        cleanupEffects()
     }
 
-    override fun generateBinding(
-        layoutInflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentClimateBinding {
-        return FragmentClimateBinding.inflate(layoutInflater, container, false)
+    private fun isActivityWrapped(activePeriods: List<Range<LocalDate>>): Boolean {
+        if (activePeriods.size != 2) {
+            return false
+        }
+
+        val first = activePeriods[0]
+        val second = activePeriods[1]
+
+        // If the first is on Jan 1 and the second ends on Dec 31, then it's wrapped
+        return first.start.dayOfYear == 1 && second.end.month == Month.DECEMBER && second.end.dayOfMonth == 31
     }
 
-    private fun reloadTemperatures(recalculate: Boolean = true) {
-        loadData(
-            binding.displayDate.date,
-            binding.location.coordinate ?: location.location,
-            binding.elevation.elevation ?: Distance.meters(0f),
-            recalculate
-        )
-    }
-
-    private fun loadData(
-        date: LocalDate,
-        location: Coordinate,
-        elevation: Distance,
-        recalculate: Boolean
-    ) {
-        inBackground {
-            runner.replace {
-                if (recalculate) {
-                    temperatures = weather.getTemperatureRanges(
-                        date.year,
-                        location,
-                        elevation,
-                        calibrated = false
-                    )
-                    precipitation = weather.getMonthlyPrecipitation(location)
-                    currentYear = date.year
-                    val climate = getClimateDescription(temperatures, precipitation)
-                    climateName = climate.first
-                    climateDescription = climate.second
-                    println(
-                        PhenologyService(WeatherSubsystem.getInstance(requireContext())).getYearlyMosquitoActiveDays(
-                            currentYear, location, elevation, calibrated = false
-                        )
-                    )
-                }
-
-                val range = temperatures.first { it.first == date }.second
-
-                onMain {
-                    if (isBound) {
-                        plotTemperatures(temperatures)
-                        plotPrecipitation(precipitation)
-                        updateTemperatureTitle(range)
-                        updatePrecipitationTitle(
-                            precipitation[binding.displayDate.date.month] ?: Distance.meters(0f)
-                        )
-                        updateClimateZoneDetails()
-                    }
-                }
-            }
+    private fun getBiologicalActivityName(activity: BiologicalActivity): String {
+        return when (activity) {
+            BiologicalActivity.Mosquito -> getString(R.string.mosquitoes)
         }
     }
 
-    private fun updateTemperatureTitle(range: Range<Temperature>) {
-        val lowValue = formatter.formatTemperature(
-            range.start.convertTo(temperatureUnits)
-        )
-        val highValue = formatter.formatTemperature(
-            range.end.convertTo(temperatureUnits)
-        )
-        binding.temperatureTitle.text = getString(
-            R.string.climate_temperature_amount,
-            getString(R.string.slash_separated_pair, highValue, lowValue)
-        )
-    }
+    private fun formatActivity(formatter: FormatService, activity: List<Range<LocalDate>>): String {
+        val start = if (isActivityWrapped(activity)) {
+            activity[1].start.month
+        } else {
+            activity[0].start.month
+        }
 
-    private fun updatePrecipitationTitle(precipitation: Distance) {
-        val value = precipitation.convertTo(precipitationDistanceUnits)
-        val formattedValue = formatter.formatDistance(
-            value, if (precipitationDistanceUnits.isMetric) {
-                0
-            } else {
-                1
-            }
-        )
-        binding.precipitationTitle.text =
-            getString(R.string.climate_precipitation_amount, formattedValue)
-    }
+        val end = if (isActivityWrapped(activity)) {
+            activity[0].end.month
+        } else {
+            activity[0].end.month
+        }
 
-    private fun plotTemperatures(data: List<Pair<LocalDate, Range<Temperature>>>) {
-        temperatureChart.plot(data, temperatureUnits)
-        temperatureChart.highlight(binding.displayDate.date)
-    }
-
-    private fun plotPrecipitation(data: Map<Month, Distance>) {
-        precipitationChart.plot(data, precipitationDistanceUnits)
-        precipitationChart.highlight(binding.displayDate.date.month)
-    }
-
-    private fun updateClimateZoneDetails() {
-        binding.climateZoneTitle.text = climateName
-        binding.climateZoneDescription.text = climateDescription
+        return "Active from ${formatter.formatMonth(start)} to ${
+            formatter.formatMonth(
+                end
+            )
+        }"
     }
 
     private fun getClimateDescription(

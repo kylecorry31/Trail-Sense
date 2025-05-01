@@ -9,6 +9,8 @@ import com.kylecorry.andromeda.core.topics.ITopic
 import com.kylecorry.andromeda.core.topics.Topic
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.math.Range
+import com.kylecorry.sol.science.meteorology.KoppenGeigerClimateClassification
+import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -243,6 +245,25 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         return HistoricMonthlyPrecipitationRepo.getMonthlyPrecipitation(
             context,
             resolved.first
+        )
+    }
+
+    override suspend fun getClimateClassification(
+        location: Coordinate?,
+        elevation: Distance?,
+        calibrated: Boolean
+    ): KoppenGeigerClimateClassification {
+        val temperatures =
+            getTemperatureRanges(LocalDate.now().year, location, elevation, calibrated)
+        val precipitation = getMonthlyPrecipitation(location)
+
+        val monthlyAverageTemperatures = temperatures
+            .filter { it.first.dayOfMonth == 15 }
+            .associate { it.first.month to Temperature.celsius((it.second.start.celsius().temperature + it.second.end.celsius().temperature) / 2) }
+
+        return Meteorology.getKoppenGeigerClimateClassification(
+            monthlyAverageTemperatures,
+            precipitation
         )
     }
 

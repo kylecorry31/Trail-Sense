@@ -97,6 +97,20 @@
                 android:layout_height="wrap_content"
                 tools:text="Climate zone description" />
 
+            <TextView
+                android:id="@+id/insect_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/insect_activity"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
+
+            <TextView
+                android:id="@+id/insect_activity_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Insect activity description" />
+
         </LinearLayout>
 
     </ScrollView>
