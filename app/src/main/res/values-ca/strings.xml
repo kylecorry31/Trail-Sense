@@ -58,12 +58,12 @@
     <string name="pref_max_beacon_distance_title">Radi a les fites properes</string>
     <string name="pref_show_calibrate_on_navigate_dialog_title">Calibrar abans de navegar</string>
     <string name="pref_display_multi_beacons_summary">Mostrar les fites més properes a la brúixola</string>
-    <string name="pref_num_visible_beacons_title">Fites properes</string>
+    <string name="pref_num_visible_beacons_title">Balises properes</string>
     <string name="pref_show_linear_compass_summary">Quan el dispositiu està vertical</string>
     <string name="pref_show_linear_compass_title">Mostrar brúixola linial</string>
-    <string name="pref_display_multi_beacons_title">Mostrar fites properes</string>
+    <string name="pref_display_multi_beacons_title">Mostra les balises properes</string>
     <string name="pref_adjust_for_temperature_summary">Utilitzar la temperatura en les conversions de pressió atmosfèrica</string>
-    <string name="pref_adjust_for_temperature_title">Factor en temperatura</string>
+    <string name="pref_adjust_for_temperature_title">Considera la temperatura</string>
     <string name="pref_use_sea_level_pressure_title">Pressió a nivell del mar</string>
     <string name="no_data">Sense dades</string>
     <string name="precise_temp_c_format">%s °C</string>
@@ -139,10 +139,10 @@
     <string name="weather">Temps</string>
     <string name="navigation">Navegació</string>
     <string name="never">Mai</string>
-    <string name="altimeter_mode_gps_barometer">GPS + Baròmetre</string>
+    <string name="altimeter_mode_gps_barometer">GPS + baròmetre</string>
     <string name="pref_elevation_override_sea_level_title">Utilitza una pressió coneguda al nivell del mar</string>
-    <string name="pref_elevation_override_sea_level_dialog_title">Introdueixi la pressió a nivell de mar</string>
-    <string name="pref_elevation_override_sea_level_dialog_msg">Introdueixi la pressió a nivell de mar en hPa</string>
+    <string name="pref_elevation_override_sea_level_dialog_title">Introduïu la pressió a nivell de mar</string>
+    <string name="pref_elevation_override_sea_level_dialog_msg">Introduïu la pressió a nivell de mar actual en hPa</string>
     <string name="elevation_override_updated_toast">Substitució d’altitud actualitzada</string>
     <string name="pref_elevation_override_title">Substitució d’altitud</string>
     <string name="elevation_from_pressure">Utilitzar les dades del baròmetre per l\'altitud</string>
@@ -569,4 +569,6 @@
     <string name="climate_temperate">Temperat</string>
     <string name="climate_continental">Continental</string>
     <string name="mosquitoes">Mosquits</string>
+    <string name="ticks">Paparres</string>
+    <string name="muzzle_velocity">Velocitat inicial</string>
 </resources>
