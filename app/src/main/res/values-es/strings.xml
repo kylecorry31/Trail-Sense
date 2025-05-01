@@ -147,7 +147,7 @@
     <string name="no_data">Sin datos</string>
     <string name="units_inhg_short">pulgadas</string>
     <string name="accuracy_distance_format">± %s</string>
-    <string name="tool_solar_panel_title">Alineador de Panel Solar</string>
+    <string name="tool_solar_panel_title">Alineador de panel solar</string>
     <string name="tool_solar_panel_summary">Posicionar paneles solares de forma óptima para generar energía</string>
     <string name="pref_privacy_policy_title">Política de Privacidad</string>
     <string name="guide_recommended_apps_description">Aplicaciones útiles para situaciones de supervivencia</string>
@@ -515,7 +515,7 @@
     <string name="pref_elevation_override_sea_level_dialog_title">Introduzca la presión al nivel del mar</string>
     <string name="pref_elevation_override_sea_level_title">Usando una presión conocida al nivel del mar</string>
     <string name="unsaved_changes">Cambios sin guardar</string>
-    <string name="solar_panel_instructions">Coloca el teléfono en la parte frontal del panel solar para comenzar.</string>
+    <string name="solar_panel_instructions">Coloque su teléfono en la parte frontal del panel solar para comenzar.</string>
     <string name="water_boil_timer_channel_description">El agua está hirviendo</string>
     <string name="water_boil_timer_title">El agua está hirviendo</string>
     <string name="water_boil_timer_done_title">El agua ha terminado de hervir</string>
@@ -1349,4 +1349,6 @@
     <string name="climate_continental">Continental</string>
     <string name="climate_steppe">Estepa</string>
     <string name="mosquitoes">Mosquitos</string>
+    <string name="ticks">Garrapatas</string>
+    <string name="muzzle_velocity">Velocidad inicial</string>
 </resources>
