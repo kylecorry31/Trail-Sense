@@ -73,6 +73,9 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_climate) {
                 DistanceUnits.Inches
             }
         }
+        val isInsectActivityEnabled = useMemo(prefs) {
+            prefs.climate.isInsectActivityEnabled
+        }
 
         // Charts
         val temperatureChart = useMemo(temperatureChartView) {
@@ -242,17 +245,18 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_climate) {
 
         // Activity
         useEffect(activityPatterns, insectActivityDescriptionView, formatter) {
-            activityPatterns ?: return@useEffect
-            val insects = activityPatterns.entries
-                .filter { it.key.type == BiologicalActivityType.Insect && it.value.isNotEmpty() }
+            val insects = activityPatterns?.entries
+                ?.filter { it.key.type == BiologicalActivityType.Insect && it.value.isNotEmpty() }
+                ?: emptyList()
 
             insectActivityDescriptionView.text = insects
                 .joinToString("\n") {
                     "${getBiologicalActivityName(it.key)}: ${formatActivity(formatter, it.value)}"
                 }
 
-            insectActivityDescriptionView.isVisible = insects.isNotEmpty()
-            insectActivityTitleView.isVisible = insects.isNotEmpty()
+            insectActivityDescriptionView.isVisible =
+                isInsectActivityEnabled && insects.isNotEmpty()
+            insectActivityTitleView.isVisible = isInsectActivityEnabled && insects.isNotEmpty()
         }
     }
 

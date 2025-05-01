@@ -73,7 +73,6 @@ class PhenologyService(private val weather: IWeatherSubsystem) {
         return activePeriods
     }
 
-    // TODO: Pass in yearly temps, climate zone, etc - and only call from weather subsystem
     suspend fun getYearlyActiveDays(
         year: Int,
         location: Coordinate? = null,

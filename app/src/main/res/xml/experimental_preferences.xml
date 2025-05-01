@@ -43,6 +43,14 @@
             app:summary="@string/ballistics" />
 
         <SwitchPreferenceCompat
+            android:title="@string/insect_activity"
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_climate_insect_activity_enabled"
+            app:singleLineTitle="false"
+            app:summary="@string/tool_climate" />
+
+        <SwitchPreferenceCompat
             app:defaultValue="false"
             app:disableDependentsState="true"
             app:iconSpaceReserved="false"
