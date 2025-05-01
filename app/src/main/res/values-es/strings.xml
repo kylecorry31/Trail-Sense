@@ -159,7 +159,7 @@
     <string name="unit_meters">Metros</string>
     <string name="distance_to">Hasta</string>
     <string name="distance_from">Desde</string>
-    <string name="inventory_empty_text">Sin ítems</string>
+    <string name="inventory_empty_text">Ningún elemento</string>
     <string name="tool_whistle_title">Silbato</string>
     <string name="tool_cliff_height_description">Mide la altura de un precipicio o una caída</string>
     <string name="tool_cliff_height_disclaimer">Utiliza esta herramienta solo cuando sea seguro, y asegúrate de comprobar qué hay debajo del precipicio para evitar heridas. Mira la guía de usuario para instrucciones.</string>
@@ -1339,4 +1339,13 @@
     <string name="climate_temperature_amount">Temperatura: %s</string>
     <string name="source_era5">Fuente: ERA5</string>
     <string name="source_merra_2">Fuente: MERRA-2</string>
+    <string name="climate_tropical_rainforest">Selva tropical</string>
+    <string name="climate_ice_cap">Casquete de hielo</string>
+    <string name="climate_tropical_monsoon">Monzón tropical</string>
+    <string name="climate_tropical_savanna">Sabana tropical</string>
+    <string name="climate_desert">Desierto</string>
+    <string name="climate_tundra">Tundra</string>
+    <string name="climate_temperate">Templado</string>
+    <string name="climate_continental">Continental</string>
+    <string name="climate_steppe">Estepa</string>
 </resources>
