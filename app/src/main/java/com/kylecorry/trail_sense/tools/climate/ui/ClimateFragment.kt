@@ -296,11 +296,11 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_climate) {
             activity[0].end.month
         }
 
-        return "Active from ${formatter.formatMonth(start)} to ${
-            formatter.formatMonth(
+        return getString(
+            R.string.active_period, formatter.formatMonth(start), formatter.formatMonth(
                 end
             )
-        }"
+        )
     }
 
     private fun getClimateDescription(
