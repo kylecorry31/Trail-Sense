@@ -1,11 +1,12 @@
 package com.kylecorry.trail_sense.tools.climate.domain
 
 import com.kylecorry.sol.math.Range
-import com.kylecorry.sol.science.meteorology.KoppenGeigerClimateGroup
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
+import com.kylecorry.trail_sense.tools.climate.domain.PhenologyService.Companion.EVENT_ACTIVE_END
+import com.kylecorry.trail_sense.tools.climate.domain.PhenologyService.Companion.EVENT_ACTIVE_START
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.IWeatherSubsystem
 import java.time.LocalDate
 import java.time.Month
@@ -16,15 +17,15 @@ enum class BiologicalActivityType {
     Foliage,
 }
 
-enum class BiologicalActivity(val type: BiologicalActivityType) {
-    Mosquito(BiologicalActivityType.Insect)
-}
-
-class PhenologyService(private val weather: IWeatherSubsystem) {
-
-    private val phenology = mapOf(
-        // https://www.nrcc.cornell.edu/industry/mosquito/degreedays.html
-        BiologicalActivity.Mosquito to SpeciesPhenology(
+// TODO: Instead of excluded climates, use a regex string for if the climate is valid
+enum class BiologicalActivity(
+    val type: BiologicalActivityType,
+    val phenology: SpeciesPhenology,
+    val excludedClimates: List<String>
+) {
+    Mosquito(
+        BiologicalActivityType.Insect, // https://www.nrcc.cornell.edu/industry/mosquito/degreedays.html
+        SpeciesPhenology(
             Temperature.celsius(10f),
             listOf(
                 LifecycleEvent(
@@ -37,15 +38,40 @@ class PhenologyService(private val weather: IWeatherSubsystem) {
                 )
             ),
             growingDegreeDaysCalculationType = GrowingDegreeDaysCalculationType.BaseMax
+        ),
+        listOf(
+            "BWh",
+            "BWk",
+            "ET",
+            "EF"
+        )
+    ),
+    Tick(
+        BiologicalActivityType.Insect, SpeciesPhenology(
+            // These numbers were determined from my research + experimentation - find a reliable source if possible or calculate using iNaturalist data
+            Temperature.celsius(0f),
+            listOf(
+                LifecycleEvent(
+                    EVENT_ACTIVE_START,
+                    MinimumGrowingDegreeDaysTrigger(100f, TemperatureUnits.F)
+                ),
+                LifecycleEvent(
+                    EVENT_ACTIVE_END,
+                    FirstFrostTrigger(Temperature.celsius(0f))
+                )
+            ),
+            growingDegreeDaysCalculationType = GrowingDegreeDaysCalculationType.BaseMax
+        ),
+        listOf(
+            "BWh",
+            "BWk",
+            "ET",
+            "EF"
         )
     )
+}
 
-    private val excludedClimates = mapOf(
-        BiologicalActivity.Mosquito to listOf(
-            KoppenGeigerClimateGroup.Dry,
-            KoppenGeigerClimateGroup.Polar
-        )
-    )
+class PhenologyService(private val weather: IWeatherSubsystem) {
 
     private fun getActivePeriodsForYear(
         year: Int,
@@ -87,21 +113,21 @@ class PhenologyService(private val weather: IWeatherSubsystem) {
         val activeDays = mutableMapOf<BiologicalActivity, List<Range<LocalDate>>>()
 
         for (species in BiologicalActivity.entries) {
-            if (climate.climateGroup in excludedClimates[species]!!) {
+            if (climate.code in species.excludedClimates) {
                 activeDays[species] = listOf()
                 continue
             }
 
             // If it doesn't drop below the base temperature, then they are active all year
             // TODO: Use average or max?
-            if (temperatures.all { it.second.start.celsius().temperature >= phenology[species]!!.baseGrowingDegreeDaysTemperature.celsius().temperature }) {
+            if (temperatures.all { it.second.start.celsius().temperature >= species.phenology.baseGrowingDegreeDaysTemperature.celsius().temperature }) {
                 activeDays[species] =
                     listOf(Range(LocalDate.of(year, 1, 1), LocalDate.of(year, 12, 31)))
                 continue
             }
 
             val events = Phenology.getLifecycleEventDates(
-                phenology[species]!!,
+                species.phenology,
                 Range(LocalDate.of(year - 1, 1, 1), LocalDate.of(year, 12, 31))
             ) { date ->
                 (if (date.month == Month.FEBRUARY && date.dayOfMonth == 29 && !containsLeapDay) {
@@ -119,8 +145,8 @@ class PhenologyService(private val weather: IWeatherSubsystem) {
     }
 
     companion object {
-        private const val EVENT_ACTIVE_START = "ACTIVE_START"
-        private const val EVENT_ACTIVE_END = "ACTIVE_END"
+        const val EVENT_ACTIVE_START = "ACTIVE_START"
+        const val EVENT_ACTIVE_END = "ACTIVE_END"
     }
 
 }
