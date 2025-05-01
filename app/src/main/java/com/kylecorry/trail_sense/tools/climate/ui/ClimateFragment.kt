@@ -137,7 +137,7 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_climate) {
             locationSubsystem
         ) {
 
-            titleView.title.text = getString(R.string.historic_temperature_years, 30)
+            titleView.subtitle.text = getString(R.string.historic_temperature_years, 30)
 
             // Set initial values
             val roundedElevation = locationSubsystem.elevation.convertTo(distanceUnits).copy(
