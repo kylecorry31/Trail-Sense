@@ -147,7 +147,7 @@
     <string name="no_data">Sin datos</string>
     <string name="units_inhg_short">pulgadas</string>
     <string name="accuracy_distance_format">± %s</string>
-    <string name="tool_solar_panel_title">Alineador de Panel Solar</string>
+    <string name="tool_solar_panel_title">Alineador de panel solar</string>
     <string name="tool_solar_panel_summary">Posicionar paneles solares de forma óptima para generar energía</string>
     <string name="pref_privacy_policy_title">Política de Privacidad</string>
     <string name="guide_recommended_apps_description">Aplicaciones útiles para situaciones de supervivencia</string>
@@ -159,10 +159,10 @@
     <string name="unit_meters">Metros</string>
     <string name="distance_to">Hasta</string>
     <string name="distance_from">Desde</string>
-    <string name="inventory_empty_text">Sin ítems</string>
+    <string name="inventory_empty_text">Ningún elemento</string>
     <string name="tool_whistle_title">Silbato</string>
     <string name="tool_cliff_height_description">Mide la altura de un precipicio o una caída</string>
-    <string name="tool_cliff_height_disclaimer">Utiliza esta herramienta solo cuando sea seguro, y asegúrate de comprobar qué hay debajo del precipicio para evitar heridas. Mira la guía de usuario para instrucciones.</string>
+    <string name="tool_cliff_height_disclaimer">Utilice esta herramienta solo cuando sea seguro, y asegúrese de comprobar qué hay debajo del precipicio para evitar heridas. Mire la guía de uso para instrucciones.</string>
     <string name="tool_cliff_height_title">Altura de precipicio</string>
     <string name="toast_destination_bearing_set">Orientación al destino establecida</string>
     <string name="category_natural">Natural</string>
@@ -506,7 +506,7 @@
     <string name="last_signal_beacon_name">Última señal -%1$s (%2$s)</string>
     <string name="pref_show_last_signal_beacon_title">Baliza de última señal</string>
     <string name="pref_show_last_signal_beacon_summary">Crea una baliza para la ubicación de la última señal de celular</string>
-    <string name="whistle_signal_where_are_you">¿Dónde estás\?</string>
+    <string name="whistle_signal_where_are_you">¿Dónde está?</string>
     <string name="whistle_signal_acknowledged">Admitido</string>
     <string name="whistle_signal_come_here">Ven aquí</string>
     <string name="weather_monitor">Estación meteorológica</string>
@@ -515,7 +515,7 @@
     <string name="pref_elevation_override_sea_level_dialog_title">Introduzca la presión al nivel del mar</string>
     <string name="pref_elevation_override_sea_level_title">Usando una presión conocida al nivel del mar</string>
     <string name="unsaved_changes">Cambios sin guardar</string>
-    <string name="solar_panel_instructions">Coloca el teléfono en la parte frontal del panel solar para comenzar.</string>
+    <string name="solar_panel_instructions">Coloque su teléfono en la parte frontal del panel solar para comenzar.</string>
     <string name="water_boil_timer_channel_description">El agua está hirviendo</string>
     <string name="water_boil_timer_title">El agua está hirviendo</string>
     <string name="water_boil_timer_done_title">El agua ha terminado de hervir</string>
@@ -1336,4 +1336,19 @@
     <string name="speed">Velocidad</string>
     <string name="feet_per_second">Pies por segundo</string>
     <string name="meters_per_second">Metros por segundo</string>
+    <string name="climate_temperature_amount">Temperatura: %s</string>
+    <string name="source_era5">Fuente: ERA5</string>
+    <string name="source_merra_2">Fuente: MERRA-2</string>
+    <string name="climate_tropical_rainforest">Selva tropical</string>
+    <string name="climate_ice_cap">Casquete de hielo</string>
+    <string name="climate_tropical_monsoon">Monzón tropical</string>
+    <string name="climate_tropical_savanna">Sabana tropical</string>
+    <string name="climate_desert">Desierto</string>
+    <string name="climate_tundra">Tundra</string>
+    <string name="climate_temperate">Templado</string>
+    <string name="climate_continental">Continental</string>
+    <string name="climate_steppe">Estepa</string>
+    <string name="mosquitoes">Mosquitos</string>
+    <string name="ticks">Garrapatas</string>
+    <string name="muzzle_velocity">Velocidad inicial</string>
 </resources>
