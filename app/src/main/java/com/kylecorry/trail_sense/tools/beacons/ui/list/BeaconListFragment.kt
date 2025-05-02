@@ -399,7 +399,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         )
     }
 
-    private fun refresh() {
+    fun refresh() {
         manager.refresh()
     }
 
