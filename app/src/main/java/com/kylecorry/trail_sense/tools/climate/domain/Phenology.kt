@@ -55,7 +55,7 @@ class MinimumGrowingDegreeDaysTrigger(
     }
 }
 
-class FirstFrostTrigger(
+class BelowTemperatureTrigger(
     averageLowTemperature: Temperature = Temperature.celsius(0f),
 ) : LifecycleEventTrigger {
 
@@ -63,11 +63,28 @@ class FirstFrostTrigger(
 
     override fun isTriggered(factors: LifecycleEventFactors): Boolean {
         val aboveFreezing =
-            factors.temperatureHistory30Days.indexOfFirst { it.end.celsius().temperature > averageLowC }
+            factors.temperatureHistory30Days.indexOfFirst { it.start.celsius().temperature > averageLowC }
         val belowFreezing =
             factors.temperatureHistory30Days.indexOfFirst { it.start.celsius().temperature <= averageLowC }
         // Drops below freezing
         return aboveFreezing != -1 && belowFreezing > aboveFreezing
+    }
+
+}
+
+class AboveTemperatureTrigger(
+    averageHighTemperature: Temperature = Temperature.celsius(0f),
+) : LifecycleEventTrigger {
+
+    private val averageHighC = averageHighTemperature.celsius().temperature
+
+    override fun isTriggered(factors: LifecycleEventFactors): Boolean {
+        val aboveTemperature =
+            factors.temperatureHistory30Days.indexOfFirst { it.end.celsius().temperature >= averageHighC }
+        val belowTemperature =
+            factors.temperatureHistory30Days.indexOfFirst { it.end.celsius().temperature < averageHighC }
+        // Rises above temperature
+        return belowTemperature != -1 && aboveTemperature > belowTemperature
     }
 
 }

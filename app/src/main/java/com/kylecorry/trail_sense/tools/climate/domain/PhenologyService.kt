@@ -34,7 +34,7 @@ enum class BiologicalActivity(
                 ),
                 LifecycleEvent(
                     EVENT_ACTIVE_END,
-                    FirstFrostTrigger(Temperature.celsius(5f))
+                    BelowTemperatureTrigger(Temperature.celsius(5f))
                 )
             ),
             growingDegreeDaysCalculationType = GrowingDegreeDaysCalculationType.BaseMax
@@ -48,19 +48,18 @@ enum class BiologicalActivity(
     ),
     Tick(
         BiologicalActivityType.Insect, SpeciesPhenology(
-            // These numbers were determined from my research + experimentation - find a reliable source if possible or calculate using iNaturalist data
-            Temperature.celsius(0f),
+            // Ticks have lifecycles of 2 years, adults aren't driven by GDD - they are active whenever the temperature is ideal for them
+            Temperature.celsius(7.2f),
             listOf(
                 LifecycleEvent(
                     EVENT_ACTIVE_START,
-                    MinimumGrowingDegreeDaysTrigger(100f, TemperatureUnits.F)
+                    AboveTemperatureTrigger(Temperature.celsius(7.2f))
                 ),
                 LifecycleEvent(
                     EVENT_ACTIVE_END,
-                    FirstFrostTrigger(Temperature.celsius(0f))
+                    BelowTemperatureTrigger(Temperature.celsius(0f))
                 )
-            ),
-            growingDegreeDaysCalculationType = GrowingDegreeDaysCalculationType.BaseMax
+            )
         ),
         listOf(
             "BWh",
