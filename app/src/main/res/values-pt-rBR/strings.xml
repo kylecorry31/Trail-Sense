@@ -1359,4 +1359,8 @@
     <string name="climate_polar_description">Um clima extremamente frio com verões curtos.</string>
     <string name="climate_very_cold_winter_description">Planeje-se para temperaturas extremamente baixas durante o inverno.</string>
     <string name="climate_cold_summer_description">Planeje-se para temperaturas baixas durante o verão.</string>
+    <string name="insect_activity">Atividade dos insetos</string>
+    <string name="mosquitoes">Mosquitos</string>
+    <string name="active_period">Ativo de %1$s a %2$s</string>
+    <string name="ticks">Carrapatos</string>
 </resources>
