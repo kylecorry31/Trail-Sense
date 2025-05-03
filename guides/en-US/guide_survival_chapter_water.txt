@@ -130,6 +130,8 @@ Water may contain chemicals from industrial or agricultural runoff. Purification
 
 A wooden bowl can be used to boil water using hot rocks.
 
+![](file:///android_asset/survival_guide/log_bowl.webp)
+
 **Resources**
 - A small log (not decayed)
 - Hot coals
