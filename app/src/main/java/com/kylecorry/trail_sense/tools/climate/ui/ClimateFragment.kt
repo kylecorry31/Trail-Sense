@@ -54,11 +54,6 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_climate) {
         val formatter = useService<FormatService>()
         val prefs = useService<UserPreferences>()
 
-        // State
-        val (date, setDate) = useState(LocalDate.now())
-        val (location, setLocation) = useState(locationSubsystem.location)
-        val (elevation, setElevation) = useState(locationSubsystem.elevation)
-
         // Prefs
         val temperatureUnits = useMemo(prefs) {
             prefs.temperatureUnits
@@ -76,6 +71,11 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_climate) {
         val isInsectActivityEnabled = useMemo(prefs) {
             prefs.climate.isInsectActivityEnabled
         }
+
+        // State
+        val (date, setDate) = useState(LocalDate.now())
+        val (location, setLocation) = useState(locationSubsystem.location)
+        val (elevation, setElevation) = useState(locationSubsystem.elevation.convertTo(distanceUnits))
 
         // Charts
         val temperatureChart = useMemo(temperatureChartView) {
@@ -143,13 +143,13 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_climate) {
             titleView.subtitle.text = getString(R.string.historic_temperature_years, 30)
 
             // Set initial values
-            val roundedElevation = locationSubsystem.elevation.convertTo(distanceUnits).copy(
+            val roundedElevation = elevation.copy(
                 distance = elevation.distance.roundPlaces(
                     Units.getDecimalPlaces(distanceUnits)
                 )
             )
             elevationInput.elevation = roundedElevation
-            locationInput.coordinate = locationSubsystem.location
+            locationInput.coordinate = location
             datePickerInput.date = LocalDate.now()
 
             // On change listeners
