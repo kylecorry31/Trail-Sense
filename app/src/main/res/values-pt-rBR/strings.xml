@@ -655,7 +655,7 @@
     <string name="camera">Câmera</string>
     <string name="quarter_moon">Quarto crescente</string>
     <string name="gps_signal_lost">Sinal do GPS perdido</string>
-    <string name="elevation_history_length">Histórico de altitude</string>
+    <string name="elevation_history_length">Comprimento do histórico de altitude</string>
     <string name="last_duration">Último %s</string>
     <plurals name="waypoints_to_be_deleted">
         <item quantity="one">%d ponto do percurso será excluído</item>

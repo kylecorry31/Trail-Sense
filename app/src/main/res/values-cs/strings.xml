@@ -308,9 +308,9 @@
     <string name="always_on">Vždy zapnuto</string>
     <string name="service_update_frequency">Aktualizace každých %s</string>
     <string name="battery_usage">%s využití baterie</string>
-    <string name="high">Vysoko</string>
-    <string name="moderate">Mírný</string>
-    <string name="low">Nízký</string>
+    <string name="high">Silný</string>
+    <string name="moderate">Střední</string>
+    <string name="low">Slabý</string>
     <string name="no_gps_signal">Žádný signál GPS</string>
     <string name="none">Žádný</string>
     <string name="left_quick_action">Rychlá akce vlevo</string>
