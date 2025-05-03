@@ -23,6 +23,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.main.TrailSenseApplicationInitializer
+import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -135,13 +136,12 @@ object TestUtils {
     /**
      * Setup the application to match the actual application (Trail Sense application)
      */
-    fun setupApplication(setDefaultPrefs: Boolean = true) {
+    fun setupApplication() {
         WorkManagerTestInitHelper.initializeTestWorkManager(context)
+        // Drop the DB
+        AppDatabase.getInstance(context).clearAllTables()
         TrailSenseApplicationInitializer.initialize(context)
-
-        if (setDefaultPrefs) {
-            setupDefaultPreferences()
-        }
+        setupDefaultPreferences()
     }
 
     fun setLocationOverride(coordinate: Coordinate) {
