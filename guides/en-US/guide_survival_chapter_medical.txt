@@ -872,6 +872,29 @@ Cover your eyes with a dark cloth until symptoms disappear.
 ### Prevention
 Wear UV-protective sunglasses or snow goggles. If you do not have these, you can make snow goggles from a piece of cloth or a piece of bark with slits cut in it. You can also put soot under your eyes to reduce glare.
 
+## Splinters and thorns
+<!-- K: splinter, thorn, wood, needle, remove, tweezers, hand -->
+<!-- S: Treat by removing the splinter with tweezers and cleaning the area. Prevent by using caution when handling dry wood or thorn bushes. -->
+
+Splinters and thorns can be painful and may lead to infection if not removed.
+
+### Treatment
+If the splinter is deep or very large, seek medical attention and do not try to remove it yourself.
+
+1. Inspect the splinter to see if any part is exposed and determine which direction it entered.
+2. If no part is exposed, sterilize a needle using hand sanitizer or a flame and gently use it to expose one end of the splinter.
+3. Use tweezers to grab the exposed end of the splinter, preferably pulling in the opposite direction from how it entered.
+4. Slowly pull the splinter out.
+5. Repeat if any pieces remain.
+6. If the splinter drew blood when removed, treat it as a cut. Applying antibiotic ointment and a bandage won't hurt.
+
+Thorns can be removed the same way as splinters, and some may come out easily without tweezers.
+
+### Prevention
+- Use caution when handling dry wood or thorn bushes.
+- Avoid walking through thorn bushes.
+- Wear long sleeves and pants if going off trail.
+
 ## Sprains and strains
 <!-- K: sprain, strain, tendon, ligament, muscle, pain, swell, bruise, move, spasm, cramp, weakness, pop, tear -->
 <!-- S: Symptoms include pain, swelling, bruising, loss of motion, muscle spasms, cramping, and weakness. Treat by resting, icing, compressing, and elevating the area. Prevent this by doing warm-ups, wearing proper footwear, and watching your steps. -->
