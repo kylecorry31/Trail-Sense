@@ -159,10 +159,13 @@ If you are using a hand drill, follow the same steps as the bow drill, except do
 You should always have a plan to quickly extinguish your fire in case it begins to spread. Thoroughly extinguish your fire by dousing it with water or covering it with dirt. Make sure no embers remain that could reignite or cause a wildfire. If you are on a beach, do not cover the fire with sand; it can insulate the heat and cause burns.
 
 ## Increasing warmth
-<!-- K: rock, reflector, hand-warmer -->
+<!-- K: rock, reflector, hand-warmer, hardwood, softwood -->
 <!-- S: Maximize heat by using a fire reflector or heated rocks. -->
 
 To maximize the heat from your fire, you can add more dry fuel, build a fire reflector, heat up rocks, or increase the insulation of your clothing and shelter.
+
+### Types of wood
+Hardwoods (oak, maple, ash, beech, etc.) burn slowly and hot, while softwoods (pine, fir, spruce, cedar) burn faster and cooler. Once you have a hot fire going, start adding hardwoods to make it last longer and burn hotter.
 
 ### Fire reflector
 A fire reflector is a wall built behind the fire to reflect heat toward you and protect the fire from wind. Use rocks, logs, or snow to create a barrier.
