@@ -22,6 +22,4 @@ By default, your current location is used. If you want to change this, enter a n
 ## Accuracy
 Climate normals are based on the 30-year average of the historical data and indicate what the weather usually is. The actual values may differ for a variety of reasons but should remain fairly close to the historical values. Large differences are normally due to a storm or other weather event.
 
-Historic temperatures are estimated using a custom 30-year "climate normal" model derived from the NASA Global Modeling and Assimilation Office - MERRA-2 data (1991 - 2020).
-
-Precipitation data and climate zone classifications are derived from global climate datasets and provide general guidance for planning purposes. Local microclimates and recent climate changes may cause actual conditions to vary.
+Historic temperatures and precipitation are estimated using a custom 30-year "climate normal" model derived from the NASA Global Modeling and Assimilation Office - MERRA-2 and ERA5 data respectively (1991 - 2020).
