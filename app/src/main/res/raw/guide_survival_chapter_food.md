@@ -166,7 +166,7 @@ You can construct a bottle fish trap by cutting off the cap and top quarter of a
 
 Alternatively, you can construct an M-shaped funnel trap by hammering sticks into the water to form a small entrance and walls. This can be built using the shore as a back wall to reduce effort. Small fish will swim into the trap and be unable to find their way out.
 
-![](file:///android_asset/survival_guide/50.webp)
+![](file:///android_asset/survival_guide/fish_trap_funnel.webp)
 
 
 ![](file:///android_asset/survival_guide/fish_trap_bottle.webp)
