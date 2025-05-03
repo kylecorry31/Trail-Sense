@@ -59,11 +59,11 @@ fun TestView.input(text: String, checkDescendants: Boolean = false): TestView {
     return this
 }
 
-fun TestView.scroll(direction: Direction = Direction.DOWN, percent: Float = 0.5f): TestView {
-    uiObject.scroll(direction, percent)
+fun TestView.scroll(direction: Direction = Direction.DOWN, percent: Float = 0.5f): Boolean {
+    val scrolled = uiObject.scroll(direction, percent)
     // Wait after scrolling (Android 16 issue)
     Thread.sleep(500)
-    return this
+    return scrolled
 }
 
 fun TestView.scrollToEnd(direction: Direction = Direction.DOWN): TestView {

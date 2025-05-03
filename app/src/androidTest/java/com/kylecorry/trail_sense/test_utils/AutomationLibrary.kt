@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.test_utils.views.hasText
 import com.kylecorry.trail_sense.test_utils.views.input
 import com.kylecorry.trail_sense.test_utils.views.isChecked
 import com.kylecorry.trail_sense.test_utils.views.longClick
+import com.kylecorry.trail_sense.test_utils.views.scroll
 import com.kylecorry.trail_sense.test_utils.views.scrollToEnd
 import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.test_utils.views.viewWithHint
@@ -312,6 +313,38 @@ object AutomationLibrary {
         waitFor(waitForTime) {
             view(id, index = index).scrollToEnd(Direction.UP)
         }
+    }
+
+    fun scrollUntil(
+        id: Int,
+        direction: Direction = Direction.DOWN,
+        maxScrolls: Int = 10,
+        amountPerScroll: Float = 0.5f,
+        index: Int = 0,
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT,
+        action: () -> Unit
+    ) {
+            var scrollsDone = 0
+            while (scrollsDone < maxScrolls) {
+                try {
+                    action()
+                    // Action succeeded, no need to scroll further
+                    return
+                } catch (e: Throwable) {
+                    // Action failed, try scrolling
+                    var scrolled = false
+                    waitFor(waitForTime) {
+                        scrolled = view(id, index = index).scroll(direction, amountPerScroll)
+                    }
+                    if (!scrolled) {
+                        // Couldn't scroll further
+                        break
+                    }
+                    scrollsDone++
+                }
+            }
+            // Try action one last time after all scrolling
+            action()
     }
 
     fun hasNotification(
