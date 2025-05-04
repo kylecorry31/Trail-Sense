@@ -136,6 +136,7 @@ The following conversions are approximate, but that is fine for purification.
 - 1 liter = 1 quart
 - 1 liter = 1000 milliliters
 - 1 quart = 32 ounces
+- 1 gallon = 4 quarts
 
 ### Hazards
 
