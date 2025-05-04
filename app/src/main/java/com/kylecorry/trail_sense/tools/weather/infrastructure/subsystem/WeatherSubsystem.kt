@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.shared.data.DataUtils
 import com.kylecorry.trail_sense.shared.debugging.DebugWeatherCommand
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
+import com.kylecorry.trail_sense.tools.climate.infrastructure.ClimateSubsystem
 import com.kylecorry.trail_sense.tools.climate.infrastructure.precipitation.HistoricMonthlyPrecipitationRepo
 import com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures.HistoricTemperatureRepo
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudRepo
@@ -52,7 +53,7 @@ import java.time.ZonedDateTime
 class WeatherSubsystem private constructor(private val context: Context) : IWeatherSubsystem {
 
     private val weatherRepo by lazy { WeatherRepo.getInstance(context) }
-    private val temperatureRepo by lazy { HistoricTemperatureRepo(context) }
+    private val climate by lazy { ClimateSubsystem.getInstance(context) }
     private val cloudRepo by lazy { CloudRepo.getInstance(context) }
     private val prefs by lazy { UserPreferences(context) }
     private val sharedPrefs by lazy { PreferencesSubsystem.getInstance(context).preferences }
@@ -290,7 +291,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         val resolved = resolveLocation(location, elevation)
         val lookupLocation = resolved.first
         val lookupElevation = resolved.second
-        val service = HistoricTemperatureService(temperatureRepo, lookupLocation, lookupElevation)
+        val service = HistoricTemperatureService(climate, lookupLocation, lookupElevation)
 
         if (calibrated) {
             return CalibratedTemperatureService(service, prefs.thermometer.calibrator)

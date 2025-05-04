@@ -11,7 +11,7 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.shared.data.GeographicImageSource
 import java.time.Month
 
-object HistoricMonthlyPrecipitationRepo {
+internal object HistoricMonthlyPrecipitationRepo {
 
     // Cache
     private val cache = LRUCache<PixelCoordinate, Map<Month, Distance>>(size = 5)
