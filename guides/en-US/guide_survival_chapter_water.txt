@@ -120,7 +120,9 @@ If the manufacturer's instructions are different, be sure to follow them instead
 
 Chemical water purification tablets or drops can be used to treat water. Be sure to follow the instructions, which are normally printed on the bottle. The most common chemical is iodine, but chlorine-based treatments are also available. Before deciding which to buy, research how effective they are against bacteria and parasites in your region. Treatment amounts and times vary by chemical type and brand. Be sure to check the expiration date (if any) before going on a trip.
 
-If you lost the instructions for iodine tablets, typically you will do the following (based on the most popular brand, Potable Aqua):
+If you are pregnant or have thyroid problems, don't use iodine. Always read the warnings on the packages of chemical purification solutions before buying them. 
+
+Here are some general steps for iodine tablets if you lost the instructions (based on the most popular brand, Potable Aqua):
 
 1. Fill up a bottle of water. You may want to run the water through a filter or cloth to remove sediment.
 2. Add 2 tablets per quart/liter of water and put the cap on loosely.
@@ -137,6 +139,14 @@ The following conversions are approximate, but that is fine for purification.
 - 1 liter = 1000 milliliters
 - 1 quart = 32 ounces
 - 1 gallon = 4 quarts
+
+### Solar disinfection
+
+As a last resort, you can use sunlight to purify water in a clear water bottle.
+
+1. Fill a clear water bottle with water. If the water is cloudy, run it through a filter or cloth first.
+2. Remove the label from the bottle and lay it on its side in direct sunlight. If you have something dark, place it underneath the bottle to increase effectiveness.
+3. If it is sunny, most germs will be killed in 6 hours. If it is cloudy, you will need to wait 2 days - so consider using a different purification method.
 
 ### Hazards
 
