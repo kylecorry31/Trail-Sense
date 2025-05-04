@@ -129,6 +129,13 @@ If you lost the instructions for iodine tablets, typically you will do the follo
 5. (Optional) Add 2 neutralizer tablets per quart/liter, shake, and wait 3 minutes. This will help to improve the taste.
 6. Your water is now ready to drink.
 
+**Conversions**
+
+The following conversions are approximate, but that is fine for purification.
+
+- 1 liter = 1 quart
+- 1 liter = 1000 milliliters
+- 1 quart = 32 ounces
 
 ### Hazards
 
