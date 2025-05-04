@@ -118,7 +118,17 @@ If the manufacturer's instructions are different, be sure to follow them instead
 
 ### Chemical treatment
 
-You can buy chemical water purification tablets or drops. Use them according to the instructions, which will typically involve adding them to water and letting it sit for a while. The bottle will typically have instructions written on it.
+Chemical water purification tablets or drops can be used to treat water. Be sure to follow the instructions, which are normally printed on the bottle. The most common chemical is iodine, but chlorine-based treatments are also available. Before deciding which to buy, research how effective they are against bacteria and parasites in your region. Treatment amounts and times vary by chemical type and brand. Be sure to check the expiration date (if any) before going on a trip.
+
+If you lost the instructions for iodine tablets, typically you will do the following (based on the most popular brand, Potable Aqua):
+
+1. Fill up a bottle of water. You may want to run the water through a filter or cloth to remove sediment.
+2. Add 2 tablets per quart/liter of water and put the cap on loosely.
+3. Wait 5 minutes and shake. Be sure some water leaks out the cap and around the threads.
+4. Tighten the cap and wait 30 minutes.
+5. (Optional) Add 2 neutralizer tablets per quart/liter, shake, and wait 3 minutes. This will help to improve the taste.
+6. Your water is now ready to drink.
+
 
 ### Hazards
 
