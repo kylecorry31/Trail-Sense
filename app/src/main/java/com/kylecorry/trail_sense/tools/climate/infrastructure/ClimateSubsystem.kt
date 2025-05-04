@@ -20,7 +20,6 @@ class ClimateSubsystem private constructor(private val context: Context) : ITemp
 
     private val temperatureRepo = HistoricTemperatureRepo(context)
 
-    // TODO: Extract interpolator from temperature repo
     suspend fun getMonthlyDewpoint(
         location: Coordinate
     ): Map<Month, Temperature> = onIO {
