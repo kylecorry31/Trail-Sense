@@ -166,6 +166,9 @@ object WeatherToolRegistration : ToolRegistration {
                     "Refresh weather widget",
                     RefreshWidgetAction(WIDGET_WEATHER)
                 )
+            ),
+            singletons = listOf(
+                WeatherSubsystem::getInstance
             )
         )
     }
