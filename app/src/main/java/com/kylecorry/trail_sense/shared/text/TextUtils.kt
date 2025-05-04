@@ -240,7 +240,6 @@ object TextUtils {
 
         val titleView = Views.text(context, title) as TextView
         titleView.setCompoundDrawables(right = R.drawable.ic_drop_down)
-        titleView.setTextIsSelectable(true)
         CustomUiUtils.setImageColor(titleView, Resources.androidTextColorSecondary(context))
         titleView.compoundDrawablePadding = Resources.dp(context, 8f).toInt()
         val padding = Resources.dp(context, 16f).toInt()
