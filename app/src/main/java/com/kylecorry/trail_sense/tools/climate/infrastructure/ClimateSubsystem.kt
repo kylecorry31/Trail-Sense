@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.sol.math.Range
+import com.kylecorry.sol.science.meteorology.Meteorology
+import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
@@ -19,11 +21,36 @@ import java.time.ZonedDateTime
 class ClimateSubsystem private constructor(private val context: Context) : ITemperatureRepo {
 
     private val temperatureRepo = HistoricTemperatureRepo(context)
+    private val dewpointInterpolator = MonthlyValueInterpolator()
 
-    suspend fun getMonthlyDewpoint(
-        location: Coordinate
+    suspend fun getMonthlyDewpoints(
+        location: Coordinate,
+        elevation: Distance
     ): Map<Month, Temperature> = onIO {
-        HistoricMonthlyDewpointRepo.getMonthlyDewpoint(context, location)
+        HistoricMonthlyDewpointRepo.getMonthlyDewpoint(context, location).mapValues {
+            Meteorology.getTemperatureAtElevation(it.value, Distance.meters(0f), elevation)
+        }
+    }
+
+    suspend fun getDewpoint(
+        location: Coordinate,
+        elevation: Distance,
+        date: LocalDate
+    ): Temperature = onIO {
+        val dewpoints =
+            getMonthlyDewpoints(location, elevation).mapValues { it.value.celsius().temperature }
+        val interpolated = dewpointInterpolator.interpolate(date, dewpoints)
+        Temperature.celsius(interpolated)
+    }
+
+    suspend fun getYearlyDewpoints(
+        year: Int,
+        location: Coordinate,
+        elevation: Distance
+    ): List<Pair<LocalDate, Temperature>> = onIO {
+        Time.getYearlyValues(year) {
+            getDewpoint(location, elevation, it)
+        }
     }
 
     suspend fun getMonthlyPrecipitation(

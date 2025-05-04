@@ -24,6 +24,13 @@ internal object HistoricMonthlyDewpointRepo {
         decoder = GeographicImageSource.scaledDecoder(2.7882964611053467, 62.11231994628906)
     )
 
+    private val extensionMap = mapOf(
+        "1-3" to Triple(Month.JANUARY, Month.FEBRUARY, Month.MARCH),
+        "4-6" to Triple(Month.APRIL, Month.MAY, Month.JUNE),
+        "7-9" to Triple(Month.JULY, Month.AUGUST, Month.SEPTEMBER),
+        "10-12" to Triple(Month.OCTOBER, Month.NOVEMBER, Month.DECEMBER)
+    )
+
     suspend fun getMonthlyDewpoint(
         context: Context,
         location: Coordinate
@@ -41,10 +48,12 @@ internal object HistoricMonthlyDewpointRepo {
     ): Map<Month, Temperature> = onIO {
         val loaded = mutableMapOf<Month, Temperature>()
 
-        for (month in Month.entries) {
-            val file = "dewpoint/dewpoint-${month.value}.webp"
+        for ((extension, months) in extensionMap) {
+            val file = "dewpoint/dewpoint-${extension}.webp"
             val data = source.read(context, file, location)
-            loaded[month] = Temperature.celsius(data.first())
+            loaded[months.first] = Temperature.celsius(data[0])
+            loaded[months.second] = Temperature.celsius(data[1])
+            loaded[months.third] = Temperature.celsius(data[2])
         }
 
         loaded
