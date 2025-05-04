@@ -88,7 +88,7 @@ A below-ground solar still is a simple device that uses the sun's heat to draw m
 
 A transpiration bag is a plastic bag tied around a leafy branch to collect water. Use multiple bags to increase yield.
 
-![](file:///android_asset/survival_guide/15.webp)
+![](file:///android_asset/survival_guide/transpiration_bag.webp)
 
 1. Tie a plastic bag around a leafy branch, ensuring that the bag is airtight.
 2. Wait for the sun to heat the plant, causing moisture to evaporate and condense on the bag.
