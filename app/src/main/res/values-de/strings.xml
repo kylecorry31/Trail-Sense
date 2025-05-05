@@ -1034,7 +1034,7 @@
     <string name="sunset_alert_scheduled">Alarm gesetzt für %s vor Sonnenuntergang</string>
     <string name="battery_settings_limit_accuracy">Energiesparer reduziert eventuell die Genauigkeit</string>
     <string name="exact_alarm_permission_denied">Alarme und Erinnerungen wurden nicht erlaubt, Alarme sind vielleicht ungenau.</string>
-    <string name="crop_map_instructions_long">Bewege die Ecken der box zu den enden der katrte.</string>
+    <string name="crop_map_instructions_long">Ziehen Sie die Ecken der Box an die Ecken der Karte, um diese zu umranden. Zuschneiden reduziert die Auflösung der Karte.</string>
     <string name="rotation_amount">Rotation: %s</string>
     <string name="astronomy_direction_peak">Spitzenrichtung</string>
     <string name="i_agree">Ich akzeptiere</string>
@@ -1169,4 +1169,27 @@
     </plurals>
     <string name="return_time">Rückkehr-Zeit</string>
     <string name="location_number">Punkt %d</string>
+    <string name="restart_services_message">Hintergrunddienste konnten nicht erneut gestartet werden. Für einen Neustart tippen.</string>
+    <string name="triangulate_destination_location_1_instructions">Zeichnen Sie Ihre Position und die Richtung zum Ziel auf.</string>
+    <string name="triangulate_self_location_1_instructions">Wählen Sie eine bekannte Position aus, die Sie sehen können, und zeichnen Sie auf, in welcher Richtung diese von Ihnen aus ist.</string>
+    <string name="settings_have_moved">Die Einstellungen wurden verschoben</string>
+    <string name="magnetic_north_description">Zeigt in die Richtung des magnetischen Nordpols. Dies sollte mit den meisten Kompassen übereinstimmen.</string>
+    <string name="continuous_calibration">Kontinuierliche Kalibrierung</string>
+    <string name="zero_shutter_lag">Keine Auslöseverzögerung</string>
+    <string name="continuous_calibration_description">Kalibriert, wenn eine GPS-Position vorhanden ist</string>
+    <string name="service_restart_channel_description">Eine Benachrichtigung zum neustarten von Diensten</string>
+    <string name="restart_services_title">Dienst neustarten</string>
+    <string name="fused_altimeter_force_calibration_summary">GPS-Kalibrierung alle %s erzwingen</string>
+    <string name="settings_have_moved_message">App-Einstellungen wurden zum Reiter Werkzeuge verschoben</string>
+    <string name="is_there_a_way_to_fix_this">Kann man das Problem beheben?</string>
+    <string name="triangulate_self_location_2_instructions">Wählen Sie eine weitere bekannte Position aus, die Sie sehen können, und zeichnen Sie auf, in welcher Richtung diese von Ihnen aus ist.</string>
+    <string name="no_sensor_unable_to_fix">Nein, da diese Funktionalität von der Hardware abhängt, lässt sie sich nicht hinzufügen.</string>
+    <string name="high_sensitivity">Hohe Empfindlichkeit</string>
+    <string name="triangulate_destination_location_2_instructions">Bewegen Sie sich mindestens %s von der ersten Position weg. Zeichnen Sie danach Ihre Position und die Richtung zum Ziel auf.</string>
+    <string name="why_missing_sensor">Mein Gerät ist neu/teuer, warum fehlt dieser Sensor?</string>
+    <string name="true_north_description">Zeigt unter Berücksichtigung der Deklination in die Richtung des geografischen Nordpols. Dies sollte mit den meisten Karten übereinstimmen.</string>
+    <string name="missing_sensor_message_1">Ihr %1$s hat keinen eingebauten %2$s-Sensor. Leider sind deshalb einige Funktionen von %3$s nicht verfügbar.</string>
+    <string name="service_restart">Dienstneustart</string>
+    <string name="fused_altimeter_force_calibration">Kalibrationsintervall erzwingen</string>
+    <string name="missing_sensor_explanation">Einige Hersteller verzichten auf diesen Sensor, sogar bei neuen oder teuren Geräten. Sie können auf der Seite des Herstellers oder im direkten Kontakt mit dem Hersteller mehr herausfinden.</string>
 </resources>
