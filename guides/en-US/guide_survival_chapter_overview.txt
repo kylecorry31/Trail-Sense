@@ -158,6 +158,8 @@ Three short blasts are the universal signal for help. You may want to cover your
 ### Signal mirror
 Hold the mirror with one hand and extend your other arm in front of you with your fingers in a V-shape and the target between your fingers. Reflect sunlight onto your fingers and slowly move the mirror up and down to flash sunlight at the potential rescuers. You can use a phone screen as a signal mirror, but it will be nowhere near as effective as an actual mirror and should be combined with another signal, such as smoke or a ground-to-air signal.
 
+![](file:///android_asset/survival_guide/signal_mirror.webp)
+
 ### Smoke
 Smoke can attract attention during the day. Burning green vegetation can create a lot of smoke, but be sure to do this safely. A fire at night can also be used to attract attention.
 
