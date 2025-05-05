@@ -92,6 +92,8 @@ Here are the steps you can follow to get it going:
 4. Carefully add kindling to the fire and blow into it to encourage growth.
 5. Once your fire is steady, add fuel while maintaining a tepee structure.
 
+![](file:///android_asset/survival_guide/fire_tepee.webp)
+
 **Note**: When blowing into a fire, be gentle and take breaths away from the smoke.
 
 ### Nursing an ember
