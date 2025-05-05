@@ -1193,4 +1193,10 @@
     <string name="fused_altimeter_force_calibration">Kalibrationsintervall erzwingen</string>
     <string name="missing_sensor_explanation">Einige Hersteller verzichten auf diesen Sensor, sogar bei neuen oder teuren Geräten. Sie können auf der Seite des Herstellers oder im direkten Kontakt mit dem Hersteller mehr herausfinden.</string>
     <string name="dynamic_colors">Dynamische Farben</string>
+    <string name="fast_path_rendering">Schnelles Rendern von Pfaden</string>
+    <string name="compass_dynamic_colors_summary">Dynamische Farben für die Himmelsrichtungen nutzen</string>
+    <string name="view_in_3d">In 3D ansehen</string>
+    <string name="show_dial_ticks_on_nearby_radar_summary">Ihr Gerät hat keinen Kompass, Sie können jedoch sehen, in welcher Richtung sich Wegpunkte befinden.</string>
+    <string name="screen_flashlight_full_name">Bildschrim-Taschenlampe</string>
+    <string name="fast_path_rendering_summary">Verbessert die Leistung zu Kosten des Aussehens</string>
 </resources>
