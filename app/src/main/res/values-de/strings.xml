@@ -1199,4 +1199,6 @@
     <string name="show_dial_ticks_on_nearby_radar_summary">Ihr Gerät hat keinen Kompass, Sie können jedoch sehen, in welcher Richtung sich Wegpunkte befinden.</string>
     <string name="screen_flashlight_full_name">Bildschrim-Taschenlampe</string>
     <string name="fast_path_rendering_summary">Verbessert die Leistung zu Kosten des Aussehens</string>
+    <string name="compass_dynamic_colors">Dynamische Kompassfarben</string>
+    <string name="compact_mode">Kompakter Modus</string>
 </resources>
