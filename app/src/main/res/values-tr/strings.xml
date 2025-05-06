@@ -1393,4 +1393,8 @@
     <string name="mosquitoes">Sivri sinekler</string>
     <string name="active_period">%1$s\'den %2$s\'ye kadar aktiftir</string>
     <string name="ticks">Keneler</string>
+    <string name="climate_hot_summer_description">Yaz aylarında yüksek sıcaklıklara hazırlıklı olun.</string>
+    <string name="climate_warm_summer_description">Yaz aylarında ılıman sıcaklıklara hazırlıklı olun.</string>
+    <string name="climate_cold_summer_description">Yaz boyunca serin sıcaklıklar için plan yapın.</string>
+    <string name="climate_very_cold_winter_description">Kış aylarında aşırı soğuk havalar için plan yapın.</string>
 </resources>
