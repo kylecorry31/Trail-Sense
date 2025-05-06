@@ -1387,4 +1387,6 @@
     <string name="climate_no_dry_season_description">Yıl boyunca kuraklık yaşanmaz.</string>
     <string name="climate_tundra_description">Yaz aylarında bir miktar buz eriyebilir, ancak bitki örtüsü çok azdır.</string>
     <string name="climate_ice_cap_description">Yıl boyunca buz erimez ve bitki örtüsü bulunmaz.</string>
+    <string name="climate_cold_description">Tüm yıl boyunca soğuk havalar için hazırlıklı olun.</string>
+    <string name="climate_hot_description">Tüm yıl boyunca sıcak havalar için hazırlıklı olun.</string>
 </resources>
