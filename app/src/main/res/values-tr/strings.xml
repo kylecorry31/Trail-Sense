@@ -1360,4 +1360,10 @@
     <string name="meters_per_second">Metre / saniye</string>
     <string name="speed">Hız</string>
     <string name="climate_temperature_amount">Sıcaklık: %s</string>
+    <string name="climate_precipitation_amount">Yağış: %s Aylık toplam</string>
+    <string name="climate_tropical_monsoon">Mevsimsel tropik yağışlar</string>
+    <string name="climate_tropical_savanna">Tropikal bozkır</string>
+    <string name="climate_tropical_rainforest">Tropikal yağmur ormanı</string>
+    <string name="source_era5">Kaynak: ERA5</string>
+    <string name="source_merra_2">Kaynak: MERRA-2</string>
 </resources>
