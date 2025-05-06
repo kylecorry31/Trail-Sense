@@ -1309,7 +1309,7 @@
     <string name="habitat">Doğal ortam</string>
     <string name="classification">Sınıflandırma</string>
     <string name="human_interaction">İnsan etkileşimi</string>
-    <string name="activity_pattern">Aktivite paterni</string>
+    <string name="activity_pattern">Faaliyet şekli</string>
     <string name="rock">Kaya</string>
     <string name="nocturnal">Gececil (noktürnal)</string>
     <string name="diurnal">Gündüzcül</string>
@@ -1338,7 +1338,7 @@
     <string name="muzzle_velocity">Namlu çıkış hızı</string>
     <string name="speed_format_meters_per_second">%s m/s</string>
     <string name="speed_format_feet_per_second">%s fps</string>
-    <string name="feet_per_second">Saniye başına fit</string>
+    <string name="feet_per_second">Feet / saniye</string>
     <string name="ballistic_coefficient">Balistik katsayısı</string>
     <string name="grains_format">%s grain</string>
     <string name="grains">Grain</string>
