@@ -1357,4 +1357,7 @@
     <string name="survival_guide_disclaimer">Bu kılavuz yalnızca bilgilendirme amacıyla sunulmuştur ve yazar, yayınevi ya da katkıda bulunan kişiler, içeriğin doğruluğu veya herhangi bir amaç için uygunluğu konusunda hiçbir garanti vermez. Bu kılavuzu kullanarak, açık hava etkinliklerinin risk içerdiğini kabul etmiş olursunuz ve bu riskleri kendi sorumluluğunuzda üstlenirsiniz. Kılavuzun kullanımından doğabilecek herhangi bir iddia veya zarardan ötürü yazar, yayınevi ve katkıda bulunan kişileri sorumlu tutmamayı kabul edersiniz. Durumunuza özel tavsiyeler için daima uzman kişilerle görüşün; bu kılavuz, profesyonel rehberliğin yerine geçmez. Ayrıca, burada açıklanan tekniklerin yasal kullanımı yerel yasa ve düzenlemelere tabi olabilir; bu kurallara uymak sizin sorumluluğunuzdadır.</string>
     <string name="map_trace_instructions">Gölgelik bir alana geçin ya da bir bezle güneşi engelleyin ve ekranın üzerine bir kâğıt yerleştirin; böylece haritayı kâğıdın içinden görebilirsiniz. Haritayı izlemek için kalem veya kurşun kalem kullanın, ancak mürekkebi geçen kalem veya keçeli kalemlerden kaçının.\n\nAlt gezinme çubuğu, izleme modu kapatılana kadar devre dışı kalacaktır.</string>
     <string name="trace">İzleme</string>
+    <string name="meters_per_second">Metre / saniye</string>
+    <string name="speed">Hız</string>
+    <string name="climate_temperature_amount">Sıcaklık: %s</string>
 </resources>
