@@ -1366,4 +1366,8 @@
     <string name="climate_tropical_rainforest">Tropikal yağmur ormanı</string>
     <string name="source_era5">Kaynak: ERA5</string>
     <string name="source_merra_2">Kaynak: MERRA-2</string>
+    <string name="climate_desert">Çöl</string>
+    <string name="climate_steppe">Bozkır</string>
+    <string name="climate_tundra">Tundra</string>
+    <string name="climate_ice_cap">Buz tabakası</string>
 </resources>
