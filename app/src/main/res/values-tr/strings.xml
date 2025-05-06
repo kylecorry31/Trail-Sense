@@ -1370,4 +1370,6 @@
     <string name="climate_steppe">Bozkır</string>
     <string name="climate_tundra">Tundra</string>
     <string name="climate_ice_cap">Buz tabakası</string>
+    <string name="climate_temperate">Ilıman</string>
+    <string name="climate_continental">Karasal</string>
 </resources>
