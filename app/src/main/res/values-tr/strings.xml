@@ -1372,4 +1372,6 @@
     <string name="climate_ice_cap">Buz tabakası</string>
     <string name="climate_temperate">Ilıman</string>
     <string name="climate_continental">Karasal</string>
+    <string name="climate_tropical_description">Yıl boyunca önemli ölçüde yağış alan sıcak ve nemli bir iklim.</string>
+    <string name="climate_dry_description">Düşük yağışlı ve seyrek bitki örtüsüne sahip kurak bir iklim.</string>
 </resources>
