@@ -1389,7 +1389,7 @@
     <string name="climate_ice_cap_description">Yıl boyunca buz erimez ve bitki örtüsü bulunmaz.</string>
     <string name="climate_cold_description">Tüm yıl boyunca soğuk havalara hazırlıklı olun.</string>
     <string name="climate_hot_description">Tüm yıl boyunca sıcak havalara hazırlıklı olun.</string>
-    <string name="insect_activity">Böcek faaliyeti</string>
+    <string name="insect_activity">Böcek aktivitesi</string>
     <string name="mosquitoes">Sivri sinekler</string>
     <string name="active_period">%1$s\'den %2$s\'ye kadar aktiftir</string>
     <string name="ticks">Keneler</string>
