@@ -820,6 +820,11 @@ It is common to get objects in your eye while in the wilderness, such as dirt, s
 
 Contact dermatitis is caused by contact with poisonous plants, such as poison ivy, poison oak, poison sumac, and stinging nettle.
 
+![](file:///android_asset/survival_guide/dangerous_plants.webp)
+
+1. **Poison ivy**: A toxic plant with three glossy, pointed leaflets, commonly found in forests, fields, and along trails. Contact with its oil causes itchy rashes and skin irritation.
+2. **Stinging nettle**: A plant with serrated leaves and tiny stinging hairs, commonly found in moist, shaded areas. Contact causes a painful, itchy rash.
+
 ### Symptoms
 - Burning, reddening, and swelling rash
 - Itching

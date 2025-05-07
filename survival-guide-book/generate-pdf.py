@@ -43,10 +43,6 @@ chapters = [
     {
         "title": "Weather",
         "file": "app/src/main/res/raw/guide_survival_chapter_weather.md"
-    },
-    {
-        "title": "Field Guide",
-        "file": "survival-guide-book/field_guide.md"
     }
 ]
 
