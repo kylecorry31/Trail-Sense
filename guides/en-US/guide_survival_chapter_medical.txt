@@ -971,3 +971,22 @@ Do not pop blisters.
 - Wear long sleeves and pants.
 - Stay in the shade.
 - Take extra precautions on days with a high UV index.
+
+## Craft: Sunglasses
+<!-- K: sunglasses, uv, sun, protect, eyes, birch, cloth, slit, bark, craft -->
+<!-- S: Craft sunglasses using a piece of cloth or birch bark with slits cut in it. -->
+
+You can make sunglasses using a piece of cloth or birch bark with slits cut in it. This helps protect your eyes from UV rays and glare.
+
+![](file:///android_asset/survival_guide/improvised_sunglasses.webp)
+
+**Resources**
+
+- Cloth or birch bark
+- Cordage
+
+**Instructions**
+
+1. Trim a piece of cloth or birch bark large enough to cover your eyes.
+2. Cut small rectangular slits over where your eyes will be. Don't cut the slits while wearing the mask.
+3. Attach cordage to both ends of the mask and ensure it fits snugly on your face.
