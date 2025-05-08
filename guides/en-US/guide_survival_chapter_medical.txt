@@ -944,6 +944,8 @@ If you fall through the ice, do the following:
 ### Rip currents
 If caught in a rip current, swim parallel to the shore until you are out of the current. Then, swim back to shore.
 
+![](file:///android_asset/survival_guide/rip_current.webp)
+
 ## Sunburn
 <!-- K: sunburn, burn, sunscreen, uv, sun, red, pain, swell, blister, spf, skin -->
 <!-- S: Symptoms include redness, pain, swelling, and blisters. Treat by getting out of the sun, applying a burn cream, and taking pain relievers. Prevent this by wearing sunscreen, proper clothing, and staying in the shade. -->
