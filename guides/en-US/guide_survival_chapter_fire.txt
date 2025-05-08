@@ -123,7 +123,7 @@ Some fire steels come with a magnesium block, which you can scrape into the tind
 ### Magnifying glass/lens
 Using a lens, focus sunlight into a small point on the tinder. As the tinder starts to smoke, gently blow into it and move the lens closer to maintain a small point. A magnifying glass, prescription glasses, a Fresnel lens, or even a clear bottle filled with water can work. This may take a while, and direct sunlight is required.
 
-![](file:///android_asset/survival_guide/61.webp)
+![](file:///android_asset/survival_guide/fire_magnifying_glass.webp)
 
 ### Flint and steel
 Strike a flint rock with a carbon steel tool to create sparks and ignite very dry and delicate tinder. Stainless steel - and therefore most pocket knives - will not work. If you find yourself here, it may be best to focus on insulation and shelter to stay warm.
