@@ -172,7 +172,7 @@ Hardwoods (oak, maple, ash, beech, etc.) burn slowly and hot, while softwoods (p
 ### Fire reflector
 A fire reflector is a wall built behind the fire to reflect heat toward you and protect the fire from wind. Use rocks, logs, or snow to create a barrier.
 
-![](file:///android_asset/survival_guide/56.webp)
+![](file:///android_asset/survival_guide/fire_reflector.webp)
 
 ### Heating rocks
 

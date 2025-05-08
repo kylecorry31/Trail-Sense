@@ -148,7 +148,7 @@ To maximize the heat இருந்து your fire, you can கூட்டு
 ### Fire reflector
 A fire reflector is a wall built behind the fire பெறுநர் reflect heat towards you and protect the fire இருந்து wind. Use rocks, logs, or பனி பெறுநர் create a barrier.
 
-![](file:///android_asset/survival_guide/56.webp)
+![](file:///android_asset/survival_guide/fire_reflector.webp)
 
 ### Heating rocks
 
