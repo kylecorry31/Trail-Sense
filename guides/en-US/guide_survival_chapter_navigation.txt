@@ -181,7 +181,13 @@ Maps are drawn to scale, allowing you to determine distances between points. A b
 
 Topographic maps show elevation changes and terrain features, making them helpful in navigating mountainous or hilly areas. Contour lines indicate elevation; the closer the lines are, the steeper the terrain. Elevation markers on contour lines help identify peaks and valleys.
 
-![](file:///android_asset/survival_guide/contours.webp)
+![](file:///android_asset/survival_guide/topographical_map.webp)
+
+1. Peak
+2. Cliff
+3. Ridge
+4. Depression
+5. Valley
 
 Typical map colors include:
 - **Black**: Structures
