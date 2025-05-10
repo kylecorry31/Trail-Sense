@@ -461,7 +461,7 @@ Do not attempt to remove a fishhook if it is embedded in the eye.
 4. Quickly pull the string, causing the hook to come out the way it went in.
 5. Clean the wound and apply antibiotic ointment.
 
-![](file:///android_asset/survival_guide/hook_removal.webp)
+![](file:///android_asset/survival_guide/fish_hook_removal.webp)
 
 ### Prevention
 - Be careful when handling fishhooks.

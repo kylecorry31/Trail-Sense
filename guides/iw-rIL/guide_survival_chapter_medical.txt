@@ -461,7 +461,7 @@
 4. יש למשוך במהירות את החוט, כך שהקרס יצא בכיוון שבו נכנס.
 5. יש לנקות את הפצע ולמרוח משחה אנטיביוטית.
 
-![](file:///android_asset/survival_guide/hook_removal.webp)
+![](file:///android_asset/survival_guide/fish_hook_removal.webp)
 
 ### מניעה
 - יש לנהוג בזהירות בעת טיפול בקרסים.
