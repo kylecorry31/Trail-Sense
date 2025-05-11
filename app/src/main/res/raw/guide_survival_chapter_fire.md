@@ -150,7 +150,7 @@ To create a bow drill:
 15. You will start to see smoke after a while. Keep going until you are sure an ember has been created.
 16. The ember should be transferred onto the fire pan (it may already be there) and moved to a tinder bundle, where you can nurse it into a fire.
 
-![](file:///android_asset/survival_guide/64.webp)
+![](file:///android_asset/survival_guide/bow_drill_usage.webp)
 
 If you are using a hand drill, follow the same steps as the bow drill, except don't create the bow and socket. Instead, roll the drill between your palms until you reach the bottom, then start again from the top.
 
