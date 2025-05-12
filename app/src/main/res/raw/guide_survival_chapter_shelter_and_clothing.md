@@ -142,9 +142,9 @@ If you're constructing a ridgeline with cordage, form a bowline at one end, wrap
 
 A more enclosed shelter that provides better protection from the elements.
 
-1. Lash two sticks together into an A shape. You can also use a forked stick, a stump, or a large rock as a support.
-2. Place the ridgepole across the top of the A.
-3. Lay a tarp or poncho over the ridgepole, securing the sides with stakes or rocks. If using natural materials, lay branches and leaves over the ridgepole.
+1. Lash two sticks together into an A-shape. You can also use a fork in a tree or stick, a stump, or a large rock as a support.
+2. Place one end of the ridgepole on top of the A-frame (or fork/stump/rock) and the other end on the ground.
+3. Lay a tarp or poncho over the ridgepole, securing the sides with stakes or rocks. If using natural materials, lay branches over the ridgepole angled slightly upward, then add leaves or other debris from the bottom up.
 
 ![](file:///android_asset/survival_guide/shelter_debris_hut.webp)
 
