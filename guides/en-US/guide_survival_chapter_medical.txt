@@ -836,7 +836,7 @@ Contact dermatitis is caused by contact with poisonous plants, such as poison iv
 3. Apply calamine lotion or hydrocortisone cream to reduce the itch. If unavailable, apply a tannic acid solution (boil acorns or oak bark in water) or crushed jewelweed.
 4. Optionally, take antihistamine pills to reduce itching.
 
-If you touched stinging nettle, you can also apply mud to the area and remove it when it dries.
+If you touched stinging nettle, apply mud to the area and remove it when it dries. You can also use tape to pull the small needles out.
 
 Avoid scratching the rash, as it can cause infection. Leave blisters alone.
 
