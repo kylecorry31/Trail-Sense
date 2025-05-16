@@ -6,10 +6,29 @@ from PIL import Image
 script_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = f"{script_dir}/.."
 
-# TODO: Better looking title page
 # TODO: Add index using keywords
-# TODO: Links (replace with text)
-# TODO: Add copyright / identifier page
+
+def convert_to_book(files, metadata, book_filetype = 'pdf', before_body_files=[], header_file=None, cover_image=None):
+    command = f'pandoc -o Book.{book_filetype} {' '.join(files)} --toc --toc-depth=2 --top-level-division=chapter'
+    for entry in metadata:
+        command += f' --metadata {entry}="{metadata[entry]}"'
+    
+    for file in before_body_files:
+        command += f' -B {file}'
+    
+    if header_file:
+        command += f' -H {header_file}'
+    
+    if book_filetype == 'pdf':
+        command += ' --pdf-engine=xelatex'
+    
+    if book_filetype == 'epub':
+        command += ' --css=epub-style.css'
+        command += ' --split-level=1'
+        if cover_image:
+            command += f' --epub-cover-image={cover_image}'
+    
+    os.system(command)
 
 chapters = [
     {
@@ -181,11 +200,33 @@ disclaimer_page = """
 with open("disclaimer.tex", "w") as f:
     f.write(disclaimer_page)
 
-command = 'pandoc -H head.tex -B copyright.tex -B disclaimer.tex -o Book.pdf temp.md --pdf-engine=xelatex --toc --toc-depth=2 --top-level-division=chapter'
-for entry in metadata:
-    command += f' --metadata {entry}="{metadata[entry]}"'
 
-os.system(command)
+convert_to_book(['temp.md'], metadata, 'pdf', ['copyright.tex', 'disclaimer.tex'], 'head.tex')
+
+with open('temp.md', 'r') as file:
+    content = file.read()
+
+content = """
+# {{.unlisted}}
+
+::: center
+
+Copyright © {year} {author}
+
+All rights reserved.
+
+:::
+
+# Disclaimer {{.unlisted}}
+
+{disclaimer}
+""".format(**metadata) + "\n\n" + content.replace('\\pagebreak', '::: pagebreak\n:::')
+
+with open('temp.md', 'w') as file:
+    file.write(content)
+
+convert_to_book(['temp.md'], metadata, 'epub', cover_image=f'{root_dir}/{full_resolution_directory}/cover.jpg')
+
 
 # Delete temp files
 os.remove('temp.md')
