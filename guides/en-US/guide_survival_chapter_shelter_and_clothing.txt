@@ -242,8 +242,13 @@ Used to fasten a rope to a timber or pole. It can be tied at any point in a rope
 
 ![](file:///android_asset/survival_guide/133.webp)
 
+### Taut-line hitch
+Used to tighten a line.
+
+![](file:///android_asset/survival_guide/knot_tautline_hitch.webp)
+
 ### Trucker's hitch
-Used to secure a load or tighten a line.
+Used to secure a load or tighten a line. Can be cinched down tighter than a taut-line hitch.
 
 ![](file:///android_asset/survival_guide/truckers_hitch.webp)
 
