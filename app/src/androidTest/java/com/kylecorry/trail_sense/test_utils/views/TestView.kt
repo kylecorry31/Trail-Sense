@@ -50,6 +50,10 @@ fun viewWithText(@StringRes text: Int, contains: Boolean = false, index: Int = 0
     return viewWithText(TestUtils.getString(text), contains, index = index)
 }
 
+fun getScrollableView(index: Int = 0): TestView {
+    return view(By.scrollable(true), index)
+}
+
 fun view(selector: BySelector, index: Int = 0): TestView {
     val obj = device.findObjects(selector).getOrNull(index)
         ?: throw AssertionError("View not found: $selector, index: $index")

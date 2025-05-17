@@ -28,12 +28,12 @@ class ToolClimateSubsystemTest : ToolTestBase(Tools.CLIMATE) {
         hasText("81 °F / 59 °F", contains = true)
 
         // Scroll until precipitation section is visible, then verify it
-        scrollUntil(R.id.climate_scroll) {
+        scrollUntil {
             hasText("Precipitation: 3.8 in monthly total")
         }
 
         // Continue scrolling to find climate zone section
-        scrollUntil(R.id.climate_scroll) {
+        scrollUntil {
             hasText(string(R.string.climate_continental))
             hasText(
                 listOf(

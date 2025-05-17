@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.test_utils.notifications.hasTitle
 import com.kylecorry.trail_sense.test_utils.notifications.notification
 import com.kylecorry.trail_sense.test_utils.views.TestView
 import com.kylecorry.trail_sense.test_utils.views.click
+import com.kylecorry.trail_sense.test_utils.views.getScrollableView
 import com.kylecorry.trail_sense.test_utils.views.hasText
 import com.kylecorry.trail_sense.test_utils.views.input
 import com.kylecorry.trail_sense.test_utils.views.isChecked
@@ -324,27 +325,45 @@ object AutomationLibrary {
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT,
         action: () -> Unit
     ) {
-            var scrollsDone = 0
-            while (scrollsDone < maxScrolls) {
-                try {
-                    action()
-                    // Action succeeded, no need to scroll further
-                    return
-                } catch (e: Throwable) {
-                    // Action failed, try scrolling
-                    var scrolled = false
-                    waitFor(waitForTime) {
-                        scrolled = view(id, index = index).scroll(direction, amountPerScroll)
-                    }
-                    if (!scrolled) {
-                        // Couldn't scroll further
-                        break
-                    }
-                    scrollsDone++
+        scrollUntil(
+            { view(id, index = index) },
+            direction,
+            maxScrolls,
+            amountPerScroll,
+            waitForTime,
+            action
+        )
+    }
+
+    fun scrollUntil(
+        viewLookup: () -> TestView = { getScrollableView() },
+        direction: Direction = Direction.DOWN,
+        maxScrolls: Int = 10,
+        amountPerScroll: Float = 0.5f,
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT,
+        action: () -> Unit
+    ) {
+        var scrollsDone = 0
+        while (scrollsDone < maxScrolls) {
+            try {
+                action()
+                // Action succeeded, no need to scroll further
+                return
+            } catch (e: Throwable) {
+                // Action failed, try scrolling
+                var scrolled = false
+                waitFor(waitForTime) {
+                    scrolled = viewLookup().scroll(direction, amountPerScroll)
                 }
+                if (!scrolled) {
+                    // Couldn't scroll further
+                    break
+                }
+                scrollsDone++
             }
-            // Try action one last time after all scrolling
-            action()
+        }
+        // Try action one last time after all scrolling
+        action()
     }
 
     fun hasNotification(
