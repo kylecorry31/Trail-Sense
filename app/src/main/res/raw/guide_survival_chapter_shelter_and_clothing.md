@@ -230,7 +230,7 @@ Used to create a loop at the end of a line. You can pass a line around a tree an
 
 You can use a bowline to attach a line to a grommet on a tarp.
 
-![](file:///android_asset/survival_guide/126.webp)
+![](file:///android_asset/survival_guide/knot_bowline.webp)
 
 ### Jam Knot
 Used to fasten a rope to a timber or pole. This can be used in place of lashings. It can be loosened by pulling on the knot on the end. It is hard to untie this knot.
