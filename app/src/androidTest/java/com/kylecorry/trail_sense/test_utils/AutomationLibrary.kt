@@ -82,9 +82,37 @@ object AutomationLibrary {
         }
     }
 
-    fun hasText(regex: Regex, index: Int = 0, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
+    fun hasText(
+        regex: Regex,
+        index: Int = 0,
+        contains: Boolean = false,
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
+    ) {
+        val r = if (contains) {
+            Regex(".*${regex.pattern}.*", RegexOption.DOT_MATCHES_ALL)
+        } else {
+            regex
+        }
+
         waitFor(waitForTime) {
-            viewWithText(regex.toPattern(), index = index)
+            viewWithText(r.toPattern(), index = index)
+        }
+    }
+
+    fun any(vararg actions: () -> Unit, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
+        waitFor(waitForTime) {
+            var exception: Throwable? = null
+            for (action in actions) {
+                try {
+                    action()
+                    return@waitFor
+                } catch (e: Throwable) {
+                    exception = e
+                }
+            }
+            if (exception != null) {
+                throw exception
+            }
         }
     }
 
@@ -205,6 +233,23 @@ object AutomationLibrary {
                 yPercent
             )
         }
+    }
+
+    fun click(
+        regex: Regex,
+        index: Int = 0,
+        holdDuration: Long? = null,
+        xPercent: Float? = null,
+        yPercent: Float? = null,
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
+    ) {
+        click(
+            { viewWithText(regex.toPattern(), index = index) },
+            holdDuration,
+            xPercent,
+            yPercent,
+            waitForTime
+        )
     }
 
     fun longClick(
