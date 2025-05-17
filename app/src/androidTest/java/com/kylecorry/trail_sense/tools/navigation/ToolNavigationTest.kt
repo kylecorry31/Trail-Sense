@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.longClick
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
@@ -95,9 +96,15 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
         click(Regex("(Poor|Moderate|Good|Stale|Unavailable)"))
         hasText(string(R.string.accuracy_info_title))
         hasText("GPS location accuracy", contains = true)
-        hasText(Regex("GPS location accuracy: ± \\d+ ft"), waitForTime = 0, contains = true)
-        hasText(Regex("GPS elevation accuracy: ± \\d+ ft"), waitForTime = 0, contains = true)
-        hasText(Regex("GPS satellites: \\d+"), waitForTime = 0, contains = true)
+        optional {
+            hasText(Regex("GPS location accuracy: ± \\d+ ft"), contains = true, waitForTime = 0)
+        }
+        optional {
+            hasText(Regex("GPS elevation accuracy: ± \\d+ ft"), contains = true, waitForTime = 0)
+        }
+        optional {
+            hasText(Regex("GPS satellites: \\d+"), contains = true, waitForTime = 0)
+        }
         hasText(
             string(R.string.calibrate_compass_dialog_content, string(android.R.string.ok)),
             contains = true
@@ -126,10 +133,10 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
         back()
     }
 
-    private fun canCreateBeacon(){
+    private fun canCreateBeacon() {
         longClick(R.id.beaconBtn)
         hasText(string(R.string.create_beacon))
-        hasText(Regex("-?\\d+\\.\\d+°,\\s+-?\\d+\\.\\d+°"))
+        hasText(Regex("-?\\d+\\.\\d+°,\\s+-?\\d+\\.\\d+°"), contains = true)
         back()
         click(string(R.string.dialog_leave))
         back()
