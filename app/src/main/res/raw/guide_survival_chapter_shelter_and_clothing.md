@@ -277,7 +277,7 @@ Any fibrous material can be used to make cordage. Some examples include:
 5. Twist the two halves together counterclockwise.
 6. Repeat the process until you have a full strand. If material is running out, add more material and twist it in.
 
-![](file:///android_asset/survival_guide/139.webp)
+![](file:///android_asset/survival_guide/craft_cordage.webp)
 
 ## Craft: Tent stakes
 <!-- K: tent, stake, peg, craft -->
