@@ -157,7 +157,8 @@ with open("temp.md", 'w') as file:
 
 # Generate PDF
 metadata = {
-    "title": "Trail Sense: Wilderness Survival Guide",
+    "title": "Trail Sense",
+    "subtitle": "Wilderness Survival Guide",
     "author": "Kyle Corry",
     "year": "2025",
     "identifier": "9798313546445",
@@ -211,6 +212,9 @@ content = content.replace('\\pagebreak', '::: pagebreak\n:::')
 with open('temp.md', 'w') as file:
     file.write(content)
 
+metadata['title'] = 'Trail Sense: Wilderness Survival Guide'
+metadata['subtitle'] = ''
+
 convert_to_book(['temp.md'], metadata, 'epub', cover_image=f'{root_dir}/{full_resolution_directory}/cover.jpg')
 
 # Unzip the epub and manually edit the titlepage
@@ -222,8 +226,8 @@ with open('temp/EPUB/text/title_page.xhtml', 'r') as file:
 content = content.replace('<p class="author">Kyle Corry</p>', f"""<p class="author">Kyle Corry</p>
 <div class="pagebreak"></div>
 <section id="copyright">
-<p>Copyright © {metadata["year"]} {metadata["author"]}</p>
-<p>All rights reserved.</p>
+    <p>Copyright © {metadata["year"]} {metadata["author"]}</p>
+    <p>All rights reserved.</p>
 </section>
 <div class="pagebreak"></div>
 <section id="disclaimer">
