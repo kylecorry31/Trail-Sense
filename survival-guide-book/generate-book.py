@@ -157,8 +157,7 @@ with open("temp.md", 'w') as file:
 
 # Generate PDF
 metadata = {
-    "title": "Wilderness Survival Guide",
-    "subtitle": "Trail Sense",
+    "title": "Trail Sense: Wilderness Survival Guide",
     "author": "Kyle Corry",
     "year": "2025",
     "identifier": "9798313546445",
