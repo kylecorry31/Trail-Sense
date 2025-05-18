@@ -220,6 +220,11 @@ Used to prevent the end of a rope from untwisting. This is hard to undo but very
 
 ![](file:///android_asset/survival_guide/knot_overhand.webp)
 
+### Overhand loop
+Used to create a loop at the end of a line. In most cases a bowline would be a better choice, but this knot is easy to tie.
+
+![](file:///android_asset/survival_guide/knot_overhand_loop.webp)
+
 ### Double sheet bend
 Used for tying two lines together.
 
