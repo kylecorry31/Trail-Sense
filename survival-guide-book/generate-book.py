@@ -203,33 +203,43 @@ with open("disclaimer.tex", "w") as f:
 
 convert_to_book(['temp.md'], metadata, 'pdf', ['copyright.tex', 'disclaimer.tex'], 'head.tex')
 
+# Convert pagebreaks to divs with the pagebreak class
 with open('temp.md', 'r') as file:
     content = file.read()
 
-content = """
-# {{.unlisted}}
-
-::: center
-
-Copyright © {year} {author}
-
-All rights reserved.
-
-:::
-
-# Disclaimer {{.unlisted}}
-
-{disclaimer}
-""".format(**metadata) + "\n\n" + content.replace('\\pagebreak', '::: pagebreak\n:::')
+content = content.replace('\\pagebreak', '::: pagebreak\n:::')
 
 with open('temp.md', 'w') as file:
     file.write(content)
 
 convert_to_book(['temp.md'], metadata, 'epub', cover_image=f'{root_dir}/{full_resolution_directory}/cover.jpg')
 
+# Unzip the epub and manually edit the titlepage
+os.system('unzip Book.epub -d temp')
+
+with open('temp/EPUB/text/title_page.xhtml', 'r') as file:
+    content = file.read()
+
+content = content.replace('<p class="author">Kyle Corry</p>', f"""<p class="author">Kyle Corry</p>
+<div class="pagebreak"></div>
+<section id="copyright">
+<p>Copyright © {metadata["year"]} {metadata["author"]}</p>
+<p>All rights reserved.</p>
+</section>
+<div class="pagebreak"></div>
+<section id="disclaimer">
+    <h2>Disclaimer</h2>
+    <p class="disclaimer">{disclaimer}</p>
+</section>""")
+
+with open('temp/EPUB/text/title_page.xhtml', 'w') as file:
+    file.write(content)
+
+os.system('cd temp && zip -r ../Book.epub *')
 
 # Delete temp files
 os.remove('temp.md')
 os.remove('temp.jpg')
 os.remove('copyright.tex')
 os.remove('disclaimer.tex')
+os.system('rm -rf temp')
