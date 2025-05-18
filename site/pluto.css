@@ -64,6 +64,13 @@ p {
   height: auto;
 }
 
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
 /* Navbar */
 .navbar {
   display: grid;
@@ -137,4 +144,19 @@ p {
 
 .right {
   float: right;
+}
+
+/* Button */
+button {
+  padding: 1rem 2rem;
+  border-radius: 4px;
+  background-color: #ff6d00;
+  color: black;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #c43e00;
 }
