@@ -224,7 +224,7 @@ Used பெறுநர் prevent the end of a rope இருந்து untwi
 ### இரட்டை sheet bend
 Used க்கு tying two வரிகள் together.
 
-![](file:///android_asset/survival_guide/125.webp)
+![](file:///android_asset/survival_guide/knot_double_sheet_bend.webp)
 
 ### Bowline
 Used பெறுநர் create a loop at the end of a line. You can கணவாய் a வரி around a tree and through the bowline loop பெறுநர் secure the end of a வரி பெறுநர் the tree.

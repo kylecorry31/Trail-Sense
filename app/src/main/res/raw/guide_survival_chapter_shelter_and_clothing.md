@@ -223,7 +223,7 @@ Used to prevent the end of a rope from untwisting. This is hard to undo but very
 ### Double sheet bend
 Used for tying two lines together.
 
-![](file:///android_asset/survival_guide/125.webp)
+![](file:///android_asset/survival_guide/knot_double_sheet_bend.webp)
 
 ### Bowline
 Used to create a loop at the end of a line. You can pass a line around a tree and through the bowline loop to secure the end of a line to the tree.
