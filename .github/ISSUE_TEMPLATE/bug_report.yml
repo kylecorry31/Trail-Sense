@@ -1,0 +1,70 @@
+name: Bug Report
+description: Report a bug
+title: "<Replace with a short summary of the bug>"
+labels: ["bug"]
+body:
+  - type: input
+    id: download_source
+    attributes:
+      label: Where did you download the app from?
+      description: Play Store, F-Droid, GitHub - Release, GitHub - Dev, GitHub - Nightly, etc.
+      placeholder: e.g., Play Store
+    validations:
+      required: true
+
+  - type: input
+    id: app_version
+    attributes:
+      label: What app version are you using?
+      description: Find this in Tools > Settings > Version.
+      placeholder: e.g., 6.10.0
+    validations:
+      required: true
+
+  - type: input
+    id: android_version
+    attributes:
+      label: What Android version and device are you using?
+      description: Include Android version and make/model of your phone.
+      placeholder: e.g., Android 13, Samsung Galaxy S21
+    validations:
+      required: true
+
+  - type: input
+    id: frequency
+    attributes:
+      label: Frequency of issue
+      description: How often does this issue occur? (Always, only once, etc.)
+      placeholder: e.g., Always
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction_steps
+    attributes:
+      label: Reproduction steps
+      description: Please describe the steps to reproduce the issue.
+      placeholder: |
+        1. Go to ...
+        2. Tap on ...
+        3. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen?
+      placeholder: The app should...
+    validations:
+      required: true
+  
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: List of diagnostic failures
+      description: Go to Tools > Diagnostics and list any failures or warnings.
+      placeholder: No failures
+    validations:
+      required: false
