@@ -1,4 +1,4 @@
-name: Bug Report
+name: Bug report
 description: Report a bug
 title: "<Replace with a short summary of the bug>"
 labels: ["bug"]
@@ -65,6 +65,14 @@ body:
     attributes:
       label: List of diagnostic failures
       description: Go to Tools > Diagnostics and list any failures or warnings.
-      placeholder: No failures
+      placeholder: No failures / warnings
+    validations:
+      required: false
+  
+  - type: textarea
+    id: stack
+    attributes:
+      label: Stack trace
+      description: The stack trace from logs for this error.
     validations:
       required: false
