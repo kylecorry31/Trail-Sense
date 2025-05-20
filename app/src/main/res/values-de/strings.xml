@@ -1201,4 +1201,7 @@
     <string name="fast_path_rendering_summary">Verbessert die Leistung zu Kosten des Aussehens</string>
     <string name="compass_dynamic_colors">Dynamische Kompassfarben</string>
     <string name="compact_mode">Kompakter Modus</string>
+    <string name="pin">Anheften</string>
+    <string name="pinned">Angeheftet</string>
+    <string name="unpin">Abheften</string>
 </resources>
