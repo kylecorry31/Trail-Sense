@@ -19,18 +19,12 @@ class ConvertBottomSheetFragment :
         val convertTools = listOf(
             FragmentToolCoordinateConvert(),
             FragmentDistanceConverter(),
-            FragmentTemperatureConverter(),
-            FragmentVolumeConverter(),
-            FragmentWeightConverter(),
-            FragmentTimeConverter()
+            FragmentTemperatureConverter()
         )
         val convertNames = listOf(
             getString(R.string.coordinates_tab),
             getString(R.string.distance),
-            getString(R.string.temperature),
-            getString(R.string.volume),
-            getString(R.string.weight),
-            getString(R.string.time)
+            getString(R.string.temperature)
         )
         binding.viewpager.adapter = CustomViewPagerAdapter(this, convertTools)
 
