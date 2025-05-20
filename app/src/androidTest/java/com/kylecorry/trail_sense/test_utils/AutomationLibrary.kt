@@ -7,10 +7,12 @@ import com.kylecorry.trail_sense.test_utils.notifications.hasTitle
 import com.kylecorry.trail_sense.test_utils.notifications.notification
 import com.kylecorry.trail_sense.test_utils.views.TestView
 import com.kylecorry.trail_sense.test_utils.views.click
+import com.kylecorry.trail_sense.test_utils.views.getScrollableView
 import com.kylecorry.trail_sense.test_utils.views.hasText
 import com.kylecorry.trail_sense.test_utils.views.input
 import com.kylecorry.trail_sense.test_utils.views.isChecked
 import com.kylecorry.trail_sense.test_utils.views.longClick
+import com.kylecorry.trail_sense.test_utils.views.scroll
 import com.kylecorry.trail_sense.test_utils.views.scrollToEnd
 import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.test_utils.views.viewWithHint
@@ -80,9 +82,37 @@ object AutomationLibrary {
         }
     }
 
-    fun hasText(regex: Regex, index: Int = 0, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
+    fun hasText(
+        regex: Regex,
+        index: Int = 0,
+        contains: Boolean = false,
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
+    ) {
+        val r = if (contains) {
+            Regex(".*${regex.pattern}.*", RegexOption.DOT_MATCHES_ALL)
+        } else {
+            regex
+        }
+
         waitFor(waitForTime) {
-            viewWithText(regex.toPattern(), index = index)
+            viewWithText(r.toPattern(), index = index)
+        }
+    }
+
+    fun any(vararg actions: () -> Unit, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
+        waitFor(waitForTime) {
+            var exception: Throwable? = null
+            for (action in actions) {
+                try {
+                    action()
+                    return@waitFor
+                } catch (e: Throwable) {
+                    exception = e
+                }
+            }
+            if (exception != null) {
+                throw exception
+            }
         }
     }
 
@@ -205,6 +235,23 @@ object AutomationLibrary {
         }
     }
 
+    fun click(
+        regex: Regex,
+        index: Int = 0,
+        holdDuration: Long? = null,
+        xPercent: Float? = null,
+        yPercent: Float? = null,
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
+    ) {
+        click(
+            { viewWithText(regex.toPattern(), index = index) },
+            holdDuration,
+            xPercent,
+            yPercent,
+            waitForTime
+        )
+    }
+
     fun longClick(
         id: Int,
         index: Int = 0,
@@ -312,6 +359,56 @@ object AutomationLibrary {
         waitFor(waitForTime) {
             view(id, index = index).scrollToEnd(Direction.UP)
         }
+    }
+
+    fun scrollUntil(
+        id: Int,
+        direction: Direction = Direction.DOWN,
+        maxScrolls: Int = 10,
+        amountPerScroll: Float = 0.5f,
+        index: Int = 0,
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT,
+        action: () -> Unit
+    ) {
+        scrollUntil(
+            { view(id, index = index) },
+            direction,
+            maxScrolls,
+            amountPerScroll,
+            waitForTime,
+            action
+        )
+    }
+
+    fun scrollUntil(
+        viewLookup: () -> TestView = { getScrollableView() },
+        direction: Direction = Direction.DOWN,
+        maxScrolls: Int = 10,
+        amountPerScroll: Float = 0.5f,
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT,
+        action: () -> Unit
+    ) {
+        var scrollsDone = 0
+        while (scrollsDone < maxScrolls) {
+            try {
+                action()
+                // Action succeeded, no need to scroll further
+                return
+            } catch (e: Throwable) {
+                // Action failed, try scrolling
+                var scrolled = false
+                waitFor(waitForTime) {
+                    scrolled = viewLookup().scroll(direction, amountPerScroll)
+                }
+                if (!scrolled) {
+                    // Couldn't scroll further
+                    break
+                }
+                scrollsDone++
+            }
+        }
+        // Try action one last time after all scrolling
+        action()
     }
 
     fun hasNotification(

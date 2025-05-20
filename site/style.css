@@ -235,6 +235,12 @@ img {
   border-bottom: none;
 }
 
+.book-cover-image {
+  max-width: 300px !important;
+  height: auto;
+  margin: 16px auto;
+}
+
 @media screen and (max-width: 600px) {
   #features .grid {
     grid-template-columns: 1fr 1fr;

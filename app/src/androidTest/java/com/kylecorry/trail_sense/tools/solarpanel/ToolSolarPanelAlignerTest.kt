@@ -22,8 +22,8 @@ class ToolSolarPanelAlignerTest : ToolTestBase(Tools.SOLAR_PANEL_ALIGNER) {
 
         // It should show the solar panel details for today
         hasText(R.id.tilt_label, string(R.string.tilt))
-        hasText(R.id.current_altitude, Regex("\\d+°"))
-        hasText(R.id.desired_altitude, Regex("\\d+°"))
+        hasText(R.id.current_altitude, Regex("-?\\d+°"))
+        hasText(R.id.desired_altitude, Regex("-?\\d+°"))
 
         hasText(R.id.azimuth_label, string(R.string.compass_azimuth))
         hasText(R.id.current_azimuth, Regex("\\d+°"))
@@ -39,8 +39,8 @@ class ToolSolarPanelAlignerTest : ToolTestBase(Tools.SOLAR_PANEL_ALIGNER) {
         clickOk()
 
         hasText(R.id.tilt_label, string(R.string.tilt))
-        hasText(R.id.current_altitude, Regex("\\d+°"))
-        hasText(R.id.desired_altitude, Regex("\\d+°"))
+        hasText(R.id.current_altitude, Regex("-?\\d+°"))
+        hasText(R.id.desired_altitude, Regex("-?\\d+°"))
 
         hasText(R.id.azimuth_label, string(R.string.compass_azimuth))
         hasText(R.id.current_azimuth, Regex("\\d+°"))

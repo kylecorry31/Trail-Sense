@@ -84,7 +84,8 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                 MapContextualAction.CreatePath to if (isMapView) getString(R.string.create_path) else null,
                 MapContextualAction.Export to if (isMapView) getString(R.string.export) else null,
                 MapContextualAction.Print to if (isMapView && Printer.canPrint()) getString(R.string.print) else null,
-                MapContextualAction.Delete to getString(R.string.delete)
+                MapContextualAction.Delete to getString(R.string.delete),
+                MapContextualAction.Trace to if (isMapView) getString(R.string.trace) else null
             )
 
 
@@ -101,6 +102,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
                     MapContextualAction.Export -> export()
                     MapContextualAction.Print -> print()
                     MapContextualAction.Delete -> delete()
+                    MapContextualAction.Trace -> trace()
                 }
                 true
             }
@@ -165,6 +167,13 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
         val fragment = currentFragment
         if (fragment != null && fragment is ViewMapFragment) {
             fragment.startDistanceMeasurement()
+        }
+    }
+
+    private fun trace() {
+        val fragment = currentFragment
+        if (fragment != null && fragment is ViewMapFragment) {
+            fragment.trace()
         }
     }
 

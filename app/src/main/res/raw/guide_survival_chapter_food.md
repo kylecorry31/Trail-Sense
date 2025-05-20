@@ -4,7 +4,7 @@
 Food gives you energy but is a low priority in most survival situations since you can go weeks without it. If you haven't eaten in a while, focus on foraging for bugs, shellfish, and aggregate berries.
 
 ## Be prepared
-<!-- K: prepare, gear, knowledge, skill, nuts, seeds, dried, fruit, jerky, energy, bar, mre, can, knife, multitool, multitool, bag, canister, utensil, stove, fuel -->
+<!-- K: prepare, gear, knowledge, skill, nuts, seeds, dried, fruit, jerky, energy, bar, mre, can, knife, multitool, bag, canister, utensil, stove, fuel -->
 <!-- S: Bring extra food. Learn how to find food and cook in the wilderness. -->
 
 ### Gear
@@ -102,7 +102,7 @@ Insects are a good source of protein but need to be gathered in large numbers to
 
 ### Collection
 
-Good places to find insects include rotting logs, under rocks, and in grassy fields. Common edible bugs include ants, termites, locusts, grasshoppers, crickets, dragonflies, grubs, and worms. At night, many flying insects can be attracted to a light source.
+Good places to find insects include rotting logs, under rocks, and in grassy fields. If you are looking for earthworms, you can use a stick to dig small holes in the ground, check the surface after rain or at night, or clear the leaf litter out of an area. At night, many flying insects can be attracted to a light source. Common edible bugs include ants, termites, locusts, grasshoppers, crickets, dragonflies, grubs, and worms.
 
 Do not eat the following:
 - Biting or stinging insects
@@ -117,23 +117,23 @@ Do not eat the following:
 To prepare bugs for cooking, remove any stingers and optionally the legs, wings, and head before eating. You should cook all bugs before eating them. Worms can be placed in water for 15 minutes to purge their digestive tracts before cooking.
 
 ## Shellfish and crustaceans
-<!-- K: shellfish, crustacean, clam, mussel, snail, limpet, crayfish, lobster, crab, shrimp, shell, bait, basket, trap, seafood, algae, tide, coastal, coast -->
+<!-- K: shellfish, crustacean, clam, mussel, snail, limpet, crayfish, lobster, crab, shrimp, shell, bait, trap, seafood, algae, tide, coastal, coast -->
 <!-- S: Many shellfish and crustaceans are found along the shoreline; most can be eaten when cooked. -->
 
 Shellfish and crustaceans are good sources of protein and can be found in both freshwater and saltwater. They are relatively easy to catch, making them good survival food sources.
 
 ### Collection
 
-Search shallow waters, tide pools, and rocky areas for shellfish and crustaceans. Snails and limpets are often attached to rocks, which may be easier to access during low tide. Crayfish, lobsters, and crabs can be found under and around stones, in soft mud or sand, and may be more active at night. Crustaceans can be caught by attaching bait onto a line (no hook required, they'll grab it), baiting the shoreline and waiting for them to leave the water, or using a fish basket trap with bait.
+Search shallow waters, tide pools, and rocky areas for shellfish and crustaceans. Snails and limpets are often attached to rocks, which may be easier to access during low tide. Crayfish, lobsters, and crabs can be found under and around stones, in soft mud or sand, and may be more active at night. Crustaceans can be caught by attaching bait onto a line (no hook required, they'll grab it), baiting the shoreline and waiting for them to leave the water, or using a fish trap with bait.
 
-Some shellfish may be poisonous, and be especially cautious of mussels in tropical waters during the summer, any shellfish within three days of a red tide, or shellfish covered by water during high tide.
+Some shellfish may be poisonous, and be especially cautious of mussels in tropical waters during the summer, any shellfish within three days of a red tide, or shellfish not covered by water during high tide.
 
 ### Preparation
 
 You should cook all shellfish and crustaceans before eating. You can cook them in their shells.
 
 ## Fish
-<!-- K: fish, hook, line, pole, bait, basket, trap, funnel, kill, seafood, meat -->
+<!-- K: fish, hook, line, pole, bait, basket, bottle, trap, funnel, kill, seafood, meat -->
 <!-- S: Most fish are edible once cooked but will require some fishing gear. -->
 
 If you are in a longer-term survival situation or have access to fishing gear, fish can be a good source of protein and nutrients. Most fish are edible, but research which fish may be dangerous in your area.
@@ -148,7 +148,9 @@ Fishing with a hook and line is likely your most familiar technique. You will ne
 
 ![](file:///android_asset/survival_guide/knot_fishermans.webp)
 
-Hooks with barbs are more effective than barbless hooks at keeping fish on the line. For best results, bait the hooks using insects, worms, or pieces of food. If you need to craft a hook, go with a gorge hook since it is easy to make and doesn't need to be set manually. One downside is that any fish caught with a gorge hook will almost certainly die if released. To carve a gorge hook, sharpen both sides of a small section of wood or bone and taper it at the center. Place the hook into the bait.
+Hooks with barbs are more effective than barbless hooks at keeping fish on the line. For best results, bait the hooks using insects, worms, or pieces of food. Make sure that any bait on the hook is securely attached; if using a worm, thread the hook through the worm's body.
+
+If you need to craft a hook, go with a gorge hook since it is easy to make and doesn't need to be set manually. One downside is that any fish caught with a gorge hook will almost certainly die if released. To carve a gorge hook, sharpen both sides of a small section of wood or bone and taper it at the center. Place the hook into the bait.
 
 ![](file:///android_asset/survival_guide/gorge_hook.webp)
 
@@ -158,11 +160,16 @@ If you do not have a fishing pole, you can tie the line to both the base and tip
 
 **Traps**
 
-You can construct a basket fish trap by weaving branches or other materials together. Bait the trap with food and place it in the water. Check it every few hours. This can also be used to catch crustaceans.
+Traps are a passive way to catch small fish or crustaceans with little effort required. Be sure to check your traps every few hours.
 
-Alternatively, use a funnel fish trap by placing sticks into a V-shape with a retaining area at the end. Fish swim into the trap and are unable to find their way out. In tidal areas, you can set up a wall of stones during low tide; as the tide recedes, fish may get trapped behind the wall.
+You can construct a bottle fish trap by cutting off the cap and top quarter of a spare water bottle. Bait the trap with food and use a small rock to weight it down. Place the top inverted into the rest of the bottle and place it in shallow water. If needed, you can tie a string to the bottle to allow for easy access.
 
-![](file:///android_asset/survival_guide/50.webp)
+Alternatively, you can construct an M-shaped funnel trap by hammering sticks into the water to form a small entrance and walls. This can be built using the shore as a back wall to reduce effort. Small fish will swim into the trap and be unable to find their way out.
+
+![](file:///android_asset/survival_guide/fish_trap_funnel.webp)
+
+
+![](file:///android_asset/survival_guide/fish_trap_bottle.webp)
 
 ### Preparation
 
@@ -201,9 +208,15 @@ Traps allow for the passive capture of small animals. They can be set up and lef
 
 Deadfall traps work by dropping a heavy object on the animal when it triggers the trap. The trigger mechanism can be made from a stick and a bait stick. The trigger is released when the animal takes the bait, causing the heavy object to fall. Place one or more of these traps near your shelter to catch mice.
 
-![](file:///android_asset/survival_guide/34.webp)
+To avoid getting injured while setting the trap, support the rock/log using your knee or free hand until the trap is set. Be ready to quickly pull your hand away if it begins to fall.
 
-![](file:///android_asset/survival_guide/35.webp)
+![](file:///android_asset/survival_guide/figure_4_trap.webp)
+
+1. Support stick (front / side)
+2. Release stick (front / side)
+3. Bait stick (front / side)
+4. Bait
+5. Rock
 
 ### Birds
 
@@ -288,6 +301,8 @@ A bear bag is a bag of food hoisted into a tree to keep it out of reach of bears
 3. Throw the other end of the rope over a branch. To give the line weight, attach a short stick to the end of it. Secure the stick with a clove hitch or jam knot.
 4. Hoist the bag about 15 feet (4.5 meters) above the ground.
 5. Tie the rope to a tree to keep the bag elevated. Use either a hitch or bowline knot.
+
+![](file:///android_asset/survival_guide/bear_bag.webp)
 
 See the Shelter and Clothing chapter for details on how to tie knots.
 

@@ -47,13 +47,7 @@
     <string name="first_quarter">רבע ראשון</string>
     <string name="sensors">חיישנים</string>
     <string name="pref_ruler_calibration_title">קנה מידה של סרגל</string>
-    <string name="pref_ruler_calibration_summary">פרוטוקול כיול:
-\n
-\n- הגדרת ערך זה ל- 1.
-\n
-\n- יש למדוד את ערך סרגל חיישן השביל המתאים ליחידה אחת של סרגל פיזי.
-\n
-\n- לדווח כאן על הערך הנמדד.</string>
+    <string name="pref_ruler_calibration_summary">פרוטוקול כיול:\n\n- הגדרת ערך זה ל- 1.\n\n- יש למדוד את ערך סרגל חיישן השביל המתאים ליחידה אחת של סרגל פיזי.\n\n- לדווח כאן על הערך הנמדד.</string>
     <string name="pref_compass_sensor_title">מצפן</string>
     <string name="calibrate">כיול</string>
     <string name="pref_elevation_override_sea_level_dialog_title">הנתן לחץ פני הים</string>
@@ -100,19 +94,13 @@
     <string name="on">על</string>
     <string name="notifications_blocked">הודעות נחסמו</string>
     <string name="no_issues">לא זוהו בעיות</string>
-    <string name="grant_permission">הענק את ההרשאה %s</string>
+    <string name="grant_permission">הענקת ההרשאה %s</string>
     <string name="location_override_not_set_resolution">הגדרת עקיפת המיקום בהגדרות</string>
     <string name="elevation_override_resolution">אפשר כיול אוטומטי בהגדרות.</string>
-    <string name="battery_restricted_resolution">הגדר את Trail Sense כלא ממוטבת</string>
+    <string name="battery_restricted_resolution">הגדרת Trail Sense כלא ממוטבת</string>
     <string name="explore">חקור</string>
-    <string name="gps_unavailable_resolution">הפעל מיקום או שנה את מקור המיקום שלך להתקן בלבד או לדיוק גבוה</string>
-    <string name="diagnostic_message_template">%1$s: %2$s
-\n
-\n### כלים מושפעים
-\n%3$s
-\n
-\n### פתרון הבעיה
-\n%4$s</string>
+    <string name="gps_unavailable_resolution">הפעלת מיקום או שינוי מקור המיקום שלך ל\'התקן בלבד\' או ל\'דיוק גבוה\'</string>
+    <string name="diagnostic_message_template">%1$s: %2$s\n\n### כלים מושפעים\n%3$s\n\n### פתרון הבעיה\n%4$s</string>
     <string name="autofill">מילוי אוטומטי</string>
     <string name="low_amount">נמוך (%s)</string>
     <string name="units_mmhg_short">מ\"מ</string>
@@ -140,10 +128,7 @@
     <string name="tilt">להטות</string>
     <string name="weather_exported">מזג האוויר מיוצא</string>
     <string name="pref_show_nearest_tide_title">הצג את הגאות הקרובה ביותר</string>
-    <string name="sun_moon_position_template">### %1$s
-\n**גובה**: %2$s
-\n
-\n**אזימוט**: %3$s</string>
+    <string name="sun_moon_position_template">### %1$s\n**גובה**: %2$s\n\n**אזימוט**: %3$s</string>
     <string name="sun">שמש</string>
     <string name="no_clouds">ללא עננים</string>
     <string name="moon">ירח</string>
@@ -172,12 +157,7 @@
     <string name="saving">חיסכון</string>
     <string name="map_projection_mercator">מרקטור</string>
     <string name="slope_amount">%s שיפוע</string>
-    <string name="clinometer_measure_distance_instructions">כדי למדוד את המרחק ליעד שגובהו %s:
-\n
-\n1. יישר את מד התווך לבסיס המטרה
-\n2. הקש על המסך והחזק
-\n3. ליישר מחדש את מד התווך לראש היעד
-\n4. שחררו לנעילה וראו את המרחק ליעד</string>
+    <string name="clinometer_measure_distance_instructions">כדי למדוד את המרחק ליעד שגובהו %s:\n\n1. יישר את מד התווך לבסיס המטרה\n2. הקש על המסך והחזק\n3. ליישר מחדש את מד התווך לראש היעד\n4. שחררו לנעילה וראו את המרחק ליעד</string>
     <string name="elevation">גובה</string>
     <string name="hard">קשה</string>
     <string name="difficulty">קושי</string>
@@ -186,12 +166,7 @@
     <string name="instructions">הוראות</string>
     <string name="change_map_projection">שינוי הקרנה</string>
     <string name="reduce_map_resolution">הפחת את רזולוציית המפה</string>
-    <string name="clinometer_measure_height_instructions">כדי למדוד את הגובה של יעד המרוחק %s:
-\n
-\n1. יישר את מד התווך לבסיס המטרה
-\n2. הקש על המסך והחזק
-\n3. ליישר מחדש את מד התווך לראש היעד
-\n4. שחררו לנעילה וראו את גובה היעד</string>
+    <string name="clinometer_measure_height_instructions">כדי למדוד את הגובה של יעד המרוחק %s:\n\n1. יישר את מד התווך לבסיס המטרה\n2. הקש על המסך והחזק\n3. ליישר מחדש את מד התווך לראש היעד\n4. שחררו לנעילה וראו את גובה היעד</string>
     <string name="view">נוף</string>
     <string name="pref_clinometer_baseline_distance_title">מרחק קו הבסיס</string>
     <string name="clinometer_measure_distance_title">גובה היעד</string>
@@ -202,17 +177,17 @@
     <string name="tide_deleted">גאות ושפל נמחקה</string>
     <string name="pref_clinometer_lock_with_volume_buttons_title">נעילה באמצעות לחצני עוצמת קול</string>
     <string name="errors">שגיאות</string>
-    <string name="share_ellipsis">שתף…</string>
+    <string name="share_ellipsis">שיתוף…</string>
     <string name="qr_text_too_long">הטקסט ארוך מדי, קוד QR נקטע</string>
     <string name="weather_monitor_disabled_resolution">אפשר צג מזג אוויר מהגדרות מזג האוויר</string>
     <string name="compass_accuracy">דיוק מצפן</string>
     <string name="note">הערה</string>
-    <string name="beacon_created">יצירת משואת איתות</string>
+    <string name="beacon_created">משואה נוצרה</string>
     <string name="undo">ביטול</string>
     <string name="error_banners">כרזות שגיאה</string>
     <string name="high_tide_letter">ג</string>
     <string name="no_qr_code_found">לא זוהה קוד QR</string>
-    <string name="beacon">משואת איתות</string>
+    <string name="beacon">משואה</string>
     <string name="result_deleted">התוצאה נמחקה</string>
     <string name="night">לילה</string>
     <string name="pressure_tendency">נטייה</string>
@@ -225,35 +200,19 @@
     <string name="error">שגיאה</string>
     <string name="map_export_error">אין אפשרות לייצא מפה לקובץ הנבחר</string>
     <string name="off">כבוי</string>
-    <string name="onboarding_explore">- מיועד לטיולי הליכה, תרמילאים, קמפינג ומטמון גיאוגרפי
-\n
-\n- למקם משואות איתות ולנווט אליהם
-\n
-\n- לעקוב אחר נתיבים
-\n
-\n- שחזרו את צעדיכם עם מסלול חזרה
-\n
-\n- לתכנן מה לארוז
-\n
-\n- התראה לפני השקיעה
-\n
-\n- לחזות את מזג האוויר
-\n
-\n- השתמש בטלפון שלך כפנס
-\n
-\nוהרבה יותר!</string>
+    <string name="onboarding_explore">- מיועד לטיולי הליכה, תרמילאים, קמפינג ומטמון גיאוגרפי\n\n- למקם משואות איתות ולנווט אליהם\n\n- לעקוב אחר נתיבים\n\n- שחזור צעדים עם מסלול חזרה\n\n- לתכנן מה לארוז\n\n- התראה לפני השקיעה\n\n- לחזות את מזג האוויר\n\n- שימוש בטלפון שלך כפנס\n\nוהרבה יותר!</string>
     <string name="steps">צעדים</string>
     <string name="remove_distance_alert">להסיר את התראת המרחק (%s)\?</string>
     <string name="distance_alert">התראת מרחק</string>
     <string name="navigating_to_nearest_path_point">ניווט לנקודת הנתיב הקרובה ביותר</string>
-    <string name="stride_length_walk">לך בקו ישר, לחץ על עצור כשתסיים</string>
+    <string name="stride_length_walk">יש ללכת בקו ישר, בסיום יש ללחוץ על עצור</string>
     <string name="current_speed">מהירות נוכחית</string>
     <string name="current_speed_pedometer">מהירות נוכחית (מד צעדים)</string>
     <string name="average_speed_pedometer">מהירות ממוצעת (מד צעדים)</string>
     <string name="reset_distance_title">לאפס את המרחק\?</string>
     <string name="current_speed_gps">מהירות נוכחית (GPS)</string>
-    <string name="beacons">משואות איתות</string>
-    <string name="pref_only_navigate_path_points_title">נווט רק לנקודות מוקלטות</string>
+    <string name="beacons">משואות</string>
+    <string name="pref_only_navigate_path_points_title">ניווט רק לנקודות מוקלטות</string>
     <string name="camera_capture">לכידה</string>
     <string name="bearing">כיוון</string>
     <string name="warning">אזהרה</string>
@@ -274,14 +233,13 @@
     </plurals>
     <string name="tool_cliff_height_disclaimer">השתמש בכלי זה רק כאשר זה בטוח לעשות זאת, והקפד לבדוק מה נמצא מתחת לצוק כדי למנוע פציעה. עיין במדריך למשתמש להוראות.</string>
     <plurals name="beacon_group_summary">
-        <item quantity="one">%d משואת איתות</item>
-        <item quantity="two">%d משואות איתות</item>
-        <item quantity="many">%d משואות איתות</item>
-        <item quantity="other">%d משואות איתות</item>
+        <item quantity="one">משואה אחת</item>
+        <item quantity="two">%d משואות</item>
+        <item quantity="other">%d משואות</item>
     </plurals>
-    <string name="no_beacons">אין משואות איתות</string>
+    <string name="no_beacons">אין משואות</string>
     <string name="pref_display_multi_beacons_title">הצג משואות סמוכות</string>
-    <string name="pref_show_last_signal_beacon_title">אות משואת איתות אחרונה</string>
+    <string name="pref_show_last_signal_beacon_title">אות משואה אחרונה</string>
     <string name="pref_max_beacon_distance_title">רדיוס משואות סמוכים</string>
     <string name="true_north">צפון אמיתי</string>
     <string name="tap_to_turn_off">הקשה כדי לכבות</string>
@@ -294,11 +252,11 @@
     <string name="sos">SOS</string>
     <string name="pressure_format">%1$s %2$s</string>
     <string name="pref_elevation_override_sea_level_dialog_msg">הזנת הלחץ הנוכחי בגובה פני הים ב-hPa</string>
-    <string name="sun_nautical">ימי</string>
+    <string name="sun_nautical">שיט</string>
     <string name="name">שם</string>
     <string name="beacon_comment">הערות (אופציונלי)</string>
     <string name="units_inhg">inHg</string>
-    <string name="units_mbar">mbar</string>
+    <string name="units_mbar">מלב\"ר</string>
     <string name="units_psi">PSI</string>
     <string name="category_hydration">הידרציה</string>
     <string name="toast_destination_bearing_set">סט מיסבי יעד</string>
@@ -307,7 +265,7 @@
     <string name="beacon_invalid_name">שם לא חוקי</string>
     <string name="units_hpa">hPa</string>
     <string name="weather_storm">סערה</string>
-    <string name="units_inhg_short">in</string>
+    <string name="units_inhg_short">אינץ\'</string>
     <string name="pressure_tendency_format_2">%s / 3ש</string>
     <string name="pressure_reading_time_ago">לפני %1$s - %2$s</string>
     <string name="notification_storm_alert_title">התראת סערה</string>
@@ -352,7 +310,7 @@
     <string name="celsius">צלסיוס</string>
     <string name="override_from_gps">הגדרת עקיפה מ-GPS</string>
     <string name="compass_declination_override">עקיפת הפחתה</string>
-    <string name="coordinate_format_degrees_minutes_seconds">מעלות דקות שניות</string>
+    <string name="coordinate_format_degrees_minutes_seconds">שניות עשרוניות של מעלות</string>
     <string name="pref_coordinate_format_title">תבנית קואורדינטות</string>
     <string name="temperature">טמפרטורה</string>
     <string name="compass_azimuth">אזימוט</string>
@@ -370,8 +328,7 @@
     <string name="tool_lightning_title">מרחק מכת ברק</string>
     <string name="tool_battery_title">סוללה</string>
     <string name="clock_sync_instructions">הגדר את השעה ל- %s כאשר ההודעה מגיעה</string>
-    <string name="bubble_level_angles">X: %1$s
-\nY: %2$s</string>
+    <string name="bubble_level_angles">X: %1$s\nY: %2$s</string>
     <string name="unit_centimeters_abbreviation">ס\"מ</string>
     <string name="map_scale_title">קנה מידה של מפה</string>
     <string name="map_scale_ratio">יחס</string>
@@ -454,7 +411,7 @@
     <string name="tool_ruler_title">סרגל</string>
     <string name="battery_health_overheat">התחממות יתר</string>
     <string name="tool_triangulate_title">מיקום משולש</string>
-    <string name="water_boil_timer_channel_description">המים רותחים</string>
+    <string name="water_boil_timer_channel_description">המים מורתחים</string>
     <string name="unit_feet">רגל</string>
     <string name="unit_miles">מיילים</string>
     <string name="water_purification_step_1">סינון המים</string>
@@ -484,7 +441,7 @@
     <string name="max_temp_uncalibrated">טמפרטורת טלפון מירבית (לא מכוילת)</string>
     <string name="clock_sync_notification">סינכרון שעון - %s</string>
     <string name="threshold">מפתן</string>
-    <string name="unit_inches_abbreviation">אינצ\'</string>
+    <string name="unit_inches_abbreviation">אינץ\'</string>
     <string name="compass_calibrate_toast">דיוק מצפן %s, כיול מומלץ</string>
     <string name="stratocumulus_desc">עננים נמוכים שנראים כמו סדין של כדורי כותנה עם רווחים קטנים. הצבע נע בין לבן לאפור כהה.</string>
     <string name="tool_metal_detector_title">גלאי מתכות</string>
@@ -509,15 +466,15 @@
     <string name="tool_clock_title">שעון</string>
     <string name="thunder">רעם</string>
     <string name="waypoint_time_format">%1$s, %2$s</string>
-    <string name="pref_backtrack_enabled_summary">רשום היסטוריית מיקומים</string>
+    <string name="pref_backtrack_enabled_summary">רושם היסטוריית מיקומים</string>
     <string name="tap_sun_moon_hint">הקש על שמש או ירח לקבלת פרטי מיקום</string>
     <string name="advanced">מתקדם</string>
     <string name="tool_bubble_level_summary">קבע אם המשטחים שטוחים</string>
-    <string name="pref_backtrack_frequency_title">מרווח מסלול חזרה על עקבות</string>
+    <string name="pref_backtrack_frequency_title">מרווח מסלול חזרה</string>
     <string name="pref_gps_override_title">עקיפת מיקום</string>
     <string name="tool_user_guide_summary">מדריך כיצד להשתמש ב-Trail Sense</string>
     <string name="inventory_empty_text">אין פריטים</string>
-    <string name="distance_to">ל</string>
+    <string name="distance_to">אל</string>
     <plurals name="water_boil_timer_content">
         <item quantity="one">שניה עד לשתייה</item>
         <item quantity="two">%d שניות לשתייה</item>
@@ -525,27 +482,15 @@
         <item quantity="other">%d שניות לשתייה</item>
     </plurals>
     <string name="location_input_help_title">תבניות מיקום נתמכות</string>
-    <string name="distance_from">מ</string>
+    <string name="distance_from">מ-</string>
     <string name="water_boil_timer_done_title">המים רתחו</string>
     <string name="backtrack">מסלול חזרה</string>
-    <string name="backtrack_notification_channel_description">עדכוני מיקום חזרה על עקבות</string>
+    <string name="backtrack_notification_channel_description">עדכוני מיקום מסלול חזרה</string>
     <string name="charging_wireless">טעינה (%s)</string>
     <string name="unsaved_changes">שינויים שלא נשמרו</string>
-    <string name="location_input_help">מעלות עשרוניות (לדוגמה 1.00, -2.00)
-\n
-\nמעלות עשרוניות דקות (לדוגמה: 1°23.12\'N, 3°12.1\'W)
-\n
-\nמעלות דקות שניות (לדוגמה 1° 23\'12.1\"N, 3° 12\'1.2\"W)
-\n
-\nUTM (לדוגמה: 03T 12345E 67890N)
-\n
-\nMGRS (לדוגמה: 27PXM 09601 05579)
-\n
-\nUSNG (לדוגמה: 14S NJ 39521 41744)
-\n
-\nOSGB (לדוגמה TG 51409 13177)</string>
+    <string name="location_input_help">מעלות עשרוניות (לדוגמה 1.00, -2.00)\n\nמעלות עשרוניות דקות (לדוגמה: 1°23.12\'N, 3°12.1\'W)\n\nמעלות דקות שניות (לדוגמה 1° 23\'12.1\"N, 3° 12\'1.2\"W)\n\nUTM (לדוגמה: 03T 12345E 67890N)\n\nMGRS (לדוגמה: 27PXM 09601 05579)\n\nUSNG (לדוגמה: 14S NJ 39521 41744)\n\nOSGB (לדוגמה TG 51409 13177)</string>
     <string name="coordinate_input_invalid_location">מיקום לא חוקי</string>
-    <string name="pref_require_satellites_title">דרוש תיקון לוויין</string>
+    <string name="pref_require_satellites_title">דורש תיקון לוויין</string>
     <string name="stratus_desc">ענן נמוך שמכסה את השמים. חפצים אינם מטילים צללים וייתכן שיהיה ערפילי.</string>
     <string name="gps_searching">מחפש</string>
     <string name="delete_waypoint_prompt">למחוק נקודת ציון\?</string>
@@ -559,11 +504,11 @@
     <string name="pref_low_power_mode_title">מצב חיסכון בחשמל</string>
     <string name="unsaved_changes_message">שינויים שביצעת לא יישמרו.</string>
     <string name="dialog_leave">עזוב</string>
-    <string name="backtrack_disabled_low_power_toast">חזרת על עקבות אינו זמין במצב חיסכון בצריכת חשמל</string>
+    <string name="backtrack_disabled_low_power_toast">מסלול חזרה אינו זמין במצב חיסכון בצריכת חשמל</string>
     <string name="pref_low_power_mode_summary">משבית תכונות מסוימות כדי לחסוך בחשמל</string>
     <string name="cirrocumulus">צירוקומולוס</string>
     <string name="low_power_mode_on_message">מצב חיסכון בחשמל מופעל, חלק מהתכונות עשויות להיות מושבתות.</string>
-    <string name="open_beacon_in_maps">הצג במפה</string>
+    <string name="open_beacon_in_maps">הצגה במפה</string>
     <string name="nimbostratus">נימבוסטרטוס</string>
     <string name="altocumulus">ענני כבשים</string>
     <string name="stratus">שכבה</string>
@@ -575,14 +520,11 @@
     <string name="nimbostratus_desc">ענן ברמה בינונית שצבעו אפור כהה ומכסה את השמים. אם לא יורד גשם, ייתכן שמדובר בענן שכבה.</string>
     <string name="cirrus_desc">עננים דקיקים גבוהים שנראים כמו צמרמורת של שיער לבן.</string>
     <string name="privacy_and_location">פרטיות ומיקום</string>
-    <string name="onboarding_user_guide">למדו כיצד להשתמש בתכונות של Trail Sense בעזרת מדריך למשתמש. זמין בתחתית הכרטיסיה כלים.
-\n
-\nמדריכים נוספים יגיעו בקרוב.</string>
+    <string name="onboarding_user_guide">למדו כיצד להשתמש בתכונות של Trail Sense בעזרת מדריך למשתמש. זמין בתחתית הכרטיסיה כלים.\n\nמדריכים נוספים יגיעו בקרוב.</string>
     <plurals name="beacons_imported">
-        <item quantity="one">משואת איתות מיובאת</item>
-        <item quantity="two">%d משואות איתות מיובאות</item>
-        <item quantity="many">%d משואות איתות מיובאות</item>
-        <item quantity="other">%d משואות איתות מיובאות</item>
+        <item quantity="one">משואה מיובאת</item>
+        <item quantity="two">%d משואות מיובאות</item>
+        <item quantity="other">%d משואות מיובאות</item>
     </plurals>
     <string name="gps_stale">ישן</string>
     <string name="network_4g">4G</string>
@@ -592,36 +534,15 @@
     <string name="cirrocumulus_desc">עננים ברמה גבוהה היוצרים סדין גלי. הסדין מורכב מנקודות קטנות שנראות כמעט דו ממדיות.</string>
     <string name="cumulonimbus_desc">עננים נמוכים ונפוחים שהם גבוהים מאוד. בדרך כלל יש להם צורת סדן והם כהים.</string>
     <string name="altocumulus_desc">עננים נפוחים ברמה בינונית שנראים כמו כדורי צמר גפן. הם בדרך כלל לבנים עם כתמים כהים יותר מתחת ויכולים להיות מרווחים או דמויי סדין.</string>
-    <string name="onboarding_privacy">- Trail Sense מכבד את הפרטיות ונתוני המיקום שלך לעולם לא עוזבים את המכשיר שלך
-\n
-\n- Trail Sense לעולם לא ידרוש הרשאת אינטרנט
-\n
-\n- הצג את [מדיניות הפרטיות](https://kylecorry.com/Trail-Sense/privacy_policy.html) (נפתח בדפדפן של הטלפון שלך)
-\n
-\n- תכונות מסוימות של Trail Sense דורשות גישה למיקום שלך
-\n
-\n- מתן הרשאת המיקום יאפשר את התכונות הבאות:
-\n
-\n- ניווט למשואות איתות
-\n
-\n- דיוק תחזית משופר ( לא זמין בכל המכשירים)
-\n
-\n- מסלול חזרה
-\n
-\n- זמני שמש וירח למיקום הנוכחי שלך (התראות שקיעה עלולים לדרוש גישה ברקע למיקום(
-\n
-\n- אם בחרת שלא להעניק את הרשאת המיקום, ניתן להזין באופן ידני מיקום בתפריט הגדרות &gt; חיישנים &gt; כיול GPS ב- Trail Sense.
-\n
-\n- לאחר לחיצה על המשך, נבקש להעניק הרשאות מיקום. דחיית הרשאה זו תמנע מ-Trail Sense גישה למיקום שלך, ולכן מומלץ להזין ידניץ ערך מיקום.</string>
+    <string name="onboarding_privacy">- Trail Sense מכבד את הפרטיות ונתוני המיקום שלך לעולם לא עוזבים את המכשיר שלך\n\n- Trail Sense לעולם לא ידרוש הרשאת אינטרנט\n\n- הצג את [מדיניות הפרטיות](https://kylecorry.com/Trail-Sense/privacy_policy.html) (נפתח בדפדפן של הטלפון שלך)\n\n- תכונות מסוימות של Trail Sense דורשות גישה למיקום שלך\n\n- מתן הרשאת המיקום יאפשר את התכונות הבאות:\n\n- ניווט למשואות איתות\n\n- דיוק תחזית משופר ( לא זמין בכל המכשירים)\n\n- מסלול חזרה\n\n- זמני שמש וירח למיקום הנוכחי שלך (התראות שקיעה עלולים לדרוש גישה ברקע למיקום(\n\n- אם בחרת שלא להעניק את הרשאת המיקום, ניתן להזין באופן ידני מיקום בתפריט הגדרות &gt; חיישנים &gt; כיול GPS ב- Trail Sense.\n\n- לאחר לחיצה על המשך, נבקש להעניק הרשאות מיקום. דחיית הרשאה זו תמנע מ-Trail Sense גישה למיקום שלך, ולכן מומלץ להזין ידנית ערך מיקום.</string>
     <string name="quality_poor">עני</string>
     <string name="network_2g">2G</string>
     <string name="dbm_format">%s dBm</string>
     <string name="magnetometer">מגנטומטר</string>
     <plurals name="beacons_exported">
-        <item quantity="one">משואת איתות מיוצאת</item>
-        <item quantity="two">%d משואות איתות מיוצאות</item>
-        <item quantity="many">%d משואות איתות מיוצאות</item>
-        <item quantity="other">%d משואות איתות מיוצאות</item>
+        <item quantity="one">משואה מיוצאת</item>
+        <item quantity="two">%d משואות מיוצאות</item>
+        <item quantity="other">%d משואות מיוצאות</item>
     </plurals>
     <string name="gps_user">משתמש</string>
     <string name="unavailable">אינו זמין</string>
@@ -632,7 +553,7 @@
     <string name="pref_nmea_elevation_title">היסט גובה NMEA</string>
     <string name="location_mocked">שימוש במיקום מזויף</string>
     <string name="distance_from_flashlight">מרחק מהטלפון לפנס</string>
-    <string name="pref_backtrack_save_cell_title">הקלט אות סלולרי</string>
+    <string name="pref_backtrack_save_cell_title">הקלטת אות סלולרי</string>
     <string name="tomorrows_forecast">התחזית למחר</string>
     <string name="left_quick_action">פעולה מהירה שמאלה</string>
     <string name="right_quick_action">פעולה מהירה ימינה</string>
@@ -670,7 +591,7 @@
     <string name="pedometer_disclaimer">הדיוק והשימוש בסוללה של מד הצעדים תלויים ביצרן ההתקן ובאורך הפסיעה שהוזן. נסה את זה בבית עבור קצת כדי לאמת את התרקנות הסוללה ודיוק לפני השימוש במסלול.</string>
     <string name="since_time">מאז %s</string>
     <string name="pref_nearby_radar_title">הצג מצפן מכ\"ם קרוב</string>
-    <string name="rename">שנה שם</string>
+    <string name="rename">שינוי שם</string>
     <string name="meteor_shower">מטר מטאורים</string>
     <string name="pref_odometer_reset_daily_title">איפוס יומי</string>
     <string name="previous">קודם</string>
@@ -700,22 +621,22 @@
     <string name="last_signal_beacon_name">אות אחרון - %1$s (%2$s)</string>
     <string name="whistle_signal_where_are_you">איפה אתה\?</string>
     <string name="whistle_signal_acknowledged">הוכר</string>
-    <string name="weather_monitor">צג מזג האוויר</string>
+    <string name="weather_monitor">מוניטור מזג אוויר</string>
     <string name="temperature_history">היסטוריית טמפרטורה - אחרונה %s</string>
     <string name="pref_barometer_info_summary">הלחץ עשוי להיות שונה מזה של תחנות סמוכות</string>
-    <string name="pref_nmea_elevation_summary">שימוש בהיסט NMEA להמרת גובה</string>
+    <string name="pref_nmea_elevation_summary">שימוש ב-NMEA (לוויין) לתיקון גבהים במקום המודל המובנה</string>
     <string name="preview">תצוגה מקדימה</string>
     <string name="pref_navigation_lock_screen_presence_title">הצג במסך הנעילה בזמן הניווט</string>
     <string name="pref_cell_signal_refresh_cache_summary">מאלץ טעינת עוצמת האות העדכנית ביותר</string>
     <string name="roll_pitch_yaw">גליל: %1$s, גובה: %2$s, פיתול: %3$s</string>
     <string name="location_not_mocked">שימוש במיקום בפועל</string>
     <string name="pref_flashlight_toggle_with_volume_summary">בזמן ש-Trail Sense פתוח</string>
-    <string name="pref_flashlight_toggle_with_volume_title">החלף עם לחצני עוצמת הקול</string>
+    <string name="pref_flashlight_toggle_with_volume_title">החלפה עם לחצני עוצמת הקול</string>
     <string name="yards_format">%s yd</string>
     <string name="battery_history">היסטוריית סוללה - אחרונה %s</string>
     <string name="convert">המרה</string>
     <string name="map_perspective_instructions">חלוקה לרמות של המפה</string>
-    <string name="us_pints">פיינט אמריקאי (חצי ליטר)</string>
+    <string name="us_pints">פיינט ארה\"ב (חצי ליטר)</string>
     <string name="seconds">שניות</string>
     <string name="ounces_weight">אונקיות</string>
     <string name="delete_pack">למחוק חבילה\?</string>
@@ -733,7 +654,7 @@
     <string name="sensor_gyroscope">ג\'ירוסקופ</string>
     <string name="pref_backtrack_history_days_title">היסטוריית מסלול חזרה</string>
     <string name="pref_privacy_screenshot_protection_title">מניעת צילומי מסך</string>
-    <string name="pref_experimental_metal_direction_title">הצג כיוון מתכת</string>
+    <string name="pref_experimental_metal_direction_title">הצגת כיוון מתכת</string>
     <string name="pref_auto_low_power_summary">כשהסוללה שלך חלשה</string>
     <string name="base_temperature">טמפרטורת בסיס</string>
     <string name="cup_format">%s כוס</string>
@@ -750,25 +671,25 @@
     <string name="pref_map_url_source_title">מפת מיקום משותף</string>
     <string name="milliliter_format">%s מ\"ל</string>
     <string name="us_ounces_volume">אונקיות ארה\"ב</string>
-    <string name="imperial_cups">כוס בריטית</string>
+    <string name="imperial_cups">כוסות אימפריאליות</string>
     <string name="us_cups">כוס ארה\"ב</string>
     <string name="desired_amount">כמות רצויה</string>
-    <string name="clear_amounts">נקה סכומים</string>
+    <string name="clear_amounts">ניקוי סכומים</string>
     <string name="electronics">אלקטרוניקה</string>
     <string name="packing_lists">רשימות אריזה</string>
     <string name="pack_sort_weight_low_to_high">משקל (מנמוך לגבוה)</string>
     <string name="liters">ליטרים</string>
     <string name="milliliters">מיליליטרים</string>
-    <string name="us_quarts">רביעית אמריקאית</string>
+    <string name="us_quarts">רביעית ארה\"ב</string>
     <string name="us_gallons">גלונים ארה\"ב</string>
-    <string name="imperial_quarts">רביעית בריטית</string>
-    <string name="imperial_gallons">גלונים בריטיים</string>
+    <string name="imperial_quarts">רביעית אימפריאלית</string>
+    <string name="imperial_gallons">גלונים אימפריאליים</string>
     <string name="kilograms">קילוגרמים</string>
     <string name="pounds_format">%s פאונד</string>
     <string name="kilograms_format">%s ק\"ג</string>
     <string name="ounces_weight_format">%s אונק</string>
-    <string name="imperial_pints">פיינט בריטי - 1/8 גלון</string>
-    <string name="imperial_ounces_volume">אונקיות בריטיות</string>
+    <string name="imperial_pints">פיינט אימפריאלי - 1/8 גלון</string>
+    <string name="imperial_ounces_volume">אונקיות אימפריאליות</string>
     <string name="volume">נפח</string>
     <string name="grams">גרמים</string>
     <string name="hygiene">הגיינה</string>
@@ -818,7 +739,7 @@
     <string name="gps_unavailable">GPS אינו זמין</string>
     <string name="gps_timeouts">פסק זמן של GPS</string>
     <string name="qr_code_scanner">סורק קוד QR</string>
-    <string name="open">פתח</string>
+    <string name="open">פתיחה</string>
     <string name="stop">עצור</string>
     <string name="start">התחלה</string>
     <plurals name="number_days">
@@ -843,20 +764,20 @@
     <string name="coordinate_format_usng">USNG</string>
     <string name="sort">מיון</string>
     <string name="activity_recognition">זיהוי פעילות</string>
-    <string name="unblock_notification_channel">בטל את חסימת התראת %s עבור Trail Sense</string>
+    <string name="unblock_notification_channel">ביטול חסימת התראת %s עבור Trail Sense</string>
     <string name="auto">אוטומטי</string>
     <string name="pref_export_weather_csv_title">ייצא קריאות מזג אוויר</string>
     <string name="precipitation_none">אין משקעים</string>
     <string name="precipitation_chance">סיכוי למשקעים: %s</string>
     <string name="take_photo">צלם תמונה</string>
     <string name="pref_flashlight_timeout_title">כבה לאחר</string>
-    <string name="disclaimer_estimated_tide">גאות ושפל משוערים עשויים להיות לא מדויקים. אנא השתמשו בטבלת גאות ושפל רשמית לזמנים המדויקים.</string>
+    <string name="disclaimer_estimated_tide">גאות ושפל משוערים עשויים להיות לא מדויקים. נא להשתמש בטבלת גאות ושפל רשמית לזמנים המדויקים.</string>
     <string name="distance_alert_distance_reached">הגעתם ל%s</string>
-    <string name="save">נשמר</string>
+    <string name="save">שמירה</string>
     <string name="saved">נשמר</string>
     <string name="estimate_stride_length">הערכת אורך פסיעה</string>
-    <string name="stride_length_stand_still">עמוד דום</string>
-    <string name="pref_start_on_boot_title">הפעל באתחול</string>
+    <string name="stride_length_stand_still">עמידה במקום</string>
+    <string name="pref_start_on_boot_title">הפעלה באתחול</string>
     <plurals name="tides_entered_count">
         <item quantity="one">גאות ושפל אחת</item>
         <item quantity="two">%d גאויות ושפל</item>
@@ -905,9 +826,8 @@
     <string name="point">נקודה</string>
     <plurals name="path_group_summary">
         <item quantity="one">נתיב אחד</item>
-        <item quantity="two">שני נתיבים</item>
-        <item quantity="many">%d נתיבים</item>
-        <item quantity="other" />
+        <item quantity="two">%d נתיבים</item>
+        <item quantity="other">%d נתיבים</item>
     </plurals>
     <string name="coordinate_format_osgb">OSGB</string>
     <string name="delete_path_group_message">%s וכל נתיביו יימחקו.</string>
@@ -922,11 +842,7 @@
     <string name="altocumulus_forecast" tools:ignore="PluralsCandidate">עשוי להצביע על משקעים או סופת רעמים ב-%d שעות הבאות.</string>
     <string name="cumulus_forecast" tools:ignore="PluralsCandidate">עשוי להצביע על מזג אוויר נאה. אם אתם גדלים גבוה יותר, עשויים להצביע על משקעים או סופת רעמים ב-%d שעות הבאות.</string>
     <string name="cumulonimbus_forecast">עשוי להצביע על סופת רעמים בעוד מספר דקות.</string>
-    <string name="allow_ignore_battery_restrictions_instructions">הסרת מגבלות הסוללה עבור Trail Sense עשויה לשפר את הדיוק.
-\n
-\nברוב ההתקנים, לחצו על \'%s\', ואז עברו לכל היישומים וכבו את מיטוב הסוללה עבור Trail Sense.
-\n
-\nבקרו בדף [אל תהרוג את האפליקציה שלי](https://dontkillmyapp.com/) לקבלת הוראות ספציפיות להתקן.</string>
+    <string name="allow_ignore_battery_restrictions_instructions">הסרת מגבלות הסוללה עבור Trail Sense עשויה לשפר את הדיוק.\n\nברוב ההתקנים, לחצו על \'%s\', ואז עברו לכל היישומים וכבו את מיטוב הסוללה עבור Trail Sense.\n\nבקרו בדף [אל תהרוג את האפליקציה שלי](https://dontkillmyapp.com/) לקבלת הוראות ספציפיות להתקן.</string>
     <string name="pref_show_temperature_in_notification_title">הצגת טמפרטורה בהודעה</string>
     <string name="illumination">תאורה</string>
     <string name="photo_maps">תמונות מפה</string>
@@ -987,7 +903,7 @@
     <string name="map_is_not_calibrated">המפה אינה מכויילת</string>
     <string name="unable_to_find_next_astronomy">לא ניתן למצוא את %s הבא</string>
     <string name="autofill_source">מקור מילוי אוטומטי</string>
-    <string name="crop_map_instructions_long">יש לגרור את פינות התיבה לפינות המפה כדי לחלק לרמות.</string>
+    <string name="crop_map_instructions_long">יש לגרור את פינות התיבה לפינות המפה כדי לתחום. חיתוך יפחית את הרזולוציה של המפה.</string>
     <string name="path_slope_moderate">מתון</string>
     <string name="reset_calibration">איפוס כיול</string>
     <string name="battery_settings_limit_accuracy">הגבלות סוללה עלולות לפגוע ברמת הדיוק</string>
@@ -1031,8 +947,7 @@
     <plurals name="map_group_summary">
         <item quantity="one">מפה אחת</item>
         <item quantity="two">%d מפות</item>
-        <item quantity="many">%d מפות</item>
-        <item quantity="other" />
+        <item quantity="other">%d מפות</item>
     </plurals>
     <string name="calibrate_map_point">כיול עם מיקומים ידועים (%1$d / %2$d)</string>
     <string name="descent">מוצא</string>
@@ -1040,13 +955,9 @@
     <string name="then_weather">ואז %s</string>
     <string name="horizon">אופק</string>
     <string name="photo_map_disclaimer">יש לשאת תמיד מפה פיזית לגיבוי ולווידוא הדיוק של Trail Sense.</string>
-    <string name="map_calibration_instructions">יש להקיש על מיקום ידוע במפה, ואז להזין את הקואורדינטות בעולם האמיתי. ניתן לשמור את הכיול על ידי לחיצה על כפתור \"סיום\".
-\n
-\nדוגמאות לנקודות כיול טובות הן מגרש חניה, נקודת שילוט, נקודת ציון או צומת לאורך שביל.</string>
+    <string name="map_calibration_instructions">יש להקיש על מיקום ידוע במפה, ואז להזין את הקואורדינטות בעולם האמיתי. ניתן לשמור את הכיול על ידי לחיצה על כפתור \"סיום\".\n\nדוגמאות לנקודות כיול טובות הן מגרש חניה, נקודת שילוט, נקודת ציון או צומת לאורך שביל.</string>
     <string name="reduce_map_resolution_crop_disclaimer">חיתוך המפה עדיין יפחית את הרזולוציה. אם ברצונך לחתוך את המפה ברזולוציה גבוהה, יש להשתמש ביישום עורך תמונות. יש צפי לתקן את זה בעתיד.</string>
-    <string name="allow_schedule_exact_alarms_instructions">הדבר מאפשר ל-%1$s להגדיר התראות ותזכורות מדויקות, כגון התראות שקיעה. בלי זה, ייתכן שההתראות לא יופעלו בזמן הנכון.
-\n
-\nכדי להתיר, יש ללחוץ על \'%2$s\' ולהפעיל את ההגדרה המאפשרת התראות ותזכורות.</string>
+    <string name="allow_schedule_exact_alarms_instructions">הדבר מאפשר ל-%1$s להגדיר התראות ותזכורות מדויקות, כגון התראות שקיעה. בלי זה, ייתכן שההתראות לא יופעלו בזמן הנכון.\n\nכדי להתיר, יש ללחוץ על \'%2$s\' ולהפעיל את ההגדרה המאפשרת התראות ותזכורות.</string>
     <string name="tide_frequency_description">מספר הגאות והשפל ליום. רוב הגאות והשפל הם חצי יומיים.</string>
     <string name="frequency">תדירות</string>
     <string name="permission_alarms_and_reminders">התראות ותזכורות</string>
@@ -1086,7 +997,7 @@
     <string name="invalid_backup_file">קובץ גיבוי לא חוקי</string>
     <string name="missing_sensor_explanation">חלק מיצרני הטלפונים בוחרים שלא להוסיף חיישן זה, אפילו בהתקנים חדשים או יקרים. ניתן לקבל מידע נוסף על ידי ביקור באתר האינטרנט של יצרן ההתקן שלך או יצירת קשר איתם.</string>
     <string name="no_sensor_unable_to_fix">לא, למרבה הצער זו תכונת חומרה, אז אין מה לעשות כדי להוסיף אותה.</string>
-    <string name="backup_restore">גיבוי / שיחזור</string>
+    <string name="backup_restore">גיבוי / שחזור</string>
     <string name="settings_have_moved_message">הגדרות היישום הועברו לכרטיסייה כלים</string>
     <string name="settings_have_moved">ההגדרות הועברו</string>
     <string name="pinned">מוצמד</string>
@@ -1112,9 +1023,312 @@
 \n
 \nקובץ זה אינו מוצפן. אין לשתף את זה עם מישהו לא מהימן.</string>
     <string name="destination">יעד</string>
-    <string name="restore_disclaimer">פעולה זו תחליף את כל הנתונים הנוכחיים שלך. נא לוודא שיש לך גיבוי לפני שתמשיך.
-\n
-\nיש לבחור רק קובץ גיבוי שיצרת עם %s ועם אמון.</string>
+    <string name="restore_disclaimer">פעולה זו תחליף את כל הנתונים הנוכחיים שלך. נא לוודא שיש לך גיבוי לפני שתמשיך.\n\nיש לבחור רק קובץ גיבוי שיצרת עם %s ועם אמון.</string>
     <string name="pin">הצמדה</string>
     <string name="distance_away_from_self">%s משם</string>
+    <string name="select_star">בחירת כוכב</string>
+    <string name="sunrise_alert_notification_title">השמש עולה בקרוב</string>
+    <string name="sunrise_alerts">התראות זריחה</string>
+    <string name="mirror_camera">מצלמת מראה</string>
+    <string name="turn_back_notification_title">הגיע הזמן להתחיל לחזור</string>
+    <plurals name="page_group_summary">
+        <item quantity="one">דף אחד</item>
+        <item quantity="two">%d דפים</item>
+        <item quantity="other">%d דפים</item>
+    </plurals>
+    <string name="turn_back_notification_description">חזרה עכשיו כדי להגיע ב-%s</string>
+    <string name="return_before_dark">לחזור לפני החשיכה</string>
+    <string name="tide_estimation_description_tide_model">משתמש במודל גאות ושפל מובנה להערכת גאות ושפל עבור המיקום שהוזן או המיקום שלך אם לא הוזן מיקום.</string>
+    <string name="full_service">שירות מלא</string>
+    <string name="emergency_calls_only">שיחות חירום בלבד</string>
+    <string name="service_restart">איתחול שירות</string>
+    <string name="background">רקע</string>
+    <string name="imperial_teaspoons">כפיות אימפריאליות</string>
+    <string name="nearby_beacons">משואות סמוכות</string>
+    <string name="sunrise_alert_channel_title">התראת זריחה</string>
+    <string name="pref_sunrise_alert_time_title">התראת זמן זריחה</string>
+    <string name="pref_tiles_enabled_battery_log_summary">מתעד את אחוז הסוללה בכל שעה כדי להעריך את הזמן עד לריקון</string>
+    <string name="exported">יוצא</string>
+    <string name="sunrise_alert_scheduled">התראה מתוכננת ל-%s לפני הזריחה</string>
+    <string name="continuous_calibration_description">מכייל בכל פעם שיש תיקון GPS</string>
+    <string name="compass_dynamic_colors_summary">שימוש בצבעים דינמיים לכיוונים קרדינליים</string>
+    <string name="view_distance">תצוגת מרחק</string>
+    <string name="locate">איתור</string>
+    <string name="creating_beacon">יצירת משואה</string>
+    <string name="projection_type">הקרנת מציאות רבודה</string>
+    <string name="projection_estimated_intrinsics">הערכת ערכים פנימיים</string>
+    <string name="projection_manufacturer_intrinsics">תכונות יצרן</string>
+    <string name="projection_perspective">פרספקטיבה</string>
+    <string name="projection_linear">ליניארי</string>
+    <string name="feature_unavailable">%s לא זמין</string>
+    <string name="audio_error_messsage">אירעה שגיאה בעת ניסיון לנגן שמע.</string>
+    <string name="ar_layer_override_message">הגדרות שכבה עשויות להיות מוחלפות על ידי הנחיות, כגון מדריך האסטרונומיה.</string>
+    <string name="tool_turn_back">חזרה על העקבות</string>
+    <string name="communication">תקשורת</string>
+    <string name="local_talk">שיחה מקומית</string>
+    <string name="quick_actions_are_unavailable">הפעולות המהירות אינן זמינות</string>
+    <string name="bottom_navigation_slot">מיקום הניווט התחתון %d</string>
+    <string name="forecast_algorithm">אלגוריתם תחזית</string>
+    <string name="barometer_offset">היסט ברומטרי</string>
+    <string name="no_items_found">לא נמצאו פריטים</string>
+    <string name="import_packing_list">ייבוא רשימת אריזה</string>
+    <string name="field_required">%s (נדרש)</string>
+    <string name="imperial_tablespoons">כפות אימפריאליות</string>
+    <string name="select_backup_directory">בחירת תיקיית גיבוי</string>
+    <string name="no_directory_selected">לא נבחרה תיקיית גיבוי</string>
+    <string name="sun_moon_chart">טבלת שמש וירח</string>
+    <string name="unable_to_create_an_automatic_backup">לא ניתן ליצור גיבוי אוטומטי.</string>
+    <string name="ballistics_calculator">מחשבון בליסטי</string>
+    <string name="permits">אישורים</string>
+    <string name="automatic_backup">גיבוי אוטומטי</string>
+    <string name="auto_backup_instructions">גיבוי ייווצר פעם ביום אל %1$s. רק %2$d הגיבויים האחרונים יישמרו.</string>
+    <string name="backup_failed">הגיבוי נכשל</string>
+    <string name="automatic_backup_invalid_directory_resolution">כיבוי הגיבוי האוטומטי ולאחר מכן הפעלה מחדש כדי לבחור תיקייה חדשה.</string>
+    <string name="widgets">ווידג\'טים</string>
+    <string name="compact_mode">מצב קומפקטי</string>
+    <string name="compass_dynamic_colors">צבעי מצפן דינמיים</string>
+    <string name="no_recorded_cell_signal_nearby">אין אות סלולרי מוקלט בקרבת מקום</string>
+    <string name="navigate_to_nearest_cell_signal">ניווט אל אות סלולרי הקרוב ביותר</string>
+    <string name="star">כוכב</string>
+    <string name="above">מעל</string>
+    <string name="below">מתחת</string>
+    <string name="adjustment_per_click">כיוונון לכל לחיצה</string>
+    <string name="milligrams">מיליגרם</string>
+    <string name="milligrams_format">%s מ\"ג</string>
+    <string name="pref_enable_analog_title">שעון אנלוגי</string>
+    <string name="augmented_reality_no_gyro_message">עדיין ניתן להשתמש בכלי המציאות הרבודה, אך הוא לא יהיה מדויק באותה מידה.</string>
+    <string name="screen_flashlight_full_name">פנס מסך</string>
+    <plurals name="star_count">
+        <item quantity="one">כוכב אחד</item>
+        <item quantity="two">%d כוכבים</item>
+        <item quantity="other">%d כוכבים</item>
+    </plurals>
+    <string name="magnetometer_gyro_custom">מגנטומטר + ג\'ירו (מותאם אישית)</string>
+    <string name="tool_quick_action_summary">לחיצה ארוכה על הניווט התחתון או צפייה בלשונית הכלים</string>
+    <string name="tide_chart">תרשים גאות ושפל</string>
+    <string name="tide_estimation_description_lunitidal_interval_auto">משתמש במיקום הירח להערכת גאות ושפל. דורש לפחות גאות אחת ידועה.</string>
+    <string name="tide_estimation_description_lunitidal_interval_local">משתמש במיקום הירח להערכת גאות ושפל. דורש את מרווח הזמן הלוניטידלי המקומי ואת המיקום.</string>
+    <string name="show_stars">הצגת כוכבים</string>
+    <string name="approximate_location">מיקום משוער</string>
+    <string name="last_known_gps_location">המיקום האחרון הידוע לפי GPS</string>
+    <string name="plant">צמחים</string>
+    <string name="right">ימין</string>
+    <string name="distance_to_target">מרחק למטרה</string>
+    <string name="scope_adjustment">כוונון כוונת</string>
+    <string name="windage_miss">סטיית רוח</string>
+    <string name="continuous_calibration">כיול רציף</string>
+    <string name="show_dial_ticks_on_nearby_radar_summary">ההתקן שלך אינו כולל מצפן, אך ניתן עדיין לזהות את כיוון המשואות.</string>
+    <string name="use_gyroscope_after_calibration_description">במקום המצפן (מונע סטייה מגנטית)</string>
+    <string name="use_gyroscope_after_calibration">יש להשתמש בג\'ירוסקופ לאחר הכיול</string>
+    <string name="layers">שכבות</string>
+    <string name="visible">גלוי</string>
+    <string name="date">תאריך</string>
+    <string name="sunrise_alert_notification_text">השמש תזרח ב-%s</string>
+    <string name="grains">גרגירים</string>
+    <string name="service_restart_channel_description">התראה לאיתחול שירותים</string>
+    <string name="water">מים</string>
+    <string name="climate_temperate_description">אקלים מתון עם עונות מובחנות ומשקעים מתונים.</string>
+    <string name="path_distance_performance_disclaimer">מומלץ מקסימום של %s</string>
+    <string name="shelter_and_clothing">מחסה ובגדים</string>
+    <string name="tide_estimation_description_tide_clock">משתמש בשעון להערכת גאות ושפל. דורש גאות ידועה אחת לפחות.</string>
+    <string name="pref_flashlight_control_screen_with_volume_title">שליטה בבהירות פנס המסך באמצעות כפתורי הווליום</string>
+    <string name="field_guide_disclaimer">כלי זה מיועד למטרות חינוכיות בלבד. יש לנהוג תמיד בזהירות בעת זיהוי צמחים, בעלי חיים או פטריות. חלק מהמינים עלולים להיות מסוכנים או מוגנים. אם יש לך ספק קל בזיהוי, יש להיוועץ במומחה.</string>
+    <string name="turn_back_alerts">התראות חזרה</string>
+    <string name="trace">מעקב</string>
+    <string name="fungus">פטריות</string>
+    <string name="bird">ציפור</string>
+    <string name="rock">סלע</string>
+    <string name="sponge">ספוגיים</string>
+    <string name="coral">אלמוג</string>
+    <string name="jellyfish">מדוזה</string>
+    <string name="worm">תולעת</string>
+    <string name="insect">חרקים</string>
+    <string name="arachnid">עכבישניים</string>
+    <string name="crustacean">סרטנאים</string>
+    <string name="mollusk">רכיכות</string>
+    <string name="desert">מדבר</string>
+    <string name="grassland">ערבת דשא</string>
+    <string name="echinoderm">קווצי עור</string>
+    <string name="forest">יער</string>
+    <string name="mountain">הר</string>
+    <string name="wetland">שטח ביצות</string>
+    <string name="urban">עירוני</string>
+    <string name="marine">ימי</string>
+    <string name="freshwater">מים מתוקים</string>
+    <string name="tundra">טונדרה</string>
+    <string name="cave">מערה</string>
+    <string name="inedible">לא אכיל</string>
+    <string name="dangerous">מסוכן</string>
+    <string name="edible">אכיל</string>
+    <string name="medicinal">רפואי</string>
+    <string name="select_from_gallery">בחירה מגלריה</string>
+    <string name="default_string">ברירת מחדל</string>
+    <string name="ar_calibration_disclaimer">לפני כל שימוש בכלי המציאות הרבודה, יש לוודא שהסמלים של השמש או הירח מיושרים כראוי עם העולם האמיתי. אם לא, יש ללחוץ על סמל המצפן בפינה השמאלית העליונה של המסך ולפעול לפי ההוראות לכיול.</string>
+    <string name="cloud_scanner">סורק ענן</string>
+    <string name="tide_model_auto">מודל גאות ושפל (אוטומטי)</string>
+    <string name="widget_bottom_sheet_instructions">יש להשתמש בפעולה המהירה של הווידג\'טים כדי לצפות</string>
+    <string name="map_trace_instructions">מעבר לאזור מוצל או חסימת השמש באמצעות בד והנחת נייר מעל המסך כך שיהיה ניתן לראות את המפה דרך הנייר. יש להשתמש בעט או בעיפרון כדי לעקוב אחר המפה, אך להימנע מסמנים או עטים שעלולים לחדור דרך הנייר.\n\nניווט תחתון יושבת עד לכיבוי מצב המעקב.</string>
+    <string name="tool_quick_action_name">כלי: %s</string>
+    <string name="lunitidal_interval">מרווח לוניטידלי</string>
+    <string name="tide_clock">שעון גאות ושפל</string>
+    <string name="us_tablespoons">כפות אמריקאיות</string>
+    <string name="unit_millimeters">מילימטרים</string>
+    <string name="reduce_pdf_resolution">הקטנת רזולוציית PDF</string>
+    <string name="us_teaspoons">כפיות אמריקאיות</string>
+    <string name="automatic_backup_invalid_directory">תיקייה לא חוקית</string>
+    <string name="widget_updater">מעדכן ווידג\'טים</string>
+    <string name="insect_activity">פעילות חרקים</string>
+    <string name="mosquitoes">יתושים</string>
+    <string name="astronomy_altitude">גובה</string>
+    <string name="ar_calibration_instructions">יש למרכז את %s במסך וללחוץ על \"כיול\"</string>
+    <string name="climate_tropical_monsoon">מונסון טרופי</string>
+    <string name="climate_tropical_savanna">סוואנה טרופית</string>
+    <string name="climate_tropical_rainforest">גשם טרופי</string>
+    <string name="climate_desert">מדבר</string>
+    <string name="climate_steppe">ערבה</string>
+    <string name="climate_tundra">טונדרה</string>
+    <string name="climate_ice_cap">כיפת קרח</string>
+    <string name="climate_temperate">ממוזג</string>
+    <string name="climate_continental">יבשתי</string>
+    <string name="climate_dry_description">אקלים צחיח עם משקעים נמוכים וצמחייה דלילה.</string>
+    <string name="climate_continental_description">אקלים קר עם קייצים חמים, חורפים קרים ושינויים עונתיים משמעותיים.</string>
+    <string name="climate_rainforest_description">העלווה הצפופה עשויה להפריע לאותות ה-GPS.</string>
+    <string name="climate_monsoon_description">קיימת תקופת יובש קצרה.</string>
+    <string name="climate_savanna_description">יש עונה יבשה. היא עשויה להכיל ערבות עם עצים דלילים.</string>
+    <string name="climate_desert_description">אקלים עם מחסור קיצוני במשקעים יוצר קרקע רופפת ומקשה על מציאת מים.</string>
+    <string name="climate_steppe_description">עשויות להיות ערבות דשא מפוזרות.</string>
+    <string name="climate_dry_winter_description">יש עונה יבשה במהלך החורף.</string>
+    <string name="climate_no_dry_season_description">אין עונה יבשה.</string>
+    <string name="climate_tundra_description">ייתכן שחלק מהקרח יימס במהלך הקיץ, אך הצמחייה תהיה מינימלית.</string>
+    <string name="climate_ice_cap_description">הקרח אינו נמס במהלך השנה, והצמחייה חסרה.</string>
+    <string name="climate_hot_description">תכנון לטמפרטורות חמות כל השנה.</string>
+    <string name="climate_cold_description">תכנון לטמפרטורות קרות כל השנה.</string>
+    <string name="climate_hot_summer_description">תכנון לטמפרטורות חמות במהלך הקיץ.</string>
+    <string name="climate_warm_summer_description">תכנון לטמפרטורות חמימות במהלך הקיץ.</string>
+    <string name="climate_cold_summer_description">תכנון לטמפרטורות קרירות במהלך הקיץ.</string>
+    <string name="climate_very_cold_winter_description">תכנון לטמפרטורות קרות במיוחד במהלך החורף.</string>
+    <string name="widget_pref_title">ווידג\'טים בתוך היישום</string>
+    <string name="enter_the_current_pressure">הזנת הלחץ הנוכחי</string>
+    <string name="sunset">שקיעה</string>
+    <string name="sunrise">זריחה</string>
+    <string name="estimate_method">שיטת אומדן</string>
+    <string name="overview">סקירה</string>
+    <string name="on_import">בייבוא</string>
+    <string name="crafting">יצירה</string>
+    <string name="reduce_photo_resolution">הקטנת רזולוציית תמונה</string>
+    <string name="ticks">קרציות</string>
+    <plurals name="number_steps">
+        <item quantity="one">צעד אחד</item>
+        <item quantity="two">%d צעדים</item>
+        <item quantity="other">%d צעדים</item>
+    </plurals>
+    <string name="pressure_chart">טבלת לחצים</string>
+    <string name="activity_pattern">דפוס פעילות</string>
+    <string name="climate_dry_summer_description">יש עונה יבשה במהלך הקיץ.</string>
+    <string name="active_period">פעיל מ- %1$s עד %2$s</string>
+    <string name="climate_tropical_description">אקלים חם ולח עם משקעים משמעותיים לאורך כל השנה.</string>
+    <string name="no_permits">אין אישורים</string>
+    <string name="theme_system_black">מערכת (שחור)</string>
+    <string name="grid">רשת</string>
+    <string name="scanning_image">סורק תמונה</string>
+    <string name="no_qr_code_detected">לא זוהה קוד QR</string>
+    <string name="fast_path_rendering_summary">משפר ביצועים על חשבון הניראות</string>
+    <string name="fast_path_rendering">רינדור מהיר של נתיב</string>
+    <string name="reset_calibration_question">לאפס כיול?</string>
+    <string name="drop_amount">%s ירידה</string>
+    <string name="pref_tiles_battery_log">יומן סוללה</string>
+    <string name="pref_dialog_battery_log_summary">יומן הסוללה מושבת, ייתכן שההיסטוריה והזמן עד להתרוקנות אינם זמינים. ניתן להפעיל זאת מחדש בהגדרות</string>
+    <string name="muzzle_velocity">מהירות לוע</string>
+    <string name="smooth_gps_readings">החלקת נתוני GPS</string>
+    <string name="speed_format_feet_per_second">%s ר\"ש</string>
+    <string name="speed_format_meters_per_second">%s מ\"ש</string>
+    <string name="feet_per_second">רגל לשנייה</string>
+    <string name="meters_per_second">מטר לשניה</string>
+    <string name="speed">מהירות</string>
+    <string name="millimeters_format">%s מ\"מ</string>
+    <string name="teaspooon_format">%s כפיות</string>
+    <string name="tablespoon_format">%s כפות</string>
+    <string name="restart_services_message">לא ניתן היה לאתחל את שירותי הרקע. יש להקיש כדי לאתחל.</string>
+    <string name="fused_altimeter_force_calibration">כפיית כיול מחזורי</string>
+    <string name="view_in_3d">הצגה בתלת מימד</string>
+    <string name="fused_altimeter_force_calibration_summary">כפיית כיול GPS כל %s</string>
+    <string name="dynamic_colors">צבעים דינאמיים</string>
+    <string name="show_dial_ticks_on_nearby_radar">הצגת סימני חוגה על מכ\"ם סמוך</string>
+    <string name="ar_calibration_instructions_hint">לכיול כלי המציאות הרבודה, יש להקיש על הסמל בפינה השמאלית העליונה של המסך ולפעול לפי ההוראות שמופיעות.</string>
+    <string name="max_s">מקסימום %s</string>
+    <string name="climate_temperature_amount">טמפרטורה: %s</string>
+    <string name="climate_precipitation_amount">משקעים: %s סך חודשי</string>
+    <string name="source_era5">מקור: ERA5</string>
+    <string name="source_merra_2">מקור: merRA-2</string>
+    <string name="ballistic_coefficient">מקדם בליסטי</string>
+    <string name="grains_format">%s גר</string>
+    <string name="caliber_format">%s קליבר</string>
+    <string name="restart_services_title">איתחול שירותים</string>
+    <string name="use_path_elevation">שימוש בגובה הנתיב</string>
+    <string name="pref_start_camera_in_3d_view_title">שימוש במצלמה לתצוגת תלת מימד</string>
+    <string name="pref_start_camera_in_3d_view_summary">פותח את המצלמה כאשר לוחצים על כפתור תצוגה בתלת ממד</string>
+    <string name="open_photo_map">פתיחת תמונת מפה</string>
+    <string name="return_time">זמן הגעה</string>
+    <string name="turn_back_instructions">חזרה ב-%1$s (%2$s) כדי להגיע ב-%3$s</string>
+    <string name="turn_back_alert_set">התראת חזרה לאחור הוגדרה</string>
+    <string name="local_messaging">מסרים מקומיים</string>
+    <string name="quick_actions">פעולות מהירות</string>
+    <string name="lunitidal_interval_auto">מרווח לוניטידלי (אוטומטי)</string>
+    <string name="lunitidal_interval_local">מרווח לוניטידלי (מקומי)</string>
+    <string name="lunitidal_interval_utc">מרווח לוניטידלי (UTC/גריניץ\')</string>
+    <string name="harmonic">הרמוני</string>
+    <string name="survival_guide">מדריך הישרדות</string>
+    <string name="unit_caliber">קליבר</string>
+    <string name="timezone">אזור זמן</string>
+    <string name="nearest_stars">הכוכבים הסמוכים</string>
+    <string name="stars">כוכבים</string>
+    <string name="tide">גאות ושפל</string>
+    <string name="field_guide">מדריך שטח</string>
+    <string name="books">ספרים</string>
+    <string name="delete_all_beacons">כל המשואות יימחקו.</string>
+    <string name="africa">אפריקה</string>
+    <string name="antarctica">אנטארקטיקה</string>
+    <string name="asia">אסיה</string>
+    <string name="australia">אוסטרליה</string>
+    <string name="europe">אירופה</string>
+    <string name="north_america">צפון אמריקה</string>
+    <string name="south_america">דרום אמריקה</string>
+    <string name="animal">בעלי חיים</string>
+    <string name="mammal">יונקים</string>
+    <string name="amphibian">דו-חיים</string>
+    <string name="reptile">זוחלים</string>
+    <string name="fish">דגים</string>
+    <string name="invertebrate">חסרי חוליות</string>
+    <string name="diurnal">יצור יומי (דיורנל)</string>
+    <string name="nocturnal">יצור לילי (נוקטורנלי)</string>
+    <string name="crepuscular">קרפוסקולרי (דמדומים)</string>
+    <string name="tool_signal_finder">מאתר אות</string>
+    <string name="cell_towers">אנטנות סלולריות</string>
+    <string name="signal_finder_description">צפייה באנטנות סלולריות קרובות ובאותות.</string>
+    <string name="no_cell_towers_found">לא נמצאו אנטנות סלולריות</string>
+    <string name="cell_tower_disclaimer">מיקומי האנטנות משוערים מתוך OpenCelliD.\n\n[OpenCelliD Project](https://opencellid.org/) תחת רישיון [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/)</string>
+    <string name="cell_tower">אנטנה סלולרית</string>
+    <string name="create_page">יצירת עמוד</string>
+    <string name="habitat">בית גידול</string>
+    <string name="classification">סיווג</string>
+    <string name="human_interaction">אינטראקציה אנושית</string>
+    <string name="no_pages">אין עמודים</string>
+    <string name="no_results">אין תוצאות</string>
+    <string name="ballistics">בליסטיקה</string>
+    <string name="left">שמאל</string>
+    <string name="scope">כוונת</string>
+    <string name="elevation_miss">סטיית גובה</string>
+    <string name="scope_height">גובה הכוונת</string>
+    <string name="sight_in_range">טווח כיול</string>
+    <string name="time_header_units">זמן (%s)</string>
+    <string name="range_header_units">טווח (%s)</string>
+    <string name="velocity_header_units">מהירות (%s)</string>
+    <string name="drop_header_units">ירידה (%s)</string>
+    <string name="energy">אנרגיה</string>
+    <string name="bullet_weight">משקל קליע</string>
+    <string name="format_joules">%s ג\'אול</string>
+    <string name="format_fpe">%s רפ\"א</string>
+    <string name="tide_estimation_description_lunitidal_interval_utc">משתמש במיקום הירח להערכת גאות ושפל. דורש את מרווח הזמן הלוניטידלי ב-UTC.</string>
+    <string name="climate_polar_description">אקלים קר מאוד עם קייצים קצרים.</string>
+    <string name="survival_guide_disclaimer">מדריך זה מסופק למטרות מידע בלבד, ואין המחבר, המו\"ל או כל תורם אחר מבטיחים את דיוקו או התאמתו לכל מטרה. שימושך במדריך זה מהווה אישור כי פעילויות חוץ כרוכות בסיכונים, וכי הפעולות הן על אחריותך בלבד, תוך הסכמה לשחרר מאחריות ולשפות את המחבר, המו\"ל וכל תורם אחר מכל תביעות או נזקים הנובעים מהשימוש שלך במדריך זה. תמיד יש להתייעץ עם מומחים לקבלת ייעוץ מותאם אישית למצבך, שכן מדריך זה אינו מחליף ייעוץ מקצועי. בנוסף, לידיעתך חוקים ותקנות מקומיים עשויים להשפיע על השימוש החוקי בטכניקות המתוארות כאן, והאחריות לעמידה בהם חלה עליך.</string>
 </resources>

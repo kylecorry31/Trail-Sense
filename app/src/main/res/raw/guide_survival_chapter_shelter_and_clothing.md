@@ -117,6 +117,7 @@ When selecting a site for your shelter, consider the following:
 - Free of threat from avalanches, rock slides, or flooding.
 - Free of insects, poisonous plants, or dangerous animals.
 - Suitable for signaling for help if needed.
+- Avoid staying above the treeline in mountainous regions, as you will be exposed to the elements.
 
 ### Gathering materials
 Prefer wood and debris that are already on the ground and require minimal effort to use. Avoid logs that are too thick to break by hand.
@@ -133,23 +134,19 @@ A simple shelter made by leaning a large sheet of material against a support lik
 2. Lay a tarp or poncho over the ridgepole, allowing one side to touch the ground. If using natural materials, lay branches and leaves over the ridgepole.
 3. Secure the sides with stakes or rocks.
 
-![](file:///android_asset/survival_guide/68.webp)
+![](file:///android_asset/survival_guide/shelter_tarp.webp)
 
-![](file:///android_asset/survival_guide/76.webp)
-
-If you're constructing a ridge line with cordage, form a bowline at one end, wrap the cordage around a tree, and pass the free end through the bowline's loop. Secure the other end to a second tree using either a taut-line hitch or a trucker's hitch, then tighten it. To attach a tarp, pull a small section of the ridge line through the grommets and insert a stick through the resulting loop to hold it in place.
+If you're constructing a ridgeline with cordage, form a bowline at one end, wrap the cordage around a tree, and pass the free end through the bowline's loop. Secure the other end to a second tree using either a taut-line hitch or a trucker's hitch, then tighten it. To attach a tarp, pull a small section of the ridgeline through the grommets and insert a stick through the resulting loop to hold it in place.
 
 **A-frame**
 
 A more enclosed shelter that provides better protection from the elements.
 
-1. Lash two sticks together into an A shape.
-2. Place the ridgepole across the top of the A.
-3. Lay a tarp or poncho over the ridgepole, securing the sides with stakes or rocks. If using natural materials, lay branches and leaves over the ridgepole.
+1. Lash two sticks together into an A-shape. You can also use a fork in a tree or stick, a stump, or a large rock as a support.
+2. Place one end of the ridgepole on top of the A-frame (or fork/stump/rock) and the other end on the ground.
+3. Lay a tarp or poncho over the ridgepole, securing the sides with stakes or rocks. If using natural materials, lay branches over the ridgepole angled slightly upward, then add leaves or other debris from the bottom up.
 
-![](file:///android_asset/survival_guide/72.webp)
-
-![](file:///android_asset/survival_guide/79.webp)
+![](file:///android_asset/survival_guide/shelter_debris_hut.webp)
 
 **Caves**
 
@@ -198,14 +195,12 @@ Used for seams that require strength, such as on backpacks or tents.
 Used for quick repairs on clothing or gear in places where strength is not critical.
 
 ![](file:///android_asset/survival_guide/running_stitch.webp)
-[Image source](https://commons.wikimedia.org/wiki/File:Running_stitch.gif)
 
 **Whip stitch**
 
 Used to repair tears or holes in fabric. It can also be used to connect two pieces of fabric.
 
 ![](file:///android_asset/survival_guide/whip_stitch.webp)
-[Image source](https://commons.wikimedia.org/wiki/File:Whip_stitch.jpg)
 
 ### Tarps
 
@@ -225,17 +220,22 @@ Used to prevent the end of a rope from untwisting. This is hard to undo but very
 
 ![](file:///android_asset/survival_guide/knot_overhand.webp)
 
+### Overhand loop
+Used to create a loop at the end of a line. In most cases a bowline would be a better choice, but this knot is easy to tie.
+
+![](file:///android_asset/survival_guide/knot_overhand_loop.webp)
+
 ### Double sheet bend
 Used for tying two lines together.
 
-![](file:///android_asset/survival_guide/125.webp)
+![](file:///android_asset/survival_guide/knot_double_sheet_bend.webp)
 
 ### Bowline
 Used to create a loop at the end of a line. You can pass a line around a tree and through the bowline loop to secure the end of a line to the tree.
 
 You can use a bowline to attach a line to a grommet on a tarp.
 
-![](file:///android_asset/survival_guide/126.webp)
+![](file:///android_asset/survival_guide/knot_bowline.webp)
 
 ### Jam Knot
 Used to fasten a rope to a timber or pole. This can be used in place of lashings. It can be loosened by pulling on the knot on the end. It is hard to untie this knot.
@@ -247,8 +247,13 @@ Used to fasten a rope to a timber or pole. It can be tied at any point in a rope
 
 ![](file:///android_asset/survival_guide/133.webp)
 
+### Taut-line hitch
+Used to tighten a line.
+
+![](file:///android_asset/survival_guide/knot_tautline_hitch.webp)
+
 ### Trucker's hitch
-Used to secure a load or tighten a line.
+Used to secure a load or tighten a line. Can be cinched down tighter than a taut-line hitch.
 
 ![](file:///android_asset/survival_guide/truckers_hitch.webp)
 
@@ -280,9 +285,9 @@ Any fibrous material can be used to make cordage. Some examples include:
 3. Fold the bundle in half at the kink.
 4. Twist the top half clockwise.
 5. Twist the two halves together counterclockwise.
-6. Repeat the process until you have a full strand. If a material is running out, add more material and twist it in.
+6. Repeat the process until you have a full strand. If material is running out, add more material and twist it in.
 
-![](file:///android_asset/survival_guide/139.webp)
+![](file:///android_asset/survival_guide/craft_cordage.webp)
 
 ## Craft: Tent stakes
 <!-- K: tent, stake, peg, craft -->

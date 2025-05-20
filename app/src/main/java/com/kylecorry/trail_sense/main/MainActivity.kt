@@ -482,8 +482,16 @@ class MainActivity : AndromedaActivity() {
         }
     }
 
-    fun openWidgets(){
+    fun openWidgets() {
         binding.quickActionsSheet.show(this, 1)
+    }
+
+    fun setBottomNavigationEnabled(isEnabled: Boolean) {
+        if (isEnabled){
+            binding.bottomNavigation.enable()
+        } else {
+            binding.bottomNavigation.disable()
+        }
     }
 
     companion object {

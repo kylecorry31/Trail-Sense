@@ -59,6 +59,10 @@ class Navigator private constructor(context: Context) {
         service.getBeacon(id)
     }
 
+    fun isNavigating(): Boolean {
+        return getDestinationId() != null
+    }
+
     companion object {
         const val DESTINATION_ID_KEY = "last_beacon_id_long"
 

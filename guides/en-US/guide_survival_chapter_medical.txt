@@ -461,7 +461,7 @@ Do not attempt to remove a fishhook if it is embedded in the eye.
 4. Quickly pull the string, causing the hook to come out the way it went in.
 5. Clean the wound and apply antibiotic ointment.
 
-![](file:///android_asset/survival_guide/hook_removal.webp)
+![](file:///android_asset/survival_guide/fish_hook_removal.webp)
 
 ### Prevention
 - Be careful when handling fishhooks.
@@ -820,6 +820,11 @@ It is common to get objects in your eye while in the wilderness, such as dirt, s
 
 Contact dermatitis is caused by contact with poisonous plants, such as poison ivy, poison oak, poison sumac, and stinging nettle.
 
+![](file:///android_asset/survival_guide/dangerous_plants.webp)
+
+1. **Poison ivy**: A toxic plant with three glossy, pointed leaflets, commonly found in forests, fields, and along trails. Contact with its oil causes itchy rashes and skin irritation.
+2. **Stinging nettle**: A plant with serrated leaves and tiny stinging hairs, commonly found in moist, shaded areas. Contact causes a painful, itchy rash.
+
 ### Symptoms
 - Burning, reddening, and swelling rash
 - Itching
@@ -831,7 +836,7 @@ Contact dermatitis is caused by contact with poisonous plants, such as poison iv
 3. Apply calamine lotion or hydrocortisone cream to reduce the itch. If unavailable, apply a tannic acid solution (boil acorns or oak bark in water) or crushed jewelweed.
 4. Optionally, take antihistamine pills to reduce itching.
 
-If you touched stinging nettle, you can also apply mud to the area and remove it when it dries.
+If you touched stinging nettle, apply mud to the area and remove it when it dries. You can also use tape to pull the small needles out.
 
 Avoid scratching the rash, as it can cause infection. Leave blisters alone.
 
@@ -871,6 +876,29 @@ Cover your eyes with a dark cloth until symptoms disappear.
 
 ### Prevention
 Wear UV-protective sunglasses or snow goggles. If you do not have these, you can make snow goggles from a piece of cloth or a piece of bark with slits cut in it. You can also put soot under your eyes to reduce glare.
+
+## Splinters and thorns
+<!-- K: splinter, thorn, wood, needle, remove, tweezers, hand -->
+<!-- S: Treat by removing the splinter with tweezers and cleaning the area. Prevent by using caution when handling dry wood or thorn bushes. -->
+
+Splinters and thorns can be painful and may lead to infection if not removed.
+
+### Treatment
+If the splinter is deep or very large, seek medical attention and do not try to remove it yourself.
+
+1. Inspect the splinter to see if any part is exposed and determine which direction it entered.
+2. If no part is exposed, sterilize a needle using hand sanitizer or a flame and gently use it to expose one end of the splinter.
+3. Use tweezers to grab the exposed end of the splinter, preferably pulling in the opposite direction from how it entered.
+4. Slowly pull the splinter out.
+5. Repeat if any pieces remain.
+6. If the splinter drew blood when removed, treat it as a cut. Applying antibiotic ointment and a bandage won't hurt.
+
+Thorns can be removed the same way as splinters, and some may come out easily without tweezers.
+
+### Prevention
+- Use caution when handling dry wood or thorn bushes.
+- Avoid walking through thorn bushes.
+- Wear long sleeves and pants if going off trail.
 
 ## Sprains and strains
 <!-- K: sprain, strain, tendon, ligament, muscle, pain, swell, bruise, move, spasm, cramp, weakness, pop, tear -->
@@ -916,6 +944,8 @@ If you fall through the ice, do the following:
 ### Rip currents
 If caught in a rip current, swim parallel to the shore until you are out of the current. Then, swim back to shore.
 
+![](file:///android_asset/survival_guide/rip_current.webp)
+
 ## Sunburn
 <!-- K: sunburn, burn, sunscreen, uv, sun, red, pain, swell, blister, spf, skin -->
 <!-- S: Symptoms include redness, pain, swelling, and blisters. Treat by getting out of the sun, applying a burn cream, and taking pain relievers. Prevent this by wearing sunscreen, proper clothing, and staying in the shade. -->
@@ -943,3 +973,22 @@ Do not pop blisters.
 - Wear long sleeves and pants.
 - Stay in the shade.
 - Take extra precautions on days with a high UV index.
+
+## Craft: Sunglasses
+<!-- K: sunglasses, uv, sun, protect, eyes, birch, cloth, slit, bark, craft -->
+<!-- S: Craft sunglasses using a piece of cloth or birch bark with slits cut in it. -->
+
+You can make sunglasses using a piece of cloth or birch bark with slits cut in it. This helps protect your eyes from UV rays and glare.
+
+![](file:///android_asset/survival_guide/improvised_sunglasses.webp)
+
+**Resources**
+
+- Cloth or birch bark
+- Cordage
+
+**Instructions**
+
+1. Trim a piece of cloth or birch bark large enough to cover your eyes.
+2. Cut small rectangular slits over where your eyes will be. Don't cut the slits while wearing the mask.
+3. Attach cordage to both ends of the mask and ensure it fits snugly on your face.

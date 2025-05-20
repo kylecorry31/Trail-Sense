@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.climate
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.tools.climate.infrastructure.ClimateSubsystem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
@@ -21,7 +22,10 @@ object ClimateToolRegistration : ToolRegistration {
             diagnostics = listOf(
                 ToolDiagnosticFactory.gps(context),
                 *ToolDiagnosticFactory.altimeter(context)
-            ).distinctBy { it.id }
+            ).distinctBy { it.id },
+            singletons = listOf(
+                ClimateSubsystem::getInstance
+            )
         )
     }
 }

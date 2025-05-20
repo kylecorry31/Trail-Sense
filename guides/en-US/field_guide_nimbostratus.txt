@@ -1,2 +1,4 @@
 Nimbostratus
 A mid level cloud that is dark gray and covers the sky. If it is not raining, it may be a stratus cloud. May have precipitation for the next 4 hours.
+
+https://en.wikipedia.org/wiki/Nimbostratus_cloud

@@ -3,12 +3,11 @@ package com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures
 import android.content.Context
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.sol.math.Range
-import com.kylecorry.sol.math.interpolation.NewtonInterpolator
 import com.kylecorry.sol.time.Time
-import com.kylecorry.sol.time.Time.daysUntil
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
+import com.kylecorry.trail_sense.tools.climate.infrastructure.MonthlyValueInterpolator
 import com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures.calculators.DailyTemperatureCalculator
 import java.time.Duration
 import java.time.LocalDate
@@ -19,8 +18,8 @@ import kotlin.math.min
 
 internal class HistoricTemperatureRepo(private val context: Context) : ITemperatureRepo {
 
-    private val highInterpolator = NewtonInterpolator()
-    private val lowInterpolator = NewtonInterpolator()
+    private val highInterpolator = MonthlyValueInterpolator()
+    private val lowInterpolator = MonthlyValueInterpolator()
 
     override suspend fun getYearlyTemperatures(
         year: Int,
@@ -68,49 +67,17 @@ internal class HistoricTemperatureRepo(private val context: Context) : ITemperat
                 context, location
             )
 
-        val lookupMonths = getSurroundingMonths(date)
-
-        val start = lookupMonths.first()
-
-        val xs = lookupMonths.map {
-            start.daysUntil(it).toFloat()
+        val lowMonths = months.mapValues {
+            it.value.start.celsius().temperature
         }
 
-        val lows = lookupMonths.map {
-            months[it.month]?.start?.temperature ?: 0f
+        val highMonths = months.mapValues {
+            it.value.end.celsius().temperature
         }
 
-        val highs = lookupMonths.map {
-            months[it.month]?.end?.temperature ?: 0f
-        }
-
-        val x = start.daysUntil(date).toFloat()
-
-        val low = highInterpolator.interpolate(x, xs, lows)
-        val high = lowInterpolator.interpolate(x, xs, highs)
+        val low = lowInterpolator.interpolate(date, lowMonths)
+        val high = highInterpolator.interpolate(date, highMonths)
 
         Range(Temperature.celsius(min(low, high)), Temperature.celsius(max(low, high)))
     }
-
-    private fun getSurroundingMonths(date: LocalDate): List<LocalDate> {
-        val midMonth = LocalDate.of(date.year, date.month, 15)
-        return if (date > midMonth) {
-            listOf(
-                midMonth.minusMonths(1),
-                midMonth,
-                // The date is between these
-                midMonth.plusMonths(1),
-                midMonth.plusMonths(2)
-            )
-        } else {
-            listOf(
-                midMonth.minusMonths(2),
-                midMonth.minusMonths(1),
-                // The date is between these
-                midMonth,
-                midMonth.plusMonths(1)
-            )
-        }
-    }
-
 }

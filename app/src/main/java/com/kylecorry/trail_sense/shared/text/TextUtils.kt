@@ -17,6 +17,13 @@ import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.text.nlp.processors.EnglishContractionSplitter
+import com.kylecorry.trail_sense.shared.text.nlp.processors.EnglishStopWordRemover
+import com.kylecorry.trail_sense.shared.text.nlp.processors.LowercaseProcessor
+import com.kylecorry.trail_sense.shared.text.nlp.processors.PorterStemmer
+import com.kylecorry.trail_sense.shared.text.nlp.processors.SequentialProcessor
+import com.kylecorry.trail_sense.shared.text.nlp.tokenizers.PostProcessedTokenizer
+import com.kylecorry.trail_sense.shared.text.nlp.tokenizers.SimpleWordTokenizer
 import com.kylecorry.trail_sense.shared.views.Views
 
 object TextUtils {
@@ -106,7 +113,8 @@ object TextUtils {
                 val expandable = expandable(
                     context, first.title
                 ) {
-                    markdown.setMarkdown(it,
+                    markdown.setMarkdown(
+                        it,
                         removeMarkdownComments(first.content) + "\n" + section.drop(1)
                             .joinToString("\n") { it.toMarkdown(shouldUppercaseSubheadings) })
                 }
@@ -115,6 +123,7 @@ object TextUtils {
                 // Only text nodes
                 val t = Views.text(context, null).also {
                     (it as TextView).movementMethod = LinkMovementMethodCompat.getInstance()
+                    it.setTextIsSelectable(true)
                 }
                 markdown.setMarkdown(t as TextView, section.joinToString("\n") { it.toMarkdown() })
                 t
@@ -144,13 +153,15 @@ object TextUtils {
         additionalStopWords: Set<String> = emptySet(),
         additionalStemWords: Map<String, String> = emptyMap()
     ): Set<String> {
-        val tokenizer =
-            KeywordTokenizer(
-                preservedWords,
-                additionalContractions,
-                additionalStopWords,
-                additionalStemWords + preservedWords.associateWith { it }
+        val tokenizer = PostProcessedTokenizer(
+            SimpleWordTokenizer(preservedWords),
+            SequentialProcessor(
+                LowercaseProcessor(),
+                EnglishContractionSplitter(additionalContractions),
+                EnglishStopWordRemover(additionalStopWords),
+                PorterStemmer(additionalStemWords + preservedWords.associateWith { it })
             )
+        )
         return tokenizer.tokenize(text).toSet()
     }
 
@@ -256,6 +267,7 @@ object TextUtils {
                 (it as TextView).movementMethod = LinkMovementMethodCompat.getInstance()
                 it.setPadding(margin)
                 setContent(it)
+                it.setTextIsSelectable(true)
             }
         )
 

@@ -10,7 +10,7 @@ object Licenses {
             "Trail Sense",
             "https://github.com/kylecorry31/Trail-Sense"
         ) {
-            val contributors = arrayOf("kylecorry31", "qwerty287", "muryno", "oersen", "ChuckMichael", "Fjuro", "laralem", "weblate", "ojppe", "comradekingu", "beriain", "ebraminio", "CloneWith", "SecularSteve", "zsbetu", "Jakarrrg", "jer194", "raphaelventura", "bowornsin", "ACABMAN666", "CesPaul", "delthia", "cleveHEX", "another-sapiens", "AlessandroFrangiamone", "TamilNeram", "SantosSi", "shilonit", "gustavi", "crlambda", "Xoronic", "mfrancesconi", "Leopardus4", "comcloudway", "fnogcps", "BorATICI", "AsmodeumX", "Portagoras", "StarSkyGeminid", "mrestivill", "s3n-w6i", "paulle", "notramo", "NaserKhoshfetrat", "tacostea", "Sak94664", "le-jun", "LiJu09", "ingfabby", "hphan9", "KovalevArtem", "volodymyr-ahafonov", "mellvie", "lucasmz-dev", "huuhaa", "github-actions[bot]", "naoritzio", "yurtpage", "SebV60", "imBigo", "Ricky-Tigg", "rezaalmanda", "Poussinou", "Oymate", "NicolaSmaniotto", "L-P", "LuccoJ", "ygorigor", "sguinetti", "asafran", "AHOHNMYC", "WuerfelDev", "VasilisKos", "Tyxiel", "Tijs-B", "swltr", "A5468", "Shadowstrike-code", "rherilier", "VectorKappa", "Pastitas", "the7thNightmare", "ARtHryDr", "efraletti", "Mohammadshir2004", "nautilusx", "random-integer", "doomed-neko", "kasmide", "tct123", "xax", "jacoii", "zaioti", "jere-a", "btsmartx", "Abdulkarim28", "Akamar", "dasrecht", "realgooseman", "helloiamcait", "CanUCMeSharp", "E440QF", "EnderPicture", "Estebastien", "fparri", "Johnny846", "FrameXX", "W113565456", "gerrydoro", "gustavosilveiragss", "iRomanyshyn", "teketemdn", "LightFOSS", "LucFreitas", "Luiz-bro", "LuzEterna", "xmbhasin", "TomasCartman")
+            val contributors = arrayOf("kylecorry31", "qwerty287", "muryno", "oersen", "Fjuro", "ChuckMichael", "weblate", "laralem", "ojppe", "fitojb", "comradekingu", "beriain", "ebraminio", "zsbetu", "CloneWith", "SecularSteve", "shilonit", "jer194", "Jakarrrg", "Kamilkampfwagen-II", "raphaelventura", "bowornsin", "ACABMAN666", "CesPaul", "TamilNeram", "delthia", "cleveHEX", "another-sapiens", "AlessandroFrangiamone", "SantosSi", "gustavi", "eagledofc", "crlambda", "Xoronic", "mfrancesconi", "Leopardus4", "comcloudway", "fnogcps", "BorATICI", "AsmodeumX", "Portagoras", "StarSkyGeminid", "mrestivill", "s3n-w6i", "paulle", "notramo", "NaserKhoshfetrat", "Tyxiel", "tacostea", "Sak94664", "le-jun", "LiJu09", "ingfabby", "hphan9", "KovalevArtem", "volodymyr-ahafonov", "mellvie", "lucasmz-dev", "huuhaa", "github-actions[bot]", "naoritzio", "yurtpage", "SebV60", "imBigo", "Ricky-Tigg", "rezaalmanda", "Poussinou", "Oymate", "NicolaSmaniotto", "L-P", "LuccoJ", "ygorigor", "sguinetti", "asafran", "AHOHNMYC", "efraletti", "WuerfelDev", "VasilisKos", "Tijs-B", "swltr", "A5468", "Shadowstrike-code", "rherilier", "VectorKappa", "Pastitas", "the7thNightmare", "ARtHryDr", "hrachmnam", "Mohammadshir2004", "nautilusx", "random-integer", "doomed-neko", "kasmide", "tct123", "xax", "jacoii", "zaioti", "jere-a", "btsmartx", "Abdulkarim28", "Akamar", "dasrecht", "realgooseman", "helloiamcait", "CanUCMeSharp", "E440QF", "EnderPicture", "Estebastien", "fparri", "Johnny846", "FrameXX", "W113565456", "gerrydoro", "gustavosilveiragss", "iRomanyshyn", "teketemdn", "LightFOSS", "LucFreitas", "Luiz-bro", "LuzEterna", "xmbhasin", "TomasCartman")
             "${
                 mit(
                     "2020-2024",
@@ -230,6 +230,14 @@ F. Point of Contact: Any Recipient contact with Government Agency is to be direc
             "https://disc.gsfc.nasa.gov/datasets/M2SMNXSLV_5.12.4/summary?keywords=statM_2d_slv_Nx"
         ) {
             """Global Modeling and Assimilation Office (GMAO) (2015), MERRA-2 statM_2d_slv_Nx: 2d,Monthly,Aggregated Statistics,Single-Level,Assimilation,Single-Level Diagnostics V5.12.4, Greenbelt, MD, USA, Goddard Earth Sciences Data and Information Services Center (GES DISC), Accessed: 2023-05-22, 10.5067/KVIMOMCUO83U"""
+        },
+        Library(
+            "ERA5",
+            "https://cds.climate.copernicus.eu"
+        ){
+            """Contains modified Copernicus Climate Change Service information 1991 - 2020. Neither the European Commission nor ECMWF is responsible for any use that may be made of the Copernicus information or data it contains.
+
+Hersbach, H., Bell, B., Berrisford, P., Biavati, G., Horányi, A., Muñoz Sabater, J., Nicolas, J., Peubey, C., Radu, R., Rozum, I., Schepers, D., Simmons, A., Soci, C., Dee, D., Thépaut, J-N. (2023): ERA5 monthly averaged data on pressure levels from 1940 to present. Copernicus Climate Change Service (C3S) Climate Data Store (CDS), DOI: 10.24381/cds.6860a573 (Accessed on 17-NOV-2023)"""
         },
         Library(
             "EOT20",

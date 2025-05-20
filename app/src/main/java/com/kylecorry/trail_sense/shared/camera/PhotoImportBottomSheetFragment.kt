@@ -17,13 +17,18 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
+import androidx.exifinterface.media.ExifInterface
 import com.kylecorry.andromeda.camera.ImageCaptureSettings
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.coroutines.onMain
+import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.fragments.BoundFullscreenDialogFragment
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.andromeda.fragments.observe
+import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.trail_sense.databinding.FragmentPhotoImportSheetBinding
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 
 class PhotoImportBottomSheetFragment(
     private val resolution: Size? = null,
@@ -33,9 +38,22 @@ class PhotoImportBottomSheetFragment(
 
     private var isCapturing = false
 
+    private var orientation = DeviceOrientation.Orientation.Portrait
+
     @SuppressLint("UnsafeOptInUsageError")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val orientationSensor = SensorService(requireContext()).getDeviceOrientationSensor()
+        orientation = DeviceOrientation.Orientation.Portrait
+        observe(orientationSensor) {
+            val newOrientation = orientationSensor.orientation
+            if (newOrientation == DeviceOrientation.Orientation.Landscape || newOrientation == DeviceOrientation.Orientation.LandscapeInverse) {
+                orientation = newOrientation
+            } else if (newOrientation == DeviceOrientation.Orientation.Portrait || newOrientation == DeviceOrientation.Orientation.PortraitInverse) {
+                orientation = newOrientation
+            }
+        }
 
         val volumeKeys = listOf(KeyEvent.KEYCODE_VOLUME_DOWN, KeyEvent.KEYCODE_VOLUME_UP)
         dialog?.setOnKeyListener { _, keyCode, event ->
@@ -95,7 +113,25 @@ class PhotoImportBottomSheetFragment(
         inBackground {
             val file = FileSubsystem.getInstance(requireContext()).createTemp("jpg")
             val success = onIO {
-                binding.camera.capture(file)
+                val saved = binding.camera.capture(file)
+
+                // Set the orientation EXIF
+                tryOrLog {
+                    if (orientation != DeviceOrientation.Orientation.Portrait) {
+                        val exif = ExifInterface(file)
+                        exif.rotate(
+                            when (orientation) {
+                                DeviceOrientation.Orientation.PortraitInverse -> 180
+                                DeviceOrientation.Orientation.Landscape -> 270
+                                DeviceOrientation.Orientation.LandscapeInverse -> 90
+                                else -> 0
+                            }
+                        )
+                        exif.saveAttributes()
+                    }
+                }
+
+                saved
             }
             onMain {
                 if (!success) {

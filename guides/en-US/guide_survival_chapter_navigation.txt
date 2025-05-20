@@ -34,7 +34,7 @@ Once you have mastered these skills, you should learn how to do the following:
 <!-- K: route, plan, trip, detour -->
 <!-- S: Plan your route to avoid getting lost and ensure you reach your destination safely. -->
 
-When planning a route, choose one that matches your skill and fitness levels using a topographical map to gauge terrain difficulty. Use the map to identify landmarks along the way to help you stay on track. Also be sure to identify water sources, alternative routes, and the direction to roads or towns.
+When planning a route, choose one that matches your skill and fitness levels using a topographic map to gauge terrain difficulty. Use the map to identify landmarks along the way to help you stay on track. Also be sure to identify water sources, alternative routes, and the direction to roads or towns.
 
 ## Movement
 <!-- K: move, terrain, mountain, cold, desert, jungle, night, river, cross -->
@@ -69,6 +69,10 @@ If you can avoid traveling at night, then don't do it. If you have to travel, us
 When crossing rivers or streams, search for the narrowest section or areas where the water splits into multiple channels. Whenever possible, use bridges, fallen trees, or rocks as crossing points, but be cautious of slippery or loose surfaces. Avoid crossing where currents are strong or near ledges. If you have to wade through water to cross, then find another spot. Anytime you cross a river or stream, unbuckle your backpack and carry it in front of you to prevent being pulled underwater by its weight if you fall.
 
 In emergency situations, following a river downstream may eventually lead to civilization, as many settlements are built near water sources.
+
+### Detours
+
+If there's an obstacle in your path, you may need to take a detour. To do this, find a feature to navigate to on the other side of the obstacle, then turn 90 degrees and walk to the end of the obstacle. Once there, turn back 90 degrees to your original heading and pass the obstacle. Finally, turn 90 degrees again and walk to the feature you picked out. Now you can resume following your original bearing.
 
 ## Trail markers
 <!-- K: trail, blaze, marker, cairn, sign, pile, block, stack, paint, flag -->
@@ -126,7 +130,7 @@ If your GPS supports digital maps, download maps of your area in advance to navi
 <!-- K: compass, bearing, declination, direction, north, south, east, west, orient, craft -->
 <!-- S: A compass helps you determine direction. Be sure to set the same declination as your map. -->
 
-A compass helps you determine direction and is essential for navigation, especially with a map.
+A compass helps you determine direction and is essential for navigation, especially with a map. Do not use the compass around metal objects, as it will cause the reading to be inaccurate. If you are using a digital compass on a smartphone, it will need to be calibrated by rotating your device in a figure-8 pattern (the pattern may vary by device).
 
 ### Bearings
 
@@ -134,7 +138,9 @@ A bearing is the direction you must travel to reach a specific point. You can de
 
 ### Back bearings
 
-A back bearing is the opposite direction of your current bearing. To calculate a back bearing: if your bearing is less than 180 degrees, add 180. If it's more than 180, subtract 180.
+A back bearing is the opposite direction of your current bearing. To calculate a back bearing: if your bearing is less than 180 degrees, add 180. If it's more than 180, subtract 180. On a compass, the back bearing is directly across from the bearing.
+
+To use a back bearing to navigate, you need to take a bearing before hiking out. Keep this bearing written down or memorized, and as long as you didn't drastically change direction, following the back bearing will lead you close to your starting location. Every time you make a turn, you should record a bearing.
 
 ### Declination
 
@@ -175,7 +181,13 @@ Maps are drawn to scale, allowing you to determine distances between points. A b
 
 Topographic maps show elevation changes and terrain features, making them helpful in navigating mountainous or hilly areas. Contour lines indicate elevation; the closer the lines are, the steeper the terrain. Elevation markers on contour lines help identify peaks and valleys.
 
-![](file:///android_asset/survival_guide/95.webp)
+![](file:///android_asset/survival_guide/topographical_map.webp)
+
+1. Peak
+2. Cliff
+3. Ridge
+4. Depression
+5. Valley
 
 Typical map colors include:
 - **Black**: Structures
@@ -185,20 +197,24 @@ Typical map colors include:
 - **Brown**: Contour lines
 - **Blue**: Water
 
-## Advanced navigation techniques
-<!-- K: sun, star, shadow, watch, north, south, east, west, polaris, big dipper, cassiopeia, southern cross, constellation, advanced, technique -->
-<!-- S: You can use the sun or stars to determine direction. If you need this, it's best to stay where you are and wait for help. -->
+## Finding direction without a compass
+<!-- K: sun, moon, star, shadow, watch, north, south, east, west, polaris, big dipper, cassiopeia, southern cross, constellation, advanced, technique -->
+<!-- S: You can use the sun, moon, or stars to determine direction. If you need this, it's best to stay where you are and wait for help. -->
 
 You can use the sun or stars to determine direction. If you need this, it's best to stay where you are and wait for help.
 
+### Sun/Moon
+
+In the early morning, the sun will be close to the east, and in the late afternoon, it will be close to the west. The same applies to the moon at moonrise and moonset. During the day, the sun will be in the southern half of the sky in the northern hemisphere, and in the northern half in the southern hemisphere.
+
 ### Shadows
 
-If you measure which way shadows are moving over time, you can determine direction. This is because the Sun moves East to West throughout the sky, and therefore shadows move in the opposite direction.
+If you measure which way shadows are moving over time, you can determine direction. This is because the Sun moves east to west throughout the sky, and therefore shadows move in the opposite direction.
 
 1. Place a stick vertically in the ground and mark the shadow tip.
 2. After 10-15 minutes, mark the new position of the shadow tip.
-3. Draw a line between the two points for an East-West line. West will be in the direction of the first point.
-4. Draw a line at a right angle to the East-West line. South (or North in the Southern Hemisphere) will point toward the sun.
+3. Draw a line between the two points for an east-west line. West will be in the direction of the first point.
+4. Draw a line at a right angle to the east-west line. South (or north in the Southern Hemisphere) will point toward the sun.
 
 ![](file:///android_asset/survival_guide/direction_shadow.webp)
 
@@ -212,7 +228,7 @@ You can determine your direction using the position of the sun and the current t
 
 Being able to identify a handful of constellations will help you determine direction at night.
 
-In the Northern Hemisphere, identify Polaris (the North Star) using the Big Dipper and Cassiopeia as reference points. Polaris is directly to the North.
+In the Northern Hemisphere, identify Polaris (the North Star) using the Big Dipper and Cassiopeia as reference points. Polaris is directly to the north.
 
 ![](file:///android_asset/survival_guide/northern_stars.webp)
 

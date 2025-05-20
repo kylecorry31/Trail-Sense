@@ -9,6 +9,8 @@ import com.kylecorry.andromeda.core.topics.ITopic
 import com.kylecorry.andromeda.core.topics.Topic
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.math.Range
+import com.kylecorry.sol.science.meteorology.KoppenGeigerClimateClassification
+import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -20,6 +22,8 @@ import com.kylecorry.trail_sense.shared.data.DataUtils
 import com.kylecorry.trail_sense.shared.debugging.DebugWeatherCommand
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
+import com.kylecorry.trail_sense.tools.climate.infrastructure.ClimateSubsystem
+import com.kylecorry.trail_sense.tools.climate.infrastructure.precipitation.HistoricMonthlyPrecipitationRepo
 import com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures.HistoricTemperatureRepo
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudRepo
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -42,13 +46,14 @@ import kotlinx.coroutines.sync.withLock
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
+import java.time.Month
 import java.time.ZonedDateTime
 
 
 class WeatherSubsystem private constructor(private val context: Context) : IWeatherSubsystem {
 
     private val weatherRepo by lazy { WeatherRepo.getInstance(context) }
-    private val temperatureRepo by lazy { HistoricTemperatureRepo(context) }
+    private val climate by lazy { ClimateSubsystem.getInstance(context) }
     private val cloudRepo by lazy { CloudRepo.getInstance(context) }
     private val prefs by lazy { UserPreferences(context) }
     private val sharedPrefs by lazy { PreferencesSubsystem.getInstance(context).preferences }
@@ -198,10 +203,11 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         val lookupElevation: Distance
         if (location == null || elevation == null) {
             val last = weatherRepo.getLast()
-            lookupLocation = last?.value?.location ?: this@WeatherSubsystem.location.location
+            lookupLocation =
+                location ?: last?.value?.location ?: this@WeatherSubsystem.location.location
             lookupElevation =
-                last?.value?.altitude?.let { Distance.meters(it) }
-                    ?: this@WeatherSubsystem.location.elevation
+                elevation ?: last?.value?.altitude?.let { Distance.meters(it) }
+                        ?: this@WeatherSubsystem.location.elevation
         } else {
             lookupLocation = location
             lookupElevation = elevation
@@ -235,6 +241,33 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             }
         }
 
+    override suspend fun getMonthlyPrecipitation(location: Coordinate?): Map<Month, Distance> {
+        val resolved = resolveLocation(location, null)
+        return HistoricMonthlyPrecipitationRepo.getMonthlyPrecipitation(
+            context,
+            resolved.first
+        )
+    }
+
+    override suspend fun getClimateClassification(
+        location: Coordinate?,
+        elevation: Distance?,
+        calibrated: Boolean
+    ): KoppenGeigerClimateClassification {
+        val temperatures =
+            getTemperatureRanges(LocalDate.now().year, location, elevation, calibrated)
+        val precipitation = getMonthlyPrecipitation(location)
+
+        val monthlyAverageTemperatures = temperatures
+            .filter { it.first.dayOfMonth == 15 }
+            .associate { it.first.month to Temperature.celsius((it.second.start.celsius().temperature + it.second.end.celsius().temperature) / 2) }
+
+        return Meteorology.getKoppenGeigerClimateClassification(
+            monthlyAverageTemperatures,
+            precipitation
+        )
+    }
+
     override suspend fun updateWeather() = onDefault {
         updateWeatherMutex.withLock {
             val last = weatherRepo.getLast()?.time
@@ -258,7 +291,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         val resolved = resolveLocation(location, elevation)
         val lookupLocation = resolved.first
         val lookupElevation = resolved.second
-        val service = HistoricTemperatureService(temperatureRepo, lookupLocation, lookupElevation)
+        val service = HistoricTemperatureService(climate, lookupLocation, lookupElevation)
 
         if (calibrated) {
             return CalibratedTemperatureService(service, prefs.thermometer.calibrator)

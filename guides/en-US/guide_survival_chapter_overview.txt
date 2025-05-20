@@ -155,17 +155,10 @@ Many phones can call emergency services even without a signal from your carrier.
 ### Whistle
 Three short blasts are the universal signal for help. You may want to cover your ears when using the whistle at full volume.
 
-If you don't have a whistle, you can use your fingers, but it will likely take practice.
-
-1. Clean your fingers using hand sanitizer or soap and water.
-2. Create a V-shape by touching your index finger and thumb together. Some may prefer to use the index and middle fingers of both hands to form a larger V-shape.
-3. Press the tip of your tongue into the top of your mouth.
-4. Curl your lips over your teeth.
-5. Put the two fingers into your mouth and press on the tip of your tongue.
-6. Seal your lips around your fingers and blow to create a whistle.
-
 ### Signal mirror
 Hold the mirror with one hand and extend your other arm in front of you with your fingers in a V-shape and the target between your fingers. Reflect sunlight onto your fingers and slowly move the mirror up and down to flash sunlight at the potential rescuers. You can use a phone screen as a signal mirror, but it will be nowhere near as effective as an actual mirror and should be combined with another signal, such as smoke or a ground-to-air signal.
+
+![](file:///android_asset/survival_guide/signal_mirror.webp)
 
 ### Smoke
 Smoke can attract attention during the day. Burning green vegetation can create a lot of smoke, but be sure to do this safely. A fire at night can also be used to attract attention.
@@ -178,6 +171,8 @@ At night, a flashlight can be used to signal for help. Use the international dis
 
 ### Ground-to-air signals
 Ground-to-air signals are large markers you create on the ground to communicate with aircraft. Use rocks, logs, or other materials to create a large "V" (means you require assistance) or an "X" (means you require medical assistance). Use contrasting or artificial colors to make the signal more visible.
+
+![](file:///android_asset/survival_guide/ground_to_air.webp)
 
 ## Disclaimer
 This guide is provided for informational purposes only, and neither the author, publisher, nor any contributors guarantee its accuracy or suitability for any purpose. By using this guide, you acknowledge that outdoor activities involve risks, and you do so at your own risk, agreeing to hold harmless and indemnify the author, publisher, and any contributors from any claims or damages arising from your use of this guide. Always consult professionals for advice specific to your situation, as this guide does not substitute for professional guidance. Furthermore, be aware that local laws and regulations may affect the legal use of the techniques described herein, and compliance is your responsibility.

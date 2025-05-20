@@ -133,9 +133,7 @@ A simple shelter made by leaning a large sheet of material against a support lik
 2. Lay a tarp or poncho வீச்சலகு the ridgepole, allowing one பக்கம் பெறுநர் touch the ground. If using natural materials, lay branches and leaves வீச்சலகு the ridgepole.
 3. Secure the sides with stakes or rocks.
 
-![](file:///android_asset/survival_guide/68.webp)
-
-![](file:///android_asset/survival_guide/76.webp)
+![](file:///android_asset/survival_guide/shelter_tarp.webp)
 
 If you're constructing a ridge வரி with cordage, form a bowline at one end, wrap the cordage around a tree, and கணவாய் the free end through the bowline's loop. Secure the மற்றொன்று end பெறுநர் a second tree using either a taut-line hitch or a trucker's hitch, then tighten it. பெறுநர் attach a tarp, pull a small பிரிவு of the ridge வரி through the grommets and செருகவும் a stick through the resulting loop பெறுநர் hold it in place.
 
@@ -147,9 +145,7 @@ A more enclosed shelter that provides better protection இருந்து th
 2. Place the ridgepole across the மேலே of the A.
 3. Lay a tarp or poncho வீச்சலகு the ridgepole, securing the sides with stakes or rocks. If using natural materials, lay branches and leaves வீச்சலகு the ridgepole.
 
-![](file:///android_asset/survival_guide/72.webp)
-
-![](file:///android_asset/survival_guide/79.webp)
+![](file:///android_asset/survival_guide/shelter_debris_hut.webp)
 
 **Caves**
 
@@ -228,14 +224,14 @@ Used பெறுநர் prevent the end of a rope இருந்து untwi
 ### இரட்டை sheet bend
 Used க்கு tying two வரிகள் together.
 
-![](file:///android_asset/survival_guide/125.webp)
+![](file:///android_asset/survival_guide/knot_double_sheet_bend.webp)
 
 ### Bowline
 Used பெறுநர் create a loop at the end of a line. You can கணவாய் a வரி around a tree and through the bowline loop பெறுநர் secure the end of a வரி பெறுநர் the tree.
 
 You can use a bowline பெறுநர் attach a வரி பெறுநர் a grommet on a tarp.
 
-![](file:///android_asset/survival_guide/126.webp)
+![](file:///android_asset/survival_guide/knot_bowline.webp)
 
 ### நெரிசல் Knot
 Used பெறுநர் fasten a rope பெறுநர் a timber or pole. This can be used in place of lashings. It can be loosened by pulling on the knot on the end. It is hard பெறுநர் untie this knot.
@@ -282,7 +278,7 @@ Any fibrous material can be used பெறுநர் make cordage. Some exampl
 5. Twist the two halves together counterclockwise.
 6. Repeat the process until you have a full strand. If a material is running out, கூட்டு more material and twist it in.
 
-![](file:///android_asset/survival_guide/139.webp)
+![](file:///android_asset/survival_guide/craft_cordage.webp)
 
 ## Craft: Tent stakes
 <!-- K: tent, stake, peg, craft -->

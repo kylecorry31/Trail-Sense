@@ -15,7 +15,7 @@ import com.kylecorry.sol.units.Coordinate
 import java.io.InputStream
 
 class GeographicImageSource(
-    imageSize: Size,
+    val imageSize: Size,
     private val latitudePixelsPerDegree: Double = ((imageSize.height - 1) / 180.0),
     private val longitudePixelsPerDegree: Double = ((imageSize.width - 1) / 360.0),
     private val precision: Int = 2,
@@ -86,6 +86,21 @@ class GeographicImageSource(
                         alpha / a - b
                     ).map { it.toFloat() }
                 }
+            }
+        }
+
+        fun split16BitDecoder(): (Int?) -> List<Float> {
+            return {
+                val red = it?.red ?: 0
+                val green = it?.green ?: 0
+                val blue = it?.blue ?: 0
+                val alpha = it?.alpha ?: 0
+
+                listOf(
+                    green shl 8 or red,
+                    alpha shl 8 or blue
+                ).map { it.toFloat() }
+
             }
         }
 

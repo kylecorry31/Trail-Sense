@@ -38,6 +38,7 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.andromeda_temp.BottomSheetFragmentWrapper
 import com.kylecorry.trail_sense.shared.camera.PhotoImportBottomSheetFragment
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
@@ -364,6 +365,15 @@ object CustomUiUtils {
     ): BottomSheetDialogFragment {
         val sheet = ScanQRBottomSheet(title, onScan)
         sheet.show(fragment)
+        return sheet
+    }
+
+    fun showFragmentAsSheet(
+        parentFragment: Fragment,
+        contentFragment: Fragment
+    ): BottomSheetDialogFragment {
+        val sheet = BottomSheetFragmentWrapper(contentFragment)
+        sheet.show(parentFragment)
         return sheet
     }
 

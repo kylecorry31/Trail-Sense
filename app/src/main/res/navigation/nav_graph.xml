@@ -375,6 +375,10 @@
         android:name="com.kylecorry.trail_sense.tools.ballistics.ui.FragmentToolBallistics"
         android:label="FragmentToolBallistics" />
     <fragment
+        android:id="@+id/fragmentToolPermits"
+        android:name="com.kylecorry.trail_sense.tools.permits.ui.FragmentToolPermits"
+        android:label="FragmentToolPermits" />
+    <fragment
         android:id="@+id/fragmentToolMetalDetector"
         android:name="com.kylecorry.trail_sense.tools.metaldetector.ui.FragmentToolMetalDetector"
         android:label="FragmentToolMetalDetector" />

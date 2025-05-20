@@ -82,13 +82,13 @@ A below-ground solar still is a simple device that uses the sun's heat to draw m
 4. Place a small rock in the center of the sheet directly over the container.
 5. Wait for the sun to heat the ground and evaporate moisture, which will condense on the plastic and drip into the container.
 
-![](file:///android_asset/survival_guide/16.webp)
+![](file:///android_asset/survival_guide/solar_still.webp)
 
 **Transpiration bag**
 
 A transpiration bag is a plastic bag tied around a leafy branch to collect water. Use multiple bags to increase yield.
 
-![](file:///android_asset/survival_guide/15.webp)
+![](file:///android_asset/survival_guide/transpiration_bag.webp)
 
 1. Tie a plastic bag around a leafy branch, ensuring that the bag is airtight.
 2. Wait for the sun to heat the plant, causing moisture to evaporate and condense on the bag.
@@ -110,13 +110,43 @@ Bring water to a rolling boil for at least one minute. At higher altitudes (abov
 
 ### Filtration
 
-Use a portable water filter to remove contaminants. Some filters are rated to remove nearly all bacteria and viruses and can be used without additional purification. If you do not have a filter, you can construct one to remove sediment, but you must also purify the water through boiling or chemical treatment. A filter can be built by layering grass or small rocks, sand, and charcoal (from top to bottom) in a container with a hole at the bottom to collect the filtered water.
+Use a portable water filter to remove contaminants. Some filters are rated to remove nearly all bacteria and viruses and can be used without additional purification. Custom-crafted filters are less effective and require additional purification.
 
-![](file:///android_asset/survival_guide/19.webp)
+A filter will have an inlet and an outlet, and it typically shows the direction of water flow with an arrow or text (inlet to outlet). Place the inlet into the dirty water and the outlet into a container, then pump to filter the water. If you are using a filter straw, the outlet goes into the water and the inlet into your mouth. Be careful never to let the outlet come into contact with unfiltered water. After filtering, you can remove the inlet from the water and pump a couple of times to push out excess water. With a straw, forcefully blow into it to clear out water.
+
+If the manufacturer's instructions are different, be sure to follow them instead.
 
 ### Chemical treatment
 
-You can buy chemical water purification tablets or drops. Use them according to the instructions, which will typically involve adding them to water and letting it sit for a while.
+Chemical water purification tablets or drops can be used to treat water. Be sure to follow the instructions, which are normally printed on the bottle. The most common chemical is iodine, but chlorine-based treatments are also available. Before deciding which to buy, research how effective they are against bacteria and parasites in your region. Treatment amounts and times vary by chemical type and brand. Be sure to check the expiration date (if any) before going on a trip.
+
+If you are pregnant or have thyroid problems, don't use iodine. Always read the warnings on the packages of chemical purification solutions before buying them. 
+
+Here are some general steps for iodine tablets if you lost the instructions (based on the most popular brand, Potable Aqua):
+
+1. Fill up a bottle of water. You may want to run the water through a filter or cloth to remove sediment.
+2. Add 2 tablets per quart/liter of water and put the cap on loosely.
+3. Wait 5 minutes and shake. Be sure some water leaks out the cap and around the threads.
+4. Tighten the cap and wait 30 minutes.
+5. (Optional) Add 2 neutralizer tablets per quart/liter, shake, and wait 3 minutes. This will help to improve the taste.
+6. Your water is now ready to drink.
+
+**Conversions**
+
+The following conversions are approximate, but that is fine for purification.
+
+- 1 liter = 1 quart
+- 1 liter = 1000 milliliters
+- 1 quart = 32 ounces
+- 1 gallon = 4 quarts
+
+### Solar disinfection
+
+As a last resort, you can use sunlight to purify water in a clear water bottle.
+
+1. Fill a clear water bottle with water. If the water is cloudy, run it through a filter or cloth first.
+2. Remove the label from the bottle and lay it on its side in direct sunlight. If you have something dark, place it underneath the bottle to increase effectiveness.
+3. If it is sunny, most germs will be killed in 6 hours. If it is cloudy, you will need to wait 2 days - so consider using a different purification method.
 
 ### Hazards
 
@@ -129,6 +159,8 @@ Water may contain chemicals from industrial or agricultural runoff. Purification
 <!-- S: You can make a bowl from a small log by burning a bowl shape into it using hot coals. -->
 
 A wooden bowl can be used to boil water using hot rocks.
+
+![](file:///android_asset/survival_guide/log_bowl.webp)
 
 **Resources**
 - A small log (not decayed)
@@ -147,6 +179,8 @@ A wooden bowl can be used to boil water using hot rocks.
 
 You can use tongs to move around hot coals or rocks without getting burned.
 
+![](file:///android_asset/survival_guide/tongs.webp)
+
 **Resources**
 - Green wood
 
@@ -155,3 +189,32 @@ You can use tongs to move around hot coals or rocks without getting burned.
 2. Split the wood down the middle to create a flat surface.
 3. Optionally, carve a small notch in the stick's center to allow it to bend more easily.
 4. Bend the wood in half to create tongs.
+
+## Craft: Filter
+<!-- K: filter, craft, charcoal, sand, gravel -->
+<!-- S: You can make a filter using charcoal, sand, and gravel. -->
+
+A crafted filter can be used to remove sediment from water, but it will still require additional purification.
+
+![](file:///android_asset/survival_guide/filter.webp)
+
+**Resources**
+
+- Small gravel or grass
+- Sand
+- Charcoal
+- Plastic water bottle or container
+- A second container
+- (Optional) Cloth
+- (Optional) Cordage
+
+**Instructions**
+
+1. If using a water bottle, cut off the bottom and remove the cap. You will be using the bottle upside down.
+2. Tie a cloth onto the top of the bottle. If you choose not to use a cloth, poke holes in the cap and screw it back on. If using a container like a cup, poke holes in the bottom, then add some grass or rocks to the container.
+3. Add 1 inch (2.5 cm) of crushed charcoal to the container.
+4. Add 1 inch (2.5 cm) of sand to the container.
+5. Add 1 inch (2.5 cm) of gravel or grass to the container.
+6. Repeat steps 3-5 until the materials reach about 2 inches (5 cm) from the top of the container.
+7. Pour water into the filter and collect it in a second container.
+8. Purify the filtered water by boiling or using chemical treatment.

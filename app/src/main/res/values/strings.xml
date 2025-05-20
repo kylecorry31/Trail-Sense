@@ -767,6 +767,7 @@
     <string name="daylight">Daylight</string>
     <string name="find_next_occurrence">Find next occurrence</string>
     <string name="yards_format">%s yd</string>
+    <string name="caliber_format">%s cal</string>
     <string name="millimeters_format">%s mm</string>
     <string name="unit_yards">Yards</string>
     <string name="base_elevation">Base elevation</string>
@@ -804,11 +805,14 @@
     <string name="kilograms">Kilograms</string>
     <string name="grams">Grams</string>
     <string name="milligrams">Milligrams</string>
+    <!--Weight unit grains-->
+    <string name="grains">Grains</string>
     <string name="pounds_format">%s lb</string>
     <string name="ounces_weight_format">%s oz</string>
     <string name="kilograms_format">%s kg</string>
     <string name="grams_format">%s g</string>
     <string name="milligrams_format">%s mg</string>
+    <string name="grains_format">%s gr</string>
     <string name="weight">Weight</string>
     <string name="seconds">Seconds</string>
     <string name="minutes">Minutes</string>
@@ -1504,6 +1508,7 @@
     <string name="us_teaspoons">US teaspoons</string>
     <string name="us_tablespoons">US tablespoons</string>
     <string name="unit_millimeters">Millimeters</string>
+    <string name="unit_caliber">Caliber</string>
     <string name="imperial_teaspoons">Imperial teaspoons</string>
     <string name="imperial_tablespoons">Imperial tablespoons</string>
     <string name="automatic_backup">Automatic backup</string>
@@ -1624,4 +1629,65 @@
     <string name="sight_in_range">Sight-in range</string>
     <!--Bullet drop, %s is the distance of drop-->
     <string name="drop_amount">%s drop</string>
+    <string name="ballistic_coefficient">Ballistic coefficient</string>
+    <string name="time_header_units">Time (%s)</string>
+    <string name="range_header_units">Range (%s)</string>
+    <string name="velocity_header_units">Velocity (%s)</string>
+    <string name="drop_header_units">Drop (%s)</string>
+    <string name="energy">Energy</string>
+    <string name="bullet_weight">Bullet weight</string>
+    <string name="format_joules">%s joules</string>
+    <!--    Foot pound equivalent (used for bullets)-->
+    <string name="format_fpe">%s FPE</string>
+    <string name="ballistics_calculator">Ballistics calculator</string>
+    <string name="pref_ballistics_calculator_enabled" translatable="false">pref_ballistics_calculator_enabled</string>
+    <!--A document as in a hunting permit-->
+    <string name="permits">Permits</string>
+    <string name="no_permits">No permits</string>
+    <string name="trace">Trace</string>
+    <string name="map_trace_instructions">Move into a shady area or block out the sun using a cloth and place paper over your screen so that you can see the map through the paper. Use a pen or pencil to trace the map, but avoid markers or pens that can bleed through the paper.\n\nBottom navigation will be disabled until you turn off trace mode.</string>
+    <string name="speed_format_feet_per_second">%s fps</string>
+    <string name="speed_format_meters_per_second">%s m/s</string>
+    <string name="feet_per_second">Feet per second</string>
+    <string name="meters_per_second">Meters per second</string>
+    <string name="speed">Speed</string>
+    <string name="climate_temperature_amount">Temperature: %s</string>
+    <string name="climate_precipitation_amount">Precipitation: %s monthly total</string>
+    <string name="source_era5">Source: ERA5</string>
+    <string name="source_merra_2">Source: MERRA-2</string>
+    <string name="climate_tropical_monsoon">Tropical monsoon</string>
+    <string name="climate_tropical_savanna">Tropical savanna</string>
+    <string name="climate_tropical_rainforest">Tropical rainforest</string>
+    <string name="climate_desert">Desert</string>
+    <string name="climate_steppe">Steppe</string>
+    <string name="climate_tundra">Tundra</string>
+    <string name="climate_ice_cap">Ice cap</string>
+    <string name="climate_temperate">Temperate</string>
+    <string name="climate_continental">Continental</string>
+    <string name="climate_tropical_description">A hot and humid climate with significant precipitation throughout the year.</string>
+    <string name="climate_dry_description">An arid climate with low precipitation and sparse vegetation.</string>
+    <string name="climate_temperate_description">A mild climate with distinct seasons and moderate precipitation.</string>
+    <string name="climate_continental_description">A cold climate with warm summers, cold winters, and large seasonal changes.</string>
+    <string name="climate_polar_description">An extremely cold climate with short summers.</string>
+    <string name="climate_rainforest_description">The dense foliage may disrupt GPS signals.</string>
+    <string name="climate_monsoon_description">There is a short dry season.</string>
+    <string name="climate_savanna_description">There is a dry season. It may contain grasslands with sparse trees.</string>
+    <string name="climate_desert_description">An extreme lack of precipitation makes for loose terrain and difficulty in finding water.</string>
+    <string name="climate_steppe_description">There may be scattered grasslands.</string>
+    <string name="climate_dry_summer_description">There is a dry season during the summer.</string>
+    <string name="climate_dry_winter_description">There is a dry season during the winter.</string>
+    <string name="climate_no_dry_season_description">There is no dry season.</string>
+    <string name="climate_tundra_description">Some ice may thaw during the summer, but vegetation will be minimal.</string>
+    <string name="climate_ice_cap_description">The ice does not melt during the year and vegetation is absent.</string>
+    <string name="climate_hot_description">Plan for hot temperatures all year.</string>
+    <string name="climate_cold_description">Plan for cold temperatures all year.</string>
+    <string name="climate_hot_summer_description">Plan for hot temperatures during the summer.</string>
+    <string name="climate_warm_summer_description">Plan for warm temperatures during the summer.</string>
+    <string name="climate_cold_summer_description">Plan for cool temperatures during the summer.</string>
+    <string name="climate_very_cold_winter_description">Plan for extremely cold temperatures during the winter.</string>
+    <string name="insect_activity">Insect activity</string>
+    <string name="mosquitoes">Mosquitoes</string>
+    <string name="pref_climate_insect_activity_enabled" translatable="false">pref_climate_insect_activity_enabled</string>
+    <string name="active_period">Active from %1$s to %2$s</string>
+    <string name="ticks">Ticks</string>
 </resources>

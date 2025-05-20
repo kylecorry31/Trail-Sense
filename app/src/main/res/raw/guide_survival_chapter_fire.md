@@ -10,6 +10,7 @@ Knowing how to make fire can help you stay warm, purify water, and cook food. Yo
 ### Gear
 **Necessities**:
 - Firestarter (waterproof matches, lighters, or fire steel - carry at least two different types)
+  - You can carry a credit-card-sized Fresnel lens in your wallet or phone case as an emergency backup firestarter.
 
 **Optional**:
 - Tinder (dryer lint, cotton balls, or commercial fire starters)
@@ -91,26 +92,47 @@ Here are the steps you can follow to get it going:
 4. Carefully add kindling to the fire and blow into it to encourage growth.
 5. Once your fire is steady, add fuel while maintaining a tepee structure.
 
+![](file:///android_asset/survival_guide/fire_tepee.webp)
+
 **Note**: When blowing into a fire, be gentle and take breaths away from the smoke.
 
 ### Nursing an ember
 An ember is a small piece of tinder that is burning but has not formed a flame. Once you have an ember, gently blow into it and feed it more tinder until a flame appears. Sometimes, it is easier to hold the tinder containing the ember and cup your hands closer together to find the right balance of oxygen and fuel.
 
-### Firestarters
+### Lighter
+A reliable lighter is the easiest way to start a fire. Use the striker to produce a flame and use your hand to shield it against any wind. Put the flame to the tinder to ignite it, and then shut off the lighter. If it takes you more than a couple of seconds to ignite the tinder, then it is not fine or dry enough.
 
-- **Matches/lighters**: Always have waterproof matches or a reliable lighter in your kit. These are the easiest methods to start a fire: just put the flame to the tinder.
-- **Fire steel**: Durable and works in all weather conditions, producing sparks to ignite your tinder. Scrape it quickly with the back of a knife or scraper to create sparks. For best results, pin the fire steel against the tinder and ground, and scrape the steel toward the tinder. Some fire steels come with a magnesium block, which you can scrape into the tinder before striking to help catch a spark.
-- **Magnifying glass/lens**: Using a lens, focus sunlight into a small point on the tinder. As the tinder starts to smoke, gently blow into it and move the lens closer to maintain a small point. A magnifying glass, prescription glasses, a fresnel lens, or even a clear bottle filled with water can work. This may take a while, and direct sunlight is required.
+Some lighters require that you add fuel before use, so be sure to try out your lighter before you need it. The fuel should last a long time - even years with moderate use.
 
-![](file:///android_asset/survival_guide/61.webp)
+A lighter generally does not work when wet, but you can dry it quickly by gently rubbing the striker wheel against your clothes in the opposite direction that you would strike it and forcefully blowing into the striker area.
 
-The following methods are more challenging and require practice. If you find yourself here, it may be best to focus on insulation and shelter to stay warm.
+There are also electronic lighters available, but they are less reliable and require a charge. They can be used in a similar fashion to regular lighters but typically require smaller and finer tinder.
 
-- **Flint and steel**: Strike a flint rock with a steel tool to create sparks. The tinder must be very dry and delicate.
-- **Bow drill**: Create friction by spinning a stick (drill) on a wooden base (fireboard) using a bow to rotate the drill.
-- **Hand drill**: Create friction by spinning a stick (drill) between your hands on a wooden base (fireboard). Apply downward pressure while spinning.
+### Matches
+Matches typically require a special striking surface to light, though strike-anywhere matches exist and can be lit using a rough rock. Unless you have waterproof or stormproof matches, once wet they will not work, and if it is windy, they can be easily extinguished.
 
-### Using a bow drill
+To light a fire with matches, light the match and use your hand to shield it against any wind. Put the flame to the tinder to ignite it and carefully drop the matchstick into the flame.
+
+### Fire steel
+A fire steel or ferro rod is durable and works in all weather conditions. You can scrape it quickly with a sharp edge, such as the back of your knife, a dedicated scraper, or even a sharp piece of quartz or flint. You should avoid using the blade of your knife to prevent dulling it. If you are having trouble keeping the tinder in place while striking, pin the tinder between the fire steel and the ground and scrape toward the tinder. Some people also find it easier to keep the edge stationary and pull the fire steel away from the tinder to produce sparks.
+
+Some fire steels come with a magnesium block, which you can scrape into the tinder before striking to help catch a spark. Create a small pile of shavings, about the size of a pebble, before trying to ignite it.
+
+![](file:///android_asset/survival_guide/ferrorod.webp)
+
+### Magnifying glass/lens
+Using a lens, focus sunlight into a small point on the tinder. As the tinder starts to smoke, gently blow into it and move the lens closer to maintain a small point. A magnifying glass, prescription glasses, a Fresnel lens, or even a clear bottle filled with water can work. This may take a while, and direct sunlight is required.
+
+![](file:///android_asset/survival_guide/fire_magnifying_glass.webp)
+
+### Flint and steel
+Strike a flint rock with a carbon steel tool to create sparks and ignite very dry and delicate tinder. Stainless steel - and therefore most pocket knives - will not work. If you find yourself here, it may be best to focus on insulation and shelter to stay warm.
+
+### Drills
+You can create friction by spinning a stick like a drill on a wooden base (fireboard). A hand drill is simple to construct, as it's just the drill stick, fireboard, and your hands. A bow drill is more complicated to build but is easier to use to create an ember. Both of these methods are difficult to master and require a lot of practice. If you find yourself here, it may be best to focus on insulation and shelter to stay warm.
+
+To create a bow drill:
+
 1. Find a small, flat stone or piece of hardwood with a small depression near the center to create the socket.
 2. Create the drill by finding a straight, dry stick about 10-12 inches long and ¾ inch in diameter.
 3. Find a flat, dry piece of softwood for the fireboard. Yucca, tamarack, aspen, balsam fir, basswood, poplar, cypress, cottonwood, alder, red cedar, and willow are preferred. Avoid resinous woods like pine.
@@ -128,7 +150,7 @@ The following methods are more challenging and require practice. If you find you
 15. You will start to see smoke after a while. Keep going until you are sure an ember has been created.
 16. The ember should be transferred onto the fire pan (it may already be there) and moved to a tinder bundle, where you can nurse it into a fire.
 
-![](file:///android_asset/survival_guide/64.webp)
+![](file:///android_asset/survival_guide/bow_drill_usage.webp)
 
 If you are using a hand drill, follow the same steps as the bow drill, except don't create the bow and socket. Instead, roll the drill between your palms until you reach the bottom, then start again from the top.
 
@@ -139,15 +161,18 @@ If you are using a hand drill, follow the same steps as the bow drill, except do
 You should always have a plan to quickly extinguish your fire in case it begins to spread. Thoroughly extinguish your fire by dousing it with water or covering it with dirt. Make sure no embers remain that could reignite or cause a wildfire. If you are on a beach, do not cover the fire with sand; it can insulate the heat and cause burns.
 
 ## Increasing warmth
-<!-- K: rock, reflector, hand-warmer -->
-<!-- S: Thoroughly extinguish your fire with water or dirt. -->
+<!-- K: rock, reflector, hand-warmer, hardwood, softwood -->
+<!-- S: Maximize heat by using a fire reflector or heated rocks. -->
 
 To maximize the heat from your fire, you can add more dry fuel, build a fire reflector, heat up rocks, or increase the insulation of your clothing and shelter.
+
+### Types of wood
+Hardwoods (oak, maple, ash, beech, etc.) burn slowly and hot, while softwoods (pine, fir, spruce, cedar) burn faster and cooler. Once you have a hot fire going, start adding hardwoods to make it last longer and burn hotter.
 
 ### Fire reflector
 A fire reflector is a wall built behind the fire to reflect heat toward you and protect the fire from wind. Use rocks, logs, or snow to create a barrier.
 
-![](file:///android_asset/survival_guide/56.webp)
+![](file:///android_asset/survival_guide/fire_reflector.webp)
 
 ### Heating rocks
 

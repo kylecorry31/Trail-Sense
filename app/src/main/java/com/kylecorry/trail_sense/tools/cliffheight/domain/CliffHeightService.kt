@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.cliffheight.domain
 
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.science.geology.Geology
-import com.kylecorry.sol.science.physics.PhysicsService
+import com.kylecorry.sol.science.physics.Physics
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import java.time.Duration
@@ -10,7 +10,6 @@ import java.time.Instant
 
 class CliffHeightService {
 
-    private val physics = PhysicsService()
     private val hooks = Hooks()
 
     fun getCliffHeight(start: Instant, end: Instant, location: Coordinate? = null): Distance {
@@ -23,7 +22,7 @@ class CliffHeightService {
             location?.let { Geology.getGravity(it) } ?: Geology.GRAVITY
         }
 
-        return physics.fallHeight(time, gravity)
+        return Physics.fallHeight(time, gravity)
     }
 
 }

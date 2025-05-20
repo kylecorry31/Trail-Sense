@@ -2,22 +2,30 @@ package com.kylecorry.trail_sense.tools.survival_guide.infrastructure
 
 import android.content.Context
 import com.kylecorry.trail_sense.shared.text.LevenshteinDistance
-import com.kylecorry.trail_sense.shared.text.SimpleWordTokenizer
+import com.kylecorry.trail_sense.shared.text.nlp.processors.LowercaseProcessor
+import com.kylecorry.trail_sense.shared.text.nlp.processors.SequentialProcessor
+import com.kylecorry.trail_sense.shared.text.nlp.tokenizers.PostProcessedTokenizer
+import com.kylecorry.trail_sense.shared.text.nlp.tokenizers.SimpleWordTokenizer
 
 class MultilingualSurvivalGuideFuzzySearch(context: Context) : BaseSurvivalGuideSearch(context) {
 
-    private val tokenizer = SimpleWordTokenizer()
+    private val tokenizer = PostProcessedTokenizer(
+        SimpleWordTokenizer(),
+        SequentialProcessor(
+            LowercaseProcessor()
+        )
+    )
 
     override fun searchChapter(
         query: String,
         guide: GuideDetails
     ): List<SurvivalGuideSearchResult> {
-        val queryKeywords = tokenizer.tokenize(query).map { it.lowercase() }.toSet()
+        val queryKeywords = tokenizer.tokenize(query).toSet()
 
         return guide.sections.mapIndexed { index, section ->
             val textKeywords = section.keywords.flatMap { it.split("-") }.toSet()
             val headerKeywords =
-                section.title?.let { tokenizer.tokenize(it).map { it.lowercase() }.toSet() }
+                section.title?.let { tokenizer.tokenize(it).toSet() }
                     ?: emptySet()
             val sectionScore = percentMatch(queryKeywords, textKeywords)
             val headerScore = percentMatch(queryKeywords, headerKeywords)

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -9,9 +10,10 @@
         android:id="@+id/climate_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:subtitle="@string/temperature_high_low" />
+        app:title="@string/tool_climate" />
 
     <ScrollView
+        android:id="@+id/climate_scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -19,38 +21,96 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="@dimen/default_bottom_margin">
 
             <com.kylecorry.trail_sense.shared.views.DatePickerView
                 android:id="@+id/display_date"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp" />
-
-            <com.kylecorry.andromeda.views.chart.Chart
-                android:id="@+id/temperature_chart"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/chart_height"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_height="wrap_content" />
 
             <com.kylecorry.trail_sense.shared.views.CoordinateInputView
                 android:id="@+id/location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp" />
+                android:layout_marginTop="16dp" />
 
             <com.kylecorry.trail_sense.shared.views.ElevationInputView
                 android:id="@+id/elevation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="@dimen/default_bottom_margin" />
+
+            <TextView
+                android:id="@+id/temperature_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/temperature"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/source_merra_2"
+                android:textSize="10sp" />
+
+            <com.kylecorry.andromeda.views.chart.Chart
+                android:id="@+id/temperature_chart"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/chart_height"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:id="@+id/precipitation_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/weather_precipitation"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/source_era5"
+                android:textSize="10sp" />
+
+            <com.kylecorry.andromeda.views.chart.Chart
+                android:id="@+id/precipitation_chart"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/chart_height"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:id="@+id/climate_zone_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                tools:text="@string/tool_climate" />
+
+            <TextView
+                android:id="@+id/climate_zone_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Climate zone description" />
+
+            <TextView
+                android:id="@+id/insect_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/insect_activity"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
+
+            <TextView
+                android:id="@+id/insect_activity_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Insect activity description" />
 
         </LinearLayout>
 

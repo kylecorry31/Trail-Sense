@@ -303,6 +303,8 @@ class FormatService private constructor(private val context: Context) {
                 R.string.milliliter_format,
                 formatted
             )
+
+            DistanceUnits.Caliber -> strings.getString(R.string.caliber_format, formatted)
         }
     }
 
@@ -372,6 +374,7 @@ class FormatService private constructor(private val context: Context) {
             WeightUnits.Kilograms -> strings.getString(R.string.kilograms_format, formatted)
             WeightUnits.Grams -> strings.getString(R.string.grams_format, formatted)
             WeightUnits.Milligrams -> strings.getString(R.string.milligrams_format, formatted)
+            WeightUnits.Grains -> strings.getString(R.string.grains_format, formatted)
         }
     }
 
@@ -613,6 +616,7 @@ class FormatService private constructor(private val context: Context) {
                 WeightUnits.Kilograms -> strings.getString(R.string.kilograms_format, "")
                 WeightUnits.Grams -> strings.getString(R.string.grams_format, "")
                 WeightUnits.Milligrams -> strings.getString(R.string.milligrams_format, "")
+                WeightUnits.Grains -> strings.getString(R.string.grains_format, "")
             }.replace(" ", "")
         }
         return when (unit) {
@@ -621,6 +625,24 @@ class FormatService private constructor(private val context: Context) {
             WeightUnits.Kilograms -> strings.getString(R.string.kilograms)
             WeightUnits.Grams -> strings.getString(R.string.grams)
             WeightUnits.Milligrams -> strings.getString(R.string.milligrams)
+            WeightUnits.Grains -> strings.getString(R.string.grains)
+        }
+    }
+
+    fun getBulletSpeedUnitName(unit: DistanceUnits, short: Boolean = false): String {
+        // Only supports Feet and Meters
+        if (short) {
+            return when (unit) {
+                DistanceUnits.Feet -> context.getString(R.string.speed_format_feet_per_second, "")
+                DistanceUnits.Meters -> context.getString(R.string.speed_format_meters_per_second, "")
+                else -> ""
+            }.replace(" ", "")
+        }
+
+        return when (unit) {
+            DistanceUnits.Feet -> context.getString(R.string.feet_per_second)
+            DistanceUnits.Meters -> context.getString(R.string.meters_per_second)
+            else -> ""
         }
     }
 
@@ -675,6 +697,8 @@ class FormatService private constructor(private val context: Context) {
                     R.string.millimeters_format,
                     ""
                 )
+
+                DistanceUnits.Caliber -> strings.getString(R.string.caliber_format, "")
             }.replace(" ", "")
         }
         return when (unit) {
@@ -687,6 +711,7 @@ class FormatService private constructor(private val context: Context) {
             DistanceUnits.Inches -> strings.getString(R.string.unit_inches)
             DistanceUnits.Yards -> strings.getString(R.string.unit_yards)
             DistanceUnits.Millimeters -> strings.getString(R.string.unit_millimeters)
+            DistanceUnits.Caliber -> strings.getString(R.string.unit_caliber)
         }
     }
 

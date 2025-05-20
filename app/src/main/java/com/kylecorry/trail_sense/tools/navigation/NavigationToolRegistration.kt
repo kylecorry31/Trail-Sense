@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.navigation
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
@@ -23,7 +24,10 @@ object NavigationToolRegistration : ToolRegistration {
                 ToolDiagnosticFactory.gps(context),
                 *ToolDiagnosticFactory.altimeter(context),
                 ToolDiagnosticFactory.pedometer(context),
-            ).distinctBy { it.id }
+            ).distinctBy { it.id },
+            singletons = listOf(
+                { Navigator.getInstance(it) }
+            )
         )
     }
 }

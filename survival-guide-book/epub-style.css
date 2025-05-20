@@ -1,0 +1,15 @@
+.center {
+    text-align: center;
+    margin: 0 auto;
+    page-break-after: always;
+}
+
+/* Center images */
+img {
+    display: block;
+    margin: 0 auto;
+}
+
+.pagebreak {
+    page-break-after: always;
+}

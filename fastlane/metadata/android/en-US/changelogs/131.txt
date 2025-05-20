@@ -1,0 +1,19 @@
+Ballistics
+- New tool to calculate scope adjustment and energy
+- Experimental feature for ballistics calculations (velocity / drop)
+
+Photo Maps
+- Respects "Show on lock screen while navigating" in the Navigation settings
+- Option to trace a map onto paper
+
+Convert
+- Add milligrams and grains
+
+Metal Detector
+- Button to disable vibration
+
+Survival Guide
+- Adjust content and artwork
+
+Field Guide
+- Replace all images with custom artwork

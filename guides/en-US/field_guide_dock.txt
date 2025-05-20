@@ -2,5 +2,3 @@ Dock
 A plant with broad, green leaves, often found in fields, along roadsides, and near water. Its leaves are edible when cooked.
 
 https://en.m.wikipedia.org/wiki/Sorrel
-
-Image by Sten Porse (CC BY-SA 3.0)
