@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.tools.convert.ui
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +29,8 @@ class ConvertBottomSheetFragment :
             getString(R.string.temperature)
         )
         binding.viewpager.adapter = CustomViewPagerAdapter(this, convertTools)
+
+        binding.tabs.backgroundTintList = ColorStateList.valueOf(Color.TRANSPARENT)
 
         TabLayoutMediator(binding.tabs, binding.viewpager) { tab, position ->
             tab.text = convertNames[position]

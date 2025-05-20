@@ -17,3 +17,8 @@ To convert a weight from one unit to another, swipe to the 'Weight' tab of the C
 
 ## Time
 To convert a time from one unit to another, swipe to the 'Time' tab of the Convert tool. Then enter the time, From unit, and To unit, and the result will be displayed.
+
+## Quick action
+You can enable the Convert quick action in the settings for the tab you want it on.
+
+To use the quick action, tap the Convert quick action button to see a convert sheet for coordinates, distance, and temperature.
