@@ -1201,4 +1201,12 @@
     <string name="fast_path_rendering_summary">Verbessert die Leistung zu Kosten des Aussehens</string>
     <string name="compass_dynamic_colors">Dynamische Kompassfarben</string>
     <string name="compact_mode">Kompakter Modus</string>
+    <string name="pin">Anheften</string>
+    <string name="pinned">Angeheftet</string>
+    <string name="unpin">Abheften</string>
+    <string name="augmented_reality">Erweiterte Realität</string>
+    <string name="caliber_format">%s cal</string>
+    <string name="grains">Gran</string>
+    <string name="grains_format">%s gr</string>
+    <string name="augmented_reality_description">Sehen Sie nahe Wegpunkte und die Sonne / den Mond mit Ihrer Kamera</string>
 </resources>
