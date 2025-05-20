@@ -640,7 +640,7 @@
     <string name="minutes">Minuuttia</string>
     <string name="tool_temperature_estimation_description">Ennusta lämpötila eri korkeudella</string>
     <string name="tool_ruler_title">Viivoitin</string>
-    <string name="convert">Muunna</string>
+    <string name="convert">Yksikkömuuntaja</string>
     <string name="arrow">Nuoli</string>
     <string name="delete_path_group_message">%s ja kaikki sen polut poistetaan.</string>
     <string name="high_pressure">Korkeapaine</string>
@@ -1233,7 +1233,7 @@
     <string name="tundra">Tundra</string>
     <string name="diurnal">Diurnaalinen (päivä)</string>
     <string name="nocturnal">Nokturnaalinen (yö)</string>
-    <string name="edible">Syötävä</string>
+    <string name="edible">Syömäkelvollinen</string>
     <string name="inedible">Syömäkelvoton</string>
     <string name="dangerous">Vaarallinen</string>
     <string name="medicinal">Lääkinnällinen</string>
