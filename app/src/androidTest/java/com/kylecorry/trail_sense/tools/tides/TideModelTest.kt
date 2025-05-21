@@ -29,248 +29,216 @@ class TideModelTest {
         val tests = listOf(
             // Semi-diurnal tides
             rhodeIsland to tides(
-                LocalDate.of(2024, 11, 25),
-                est,
-                time(2, 21) to true,
-                time(8, 33) to false,
-                time(14, 42) to true,
-                time(21, 2) to false
+                date(2024, 11, 25),
+                "-05:00",
+                high(2, 21),
+                low(8, 33),
+                high(14, 42),
+                low(21, 2)
             ),
             california to tides(
-                LocalDate.of(2024, 11, 25),
-                pst,
-                time(5, 47) to true,
-                time(12, 13) to false,
-                time(17, 49) to true,
-                time(23, 33) to false
+                date(2024, 11, 25),
+                "-08:00",
+                high(5, 47),
+                low(12, 13),
+                high(17, 49),
+                low(23, 33)
             ),
             dublin to tides(
-                LocalDate.of(2024, 11, 25),
-                utc,
-                time(0, 46) to false,
-                time(7, 19) to true,
-                time(13, 0) to false,
-                time(19, 21) to true
+                date(2024, 11, 25),
+                "+00:00",
+                low(0, 46),
+                high(7, 19),
+                low(13, 0),
+                high(19, 21)
             ),
             hongKong to tides(
-                LocalDate.of(2024, 11, 27),
-                hkt,
-                time(1, 10) to false,
-                time(6, 47) to true,
-                time(12, 34) to false,
-                time(19, 3) to true
+                date(2024, 11, 27),
+                "+08:00",
+                low(1, 10),
+                high(6, 47),
+                low(12, 34),
+                high(19, 3)
             ),
             panama to tides(
-                LocalDate.of(2024, 11, 28),
-                est,
-                time(1, 36) to true,
-                time(8, 1) to false,
-                time(14, 9) to true,
-                time(20, 4) to false
+                date(2024, 11, 28),
+                "-05:00",
+                high(1, 36),
+                low(8, 1),
+                high(14, 9),
+                low(20, 4)
             ),
             hawaii to tides(
-                LocalDate.of(2024, 11, 28),
-                hawaiiTimeZone,
-                time(1, 52) to true,
-                time(8, 7) to false,
-                time(12, 48) to true,
-                time(19, 10) to false
+                date(2024, 11, 28),
+                "-10:00",
+                high(1, 52),
+                low(8, 7),
+                high(12, 48),
+                low(19, 10)
             ),
             fiji to tides(
-                LocalDate.of(2024, 11, 25),
-                fijiTimeZone,
-                time(2, 50) to true,
-                time(8, 59) to false,
-                time(15, 22) to true,
-                time(21, 40) to false
+                date(2024, 11, 25),
+                "+12:00",
+                high(1, 51),
+                low(8, 6),
+                high(14, 30),
+                low(20, 45)
             ),
             southAfrica to tides(
-                LocalDate.of(2024, 11, 26),
-                sast,
-                time(0, 22) to true,
-                time(6, 13) to false,
-                time(12, 29) to true,
-                time(18, 54) to false
+                date(2024, 11, 26),
+                "+02:00",
+                high(0, 22),
+                low(6, 13),
+                high(12, 29),
+                low(18, 54)
             ),
             italy to tides(
-                LocalDate.of(2024, 11, 28),
-                cet,
-                time(1, 2) to false,
-                time(7, 19) to true,
-                time(13, 11) to false,
-                time(19, 9) to true
+                date(2024, 11, 28),
+                "+01:00",
+                low(1, 2),
+                high(7, 19),
+                low(13, 11),
+                high(19, 9)
             ),
-            alaska to tides(
-                LocalDate.of(2024, 11, 27),
-                akst,
-                time(4, 59) to true,
-                time(10, 52) to false,
-                time(16, 39) to true,
-                time(23, 40) to false
-            ),
+            alaska to tides(date(2024, 11, 27), "-09:00", low(5, 30), high(11, 43), low(18, 42)),
             india to tides(
-                LocalDate.of(2024, 11, 29),
-                ist,
-                time(1, 17) to false,
-                time(6, 57) to true,
-                time(13, 6) to false,
-                time(19, 42) to true
+                date(2024, 11, 29),
+                "+05:30",
+                low(1, 17),
+                high(6, 57),
+                low(13, 6),
+                high(19, 42)
             ),
             brazil to tides(
-                LocalDate.of(2024, 11, 30),
-                "America/Sao_Paulo",
-                time(5, 50) to false,
-                time(10, 38) to true,
-                time(17, 57) to false,
-                time(22, 50) to true
+                date(2024, 11, 30),
+                "-02:00",
+                low(5, 50),
+                high(10, 38),
+                low(17, 57),
+                high(22, 50)
             ),
             chile to tides(
-                LocalDate.of(2024, 11, 30),
-                "America/Santiago",
-                time(4, 38) to false,
-                time(10, 15) to true,
-                time(15, 57) to false,
-                time(22, 32) to true
+                date(2024, 11, 30),
+                "-03:00",
+                low(4, 38),
+                high(10, 15),
+                low(15, 57),
+                high(22, 32)
             ),
             nigeria to tides(
                 date(2024, 11, 30),
-                "Africa/Lagos",
+                "+01:00",
                 high(3, 37),
                 low(9, 54),
-                high(4, 23, true),
-                low(9, 55, true)
+                high(16, 23),
+                low(21, 55)
             ),
             madagascar to tides(
                 date(2024, 11, 30),
-                "Indian/Antananarivo",
+                "+03:00",
                 low(4, 38),
                 high(11, 0),
-                low(5, 23, true),
-                high(11, 27, true)
+                low(17, 23),
+                high(23, 27)
             ),
             egypt to tides(
                 date(2024, 11, 30),
-                "Africa/Cairo",
+                "+02:00",
                 high(5, 20),
                 low(11, 29),
-                high(5, 23, true),
-                low(11, 47, true)
+                high(17, 23),
+                low(23, 47)
             ),
             bulgaria to tides(
                 date(2024, 11, 30),
-                "Europe/Sofia",
+                "+02:00",
                 high(2, 30),
                 low(8, 42),
-                high(1, 45, true),
-                low(8, 2, true)
+                high(13, 45),
+                low(20, 2)
             ),
             canada to tides(
                 date(2024, 11, 30),
-                est,
+                "-05:00",
                 high(2, 24),
                 low(8, 47),
-                high(2, 50, true),
-                low(9, 8, true)
+                high(14, 50),
+                low(21, 8)
             ),
             greenland to tides(
                 date(2024, 11, 30),
-                "UTC-3",
-                low(5, 41),
-                high(12, 6),
-                low(5, 56, true),
-                high(11, 47, true)
+                "-02:00",
+                low(0, 44),
+                high(7, 9),
+                low(13, 26),
+                high(19, 17)
             ),
             // Mixed tides
-            russia to tides(
-                LocalDate.of(2024, 11, 26),
-                penzhinaBayTimeZone,
-                time(3, 35) to true,
-                time(11, 48) to false
-            ),
-            antarctica to tides(
-                LocalDate.of(2024, 12, 1),
-                antarcticaTimeZone,
-                time(2, 2) to true,
-                time(10, 44) to false
-            ),
+            russia to tides(date(2024, 11, 26), "+12:00", high(3, 35), low(11, 48)),
+            antarctica to tides(date(2024, 12, 1), "+07:00", high(2, 2), low(10, 44)),
             indonesia to tides(
-                LocalDate.of(2024, 11, 26),
-                wit,
-                time(4, 47) to false,
-                time(10, 50) to true,
-                time(16, 18) to false,
-                time(22, 39) to true
+                date(2024, 11, 26),
+                "+09:00",
+                low(4, 47),
+                high(10, 50),
+                low(16, 18),
+                high(22, 39)
             ),
             mexico to tides(
-                LocalDate.of(2024, 11, 25),
-                cst,
-                time(5, 18) to false,
-                time(11, 51) to true,
-                time(16, 47) to false,
-                time(22, 13) to true
+                date(2024, 11, 25),
+                "-06:00",
+                low(5, 18),
+                high(11, 51),
+                low(16, 47),
+                high(22, 13)
             ),
             japan to tides(
                 date(2024, 11, 30),
-                "Asia/Tokyo",
+                "+09:00",
                 low(0, 55),
                 high(7, 21),
-                low(1, 10, true),
-                high(6, 47, true)
+                low(13, 10),
+                high(18, 47)
             ),
             // Diurnal tides
-            perth to tides(
-                LocalDate.of(2024, 12, 3),
-                awst,
-                time(6, 42) to false,
-                time(21, 51) to true
-            ),
-            louisiana to tides(
-                LocalDate.of(2024, 11, 26),
-                cst,
-                time(4, 58) to false,
-                time(18, 28) to true,
-            ),
-            dominicanRepublic to tides(
-                date(2024, 11, 30),
-                "America/Santo_Domingo",
-                low(0, 14),
-                high(10, 26)
-            ),
+            perth to tides(date(2024, 12, 3), "+08:00", low(6, 42), high(21, 51)),
+            louisiana to tides(date(2024, 11, 26), "-06:00", low(4, 58), high(18, 28)),
+            dominicanRepublic to tides(date(2024, 11, 30), "-04:00", low(0, 14), high(10, 26)),
             // New moon
             rhodeIsland to tides(
-                LocalDate.of(2024, 12, 1),
-                est,
-                time(0, 24) to false,
-                time(7, 22) to true,
-                time(13, 27) to false,
-                time(19, 44) to true
+                date(2024, 12, 1),
+                "-05:00",
+                low(0, 24),
+                high(7, 22),
+                low(13, 27),
+                high(19, 44)
             ),
             // Full moon
             rhodeIsland to tides(
-                LocalDate.of(2024, 12, 15),
-                est,
-                time(0, 5) to false,
-                time(7, 19) to true,
-                time(13, 39) to false,
-                time(19, 43) to true
+                date(2024, 12, 15),
+                "-05:00",
+                low(0, 5),
+                high(7, 19),
+                low(13, 39),
+                high(19, 43)
             ),
             // First quarter
             rhodeIsland to tides(
-                LocalDate.of(2024, 12, 8),
-                est,
-                time(0, 40) to true,
-                time(6, 0) to false,
-                time(13, 1) to true,
-                time(18, 44) to false
+                date(2024, 12, 8),
+                "-05:00",
+                high(0, 40),
+                low(6, 0),
+                high(13, 1),
+                low(18, 44)
             ),
             // Third quarter
             rhodeIsland to tides(
-                LocalDate.of(2024, 12, 22),
-                est,
-                time(0, 46) to true,
-                time(5, 58) to false,
-                time(13, 0) to true,
-                time(18, 33) to false
+                date(2024, 12, 22),
+                "-05:00",
+                high(0, 46),
+                low(5, 58),
+                high(13, 0),
+                low(18, 33)
             )
         )
 
@@ -293,7 +261,7 @@ class TideModelTest {
         val absAverageError = Statistics.mean(absoluteErrors)
         val abs90QuantileError = Statistics.quantile(absoluteErrors, 0.9f)
 
-        assertEquals("Average", 0f, absAverageError, 30f)
+        assertEquals("Average", 0f, absAverageError, 20f)
         assertEquals("90% Quantile", 0f, abs90QuantileError, 45f)
     }
 
@@ -312,7 +280,7 @@ class TideModelTest {
     private val mexico = Coordinate(22.22, -97.86)
     private val southAfrica = Coordinate(-33.9, 18.42)
     private val italy = Coordinate(40.86, 14.28)
-    private val alaska = Coordinate(61.24, -149.89)
+    private val alaska = Coordinate(56.30, -158.40)
     private val india = Coordinate(13.10, 80.30)
     private val brazil = Coordinate(-1.51, -48.63)
     private val chile = Coordinate(-27.07, -70.83)
@@ -323,23 +291,7 @@ class TideModelTest {
     private val japan = Coordinate(31.85, 130.22)
     private val canada = Coordinate(55.28, -85.10)
     private val dominicanRepublic = Coordinate(18.45, -69.61)
-    private val greenland = Coordinate( 81.07, -61.08)
-
-    private val utc = "UTC"
-    private val pst = "America/Los_Angeles"
-    private val cst = "America/Chicago"
-    private val est = "America/New_York"
-    private val hkt = "Asia/Hong_Kong"
-    private val awst = "Australia/Perth"
-    private val antarcticaTimeZone = "UTC+7"
-    private val hawaiiTimeZone = "Pacific/Honolulu"
-    private val fijiTimeZone = "Pacific/Fiji"
-    private val penzhinaBayTimeZone = "Asia/Kamchatka"
-    private val wit = "Asia/Jayapura"
-    private val sast = "Africa/Johannesburg"
-    private val cet = "CET"
-    private val akst = "America/Anchorage"
-    private val ist = "Asia/Kolkata"
+    private val greenland = Coordinate(63.08, -50.68)
 
     private fun low(hour: Int, minute: Int, add12Hours: Boolean = false): Pair<LocalTime, Boolean> {
         return time(hour + if (add12Hours) 12 else 0, minute) to false
