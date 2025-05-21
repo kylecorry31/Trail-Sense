@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.clinometer
 
+import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
@@ -8,6 +9,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isTrue
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
+import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.test_utils.TestUtils.isCameraInUse
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.Side
@@ -21,8 +23,10 @@ class ToolClinometerTest : ToolTestBase(Tools.CLINOMETER) {
     @Test
     fun verifyBasicFunctionality() {
         // Starts with the camera enabled
-        isTrue(10000) {
-            isCameraInUse(isBackFacing = true)
+        if (Camera.hasBackCamera(context)) {
+            isTrue(10000) {
+                isCameraInUse(isBackFacing = true)
+            }
         }
 
         canEstimateAvalancheRisk()
@@ -47,8 +51,10 @@ class ToolClinometerTest : ToolTestBase(Tools.CLINOMETER) {
     private fun canSwitchToDialMode() {
         click(toolbarButton(R.id.clinometer_title, Side.Left))
 
-        isTrue {
-            !isCameraInUse(isBackFacing = true)
+        if (Camera.hasBackCamera(context)) {
+            isTrue {
+                !isCameraInUse(isBackFacing = true)
+            }
         }
     }
 
