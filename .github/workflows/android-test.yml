@@ -55,7 +55,6 @@ jobs:
           API_LEVEL: ${{ matrix.api-level }}
 
       - name: Upload Test Results
-        if: steps.testing.outcome != 'success'
         uses: actions/upload-artifact@v4
         with:
           name: logs
