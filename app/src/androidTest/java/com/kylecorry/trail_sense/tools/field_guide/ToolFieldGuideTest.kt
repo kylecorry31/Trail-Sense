@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollToEnd
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollToStart
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.TestUtils.clickListItemMenu
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
@@ -46,18 +47,25 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
 
     private fun hasCategories() {
         // Shows categories
-        hasText("Plant")
-        hasText("Fungus")
-        hasText("Animal")
-        hasText("Mammal")
-        hasText("Bird")
-        scrollToEnd(R.id.list)
-        hasText("Reptile")
-        hasText("Amphibian")
-        hasText("Fish")
-        hasText("Invertebrate")
-        hasText("Rock")
-        hasText("Other")
+        val categories = listOf(
+            "Plant",
+            "Fungus",
+            "Animal",
+            "Mammal",
+            "Bird",
+            "Reptile",
+            "Amphibian",
+            "Fish",
+            "Invertebrate",
+            "Rock",
+            "Other"
+        )
+
+        for (category in categories) {
+            scrollUntil {
+                hasText(category, waitForTime = 0)
+            }
+        }
 
         // Open a section
         scrollToStart(R.id.list)

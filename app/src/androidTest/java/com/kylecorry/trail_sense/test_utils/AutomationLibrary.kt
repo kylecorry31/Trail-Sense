@@ -350,14 +350,22 @@ object AutomationLibrary {
     }
 
     fun scrollToEnd(id: Int, index: Int = 0, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
+        scrollToEnd({ view(id, index = index) }, waitForTime)
+    }
+
+    fun scrollToEnd(viewLookup: () -> TestView, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
         waitFor(waitForTime) {
-            view(id, index = index).scrollToEnd()
+            viewLookup().scrollToEnd()
         }
     }
 
     fun scrollToStart(id: Int, index: Int = 0, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
+        scrollToStart({ view(id, index = index) }, waitForTime)
+    }
+
+    fun scrollToStart(viewLookup: () -> TestView, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
         waitFor(waitForTime) {
-            view(id, index = index).scrollToEnd(Direction.UP)
+            viewLookup().scrollToEnd(Direction.UP)
         }
     }
 
