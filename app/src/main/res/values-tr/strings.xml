@@ -99,9 +99,9 @@
     <string name="cumulonimbus">Kümülonimbus</string>
     <string name="cumulus">Kümülüs</string>
     <string name="stratocumulus">Stratokümülüs</string>
-    <string name="stratus">Stratus</string>
-    <string name="nimbostratus">Nimbostratus</string>
-    <string name="altostratus">Altostratus</string>
+    <string name="stratus">Stratüs</string>
+    <string name="nimbostratus">Nimbostratüs</string>
+    <string name="altostratus">Altostratüs</string>
     <string name="altocumulus">Altokümülüs</string>
     <string name="cirrostratus">Sirrostratus</string>
     <string name="cirrus">Sirüs</string>
@@ -355,7 +355,7 @@
     <string name="clinometer_title">Eğim ölçer</string>
     <string name="moon_phase">Ayın evresi</string>
     <string name="sunset_alert_channel_title">Gün batımı alarmı</string>
-    <string name="sunset_alerts">Gün batımı alarmı</string>
+    <string name="sunset_alerts">Gün batımı alarmları</string>
     <string name="access_background_location_rationale">Trail Sense, hava durumu gözleminde deniz seviyesi basıncını ölçmek ve daha isabetli gün doğumu bilgisi sunmak için arka planda konum bilgisini kullanır. [Gizlilik Politikasına Göz Atın](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="sunset_alert_notification_text">Güneş %s\'de batacak</string>
     <string name="sunset_alert_notification_title">Güneş yakın zamanda batıyor</string>
@@ -932,7 +932,7 @@
     <string name="low_pressure_system_description">Kötü hava koşulları, kapalı gökyüzü ve daha yüksek sıcaklıklarla ilişkilidir.</string>
     <string name="weather_cold_front">Soğuk</string>
     <string name="weather_front">Hava Cephesi</string>
-    <string name="weather_warm_front">Sıcak</string>
+    <string name="weather_warm_front">Ilık</string>
     <string name="now">Şimdi</string>
     <string name="cloud_stratus_forecast">Sisli olması durumunda önümüzdeki %d saat için güzel havaya işaret edebilir, aksi takdirde yakında yağışa işaret edebilir.</string>
     <string name="weather_clear">Açık</string>
@@ -1179,7 +1179,7 @@
     <string name="barometer_offset">Barometre dengelemesi</string>
     <string name="exported">Dışa aktarıldı</string>
     <string name="sunrise_alert_notification_title">Birazdan güneş doğacak</string>
-    <string name="sunrise_alerts">Gün doğumu alarmı</string>
+    <string name="sunrise_alerts">Gün doğumu alarmları</string>
     <string name="sunrise_alert_channel_title">Gün doğumu alarmı</string>
     <string name="pref_sunrise_alert_time_title">Gün doğumu uyarı zamanı</string>
     <string name="sunrise_alert_notification_text">Güneş şu saatte doğacak: %s</string>
