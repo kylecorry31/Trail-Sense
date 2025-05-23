@@ -171,7 +171,7 @@ Hold the mirror with one hand and extend your other arm in front of you with you
 ![](file:///android_asset/survival_guide/signal_mirror.webp)
 
 ### Smoke
-<!-- K: smoke, fire, burn -->
+<!-- K: smoke, fire, burn, signal -->
 
 Smoke can attract attention during the day. Burning green vegetation can create a lot of smoke, but be sure to do this safely. A fire at night can also be used to attract attention.
 
@@ -186,7 +186,7 @@ Flares are best seen at night or in low-visibility conditions. Follow the instru
 At night, a flashlight can be used to signal for help. Use the international distress signal, SOS, which is three short flashes, three long flashes, and three short flashes. If you don't remember the SOS signal, flash the light repeatedly in groups of three. Aim it in the direction of aircraft or other potential rescuers.
 
 ### Ground-to-air signals
-<!-- K: ground, air, signal, rock, stick, tarp, color -->
+<!-- K: ground, air, rock, stick, tarp, color -->
 
 Ground-to-air signals are large markers you create on the ground to communicate with aircraft. Use rocks, logs, or other materials to create a large "V" (means you require assistance) or an "X" (means you require medical assistance). Use contrasting or artificial colors to make the signal more visible.
 

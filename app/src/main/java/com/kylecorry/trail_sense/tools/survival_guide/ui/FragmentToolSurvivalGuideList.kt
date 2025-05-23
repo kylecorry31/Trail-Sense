@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.survival_guide.ui
 
 import android.view.View
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
@@ -39,6 +40,7 @@ class FragmentToolSurvivalGuideList :
         val summaryView = useView<TextView>(R.id.summary)
         val summaryHolderView = useView<View>(R.id.summary_holder)
         val summaryTitleView = useView<TextView>(R.id.summary_title)
+        val summaryScrollView = useView<ScrollView>(R.id.summary_scroll)
         val navController = useNavController()
 
         // State
@@ -154,6 +156,10 @@ class FragmentToolSurvivalGuideList :
                     )
                 }
             }
+        }
+
+        useEffect(summaryScrollView, summary) {
+            summaryScrollView.scrollTo(0, 0)
         }
     }
 
