@@ -62,6 +62,8 @@ Once you have mastered these skills, you should learn how to do the following:
 Your first line of defense in any environment is your clothing. Proper attire should keep you dry, regulate your body temperature, protect you from the sun, and prevent insect bites.
 
 ### Materials
+<!-- K: material, wool, polyester, nylon, down, cotton -->
+
 When choosing clothing, consider the following materials:
 - Wool: Retains warmth even when wet.
 - Polyester/nylon: Quick drying and moisture-wicking.
@@ -69,6 +71,8 @@ When choosing clothing, consider the following materials:
 - Cotton: Retains moisture and loses warmth when wet. Do not wear cotton in cold or wet environments.
 
 ### Layers
+<!-- K: layer -->
+
 You should plan to wear multiple layers of clothing to protect against the elements. Layering allows you to adjust your clothing to changing conditions and maintain body temperature.
 
 In cold environments, remove or add layers to prevent sweating while staying warm.
@@ -97,6 +101,8 @@ If you need extra insulation in a pinch, stuff your clothing with dry leaves, gr
   - Scarf or bandana
 
 ### Footwear
+<!-- K: footwear, shoes, boots, socks, gaiters -->
+
 Be sure to choose footwear that is appropriate for your environment. In cold climates, wear insulated, waterproof boots. In hot climates, wear breathable, lightweight shoes. Always break in new footwear before a trip to avoid blisters.
 
 If you plan to be hiking in wet conditions, consider wearing waterproof boots.
@@ -108,6 +114,7 @@ Bring extra socks, preferably made from wool, and ensure they are taller than yo
 <!-- S: Construct a shelter using natural materials or a tarp. Insulate the shelter with leaves, straw, or clothing. -->
 
 ### Choosing a shelter location
+<!-- K: location, site -->
 
 When selecting a site for your shelter, consider the following:
 - Proximity to building materials.
@@ -120,9 +127,12 @@ When selecting a site for your shelter, consider the following:
 - Avoid staying above the treeline in mountainous regions, as you will be exposed to the elements.
 
 ### Gathering materials
+<!-- K: gather, material -->
+
 Prefer wood and debris that are already on the ground and require minimal effort to use. Avoid logs that are too thick to break by hand.
 
 ### Shelter types
+<!-- K: shelter, type, tarp, debris, hut, cave, tent, hammock, lean-to, a-frame, emergency-space-blanket, space-blanket, blanket -->
 
 You can construct various shelters using tarps, ponchos, or natural elements. Here are some common types:
 
@@ -165,6 +175,7 @@ If you have a tent, set it up according to the manufacturer's instructions. Ensu
 If you have a hammock, set it up between two trees or supports. Ensure the hammock is secure and the rainfly is in place. Be sure the trees or supports are strong enough to hold your weight.
 
 ### Insulation
+<!-- K: insulate, insulation, heat, warm, cold, pad, sleeping-bag -->
 
 You can place insulating materials like leaves, straw, or clothing between you and the shelter walls to retain body heat. This barrier prevents heat loss and keeps you warm. If you have a sleeping bag or extra clothing, use them.
 
@@ -183,6 +194,7 @@ Use materials like leaves, straw, or clothing to insulate yourself from the grou
 <!-- S: Use a sewing kit, duct tape, safety pins, glue, or cordage to repair tears or holes in clothing or gear. -->
 
 ### Sewing
+<!-- K: sewing, stitch, back-stitch, running-stitch, whip-stitch, needle, thread -->
 
 **Back stitch**
 
@@ -203,6 +215,7 @@ Used to repair tears or holes in fabric. It can also be used to connect two piec
 ![](file:///android_asset/survival_guide/whip_stitch.webp)
 
 ### Tarps
+<!-- K: tarp, grommet -->
 
 If your tarp's grommet breaks, you can still attach it to a rope by creating a button. A button is formed by wrapping a small rock in the tarp and securing your cordage around that using a clove hitch or jam knot.
 
@@ -216,53 +229,73 @@ If you do not have a sewing kit, you can use duct tape, safety pins, super glue,
 <!-- S: Learn several knots to make the most of your cordage. -->
 
 ### Overhand knot
+<!-- K: overhand -->
+
 Used to prevent the end of a rope from untwisting. This is hard to undo but very easy to tie.
 
 ![](file:///android_asset/survival_guide/knot_overhand.webp)
 
 ### Overhand loop
+<!-- K: overhand-loop -->
+
 Used to create a loop at the end of a line. In most cases a bowline would be a better choice, but this knot is easy to tie.
 
 ![](file:///android_asset/survival_guide/knot_overhand_loop.webp)
 
 ### Double sheet bend
+<!-- K: double-sheet-bend, join -->
+
 Used for tying two lines together.
 
 ![](file:///android_asset/survival_guide/knot_double_sheet_bend.webp)
 
 ### Bowline
+<!-- K: bowline, loop, grommet, tarp -->
+
 Used to create a loop at the end of a line. You can pass a line around a tree and through the bowline loop to secure the end of a line to the tree.
 
 You can use a bowline to attach a line to a grommet on a tarp.
 
 ![](file:///android_asset/survival_guide/knot_bowline.webp)
 
-### Jam Knot
+### Jam knot
+<!-- K: jam-knot -->
+
 Used to fasten a rope to a timber or pole. This can be used in place of lashings. It can be loosened by pulling on the knot on the end. It is hard to untie this knot.
 
 ![](file:///android_asset/survival_guide/jam_knot.webp)
 
 ### Clove hitch
+<!-- K: clove-hitch, pole -->
+
 Used to fasten a rope to a timber or pole. It can be tied at any point in a rope.
 
 ![](file:///android_asset/survival_guide/133.webp)
 
 ### Taut-line hitch
+<!-- K: taut-line-hitch, tighten -->
+
 Used to tighten a line.
 
 ![](file:///android_asset/survival_guide/knot_tautline_hitch.webp)
 
 ### Trucker's hitch
+<!-- K: truckers-hitch, tighten, cinch -->
+
 Used to secure a load or tighten a line. Can be cinched down tighter than a taut-line hitch.
 
 ![](file:///android_asset/survival_guide/truckers_hitch.webp)
 
 ### Square lashing
+<!-- K: square-lashing, lash -->
+
 Used to secure one pole at a right angle to another pole. You can swap with the diagonal lashing if desired.
 
 ![](file:///android_asset/survival_guide/136.webp)
 
 ### Shear lashing
+<!-- K: shear-lashing, lash, tripod -->
+
 Used for lashing two or more poles next to each other. It can be used to construct a tripod.
 
 ![](file:///android_asset/survival_guide/138.webp)

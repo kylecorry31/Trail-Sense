@@ -5,8 +5,6 @@ import com.kylecorry.andromeda.core.system.Resources
 
 class SurvivalGuideSearch(context: Context) {
 
-    private val MIN_SUBSECTION_SCORE = 0.6f
-
     private val strategy = if (Resources.getLocale(context).language.startsWith("en")) {
         EnglishSurvivalGuideFuzzySearch(context)
     } else {
@@ -24,21 +22,23 @@ class SurvivalGuideSearch(context: Context) {
         val section = contents.sections[result.headingIndex]
 
         val builder = StringBuilder()
-        if (result.bestSubsection != null && result.bestSubsection.score >= MIN_SUBSECTION_SCORE) {
-            val subsection = section.subsections[result.bestSubsection.headingIndex]
-            if (result.bestSubsection.summary != null) {
-                builder.append("> ${result.bestSubsection.summary}")
-            }
-            builder.append("\n\n")
+        if (shouldUseSubsection(result)) {
+            val subsection = section.subsections[result.bestSubsection!!.headingIndex]
             builder.append(subsection.content)
         } else {
-            if (result.summary != null) {
-                builder.append("> ${result.summary}")
-            }
-            builder.append("\n\n")
             builder.append(section.content)
         }
 
         return builder.toString().trim()
     }
+
+    companion object {
+        private val MIN_SUBSECTION_SCORE = 0.6f
+
+        fun shouldUseSubsection(result: SurvivalGuideSearchResult): Boolean {
+            return result.bestSubsection != null && result.bestSubsection.score >= MIN_SUBSECTION_SCORE
+        }
+
+    }
+
 }

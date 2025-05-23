@@ -51,24 +51,29 @@ Dehydration occurs when the body loses more fluids than it takes in. Symptoms in
 You can find water in many places if you know where to look. Unless otherwise stated, you should purify all water that you collect.
 
 ### Precipitation
+<!-- K: rain, snow, ice, rainwater -->
 
 Rainwater collected directly in containers does not need purification, but it should be purified if it has touched another surface. Snow and ice should be melted using a fire or body heat before drinking; eating it directly can lower your core body temperature.
 
 ### Bodies of water
+<!-- K: river, stream, lake, pond, ocean, sea -->
 
 Flowing water from rivers or streams is typically safer than lakes, ponds, and stagnant water. Saltwater can be put into a solar still to remove the salt and should never be consumed directly.
 
 ### Groundwater
+<!-- K: groundwater, ground, dig -->
 
 Water is available in many places by just digging a hole in the ground and allowing water to seep in. You can find groundwater in dry environments by looking for green vegetation, valleys, low areas, or dry riverbeds.
 
 ### Plants
+<!-- K: plant, dew -->
 
 Plants can provide water when no open sources are available. Look for green bamboo, vines, or coconuts for easy access to water, but be sure to positively identify the plant before consuming. You can extract water from other plants by placing them into a solar still.
 
 Dew can be collected from plants in the early morning using a cloth to soak up the water. Only collect dew from plants you can positively identify as safe.
 
 ### Solar stills
+<!-- K: solar, still, solar-still, transpiration, transpiration-bag, bag, leaves, leaf -->
 
 Solar stills produce small amounts of water and are best used as a supplement.
 
@@ -101,6 +106,7 @@ A transpiration bag is a plastic bag tied around a leafy branch to collect water
 Always ensure the water you collect is safe to drink. Boiling is the most reliable method, but chemical purification tablets and filters are also effective. If you cannot purify the water immediately, prioritize finding and storing water until you can treat it.
 
 ### Boiling
+<!-- K: boil, heat -->
 
 Bring water to a rolling boil for at least one minute. At higher altitudes (above 6,500 ft / 2,000 m), boil for three minutes. If you do not have a single-walled metal container that can be used for boiling, then do the following:
 1. Find another container, dig a hole in the ground and line it with a waterproof material, or craft a bowl.
@@ -109,6 +115,7 @@ Bring water to a rolling boil for at least one minute. At higher altitudes (abov
 4. Replace the rocks with hot ones to keep the water boiling.
 
 ### Filtration
+<!-- K: filter, filtration, pump -->
 
 Use a portable water filter to remove contaminants. Some filters are rated to remove nearly all bacteria and viruses and can be used without additional purification. Custom-crafted filters are less effective and require additional purification.
 
@@ -117,6 +124,7 @@ A filter will have an inlet and an outlet, and it typically shows the direction 
 If the manufacturer's instructions are different, be sure to follow them instead.
 
 ### Chemical treatment
+<!-- K: chemical, treatment, tablet, iodine, chlorine -->
 
 Chemical water purification tablets or drops can be used to treat water. Be sure to follow the instructions, which are normally printed on the bottle. The most common chemical is iodine, but chlorine-based treatments are also available. Before deciding which to buy, research how effective they are against bacteria and parasites in your region. Treatment amounts and times vary by chemical type and brand. Be sure to check the expiration date (if any) before going on a trip.
 
@@ -141,6 +149,7 @@ The following conversions are approximate, but that is fine for purification.
 - 1 gallon = 4 quarts
 
 ### Solar disinfection
+<!-- K: solar, sunlight, UV, clear, bottle, sun -->
 
 As a last resort, you can use sunlight to purify water in a clear water bottle.
 
@@ -149,6 +158,7 @@ As a last resort, you can use sunlight to purify water in a clear water bottle.
 3. If it is sunny, most germs will be killed in 6 hours. If it is cloudy, you will need to wait 2 days - so consider using a different purification method.
 
 ### Hazards
+<!-- K: virus, bacteria, parasite, microorganism, kill, chemical, runoff, road, farm, stagnant -->
 
 Water may contain bacteria, viruses, and parasites that can cause illness. Boiling water kills most microorganisms, but some may require additional treatment. Microorganisms are more likely to be present in stagnant water.
 

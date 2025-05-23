@@ -704,6 +704,8 @@ Heat exhaustion and heatstroke are caused by exposure to high temperatures and d
 <!-- S: Wash hands frequently, especially before eating and after using the bathroom. -->
 
 ### Washing
+<!-- K: wash, soap, shampoo, clean, sanitize, hands -->
+
 If you do not have soap, you can substitute white ashes, sand, or loamy soil.
 
 Wash hands:
@@ -714,18 +716,26 @@ Wash hands:
 - After touching something likely to carry germs or be poisonous.
 
 ### Teeth
+<!-- K: teeth, tooth, toothbrush, toothpaste, floss, brush -->
+
 If you do not have a toothbrush, you can clean your teeth with a small stick (fray it by chewing on one end) or a piece of cloth. An inner strand of paracord can be used as dental floss. You can grind up charcoal and combine it with water to make toothpaste.
 
 ### Feet
+<!-- K: foot, feet, sock, shoe -->
+
 Do the following to prevent foot problems:
 - Change and wash socks daily.
 - Wash, dry, and massage your feet.
 - Check frequently for blisters and red areas. Use adhesive tape/moleskin to prevent blisters.
 
 ### Clothing
+<!-- K: clothes -->
+
 Keep clothing clean and dry. Wash clothes with water and soap or boil them. To dry clothes, hang them in the sun or near a fire (not too close).
 
 ### Bowel movements and urination
+<!-- K: defecate, urinate, bathroom, waste, trowel, dig, hole -->
+
 - Dig a hole 6 to 8 inches (15 to 20 centimeters) deep for bowel movements and cover it with dirt.
   - If you do not have a trowel, use a stick to dig the hole.
 - If you do not have toilet paper or a bidet, use non-poisonous leaves, moss, or smooth rocks to clean yourself.
@@ -932,6 +942,8 @@ Sprains are injuries to a tendon or ligament, while strains are injuries to a mu
 <!-- S: If caught in a rip current, swim parallel to the shore until you are out. If you fall through the ice, kick with your legs to crawl back onto the ice, then treat for hypothermia. -->
 
 ### Falling through ice
+<!-- K: ice, snow, hypothermia, fall -->
+
 If you fall through the ice, do the following:
 1. Turn back the way you came.
 2. Kick your legs to push yourself onto the ice.
@@ -942,6 +954,8 @@ If you fall through the ice, do the following:
 7. Use leaves or dry grass as insulation and warm up near a fire.
 
 ### Rip currents
+<!-- K: rip, current, tide -->
+
 If caught in a rip current, swim parallel to the shore until you are out of the current. Then, swim back to shore.
 
 ![](file:///android_asset/survival_guide/rip_current.webp)

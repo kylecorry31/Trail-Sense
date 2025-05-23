@@ -137,7 +137,7 @@ class FragmentToolSurvivalGuideList :
                 summaryTitleView.text = listOfNotNull(
                     result.chapter.title,
                     result.heading,
-                    result.bestSubsection?.heading
+                    if (SurvivalGuideSearch.shouldUseSubsection(result)) result.bestSubsection?.heading else null
                 ).joinToString(" > ")
                 summaryTitleView.setCompoundDrawables(
                     size = Resources.dp(context, 14f).toInt(),

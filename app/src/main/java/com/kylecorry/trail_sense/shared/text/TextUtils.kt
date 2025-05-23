@@ -136,6 +136,7 @@ object TextUtils {
     fun getMarkdownKeywords(text: String): Set<String> {
         val regex = Regex("<!-- K: (.*?)-->")
         return regex.findAll(text)
+            .take(1)
             .flatMap { it.groupValues[1].split(",") }
             .map { it.trim() }
             .toSet()

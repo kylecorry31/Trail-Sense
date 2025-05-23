@@ -39,11 +39,15 @@ Once you have mastered these skills, you should learn how to do the following:
 Weather conditions can change rapidly and significantly impact your outdoor activities. In mountainous regions, take extra precautions when above the tree line, as weather can be more severe and you are more exposed to the elements.
 
 ### Precipitation
+<!-- K: rain, snow, hail, sleet, precipitation -->
+
 You can generally continue outdoor activities in light precipitation. However, if it starts precipitating heavily, seek shelter. Rivers and streams can rise rapidly and become dangerous during heavy rainfall. Be aware of the risk of hypothermia and take steps to stay warm and dry.
 
 Blizzards can lead to whiteout conditions, severely reducing visibility. If caught in a blizzard, seek shelter immediately and stay warm and dry.
 
 ### Temperature and humidity
+<!-- K: temperature, humidity, heat, cold, hot, warm, cool -->
+
 In cold weather, dress in layers and wear a hat and gloves to prevent heat loss. Stay dry, as wet clothing can cause you to lose body heat more quickly.
 
 In hot weather, stay hydrated and take breaks in the shade. Wear sunscreen and sun-protective clothing to protect yourself from sun exposure. High humidity can make it feel hotter and make cooling off more difficult.
@@ -51,6 +55,8 @@ In hot weather, stay hydrated and take breaks in the shade. Wear sunscreen and s
 Temperature changes as you change elevation, decreasing by about 3.5°F (2°C) for every 1,000 feet (305 meters) of elevation gain. If you are hiking in a mountainous region, it may be warm at the bottom, but be prepared for cold, windy temperatures at the top.
 
 ### Wind
+<!-- K: wind, gust, storm, hurricane, tornado, sandstorm, prevailing, blow, direction -->
+
 Wind can make cold conditions feel even colder, increasing the risk of hypothermia and frostbite. Dress in layers and wear a hat and gloves to protect yourself from the wind. During windstorms, unstable trees and branches can become hazardous.
 
 Wind can cause sandstorms in desert environments, reducing visibility and making breathing difficult. Seek shelter during a sandstorm and protect your eyes and mouth with a bandana or cloth.
@@ -66,9 +72,13 @@ Prevailing winds are winds that blow consistently in one direction over time. Wh
 These directions also indicate where the weather will most likely come from. For example, if you are at 40° N and see a thunderstorm to the west, it will likely arrive at your location soon.
 
 ### Fog
+<!-- K: fog, visibility -->
+
 Fog reduces visibility, making navigation difficult. If hiking in fog, stay on marked trails and use a map, compass, or GPS to navigate. Watch your footing carefully.
 
 ### Lightning
+<!-- K: lightning, thunder, thunderstorm, strike, hair -->
+
 If caught outdoors during a thunderstorm, seek shelter immediately. Avoid tall trees and bodies of water, but get out of open areas. If you're in an open area and can't take shelter, crouch down on the balls of your feet and cover your ears to reduce the risk of lightning strikes.
 
 If you feel your hair stand on end or hear a crackling noise, you are in danger of being struck by lightning.
@@ -76,9 +86,13 @@ If you feel your hair stand on end or hear a crackling noise, you are in danger 
 You can estimate how far away a thunderstorm is by counting the seconds between a flash of lightning and the sound of thunder. Divide the number of seconds by 5 to get the distance in miles. One mile is about 1.6 kilometers. Any storm within 6 miles (10 kilometers) is a threat.
 
 ### Sun
+<!-- K: sun, uv, uv-index, sunburn, heatstroke, shade -->
+
 Wear sunscreen and sun-protective clothing on days with a high UV index. In hot climates, stay hydrated and take breaks in the shade.
 
 ### Smoke
+<!-- K: smoke, wildfire, air quality, pollution -->
+
 Wildfires can cause smoke to travel long distances. If possible, avoid outdoor activities on days with poor air quality.
 
 ## Climate
@@ -94,6 +108,8 @@ The climate of a region refers to its average weather conditions over time. You 
 You can learn to forecast weather by observing the signs around you. The more signs you notice, the more accurate your forecast will be.
 
 ### Signs of worsening weather
+<!-- K: storm, worsen, bad -->
+
 - Cloud cover increases  
 - Clouds start growing vertically (into an anvil shape)  
   - This indicates a thunderstorm  
@@ -111,6 +127,8 @@ You can learn to forecast weather by observing the signs around you. The more si
 - You smell rain  
 
 ### Signs of improving weather
+<!-- K: improve, good, clear -->
+
 - Cloud cover decreases  
 - Wind speed decreases  
 - Temperature rises  
@@ -120,6 +138,8 @@ You can learn to forecast weather by observing the signs around you. The more si
 - Humidity decreases  
 
 ### Clouds
+<!-- K: cloud, cumulus, cirrus, cumulonimbus, altocumulus, stratus, altostratus, clear, cirrostratus, nimbostratus, cirrocumulus -->
+
 Identifying the cloud type can improve your ability to forecast weather.
 
 ![](file:///android_asset/survival_guide/clouds.webp)

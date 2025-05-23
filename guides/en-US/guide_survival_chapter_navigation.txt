@@ -43,34 +43,41 @@ When planning a route, choose one that matches your skill and fitness levels usi
 Moving carefully and adapting to the terrain are important for preventing injury or getting lost. In general, keep your body weight balanced over your feet, watch where you step, and take frequent breaks to rest. Stay on the designated trails at all times and be cautious of animal trails; they may lead to resources like water but can also get you lost.
 
 ### Mountains
+<!-- K: mountain, steep -->
 
 The steep slopes of mountainous terrain can tire you out or injure your joints, so be extra vigilant about taking breaks. To make it easier to follow uphill trails, walk in a zigzag path; this pattern will increase the distance you travel but it will be less steep. When descending, maintain a bend in your knees to protect your joints. If you are climbing a tall mountain, take your time so that you can acclimate to higher altitudes without getting sick.
 
 ### Snow
+<!-- K: snow, ice, avalanche, cold, snowshoe -->
 
 It can be taxing to travel in snowy conditions and you don't know for sure what you are stepping on; the snow may be hiding a patch of ice, a hole, or water. You can use a pole or stick to test ice and snow conditions before stepping. Avoid walking on frozen bodies of water unless you know the ice thickness. If you have snowshoes or skis, use them to help prevent your feet from sinking into the snow.
 
 Watch out for areas prone to avalanches. They are usually marked.
 
 ### Desert
+<!-- K: desert, hot, shade -->
 
 Deserts are typically hot and dry, with potentially cold nights, so be prepared by bringing appropriate clothing and extra water. Avoid traveling during the hottest part of the day and stick to areas of shade if possible. Due to the lack of visual features, paths in a desert may appear shorter than they actually are. If you are carrying electronic devices, be sure to protect them from extreme heat and direct sunlight.
 
 ### Jungle
+<!-- K: jungle, humid, vegetation -->
 
 Jungles feature dense vegetation, high humidity, and precipitation. Move with the vegetation rather than against it to conserve energy, and focus on distant landmarks rather than nearby objects to maintain your direction. The dense canopy makes it harder for search parties to find you and GPS devices may not be reliable. Always wear protective clothing to avoid insect bites and stings, and treat any wounds or scratches promptly to prevent infection.
 
 ### Night
+<!-- K: night, dark, light, flashlight -->
 
 If you can avoid traveling at night, then don't do it. If you have to travel, use a flashlight or headlamp to illuminate your path while moving slowly and carefully to avoid accidents. Use your hearing to identify helpful environmental cues like running water or distant roadways that can aid in orientation.
 
 ### Rivers and streams
+<!-- K: river, stream, current, cross -->
 
 When crossing rivers or streams, search for the narrowest section or areas where the water splits into multiple channels. Whenever possible, use bridges, fallen trees, or rocks as crossing points, but be cautious of slippery or loose surfaces. Avoid crossing where currents are strong or near ledges. If you have to wade through water to cross, then find another spot. Anytime you cross a river or stream, unbuckle your backpack and carry it in front of you to prevent being pulled underwater by its weight if you fall.
 
 In emergency situations, following a river downstream may eventually lead to civilization, as many settlements are built near water sources.
 
 ### Detours
+<!-- K: detour, obstacle -->
 
 If there's an obstacle in your path, you may need to take a detour. To do this, find a feature to navigate to on the other side of the obstacle, then turn 90 degrees and walk to the end of the obstacle. Once there, turn back 90 degrees to your original heading and pass the obstacle. Finally, turn 90 degrees again and walk to the feature you picked out. Now you can resume following your original bearing.
 
@@ -81,6 +88,8 @@ If there's an obstacle in your path, you may need to take a detour. To do this, 
 Trail markers indicate where the trail is and distinguish one trail from another. Many ways are used to mark trails, but there is no universal standard.
 
 ### Blazes
+<!-- K: blaze, paint, symbol, rectangle, square, circle, triangle, cross -->
+
 Blazes are painted symbols on trees or rocks. Typically, they are rectangles, squares, circles, triangles, or crosses. In most places, each trail is painted with a different color and/or shape of blaze.
 
 Some blazes may also indicate the trail's direction, but this may not apply everywhere.
@@ -94,12 +103,18 @@ Some blazes may also indicate the trail's direction, but this may not apply ever
 While not always true, the color and/or shape of the blazes should match what appears on a map, except that white blazes are typically black on a map. If a trail is new, it may have small plastic strips or flags tied to a tree instead of a blaze.
 
 ### Cairns
+<!-- K: cairn, pile, rock, stack -->
+
 Cairns are piles of rocks, typically used in places without large trees to blaze. Cairns are usually placed on the side of the trail, and you should be able to see multiple cairns at a time. In some places, cairns may be small stacks of stones (typically 3) and could be hard to locate.
 
 ### Signs
+<!-- K: sign, information, alert, distance, direction -->
+
 Trail signs provide information about which trail you are on, distance/direction to points of interest, or offer general information/alerts. Always read and abide by trail signs.
 
 ### Blockers
+<!-- K: block, pile, obstacle -->
+
 In some places, downed trees or debris are intentionally placed in front of a path to indicate it should not be used.
 
 ## GPS
@@ -109,20 +124,24 @@ In some places, downed trees or debris are intentionally placed in front of a pa
 A GPS device can help you determine your location and navigate to a specific point, but always have a backup plan in case the device fails.
 
 ### Location
+<!-- K: location, latitude, longitude, coordinates, satellite -->
 
 A GPS uses satellites to determine your location. Ensure the device has a clear view of the sky so it can receive signals. Most GPS units display your coordinates in latitude and longitude, which can be plotted on a map.
 
 ### Waypoints
+<!-- K: waypoint, beacon, backtrack, navigate -->
 
 A waypoint is a specific location you want to navigate to. You can enter waypoints into your GPS to guide you to your destination. Most devices allow you to enter waypoints before your trip, but you can also add them as you go. Place waypoints frequently so you can backtrack if necessary.
 
 If you use Trail Sense, you can use the Navigation, Beacons, Paths, and Photo Maps tools to assist with navigation.
 
 ### Battery
+<!-- K: battery, charge, power -->
 
 Your GPS device may run out of battery, so carry extra batteries or a portable charger to keep it powered.
 
 ### Digital maps
+<!-- K: map, download -->
 
 If your GPS supports digital maps, download maps of your area in advance to navigate even if you lose the signal.
 
@@ -133,16 +152,19 @@ If your GPS supports digital maps, download maps of your area in advance to navi
 A compass helps you determine direction and is essential for navigation, especially with a map. Do not use the compass around metal objects, as it will cause the reading to be inaccurate. If you are using a digital compass on a smartphone, it will need to be calibrated by rotating your device in a figure-8 pattern (the pattern may vary by device).
 
 ### Bearings
+<!-- K: bearing, direction, needle -->
 
 A bearing is the direction you must travel to reach a specific point. You can determine a bearing by aligning the compass needle with the desired direction on the compass housing. Once you have the bearing, follow it to your destination. Pick a prominent feature in the distance to navigate toward, avoiding the need for constant compass checks.
 
 ### Back bearings
+<!-- K: back, back-bearing, opposite -->
 
 A back bearing is the opposite direction of your current bearing. To calculate a back bearing: if your bearing is less than 180 degrees, add 180. If it's more than 180, subtract 180. On a compass, the back bearing is directly across from the bearing.
 
 To use a back bearing to navigate, you need to take a bearing before hiking out. Keep this bearing written down or memorized, and as long as you didn't drastically change direction, following the back bearing will lead you close to your starting location. Every time you make a turn, you should record a bearing.
 
 ### Declination
+<!-- K: declination, true north, magnetic north -->
 
 Declination is the difference between true north and magnetic north. Adjust your compass for declination when navigating with a map. Some compasses have an adjustable declination ring; otherwise, you must calculate it manually. Most maps list declination in the legend and are oriented to true north.
 
@@ -153,6 +175,7 @@ Declination is the difference between true north and magnetic north. Adjust your
 A map is a key tool for navigation, especially when paired with a compass.
 
 ### Orientation
+<!-- K: orient, north, compass -->
 
 You can orient a map to point north using a compass:
 1. Place the compass on the map with the direction of travel arrow pointing toward the top of the map.
@@ -161,6 +184,7 @@ You can orient a map to point north using a compass:
 ![](file:///android_asset/survival_guide/93.webp)
 
 ### Determining location
+<!-- K: location, triangulate, feature, bearing -->
 
 To determine your location on a map, identify prominent features around you and match them to the map. Use a compass to determine your direction and align the map accordingly.
 
@@ -172,12 +196,14 @@ To triangulate your location:
 5. The point where the lines intersect is your location.
 
 ### Scale
+<!-- K: scale, distance, measure, ruler, finger -->
 
 Maps are drawn to scale, allowing you to determine distances between points. A bar on the map indicates the scale. You can measure distances using a ruler, string, or finger.
 
 ![](file:///android_asset/survival_guide/map_scale.webp)
 
 ### Topographic maps
+<!-- K: topographic, elevation, contour, terrain, peak, valley, ridge, depression, cliff, vegetation, legend, read -->
 
 Topographic maps show elevation changes and terrain features, making them helpful in navigating mountainous or hilly areas. Contour lines indicate elevation; the closer the lines are, the steeper the terrain. Elevation markers on contour lines help identify peaks and valleys.
 
@@ -204,10 +230,12 @@ Typical map colors include:
 You can use the sun or stars to determine direction. If you need this, it's best to stay where you are and wait for help.
 
 ### Sun/Moon
+<!-- K: sun, moon -->
 
 In the early morning, the sun will be close to the east, and in the late afternoon, it will be close to the west. The same applies to the moon at moonrise and moonset. During the day, the sun will be in the southern half of the sky in the northern hemisphere, and in the northern half in the southern hemisphere.
 
 ### Shadows
+<!-- K: shadow -->
 
 If you measure which way shadows are moving over time, you can determine direction. This is because the Sun moves east to west throughout the sky, and therefore shadows move in the opposite direction.
 
@@ -219,12 +247,14 @@ If you measure which way shadows are moving over time, you can determine directi
 ![](file:///android_asset/survival_guide/direction_shadow.webp)
 
 ### Time
+<!-- K: time, watch, hour, hand, analog -->
 
 You can determine your direction using the position of the sun and the current time. This will be a rough approximation, but it's better than nothing. Point the hour hand of an analog watch at the sun; south is roughly halfway between the hour hand and 12 o'clock in the Northern Hemisphere. In the Southern Hemisphere, point the 12 o'clock position at the sun. If on daylight saving time, use 1 o'clock instead of 12.
 
 ![](file:///android_asset/survival_guide/direction_watch.webp)
 
 ### Stars
+<!-- K: star, constellation, polaris, big dipper, cassiopeia, southern cross -->
 
 Being able to identify a handful of constellations will help you determine direction at night.
 
