@@ -7,5 +7,13 @@ data class SurvivalGuideSearchResult(
     val score: Float,
     val headingIndex: Int,
     val heading: String?,
+    val summary: String?,
+    val bestSubsection: SurvivalGuideSubsectionSearchResult? = null
+)
+
+data class SurvivalGuideSubsectionSearchResult(
+    val score: Float,
+    val headingIndex: Int,
+    val heading: String?,
     val summary: String?
 )

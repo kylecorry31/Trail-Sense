@@ -277,80 +277,48 @@ class EnglishSurvivalGuideFuzzySearch(context: Context) : BaseSurvivalGuideSearc
         )
     )
 
-
-    override fun searchChapter(
+    override fun getSectionScore(
         query: String,
-        guide: GuideDetails
-    ): List<SurvivalGuideSearchResult> {
-        // TODO: Other languages?
+        section: GuideSection
+    ): Float {
+        val sectionKeywords = section.keywords.joinToString(", ")
 
-//        Log.d(
-//            "SurvivalGuideFuzzySearch", TextUtils.getKeywords(
-//                query,
-//                preservedWords = preservedWords,
-//                additionalStopWords = additionalStopWords,
-//                additionalContractions = additionalContractions,
-//                additionalStemWords = additionalStemWords
-//            ).joinToString(", ")
-//        )
+        val additionalPreservedWords =
+            section.keywords.filter { it.contains(" ") || it.contains("-") }.toMutableSet()
 
-        val sections = guide.sections
+        // Any keywords with a dash should have a synonym with a space
+        val additionalSynonyms = section.keywords
+            .filter { it.contains("-") }
+            .map { setOf(it, it.replace("-", " ")) }
 
-        val matches = mutableListOf<SurvivalGuideSearchResult>()
+        // Add the synonyms to the preserved words
+        additionalPreservedWords.addAll(additionalSynonyms.flatten())
 
-        for ((index, section) in sections.withIndex()) {
-            val sectionKeywords = section.keywords.joinToString(", ")
+        val sectionMatch = TextUtils.getQueryMatchPercent(
+            query,
+            sectionKeywords,
+            preservedWords = preservedWords + additionalPreservedWords,
+            additionalStopWords = additionalStopWords,
+            synonyms = synonyms + additionalSynonyms,
+            additionalContractions = additionalContractions,
+            additionalStemWords = additionalStemWords
+        )
 
-            val additionalPreservedWords =
-                section.keywords.filter { it.contains(" ") || it.contains("-") }.toMutableSet()
+        val headerMatch = TextUtils.getQueryMatchPercent(
+            query,
+            section.title ?: context.getString(R.string.overview),
+            preservedWords = preservedWords + additionalPreservedWords,
+            additionalStopWords = additionalStopWords,
+            synonyms = synonyms + additionalSynonyms,
+            additionalContractions = additionalContractions,
+            additionalStemWords = additionalStemWords
+        )
 
-            // Any keywords with a dash should have a synonym with a space
-            val additionalSynonyms = section.keywords
-                .filter { it.contains("-") }
-                .map { setOf(it, it.replace("-", " ")) }
-
-            // Add the synonyms to the preserved words
-            additionalPreservedWords.addAll(additionalSynonyms.flatten())
-
-            val sectionMatch = TextUtils.getQueryMatchPercent(
-                query,
-                sectionKeywords,
-                preservedWords = preservedWords + additionalPreservedWords,
-                additionalStopWords = additionalStopWords,
-                synonyms = synonyms + additionalSynonyms,
-                additionalContractions = additionalContractions,
-                additionalStemWords = additionalStemWords
-            )
-
-            val headerMatch = TextUtils.getQueryMatchPercent(
-                query,
-                section.title ?: context.getString(R.string.overview),
-                preservedWords = preservedWords + additionalPreservedWords,
-                additionalStopWords = additionalStopWords,
-                synonyms = synonyms + additionalSynonyms,
-                additionalContractions = additionalContractions,
-                additionalStemWords = additionalStemWords
-            )
-
-            // If the user exactly matched the header, they probably want to see that
-            val score = if (headerMatch == 1f) {
-                1.1f
-            } else {
-                max(sectionMatch, headerMatch)
-            }
-
-            matches.add(
-                SurvivalGuideSearchResult(
-                    guide.chapter,
-                    score,
-                    index,
-                    section.title,
-                    section.summary
-                )
-            )
+        // If the user exactly matched the header, they probably want to see that
+        return if (headerMatch == 1f) {
+            1.1f
+        } else {
+            max(sectionMatch, headerMatch)
         }
-
-        return matches
     }
-
 }

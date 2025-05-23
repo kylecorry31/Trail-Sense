@@ -183,7 +183,7 @@ class FragmentToolSurvivalGuideList :
                     val searchResults = search.search(query)
                     setResults(searchResults)
                     val firstResult = searchResults.firstOrNull()
-                    if (firstResult != null && firstResult.score >= 0.75f) {
+                    if (firstResult != null && firstResult.score >= 0.5f) {
                         setSummary(search.getSummary(query, firstResult))
                     } else {
                         setSummary("")

@@ -16,33 +16,20 @@ class MultilingualSurvivalGuideFuzzySearch(context: Context) : BaseSurvivalGuide
         )
     )
 
-    override fun searchChapter(
-        query: String,
-        guide: GuideDetails
-    ): List<SurvivalGuideSearchResult> {
+    override fun getSectionScore(query: String, section: GuideSection): Float {
         val queryKeywords = tokenizer.tokenize(query).toSet()
 
-        return guide.sections.mapIndexed { index, section ->
-            val textKeywords = section.keywords.flatMap { it.split("-") }.toSet()
-            val headerKeywords =
-                section.title?.let { tokenizer.tokenize(it).toSet() }
-                    ?: emptySet()
-            val sectionScore = percentMatch(queryKeywords, textKeywords)
-            val headerScore = percentMatch(queryKeywords, headerKeywords)
+        val textKeywords = section.keywords.flatMap { it.split("-") }.toSet()
+        val headerKeywords =
+            section.title?.let { tokenizer.tokenize(it).toSet() }
+                ?: emptySet()
+        val sectionScore = percentMatch(queryKeywords, textKeywords)
+        val headerScore = percentMatch(queryKeywords, headerKeywords)
 
-            val score = if (headerScore == 1f) {
-                1.1f
-            } else {
-                maxOf(sectionScore, headerScore)
-            }
-
-            SurvivalGuideSearchResult(
-                guide.chapter,
-                score,
-                index,
-                section.title,
-                section.summary
-            )
+        return if (headerScore == 1f) {
+            1.1f
+        } else {
+            maxOf(sectionScore, headerScore)
         }
     }
 
