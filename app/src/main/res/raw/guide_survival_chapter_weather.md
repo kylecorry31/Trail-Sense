@@ -102,7 +102,7 @@ Wildfires can cause smoke to travel long distances. If possible, avoid outdoor a
 The climate of a region refers to its average weather conditions over time. You should look up the average daily high and low temperatures, how often it rains or snows, what the humidity normally is, and where the prevailing wind blows from. You should prepare for conditions to return to the climate normals in a longer-term scenario, so if it is unusually warm during your hike but the average low is below freezing, bring cold weather gear with you.
 
 ## Forecasting
-<!-- K: forecast, predict, signs, worsen, improve, cloud, cumulus, cirrus, cumulonimbus, altocumulus, stratus, altostratus, clear, cirrostratus, nimbostratus, cirrocumulus -->
+<!-- K: forecast, predict, signs, worsen, improve, bad, good, cloud, cumulus, cirrus, cumulonimbus, altocumulus, stratus, altostratus, clear, cirrostratus, nimbostratus, cirrocumulus -->
 <!-- S: Signs of worsening weather include increasing cloud cover, darkening skies, strong wind, and sudden drops in temperature. -->
 
 You can learn to forecast weather by observing the signs around you. The more signs you notice, the more accurate your forecast will be.

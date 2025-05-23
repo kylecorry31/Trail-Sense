@@ -152,19 +152,19 @@ If your GPS supports digital maps, download maps of your area in advance to navi
 A compass helps you determine direction and is essential for navigation, especially with a map. Do not use the compass around metal objects, as it will cause the reading to be inaccurate. If you are using a digital compass on a smartphone, it will need to be calibrated by rotating your device in a figure-8 pattern (the pattern may vary by device).
 
 ### Bearings
-<!-- K: bearing, direction, needle -->
+<!-- K: bearing, direction, needle, compass -->
 
 A bearing is the direction you must travel to reach a specific point. You can determine a bearing by aligning the compass needle with the desired direction on the compass housing. Once you have the bearing, follow it to your destination. Pick a prominent feature in the distance to navigate toward, avoiding the need for constant compass checks.
 
 ### Back bearings
-<!-- K: back, back-bearing, opposite -->
+<!-- K: back, back-bearing, opposite, compass -->
 
 A back bearing is the opposite direction of your current bearing. To calculate a back bearing: if your bearing is less than 180 degrees, add 180. If it's more than 180, subtract 180. On a compass, the back bearing is directly across from the bearing.
 
 To use a back bearing to navigate, you need to take a bearing before hiking out. Keep this bearing written down or memorized, and as long as you didn't drastically change direction, following the back bearing will lead you close to your starting location. Every time you make a turn, you should record a bearing.
 
 ### Declination
-<!-- K: declination, true north, magnetic north -->
+<!-- K: declination, true north, magnetic north, compass -->
 
 Declination is the difference between true north and magnetic north. Adjust your compass for declination when navigating with a map. Some compasses have an adjustable declination ring; otherwise, you must calculate it manually. Most maps list declination in the legend and are oriented to true north.
 
@@ -175,7 +175,7 @@ Declination is the difference between true north and magnetic north. Adjust your
 A map is a key tool for navigation, especially when paired with a compass.
 
 ### Orientation
-<!-- K: orient, north, compass -->
+<!-- K: orient, north, compass, map -->
 
 You can orient a map to point north using a compass:
 1. Place the compass on the map with the direction of travel arrow pointing toward the top of the map.
@@ -184,7 +184,7 @@ You can orient a map to point north using a compass:
 ![](file:///android_asset/survival_guide/93.webp)
 
 ### Determining location
-<!-- K: location, triangulate, feature, bearing -->
+<!-- K: location, triangulate, feature, bearing, map -->
 
 To determine your location on a map, identify prominent features around you and match them to the map. Use a compass to determine your direction and align the map accordingly.
 
@@ -196,14 +196,14 @@ To triangulate your location:
 5. The point where the lines intersect is your location.
 
 ### Scale
-<!-- K: scale, distance, measure, ruler, finger -->
+<!-- K: scale, distance, measure, ruler, finger, map -->
 
 Maps are drawn to scale, allowing you to determine distances between points. A bar on the map indicates the scale. You can measure distances using a ruler, string, or finger.
 
 ![](file:///android_asset/survival_guide/map_scale.webp)
 
 ### Topographic maps
-<!-- K: topographic, elevation, contour, terrain, peak, valley, ridge, depression, cliff, vegetation, legend, read -->
+<!-- K: topographic, elevation, contour, terrain, peak, valley, ridge, depression, cliff, vegetation, legend, read, map -->
 
 Topographic maps show elevation changes and terrain features, making them helpful in navigating mountainous or hilly areas. Contour lines indicate elevation; the closer the lines are, the steeper the terrain. Elevation markers on contour lines help identify peaks and valleys.
 
