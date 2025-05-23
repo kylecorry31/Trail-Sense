@@ -395,7 +395,7 @@
     <string name="pref_max_beacon_distance_title">Nabijgelegen bakenradius</string>
     <string name="pref_num_visible_beacons_title">Bakens in de buurt</string>
     <string name="app_disclaimer_message_title">Disclaimer / servicevoorwaarden</string>
-    <string name="disclaimer_message_title">Disclaimer</string>
+    <string name="disclaimer_message_title">Vrijwaring</string>
     <string name="pref_adjust_for_temperature_title">Temperatuur meenemen</string>
     <string name="pref_adjust_for_temperature_summary">Temperatuur gebruiken in zeeniveau druk-conversies</string>
     <string name="never">Nooit</string>
