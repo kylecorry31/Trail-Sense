@@ -1,0 +1,13 @@
+Climate
+- Historical monthly precipitation amounts
+- Climate classification
+- [Experimental] Mosquito and tick activity
+
+Photo Maps
+- Save camera rotation
+
+Survival Guide
+- Adjust content and artwork
+
+Convert
+- Add quick action (coordinates, distance, temperature)
