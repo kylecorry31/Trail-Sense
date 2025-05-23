@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.survival_guide.infrastructure
 import android.content.Context
 import com.kylecorry.luna.cache.MemoryCachedValue
 
-abstract class BaseSurvivalGuideSearch(protected val context: Context) : SurvivalGuideSearch {
+abstract class BaseSurvivalGuideSearch(protected val context: Context) : SurvivalGuideSearchStrategy {
 
     private val cache = MemoryCachedValue<List<GuideDetails>>()
 

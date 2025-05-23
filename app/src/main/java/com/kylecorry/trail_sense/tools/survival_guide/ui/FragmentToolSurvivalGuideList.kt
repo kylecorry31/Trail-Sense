@@ -1,7 +1,9 @@
 package com.kylecorry.trail_sense.tools.survival_guide.ui
 
+import android.view.View
 import android.widget.TextView
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
@@ -19,10 +21,9 @@ import com.kylecorry.trail_sense.shared.extensions.useSearch
 import com.kylecorry.trail_sense.shared.extensions.useShowDisclaimer
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.views.SearchView
-import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.EnglishSurvivalGuideFuzzySearch
 import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.GuideDetails
 import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.GuideLoader
-import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.MultilingualSurvivalGuideFuzzySearch
+import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.SurvivalGuideSearch
 import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.SurvivalGuideSearchResult
 import kotlinx.coroutines.delay
 
@@ -34,12 +35,14 @@ class FragmentToolSurvivalGuideList :
         val listView = useView<AndromedaListView>(R.id.list)
         val emptyTextView = useView<TextView>(R.id.empty_text)
         val searchView = useView<SearchView>(R.id.search)
+        val summaryView = useView<TextView>(R.id.summary)
+        val summaryHolderView = useView<View>(R.id.summary_holder)
         val navController = useNavController()
 
         // State
         val (query, setQuery) = useState("")
         val chapters = useChapters()
-        val searchResults = useSearchResults(query)
+        val (searchResults, summary) = useSearchResults(query)
 
         // Services
         val markdown = useService<MarkdownService>()
@@ -115,6 +118,11 @@ class FragmentToolSurvivalGuideList :
         useEffect(listView, listItems) {
             listView.setItems(listItems)
         }
+
+        useEffect(summaryHolderView, summaryView, summary, markdown) {
+            summaryHolderView.isVisible = summary.isNotBlank()
+            markdown.setMarkdown(summaryView, summary)
+        }
     }
 
     private fun useChapters(): List<GuideDetails> {
@@ -129,8 +137,9 @@ class FragmentToolSurvivalGuideList :
         return chapters
     }
 
-    private fun useSearchResults(query: String): List<SurvivalGuideSearchResult> {
+    private fun useSearchResults(query: String): Pair<List<SurvivalGuideSearchResult>, String> {
         val (results, setResults) = useState(emptyList<SurvivalGuideSearchResult>())
+        val (summary, setSummary) = useState("")
         val context = useAndroidContext()
         val queue = useCoroutineQueue()
 
@@ -140,18 +149,21 @@ class FragmentToolSurvivalGuideList :
             queue.replace {
                 if (query.isBlank()) {
                     setResults(emptyList())
+                    setSummary("")
                 } else {
-                    val language = Resources.getLocale(context).language
-                    val search = if (language.startsWith("en")) {
-                        EnglishSurvivalGuideFuzzySearch(context)
+                    val search = SurvivalGuideSearch(context)
+                    val searchResults = search.search(query)
+                    setResults(searchResults)
+                    val firstResult = searchResults.firstOrNull()
+                    if (firstResult != null && firstResult.score >= 0.75f) {
+                        setSummary(search.getSummary(query, firstResult))
                     } else {
-                        MultilingualSurvivalGuideFuzzySearch(context)
+                        setSummary("")
                     }
-                    setResults(search.search(query))
                 }
             }
         }
 
-        return results
+        return results to summary
     }
 }
