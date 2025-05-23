@@ -140,7 +140,7 @@ class FragmentToolSurvivalGuideList :
                     left = result.chapter.icon,
                     right = R.drawable.ic_keyboard_arrow_right
                 )
-                summaryTitleView.setOnClickListener {
+                summaryHolderView.setOnClickListener {
                     navController.navigateWithAnimation(
                         R.id.fragmentToolSurvivalGuideReader,
                         bundleOf(
