@@ -35,7 +35,7 @@ abstract class BaseSurvivalGuideSearch(protected val context: Context) :
 
         for ((index, section) in sections.withIndex()) {
             val bestSubsection =
-                section.subsections.mapIndexed { i, subsection ->
+                section.subsections.filter { it.keywords.any() }.mapIndexed { i, subsection ->
                     Triple(i, subsection, getSectionScore(query, subsection))
                 }.maxByOrNull { it.third }
 

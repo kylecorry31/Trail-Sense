@@ -134,7 +134,11 @@ class FragmentToolSurvivalGuideList :
             markdown.setMarkdown(summaryView, summary)
             val result = searchResults.firstOrNull()
             if (result != null) {
-                summaryTitleView.text = result.heading ?: result.chapter.title
+                summaryTitleView.text = listOfNotNull(
+                    result.chapter.title,
+                    result.heading,
+                    result.bestSubsection?.heading
+                ).joinToString(" > ")
                 summaryTitleView.setCompoundDrawables(
                     size = Resources.dp(context, 14f).toInt(),
                     left = result.chapter.icon,

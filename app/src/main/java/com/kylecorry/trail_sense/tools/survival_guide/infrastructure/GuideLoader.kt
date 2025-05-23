@@ -29,7 +29,7 @@ class GuideLoader(private val context: Context) {
         var guideSections = sections.map {
             val first = it.first()
             val content =
-                "${first.content}\n${it.drop(1).joinToString("\n") { it.toMarkdown(false) }}"
+                "${first.content}\n${it.drop(1).joinToString("\n") { it.toMarkdown(false, false) }}"
             val keywords = TextUtils.getMarkdownKeywords(content)
             val summary = TextUtils.getMarkdownSummary(content)
 
@@ -43,7 +43,7 @@ class GuideLoader(private val context: Context) {
                     return@mapNotNull null
                 }
                 val subsectionContent =
-                    "${subsectionFirst.content}\n${subsection.drop(1).joinToString("\n") { it.toMarkdown(false) }}"
+                    "${subsectionFirst.content}\n${subsection.drop(1).joinToString("\n") { it.toMarkdown(false, false) }}"
                 val subsectionKeywords = TextUtils.getMarkdownKeywords(subsectionContent)
                 val subsectionSummary = TextUtils.getMarkdownSummary(subsectionContent)
                 GuideSection(

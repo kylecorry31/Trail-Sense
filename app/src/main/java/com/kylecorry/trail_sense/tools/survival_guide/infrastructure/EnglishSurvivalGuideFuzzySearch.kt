@@ -294,7 +294,7 @@ class EnglishSurvivalGuideFuzzySearch(context: Context) : BaseSurvivalGuideSearc
         // Add the synonyms to the preserved words
         additionalPreservedWords.addAll(additionalSynonyms.flatten())
 
-        val sectionMatch = TextUtils.getQueryMatchPercent(
+        var sectionMatch = TextUtils.getQueryMatchPercent(
             query,
             sectionKeywords,
             preservedWords = preservedWords + additionalPreservedWords,
@@ -313,6 +313,11 @@ class EnglishSurvivalGuideFuzzySearch(context: Context) : BaseSurvivalGuideSearc
             additionalContractions = additionalContractions,
             additionalStemWords = additionalStemWords
         )
+
+        // Rank the be prepared section lower
+        if (section.title?.uppercase()?.trim() == "BE PREPARED"){
+            sectionMatch *= 0.9f
+        }
 
         // If the user exactly matched the header, they probably want to see that
         return if (headerMatch == 1f) {

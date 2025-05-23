@@ -286,8 +286,12 @@ object TextUtils {
 
 
     data class TextSection(val title: String?, val level: Int?, val content: String) {
-        fun toMarkdown(shouldUppercaseTitle: Boolean = false): String {
-            val contentWithoutComments = removeMarkdownComments(content)
+        fun toMarkdown(shouldUppercaseTitle: Boolean = false, removeComments: Boolean = true): String {
+            val contentWithoutComments = if (removeComments) {
+                removeMarkdownComments(content)
+            } else {
+                content
+            }
 
             if (title == null || level == null) {
                 return contentWithoutComments

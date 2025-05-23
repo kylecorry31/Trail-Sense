@@ -26,7 +26,6 @@ class SurvivalGuideSearch(context: Context) {
         val builder = StringBuilder()
         if (result.bestSubsection != null && result.bestSubsection.score >= MIN_SUBSECTION_SCORE) {
             val subsection = section.subsections[result.bestSubsection.headingIndex]
-            builder.append("### ${result.bestSubsection.heading?.uppercase()}\n")
             if (result.bestSubsection.summary != null) {
                 builder.append("> ${result.bestSubsection.summary}")
             }
