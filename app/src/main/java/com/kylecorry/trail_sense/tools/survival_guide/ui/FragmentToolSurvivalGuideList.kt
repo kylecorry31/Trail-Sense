@@ -5,6 +5,7 @@ import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.markdown.MarkdownService
@@ -37,6 +38,7 @@ class FragmentToolSurvivalGuideList :
         val searchView = useView<SearchView>(R.id.search)
         val summaryView = useView<TextView>(R.id.summary)
         val summaryHolderView = useView<View>(R.id.summary_holder)
+        val summaryTitleView = useView<TextView>(R.id.summary_title)
         val navController = useNavController()
 
         // State
@@ -45,6 +47,7 @@ class FragmentToolSurvivalGuideList :
         val (searchResults, summary) = useSearchResults(query)
 
         // Services
+        val context = useAndroidContext()
         val markdown = useService<MarkdownService>()
 
         useShowDisclaimer(
@@ -119,9 +122,34 @@ class FragmentToolSurvivalGuideList :
             listView.setItems(listItems)
         }
 
-        useEffect(summaryHolderView, summaryView, summary, markdown) {
+        useEffect(
+            summaryHolderView,
+            summaryTitleView,
+            summaryView,
+            summary,
+            markdown,
+            searchResults
+        ) {
             summaryHolderView.isVisible = summary.isNotBlank()
             markdown.setMarkdown(summaryView, summary)
+            val result = searchResults.firstOrNull()
+            if (result != null) {
+                summaryTitleView.text = result.heading ?: result.chapter.title
+                summaryTitleView.setCompoundDrawables(
+                    size = Resources.dp(context, 14f).toInt(),
+                    left = result.chapter.icon,
+                    right = R.drawable.ic_keyboard_arrow_right
+                )
+                summaryTitleView.setOnClickListener {
+                    navController.navigateWithAnimation(
+                        R.id.fragmentToolSurvivalGuideReader,
+                        bundleOf(
+                            "chapter_resource_id" to result.chapter.resource,
+                            "header_index" to result.headingIndex
+                        )
+                    )
+                }
+            }
         }
     }
 

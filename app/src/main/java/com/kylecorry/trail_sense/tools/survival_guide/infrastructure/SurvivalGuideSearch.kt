@@ -21,6 +21,16 @@ class SurvivalGuideSearch(context: Context) {
         // TODO: use the query to determine the subsection
         val contents = loader.load(result.chapter, true)
         val section = contents.sections[result.headingIndex]
-        return section.content ?: result.summary ?: ""
+        val builder = StringBuilder()
+        if (result.summary != null) {
+            builder.append("> ${result.summary}")
+            builder.append("\n\n")
+        }
+
+        if (section.content != null) {
+            builder.append(section.content)
+        }
+
+        return builder.toString().trim()
     }
 }
