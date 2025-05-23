@@ -8,7 +8,7 @@ If you choose to write a new feature yourself, send me a message to verify that 
 
 Issues marked with the help-wanted label are open for community contribution at any time. They are usually low on my list of things to implement, so if you would like to see these in Trail Sense it will be faster to implement them. Please leave a comment on the issue stating that you are working on it or ask for more details. If possible, try to give me a timeline so I know which release it should be tagged as. Once you decide to work on one of the help-wanted issues, just submit a PR to main and I will conduct a code review.
 
-If you would like to work on an issue that isn't marked with help-wanted, please let me know because it may not have all the details, I may not want it implemented yet, or I may want to implement it myself. As of April 28, 2024 all issues are correctly tagged with help-wanted.
+If you would like to work on an issue that isn't marked with help-wanted, please let me know because it may not have all the details, I may not want it implemented yet, or I may want to implement it myself. As of May 23, 2025 all issues are correctly tagged with help-wanted.
 
 If you submit an issue, please be civil and constructive - I will consider all feedback, and if I choose not to implement your suggestion I will post my reasoning. If you are experiencing an issue, please include all relevant details to help me understand and reproduce the issue. If you disagree with a change, please describe why you disagree and how I can improve it. Finally, if applicable, please provide research / evidence so I can cross verify. Common reasons for not being included:
 
