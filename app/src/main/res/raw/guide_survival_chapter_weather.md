@@ -138,7 +138,7 @@ You can learn to forecast weather by observing the signs around you. The more si
 - Humidity decreases  
 
 ### Clouds
-<!-- K: cloud, cumulus, cirrus, cumulonimbus, altocumulus, stratus, altostratus, clear, cirrostratus, nimbostratus, cirrocumulus -->
+<!-- K: cloud, type, cumulus, cirrus, cumulonimbus, altocumulus, stratus, altostratus, clear, cirrostratus, nimbostratus, cirrocumulus -->
 
 Identifying the cloud type can improve your ability to forecast weather.
 
