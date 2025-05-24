@@ -8,6 +8,7 @@ import com.kylecorry.trail_sense.tools.survival_guide.domain.Chapters
 
 data class GuideSection(
     val level: Int?,
+    val chapter: Chapter,
     val title: String?,
     val keywords: Set<String>,
     val summary: String?,
@@ -28,14 +29,14 @@ class GuideLoader(private val context: Context) {
         val sections = TextUtils.groupSections(TextUtils.getSections(text), null)
 
         var guideSections = sections.map {
-            val section = getSectionDetails(it)
+            val section = getSectionDetails(it, chapter)
 
             // Level 3 headers in content
             val subsections = TextUtils.groupSections(
                 TextUtils.getSections(section.content ?: ""),
                 3,
             ).mapNotNull { subsection ->
-                val details = getSectionDetails(subsection)
+                val details = getSectionDetails(subsection, chapter)
                 if (details.level != 3) {
                     return@mapNotNull null
                 }
@@ -71,7 +72,10 @@ class GuideLoader(private val context: Context) {
         GuideDetails(chapter, guideSections)
     }
 
-    private fun getSectionDetails(sections: List<TextUtils.TextSection>): GuideSection {
+    private fun getSectionDetails(
+        sections: List<TextUtils.TextSection>,
+        chapter: Chapter
+    ): GuideSection {
         val first = sections.first()
         val content =
             "${first.content}\n${
@@ -84,7 +88,8 @@ class GuideLoader(private val context: Context) {
             title = first.title,
             keywords = keywords,
             summary = summary,
-            content = content
+            content = content,
+            chapter = chapter
         )
     }
 

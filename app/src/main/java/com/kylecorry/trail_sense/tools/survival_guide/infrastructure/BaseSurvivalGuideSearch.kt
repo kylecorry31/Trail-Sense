@@ -34,10 +34,16 @@ abstract class BaseSurvivalGuideSearch(protected val context: Context) :
         val matches = mutableListOf<SurvivalGuideSearchResult>()
 
         for ((index, section) in sections.withIndex()) {
-            val bestSubsection =
+            val subsectionScores =
                 section.subsections.filter { it.keywords.any() }.mapIndexed { i, subsection ->
                     Triple(i, subsection, getSectionScore(query, subsection))
-                }.maxByOrNull { it.third }
+                }
+
+            val bestSubsections =
+                subsectionScores.filter { it.third == subsectionScores.firstOrNull()?.third }
+
+            // If there are multiple subsections with the same score, then there is no best subsection
+            val bestSubsection = bestSubsections.singleOrNull()
 
             matches.add(
                 SurvivalGuideSearchResult(

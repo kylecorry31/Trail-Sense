@@ -313,7 +313,7 @@ class EnglishSurvivalGuideFuzzySearch(context: Context) : BaseSurvivalGuideSearc
             additionalStemWords = additionalStemWords
         )
 
-        val headerMatch = TextUtils.getQueryMatchPercent(
+        var headerMatch = TextUtils.getQueryMatchPercent(
             query,
             section.title ?: context.getString(R.string.overview),
             preservedWords = preservedWords + additionalPreservedWords,
@@ -323,16 +323,31 @@ class EnglishSurvivalGuideFuzzySearch(context: Context) : BaseSurvivalGuideSearc
             additionalStemWords = additionalStemWords
         )
 
+        val chapterMatch = TextUtils.getQueryMatchPercent(
+            query,
+            section.chapter.title,
+            preservedWords = preservedWords + additionalPreservedWords,
+            additionalStopWords = additionalStopWords,
+            synonyms = synonyms + additionalSynonyms,
+            additionalContractions = additionalContractions,
+            additionalStemWords = additionalStemWords
+        )
+
         // Rank the be prepared section lower
-        if (section.title?.uppercase()?.trim() == "BE PREPARED"){
+        if (section.title?.uppercase()?.trim() == "BE PREPARED") {
             sectionMatch *= 0.9f
         }
 
-        // If the user exactly matched the header, they probably want to see that
-        return if (headerMatch == 1f) {
-            1.1f
-        } else {
-            max(sectionMatch, headerMatch)
+        if (chapterMatch > 0.8f) {
+            // If the chapter matches, boost the section match a little
+            sectionMatch *= 1.15f
         }
+
+        // If the user exactly matched the header, they probably want to see that
+        if (headerMatch == 1f) {
+            headerMatch = 1.1f
+        }
+
+        return max(sectionMatch, headerMatch)
     }
 }

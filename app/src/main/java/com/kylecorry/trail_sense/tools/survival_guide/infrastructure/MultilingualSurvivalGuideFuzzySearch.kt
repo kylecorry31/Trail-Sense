@@ -6,6 +6,7 @@ import com.kylecorry.trail_sense.shared.text.nlp.processors.LowercaseProcessor
 import com.kylecorry.trail_sense.shared.text.nlp.processors.SequentialProcessor
 import com.kylecorry.trail_sense.shared.text.nlp.tokenizers.PostProcessedTokenizer
 import com.kylecorry.trail_sense.shared.text.nlp.tokenizers.SimpleWordTokenizer
+import kotlin.math.max
 
 class MultilingualSurvivalGuideFuzzySearch(context: Context) : BaseSurvivalGuideSearch(context) {
 
@@ -23,14 +24,22 @@ class MultilingualSurvivalGuideFuzzySearch(context: Context) : BaseSurvivalGuide
         val headerKeywords =
             section.title?.let { tokenizer.tokenize(it).toSet() }
                 ?: emptySet()
-        val sectionScore = percentMatch(queryKeywords, textKeywords)
-        val headerScore = percentMatch(queryKeywords, headerKeywords)
+        val chapterKeywords = tokenizer.tokenize(section.chapter.title).toSet()
+        var sectionMatch = percentMatch(queryKeywords, textKeywords)
+        var headerMatch = percentMatch(queryKeywords, headerKeywords)
+        val chapterMatch = percentMatch(queryKeywords, chapterKeywords)
 
-        return if (headerScore == 1f) {
-            1.1f
-        } else {
-            maxOf(sectionScore, headerScore)
+        if (chapterMatch > 0.8f) {
+            // If the chapter matches, boost the section match a little
+            sectionMatch *= 1.15f
         }
+
+        // If the user exactly matched the header, they probably want to see that
+        if (headerMatch == 1f) {
+            headerMatch = 1.1f
+        }
+
+        return max(sectionMatch, headerMatch)
     }
 
     private fun percentMatch(queryKeywords: Set<String>, textKeywords: Set<String>): Float {
