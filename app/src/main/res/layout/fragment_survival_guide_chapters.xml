@@ -39,7 +39,7 @@
                 android:id="@+id/summary_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:drawablePadding="8dp"
                 android:paddingBottom="0dp"
                 android:textSize="14sp"
@@ -50,7 +50,7 @@
                 android:id="@+id/summary_scroll"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:layout_weight="1">
 
                 <TextView

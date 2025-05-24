@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollToEnd
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
@@ -25,8 +26,8 @@ class ToolSurvivalGuideTest : ToolTestBase(Tools.SURVIVAL_GUIDE) {
         // Verify it shows each chapter
         val chapters = Chapters.getChapters(context)
         chapters.forEachIndexed { index, chapter ->
-            if (index > 5) {
-                scrollToEnd(R.id.list)
+            scrollUntil {
+                hasText(chapter.title)
             }
 
             click(chapter.title)
@@ -41,6 +42,7 @@ class ToolSurvivalGuideTest : ToolTestBase(Tools.SURVIVAL_GUIDE) {
 
         // Search
         input(R.id.search, "Eating fish")
+        hasText("fishing gear", contains = true)
         click("Fish")
 
         hasText(R.id.guide_name, "Food")
