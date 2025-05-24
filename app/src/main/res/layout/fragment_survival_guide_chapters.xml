@@ -20,7 +20,7 @@
         android:layout_marginHorizontal="8dp"
         android:minHeight="150dp"
         android:visibility="gone"
-        app:layout_constraintHeight_percent="0.33"
+        app:layout_constraintHeight_percent="0.4"
         app:layout_constraintTop_toBottomOf="@id/search"
         tools:visibility="visible">
 
@@ -30,10 +30,16 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <com.kylecorry.andromeda.views.badge.Badge
+                android:id="@+id/summary_chapter_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
             <TextView
                 android:id="@+id/summary_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:drawablePadding="8dp"
                 android:paddingBottom="0dp"
                 android:textSize="14sp"

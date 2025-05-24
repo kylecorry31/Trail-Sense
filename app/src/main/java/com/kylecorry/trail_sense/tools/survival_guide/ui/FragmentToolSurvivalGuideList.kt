@@ -1,15 +1,18 @@
 package com.kylecorry.trail_sense.tools.survival_guide.ui
 
+import android.graphics.Color
 import android.view.View
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.markdown.MarkdownService
+import com.kylecorry.andromeda.views.badge.Badge
 import com.kylecorry.andromeda.views.list.AndromedaListView
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ListItemTag
@@ -41,6 +44,7 @@ class FragmentToolSurvivalGuideList :
         val summaryHolderView = useView<View>(R.id.summary_holder)
         val summaryTitleView = useView<TextView>(R.id.summary_title)
         val summaryScrollView = useView<ScrollView>(R.id.summary_scroll)
+        val summaryChapterBadgeView = useView<Badge>(R.id.summary_chapter_title)
         val navController = useNavController()
 
         // State
@@ -128,6 +132,7 @@ class FragmentToolSurvivalGuideList :
             summaryHolderView,
             summaryTitleView,
             summaryView,
+            summaryChapterBadgeView,
             summary,
             markdown,
             searchResults
@@ -137,13 +142,25 @@ class FragmentToolSurvivalGuideList :
             val result = searchResults.firstOrNull()
             if (result != null) {
                 summaryTitleView.text = listOfNotNull(
-                    result.chapter.title,
                     result.heading,
                     if (SurvivalGuideSearch.shouldUseSubsection(result)) result.bestSubsection?.heading else null
                 ).joinToString(" > ")
+                summaryChapterBadgeView.setStatusText(result.chapter.title)
+                ResourceListIcon(
+                    result.chapter.icon,
+                    size = 12f
+                ).apply(summaryChapterBadgeView.statusImage)
+                val backgroundColor = Resources.androidTextColorSecondary(context)
+                summaryChapterBadgeView.setBackgroundTint(backgroundColor)
+                summaryChapterBadgeView.setForegroundTint(
+                    Colors.mostContrastingColor(
+                        Color.WHITE,
+                        Color.BLACK,
+                        backgroundColor
+                    )
+                )
                 summaryTitleView.setCompoundDrawables(
-                    size = Resources.dp(context, 14f).toInt(),
-                    left = result.chapter.icon,
+                    size = Resources.dp(context, 16f).toInt(),
                     right = R.drawable.ic_keyboard_arrow_right
                 )
                 summaryHolderView.setOnClickListener {
