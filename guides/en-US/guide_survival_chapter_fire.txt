@@ -131,6 +131,29 @@ Some fire steels come with a magnesium block, which you can scrape into the tind
 
 ![](file:///android_asset/survival_guide/ferrorod.webp)
 
+### Camp stove
+<!-- K: camp-stove, canister, stove, alcohol, butane, gas, propane -->
+
+Most camp stoves require another ignition device, such as a lighter, but some may have a built-in piezoelectric igniter. Always place the stove on a flat, stable surface that will not catch fire (such as a rock). Be sure to read the manufacturer's instructions before using it.
+
+**To use a fuel canister stove:**
+
+1. Ensure the valve is turned off (turn clockwise).
+2. Screw the stove head onto the canister.
+3. Place the stove on a flat surface and ensure it is stable.
+4. Expand the pot holders on the head if needed.
+5. Open the valve slightly (turn counter-clockwise).
+6. Ignite the gas and adjust the valve as needed.
+7. Once you're done, turn the valve completely off (turn clockwise). Wait for it to cool down before detaching the canister and storing it.
+
+**To use an alcohol or solid fuel stove:**
+
+1. Place the stove on a flat surface and ensure it is stable.
+2. Fill the stove with fuel.
+3. Ignite the fuel.
+4. Once you're done, gently place the lid on the stove (don't tighten it). Wait for it to cool before tightening the lid and storing it. If using a solid fuel stove, you may need to wait for it to burn out.
+
+
 ### Magnifying glass/lens
 <!-- K: magnifying, glass, lens -->
 
