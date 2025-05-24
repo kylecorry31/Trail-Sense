@@ -241,7 +241,7 @@ Used பெறுநர் fasten a rope பெறுநர் a timber or pole.
 ### Clove hitch
 Used பெறுநர் fasten a rope பெறுநர் a timber or pole. It can be tied at any புள்ளியம் in a rope.
 
-![](file:///android_asset/survival_guide/133.webp)
+![](file:///android_asset/survival_guide/knot_clove_hitch.webp)
 
 ### Trucker's hitch
 Used பெறுநர் secure a load or tighten a line.

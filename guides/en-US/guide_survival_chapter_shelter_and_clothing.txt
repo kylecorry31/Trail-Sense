@@ -270,7 +270,7 @@ Used to fasten a rope to a timber or pole. This can be used in place of lashings
 
 Used to fasten a rope to a timber or pole. It can be tied at any point in a rope.
 
-![](file:///android_asset/survival_guide/133.webp)
+![](file:///android_asset/survival_guide/knot_clove_hitch.webp)
 
 ### Taut-line hitch
 <!-- K: taut-line-hitch, tighten, hitch, pole, ridge-line -->
