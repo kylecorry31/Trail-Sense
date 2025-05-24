@@ -76,6 +76,11 @@ When crossing rivers or streams, search for the narrowest section or areas where
 
 In emergency situations, following a river downstream may eventually lead to civilization, as many settlements are built near water sources.
 
+### Coastal
+<!-- K: coast, ocean, beach, tide, sea -->
+
+Coastal regions typically feature tides, cliffs, and sandy beaches. To avoid getting trapped during high tide, be sure to consult tide tables before your trip and keep track of the time. Do not walk on beaches without footwear, as there may be buried glass or other sharp objects.
+
 ### Detours
 <!-- K: detour, obstacle -->
 

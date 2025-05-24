@@ -164,7 +164,7 @@ Natural shelters that offer protection from the elements. Use caution when enter
 
 **Emergency space blankets**
 
-Wrap yourself in an emergency space blanket to reflect body heat and protect against the elements. You can also use it to create a shelter by tying it between two trees or supports.
+Wrap yourself in an emergency space blanket to reflect body heat and protect against the elements. You can also use it to create a shelter by tying it between two trees or supports. Be gentle when handling the blanket, as it can tear easily.
 
 **Tents**
 
