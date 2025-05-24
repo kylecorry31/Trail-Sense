@@ -152,7 +152,7 @@ If your GPS supports digital maps, download maps of your area in advance to navi
 A compass helps you determine direction and is essential for navigation, especially with a map. Do not use the compass around metal objects, as it will cause the reading to be inaccurate. If you are using a digital compass on a smartphone, it will need to be calibrated by rotating your device in a figure-8 pattern (the pattern may vary by device).
 
 ### Bearings
-<!-- K: bearing, direction, needle -->
+<!-- K: bearing, direction, needle, read -->
 
 A bearing is the direction you must travel to reach a specific point. You can determine a bearing by aligning the compass needle with the desired direction on the compass housing. Once you have the bearing, follow it to your destination. Pick a prominent feature in the distance to navigate toward, avoiding the need for constant compass checks.
 
@@ -223,11 +223,11 @@ Typical map colors include:
 - **Brown**: Contour lines
 - **Blue**: Water
 
-## Finding direction without a compass
+## Advanced direction finding
 <!-- K: north, south, east, west, advanced, technique -->
 <!-- S: You can use the sun, moon, or stars to determine direction. If you need this, it's best to stay where you are and wait for help. -->
 
-You can use the sun or stars to determine direction. If you need this, it's best to stay where you are and wait for help.
+You can use the sun or stars to determine direction without a compass. If you need this, it's best to stay where you are and wait for help.
 
 ### Sun/Moon
 <!-- K: sun, moon -->

@@ -333,8 +333,8 @@ class EnglishSurvivalGuideFuzzySearch(context: Context) : BaseSurvivalGuideSearc
             additionalStemWords = additionalStemWords
         )
 
-        // Rank the be prepared section lower
-        if (section.title?.uppercase()?.trim() == "BE PREPARED") {
+        // Rank the be prepared and overview sections lower
+        if (section.title?.uppercase()?.trim() == "BE PREPARED" || section.title == null) {
             sectionMatch *= 0.9f
         }
 

@@ -468,7 +468,7 @@ Do not attempt to remove a fishhook if it is embedded in the eye.
 - Use a barbless hook if possible (these don't work as well when fishing).
 
 ## Fractures
-<!-- K: fracture, break, broken, bone, pain, swelling, bruise, deform, weight, splint, sling, set -->
+<!-- K: fracture, break, broken, bone, pain, swelling, bruise, deform, weight, splint, sling, set, arm, leg -->
 <!-- S: Treat by splinting and seeking medical attention. Prevent this by being cautious and wearing proper footwear. -->
 
 A fracture is a broken bone. A fracture can be closed (bone is broken, but skin is intact) or open (bone is broken and protruding from the skin).

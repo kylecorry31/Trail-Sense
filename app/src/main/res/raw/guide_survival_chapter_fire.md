@@ -207,7 +207,7 @@ You should always have a plan to quickly extinguish your fire in case it begins 
 To maximize the heat from your fire, you can add more dry fuel, build a fire reflector, heat up rocks, or increase the insulation of your clothing and shelter.
 
 ### Types of wood
-<!-- K: hardwood, softwood -->
+<!-- K: hardwood, softwood, type, wood -->
 
 Hardwoods (oak, maple, ash, beech, etc.) burn slowly and hot, while softwoods (pine, fir, spruce, cedar) burn faster and cooler. Once you have a hot fire going, start adding hardwoods to make it last longer and burn hotter.
 
