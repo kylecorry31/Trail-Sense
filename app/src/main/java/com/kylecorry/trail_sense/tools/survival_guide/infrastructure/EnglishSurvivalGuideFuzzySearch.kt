@@ -323,6 +323,16 @@ class EnglishSurvivalGuideFuzzySearch(context: Context) : BaseSurvivalGuideSearc
             additionalStemWords = additionalStemWords
         )
 
+        var inverseHeaderMatch = TextUtils.getQueryMatchPercent(
+            section.title ?: context.getString(R.string.overview),
+            query,
+            preservedWords = preservedWords + additionalPreservedWords,
+            additionalStopWords = additionalStopWords,
+            synonyms = synonyms + additionalSynonyms,
+            additionalContractions = additionalContractions,
+            additionalStemWords = additionalStemWords
+        )
+
         val chapterMatch = TextUtils.getQueryMatchPercent(
             query,
             section.chapter.title,
@@ -343,8 +353,8 @@ class EnglishSurvivalGuideFuzzySearch(context: Context) : BaseSurvivalGuideSearc
             sectionMatch *= 1.15f
         }
 
-        // If the user exactly matched the header, they probably want to see that
-        if (headerMatch == 1f) {
+        // If the header has a good match, increase it
+        if (headerMatch == 1f && inverseHeaderMatch == 1f) {
             headerMatch = 1.1f
         }
 

@@ -16,7 +16,7 @@ class SurvivalGuideSearchTest {
         search("How to catch a fish", "Food", "Fish", "Fishing")
         search("Lighter", "Fire", "Starting a fire", "Lighter")
         search("I'm lost", "Overview", "What to do in a survival situation")
-        search("Help", "Overview", "Signaling for help")
+        search("Help", "Overview", "What to do in a survival situation", "Plan")
         search("How do I call for help", "Overview", "Signaling for help", "Cell phone")
         search("How do I use my new backpacking stove", "Fire", "Starting a fire", "Camp stove")
         search("I think I broke my arm", "Medical", "Fractures")
@@ -38,6 +38,7 @@ class SurvivalGuideSearchTest {
         search("Cloud types", "Weather", "Forecasting", "Clouds")
         search("How do I tie a bowline knot", "Shelter and clothing", "Knots", "Bowline")
         search("Start a fire with flint and steel", "Fire", "Starting a fire", "Flint and steel")
+        search("Knots", "Shelter and clothing", "Knots")
 
         // Spelling mistakes
         search("how do i reed map", "Navigation", "Map")

@@ -27,6 +27,7 @@ class MultilingualSurvivalGuideFuzzySearch(context: Context) : BaseSurvivalGuide
         val chapterKeywords = tokenizer.tokenize(section.chapter.title).toSet()
         var sectionMatch = percentMatch(queryKeywords, textKeywords)
         var headerMatch = percentMatch(queryKeywords, headerKeywords)
+        var inverseHeaderMatch = percentMatch(headerKeywords, queryKeywords)
         val chapterMatch = percentMatch(queryKeywords, chapterKeywords)
 
         if (chapterMatch > 0.8f) {
@@ -35,7 +36,7 @@ class MultilingualSurvivalGuideFuzzySearch(context: Context) : BaseSurvivalGuide
         }
 
         // If the user exactly matched the header, they probably want to see that
-        if (headerMatch == 1f) {
+        if (headerMatch == 1f && inverseHeaderMatch == 1f) {
             headerMatch = 1.1f
         }
 
