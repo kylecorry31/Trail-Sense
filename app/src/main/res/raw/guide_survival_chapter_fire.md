@@ -132,7 +132,7 @@ Some fire steels come with a magnesium block, which you can scrape into the tind
 ![](file:///android_asset/survival_guide/ferrorod.webp)
 
 ### Camp stove
-<!-- K: camp-stove, canister, stove, alcohol, butane, gas, propane -->
+<!-- K: camp-stove, backpacking-stove, canister, stove, alcohol, butane, gas, propane -->
 
 Most camp stoves require another ignition device, such as a lighter, but some may have a built-in piezoelectric igniter. Always place the stove on a flat, stable surface that will not catch fire (such as a rock). Be sure to read the manufacturer's instructions before using it.
 
