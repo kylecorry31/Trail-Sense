@@ -79,7 +79,7 @@ In emergency situations, following a river downstream may eventually lead to civ
 ### Coastal
 <!-- K: coast, ocean, beach, tide, sea -->
 
-Coastal regions typically feature tides, cliffs, and sandy beaches. To avoid getting trapped during high tide, be sure to consult tide tables before your trip and keep track of the time. Do not walk on beaches without footwear, as there may be buried glass or other sharp objects.
+Coastal regions typically feature tides, cliffs, and sandy beaches. Do not walk on beaches without footwear, as there may be buried glass or other sharp objects. To avoid getting trapped during high tide, be sure to consult tide tables before your trip and keep track of the time. See the Weather chapter for help predicting tides. 
 
 ### Detours
 <!-- K: detour, obstacle -->
