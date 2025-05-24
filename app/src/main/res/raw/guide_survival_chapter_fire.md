@@ -29,7 +29,7 @@ Once you have mastered these skills, you should learn how to do the following:
 - Make charcoal
 
 ## Preparing a fire site
-<!-- K: build, gather, prepare, tinder, kindling, fuel, location, fatwood, feather, stick -->
+<!-- K: build, prepare, location -->
 <!-- S: Choose a flat, dry area protected from the wind. Gather tinder, kindling, and fuel. -->
 
 You should prepare the fire site before attempting to start a fire. Choose a flat, dry area protected from the wind that is close to your shelter and a fuel supply. Clear the ground of flammable material and, if possible, line the area with dry rocks, dirt, or sand. Do not construct a fire over a root system or peat. In snowy environments, lay down logs to prevent the fire from touching the snow. Gather all materials before trying to start the fire.
@@ -37,7 +37,7 @@ You should prepare the fire site before attempting to start a fire. Choose a fla
 You should also be aware of local laws and regulations, as some areas may not allow fires.
 
 ### Gathering materials
-<!-- K: find, gather, tinder, kindling, fuel, fatwood -->
+<!-- K: find, gather, tinder, kindling, fuel, fatwood, wood, material -->
 
 You need three types of materials to start and maintain a fire: tinder, kindling, and fuel. Tinder is a dry, fine material that catches fire easily and is used to start a fire. Kindling consists of small sticks and twigs that burn easily and are used to build up the fire after lighting the tinder. Finally, fuel is used to sustain the fire and consists of larger sticks or logs. To make a fire, find about a handful of tinder, two handfuls of kindling, and a pile of fuel - double the amount you estimate you'll need.
 
@@ -82,7 +82,7 @@ To make a feather stick:
 ![](file:///android_asset/survival_guide/feather_stick.webp)
 
 ## Starting a fire
-<!-- K: start, light, ignite, matches, lighters, steel, ferro, ferrocerium, magnesium, flint, bow-drill, hand-drill, drill, magnifying, lens, tepee, structure -->
+<!-- K: start, light, build, ignite, tepee, structure -->
 <!-- S: If you have a fire starter, use it. You can improvise if required, but it will be more difficult and requires practice. -->
 
 Once you have a site prepared and a sufficient supply of tinder, kindling, and fuel, you are ready to start the fire. As you build up the fire, be careful not to smother it by always leaving a section with an open flame exposed. Also, avoid adding damp or green wood until your fire is hot and burning fuel.
@@ -123,7 +123,7 @@ Matches typically require a special striking surface to light, though strike-any
 To light a fire with matches, light the match and use your hand to shield it against any wind. Put the flame to the tinder to ignite it and carefully drop the matchstick into the flame.
 
 ### Fire steel
-<!-- K: fire-steel, ferro, ferrocerium -->
+<!-- K: fire-steel, ferro, ferrocerium, magnesium, strike, spark -->
 
 A fire steel or ferro rod is durable and works in all weather conditions. You can scrape it quickly with a sharp edge, such as the back of your knife, a dedicated scraper, or even a sharp piece of quartz or flint. You should avoid using the blade of your knife to prevent dulling it. If you are having trouble keeping the tinder in place while striking, pin the tinder between the fire steel and the ground and scrape toward the tinder. Some people also find it easier to keep the edge stationary and pull the fire steel away from the tinder to produce sparks.
 
@@ -132,7 +132,7 @@ Some fire steels come with a magnesium block, which you can scrape into the tind
 ![](file:///android_asset/survival_guide/ferrorod.webp)
 
 ### Magnifying glass/lens
-<!-- K: magnifying-glass, lens -->
+<!-- K: magnifying, glass, lens -->
 
 Using a lens, focus sunlight into a small point on the tinder. As the tinder starts to smoke, gently blow into it and move the lens closer to maintain a small point. A magnifying glass, prescription glasses, a Fresnel lens, or even a clear bottle filled with water can work. This may take a while, and direct sunlight is required.
 
@@ -178,7 +178,7 @@ If you are using a hand drill, follow the same steps as the bow drill, except do
 You should always have a plan to quickly extinguish your fire in case it begins to spread. Thoroughly extinguish your fire by dousing it with water or covering it with dirt. Make sure no embers remain that could reignite or cause a wildfire. If you are on a beach, do not cover the fire with sand; it can insulate the heat and cause burns.
 
 ## Increasing warmth
-<!-- K: rock, reflector, hand-warmer, hardwood, softwood -->
+<!-- K: increase, maximize -->
 <!-- S: Maximize heat by using a fire reflector or heated rocks. -->
 
 To maximize the heat from your fire, you can add more dry fuel, build a fire reflector, heat up rocks, or increase the insulation of your clothing and shelter.
@@ -196,7 +196,7 @@ A fire reflector is a wall built behind the fire to reflect heat toward you and 
 ![](file:///android_asset/survival_guide/fire_reflector.webp)
 
 ### Heating rocks
-<!-- K: rock -->
+<!-- K: rock, hand-warmer -->
 
 You can also heat rocks **near** the fire and place them in your shelter or sleeping area. To avoid burns or fires, don't let the rocks get too hot; they should be warm to the touch. Be sure to check how hot the stones are before touching them. Do not use rocks found near water sources, as they can explode in a fire. Alternatively, you can heat water and place it in a container or bottle to keep warm.
 

@@ -1,4 +1,4 @@
-<!-- K: weather, condition -->
+<!-- K: weather, condition, sky -->
 <!-- S: Know the weather forecast. -->
 
 Weather can quickly change from a nice day to a life-threatening situation. You should always be prepared for the weather in your area and keep tabs on the forecast.
@@ -33,7 +33,7 @@ Once you have mastered these skills, you should learn how to do the following:
 - Predict tides.
 
 ## Weather
-<!-- K: storm, precipitation, rain, snow, hail, sleet, temperature, humidity, wind, fog, lightning, sun, smoke, wildfire, uv, uv-index, thunder, thunderstorm -->
+<!-- K: weather, storm -->
 <!-- S: Take shelter during severe storms. Be prepared for various conditions, such as precipitation, temperature, humidity, and strong wind. -->
 
 Weather conditions can change rapidly and significantly impact your outdoor activities. In mountainous regions, take extra precautions when above the tree line, as weather can be more severe and you are more exposed to the elements.
@@ -102,13 +102,13 @@ Wildfires can cause smoke to travel long distances. If possible, avoid outdoor a
 The climate of a region refers to its average weather conditions over time. You should look up the average daily high and low temperatures, how often it rains or snows, what the humidity normally is, and where the prevailing wind blows from. You should prepare for conditions to return to the climate normals in a longer-term scenario, so if it is unusually warm during your hike but the average low is below freezing, bring cold weather gear with you.
 
 ## Forecasting
-<!-- K: forecast, predict, signs, worsen, improve, bad, good, cloud, cumulus, cirrus, cumulonimbus, altocumulus, stratus, altostratus, clear, cirrostratus, nimbostratus, cirrocumulus -->
+<!-- K: forecast, predict, signs -->
 <!-- S: Signs of worsening weather include increasing cloud cover, darkening skies, strong wind, and sudden drops in temperature. -->
 
 You can learn to forecast weather by observing the signs around you. The more signs you notice, the more accurate your forecast will be.
 
 ### Signs of worsening weather
-<!-- K: storm, worsen, bad -->
+<!-- K: storm, worsen, bad, rain, dark -->
 
 - Cloud cover increases  
 - Clouds start growing vertically (into an anvil shape)  

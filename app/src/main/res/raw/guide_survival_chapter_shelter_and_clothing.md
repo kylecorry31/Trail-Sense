@@ -1,4 +1,4 @@
-<!-- K: shelter, clothing, insulate, warm, heat, sleep -->
+<!-- K: warm, heat -->
 <!-- S: Layer clothing and build a shelter. -->
 
 This chapter covers how to dress appropriately for the environment and build shelters to protect yourself from the elements.
@@ -56,7 +56,7 @@ Once you have mastered these skills, you should learn how to do the following:
 - Repair clothing.
 
 ## Clothing
-<!-- K: wear, dress, wool, polyester, nylon, down, cotton, layer, material, garment, socks, pants, shirt, jacket, fleece, vest, underwear, undergarments, windbreaker, rain, hat, sunglasses, glasses, scarf, bandana, footwear, shoes, boots -->
+<!-- K: clothing, wear, garment, socks, pants, shirt, jacket, fleece, vest, underwear, undergarments, windbreaker, rain, hat, sunglasses, glasses, scarf, bandana -->
 <!-- S: Dress in layers and choose clothing made from wool, polyester, or nylon. Only wear shoes that you have worn in. -->
 
 Your first line of defense in any environment is your clothing. Proper attire should keep you dry, regulate your body temperature, protect you from the sun, and prevent insect bites.
@@ -71,7 +71,7 @@ When choosing clothing, consider the following materials:
 - Cotton: Retains moisture and loses warmth when wet. Do not wear cotton in cold or wet environments.
 
 ### Layers
-<!-- K: layer -->
+<!-- K: layer, dress -->
 
 You should plan to wear multiple layers of clothing to protect against the elements. Layering allows you to adjust your clothing to changing conditions and maintain body temperature.
 
@@ -110,11 +110,11 @@ If you plan to be hiking in wet conditions, consider wearing waterproof boots.
 Bring extra socks, preferably made from wool, and ensure they are taller than your boots to avoid blisters.
 
 ## Shelters
-<!-- K: build, location, lean-to, a-frame, cave, emergency-space-blanket, space-blanket, blanket, tent, hammock, ground, wall, sleep, bag, pad, airflow -->
+<!-- K: sleep, shelter -->
 <!-- S: Construct a shelter using natural materials or a tarp. Insulate the shelter with leaves, straw, or clothing. -->
 
 ### Choosing a shelter location
-<!-- K: location, site -->
+<!-- K: location -->
 
 When selecting a site for your shelter, consider the following:
 - Proximity to building materials.
@@ -127,12 +127,12 @@ When selecting a site for your shelter, consider the following:
 - Avoid staying above the treeline in mountainous regions, as you will be exposed to the elements.
 
 ### Gathering materials
-<!-- K: gather, material -->
+<!-- K: gather, find, material -->
 
 Prefer wood and debris that are already on the ground and require minimal effort to use. Avoid logs that are too thick to break by hand.
 
 ### Shelter types
-<!-- K: shelter, type, tarp, debris, hut, cave, tent, hammock, lean-to, a-frame, emergency-space-blanket, space-blanket, blanket -->
+<!-- K: build, type, tarp, debris, hut, cave, tent, hammock, lean-to, a-frame, emergency-space-blanket, space-blanket, blanket -->
 
 You can construct various shelters using tarps, ponchos, or natural elements. Here are some common types:
 
@@ -175,7 +175,7 @@ If you have a tent, set it up according to the manufacturer's instructions. Ensu
 If you have a hammock, set it up between two trees or supports. Ensure the hammock is secure and the rainfly is in place. Be sure the trees or supports are strong enough to hold your weight.
 
 ### Insulation
-<!-- K: insulate, insulation, heat, warm, cold, pad, sleeping-bag -->
+<!-- K: insulate, insulation, cold, pad, sleeping-bag -->
 
 You can place insulating materials like leaves, straw, or clothing between you and the shelter walls to retain body heat. This barrier prevents heat loss and keeps you warm. If you have a sleeping bag or extra clothing, use them.
 
@@ -190,7 +190,7 @@ Use materials like leaves, straw, or clothing to insulate yourself from the grou
 - Ensure adequate airflow to manage condensation and smoke.
 
 ## Repair
-<!-- K: repair, sewing, stitch, back-stitch, running-stitch, whip-stitch, duct-tape, tape, pin, safety-pin, glue, cordage -->
+<!-- K: repair, duct-tape, tape, pin, safety-pin, glue, cordage -->
 <!-- S: Use a sewing kit, duct tape, safety pins, glue, or cordage to repair tears or holes in clothing or gear. -->
 
 ### Sewing
@@ -225,7 +225,7 @@ If your tarp has a hole, you can repair it using duct tape or by sewing it shut.
 If you do not have a sewing kit, you can use duct tape, safety pins, super glue, or cordage as temporary fixes.
 
 ## Knots
-<!-- K: knot, tie, cordage, cord, rope, paracord, overhand, square, bowline, sheet-bend, bight, hitch, lash -->
+<!-- K: knot, tie, cordage, cord, rope, paracord -->
 <!-- S: Learn several knots to make the most of your cordage. -->
 
 ### Overhand knot
@@ -243,7 +243,7 @@ Used to create a loop at the end of a line. In most cases a bowline would be a b
 ![](file:///android_asset/survival_guide/knot_overhand_loop.webp)
 
 ### Double sheet bend
-<!-- K: double-sheet-bend, join -->
+<!-- K: double-sheet-bend, join, two, 2 -->
 
 Used for tying two lines together.
 
@@ -259,28 +259,28 @@ You can use a bowline to attach a line to a grommet on a tarp.
 ![](file:///android_asset/survival_guide/knot_bowline.webp)
 
 ### Jam knot
-<!-- K: jam-knot -->
+<!-- K: jam-knot, loop, fasten, pole -->
 
 Used to fasten a rope to a timber or pole. This can be used in place of lashings. It can be loosened by pulling on the knot on the end. It is hard to untie this knot.
 
 ![](file:///android_asset/survival_guide/jam_knot.webp)
 
 ### Clove hitch
-<!-- K: clove-hitch, pole -->
+<!-- K: clove-hitch, pole, hitch -->
 
 Used to fasten a rope to a timber or pole. It can be tied at any point in a rope.
 
 ![](file:///android_asset/survival_guide/133.webp)
 
 ### Taut-line hitch
-<!-- K: taut-line-hitch, tighten -->
+<!-- K: taut-line-hitch, tighten, hitch, pole, ridge-line -->
 
 Used to tighten a line.
 
 ![](file:///android_asset/survival_guide/knot_tautline_hitch.webp)
 
 ### Trucker's hitch
-<!-- K: truckers-hitch, tighten, cinch -->
+<!-- K: truckers-hitch, tighten, cinch, hitch, pole, ridge-line -->
 
 Used to secure a load or tighten a line. Can be cinched down tighter than a taut-line hitch.
 

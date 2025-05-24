@@ -700,11 +700,11 @@ Heat exhaustion and heatstroke are caused by exposure to high temperatures and d
 - Do not overexert yourself.
 
 ## Hygiene
-<!-- K: hygiene, clean, wash, soap, shampoo, sanitize, toothbrush, teeth, tooth, toothpaste, brush, feet, socks, dry, clothes, defecate, urinate, bathroom, trowel -->
+<!-- K: hygiene, clean, dry -->
 <!-- S: Wash hands frequently, especially before eating and after using the bathroom. -->
 
 ### Washing
-<!-- K: wash, soap, shampoo, clean, sanitize, hands -->
+<!-- K: wash, soap, shampoo, sanitize, hands -->
 
 If you do not have soap, you can substitute white ashes, sand, or loamy soil.
 

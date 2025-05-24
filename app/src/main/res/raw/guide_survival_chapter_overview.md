@@ -91,7 +91,7 @@ This guide only covers a small portion of the vast knowledge of survival and bus
 - *Wilderness & Travel Medicine* by Eric A. Weiss, MD
 
 ## What to do in a survival situation
-<!-- K: steps, stop, think, observe, plan, act -->
+<!-- K: think, observe, act -->
 <!-- S: Stop, think, observe, plan, and act. The plan may often be to stay where you are and wait for help. -->
 
 If you are in a survival situation, don't panic and follow these steps.
@@ -148,7 +148,7 @@ Before going into the wilderness, have a plan that you can stick to. Research th
 Once you have a trip planned out, pack the necessary gear and supplies and check all of it to ensure it is functional. You should share your plan with a trusted person, including the routes, who you are going with, when you will be back, and when you will contact them. If you don't have someone to whom you can tell these plans, leave a note with this information in a very visible place in your home. While you are hiking, stick to your route and avoid unnecessary risks.
 
 ## Signaling for help
-<!-- K: signal, help, contact, call, text, phone, whistle, mirror, smoke, flare, flashlight, ground-to-air, smartphone -->
+<!-- K: signal, help, contact -->
 <!-- S: Try your cell phone; it may be able to make emergency calls. Otherwise, use a whistle, signal mirror, smoke, flares, flashlight, or ground-to-air signals to attract attention. -->
 
 Signaling for help will increase your odds of being found. You should do this often, even if you don't think anyone is nearby or can hear you.
@@ -186,7 +186,7 @@ Flares are best seen at night or in low-visibility conditions. Follow the instru
 At night, a flashlight can be used to signal for help. Use the international distress signal, SOS, which is three short flashes, three long flashes, and three short flashes. If you don't remember the SOS signal, flash the light repeatedly in groups of three. Aim it in the direction of aircraft or other potential rescuers.
 
 ### Ground-to-air signals
-<!-- K: ground, air, rock, stick, tarp, color -->
+<!-- K: ground-to-air -->
 
 Ground-to-air signals are large markers you create on the ground to communicate with aircraft. Use rocks, logs, or other materials to create a large "V" (means you require assistance) or an "X" (means you require medical assistance). Use contrasting or artificial colors to make the signal more visible.
 
