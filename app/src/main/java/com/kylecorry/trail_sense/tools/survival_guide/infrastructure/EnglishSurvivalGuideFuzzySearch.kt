@@ -28,7 +28,8 @@ class EnglishSurvivalGuideFuzzySearch(context: Context) : BaseSurvivalGuideSearc
         "head ache",
         "head aches",
         "heart rate",
-        "heart beat"
+        "heart beat",
+        "ember"
     )
 
     private val additionalStopWords = setOf(
@@ -160,7 +161,8 @@ class EnglishSurvivalGuideFuzzySearch(context: Context) : BaseSurvivalGuideSearc
             "harvest",
             "pick",
             "forag", // Forage
-            "get"
+            "get",
+            "catch"
         ),
         // Move
         setOf(
@@ -274,7 +276,14 @@ class EnglishSurvivalGuideFuzzySearch(context: Context) : BaseSurvivalGuideSearc
             "stuff",
             "item",
             "thing"
-        )
+        ),
+        // Find
+        setOf(
+            "find",
+            "search",
+            "look",
+            "seek"
+        ),
     )
 
     override fun getSectionScore(

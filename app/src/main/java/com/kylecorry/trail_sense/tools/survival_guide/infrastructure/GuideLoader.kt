@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.tools.survival_guide.domain.Chapter
 import com.kylecorry.trail_sense.tools.survival_guide.domain.Chapters
 
 data class GuideSection(
+    val level: Int?,
     val title: String?,
     val keywords: Set<String>,
     val summary: String?,
@@ -27,45 +28,64 @@ class GuideLoader(private val context: Context) {
         val sections = TextUtils.groupSections(TextUtils.getSections(text), null)
 
         var guideSections = sections.map {
-            val first = it.first()
-            val content =
-                "${first.content}\n${it.drop(1).joinToString("\n") { it.toMarkdown(false, false) }}"
-            val keywords = TextUtils.getMarkdownKeywords(content)
-            val summary = TextUtils.getMarkdownSummary(content)
+            val section = getSectionDetails(it)
 
             // Level 3 headers in content
             val subsections = TextUtils.groupSections(
-                TextUtils.getSections(content),
+                TextUtils.getSections(section.content ?: ""),
                 3,
             ).mapNotNull { subsection ->
-                val subsectionFirst = subsection.first()
-                if (subsectionFirst.level != 3){
+                val details = getSectionDetails(subsection)
+                if (details.level != 3) {
                     return@mapNotNull null
                 }
-                val subsectionContent =
-                    "${subsectionFirst.content}\n${subsection.drop(1).joinToString("\n") { it.toMarkdown(false, false) }}"
-                val subsectionKeywords = TextUtils.getMarkdownKeywords(subsectionContent)
-                val subsectionSummary = TextUtils.getMarkdownSummary(subsectionContent)
-                GuideSection(
-                    title = subsectionFirst.title,
-                    keywords = subsectionKeywords,
-                    summary = subsectionSummary,
-                    content = if (includeContent) subsectionContent else null
-                )
+                details.copy(content = if (includeContent) details.content else null)
             }
 
-            GuideSection(first.title, keywords, summary, if (includeContent) content else null, subsections)
+            section.copy(
+                content = if (includeContent) section.content else null,
+                subsections = subsections
+            )
         }
 
         // Distribute the keywords from the first section to the rest of the sections (assuming the first section is the overview)
         if (guideSections.firstOrNull()?.title == null) {
             val keywords = guideSections.firstOrNull()?.keywords ?: emptySet()
             guideSections = guideSections.map {
-                GuideSection(it.title, keywords + it.keywords, it.summary, it.content, it.subsections)
+                it.copy(keywords = it.keywords + keywords)
             }
         }
 
+        // Distribute keywords in section
+        guideSections = guideSections.map { section ->
+            val keywords = section.keywords
+            val subsections = section.subsections.map {
+                it.copy(keywords = it.keywords + keywords)
+            }
+            section.copy(
+                keywords = keywords + section.subsections.flatMap { it.keywords },
+                subsections = subsections
+            )
+        }
+
         GuideDetails(chapter, guideSections)
+    }
+
+    private fun getSectionDetails(sections: List<TextUtils.TextSection>): GuideSection {
+        val first = sections.first()
+        val content =
+            "${first.content}\n${
+                sections.drop(1).joinToString("\n") { it.toMarkdown(false, false) }
+            }"
+        val keywords = TextUtils.getMarkdownKeywords(content)
+        val summary = TextUtils.getMarkdownSummary(content)
+        return GuideSection(
+            level = first.level,
+            title = first.title,
+            keywords = keywords,
+            summary = summary,
+            content = content
+        )
     }
 
 }
