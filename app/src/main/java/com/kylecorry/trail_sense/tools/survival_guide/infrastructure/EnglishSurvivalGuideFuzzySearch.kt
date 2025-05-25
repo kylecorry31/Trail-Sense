@@ -162,7 +162,11 @@ class EnglishSurvivalGuideFuzzySearch(context: Context) : BaseSurvivalGuideSearc
             "pick",
             "forag", // Forage
             "get",
-            "catch"
+            "catch",
+            "find",
+            "search",
+            "look",
+            "seek",
         ),
         // Move
         setOf(
@@ -276,13 +280,6 @@ class EnglishSurvivalGuideFuzzySearch(context: Context) : BaseSurvivalGuideSearc
             "stuff",
             "item",
             "thing"
-        ),
-        // Find
-        setOf(
-            "find",
-            "search",
-            "look",
-            "seek"
         ),
     )
 

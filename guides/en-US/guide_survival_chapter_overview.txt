@@ -148,7 +148,7 @@ Before going into the wilderness, have a plan that you can stick to. Research th
 Once you have a trip planned out, pack the necessary gear and supplies and check all of it to ensure it is functional. You should share your plan with a trusted person, including the routes, who you are going with, when you will be back, and when you will contact them. If you don't have someone to whom you can tell these plans, leave a note with this information in a very visible place in your home. While you are hiking, stick to your route and avoid unnecessary risks.
 
 ## Signaling for help
-<!-- K: signal, help, contact -->
+<!-- K: signal, help, contact, find -->
 <!-- S: Try your cell phone; it may be able to make emergency calls. Otherwise, use a whistle, signal mirror, smoke, flares, flashlight, or ground-to-air signals to attract attention. -->
 
 Signaling for help will increase your odds of being found. You should do this often, even if you don't think anyone is nearby or can hear you.

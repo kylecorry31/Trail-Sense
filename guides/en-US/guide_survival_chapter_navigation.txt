@@ -189,7 +189,7 @@ You can orient a map to point north using a compass:
 ![](file:///android_asset/survival_guide/93.webp)
 
 ### Determining location
-<!-- K: location, triangulate, feature, bearing -->
+<!-- K: location, triangulate, feature, bearing, find -->
 
 To determine your location on a map, identify prominent features around you and match them to the map. Use a compass to determine your direction and align the map accordingly.
 

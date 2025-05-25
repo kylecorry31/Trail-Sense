@@ -39,6 +39,10 @@ class SurvivalGuideSearchTest {
         search("How do I tie a bowline knot", "Shelter and clothing", "Knots", "Bowline")
         search("Start a fire with flint and steel", "Fire", "Starting a fire", "Flint and steel")
         search("Knots", "Shelter and clothing", "Knots")
+        search("find location on map", "Navigation", "Map", "Determining location")
+        search("help me calm down", "Medical", "Panic attacks and calming techniques")
+        search("get help", "Overview", "Signaling for help")
+        search("remove tick", "Medical", "Bites/stings: bugs")
 
         // Spelling mistakes
         search("how do i reed map", "Navigation", "Map")

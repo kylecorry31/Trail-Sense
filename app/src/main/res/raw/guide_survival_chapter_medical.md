@@ -1,4 +1,4 @@
-<!-- K: medicine, medical, heal, health, injury, sick, ill, first-aid, symptom, treat, prevent -->
+<!-- K: medicine, medical, heal, health, injury, sick, ill, first-aid, symptom, treat, prevent, help -->
 <!-- S: Calm down and apply first aid. -->
 
 This chapter covers basic medical knowledge and techniques for common injuries and illnesses in the wilderness. It does not substitute professional medical advice/treatment or in-depth first aid guides.
@@ -216,7 +216,7 @@ Do not do the following:
 - Do not try to catch or kill snakes unless you know they are not venomous.
 
 ## Bites/stings: bugs
-<!-- K: bug, bite, repel, spray, sting, insect, tick, leech, spider, scorpion, mosquito, ant, bee, wasp, hornet, fly, itch, swell, red -->
+<!-- K: bug, bite, repel, spray, sting, insect, tick, leech, spider, scorpion, mosquito, ant, bee, wasp, hornet, fly, itch, swell, red, remove -->
 <!-- S: Treat by removing the stinger/tick/leech, cleaning the area, and, if needed, seeking medical attention. Prevent this by using insect repellent and wearing long sleeves and pants. -->
 
 Many insects can bite or sting you, causing pain, swelling, and itching. Some insects can also transmit diseases.
