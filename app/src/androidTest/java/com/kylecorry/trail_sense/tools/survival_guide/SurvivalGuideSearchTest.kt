@@ -42,7 +42,7 @@ class SurvivalGuideSearchTest {
         search("find location on map", "Navigation", "Map", "Determining location")
         search("help me calm down", "Medical", "Panic attacks and calming techniques")
         search("get help", "Overview", "Signaling for help")
-        search("remove tick", "Medical", "Bites/stings: bugs")
+        search("remove tick", "Medical", "Bites: ticks")
 
         // Spelling mistakes
         search("how do i reed map", "Navigation", "Map")

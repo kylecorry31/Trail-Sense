@@ -216,7 +216,7 @@ Do not do the following:
 - Do not try to catch or kill snakes unless you know they are not venomous.
 
 ## Bites/stings: bugs
-<!-- K: bug, bite, repel, spray, sting, insect, tick, leech, spider, scorpion, mosquito, ant, bee, wasp, hornet, fly, itch, swell, red, remove -->
+<!-- K: bug, bite, repel, spray, sting, insect, spider, scorpion, mosquito, ant, bee, wasp, hornet, fly, itch, swell, red, remove -->
 <!-- S: Treat by removing the stinger/tick/leech, cleaning the area, and, if needed, seeking medical attention. Prevent this by using insect repellent and wearing long sleeves and pants. -->
 
 Many insects can bite or sting you, causing pain, swelling, and itching. Some insects can also transmit diseases.
@@ -225,25 +225,9 @@ Many insects can bite or sting you, causing pain, swelling, and itching. Some in
 - Itching.
 - Swelling.
 - Redness.
+- Pain.
 
 ### Treatment
-
-**Ticks**
-
-1. Using tweezers if available, grasp the tick where it is attached to the skin.
-2. Pull straight out with steady, even pressure. Do not twist or jerk the tick. Do not squeeze the tick's body.
-3. Treat the area as you would for a bug bite.
-
-**Leeches**
-
-To remove a leech:
-1. Pull it taut (but not too tight).
-2. Slide a fingernail or other flat object between the leech and your skin to detach it.
-3. Flick the leech away before it can reattach.
-4. Clean the wound and apply antibiotic ointment.
-5. Apply a bandage to control bleeding. It is normal for the wound to bleed for a while.
-
-Do not salt, burn, or pull the leech off, as this can cause it to regurgitate into the wound.
 
 **Bites**
 
@@ -267,10 +251,61 @@ See the section on objects in the eye.
 - Wrap your face with a bandana.
 - Wear glasses/sunglasses (to keep bugs out of your eyes).
 - Use a bug net.
-- Check for ticks/leeches frequently.
 - Ensure your immunizations are current for bug-borne diseases in the area.
 
 You can make an improvised bug repellent by applying mud to your skin or using fire smoke.
+
+## Bites: leeches
+<!-- K: leech, bite, suck, blood, remove -->
+<!-- S: Treat by removing the leech with a fingernail or flat object and cleaning the area. Prevent this by using insect repellent and wearing long sleeves and pants. -->
+
+Leeches attach to your skin and suck your blood. They can be found in freshwater lakes, ponds, and marshes.
+
+### Symptoms
+
+- Leech attached to the skin.
+- Bleeding.
+- Swelling.
+- Pain.
+
+### Treatment
+
+1. Pull it taut (but not too tight).
+2. Slide a fingernail or other flat object between the leech and your skin to detach it.
+3. Flick the leech away before it can reattach.
+4. Clean the wound and apply antibiotic ointment.
+5. Apply a bandage to control bleeding. It is normal for the wound to bleed for a while.
+
+Do not salt, burn, or pull the leech off, as this can cause it to regurgitate into the wound.
+
+### Prevention
+- Use insect repellent.
+- Wear long sleeves and pants.
+- Check for leeches frequently.
+
+## Bites: ticks
+<!-- K: bite, repel, spray, tick, itch, swell, red, remove -->
+<!-- S: Treat by removing the tick, cleaning the area, and, if needed, seeking medical attention. Prevent this by using insect repellent and wearing long sleeves and pants. -->
+
+Ticks attach to your skin and will feed on your blood. They can transmit diseases such as Lyme disease and Rocky Mountain spotted fever.
+
+### Symptoms
+
+- Itching.
+- Swelling.
+- Redness.
+- Attached tick.
+
+### Treatment
+
+1. Using tweezers if available, grasp the tick where it is attached to the skin.
+2. Pull straight out with steady, even pressure. Do not twist or jerk the tick. Do not squeeze the tick's body.
+3. Treat the area as you would for a bug bite.
+
+### Prevention
+- Use insect repellent.
+- Wear long sleeves and pants.
+- Check for ticks frequently.
 
 ## Bleeding
 <!-- K: bleed, blood, wound, cut, scrape, deep, clot, pressure, tourniquet, bandage, red, swell, warm, pus -->
