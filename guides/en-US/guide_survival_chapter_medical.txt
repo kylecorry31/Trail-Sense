@@ -940,6 +940,8 @@ If the splinter is deep or very large, seek medical attention and do not try to 
 
 Thorns, spines, and needles can be removed the same way as splinters. Some thorns may be easy to remove without tweezers.
 
+For urchin spines, soak the area in hot (not scalding) water for 10 to 90 minutes before removal.
+
 ### Prevention
 - Use caution when handling dry wood or thorn bushes.
 - Avoid walking through thorn bushes.
