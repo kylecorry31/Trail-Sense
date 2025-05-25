@@ -922,8 +922,8 @@ Cover your eyes with a dark cloth until symptoms disappear.
 ### Prevention
 Wear UV-protective sunglasses or snow goggles. If you do not have these, you can make snow goggles from a piece of cloth or a piece of bark with slits cut in it. You can also put soot under your eyes to reduce glare.
 
-## Splinters, thorns, and needles
-<!-- K: splinter, thorn, wood, needle, spike, remove, tweezers, hand, porcupine, urchin, cactus -->
+## Splinters, thorns, spines, and needles
+<!-- K: splinter, thorn, wood, needle, spike, spine, remove, tweezers, hand, porcupine, urchin, cactus -->
 <!-- S: Treat by removing the splinter with tweezers and cleaning the area. Prevent by using caution when handling dry wood or thorn bushes. -->
 
 Splinters and thorns can be painful and may lead to infection if not removed.
@@ -938,7 +938,7 @@ If the splinter is deep or very large, seek medical attention and do not try to 
 5. Repeat if any pieces remain.
 6. If the splinter drew blood when removed, treat it as a cut. Applying antibiotic ointment and a bandage won't hurt.
 
-Thorns and needles can be removed the same way as splinters. Some thorns may be easy to remove without tweezers.
+Thorns, spines, and needles can be removed the same way as splinters. Some thorns may be easy to remove without tweezers.
 
 ### Prevention
 - Use caution when handling dry wood or thorn bushes.
