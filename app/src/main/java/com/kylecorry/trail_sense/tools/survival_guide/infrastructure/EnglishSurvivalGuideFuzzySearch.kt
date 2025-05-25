@@ -19,6 +19,7 @@ class EnglishSurvivalGuideFuzzySearch(context: Context) : BaseSurvivalGuideSearc
     private val additionalStemWords = mapOf(
         "knives" to "knife",
         "burnt" to "burn",
+        "cactus" to "cacti"
     )
 
     // These are words which the user may type as two words or hyphenated words
