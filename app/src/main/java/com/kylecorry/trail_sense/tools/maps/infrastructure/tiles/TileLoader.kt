@@ -6,6 +6,7 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import java.util.concurrent.ConcurrentHashMap
+import kotlin.math.hypot
 
 class TileLoader {
 
@@ -56,7 +57,14 @@ class TileLoader {
 
 
         val parallel = ParallelCoroutineRunner()
-        parallel.run(tileSources.entries.toList()) { source ->
+
+        val middleX = tileSources.keys.map { it.x }.average()
+        val middleY = tileSources.keys.map { it.y }.average()
+
+        val sortedEntries = tileSources.entries
+            .sortedBy { hypot(it.key.x - middleX, it.key.y - middleY) }
+
+        parallel.run(sortedEntries.toList()) { source ->
             if (newTiles.containsKey(source.key)) {
                 return@run
             }
