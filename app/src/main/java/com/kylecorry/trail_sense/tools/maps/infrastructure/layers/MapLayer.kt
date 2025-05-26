@@ -62,7 +62,8 @@ class MapLayer : ILayer {
 
         // Render loaded tiles
         synchronized(loader.lock) {
-            loader.tileCache.forEach { (tileBounds, bitmaps) ->
+            loader.tileCache.forEach { (tile, bitmaps) ->
+                val tileBounds = tile.getBounds()
                 bitmaps.reversed().forEach { bitmap ->
                     // TODO: There are small gaps
                     val topLeftPixel = map.toPixel(tileBounds.northWest)

@@ -10,12 +10,12 @@ class MercatorTileSourceSelector(private val maps: List<PhotoMap>) {
         .filter { it.isCalibrated && it.metadata.projection == MapProjectionType.Mercator }
         .sortedBy { it.distancePerPixel() }
 
-    fun getSources(tile: CoordinateBounds): List<PhotoMap> {
+    fun getSources(bounds: CoordinateBounds): List<PhotoMap> {
         val contained =
             sortedMaps.firstOrNull {
                 contains(
                     it.boundary() ?: return@firstOrNull false,
-                    tile,
+                    bounds,
                     fullyContained = true
                 )
             }
@@ -26,7 +26,7 @@ class MercatorTileSourceSelector(private val maps: List<PhotoMap>) {
             sortedMaps.filter {
                 contains(
                     it.boundary() ?: return@filter false,
-                    tile
+                    bounds
                 )
             }
         }

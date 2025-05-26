@@ -2,13 +2,12 @@ package com.kylecorry.trail_sense.tools.maps.infrastructure.tiles
 
 import android.graphics.Bitmap
 import android.util.Size
-import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 
 class TileLoader {
 
-    var tileCache: Map<CoordinateBounds, List<Bitmap>> = emptyMap()
+    var tileCache: Map<Tile, List<Bitmap>> = emptyMap()
         private set
 
     var lock = Any()
@@ -27,19 +26,19 @@ class TileLoader {
         val tiles = TileMath.getTiles(bounds, viewportSize.width, viewportSize.height)
 
         // Step 2: For each tile, determine which map(s) will supply it.
-        val tileSources = mutableMapOf<CoordinateBounds, List<PhotoMap>>()
+        val tileSources = mutableMapOf<Tile, List<PhotoMap>>()
         val sourceSelector = MercatorTileSourceSelector(maps)
         for (tile in tiles) {
-            val sources = sourceSelector.getSources(tile)
+            val sources = sourceSelector.getSources(tile.getBounds())
             if (sources.isNotEmpty()) {
                 tileSources[tile] = sources.take(2)
             }
         }
 
-        val newTiles = mutableMapOf<CoordinateBounds, List<Bitmap>>()
+        val newTiles = mutableMapOf<Tile, List<Bitmap>>()
         synchronized(lock) {
             tileCache.keys.forEach { key ->
-                if (!tileSources.any { areEqual(key, it.key) }) {
+                if (!tileSources.containsKey(key)) {
                     tileCache[key]?.forEach { bitmap -> bitmap.recycle() }
                 } else {
                     // If the tile is still relevant, keep it
@@ -50,7 +49,7 @@ class TileLoader {
             tileCache = emptyMap()
         }
         for (source in tileSources) {
-            if (newTiles.any { areEqual(source.key, it.key) }) {
+            if (newTiles.containsKey(source.key)) {
                 continue
             }
             // Load tiles from the bitmap
@@ -67,13 +66,4 @@ class TileLoader {
             tileCache = newTiles
         }
     }
-
-    // TODO: Extract to sol
-    private fun areEqual(bounds1: CoordinateBounds, bounds2: CoordinateBounds): Boolean {
-        return SolMath.isZero((bounds1.north - bounds2.north).toFloat()) &&
-                SolMath.isZero((bounds1.west - bounds2.west).toFloat()) &&
-                SolMath.isZero((bounds1.south - bounds2.south).toFloat()) &&
-                SolMath.isZero((bounds1.east - bounds2.east).toFloat())
-    }
-
 }
