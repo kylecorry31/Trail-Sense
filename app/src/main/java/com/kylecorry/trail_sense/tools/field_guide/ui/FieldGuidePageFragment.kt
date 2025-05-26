@@ -14,6 +14,7 @@ import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.views.badge.Badge
 import com.kylecorry.andromeda.views.toolbar.Toolbar
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useArgument
@@ -41,6 +42,7 @@ class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_fiel
 
         // Services
         val files = useService<FileSubsystem>()
+        val prefs = useService<UserPreferences>()
 
         useEffect(notesView) {
             notesView.movementMethod = LinkMovementMethodCompat.getInstance()
@@ -64,7 +66,7 @@ class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_fiel
             displayTags(tagsView, page?.tags)
         }
 
-        useEffect(sightingsView, page, navController) {
+        useEffect(sightingsView, page, navController, prefs) {
             page ?: return@useEffect
             sightingsView.setOnClickListener {
                 // TODO: Navigate to the sightings list
@@ -75,6 +77,7 @@ class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_fiel
                 )
             }
             sightingsView.text = getString(R.string.sightings_count, page.sightings.size)
+            sightingsView.isVisible = prefs.fieldGuide.isSightingsEnabled
         }
 
     }
