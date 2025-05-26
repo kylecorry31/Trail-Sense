@@ -227,7 +227,7 @@
     <string name="weather_storm">Myrsky</string>
     <string name="pref_weather_show_detailed_icon_title">Näytä värillinen ilmoituskuvake</string>
     <string name="beacons">Majakat</string>
-    <string name="destination_elevation">Kohteen korkeus</string>
+    <string name="destination_elevation">Kohdekorkeus</string>
     <string name="last_lightning_strike_at">Viimeisin salama klo %s</string>
     <string name="ounces_weight">Unssia</string>
     <string name="cumulus_desc">Matalalla olevia pöyheitä pilviä, jotka näyttävät pumpulipalloilta. Yleensä erillisiä toisistaan ja tyypillisesti valkoisia, alaosa saattaa olla tummempi.</string>
@@ -309,7 +309,7 @@
     <string name="whistle_signal_come_here">Tule tänne</string>
     <string name="weather_alert_hot_description">Valmistaudu kuumiin lämpötiloihin. Ryhdy ylimääräisiin varotoimiin lämpöuupumusta ja lämpöhalvausta vastaan.</string>
     <string name="create_path">Luo polku</string>
-    <string name="distance_alert">Etäisyysvaroitus</string>
+    <string name="distance_alert">Etäisyysilmoitus</string>
     <string name="pref_daily_weather_notification_title">Päivittäinen sääilmoitus</string>
     <string name="cirrus_desc">Korkealla olevia ohuita yläpilviä, jotka näyttävät valkoisilta hiustupsuilta.</string>
     <string name="strobe_warning_content">Strobe-ominaisuus sisältää vilkkuvia valoja, jotka voivat olla vaarallisia joillekin käyttäjille.</string>
@@ -592,7 +592,7 @@
     <string name="change_map_projection">Muuta projektiota</string>
     <string name="weather_front">Säärintama</string>
     <string name="altostratus_forecast" tools:ignore="PluralsCandidate">Saattaa osoittaa sadetta seuraavan %d tunnin aikana.</string>
-    <string name="cumulonimbus_forecast">Saattaa tarkoittaa ukkosmyrskyä seuraavan muutaman minuutin kuluessa.</string>
+    <string name="cumulonimbus_forecast">Saattaa osoittaa ukkosmyrskyä seuraavan muutaman minuutin kuluessa.</string>
     <string name="unit_centimeters">Senttimetriä</string>
     <string name="gps_unavailable">GPS ei ole käytettävissä</string>
     <string name="cloud_stratus_forecast" tools:ignore="PluralsCandidate">Saattaa osoittaa hyvää säätä seuraavalle %d tunnille mikäli sumuista, muuten saattaa osoittaa saapuvaa sadetta.</string>
@@ -686,7 +686,7 @@
     <string name="qr_text_too_long">Teksti on liian pitkä, QR-koodi lyhennettiin</string>
     <string name="cloud_precipitation_forecast_hour_range" tools:ignore="PluralsCandidate">Saattaa osoittaa sadetta seuraavan %1$d - %2$d tunnin aikana.</string>
     <string name="no_qr_code_found">QR-koodia ei havaittu</string>
-    <string name="remove_distance_alert">Poistetaanko etäisyysvaroitus (%s)\?</string>
+    <string name="remove_distance_alert">Poistetaanko etäisyysilmoitus(%s)?</string>
     <string name="compass_accuracy">Kompassin tarkkuus</string>
     <string name="error">Virhe</string>
     <string name="pref_backfill_temperatures_description">Kaikki tallennetut lämpötilat korvataan kalibroidulla historiallisella lämpötilalla.</string>
@@ -732,7 +732,7 @@
     <string name="sensor_summary">Kompassi, GPS, korkeusmittari, barometri jne.</string>
     <string name="obscuration">Hämärtyminen</string>
     <string name="note_title_hint">Otsikko</string>
-    <string name="cumulonimbus_desc">Matalalla olevia pöyheitä pilviä, jotka ovat erittäin korkeita. Ne ovat tyypillisesti alasin muotoisia ja tummia.</string>
+    <string name="cumulonimbus_desc">Matalalla olevia pöyheitä pilviä, jotka ovat erittäin korkeita. Ne ovat tyypillisesti alasimen muotoisia ja tummia.</string>
     <string name="category_safety">Turvallisuus</string>
     <string name="percent_packed">%s pakattu</string>
     <string name="no_clouds">Ei pilviä</string>
@@ -917,7 +917,7 @@
     <string name="pin">Kiinnitä</string>
     <string name="service_restart_channel_description">Ilmoitus palveluiden uudelleenkäynnistämistä varten</string>
     <string name="reset_calibration_question">Nollaa kalibrointi?</string>
-    <string name="tool_bubble_level_title">Kuplataso</string>
+    <string name="tool_bubble_level_title">Vatupassi</string>
     <string name="overridden">Ohitettu</string>
     <string name="off">Pois päältä</string>
     <string name="no_resolution">Ei resoluutiota</string>
@@ -1233,7 +1233,7 @@
     <string name="tundra">Tundra</string>
     <string name="diurnal">Diurnaalinen (päivä)</string>
     <string name="nocturnal">Nokturnaalinen (yö)</string>
-    <string name="edible">Syömäkelvollinen</string>
+    <string name="edible">Syömäkelpoinen</string>
     <string name="inedible">Syömäkelvoton</string>
     <string name="dangerous">Vaarallinen</string>
     <string name="medicinal">Lääkinnällinen</string>
@@ -1268,16 +1268,16 @@
     <string name="climate_tundra">Tundra</string>
     <string name="climate_ice_cap">Mannerjää</string>
     <string name="climate_temperate">Lauhkea</string>
-    <string name="climate_continental">Mantereinen</string>
+    <string name="climate_continental">Mannerilmasto</string>
     <string name="climate_tropical_description">Kuuma ja kostea ilmasto, jossa sataa merkittävästi ympäri vuoden.</string>
     <string name="climate_dry_description">Kuiva ilmasto, jossa sataa vähän ja kasvillisuus on vähäistä.</string>
     <string name="climate_temperate_description">Leuto ilmasto, jossa on selkeät vuodenajat ja kohtalainen sademäärä.</string>
-    <string name="climate_continental_description">Kylmä ilmasto lämpimillä kesillä, kylmillä talvilla ja merkittävillä vuodenaikojen muutoksilla.</string>
+    <string name="climate_continental_description">Kylmä ilmasto lämpimillä kesillä, kylmillä talvilla ja merkittävillä vuodenaikojen välisillä vaihteluilla.</string>
     <string name="climate_polar_description">Äärimmäisen kylmä ilmasto lyhyillä kesillä.</string>
     <string name="climate_rainforest_description">Tiheä lehdistö saattaa häiritä GPS-signaaleja.</string>
     <string name="climate_monsoon_description">Sisältää lyhyen kuivan kauden.</string>
     <string name="climate_savanna_description">Sisältää kuivan kauden. Saattaa sisältää ruohotasankoja harvoilla puilla.</string>
-    <string name="climate_desert_description">Äärimmäinen sateen puute pitää maaston väljänä sekä tekee veden löytämisestä hankalaa.</string>
+    <string name="climate_desert_description">Äärimmäinen sateen puute pitää maaston väljänä ja tekee veden löytämisestä hankalaa.</string>
     <string name="climate_steppe_description">Saattaa sisältää hajanaisia ruohotasankoja.</string>
     <string name="climate_dry_summer_description">Sisältää kuivan kauden kesäisin.</string>
     <string name="climate_dry_winter_description">Sisältää kuivan kauden talvisin.</string>
