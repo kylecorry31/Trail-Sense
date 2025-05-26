@@ -4,10 +4,11 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Rect
 import android.util.Size
-import com.kylecorry.andromeda.bitmaps.BitmapUtils
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.trail_sense.shared.andromeda_temp.ImageRegionLoader
+import com.kylecorry.trail_sense.shared.extensions.toAndroidSize
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import kotlin.math.max
@@ -32,15 +33,11 @@ class PhotoMapRegionLoader(private val map: PhotoMap) {
 
         val size = map.metadata.unscaledPdfSize ?: map.metadata.size
 
-        val maxX = size.width.toInt() - 1
-        val maxY = size.height.toInt() - 1
-
-        // TODO: Return a square for clipped maps
         val region = Rect(
-            min(northWest.x.toInt(), southEast.x.toInt()).coerceIn(0, maxX),
-            min(northWest.y.toInt(), southEast.y.toInt()).coerceIn(0, maxY),
-            max(northWest.x.toInt(), southEast.x.toInt()).coerceIn(0, maxX),
-            max(northWest.y.toInt(), southEast.y.toInt()).coerceIn(0, maxY)
+            min(northWest.x.toInt(), southEast.x.toInt()),
+            min(northWest.y.toInt(), southEast.y.toInt()),
+            max(northWest.x.toInt(), southEast.x.toInt()),
+            max(northWest.y.toInt(), southEast.y.toInt())
         )
 
         return fileSystem.streamLocal(map.filename).use { stream ->
@@ -56,7 +53,13 @@ class PhotoMapRegionLoader(private val map: PhotoMap) {
                     it.inPreferredConfig = Bitmap.Config.RGB_565
                 }
             }
-            BitmapUtils.decodeRegion(stream, region, options)
+            ImageRegionLoader.decodeBitmapRegionWrapped(
+                stream,
+                region,
+                size.toAndroidSize(),
+                options = options,
+                enforceBounds = false
+            )
         }
     }
 
