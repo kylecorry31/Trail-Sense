@@ -1,0 +1,57 @@
+package com.kylecorry.trail_sense.tools.maps.infrastructure.tiles
+
+import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
+import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
+
+class MercatorTileSourceSelector(private val maps: List<PhotoMap>) {
+
+    private val sortedMaps = maps
+        .filter { it.isCalibrated && it.metadata.projection == MapProjectionType.Mercator }
+        .sortedBy { it.distancePerPixel() }
+
+    fun getSources(tile: CoordinateBounds): List<PhotoMap> {
+        val contained =
+            sortedMaps.firstOrNull {
+                contains(
+                    it.boundary() ?: return@firstOrNull false,
+                    tile,
+                    fullyContained = true
+                )
+            }
+
+        return if (contained != null) {
+            listOf(contained)
+        } else {
+            sortedMaps.filter {
+                contains(
+                    it.boundary() ?: return@filter false,
+                    tile
+                )
+            }
+        }
+    }
+
+    // TODO: Extract to sol
+    private fun contains(
+        bounds: CoordinateBounds,
+        subBounds: CoordinateBounds,
+        fullyContained: Boolean = false
+    ): Boolean {
+        // TODO: Project to mercator then do geometry check
+        val corners = listOf(
+            bounds.contains(subBounds.northWest),
+            bounds.contains(subBounds.northEast),
+            bounds.contains(subBounds.southWest),
+            bounds.contains(subBounds.southEast),
+            bounds.contains(subBounds.center)
+        )
+
+        return if (fullyContained) {
+            corners.all { it }
+        } else {
+            corners.any { it }
+        }
+    }
+
+}

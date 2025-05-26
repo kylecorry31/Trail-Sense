@@ -67,7 +67,7 @@ import com.kylecorry.trail_sense.tools.navigation.quickactions.NavigationQuickAc
 import com.kylecorry.trail_sense.tools.navigation.ui.data.UpdateAstronomyLayerCommand
 import com.kylecorry.trail_sense.tools.navigation.ui.errors.NavigatorUserErrors
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.BeaconLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.MapLayer
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MapLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyAccuracyLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.PathLayer
@@ -230,6 +230,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         // Initialize layers
         beaconLayer.setOutlineColor(Resources.color(requireContext(), R.color.colorSecondary))
         pathLayer.setShouldRenderWithDrawLines(userPrefs.navigation.useFastPathRendering)
+        mapLayer.setOpacity(127)
         binding.radarCompass.setLayers(
             listOf(
                 mapLayer,

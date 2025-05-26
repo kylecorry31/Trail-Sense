@@ -102,7 +102,7 @@ class RadarCompassView : BaseCompassView, IMapView {
     private fun drawCompass() {
         imageMode(ImageMode.Center)
 
-        dial.draw(drawer, shouldDrawDial)
+        dial.draw(drawer, shouldDrawDial, false)
 
         noFill()
         stroke(Color.WHITE)
@@ -207,9 +207,10 @@ class RadarCompassView : BaseCompassView, IMapView {
         clear()
         push()
         rotate(-azimuth.value)
-        drawCompass()
+        dial.draw(drawer, false)
         drawLayers()
         drawCompassLayers()
+        drawCompass()
         pop()
         drawOverlays()
     }
