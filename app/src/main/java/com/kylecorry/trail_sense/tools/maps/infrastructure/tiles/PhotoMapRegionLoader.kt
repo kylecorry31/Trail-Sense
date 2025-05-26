@@ -15,7 +15,7 @@ import kotlin.math.min
 class PhotoMapRegionLoader(private val map: PhotoMap) {
 
     suspend fun load(bounds: CoordinateBounds, maxSize: Size? = null): Bitmap? {
-        // TODO: Map rotation
+        // TODO: Map rotation (get the rotated area and crop?)
         val fileSystem = AppServiceRegistry.get<FileSubsystem>()
         val projection = map.projection
 
