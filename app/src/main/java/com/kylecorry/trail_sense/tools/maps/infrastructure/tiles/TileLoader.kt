@@ -54,19 +54,20 @@ class TileLoader {
             tileCache = newTiles
         }
 
-        for (source in tileSources) {
+
+        val parallel = ParallelCoroutineRunner()
+        parallel.run(tileSources.entries.toList()) { source ->
             if (newTiles.containsKey(source.key)) {
-                continue
+                return@run
             }
             // Load tiles from the bitmap
             val entries = mutableListOf<Bitmap>()
-            val parallel = ParallelCoroutineRunner()
 
             synchronized(lock) {
                 newTiles[source.key] = entries
             }
 
-            parallel.run(source.value) {
+            source.value.forEach {
                 val loader = PhotoMapRegionLoader(it)
                 val image = loader.load(
                     source.key,
