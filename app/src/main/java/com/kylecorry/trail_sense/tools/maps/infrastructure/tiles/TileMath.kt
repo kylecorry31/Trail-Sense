@@ -14,13 +14,14 @@ object TileMath {
 
     fun getTiles(
         bounds: CoordinateBounds,
-        metersPerPixel: Double
+        metersPerPixel: Double,
+        maxZoom: Int = 20
     ): List<Tile> {
         val minLat = max(bounds.south, MIN_LATITUDE)
         val maxLat = min(bounds.north, MAX_LATITUDE)
         return getTiles(
             bounds,
-            distancePerPixelToZoom(metersPerPixel, (minLat + maxLat) / 2)
+            distancePerPixelToZoom(metersPerPixel, (minLat + maxLat) / 2).coerceAtMost(maxZoom)
         )
     }
 

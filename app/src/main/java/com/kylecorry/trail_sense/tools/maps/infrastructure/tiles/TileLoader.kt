@@ -3,7 +3,10 @@ package com.kylecorry.trail_sense.tools.maps.infrastructure.tiles
 import android.graphics.Bitmap
 import android.util.Size
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.ConcurrentMap
 
 class TileLoader {
 
@@ -35,7 +38,7 @@ class TileLoader {
             }
         }
 
-        val newTiles = mutableMapOf<Tile, List<Bitmap>>()
+        val newTiles = ConcurrentHashMap<Tile, List<Bitmap>>()
         synchronized(lock) {
             tileCache.keys.forEach { key ->
                 if (!tileSources.containsKey(key)) {
@@ -54,7 +57,9 @@ class TileLoader {
             }
             // Load tiles from the bitmap
             val entries = mutableListOf<Bitmap>()
-            source.value.forEach {
+            val parallel = ParallelCoroutineRunner()
+
+            parallel.run(source.value) {
                 val loader = PhotoMapRegionLoader(it)
                 loader.load(
                     source.key,
