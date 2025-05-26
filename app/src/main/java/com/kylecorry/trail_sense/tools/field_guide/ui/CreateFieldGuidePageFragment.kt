@@ -85,7 +85,7 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
         }
 
         // Fields
-        binding.name.addTextChangedListener {
+        binding.name.setOnTextChangeListener {
             page = page.copy(name = it.toString())
         }
 
@@ -152,7 +152,7 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
 
         // Original content
         useEffect(originalPage) {
-            binding.name.setText(originalPage.name)
+            binding.name.text = originalPage.name
             binding.notes.setText(originalPage.notes)
         }
 
