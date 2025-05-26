@@ -42,6 +42,7 @@ class TileLoader {
         synchronized(lock) {
             tileCache.keys.forEach { key ->
                 if (!tileSources.containsKey(key)) {
+                    // TODO: Don't delete the bitmap until the subtiles are loaded
                     tileCache[key]?.forEach { bitmap -> bitmap.recycle() }
                 } else {
                     // If the tile is still relevant, keep it

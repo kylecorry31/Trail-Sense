@@ -11,17 +11,25 @@ class MercatorTileSourceSelector(private val maps: List<PhotoMap>) {
         .sortedBy { it.distancePerPixel() }
 
     fun getSources(bounds: CoordinateBounds): List<PhotoMap> {
-        val contained =
-            sortedMaps.firstOrNull {
-                contains(
-                    it.boundary() ?: return@firstOrNull false,
-                    bounds,
-                    fullyContained = true
-                )
-            }
 
-        return if (contained != null) {
-            listOf(contained)
+        val firstContained = sortedMaps.firstOrNull {
+            contains(
+                it.boundary() ?: return@firstOrNull false,
+                bounds,
+                fullyContained = true
+            )
+        }
+
+        val firstIntersect = sortedMaps.firstOrNull {
+            contains(
+                it.boundary() ?: return@firstOrNull false,
+                bounds
+            )
+        }
+
+
+        return if (firstContained != null) {
+            listOfNotNull(firstIntersect, firstContained).distinct()
         } else {
             sortedMaps.filter {
                 contains(

@@ -1,6 +1,8 @@
 package com.kylecorry.trail_sense.tools.maps.infrastructure.layers
 
+import android.graphics.Canvas
 import android.graphics.Paint
+import androidx.core.graphics.createBitmap
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
@@ -64,35 +66,42 @@ class MapLayer : ILayer {
 
         // Render loaded tiles
         synchronized(loader.lock) {
-            val paint = Paint().apply {
-                isAntiAlias = true
-                isFilterBitmap = true
-                isDither = true
-                alpha = opacity
-            }
-            loader.tileCache.forEach { (tile, bitmaps) ->
-                val tileBounds = tile.getBounds()
-                bitmaps.reversed().forEach { bitmap ->
-                    val topLeftPixel = map.toPixel(tileBounds.northWest)
-                    val topRightPixel = map.toPixel(tileBounds.northEast)
-                    val bottomRightPixel = map.toPixel(tileBounds.southEast)
-                    val bottomLeftPixel = map.toPixel(tileBounds.southWest)
-                    drawer.canvas.drawBitmapMesh(
-                        bitmap,
-                        1,
-                        1,
-                        floatArrayOf(
-                            bottomLeftPixel.x, bottomLeftPixel.y,
-                            bottomRightPixel.x, bottomRightPixel.y,
-                            topLeftPixel.x, topLeftPixel.y,
-                            topRightPixel.x, topRightPixel.y
-                        ),
-                        0,
-                        null,
-                        0,
-                        paint
-                    )
+            val bitmap = createBitmap(drawer.canvas.width, drawer.canvas.height)
+            try {
+                val canvas = Canvas(bitmap)
+                val paint = Paint().apply {
+                    isAntiAlias = true
                 }
+                loader.tileCache.forEach { (tile, bitmaps) ->
+                    val tileBounds = tile.getBounds()
+                    bitmaps.reversed().forEach { bitmap ->
+                        val topLeftPixel = map.toPixel(tileBounds.northWest)
+                        val topRightPixel = map.toPixel(tileBounds.northEast)
+                        val bottomRightPixel = map.toPixel(tileBounds.southEast)
+                        val bottomLeftPixel = map.toPixel(tileBounds.southWest)
+                        canvas.drawBitmapMesh(
+                            bitmap,
+                            1,
+                            1,
+                            floatArrayOf(
+                                bottomLeftPixel.x, bottomLeftPixel.y,
+                                bottomRightPixel.x, bottomRightPixel.y,
+                                topLeftPixel.x, topLeftPixel.y,
+                                topRightPixel.x, topRightPixel.y
+                            ),
+                            0,
+                            null,
+                            0,
+                            paint
+                        )
+                    }
+                }
+
+                drawer.opacity(opacity)
+                drawer.image(bitmap, 0f, 0f)
+                drawer.opacity(255)
+            } finally {
+                bitmap.recycle()
             }
         }
     }
