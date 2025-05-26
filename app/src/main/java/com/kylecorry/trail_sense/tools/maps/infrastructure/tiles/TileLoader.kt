@@ -6,7 +6,6 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.ConcurrentMap
 
 class TileLoader {
 
@@ -50,6 +49,11 @@ class TileLoader {
             }
             tileCache = newTiles.toMap()
         }
+
+        synchronized(lock) {
+            tileCache = newTiles
+        }
+
         for (source in tileSources) {
             if (newTiles.containsKey(source.key)) {
                 continue
@@ -58,20 +62,23 @@ class TileLoader {
             val entries = mutableListOf<Bitmap>()
             val parallel = ParallelCoroutineRunner()
 
+            synchronized(lock) {
+                newTiles[source.key] = entries
+            }
+
             parallel.run(source.value) {
                 val loader = PhotoMapRegionLoader(it)
-                loader.load(
+                val image = loader.load(
                     source.key,
                     Size(TileMath.WORLD_TILE_SIZE, TileMath.WORLD_TILE_SIZE)
                 )
-                    ?.let { entries.add(it) }
+                if (image != null) {
+                    synchronized(lock) {
+                        entries.add(image)
+                    }
+                }
             }
 
-            newTiles[source.key] = entries
-        }
-
-        synchronized(lock) {
-            tileCache = newTiles
         }
     }
 }

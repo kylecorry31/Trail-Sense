@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Rect
 import android.util.Size
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.andromeda_temp.ImageRegionLoader
@@ -20,7 +21,7 @@ class PhotoMapRegionLoader(private val map: PhotoMap) {
         return load(tile.getBounds(), maxSize)
     }
 
-    suspend fun load(bounds: CoordinateBounds, maxSize: Size? = null): Bitmap? {
+    suspend fun load(bounds: CoordinateBounds, maxSize: Size? = null): Bitmap? = onIO {
         // TODO: Map rotation (get the rotated area and crop?)
         val fileSystem = AppServiceRegistry.get<FileSubsystem>()
         val projection = map.projection
@@ -40,7 +41,8 @@ class PhotoMapRegionLoader(private val map: PhotoMap) {
             max(northWest.y.toInt(), southEast.y.toInt())
         )
 
-        return fileSystem.streamLocal(map.filename).use { stream ->
+        // TODO: Load PDF region
+        fileSystem.streamLocal(map.filename).use { stream ->
             val options = BitmapFactory.Options().also {
                 if (maxSize != null) {
                     it.inSampleSize = calculateInSampleSize(
