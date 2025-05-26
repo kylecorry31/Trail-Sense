@@ -21,9 +21,9 @@ class TileLoader {
         }
     }
 
-    suspend fun loadTiles(maps: List<PhotoMap>, bounds: CoordinateBounds, viewportSize: Size) {
+    suspend fun loadTiles(maps: List<PhotoMap>, bounds: CoordinateBounds, metersPerPixel: Float) {
         // Step 1: Split the visible area into tiles (geographic)
-        val tiles = TileMath.getTiles(bounds, viewportSize.width, viewportSize.height)
+        val tiles = TileMath.getTiles(bounds, metersPerPixel.toDouble())
 
         // Step 2: For each tile, determine which map(s) will supply it.
         val tileSources = mutableMapOf<Tile, List<PhotoMap>>()

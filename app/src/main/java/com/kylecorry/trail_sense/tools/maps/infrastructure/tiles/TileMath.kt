@@ -17,19 +17,6 @@ object TileMath {
 
     fun getTiles(
         bounds: CoordinateBounds,
-        widthPx: Int,
-        heightPx: Int
-    ): List<Tile> {
-        val minLat = max(bounds.south, -85.0511)
-        val maxLat = min(bounds.north, 85.0511)
-        return getTiles(
-            bounds,
-            boundsToZoom(minLat, bounds.west, maxLat, bounds.east, widthPx, heightPx)
-        )
-    }
-
-    fun getTiles(
-        bounds: CoordinateBounds,
         metersPerPixel: Double
     ): List<Tile> {
         val minLat = max(bounds.south, -85.0511)
