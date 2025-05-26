@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.tiles.TileLoader
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.ILayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -48,7 +49,14 @@ class MapLayer : ILayer {
             lastBounds?.let {
                 scope.launch {
                     runner.replace {
-                        loader.loadTiles(maps, it, map.metersPerPixel)
+                        try {
+                            loader.loadTiles(maps, it, map.metersPerPixel)
+                        } catch (e: CancellationException) {
+                            throw e
+                        } catch (e: Throwable) {
+                            e.printStackTrace()
+                            isInvalid = true
+                        }
                     }
                 }
             }

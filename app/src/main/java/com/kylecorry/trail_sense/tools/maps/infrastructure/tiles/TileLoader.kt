@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.maps.infrastructure.tiles
 
 import android.graphics.Bitmap
 import android.util.Size
-import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 
@@ -57,13 +56,11 @@ class TileLoader {
             val entries = mutableListOf<Bitmap>()
             source.value.forEach {
                 val loader = PhotoMapRegionLoader(it)
-                tryOrLog {
-                    loader.load(
-                        source.key,
-                        Size(TileMath.WORLD_TILE_SIZE, TileMath.WORLD_TILE_SIZE)
-                    )
-                        ?.let { entries.add(it) }
-                }
+                loader.load(
+                    source.key,
+                    Size(TileMath.WORLD_TILE_SIZE, TileMath.WORLD_TILE_SIZE)
+                )
+                    ?.let { entries.add(it) }
             }
 
             newTiles[source.key] = entries
