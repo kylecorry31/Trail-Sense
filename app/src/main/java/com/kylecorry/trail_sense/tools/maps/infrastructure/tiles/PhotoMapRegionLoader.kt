@@ -6,6 +6,7 @@ import android.graphics.Rect
 import android.util.Size
 import com.kylecorry.andromeda.bitmaps.BitmapUtils
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
@@ -23,21 +24,25 @@ class PhotoMapRegionLoader(private val map: PhotoMap) {
         val fileSystem = AppServiceRegistry.get<FileSubsystem>()
         val projection = map.projection
 
-        val west = projection.toPixels(bounds.northWest)
-            .x.toInt()
-        val east = projection.toPixels(bounds.southEast)
-            .x.toInt()
-        val north = projection.toPixels(bounds.northWest)
-            .y.toInt()
-        val south = projection.toPixels(bounds.southEast)
-            .y.toInt()
+        val center = Vector2(map.metadata.size.width / 2f, map.metadata.size.height / 2f)
+        val northWest =
+            projection.toPixels(bounds.northWest)//.rotate(-map.calibration.rotation, center)
+        val southEast =
+            projection.toPixels(bounds.southEast)//.rotate(-map.calibration.rotation, center)
 
+        val size = map.metadata.unscaledPdfSize ?: map.metadata.size
+
+        val maxX = size.width.toInt() - 1
+        val maxY = size.height.toInt() - 1
+
+        // TODO: Return a square for clipped maps
         val region = Rect(
-            min(west, east),
-            min(north, south),
-            max(west, east),
-            max(north, south)
+            min(northWest.x.toInt(), southEast.x.toInt()).coerceIn(0, maxX),
+            min(northWest.y.toInt(), southEast.y.toInt()).coerceIn(0, maxY),
+            max(northWest.x.toInt(), southEast.x.toInt()).coerceIn(0, maxX),
+            max(northWest.y.toInt(), southEast.y.toInt()).coerceIn(0, maxY)
         )
+
         return fileSystem.streamLocal(map.filename).use { stream ->
             val options = BitmapFactory.Options().also {
                 if (maxSize != null) {

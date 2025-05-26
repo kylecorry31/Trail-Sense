@@ -56,7 +56,8 @@ class TileLoader {
             val entries = mutableListOf<Bitmap>()
             source.value.forEach {
                 val loader = PhotoMapRegionLoader(it)
-                loader.load(source.key, Size(256, 256))?.let { entries.add(it) }
+                loader.load(source.key, Size(TileMath.WORLD_TILE_SIZE, TileMath.WORLD_TILE_SIZE))
+                    ?.let { entries.add(it) }
             }
 
             newTiles[source.key] = entries

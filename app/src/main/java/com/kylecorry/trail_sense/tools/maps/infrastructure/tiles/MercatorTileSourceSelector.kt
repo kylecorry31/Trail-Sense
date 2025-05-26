@@ -38,7 +38,6 @@ class MercatorTileSourceSelector(private val maps: List<PhotoMap>) {
         subBounds: CoordinateBounds,
         fullyContained: Boolean = false
     ): Boolean {
-        // TODO: Project to mercator then do geometry check
         val corners = listOf(
             bounds.contains(subBounds.northWest),
             bounds.contains(subBounds.northEast),
