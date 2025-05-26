@@ -20,7 +20,7 @@ class MapLayer : ILayer {
     private var maps: List<PhotoMap> = emptyList()
     private var opacity: Int = 255
     private var lastBounds: CoordinateBounds? = null
-    private val runner = CoroutineQueueRunner()
+    private val runner = CoroutineQueueRunner(2)
     private val scope = CoroutineScope(Dispatchers.Default)
     private val loader = TileLoader()
 
@@ -48,7 +48,7 @@ class MapLayer : ILayer {
             isInvalid = false
             lastBounds?.let {
                 scope.launch {
-                    runner.replace {
+                    runner.enqueue {
                         try {
                             loader.loadTiles(maps, it, map.metersPerPixel)
                         } catch (e: CancellationException) {
