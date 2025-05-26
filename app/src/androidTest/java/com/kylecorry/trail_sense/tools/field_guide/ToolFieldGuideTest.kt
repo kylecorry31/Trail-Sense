@@ -106,9 +106,16 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         click("Ant")
         hasText(R.id.field_guide_page_title, "Ant")
         hasText("A small insect", contains = true)
-        hasText("North America")
-        hasText("Insect")
-        hasText("Grassland")
+        val tags = listOf(
+            "North America",
+            "Insect",
+            "Grassland",
+        )
+        for (tag in tags) {
+            scrollUntil {
+                hasText(tag, waitForTime = 0)
+            }
+        }
         back()
     }
 
@@ -158,13 +165,22 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         // Verify the details
         hasText(R.id.field_guide_page_title, "A Test")
         hasText("Notes")
-        hasText("Animal")
-        hasText("Bird")
-        hasText("North America")
-        hasText("Forest")
-        hasText("Edible")
-        hasText("Inedible")
-        hasText("Diurnal (day)")
+
+        val tags = listOf(
+            "Animal",
+            "Bird",
+            "North America",
+            "Forest",
+            "Edible",
+            "Inedible",
+            "Diurnal (day)"
+        )
+
+        for (tag in tags) {
+            scrollUntil {
+                hasText(tag, waitForTime = 0)
+            }
+        }
 
         back()
     }
