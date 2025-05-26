@@ -10,6 +10,7 @@ import com.kylecorry.andromeda.core.ui.ReactiveComponent
 import com.kylecorry.andromeda.core.ui.useCallback
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.AndromedaFragment
+import com.kylecorry.andromeda.fragments.LifecycleHookTrigger
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.fragments.useTopic
 import com.kylecorry.andromeda.preferences.IPreferences
@@ -26,6 +27,8 @@ import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.views.CoordinateInputView
+import com.kylecorry.trail_sense.shared.views.ElevationInputView
 import com.kylecorry.trail_sense.shared.views.SearchView
 import kotlinx.coroutines.CoroutineScope
 import java.time.Duration
@@ -261,4 +264,36 @@ fun <T> AndromedaFragment.useBackgroundMemo(
     }
 
     return currentState
+}
+
+fun AndromedaFragment.useCoordinateInputView(
+    id: Int,
+    lifecycleHookTrigger: LifecycleHookTrigger
+): CoordinateInputView {
+    return useViewWithCleanup(id, lifecycleHookTrigger) {
+        it.pause()
+    }
+}
+
+fun AndromedaFragment.useElevationInputView(
+    id: Int,
+    lifecycleHookTrigger: LifecycleHookTrigger
+): ElevationInputView {
+    return useViewWithCleanup(id, lifecycleHookTrigger) {
+        it.pause()
+    }
+}
+
+fun <T : View> AndromedaFragment.useViewWithCleanup(
+    id: Int,
+    lifecycleHookTrigger: LifecycleHookTrigger,
+    cleanup: (T) -> Unit
+): T {
+    val view = useView<T>(id)
+    useEffectWithCleanup(lifecycleHookTrigger.onResume(), view) {
+        return@useEffectWithCleanup {
+            cleanup(view)
+        }
+    }
+    return view
 }

@@ -1,9 +1,6 @@
 package com.kylecorry.trail_sense.shared.extensions
 
-import android.os.Bundle
 import androidx.annotation.LayoutRes
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.fragments.XmlReactiveFragment
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -41,4 +38,9 @@ abstract class TrailSenseReactiveFragment(@LayoutRes private val layoutId: Int) 
      * Called whenever the fragment should update its content. Mostly due to changes in state.
      */
     abstract fun update()
+
+    override fun onPause() {
+        super.onPause()
+        cleanupEffects()
+    }
 }

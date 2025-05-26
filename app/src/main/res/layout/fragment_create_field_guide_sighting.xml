@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.kylecorry.andromeda.views.toolbar.Toolbar
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:rightButtonIcon="@drawable/ic_check"
+        app:showSubtitle="false"
+        app:title="@string/record_sighting" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            android:paddingBottom="16dp">
+
+            <com.kylecorry.trail_sense.shared.views.MaterialDateTimeInputView
+                android:id="@+id/time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.kylecorry.trail_sense.shared.views.CoordinateInputView
+                android:id="@+id/location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
+
+            <com.kylecorry.trail_sense.shared.views.ElevationInputView
+                android:id="@+id/elevation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/harvested"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/havested" />
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Material3.CardView.Outlined"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@android:color/transparent">
+
+                <com.kylecorry.trail_sense.shared.views.Notepad
+                    android:id="@+id/notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/tool_notes_title"
+                    android:imeOptions="actionNone"
+                    android:lineSpacingMultiplier="1.5"
+                    android:padding="16dp"
+                    android:scrollbars="vertical" />
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

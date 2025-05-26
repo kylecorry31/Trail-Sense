@@ -34,6 +34,16 @@
                 android:layout_height="250dp" />
 
             <TextView
+                android:id="@+id/sightings_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/sightings"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                app:drawableEndCompat="@drawable/ic_keyboard_arrow_right"
+                app:drawableTint="?android:attr/textColorPrimary" />
+
+            <TextView
                 android:id="@+id/notes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -51,6 +61,7 @@
                 app:flexDirection="row"
                 app:flexWrap="wrap"
                 app:justifyContent="flex_start" />
+
         </LinearLayout>
     </ScrollView>
 

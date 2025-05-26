@@ -1690,4 +1690,8 @@
     <string name="pref_climate_insect_activity_enabled" translatable="false">pref_climate_insect_activity_enabled</string>
     <string name="active_period">Active from %1$s to %2$s</string>
     <string name="ticks">Ticks</string>
+    <string name="record_sighting">Record sighting</string>
+    <string name="havested">Havested</string>
+    <string name="sightings">Sightings</string>
+    <string name="sightings_count">Sightings (%d)</string>
 </resources>

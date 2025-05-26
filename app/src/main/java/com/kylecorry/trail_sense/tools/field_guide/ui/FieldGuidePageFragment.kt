@@ -33,6 +33,7 @@ class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_fiel
         val notesView = useView<TextView>(R.id.notes)
         val imageView = useView<ImageView>(R.id.image)
         val tagsView = useView<FlexboxLayout>(R.id.tags)
+        val sightingsView = useView<TextView>(R.id.sightings_title)
         val navController = useNavController()
 
         // State
@@ -61,6 +62,19 @@ class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_fiel
             )
 
             displayTags(tagsView, page?.tags)
+        }
+
+        useEffect(sightingsView, page, navController) {
+            page ?: return@useEffect
+            sightingsView.setOnClickListener {
+                // TODO: Navigate to the sightings list
+                navController.navigate(
+                    R.id.createFieldGuideSightingFragment, bundleOf(
+                        "page_id" to page.id
+                    )
+                )
+            }
+            sightingsView.text = getString(R.string.sightings_count, page.sightings.size)
         }
 
     }
