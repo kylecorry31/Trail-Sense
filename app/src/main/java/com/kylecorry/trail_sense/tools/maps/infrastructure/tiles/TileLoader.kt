@@ -48,8 +48,7 @@ class TileLoader {
                     newTiles[key] = tileCache[key]!!
                 }
             }
-
-            tileCache = emptyMap()
+            tileCache = newTiles.toMap()
         }
         for (source in tileSources) {
             if (newTiles.containsKey(source.key)) {
