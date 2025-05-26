@@ -11,8 +11,6 @@ import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.math.abs
-import kotlin.math.min
 
 class MapLayer : ILayer {
 
@@ -60,16 +58,26 @@ class MapLayer : ILayer {
             loader.tileCache.forEach { (tile, bitmaps) ->
                 val tileBounds = tile.getBounds()
                 bitmaps.reversed().forEach { bitmap ->
-                    // TODO: There are small gaps
                     val topLeftPixel = map.toPixel(tileBounds.northWest)
+                    val topRightPixel = map.toPixel(tileBounds.northEast)
                     val bottomRightPixel = map.toPixel(tileBounds.southEast)
+                    val bottomLeftPixel = map.toPixel(tileBounds.southWest)
                     drawer.opacity(opacity)
-                    drawer.image(
+
+                    drawer.canvas.drawBitmapMesh(
                         bitmap,
-                        min(topLeftPixel.x, bottomRightPixel.x),
-                        min(topLeftPixel.y, bottomRightPixel.y),
-                        abs(bottomRightPixel.x - topLeftPixel.x),
-                        abs(bottomRightPixel.y - topLeftPixel.y)
+                        1,
+                        1,
+                        floatArrayOf(
+                            bottomLeftPixel.x, bottomLeftPixel.y,
+                            bottomRightPixel.x, bottomRightPixel.y,
+                            topLeftPixel.x, topLeftPixel.y,
+                            topRightPixel.x, topRightPixel.y
+                        ),
+                        0,
+                        null,
+                        0,
+                        null
                     )
                     drawer.opacity(255)
                 }

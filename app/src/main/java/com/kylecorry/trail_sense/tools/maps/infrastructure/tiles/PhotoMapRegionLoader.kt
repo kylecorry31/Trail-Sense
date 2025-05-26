@@ -53,6 +53,10 @@ class PhotoMapRegionLoader(private val map: PhotoMap) {
                     it.inPreferredConfig = Bitmap.Config.RGB_565
                 }
             }
+            if (region.width() <= 0 || region.height() <= 0) {
+                return@use null // No area to load
+            }
+
             ImageRegionLoader.decodeBitmapRegionWrapped(
                 stream,
                 region,
