@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.maps.infrastructure.layers
 
+import android.graphics.Paint
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
@@ -55,6 +56,12 @@ class MapLayer : ILayer {
 
         // Render loaded tiles
         synchronized(loader.lock) {
+            val paint = Paint().apply {
+                isAntiAlias = true
+                isFilterBitmap = true
+                isDither = true
+                alpha = opacity
+            }
             loader.tileCache.forEach { (tile, bitmaps) ->
                 val tileBounds = tile.getBounds()
                 bitmaps.reversed().forEach { bitmap ->
@@ -62,8 +69,6 @@ class MapLayer : ILayer {
                     val topRightPixel = map.toPixel(tileBounds.northEast)
                     val bottomRightPixel = map.toPixel(tileBounds.southEast)
                     val bottomLeftPixel = map.toPixel(tileBounds.southWest)
-                    drawer.opacity(opacity)
-
                     drawer.canvas.drawBitmapMesh(
                         bitmap,
                         1,
@@ -77,9 +82,8 @@ class MapLayer : ILayer {
                         0,
                         null,
                         0,
-                        null
+                        paint
                     )
-                    drawer.opacity(255)
                 }
             }
         }
