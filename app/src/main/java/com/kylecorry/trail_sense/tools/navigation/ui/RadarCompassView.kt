@@ -13,6 +13,7 @@ import com.kylecorry.andromeda.canvas.ArcMode
 import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.deltaAngle
@@ -91,12 +92,12 @@ class RadarCompassView : BaseCompassView, IMapView {
         // TODO: Handle beacon highlighting
         push()
         clip(compassPath)
-        layers.forEach { it.draw(this, this) }
+        layers.forEach { tryOrLog { it.draw(this, this) } }
         pop()
     }
 
     private fun drawOverlays() {
-        layers.forEach { it.drawOverlay(this, this) }
+        layers.forEach { tryOrLog { it.drawOverlay(this, this) } }
     }
 
     private fun drawCompass() {
