@@ -1380,7 +1380,6 @@
     <string name="climate_monsoon_description">有短暂的干燥时期。</string>
     <string name="climate_warm_summer_description">为夏天温热气温进行规划。</string>
     <string name="climate_ice_cap_description">冰全年不化，没有植被。</string>
-    <string name="havested">已搜集</string>
     <string name="sightings">发现</string>
     <string name="record_sighting">记录发现</string>
     <string name="sightings_count">发现（%d）</string>
