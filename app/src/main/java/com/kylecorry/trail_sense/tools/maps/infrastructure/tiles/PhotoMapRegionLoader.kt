@@ -17,11 +17,19 @@ import kotlin.math.min
 
 class PhotoMapRegionLoader(private val map: PhotoMap) {
 
-    suspend fun load(tile: Tile, maxSize: Size? = null): Bitmap? {
-        return load(tile.getBounds(), maxSize)
+    suspend fun load(
+        tile: Tile,
+        maxSize: Size? = null,
+        replaceWhitePixels: Boolean = false
+    ): Bitmap? {
+        return load(tile.getBounds(), maxSize, replaceWhitePixels)
     }
 
-    suspend fun load(bounds: CoordinateBounds, maxSize: Size? = null): Bitmap? = onIO {
+    suspend fun load(
+        bounds: CoordinateBounds,
+        maxSize: Size? = null,
+        replaceWhitePixels: Boolean = false
+    ): Bitmap? = onIO {
         // TODO: Map rotation (get the rotated area and crop?)
         val fileSystem = AppServiceRegistry.get<FileSubsystem>()
         val projection = map.projection
@@ -53,19 +61,31 @@ class PhotoMapRegionLoader(private val map: PhotoMap) {
                     )
                     it.inScaled = true
                     it.inPreferredConfig = Bitmap.Config.RGB_565
+                    it.inMutable = replaceWhitePixels
                 }
             }
             if (region.width() <= 0 || region.height() <= 0) {
                 return@use null // No area to load
             }
 
-            ImageRegionLoader.decodeBitmapRegionWrapped(
+            val bitmap = ImageRegionLoader.decodeBitmapRegionWrapped(
                 stream,
                 region,
                 size.toAndroidSize(),
                 options = options,
                 enforceBounds = false
             )
+
+            if (!replaceWhitePixels) {
+                return@use bitmap
+            }
+
+            // TODO: Replace white pixels (create a C++ helper)
+            try {
+                bitmap
+            } finally {
+                bitmap.recycle()
+            }
         }
     }
 

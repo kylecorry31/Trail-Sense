@@ -80,7 +80,8 @@ class TileLoader {
                 val loader = PhotoMapRegionLoader(it)
                 val image = loader.load(
                     source.key,
-                    Size(TileMath.WORLD_TILE_SIZE, TileMath.WORLD_TILE_SIZE)
+                    Size(TileMath.WORLD_TILE_SIZE, TileMath.WORLD_TILE_SIZE),
+                    replaceWhitePixels = true
                 )
                 if (image != null) {
                     synchronized(lock) {
