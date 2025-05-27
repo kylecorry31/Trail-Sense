@@ -1252,10 +1252,10 @@
     <string name="milligrams">Milligrammaa</string>
     <string name="milligrams_format">%s mg</string>
     <string name="ballistics">Ballistiikka</string>
-    <string name="windage_miss">Sivuhuti</string>
+    <string name="windage_miss">Vaakahuti</string>
     <string name="distance_to_target">Matka kohteeseen</string>
     <string name="scope_adjustment">Tähtäinsäätö</string>
-    <string name="elevation_miss">Korkeushuti</string>
+    <string name="elevation_miss">Pystyhuti</string>
     <string name="trace">Jäljennä</string>
     <string name="insect_activity">Hyönteisaktiivisuus</string>
     <string name="mosquitoes">Hyttyset</string>
@@ -1321,4 +1321,7 @@
     <string name="format_joules">%s joulea</string>
     <string name="format_fpe">%s FPE</string>
     <string name="scope_height">Tähtäimen korkeus</string>
+    <string name="sightings_count">Havainnot (%d)</string>
+    <string name="record_sighting">Tallenna havainto</string>
+    <string name="sightings">Havainnot</string>
 </resources>
