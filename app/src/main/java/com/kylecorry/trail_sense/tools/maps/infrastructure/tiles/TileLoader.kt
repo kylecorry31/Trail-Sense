@@ -24,7 +24,12 @@ class TileLoader {
         }
     }
 
-    suspend fun loadTiles(maps: List<PhotoMap>, bounds: CoordinateBounds, metersPerPixel: Float) {
+    suspend fun loadTiles(
+        maps: List<PhotoMap>,
+        bounds: CoordinateBounds,
+        metersPerPixel: Float,
+        replaceWhitePixels: Boolean = false
+    ) {
         // Step 1: Split the visible area into tiles (geographic)
         val tiles = TileMath.getTiles(bounds, metersPerPixel.toDouble())
 
@@ -81,7 +86,7 @@ class TileLoader {
                 val image = loader.load(
                     source.key,
                     Size(TileMath.WORLD_TILE_SIZE, TileMath.WORLD_TILE_SIZE),
-                    replaceWhitePixels = true
+                    replaceWhitePixels = replaceWhitePixels
                 )
                 if (image != null) {
                     synchronized(lock) {

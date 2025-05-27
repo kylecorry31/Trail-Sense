@@ -21,6 +21,7 @@ class MapLayer : ILayer {
     private var isInvalid = true
     private var maps: List<PhotoMap> = emptyList()
     private var opacity: Int = 255
+    private var replaceWhitePixels: Boolean = false
     private var lastBounds: CoordinateBounds? = null
     private val runner = CoroutineQueueRunner(2)
     private val scope = CoroutineScope(Dispatchers.Default)
@@ -44,6 +45,11 @@ class MapLayer : ILayer {
         this.opacity = opacity
     }
 
+    fun setReplaceWhitePixels(replaceWhitePixels: Boolean) {
+        this.replaceWhitePixels = replaceWhitePixels
+        invalidate()
+    }
+
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
         // Load tiles if needed
         if (isInvalid && lastBounds != null) {
@@ -52,7 +58,7 @@ class MapLayer : ILayer {
                 scope.launch {
                     runner.enqueue {
                         try {
-                            loader.loadTiles(maps, it, map.metersPerPixel)
+                            loader.loadTiles(maps, it, map.metersPerPixel, replaceWhitePixels)
                         } catch (e: CancellationException) {
                             throw e
                         } catch (e: Throwable) {

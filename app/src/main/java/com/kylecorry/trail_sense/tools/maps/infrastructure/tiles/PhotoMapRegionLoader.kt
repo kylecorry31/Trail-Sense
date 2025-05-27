@@ -2,8 +2,10 @@ package com.kylecorry.trail_sense.tools.maps.infrastructure.tiles
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.graphics.Rect
 import android.util.Size
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.replaceColor
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.sol.math.Vector2
@@ -80,12 +82,7 @@ class PhotoMapRegionLoader(private val map: PhotoMap) {
                 return@use bitmap
             }
 
-            // TODO: Replace white pixels (create a C++ helper)
-            try {
-                bitmap
-            } finally {
-                bitmap.recycle()
-            }
+            bitmap.replaceColor(Color.WHITE, Color.TRANSPARENT, 60f, true, inPlace = true)
         }
     }
 

@@ -231,6 +231,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         beaconLayer.setOutlineColor(Resources.color(requireContext(), R.color.colorSecondary))
         pathLayer.setShouldRenderWithDrawLines(userPrefs.navigation.useFastPathRendering)
         mapLayer.setOpacity(127)
+        mapLayer.setReplaceWhitePixels(true)
         binding.radarCompass.setLayers(
             listOf(
                 mapLayer,
