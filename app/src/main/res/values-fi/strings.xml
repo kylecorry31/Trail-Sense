@@ -251,7 +251,7 @@
     <string name="night">Yö</string>
     <string name="end_time">Loppuu</string>
     <string name="grams">Grammaa</string>
-    <string name="altocumulus_forecast" tools:ignore="PluralsCandidate">Saattaa osoittaa sadetta tai ukkosmyrskyä seuraavan %d tunnin aikana.</string>
+    <string name="altocumulus_forecast" tools:ignore="PluralsCandidate">Saattavat osoittaa sadetta tai ukkosmyrskyä seuraavan %d tunnin aikana.</string>
     <plurals name="path_group_summary">
         <item quantity="one">%d polku</item>
         <item quantity="other">%d polkua</item>
@@ -592,7 +592,7 @@
     <string name="change_map_projection">Muuta projektiota</string>
     <string name="weather_front">Säärintama</string>
     <string name="altostratus_forecast" tools:ignore="PluralsCandidate">Saattaa osoittaa sadetta seuraavan %d tunnin aikana.</string>
-    <string name="cumulonimbus_forecast">Saattaa osoittaa ukkosmyrskyä seuraavan muutaman minuutin kuluessa.</string>
+    <string name="cumulonimbus_forecast">Saattavat osoittaa ukkosmyrskyä seuraavan muutaman minuutin kuluessa.</string>
     <string name="unit_centimeters">Senttimetriä</string>
     <string name="gps_unavailable">GPS ei ole käytettävissä</string>
     <string name="cloud_stratus_forecast" tools:ignore="PluralsCandidate">Saattaa osoittaa hyvää säätä seuraavalle %d tunnille mikäli sumuista, muuten saattaa osoittaa saapuvaa sadetta.</string>
@@ -620,7 +620,7 @@
     <string name="map_scale_verbal">Sanallinen</string>
     <string name="pref_privacy_screenshot_protection_title">Estä kuvakaappaukset</string>
     <string name="import_gpx">Tuo GPX</string>
-    <string name="cumulus_forecast" tools:ignore="PluralsCandidate">Saattaa osoittaa hyvää säätä. Jos kasvamassa korkeammiksi, saattaa tarkoittaa sadetta tai ukkosmyrskyä seuraavan %d tunnin aikana.</string>
+    <string name="cumulus_forecast" tools:ignore="PluralsCandidate">Saattavat osoittaa hyvää säätä. Jos kasvamassa korkeammiksi, saattaa tarkoittaa sadetta tai ukkosmyrskyä seuraavan %d tunnin aikana.</string>
     <string name="pressure_system">Painejärjestelmä</string>
     <string name="pref_privacy_policy_title">Tietosuojakäytäntö</string>
     <string name="season_summer">Kesä</string>
@@ -732,7 +732,7 @@
     <string name="sensor_summary">Kompassi, GPS, korkeusmittari, barometri jne.</string>
     <string name="obscuration">Hämärtyminen</string>
     <string name="note_title_hint">Otsikko</string>
-    <string name="cumulonimbus_desc">Matalalla olevia pöyheitä pilviä, jotka ovat erittäin korkeita. Ne ovat tyypillisesti alasimen muotoisia ja tummia.</string>
+    <string name="cumulonimbus_desc">Matalalla olevia pöyheitä pilviä, jotka ovat erittäin korkeita. Ne ovat tyypillisesti tummia ja alasimen muotoisia.</string>
     <string name="category_safety">Turvallisuus</string>
     <string name="percent_packed">%s pakattu</string>
     <string name="no_clouds">Ei pilviä</string>
@@ -848,8 +848,8 @@
     <string name="point_style">Pistetyyli</string>
     <string name="precipitation_small_hail">Pienrakeita</string>
     <string name="pref_require_satellites_title">Vaadi satelliittipaikannus</string>
-    <string name="cirrocumulus">Cirrocumulus</string>
-    <string name="altostratus">Altostratus</string>
+    <string name="cirrocumulus">Palleropilvi (Cirrocumulus)</string>
+    <string name="altostratus">Verhopilvi (Altostratus)</string>
     <string name="network_4g">4G</string>
     <string name="network_2g">2G</string>
     <string name="zero_shutter_lag">Ei kameran sulkimen viivettä</string>
@@ -900,7 +900,7 @@
     <string name="location_override_not_set_resolution">Aseta sijainnin ohitus asetuksista</string>
     <string name="magnitude">Magnitudi</string>
     <string name="precipitation_snow_grains">Lumijyviä</string>
-    <string name="nimbostratus">Nimbostratus</string>
+    <string name="nimbostratus">Laaja sadepilvi (Nimbostratus)</string>
     <string name="export">Vie</string>
     <string name="candela_format">%s cd</string>
     <string name="bearing">Suuntima</string>
@@ -937,7 +937,7 @@
     <string name="tool_category_signaling">Viestitys</string>
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="bubble_level_angles">X: %1$s\nY: %2$s</string>
-    <string name="cirrus">Cirrus</string>
+    <string name="cirrus">Untuvapilvi (Cirrus)</string>
     <string name="imperial_cups">Imperiallista kuppia</string>
     <string name="imperial_pints">Imperiallista tuoppia</string>
     <string name="imperial_gallons">Imperiallista gallonaa</string>
@@ -984,8 +984,8 @@
     <string name="temp_c_short">°C</string>
     <string name="one">1</string>
     <string name="map_fractional_separator">:</string>
-    <string name="cumulus">Cumulus</string>
-    <string name="stratocumulus">Stratocumulus</string>
+    <string name="cumulus">Kumpupilvi (Cumulus)</string>
+    <string name="stratocumulus">Kumpukerrospilvi (Stratocumulus)</string>
     <string name="network_5g">5G</string>
     <string name="network_3g">3G</string>
     <string name="cell_signal">Matkapuhelinverkon signaali</string>
@@ -999,10 +999,10 @@
     <string name="theme_system_black">Järjestelmä (musta)</string>
     <string name="pref_sunrise_alert_time_title">Auringonnousun ilmoitusaika</string>
     <string name="category_fire">Tuli</string>
-    <string name="cirrostratus">Cirrostratus</string>
-    <string name="altocumulus">Altocumulus</string>
-    <string name="stratus">Stratus</string>
-    <string name="cumulonimbus">Cumulonimbus</string>
+    <string name="cirrostratus">Harsopilvi (Cirrostratus)</string>
+    <string name="altocumulus">Hahtuvapilvi (Altocumulus)</string>
+    <string name="stratus">Sumupilvi (Stratus)</string>
+    <string name="cumulonimbus">Kuuropilvi (Cumulonimbus)</string>
     <string name="pref_backtrack_save_cell_title">Tallenna puhelinverkon signaali</string>
     <string name="cross">Risti</string>
     <string name="pref_show_last_signal_beacon_summary">Luo majakan viimeisimmälle puhelinverkon signaalin sijainnille</string>
@@ -1324,4 +1324,5 @@
     <string name="sightings_count">Havainnot (%d)</string>
     <string name="record_sighting">Tallenna havainto</string>
     <string name="sightings">Havainnot</string>
+    <string name="harvested">Kerätty</string>
 </resources>
