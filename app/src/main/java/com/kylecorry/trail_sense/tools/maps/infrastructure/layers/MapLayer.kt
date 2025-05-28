@@ -90,6 +90,7 @@ class MapLayer : ILayer {
                             1,
                             1,
                             floatArrayOf(
+                                // Intentionally inverted along the Y axis
                                 bottomLeftPixel.x, bottomLeftPixel.y,
                                 bottomRightPixel.x, bottomRightPixel.y,
                                 topLeftPixel.x, topLeftPixel.y,
