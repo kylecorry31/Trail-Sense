@@ -78,33 +78,38 @@ class PhotoMapRegionLoader(private val map: PhotoMap) {
                 enforceBounds = false
             )
 
-            val rotated = if (SolMath.isZero(map.calibration.rotation)) {
-                bitmap
-            } else {
-                bitmap.fixPerspective(
-                    PixelBounds(
-                        // Bounds are inverted on the Y axis from android's pixel coordinate system
-                        PixelCoordinate(
-                            southWest.x - region.left,
-                            southWest.y - region.top
+            val rotated =
+                if (SolMath.isZero(
+                        SolMath.deltaAngle(map.calibration.rotation, 0f),
+                        tolerance = 0.5f
+                    )
+                ) {
+                    bitmap
+                } else {
+                    bitmap.fixPerspective(
+                        PixelBounds(
+                            // Bounds are inverted on the Y axis from android's pixel coordinate system
+                            PixelCoordinate(
+                                southWest.x - region.left,
+                                southWest.y - region.top
+                            ),
+                            PixelCoordinate(
+                                southEast.x - region.left,
+                                southEast.y - region.top
+                            ),
+                            PixelCoordinate(
+                                northWest.x - region.left,
+                                northWest.y - region.top
+                            ),
+                            PixelCoordinate(
+                                northEast.x - region.left,
+                                northEast.y - region.top
+                            )
                         ),
-                        PixelCoordinate(
-                            southEast.x - region.left,
-                            southEast.y - region.top
-                        ),
-                        PixelCoordinate(
-                            northWest.x - region.left,
-                            northWest.y - region.top
-                        ),
-                        PixelCoordinate(
-                            northEast.x - region.left,
-                            northEast.y - region.top
-                        )
-                    ),
-                    shouldRecycleOriginal = true
-                )
+                        shouldRecycleOriginal = true
+                    )
 
-            }
+                }
 
             if (!replaceWhitePixels) {
                 return@use rotated
