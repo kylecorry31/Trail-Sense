@@ -32,7 +32,7 @@ class TileLoader {
     ) {
         // Step 1: Split the visible area into tiles (geographic)
         val tiles = TileMath.getTiles(bounds, metersPerPixel.toDouble())
-        if (tiles.size > 50) {
+        if (tiles.size > 100) {
             Log.d("TileLoader", "Too many tiles to load: ${tiles.size}")
             return
         }
@@ -111,7 +111,7 @@ class TileLoader {
             val memoryUsage = tileCache.values.sumOf { bitmaps ->
                 bitmaps.sumOf { it.allocationByteCount }
             }
-            Log.d("TileLoader", "Tile memory usage: ${memoryUsage / 1024} KB")
+            Log.d("TileLoader", "Tile memory usage: ${memoryUsage / 1024} KB (${tiles.size} tiles)")
         }
     }
 }

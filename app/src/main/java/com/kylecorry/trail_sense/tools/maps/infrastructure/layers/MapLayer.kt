@@ -4,9 +4,13 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import androidx.core.graphics.createBitmap
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.sol.units.Bearing
+import com.kylecorry.sol.units.CompassDirection
+import com.kylecorry.trail_sense.shared.device.DeviceSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.tiles.TileLoader
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.ILayer
@@ -15,7 +19,6 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.math.absoluteValue
 
 class MapLayer : ILayer {
 
@@ -57,7 +60,12 @@ class MapLayer : ILayer {
                 // TODO: Debounce loader
                 runner.enqueue {
                     try {
-                        loader.loadTiles(maps, bounds, lastMetersPerPixel ?: 0f, replaceWhitePixels)
+                        loader.loadTiles(
+                            maps,
+                            bounds.grow(getGrowPercent()),
+                            lastMetersPerPixel ?: 0f,
+                            replaceWhitePixels
+                        )
                     } catch (e: CancellationException) {
                         System.gc()
                         throw e
@@ -128,26 +136,37 @@ class MapLayer : ILayer {
         return false
     }
 
-    private fun isRelativelyCloseTo(
-        a: Float,
-        b: Float,
-        threshold: Float = 0.1f
-    ): Boolean {
-        return percentDifference(a, b) <= threshold
-    }
-
-    private fun percentDifference(a: Float, b: Float): Float {
-        return if (a == 0f && b == 0f) {
-            0f
-        } else {
-            ((b - a) / a).absoluteValue
-        }
-    }
-
     private fun areBoundsEqual(bounds1: CoordinateBounds, bound2: CoordinateBounds): Boolean {
         return bounds1.north == bound2.north &&
                 bounds1.south == bound2.south &&
                 bounds1.east == bound2.east &&
                 bounds1.west == bound2.west
+    }
+
+    private fun getGrowPercent(): Float {
+        val device = AppServiceRegistry.get<DeviceSubsystem>()
+        val threshold = 50 * 1024 * 1024 // 50 MB
+        return if (device.getAvailableMemoryBytes() < threshold) {
+            0f
+        } else {
+            0.5f
+        }
+    }
+
+    private fun CoordinateBounds.grow(percent: Float): CoordinateBounds {
+        val x = this.width() * percent
+        val y = this.height() * percent
+        return CoordinateBounds.from(
+            listOf(
+                northWest.plus(x, Bearing.from(CompassDirection.West))
+                    .plus(y, Bearing.from(CompassDirection.North)),
+                northEast.plus(x, Bearing.from(CompassDirection.East))
+                    .plus(y, Bearing.from(CompassDirection.North)),
+                southWest.plus(x, Bearing.from(CompassDirection.West))
+                    .plus(y, Bearing.from(CompassDirection.South)),
+                southEast.plus(x, Bearing.from(CompassDirection.East))
+                    .plus(y, Bearing.from(CompassDirection.South)),
+            )
+        )
     }
 }
