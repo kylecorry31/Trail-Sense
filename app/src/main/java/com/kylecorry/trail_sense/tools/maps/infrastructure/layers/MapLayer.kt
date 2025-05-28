@@ -26,6 +26,7 @@ class MapLayer : ILayer {
     private var maps: List<PhotoMap> = emptyList()
     private var opacity: Int = 255
     private var replaceWhitePixels: Boolean = false
+    private var minZoom: Int = 0
     private var lastBounds: CoordinateBounds = CoordinateBounds.empty
     private var lastMetersPerPixel: Float? = null
     private val runner = CoroutineQueueRunner(2)
@@ -47,6 +48,11 @@ class MapLayer : ILayer {
         shouldReloadTiles = true
     }
 
+    fun setMinZoom(minZoom: Int) {
+        this.minZoom = minZoom
+        shouldReloadTiles = true
+    }
+
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
         // Load tiles if needed
         val bounds = map.mapBounds
@@ -64,7 +70,8 @@ class MapLayer : ILayer {
                             maps,
                             bounds.grow(getGrowPercent()),
                             lastMetersPerPixel ?: 0f,
-                            replaceWhitePixels
+                            replaceWhitePixels,
+                            minZoom
                         )
                     } catch (e: CancellationException) {
                         System.gc()

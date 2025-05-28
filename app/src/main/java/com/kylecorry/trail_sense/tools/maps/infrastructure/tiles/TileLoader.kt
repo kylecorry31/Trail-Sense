@@ -28,12 +28,17 @@ class TileLoader {
         maps: List<PhotoMap>,
         bounds: CoordinateBounds,
         metersPerPixel: Float,
-        replaceWhitePixels: Boolean = false
+        replaceWhitePixels: Boolean = false,
+        minZoom: Int = 0
     ) {
         // Step 1: Split the visible area into tiles (geographic)
         val tiles = TileMath.getTiles(bounds, metersPerPixel.toDouble())
         if (tiles.size > 100) {
             Log.d("TileLoader", "Too many tiles to load: ${tiles.size}")
+            return
+        }
+
+        if ((tiles.firstOrNull()?.z ?: 0) < minZoom) {
             return
         }
 

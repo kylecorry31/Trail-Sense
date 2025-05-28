@@ -35,6 +35,11 @@ object TileMath {
         val (xMin, yMax) = latLonToTileXY(minLat, bounds.west, zoom)
         val (xMax, yMin) = latLonToTileXY(maxLat, bounds.east, zoom)
 
+        // If range is greater than 100, return an empty list
+        if (xMax - xMin > 100 || yMax - yMin > 100) {
+            return emptyList()
+        }
+
         val tiles = mutableListOf<Tile>()
         for (x in min(xMin, xMax)..max(xMin, xMax)) {
             for (y in min(yMin, yMax)..max(yMin, yMax)) {
