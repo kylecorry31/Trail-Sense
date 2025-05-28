@@ -1366,4 +1366,5 @@
     <string name="sightings">Observações</string>
     <string name="sightings_count">Observações (%d)</string>
     <string name="record_sighting">Registrar observações</string>
+    <string name="harvested">Colhido</string>
 </resources>
