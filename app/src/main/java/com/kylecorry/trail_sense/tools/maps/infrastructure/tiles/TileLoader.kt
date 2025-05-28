@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.maps.infrastructure.tiles
 
 import android.graphics.Bitmap
 import android.util.Log
-import com.kylecorry.sol.science.geography.CoordinateFormatter.toDecimalDegrees
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
@@ -53,22 +52,10 @@ class TileLoader {
         val newTiles = ConcurrentHashMap<Tile, List<Bitmap>>()
         synchronized(lock) {
             tileCache.keys.forEach { key ->
-                if (!tileSources.containsKey(key)) {
-                    // TODO: Don't delete the bitmap until the subtiles are loaded
-                    tileCache[key]?.forEach { bitmap -> bitmap.recycle() }
-                    hasChanges = true
-                } else {
-                    // If the tile is still relevant, keep it
-                    newTiles[key] = tileCache[key]!!
-                }
+                newTiles[key] = tileCache[key] ?: return@forEach
             }
-            tileCache = newTiles.toMap()
-        }
-
-        synchronized(lock) {
             tileCache = newTiles
         }
-
 
         val parallel = ParallelCoroutineRunner()
 
@@ -103,6 +90,20 @@ class TileLoader {
                 }
             }
 
+        }
+
+        synchronized(lock) {
+            val toDelete = mutableListOf<Tile>()
+            tileCache.keys.forEach { key ->
+                if (!tileSources.containsKey(key)) {
+                    // TODO: Don't delete the bitmap until the subtiles are loaded
+                    tileCache[key]?.forEach { bitmap -> bitmap.recycle() }
+                    toDelete.add(key)
+                    hasChanges = true
+                }
+            }
+
+            tileCache = tileCache.filterKeys { it in tileSources.keys }
         }
 
         if (hasChanges) {

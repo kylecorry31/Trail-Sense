@@ -81,7 +81,7 @@ class MapLayer : ILayer {
                 val paint = Paint().apply {
                     isAntiAlias = true
                 }
-                loader.tileCache.forEach { (tile, bitmaps) ->
+                loader.tileCache.entries.sortedBy { it.key.z }.forEach { (tile, bitmaps) ->
                     val tileBounds = tile.getBounds()
                     bitmaps.reversed().forEach { bitmap ->
                         val topLeftPixel = map.toPixel(tileBounds.northWest)
