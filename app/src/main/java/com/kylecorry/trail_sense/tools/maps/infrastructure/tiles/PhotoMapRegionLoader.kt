@@ -6,14 +6,15 @@ import android.graphics.Color
 import android.graphics.Rect
 import android.util.Size
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.replaceColor
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.resizeExact
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
-import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.andromeda_temp.ImageRegionLoader
 import com.kylecorry.trail_sense.shared.extensions.toAndroidSize
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.domain.PixelBounds
 import com.kylecorry.trail_sense.tools.maps.infrastructure.fixPerspective
@@ -51,6 +52,24 @@ class PhotoMapRegionLoader(private val map: PhotoMap) {
 
         val region = Rect(left, top, right, bottom)
 
+        val percentTopRight = PercentCoordinate(
+            (northEast.x - region.left) / region.width(),
+            (northEast.y - region.top) / region.height()
+        )
+        val percentTopLeft = PercentCoordinate(
+            (northWest.x - region.left) / region.width(),
+            (northWest.y - region.top) / region.height()
+        )
+        val percentBottomRight = PercentCoordinate(
+            (southEast.x - region.left) / region.width(),
+            (southEast.y - region.top) / region.height()
+        )
+        val percentBottomLeft = PercentCoordinate(
+            (southWest.x - region.left) / region.width(),
+            (southWest.y - region.top) / region.height()
+        )
+
+
         // TODO: Load PDF region
         fileSystem.streamLocal(map.filename).use { stream ->
             val options = BitmapFactory.Options().also {
@@ -78,44 +97,62 @@ class PhotoMapRegionLoader(private val map: PhotoMap) {
                 enforceBounds = false
             )
 
-            val rotated =
-                if (SolMath.isZero(
-                        SolMath.deltaAngle(map.calibration.rotation, 0f),
-                        tolerance = 0.5f
-                    )
-                ) {
-                    bitmap
-                } else {
-                    bitmap.fixPerspective(
-                        PixelBounds(
-                            // Bounds are inverted on the Y axis from android's pixel coordinate system
-                            PixelCoordinate(
-                                southWest.x - region.left,
-                                southWest.y - region.top
-                            ),
-                            PixelCoordinate(
-                                southEast.x - region.left,
-                                southEast.y - region.top
-                            ),
-                            PixelCoordinate(
-                                northWest.x - region.left,
-                                northWest.y - region.top
-                            ),
-                            PixelCoordinate(
-                                northEast.x - region.left,
-                                northEast.y - region.top
+            bitmapOperationChain(
+                bitmap,
+                listOf(
+                    // Resize
+                    {
+                        if (maxSize != null && it.width > maxSize.width && it.height > maxSize.height) {
+                            it.resizeExact(maxSize.width, maxSize.height)
+                        } else {
+                            it
+                        }
+                    },
+                    // Rotate
+                    {
+                        if (SolMath.isZero(
+                                SolMath.deltaAngle(map.calibration.rotation, 0f),
+                                0.5f
                             )
-                        ),
-                        shouldRecycleOriginal = true
-                    )
-
-                }
-
-            if (!replaceWhitePixels) {
-                return@use rotated
-            }
-
-            rotated.replaceColor(Color.WHITE, Color.TRANSPARENT, 60f, true, inPlace = true)
+                        ) {
+                            it
+                        } else {
+                            it.fixPerspective(
+                                PixelBounds(
+                                    // Bounds are inverted on the Y axis from android's pixel coordinate system
+                                    percentBottomLeft.toPixels(it.width, it.height),
+                                    percentBottomRight.toPixels(it.width, it.height),
+                                    percentTopLeft.toPixels(it.width, it.height),
+                                    percentTopRight.toPixels(it.width, it.height)
+                                )
+                            )
+                        }
+                    },
+                    // Resize
+                    {
+                        if (maxSize != null && it.width > maxSize.width && it.height > maxSize.height) {
+                            it.resizeExact(maxSize.width, maxSize.height)
+                        } else {
+                            it
+                        }
+                    },
+                    // Replace white pixels
+                    {
+                        if (!replaceWhitePixels) {
+                            it
+                        } else {
+                            it.replaceColor(
+                                Color.WHITE,
+                                Color.TRANSPARENT,
+                                60f,
+                                true,
+                                inPlace = true
+                            )
+                        }
+                    }
+                ),
+                forceGarbageCollection = false
+            )
         }
     }
 
@@ -141,6 +178,25 @@ class PhotoMapRegionLoader(private val map: PhotoMap) {
         }
 
         return inSampleSize
+    }
+
+    private fun bitmapOperationChain(
+        bitmap: Bitmap,
+        operations: List<(input: Bitmap) -> Bitmap>,
+        forceGarbageCollection: Boolean = true
+    ): Bitmap {
+        var current = bitmap
+        operations.forEach {
+            current = it(current)
+            if (current != bitmap) {
+                bitmap.recycle()
+            }
+        }
+
+        if (forceGarbageCollection) {
+            System.gc()
+        }
+        return current
     }
 
 }

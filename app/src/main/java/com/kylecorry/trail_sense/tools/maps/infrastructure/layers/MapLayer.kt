@@ -56,6 +56,8 @@ class MapLayer : ILayer {
             isInvalid = false
             lastBounds?.let {
                 scope.launch {
+                    // TODO: Debounce loader
+                    // TODO: Make sure meters per pixel aligns with bounds (either through better alignment or through sanity checks)
                     runner.enqueue {
                         try {
                             loader.loadTiles(maps, it, map.metersPerPixel, replaceWhitePixels)
