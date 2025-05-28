@@ -1383,4 +1383,5 @@
     <string name="sightings">发现</string>
     <string name="record_sighting">记录发现</string>
     <string name="sightings_count">发现（%d）</string>
+    <string name="harvested">已搜集</string>
 </resources>
