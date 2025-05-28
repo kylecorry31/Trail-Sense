@@ -7,15 +7,16 @@ import android.graphics.Rect
 import android.util.Size
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.replaceColor
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.onIO
-import com.kylecorry.sol.math.Vector2
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.andromeda_temp.ImageRegionLoader
 import com.kylecorry.trail_sense.shared.extensions.toAndroidSize
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
-import kotlin.math.max
-import kotlin.math.min
+import com.kylecorry.trail_sense.tools.maps.domain.PixelBounds
+import com.kylecorry.trail_sense.tools.maps.infrastructure.fixPerspective
 
 class PhotoMapRegionLoader(private val map: PhotoMap) {
 
@@ -36,20 +37,19 @@ class PhotoMapRegionLoader(private val map: PhotoMap) {
         val fileSystem = AppServiceRegistry.get<FileSubsystem>()
         val projection = map.projection
 
-        val center = Vector2(map.metadata.size.width / 2f, map.metadata.size.height / 2f)
-        val northWest =
-            projection.toPixels(bounds.northWest)//.rotate(-map.calibration.rotation, center)
-        val southEast =
-            projection.toPixels(bounds.southEast)//.rotate(-map.calibration.rotation, center)
+        val northWest = projection.toPixels(bounds.northWest)
+        val southEast = projection.toPixels(bounds.southEast)
+        val southWest = projection.toPixels(bounds.southWest)
+        val northEast = projection.toPixels(bounds.northEast)
+
+        val left = listOf(northWest.x, southWest.x, northEast.x, southEast.x).min().toInt()
+        val right = listOf(northWest.x, southWest.x, northEast.x, southEast.x).max().toInt()
+        val top = listOf(northWest.y, southWest.y, northEast.y, southEast.y).min().toInt()
+        val bottom = listOf(northWest.y, southWest.y, northEast.y, southEast.y).max().toInt()
 
         val size = map.metadata.unscaledPdfSize ?: map.metadata.size
 
-        val region = Rect(
-            min(northWest.x.toInt(), southEast.x.toInt()),
-            min(northWest.y.toInt(), southEast.y.toInt()),
-            max(northWest.x.toInt(), southEast.x.toInt()),
-            max(northWest.y.toInt(), southEast.y.toInt())
-        )
+        val region = Rect(left, top, right, bottom)
 
         // TODO: Load PDF region
         fileSystem.streamLocal(map.filename).use { stream ->
@@ -78,11 +78,39 @@ class PhotoMapRegionLoader(private val map: PhotoMap) {
                 enforceBounds = false
             )
 
-            if (!replaceWhitePixels) {
-                return@use bitmap
+            val rotated = if (SolMath.isZero(map.calibration.rotation)) {
+                bitmap
+            } else {
+                bitmap.fixPerspective(
+                    PixelBounds(
+                        // Bounds are inverted on the Y axis from android's pixel coordinate system
+                        PixelCoordinate(
+                            southWest.x - region.left,
+                            southWest.y - region.top
+                        ),
+                        PixelCoordinate(
+                            southEast.x - region.left,
+                            southEast.y - region.top
+                        ),
+                        PixelCoordinate(
+                            northWest.x - region.left,
+                            northWest.y - region.top
+                        ),
+                        PixelCoordinate(
+                            northEast.x - region.left,
+                            northEast.y - region.top
+                        )
+                    ),
+                    shouldRecycleOriginal = true
+                )
+
             }
 
-            bitmap.replaceColor(Color.WHITE, Color.TRANSPARENT, 60f, true, inPlace = true)
+            if (!replaceWhitePixels) {
+                return@use rotated
+            }
+
+            rotated.replaceColor(Color.WHITE, Color.TRANSPARENT, 60f, true, inPlace = true)
         }
     }
 
