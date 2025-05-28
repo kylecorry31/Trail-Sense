@@ -293,4 +293,5 @@ object Tools {
     const val QUICK_ACTION_SUNRISE_ALERT = 25
     const val QUICK_ACTION_TOOL_WIDGETS = 26
     const val QUICK_ACTION_CONVERT = 27
+    const val QUICK_ACTION_SURVIVAL_GUIDE = 28
 }
