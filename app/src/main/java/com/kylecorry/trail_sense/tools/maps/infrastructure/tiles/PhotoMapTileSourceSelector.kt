@@ -4,10 +4,10 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 
-class MercatorTileSourceSelector(private val maps: List<PhotoMap>) {
+class PhotoMapTileSourceSelector(maps: List<PhotoMap>) {
 
     private val sortedMaps = maps
-        .filter { it.isCalibrated && it.metadata.projection == MapProjectionType.Mercator }
+        .filter { it.isCalibrated }
         .sortedBy { it.distancePerPixel() }
 
     fun getSources(bounds: CoordinateBounds): List<PhotoMap> {

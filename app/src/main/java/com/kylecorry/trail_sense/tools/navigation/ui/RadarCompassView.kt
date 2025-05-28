@@ -19,6 +19,8 @@ import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Circle
+import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -355,4 +357,13 @@ class RadarCompassView : BaseCompassView, IMapView {
         }
 
     override val mapRotation: Float = 0f
+
+    override val mapBounds: CoordinateBounds
+        get() {
+            val geofence = Geofence(
+                mapCenter,
+                maxDistanceBaseUnits
+            )
+            return CoordinateBounds.from(geofence)
+        }
 }

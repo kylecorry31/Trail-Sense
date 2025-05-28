@@ -15,14 +15,16 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.math.absoluteValue
 
 class MapLayer : ILayer {
 
-    private var isInvalid = true
+    private var shouldReloadTiles = true
     private var maps: List<PhotoMap> = emptyList()
     private var opacity: Int = 255
     private var replaceWhitePixels: Boolean = false
     private var lastBounds: CoordinateBounds? = null
+    private var lastMetersPerPixel: Float? = null
     private val runner = CoroutineQueueRunner(2)
     private val scope = CoroutineScope(Dispatchers.Default)
     private val loader = TileLoader()
@@ -30,7 +32,7 @@ class MapLayer : ILayer {
     fun setMaps(maps: List<PhotoMap>) {
         this.maps = maps
         loader.clearCache()
-        invalidate()
+        shouldReloadTiles = true
     }
 
     fun setBounds(bounds: CoordinateBounds?) {
@@ -38,7 +40,7 @@ class MapLayer : ILayer {
             return
         }
         lastBounds = bounds
-        invalidate()
+        shouldReloadTiles = true
     }
 
     fun setOpacity(opacity: Int) {
@@ -47,34 +49,44 @@ class MapLayer : ILayer {
 
     fun setReplaceWhitePixels(replaceWhitePixels: Boolean) {
         this.replaceWhitePixels = replaceWhitePixels
-        invalidate()
+        shouldReloadTiles = true
     }
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
         // Load tiles if needed
-        if (isInvalid && lastBounds != null) {
-            isInvalid = false
+        val boundsHeight = lastBounds?.height()?.distance ?: 0f
+        val canvasHeight = drawer.canvas.height.toFloat()
+        val estimatedMetersPerPixel = boundsHeight / canvasHeight
+
+        if (shouldReloadTiles && lastBounds != null && lastMetersPerPixel == map.metersPerPixel && isRelativelyCloseTo(
+                estimatedMetersPerPixel,
+                map.metersPerPixel,
+                0.5f
+            )
+        ) {
+            shouldReloadTiles = false
             lastBounds?.let {
                 scope.launch {
                     // TODO: Debounce loader
-                    // TODO: Make sure meters per pixel aligns with bounds (either through better alignment or through sanity checks)
                     runner.enqueue {
                         try {
-                            loader.loadTiles(maps, it, map.metersPerPixel, replaceWhitePixels)
+                            loader.loadTiles(maps, it, lastMetersPerPixel ?: 0f, replaceWhitePixels)
                         } catch (e: CancellationException) {
+                            System.gc()
                             throw e
                         } catch (e: Throwable) {
                             e.printStackTrace()
-                            isInvalid = true
-                        } finally {
-                            System.gc()
+                            shouldReloadTiles = true
                         }
                     }
                 }
             }
         }
 
+        lastMetersPerPixel = map.metersPerPixel
+
         // Render loaded tiles
+        // TODO: If the user zooms way in before tiles load, the bitmaps may be too big for bitmapMesh (try that out)
         synchronized(loader.lock) {
             val bitmap = createBitmap(drawer.canvas.width, drawer.canvas.height)
             try {
@@ -122,10 +134,26 @@ class MapLayer : ILayer {
     }
 
     override fun invalidate() {
-        isInvalid = true
+        // Do nothing, invalidation is handled separately
     }
 
     override fun onClick(drawer: ICanvasDrawer, map: IMapView, pixel: PixelCoordinate): Boolean {
         return false
+    }
+
+    private fun isRelativelyCloseTo(
+        a: Float,
+        b: Float,
+        threshold: Float = 0.1f
+    ): Boolean {
+        return percentDifference(a, b) <= threshold
+    }
+
+    private fun percentDifference(a: Float, b: Float): Float {
+        return if (a == 0f && b == 0f) {
+            0f
+        } else {
+            ((b - a) / a).absoluteValue
+        }
     }
 }

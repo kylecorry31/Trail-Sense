@@ -1,11 +1,17 @@
 package com.kylecorry.trail_sense.tools.maps.infrastructure.tiles
 
+import android.util.Size
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import kotlin.math.PI
 import kotlin.math.atan
 import kotlin.math.sinh
 
-data class Tile(val x: Int, val y: Int, val z: Int) {
+data class Tile(
+    val x: Int, val y: Int, val z: Int, val size: Size = Size(
+        TileMath.WORLD_TILE_SIZE,
+        TileMath.WORLD_TILE_SIZE
+    )
+) {
 
     fun getBounds(): CoordinateBounds {
         val n = 1 shl z

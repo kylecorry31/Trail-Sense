@@ -18,6 +18,7 @@ object ImageRegionLoader {
         stream: InputStream,
         rect: Rect,
         imageSize: Size,
+        destinationSize: Size = Size(rect.width(), rect.height()),
         wrap: Boolean = false,
         options: Options? = null,
         enforceBounds: Boolean = true
@@ -25,12 +26,7 @@ object ImageRegionLoader {
         val left = rect.left
         val top = rect.top
         val right = rect.right
-        val width = rect.width()
-        val height = rect.height()
         val fullImageWidth = imageSize.width
-
-        val resultBitmap = createBitmap(width, height)
-        val canvas = Canvas(resultBitmap)
 
         val rectsToLoad = mutableListOf<Pair<Point, Rect>>()
 
@@ -79,6 +75,8 @@ object ImageRegionLoader {
             )
         }
 
+        val resultBitmap = createBitmap(destinationSize.width, destinationSize.height)
+        val canvas = Canvas(resultBitmap)
         for ((offset, rectToLoad) in rectsToLoad) {
             val bitmap = BitmapUtils.decodeRegion(
                 stream,
@@ -87,15 +85,23 @@ object ImageRegionLoader {
                 autoClose = false,
                 enforceBounds = enforceBounds
             ) ?: continue
-            val sourceRect = Rect(0, 0, bitmap.width, bitmap.height)
-            val destRect = Rect(
-                offset.x,
-                offset.y,
-                offset.x + rectToLoad.width(),
-                offset.y + rectToLoad.height()
-            )
-            canvas.drawBitmap(bitmap, sourceRect, destRect, null)
-            bitmap.recycle()
+            try {
+                val sourceRect = Rect(0, 0, bitmap.width, bitmap.height)
+                val pctLeftX = offset.x / rect.width().toFloat()
+                val pctTopY = offset.y / rect.height().toFloat()
+                val pctRightX = (offset.x + rectToLoad.width()) / rect.width().toFloat()
+                val pctBottomY = (offset.y + rectToLoad.height()) / rect.height().toFloat()
+
+                val destRect = Rect(
+                    (pctLeftX * destinationSize.width).toInt(),
+                    (pctTopY * destinationSize.height).toInt(),
+                    (pctRightX * destinationSize.width).toInt(),
+                    (pctBottomY * destinationSize.height).toInt()
+                )
+                canvas.drawBitmap(bitmap, sourceRect, destRect, null)
+            } finally {
+                bitmap.recycle()
+            }
         }
 
         return resultBitmap

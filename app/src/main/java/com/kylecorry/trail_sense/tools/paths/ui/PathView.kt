@@ -38,6 +38,10 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
     var isZoomEnabled = true
 
     private val layers = mutableListOf<ILayer>()
+
+    override val mapBounds: CoordinateBounds
+        get() = bounds ?: CoordinateBounds.empty
+
     var bounds: CoordinateBounds? = null
         set(value) {
             field = value
