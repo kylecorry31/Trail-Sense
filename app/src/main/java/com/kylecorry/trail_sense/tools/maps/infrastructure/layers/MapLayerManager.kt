@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.maps.infrastructure.layers
 
 import android.content.Context
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
-import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.tools.maps.infrastructure.MapRepo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,10 +26,5 @@ class MapLayerManager(private val context: Context, private val layer: MapLayer)
     override fun stop() {
         runner.cancel()
         scope.cancel()
-    }
-
-    override fun onBoundsChanged(bounds: CoordinateBounds?) {
-        super.onBoundsChanged(bounds)
-        layer.setBounds(bounds)
     }
 }

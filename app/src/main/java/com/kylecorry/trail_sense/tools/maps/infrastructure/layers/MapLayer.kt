@@ -23,7 +23,7 @@ class MapLayer : ILayer {
     private var maps: List<PhotoMap> = emptyList()
     private var opacity: Int = 255
     private var replaceWhitePixels: Boolean = false
-    private var lastBounds: CoordinateBounds? = null
+    private var lastBounds: CoordinateBounds = CoordinateBounds.empty
     private var lastMetersPerPixel: Float? = null
     private val runner = CoroutineQueueRunner(2)
     private val scope = CoroutineScope(Dispatchers.Default)
@@ -32,14 +32,6 @@ class MapLayer : ILayer {
     fun setMaps(maps: List<PhotoMap>) {
         this.maps = maps
         loader.clearCache()
-        shouldReloadTiles = true
-    }
-
-    fun setBounds(bounds: CoordinateBounds?) {
-        if (bounds == lastBounds) {
-            return
-        }
-        lastBounds = bounds
         shouldReloadTiles = true
     }
 
@@ -54,35 +46,30 @@ class MapLayer : ILayer {
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
         // Load tiles if needed
-        val boundsHeight = lastBounds?.height()?.distance ?: 0f
-        val canvasHeight = drawer.canvas.height.toFloat()
-        val estimatedMetersPerPixel = boundsHeight / canvasHeight
-
-        if (shouldReloadTiles && lastBounds != null && lastMetersPerPixel == map.metersPerPixel && isRelativelyCloseTo(
-                estimatedMetersPerPixel,
-                map.metersPerPixel,
-                0.5f
-            )
+        val bounds = map.mapBounds
+        if (shouldReloadTiles || !areBoundsEqual(
+                lastBounds,
+                bounds
+            ) || map.metersPerPixel != lastMetersPerPixel
         ) {
             shouldReloadTiles = false
-            lastBounds?.let {
-                scope.launch {
-                    // TODO: Debounce loader
-                    runner.enqueue {
-                        try {
-                            loader.loadTiles(maps, it, lastMetersPerPixel ?: 0f, replaceWhitePixels)
-                        } catch (e: CancellationException) {
-                            System.gc()
-                            throw e
-                        } catch (e: Throwable) {
-                            e.printStackTrace()
-                            shouldReloadTiles = true
-                        }
+            scope.launch {
+                // TODO: Debounce loader
+                runner.enqueue {
+                    try {
+                        loader.loadTiles(maps, bounds, lastMetersPerPixel ?: 0f, replaceWhitePixels)
+                    } catch (e: CancellationException) {
+                        System.gc()
+                        throw e
+                    } catch (e: Throwable) {
+                        e.printStackTrace()
+                        shouldReloadTiles = true
                     }
                 }
             }
         }
 
+        lastBounds = bounds
         lastMetersPerPixel = map.metersPerPixel
 
         // Render loaded tiles
@@ -155,5 +142,12 @@ class MapLayer : ILayer {
         } else {
             ((b - a) / a).absoluteValue
         }
+    }
+
+    private fun areBoundsEqual(bounds1: CoordinateBounds, bound2: CoordinateBounds): Boolean {
+        return bounds1.north == bound2.north &&
+                bounds1.south == bound2.south &&
+                bounds1.east == bound2.east &&
+                bounds1.west == bound2.west
     }
 }
