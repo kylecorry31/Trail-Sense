@@ -52,6 +52,7 @@ import com.kylecorry.trail_sense.tools.diagnostics.status.GpsStatusBadgeProvider
 import com.kylecorry.trail_sense.tools.diagnostics.status.SensorStatusBadgeProvider
 import com.kylecorry.trail_sense.tools.diagnostics.status.StatusBadge
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.ILayerManager
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MapLayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MultiLayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyAccuracyLayerManager
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyLocationLayerManager
@@ -66,6 +67,7 @@ import com.kylecorry.trail_sense.tools.navigation.quickactions.NavigationQuickAc
 import com.kylecorry.trail_sense.tools.navigation.ui.data.UpdateAstronomyLayerCommand
 import com.kylecorry.trail_sense.tools.navigation.ui.errors.NavigatorUserErrors
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.BeaconLayer
+import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MapLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyAccuracyLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.PathLayer
@@ -142,6 +144,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val myLocationLayer = MyLocationLayer()
     private val myAccuracyLayer = MyAccuracyLayer()
     private val tideLayer = TideLayer()
+    private val mapLayer = MapLayer()
     private var layerManager: ILayerManager? = null
 
     // Compass layers
@@ -227,8 +230,11 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         // Initialize layers
         beaconLayer.setOutlineColor(Resources.color(requireContext(), R.color.colorSecondary))
         pathLayer.setShouldRenderWithDrawLines(userPrefs.navigation.useFastPathRendering)
+        mapLayer.setOpacity(127)
+        mapLayer.setReplaceWhitePixels(true)
         binding.radarCompass.setLayers(
             listOf(
+                mapLayer,
                 pathLayer,
                 myAccuracyLayer,
                 myLocationLayer,
@@ -412,7 +418,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                     25
                 ),
                 MyLocationLayerManager(myLocationLayer, Color.WHITE),
-                TideLayerManager(requireContext(), tideLayer)
+                TideLayerManager(requireContext(), tideLayer),
+                MapLayerManager(requireContext(), mapLayer)
             )
         )
         if (useRadarCompass) {

@@ -29,11 +29,13 @@ class CompassDial(
         45
     )
 
-    fun draw(drawer: ICanvasDrawer, drawTicks: Boolean = true) {
+    fun draw(drawer: ICanvasDrawer, drawTicks: Boolean = true, drawBackground: Boolean = true) {
         drawer.opacity(255)
         drawer.noStroke()
         drawer.fill(backgroundColor)
-        drawer.circle(center.x, center.y, radius * 2)
+        if (drawBackground) {
+            drawer.circle(center.x, center.y, radius * 2)
+        }
 
         if (!drawTicks) return
 
