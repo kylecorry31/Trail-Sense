@@ -85,7 +85,7 @@ class PhotoMapRegionLoader(private val map: PhotoMap) {
                     maxSize.height
                 )
                 it.inScaled = true
-                it.inPreferredConfig = Bitmap.Config.RGB_565
+                it.inPreferredConfig = Bitmap.Config.ARGB_8888
                 it.inMutable = replaceWhitePixels
             }
             if (region.width() <= 0 || region.height() <= 0) {
@@ -120,8 +120,8 @@ class PhotoMapRegionLoader(private val map: PhotoMap) {
                     replaceWhitePixels,
                     ReplaceColor(
                         Color.WHITE,
-                        Color.TRANSPARENT,
-                        60f,
+                        Color.argb(127, 127, 127, 127),
+                        80f,
                         true,
                         inPlace = true
                     )

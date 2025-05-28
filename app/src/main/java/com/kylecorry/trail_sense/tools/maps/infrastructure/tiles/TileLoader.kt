@@ -96,7 +96,6 @@ class TileLoader {
             val toDelete = mutableListOf<Tile>()
             tileCache.keys.forEach { key ->
                 if (!tileSources.containsKey(key)) {
-                    // TODO: Don't delete the bitmap until the subtiles are loaded
                     tileCache[key]?.forEach { bitmap -> bitmap.recycle() }
                     toDelete.add(key)
                     hasChanges = true
