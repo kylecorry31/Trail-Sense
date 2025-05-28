@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.tools.maps.infrastructure.tiles
 
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 
 class PhotoMapTileSourceSelector(maps: List<PhotoMap>) {
@@ -12,24 +11,36 @@ class PhotoMapTileSourceSelector(maps: List<PhotoMap>) {
 
     fun getSources(bounds: CoordinateBounds): List<PhotoMap> {
 
-        val firstContained = sortedMaps.firstOrNull {
+        val firstContainedIndex = sortedMaps.indexOfFirst {
             contains(
-                it.boundary() ?: return@firstOrNull false,
+                it.boundary() ?: return@indexOfFirst false,
                 bounds,
                 fullyContained = true
             )
         }
 
-        val firstIntersect = sortedMaps.firstOrNull {
-            contains(
-                it.boundary() ?: return@firstOrNull false,
-                bounds
-            )
+        val firstContained = if (firstContainedIndex != -1) {
+            sortedMaps[firstContainedIndex]
+        } else {
+            null
         }
+
+        val intersectsBeforeContained = sortedMaps
+            .filterIndexed { index, it ->
+                if (index >= firstContainedIndex) {
+                    return@filterIndexed false
+                }
+
+                contains(
+                    it.boundary() ?: return@filterIndexed false,
+                    bounds
+                )
+            }
 
 
         return if (firstContained != null) {
-            listOfNotNull(firstIntersect, firstContained).distinct()
+            intersectsBeforeContained.take(1) +
+                    listOf(firstContained)
         } else {
             sortedMaps.filter {
                 contains(
@@ -46,18 +57,18 @@ class PhotoMapTileSourceSelector(maps: List<PhotoMap>) {
         subBounds: CoordinateBounds,
         fullyContained: Boolean = false
     ): Boolean {
-        val corners = listOf(
-            bounds.contains(subBounds.northWest),
-            bounds.contains(subBounds.northEast),
-            bounds.contains(subBounds.southWest),
-            bounds.contains(subBounds.southEast),
-            bounds.contains(subBounds.center)
-        )
 
         return if (fullyContained) {
+            val corners = listOf(
+                bounds.contains(subBounds.northWest),
+                bounds.contains(subBounds.northEast),
+                bounds.contains(subBounds.southWest),
+                bounds.contains(subBounds.southEast),
+                bounds.contains(subBounds.center)
+            )
             corners.all { it }
         } else {
-            corners.any { it }
+            bounds.intersects(subBounds)
         }
     }
 
