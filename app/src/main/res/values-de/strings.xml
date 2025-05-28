@@ -1209,4 +1209,5 @@
     <string name="grains">Gran</string>
     <string name="grains_format">%s gr</string>
     <string name="augmented_reality_description">Sehen Sie nahe Wegpunkte und die Sonne / den Mond mit Ihrer Kamera</string>
+    <string name="distance_away_from_destination">%s vom Ziel entfernt</string>
 </resources>
