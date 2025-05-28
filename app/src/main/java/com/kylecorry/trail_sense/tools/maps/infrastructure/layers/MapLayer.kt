@@ -64,6 +64,8 @@ class MapLayer : ILayer {
                         } catch (e: Throwable) {
                             e.printStackTrace()
                             isInvalid = true
+                        } finally {
+                            System.gc()
                         }
                     }
                 }
