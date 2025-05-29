@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.maps.infrastructure.layers
 import android.graphics.Canvas
 import android.graphics.Paint
 import androidx.core.graphics.createBitmap
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.use
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -32,6 +33,10 @@ class MapLayer : ILayer {
     private val runner = CoroutineQueueRunner(2)
     private val scope = CoroutineScope(Dispatchers.Default)
     private val loader = TileLoader()
+    private val tilePaint = Paint().apply {
+        isAntiAlias = true
+        isFilterBitmap = true
+    }
 
     fun setMaps(maps: List<PhotoMap>) {
         this.maps = maps
@@ -90,43 +95,16 @@ class MapLayer : ILayer {
         // Render loaded tiles
         // TODO: If the user zooms way in before tiles load, the bitmaps may be too big for bitmapMesh (try that out)
         synchronized(loader.lock) {
-            val bitmap = createBitmap(drawer.canvas.width, drawer.canvas.height)
-            try {
-                val canvas = Canvas(bitmap)
-                val paint = Paint().apply {
-                    isAntiAlias = true
+            if (opacity == 255) {
+                renderTiles(drawer.canvas, map)
+            } else {
+                createBitmap(drawer.canvas.width, drawer.canvas.height).use {
+                    val canvas = Canvas(this)
+                    renderTiles(canvas, map)
+                    drawer.opacity(opacity)
+                    drawer.image(this, 0f, 0f)
+                    drawer.opacity(255)
                 }
-                loader.tileCache.entries.sortedBy { it.key.z }.forEach { (tile, bitmaps) ->
-                    val tileBounds = tile.getBounds()
-                    bitmaps.reversed().forEach { bitmap ->
-                        val topLeftPixel = map.toPixel(tileBounds.northWest)
-                        val topRightPixel = map.toPixel(tileBounds.northEast)
-                        val bottomRightPixel = map.toPixel(tileBounds.southEast)
-                        val bottomLeftPixel = map.toPixel(tileBounds.southWest)
-                        canvas.drawBitmapMesh(
-                            bitmap,
-                            1,
-                            1,
-                            floatArrayOf(
-                                // Intentionally inverted along the Y axis
-                                bottomLeftPixel.x, bottomLeftPixel.y,
-                                bottomRightPixel.x, bottomRightPixel.y,
-                                topLeftPixel.x, topLeftPixel.y,
-                                topRightPixel.x, topRightPixel.y
-                            ),
-                            0,
-                            null,
-                            0,
-                            paint
-                        )
-                    }
-                }
-
-                drawer.opacity(opacity)
-                drawer.image(bitmap, 0f, 0f)
-                drawer.opacity(255)
-            } finally {
-                bitmap.recycle()
             }
         }
     }
@@ -175,5 +153,33 @@ class MapLayer : ILayer {
                     .plus(y, Bearing.from(CompassDirection.South)),
             )
         )
+    }
+
+    private fun renderTiles(canvas: Canvas, map: IMapView) {
+        loader.tileCache.entries.sortedBy { it.key.z }.forEach { (tile, bitmaps) ->
+            val tileBounds = tile.getBounds()
+            bitmaps.reversed().forEach { bitmap ->
+                val topLeftPixel = map.toPixel(tileBounds.northWest)
+                val topRightPixel = map.toPixel(tileBounds.northEast)
+                val bottomRightPixel = map.toPixel(tileBounds.southEast)
+                val bottomLeftPixel = map.toPixel(tileBounds.southWest)
+                canvas.drawBitmapMesh(
+                    bitmap,
+                    1,
+                    1,
+                    floatArrayOf(
+                        // Intentionally inverted along the Y axis
+                        bottomLeftPixel.x, bottomLeftPixel.y,
+                        bottomRightPixel.x, bottomRightPixel.y,
+                        topLeftPixel.x, topLeftPixel.y,
+                        topRightPixel.x, topRightPixel.y
+                    ),
+                    0,
+                    null,
+                    0,
+                    tilePaint
+                )
+            }
+        }
     }
 }
