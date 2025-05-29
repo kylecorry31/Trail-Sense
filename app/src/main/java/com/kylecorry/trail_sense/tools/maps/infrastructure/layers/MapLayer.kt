@@ -2,8 +2,6 @@ package com.kylecorry.trail_sense.tools.maps.infrastructure.layers
 
 import android.graphics.Canvas
 import android.graphics.Paint
-import androidx.core.graphics.createBitmap
-import com.kylecorry.andromeda.bitmaps.BitmapUtils.use
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -98,13 +96,9 @@ class MapLayer : ILayer {
             if (opacity == 255) {
                 renderTiles(drawer.canvas, map)
             } else {
-                createBitmap(drawer.canvas.width, drawer.canvas.height).use {
-                    val canvas = Canvas(this)
-                    renderTiles(canvas, map)
-                    drawer.opacity(opacity)
-                    drawer.image(this, 0f, 0f)
-                    drawer.opacity(255)
-                }
+                drawer.canvas.saveLayerAlpha(null, opacity)
+                renderTiles(drawer.canvas, map)
+                drawer.canvas.restore()
             }
         }
     }
