@@ -31,6 +31,9 @@ class NavigationCompassLayerManager {
     private val prefs = AppServiceRegistry.get<UserPreferences>()
     private var layerManager: ILayerManager? = null
 
+    var key = 0
+        private set
+
     fun resume(context: Context, view: IMapView) {
         val hasCompass = SensorService(context).hasCompass()
 
@@ -67,6 +70,9 @@ class NavigationCompassLayerManager {
                 MapLayerManager(context, mapLayer)
             )
         )
+
+        key += 1
+
         if (prefs.navigation.useRadarCompass) {
             layerManager?.start()
         }

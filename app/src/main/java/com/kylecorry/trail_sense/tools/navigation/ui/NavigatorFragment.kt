@@ -514,7 +514,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             )
         }
 
-        effect("location", gps.location, lifecycleHookTrigger.onResume()) {
+        effect("location", gps.location, layers.key, lifecycleHookTrigger.onResume()) {
             updateLocation()
         }
 
