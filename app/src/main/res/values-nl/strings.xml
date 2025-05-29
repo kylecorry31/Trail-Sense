@@ -1393,4 +1393,8 @@
     <string name="insect_activity">Insectenactiviteit</string>
     <string name="mosquitoes">Muggen</string>
     <string name="ticks">Teken</string>
+    <string name="sightings">Waarnemingen</string>
+    <string name="harvested">Verzameld</string>
+    <string name="sightings_count">Waarnemingen (%d)</string>
+    <string name="record_sighting">Waarneming opslaan</string>
 </resources>
