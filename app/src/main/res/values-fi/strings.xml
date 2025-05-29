@@ -251,7 +251,7 @@
     <string name="night">Yö</string>
     <string name="end_time">Loppuu</string>
     <string name="grams">Grammaa</string>
-    <string name="altocumulus_forecast" tools:ignore="PluralsCandidate">Saattavat osoittaa sadetta tai ukkosmyrskyä seuraavan %d tunnin aikana.</string>
+    <string name="altocumulus_forecast" tools:ignore="PluralsCandidate">Saattavat osoittaa sadetta tai ukkosmyrskyä seuraavan %d:n tunnin aikana.</string>
     <plurals name="path_group_summary">
         <item quantity="one">%d polku</item>
         <item quantity="other">%d polkua</item>
@@ -348,7 +348,7 @@
     <string name="path_slope_moderate">Kohtalainen</string>
     <string name="tide_user_guide_recommendation">Viralliset vuorovesitaulukkosivustot löytyvät käyttöoppaasta.</string>
     <string name="pref_auto_low_power_summary">Kun akku on vähissä</string>
-    <string name="nimbostratus_forecast" tools:ignore="PluralsCandidate">Saattaa sataa seuraavan %d tunnin ajan.</string>
+    <string name="nimbostratus_forecast" tools:ignore="PluralsCandidate">Saattaa sataa seuraavan %d:n tunnin ajan.</string>
     <string name="paths">Polut</string>
     <string name="total">Kaikki yhteensä</string>
     <string name="milliliters">Millilitraa</string>
@@ -493,7 +493,7 @@
     <string name="altimeter_cache">Korkeusmittarin välimuisti</string>
     <string name="create_blank_map">Luo tyhjä kartta</string>
     <string name="gps_accuracy_tip">Varmista, että sinulla on esteetön näkymä taivaalle ja siirry poispäin korkeista rakennuksista sekä puista.</string>
-    <string name="stratus_desc">Matalalla oleva pilvi, joka peittää taivaan. Esineet eivät luo varjoja ja saattaa olla sumuista.</string>
+    <string name="stratus_desc">Matalalla oleva pilvi, joka peittää taivaan. Esineet eivät luo varjoja, ja saattaa olla sumuista.</string>
     <string name="new_text">Uusi</string>
     <string name="waypoint">Reittipiste</string>
     <string name="water_boil_timer_channel_description">Vesi on kiehumassa</string>
@@ -591,11 +591,11 @@
     <string name="permission_alarms_and_reminders">Hälytykset ja muistutukset</string>
     <string name="change_map_projection">Muuta projektiota</string>
     <string name="weather_front">Säärintama</string>
-    <string name="altostratus_forecast" tools:ignore="PluralsCandidate">Saattaa osoittaa sadetta seuraavan %d tunnin aikana.</string>
+    <string name="altostratus_forecast" tools:ignore="PluralsCandidate">Saattaa osoittaa sadetta seuraavan %d:n tunnin aikana.</string>
     <string name="cumulonimbus_forecast">Saattavat osoittaa ukkosmyrskyä seuraavan muutaman minuutin kuluessa.</string>
     <string name="unit_centimeters">Senttimetriä</string>
     <string name="gps_unavailable">GPS ei ole käytettävissä</string>
-    <string name="cloud_stratus_forecast" tools:ignore="PluralsCandidate">Saattaa osoittaa hyvää säätä seuraavalle %d tunnille mikäli sumuista, muuten saattaa osoittaa saapuvaa sadetta.</string>
+    <string name="cloud_stratus_forecast" tools:ignore="PluralsCandidate">Saattaa osoittaa hyvää säätä seuraavalle %d:lle tunnille mikäli on sumuista, mutta saattaa muuten osoittaa saapuvaa sadetta.</string>
     <string name="astronomy_altitude_peak">Huippukorkeus</string>
     <string name="tool_bubble_level_summary">Selvitä, ovatko pinnat tasaiset</string>
     <string name="import_btn">Tuo</string>
@@ -620,7 +620,7 @@
     <string name="map_scale_verbal">Sanallinen</string>
     <string name="pref_privacy_screenshot_protection_title">Estä kuvakaappaukset</string>
     <string name="import_gpx">Tuo GPX</string>
-    <string name="cumulus_forecast" tools:ignore="PluralsCandidate">Saattavat osoittaa hyvää säätä. Jos kasvamassa korkeammiksi, saattaa tarkoittaa sadetta tai ukkosmyrskyä seuraavan %d tunnin aikana.</string>
+    <string name="cumulus_forecast" tools:ignore="PluralsCandidate">Saattavat osoittaa hyvää säätä. Jos kasvamassa korkeammiksi, saattaa tarkoittaa sadetta tai ukkosmyrskyä seuraavan %d:n tunnin aikana.</string>
     <string name="pressure_system">Painejärjestelmä</string>
     <string name="pref_privacy_policy_title">Tietosuojakäytäntö</string>
     <string name="season_summer">Kesä</string>
@@ -713,7 +713,7 @@
     <string name="map_distance">Kartta: %s</string>
     <string name="weather_clear">Selkeää</string>
     <string name="at_time">klo %s</string>
-    <string name="cloud_fair_forecast_hours" tools:ignore="PluralsCandidate">Saattaa osoittaa hyvää säätä seuraavalle %d tunnille.</string>
+    <string name="cloud_fair_forecast_hours" tools:ignore="PluralsCandidate">Saattaa osoittaa hyvää säätä seuraavalle %d:lle tunnille.</string>
     <string name="pref_default_path_color_title">Polun oletusväri</string>
     <string name="tool_notes_title">Muistiinpanot</string>
     <string name="map_exported">Kartta viety</string>
