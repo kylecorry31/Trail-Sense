@@ -10,7 +10,6 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.core.ui.useService
-import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.views.badge.Badge
 import com.kylecorry.andromeda.views.list.AndromedaListView
@@ -20,17 +19,12 @@ import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useBackPressedCallback
-import com.kylecorry.trail_sense.shared.extensions.useCoroutineQueue
 import com.kylecorry.trail_sense.shared.extensions.useNavController
 import com.kylecorry.trail_sense.shared.extensions.useSearch
 import com.kylecorry.trail_sense.shared.extensions.useShowDisclaimer
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.views.SearchView
-import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.GuideDetails
-import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.GuideLoader
 import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.SurvivalGuideSearch
-import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.SurvivalGuideSearchResult
-import kotlinx.coroutines.delay
 
 class FragmentToolSurvivalGuideList :
     TrailSenseReactiveFragment(R.layout.fragment_survival_guide_chapters) {
@@ -49,8 +43,8 @@ class FragmentToolSurvivalGuideList :
 
         // State
         val (query, setQuery) = useState("")
-        val chapters = useChapters()
-        val (searchResults, summary) = useSearchResults(query)
+        val chapters = useSurvivalGuideChapters()
+        val (searchResults, summary) = useSearchSurvivalGuide(query)
 
         // Services
         val context = useAndroidContext()
@@ -178,47 +172,5 @@ class FragmentToolSurvivalGuideList :
         useEffect(summaryScrollView, summary) {
             summaryScrollView.scrollTo(0, 0)
         }
-    }
-
-    private fun useChapters(): List<GuideDetails> {
-        val context = useAndroidContext()
-        val (chapters, setChapters) = useState(emptyList<GuideDetails>())
-
-        useBackgroundEffect(context) {
-            val loader = GuideLoader(context)
-            setChapters(loader.load(includeContent = false))
-        }
-
-        return chapters
-    }
-
-    private fun useSearchResults(query: String): Pair<List<SurvivalGuideSearchResult>, String> {
-        val (results, setResults) = useState(emptyList<SurvivalGuideSearchResult>())
-        val (summary, setSummary) = useState("")
-        val context = useAndroidContext()
-        val queue = useCoroutineQueue()
-
-        useBackgroundEffect(query, context, cancelWhenRerun = true) {
-            // Debounce
-            delay(200)
-            queue.replace {
-                if (query.isBlank()) {
-                    setResults(emptyList())
-                    setSummary("")
-                } else {
-                    val search = SurvivalGuideSearch(context)
-                    val searchResults = search.search(query)
-                    setResults(searchResults)
-                    val firstResult = searchResults.firstOrNull()
-                    if (firstResult != null && firstResult.score >= 0.5f) {
-                        setSummary(search.getSummary(query, firstResult))
-                    } else {
-                        setSummary("")
-                    }
-                }
-            }
-        }
-
-        return results to summary
     }
 }
