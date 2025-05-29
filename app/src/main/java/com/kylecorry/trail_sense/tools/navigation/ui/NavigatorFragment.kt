@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.navigation.ui
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -34,7 +33,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
 import com.kylecorry.trail_sense.settings.ui.CompassCalibrationView
 import com.kylecorry.trail_sense.settings.ui.ImproveAccuracyAlerter
-import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
@@ -51,14 +49,6 @@ import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.Beacon
 import com.kylecorry.trail_sense.tools.diagnostics.status.GpsStatusBadgeProvider
 import com.kylecorry.trail_sense.tools.diagnostics.status.SensorStatusBadgeProvider
 import com.kylecorry.trail_sense.tools.diagnostics.status.StatusBadge
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.ILayerManager
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MapLayer
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MapLayerManager
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MultiLayerManager
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyAccuracyLayerManager
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyLocationLayerManager
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.PathLayerManager
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.TideLayerManager
 import com.kylecorry.trail_sense.tools.navigation.domain.CompassStyle
 import com.kylecorry.trail_sense.tools.navigation.domain.CompassStyleChooser
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
@@ -67,11 +57,7 @@ import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.quickactions.NavigationQuickActionBinder
 import com.kylecorry.trail_sense.tools.navigation.ui.data.UpdateAstronomyLayerCommand
 import com.kylecorry.trail_sense.tools.navigation.ui.errors.NavigatorUserErrors
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.BeaconLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyAccuracyLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyLocationLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.PathLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.TideLayer
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.NavigationCompassLayerManager
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.BeaconCompassLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.ICompassView
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.MarkerCompassLayer
@@ -139,13 +125,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private val loadBeaconsRunner = CoroutineQueueRunner()
 
-    private val pathLayer = PathLayer()
-    private val beaconLayer = BeaconLayer()
-    private val myLocationLayer = MyLocationLayer()
-    private val myAccuracyLayer = MyAccuracyLayer()
-    private val tideLayer = TideLayer()
-    private val mapLayer = MapLayer()
-    private var layerManager: ILayerManager? = null
+    private val layers = NavigationCompassLayerManager()
 
     // Compass layers
     private val beaconCompassLayer = BeaconCompassLayer()
@@ -225,24 +205,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         interval(Duration.ofSeconds(1)) {
             updateSensorStatus()
         }
-
-
-        // Initialize layers
-        beaconLayer.setOutlineColor(Resources.color(requireContext(), R.color.colorSecondary))
-        pathLayer.setShouldRenderWithDrawLines(userPrefs.navigation.useFastPathRendering)
-        mapLayer.setOpacity(127)
-        mapLayer.setReplaceWhitePixels(true)
-        mapLayer.setMinZoom(4)
-        binding.radarCompass.setLayers(
-            listOf(
-                mapLayer,
-                pathLayer,
-                myAccuracyLayer,
-                myLocationLayer,
-                tideLayer,
-                beaconLayer
-            )
-        )
 
         binding.roundCompass.setCompassLayers(
             listOf(
@@ -349,7 +311,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         if (!hasCompass) {
-            myLocationLayer.setShowDirection(false)
             binding.radarCompass.shouldDrawDial = userPrefs.navigation.showDialTicksWhenNoCompass
             binding.compassStatus.isVisible = false
             binding.navigationTitle.title.isVisible = false
@@ -409,23 +370,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     override fun onResume() {
         super.onResume()
 
-        // Recreate the layer management
-        layerManager = MultiLayerManager(
-            listOf(
-                PathLayerManager(requireContext(), pathLayer),
-                MyAccuracyLayerManager(
-                    myAccuracyLayer,
-                    Resources.getPrimaryMarkerColor(requireContext()),
-                    25
-                ),
-                MyLocationLayerManager(myLocationLayer, Color.WHITE),
-                TideLayerManager(requireContext(), tideLayer),
-                MapLayerManager(requireContext(), mapLayer)
-            )
-        )
-        if (useRadarCompass) {
-            layerManager?.start()
-        }
+        layers.resume(requireContext(), binding.radarCompass)
 
         // Resume navigation
         inBackground {
@@ -449,8 +394,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         super.onPause()
         loadBeaconsRunner.cancel()
         errors.reset()
-        layerManager?.stop()
-        layerManager = null
+        layers.pause(requireContext(), binding.radarCompass)
         northReferenceHideTimer.stop()
     }
 
@@ -570,7 +514,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             )
         }
 
-        effect("location", gps.location, layerManager, lifecycleHookTrigger.onResume()) {
+        effect("location", gps.location, lifecycleHookTrigger.onResume()) {
             updateLocation()
         }
 
@@ -635,7 +579,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             binding.navigationTitle.title.setTextDistinct(titleText)
         }
 
-        layerManager?.onBearingChanged(bearing.value)
+        layers.onBearingChanged(bearing.value)
 
         // Compass
         listOf<ICompassView>(
@@ -658,7 +602,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             formatService.formatLocation(location)
         )
 
-        layerManager?.onLocationChanged(location, gps.horizontalAccuracy)
+        layers.onLocationChanged(location, gps.horizontalAccuracy)
 
         // Compass center point
         listOf<ICompassView>(
@@ -677,7 +621,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 Distance.meters(nearbyDistance + 10)
             )
             val bounds = CoordinateBounds.from(loadGeofence)
-            layerManager?.onBoundsChanged(bounds)
+            layers.onBoundsChanged(bounds)
         }
     }
 
@@ -695,10 +639,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             }
 
             // Update beacon layers
-            beaconLayer.setBeacons(nearbyBeacons)
+            layers.setBeacons(nearbyBeacons)
             beaconCompassLayer.setBeacons(nearbyBeacons)
             beaconCompassLayer.highlight(destination)
-            beaconLayer.highlight(destination)
+            layers.setDestination(destination)
 
             // Destination
             if (destination != null) {
