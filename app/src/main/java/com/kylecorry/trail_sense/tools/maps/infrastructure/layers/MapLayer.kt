@@ -9,6 +9,7 @@ import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.CompassDirection
+import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.device.DeviceSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.tiles.TileLoader
@@ -57,6 +58,11 @@ class MapLayer : ILayer {
     }
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
+        // Avoid drawing while in safe mode
+        if (SafeMode.isEnabled()) {
+            return
+        }
+
         // Load tiles if needed
         val bounds = map.mapBounds
         if (shouldReloadTiles || !areBoundsEqual(

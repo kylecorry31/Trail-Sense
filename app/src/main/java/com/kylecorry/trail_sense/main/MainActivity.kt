@@ -23,6 +23,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.textfield.TextInputEditText
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.tryOrNothing
@@ -34,6 +35,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ActivityMainBinding
 import com.kylecorry.trail_sense.main.errors.ExceptionHandler
+import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.onboarding.OnboardingActivity
 import com.kylecorry.trail_sense.receivers.RestartServicesCommand
 import com.kylecorry.trail_sense.shared.CustomUiUtils.isDarkThemeOn
@@ -273,6 +275,14 @@ class MainActivity : AndromedaActivity() {
         }
 
         handleIntentAction(intent)
+
+        if (SafeMode.isEnabled()) {
+            Alerts.toast(
+                this,
+                getString(R.string.safe_mode_toast),
+                false
+            )
+        }
     }
 
     private fun handleIntentAction(intent: Intent) {
@@ -487,7 +497,7 @@ class MainActivity : AndromedaActivity() {
     }
 
     fun setBottomNavigationEnabled(isEnabled: Boolean) {
-        if (isEnabled){
+        if (isEnabled) {
             binding.bottomNavigation.enable()
         } else {
             binding.bottomNavigation.disable()
