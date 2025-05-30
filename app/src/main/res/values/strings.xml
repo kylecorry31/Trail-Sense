@@ -1694,4 +1694,6 @@
     <string name="harvested">Harvested</string>
     <string name="sightings">Sightings</string>
     <string name="sightings_count">Sightings (%d)</string>
+    <string name="pref_navigation_map_layer_enabled" translatable="false">pref_navigation_map_layer_enabled</string>
+    <string name="map_layer">Map layer</string>
 </resources>

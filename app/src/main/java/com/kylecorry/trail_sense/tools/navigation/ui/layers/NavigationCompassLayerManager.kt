@@ -41,14 +41,16 @@ class NavigationCompassLayerManager {
             myLocationLayer.setShowDirection(false)
         }
 
+        val isMapLayerEnabled = prefs.navigation.isMapLayerEnabled
+
         beaconLayer.setOutlineColor(Resources.color(context, R.color.colorSecondary))
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
         mapLayer.setOpacity(127)
         mapLayer.setReplaceWhitePixels(true)
         mapLayer.setMinZoom(4)
         view.setLayers(
-            listOf(
-                mapLayer,
+            listOfNotNull(
+                if (isMapLayerEnabled) mapLayer else null,
                 pathLayer,
                 myAccuracyLayer,
                 myLocationLayer,
@@ -58,7 +60,7 @@ class NavigationCompassLayerManager {
         )
 
         layerManager = MultiLayerManager(
-            listOf(
+            listOfNotNull(
                 PathLayerManager(context, pathLayer),
                 MyAccuracyLayerManager(
                     myAccuracyLayer,
@@ -67,7 +69,7 @@ class NavigationCompassLayerManager {
                 ),
                 MyLocationLayerManager(myLocationLayer, Color.WHITE),
                 TideLayerManager(context, tideLayer),
-                MapLayerManager(context, mapLayer)
+                if (isMapLayerEnabled) MapLayerManager(context, mapLayer) else null
             )
         )
 
