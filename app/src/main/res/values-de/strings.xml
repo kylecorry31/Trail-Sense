@@ -1295,4 +1295,13 @@
     <string name="below">Unter</string>
     <string name="range_header_units">Entfernung (%s)</string>
     <string name="velocity_header_units">Geschwindigkeit (%s)</string>
+    <string name="coral">Koralle</string>
+    <string name="fungus">Pilz</string>
+    <string name="antarctica">Antarktis</string>
+    <string name="australia">Australien</string>
+    <string name="rock">Fels</string>
+    <string name="jellyfish">Qualle</string>
+    <string name="inedible">Nicht essbar</string>
+    <string name="time_header_units">Zeit (%s)</string>
+    <string name="energy">Energie</string>
 </resources>
