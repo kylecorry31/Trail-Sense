@@ -1238,7 +1238,6 @@
         <item quantity="one">%d Stern</item>
         <item quantity="other">%d Sterne</item>
     </plurals>
-    <string name="map_layer">Kartenebene</string>
     <string name="augmented_reality_no_gyro_message">Augmented Reality lässt sich weiter verwenden, ist aber nicht mehr so genau.</string>
     <string name="audio_error_messsage">Das Abspielen von Ton führte zu einem Fehler.</string>
     <string name="ar_calibration_instructions">Zentriere das %s auf dem Schirm und drücke \"Kalibrieren\"</string>
