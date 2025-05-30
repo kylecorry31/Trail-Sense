@@ -5,6 +5,7 @@ import com.kylecorry.andromeda.core.toFloatCompat
 import com.kylecorry.andromeda.core.toIntCompat
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.IntEnumPreference
+import com.kylecorry.andromeda.preferences.IntPreference
 import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.sol.science.geography.CoordinateFormat
 import com.kylecorry.sol.units.Distance
@@ -218,6 +219,12 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         cache,
         context.getString(R.string.pref_navigation_map_layer_enabled),
         false
+    )
+
+    val mapLayerOpacity by IntPreference(
+        cache,
+        context.getString(R.string.pref_navigation_map_layer_opacity),
+        50 // percent
     )
 
     enum class SpeedometerMode {

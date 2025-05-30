@@ -111,14 +111,40 @@
             app:singleLineTitle="false"
             app:title="@string/pref_nearby_radar_title" />
 
+    </PreferenceCategory>
+
+    <!--Layers-->
+    <PreferenceCategory app:dependency="@string/pref_nearby_radar">
+        <Preference
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            app:title="@string/layers" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:dependency="@string/pref_nearby_radar"
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/photo_maps">
+
         <SwitchPreferenceCompat
-            android:dependency="@string/pref_nearby_radar"
-            android:summary="@string/photo_maps"
             app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/pref_navigation_map_layer_enabled"
             app:singleLineTitle="false"
-            app:title="@string/map_layer" />
+            app:title="@string/visible" />
+
+        <SeekBarPreference
+            android:defaultValue="50"
+            android:dependency="@string/pref_navigation_map_layer_enabled"
+            android:max="100"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_navigation_map_layer_opacity"
+            app:min="0"
+            app:seekBarIncrement="1"
+            app:showSeekBarValue="true"
+            app:singleLineTitle="false"
+            app:title="@string/opacity" />
 
     </PreferenceCategory>
 

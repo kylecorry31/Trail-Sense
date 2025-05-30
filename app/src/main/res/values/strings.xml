@@ -1695,6 +1695,7 @@
     <string name="sightings">Sightings</string>
     <string name="sightings_count">Sightings (%d)</string>
     <string name="pref_navigation_map_layer_enabled" translatable="false">pref_navigation_map_layer_enabled</string>
-    <string name="map_layer">Map layer</string>
     <string name="safe_mode_toast">Crashes detected, disabling some features for a few seconds.</string>
+    <string name="pref_navigation_map_layer_opacity" translatable="false">pref_navigation_map_layer_opacity</string>
+    <string name="opacity">Opacity</string>
 </resources>

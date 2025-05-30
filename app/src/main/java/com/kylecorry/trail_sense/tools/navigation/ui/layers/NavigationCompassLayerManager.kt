@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
@@ -45,7 +46,15 @@ class NavigationCompassLayerManager {
 
         beaconLayer.setOutlineColor(Resources.color(context, R.color.colorSecondary))
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
-        mapLayer.setOpacity(127)
+        mapLayer.setOpacity(
+            SolMath.map(
+                prefs.navigation.mapLayerOpacity.toFloat(),
+                0f,
+                100f,
+                0f,
+                255f
+            ).toInt()
+        )
         mapLayer.setReplaceWhitePixels(true)
         mapLayer.setMinZoom(4)
         view.setLayers(
