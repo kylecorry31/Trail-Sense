@@ -1363,4 +1363,8 @@
     <string name="mosquitoes">Mosquitos</string>
     <string name="active_period">Ativo de %1$s a %2$s</string>
     <string name="ticks">Carrapatos</string>
+    <string name="sightings">Observações</string>
+    <string name="sightings_count">Observações (%d)</string>
+    <string name="record_sighting">Registrar observações</string>
+    <string name="harvested">Colhido</string>
 </resources>

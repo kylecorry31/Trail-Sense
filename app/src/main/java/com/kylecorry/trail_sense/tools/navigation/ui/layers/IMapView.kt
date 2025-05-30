@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.navigation.ui.layers
 
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 
 interface IMapView {
@@ -36,4 +37,6 @@ interface IMapView {
      * The rotation of the map from azimuth. Ex. the top of the map doesn't point north
      */
     val mapRotation: Float
+
+    val mapBounds: CoordinateBounds
 }

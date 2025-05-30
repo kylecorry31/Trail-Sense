@@ -213,6 +213,13 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         SpeedometerMode.GPS
     )
 
+    // Layers
+    val isMapLayerEnabled by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_navigation_map_layer_enabled),
+        false
+    )
+
     enum class SpeedometerMode {
         Backtrack,
         GPS,

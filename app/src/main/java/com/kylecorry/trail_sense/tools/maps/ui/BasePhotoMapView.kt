@@ -8,6 +8,7 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.science.geography.projections.IMapProjection
+import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
@@ -62,6 +63,30 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
         get() = fullMetersPerPixel / scale
         set(value) {
             requestScale(getScale(value))
+        }
+
+    override val mapBounds: CoordinateBounds
+        get() {
+            val topLeft = toCoordinate(
+                PixelCoordinate(0f, 0f)
+            )
+            val topRight = toCoordinate(
+                PixelCoordinate(width.toFloat(), 0f)
+            )
+            val bottomRight = toCoordinate(
+                PixelCoordinate(width.toFloat(), height.toFloat())
+            )
+            val bottomLeft = toCoordinate(
+                PixelCoordinate(0f, height.toFloat())
+            )
+            return CoordinateBounds.from(
+                listOf(
+                    topLeft,
+                    topRight,
+                    bottomRight,
+                    bottomLeft
+                )
+            )
         }
 
     private fun getScale(metersPerPixel: Float): Float {

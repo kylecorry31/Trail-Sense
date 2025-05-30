@@ -80,6 +80,10 @@ class FileSubsystem private constructor(private val context: Context) {
         local.delete(path)
     }
 
+    suspend fun streamLocal(path: String): InputStream = onIO {
+        local.inputStream(path)
+    }
+
     suspend fun stream(uri: Uri): InputStream? = onIO {
         external.stream(uri)
     }

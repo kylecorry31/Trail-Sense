@@ -1691,7 +1691,10 @@
     <string name="active_period">Active from %1$s to %2$s</string>
     <string name="ticks">Ticks</string>
     <string name="record_sighting">Record sighting</string>
-    <string name="havested">Havested</string>
+    <string name="harvested">Harvested</string>
     <string name="sightings">Sightings</string>
     <string name="sightings_count">Sightings (%d)</string>
+    <string name="pref_navigation_map_layer_enabled" translatable="false">pref_navigation_map_layer_enabled</string>
+    <string name="map_layer">Map layer</string>
+    <string name="safe_mode_toast">Crashes detected, disabling some features for a few seconds.</string>
 </resources>

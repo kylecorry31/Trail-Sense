@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.camera.camera2.Camera2Config
 import androidx.camera.core.CameraXConfig
+import com.kylecorry.trail_sense.main.errors.SafeMode
 
 
 class TrailSenseApplication : Application(), CameraXConfig.Provider {

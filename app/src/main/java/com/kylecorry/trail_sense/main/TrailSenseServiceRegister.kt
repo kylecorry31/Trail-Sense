@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.device.DeviceSubsystem
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
@@ -39,6 +40,7 @@ object TrailSenseServiceRegister {
         AppServiceRegistry.register(FileSubsystem.getInstance(appContext))
         AppServiceRegistry.register(AppDatabase.getInstance(appContext))
         AppServiceRegistry.register(LocationSubsystem.getInstance(appContext))
+        AppServiceRegistry.register(DeviceSubsystem(appContext))
 
         Tools.getTools(context, false).forEach { tool ->
             tool.singletons.forEach { producer ->

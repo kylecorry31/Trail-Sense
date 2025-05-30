@@ -1419,4 +1419,8 @@
     <string name="mosquitoes">Komáři</string>
     <string name="insect_activity">Aktivita hmyzu</string>
     <string name="ticks">Klíšťata</string>
+    <string name="sightings">Pozorování</string>
+    <string name="sightings_count">Pozorování (%d)</string>
+    <string name="record_sighting">Zaznamenat pozorování</string>
+    <string name="harvested">Sklizeno</string>
 </resources>
