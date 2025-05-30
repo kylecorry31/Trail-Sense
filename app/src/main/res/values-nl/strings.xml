@@ -1397,4 +1397,6 @@
     <string name="harvested">Verzameld</string>
     <string name="sightings_count">Waarnemingen (%d)</string>
     <string name="record_sighting">Waarneming opslaan</string>
+    <string name="opacity">Helderheid</string>
+    <string name="safe_mode_toast">Crashes gedetecteerd, sommige functies zijn enkele seconden uitgeschakeld.</string>
 </resources>
