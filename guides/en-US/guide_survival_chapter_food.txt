@@ -188,10 +188,14 @@ Alternatively, you can construct an M-shaped funnel trap by hammering sticks int
 
 1. Once you catch a fish, bring it away from the shoreline. Do not hold or place it near the water before killing it, as it may flop back in.
 2. Stun the fish by hitting it hard on the head with a club or rock. Then use a knife to cut the gills or pierce the brain to ensure it is dead.
-3. Remove scales by scraping them off with a knife (tail to head).
+3. (Optional) Remove scales by scraping them off with a knife (tail to head).
 4. Cut open the belly and remove the entrails. You can also cut off the head and tail to make this easier.
-5. Cut the fish into usable pieces or fillet it. If it is small, you can cook it whole.
+5. (Optional) Cut the fish into usable pieces or fillet it.
 6. Cook the fish.
+
+Cutting pattern to remove entrails (red line):
+
+![](file:///android_asset/survival_guide/prepare_fish.webp)
 
 ## Other animals
 <!-- K: animal, hunt, kill -->
