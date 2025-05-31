@@ -26,6 +26,8 @@ You can pinch to zoom the radar compass, which will change the nearby beacon rad
 
 If your device does not have a compass, you can still choose to display the compass dial ticks by enabling the Settings > Navigation > 'Show dial ticks on nearby radar' option. Please note, that without a compass sensor, moving your device will not change the direction of the radar compass.
 
+You can choose to display a map layer containing your Photo Maps on the compass by enabling Settings > Navigation > Photo Maps > Visible. This will show nearby Photo Maps as the background of the compass, with the most zoomed-in map appearing on top. You can also adjust the opacity of this layer to make it less visible via Settings > Navigation > Photo Maps > Opacity.
+
 ### Linear compass
 
 The linear compass is displayed when you hold your phone vertically. You can also use the sighting compass feature with the linear compass by tapping the camera icon on the right side of the screen. This will display the compass overlaid on a camera viewfinder. With the sighting compass active, you can pinch to zoom the camera viewfinder.

@@ -206,3 +206,6 @@ You can find additional information about Trail Sense in Settings > About.
 You can enable the Settings quick action in the settings for the tab where you want it to appear.
 
 To use the quick action, tap the quick action button and settings page for the active tool will be opened. Long press the quick action to open the app settings.
+
+## Safe mode
+If Trail Sense crashes multiple times in a row, it will enter Safe Mode. For now, this only disables the Photo Maps layer in the Navigation tool, but more features may be disabled in future updates. You will be able to access Settings and disable any features that may be causing the issue. Safe mode will disable automatically after 20 seconds.
