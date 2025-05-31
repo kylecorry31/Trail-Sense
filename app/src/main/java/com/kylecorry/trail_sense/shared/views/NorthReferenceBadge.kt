@@ -7,6 +7,7 @@ import android.widget.FrameLayout
 import androidx.navigation.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.views.badge.Badge
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
@@ -34,7 +35,7 @@ class NorthReferenceBadge(
     var showDetailsOnClick: Boolean = false
         set(value) {
             field = value
-            if (value){
+            if (value) {
                 badge.setOnClickListener {
                     showDescription()
                 }
@@ -64,22 +65,31 @@ class NorthReferenceBadge(
         badge.setStatusText(text)
     }
 
-    private fun showDescription(){
-        val title = if (useTrueNorth){
+    private fun showDescription() {
+        val title = if (useTrueNorth) {
             context.getString(R.string.true_north)
         } else {
             context.getString(R.string.magnetic_north)
         }
 
-        val message = if (useTrueNorth){
+        val message = if (useTrueNorth) {
             context.getString(R.string.true_north_description)
         } else {
             context.getString(R.string.magnetic_north_description)
         }
 
-        Alerts.dialog(context, title, message, okText = context.getString(R.string.settings)){ cancelled ->
-            if (!cancelled){
-                findNavController().navigate(R.id.calibrateCompassFragment)
+        val controller = tryOrDefault(null) { findNavController() }
+        Alerts.dialog(
+            context,
+            title,
+            message,
+            okText = if (controller != null) context.getString(R.string.settings) else context.getString(
+                android.R.string.ok
+            ),
+            cancelText = if (controller != null) context.getString(android.R.string.cancel) else null,
+        ) { cancelled ->
+            if (!cancelled) {
+                controller?.navigate(R.id.calibrateCompassFragment)
             }
         }
     }
