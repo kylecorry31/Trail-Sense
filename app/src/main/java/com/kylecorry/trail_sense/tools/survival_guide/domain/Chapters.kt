@@ -18,14 +18,14 @@ object Chapters {
                 R.drawable.ic_category_medical
             ),
             Chapter(
+                context.getString(R.string.shelter_and_clothing),
+                R.raw.guide_survival_chapter_shelter_and_clothing,
+                R.drawable.ic_category_shelter
+            ),
+            Chapter(
                 context.getString(R.string.water),
                 R.raw.guide_survival_chapter_water,
                 R.drawable.ic_category_water
-            ),
-            Chapter(
-                context.getString(R.string.category_food),
-                R.raw.guide_survival_chapter_food,
-                R.drawable.ic_category_food
             ),
             Chapter(
                 context.getString(R.string.category_fire),
@@ -33,9 +33,9 @@ object Chapters {
                 R.drawable.ic_category_fire
             ),
             Chapter(
-                context.getString(R.string.shelter_and_clothing),
-                R.raw.guide_survival_chapter_shelter_and_clothing,
-                R.drawable.ic_category_shelter
+                context.getString(R.string.category_food),
+                R.raw.guide_survival_chapter_food,
+                R.drawable.ic_category_food
             ),
             Chapter(
                 context.getString(R.string.navigation),

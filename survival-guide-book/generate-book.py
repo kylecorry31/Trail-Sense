@@ -40,20 +40,20 @@ chapters = [
         "file": "app/src/main/res/raw/guide_survival_chapter_medical.md"
     },
     {
-        "title": "Water",
-        "file": "app/src/main/res/raw/guide_survival_chapter_water.md"
+        "title": "Shelter and Clothing",
+        "file": "app/src/main/res/raw/guide_survival_chapter_shelter_and_clothing.md"
     },
     {
-        "title": "Food",
-        "file": "app/src/main/res/raw/guide_survival_chapter_food.md"
+        "title": "Water",
+        "file": "app/src/main/res/raw/guide_survival_chapter_water.md"
     },
     {
         "title": "Fire",
         "file": "app/src/main/res/raw/guide_survival_chapter_fire.md"
     },
     {
-        "title": "Shelter and Clothing",
-        "file": "app/src/main/res/raw/guide_survival_chapter_shelter_and_clothing.md"
+        "title": "Food",
+        "file": "app/src/main/res/raw/guide_survival_chapter_food.md"
     },
     {
         "title": "Navigation",
