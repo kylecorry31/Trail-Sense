@@ -189,6 +189,34 @@ If a mammal bit you, seek medical attention as soon as possible; you may need ra
     - If a **grizzly** attacks, play dead unless it stalks you, attacks in your tent, or continues attacking - then fight back.
   - Keep your backpack on; it can offer protection.
 
+## Bites: leeches
+<!-- K: leech, bite, suck, blood, remove -->
+<!-- S: Treat by removing the leech with a fingernail or flat object and cleaning the area. Prevent this by using insect repellent and wearing long sleeves and pants. -->
+
+Leeches attach to your skin and suck your blood. They can be found in freshwater lakes, ponds, and marshes.
+
+### Symptoms
+
+- Leech attached to the skin.
+- Bleeding.
+- Swelling.
+- Pain.
+
+### Treatment
+
+1. Pull it taut (but not too tight).
+2. Slide a fingernail or other flat object between the leech and your skin to detach it.
+3. Flick the leech away before it can reattach.
+4. Clean the wound and apply antibiotic ointment.
+5. Apply a bandage to control bleeding. It is normal for the wound to bleed for a while.
+
+Do not salt, burn, or pull the leech off, as this can cause it to regurgitate into the wound.
+
+### Prevention
+- Use insect repellent.
+- Wear long sleeves and pants.
+- Check for leeches frequently.
+
 ## Bites: snakes
 <!-- K: snake, bite, venom, poison, antivenom, snakebite -->
 <!-- S: Treat by cleaning the wound, applying a bandage, immobilizing the limb, and seeking medical attention. Prevent this by watching where you step and wearing high boots. -->
@@ -254,34 +282,6 @@ See the section on objects in the eye.
 - Ensure your immunizations are current for bug-borne diseases in the area.
 
 You can make an improvised bug repellent by applying mud to your skin or using fire smoke.
-
-## Bites: leeches
-<!-- K: leech, bite, suck, blood, remove -->
-<!-- S: Treat by removing the leech with a fingernail or flat object and cleaning the area. Prevent this by using insect repellent and wearing long sleeves and pants. -->
-
-Leeches attach to your skin and suck your blood. They can be found in freshwater lakes, ponds, and marshes.
-
-### Symptoms
-
-- Leech attached to the skin.
-- Bleeding.
-- Swelling.
-- Pain.
-
-### Treatment
-
-1. Pull it taut (but not too tight).
-2. Slide a fingernail or other flat object between the leech and your skin to detach it.
-3. Flick the leech away before it can reattach.
-4. Clean the wound and apply antibiotic ointment.
-5. Apply a bandage to control bleeding. It is normal for the wound to bleed for a while.
-
-Do not salt, burn, or pull the leech off, as this can cause it to regurgitate into the wound.
-
-### Prevention
-- Use insect repellent.
-- Wear long sleeves and pants.
-- Check for leeches frequently.
 
 ## Bites: ticks
 <!-- K: bite, repel, spray, tick, itch, swell, red, remove -->
