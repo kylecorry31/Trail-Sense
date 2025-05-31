@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.shared.text.nlp.processors.PorterStemmer
 import com.kylecorry.trail_sense.shared.text.nlp.processors.SequentialProcessor
 import com.kylecorry.trail_sense.shared.text.nlp.tokenizers.PostProcessedTokenizer
 import com.kylecorry.trail_sense.shared.text.nlp.tokenizers.SimpleWordTokenizer
+import com.kylecorry.trail_sense.shared.views.TrailSenseTextView
 import com.kylecorry.trail_sense.shared.views.Views
 
 object TextUtils {
@@ -121,11 +122,8 @@ object TextUtils {
                 expandable
             } else {
                 // Only text nodes
-                val t = Views.text(context, null).also {
-                    (it as TextView).movementMethod = LinkMovementMethodCompat.getInstance()
-                    it.setTextIsSelectable(true)
-                }
-                markdown.setMarkdown(t as TextView, section.joinToString("\n") { it.toMarkdown() })
+                val t = defaultTextView(context)
+                markdown.setMarkdown(t, section.joinToString("\n") { it.toMarkdown() })
                 t
             }
         }
@@ -264,11 +262,9 @@ object TextUtils {
         expandable.addView(titleView)
 
         expandable.addView(
-            Views.text(context, null).also {
-                (it as TextView).movementMethod = LinkMovementMethodCompat.getInstance()
+            defaultTextView(context).also {
                 it.setPadding(margin)
                 setContent(it)
-                it.setTextIsSelectable(true)
             }
         )
 
@@ -285,9 +281,23 @@ object TextUtils {
         return text.replace(commentRegex, "").trim()
     }
 
+    private fun defaultTextView(context: Context): TextView {
+        return TrailSenseTextView(context).also {
+            it.layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            it.movementMethod = LinkMovementMethodCompat.getInstance()
+            it.setTextIsSelectable(true)
+        }
+    }
+
 
     data class TextSection(val title: String?, val level: Int?, val content: String) {
-        fun toMarkdown(shouldUppercaseTitle: Boolean = false, removeComments: Boolean = true): String {
+        fun toMarkdown(
+            shouldUppercaseTitle: Boolean = false,
+            removeComments: Boolean = true
+        ): String {
             val contentWithoutComments = if (removeComments) {
                 removeMarkdownComments(content)
             } else {
