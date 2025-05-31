@@ -156,10 +156,34 @@ If your GPS supports digital maps, download maps of your area in advance to navi
 
 A compass helps you determine direction and is essential for navigation, especially with a map. Do not use the compass around metal objects, as it will cause the reading to be inaccurate. If you are using a digital compass on a smartphone, it will need to be calibrated by rotating your device in a figure-8 pattern (the pattern may vary by device).
 
+### Directions
+<!-- K: direction, cardinal, north, south, east, west, primary, secondary, northeast, southeast, northwest, southwest -->
+
+You may see directions indicated in symbols, words, or degrees (0° to 360°). Here are some common directions you may encounter:
+
+- North (N): 0° or 360°
+- Northeast (NE): 45°
+- East (E): 90°
+- Southeast (SE): 135°
+- South (S): 180°
+- Southwest (SW): 225°
+- West (W): 270°
+- Northwest (NW): 315°
+
 ### Bearings
 <!-- K: bearing, direction, needle, read -->
 
-A bearing is the direction you must travel to reach a specific point. You can determine a bearing by aligning the compass needle with the desired direction on the compass housing. Once you have the bearing, follow it to your destination. Pick a prominent feature in the distance to navigate toward, avoiding the need for constant compass checks.
+A bearing is the direction you must travel to reach a specific point. Determining your bearing will depend on the type of compass you are using. On most compasses, either the whole dial or a needle will rotate to face north.
+
+Dial compasses (button, dial, lensatic, digital) have a circular plate that features printed direction indicators and tick marks. There is usually an arrow or line on the housing that doesn't move. Hold the compass flat and in front of you with the fixed arrow pointed away from you. The direction on the plate that is right behind the arrow is your bearing.
+
+Needle or baseplate compasses have a rotating needle, with one side normally painted red to indicate north. The directions are printed onto a bezel that you can rotate by hand, and you may see a wide arrow under the needle that rotates with this. There is usually an arrow or line on the housing that doesn't move. Hold the compass flat and in front of you with the fixed arrow pointed away from you. Rotate the bezel until the north side of the needle aligns with the wide arrow below it or north on the dial (they are the same). The direction right behind the arrow is your bearing.
+
+You can use the image below to see how to read the direction on your compass.
+
+INSERT IMAGE HERE
+
+If you know which direction you need to go, rotate yourself until you are facing that bearing. You can avoid having to keep your compass out by identifying a prominent feature in the distance and walking to that.
 
 ### Back bearings
 <!-- K: back, back-bearing, opposite, backtrack -->
