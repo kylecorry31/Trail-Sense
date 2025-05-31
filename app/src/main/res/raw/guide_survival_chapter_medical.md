@@ -189,7 +189,7 @@ If a mammal bit you, seek medical attention as soon as possible; you may need ra
     - If a **grizzly** attacks, play dead unless it stalks you, attacks in your tent, or continues attacking - then fight back.
   - Keep your backpack on; it can offer protection.
 
-## Bites: Snakes
+## Bites: snakes
 <!-- K: snake, bite, venom, poison, antivenom, snakebite -->
 <!-- S: Treat by cleaning the wound, applying a bandage, immobilizing the limb, and seeking medical attention. Prevent this by watching where you step and wearing high boots. -->
 
