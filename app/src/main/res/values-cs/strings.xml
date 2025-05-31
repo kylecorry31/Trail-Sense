@@ -1424,4 +1424,5 @@
     <string name="record_sighting">Zaznamenat pozorování</string>
     <string name="harvested">Sklizeno</string>
     <string name="safe_mode_toast">Detekovány pády, na několik sekund zakázány některé funkce.</string>
+    <string name="opacity">Neprůhlednost</string>
 </resources>
