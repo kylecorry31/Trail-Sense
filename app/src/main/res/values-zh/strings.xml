@@ -1385,4 +1385,5 @@
     <string name="sightings_count">发现（%d）</string>
     <string name="harvested">已搜集</string>
     <string name="safe_mode_toast">检测到崩溃，正在停用一些功能几秒。</string>
+    <string name="opacity">不透明</string>
 </resources>

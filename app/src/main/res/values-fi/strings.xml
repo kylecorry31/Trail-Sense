@@ -1248,7 +1248,7 @@
     <string name="no_permits">Ei lupia</string>
     <string name="above">Yläpuolella</string>
     <string name="below">Alapuolella</string>
-    <string name="adjustment_per_click">Säätö per askel</string>
+    <string name="adjustment_per_click">Säätö per tähtäimen askel</string>
     <string name="milligrams">Milligrammaa</string>
     <string name="milligrams_format">%s mg</string>
     <string name="ballistics">Ballistiikka</string>
@@ -1325,4 +1325,6 @@
     <string name="record_sighting">Tallenna havainto</string>
     <string name="sightings">Havainnot</string>
     <string name="harvested">Kerätty</string>
+    <string name="opacity">Läpinäkymättömyys</string>
+    <string name="safe_mode_toast">Kaatumisia havaittu, osa ominaisuuksista poistetaan käytöstä muutamaksi sekuniksi.</string>
 </resources>
