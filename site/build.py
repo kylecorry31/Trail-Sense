@@ -4,9 +4,15 @@ import shutil
 from generation import get_collection_metadata
 from generation.markdown_converter import get_markdown_metadata
 from generation.render import md_to_html, populate_html
+import sys
 
 def read_config():
-    with open("config.yaml", mode="r", encoding="utf-8") as input_file:
+    if len(sys.argv) > 1:
+        config_path = sys.argv[1]
+    else:
+        config_path = "config.yaml"
+
+    with open(config_path, mode="r", encoding="utf-8") as input_file:
         return yaml.load(input_file, Loader=yaml.FullLoader)
 
 ## STEP 1: Assemble the site-wide metadata ##
