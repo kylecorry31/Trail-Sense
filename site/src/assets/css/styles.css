@@ -317,6 +317,7 @@ button:hover {
 
 .feature img {
   max-height: 50vh;
+  max-width: 100%;
 }
 
 #other-features {
