@@ -31,7 +31,7 @@ class Handler(FileSystemEventHandler):
   
   def run_build():
     print("Starting build")
-    subprocess.call(["python", "build.py"])
+    subprocess.call(["python", "build.py", "local_config.yaml"])
 
   @staticmethod
   def on_any_event(event):
