@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Trail Sense Privacy Policy on location and background location permissions" />
+  <title>Privacy Policy</title>
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+</head>
+
+<body>
+  <section id="privacy-policy">
+    <div class="container">
+      <h1 class="text-center">Privacy Policy</h1>
+      <h2 class="text-center">Trail Sense</h2>
+      <p class="bold">Last Updated July 5, 2023</p>
+      <p>
+        This is the Privacy Policy of Trail Sense. Trail Sense is an Android
+        app which uses your phone's sensors to assist with wilderness treks or
+        survival situations. This Privacy Policy describes all the sensitive
+        data in which Trail Sense uses (does not collect or share), including,
+        but not limited to location and background location.
+      </p>
+      <p>
+        Location information gathered by this application does not leave your
+        device (as a matter of fact, this app doesn't use the Internet at
+        all). The altitude and pressure history for the last 48 hours is
+        stored in local app storage - this is used to determine weather
+        forecasts. The last known location is also stored in app preferences
+        to allow faster load times and support app functionality when the GPS
+        can not be reached. The beacons store their location in a local SQLite
+        database. All of this information is cleared when you clear the app
+        storage or delete it.
+      </p>
+      <h3>Data collection / storage</h3>
+      <p>
+        Trail Sense does not collect or share any user information outside of
+        the app itself. All data stored by Trail Sense is done locally on your
+        device.
+      </p>
+      <h3>Data retention</h3>
+      <p>
+        All data (which is stored on your device) is cleared when you clear
+        the cache/storage of the application.
+      </p>
+      <h3>Location and background location</h3>
+      <p>
+        Trail Sense uses location data for navigation, barometer calibration,
+        and astronomy calculations.
+      </p>
+      <p>
+        <span class="bold">48 hours of altitude history</span>: When weather monitoring is enabled. This is used for sea
+        level calibration of barometer data.
+      </p>
+      <p>
+        <span class="bold">Your last location</span>: This is used as a cache
+        for your location when you either don't have a GPS signal or when the
+        GPS fix is taking too long.
+      </p>
+      <p>
+        <span class="bold">Beacon / path information</span>: The coordinates and
+        other information for the beacons / paths you create are stored on your
+        device, so you can navigate to them in the future.
+      </p>
+      <p>
+        <span class="bold">Sunset alerts</span>: When sunset alerts are enabled, Trail Sense uses your last known
+        location in the background to ensure the sunset alert time is accurate while you are traveling.
+      </p>
+      <h3>Permissions</h3>
+      <h4>Sensitive permissions (can be denied)</h4>
+      <ul>
+        <li>
+          <strong>Notifications</strong>: Allows Trail Sense to display notifications (backtrack, weather, sunset
+          alerts, astronomy events, water boil timer, etc)
+          <br>
+          <small>
+            <strong>When denied</strong>: Alerts will not be displayed and some services may not function properly
+            depending on your device manufacturer.
+          </small>
+        </li>
+        <li>
+          <strong>Location</strong>: Allows Trail Sense to retrieve your location for navigation, weather (sea level
+          calibration), and astronomy.
+          <br>
+          <small>
+            <strong>When denied</strong>: You will have the ability to mock your location under Settings > Sensors >
+            GPS. On Android 14+, backtrack and weather will be unavailable due to Android OS constraints.
+          </small>
+        </li>
+        <li>
+          <strong>Background location</strong>: Allows Trail Sense to retrieve your location for sunset alerts while in
+          the background. On some devices, this will also improve the reliability of backtrack and weather monitor
+          (though shouldn't be needed on most devices).
+          <br>
+          <small>
+            <strong>When denied</strong>: If you travel and do not open Trail Sense, but have Sunset Alerts enabled, the
+            times will likely be inaccurate.
+          </small>
+        </li>
+        <li>
+          <strong>Physical activity</strong>: Allows Trail Sense to use your phone's pedometer for distance calculation.
+          <br>
+          <small>
+            <strong>When denied</strong>: The pedometer will not work.
+          </small>
+        </li>
+        <li>
+          <strong>Camera</strong>: Allows Trail Sense to use your camera on the sighting compass, clinometer, and for
+          taking photos used by the Cloud Scanner, QR Code Scanner, and Photo Maps.
+          <br>
+          <small>
+            <strong>When denied</strong>: You will not be able to use the sighting compass, camera clinometer, or QR
+            Code Scanner. You will need to pick an existing photo to use for the Cloud Scanner or Photo Maps.
+          </small>
+        </li>
+        <li>
+          <strong>Alarms & reminders</strong>: Allows Trail Sense to post a notification at an exact time. This is used
+          by the Clock tool (when updating system time) and Sunset Alerts.
+          <br>
+          <small>
+            <strong>When denied</strong>: The clock and sunset alerts may not be accurate.
+          </small>
+        </li>
+      </ul>
+
+      <h4>Non-sensitive permissions (can't be denied)</h4>
+      <ul>
+        <li>
+          <strong>Run at startup</strong>:  Allows Trail Sense to restart when you reboot your device. This will re-enable backtrack, weather monitor, and several other background services.
+        </li>
+        <li>
+          <strong>Run foreground service</strong>: Allows Trail Sense to start foreground services, such as backtrack and weather monitor.
+        </li>
+        <li>
+          <strong>Flashlight</strong>: Allows Trail Sense to control the phone's flashlight.
+        </li>
+        <li>
+          <strong>Control vibration</strong>: Allows Trail Sense to vibrate the phone. Used for haptic feedback on dials and on the metal detector tool.
+        </li>
+        <li>
+          <strong>Prevent phone from sleeping</strong>: Allows Trail Sense to reliably run services such as backtrack and weather monitor, especially when the frequency is under 15 minutes.
+        </li>
+      </ul>
+
+    </div>
+  </section>
+</body>
+
+</html>

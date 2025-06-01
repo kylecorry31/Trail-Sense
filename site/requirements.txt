@@ -1,0 +1,5 @@
+markdown
+pystache
+PyYAML
+watchdog
+Pillow

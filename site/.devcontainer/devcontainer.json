@@ -1,0 +1,5 @@
+{
+    "name": "Trail Sense Website",
+    "image": "mcr.microsoft.com/vscode/devcontainers/python:3.12",
+    "postCreateCommand": "pip install -r requirements.txt"
+}

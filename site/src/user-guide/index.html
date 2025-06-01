@@ -1,0 +1,17 @@
+{{{includes.header}}}
+
+<section id="posts">
+    <div class="container">
+        <h2 class="mb-2">User Guide</h2>
+        <div class="recipes">
+            {{#collections.user-guide.items}}
+            <a href="{{ url }}" class="hidden-link">
+                <div class="recipe">
+                    <h3>{{ title }}</h3>
+                </div>
+            </a>
+            {{/collections.user-guide.items}}
+        </div>
+    </div>
+</section>
+{{{includes.footer}}}

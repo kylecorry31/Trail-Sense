@@ -36,3 +36,9 @@ emulator.log
 .attach_*
 Book.pdf
 Book.epub
+
+# Website
+_site/
+__pycache__/
+*.py[cod]
+.venv/
