@@ -443,7 +443,7 @@ class MainActivity : AndromedaActivity() {
             .setOnMenuItemClickListener {
                 if (navController.currentDestination?.id == R.id.action_experimental_tools && !binding.quickActionsSheet.isOpen()) {
                     val searchinput = findViewById<TextInputEditText>(R.id.search_view_edit_text)
-                    if (searchinput.requestFocus()) {
+                    if (searchinput?.requestFocus() == true) {
                         val imm = getSystemService(InputMethodManager::class.java)
                         imm.showSoftInput(searchinput, InputMethodManager.SHOW_IMPLICIT)
                         return@setOnMenuItemClickListener true

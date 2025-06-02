@@ -32,6 +32,7 @@ release-builds-helper.sh
 scripts/survival_guide/output/
 converted.webp
 test_screenshot_log.txt
+error.txt
 emulator.log
 .attach_*
 Book.pdf
