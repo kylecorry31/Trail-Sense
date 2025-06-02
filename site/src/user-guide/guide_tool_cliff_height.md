@@ -5,6 +5,7 @@ title: "Cliff Height"
 The Cliff Height tool can be used to estimate the height of a cliff.
 
 ## Estimating height
+
 1. Ensure the area below the cliff is safe (no risk of landslides or people/animals).
 2. Drop a small rock or similar object down the cliff while holding the measure button.
 3. Release the button when the object hits the bottom.

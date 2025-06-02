@@ -17,5 +17,6 @@ To measure a flashlight's beam distance:
 
 ## Choosing an appropriate beam distance
 The beam distance you need depends on how you will use the flashlight:
+
 - For camping, a shorter beam lets you see your immediate surroundings.
 - For hiking, a longer beam lets you see farther ahead - try starting with 300 feet (100 meters).

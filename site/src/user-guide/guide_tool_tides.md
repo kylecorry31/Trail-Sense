@@ -80,23 +80,29 @@ If you don't have access to a tide table, you can estimate tides using the Tides
 To locate an official tide table, search the Internet for tides at your location. Here are some community-recommended sites offering tide tables:
 
 ### Worldwide
+
 - [tides4fishing](https://tides4fishing.com/)
 - [tide-forecast.com](https://www.tide-forecast.com/)
 - [SHOM](https://maree.shom.fr/)
 
 ### Germany
+
 - [BSH](https://www.bsh.de/DE/DATEN/Vorhersagen/Gezeiten/gezeiten_node.html)
 
 ### Netherlands
+
 - [Rijkswaterstaat](https://www.rijkswaterstaat.nl/water/waterdata-en-waterberichtgeving/waterdata/getij)
 
 ### UK
+
 - [UK Hydrographic Office: EasyTide](https://easytide.admiralty.co.uk/)
 
 ### UK + Ireland
+
 - [NTSLF Tides](https://ntslf.org/tides/predictions)
 
 ### USA
+
 - [NOAA Tides & Currents](https://tidesandcurrents.noaa.gov/tide_predictions.html)
 - [Tides.net](https://tides.net/)
 

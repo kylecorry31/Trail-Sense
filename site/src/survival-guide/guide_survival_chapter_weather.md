@@ -1,5 +1,5 @@
 ---
-title: "Weather"
+title: "8 - Weather"
 ---
 
 <!-- K: weather, condition, sky -->
@@ -14,23 +14,27 @@ Weather can quickly change from a nice day to a life-threatening situation. You 
 ### Gear
 
 **Necessities**:
+
 - 7-day weather forecast  
 - Appropriate clothing and shelter for the weather (see the Shelter and Clothing chapter)  
 - Poncho  
 - Sunglasses  
 
 **Optional**:
+
 - Barometer  
   - Many smartphones have barometers; you can use the Weather tool in Trail Sense to monitor pressure  
 - Thermometer  
 
 ### Knowledge and skills
 Start by learning how to do the following:
+
 - Read a weather forecast.
 - Deal with different types of weather.
 - Identify signs of worsening weather.
 
 Once you have mastered these skills, you should learn how to do the following:
+
 - Identify signs of improving weather.
 - Forecast weather based on observations.
 - Understand your region's climate.
@@ -66,6 +70,7 @@ Wind can make cold conditions feel even colder, increasing the risk of hypotherm
 Wind can cause sandstorms in desert environments, reducing visibility and making breathing difficult. Seek shelter during a sandstorm and protect your eyes and mouth with a bandana or cloth.
 
 Prevailing winds are winds that blow consistently in one direction over time. While local geography and bodies of water can affect wind patterns, general patterns are as follows:
+
 - 60° N to 90° N: Winds generally blow from the east.  
 - 30° N to 60° N: Winds generally blow from the west.  
 - 0° to 30° N: Winds generally blow from the northeast.  
@@ -146,7 +151,7 @@ You can learn to forecast weather by observing the signs around you. The more si
 
 Identifying the cloud type can improve your ability to forecast weather.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/clouds.webp)
+![](/assets/images/survival_guide/clouds.webp)
 
 1. **Cirrocumulus**: High-level clouds that form a wavy sheet. The sheet is composed of small dots which almost look two-dimensional. May indicate precipitation in the next 8 to 12 hours.
 2. **Altocumulus**: Mid-level puffy clouds that look like cotton balls. They are typically white with darker patches below and can be spaced out or sheet-like. May indicate precipitation or a thunderstorm in the next 12 hours.
@@ -166,7 +171,7 @@ Tides can affect outdoor activities near the coast. A receding tide can lead to 
 
 This map shows the tide types around the world. Green is semidiurnal, blue is mixed, and orange is diurnal.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/tides.webp)
+![](/assets/images/survival_guide/tides.webp)
 
 ### Semidiurnal tides
 Semidiurnal tides have two high tides and two low tides each day. If you know the time of high tide, the next low tide will be about 6 hours later, and the following high tide will be about 6 hours after that.
@@ -183,7 +188,7 @@ Diurnal tides have one high tide and one low tide each day. If you know the time
 
 You can estimate the time until sunset by holding your hand horizontally with your fingers together and counting the number of finger widths between the sun and the horizon. Each finger width represents roughly 15 minutes.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/sunset_hand.webp)
+![](/assets/images/survival_guide/sunset_hand.webp)
 
 Navigating in the dark is not recommended; if necessary, use a flashlight or headlamp to light your way. On nights with a nearly full moon, you can use the moonlight to help navigate.
 

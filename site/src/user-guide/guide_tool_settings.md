@@ -24,6 +24,7 @@ The current compass direction (azimuth) is displayed at the top of the compass s
 The reported accuracy of the compass is shown. If it is low, you can click this option to view instructions on how to calibrate.
 
 ### Source
+
 - **Magnetometer + Gyro**: This is the default source and should work on most devices. It uses the magnetometer and gyroscope sensors to determine the direction. When the gyroscope is added in, the reading is typically less noisy. This source is provided by your phone's manufacturer.
 - **Magnetometer**: This source only uses the magnetometer sensor to determine the direction. This source is provided by your phone's manufacturer.
 - **Magnetometer + Gyro (Custom)**: This source is similar to the Magnetometer + Gyro source, but the calculations are done by Trail Sense. If the Magnetometer + Gyro source is not working correctly, try this source.
@@ -66,21 +67,25 @@ The altimeter is used to measure altitude. To adjust altimeter settings, go to T
 The current elevation is displayed at the top of the altimeter settings. As you change settings, it will update to show the new elevation.
 
 ### Source
+
 - **GPS + Barometer**: This is the default source and should work on most devices with a barometer. It combines the GPS and barometer to determine the altitude.
 - **GPS**: This source only uses the GPS to determine the altitude. It is less accurate than the GPS + Barometer source.
 - **Barometer**: This source only uses the barometer to determine the altitude. It is more accurate than the GPS source, but may drift over time and you will need to calibrate it before use.
 - **Manual**: This source allows you to manually set the altitude. This is useful if you know the altitude of your location and it will not change.
 
 ### GPS + Barometer settings
+
 - **Force calibration interval**: You can choose to force the altimeter to recalibrate using the GPS every so often. This is useful to compensate for drift in the barometer, which may be due to changes in weather or location.
 - **Continuous calibration**: You can choose to continuously calibrate the altimeter using the GPS. This is useful if you are moving around a lot and want the most accurate altitude reading. When this is enabled, it prefers the barometer reading, but will slightly adjust it based on the GPS reading.
 - **Reset calibration**: You can choose to reset the calibration of the altimeter. This is useful if you are in a new location and want to recalibrate the barometer.
 
 ### GPS settings
+
 - **Samples**: The number of GPS samples to use when determining the altitude. A higher number will give a more accurate reading, but will take longer to calculate.
 - **NMEA elevation correction**: The elevation provided by the GPS needs to be corrected to match the actual elevation. If this setting is enabled, it will use the correction factor provided by the GPS. If it is disabled, it will use the correction factor provided by Trail Sense, which may be more accurate.
 
 ### Barometer / manual settings
+
 - **Elevation override**: If you are using the barometer or manual source, you can set the elevation manually. This is useful if you know the elevation of your location. If using the barometer source, this setting is used to calibrate the barometer and will change as you move.
 - **Set override from GPS**: You can choose to set the elevation override using the GPS if you don't know your current elevation (only sets it once).
 - **Set override from barometer**: If you know the current sea level pressure for your location, you can set the elevation override using the barometer (only sets it once). Only available on devices with a barometer.

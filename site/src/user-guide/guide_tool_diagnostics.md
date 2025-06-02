@@ -10,6 +10,7 @@ Trail Sense will list any warnings or errors that it detects. Warnings will have
 You can click on each item to see more information about the issue and how to resolve it.
 
 The diagnostics tool can detect:
+
 - Poor sensor accuracy
 - Missing sensors
 - Missing permissions

@@ -1,5 +1,5 @@
 ---
-title: "Water"
+title: "4 - Water"
 ---
 
 <!-- K: water, thirst, thirsty, drink -->
@@ -14,22 +14,26 @@ You can only survive a few days without water in most cases, and sometimes not e
 ### Gear
 
 **Necessities**:
+
 - Water (enough for the duration of your trip, plus a bit extra).
   - Bring a water purification method for longer trips and plan your route to include water sources.
 - Water containers (ensure you have a container that you can boil water in).
 
 **Optional**:
+
 - Water purification method (tablets or filter)
 - Cooking pot or container
 - Clear plastic sheet/tarp
 
 ### Knowledge and skills
 Start by learning how to do the following:
+
 - Plan your water needs for the trip
 - Locate water sources
 - Purify water by boiling
 
 Once you have mastered these skills, you should learn how to do the following:
+
 - Purify water using chemical treatment or filtration
 - Collect water from plants and other sources
 - Collect water using a solar still
@@ -91,13 +95,13 @@ A below-ground solar still is a simple device that uses the sun's heat to draw m
 4. Place a small rock in the center of the sheet directly over the container.
 5. Wait for the sun to heat the ground and evaporate moisture, which will condense on the plastic and drip into the container.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/solar_still.webp)
+![](/assets/images/survival_guide/solar_still.webp)
 
 **Transpiration bag**
 
 A transpiration bag is a plastic bag tied around a leafy branch to collect water. Use multiple bags to increase yield.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/transpiration_bag.webp)
+![](/assets/images/survival_guide/transpiration_bag.webp)
 
 1. Tie a plastic bag around a leafy branch, ensuring that the bag is airtight.
 2. Wait for the sun to heat the plant, causing moisture to evaporate and condense on the bag.
@@ -113,6 +117,7 @@ Always ensure the water you collect is safe to drink. Boiling is the most reliab
 <!-- K: boil, heat -->
 
 Bring water to a rolling boil for at least one minute. At higher altitudes (above 6,500 ft / 2,000 m), boil for three minutes. If you do not have a single-walled metal container that can be used for boiling, then do the following:
+
 1. Find another container, dig a hole in the ground and line it with a waterproof material, or craft a bowl.
 2. Fill the container with water.
 3. Heat rocks in a fire and place them in the water to heat it. **Do not** use rocks that may contain moisture (such as river rocks), as they can explode. Use two sticks in a chopstick fashion to move the rocks.
@@ -174,13 +179,15 @@ Water may contain chemicals from industrial or agricultural runoff. Purification
 
 A wooden bowl can be used to boil water using hot rocks.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/log_bowl.webp)
+![](/assets/images/survival_guide/log_bowl.webp)
 
 **Resources**
+
 - A small log (not decayed)
 - Hot coals
 
 **Instructions**
+
 1. Cut or obtain a small log.
 2. Place hot coals into the log using makeshift tongs.
 3. Let the coals burn out.
@@ -193,12 +200,14 @@ A wooden bowl can be used to boil water using hot rocks.
 
 You can use tongs to move around hot coals or rocks without getting burned.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/tongs.webp)
+![](/assets/images/survival_guide/tongs.webp)
 
 **Resources**
+
 - Green wood
 
 **Instructions**
+
 1. Cut a length of green wood.
 2. Split the wood down the middle to create a flat surface.
 3. Optionally, carve a small notch in the stick's center to allow it to bend more easily.
@@ -210,7 +219,7 @@ You can use tongs to move around hot coals or rocks without getting burned.
 
 A crafted filter can be used to remove sediment from water, but it will still require additional purification.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/filter.webp)
+![](/assets/images/survival_guide/filter.webp)
 
 **Resources**
 

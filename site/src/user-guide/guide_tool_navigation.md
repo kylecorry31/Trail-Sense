@@ -59,6 +59,7 @@ Phone compasses are not always accurate, so you should frequently calibrate your
 You can navigate to a beacon by tapping the navigate button in the bottom-right. This will open the Beacons tool, where you can select a beacon to navigate to. See the Beacons guide for more information.
 
 While navigating to a beacon, the direction will be displayed on the compass and all other nearby beacons will become transparent. A navigation panel will display at the bottom of your screen with the following information:
+
 - **Name**: The name of the beacon you are navigating to.
 - **Distance**: The distance to the beacon.
 - **Bearing**: The bearing to the beacon.

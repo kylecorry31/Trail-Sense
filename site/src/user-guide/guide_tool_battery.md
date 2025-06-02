@@ -32,6 +32,7 @@ You can enable the Power Saving Mode quick action in the settings for the tab yo
 To use the quick action, tap the power saving mode quick action button to toggle it on or off.
 
 ## Additional tips
+
 - Enable your phone's battery saver mode.
 - Reduce screen brightness.
 - Turn on airplane mode (you won't be able to receive calls/texts).

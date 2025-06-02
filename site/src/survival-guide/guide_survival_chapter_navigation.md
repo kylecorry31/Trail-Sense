@@ -1,5 +1,5 @@
 ---
-title: "Navigation"
+title: "7 - Navigation"
 ---
 
 <!-- K: navigate -->
@@ -13,15 +13,18 @@ Being able to navigate in the wilderness can help prevent you from getting lost 
 
 ### Gear
 **Necessities**:
+
 - Map
 - Compass
 - Flashlight/headlamp
 
 **Optional**:
+
 - GPS device
 
 ### Knowledge and skills
 Start by learning how to do the following:
+
 - Navigate with a map and compass.
 - Plan a route.
 - Set declination on a compass.
@@ -30,6 +33,7 @@ Start by learning how to do the following:
 - Read a topographic map.
 
 Once you have mastered these skills, you should learn how to do the following:
+
 - Use a GPS device for navigation.
 - Utilize advanced navigation techniques, like using the sun and stars.
 - Take a detour.
@@ -103,7 +107,7 @@ Blazes are painted symbols on trees or rocks. Typically, they are rectangles, sq
 
 Some blazes may also indicate the trail's direction, but this may not apply everywhere.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/trail_blazes.webp)
+![](/assets/images/survival_guide/trail_blazes.webp)
 
 1. **Two blazes, top blaze to the left**: Continue to the left
 2. **Two blazes, top blaze to the right**: Continue to the right
@@ -185,7 +189,7 @@ Needle or baseplate compasses have a rotating needle, with one side normally pai
 
 You can use the image below to see how to read the direction on your compass.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/compass_bearings.webp)
+![](/assets/images/survival_guide/compass_bearings.webp)
 
 If you know which direction you need to go, rotate yourself until you are facing that bearing. You can avoid having to keep your compass out by identifying a prominent feature in the distance and walking to that.
 
@@ -211,10 +215,11 @@ A map is a key tool for navigation, especially when paired with a compass.
 <!-- K: orient, north, compass -->
 
 You can orient a map to point north using a compass:
+
 1. Place the compass on the map with the direction of travel arrow pointing toward the top of the map.
 2. Rotate the map and compass together until the compass points north.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/93.webp)
+![](/assets/images/survival_guide/93.webp)
 
 ### Determining location
 <!-- K: location, triangulate, feature, bearing, find -->
@@ -222,6 +227,7 @@ You can orient a map to point north using a compass:
 To determine your location on a map, identify prominent features around you and match them to the map. Use a compass to determine your direction and align the map accordingly.
 
 To triangulate your location:
+
 1. Orient the map to point north using your compass.
 2. Identify and mark two prominent features around you on the map.
 3. Measure the bearing to each feature using your compass.
@@ -233,14 +239,14 @@ To triangulate your location:
 
 Maps are drawn to scale, allowing you to determine distances between points. A bar on the map indicates the scale. You can measure distances using a ruler, string, or finger.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/map_scale.webp)
+![](/assets/images/survival_guide/map_scale.webp)
 
 ### Topographic maps
 <!-- K: topographic, elevation, contour, terrain, peak, valley, ridge, depression, cliff, vegetation, legend -->
 
 Topographic maps show elevation changes and terrain features, making them helpful in navigating mountainous or hilly areas. Contour lines indicate elevation; the closer the lines are, the steeper the terrain. Elevation markers on contour lines help identify peaks and valleys.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/topographical_map.webp)
+![](/assets/images/survival_guide/topographical_map.webp)
 
 1. Peak
 2. Cliff
@@ -249,6 +255,7 @@ Topographic maps show elevation changes and terrain features, making them helpfu
 5. Valley
 
 Typical map colors include:
+
 - **Black**: Structures
 - **Red**: Roads
 - **Green**: Vegetation
@@ -277,14 +284,14 @@ If you measure which way shadows are moving over time, you can determine directi
 3. Draw a line between the two points for an east-west line. West will be in the direction of the first point.
 4. Draw a line at a right angle to the east-west line. South (or north in the Southern Hemisphere) will point toward the sun.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/direction_shadow.webp)
+![](/assets/images/survival_guide/direction_shadow.webp)
 
 ### Time
 <!-- K: time, watch, hour, hand, analog -->
 
 You can determine your direction using the position of the sun and the current time. This will be a rough approximation, but it's better than nothing. Point the hour hand of an analog watch at the sun; south is roughly halfway between the hour hand and 12 o'clock in the Northern Hemisphere. In the Southern Hemisphere, point the 12 o'clock position at the sun. If on daylight saving time, use 1 o'clock instead of 12.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/direction_watch.webp)
+![](/assets/images/survival_guide/direction_watch.webp)
 
 ### Stars
 <!-- K: star, night, constellation, polaris, big dipper, cassiopeia, southern cross -->
@@ -293,11 +300,11 @@ Being able to identify a handful of constellations will help you determine direc
 
 In the Northern Hemisphere, identify Polaris (the North Star) using the Big Dipper and Cassiopeia as reference points. Polaris is directly to the north.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/northern_stars.webp)
+![](/assets/images/survival_guide/northern_stars.webp)
 
 In the Southern Hemisphere, you can use the Southern Cross to determine south. Extend a line from the top and bottom stars of the Cross's long axis, continuing about 4.5 times the distance between these stars toward the horizon to approximate the South Pole. This method is more difficult than the one used in the Northern Hemisphere.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/southern_stars.webp)
+![](/assets/images/survival_guide/southern_stars.webp)
 
 ## Craft: Compass
 <!-- K: compass, needle, magnet, north, south, east, west, direction, craft -->
@@ -305,14 +312,16 @@ In the Southern Hemisphere, you can use the Southern Cross to determine south. E
 
 You can craft a makeshift compass by magnetizing a needle and floating it in water.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/bushcraft_compass.webp)
+![](/assets/images/survival_guide/bushcraft_compass.webp)
 
 **Resources**
+
 - Needle
 - Knife
 - Leaf or bottle cap
 - Water
 
 **Instructions**
+
 1. Magnetize the needle by stroking it with the knife in one direction (to avoid dulling the blade, use the back of the knife). Stroke at least 50 times.
 2. Place the needle on the leaf/cap and float it in water. The needle will slowly align to the north-south axis. Ensure no currents or wind could affect the needle.

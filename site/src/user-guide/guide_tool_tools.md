@@ -17,6 +17,7 @@ The tool list can be accessed by tapping the Tools item in the bottom navigation
 Clicking on a tool will open it.
 
 You can also long-press on a tool to see more options:
+
 - **About**: Provides more details about what the tool does.
 - **Pin/unpin**: Allows you to pin the tool to the top of the list.
 - **User guide**: Opens the user guide for the tool.
@@ -30,6 +31,7 @@ You can also pin/unpin tools in bulk by tapping the edit icon to the right of th
 
 ## Sorting tools
 You can change the order of the tools by clicking the sort icon to the right of the tools header. This will allow you to sort by:
+
 - **Name**: Sorts alphabetically by tool name.
 - **Category**: Groups tools by category and sorts alphabetically within each category.
 

@@ -5,6 +5,7 @@ title: "Beacons"
 The Beacons tool can be used to save locations and navigate to them later.
 
 ## Creating a beacon
+
 1. Tap the '+' button in the bottom-right corner of the screen.
 2. Click 'Beacon'.
 3. Enter a name for the beacon.
@@ -13,6 +14,7 @@ The Beacons tool can be used to save locations and navigate to them later.
 6. Click the checkmark button in the top-right corner of the screen.
 
 ### Optional fields
+
 - **Elevation**: The elevation of the beacon. You can click the elevation icon next to the elevation field to use your current elevation.
 - **Create at distance**: If you want to place a beacon at a known distance and direction from a location, you can toggle this on. You will then need to enter the distance away and set the direction to the new location before you can save the beacon. The new beacon will be placed at the distance and direction away from the location entered above.
 - **Group**: The group to add the beacon to. Tap a group and click 'OK' to add the beacon to that group. To create a new group, see the 'Organizing beacons' section below.
@@ -56,6 +58,7 @@ To use Overpass Turbo:
 Beacons will be shown in the beacon list and will display the distance to the beacon from your current location.
 
 To open a beacon, click the beacon in the list. This will open the beacon details page. The following information will be shown:
+
 - **Name**: The name of the beacon.
 - **Location**: The location of the beacon.
 - **Elevation**: The elevation of the beacon.

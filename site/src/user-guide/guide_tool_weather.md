@@ -19,6 +19,7 @@ To change the recording frequency, click the time under the weather monitor labe
 For better accuracy, grant Trail Sense Location permission to determine your elevation via GPS. This helps convert pressure to sea level pressure, improving prediction accuracy.
 
 In Settings > Weather, you can customize the notification to show:
+
 - **Pressure**: Displays the current pressure.
 - **Temperature**:  Displays the current temperature (refer to Thermometer guide for details).
 

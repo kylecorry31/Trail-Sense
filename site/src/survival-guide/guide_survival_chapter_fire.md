@@ -1,5 +1,5 @@
 ---
-title: "Fire"
+title: "5 - Fire"
 ---
 
 <!-- K: fire, flame, light, heat, warm, burn -->
@@ -13,14 +13,17 @@ Knowing how to make fire can help you stay warm, purify water, and cook food. Yo
 
 ### Gear
 **Necessities**:
+
 - Firestarter (waterproof matches, lighters, or fire steel - carry at least two different types)
   - You can carry a credit-card-sized Fresnel lens in your wallet or phone case as an emergency backup firestarter.
 
 **Optional**:
+
 - Tinder (dryer lint, cotton balls, or commercial fire starters)
 
 ### Knowledge and skills
 Start by learning how to do the following:
+
 - Build a fire using multiple fire starters (matches, lighters, fire steel)
 - Gather and prepare tinder, kindling, and fuel
 - Maintain a fire
@@ -28,6 +31,7 @@ Start by learning how to do the following:
 - Build a fire in wet conditions
 
 Once you have mastered these skills, you should learn how to do the following:
+
 - Protect a fire from wind and rain
 - Construct and use a bow drill
 - Make charcoal
@@ -83,7 +87,7 @@ To make a feather stick:
 4. Gather any curls that fell off.
 5. To start a fire, follow the next section using the feather stick as your tinder bundle.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/feather_stick.webp)
+![](/assets/images/survival_guide/feather_stick.webp)
 
 ## Starting a fire
 <!-- K: start, light, build, ignite, tepee, structure -->
@@ -99,7 +103,7 @@ Here are the steps you can follow to get it going:
 4. Carefully add kindling to the fire and blow into it to encourage growth.
 5. Once your fire is steady, add fuel while maintaining a tepee structure.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/fire_tepee.webp)
+![](/assets/images/survival_guide/fire_tepee.webp)
 
 **Note**: When blowing into a fire, be gentle and take breaths away from the smoke.
 
@@ -133,7 +137,7 @@ A fire steel or ferro rod is durable and works in all weather conditions. You ca
 
 Some fire steels come with a magnesium block, which you can scrape into the tinder before striking to help catch a spark. Create a small pile of shavings, about the size of a pebble, before trying to ignite it.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/ferrorod.webp)
+![](/assets/images/survival_guide/ferrorod.webp)
 
 ### Camp stove
 <!-- K: camp-stove, backpacking-stove, canister, stove, alcohol, butane, gas, propane -->
@@ -163,7 +167,7 @@ Most camp stoves require another ignition device, such as a lighter, but some ma
 
 Using a lens, focus sunlight into a small point on the tinder. As the tinder starts to smoke, gently blow into it and move the lens closer to maintain a small point. A magnifying glass, prescription glasses, a Fresnel lens, or even a clear bottle filled with water can work. This may take a while, and direct sunlight is required.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/fire_magnifying_glass.webp)
+![](/assets/images/survival_guide/fire_magnifying_glass.webp)
 
 ### Flint and steel
 <!-- K: flint, steel -->
@@ -194,7 +198,7 @@ To create a bow drill:
 15. You will start to see smoke after a while. Keep going until you are sure an ember has been created.
 16. The ember should be transferred onto the fire pan (it may already be there) and moved to a tinder bundle, where you can nurse it into a fire.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/bow_drill_usage.webp)
+![](/assets/images/survival_guide/bow_drill_usage.webp)
 
 If you are using a hand drill, follow the same steps as the bow drill, except don't create the bow and socket. Instead, roll the drill between your palms until you reach the bottom, then start again from the top.
 
@@ -220,7 +224,7 @@ Hardwoods (oak, maple, ash, beech, etc.) burn slowly and hot, while softwoods (p
 
 A fire reflector is a wall built behind the fire to reflect heat toward you and protect the fire from wind. Use rocks, logs, or snow to create a barrier.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/fire_reflector.webp)
+![](/assets/images/survival_guide/fire_reflector.webp)
 
 ### Heating rocks
 <!-- K: rock, hand-warmer -->
@@ -234,10 +238,12 @@ You can also heat rocks **near** the fire and place them in your shelter or slee
 Charcoal is made by preventing wood from completely burning. It can be used for filtering water, medicine, and as fuel for fires. You can grind charcoal into powder by placing it in a container and crushing it with a stick or rock.
 
 **Resources**
+
 - Wood
 - Water or dirt
 
 **Instructions**
+
 1. Burn a fire down to coals.
 2. Douse the fire with water or dirt to quickly extinguish it.
 3. Wait for the coals to cool; some charcoal should be among the ashes. Charcoal is very light and entirely black.

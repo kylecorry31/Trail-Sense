@@ -27,6 +27,7 @@ To create a map, you have three options: take a photo of an existing map, import
 ## Calibration tips
 
 ### Calibrating while hiking
+
 - Point 1: Choose the trail sign where you photographed the map or the trailhead.
 - Point 2: Select the first trail fork you encounter. If no trail fork is present, use a point of interest on the map, such as a lake, peak, or landmark.
 

@@ -1,5 +1,5 @@
 ---
-title: "Medical"
+title: "2 - Medical"
 ---
 
 <!-- K: medicine, medical, heal, health, injury, sick, ill, first-aid, symptom, treat, prevent, help -->
@@ -14,6 +14,7 @@ This chapter covers basic medical knowledge and techniques for common injuries a
 ### Gear
 
 **Necessities**:
+
 - Assorted bandages
 - Gauze
 - Surgical tape
@@ -29,6 +30,7 @@ This chapter covers basic medical knowledge and techniques for common injuries a
 - Asthma inhaler (if you have asthma)
 
 **Optional**:
+
 - Wound closure strips/butterfly bandages
 - Moleskin
 - Molefoam
@@ -59,10 +61,12 @@ This chapter covers basic medical knowledge and techniques for common injuries a
 ### Knowledge and skills
 
 Start by learning how to do the following:
+
 - Perform basic first aid and CPR.
 - Calm yourself and others.
 
 Once you have mastered these skills, you should learn how to do the following:
+
 - Make charcoal (see the Fire chapter).
 - Make tea from plants.
 - Identify medicinal plants in your area.
@@ -139,6 +143,7 @@ If you have asthma and are having an attack, use your inhaler.
 Altitude sickness is caused by low oxygen levels at high altitudes.
 
 ### Symptoms
+
 - Headache.
 - Nausea.
 - Fatigue.
@@ -217,6 +222,7 @@ Leeches attach to your skin and suck your blood. They can be found in freshwater
 Do not salt, burn, or pull the leech off, as this can cause it to regurgitate into the wound.
 
 ### Prevention
+
 - Use insect repellent.
 - Wear long sleeves and pants.
 - Check for leeches frequently.
@@ -228,6 +234,7 @@ Do not salt, burn, or pull the leech off, as this can cause it to regurgitate in
 Always look for snakes, especially in areas with tall grass, rocks, or logs. Snakes are most active during the day. Most snake bites are not venomous, but if you don't know the type of snake, treat the bite as venomous.
 
 ### Treatment
+
 1. Rinse the bite area with water.
 2. Clean the wound and cover with a bandage.
 3. Remove any rings or jewelry from the affected limb.
@@ -236,12 +243,14 @@ Always look for snakes, especially in areas with tall grass, rocks, or logs. Sna
 6. Seek medical attention as soon as possible. Call the hospital ahead of time so they can prepare antivenom if needed.
 
 Do not do the following:
+
 - Cut the wound.
 - Suck out the venom.
 - Apply a tourniquet.
 - Apply ice.
 
 ### Prevention
+
 - Watch where you step.
 - Wear high boots.
 - Do not put your hands or feet where you cannot see.
@@ -254,6 +263,7 @@ Do not do the following:
 Many insects can bite or sting you, causing pain, swelling, and itching. Some insects can also transmit diseases.
 
 ### Symptoms
+
 - Itching.
 - Swelling.
 - Redness.
@@ -278,6 +288,7 @@ If you were stung by a scorpion or insect you believe to be venomous, treat it a
 See the section on objects in the eye.
 
 ### Prevention
+
 - Use insect repellent.
 - Wear long sleeves and pants.
 - Wrap your face with a bandana.
@@ -307,6 +318,7 @@ Ticks attach to your skin and will feed on your blood. They can transmit disease
 3. Treat the area as you would for a bug bite.
 
 ### Prevention
+
 - Use insect repellent.
 - Wear long sleeves and pants.
 - Check for ticks frequently.
@@ -319,11 +331,13 @@ Ticks attach to your skin and will feed on your blood. They can transmit disease
 Seek medical attention if the wound is deep, bleeding profusely, or shows signs of infection. Infected wounds can be identified by redness, swelling, warmth, and pus.
 
 **Scrapes and minor cuts**
+
 1. Clean the wound with water.
 2. Optionally, apply antibiotic ointment.
 3. Apply a bandage. You can use medical grade superglue if needed.
 
 **Deeper cuts**
+
 1. Apply pressure to the wound with a clean cloth or bandage. You may need to apply pressure for about 10 to 20 minutes.
 2. Clean the wound and irrigate it with water.
 3. Bandage the wound with a sterile dressing.
@@ -334,6 +348,7 @@ Seek medical attention if the wound is deep, bleeding profusely, or shows signs 
 You can apply a tourniquet to stop blood flow if direct pressure does not work on a limb. This should only be done as a last resort, as it can cause permanent damage. Only a medical professional should remove a tourniquet.
 
 ### Prevention
+
 - Use caution when handling sharp objects.
 - Do not cut toward yourself.
 - Watch your footing.
@@ -347,21 +362,25 @@ You can apply a tourniquet to stop blood flow if direct pressure does not work o
 <!-- S: Treat small blisters by applying moleskin and large blisters by draining with a sterilized needle, cleaning, and bandaging. Preventing this by keeping feet dry and wearing properly fitting shoes. -->
 
 ### Symptoms
+
 - Red, sore area.
 - Blister.
 
 ### Treatment
 If the blister is small:
+
 1. Cut a doughnut-shaped piece of moleskin.
 2. Place the moleskin around the blister, with the blister in the hole.
 
 If the blister is large or painful:
+
 1. Sterilize a needle with alcohol or heat.
 2. Pierce the blister near the edge and drain the fluid.
 3. Clean and wash the area.
 4. Apply a bandage and, optionally, antibiotic ointment.
 
 ### Prevention
+
 - Keep feet dry.
 - Wear properly fitting shoes.
 - Wear two pairs of socks.
@@ -403,6 +422,7 @@ This is a burn that goes through all layers of skin and may be life-threatening.
 5. Bandage loosely.
 
 ### Prevention
+
 - Use caution around fires.
 - Do not touch hot objects.
 - Wear sunscreen.
@@ -416,12 +436,14 @@ If you are choking and someone is nearby, place your hands on your throat to sig
 
 ### Treatment
 Perform the Heimlich maneuver on yourself:
+
 1. If possible, bend over a hard surface.
 2. Make a fist with one hand.
 3. Place the thumb side of your fist against your abdomen, below your ribcage and above your navel.
 4. Grasp your fist with your other hand and press into your abdomen with a quick upward thrust.
 
 Perform the Heimlich maneuver on someone else:
+
 1. Stand behind the person.
 2. Reach around the person's waist.
 3. Make a fist with one hand.
@@ -435,11 +457,13 @@ Perform the Heimlich maneuver on someone else:
 Cramps can be caused by dehydration, overexertion, or lack of electrolytes.
 
 ### Symptoms
+
 - Muscle pain.
 - Muscle spasms.
 - Muscle weakness.
 
 ### Treatment
+
 - Gently stretch the muscle.
 - Massage the muscle.
 - Apply heat or cold to the muscle.
@@ -449,6 +473,7 @@ Cramps can be caused by dehydration, overexertion, or lack of electrolytes.
 - Slow down or stop physical activity.
 
 ### Prevention
+
 - Stay hydrated.
 - Replenish electrolytes.
 - Warm up before physical activity.
@@ -460,6 +485,7 @@ Cramps can be caused by dehydration, overexertion, or lack of electrolytes.
 <!-- S: Rehydrate by drinking water with electrolytes. Prevent by drinking water frequently and increasing intake during physical activity. -->
 
 ### Symptoms
+
 - Thirst.
 - Dry mouth and throat.
 - Fatigue.
@@ -474,6 +500,7 @@ Cramps can be caused by dehydration, overexertion, or lack of electrolytes.
 Rehydrate by drinking water, an electrolyte solution, or tea.
 
 ### Prevention
+
 - Drink water frequently, increasing intake during physical activity.
 
 ## Embedded fishhooks
@@ -500,9 +527,10 @@ Do not attempt to remove a fishhook if it is embedded in the eye.
 4. Quickly pull the string, causing the hook to come out the way it went in.
 5. Clean the wound and apply antibiotic ointment.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/fish_hook_removal.webp)
+![](/assets/images/survival_guide/fish_hook_removal.webp)
 
 ### Prevention
+
 - Be careful when handling fishhooks.
 - Use a barbless hook if possible (these don't work as well when fishing).
 
@@ -513,6 +541,7 @@ Do not attempt to remove a fishhook if it is embedded in the eye.
 A fracture is a broken bone. A fracture can be closed (bone is broken, but skin is intact) or open (bone is broken and protruding from the skin).
 
 ### Symptoms
+
 - Pain.
 - Swelling.
 - Bruising.
@@ -541,11 +570,12 @@ If the bone is out of place and medical attention is unavailable for several hou
 5. Apply a sling if the fracture is in the arm to help immobilize the limb.
 
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/5.webp)
+![](/assets/images/survival_guide/5.webp)
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/6.webp)
+![](/assets/images/survival_guide/6.webp)
 
 ### Prevention
+
 - Be cautious when walking on uneven terrain.
 - Wear proper footwear.
 - Do not overexert yourself.
@@ -588,6 +618,7 @@ Only thaw the area if you can keep it thawed. Refreezing can cause more damage. 
 4. Wrap the area in a sterile dressing and keep warm.
 
 ### Prevention
+
 - Wear proper clothing.
 - Keep dry.
 - Keep moving.
@@ -602,6 +633,7 @@ Only thaw the area if you can keep it thawed. Refreezing can cause more damage. 
 Gastrointestinal issues can be caused by contaminated food or water.
 
 ### Symptoms
+
 - Diarrhea.
 - Vomiting.
 - Nausea.
@@ -609,6 +641,7 @@ Gastrointestinal issues can be caused by contaminated food or water.
 - Gas.
 
 ### Treatment
+
 - Rehydrate with water.
 - Drink a cup of tea every few hours. You can make tea by boiling the following plants:
   - Oak bark, leaves, and acorns. Boil for two or more hours. It won't taste good, but it may help.
@@ -617,6 +650,7 @@ Gastrointestinal issues can be caused by contaminated food or water.
   - If you ate something poisonous, seek medical help immediately. If you can't contact help, drinking charcoal may help. Do not induce vomiting.
 
 ### Prevention
+
 - Boil water before drinking.
 - Wash hands before eating.
 - Cook food thoroughly.
@@ -629,12 +663,14 @@ Gastrointestinal issues can be caused by contaminated food or water.
 Headaches can be caused by various factors, such as dehydration, stress, lack of sleep, or illness.
 
 ### Treatment
+
 - Take pain relievers (aspirin, ibuprofen, acetaminophen).
 - Drink water or an electrolyte solution.
 - Rest.
 - Eat salty foods.
 
 ### Prevention
+
 - Stay hydrated.
 - Replenish electrolytes.
 - Do not overexert yourself.
@@ -646,6 +682,7 @@ Headaches can be caused by various factors, such as dehydration, stress, lack of
 To be safe, seek medical attention if you experience chest pain as soon as possible.
 
 ### Symptoms
+
 - Chest pain.
 - Shortness of breath.
 - Pain in the arms, back, neck, jaw, or stomach.
@@ -654,6 +691,7 @@ To be safe, seek medical attention if you experience chest pain as soon as possi
 - Cold sweat.
 
 ### Treatment
+
 1. Stop and sit comfortably.
 2. If you have as-needed heart medication, take it. Otherwise, take aspirin. Chew the aspirin for faster absorption.
 3. Call emergency services and have help come to you.
@@ -682,6 +720,7 @@ If you are fully trained in CPR, perform rescue breathing after 30 compressions.
 4. Repeat the cycle of 30 compressions and two breaths.
 
 ### Prevention
+
 - Stay hydrated.
 - Do not overexert yourself.
 - Talk to your doctor about your heart health.
@@ -731,6 +770,7 @@ Heat exhaustion and heatstroke are caused by exposure to high temperatures and d
 5. Be cautious when rehydrating, as seizures and vomiting can lead to choking.
 
 ### Prevention
+
 - Stay hydrated.
 - Wear proper clothing.
 - Stay in the shade.
@@ -748,6 +788,7 @@ Heat exhaustion and heatstroke are caused by exposure to high temperatures and d
 If you do not have soap, you can substitute white ashes, sand, or loamy soil.
 
 Wash hands:
+
 - Before and after preparing food.
 - Before eating.
 - After urinating or defecating.
@@ -763,6 +804,7 @@ If you do not have a toothbrush, you can clean your teeth with a small stick (fr
 <!-- K: foot, feet, sock, shoe -->
 
 Do the following to prevent foot problems:
+
 - Change and wash socks daily.
 - Wash, dry, and massage your feet.
 - Check frequently for blisters and red areas. Use adhesive tape/moleskin to prevent blisters.
@@ -788,6 +830,7 @@ Keep clothing clean and dry. Wash clothes with water and soap or boil them. To d
 Hypothermia is caused by exposure to cold temperatures, causing the body to lose heat faster than it can produce.
 
 ### Symptoms
+
 - Shivering. If shivering stops, it is a sign of severe hypothermia.
 - Coldness.
 - Impaired coordination.
@@ -797,6 +840,7 @@ Hypothermia is caused by exposure to cold temperatures, causing the body to lose
 - Slow breathing and heart rate.
 
 ### Treatment
+
 - Change into dry clothes.
 - Increase layers of clothing.
 - Add insulation into clothing (such as dry leaves).
@@ -806,6 +850,7 @@ Hypothermia is caused by exposure to cold temperatures, causing the body to lose
 - Use the body heat of another person.
 
 ### Prevention
+
 - Wear proper clothing.
 - Keep dry.
 - Keep moving.
@@ -818,12 +863,14 @@ Hypothermia is caused by exposure to cold temperatures, causing the body to lose
 It is common to get objects in your eye while in the wilderness, such as dirt, sand, bugs, or an eyelash.
 
 ### Symptoms
+
 - Pain and discomfort of the eye.
 - Redness of the eye.
 - Excess tearing.
 - Difficulty keeping the eye open.
 
 ### Treatment
+
 1. Avoid rubbing the eye.
 2. Using clean water, irrigate the eye by pouring water into the eye.
 3. If the object is still in the eye, use a mirror to locate it and attempt to remove it using a damp cloth or cotton swab. Be very gentle.
@@ -832,6 +879,7 @@ It is common to get objects in your eye while in the wilderness, such as dirt, s
 6. Seek medical attention if the object is not removed or symptoms persist.
 
 ### Prevention
+
 - Wear glasses or sunglasses.
 - Don't lift objects with dirt on them above your head without eye protection.
 
@@ -840,6 +888,7 @@ It is common to get objects in your eye while in the wilderness, such as dirt, s
 <!-- S: Symptoms include rapid heartbeat, sweating, trembling, shortness of breath, chest pain, nausea, dizziness, fear, numbness, and tingling. Treat using a calming technique, such as meditation. -->
 
 ### Symptoms
+
 - Rapid heartbeat.
 - Sweating.
 - Trembling.
@@ -851,6 +900,7 @@ It is common to get objects in your eye while in the wilderness, such as dirt, s
 - Numbness or tingling.
 
 ### Treatment
+
 1. Sit down.
 2. Close your eyes.
 3. Do one or more of the following:
@@ -869,17 +919,19 @@ It is common to get objects in your eye while in the wilderness, such as dirt, s
 
 Contact dermatitis is caused by contact with poisonous plants, such as poison ivy, poison oak, poison sumac, and stinging nettle.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/dangerous_plants.webp)
+![](/assets/images/survival_guide/dangerous_plants.webp)
 
 1. **Poison ivy**: A toxic plant with three glossy, pointed leaflets, commonly found in forests, fields, and along trails. Contact with its oil causes itchy rashes and skin irritation.
 2. **Stinging nettle**: A plant with serrated leaves and tiny stinging hairs, commonly found in moist, shaded areas. Contact causes a painful, itchy rash.
 
 ### Symptoms
+
 - Burning, reddening, and swelling rash
 - Itching
 - Blisters
 
 ### Treatment
+
 1. Try to remove oil from the plant using soap and water. Sand or dirt can be used as a substitute unless there are blisters.
 2. Dry the area.
 3. Apply calamine lotion or hydrocortisone cream to reduce the itch. If unavailable, apply a tannic acid solution (boil acorns or oak bark in water) or crushed jewelweed.
@@ -891,6 +943,7 @@ Avoid scratching the rash, as it can cause infection. Leave blisters alone.
 
 ### Prevention
 Learn to identify and avoid contact with the following plants:
+
 - Cowhage
 - Poison ivy
 - Poison oak
@@ -916,6 +969,7 @@ Some people may also find it necessary to block out noise using earplugs or list
 Snow blindness is caused when too much sunlight reflects off snow, ice, or water into your eyes.
 
 ### Symptoms
+
 - Eyes are red, scratchy, and watery.
 - Sensitivity to light.
 - Headache.
@@ -947,6 +1001,7 @@ Thorns, spines, and needles can be removed the same way as splinters. Some thorn
 For urchin spines, soak the area in hot (not scalding) water for 10 to 90 minutes before removal.
 
 ### Prevention
+
 - Use caution when handling dry wood or thorn bushes.
 - Avoid walking through thorn bushes.
 - Wear long sleeves and pants if going off trail.
@@ -960,6 +1015,7 @@ For urchin spines, soak the area in hot (not scalding) water for 10 to 90 minute
 Sprains are injuries to a tendon or ligament, while strains are injuries to a muscle or tendon.
 
 ### Symptoms
+
 - Pain.
 - Swelling.
 - Bruising.
@@ -969,12 +1025,14 @@ Sprains are injuries to a tendon or ligament, while strains are injuries to a mu
 - A pop or tear may be heard or felt during injury.
 
 ### Treatment
+
 1. Rest the injured area.
 2. Ice the area for 24 to 48 hours. You can improvise using a cloth soaked in cold water or filled with snow/ice.
 3. Compress the area with a bandage or splint.
 4. Elevate the area.
 
 ### Prevention
+
 - Warm up before physical activity.
 - Wear proper footwear.
 - Do not overexert yourself.
@@ -988,6 +1046,7 @@ Sprains are injuries to a tendon or ligament, while strains are injuries to a mu
 <!-- K: ice, snow, hypothermia, fall -->
 
 If you fall through the ice, do the following:
+
 1. Turn back the way you came.
 2. Kick your legs to push yourself onto the ice.
 3. Roll away from the hole.
@@ -1001,7 +1060,7 @@ If you fall through the ice, do the following:
 
 If caught in a rip current, swim parallel to the shore until you are out of the current. Then, swim back to shore.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/rip_current.webp)
+![](/assets/images/survival_guide/rip_current.webp)
 
 ## Sunburn
 <!-- K: sunburn, burn, sunscreen, uv, sun, red, pain, swell, blister, spf, skin -->
@@ -1010,12 +1069,14 @@ If caught in a rip current, swim parallel to the shore until you are out of the 
 Sunburn is caused by prolonged exposure to the sun's ultraviolet (UV) radiation.
 
 ### Symptoms
+
 - Redness.
 - Pain.
 - Swelling.
 - Blisters.
 
 ### Treatment
+
 1. Get out of the sun.
 2. Run cool water over the burn or apply a cold compress to relieve pain.
 3. To reduce pain and swelling, apply aloe vera gel, calamine lotion, or hydrocortisone cream.
@@ -1025,6 +1086,7 @@ Sunburn is caused by prolonged exposure to the sun's ultraviolet (UV) radiation.
 Do not pop blisters.
 
 ### Prevention
+
 - Wear sunscreen with an SPF of at least 30.
 - Wear a hat.
 - Wear long sleeves and pants.
@@ -1037,7 +1099,7 @@ Do not pop blisters.
 
 You can make sunglasses using a piece of cloth or birch bark with slits cut in it. This helps protect your eyes from UV rays and glare.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/improvised_sunglasses.webp)
+![](/assets/images/survival_guide/improvised_sunglasses.webp)
 
 **Resources**
 

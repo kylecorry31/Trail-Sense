@@ -12,7 +12,7 @@ html:not(.unreadable) {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
-  width: 1000px;
+  width: 900px;
   box-sizing: border-box;
 }
 
@@ -148,6 +148,7 @@ img:not(.inline-image):not(.unreadable) {
   margin-left: auto;
   margin-right: auto;
   display: block;
+  max-width: 500px;
 }
 
 img.inline-image {

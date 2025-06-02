@@ -1,5 +1,5 @@
 ---
-title: "Overview"
+title: "1 - Overview"
 ---
 
 <!-- K: overview, survival, situation, rescue, lost -->
@@ -18,6 +18,7 @@ Before entering the wilderness, you should be as prepared as possible. This mean
 ### Gear
 
 **Necessities**:
+
 - Cell phone
 - Money
 - Whistle
@@ -73,12 +74,14 @@ Before entering the wilderness, you should be as prepared as possible. This mean
 - 7-day weather forecast
 
 **Optional**:
+
 - Signal mirror
 
 See each chapter for additional gear recommendations.
 
 ### Knowledge and skills
 Start by learning how to do the following:
+
 - Follow local laws and regulations
 - Act in a survival situation
 - Signal for help
@@ -107,6 +110,7 @@ The first and most important thing to do when lost is to stop moving. If you are
 
 ### Think
 Take a moment to think about your situation. Answer the following questions:
+
 - What are your immediate needs?
 - What resources do you have available?
 - Did you tell someone your plans before you left? If so, when are they expecting you back?
@@ -172,7 +176,7 @@ Three short blasts are the universal signal for help. You may want to cover your
 
 Hold the mirror with one hand and extend your other arm in front of you with your fingers in a V-shape and the target between your fingers. Reflect sunlight onto your fingers and slowly move the mirror up and down to flash sunlight at the potential rescuers. You can use a phone screen as a signal mirror, but it will be nowhere near as effective as an actual mirror and should be combined with another signal, such as smoke or a ground-to-air signal.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/signal_mirror.webp)
+![](/assets/images/survival_guide/signal_mirror.webp)
 
 ### Smoke
 <!-- K: smoke, fire, burn, signal -->
@@ -194,7 +198,7 @@ At night, a flashlight can be used to signal for help. Use the international dis
 
 Ground-to-air signals are large markers you create on the ground to communicate with aircraft. Use rocks, logs, or other materials to create a large "V" (means you require assistance) or an "X" (means you require medical assistance). Use contrasting or artificial colors to make the signal more visible.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/ground_to_air.webp)
+![](/assets/images/survival_guide/ground_to_air.webp)
 
 ## Disclaimer
 This guide is provided for informational purposes only, and neither the author, publisher, nor any contributors guarantee its accuracy or suitability for any purpose. By using this guide, you acknowledge that outdoor activities involve risks, and you do so at your own risk, agreeing to hold harmless and indemnify the author, publisher, and any contributors from any claims or damages arising from your use of this guide. Always consult professionals for advice specific to your situation, as this guide does not substitute for professional guidance. Furthermore, be aware that local laws and regulations may affect the legal use of the techniques described herein, and compliance is your responsibility.

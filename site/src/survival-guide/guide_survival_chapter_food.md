@@ -1,5 +1,5 @@
 ---
-title: "Food"
+title: "6 - Food"
 ---
 
 <!-- K: food, eat, meal, hunger, hungry -->
@@ -14,6 +14,7 @@ Food gives you energy but is a low priority in most survival situations since yo
 ### Gear
 
 **Necessities**:
+
 - Food (enough for the duration of your trip, plus a bit extra). Some good options include:
   - Nuts
   - Seeds
@@ -26,17 +27,20 @@ Food gives you energy but is a low priority in most survival situations since yo
 - Bear bag or canister
 
 **Optional**:
+
 - Cooking pot or container
 - Utensils (a spork is a good option)
 - Cooking stove and fuel
 
 ### Knowledge and skills
 Start by learning how to do the following:
+
 - Plan your meals for a trip.
 - Cook food by boiling or roasting over a fire.
 - Use a bear bag or canister to protect your food.
 
 Once you have mastered these skills, you should learn how to do the following:
+
 - Identify edible plants and mushrooms.
 - Find and catch insects, shellfish, crustaceans, fish, and other animals.
 - Preserve food.
@@ -83,6 +87,7 @@ Plants typically have fewer calories than animals but can be easier to obtain if
 The safest plant to forage is aggregate berries, such as raspberries and blackberries, since they have a distinctive look and are generally edible. Nuts and seeds are higher in calories than leafy greens, but some nuts, such as acorns, require multiple batches of boiling. Also, just because you see an animal eating a plant doesn't mean it is safe for human consumption. Never eat a plant you aren't certain is edible; even if you are certain, only eat a small amount and be on the lookout for side effects.
 
 **The following should be avoided as the risk isn't worth the calories:**
+
 - Mushrooms
 - Plants that have:
   - Umbrella-shaped flowers
@@ -117,6 +122,7 @@ Insects are a good source of protein but need to be gathered in large numbers to
 Good places to find insects include rotting logs, under rocks, and in grassy fields. If you are looking for earthworms, you can use a stick to dig small holes in the ground, check the surface after rain or at night, or clear the leaf litter out of an area. At night, many flying insects can be attracted to a light source. Common edible bugs include ants, termites, locusts, grasshoppers, crickets, dragonflies, grubs, and worms.
 
 Do not eat the following:
+
 - Biting or stinging insects
 - Hairy or brightly colored insects
 - Insects with a pungent odor
@@ -162,13 +168,13 @@ Fish are most active before a storm, near rocks or logs, and under overhanging b
 
 Fishing with a hook and line is likely your most familiar technique. You will need to secure a hook onto a line and optionally tie it to a pole. You can use the following knot to tie the hook to the line. Use a wet finger to help tighten it to the hook.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/knot_fishermans.webp)
+![](/assets/images/survival_guide/knot_fishermans.webp)
 
 Hooks with barbs are more effective than barbless hooks at keeping fish on the line. For best results, bait the hooks using insects, worms, or pieces of food. Make sure that any bait on the hook is securely attached; if using a worm, thread the hook through the worm's body.
 
 If you need to craft a hook, go with a gorge hook since it is easy to make and doesn't need to be set manually. One downside is that any fish caught with a gorge hook will almost certainly die if released. To carve a gorge hook, sharpen both sides of a small section of wood or bone and taper it at the center. Place the hook into the bait.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/gorge_hook.webp)
+![](/assets/images/survival_guide/gorge_hook.webp)
 
 If you do not have fishing line, you can make it from plant fibers, inner strands of paracord (using a bend knot to join them together), or other strong cordage.
 
@@ -182,10 +188,10 @@ You can construct a bottle fish trap by cutting off the cap and top quarter of a
 
 Alternatively, you can construct an M-shaped funnel trap by hammering sticks into the water to form a small entrance and walls. This can be built using the shore as a back wall to reduce effort. Small fish will swim into the trap and be unable to find their way out.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/fish_trap_funnel.webp)
+![](/assets/images/survival_guide/fish_trap_funnel.webp)
 
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/fish_trap_bottle.webp)
+![](/assets/images/survival_guide/fish_trap_bottle.webp)
 
 ### Preparation
 <!-- K: prepare, kill, clean, gut, fillet, cook, boil, roast, bake -->
@@ -199,7 +205,7 @@ Alternatively, you can construct an M-shaped funnel trap by hammering sticks int
 
 Cutting pattern to remove entrails (red line):
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/prepare_fish.webp)
+![](/assets/images/survival_guide/prepare_fish.webp)
 
 ## Other animals
 <!-- K: animal, hunt, kill -->
@@ -233,7 +239,7 @@ Deadfall traps work by dropping a heavy object on the animal when it triggers th
 
 To avoid getting injured while setting the trap, support the rock/log using your knee or free hand until the trap is set. Be ready to quickly pull your hand away if it begins to fall.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/figure_4_trap.webp)
+![](/assets/images/survival_guide/figure_4_trap.webp)
 
 1. Support stick (front / side)
 2. Release stick (front / side)
@@ -263,6 +269,7 @@ Reptiles and amphibians are easier to catch than mammals and birds. Many can be 
 Always wash your hands after handling reptiles and amphibians, as they can carry salmonella. Cook the meat thoroughly.
 
 **Do not eat the following**:
+
 - Box turtles
 - Hawksbill turtles
 - Brightly colored frogs
@@ -334,7 +341,7 @@ A bear bag is a bag of food hoisted into a tree to keep it out of reach of bears
 4. Hoist the bag about 15 feet (4.5 meters) above the ground.
 5. Tie the rope to a tree to keep the bag elevated. Use either a hitch or bowline knot.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/bear_bag.webp)
+![](/assets/images/survival_guide/bear_bag.webp)
 
 See the Shelter and Clothing chapter for details on how to tie knots.
 

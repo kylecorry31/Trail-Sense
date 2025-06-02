@@ -1,5 +1,5 @@
 ---
-title: "Shelter And Clothing"
+title: "3 - Shelter And Clothing"
 ---
 
 <!-- K: warm, heat -->
@@ -14,6 +14,7 @@ This chapter covers how to dress appropriately for the environment and build she
 ### Gear
 
 **Necessities**:
+
 - Emergency space blanket
 - Poncho
 - Change of clothing
@@ -35,6 +36,7 @@ This chapter covers how to dress appropriately for the environment and build she
   - Tarp
 
 **Optional**:
+
 - Additional changes of clothing
 - Hat or bandana
 - Pillow
@@ -47,6 +49,7 @@ This chapter covers how to dress appropriately for the environment and build she
 ### Knowledge and skills
 
 Start by learning how to do the following:
+
 - Choose clothing appropriate for your environment.
 - Use an emergency space blanket.
 - Get warm quickly.
@@ -56,6 +59,7 @@ Start by learning how to do the following:
 - Tie several types of knots.
 
 Once you have mastered these skills, you should learn how to do the following:
+
 - Construct a natural shelter.
 - Repair clothing.
 
@@ -69,6 +73,7 @@ Your first line of defense in any environment is your clothing. Proper attire sh
 <!-- K: material, wool, polyester, nylon, down, cotton -->
 
 When choosing clothing, consider the following materials:
+
 - Wool: Retains warmth even when wet.
 - Polyester/nylon: Quick drying and moisture-wicking.
 - Down: Lightweight and insulating but loses warmth when wet.
@@ -121,6 +126,7 @@ Bring extra socks, preferably made from wool, and ensure they are taller than yo
 <!-- K: location -->
 
 When selecting a site for your shelter, consider the following:
+
 - Proximity to building materials.
 - Proximity to water and food sources.
 - Protection from the elements.
@@ -148,7 +154,7 @@ A simple shelter made by leaning a large sheet of material against a support lik
 2. Lay a tarp or poncho over the ridgepole, allowing one side to touch the ground. If using natural materials, lay branches and leaves over the ridgepole.
 3. Secure the sides with stakes or rocks.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/shelter_tarp.webp)
+![](/assets/images/survival_guide/shelter_tarp.webp)
 
 If you're constructing a ridgeline with cordage, form a bowline at one end, wrap the cordage around a tree, and pass the free end through the bowline's loop. Secure the other end to a second tree using either a taut-line hitch or a trucker's hitch, then tighten it. To attach a tarp, pull a small section of the ridgeline through the grommets and insert a stick through the resulting loop to hold it in place.
 
@@ -160,7 +166,7 @@ A more enclosed shelter that provides better protection from the elements.
 2. Place one end of the ridgepole on top of the A-frame (or fork/stump/rock) and the other end on the ground.
 3. Lay a tarp or poncho over the ridgepole, securing the sides with stakes or rocks. If using natural materials, lay branches over the ridgepole angled slightly upward, then add leaves or other debris from the bottom up.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/shelter_debris_hut.webp)
+![](/assets/images/survival_guide/shelter_debris_hut.webp)
 
 **Caves**
 
@@ -204,19 +210,19 @@ Use materials like leaves, straw, or clothing to insulate yourself from the grou
 
 Used for seams that require strength, such as on backpacks or tents.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/back_stitch.webp)
+![](/assets/images/survival_guide/back_stitch.webp)
 
 **Running stitch**
 
 Used for quick repairs on clothing or gear in places where strength is not critical.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/running_stitch.webp)
+![](/assets/images/survival_guide/running_stitch.webp)
 
 **Whip stitch**
 
 Used to repair tears or holes in fabric. It can also be used to connect two pieces of fabric.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/whip_stitch.webp)
+![](/assets/images/survival_guide/whip_stitch.webp)
 
 ### Tarps
 <!-- K: tarp, grommet -->
@@ -237,21 +243,21 @@ If you do not have a sewing kit, you can use duct tape, safety pins, super glue,
 
 Used to prevent the end of a rope from untwisting. This is hard to undo but very easy to tie.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/knot_overhand.webp)
+![](/assets/images/survival_guide/knot_overhand.webp)
 
 ### Overhand loop
 <!-- K: overhand-loop -->
 
 Used to create a loop at the end of a line. In most cases a bowline would be a better choice, but this knot is easy to tie.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/knot_overhand_loop.webp)
+![](/assets/images/survival_guide/knot_overhand_loop.webp)
 
 ### Double sheet bend
 <!-- K: double-sheet-bend, join, two, 2 -->
 
 Used for tying two lines together.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/knot_double_sheet_bend.webp)
+![](/assets/images/survival_guide/knot_double_sheet_bend.webp)
 
 ### Bowline
 <!-- K: bowline, loop, grommet, tarp -->
@@ -260,49 +266,49 @@ Used to create a loop at the end of a line. You can pass a line around a tree an
 
 You can use a bowline to attach a line to a grommet on a tarp.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/knot_bowline.webp)
+![](/assets/images/survival_guide/knot_bowline.webp)
 
 ### Jam knot
 <!-- K: jam-knot, loop, fasten, pole -->
 
 Used to fasten a rope to a timber or pole. This can be used in place of lashings. It can be loosened by pulling on the knot on the end. It is hard to untie this knot.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/jam_knot.webp)
+![](/assets/images/survival_guide/jam_knot.webp)
 
 ### Clove hitch
 <!-- K: clove-hitch, pole, hitch -->
 
 Used to fasten a rope to a timber or pole. It can be tied at any point in a rope.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/knot_clove_hitch.webp)
+![](/assets/images/survival_guide/knot_clove_hitch.webp)
 
 ### Taut-line hitch
 <!-- K: taut-line-hitch, tighten, hitch, pole, ridge-line -->
 
 Used to tighten a line.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/knot_tautline_hitch.webp)
+![](/assets/images/survival_guide/knot_tautline_hitch.webp)
 
 ### Trucker's hitch
 <!-- K: truckers-hitch, tighten, cinch, hitch, pole, ridge-line -->
 
 Used to secure a load or tighten a line. Can be cinched down tighter than a taut-line hitch.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/truckers_hitch.webp)
+![](/assets/images/survival_guide/truckers_hitch.webp)
 
 ### Square lashing
 <!-- K: square-lashing, lash -->
 
 Used to secure one pole at a right angle to another pole. You can swap with the diagonal lashing if desired.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/136.webp)
+![](/assets/images/survival_guide/136.webp)
 
 ### Shear lashing
 <!-- K: shear-lashing, lash, tripod -->
 
 Used for lashing two or more poles next to each other. It can be used to construct a tripod.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/138.webp)
+![](/assets/images/survival_guide/138.webp)
 
 ## Craft: Cordage
 <!-- K: cordage, rope, twine, fiber, twist, cord, strand, paracord, craft -->
@@ -313,10 +319,12 @@ Cordage can be made by twisting fibers together. It is weaker than rope but can 
 **Resources**
 
 Any fibrous material can be used to make cordage. Some examples include:
+
 - Grasses and sedges (sedges are stronger)
 - Bark or palm fiber
 
 **Instructions**
+
 1. Gather the fibers into a loose bundle.
 2. Hold the bundle near the center and twist one side clockwise until a kink forms.
 3. Fold the bundle in half at the kink.
@@ -324,7 +332,7 @@ Any fibrous material can be used to make cordage. Some examples include:
 5. Twist the two halves together counterclockwise.
 6. Repeat the process until you have a full strand. If material is running out, add more material and twist it in.
 
-![](https://raw.githubusercontent.com/kylecorry31/Trail-Sense/main/app/src/main/assets/survival_guide/craft_cordage.webp)
+![](/assets/images/survival_guide/craft_cordage.webp)
 
 ## Craft: Tent stakes
 <!-- K: tent, stake, peg, craft -->
