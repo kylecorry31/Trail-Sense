@@ -80,10 +80,10 @@
     <string name="sun_does_not_set">nie zachodzi</string>
     <string name="notification_storm_alert_title">Alarmy burzowe</string>
     <string name="notification_storm_alert_text">Może zbliżać się burza</string>
-    <string name="storm_alerts">Alarmy burzowe</string>
+    <string name="storm_alerts">Alerty burzowe</string>
     <string name="pressure_reading_time_ago">%1$s - %2$s temu</string>
     <string name="pressure_format">%1$s %2$s</string>
-    <string name="pressure_tendency_format_2">%s / 3g</string>
+    <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="beacon_comment">Uwagi (opcjonalnie)</string>
     <string name="maps">Mapy</string>
     <string name="sos">SOS</string>
@@ -760,7 +760,7 @@
     <string name="reduce_map_resolution">Zmniejszenie rozdzielczości mapy</string>
     <string name="keep_forever">Zachowaj na zawsze</string>
     <string name="weather_no_change">Bez zmian</string>
-    <string name="weather_storm">Sztorm</string>
+    <string name="weather_storm">Burza</string>
     <string name="very_soon">Wkrótce</string>
     <string name="soon">Wkrótce</string>
     <string name="dashed">Przerywana</string>
@@ -1005,4 +1005,24 @@
     <string name="cloud_precipitation_forecast_hour_range" tools:ignore="PluralsCandidate">Może wskazywać na opady w ciągu najbliższych %1$d do %2$d godzin.</string>
     <string name="gps_location_accuracy">Dokładność lokalizacji GPS</string>
     <string name="cloud_fair_forecast_hours" tools:ignore="PluralsCandidate">Może wskazywać na dobrą pogodę przez następne %d godzin.</string>
+    <string name="sunrise_alert_notification_text">Wschód słońca o %s</string>
+    <string name="sunrise_alerts">Alerty o wschodzie słońca</string>
+    <string name="sunrise_alert_notification_title">Słońce wkrótce wzejdzie</string>
+    <string name="pref_sunrise_alert_time_title">Czas alertu o wschodzie słońca</string>
+    <string name="magnitude">Wielkość</string>
+    <string name="bearing">Azymut</string>
+    <string name="sunrise_alert_channel_title">Alert o wschodzie słońca</string>
+    <string name="square">Kwadrat</string>
+    <string name="estimate_stride_length">Szacunkowa długość kroku</string>
+    <string name="cross">Krzyż</string>
+    <string name="astronomy_altitude">Wysokość</string>
+    <string name="theme_system_black">Systemowy (czarny)</string>
+    <string name="pref_enable_analog_title">Zegar analogowy</string>
+    <string name="scanning_image">Skanowanie obrazu</string>
+    <plurals name="page_group_summary">
+        <item quantity="one">%d strona</item>
+        <item quantity="few">%d strony</item>
+        <item quantity="many">%d stron</item>
+        <item quantity="other">%d stron</item>
+    </plurals>
 </resources>
