@@ -186,7 +186,7 @@
     <string name="elevation_from_pressure">Überschreibung durch Barometer einstellen</string>
     <string name="compass_reported_accuracy">Festgestellte Genauigkeit: %s</string>
     <string name="override_from_gps">Überschreibung durch GPS einstellen</string>
-    <string name="set_inclination_instructions">Tippen oder halten zum Sperren oder Entsperren</string>
+    <string name="set_inclination_instructions">Tippen oder Halten zum Sperren oder Entsperren</string>
     <string name="tool_user_guide_summary">Ein Handbuch für die Benutzung von Trail Sense</string>
     <string name="advanced">Fortgeschritten</string>
     <string name="tool_bubble_level_summary">Stelle fest, ob eine Oberfläche eben ist</string>
@@ -1049,7 +1049,7 @@
 \nOhne dies, Alarme starten vielleicht nicht zur richtigen zeit.
 \n\tUm dies zu erlauben, drücke \"%2$s\" und schalte die Einstellung für das erlauben der exakten Alarme und Erinnerungen.</string>
     <string name="gps_elevation_accuracy">GPS höhen Genauigkeit</string>
-    <string name="gps_satellites">GPS satelliten</string>
+    <string name="gps_satellites">GPS Satelliten</string>
     <string name="gps_location_accuracy">GPS positions Genauigkeit</string>
     <string name="gps_accuracy_tip">Stelle sicher das du eine freie sicht auf den Himmel hast und bewege dich von großen Gebäuden und bäumen weg.</string>
     <string name="invalid_backup_file">Ungültige Wiederherstellungsdatei</string>
