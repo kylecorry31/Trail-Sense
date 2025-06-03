@@ -1125,8 +1125,8 @@
     <string name="pref_tiles_battery_log">Batterieprotokoll</string>
     <string name="pref_dialog_battery_log_summary">Das Batterieprotokoll ist deaktiviert, Verlauf und Zeit bis zum Entladen sind möglicherweise nicht verfügbar. Sie können dies in den Einstellungen wieder aktivieren</string>
     <string name="millimeters_format">%s mm</string>
-    <string name="teaspooon_format">%s tsp</string>
-    <string name="tablespoon_format">%s tbsp</string>
+    <string name="teaspooon_format">%s Teelöfel</string>
+    <string name="tablespoon_format">%s Esslöfel</string>
     <string name="turn_back_alert_set">Umdreh-Alarm gesetzt</string>
     <string name="return_before_dark">Zurückkehren, bevor es dunkel wird</string>
     <string name="timezone">Zeitzone</string>
@@ -1159,8 +1159,8 @@
     <string name="default_string">Standard</string>
     <string name="backing_up_loading_message">Sichere…</string>
     <string name="direction">Richtung</string>
-    <string name="turn_back_instructions">Drehen Sie um %1$s (in %2$s) um, um um %3$s zurückzukommen</string>
-    <string name="turn_back_notification_description">Drehen Sie jetzt um, um um %s zurückzukommen</string>
+    <string name="turn_back_instructions">Kehren Sie um %1$s Uhr (in %2$s) um, damit Sie um %3$s zurück sind</string>
+    <string name="turn_back_notification_description">Kehren Sie jetzt um, damit Sie um %s zurück sind</string>
     <string name="forest">Wald</string>
     <string name="desert">Wüste</string>
     <plurals name="number_steps">
