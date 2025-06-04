@@ -42,6 +42,21 @@ class GeographicImageSource(
         )
     }
 
+    fun getCoordinate(pixel: PixelCoordinate): Coordinate {
+        var longitude = (pixel.x / longitudePixelsPerDegree) - 180
+        var latitude = 90 - (pixel.y / latitudePixelsPerDegree)
+
+        if (longitude.isNaN()) {
+            longitude = 0.0
+        }
+
+        if (latitude.isNaN()) {
+            latitude = 0.0
+        }
+
+        return Coordinate(latitude, longitude)
+    }
+
     suspend fun read(stream: InputStream, location: Coordinate): List<Float> = onIO {
         val pixel = getPixel(location)
         read(stream, pixel)

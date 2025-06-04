@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.shared.andromeda_temp
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Point
 import android.graphics.Rect
 import android.util.Size
@@ -26,20 +25,17 @@ import kotlin.math.roundToInt
 object GeographicImageUtils {
 
     // TODO: Extract to andromeda (nearest pixel meeting a criteria within a region - maybe just update the ImageSource with a nearest non-zero pixel option)
-    suspend fun getNearestPixelOfAsset(
+    suspend fun getNearestPixelsOfAsset(
         source: GeographicImageSource,
         context: Context,
         location: Coordinate,
         imagePath: String,
         searchSize: Int = 5,
+        k: Int = 1,
         hasValue: (Int) -> Boolean = { it.red > 0 || it.green > 0 || it.blue > 0 },
-        hasMappedValue: (List<Float>) -> Boolean = { it.dropLast(1).any { it > 0 } },
-    ): PixelCoordinate? {
+    ): List<PixelCoordinate> {
         val actualPixel = source.getPixel(location)
-        val sourceValue = source.read(context, imagePath, actualPixel)
-        if (hasMappedValue(sourceValue)) {
-            return actualPixel
-        }
+        var nearest = mutableListOf<PixelCoordinate>()
 
         val fileSystem = AssetFileSystem(context)
         fileSystem.stream(imagePath).use { stream ->
@@ -52,7 +48,7 @@ object GeographicImageUtils {
                 val y = searchSize
 
                 // Search in a grid pattern
-                for (i in 1 until searchSize) {
+                for (i in 0 until searchSize) {
                     val topY = y - i
                     val bottomY = y + i
                     val leftX = (x - i)
@@ -93,7 +89,13 @@ object GeographicImageUtils {
 
                             PixelCoordinate(globalX, globalY)
                         }
-                        return globalHits.minByOrNull { it.distanceTo(actualPixel) } ?: actualPixel
+
+                        for (hit in globalHits.sortedBy { it.distanceTo(actualPixel) }) {
+                            nearest.add(hit)
+                            if (nearest.size >= k) {
+                                return nearest
+                            }
+                        }
                     }
                 }
             } finally {
@@ -101,7 +103,7 @@ object GeographicImageUtils {
             }
         }
 
-        return null
+        return nearest
     }
 
     private fun loadRegion(

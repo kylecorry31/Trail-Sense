@@ -13,20 +13,25 @@ import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.AssetFileSystem
 import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.SolMath.cosDegrees
 import com.kylecorry.sol.math.SolMath.roundPlaces
+import com.kylecorry.sol.math.SolMath.sinDegrees
+import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.SolMath.wrap
+import com.kylecorry.sol.math.statistics.Statistics
 import com.kylecorry.sol.science.oceanography.TidalHarmonic
 import com.kylecorry.sol.science.oceanography.TideConstituent
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.andromeda_temp.GeographicImageUtils
 import com.kylecorry.trail_sense.shared.data.GeographicImageSource
+import kotlin.math.atan2
 import kotlin.math.roundToInt
 
 object TideModel {
 
     // Cache
     private val cache = LRUCache<PixelCoordinate, List<TidalHarmonic>>(size = 5)
-    private val locationToPixelCache = LRUCache<Coordinate, PixelCoordinate?>(size = 20)
+    private val locationToPixelCache = LRUCache<Coordinate, List<PixelCoordinate>>(size = 20)
 
     // Image data source
     private val size = Size(720, 360)
@@ -44,6 +49,26 @@ object TideModel {
     )
 
     private val imageReader = ImagePixelReader(condensedSize, interpolate = false)
+
+    private val constituents = listOf(
+        TideConstituent._2N2,
+        TideConstituent.J1,
+        TideConstituent.K1,
+        TideConstituent.K2,
+        TideConstituent.M2,
+        TideConstituent.M4,
+        TideConstituent.MF,
+        TideConstituent.MM,
+        TideConstituent.N2,
+        TideConstituent.O1,
+        TideConstituent.P1,
+        TideConstituent.Q1,
+        TideConstituent.S1,
+        TideConstituent.S2,
+        TideConstituent.SA,
+        TideConstituent.SSA,
+        TideConstituent.T2
+    )
 
     private val amplitudes = mapOf(
         TideConstituent._2N2 to 13.116927146911621,
@@ -75,34 +100,72 @@ object TideModel {
         context: Context,
         location: Coordinate
     ): List<TidalHarmonic> = onIO {
-        val pixel = locationToPixelCache.getOrPut(
+        val pixels = locationToPixelCache.getOrPut(
             Coordinate(
                 location.latitude.roundPlaces(1),
                 location.longitude.roundPlaces(1)
             )
         ) {
-            GeographicImageUtils.getNearestPixelOfAsset(
+            GeographicImageUtils.getNearestPixelsOfAsset(
                 source,
                 context,
                 location,
                 "tides/tide-indices-1-2.webp",
                 searchSize,
-                hasValue = { it.red > 0 || it.green > 0 },
-                hasMappedValue = { it[0] > 0f || it[1] > 0f }
+                k = 4,
+                hasValue = { it.red > 0 || it.green > 0 }
             )
         }
 
-        if (pixel == null) {
+        if (pixels.isEmpty()) {
             return@onIO emptyList()
         }
 
-        cache.getOrPut(pixel) {
-            load(context, pixel)
+        val tides = mutableMapOf<Coordinate, List<TidalHarmonic>>()
+        for (pixel in pixels) {
+            tides[source.getCoordinate(pixel)] = cache.getOrPut(pixel) {
+                load(context, pixel)
+            }
         }
+
+        getInterpolatedTide(location, tides)
     }
 
-    private fun hasValue(pixel: Int): Boolean {
-        return pixel.red > 0 || pixel.green > 0
+    private fun getInterpolatedTide(
+        location: Coordinate,
+        tides: Map<Coordinate, List<TidalHarmonic>>
+    ): List<TidalHarmonic> {
+        if (tides.size == 1) {
+            return tides.values.first()
+        }
+
+        var weightEntries =
+            tides.map { it.key to location.distanceTo(it.key).coerceAtLeast(1f) }
+        val weightValues = inverseProbability(weightEntries.map { it.second })
+        weightEntries = weightEntries.mapIndexed { index, entry ->
+            entry.first to weightValues[index]
+        }
+        val weights = weightEntries.toMap()
+        return constituents.map { constituent ->
+            val amplitudes = tides.map {
+                weights[it.key]!! to (it.value.firstOrNull { h -> h.constituent == constituent }?.amplitude
+                    ?: 0f)
+            }
+
+            val phases = tides.map {
+                val phase = (it.value.firstOrNull { h -> h.constituent == constituent }?.phase
+                    ?: 0f)
+                weights[it.key]!! to phase
+            }
+
+            val averageAmplitude = Statistics.weightedMean(amplitudes)
+            val averagePhase = weightedMeanAngle(phases)
+            TidalHarmonic(
+                constituent,
+                averageAmplitude,
+                averagePhase
+            )
+        }
     }
 
     private suspend fun load(
@@ -117,26 +180,6 @@ object TideModel {
         val y = indices[1].toInt() - 1
 
         // For each constituent, load the amplitude and phase (grouped 4 per file)
-        val constituents = listOf(
-            TideConstituent._2N2,
-            TideConstituent.J1,
-            TideConstituent.K1,
-            TideConstituent.K2,
-            TideConstituent.M2,
-            TideConstituent.M4,
-            TideConstituent.MF,
-            TideConstituent.MM,
-            TideConstituent.N2,
-            TideConstituent.O1,
-            TideConstituent.P1,
-            TideConstituent.Q1,
-            TideConstituent.S1,
-            TideConstituent.S2,
-            TideConstituent.SA,
-            TideConstituent.SSA,
-            TideConstituent.T2
-        )
-
         val loaded = mutableListOf<TidalHarmonic>()
         var i = 1
         val constituentsPerImage = 3
@@ -188,6 +231,26 @@ object TideModel {
             3 -> color.alpha
             else -> 0
         }
+    }
+
+    fun inverseProbability(values: List<Float>): List<Float> {
+        val inverse = values.map { 1 / it.coerceAtLeast(SolMath.EPSILON_FLOAT).toDouble() }
+        val sum = inverse.sum()
+        if (SolMath.isZero(sum.toFloat())) {
+            return values
+        }
+
+        return inverse.map { (it / sum).toFloat() }
+    }
+
+    fun weightedMeanAngle(values: List<Pair<Float, Float>>): Float {
+        val xs = values.map { it.first to cosDegrees(it.second) }
+        val ys = values.map { it.first to sinDegrees(it.second) }
+
+        val x = Statistics.weightedMean(xs)
+        val y = Statistics.weightedMean(ys)
+
+        return wrap(atan2(y, x).toDegrees(), 0f, 360f)
     }
 
 }
