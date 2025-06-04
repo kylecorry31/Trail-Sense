@@ -224,7 +224,7 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
     val isMapLayerEnabled by BooleanPreference(
         cache,
         context.getString(R.string.pref_navigation_map_layer_enabled),
-        false
+        true
     )
 
     val mapLayerOpacity by IntPreference(

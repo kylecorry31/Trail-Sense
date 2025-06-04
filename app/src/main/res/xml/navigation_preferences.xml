@@ -135,7 +135,7 @@
         app:title="@string/photo_maps">
 
         <SwitchPreferenceCompat
-            app:defaultValue="false"
+            app:defaultValue="true"
             app:iconSpaceReserved="false"
             app:key="@string/pref_navigation_map_layer_enabled"
             app:singleLineTitle="false"
