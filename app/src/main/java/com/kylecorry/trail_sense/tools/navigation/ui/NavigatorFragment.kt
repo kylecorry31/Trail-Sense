@@ -144,7 +144,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val useRadarCompass by lazy { userPrefs.navigation.useRadarCompass }
     private val styleChooser by lazy { CompassStyleChooser(userPrefs.navigation, hasCompass) }
     private val useTrueNorth by lazy { userPrefs.compass.useTrueNorth }
-    private val screenLock by lazy { NavigationScreenLock() }
+    private val screenLock by lazy { NavigationScreenLock(userPrefs.navigation.keepScreenUnlockedWhileOpen) }
 
 
     // State

@@ -40,9 +40,15 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
     val showCalibrationOnNavigateDialog: Boolean
         get() = sensors.hasCompass() && _showCalibrationOnNavigateDialog
 
-    val lockScreenPresence: Boolean
+    val keepScreenUnlockedWhileNavigating: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_navigation_lock_screen_presence))
             ?: false
+
+    val keepScreenUnlockedWhileOpen by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_navigation_keep_unlocked),
+        false
+    )
 
     override val showLastSignalBeacon: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_show_last_signal_beacon)) ?: true

@@ -38,4 +38,10 @@ class MapPreferences(context: Context) : PreferenceRepo(context) {
         context.getString(R.string.pref_keep_map_facing_up),
         true
     )
+
+    val keepScreenUnlockedWhileOpen by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_photo_maps_keep_unlocked),
+        false
+    )
 }

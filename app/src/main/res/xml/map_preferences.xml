@@ -37,5 +37,12 @@
             app:singleLineTitle="false"
             app:title="@string/pref_keep_map_facing_up_title" />
 
+        <SwitchPreferenceCompat
+            android:title="@string/pref_navigation_lock_screen_when_open_title"
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_photo_maps_keep_unlocked"
+            app:singleLineTitle="false" />
+
     </PreferenceCategory>
 </PreferenceScreen>

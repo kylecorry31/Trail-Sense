@@ -6,15 +6,18 @@ import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.trail_sense.shared.UserPreferences
 
-class NavigationScreenLock {
+class NavigationScreenLock(private val alwaysLock: Boolean = false) {
 
     private val prefs = AppServiceRegistry.get<UserPreferences>()
-    private val shouldLock by lazy { prefs.navigation.lockScreenPresence }
+    private val shouldLock by lazy { prefs.navigation.keepScreenUnlockedWhileNavigating }
     private val navigator = AppServiceRegistry.get<Navigator>()
 
     fun updateLock(activity: Activity) {
         tryOrNothing {
-            Screen.setShowWhenLocked(activity, shouldLock && navigator.isNavigating())
+            Screen.setShowWhenLocked(
+                activity,
+                alwaysLock || (shouldLock && navigator.isNavigating())
+            )
         }
     }
 

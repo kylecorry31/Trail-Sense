@@ -75,7 +75,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     private val prefs by lazy { UserPreferences(requireContext()) }
 
     private val navigator by lazy { Navigator.getInstance(requireContext()) }
-    private val screenLock by lazy { NavigationScreenLock() }
+    private val screenLock by lazy { NavigationScreenLock(prefs.maps.keepScreenUnlockedWhileOpen) }
 
     private val screenLight by lazy { ScreenTorch(requireActivity().window) }
 
@@ -435,7 +435,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     }
 
     private fun cancelNavigation() {
-        if (mapLockMode == MapLockMode.Trace){
+        if (mapLockMode == MapLockMode.Trace) {
             return
         }
 
