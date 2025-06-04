@@ -1386,4 +1386,5 @@
     <string name="harvested">已搜集</string>
     <string name="safe_mode_toast">检测到崩溃，正在停用一些功能几秒。</string>
     <string name="opacity">不透明</string>
+    <string name="pref_navigation_lock_screen_when_open_title">打开时在锁屏上显示</string>
 </resources>
