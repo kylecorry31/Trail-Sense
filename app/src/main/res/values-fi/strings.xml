@@ -1327,4 +1327,5 @@
     <string name="harvested">Kerätty</string>
     <string name="opacity">Läpinäkymättömyys</string>
     <string name="safe_mode_toast">Kaatumisia havaittu, osa ominaisuuksista poistetaan käytöstä muutamaksi sekuniksi.</string>
+    <string name="pref_navigation_lock_screen_when_open_title">Näytä lukitusnäytöllä käytön aikana</string>
 </resources>
