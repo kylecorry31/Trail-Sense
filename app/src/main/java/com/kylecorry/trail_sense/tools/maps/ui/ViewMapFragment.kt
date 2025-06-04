@@ -585,6 +585,10 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
             myElevationLayer.elevation =
                 Distance.meters(elevation).convertTo(prefs.baseDistanceUnits)
         }
+
+        useEffect(resetOnResume) {
+            activity?.let { screenLock.updateLock(it) }
+        }
     }
 
     private fun getNextLockMode(mode: MapLockMode): MapLockMode {
