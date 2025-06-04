@@ -35,7 +35,7 @@
                 android:id="@+id/survival_guide_btn"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/ic_add"
+                android:src="@drawable/ic_keyboard_arrow_right"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:scaleType="centerInside" />
 
@@ -58,7 +58,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginHorizontal="12dp"
+        android:paddingVertical="8dp"
+        android:paddingHorizontal="12dp"
         app:layout_constraintTop_toBottomOf="@id/search">
 
         <TextView
@@ -72,14 +73,13 @@
             android:textColor="?android:attr/textColorPrimary"
             tools:text="Finding Water" />
 
-        <Button
+        <ImageButton
             android:id="@+id/open_section_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Open"
-            android:minWidth="0dp"
-            android:paddingHorizontal="12dp"
-            style="@style/Widget.Material3.Button.TextButton" />
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_keyboard_arrow_right"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="centerInside" />
 
     </LinearLayout>
 
