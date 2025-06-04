@@ -75,6 +75,8 @@ class RadarCompassView : BaseCompassView, IMapView {
     private var distanceText: String? = null
 
     private lateinit var dial: CompassDial
+    private var lastWidth = 0
+    private var lastHeight = 0
 
     var shouldDrawDial: Boolean = true
 
@@ -201,11 +203,16 @@ class RadarCompassView : BaseCompassView, IMapView {
         compassCircle = Circle(Vector2(centerPixel.x, centerPixel.y), compassSize / 2f)
         locationStrokeWeight = dp(0.5f)
         dial = CompassDial(centerPixel, compassSize / 2f, secondaryColor, Color.WHITE, primaryColor)
+        lastWidth = width
+        lastHeight = height
     }
 
     override fun draw() {
         if (!isVisible) {
             return
+        }
+        if (lastWidth != width || lastHeight != height) {
+            setup()
         }
         clear()
         push()

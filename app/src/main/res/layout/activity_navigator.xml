@@ -58,7 +58,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toTopOf="@id/bottom_details"
-        app:layout_constraintDimensionRatio="H,1:1"
+        app:layout_constraintDimensionRatio="W,1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/navigation_grid"
@@ -73,7 +73,7 @@
         android:layout_marginEnd="16dp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/bottom_details"
-        app:layout_constraintDimensionRatio="H,1:1"
+        app:layout_constraintDimensionRatio="W,1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/navigation_grid"
@@ -92,13 +92,13 @@
         android:id="@+id/bottom_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/default_bottom_margin"
         app:layout_constraintBottom_toTopOf="@id/navigation_sheet">
 
         <com.kylecorry.trail_sense.shared.views.NorthReferenceBadge
             android:id="@+id/north_reference_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_bottom_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -108,6 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="@dimen/default_bottom_margin"
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/ic_beacon"
@@ -119,6 +120,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginBottom="@dimen/default_bottom_margin"
             android:alpha="0.6"
             android:gravity="start"
             android:orientation="vertical"
