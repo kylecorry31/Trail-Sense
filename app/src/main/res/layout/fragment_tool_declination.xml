@@ -20,4 +20,11 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp" />
 
+    <com.kylecorry.trail_sense.tools.declination.ui.DeclinationView
+        android:id="@+id/declination"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp" />
+
 </LinearLayout>

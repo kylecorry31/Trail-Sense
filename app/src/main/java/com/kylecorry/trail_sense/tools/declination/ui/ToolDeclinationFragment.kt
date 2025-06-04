@@ -16,6 +16,7 @@ class ToolDeclinationFragment : TrailSenseReactiveFragment(R.layout.fragment_too
     override fun update() {
         val locationView = useCoordinateInputView(R.id.location, lifecycleHookTrigger)
         val titleView = useView<Toolbar>(R.id.title)
+        val declinationArrowView = useView<DeclinationView>(R.id.declination)
         val initialLocation = useLastLocation()
         val formatter = useService<FormatService>()
         val (location, setLocation) = useState(initialLocation)
@@ -49,7 +50,10 @@ class ToolDeclinationFragment : TrailSenseReactiveFragment(R.layout.fragment_too
                     )
                 })"
             }
+        }
 
+        useEffect(declinationArrowView, declination) {
+            declinationArrowView.declination = declination ?: 0f
         }
     }
 }
