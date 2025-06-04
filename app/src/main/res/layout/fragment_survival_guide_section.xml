@@ -10,8 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingHorizontal="16dp"
-        android:paddingTop="16dp"
+        android:layout_marginHorizontal="8dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
@@ -25,7 +24,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Survival Guide"
+                android:text="@string/survival_guide"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="?android:attr/textColorPrimary"
@@ -38,7 +37,6 @@
                 android:layout_height="40dp"
                 android:src="@drawable/ic_add"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Open Survival Guide"
                 android:scaleType="centerInside" />
 
         </LinearLayout>
@@ -49,8 +47,41 @@
         android:id="@+id/search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="4dp"
+        android:layout_marginHorizontal="8dp"
         app:layout_constraintTop_toBottomOf="@id/header" />
+
+    <LinearLayout
+        android:id="@+id/section_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginHorizontal="12dp"
+        app:layout_constraintTop_toBottomOf="@id/search">
+
+        <TextView
+            android:id="@+id/section_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="Finding Water"
+            android:textColor="?android:attr/textColorPrimary"
+            tools:text="Finding Water" />
+
+        <Button
+            android:id="@+id/open_section_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Open"
+            android:minWidth="0dp"
+            android:paddingHorizontal="12dp"
+            style="@style/Widget.Material3.Button.TextButton" />
+
+    </LinearLayout>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/summary_holder"
@@ -59,7 +90,7 @@
         android:layout_height="300dp"
         android:layout_marginHorizontal="8dp"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/search"
+        app:layout_constraintTop_toBottomOf="@id/section_header"
         tools:visibility="visible">
 
         <LinearLayout
@@ -99,8 +130,8 @@
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
                     android:lineSpacingExtra="4dp"
-                    android:padding="8dp"
-                    android:text="This is a very long text that should demonstrate scrolling functionality. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?" />
+                    android:padding="8dp" />
+
             </androidx.core.widget.NestedScrollView>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
