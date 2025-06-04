@@ -1701,4 +1701,5 @@
     <string name="opacity">Opacity</string>
     <string name="pref_navigation_keep_unlocked" translatable="false">pref_navigation_keep_unlocked</string>
     <string name="pref_photo_maps_keep_unlocked" translatable="false">pref_photo_maps_keep_unlocked</string>
+    <string name="declination">Declination</string>
 </resources>

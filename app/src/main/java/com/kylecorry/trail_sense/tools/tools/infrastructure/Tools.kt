@@ -27,6 +27,7 @@ import com.kylecorry.trail_sense.tools.clouds.CloudsToolRegistration
 import com.kylecorry.trail_sense.tools.comms.messaging.LocalMessagingToolRegistration
 import com.kylecorry.trail_sense.tools.comms.talk.LocalTalkToolRegistration
 import com.kylecorry.trail_sense.tools.convert.ConvertToolRegistration
+import com.kylecorry.trail_sense.tools.declination.DeclinationToolRegistration
 import com.kylecorry.trail_sense.tools.diagnostics.DiagnosticsToolRegistration
 import com.kylecorry.trail_sense.tools.experimentation.ExperimentationToolRegistration
 import com.kylecorry.trail_sense.tools.field_guide.FieldGuideToolRegistration
@@ -111,7 +112,8 @@ object Tools {
         FieldGuideToolRegistration,
         SignalFinderToolRegistration,
         BallisticsToolRegistration,
-        PermitsToolRegistration
+        PermitsToolRegistration,
+        DeclinationToolRegistration
     )
     private val topics = mutableMapOf<String, Topic<Bundle>>()
     private val broadcastScope = CoroutineScope(Dispatchers.Main)
@@ -270,6 +272,7 @@ object Tools {
     const val SIGNAL_FINDER = 43L
     const val BALLISTICS = 44L
     const val PERMITS = 45L
+    const val DECLINATION = 46L
 
     // Quick Action IDs
     const val QUICK_ACTION_NONE = -1

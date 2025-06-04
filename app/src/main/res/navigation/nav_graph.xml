@@ -161,6 +161,10 @@
         android:name="com.kylecorry.trail_sense.tools.signal_finder.ui.ToolSignalFinderFragment"
         android:label="SignalFinderFragment" />
     <fragment
+        android:id="@+id/toolDeclinationFragment"
+        android:name="com.kylecorry.trail_sense.tools.declination.ui.ToolDeclinationFragment"
+        android:label="ToolDeclinationFragment" />
+    <fragment
         android:id="@+id/beacon_list"
         android:name="com.kylecorry.trail_sense.tools.beacons.ui.list.BeaconListFragment"
         android:label="BeaconListFragment">

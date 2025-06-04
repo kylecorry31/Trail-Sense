@@ -26,6 +26,7 @@ import com.kylecorry.sol.units.Weight
 import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.CoordinateInputView
 import com.kylecorry.trail_sense.shared.views.ElevationInputView
@@ -61,6 +62,11 @@ fun AndromedaFragment.useLocation(frequency: Duration = Duration.ofMillis(20)): 
     return useTopic(gps, gps.location) {
         it.location
     }
+}
+
+fun ReactiveComponent.useLastLocation(): Coordinate {
+    val subsystem = useService<LocationSubsystem>()
+    return subsystem.location
 }
 
 fun AndromedaFragment.useNavController(): NavController {
