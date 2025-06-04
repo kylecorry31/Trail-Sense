@@ -13,7 +13,7 @@ object DeclinationToolRegistration : ToolRegistration {
         return Tool(
             Tools.DECLINATION,
             context.getString(R.string.declination),
-            R.drawable.ic_compass_icon, // TODO: Custom icon
+            R.drawable.declination,
             R.id.toolDeclinationFragment,
             ToolCategory.Location,
             diagnostics = listOf(
