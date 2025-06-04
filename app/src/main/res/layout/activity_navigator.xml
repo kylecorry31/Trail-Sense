@@ -52,22 +52,32 @@
 
     <com.kylecorry.trail_sense.tools.navigation.ui.RoundCompassView
         android:id="@+id/round_compass"
-        android:layout_width="@dimen/circular_display_size"
-        android:layout_height="@dimen/circular_display_size"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_details"
+        app:layout_constraintDimensionRatio="H,1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/navigation_grid" />
+        app:layout_constraintTop_toBottomOf="@+id/navigation_grid"
+        app:layout_constraintVertical_bias="0" />
 
     <com.kylecorry.trail_sense.tools.navigation.ui.RadarCompassView
         android:id="@+id/radar_compass"
-        android:layout_width="@dimen/circular_display_size"
-        android:layout_height="@dimen/circular_display_size"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/bottom_details"
+        app:layout_constraintDimensionRatio="H,1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/navigation_grid" />
+        app:layout_constraintTop_toBottomOf="@+id/navigation_grid"
+        app:layout_constraintVertical_bias="0" />
 
     <com.kylecorry.trail_sense.tools.navigation.ui.LinearSightingCompassView
         android:id="@+id/linear_compass"
@@ -78,54 +88,59 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/round_compass" />
 
-    <com.kylecorry.trail_sense.shared.views.NorthReferenceBadge
-        android:id="@+id/north_reference_indicator"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottom_details"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/default_bottom_margin"
-        app:layout_constraintBottom_toTopOf="@id/navigation_sheet"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@id/navigation_sheet">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/beaconBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="@dimen/default_bottom_margin"
-        android:clickable="true"
-        android:focusable="true"
-        android:src="@drawable/ic_beacon"
-        app:layout_constraintBottom_toTopOf="@+id/navigation_sheet"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/accuracy_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="@dimen/default_bottom_margin"
-        android:alpha="0.6"
-        android:gravity="start"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/navigation_sheet"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <com.kylecorry.andromeda.views.badge.Badge
-            android:id="@+id/gps_status"
+        <com.kylecorry.trail_sense.shared.views.NorthReferenceBadge
+            android:id="@+id/north_reference_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            app:foregroundTint="@android:color/black"
-            app:icon="@drawable/satellite" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <com.kylecorry.andromeda.views.badge.Badge
-            android:id="@+id/compass_status"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/beaconBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:foregroundTint="@android:color/black"
-            app:icon="@drawable/ic_compass_icon" />
-    </LinearLayout>
+            android:layout_marginEnd="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_beacon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/accuracy_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:alpha="0.6"
+            android:gravity="start"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.kylecorry.andromeda.views.badge.Badge
+                android:id="@+id/gps_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:foregroundTint="@android:color/black"
+                app:icon="@drawable/satellite" />
+
+            <com.kylecorry.andromeda.views.badge.Badge
+                android:id="@+id/compass_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:foregroundTint="@android:color/black"
+                app:icon="@drawable/ic_compass_icon" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.kylecorry.trail_sense.shared.views.BeaconDestinationView
         android:id="@+id/navigation_sheet"
