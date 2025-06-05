@@ -47,6 +47,7 @@ import com.kylecorry.trail_sense.tools.maps.infrastructure.MapPreferences
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.ui.sort.ToolSortType
+import com.kylecorry.trail_sense.tools.turn_back.infrastructure.TurnBackPreferences
 import com.kylecorry.trail_sense.tools.waterpurification.infrastructure.WaterBoilTimerPreferences
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherPreferences
 import java.time.Duration
@@ -81,6 +82,7 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
     val climate by lazy { ClimatePreferenceRepo(context) }
     val fieldGuide by lazy { FieldGuidePreferences(context) }
     val waterBoilTimer by lazy { WaterBoilTimerPreferences(context) }
+    val turnBack by lazy { TurnBackPreferences(context) }
 
     private val isMetricPreferred = Resources.isMetricPreferred(context)
 

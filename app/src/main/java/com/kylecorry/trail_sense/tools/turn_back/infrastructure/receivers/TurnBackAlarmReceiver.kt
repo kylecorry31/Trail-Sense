@@ -6,10 +6,13 @@ import android.content.Intent
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.background.IOneTimeTaskScheduler
 import com.kylecorry.andromeda.background.OneTimeTaskSchedulerFactory
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.fragments.IPermissionRequester
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.alerts.RespectfulAlarmAlerter
 import com.kylecorry.trail_sense.shared.permissions.RequestBackgroundLocationCommand
 import com.kylecorry.trail_sense.shared.permissions.requestScheduleExactAlarms
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -20,6 +23,7 @@ class TurnBackAlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         context ?: return
         val prefs = PreferencesSubsystem.getInstance(context)
+        val userPrefs = AppServiceRegistry.get<UserPreferences>()
 
         val returnTime =
             prefs.preferences.getInstant(TurnBackFragment.PREF_TURN_BACK_RETURN_TIME) ?: return
@@ -41,6 +45,9 @@ class TurnBackAlarmReceiver : BroadcastReceiver() {
             TURN_BACK_NOTIFICATION_ID,
             notification
         )
+
+        val alarm = RespectfulAlarmAlerter(context, userPrefs.turnBack.useAlarm)
+        alarm.alert()
 
         // Clear the times
         prefs.preferences.remove(TurnBackFragment.PREF_TURN_BACK_TIME)
