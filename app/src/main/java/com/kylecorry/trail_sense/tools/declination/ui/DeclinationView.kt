@@ -35,20 +35,26 @@ class DeclinationView @JvmOverloads constructor(
     }
 
     override fun draw() {
+
+        val strokeWeight = imageSize / 4f
+        val offsetFromTop = imageSize * 1.25f
+        val arrowVerticalOffset = imageSize * 2.25f
+        val arrowHorizontalOffset = imageSize / 2
+
         drawer.clear()
 
         drawer.stroke(color)
-        drawer.strokeWeight(imageSize / 4f)
-        drawer.strokeCap(StrokeCap.Square)
+        drawer.strokeWeight(strokeWeight)
+        drawer.strokeCap(StrokeCap.Round)
 
         drawer.tint(color)
 
         // True North arrow
         drawer.line(
             drawer.canvas.width / 2f,
-            drawer.canvas.height.toFloat(),
+            drawer.canvas.height.toFloat() - strokeWeight,
             drawer.canvas.width / 2f,
-            imageSize * 1.25f
+            offsetFromTop
         )
 
         drawer.imageMode(ImageMode.Center)
@@ -62,14 +68,29 @@ class DeclinationView @JvmOverloads constructor(
         drawer.push()
         drawer.rotate(declination, drawer.canvas.width / 2f, drawer.canvas.height.toFloat())
 
-        drawer.line(
+        val line = mutableListOf(
+            // Vertical
             drawer.canvas.width / 2f,
-            drawer.canvas.height.toFloat(),
+            drawer.canvas.height.toFloat() - strokeWeight,
             drawer.canvas.width / 2f,
-            imageSize * 1.25f
+            offsetFromTop
         )
 
-        // TODO: Draw arrow head
+        if (declination <= 0f) {
+            line.add(drawer.canvas.width / 2f - arrowHorizontalOffset)
+            line.add(arrowVerticalOffset)
+            line.add(drawer.canvas.width / 2f)
+            line.add(offsetFromTop)
+        }
+
+        if (declination >= 0f) {
+            line.add(drawer.canvas.width / 2f + arrowHorizontalOffset)
+            line.add(arrowVerticalOffset)
+            line.add(drawer.canvas.width / 2f)
+            line.add(offsetFromTop)
+        }
+
+        drawer.lines(line.toFloatArray())
 
         drawer.pop()
     }
