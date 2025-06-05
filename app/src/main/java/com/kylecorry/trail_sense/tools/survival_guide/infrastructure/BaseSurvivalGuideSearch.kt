@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.tools.survival_guide.infrastructure
 
-import android.content.Context
 import com.kylecorry.luna.cache.MemoryCachedValue
+import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
 
-abstract class BaseSurvivalGuideSearch(protected val context: Context) :
+abstract class BaseSurvivalGuideSearch(private val loader: GuideLoader) :
     SurvivalGuideSearchStrategy {
 
     private val cache = MemoryCachedValue<List<GuideDetails>>()
@@ -69,9 +69,11 @@ abstract class BaseSurvivalGuideSearch(protected val context: Context) :
 
 
     override suspend fun search(query: String): List<SurvivalGuideSearchResult> {
-        val results = getGuides().flatMap {
+
+        val runner = ParallelCoroutineRunner()
+        val results = runner.map(getGuides()) {
             searchChapter(query, it)
-        }.sortedByDescending { it.score }
+        }.flatten().sortedByDescending { it.score }
 
         val maxScore = results.firstOrNull()?.score ?: 0f
 
@@ -80,7 +82,7 @@ abstract class BaseSurvivalGuideSearch(protected val context: Context) :
 
     private suspend fun getGuides(): List<GuideDetails> {
         return cache.getOrPut {
-            GuideLoader(context).load(false)
+            loader.load(false)
         }
     }
 }

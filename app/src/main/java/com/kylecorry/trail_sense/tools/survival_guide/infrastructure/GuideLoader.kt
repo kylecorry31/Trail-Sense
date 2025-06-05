@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.survival_guide.infrastructure
 
 import android.content.Context
 import com.kylecorry.luna.coroutines.onIO
+import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
 import com.kylecorry.trail_sense.shared.text.TextUtils
 import com.kylecorry.trail_sense.tools.survival_guide.domain.Chapter
 import com.kylecorry.trail_sense.tools.survival_guide.domain.Chapters
@@ -21,7 +22,8 @@ data class GuideDetails(val chapter: Chapter, val sections: List<GuideSection>)
 class GuideLoader(private val context: Context) {
 
     suspend fun load(includeContent: Boolean = true): List<GuideDetails> = onIO {
-        Chapters.getChapters(context).map { load(it, includeContent) }
+        val runner = ParallelCoroutineRunner()
+        runner.map(Chapters.getChapters(context)) { load(it, includeContent) }
     }
 
     suspend fun load(chapter: Chapter, includeContent: Boolean = true): GuideDetails = onIO {

@@ -32,8 +32,11 @@ fun <T> T.useSearchSurvivalGuide(query: String): Pair<List<SurvivalGuideSearchRe
     val (summary, setSummary) = useState("")
     val context = useAndroidContext()
     val queue = useCoroutineQueue()
+    val search = useMemo(context) {
+        SurvivalGuideSearch(context)
+    }
 
-    useBackgroundEffect(query, context, cancelWhenRerun = true) {
+    useBackgroundEffect(query, context, search, cancelWhenRerun = true) {
         // Debounce
         delay(200)
         queue.replace {
@@ -41,7 +44,6 @@ fun <T> T.useSearchSurvivalGuide(query: String): Pair<List<SurvivalGuideSearchRe
                 setResults(emptyList())
                 setSummary("")
             } else {
-                val search = SurvivalGuideSearch(context)
                 val searchResults = search.search(query)
                 setResults(searchResults)
                 val firstResult = searchResults.firstOrNull()

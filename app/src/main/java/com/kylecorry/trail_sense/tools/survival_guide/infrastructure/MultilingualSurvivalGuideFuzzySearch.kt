@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.survival_guide.infrastructure
 
-import android.content.Context
 import com.kylecorry.trail_sense.shared.text.LevenshteinDistance
 import com.kylecorry.trail_sense.shared.text.nlp.processors.LowercaseProcessor
 import com.kylecorry.trail_sense.shared.text.nlp.processors.SequentialProcessor
@@ -8,7 +7,7 @@ import com.kylecorry.trail_sense.shared.text.nlp.tokenizers.PostProcessedTokeniz
 import com.kylecorry.trail_sense.shared.text.nlp.tokenizers.SimpleWordTokenizer
 import kotlin.math.max
 
-class MultilingualSurvivalGuideFuzzySearch(context: Context) : BaseSurvivalGuideSearch(context) {
+class MultilingualSurvivalGuideFuzzySearch(loader: GuideLoader) : BaseSurvivalGuideSearch(loader) {
 
     private val tokenizer = PostProcessedTokenizer(
         SimpleWordTokenizer(),

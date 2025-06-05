@@ -5,7 +5,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.text.TextUtils
 import kotlin.math.max
 
-class EnglishSurvivalGuideFuzzySearch(context: Context) : BaseSurvivalGuideSearch(context) {
+class EnglishSurvivalGuideFuzzySearch(private val context: Context, loader: GuideLoader) :
+    BaseSurvivalGuideSearch(loader) {
 
     private val additionalContractions = mapOf(
         "saltwater" to listOf("salt", "water"),
@@ -77,6 +78,10 @@ class EnglishSurvivalGuideFuzzySearch(context: Context) : BaseSurvivalGuideSearc
             "headach",
             "migrain",
             "concuss"
+        ),
+        setOf(
+            "bleed",
+            "blood"
         ),
         // Defecation
         setOf(

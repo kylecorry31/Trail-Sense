@@ -5,13 +5,12 @@ import com.kylecorry.andromeda.core.system.Resources
 
 class SurvivalGuideSearch(context: Context) {
 
-    private val strategy = if (Resources.getLocale(context).language.startsWith("en")) {
-        EnglishSurvivalGuideFuzzySearch(context)
-    } else {
-        MultilingualSurvivalGuideFuzzySearch(context)
-    }
-
     private val loader = GuideLoader(context)
+    private val strategy = if (Resources.getLocale(context).language.startsWith("en")) {
+        EnglishSurvivalGuideFuzzySearch(context, loader)
+    } else {
+        MultilingualSurvivalGuideFuzzySearch(loader)
+    }
 
     suspend fun search(query: String): List<SurvivalGuideSearchResult> {
         return strategy.search(query)
