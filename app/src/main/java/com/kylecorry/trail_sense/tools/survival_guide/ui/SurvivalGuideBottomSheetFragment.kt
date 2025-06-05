@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.tools.survival_guide.ui
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.core.os.bundleOf
@@ -14,7 +14,6 @@ import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.views.badge.Badge
-import com.kylecorry.andromeda.views.list.AndromedaListView
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ListItemTag
 import com.kylecorry.andromeda.views.list.ResourceListIcon
@@ -36,8 +35,6 @@ class SurvivalGuideBottomSheetFragment :
         val summaryScrollView = useView<NestedScrollView>(R.id.summary_scroll)
         val summaryChapterBadgeView = useView<Badge>(R.id.summary_chapter_title)
         val titleButtonView = useView<AppCompatImageButton>(R.id.survival_guide_btn)
-        val emptySearchContentView = useView<LinearLayout>(R.id.empty_search_view)
-
         val emptyTitleView = useView<TextView>(R.id.empty_view_title)
         val emptyDescView = useView<TextView>(R.id.empty_view_description)
         val navController = useNavController()
@@ -59,19 +56,16 @@ class SurvivalGuideBottomSheetFragment :
             )
         }
 
+        // Colors
+        titleButtonView.imageTintList = ColorStateList.valueOf(Resources.androidTextColorPrimary(requireContext()))
         val textColor = Resources.androidTextColorSecondary(requireContext())
         emptyTitleView.setTextColor(textColor)
         emptyDescView.setTextColor(textColor)
-
-//        searchView.setOnSearchListener {
-//            emptySearchContentView.isVisible = it.isEmpty()
-//        }
 
         useSearch(searchView, setQuery)
 
         useMemo(navController, query, searchResults) {
             if(query.isNotBlank() && searchResults.isNotEmpty()) {
-                val textColor = Resources.androidTextColorSecondary(requireContext())
                 searchResults.map {
                     ListItem(
                         it.chapter.resource.toLong(),
