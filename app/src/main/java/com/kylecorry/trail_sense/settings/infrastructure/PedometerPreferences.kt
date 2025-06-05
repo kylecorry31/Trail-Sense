@@ -39,6 +39,10 @@ class PedometerPreferences(context: Context) : PreferenceRepo(context), IPedomet
             }
             cache.putFloat(getString(R.string.pref_distance_alert), value.meters().distance)
         }
-    override val useAlarmForDistanceAlert: Boolean
-        get() = false
+
+    override val useAlarmForDistanceAlert by BooleanPreference(
+        cache,
+        getString(R.string.pref_pedometer_use_alarm_for_distance_alert),
+        false
+    )
 }

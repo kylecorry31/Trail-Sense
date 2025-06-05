@@ -1703,4 +1703,7 @@
     <string name="pref_navigation_keep_unlocked" translatable="false">pref_navigation_keep_unlocked</string>
     <string name="pref_photo_maps_keep_unlocked" translatable="false">pref_photo_maps_keep_unlocked</string>
     <string name="declination">Declination</string>
+    <string name="pref_pedometer_use_alarm_for_distance_alert" translatable="false">pref_pedometer_use_alarm_for_distance_alert</string>
+    <string name="use_alarm_for_distance_alert">Use alarm for distance alert</string>
+    <string name="alarm_description">Plays a sound even if media and notifications are muted</string>
 </resources>

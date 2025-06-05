@@ -34,8 +34,8 @@
         <Preference
             android:title="@string/request_permission"
             app:iconSpaceReserved="false"
-            app:key="@string/pref_odometer_request_permission"
             app:isPreferenceVisible="false"
+            app:key="@string/pref_odometer_request_permission"
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
@@ -43,6 +43,14 @@
             android:title="@string/pref_odometer_reset_daily_title"
             app:iconSpaceReserved="false"
             app:key="@string/pref_odometer_reset_daily"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:summary="@string/alarm_description"
+            android:title="@string/use_alarm_for_distance_alert"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_pedometer_use_alarm_for_distance_alert"
             app:singleLineTitle="false" />
 
     </PreferenceCategory>
