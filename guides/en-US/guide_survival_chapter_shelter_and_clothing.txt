@@ -3,6 +3,8 @@
 
 This chapter covers how to dress appropriately for the environment and build shelters to protect yourself from the elements.
 
+**This chapter is for informational purposes only and does not replace professional advice; use at your own risk and ensure compliance with local laws.**
+
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill, emergency-space-blanket, space-blanket, blanket, poncho, socks, boots, shoes, sunglasses, cordage, sewing, needle, thread, jacket, pants, hat, gloves, hand-warmer, bag, pad, tent, tarp, hat, bandana, pillow, gloves, net, gaiters, hammock, tape -->
 <!-- S: Bring an emergency space blanket, cordage, and proper clothing. Be sure to plan for nighttime temperatures and bad weather. Learn how to dress in layers and increase insulation. -->

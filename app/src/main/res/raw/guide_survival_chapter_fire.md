@@ -3,6 +3,8 @@
 
 Knowing how to make fire can help you stay warm, purify water, and cook food. You should never leave a fire unattended and must be careful to avoid it spreading.
 
+**This chapter is for informational purposes only and does not replace professional advice; use at your own risk and ensure compliance with local laws.**
+
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill, starter, matches, lighter, steel, ferro, ferrocerium, tinder -->
 <!-- S: Bring a firestarter. Learn how to build and maintain a fire. -->

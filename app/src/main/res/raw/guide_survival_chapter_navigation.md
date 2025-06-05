@@ -3,6 +3,8 @@
 
 Being able to navigate in the wilderness can help prevent you from getting lost or allow you to find your way back to safety.
 
+**This chapter is for informational purposes only and does not replace professional advice; use at your own risk and ensure compliance with local laws.**
+
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill, map, compass, flashlight, gps -->
 <!-- S: Bring a map, compass, and flashlight. Learn how to navigate with a map and compass and plan routes. -->

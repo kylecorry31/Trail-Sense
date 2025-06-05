@@ -3,6 +3,8 @@
 
 Weather can quickly change from a nice day to a life-threatening situation. You should always be prepared for the weather in your area and keep tabs on the forecast.
 
+**This chapter is for informational purposes only and does not replace professional advice; use at your own risk and ensure compliance with local laws.**
+
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill, forecast, clothes, shelter, poncho, sunglasses, barometer, thermometer -->
 <!-- S: Bring appropriate clothing and shelter for the weather. Learn how to identify signs of worsening weather. -->

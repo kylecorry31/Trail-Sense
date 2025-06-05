@@ -5,6 +5,8 @@ This guide covers essential survival skills needed to return safely from a survi
 
 If you are in a survival situation, try to stay calm and start with this chapter's "What to Do in a Survival Situation" section.
 
+**This chapter is for informational purposes only and does not replace professional advice; use at your own risk and ensure compliance with local laws.**
+
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill -->
 <!-- S: Bring a survival kit with you on all trips, and let others know your plans. Learn how to act in a survival situation and signal for help. -->
