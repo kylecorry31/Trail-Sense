@@ -19,7 +19,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useCellSignalSensor
 import com.kylecorry.trail_sense.shared.extensions.useCoroutineQueue
-import com.kylecorry.trail_sense.shared.extensions.useLocation
+import com.kylecorry.trail_sense.shared.extensions.useGPSLocation
 import com.kylecorry.trail_sense.shared.extensions.useNavController
 import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
@@ -46,7 +46,7 @@ class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_si
 
         // State
         val signals = useCellSignals()
-        val location = useLocation(Duration.ofSeconds(5))
+        val location = useGPSLocation(Duration.ofSeconds(5))
         val (nearby, setNearby) = useState<List<Pair<Coordinate, List<CellNetwork>>>>(emptyList())
         val (loading, setLoading) = useState(false)
 

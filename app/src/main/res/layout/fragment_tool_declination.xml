@@ -20,6 +20,16 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp" />
 
+    <TextView
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:text="@string/loading"
+        android:textAppearance="@style/TextAppearance.Material3.BodySmall" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -16,6 +16,7 @@ object DeclinationToolRegistration : ToolRegistration {
             R.drawable.declination,
             R.id.toolDeclinationFragment,
             ToolCategory.Location,
+            guideId = R.raw.guide_tool_declination,
             diagnostics = listOf(
                 ToolDiagnosticFactory.gps(context),
             )

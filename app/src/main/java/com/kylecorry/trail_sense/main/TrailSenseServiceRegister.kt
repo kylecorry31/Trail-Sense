@@ -14,6 +14,7 @@ import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.shared.text.HiddenSpan
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
@@ -39,6 +40,7 @@ object TrailSenseServiceRegister {
         AppServiceRegistry.register(SensorService(appContext))
         AppServiceRegistry.register(FileSubsystem.getInstance(appContext))
         AppServiceRegistry.register(AppDatabase.getInstance(appContext))
+        AppServiceRegistry.register(SensorSubsystem.getInstance(appContext))
         AppServiceRegistry.register(LocationSubsystem.getInstance(appContext))
         AppServiceRegistry.register(DeviceSubsystem(appContext))
 

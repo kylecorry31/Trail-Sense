@@ -25,9 +25,10 @@ import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.sol.units.Weight
 import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.alerts.ILoadingIndicator
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.shared.views.CoordinateInputView
 import com.kylecorry.trail_sense.shared.views.ElevationInputView
 import com.kylecorry.trail_sense.shared.views.SearchView
@@ -57,16 +58,27 @@ fun ReactiveComponent.useCellSignalSensor(removeUnregisteredSignals: Boolean = t
 }
 
 // Common sensor readings
-fun AndromedaFragment.useLocation(frequency: Duration = Duration.ofMillis(20)): Coordinate {
+fun AndromedaFragment.useGPSLocation(frequency: Duration = Duration.ofMillis(20)): Coordinate {
     val gps = useGPSSensor(frequency)
     return useTopic(gps, gps.location) {
         it.location
     }
 }
 
-fun ReactiveComponent.useLastLocation(): Coordinate {
-    val subsystem = useService<LocationSubsystem>()
-    return subsystem.location
+fun AndromedaFragment.useLocation(refreshPolicy: SensorSubsystem.SensorRefreshPolicy = SensorSubsystem.SensorRefreshPolicy.RefreshIfInvalid): Pair<Coordinate, Boolean> {
+    val sensors = useService<SensorSubsystem>()
+    val lastLocation = useMemo(sensors) {
+        sensors.lastKnownLocation
+    }
+    val (location, setLocation) = useState(lastLocation)
+    val (isUpToDate, setIsUpToDate) = useState(refreshPolicy == SensorSubsystem.SensorRefreshPolicy.Cache)
+
+    useBackgroundEffect(refreshPolicy, cancelWhenRerun = true) {
+        setLocation(sensors.getLocation(refreshPolicy))
+        setIsUpToDate(true)
+    }
+
+    return location to isUpToDate
 }
 
 fun AndromedaFragment.useNavController(): NavController {
@@ -134,6 +146,16 @@ fun AndromedaFragment.useShowDisclaimer(
             shownValue,
             onClose
         )
+    }
+}
+
+fun ReactiveComponent.useLoadingIndicator(isLoading: Boolean, indicator: ILoadingIndicator) {
+    useEffect(indicator, isLoading) {
+        if (isLoading) {
+            indicator.show()
+        } else {
+            indicator.hide()
+        }
     }
 }
 

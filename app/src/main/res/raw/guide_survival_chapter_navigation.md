@@ -197,6 +197,8 @@ To use a back bearing to navigate, you need to take a bearing before hiking out.
 
 Declination is the difference between true north and magnetic north. Adjust your compass for declination when navigating with a map. Some compasses have an adjustable declination ring; otherwise, you must calculate it manually. Most maps list declination in the legend and are oriented to true north.
 
+![](file:///android_asset/survival_guide/declination.webp)
+
 ## Map
 <!-- K: map, read -->
 <!-- S: You can use a map to navigate once you learn how to read it. Be sure it is up to date. -->
