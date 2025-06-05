@@ -32,6 +32,7 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         hasText(string(R.string.no_maps))
 
         canCreateMapFromCamera()
+        canToggleVisibility()
         canViewMap()
         canCreateBlankMap()
         canCreateMapFromFile()
@@ -143,6 +144,11 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         clickOk()
         hasText("Test Group 2")
         hasText("1 map")
+    }
+
+    private fun canToggleVisibility() {
+        click(com.kylecorry.andromeda.views.R.id.trailing_icon_btn)
+        click(com.kylecorry.andromeda.views.R.id.trailing_icon_btn)
     }
 
     private fun canViewMap() {
