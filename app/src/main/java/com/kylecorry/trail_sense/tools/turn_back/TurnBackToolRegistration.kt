@@ -21,6 +21,7 @@ object TurnBackToolRegistration : ToolRegistration {
             R.id.turnBackFragment,
             ToolCategory.Time,
             guideId = R.raw.guide_tool_turn_back,
+            settingsNavAction = R.id.fragmentTurnBackSettings,
             notificationChannels = listOf(
                 ToolNotificationChannel(
                     TurnBackAlarmReceiver.NOTIFICATION_CHANNEL_ID,

@@ -404,7 +404,7 @@
     <fragment
         android:id="@+id/fragmentToolSurvivalGuideList"
         android:name="com.kylecorry.trail_sense.tools.survival_guide.ui.FragmentToolSurvivalGuideList"
-        android:label="FragmentToolSurvivalGuideList" >
+        android:label="FragmentToolSurvivalGuideList">
 
         <argument
             android:name="search_query"
@@ -519,6 +519,10 @@
         android:id="@+id/fragmentToolPedometer"
         android:name="com.kylecorry.trail_sense.tools.pedometer.ui.FragmentToolPedometer"
         android:label="FragmentToolSpeedometer" />
+    <fragment
+        android:id="@+id/fragmentTurnBackSettings"
+        android:name="com.kylecorry.trail_sense.tools.turn_back.ui.TurnBackSettingsFragment"
+        android:label="TurnBackSettingsFragment" />
     <fragment
         android:id="@+id/calibrateOdometerFragment"
         android:name="com.kylecorry.trail_sense.tools.pedometer.ui.PedometerSettingsFragment"
