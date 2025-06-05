@@ -6,9 +6,12 @@ import android.content.Intent
 import android.os.CountDownTimer
 import com.kylecorry.andromeda.background.services.AndromedaService
 import com.kylecorry.andromeda.background.services.ForegroundInfo
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.alerts.RespectfulAlarmAlerter
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 
@@ -56,6 +59,10 @@ class WaterPurificationTimerService : AndromedaService() {
                 intent = openIntent
             )
             Notify.send(this@WaterPurificationTimerService, NOTIFICATION_ID, notification)
+
+            val prefs = AppServiceRegistry.get<UserPreferences>()
+            val alarm = RespectfulAlarmAlerter(this, prefs.waterBoilTimer.useAlarm)
+            alarm.alert()
         }
         stopService(false)
         super.onDestroy()

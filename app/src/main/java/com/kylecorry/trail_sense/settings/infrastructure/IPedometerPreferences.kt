@@ -7,4 +7,5 @@ interface IPedometerPreferences {
     val resetDaily: Boolean
     var strideLength: Distance
     var alertDistance: Distance?
+    val useAlarmForDistanceAlert: Boolean
 }

@@ -5,6 +5,7 @@ import com.kylecorry.andromeda.core.toIntCompat
 import com.kylecorry.andromeda.preferences.FloatPreference
 import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.andromeda.sense.Sensors
+import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.meteorology.forecast.ForecastSource
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -165,6 +166,10 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
         ),
         ForecastSource.Sol
     )
+
+    override var stormAlertAlarmHours: Range<LocalTime>?
+        get() = null
+        set(value) {}
 
     companion object {
         const val HPA_FORECAST_LOW = 2.5f

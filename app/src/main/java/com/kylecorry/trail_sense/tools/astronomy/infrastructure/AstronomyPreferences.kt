@@ -107,11 +107,17 @@ class AstronomyPreferences(private val context: Context) {
         }
 
     fun setSunsetAlertLastSentDate(date: LocalDate) {
-        cache.putString(context.getString(R.string.pref_sunset_alert_last_sent_date), date.toString())
+        cache.putString(
+            context.getString(R.string.pref_sunset_alert_last_sent_date),
+            date.toString()
+        )
     }
 
     fun setSunriseAlertLastSentDate(date: LocalDate) {
-        cache.putString(context.getString(R.string.pref_sunrise_alert_last_sent_date), date.toString())
+        cache.putString(
+            context.getString(R.string.pref_sunrise_alert_last_sent_date),
+            date.toString()
+        )
     }
 
     val leftButton: Int
@@ -133,5 +139,12 @@ class AstronomyPreferences(private val context: Context) {
         context.getString(R.string.pref_start_camera_in_3d_view),
         true
     )
+
+    // Alarms
+    val useAlarmForSunsetAlert: Boolean
+        get() = false
+
+    val useAlarmForSunriseAlert: Boolean
+        get() = false
 
 }

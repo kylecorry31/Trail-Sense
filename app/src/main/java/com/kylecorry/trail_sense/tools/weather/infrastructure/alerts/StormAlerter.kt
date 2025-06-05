@@ -1,14 +1,19 @@
 package com.kylecorry.trail_sense.tools.weather.infrastructure.alerts
 
 import android.content.Context
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.alerts.AlarmAlerter
 import com.kylecorry.trail_sense.shared.alerts.IDismissibleAlerter
+import com.kylecorry.trail_sense.shared.alerts.RespectfulAlarmAlerter
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 
 class StormAlerter(private val context: Context) : IDismissibleAlerter {
 
     override fun alert() {
+        val prefs = AppServiceRegistry.get<UserPreferences>()
         val notification = Notify.alert(
             context,
             STORM_CHANNEL_ID,
@@ -20,6 +25,9 @@ class StormAlerter(private val context: Context) : IDismissibleAlerter {
             autoCancel = true
         )
         Notify.send(context, STORM_ALERT_NOTIFICATION_ID, notification)
+
+        val alarm = RespectfulAlarmAlerter(context, prefs.weather.stormAlertAlarmHours)
+        alarm.alert()
     }
 
     override fun dismiss() {

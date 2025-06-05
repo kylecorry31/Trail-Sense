@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.weather.infrastructure
 
+import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.meteorology.forecast.ForecastSource
 import java.time.Duration
 import java.time.LocalDate
@@ -28,4 +29,5 @@ interface IWeatherPreferences {
     val rightButton: Int
     val showColoredNotificationIcon: Boolean
     val forecastSource: ForecastSource
+    var stormAlertAlarmHours: Range<LocalTime>?
 }
