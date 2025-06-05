@@ -46,7 +46,7 @@ class SurvivalGuideBottomSheetFragment :
         val markdown = useService<MarkdownService>()
 
         // Navigation
-        useEffect(titleView) {
+        useEffect(titleView, query, navController) {
             titleView.rightButton.setOnClickListener {
                 dismiss()
                 navController.navigateWithAnimation(
