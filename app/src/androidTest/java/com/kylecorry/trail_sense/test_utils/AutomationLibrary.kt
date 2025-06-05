@@ -300,10 +300,14 @@ object AutomationLibrary {
         id: Int,
         text: String,
         checkDescendants: Boolean = true,
-        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
+        waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT,
+        closeKeyboardOnCompletion: Boolean = false
     ) {
         waitFor(waitForTime) {
             view(id).input(text, checkDescendants)
+        }
+        if (closeKeyboardOnCompletion) {
+            TestUtils.back(false)
         }
     }
 
