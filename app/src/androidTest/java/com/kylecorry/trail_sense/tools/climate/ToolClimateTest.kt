@@ -11,7 +11,7 @@ import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.Test
 
-class ToolClimateSubsystemTest : ToolTestBase(Tools.CLIMATE) {
+class ToolClimateTest : ToolTestBase(Tools.CLIMATE) {
 
     @Test
     fun verifyBasicFunctionality() {
