@@ -7,5 +7,6 @@ enum class MapAction {
     Print,
     Resize,
     Rename,
-    Move
+    Move,
+    ToggleVisibility
 }

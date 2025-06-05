@@ -24,7 +24,8 @@ data class MapEntity(
     @ColumnInfo(name = "rotation") val rotation: Int = 0,
     @ColumnInfo(name = "parent") val parent: Long? = null,
     @ColumnInfo(name = "pdfWidth") val pdfWidth: Int? = null,
-    @ColumnInfo(name = "pdfHeight") val pdfHeight: Int? = null
+    @ColumnInfo(name = "pdfHeight") val pdfHeight: Int? = null,
+    @ColumnInfo(name = "visible") val visible: Boolean = true
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
@@ -64,7 +65,7 @@ data class MapEntity(
             projection = projection
         )
 
-        return PhotoMap(id, name, filename, calibration, metadata, parent)
+        return PhotoMap(id, name, filename, calibration, metadata, parent, visible)
     }
 
     companion object {
@@ -87,7 +88,8 @@ data class MapEntity(
                 (calibration.rotation * 10).toInt(),
                 map.parentId,
                 map.metadata.unscaledPdfSize?.width?.toInt(),
-                map.metadata.unscaledPdfSize?.height?.toInt()
+                map.metadata.unscaledPdfSize?.height?.toInt(),
+                map.visible
             ).also {
                 it.id = map.id
             }

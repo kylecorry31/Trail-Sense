@@ -50,6 +50,7 @@ import com.kylecorry.trail_sense.tools.maps.ui.commands.MoveMapCommand
 import com.kylecorry.trail_sense.tools.maps.ui.commands.RenameMapCommand
 import com.kylecorry.trail_sense.tools.maps.ui.commands.ResizeMapCommand
 import com.kylecorry.trail_sense.tools.maps.ui.commands.ShowMapsDisclaimerCommand
+import com.kylecorry.trail_sense.tools.maps.ui.commands.ToggleVisibilityMapCommand
 import com.kylecorry.trail_sense.tools.maps.ui.mappers.IMapMapper
 import com.kylecorry.trail_sense.tools.maps.ui.mappers.MapAction
 import com.kylecorry.trail_sense.tools.maps.ui.mappers.MapGroupAction
@@ -209,6 +210,7 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
             MapAction.Resize -> resize(map)
             MapAction.Rename -> rename(map)
             MapAction.Move -> move(map)
+            MapAction.ToggleVisibility -> toggleVisibility(map)
         }
     }
 
@@ -239,6 +241,13 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     private fun move(map: IMap) {
         inBackground {
             MoveMapCommand(requireContext(), mapService).execute(map)
+            manager.refresh()
+        }
+    }
+
+    private fun toggleVisibility(map: IMap) {
+        inBackground {
+            ToggleVisibilityMapCommand(mapService).execute(map)
             manager.refresh()
         }
     }

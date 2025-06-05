@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 class PhotoMapTileSourceSelector(maps: List<PhotoMap>) {
 
     private val sortedMaps = maps
-        .filter { it.isCalibrated }
+        .filter { it.isCalibrated && it.visible }
         .sortedBy { it.distancePerPixel() }
 
     fun getSources(bounds: CoordinateBounds): List<PhotoMap> {

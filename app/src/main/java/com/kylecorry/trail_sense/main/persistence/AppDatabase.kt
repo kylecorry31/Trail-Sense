@@ -54,7 +54,7 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.Pressu
 @Suppress("LocalVariableName")
 @Database(
     entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class],
-    version = 41,
+    version = 42,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -365,6 +365,12 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
+            val MIGRATION_41_42 = object : Migration(41, 42) {
+                override fun migrate(database: SupportSQLiteDatabase) {
+                    database.execSQL("ALTER TABLE `maps` ADD COLUMN `visible` INTEGER NOT NULL DEFAULT 1")
+                }
+            }
+
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
                 .addMigrations(
                     MIGRATION_1_2,
@@ -406,7 +412,8 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_37_38,
                     MIGRATION_38_39,
                     MIGRATION_39_40,
-                    MIGRATION_40_41
+                    MIGRATION_40_41,
+                    MIGRATION_41_42
                 )
                 // TODO: Temporary for the android tests, will remove once AppDatabase is injected with hilt
                 .allowMainThreadQueries()

@@ -18,7 +18,8 @@ data class PhotoMap(
     val filename: String,
     val calibration: MapCalibration,
     val metadata: MapMetadata,
-    override val parentId: Long? = null
+    override val parentId: Long? = null,
+    val visible: Boolean = true
 ) : IMap {
     override val isGroup = false
     override val count: Int? = null

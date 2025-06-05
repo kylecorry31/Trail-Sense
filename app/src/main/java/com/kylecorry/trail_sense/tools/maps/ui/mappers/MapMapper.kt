@@ -21,6 +21,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.tools.beacons.ui.list.BeaconAction
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 
 class MapMapper(
@@ -61,6 +62,17 @@ class MapMapper(
                     )
                 } else {
                     null
+                }
+            ),
+            trailingIcon = ResourceListIcon(
+                if (value.visible) {
+                    R.drawable.ic_visible
+                } else {
+                    R.drawable.ic_not_visible
+                },
+                Resources.androidTextColorSecondary(context),
+                onClick = {
+                    actionHandler(value, MapAction.ToggleVisibility)
                 }
             ),
             menu = listOfNotNull(
