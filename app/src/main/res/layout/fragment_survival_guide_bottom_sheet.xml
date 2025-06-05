@@ -9,38 +9,31 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingVertical="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingHorizontal="12dp"
+        android:paddingVertical="8dp"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:minHeight="48dp"
+            android:text="@string/survival_guide"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/survival_guide"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="?android:attr/textColorPrimary"
-                android:minHeight="48dp"
-                android:gravity="center_vertical" />
-
-            <ImageButton
-                android:id="@+id/survival_guide_btn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_add"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:scaleType="centerInside" />
-
-        </LinearLayout>
+        <ImageButton
+            android:id="@+id/survival_guide_btn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="centerInside"
+            android:src="@drawable/survival_guide" />
 
     </LinearLayout>
 
@@ -48,39 +41,43 @@
         android:id="@+id/search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
         android:paddingTop="0dp"
         android:paddingBottom="4dp"
-        android:layout_marginHorizontal="8dp"
         app:layout_constraintTop_toBottomOf="@id/header" />
 
     <LinearLayout
-        android:id="@+id/section_header"
+        android:id="@+id/empty_search_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingVertical="8dp"
-        android:paddingHorizontal="12dp"
+        android:layout_height="180dp"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/search">
 
         <TextView
-            android:id="@+id/section_title"
-            android:layout_width="0dp"
+            android:id="@+id/empty_view_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:text="Finding Water"
-            android:textColor="?android:attr/textColorPrimary"
-            tools:text="Finding Water" />
+            android:layout_marginBottom="12dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="Start your search"
+            android:textColor="#2C3E50"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-        <ImageButton
-            android:id="@+id/section_btn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_keyboard_arrow_right"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:scaleType="centerInside" />
+        <TextView
+            android:id="@+id/empty_view_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:lineSpacingExtra="4dp"
+            android:text="Search for survival topics like water, medical, food, weather, shelter and clothing or navigation techniques."
+            android:textColor="#7F8C8D"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -88,10 +85,11 @@
         android:id="@+id/summary_holder"
         style="@style/Widget.Material3.CardView.Elevated"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="180dp"
         android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="12dp"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/section_header"
+        app:layout_constraintTop_toBottomOf="@id/search"
         tools:visibility="visible">
 
         <LinearLayout
@@ -111,10 +109,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:drawablePadding="8dp"
+                android:gravity="center_vertical"
                 android:paddingBottom="8dp"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:gravity="center_vertical"
                 app:drawableTint="?android:attr/textColorSecondary" />
 
             <androidx.core.widget.NestedScrollView
@@ -122,44 +120,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:scrollbars="vertical"
-                android:fadeScrollbars="false">
+                android:fadeScrollbars="false"
+                android:scrollbars="vertical">
 
                 <TextView
                     android:id="@+id/summary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
                     android:lineSpacingExtra="4dp"
-                    android:padding="8dp" />
+                    android:padding="8dp"
+                    android:textSize="14sp" />
 
             </androidx.core.widget.NestedScrollView>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
-
-
-    <com.kylecorry.andromeda.views.list.AndromedaListView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/summary_holder"
-        app:layout_goneMarginTop="0dp" />
-
-    <TextView
-        android:id="@+id/empty_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/no_results"
-        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-        android:visibility="gone"
-        android:minHeight="48dp"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/list"
-        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
