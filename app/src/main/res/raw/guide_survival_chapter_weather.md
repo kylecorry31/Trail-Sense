@@ -43,7 +43,7 @@ Weather conditions can change rapidly and significantly impact your outdoor acti
 ### Precipitation
 <!-- K: rain, snow, hail, sleet, precipitation -->
 
-You can generally continue outdoor activities in light precipitation. However, if it starts precipitating heavily, seek shelter. Rivers and streams can rise rapidly and become dangerous during heavy rainfall. Be aware of the risk of hypothermia and take steps to stay warm and dry.
+You can generally continue outdoor activities in light precipitation. However, if it starts precipitating heavily, seek shelter. During heavy rain, rivers and streams can rise rapidly and flash floods are possible. Precipitation can also lead to hypothermia, so be aware of the risks and take steps to stay warm and dry.
 
 Blizzards can lead to whiteout conditions, severely reducing visibility. If caught in a blizzard, seek shelter immediately and stay warm and dry.
 
@@ -59,9 +59,7 @@ Temperature changes as you change elevation, decreasing by about 3.5°F (2°C) f
 ### Wind
 <!-- K: wind, gust, storm, hurricane, tornado, sandstorm, prevailing, blow, direction -->
 
-Wind can make cold conditions feel even colder, increasing the risk of hypothermia and frostbite. Dress in layers and wear a hat and gloves to protect yourself from the wind. During windstorms, unstable trees and branches can become hazardous.
-
-Wind can cause sandstorms in desert environments, reducing visibility and making breathing difficult. Seek shelter during a sandstorm and protect your eyes and mouth with a bandana or cloth.
+Wind can make cold conditions feel even colder, increasing the risk of hypothermia and frostbite. Dress in layers and wear a hat and gloves to protect yourself from the wind. During windstorms, unstable trees and branches can become hazardous. Wind can cause sandstorms in desert environments, reducing visibility and making breathing difficult. Seek shelter during a sandstorm and protect your eyes and mouth with a bandana or cloth.
 
 Prevailing winds are winds that blow consistently in one direction over time. While local geography and bodies of water can affect wind patterns, general patterns are as follows:
 - 60° N to 90° N: Winds generally blow from the east.  
