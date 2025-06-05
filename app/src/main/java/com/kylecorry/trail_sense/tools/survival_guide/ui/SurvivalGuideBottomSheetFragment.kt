@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.survival_guide.ui
 
 import android.graphics.Color
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.core.os.bundleOf
@@ -28,8 +29,6 @@ class SurvivalGuideBottomSheetFragment :
 
     override fun update() {
         // Views
-        val listView = useView<AndromedaListView>(R.id.list)
-        val emptyTextView = useView<TextView>(R.id.empty_text)
         val searchView = useView<SearchView>(R.id.search)
         val summaryView = useView<TextView>(R.id.summary)
         val summaryHolderView = useView<View>(R.id.summary_holder)
@@ -37,53 +36,41 @@ class SurvivalGuideBottomSheetFragment :
         val summaryScrollView = useView<NestedScrollView>(R.id.summary_scroll)
         val summaryChapterBadgeView = useView<Badge>(R.id.summary_chapter_title)
         val titleButtonView = useView<AppCompatImageButton>(R.id.survival_guide_btn)
-        val sectionButtonView = useView<AppCompatImageButton>(R.id.section_btn)
+        val emptySearchContentView = useView<LinearLayout>(R.id.empty_search_view)
+
+        val emptyTitleView = useView<TextView>(R.id.empty_view_title)
+        val emptyDescView = useView<TextView>(R.id.empty_view_description)
         val navController = useNavController()
 
         // State
         val (query, setQuery) = useState("")
-        val chapters = useSurvivalGuideChapters()
         val (searchResults, summary) = useSearchSurvivalGuide(query)
 
         // Services
         val context = useAndroidContext()
         val markdown = useService<MarkdownService>()
 
-        // Nav
-        val queryChanger = View.OnClickListener {
+        // Navigation
+        titleButtonView.setOnClickListener {
             dismiss()
             navController.navigateWithAnimation(
                 R.id.fragmentToolSurvivalGuideList,
                 bundleOf("search_query" to query)
             )
         }
-        titleButtonView.setOnClickListener(queryChanger)
-        sectionButtonView.setOnClickListener(queryChanger)
+
+        val textColor = Resources.androidTextColorSecondary(requireContext())
+        emptyTitleView.setTextColor(textColor)
+        emptyDescView.setTextColor(textColor)
+
+//        searchView.setOnSearchListener {
+//            emptySearchContentView.isVisible = it.isEmpty()
+//        }
 
         useSearch(searchView, setQuery)
 
-        listView.emptyView = emptyTextView
-
-        val listItems = useMemo(chapters, query, searchResults, markdown) {
-            if (query.isBlank() || searchResults.isEmpty()) {
-                chapters.map {
-                    ListItem(
-                        it.chapter.resource.toLong(),
-                        it.chapter.title,
-                        it.sections.firstOrNull()?.summary,
-                        icon = ResourceListIcon(
-                            it.chapter.icon,
-                            Resources.androidTextColorSecondary(requireContext())
-                        )
-                    ) {
-                        dismiss()
-                        navController.navigateWithAnimation(
-                            R.id.fragmentToolSurvivalGuideReader,
-                            bundleOf("chapter_resource_id" to it.chapter.resource)
-                        )
-                    }
-                }
-            } else {
+        useMemo(navController, query, searchResults) {
+            if(query.isNotBlank() && searchResults.isNotEmpty()) {
                 val textColor = Resources.androidTextColorSecondary(requireContext())
                 searchResults.map {
                     ListItem(
@@ -110,10 +97,6 @@ class SurvivalGuideBottomSheetFragment :
                     }
                 }
             }
-        }
-
-        useEffect(listView, listItems) {
-            listView.setItems(listItems)
         }
 
         useEffect(
