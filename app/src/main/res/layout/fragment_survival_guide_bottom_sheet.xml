@@ -62,7 +62,7 @@
             android:layout_marginBottom="12dp"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:text="Start your search"
+            android:text="@string/survival_guide_empty_title"
             android:textColor="#2C3E50"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -75,7 +75,7 @@
             android:fontFamily="sans-serif"
             android:gravity="center"
             android:lineSpacingExtra="4dp"
-            android:text="Search for survival topics like water, medical, food, weather, shelter and clothing or navigation techniques."
+            android:text="@string/survival_guide_empty_desc"
             android:textColor="#7F8C8D"
             android:textSize="16sp" />
 
