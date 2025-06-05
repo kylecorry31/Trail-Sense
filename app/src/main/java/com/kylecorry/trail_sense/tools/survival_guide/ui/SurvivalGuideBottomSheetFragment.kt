@@ -1,109 +1,71 @@
 package com.kylecorry.trail_sense.tools.survival_guide.ui
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.View
-import android.widget.ScrollView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.core.widget.NestedScrollView
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.core.ui.useService
-import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.views.badge.Badge
-import com.kylecorry.andromeda.views.list.AndromedaListView
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ListItemTag
 import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
-import com.kylecorry.trail_sense.shared.extensions.useArgument
-import com.kylecorry.trail_sense.shared.extensions.useBackPressedCallback
-import com.kylecorry.trail_sense.shared.extensions.useNavController
-import com.kylecorry.trail_sense.shared.extensions.useSearch
-import com.kylecorry.trail_sense.shared.extensions.useShowDisclaimer
+import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveBottomSheetFragment
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
-import com.kylecorry.trail_sense.shared.text.TextUtils
 import com.kylecorry.trail_sense.shared.views.SearchView
 import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.SurvivalGuideSearch
 
-class FragmentToolSurvivalGuideList :
-    TrailSenseReactiveFragment(R.layout.fragment_survival_guide_chapters) {
+class SurvivalGuideBottomSheetFragment :
+    TrailSenseReactiveBottomSheetFragment(R.layout.fragment_survival_guide_bottom_sheet) {
 
     override fun update() {
         // Views
-        val listView = useView<AndromedaListView>(R.id.list)
-        val emptyTextView = useView<TextView>(R.id.empty_text)
         val searchView = useView<SearchView>(R.id.search)
         val summaryView = useView<TextView>(R.id.summary)
         val summaryHolderView = useView<View>(R.id.summary_holder)
         val summaryTitleView = useView<TextView>(R.id.summary_title)
-        val summaryScrollView = useView<ScrollView>(R.id.summary_scroll)
+        val summaryScrollView = useView<NestedScrollView>(R.id.summary_scroll)
         val summaryChapterBadgeView = useView<Badge>(R.id.summary_chapter_title)
+        val titleButtonView = useView<AppCompatImageButton>(R.id.survival_guide_btn)
+        val emptyTitleView = useView<TextView>(R.id.empty_view_title)
+        val emptyDescView = useView<TextView>(R.id.empty_view_description)
         val navController = useNavController()
 
-        // Arguments
-        val searchArgumentQuery = useArgument<String>("search_query") ?: ""
-
         // State
-        val (query, setQuery) = useState(searchArgumentQuery)
-        val chapters = useSurvivalGuideChapters()
+        val (query, setQuery) = useState("")
         val (searchResults, summary) = useSearchSurvivalGuide(query)
 
         // Services
         val context = useAndroidContext()
         val markdown = useService<MarkdownService>()
 
-        useShowDisclaimer(
-            getString(R.string.survival_guide),
-            getString(R.string.survival_guide_disclaimer),
-            "pref_survival_guide_disclaimer_shown",
-            cancelText = null
-        )
-
-        useBackPressedCallback(query, searchView) {
-            if (query.isNotBlank()) {
-                setQuery("")
-                searchView.query = ""
-                true
-            } else {
-                false
-            }
+        // Navigation
+        titleButtonView.setOnClickListener {
+            dismiss()
+            navController.navigateWithAnimation(
+                R.id.fragmentToolSurvivalGuideList,
+                bundleOf("search_query" to query)
+            )
         }
+
+        // Colors
+        titleButtonView.imageTintList = ColorStateList.valueOf(Resources.androidTextColorPrimary(requireContext()))
+        val textColor = Resources.androidTextColorSecondary(requireContext())
+        emptyTitleView.setTextColor(textColor)
+        emptyDescView.setTextColor(textColor)
 
         useSearch(searchView, setQuery)
 
-        useEffect(searchArgumentQuery) {
-            if (searchArgumentQuery.isNotEmpty()) {
-                searchView.query = searchArgumentQuery
-                searchView.setCursorPosition(searchArgumentQuery.length)
-            }
-        }
-
-        listView.emptyView = emptyTextView
-
-        val listItems = useMemo(navController, chapters, query, searchResults, markdown) {
-            if (query.isBlank() || searchResults.isEmpty()) {
-                chapters.map {
-                    ListItem(
-                        it.chapter.resource.toLong(),
-                        it.chapter.title,
-                        it.sections.firstOrNull()?.summary,
-                        icon = ResourceListIcon(
-                            it.chapter.icon,
-                            Resources.androidTextColorSecondary(requireContext())
-                        )
-                    ) {
-                        navController.navigateWithAnimation(
-                            R.id.fragmentToolSurvivalGuideReader,
-                            bundleOf("chapter_resource_id" to it.chapter.resource)
-                        )
-                    }
-                }
-            } else {
-                val textColor = Resources.androidTextColorSecondary(requireContext())
+        useMemo(navController, query, searchResults) {
+            if(query.isNotBlank() && searchResults.isNotEmpty()) {
                 searchResults.map {
                     ListItem(
                         it.chapter.resource.toLong(),
@@ -118,7 +80,7 @@ class FragmentToolSurvivalGuideList :
                             )
                         )
                     ) {
-                        // TODO: Scroll to the heading
+                        dismiss()
                         navController.navigateWithAnimation(
                             R.id.fragmentToolSurvivalGuideReader,
                             bundleOf(
@@ -129,10 +91,6 @@ class FragmentToolSurvivalGuideList :
                     }
                 }
             }
-        }
-
-        useEffect(listView, listItems) {
-            listView.setItems(listItems)
         }
 
         useEffect(
@@ -171,6 +129,7 @@ class FragmentToolSurvivalGuideList :
                     right = R.drawable.ic_keyboard_arrow_right
                 )
                 summaryHolderView.setOnClickListener {
+                    dismiss()
                     navController.navigateWithAnimation(
                         R.id.fragmentToolSurvivalGuideReader,
                         bundleOf(
