@@ -28,5 +28,9 @@ class SearchView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     fun setOnSearchListener(listener: ((String) -> Unit)?) {
         onSearch = listener
     }
+
+    fun setCursorPosition(position: Int) {
+        binding.searchViewEditText.setSelection(position)
+    }
 }
 
