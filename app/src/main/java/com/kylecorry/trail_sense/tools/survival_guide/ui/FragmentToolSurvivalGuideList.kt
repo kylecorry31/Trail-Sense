@@ -10,6 +10,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.core.ui.useService
+import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.views.badge.Badge
 import com.kylecorry.andromeda.views.list.AndromedaListView
@@ -18,11 +19,13 @@ import com.kylecorry.andromeda.views.list.ListItemTag
 import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.useArgument
 import com.kylecorry.trail_sense.shared.extensions.useBackPressedCallback
 import com.kylecorry.trail_sense.shared.extensions.useNavController
 import com.kylecorry.trail_sense.shared.extensions.useSearch
 import com.kylecorry.trail_sense.shared.extensions.useShowDisclaimer
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
+import com.kylecorry.trail_sense.shared.text.TextUtils
 import com.kylecorry.trail_sense.shared.views.SearchView
 import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.SurvivalGuideSearch
 
@@ -41,8 +44,11 @@ class FragmentToolSurvivalGuideList :
         val summaryChapterBadgeView = useView<Badge>(R.id.summary_chapter_title)
         val navController = useNavController()
 
+        // Arguments
+        val searchArgumentQuery = useArgument<String>("search_query") ?: ""
+
         // State
-        val (query, setQuery) = useState("")
+        val (query, setQuery) = useState(searchArgumentQuery)
         val chapters = useSurvivalGuideChapters()
         val (searchResults, summary) = useSearchSurvivalGuide(query)
 
@@ -68,6 +74,13 @@ class FragmentToolSurvivalGuideList :
         }
 
         useSearch(searchView, setQuery)
+
+        useEffect(searchArgumentQuery) {
+            if (searchArgumentQuery.isNotEmpty()) {
+                searchView.query = searchArgumentQuery
+                searchView.setCursorPosition(searchArgumentQuery.length)
+            }
+        }
 
         listView.emptyView = emptyTextView
 
