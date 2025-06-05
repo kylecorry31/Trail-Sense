@@ -3,6 +3,8 @@ package com.kylecorry.trail_sense.tools.survival_guide.ui
 import android.graphics.Color
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageButton
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import com.kylecorry.andromeda.core.system.Resources
@@ -17,11 +19,12 @@ import com.kylecorry.andromeda.views.list.ListItemTag
 import com.kylecorry.andromeda.views.list.ResourceListIcon
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveBottomSheetFragment
+import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.views.SearchView
 import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.SurvivalGuideSearch
 
 class SurvivalGuideBottomSheetFragment :
-    TrailSenseReactiveBottomSheetFragment(R.layout.fragment_survival_guide_section) {
+    TrailSenseReactiveBottomSheetFragment(R.layout.fragment_survival_guide_bottom_sheet) {
 
     override fun update() {
         // Views
@@ -33,6 +36,8 @@ class SurvivalGuideBottomSheetFragment :
         val summaryTitleView = useView<TextView>(R.id.summary_title)
         val summaryScrollView = useView<NestedScrollView>(R.id.summary_scroll)
         val summaryChapterBadgeView = useView<Badge>(R.id.summary_chapter_title)
+        val titleButtonView = useView<AppCompatImageButton>(R.id.survival_guide_btn)
+        val sectionButtonView = useView<AppCompatImageButton>(R.id.section_btn)
         val navController = useNavController()
 
         // State
@@ -43,6 +48,17 @@ class SurvivalGuideBottomSheetFragment :
         // Services
         val context = useAndroidContext()
         val markdown = useService<MarkdownService>()
+
+        // Nav
+        val queryChanger = View.OnClickListener {
+            dismiss()
+            navController.navigateWithAnimation(
+                R.id.fragmentToolSurvivalGuideList,
+                bundleOf("search_query" to query)
+            )
+        }
+        titleButtonView.setOnClickListener(queryChanger)
+        sectionButtonView.setOnClickListener(queryChanger)
 
         useSearch(searchView, setQuery)
 
@@ -60,7 +76,11 @@ class SurvivalGuideBottomSheetFragment :
                             Resources.androidTextColorSecondary(requireContext())
                         )
                     ) {
-                        // Do nothing
+                        dismiss()
+                        navController.navigateWithAnimation(
+                            R.id.fragmentToolSurvivalGuideReader,
+                            bundleOf("chapter_resource_id" to it.chapter.resource)
+                        )
                     }
                 }
             } else {
@@ -79,8 +99,14 @@ class SurvivalGuideBottomSheetFragment :
                             )
                         )
                     ) {
-                        // TODO: Scroll to the heading
-                        // Do nothing
+                        dismiss()
+                        navController.navigateWithAnimation(
+                            R.id.fragmentToolSurvivalGuideReader,
+                            bundleOf(
+                                "chapter_resource_id" to it.chapter.resource,
+                                "header_index" to it.headingIndex
+                            )
+                        )
                     }
                 }
             }
@@ -126,13 +152,14 @@ class SurvivalGuideBottomSheetFragment :
                     right = R.drawable.ic_keyboard_arrow_right
                 )
                 summaryHolderView.setOnClickListener {
-//                    navController.navigateWithAnimation(
-//                        R.id.fragmentToolSurvivalGuideReader,
-//                        bundleOf(
-//                            "chapter_resource_id" to result.chapter.resource,
-//                            "header_index" to result.headingIndex
-//                        )
-//                    )
+                    dismiss()
+                    navController.navigateWithAnimation(
+                        R.id.fragmentToolSurvivalGuideReader,
+                        bundleOf(
+                            "chapter_resource_id" to result.chapter.resource,
+                            "header_index" to result.headingIndex
+                        )
+                    )
                 }
             }
         }
