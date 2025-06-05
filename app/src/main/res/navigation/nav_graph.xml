@@ -400,7 +400,13 @@
     <fragment
         android:id="@+id/fragmentToolSurvivalGuideList"
         android:name="com.kylecorry.trail_sense.tools.survival_guide.ui.FragmentToolSurvivalGuideList"
-        android:label="FragmentToolSurvivalGuideList" />
+        android:label="FragmentToolSurvivalGuideList" >
+
+        <argument
+            android:name="search_query"
+            app:argType="string" />
+
+    </fragment>
     <fragment
         android:id="@+id/fragmentToolSurvivalGuideReader"
         android:name="com.kylecorry.trail_sense.tools.survival_guide.ui.FragmentToolSurvivalGuideReader"
