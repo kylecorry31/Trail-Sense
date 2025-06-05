@@ -99,7 +99,7 @@ Wildfires can cause smoke to travel long distances. If possible, avoid outdoor a
 <!-- K: climate, average -->
 <!-- S: Your region's climate can indicate what weather is common for the time of year. -->
 
-The climate of a region refers to its average weather conditions over time. You should look up the average daily high and low temperatures, how often it rains or snows, what the humidity normally is, and where the prevailing wind blows from. You should prepare for conditions to return to the climate normals in a longer-term scenario, so if it is unusually warm during your hike but the average low is below freezing, bring cold weather gear with you.
+The climate of a region refers to its average weather conditions over time. You should look up the average daily high and low temperatures, how often it rains or snows, what the humidity normally is, and where the prevailing wind blows from. You should prepare for conditions to return to the climate normals in a longer-term scenario, so if it is unusually warm during your hike but the average low is below freezing, bring cold weather gear with you. During a dry season, you should be extra cautious of starting a fire and plan for scarce natural water sources.
 
 ## Forecasting
 <!-- K: forecast, predict, signs -->
