@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.ui.ReactiveComponent
 import com.kylecorry.andromeda.core.ui.useCallback
 import com.kylecorry.andromeda.core.ui.useService
+import com.kylecorry.andromeda.fragments.AndromedaBottomSheetFragment
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.LifecycleHookTrigger
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
@@ -85,6 +86,10 @@ fun AndromedaFragment.useNavController(): NavController {
     return useMemo(useRootView()) { findNavController() }
 }
 
+fun AndromedaBottomSheetFragment.useNavController(): NavController {
+    return useMemo(useRootView()) { findNavController() }
+}
+
 fun AndromedaFragment.useArguments(): Bundle {
     return requireArguments()
 }
@@ -117,7 +122,7 @@ fun AndromedaFragment.useBackPressedCallback(
     }
 }
 
-fun AndromedaFragment.useSearch(view: SearchView, onSearch: (String) -> Unit) {
+fun ReactiveComponent.useSearch(view: SearchView, onSearch: (String) -> Unit) {
     useEffect(view) {
         view.setOnSearchListener(onSearch)
     }

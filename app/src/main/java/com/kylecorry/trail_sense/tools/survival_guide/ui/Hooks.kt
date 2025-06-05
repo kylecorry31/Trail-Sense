@@ -5,10 +5,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.ui.ReactiveComponent
 import com.kylecorry.andromeda.fragments.AndromedaBottomSheetFragment
-import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.trail_sense.shared.extensions.useCoroutineQueue
-import com.kylecorry.trail_sense.shared.views.SearchView
 import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.GuideDetails
 import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.GuideLoader
 import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.SurvivalGuideSearch
@@ -57,14 +55,4 @@ fun <T> T.useSearchSurvivalGuide(query: String): Pair<List<SurvivalGuideSearchRe
     }
 
     return results to summary
-}
-
-fun AndromedaBottomSheetFragment.useSearch(view: SearchView, onSearch: (String) -> Unit) {
-    useEffect(view) {
-        view.setOnSearchListener(onSearch)
-    }
-}
-
-fun AndromedaBottomSheetFragment.useNavController(): NavController {
-    return useMemo(useRootView()) { findNavController() }
 }

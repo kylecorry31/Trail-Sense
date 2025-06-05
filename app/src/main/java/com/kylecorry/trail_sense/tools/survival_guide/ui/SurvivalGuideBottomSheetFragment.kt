@@ -1,10 +1,8 @@
 package com.kylecorry.trail_sense.tools.survival_guide.ui
 
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.View
 import android.widget.TextView
-import androidx.appcompat.widget.AppCompatImageButton
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
@@ -14,11 +12,12 @@ import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.views.badge.Badge
-import com.kylecorry.andromeda.views.list.ListItem
-import com.kylecorry.andromeda.views.list.ListItemTag
 import com.kylecorry.andromeda.views.list.ResourceListIcon
+import com.kylecorry.andromeda.views.toolbar.Toolbar
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveBottomSheetFragment
+import com.kylecorry.trail_sense.shared.extensions.useNavController
+import com.kylecorry.trail_sense.shared.extensions.useSearch
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.views.SearchView
 import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.SurvivalGuideSearch
@@ -34,9 +33,8 @@ class SurvivalGuideBottomSheetFragment :
         val summaryTitleView = useView<TextView>(R.id.summary_title)
         val summaryScrollView = useView<NestedScrollView>(R.id.summary_scroll)
         val summaryChapterBadgeView = useView<Badge>(R.id.summary_chapter_title)
-        val titleButtonView = useView<AppCompatImageButton>(R.id.survival_guide_btn)
-        val emptyTitleView = useView<TextView>(R.id.empty_view_title)
-        val emptyDescView = useView<TextView>(R.id.empty_view_description)
+        val emptyView = useView<View>(R.id.empty_view_description)
+        val titleView = useView<Toolbar>(R.id.title)
         val navController = useNavController()
 
         // State
@@ -48,61 +46,30 @@ class SurvivalGuideBottomSheetFragment :
         val markdown = useService<MarkdownService>()
 
         // Navigation
-        titleButtonView.setOnClickListener {
-            dismiss()
-            navController.navigateWithAnimation(
-                R.id.fragmentToolSurvivalGuideList,
-                bundleOf("search_query" to query)
-            )
-        }
-
-        // Colors
-        titleButtonView.imageTintList = ColorStateList.valueOf(Resources.androidTextColorPrimary(requireContext()))
-        val textColor = Resources.androidTextColorSecondary(requireContext())
-        emptyTitleView.setTextColor(textColor)
-        emptyDescView.setTextColor(textColor)
-
-        useSearch(searchView, setQuery)
-
-        useMemo(navController, query, searchResults) {
-            if(query.isNotBlank() && searchResults.isNotEmpty()) {
-                searchResults.map {
-                    ListItem(
-                        it.chapter.resource.toLong(),
-                        it.heading ?: getString(R.string.overview),
-                        it.summary,
-                        icon = ResourceListIcon(it.chapter.icon, textColor),
-                        tags = listOf(
-                            ListItemTag(
-                                it.chapter.title,
-                                ResourceListIcon(it.chapter.icon, size = 12f),
-                                textColor
-                            )
-                        )
-                    ) {
-                        dismiss()
-                        navController.navigateWithAnimation(
-                            R.id.fragmentToolSurvivalGuideReader,
-                            bundleOf(
-                                "chapter_resource_id" to it.chapter.resource,
-                                "header_index" to it.headingIndex
-                            )
-                        )
-                    }
-                }
+        useEffect(titleView) {
+            titleView.rightButton.setOnClickListener {
+                dismiss()
+                navController.navigateWithAnimation(
+                    R.id.fragmentToolSurvivalGuideList,
+                    bundleOf("search_query" to query)
+                )
             }
         }
+
+        useSearch(searchView, setQuery)
 
         useEffect(
             summaryHolderView,
             summaryTitleView,
             summaryView,
             summaryChapterBadgeView,
+            emptyView,
             summary,
             markdown,
             searchResults
         ) {
             summaryHolderView.isVisible = summary.isNotBlank()
+            emptyView.isVisible = summary.isBlank()
             markdown.setMarkdown(summaryView, summary)
             val result = searchResults.firstOrNull()
             if (result != null) {

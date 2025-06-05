@@ -75,7 +75,7 @@ class FragmentToolSurvivalGuideList :
 
         useSearch(searchView, setQuery)
 
-        useEffect(searchArgumentQuery) {
+        useEffect(searchView, searchArgumentQuery) {
             if (searchArgumentQuery.isNotEmpty()) {
                 searchView.query = searchArgumentQuery
                 searchView.setCursorPosition(searchArgumentQuery.length)
