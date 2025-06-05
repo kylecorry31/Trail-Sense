@@ -59,7 +59,7 @@ Temperature changes as you change elevation, decreasing by about 3.5°F (2°C) f
 ### Wind
 <!-- K: wind, gust, storm, hurricane, tornado, sandstorm, prevailing, blow, direction -->
 
-Wind can make cold conditions feel even colder, increasing the risk of hypothermia and frostbite. Dress in layers and wear a hat and gloves to protect yourself from the wind. During windstorms, unstable trees and branches can become hazardous. Wind can cause sandstorms in desert environments, reducing visibility and making breathing difficult. Seek shelter during a sandstorm and protect your eyes and mouth with a bandana or cloth.
+Wind can make cold conditions feel even colder, increasing the risk of hypothermia and frostbite. Dress in layers and wear a hat and gloves to protect yourself from the wind. During windstorms, unstable trees and branches can become hazardous. Wind can cause sandstorms in desert environments, reducing visibility and making breathing difficult. Seek shelter during a sandstorm and protect your eyes and mouth with a bandana or cloth. In costal environments, winds can lead to dangerous surf conditions such as high waves or rip currents.
 
 Prevailing winds are winds that blow consistently in one direction over time. While local geography and bodies of water can affect wind patterns, general patterns are as follows:
 - 60° N to 90° N: Winds generally blow from the east.  
@@ -158,7 +158,7 @@ Identifying the cloud type can improve your ability to forecast weather.
 <!-- K: tide, water, coast, rise, fall, moon, ocean, sea, semidiurnal, diurnal, mixed -->
 <!-- S: Most places have two high tides and two low tides daily. Check tide tables before heading to the coast. -->
 
-Tides can affect outdoor activities near the coast. A receding tide can lead to rip currents, which are dangerous for swimmers. Check the tide tables before heading to the coast. Tide tables can be found online or in local newspapers.
+Tides can affect outdoor activities near the coast. Check the tide tables before heading to the coast. Tide tables can be found online or in local newspapers.
 
 This map shows the tide types around the world. Green is semidiurnal, blue is mixed, and orange is diurnal.
 
