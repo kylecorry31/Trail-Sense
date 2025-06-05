@@ -1371,4 +1371,8 @@
     <string name="opacity">Opacidade</string>
     <string name="pref_navigation_lock_screen_when_open_title">Mostrar na tela de bloqueio enquanto aberto</string>
     <string name="declination">Declinação</string>
+    <string name="survival_guide_empty_desc">Faça busca por tópicos de sobrevivência como água, assistência médica, alimentação, clima, abrigo e roupas ou técnicas de navegação.</string>
+    <string name="use_alarm_for_turn_back_alert">Use o alarme para alerta de retorno</string>
+    <string name="alarm_description">Reproduz um som mesmo que a mídia e as notificações estejam silenciadas</string>
+    <string name="use_alarm_for_distance_alert">Use o alarme para alerta de distância</string>
 </resources>
