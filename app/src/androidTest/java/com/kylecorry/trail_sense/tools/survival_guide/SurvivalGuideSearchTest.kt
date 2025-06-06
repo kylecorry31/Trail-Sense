@@ -12,7 +12,7 @@ class SurvivalGuideSearchTest {
 
     @Test
     fun canSearch() {
-        search("What to do if bitten by a snake?", "Medical", "Bites: snakes")
+        search("What to do if bitten by a snake?", "Medical", "Bites, stings, and attacks", "Snakes")
         search("How to catch a fish", "Food", "Fish", "Fishing")
         search("Lighter", "Fire", "Starting a fire", "Lighter")
         search("I'm lost", "Overview", "What to do in a survival situation")
@@ -42,7 +42,7 @@ class SurvivalGuideSearchTest {
         search("find location on map", "Navigation", "Map", "Determining location")
         search("help me calm down", "Medical", "Panic attacks and calming techniques")
         search("get help", "Overview", "Signaling for help")
-        search("remove tick", "Medical", "Bites: ticks")
+        search("remove tick", "Medical", "Bites, stings, and attacks", "Ticks")
 
         // Spelling mistakes
         search("how do i reed map", "Navigation", "Map")
