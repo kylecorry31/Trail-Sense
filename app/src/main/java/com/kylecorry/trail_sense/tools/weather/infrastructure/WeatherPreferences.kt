@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.weather.infrastructure
 
 import android.content.Context
 import com.kylecorry.andromeda.core.toIntCompat
+import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.FloatPreference
 import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.andromeda.sense.Sensors
@@ -167,9 +168,30 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
         ForecastSource.Sol
     )
 
-    override var stormAlertAlarmHours: Range<LocalTime>?
-        get() = null
-        set(value) {}
+    val useAlarmForStormAlert by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_weather_use_alarm_for_storm_alert),
+        false
+    )
+
+    val muteStormAlarmAtNight by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_weather_mute_storm_alarm_at_night),
+        true
+    )
+
+    override val stormAlertAlarmHours: Range<LocalTime>?
+        get() {
+            if (!useAlarmForStormAlert) {
+                return null
+            }
+
+            return if (muteStormAlarmAtNight) {
+                Range(LocalTime.of(8, 0), LocalTime.of(20, 0))
+            } else {
+                Range(LocalTime.MIN, LocalTime.MAX)
+            }
+        }
 
     companion object {
         const val HPA_FORECAST_LOW = 2.5f

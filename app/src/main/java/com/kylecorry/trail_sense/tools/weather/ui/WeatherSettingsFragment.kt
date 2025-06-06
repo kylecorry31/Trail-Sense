@@ -37,6 +37,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.Instant
+import java.time.LocalTime
 
 class WeatherSettingsFragment : AndromedaPreferenceFragment() {
 
@@ -49,6 +50,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
     private var prefrightButton: ListPreference? = null
     private var prefDailyWeatherTime: Preference? = null
     private var prefStormAlerts: SwitchPreferenceCompat? = null
+    private var prefMuteStormAlarmAtNight: SwitchPreferenceCompat? = null
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     private val weatherMonitorService by lazy {
@@ -70,6 +72,7 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         prefDailyWeatherTime = preference(R.string.pref_daily_weather_time_holder)
         prefleftButton = list(R.string.pref_weather_quick_action_left)
         prefrightButton = list(R.string.pref_weather_quick_action_right)
+        prefMuteStormAlarmAtNight = switch(R.string.pref_weather_mute_storm_alarm_at_night)
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -190,6 +193,20 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
             }
 
         }
+
+        prefMuteStormAlarmAtNight?.summary = getString(
+            R.string.alarm_time_range,
+            formatService.formatTime(
+                LocalTime.of(8, 0),
+                includeSeconds = false,
+                includeMinutes = false
+            ),
+            formatService.formatTime(
+                LocalTime.of(20, 0),
+                includeSeconds = false,
+                includeMinutes = false
+            )
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

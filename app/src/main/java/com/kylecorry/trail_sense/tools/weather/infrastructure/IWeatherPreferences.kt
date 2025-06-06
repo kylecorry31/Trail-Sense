@@ -29,5 +29,5 @@ interface IWeatherPreferences {
     val rightButton: Int
     val showColoredNotificationIcon: Boolean
     val forecastSource: ForecastSource
-    var stormAlertAlarmHours: Range<LocalTime>?
+    val stormAlertAlarmHours: Range<LocalTime>?
 }

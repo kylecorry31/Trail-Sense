@@ -45,23 +45,6 @@
             app:summary="@string/pref_monitor_weather_summary"
             app:title="@string/pref_monitor_weather_title" />
 
-        <SwitchPreferenceCompat
-            app:defaultValue="true"
-            app:dependency="@string/pref_monitor_weather"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_send_storm_alert"
-            app:singleLineTitle="false"
-            app:title="@string/storm_alerts" />
-
-        <ListPreference
-            app:defaultValue="medium"
-            app:entryValues="@array/storm_alert_sensitivity_values"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_storm_alert_sensitivity"
-            app:singleLineTitle="false"
-            app:title="@string/pref_storm_alert_sensitivity_title"
-            app:useSimpleSummaryProvider="true" />
-
         <ListPreference
             app:defaultValue="medium"
             app:entryValues="@array/forecast_sensitivity_values"
@@ -105,6 +88,47 @@
             app:key="@string/pref_daily_weather_time_holder"
             app:singleLineTitle="false"
             app:title="@string/pref_daily_weather_time_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/weather_storm">
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:dependency="@string/pref_monitor_weather"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_send_storm_alert"
+            app:singleLineTitle="false"
+            app:title="@string/storm_alerts" />
+
+        <ListPreference
+            app:defaultValue="medium"
+            app:entryValues="@array/storm_alert_sensitivity_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_storm_alert_sensitivity"
+            app:singleLineTitle="false"
+            app:title="@string/pref_storm_alert_sensitivity_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:dependency="@string/pref_send_storm_alert"
+            android:summary="@string/alarm_description"
+            android:title="@string/use_alarm_for_storm_alert"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_weather_use_alarm_for_storm_alert"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:dependency="@string/pref_weather_use_alarm_for_storm_alert"
+            android:title="@string/mute_alarm_at_night"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_weather_mute_storm_alarm_at_night"
+            app:singleLineTitle="false" />
 
     </PreferenceCategory>
 
