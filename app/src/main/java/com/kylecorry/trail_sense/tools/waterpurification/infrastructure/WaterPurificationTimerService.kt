@@ -50,6 +50,8 @@ class WaterPurificationTimerService : AndromedaService() {
         if (!done) {
             Notify.cancel(this, NOTIFICATION_ID)
         } else {
+            val prefs = AppServiceRegistry.get<UserPreferences>()
+            val useAlarm = prefs.waterBoilTimer.useAlarm
             val notification = Notify.alert(
                 this@WaterPurificationTimerService,
                 CHANNEL_ID,
@@ -57,14 +59,14 @@ class WaterPurificationTimerService : AndromedaService() {
                 getString(R.string.water_boil_timer_done_content),
                 R.drawable.ic_tool_boil_done,
                 group = NOTIFICATION_GROUP_WATER,
-                intent = openIntent
+                intent = openIntent,
+                mute = useAlarm
             )
             Notify.send(this@WaterPurificationTimerService, NOTIFICATION_ID, notification)
 
-            val prefs = AppServiceRegistry.get<UserPreferences>()
             val alarm = AlarmAlerter(
                 this,
-                prefs.waterBoilTimer.useAlarm,
+                useAlarm,
                 WaterBoilTimerToolRegistration.NOTIFICATION_CHANNEL_WATER_BOIL_TIMER
             )
             alarm.alert()

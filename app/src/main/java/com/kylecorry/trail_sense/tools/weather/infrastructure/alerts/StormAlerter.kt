@@ -14,6 +14,7 @@ class StormAlerter(private val context: Context) : IDismissibleAlerter {
 
     override fun alert() {
         val prefs = AppServiceRegistry.get<UserPreferences>()
+        val useAlarm = prefs.weather.useAlarmForStormAlert
         val notification = Notify.alert(
             context,
             STORM_CHANNEL_ID,
@@ -22,13 +23,14 @@ class StormAlerter(private val context: Context) : IDismissibleAlerter {
             R.drawable.ic_alert,
             group = NOTIFICATION_GROUP_STORM,
             intent = NavigationUtils.pendingIntent(context, R.id.action_weather),
-            autoCancel = true
+            autoCancel = true,
+            mute = useAlarm
         )
         Notify.send(context, STORM_ALERT_NOTIFICATION_ID, notification)
 
         val alarm = AlarmAlerter(
             context,
-            prefs.weather.useAlarmForStormAlert,
+            useAlarm,
             WeatherToolRegistration.NOTIFICATION_CHANNEL_STORM_ALERT
         )
         alarm.alert()

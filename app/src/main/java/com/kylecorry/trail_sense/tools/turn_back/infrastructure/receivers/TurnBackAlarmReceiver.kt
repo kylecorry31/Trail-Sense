@@ -32,6 +32,7 @@ class TurnBackAlarmReceiver : BroadcastReceiver() {
         val formattedReturnTime =
             FormatService.getInstance(context).formatTime(returnTime, includeSeconds = false)
 
+        val useAlarm = userPrefs.turnBack.useAlarm
         val notification = Notify.alert(
             context,
             NOTIFICATION_CHANNEL_ID,
@@ -39,7 +40,8 @@ class TurnBackAlarmReceiver : BroadcastReceiver() {
             context.getString(R.string.turn_back_notification_description, formattedReturnTime),
             R.drawable.ic_undo,
             group = NOTIFIATION_GROUP,
-            autoCancel = true
+            autoCancel = true,
+            mute = useAlarm
         )
         Notify.send(
             context,
@@ -49,7 +51,7 @@ class TurnBackAlarmReceiver : BroadcastReceiver() {
 
         val alarm = AlarmAlerter(
             context,
-            userPrefs.turnBack.useAlarm,
+            useAlarm,
             TurnBackToolRegistration.NOTIFICATION_CHANNEL_TURN_BACK_ALERT
         )
         alarm.alert()

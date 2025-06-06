@@ -105,6 +105,7 @@ class SunriseAlarmCommand(private val context: Context) : CoroutineCommand {
 
         val openIntent = NavigationUtils.pendingIntent(context, R.id.action_astronomy)
 
+        val useAlarm = userPrefs.astronomy.useAlarmForSunriseAlert
         val notification = Notify.alert(
             context,
             NOTIFICATION_CHANNEL_ID,
@@ -115,14 +116,15 @@ class SunriseAlarmCommand(private val context: Context) : CoroutineCommand {
             ),
             R.drawable.ic_sunrise_notification,
             intent = openIntent,
-            autoCancel = true
+            autoCancel = true,
+            mute = useAlarm
         )
 
         Notify.send(context, NOTIFICATION_ID, notification)
 
         val alarm = AlarmAlerter(
             context,
-            userPrefs.astronomy.useAlarmForSunriseAlert,
+            useAlarm,
             AstronomyToolRegistration.NOTIFICATION_CHANNEL_SUNRISE_ALERT
         )
         alarm.alert()

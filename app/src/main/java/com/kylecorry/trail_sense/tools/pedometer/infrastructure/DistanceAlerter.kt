@@ -24,6 +24,7 @@ class DistanceAlerter(private val context: Context) : IAlerter {
         val distance =
             prefs.pedometer.alertDistance?.convertTo(prefs.baseDistanceUnits)?.toRelativeDistance()
 
+        val useAlarm = prefs.pedometer.useAlarmForDistanceAlert
         val notification = Notify.alert(
             context,
             NOTIFICATION_CHANNEL_ID,
@@ -40,14 +41,15 @@ class DistanceAlerter(private val context: Context) : IAlerter {
             },
             R.drawable.steps,
             intent = openIntent,
-            autoCancel = true
+            autoCancel = true,
+            mute = useAlarm
         )
 
         Notify.send(context, NOTIFICATION_ID, notification)
 
         val alarm = AlarmAlerter(
             context,
-            prefs.pedometer.useAlarmForDistanceAlert,
+            useAlarm,
             PedometerToolRegistration.NOTIFICATION_CHANNEL_DISTANCE_ALERT
         )
         alarm.alert()
