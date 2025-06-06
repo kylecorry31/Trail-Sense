@@ -16,6 +16,7 @@ import com.kylecorry.andromeda.views.toolbar.Toolbar
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useArgument
 import com.kylecorry.trail_sense.shared.extensions.useCoroutineQueue
@@ -67,6 +68,7 @@ class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_fiel
         }
 
         useEffect(sightingsView, page, navController, prefs) {
+            sightingsView.isVisible = isDebug()
             page ?: return@useEffect
             sightingsView.setOnClickListener {
                 // TODO: Navigate to the sightings list
