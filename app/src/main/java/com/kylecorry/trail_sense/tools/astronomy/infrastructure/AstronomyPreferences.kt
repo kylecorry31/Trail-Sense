@@ -141,10 +141,16 @@ class AstronomyPreferences(private val context: Context) {
     )
 
     // Alarms
-    val useAlarmForSunsetAlert: Boolean
-        get() = false
+    val useAlarmForSunsetAlert by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_astronomy_use_alarm_for_sunset_alert),
+        false
+    )
 
-    val useAlarmForSunriseAlert: Boolean
-        get() = false
+    val useAlarmForSunriseAlert by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_astronomy_use_alarm_for_sunrise_alert),
+        false
+    )
 
 }
