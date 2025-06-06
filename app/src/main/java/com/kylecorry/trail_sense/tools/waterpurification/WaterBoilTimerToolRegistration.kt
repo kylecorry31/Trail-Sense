@@ -21,6 +21,7 @@ object WaterBoilTimerToolRegistration : ToolRegistration {
             ToolCategory.Time,
             context.getString(R.string.tool_boil_summary),
             guideId = R.raw.guide_tool_water_boil_timer,
+            settingsNavAction = R.id.fragmentWaterBoilTimerSettings,
             notificationChannels = listOf(
                 ToolNotificationChannel(
                     NOTIFICATION_CHANNEL_WATER_BOIL_TIMER,

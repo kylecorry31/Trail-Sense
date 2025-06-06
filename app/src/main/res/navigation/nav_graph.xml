@@ -524,6 +524,10 @@
         android:name="com.kylecorry.trail_sense.tools.turn_back.ui.TurnBackSettingsFragment"
         android:label="TurnBackSettingsFragment" />
     <fragment
+        android:id="@+id/fragmentWaterBoilTimerSettings"
+        android:name="com.kylecorry.trail_sense.tools.waterpurification.ui.WaterBoilTimerSettingsFragment"
+        android:label="WaterBoilTimerSettingsFragment" />
+    <fragment
         android:id="@+id/calibrateOdometerFragment"
         android:name="com.kylecorry.trail_sense.tools.pedometer.ui.PedometerSettingsFragment"
         android:label="CalibrateOdometerFragment">

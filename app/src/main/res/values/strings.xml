@@ -1705,12 +1705,14 @@
     <string name="declination">Declination</string>
     <string name="pref_pedometer_use_alarm_for_distance_alert" translatable="false">pref_pedometer_use_alarm_for_distance_alert</string>
     <string name="pref_turn_back_use_alarm" translatable="false">pref_turn_back_use_alarm</string>
+    <string name="pref_water_boil_timer_use_alarm" translatable="false">pref_water_boil_timer_use_alarm</string>
     <string name="pref_astronomy_use_alarm_for_sunset_alert" translatable="false">pref_astronomy_use_alarm_for_sunset_alert</string>
     <string name="pref_astronomy_use_alarm_for_sunrise_alert" translatable="false">pref_astronomy_use_alarm_for_sunrise_alert</string>
     <string name="pref_weather_use_alarm_for_storm_alert" translatable="false">pref_weather_use_alarm_for_storm_alert</string>
     <string name="pref_weather_mute_storm_alarm_at_night" translatable="false">pref_weather_mute_storm_alarm_at_night</string>
     <string name="use_alarm_for_distance_alert">Use alarm for distance alert</string>
     <string name="use_alarm_for_turn_back_alert">Use alarm for turn back alert</string>
+    <string name="use_alarm_for_water_boil_timer">Use alarm for water boil timer</string>
     <string name="use_alarm_for_storm_alert">Use alarm for storm alert</string>
     <string name="use_alarm_for_sunset_alert">Use alarm for sunset alert</string>
     <string name="use_alarm_for_sunrise_alert">Use alarm for sunrise alert</string>
