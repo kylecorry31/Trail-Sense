@@ -5,6 +5,7 @@ import android.hardware.Sensor
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.tools.astronomy.AstronomyToolRegistration
 import com.kylecorry.trail_sense.tools.pedometer.actions.PausePedometerAction
 import com.kylecorry.trail_sense.tools.pedometer.actions.ResumePedometerAction
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.DistanceAlerter
@@ -59,7 +60,7 @@ object PedometerToolRegistration : ToolRegistration {
                 ),
                 // This may be shared at some point
                 ToolNotificationChannel(
-                    DistanceAlerter.NOTIFICATION_CHANNEL_ID,
+                    NOTIFICATION_CHANNEL_DISTANCE_ALERT,
                     context.getString(R.string.distance_alert),
                     context.getString(R.string.distance_alert),
                     Notify.CHANNEL_IMPORTANCE_HIGH,
@@ -141,4 +142,6 @@ object PedometerToolRegistration : ToolRegistration {
     const val SERVICE_PEDOMETER = "pedometer-service-pedometer"
 
     const val WIDGET_PEDOMETER = "pedometer-widget-pedometer"
+
+    const val NOTIFICATION_CHANNEL_DISTANCE_ALERT = DistanceAlerter.NOTIFICATION_CHANNEL_ID
 }

@@ -84,14 +84,14 @@ object AstronomyToolRegistration : ToolRegistration {
             ),
             notificationChannels = listOf(
                 ToolNotificationChannel(
-                    SunsetAlarmCommand.NOTIFICATION_CHANNEL_ID,
+                    NOTIFICATION_CHANNEL_SUNSET_ALERT,
                     context.getString(R.string.sunset_alert_channel_title),
                     context.getString(R.string.sunset_alerts),
                     Notify.CHANNEL_IMPORTANCE_HIGH,
                     false
                 ),
                 ToolNotificationChannel(
-                    SunriseAlarmCommand.NOTIFICATION_CHANNEL_ID,
+                    NOTIFICATION_CHANNEL_SUNRISE_ALERT,
                     context.getString(R.string.sunrise_alert_channel_title),
                     context.getString(R.string.sunrise_alerts),
                     Notify.CHANNEL_IMPORTANCE_HIGH,
@@ -161,4 +161,7 @@ object AstronomyToolRegistration : ToolRegistration {
     const val WIDGET_SUN = "astronomy-widget-sun"
     const val WIDGET_MOON = "astronomy-widget-moon"
     const val WIDGET_SUN_AND_MOON_CHART = "astronomy-widget-sun-and-moon-chart"
+
+    const val NOTIFICATION_CHANNEL_SUNRISE_ALERT = SunriseAlarmCommand.NOTIFICATION_CHANNEL_ID
+    const val NOTIFICATION_CHANNEL_SUNSET_ALERT = SunsetAlarmCommand.NOTIFICATION_CHANNEL_ID
 }

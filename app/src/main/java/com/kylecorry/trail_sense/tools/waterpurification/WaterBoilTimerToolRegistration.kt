@@ -23,7 +23,7 @@ object WaterBoilTimerToolRegistration : ToolRegistration {
             guideId = R.raw.guide_tool_water_boil_timer,
             notificationChannels = listOf(
                 ToolNotificationChannel(
-                    WaterPurificationTimerService.CHANNEL_ID,
+                    NOTIFICATION_CHANNEL_WATER_BOIL_TIMER,
                     context.getString(R.string.water_boil_timer),
                     context.getString(R.string.water_boil_timer_channel_description),
                     Notify.CHANNEL_IMPORTANCE_HIGH,
@@ -33,10 +33,12 @@ object WaterBoilTimerToolRegistration : ToolRegistration {
             diagnostics = listOf(
                 *ToolDiagnosticFactory.altimeter(context),
                 ToolDiagnosticFactory.notification(
-                    WaterPurificationTimerService.CHANNEL_ID,
+                    NOTIFICATION_CHANNEL_WATER_BOIL_TIMER,
                     context.getString(R.string.water_boil_timer)
                 )
             ).distinctBy { it.id }
         )
     }
+
+    const val NOTIFICATION_CHANNEL_WATER_BOIL_TIMER = WaterPurificationTimerService.CHANNEL_ID
 }

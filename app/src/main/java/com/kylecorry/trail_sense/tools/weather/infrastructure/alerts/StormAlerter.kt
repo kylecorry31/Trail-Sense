@@ -5,10 +5,10 @@ import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.alerts.AlarmAlerter
 import com.kylecorry.trail_sense.shared.alerts.IDismissibleAlerter
 import com.kylecorry.trail_sense.shared.alerts.RespectfulAlarmAlerter
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
+import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 
 class StormAlerter(private val context: Context) : IDismissibleAlerter {
 
@@ -26,7 +26,11 @@ class StormAlerter(private val context: Context) : IDismissibleAlerter {
         )
         Notify.send(context, STORM_ALERT_NOTIFICATION_ID, notification)
 
-        val alarm = RespectfulAlarmAlerter(context, prefs.weather.stormAlertAlarmHours)
+        val alarm = RespectfulAlarmAlerter(
+            context,
+            prefs.weather.stormAlertAlarmHours,
+            WeatherToolRegistration.NOTIFICATION_CHANNEL_STORM_ALERT
+        )
         alarm.alert()
     }
 

@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.shared.alerts.RespectfulAlarmAlerter
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
+import com.kylecorry.trail_sense.tools.astronomy.AstronomyToolRegistration
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.receivers.SunriseAlarmReceiver
 import java.time.Duration
@@ -119,7 +120,11 @@ class SunriseAlarmCommand(private val context: Context) : CoroutineCommand {
 
         Notify.send(context, NOTIFICATION_ID, notification)
 
-        val alarm = RespectfulAlarmAlerter(context, userPrefs.astronomy.useAlarmForSunriseAlert)
+        val alarm = RespectfulAlarmAlerter(
+            context,
+            userPrefs.astronomy.useAlarmForSunriseAlert,
+            AstronomyToolRegistration.NOTIFICATION_CHANNEL_SUNRISE_ALERT
+        )
         alarm.alert()
     }
 

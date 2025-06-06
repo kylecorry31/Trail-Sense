@@ -83,7 +83,7 @@ object WeatherToolRegistration : ToolRegistration {
             ),
             notificationChannels = listOf(
                 ToolNotificationChannel(
-                    StormAlerter.STORM_CHANNEL_ID,
+                    NOTIFICATION_CHANNEL_STORM_ALERT,
                     context.getString(R.string.storm_alerts),
                     context.getString(R.string.storm_alerts),
                     Notify.CHANNEL_IMPORTANCE_HIGH
@@ -114,7 +114,7 @@ object WeatherToolRegistration : ToolRegistration {
                     scanner = WeatherMonitorDiagnosticScanner()
                 ),
                 ToolDiagnosticFactory.notification(
-                    StormAlerter.STORM_CHANNEL_ID,
+                    NOTIFICATION_CHANNEL_STORM_ALERT,
                     context.getString(R.string.storm_alerts),
                 ),
                 ToolDiagnosticFactory.notification(
@@ -194,4 +194,6 @@ object WeatherToolRegistration : ToolRegistration {
     const val WIDGET_WEATHER = "weather-widget-weather"
     const val WIDGET_PRESSURE_TENDENCY = "weather-widget-pressure-tendency"
     const val WIDGET_PRESSURE_CHART = "weather-widget-pressure-chart"
+
+    const val NOTIFICATION_CHANNEL_STORM_ALERT = StormAlerter.STORM_CHANNEL_ID
 }

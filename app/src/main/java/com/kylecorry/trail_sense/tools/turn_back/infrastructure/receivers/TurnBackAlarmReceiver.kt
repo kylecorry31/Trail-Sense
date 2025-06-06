@@ -16,6 +16,7 @@ import com.kylecorry.trail_sense.shared.alerts.RespectfulAlarmAlerter
 import com.kylecorry.trail_sense.shared.permissions.RequestBackgroundLocationCommand
 import com.kylecorry.trail_sense.shared.permissions.requestScheduleExactAlarms
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.tools.turn_back.TurnBackToolRegistration
 import com.kylecorry.trail_sense.tools.turn_back.ui.TurnBackFragment
 
 class TurnBackAlarmReceiver : BroadcastReceiver() {
@@ -46,7 +47,11 @@ class TurnBackAlarmReceiver : BroadcastReceiver() {
             notification
         )
 
-        val alarm = RespectfulAlarmAlerter(context, userPrefs.turnBack.useAlarm)
+        val alarm = RespectfulAlarmAlerter(
+            context,
+            userPrefs.turnBack.useAlarm,
+            TurnBackToolRegistration.NOTIFICATION_CHANNEL_TURN_BACK_ALERT
+        )
         alarm.alert()
 
         // Clear the times

@@ -24,7 +24,7 @@ object TurnBackToolRegistration : ToolRegistration {
             settingsNavAction = R.id.fragmentTurnBackSettings,
             notificationChannels = listOf(
                 ToolNotificationChannel(
-                    TurnBackAlarmReceiver.NOTIFICATION_CHANNEL_ID,
+                    NOTIFICATION_CHANNEL_TURN_BACK_ALERT,
                     context.getString(R.string.tool_turn_back),
                     context.getString(R.string.turn_back_alerts),
                     Notify.CHANNEL_IMPORTANCE_HIGH,
@@ -36,7 +36,7 @@ object TurnBackToolRegistration : ToolRegistration {
                 ToolDiagnosticFactory.alarm(context),
                 ToolDiagnosticFactory.gps(context),
                 ToolDiagnosticFactory.notification(
-                    TurnBackAlarmReceiver.NOTIFICATION_CHANNEL_ID,
+                    NOTIFICATION_CHANNEL_TURN_BACK_ALERT,
                     context.getString(R.string.turn_back_alerts)
                 )
             )
@@ -44,4 +44,5 @@ object TurnBackToolRegistration : ToolRegistration {
     }
 
     const val SERVICE_TURN_BACK = "turn_back-service-turn-back"
+    const val NOTIFICATION_CHANNEL_TURN_BACK_ALERT = TurnBackAlarmReceiver.NOTIFICATION_CHANNEL_ID
 }
