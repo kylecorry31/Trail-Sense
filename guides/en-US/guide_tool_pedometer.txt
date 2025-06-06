@@ -10,6 +10,8 @@ You can stop the pedometer at any point (e.g., while resting or at a campsite) b
 ## Distance alert
 If the pedometer is on, you can choose to receive a notification when you've reached a certain distance traveled. To activate, click the alert icon in the top-right corner of the screen and enter the distance you want to be alerted at. Once you've reached the distance, you'll receive a notification. The distance alert uses the total distance, so if you've already traveled 4 km and want to be notified after another 1 km, set the alert to 5 km. Alternatively, you can reset the pedometer and set the alert to 1 km.
 
+You can choose to use the alarm audio channel for this alert by enabling Settings > Pedometer > Use alarm for distance alert. This will play a sound as an alarm even if media and notifications are muted. 
+
 ## Calibration
 Before using the pedometer in Trail Sense, you should calibrate it based on your stride length. Your stride length is measured as the distance traveled with a single step. To set your stride length, you can open Settings > Pedometer and enter a value for stride length. You can use Trail Sense to estimate this value by doing the following:
 
