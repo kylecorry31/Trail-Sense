@@ -195,9 +195,18 @@ A back bearing is the opposite direction of your current bearing. To calculate a
 To use a back bearing to navigate, you need to take a bearing before hiking out. Keep this bearing written down or memorized, and as long as you didn't drastically change direction, following the back bearing will lead you close to your starting location. Every time you make a turn, you should record a bearing.
 
 ### Declination
-<!-- K: declination, true, magnetic -->
+<!-- K: declination, true, magnetic, grid, north, add, subtract -->
 
-Declination is the difference between true north and magnetic north. Adjust your compass for declination when navigating with a map. Some compasses have an adjustable declination ring; otherwise, you must calculate it manually. Most maps list declination in the legend and are oriented to true north.
+Declination is the difference between magnetic north (MN) and true north (TN or a star) and is usually shown on the map as two arrows and a degree. Your map is likely aligned with true north. If your compass has a declination adjustment, rotate it to match the arrow and you are all set to compare bearings between the compass and the map with no additional adjustments. Otherwise, you will need to adjust manually by doing the following. To go from a reading on your compass to a reading on the map, add the declination to your compass reading. If you are going from the map to the compass, subtract the declination. If the magnetic north arrow is drawn to the left of the true north arrow, the declination amount is negative. For example, if your map lists 10° of declination:
+
+- A compass bearing of 20° would be 30° on the map (20° + 10°).
+- A map reading of 30° would be 20° on the compass (30° - 10°).
+
+On rare occasions, a map may be oriented to grid north (GN) rather than true north. These maps list a second degree amount, which is the difference between true north and grid north. Add this amount to the declination to orient your compass to the lines on the map.
+
+Declination changes over time, so if you are using an old map, you should look up the current declination amount for your location.
+
+Here's a declination map for 2025:
 
 ![](file:///android_asset/survival_guide/declination.webp)
 
