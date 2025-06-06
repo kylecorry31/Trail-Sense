@@ -237,6 +237,8 @@ To triangulate your location:
 4. Draw lines from each feature in the direction of the bearing on the map.
 5. The point where the lines intersect is your location.
 
+![](file:///android_asset/survival_guide/triangulation.webp)
+
 ### Scale
 <!-- K: scale, distance, measure, ruler -->
 
