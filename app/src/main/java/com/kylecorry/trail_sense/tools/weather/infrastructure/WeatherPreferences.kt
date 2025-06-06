@@ -167,22 +167,28 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
         ),
         ForecastSource.Sol
     )
+    override val useAlarmForStormAlert: Boolean
+        get() {
+            val hours = stormAlertAlarmHours ?: return false
+            val now = LocalTime.now()
+            return hours.contains(now)
+        }
 
-    val useAlarmForStormAlert by BooleanPreference(
+    private val useAlarmForStormAlertInternal by BooleanPreference(
         cache,
         context.getString(R.string.pref_weather_use_alarm_for_storm_alert),
         false
     )
 
-    val muteStormAlarmAtNight by BooleanPreference(
+    private val muteStormAlarmAtNight by BooleanPreference(
         cache,
         context.getString(R.string.pref_weather_mute_storm_alarm_at_night),
         true
     )
 
-    override val stormAlertAlarmHours: Range<LocalTime>?
+    private val stormAlertAlarmHours: Range<LocalTime>?
         get() {
-            if (!useAlarmForStormAlert) {
+            if (!useAlarmForStormAlertInternal) {
                 return null
             }
 

@@ -9,7 +9,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.alerts.RespectfulAlarmAlerter
+import com.kylecorry.trail_sense.shared.alerts.AlarmAlerter
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
@@ -120,7 +120,7 @@ class SunriseAlarmCommand(private val context: Context) : CoroutineCommand {
 
         Notify.send(context, NOTIFICATION_ID, notification)
 
-        val alarm = RespectfulAlarmAlerter(
+        val alarm = AlarmAlerter(
             context,
             userPrefs.astronomy.useAlarmForSunriseAlert,
             AstronomyToolRegistration.NOTIFICATION_CHANNEL_SUNRISE_ALERT

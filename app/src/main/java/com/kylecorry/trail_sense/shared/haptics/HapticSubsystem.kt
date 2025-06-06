@@ -11,20 +11,24 @@ class HapticSubsystem private constructor(context: Context) {
 
     private val motor = HapticMotor(context)
 
-    fun off(){
+    fun off() {
         motor.off()
     }
 
-    fun tick(){
+    fun tick() {
         motor.feedback(HapticFeedbackType.Tick)
     }
 
-    fun interval(on: Duration, off: Duration = on){
+    fun interval(on: Duration, off: Duration = on) {
         motor.interval(on, off)
     }
 
-    fun click(){
+    fun click() {
         motor.feedback(HapticFeedbackType.Click)
+    }
+
+    fun alert() {
+        motor.once(Duration.ofSeconds(1))
     }
 
     fun dial(frequency: Int = 1): DialHapticFeedback {

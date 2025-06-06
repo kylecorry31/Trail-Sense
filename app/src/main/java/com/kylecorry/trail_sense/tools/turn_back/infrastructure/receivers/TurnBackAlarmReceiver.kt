@@ -12,7 +12,7 @@ import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.alerts.RespectfulAlarmAlerter
+import com.kylecorry.trail_sense.shared.alerts.AlarmAlerter
 import com.kylecorry.trail_sense.shared.permissions.RequestBackgroundLocationCommand
 import com.kylecorry.trail_sense.shared.permissions.requestScheduleExactAlarms
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -47,7 +47,7 @@ class TurnBackAlarmReceiver : BroadcastReceiver() {
             notification
         )
 
-        val alarm = RespectfulAlarmAlerter(
+        val alarm = AlarmAlerter(
             context,
             userPrefs.turnBack.useAlarm,
             TurnBackToolRegistration.NOTIFICATION_CHANNEL_TURN_BACK_ALERT

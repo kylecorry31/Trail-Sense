@@ -7,18 +7,28 @@ import android.os.Build
 import androidx.core.content.getSystemService
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.sound.SystemSoundPlayer
+import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import java.time.Duration
 
-class AlarmAlerter(private val context: Context, private val notificationChannel: String? = null) :
+class AlarmAlerter(
+    private val context: Context,
+    private val isEnabled: Boolean,
+    private val notificationChannel: String? = null
+) :
     IAlerter {
 
     private val systemPlayer = SystemSoundPlayer(context)
 
     override fun alert() {
+        if (!isEnabled) {
+            return
+        }
+
         val player = systemPlayer.player(
             getSoundUriForNotificationChannel() ?: systemPlayer.getNotificationUri(),
             SystemSoundPlayer.AudioChannel.Alarm
         )
+        val haptics = HapticSubsystem.getInstance(context)
 
         val duration = player.duration
 
@@ -35,6 +45,7 @@ class AlarmAlerter(private val context: Context, private val notificationChannel
         timer.once(end)
 
         player.start()
+        haptics.alert()
         player.isLooping = false
     }
 
@@ -49,5 +60,4 @@ class AlarmAlerter(private val context: Context, private val notificationChannel
         val channel = notificationManager?.getNotificationChannel(channelId)
         return channel?.sound
     }
-
 }
