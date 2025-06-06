@@ -1388,4 +1388,8 @@
     <string name="opacity">不透明</string>
     <string name="pref_navigation_lock_screen_when_open_title">打开时在锁屏上显示</string>
     <string name="declination">磁偏差</string>
+    <string name="survival_guide_empty_desc">搜索生存话题，如水、医药、食品、天气、住处和衣物或导航技巧。</string>
+    <string name="use_alarm_for_distance_alert">将闹铃用于距离警报</string>
+    <string name="use_alarm_for_turn_back_alert">将闹铃用于折返警报</string>
+    <string name="alarm_description">即使媒体和通知被静音也播放声音</string>
 </resources>
