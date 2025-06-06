@@ -125,7 +125,7 @@ Do not eat the following:
 ### Preparation
 <!-- K: prepare, cook, boil, roast, bake -->
 
-To prepare bugs for cooking, remove any stingers and optionally the legs, wings, and head before eating. You should cook all bugs before eating them. Worms can be placed in water for 15 minutes to purge their digestive tracts before cooking.
+To prepare bugs for cooking, remove any stingers and optionally the legs, wings, and head before eating. You should cook all bugs before eating them. Worms can be placed in water for 15 minutes to purge their digestive tracts before cooking. If you can't bring yourself to eat a worm, try completely drying it in the sun or roasting it and then grinding it into a powder.
 
 ## Shellfish and crustaceans
 <!-- K: shellfish, crustacean, clam, mussel, snail, limpet, crayfish, lobster, crab, shrimp, shell, bait, seafood -->
@@ -154,7 +154,7 @@ If you are in a longer-term survival situation or have access to fishing gear, f
 ### Fishing
 <!-- K: fish, hook, line, pole, bait, basket, bottle, trap, funnel, gather -->
 
-Fish are most active before a storm, near rocks or logs, and under overhanging brush.
+Fish are most active before a storm, near rocks or logs, and under overhanging brush. In hot weather, fish tend to be in shaded or deep water, while in cold weather, they prefer shallow and sunny areas. In rivers, look for areas where the water is slow or still.
 
 **Hook and line**
 
