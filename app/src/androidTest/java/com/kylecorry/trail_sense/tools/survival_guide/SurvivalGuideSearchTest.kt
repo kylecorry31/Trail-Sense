@@ -29,7 +29,7 @@ class SurvivalGuideSearchTest {
             "Falling through ice"
         )
         search("Perform CPR", "Medical", "Heart problems")
-        search("Build a shelter quick", "Shelter", "Shelters", "Shelter types")
+        search("Build a shelter quick", "Shelter", "Building a shelter")
         search("Best type of wood for a fire", "Fire", "Increasing warmth", "Types of wood")
         search("How do I find North with a compass?", "Navigation", "Compass")
         search("How do I read a compass?", "Navigation", "Compass", "Bearings")
