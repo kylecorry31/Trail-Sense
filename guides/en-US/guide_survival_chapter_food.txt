@@ -125,7 +125,7 @@ Do not eat the following:
 ### Preparation
 <!-- K: prepare, cook, boil, roast, bake -->
 
-To prepare bugs for cooking, remove any stingers and optionally the legs, wings, and head before eating. You should cook all bugs before eating them. Worms can be placed in water for 15 minutes to purge their digestive tracts before cooking. If you can't bring yourself to eat a worm, try completely drying it in the sun or roasting it and then grinding it into a powder.
+To prepare bugs for cooking, remove any stingers and optionally the legs, wings, and head before eating. You should cook all bugs before eating them to be on the safe side, but in a pinch many can be eaten raw. Worms can be placed in water for 15 minutes to purge their digestive tracts before cooking. If you can't bring yourself to eat a worm, try completely drying it in the sun or roasting it and then grinding it into a powder.
 
 ## Shellfish and crustaceans
 <!-- K: shellfish, crustacean, clam, mussel, snail, limpet, crayfish, lobster, crab, shrimp, shell, bait, seafood -->
