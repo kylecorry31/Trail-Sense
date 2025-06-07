@@ -1191,7 +1191,7 @@
     <string name="overview">Overzicht</string>
     <string name="water">Water</string>
     <string name="crafting">Handwerk</string>
-    <string name="shelter_and_clothing">Schuilplaats en kleding</string>
+    <string name="shelter">Schuilplaats en kleding</string>
     <string name="lunitidal_interval_utc">Lunaire getijdeninterval (UTC/Greenwich)</string>
     <string name="lunitidal_interval_auto">Lunaire getijdeninterval (auto)</string>
     <string name="lunitidal_interval_local">Lunaire getijdeninterval (lokaal)</string>

@@ -1195,7 +1195,7 @@
     <string name="crafting">İşçilik</string>
     <string name="water">Su</string>
     <string name="overview">Genel görünüm</string>
-    <string name="shelter_and_clothing">Barınma ve giyim</string>
+    <string name="shelter">Barınma ve giyim</string>
     <string name="lunitidal_interval_utc">Ay gelgit aralığı (UTC/Greenwich)</string>
     <string name="lunitidal_interval_auto">Ay gelgit aralığı (otomatik)</string>
     <string name="lunitidal_interval_local">Ay gelgit aralığı (yerel)</string>

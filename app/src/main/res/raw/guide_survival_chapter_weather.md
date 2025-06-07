@@ -13,7 +13,7 @@ Weather can quickly change from a nice day to a life-threatening situation. You 
 
 **Necessities**:
 - 7-day weather forecast  
-- Appropriate clothing and shelter for the weather (see the Shelter and Clothing chapter)  
+- Appropriate clothing and shelter for the weather (see the Shelter chapter)  
 - Poncho  
 - Sunglasses  
 

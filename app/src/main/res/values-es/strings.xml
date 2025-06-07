@@ -1194,7 +1194,7 @@
     <string name="crafting">Elaboración</string>
     <string name="water">Agua</string>
     <string name="overview">Resumen</string>
-    <string name="shelter_and_clothing">Refugio y ropa</string>
+    <string name="shelter">Refugio y ropa</string>
     <string name="lunitidal_interval_utc">Intervalo lunitidal (UTC/Greenwich)</string>
     <string name="lunitidal_interval_auto">Intervalo lunitidal (automático)</string>
     <string name="lunitidal_interval_local">Intervalo lunitidal (local)</string>

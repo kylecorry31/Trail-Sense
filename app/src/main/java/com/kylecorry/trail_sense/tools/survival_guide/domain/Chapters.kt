@@ -18,8 +18,8 @@ object Chapters {
                 R.drawable.ic_category_medical
             ),
             Chapter(
-                context.getString(R.string.shelter_and_clothing),
-                R.raw.guide_survival_chapter_shelter_and_clothing,
+                context.getString(R.string.shelter),
+                R.raw.guide_survival_chapter_shelter,
                 R.drawable.ic_category_shelter
             ),
             Chapter(

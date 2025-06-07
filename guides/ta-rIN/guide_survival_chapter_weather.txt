@@ -11,7 +11,7 @@ Weather can quickly change இருந்து a nice நாள் பெற�
 
 **Necessities**:
 - 7-day weather forecast
-- Appropriate clothing and shelter க்கு the weather (see the Shelter and Clothing chapter)
+- Appropriate clothing and shelter க்கு the weather (see the Shelter chapter)
 - Poncho
 - Sunglasses
 

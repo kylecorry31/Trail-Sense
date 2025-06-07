@@ -1124,7 +1124,7 @@
     <string name="forecast_algorithm">Sääennustealgoritmi</string>
     <string name="barometer_offset">Barometrin poikkeama</string>
     <string name="pref_flashlight_control_screen_with_volume_title">Säädä näyttötaskulampun kirkkautta äänenvoimakkuuden painikkeilla</string>
-    <string name="shelter_and_clothing">Suoja ja vaatetus</string>
+    <string name="shelter">Suoja ja vaatetus</string>
     <string name="overview">Yleiskatsaus</string>
     <string name="crafting">Nikkarointi</string>
     <string name="us_tablespoons">Yhdysvaltain ruokalusikallista</string>

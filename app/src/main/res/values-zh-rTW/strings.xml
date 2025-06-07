@@ -1191,7 +1191,7 @@
     <string name="on_import">匯入時</string>
     <string name="reduce_pdf_resolution">降低 PDF 解析度</string>
     <string name="lunitidal_interval_utc">月潮間隔（UTC／格林威治）</string>
-    <string name="shelter_and_clothing">庇護所和服裝</string>
+    <string name="shelter">庇護所和服裝</string>
     <string name="field_required">%s（必填）</string>
     <string name="no_directory_selected">未選擇目錄</string>
     <string name="select_backup_directory">選擇備份目錄</string>

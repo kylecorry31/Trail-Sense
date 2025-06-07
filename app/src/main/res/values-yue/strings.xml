@@ -1045,7 +1045,7 @@
     <string name="teaspooon_format">%s 茶匙</string>
     <string name="tablespoon_format">%s 湯匙</string>
     <string name="water">食水</string>
-    <string name="shelter_and_clothing">遮蔽與衣著</string>
+    <string name="shelter">遮蔽與衣著</string>
     <string name="field_required">%s (必要)</string>
     <string name="us_tablespoons">美制湯匙</string>
     <string name="us_teaspoons">美制茶匙</string>

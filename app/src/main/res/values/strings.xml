@@ -1497,13 +1497,13 @@
     <string name="harmonic">Harmonic</string>
     <string name="survival_guide">Survival Guide</string>
     <string name="water">Water</string>
-    <string name="shelter_and_clothing">Shelter and clothing</string>
+    <string name="shelter">Shelter</string>
     <string name="overview">Overview</string>
     <string name="crafting">Crafting</string>
     <string name="survival_guide_disclaimer">This guide is provided for informational purposes only, and neither the author, publisher, or any contributors guarantee its accuracy or suitability for any purpose. By using this guide, you acknowledge that outdoor activities involve risks, and you do so at your own risk, agreeing to hold harmless and indemnify the author, publisher, and any contributors from any claims or damages arising from your use of this guide. Always consult professionals for advice specific to your situation, as this guide does not substitute for professional guidance. Furthermore, be aware that local laws and regulations may affect the legal use of the techniques described herein, and compliance is your responsibility.</string>
     <string name="field_required">%s (required)</string>
     <string name="reduce_photo_resolution">Reduce photo resolution</string>
-    <string name="survival_guide_empty_desc">Search for survival topics like water, medical, food, weather, shelter and clothing or navigation techniques.</string>
+    <string name="survival_guide_empty_desc">Search for survival topics like water, medical, food, weather, shelter, or navigation techniques.</string>
     <!--Occurs when the data/photo/file is imported. Shown as a summary in settings.-->
     <string name="on_import">On import</string>
     <string name="reduce_pdf_resolution">Reduce PDF resolution</string>

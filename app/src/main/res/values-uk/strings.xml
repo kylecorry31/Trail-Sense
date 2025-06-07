@@ -1225,7 +1225,7 @@
     <string name="survival_guide">Посібник з виживання</string>
     <string name="field_required">%s (необхідно)</string>
     <string name="water">Вода</string>
-    <string name="shelter_and_clothing">Притулок та одяг</string>
+    <string name="shelter">Притулок та одяг</string>
     <string name="reduce_photo_resolution">Зменшити роздільність світлини</string>
     <string name="on_import">При імпорті</string>
     <string name="reduce_pdf_resolution">Зменшити роздільність PDF</string>

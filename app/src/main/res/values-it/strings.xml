@@ -1215,7 +1215,7 @@
     <string name="sunrise">Alba</string>
     <string name="estimate_method">Metodo di stima</string>
     <string name="survival_guide">Manuale di sopravvivenza</string>
-    <string name="shelter_and_clothing">Riparo e abbigliamento</string>
+    <string name="shelter">Riparo e abbigliamento</string>
     <string name="overview">Panoramica</string>
     <string name="crafting">Artigianato</string>
     <string name="field_required">%s (richiesto)</string>

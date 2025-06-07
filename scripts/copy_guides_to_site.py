@@ -70,7 +70,7 @@ title: "{title}"
 chapters = chapters = [
     "guide_survival_chapter_overview.txt",
     "guide_survival_chapter_medical.txt",
-    "guide_survival_chapter_shelter_and_clothing.txt",
+    "guide_survival_chapter_shelter.txt",
     "guide_survival_chapter_water.txt",
     "guide_survival_chapter_fire.txt",
     "guide_survival_chapter_food.txt",

@@ -1181,7 +1181,7 @@
     <string name="overview">概述</string>
     <string name="crafting">手工</string>
     <string name="water">水</string>
-    <string name="shelter_and_clothing">帐篷和衣服</string>
+    <string name="shelter">帐篷和衣服</string>
     <string name="lunitidal_interval_utc">月潮间隔（UTC/格林尼治）</string>
     <string name="lunitidal_interval_local">月潮间隔（本地）</string>
     <string name="lunitidal_interval_auto">月潮间隔（自动）</string>

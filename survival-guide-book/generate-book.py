@@ -40,8 +40,8 @@ chapters = [
         "file": "app/src/main/res/raw/guide_survival_chapter_medical.md"
     },
     {
-        "title": "Shelter and Clothing",
-        "file": "app/src/main/res/raw/guide_survival_chapter_shelter_and_clothing.md"
+        "title": "Shelter",
+        "file": "app/src/main/res/raw/guide_survival_chapter_shelter.md"
     },
     {
         "title": "Water",

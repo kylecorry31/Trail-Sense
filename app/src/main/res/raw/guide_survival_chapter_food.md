@@ -334,7 +334,7 @@ A bear bag is a bag of food hoisted into a tree to keep it out of reach of bears
 
 ![](file:///android_asset/survival_guide/bear_bag.webp)
 
-See the Shelter and Clothing chapter for details on how to tie knots.
+See the Shelter chapter for details on how to tie knots.
 
 ### Bear canisters
 <!-- K: canister, box, bear -->

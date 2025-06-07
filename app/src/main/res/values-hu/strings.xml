@@ -1136,7 +1136,7 @@
     <string name="harmonic">Harmonikus</string>
     <string name="survival_guide">Túlélési Útmutató</string>
     <string name="water">Víz</string>
-    <string name="shelter_and_clothing">Menedék és ruházat</string>
+    <string name="shelter">Menedék és ruházat</string>
     <string name="overview">Áttekintés</string>
     <string name="crafting">Barkácsolás</string>
     <string name="field_required">%s (kötelező)</string>
