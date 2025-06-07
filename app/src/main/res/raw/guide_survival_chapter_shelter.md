@@ -119,7 +119,7 @@ When selecting a site for your shelter, look for areas near building materials a
 
 While gathering materials for your shelter, prefer wood and debris that are already on the ground and require minimal effort to use. Avoid logs that are too thick to break by hand.
 
-## Building a shelters
+## Building a shelter
 <!-- K: sleep, shelter, type -->
 <!-- S: Construct a shelter using natural materials or a tarp. Insulate the shelter with leaves, straw, or clothing. -->
 
