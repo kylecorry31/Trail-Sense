@@ -63,7 +63,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
 
         for (category in categories) {
             scrollUntil {
-                hasText(category, waitForTime = 0)
+                hasText(category, waitForTime = 500)
             }
         }
 
