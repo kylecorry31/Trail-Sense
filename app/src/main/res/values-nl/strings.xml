@@ -1408,4 +1408,6 @@
     <string name="use_alarm_for_storm_alert">Wekker gebruiken voor storm</string>
     <string name="use_alarm_for_water_boil_timer">Wekker gebruiken voor water koken</string>
     <string name="use_alarm_for_sunrise_alert">Wekker gebruiken voor zonsopkomst</string>
+    <string name="alarm_description">Speelt een geluid af, zelfs als media en meldingen gedempt zijn</string>
+    <string name="mute_alarm_at_night">Wekker \'s nachts dempen</string>
 </resources>
