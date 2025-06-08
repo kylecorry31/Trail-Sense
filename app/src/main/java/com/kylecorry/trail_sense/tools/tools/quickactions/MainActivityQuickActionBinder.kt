@@ -57,8 +57,7 @@ class MainActivityQuickActionBinder(
 
         val alwaysRecommended = listOf(
             Tools.QUICK_ACTION_USER_GUIDE,
-            Tools.QUICK_ACTION_SETTINGS,
-            Tools.QUICK_ACTION_CONVERT
+            Tools.QUICK_ACTION_SETTINGS
         )
 
         val activeToolQuickActions = activeTools
