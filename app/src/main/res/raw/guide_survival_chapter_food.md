@@ -176,7 +176,7 @@ If you do not have a fishing pole, you can tie the line to both the base and tip
 
 Traps are a passive way to catch small fish or crustaceans with little effort required. Be sure to check your traps every few hours.
 
-You can construct a bottle fish trap by cutting off the cap and top quarter of a spare water bottle. Bait the trap with food and use a small rock to weight it down. Place the top inverted into the rest of the bottle and place it in shallow water. If needed, you can tie a string to the bottle to allow for easy access.
+You can construct a bottle fish trap by cutting off the cap and top quarter of a spare water bottle. Bait the trap with food and use a small rock to weigh it down. Place the top inverted into the rest of the bottle and place it in shallow water. If needed, you can tie a string to the bottle to allow for easy access.
 
 Alternatively, you can construct an M-shaped funnel trap by hammering sticks into the water to form a small entrance and walls. This can be built using the shore as a back wall to reduce effort. Small fish will swim into the trap and be unable to find their way out.
 
