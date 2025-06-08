@@ -221,7 +221,7 @@ A map is a key tool for navigation, especially when paired with a compass.
 
 You can orient a map to point north using a compass:
 1. Place the compass on the map with the direction of travel arrow pointing toward the top of the map.
-2. Rotate the map and compass together until the compass points north.
+2. Rotate the map and compass together until the compass points north. The image below shows what the map will look like if your compass is adjusted for declination (1) or if you need to align with magnetic north instead (2).
 
 ![](file:///android_asset/survival_guide/map_orientation.webp)
 
