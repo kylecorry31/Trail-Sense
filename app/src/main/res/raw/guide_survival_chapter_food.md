@@ -49,8 +49,8 @@ Once you have mastered these skills, you should learn how to do the following:
 
 The average person needs around 2,000 calories per day. Balance carbohydrates, proteins, fats, vitamins, and minerals in your diet.
 
-- **Carbohydrates**: Provide an immediate source of energy and are found in grains, fruits, and vegetables. Aim for 45–65% of your daily caloric intake.
-- **Fats**: Provide long-term energy and are used in essential bodily functions. They are found in meats, oils, nuts, and seeds. Aim for 20–35% of your daily caloric intake.
+- **Carbohydrates**: Provide an immediate source of energy and are found in grains, fruits, and vegetables. Aim for 45-65% of your daily caloric intake.
+- **Fats**: Provide long-term energy and are used in essential bodily functions. They are found in meats, oils, nuts, and seeds. Aim for 20-35% of your daily caloric intake.
 - **Proteins**: Build and repair tissues and are found in meats, legumes, nuts, and seeds.
 - **Vitamins and minerals**: Essential for overall health and are found in most foods, but a varied diet is necessary to ensure you get all the essential nutrients.
 
