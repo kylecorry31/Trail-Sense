@@ -180,7 +180,7 @@ You can orient a map பெறுநர் புள்ளியம் வடக
 1. Place the compass on the map with the direction of travel arrow pointing toward the மேலே of the map.
 2. Rotate the map and compass together until the compass பிரிவகம் north.
 
-![](file:///android_asset/survival_guide/93.webp)
+![](file:///android_asset/survival_guide/map_orientation.webp)
 
 ### Determining location
 

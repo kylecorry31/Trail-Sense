@@ -219,7 +219,7 @@ You can orient a map to point north using a compass:
 1. Place the compass on the map with the direction of travel arrow pointing toward the top of the map.
 2. Rotate the map and compass together until the compass points north.
 
-![](/assets/images/survival_guide/93.webp)
+![](/assets/images/survival_guide/map_orientation.webp)
 
 ### Determining location
 <!-- K: location, triangulate, feature, bearing, find -->
