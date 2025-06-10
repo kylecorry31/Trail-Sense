@@ -98,9 +98,12 @@ class MapLayer : ILayer {
 
         // Render loaded tiles
         synchronized(loader.lock) {
-            if (opacity == 255) {
+            if (opacity == 255 || loader.tileCache.map { it.key.z }.distinct().size == 1) {
+                // No issues with tile opacity stacking
+                tilePaint.alpha = opacity
                 renderTiles(drawer.canvas, map)
             } else {
+                tilePaint.alpha = 255
                 drawer.canvas.saveLayerAlpha(null, opacity)
                 renderTiles(drawer.canvas, map)
                 drawer.canvas.restore()
