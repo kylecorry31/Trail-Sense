@@ -22,6 +22,8 @@ import com.kylecorry.andromeda.fragments.interval
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.show
+import com.kylecorry.andromeda.sense.clinometer.Clinometer
+import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
@@ -73,7 +75,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private val compass by lazy { sensorService.getCompass() }
     private val gps by lazy { sensorService.getGPS(frequency = Duration.ofMillis(200)) }
-    private val orientation by lazy { sensorService.getDeviceOrientationSensor() }
+    private val orientation by lazy { sensorService.getOrientation() }
+    private val clinometer by lazy { Clinometer(orientation, isAugmentedReality = true) }
     private val altimeter by lazy { sensorService.getAltimeter(gps = gps) }
     private val speedometer by lazy { sensorService.getSpeedometer(gps = gps) }
     private val declinationProvider by lazy {
@@ -245,7 +248,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         observe(compass) { }
-        observe(orientation) { }
+        observe(clinometer) { }
         observe(altimeter) { }
         observe(gps) { }
         observe(speedometer) { }
@@ -537,8 +540,14 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             updateNavigationButton()
         }
 
-        effect("device_orientation", orientation.orientation, lifecycleHookTrigger.onResume()) {
-            val style = styleChooser.getStyle(orientation.orientation)
+        effect("device_orientation", clinometer.incline.toInt(), lifecycleHookTrigger.onResume()) {
+            val deviceOrientation = if (clinometer.incline > -20) {
+                DeviceOrientation.Orientation.Portrait
+            } else {
+                DeviceOrientation.Orientation.Flat
+            }
+            val style =
+                styleChooser.getStyle(deviceOrientation)
 
             binding.linearCompass.isInvisible = style != CompassStyle.Linear
             binding.roundCompass.isInvisible = style != CompassStyle.Round
