@@ -97,7 +97,6 @@ class MapLayer : ILayer {
         lastMetersPerPixel = map.metersPerPixel
 
         // Render loaded tiles
-        // TODO: If the user zooms way in before tiles load, the bitmaps may be too big for bitmapMesh (try that out)
         synchronized(loader.lock) {
             if (opacity == 255) {
                 renderTiles(drawer.canvas, map)

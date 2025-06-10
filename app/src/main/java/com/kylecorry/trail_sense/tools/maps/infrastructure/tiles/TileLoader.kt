@@ -1,9 +1,14 @@
 package com.kylecorry.trail_sense.tools.maps.infrastructure.tiles
 
 import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
 import android.util.Log
+import androidx.core.graphics.createBitmap
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
+import com.kylecorry.trail_sense.shared.bitmaps.Convert
+import com.kylecorry.trail_sense.shared.bitmaps.applyOperations
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.math.hypot
@@ -81,20 +86,33 @@ class TileLoader {
                 newTiles[source.key] = entries
             }
 
-            source.value.forEach {
+            var image =
+                createBitmap(source.key.size.width, source.key.size.height, Bitmap.Config.RGB_565)
+            image.eraseColor(Color.WHITE)
+
+            source.value.reversed().forEach {
                 val loader = PhotoMapRegionLoader(it)
-                val image = loader.load(
+                val currentImage = loader.load(
                     source.key,
                     replaceWhitePixels = replaceWhitePixels
                 )
-                if (image != null) {
-                    hasChanges = true
-                    synchronized(lock) {
-                        entries.add(image)
-                    }
+
+                if (currentImage != null) {
+                    val canvas = Canvas(image)
+                    canvas.drawBitmap(currentImage, 0f, 0f, null)
+                    currentImage.recycle()
                 }
             }
 
+            // Remove transparency
+            image = image.applyOperations(
+                Convert(Bitmap.Config.RGB_565)
+            )
+
+            hasChanges = true
+            synchronized(lock) {
+                entries.add(image)
+            }
         }
 
         synchronized(lock) {
