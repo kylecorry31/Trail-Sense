@@ -11,7 +11,7 @@ class PhotoMapTileSourceSelector(maps: List<PhotoMap>, private val maxLayers: In
 
     fun getSources(bounds: CoordinateBounds): List<PhotoMap> {
         val minArea = bounds.width().meters().distance.toDouble() * bounds.height()
-            .meters().distance.toDouble() * 0.05
+            .meters().distance.toDouble() * 0.25
 
         val possibleMaps = sortedMaps.filter {
             val boundary = it.boundary() ?: return@filter false

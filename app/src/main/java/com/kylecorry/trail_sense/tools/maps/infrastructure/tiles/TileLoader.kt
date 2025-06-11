@@ -50,7 +50,7 @@ class TileLoader {
 
         // Step 2: For each tile, determine which map(s) will supply it.
         val tileSources = mutableMapOf<Tile, List<PhotoMap>>()
-        val sourceSelector = PhotoMapTileSourceSelector(maps, 4)
+        val sourceSelector = PhotoMapTileSourceSelector(maps, 8)
         for (tile in tiles) {
             val sources = sourceSelector.getSources(tile.getBounds())
             if (sources.isNotEmpty()) {
