@@ -1,7 +1,9 @@
 <!-- K: fire, flame, light, heat, warm, burn -->
 <!-- S: உருவாக்கு and maintain a fire. -->
 
-Knowing how பெறுநர் make fire can உதவி you stay warm, purify water, and cook food. You should ஒருபோதும் leave a fire unattended and be careful பெறுநர் avoid it spreading.
+Knowing how பெறுநர் make fire can உதவி you stay warm, purify water, and cook food. You should ஒருபோதும் leave a fire unattended and must be careful பெறுநர் avoid it spreading.
+
+**This பாடங்கள் is க்கு informational purposes only and does not மாற்றவும் professional advice; use at your own இடர் and ensure compliance with local laws.**
 
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill, starter, matches, lighter, steel, ferro, ferrocerium, tinder -->
@@ -10,33 +12,34 @@ Knowing how பெறுநர் make fire can உதவி you stay warm, puri
 ### Gear
 **Necessities**:
 - Firestarter (waterproof matches, lighters, or fire steel - carry at least two different types)
+  - You can carry a credit-card-sized Fresnel lens in your wallet or phone case அச் an emergency backup firestarter.
 
 **Optional**:
 - Tinder (dryer lint, cotton balls, or commercial fire starters)
 
 ### Knowledge and skills
 Start by learning how பெறுநர் do the following:
-- உருவாக்கு a fire using multiple fire starters (matches, lighters, fire steel).
-- Gather and prepare tinder, kindling, and fuel.
-- Maintain a fire.
-- Extinguish a fire.
-- உருவாக்கு a fire in wet conditions.
+- உருவாக்கு a fire using multiple fire starters (matches, lighters, fire steel)
+- Gather and prepare tinder, kindling, and fuel
+- Maintain a fire
+- Extinguish a fire
+- உருவாக்கு a fire in wet conditions
 
 Once you have mastered these skills, you should learn how பெறுநர் do the following:
-- Protect a fire இருந்து wind and rain.
-- Construct and use a bow drill.
-- Make charcoal.
+- Protect a fire இருந்து wind and rain
+- Construct and use a bow drill
+- Make charcoal
 
 ## Preparing a fire site
-<!-- K: build, gather, prepare, tinder, kindling, fuel, location, fatwood -->
+<!-- K: build, prepare, location -->
 <!-- S: Choose a flat, dry area protected இருந்து the wind. Gather tinder, kindling, and fuel. -->
 
-You should prepare the fire site before attempting பெறுநர் தொடங்கு a fire. Choose a flat, dry area protected இருந்து the wind that is மூடு பெறுநர் your shelter and a எரிபொருள் supply. Clear the ground of flammable material and if possible, வரி the area with dry rocks, dirt, or sand. Do not construct a fire வீச்சலகு a மூலம் மண்டலம் or peat. In snowy environments, lay down logs பெறுநர் prevent the fire இருந்து touching the snow. Gather அனைத்தும் materials before trying பெறுநர் தொடங்கு the fire.
+You should prepare the fire site before attempting பெறுநர் தொடங்கு a fire. Choose a flat, dry area protected இருந்து the wind that is மூடு பெறுநர் your shelter and a எரிபொருள் supply. Clear the ground of flammable material and, if possible, வரி the area with dry rocks, dirt, or sand. Do not construct a fire வீச்சலகு a மூலம் மண்டலம் or peat. In snowy environments, lay down logs பெறுநர் prevent the fire இருந்து touching the snow. Gather அனைத்தும் materials before trying பெறுநர் தொடங்கு the fire.
 
 You should also be aware of local laws and regulations, அச் some areas சி-வைகாசி not allow fires.
 
-
 ### Gathering materials
+<!-- K: find, gather, tinder, kindling, fuel, fatwood, wood, material -->
 
 You need three வகைகள் of materials பெறுநர் தொடங்கு and maintain a fire: tinder, kindling, and fuel. Tinder is a dry, fine material that catches fire easily and is used பெறுநர் தொடங்கு a fire. Kindling consists of small sticks and twigs that burn easily and அரே used பெறுநர் உருவாக்கு மேலே the fire after lighting the tinder. Finally, எரிபொருள் is used பெறுநர் sustain the fire and consists of larger sticks or logs. பெறுநர் make a fire, கண்டுபிடி பற்றி a handful of tinder, two handfuls of kindling, and a pile of எரிபொருள் - இரட்டை the amount you estimate you'll need.
 
@@ -45,7 +48,7 @@ Finding dry மரம் can be difficult, but look க்கு dead branches o
 - **Tinder**
   - Shredded inner bark (birch, cedar, chestnut, சிவப்பு elm)
   - Fine மரம் scrapings or shavings
-  - Fatwood: Resin-rich மரம் இருந்து pine trees, typically found at the காரம் of dead branches.
+  - Fatwood: resin-rich மரம் இருந்து pine trees, typically found at the காரம் of dead branches
   - Dry grass, leaves, or pine needles
   - Dry powdered sap இருந்து pine trees
   - Crushed fibers இருந்து dead plants
@@ -55,7 +58,7 @@ Finding dry மரம் can be difficult, but look க்கு dead branches o
   - Cotton balls (preferably soaked in பாறையெண்ணை, பாறைநெய் jelly)
   - Lint
   - Paper
-  - Tinder காளான் or Chaga
+  - Tinder காளான் or chaga
 - **Kindling**
   - Sticks and twigs (pencil பெறுநர் finger thickness)
   - Thinly split wood
@@ -66,6 +69,8 @@ Finding dry மரம் can be difficult, but look க்கு dead branches o
   - பெறுநர் இடைவேளை a larger piece of wood, செருகவும் it between two live trees at the புள்ளியம் you want பெறுநர் இடைவேளை it and push it பெறுநர் the பக்கம் until it snaps
 
 ### Feather sticks
+<!-- K: feather-stick -->
+
 A feather stick can be used அச் tinder and kindling பெறுநர் உதவி தொடங்கு a fire when மற்றொன்று tinder is hard பெறுநர் find.
 
 To make a feather stick:
@@ -79,10 +84,10 @@ To make a feather stick:
 ![](file:///android_asset/survival_guide/feather_stick.webp)
 
 ## Starting a fire
-<!-- K: start, light, ignite, matches, lighters, steel, ferro, ferrocerium, magnesium, flint, bow-drill, hand-drill, drill, magnifying, lens, tepee, structure -->
+<!-- K: start, light, build, ignite, tepee, structure -->
 <!-- S: If you have a fire starter, use it. You can improvise if required, but it will be more difficult and requires practice. -->
 
-Once you have a site prepared and a sufficient அளிப்பு of tinder, kindling, and fuel, you அரே ready பெறுநர் தொடங்கு the fire. அச் you அரே building மேலே the fire, be careful not பெறுநர் smother the fire by எப்போதும் leaving a பிரிவு with an திற flame exposed. Also, avoid adding damp or பச்சை மரம் until your fire is hot and burning fuel.
+Once you have a site prepared and a sufficient அளிப்பு of tinder, kindling, and fuel, you அரே ready பெறுநர் தொடங்கு the fire. அச் you உருவாக்கு மேலே the fire, be careful not பெறுநர் smother it by எப்போதும் leaving a பிரிவு with an திற flame exposed. Also, avoid adding damp or பச்சை மரம் until your fire is hot and burning fuel.
 
 Here அரே the படிகள் you can follow பெறுநர் get it going:
 
@@ -92,26 +97,84 @@ Here அரே the படிகள் you can follow பெறுநர் get i
 4. Carefully கூட்டு kindling பெறுநர் the fire and blow into it பெறுநர் encourage growth.
 5. Once your fire is steady, கூட்டு எரிபொருள் while maintaining a tepee structure.
 
+![](file:///android_asset/survival_guide/fire_tepee.webp)
+
 **Note**: When blowing into a fire, be gentle and take breaths away இருந்து the smoke.
 
 ### Nursing an ember
-An ember is a small piece of tinder that is burning but has not formed a flame. Once you have an ember, gently blow into it and தீவனம் it more tinder until a flame appears. Sometimes, it is easier பெறுநர் hold the tinder containing an ember and cup your hands closer together பெறுநர் கண்டுபிடி the வலது balance of உயிரகம், உயிர்வளி and fuel.
+<!-- K: ember, nurse, blow, oxygen, tinder -->
 
-### Firestarters
+An ember is a small piece of tinder that is burning but has not formed a flame. Once you have an ember, gently blow into it and தீவனம் it more tinder until a flame appears. Sometimes, it is easier பெறுநர் hold the tinder containing the ember and cup your hands closer together பெறுநர் கண்டுபிடி the வலது balance of உயிரகம், உயிர்வளி and fuel.
 
-- **Matches/lighters**: எப்போதும் have waterproof matches or a reliable lighter in your kit. These அரே the easiest முறைகள் பெறுநர் தொடங்கு a fire: just put the flame பெறுநர் the tinder.
-- **Fire steel**: Durable and works in அனைத்தும் weather conditions, producing sparks பெறுநர் ignite your tinder. Scrape it quickly with the பின் of a knife or scraper பெறுநர் create sparks. க்கு best results, முள் the fire steel against the tinder and ground and scrape the steel towards the tinder. Some fire steel comes with a வெளிமம் block, which you can scrape அணை shavings into the tinder before striking பெறுநர் உதவி catch a spark.
-- **Magnifying glass/lens**: குவி sunlight through a lens onto tinder பெறுநர் create an ember. A magnifying glass, prescription glasses, a fresnel lens, or இரட்டை a clear bottle filled with water can work. This சி-வைகாசி take a while, and direct sunlight is required.
+### Lighter
+<!-- K: lighter -->
+
+A reliable lighter is the easiest way பெறுநர் தொடங்கு a fire. Use the striker பெறுநர் produce a flame and use your hand பெறுநர் shield it against any wind. Put the flame பெறுநர் the tinder பெறுநர் ignite it, and then shut அணை the lighter. If it takes you more than a couple of நொடிகள் பெறுநர் ignite the tinder, then it is not fine or dry enough.
+
+Some lighters require that you கூட்டு எரிபொருள் before use, so be sure பெறுநர் try out your lighter before you need it. The எரிபொருள் should last a long time - இரட்டை years with moderate use.
+
+A lighter generally does not வேலை when wet, but you can dry it quickly by gently rubbing the striker wheel against your clothes in the opposite direction that you would strike it and forcefully blowing into the striker area.
+
+There அரே also மின்னணு lighters available, but they அரே less reliable and require a charge. They can be used in a similar fashion பெறுநர் regular lighters but typically require smaller and finer tinder.
+
+### Matches
+<!-- K: matches -->
+
+Matches typically require a special striking surface பெறுநர் light, though strike-anywhere matches exist and can be lit using a rough rock. Unless you have waterproof or stormproof matches, once wet they will not work, and if it is windy, they can be easily extinguished.
+
+To light a fire with matches, light the match and use your hand பெறுநர் shield it against any wind. Put the flame பெறுநர் the tinder பெறுநர் ignite it and carefully drop the matchstick into the flame.
+
+### Fire steel
+<!-- K: fire-steel, ferro, ferrocerium, magnesium, strike, spark -->
+
+A fire steel or ferro rod is durable and works in அனைத்தும் weather conditions. You can scrape it quickly with a sharp edge, such அச் the பின் of your knife, a dedicated scraper, or இரட்டை a sharp piece of பளிங்கு or flint. You should avoid using the இலைப்பரப்பு of your knife பெறுநர் prevent dulling it. If you அரே having trouble keeping the tinder in place while striking, முள் the tinder between the fire steel and the ground and scrape toward the tinder. Some people also கண்டுபிடி it easier பெறுநர் keep the edge stationary and pull the fire steel away இருந்து the tinder பெறுநர் produce sparks.
+
+Some fire steels come with a வெளிமம் block, which you can scrape into the tinder before striking பெறுநர் உதவி catch a spark. Create a small pile of shavings, பற்றி the அளவு of a pebble, before trying பெறுநர் ignite it.
+
+![](file:///android_asset/survival_guide/ferrorod.webp)
+
+### Camp stove
+<!-- K: camp-stove, backpacking-stove, canister, stove, alcohol, butane, gas, ஒருப்பிணை முக்கொள்ளியம் -->
+
+Most camp stoves require another தீமூட்டல் device, such அச் a lighter, but some சி-வைகாசி have a built-in piezoelectric igniter. எப்போதும் place the stove on a flat, stable surface that will not catch fire (such அச் a rock). Be sure பெறுநர் read the manufacturer's instructions before using it.
+
+**To use a எரிபொருள் canister stove:**
+
+1. Ensure the ஓரதர் is turned அணை (turn clockwise).
+2. Screw the stove head onto the canister.
+3. Place the stove on a கிடைவளைவு surface and ensure it is stable.
+4. Expand the pot holders on the head if needed.
+5. திற the ஓரதர் slightly (turn counter-clockwise).
+6. Ignite the வளிமம் and adjust the ஓரதர் அச் needed.
+7. Once you're done, turn the ஓரதர் completely அணை (turn clockwise). Wait க்கு it பெறுநர் cool down before detaching the canister and storing it.
+
+**To use an மதுசாரம் or solid எரிபொருள் stove:**
+
+1. Place the stove on a கிடைவளைவு surface and ensure it is stable.
+2. Fill the stove with fuel.
+3. Ignite the fuel.
+4. Once you're done, gently place the lid on the stove (don't tighten it). Wait க்கு it பெறுநர் cool before tightening the lid and storing it. If using a solid எரிபொருள் stove, you சி-வைகாசி need பெறுநர் wait க்கு it பெறுநர் burn out.
+
+
+### Magnifying glass/lens
+<!-- K: magnifying, glass, lens -->
+
+Using a lens, குவி sunlight into a small புள்ளியம் on the tinder. அச் the tinder starts பெறுநர் smoke, gently blow into it and move the lens closer பெறுநர் maintain a small point. A magnifying glass, prescription glasses, a Fresnel lens, or இரட்டை a clear bottle filled with water can work. This சி-வைகாசி take a while, and direct sunlight is required.
 
 ![](file:///android_asset/survival_guide/fire_magnifying_glass.webp)
 
-The following முறைகள் அரே more challenging பெறுநர் create a fire with and require practice. If you கண்டுபிடி yourself here, it சி-வைகாசி be best பெறுநர் குவி on insulation and shelter பெறுநர் stay warm.
+### Flint and steel
+<!-- K: flint, steel -->
 
-- **Flint and steel**: Strike a flint rock with a steel கருவி பெறுநர் create sparks. The tinder must be very dry and delicate.
-- **Bow drill**: Create உராய்வு by spinning a stick (drill) on a wooden காரம் (fireboard) using a bow பெறுநர் rotate the drill.
-- **Hand drill**: Create உராய்வு by spinning a stick (drill) between your hands on a wooden காரம் (fireboard). இடு downward அழுத்தம் while spinning.
+Strike a flint rock with a கரிமம் steel கருவி பெறுநர் create sparks and ignite very dry and delicate tinder. Stainless steel - and therefore பெரும்பாலானவை pocket knives - will not work. If you கண்டுபிடி yourself here, it சி-வைகாசி be best பெறுநர் குவி on insulation and shelter பெறுநர் stay warm.
 
-### Using a bow drill
+### Drills
+<!-- K: drill, bow-drill, hand-drill -->
+
+You can create உராய்வு by spinning a stick like a drill on a wooden காரம் (fireboard). A hand drill is simple பெறுநர் construct, அச் it's just the drill stick, fireboard, and your hands. A bow drill is more complicated பெறுநர் உருவாக்கு but is easier பெறுநர் use பெறுநர் create an ember. Both of these முறைகள் அரே difficult பெறுநர் master and require a நிறைய of practice. If you கண்டுபிடி yourself here, it சி-வைகாசி be best பெறுநர் குவி on insulation and shelter பெறுநர் stay warm.
+
+To create a bow drill:
+
 1. கண்டுபிடி a small, கிடைவளைவு stone or piece of hardwood with a small மனச்சோர்வு near the center பெறுநர் create the socket.
 2. Create the drill by finding a straight, dry stick பற்றி 10-12 inches long and ¾ inch in diameter.
 3. கண்டுபிடி a flat, dry piece of softwood க்கு the fireboard. Yucca, tamarack, aspen, balsam fir, basswood, poplar, cypress, cottonwood, alder, சிவப்பு cedar, and willow அரே preferred. Avoid resinous woods like pine.
@@ -119,15 +182,15 @@ The following முறைகள் அரே more challenging பெறுந�
 5. On the underside of the fireboard, make a V-shaped வெட்டு இருந்து the board's edge பெறுநர் the depression.
 6. கண்டுபிடி a curved stick that can be used க்கு the bow. It should be பற்றி 12-14 inches long and ½ inch in diameter.
 7. Attach a cord or shoelace பெறுநர் both ends of the bow.
-8. கண்டுபிடி the fire pan, a கிடைவளைவு piece of bark or மரம் பெறுநர் catch the ember.
+8. கண்டுபிடி the fire pan - a கிடைவளைவு piece of bark or மரம் பெறுநர் catch the ember.
 9. Wrap the drill into the bowstring so that it can உருளம் அச் it moves along the string.
-10. Place the fireboard on மேலே of the fire pan so the V-shaped is touching.
-11. Place the drill (attached பெறுநர் the bow) into the மனச்சோர்வு you carved into the fireboard.
-12. Place the மனச்சோர்வு in the மாட்டி onto the மேலே end of the drill and இடு downward அழுத்தம் with your non-dominant hand.
-13. Place your foot onto the fireboard (on the same பக்கம் அச் your non-dominant hand) and rest the hand holding the மாட்டி onto your knee.
-14. With your dominant hand, move the bow பக்கம் பெறுநர் பக்கம் பெறுநர் cause the drill பெறுநர் spin. Be sure பெறுநர் go the entire length of the bow string. Keep a steady, fast pace.
+10. Place the fireboard on மேலே of the fire pan so the V-shaped notch is touching it.
+11. Place the drill (attached பெறுநர் the bow) into the மனச்சோர்வு in the fireboard.
+12. Place the மாட்டி onto the மேலே end of the drill and இடு downward அழுத்தம் with your non-dominant hand.
+13. Place your foot on the fireboard (on the same பக்கம் அச் your non-dominant hand) and rest the hand holding the மாட்டி on your knee.
+14. With your dominant hand, move the bow பக்கம் பெறுநர் பக்கம் பெறுநர் cause the drill பெறுநர் spin. Be sure பெறுநர் use the full length of the bowstring. Keep a steady, fast pace.
 15. You will தொடங்கு பெறுநர் see smoke after a while. Keep going until you அரே sure an ember has been created.
-16. The ember should be transferred onto the fire pan (it சி-வைகாசி already be there) and moved பெறுநர் a tinder bundle where you can nurse it into a fire.
+16. The ember should be transferred onto the fire pan (it சி-வைகாசி already be there) and moved பெறுநர் a tinder bundle, where you can nurse it into a fire.
 
 ![](file:///android_asset/survival_guide/bow_drill_usage.webp)
 
@@ -140,19 +203,27 @@ If you அரே using a hand drill, follow the same படிகள் அச�
 You should எப்போதும் have a plan பெறுநர் quickly extinguish your fire in case it begins பெறுநர் spread. Thoroughly extinguish your fire by dousing it with water or covering it with dirt. Make sure இல்லை embers remain that could reignite or cause a wildfire. If you அரே on a beach, do not cover the fire with sand; it can insulate the heat and cause burns.
 
 ## Increasing warmth
-<!-- K: rock, reflector, hand-warmer -->
-<!-- S: Thoroughly extinguish your fire with water or dirt. -->
+<!-- K: increase, maximize -->
+<!-- S: Maximize heat by using a fire reflector or heated rocks. -->
 
 To maximize the heat இருந்து your fire, you can கூட்டு more dry fuel, உருவாக்கு a fire reflector, heat மேலே rocks, or increase the insulation of your clothing and shelter.
 
+### வகைகள் of wood
+<!-- K: hardwood, softwood, type, மரம் -->
+
+Hardwoods (oak, maple, ash, beech, etc.) burn slowly and hot, while softwoods (pine, fir, spruce, cedar) burn faster and cooler. Once you have a hot fire going, தொடங்கு adding hardwoods பெறுநர் make it last longer and burn hotter.
+
 ### Fire reflector
-A fire reflector is a wall built behind the fire பெறுநர் reflect heat towards you and protect the fire இருந்து wind. Use rocks, logs, or பனி பெறுநர் create a barrier.
+<!-- K: reflector -->
+
+A fire reflector is a wall built behind the fire பெறுநர் reflect heat toward you and protect the fire இருந்து wind. Use rocks, logs, or பனி பெறுநர் create a barrier.
 
 ![](file:///android_asset/survival_guide/fire_reflector.webp)
 
 ### Heating rocks
+<!-- K: rock, hand-warmer -->
 
-You can also heat rocks **near** the fire and place them in your shelter or sleeping area. பெறுநர் avoid burns or fires, don't let the rocks get too hot; they should be warm பெறுநர் the touch. Be sure பெறுநர் சரிபார் how hot the stones அரே before touching them. Do not use rocks found near water sources, அச் they can explode in a fire. Alternatively, you could heat water and place it in a சரக்குப் பெட்டகம் or bottle பெறுநர் keep you warm.
+You can also heat rocks **near** the fire and place them in your shelter or sleeping area. பெறுநர் avoid burns or fires, don't let the rocks get too hot; they should be warm பெறுநர் the touch. Be sure பெறுநர் சரிபார் how hot the stones அரே before touching them. Do not use rocks found near water sources, அச் they can explode in a fire. Alternatively, you can heat water and place it in a சரக்குப் பெட்டகம் or bottle பெறுநர் keep warm.
 
 ## Craft: charcoal
 <!-- K: charcoal, filter, coal, craft -->

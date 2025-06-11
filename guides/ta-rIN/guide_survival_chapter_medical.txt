@@ -1,917 +1,1070 @@
-<!-- K: medicine, medical, heal, health, injury, sick, ill, first-aid, symptom, treat, prevent -->
-<!-- S: Calm down and இடு first aid. -->
-
-This பாடங்கள் மறையம் அடிப்படை medical knowledge and techniques க்கு common injuries and illnesses in the wilderness. It does not substitute professional medical advice/treatment or in-depth first aid guides.
-
-## Be prepared
-<!-- K: prepare, gear, knowledge, skill, painkiller, bandage, gauze, tape, pin, needle, tweezer, antibiotic, ointment, cream, sunscreen, repellent, spray, medicine, medication, prescription, pill, lenses, glasses, reliever, sanitizer, epinephrine, epi-pen, epipen, inhaler, moleskin, molefoam, tourniquet, splint, alo, vera, gel, swab, mirror, tampon, pad, menstrual, cup, floss, toothbrush, toothpaste, toilet-paper, bidet, bag, trowel, soap, towel, lip-balm, electrolyte -->
-<!-- S: Bring a first aid kit. Learn அடிப்படை first aid and CPR. -->
-
-### Gear
-
-**Necessities**:
-- Assorted bandages
-- Gauze
-- Surgical tape
-- Safety முள் or needle
-- Tweezers
-- Antibiotic ointment
-- Sunscreen
-- Insect repellent
-- Prescription medications, தொடர்பு lenses, and glasses
-- Pain relievers (aspirin, ibuprofen, acetaminophen)
-- Hand sanitizer (unscented)
-- Epinephrine auto-injector (if you have severe allergies)
-- Asthma inhaler (if you have asthma)
-
-**Optional**:
-- Wound closure strips/butterfly bandages
-- Moleskin
-- Molefoam
-- Tourniquet
-- C-Splint
-- Aloe vera gel
-- Antiseptic wipes
-- Hydrocortisone cream
-- Antihistamine pills (diphenhydramine)
-- Superglue
-- Cotton swabs
-- Antidiarrheal medication (loperamide)
-- வளிமம் relievers (simethicone)
-- Antacid tablets
-- Mirror
-- Tampons/pads / menstrual cup
-- Dental floss
-- Toothbrush
-- Toothpaste (store this in your bear bag/container at night)
-- Toilet paper and/or portable bidet
-- Trash bags/container (check local regulations regarding toilet paper and human waste)
-- Trowel
-- Soap (unscented)
-- Washcloth/microfiber towel
-- Lip balm (unscented)
-- Electrolyte mix
-
-### Knowledge and skills
-Start by learning how பெறுநர் do the following:
-- Perform அடிப்படை first aid and CPR.
-- Calm yourself and others.
-
-Once you have mastered these skills, you should learn how பெறுநர் do the following:
-- Make charcoal (see the Fire chapter).
-- Make tea இருந்து plants.
-- Identify medicinal plants in your area.
-- Perform மேம்பட்ட first aid techniques, such அச் setting a broken bone or suturing a wound.
-
-## Common medications
-<!-- K: medication, medicine, pill, drug, aspirin, ibuprofen, acetaminophen, diphenhydramine, loperamide, simethicone, antacid, hydrocortisone, antibiotic, ointment, cream -->
-<!-- S: Bring common medications with you. Only use அச் directed by your doctor and follow the manufacturer's instructions. -->
-
-This is a பட்டியல் of common medications hikers might carry. It's not a complete list. Only use these அச் your doctor says and follow the தொகுப்பு instructions. Know the பக்கம் effects, how much பெறுநர் take, and when பெறுநர் take them before your trip.
-
-- **Aspirin**: A pain reliever that can be used க்கு headaches, sore muscles, மூட்டு pain, inflammation, and fevers. Many doctors recommend taking aspirin at the first signs of a heart attack since it can உதவி பெறுநர் prevent further blood clots.
-- **Ibuprofen**: A pain reliever that can be used க்கு headaches, sore muscles, மூட்டு pain, inflammation, and fevers. It can also cause stomachaches க்கு some people.
-- **Acetaminophen**: A pain reliever that can be used க்கு headaches, sore muscles, மூட்டு pain, or fevers.
-- **Diphenhydramine**: An antihistamine used க்கு allergies, itching, and sleeplessness. It சி-வைகாசி cause drowsiness.
-- **Loperamide**: Used பெறுநர் treat diarrhea.
-- **Simethicone**: A வளிமம் reliever that can be used க்கு வளிமம் pains.
-- **Antacid tablets**: Used பெறுநர் treat heartburn and indigestion.
-- **Hydrocortisone cream**: Calms itchy or சிவப்பு skin இருந்து bites, rashes, or irritation.
-- **Antibiotic ointment**: Helps பெறுநர் prevent minor cuts, scrapes, or burns இருந்து getting infected.
-
-## Allergic reactions
-<!-- K: allergy, allergic, reaction, rash, itch, swell, hives, sneeze, cough, throat, breath, epinephrine, epi-pen, epipen, inject, asthma, anaphylaxis -->
-<!-- S: Symptoms include rash, itching, swelling, hives, and difficulty breathing. Treat by removing the allergen, using antihistamines, or using an epinephrine auto-injector. Prevent by avoiding known allergens. -->
-
-Allergic reactions can வீச்சு இருந்து தொடர்பு dermatitis (ex. poison ivy) or பிழை bites பெறுநர் anaphylaxis, a severe allergic reaction that can be life-threatening.
-
-### Symptoms
-
-- Rash.
-- Itching.
-- Swelling.
-- Hives.
-- Runny nose.
-- Sneezing.
-- Coughing.
-- Scratchy throat.
-
-**Severe**
-
-- Difficulty breathing.
-- Swelling of the face, lips, or tongue.
-
-### Treatment
-1. அகற்று the allergen if possible.
-2. If there is a rash, இடு calamine lotion or hydrocortisone cream.
-3. Take antihistamine pills.
-
-**Severe**
-
-Severe allergic reactions that affect breathing or cause swelling of the face, lips, or tongue require immediate medical attention. If you have an epinephrine auto-injector, use it அச் follows:
-
-1. அகற்று the safety cap.
-2. Hold the injector with the tip against the thigh, பற்றி halfway between the hip and knee.
-3. Press the injector against the thigh until it clicks.
-4. Hold the injector in place க்கு 10 seconds.
-5. Repeat in 5 பெறுநர் 15 minutes if symptoms persist.
-6. Seek medical attention அச் soon அச் possible.
-
-If you have asthma and அரே having an attack, use your inhaler.
-
-### Prevention
-- Avoid known allergens.
-- Carry an epinephrine auto-injector if you have severe allergies.
-- Take precautions க்கு பிழை bites and poisonous plants (see the relevant sections).
-- Tell others பற்றி your allergies and where you keep your epinephrine auto-injector.
-
-## குத்துயரம் sickness
-<!-- K: altitude, mountain, headache, nausea, fatigue, dizziness, breath, sleep, appetite, heartbeat, cough, acclimate, descend -->
-<!-- S: Symptoms include headache, nausea, fatigue, dizziness, and shortness of breath. Treat by இறங்கு பெறுநர் a lower குத்துயரம் or with pain relievers. Prevent by ஏறுதல் slowly. -->
-
-Altitude sickness is caused by low உயிரகம், உயிர்வளி levels at high altitudes.
-
-### Symptoms
-- Headache.
-- Nausea.
-- Fatigue.
-- Dizziness.
-- Shortness of breath.
-- Poor sleep.
-- Loss of appetite.
-- Rapid heartbeat.
-- Coughing.
-
-### Treatment
-- Pain relievers க்கு headache (ibuprofen).
-- Do not ascend until symptoms அரே gone.
-- Descend பெறுநர் a lower குத்துயரம் if symptoms அரே severe or do not improve within a day.
-
-### Prevention
-- Ascend slowly.
-- Acclimate பெறுநர் the குத்துயரம் before ஏறுதல் further.
-- Look out க்கு symptoms if traveling above 6,500 feet (2,000 meters).
-
-## Bites/attacks: mammals and மற்றொன்று animals
-<!-- K: bite, attack, animal, mammal, bell, fight, pepper-spray, bear -->
-<!-- S: Treat by washing the wound with soap and water, applying antibiotics, bandaging, and seeking medical attention. Prevent this by avoiding wild animals and making இரைச்சல் பெறுநர் alert them of your presence. -->
-
-Many animals bite when they feel threatened or cornered. Some animals can transmit diseases through their bites.
-
-### Treatment
-1. Wash the wound with soap and water.
-2. இடு antibiotic ointment.
-3. Cover the wound with a bandage. Pack the wound with gauze if it is deep, but do not suture or tape it closed.
-4. Seek medical attention if the wound is deep, bleeding, or shows signs of infection.
-
-If a mammal துணுக்கு you, seek medical attention அச் soon அச் possible. You சி-வைகாசி need rabies shots.
-
-### Prevention
-- Do not approach or corner wild animals.
-- Do not தீவனம் wild animals.
-- Use a bear bell or make இரைச்சல் பெறுநர் alert animals of your presence.
-- Stay clear of any animal with young nearby.
-- If an animal is approaching you (most animals):
-  - Do not turn and run. It சி-வைகாசி trigger a chase response.
-  - Make yourself look big.
-  - Make noise, but do not make high-pitched screams.
-  - Pick மேலே children and small pets.
-  - பின் away slowly or move sideways.
-  - Use bear or pepper spray if available.
-  - Fight பின் if attacked (except க்கு கொடுங்கரடி or பழுப்பு bears - see அடுத்தது point). Use knives, sticks, rocks, or your hands. Aim க்கு the eyes, nose, or throat.
-  - Play dead if a grizzly/brown bear is attacking. Lay கிடைவளைவு on the ground with your hands clasped behind your neck. The exception பெறுநர் கொடுங்கரடி attacks is if it attacks you in your tent, stalks you before attacking, or continues attacking after playing dead. In this case, fight back.
-  - Do not drop your pack, அச் it can provide protection.
-
-## Bites: Snakes
-<!-- K: snake, bite, venom, poison, antivenom, snakebite -->
-<!-- S: Treat by cleaning the wound, applying a bandage, immobilizing the limb, and seeking medical attention. Prevent this by watching where you படி and wearing high boots. -->
-
-Always look க்கு snakes, especially in areas with tall grass, rocks, or logs. Snakes அரே பெரும்பாலானவை செயலில் during the day. பெரும்பாலானவை snake bites அரே not venomous, but if you don't know the வகை of snake, treat the bite அச் venomous.
-
-### Treatment
-1. Rinse the bite area with water.
-2. Clean the wound and cover with a bandage.
-3. அகற்று any rings or jewelry இருந்து the affected limb.
-4. Wrap the உறுப்பு, அவயவம் with a bandage, starting at the bite and moving மேலே the limb. The bandage should be tight but not வெட்டு அணை circulation. You should be able பெறுநர் slip a finger under the bandage.
-5. Keep the உறுப்பு, அவயவம் immobilized, அச் you would a fracture, and below the நிலை of the heart.
-6. Seek medical attention அச் soon அச் possible. Call the hospital ahead of time so they can prepare antivenom if needed.
-
-Do not do the following:
-- வெட்டு the wound.
-- Suck out the venom.
-- இடு a tourniquet.
-- இடு ice.
-
-### Prevention
-- Watch where you step.
-- Wear high boots.
-- Do not put your hands or feet where you cannot see.
-- Do not try பெறுநர் catch or kill snakes unless you know they அரே not venomous.
-
-## Bites/stings: bugs
-<!-- K: bug, bite, repel, spray, sting, insect, tick, leech, spider, scorpion, mosquito, ant, bee, wasp, hornet, fly, itch, swell, சிவப்பு -->
-<!-- S: Treat by removing the stinger/tick/leech, cleaning the area, and, if needed, seeking medical attention. Prevent this by using insect repellent and wearing long sleeves and pants. -->
-
-Many பூச்சு can bite or sting you, causing pain, swelling, and itching. Some பூச்சு can also transmit diseases.
-
-### Symptoms
-- Itching.
-- Swelling.
-- Redness.
-
-### Treatment
-
-**Ticks**
-
-1. Using tweezers if available, grasp the உண்ணி where it is attached பெறுநர் the skin.
-2. Pull straight out with steady, இரட்டை pressure. Do not twist or jerk the tick. Do not squeeze the tick's body.
-3. Treat the area அச் you would க்கு a பிழை bite.
-
-**Leeches**
-
-To அகற்று a leech:
-1. Pull it taut (but not too tight).
-2. Slide a fingernail or மற்றொன்று கிடைவளைவு பொருள் between the leech and your skin பெறுநர் detach it.
-3. Flick the leech away before it can reattach.
-4. Clean the wound and இடு antibiotic ointment.
-5. இடு a bandage பெறுநர் control bleeding. It is usual க்கு the wound பெறுநர் bleed க்கு a while.
-
-Do not salt, burn, or pull the leech off, அச் this can cause the leech பெறுநர் regurgitate into the wound.
-
-**Bites**
-
-To reduce itching, avoid scratching and இடு calamine lotion or hydrocortisone cream. பெறுநர் reduce swelling, use a cloth soaked in cold water or filled with snow/ice.
-
-If you were bitten by a சிலந்தி that you believe பெறுநர் be venomous, treat it அச் you would a snake bite and seek medical attention.
-
-**Stings**
-
-Remove any stingers, taking care not பெறுநர் squeeze the venom sac. Treat it அச் if it were a பிழை bite.
-
-If you were stung by a scorpion or insect that you believe பெறுநர் be venomous, treat it அச் if it were a snakebite and seek medical attention.
-
-**Bugs in eyes**
-
-See the பிரிவு on objects in the eye.
-
-### Prevention
-- Use insect repellent.
-- Wear long sleeves and pants.
-- Wrap your face with a bandana.
-- Wear glasses/sunglasses (keeps bugs out of your eyes).
-- Use a பிழை net.
-- சரிபார் க்கு ticks/leeches frequently.
-- Ensure your immunizations அரே மின்னோட்ட்ம், ஓட்டம் க்கு bug-borne diseases in the area.
-
-You can make an improvised பிழை repellent by applying mud பெறுநர் your skin or using fire smoke.
-
-## Bleeding
-<!-- K: bleed, blood, wound, cut, scrape, deep, clot, pressure, tourniquet, bandage, red, swell, warm, சீழ் -->
-<!-- S: Treat by applying pressure, cleaning the wound, bandaging, and, if needed, seek medical attention. Prevent தொற்று, அழற்சி by cleaning wounds and changing bandages frequently. -->
-
-### Treatment
-Seek medical attention if the wound is deep, bleeding profusely, or shows signs of infection. Infected wounds can be identified by redness, swelling, warmth, and pus.
-
-**Scrapes and minor cuts**
-1. Clean the wound with water.
-2. Optionally, இடு antibiotic ointment.
-3. இடு a bandage.
-
-**Deeper cuts**
-1. இடு அழுத்தம் பெறுநர் the wound with a clean cloth or bandage. You சி-வைகாசி need பெறுநர் இடு அழுத்தம் க்கு பற்றி 10 பெறுநர் 20 minutes.
-2. Clean the wound and irrigate it with water.
-3. Bandage the wound with a sterile dressing.
-4. Place புதிய bandages வீச்சலகு the old ones if they become soaked with blood.
-5. Raise the wound above the நிலை of the heart.
-6. Seek medical attention if bleeding does not நிறுத்து or if the wound is deep.
-
-You can இடு a tourniquet பெறுநர் நிறுத்து blood பாய்வு if direct அழுத்தம் does not வேலை on a limb. This should only be முடிந்தது அச் a last resort, அச் it can cause permanent damage பெறுநர் the limb. Only a medical professional should அகற்று a tourniquet.
-
-### Prevention
-- Use caution when handling sharp objects.
-- Do not வெட்டு towards yourself.
-- Watch your footing.
-- பெறுநர் prevent infection:
-  - Clean wounds.
-  - Use antibiotic ointment.
-  - Change bandages frequently.
-
-## Blisters
-<!-- K: blister, rub, shoe, sock, moleskin, red, sore -->
-<!-- S: Treat small blisters by applying moleskin and large blisters by draining with a sterilized needle, cleaning, and bandaging. Preventing this by keeping feet dry and wearing properly fitting shoes. -->
-
-### Symptoms
-- Red, sore area.
-- Blister.
-
-### Treatment
-If the blister is small:
-1. வெட்டு a doughnut-shaped piece of moleskin.
-2. Place the moleskin around the blister, with the blister in the hole.
-
-If the blister is large or painful:
-1. Sterilize a needle with மதுசாரம் or heat.
-2. Pierce the blister near the edge and drain the fluid.
-3. Clean and wash the area.
-4. இடு a bandage and, optionally, antibiotic ointment.
-
-### Prevention
-- Keep feet dry.
-- Wear properly fitting shoes.
-- Wear two pairs of socks.
-- சரிபார் feet frequently க்கு சிவப்பு areas and blisters.
-- நிறுத்து at the first sign of rubbing.
-- இடு adhesive tape or moleskin பெறுநர் prevent blisters.
-
-## Burns
-<!-- K: burn, scald, blister, red, pain, aloe, vera, fire, skin -->
-<!-- S: Treat minor burns by soaking with cool water and loosely bandage. Seek medical attention க்கு severe burns. Prevent by using caution around fires and hot objects. -->
-
-### Treatment
-
-**First-degree burns**
-
-This is பற்றி the நிலை of a mild sunburn.
-
-1. Soak with cool water க்கு 5 minutes.
-2. Optionally, take pain relievers.
-3. இடு aloe vera gel, calamine lotion, or hydrocortisone cream.
-
-**Second-degree burns**
-
-This is a burn that blisters. These burns can be excruciating.
-
-1. Soak with cool water க்கு at least 15 minutes.
-2. Take pain relievers.
-3. Pat the area dry.
-4. இடு a loose bandage.
-
-Do not pop blisters.
-
-**Third-degree burns**
-
-This is a burn that goes through அனைத்தும் layers of skin. These burns can be life-threatening. Pain சி-வைகாசி be minimal due பெறுநர் nerve damage. Second-degree burns அரே likely also present.
-
-1. Call emergency services.
-2. Soak with cool water.
-3. அகற்று clothing and jewelry இருந்து the area.
-4. Drink water with electrolytes.
-5. Bandage loosely.
-
-
-### Prevention
-- Use caution around fires.
-- Do not touch hot objects.
-- Wear sunscreen.
-- If your clothes catch fire, stop, drop பெறுநர் the ground, and உருளம் பெறுநர் extinguish the flames.
-
-## Choking
-<!-- K: choke, throat, breath, heimlich, maneuver -->
-<!-- S: Perform the Heimlich maneuver. -->
-
-If you அரே choking and someone is nearby, place your hands on your throat பெறுநர் குறிகை that you அரே choking.
-
-### Treatment
-Perform the Heimlich maneuver on yourself by doing the following:
-1. If possible, bend வீச்சலகு a hard surface.
-2. Make a fist with one hand.
-3. Place the thumb பக்கம் of your fist against your abdomen, below your ribcage, and above your navel.
-4. Grasp your fist with your மற்றொன்று hand and press into your வயிறு with a quick upward thrust.
-
-Perform the Heimlich maneuver on someone else by doing the following:
-1. Stand behind the person.
-2. Reach around the person's waist.
-3. Make a fist with one hand.
-4. Place the thumb பக்கம் of your fist against the person's abdomen, below the ribcage and above the navel.
-5. Grasp your fist with your மற்றொன்று hand and press into the person's வயிறு with a quick upward thrust.
-
-
-## Cramps
-<!-- K: cramp, muscle, pain, spasm, weak, electrolyte -->
-<!-- S: Treat by stretching, massaging, applying heat or cold, and hydrating. Prevent by staying hydrated and replenishing electrolytes. -->
-
-Cramps can be caused by dehydration, overexertion, or lack of electrolytes.
-
-### Symptoms
-- தசை pain.
-- தசை spasms.
-- தசை weakness.
-
-### Treatment
-- Gently stretch the muscle.
-- Massage the muscle.
-- இடு heat or cold பெறுநர் the muscle.
-- Drink water or an electrolyte நீர்மக்கூழ் containing உவர்மம் and potassium.
-- Eat salty foods.
-- Eat potassium-rich foods (bananas, potatoes, sweet potatoes, spinach, and lentils).
-- Slow down or நிறுத்து physical activity.
-
-### Prevention
-- Stay hydrated.
-- Replenish electrolytes.
-- Warm மேலே before physical activity.
-- Stretch before and after physical activity.
-- Maintain a slow and steady pace.
-
-## Dehydration
-<!-- K: dehydrate, water, thirst, dry, fatigue, dizziness, dark, urine, headache, confusion, electrolyte, drink -->
-<!-- S: Rehydrate by drinking water with electrolytes. Prevent by drinking water frequently and increasing உள்ளிழு during physical activity. -->
-
-### Symptoms
-- Thirst.
-- Dry mouth and throat.
-- Fatigue.
-- Dizziness.
-- Dark urine.
-- Reduced urine output.
-- Dry skin.
-- Headache.
-- Confusion.
-
-### Treatment
-Rehydrate by drinking water, an electrolyte solution, or tea.
-
-### Prevention
-- Drink water frequently, increasing உள்ளிழு during physical activity.
-
-## Embedded fishhooks
-<!-- K: fishhook, hook, அகற்று -->
-<!-- S: Hooks can be removed by running a வரி through the bend and pulling quickly while pushing down on the hook. Prevent by handling hooks with care. -->
-
-Fishhooks அரே designed பெறுநர் penetrate flesh and அரே difficult பெறுநர் அகற்று without causing further injury. Unless you need பெறுநர் அகற்று the hook பெறுநர் prevent further injury, it is best பெறுநர் leave the hook in place and seek medical attention.
-
-### Treatment
-Do not attempt பெறுநர் அகற்று a fishhook if it is embedded in the eye.
-
-**Method 1**
-
-1. முன்பணம் the hook through the skin until the சுணை is exposed.
-2. வெட்டு the சுணை அணை with wire cutters like those on a multitool or pliers.
-3. Pull the hook opposite இருந்து how it entered; it should come out easily.
-4. Clean the wound and இடு antibiotic ointment.
-
-**Method 2**
-
-1. ஓடு a fishing வரி or cordage through the bend of the hook.
-2. Grab the ends of the string.
-3. இடு downward அழுத்தம் on the eye of the hook.
-4. Quickly pull the string, causing the hook பெறுநர் come out the way it went.
-5. Clean the wound and இடு antibiotic ointment.
+<!-- K: medicine, medical, heal, health, injury, sick, ill, first-aid, symptom, treat, prevent, help -->
+<!-- S: Calm down and apply first-aid. -->
+
+இந்த அத்தியாயம் வனாந்தரத்தில் ஏற்படும் பொதுவான காயங்கள் மற்றும் நோய்களுக்கான அடிப்படை மருத்துவ அறிவு மற்றும் நுட்பங்களை உள்ளடக்கியது. 
+
+**இந்த அத்தியாயம் தகவல் நோக்கங்களுக்காக மட்டுமே மற்றும் தொழில்முறை ஆலோசனை, நோயறிதல் அல்லது சிகிச்சையை மாற்றாது; உங்கள் சொந்த ஆபத்தில் பயன்படுத்தவும், உள்ளூர் சட்டங்களுடன் இணங்குவதை உறுதி செய்யவும், முடிந்தவரை தகுதிவாய்ந்த சுகாதார வழங்குநர்களை அணுகவும்.**
+
+## தயாராக இருங்கள்
+<!-- K: prepare, gear, knowledge, skill, painkiller, bandage, gauze, tape, pin, needle, tweezer, antibiotic, ointment, cream, sunscreen, repellent, spray, medicine, medicine, prescription, pill, lenses, glasses, reliever, sanitizer, epinephrine, epi-pen, epipen, inhaler, moleskin, molefoam, tourniquet, splint, alo, vera, ஜெல், ஸ்வாப், கண்ணாடி, டம்பன், பேட், மாதவிடாய், கப், ஃப்ளாஸ், பல் துலக்குதல், பற்பசை, கழிப்பறை காகிதம், பிடெட், பை, ட்ரோவல், சோப்பு, துண்டு, லிப்-பாம், எலக்ட்ரோலைட் -->
+<!-- S: முதலுதவி பெட்டியைக் கொண்டு வாருங்கள். அடிப்படை முதலுதவி மற்றும் CPR ஐக் கற்றுக்கொள்ளுங்கள். -->
+
+### கியர்
+
+**தேவைகள்**:
+- பல்வேறு வகையான கட்டுகள்
+- காஸ்
+- அறுவை சிகிச்சை நாடா
+- பாதுகாப்பு ஊசி அல்லது ஊசி
+- சாமணம்
+- ஆண்டிபயாடிக் களிம்பு
+- சன்ஸ்கிரீன்
+- பூச்சி விரட்டி
+- பரிந்துரைக்கப்பட்ட மருந்துகள், காண்டாக்ட் லென்ஸ்கள் மற்றும் கண்ணாடிகள்
+- வலி நிவாரணிகள் (ஆஸ்பிரின், இப்யூபுரூஃபன், அசிடமினோஃபென்)
+- கை சுத்திகரிப்பான் (வாசனையற்றது)
+- எபினெஃப்ரின் ஆட்டோ-இன்ஜெக்டர் (உங்களுக்கு கடுமையான ஒவ்வாமை இருந்தால்)
+- ஆஸ்துமா இன்ஹேலர் (உங்களுக்கு ஆஸ்துமா இருந்தால்)
+
+**விருப்பத்தேர்வு**:
+- காயம் மூடும் பட்டாம்பூச்சி கட்டுகள்
+- மோல்ஸ்கின்
+- மோல்ஃபோம்
+- டூர்னிக்கெட்
+- சி-ஸ்பிளிண்ட்
+- கற்றாழை ஜெல்
+- ஆண்டிசெப்டிக் துடைப்பான்கள்
+- ஹைட்ரோகார்டிசோன் கிரீம்
+- ஆண்டிஹிஸ்டமைன் மாத்திரைகள் (டைஃபென்ஹைட்ரமைன்)
+- சூப்பர் க்ளூ
+- பருத்தி துணிகள்
+- வயிற்றுப்போக்கு எதிர்ப்பு மருந்து (லோபரமைடு)
+- வாயு நிவாரணிகள் (சிமெதிகோன்)
+- அமில எதிர்ப்பு மாத்திரைகள்
+- கண்ணாடி
+- டம்பான்கள்/பேட்கள்/மாதவிடாய் கோப்பை
+- பல் ஃப்ளாஸ்
+- பல் துலக்குதல்
+- பற்பசை (இதை இரவில் உங்கள் கரடி பை/கன்டெய்னரில் சேமிக்கவும்)
+- கழிப்பறை காகிதம் மற்றும்/அல்லது எடுத்துச் செல்லக்கூடிய பைடெட்
+- குப்பைப் பைகள்/கன்டெய்னர் (கழிப்பறை காகிதம் மற்றும் மனித கழிவுகள் தொடர்பான உள்ளூர் விதிமுறைகளைச் சரிபார்க்கவும்)
+- ட்ரோவல்
+- சோப்பு (வாசனையற்றது)
+- துவைக்கும் துணி/மைக்ரோஃபைபர் துண்டு
+- லிப் பாம் (வாசனையற்றது)
+- எலக்ட்ரோலைட் கலவை
+
+### அறிவு மற்றும் திறன்கள்
+
+பின்வருவனவற்றை எப்படி செய்வது என்பதைக் கற்றுக்கொள்வதன் மூலம் தொடங்கவும்:
+- அடிப்படை முதலுதவி மற்றும் CPR செய்யுங்கள்.
+- உங்களையும் மற்றவர்களையும் அமைதிப்படுத்துங்கள்.
+
+இந்தத் திறன்களில் நீங்கள் தேர்ச்சி பெற்றவுடன், பின்வருவனவற்றை எப்படிச் செய்வது என்பதைக் கற்றுக்கொள்ள வேண்டும்:
+- கரி தயாரிக்கவும் (நெருப்பு அத்தியாயத்தைப் பார்க்கவும்).
+- தாவரங்களிலிருந்து தேநீர் தயாரிக்கவும்.
+- உங்கள் பகுதியில் உள்ள மருத்துவ தாவரங்களை அடையாளம் காணவும்.
+- முதலில் முன்னேறிய முறையில் செயல்படுங்கள். உடைந்த எலும்பை சரிசெய்தல் அல்லது காயத்தை தையல் செய்தல் போன்ற உதவி நுட்பங்கள்.
+
+## பொதுவான மருந்துகள்
+<!-- K: மருந்து, மருந்து, மாத்திரை, மருந்து, ஆஸ்பிரின், இப்யூபுரூஃபன், அசிடமினோபன், டைஃபென்ஹைட்ரமைன், லோபரமைடு, சிமெதிகோன், ஆன்டாசிட், ஹைட்ரோகார்டிசோன், ஆண்டிபயாடிக், களிம்பு, கிரீம் -->
+<!-- S: பொதுவான மருந்துகளை உங்களுடன் கொண்டு வாருங்கள். உங்கள் மருத்துவர் இயக்கியபடி மட்டுமே பயன்படுத்தவும், உற்பத்தியாளரின் வழிமுறைகளைப் பின்பற்றவும். -->
+
+இது மலையேறுபவர்கள் எடுத்துச் செல்லக்கூடிய பொதுவான மருந்துகளின் பட்டியல். இது முழுமையான பட்டியல் அல்ல. உங்கள் மருத்துவர் கூறுவது போல் மட்டும் இவற்றைப் பயன்படுத்தவும், தொகுப்பு வழிமுறைகளைப் பின்பற்றவும். உங்கள் பயணத்திற்கு முன் பக்க விளைவுகள், எவ்வளவு எடுத்துக்கொள்ள வேண்டும், எப்போது எடுத்துக்கொள்ள வேண்டும் என்பதை அறிந்து கொள்ளுங்கள்.
+
+- **ஆஸ்பிரின்**: தலைவலி, தசை வலி, மூட்டு வலி, வீக்கம் மற்றும் காய்ச்சலுக்குப் பயன்படுத்தப்படும் வலி நிவாரணி. மாரடைப்பின் முதல் அறிகுறிகளில் ஆஸ்பிரின் எடுத்துக்கொள்ள பல மருத்துவர்கள் பரிந்துரைக்கின்றனர், ஏனெனில் இது மேலும் இரத்தப்போக்கைத் தடுக்க உதவும். கட்டிகள்.
+- **இப்யூபுரூஃபன்**: தலைவலி, புண் தசைகள், மூட்டு வலி, வீக்கம் மற்றும் காய்ச்சலுக்குப் பயன்படுத்தப்படும் வலி நிவாரணி. இது சிலருக்கு வயிற்று வலியையும் ஏற்படுத்தும்.
+- **அசிட்டமினோஃபென்**: தலைவலி, புண் தசைகள், மூட்டு வலி அல்லது காய்ச்சலுக்குப் பயன்படுத்தப்படும் வலி நிவாரணி.
+- **டைஃபென்ஹைட்ரமைன்**: ஒவ்வாமை, அரிப்பு மற்றும் தூக்கமின்மைக்கு பயன்படுத்தப்படும் ஆண்டிஹிஸ்டமைன். இது மயக்கத்தை ஏற்படுத்தக்கூடும்.
+- **லோபராமைடு**: வயிற்றுப்போக்குக்கு சிகிச்சையளிக்கப் பயன்படுகிறது.
+- **சிமெதிகோன்**: வாயு வலிக்கு பயன்படுத்தப்படும் வாயு நிவாரணி.
+- **ஆன்டாசிட் மாத்திரைகள்**: நெஞ்செரிச்சல் மற்றும் அஜீரணத்திற்கு சிகிச்சையளிக்கப் பயன்படுகிறது.
+- **ஹைட்ரோகார்டிசோன் கிரீம்**: கடித்தல், தடிப்புகள் அல்லது எரிச்சலிலிருந்து அரிப்பு அல்லது சிவப்பு தோலை ஆற்றும்.
+- **ஆன்டிபயாடிக் களிம்பு**: சிறிய வெட்டுக்கள், சிராய்ப்புகள் அல்லது தீக்காயங்களில் தொற்றுநோயைத் தடுக்க உதவுகிறது.
+
+## ஒவ்வாமை எதிர்வினைகள்
+<!-- K: ஒவ்வாமை, ஒவ்வாமை, எதிர்வினை, சொறி, அரிப்பு, வீக்கம், படை நோய், தும்மல், இருமல், தொண்டை, மூச்சு, எபிநெஃப்ரின், எபி-பென், எபிபென், ஊசி, ஆஸ்துமா, அனாபிலாக்ஸிஸ் -->
+<!-- S: அறிகுறிகளில் சொறி, அரிப்பு, வீக்கம், படை நோய் மற்றும் சுவாசிப்பதில் சிரமம் ஆகியவை அடங்கும். ஒவ்வாமையை அகற்றுவதன் மூலமோ, ஆண்டிஹிஸ்டமின்களைப் பயன்படுத்துவதன் மூலமோ அல்லது எபிநெஃப்ரின் ஆட்டோ-இன்ஜெக்டரைப் பயன்படுத்துவதன் மூலமோ சிகிச்சையளிக்கவும். அறியப்பட்ட ஒவ்வாமைகளைத் தவிர்ப்பதன் மூலம் தடுக்கவும். -->
+
+ஒவ்வாமை எதிர்வினைகள் காண்டாக்ட் டெர்மடிடிஸ் (விஷப் படர்க்கொடி போன்றவை) அல்லது பூச்சி கடித்தல் முதல் அனாபிலாக்ஸிஸ் வரை இருக்கலாம், இது உயிருக்கு ஆபத்தான ஒரு கடுமையான எதிர்வினையாகும்.
+
+### அறிகுறிகள்
+
+- சொறி.
+- அரிப்பு.
+- வீக்கம்.
+- படை நோய்.
+- Ruமூக்கு அரிப்பு.
+- தும்மல்.
+- இருமல்.
+- தொண்டை அரிப்பு.
+
+**கடுமையானது:**
+
+- சுவாசிப்பதில் சிரமம்.
+- முகம், உதடுகள் அல்லது நாக்கில் வீக்கம்.
+
+### சிகிச்சை
+
+1. முடிந்தால் ஒவ்வாமையை அகற்றவும்.
+2. சொறி இருந்தால், கலமைன் லோஷன் அல்லது ஹைட்ரோகார்டிசோன் கிரீம் தடவவும்.
+3. ஆண்டிஹிஸ்டமைன் மாத்திரைகளை எடுத்துக் கொள்ளுங்கள்.
+
+**கடுமையானது:**
+
+சுவாசத்தை பாதிக்கும் அல்லது முகம், உதடுகள் அல்லது நாக்கில் வீக்கத்தை ஏற்படுத்தும் கடுமையான ஒவ்வாமை எதிர்விளைவுகளுக்கு உடனடி மருத்துவ உதவி தேவை. உங்களிடம் எபினெஃப்ரின் ஆட்டோ-இன்ஜெக்டர் இருந்தால், அதைப் பயன்படுத்தவும்:
+
+1. பாதுகாப்பு தொப்பியை அகற்றவும்.
+2. இடுப்புக்கும் முழங்காலுக்கும் இடையில், தொடையின் மீது முனையுடன் இன்ஜெக்டரைப் பிடிக்கவும்.
+3. இன்ஜெக்டரை தொடையில் அழுத்தி, அது சொடும் வரை அழுத்தவும்.
+4. அதை 10 வினாடிகள் அந்த இடத்தில் வைத்திருங்கள்.
+5. அறிகுறிகள் தொடர்ந்தால் 5 முதல் 15 நிமிடங்களுக்குப் பிறகு மீண்டும் செய்யவும்.
+6. விரைவில் மருத்துவ உதவியை நாடுங்கள்.
+
+உங்களுக்கு ஆஸ்துமா இருந்து, ஆஸ்துமா தாக்குதல் இருந்தால், உங்கள் இன்ஹேலரைப் பயன்படுத்தவும்.
+
+### தடுப்பு
+
+- அறியப்பட்ட ஒவ்வாமைகளைத் தவிர்க்கவும்.
+- உங்களுக்கு கடுமையான ஒவ்வாமை இருந்தால் எபிநெஃப்ரின் ஆட்டோ-இன்ஜெக்டரை எடுத்துச் செல்லுங்கள்.
+- பூச்சி கடித்தல் மற்றும் விஷ தாவரங்களுக்கு முன்னெச்சரிக்கை நடவடிக்கைகளை எடுக்கவும் (தொடர்புடைய பிரிவுகளைப் பார்க்கவும்).
+- உங்கள் ஒவ்வாமை மற்றும் உங்கள் எபிநெஃப்ரின் ஆட்டோ-இன்ஜெக்டர் எங்கு வைக்கப்பட்டுள்ளது என்பதைப் பற்றி மற்றவர்களிடம் சொல்லுங்கள்.
+
+## உயர நோய்
+<!-- K: உயரம், மலை, தலைவலி, குமட்டல், சோர்வு, தலைச்சுற்றல், மூச்சு, தூக்கம், பசியின்மை, இதயத் துடிப்பு, இருமல், பழக்கப்படுத்துதல், இறங்கு -->
+<!-- S: அறிகுறிகளில் தலைவலி, குமட்டல், சோர்வு, தலைச்சுற்றல் மற்றும் மூச்சுத் திணறல் ஆகியவை அடங்கும். குறைந்த உயரத்திற்கு இறங்குவதன் மூலம் அல்லது வலி நிவாரணிகளுடன் சிகிச்சையளிக்கவும். மெதுவாக ஏறுவதன் மூலம் தடுக்கவும். -->
+
+உயரமான இடங்களில் ஆக்ஸிஜன் அளவு குறைவாக இருப்பதால் உயர நோய் ஏற்படுகிறது.
+
+## அறிகுறிகள்
+- தலைவலி.
+- குமட்டல்.
+- சோர்வு.
+- தலைச்சுற்றல்.
+- மூச்சுத் திணறல்.
+- மோசமான தூக்கம்.
+- பசியின்மை.
+- விரைவான இதயத்துடிப்பு.
+- இருமல்.
+
+### சிகிச்சை
+
+- தலைவலிக்கு வலி நிவாரணிகளை (இப்யூபுரூஃபன்) எடுத்துக் கொள்ளுங்கள்.
+- அறிகுறிகள் நீங்கும் வரை ஏற வேண்டாம்.
+- அறிகுறிகள் கடுமையாக இருந்தால் அல்லது ஒரு நாளுக்குள் மேம்படவில்லை என்றால் குறைந்த உயரத்திற்கு இறங்குங்கள்.
+
+### தடுப்பு
+
+- மெதுவாக ஏறுங்கள்.
+- பழக்கப்படுத்துங்கள் மேலும் மேலே செல்வதற்கு முன்.
+- 6,500 அடி (2,000 மீட்டர்) உயரத்திற்கு மேல் உள்ள அறிகுறிகளைக் கவனியுங்கள்.
+
+## கடித்தல், கொட்டுதல் மற்றும் தாக்குதல்கள்
+
+### விலங்குகள்
+<!-- K: கடி, தாக்குதல், விலங்கு, பாலூட்டி, மணி, சண்டை, மிளகு தெளிப்பு, கரடி -->
+<!-- S: காயத்தை சோப்பு மற்றும் தண்ணீரில் கழுவுதல், நுண்ணுயிர் எதிர்ப்பிகளைப் பயன்படுத்துதல், கட்டு கட்டுதல் மற்றும் மருத்துவ உதவியை நாடுதல் மூலம் சிகிச்சையளிக்கவும். காட்டு விலங்குகளைத் தவிர்ப்பதன் மூலமும், உங்கள் இருப்பைப் பற்றி எச்சரிக்க சத்தம் எழுப்புவதன் மூலமும் இதைத் தடுக்கவும். -->
+
+பல விலங்குகள் அச்சுறுத்தப்படும்போது கடிக்கின்றன, சில நோய்களைப் பரப்பக்கூடும்.
+
+#### சிகிச்சை
+
+1. காயத்தை சோப்பு மற்றும் தண்ணீரில் கழுவவும்.
+2. ஆண்டிபயாடிக் களிம்பைப் பயன்படுத்துங்கள்.
+3. காயத்தை ஒரு கட்டு கொண்டு மூடவும். ஆழமான காயங்களை நெய்யால் கட்டி வைக்கவும், ஆனால் அவற்றை தைக்கவோ அல்லது டேப் ஒட்டவோ வேண்டாம்.
+4. காயம் ஆழமாக இருந்தால், இரத்தப்போக்கு இருந்தால், அல்லது தொற்று அறிகுறிகள் இருந்தால் மருத்துவ உதவியை நாடுங்கள்.
+
+ஒரு பாலூட்டி உங்களைக் கடித்தால், விரைவில் மருத்துவ உதவியை நாடுங்கள்; உங்களுக்கு ரேபிஸ் தடுப்பூசிகள் தேவைப்படலாம்.
+
+#### தடுப்பு
+
+- காட்டு விலங்குகளை நெருங்கவோ, மூலை முடுக்கவோ அல்லது உணவளிக்கவோ வேண்டாம்.
+- கரடி மணியைப் பயன்படுத்தவும் அல்லது விலங்குகளை எச்சரிக்க சத்தம் போடவும்.
+- அருகில் குட்டிகள் உள்ள விலங்குகளைத் தவிர்க்கவும்.
+- ஒரு விலங்கு நெருங்கினால்:
+ - ஓடாதீர்கள், ஏனெனில் இது துரத்தலைத் தூண்டும்.
+ - உங்களைப் பெரியதாகக் காட்டுங்கள்.
+ - சத்தம் போடுங்கள் (உயர்ந்த குரலில் கத்த வேண்டாம்).
+ - குழந்தைகள் மற்றும் செல்லப்பிராணிகளை அழைத்துச் செல்லுங்கள்.
+ - மெதுவாக பின்வாங்கவும் அல்லது பக்கவாட்டில் நகரவும்.
+ - கிடைத்தால் கரடி அல்லது மிளகு தெளிப்பைப் பயன்படுத்தவும்.
+ - கிரிஸ்லிகளால் தாக்கப்பட்டால், எதிர்த்துப் போராடுங்கள்.
+ - பாறைகள், குச்சிகள் அல்லது கைகளால் கண்கள், மூக்கு அல்லது தொண்டையை குறிவைக்கவும்.
+ - ஒரு **கிரிஸ்லி** தாக்கினால், அது உங்களைத் துரத்தாவிட்டால், உங்கள் கூடாரத்தில் தாக்காவிட்டால் அல்லது தொடர்ந்தால் இறந்ததாக விளையாடுங்கள். தாக்குதல் - பின்னர் எதிர்த்துப் போராடுதல்.
+ - உங்கள் பையை வைத்திருங்கள்; அது பாதுகாப்பை வழங்க முடியும்.
+
+### லீச்கள்
+<!-- K: லீச், கடி, உறிஞ்சு, இரத்தம், அகற்று -->
+<!-- S: ஒரு விரல் நகம் அல்லது தட்டையான பொருளைக் கொண்டு லீச்சை அகற்றி, பகுதியை சுத்தம் செய்வதன் மூலம் சிகிச்சையளிக்கவும். பூச்சி விரட்டியைப் பயன்படுத்தி நீண்ட கை மற்றும் பேன்ட் அணிவதன் மூலம் இதைத் தடுக்கவும். -->
+
+லீச்கள் உங்கள் தோலில் ஒட்டிக்கொண்டு உங்கள் இரத்தத்தை உறிஞ்சும். அவை நன்னீர் ஏரிகள், குளங்கள் மற்றும் சதுப்பு நிலங்களில் காணப்படுகின்றன.
+
+#### அறிகுறிகள்
+
+- தோலில் ஒட்டிக்கொண்டிருக்கும் லீச்.
+- இரத்தப்போக்கு.
+- வீக்கம்.
+- வலி.
+
+#### சிகிச்சை
+
+1. அதை இறுக்கமாக இழுக்கவும் (ஆனால் மிகவும் இறுக்கமாக இல்லை).
+2. அட்டைக்கும் உங்கள் தோலுக்கும் இடையில் ஒரு விரல் நகத்தையோ அல்லது வேறு தட்டையான பொருளையோ சறுக்கி, அட்டையை மீண்டும் ஒட்டுவதற்கு முன்பு அதை அகற்றவும்.
+4. காயத்தை சுத்தம் செய்து, ஆன்டிபயாடிக் களிம்பு தடவவும்.
+5. இரத்தப்போக்கைக் கட்டுப்படுத்த ஒரு கட்டு தடவவும். சிறிது நேரம் காயம் இரத்தம் வருவது இயல்பானது.
+
+அட்டையை உப்பு போடவோ, எரிக்கவோ அல்லது இழுக்கவோ கூடாது, ஏனெனில் இது அட்டையை காயத்திற்குள் மீண்டும் ஊடுருவச் செய்யும்.
+
+#### தடுப்பு
+- பூச்சி விரட்டியைப் பயன்படுத்தவும்.
+- நீண்ட கை மற்றும் பேன்ட் அணியுங்கள்.
+- அட்டைகளை அடிக்கடி சரிபார்க்கவும்.
+
+### பாம்புகள்
+<!-- K: பாம்பு, கடி, விஷம், விஷம், விஷ எதிர்ப்பு, பாம்புக்கடி -->
+<!-- S: காயத்தை சுத்தம் செய்தல், கட்டு போடுதல், மூட்டு அசையாமல் வைத்தல் மற்றும் மருத்துவ உதவியை நாடுதல் மூலம் சிகிச்சை அளிக்கவும். நீங்கள் எங்கு செல்கிறீர்கள் என்பதைக் கவனித்து, உயரமான பூட்ஸ் அணிவதன் மூலம் இதைத் தடுக்கவும். -->
+
+எப்போதும் பாம்புகளைத் தேடுங்கள், குறிப்பாக உயரமான புல், பாறைகள் அல்லது மரக்கட்டைகள் உள்ள பகுதிகளில். பாம்புகள் பகலில் மிகவும் சுறுசுறுப்பாக இருக்கும். பெரும்பாலான பாம்பு கடித்தால் விஷம் இல்லை, ஆனால் பாம்பின் வகை உங்களுக்குத் தெரியாவிட்டால், கடித்ததை விஷமாகக் கருதுங்கள்.
+
+#### சிகிச்சை
+1. கடித்த பகுதியை தண்ணீரில் கழுவவும்.
+2. காயத்தை சுத்தம் செய்து கட்டுகளால் மூடவும்.
+3. பாதிக்கப்பட்ட உறுப்பிலிருந்து ஏதேனும் மோதிரங்கள் அல்லது நகைகளை அகற்றவும்.
+4. கடித்த இடத்தில் தொடங்கி மூட்டு வரை நகர்த்தி, மூட்டுக்கு ஒரு கட்டு கொண்டு கட்டவும். கட்டு இறுக்கமாக இருக்க வேண்டும், ஆனால் சுழற்சியை துண்டிக்கக்கூடாது. நீங்கள் கட்டின் கீழ் ஒரு விரலை நழுவ விட முடியும். நீங்கள் ஒரு குழி வைப்பரால் (ராட்டில்ஸ்னேக் போன்றவை) கடிக்கப்பட்டிருந்தால், கட்டு போடவோ அல்லது அழுத்தவோ வேண்டாம், ஏனெனில் இது திசு சேதத்தை அதிகரிக்கும்.
+5. எலும்பு முறிவு ஏற்படுவது போல, மூட்டு அசையாமல், இதயத்தின் மட்டத்திற்கு கீழே வைக்கவும்.
+6. கூடிய விரைவில் மருத்துவ உதவியை நாடுங்கள். தேவைப்பட்டால் ஆன்டிவெனமைத் தயாரிக்க மருத்துவமனைக்கு முன்கூட்டியே அழைக்கவும்.
+
+பின்வருவனவற்றைச் செய்ய வேண்டாம்:
+- காயத்தை வெட்டுங்கள்.
+- விஷத்தை உறிஞ்சுங்கள்.
+- ஒரு டூர்னிக்கெட் தடவவும்.
+- ஐஸ் தடவவும்.
+
+#### தடுப்பு
+- நீங்கள் எங்கு செல்கிறீர்கள் என்பதைக் கவனியுங்கள்.
+- உயரமான பூட்ஸ் அணியுங்கள்.
+- உங்கள் கைகளையோ கால்களையோ நீங்கள் பார்க்க முடியாத இடத்தில் வைக்காதீர்கள்.
+- பாம்புகள் விஷம் இல்லை என்று உங்களுக்குத் தெரியாவிட்டால் அவற்றைப் பிடிக்கவோ கொல்லவோ முயற்சிக்காதீர்கள்.
+
+### பூச்சிகள், சிலந்திகள் மற்றும் தேள்கள்
+<!-- K: பூச்சி, கடி, விரட்டு, தெளிப்பு, ஸ்பியர், ஸ்கொயர், கொசு, எறும்பு, தேனீ, குளவி, ஹார்னெட், ஈ, அரிப்பு, வீக்கம், சிவப்பு, அகற்று -->
+<!-- S: அகற்றுவதன் மூலம் சிகிச்சை அளிக்கவும் கொட்டுதல்/உண்ணி/அட்டைப்புலி, அந்தப் பகுதியை சுத்தம் செய்தல், தேவைப்பட்டால் மருத்துவ உதவியை நாடுதல். பூச்சி விரட்டியைப் பயன்படுத்துவதன் மூலமும், நீண்ட கை மற்றும் பேன்ட் அணிவதன் மூலமும் இதைத் தடுக்கவும். -->
+
+பல பூச்சிகள் உங்களைக் கடிக்கலாம் அல்லது கொட்டலாம், இதனால் வலி, வீக்கம் மற்றும் அரிப்பு ஏற்படும். சில பூச்சிகள் நோய்களையும் பரப்பலாம்.
+
+#### அறிகுறிகள்
+- அரிப்பு.
+- வீக்கம்.
+- சிவத்தல்.
+- வலி.
+
+#### சிகிச்சை
+
+**கடி**
+
+அரிப்பைக் குறைக்க, அரிப்புகளைத் தவிர்க்கவும், கலமைன் லோஷன் அல்லது ஹைட்ரோகார்டிசோன் கிரீம் தடவவும். வீக்கத்தைக் குறைக்க, குளிர்ந்த நீரில் நனைத்த அல்லது பனி/பனி நிரப்பப்பட்ட துணியைப் பயன்படுத்தவும்.
+
+நீங்கள் விஷம் கொண்டதாக நம்பும் சிலந்தியால் கடிக்கப்பட்டிருந்தால், அதை பாம்பு கடிப்பதைப் போல நடத்துங்கள், மருத்துவ உதவியை நாடுங்கள்.
+
+**கடி**
+
+எந்தவொரு கொட்டையும் அகற்றவும், விஷப் பையை அழுத்தாமல் கவனமாக இருங்கள். அதை ஒரு பூச்சி கடித்ததைப் போல நடத்துங்கள்.
+
+தேள் அல்லது விஷ பூச்சியால் நீங்கள் குத்தப்பட்டால், அதை பாம்பு கடித்ததாக கருதி மருத்துவ உதவியை நாடுங்கள்.
+
+**கண்களில் பூச்சிகள்**
+
+கண்ணில் உள்ள பொருட்கள் பற்றிய பகுதியைப் பார்க்கவும்.
+
+#### தடுப்பு
+- பூச்சி விரட்டியைப் பயன்படுத்தவும்.
+- நீண்ட கை மற்றும் பேன்ட் அணியவும்.
+- உங்கள் முகத்தை ஒரு பந்தனாவால் போர்த்திக் கொள்ளுங்கள்.
+- கண்ணாடி/சன்கிளாஸ்களை அணியுங்கள் (உங்கள் கண்களில் பூச்சிகள் வராமல் இருக்க).
+- பூச்சி வலையைப் பயன்படுத்தவும்.
+- உங்கள் தடுப்பூசிகள் அந்தப் பகுதியில் பூச்சிகளால் பரவும் நோய்களுக்கு எதிராகப் பயன்படுத்தப்படுகின்றன என்பதை உறுதிப்படுத்திக் கொள்ளுங்கள்.
+
+உங்கள் தோலில் சேற்றைப் பூசுவதன் மூலமோ அல்லது நெருப்புப் புகையைப் பயன்படுத்துவதன் மூலமோ நீங்கள் ஒரு மேம்படுத்தப்பட்ட பூச்சி விரட்டியை உருவாக்கலாம்.
+
+### உண்ணிகள்
+<!-- K: கடி, விரட்டு, தெளி, உண்ணி, அரிப்பு, வீக்கம், சிவப்பு, நீக்க -->
+<!-- S: உண்ணியை அகற்றி, பகுதியை சுத்தம் செய்து, தேவைப்பட்டால், மருத்துவ உதவியை நாடுவதன் மூலம் சிகிச்சையளிக்கவும். பூச்சி விரட்டியைப் பயன்படுத்துவதன் மூலமும், நீண்ட கை மற்றும் பேன்ட் அணிவதன் மூலமும் இதைத் தடுக்கவும். -->
+
+உண்ணிகள் உங்கள் தோலில் ஒட்டிக்கொண்டு உங்கள் இரத்தத்தை உண்ணும். அவை லைம் நோய் மற்றும் ராக்கி மவுண்டன் புள்ளி காய்ச்சல் போன்ற நோய்களைப் பரப்பக்கூடும்.
+
+#### அறிகுறிகள்
+
+- அரிப்பு.
+- வீக்கம்.
+- சிவத்தல்.
+- இணைக்கப்பட்ட உண்ணி.
+
+#### சிகிச்சை
+
+1. கிடைத்தால், ட்வீஸர்களைப் பயன்படுத்தி, தோலில் இணைக்கப்பட்ட இடத்தில் உண்ணியைப் பிடிக்கவும்.
+2. நிலையான, சீரான அழுத்தத்துடன் நேராக வெளியே இழுக்கவும். உண்ணியை முறுக்கவோ அல்லது இழுக்கவோ வேண்டாம். உண்ணியின் உடலை அழுத்த வேண்டாம்.
+3. பூச்சி கடித்தால் அந்தப் பகுதியை எப்படி நடத்துவது என்று பாருங்கள்.
+
+#### தடுப்பு
+- பூச்சி விரட்டியைப் பயன்படுத்துங்கள்.
+- நீண்ட கை மற்றும் பேன்ட் அணியுங்கள்.
+- உண்ணி இருக்கிறதா என்று அடிக்கடி சரிபார்க்கவும்.
+
+### ஜெல்லிமீன்
+<!-- K: ஜெல்லிமீன், ஸ்டிங், டென்டக்கிள் -->
+<!-- S: கூடாரங்களை அகற்றி, கடல் நீரில் கழுவி, வெப்பத்தைப் பயன்படுத்துவதன் மூலம் சிகிச்சையளிக்கவும். ஜெல்லிமீனைத் தவிர்ப்பதன் மூலம் இதைத் தடுக்கவும். -->
+
+பல ஜெல்லிமீன்கள் சிறிய, விஷமுள்ள கொட்டும் செல்களைக் கொண்டுள்ளன, பொதுவாக கூடாரங்களில். இறந்த ஜெல்லிமீன்கள் கூட கொட்டக்கூடும்.
+
+#### அறிகுறிகள்
+
+- வலி.
+- அரிப்பு.
+- சிவத்தல்.
+- சொறி.
+- வீக்கம்.
+
+#### சிகிச்சை
+
+1. கொட்டும் பகுதியை அகற்ற மணலைத் தேய்க்கவும், ஆனால் அங்கும் கொட்டாமல் இருக்க உங்கள் கைகளில் கடற்பாசி அல்லது துணியால் ஆன தடையைப் பயன்படுத்துவதை உறுதிப்படுத்திக் கொள்ளுங்கள். கொட்டும் பகுதியை அகற்ற நீங்கள் கிரெடிட் கார்டு அல்லது ட்வீசரின் விளிம்பையும் பயன்படுத்தலாம்.
+2. கடல்நீரைக் கொண்டு (அல்லது வினிகர் உங்களிடம் இருந்தால்) அந்தப் பகுதியைக் கழுவவும். புதிய நீரில் கழுவ வேண்டாம், ஏனெனில் இது கொட்டும் பகுதிகள் அதிக விஷத்தை வெளியிடக்கூடும்.
+3. அந்தப் பகுதியை 30 நிமிடங்கள் சூடான நீரில் ஊற வைக்கவும்.
+4. தேவைப்பட்டால் வலி நிவாரணிகளை எடுத்துக் கொள்ளுங்கள்.
+
+## இரத்தப்போக்கு
+<!-- K: இரத்தப்போக்கு, இரத்தம், காயம், வெட்டு, scrape, ஆழமான, உறைவு, அழுத்தம், டூர்னிக்கெட், கட்டு, சிவப்பு, வீக்கம், சூடான, சீழ் -->
+<!-- S: அழுத்தம் கொடுப்பதன் மூலமும், காயத்தை சுத்தம் செய்வதன் மூலமும், கட்டு போடுவதன் மூலமும் சிகிச்சை அளிக்கவும், தேவைப்பட்டால், மருத்துவ உதவியை நாடுங்கள். காயங்களை அடிக்கடி சுத்தம் செய்வதன் மூலமும், கட்டுகளை மாற்றுவதன் மூலமும் தொற்றுநோயைத் தடுக்கவும். -->
+
+### சிகிச்சை
+காயம் ஆழமாக இருந்தால், அதிக இரத்தப்போக்கு இருந்தால், அல்லது தொற்றுக்கான அறிகுறிகள் இருந்தால் மருத்துவ உதவியை நாடுங்கள். பாதிக்கப்பட்ட காயங்களை சிவத்தல், வீக்கம், சூடு மற்றும் சீழ் மூலம் அடையாளம் காணலாம்.
+
+**சிராய்ப்புகள் மற்றும் சிறிய வெட்டுக்கள்**
+1. காயத்தை தண்ணீரில் சுத்தம் செய்யவும்.
+2. விருப்பமாக, ஆண்டிபயாடிக் களிம்பு தடவவும்.
+3. ஒரு கட்டு போடவும். தேவைப்பட்டால் மருத்துவ தர சூப்பர் க்ளூவைப் பயன்படுத்தலாம்.
+
+**ஆழமான வெட்டுக்கள்**
+1. சுத்தமான துணி அல்லது கட்டு கொண்டு காயத்திற்கு அழுத்தம் கொடுக்கவும். நீங்கள் சுமார் 10 முதல் 20 நிமிடங்கள் அழுத்தம் கொடுக்க வேண்டியிருக்கும்.
+2. காயத்தை சுத்தம் செய்து தண்ணீரில் கழுவ வேண்டும்.
+3. காயத்தை ஒரு மலட்டுத்தன்மையுள்ள ஆடையால் கட்ட வேண்டும்.
+4. பழையவை இரத்தத்தால் நனைந்தால் புதிய ஆடைகளை வைக்கவும்.
+5. காயத்தை இதயத்தின் மட்டத்திற்கு மேலே உயர்த்தவும்.
+6. இரத்தப்போக்கு நிற்கவில்லை என்றால் அல்லது காயம் ஆழமாக இருந்தால் மருத்துவ உதவியை நாடுங்கள்.
+
+நேரடி அழுத்தம் ஒரு மூட்டுக்கு வேலை செய்யவில்லை என்றால் இரத்த ஓட்டத்தை நிறுத்த ஒரு டூர்னிக்கெட்டைப் பயன்படுத்தலாம். இது கடைசி முயற்சியாக மட்டுமே செய்யப்பட வேண்டும், ஏனெனில் இது நிரந்தர சேதத்தை ஏற்படுத்தும். ஒரு மருத்துவ நிபுணர் மட்டுமே டூர்னிக்கெட்டை அகற்ற வேண்டும்.
+
+### தடுப்பு
+- கூர்மையான பொருட்களைக் கையாளும் போது எச்சரிக்கையாக இருங்கள்.
+- உங்களை நோக்கி வெட்ட வேண்டாம்.
+- உங்கள் பாதத்தைக் கவனியுங்கள்.
+- தொற்றுநோயைத் தடுக்க:
+ - காயங்களை சுத்தம் செய்யுங்கள்.
+ - ஆண்டிபயாடிக் களிம்பைப் பயன்படுத்துங்கள்.
+ - கட்டுகளை அடிக்கடி மாற்றவும்.
+
+## கொப்புளங்கள்
+<!-- K: கொப்புளம், தேய்த்தல், ஷூ, சாக், மோல்ஸ்கின், சிவப்பு, புண் -->
+<!-- S: சிறிய கொப்புளங்களை மோல்ஸ்கின் தடவி, பெரிய கொப்புளங்களை கிருமி நீக்கம் செய்யப்பட்ட ஊசியால் வடிகட்டுதல், சுத்தம் செய்தல் மற்றும் கட்டு போடுதல் மூலம் சிகிச்சையளிக்கவும். கால்களை உலர வைத்து சரியாக பொருந்தக்கூடிய காலணிகளை அணிவதன் மூலம் இதைத் தடுக்கவும். -->
+
+### அறிகுறிகள்
+- சிவப்பு, புண் உள்ள பகுதி.
+- கொப்புளம்.
+
+### சிகிச்சை
+கொப்புளம் சிறியதாக இருந்தால்:
+1. டோனட் வடிவ மோல்ஸ்கின் துண்டுகளை வெட்டுங்கள்.
+2. கொப்புளத்தை துளையில் வைத்து, கொப்புளத்தைச் சுற்றி மோல்ஸ்கினை வைக்கவும்.
+
+கொப்புளம் பெரியதாகவோ அல்லது வலியாகவோ இருந்தால்:
+1. ஆல்கஹால் அல்லது வெப்பத்தால் ஊசியை கிருமி நீக்கம் செய்யுங்கள்.
+2. கொப்புளத்தின் விளிம்பிற்கு அருகில் துளைத்து திரவத்தை வடிகட்டவும்.
+3. பகுதியை சுத்தம் செய்து கழுவவும்.
+4. ஒரு கட்டு மற்றும், விருப்பமாக, ஆன்டிபயாடிக் களிம்பு தடவவும்.
+
+### தடுப்பு
+- கால்களை உலர வைக்கவும்.
+- சரியாக பொருந்தக்கூடிய காலணிகளை அணியுங்கள்.
+- இரண்டு ஜோடி சாக்ஸ் அணியுங்கள்.
+- சிவப்பு பகுதிகள் மற்றும் கொப்புளங்கள் உள்ளதா என அடிக்கடி கால்களைச் சரிபார்க்கவும்.
+- தேய்க்கும் முதல் அறிகுறியில் நிறுத்துங்கள்.
+- கொப்புளங்களைத் தடுக்க பிசின் டேப் அல்லது மோல்ஸ்கினைப் பயன்படுத்துங்கள்.
+
+## தீக்காயங்கள்
+<!-- K: எரித்தல், வடு, கொப்புளம், சிவப்பு, வலி, கற்றாழை, வேரா, நெருப்பு, தோல் -->
+<!-- S: குளிர்ந்த நீரில் நனைத்து, தளர்வான கட்டு மூலம் சிறிய தீக்காயங்களுக்கு சிகிச்சையளிக்கவும். கடுமையான தீக்காயங்களுக்கு மருத்துவ உதவியை நாடுங்கள். தீக்காயங்கள் மற்றும் சூடான பொருட்களைச் சுற்றி எச்சரிக்கையுடன் பயன்படுத்துவதன் மூலம் தடுக்கவும். -->
+
+### சிகிச்சை
+
+**முதல்-நிலை தீக்காயங்கள்**
+
+இது லேசான வெயிலின் அளவைப் பற்றியது.
+
+1. குளிர்ந்த நீரில் 5 நிமிடங்கள் ஊற வைக்கவும்.
+2. விருப்பமாக, வலி நிவாரணிகளை எடுத்துக் கொள்ளுங்கள்.
+3. கற்றாழை ஜெல், கலமைன் லோஷன் அல்லது ஹைட்ரோகார்டிசோன் கிரீம் தடவவும்.
+
+**இரண்டாம்-நிலை தீக்காயங்கள்**
+இது கொப்புளங்கள் ஏற்படும் தீக்காயமாகும், மேலும் மிகவும் வேதனையாக இருக்கும். 
+
+1. குளிர்ந்த நீரில் குறைந்தது 15 நிமிடங்கள் ஊற வைக்கவும்.
+2. வலி நிவாரணிகளை எடுத்துக் கொள்ளுங்கள்.
+3. பகுதியை உலர வைக்கவும்.
+4. தளர்வான கட்டுகளைப் பயன்படுத்துங்கள்.
+
+கொப்புளங்களை வெடிக்க வேண்டாம்.
+
+**மூன்றாம் நிலை தீக்காயங்கள்**
+இது தோலின் அனைத்து அடுக்குகளிலும் பரவும் ஒரு தீக்காயமாகும், மேலும் உயிருக்கு ஆபத்தானதாக இருக்கலாம். நரம்பு சேதம் காரணமாக வலி குறைவாக இருக்கலாம். இரண்டாம் நிலை தீக்காயங்களும் இருக்கலாம்.
+
+1. அவசர சேவைகளை அழைக்கவும்.
+2. குளிர்ந்த நீரில் ஊற வைக்கவும்.
+3. அந்தப் பகுதியிலிருந்து ஆடைகள் மற்றும் நகைகளை அகற்றவும்.
+4. எலக்ட்ரோலைட்டுகள் உள்ள தண்ணீரைக் குடிக்கவும்.
+5. தளர்வாக கட்டு போடுங்கள்.
+
+### தடுப்பு
+- நெருப்பைச் சுற்றி எச்சரிக்கையாக இருங்கள்.
+- சூடான பொருட்களைத் தொடாதீர்கள்.
+- சன்ஸ்கிரீன் அணியுங்கள்.
+- உங்கள் ஆடைகள் தீப்பிடித்தால், நிறுத்துங்கள், தரையில் விழுந்து, தீப்பிழம்புகளை அணைக்க உருளுங்கள்.
+
+## மூச்சுத் திணறல்
+<!-- K: மூச்சுத் திணறல், தொண்டை, மூச்சுத் திணறல், ஹெய்ம்லிச், சூழ்ச்சி -->
+<!-- S: ஹெய்ம்லிச் சூழ்ச்சியைச் செய்யுங்கள். -->
+
+நீங்கள் மூச்சுத் திணறினால், யாராவது அருகில் இருந்தால், நீங்கள் மூச்சுத் திணறுகிறீர்கள் என்பதைக் குறிக்க உங்கள் தொண்டையில் உங்கள் கைகளை வைக்கவும்.
+
+### சிகிச்சை
+ஹெய்ம்லிச் சூழ்ச்சியை நீங்களே செய்யுங்கள்:
+1. முடிந்தால், கடினமான மேற்பரப்பில் வளைக்கவும்.
+2. ஒரு கையால் ஒரு முஷ்டியை உருவாக்குங்கள்.
+3. உங்கள் முஷ்டியின் கட்டைவிரல் பக்கத்தை உங்கள் வயிற்றுக்கு எதிராகவும், உங்கள் விலா எலும்புக் கூண்டுக்குக் கீழேயும், உங்கள் தொப்புளுக்கு மேலேயும் வைக்கவும்.
+4. உங்கள் மற்றொரு கையால் உங்கள் முஷ்டியை பிடித்து, விரைவாக மேல்நோக்கி தள்ளுவதன் மூலம் உங்கள் வயிற்றில் அழுத்தவும்.
+
+1. நபரின் பின்னால் நிற்கவும்.
+2. நபரின் இடுப்பைச் சுற்றி நீட்டவும்.
+3. ஒரு கையால் ஒரு முஷ்டியை உருவாக்கவும்.
+4. உங்கள் முஷ்டியின் கட்டைவிரல் பக்கத்தை நபரின் வயிற்றுக்கு எதிராகவும், விலா எலும்புக் கூண்டுக்குக் கீழேயும், தொப்புளுக்கு மேலேயும் வைக்கவும்.
+5. உங்கள் மற்றொரு கையால் உங்கள் முஷ்டியை பிடித்து, விரைவாக மேல்நோக்கி தள்ளுவதன் மூலம் நபரின் வயிற்றில் அழுத்தவும்.
+
+## பிடிப்புகள்
+<!-- K: பிடிப்புகள், தசை, வலி, பிடிப்பு, பலவீனமான, எலக்ட்ரோலைட் -->
+<!-- S: நீட்சி, மசாஜ் செய்தல், வெப்பம் அல்லது குளிர்ச்சியைப் பயன்படுத்துதல் மற்றும் நீரேற்றம் மூலம் சிகிச்சையளிக்கவும். நீரேற்றமாக இருப்பது மற்றும் எலக்ட்ரோலைட்டுகளை நிரப்புவதன் மூலம் தடுக்கவும். -->
+
+நீரிழப்பு, அதிகப்படியான உழைப்பு அல்லது எலக்ட்ரோலைட்டுகள் இல்லாததால் பிடிப்புகள் ஏற்படலாம்.
+
+### அறிகுறிகள்
+- தசை வலி.
+- தசை பிடிப்பு.
+- தசை பலவீனம்.
+
+### சிகிச்சை
+- தசையை மெதுவாக நீட்டவும்.
+- தசையை மசாஜ் செய்யவும்.
+- தசையில் வெப்பம் அல்லது குளிரை தடவவும்.
+- சோடியம் மற்றும் பொட்டாசியம் கொண்ட தண்ணீர் அல்லது எலக்ட்ரோலைட் கரைசலை குடிக்கவும்.
+- உப்பு நிறைந்த உணவுகளை உண்ணவும்.
+- பொட்டாசியம் நிறைந்த உணவுகளை உண்ணவும் (வாழைப்பழங்கள், உருளைக்கிழங்கு, இனிப்பு) உருளைக்கிழங்கு, கீரை மற்றும் பருப்பு வகைகள்).
+- உடல் செயல்பாடுகளை மெதுவாக்குங்கள் அல்லது நிறுத்துங்கள்.
+
+### தடுப்பு
+- நீரேற்றமாக இருங்கள்.
+- எலக்ட்ரோலைட்டுகளை நிரப்பவும்.
+- உடல் செயல்பாடுகளுக்கு முன் சூடுபடுத்துங்கள்.
+- உடல் செயல்பாடுகளுக்கு முன்னும் பின்னும் நீட்டவும்.
+- மெதுவான மற்றும் நிலையான வேகத்தை பராமரிக்கவும்.
+
+## நீரிழப்பு
+<!-- K: நீரிழப்பு, நீர், தாகம், வறட்சி, சோர்வு, தலைச்சுற்றல், கருமை, சிறுநீர், தலைவலி, குழப்பம், எலக்ட்ரோலைட், பானம் -->
+<!-- S: எலக்ட்ரோலைட்டுகளுடன் தண்ணீரைக் குடிப்பதன் மூலம் நீர்ச்சத்து மீண்டும் பெறுங்கள். அடிக்கடி தண்ணீர் குடிப்பதன் மூலமும், உடல் செயல்பாடுகளின் போது உட்கொள்ளலை அதிகரிப்பதன் மூலமும் தடுக்கவும். -->
+
+### அறிகுறிகள்
+- தாகம்.
+- வாய் மற்றும் தொண்டை வறட்சி.
+- சோர்வு.
+- தலைச்சுற்றல்.
+- இருள் சிறுநீர் கழித்தல்.
+- சிறுநீர் வெளியேறுதல் குறைதல்.
+- வறண்ட சருமம்.
+- தலைவலி.
+- குழப்பம்.
+
+### சிகிச்சை
+குடிநீர், எலக்ட்ரோலைட் கரைசல் அல்லது தேநீர் குடிப்பதன் மூலம் நீரேற்றம் அடையுங்கள்.
+
+### தடுப்பு
+- அடிக்கடி தண்ணீர் குடிக்கவும், உடல் செயல்பாடுகளின் போது உட்கொள்ளலை அதிகரிக்கவும்.
+
+## உட்பொதிக்கப்பட்ட மீன் கொக்கிகள்
+<!-- K: மீன் கொக்கி, கொக்கி, அகற்று -->
+<!-- S: கொக்கிகளை வளைவு வழியாக ஒரு கோட்டை இயக்கி, கொக்கியில் கீழே தள்ளும்போது விரைவாக இழுப்பதன் மூலம் அகற்றலாம். கொக்கிகளை கவனமாக கையாளுவதன் மூலம் தடுக்கவும். -->
+
+மீன் கொக்கிகள் சதைக்குள் ஊடுருவிச் செல்லும் வகையில் வடிவமைக்கப்பட்டுள்ளன, மேலும் காயம் ஏற்படாமல் அகற்றுவது கடினம். மேலும் காயத்தைத் தடுக்க கொக்கியை அகற்ற வேண்டிய அவசியமில்லை என்றால், கொக்கியை இடத்தில் விட்டுவிட்டு மருத்துவ உதவியை நாடுவது நல்லது. கவனம்.
+
+### சிகிச்சை
+கண்ணில் பதிந்திருக்கும் மீன்கொக்கியை அகற்ற முயற்சிக்காதீர்கள்.
+
+**முறை 1**
+
+1. முள் வெளிப்படும் வரை கொக்கியை தோல் வழியாக நகர்த்தவும்.
+2. பல கருவி அல்லது இடுக்கி போன்ற கம்பி கட்டர்களைப் பயன்படுத்தி முள்கொக்கியை வெட்டுங்கள்.
+3. கொக்கி உள்ளே நுழைந்ததற்கு எதிரே இழுக்கவும்; அது எளிதாக வெளியே வர வேண்டும்.
+4. காயத்தை சுத்தம் செய்து ஆண்டிபயாடிக் களிம்பு தடவவும்.
+
+**முறை 2**
+
+1. கொக்கியின் வளைவு வழியாக ஒரு மீன்பிடிக் கோடு அல்லது கயிற்றை இயக்கவும்.
+2. சரத்தின் முனைகளைப் பிடிக்கவும்.
+3. கொக்கியின் கண்ணில் கீழ்நோக்கிய அழுத்தத்தைப் பயன்படுத்துங்கள்.
+4. சரத்தை விரைவாக இழுக்கவும், இதனால் கொக்கி அது சென்ற வழியில் வெளியே வரும். in.
+5. காயத்தை சுத்தம் செய்து ஆண்டிபயாடிக் களிம்பு தடவவும்.
 
 ![](file:///android_asset/survival_guide/fish_hook_removal.webp)
 
-### Prevention
-- Be careful when handling fishhooks.
-- Use a barbless hook if possible (these don't வேலை அச் well when fishing).
+## தடுப்பு
+- மீன் கொக்கிகளைக் கையாளும் போது கவனமாக இருங்கள்.
+- முடிந்தால் முள் இல்லாத கொக்கியைப் பயன்படுத்தவும் (இவை மீன்பிடிக்கும்போது நன்றாக வேலை செய்யாது).
 
-## Fractures
-<!-- K: fracture, break, broken, bone, pain, swelling, bruise, deform, weight, splint, sling, கணம் -->
-<!-- S: Treat by splinting and seeking medical attention. Prevent this by being cautious and wearing proper footwear. -->
+## எலும்பு முறிவுகள்
+<!-- K: எலும்பு முறிவு, முறிவு, உடைந்த, எலும்பு, வலி, வீக்கம், காயம், சிதைவு, எடை, பிளவு, கவண், செட், கை, கால் -->
+<!-- S: பிளவு வைத்து மருத்துவ உதவியை நாடுவதன் மூலம் சிகிச்சை அளிக்கவும். எச்சரிக்கையாக இருந்து சரியான காலணிகளை அணிவதன் மூலம் இதைத் தடுக்கவும். -->
 
-A fracture is a broken bone. A fracture can be closed (bone is broken, but skin is intact) or திற (bone is broken and protruding இருந்து the skin).
+எலும்பு முறிவு என்பது உடைந்த எலும்பு. எலும்பு முறிவு மூடப்படலாம் (எலும்பு உடைந்துள்ளது, ஆனால் தோல் அப்படியே உள்ளது) அல்லது திறந்திருக்கலாம் (எலும்பு உடைந்து தொங்கவிடப்பட்டுள்ளது) தோல்).
 
-### Symptoms
-- Pain.
-- Swelling.
-- Bruising.
-- Deformity.
-- Loss of function.
-- Inability பெறுநர் bear weight.
-- Bone protruding இருந்து the skin.
+### அறிகுறிகள்
+- வலி.
+- வீக்கம்.
+- சிராய்ப்பு.
+- குறைபாடு.
+- செயல்பாடு இழப்பு.
+- எடையைத் தாங்க இயலாமை.
+- தோலில் இருந்து நீண்டு செல்லும் எலும்பு.
 
-### Treatment
-If the bone is out of place and medical attention is unavailable க்கு several hours, you சி-வைகாசி need பெறுநர் கணம் it. Otherwise, splint it in place and seek medical attention.
+### சிகிச்சை
+எலும்பு இடத்தில் இல்லாமல் இருந்தால், பல மணி நேரம் மருத்துவ உதவி கிடைக்கவில்லை என்றால், அதை அமைக்க வேண்டியிருக்கும். இல்லையெனில், அதை இடத்தில் பிரித்து மருத்துவ உதவியை நாடுங்கள்.
 
-**Setting a bone**
+**எலும்பை அமைத்தல்**
 
-1. Irrigate and clean the wound if the bone is protruding.
-2. Grab the உறுப்பு, அவயவம் below the fracture.
-3. Pull the உறுப்பு, அவயவம் பெறுநர் straighten the bone. It சி-வைகாசி pop into place, and pain சி-வைகாசி decrease.
-4. Splint the bone while holding the bone in place.
-5. Cover the திற wound with a sterile dressing and bandage.
+1. எலும்பு நீண்டு இருந்தால் காயத்திற்கு நீர்ப்பாசனம் செய்து சுத்தம் செய்யுங்கள்.
+2. எலும்பு முறிவின் கீழ் உள்ள உறுப்பைப் பிடிக்கவும்.
+3. எலும்பை நேராக்க மூட்டு இழுக்கவும். அது இடத்தில் தோன்றக்கூடும், வலி குறையக்கூடும்.
+4. எலும்பை உள்ளே பிடித்துக் கொண்டு பிளவுபடுத்தவும். இடுங்கள்.
+5. திறந்த காயத்தை ஒரு மலட்டுத் துணி மற்றும் கட்டு கொண்டு மூடவும்.
 
-**Splinting a bone**
+**எலும்பைப் பிளத்தல்**
 
-1. அகற்று அனைத்தும் jewelry and tight clothing இருந்து the area.
-2. இடு padding around the fracture.
-3. Construct a splint using a rigid பொருள் (such அச் a stick, trekking pole, or tent pole). It should extend past the bone இடைவேளை on both sides.
-4. Secure the splint with bandages, tape, or cordage. The splint should be tight but not வெட்டு அணை circulation. If splinting a finger, tape it பெறுநர் the finger அடுத்தது பெறுநர் it.
-5. இடு a sling if the fracture is in the கை பெறுநர் உதவி immobilize the limb.
+1. அந்தப் பகுதியிலிருந்து அனைத்து நகைகள் மற்றும் இறுக்கமான ஆடைகளையும் அகற்றவும்.
+2. எலும்பு முறிவைச் சுற்றி திணிப்பைப் பயன்படுத்துங்கள்.
+3. ஒரு கடினமான பொருளைப் பயன்படுத்தி (குச்சி, மலையேற்றக் கம்பம், கூடாரக் கம்பம்) ஒரு பிளின்ட்டை உருவாக்குங்கள். அது இருபுறமும் எலும்பு முறிவைத் தாண்டி நீண்டிருக்க வேண்டும்.
+4. பிளின்ட்டை கட்டுகள், டேப் அல்லது கயிற்றால் பாதுகாக்கவும். அது இறுக்கமாக இருக்க வேண்டும், ஆனால் சுழற்சியை துண்டிக்கக்கூடாது. ஒரு விரலைப் பிளந்தால், அதை அடுத்துள்ள ஒன்றில் டேப் செய்யவும்.
+5. எலும்பு முறிவு கையில் இருந்தால், அதை அசையாமல் இருக்க உதவும் வகையில் ஒரு ஸ்லிங் பயன்படுத்தவும். மூட்டு.
 
 
 ![](file:///android_asset/survival_guide/5.webp)
 
 ![](file:///android_asset/survival_guide/6.webp)
 
-### Prevention
-- Be cautious when walking on uneven terrain.
-- Wear proper footwear.
-- Do not overexert yourself.
-- Be careful when handling heavy objects.
+
+### தடுப்பு
+- சீரற்ற நிலப்பரப்பில் நடக்கும்போது எச்சரிக்கையாக இருங்கள்.
+- சரியான காலணிகளை அணியுங்கள்.
+- உங்களை அதிகமாக உழைக்க வேண்டாம்.
+- கனமான பொருட்களைக் கையாளும் போது கவனமாக இருங்கள்.
 
 ## Frostbite
-<!-- K: frostbite, frost, cold, freeze, frozen, numb, white, gray, yellow, waxy, pain, thaw, warm, heat, red, frostnip -->
-<!-- S: Treat by rewarming the area and seeking medical attention. Prevent by staying warm and dry. -->
+<!--K: உறைபனி, உறைபனி, குளிர், உறைதல், உறைந்த, மரத்துப்போன, வெள்ளை, சாம்பல், மஞ்சள், மெழுகு, வலி, உருகுதல், சூடான, வெப்பம், சிவப்பு, உறைபனி -->
+<!-- S: பகுதியை மீண்டும் சூடாக்கி மருத்துவ உதவியை நாடுவதன் மூலம் சிகிச்சையளிக்கவும். சூடாகவும் வறண்டதாகவும் இருப்பதன் மூலம் தடுக்கவும். -->
 
-Frostbite is caused by exposure பெறுநர் cold temperatures, which freezes the skin and underlying tissues. If not treated, it can ஈயம் பெறுநர் permanent damage.
+குளிர் வெப்பநிலைக்கு வெளிப்படுவதால் உறைபனி ஏற்படுகிறது, இது தோல் மற்றும் அடிப்படை திசுக்களை உறைய வைக்கிறது. சிகிச்சையளிக்கப்படாவிட்டால், அது நிரந்தர சேதத்திற்கு வழிவகுக்கும்.
 
-### Symptoms
-Frostnip:
-- Redness.
-- Numbness.
-- Pale or வெள்ளை skin.
-- The area is still soft and pliable.
+## அறிகுறிகள்
 
-Frostbite:
-- வெள்ளை or grayish-yellow skin.
-- Hard or waxy skin.
-- Numbness.
+**ஃப்ரோஸ்ட்னிப்**:
 
-### Treatment
-Frostnip:
+- சிவத்தல்.
+- உணர்வின்மை.
+- வெளிர் அல்லது வெள்ளை தோல்.
+- பகுதி இன்னும் மென்மையாகவும் நெகிழ்வாகவும் உள்ளது.
 
-Rewarm the area using body heat (place a hand under the armpit), warm water, or a hand warmer.
+**ஃப்ரோஸ்ட்பிட்**:
 
-Frostbite:
+- வெள்ளை அல்லது சாம்பல்-மஞ்சள் தோல்.
+- கடினமான அல்லது மெழுகு போன்ற தோல்.
 
-Only thaw the area if you can keep it thawed. Refreezing can cause more damage. Do not use a fire பெறுநர் thaw the area. Do not rub the area. Seek medical attention அச் soon அச் possible.
+## சிகிச்சை
 
-1. Take pain medicine before thawing.
-2. Prepare hot water (104-106°F / 40-41°C).
-3. Thaw the area க்கு 30 பெறுநர் 45 minutes or until it is pink/red and soft. If the water cools, change it - அகற்று the area இருந்து the water before changing it.
-4. Wrap the area in a sterile dressing and keep warm.
+**ஃப்ரோஸ்ட்னிப்**: 
 
-### Prevention
-- Wear proper clothing.
-- Keep dry.
-- Keep moving.
-- Keep warm.
-- Stay hydrated and well-fed.
-- Treat at the first sign of frostnip.
+உடல் வெப்பத்தைப் பயன்படுத்தி (அக்குள் கீழ் ஒரு கையை வைக்கவும்), வெதுவெதுப்பான நீர் அல்லது ஒரு கையைப் பயன்படுத்தி பகுதியை மீண்டும் சூடாக்கவும். வெப்பமாக்குங்கள்.
 
-## Gastrointestinal issues
-<!-- K: gastrointestinal, stomach, gut, diarrhea, vomit, nausea, cramp, gas, food, water, poison, charcoal, tea, parasite, constipated -->
-<!-- S: Treat by rehydrating or using medicine. Prevent this by boiling water, washing hands, cooking, and storing food properly. -->
+**ஃப்ரோஸ்ட்பைட்**:
 
-Gastrointestinal issues can be caused by contaminated food or water.
+உறைந்து போகாமல் வைத்திருக்க முடிந்தால் மட்டுமே அந்தப் பகுதியைக் கரைக்கவும். மீண்டும் உறைய வைப்பது அதிக சேதத்தை ஏற்படுத்தும். அந்தப் பகுதியைக் கரைக்க நெருப்பைப் பயன்படுத்த வேண்டாம். அந்தப் பகுதியைத் தேய்க்க வேண்டாம். விரைவில் மருத்துவ உதவியை நாடுங்கள்.
 
-### Symptoms
-- Diarrhea.
-- Vomiting.
-- Nausea.
-- இரைப்பை cramps.
-- Gas.
+1. கரைப்பதற்கு முன் வலி நிவாரணி எடுத்துக் கொள்ளுங்கள்.
+2. சூடான நீரை (104-108°F / 40-42°C) தயார் செய்யவும்.
+3. அந்தப் பகுதியை 30 முதல் 45 நிமிடங்கள் அல்லது அது இளஞ்சிவப்பு/சிவப்பு மற்றும் மென்மையாக மாறும் வரை கரைக்கவும். தண்ணீர் குளிர்ந்தால், அதை மாற்றவும் - அதை மாற்றுவதற்கு முன் அந்தப் பகுதியை தண்ணீரிலிருந்து அகற்றவும்.
+4. அந்தப் பகுதியை ஒரு மலட்டுத் துணியால் சுற்றி சூடாக வைத்திருங்கள்.
 
-### Treatment
-- Rehydrate with water.
-- Drink a cup of tea every few hours. You can make tea by boiling the following plants:
-  - Oak bark, leaves, and acorns. Boil க்கு two or more hours. It won't taste good, but it will likely help.
-  - Common வாழைக்காய் leaves.
-- Make a நீர்மக்கூழ் of a handful of ground charcoal in a cup of water. Drink a couple of spoonfuls every few hours.
-  - If you ate something poisonous, drink charcoal and do not induce vomiting.
+### தடுப்பு
+- சரியான ஆடைகளை அணியுங்கள்.
+- உலர்வாக வைத்திருங்கள்.
+- தொடர்ந்து நகர்ந்து கொண்டே இருங்கள்.
+- சூடாக வைத்திருங்கள்.
+- நீரேற்றம் மற்றும் நன்கு உணவளிக்கவும்.
+- பனிக்கட்டி நோய்க்கான முதல் அறிகுறியிலேயே சிகிச்சை அளிக்கவும்.
 
-### Prevention
-- Boil water before drinking.
-- Wash hands before eating.
-- Cook food thoroughly.
-- Store food properly.
+## இரைப்பை குடல் பிரச்சினைகள்
+<!-- K: இரைப்பை குடல், வயிறு, குடல், வயிற்றுப்போக்கு, வாந்தி, குமட்டல், பிடிப்பு, வாயு, உணவு, நீர், விஷம், கரி, தேநீர், ஒட்டுண்ணி, மலச்சிக்கல் -->
+<!-- S: நீரேற்றம் அல்லது மருந்தைப் பயன்படுத்துவதன் மூலம் சிகிச்சையளிக்கவும். கொதிக்கும் நீர், கைகளைக் கழுவுதல், சமைத்தல் மற்றும் உணவை முறையாகச் சேமிப்பதன் மூலம் இதைத் தடுக்கவும். -->
 
-## Headache
-<!-- K: headache, pain, electrolyte -->
-<!-- S: Treat by taking pain relievers, drinking water, and resting. Prevent by staying hydrated and replenishing electrolytes. -->
+இரைப்பை குடல் பிரச்சினைகள் மாசுபட்ட உணவு அல்லது தண்ணீரால் ஏற்படலாம்.
 
-Headaches can be caused by பல்வேறு factors, such அச் dehydration, stress, lack of sleep, or illness.
+## அறிகுறிகள்
+- வயிற்றுப்போக்கு.
+- வாந்தி.
+- குமட்டல்.
+- வயிற்றுப் பிடிப்புகள்.
+- வாயு.
 
-### Treatment
-- Take pain relievers (aspirin, ibuprofen, acetaminophen).
-- Drink water or an electrolyte solution.
-- Rest.
-- Eat salty foods.
+### சிகிச்சை
+- தண்ணீரில் மீண்டும் நீரேற்றம் செய்யுங்கள்.
+- ஒவ்வொரு சில மணி நேரத்திற்கும் ஒரு கப் தேநீர் குடிக்கவும். பின்வரும் தாவரங்களை வேகவைத்து தேநீர் தயாரிக்கலாம்:
+ - ஓக் பட்டை, இலைகள் மற்றும் ஏகோர்ன்கள். இரண்டு அல்லது அதற்கு மேற்பட்ட மணி நேரம் கொதிக்க வைக்கவும். இது நன்றாக சுவைக்காது, ஆனால் அது உதவக்கூடும்.
+ - பொதுவான வாழை இலைகள்.
+- ஒரு கப் தண்ணீரில் ஒரு கைப்பிடி கரியின் கரைசலை உருவாக்கவும். ஒவ்வொரு சில மணி நேரத்திற்கும் ஒரு சில ஸ்பூன் குடிக்கவும்.
+ - நீங்கள் விஷம் ஏதாவது சாப்பிட்டால், உடனடியாக மருத்துவ உதவியை நாடுங்கள். உதவியை தொடர்பு கொள்ள முடியாவிட்டால், கரி குடிப்பது உதவக்கூடும். வாந்தியைத் தூண்ட வேண்டாம்.
 
-### Prevention
-- Stay hydrated.
-- Replenish electrolytes.
-- Do not overexert yourself.
+### தடுப்பு
+- குடிப்பதற்கு முன் தண்ணீரை கொதிக்க வைக்கவும்.
+- சாப்பிடுவதற்கு முன் கைகளை கழுவவும்.
+- உணவை நன்கு சமைக்கவும்.
+- உணவை சரியாக சேமிக்கவும்.
 
-## Heart problems
-<!-- K: heart, chest, pain, கை, back, neck, jaw, stomach, attack, stroke, exhaustion, sweat, nausea, lightheaded, breath, heartbeat, cpr -->
-<!-- S: Seek medical attention க்கு chest pain. Symptoms include chest pain, shortness of breath, pain in limbs, nausea, lightheadedness, and cold sweats. -->
+## தலைவலி
+<!-- K: தலைவலி, வலி, எலக்ட்ரோலைட் -->
+<!-- S: வலி நிவாரணிகளை எடுத்துக்கொள்வது, தண்ணீர் குடிப்பது மற்றும் ஓய்வெடுப்பதன் மூலம் சிகிச்சையளிக்கவும். நீரேற்றமாக இருப்பது மற்றும் எலக்ட்ரோலைட்டுகளை நிரப்புவதன் மூலம் தடுக்கவும். -->
 
-To be safe, seek medical attention if you experience chest pain அச் soon அச் possible.
+நீரிழப்பு, மன அழுத்தம், தூக்கமின்மை அல்லது நோய் போன்ற பல்வேறு காரணிகளால் தலைவலி ஏற்படலாம்.
 
-### Symptoms
-- Chest pain.
-- Shortness of breath.
-- Pain in the arms, back, neck, jaw, or stomach.
-- Nausea.
-- Lightheadedness.
-- Cold sweat.
+### சிகிச்சை
+- வலி நிவாரணிகளை (ஆஸ்பிரின், இப்யூபுரூஃபன், அசிட்டமினோஃபென்) எடுத்துக் கொள்ளுங்கள்.
+- தண்ணீர் அல்லது எலக்ட்ரோலைட் கரைசல் குடிக்கவும்.
+- ஓய்வெடுங்கள்.
+- உப்பு நிறைந்த உணவுகளை உண்ணுங்கள்.
 
-### Treatment
-1. நிறுத்து and sit comfortably.
-2. If you அரே on an as-needed heart medication, take it. Otherwise, take aspirin.
-3. Call emergency சேவைகள் and have உதவி come பெறுநர் you.
+### தடுப்பு
+- நீரேற்றமாக இருங்கள்.
+- எலக்ட்ரோலைட்டுகளை நிரப்பவும்.
+- உங்களை அதிகமாக உழைக்க வேண்டாம்.
 
-If someone else does not have a pulse, perform CPR.
+## இதய பிரச்சனைகள்
+<!-- K: இதயம், மார்பு, வலி, கை, முதுகு, கழுத்து, தாடை, வயிறு, தாக்குதல், பக்கவாதம், சோர்வு, வியர்வை, குமட்டல், லேசான தலைவலி, மூச்சு, இதய துடிப்பு, சிபிஆர் -->
+<!-- S: மார்பு வலிக்கு மருத்துவ உதவியை நாடுங்கள். அறிகுறிகளில் மார்பு வலி, மூச்சுத் திணறல், கைகால்களில் வலி, குமட்டல், லேசான தலைவலி மற்றும் குளிர் வியர்வை ஆகியவை அடங்கும். -->
 
-CPR:
-1. சரிபார் க்கு responsiveness and pulse.
-2. Call emergency சேவைகள் if there is இல்லை pulse, then தொடங்கு CPR.
-3. Place the heel of one hand on the center of the chest.
-4. Place the heel of the மற்றொன்று hand on மேலே of the first hand.
-5. Interlock fingers.
-6. Keep your arms straight and your shoulders directly வீச்சலகு your hands.
-7. Push hard and fast at least 2 inches (5 centimeters) at 100 பெறுநர் 120 compressions per minute.
-8. Let the chest rise completely between compressions.
-9. தொடரவும் until the patient is responsive, emergency சேவைகள் arrive, or you அரே too exhausted பெறுநர் continue.
+பாதுகாப்பாக இருக்க, மார்பு வலி ஏற்பட்டால் விரைவில் மருத்துவ உதவியை நாடுங்கள்.
 
-If you அரே fully trained in CPR, perform rescue breathing after 30 compressions; otherwise, just perform the compression steps. பெறுநர் do this:
-1. Tilt the head பின் and lift the chin.
-2. Pinch the nose shut.
-3. Give two breaths, each lasting பற்றி 1 second and causing the chest பெறுநர் rise.
-5. Repeat the cycle of 30 compressions and two breaths.
+### அறிகுறிகள்
+- மார்பு வலி.
+- மூச்சுத் திணறல்.
+- கைகள், முதுகு, கழுத்து, தாடை அல்லது வயிற்றில் வலி.
+- குமட்டல்.
+- லேசான தலைவலி.
+- குளிர் வியர்வை.
 
-### Prevention
-- Stay hydrated.
-- Do not overexert yourself.
-- Talk பெறுநர் your doctor பற்றி your heart health.
-- Seek medical attention if you have any chest pain.
+### சிகிச்சை
+1. நிறுத்தி வசதியாக உட்காருங்கள்.
+2. உங்களுக்கு தேவையான இதய மருந்து இருந்தால், அதை எடுத்துக் கொள்ளுங்கள். இல்லையெனில், ஆஸ்பிரின் எடுத்துக் கொள்ளுங்கள். விரைவாக உறிஞ்சப்படுவதற்கு ஆஸ்பிரின் மென்று சாப்பிடுங்கள்.
+3. அவசர சேவைகளை அழைத்து உங்களுக்கு உதவி வருமாறு கேட்டுக்கொள்கிறேன்.
 
-## Heat exhaustion and heatstroke
-<!-- K: heat, exhaustion, stroke, heatstroke, pale, hot, sweat, fatigue, heartbeat, dizziness, nausea, vomit, cramp, muscle, headache, chill, confusion, seizure, unconscious, electrolyte, shade, break, overexert -->
-<!-- S: Symptoms include pale skin, sweating, fatigue, rapid heartbeat, dizziness, nausea, தசை cramps, headache, and chills. Treat by moving பெறுநர் a cooling down and drinking water. Prevent this by staying hydrated, wearing proper clothing, and taking breaks in the shade. -->
+வேறொருவருக்கு நாடித்துடிப்பு இல்லையென்றால், CPR செய்யுங்கள்.
 
-Heat exhaustion and heatstroke அரே caused by exposure பெறுநர் high temperatures and dehydration.
+**CPR**:
 
-### Symptoms
-- Heat exhaustion:
-  - Pale skin.
-  - Sweating.
-  - Fatigue.
-  - Rapid heartbeat.
-  - Dizziness.
-  - Nausea or vomiting.
-  - தசை cramps.
-  - Headache.
-  - Chills.
-- Heatstroke:
-  - Same symptoms அச் heat exhaustion, but more severe.
-  - Confusion.
-  - Seizures.
-  - Unconsciousness.
+1. பதிலளிக்கும் தன்மை மற்றும் நாடித்துடிப்பை சரிபார்க்கவும்.
+2. நாடித்துடிப்பு இல்லையென்றால் அவசர சேவைகளை அழைக்கவும், பின்னர் CPR ஐத் தொடங்கவும்.
+3. ஒரு கையின் குதிகாலை மார்பின் மையத்தில் வைக்கவும்.
+4. மற்றொரு கையின் குதிகாலை முதல் கையின் மேல் வைக்கவும்.
+5. விரல்களை இணைக்கவும்.
+6. உங்கள் கைகளை நேராகவும், உங்கள் தோள்களை நேரடியாக உங்கள் கைகளுக்கு மேலேயும் வைத்திருங்கள்.
+7. நிமிடத்திற்கு 100 முதல் 120 அழுத்தங்களில் குறைந்தது 2 அங்குலங்கள் (5 செ.மீ) கடினமாகவும் வேகமாகவும் தள்ளுங்கள்.
+8. அழுத்தங்களுக்கு இடையில் மார்பு முழுமையாக உயரட்டும்.
+9. நோயாளி பதிலளிக்கும் வரை, அவசர சேவைகள் வரும் வரை அல்லது நீங்கள் தொடர முடியாத அளவுக்கு சோர்வடையும் வரை தொடரவும்.
 
-### Treatment
-Heat exhaustion:
-1. Move பெறுநர் a cool place.
-2. Drink a நிறைய of water or an electrolyte solution.
-3. Douse yourself with water or immerse yourself in water.
+நீங்கள் CPR இல் முழுமையாகப் பயிற்சி பெற்றிருந்தால், 30 அழுத்தங்களுக்குப் பிறகு மீட்பு சுவாசத்தைச் செய்யுங்கள். இல்லையெனில், அழுத்தங்களை மட்டும் செய்யுங்கள்.
 
-Heatstroke:
-1. Call emergency services.
-2. Move பெறுநர் a cool place.
-3. அகற்று excess clothing.
-4. Immerse yourself in water.
-5. Be cautious when rehydrating, அச் seizures and vomiting can ஈயம் பெறுநர் choking.
+**மீட்பு சுவாசம்**:
 
-### Prevention
-- Stay hydrated.
-- Wear proper clothing.
-- Stay in the shade.
-- Take breaks in the shade.
-- Avoid physical செய்கைப்பாடு during the hottest பகுதி of the day.
-- Do not overexert yourself.
+1. தலையை பின்னால் சாய்த்து, கையை உயர்த்தவும்.n.
+2. மூக்கை இறுக்கமாக மூடு.
+3. இரண்டு சுவாசங்களை விடுங்கள், ஒவ்வொன்றும் சுமார் 1 வினாடி நீடிக்கும், மார்பை உயர்த்தும்.
+4. 30 அழுத்தங்கள் மற்றும் இரண்டு சுவாசங்களின் சுழற்சியை மீண்டும் செய்யவும்.
 
-## Hygiene
-<!-- K: hygiene, clean, wash, soap, shampoo, sanitize, toothbrush, teeth, tooth, toothpaste, brush, feet, socks, dry, clothes, defecate, urinate, bathroom, trowel -->
-<!-- S: Wash hands frequently, especially before eating and after using the bathroom. -->
+### தடுப்பு
+- நீரேற்றமாக இருங்கள்.
+- உங்களை அதிகமாக உழைக்க வேண்டாம்.
+- உங்கள் இதய ஆரோக்கியம் பற்றி உங்கள் மருத்துவரிடம் பேசுங்கள்.
+- உங்களுக்கு ஏதேனும் மார்பு வலி இருந்தால் மருத்துவ உதவியை நாடுங்கள்.
 
-### Washing
-If you do not have soap, you can substitute வெள்ளை ashes, sand, or loamy soil.
+## வெப்ப சோர்வு மற்றும் வெப்ப பக்கவாதம்
+<!-- K: வெப்பம், சோர்வு, பக்கவாதம், வெப்ப பக்கவாதம், வெளிர், சூடான, வியர்வை, சோர்வு, இதயத் துடிப்பு, தலைச்சுற்றல், குமட்டல், வாந்தி, பிடிப்புகள், தசை, தலைவலி, குளிர், குழப்பம், வலிப்பு, மயக்கம், எலக்ட்ரோலைட், நிழல், உடைப்பு, அதிகப்படியான உழைப்பு -->
+<!-- S: அறிகுறிகளில் வெளிர் தோல், வியர்வை, சோர்வு, விரைவான இதயத் துடிப்பு, தலைச்சுற்றல், குமட்டல், தசைப்பிடிப்பு, தலைவலி மற்றும் குளிர் ஆகியவை அடங்கும். குளிர்ச்சியான இடத்திற்குச் சென்று தண்ணீர் குடிப்பதன் மூலம் சிகிச்சையளிக்கவும். நீரேற்றமாக இருப்பது, சரியான ஆடைகளை அணிவது மற்றும் நிழலில் இடைவெளி எடுப்பதன் மூலம் இதைத் தடுக்கவும். -->
 
-Wash hands:
-- Before and after preparing food.
-- Before eating.
-- After urinating or defecating.
-- Before dressing a wound.
-- After touching something likely பெறுநர் carry germs or be poisonous.
+வெப்ப சோர்வு மற்றும் வெப்ப பக்கவாதம் அதிக வெப்பநிலை மற்றும் நீரிழப்புக்கு ஆளாகும்போது ஏற்படுகிறது.
 
-### Teeth
-If you do not have a toothbrush, you can clean your teeth with a small stick (fray it by chewing on one end) or a piece of cloth. An inner strand of paracord can be used அச் dental floss. You can grind மேலே charcoal and combine it with water பெறுநர் make toothpaste.
+## அறிகுறிகள்
+
+**வெப்ப சோர்வு**: 
+
+- வெளிர் தோல்.
+- வியர்வை.
+- சோர்வு.
+- விரைவான இதயத் துடிப்பு.
+- தலைச்சுற்றல்.
+- குமட்டல் அல்லது வாந்தி.
+- தசைப்பிடிப்பு.
+- தலைவலி.
+- குளிர்.
+
+**வெப்ப பக்கவாதம்**:
+
+- வெப்ப சோர்வு போன்ற அறிகுறிகள், ஆனால் மிகவும் கடுமையானவை.
+- குழப்பம்.
+- வலிப்புத்தாக்கங்கள்.
+- மயக்கம்.
+
+### சிகிச்சை
+
+**வெப்பம் சோர்வு**:
+
+1. குளிர்ந்த இடத்திற்குச் செல்லுங்கள்.
+2. நிறைய தண்ணீர் அல்லது எலக்ட்ரோலைட் கரைசலை குடிக்கவும்.
+3. தண்ணீரில் மூழ்கிவிடுங்கள் அல்லது தண்ணீரில் மூழ்கிவிடுங்கள்.
+
+**வெப்பத் தாக்கம்**:
+
+1. அவசர சேவைகளை அழைக்கவும்.
+2. குளிர்ந்த இடத்திற்குச் செல்லுங்கள்.
+3. அதிகப்படியான ஆடைகளை அகற்றவும்.
+4. தண்ணீரில் மூழ்கிவிடுங்கள்.
+5. மீண்டும் நீர்ச்சத்து உட்கொள்ளும்போது எச்சரிக்கையாக இருங்கள், ஏனெனில் வலிப்பு மற்றும் வாந்தி மூச்சுத் திணறலுக்கு வழிவகுக்கும்.
+
+### தடுப்பு
+- நீர்ச்சத்து குறைவாக இருங்கள்.
+- சரியான ஆடைகளை அணியுங்கள்.
+- நிழலில் இருங்கள்.
+- நிழலில் இடைவெளி எடுங்கள்.
+- நாளின் வெப்பமான நேரத்தில் உடல் செயல்பாடுகளைத் தவிர்க்கவும்.
+- உங்களை அதிகமாக உழைக்க வேண்டாம்.
+
+## சுகாதாரம்
+<!-- K: சுகாதாரம், சுத்தமானது, உலர் -->
+<!-- S: அடிக்கடி கைகளைக் கழுவுங்கள், குறிப்பாக சாப்பிடுவதற்கு முன்பும் குளியலறையைப் பயன்படுத்திய பிறகும். -->
+
+### கழுவுதல்
+<!-- K: கழுவுதல், சோப்பு, ஷாம்பு, கிருமி நீக்கம் செய்தல், கைகள் -->
+
+உங்களிடம் சோப்பு இல்லையென்றால், வெள்ளை சாம்பல், மணல் அல்லது களிமண் மண்ணை மாற்றலாம்.
+
+கைகளைக் கழுவுங்கள்:
+- உணவு தயாரிப்பதற்கு முன்னும் பின்னும்.
+- சாப்பிடுவதற்கு முன்.
+- சிறுநீர் கழித்தல் அல்லது மலம் கழித்த பிறகு.
+- காயத்தை மூடுவதற்கு முன்.
+- கிருமிகள் அல்லது விஷம் இருக்கக்கூடிய ஒன்றைத் தொட்ட பிறகு.
+
+### பற்கள்
+<!-- K: பற்கள், பல், பல் துலக்குதல், பற்பசை, ஃப்ளோஸ், பிரஷ் -->
+
+உங்களிடம் பல் துலக்குதல் இல்லையென்றால், ஒரு சிறிய குச்சியால் (ஒரு முனையில் மென்று துலக்குதல்) அல்லது ஒரு துணியால் உங்கள் பற்களை சுத்தம் செய்யலாம். ஒரு உள் பாராகார்டை பல் துலக்குதலாகப் பயன்படுத்தலாம். கரியை அரைத்து, தண்ணீரில் கலந்து பற்பசை தயாரிக்கலாம்.
 
 ### Feet
-Do the following பெறுநர் prevent foot problems:
-- Change and wash socks daily.
-- Wash, dry, and massage your feet.
-- சரிபார் frequently க்கு blisters and சிவப்பு areas. Use adhesive tape/moleskin பெறுநர் prevent blisters.
+<!-- K: foot, feet, sock, shoe -->
 
-### Clothing
-Keep clothing clean and dry. Wash clothes with water and soap or boil them. பெறுநர் dry clothes, hang them in the sun or near a fire (not too close).
+கால் பிரச்சனைகளைத் தடுக்க பின்வருவனவற்றைச் செய்யுங்கள்:
+- தினமும் சாக்ஸை மாற்றி துவைக்கவும்.
+- உங்கள் கால்களைக் கழுவி, உலர்த்தி, மசாஜ் செய்யவும்.
+- கொப்புளங்கள் மற்றும் சிவப்புப் பகுதிகள் உள்ளதா என அடிக்கடி சரிபார்க்கவும். கொப்புளங்களைத் தடுக்க ஒட்டும் நாடா/மோல்ஸ்கினைப் பயன்படுத்தவும்.
 
-### குடல் movements and urination
-- Dig a hole 6 பெறுநர் 8 inches (15 பெறுநர் 20 centimeters) deep க்கு குடல் movements and cover it with dirt.
-  - If you do not have a trowel, use a stick பெறுநர் dig the hole.
-- If you do not have toilet paper or a bidet, use non-poisonous leaves, moss, or smooth rocks பெறுநர் clean yourself.
-- எப்போதும் wash your hands after using the bathroom.
-- Do not defecate or urinate near water மூலங்கள் (at least 200 feet / 60 meters away).
+### ஆடை
+<!-- K: துணிகள் -->
 
-## Hypothermia
-<!-- K: hypothermia, cold, freeze, frozen, shiver, coordination, memory, speech, slur, speak, drowsiness, breath, heartbeat, heat, warm, fire -->
-<!-- S: Symptoms include shivering, coldness, impaired coordination, memory loss, slurred speech, and drowsiness. Treat by getting dry and warming up. Prevent by wearing proper clothing, keeping dry, moving, and keeping warm. -->
+துணிகளை சுத்தமாகவும் உலரவும் வைத்திருங்கள். துணிகளை தண்ணீர் மற்றும் சோப்புடன் துவைக்கவும் அல்லது கொதிக்க வைக்கவும். துணிகளை உலர்த்த, அவற்றை வெயிலில் அல்லது நெருப்புக்கு அருகில் தொங்கவிடவும் (மிக அருகில் இல்லை).
 
-Hypothermia is caused by exposure பெறுநர் cold temperatures, causing the body பெறுநர் lose heat faster than it can produce.
+### குடல் அசைவுகள் மற்றும் சிறுநீர் கழித்தல்
+<!-- K: மலம் கழித்தல், சிறுநீர் கழித்தல், குளியலறை, கழிவு, இழுவை, தோண்டுதல், துளை -->
 
-### Symptoms
-- Shivering. If shivering stops, it is a sign of severe hypothermia.
-- Coldness.
-- Impaired coordination.
-- Memory loss.
-- Slurred speech.
-- Drowsiness.
-- Slow breathing and heart rate.
+- குடல் அசைவுகளுக்கு 6 முதல் 8 அங்குலங்கள் (15 முதல் 20 சென்டிமீட்டர்) ஆழத்தில் ஒரு துளை தோண்டி அதை அழுக்கால் மூடவும்.
+ - உங்களிடம் இழுவை இல்லையென்றால், குழி தோண்ட ஒரு குச்சியைப் பயன்படுத்தவும்.
+- உங்களிடம் கழிப்பறை காகிதம் அல்லது பிடெட் இல்லையென்றால், உங்களை சுத்தம் செய்ய விஷமற்ற இலைகள், பாசி அல்லது மென்மையான பாறைகளைப் பயன்படுத்தவும்.
+- குளியலறையைப் பயன்படுத்திய பிறகு எப்போதும் உங்கள் கைகளைக் கழுவுங்கள்.
+- நீர் ஆதாரங்களுக்கு அருகில் (குறைந்தது 200 அடி / 60 மீட்டர் தொலைவில்) மலம் கழிக்கவோ அல்லது சிறுநீர் கழிக்கவோ வேண்டாம்.
 
-### Treatment
-- Change into dry clothes.
-- Increase layers of clothing.
-- கூட்டு insulation into clothing (such அச் dry leaves).
-- Consume warm liquids.
-- Warm near a fire.
-- Use a sleeping bag or blanket.
-- Use the body heat of another person.
+## ஹைப்போதெர்மியா
+<!-- K: ஹைப்போதெர்மியா, குளிர், உறைபனி, உறைதல், நடுக்கம், ஒருங்கிணைப்பு, நினைவகம், பேச்சு, தெளிவின்மை, பேச்சு, தூக்கம், மூச்சு, இதயத்துடிப்பு, வெப்பம், சூடு, நெருப்பு -->
+<!-- S: அறிகுறிகளில் நடுக்கம், குளிர், ஒருங்கிணைப்பு குறைபாடு, நினைவாற்றல் இழப்பு, மந்தமான பேச்சு மற்றும் மயக்கம் ஆகியவை அடங்கும். உலர்தல் மற்றும் சூடுபடுத்துதல் மூலம் சிகிச்சையளிக்கவும். சரியான ஆடைகளை அணிதல், உலர்தல், நகர்தல் மற்றும் சூடாக வைத்திருத்தல் மூலம் தடுக்கவும். -->
 
-### Prevention
-- Wear proper clothing.
-- Keep dry.
-- Keep moving.
-- Keep warm.
+குளிர்ந்த வெப்பநிலைக்கு வெளிப்படுவதால் ஹைப்போதெர்மியா ஏற்படுகிறது, இதனால் உடல் உற்பத்தி செய்யக்கூடியதை விட வேகமாக வெப்பத்தை இழக்கிறது.
 
-## Objects in the eye
-<!-- K: eye, object, something, பிழை -->
-<!-- S: Treat by irrigating the eye with clean water and removing the பொருள் with a damp cloth or cotton swab. Prevent by wearing glasses or sunglasses. -->
+### அறிகுறிகள்
+- நடுக்கம். நடுக்கம் நின்றால், அது கடுமையான தாழ்வெப்பநிலையின் அறிகுறியாகும்.
+- குளிர்.
+- ஒருங்கிணைப்பு குறைபாடு.
+- நினைவாற்றல் இழப்பு.
+- பேச்சு மந்தமாகிறது.
+- மயக்கம்.
+- சுவாசம் மெதுவாகிறது மற்றும் இதய துடிப்பு.
 
-It is common பெறுநர் get objects in your eye while in the wilderness, such அச் dirt, sand, bugs, or an eyelash.
+### சிகிச்சை
+- உலர்ந்த ஆடைகளாக மாற்றவும்.
+- ஆடைகளின் அடுக்குகளை அதிகரிக்கவும்.
+- ஆடைகளில் காப்புப் பொருளைச் சேர்க்கவும் (உலர்ந்த இலைகள் போன்றவை).
+- சூடான திரவங்களை உட்கொள்ளவும்.
+- நெருப்புக்கு அருகில் சூடாகவும்.
+- ஒரு தூக்கப் பை அல்லது போர்வையைப் பயன்படுத்தவும்.
+- மற்றொருவரின் உடல் வெப்பத்தைப் பயன்படுத்தவும்.erson.
 
-### Symptoms
-- Pain and discomfort of the eye.
-- Redness of the eye.
-- Excess tearing.
-- Difficulty keeping the eye open.
+### தடுப்பு
+- சரியான ஆடைகளை அணியுங்கள்.
+- உலர்வாக வைத்திருங்கள்.
+- தொடர்ந்து அசையுங்கள்.
+- சூடாக வைத்திருங்கள்.
 
-### Treatment
-1. Avoid rubbing the eye.
-2. Using clean water, irrigate the eye by pouring water into the eye.
-3. If the பொருள் is still in the eye, use a mirror பெறுநர் locate it and attempt பெறுநர் அகற்று it using a damp cloth or cotton swab. Be very gentle.
-4. If the பொருள் is under the upper eyelid and you have a partner, have them place the tip of a cotton swab in the middle of your upper eyelid and gently fold the eyelid வீச்சலகு the cotton swab. They can then அகற்று the பொருள் using a damp cloth or cotton swab.
-5. After the பொருள் is removed, if the eye feels scratchy, place a cold, damp cloth வீச்சலகு it, keep the eye closed and rest, use eye drops, or construct an eye patch using a bandage or cloth.
-6. Seek medical attention if the பொருள் is not removed or symptoms persist.
+## கண்ணில் உள்ள பொருட்கள்
+<!-- K: கண், பொருள், ஏதோ, பிழை -->
+<!-- S: சுத்தமான தண்ணீரில் கண்ணுக்கு நீர்ப்பாசனம் செய்து, ஈரமான துணி அல்லது பருத்தி துணியால் பொருளை அகற்றுவதன் மூலம் சிகிச்சையளிக்கவும். கண்ணாடி அல்லது சன்கிளாஸ்கள் அணிவதன் மூலம் தடுக்கவும். -->
 
-### Prevention
-- Wear glasses or sunglasses.
-- Don't lift objects with dirt on them above your head without eye protection.
+காட்டுப் பாதையில் செல்லும்போது உங்கள் கண்ணில் மண், மணல், பூச்சிகள் அல்லது கண் இமை போன்ற பொருட்கள் வருவது சகஜம்.
 
-## Panic attacks and calming techniques
-<!-- K: panic, attack, fear, heartbeat, sweat, tremble, breath, chest, pain, nausea, dizziness, numb, tingle, calm, meditate, technique -->
-<!-- S: Symptoms include rapid heartbeat, sweating, trembling, shortness of breath, chest pain, nausea, dizziness, fear, numbness, and tingling. Treat using a calming technique, such அச் meditation. -->
+### அறிகுறிகள்
+- கண்ணில் வலி மற்றும் அசௌகரியம்.
+- கண் சிவத்தல்.
+- அதிகப்படியான கண்ணீர்.
+- கண்ணைத் திறந்து வைத்திருப்பதில் சிரமம்.
 
-### Symptoms
-- Rapid heartbeat.
-- Sweating.
-- Trembling.
-- Shortness of breath.
-- Chest pain.
-- Nausea.
-- Dizziness.
-- Fear.
-- Numbness or tingling.
+### சிகிச்சை
+1. கண்ணைத் தேய்ப்பதைத் தவிர்க்கவும்.
+2. சுத்தமான தண்ணீரைப் பயன்படுத்தி, கண்ணில் தண்ணீரை ஊற்றி கண்ணைத் துடைக்கவும்.
+3. பொருள் இன்னும் கண்ணில் இருந்தால், அதைக் கண்டுபிடிக்க ஒரு கண்ணாடியைப் பயன்படுத்தி ஈரமான துணி அல்லது பருத்தி துணியால் அதை அகற்ற முயற்சிக்கவும். மிகவும் மென்மையாக இருங்கள்.
+4. பொருள் மேல் கண்ணிமைக்குக் கீழே இருந்தால், உங்களுக்கு ஒரு துணை இருந்தால், உங்கள் மேல் கண்ணிமையின் நடுவில் ஒரு பருத்தி துணியின் நுனியை வைத்து, பருத்தி துணியின் மேல் இமையை மெதுவாக மடிக்கச் சொல்லுங்கள். பின்னர் அவர்கள் ஈரமான துணி அல்லது பருத்தி துணியைப் பயன்படுத்தி பொருளை அகற்றலாம்.
+5. பொருள் அகற்றப்பட்ட பிறகு, கண் அரிப்பு ஏற்பட்டால், அதன் மீது குளிர்ந்த, ஈரமான துணியை வைக்கவும், கண்ணை மூடி ஓய்வெடுக்கவும், கண் சொட்டு மருந்துகளைப் பயன்படுத்தவும், அல்லது கட்டு அல்லது துணியைப் பயன்படுத்தி கண் ஒட்டு கட்டவும்.
+6. பொருள் அகற்றப்படாவிட்டால் அல்லது அறிகுறிகள் தொடர்ந்தால் மருத்துவ உதவியை நாடுங்கள்.
 
-### Treatment
-1. Sit down.
-2. மூடு your eyes.
-3. Do one or more of the following:
-   - Take slow, deep breaths.
-   - எண்ணுங்கள் பெறுநர் 10.
-   - Recite a calming phrase.
-   - Visualize a calming place.
-   - Meditate.
-   - Ensure yourself that you will be okay.
+### தடுப்பு
+- கண்ணாடி அல்லது சன்கிளாஸ்கள் அணியுங்கள்.
+- கண் பாதுகாப்பு இல்லாமல் உங்கள் தலைக்கு மேலே அழுக்கு உள்ள பொருட்களை தூக்க வேண்டாம்.
 
-## Poison ivy and தொடர்பு dermatitis
-<!-- K: poison, ivy, oak, sumac, trumpet, rengas, stinging, nettle, rash, itch, blister, red, swell, dermatitis, தொடர்பு -->
-<!-- S: Symptoms include a rash, itching, and blisters. Treat by washing the area with soap and water, applying calamine lotion, and taking antihistamines. Prevent by learning பெறுநர் identify and avoid poisonous plants. -->
+## பீதி தாக்குதல்கள் மற்றும் அமைதிப்படுத்தும் நுட்பங்கள்
+<!-- K: பீதி, தாக்குதல், பயம், இதயத் துடிப்பு, வியர்வை, நடுக்கம், மூச்சு, மார்பு, வலி, குமட்டல், தலைச்சுற்றல், உணர்வின்மை, கூச்ச உணர்வு, அமைதி, தியானம், நுட்பம் -->
+<!-- S: அறிகுறிகளில் விரைவான இதயத் துடிப்பு, வியர்வை, நடுக்கம், மூச்சுத் திணறல், மார்பு வலி, குமட்டல், தலைச்சுற்றல், பயம், உணர்வின்மை மற்றும் கூச்ச உணர்வு ஆகியவை அடங்கும். தியானம் போன்ற ஒரு அமைதிப்படுத்தும் நுட்பத்தைப் பயன்படுத்தி சிகிச்சை அளிக்கவும். -->
 
-Contact dermatitis is caused by தொடர்பு with poisonous plants, such அச் poison ivy, poison oak, poison sumac, and stinging nettle.
+### அறிகுறிகள்
+- விரைவான இதயத் துடிப்பு.
+- வியர்வை.
+- நடுக்கம்.
+- மூச்சுத் திணறல்.
+- மார்பு வலி.
+- குமட்டல்.
+- தலைச்சுற்றல்.
+- பயம்.
+- உணர்வின்மை அல்லது கூச்ச உணர்வு.
 
-### Symptoms
-- Burning, reddening, and swelling rash
-- Itching
-- Blisters
+### சிகிச்சை
+1. உட்காருங்கள்.
+2. கண்களை மூடு.
+3. பின்வருவனவற்றில் ஒன்று அல்லது அதற்கு மேற்பட்டவற்றைச் செய்யுங்கள்:
+ - மெதுவாக, ஆழமாக சுவாசிக்கவும்.
+ - 10 வரை எண்ணவும்.
+ - ஒரு அமைதியான சொற்றொடரைச் சொல்லுங்கள்.
+ - ஒரு அமைதியான இடத்தைக் காட்சிப்படுத்துங்கள்.
+ - தியானம் செய்யுங்கள்.
+ - ஒவ்வொரு தசையையும் இறுக்கி தளர்த்தவும்.
+ - இசை அல்லது வெள்ளை இரைச்சலைக் கேளுங்கள்.
+ - நீங்கள் நன்றாக இருப்பீர்கள் என்று உங்களை உறுதிப்படுத்திக் கொள்ளுங்கள்.
 
-### Treatment
-1. Try பெறுநர் அகற்று oil இருந்து the plant using soap and water. Sand or dirt can be used அச் a substitute unless there அரே blisters.
-2. Dry the area.
-3. இடு calamine lotion or hydrocortisone cream பெறுநர் reduce the itch. If unavailable, இடு a tannic புளிக்காரம் நீர்மக்கூழ் (boil acorns or oak bark in water) or crushed jewelweed.
-4. Optionally, take antihistamine pills பெறுநர் reduce itching.
+## விஷப் படர்க்கொடி மற்றும் தொடர்பு தோல் அழற்சி
+<!-- K: விஷம், ஐவி, ஓக், சுமாக், டிரம்பெட், ரெங்காஸ், கொட்டுதல், தொட்டால் எரிச்சலூட்டுகிற ஒருவகை செடி, சொறி, அரிப்பு, கொப்புளம், சிவப்பு, வீக்கம், தோல் அழற்சி, தொடர்பு -->
+<!-- S: அறிகுறிகளில் சொறி, அரிப்பு மற்றும் கொப்புளங்கள் அடங்கும். சோப்பு மற்றும் தண்ணீரில் பகுதியைக் கழுவுதல், கலமைன் லோஷனைப் பயன்படுத்துதல் மற்றும் ஆண்டிஹிஸ்டமைன்களை எடுத்துக்கொள்வதன் மூலம் சிகிச்சையளிக்கவும். விஷ தாவரங்களை அடையாளம் கண்டு தவிர்க்க கற்றுக்கொள்வதன் மூலம் தடுக்கவும். -->
 
-If you touched stinging nettle, you can also இடு mud பெறுநர் the area and அகற்று it when it dries.
+தொற்று தோல் அழற்சி விஷ ஐவி, விஷ ஓக், விஷ சுமாக் மற்றும் கொட்டும் தொட்டால் எரிச்சலூட்டுகிற ஒருவகை செடி போன்ற நச்சு தாவரங்களுடன் தொடர்பு கொள்வதால் ஏற்படுகிறது.
 
-Avoid scratching the rash, அச் it can cause infection. Leave blisters alone.
+![](file:///android_asset/survival_guide/dangerous_plants.webp)
 
-### Prevention
-Learn பெறுநர் identify and avoid தொடர்பு with the following plants:
-- Cowhage.
-- Poison ivy.
-- Poison oak.
-- Poison sumac.
-- Rengas tree.
-- Trumpet vine.
-- Stinging nettle.
+1. **விஷ ஐவி**: காடுகள், வயல்கள் மற்றும் பாதைகளில் பொதுவாகக் காணப்படும் மூன்று பளபளப்பான, கூர்மையான துண்டுப்பிரசுரங்களைக் கொண்ட ஒரு நச்சு தாவரம். அதன் எண்ணெயுடன் தொடர்பு கொள்வது அரிப்பு தடிப்புகள் மற்றும் தோல் எரிச்சலை ஏற்படுத்துகிறது.
+2. **கொட்டும் தொட்டால் எரிச்சலூட்டுகிற ஒருவகை செடி**: ரம்பம் போன்ற இலைகள் மற்றும் சிறிய கொட்டும் முடிகள் கொண்ட ஒரு தாவரம், பொதுவாக ஈரமான, நிழலான பகுதிகளில் காணப்படும். தொடர்பு வலிமிகுந்த, அரிப்பு சொறியை ஏற்படுத்துகிறது.
 
-If you come into தொடர்பு with these plants, wash the area with soap and water அச் soon அச் possible. Do not wait க்கு a சினைப்பு, சினப்பு பெறுநர் appear. Do not burn these plants, அச் the smoke can cause irritation.
+### அறிகுறிகள்
+- எரியும், சிவத்தல் மற்றும் வீக்கம் சொறி
+- அரிப்பு
+- கொப்புளங்கள்
 
-## பனி blindness
-<!-- K: snow, blind, eye, headache, light, sensitivity, red, scratchy, itch, uv -->
-<!-- S: Symptoms include red, scratchy, and watery eyes, sensitivity பெறுநர் light, and headache. Treat by covering your eyes with a dark cloth. Prevent by wearing UV-protective sunglasses or பனி goggles. -->
+### சிகிச்சை
+1. சோப்பு மற்றும் தண்ணீரைப் பயன்படுத்தி செடியிலிருந்து எண்ணெயை அகற்ற முயற்சிக்கவும். கொப்புளங்கள் இல்லாவிட்டால் மணல் அல்லது மண்ணை மாற்றாகப் பயன்படுத்தலாம்.
+2. பகுதியை உலர வைக்கவும்.
+3. அரிப்பைக் குறைக்க கலமைன் லோஷன் அல்லது ஹைட்ரோகார்டிசோன் கிரீம் தடவவும். கிடைக்கவில்லை என்றால், டானிக் அமிலக் கரைசலை (ஏகோர்ன் அல்லது ஓக் பட்டையை தண்ணீரில் கொதிக்க வைக்கவும்) அல்லது நொறுக்கப்பட்ட நகைகளை தடவவும்.
+4. விருப்பமாக, அரிப்பைக் குறைக்க ஆண்டிஹிஸ்டமைன் மாத்திரைகளை எடுத்துக் கொள்ளுங்கள்.
 
-Snow blindness is caused when too much sunlight reflects அணை snow, ice, or water into your eyes.
+நீங்கள் கொட்டும் தொட்டால் எரிச்சலூட்டுகிற ஒருவகை செடியைத் தொட்டால், அந்தப் பகுதியில் சேற்றைத் தடவி, அது காய்ந்ததும் அதை அகற்றவும். சிறிய ஊசிகளை வெளியே இழுக்க டேப்பையும் பயன்படுத்தலாம்.
 
-### Symptoms
-- Eyes அரே red, scratchy, and watery.
-- Sensitivity பெறுநர் light.
-- Headache.
+சொறி சொறிவதைத் தவிர்க்கவும், ஏனெனில் அது தொற்றுநோயை ஏற்படுத்தும். கொப்புளங்களை அப்படியே விட்டுவிடுங்கள்.
 
-### Treatment
-Cover your eyes with a dark cloth until symptoms disappear.
+### தடுப்பு
+பின்வரும் தாவரங்களை அடையாளம் கண்டு அவற்றுடன் தொடர்பைத் தவிர்க்க கற்றுக்கொள்ளுங்கள்:
+- கோஹேஜ்
+- விஷப் படர்க்கொடி
+- விஷ ஓக்
+- விஷச் சுமாக்
+- ரெங்காஸ் மரம்
+- டிரம்பெட் கொடி
+- கொட்டும் தொட்டால் எரிச்சலூட்டுகிற ஒருவகை செடி
 
-### Prevention
-Wear UV-protective sunglasses or பனி goggles. If you do not have these, you can make பனி goggles இருந்து a piece of cloth or a piece of bark with slits வெட்டு in it. You can also put soot under your eyes பெறுநர் reduce glare.
+இந்த தாவரங்களுடன் நீங்கள் தொடர்பு கொண்டால், அந்த பகுதியை விரைவில் சோப்பு மற்றும் தண்ணீரில் கழுவவும். ஒரு சொறி தோன்றும் வரை காத்திருக்க வேண்டாம். இந்த தாவரங்களை எரிக்க வேண்டாம், ஏனெனில் புகை எரிச்சலை ஏற்படுத்தும்.
 
-## Sprains and strains
-<!-- K: sprain, strain, tendon, ligament, muscle, pain, swell, bruise, move, spasm, cramp, weakness, pop, கண்ணீர் -->
-<!-- S: Symptoms include pain, swelling, bruising, loss of motion, தசை spasms, cramping, and weakness. Treat by resting, icing, compressing, and elevating the area. Prevent this by doing warm-ups, wearing proper footwear, and watching your steps. -->
+## தூக்கம்
+<!-- K: தூக்கம், தூக்கம், ஓய்வு, தூக்கம் -->
+<!-- S: தூங்குவதற்கு நீங்கள் உங்கள் மனதை அமைதிப்படுத்த வேண்டும், நீங்கள் மிகவும் சூடாகவோ அல்லது குளிராகவோ இல்லை என்பதை உறுதிப்படுத்திக் கொள்ள வேண்டும், மேலும் வசதியான படுக்கையைப் பயன்படுத்த வேண்டும். -->
 
-Sprains அரே injuries பெறுநர் a தசை நாண் or ligament, while strains அரே injuries பெறுநர் a தசை or tendon.
+வனப்பகுதியில் தூங்குவது கடினமாக இருக்கலாம், ஆனால் ஆற்றலைப் பராமரிக்க போதுமான ஓய்வு பெறுவது முக்கியம். நீங்கள் தூங்குவதற்கு உதவ, கீழே உள்ள இடத்தில் காற்றோட்டம் செய்யுங்கள்:இரவில் கடுமையான செயல்பாடுகளைத் தவிர்த்து, மனதை அமைதிப்படுத்துங்கள், ஒருவேளை தியானத்தைப் பயன்படுத்துங்கள். நீங்கள் அதிக சூடாகவோ அல்லது குளிராகவோ இல்லை என்பதையும், உங்கள் தூக்கப் பகுதி வசதியாக இருப்பதையும் உறுதிப்படுத்திக் கொள்ளுங்கள். உதிரி ஆடைகள் அல்லது ஒரு பையில் உலர்ந்த இலைகள் அல்லது பிற மென்மையான பொருட்களை அடைத்து தலையணையை உருவாக்கினால் நீங்கள் தூங்குவது எளிதாக இருக்கும்.
 
-### Symptoms
-- Pain.
-- Swelling.
-- Bruising.
-- Loss of செயல்பாடு movement.
-- தசை spasms and cramping.
-- தசை weakness.
-- A pop or கண்ணீர் சி-வைகாசி be heard or felt during injury.
+சிலர் காது செருகிகளைப் பயன்படுத்தி சத்தத்தைத் தடுப்பது அல்லது இசையைக் கேட்பது அல்லது கிடைத்தால் வெள்ளை இரைச்சலைக் கேட்பது அவசியமாகக் கருதலாம்.
 
-### Treatment
-1. Rest the injured area.
-2. Ice the area க்கு 24 பெறுநர் 48 hours. You can improvise using a cloth soaked in cold water or filled with snow/ice.
-3. Compress the area with a bandage or splint.
-4. Elevate the area.
+## பனி குருட்டுத்தன்மை
+<!-- K: பனி, குருட்டு, கண், தலைவலி, ஒளி, உணர்திறன், சிவப்பு, அரிப்பு, அரிப்பு, uv -->
+<!-- S: அறிகுறிகளில் சிவப்பு, அரிப்பு மற்றும் நீர் நிறைந்த கண்கள், ஒளிக்கு உணர்திறன் மற்றும் தலைவலி ஆகியவை அடங்கும். உங்கள் கண்களை இருண்ட துணியால் மூடி சிகிச்சை அளிக்கவும். UV-பாதுகாப்பு சன்கிளாஸ்கள் அல்லது பனி கண்ணாடிகளை அணிவதன் மூலம் தடுக்கவும். -->
 
-### Prevention
-- Warm மேலே before physical activity.
-- Wear proper footwear.
-- Do not overexert yourself.
-- Watch your step.
+அதிகப்படியான சூரிய ஒளி பனி, பனிக்கட்டி அல்லது நீர் உங்கள் கண்களுக்குள் பிரதிபலிக்கும்போது பனி குருட்டுத்தன்மை ஏற்படுகிறது.
 
-## Submerged in water
-<!-- K: water, drown, float, submerge, swim, current, rip, tide, snow, hypothermia, fall -->
-<!-- S: If caught in a rip current, swim parallel பெறுநர் the shore until you அரே out. If you fall through the ice, kick with your legs பெறுநர் crawl பின் onto the ice, then treat க்கு hypothermia. -->
+### அறிகுறிகள்
+- கண்கள் சிவந்து, அரிப்பு மற்றும் நீர் நிறைந்ததாக இருக்கும்.
+- ஒளிக்கு உணர்திறன்.
+- தலைவலி.
 
-### Falling through ice
-If you fall through the ice, do the following:
-1. Turn பின் the way you came.
-2. Kick your legs பெறுநர் push yourself onto the ice.
-3. உருளம் away இருந்து the hole.
-4. Crawl on your இரைப்பை பெறுநர் safety.
-5. Move பெறுநர் a safe, warm location அச் quickly அச் possible.
-6. Get out of wet clothes and into dry clothes.
-7. Use leaves or dry grass அச் insulation and warm மேலே near a fire.
+### சிகிச்சை
+அறிகுறிகள் மறையும் வரை உங்கள் கண்களை இருண்ட துணியால் மூடுங்கள்.
 
-### Rip currents
-If caught in a rip current, swim parallel பெறுநர் the shore until you அரே out of the current. Then, swim பின் பெறுநர் shore.
+### தடுப்பு
+UV-பாதுகாப்பு சன்கிளாஸ்கள் அல்லது பனி கண்ணாடிகளை அணியுங்கள். உங்களிடம் இவை இல்லையென்றால், ஒரு துண்டு துணி அல்லது பட்டை துண்டுடன் பிளவுகள் வெட்டப்பட்ட பனி கண்ணாடிகளை உருவாக்கலாம். கண் கூசுவதைக் குறைக்க உங்கள் கண்களுக்குக் கீழே புகைக்கரியைப் பூசலாம்.
+
+## splinters, thurns, spines, and seeds
+<!-- K: splinter, thorn, wood, needle, spike, spine, remove, tweezers, hand, porcupine, urchin, cactus -->
+<!-- S: splinter ஐ supplint ஐ அகற்றி, பகுதியை சுத்தம் செய்வதன் மூலம் சிகிச்சையளிக்கவும். உலர்ந்த மரம் அல்லது முள் புதர்களைக் கையாளும் போது எச்சரிக்கையுடன் பயன்படுத்துவதன் மூலம் தடுக்கவும். -->
+
+splinter மற்றும் splinters வலியை ஏற்படுத்தும் மற்றும் அகற்றப்படாவிட்டால் தொற்றுக்கு வழிவகுக்கும்.
+
+### சிகிச்சை
+splinter ஆழமாகவோ அல்லது மிகப் பெரியதாகவோ இருந்தால், மருத்துவ உதவியை நாடுங்கள், அதை நீங்களே அகற்ற முயற்சிக்காதீர்கள்.
+
+1. splinter ஐ பரிசோதித்து, எந்தப் பகுதி வெளிப்பட்டுள்ளதா என்பதைப் பார்த்து, அது எந்த திசையில் நுழைந்தது என்பதைத் தீர்மானிக்கவும்.
+2. எந்தப் பகுதியும் வெளிப்படாவிட்டால், கை சுத்திகரிப்பான் அல்லது சுடரைப் பயன்படுத்தி ஊசியை கிருமி நீக்கம் செய்து, பிளவின் ஒரு முனையை மெதுவாக வெளிப்படுத்த அதைப் பயன்படுத்தவும்.
+3. பிளவின் வெளிப்படும் முனையைப் பிடிக்க ட்வீசரைப் பயன்படுத்தவும், முன்னுரிமை அது நுழைந்ததிலிருந்து எதிர் திசையில் இழுக்கவும்.
+4. பிளவை மெதுவாக வெளியே இழுக்கவும்.
+5. ஏதேனும் துண்டுகள் இருந்தால் மீண்டும் செய்யவும்.
+6. பிளவை அகற்றும்போது இரத்தம் கசிந்தால், அதை ஒரு வெட்டு என்று கருதுங்கள். ஆண்டிபயாடிக் களிம்பு மற்றும் ஒரு கட்டு தடவினால் வலிக்காது.
+
+முட்கள், முட்கள் மற்றும் ஊசிகளை பிளவைப் போலவே அகற்றலாம். சில முட்களை சாமணம் இல்லாமல் எளிதாக அகற்றலாம்.
+
+முள் முட்களைப் பொறுத்தவரை, அகற்றுவதற்கு முன் 10 முதல் 90 நிமிடங்கள் சூடான (எரிக்காத) நீரில் ஊற வைக்கவும்.
+
+## தடுப்பு
+- உலர்ந்த மரம் அல்லது முள் புதர்களைக் கையாளும் போது எச்சரிக்கையாக இருங்கள்.
+- முள் புதர்கள் வழியாக நடப்பதைத் தவிர்க்கவும்.
+- பாதையை விட்டு வெளியேறினால் நீண்ட கை மற்றும் பேன்ட் அணியுங்கள்.
+- கற்றாழை அல்லது முள்ளம்பன்றிகளைத் தொடாதீர்கள்.
+- கடலில் நடக்கும்போது முள்ளம்பன்றிகளைப் பாருங்கள்.
+
+## சுளுக்குகள் மற்றும் விகாரங்கள்
+<!-- K: சுளுக்கு, திரிபு, தசைநார், தசைநார், தசை, வலி, வீக்கம், சிராய்ப்பு, அசைவு, பிடிப்பு, பிடிப்புகள், பலவீனம், பாப், கண்ணீர் -->
+<!-- S: அறிகுறிகளில் வலி, வீக்கம், சிராய்ப்பு, இயக்கம் இழப்பு, தசை பிடிப்பு, பிடிப்புகள் மற்றும் பலவீனம் ஆகியவை அடங்கும். ஓய்வு, ஐசிங், அழுத்துதல் மற்றும் பகுதியை உயர்த்துவதன் மூலம் சிகிச்சை அளிக்கவும். வார்ம்-அப்கள் செய்வதன் மூலமும், சரியான காலணிகளை அணிவதன் மூலமும், உங்கள் அடிகளைக் கவனிப்பதன் மூலமும் இதைத் தடுக்கவும். -->
+
+சுளுக்குகள் தசைநார் அல்லது தசைநார் காயங்கள், அதே நேரத்தில் தசை அல்லது தசைநார் காயங்கள் தசை அல்லது தசைநார் காயங்கள்.
+
+### அறிகுறிகள்
+- வலி.
+- வீக்கம்.
+- சிராய்ப்பு.
+- செயல்பாட்டு இயக்கம் இழப்பு.
+- தசை பிடிப்பு மற்றும் தசைப்பிடிப்பு.
+- தசை பலவீனம்.
+- காயத்தின் போது ஒரு பாப் அல்லது கண்ணீர் கேட்கலாம் அல்லது உணரலாம்.
+
+### சிகிச்சை
+1. காயமடைந்த பகுதியை ஓய்வெடுக்கவும்.
+2. 24 முதல் 48 மணி நேரம் அந்த பகுதியை ஐஸ் செய்யவும். குளிர்ந்த நீரில் நனைத்த அல்லது பனி/பனியால் நிரப்பப்பட்ட துணியைப் பயன்படுத்தி நீங்கள் மேம்படுத்தலாம்.
+3. அந்தப் பகுதியை ஒரு கட்டு அல்லது ஸ்பிளிண்ட் மூலம் அழுத்தவும்.
+4. அந்தப் பகுதியை உயர்த்தவும்.
+
+### தடுப்பு
+- உடல் செயல்பாடுகளுக்கு முன் சூடாக்குங்கள்.
+- சரியான காலணிகளை அணியுங்கள்.
+- உங்களை அதிகமாக உழைக்க வேண்டாம்.
+- உங்கள் அடியைக் கவனியுங்கள்.
+
+## தண்ணீரில் மூழ்கியது
+<!-- K: தண்ணீர், மூழ்கடி, மிதவை, மூழ்கடி, நீச்சல், நீரோட்டம், ரிப், டைட், பனி, ஹைப்போதெர்மியா, வீழ்ச்சி -->
+<!-- S: ஒரு ரிப் நீரோட்டத்தில் சிக்கினால், நீங்கள் வெளியே வரும் வரை கரைக்கு இணையாக நீந்தவும். நீங்கள் பனியில் விழுந்தால், உங்கள் கால்களால் உதைத்து மீண்டும் பனியில் ஊர்ந்து செல்லுங்கள், பின்னர் ஹைப்போதெர்மியாவுக்கு சிகிச்சையளிக்கவும். -->
+
+### பனிக்கட்டியின் வழியாக விழுதல்
+<!-- K: பனி, பனி, தாழ்வெப்பநிலை, வீழ்ச்சி -->
+
+நீங்கள் பனிக்கட்டியின் வழியாக விழுந்தால், பின்வருவனவற்றைச் செய்யுங்கள்:
+1. நீங்கள் வந்த வழியில் திரும்பிச் செல்லுங்கள்.
+2. பனிக்கட்டியின் மீது உங்களைத் தள்ள உங்கள் கால்களை உதைக்கவும்.
+3. துளையிலிருந்து உருண்டு செல்லுங்கள்.
+4. உங்கள் வயிற்றில் பாதுகாப்பாக ஊர்ந்து செல்லுங்கள்.
+5. முடிந்தவரை விரைவாக பாதுகாப்பான, சூடான இடத்திற்குச் செல்லுங்கள்.
+6. ஈரமான ஆடைகளை விட்டுவிட்டு உலர்ந்த ஆடைகளை அணியுங்கள்.
+7. இலைகள் அல்லது உலர்ந்த புல்லை காப்புப் பொருளாகப் பயன்படுத்தி நெருப்பின் அருகே சூடுபடுத்துங்கள்.
+
+### ரிப் நீரோட்டங்கள்
+<!-- K: ரிப், கரண்ட், டைட் -->
+
+ஒரு ரிப் நீரோட்டத்தில் சிக்கினால், நீங்கள் நீரோட்டத்திலிருந்து வெளியேறும் வரை கரைக்கு இணையாக நீந்தவும். பிறகு, மீண்டும் நீந்திச் செல்லுங்கள்.o shore.
+
+![](file:///android_asset/survival_guide/rip_current.webp)
 
 ## Sunburn
-<!-- K: sunburn, burn, sunscreen, uv, sun, red, pain, swell, blister, spf, skin -->
-<!-- S: Symptoms include redness, pain, swelling, and blisters. Treat by getting out of the sun, applying a burn cream, and taking pain relievers. Prevent this by wearing sunscreen, proper clothing, and staying in the shade. -->
+<!-- K: sunburn, burn, sunscreen, uv, sun, red, pain, well, blister, spf, skin -->
+<!-- S: அறிகுறிகளில் சிவத்தல், வலி, வீக்கம் மற்றும் கொப்புளங்கள் அடங்கும். வெயிலில் இருந்து வெளியேறுதல், பர்ன் கிரீம் தடவுதல் மற்றும் வலி நிவாரணிகளை எடுத்துக்கொள்வதன் மூலம் சிகிச்சையளிக்கவும். சன்ஸ்கிரீன் அணிதல், சரியான ஆடை அணிதல் மற்றும் நிழலில் தங்குவதன் மூலம் இதைத் தடுக்கவும். -->
 
-Sunburn is caused by prolonged exposure பெறுநர் the sun's புறவூதாவொளி (UV) radiation.
+சூரியனின் புற ஊதா (UV) கதிர்வீச்சுக்கு நீண்ட நேரம் வெளிப்படுவதால் வெயில் ஏற்படுகிறது.
 
-### Symptoms
-- Redness.
-- Pain.
-- Swelling.
-- Blisters.
+## அறிகுறிகள்
+- சிவத்தல்.
+- வலி.
+- வீக்கம்.
+- கொப்புளங்கள்.
 
-### Treatment
-1. Get out of the sun.
-2. ஓடு cool water வீச்சலகு the burn or இடு a cold compress பெறுநர் relieve pain.
-3. பெறுநர் reduce pain and swelling, இடு aloe vera gel, calamine lotion, or hydrocortisone cream.
-4. Optionally, take pain relievers.
-5. Drink extra water.
+### சிகிச்சை
+1. வெயிலில் இருந்து வெளியேறுங்கள்.
+2. தீக்காயத்தின் மீது குளிர்ந்த நீரை ஊற்றவும் அல்லது வலியைக் குறைக்க குளிர் அழுத்தத்தைப் பயன்படுத்தவும்.
+3. வலி மற்றும் வீக்கத்தைக் குறைக்க, கற்றாழை ஜெல், கலமைன் லோஷன் அல்லது ஹைட்ரோகார்டிசோன் கிரீம் தடவவும்.
+4. விருப்பமாக, வலி நிவாரணிகளை எடுத்துக் கொள்ளுங்கள்.
+5. கூடுதலாக தண்ணீர் குடிக்கவும்.
 
-Do not pop blisters.
+கொப்புளங்கள் வெடிக்க வேண்டாம்.
 
-### Prevention
-- Wear sunscreen with an SPF of at least 30.
-- Wear a hat.
-- Wear long sleeves and pants.
-- Stay in the shade.
-- Take extra precautions on days with a high UV index.
+### தடுப்பு
+- குறைந்தபட்சம் 30 SPF உள்ள சன்ஸ்கிரீனைப் பயன்படுத்தவும்.
+- தொப்பி அணியவும்.
+- நீண்ட கை மற்றும் பேன்ட் அணியவும்.
+- நிழலில் இருங்கள்.
+- அதிக UV குறியீட்டு உள்ள நாட்களில் கூடுதல் முன்னெச்சரிக்கை நடவடிக்கைகளை எடுக்கவும்.
+
+## கைவினை: சன்கிளாஸ்கள்
+<!-- K: சன்கிளாஸ்கள், uv, சன், ப்ரொடெக்ட், கண்கள், பிர்ச், துணி, ஸ்லிட், பட்டை, கிராஃப்ட் --->
+<!-- S: துணியின் ஒரு பகுதியைப் பயன்படுத்தி சன்கிளாஸ்களை உருவாக்கவும் அல்லது பிர்ச் பட்டை அதில் பிளவுகள் வெட்டப்பட்டிருக்கும். -->
+
+நீங்கள் ஒரு துண்டு துணியையோ அல்லது பிர்ச் பட்டையையோ பயன்படுத்தி சன்கிளாஸ்களை உருவாக்கலாம். இது உங்கள் கண்களை UV கதிர்கள் மற்றும் கண்ணை கூசச் செய்வதிலிருந்து பாதுகாக்க உதவுகிறது.
+
+![](file:///android_asset/survival_guide/improvised_sunglasses.webp)
+
+**வளங்கள்**
+
+- துணி அல்லது பிர்ச் பட்டை
+- கோர்டேஜ்
+
+** வழிமுறைகள்**
+
+1. உங்கள் கண்களை மறைக்கும் அளவுக்கு பெரிய துணி அல்லது பிர்ச் பட்டையின் ஒரு பகுதியை வெட்டுங்கள்.
+2. உங்கள் கண்கள் இருக்கும் இடத்தில் சிறிய செவ்வக பிளவுகளை வெட்டுங்கள். முகமூடியை அணிந்திருக்கும் போது பிளவுகளை வெட்ட வேண்டாம்.
+3. முகமூடியின் இரு முனைகளிலும் கயிற்றை இணைத்து, அது உங்கள் முகத்தில் இறுக்கமாக பொருந்துவதை உறுதிசெய்யவும்.
