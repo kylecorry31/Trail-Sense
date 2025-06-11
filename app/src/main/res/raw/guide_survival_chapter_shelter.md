@@ -269,7 +269,7 @@ Used to tighten a line.
 
 Used to secure a load or tighten a line. Can be cinched down tighter than a taut-line hitch.
 
-![](file:///android_asset/survival_guide/truckers_hitch.webp)
+![](file:///android_asset/survival_guide/knot_truckers_hitch.webp)
 
 ### Square lashing
 <!-- K: square-lashing, lash -->

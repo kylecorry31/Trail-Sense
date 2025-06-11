@@ -246,7 +246,7 @@ Used பெறுநர் fasten a rope பெறுநர் a timber or pole.
 ### Trucker's hitch
 Used பெறுநர் secure a load or tighten a line.
 
-![](file:///android_asset/survival_guide/truckers_hitch.webp)
+![](file:///android_asset/survival_guide/knot_truckers_hitch.webp)
 
 ### Square lashing
 Used பெறுநர் secure one முனைமம் at a வலது angle பெறுநர் another pole. You can swap with the மூலைவிட்டம் lashing if desired.
