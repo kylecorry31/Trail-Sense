@@ -3,15 +3,24 @@ package com.kylecorry.trail_sense.tools.maps.infrastructure.tiles
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 
-class PhotoMapTileSourceSelector(maps: List<PhotoMap>) {
+class PhotoMapTileSourceSelector(maps: List<PhotoMap>, private val maxLayers: Int = 4) {
 
     private val sortedMaps = maps
         .filter { it.isCalibrated && it.visible }
         .sortedBy { it.distancePerPixel() }
 
     fun getSources(bounds: CoordinateBounds): List<PhotoMap> {
+        val minArea = bounds.width().meters().distance.toDouble() * bounds.height()
+            .meters().distance.toDouble() * 0.05
 
-        val firstContainedIndex = sortedMaps.indexOfFirst {
+        val possibleMaps = sortedMaps.filter {
+            val boundary = it.boundary() ?: return@filter false
+            val area = boundary.width().meters().distance.toDouble() *
+                    boundary.height().meters().distance.toDouble()
+            area >= minArea
+        }
+
+        val firstContainedIndex = possibleMaps.indexOfFirst {
             contains(
                 it.boundary() ?: return@indexOfFirst false,
                 bounds,
@@ -20,12 +29,13 @@ class PhotoMapTileSourceSelector(maps: List<PhotoMap>) {
         }
 
         val firstContained = if (firstContainedIndex != -1) {
-            sortedMaps[firstContainedIndex]
+            possibleMaps[firstContainedIndex]
         } else {
             null
         }
 
-        val intersectsBeforeContained = sortedMaps
+        // TODO: This can be merged with the no containing map case
+        val intersectsBeforeContained = possibleMaps
             .filterIndexed { index, it ->
                 if (index >= firstContainedIndex) {
                     return@filterIndexed false
@@ -39,15 +49,15 @@ class PhotoMapTileSourceSelector(maps: List<PhotoMap>) {
 
 
         return if (firstContained != null) {
-            intersectsBeforeContained.take(1) +
+            intersectsBeforeContained.take(maxLayers - 1) +
                     listOf(firstContained)
         } else {
-            sortedMaps.filter {
+            possibleMaps.filter {
                 contains(
                     it.boundary() ?: return@filter false,
                     bounds
                 )
-            }
+            }.take(maxLayers)
         }
     }
 

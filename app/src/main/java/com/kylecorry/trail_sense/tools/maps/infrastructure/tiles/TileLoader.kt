@@ -34,7 +34,8 @@ class TileLoader {
         bounds: CoordinateBounds,
         metersPerPixel: Float,
         replaceWhitePixels: Boolean = false,
-        minZoom: Int = 0
+        minZoom: Int = 0,
+        backgroundColor: Int = Color.WHITE
     ) {
         // Step 1: Split the visible area into tiles (geographic)
         val tiles = TileMath.getTiles(bounds, metersPerPixel.toDouble())
@@ -49,11 +50,11 @@ class TileLoader {
 
         // Step 2: For each tile, determine which map(s) will supply it.
         val tileSources = mutableMapOf<Tile, List<PhotoMap>>()
-        val sourceSelector = PhotoMapTileSourceSelector(maps)
+        val sourceSelector = PhotoMapTileSourceSelector(maps, 4)
         for (tile in tiles) {
             val sources = sourceSelector.getSources(tile.getBounds())
             if (sources.isNotEmpty()) {
-                tileSources[tile] = sources.take(2)
+                tileSources[tile] = sources
             }
         }
 
@@ -88,7 +89,7 @@ class TileLoader {
 
             var image =
                 createBitmap(source.key.size.width, source.key.size.height, Bitmap.Config.RGB_565)
-            image.eraseColor(Color.WHITE)
+            image.eraseColor(backgroundColor)
 
             source.value.reversed().forEach {
                 val loader = PhotoMapRegionLoader(it)

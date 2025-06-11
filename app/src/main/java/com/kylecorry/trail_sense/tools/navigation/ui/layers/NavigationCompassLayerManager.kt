@@ -56,6 +56,7 @@ class NavigationCompassLayerManager {
             ).toInt()
         )
         mapLayer.setReplaceWhitePixels(true)
+        mapLayer.setBackgroundColor(Resources.color(context, R.color.colorSecondary))
         mapLayer.setMinZoom(4)
         view.setLayers(
             listOfNotNull(

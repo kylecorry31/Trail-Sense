@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.maps.infrastructure.layers
 
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
@@ -26,6 +27,7 @@ class MapLayer : ILayer {
     private var maps: List<PhotoMap> = emptyList()
     private var opacity: Int = 255
     private var replaceWhitePixels: Boolean = false
+    private var backgroundColor: Int = Color.WHITE
     private var minZoom: Int = 0
     private var lastBounds: CoordinateBounds = CoordinateBounds.empty
     private var lastMetersPerPixel: Float? = null
@@ -49,6 +51,11 @@ class MapLayer : ILayer {
 
     fun setReplaceWhitePixels(replaceWhitePixels: Boolean) {
         this.replaceWhitePixels = replaceWhitePixels
+        shouldReloadTiles = true
+    }
+
+    fun setBackgroundColor(color: Int) {
+        this.backgroundColor = color
         shouldReloadTiles = true
     }
 
@@ -80,7 +87,8 @@ class MapLayer : ILayer {
                             bounds.grow(getGrowPercent()),
                             lastMetersPerPixel ?: 0f,
                             replaceWhitePixels,
-                            minZoom
+                            minZoom,
+                            backgroundColor
                         )
                     } catch (e: CancellationException) {
                         System.gc()
