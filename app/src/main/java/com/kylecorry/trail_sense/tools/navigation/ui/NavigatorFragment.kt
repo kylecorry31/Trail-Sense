@@ -541,7 +541,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         effect("device_orientation", clinometer.incline.toInt(), lifecycleHookTrigger.onResume()) {
-            val deviceOrientation = if (clinometer.incline > -20) {
+            val deviceOrientation = if (clinometer.incline > -30) {
                 DeviceOrientation.Orientation.Portrait
             } else {
                 DeviceOrientation.Orientation.Flat
