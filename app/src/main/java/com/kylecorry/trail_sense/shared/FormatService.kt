@@ -300,7 +300,7 @@ class FormatService private constructor(private val context: Context) {
 
             DistanceUnits.Yards -> strings.getString(R.string.yards_format, formatted)
             DistanceUnits.Millimeters -> strings.getString(
-                R.string.milliliter_format,
+                R.string.millimeters_format,
                 formatted
             )
 
