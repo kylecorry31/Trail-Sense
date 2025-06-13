@@ -239,6 +239,17 @@ To triangulate your location:
 
 ![](file:///android_asset/survival_guide/triangulation.webp)
 
+To get your GPS coordinates on a map in UTM (a very common coordinate system):
+
+1. Find the UTM zone number, which is a one- or two-digit number followed by a letter (for example, "16T").
+2. Locate the Easting and Northing values on the map's borders. They are usually marked and can have 3 to 6 or 7 digits. Add three zeros if there are only 3 digits (e.g., 123 becomes 123000). Easting will be on the top or bottom; Northing will be on the left or right.
+3. Look at the grid lines on the map to identify the grid zone where your location is. These lines represent the first digits of your location (e.g., 123000E and 234000N).
+4. For increased precision, divide the grid into 10 equal sections vertically and horizontally. Determine which line your location is closest to within the grid. Use a ruler for accuracy. For example, if your location is two-tenths to the right and one-tenth up from the bottom-right corner of the grid, your new location will be 123200E and 234100N.
+
+You can follow those steps in reverse to transfer a GPS coordinate onto your map. Just be sure to set your GPS coordinates to match the map's coordinate format.
+
+If your map does not have UTM grid lines, you can still follow the same approach using the coordinate values on the sides of the map. Some systems may use decimal places instead.
+
 ### Scale
 <!-- K: scale, distance, measure, ruler -->
 
