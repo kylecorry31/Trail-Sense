@@ -115,6 +115,8 @@ Some lighters require that you add fuel before use, so be sure to try out your l
 
 A lighter generally does not work when wet, but you can dry it quickly by gently rubbing the striker wheel against your clothes in the opposite direction that you would strike it and forcefully blowing into the striker area.
 
+You can also remove the child safety device from the striker wheel to more easily dry the lighter or use it in the cold. To do so, point it away from your eyes (the safety is spring-loaded) and use a knife or multi-tool to pry it off. **Do this at your own risk.**
+
 There are also electronic lighters available, but they are less reliable and require a charge. They can be used in a similar fashion to regular lighters but typically require smaller and finer tinder.
 
 ### Matches
