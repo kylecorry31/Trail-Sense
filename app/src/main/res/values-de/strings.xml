@@ -1303,4 +1303,18 @@
     <string name="inedible">Nicht essbar</string>
     <string name="time_header_units">Zeit (%s)</string>
     <string name="energy">Energie</string>
+    <string name="insect_activity">Insektenaktivität</string>
+    <string name="cell_tower">Mobilfunkmast</string>
+    <string name="nearby_beacons">Nahegelegene Wegpunkte</string>
+    <string name="climate_tundra">Tundra</string>
+    <string name="climate_no_dry_season_description">Es gibt keine Trockenzeit.</string>
+    <string name="speed_format_meters_per_second">%s m/s</string>
+    <string name="climate_monsoon_description">Es gibt eine kurze Trockenzeit.</string>
+    <string name="survival_guide_empty_desc">Suchem Sie nach Überlebensthemen wie Wasser, Medizin, Nahrung, Wetter, Schutz oder Navigationstechniken.</string>
+    <string name="climate_tropical_rainforest">Tropischer Regenwald</string>
+    <string name="climate_polar_description">Ein extrem kaltes Klima mit kurzen Sommern.</string>
+    <string name="declination">Deklination</string>
+    <string name="alarm_description">Spielt einen Sound, auch wenn Medien und Benachrichtigungen stummgeschaltet sind</string>
+    <string name="alarm_time_range">Spielt nur von %1$s bis %2$s</string>
+    <string name="tundra">Tundra</string>
 </resources>
