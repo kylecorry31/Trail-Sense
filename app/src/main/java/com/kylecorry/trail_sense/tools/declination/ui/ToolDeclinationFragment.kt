@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.declination.ui
 
 import android.view.View
 import com.kylecorry.andromeda.core.ui.useService
+import com.kylecorry.andromeda.fragments.useBackgroundMemo
 import com.kylecorry.andromeda.views.toolbar.Toolbar
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.geology.Geology
@@ -11,7 +12,6 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.alerts.MultiLoadingIndicator
 import com.kylecorry.trail_sense.shared.alerts.ViewLoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
-import com.kylecorry.trail_sense.shared.extensions.useBackgroundMemo
 import com.kylecorry.trail_sense.shared.extensions.useCoordinateInputView
 import com.kylecorry.trail_sense.shared.extensions.useLoadingIndicator
 import com.kylecorry.trail_sense.shared.extensions.useLocation

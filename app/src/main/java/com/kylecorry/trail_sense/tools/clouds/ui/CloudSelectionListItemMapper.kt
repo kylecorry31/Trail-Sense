@@ -7,10 +7,10 @@ import com.kylecorry.andromeda.views.list.ListItemCheckbox
 import com.kylecorry.andromeda.views.list.ListItemData
 import com.kylecorry.andromeda.views.list.ListItemMapper
 import com.kylecorry.andromeda.views.list.ResourceListIcon
+import com.kylecorry.andromeda.views.list.DrawableListIcon
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.andromeda_temp.DrawableListIcon
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.CloudDetailsService
 
 

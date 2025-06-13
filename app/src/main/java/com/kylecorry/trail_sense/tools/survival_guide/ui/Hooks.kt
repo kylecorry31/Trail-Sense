@@ -1,12 +1,9 @@
 package com.kylecorry.trail_sense.tools.survival_guide.ui
 
 import androidx.lifecycle.LifecycleOwner
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.ui.ReactiveComponent
-import com.kylecorry.andromeda.fragments.AndromedaBottomSheetFragment
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
-import com.kylecorry.trail_sense.shared.extensions.useCoroutineQueue
+import com.kylecorry.andromeda.fragments.useCoroutineQueue
 import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.GuideDetails
 import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.GuideLoader
 import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.SurvivalGuideSearch

@@ -2,11 +2,11 @@ package com.kylecorry.trail_sense.tools.climate.ui
 
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.views.chart.Chart
+import com.kylecorry.andromeda.views.chart.data.HistogramChartLayer
 import com.kylecorry.andromeda.views.chart.data.ScatterChartLayer
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
-import com.kylecorry.trail_sense.shared.andromeda_temp.HistogramChartLayer
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import java.time.Month
 

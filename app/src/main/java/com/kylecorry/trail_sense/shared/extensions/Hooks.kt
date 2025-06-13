@@ -1,16 +1,13 @@
 package com.kylecorry.trail_sense.shared.extensions
 
-import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.ui.ReactiveComponent
 import com.kylecorry.andromeda.core.ui.useCallback
 import com.kylecorry.andromeda.core.ui.useService
-import com.kylecorry.andromeda.fragments.AndromedaBottomSheetFragment
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.LifecycleHookTrigger
 import com.kylecorry.andromeda.fragments.onBackPressed
@@ -19,7 +16,6 @@ import com.kylecorry.andromeda.fragments.useTopic
 import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.signal.ICellSignalSensor
-import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
@@ -35,14 +31,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.shared.views.CoordinateInputView
 import com.kylecorry.trail_sense.shared.views.ElevationInputView
 import com.kylecorry.trail_sense.shared.views.SearchView
-import kotlinx.coroutines.CoroutineScope
 import java.time.Duration
-
-fun ReactiveComponent.useCoroutineQueue(): CoroutineQueueRunner {
-    return useMemo {
-        CoroutineQueueRunner()
-    }
-}
 
 // Sensors
 
@@ -86,26 +75,6 @@ fun AndromedaFragment.useLocation(refreshPolicy: SensorSubsystem.SensorRefreshPo
 
 fun <T> T.useNavController(): NavController where T : ReactiveComponent, T : Fragment {
     return useMemo(useRootView()) { findNavController() }
-}
-
-fun <T> T.useArguments(): Bundle where T : ReactiveComponent, T : Fragment {
-    return requireArguments()
-}
-
-fun <T> AndromedaFragment.useArgument(key: String): T? {
-    val arguments = useArguments()
-    return useMemo(arguments, key) {
-        @Suppress("DEPRECATION", "UNCHECKED_CAST")
-        arguments.get(key) as? T?
-    }
-}
-
-fun <T> AndromedaBottomSheetFragment.useArgument(key: String): T? {
-    val arguments = useArguments()
-    return useMemo(arguments, key) {
-        @Suppress("DEPRECATION", "UNCHECKED_CAST")
-        arguments.get(key) as? T?
-    }
 }
 
 fun <T> T.useBackPressedCallback(
@@ -166,14 +135,6 @@ fun ReactiveComponent.useLoadingIndicator(isLoading: Boolean, indicator: ILoadin
             indicator.show()
         } else {
             indicator.hide()
-        }
-    }
-}
-
-fun ReactiveComponent.useClickCallback(view: View, vararg values: Any?, callback: () -> Unit) {
-    useEffect(view, *values) {
-        view.setOnClickListener {
-            callback()
         }
     }
 }
@@ -287,22 +248,6 @@ fun ReactiveComponent.useSpeedPreference(
     }
 
     return speed to setter
-}
-
-fun <T> ReactiveComponent.useBackgroundMemo(
-    vararg values: Any?,
-    state: BackgroundMinimumState = BackgroundMinimumState.Resumed,
-    cancelWhenBelowState: Boolean = true,
-    cancelWhenRerun: Boolean = false,
-    block: suspend CoroutineScope.() -> T
-): T? {
-    val (currentState, setCurrentState) = useState<T?>(null)
-
-    useBackgroundEffect(values, state, cancelWhenBelowState, cancelWhenRerun) {
-        setCurrentState(block())
-    }
-
-    return currentState
 }
 
 fun ReactiveComponent.useCoordinateInputView(
