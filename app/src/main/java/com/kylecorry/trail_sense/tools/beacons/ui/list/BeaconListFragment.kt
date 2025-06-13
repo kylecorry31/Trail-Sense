@@ -19,6 +19,7 @@ import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.andromeda.fragments.onBackPressed
 import com.kylecorry.andromeda.gpx.GPXData
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
@@ -26,7 +27,6 @@ import com.kylecorry.trail_sense.databinding.FragmentBeaconListBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.extensions.onBackPressed
 import com.kylecorry.trail_sense.shared.from
 import com.kylecorry.trail_sense.shared.grouping.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.grouping.lists.bind

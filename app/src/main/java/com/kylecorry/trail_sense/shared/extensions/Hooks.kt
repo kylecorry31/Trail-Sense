@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.extensions
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
@@ -12,6 +13,7 @@ import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.AndromedaBottomSheetFragment
 import com.kylecorry.andromeda.fragments.AndromedaFragment
 import com.kylecorry.andromeda.fragments.LifecycleHookTrigger
+import com.kylecorry.andromeda.fragments.onBackPressed
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.fragments.useTopic
 import com.kylecorry.andromeda.preferences.IPreferences
@@ -82,15 +84,11 @@ fun AndromedaFragment.useLocation(refreshPolicy: SensorSubsystem.SensorRefreshPo
     return location to isUpToDate
 }
 
-fun AndromedaFragment.useNavController(): NavController {
+fun <T> T.useNavController(): NavController where T : ReactiveComponent, T : Fragment {
     return useMemo(useRootView()) { findNavController() }
 }
 
-fun AndromedaBottomSheetFragment.useNavController(): NavController {
-    return useMemo(useRootView()) { findNavController() }
-}
-
-fun AndromedaFragment.useArguments(): Bundle {
+fun <T> T.useArguments(): Bundle where T : ReactiveComponent, T : Fragment {
     return requireArguments()
 }
 
@@ -102,10 +100,18 @@ fun <T> AndromedaFragment.useArgument(key: String): T? {
     }
 }
 
-fun AndromedaFragment.useBackPressedCallback(
+fun <T> AndromedaBottomSheetFragment.useArgument(key: String): T? {
+    val arguments = useArguments()
+    return useMemo(arguments, key) {
+        @Suppress("DEPRECATION", "UNCHECKED_CAST")
+        arguments.get(key) as? T?
+    }
+}
+
+fun <T> T.useBackPressedCallback(
     vararg values: Any?,
     callback: OnBackPressedCallback.() -> Boolean
-) {
+) where T : Fragment, T : ReactiveComponent {
     val navController = useNavController()
     useEffectWithCleanup(*values) {
         val listener = onBackPressed {
@@ -283,7 +289,7 @@ fun ReactiveComponent.useSpeedPreference(
     return speed to setter
 }
 
-fun <T> AndromedaFragment.useBackgroundMemo(
+fun <T> ReactiveComponent.useBackgroundMemo(
     vararg values: Any?,
     state: BackgroundMinimumState = BackgroundMinimumState.Resumed,
     cancelWhenBelowState: Boolean = true,
@@ -299,7 +305,7 @@ fun <T> AndromedaFragment.useBackgroundMemo(
     return currentState
 }
 
-fun AndromedaFragment.useCoordinateInputView(
+fun ReactiveComponent.useCoordinateInputView(
     id: Int,
     lifecycleHookTrigger: LifecycleHookTrigger
 ): CoordinateInputView {
@@ -308,7 +314,7 @@ fun AndromedaFragment.useCoordinateInputView(
     }
 }
 
-fun AndromedaFragment.useElevationInputView(
+fun ReactiveComponent.useElevationInputView(
     id: Int,
     lifecycleHookTrigger: LifecycleHookTrigger
 ): ElevationInputView {
@@ -317,7 +323,7 @@ fun AndromedaFragment.useElevationInputView(
     }
 }
 
-fun <T : View> AndromedaFragment.useViewWithCleanup(
+fun <T : View> ReactiveComponent.useViewWithCleanup(
     id: Int,
     lifecycleHookTrigger: LifecycleHookTrigger,
     cleanup: (T) -> Unit

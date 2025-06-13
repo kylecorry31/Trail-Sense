@@ -1,20 +1,13 @@
 package com.kylecorry.trail_sense.shared.extensions
 
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.addCallback
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.fragments.onBackPressed
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.R
-
-fun Fragment.onBackPressed(
-    enabled: Boolean = true,
-    onBackPressed: OnBackPressedCallback.() -> Unit
-): OnBackPressedCallback {
-    return requireActivity().onBackPressedDispatcher.addCallback(this, enabled, onBackPressed)
-}
 
 fun Fragment.promptIfUnsavedChanges(
     hasChanges: () -> Boolean
