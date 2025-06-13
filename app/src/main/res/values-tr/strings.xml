@@ -1397,4 +1397,18 @@
     <string name="climate_warm_summer_description">Yaz aylarında ılıman sıcaklıklara hazırlıklı olun.</string>
     <string name="climate_cold_summer_description">Yaz boyunca serin sıcaklıklar için plan yapın.</string>
     <string name="climate_very_cold_winter_description">Kış aylarında aşırı soğuk havalar için plan yapın.</string>
+    <string name="safe_mode_toast">Çökmeler algılandı, bazı özellikler birkaç saniyeliğine devre dışı bırakılıyor.</string>
+    <string name="pref_navigation_lock_screen_when_open_title">Açıkken kilit ekranında göster</string>
+    <string name="declination">Sapma</string>
+    <string name="opacity">Opaklık</string>
+    <string name="survival_guide_empty_desc">Hayatta kalma başlıkları için arat. Su, ilaç, yiyecek, hava, barınak veya yön bulma teknikleri gibi.</string>
+    <string name="use_alarm_for_distance_alert">Uzaklık uyarısı için alarmı kullan</string>
+    <string name="use_alarm_for_storm_alert">Fırtına uyarısı için alarmı kullan</string>
+    <string name="use_alarm_for_sunset_alert">Gün batımı uyarısı için alarmı kullan</string>
+    <string name="use_alarm_for_sunrise_alert">Gün doğumu uyarısı için alarmı kullan</string>
+    <string name="alarm_description">Medya ve bildirimler sessize alınmışsa bile sesi çal</string>
+    <string name="mute_alarm_at_night">Gece alarmı sessize al</string>
+    <string name="use_alarm_for_turn_back_alert">Geri dönme uyarısı için alarm kullan</string>
+    <string name="use_alarm_for_water_boil_timer">Su kaynama sayacı uyarısı için alarm kullan</string>
+    <string name="alarm_time_range">Sadece %1$s\'den %2$s\'a çal</string>
 </resources>
