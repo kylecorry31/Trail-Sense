@@ -1371,8 +1371,14 @@
     <string name="opacity">Opacidade</string>
     <string name="pref_navigation_lock_screen_when_open_title">Mostrar na tela de bloqueio enquanto aberto</string>
     <string name="declination">Declinação</string>
-    <string name="survival_guide_empty_desc">Faça busca por tópicos de sobrevivência como água, assistência médica, alimentação, clima, abrigo e roupas ou técnicas de navegação.</string>
+    <string name="survival_guide_empty_desc">Faça busca por tópicos de sobrevivência como água, assistência médica, alimentação, clima, abrigo ou técnicas de navegação.</string>
     <string name="use_alarm_for_turn_back_alert">Use o alarme para alerta de retorno</string>
     <string name="alarm_description">Reproduz um som mesmo que a mídia e as notificações estejam silenciadas</string>
     <string name="use_alarm_for_distance_alert">Use o alarme para alerta de distância</string>
+    <string name="use_alarm_for_sunset_alert">Usar alarme para alertar sobre o pôr do sol</string>
+    <string name="use_alarm_for_water_boil_timer">Usar alarme para o cronômetro de fervura da água</string>
+    <string name="use_alarm_for_storm_alert">Usar alarme para alerta de tempestade</string>
+    <string name="use_alarm_for_sunrise_alert">Usar alarme para alertar sobre o nascer do sol</string>
+    <string name="mute_alarm_at_night">Silenciar o alarme durante a noite</string>
+    <string name="alarm_time_range">Somente jogos de %1$s a %2$s</string>
 </resources>
