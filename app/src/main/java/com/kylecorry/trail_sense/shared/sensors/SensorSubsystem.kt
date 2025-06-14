@@ -35,7 +35,7 @@ class SensorSubsystem private constructor(private val context: Context) {
             val mode = userPrefs.altimeterMode
             val altimeter = when (mode) {
                 UserPreferences.AltimeterMode.Override -> OverrideAltimeter(context)
-                UserPreferences.AltimeterMode.Barometer, UserPreferences.AltimeterMode.GPSBarometer -> CachedAltimeter(
+                UserPreferences.AltimeterMode.Barometer, UserPreferences.AltimeterMode.GPSBarometer, UserPreferences.AltimeterMode.DigitalElevationModel, UserPreferences.AltimeterMode.DigitalElevationModelBarometer -> CachedAltimeter(
                     context
                 )
 

@@ -141,20 +141,6 @@
         <item>osng</item>
     </string-array>
 
-    <string-array name="altimeter_mode_entries">
-        <item>@string/altimeter_mode_gps_barometer</item>
-        <item>@string/gps</item>
-        <item>@string/barometer</item>
-        <item>@string/manual</item>
-    </string-array>
-
-    <string-array name="altimeter_mode_values">
-        <item>gps_barometer</item>
-        <item>gps</item>
-        <item>barometer</item>
-        <item>override</item>
-    </string-array>
-
     <string-array name="thermometer_source_entries">
         <item>@string/historic</item>
         <item>@string/sensor</item>
@@ -163,16 +149,6 @@
     <string-array name="thermometer_source_values">
         <item>historic</item>
         <item>sensor</item>
-    </string-array>
-
-    <string-array name="altimeter_mode_no_barometer_entries">
-        <item>@string/gps</item>
-        <item>@string/manual</item>
-    </string-array>
-
-    <string-array name="altimeter_mode_no_barometer_values">
-        <item>gps</item>
-        <item>override</item>
     </string-array>
 
     <string-array name="line_style_entries">

@@ -37,6 +37,7 @@ import com.kylecorry.trail_sense.shared.extensions.getIntArray
 import com.kylecorry.trail_sense.shared.extensions.getLongArray
 import com.kylecorry.trail_sense.shared.extensions.putIntArray
 import com.kylecorry.trail_sense.shared.extensions.putLongArray
+import com.kylecorry.trail_sense.shared.plugins.DEMPlugin
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sharing.MapSite
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyPreferences
@@ -284,6 +285,8 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
                 "gps" -> AltimeterMode.GPS
                 "gps_barometer" -> AltimeterMode.GPSBarometer
                 "barometer" -> AltimeterMode.Barometer
+                "dem" -> if (DEMPlugin.isInstalled(context)) AltimeterMode.DigitalElevationModel else AltimeterMode.GPS
+                "dem_barometer" -> if (DEMPlugin.isInstalled(context)) AltimeterMode.DigitalElevationModelBarometer else AltimeterMode.DigitalElevationModelBarometer
                 else -> AltimeterMode.Override
             }
 
@@ -449,6 +452,8 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
         GPS,
         GPSBarometer,
         Barometer,
+        DigitalElevationModel,
+        DigitalElevationModelBarometer,
         Override
     }
 

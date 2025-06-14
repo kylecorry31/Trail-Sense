@@ -46,6 +46,7 @@ android {
         // Support for view binding
         viewBinding = true
         buildConfig = true
+        aidl = true
     }
     buildTypes {
         // Release build (Google Play / F-Droid)
