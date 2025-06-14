@@ -15,8 +15,6 @@
 
         <ListPreference
             app:defaultValue="gps_barometer"
-            app:entries="@array/altimeter_mode_entries"
-            app:entryValues="@array/altimeter_mode_values"
             app:iconSpaceReserved="false"
             app:key="@string/pref_altimeter_calibration_mode"
             app:singleLineTitle="false"

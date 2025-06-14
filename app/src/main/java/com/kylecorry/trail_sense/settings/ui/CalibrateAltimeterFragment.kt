@@ -31,6 +31,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.plugins.DEMPlugin
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -171,14 +172,13 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
     private fun updateConditionalPreferences() {
         val hasBarometer = prefs.weather.hasBarometer
         val mode = prefs.altimeterMode
+        val isFused =
+            hasBarometer && (mode == UserPreferences.AltimeterMode.GPSBarometer || mode == UserPreferences.AltimeterMode.DigitalElevationModelBarometer)
 
         // Cache, continuous calibration, and force calibration interval are only available on the fused barometer
-        clearCachePref.isVisible =
-            hasBarometer && mode == UserPreferences.AltimeterMode.GPSBarometer
-        continuousCalibrationPref.isVisible =
-            hasBarometer && mode == UserPreferences.AltimeterMode.GPSBarometer
-        forceCalibrationPref.isVisible =
-            hasBarometer && mode == UserPreferences.AltimeterMode.GPSBarometer
+        clearCachePref.isVisible = isFused
+        continuousCalibrationPref.isVisible = isFused
+        forceCalibrationPref.isVisible = isFused
 
         // Overrides are available on the barometer or the manual mode
         val canProvideOverrides =
@@ -191,11 +191,19 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         accuracyPref.isVisible =
             mode == UserPreferences.AltimeterMode.GPS || mode == UserPreferences.AltimeterMode.GPSBarometer
 
-        // Restrict the calibration mode list if there is no barometer
-        if (!hasBarometer) {
-            calibrationModeList.setEntries(R.array.altimeter_mode_no_barometer_entries)
-            calibrationModeList.setEntryValues(R.array.altimeter_mode_no_barometer_values)
-        }
+
+        // Calibration mode options
+        val options = listOfNotNull(
+            if (hasBarometer) getString(R.string.altimeter_mode_gps_barometer) to "gps_barometer" else null,
+            getString(R.string.gps) to "gps",
+            if (hasBarometer) getString(R.string.barometer) to "barometer" else null,
+            if (DEMPlugin.isInstalled(requireContext())) getString(R.string.altimeter_mode_dem_barometer) to "dem_barometer" else null,
+            if (DEMPlugin.isInstalled(requireContext())) getString(R.string.digital_elevation_model_abbreviation) to "dem" else null,
+            getString(R.string.manual) to "override"
+        )
+
+        calibrationModeList.entries = options.map { it.first }.toTypedArray()
+        calibrationModeList.entryValues = options.map { it.second }.toTypedArray()
     }
 
     private fun restartAltimeter() {

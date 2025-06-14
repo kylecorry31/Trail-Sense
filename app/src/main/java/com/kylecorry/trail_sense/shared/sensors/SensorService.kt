@@ -26,6 +26,7 @@ import com.kylecorry.andromeda.sense.location.GPS
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.andromeda.sense.location.filters.GPSGaussianAltitudeFilter
+import com.kylecorry.andromeda.sense.location.filters.GPSPassThroughAltitudeFilter
 import com.kylecorry.andromeda.sense.magnetometer.IMagnetometer
 import com.kylecorry.andromeda.sense.magnetometer.LowPassMagnetometer
 import com.kylecorry.andromeda.sense.magnetometer.Magnetometer
@@ -49,6 +50,7 @@ import com.kylecorry.trail_sense.shared.sensors.altimeter.AltimeterWrapper
 import com.kylecorry.trail_sense.shared.sensors.altimeter.AutoInitializeBarometricAltimeter
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrapper
+import com.kylecorry.trail_sense.shared.sensors.altimeter.DigitalElevationModel
 import com.kylecorry.trail_sense.shared.sensors.altimeter.GaussianAltimeterWrapper
 import com.kylecorry.trail_sense.shared.sensors.altimeter.OverrideAltimeter
 import com.kylecorry.trail_sense.shared.sensors.barometer.CalibratedBarometer
@@ -154,6 +156,12 @@ class SensorService(ctx: Context) {
         }
     }
 
+    private fun getDigitalElevationModel(gps: IGPS? = null): IGPS {
+        return DigitalElevationModel(
+            context, gps ?: getGPS()
+        )
+    }
+
     fun getAltimeter(
         preferGPS: Boolean = false, gps: IGPS? = null
     ): IAltimeter {
@@ -178,6 +186,8 @@ class SensorService(ctx: Context) {
                     seaLevelPressure = Pressure.hpa(userPrefs.seaLevelPressureOverride)
                 )
             )
+        } else if (mode == UserPreferences.AltimeterMode.DigitalElevationModel) {
+            return CachingAltimeterWrapper(context, getDigitalElevationModel(gps))
         } else {
             if (!GPS.isAvailable(context)) {
                 if (mode == UserPreferences.AltimeterMode.GPSBarometer && hasBarometer) {
@@ -192,19 +202,24 @@ class SensorService(ctx: Context) {
                 return CachedAltimeter(context)
             }
 
-            val gps = gps ?: getGPS()
+            var gps = gps ?: getGPS()
+            if (mode == UserPreferences.AltimeterMode.DigitalElevationModelBarometer) {
+                gps = getDigitalElevationModel(gps)
+            }
 
-            return if (mode == UserPreferences.AltimeterMode.GPSBarometer && hasBarometer) {
+            return if ((mode == UserPreferences.AltimeterMode.GPSBarometer || mode == UserPreferences.AltimeterMode.DigitalElevationModelBarometer) && hasBarometer) {
                 CachingAltimeterWrapper(
                     context, FusedAltimeter(
                         gps,
                         getBarometer(),
                         PreferencesSubsystem.getInstance(context).preferences,
-                        gpsFilter = GPSGaussianAltitudeFilter(userPrefs.altimeterSamples),
+                        gpsFilter = if (mode == UserPreferences.AltimeterMode.DigitalElevationModelBarometer) GPSPassThroughAltitudeFilter() else GPSGaussianAltitudeFilter(
+                            userPrefs.altimeterSamples
+                        ),
                         useContinuousCalibration = userPrefs.altimeter.useFusedAltimeterContinuousCalibration,
                         recalibrationInterval = userPrefs.altimeter.fusedAltimeterForcedRecalibrationInterval,
                         useMSLAltitude = false,
-                        shouldLog = false
+                        shouldLog = true
 
                     )
                 )
