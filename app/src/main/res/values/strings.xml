@@ -1725,4 +1725,9 @@
     <string name="plugin_digital_elevation_model">Digital Elevation Model (DEM)</string>
     <!--DEM = Digital Elevation Model-->
     <string name="altimeter_mode_dem_barometer">DEM + Barometer</string>
+    <string name="pref_load_dem_button" translatable="false">pref_load_dem_button</string>
+    <string name="not_set">Not set</string>
+    <string name="loaded">Loaded</string>
+    <!--DEM = Digital Elevation Model-->
+    <string name="invalid_dem_file">Invalid DEM file</string>
 </resources>

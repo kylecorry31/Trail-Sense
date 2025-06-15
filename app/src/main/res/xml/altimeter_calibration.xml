@@ -22,6 +22,12 @@
             app:useSimpleSummaryProvider="true" />
 
         <Preference
+            android:title="@string/plugin_digital_elevation_model"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_load_dem_button"
+            app:singleLineTitle="false" />
+
+        <Preference
             android:title="@string/pref_elevation_override_title"
             app:iconSpaceReserved="false"
             app:key="@string/pref_altitude_override"
@@ -77,7 +83,6 @@
             android:title="@string/reset_calibration"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
-
 
     </PreferenceCategory>
 

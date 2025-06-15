@@ -4,6 +4,7 @@ import android.content.Context
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.DurationPreference
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.debugging.isDebug
 import java.time.Duration
 
 class AltimeterPreferences(context: Context) : PreferenceRepo(context) {
@@ -19,5 +20,8 @@ class AltimeterPreferences(context: Context) : PreferenceRepo(context) {
         context.getString(R.string.pref_altimeter_forced_recalibration_interval),
         Duration.ofHours(2)
     )
+
+    val isDigitalElevationModelAvailable: Boolean
+        get() = isDebug()
 
 }

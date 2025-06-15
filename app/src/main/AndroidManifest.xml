@@ -4,7 +4,6 @@
 
     <queries>
         <package android:name="com.kylecorry.trail_sense_comms" />
-        <package android:name="com.kylecorry.trail_sense_dem" />
     </queries>
 
     <!--Features-->

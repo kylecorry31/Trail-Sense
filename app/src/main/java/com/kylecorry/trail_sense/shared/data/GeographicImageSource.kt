@@ -11,13 +11,16 @@ import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.AssetFileSystem
 import com.kylecorry.sol.math.SolMath.roundPlaces
+import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import java.io.InputStream
+import kotlin.math.abs
 
 class GeographicImageSource(
     val imageSize: Size,
-    private val latitudePixelsPerDegree: Double = ((imageSize.height - 1) / 180.0),
-    private val longitudePixelsPerDegree: Double = ((imageSize.width - 1) / 360.0),
+    private val bounds: CoordinateBounds = CoordinateBounds.world,
+    private val latitudePixelsPerDegree: Double = ((imageSize.height - 1) / abs(bounds.north - bounds.south)),
+    private val longitudePixelsPerDegree: Double = ((imageSize.width - 1) / abs(bounds.east - bounds.west)),
     private val precision: Int = 2,
     interpolate: Boolean = true,
     private val decoder: (Int?) -> List<Float> = { listOf(it?.toFloat() ?: 0f) }
@@ -26,8 +29,8 @@ class GeographicImageSource(
     private val reader = ImagePixelReader(imageSize, interpolate)
 
     fun getPixel(location: Coordinate): PixelCoordinate {
-        var x = (location.longitude + 180) * longitudePixelsPerDegree
-        var y = (180 - (location.latitude + 90)) * latitudePixelsPerDegree
+        var x = (location.longitude - bounds.west) * longitudePixelsPerDegree
+        var y = (bounds.north - location.latitude) * latitudePixelsPerDegree
 
         if (x.isNaN()) {
             x = 0.0
@@ -62,6 +65,10 @@ class GeographicImageSource(
             val fileSystem = AssetFileSystem(context)
             read(fileSystem.stream(filename), pixel)
         }
+
+    fun contains(location: Coordinate): Boolean {
+        return bounds.contains(location)
+    }
 
     companion object {
 

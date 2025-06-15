@@ -30,15 +30,15 @@ internal object HistoricMonthlyTemperatureRangeRepo {
 
     private val lowSource = GeographicImageSource(
         size,
-        latitudePixelsPerDegree,
-        longitudePixelsPerDegree,
+        latitudePixelsPerDegree = latitudePixelsPerDegree,
+        longitudePixelsPerDegree = longitudePixelsPerDegree,
         decoder = GeographicImageSource.scaledDecoder(lowA, lowB)
     )
 
     private val highSource = GeographicImageSource(
         size,
-        latitudePixelsPerDegree,
-        longitudePixelsPerDegree,
+        latitudePixelsPerDegree = latitudePixelsPerDegree,
+        longitudePixelsPerDegree = longitudePixelsPerDegree,
         decoder = GeographicImageSource.scaledDecoder(highA, highB)
     )
 
@@ -57,7 +57,7 @@ internal object HistoricMonthlyTemperatureRangeRepo {
     ): Map<Month, Range<Temperature>> = onIO {
         val pixel = lowSource.getPixel(location)
 
-        cache.getOrPut(pixel){
+        cache.getOrPut(pixel) {
             val lows = load(context, location, lowType)
             val highs = load(context, location, highType)
             Month.values().associateWith {

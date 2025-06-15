@@ -3,13 +3,10 @@ package com.kylecorry.trail_sense.plugins.plugins
 import android.content.Context
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.luna.hooks.Hooks
-import com.kylecorry.trail_sense.plugins.dem.DEMPluginRegistration
 
 object Plugins {
     private val hooks = Hooks()
-    private val registry = listOf(
-        DEMPluginRegistration
-    )
+    private val registry: List<PluginRegistration> = emptyList()
 
     fun isPluginAvailable(context: Context, pluginId: Long): Boolean {
         return getPlugin(context, pluginId) != null
@@ -26,6 +23,4 @@ object Plugins {
 
         return plugins.filter { !availableOnly || it.isAvailable(context) }
     }
-
-    const val DIGITAL_ELEVATION_MODEL = 1L
 }

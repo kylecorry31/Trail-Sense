@@ -15,7 +15,6 @@ import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.CustomBottomNavigationView
-import com.kylecorry.trail_sense.plugins.plugins.Plugins
 import com.kylecorry.trail_sense.settings.backup.BackupPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.AltimeterPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.AugmentedRealityPreferences
@@ -281,14 +280,14 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
                 }
             }
 
-            val hasDemPlugin = Plugins.isPluginAvailable(context, Plugins.DIGITAL_ELEVATION_MODEL)
+            val isDemAvailable = altimeter.isDigitalElevationModelAvailable
 
             return when (raw) {
                 "gps" -> AltimeterMode.GPS
                 "gps_barometer" -> AltimeterMode.GPSBarometer
                 "barometer" -> AltimeterMode.Barometer
-                "dem" -> if (hasDemPlugin) AltimeterMode.DigitalElevationModel else AltimeterMode.GPS
-                "dem_barometer" -> if (hasDemPlugin) AltimeterMode.DigitalElevationModelBarometer else AltimeterMode.DigitalElevationModelBarometer
+                "dem" -> if (isDemAvailable) AltimeterMode.DigitalElevationModel else AltimeterMode.GPS
+                "dem_barometer" -> if (isDemAvailable) AltimeterMode.DigitalElevationModelBarometer else AltimeterMode.DigitalElevationModelBarometer
                 else -> AltimeterMode.Override
             }
 

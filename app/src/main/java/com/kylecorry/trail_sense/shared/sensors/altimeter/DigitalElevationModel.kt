@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.sensors.altimeter
 
 import android.content.Context
 import android.util.Log
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.cache.GeospatialCache
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.sense.location.IGPS
@@ -11,8 +12,8 @@ import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Speed
-import com.kylecorry.trail_sense.plugins.dem.DEMPlugin
-import com.kylecorry.trail_sense.plugins.plugins.Plugins
+import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.dem.DEM
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -24,18 +25,17 @@ class DigitalElevationModel(private val context: Context, private val gps: IGPS)
 
     private val scope = CoroutineScope(Dispatchers.Default)
     private val queue = CoroutineQueueRunner(2)
-    private val dem = DEMPlugin(context)
     private var demAltitude: Float? = null
     private var job: Job? = null
+    private val isEnabled = AppServiceRegistry.get<UserPreferences>().altimeter.isDigitalElevationModelAvailable
 
     private fun onUpdate(): Boolean {
         job = scope.launch {
             queue.enqueue {
                 try {
-                    demAltitude = if (hasPlugin()) {
+                    demAltitude = if (hasDEM()) {
                         cache.getOrPut(gps.location) {
-                            dem.waitUntilConnected()
-                            Distance.meters(dem.getElevation(gps.location) ?: 0f)
+                            DEM.getElevation(gps.location) ?: Distance.meters(0f)
                         }.meters().distance
                     } else {
                         gps.altitude
@@ -53,22 +53,16 @@ class DigitalElevationModel(private val context: Context, private val gps: IGPS)
 
     override fun startImpl() {
         gps.start(this::onUpdate)
-        if (hasPlugin()) {
-            dem.connect()
-        }
     }
 
     override fun stopImpl() {
         gps.stop(this::onUpdate)
         queue.cancel()
         job?.cancel()
-        if (hasPlugin()) {
-            dem.disconnect()
-        }
     }
 
-    private fun hasPlugin(): Boolean {
-        return Plugins.isPluginAvailable(context, Plugins.DIGITAL_ELEVATION_MODEL)
+    private fun hasDEM(): Boolean {
+        return isEnabled && DEM.isAvailable()
     }
 
     override val hasValidReading: Boolean
