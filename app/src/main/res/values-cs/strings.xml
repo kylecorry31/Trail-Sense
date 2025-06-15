@@ -1437,4 +1437,6 @@
     <string name="mute_alarm_at_night">Ztlumit budík v noci</string>
     <string name="alarm_time_range">Spustí se pouze mezi %1$s a %2$s</string>
     <string name="survival_guide_empty_desc">Hledejte témata přežití jako voda, lékařství, jídlo, počasí, přístřeší nebo navigační techniky.</string>
+    <string name="altimeter_mode_dem_barometer">DEM + Barometr</string>
+    <string name="digital_elevation_model_abbreviation">DEM</string>
 </resources>
