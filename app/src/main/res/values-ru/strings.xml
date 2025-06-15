@@ -88,7 +88,7 @@
     <string name="sos">СОС</string>
     <string name="tap_to_turn_off">Нажмите, чтобы выключить</string>
     <string name="flashlight_title">Фонарик</string>
-    <string name="unknown">Неизвестная</string>
+    <string name="unknown">Неизвестна</string>
     <string name="dash">-</string>
     <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="increase">+</string>
