@@ -1411,4 +1411,7 @@
     <string name="alarm_description">Speelt een geluid af, zelfs als media en meldingen gedempt zijn</string>
     <string name="mute_alarm_at_night">Wekker \'s nachts dempen</string>
     <string name="alarm_time_range">Alleen afspelen van %1$s tot %2$s</string>
+    <string name="digital_elevation_model_abbreviation">DEM</string>
+    <string name="altimeter_mode_dem_barometer">DEM + Barometer</string>
+    <string name="plugin_digital_elevation_model">Digital Elevation Model (DEM)</string>
 </resources>
