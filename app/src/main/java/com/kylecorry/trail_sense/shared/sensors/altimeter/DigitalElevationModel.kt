@@ -11,11 +11,11 @@ import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Speed
-import com.kylecorry.trail_sense.plugins.plugins.Plugins
 import com.kylecorry.trail_sense.plugins.dem.DEMPlugin
+import com.kylecorry.trail_sense.plugins.plugins.Plugins
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.time.Instant
 
@@ -26,9 +26,10 @@ class DigitalElevationModel(private val context: Context, private val gps: IGPS)
     private val queue = CoroutineQueueRunner(2)
     private val dem = DEMPlugin(context)
     private var demAltitude: Float? = null
+    private var job: Job? = null
 
     private fun onUpdate(): Boolean {
-        scope.launch {
+        job = scope.launch {
             queue.enqueue {
                 try {
                     demAltitude = if (hasPlugin()) {
@@ -60,6 +61,7 @@ class DigitalElevationModel(private val context: Context, private val gps: IGPS)
     override fun stopImpl() {
         gps.stop(this::onUpdate)
         queue.cancel()
+        job?.cancel()
         if (hasPlugin()) {
             dem.disconnect()
         }
