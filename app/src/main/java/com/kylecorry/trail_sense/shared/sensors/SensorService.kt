@@ -219,7 +219,7 @@ class SensorService(ctx: Context) {
                         useContinuousCalibration = userPrefs.altimeter.useFusedAltimeterContinuousCalibration,
                         recalibrationInterval = userPrefs.altimeter.fusedAltimeterForcedRecalibrationInterval,
                         useMSLAltitude = false,
-                        shouldLog = true
+                        shouldLog = false
 
                     )
                 )

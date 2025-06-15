@@ -11,7 +11,8 @@ import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Speed
-import com.kylecorry.trail_sense.shared.plugins.DEMPlugin
+import com.kylecorry.trail_sense.plugins.plugins.Plugins
+import com.kylecorry.trail_sense.plugins.dem.DEMPlugin
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -30,7 +31,7 @@ class DigitalElevationModel(private val context: Context, private val gps: IGPS)
         scope.launch {
             queue.enqueue {
                 try {
-                    demAltitude = if (DEMPlugin.isInstalled(context)) {
+                    demAltitude = if (hasPlugin()) {
                         cache.getOrPut(gps.location) {
                             dem.waitUntilConnected()
                             Distance.meters(dem.getElevation(gps.location) ?: 0f)
@@ -51,7 +52,7 @@ class DigitalElevationModel(private val context: Context, private val gps: IGPS)
 
     override fun startImpl() {
         gps.start(this::onUpdate)
-        if (DEMPlugin.isInstalled(context)) {
+        if (hasPlugin()) {
             dem.connect()
         }
     }
@@ -60,9 +61,13 @@ class DigitalElevationModel(private val context: Context, private val gps: IGPS)
         gps.stop(this::onUpdate)
         queue.cancel()
         scope.cancel()
-        if (DEMPlugin.isInstalled(context)) {
+        if (hasPlugin()) {
             dem.disconnect()
         }
+    }
+
+    private fun hasPlugin(): Boolean {
+        return Plugins.isPluginAvailable(context, Plugins.DIGITAL_ELEVATION_MODEL)
     }
 
     override val hasValidReading: Boolean

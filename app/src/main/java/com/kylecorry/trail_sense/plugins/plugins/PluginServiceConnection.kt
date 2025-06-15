@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.plugins
+package com.kylecorry.trail_sense.plugins.plugins
 
 import android.content.ComponentName
 import android.content.Context
@@ -9,10 +9,10 @@ import com.kylecorry.luna.coroutines.onDefault
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withTimeout
 
-abstract class PluginService<T>(
+abstract class PluginServiceConnection<T>(
     protected val context: Context,
-    private val packageId: String,
-    private val action: String
+    private val pluginId: Long,
+    private val serviceId: String
 ) {
     private var isBound = false
     private var isConnecting = false
@@ -45,15 +45,13 @@ abstract class PluginService<T>(
             }
             isConnecting = true
         }
-        val intent = Intent(action).apply {
-            setPackage(packageId)
-        }
+        val intent = getIntent() ?: return false
         return context.bindService(intent, connection, Context.BIND_AUTO_CREATE)
     }
 
     fun disconnect() {
         synchronized(lock) {
-            if (!isBound) {
+            if (!isBound && !isConnecting) {
                 return
             }
             context.unbindService(connection)
@@ -85,6 +83,21 @@ abstract class PluginService<T>(
                 }
                 delay(20)
             }
+        }
+    }
+
+    private fun getIntent(): Intent? {
+        val plugin = Plugins.getPlugin(context, pluginId) ?: return null
+        val installedPackage = plugin.getInstalledPackageId(context) ?: return null
+        val service = plugin.services.firstOrNull { it.id == serviceId } ?: return null
+        val actionId = if (service.prefixActionWithPackageName) {
+            "$installedPackage.${service.actionId}"
+        } else {
+            service.actionId
+        }
+
+        return Intent(actionId).apply {
+            setPackage(installedPackage)
         }
     }
 

@@ -15,6 +15,7 @@ import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.CustomBottomNavigationView
+import com.kylecorry.trail_sense.plugins.plugins.Plugins
 import com.kylecorry.trail_sense.settings.backup.BackupPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.AltimeterPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.AugmentedRealityPreferences
@@ -37,7 +38,6 @@ import com.kylecorry.trail_sense.shared.extensions.getIntArray
 import com.kylecorry.trail_sense.shared.extensions.getLongArray
 import com.kylecorry.trail_sense.shared.extensions.putIntArray
 import com.kylecorry.trail_sense.shared.extensions.putLongArray
-import com.kylecorry.trail_sense.shared.plugins.DEMPlugin
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sharing.MapSite
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyPreferences
@@ -281,12 +281,14 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
                 }
             }
 
+            val hasDemPlugin = Plugins.isPluginAvailable(context, Plugins.DIGITAL_ELEVATION_MODEL)
+
             return when (raw) {
                 "gps" -> AltimeterMode.GPS
                 "gps_barometer" -> AltimeterMode.GPSBarometer
                 "barometer" -> AltimeterMode.Barometer
-                "dem" -> if (DEMPlugin.isInstalled(context)) AltimeterMode.DigitalElevationModel else AltimeterMode.GPS
-                "dem_barometer" -> if (DEMPlugin.isInstalled(context)) AltimeterMode.DigitalElevationModelBarometer else AltimeterMode.DigitalElevationModelBarometer
+                "dem" -> if (hasDemPlugin) AltimeterMode.DigitalElevationModel else AltimeterMode.GPS
+                "dem_barometer" -> if (hasDemPlugin) AltimeterMode.DigitalElevationModelBarometer else AltimeterMode.DigitalElevationModelBarometer
                 else -> AltimeterMode.Override
             }
 

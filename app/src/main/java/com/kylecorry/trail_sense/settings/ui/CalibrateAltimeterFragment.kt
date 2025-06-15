@@ -28,10 +28,10 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.plugins.plugins.Plugins
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.plugins.DEMPlugin
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -193,12 +193,14 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
 
 
         // Calibration mode options
+        val hasDemPlugin =
+            Plugins.isPluginAvailable(requireContext(), Plugins.DIGITAL_ELEVATION_MODEL)
         val options = listOfNotNull(
             if (hasBarometer) getString(R.string.altimeter_mode_gps_barometer) to "gps_barometer" else null,
             getString(R.string.gps) to "gps",
             if (hasBarometer) getString(R.string.barometer) to "barometer" else null,
-            if (DEMPlugin.isInstalled(requireContext())) getString(R.string.altimeter_mode_dem_barometer) to "dem_barometer" else null,
-            if (DEMPlugin.isInstalled(requireContext())) getString(R.string.digital_elevation_model_abbreviation) to "dem" else null,
+            if (hasDemPlugin) getString(R.string.altimeter_mode_dem_barometer) to "dem_barometer" else null,
+            if (hasDemPlugin) getString(R.string.digital_elevation_model_abbreviation) to "dem" else null,
             getString(R.string.manual) to "override"
         )
 
