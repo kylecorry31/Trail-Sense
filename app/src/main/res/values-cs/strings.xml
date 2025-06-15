@@ -1439,4 +1439,5 @@
     <string name="survival_guide_empty_desc">Hledejte témata přežití jako voda, lékařství, jídlo, počasí, přístřeší nebo navigační techniky.</string>
     <string name="altimeter_mode_dem_barometer">DEM + Barometr</string>
     <string name="digital_elevation_model_abbreviation">DEM</string>
+    <string name="plugin_digital_elevation_model">Digitální model reliéfu (DEM)</string>
 </resources>
