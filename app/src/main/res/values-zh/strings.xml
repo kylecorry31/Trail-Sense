@@ -1398,4 +1398,6 @@
     <string name="mute_alarm_at_night">夜间将闹铃消音</string>
     <string name="use_alarm_for_sunset_alert">日落警报使用闹铃</string>
     <string name="use_alarm_for_sunrise_alert">日出警报使用闹铃</string>
+    <string name="altimeter_mode_dem_barometer">数字高程模型+气压计</string>
+    <string name="digital_elevation_model_abbreviation">数字高程模型</string>
 </resources>
