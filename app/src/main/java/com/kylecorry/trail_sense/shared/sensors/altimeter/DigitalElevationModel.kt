@@ -60,7 +60,6 @@ class DigitalElevationModel(private val context: Context, private val gps: IGPS)
     override fun stopImpl() {
         gps.stop(this::onUpdate)
         queue.cancel()
-        scope.cancel()
         if (hasPlugin()) {
             dem.disconnect()
         }
