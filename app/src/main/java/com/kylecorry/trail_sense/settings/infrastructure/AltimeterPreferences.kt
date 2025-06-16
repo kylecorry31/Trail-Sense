@@ -23,5 +23,11 @@ class AltimeterPreferences(context: Context) : PreferenceRepo(context) {
 
     val isDigitalElevationModelAvailable: Boolean
         get() = isDebug()
+    
+    var isDigitalElevationModelLoaded by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_altimeter_dem_loaded),
+        false
+    )
 
 }

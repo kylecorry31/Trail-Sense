@@ -38,9 +38,7 @@ class DigitalElevationModel(private val context: Context, private val gps: IGPS)
                     val gpsAltitude = gps.altitude
                     val gpsIsValid = gps.hasValidReading
                     demAltitude = if (hasDEM()) {
-                        cache.getOrPut(location) {
-                            DEM.getElevation(location) ?: Distance.meters(0f)
-                        }.meters().distance
+                        DEM.getElevation(location)?.meters()?.distance ?: 0f
                     } else {
                         gpsAltitude
                     }
@@ -100,8 +98,4 @@ class DigitalElevationModel(private val context: Context, private val gps: IGPS)
         get() = gps.time
     override val speed: Speed
         get() = gps.speed
-
-    companion object {
-        private val cache = GeospatialCache<Distance>(Distance.meters(100f), size = 100)
-    }
 }

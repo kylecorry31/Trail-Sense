@@ -10,6 +10,8 @@ import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
+import com.kylecorry.trail_sense.shared.dem.DigitalElevationModelDao
+import com.kylecorry.trail_sense.shared.dem.DigitalElevationModelEntity
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReadingEntity
 import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryDao
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconDao
@@ -53,8 +55,8 @@ import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.Pressu
  */
 @Suppress("LocalVariableName")
 @Database(
-    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class],
-    version = 42,
+    entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, MapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class],
+    version = 43,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -76,6 +78,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun lightningDao(): LightningStrikeDao
     abstract fun fieldGuidePageDao(): FieldGuidePageDao
     abstract fun fieldGuideSightingDao(): FieldGuideSightingDao
+    abstract fun digitalElevationModelDao(): DigitalElevationModelDao
 
     companion object {
 
@@ -371,6 +374,12 @@ abstract class AppDatabase : RoomDatabase() {
                 }
             }
 
+            val MIGRATION_42_43 = object : Migration(42, 43) {
+                override fun migrate(database: SupportSQLiteDatabase) {
+                    database.execSQL("CREATE TABLE IF NOT EXISTS `dem` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `resolution` INTEGER NOT NULL, `compression_method` TEXT NOT NULL, `version` TEXT NOT NULL, `filename` TEXT NOT NULL, `width` INTEGER NOT NULL, `height` INTEGER NOT NULL, `a` REAL NOT NULL, `b` REAL NOT NULL, `north` REAL NOT NULL, `south` REAL NOT NULL, `east` REAL NOT NULL, `west` REAL NOT NULL)")
+                }
+            }
+
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
                 .addMigrations(
                     MIGRATION_1_2,
@@ -413,7 +422,8 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_38_39,
                     MIGRATION_39_40,
                     MIGRATION_40_41,
-                    MIGRATION_41_42
+                    MIGRATION_41_42,
+                    MIGRATION_42_43
                 )
                 // TODO: Temporary for the android tests, will remove once AppDatabase is injected with hilt
                 .allowMainThreadQueries()

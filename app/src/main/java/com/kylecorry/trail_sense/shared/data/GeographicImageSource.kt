@@ -6,7 +6,6 @@ import androidx.core.graphics.alpha
 import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
-import com.kylecorry.andromeda.bitmaps.ImagePixelReader
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.AssetFileSystem
@@ -22,11 +21,11 @@ class GeographicImageSource(
     private val latitudePixelsPerDegree: Double = ((imageSize.height - 1) / abs(bounds.north - bounds.south)),
     private val longitudePixelsPerDegree: Double = ((imageSize.width - 1) / abs(bounds.east - bounds.west)),
     private val precision: Int = 2,
-    interpolate: Boolean = true,
+    private val interpolate: Boolean = true,
     private val decoder: (Int?) -> List<Float> = { listOf(it?.toFloat() ?: 0f) }
 ) {
 
-    private val reader = ImagePixelReader(imageSize, interpolate)
+    private val reader = ImagePixelReader2(imageSize)
 
     fun getPixel(location: Coordinate): PixelCoordinate {
         var x = (location.longitude - bounds.west) * longitudePixelsPerDegree
@@ -51,8 +50,19 @@ class GeographicImageSource(
     }
 
     suspend fun read(stream: InputStream, pixel: PixelCoordinate): List<Float> = onIO {
-        val data = reader.getPixel(stream, pixel.x, pixel.y, true)
-        decoder(data)
+        val pixels = reader.getPixels(stream, pixel.x, pixel.y, true)
+        val decoded = pixels.map { it.first to decoder(it.second) }
+        if (interpolate) {
+            val channels = decoded.firstOrNull()?.second?.size ?: 0
+            val interpolated = mutableListOf<Float>()
+            for (i in 0 until channels) {
+                val values = decoded.map { it.first to it.second[i] }
+                interpolated.add(ImagePixelReader2.interpolate(pixel, values))
+            }
+            interpolated
+        } else {
+            decoded.minByOrNull { pixel.distanceTo(it.first) }?.second ?: emptyList()
+        }
     }
 
     suspend fun read(context: Context, filename: String, location: Coordinate): List<Float> = onIO {
@@ -96,7 +106,7 @@ class GeographicImageSource(
             }
         }
 
-        fun split16BitDecoder(): (Int?) -> List<Float> {
+        fun split16BitDecoder(a: Double = 1.0, b: Double = 0.0): (Int?) -> List<Float> {
             return {
                 val red = it?.red ?: 0
                 val green = it?.green ?: 0
@@ -106,7 +116,7 @@ class GeographicImageSource(
                 listOf(
                     green shl 8 or red,
                     alpha shl 8 or blue
-                ).map { it.toFloat() }
+                ).map { (it.toDouble() / a - b).toFloat() }
 
             }
         }
