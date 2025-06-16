@@ -655,7 +655,7 @@
 \n
 \n### Lösungen
 \n%4$s</string>
-    <string name="gps_unavailable_resolution">Aktivieren Sie die Standortbestimmung oder ändern Sie Ihre Standortquelle auf „Nur Gerät“ oder „Hohe Genauigkeit“.</string>
+    <string name="gps_unavailable_resolution">Aktivieren Sie die Standortbestimmung oder ändern Sie Ihre Standortquelle auf „Nur Gerät“ oder „Hohe Genauigkeit“</string>
     <string name="background_location_permission">Standort (Immer zulassen)</string>
     <string name="battery_restricted_resolution">Trail Sense als nicht optimiert festlegen</string>
     <string name="power_saving_mode_resolution">Stromsparmodus deaktivieren</string>
@@ -1016,16 +1016,12 @@
     <string name="pref_keep_map_facing_up_summary">Die karte zeigt immer nach oben und nicht zu dem echten Norden.</string>
     <string name="until_sunrise">Bis Sonnenaufgang</string>
     <string name="until_sunset">Bis Sonnenuntergang</string>
-    <string name="map_calibration_instructions">Wähle einen bekannten Punkt aus, und gebe seine echten Koordinaten ein.
-\nDu kannst mit fertig speichern.
-\n
-\nGut geeignet für die Kalibration sind, Parkplätze, Häuser oder Kreuzungen.</string>
+    <string name="map_calibration_instructions">Wähle einen bekannten Punkt aus, und gebe seine echten Koordinaten ein. Sie können mit einem Klick auf \"Fertig\" speichern.\n \nGut geeignet für die Kalibration sind, Parkplätze, Häuser oder Kreuzungen.</string>
     <string name="astronomy_rise">Aufgang</string>
     <string name="compass_source_mag_gyro">Magnetometer + Gyro</string>
     <string name="data_source">Quelle: %s</string>
     <string name="compass_source_legacy_ts">Veraltet (Trail Sense)</string>
-    <string name="reduce_map_resolution_crop_disclaimer">Bilder schneiden reduziert die Auflösung.
-\nWenn du die karte bearbeiten musst, und sie eine hohe Auflösung haben muss, benutze einen Fotoeditor. Dies wird in naher Zukunft behoben.</string>
+    <string name="reduce_map_resolution_crop_disclaimer">Die Karte zuzuschneiden reduziert die Auflösung. Wenn Sie die Karte bearbeiten müssen, und sie eine hohe Auflösung haben muss, benutzen Sie einen Fotoeditor. Dies wird in naher Zukunft behoben.</string>
     <string name="reset_calibration">Lösche Kalibrierung</string>
     <string name="learn_more">Lerne mehr</string>
     <string name="magnitude">Größe</string>
@@ -1042,8 +1038,7 @@
     <string name="allow_ignore_battery_restrictions">Erlaube %s den Energiesparmodus zu ignorieren</string>
     <string name="sunset_alerts_background_location_disclaimer">Sonnenuntergang Alarme sind vielleicht ungenau während dem Reisen</string>
     <string name="beta">Beta</string>
-    <string name="beta_disclaimer">Diese Funktion ist zurzeit nicht fertig.
-\nBitte melde Fehler hier: %s .</string>
+    <string name="beta_disclaimer">Diese Funktion ist zurzeit nicht fertig. Bitte melden Sie Fehler hier: %s .</string>
     <string name="allow_schedule_exact_alarms">Erlaube %s Alarme und Erinnerungen zu starten</string>
     <string name="allow_schedule_exact_alarms_instructions">Dies erlaubt %1$s exakte Alarme und Erinnerungen, wie z.B. Sonnenuntergangs Alarme zu starten.
 \nOhne dies, Alarme starten vielleicht nicht zur richtigen zeit.
@@ -1240,7 +1235,7 @@
     </plurals>
     <string name="augmented_reality_no_gyro_message">Augmented Reality lässt sich weiter verwenden, ist aber nicht mehr so genau.</string>
     <string name="audio_error_messsage">Das Abspielen von Ton führte zu einem Fehler.</string>
-    <string name="ar_calibration_instructions">Zentriere das %s auf dem Schirm und drücke \"Kalibrieren\"</string>
+    <string name="ar_calibration_instructions">Zentrieren Sie den/die %s auf dem Bildschirm und drücken Sie \"Kalibrieren\"</string>
     <string name="use_gyroscope_after_calibration_description">Anstelle des Kompass (vermeidet magnetische Drift)</string>
     <string name="tool_quick_action_name">Tool: %s</string>
     <string name="projection_perspective">Perspektive</string>
@@ -1262,7 +1257,7 @@
     <string name="climate_continental">Kontinental</string>
     <string name="tide_chart">Gezeitendiagramm</string>
     <string name="stars">Sterne</string>
-    <string name="tide">Tide</string>
+    <string name="tide">Gezeit</string>
     <string name="speed_format_feet_per_second">%s FPS</string>
     <string name="meters_per_second">Meter pro Sekunde</string>
     <string name="speed">Geschwindigkeit</string>
@@ -1317,4 +1312,73 @@
     <string name="alarm_description">Spielt einen Sound, auch wenn Medien und Benachrichtigungen stummgeschaltet sind</string>
     <string name="alarm_time_range">Spielt nur von %1$s bis %2$s</string>
     <string name="tundra">Tundra</string>
+    <string name="projection_manufacturer_intrinsics">Intrinsische Werte des Herrsteller</string>
+    <string name="local_talk">Lokale Gespräche</string>
+    <string name="local_messaging">Lokale Nachrichten</string>
+    <string name="permits">Erlaubnis</string>
+    <string name="ballistics">Ballistik</string>
+    <string name="pref_start_camera_in_3d_view_summary">Öffne die Kamera bei Druck auf 3D-Knopf</string>
+    <string name="invalid_dem_file">Ungültige DEM Datei</string>
+    <string name="widget_pref_title">Widgets in der Applikation</string>
+    <string name="pref_navigation_lock_screen_when_open_title">Wenn geöffnet, auf dem Sperrbildschirm anzeigen</string>
+    <string name="pref_start_camera_in_3d_view_title">Kamera für 3D-Anzeige nutzen</string>
+    <string name="tool_quick_action_summary">Navigationsknopf lange drücken oder im Werkzeugtab ansehen</string>
+    <string name="drop_amount">%s Fallhöhe</string>
+    <string name="muzzle_velocity">Initiale Geschwindigkeit</string>
+    <string name="ballistics_calculator">Ballistikrechner</string>
+    <string name="projection_estimated_intrinsics">Geschätze intrinsische Werte</string>
+    <string name="field_guide">Naturführer</string>
+    <string name="drop_header_units">Fall (%s)</string>
+    <string name="bullet_weight">Geschossgewicht</string>
+    <string name="harvested">Geernet</string>
+    <string name="no_recorded_cell_signal_nearby">Kein Mobilfunksignal in der Nähe</string>
+    <string name="loaded">Geladen</string>
+    <string name="climate_ice_cap_description">Das Eis schmilzt während des Jahres nicht und Vegetation fehlt.</string>
+    <string name="ar_calibration_disclaimer">Vor jeder Verwendung des Augmented Reality-Tools überprüfen Sie die Sonnen- oder Mondsymbole richtig auf die reale Welt ausgerichtet. Wenn nicht, klicken Sie auf das Kompass-Symbol in der oberen linken Seite des Bildschirms und folgen Sie den Anweisungen zum Kalibrieren.</string>
+    <string name="survival_guide_disclaimer">Dieser Leitfaden ist nur für Informationszwecke vorgesehen, und weder der Autor, Verleger oder alle Mitwirkenden garantieren seine Richtigkeit oder Eignung für jeden Zweck. Durch die Nutzung dieses Leitfadens erkennen Sie an, dass Outdoor-Aktivitäten mit Risiken verbunden sind und dass Sie dies auf eigenes Risiko tun. Sie erklären sich damit einverstanden, den Autor, den Herausgeber und alle Mitwirkenden von jeglichen Ansprüchen oder Schäden freizustellen, die sich aus Ihrer Nutzung dieses Leitfadens ergeben. Wenden Sie sich für eine individuelle Beratung zu Ihrer Situation immer an einen Fachmann, da dieser Leitfaden keine professionelle Beratung ersetzt. Beachten Sie außerdem, dass lokale Gesetze und Vorschriften die legale Anwendung der hier beschriebenen Techniken beeinträchtigen können. Für die Einhaltung dieser Gesetze sind Sie selbst verantwortlich.</string>
+    <string name="not_set">Nicht gesetzt</string>
+    <string name="safe_mode_toast">Abstürze erkannt, einige Funktionen werden für einige Sekunden deaktiviert.</string>
+    <string name="opacity">Deckkraft</string>
+    <string name="delete_all_beacons">Alle Wegpunkte werden gelöscht.</string>
+    <string name="climate_tropical_monsoon">Tropischer Monsun</string>
+    <string name="climate_desert_description">Ein extremer Mangel an Niederschlägen macht lockeres Gelände und Schwierigkeiten, Wasser zu finden.</string>
+    <string name="turn_back_alerts">Umdrehalarme</string>
+    <string name="field_guide_disclaimer">Dieses Tool ist nur für Bildungszwecke bestimmt. Seien Sie immer vorsichtig bei der Identifizierung von Pflanzen, Tieren oder Pilzen. Einige Arten können gefährlich oder geschützt sein. Wenn Sie bei der Identifizierung unsicher sind, wenden Sie sich an einen Fachmann.</string>
+    <string name="climate_ice_cap">Eiskappe</string>
+    <string name="climate_continental_description">Ein kaltes Klima mit warmen Sommern, kalten Wintern und großen saisonalen Veränderungen.</string>
+    <string name="climate_dry_summer_description">Im Sommer herrscht Trockenzeit.</string>
+    <string name="climate_dry_winter_description">Im Winter herrscht Trockenzeit.</string>
+    <string name="climate_cold_summer_description">Planen Sie im Sommer kühle Temperaturen ein.</string>
+    <string name="climate_very_cold_winter_description">Planen Sie im Winter extrem kalte Temperaturen ein.</string>
+    <string name="mosquitoes">Mücken</string>
+    <string name="climate_tropical_description">Ein heißes und humides Klima mit erheblichen Niederschlägen das ganze Jahr über.</string>
+    <string name="climate_dry_description">Ein arides Klima mit wenig Niederschlag und sparsamer Vegetation.</string>
+    <string name="record_sighting">Rekordsichtung</string>
+    <string name="sightings">Sichtungen</string>
+    <string name="climate_warm_summer_description">Planen Sie im Sommer warme Temperaturen ein.</string>
+    <string name="active_period">Aktiv von %1$s bis %2$s</string>
+    <string name="ticks">Zecken</string>
+    <string name="source_era5">Quelle: ERA5</string>
+    <string name="source_merra_2">Quelle: MERRA-2</string>
+    <string name="climate_tropical_savanna">Tropische Savanne</string>
+    <string name="climate_steppe">Steppe</string>
+    <string name="climate_temperate_description">Ein mildes Klima mit unterschiedlichen Jahreszeiten und moderaten Niederschlägen.</string>
+    <string name="climate_rainforest_description">Die dichten Blätter können GPS-Signale stören.</string>
+    <string name="climate_tundra_description">Im Sommer kann es sein, dass etwas Eis taut, die Vegetation wird jedoch minimal sein.</string>
+    <string name="climate_hot_description">Planen Sie das ganze Jahr über heiße Temperaturen ein.</string>
+    <string name="climate_cold_description">Planen Sie das ganze Jahr über kalte Temperaturen ein.</string>
+    <string name="climate_hot_summer_description">Planen Sie im Sommer hohe Temperaturen ein.</string>
+    <string name="sightings_count">Sichtungen (%d)</string>
+    <string name="use_alarm_for_sunrise_alert">Alarm für Sonnenaufgangswarnung verwenden</string>
+    <string name="use_alarm_for_distance_alert">Alarm für Entfernungsalarm nutzen</string>
+    <string name="use_alarm_for_turn_back_alert">Alarm für Umdrehalarm nutzen</string>
+    <string name="mute_alarm_at_night">Alarm nachts stummschalten</string>
+    <string name="use_alarm_for_water_boil_timer">Alarm für Wasserkocher-Timer nutzen</string>
+    <string name="use_alarm_for_storm_alert">Alarm für Sturmwarnung verwenden</string>
+    <string name="use_alarm_for_sunset_alert">Alarm für Sonnenuntergangswarnung verwenden</string>
+    <string name="grassland">Grasland</string>
+    <string name="cell_towers">Mobilfunkmasten</string>
+    <string name="signal_finder_description">Nahegelegene Mobilfunkmasten und Signale ansehen.</string>
+    <string name="no_cell_towers_found">Keine Mobilfunkmasten gefunden</string>
+    <string name="habitat">Lebensraum</string>
 </resources>

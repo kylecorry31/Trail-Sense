@@ -1,18 +1,51 @@
-<h4>Navigation</h4>
-<p>Der Kompass kann verwendet werden, um die Richtung nach Norden herauszufinden und wenn er mit GPS kombiniert wird, ist auch eine Navigation zu vorher festgelegten Orten möglich. Diese vorher festgelegten Orte, die Wegpunkte, können an Ihrem Standort oder auch an jedem anderen Punkt erstellt werden, sodass Sie zurück navigieren können, wenn Sie einen Wegpunkt gesetzt haben.</p>
-<p>Beipiel-Wegpunkte: Campingplatz, Arbeit, Wegweiser</p>
-<p>Die Taschenlampe kann einfach vom Navigations-Tab aus aktiviert werden (normaler/SOS-Modus)</p>
+<p>Entdecke mit Trail Sense die Welt jenseits des Internets.</p>
 
-<h4>Wetter</h4>
-<p>Das Barometer kann genutzt werden, um herauszufinden, ob das Wetter sich in Kürze ändern wird oder ob ein Sturm aufkommen könnte. Der Druckverlauf (letzte 48 Stunden) wird als Diagramm angezeigt und eine Interpretation des aktuellen Wertes steht zur Verfügung. Wenn der Druck plötzlich fällt, wird eine Sturmbenachrichtigung gesendet.</p>
+<ul>
+<li>Entwickelt für Wandern, Backpacking, Camping und Geocaching</li>
+<li>Platzieren Sie Wegpunkte und navigiere dorthin</li>
+<li>Verwenden Sie Ihr Gerät als Kompass (nur auf Geräten mit Kompasssensor verfügbar)</li>
+<li>Folgen Sie Pfaden</li>
+<li>Verfolgen Sie Ihre Schritte mit Rückweg</li>
+<li>Verwenden Sie ein Foto als Karte</li>
+<li>Planen Sie Ihr Gepäck</li>
+<li>Warnmeldungen vor Sonnenuntergang</li>
+<li>Wettervorhersagen (nur auf Geräten mit Barometersensor verfügbar)</li>
+<li>Verwenden Sie Ihr Smartphone als Taschenlampe</li>
+<li>Und vieles mehr!</li>
+</ul>
 
-<h4>Astronomie</h4>
-<p>Zeigt die Auf- und Untergangszeiten von Sonne/Mond und die Mondphase an Ihrer Position an.</p>
+<p>Trail Sense ist ein Werkzeug, und wie bei jedem anderen Werkzeug, das Sie in die Wildnis mitnehmen,
+ist es unerlässlich, über Ersatzausrüstung und entsprechende Kenntnisse zu verfügen. Diese App dient ausschließlich Informationszwecken. Die Genauigkeit der Vorhersagen und Sensoren hängt von verschiedenen Faktoren ab, darunter Kalibrierung, Sensorqualität, externe Quellen usw.
+Die Nutzung erfolgt auf eigene Gefahr. Halten Sie stets Backup-Tools (z. B. einen Kompass) bereit und achten Sie auf Ihre Sicherheit.</p>
 
-<h4>Privatsphäre</h4>
-<p>Alle Standortdaten bleiben auf Ihrem Gerät und die App nutzt das Internet nicht.</p>
+<p>Diese App nutzt das Internet nicht und wird dies auch nie tun. Alle Informationen in Trail Sense stammen direkt von den Sensoren Ihres Smartphones, und es werden keine Daten von Trail Sense übertragen.</p>
 
-<h4>Berechtigungen</h4>
-<p>Standort (genau, Hintergrund): Wird für Wegpunktnavigation, das Herausfinden der Richtung zum geographischen Norden, Höhenkorrigierung beim Höhenmessen (im Hintergrund) und Auf-/Untergangszeiten für Sonne/Mond verwendet.</p>
-<p>Taschenlampe: Wird für Taschenlampen-Funktion im Navigations-Tab verwendet.</p>
-<p>Körperliche Aktivität: Wird im Schrittzähler-basierten Kilometerzähler verwendet, um die Distanz herauszufinden.</p>
+<h3>HÄUFIGE PROBLEME</h3>
+<ul>
+<li>Kein Kompass: Wenn Ihr Smartphone keinen Kompasssensor hat, kann ich nichts tun, um die Funktion zu verbessern, da es sich um Hardware handelt.
+Sie können die anderen Funktionen von Trail Sense weiterhin nutzen.</li>
+<li>Kein Wetter: Das Wetter-Tool ist nur verfügbar, wenn Ihr Smartphone über einen Barometersensor verfügt.</li>
+</ul>
+
+<p>Haben Sie ein Problem gefunden oder wünschen Sie sich eine neue Funktion? Kontaktieren Sie mich unter trailsense@protonmail.com oder erstellen Sie ein neues Problem auf GitHub: github.com/kylecorry31/Trail-Sense</p>
+
+<p>Ich bin der einzige Entwickler von Trail Sense und werde daher mein Bestes tun, um bei Problemen zu helfen. Allerdings steht mir nur eine begrenzte Auswahl an Geräten zum Testen zur Verfügung.</p>
+
+<h3>BERECHTIGUNGEN</h3>
+<ul>
+<li>Benachrichtigungen: Ermöglicht Trail Sense die Anzeige von Benachrichtigungen (Rückweg, Wetter, Sonnenuntergangswarnungen, astronomische Ereignisse, Wasserkochtimer usw.).</li>
+<li>Standort: Ermöglicht Trail Sense, Ihren Standort für Navigation, Wetter (Meeresspiegelkalibrierung) und Astronomie abzurufen.</li>
+<li>Standort im Hintergrund: Ermöglicht Trail Sense die Abfrage Ihres Standorts für Sonnenuntergangswarnungen im Hintergrund.
+Auf einigen Geräten verbessert dies auch die Zuverlässigkeit der Rückverfolgung und der Wetterüberwachung.</li>
+<li>Körperliche Aktivität: Ermöglicht Trail Sense, den Schrittzähler Ihres Smartphones zur Entfernungsberechnung zu verwenden.</li>
+<li>Kamera: Ermöglicht Trail Sense, Ihre Kamera für den Zielkompass, den Neigungsmesser und zum Aufnehmen von Fotos zu verwenden, die vom Wolken-Scanner, QR-Code-Scanner und Fotokarten verwendet werden.</li>
+<li>Alarme und Erinnerungen: Ermöglicht Trail Sense, eine Benachrichtigung zu einem genauen Zeitpunkt zu senden.
+Dies wird vom Uhr-Tool (zum Aktualisieren der Systemzeit) und von Sonnenauf- und -untergangswarnungen verwendet.</li>
+</ul>
+
+<h3>Links</h3>
+<ul>
+<li>Datenschutzrichtlinie: https://kylecorry.com/Trail-Sense/#privacy</li>
+<li>FAQ: https://github.com/kylecorry31/Trail-Sense#faq</li>
+<li>Trail Sense ist unter der MIT-Lizenz verfügbar: https://opensource.org/license/mit/</li>
+</ul>

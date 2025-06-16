@@ -1381,4 +1381,10 @@
     <string name="use_alarm_for_sunrise_alert">Usar alarme para alertar sobre o nascer do sol</string>
     <string name="mute_alarm_at_night">Silenciar o alarme durante a noite</string>
     <string name="alarm_time_range">Somente jogos de %1$s a %2$s</string>
+    <string name="digital_elevation_model_abbreviation">MDE</string>
+    <string name="altimeter_mode_dem_barometer">MDE + Barómetro</string>
+    <string name="plugin_digital_elevation_model">Modelo Digital de Elevação (MDE)</string>
+    <string name="loaded">Carregado</string>
+    <string name="not_set">Não definido</string>
+    <string name="invalid_dem_file">Arquivo DEM inválido</string>
 </resources>
