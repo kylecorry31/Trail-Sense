@@ -1384,4 +1384,7 @@
     <string name="digital_elevation_model_abbreviation">MDE</string>
     <string name="altimeter_mode_dem_barometer">MDE + Barómetro</string>
     <string name="plugin_digital_elevation_model">Modelo Digital de Elevação (MDE)</string>
+    <string name="loaded">Carregado</string>
+    <string name="not_set">Não definido</string>
+    <string name="invalid_dem_file">Arquivo DEM inválido</string>
 </resources>
