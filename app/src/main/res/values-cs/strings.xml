@@ -1440,4 +1440,7 @@
     <string name="altimeter_mode_dem_barometer">DEM + Barometr</string>
     <string name="digital_elevation_model_abbreviation">DEM</string>
     <string name="plugin_digital_elevation_model">Digitální model reliéfu (DEM)</string>
+    <string name="loaded">Načteno</string>
+    <string name="invalid_dem_file">Neplatný soubor DEM</string>
+    <string name="not_set">Nenastaveno</string>
 </resources>
