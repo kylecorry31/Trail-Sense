@@ -213,7 +213,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
             if (hasBarometer) getString(R.string.altimeter_mode_gps_barometer) to "gps_barometer" else null,
             getString(R.string.gps) to "gps",
             if (hasBarometer) getString(R.string.barometer) to "barometer" else null,
-            if (prefs.altimeter.isDigitalElevationModelAvailable) getString(R.string.altimeter_mode_dem_barometer) to "dem_barometer" else null,
+            if (prefs.altimeter.isDigitalElevationModelAvailable && hasBarometer) getString(R.string.altimeter_mode_dem_barometer) to "dem_barometer" else null,
             if (prefs.altimeter.isDigitalElevationModelAvailable) getString(R.string.digital_elevation_model_abbreviation) to "dem" else null,
             getString(R.string.manual) to "override"
         )

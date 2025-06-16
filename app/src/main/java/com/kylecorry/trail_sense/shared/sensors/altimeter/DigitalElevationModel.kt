@@ -27,21 +27,27 @@ class DigitalElevationModel(private val context: Context, private val gps: IGPS)
     private val queue = CoroutineQueueRunner(2)
     private var demAltitude: Float? = null
     private var job: Job? = null
-    private val isEnabled = AppServiceRegistry.get<UserPreferences>().altimeter.isDigitalElevationModelAvailable
+    private val isEnabled =
+        AppServiceRegistry.get<UserPreferences>().altimeter.isDigitalElevationModelAvailable
 
     private fun onUpdate(): Boolean {
         job = scope.launch {
             queue.enqueue {
                 try {
+                    val location = gps.location
+                    val gpsAltitude = gps.altitude
+                    val gpsIsValid = gps.hasValidReading
                     demAltitude = if (hasDEM()) {
-                        cache.getOrPut(gps.location) {
-                            DEM.getElevation(gps.location) ?: Distance.meters(0f)
+                        cache.getOrPut(location) {
+                            DEM.getElevation(location) ?: Distance.meters(0f)
                         }.meters().distance
                     } else {
-                        gps.altitude
+                        gpsAltitude
                     }
                     onMain {
-                        notifyListeners()
+                        if (gpsIsValid) {
+                            notifyListeners()
+                        }
                     }
                 } catch (e: Exception) {
                     Log.e("DigitalElevationModel", "Unable to get DEM elevation", e)
@@ -52,6 +58,7 @@ class DigitalElevationModel(private val context: Context, private val gps: IGPS)
     }
 
     override fun startImpl() {
+        onUpdate()
         gps.start(this::onUpdate)
     }
 

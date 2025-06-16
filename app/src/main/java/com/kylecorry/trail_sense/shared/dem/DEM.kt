@@ -54,9 +54,12 @@ object DEM {
             )
         }
 
+        val resolutionArcMinutes = index.resolution_arc_seconds / 60.0
+        val resolutionDegrees = resolutionArcMinutes / 60.0
+
         val rounded = location.copy(
-            latitude = location.latitude.roundNearest(index.resolution_arc_seconds / 60.0 / 4.0),
-            longitude = location.longitude.roundNearest(index.resolution_arc_seconds / 60.0 / 4.0)
+            latitude = location.latitude.roundNearest(resolutionDegrees / 4.0),
+            longitude = location.longitude.roundNearest(resolutionDegrees / 4.0)
         )
         cache.getOrPut(rounded) {
             val image =
