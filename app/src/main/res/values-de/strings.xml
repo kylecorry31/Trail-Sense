@@ -1317,4 +1317,22 @@
     <string name="alarm_description">Spielt einen Sound, auch wenn Medien und Benachrichtigungen stummgeschaltet sind</string>
     <string name="alarm_time_range">Spielt nur von %1$s bis %2$s</string>
     <string name="tundra">Tundra</string>
+    <string name="projection_manufacturer_intrinsics">Intrinsische Werte des Herrsteller</string>
+    <string name="local_talk">Lokale Gespräche</string>
+    <string name="local_messaging">Lokale Nachrichten</string>
+    <string name="permits">Erlaubnis</string>
+    <string name="ballistics">Ballistik</string>
+    <string name="pref_start_camera_in_3d_view_summary">Öffne die Kamera bei Druck auf 3D-Knopf</string>
+    <string name="invalid_dem_file">Ungültige DEM Datei</string>
+    <string name="widget_pref_title">Widgets in der Applikation</string>
+    <string name="pref_navigation_lock_screen_when_open_title">Wenn geöffnet, auf dem Sperrbildschirm anzeigen</string>
+    <string name="pref_start_camera_in_3d_view_title">Kamera für 3D-Anzeige nutzen</string>
+    <string name="tool_quick_action_summary">Navigationsknopf lange drücken oder im Werkzeugtab ansehen</string>
+    <string name="drop_amount">%s Fallhöhe</string>
+    <string name="muzzle_velocity">Initiale Geschwindigkeit</string>
+    <string name="ballistics_calculator">Ballistikrechner</string>
+    <string name="projection_estimated_intrinsics">Geschätze intrinsische Werte</string>
+    <string name="field_guide">Naturführer</string>
+    <string name="drop_header_units">Fall (%s)</string>
+    <string name="bullet_weight">Geschossgewicht</string>
 </resources>
