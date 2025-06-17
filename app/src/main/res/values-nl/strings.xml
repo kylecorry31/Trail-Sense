@@ -1414,4 +1414,7 @@
     <string name="digital_elevation_model_abbreviation">DEM</string>
     <string name="altimeter_mode_dem_barometer">DEM + Barometer</string>
     <string name="plugin_digital_elevation_model">Digital Elevation Model (DEM)</string>
+    <string name="invalid_dem_file">Ongeldig DEM-bestand</string>
+    <string name="loaded">Geladen</string>
+    <string name="not_set">Niet ingesteld</string>
 </resources>
