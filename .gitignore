@@ -43,3 +43,8 @@ _site/
 __pycache__/
 *.py[cod]
 .venv/
+
+# Test data (too large for git)
+dem-*.zip
+# Mini will eventually be included once it has a release candidate
+# !dem-*-mini.zip

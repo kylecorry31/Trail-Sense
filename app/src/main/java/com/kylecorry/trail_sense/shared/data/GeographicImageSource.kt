@@ -9,6 +9,7 @@ import androidx.core.graphics.red
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.AssetFileSystem
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
@@ -22,6 +23,7 @@ class GeographicImageSource(
     private val longitudePixelsPerDegree: Double = ((imageSize.width - 1) / abs(bounds.east - bounds.west)),
     private val precision: Int = 2,
     private val interpolate: Boolean = true,
+    private val include0ValuesInInterpolation: Boolean = true,
     private val decoder: (Int?) -> List<Float> = { listOf(it?.toFloat() ?: 0f) }
 ) {
 
@@ -56,7 +58,9 @@ class GeographicImageSource(
             val channels = decoded.firstOrNull()?.second?.size ?: 0
             val interpolated = mutableListOf<Float>()
             for (i in 0 until channels) {
-                val values = decoded.map { it.first to it.second[i] }
+                val values = decoded.map { it.first to it.second[i] }.filter {
+                    include0ValuesInInterpolation || !SolMath.isZero(it.second)
+                }
                 interpolated.add(ImagePixelReader2.interpolate(pixel, values))
             }
             interpolated

@@ -39,7 +39,8 @@ object DEM {
                         it.a,
                         it.b
                     ) else GeographicImageSource.split16BitDecoder(it.a, it.b),
-                    precision = 10
+                    precision = 10,
+                    include0ValuesInInterpolation = false
                 )
             }
 

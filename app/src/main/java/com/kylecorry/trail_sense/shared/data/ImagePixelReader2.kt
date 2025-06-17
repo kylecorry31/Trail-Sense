@@ -9,7 +9,9 @@ import com.kylecorry.andromeda.bitmaps.BitmapUtils
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.isInBounds
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.sol.math.sumOfFloat
 import java.io.InputStream
+import kotlin.math.abs
 import kotlin.math.roundToInt
 
 /**
@@ -94,18 +96,11 @@ class ImagePixelReader2(
 
     companion object {
         fun interpolate(point: PixelCoordinate, values: List<Pair<PixelCoordinate, Float>>): Float {
-            // TODO: Don't assume the order
-            val x1y1 = values[0]
-            val x1y2 = values[1]
-            val x2y1 = values[2]
-            val x2y2 = values[3]
+            val weights =
+                values.map { (abs(it.first.x - point.x) * abs(it.first.y - point.y)) to it.second }
 
-            val x1y1Weight = (x2y1.first.x - point.x) * (x1y2.first.y - point.y)
-            val x1y2Weight = (x2y1.first.x - point.x) * (point.y - x1y1.first.y)
-            val x2y1Weight = (point.x - x1y1.first.x) * (x1y2.first.y - point.y)
-            val x2y2Weight = (point.x - x1y1.first.x) * (point.y - x1y1.first.y)
-
-            return x1y1.second * x1y1Weight + x1y2.second * x1y2Weight + x2y1.second * x2y1Weight + x2y2.second * x2y2Weight
+            return weights.sumOfFloat { it.first * it.second } /
+                    weights.sumOfFloat { it.first }
         }
     }
 
