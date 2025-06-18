@@ -2,6 +2,9 @@ package com.kylecorry.trail_sense.settings.ui
 
 import android.os.Bundle
 import android.text.InputType
+import android.text.util.Linkify.WEB_URLS
+import androidx.core.text.toSpannable
+import androidx.core.text.util.LinkifyCompat
 import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
 import androidx.preference.Preference
@@ -34,6 +37,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.dem.DigitalElevationModelLoader
 import com.kylecorry.trail_sense.shared.io.IntentUriPicker
@@ -213,7 +217,14 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
 
         demPref.isVisible = isModeDem
         demPref.summary =
-            if (DEM.isAvailable()) getString(R.string.loaded) else getString(R.string.not_set)
+            if (DEM.isAvailable()) getString(R.string.loaded) else getString(R.string.import_dem_file)
+        if (DEM.isAvailable()) {
+            demPref.icon = null
+        } else {
+            val drawable = Resources.drawable(requireContext(), R.drawable.ic_alert)
+            drawable?.setTint(AppColor.Red.color)
+            demPref.icon = drawable
+        }
         clearDemPref.isVisible = DEM.isAvailable()
 
         // Calibration mode options
@@ -398,6 +409,19 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
 
     private fun loadDEM() {
         inBackground(state = BackgroundMinimumState.Created) {
+            val instructions = getString(
+                R.string.digital_elevation_model_link
+            ).toSpannable()
+            LinkifyCompat.addLinks(instructions, WEB_URLS)
+            val cancelled = CoroutineAlerts.dialog(
+                requireContext(), getString(R.string.plugin_digital_elevation_model),
+                instructions, allowLinks = true
+            )
+
+            if (cancelled) {
+                return@inBackground
+            }
+
             val source = IntentUriPicker(
                 this@CalibrateAltimeterFragment,
                 requireContext()

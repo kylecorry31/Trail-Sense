@@ -1733,5 +1733,8 @@
     <string name="loaded">Loaded</string>
     <!--DEM = Digital Elevation Model-->
     <string name="invalid_dem_file">Invalid DEM file</string>
+    <!--DEM = Digital Elevation Model-->
+    <string name="import_dem_file">Import DEM file</string>
     <string name="pref_altimeter_dem_loaded" translatable="false">pref_altimeter_dem_loaded</string>
+    <string name="digital_elevation_model_link">You can download a digital elevation model in various sizes from https://kylecorry.com/Trail-Sense/dem.html</string>
 </resources>
