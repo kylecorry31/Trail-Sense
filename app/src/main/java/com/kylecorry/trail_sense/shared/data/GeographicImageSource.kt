@@ -52,20 +52,33 @@ class GeographicImageSource(
     }
 
     suspend fun read(stream: InputStream, pixel: PixelCoordinate): List<Float> = onIO {
-        val pixels = reader.getPixels(stream, pixel.x, pixel.y, true)
-        val decoded = pixels.map { it.first to decoder(it.second) }
+        val pixels =
+            reader.getPixels(stream, pixel.x, pixel.y, true)
+        val decoded = pixels.map { it to decoder(it.value) }
         if (interpolate) {
             val channels = decoded.firstOrNull()?.second?.size ?: 0
             val interpolated = mutableListOf<Float>()
             for (i in 0 until channels) {
-                val values = decoded.map { it.first to it.second[i] }.filter {
-                    include0ValuesInInterpolation || !SolMath.isZero(it.second)
+                val values = decoded.map {
+                    FloatPixelResult(
+                        it.first.x,
+                        it.first.y,
+                        it.second[i],
+                        it.first.order
+                    )
+                }.filter {
+                    include0ValuesInInterpolation || !SolMath.isZero(it.value)
                 }
-                interpolated.add(ImagePixelReader2.interpolate(pixel, values))
+                interpolated.add(
+                    ImagePixelReader2.bilinearInterpolate(
+                        pixel,
+                        values
+                    )
+                )
             }
             interpolated
         } else {
-            decoded.minByOrNull { pixel.distanceTo(it.first) }?.second ?: emptyList()
+            decoded.minByOrNull { pixel.distanceTo(it.first.coordinate) }?.second ?: emptyList()
         }
     }
 

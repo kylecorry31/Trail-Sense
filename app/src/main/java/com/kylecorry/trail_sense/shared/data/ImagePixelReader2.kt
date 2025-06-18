@@ -14,6 +14,23 @@ import java.io.InputStream
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
+class PixelResult(
+    val x: Int,
+    val y: Int,
+    val value: Int,
+    val order: Int
+) {
+    val coordinate: PixelCoordinate
+        get() = PixelCoordinate(x.toFloat(), y.toFloat())
+}
+
+class FloatPixelResult(
+    val x: Int,
+    val y: Int,
+    val value: Float,
+    val order: Int
+)
+
 /**
  * Read a pixel from an image without loading the entire image into memory
  * @param imageSize The size of the image
@@ -21,7 +38,8 @@ import kotlin.math.roundToInt
  */
 class ImagePixelReader2(
     private val imageSize: Size,
-    private val config: Bitmap.Config = Bitmap.Config.ARGB_8888
+    private val config: Bitmap.Config = Bitmap.Config.ARGB_8888,
+    private val lookupOrder: Int = 1 // The layers of surrounding pixels to look up (1 = 4 pixels, 2 = 12 pixels, etc.)
 ) {
 
     @Suppress("BlockingMethodInNonBlockingContext")
@@ -30,7 +48,7 @@ class ImagePixelReader2(
         x: Float,
         y: Float,
         autoClose: Boolean = true
-    ): List<Pair<PixelCoordinate, Int>> = onIO {
+    ): List<PixelResult> = onIO {
         var bitmap: Bitmap? = null
         try {
             val rect = getRegion(x.roundToInt(), y.roundToInt())
@@ -48,32 +66,53 @@ class ImagePixelReader2(
             val newX = x - rect.left
             val newY = y - rect.top
 
-            val x1 = newX.toInt()
-            val x2 = x1 + 1
-            val y1 = newY.toInt()
-            val y2 = y1 + 1
-
-            if (!bitmap.isInBounds(x1, y1) || !bitmap.isInBounds(x2, y2)) {
-                return@onIO emptyList()
+            return@onIO (1..lookupOrder).flatMap { order ->
+                getNearbyPixels(newX.toInt(), newY.toInt(), order, bitmap)
+            }.map {
+                PixelResult(
+                    it.x + rect.left,
+                    it.y + rect.top,
+                    it.value,
+                    it.order
+                )
             }
-
-            val x1y1 = bitmap[x1, y1]
-            val x1y2 = bitmap[x1, y2]
-            val x2y1 = bitmap[x2, y1]
-            val x2y2 = bitmap[x2, y2]
-
-            return@onIO listOf(
-                PixelCoordinate(x1.toFloat() + rect.left, y1.toFloat() + rect.top) to x1y1,
-                PixelCoordinate(x1.toFloat() + rect.left, y2.toFloat() + rect.top) to x1y2,
-                PixelCoordinate(x2.toFloat() + rect.left, y1.toFloat() + rect.top) to x2y1,
-                PixelCoordinate(x2.toFloat() + rect.left, y2.toFloat() + rect.top) to x2y2
-            )
         } finally {
             bitmap?.recycle()
             if (autoClose) {
                 image.close()
             }
         }
+    }
+
+    private fun getNearbyPixels(x: Int, y: Int, order: Int, bitmap: Bitmap): List<PixelResult> {
+        // Order 1 means the surrounding 4 pixels, order 2 is the next layer (the 10 around that)
+        val startX = x - (order - 1)
+        val endX = x + order
+        val startY = y - (order - 1)
+        val endY = y + order
+
+        val pixels = mutableListOf<PixelResult>()
+        for (i in startX..endX) {
+            // Top row
+            if (bitmap.isInBounds(i, startY)) {
+                pixels.add(PixelResult(i, startY, bitmap[i, startY], order))
+            }
+            // Bottom row
+            if (bitmap.isInBounds(i, endY)) {
+                pixels.add(PixelResult(i, endY, bitmap[i, endY], order))
+            }
+        }
+        for (j in (startY + 1) until endY) {
+            // Left column
+            if (bitmap.isInBounds(startX, j)) {
+                pixels.add(PixelResult(startX, j, bitmap[startX, j], order))
+            }
+            // Right column
+            if (bitmap.isInBounds(endX, j)) {
+                pixels.add(PixelResult(endX, j, bitmap[endX, j], order))
+            }
+        }
+        return pixels
     }
 
     private fun getRegion(x: Int, y: Int): Rect {
@@ -95,9 +134,11 @@ class ImagePixelReader2(
     }
 
     companion object {
-        fun interpolate(point: PixelCoordinate, values: List<Pair<PixelCoordinate, Float>>): Float {
+        fun bilinearInterpolate(point: PixelCoordinate, values: List<FloatPixelResult>): Float {
             val weights =
-                values.map { (abs(it.first.x - point.x) * abs(it.first.y - point.y)) to it.second }
+                values
+                    .filter { it.order == 1 }
+                    .map { (abs(it.x - point.x) * abs(it.y - point.y)) to it.value }
 
             return weights.sumOfFloat { it.first * it.second } /
                     weights.sumOfFloat { it.first }
