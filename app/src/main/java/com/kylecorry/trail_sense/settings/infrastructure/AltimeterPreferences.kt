@@ -20,9 +20,6 @@ class AltimeterPreferences(context: Context) : PreferenceRepo(context) {
         context.getString(R.string.pref_altimeter_forced_recalibration_interval),
         Duration.ofHours(2)
     )
-
-    val isDigitalElevationModelAvailable: Boolean
-        get() = isDebug()
     
     var isDigitalElevationModelLoaded by BooleanPreference(
         cache,

@@ -27,8 +27,6 @@ class DigitalElevationModel(private val context: Context, private val gps: IGPS)
     private val queue = CoroutineQueueRunner(2)
     private var demAltitude: Float? = null
     private var job: Job? = null
-    private val isEnabled =
-        AppServiceRegistry.get<UserPreferences>().altimeter.isDigitalElevationModelAvailable
 
     private fun onUpdate(): Boolean {
         job = scope.launch {
@@ -67,7 +65,7 @@ class DigitalElevationModel(private val context: Context, private val gps: IGPS)
     }
 
     private fun hasDEM(): Boolean {
-        return isEnabled && DEM.isAvailable()
+        return DEM.isAvailable()
     }
 
     override val hasValidReading: Boolean

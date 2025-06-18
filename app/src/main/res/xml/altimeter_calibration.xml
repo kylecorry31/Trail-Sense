@@ -28,6 +28,12 @@
             app:singleLineTitle="false" />
 
         <Preference
+            android:title="@string/remove_dem"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_clear_dem_button"
+            app:singleLineTitle="false" />
+
+        <Preference
             android:title="@string/pref_elevation_override_title"
             app:iconSpaceReserved="false"
             app:key="@string/pref_altitude_override"

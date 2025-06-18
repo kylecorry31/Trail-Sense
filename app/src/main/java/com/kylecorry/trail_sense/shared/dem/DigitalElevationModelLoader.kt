@@ -86,8 +86,13 @@ class DigitalElevationModelLoader {
     }
 
     suspend fun clear() = onIO {
+        val prefs = AppServiceRegistry.get<UserPreferences>()
         val files = AppServiceRegistry.get<FileSubsystem>()
+        val database = AppServiceRegistry.get<AppDatabase>().digitalElevationModelDao()
+
         files.getDirectory("dem", create = true).deleteRecursively()
+        database.deleteAll()
+        prefs.altimeter.isDigitalElevationModelLoaded = false
         DEM.invalidateCache()
     }
 

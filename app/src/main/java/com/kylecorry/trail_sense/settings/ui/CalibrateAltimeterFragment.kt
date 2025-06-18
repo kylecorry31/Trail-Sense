@@ -7,6 +7,7 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.alerts.CoroutineAlerts
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.coroutines.onDefault
@@ -63,6 +64,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
     private lateinit var continuousCalibrationPref: SwitchPreferenceCompat
     private lateinit var forceCalibrationPref: Preference
     private lateinit var demPref: Preference
+    private lateinit var clearDemPref: Preference
 
     private lateinit var lastMode: UserPreferences.AltimeterMode
     private val updateTimer = CoroutineTimer { updateAltitude() }
@@ -99,6 +101,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         continuousCalibrationPref = switch(R.string.pref_altimeter_continuous_calibration)!!
         forceCalibrationPref = preference(R.string.pref_fused_altimeter_force_calibration_holder)!!
         demPref = preference(R.string.pref_load_dem_button)!!
+        clearDemPref = preference(R.string.pref_clear_dem_button)!!
 
         val altitudeOverride = Distance.meters(prefs.altitudeOverride).convertTo(distanceUnits)
         altitudeOverridePref.summary = formatService.formatDistance(altitudeOverride)
@@ -169,6 +172,10 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
             loadDEM()
         }
 
+        onClick(clearDemPref) {
+            clearDEM()
+        }
+
         updateForceCalibrationIntervalSummary()
 
         // Update the altitude override to the current altitude
@@ -204,17 +211,18 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         val isModeDem = mode == UserPreferences.AltimeterMode.DigitalElevationModel ||
                 mode == UserPreferences.AltimeterMode.DigitalElevationModelBarometer
 
-        demPref.isVisible = isModeDem && prefs.altimeter.isDigitalElevationModelAvailable
+        demPref.isVisible = isModeDem
         demPref.summary =
             if (DEM.isAvailable()) getString(R.string.loaded) else getString(R.string.not_set)
+        clearDemPref.isVisible = DEM.isAvailable()
 
         // Calibration mode options
         val options = listOfNotNull(
             if (hasBarometer) getString(R.string.altimeter_mode_gps_barometer) to "gps_barometer" else null,
             getString(R.string.gps) to "gps",
             if (hasBarometer) getString(R.string.barometer) to "barometer" else null,
-            if (prefs.altimeter.isDigitalElevationModelAvailable && hasBarometer) getString(R.string.altimeter_mode_dem_barometer) to "dem_barometer" else null,
-            if (prefs.altimeter.isDigitalElevationModelAvailable) getString(R.string.digital_elevation_model_abbreviation) to "dem" else null,
+            if (hasBarometer) getString(R.string.altimeter_mode_dem_barometer) to "dem_barometer" else null,
+            getString(R.string.digital_elevation_model_abbreviation) to "dem",
             getString(R.string.manual) to "override"
         )
 
@@ -407,6 +415,23 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
             } catch (_: Exception) {
                 onMain {
                     toast(getString(R.string.invalid_dem_file))
+                }
+            }
+        }
+    }
+
+    private fun clearDEM() {
+        inBackground {
+            val cancelled = CoroutineAlerts.dialog(requireContext(), getString(R.string.remove_dem))
+            if (cancelled) {
+                return@inBackground
+            }
+            val loader = DigitalElevationModelLoader()
+            Alerts.withLoading(requireContext(), getString(R.string.loading)) {
+                loader.clear()
+                onMain {
+                    onAltimeterModeChanged()
+                    toast(getString(R.string.done))
                 }
             }
         }

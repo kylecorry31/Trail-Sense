@@ -280,14 +280,12 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
                 }
             }
 
-            val isDemAvailable = altimeter.isDigitalElevationModelAvailable
-
             return when (raw) {
                 "gps" -> AltimeterMode.GPS
                 "gps_barometer" -> AltimeterMode.GPSBarometer
                 "barometer" -> AltimeterMode.Barometer
-                "dem" -> if (isDemAvailable) AltimeterMode.DigitalElevationModel else AltimeterMode.GPS
-                "dem_barometer" -> if (isDemAvailable) AltimeterMode.DigitalElevationModelBarometer else AltimeterMode.DigitalElevationModelBarometer
+                "dem" -> AltimeterMode.DigitalElevationModel
+                "dem_barometer" -> AltimeterMode.DigitalElevationModelBarometer
                 else -> AltimeterMode.Override
             }
 
