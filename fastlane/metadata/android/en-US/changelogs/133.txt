@@ -1,0 +1,21 @@
+Navigation
+- Display photo maps on radar compass (disable in settings)
+- Make compass larger
+- Option to keep screen unlocked
+
+Photo Maps
+- Option to keep screen unlocked
+- Hide/show photo maps (for navigation)
+
+Survival Guide
+- Search snippets
+- Search quick action
+- Content updates
+
+Declination (new tool)
+- Show declination for a location
+
+Misc
+- Choose to play some notification sounds as alarms
+- Update declination model
+- Add DEM altimeter source (download required)
