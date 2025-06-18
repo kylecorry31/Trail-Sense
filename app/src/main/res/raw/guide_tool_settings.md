@@ -65,6 +65,8 @@ The current elevation is displayed at the top of the altimeter settings. As you 
 - **GPS + Barometer**: This is the default source and should work on most devices with a barometer. It combines the GPS and barometer to determine the altitude.
 - **GPS**: This source only uses the GPS to determine the altitude. It is less accurate than the GPS + Barometer source.
 - **Barometer**: This source only uses the barometer to determine the altitude. It is more accurate than the GPS source, but may drift over time and you will need to calibrate it before use.
+- **DEM + Barometer**: Combines a digital elevation model (DEM) with the barometer to determine altitude. Digital elevation models must be downloaded to use this, if not downloaded, the GPS will be used.
+- **DEM**: A digital elevation model (DEM) that determines elevation using your GPS location and a map. Digital elevation models must be downloaded to use this, if not downloaded, the GPS will be used.
 - **Manual**: This source allows you to manually set the altitude. This is useful if you know the altitude of your location and it will not change.
 
 ### GPS + Barometer settings
@@ -75,6 +77,10 @@ The current elevation is displayed at the top of the altimeter settings. As you 
 ### GPS settings
 - **Samples**: The number of GPS samples to use when determining the altitude. A higher number will give a more accurate reading, but will take longer to calculate.
 - **NMEA elevation correction**: The elevation provided by the GPS needs to be corrected to match the actual elevation. If this setting is enabled, it will use the correction factor provided by the GPS. If it is disabled, it will use the correction factor provided by Trail Sense, which may be more accurate.
+
+### DEM settings
+- **Digital elevation model (DEM)**: Clicking this will prompt you to download and import a digital elevation model. Models are available in a variety of sizes at https://kylecorry.com/Trail-Sense/dem.html. Once you import the model, you can delete the file from your device. If you already have a model loaded and select a new model, the old one will be removed.
+- **Remove DEM**: Clicking this will prompt you to delete the DEM file. This is irreversible and you will need to import another file to use the DEM.
 
 ### Barometer / manual settings
 - **Elevation override**: If you are using the barometer or manual source, you can set the elevation manually. This is useful if you know the elevation of your location. If using the barometer source, this setting is used to calibrate the barometer and will change as you move.
