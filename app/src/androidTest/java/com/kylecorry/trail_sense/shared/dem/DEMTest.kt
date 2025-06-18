@@ -3,14 +3,12 @@ package com.kylecorry.trail_sense.shared.dem
 import androidx.test.platform.app.InstrumentationRegistry
 import com.kylecorry.andromeda.files.AssetFileSystem
 import com.kylecorry.andromeda.files.CacheFileSystem
-import com.kylecorry.sol.math.statistics.Statistics
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.test_utils.TestStatistics.assertQuantile
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
-import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertNotNull
 import org.junit.Test
-import kotlin.math.absoluteValue
 
 class DEMTest {
 
@@ -21,10 +19,10 @@ class DEMTest {
     )
 
     private val models = listOf(
-        Model("dem/dem-0.2.0-mini.zip", 30f, 200f),
-        Model("dem/dem-0.2.0-low.zip", 25f, 90f),
-        Model("dem/dem-0.2.0-medium.zip", 25f, 80f),
-        Model("dem/dem-0.2.0-high.zip", 10f, 65f),
+        Model("dem/dem-0.2.0-mini.zip", 20f, 175f),
+        Model("dem/dem-0.2.0-low.zip", 20f, 60f),
+        Model("dem/dem-0.2.0-medium.zip", 15f, 45f),
+        Model("dem/dem-0.2.0-high.zip", 5f, 45f),
     )
 
     @Test
@@ -88,14 +86,8 @@ class DEMTest {
             actual!!.meters().distance - test.second
         }
 
-        val quantile50 = Statistics.quantile(errors.map { it.absoluteValue }, 0.5f)
-        val quantile90 = Statistics.quantile(errors.map { it.absoluteValue }, 0.9f)
-
-        println("50% quantile: $quantile50")
-        println("90% quantile: $quantile90")
-
-        assertEquals("${model.path} 50% quantile", 0f, quantile50, model.maxQuantile50Error)
-        assertEquals("${model.path} 90% quantile", 0f, quantile90, model.maxQuantile90Error)
+        assertQuantile(errors, model.maxQuantile50Error, 0.5f, model.path)
+        assertQuantile(errors, model.maxQuantile90Error, 0.9f, model.path)
     }
 
 }

@@ -1,12 +1,11 @@
 package com.kylecorry.trail_sense.shared
 
 import androidx.test.platform.app.InstrumentationRegistry
-import com.kylecorry.sol.math.statistics.Statistics
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.test_utils.TestStatistics.assertQuantile
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import kotlin.math.abs
 
 class AltitudeCorrectionTest {
 
@@ -16,8 +15,8 @@ class AltitudeCorrectionTest {
 
         val errors = mutableListOf<Float>()
         val maximumError = 6f
-        val maximumAverageError = 1.5f
-        val maximumStdDevError = 2f
+        val maxQuantile50Error = 1f
+        val maxQuantile90Error = 3f
 
         val places = listOf(
             Place("New York", 41.714, -74.006, -32.57f),
@@ -36,17 +35,14 @@ class AltitudeCorrectionTest {
         )
 
         for (place in places) {
-            val geoid = AltitudeCorrection.getGeoid(context, Coordinate(place.latitude, place.longitude))
-            assertEquals(place.offset, geoid, maximumError)
+            val geoid =
+                AltitudeCorrection.getGeoid(context, Coordinate(place.latitude, place.longitude))
+            assertEquals(place.name, place.offset, geoid, maximumError)
             errors.add(geoid - place.offset)
         }
 
-        // Check the average error and standard deviation
-        val absAverageError = Statistics.mean(errors.map { abs(it) })
-        val standardDeviation = Statistics.stdev(errors.map { abs(it) })
-
-        assertEquals("Average", 0f, absAverageError, maximumAverageError)
-        assertEquals("Standard Deviation", 0f, standardDeviation, maximumStdDevError)
+        assertQuantile(errors, maxQuantile50Error, 0.5f, "Geoid")
+        assertQuantile(errors, maxQuantile90Error, 0.9f, "Geoid")
     }
 
     private class Place(

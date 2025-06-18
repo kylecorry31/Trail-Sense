@@ -19,7 +19,8 @@ object AltitudeCorrection {
     private const val file = "geoids.webp"
     private val source = GeographicImageSource(
         Size(361, 181),
-        decoder = GeographicImageSource.scaledDecoder(a, b)
+        decoder = GeographicImageSource.scaledDecoder(a, b),
+        interpolationOrder = 2
     )
 
     suspend fun getGeoid(context: Context, location: Coordinate): Float = onIO {

@@ -9,27 +9,18 @@ import com.kylecorry.andromeda.bitmaps.BitmapUtils
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.isInBounds
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.sol.math.sumOfFloat
 import java.io.InputStream
-import kotlin.math.abs
 import kotlin.math.roundToInt
 
-class PixelResult(
+class PixelResult<T>(
     val x: Int,
     val y: Int,
-    val value: Int,
+    val value: T,
     val order: Int
 ) {
     val coordinate: PixelCoordinate
         get() = PixelCoordinate(x.toFloat(), y.toFloat())
 }
-
-class FloatPixelResult(
-    val x: Int,
-    val y: Int,
-    val value: Float,
-    val order: Int
-)
 
 /**
  * Read a pixel from an image without loading the entire image into memory
@@ -48,7 +39,7 @@ class ImagePixelReader2(
         x: Float,
         y: Float,
         autoClose: Boolean = true
-    ): List<PixelResult> = onIO {
+    ): List<PixelResult<Int>> = onIO {
         var bitmap: Bitmap? = null
         try {
             val rect = getRegion(x.roundToInt(), y.roundToInt())
@@ -84,14 +75,19 @@ class ImagePixelReader2(
         }
     }
 
-    private fun getNearbyPixels(x: Int, y: Int, order: Int, bitmap: Bitmap): List<PixelResult> {
+    private fun getNearbyPixels(
+        x: Int,
+        y: Int,
+        order: Int,
+        bitmap: Bitmap
+    ): List<PixelResult<Int>> {
         // Order 1 means the surrounding 4 pixels, order 2 is the next layer (the 10 around that)
         val startX = x - (order - 1)
         val endX = x + order
         val startY = y - (order - 1)
         val endY = y + order
 
-        val pixels = mutableListOf<PixelResult>()
+        val pixels = mutableListOf<PixelResult<Int>>()
         for (i in startX..endX) {
             // Top row
             if (bitmap.isInBounds(i, startY)) {
@@ -131,18 +127,6 @@ class ImagePixelReader2(
             right.coerceIn(0, imageSize.width),
             bottom.coerceIn(0, imageSize.height)
         )
-    }
-
-    companion object {
-        fun bilinearInterpolate(point: PixelCoordinate, values: List<FloatPixelResult>): Float {
-            val weights =
-                values
-                    .filter { it.order == 1 }
-                    .map { (abs(it.x - point.x) * abs(it.y - point.y)) to it.value }
-
-            return weights.sumOfFloat { it.first * it.second } /
-                    weights.sumOfFloat { it.first }
-        }
     }
 
 }

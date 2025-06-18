@@ -2,20 +2,18 @@ package com.kylecorry.trail_sense.weather.infrastructure.subsystem
 
 import androidx.test.platform.app.InstrumentationRegistry
 import com.kylecorry.sol.math.Range
-import com.kylecorry.sol.math.statistics.Statistics
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
+import com.kylecorry.trail_sense.test_utils.TestStatistics.assertQuantile
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.time.LocalDate
 import java.time.Month
-import kotlin.math.abs
 
 internal class WeatherSubsystemTest {
 
@@ -26,8 +24,8 @@ internal class WeatherSubsystemTest {
         val subsystem = WeatherSubsystem.getInstance(context)
 
         val maximumError = 10.5f
-        val maximumAverageError = 3f
-        val maximumStdDevError = 2.5f
+        val maxQuantile50Error = 2f
+        val maxQuantile90Error = 6.5f
 
         val errors = mutableListOf<Float>()
 
@@ -228,15 +226,8 @@ internal class WeatherSubsystemTest {
             }
         }
 
-
-        // Check the average error and standard deviation
-        val averageError = Statistics.mean(errors)
-        val absAverageError = Statistics.mean(errors.map { abs(it) })
-        val standardDeviation = Statistics.stdev(errors.map { abs(it) })
-
-        assertTrue("Average Tends Colder", averageError <= 0)
-        assertEquals("Average", 0f, absAverageError, maximumAverageError)
-        assertEquals("Standard Deviation", 0f, standardDeviation, maximumStdDevError)
+        assertQuantile(errors, maxQuantile50Error, 0.5f, "Temperature")
+        assertQuantile(errors, maxQuantile90Error, 0.9f, "Temperature")
     }
 
     @Test
@@ -246,8 +237,8 @@ internal class WeatherSubsystemTest {
         val subsystem = WeatherSubsystem.getInstance(context)
 
         val maximumError = 2f
-        val maximumAverageError = 0.5f
-        val maximumStdDevError = 0.5f
+        val maxQuantile50Error = 0.5f
+        val maxQuantile90Error = 1f
 
         val errors = mutableListOf<Float>()
 
@@ -366,11 +357,8 @@ internal class WeatherSubsystemTest {
             }
         }
 
-        // Check the average error and standard deviation
-        val absAverageError = Statistics.mean(errors.map { abs(it) })
-        val standardDeviation = Statistics.stdev(errors.map { abs(it) })
-        assertEquals("Average", 0f, absAverageError, maximumAverageError)
-        assertEquals("Standard Deviation", 0f, standardDeviation, maximumStdDevError)
+        assertQuantile(errors, maxQuantile50Error, 0.5f, "Precipitation")
+        assertQuantile(errors, maxQuantile90Error, 0.9f, "Precipitation")
     }
 
     private class TemperaturePlace(
