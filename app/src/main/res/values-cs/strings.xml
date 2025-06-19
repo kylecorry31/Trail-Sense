@@ -1443,4 +1443,7 @@
     <string name="loaded">Načteno</string>
     <string name="invalid_dem_file">Neplatný soubor DEM</string>
     <string name="not_set">Nenastaveno</string>
+    <string name="remove_dem">Odstranit DEM</string>
+    <string name="import_dem_file">Importovat soubor DEM</string>
+    <string name="digital_elevation_model_link">Digitální model reliéfu v různých velikostech si můžete stáhnout z https://kylecorry.com/Trail-Sense/dem.html</string>
 </resources>
