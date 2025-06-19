@@ -12,6 +12,7 @@ import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.CoroutineAlerts
 import com.kylecorry.andromeda.alerts.toast
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onIO
@@ -239,6 +240,11 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
 
         calibrationModeList.entries = options.map { it.first }.toTypedArray()
         calibrationModeList.entryValues = options.map { it.second }.toTypedArray()
+        // Save the default value
+        if (AppServiceRegistry.get<PreferencesSubsystem>().preferences.getString(calibrationModeList.key) == null) {
+            calibrationModeList.value = if (hasBarometer) "gps_barometer" else "gps"
+        }
+
     }
 
     private fun restartAltimeter() {
