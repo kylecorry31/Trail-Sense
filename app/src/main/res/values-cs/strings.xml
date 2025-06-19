@@ -1446,4 +1446,7 @@
     <string name="remove_dem">Odstranit DEM</string>
     <string name="import_dem_file">Importovat soubor DEM</string>
     <string name="digital_elevation_model_link">Digitální model reliéfu v různých velikostech si můžete stáhnout z https://kylecorry.com/Trail-Sense/dem.html</string>
+    <string name="ungroup_alerts">Zrušit seskupení upozornění</string>
+    <string name="notification_grouping">Seskupování oznámení</string>
+    <string name="ungroup_all">Zrušit seskupení všeho</string>
 </resources>
