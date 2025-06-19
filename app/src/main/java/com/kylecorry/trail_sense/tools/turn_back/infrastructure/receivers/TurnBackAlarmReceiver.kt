@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.AlarmAlerter
+import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
 import com.kylecorry.trail_sense.shared.permissions.RequestBackgroundLocationCommand
 import com.kylecorry.trail_sense.shared.permissions.requestScheduleExactAlarms
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -43,8 +44,7 @@ class TurnBackAlarmReceiver : BroadcastReceiver() {
             autoCancel = true,
             mute = useAlarm
         )
-        Notify.send(
-            context,
+        AppServiceRegistry.get<NotificationSubsystem>().send(
             TURN_BACK_NOTIFICATION_ID,
             notification
         )

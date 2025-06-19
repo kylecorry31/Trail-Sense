@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands
 
 import android.content.Context
 import android.util.Log
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.sol.math.Range
@@ -10,6 +11,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.AlarmAlerter
+import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
@@ -117,7 +119,7 @@ class SunsetAlarmCommand(private val context: Context) : CoroutineCommand {
             mute = useAlarm
         )
 
-        Notify.send(context, NOTIFICATION_ID, notification)
+        AppServiceRegistry.get<NotificationSubsystem>().send(NOTIFICATION_ID, notification)
 
         val alarm = AlarmAlerter(
             context,

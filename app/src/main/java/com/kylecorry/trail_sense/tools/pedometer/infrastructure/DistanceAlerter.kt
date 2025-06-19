@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.IAlerter
 import com.kylecorry.trail_sense.shared.alerts.AlarmAlerter
+import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.shared.toRelativeDistance
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
@@ -45,7 +46,7 @@ class DistanceAlerter(private val context: Context) : IAlerter {
             mute = useAlarm
         )
 
-        Notify.send(context, NOTIFICATION_ID, notification)
+        AppServiceRegistry.get<NotificationSubsystem>().send(NOTIFICATION_ID, notification)
 
         val alarm = AlarmAlerter(
             context,

@@ -1,9 +1,11 @@
 package com.kylecorry.trail_sense.settings.backup
 
 import android.content.Context
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.alerts.IDismissibleAlerter
+import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 
 class BackupFailedAlerter(private val context: Context) : IDismissibleAlerter {
@@ -21,7 +23,7 @@ class BackupFailedAlerter(private val context: Context) : IDismissibleAlerter {
             autoCancel = true,
             alertOnlyOnce = true,
         )
-        Notify.send(context, NOTIFICATION_ID, notification)
+        AppServiceRegistry.get<NotificationSubsystem>().send(NOTIFICATION_ID, notification)
     }
 
     override fun dismiss() {

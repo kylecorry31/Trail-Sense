@@ -1737,4 +1737,8 @@
     <string name="import_dem_file">Import DEM file</string>
     <string name="pref_altimeter_dem_loaded" translatable="false">pref_altimeter_dem_loaded</string>
     <string name="digital_elevation_model_link">You can download a digital elevation model in various sizes from https://kylecorry.com/Trail-Sense/dem.html</string>
+    <string name="pref_notification_group_behavior" translatable="false">pref_notification_group_behavior</string>
+    <string name="notification_grouping">Notification grouping</string>
+    <string name="ungroup_all">Ungroup all</string>
+    <string name="ungroup_alerts">Ungroup alerts</string>
 </resources>

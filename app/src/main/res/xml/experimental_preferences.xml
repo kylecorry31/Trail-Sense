@@ -66,6 +66,14 @@
             app:title="@string/forecast_algorithm"
             app:useSimpleSummaryProvider="true" />
 
+        <ListPreference
+            app:defaultValue="1"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_notification_group_behavior"
+            app:singleLineTitle="false"
+            app:title="@string/notification_grouping"
+            app:useSimpleSummaryProvider="true" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -33,6 +33,7 @@ import com.kylecorry.trail_sense.settings.infrastructure.PowerPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.PrivacyPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ThermometerPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.TidePreferences
+import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
 import com.kylecorry.trail_sense.shared.extensions.getIntArray
 import com.kylecorry.trail_sense.shared.extensions.getLongArray
 import com.kylecorry.trail_sense.shared.extensions.putIntArray
@@ -434,6 +435,17 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
         set(value) {
             cache.putString(context.getString(R.string.pref_tool_widgets), value.joinToString(","))
         }
+
+    val notificationGroupingBehavior by StringEnumPreference(
+        cache,
+        context.getString(R.string.pref_notification_group_behavior),
+        mapOf(
+            "1" to NotificationSubsystem.GroupBehavior.System,
+            "2" to NotificationSubsystem.GroupBehavior.UngroupAll,
+            "3" to NotificationSubsystem.GroupBehavior.UngroupHigh
+        ),
+        NotificationSubsystem.GroupBehavior.System
+    )
 
     private fun getString(id: Int): String {
         return context.getString(id)

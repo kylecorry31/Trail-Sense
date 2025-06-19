@@ -174,6 +174,15 @@ Some tools such as Navigation and Astronomy display error banners at the top of 
 ## Experimental
 Experimental features can be enabled in Settings > Experimental. These features are not ready for general use and may not work as expected.
 
+### Notification grouping
+Android 16 introduces forced notification grouping for apps. This normally puts all of Trail Sense's notifications into one group, which can be hard to read at a glance.
+
+- **System**: Let Android control the grouping.
+- **Ungroup all**: Workaround for ungrouping all notifications in Trail Sense.
+- **Ungroup alerts**: Workaround for ungrouping alerts (ex. storm, sunset) in Trail Sense.
+
+This is a workaround to bypass the forced behavior on Android 16, so it may not work consistently.
+
 ## Backup / restore
 When switching to a new device or reinstalling the app, it may be helpful to backup your data and settings. This can be done in Settings > Backup / Restore.
 

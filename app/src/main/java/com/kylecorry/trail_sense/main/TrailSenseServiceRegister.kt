@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
 import com.kylecorry.trail_sense.shared.device.DeviceSubsystem
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -26,6 +27,7 @@ object TrailSenseServiceRegister {
         AppServiceRegistry.register(FormatService.getInstance(appContext))
         AppServiceRegistry.register(PreferencesSubsystem.getInstance(appContext))
         AppServiceRegistry.register(UserPreferences(appContext))
+        AppServiceRegistry.register(NotificationSubsystem(appContext))
         AppServiceRegistry.register(
             MarkdownService(
                 appContext, extensions = listOf(

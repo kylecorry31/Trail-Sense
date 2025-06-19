@@ -12,6 +12,7 @@ import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.AlarmAlerter
+import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.tools.waterpurification.WaterBoilTimerToolRegistration
@@ -62,7 +63,7 @@ class WaterPurificationTimerService : AndromedaService() {
                 intent = openIntent,
                 mute = useAlarm
             )
-            Notify.send(this@WaterPurificationTimerService, NOTIFICATION_ID, notification)
+            AppServiceRegistry.get<NotificationSubsystem>().send(NOTIFICATION_ID, notification)
 
             val alarm = AlarmAlerter(
                 this,

@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import com.kylecorry.andromeda.background.services.AndromedaService
 import com.kylecorry.andromeda.background.services.ForegroundInfo
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.permissions.Permissions
@@ -16,6 +17,7 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
 import com.kylecorry.trail_sense.shared.commands.Command
 import com.kylecorry.trail_sense.shared.extensions.tryStartForegroundOrNotify
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
@@ -57,7 +59,7 @@ class StepCounterService : AndromedaService() {
         val newSteps = pedometer.steps - lastSteps
         counter.addSteps(newSteps.toLong())
         lastSteps = pedometer.steps
-        Notify.send(this, NOTIFICATION_ID, getNotification())
+        AppServiceRegistry.get<NotificationSubsystem>().send(NOTIFICATION_ID, getNotification())
 
         distanceAlertCommand.execute()
         return true

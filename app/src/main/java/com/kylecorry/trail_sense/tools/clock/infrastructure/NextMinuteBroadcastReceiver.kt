@@ -4,8 +4,10 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 
 class NextMinuteBroadcastReceiver : BroadcastReceiver() {
@@ -21,7 +23,7 @@ class NextMinuteBroadcastReceiver : BroadcastReceiver() {
             group = NOTIFICATION_GROUP_CLOCK,
             intent = NavigationUtils.pendingIntent(context, R.id.toolClockFragment)
         )
-        Notify.send(context, NOTIFICATION_ID, notification)
+        AppServiceRegistry.get<NotificationSubsystem>().send(NOTIFICATION_ID, notification)
     }
 
     companion object {

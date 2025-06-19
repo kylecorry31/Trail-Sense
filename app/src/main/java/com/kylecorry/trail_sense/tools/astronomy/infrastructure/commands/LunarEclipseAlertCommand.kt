@@ -2,11 +2,13 @@ package com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands
 
 import android.content.Context
 import android.util.Log
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
 import com.kylecorry.trail_sense.shared.commands.generic.Command
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
@@ -52,7 +54,7 @@ class LunarEclipseAlertCommand(private val context: Context) : Command<Coordinat
             autoCancel = true
         )
 
-        Notify.send(context, 7394232, notification)
+        AppServiceRegistry.get<NotificationSubsystem>().send(7394232, notification)
     }
 
     private fun getEclipseDescription(context: Context, eclipse: Eclipse): String {
