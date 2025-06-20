@@ -1,0 +1,21 @@
+Navigace
+- Zobrazení fotomap na radarovém kompasu (lze zakázat)
+- Zvětšení kompasu
+- Možnost ponechat obrazovku odemčenou
+
+Fotomapy
+- Možnost ponechat obrazovku odemčenou
+- Skrýt/ukázat fotomapy (pro navigaci)
+
+Příručka pro přežití
+- Vyhledávání úryvků
+- Vyhledávání rychlých akcí
+- Aktualizace obsahu
+
+Deklinace (nový nástroj)
+- Zobrazení deklinace pro dané místo
+
+Různé
+- Volba přehrávání některých zvuků oznámení jako budíků
+- Aktualizace modelu deklinace
+- Přidání zdroje DEM (vyžaduje stažení)
