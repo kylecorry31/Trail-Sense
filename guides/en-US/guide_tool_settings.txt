@@ -65,8 +65,8 @@ The current elevation is displayed at the top of the altimeter settings. As you 
 - **GPS + Barometer**: This is the default source and should work on most devices with a barometer. It combines the GPS and barometer to determine the altitude.
 - **GPS**: This source only uses the GPS to determine the altitude. It is less accurate than the GPS + Barometer source.
 - **Barometer**: This source only uses the barometer to determine the altitude. It is more accurate than the GPS source, but may drift over time and you will need to calibrate it before use.
-- **DEM + Barometer**: Combines a digital elevation model (DEM) with the barometer to determine altitude. Digital elevation models must be downloaded to use this, if not downloaded, the GPS will be used.
-- **DEM**: A digital elevation model (DEM) that determines elevation using your GPS location and a map. Digital elevation models must be downloaded to use this, if not downloaded, the GPS will be used.
+- **DEM + Barometer**: Combines a digital elevation model (DEM) with the barometer to determine altitude.
+- **DEM**: A digital elevation model (DEM) that determines elevation using your GPS location and a map.
 - **Manual**: This source allows you to manually set the altitude. This is useful if you know the altitude of your location and it will not change.
 
 ### GPS + Barometer settings
@@ -79,7 +79,7 @@ The current elevation is displayed at the top of the altimeter settings. As you 
 - **NMEA elevation correction**: The elevation provided by the GPS needs to be corrected to match the actual elevation. If this setting is enabled, it will use the correction factor provided by the GPS. If it is disabled, it will use the correction factor provided by Trail Sense, which may be more accurate.
 
 ### DEM settings
-- **Digital elevation model (DEM)**: Clicking this will prompt you to download and import a digital elevation model. Models are available in a variety of sizes at https://kylecorry.com/Trail-Sense/dem.html. Once you import the model, you can delete the file from your device. If you already have a model loaded and select a new model, the old one will be removed.
+- **Digital elevation model (DEM)**: Clicking this will prompt you to download and import a digital elevation model. Models are available in a variety of sizes at https://kylecorry.com/Trail-Sense/dem.html. Once you import the model, you can delete the file from your device. If you already have a model loaded and select a new model, the old one will be removed. If no model is loaded, a low accuracy built-in model will be used. It is recommended to download one of the larger models if you are able to.
 - **Remove DEM**: Clicking this will prompt you to delete the DEM file. This is irreversible and you will need to import another file to use the DEM.
 
 ### Barometer / manual settings

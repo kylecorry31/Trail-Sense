@@ -55,30 +55,12 @@ class DigitalElevationModelLoader {
 
         // Read the index file
         val indexFile = files.get("dem/index.json")
-        val parsed =
-            JsonConvert.fromJson<DigitalElevationModelIndex>(indexFile.readText())
-                ?: throw IllegalArgumentException("The provided zip file does not contain a valid DEM index.json file.")
+
+        database.deleteAll()
+        database.upsert(getTilesFromIndex(files.get("dem/index.json").readText()))
 
         // Delete the index.json file since it is no longer needed
         indexFile.delete()
-
-        database.deleteAll()
-        database.upsert(parsed.files.map {
-            DigitalElevationModelEntity(
-                parsed.resolution_arc_seconds,
-                parsed.compression_method,
-                parsed.version ?: "",
-                "dem/${it.filename}",
-                it.width,
-                it.height,
-                it.a,
-                it.b,
-                it.latitude_start,
-                it.latitude_end,
-                it.longitude_end,
-                it.longitude_start
-            )
-        })
 
         prefs.altimeter.isDigitalElevationModelLoaded = true
 
@@ -98,6 +80,30 @@ class DigitalElevationModelLoader {
 
     companion object {
         private const val MAX_ZIP_FILE_COUNT = 1000
+
+
+        fun getTilesFromIndex(indexText: String): List<DigitalElevationModelEntity> {
+            val parsed =
+                JsonConvert.fromJson<DigitalElevationModelIndex>(indexText)
+                    ?: throw IllegalArgumentException("The provided zip file does not contain a valid DEM index.json file.")
+            return parsed.files.map {
+                DigitalElevationModelEntity(
+                    parsed.resolution_arc_seconds,
+                    parsed.compression_method,
+                    parsed.version ?: "",
+                    "dem/${it.filename}",
+                    it.width,
+                    it.height,
+                    it.a,
+                    it.b,
+                    it.latitude_start,
+                    it.latitude_end,
+                    it.longitude_end,
+                    it.longitude_start
+                )
+            }
+        }
+
     }
 
 }

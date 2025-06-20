@@ -18,8 +18,13 @@ object DEM {
 
     suspend fun getElevation(location: Coordinate): Distance? = onIO {
         val files = AppServiceRegistry.get<FileSubsystem>()
-        val database = AppServiceRegistry.get<AppDatabase>().digitalElevationModelDao()
-        val tiles = database.getAll()
+        val isExternal = isExternalModel()
+        val tiles = if (isExternal) {
+            val database = AppServiceRegistry.get<AppDatabase>().digitalElevationModelDao()
+            database.getAll()
+        } else {
+            BuiltInDem.getTiles()
+        }
 
         if (tiles.isEmpty()) {
             return@onIO null
@@ -49,7 +54,12 @@ object DEM {
                 sources.firstOrNull { it.second.contains(location) }
                     ?: return@getOrPut Distance.meters(0f)
             tryOrDefault(Distance.meters(0f)) {
-                files.get(image.first).inputStream().use {
+                val stream = if (isExternal) {
+                    files.get(image.first).inputStream()
+                } else {
+                    files.streamAsset(image.first)!!
+                }
+                stream.use {
                     Distance.meters(image.second.read(it, location).first())
                 }
             }
@@ -60,7 +70,7 @@ object DEM {
         cache = GeospatialCache(Distance.meters(100f), size = 40)
     }
 
-    fun isAvailable(): Boolean {
+    fun isExternalModel(): Boolean {
         val prefs = AppServiceRegistry.get<UserPreferences>()
         return prefs.altimeter.isDigitalElevationModelLoaded
     }

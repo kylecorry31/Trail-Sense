@@ -2,17 +2,13 @@ package com.kylecorry.trail_sense.shared.sensors.altimeter
 
 import android.content.Context
 import android.util.Log
-import com.kylecorry.andromeda.core.cache.AppServiceRegistry
-import com.kylecorry.andromeda.core.cache.GeospatialCache
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Speed
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.DEM
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -33,13 +29,8 @@ class DigitalElevationModel(private val context: Context, private val gps: IGPS)
             queue.enqueue {
                 try {
                     val location = gps.location
-                    val gpsAltitude = gps.altitude
                     val gpsIsValid = gps.hasValidReading
-                    demAltitude = if (hasDEM()) {
-                        DEM.getElevation(location)?.meters()?.distance ?: 0f
-                    } else {
-                        gpsAltitude
-                    }
+                    demAltitude = DEM.getElevation(location)?.meters()?.distance ?: 0f
                     onMain {
                         if (gpsIsValid) {
                             notifyListeners()
@@ -62,10 +53,6 @@ class DigitalElevationModel(private val context: Context, private val gps: IGPS)
         gps.stop(this::onUpdate)
         queue.cancel()
         job?.cancel()
-    }
-
-    private fun hasDEM(): Boolean {
-        return DEM.isAvailable()
     }
 
     override val hasValidReading: Boolean
