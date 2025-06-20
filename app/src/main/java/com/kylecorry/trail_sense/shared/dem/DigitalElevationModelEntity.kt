@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.dem
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlin.math.abs
 
 @Entity(tableName = "dem")
 data class DigitalElevationModelEntity(
@@ -22,4 +23,14 @@ data class DigitalElevationModelEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
     var id: Long = 0
+
+    val trueResolution: Double
+        get() {
+            val degrees = abs(west - east)
+            return if (degrees == 0.0) {
+                0.0
+            } else {
+                degrees / width * 3600
+            }
+        }
 }

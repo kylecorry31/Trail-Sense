@@ -13,13 +13,13 @@ import org.junit.Test
 class DEMTest {
 
     private data class Model(
-        val path: String,
+        val path: String?,
         val maxQuantile50Error: Float,
         val maxQuantile90Error: Float
     )
 
     private val models = listOf(
-        Model("dem/dem-0.2.0-mini.zip", 20f, 175f),
+        Model(null, 30f, 100f),
         Model("dem/dem-0.2.0-low.zip", 20f, 60f),
         Model("dem/dem-0.2.0-medium.zip", 15f, 45f),
         Model("dem/dem-0.2.0-high.zip", 5f, 45f),
@@ -36,18 +36,22 @@ class DEMTest {
     private fun verify(model: Model) {
         val assets = AssetFileSystem(InstrumentationRegistry.getInstrumentation().context)
         val cache = CacheFileSystem(context)
-        if (!assets.list("dem").contains(model.path.replace("dem/", ""))) {
+        if (model.path != null && !assets.list("dem").contains(model.path.replace("dem/", ""))) {
             println("Skipping ${model.path} because it does not exist in the assets")
             return
         }
         runBlocking {
-            cache.outputStream("dem.zip").use { output ->
-                assets.stream(model.path).use { input ->
-                    input.copyTo(output)
+            if (model.path != null) {
+                cache.outputStream("dem.zip").use { output ->
+                    assets.stream(model.path).use { input ->
+                        input.copyTo(output)
+                    }
                 }
-            }
 
-            DigitalElevationModelLoader().load(cache.getUri("dem.zip"))
+                DigitalElevationModelLoader().load(cache.getUri("dem.zip"))
+            } else {
+                DigitalElevationModelLoader().clear()
+            }
         }
 
         // https://elevation.maplogs.com/
@@ -86,8 +90,8 @@ class DEMTest {
             actual!!.meters().distance - test.second
         }
 
-        assertQuantile(errors, model.maxQuantile50Error, 0.5f, model.path)
-        assertQuantile(errors, model.maxQuantile90Error, 0.9f, model.path)
+        assertQuantile(errors, model.maxQuantile50Error, 0.5f, model.path ?: "Built-in")
+        assertQuantile(errors, model.maxQuantile90Error, 0.9f, model.path ?: "Built-in")
     }
 
 }
