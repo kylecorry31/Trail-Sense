@@ -1204,7 +1204,7 @@
     <string name="grains">Gran</string>
     <string name="grains_format">%s gr</string>
     <string name="augmented_reality_description">Sehen Sie nahe Wegpunkte und die Sonne / den Mond mit Ihrer Kamera</string>
-    <string name="distance_away_from_destination">%s vom Ziel entfernt</string>
+    <string name="distance_away_from_destination">%s zum Ziel</string>
     <string name="projection_linear">Linear</string>
     <string name="projection_type">Augmented reality Projektion</string>
     <string name="feature_unavailable">%s nicht verfügbar</string>
@@ -1224,7 +1224,7 @@
     <string name="no_pages">Keine Seiten</string>
     <string name="right">Rechts</string>
     <string name="distance_to_target">Entfernung zum Ziel</string>
-    <string name="creating_beacon">Wegpunkt erstellen</string>
+    <string name="creating_beacon">Wegpunkt wird erstellt</string>
     <string name="use_gyroscope_after_calibration">Nach der Kalibrierung Gyroskop benutzen</string>
     <string name="smooth_gps_readings">GPS Messungen glätten</string>
     <string name="layers">Ebenen</string>
