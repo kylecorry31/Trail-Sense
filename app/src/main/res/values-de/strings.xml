@@ -1125,7 +1125,7 @@
     <string name="turn_back_alert_set">Umdreh-Alarm gesetzt</string>
     <string name="return_before_dark">Zurückkehren, bevor es dunkel wird</string>
     <string name="timezone">Zeitzone</string>
-    <string name="my_location">Mein Standort</string>
+    <string name="my_location">Meine Position</string>
     <string name="destination">Ziel</string>
     <string name="turn_back_notification_title">Es ist Zeit, umzudrehen</string>
     <string name="europe">Europa</string>
