@@ -5,7 +5,7 @@
 <li>Platzieren Sie Wegpunkte und navigiere dorthin</li>
 <li>Verwenden Sie Ihr Gerät als Kompass (nur auf Geräten mit Kompasssensor verfügbar)</li>
 <li>Folgen Sie Pfaden</li>
-<li>Verfolgen Sie Ihre Schritte mit Rückweg</li>
+<li>Verfolgen Sie Ihre Schritte mit gespeicherten Pfaden</li>
 <li>Verwenden Sie ein Foto als Karte</li>
 <li>Planen Sie Ihr Gepäck</li>
 <li>Warnmeldungen vor Sonnenuntergang</li>
@@ -24,7 +24,7 @@ Die Nutzung erfolgt auf eigene Gefahr. Halten Sie stets Backup-Tools (z. B. eine
 <ul>
 <li>Kein Kompass: Wenn Ihr Smartphone keinen Kompasssensor hat, kann ich nichts tun, um die Funktion zu verbessern, da es sich um Hardware handelt.
 Sie können die anderen Funktionen von Trail Sense weiterhin nutzen.</li>
-<li>Kein Wetter: Das Wetter-Tool ist nur verfügbar, wenn Ihr Smartphone über einen Barometersensor verfügt.</li>
+<li>Kein Wetter: Das Wettertool ist nur verfügbar, wenn Ihr Smartphone über einen Barometersensor verfügt.</li>
 </ul>
 
 <p>Haben Sie ein Problem gefunden oder wünschen Sie sich eine neue Funktion? Kontaktieren Sie mich unter trailsense@protonmail.com oder erstellen Sie ein neues Problem auf GitHub: github.com/kylecorry31/Trail-Sense</p>
