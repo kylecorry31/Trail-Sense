@@ -1404,4 +1404,10 @@
     <string name="loaded">已加载</string>
     <string name="invalid_dem_file">无效的 DEM 文件</string>
     <string name="plugin_digital_elevation_model">数字高程模型（DEM）</string>
+    <string name="remove_dem">删除 DEM</string>
+    <string name="import_dem_file">导入 DEM 文件</string>
+    <string name="digital_elevation_model_link">你可以从 https://kylecorry.com/Trail-Sense/dem.html 下载各种大小的数字高程模型</string>
+    <string name="notification_grouping">通知分组</string>
+    <string name="ungroup_all">全部取消分组</string>
+    <string name="ungroup_alerts">取消警报分组</string>
 </resources>
