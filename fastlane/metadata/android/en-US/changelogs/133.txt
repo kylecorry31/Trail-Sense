@@ -18,4 +18,4 @@ Declination (new tool)
 Misc
 - Choose to play some notification sounds as alarms
 - Update declination model
-- Add DEM altimeter source (download required)
+- Add DEM altimeter source (higher accuracy models available for download)
