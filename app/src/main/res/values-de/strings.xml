@@ -1381,7 +1381,7 @@
     <string name="signal_finder_description">Nahegelegene Mobilfunkmasten und Signale ansehen.</string>
     <string name="no_cell_towers_found">Keine Mobilfunkmasten gefunden</string>
     <string name="habitat">Lebensraum</string>
-    <string name="tide_estimation_description_lunitidal_interval_local">Verwendet die Position des Mondes, um die Gezeiten abzuschätzen. Erfordert das lokale Lunitidenintervall und den Standort.</string>
+    <string name="tide_estimation_description_lunitidal_interval_local">Nutzt die Position des Mondes zur Schätzung der Gezeiten. Erfordert das lokale Gezeitenintervall und den Standort.</string>
     <string name="digital_elevation_model_abbreviation">DHM</string>
     <string name="tide_estimation_description_lunitidal_interval_utc">Verwendet die Position des Mondes, um die Gezeiten abzuschätzen. Erfordert das Lunitidenintervall in UTC.</string>
     <string name="plugin_digital_elevation_model">Digitales Höhenmodell (DHM)</string>
