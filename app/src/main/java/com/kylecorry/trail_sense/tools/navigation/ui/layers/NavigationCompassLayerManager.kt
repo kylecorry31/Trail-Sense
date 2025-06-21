@@ -10,6 +10,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.dem.ElevationLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.ILayerManager
@@ -29,6 +30,7 @@ class NavigationCompassLayerManager {
     private val myAccuracyLayer = MyAccuracyLayer()
     private val tideLayer = TideLayer()
     private val mapLayer = MapLayer()
+    private val elevationLayer = ElevationLayer()
     private val prefs = AppServiceRegistry.get<UserPreferences>()
     private var layerManager: ILayerManager? = null
 
@@ -61,6 +63,7 @@ class NavigationCompassLayerManager {
         view.setLayers(
             listOfNotNull(
                 if (isMapLayerEnabled) mapLayer else null,
+                elevationLayer,
                 pathLayer,
                 myAccuracyLayer,
                 myLocationLayer,
