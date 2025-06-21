@@ -219,7 +219,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         demPref.isVisible = isModeDem
         demPref.summary =
             if (DEM.isExternalModel()) getString(R.string.loaded) else getString(R.string.built_in_dem)
-        clearDemPref.isVisible = DEM.isExternalModel()
+        clearDemPref.isVisible = isModeDem && DEM.isExternalModel()
 
         // Calibration mode options
         val options = listOfNotNull(
