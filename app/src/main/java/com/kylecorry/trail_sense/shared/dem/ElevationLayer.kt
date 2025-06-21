@@ -2,19 +2,21 @@ package com.kylecorry.trail_sense.shared.dem
 
 import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
-import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
-import com.kylecorry.sol.math.SolMath.roundPlaces
+import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.SolMath.roundNearest
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.ILayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.math.roundToInt
+import kotlin.math.max
+import kotlin.math.min
 
 class ElevationLayer : ILayer {
 
@@ -23,7 +25,7 @@ class ElevationLayer : ILayer {
     private var lastBounds: CoordinateBounds = CoordinateBounds.empty
     private var lastMetersPerPixel: Float? = null
 
-    private var elevations = listOf<Pair<Coordinate, Float>>()
+    private var contours = listOf<Pair<Float, List<Pair<Coordinate, Coordinate>>>>()
 
     override fun draw(
         drawer: ICanvasDrawer,
@@ -38,23 +40,7 @@ class ElevationLayer : ILayer {
             scope.launch {
                 // TODO: Debounce loader
                 runner.enqueue {
-                    // 10 x 10 grid of coordinates
-                    val coordinates = mutableListOf<Coordinate>()
-
-                    var lat = bounds.south
-                    while (lat <= bounds.north) {
-                        var lon = bounds.west
-                        while (lon <= bounds.east) {
-                            coordinates.add(Coordinate(lat.roundPlaces(5), lon.roundPlaces(5)))
-                            lon += (bounds.east - bounds.west) / 5
-                        }
-                        lat += (bounds.north - bounds.south) / 5
-                    }
-
-                    elevations = DEM.getElevations(coordinates).map {
-                        it.first to it.second.convertTo(DistanceUnits.Feet).distance
-                    }
-
+                    contours = getContourLines(bounds, 10f)
                 }
             }
 
@@ -62,19 +48,19 @@ class ElevationLayer : ILayer {
             lastMetersPerPixel = map.metersPerPixel
         }
 
-        for (elevation in elevations) {
-            val pixel = map.toPixel(elevation.first)
-            val elevationValue = elevation.second
-            drawer.textMode(TextMode.Center)
-            drawer.fill(Color.BLACK)
-            drawer.noStroke()
-            drawer.textSize(drawer.sp(12f))
-            drawer.text(
-                "${elevationValue.roundToInt()}",
-                pixel.x,
-                pixel.y
-            )
-        }
+        drawer.stroke(AppColor.Brown.color)
+        drawer.strokeWeight(drawer.dp(1f))
+        drawer.noFill()
+        drawer.lines(contours.flatMap { it.second }.map { line ->
+            val pixel1 = map.toPixel(line.first)
+            val pixel2 = map.toPixel(line.second)
+            listOf(pixel1.x, pixel1.y, pixel2.x, pixel2.y)
+        }.flatten().toFloatArray())
+//        for (line in contours.flatMap { it.second }) {
+//            val pixel1 = map.toPixel(line.first)
+//            val pixel2 = map.toPixel(line.second)
+//            drawer.line(pixel1.x, pixel1.y, pixel2.x, pixel2.y)
+//        }
 
     }
 
@@ -102,5 +88,121 @@ class ElevationLayer : ILayer {
                 bounds1.south == bound2.south &&
                 bounds1.east == bound2.east &&
                 bounds1.west == bound2.west
+    }
+
+    /**
+     * Get contour lines using marching squares
+     */
+    private suspend fun getContourLines(
+        bounds: CoordinateBounds,
+        interval: Float
+    ): List<Pair<Float, List<Pair<Coordinate, Coordinate>>>> {
+        val grid = mutableListOf<List<Pair<Coordinate, Float>>>()
+        val latInterval = (bounds.north - bounds.south) / 8
+        val lonInterval = (bounds.east - bounds.west) / 8
+        var lat = bounds.south - latInterval * 2
+        while (lat <= bounds.north + latInterval * 2) {
+            var row = mutableListOf<Coordinate>()
+            var lon = bounds.west - lonInterval * 2
+            while (lon <= bounds.east + lonInterval * 2) {
+                row.add(Coordinate(lat, lon))
+                lon += lonInterval
+            }
+            grid.add(DEM.getElevations(row).map { it.first to it.second.meters().distance })
+            lat += latInterval
+        }
+
+        val squares = mutableListOf<List<Pair<Coordinate, Float>>>()
+        for (i in 0 until grid.size - 1) {
+            for (j in 0 until grid[i].size - 1) {
+                val square = listOf(
+                    grid[i][j],
+                    grid[i][j + 1],
+                    grid[i + 1][j + 1],
+                    grid[i + 1][j]
+                )
+                squares.add(square)
+            }
+        }
+
+        val minElevation = squares.minOfOrNull { it.minOf { it.second } } ?: 0f
+        val maxElevation = squares.maxOfOrNull { it.maxOf { it.second } } ?: 0f
+
+        var startElevationInterval = minElevation.roundNearest(interval)
+        if (startElevationInterval < minElevation) {
+            startElevationInterval += interval
+        }
+
+        val thresholds = generateSequence(startElevationInterval) { it + interval }
+            .takeWhile { it <= maxElevation }
+            .toList()
+
+        return thresholds.map { threshold ->
+            val parallel = ParallelCoroutineRunner(8)
+            threshold to parallel.map(squares) {
+                marchingSquares(it, threshold)
+            }.flatten()
+        }
+    }
+
+    private fun marchingSquares(
+        square: List<Pair<Coordinate, Float>>,
+        threshold: Float
+    ): List<Pair<Coordinate, Coordinate>> {
+        val contourLines = mutableListOf<Pair<Coordinate, Coordinate>>()
+
+
+        /**
+         *
+         *   A--AB--B
+         *   |      |
+         *  AC     BD
+         *   |      |
+         *   C--CD--D
+         */
+
+        val a = square[0]
+        val b = square[1]
+        val c = square[3]
+        val d = square[2]
+
+        val ab = getInterpolatedCoordinate(threshold, a, b)
+        val ac = getInterpolatedCoordinate(threshold, a, c)
+        val bd = getInterpolatedCoordinate(threshold, b, d)
+        val cd = getInterpolatedCoordinate(threshold, c, d)
+
+        // If there are exactly 2 intersections, then there is 1 line
+        val intersections = listOfNotNull(ab, ac, bd, cd)
+        if (intersections.size == 2) {
+            contourLines.add(intersections[0] to intersections[1])
+        } else if (intersections.size == 4 && a.second >= threshold) {
+            contourLines.add(intersections[0] to intersections[2])
+            contourLines.add(intersections[1] to intersections[3])
+        } else if (intersections.size == 4 && a.second < threshold) {
+            contourLines.add(intersections[0] to intersections[1])
+            contourLines.add(intersections[2] to intersections[3])
+        }
+        return contourLines
+    }
+
+    private fun getInterpolatedCoordinate(
+        value: Float,
+        a: Pair<Coordinate, Float>,
+        b: Pair<Coordinate, Float>
+    ): Coordinate? {
+        val aAbove = a.second >= value
+        val bAbove = b.second >= value
+
+        if (aAbove == bAbove) {
+            return null
+        }
+
+        var pct = SolMath.norm(value, min(a.second, b.second), max(a.second, b.second))
+        if (a.second > b.second) {
+            pct = 1 - pct
+        }
+        val distance = a.first.distanceTo(b.first)
+        val bearing = a.first.bearingTo(b.first)
+        return a.first.plus(distance * pct.toDouble(), bearing)
     }
 }
