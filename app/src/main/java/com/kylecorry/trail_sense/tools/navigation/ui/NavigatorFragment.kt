@@ -511,6 +511,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             updateCompassBearing()
         }
 
+        useEffect(triggers.frequency("compass_invalidation", Duration.ofSeconds(1))) {
+            binding.radarCompass.invalidate()
+        }
+
         effect("altitude", altimeter.altitude, lifecycleHookTrigger.onResume()) {
             binding.altitude.title = formatService.formatDistance(
                 Distance.meters(altimeter.altitude).convertTo(baseDistanceUnits)

@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.dem
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
+import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.roundNearest
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -25,6 +26,7 @@ class ElevationLayer : ILayer {
     private val scope = CoroutineScope(Dispatchers.Default)
     private var lastBounds: CoordinateBounds = CoordinateBounds.empty
     private var lastMetersPerPixel: Float? = null
+    private var contourCalculationInProgress = false
 
     private val validIntervals = listOf(
         20f,
@@ -39,30 +41,31 @@ class ElevationLayer : ILayer {
         drawer: ICanvasDrawer,
         map: IMapView
     ) {
-        if (SafeMode.isEnabled()) {
+        if (SafeMode.isEnabled() || map.metersPerPixel > 75f) {
             return
         }
 
         val bounds = map.mapBounds
         val metersPerPixel = map.metersPerPixel
-        if (!areBoundsEqual(
+        if (!contourCalculationInProgress && (lastMetersPerPixel != map.metersPerPixel || !areBoundsEqual(
                 lastBounds,
-                bounds
-            ) || metersPerPixel != lastMetersPerPixel
+                map.mapBounds
+            ))
         ) {
             scope.launch {
                 // TODO: Debounce loader
                 runner.enqueue {
+                    contourCalculationInProgress = true
                     val interval = validIntervals.minBy {
                         // TODO: Convert to feet if needed
                         abs(it - (metersPerPixel * 2))
                     }
                     contours = getContourLines(bounds, interval)
+                    lastMetersPerPixel = metersPerPixel
+                    lastBounds = bounds
+                    contourCalculationInProgress = false
                 }
             }
-
-            lastBounds = bounds
-            lastMetersPerPixel = metersPerPixel
         }
 
         drawer.stroke(AppColor.Brown.color)
@@ -110,15 +113,15 @@ class ElevationLayer : ILayer {
     private suspend fun getContourLines(
         bounds: CoordinateBounds,
         interval: Float
-    ): List<Pair<Float, List<Pair<Coordinate, Coordinate>>>> {
+    ): List<Pair<Float, List<Pair<Coordinate, Coordinate>>>> = onDefault {
         val grid = mutableListOf<List<Pair<Coordinate, Float>>>()
         val latInterval = (bounds.north - bounds.south) / 8
         val lonInterval = (bounds.east - bounds.west) / 8
-        var lat = bounds.south - latInterval * 2
-        while (lat <= bounds.north + latInterval * 2) {
+        var lat = bounds.south - latInterval
+        while (lat <= bounds.north + latInterval) {
             var row = mutableListOf<Coordinate>()
-            var lon = bounds.west - lonInterval * 2
-            while (lon <= bounds.east + lonInterval * 2) {
+            var lon = bounds.west - lonInterval
+            while (lon <= bounds.east + lonInterval) {
                 row.add(Coordinate(lat, lon))
                 lon += lonInterval
             }
@@ -151,7 +154,7 @@ class ElevationLayer : ILayer {
             .takeWhile { it <= maxElevation }
             .toList()
 
-        return thresholds.map { threshold ->
+        thresholds.map { threshold ->
             val parallel = ParallelCoroutineRunner(8)
             threshold to parallel.map(squares) {
                 marchingSquares(it, threshold)
