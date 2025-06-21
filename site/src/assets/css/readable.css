@@ -155,3 +155,23 @@ img.inline-image {
   max-width: 100%;
   height: auto;
 }
+
+/* Tables */
+table:not(.unreadable) {
+  width: 100%;
+  text-align: left;
+}
+
+table:not(.unreadable) tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+table:not(.unreadable) th,
+table:not(.unreadable) td {
+  padding: 12px;
+}
+
+table:not(.unreadable) th {
+  background-color: #f8f8f8;
+  font-weight: bold;
+}
