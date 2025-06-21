@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.shared.dem
 
-import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
@@ -8,6 +7,7 @@ import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.roundNearest
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.ILayer
@@ -15,6 +15,7 @@ import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
@@ -25,43 +26,56 @@ class ElevationLayer : ILayer {
     private var lastBounds: CoordinateBounds = CoordinateBounds.empty
     private var lastMetersPerPixel: Float? = null
 
+    private val validIntervals = listOf(
+        20f,
+        40f,
+        50f,
+        100f
+    )
+
     private var contours = listOf<Pair<Float, List<Pair<Coordinate, Coordinate>>>>()
 
     override fun draw(
         drawer: ICanvasDrawer,
         map: IMapView
     ) {
+        if (SafeMode.isEnabled()) {
+            return
+        }
+
         val bounds = map.mapBounds
+        val metersPerPixel = map.metersPerPixel
         if (!areBoundsEqual(
                 lastBounds,
                 bounds
-            ) || map.metersPerPixel != lastMetersPerPixel
+            ) || metersPerPixel != lastMetersPerPixel
         ) {
             scope.launch {
                 // TODO: Debounce loader
                 runner.enqueue {
-                    contours = getContourLines(bounds, 10f)
+                    val interval = validIntervals.minBy {
+                        // TODO: Convert to feet if needed
+                        abs(it - (metersPerPixel * 2))
+                    }
+                    contours = getContourLines(bounds, interval)
                 }
             }
 
             lastBounds = bounds
-            lastMetersPerPixel = map.metersPerPixel
+            lastMetersPerPixel = metersPerPixel
         }
 
         drawer.stroke(AppColor.Brown.color)
         drawer.strokeWeight(drawer.dp(1f))
+        drawer.opacity(127)
         drawer.noFill()
         drawer.lines(contours.flatMap { it.second }.map { line ->
             val pixel1 = map.toPixel(line.first)
             val pixel2 = map.toPixel(line.second)
             listOf(pixel1.x, pixel1.y, pixel2.x, pixel2.y)
         }.flatten().toFloatArray())
-//        for (line in contours.flatMap { it.second }) {
-//            val pixel1 = map.toPixel(line.first)
-//            val pixel2 = map.toPixel(line.second)
-//            drawer.line(pixel1.x, pixel1.y, pixel2.x, pixel2.y)
-//        }
-
+        // TODO: Labels
+        drawer.opacity(255)
     }
 
     override fun drawOverlay(
