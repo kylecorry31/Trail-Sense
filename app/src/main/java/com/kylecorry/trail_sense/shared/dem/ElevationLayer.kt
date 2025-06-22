@@ -29,6 +29,7 @@ class ElevationLayer : ILayer {
     private var contourCalculationInProgress = false
 
     private val validIntervals = listOf(
+        10f,
         20f,
         40f,
         50f,
