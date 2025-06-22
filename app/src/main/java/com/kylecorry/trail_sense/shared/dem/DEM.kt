@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.dem
 
+import android.util.Log
 import android.util.Size
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.cache.GeospatialCache
@@ -10,37 +11,51 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
-import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.data.GeographicImageSource
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
 object DEM {
-    private var cache = GeospatialCache<Distance>(Distance.meters(10f), size = 200)
+    private var cache = GeospatialCache<Distance>(Distance.meters(10f), size = 500)
+    private val multiElevationLookupLock = Mutex()
 
     suspend fun getElevation(location: Coordinate): Distance? = onDefault {
         cache.getOrPut(location) {
-            lookupElevation(location)
+            lookupElevations(listOf(location)).first().second
         }
     }
 
     suspend fun getElevations(locations: List<Coordinate>): List<Pair<Coordinate, Distance>> =
         onDefault {
-            val parallel = ParallelCoroutineRunner()
-            parallel.map(locations) {
-                val cached = cache.get(it)
-                if (cached != null) {
-                    it to cached
-                } else {
-                    val result = lookupElevation(it)
-                    cache.put(it, result)
-                    it to result
+            multiElevationLookupLock.withLock {
+                val results = mutableListOf<Pair<Coordinate, Distance>>()
+                val cachedLocations = mutableSetOf<Coordinate>()
+
+                for (location in locations) {
+                    val cached = cache.get(location)
+                    if (cached != null) {
+                        cachedLocations.add(location)
+                        results.add(location to cached)
+                    }
                 }
+
+                val remaining = locations.filter { it !in cachedLocations }
+                val elevations = lookupElevations(remaining)
+                for (elevation in elevations) {
+                    cache.put(elevation.first, elevation.second)
+                    results.add(elevation)
+                }
+
+                if (remaining.isNotEmpty()) {
+                    Log.d("DEM", "Looked up ${remaining.size} locations not in cache")
+                }
+                results
             }
         }
 
-    private suspend fun lookupElevation(location: Coordinate): Distance = onIO {
-        val files = AppServiceRegistry.get<FileSubsystem>()
+    private suspend fun getSources(): List<Pair<String, GeographicImageSource>> = onIO {
         val isExternal = isExternalModel()
         val tiles = if (isExternal) {
             val database = AppServiceRegistry.get<AppDatabase>().digitalElevationModelDao()
@@ -49,10 +64,7 @@ object DEM {
             BuiltInDem.getTiles()
         }
 
-        if (tiles.isEmpty()) {
-            return@onIO Distance.meters(0f)
-        }
-        val sources = tiles.map {
+        tiles.map {
             val valuePixelOffset = if (isExternal) {
                 0.5f
             } else {
@@ -77,21 +89,51 @@ object DEM {
                 interpolationOrder = 2
             )
         }
-
-        val image =
-            sources.firstOrNull { it.second.contains(location) }
-                ?: return@onIO Distance.meters(0f)
-        tryOrDefault(Distance.meters(0f)) {
-            val stream = if (isExternal) {
-                files.get(image.first).inputStream()
-            } else {
-                files.streamAsset(image.first)!!
-            }
-            stream.use {
-                Distance.meters(image.second.read(it, location).first())
-            }
-        }
     }
+
+    private suspend fun lookupElevations(locations: List<Coordinate>): List<Pair<Coordinate, Distance>> =
+        onIO {
+            val files = AppServiceRegistry.get<FileSubsystem>()
+            val sources = getSources()
+            val isExternal = isExternalModel()
+
+            val lookups = locations.map { location ->
+                location to sources.firstOrNull {
+                    it.second.contains(location)
+                }
+            }.groupBy { it.second }
+
+            val elevations = mutableListOf<Pair<Coordinate, Distance>>()
+            for (lookup in lookups) {
+                if (lookup.key == null) {
+                    elevations.addAll(lookup.value.map { it.first to Distance.meters(0f) })
+                    continue
+                }
+
+                val coordinates =
+                    lookup.value.map { it.second!!.second.getPixel(it.first) to it.first }
+
+                tryOrDefault(Distance.meters(0f)) {
+                    val stream = if (isExternal) {
+                        files.get(lookup.key!!.first).inputStream()
+                    } else {
+                        files.streamAsset(lookup.key!!.first)!!
+                    }
+                    stream.use {
+                        val readings = lookup.key!!.second.read(it, coordinates.map { it.first })
+                        elevations.addAll(readings.mapNotNull {
+                            val coordinate =
+                                coordinates.firstOrNull { c -> c.first == it.first }?.second
+                                    ?: return@mapNotNull null
+                            coordinate to Distance.meters(it.second.first())
+                        })
+                    }
+                }
+            }
+
+
+            elevations
+        }
 
     fun invalidateCache() {
         cache = GeospatialCache(Distance.meters(100f), size = 40)

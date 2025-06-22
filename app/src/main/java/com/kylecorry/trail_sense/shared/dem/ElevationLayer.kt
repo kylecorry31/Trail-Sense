@@ -9,16 +9,17 @@ import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.roundNearest
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.tools.maps.infrastructure.tiles.TileMath
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.ILayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
@@ -31,23 +32,26 @@ class ElevationLayer : ILayer {
     private var contourCalculationInProgress = false
     private val units by lazy { AppServiceRegistry.get<UserPreferences>().baseDistanceUnits }
 
+    private val minZoomLevel = 15
+    private val maxZoomLevel = 19
+
     private val validIntervals by lazy {
         if (units.isMetric) {
             listOf(
-                5f,
-                10f,
-                20f,
-                40f,
-                100f
+                50f, // 15
+                40f, // 16
+                20f, // 17
+                10f, // 18
+                5f // 19
             )
         } else {
             listOf(
-                10f,
-                20f,
-                40f,
-                100f,
-                200f
-            )
+                200f, // 15
+                100f, // 16
+                40f, // 17
+                20f, // 18
+                10f // 19
+            ).map { Distance.feet(it).meters().distance }
         }
     }
 
@@ -72,10 +76,21 @@ class ElevationLayer : ILayer {
                 // TODO: Debounce loader
                 runner.enqueue {
                     contourCalculationInProgress = true
-                    val interval = validIntervals.minBy {
-                        abs(it - (metersPerPixel * 2))
+                    val zoomLevel = TileMath.distancePerPixelToZoom(
+                        metersPerPixel.toDouble(),
+                        (bounds.north + bounds.south) / 2
+                    ).coerceAtMost(maxZoomLevel)
+
+                    if (zoomLevel < minZoomLevel) {
+                        contours = emptyList()
+                        contourCalculationInProgress = false
+                        lastMetersPerPixel = metersPerPixel
+                        lastBounds = bounds
+                        return@enqueue
                     }
-                    contours = getContourLines(bounds, interval)
+
+                    val interval = validIntervals[zoomLevel - minZoomLevel]
+                    contours = getContourLines(bounds, interval, zoomLevel)
                     lastMetersPerPixel = metersPerPixel
                     lastBounds = bounds
                     contourCalculationInProgress = false
@@ -127,24 +142,44 @@ class ElevationLayer : ILayer {
      */
     private suspend fun getContourLines(
         bounds: CoordinateBounds,
-        interval: Float
+        interval: Float,
+        zoomLevel: Int
     ): List<Pair<Float, List<Pair<Coordinate, Coordinate>>>> = onDefault {
-        val points = 8
 
-        val grid = mutableListOf<List<Pair<Coordinate, Float>>>()
-        val latInterval = (bounds.north - bounds.south) / points
-        val lonInterval = (bounds.east - bounds.west) / points
-        var lat = bounds.south - latInterval
+        val baseResolution = 1 / 240.0
+
+        val zoomLevelToResolution = mapOf(
+            15 to baseResolution,
+            16 to baseResolution / 2,
+            17 to baseResolution / 4,
+            18 to baseResolution / 8,
+            19 to baseResolution / 16
+        )
+
+        val toLookup = mutableListOf<List<Coordinate>>()
+        val latInterval = zoomLevelToResolution[zoomLevel] ?: 0.01
+        val lonInterval = zoomLevelToResolution[zoomLevel] ?: 0.01
+        var lat = bounds.south.roundNearest(latInterval) - latInterval
         while (lat <= bounds.north + latInterval) {
             var row = mutableListOf<Coordinate>()
-            var lon = bounds.west - lonInterval
+            var lon = bounds.west.roundNearest(lonInterval) - lonInterval
             while (lon <= bounds.east + lonInterval) {
                 row.add(Coordinate(lat, lon))
                 lon += lonInterval
             }
-            grid.add(DEM.getElevations(row).map { it.first to it.second.meters().distance })
+            toLookup.add(row)
             lat += latInterval
         }
+
+        val allElevations =
+            DEM.getElevations(toLookup.flatten()).map { it.first to it.second.meters().distance }
+        val grid = toLookup.map {
+            it.map { coord ->
+                val elevation = allElevations.find { it.first == coord }?.second ?: 0f
+                coord to elevation
+            }
+        }
+
 
         val squares = mutableListOf<List<Pair<Coordinate, Float>>>()
         for (i in 0 until grid.size - 1) {
@@ -172,7 +207,7 @@ class ElevationLayer : ILayer {
             .toList()
 
         thresholds.map { threshold ->
-            val parallel = ParallelCoroutineRunner(8)
+            val parallel = ParallelCoroutineRunner(16)
             threshold to parallel.map(squares) {
                 marchingSquares(it, threshold)
             }.flatten()

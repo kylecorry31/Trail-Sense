@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.bitmaps.BitmapUtils
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.isInBounds
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.trail_sense.shared.extensions.range
 import java.io.InputStream
 import kotlin.math.roundToInt
 
@@ -33,16 +34,22 @@ class ImagePixelReader2(
     private val lookupOrder: Int = 1 // The layers of surrounding pixels to look up (1 = 4 pixels, 2 = 12 pixels, etc.)
 ) {
 
-    @Suppress("BlockingMethodInNonBlockingContext")
-    suspend fun getPixels(
+    suspend fun getAllPixels(
         image: InputStream,
-        x: Float,
-        y: Float,
+        pixels: List<PixelCoordinate>,
         autoClose: Boolean = true
     ): List<PixelResult<Int>> = onIO {
         var bitmap: Bitmap? = null
         try {
-            val rect = getRegion(x.roundToInt(), y.roundToInt())
+            val xRange = pixels.map { it.x.roundToInt() }.range() ?: return@onIO emptyList()
+            val yRange = pixels.map { it.y.roundToInt() }.range() ?: return@onIO emptyList()
+
+            val width = xRange.end - xRange.start + 6
+            val height = yRange.end - yRange.start + 6
+            val centerX = (xRange.start + xRange.end) / 2
+            val centerY = (yRange.start + yRange.end) / 2
+
+            val rect = getRegion(centerX, centerY, width, height)
             bitmap = BitmapUtils.decodeRegion(
                 image,
                 rect,
@@ -54,25 +61,39 @@ class ImagePixelReader2(
                 return@onIO emptyList()
             }
 
-            val newX = x - rect.left
-            val newY = y - rect.top
+            val allPixels = mutableListOf<PixelResult<Int>>()
+            for (pixel in pixels) {
+                val newX = pixel.x - rect.left
+                val newY = pixel.y - rect.top
 
-            return@onIO (1..lookupOrder).flatMap { order ->
-                getNearbyPixels(newX.toInt(), newY.toInt(), order, bitmap)
-            }.map {
-                PixelResult(
-                    it.x + rect.left,
-                    it.y + rect.top,
-                    it.value,
-                    it.order
-                )
+                allPixels.addAll((1..lookupOrder).flatMap { order ->
+                    getNearbyPixels(newX.toInt(), newY.toInt(), order, bitmap)
+                }.map {
+                    PixelResult(
+                        it.x + rect.left,
+                        it.y + rect.top,
+                        it.value,
+                        it.order
+                    )
+                })
             }
+            allPixels.distinctBy { it.x to it.y }
         } finally {
             bitmap?.recycle()
             if (autoClose) {
                 image.close()
             }
         }
+    }
+
+    @Suppress("BlockingMethodInNonBlockingContext")
+    suspend fun getPixels(
+        image: InputStream,
+        x: Float,
+        y: Float,
+        autoClose: Boolean = true
+    ): List<PixelResult<Int>> = onIO {
+        getAllPixels(image, listOf(PixelCoordinate(x, y)), autoClose)
     }
 
     private fun getNearbyPixels(
@@ -111,15 +132,12 @@ class ImagePixelReader2(
         return pixels
     }
 
-    private fun getRegion(x: Int, y: Int): Rect {
-
-        val width = 6
-
+    private fun getRegion(x: Int, y: Int, width: Int = 6, height: Int = width): Rect {
         // Always start/end on an even pixel or else it seems to be off by 1
         val left = x - 2 - (x % 2)
         val top = y - 2 - (y % 2)
         val right = left + width
-        val bottom = top + width
+        val bottom = top + height
 
         return Rect(
             left.coerceIn(0, imageSize.width),

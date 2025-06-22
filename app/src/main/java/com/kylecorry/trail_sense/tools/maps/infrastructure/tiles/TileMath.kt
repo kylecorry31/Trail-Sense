@@ -58,7 +58,7 @@ object TileMath {
         return x to y
     }
 
-    private fun distancePerPixelToZoom(
+    fun distancePerPixelToZoom(
         distancePerPixel: Double,
         latitude: Double
     ): Int {

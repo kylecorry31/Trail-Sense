@@ -38,7 +38,8 @@ class GeographicImageSource(
         if (!SolMath.isZero(valuePixelOffset)) {
             val horizontalRes = abs(bounds.west - bounds.east) / imageSize.width
             val verticalRes = abs(bounds.north - bounds.south) / imageSize.height
-            x = (location.longitude - (bounds.west + horizontalRes * valuePixelOffset)) / horizontalRes
+            x =
+                (location.longitude - (bounds.west + horizontalRes * valuePixelOffset)) / horizontalRes
             y = ((bounds.north - verticalRes * valuePixelOffset) - location.latitude) / verticalRes
         } else {
             x = (location.longitude - bounds.west) * longitudePixelsPerDegree
@@ -69,32 +70,62 @@ class GeographicImageSource(
         read(stream, pixel)
     }
 
-    suspend fun read(stream: InputStream, pixel: PixelCoordinate): List<Float> = onIO {
-        val pixels =
-            reader.getPixels(stream, pixel.x, pixel.y, true)
-        val decoded = pixels.map { it to decoder(it.value) }
-        val channels = decoded.firstOrNull()?.second?.size ?: 0
-        val interpolated = mutableListOf<Float>()
-        val interpolators = listOfNotNull(
-            if (interpolate && interpolationOrder == 2) BicubicInterpolator<Float>() else null,
-            if (interpolate) BilinearInterpolator<Float>() else null,
-            NearestInterpolator<Float>()
-        )
-        for (i in 0 until channels) {
-            val values = decoded.map {
-                PixelResult(
-                    it.first.x,
-                    it.first.y,
-                    it.second[i],
-                    it.first.order
-                )
-            }.filter {
-                include0ValuesInInterpolation || !SolMath.isZero(it.value)
+    suspend fun read(
+        stream: InputStream,
+        pixels: List<PixelCoordinate>
+    ): List<Pair<PixelCoordinate, List<Float>>> = onIO {
+        // Divide the pixels into subregions of at most 255x255 pixels in the original image (using x, y)
+        val regions = mutableMapOf<Pair<Int, Int>, MutableList<PixelCoordinate>>()
+        for (pixel in pixels) {
+            val regionX = (pixel.x / 255).toInt()
+            val regionY = (pixel.y / 255).toInt()
+            val regionKey = Pair(regionX, regionY)
+            if (regionKey !in regions) {
+                regions[regionKey] = mutableListOf()
             }
-            interpolated.add(interpolators.firstNotNullOfOrNull { it.interpolate(pixel, values) }
-                ?: 0f)
+            regions[regionKey]!!.add(pixel)
         }
-        interpolated
+
+        val results = mutableListOf<Pair<PixelCoordinate, List<Float>>>()
+        for (region in regions.values) {
+            val pixels = reader.getAllPixels(stream, region, true)
+            val decoded = pixels.map { it to decoder(it.value) }
+            val channels = decoded.firstOrNull()?.second?.size ?: 0
+            for (pixel in region) {
+                val interpolated = mutableListOf<Float>()
+                val interpolators = listOfNotNull(
+                    if (interpolate && interpolationOrder == 2) BicubicInterpolator<Float>() else null,
+                    if (interpolate) BilinearInterpolator<Float>() else null,
+                    NearestInterpolator<Float>()
+                )
+                for (i in 0 until channels) {
+                    val values = decoded.map {
+                        PixelResult(
+                            it.first.x,
+                            it.first.y,
+                            it.second[i],
+                            it.first.order
+                        )
+                    }.filter {
+                        include0ValuesInInterpolation || !SolMath.isZero(it.value)
+                    }
+                    interpolated.add(interpolators.firstNotNullOfOrNull {
+                        it.interpolate(
+                            pixel,
+                            values
+                        )
+                    }
+                        ?: 0f)
+                }
+                results.add(pixel to interpolated)
+            }
+        }
+
+        results
+    }
+
+    suspend fun read(stream: InputStream, pixel: PixelCoordinate): List<Float> = onIO {
+        read(stream, listOf(pixel)).first().second
     }
 
     suspend fun read(context: Context, filename: String, location: Coordinate): List<Float> = onIO {
