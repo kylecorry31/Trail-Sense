@@ -36,9 +36,10 @@ class GeographicImageSource(
         var y = 0.0
 
         if (!SolMath.isZero(valuePixelOffset)) {
-            val res = abs(bounds.west - bounds.east) / imageSize.width
-            x = (location.longitude - (bounds.west + res * valuePixelOffset)) / res
-            y = ((bounds.north - res * valuePixelOffset) - location.latitude) / res
+            val horizontalRes = abs(bounds.west - bounds.east) / imageSize.width
+            val verticalRes = abs(bounds.north - bounds.south) / imageSize.height
+            x = (location.longitude - (bounds.west + horizontalRes * valuePixelOffset)) / horizontalRes
+            y = ((bounds.north - verticalRes * valuePixelOffset) - location.latitude) / verticalRes
         } else {
             x = (location.longitude - bounds.west) * longitudePixelsPerDegree
             y = (bounds.north - location.latitude) * latitudePixelsPerDegree
