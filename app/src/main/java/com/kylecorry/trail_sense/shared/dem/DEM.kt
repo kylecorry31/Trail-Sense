@@ -31,6 +31,12 @@ object DEM {
         }
 
         cache.getOrPut(location) {
+            val valuePixelOffset = if (isExternal) {
+                0.5f
+            } else {
+                // Built-in is heavily compressed, therefore this value was experimentally determined to have the best accuracy
+                0.7f
+            }
             val sources = tiles.map {
                 it.filename to GeographicImageSource(
                     Size(it.width, it.height),
@@ -46,7 +52,7 @@ object DEM {
                     ) else GeographicImageSource.split16BitDecoder(it.a, it.b),
                     precision = 10,
                     include0ValuesInInterpolation = false,
-                    areValuesCenterOfPixel = true,
+                    valuePixelOffset = valuePixelOffset,
                     interpolationOrder = 2
                 )
             }
