@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.dem
 
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.coroutines.onDefault
@@ -10,6 +11,7 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.ILayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
@@ -27,14 +29,27 @@ class ElevationLayer : ILayer {
     private var lastBounds: CoordinateBounds = CoordinateBounds.empty
     private var lastMetersPerPixel: Float? = null
     private var contourCalculationInProgress = false
+    private val units by lazy { AppServiceRegistry.get<UserPreferences>().baseDistanceUnits }
 
-    private val validIntervals = listOf(
-        10f,
-        20f,
-        40f,
-        50f,
-        100f
-    )
+    private val validIntervals by lazy {
+        if (units.isMetric) {
+            listOf(
+                5f,
+                10f,
+                20f,
+                40f,
+                100f
+            )
+        } else {
+            listOf(
+                10f,
+                20f,
+                40f,
+                100f,
+                200f
+            )
+        }
+    }
 
     private var contours = listOf<Pair<Float, List<Pair<Coordinate, Coordinate>>>>()
 
@@ -58,7 +73,6 @@ class ElevationLayer : ILayer {
                 runner.enqueue {
                     contourCalculationInProgress = true
                     val interval = validIntervals.minBy {
-                        // TODO: Convert to feet if needed
                         abs(it - (metersPerPixel * 2))
                     }
                     contours = getContourLines(bounds, interval)
@@ -115,9 +129,11 @@ class ElevationLayer : ILayer {
         bounds: CoordinateBounds,
         interval: Float
     ): List<Pair<Float, List<Pair<Coordinate, Coordinate>>>> = onDefault {
+        val points = 8
+
         val grid = mutableListOf<List<Pair<Coordinate, Float>>>()
-        val latInterval = (bounds.north - bounds.south) / 8
-        val lonInterval = (bounds.east - bounds.west) / 8
+        val latInterval = (bounds.north - bounds.south) / points
+        val lonInterval = (bounds.east - bounds.west) / points
         var lat = bounds.south - latInterval
         while (lat <= bounds.north + latInterval) {
             var row = mutableListOf<Coordinate>()

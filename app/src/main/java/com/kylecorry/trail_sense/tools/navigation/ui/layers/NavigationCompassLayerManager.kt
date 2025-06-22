@@ -63,7 +63,7 @@ class NavigationCompassLayerManager {
         view.setLayers(
             listOfNotNull(
                 if (isMapLayerEnabled) mapLayer else null,
-                elevationLayer,
+                if (prefs.showContoursOnMaps) elevationLayer else null,
                 pathLayer,
                 myAccuracyLayer,
                 myLocationLayer,

@@ -66,5 +66,7 @@ class ExperimentalSettingsFragment : AndromedaPreferenceFragment() {
         notificationGrouping?.entryValues = groupBehaviors
             .map { (groupBehaviorIds[it] ?: 0).toString() }
             .toTypedArray()
+
+        preference(R.string.pref_show_contours_on_maps)?.isVisible = isDebug()
     }
 }

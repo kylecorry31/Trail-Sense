@@ -74,6 +74,15 @@
             app:title="@string/notification_grouping"
             app:useSimpleSummaryProvider="true" />
 
+        <SwitchPreferenceCompat
+            android:summary="@string/map_layer"
+            app:defaultValue="false"
+            app:disableDependentsState="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_contours_on_maps"
+            app:singleLineTitle="false"
+            app:title="@string/contours" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

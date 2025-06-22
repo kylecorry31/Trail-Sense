@@ -1742,4 +1742,7 @@
     <string name="notification_grouping">Notification grouping</string>
     <string name="ungroup_all">Ungroup all</string>
     <string name="ungroup_alerts">Ungroup alerts</string>
+    <string name="pref_show_contours_on_maps" translatable="false">pref_show_contours_on_maps</string>
+    <string name="contours">Contours</string>
+    <string name="map_layer">Map layer</string>
 </resources>

@@ -173,8 +173,8 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.map.setLayers(
-            listOf(
-                elevationLayer,
+            listOfNotNull(
+                if (prefs.showContoursOnMaps) elevationLayer else null,
                 navigationLayer,
                 pathLayer,
                 myAccuracyLayer,

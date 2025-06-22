@@ -447,6 +447,12 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
         NotificationSubsystem.GroupBehavior.System
     )
 
+    val showContoursOnMaps by BooleanPreference(
+        cache,
+        getString(R.string.pref_show_contours_on_maps),
+        false
+    )
+
     private fun getString(id: Int): String {
         return context.getString(id)
     }
