@@ -31,6 +31,7 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.dem.ElevationLayer
 import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.ActionItem
@@ -89,6 +90,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
         }
     }
     private val pathLayer = PathLayer()
+    private val elevationLayer = ElevationLayer()
     private val distanceLayer = MapDistanceLayer { onDistancePathChange(it) }
     private val myLocationLayer = MyLocationLayer()
     private val myAccuracyLayer = MyAccuracyLayer()
@@ -172,6 +174,7 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
 
         binding.map.setLayers(
             listOf(
+                elevationLayer,
                 navigationLayer,
                 pathLayer,
                 myAccuracyLayer,
