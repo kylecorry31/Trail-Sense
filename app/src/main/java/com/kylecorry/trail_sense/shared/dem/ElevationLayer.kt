@@ -37,25 +37,26 @@ class ElevationLayer : ILayer {
 
     private val validIntervals by lazy {
         if (units.isMetric) {
-            listOf(
-                50f, // 15
-                40f, // 16
-                20f, // 17
-                10f, // 18
-                5f // 19
+            mapOf(
+                15 to 50f,
+                16 to 40f,
+                17 to 20f,
+                18 to 10f,
+                19 to 5f
             )
         } else {
-            listOf(
-                200f, // 15
-                100f, // 16
-                40f, // 17
-                20f, // 18
-                10f // 19
-            ).map { Distance.feet(it).meters().distance }
+            mapOf(
+                15 to Distance.feet(200f).meters().distance,
+                16 to Distance.feet(100f).meters().distance,
+                17 to Distance.feet(40f).meters().distance,
+                18 to Distance.feet(20f).meters().distance,
+                19 to Distance.feet(10f).meters().distance
+            )
         }
     }
 
     private var contours = listOf<Pair<Float, List<Pair<Coordinate, Coordinate>>>>()
+    private var points = listOf<Pair<Coordinate, Float>>()
 
     override fun draw(
         drawer: ICanvasDrawer,
@@ -89,7 +90,7 @@ class ElevationLayer : ILayer {
                         return@enqueue
                     }
 
-                    val interval = validIntervals[zoomLevel - minZoomLevel]
+                    val interval = validIntervals[zoomLevel] ?: validIntervals.values.first()
                     contours = getContourLines(bounds, interval, zoomLevel)
                     lastMetersPerPixel = metersPerPixel
                     lastBounds = bounds
@@ -98,8 +99,15 @@ class ElevationLayer : ILayer {
             }
         }
 
-        drawer.stroke(AppColor.Brown.color)
+        drawer.strokeWeight(drawer.dp(5f))
+//        val scale = ContinuousColorScale(AppColor.DarkBlue.color, AppColor.Red.color)
+//        points.forEach {
+//            drawer.stroke(scale.getColor(it.second / 255f))
+//            val pixel = map.toPixel(it.first)
+//            drawer.point(pixel.x, pixel.y)
+//        }
         drawer.strokeWeight(drawer.dp(1f))
+        drawer.stroke(AppColor.Brown.color)
         drawer.opacity(127)
         drawer.noFill()
         drawer.lines(contours.flatMap { it.second }.map { line ->
@@ -145,30 +153,21 @@ class ElevationLayer : ILayer {
         interval: Float,
         zoomLevel: Int
     ): List<Pair<Float, List<Pair<Coordinate, Coordinate>>>> = onDefault {
-
-        val baseResolution = 1 / 100.0
-
-        val zoomLevelToResolution = mapOf(
-            15 to baseResolution,
-            16 to baseResolution / 2,
-            17 to baseResolution / 4,
-            18 to baseResolution / 8,
-            19 to baseResolution / 16
-        )
+        // TODO: Get resolution and offset from DEM
+        val baseResolution = 1 / 240.0
+        val offset = 1 / 480.0
 
         val toLookup = mutableListOf<List<Coordinate>>()
-        val latInterval = zoomLevelToResolution[zoomLevel] ?: 0.01
-        val lonInterval = zoomLevelToResolution[zoomLevel] ?: 0.01
-        var lat = bounds.south.roundNearest(latInterval) - latInterval
-        while (lat <= bounds.north + latInterval) {
+        var lat = bounds.south.roundNearest(baseResolution) - baseResolution
+        while (lat <= bounds.north + baseResolution) {
             var row = mutableListOf<Coordinate>()
-            var lon = bounds.west.roundNearest(lonInterval) - lonInterval
-            while (lon <= bounds.east + lonInterval) {
-                row.add(Coordinate(lat, lon))
-                lon += lonInterval
+            var lon = bounds.west.roundNearest(baseResolution) - baseResolution
+            while (lon <= bounds.east + baseResolution) {
+                row.add(Coordinate(lat + offset, lon + offset))
+                lon += baseResolution
             }
             toLookup.add(row)
-            lat += latInterval
+            lat += baseResolution
         }
 
         val allElevations =
@@ -180,6 +179,7 @@ class ElevationLayer : ILayer {
             }
         }
 
+        // TODO: Bicubic interpolation of grid (powers of 2) based on zoomLevel
 
         val squares = mutableListOf<List<Pair<Coordinate, Float>>>()
         for (i in 0 until grid.size - 1) {
@@ -196,6 +196,11 @@ class ElevationLayer : ILayer {
 
         val minElevation = squares.minOfOrNull { it.minOf { it.second } } ?: 0f
         val maxElevation = squares.maxOfOrNull { it.maxOf { it.second } } ?: 0f
+
+        points =
+            grid.flatten()
+                .map { it.first to SolMath.norm(it.second, minElevation, maxElevation) * 255 }
+
 
         var startElevationInterval = minElevation.roundNearest(interval)
         if (startElevationInterval < minElevation) {
