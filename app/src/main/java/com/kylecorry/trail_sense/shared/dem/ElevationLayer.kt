@@ -146,7 +146,7 @@ class ElevationLayer : ILayer {
         zoomLevel: Int
     ): List<Pair<Float, List<Pair<Coordinate, Coordinate>>>> = onDefault {
 
-        val baseResolution = 1 / 240.0
+        val baseResolution = 1 / 100.0
 
         val zoomLevelToResolution = mapOf(
             15 to baseResolution,
