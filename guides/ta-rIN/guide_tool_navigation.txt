@@ -1,107 +1,109 @@
-The வானோடல் கருவி can be used பெறுநர் navigate பெறுநர் a beacon, follow a path, or follow a bearing.
-
-## Compass
-
-The compass can be used க்கு both நோக்குநிலை and navigation. Your bearing is displayed at the மேலே of the screen.
-
-This feature is not available if your device does not have a compass.
-
-### Nearby
-
-You can choose பெறுநர் காட்சி nearby beacons on the compass. The following அமைப்புகள் control the nearby beacons:
-
-- **Settings > வானோடல் > காட்டு nearby beacons**: Determines if nearby beacons அரே shown on the compass.
-- **Settings > வானோடல் > Nearby சுழலொளி radius**: Determines the பெருமம் distance a சுழலொளி can be இருந்து your location பெறுநர் be shown on the compass.
-- **Settings > வானோடல் > Nearby beacons**: Limits the எண் of nearby beacons shown on the compass.
-
-Nearby beacons will be shown அச் அம்புகள் around the compass. The அம்புகள் will புள்ளியம் பெறுநர் the beacon, and when you அரே facing the beacon, more செய்தி பற்றி it will be shown at the கீழே of the screen.
-
-If you have the கதிரலைக் கும்பா compass enabled, the nearby beacons will be shown on the compass itself.
-
-### கதிரலைக் கும்பா compass
-
-The கதிரலைக் கும்பா compass shows nearby beacons, paths, and tides அச் a map-like கதிரலைக் கும்பா display. The கதிரலைக் கும்பா compass is available with nearby beacons enabled. Once nearby beacons அரே enabled, you can turn on the கதிரலைக் கும்பா compass using "Settings > வானோடல் > காட்டு nearby கதிரலைக் கும்பா compass".
-
-You can pinch பெறுநர் zoom the கதிரலைக் கும்பா compass, which will change the nearby சுழலொளி radius.
-
-If your device does not have a compass, you can still choose பெறுநர் காட்சி the compass dial ticks by enabling the அமைப்புகள் > வானோடல் > 'Show dial ticks on nearby radar' option. Please note, that without a compass sensor, moving your device will not change the direction of the கதிரலைக் கும்பா compass.
-
-### நேரியல் compass
-
-The நேரியல் compass is displayed when you hold your phone vertically. You can also use the sighting compass feature with the நேரியல் compass by tapping the camera icon on the வலது பக்கம் of the screen. This will காட்சி the compass overlaid on a camera viewfinder. With the sighting compass active, you can pinch பெறுநர் zoom the camera viewfinder.
-
-You can enable or முடக்கு the நேரியல் compass under அமைப்புகள் > வானோடல் > காட்டு நேரியல் compass.
-
-### வடக்கு reference
-
-By default, it will புள்ளியம் பெறுநர் True North, but it can be configured பெறுநர் புள்ளியம் பெறுநர் காந்தம் வடக்கு in the compass settings. The வடக்கு குறிப்பு is displayed at the கீழே of the screen.
-
-### Sun and moon
-
-The compass shows the direction of the sun and moon, allowing you பெறுநர் navigate using them and verify the accuracy of the compass. You can configure the sun and moon காட்சி in அமைப்புகள் > வானோடல் > காட்டு sun/moon on compass. The விருப்பங்கள் are:
-
-- **Always**: எப்போதும் காட்டு the sun and moon on the compass.
-- **When up**: Only காட்டு the sun and moon when they அரே above the horizon.
-- **Never**: ஒருபோதும் காட்டு the sun and moon on the compass.
-
-### Calibration
-
-Phone compasses அரே not எப்போதும் accurate, so you should frequently calibrate your compass. You can calibrate your compass by waving your phone in a figure-8 pattern. க்கு more detailed instructions and a visual, click the நிலை icons in the bottom-left of the வானோடல் tool. This will guide you in calibrating your compass and also காட்டு details பற்றி location accuracy.
-
-## சுழலொளி navigation
-
-You can navigate பெறுநர் a சுழலொளி by tapping the navigate button in the bottom-right. This will திற the Beacons tool, where you can தேர்ந்தெடு a சுழலொளி பெறுநர் navigate to. See the Beacons guide க்கு more information.
-
-While navigating பெறுநர் a beacon, the direction will be displayed on the compass and அனைத்தும் மற்றொன்று nearby beacons will become transparent. A வானோடல் panel will காட்சி at the கீழே of your screen with the following information:
-- **Name**: The பெயர் of the சுழலொளி you அரே navigating to.
-- **Distance**: The distance பெறுநர் the beacon.
-- **Bearing**: The bearing பெறுநர் the beacon.
-- **ETA**: The estimated time of arrival பெறுநர் the beacon.
-- **Elevation**: The உயர்வு கோடு of the சுழலொளி and வேறுபாடு இருந்து your மின்னோட்ட்ம், ஓட்டம் elevation.
-- **Notes**: Any notes you have க்கு the beacon. This will காட்டு அச் an icon if there அரே notes, and you can tap it பெறுநர் see the notes.
-
-You can நிறுத்து navigating பெறுநர் a சுழலொளி by tapping the 'ஃச்' button in the bottom-right.
-
-You can quickly create a சுழலொளி இருந்து your மின்னோட்ட்ம், ஓட்டம் location by long-pressing the வானோடல் icon at the bottom-right. This will திற the Beacons கருவி with the location and உயர்வு கோடு pre-filled.
-
-For more செய்தி on beacons, see the Beacons guide.
-
-## Bearing navigation
-
-You can navigate using a bearing by tapping the compass பெறுநர் கணம் a bearing. The கணம் bearing will be displayed on the compass. You can tap the compass again பெறுநர் clear the bearing.
-
-## பாதை navigation
-
-If you have the கதிரலைக் கும்பா compass enabled, you can see nearby paths on the compass. You can't currently navigate along a path, but you can use the compass பெறுநர் see where the பாதை is relative பெறுநர் you. If you have Backtrack running, you can see your மின்னோட்ட்ம், ஓட்டம் position on the path. க்கு more information, see the Paths guide.
-
-## Location
-
-Your மின்னோட்ட்ம், ஓட்டம் location is shown at the மேலே of the screen. You can tap it பெறுநர் see more details பற்றி your location. The details panel shows the following information:
-
-- **Share**: Choose பெறுநர் நகலெடு your location பெறுநர் your clipboard, பங்கு it அச் a QR code, திற it in a map பயன்பாடு, or பங்கு it அச் a உரை message.
-- **Format**: The ஆயம் வடிவம் பெறுநர் see your location in. This defaults பெறுநர் the வடிவம் you have in அமைப்புகள் > Units > ஆயம் format. Changes made here அரே temporary and will not change your இயல்புநிலை ஆயம் format.
-- **Accuracy**: The accuracy of your location.
-- **Satellites**: The எண் of satellites used பெறுநர் calculate your location.
-- **Time since last fix**: The time since your location was last updated.
-- **Datum**: The datum of the location. This will எப்போதும் be WGS 84.
-
-You can long-press the location பெறுநர் quickly bring மேலே the பங்கு menu.
-
-## Elevation
-
-Your உயர்வு கோடு is shown at the top-left of the screen. You can tap it பெறுநர் see a வரலாறு of your elevation. The வரலாறு is only available if you have Backtrack or the weather monitor running - see the Paths or Weather guide க்கு details on how பெறுநர் turn this on. You can adjust the length of the வரலாறு by clicking the "Last 24h" dropdown at the மேலே of the வரலாறு panel.
-
-## Speed
-
-Your விரைவு is shown at the top-right of the screen. You can change the மூலம் of the விரைவு in அமைப்புகள் > வானோடல் > Speedometer. The விருப்பங்கள் are:
-
-- **Current விரைவு (GPS)**: The விரைவு reported by your GPS.
-- **Average விரைவு (Backtrack)**: The average விரைவு calculated by Backtrack. This requires Backtrack பெறுநர் be running. See the Paths guide க்கு more information.
-- **Current விரைவு (Pedometer)**: The விரைவு calculated by your phone's pedometer. This requires the pedometer பெறுநர் be running. See the Pedometer guide க்கு more information.
-- **Average விரைவு (Pedometer)**: The average விரைவு calculated by your phone's pedometer since you started tracking. This requires the pedometer பெறுநர் be running. See the Pedometer guide க்கு more information.
-
-## Widgets
-The following நிரல்பலகை can be placed on your device's homescreen or viewed in-app:
-
-- **Elevation**: Shows your மின்னோட்ட்ம், ஓட்டம் elevation.
-- **Location**: Shows your மின்னோட்ட்ம், ஓட்டம் location.
+"வழிசெலுத்தல் கருவி ஒரு பீக்கனுக்குச் செல்ல, ஒரு பாதையைப் பின்பற்ற அல்லது ஒரு தாங்கியைப் பின்தொடரப் பயன்படுகிறது.\n"
+"\n"
+"## திசைகாட்டி\n"
+"\n"
+"திசைகாட்டி நோக்குநிலை மற்றும் வழிசெலுத்தல் இரண்டிற்கும் பயன்படுத்தப்படலாம். உங்கள் தாங்கி திரையின் மேற்புறத்தில் காட்டப்படும்.\n"
+"\n"
+"உங்கள் சாதனத்தில் திசைகாட்டி இல்லையென்றால் இந்த அம்சம் கிடைக்காது.\n"
+"\n"
+"### அருகில்\n"
+"\n"
+"திசைகாட்டியில் அருகிலுள்ள பீக்கன்களைக் காட்ட நீங்கள் தேர்வு செய்யலாம். பின்வரும் அமைப்புகள் அருகிலுள்ள பீக்கன்களைக் கட்டுப்படுத்துகின்றன:\n"
+"\n"
+"- **அமைப்புகள் > வழிசெலுத்தல் > அருகிலுள்ள பீக்கன்களைக் காட்டு**: அருகிலுள்ள பீக்கன்கள் திசைகாட்டியில் காட்டப்படுகிறதா என்பதைத் தீர்மானிக்கிறது.\n"
+"- **அமைப்புகள் > வழிசெலுத்தல் > அருகிலுள்ள பீக்கன் ஆரம்**: திசைகாட்டியில் காட்டப்பட வேண்டிய உங்கள் இடத்திலிருந்து ஒரு பீக்கன் இருக்கக்கூடிய அதிகபட்ச தூரத்தை தீர்மானிக்கிறது.\n"
+"- **அமைப்புகள் > வழிசெலுத்தல் > அருகிலுள்ள பீக்கன்கள்**: திசைகாட்டி.\n"
+"\n"
+"அருகிலுள்ள பீக்கான்கள் திசைகாட்டியைச் சுற்றி அம்புகளாகக் காட்டப்படும். அம்புகள் பீக்கனைச் சுட்டிக்காட்டும், மேலும் நீங்கள் பீக்கனை எதிர்கொள்ளும்போது, அதைப் பற்றிய கூடுதல் தகவல்கள் திரையின் அடிப்பகுதியில் காட்டப்படும்.\n"
+"\n"
+"ரேடார் திசைகாட்டி இயக்கப்பட்டிருந்தால், அருகிலுள்ள பீக்கான்கள் திசைகாட்டியிலேயே காட்டப்படும்.\n"
+"\n"
+"### ரேடார் திசைகாட்டி\n"
+"\n"
+"ரேடார் திசைகாட்டி அருகிலுள்ள பீக்கான்கள், பாதைகள் மற்றும் அலைகளை வரைபடம் போன்ற ரேடார் காட்சியாகக் காட்டுகிறது. ரேடார் திசைகாட்டி அருகிலுள்ள பீக்கான்களுடன் கிடைக்கிறது. அருகிலுள்ள பீக்கான்கள் இயக்கப்பட்டவுடன், \"அமைப்புகள் > வழிசெலுத்தல் > அருகிலுள்ள ரேடார் திசைகாட்டியைக் காட்டு\" ஐப் பயன்படுத்தி ரேடார் திசைகாட்டியை இயக்கலாம்.\n"
+"\n"
+"ரேடார் திசைகாட்டியை பெரிதாக்க நீங்கள் பின்ச் செய்யலாம், இது அருகிலுள்ள பீக்கான் ஆரத்தை மாற்றும்.\n"
+"\n"
+"உங்கள் சாதனத்தில் திசைகாட்டி இல்லையென்றால், அமைப்புகள் > வழிசெலுத்தல் > 'அருகிலுள்ள ரேடாரில் டயல் டிக்களைக் காட்டு' என்பதை இயக்குவதன் மூலம் திசைகாட்டி டயல் டிக்களைக் காட்ட நீங்கள் இன்னும் தேர்வு செய்யலாம். விருப்பம். திசைகாட்டி சென்சார் இல்லாமல், உங்கள் சாதனத்தை நகர்த்துவது ரேடார் திசைகாட்டியின் திசையை மாற்றாது என்பதை நினைவில் கொள்ளவும்.\n"
+"\n"
+"அமைப்புகள் > வழிசெலுத்தல் > புகைப்பட வரைபடங்கள் > காணக்கூடியவை என்பதை இயக்குவதன் மூலம் திசைகாட்டியில் உங்கள் புகைப்பட வரைபடங்களைக் கொண்ட வரைபட அடுக்கைக் காண்பிக்க நீங்கள் தேர்வு செய்யலாம். இது திசைகாட்டியின் பின்னணியாக அருகிலுள்ள புகைப்பட வரைபடங்களைக் காண்பிக்கும், மேலும் அதிகமாக பெரிதாக்கப்பட்ட வரைபடம் மேலே தோன்றும். அமைப்புகள் > வழிசெலுத்தல் > புகைப்பட வரைபடங்கள் > ஒளிபுகாநிலை வழியாக இந்த அடுக்கின் ஒளிபுகாநிலையை நீங்கள் சரிசெய்யலாம்.\n"
+"\n"
+"### நேரியல் திசைகாட்டி\n"
+"\n"
+"உங்கள் தொலைபேசியை செங்குத்தாகப் பிடிக்கும்போது நேரியல் திசைகாட்டி காட்டப்படும். திரையின் வலது பக்கத்தில் உள்ள கேமரா ஐகானைத் தட்டுவதன் மூலம் நேரியல் திசைகாட்டியுடன் பார்வை திசைகாட்டி அம்சத்தையும் பயன்படுத்தலாம். இது கேமரா வியூஃபைண்டரில் மேலெழுதப்பட்ட திசைகாட்டியைக் காண்பிக்கும். பார்வை திசைகாட்டி செயலில் உள்ள நிலையில், கேமரா வியூஃபைண்டரை பெரிதாக்க நீங்கள் பின்ச் செய்யலாம்.\n"
+"\n"
+"அமைப்புகள் > வழிசெலுத்தல் > நேரியல் காட்டு என்பதன் கீழ் நேரியல் திசைகாட்டியை இயக்கலாம் அல்லது முடக்கலாம். திசைகாட்டி.\n"
+"\n"
+"### வடக்கு குறிப்பு\n"
+"\n"
+"இயல்பாக, இது உண்மையான வடக்கைச் சுட்டிக்காட்டும், ஆனால் திசைகாட்டி அமைப்புகளில் காந்த வடக்கைச் சுட்டிக்காட்டும் வகையில் அதை உள்ளமைக்க முடியும். வடக்கு குறிப்பு திரையின் அடிப்பகுதியில் காட்டப்படும்.\n"
+"\n"
+"### சூரியன் மற்றும் சந்திரன்\n"
+"\n"
+"திசைகாட்டி சூரியன் மற்றும் சந்திரனின் திசையைக் காட்டுகிறது, அவற்றைப் பயன்படுத்தி வழிசெலுத்தவும் திசைகாட்டியின் துல்லியத்தை சரிபார்க்கவும் உங்களை அனுமதிக்கிறது. அமைப்புகள் > வழிசெலுத்தல் > திசைகாட்டியில் சூரியன்/சந்திரனைக் காட்டு என்பதில் சூரியன் மற்றும் சந்திரன் காட்சியை நீங்கள் உள்ளமைக்கலாம். விருப்பங்கள்:\n"
+"\n"
+"- **எப்போதும்**: திசைகாட்டியில் சூரியன் மற்றும் சந்திரனை எப்போதும் காட்டு.\n"
+"- **மேல்நோக்கி இருக்கும்போது**: சூரியன் மற்றும் சந்திரனை அடிவானத்திற்கு மேலே இருக்கும்போது மட்டுமே காட்டு.\n"
+"- **ஒருபோதும்**: திசைகாட்டியில் சூரியன் மற்றும் சந்திரனை ஒருபோதும் காட்ட வேண்டாம்.\n"
+"\n"
+"### அளவுத்திருத்தம்\n"
+"\n"
+"தொலைபேசி திசைகாட்டிகள் எப்போதும் இல்லை துல்லியமானது, எனவே நீங்கள் அடிக்கடி உங்கள் திசைகாட்டியை அளவீடு செய்ய வேண்டும். உங்கள் தொலைபேசியை ஒரு படம்-8 வடிவத்தில் அசைப்பதன் மூலம் உங்கள் திசைகாட்டியை அளவீடு செய்யலாம். மேலும் விரிவான வழிமுறைகள் மற்றும் காட்சிக்கு, வழிசெலுத்தல் கருவியின் கீழ்-இடதுபுறத்தில் உள்ள நிலை ஐகான்களைக் கிளிக் செய்யவும். இது உங்கள் திசைகாட்டியை அளவீடு செய்வதில் உங்களுக்கு வழிகாட்டும், மேலும் இருப்பிட துல்லியம் பற்றிய விவரங்களையும் காண்பிக்கும்.\n"
+"\n"
+"## பீக்கான் வழிசெலுத்தல்\n"
+"\n"
+"கீழ்-வலதுபுறத்தில் உள்ள வழிசெலுத்தல் பொத்தானைத் தட்டுவதன் மூலம் நீங்கள் ஒரு பீக்கனுக்கு செல்லலாம். இது பீக்கன் கருவியைத் திறக்கும், அங்கு நீங்கள் செல்ல ஒரு பீக்கனைத் தேர்ந்தெடுக்கலாம். மேலும் தகவலுக்கு பீக்கன் வழிகாட்டியைப் பார்க்கவும்.\n"
+"\n"
+"ஒரு பீக்கனுக்கு செல்லும்போது, திசைகாட்டியில் திசை காட்டப்படும் மற்றும் அருகிலுள்ள அனைத்து பீக்கன்களும் வெளிப்படையானதாக மாறும். உங்கள் திரையின் அடிப்பகுதியில் பின்வரும் தகவல்களுடன் ஒரு வழிசெலுத்தல் பலகம் காண்பிக்கப்படும்:\n"
+"- **பெயர்**: நீங்கள் செல்ல விரும்பும் பீக்கனின் பெயர்.\n"
+"- **தூரம்**: பீக்கனுக்கான தூரம்.\n"
+"- **தாங்கி**: பீக்கன்.\n"
+"- **ETA**: பீக்கனை அடைய மதிப்பிடப்பட்ட நேரம்.\n"
+"- **உயரம்**: பீக்கனின் உயரம் மற்றும் உங்கள் தற்போதைய உயரத்திலிருந்து வேறுபாடு.\n"
+"- **குறிப்புகள்**: பீக்கனுக்கான ஏதேனும் குறிப்புகள். குறிப்புகள் இருந்தால் இது ஒரு ஐகானாகக் காண்பிக்கப்படும், மேலும் குறிப்புகளைக் காண அதைத் தட்டலாம்.\n"
+"\n"
+"கீழ்-வலதுபுறத்தில் உள்ள 'X' பொத்தானைத் தட்டுவதன் மூலம் பீக்கனுக்குச் செல்வதை நிறுத்தலாம்.\n"
+"\n"
+"கீழ்-வலதுபுறத்தில் உள்ள வழிசெலுத்தல் ஐகானை நீண்ட நேரம் அழுத்துவதன் மூலம் உங்கள் தற்போதைய இடத்திலிருந்து ஒரு பீக்கனை விரைவாக உருவாக்கலாம். இது இருப்பிடத்துடன் பீக்கன் கருவியைத் திறக்கும்.அயன் மற்றும் உயரம் முன்பே நிரப்பப்பட்டுள்ளது.\n"
+"\n"
+"பீக்கான்கள் பற்றிய கூடுதல் தகவலுக்கு, பீக்கான்கள் வழிகாட்டியைப் பார்க்கவும்.\n"
+"\n"
+"## தாங்கி வழிசெலுத்தல்\n"
+"\n"
+"ஒரு தாங்கியை அமைக்க திசைகாட்டியைத் தட்டுவதன் மூலம் நீங்கள் ஒரு தாங்கியைப் பயன்படுத்தி வழிசெலுத்தலாம். திசைகாட்டியில் அமைக்கப்பட்ட தாங்கி காட்டப்படும். தாங்கியை அழிக்க நீங்கள் திசைகாட்டியை மீண்டும் தட்டலாம்.\n"
+"\n"
+"## பாதை வழிசெலுத்தல்\n"
+"\n"
+"ரேடார் திசைகாட்டி இயக்கப்பட்டிருந்தால், திசைகாட்டியில் அருகிலுள்ள பாதைகளைக் காணலாம். நீங்கள் தற்போது ஒரு பாதையில் செல்ல முடியாது, ஆனால் பாதை உங்களுடன் தொடர்புடையது என்பதைக் காண திசைகாட்டியைப் பயன்படுத்தலாம். உங்களிடம் பேக்ட்ராக் இயங்கும் திறன் இருந்தால், பாதையில் உங்கள் தற்போதைய நிலையைக் காணலாம். மேலும் தகவலுக்கு, பாதைகள் வழிகாட்டியைப் பார்க்கவும்.\n"
+"\n"
+"## இருப்பிடம்\n"
+"\n"
+"உங்கள் தற்போதைய இருப்பிடம் திரையின் மேற்புறத்தில் காட்டப்பட்டுள்ளது. உங்கள் இருப்பிடம் பற்றிய கூடுதல் விவரங்களைக் காண அதைத் தட்டலாம். விவரங்கள் பலகம் பின்வரும் தகவல்களைக் காட்டுகிறது:\n"
+"\n"
+"- **பகிர்**: உங்கள் இருப்பிடத்தை உங்கள் கிளிப்போர்டுக்கு நகலெடுக்க, அதை QR குறியீடாகப் பகிர, அதை ஒரு வரைபட பயன்பாட்டில் திறக்க அல்லது உரைச் செய்தியாகப் பகிர தேர்வு செய்யவும்.\n"
+"- **வடிவமைப்பு**: உங்கள் இருப்பிடத்தைக் காண ஒருங்கிணைப்பு வடிவம். இது அமைப்புகள் > அலகுகள் > ஒருங்கிணைப்பு வடிவத்தில் உள்ள வடிவமைப்பிற்கு இயல்புநிலையாக இருக்கும். இங்கே செய்யப்பட்ட மாற்றங்கள் தற்காலிகமானவை மற்றும் உங்கள் இயல்புநிலை ஒருங்கிணைப்பு வடிவமைப்பை மாற்றாது.\n"
+"- **துல்லியம்**: உங்கள் இருப்பிடத்தின் துல்லியம்.\n"
+"- **செயற்கைக்கோள்கள்**: உங்கள் இருப்பிடத்தைக் கணக்கிடப் பயன்படுத்தப்படும் செயற்கைக்கோள்களின் எண்ணிக்கை.\n"
+"- **கடைசியாக சரிசெய்ததிலிருந்து நேரம்**: உங்கள் இருப்பிடம் கடைசியாகப் புதுப்பிக்கப்பட்டதிலிருந்து நேரம்.\n"
+"- **தரவு**: இருப்பிடத்தின் தரவு. இது எப்போதும் WGS 84 ஆக இருக்கும்.\n"
+"\n"
+"பகிர்வு மெனுவை விரைவாகக் கொண்டுவர நீங்கள் இருப்பிடத்தை நீண்ட நேரம் அழுத்தலாம்.\n"
+"\n"
+"## உயரம்\n"
+"\n"
+"உங்கள் உயரம் திரையின் மேல் இடதுபுறத்தில் காட்டப்படும். உங்கள் உயரத்தின் வரலாற்றைக் காண அதைத் தட்டலாம். உங்களிடம் Backtrack அல்லது வானிலை மானிட்டர் இயங்கினால் மட்டுமே வரலாறு கிடைக்கும் - இதை எவ்வாறு இயக்குவது என்பது குறித்த விவரங்களுக்கு பாதைகள் அல்லது வானிலை வழிகாட்டியைப் பார்க்கவும். வரலாற்றுப் பலகத்தின் மேலே உள்ள \"கடந்த 24 மணிநேரம்\" கீழ்தோன்றலைக் கிளிக் செய்வதன் மூலம் வரலாற்றின் நீளத்தை சரிசெய்யலாம்.\n"
+"\n"
+"## வேகம்\n"
+"\n"
+"உங்கள் வேகம் திரையின் மேல் வலதுபுறத்தில் காட்டப்படும். அமைப்புகள் > வழிசெலுத்தல் > வேகமானி என்பதில் வேகத்தின் மூலத்தை மாற்றலாம். விருப்பங்கள்:\n"
+"\n"
+"- **தற்போதைய வேகம் (GPS)**: உங்கள் GPS ஆல் அறிவிக்கப்பட்ட வேகம்.\n"
+"- **சராசரி வேகம் (பின்னோக்கி)**: பின்னோக்கி கணக்கிடப்பட்ட சராசரி வேகம். இதற்கு பின்னோக்கி இயங்க வேண்டும். மேலும் தகவலுக்கு பாதைகள் வழிகாட்டியைப் பார்க்கவும்.\n"
+"- **தற்போதைய வேகம் (பெடோமீட்டர்)**: உங்கள் தொலைபேசியின் பெடோமீட்டரால் கணக்கிடப்பட்ட வேகம். இதற்கு பெடோமீட்டர் இயங்க வேண்டும். மேலும் தகவலுக்கு பெடோமீட்டர் வழிகாட்டியைப் பார்க்கவும்.\n"
+"- **சராசரி வேகம் (பெடோமீட்டர்)**: நீங்கள் கண்காணிக்கத் தொடங்கியதிலிருந்து உங்கள் தொலைபேசியின் பெடோமீட்டரால் கணக்கிடப்பட்ட சராசரி வேகம். இதற்கு பெடோமீட்டர் இயங்க வேண்டும். மேலும் தகவலுக்கு பெடோமீட்டர் வழிகாட்டியைப் பார்க்கவும்.\n"
+"\n"
+"## விட்ஜெட்டுகள்\n"
+"பின்வரும் விட்ஜெட்களை உங்கள் சாதனத்தின் முகப்புத் திரையில் வைக்கலாம் அல்லது பயன்பாட்டில் பார்க்கலாம்:\n"
+"\n"
+"- **உயரம்**: உங்கள் தற்போதைய உயரத்தைக் காட்டுகிறது.\n"
+"- **இடம்**: உங்கள் தற்போதைய இருப்பிடத்தைக் காட்டுகிறது."

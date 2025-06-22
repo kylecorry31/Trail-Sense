@@ -1,241 +1,244 @@
-<!-- K: fire, flame, light, heat, warm, burn -->
-<!-- S: உருவாக்கு and maintain a fire. -->
-
-Knowing how பெறுநர் make fire can உதவி you stay warm, purify water, and cook food. You should ஒருபோதும் leave a fire unattended and must be careful பெறுநர் avoid it spreading.
-
-**This பாடங்கள் is க்கு informational purposes only and does not மாற்றவும் professional advice; use at your own இடர் and ensure compliance with local laws.**
-
-## Be prepared
-<!-- K: prepare, gear, knowledge, skill, starter, matches, lighter, steel, ferro, ferrocerium, tinder -->
-<!-- S: Bring a firestarter. Learn how பெறுநர் உருவாக்கு and maintain a fire. -->
-
-### Gear
-**Necessities**:
-- Firestarter (waterproof matches, lighters, or fire steel - carry at least two different types)
-  - You can carry a credit-card-sized Fresnel lens in your wallet or phone case அச் an emergency backup firestarter.
-
-**Optional**:
-- Tinder (dryer lint, cotton balls, or commercial fire starters)
-
-### Knowledge and skills
-Start by learning how பெறுநர் do the following:
-- உருவாக்கு a fire using multiple fire starters (matches, lighters, fire steel)
-- Gather and prepare tinder, kindling, and fuel
-- Maintain a fire
-- Extinguish a fire
-- உருவாக்கு a fire in wet conditions
-
-Once you have mastered these skills, you should learn how பெறுநர் do the following:
-- Protect a fire இருந்து wind and rain
-- Construct and use a bow drill
-- Make charcoal
-
-## Preparing a fire site
-<!-- K: build, prepare, location -->
-<!-- S: Choose a flat, dry area protected இருந்து the wind. Gather tinder, kindling, and fuel. -->
-
-You should prepare the fire site before attempting பெறுநர் தொடங்கு a fire. Choose a flat, dry area protected இருந்து the wind that is மூடு பெறுநர் your shelter and a எரிபொருள் supply. Clear the ground of flammable material and, if possible, வரி the area with dry rocks, dirt, or sand. Do not construct a fire வீச்சலகு a மூலம் மண்டலம் or peat. In snowy environments, lay down logs பெறுநர் prevent the fire இருந்து touching the snow. Gather அனைத்தும் materials before trying பெறுநர் தொடங்கு the fire.
-
-You should also be aware of local laws and regulations, அச் some areas சி-வைகாசி not allow fires.
-
-### Gathering materials
-<!-- K: find, gather, tinder, kindling, fuel, fatwood, wood, material -->
-
-You need three வகைகள் of materials பெறுநர் தொடங்கு and maintain a fire: tinder, kindling, and fuel. Tinder is a dry, fine material that catches fire easily and is used பெறுநர் தொடங்கு a fire. Kindling consists of small sticks and twigs that burn easily and அரே used பெறுநர் உருவாக்கு மேலே the fire after lighting the tinder. Finally, எரிபொருள் is used பெறுநர் sustain the fire and consists of larger sticks or logs. பெறுநர் make a fire, கண்டுபிடி பற்றி a handful of tinder, two handfuls of kindling, and a pile of எரிபொருள் - இரட்டை the amount you estimate you'll need.
-
-Finding dry மரம் can be difficult, but look க்கு dead branches on trees, fallen branches that aren't fully touching the ground, and sticks that இடைவேளை cleanly when snapped. You can dry out damp tinder by placing it near your body or in your sleeping bag, and you can dry out எரிபொருள் by placing it near the fire.
-
-- **Tinder**
-  - Shredded inner bark (birch, cedar, chestnut, சிவப்பு elm)
-  - Fine மரம் scrapings or shavings
-  - Fatwood: resin-rich மரம் இருந்து pine trees, typically found at the காரம் of dead branches
-  - Dry grass, leaves, or pine needles
-  - Dry powdered sap இருந்து pine trees
-  - Crushed fibers இருந்து dead plants
-  - Seed down (cattail, milkweed, thistle)
-  - Feather sticks (wood shavings attached பெறுநர் a stick)
-  - Commercial fire starters
-  - Cotton balls (preferably soaked in பாறையெண்ணை, பாறைநெய் jelly)
-  - Lint
-  - Paper
-  - Tinder காளான் or chaga
-- **Kindling**
-  - Sticks and twigs (pencil பெறுநர் finger thickness)
-  - Thinly split wood
-  - Plastics, such அச் straws or spoons
-  - மரம் soaked in a flammable liquid such அச் பிழை spray (use caution)
-- **Fuel**
-  - Prefer fallen மரம் that you can இடைவேளை by hand
-  - பெறுநர் இடைவேளை a larger piece of wood, செருகவும் it between two live trees at the புள்ளியம் you want பெறுநர் இடைவேளை it and push it பெறுநர் the பக்கம் until it snaps
-
-### Feather sticks
-<!-- K: feather-stick -->
-
-A feather stick can be used அச் tinder and kindling பெறுநர் உதவி தொடங்கு a fire when மற்றொன்று tinder is hard பெறுநர் find.
-
-To make a feather stick:
-
-1. கண்டுபிடி a straight, thick, dry stick.
-2. Starting near the top, use a knife பெறுநர் வெட்டு a மரம் curl. Slice down பெறுநர் the காரம் of the stick, but don't வெட்டு it off.
-3. Repeat this process, but வெட்டு along the ridge உருவாக்கப்பட்டது by your last cut. Be careful not பெறுநர் வெட்டு அணை the previous curls.
-4. Gather any curls that fell off.
-5. பெறுநர் தொடங்கு a fire, follow the அடுத்தது பிரிவு using the feather stick அச் your tinder bundle.
-
-![](file:///android_asset/survival_guide/feather_stick.webp)
-
-## Starting a fire
-<!-- K: start, light, build, ignite, tepee, structure -->
-<!-- S: If you have a fire starter, use it. You can improvise if required, but it will be more difficult and requires practice. -->
-
-Once you have a site prepared and a sufficient அளிப்பு of tinder, kindling, and fuel, you அரே ready பெறுநர் தொடங்கு the fire. அச் you உருவாக்கு மேலே the fire, be careful not பெறுநர் smother it by எப்போதும் leaving a பிரிவு with an திற flame exposed. Also, avoid adding damp or பச்சை மரம் until your fire is hot and burning fuel.
-
-Here அரே the படிகள் you can follow பெறுநர் get it going:
-
-1. Place the tinder into a small bundle or nest on the ground.
-2. Lean a few pieces of kindling against the tinder in a tepee shape.
-3. Light the tinder.
-4. Carefully கூட்டு kindling பெறுநர் the fire and blow into it பெறுநர் encourage growth.
-5. Once your fire is steady, கூட்டு எரிபொருள் while maintaining a tepee structure.
-
-![](file:///android_asset/survival_guide/fire_tepee.webp)
-
-**Note**: When blowing into a fire, be gentle and take breaths away இருந்து the smoke.
-
-### Nursing an ember
-<!-- K: ember, nurse, blow, oxygen, tinder -->
-
-An ember is a small piece of tinder that is burning but has not formed a flame. Once you have an ember, gently blow into it and தீவனம் it more tinder until a flame appears. Sometimes, it is easier பெறுநர் hold the tinder containing the ember and cup your hands closer together பெறுநர் கண்டுபிடி the வலது balance of உயிரகம், உயிர்வளி and fuel.
-
-### Lighter
-<!-- K: lighter -->
-
-A reliable lighter is the easiest way பெறுநர் தொடங்கு a fire. Use the striker பெறுநர் produce a flame and use your hand பெறுநர் shield it against any wind. Put the flame பெறுநர் the tinder பெறுநர் ignite it, and then shut அணை the lighter. If it takes you more than a couple of நொடிகள் பெறுநர் ignite the tinder, then it is not fine or dry enough.
-
-Some lighters require that you கூட்டு எரிபொருள் before use, so be sure பெறுநர் try out your lighter before you need it. The எரிபொருள் should last a long time - இரட்டை years with moderate use.
-
-A lighter generally does not வேலை when wet, but you can dry it quickly by gently rubbing the striker wheel against your clothes in the opposite direction that you would strike it and forcefully blowing into the striker area.
-
-There அரே also மின்னணு lighters available, but they அரே less reliable and require a charge. They can be used in a similar fashion பெறுநர் regular lighters but typically require smaller and finer tinder.
-
-### Matches
-<!-- K: matches -->
-
-Matches typically require a special striking surface பெறுநர் light, though strike-anywhere matches exist and can be lit using a rough rock. Unless you have waterproof or stormproof matches, once wet they will not work, and if it is windy, they can be easily extinguished.
-
-To light a fire with matches, light the match and use your hand பெறுநர் shield it against any wind. Put the flame பெறுநர் the tinder பெறுநர் ignite it and carefully drop the matchstick into the flame.
-
-### Fire steel
-<!-- K: fire-steel, ferro, ferrocerium, magnesium, strike, spark -->
-
-A fire steel or ferro rod is durable and works in அனைத்தும் weather conditions. You can scrape it quickly with a sharp edge, such அச் the பின் of your knife, a dedicated scraper, or இரட்டை a sharp piece of பளிங்கு or flint. You should avoid using the இலைப்பரப்பு of your knife பெறுநர் prevent dulling it. If you அரே having trouble keeping the tinder in place while striking, முள் the tinder between the fire steel and the ground and scrape toward the tinder. Some people also கண்டுபிடி it easier பெறுநர் keep the edge stationary and pull the fire steel away இருந்து the tinder பெறுநர் produce sparks.
-
-Some fire steels come with a வெளிமம் block, which you can scrape into the tinder before striking பெறுநர் உதவி catch a spark. Create a small pile of shavings, பற்றி the அளவு of a pebble, before trying பெறுநர் ignite it.
-
-![](file:///android_asset/survival_guide/ferrorod.webp)
-
-### Camp stove
-<!-- K: camp-stove, backpacking-stove, canister, stove, alcohol, butane, gas, ஒருப்பிணை முக்கொள்ளியம் -->
-
-Most camp stoves require another தீமூட்டல் device, such அச் a lighter, but some சி-வைகாசி have a built-in piezoelectric igniter. எப்போதும் place the stove on a flat, stable surface that will not catch fire (such அச் a rock). Be sure பெறுநர் read the manufacturer's instructions before using it.
-
-**To use a எரிபொருள் canister stove:**
-
-1. Ensure the ஓரதர் is turned அணை (turn clockwise).
-2. Screw the stove head onto the canister.
-3. Place the stove on a கிடைவளைவு surface and ensure it is stable.
-4. Expand the pot holders on the head if needed.
-5. திற the ஓரதர் slightly (turn counter-clockwise).
-6. Ignite the வளிமம் and adjust the ஓரதர் அச் needed.
-7. Once you're done, turn the ஓரதர் completely அணை (turn clockwise). Wait க்கு it பெறுநர் cool down before detaching the canister and storing it.
-
-**To use an மதுசாரம் or solid எரிபொருள் stove:**
-
-1. Place the stove on a கிடைவளைவு surface and ensure it is stable.
-2. Fill the stove with fuel.
-3. Ignite the fuel.
-4. Once you're done, gently place the lid on the stove (don't tighten it). Wait க்கு it பெறுநர் cool before tightening the lid and storing it. If using a solid எரிபொருள் stove, you சி-வைகாசி need பெறுநர் wait க்கு it பெறுநர் burn out.
-
-
-### Magnifying glass/lens
-<!-- K: magnifying, glass, lens -->
-
-Using a lens, குவி sunlight into a small புள்ளியம் on the tinder. அச் the tinder starts பெறுநர் smoke, gently blow into it and move the lens closer பெறுநர் maintain a small point. A magnifying glass, prescription glasses, a Fresnel lens, or இரட்டை a clear bottle filled with water can work. This சி-வைகாசி take a while, and direct sunlight is required.
-
-![](file:///android_asset/survival_guide/fire_magnifying_glass.webp)
-
-### Flint and steel
-<!-- K: flint, steel -->
-
-Strike a flint rock with a கரிமம் steel கருவி பெறுநர் create sparks and ignite very dry and delicate tinder. Stainless steel - and therefore பெரும்பாலானவை pocket knives - will not work. If you கண்டுபிடி yourself here, it சி-வைகாசி be best பெறுநர் குவி on insulation and shelter பெறுநர் stay warm.
-
-### Drills
-<!-- K: drill, bow-drill, hand-drill -->
-
-You can create உராய்வு by spinning a stick like a drill on a wooden காரம் (fireboard). A hand drill is simple பெறுநர் construct, அச் it's just the drill stick, fireboard, and your hands. A bow drill is more complicated பெறுநர் உருவாக்கு but is easier பெறுநர் use பெறுநர் create an ember. Both of these முறைகள் அரே difficult பெறுநர் master and require a நிறைய of practice. If you கண்டுபிடி yourself here, it சி-வைகாசி be best பெறுநர் குவி on insulation and shelter பெறுநர் stay warm.
-
-To create a bow drill:
-
-1. கண்டுபிடி a small, கிடைவளைவு stone or piece of hardwood with a small மனச்சோர்வு near the center பெறுநர் create the socket.
-2. Create the drill by finding a straight, dry stick பற்றி 10-12 inches long and ¾ inch in diameter.
-3. கண்டுபிடி a flat, dry piece of softwood க்கு the fireboard. Yucca, tamarack, aspen, balsam fir, basswood, poplar, cypress, cottonwood, alder, சிவப்பு cedar, and willow அரே preferred. Avoid resinous woods like pine.
-4. Carve a slight மனச்சோர்வு பற்றி ½ பெறுநர் ¾ inch இருந்து the edge of the fireboard.
-5. On the underside of the fireboard, make a V-shaped வெட்டு இருந்து the board's edge பெறுநர் the depression.
-6. கண்டுபிடி a curved stick that can be used க்கு the bow. It should be பற்றி 12-14 inches long and ½ inch in diameter.
-7. Attach a cord or shoelace பெறுநர் both ends of the bow.
-8. கண்டுபிடி the fire pan - a கிடைவளைவு piece of bark or மரம் பெறுநர் catch the ember.
-9. Wrap the drill into the bowstring so that it can உருளம் அச் it moves along the string.
-10. Place the fireboard on மேலே of the fire pan so the V-shaped notch is touching it.
-11. Place the drill (attached பெறுநர் the bow) into the மனச்சோர்வு in the fireboard.
-12. Place the மாட்டி onto the மேலே end of the drill and இடு downward அழுத்தம் with your non-dominant hand.
-13. Place your foot on the fireboard (on the same பக்கம் அச் your non-dominant hand) and rest the hand holding the மாட்டி on your knee.
-14. With your dominant hand, move the bow பக்கம் பெறுநர் பக்கம் பெறுநர் cause the drill பெறுநர் spin. Be sure பெறுநர் use the full length of the bowstring. Keep a steady, fast pace.
-15. You will தொடங்கு பெறுநர் see smoke after a while. Keep going until you அரே sure an ember has been created.
-16. The ember should be transferred onto the fire pan (it சி-வைகாசி already be there) and moved பெறுநர் a tinder bundle, where you can nurse it into a fire.
-
-![](file:///android_asset/survival_guide/bow_drill_usage.webp)
-
-If you அரே using a hand drill, follow the same படிகள் அச் the bow drill, except don't create the bow and socket. Instead, உருளம் the drill between your palms until you reach the bottom, then தொடங்கு again இருந்து the top.
-
-## Extinguishing a fire
-<!-- K: extinguish, safety -->
-<!-- S: Thoroughly extinguish your fire with water or dirt. -->
-
-You should எப்போதும் have a plan பெறுநர் quickly extinguish your fire in case it begins பெறுநர் spread. Thoroughly extinguish your fire by dousing it with water or covering it with dirt. Make sure இல்லை embers remain that could reignite or cause a wildfire. If you அரே on a beach, do not cover the fire with sand; it can insulate the heat and cause burns.
-
-## Increasing warmth
-<!-- K: increase, maximize -->
-<!-- S: Maximize heat by using a fire reflector or heated rocks. -->
-
-To maximize the heat இருந்து your fire, you can கூட்டு more dry fuel, உருவாக்கு a fire reflector, heat மேலே rocks, or increase the insulation of your clothing and shelter.
-
-### வகைகள் of wood
-<!-- K: hardwood, softwood, type, மரம் -->
-
-Hardwoods (oak, maple, ash, beech, etc.) burn slowly and hot, while softwoods (pine, fir, spruce, cedar) burn faster and cooler. Once you have a hot fire going, தொடங்கு adding hardwoods பெறுநர் make it last longer and burn hotter.
-
-### Fire reflector
-<!-- K: reflector -->
-
-A fire reflector is a wall built behind the fire பெறுநர் reflect heat toward you and protect the fire இருந்து wind. Use rocks, logs, or பனி பெறுநர் create a barrier.
-
-![](file:///android_asset/survival_guide/fire_reflector.webp)
-
-### Heating rocks
-<!-- K: rock, hand-warmer -->
-
-You can also heat rocks **near** the fire and place them in your shelter or sleeping area. பெறுநர் avoid burns or fires, don't let the rocks get too hot; they should be warm பெறுநர் the touch. Be sure பெறுநர் சரிபார் how hot the stones அரே before touching them. Do not use rocks found near water sources, அச் they can explode in a fire. Alternatively, you can heat water and place it in a சரக்குப் பெட்டகம் or bottle பெறுநர் keep warm.
-
-## Craft: charcoal
-<!-- K: charcoal, filter, coal, craft -->
-<!-- S: You can make charcoal by not allowing மரம் பெறுநர் burn fully. -->
-
-Charcoal is made by preventing மரம் இருந்து completely burning. It can be used க்கு filtering water, medicine, and அச் எரிபொருள் க்கு fires. You can grind charcoal into powder by placing it in a சரக்குப் பெட்டகம் and crushing it with a stick or rock.
-
-**Resources**
-- Wood
-- Water or dirt
-
-**Instructions**
-1. Burn a fire down பெறுநர் coals.
-2. Douse the fire with water or dirt பெறுநர் quickly extinguish it.
-3. Wait க்கு the coals பெறுநர் cool; some charcoal should be among the ashes. Charcoal is very light and entirely black.
+"<!-- K: நெருப்பு, சுடர், ஒளி, வெப்பம், சூடு, எரி -->\n"
+"<!-- S: நெருப்பை உருவாக்கி பராமரிக்கவும். -->\n"
+"\n"
+"நெருப்பை எப்படி உருவாக்குவது என்பதை அறிவது உங்களை சூடாக வைத்திருக்கவும், தண்ணீரை சுத்திகரிக்கவும், உணவு சமைக்கவும் உதவும். நீங்கள் ஒருபோதும் நெருப்பை கவனிக்காமல் விடக்கூடாது, அது பரவாமல் கவனமாக இருக்க வேண்டும்.\n"
+"\n"
+"**இந்த அத்தியாயம் தகவல் நோக்கங்களுக்காக மட்டுமே மற்றும் தொழில்முறை ஆலோசனையை மாற்றாது; உங்கள் சொந்த ஆபத்தில் பயன்படுத்தவும் மற்றும் உள்ளூர் சட்டங்களுக்கு இணங்குவதை உறுதி செய்யவும்.**\n"
+"\n"
+"## தயாராக இருங்கள்\n"
+"<!-- K: தயார் செய், கியர், அறிவு, திறன், ஸ்டார்ட்டர், தீப்பெட்டிகள், லைட்டர், ஸ்டீல், ஃபெரோ, ஃபெரோசீரியம், டிண்டர் -->\n"
+"<!-- S: ஒரு தீப்பொறியைக் கொண்டு வாருங்கள். நெருப்பை எப்படி உருவாக்குவது மற்றும் பராமரிப்பது என்பதை அறிக. -->\n"
+"\n"
+"### கியர்\n"
+"**தேவைகள்**:\n"
+"- தீப்பொறி (நீர்ப்புகா தீப்பெட்டிகள், லைட்டர்கள் அல்லது தீ எஃகு - குறைந்தது இரண்டு வெவ்வேறு வகைகளை எடுத்துச் செல்லுங்கள்)\n"
+" - அவசர காப்பு தீப்பெட்டியாக உங்கள் பணப்பையிலோ அல்லது தொலைபேசி பெட்டியிலோ கிரெடிட் கார்டு அளவிலான ஃப்ரெஸ்னல் லென்ஸை எடுத்துச் செல்லலாம்.\n"
+"\n"
+"**விருப்பத்தேர்வு**:\n"
+"- டிண்டர் (ட்ரையர் லிண்ட், பருத்தி பந்துகள் அல்லது வணிக தீப்பெட்டிகள்)\n"
+"\n"
+"### அறிவு மற்றும் திறன்கள்\n"
+"பின்வருவனவற்றை எவ்வாறு செய்வது என்பதைக் கற்றுக்கொள்வதன் மூலம் தொடங்குங்கள்:\n"
+"- பல தீப்பெட்டிகளைப் பயன்படுத்தி நெருப்பை உருவாக்குங்கள் (தீப்பெட்டிகள், லைட்டர்கள், தீ எஃகு)\n"
+"- டிண்டர், எரிபொருளை சேகரித்து தயார் செய்யுங்கள்\n"
+"- நெருப்பைப் பராமரித்தல்\n"
+"- நெருப்பை அணைத்தல்\n"
+"- ஈரமான நிலையில் நெருப்பை உருவாக்குதல்\n"
+"\n"
+"இந்தத் திறன்களை நீங்கள் தேர்ச்சி பெற்றவுடன், பின்வருவனவற்றை எவ்வாறு செய்வது என்பதை நீங்கள் கற்றுக்கொள்ள வேண்டும்:\n"
+"- காற்று மற்றும் மழையிலிருந்து நெருப்பைப் பாதுகாத்தல்\n"
+"- ஒரு வில் துரப்பணம்\n"
+"- கரியைத் தயாரிக்கவும்\n"
+"\n"
+"## நெருப்புத் தளத்தைத் தயாரித்தல்\n"
+"<!-- K: கட்டுதல், தயார் செய்தல், இடம் -->\n"
+"<!-- S: காற்றிலிருந்து பாதுகாக்கப்பட்ட ஒரு தட்டையான, வறண்ட பகுதியைத் தேர்வு செய்யவும். டிண்டர், எரித்தல் மற்றும் எரிபொருளைச் சேகரிக்கவும். -->\n"
+"\n"
+"தீயை மூட்ட முயற்சிக்கும் முன் நெருப்புத் தளத்தைத் தயார் செய்ய வேண்டும். காற்றிலிருந்து பாதுகாக்கப்பட்ட ஒரு தட்டையான, வறண்ட பகுதியைத் தேர்வு செய்யவும், அது உங்கள் தங்குமிடம் மற்றும் எரிபொருள் விநியோகத்திற்கு அருகில் உள்ளது. எரியக்கூடிய பொருட்களிலிருந்து தரையை சுத்தம் செய்து, முடிந்தால், உலர்ந்த பாறைகள், மண் அல்லது மணலால் வரிசையாக வைக்கவும். வேர் அமைப்பு அல்லது கரி மீது நெருப்பைக் கட்ட வேண்டாம். பனி நிறைந்த சூழலில், நெருப்பு பனியைத் தொடுவதைத் தடுக்க மரக்கட்டைகளை கீழே வைக்கவும். நெருப்பைத் தொடங்க முயற்சிக்கும் முன் அனைத்து பொருட்களையும் சேகரிக்கவும்.\n"
+"\n"
+"உள்ளூர் சட்டங்கள் மற்றும் விதிமுறைகள் குறித்தும் நீங்கள் அறிந்திருக்க வேண்டும், ஏனெனில் சில பகுதிகள் தீயை அனுமதிக்காது.\n"
+"\n"
+"### பொருட்களைச் சேகரித்தல்\n"
+"<!-- K: கண்டுபிடி, சேகரித்தல், டின்டர், கிண்டிலிங், எரிபொருள், கொழுப்பு மரம், மரம், பொருள் -->\n"
+"\n"
+"நெருப்பைத் தூண்டவும் பராமரிக்கவும் உங்களுக்கு மூன்று வகையான பொருட்கள் தேவை: டின்டர், கிண்டிலிங் மற்றும் எரிபொருள். டின்டர் என்பது உலர்ந்த, மெல்லிய பொருள், இது எளிதில் தீப்பிடிக்கும் மற்றும் நெருப்பை மூட்டப் பயன்படுகிறது. டின்டரில் சிறிய குச்சிகள் மற்றும் கிளைகள் உள்ளன, அவை எளிதில் எரியும் மற்றும் டின்டரை ஏற்றிய பிறகு நெருப்பை உருவாக்கப் பயன்படுகின்றன. இறுதியாக, எரிபொருள் நெருப்பைத் தக்கவைக்கப் பயன்படுகிறது மற்றும் பெரிய குச்சிகள் அல்லது மரக்கட்டைகள் உள்ளன. நெருப்பை உண்டாக்க, ஒரு கைப்பிடி டின்டர், இரண்டு கைப்பிடி டின்டர் மற்றும் ஒரு குவியல் எரிபொருளைக் கண்டுபிடிக்கவும் - உங்களுக்குத் தேவைப்படும் என்று மதிப்பிடும் அளவை விட இரட்டிப்பாகும்.\n"
+"\n"
+"உலர்ந்த மரத்தைக் கண்டுபிடிப்பது கடினமாக இருக்கலாம், ஆனால் மரங்களில் இறந்த கிளைகள், தரையில் முழுமையாகத் தொடாத விழுந்த கிளைகள் மற்றும் உடைந்தால் சுத்தமாக உடையும் குச்சிகளைத் தேடுங்கள். உங்கள் உடலின் அருகே அல்லது உங்கள் தூக்கப் பையில் வைப்பதன் மூலம் ஈரமான டிண்டரை உலர்த்தலாம், மேலும் நெருப்பின் அருகே வைப்பதன் மூலம் எரிபொருளை உலர்த்தலாம்.\n"
+"\n"
+"- **டின்டர்**\n"
+" - துண்டாக்கப்பட்ட உள் பட்டை (பிர்ச், சிடார், கஷ்கொட்டை, சிவப்பு எல்ம்)\n"
+" - மெல்லிய மரத் துண்டுகள் அல்லது சவரன்கள்\n"
+" - கொழுப்பு மரம்: பைன் மரங்களிலிருந்து பிசின் நிறைந்த மரம், பொதுவாக இறந்த கிளைகளின் அடிப்பகுதியில் காணப்படும்\n"
+" - உலர்ந்த புல், இலைகள் அல்லது பைன் ஊசிகள்\n"
+" - பைன் மரங்களிலிருந்து உலர்ந்த தூள் சாறு\n"
+" - இறந்த தாவரங்களிலிருந்து நொறுக்கப்பட்ட இழைகள்\n"
+" - விதை கீழே (கேட் டெயில், பால்வீட், திஸ்டில்)\n"
+" - இறகு குச்சிகள் (ஒரு குச்சியில் இணைக்கப்பட்ட மர சவரன்கள்)\n"
+" - வணிக தீ தொடக்கிகள்\n"
+" - பருத்தி பந்துகள் (பெட்ரோலியம் ஜெல்லியில் ஊறவைக்க விரும்பத்தக்கது)\n"
+" - லிண்ட்\n"
+" - காகிதம்\n"
+" - டிண்டர் பூஞ்சை அல்லது சாகா\n"
+"- **கிண்டலிங்**\n"
+" - குச்சிகள் மற்றும் கிளைகள் (பென்சில் முதல் விரல் தடிமன் வரை)\n"
+" - மெல்லியதாகப் பிரிக்கப்பட்ட மரம்\n"
+" - வைக்கோல் போன்ற பிளாஸ்டிக்குகள் அல்லது கரண்டிகள்\n"
+" - பூச்சி தெளிப்பு போன்ற எரியக்கூடிய திரவத்தில் நனைத்த மரம் (எச்சரிக்கையுடன் பயன்படுத்தவும்)\n"
+"- **எரிபொருள்**\n"
+" - கையால் உடைக்கக்கூடிய விழுந்த மரத்தை விரும்புங்கள்\n"
+" - ஒரு பெரிய மரத் துண்டை உடைக்க, நீங்கள் அதை உடைக்க விரும்பும் இடத்தில் இரண்டு உயிருள்ள மரங்களுக்கு இடையில் செருகவும், அது உடையும் வரை பக்கவாட்டில் தள்ளவும்\n"
+"\n"
+"### இறகு குச்சிகள்\n"
+"<!-- K: இறகு-குச்சி -->\n"
+"\n"
+"ஒரு இறகு குச்சியை டிண்டராகவும், எரிபொருளாகவும் பயன்படுத்தலாம், இது மற்ற டிண்டரைக் கண்டுபிடிப்பது கடினமாக இருக்கும்போது நெருப்பை மூட்ட உதவும்.\n"
+"\n"
+"ஒரு இறகு குச்சியை டிண்டராகவும் பயன்படுத்தலாம்.\n"
+"\n"
+"ஒரு இறகு குச்சியை உருவாக்க:\n"
+"\n"
+"1. நேரான, அடர்த்தியான, உலர்ந்த குச்சியைக் கண்டறியவும்.\n"
+"2. மேலே இருந்து தொடங்கி, ஒரு மர சுருட்டை வெட்ட கத்தியைப் பயன்படுத்தவும். குச்சியின் அடிப்பகுதி வரை வெட்டவும், ஆனால் அதை வெட்ட வேண்டாம்.\n"
+"3. இந்த செயல்முறையை மீண்டும் செய்யவும், ஆனால் அதனுடன் வெட்டுங்கள் உங்கள் கடைசி வெட்டு மூலம் உருவாக்கப்பட்ட முகடு. முந்தைய சுருட்டைகளை துண்டிக்காமல் கவனமாக இருங்கள்.\n"
+"4. விழுந்த சுருட்டைகளை சேகரிக்கவும்.\n"
+"5. நெருப்பைத் தூண்ட, இறகு குச்சியை உங்கள் டிண்டர் மூட்டையாகப் பயன்படுத்தி அடுத்த பகுதியைப் பின்தொடரவும்.\n"
+"\n"
+"![](file:///android_asset/survival_guide/feather_stick.webp)\n"
+"\n"
+"## நெருப்பைத் தொடங்குதல்\n"
+"<!-- K: start, light, build, ignite, tepee, structure -->\n"
+"<!-- S:உங்களிடம் ஒரு தீப்பொறி இருந்தால், அதைப் பயன்படுத்தவும். தேவைப்பட்டால் நீங்கள் மேம்படுத்தலாம், ஆனால் அது மிகவும் கடினமாக இருக்கும், மேலும் பயிற்சி தேவைப்படும். -->\n"
+"\n"
+"ஒரு தளம் தயார் செய்யப்பட்டு, போதுமான அளவு டிண்டர், கிண்டிலிங் மற்றும் எரிபொருள் கிடைத்தவுடன், நீங்கள் நெருப்பைப் பற்றவைக்கத் தயாராக உள்ளீர்கள். நீங்கள் நெருப்பைக் கட்டும்போது, திறந்த சுடருடன் ஒரு பகுதியை எப்போதும் திறந்து வைப்பதன் மூலம் அதை மூடாமல் கவனமாக இருங்கள். மேலும், உங்கள் நெருப்பு சூடாகி எரியும் எரிபொருளை எரிக்கும் வரை ஈரமான அல்லது பச்சை மரத்தைச் சேர்ப்பதைத் தவிர்க்கவும்.\n"
+"\n"
+"அதைத் தொடங்க நீங்கள் பின்பற்றக்கூடிய படிகள் இங்கே:\n"
+"\n"
+"1. டிண்டரை ஒரு சிறிய மூட்டையாகவோ அல்லது தரையில் கூட்டாகவோ வைக்கவும்.\n"
+"2. சில கிண்டிலிங் துண்டுகளை டிண்டருக்கு எதிராக ஒரு டெபீ வடிவத்தில் சாய்த்து வைக்கவும்.\n"
+"3. டிண்டரை பற்றவைக்கவும்.\n"
+"4. நெருப்பில் கவனமாக கிண்டிலிங்கைச் சேர்த்து, வளர்ச்சியை ஊக்குவிக்க அதில் ஊதவும்.\n"
+"5. உங்கள் நெருப்பு நிலையாக ஆனதும், ஒரு டெபீ அமைப்பைப் பராமரிக்கும் போது எரிபொருளைச் சேர்க்கவும்.\n"
+"\n"
+"![](file:///android_asset/survival_guide/fire_tepee.webp)\n"
+"\n"
+"**குறிப்பு**: நெருப்பில் ஊதும்போது, மென்மையாக இருங்கள் மற்றும் புகையிலிருந்து மூச்சை இழுக்கவும்.\n"
+"\n"
+"### ஒரு தீப்பொறியைப் பராமரித்தல்\n"
+"<!-- K: தீப்பொறி, நர்ஸ், ஊது, ஆக்ஸிஜன், டிண்டர் -->\n"
+"\n"
+"ஒரு தீப்பொறி என்பது எரிந்து கொண்டிருக்கும் ஆனால் ஒரு சுடரை உருவாக்காத ஒரு சிறிய டிண்டர் துண்டு. உங்களிடம் ஒரு தீப்பொறி கிடைத்ததும், அதில் மெதுவாக ஊதி, ஒரு தீப்பொறி தோன்றும் வரை அதற்கு மேலும் தீப்பொறியை ஊதுங்கள். சில நேரங்களில், எரிபொருளை எரிபொருளாகப் பிடித்து, ஆக்ஸிஜன் மற்றும் எரிபொருளின் சரியான சமநிலையைக் கண்டறிய உங்கள் கைகளை நெருக்கமாகப் பிடிப்பது எளிதாக இருக்கும்.\n"
+"\n"
+"### லைட்டர்\n"
+"<!-- K: லைட்டர் -->\n"
+"\n"
+"நம்பகமான லைட்டர் என்பது நெருப்பை மூட்ட எளிதான வழி. ஸ்ட்ரைக்கரைப் பயன்படுத்தி ஒரு சுடரை உருவாக்கி, எந்த காற்றிலிருந்தும் அதைப் பாதுகாக்க உங்கள் கையைப் பயன்படுத்தவும். டின்டரில் சுடரை வைத்து, பின்னர் லைட்டரை அணைக்கவும். டிண்டரை பற்றவைக்க உங்களுக்கு இரண்டு வினாடிகளுக்கு மேல் பிடித்தால், அது நன்றாகவோ அல்லது போதுமான அளவு உலர்ந்ததாகவோ இருக்காது.\n"
+"\n"
+"சில லைட்டர்கள் பயன்படுத்துவதற்கு முன்பு எரிபொருளைச் சேர்க்க வேண்டும், எனவே உங்களுக்குத் தேவைப்படுவதற்கு முன்பு உங்கள் லைட்டரை முயற்சிக்கவும். எரிபொருள் நீண்ட காலம் நீடிக்கும் - மிதமான பயன்பாட்டுடன் பல ஆண்டுகள் கூட.\n"
+"\n"
+"பொதுவாக ஈரமாக இருக்கும்போது ஒரு லைட்டர் வேலை செய்யாது, ஆனால் நீங்கள் அதைத் தாக்கும் திசையில் ஸ்ட்ரைக்கர் சக்கரத்தை உங்கள் துணிகளில் மெதுவாகத் தேய்த்து, ஸ்ட்ரைக்கர் பகுதியில் வலுக்கட்டாயமாக ஊதுவதன் மூலம் அதை விரைவாக உலர்த்தலாம்.\n"
+"\n"
+"எலக்ட்ரானிக் லைட்டர்களும் கிடைக்கின்றன, ஆனால் அவை குறைவான நம்பகமானவை மற்றும் சார்ஜ் தேவை. அவை வழக்கமான லைட்டர்களைப் போலவே பயன்படுத்தப்படலாம், ஆனால் பொதுவாக சிறிய மற்றும் மெல்லிய டிண்டர் தேவைப்படும்.\n"
+"\n"
+"### தீப்பெட்டிகள்\n"
+"<!-- K: matches -->\n"
+"\n"
+"\n"
+"தீப்பெட்டிகளுக்கு பொதுவாக ஒளிர ஒரு சிறப்பு தாக்க மேற்பரப்பு தேவைப்படுகிறது, இருப்பினும் தாக்கும் எந்த இடத்திலும் தீப்பெட்டிகள் உள்ளன மற்றும் ஒரு கரடுமுரடான பாறையைப் பயன்படுத்தி எரியலாம். நீர்ப்புகா அல்லது புயல் எதிர்ப்பு தீப்பெட்டிகள் இல்லாவிட்டால், ஈரமானவுடன் அவை வேலை செய்யாது, மேலும் காற்று வீசினால், அவற்றை எளிதில் அணைத்துவிடலாம்.\n"
+"\n"
+"தீப்பெட்டிகளால் நெருப்பை மூட்ட, தீப்பெட்டியை ஏற்றி, எந்த காற்றிலிருந்தும் பாதுகாக்க உங்கள் கையைப் பயன்படுத்தவும். சுடரை டிண்டரில் வைத்து பற்றவைத்து, தீப்பெட்டியை கவனமாக சுடரில் விடுங்கள்.\n"
+"\n"
+"### Fire steel\n"
+"<!-- K: fire-steel, ferro, ferrocerium, magnesium, strike, spark -->\n"
+"\n"
+"ஒரு தீ எஃகு அல்லது ஃபெரோ தண்டு நீடித்தது மற்றும் அனைத்து வானிலை நிலைகளிலும் வேலை செய்யும். உங்கள் கத்தியின் பின்புறம், ஒரு பிரத்யேக ஸ்கிராப்பர் அல்லது கூர்மையான குவார்ட்ஸ் அல்லது பிளின்ட் துண்டு போன்ற கூர்மையான முனையைப் பயன்படுத்தி அதை விரைவாக சுரண்டலாம். அது மங்குவதைத் தடுக்க உங்கள் கத்தியின் பிளேடைப் பயன்படுத்துவதைத் தவிர்க்க வேண்டும். அடிக்கும்போது டிண்டரை இடத்தில் வைத்திருப்பதில் சிக்கல் இருந்தால், தீ எஃகுக்கும் தரைக்கும் இடையில் டிண்டரைப் பொருத்தி, டிண்டரை நோக்கி கீறவும். சிலர் விளிம்பை நிலையாக வைத்திருப்பதையும், தீப்பொறிகளை உருவாக்க தீப்பொறிகளை உருவாக்குவதையும் எளிதாகக் காண்கிறார்கள்.\n"
+"\n"
+"சில தீ எஃகுகள் ஒரு மெக்னீசியம் தொகுதியுடன் வருகின்றன, அதை நீங்கள் தாக்குவதற்கு முன்பு டிண்டரில் சுரண்டி தீப்பொறியைப் பிடிக்க உதவும். அதைப் பற்றவைக்க முயற்சிக்கும் முன், ஒரு கூழாங்கல் அளவுள்ள ஒரு சிறிய குவியலைச் சேகரிக்கவும்.\n"
+"\n"
+"![](file:///android_asset/survival_guide/ferrorod.webp)\n"
+"\n"
+"### கேம்ப் அடுப்பு\n"
+"<!-- K: camp-stove, backpacking-stove, canister, stove, alcohol, butane, gas, propane -->\n"
+"\n"
+"பெரும்பாலான முகாம் அடுப்புகளுக்கு லைட்டர் போன்ற மற்றொரு பற்றவைப்பு சாதனம் தேவைப்படுகிறது, ஆனால் சிலவற்றில் உள்ளமைக்கப்பட்ட பைசோ எலக்ட்ரிக் பற்றவைப்பான் இருக்கலாம். எப்போதும் அடுப்பை ஒரு தட்டையான, நிலையான மேற்பரப்பில் வைக்கவும், அது தீப்பிடிக்காது (ஒரு பாறை போன்றவை). அதைப் பயன்படுத்துவதற்கு முன்பு உற்பத்தியாளரின் வழிமுறைகளைப் படிக்க மறக்காதீர்கள்.\n"
+"\n"
+"**எரிபொருள் கேனிஸ்டர் அடுப்பைப் பயன்படுத்த:**\n"
+"\n"
+"1. வால்வு அணைக்கப்பட்டுள்ளதா என்பதை உறுதிப்படுத்திக் கொள்ளுங்கள் (கடிகார திசையில் திரும்பவும்).\n"
+"2. அடுப்பு தலையை கேனிஸ்டரில் திருகவும்.\n"
+"3. அடுப்பை ஒரு தட்டையான மேற்பரப்பில் வைத்து அது நிலையானதாக இருப்பதை உறுதி செய்யவும்.\n"
+"4. தேவைப்பட்டால் தலையில் உள்ள பானை வைத்திருப்பவர்களை விரிவாக்கவும்.\n"
+"5. வால்வை சிறிது திறக்கவும் (எதிர்-கடிகார திசையில் திரும்பவும்).\n"
+"6. வாயுவை பற்றவைத்து, தேவைக்கேற்ப வால்வை சரிசெய்யவும்.\n"
+"7. நீங்கள் முடித்ததும், வால்வை முழுவதுமாக அணைக்கவும் (கடிகார திசையில் திரும்பவும்). கேனிஸ்டரை பிரித்து சேமித்து வைப்பதற்கு முன் அது குளிர்ச்சியடையும் வரை காத்திருக்கவும்.\n"
+"\n"
+"**ஆல்கஹால் அல்லது திட எரிபொருள் அடுப்பைப் பயன்படுத்த:**\n"
+"\n"
+"1. அடுப்பை ஒரு தட்டையான மேற்பரப்பில் வைத்து அது நிலையானதாக இருப்பதை உறுதிப்படுத்திக் கொள்ளுங்கள்.\n"
+"2. அடுப்பை எரிபொருளால் நிரப்பவும்.\n"
+"3. எரிபொருளை பற்றவைக்கவும்.\n"
+"4. நீங்கள் முடித்ததும், மெதுவாகஅடுப்பின் மீது மூடியை வைக்கவும் (இறுக்க வேண்டாம்). மூடியை இறுக்கி சேமித்து வைப்பதற்கு முன் அது குளிர்ச்சியடையும் வரை காத்திருக்கவும். திட எரிபொருள் அடுப்பைப் பயன்படுத்தினால், அது எரியும் வரை நீங்கள் காத்திருக்க வேண்டியிருக்கும்.\n"
+"\n"
+"\n"
+"### பூதக்கண்ணாடி/லென்ஸ்\n"
+"<!-- K: பூதக்கண்ணாடி, கண்ணாடி, லென்ஸ் -->\n"
+"\n"
+"லென்ஸைப் பயன்படுத்தி, சூரிய ஒளியை டிண்டரில் உள்ள ஒரு சிறிய புள்ளியில் செலுத்தவும். டிண்டர் புகைக்கத் தொடங்கும் போது, மெதுவாக அதில் ஊதி, ஒரு சிறிய புள்ளியைப் பராமரிக்க லென்ஸை அருகில் நகர்த்தவும். ஒரு பூதக்கண்ணாடி, பரிந்துரைக்கப்பட்ட கண்ணாடிகள், ஒரு ஃப்ரெஸ்னல் லென்ஸ் அல்லது தண்ணீர் நிரப்பப்பட்ட ஒரு தெளிவான பாட்டில் கூட வேலை செய்யும். இதற்கு சிறிது நேரம் ஆகலாம், நேரடி சூரிய ஒளி தேவை.\n"
+"\n"
+"![](file:///android_asset/survival_guide/fire_magnifying_glass.webp)\n"
+"\n"
+"### Flint and steel\n"
+"<!-- K: flint, steel -->\n"
+"\n"
+"கார்பன் ஸ்டீல் கருவியைக் கொண்டு ஒரு பிளின்ட் பாறையைத் தாக்கி தீப்பொறிகளை உருவாக்கி, மிகவும் உலர்ந்த மற்றும் மென்மையான டிண்டரைப் பற்றவைக்கவும். துருப்பிடிக்காத எஃகு - எனவே பெரும்பாலான பாக்கெட் கத்திகள் - வேலை செய்யாது. நீங்கள் இங்கே இருப்பதைக் கண்டால், சூடாக இருக்க காப்பு மற்றும் தங்குமிடத்தில் கவனம் செலுத்துவது சிறந்தது.\n"
+"\n"
+"### Drills\n"
+"<!-- K: drill, bow-drill, hand-drill -->\n"
+"\n"
+"மரத் தளத்தில் (fireboard) ஒரு துரப்பணம் போல ஒரு குச்சியைச் சுழற்றுவதன் மூலம் உராய்வை உருவாக்கலாம். ஒரு கை துரப்பணம் கட்டமைக்க எளிதானது, ஏனெனில் அது துரப்பண குச்சி, ஃபயர்போர்டு மற்றும் உங்கள் கைகள் மட்டுமே. ஒரு வில் துரப்பணம் கட்டுவது மிகவும் சிக்கலானது, ஆனால் ஒரு தீப்பொறியை உருவாக்க அதைப் பயன்படுத்துவது எளிது. இந்த இரண்டு முறைகளிலும் தேர்ச்சி பெறுவது கடினம் மற்றும் நிறைய பயிற்சி தேவைப்படுகிறது. நீங்கள் இங்கே இருப்பதைக் கண்டால், சூடாக இருக்க காப்பு மற்றும் தங்குமிடத்தில் கவனம் செலுத்துவது சிறந்தது.\n"
+"\n"
+"வில் துரப்பணத்தை உருவாக்க:\n"
+"\n"
+"1. சாக்கெட்டை உருவாக்க மையத்திற்கு அருகில் ஒரு சிறிய பள்ளம் கொண்ட ஒரு சிறிய, தட்டையான கல் அல்லது கடின மரத் துண்டைக் கண்டறியவும்.\n"
+"2. 10-12 அங்குல நீளம் மற்றும் ¾ அங்குல விட்டம் கொண்ட ஒரு நேரான, உலர்ந்த குச்சியைக் கண்டுபிடித்து துரப்பணத்தை உருவாக்கவும்.\n"
+"3. நெருப்புப் பலகைக்கு ஒரு தட்டையான, உலர்ந்த மென்மையான மரத் துண்டைக் கண்டறியவும். யூக்கா, தமராக், ஆஸ்பென், பால்சம் ஃபிர், பாஸ்வுட், பாப்லர், சைப்ரஸ், காட்டன்வுட், ஆல்டர், சிவப்பு சிடார் மற்றும் வில்லோ ஆகியவை விரும்பத்தக்கவை. பைன் போன்ற பிசின் மரங்களைத் தவிர்க்கவும்.\n"
+"4. ஃபயர்போர்டின் விளிம்பிலிருந்து சுமார் ½ முதல் ¾ அங்குலம் வரை ஒரு சிறிய பள்ளத்தை செதுக்குங்கள்.\n"
+"5. ஃபயர்போர்டின் அடிப்பகுதியில், பலகையின் விளிம்பிலிருந்து பள்ளம் வரை V-வடிவ வெட்டு செய்யுங்கள்.\n"
+"6. வில்லுக்குப் பயன்படுத்தக்கூடிய ஒரு வளைந்த குச்சியைக் கண்டறியவும். அது சுமார் 12-14 அங்குல நீளமும் ½ அங்குல விட்டமும் கொண்டதாக இருக்க வேண்டும்.\n"
+"7. வில்லின் இரு முனைகளிலும் ஒரு தண்டு அல்லது ஷூலேஸை இணைக்கவும்.\n"
+"8. ஃபயர்பானைக் கண்டறியவும் - தீப்பொறியைப் பிடிக்க ஒரு தட்டையான பட்டை அல்லது மரத் துண்டு.\n"
+"9. சரத்தின் வழியாக நகரும்போது அது உருளும் வகையில் துரப்பணத்தை வில்லு நாணில் மடிக்கவும்.\n"
+"10. V-வடிவ நாட்ச் அதைத் தொடும் வகையில் ஃபயர்போர்டை அதன் மேல் வைக்கவும்.\n"
+"11. ஃபயர்போர்டில் உள்ள பள்ளத்தில் துரப்பணத்தை (வில்லுடன் இணைக்கப்பட்டுள்ளது) வைக்கவும்.\n"
+"12. துளையிடும் கருவியின் மேல் முனையில் சாக்கெட்டை வைத்து, உங்கள் ஆதிக்கம் செலுத்தாத கையால் கீழ்நோக்கி அழுத்தம் கொடுங்கள்.\n"
+"13. உங்கள் பாதத்தை நெருப்புப் பலகையில் (உங்கள் ஆதிக்கம் செலுத்தாத கையின் அதே பக்கத்தில்) வைத்து, சாக்கெட்டை உங்கள் முழங்காலில் வைத்திருக்கும் கையை வைக்கவும்.\n"
+"14. உங்கள் ஆதிக்கம் செலுத்தும் கையால், துளையிடும் கருவி சுழல வில்லை பக்கவாட்டில் நகர்த்தவும். வில்லின் முழு நீளத்தையும் பயன்படுத்துவதை உறுதிப்படுத்திக் கொள்ளுங்கள். நிலையான, வேகமான வேகத்தை வைத்திருங்கள்.\n"
+"15. சிறிது நேரத்திற்குப் பிறகு நீங்கள் புகையைப் பார்க்கத் தொடங்குவீர்கள். ஒரு தீப்பொறி உருவாகியுள்ளதா என்பதை நீங்கள் உறுதி செய்யும் வரை தொடர்ந்து செல்லுங்கள்.\n"
+"16. தீக்குச்சியை நெருப்புப் பாத்திரத்தில் மாற்ற வேண்டும் (அது ஏற்கனவே அங்கே இருக்கலாம்) மற்றும் ஒரு டிண்டர் பண்டலுக்கு நகர்த்த வேண்டும், அங்கு நீங்கள் அதை நெருப்பில் வளர்க்கலாம்.\n"
+"\n"
+"![](file:///android_asset/survival_guide/bow_drill_usage.webp)\n"
+"\n"
+"நீங்கள் ஒரு கை துரப்பணியைப் பயன்படுத்துகிறீர்கள் என்றால், வில் துரப்பணியைப் போலவே அதே படிகளைப் பின்பற்றவும், வில் மற்றும் சாக்கெட்டை உருவாக்க வேண்டாம். அதற்கு பதிலாக, நீங்கள் கீழே அடையும் வரை உங்கள் உள்ளங்கைகளுக்கு இடையில் துரப்பணியை உருட்டி, பின்னர் மேலிருந்து மீண்டும் தொடங்கவும்.\n"
+"\n"
+"## தீயை அணைத்தல்\n"
+"<!-- K: அணைத்தல், பாதுகாப்பு -->\n"
+"<!-- S: உங்கள் தீயை தண்ணீர் அல்லது மண்ணால் முழுமையாக அணைக்கவும். -->\n"
+"\n"
+"தீ பரவத் தொடங்கினால் அதை விரைவாக அணைக்க எப்போதும் ஒரு திட்டம் இருக்க வேண்டும். அதை தண்ணீரில் நனைத்து அல்லது மண்ணால் மூடி உங்கள் தீயை முழுமையாக அணைக்கவும். மீண்டும் எரியக்கூடிய அல்லது காட்டுத்தீயை ஏற்படுத்தக்கூடிய எந்தத் தீக்கற்றல்களும் எஞ்சியிருக்காமல் பார்த்துக் கொள்ளுங்கள். நீங்கள் கடற்கரையில் இருந்தால், நெருப்பை மணலால் மூடாதீர்கள்; அது வெப்பத்தைத் தடுத்து தீக்காயங்களை ஏற்படுத்தும்.\n"
+"\n"
+"## வெப்பத்தை அதிகரிக்கும்\n"
+"<!-- K: அதிகரிக்கவும், அதிகரிக்கவும் -->\n"
+"<!-- S: நெருப்பு பிரதிபலிப்பான் அல்லது சூடான பாறைகளைப் பயன்படுத்தி வெப்பத்தை அதிகரிக்கவும். -->\n"
+"\n"
+"உங்கள் நெருப்பிலிருந்து வெப்பத்தை அதிகரிக்க, நீங்கள் அதிக உலர் எரிபொருளைச் சேர்க்கலாம், நெருப்பு பிரதிபலிப்பானை உருவாக்கலாம், பாறைகளை சூடாக்கலாம் அல்லது உங்கள் ஆடை மற்றும் தங்குமிடத்தின் காப்புப் பொருளை அதிகரிக்கலாம்.\n"
+"\n"
+"### மர வகைகள்\n"
+"<!-- K: கடின மரம், மென்மையான மரம், வகை, மரம் -->\n"
+"\n"
+"கடின மரங்கள் (ஓக், மேப்பிள், சாம்பல், பீச் போன்றவை) மெதுவாகவும் சூடாகவும் எரியும், அதே நேரத்தில் மென்மையான மரங்கள் (பைன், ஃபிர், ஸ்ப்ரூஸ், சிடார்) வேகமாகவும் குளிராகவும் எரியும். சூடான நெருப்பை எரிய வைத்தவுடன், அதை நீண்ட நேரம் நீடிக்கவும், சூடாகவும் எரியச் செய்ய கடின மரங்களைச் சேர்க்கத் தொடங்குங்கள்.\n"
+"\n"
+"### நெருப்பு பிரதிபலிப்பான்\n"
+"<!-- K: பிரதிபலிப்பான் -->\n"
+"\n"
+"தீ பிரதிபலிப்பான் என்பது நெருப்பின் பின்னால் கட்டப்பட்ட ஒரு சுவராகும், இது வெப்பத்தை உங்களை நோக்கி பிரதிபலிக்கவும், காற்றிலிருந்து நெருப்பைப் பாதுகாக்கவும் உதவுகிறது. ஒரு தடையை உருவாக்க பாறைகள், மரக்கட்டைகள் அல்லது பனியைப் பயன்படுத்தவும்.\n"
+"\n"
+"![](file:///android_asset/survival_guide/fire_reflector.webp)\n"
+"\n"
+"## வெப்பமூட்டும் பாறைகள்\n"
+"<!-- K: rock, hand-warmer -->\n"
+"\n"
+"நீங்கள் நெருப்புக்கு அருகில் **பாறைகளை சூடாக்கி, உங்கள் தங்குமிடம் அல்லது தூங்கும் இடத்தில் வைக்கலாம். தீக்காயங்கள் அல்லது தீக்காயங்களைத் தவிர்க்க, பாறைகள் மிகவும் சூடாக விடாதீர்கள்; அவை தொடுவதற்கு சூடாக இருக்க வேண்டும். கற்களைத் தொடுவதற்கு முன் அவை எவ்வளவு சூடாக உள்ளன என்பதைச் சரிபார்க்கவும். நீர் ஆதாரங்களுக்கு அருகில் காணப்படும் பாறைகளைப் பயன்படுத்த வேண்டாம், ஏனெனில் அவை தீயில் வெடிக்கும். மாற்றாக, நீங்கள் தண்ணீரை சூடாக்கி, சூடாக வைத்திருக்க ஒரு கொள்கலன் அல்லது பாட்டிலில் வைக்கலாம்.\n"
+"\n"
+"## கைவினை: கரி\n"
+"<!-- K: கரி, வடிகட்டி, கரி, கைவினை -->\n"
+"<!-- S: மரம் முழுமையாக எரியாமல் தடுப்பதன் மூலம் நீங்கள் கரியை உருவாக்கலாம். -->\n"
+"\n"
+"மரம் முழுமையாக எரிவதைத் தடுப்பதன் மூலம் கரி தயாரிக்கப்படுகிறது. இதை நீர் வடிகட்டவும், மருந்தாகவும், நெருப்புக்கு எரிபொருளாகவும் பயன்படுத்தலாம். கரியை ஒரு கொள்கலனில் வைத்து ஒரு குச்சி அல்லது பாறையால் நசுக்கி பொடியாக அரைக்கலாம்.\n"
+"\n"
+"**வளங்கள்**\n"
+"- மரம்\n"
+"- தண்ணீர் அல்லது மண்\n"
+"\n"
+"**வழிமுறைகள்**\n"
+"1. நெருப்பை நிலக்கரியாக எரிக்கவும்.\n"
+"2. நெருப்பை விரைவாக அணைக்க தண்ணீர் அல்லது மண்ணால் நசுக்கவும்.\n"
+"3. நிலக்கரி குளிர்ச்சியடையும் வரை காத்திருங்கள்; சிறிது நிலக்கரி சாம்பலில் இருக்க வேண்டும். கரி மிகவும் லேசானது மற்றும் முற்றிலும் கருப்பு."
