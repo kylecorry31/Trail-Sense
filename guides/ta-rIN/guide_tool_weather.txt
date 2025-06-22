@@ -1,73 +1,75 @@
-The Weather கருவி can be used பெறுநர் roughly predict the weather.
+வானிலைக் கருவியைப் பயன்படுத்தி வானிலையை தோராயமாக கணிக்க முடியும்.
 
-## Weather prediction
-The weather prediction appears at the மேலே of your screen. This does not use the Internet and factors in அழுத்தம் history, historical (30-year average) temperatures, and the clouds இருந்து the Clouds tool. It also attempts பெறுநர் estimate when the weather change will occur, displayed beneath the prediction. The accuracy of the time frame depends on if the clouds indicate a weather front; if it's detected, an approximate time will be displayed, otherwise, it's more vague, like "soon" or "later."
+## வானிலை முன்னறிவிப்பு
+வானிலை முன்னறிவிப்பு உங்கள் திரையின் மேற்புறத்தில் தோன்றும். இது இணையம் மற்றும் அழுத்த வரலாறு, வரலாற்று (30 ஆண்டு சராசரி) வெப்பநிலை மற்றும் மேகங்கள் கருவியில் இருந்து மேகங்கள் ஆகியவற்றில் உள்ள காரணிகளைப் பயன்படுத்தாது. வானிலை மாற்றம் எப்போது நிகழும் என்பதை கணிக்கவும் இது முயற்சிக்கிறது, இது கணிப்புக்குக் கீழே காட்டப்படும். காலக்கெடுவின் துல்லியம் மேகங்கள் வானிலை முன்னறிவிப்பைக் குறிக்கிறதா என்பதைப் பொறுத்தது; அது கண்டறியப்பட்டால், தோராயமான நேரம் காட்டப்படும், இல்லையெனில், அது "விரைவில்" அல்லது "பின்னர்" போன்ற தெளிவற்றதாக இருக்கும்."
 
-If the weather monitor is on, it records அழுத்தம் வரலாறு automatically. Otherwise, அழுத்தம் updates only occur when you திற the Weather tool. க்கு accuracy, it's best பெறுநர் record அழுத்தம் every 30 minutes.
+வானிலை மானிட்டர் இயக்கத்தில் இருந்தால், அது தானாகவே அழுத்த வரலாற்றைப் பதிவு செய்கிறது. இல்லையெனில், நீங்கள் வானிலை கருவியைத் திறக்கும்போது மட்டுமே அழுத்த புதுப்பிப்புகள் ஏற்படும். துல்லியத்திற்காக, ஒவ்வொரு 30 நிமிடங்களுக்கும் அழுத்தத்தைப் பதிவு செய்வது நல்லது.
 
-You can adjust prediction sensitivity in அமைப்புகள் > Weather > Forecast sensitivity. Higher sensitivity சி-வைகாசி detect more patterns but might விளைச்சல் more false predictions.
+அமைப்புகள் > வானிலை > முன்னறிவிப்பு உணர்திறனில் நீங்கள் கணிப்பு உணர்திறனை சரிசெய்யலாம். அதிக உணர்திறன் அதிக வடிவங்களைக் கண்டறியக்கூடும், ஆனால் அதிக தவறான தன்மையைக் கொடுக்கக்கூடும். கணிப்புகள்.
 
-## Weather monitor
-The weather monitor runs in the பின்னணி பெறுநர் record அழுத்தம் history. Enable it by clicking the தொடங்கு icon at the bottom-right. This causes a notification பெறுநர் appear with the மின்னோட்ட்ம், ஓட்டம் prediction and an சூதம் பெறுநர் நிறுத்து the weather monitor. You can also நிறுத்து it by clicking the நிறுத்து icon in the bottom-right.
+## வானிலை மானிட்டர்
+அழுத்த வரலாற்றைப் பதிவு செய்ய வானிலை மானிட்டர் பின்னணியில் இயங்குகிறது. கீழ்-வலதுபுறத்தில் உள்ள தொடக்க ஐகானைக் கிளிக் செய்வதன் மூலம் அதை இயக்கவும். இது தற்போதைய கணிப்பு மற்றும் வானிலை மானிட்டர் நிறுத்த விருப்பத்துடன் ஒரு அறிவிப்பைத் தோன்றும். கீழ்-வலதுபுறத்தில் உள்ள நிறுத்த ஐகானைக் கிளிக் செய்வதன் மூலமும் நீங்கள் அதை நிறுத்தலாம்.
 
-To change the recording frequency, click the time under the weather monitor சிட்டை at the கீழே இடது and enter a புதிய interval.
+பதிவு அதிர்வெண்ணை மாற்ற, கீழ் இடதுபுறத்தில் உள்ள வானிலை மானிட்டர் லேபிளின் கீழ் உள்ள நேரத்தைக் கிளிக் செய்து புதிய இடைவெளியை உள்ளிடவும்.
 
-For better accuracy, grant Trail புலன் Location permission பெறுநர் determine your உயர்வு கோடு வழிமம் GPS. This helps convert அழுத்தம் பெறுநர் sea நிலை pressure, improving prediction accuracy.
+சிறந்த துல்லியத்திற்கு, GPS வழியாக உங்கள் உயரத்தை தீர்மானிக்க Trail Sense Location அனுமதியை வழங்கவும். இது அழுத்தத்தை கடல் மட்ட அழுத்தமாக மாற்ற உதவுகிறது, கணிப்பு துல்லியத்தை மேம்படுத்துகிறது.
 
-In அமைப்புகள் > Weather, you can customize the notification பெறுநர் show:
-- **Pressure**: Displays the மின்னோட்ட்ம், ஓட்டம் pressure.
-- **Temperature**:  Displays the மின்னோட்ட்ம், ஓட்டம் temperature (refer பெறுநர் Thermometer guide க்கு details).
+அமைப்புகள் > வானிலையில், நீங்கள் அறிவிப்பைத் தனிப்பயனாக்கலாம்:
+- **அழுத்தம்**: தற்போதைய அழுத்தத்தைக் காட்டுகிறது.
+- **வெப்பநிலை**: தற்போதைய வெப்பநிலையைக் காட்டுகிறது (விவரங்களுக்கு வெப்பமானி வழிகாட்டியைப் பார்க்கவும்).
 
-You can also enable daily weather notifications in அமைப்புகள் > Weather > Daily weather notification. Without the weather monitor being active, you won't receive these notifications. The நேரவிவரம் of this notification is configurable in அமைப்புகள் > Weather > Daily weather time.
+அமைப்புகள் > இல் தினசரி வானிலை அறிவிப்புகளையும் இயக்கலாம். வானிலை > தினசரி வானிலை அறிவிப்பு. வானிலை கண்காணிப்பு செயலில் இல்லாமல், இந்த அறிவிப்புகளை நீங்கள் பெற மாட்டீர்கள். இந்த அறிவிப்பின் நேரத்தை அமைப்புகள் > வானிலை > தினசரி வானிலை நேரம் என்பதில் உள்ளமைக்க முடியும்.
 
-You can முடக்கு weather monitor notifications in Android's notification அமைப்புகள் க்கு Trail Sense.
+Trail Sense க்கான Android இன் அறிவிப்பு அமைப்புகளில் வானிலை கண்காணிப்பு அறிவிப்புகளை நீங்கள் முடக்கலாம்.
 
-## Storm alert
-If the weather monitor is active, Trail புலன் can notify you of storms. Enable this in அமைப்புகள் > Weather > Storm alert. You can adjust the sensitivity in அமைப்புகள் > Weather > Storm sensitivity. Higher sensitivity might trigger false alerts, while lower sensitivity could miss some storms.
+## புயல் எச்சரிக்கை
+வானிலை கண்காணிப்பு செயலில் இருந்தால், புயல்கள் குறித்து Trail Sense உங்களுக்கு அறிவிக்கும். அமைப்புகள் > வானிலை > புயல் எச்சரிக்கை என்பதில் இதை இயக்கவும். அமைப்புகள் > வானிலை > புயல் உணர்திறன் என்பதில் உணர்திறனை நீங்கள் சரிசெய்யலாம். அதிக உணர்திறன் தவறான எச்சரிக்கைகளைத் தூண்டக்கூடும், அதே நேரத்தில் குறைந்த உணர்திறன் சில புயல்களைத் தவிர்க்கக்கூடும்.
 
-## Weather details
-The Weather கருவி also provides more செய்தி பற்றி the மின்னோட்ட்ம், ஓட்டம் and predicted weather.
+அமைப்புகள் > வானிலை > புயல் எச்சரிக்கைக்கு அலாரத்தைப் பயன்படுத்து என்பதை இயக்குவதன் மூலம் இந்த எச்சரிக்கைக்கு அலாரம் ஆடியோ சேனலைப் பயன்படுத்த நீங்கள் தேர்வு செய்யலாம். மீடியா மற்றும் அறிவிப்புகள் முடக்கப்பட்டிருந்தாலும் கூட இது ஒரு ஒலியை அலாரமாக இயக்கும். இரவில் அமைப்புகள் > வானிலை > முடக்கு அலாரத்தை இயக்குவதன் மூலம் பகலில் மட்டுமே அலாரத்தைப் பயன்படுத்த நீங்கள் தேர்வுசெய்யலாம். 
 
-### Alerts
-The Weather கருவி displays alerts when a storm is detected or historical temperatures suggest hot or cold conditions.
+## வானிலை விவரங்கள்
+வானிலை கருவி தற்போதைய மற்றும் கணிக்கப்பட்டவை பற்றிய கூடுதல் தகவல்களையும் வழங்குகிறது. வானிலை.
 
-### Pressure
-A அழுத்தம் வரலாறு chart is displayed at the மேலே of the screen. Falling அழுத்தம் சி-வைகாசி indicate an incoming storm, rising அழுத்தம் suggests clearing weather, and steady அழுத்தம் indicates இல்லை significant changes. The மின்னோட்ட்ம், ஓட்டம் அழுத்தம் and its tendency (change வீச்சலகு time) அரே listed below the chart.
+### எச்சரிக்கைகள்
+புயல் கண்டறியப்படும்போது அல்லது வரலாற்று வெப்பநிலை வெப்பமான அல்லது குளிரான நிலைகளைக் குறிக்கும்போது வானிலை கருவி எச்சரிக்கைகளைக் காட்டுகிறது.
 
-The மின்னோட்ட்ம், ஓட்டம் அழுத்தம் மண்டலம் is also displayed. Low அழுத்தம் often means poor weather, while high அழுத்தம் indicates fair conditions. Clicking on it provides a விவரம் of the அழுத்தம் system.
+### அழுத்தம்
+திரையின் மேற்புறத்தில் ஒரு அழுத்த வரலாற்று விளக்கப்படம் காட்டப்படும். வீழ்ச்சி அழுத்தம் வரவிருக்கும் புயலைக் குறிக்கலாம், அதிகரித்து வரும் அழுத்தம் தெளிவான வானிலையைக் குறிக்கிறது, மேலும் நிலையான அழுத்தம் குறிப்பிடத்தக்க மாற்றங்கள் எதுவும் இல்லை என்பதைக் குறிக்கிறது. தற்போதைய அழுத்தம் மற்றும் அதன் போக்கு (காலப்போக்கில் ஏற்படும் மாற்றம்) விளக்கப்படத்திற்கு கீழே பட்டியலிடப்பட்டுள்ளன.
 
-You can change the வரலாறு duration in அமைப்புகள் > Weather > "Pressure history".
+தற்போதைய அழுத்த அமைப்பும் காட்டப்படுகிறது. குறைந்த அழுத்தம் பெரும்பாலும் மோசமான வானிலையைக் குறிக்கிறது, அதே நேரத்தில் உயர் அழுத்தம் நியாயமான நிலைமைகளைக் குறிக்கிறது. அதைக் கிளிக் செய்வது அழுத்த அமைப்பின் விளக்கத்தை வழங்குகிறது.
 
-### Temperature
-The மின்னோட்ட்ம், ஓட்டம் temperature, sourced இருந்து historical தகவல்கள் or the onboard thermometer, is shown in the weather list. Daily high/low temperatures அரே also provided using historical data. Clicking on the மின்னோட்ட்ம், ஓட்டம் temperature reveals a temperature வரலாறு chart, while clicking on high/low temperatures displays a 24-hour temperature prediction chart based on historical temperatures.
+அமைப்புகள் > வானிலை > "அழுத்த வரலாறு" என்பதில் வரலாற்று கால அளவை மாற்றலாம்.
 
-### Humidity
-If your device has a humidity sensor, the மின்னோட்ட்ம், ஓட்டம் humidity is displayed. Clicking on it reveals a humidity வரலாறு chart.
+### வெப்பநிலை
+வரலாற்றுத் தரவு அல்லது உள் வெப்பமானியிலிருந்து பெறப்பட்ட தற்போதைய வெப்பநிலை வானிலை பட்டியலில் காட்டப்பட்டுள்ளது. தினசரி அதிக/குறைந்த வெப்பநிலையும் வரலாற்றுத் தரவைப் பயன்படுத்தி வழங்கப்படுகிறது. கிளிக் செய்வதன் மூலம் தற்போதைய வெப்பநிலை வெப்பநிலை வரலாற்று விளக்கப்படத்தை வெளிப்படுத்துகிறது, அதே நேரத்தில் அதிக/குறைந்த வெப்பநிலைகளைக் கிளிக் செய்வது வரலாற்று வெப்பநிலைகளின் அடிப்படையில் 24 மணிநேர வெப்பநிலை கணிப்பு விளக்கப்படத்தைக் காட்டுகிறது.
 
-### Clouds
-The last logged முகில் வகை appears in the weather list. Clicking on it provides a விவரம் of the முகில் type.
+### ஈரப்பதம்
+உங்கள் சாதனத்தில் ஈரப்பதம் சென்சார் இருந்தால், தற்போதைய ஈரப்பதம் காட்டப்படும். அதைக் கிளிக் செய்தால் ஈரப்பதம் வரலாற்று விளக்கப்படம் தெரியும்.
 
-### Weather front
-The மின்னோட்ட்ம், ஓட்டம் weather front is displayed in the weather list. Fronts typically indicate weather changes and அரே often associated with precipitation and wind. Clicking on it provides a விவரம் of the weather front.
+### மேகங்கள்
+கடைசியாக பதிவுசெய்யப்பட்ட மேக வகை வானிலை பட்டியலில் தோன்றும். அதைக் கிளிக் செய்வது மேக வகையின் விளக்கத்தை வழங்குகிறது.
 
-## Exporting weather data
-You can ஏற்றுமதி the recorded weather தகவல்கள் பெறுநர் a காபிம கோப்பு with அமைப்புகள் > Weather > ஏற்றுமதி weather records.
+### வானிலை முன்பக்கம்
+தற்போதைய வானிலை முன்பக்கம் வானிலை பட்டியலில் காட்டப்படும். முன்பக்கங்கள் பொதுவாக வானிலை மாற்றங்களைக் குறிக்கின்றன மற்றும் பெரும்பாலும் மழைப்பொழிவு மற்றும் காற்றோடு தொடர்புடையவை. அதைக் கிளிக் செய்வது வானிலை முன்பக்கத்தின் விளக்கத்தை வழங்குகிறது.
 
-## Quick action
-You can enable the Weather Monitor quick செயல் in the அமைப்புகள் க்கு the தாவல் you want it on.
+## வானிலை தரவை ஏற்றுமதி செய்தல்
+பதிவுசெய்யப்பட்ட வானிலை தரவை அமைப்புகள் > வானிலை > வானிலை பதிவுகளை ஏற்றுமதி செய்தல் மூலம் CSV கோப்பிற்கு ஏற்றுமதி செய்யலாம்.
 
-To use the quick action, tap the Weather Monitor quick செயல் button பெறுநர் toggle it on or off.
+## விரைவான செயல்
+நீங்கள் வானிலை கண்காணிப்பை விரைவாக இயக்கலாம் நீங்கள் விரும்பும் தாவலுக்கான அமைப்புகளில் செயல்.
 
-## Accuracy
-The weather prediction is a best guess using available உணரி தகவல்கள் and சி-வைகாசி not be accurate. If Trail புலன் says it is going பெறுநர் be clear but you see what appears பெறுநர் be storm clouds rolling in, trust your instincts - sometimes storms உருளம் in with gradual changes in pressure. Seek shelter if you புலன் a storm approaching, regardless of Trail Sense's prediction.
+விரைவான செயலைப் பயன்படுத்த, வானிலை கண்காணிப்பு விரைவு செயல் பொத்தானைத் தட்டி அதை இயக்க அல்லது முடக்கவும்.
 
-Climate normals (historic temperatures) அரே based on the 30-year average of the historic தகவல்கள் and indicate what the weather usually is. The actual values சி-வைகாசி differ க்கு a variety of reasons but should remain fairly மூடு பெறுநர் the historic values. Large differences அரே normally due பெறுநர் a storm or மற்றொன்று weather event.
+## துல்லியம்
+கிடைக்கக்கூடிய சென்சார் தரவைப் பயன்படுத்தி வானிலை முன்னறிவிப்பு ஒரு சிறந்த யூகம் மற்றும் துல்லியமாக இருக்காது. Trail Sense தெளிவாக இருக்கும் என்று கூறினாலும், புயல் மேகங்கள் உருண்டு வருவது போல் தோன்றினால், உங்கள் உள்ளுணர்வை நம்புங்கள் - சில நேரங்களில் புயல்கள் அழுத்தத்தில் படிப்படியாக மாற்றங்களுடன் உருளும். Trail Sense இன் கணிப்பைப் பொருட்படுத்தாமல், புயல் நெருங்கி வருவதை நீங்கள் உணர்ந்தால் தங்குமிடம் தேடுங்கள்.
 
-Historic temperatures அரே estimated using a தனிப்பயன் 30-year "climate normal" மாதிரியுரு derived இருந்து the NASA உலகளாவிய Modeling and தன்மயமாக்கம் Office - MERRA-2 தகவல்கள் (1991 - 2020).
+காலநிலை இயல்புகள் (வரலாற்று வெப்பநிலைகள்) வரலாற்றுத் தரவின் 30 ஆண்டு சராசரியை அடிப்படையாகக் கொண்டவை மற்றும் வானிலை பொதுவாக என்ன என்பதைக் குறிக்கின்றன. உண்மையான மதிப்புகள் பல்வேறு காரணங்களுக்காக வேறுபடலாம், ஆனால் வரலாற்று மதிப்புகளுக்கு மிக அருகில் இருக்க வேண்டும். பெரிய வேறுபாடுகள் பொதுவாக புயல் அல்லது பிற வானிலை நிகழ்வுகளால் ஏற்படுகின்றன.
 
-## Widgets
-The following நிரல்பலகை can be placed on your device's homescreen or viewed in-app:
+வரலாற்று வெப்பநிலைகள் NASA குளோபல் மாடலிங் அண்ட் அசிமிலேஷன் ஆபிஸ் - MERRA-2 தரவு (1991 - 2020) இலிருந்து பெறப்பட்ட தனிப்பயன் 30 ஆண்டு "காலநிலை இயல்பான" மாதிரியைப் பயன்படுத்தி மதிப்பிடப்படுகின்றன.
 
-- **Weather**: Shows the மின்னோட்ட்ம், ஓட்டம் weather and temperature prediction.
-- **Pressure**: Shows the மின்னோட்ட்ம், ஓட்டம் அழுத்தம் and tendency arrow.
-- **Pressure chart**: The அழுத்தம் chart.
+## விட்ஜெட்டுகள்
+பின்வரும் விட்ஜெட்களை உங்கள் சாதனத்தின் முகப்புத் திரையில் வைக்கலாம் அல்லது பயன்பாட்டில் பார்க்கலாம்:
+
+- **வானிலை**: தற்போதைய வானிலை மற்றும் வெப்பநிலை கணிப்பை காட்டுகிறது.
+- **அழுத்தம்**: தற்போதைய அழுத்தம் மற்றும் போக்கு அம்புக்குறியைக் காட்டுகிறது.
+- **அழுத்த விளக்கப்படம்**: அழுத்த விளக்கப்படம்.

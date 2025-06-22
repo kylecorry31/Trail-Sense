@@ -5,17 +5,17 @@ Navigace
 
 Fotomapy
 - Možnost ponechat obrazovku odemčenou
-- Skrýt/ukázat fotomapy (pro navigaci)
+- Skrýt/ukázat fotomapy (v navigaci)
 
 Příručka pro přežití
-- Vyhledávání úryvků
-- Vyhledávání rychlých akcí
+- Hledání úryvků
+- Hledání rychlých akcí
 - Aktualizace obsahu
 
-Deklinace (nový nástroj)
+Deklinace
 - Zobrazení deklinace pro dané místo
 
 Různé
 - Volba přehrávání některých zvuků oznámení jako budíků
 - Aktualizace modelu deklinace
-- Přidání zdroje DEM (vyžaduje stažení)
+- Přidání zdroje DEM (kvalitnější modely dostupné ke stažení)

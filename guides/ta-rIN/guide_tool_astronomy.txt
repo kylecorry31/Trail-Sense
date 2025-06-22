@@ -1,96 +1,101 @@
-The Astronomy கருவி can be used பெறுநர் see when the sun or moon is up. It can also be used பெறுநர் know when astronomical நிகழ்வுகள் அரே happening, such அச் a meteor shower or lunar eclipse.
+சூரியன் அல்லது சந்திரன் எப்போது உதிக்கிறது என்பதைக் காண வானியல் கருவியைப் பயன்படுத்தலாம். விண்கல் மழை அல்லது சந்திர கிரகணம் போன்ற வானியல் நிகழ்வுகள் எப்போது நிகழ்கின்றன என்பதை அறியவும் இதைப் பயன்படுத்தலாம்.
 
-With the exception of the time until sunrise or sunset (always today), அனைத்தும் செய்தி shown on the page is க்கு the தேர்ந்தெடுக்கப்பட்டது date. By default, இன்று is selected, but you can change it by tapping the நாட்காட்டி icon at the மேலே of the screen. On the நாட்காட்டி, you will see the moon phase, meteor showers, and eclipses க்கு each day. Additionally, you can use the அம்புகள் பெறுநர் move பெறுநர் the next/previous திகதி or long press the நாட்காட்டி பெறுநர் quickly தாவு பெறுநர் today's date.
+சூரிய உதயம் அல்லது சூரிய அஸ்தமனம் வரை (எப்போதும் இன்று) நேரம் தவிர, பக்கத்தில் காட்டப்படும் அனைத்து தகவல்களும் தேர்ந்தெடுக்கப்பட்ட தேதிக்கானவை. இயல்பாக, இன்று தேர்ந்தெடுக்கப்பட்டிருக்கும், ஆனால் திரையின் மேற்புறத்தில் உள்ள காலண்டர் ஐகானைத் தட்டுவதன் மூலம் அதை மாற்றலாம். காலெண்டரில், ஒவ்வொரு நாளுக்கும் சந்திரனின் கட்டம், விண்கல் மழை மற்றும் கிரகணங்களைக் காண்பீர்கள். கூடுதலாக, நீங்கள் அம்புக்குறிகளைப் பயன்படுத்தி அடுத்த/முந்தைய தேதிக்கு நகர்த்தலாம் அல்லது இன்றைய தேதிக்கு விரைவாகச் செல்ல காலெண்டரை நீண்ட நேரம் அழுத்தலாம்.
 
-You can also click the தேடல் icon பெறுநர் கண்டுபிடி the அடுத்தது occurrence of an astronomical event at your location, such அச் the அடுத்தது full moon or meteor shower.
+அடுத்த முழு நிலவு அல்லது விண்கல் மழை போன்ற உங்கள் இடத்தில் ஒரு வானியல் நிகழ்வின் அடுத்த நிகழ்வைக் கண்டறிய தேடல் ஐகானைக் கிளிக் செய்யலாம்.
 
-## Time until sunrise/sunset
+## சூரிய உதயம்/சூரிய அஸ்தமனம் வரை நேரம்
 
-The time until sunrise or sunset is shown at the மேலே of the screen. This respects the 'Sunrise/sunset times' in அமைப்புகள் > Astronomy. க்கு a விவரம் of each time, see the Sun பிரிவு below.
+சூரிய உதயம் அல்லது சூரிய அஸ்தமனம் வரை நேரம் திரையின் மேற்புறத்தில் காட்டப்படும். இது அமைப்புகள் > வானியல் என்பதில் 'சூரிய உதயம்/சூரிய அஸ்தமன நேரங்களை' மதிக்கிறது. ஒவ்வொரு நேரத்தின் விளக்கத்திற்கும், கீழே உள்ள சூரியப் பகுதியைப் பார்க்கவும்.
 
-## Chart
-The chart shows the position of the sun and moon throughout the day. The X-axis is time, and the Y-axis is the குத்துயரம் or height in the sky. You can tap on the sun or moon icon in the chart பெறுநர் see its மின்னோட்ட்ம், ஓட்டம் position. When you do this, a slider will appear so you can see its position at a different time of the day.
+## விளக்கப்படம்
+விளக்கப்படம் நாள் முழுவதும் சூரியன் மற்றும் சந்திரனின் நிலையைக் காட்டுகிறது. X-அச்சு நேரம், மற்றும் Y-அச்சு வானத்தில் உயரம் அல்லது உயரம். அதன் தற்போதைய நிலையைக் காண விளக்கப்படத்தில் உள்ள சூரியன் அல்லது சந்திரன் ஐகானைத் தட்டலாம். நீங்கள் இதைச் செய்யும்போது, ஒரு ஸ்லைடர் தோன்றும், இதன் மூலம் நாளின் வேறு நேரத்தில் அதன் நிலையைக் காணலாம்.
 
-You can also choose பெறுநர் keep the மின்னோட்ட்ம், ஓட்டம் time centered in the chart by enabling 'Keep sun/moon centered' in அமைப்புகள் > Astronomy. This will keep the மின்னோட்ட்ம், ஓட்டம் time centered in the chart when you have இன்று தேர்ந்தெடுக்கப்பட்டது and will காட்டு 12 hours before and after the மின்னோட்ட்ம், ஓட்டம் time. If you have a different திகதி selected, it will காட்டு the entire நாள் instead.
+அமைப்புகள் > வானியல் என்பதில் 'சூரியன்/சந்திரனை மையமாக வைத்திரு' என்பதை இயக்குவதன் மூலம் விளக்கப்படத்தில் தற்போதைய நேரத்தை மையமாக வைத்திருக்கவும் நீங்கள் தேர்வு செய்யலாம். இது நீங்கள் இன்று தேர்ந்தெடுத்திருக்கும் போது தற்போதைய நேரத்தை விளக்கப்படத்தில் மையமாக வைத்திருக்கும், மேலும் தற்போதைய நேரத்திற்கு 12 மணிநேரத்திற்கு முன்னும் பின்னும் காண்பிக்கும். நீங்கள் வேறு தேதியைத் தேர்ந்தெடுத்திருந்தால், அது முழு நாளையும் அதற்கு பதிலாக காண்பிக்கும்.
 
-## Sun
-All பெருக்கல் related பெறுநர் the sun respect the 'Sunrise/sunset times' in அமைப்புகள் > Astronomy. க்கு a விவரம் of each time, see below.
+## சூரியன்
+சூரியனுடன் தொடர்புடைய அனைத்து நேரங்களும் 'சூரிய உதயம்/சூரிய அஸ்தமன நேரங்களை' மதிக்கின்றன அமைப்புகள் > வானியல். ஒவ்வொரு நேரத்தின் விளக்கத்திற்கும், கீழே காண்க.
 
-The time until sunrise or sunset is shown at the மேலே of the screen.
+சூரிய உதயம் அல்லது சூரிய அஸ்தமனம் வரையிலான நேரம் திரையின் மேற்புறத்தில் காட்டப்பட்டுள்ளது.
 
-The time of sunrise, sunset, and நூன் is shown below the chart, அச் well அச் the length of the day. If you tap this section, you will see more details பற்றி the sun க்கு the மின்னோட்ட்ம், ஓட்டம் day:
+சூரிய உதயம், சூரிய அஸ்தமனம் மற்றும் நண்பகல் நேரம் விளக்கப்படத்தின் கீழே காட்டப்பட்டுள்ளது, அதே போல் நாளின் நீளமும் காட்டப்பட்டுள்ளது. இந்தப் பகுதியைத் தட்டினால், தற்போதைய நாளுக்கான சூரியனைப் பற்றிய கூடுதல் விவரங்களைக் காண்பீர்கள்:
 
-- **Actual**: This is the actual time of sunrise, sunset, and noon. It is the time when the sun is at the horizon.
-- **Civil**: This is the time of sunrise, sunset, and நூன் when the sun is between 0 and 6 degrees below the horizon. There is enough light பெறுநர் see objects clearly.
-- **Nautical**: This is the time of sunrise, sunset, and நூன் when the sun is between 6 and 12 degrees below the horizon. The horizon is still visible, but it is too dark பெறுநர் see objects clearly.
-- **Astronomical**: This is the time of sunrise, sunset, and நூன் when the sun is between 12 and 18 degrees below the horizon. It is completely dark, but it is perfect க்கு stargazing.
-- **Peak altitude**: This is the highest புள்ளியம் the sun reaches in the sky. It is shown in degrees above the horizon.
-- **Daylight**: This is the amount of time when the sun is up.
-- **Night**: This is the amount of time when the sun is down.
-- **Season**: This is the astronomical season based on the Earth's position around the sun. It will be one of the following: spring, summer, fall, or winter.
-- **Altitude**: This is the மின்னோட்ட்ம், ஓட்டம் angle of the sun above the horizon. It is shown in degrees.
-- **Direction**: This is the மின்னோட்ட்ம், ஓட்டம் direction the sun is in. It is shown in degrees.
+- **உண்மையான**: இது சூரிய உதயம், சூரிய அஸ்தமனம் மற்றும் நண்பகலின் உண்மையான நேரம். இது சூரியன் அடிவானத்தில் இருக்கும் நேரம்.
+- **சிவில்**: இது சூரியன் அடிவானத்திலிருந்து 0 முதல் 6 டிகிரி வரை கீழே இருக்கும் சூரிய உதயம், சூரிய அஸ்தமனம் மற்றும் நண்பகல் நேரம். பொருட்களைத் தெளிவாகப் பார்க்க போதுமான வெளிச்சம் உள்ளது.
+- **கடல்சார்**: இது சூரிய உதயம், சூரிய அஸ்தமனம் மற்றும் நண்பகல் நேரம், இது அடிவானத்திலிருந்து 6 முதல் 12 டிகிரி வரை கீழே இருக்கும் நேரம். அடிவானம் இன்னும் தெரியும், ஆனால் பொருட்களைப் பார்க்க முடியாத அளவுக்கு இருட்டாக உள்ளது. தெளிவாக.
+- **வானியல்**: சூரியன் அடிவானத்திற்கு 12 முதல் 18 டிகிரி வரை கீழே இருக்கும் சூரிய உதயம், சூரிய அஸ்தமனம் மற்றும் நண்பகல் நேரம் இது. இது முற்றிலும் இருட்டாக இருக்கிறது, ஆனால் நட்சத்திரங்களைப் பார்ப்பதற்கு இது சரியானது.
+- **உச்ச உயரம்**: இது சூரியன் வானத்தில் அடையும் மிக உயர்ந்த புள்ளி. இது அடிவானத்திற்கு மேலே டிகிரிகளில் காட்டப்பட்டுள்ளது.
+- **பகல்**: இது சூரியன் உதிக்கும் நேரத்தின் அளவு.
+- **இரவு**: இது சூரியன் மறையும் நேரத்தின் அளவு.
+- **பருவம்**: இது சூரியனைச் சுற்றியுள்ள பூமியின் நிலையை அடிப்படையாகக் கொண்ட வானியல் பருவம். இது பின்வருவனவற்றில் ஒன்றாக இருக்கும்: வசந்த காலம், கோடை காலம், இலையுதிர் காலம் அல்லது குளிர்காலம்.
+- **உயரம்**: இது அடிவானத்திற்கு மேலே சூரியனின் தற்போதைய கோணம். இது டிகிரிகளில் காட்டப்பட்டுள்ளது.
+- **திசை**: இது சூரியன் இருக்கும் தற்போதைய திசை. இது டிகிரி.
 
-## Moon
-The time of moonrise, moonset, and lunar நூன் அரே shown below the chart, அச் well அச் the மின்னோட்ட்ம், ஓட்டம் moon கட்டம் and illumination percentage. If you tap this section, you will see more details பற்றி the moon க்கு the மின்னோட்ட்ம், ஓட்டம் day:
+## சந்திரன்
+சந்திர உதயம், சந்திர அஸ்தமனம் மற்றும் சந்திர நண்பகல் நேரம் விளக்கப்படத்திற்கு கீழே காட்டப்பட்டுள்ளது, அதே போல் தற்போதைய சந்திர கட்டம் மற்றும் வெளிச்ச சதவீதம். இந்தப் பகுதியைத் தட்டினால், தற்போதைய நாளுக்கான சந்திரனைப் பற்றிய கூடுதல் விவரங்களைக் காண்பீர்கள்:
 
-- **Times**: This is the time of moonrise, moonset, and lunar noon.
-- **Moon phase**: This is the மின்னோட்ட்ம், ஓட்டம் கட்டம் of the moon அச் it appears in the sky.
-- **Illumination**: This is the percentage of the moon that is illuminated. A full moon is 100% illuminated, and a புதிய moon is 0% illuminated.
-- **Peak altitude**: This is the highest புள்ளியம் the moon reaches in the sky. It is shown in degrees above the horizon.
-- **Supermoon**: This is when the moon is closer பெறுநர் the Earth than normal, making it appear larger and brighter in the sky.
+- **நேரங்கள்**: இது சந்திர உதயம், சந்திர அஸ்தமனம் மற்றும் சந்திர நண்பகல் நேரம்.
+- **சந்திர கட்டம்**: இது வானத்தில் தோன்றும் சந்திரனின் தற்போதைய கட்டம்.
+- **வெளிச்சம்**: இது சந்திரனின் ஒளிரும் சதவீதமாகும். ஒரு முழு நிலவு 100% ஒளிரும், ஒரு அமாவாசை 0% ஒளிரும்.
+- **உச்ச உயரம்**: இது சந்திரன் வானத்தில் அடையும் மிக உயர்ந்த புள்ளி. இது அடிவானத்திற்கு மேலே டிகிரிகளில் காட்டப்படுகிறது.
+- **சூப்பர்மூன்**: இது சந்திரன் பூமிக்கு இயல்பை விட நெருக்கமாக இருப்பதால், அது பெரியதாகவும் பிரகாசமாகவும் தோன்றும் போது வானம்.
 
-## Meteor showers
-If a meteor shower peak is happening on the தேர்ந்தெடுக்கப்பட்டது திகதி at your location, it will காட்டு in the list. It displays the start, peak, and end பெருக்கல் of the shower, அச் well அச் the average எண் of meteors per hour. You can tap on the shower பெறுநர் see more details:
+## விண்கல் பொழிவுகள்
+உங்கள் இடத்தில் தேர்ந்தெடுக்கப்பட்ட தேதியில் விண்கல் பொழிவு உச்சம் அடைந்தால், அது பட்டியலில் காண்பிக்கப்படும். இது மழையின் தொடக்க, உச்சம் மற்றும் இறுதி நேரங்களையும், ஒரு மணி நேரத்திற்கு சராசரி விண்கல் பொழிவுகளின் எண்ணிக்கையையும் காட்டுகிறது. மேலும் விவரங்களைக் காண நீங்கள் மழையைத் தட்டலாம்:
 
-- **Times**: This is the start, peak, and end பெருக்கல் of the shower.
-- **Name**: This is the பெயர் of the shower.
-- **Rate**: This is the average எண் of meteors per hour.
-- **Peak altitude**: This is the highest புள்ளியம் the radiant (area where the meteors appear பெறுநர் come from) reaches in the sky. It is shown in degrees above the horizon.
-- **Peak direction**: This is the direction the radiant is in.
+- **நேரங்கள்**: இது மழையின் தொடக்க, உச்சம் மற்றும் இறுதி நேரங்கள்.
+- **பெயர்**: இது மழையின் பெயர்.
+- **விகிதம்**: இது ஒரு மணி நேரத்திற்கு விண்கற்களின் சராசரி எண்ணிக்கை.
+- **உச்ச உயரம்**: இது கதிர்வீச்சு (விண்கற்கள் வருவது போல் தோன்றும் பகுதி) வானத்தில் அடையும் மிக உயர்ந்த புள்ளியாகும். இது அடிவானத்திற்கு மேலே டிகிரிகளில் காட்டப்படுகிறது.
+- **உச்ச திசை**: இது கதிர்வீச்சு இருக்கும் திசை.
 
-## Lunar eclipses
-If a lunar eclipse is happening on the தேர்ந்தெடுக்கப்பட்டது திகதி at your location, it will காட்டு in the list. It displays the start, peak, and end பெருக்கல் of the eclipse, அச் well அச் how much of the moon is eclipsed. You can tap on the eclipse பெறுநர் see more details:
+## சந்திர கிரகணங்கள்
+என்றால்உங்கள் இடத்தில் தேர்ந்தெடுக்கப்பட்ட தேதியில் சந்திர கிரகணம் நிகழ்கிறது, அது பட்டியலில் காண்பிக்கப்படும். இது கிரகணத்தின் தொடக்க, உச்ச மற்றும் இறுதி நேரங்களையும், சந்திரனின் எவ்வளவு பகுதி கிரகணம் அடைந்துள்ளது என்பதையும் காட்டுகிறது. மேலும் விவரங்களைக் காண நீங்கள் கிரகணத்தைத் தட்டலாம்:
 
-- **Times**: This is the start, peak, and end பெருக்கல் of the eclipse.
-- **Duration**: This is the duration of the eclipse.
-- **Obscuration**: This is the percentage of the moon that is eclipsed.
-- **Magnitude**: This is the வீச்சளவு of the eclipse. It is the fraction of the moon's விட்டம் that is eclipsed.
-- **Peak altitude**: This is the குத்துயரம் of the moon at the peak of the eclipse. It is shown in degrees above the horizon.
-- **Peak direction**: This is the direction the moon is in at the peak of the eclipse.
+- **நேரங்கள்**: இது கிரகணத்தின் தொடக்க, உச்ச மற்றும் முடிவு நேரங்கள்.
+- **காலம்**: இது கிரகணத்தின் கால அளவு.
+- **தெளிவின்மை**: இது கிரகணம் அடைந்த சந்திரனின் சதவீதம்.
+- **அளவு**: இது கிரகணத்தின் அளவு. இது சந்திரனின் விட்டத்தின் ஒரு பகுதியே கிரகணம் அடைந்துள்ளது.
+- **உச்ச உயரம்**: இது கிரகணத்தின் உச்சத்தில் சந்திரனின் உயரம். இது அடிவானத்திற்கு மேலே உள்ள டிகிரிகளில் காட்டப்பட்டுள்ளது.
+- **உச்ச திசை**: கிரகணத்தின் உச்சத்தில் சந்திரன் இருக்கும் திசை இது.
 
-## Solar eclipses
-If a solar eclipse is happening on the தேர்ந்தெடுக்கப்பட்டது திகதி at your location, it will காட்டு in the list. It displays the start, peak, and end பெருக்கல் of the eclipse, அச் well அச் how much of the sun is eclipsed. You can tap on the eclipse பெறுநர் see more details:
+## சூரிய கிரகணங்கள்
+உங்கள் இடத்தில் தேர்ந்தெடுக்கப்பட்ட தேதியில் சூரிய கிரகணம் நடந்தால், அது பட்டியலில் காண்பிக்கப்படும். இது கிரகணத்தின் தொடக்க, உச்சம் மற்றும் முடிவு நேரங்களையும், சூரியனின் எவ்வளவு பகுதி கிரகணம் அடைந்துள்ளது என்பதையும் காட்டுகிறது. மேலும் விவரங்களைக் காண நீங்கள் கிரகணத்தைத் தட்டலாம்:
 
-- **Times**: This is the start, peak, and end பெருக்கல் of the eclipse.
-- **Duration**: This is the duration of the eclipse.
-- **Obscuration**: This is the percentage of the sun that is eclipsed.
-- **Magnitude**: This is the வீச்சளவு of the eclipse. It is the fraction of the sun's விட்டம் that is eclipsed.
-- **Peak altitude**: This is the குத்துயரம் of the sun at the peak of the eclipse, shown in degrees above the horizon.
-- **Peak direction**: This is the direction the sun is in at the peak of the eclipse.
+- **நேரங்கள்**: இது கிரகணத்தின் தொடக்க, உச்சம் மற்றும் முடிவு நேரங்கள்.
+- **காலம்**: இது கிரகணத்தின் காலம்.
+- **தெளிவின்மை**: இது கிரகணம் அடைந்த சூரியனின் சதவீதம்.
+- **அளவு**: இது கிரகணத்தின் அளவு. சூரியனின் விட்டத்தின் ஒரு பகுதியே கிரகணம் அடைகிறது.
+- **உச்சி உயரம்**: இது கிரகணத்தின் உச்சத்தில் சூரியனின் உயரம், அடிவானத்திற்கு மேலே டிகிரிகளில் காட்டப்பட்டுள்ளது.
+- **உச்சி திசை**: இது கிரகணத்தின் உச்சத்தில் சூரியன் இருக்கும் திசை.
 
-## Sunset alerts
-Alerts can be கணம் க்கு sunset பெறுநர் avoid being caught outside in the dark. பெறுநர் கணம் an alert, திற அமைப்புகள் > Astronomy and enable 'Sunset alerts'. You can adjust the 'Sunset alert time' setting பெறுநர் determine how far in முன்பணம் you want பெறுநர் be notified. There is also a quick செயல் available க்கு the sunset alert. See below க்கு more information.
+## சூரிய அஸ்தமன எச்சரிக்கைகள்
+இருட்டில் வெளியே சிக்கிக் கொள்வதைத் தவிர்க்க சூரிய அஸ்தமனத்திற்கான எச்சரிக்கைகளை அமைக்கலாம். எச்சரிக்கையை அமைக்க, அமைப்புகள் > வானியல் என்பதைத் திறந்து 'சூரிய அஸ்தமன எச்சரிக்கைகளை' இயக்கவும். நீங்கள் எவ்வளவு முன்கூட்டியே அறிவிக்க விரும்புகிறீர்கள் என்பதைத் தீர்மானிக்க 'சூரிய அஸ்தமன எச்சரிக்கை நேரம்' அமைப்பை சரிசெய்யலாம். சூரிய அஸ்தமன எச்சரிக்கைக்கு ஒரு விரைவான நடவடிக்கையும் உள்ளது. மேலும் தகவலுக்கு கீழே காண்க.
 
-## Sunrise alerts
-Alerts can be configured க்கு sunrise பெறுநர் ensure you don't miss the beginning of the day. பெறுநர் கணம் மேலே an alert, go பெறுநர் அமைப்புகள் > Astronomy and turn on 'Sunrise alerts'. You can adjust the 'Sunrise alert time' setting பெறுநர் decide how much முன்பணம் notice you want. Additionally, there is a quick செயல் சூதம் available க்கு the sunrise alert. Refer பெறுநர் the செய்தி below க்கு further details.
+அமைப்புகள் > வானியல் > சூரிய அஸ்தமன எச்சரிக்கைக்கு அலாரத்தைப் பயன்படுத்து என்பதை இயக்குவதன் மூலம் இந்த எச்சரிக்கைக்கு அலாரம் ஆடியோ சேனலைப் பயன்படுத்த நீங்கள் தேர்வு செய்யலாம். மீடியா மற்றும் அறிவிப்புகள் முடக்கப்பட்டிருந்தாலும் இது ஒரு அலாரமாக ஒலியை இயக்கும். 
 
-## Astronomy alerts
-Alerts can be கணம் க்கு astronomical நிகழ்வுகள் பெறுநர் ensure you don't miss them. பெறுநர் கணம் an alert, திற அமைப்புகள் > Astronomy and enable the alerts you want பெறுநர் be notified பற்றி க்கு your location. You can receive notifications க்கு meteor showers, lunar eclipses, and solar eclipses. The alert will be shown மேலே பெறுநர் 24 hours in முன்பணம் of the event தொடங்கு time.
+## சூரிய உதய எச்சரிக்கைகள்
+நாளின் தொடக்கத்தைத் தவறவிடாமல் இருக்க சூரிய உதயத்திற்கான விழிப்பூட்டல்களை உள்ளமைக்கலாம். ஒரு விழிப்பூட்டலை அமைக்க, அமைப்புகள் > வானியல் என்பதற்குச் சென்று 'சூரிய உதய எச்சரிக்கைகள்' என்பதை இயக்கவும். உங்களுக்கு எவ்வளவு முன்கூட்டியே அறிவிப்பு தேவை என்பதைத் தீர்மானிக்க 'சூரிய உதய எச்சரிக்கை நேரம்' அமைப்பை நீங்கள் சரிசெய்யலாம். கூடுதலாக, சூரிய உதய எச்சரிக்கைக்கு ஒரு விரைவான செயல் விருப்பம் உள்ளது. மேலும் விவரங்களுக்கு கீழே உள்ள தகவலைப் பார்க்கவும்.
 
-## பார்வை in 3D
-If your phone has a compass, you will see a "View in 3D" button. Clicking this will திற the Augmented Reality கருவி with the தேர்ந்தெடுக்கப்பட்டது திகதி and allow you பெறுநர் see where the sun and moon will be throughout the நாள் using your camera.
+அமைப்புகள் > வானியல் > சூரிய உதய எச்சரிக்கைக்கு அலாரத்தைப் பயன்படுத்து என்பதை இயக்குவதன் மூலம் இந்த விழிப்பூட்டலுக்கான அலாரம் ஆடியோ சேனலைப் பயன்படுத்த நீங்கள் தேர்வு செய்யலாம். மீடியா மற்றும் அறிவிப்புகள் முடக்கப்பட்டிருந்தாலும் இது ஒரு ஒலியை அலாரமாக இயக்கும். 
 
-You can choose பெறுநர் முடக்கு the camera when clicked by disabling the "Settings > Astronomy > Use camera க்கு 3D viewing" setting.
+## வானியல் எச்சரிக்கைகள்
+வானியல் நிகழ்வுகளைத் தவறவிடாமல் இருக்க விழிப்பூட்டல்களை அமைக்கலாம். ஒரு விழிப்பூட்டலை அமைக்க, அமைப்புகள் > வானியல் என்பதைத் திறந்து, உங்கள் இருப்பிடத்திற்கு நீங்கள் அறிவிக்க விரும்பும் விழிப்பூட்டல்களை இயக்கவும். விண்கல் மழை, சந்திர கிரகணங்கள் மற்றும் சூரிய கிரகணங்களுக்கான அறிவிப்புகளைப் பெறலாம். நிகழ்வு தொடங்கும் நேரத்திற்கு 24 மணி நேரத்திற்கு முன்பே எச்சரிக்கை காட்டப்படும்.
 
-## Quick action
-You can enable the Sunset Alert and Sunrise Alert quick செயல் in the அமைப்புகள் க்கு the தாவல் where you want it பெறுநர் appear.
+## 3D இல் காண்க
+உங்கள் தொலைபேசியில் திசைகாட்டி இருந்தால், நீங்கள் "3D இல் காண்க" பொத்தானைக் காண்பீர்கள். இதைக் கிளிக் செய்வதன் மூலம் தேர்ந்தெடுக்கப்பட்ட தேதியுடன் கூடிய ஆக்மென்டட் ரியாலிட்டி கருவி திறக்கப்படும், மேலும் உங்கள் கேமராவைப் பயன்படுத்தி நாள் முழுவதும் சூரியனும் சந்திரனும் எங்கு இருக்கும் என்பதைக் காண முடியும்.
 
-To use the quick action, tap the sunset alert or sunrise alert quick செயல் button பெறுநர் toggle it on or off.
 
-## Widgets
-The following நிரல்பலகை can be placed on your device's homescreen or viewed in-app:
+அமைப்புகள் > வானியல் > 3D பார்வைக்கு கேமராவைப் பயன்படுத்து" அமைப்பை முடக்குவதன் மூலம் கிளிக் செய்யும் போது கேமராவை முடக்க நீங்கள் தேர்வு செய்யலாம்.
 
-- **Sun**: Shows the time of the அடுத்தது sunrise or sunset.
-- **Moon**: Shows the கட்டம் of the moon.
-- **Sun & moon chart**: The chart of the height of the sun and moon in the sky.
+## விரைவு நடவடிக்கை
+நீங்கள் சூரிய அஸ்தமன எச்சரிக்கை மற்றும் சூரிய உதய எச்சரிக்கை விரைவு செயலை நீங்கள் தோன்ற விரும்பும் தாவலுக்கான அமைப்புகளில் இயக்கலாம்.
+
+விரைவு செயலைப் பயன்படுத்த, சூரிய அஸ்தமன எச்சரிக்கை அல்லது சூரிய உதய எச்சரிக்கை விரைவு செயல் பொத்தானைத் தட்டி அதை இயக்க அல்லது முடக்கவும்.
+
+## விட்ஜெட்டுகள்
+பின்வரும் விட்ஜெட்களை உங்கள் சாதனத்தின் முகப்புத் திரையில் வைக்கலாம் அல்லது பயன்பாட்டில் பார்க்கலாம்:
+
+- **சூரியன்**: அடுத்த சூரிய உதயம் அல்லது சூரிய அஸ்தமன நேரத்தைக் காட்டுகிறது.
+- **சந்திரன்**: சந்திரனின் கட்டத்தைக் காட்டுகிறது.
+- **சூரியன் & சந்திரன் விளக்கப்படம்**: வானத்தில் சூரியன் மற்றும் சந்திரனின் உயரத்தின் விளக்கப்படம்.

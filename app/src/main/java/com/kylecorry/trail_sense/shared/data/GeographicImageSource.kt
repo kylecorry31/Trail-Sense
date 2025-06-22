@@ -25,14 +25,24 @@ class GeographicImageSource(
     private val interpolate: Boolean = true,
     private val include0ValuesInInterpolation: Boolean = true,
     private val interpolationOrder: Int = 1,
+    private val areValuesCenterOfPixel: Boolean = false,
     private val decoder: (Int?) -> List<Float> = { listOf(it?.toFloat() ?: 0f) }
 ) {
 
     private val reader = ImagePixelReader2(imageSize, lookupOrder = interpolationOrder)
 
     fun getPixel(location: Coordinate): PixelCoordinate {
-        var x = (location.longitude - bounds.west) * longitudePixelsPerDegree
-        var y = (bounds.north - location.latitude) * latitudePixelsPerDegree
+        var x = 0.0
+        var y = 0.0
+
+        if (areValuesCenterOfPixel) {
+            val res = abs(bounds.west - bounds.east) / imageSize.width
+            x = (location.longitude - (bounds.west + res / 2)) / res
+            y = ((bounds.north - res / 2) - location.latitude) / res
+        } else {
+            x = (location.longitude - bounds.west) * longitudePixelsPerDegree
+            y = (bounds.north - location.latitude) * latitudePixelsPerDegree
+        }
 
         if (x.isNaN()) {
             x = 0.0
@@ -42,8 +52,14 @@ class GeographicImageSource(
             y = 0.0
         }
         return PixelCoordinate(
-            x.roundPlaces(precision).toFloat(),
-            y.roundPlaces(precision).toFloat()
+            x.roundPlaces(precision).toFloat().coerceIn(
+                0f,
+                imageSize.width.toFloat() - 1f
+            ),
+            y.roundPlaces(precision).toFloat().coerceIn(
+                0f,
+                imageSize.height.toFloat() - 1f
+            )
         )
     }
 

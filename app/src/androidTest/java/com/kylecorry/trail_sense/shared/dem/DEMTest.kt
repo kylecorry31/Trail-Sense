@@ -19,10 +19,10 @@ class DEMTest {
     )
 
     private val models = listOf(
-        Model(null, 15f, 90f),
-        Model("dem/dem-0.3.0-low.zip", 15f, 45f),
-        Model("dem/dem-0.3.0-medium.zip", 10f, 30f),
-        Model("dem/dem-0.3.0-high.zip", 4f, 30f),
+        Model(null, 11f, 72f),
+        Model("dem/dem-0.3.0-low.zip", 11f, 40f),
+        Model("dem/dem-0.3.0-medium.zip", 8f, 24f),
+        Model("dem/dem-0.3.0-high.zip", 3f, 16f),
     )
 
     @Test
