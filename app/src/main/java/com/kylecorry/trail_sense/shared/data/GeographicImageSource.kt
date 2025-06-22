@@ -25,7 +25,7 @@ class GeographicImageSource(
     private val interpolate: Boolean = true,
     private val include0ValuesInInterpolation: Boolean = true,
     private val interpolationOrder: Int = 1,
-    private val areValuesCenterOfPixel: Boolean = false,
+    private val valuePixelOffset: Float = 0f,
     private val decoder: (Int?) -> List<Float> = { listOf(it?.toFloat() ?: 0f) }
 ) {
 
@@ -35,10 +35,10 @@ class GeographicImageSource(
         var x = 0.0
         var y = 0.0
 
-        if (areValuesCenterOfPixel) {
+        if (!SolMath.isZero(valuePixelOffset)) {
             val res = abs(bounds.west - bounds.east) / imageSize.width
-            x = (location.longitude - (bounds.west + res / 2)) / res
-            y = ((bounds.north - res / 2) - location.latitude) / res
+            x = (location.longitude - (bounds.west + res * valuePixelOffset)) / res
+            y = ((bounds.north - res * valuePixelOffset) - location.latitude) / res
         } else {
             x = (location.longitude - bounds.west) * longitudePixelsPerDegree
             y = (bounds.north - location.latitude) * latitudePixelsPerDegree

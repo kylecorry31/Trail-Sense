@@ -53,6 +53,12 @@ object DEM {
             return@onIO Distance.meters(0f)
         }
         val sources = tiles.map {
+            val valuePixelOffset = if (isExternal) {
+                0.5f
+            } else {
+                // Built-in is heavily compressed, therefore this value was experimentally determined to have the best accuracy
+                0.7f
+            }
             it.filename to GeographicImageSource(
                 Size(it.width, it.height),
                 bounds = CoordinateBounds(
@@ -67,7 +73,7 @@ object DEM {
                 ) else GeographicImageSource.split16BitDecoder(it.a, it.b),
                 precision = 10,
                 include0ValuesInInterpolation = false,
-                areValuesCenterOfPixel = true,
+                valuePixelOffset = valuePixelOffset,
                 interpolationOrder = 2
             )
         }
