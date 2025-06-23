@@ -10,7 +10,7 @@ import kotlinx.coroutines.sync.withPermit
 class ParallelCoroutineRunner(maxParallel: Int = 8) {
 
     private val semaphore = Semaphore(maxParallel)
-    private val coroutineScope = CoroutineScope(Dispatchers.Default)
+    private val coroutineScope = CoroutineScope(Dispatchers.Default + Job())
 
     suspend fun run(coroutines: List<suspend () -> Any>) {
         val jobs = mutableListOf<Job>()
@@ -42,6 +42,10 @@ class ParallelCoroutineRunner(maxParallel: Int = 8) {
         })
 
         return items.sortedBy { it.first }.map { it.second }
+    }
+
+    suspend fun <T> mapFunctions(functions: List<() -> T>): List<T> {
+        return map(functions.map { { it() } })
     }
 
     suspend fun <R, T> map(items: List<R>, coroutine: suspend (R) -> T): List<T> {

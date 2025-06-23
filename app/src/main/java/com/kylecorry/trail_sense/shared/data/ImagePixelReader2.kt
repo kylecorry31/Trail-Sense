@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.data
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Rect
+import android.util.Log
 import android.util.Size
 import androidx.core.graphics.get
 import com.kylecorry.andromeda.bitmaps.BitmapUtils
@@ -11,13 +12,13 @@ import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.shared.extensions.range
 import java.io.InputStream
-import kotlin.math.roundToInt
+import kotlin.math.ceil
+import kotlin.math.floor
 
 class PixelResult<T>(
     val x: Int,
     val y: Int,
-    val value: T,
-    val order: Int
+    val value: T
 ) {
     val coordinate: PixelCoordinate
         get() = PixelCoordinate(x.toFloat(), y.toFloat())
@@ -41,21 +42,37 @@ class ImagePixelReader2(
     ): List<PixelResult<Int>> = onIO {
         var bitmap: Bitmap? = null
         try {
-            val xRange = pixels.map { it.x.roundToInt() }.range() ?: return@onIO emptyList()
-            val yRange = pixels.map { it.y.roundToInt() }.range() ?: return@onIO emptyList()
+            val xRange = pixels.map { it.x }.range() ?: return@onIO emptyList()
+            val yRange = pixels.map { it.y }.range() ?: return@onIO emptyList()
 
-            val width = xRange.end - xRange.start + 6
-            val height = yRange.end - yRange.start + 6
-            val centerX = (xRange.start + xRange.end) / 2
-            val centerY = (yRange.start + yRange.end) / 2
+            val xStart = floor(xRange.start).toInt()
+            val yStart = floor(yRange.start).toInt()
+            val xEnd = ceil(xRange.end).toInt()
+            val yEnd = ceil(yRange.end).toInt()
 
-            val rect = getRegion(centerX, centerY, width, height)
+            val rect = getExactRegion(
+                Rect(
+                    xStart - lookupOrder * 2,
+                    yStart - lookupOrder * 2,
+                    xEnd + lookupOrder * 2,
+                    yEnd + lookupOrder * 2
+                )
+            )
             bitmap = BitmapUtils.decodeRegion(
                 image,
                 rect,
                 BitmapFactory.Options().also { it.inPreferredConfig = config },
                 autoClose = false
             ) ?: return@onIO emptyList()
+
+            if (bitmap.width != rect.width() ||
+                bitmap.height != rect.height()
+            ) {
+                Log.w(
+                    "ImagePixelReader",
+                    "Bitmap size does not match expected region size. Expected: ${rect.width()}x${rect.height()}, Actual: ${bitmap.width}x${bitmap.height}"
+                )
+            }
 
             if (bitmap.width <= 0 || bitmap.height <= 0) {
                 return@onIO emptyList()
@@ -72,8 +89,7 @@ class ImagePixelReader2(
                     PixelResult(
                         it.x + rect.left,
                         it.y + rect.top,
-                        it.value,
-                        it.order
+                        it.value
                     )
                 })
             }
@@ -112,38 +128,42 @@ class ImagePixelReader2(
         for (i in startX..endX) {
             // Top row
             if (bitmap.isInBounds(i, startY)) {
-                pixels.add(PixelResult(i, startY, bitmap[i, startY], order))
+                pixels.add(PixelResult(i, startY, bitmap[i, startY]))
             }
             // Bottom row
             if (bitmap.isInBounds(i, endY)) {
-                pixels.add(PixelResult(i, endY, bitmap[i, endY], order))
+                pixels.add(PixelResult(i, endY, bitmap[i, endY]))
             }
         }
         for (j in (startY + 1) until endY) {
             // Left column
             if (bitmap.isInBounds(startX, j)) {
-                pixels.add(PixelResult(startX, j, bitmap[startX, j], order))
+                pixels.add(PixelResult(startX, j, bitmap[startX, j]))
             }
             // Right column
             if (bitmap.isInBounds(endX, j)) {
-                pixels.add(PixelResult(endX, j, bitmap[endX, j], order))
+                pixels.add(PixelResult(endX, j, bitmap[endX, j]))
             }
         }
         return pixels
     }
 
-    private fun getRegion(x: Int, y: Int, width: Int = 6, height: Int = width): Rect {
-        // Always start/end on an even pixel or else it seems to be off by 1
-        val left = x - 2 - (x % 2)
-        val top = y - 2 - (y % 2)
-        val right = left + width
-        val bottom = top + height
+    private fun getExactRegion(rect: Rect, blockSize: Int = 16): Rect {
+        val left = rect.left.coerceIn(0, imageSize.width)
+        val top = rect.top.coerceIn(0, imageSize.height)
+        val right = rect.right.coerceIn(0, imageSize.width)
+        val bottom = rect.bottom.coerceIn(0, imageSize.height)
 
+        // Align it to a 16 pixel block
+        val alignedLeft = (left / blockSize) * blockSize
+        val alignedTop = (top / blockSize) * blockSize
+        val alignedRight = ((right + (blockSize - 1)) / blockSize) * blockSize
+        val alignedBottom = ((bottom + (blockSize - 1)) / blockSize) * blockSize
         return Rect(
-            left.coerceIn(0, imageSize.width),
-            top.coerceIn(0, imageSize.height),
-            right.coerceIn(0, imageSize.width),
-            bottom.coerceIn(0, imageSize.height)
+            alignedLeft.coerceIn(0, imageSize.width),
+            alignedTop.coerceIn(0, imageSize.height),
+            alignedRight.coerceIn(0, imageSize.width),
+            alignedBottom.coerceIn(0, imageSize.height)
         )
     }
 

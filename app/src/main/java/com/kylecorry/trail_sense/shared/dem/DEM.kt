@@ -114,20 +114,20 @@ object DEM {
                     lookup.value.map { it.second!!.second.getPixel(it.first) to it.first }
 
                 tryOrDefault(Distance.meters(0f)) {
-                    val stream = if (isExternal) {
-                        files.get(lookup.key!!.first).inputStream()
-                    } else {
-                        files.streamAsset(lookup.key!!.first)!!
+                    val streamProvider = suspend {
+                        if (isExternal) {
+                            files.get(lookup.key!!.first).inputStream()
+                        } else {
+                            files.streamAsset(lookup.key!!.first)!!
+                        }
                     }
-                    stream.use {
-                        val readings = lookup.key!!.second.read(it, coordinates.map { it.first })
-                        elevations.addAll(readings.mapNotNull {
-                            val coordinate =
-                                coordinates.firstOrNull { c -> c.first == it.first }?.second
-                                    ?: return@mapNotNull null
-                            coordinate to Distance.meters(it.second.first())
-                        })
-                    }
+                    val readings = lookup.key!!.second.read(streamProvider, coordinates.map { it.first })
+                    elevations.addAll(readings.mapNotNull {
+                        val coordinate =
+                            coordinates.firstOrNull { c -> c.first == it.first }?.second
+                                ?: return@mapNotNull null
+                        coordinate to Distance.meters(it.second.first())
+                    })
                 }
             }
 
