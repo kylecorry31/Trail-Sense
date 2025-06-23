@@ -1423,4 +1423,7 @@
     <string name="marine">Maritim</string>
     <string name="cell_tower_disclaimer">Die Standorte der Sendemasten werden anhand von OpenCelliD approximiert.\n\nDas [OpenCelliD-Projekt](https://opencellid.org/) ist unter der [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/) lizenziert</string>
     <string name="full_service">Voller Service</string>
+    <string name="built_in_dem">Eingebaut (geringe Genauigkeit)</string>
+    <string name="contours">Konturen</string>
+    <string name="map_layer">Kartenebene</string>
 </resources>

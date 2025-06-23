@@ -1383,11 +1383,17 @@
     <string name="alarm_time_range">Somente jogos de %1$s a %2$s</string>
     <string name="digital_elevation_model_abbreviation">MDE</string>
     <string name="altimeter_mode_dem_barometer">MDE + Barómetro</string>
-    <string name="plugin_digital_elevation_model">Modelo Digital de Elevação (MDE)</string>
+    <string name="plugin_digital_elevation_model">Modelo digital de elevação (MDE)</string>
     <string name="loaded">Carregado</string>
     <string name="not_set">Não definido</string>
     <string name="invalid_dem_file">Arquivo DEM inválido</string>
     <string name="remove_dem">Remover MDE</string>
     <string name="digital_elevation_model_link">Você pode baixar um modelo de elevação digital em vários tamanhos acesse https://kylecorry.com/Trail-Sense/dem.html</string>
     <string name="import_dem_file">Importar arquivo DEM</string>
+    <string name="built_in_dem">Integrado (baixa precisão)</string>
+    <string name="notification_grouping">Agrupamento de notificações</string>
+    <string name="ungroup_all">Desagrupar tudo</string>
+    <string name="ungroup_alerts">Desagrupar alertas</string>
+    <string name="map_layer">Camada do mapa</string>
+    <string name="contours">Contornos</string>
 </resources>
