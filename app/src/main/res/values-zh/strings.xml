@@ -1411,4 +1411,6 @@
     <string name="ungroup_all">全部取消分组</string>
     <string name="ungroup_alerts">取消警报分组</string>
     <string name="built_in_dem">内置（低精度）</string>
+    <string name="contours">外形</string>
+    <string name="map_layer">地图层</string>
 </resources>
