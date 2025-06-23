@@ -15,6 +15,7 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import java.io.InputStream
 import kotlin.math.abs
+import kotlin.math.floor
 
 class GeographicImageSource(
     val imageSize: Size,
@@ -234,10 +235,13 @@ class BilinearInterpolator<T : Number> : PixelInterpolator<T> {
 }
 
 class BicubicInterpolator<T : Number> : PixelInterpolator<T> {
-    private fun cubicInterpolate(p: FloatArray, x: Float): Float {
-        return p[1] + 0.5f * x * (p[2] - p[0] +
-                x * (2f * p[0] - 5f * p[1] + 4f * p[2] - p[3] +
-                x * (3f * (p[1] - p[2]) + p[3] - p[0])))
+    private fun cubic(t: Float): Float {
+        val tAbs = abs(t)
+        return when {
+            tAbs <= 1f -> SolMath.polynomial(tAbs.toDouble(), 1.0, 0.0, -2.5, 1.5).toFloat()
+            tAbs <= 2f -> SolMath.polynomial(tAbs.toDouble(), 2.0, -4.0, 2.5, -0.5).toFloat()
+            else -> 0f
+        }
     }
 
     override fun interpolate(
@@ -247,25 +251,29 @@ class BicubicInterpolator<T : Number> : PixelInterpolator<T> {
         val x = point.x
         val y = point.y
 
-        val xInt = x.toInt()
-        val yInt = y.toInt()
+        val xInt = floor(x).toInt()
+        val yInt = floor(y).toInt()
 
-        val resultRows = mutableListOf<Float>()
+        val fx = x - xInt
+        val fy = y - yInt
 
-        for (m in -1..2) {
-            val row = FloatArray(4)
-            for (n in -1..2) {
-                val px = xInt + n
-                val py = yInt + m
-                val value = values.firstOrNull { it.x == px && it.y == py }?.value?.toFloat()
-                if (value == null) {
-                    return null
-                }
-                row[n + 1] = value
+        val rowVals = mutableListOf<Float>()
+        for (i in 0 until 4) {
+            var value = 0f
+            for (j in 0 until 4) {
+                val pixel = values.firstOrNull {
+                    it.x == xInt + j - 1 && it.y == yInt + i - 1
+                } ?: return null
+                value += pixel.value.toFloat() * cubic(fx - (j - 1).toFloat())
             }
-            resultRows.add(cubicInterpolate(row, x - xInt))
+            rowVals.add(value)
         }
 
-        return cubicInterpolate(resultRows.toFloatArray(), y - yInt)
+        var result = 0f
+        for (i in 0 until 4) {
+            result += rowVals[i] * cubic(fy - (i - 1).toFloat())
+        }
+
+        return result
     }
 }
