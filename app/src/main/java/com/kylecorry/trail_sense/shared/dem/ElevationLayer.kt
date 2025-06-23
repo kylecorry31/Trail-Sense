@@ -5,6 +5,7 @@ import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.coroutines.onDefault
+import com.kylecorry.sol.math.geometry.Geometry
 import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
@@ -12,6 +13,7 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.andromeda_temp.getConnectedLines
 import com.kylecorry.trail_sense.shared.andromeda_temp.getIsolineCalculators
 import com.kylecorry.trail_sense.shared.andromeda_temp.getMultiplesBetween
 import com.kylecorry.trail_sense.shared.colors.AppColor
@@ -69,7 +71,7 @@ class ElevationLayer : ILayer {
         19 to baseResolution / 4
     )
 
-    private var contours = listOf<Pair<Float, List<Pair<Coordinate, Coordinate>>>>()
+    private var contours = listOf<Pair<Float, List<List<Coordinate>>>>()
 
     override fun draw(
         drawer: ICanvasDrawer,
@@ -117,11 +119,21 @@ class ElevationLayer : ILayer {
         drawer.opacity(127)
         drawer.noFill()
         // TODO: Draw as curve
-        drawer.lines(contours.flatMap { it.second }.map { line ->
-            val pixel1 = map.toPixel(line.first)
-            val pixel2 = map.toPixel(line.second)
-            listOf(pixel1.x, pixel1.y, pixel2.x, pixel2.y)
-        }.flatten().toFloatArray())
+        contours.forEach { level ->
+            level.second.forEach { line ->
+                val points = mutableListOf<Float>()
+                for (i in 0 until (line.size - 1)) {
+                    val pixel1 = map.toPixel(line[i])
+                    val pixel2 = map.toPixel(line[i + 1])
+                    points.add(pixel1.x)
+                    points.add(pixel1.y)
+                    points.add(pixel2.x)
+                    points.add(pixel2.y)
+                }
+                drawer.lines(points.toFloatArray())
+            }
+        }
+
         // TODO: Labels
         drawer.opacity(255)
     }
@@ -159,7 +171,7 @@ class ElevationLayer : ILayer {
         bounds: CoordinateBounds,
         interval: Float,
         zoomLevel: Int
-    ): List<Pair<Float, List<Pair<Coordinate, Coordinate>>>> = onDefault {
+    ): List<Pair<Float, List<List<Coordinate>>>> = onDefault {
         val resolution = validResolutions[zoomLevel]!!
 
         val latitudes = Interpolation.getMultiplesBetween(
@@ -205,7 +217,7 @@ class ElevationLayer : ILayer {
             )
 
             val parallel = ParallelCoroutineRunner(16)
-            threshold to parallel.mapFunctions(calculators).flatten()
+            threshold to Geometry.getConnectedLines(parallel.mapFunctions(calculators).flatten())
         }
     }
 
