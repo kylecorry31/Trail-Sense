@@ -5,6 +5,7 @@ import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.coroutines.onDefault
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.geometry.Geometry
 import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -17,6 +18,7 @@ import com.kylecorry.trail_sense.shared.andromeda_temp.getConnectedLines
 import com.kylecorry.trail_sense.shared.andromeda_temp.getIsolineCalculators
 import com.kylecorry.trail_sense.shared.andromeda_temp.getMultiplesBetween
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.scales.ContinuousColorScale
 import com.kylecorry.trail_sense.tools.maps.infrastructure.tiles.TileMath
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.ILayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
@@ -35,6 +37,12 @@ class ElevationLayer : ILayer {
 
     private val minZoomLevel = 13
     private val maxZoomLevel = 19
+
+    // TODO: Get a better scale
+    var shouldColorContours = false
+    private val colorScale = ContinuousColorScale(AppColor.Green.color, AppColor.Red.color)
+    private val minScaleElevation = 0f
+    private val maxScaleElevation = 2000f
 
     private val validIntervals by lazy {
         if (units.isMetric) {
@@ -120,6 +128,18 @@ class ElevationLayer : ILayer {
         drawer.noFill()
         // TODO: Draw as curve
         contours.forEach { level ->
+            if (shouldColorContours) {
+                drawer.stroke(
+                    colorScale.getColor(
+                        SolMath.norm(
+                            level.first,
+                            minScaleElevation,
+                            maxScaleElevation,
+                            true
+                        )
+                    )
+                )
+            }
             level.second.forEach { line ->
                 val points = mutableListOf<Float>()
                 for (i in 0 until (line.size - 1)) {
