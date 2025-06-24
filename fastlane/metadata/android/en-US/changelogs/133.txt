@@ -1,5 +1,5 @@
 Navigation
-- Display photo maps on radar compass (disable in settings)
+- Display photo maps on radar compass (enable/disable in settings)
 - Make compass larger
 - Option to keep screen unlocked
 
