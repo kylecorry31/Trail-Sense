@@ -45,7 +45,7 @@ class PreferenceMigrator private constructor() {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Object()
 
-        private const val version = 17
+        private const val version = 18
         private val migrations = listOf(
             PreferenceMigration(0, 1) { _, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -217,6 +217,11 @@ class PreferenceMigrator private constructor() {
                     }
                     prefs.putIntArray(toolQuickActionPrefs, newToolQuickActions)
                 }
+            },
+            PreferenceMigration(17, 18) { context, prefs ->
+                val userPrefs = UserPreferences(context)
+                // Disable the map layer by default for returning users to not be disruptive
+                userPrefs.navigation.isMapLayerEnabled = AppState.isReturningUser
             }
         )
 

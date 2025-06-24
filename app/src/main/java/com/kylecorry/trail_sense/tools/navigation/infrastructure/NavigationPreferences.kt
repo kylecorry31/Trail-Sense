@@ -221,7 +221,7 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
     )
 
     // Layers
-    val isMapLayerEnabled by BooleanPreference(
+    var isMapLayerEnabled by BooleanPreference(
         cache,
         context.getString(R.string.pref_navigation_map_layer_enabled),
         true
