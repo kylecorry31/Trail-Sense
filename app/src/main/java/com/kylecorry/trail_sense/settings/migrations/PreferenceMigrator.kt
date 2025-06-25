@@ -221,7 +221,7 @@ class PreferenceMigrator private constructor() {
             PreferenceMigration(17, 18) { context, prefs ->
                 val userPrefs = UserPreferences(context)
                 // Disable the map layer by default for returning users to not be disruptive
-                userPrefs.navigation.isMapLayerEnabled = AppState.isReturningUser
+                userPrefs.navigation.isMapLayerEnabled = !AppState.isReturningUser
             }
         )
 
