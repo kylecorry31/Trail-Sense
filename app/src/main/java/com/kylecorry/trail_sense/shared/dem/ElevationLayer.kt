@@ -47,7 +47,7 @@ class ElevationLayer : ILayer {
                 16 to 10f,
                 17 to 50f,
                 18 to 5f,
-                19 to 2f
+                19 to 5f
             )
         } else {
             mapOf(
@@ -57,7 +57,7 @@ class ElevationLayer : ILayer {
                 16 to Distance.feet(40f).meters().distance,
                 17 to Distance.feet(20f).meters().distance,
                 18 to Distance.feet(20f).meters().distance,
-                19 to Distance.feet(10f).meters().distance
+                19 to Distance.feet(20f).meters().distance
             )
         }
     }
