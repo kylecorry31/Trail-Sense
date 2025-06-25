@@ -30,8 +30,7 @@ class ElevationLayer : ILayer {
     private val minZoomLevel = 13
     private val maxZoomLevel = 19
 
-    // TODO: Get a better scale
-    var shouldColorContours = false
+    var shouldColorContours = true
     private val colorScale = RgbInterpolationColorMap(
         arrayOf(
             0xFF006400.toInt(), // Dark green (0m)
