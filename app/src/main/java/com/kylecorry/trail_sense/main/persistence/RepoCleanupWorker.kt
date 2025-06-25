@@ -6,6 +6,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.kylecorry.andromeda.background.IPeriodicTaskScheduler
 import com.kylecorry.andromeda.background.TaskSchedulerFactory
+import com.kylecorry.trail_sense.shared.dem.DEMRepo
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudRepo
 import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningRepo
@@ -20,9 +21,6 @@ class RepoCleanupWorker(
 ) :
     CoroutineWorker(context, params) {
 
-
-    private val lightningRepo = LightningRepo.getInstance(context)
-
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
 
         Log.d("RepoCleanupWorker", "Cleaning up repositories")
@@ -31,7 +29,8 @@ class RepoCleanupWorker(
             PathService.getInstance(context),
             WeatherRepo.getInstance(context),
             CloudRepo.getInstance(context),
-            lightningRepo
+            LightningRepo.getInstance(context),
+            DEMRepo.getInstance()
         )
 
         for (repo in cleanables) {

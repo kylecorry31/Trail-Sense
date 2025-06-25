@@ -24,7 +24,8 @@ class BackupService(
         // Get the files to backup
         val filesToBackup = getFilesToBackup().toMutableList()
 
-        val appVersionFile = File(context.cacheDir, "app-version-${Package.getVersionCode(context)}.txt")
+        val appVersionFile =
+            File(context.cacheDir, "app-version-${Package.getVersionCode(context)}.txt")
         appVersionFile.createNewFile()
         filesToBackup.add(appVersionFile)
 
@@ -32,9 +33,13 @@ class BackupService(
             // Create a DB checkpoint to avoid losing data
             AppDatabase.createCheckpoint(context)
 
+            val excludedFiles = listOf(
+                fileSubsystem.getDirectory("dem")
+            )
+
             // Create the zip file
             fileSubsystem.output(destination)?.use {
-                ZipUtils.zip(it, *filesToBackup.toTypedArray())
+                ZipUtils.zip(it, *filesToBackup.toTypedArray(), excludedFiles = excludedFiles)
             }
         } finally {
             // Delete the app version file

@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.dem
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Upsert
 
@@ -15,5 +16,8 @@ interface DigitalElevationModelDao {
 
     @Query("DELETE FROM dem")
     suspend fun deleteAll()
+
+    @Delete
+    suspend fun delete(tile: DigitalElevationModelEntity)
 
 }

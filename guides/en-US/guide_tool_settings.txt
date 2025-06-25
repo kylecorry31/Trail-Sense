@@ -79,7 +79,7 @@ The current elevation is displayed at the top of the altimeter settings. As you 
 - **NMEA elevation correction**: The elevation provided by the GPS needs to be corrected to match the actual elevation. If this setting is enabled, it will use the correction factor provided by the GPS. If it is disabled, it will use the correction factor provided by Trail Sense, which may be more accurate.
 
 ### DEM settings
-- **Digital elevation model (DEM)**: Clicking this will prompt you to download and import a digital elevation model. Models are available in a variety of sizes at https://kylecorry.com/Trail-Sense/dem.html. Once you import the model, you can delete the file from your device. If you already have a model loaded and select a new model, the old one will be removed. If no model is loaded, a low accuracy built-in model will be used. It is recommended to download one of the larger models if you are able to.
+- **Digital elevation model (DEM)**: Clicking this will prompt you to download and import a digital elevation model. Models are available in a variety of sizes at https://kylecorry.com/Trail-Sense/dem.html. Once you import the model, you can delete the file from your device. If you already have a model loaded and select a new model, the old one will be removed. If no model is loaded, a low accuracy built-in model will be used. It is recommended to download one of the larger models if you are able to. The DEM will not be included in the backup due to the size.
 - **Remove DEM**: Clicking this will prompt you to delete the DEM file. This is irreversible and you will need to import another file to use the DEM.
 
 ### Barometer / manual settings

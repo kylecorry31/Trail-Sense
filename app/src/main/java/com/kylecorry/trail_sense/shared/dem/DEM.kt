@@ -123,10 +123,19 @@ object DEM {
     }
 
     private suspend fun getSources(): List<Pair<String, GeographicImageSource>> = onIO {
-        val isExternal = isExternalModel()
+        val files = AppServiceRegistry.get<FileSubsystem>()
+        var isExternal = isExternalModel()
         val tiles = if (isExternal) {
             val database = AppServiceRegistry.get<AppDatabase>().digitalElevationModelDao()
-            database.getAll()
+            val tiles = database.getAll()
+            if (tiles.isEmpty() || !files.getDirectory("dem", false).exists()) {
+                isExternal = false
+                AppServiceRegistry.get<UserPreferences>().altimeter.isDigitalElevationModelLoaded =
+                    false
+                BuiltInDem.getTiles()
+            } else {
+                tiles
+            }
         } else {
             BuiltInDem.getTiles()
         }
