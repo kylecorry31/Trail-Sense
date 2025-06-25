@@ -74,6 +74,7 @@ class ElevationLayer : ILayer {
     )
 
     private var contours = listOf<Pair<Float, List<List<Coordinate>>>>()
+    private var contourInterval = 1f
 
     override fun draw(
         drawer: ICanvasDrawer,
@@ -98,12 +99,15 @@ class ElevationLayer : ILayer {
 
             val interval = validIntervals[zoomLevel] ?: validIntervals.values.first()
             contours = DEM.getContourLines(bounds, interval, validResolutions[zoomLevel]!!)
+            contourInterval = interval
         }
 
-        drawer.strokeWeight(drawer.dp(1f))
         drawer.stroke(AppColor.Brown.color)
         drawer.opacity(127)
         drawer.noFill()
+        val thickLineWeight = drawer.dp(2f)
+        val thinLineWeight = drawer.dp(1f)
+
         // TODO: Draw as curve
         contours.forEach { level ->
             if (shouldColorContours) {
@@ -118,6 +122,7 @@ class ElevationLayer : ILayer {
                     )
                 )
             }
+            drawer.strokeWeight(if (SolMath.isZero((level.first / contourInterval) % 5)) thickLineWeight else thinLineWeight)
             level.second.forEach { line ->
                 val points = mutableListOf<Float>()
                 for (i in 0 until (line.size - 1)) {
