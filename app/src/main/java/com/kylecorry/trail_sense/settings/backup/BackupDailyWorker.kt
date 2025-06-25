@@ -15,7 +15,7 @@ import java.time.LocalTime
 class BackupDailyWorker(context: Context, params: WorkerParameters) : DailyWorker(
     context,
     params,
-    wakelockDuration = Duration.ofSeconds(15),
+    wakelockDuration = Duration.ofMinutes(1),
     tolerance = Duration.ofHours(6),
     getPreferences = { PreferencesSubsystem.getInstance(context).preferences },
 ) {
