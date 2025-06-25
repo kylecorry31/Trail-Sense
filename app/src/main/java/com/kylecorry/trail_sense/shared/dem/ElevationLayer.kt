@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.dem
 
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.ui.colormaps.RgbInterpolationColorMap
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.sol.math.SolMath
@@ -18,7 +19,6 @@ import com.kylecorry.trail_sense.shared.andromeda_temp.getIsolineCalculators
 import com.kylecorry.trail_sense.shared.andromeda_temp.getMultiplesBetween
 import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.scales.ContinuousColorScale
 import com.kylecorry.trail_sense.tools.maps.infrastructure.tiles.TileMath
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.ILayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
@@ -32,9 +32,18 @@ class ElevationLayer : ILayer {
 
     // TODO: Get a better scale
     var shouldColorContours = false
-    private val colorScale = ContinuousColorScale(AppColor.Green.color, AppColor.Red.color)
+    private val colorScale = RgbInterpolationColorMap(
+        arrayOf(
+            0xFF006400.toInt(), // Dark green (0m)
+            0xFF90EE90.toInt(), // Light green (~500m)
+            0xFFFFFF00.toInt(), // Yellow (~1000m)
+            0xFFA52A2A.toInt(), // Brown (~1500m)
+            0xFFFF4500.toInt(), // Orange (~2000m)
+            0xFF800080.toInt()  // Purple (~3000m)
+        )
+    )
     private val minScaleElevation = 0f
-    private val maxScaleElevation = 2000f
+    private val maxScaleElevation = 3000f
 
     private val taskRunner = MapLayerBackgroundTask()
 
