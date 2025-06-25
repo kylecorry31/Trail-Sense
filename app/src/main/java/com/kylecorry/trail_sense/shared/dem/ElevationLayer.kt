@@ -4,19 +4,11 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.ui.colormaps.RgbInterpolationColorMap
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.geometry.Geometry
-import com.kylecorry.sol.math.interpolation.Interpolation
-import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.main.errors.SafeMode
-import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.andromeda_temp.getConnectedLines
-import com.kylecorry.trail_sense.shared.andromeda_temp.getIsolineCalculators
-import com.kylecorry.trail_sense.shared.andromeda_temp.getMultiplesBetween
 import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.maps.infrastructure.tiles.TileMath
@@ -105,7 +97,7 @@ class ElevationLayer : ILayer {
             }
 
             val interval = validIntervals[zoomLevel] ?: validIntervals.values.first()
-            contours = getContourLines(bounds, interval, zoomLevel)
+            contours = DEM.getContourLines(bounds, interval, validResolutions[zoomLevel]!!)
         }
 
         drawer.strokeWeight(drawer.dp(1f))
@@ -148,7 +140,7 @@ class ElevationLayer : ILayer {
         drawer: ICanvasDrawer,
         map: IMapView
     ) {
-        // Do nothing
+        // TODO: Draw color scale
     }
 
     override fun invalidate() {
@@ -161,75 +153,5 @@ class ElevationLayer : ILayer {
         pixel: PixelCoordinate
     ): Boolean {
         return false
-    }
-
-    private fun areBoundsEqual(bounds1: CoordinateBounds, bound2: CoordinateBounds): Boolean {
-        return bounds1.north == bound2.north &&
-                bounds1.south == bound2.south &&
-                bounds1.east == bound2.east &&
-                bounds1.west == bound2.west
-    }
-
-    /**
-     * Get contour lines using marching squares
-     */
-    private suspend fun getContourLines(
-        bounds: CoordinateBounds,
-        interval: Float,
-        zoomLevel: Int
-    ): List<Pair<Float, List<List<Coordinate>>>> = onDefault {
-        val resolution = validResolutions[zoomLevel]!!
-
-        val latitudes = Interpolation.getMultiplesBetween(
-            bounds.south - resolution,
-            bounds.north + resolution,
-            resolution
-        )
-
-        val longitudes = Interpolation.getMultiplesBetween(
-            bounds.west - resolution,
-            bounds.east + resolution,
-            resolution
-        )
-
-        val toLookup = latitudes.map { lat ->
-            longitudes.map { lon -> Coordinate(lat, lon) }
-        }
-
-        val allElevations =
-            DEM.getElevations(toLookup.flatten()).map { it.first to it.second.meters().distance }
-        val grid = toLookup.map {
-            it.map { coord ->
-                val elevation = allElevations.find { it.first == coord }?.second ?: 0f
-                coord to elevation
-            }
-        }
-
-        val minElevation = grid.minOfOrNull { it.minOf { it.second } } ?: 0f
-        val maxElevation = grid.maxOfOrNull { it.maxOf { it.second } } ?: 0f
-
-        val thresholds = Interpolation.getMultiplesBetween(
-            minElevation,
-            maxElevation,
-            interval
-        )
-
-        val parallelThresholds = ParallelCoroutineRunner(16)
-        parallelThresholds.map(thresholds) { threshold ->
-            val calculators = Interpolation.getIsolineCalculators<Coordinate>(
-                grid,
-                threshold,
-                ::lerpCoordinate
-            )
-
-            val parallel = ParallelCoroutineRunner(16)
-            threshold to Geometry.getConnectedLines(parallel.mapFunctions(calculators).flatten())
-        }
-    }
-
-    private fun lerpCoordinate(percent: Float, a: Coordinate, b: Coordinate): Coordinate {
-        val distance = a.distanceTo(b)
-        val bearing = a.bearingTo(b)
-        return a.plus(distance * percent.toDouble(), bearing)
     }
 }

@@ -7,11 +7,17 @@ import com.kylecorry.andromeda.core.cache.GeospatialCache
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.tryOrDefault
+import com.kylecorry.sol.math.geometry.Geometry
+import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
+import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.andromeda_temp.getConnectedLines
+import com.kylecorry.trail_sense.shared.andromeda_temp.getIsolineCalculators
+import com.kylecorry.trail_sense.shared.andromeda_temp.getMultiplesBetween
 import com.kylecorry.trail_sense.shared.data.GeographicImageSource
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import kotlinx.coroutines.sync.Mutex
@@ -54,6 +60,67 @@ object DEM {
                 results
             }
         }
+
+    /**
+     * Get contour lines using marching squares
+     */
+    suspend fun getContourLines(
+        bounds: CoordinateBounds,
+        interval: Float,
+        resolution: Double,
+    ): List<Pair<Float, List<List<Coordinate>>>> = onDefault {
+        val latitudes = Interpolation.getMultiplesBetween(
+            bounds.south - resolution,
+            bounds.north + resolution,
+            resolution
+        )
+
+        val longitudes = Interpolation.getMultiplesBetween(
+            bounds.west - resolution,
+            bounds.east + resolution,
+            resolution
+        )
+
+        val toLookup = latitudes.map { lat ->
+            longitudes.map { lon -> Coordinate(lat, lon) }
+        }
+
+        val allElevations =
+            getElevations(toLookup.flatten()).map { it.first to it.second.meters().distance }
+        val grid = toLookup.map {
+            it.map { coord ->
+                val elevation = allElevations.find { it.first == coord }?.second ?: 0f
+                coord to elevation
+            }
+        }
+
+        val minElevation = grid.minOfOrNull { it.minOf { it.second } } ?: 0f
+        val maxElevation = grid.maxOfOrNull { it.maxOf { it.second } } ?: 0f
+
+        val thresholds = Interpolation.getMultiplesBetween(
+            minElevation,
+            maxElevation,
+            interval
+        )
+
+        val parallelThresholds = ParallelCoroutineRunner(16)
+        parallelThresholds.map(thresholds) { threshold ->
+            val calculators = Interpolation.getIsolineCalculators<Coordinate>(
+                grid,
+                threshold,
+                ::lerpCoordinate
+            )
+
+            val parallel = ParallelCoroutineRunner(16)
+            threshold to Geometry.getConnectedLines(parallel.mapFunctions(calculators).flatten())
+        }
+    }
+
+    private fun lerpCoordinate(percent: Float, a: Coordinate, b: Coordinate): Coordinate {
+        val distance = a.distanceTo(b)
+        val bearing = a.bearingTo(b)
+        return a.plus(distance * percent.toDouble(), bearing)
+    }
 
     private suspend fun getSources(): List<Pair<String, GeographicImageSource>> = onIO {
         val isExternal = isExternalModel()
@@ -121,7 +188,8 @@ object DEM {
                             files.streamAsset(lookup.key!!.first)!!
                         }
                     }
-                    val readings = lookup.key!!.second.read(streamProvider, coordinates.map { it.first })
+                    val readings =
+                        lookup.key!!.second.read(streamProvider, coordinates.map { it.first })
                     elevations.addAll(readings.mapNotNull {
                         val coordinate =
                             coordinates.firstOrNull { c -> c.first == it.first }?.second
