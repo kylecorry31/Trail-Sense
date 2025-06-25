@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.shared.dem
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.geometry.Geometry
@@ -17,22 +16,15 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.andromeda_temp.getConnectedLines
 import com.kylecorry.trail_sense.shared.andromeda_temp.getIsolineCalculators
 import com.kylecorry.trail_sense.shared.andromeda_temp.getMultiplesBetween
+import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.scales.ContinuousColorScale
 import com.kylecorry.trail_sense.tools.maps.infrastructure.tiles.TileMath
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.ILayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class ElevationLayer : ILayer {
 
-    private val runner = CoroutineQueueRunner(2)
-    private val scope = CoroutineScope(Dispatchers.Default)
-    private var lastBounds: CoordinateBounds = CoordinateBounds.empty
-    private var lastMetersPerPixel: Float? = null
-    private var contourCalculationInProgress = false
     private val units by lazy { AppServiceRegistry.get<UserPreferences>().baseDistanceUnits }
 
     private val minZoomLevel = 13
@@ -43,6 +35,8 @@ class ElevationLayer : ILayer {
     private val colorScale = ContinuousColorScale(AppColor.Green.color, AppColor.Red.color)
     private val minScaleElevation = 0f
     private val maxScaleElevation = 2000f
+
+    private val taskRunner = MapLayerBackgroundTask()
 
     private val validIntervals by lazy {
         if (units.isMetric) {
@@ -91,35 +85,19 @@ class ElevationLayer : ILayer {
 
         val bounds = map.mapBounds
         val metersPerPixel = map.metersPerPixel
-        if (!contourCalculationInProgress && (lastMetersPerPixel != map.metersPerPixel || !areBoundsEqual(
-                lastBounds,
-                map.mapBounds
-            ))
-        ) {
-            scope.launch {
-                // TODO: Debounce loader
-                runner.enqueue {
-                    contourCalculationInProgress = true
-                    val zoomLevel = TileMath.distancePerPixelToZoom(
-                        metersPerPixel.toDouble(),
-                        (bounds.north + bounds.south) / 2
-                    ).coerceAtMost(maxZoomLevel)
+        taskRunner.scheduleUpdate(bounds, metersPerPixel) {
+            val zoomLevel = TileMath.distancePerPixelToZoom(
+                metersPerPixel.toDouble(),
+                (bounds.north + bounds.south) / 2
+            ).coerceAtMost(maxZoomLevel)
 
-                    if (zoomLevel < minZoomLevel) {
-                        contours = emptyList()
-                        contourCalculationInProgress = false
-                        lastMetersPerPixel = metersPerPixel
-                        lastBounds = bounds
-                        return@enqueue
-                    }
-
-                    val interval = validIntervals[zoomLevel] ?: validIntervals.values.first()
-                    contours = getContourLines(bounds, interval, zoomLevel)
-                    lastMetersPerPixel = metersPerPixel
-                    lastBounds = bounds
-                    contourCalculationInProgress = false
-                }
+            if (zoomLevel < minZoomLevel) {
+                contours = emptyList()
+                return@scheduleUpdate
             }
+
+            val interval = validIntervals[zoomLevel] ?: validIntervals.values.first()
+            contours = getContourLines(bounds, interval, zoomLevel)
         }
 
         drawer.strokeWeight(drawer.dp(1f))
