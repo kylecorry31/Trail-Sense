@@ -20,4 +20,7 @@ interface DigitalElevationModelDao {
     @Delete
     suspend fun delete(tile: DigitalElevationModelEntity)
 
+    @Query("SELECT version FROM dem LIMIT 1")
+    suspend fun getVersion(): String?
+
 }

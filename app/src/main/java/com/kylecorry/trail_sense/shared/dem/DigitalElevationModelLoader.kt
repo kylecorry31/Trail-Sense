@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.ProguardIgnore
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import kotlinx.coroutines.sync.withLock
 
 class DigitalElevationModelFile(
     val filename: String,
@@ -44,25 +45,29 @@ class DigitalElevationModelLoader {
         }
 
         // Clear the existing files
-        files.getDirectory("dem", create = true).deleteRecursively()
+        DEMRepo.lock.withLock {
+            files.getDirectory("dem", create = true).deleteRecursively()
 
-        val destination = files.getDirectory("dem", create = true)
+            // Unzip the files
+            files.stream(source)?.use {
+                ZipUtils.unzip(it, files.getDirectory("dem", create = true), MAX_ZIP_FILE_COUNT)
+            } ?: return@onIO
 
-        // Unzip the files
-        files.stream(source)?.use {
-            ZipUtils.unzip(it, destination, MAX_ZIP_FILE_COUNT)
-        } ?: return@onIO
+            // Read the index file
+            val indexFile = files.get("dem/index.json")
 
-        // Read the index file
-        val indexFile = files.get("dem/index.json")
+            // Clear tiles
+            database.deleteAll()
+            database.upsert(getTilesFromIndex(files.get("dem/index.json").readText()))
 
-        database.deleteAll()
-        database.upsert(getTilesFromIndex(files.get("dem/index.json").readText()))
+            // Record version
+            files.get("dem/version.txt", create = true).writeText(database.getVersion() ?: "")
 
-        // Delete the index.json file since it is no longer needed
-        indexFile.delete()
+            // Delete the index.json file since it is no longer needed
+            indexFile.delete()
 
-        prefs.altimeter.isDigitalElevationModelLoaded = true
+            prefs.altimeter.isDigitalElevationModelLoaded = true
+        }
 
         DEM.invalidateCache()
     }
