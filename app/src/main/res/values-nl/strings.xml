@@ -1419,7 +1419,7 @@
     <string name="not_set">Niet ingesteld</string>
     <string name="remove_dem">DEM verwijderen</string>
     <string name="import_dem_file">DEM-bestand importeren</string>
-    <string name="digital_elevation_model_link">Je kunt een digitaal hoogtemodel in verschillende formaten downloaden van https://kylecorry.com/Trail-Sense/dem.html</string>
+    <string name="digital_elevation_model_link">Je kunt een digitaal hoogtemodel in verschillende formaten downloaden van %s</string>
     <string name="ungroup_all">Alle groeperingen opheffen</string>
     <string name="ungroup_alerts">Wekkergroeperingen opheffen</string>
     <string name="built_in_dem">Ingebouwd (lage nauwkeurigheid)</string>

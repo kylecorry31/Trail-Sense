@@ -37,8 +37,8 @@ import com.kylecorry.sol.units.Pressure
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.URLs
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.dem.DigitalElevationModelLoader
 import com.kylecorry.trail_sense.shared.io.IntentUriPicker
@@ -409,7 +409,8 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
     private fun loadDEM() {
         inBackground(state = BackgroundMinimumState.Created) {
             val instructions = getString(
-                R.string.digital_elevation_model_link
+                R.string.digital_elevation_model_link,
+                URLs.DEM
             ).toSpannable()
             LinkifyCompat.addLinks(instructions, WEB_URLS)
             val cancelled = CoroutineAlerts.dialog(

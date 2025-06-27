@@ -1398,7 +1398,7 @@
     <string name="climate_steppe_description">Es gibt möglicherweise verstreute Wiesen.</string>
     <string name="remove_dem">Entferne DHM</string>
     <string name="import_dem_file">Importiere DHM datei</string>
-    <string name="digital_elevation_model_link">Sie können ein digitales Höhenmodell in verschiedenen Größen von https://kylecorry.com/Trail-Sense/dem.html herunterladen</string>
+    <string name="digital_elevation_model_link">Sie können ein digitales Höhenmodell in verschiedenen Größen von %s herunterladen</string>
     <string name="use_path_elevation">Zeige Pfaderhebungen</string>
     <string name="widget_bottom_sheet_instructions">Verwenden Sie die Schnellaktion \"Widgets\" zum anzeigen</string>
     <string name="scope_height">Zielfernrohrhöhe</string>

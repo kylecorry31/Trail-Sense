@@ -1388,7 +1388,7 @@
     <string name="not_set">Não definido</string>
     <string name="invalid_dem_file">Arquivo DEM inválido</string>
     <string name="remove_dem">Remover MDE</string>
-    <string name="digital_elevation_model_link">Você pode baixar um modelo de elevação digital em vários tamanhos acesse https://kylecorry.com/Trail-Sense/dem.html</string>
+    <string name="digital_elevation_model_link">Você pode baixar um modelo de elevação digital em vários tamanhos acesse %s</string>
     <string name="import_dem_file">Importar arquivo DEM</string>
     <string name="built_in_dem">Integrado (baixa precisão)</string>
     <string name="notification_grouping">Agrupamento de notificações</string>
