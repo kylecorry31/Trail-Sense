@@ -18,4 +18,4 @@ Deklinace
 Různé
 - Volba přehrávání některých zvuků oznámení jako budíků
 - Aktualizace modelu deklinace
-- Přidání zdroje DEM (kvalitnější modely dostupné ke stažení)
+- Přidání zdroje DEM (přesnější modely dostupné ke stažení)
