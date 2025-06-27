@@ -144,7 +144,7 @@ class MapLayer : ILayer {
         return if (device.getAvailableMemoryBytes() < threshold) {
             0f
         } else {
-            0.5f
+            0.2f
         }
     }
 
