@@ -23,7 +23,7 @@ class MapLayerBackgroundTask {
     fun scheduleUpdate(
         bounds: CoordinateBounds,
         metersPerPixel: Float,
-        update: suspend () -> Unit
+        update: suspend (bounds: CoordinateBounds, metersPerPixel: Float) -> Unit
     ) {
         scope.launch {
             lock.withLock {
@@ -67,7 +67,7 @@ class MapLayerBackgroundTask {
                         lastRunBounds = bounds
                         lastRunMetersPerPixel = metersPerPixel
                     }
-                    update()
+                    update(bounds, metersPerPixel)
                 }
 
                 val scaleSignificantlyChanged =

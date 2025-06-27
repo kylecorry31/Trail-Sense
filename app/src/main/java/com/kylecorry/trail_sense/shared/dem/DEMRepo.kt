@@ -16,6 +16,7 @@ class DEMRepo private constructor() : ICleanable {
     private val prefs = AppServiceRegistry.get<UserPreferences>()
 
     override suspend fun clean() {
+        var removed = false
         lock.withLock {
             val expectedVersion = database.digitalElevationModelDao().getVersion()
             val versionFile = files.get("dem/version.txt")
@@ -24,9 +25,13 @@ class DEMRepo private constructor() : ICleanable {
                 database.digitalElevationModelDao().deleteAll()
                 files.getDirectory("dem").deleteRecursively()
                 prefs.altimeter.isDigitalElevationModelLoaded = false
+                removed = true
             }
         }
-        DEM.invalidateCache()
+
+        if (removed) {
+            DEM.invalidateCache()
+        }
     }
 
     companion object {

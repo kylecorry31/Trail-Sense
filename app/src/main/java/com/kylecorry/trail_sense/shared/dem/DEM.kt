@@ -24,7 +24,9 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
 object DEM {
-    private var cache = GeospatialCache<Distance>(Distance.meters(10f), size = 500)
+    private val cacheDistance = 10f
+    private val cacheSize = 500
+    private var cache = GeospatialCache<Distance>(Distance.meters(cacheDistance), size = cacheSize)
     private val multiElevationLookupLock = Mutex()
 
     suspend fun getElevation(location: Coordinate): Distance? = onDefault {
@@ -206,7 +208,7 @@ object DEM {
         }
 
     fun invalidateCache() {
-        cache = GeospatialCache(Distance.meters(100f), size = 40)
+        cache = GeospatialCache(Distance.meters(cacheDistance), size = cacheSize)
     }
 
     fun isExternalModel(): Boolean {

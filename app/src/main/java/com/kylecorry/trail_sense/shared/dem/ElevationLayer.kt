@@ -84,9 +84,7 @@ class ElevationLayer : ILayer {
             return
         }
 
-        val bounds = map.mapBounds
-        val metersPerPixel = map.metersPerPixel
-        taskRunner.scheduleUpdate(bounds, metersPerPixel) {
+        taskRunner.scheduleUpdate(map.mapBounds, map.metersPerPixel) { bounds, metersPerPixel ->
             val zoomLevel = TileMath.distancePerPixelToZoom(
                 metersPerPixel.toDouble(),
                 (bounds.north + bounds.south) / 2
