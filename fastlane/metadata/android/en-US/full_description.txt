@@ -45,11 +45,6 @@ Use at your own risk, always have backup tools (ex. compass), and stay safe.</p>
     This is used by the Clock tool (when updating system time) and Sunset and Sunrise Alerts.</li>
 </ul>
 
-<h3>ANTI-FEATURES</h3>
-<ul>
-    <li>NonFreeNet: Optional Digital Elevation Model files hosted on GitHub.</li>
-</ul>
-
 <h3>Links</h3>
 <ul>
     <li>Privacy policy: https://kylecorry.com/Trail-Sense/#privacy</li>

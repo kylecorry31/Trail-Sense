@@ -1450,4 +1450,6 @@
     <string name="notification_grouping">Seskupování oznámení</string>
     <string name="ungroup_all">Zrušit seskupení všeho</string>
     <string name="built_in_dem">Vestavěný (nízká přesnost)</string>
+    <string name="contours">Vrstevnice</string>
+    <string name="map_layer">Vrstva mapy</string>
 </resources>
