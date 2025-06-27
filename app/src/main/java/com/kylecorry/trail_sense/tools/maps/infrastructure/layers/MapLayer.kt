@@ -141,7 +141,7 @@ class MapLayer : ILayer {
     private fun getGrowPercent(): Float {
         val device = AppServiceRegistry.get<DeviceSubsystem>()
         val threshold = 50 * 1024 * 1024 // 50 MB
-        return if (device.getAvailableMemoryBytes() < threshold) {
+        return if (device.getAvailableBitmapMemoryBytes() < threshold) {
             0f
         } else {
             0.2f

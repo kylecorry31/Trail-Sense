@@ -2,6 +2,8 @@ package com.kylecorry.trail_sense.shared.device
 
 import android.app.ActivityManager
 import android.content.Context
+import android.os.Build
+import androidx.core.content.getSystemService
 
 class DeviceSubsystem(private val context: Context) {
 
@@ -16,14 +18,16 @@ class DeviceSubsystem(private val context: Context) {
         }
     }
 
-    fun getAvailableMemoryBytes(): Long {
-        val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager?
-        if (activityManager != null) {
+    fun getAvailableBitmapMemoryBytes(): Long {
+        // Android O and higher store bitmaps in native heap
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val memoryInfo = ActivityManager.MemoryInfo()
-            activityManager.getMemoryInfo(memoryInfo)
-            return memoryInfo.availMem
+            val activityService = context.getSystemService<ActivityManager>()
+            activityService?.getMemoryInfo(memoryInfo)
+            memoryInfo.availMem
         } else {
-            return 0
+            val runtime = Runtime.getRuntime()
+            runtime.freeMemory()
         }
     }
 
