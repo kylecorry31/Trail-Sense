@@ -26,12 +26,12 @@ import com.kylecorry.trail_sense.tools.navigation.ui.layers.TideLayer
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.BeaconLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.ILayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MapLayer
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PhotoMapLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MultiLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyAccuracyLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyLocationLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.NavigationLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PathLayerManager
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PhotoMapLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.TideLayerManager
 
 class MapToolLayerManager {
@@ -41,7 +41,8 @@ class MapToolLayerManager {
     private val myLocationLayer = MyLocationLayer()
     private val myAccuracyLayer = MyAccuracyLayer()
     private val tideLayer = TideLayer()
-    private val mapLayer = MapLayer()
+    private val baseMapLayer = MapLayer()
+    private val photoMapLayer = MapLayer()
     private val elevationLayer = ElevationLayer()
     private val navigationLayer = NavigationLayer()
     private val scaleBarLayer = ScaleBarLayer()
@@ -79,11 +80,11 @@ class MapToolLayerManager {
 
         beaconLayer.setOutlineColor(Resources.color(context, R.color.colorSecondary))
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
-        mapLayer.setMinZoom(4)
+        photoMapLayer.setMinZoom(4)
         view.setLayers(
             listOfNotNull(
-                backgroundLayer,
-                mapLayer,
+                baseMapLayer,
+                photoMapLayer,
                 if (prefs.showContoursOnMaps) elevationLayer else null,
                 navigationLayer,
                 pathLayer,
@@ -109,7 +110,8 @@ class MapToolLayerManager {
                     Resources.getPrimaryMarkerColor(context)
                 ),
                 TideLayerManager(context, tideLayer),
-                PhotoMapLayerManager(context, mapLayer, replaceWhitePixels = true),
+                PhotoMapLayerManager(context, photoMapLayer, replaceWhitePixels = true),
+                BaseMapLayerManager(baseMapLayer),
                 BeaconLayerManager(context, beaconLayer),
                 NavigationLayerManager(context, navigationLayer)
             )

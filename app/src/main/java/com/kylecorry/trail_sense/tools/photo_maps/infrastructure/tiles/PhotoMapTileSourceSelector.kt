@@ -19,6 +19,9 @@ class PhotoMapTileSourceSelector(
 
         val possibleMaps = sortedMaps.filter {
             val boundary = it.boundary() ?: return@filter false
+            if (boundary == CoordinateBounds.world) {
+                return@filter true
+            }
             val area = boundary.width().meters().distance.toDouble() *
                     boundary.height().meters().distance.toDouble()
             area >= minArea

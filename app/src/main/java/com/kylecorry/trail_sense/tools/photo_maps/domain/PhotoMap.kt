@@ -19,7 +19,9 @@ data class PhotoMap(
     val calibration: MapCalibration,
     val metadata: MapMetadata,
     override val parentId: Long? = null,
-    val visible: Boolean = true
+    val visible: Boolean = true,
+    val isAsset: Boolean = false,
+    val isFullWorld: Boolean = false
 ) : IMap {
     override val isGroup = false
     override val count: Int? = null
@@ -37,7 +39,7 @@ data class PhotoMap(
      * Determines if the map is calibrated
      */
     val isCalibrated: Boolean
-        get() = calibration.calibrationPoints.size >= 2 && metadata.size.width > 0 && metadata.size.height > 0
+        get() = isFullWorld || (calibration.calibrationPoints.size >= 2 && metadata.size.width > 0 && metadata.size.height > 0)
 
     /**
      * The distance per pixel of the image
@@ -85,6 +87,10 @@ data class PhotoMap(
     fun boundary(): CoordinateBounds? {
         if (!isCalibrated) {
             return null
+        }
+
+        if (isFullWorld) {
+            return CoordinateBounds.world
         }
 
         return hooks.memo("boundary") {

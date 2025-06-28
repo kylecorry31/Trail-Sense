@@ -68,7 +68,13 @@ class PhotoMapRegionLoader(
 
 
         // TODO: Load PDF region
-        fileSystem.streamLocal(map.filename).use { stream ->
+        val inputStream = if (map.isAsset) {
+            fileSystem.streamAsset(map.filename)!!
+        } else {
+            fileSystem.streamLocal(map.filename)
+        }
+
+        inputStream.use { stream ->
             val options = BitmapFactory.Options().also {
                 it.inSampleSize = calculateInSampleSize(
                     region.width(),
