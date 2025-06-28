@@ -46,7 +46,7 @@ object PhotoMapsToolRegistration : ToolRegistration {
 
             ),
             additionalNavigationIds = listOf(
-                R.id.mapsFragment
+                R.id.photoMapsFragment
             ),
             diagnostics = listOf(
                 ToolDiagnosticFactory.gps(context),

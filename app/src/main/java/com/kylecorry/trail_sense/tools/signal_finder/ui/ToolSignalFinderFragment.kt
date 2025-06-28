@@ -46,7 +46,7 @@ class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_si
 
         // State
         val signals = useCellSignals()
-        val location = useGPSLocation(Duration.ofSeconds(5))
+        val (location, _) = useGPSLocation(Duration.ofSeconds(5))
         val (nearby, setNearby) = useState<List<Pair<Coordinate, List<CellNetwork>>>>(emptyList())
         val (loading, setLoading) = useState(false)
 

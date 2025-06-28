@@ -46,6 +46,10 @@
         android:label="activity_weather"
         tools:layout="@layout/activity_weather" />
     <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.kylecorry.trail_sense.tools.maps.ui.MapsFragment"
+        android:label="MapsFragment" />
+    <fragment
         android:id="@+id/action_settings"
         android:name="com.kylecorry.trail_sense.settings.ui.SettingsFragment"
         android:label="SettingsFragment">
@@ -561,9 +565,9 @@
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
-        android:id="@+id/mapsFragment"
+        android:id="@+id/photoMapsFragment"
         android:name="com.kylecorry.trail_sense.tools.photo_maps.ui.PhotoMapsFragment"
-        android:label="MapsFragment">
+        android:label="PhotoMapsFragment">
         <argument
             android:name="mapId"
             android:defaultValue="0L"
@@ -588,7 +592,7 @@
         android:label="MapListFragment">
         <action
             android:id="@+id/action_mapList_to_maps"
-            app:destination="@id/mapsFragment"
+            app:destination="@id/photoMapsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"

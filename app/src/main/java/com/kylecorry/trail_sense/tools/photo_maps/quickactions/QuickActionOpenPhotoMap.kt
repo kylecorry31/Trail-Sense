@@ -53,7 +53,7 @@ class QuickActionOpenPhotoMap(button: ImageButton, fragment: Fragment) : QuickAc
                     if (id != 0L) {
                         fragment.findNavController()
                             .navigate(
-                                R.id.mapsFragment,
+                                R.id.photoMapsFragment,
                                 bundleOf("mapId" to id, "autoLockLocation" to true)
                             )
                     } else {

@@ -36,7 +36,7 @@ import com.kylecorry.trail_sense.tools.guide.UserGuideToolRegistration
 import com.kylecorry.trail_sense.tools.level.BubbleLevelToolRegistration
 import com.kylecorry.trail_sense.tools.light.LightMeterToolRegistration
 import com.kylecorry.trail_sense.tools.lightning.LightningStrikeDistanceToolRegistration
-import com.kylecorry.trail_sense.tools.photo_maps.PhotoMapsToolRegistration
+import com.kylecorry.trail_sense.tools.maps.MapsToolRegistration
 import com.kylecorry.trail_sense.tools.metaldetector.MetalDetectorToolRegistration
 import com.kylecorry.trail_sense.tools.mirror.MirrorCameraToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
@@ -45,6 +45,7 @@ import com.kylecorry.trail_sense.tools.packs.PackingListsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
 import com.kylecorry.trail_sense.tools.permits.PermitsToolRegistration
+import com.kylecorry.trail_sense.tools.photo_maps.PhotoMapsToolRegistration
 import com.kylecorry.trail_sense.tools.qr.QRCodeScannerToolRegistration
 import com.kylecorry.trail_sense.tools.ruler.RulerToolRegistration
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
@@ -113,7 +114,8 @@ object Tools {
         SignalFinderToolRegistration,
         BallisticsToolRegistration,
         PermitsToolRegistration,
-        DeclinationToolRegistration
+        DeclinationToolRegistration,
+        MapsToolRegistration
     )
     private val topics = mutableMapOf<String, Topic<Bundle>>()
     private val broadcastScope = CoroutineScope(Dispatchers.Main)
@@ -273,6 +275,7 @@ object Tools {
     const val BALLISTICS = 44L
     const val PERMITS = 45L
     const val DECLINATION = 46L
+    const val MAPS = 47L
 
     // Quick Action IDs
     const val QUICK_ACTION_NONE = -1
