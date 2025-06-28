@@ -9,6 +9,7 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -46,6 +47,7 @@ class MapToolLayerManager {
     private val scaleBarLayer = ScaleBarLayer()
     private val backgroundLayer = BackgroundColorMapLayer()
     private var myElevationLayer: MyElevationLayer? = null
+    private val compassLayer = CompassOverlayLayer()
 
     private val prefs = AppServiceRegistry.get<UserPreferences>()
     private val formatter = AppServiceRegistry.get<FormatService>()
@@ -56,6 +58,9 @@ class MapToolLayerManager {
 
     fun resume(context: Context, view: IMapView) {
         val hasCompass = SensorService(context).hasCompass()
+
+        compassLayer.backgroundColor = Resources.color(context, R.color.colorSecondary)
+        compassLayer.cardinalDirectionColor = Resources.getCardinalDirectionColor(context)
 
         myElevationLayer = MyElevationLayer(
             formatter,
@@ -88,7 +93,8 @@ class MapToolLayerManager {
                 tideLayer,
                 beaconLayer,
                 scaleBarLayer,
-                myElevationLayer
+                myElevationLayer,
+                compassLayer
             )
         )
 
