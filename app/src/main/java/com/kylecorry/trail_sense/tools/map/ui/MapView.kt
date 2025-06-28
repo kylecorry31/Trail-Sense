@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.Vector2
+import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geography.projections.MercatorProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
@@ -36,12 +37,24 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     // TODO: Expose a method to fit to bounds (sets map center and meters per pixel)
     override val mapBounds: CoordinateBounds
-        get() = hooks.memo("bounds", metersPerPixel, mapCenter, width, height) {
+        get() = hooks.memo("bounds", metersPerPixel, mapCenter, width, height, mapAzimuth != 0f) {
+            // Increase size to account for 45 degree rotation
+            var rotated = Rectangle(
+                0f,
+                canvas.height.toFloat(),
+                canvas.width.toFloat(),
+                0f,
+            )
+
+            if (mapAzimuth != 0f) {
+                rotated = rotated.rotate(45f)
+            }
+
             val corners = listOf(
-                toCoordinate(PixelCoordinate(0f, 0f)),
-                toCoordinate(PixelCoordinate(width.toFloat(), 0f)),
-                toCoordinate(PixelCoordinate(0f, height.toFloat())),
-                toCoordinate(PixelCoordinate(width.toFloat(), height.toFloat()))
+                toCoordinate(PixelCoordinate(rotated.left, rotated.bottom)),
+                toCoordinate(PixelCoordinate(rotated.right, rotated.bottom)),
+                toCoordinate(PixelCoordinate(rotated.left, rotated.top)),
+                toCoordinate(PixelCoordinate(rotated.right, rotated.top))
             )
             CoordinateBounds.from(corners)
         }
