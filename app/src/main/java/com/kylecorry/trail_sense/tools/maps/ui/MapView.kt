@@ -8,21 +8,16 @@ import android.view.ScaleGestureDetector
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.hooks.Hooks
-import com.kylecorry.sol.math.SolMath.cosDegrees
-import com.kylecorry.sol.math.SolMath.normalizeAngle
-import com.kylecorry.sol.math.SolMath.sinDegrees
-import com.kylecorry.sol.math.SolMath.toDegrees
-import com.kylecorry.sol.math.SolMath.wrap
+import com.kylecorry.sol.math.Vector2
+import com.kylecorry.sol.science.geography.projections.MercatorProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.ILayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
-import kotlin.math.atan2
 import kotlin.math.max
 import kotlin.math.min
-import kotlin.math.sqrt
 
 
 class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(context, attrs),
@@ -98,25 +93,37 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         this.layers.addAll(layers)
     }
 
-    // TODO: Use mercator projection
+    private val projection = MercatorProjection()
+
     override fun toPixel(coordinate: Coordinate): PixelCoordinate {
-        val distance = mapCenter.distanceTo(coordinate)
-        val bearing = mapCenter.bearingTo(coordinate)
-        val angle = wrap(-(bearing.value - 90), 0f, 360f)
-        val pixelDistance = distance / metersPerPixel
-        val xDiff = cosDegrees(angle.toDouble()).toFloat() * pixelDistance
-        val yDiff = sinDegrees(angle.toDouble()).toFloat() * pixelDistance
-        return PixelCoordinate(width / 2f + xDiff, height / 2f - yDiff)
+        val center = projection.toPixels(mapCenter)
+        val projected = projection.toPixels(coordinate)
+
+        val x = (projected.x - center.x) * (Geology.EARTH_AVERAGE_RADIUS / metersPerPixel)
+        val y =
+            (center.y - projected.y) * (Geology.EARTH_AVERAGE_RADIUS / metersPerPixel) // Y inverted
+
+        return PixelCoordinate(
+            x.toFloat() + width / 2f,
+            y.toFloat() + height / 2f
+        )
     }
 
-    // TODO: Use mercator projection
+
     override fun toCoordinate(pixel: PixelCoordinate): Coordinate {
-        val xDiff = pixel.x - width / 2f
-        val yDiff = height / 2f - pixel.y
-        val distance = sqrt(xDiff * xDiff + yDiff * yDiff) * metersPerPixel
-        val angle = normalizeAngle(atan2(yDiff, xDiff).toDegrees())
-        return mapCenter.plus(Distance.meters(distance), Bearing(angle + 90))
+        val center = projection.toPixels(mapCenter)
+
+        val x = (pixel.x - width / 2f) * metersPerPixel / Geology.EARTH_AVERAGE_RADIUS
+        val y =
+            (height / 2f - pixel.y) * metersPerPixel / Geology.EARTH_AVERAGE_RADIUS // Y inverted
+
+        val projected = Vector2(
+            center.x + x.toFloat(),
+            center.y + y.toFloat()
+        )
+        return projection.toCoordinate(projected)
     }
+
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)

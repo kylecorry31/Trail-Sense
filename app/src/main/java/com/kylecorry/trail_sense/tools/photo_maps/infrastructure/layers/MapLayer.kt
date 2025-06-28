@@ -117,13 +117,6 @@ class MapLayer : ILayer {
         return false
     }
 
-    private fun areBoundsEqual(bounds1: CoordinateBounds, bound2: CoordinateBounds): Boolean {
-        return bounds1.north == bound2.north &&
-                bounds1.south == bound2.south &&
-                bounds1.east == bound2.east &&
-                bounds1.west == bound2.west
-    }
-
     private fun getGrowPercent(): Float {
         val device = AppServiceRegistry.get<DeviceSubsystem>()
         val threshold = 50 * 1024 * 1024 // 50 MB
