@@ -63,11 +63,10 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             invalidate()
         }
 
-    // TODO: Allow rotation
-    override var mapAzimuth: Float
-        get() = 0f
-        set(_) {
-            // Do nothing
+    override var mapAzimuth: Float = 0f
+        set(value) {
+            field = value
+            invalidate()
         }
     override val mapRotation: Float = 0f
 
@@ -141,7 +140,10 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         maxScale = getScale(0.1f).coerceAtLeast(2 * minScale)
         zoomTo(clampScale(scale))
 
+        push()
+        drawer.rotate(-mapAzimuth)
         drawLayers()
+        pop()
         layers.forEach { it.drawOverlay(this, this) }
     }
 
