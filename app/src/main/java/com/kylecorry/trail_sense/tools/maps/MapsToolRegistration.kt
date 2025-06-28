@@ -12,8 +12,8 @@ object MapsToolRegistration : ToolRegistration {
 
     override fun getTool(context: Context): Tool {
         return Tool(
-            Tools.MAPS,
-            context.getString(R.string.maps),
+            Tools.MAP,
+            context.getString(R.string.map),
             R.drawable.maps,
             R.id.mapsFragment,
             ToolCategory.Location,

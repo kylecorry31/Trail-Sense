@@ -1747,4 +1747,5 @@
     <string name="map_layer">Map layer</string>
     <string name="pref_dem_url" translatable="false">pref_dem_url</string>
     <string name="dem_url">DEM URL</string>
+    <string name="map">Map</string>
 </resources>

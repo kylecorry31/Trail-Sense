@@ -275,7 +275,7 @@ object Tools {
     const val BALLISTICS = 44L
     const val PERMITS = 45L
     const val DECLINATION = 46L
-    const val MAPS = 47L
+    const val MAP = 47L
 
     // Quick Action IDs
     const val QUICK_ACTION_NONE = -1

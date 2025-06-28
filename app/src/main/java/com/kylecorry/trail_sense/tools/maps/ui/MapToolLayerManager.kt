@@ -4,16 +4,20 @@ import android.content.Context
 import android.graphics.Color
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.ElevationLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyAccuracyLayer
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyElevationLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.NavigationLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.PathLayer
@@ -41,7 +45,10 @@ class MapToolLayerManager {
     private val navigationLayer = NavigationLayer()
     private val scaleBarLayer = ScaleBarLayer()
     private val backgroundLayer = BackgroundColorMapLayer()
+    private var myElevationLayer: MyElevationLayer? = null
+
     private val prefs = AppServiceRegistry.get<UserPreferences>()
+    private val formatter = AppServiceRegistry.get<FormatService>()
     private var layerManager: ILayerManager? = null
 
     var key = 0
@@ -49,6 +56,14 @@ class MapToolLayerManager {
 
     fun resume(context: Context, view: IMapView) {
         val hasCompass = SensorService(context).hasCompass()
+
+        myElevationLayer = MyElevationLayer(
+            formatter,
+            PixelCoordinate(
+                Resources.dp(context, 16f),
+                -Resources.dp(context, 16f)
+            )
+        )
 
         if (!hasCompass) {
             myLocationLayer.setShowDirection(false)
@@ -72,7 +87,8 @@ class MapToolLayerManager {
                 myLocationLayer,
                 tideLayer,
                 beaconLayer,
-                scaleBarLayer
+                scaleBarLayer,
+                myElevationLayer
             )
         )
 
@@ -81,10 +97,12 @@ class MapToolLayerManager {
                 PathLayerManager(context, pathLayer),
                 MyAccuracyLayerManager(
                     myAccuracyLayer,
-                    Resources.getPrimaryMarkerColor(context),
-                    25
+                    Resources.getPrimaryMarkerColor(context)
                 ),
-                MyLocationLayerManager(myLocationLayer, Color.WHITE),
+                MyLocationLayerManager(
+                    myLocationLayer,
+                    Resources.getPrimaryMarkerColor(context)
+                ),
                 TideLayerManager(context, tideLayer),
                 MapLayerManager(context, mapLayer),
                 BeaconLayerManager(context, beaconLayer),
@@ -114,6 +132,10 @@ class MapToolLayerManager {
 
     fun onBoundsChanged(bounds: CoordinateBounds) {
         layerManager?.onBoundsChanged(bounds)
+    }
+
+    fun onElevationChanged(elevation: Float) {
+        myElevationLayer?.elevation = Distance.meters(elevation).convertTo(prefs.baseDistanceUnits)
     }
 
 }

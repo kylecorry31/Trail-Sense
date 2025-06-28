@@ -21,16 +21,20 @@ class MapsFragment : TrailSenseReactiveFragment(R.layout.fragment_maps) {
         }
 
         // Update layer values
-        useEffect(navigation.location, navigation.locationAccuracy) {
+        useEffect(manager, navigation.location, navigation.locationAccuracy) {
             manager.onLocationChanged(navigation.location, navigation.locationAccuracy)
         }
 
-        useEffect(navigation.bearing) {
+        useEffect(manager, navigation.bearing) {
             manager.onBearingChanged(navigation.bearing.value)
         }
 
-        useEffect(mapView.mapBounds) {
+        useEffect(manager, mapView.mapBounds) {
             manager.onBoundsChanged(mapView.mapBounds)
+        }
+
+        useEffect(manager, navigation.elevation) {
+            manager.onElevationChanged(navigation.elevation)
         }
 
         // TODO: Only if locked / first time
