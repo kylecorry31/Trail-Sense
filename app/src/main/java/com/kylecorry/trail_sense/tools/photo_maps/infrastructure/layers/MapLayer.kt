@@ -16,16 +16,14 @@ import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.device.DeviceSubsystem
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
-import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.ITileSourceSelector
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.TileLoader
 import kotlinx.coroutines.CancellationException
 
 class MapLayer : IAsyncLayer {
 
     private var shouldReloadTiles = true
-    private var maps: List<PhotoMap> = emptyList()
     private var opacity: Int = 255
-    private var replaceWhitePixels: Boolean = false
     private var backgroundColor: Int = Color.WHITE
     private var minZoom: Int = 0
     private val loader = TileLoader()
@@ -36,19 +34,15 @@ class MapLayer : IAsyncLayer {
     private val taskRunner = MapLayerBackgroundTask()
     private var updateListener: (() -> Unit)? = null
 
-    fun setMaps(maps: List<PhotoMap>) {
-        this.maps = maps
-        loader.clearCache()
-        shouldReloadTiles = true
-    }
+    var sourceSelector: ITileSourceSelector? = null
+        set(value) {
+            field = value
+            loader.clearCache()
+            shouldReloadTiles = true
+        }
 
     fun setOpacity(opacity: Int) {
         this.opacity = opacity
-    }
-
-    fun setReplaceWhitePixels(replaceWhitePixels: Boolean) {
-        this.replaceWhitePixels = replaceWhitePixels
-        shouldReloadTiles = true
     }
 
     fun setBackgroundColor(color: Int) {
@@ -75,14 +69,15 @@ class MapLayer : IAsyncLayer {
         ) { bounds, metersPerPixel ->
             shouldReloadTiles = false
             try {
-                loader.loadTiles(
-                    maps,
-                    bounds.grow(getGrowPercent()),
-                    metersPerPixel,
-                    replaceWhitePixels,
-                    minZoom,
-                    backgroundColor
-                )
+                sourceSelector?.let {
+                    loader.loadTiles(
+                        it,
+                        bounds.grow(getGrowPercent()),
+                        metersPerPixel,
+                        minZoom,
+                        backgroundColor
+                    )
+                }
                 onMain {
                     updateListener?.invoke()
                 }

@@ -26,7 +26,7 @@ import com.kylecorry.trail_sense.tools.navigation.ui.layers.TideLayer
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.BeaconLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.ILayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MapLayer
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MapLayerManager
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PhotoMapLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MultiLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyAccuracyLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyLocationLayerManager
@@ -79,7 +79,6 @@ class MapToolLayerManager {
 
         beaconLayer.setOutlineColor(Resources.color(context, R.color.colorSecondary))
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
-        mapLayer.setReplaceWhitePixels(true)
         mapLayer.setMinZoom(4)
         view.setLayers(
             listOfNotNull(
@@ -110,7 +109,7 @@ class MapToolLayerManager {
                     Resources.getPrimaryMarkerColor(context)
                 ),
                 TideLayerManager(context, tideLayer),
-                MapLayerManager(context, mapLayer),
+                PhotoMapLayerManager(context, mapLayer, replaceWhitePixels = true),
                 BeaconLayerManager(context, beaconLayer),
                 NavigationLayerManager(context, navigationLayer)
             )

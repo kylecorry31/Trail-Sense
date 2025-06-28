@@ -15,7 +15,7 @@ import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.ILayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MapLayer
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MapLayerManager
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PhotoMapLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MultiLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyAccuracyLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyLocationLayerManager
@@ -57,7 +57,6 @@ class NavigationCompassLayerManager {
                 255f
             ).toInt()
         )
-        mapLayer.setReplaceWhitePixels(true)
         mapLayer.setBackgroundColor(Resources.color(context, R.color.colorSecondary))
         mapLayer.setMinZoom(4)
         view.setLayers(
@@ -82,7 +81,11 @@ class NavigationCompassLayerManager {
                 ),
                 MyLocationLayerManager(myLocationLayer, Color.WHITE),
                 TideLayerManager(context, tideLayer),
-                if (isMapLayerEnabled) MapLayerManager(context, mapLayer) else null
+                if (isMapLayerEnabled) PhotoMapLayerManager(
+                    context,
+                    mapLayer,
+                    replaceWhitePixels = true
+                ) else null
             )
         )
 

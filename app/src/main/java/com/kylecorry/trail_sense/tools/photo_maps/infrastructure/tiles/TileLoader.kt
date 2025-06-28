@@ -31,10 +31,9 @@ class TileLoader {
     }
 
     suspend fun loadTiles(
-        maps: List<PhotoMap>,
+        sourceSelector: ITileSourceSelector,
         bounds: CoordinateBounds,
         metersPerPixel: Float,
-        replaceWhitePixels: Boolean = false,
         minZoom: Int = 0,
         backgroundColor: Int = Color.WHITE
     ) = onDefault {
@@ -50,10 +49,9 @@ class TileLoader {
         }
 
         // Step 2: For each tile, determine which map(s) will supply it.
-        val tileSources = mutableMapOf<Tile, List<PhotoMap>>()
-        val sourceSelector = PhotoMapTileSourceSelector(maps, 8)
+        val tileSources = mutableMapOf<Tile, List<IGeographicImageRegionLoader>>()
         for (tile in tiles) {
-            val sources = sourceSelector.getSources(tile.getBounds())
+            val sources = sourceSelector.getRegionLoaders(tile.getBounds())
             if (sources.isNotEmpty()) {
                 tileSources[tile] = sources
             }
@@ -93,11 +91,7 @@ class TileLoader {
             image.eraseColor(backgroundColor)
 
             source.value.reversed().forEach {
-                val loader = PhotoMapRegionLoader(it)
-                val currentImage = loader.load(
-                    source.key,
-                    replaceWhitePixels = replaceWhitePixels
-                )
+                val currentImage = it.load(source.key)
 
                 if (currentImage != null) {
                     val canvas = Canvas(image)

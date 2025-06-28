@@ -21,20 +21,12 @@ import com.kylecorry.trail_sense.tools.photo_maps.domain.PercentBounds
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 
-class PhotoMapRegionLoader(private val map: PhotoMap) {
+class PhotoMapRegionLoader(
+    private val map: PhotoMap,
+    private val replaceWhitePixels: Boolean = false
+) : IGeographicImageRegionLoader {
 
-    suspend fun load(
-        tile: Tile,
-        replaceWhitePixels: Boolean = false
-    ): Bitmap? {
-        return load(tile.getBounds(), tile.size, replaceWhitePixels)
-    }
-
-    suspend fun load(
-        bounds: CoordinateBounds,
-        maxSize: Size,
-        replaceWhitePixels: Boolean = false
-    ): Bitmap? = onIO {
+    override suspend fun load(bounds: CoordinateBounds, maxSize: Size): Bitmap? = onIO {
         val fileSystem = AppServiceRegistry.get<FileSubsystem>()
         val projection = map.projection
 

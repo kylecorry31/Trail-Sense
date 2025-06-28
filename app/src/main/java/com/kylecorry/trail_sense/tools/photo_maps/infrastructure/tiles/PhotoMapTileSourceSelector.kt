@@ -3,13 +3,17 @@ package com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 
-class PhotoMapTileSourceSelector(maps: List<PhotoMap>, private val maxLayers: Int = 4) {
+class PhotoMapTileSourceSelector(
+    maps: List<PhotoMap>,
+    private val maxLayers: Int = 4,
+    private val replaceWhitePixels: Boolean = false
+) : ITileSourceSelector {
 
     private val sortedMaps = maps
         .filter { it.isCalibrated && it.visible }
         .sortedBy { it.distancePerPixel() }
 
-    fun getSources(bounds: CoordinateBounds): List<PhotoMap> {
+    override fun getRegionLoaders(bounds: CoordinateBounds): List<IGeographicImageRegionLoader> {
         val minArea = bounds.width().meters().distance.toDouble() * bounds.height()
             .meters().distance.toDouble() * 0.25
 
@@ -48,7 +52,7 @@ class PhotoMapTileSourceSelector(maps: List<PhotoMap>, private val maxLayers: In
             }
 
 
-        return if (firstContained != null) {
+        val maps = if (firstContained != null) {
             intersectsBeforeContained.take(maxLayers - 1) +
                     listOf(firstContained)
         } else {
@@ -59,6 +63,8 @@ class PhotoMapTileSourceSelector(maps: List<PhotoMap>, private val maxLayers: In
                 )
             }.take(maxLayers)
         }
+
+        return maps.map { PhotoMapRegionLoader(it, replaceWhitePixels) }
     }
 
     // TODO: Extract to sol
