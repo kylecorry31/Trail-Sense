@@ -225,4 +225,21 @@
     <string name="reduce_photo_resolution">ลดความละเอียดรูปภาพ</string>
     <string name="pref_include_leading_zero_title">เพื่มเลขศูนย์นำหน้าไว้ในเวลา</string>
     <string name="sensors">เซ็นเซอร์</string>
+    <string name="pref_auto_declination_summary">อิงจากตำแหน่งปัจจุบันของคุณ</string>
+    <string name="location">ตำแหน่ง</string>
+    <string name="pref_auto_location_title">ปรับตำแหน่งอัตโนมัติ</string>
+    <string name="pref_require_satellites_title">จำเป็นต้องจับตำแหน่งดาวเทียม</string>
+    <string name="pref_require_satellites_description">ต้องการดาวเทียมอย่างน้อย 4 ดวง เพื่อเพื่มความแม่นยำ</string>
+    <string name="satellites">ดาวเทียม</string>
+    <string name="pref_nmea_elevation_summary">ใช้ NMEA (ดาวเทียม) เพื่อแก้ไขค่าความสูง แทนที่จะใช้โมเดลในตัว</string>
+    <string name="num_satellites">%d ดวง</string>
+    <string name="clear_cache">ล้างแคช</string>
+    <string name="pref_gps_override_title">ตำแหน่งที่ระบุไว้เอง</string>
+    <string name="location_override_updated">ตำแหน่งที่ระบุไว้เองอัปเดตแล้ว</string>
+    <string name="elevation">ความสูง</string>
+    <string name="samples">ตัวอย่าง</string>
+    <string name="source">แหล่งข้อมูล</string>
+    <string name="tool_thermometer_title">เทอร์โมมิเตอร์</string>
+    <string name="min_temp_uncalibrated">อุณหภูมิของอุปกรณ์ (ยังไม่ปรับเทียบ)</string>
+    <string name="min_temp_calibrated">อุณหภูมิของสภาพแวดล้อม (ปรับเทียบแล้ว)</string>
 </resources>
