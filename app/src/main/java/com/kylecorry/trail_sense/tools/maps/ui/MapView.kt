@@ -1,14 +1,11 @@
 package com.kylecorry.trail_sense.tools.maps.ui
 
 import android.content.Context
-import android.graphics.Color
-import android.graphics.Path
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import com.kylecorry.andromeda.canvas.CanvasView
-import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.SolMath.cosDegrees
@@ -20,12 +17,8 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.Units
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.ILayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
-import com.kylecorry.trail_sense.tools.paths.ui.DistanceScale
 import kotlin.math.atan2
 import kotlin.math.max
 import kotlin.math.min
@@ -46,6 +39,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         runEveryCycle = true
     }
 
+    // TODO: Expose a method to fit to bounds (sets map center and meters per pixel)
     override val mapBounds: CoordinateBounds
         get() = hooks.memo("bounds", metersPerPixel, mapCenter, width, height) {
             val corners = listOf(
@@ -74,6 +68,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             invalidate()
         }
 
+    // TODO: Allow rotation
     override var mapAzimuth: Float
         get() = 0f
         set(_) {
@@ -82,16 +77,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     override val mapRotation: Float = 0f
 
     private var scale = 1f
-
-    private val prefs by lazy { UserPreferences(context) }
-    private val units by lazy { prefs.baseDistanceUnits }
-    private val formatService by lazy { FormatService.getInstance(context) }
-
-    // TODO: Extract to an overlay layer
-    private val scaleBar = Path()
-    private val distanceScale = DistanceScale()
     private var lastScale = 1f
-
     private var minScale = 0f
     private var maxScale = 1f
 
@@ -112,12 +98,24 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         this.layers.addAll(layers)
     }
 
+    // TODO: Use mercator projection
     override fun toPixel(coordinate: Coordinate): PixelCoordinate {
-        return getPixels(coordinate)
+        val distance = mapCenter.distanceTo(coordinate)
+        val bearing = mapCenter.bearingTo(coordinate)
+        val angle = wrap(-(bearing.value - 90), 0f, 360f)
+        val pixelDistance = distance / metersPerPixel
+        val xDiff = cosDegrees(angle.toDouble()).toFloat() * pixelDistance
+        val yDiff = sinDegrees(angle.toDouble()).toFloat() * pixelDistance
+        return PixelCoordinate(width / 2f + xDiff, height / 2f - yDiff)
     }
 
+    // TODO: Use mercator projection
     override fun toCoordinate(pixel: PixelCoordinate): Coordinate {
-        return getCoordinate(pixel)
+        val xDiff = pixel.x - width / 2f
+        val yDiff = height / 2f - pixel.y
+        val distance = sqrt(xDiff * xDiff + yDiff * yDiff) * metersPerPixel
+        val angle = normalizeAngle(atan2(yDiff, xDiff).toDegrees())
+        return mapCenter.plus(Distance.meters(distance), Bearing(angle + 90))
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -137,8 +135,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         zoomTo(clampScale(scale))
 
         drawLayers()
-        drawScale()
-        drawOverlays()
+        layers.forEach { it.drawOverlay(this, this) }
     }
 
     private fun drawLayers() {
@@ -149,63 +146,6 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         // TODO: If map bounds changed, invalidate layers
 
         layers.forEach { it.draw(this, this) }
-    }
-
-    // TODO: Use mercator projection
-    private fun getPixels(
-        location: Coordinate
-    ): PixelCoordinate {
-        val distance = mapCenter.distanceTo(location)
-        val bearing = mapCenter.bearingTo(location)
-        val angle = wrap(-(bearing.value - 90), 0f, 360f)
-        val pixelDistance = distance / metersPerPixel
-        val xDiff = cosDegrees(angle.toDouble()).toFloat() * pixelDistance
-        val yDiff = sinDegrees(angle.toDouble()).toFloat() * pixelDistance
-        return PixelCoordinate(width / 2f + xDiff, height / 2f - yDiff)
-    }
-
-    // TODO: Use mercator projection
-    private fun getCoordinate(
-        pixel: PixelCoordinate
-    ): Coordinate {
-        val xDiff = pixel.x - width / 2f
-        val yDiff = height / 2f - pixel.y
-        val distance = sqrt(xDiff * xDiff + yDiff * yDiff) * metersPerPixel
-        val angle = normalizeAngle(atan2(yDiff, xDiff).toDegrees())
-        return mapCenter.plus(Distance.meters(distance), Bearing(angle + 90))
-    }
-
-    private fun drawOverlays() {
-        layers.forEach { it.drawOverlay(this, this) }
-    }
-
-    private fun drawScale() {
-        noFill()
-        stroke(Color.WHITE)
-        strokeWeight(4f)
-
-        val scaleSize = distanceScale.getScaleDistance(units, width / 2f, metersPerPixel)
-
-        scaleBar.reset()
-        distanceScale.getScaleBar(scaleSize, metersPerPixel, scaleBar)
-        val start = width - dp(16f) - pathWidth(scaleBar)
-        val y = height - dp(16f)
-        push()
-        translate(start, y)
-        path(scaleBar)
-        pop()
-
-        textMode(TextMode.Corner)
-        textSize(sp(12f))
-        noStroke()
-        fill(Color.WHITE)
-        val scaleText =
-            formatService.formatDistance(scaleSize, Units.getDecimalPlaces(scaleSize.units), false)
-        text(
-            scaleText,
-            start - textWidth(scaleText) - dp(4f),
-            y + textHeight(scaleText) / 2
-        )
     }
 
     private fun getScale(metersPerPixel: Float): Float {
@@ -298,6 +238,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         override fun onScale(detector: ScaleGestureDetector): Boolean {
             if (isZoomEnabled) {
                 zoom(detector.scaleFactor)
+                // TODO: Zoom on the area that was pinched
             }
             return true
         }

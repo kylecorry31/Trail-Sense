@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Color
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
@@ -40,6 +39,8 @@ class MapToolLayerManager {
     private val mapLayer = MapLayer()
     private val elevationLayer = ElevationLayer()
     private val navigationLayer = NavigationLayer()
+    private val scaleBarLayer = ScaleBarLayer()
+    private val backgroundLayer = BackgroundColorMapLayer()
     private val prefs = AppServiceRegistry.get<UserPreferences>()
     private var layerManager: ILayerManager? = null
 
@@ -53,32 +54,25 @@ class MapToolLayerManager {
             myLocationLayer.setShowDirection(false)
         }
 
-        val isMapLayerEnabled = prefs.navigation.isMapLayerEnabled
+        scaleBarLayer.units = prefs.baseDistanceUnits
+        backgroundLayer.color = Color.WHITE
 
         beaconLayer.setOutlineColor(Resources.color(context, R.color.colorSecondary))
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
-        mapLayer.setOpacity(
-            SolMath.map(
-                prefs.navigation.mapLayerOpacity.toFloat(),
-                0f,
-                100f,
-                0f,
-                255f
-            ).toInt()
-        )
         mapLayer.setReplaceWhitePixels(true)
-        mapLayer.setBackgroundColor(Resources.color(context, R.color.colorSecondary))
         mapLayer.setMinZoom(4)
         view.setLayers(
             listOfNotNull(
-                if (isMapLayerEnabled) mapLayer else null,
+                backgroundLayer,
+                mapLayer,
                 if (prefs.showContoursOnMaps) elevationLayer else null,
                 navigationLayer,
                 pathLayer,
                 myAccuracyLayer,
                 myLocationLayer,
                 tideLayer,
-                beaconLayer
+                beaconLayer,
+                scaleBarLayer
             )
         )
 
@@ -92,7 +86,7 @@ class MapToolLayerManager {
                 ),
                 MyLocationLayerManager(myLocationLayer, Color.WHITE),
                 TideLayerManager(context, tideLayer),
-                if (isMapLayerEnabled) MapLayerManager(context, mapLayer) else null,
+                MapLayerManager(context, mapLayer),
                 BeaconLayerManager(context, beaconLayer),
                 NavigationLayerManager(context, navigationLayer)
             )
