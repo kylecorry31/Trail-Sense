@@ -241,5 +241,6 @@
     <string name="source">แหล่งข้อมูล</string>
     <string name="tool_thermometer_title">เทอร์โมมิเตอร์</string>
     <string name="min_temp_uncalibrated">อุณหภูมิขั้นต่ำของอุปกรณ์ (ยังไม่ปรับเทียบ)</string>
-    <string name="min_temp_calibrated">อุณหภูมิของสภาพแวดล้อมต่ำสุด (ปรับเทียบแล้ว)</string>
+    <string name="min_temp_calibrated">อุณหภูมิขั้นต่ำของสภาพแวดล้อม (ปรับเทียบแล้ว)</string>
+    <string name="max_temp_uncalibrated">อุณหภูมิของอุปกรณ์ขั้นสูง (ยังไม่ปรับเทียบ)</string>
 </resources>
