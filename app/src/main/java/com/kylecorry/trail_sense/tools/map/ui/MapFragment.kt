@@ -26,7 +26,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
 
         // Layers
         val manager = useMemo { MapToolLayerManager() }
-        useEffectWithCleanup(manager, mapView) {
+        useEffectWithCleanup(manager, mapView, resetOnResume) {
             manager.resume(context, mapView)
             return@useEffectWithCleanup {
                 manager.pause(context, mapView)
