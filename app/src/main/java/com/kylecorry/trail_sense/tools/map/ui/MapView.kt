@@ -8,6 +8,7 @@ import android.view.ScaleGestureDetector
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.hooks.Hooks
+import com.kylecorry.sol.math.SolMath.deltaAngle
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geography.projections.MercatorProjection
@@ -86,7 +87,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     private var scale = 1f
     private var lastScale = 1f
-    private var minScale = 0f
+    private var minScale = 0.0002f
     private var maxScale = 1f
 
     override fun addLayer(layer: ILayer) {
@@ -108,7 +109,17 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     override fun toPixel(coordinate: Coordinate): PixelCoordinate {
         val center = projection.toPixels(mapCenter)
-        val projected = projection.toPixels(coordinate)
+
+        // Always render the hemispheres closest to the map center
+        val newCoordinate = Coordinate(
+            coordinate.latitude,
+            mapCenter.longitude + deltaAngle(
+                mapCenter.longitude.toFloat(),
+                coordinate.longitude.toFloat()
+            )
+        )
+
+        val projected = projection.toPixels(newCoordinate)
 
         val x = (projected.x - center.x) * (Geology.EARTH_AVERAGE_RADIUS / metersPerPixel)
         val y =

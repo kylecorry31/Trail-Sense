@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles
 
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
+import com.kylecorry.sol.units.Coordinate
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.ln
@@ -29,6 +30,23 @@ object TileMath {
         bounds: CoordinateBounds,
         zoom: Int
     ): List<Tile> {
+        // If the bounds crosses the -180/180 line, split this into 2 calls - one for each hemisphere
+        if (Coordinate.toLongitude(bounds.west) > Coordinate.toLongitude(bounds.east)) {
+            val leftBounds = CoordinateBounds(
+                bounds.south,
+                180.0,
+                bounds.north,
+                Coordinate.toLongitude(bounds.west)
+            )
+            val rightBounds = CoordinateBounds(
+                bounds.south,
+                Coordinate.toLongitude(bounds.east),
+                bounds.north,
+                -180.0
+            )
+            return getTiles(leftBounds, zoom) + getTiles(rightBounds, zoom)
+        }
+
         val minLat = max(bounds.south, MIN_LATITUDE)
         val maxLat = min(bounds.north, MAX_LATITUDE)
 

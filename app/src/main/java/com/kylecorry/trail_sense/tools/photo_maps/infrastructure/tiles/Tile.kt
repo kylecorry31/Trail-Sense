@@ -24,6 +24,10 @@ data class Tile(
         val latMin = Math.toDegrees(latRadMin)
         val latMax = Math.toDegrees(latRadMax)
 
-        return CoordinateBounds(latMin, lonMax, latMax, lonMin)
+        return if (lonMax <= 180) {
+            CoordinateBounds(latMin, lonMax, latMax, lonMin)
+        } else {
+            CoordinateBounds(latMin, lonMax - 360, latMax, lonMin - 360)
+        }
     }
 }
