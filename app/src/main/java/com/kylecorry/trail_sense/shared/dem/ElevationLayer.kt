@@ -22,7 +22,7 @@ class ElevationLayer : ILayer {
     private val minZoomLevel = 13
     private val maxZoomLevel = 19
 
-    var shouldColorContours = true
+    var shouldColorContours = false
     private val colorScale = RgbInterpolationColorMap(
         arrayOf(
             0xFF006400.toInt(), // Dark green (0m)
@@ -103,7 +103,7 @@ class ElevationLayer : ILayer {
         drawer.stroke(AppColor.Brown.color)
         drawer.opacity(127)
         drawer.noFill()
-        val thickLineWeight = drawer.dp(2f)
+        val thickLineWeight = drawer.dp(2.5f)
         val thinLineWeight = drawer.dp(1f)
 
         // TODO: Draw as curve
