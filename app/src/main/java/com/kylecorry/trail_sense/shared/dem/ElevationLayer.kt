@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
 import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.tools.maps.infrastructure.tiles.TileMath
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.TileMath
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.ILayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
 

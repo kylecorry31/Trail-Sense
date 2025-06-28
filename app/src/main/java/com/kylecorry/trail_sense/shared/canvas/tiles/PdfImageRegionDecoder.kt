@@ -9,7 +9,7 @@ import android.util.Size
 import androidx.core.graphics.toRectF
 import com.kylecorry.andromeda.pdf.PDFRenderer2
 import com.kylecorry.andromeda.views.subscaleview.decoder.ImageRegionDecoder
-import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
+import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 
 class PdfImageRegionDecoder(private val bitmapConfig: Bitmap.Config? = null) : ImageRegionDecoder {
 

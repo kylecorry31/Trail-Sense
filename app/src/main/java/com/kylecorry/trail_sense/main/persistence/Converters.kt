@@ -7,7 +7,7 @@ import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
-import com.kylecorry.trail_sense.tools.maps.domain.MapProjectionType
+import com.kylecorry.trail_sense.tools.photo_maps.domain.MapProjectionType
 import com.kylecorry.trail_sense.tools.packs.domain.ItemCategory
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle

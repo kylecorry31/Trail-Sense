@@ -2,9 +2,9 @@ package com.kylecorry.trail_sense.shared.bitmaps
 
 import android.graphics.Bitmap
 import androidx.annotation.ColorInt
-import com.kylecorry.trail_sense.tools.maps.domain.PercentBounds
-import com.kylecorry.trail_sense.tools.maps.domain.PixelBounds
-import com.kylecorry.trail_sense.tools.maps.infrastructure.fixPerspective
+import com.kylecorry.trail_sense.tools.photo_maps.domain.PercentBounds
+import com.kylecorry.trail_sense.tools.photo_maps.domain.PixelBounds
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.fixPerspective
 
 class CorrectPerspective : BitmapOperation {
 

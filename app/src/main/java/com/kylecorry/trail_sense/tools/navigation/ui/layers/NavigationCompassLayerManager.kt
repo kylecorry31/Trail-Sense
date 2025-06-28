@@ -13,14 +13,14 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.ElevationLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.ILayerManager
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MapLayer
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MapLayerManager
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MultiLayerManager
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyAccuracyLayerManager
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyLocationLayerManager
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.PathLayerManager
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.TideLayerManager
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.ILayerManager
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MapLayer
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MapLayerManager
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MultiLayerManager
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyAccuracyLayerManager
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyLocationLayerManager
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PathLayerManager
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.TideLayerManager
 
 class NavigationCompassLayerManager {
 

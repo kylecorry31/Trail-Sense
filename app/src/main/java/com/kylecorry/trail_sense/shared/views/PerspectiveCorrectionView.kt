@@ -15,11 +15,11 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.tools.maps.domain.ImageMagnifier
-import com.kylecorry.trail_sense.tools.maps.domain.PercentBounds
-import com.kylecorry.trail_sense.tools.maps.domain.PercentCoordinate
-import com.kylecorry.trail_sense.tools.maps.domain.PixelBounds
-import com.kylecorry.trail_sense.tools.maps.infrastructure.fixPerspective
+import com.kylecorry.trail_sense.tools.photo_maps.domain.ImageMagnifier
+import com.kylecorry.trail_sense.tools.photo_maps.domain.PercentBounds
+import com.kylecorry.trail_sense.tools.photo_maps.domain.PercentCoordinate
+import com.kylecorry.trail_sense.tools.photo_maps.domain.PixelBounds
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.fixPerspective
 import kotlin.math.max
 import kotlin.math.min
 

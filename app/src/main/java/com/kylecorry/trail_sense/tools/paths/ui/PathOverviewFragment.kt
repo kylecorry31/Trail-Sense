@@ -48,10 +48,10 @@ import com.kylecorry.trail_sense.shared.toRelativeDistance
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.BeaconNavigator
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.IBeaconNavigator
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.ILayerManager
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MultiLayerManager
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyAccuracyLayerManager
-import com.kylecorry.trail_sense.tools.maps.infrastructure.layers.MyLocationLayerManager
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.ILayerManager
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MultiLayerManager
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyAccuracyLayerManager
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyLocationLayerManager
 import com.kylecorry.trail_sense.tools.navigation.ui.MappableLocation
 import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.BeaconLayer

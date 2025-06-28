@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.kylecorry.trail_sense.tools.maps.ui.PhotoMapView
+    <com.kylecorry.trail_sense.tools.photo_maps.ui.PhotoMapView
         android:id="@+id/map"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -78,7 +78,7 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:visibility="visible" />
 
-    <com.kylecorry.trail_sense.tools.maps.ui.MapDistanceSheet
+    <com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceSheet
         android:id="@+id/distance_sheet"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -26,11 +26,11 @@ import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideSigh
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideSightingEntity
 import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningStrikeDao
 import com.kylecorry.trail_sense.tools.lightning.infrastructure.persistence.LightningStrikeEntity
-import com.kylecorry.trail_sense.tools.maps.domain.MapEntity
-import com.kylecorry.trail_sense.tools.maps.domain.MapGroupEntity
-import com.kylecorry.trail_sense.tools.maps.infrastructure.MapDao
-import com.kylecorry.trail_sense.tools.maps.infrastructure.MapGroupDao
-import com.kylecorry.trail_sense.tools.maps.infrastructure.commands.RebaseMapCalibrationWorker
+import com.kylecorry.trail_sense.tools.photo_maps.domain.MapEntity
+import com.kylecorry.trail_sense.tools.photo_maps.domain.MapGroupEntity
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapDao
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapGroupDao
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.commands.RebaseMapCalibrationWorker
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteDao
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackDao

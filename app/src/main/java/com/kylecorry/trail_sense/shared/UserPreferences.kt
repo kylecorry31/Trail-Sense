@@ -44,7 +44,7 @@ import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyPrefere
 import com.kylecorry.trail_sense.tools.ballistics.infrastructure.BallisticsPreferences
 import com.kylecorry.trail_sense.tools.climate.infrastructure.ClimatePreferenceRepo
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuidePreferences
-import com.kylecorry.trail_sense.tools.maps.infrastructure.MapPreferences
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapPreferences
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.ui.sort.ToolSortType
