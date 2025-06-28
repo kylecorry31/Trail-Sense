@@ -7,6 +7,8 @@ title: "6 - Food"
 
 Food gives you energy but is a low priority in most survival situations since you can go weeks without it. If you haven't eaten in a while, focus on foraging for bugs, shellfish, and aggregate berries.
 
+**This chapter is for informational purposes only and does not replace professional advice; use at your own risk and ensure compliance with local laws.**
+
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill, nuts, seeds, dried, fruit, jerky, energy, bar, mre, can, knife, multitool, bag, canister, utensil, stove, fuel -->
 <!-- S: Bring extra food. Learn how to find food and cook in the wilderness. -->
@@ -55,8 +57,8 @@ Once you have mastered these skills, you should learn how to do the following:
 
 The average person needs around 2,000 calories per day. Balance carbohydrates, proteins, fats, vitamins, and minerals in your diet.
 
-- **Carbohydrates**: Provide an immediate source of energy and are found in grains, fruits, and vegetables. Aim for 45–65% of your daily caloric intake.
-- **Fats**: Provide long-term energy and are used in essential bodily functions. They are found in meats, oils, nuts, and seeds. Aim for 20–35% of your daily caloric intake.
+- **Carbohydrates**: Provide an immediate source of energy and are found in grains, fruits, and vegetables. Aim for 45-65% of your daily caloric intake.
+- **Fats**: Provide long-term energy and are used in essential bodily functions. They are found in meats, oils, nuts, and seeds. Aim for 20-35% of your daily caloric intake.
 - **Proteins**: Build and repair tissues and are found in meats, legumes, nuts, and seeds.
 - **Vitamins and minerals**: Essential for overall health and are found in most foods, but a varied diet is necessary to ensure you get all the essential nutrients.
 
@@ -133,7 +135,7 @@ Do not eat the following:
 ### Preparation
 <!-- K: prepare, cook, boil, roast, bake -->
 
-To prepare bugs for cooking, remove any stingers and optionally the legs, wings, and head before eating. You should cook all bugs before eating them. Worms can be placed in water for 15 minutes to purge their digestive tracts before cooking.
+To prepare bugs for cooking, remove any stingers and optionally the legs, wings, and head before eating. You should cook all bugs before eating them to be on the safe side, but in a pinch many can be eaten raw. Worms can be placed in water for 15 minutes to purge their digestive tracts before cooking. If you can't bring yourself to eat a worm, try completely drying it in the sun or roasting it and then grinding it into a powder.
 
 ## Shellfish and crustaceans
 <!-- K: shellfish, crustacean, clam, mussel, snail, limpet, crayfish, lobster, crab, shrimp, shell, bait, seafood -->
@@ -162,7 +164,7 @@ If you are in a longer-term survival situation or have access to fishing gear, f
 ### Fishing
 <!-- K: fish, hook, line, pole, bait, basket, bottle, trap, funnel, gather -->
 
-Fish are most active before a storm, near rocks or logs, and under overhanging brush.
+Fish are most active before a storm, near rocks or logs, and under overhanging brush. In hot weather, fish tend to be in shaded or deep water, while in cold weather, they prefer shallow and sunny areas. In rivers, look for areas where the water is slow or still.
 
 **Hook and line**
 
@@ -184,7 +186,7 @@ If you do not have a fishing pole, you can tie the line to both the base and tip
 
 Traps are a passive way to catch small fish or crustaceans with little effort required. Be sure to check your traps every few hours.
 
-You can construct a bottle fish trap by cutting off the cap and top quarter of a spare water bottle. Bait the trap with food and use a small rock to weight it down. Place the top inverted into the rest of the bottle and place it in shallow water. If needed, you can tie a string to the bottle to allow for easy access.
+You can construct a bottle fish trap by cutting off the cap and top quarter of a spare water bottle. Bait the trap with food and use a small rock to weigh it down. Place the top inverted into the rest of the bottle and place it in shallow water. If needed, you can tie a string to the bottle to allow for easy access.
 
 Alternatively, you can construct an M-shaped funnel trap by hammering sticks into the water to form a small entrance and walls. This can be built using the shore as a back wall to reduce effort. Small fish will swim into the trap and be unable to find their way out.
 
@@ -343,7 +345,7 @@ A bear bag is a bag of food hoisted into a tree to keep it out of reach of bears
 
 ![](/assets/images/survival_guide/bear_bag.webp)
 
-See the Shelter and Clothing chapter for details on how to tie knots.
+See the Shelter chapter for details on how to tie knots.
 
 ### Bear canisters
 <!-- K: canister, box, bear -->

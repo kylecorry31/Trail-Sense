@@ -9,6 +9,8 @@ This guide covers essential survival skills needed to return safely from a survi
 
 If you are in a survival situation, try to stay calm and start with this chapter's "What to Do in a Survival Situation" section.
 
+**This chapter is for informational purposes only and does not replace professional advice; use at your own risk and ensure compliance with local laws.**
+
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill -->
 <!-- S: Bring a survival kit with you on all trips, and let others know your plans. Learn how to act in a survival situation and signal for help. -->
@@ -17,11 +19,17 @@ Before entering the wilderness, you should be as prepared as possible. This mean
 
 ### Gear
 
+The gear you bring will depend on your skill level, trip duration, trail popularity/remoteness, terrain, time of day, and weather.
+
+On short nature hikes (under 2 hours), a phone with offline maps, a knife or multi-tool, a lighter, sunglasses, and a bottle of water may be sufficient. You can apply insect repellent or sunscreen before going out.
+
+Many people carry a smartphone with them at all times, and while you shouldn't rely solely on it, it can be very helpful. To make the most of it, download an offline navigation app or maps and place money, bandages, a Fresnel lens, and a flattened piece of cotton under the back of the case for emergencies.
+
 **Necessities**:
 
-- Cell phone
-- Money
+- Cell phone (with offline maps if possible)
 - Whistle
+- Pepper or bear spray (check local laws)
 - Spare batteries (for flashlight) and a battery pack for your phone
 - Assorted bandages
 - Gauze
@@ -36,19 +44,6 @@ Before entering the wilderness, you should be as prepared as possible. This mean
 - Hand sanitizer
 - Epinephrine auto-injector (if you have severe allergies)
 - Asthma inhaler (if you have asthma)
-- Water (enough for the duration of your trip, plus a bit extra)
-  - Bring a water purification method for longer trips and plan your route to include water sources.
-- Water containers (ensure you have a container that you can boil water in)
-- Food (enough for the duration of your trip, plus a bit extra). Some good options include:
-  - Nuts
-  - Seeds
-  - Dried fruit
-  - Jerky
-  - Energy bars
-  - Dehydrated meals (with extra water)
-  - Canned food (with a can opener if needed)
-- Knife or multi-tool
-- Bear bag or canister
 - Emergency space blanket
 - Poncho
 - Change of clothing
@@ -68,6 +63,20 @@ Before entering the wilderness, you should be as prepared as possible. This mean
   - Sleeping pad
   - Tent
   - Tarp
+- Water (enough for the duration of your trip, plus a bit extra)
+  - Bring a water purification method for longer trips and plan your route to include water sources.
+- Water containers (ensure you have a container that you can boil water in)
+- Firestarter (lighter, waterproof matches, or fire steel - carry at least two different types)
+- Food (enough for the duration of your trip, plus a bit extra). Some good options include:
+  - Nuts
+  - Seeds
+  - Dried fruit
+  - Jerky
+  - Energy bars
+  - Dehydrated meals (with extra water)
+  - Canned food (with a can opener if needed)
+- Knife or multi-tool
+- Bear bag or canister
 - Map
 - Compass
 - Flashlight or headlamp

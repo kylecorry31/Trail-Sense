@@ -7,6 +7,8 @@ title: "8 - Weather"
 
 Weather can quickly change from a nice day to a life-threatening situation. You should always be prepared for the weather in your area and keep tabs on the forecast.
 
+**This chapter is for informational purposes only and does not replace professional advice; use at your own risk and ensure compliance with local laws.**
+
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill, forecast, clothes, shelter, poncho, sunglasses, barometer, thermometer -->
 <!-- S: Bring appropriate clothing and shelter for the weather. Learn how to identify signs of worsening weather. -->
@@ -16,7 +18,7 @@ Weather can quickly change from a nice day to a life-threatening situation. You 
 **Necessities**:
 
 - 7-day weather forecast  
-- Appropriate clothing and shelter for the weather (see the Shelter and Clothing chapter)  
+- Appropriate clothing and shelter for the weather (see the Shelter chapter)  
 - Poncho  
 - Sunglasses  
 
@@ -49,7 +51,7 @@ Weather conditions can change rapidly and significantly impact your outdoor acti
 ### Precipitation
 <!-- K: rain, snow, hail, sleet, precipitation -->
 
-You can generally continue outdoor activities in light precipitation. However, if it starts precipitating heavily, seek shelter. Rivers and streams can rise rapidly and become dangerous during heavy rainfall. Be aware of the risk of hypothermia and take steps to stay warm and dry.
+You can generally continue outdoor activities in light precipitation. However, if it starts precipitating heavily, seek shelter. During heavy rain, rivers and streams can rise rapidly and flash floods are possible. Precipitation can also lead to hypothermia, so be aware of the risks and take steps to stay warm and dry.
 
 Blizzards can lead to whiteout conditions, severely reducing visibility. If caught in a blizzard, seek shelter immediately and stay warm and dry.
 
@@ -65,9 +67,7 @@ Temperature changes as you change elevation, decreasing by about 3.5°F (2°C) f
 ### Wind
 <!-- K: wind, gust, storm, hurricane, tornado, sandstorm, prevailing, blow, direction -->
 
-Wind can make cold conditions feel even colder, increasing the risk of hypothermia and frostbite. Dress in layers and wear a hat and gloves to protect yourself from the wind. During windstorms, unstable trees and branches can become hazardous.
-
-Wind can cause sandstorms in desert environments, reducing visibility and making breathing difficult. Seek shelter during a sandstorm and protect your eyes and mouth with a bandana or cloth.
+Wind can make cold conditions feel even colder, increasing the risk of hypothermia and frostbite. Dress in layers and wear a hat and gloves to protect yourself from the wind. During windstorms, unstable trees and branches can become hazardous. Wind can cause sandstorms in desert environments, reducing visibility and making breathing difficult. Seek shelter during a sandstorm and protect your eyes and mouth with a bandana or cloth. In costal environments, winds can lead to dangerous surf conditions such as high waves or rip currents.
 
 Prevailing winds are winds that blow consistently in one direction over time. While local geography and bodies of water can affect wind patterns, general patterns are as follows:
 
@@ -108,7 +108,7 @@ Wildfires can cause smoke to travel long distances. If possible, avoid outdoor a
 <!-- K: climate, average -->
 <!-- S: Your region's climate can indicate what weather is common for the time of year. -->
 
-The climate of a region refers to its average weather conditions over time. You should look up the average daily high and low temperatures, how often it rains or snows, what the humidity normally is, and where the prevailing wind blows from. You should prepare for conditions to return to the climate normals in a longer-term scenario, so if it is unusually warm during your hike but the average low is below freezing, bring cold weather gear with you.
+The climate of a region refers to its average weather conditions over time. You should look up the average daily high and low temperatures, how often it rains or snows, what the humidity normally is, and where the prevailing wind blows from. You should prepare for conditions to return to the climate normals in a longer-term scenario, so if it is unusually warm during your hike but the average low is below freezing, bring cold weather gear with you. During a dry season, you should be extra cautious of starting a fire and plan for scarce natural water sources.
 
 ## Forecasting
 <!-- K: forecast, predict, signs -->
@@ -167,7 +167,7 @@ Identifying the cloud type can improve your ability to forecast weather.
 <!-- K: tide, water, coast, rise, fall, moon, ocean, sea, semidiurnal, diurnal, mixed -->
 <!-- S: Most places have two high tides and two low tides daily. Check tide tables before heading to the coast. -->
 
-Tides can affect outdoor activities near the coast. A receding tide can lead to rip currents, which are dangerous for swimmers. Check the tide tables before heading to the coast. Tide tables can be found online or in local newspapers.
+Tides can affect outdoor activities near the coast. Check the tide tables before heading to the coast. Tide tables can be found online or in local newspapers.
 
 This map shows the tide types around the world. Green is semidiurnal, blue is mixed, and orange is diurnal.
 

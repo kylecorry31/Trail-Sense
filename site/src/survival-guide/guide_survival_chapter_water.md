@@ -7,6 +7,8 @@ title: "4 - Water"
 
 You can only survive a few days without water in most cases, and sometimes not even that long. Knowing how to find and purify water is vital in a survival situation.
 
+**This chapter is for informational purposes only and does not replace professional advice; use at your own risk and ensure compliance with local laws.**
+
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill, container, filter, sheet, tarp, tablet -->
 <!-- S: Bring extra water, a water container, and purification method. Learn how to locate water sources and purify water. -->

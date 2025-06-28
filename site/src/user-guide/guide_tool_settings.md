@@ -71,6 +71,8 @@ The current elevation is displayed at the top of the altimeter settings. As you 
 - **GPS + Barometer**: This is the default source and should work on most devices with a barometer. It combines the GPS and barometer to determine the altitude.
 - **GPS**: This source only uses the GPS to determine the altitude. It is less accurate than the GPS + Barometer source.
 - **Barometer**: This source only uses the barometer to determine the altitude. It is more accurate than the GPS source, but may drift over time and you will need to calibrate it before use.
+- **DEM + Barometer**: Combines a digital elevation model (DEM) with the barometer to determine altitude.
+- **DEM**: A digital elevation model (DEM) that determines elevation using your GPS location and a map.
 - **Manual**: This source allows you to manually set the altitude. This is useful if you know the altitude of your location and it will not change.
 
 ### GPS + Barometer settings
@@ -83,6 +85,11 @@ The current elevation is displayed at the top of the altimeter settings. As you 
 
 - **Samples**: The number of GPS samples to use when determining the altitude. A higher number will give a more accurate reading, but will take longer to calculate.
 - **NMEA elevation correction**: The elevation provided by the GPS needs to be corrected to match the actual elevation. If this setting is enabled, it will use the correction factor provided by the GPS. If it is disabled, it will use the correction factor provided by Trail Sense, which may be more accurate.
+
+### DEM settings
+
+- **Digital elevation model (DEM)**: Clicking this will prompt you to download and import a digital elevation model. Models are available in a variety of sizes at https://kylecorry.com/Trail-Sense/dem.html. Once you import the model, you can delete the file from your device. If you already have a model loaded and select a new model, the old one will be removed. If no model is loaded, a low accuracy built-in model will be used. It is recommended to download one of the larger models if you are able to. The DEM will not be included in the backup due to the size.
+- **Remove DEM**: Clicking this will prompt you to delete the DEM file. This is irreversible and you will need to import another file to use the DEM.
 
 ### Barometer / manual settings
 
@@ -176,6 +183,15 @@ Some tools such as Navigation and Astronomy display error banners at the top of 
 
 ## Experimental
 Experimental features can be enabled in Settings > Experimental. These features are not ready for general use and may not work as expected.
+
+### Notification grouping
+Android 16 introduces forced notification grouping for apps. This normally puts all of Trail Sense's notifications into one group, which can be hard to read at a glance.
+
+- **System**: Let Android control the grouping.
+- **Ungroup all**: Workaround for ungrouping all notifications in Trail Sense.
+- **Ungroup alerts**: Workaround for ungrouping alerts (ex. storm, sunset) in Trail Sense.
+
+This is a workaround to bypass the forced behavior on Android 16, so it may not work consistently.
 
 ## Backup / restore
 When switching to a new device or reinstalling the app, it may be helpful to backup your data and settings. This can be done in Settings > Backup / Restore.

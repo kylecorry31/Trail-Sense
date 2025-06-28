@@ -7,6 +7,8 @@ title: "7 - Navigation"
 
 Being able to navigate in the wilderness can help prevent you from getting lost or allow you to find your way back to safety.
 
+**This chapter is for informational purposes only and does not replace professional advice; use at your own risk and ensure compliance with local laws.**
+
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill, map, compass, flashlight, gps -->
 <!-- S: Bring a map, compass, and flashlight. Learn how to navigate with a map and compass and plan routes. -->
@@ -201,9 +203,20 @@ A back bearing is the opposite direction of your current bearing. To calculate a
 To use a back bearing to navigate, you need to take a bearing before hiking out. Keep this bearing written down or memorized, and as long as you didn't drastically change direction, following the back bearing will lead you close to your starting location. Every time you make a turn, you should record a bearing.
 
 ### Declination
-<!-- K: declination, true, magnetic -->
+<!-- K: declination, true, magnetic, grid, north, add, subtract -->
 
-Declination is the difference between true north and magnetic north. Adjust your compass for declination when navigating with a map. Some compasses have an adjustable declination ring; otherwise, you must calculate it manually. Most maps list declination in the legend and are oriented to true north.
+Declination is the difference between magnetic north (MN) and true north (TN or a star) and is usually shown on the map as two arrows and a degree. Your map is likely aligned with true north. If your compass has a declination adjustment, rotate it to match the arrow and you are all set to compare bearings between the compass and the map with no additional adjustments. Otherwise, you will need to adjust manually by doing the following. To go from a reading on your compass to a reading on the map, add the declination to your compass reading. If you are going from the map to the compass, subtract the declination. If the magnetic north arrow is drawn to the left of the true north arrow, the declination amount is negative. For example, if your map lists 10° of declination:
+
+- A compass bearing of 20° would be 30° on the map (20° + 10°).
+- A map reading of 30° would be 20° on the compass (30° - 10°).
+
+On rare occasions, a map may be oriented to grid north (GN) rather than true north. These maps list a second degree amount, which is the difference between true north and grid north. Add this amount to the declination to orient your compass to the lines on the map.
+
+Declination changes over time, so if you are using an old map, you should look up the current declination amount for your location.
+
+Here's a declination map for 2025:
+
+![](/assets/images/survival_guide/declination.webp)
 
 ## Map
 <!-- K: map, read -->
@@ -217,7 +230,7 @@ A map is a key tool for navigation, especially when paired with a compass.
 You can orient a map to point north using a compass:
 
 1. Place the compass on the map with the direction of travel arrow pointing toward the top of the map.
-2. Rotate the map and compass together until the compass points north.
+2. Rotate the map and compass together until the compass points north. The image below shows what the map will look like if your compass is adjusted for declination (1) or if you need to align with magnetic north instead (2).
 
 ![](/assets/images/survival_guide/map_orientation.webp)
 
@@ -233,6 +246,19 @@ To triangulate your location:
 3. Measure the bearing to each feature using your compass.
 4. Draw lines from each feature in the direction of the bearing on the map.
 5. The point where the lines intersect is your location.
+
+![](/assets/images/survival_guide/triangulation.webp)
+
+To get your GPS coordinates on a map in UTM (a very common coordinate system):
+
+1. Find the UTM zone number, which is a one- or two-digit number followed by a letter (for example, "16T").
+2. Locate the Easting and Northing values on the map's borders. They are usually marked and can have 3 to 6 or 7 digits. Add three zeros if there are only 3 digits (e.g., 123 becomes 123000). Easting will be on the top or bottom; Northing will be on the left or right.
+3. Look at the grid lines on the map to identify the grid zone where your location is. These lines represent the first digits of your location (e.g., 123000E and 234000N).
+4. For increased precision, divide the grid into 10 equal sections vertically and horizontally. Determine which line your location is closest to within the grid. Use a ruler for accuracy. For example, if your location is two-tenths to the right and one-tenth up from the bottom-right corner of the grid, your new location will be 123200E and 234100N.
+
+You can follow those steps in reverse to transfer a GPS coordinate onto your map. Just be sure to set your GPS coordinates to match the map's coordinate format.
+
+If your map does not have UTM grid lines, you can still follow the same approach using the coordinate values on the sides of the map. Some systems may use decimal places instead.
 
 ### Scale
 <!-- K: scale, distance, measure, ruler -->

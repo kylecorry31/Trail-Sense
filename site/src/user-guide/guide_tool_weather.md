@@ -30,6 +30,8 @@ You can disable weather monitor notifications in Android's notification settings
 ## Storm alert
 If the weather monitor is active, Trail Sense can notify you of storms. Enable this in Settings > Weather > Storm alert. You can adjust the sensitivity in Settings > Weather > Storm sensitivity. Higher sensitivity might trigger false alerts, while lower sensitivity could miss some storms.
 
+You can choose to use the alarm audio channel for this alert by enabling Settings > Weather > Use alarm for storm alert. This will play a sound as an alarm even if media and notifications are muted. You can choose to use the alarm only during the day by enabling Settings > Weather > Mute alarm at night. 
+
 ## Weather details
 The Weather tool also provides more information about the current and predicted weather.
 

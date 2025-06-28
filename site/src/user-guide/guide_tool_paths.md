@@ -78,7 +78,7 @@ By default, this will only navigate to recorded waypoints on the path. However, 
 Paths are also visible on the radar compass (see the 'Navigation' guide) and photo maps (see the 'Photo Maps' guide).
 
 ## Path visibility
-You can choose which paths are visible on the Navigation and Photo Maps tools by clicking the menu icon on the right side of the path row and selecting either Hide or Show.
+You can choose which paths are visible on the Navigation and Photo Maps tools by clicking the eye icon on the right side of the path row.
 
 ## Delete a path
 To delete a path, click the menu button on the path row you want to remove, then select 'Delete'.

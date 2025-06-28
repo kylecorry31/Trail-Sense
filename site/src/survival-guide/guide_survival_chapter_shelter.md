@@ -1,11 +1,13 @@
 ---
-title: "3 - Shelter And Clothing"
+title: "3 - Shelter"
 ---
 
 <!-- K: warm, heat -->
 <!-- S: Layer clothing and build a shelter. -->
 
 This chapter covers how to dress appropriately for the environment and build shelters to protect yourself from the elements.
+
+**This chapter is for informational purposes only and does not replace professional advice; use at your own risk and ensure compliance with local laws.**
 
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill, emergency-space-blanket, space-blanket, blanket, poncho, socks, boots, shoes, sunglasses, cordage, sewing, needle, thread, jacket, pants, hat, gloves, hand-warmer, bag, pad, tent, tarp, hat, bandana, pillow, gloves, net, gaiters, hammock, tape -->
@@ -118,37 +120,24 @@ If you plan to be hiking in wet conditions, consider wearing waterproof boots.
 
 Bring extra socks, preferably made from wool, and ensure they are taller than your boots to avoid blisters.
 
-## Shelters
-<!-- K: sleep, shelter -->
+## Preparing a shelter site
+<!-- K: prepare, shelter, sleep -->
+<!-- S: Choose a location for your shelter that is protected from the elements and has access to resources. -->
+
+When selecting a site for your shelter, look for areas near building materials and resources such as water and food. Make sure the area is protected from the elements but is also free of threats such as dead trees/branches, slopes that could lead to avalanches, rock slides, or flooding, insects, poisonous plants, and dangerous animals. It should not be so secluded that you can't signal for help. If you can avoid it, do not build a shelter above the treeline in mountainous regions.
+
+While gathering materials for your shelter, prefer wood and debris that are already on the ground and require minimal effort to use. Avoid logs that are too thick to break by hand.
+
+## Building a shelter
+<!-- K: sleep, shelter, type -->
 <!-- S: Construct a shelter using natural materials or a tarp. Insulate the shelter with leaves, straw, or clothing. -->
 
-### Choosing a shelter location
-<!-- K: location -->
+You can construct various shelters using tarps, ponchos, or natural elements. Try to build the smallest shelter that meets your needs, since it will be easier to retain heat, and position it against prevailing winds to avoid excess heat loss. Before sleeping in your shelter, make sure there is adequate airflow to manage condensation and smoke.
 
-When selecting a site for your shelter, consider the following:
+### Lean-to
+<!-- K: lean-to, build, ridgeline, tarp -->
 
-- Proximity to building materials.
-- Proximity to water and food sources.
-- Protection from the elements.
-- Free of dead trees and branches that could fall.
-- Free of threat from avalanches, rock slides, or flooding.
-- Free of insects, poisonous plants, or dangerous animals.
-- Suitable for signaling for help if needed.
-- Avoid staying above the treeline in mountainous regions, as you will be exposed to the elements.
-
-### Gathering materials
-<!-- K: gather, find, material -->
-
-Prefer wood and debris that are already on the ground and require minimal effort to use. Avoid logs that are too thick to break by hand.
-
-### Shelter types
-<!-- K: build, type, tarp, debris, hut, cave, tent, hammock, lean-to, a-frame, emergency-space-blanket, space-blanket, blanket -->
-
-You can construct various shelters using tarps, ponchos, or natural elements. Here are some common types:
-
-**Lean-to**
-
-A simple shelter made by leaning a large sheet of material against a support like a tree or a ridgepole. It protects from wind and rain.
+A lean-to is a simple shelter made by leaning a large sheet of material against a support like a tree or a ridgepole. It protects from wind and rain.
 
 1. Lash a ridgepole to two trees or supports. If you are using a tarp or poncho, this can be a cord.
 2. Lay a tarp or poncho over the ridgepole, allowing one side to touch the ground. If using natural materials, lay branches and leaves over the ridgepole.
@@ -158,9 +147,10 @@ A simple shelter made by leaning a large sheet of material against a support lik
 
 If you're constructing a ridgeline with cordage, form a bowline at one end, wrap the cordage around a tree, and pass the free end through the bowline's loop. Secure the other end to a second tree using either a taut-line hitch or a trucker's hitch, then tighten it. To attach a tarp, pull a small section of the ridgeline through the grommets and insert a stick through the resulting loop to hold it in place.
 
-**A-frame**
+### A-frame
+<!-- K: a-frame, debris, hut, build, ridgeline, tarp -->
 
-A more enclosed shelter that provides better protection from the elements.
+A-frames are a more enclosed shelter that provides better protection from the elements.
 
 1. Lash two sticks together into an A-shape. You can also use a fork in a tree or stick, a stump, or a large rock as a support.
 2. Place one end of the ridgepole on top of the A-frame (or fork/stump/rock) and the other end on the ground.
@@ -168,36 +158,30 @@ A more enclosed shelter that provides better protection from the elements.
 
 ![](/assets/images/survival_guide/shelter_debris_hut.webp)
 
-**Caves**
+### Cave
+<!-- K: cave -->
 
-Natural shelters that offer protection from the elements. Use caution when entering caves; they can be home to animals or have poor ventilation. Avoid lighting a fire if possible since smoke can accumulate.
+Caves offer protection from the elements and require minimal effort to use. Be careful when entering caves, though, as they can be home to animals or have poor ventilation. Avoid lighting a fire if possible, since smoke can accumulate; if you do light a fire, do it away from the entrance so the smoke isn't blown back into the cave.
 
-**Emergency space blankets**
+### Emergency space blanket
+<!-- K: emergency-space-blanket, space-blanket, blanket -->
 
 Wrap yourself in an emergency space blanket to reflect body heat and protect against the elements. You can also use it to create a shelter by tying it between two trees or supports. Be gentle when handling the blanket, as it can tear easily.
 
-**Tents**
+### Tent
+<!-- K: tent, rainfly, setup, assemble -->
 
-If you have a tent, set it up according to the manufacturer's instructions. Ensure the tent is staked securely and the rainfly is in place. Most tents can be set up by inserting poles into sleeves or clips and securing the tent to the ground with stakes.
+If you have a tent, set it up according to the manufacturer's instructions. Ensure the tent is staked securely and the rainfly is in place. Most tents can be set up by inserting poles into sleeves or clips and securing the tent to the ground with stakes. If there is a chance of rain and your tent comes with a rainfly, be sure to set it up.
 
-**Hammocks**
+### Hammock
+<!-- K: hammock, setup, rainfly, assemble -->
 
 If you have a hammock, set it up between two trees or supports. Ensure the hammock is secure and the rainfly is in place. Be sure the trees or supports are strong enough to hold your weight.
 
 ### Insulation
 <!-- K: insulate, insulation, cold, pad, sleeping-bag -->
 
-You can place insulating materials like leaves, straw, or clothing between you and the shelter walls to retain body heat. This barrier prevents heat loss and keeps you warm. If you have a sleeping bag or extra clothing, use them.
-
-Use materials like leaves, straw, or clothing to insulate yourself from the ground. These materials create a barrier between you and the cold ground, preventing heat loss. If you have a sleeping pad, place it under your sleeping bag for additional insulation.
-
-### Tips
-
-- Use materials like leaves, straw, or clothing to insulate the ground and walls of your shelter.
-- Keep the shelter compact to retain heat but large enough to lie comfortably.
-- Position the shelter to protect against prevailing winds and to maximize the warming effects of the sun.
-- Fill gaps in the shelter with leaves, grass, mud, or other insulating materials.
-- Ensure adequate airflow to manage condensation and smoke.
+You can place insulating materials like leaves, grass, or clothing between you and the shelter walls or ground to retain body heat. This barrier prevents heat loss and keeps you warm. If you have a sleeping pad, place it under your sleeping bag for additional insulation.
 
 ## Repair
 <!-- K: repair, duct-tape, tape, pin, safety-pin, glue, cordage -->

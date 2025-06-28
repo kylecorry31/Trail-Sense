@@ -7,6 +7,8 @@ title: "5 - Fire"
 
 Knowing how to make fire can help you stay warm, purify water, and cook food. You should never leave a fire unattended and must be careful to avoid it spreading.
 
+**This chapter is for informational purposes only and does not replace professional advice; use at your own risk and ensure compliance with local laws.**
+
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill, starter, matches, lighter, steel, ferro, ferrocerium, tinder -->
 <!-- S: Bring a firestarter. Learn how to build and maintain a fire. -->
@@ -14,7 +16,7 @@ Knowing how to make fire can help you stay warm, purify water, and cook food. Yo
 ### Gear
 **Necessities**:
 
-- Firestarter (waterproof matches, lighters, or fire steel - carry at least two different types)
+- Firestarter (lighter, waterproof matches, or fire steel - carry at least two different types)
   - You can carry a credit-card-sized Fresnel lens in your wallet or phone case as an emergency backup firestarter.
 
 **Optional**:
@@ -120,6 +122,8 @@ A reliable lighter is the easiest way to start a fire. Use the striker to produc
 Some lighters require that you add fuel before use, so be sure to try out your lighter before you need it. The fuel should last a long time - even years with moderate use.
 
 A lighter generally does not work when wet, but you can dry it quickly by gently rubbing the striker wheel against your clothes in the opposite direction that you would strike it and forcefully blowing into the striker area.
+
+You can also remove the child safety device from the striker wheel to more easily dry the lighter or use it in the cold. To do so, point it away from your eyes (the safety is spring-loaded) and use a knife or multi-tool to pry it off. **Do this at your own risk.**
 
 There are also electronic lighters available, but they are less reliable and require a charge. They can be used in a similar fashion to regular lighters but typically require smaller and finer tinder.
 

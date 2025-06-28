@@ -14,5 +14,7 @@ To ensure water is safe for consumption, you must first filter and then boil it.
 
 By default, the timer utilizes your current elevation to calculate the required boiling time. Alternatively, you can manually select either a 1-minute or 3-minute duration using the buttons located at the bottom of the screen.
 
+You can choose to use the alarm audio channel for this timer by enabling Settings > Water Boil Timer > Use alarm for water boil timer. This will play a sound as an alarm even if media and notifications are muted.
+
 ## Disclaimer
 This tool uses recommendations from health organizations, but if done incorrectly or if the water is polluted you could still get sick. Use at your own risk.

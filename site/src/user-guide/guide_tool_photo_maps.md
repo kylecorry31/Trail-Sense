@@ -90,6 +90,9 @@ If your map points are not aligning correctly after calibrating (try calibrating
 ## Rename a map
 To rename a map, click the menu button on the map row you wish to rename, then select 'Rename' and provide a new name. Alternatively, open the map, click the menu button in the top-right, and choose 'Rename'.
 
+## Map visibility
+You can choose which maps are visible on the Navigation tool by clicking the eye icon on the right side of the map row.
+
 ## Delete a map
 To delete a map, click the menu button on the map row you want to remove, then select 'Delete'. Alternatively, open the map, click the menu button in the top-right, and choose 'Delete'.
 

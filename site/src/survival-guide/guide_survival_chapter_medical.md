@@ -5,7 +5,9 @@ title: "2 - Medical"
 <!-- K: medicine, medical, heal, health, injury, sick, ill, first-aid, symptom, treat, prevent, help -->
 <!-- S: Calm down and apply first aid. -->
 
-This chapter covers basic medical knowledge and techniques for common injuries and illnesses in the wilderness. It does not substitute professional medical advice/treatment or in-depth first aid guides.
+This chapter covers basic medical knowledge and techniques for common injuries and illnesses in the wilderness. 
+
+**This chapter is for informational purposes only and does not replace professional advice, diagnosis, or treatment; use at your own risk, ensure compliance with local laws, and consult qualified healthcare providers whenever possible.**
 
 ## Be prepared
 <!-- K: prepare, gear, knowledge, skill, painkiller, bandage, gauze, tape, pin, needle, tweezer, antibiotic, ointment, cream, sunscreen, repellent, spray, medicine, medication, prescription, pill, lenses, glasses, reliever, sanitizer, epinephrine, epi-pen, epipen, inhaler, moleskin, molefoam, tourniquet, splint, alo, vera, gel, swab, mirror, tampon, pad, menstrual, cup, floss, toothbrush, toothpaste, toilet-paper, bidet, bag, trowel, soap, towel, lip-balm, electrolyte -->
@@ -166,13 +168,15 @@ Altitude sickness is caused by low oxygen levels at high altitudes.
 - Acclimate before ascending further.
 - Watch for symptoms above 6,500 feet (2,000 meters).
 
-## Bites/attacks: mammals and other animals
+## Bites, stings, and attacks
+
+### Animals
 <!-- K: bite, attack, animal, mammal, bell, fight, pepper-spray, bear -->
 <!-- S: Treat by washing the wound with soap and water, applying antibiotics, bandaging, and seeking medical attention. Prevent this by avoiding wild animals and making noise to alert them of your presence. -->
 
 Many animals bite when threatened and some can transmit diseases.
 
-### Treatment
+#### Treatment
 
 1. Wash the wound with soap and water.
 2. Apply antibiotic ointment.
@@ -181,7 +185,7 @@ Many animals bite when threatened and some can transmit diseases.
 
 If a mammal bit you, seek medical attention as soon as possible; you may need rabies shots.
 
-### Prevention
+#### Prevention
 
 - Do not approach, corner, or feed wild animals.
 - Use a bear bell or make noise to alert animals.
@@ -198,20 +202,20 @@ If a mammal bit you, seek medical attention as soon as possible; you may need ra
     - If a **grizzly** attacks, play dead unless it stalks you, attacks in your tent, or continues attacking - then fight back.
   - Keep your backpack on; it can offer protection.
 
-## Bites: leeches
+### Leeches
 <!-- K: leech, bite, suck, blood, remove -->
 <!-- S: Treat by removing the leech with a fingernail or flat object and cleaning the area. Prevent this by using insect repellent and wearing long sleeves and pants. -->
 
 Leeches attach to your skin and suck your blood. They can be found in freshwater lakes, ponds, and marshes.
 
-### Symptoms
+#### Symptoms
 
 - Leech attached to the skin.
 - Bleeding.
 - Swelling.
 - Pain.
 
-### Treatment
+#### Treatment
 
 1. Pull it taut (but not too tight).
 2. Slide a fingernail or other flat object between the leech and your skin to detach it.
@@ -221,19 +225,19 @@ Leeches attach to your skin and suck your blood. They can be found in freshwater
 
 Do not salt, burn, or pull the leech off, as this can cause it to regurgitate into the wound.
 
-### Prevention
+#### Prevention
 
 - Use insect repellent.
 - Wear long sleeves and pants.
 - Check for leeches frequently.
 
-## Bites: snakes
+### Snakes
 <!-- K: snake, bite, venom, poison, antivenom, snakebite -->
 <!-- S: Treat by cleaning the wound, applying a bandage, immobilizing the limb, and seeking medical attention. Prevent this by watching where you step and wearing high boots. -->
 
 Always look for snakes, especially in areas with tall grass, rocks, or logs. Snakes are most active during the day. Most snake bites are not venomous, but if you don't know the type of snake, treat the bite as venomous.
 
-### Treatment
+#### Treatment
 
 1. Rinse the bite area with water.
 2. Clean the wound and cover with a bandage.
@@ -249,27 +253,27 @@ Do not do the following:
 - Apply a tourniquet.
 - Apply ice.
 
-### Prevention
+#### Prevention
 
 - Watch where you step.
 - Wear high boots.
 - Do not put your hands or feet where you cannot see.
 - Do not try to catch or kill snakes unless you know they are not venomous.
 
-## Bites/stings: bugs
+### Insects, spiders, and scorpions
 <!-- K: bug, bite, repel, spray, sting, insect, spider, scorpion, mosquito, ant, bee, wasp, hornet, fly, itch, swell, red, remove -->
 <!-- S: Treat by removing the stinger/tick/leech, cleaning the area, and, if needed, seeking medical attention. Prevent this by using insect repellent and wearing long sleeves and pants. -->
 
 Many insects can bite or sting you, causing pain, swelling, and itching. Some insects can also transmit diseases.
 
-### Symptoms
+#### Symptoms
 
 - Itching.
 - Swelling.
 - Redness.
 - Pain.
 
-### Treatment
+#### Treatment
 
 **Bites**
 
@@ -287,7 +291,7 @@ If you were stung by a scorpion or insect you believe to be venomous, treat it a
 
 See the section on objects in the eye.
 
-### Prevention
+#### Prevention
 
 - Use insect repellent.
 - Wear long sleeves and pants.
@@ -298,30 +302,51 @@ See the section on objects in the eye.
 
 You can make an improvised bug repellent by applying mud to your skin or using fire smoke.
 
-## Bites: ticks
+### Ticks
 <!-- K: bite, repel, spray, tick, itch, swell, red, remove -->
 <!-- S: Treat by removing the tick, cleaning the area, and, if needed, seeking medical attention. Prevent this by using insect repellent and wearing long sleeves and pants. -->
 
 Ticks attach to your skin and will feed on your blood. They can transmit diseases such as Lyme disease and Rocky Mountain spotted fever.
 
-### Symptoms
+#### Symptoms
 
 - Itching.
 - Swelling.
 - Redness.
 - Attached tick.
 
-### Treatment
+#### Treatment
 
 1. Using tweezers if available, grasp the tick where it is attached to the skin.
 2. Pull straight out with steady, even pressure. Do not twist or jerk the tick. Do not squeeze the tick's body.
 3. Treat the area as you would for a bug bite.
 
-### Prevention
+#### Prevention
 
 - Use insect repellent.
 - Wear long sleeves and pants.
 - Check for ticks frequently.
+
+### Jellyfish
+<!-- K: jellyfish, sting, tentacle -->
+<!-- S: Treat by removing tentacles, rinsing with seawater, and applying heat. Prevent this by avoiding jellyfish. -->
+
+Many jellyfish have small, venomous stinging cells, typically on tentacles. Even dead jellyfish can sting.
+
+#### Symptoms
+
+- Pain.
+- Itching.
+- Redness.
+- Rash.
+- Swelling.
+
+#### Treatment
+
+1. Rub sand on the area to remove the stingers, but be sure to use a barrier of seaweed or cloth over your hands to avoid getting stung there as well. You can also use the edge of a credit card or tweezers to remove the stingers.
+2. Rinse the area with seawater (or vinegar if you somehow have it on you). Do not rinse with fresh water, as this can cause the stingers to release more venom.
+3. Soak the area in hot water for 30 minutes.
+4. Take pain relievers if needed.
 
 ## Bleeding
 <!-- K: bleed, blood, wound, cut, scrape, deep, clot, pressure, tourniquet, bandage, red, swell, warm, pus -->
