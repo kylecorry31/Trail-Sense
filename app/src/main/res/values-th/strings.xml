@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="direction_north_west">ตะวันตกเฉียงเหนือ</string>
     <string name="direction_west">ตะวันตก</string>
     <string name="kilometers_per_hour_format">%.1f กม/ชม.</string>
@@ -240,7 +240,28 @@
     <string name="samples">ตัวอย่าง</string>
     <string name="source">แหล่งข้อมูล</string>
     <string name="tool_thermometer_title">เทอร์โมมิเตอร์</string>
-    <string name="min_temp_uncalibrated">อุณหภูมิขั้นต่ำของอุปกรณ์ (ยังไม่ปรับเทียบ)</string>
-    <string name="min_temp_calibrated">อุณหภูมิขั้นต่ำของสภาพแวดล้อม (ปรับเทียบแล้ว)</string>
+    <string name="min_temp_uncalibrated">อุณหภูมิของอุปกรณ์ขั้นต่ำ (ยังไม่ปรับเทียบ)</string>
+    <string name="min_temp_calibrated">อุณหภูมิของสภาพแวดล้อมขั้นต่ำ (ปรับเทียบแล้ว)</string>
     <string name="max_temp_uncalibrated">อุณหภูมิของอุปกรณ์ขั้นสูง (ยังไม่ปรับเทียบ)</string>
+    <string name="max_temp_calibrated">อุณหภูมิของสภาพแวดล้อมขั้นสูง (ปรับเทียบแล้ว)</string>
+    <string name="reset_calibration">ล้างค่าการปรับเทียบ</string>
+    <string name="reset_calibration_question">ล้างค่าการปรับเทียบหรือไม่?</string>
+    <string name="pref_backfill_temperatures_title">อัปเดตค่าอุณหภูมิที่บันทึกไว้</string>
+    <string name="no_sensor_message">อุปกรณ์ของคุณไม่มีเซ็นเซอร์ %s</string>
+    <string name="sensor_summary">เข็มทิศ, GPS, เซนเซอร์วัดความสูง, บารอมิเตอร์ ๆลๆ</string>
+    <string name="sensor">เซ็นเซอร์</string>
+    <string name="manual">ด้วยตนเอง</string>
+    <string name="enter_manually">ป้อนด้วยตนเอง</string>
+    <string name="historic">ประวัติข้อมูล</string>
+    <string name="historic_temperature_years" tools:ignore="PluralsCandidate">ประวัติ (%d ปี)</string>
+    <string name="smoothing">ความราบรื่น</string>
+    <string name="tool_category_signaling">การใช้สัญญาณ</string>
+    <string name="tool_ruler_title">ไม้บรรทัด</string>
+    <string name="tool_lightning_description">วัดระยะทางจากตำแหน่งที่แสงฟ้าผ่า</string>
+    <string name="tool_lightning_title">ระยะทางจากแสงฟ้าผ่า</string>
+    <string name="last_lightning_strike_at">แสงฟ้าผ่าครั้งล่าสุด เวลา %s</string>
+    <string name="lightning_dangerously_close">ฟ้าผ่าอยู่ใกล้ในระยะอันตราย</string>
+    <string name="mirror_camera">กระจกเงาจากกล้องหน้า</string>
+    <string name="tool_metal_detector_title">ตัวตรวจจับวัตถุโลหะ</string>
+    <string name="metal_detector_disclaimer">สามารถตรวจจับโลหะที่แม่เหล็กดูดติดได้เท่านั้น (เช่น เหล็ก)</string>
 </resources>
