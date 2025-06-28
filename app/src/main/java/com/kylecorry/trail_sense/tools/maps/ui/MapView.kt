@@ -199,7 +199,9 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
                 ).plus(
                     metersNorth.toDouble(),
                     Bearing(0f)
-                )
+                ).let {
+                    Coordinate(it.latitude.coerceIn(-85.0, 85.0), it.longitude)
+                }
 
             }
             return true
