@@ -1397,4 +1397,5 @@
     <string name="map_layer">Camada do mapa</string>
     <string name="contours">Contornos</string>
     <string name="dem_url">URL do MDE</string>
+    <string name="map">Mapa</string>
 </resources>
