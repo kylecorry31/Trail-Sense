@@ -23,18 +23,19 @@ class MapLayerBackgroundTask {
     fun scheduleUpdate(
         bounds: CoordinateBounds,
         metersPerPixel: Float,
+        isInvalid: Boolean = false,
         update: suspend (bounds: CoordinateBounds, metersPerPixel: Float) -> Unit
     ) {
         scope.launch {
             lock.withLock {
                 // If the bounds/meters per pixel have already been ran or queued, exit
-                if (areBoundsEqual(bounds, lastRunBounds ?: CoordinateBounds.Companion.empty) &&
+                if (!isInvalid && areBoundsEqual(bounds, lastRunBounds ?: CoordinateBounds.Companion.empty) &&
                     metersPerPixel == lastRunMetersPerPixel
                 ) {
                     return@launch
                 }
 
-                if (areBoundsEqual(bounds, lastQueuedBounds ?: CoordinateBounds.Companion.empty) &&
+                if (!isInvalid && areBoundsEqual(bounds, lastQueuedBounds ?: CoordinateBounds.Companion.empty) &&
                     metersPerPixel == lastQueuedMetersPerPixel
                 ) {
                     return@launch

@@ -6,21 +6,18 @@ import android.graphics.Paint
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
+import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.device.DeviceSubsystem
-import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.TileLoader
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.ILayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
+import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.TileLoader
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class MapLayer : ILayer {
 
@@ -30,15 +27,12 @@ class MapLayer : ILayer {
     private var replaceWhitePixels: Boolean = false
     private var backgroundColor: Int = Color.WHITE
     private var minZoom: Int = 0
-    private var lastBounds: CoordinateBounds = CoordinateBounds.empty
-    private var lastMetersPerPixel: Float? = null
-    private val runner = CoroutineQueueRunner(2)
-    private val scope = CoroutineScope(Dispatchers.Default)
     private val loader = TileLoader()
     private val tilePaint = Paint().apply {
         isAntiAlias = true
         isFilterBitmap = true
     }
+    private val taskRunner = MapLayerBackgroundTask()
 
     fun setMaps(maps: List<PhotoMap>) {
         this.maps = maps
@@ -72,38 +66,29 @@ class MapLayer : ILayer {
         }
 
         // Load tiles if needed
-        val bounds = map.mapBounds
-        if (shouldReloadTiles || !areBoundsEqual(
-                lastBounds,
-                bounds
-            ) || map.metersPerPixel != lastMetersPerPixel
-        ) {
+        taskRunner.scheduleUpdate(
+            map.mapBounds,
+            map.metersPerPixel,
+            shouldReloadTiles
+        ) { bounds, metersPerPixel ->
             shouldReloadTiles = false
-            scope.launch {
-                // TODO: Debounce loader
-                runner.enqueue {
-                    try {
-                        loader.loadTiles(
-                            maps,
-                            bounds.grow(getGrowPercent()),
-                            lastMetersPerPixel ?: 0f,
-                            replaceWhitePixels,
-                            minZoom,
-                            backgroundColor
-                        )
-                    } catch (e: CancellationException) {
-                        System.gc()
-                        throw e
-                    } catch (e: Throwable) {
-                        e.printStackTrace()
-                        shouldReloadTiles = true
-                    }
-                }
+            try {
+                loader.loadTiles(
+                    maps,
+                    bounds.grow(getGrowPercent()),
+                    metersPerPixel,
+                    replaceWhitePixels,
+                    minZoom,
+                    backgroundColor
+                )
+            } catch (e: CancellationException) {
+                System.gc()
+                throw e
+            } catch (e: Throwable) {
+                e.printStackTrace()
+                shouldReloadTiles = true
             }
         }
-
-        lastBounds = bounds
-        lastMetersPerPixel = map.metersPerPixel
 
         // Render loaded tiles
         synchronized(loader.lock) {
