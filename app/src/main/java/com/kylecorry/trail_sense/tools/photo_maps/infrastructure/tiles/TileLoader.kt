@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.util.Log
 import androidx.core.graphics.createBitmap
+import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
 import com.kylecorry.trail_sense.shared.bitmaps.Convert
@@ -36,16 +37,16 @@ class TileLoader {
         replaceWhitePixels: Boolean = false,
         minZoom: Int = 0,
         backgroundColor: Int = Color.WHITE
-    ) {
+    ) = onDefault {
         // Step 1: Split the visible area into tiles (geographic)
         val tiles = TileMath.getTiles(bounds, metersPerPixel.toDouble())
         if (tiles.size > 100) {
             Log.d("TileLoader", "Too many tiles to load: ${tiles.size}")
-            return
+            return@onDefault
         }
 
         if ((tiles.firstOrNull()?.z ?: 0) < minZoom) {
-            return
+            return@onDefault
         }
 
         // Step 2: For each tile, determine which map(s) will supply it.

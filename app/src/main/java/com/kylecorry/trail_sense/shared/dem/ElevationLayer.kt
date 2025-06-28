@@ -4,6 +4,7 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.ui.colormaps.RgbInterpolationColorMap
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -12,13 +13,14 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
 import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.TileMath
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.ILayer
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.TileMath
 
-class ElevationLayer : ILayer {
+class ElevationLayer : IAsyncLayer {
 
     private val units by lazy { AppServiceRegistry.get<UserPreferences>().baseDistanceUnits }
+    private var updateListener: (() -> Unit)? = null
 
     private val minZoomLevel = 13
     private val maxZoomLevel = 19
@@ -99,6 +101,9 @@ class ElevationLayer : ILayer {
             val interval = validIntervals[zoomLevel] ?: validIntervals.values.first()
             contours = DEM.getContourLines(bounds, interval, validResolutions[zoomLevel]!!)
             contourInterval = interval
+            onMain {
+                updateListener?.invoke()
+            }
         }
 
         drawer.stroke(AppColor.Brown.color)
@@ -159,5 +164,9 @@ class ElevationLayer : ILayer {
         pixel: PixelCoordinate
     ): Boolean {
         return false
+    }
+
+    override fun setHasUpdateListener(listener: (() -> Unit)?) {
+        updateListener = listener
     }
 }

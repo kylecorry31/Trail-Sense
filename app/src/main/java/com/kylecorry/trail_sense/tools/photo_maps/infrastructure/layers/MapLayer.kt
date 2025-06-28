@@ -6,6 +6,7 @@ import android.graphics.Paint
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.CompassDirection
@@ -13,13 +14,13 @@ import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
 import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.device.DeviceSubsystem
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.ILayer
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.TileLoader
 import kotlinx.coroutines.CancellationException
 
-class MapLayer : ILayer {
+class MapLayer : IAsyncLayer {
 
     private var shouldReloadTiles = true
     private var maps: List<PhotoMap> = emptyList()
@@ -33,6 +34,7 @@ class MapLayer : ILayer {
         isFilterBitmap = true
     }
     private val taskRunner = MapLayerBackgroundTask()
+    private var updateListener: (() -> Unit)? = null
 
     fun setMaps(maps: List<PhotoMap>) {
         this.maps = maps
@@ -81,6 +83,9 @@ class MapLayer : ILayer {
                     minZoom,
                     backgroundColor
                 )
+                onMain {
+                    updateListener?.invoke()
+                }
             } catch (e: CancellationException) {
                 System.gc()
                 throw e
@@ -170,5 +175,9 @@ class MapLayer : ILayer {
                 )
             }
         }
+    }
+
+    override fun setHasUpdateListener(listener: (() -> Unit)?) {
+        updateListener = listener
     }
 }

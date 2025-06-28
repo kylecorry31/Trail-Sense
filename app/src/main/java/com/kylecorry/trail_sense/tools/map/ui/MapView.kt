@@ -15,6 +15,7 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.ILayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
 import kotlin.math.max
@@ -88,10 +89,6 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     private var minScale = 0f
     private var maxScale = 1f
 
-    init {
-        runEveryCycle = true
-    }
-
     override fun addLayer(layer: ILayer) {
         layers.add(layer)
     }
@@ -103,6 +100,8 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     override fun setLayers(layers: List<ILayer>) {
         this.layers.clear()
         this.layers.addAll(layers)
+        this.layers.filterIsInstance<IAsyncLayer>()
+            .forEach { it.setHasUpdateListener { invalidate() } }
     }
 
     private val projection = MercatorProjection()

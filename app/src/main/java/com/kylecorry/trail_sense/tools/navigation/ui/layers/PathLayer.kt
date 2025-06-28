@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.core.cache.ObjectPool
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
+import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.sol.math.SolMath.positive
 import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.math.geometry.Rectangle
@@ -24,7 +25,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PathLayer : ILayer, IPathLayer {
+class PathLayer : IAsyncLayer, IPathLayer {
 
     private var pathsRendered = false
     private var renderInProgress = false
@@ -33,6 +34,7 @@ class PathLayer : ILayer, IPathLayer {
     private var renderedPaths = mapOf<Long, RenderedPath>()
     private val _paths =
         mutableListOf<IMappablePath>() // TODO: Make this Pair<Path, List<PathPoint>>
+    private var updateListener: (() -> Unit)? = null
 
     private var shouldRenderWithDrawLines = false
 
@@ -112,6 +114,9 @@ class PathLayer : ILayer, IPathLayer {
         scope.launch {
             runner.replace {
                 render(renderer)
+                onMain {
+                    updateListener?.invoke()
+                }
             }
         }
     }
@@ -189,5 +194,9 @@ class PathLayer : ILayer, IPathLayer {
         // Rotating by map rotation wasn't working around 90/270 degrees - this is a workaround
         // It will just render slightly more of the path than needed, but never less (since 45 is when the area is at its largest)
         return drawer.getBounds(45f)
+    }
+
+    override fun setHasUpdateListener(listener: (() -> Unit)?) {
+        updateListener = listener
     }
 }
