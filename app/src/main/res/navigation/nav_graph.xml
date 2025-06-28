@@ -46,9 +46,9 @@
         android:label="activity_weather"
         tools:layout="@layout/activity_weather" />
     <fragment
-        android:id="@+id/mapsFragment"
-        android:name="com.kylecorry.trail_sense.tools.maps.ui.MapsFragment"
-        android:label="MapsFragment" />
+        android:id="@+id/mapFragment"
+        android:name="com.kylecorry.trail_sense.tools.map.ui.MapFragment"
+        android:label="MapFragment" />
     <fragment
         android:id="@+id/action_settings"
         android:name="com.kylecorry.trail_sense.settings.ui.SettingsFragment"

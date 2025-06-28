@@ -36,7 +36,7 @@ import com.kylecorry.trail_sense.tools.guide.UserGuideToolRegistration
 import com.kylecorry.trail_sense.tools.level.BubbleLevelToolRegistration
 import com.kylecorry.trail_sense.tools.light.LightMeterToolRegistration
 import com.kylecorry.trail_sense.tools.lightning.LightningStrikeDistanceToolRegistration
-import com.kylecorry.trail_sense.tools.maps.MapsToolRegistration
+import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.metaldetector.MetalDetectorToolRegistration
 import com.kylecorry.trail_sense.tools.mirror.MirrorCameraToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
@@ -115,7 +115,7 @@ object Tools {
         BallisticsToolRegistration,
         PermitsToolRegistration,
         DeclinationToolRegistration,
-        MapsToolRegistration
+        MapToolRegistration
     )
     private val topics = mutableMapOf<String, Topic<Bundle>>()
     private val broadcastScope = CoroutineScope(Dispatchers.Main)

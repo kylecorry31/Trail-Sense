@@ -1,11 +1,11 @@
-package com.kylecorry.trail_sense.tools.maps.ui
+package com.kylecorry.trail_sense.tools.map.ui
 
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useNavigationSensors
 
-class MapsFragment : TrailSenseReactiveFragment(R.layout.fragment_maps) {
+class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
     override fun update() {
         val mapView = useView<MapView>(R.id.map)
         val navigation = useNavigationSensors(trueNorth = true)
