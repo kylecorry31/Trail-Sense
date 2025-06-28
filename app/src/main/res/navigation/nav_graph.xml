@@ -562,7 +562,7 @@
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"
-        android:name="com.kylecorry.trail_sense.tools.photo_maps.ui.MapsFragment"
+        android:name="com.kylecorry.trail_sense.tools.photo_maps.ui.PhotoMapsFragment"
         android:label="MapsFragment">
         <argument
             android:name="mapId"
@@ -584,7 +584,7 @@
     </fragment>
     <fragment
         android:id="@+id/mapListFragment"
-        android:name="com.kylecorry.trail_sense.tools.photo_maps.ui.MapListFragment"
+        android:name="com.kylecorry.trail_sense.tools.photo_maps.ui.PhotoMapListFragment"
         android:label="MapListFragment">
         <action
             android:id="@+id/action_mapList_to_maps"

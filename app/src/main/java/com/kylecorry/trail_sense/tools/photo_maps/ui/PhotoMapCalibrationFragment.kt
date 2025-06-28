@@ -18,7 +18,7 @@ import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.roundNearestAngle
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentMapCalibrationBinding
+import com.kylecorry.trail_sense.databinding.FragmentPhotoMapCalibrationBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -41,7 +41,7 @@ import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyAccuracyLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.PathLayer
 
-class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
+class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBinding>() {
 
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
 
@@ -120,8 +120,8 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentMapCalibrationBinding {
-        return FragmentMapCalibrationBinding.inflate(layoutInflater, container, false)
+    ): FragmentPhotoMapCalibrationBinding {
+        return FragmentPhotoMapCalibrationBinding.inflate(layoutInflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -371,8 +371,8 @@ class MapCalibrationFragment : BoundFragment<FragmentMapCalibrationBinding>() {
             mapId: Long,
             showRotation: (rotation: Float) -> Unit = {},
             onComplete: () -> Unit = {}
-        ): MapCalibrationFragment {
-            return MapCalibrationFragment().apply {
+        ): PhotoMapCalibrationFragment {
+            return PhotoMapCalibrationFragment().apply {
                 arguments = bundleOf("mapId" to mapId)
                 setOnRotationListener(showRotation)
                 setOnCompleteListener(onComplete)

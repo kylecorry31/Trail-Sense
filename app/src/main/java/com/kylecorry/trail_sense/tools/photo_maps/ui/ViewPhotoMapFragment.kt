@@ -24,7 +24,7 @@ import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentMapsViewBinding
+import com.kylecorry.trail_sense.databinding.FragmentPhotoMapsViewBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
@@ -63,7 +63,7 @@ import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathServ
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
+class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
@@ -135,8 +135,8 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentMapsViewBinding {
-        return FragmentMapsViewBinding.inflate(layoutInflater, container, false)
+    ): FragmentPhotoMapsViewBinding {
+        return FragmentPhotoMapsViewBinding.inflate(layoutInflater, container, false)
     }
 
     override fun onResume() {
@@ -626,8 +626,8 @@ class ViewMapFragment : BoundFragment<FragmentMapsViewBinding>() {
     }
 
     companion object {
-        fun create(mapId: Long, autoLockLocation: Boolean = false): ViewMapFragment {
-            return ViewMapFragment().apply {
+        fun create(mapId: Long, autoLockLocation: Boolean = false): ViewPhotoMapFragment {
+            return ViewPhotoMapFragment().apply {
                 arguments = bundleOf("mapId" to mapId, "autoLockLocation" to autoLockLocation)
             }
         }

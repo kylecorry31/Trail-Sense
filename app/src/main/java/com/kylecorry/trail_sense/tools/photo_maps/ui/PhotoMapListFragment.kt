@@ -19,7 +19,7 @@ import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.onBackPressed
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentMapListBinding
+import com.kylecorry.trail_sense.databinding.FragmentPhotoMapListBinding
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.grouping.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.grouping.lists.bind
@@ -55,7 +55,7 @@ import com.kylecorry.trail_sense.tools.photo_maps.ui.mappers.IMapMapper
 import com.kylecorry.trail_sense.tools.photo_maps.ui.mappers.MapAction
 import com.kylecorry.trail_sense.tools.photo_maps.ui.mappers.MapGroupAction
 
-class MapListFragment : BoundFragment<FragmentMapListBinding>() {
+class PhotoMapListFragment : BoundFragment<FragmentPhotoMapListBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS() }
@@ -82,8 +82,8 @@ class MapListFragment : BoundFragment<FragmentMapListBinding>() {
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentMapListBinding {
-        return FragmentMapListBinding.inflate(layoutInflater, container, false)
+    ): FragmentPhotoMapListBinding {
+        return FragmentPhotoMapListBinding.inflate(layoutInflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

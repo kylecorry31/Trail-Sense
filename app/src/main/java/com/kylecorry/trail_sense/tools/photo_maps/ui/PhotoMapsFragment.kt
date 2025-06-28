@@ -18,7 +18,7 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.print.Printer
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentMapsBinding
+import com.kylecorry.trail_sense.databinding.FragmentPhotoMapsBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapProjectionType
@@ -32,7 +32,7 @@ import com.kylecorry.trail_sense.tools.photo_maps.ui.commands.RenameMapCommand
 import kotlin.math.absoluteValue
 
 
-class MapsFragment : BoundFragment<FragmentMapsBinding>() {
+class PhotoMapsFragment : BoundFragment<FragmentPhotoMapsBinding>() {
 
     private val mapRepo by lazy { MapRepo.getInstance(requireContext()) }
     private val mapService by lazy { MapService.getInstance(requireContext()) }
@@ -54,8 +54,8 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
     override fun generateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentMapsBinding {
-        return FragmentMapsBinding.inflate(layoutInflater, container, false)
+    ): FragmentPhotoMapsBinding {
+        return FragmentPhotoMapsBinding.inflate(layoutInflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -73,7 +73,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
 
         binding.mapTitle.rightButton.setOnClickListener {
             val fragment = currentFragment
-            val isMapView = fragment != null && fragment is ViewMapFragment
+            val isMapView = fragment != null && fragment is ViewPhotoMapFragment
 
             val actions = listOf(
                 MapContextualAction.Calibrate to if (isMapView) getString(R.string.calibrate) else null,
@@ -116,7 +116,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
 
     private fun calibrate() {
         binding.mapTitle.leftButton.isVisible = true
-        val fragment = MapCalibrationFragment.create(mapId, this::showRotation) {
+        val fragment = PhotoMapCalibrationFragment.create(mapId, this::showRotation) {
             inBackground {
                 autoRotate()
                 loadMap()
@@ -165,14 +165,14 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
 
     private fun measure() {
         val fragment = currentFragment
-        if (fragment != null && fragment is ViewMapFragment) {
+        if (fragment != null && fragment is ViewPhotoMapFragment) {
             fragment.startDistanceMeasurement()
         }
     }
 
     private fun trace() {
         val fragment = currentFragment
-        if (fragment != null && fragment is ViewMapFragment) {
+        if (fragment != null && fragment is ViewPhotoMapFragment) {
             fragment.trace()
         }
     }
@@ -214,22 +214,22 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
 
     private fun recenter() {
         val fragment = currentFragment
-        if (fragment != null && fragment is ViewMapFragment) {
+        if (fragment != null && fragment is ViewPhotoMapFragment) {
             fragment.recenter()
         }
 
-        if (fragment != null && fragment is MapCalibrationFragment) {
+        if (fragment != null && fragment is PhotoMapCalibrationFragment) {
             fragment.recenter()
         }
     }
 
     private fun reload() {
         val fragment = currentFragment
-        if (fragment != null && fragment is ViewMapFragment) {
+        if (fragment != null && fragment is ViewPhotoMapFragment) {
             fragment.reloadMap()
         }
 
-        if (fragment != null && fragment is MapCalibrationFragment) {
+        if (fragment != null && fragment is PhotoMapCalibrationFragment) {
             fragment.reloadMap()
         }
     }
@@ -293,7 +293,7 @@ class MapsFragment : BoundFragment<FragmentMapsBinding>() {
     private fun view() {
         hideRotation()
         binding.mapTitle.leftButton.isVisible = true
-        val fragment = ViewMapFragment.create(mapId, autoLockLocation)
+        val fragment = ViewPhotoMapFragment.create(mapId, autoLockLocation)
         setFragment(fragment)
     }
 
