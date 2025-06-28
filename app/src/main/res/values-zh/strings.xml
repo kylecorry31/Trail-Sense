@@ -1413,4 +1413,5 @@
     <string name="built_in_dem">内置（低精度）</string>
     <string name="contours">外形</string>
     <string name="map_layer">地图层</string>
+    <string name="dem_url">数字高程模型 URL</string>
 </resources>
