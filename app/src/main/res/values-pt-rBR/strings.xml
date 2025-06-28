@@ -1396,6 +1396,5 @@
     <string name="ungroup_alerts">Desagrupar alertas</string>
     <string name="map_layer">Camada do mapa</string>
     <string name="contours">Contornos</string>
-    <string name="pref_dem_url">pref_dem_url</string>
     <string name="dem_url">URL do MDE</string>
 </resources>
