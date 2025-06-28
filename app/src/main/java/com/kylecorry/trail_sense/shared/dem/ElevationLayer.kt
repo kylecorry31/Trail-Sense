@@ -9,6 +9,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
 import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.maps.infrastructure.tiles.TileMath
@@ -101,42 +102,44 @@ class ElevationLayer : ILayer {
         }
 
         drawer.stroke(AppColor.Brown.color)
-        drawer.opacity(127)
         drawer.noFill()
-        val thickLineWeight = drawer.dp(2.5f)
-        val thinLineWeight = drawer.dp(1f)
 
-        // TODO: Draw as curve
-        contours.forEach { level ->
-            if (shouldColorContours) {
-                drawer.stroke(
-                    colorScale.getColor(
-                        SolMath.norm(
-                            level.first,
-                            minScaleElevation,
-                            maxScaleElevation,
-                            true
+        drawer.withLayerOpacity(127) {
+            val thickLineWeight = drawer.dp(2.5f)
+            val thinLineWeight = drawer.dp(1f)
+
+            // TODO: Draw as curve
+            contours.forEach { level ->
+                if (shouldColorContours) {
+                    drawer.stroke(
+                        colorScale.getColor(
+                            SolMath.norm(
+                                level.first,
+                                minScaleElevation,
+                                maxScaleElevation,
+                                true
+                            )
                         )
                     )
-                )
-            }
-            drawer.strokeWeight(if (SolMath.isZero((level.first / contourInterval) % 5)) thickLineWeight else thinLineWeight)
-            level.second.forEach { line ->
-                val points = mutableListOf<Float>()
-                for (i in 0 until (line.size - 1)) {
-                    val pixel1 = map.toPixel(line[i])
-                    val pixel2 = map.toPixel(line[i + 1])
-                    points.add(pixel1.x)
-                    points.add(pixel1.y)
-                    points.add(pixel2.x)
-                    points.add(pixel2.y)
                 }
-                drawer.lines(points.toFloatArray())
+                drawer.strokeWeight(if (SolMath.isZero((level.first / contourInterval) % 5)) thickLineWeight else thinLineWeight)
+                level.second.forEach { line ->
+                    val points = mutableListOf<Float>()
+                    for (i in 0 until (line.size - 1)) {
+                        val pixel1 = map.toPixel(line[i])
+                        val pixel2 = map.toPixel(line[i + 1])
+                        points.add(pixel1.x)
+                        points.add(pixel1.y)
+                        points.add(pixel2.x)
+                        points.add(pixel2.y)
+                    }
+                    drawer.lines(points.toFloatArray())
+                }
             }
+
+            // TODO: Labels
         }
 
-        // TODO: Labels
-        drawer.opacity(255)
     }
 
     override fun drawOverlay(

@@ -11,6 +11,7 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.trail_sense.main.errors.SafeMode
+import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
 import com.kylecorry.trail_sense.shared.device.DeviceSubsystem
 import com.kylecorry.trail_sense.tools.maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.maps.infrastructure.tiles.TileLoader
@@ -112,9 +113,9 @@ class MapLayer : ILayer {
                 renderTiles(drawer.canvas, map)
             } else {
                 tilePaint.alpha = 255
-                drawer.canvas.saveLayerAlpha(null, opacity)
-                renderTiles(drawer.canvas, map)
-                drawer.canvas.restore()
+                drawer.withLayerOpacity(opacity) {
+                    renderTiles(drawer.canvas, map)
+                }
             }
         }
     }
