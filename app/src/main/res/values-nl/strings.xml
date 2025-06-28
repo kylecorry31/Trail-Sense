@@ -1426,4 +1426,5 @@
     <string name="notification_grouping">Meldingsgroepering</string>
     <string name="map_layer">Kaartlaag</string>
     <string name="contours">Contouren</string>
+    <string name="dem_url">DEM URL</string>
 </resources>
