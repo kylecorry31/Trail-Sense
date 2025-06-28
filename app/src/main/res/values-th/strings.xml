@@ -263,5 +263,7 @@
     <string name="lightning_dangerously_close">ฟ้าผ่าอยู่ใกล้ในระยะอันตราย</string>
     <string name="mirror_camera">กระจกเงาจากกล้องหน้า</string>
     <string name="tool_metal_detector_title">ตัวตรวจจับวัตถุโลหะ</string>
-    <string name="metal_detector_disclaimer">สามารถตรวจจับโลหะที่แม่เหล็กดูดติดได้เท่านั้น (เช่น เหล็ก)</string>
+    <string name="metal_detector_disclaimer">ตรวจจับโลหะที่แม่เหล็กดูดติดได้เท่านั้น (เช่น เหล็ก)</string>
+    <string name="calibrate">ปรับเทียบ</string>
+    <string name="calibrate_compass_dialog_title">ปรับเทียบเข็มทิศ</string>
 </resources>
