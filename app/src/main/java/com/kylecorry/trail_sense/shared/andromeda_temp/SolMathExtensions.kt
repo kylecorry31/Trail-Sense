@@ -4,6 +4,14 @@ import com.kylecorry.sol.math.interpolation.Interpolation
 import kotlin.math.ceil
 import kotlin.math.floor
 
+fun Float.floorToInt(): Int {
+    return floor(this).toInt()
+}
+
+fun Float.ceilToInt(): Int {
+    return ceil(this).toInt()
+}
+
 fun Interpolation.getMultiplesBetween(
     start: Double,
     end: Double,

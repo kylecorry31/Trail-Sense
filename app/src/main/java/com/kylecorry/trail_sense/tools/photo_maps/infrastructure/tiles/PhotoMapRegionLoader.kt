@@ -10,6 +10,8 @@ import com.kylecorry.luna.coroutines.onIO
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.andromeda_temp.ImageRegionLoader
+import com.kylecorry.trail_sense.shared.andromeda_temp.ceilToInt
+import com.kylecorry.trail_sense.shared.andromeda_temp.floorToInt
 import com.kylecorry.trail_sense.shared.bitmaps.Conditional
 import com.kylecorry.trail_sense.shared.bitmaps.CorrectPerspective
 import com.kylecorry.trail_sense.shared.bitmaps.ReplaceColor
@@ -35,10 +37,10 @@ class PhotoMapRegionLoader(
         val southWest = projection.toPixels(bounds.southWest)
         val northEast = projection.toPixels(bounds.northEast)
 
-        val left = listOf(northWest.x, southWest.x, northEast.x, southEast.x).min().toInt()
-        val right = listOf(northWest.x, southWest.x, northEast.x, southEast.x).max().toInt()
-        val top = listOf(northWest.y, southWest.y, northEast.y, southEast.y).min().toInt()
-        val bottom = listOf(northWest.y, southWest.y, northEast.y, southEast.y).max().toInt()
+        val left = listOf(northWest.x, southWest.x, northEast.x, southEast.x).min().floorToInt()
+        val right = listOf(northWest.x, southWest.x, northEast.x, southEast.x).max().ceilToInt()
+        val top = listOf(northWest.y, southWest.y, northEast.y, southEast.y).min().floorToInt()
+        val bottom = listOf(northWest.y, southWest.y, northEast.y, southEast.y).max().ceilToInt()
 
         val size = map.metadata.unscaledPdfSize ?: map.metadata.size
 
@@ -63,7 +65,6 @@ class PhotoMapRegionLoader(
 
         val isRotated = !SolMath.isZero(
             SolMath.deltaAngle(map.calibration.rotation, 0f),
-            0.5f
         )
 
 
