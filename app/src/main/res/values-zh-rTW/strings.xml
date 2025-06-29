@@ -1354,7 +1354,7 @@
     <string name="mosquitoes">蚊子</string>
     <string name="opacity">不透明度</string>
     <string name="declination">赤緯</string>
-    <string name="digital_elevation_model_abbreviation">數位海拔模型</string>
+    <string name="digital_elevation_model_abbreviation">DEM</string>
     <string name="loaded">已載入</string>
     <string name="contours">輪廓</string>
     <string name="map">地圖</string>
@@ -1368,4 +1368,11 @@
     <string name="map_layer">地圖圖層</string>
     <string name="dem_url">DEM 網址</string>
     <string name="altimeter_mode_dem_barometer">DEM + 氣壓計</string>
+    <string name="invalid_dem_file">無效的 DEM 檔案</string>
+    <string name="import_dem_file">匯入 DEM 檔案</string>
+    <string name="plugin_digital_elevation_model">數位海拔模型（DEM）</string>
+    <string name="pref_navigation_lock_screen_when_open_title">開啟時顯示在鎖定畫面上</string>
+    <string name="safe_mode_toast">偵測到崩潰，某些功能停用幾秒鐘。</string>
+    <string name="alarm_description">即使媒體和通知已靜音也會播放聲音</string>
+    <string name="built_in_dem">內置（低準確性）</string>
 </resources>
