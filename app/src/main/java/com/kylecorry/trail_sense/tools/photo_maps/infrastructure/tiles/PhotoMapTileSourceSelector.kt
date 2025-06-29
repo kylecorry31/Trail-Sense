@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles
 
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 
@@ -13,6 +14,7 @@ class PhotoMapTileSourceSelector(
         .filter { it.isCalibrated && it.visible }
         .sortedBy { it.distancePerPixel() }
 
+    // TODO: Factor in rotation by using projection to see if the bounds intersect/are contained
     override fun getRegionLoaders(bounds: CoordinateBounds): List<IGeographicImageRegionLoader> {
         val minArea = bounds.width().meters().distance.toDouble() * bounds.height()
             .meters().distance.toDouble() * 0.25
@@ -27,44 +29,34 @@ class PhotoMapTileSourceSelector(
             area >= minArea
         }
 
-        val firstContainedIndex = possibleMaps.indexOfFirst {
+        val firstContained = possibleMaps.firstOrNull {
             contains(
-                it.boundary() ?: return@indexOfFirst false,
+                it.boundary() ?: return@firstOrNull false,
                 bounds,
                 fullyContained = true
             )
         }
 
-        val firstContained = if (firstContainedIndex != -1) {
-            possibleMaps[firstContainedIndex]
-        } else {
-            null
-        }
+        val containedMaps = possibleMaps.filter {
+            contains(
+                it.boundary() ?: return@filter false,
+                bounds
+            )
+        }.take(maxLayers).toMutableList()
 
-        // TODO: This can be merged with the no containing map case
-        val intersectsBeforeContained = possibleMaps
-            .filterIndexed { index, it ->
-                if (index >= firstContainedIndex) {
-                    return@filterIndexed false
-                }
 
-                contains(
-                    it.boundary() ?: return@filterIndexed false,
-                    bounds
-                )
+        val maps = if (firstContained != null && !containedMaps.contains(firstContained)) {
+            if (containedMaps.size == maxLayers) {
+                containedMaps.removeLastOrNull()
             }
-
-
-        val maps = if (firstContained != null) {
-            intersectsBeforeContained.take(maxLayers - 1) +
-                    listOf(firstContained)
+            containedMaps.add(firstContained)
+            containedMaps
+        } else if (firstContained != null && SolMath.isZero(firstContained.baseRotation() - firstContained.calibration.rotation, 0.5f)) {
+            // The contained map isn't really rotated so don't include maps after it
+            val index = containedMaps.indexOf(firstContained)
+            containedMaps.subList(0, minOf(index + 1, containedMaps.size))
         } else {
-            possibleMaps.filter {
-                contains(
-                    it.boundary() ?: return@filter false,
-                    bounds
-                )
-            }.take(maxLayers)
+            containedMaps
         }
 
         return maps.map { PhotoMapRegionLoader(it, replaceWhitePixels) }
