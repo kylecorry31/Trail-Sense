@@ -20,7 +20,6 @@ import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PercentBounds
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
-import kotlin.math.min
 
 class PhotoMapRegionLoader(
     private val map: PhotoMap,
@@ -91,25 +90,11 @@ class PhotoMapRegionLoader(
                 return@use null // No area to load
             }
 
-            val scale = if (region.width() > maxSize.width || region.height() > maxSize.height) {
-                min(
-                    maxSize.width.toFloat() / region.width(),
-                    maxSize.height.toFloat() / region.height()
-                )
-            } else {
-                1f
-            }
-
-            val destinationSize = Size(
-                (region.width() * scale).toInt(),
-                (region.height() * scale).toInt()
-            )
-
             val bitmap = ImageRegionLoader.decodeBitmapRegionWrapped(
                 stream,
                 region,
                 size.toAndroidSize(),
-                destinationSize = destinationSize,
+                destinationSize = maxSize,
                 options = options,
                 enforceBounds = false
             )
