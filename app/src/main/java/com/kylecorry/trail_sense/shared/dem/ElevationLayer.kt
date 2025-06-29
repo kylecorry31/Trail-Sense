@@ -6,7 +6,6 @@ import com.kylecorry.andromeda.core.ui.colormaps.RgbInterpolationColorMap
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -76,7 +75,7 @@ class ElevationLayer : IAsyncLayer {
         19 to baseResolution / 4
     )
 
-    private var contours = listOf<Pair<Float, List<List<Coordinate>>>>()
+    private var contours = listOf<Contour>()
     private var contourInterval = 1f
 
     override fun draw(
@@ -119,7 +118,7 @@ class ElevationLayer : IAsyncLayer {
                     drawer.stroke(
                         colorScale.getColor(
                             SolMath.norm(
-                                level.first,
+                                level.elevation,
                                 minScaleElevation,
                                 maxScaleElevation,
                                 true
@@ -127,8 +126,8 @@ class ElevationLayer : IAsyncLayer {
                         )
                     )
                 }
-                drawer.strokeWeight(if (SolMath.isZero((level.first / contourInterval) % 5)) thickLineWeight else thinLineWeight)
-                level.second.forEach { line ->
+                drawer.strokeWeight(if (SolMath.isZero((level.elevation / contourInterval) % 5)) thickLineWeight else thinLineWeight)
+                level.lines.forEach { line ->
                     val points = mutableListOf<Float>()
                     for (i in 0 until (line.size - 1)) {
                         val pixel1 = map.toPixel(line[i])
@@ -140,9 +139,19 @@ class ElevationLayer : IAsyncLayer {
                     }
                     drawer.lines(points.toFloatArray())
                 }
-            }
 
-            // TODO: Labels
+                // TODO: Labels
+//                level.slopeAngles.forEach { (location, angle) ->
+//                    val pixel = map.toPixel(location)
+//                    val endPixel = map.toPixel(location.plus(10.0, Bearing(angle)))
+//                    drawer.line(
+//                        pixel.x,
+//                        pixel.y,
+//                        endPixel.x,
+//                        endPixel.y
+//                    )
+//                }
+            }
         }
 
     }

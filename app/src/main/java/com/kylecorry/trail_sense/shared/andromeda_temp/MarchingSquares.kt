@@ -10,7 +10,8 @@ object MarchingSquares {
         grid: List<List<Pair<T, Float>>>,
         threshold: Float,
         interpolator: (percent: Float, a: T, b: T) -> T,
-    ): List<() -> List<Pair<T, T>>> {
+        angleCalculator: (T, T) -> Float = { a, b -> 0f }
+    ): List<() -> List<IsolineSegment<T>>> {
         val squares = mutableListOf<List<Pair<T, Float>>>()
         for (i in 0 until grid.size - 1) {
             for (j in 0 until grid[i].size - 1) {
@@ -26,7 +27,7 @@ object MarchingSquares {
 
         return squares.map { square ->
             {
-                marchingSquares(square, threshold, interpolator)
+                marchingSquares(square, threshold, interpolator, angleCalculator)
             }
         }
     }
@@ -34,18 +35,20 @@ object MarchingSquares {
     fun <T> getIsoline(
         grid: List<List<Pair<T, Float>>>,
         threshold: Float,
-        interpolator: (percent: Float, a: T, b: T) -> T
-    ): List<Pair<T, T>> {
-        val calculators = getIsolineCalculators(grid, threshold, interpolator)
+        interpolator: (percent: Float, a: T, b: T) -> T,
+        angleCalculator: (T, T) -> Float = { a, b -> 0f }
+    ): List<IsolineSegment<T>> {
+        val calculators = getIsolineCalculators(grid, threshold, interpolator, angleCalculator)
         return calculators.flatMap { it() }
     }
 
     private fun <T> marchingSquares(
         square: List<Pair<T, Float>>,
         threshold: Float,
-        interpolator: (Float, T, T) -> T
-    ): List<Pair<T, T>> {
-        val contourLines = mutableListOf<Pair<T, T>>()
+        interpolator: (Float, T, T) -> T,
+        angleCalculator: (T, T) -> Float = { a, b -> 0f }
+    ): List<IsolineSegment<T>> {
+        val contourLines = mutableListOf<IsolineSegment<T>>()
 
 
         /**
@@ -67,16 +70,36 @@ object MarchingSquares {
         val bd = getInterpolatedPoint(threshold, b, d, interpolator)
         val cd = getInterpolatedPoint(threshold, c, d, interpolator)
 
+        val cornersAsNumber = listOf(
+            if (a.second >= threshold) 1 else 0,
+            if (b.second >= threshold) 2 else 0,
+            if (c.second >= threshold) 4 else 0,
+            if (d.second >= threshold) 8 else 0
+        ).sum()
+
+        val perpendicularDirection = when (cornersAsNumber) {
+            0b1100, 0b1101, 0b0100, 0b0101, 0b0111, 0b0001 -> -90f
+            0b1000, 0b1110, 0b1011, 0b1010, 0b0011 -> 90f
+            else -> 0f
+        }
+
         // If there are exactly 2 intersections, then there is 1 line
         val intersections = listOfNotNull(ab, ac, bd, cd)
         if (intersections.size == 2) {
-            contourLines.add(intersections[0] to intersections[1])
+            val angle = angleCalculator(intersections[0], intersections[1])
+            val slopeAngle = angle + perpendicularDirection
+
+            contourLines.add(IsolineSegment(intersections[0], intersections[1], slopeAngle))
         } else if (intersections.size == 4 && a.second >= threshold) {
-            contourLines.add(intersections[0] to intersections[2])
-            contourLines.add(intersections[1] to intersections[3])
+            val angle1 = angleCalculator(intersections[0], intersections[1])
+            val angle2 = angleCalculator(intersections[2], intersections[3])
+            contourLines.add(IsolineSegment(intersections[0], intersections[2], angle1 + 90f))
+            contourLines.add(IsolineSegment(intersections[1], intersections[3], angle2 - 90f))
         } else if (intersections.size == 4 && a.second < threshold) {
-            contourLines.add(intersections[0] to intersections[1])
-            contourLines.add(intersections[2] to intersections[3])
+            val angle1 = angleCalculator(intersections[0], intersections[1])
+            val angle2 = angleCalculator(intersections[2], intersections[3])
+            contourLines.add(IsolineSegment(intersections[0], intersections[1], angle1 - 90f))
+            contourLines.add(IsolineSegment(intersections[2], intersections[3], angle2 + 90f))
         }
         return contourLines
     }

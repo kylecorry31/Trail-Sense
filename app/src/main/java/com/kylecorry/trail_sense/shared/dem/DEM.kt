@@ -70,7 +70,7 @@ object DEM {
         bounds: CoordinateBounds,
         interval: Float,
         resolution: Double,
-    ): List<Pair<Float, List<List<Coordinate>>>> = onDefault {
+    ): List<Contour> = onDefault {
         val latitudes = Interpolation.getMultiplesBetween(
             bounds.south - resolution,
             bounds.north + resolution,
@@ -111,10 +111,18 @@ object DEM {
                 grid,
                 threshold,
                 ::lerpCoordinate
-            )
+            ) { a, b ->
+                a.bearingTo(b).value
+            }
 
             val parallel = ParallelCoroutineRunner(16)
-            threshold to Geometry.getConnectedLines(parallel.mapFunctions(calculators).flatten())
+            val segments = parallel.mapFunctions(calculators).flatten()
+
+            Contour(
+                threshold,
+                Geometry.getConnectedLines(segments.map { it.start to it.end }),
+                segments.map { lerpCoordinate(0.5f, it.start, it.end) to it.upDirection }
+            )
         }
     }
 

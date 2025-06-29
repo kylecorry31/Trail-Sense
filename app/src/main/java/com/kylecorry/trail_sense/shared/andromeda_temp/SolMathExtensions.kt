@@ -32,15 +32,23 @@ fun Interpolation.getMultiplesBetween(
     return (startMultiple.toInt()..endMultiple.toInt()).map { it * multiple }
 }
 
+data class IsolineSegment<T>(
+    val start: T,
+    val end: T,
+    val upDirection: Float
+)
+
 fun <T> Interpolation.getIsoline(
     grid: List<List<Pair<T, Float>>>,
     threshold: Float,
     interpolator: (percent: Float, a: T, b: T) -> T,
-): List<Pair<T, T>> {
+    angleCalculator: (T, T) -> Float = { a, b -> 0f }
+): List<IsolineSegment<T>> {
     return MarchingSquares.getIsoline(
         grid,
         threshold,
-        interpolator
+        interpolator,
+        angleCalculator
     )
 }
 
@@ -48,10 +56,12 @@ fun <T> Interpolation.getIsolineCalculators(
     grid: List<List<Pair<T, Float>>>,
     threshold: Float,
     interpolator: (percent: Float, a: T, b: T) -> T,
-): List<() -> List<Pair<T, T>>> {
+    angleCalculator: (T, T) -> Float = { a, b -> 0f }
+): List<() -> List<IsolineSegment<T>>> {
     return MarchingSquares.getIsolineCalculators(
         grid,
         threshold,
-        interpolator
+        interpolator,
+        angleCalculator
     )
 }
