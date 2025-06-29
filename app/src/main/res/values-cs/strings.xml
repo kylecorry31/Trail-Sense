@@ -1452,4 +1452,6 @@
     <string name="built_in_dem">Vestavěný (nízká přesnost)</string>
     <string name="contours">Vrstevnice</string>
     <string name="map_layer">Vrstva mapy</string>
+    <string name="dem_url">URL DEM</string>
+    <string name="map">Mapa</string>
 </resources>

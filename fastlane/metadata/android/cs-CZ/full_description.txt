@@ -45,11 +45,6 @@ Používejte na vlastní nebezpečí, vždy mějte u sebe záložní nástroje (
     Používáno nástrojem hodin (při aktualizaci systémového času) a upozorněními na západ slunce.</li>
 </ul>
 
-<h3>ANTI-VLASTNOSTI</h3>
-<ul>
-    <li>Nesvobodné síťové služby: Volitelné soubory digitálního modelu reliéfu jsou hostovány na GitHubu.</li>
-</ul>
-
 <h3>Odkazy</h3>
 <ul>
     <li>Zásady ochrany osobních údajů: https://kylecorry.com/Trail-Sense/#privacy</p>
