@@ -51,10 +51,17 @@ class PhotoMapTileSourceSelector(
             }
             containedMaps.add(firstContained)
             containedMaps
-        } else if (firstContained != null && SolMath.isZero(firstContained.baseRotation() - firstContained.calibration.rotation, 0.5f)) {
-            // The contained map isn't really rotated so don't include maps after it
+        } else if (firstContained != null && SolMath.isZero(
+                firstContained.baseRotation() - firstContained.calibration.rotation,
+                0.5f
+            )
+        ) {
+            // The contained map isn't really rotated so only include a map after it if replaceWhitePixels is true
             val index = containedMaps.indexOf(firstContained)
-            containedMaps.subList(0, minOf(index + 1, containedMaps.size))
+            containedMaps.subList(
+                0,
+                minOf(index + if (replaceWhitePixels) 2 else 1, containedMaps.size)
+            )
         } else {
             containedMaps
         }
