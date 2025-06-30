@@ -172,6 +172,10 @@ Many phones can call emergency services even without a signal from your carrier.
 
 Three short blasts are the universal signal for help. You may want to cover your ears when using the whistle at full volume.
 
+In a pinch, an acorn cap can be used as a whistle. Hold it with your thumbs as pictured below, then place your lips over your thumbs' knuckles and blow. It won't be as loud as a regular whistle, but it is usable.
+
+![](file:///android_asset/survival_guide/acorn_whistle.webp)
+
 ### Signal mirror
 <!-- K: mirror, sunlight, reflect -->
 
