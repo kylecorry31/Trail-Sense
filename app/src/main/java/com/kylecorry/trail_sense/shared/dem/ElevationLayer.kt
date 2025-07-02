@@ -12,7 +12,6 @@ import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.main.errors.SafeMode
-import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
 import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
@@ -30,8 +29,8 @@ class ElevationLayer : IAsyncLayer {
 
     private val minZoomLevel = 13
     private val maxZoomLevel = 19
-    private val formatter = AppServiceRegistry.get<FormatService>()
 
+    var shouldDrawLabels = true
     var shouldColorContours = false
     private val colorScale = RgbInterpolationColorMap(
         arrayOf(
@@ -167,7 +166,7 @@ class ElevationLayer : IAsyncLayer {
                     }
                     drawer.lines(points.toFloatArray())
 
-                    if (isImportantLine && closestToCenterSegment != null) {
+                    if (isImportantLine && closestToCenterSegment != null && shouldDrawLabels) {
                         val center = closestToCenterSegment.first.midpoint(
                             closestToCenterSegment.second
                         )
