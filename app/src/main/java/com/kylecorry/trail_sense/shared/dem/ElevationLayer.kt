@@ -1,13 +1,18 @@
 package com.kylecorry.trail_sense.shared.dem
 
+import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.ui.colormaps.RgbInterpolationColorMap
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.main.errors.SafeMode
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
 import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
@@ -15,6 +20,9 @@ import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.TileMath
+import kotlin.math.absoluteValue
+import kotlin.math.atan2
+import kotlin.math.roundToInt
 
 class ElevationLayer : IAsyncLayer {
 
@@ -23,6 +31,7 @@ class ElevationLayer : IAsyncLayer {
 
     private val minZoomLevel = 13
     private val maxZoomLevel = 19
+    private val formatter = AppServiceRegistry.get<FormatService>()
 
     var shouldColorContours = false
     private val colorScale = RgbInterpolationColorMap(
@@ -105,30 +114,21 @@ class ElevationLayer : IAsyncLayer {
             }
         }
 
-        drawer.stroke(AppColor.Brown.color)
-        drawer.noFill()
-
+        drawer.textSize(drawer.sp(10f * map.layerScale))
         drawer.withLayerOpacity(127) {
             val thickLineWeight = drawer.dp(2.5f)
             val thinLineWeight = drawer.dp(1f)
 
             // TODO: Draw as curve
             contours.forEach { level ->
-                if (shouldColorContours) {
-                    drawer.stroke(
-                        colorScale.getColor(
-                            SolMath.norm(
-                                level.elevation,
-                                minScaleElevation,
-                                maxScaleElevation,
-                                true
-                            )
-                        )
-                    )
-                }
-                drawer.strokeWeight(if (SolMath.isZero((level.elevation / contourInterval) % 5)) thickLineWeight else thinLineWeight)
+                val isImportantLine = SolMath.isZero((level.elevation / contourInterval) % 5)
+
+                val canvasCenter = map.toPixel(map.mapCenter)
                 level.lines.forEach { line ->
                     val points = mutableListOf<Float>()
+                    var closestToCenterSegment: Pair<PixelCoordinate, PixelCoordinate>? = null
+                    var closestToCenterDistance: Float = Float.MAX_VALUE
+
                     for (i in 0 until (line.size - 1)) {
                         val pixel1 = map.toPixel(line[i])
                         val pixel2 = map.toPixel(line[i + 1])
@@ -136,21 +136,66 @@ class ElevationLayer : IAsyncLayer {
                         points.add(pixel1.y)
                         points.add(pixel2.x)
                         points.add(pixel2.y)
+
+                        val center = PixelCoordinate(
+                            (pixel1.x + pixel2.x) / 2,
+                            (pixel1.y + pixel2.y) / 2
+                        )
+
+                        if (center.distanceTo(canvasCenter) < closestToCenterDistance) {
+                            closestToCenterDistance = center.distanceTo(canvasCenter)
+                            closestToCenterSegment = Pair(pixel1, pixel2)
+                        }
+                    }
+
+                    drawer.strokeWeight(if (isImportantLine) thickLineWeight else thinLineWeight)
+                    drawer.noFill()
+
+                    // TODO: Extract this
+                    if (shouldColorContours) {
+                        drawer.stroke(
+                            colorScale.getColor(
+                                SolMath.norm(
+                                    level.elevation,
+                                    minScaleElevation,
+                                    maxScaleElevation,
+                                    true
+                                )
+                            )
+                        )
+                    } else {
+                        drawer.stroke(AppColor.Brown.color)
                     }
                     drawer.lines(points.toFloatArray())
-                }
 
-                // TODO: Labels
-//                level.slopeAngles.forEach { (location, angle) ->
-//                    val pixel = map.toPixel(location)
-//                    val endPixel = map.toPixel(location.plus(10.0, Bearing(angle)))
-//                    drawer.line(
-//                        pixel.x,
-//                        pixel.y,
-//                        endPixel.x,
-//                        endPixel.y
-//                    )
-//                }
+                    if (isImportantLine && closestToCenterSegment != null) {
+                        val center = closestToCenterSegment.first.midpoint(
+                            closestToCenterSegment.second
+                        )
+                        val angle =
+                            closestToCenterSegment.first.angleTo(closestToCenterSegment.second)
+                        var drawAngle = if (angle.absoluteValue > 90) angle + 180 else angle
+                        // TODO: Try to align it uphill
+                        drawer.textMode(TextMode.Center)
+                        drawer.stroke(Color.WHITE)
+                        drawer.fill(Color.BLACK)
+                        drawer.push()
+                        println(angle.roundToInt())
+                        drawer.rotate(
+                            drawAngle,
+                            center.x,
+                            center.y
+                        )
+                        drawer.text(
+                            DecimalFormatter.format(
+                                Distance.meters(level.elevation).convertTo(units).distance, 0
+                            ),
+                            center.x,
+                            center.y
+                        )
+                        drawer.pop()
+                    }
+                }
             }
         }
 
@@ -177,5 +222,19 @@ class ElevationLayer : IAsyncLayer {
 
     override fun setHasUpdateListener(listener: (() -> Unit)?) {
         updateListener = listener
+    }
+
+    private fun PixelCoordinate.midpoint(other: PixelCoordinate): PixelCoordinate {
+        return PixelCoordinate(
+            (this.x + other.x) / 2,
+            (this.y + other.y) / 2
+        )
+    }
+
+    private fun PixelCoordinate.angleTo(other: PixelCoordinate): Float {
+        return atan2(
+            other.y - this.y,
+            other.x - this.x
+        ).toDegrees()
     }
 }
