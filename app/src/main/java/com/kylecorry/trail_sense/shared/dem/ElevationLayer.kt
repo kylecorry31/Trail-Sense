@@ -22,7 +22,6 @@ import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.TileMath
 import kotlin.math.absoluteValue
 import kotlin.math.atan2
-import kotlin.math.roundToInt
 
 class ElevationLayer : IAsyncLayer {
 
@@ -180,7 +179,6 @@ class ElevationLayer : IAsyncLayer {
                         drawer.stroke(Color.WHITE)
                         drawer.fill(Color.BLACK)
                         drawer.push()
-                        println(angle.roundToInt())
                         drawer.rotate(
                             drawAngle,
                             center.x,
