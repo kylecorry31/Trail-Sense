@@ -516,16 +516,19 @@ Do not attempt to remove a fishhook if it is embedded in the eye.
 **Method 2**
 
 1. Run a fishing line or cordage through the bend of the hook.
-2. Grab the ends of the string.
+2. Grab the ends of the line.
 3. Apply downward pressure on the eye of the hook.
-4. Quickly pull the string, causing the hook to come out the way it went in.
+4. Quickly pull the line, causing the hook to come out the way it went in.
 5. Clean the wound and apply antibiotic ointment.
+
+In some cases, you may be able to use a pair of pliers instead of the fishing line to perform the same motion.
 
 ![](file:///android_asset/survival_guide/fish_hook_removal.webp)
 
 ### Prevention
-- Be careful when handling fishhooks.
-- Use a barbless hook if possible (these don't work as well when fishing).
+- Be careful when handling fishhooks, especially lures with multiple treble hooks.
+- Be extra careful when removing a hook from a thrashing or slippery fish.
+- Barbless hooks are easier to remove if you get hooked, but don't work as well when fishing.
 
 ## Fractures
 <!-- K: fracture, break, broken, bone, pain, swelling, bruise, deform, weight, splint, sling, set, arm, leg -->
