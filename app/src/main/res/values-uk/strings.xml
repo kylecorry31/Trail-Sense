@@ -629,8 +629,8 @@
     <string name="documents">Документи</string>
     <string name="electronics">Електроніка</string>
     <string name="clear_amounts">Очистити ємності</string>
-    <string name="desired_amount">Бажана ємність</string>
-    <string name="packed_amount">Запакована ємність</string>
+    <string name="desired_amount">Бажана кількість</string>
+    <string name="packed_amount">Запакована кількість</string>
     <string name="action_inventory_clear_confirm">Очистити всі запаковані ємності\?</string>
     <string name="current_format">%s мА</string>
     <string name="wgs84">WGS 84</string>
