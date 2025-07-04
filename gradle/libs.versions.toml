@@ -1,5 +1,5 @@
 [versions]
-androidApplication = "8.10.1"
+androidApplication = "8.11.0"
 androidXTest = "1.6.1"
 androidXTestRunner = "1.6.2"
 androidXTestUiAutomator = "2.3.0"
