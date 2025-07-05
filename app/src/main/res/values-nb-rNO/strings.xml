@@ -1115,7 +1115,7 @@
     <string name="digital_elevation_model_link">Du kan laste ned en digital høydemodell i forskjellige størrelser fra %s</string>
     <string name="contours">Høydekurver</string>
     <string name="map_layer">Kartlag</string>
-    <string name="dem_url">DEM-nettadresse</string>
+    <string name="dem_url">DEM-adresse</string>
     <string name="map">Kart</string>
     <string name="altimeter_mode_dem_barometer">DEM + Barometer</string>
     <string name="digital_elevation_model_abbreviation">DEM</string>
@@ -1123,4 +1123,13 @@
     <string name="desert">Ørken</string>
     <string name="forest">Skog</string>
     <string name="mountain">Fjell</string>
+    <string name="tool_turn_back">Vend tilbake</string>
+    <string name="estimate_method">Beregningsmetode</string>
+    <string name="water">Vann</string>
+    <string name="field_required">%s (kreves)</string>
+    <string name="tool_signal_finder">Signalfinner</string>
+    <string name="speed">Hastighet</string>
+    <string name="climate_temperature_amount">Temperatur: %s</string>
+    <string name="insect_activity">Insektaktivitet</string>
+    <string name="active_period">Aktiv fra %1$s til %2$s</string>
 </resources>
