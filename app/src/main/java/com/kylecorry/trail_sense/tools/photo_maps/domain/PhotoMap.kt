@@ -109,8 +109,8 @@ data class PhotoMap(
     }
 
     companion object {
-        // TODO: Make it so the scale only exists in the PDF image region decoder
-        const val PDF_SCALE = 1000f
+        // TODO: Make this based on meters per pixel
+        const val DESIRED_PDF_SIZE = 10000
     }
 
 }

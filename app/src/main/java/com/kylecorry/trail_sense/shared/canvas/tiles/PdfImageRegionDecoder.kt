@@ -7,6 +7,7 @@ import android.graphics.Rect
 import android.net.Uri
 import android.util.Size
 import androidx.core.graphics.toRectF
+import com.kylecorry.andromeda.core.math.MathUtils
 import com.kylecorry.andromeda.pdf.PDFRenderer2
 import com.kylecorry.andromeda.views.subscaleview.decoder.ImageRegionDecoder
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
@@ -19,30 +20,23 @@ class PdfImageRegionDecoder(private val bitmapConfig: Bitmap.Config? = null) : I
         context: Context?,
         uri: Uri
     ): Point {
-        val scale = PhotoMap.PDF_SCALE
-        renderer = PDFRenderer2(context!!, uri, scale, bitmapConfig ?: Bitmap.Config.RGB_565)
+        // TODO: Pass in scale
+        renderer = PDFRenderer2(context!!, uri, 1f, bitmapConfig ?: Bitmap.Config.RGB_565)
         val size = renderer.getSize()
-        return Point((size.width * scale).toInt(), (size.height * scale).toInt())
+        val scaledSize = MathUtils.scaleToBounds(
+            size,
+            Size(PhotoMap.DESIRED_PDF_SIZE, PhotoMap.DESIRED_PDF_SIZE)
+        )
+        val scale = scaledSize.width.toFloat() / size.width.toFloat()
+        renderer = PDFRenderer2(context, uri, scale, bitmapConfig ?: Bitmap.Config.RGB_565)
+        return Point(scaledSize.width, scaledSize.height)
     }
 
     override fun decodeRegion(
         sRect: Rect,
         sampleSize: Int
     ): Bitmap {
-        val maxSize = if (sampleSize >= 128) 1024 else 512
-
-        var scaledSize = Size(sRect.width() / sampleSize, sRect.height() / sampleSize)
-        if (scaledSize.width > maxSize || scaledSize.height > maxSize) {
-            val scale = maxOf(
-                scaledSize.width.toFloat() / maxSize,
-                scaledSize.height.toFloat() / maxSize
-            )
-            scaledSize = Size(
-                (scaledSize.width / scale).toInt(),
-                (scaledSize.height / scale).toInt()
-            )
-        }
-
+        val scaledSize = Size(sRect.width() / sampleSize, sRect.height() / sampleSize)
         return renderer.toBitmap(
             scaledSize,
             srcRegion = sRect.toRectF()

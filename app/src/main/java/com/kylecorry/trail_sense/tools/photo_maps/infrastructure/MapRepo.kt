@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.photo_maps.infrastructure
 import android.annotation.SuppressLint
 import android.content.Context
 import com.kylecorry.andromeda.core.coroutines.onIO
+import com.kylecorry.andromeda.core.math.MathUtils
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
@@ -81,10 +82,13 @@ class MapRepo private constructor(private val context: Context) : IMapRepo {
             if (map.pdfHeight != null && map.pdfWidth != null && files.get(newMap.pdfFileName)
                     .exists()
             ) {
-                Size(
-                    map.pdfWidth.toFloat() * PhotoMap.PDF_SCALE,
-                    map.pdfHeight.toFloat() * PhotoMap.PDF_SCALE
+
+                val scaledSize = MathUtils.scaleToBounds(
+                    android.util.Size(map.pdfWidth, map.pdfHeight),
+                    android.util.Size(PhotoMap.DESIRED_PDF_SIZE, PhotoMap.DESIRED_PDF_SIZE)
                 )
+
+                Size(scaledSize.width.toFloat(), scaledSize.height.toFloat())
             } else {
                 null
             }
