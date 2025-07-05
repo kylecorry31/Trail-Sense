@@ -168,7 +168,7 @@ Signaling for help will increase your odds of being found. You should do this of
 Many phones can call emergency services even without a signal from your carrier. If you can't make a call, try sending a text message. Check your phone periodically to see if you have a signal, but otherwise, keep it off or in airplane mode to conserve battery. You may get a better signal by moving to higher ground or an open area.
 
 ### Whistle
-<!-- K: whistle, sound -->
+<!-- K: whistle, sound, acorn -->
 
 Three short blasts are the universal signal for help. You may want to cover your ears when using the whistle at full volume.
 

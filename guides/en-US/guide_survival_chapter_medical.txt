@@ -306,6 +306,8 @@ Ticks attach to your skin and will feed on your blood. They can transmit disease
 2. Pull straight out with steady, even pressure. Do not twist or jerk the tick. Do not squeeze the tick's body.
 3. Treat the area as you would for a bug bite.
 
+![](file:///android_asset/survival_guide/tick_removal.webp)
+
 #### Prevention
 - Use insect repellent.
 - Wear long sleeves and pants.
