@@ -315,7 +315,7 @@
     <string name="open_beacon_in_maps">Vis på kart</string>
     <string name="pref_low_power_mode_summary">Deaktiverer noen funksjoner for å spare strøm</string>
     <string name="unsaved_changes_message">Endringer du har gjort blir ikke lagret.</string>
-    <string name="unsaved_changes">Ulagrede endringer</string>
+    <string name="unsaved_changes">Ikke-lagrede endringer</string>
     <string name="pref_require_satellites_description">Krever minst 4 satellitter for posisjonsbestemmelse, forbedrer nøyaktigheten</string>
     <string name="clouds">Skyer</string>
     <string name="cumulonimbus">Cumulonimbus (Bygeskyer)</string>
@@ -826,7 +826,7 @@
     <string name="nimbostratus_forecast">Kan ha nedbør for de neste %d timene.</string>
     <string name="manual">Manuelt</string>
     <string name="pint_format">%s pt</string>
-    <string name="location_disabled">Posisjon er avskrudd</string>
+    <string name="location_disabled">Posisjon er slått av</string>
     <string name="cup_format">%s kp</string>
     <string name="bearing">Peiling</string>
     <string name="ounces_weight">Unser</string>
@@ -992,7 +992,7 @@
     <string name="gps_location_accuracy">GPS-posisjonsnøyakighet</string>
     <string name="gps_elevation_accuracy">GPS-høydenøyakighet</string>
     <string name="gps_accuracy_tip">Sørg for å ha fri sikt mot himmelen, og flytt deg unna høye bygninger og trær.</string>
-    <string name="restore_failure_newer_version">Sikkerhetskopien ble opprettet med en nyere versjon av %s. Installer nyeste versjon av programmet og prøv igjen.</string>
+    <string name="restore_failure_newer_version">Denne sikkerhetskopien ble opprettet med en nyere versjon av %s. Oppdater appen og prøv igjen.</string>
     <string name="learn_more">Lær mer</string>
     <string name="restore">Gjenopprett</string>
     <string name="compass_source_legacy_android">Gammeldags (Android)</string>
@@ -1131,5 +1131,26 @@
     <string name="speed">Hastighet</string>
     <string name="climate_temperature_amount">Temperatur: %s</string>
     <string name="insect_activity">Insektaktivitet</string>
-    <string name="active_period">Aktiv fra %1$s til %2$s</string>
+    <string name="active_period">Aktive fra %1$s til %2$s</string>
+    <string name="automatic_backup">Automatisk sikkerhetskopi</string>
+    <string name="select_backup_directory">Velg sikkerhetskopimappe</string>
+    <string name="auto_backup_instructions">En sikkerhetskopi vil bli opprettet en gang om dagen til %1$s. Bare de siste %2$d sikkerhetskopiene vil bli tatt vare på.</string>
+    <string name="backup_failed">Sikkerhetskopiering mislyktes</string>
+    <string name="unable_to_create_an_automatic_backup">Kan ikke opprette en automatisk sikkerhetskopi.</string>
+    <string name="automatic_backup_invalid_directory">Ugyldig mappe</string>
+    <string name="automatic_backup_invalid_directory_resolution">Slå av automatisk sikkerhetskopiering og slå den deretter på igjen for å velge en ny mappe.</string>
+    <string name="declination">Misvisning</string>
+    <string name="left">Venstre</string>
+    <string name="right">Høyre</string>
+    <string name="above">Over</string>
+    <string name="below">Under</string>
+    <string name="distance_to_target">Avstand til mål</string>
+    <string name="ballistics">Ballistikk</string>
+    <string name="energy">Energi</string>
+    <string name="milligrams">Milligram</string>
+    <string name="milligrams_format">%s mg</string>
+    <string name="ballistics_calculator">Ballistikk-kalkulator</string>
+    <string name="screen_flashlight_full_name">Skjermlommelykt</string>
+    <string name="bottom_navigation_slot">Nedre navigeringsplass %d</string>
+    <string name="pinned">Festet</string>
 </resources>
