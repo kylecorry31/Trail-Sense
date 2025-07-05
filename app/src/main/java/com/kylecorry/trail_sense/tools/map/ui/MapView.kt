@@ -43,8 +43,8 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             // Increase size to account for 45 degree rotation
             var rotated = Rectangle(
                 0f,
-                canvas.height.toFloat(),
-                canvas.width.toFloat(),
+                height.toFloat(),
+                width.toFloat(),
                 0f,
             )
 

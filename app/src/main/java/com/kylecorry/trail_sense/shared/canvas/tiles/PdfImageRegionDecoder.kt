@@ -29,7 +29,20 @@ class PdfImageRegionDecoder(private val bitmapConfig: Bitmap.Config? = null) : I
         sRect: Rect,
         sampleSize: Int
     ): Bitmap {
-        val scaledSize = Size(sRect.width() / sampleSize, sRect.height() / sampleSize)
+        val maxSize = if (sampleSize >= 128) 1024 else 512
+
+        var scaledSize = Size(sRect.width() / sampleSize, sRect.height() / sampleSize)
+        if (scaledSize.width > maxSize || scaledSize.height > maxSize) {
+            val scale = maxOf(
+                scaledSize.width.toFloat() / maxSize,
+                scaledSize.height.toFloat() / maxSize
+            )
+            scaledSize = Size(
+                (scaledSize.width / scale).toInt(),
+                (scaledSize.height / scale).toInt()
+            )
+        }
+
         return renderer.toBitmap(
             scaledSize,
             srcRegion = sRect.toRectF()
