@@ -25,6 +25,7 @@ class MapLayer : IAsyncLayer {
     private var shouldReloadTiles = true
     private var opacity: Int = 255
     private var backgroundColor: Int = Color.WHITE
+    var controlsPdfCache = false
     private var minZoom: Int = 0
     private val loader = TileLoader()
     private val tilePaint = Paint().apply {
@@ -75,7 +76,8 @@ class MapLayer : IAsyncLayer {
                         bounds.grow(getGrowPercent()),
                         metersPerPixel,
                         minZoom,
-                        backgroundColor
+                        backgroundColor,
+                        controlsPdfCache
                     )
                 }
                 onMain {

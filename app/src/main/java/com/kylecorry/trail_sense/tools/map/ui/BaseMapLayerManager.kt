@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.map.ui
 
+import android.content.Context
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibration
@@ -13,11 +14,13 @@ import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MapLayer
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapTileSourceSelector
 
 class BaseMapLayerManager(
+    private val context: Context,
     private val layer: MapLayer,
 ) : BaseLayerManager() {
     override fun start() {
         // TODO: Tint/mask support
         layer.sourceSelector = PhotoMapTileSourceSelector(
+            context,
             listOf(
                 PhotoMap(
                     -1,
@@ -44,7 +47,9 @@ class BaseMapLayerManager(
                     isAsset = true,
                     isFullWorld = true // TODO: Derive this using calibration points
                 )
-            ), 1
+            ),
+            maxLayers = 1,
+            loadPdfs = false
         )
     }
 

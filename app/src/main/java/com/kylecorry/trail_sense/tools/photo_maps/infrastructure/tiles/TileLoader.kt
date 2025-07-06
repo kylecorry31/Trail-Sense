@@ -10,7 +10,6 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
 import com.kylecorry.trail_sense.shared.bitmaps.Convert
 import com.kylecorry.trail_sense.shared.bitmaps.applyOperations
-import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.math.hypot
 
@@ -35,7 +34,9 @@ class TileLoader {
         bounds: CoordinateBounds,
         metersPerPixel: Float,
         minZoom: Int = 0,
-        backgroundColor: Int = Color.WHITE
+        backgroundColor: Int = Color.WHITE,
+        // TODO: This is gross, rather than this it should handle the lifecycle of region loaders and make them distinct
+        controlsPdfCache: Boolean = false
     ) = onDefault {
         // Step 1: Split the visible area into tiles (geographic)
         val tiles = TileMath.getTiles(bounds, metersPerPixel.toDouble())
@@ -55,6 +56,17 @@ class TileLoader {
             if (sources.isNotEmpty()) {
                 tileSources[tile] = sources
             }
+        }
+
+        // TODO: Handle this cleanup elsewhere
+        val allMaps = tileSources.values
+            .flatten()
+            .filterIsInstance<PhotoMapRegionLoader>()
+            .map { it.map }
+            .distinct()
+
+        if (controlsPdfCache) {
+            PhotoMapRegionLoader.removeUnneededLoaders(allMaps)
         }
 
         var hasChanges = false

@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.photo_maps.domain
 
 import android.content.Context
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.SolMath.roundNearestAngle
 import com.kylecorry.sol.math.Vector2
@@ -36,6 +37,13 @@ data class PhotoMap(
     val projection: IMapProjection by lazy { PhotoMapProjection(this) }
 
     /**
+     * The projection onto the image (with base rotation applied, ex. 0, 90, 180, 270). Does not use the PDF.
+     */
+    val imageProjection: IMapProjection by lazy {
+        PhotoMapProjection(this, usePdf = false)
+    }
+
+    /**
      * Determines if the map is calibrated
      */
     val isCalibrated: Boolean
@@ -69,15 +77,25 @@ data class PhotoMap(
     /**
      * The size of the image with exact rotation applied
      */
-    fun calibratedSize(): Size {
-        return metadata.size.rotate(calibration.rotation)
+    fun calibratedSize(usePdf: Boolean = true): Size {
+        val size = if (usePdf) {
+            metadata.size
+        } else {
+            metadata.unscaledPdfSize ?: metadata.size
+        }
+        return size.rotate(calibration.rotation)
     }
 
     /**
      * The size of the image with base rotation applied (ex. 0, 90, 180, 270)
      */
-    fun baseSize(): Size {
-        return metadata.size.rotate(baseRotation().toFloat())
+    fun baseSize(usePdf: Boolean = true): Size {
+        val size = if (usePdf) {
+            metadata.size
+        } else {
+            metadata.unscaledPdfSize ?: metadata.size
+        }
+        return size.rotate(baseRotation().toFloat())
     }
 
     /**
@@ -105,7 +123,7 @@ data class PhotoMap(
     }
 
     fun hasPdf(context: Context): Boolean {
-        return FileSubsystem.getInstance(context).get(pdfFileName).exists()
+        return AppServiceRegistry.get<FileSubsystem>().get(pdfFileName).exists()
     }
 
     companion object {

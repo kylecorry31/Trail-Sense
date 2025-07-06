@@ -8,7 +8,8 @@ import com.kylecorry.trail_sense.tools.photo_maps.domain.MapProjectionFactory
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMapRotationService
 
-class PhotoMapProjection(private val map: PhotoMap) : IMapProjection {
+class PhotoMapProjection(private val map: PhotoMap, private val usePdf: Boolean = true) :
+    IMapProjection {
 
     private val rotationService = PhotoMapRotationService(map)
     private val projection by lazy { calculateProjection() }
@@ -22,7 +23,7 @@ class PhotoMapProjection(private val map: PhotoMap) : IMapProjection {
     }
 
     private fun calculateProjection(): IMapProjection {
-        val rotatedSize = map.calibratedSize()
+        val rotatedSize = map.calibratedSize(usePdf)
         val calibrationPoints = rotationService.getCalibrationPoints()
         val projection = CalibratedProjection(calibrationPoints.map {
             it.imageLocation.toPixels(rotatedSize.width, rotatedSize.height) to it.location
@@ -33,7 +34,7 @@ class PhotoMapProjection(private val map: PhotoMap) : IMapProjection {
             return projection
         }
 
-        val size = map.baseSize()
+        val size = map.baseSize(usePdf)
         val baseRotation = map.baseRotation()
         return RotatedProjection(
             projection,

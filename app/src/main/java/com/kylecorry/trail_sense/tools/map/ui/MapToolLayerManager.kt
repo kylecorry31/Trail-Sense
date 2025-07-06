@@ -33,6 +33,7 @@ import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.Navigati
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PhotoMapLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.TideLayerManager
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
 
 class MapToolLayerManager {
 
@@ -81,6 +82,7 @@ class MapToolLayerManager {
         beaconLayer.setOutlineColor(Resources.color(context, R.color.colorSecondary))
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
         photoMapLayer.setMinZoom(4)
+        photoMapLayer.controlsPdfCache = true
         view.setLayers(
             listOfNotNull(
                 baseMapLayer,
@@ -110,8 +112,13 @@ class MapToolLayerManager {
                     Resources.getPrimaryMarkerColor(context)
                 ),
                 TideLayerManager(context, tideLayer),
-                PhotoMapLayerManager(context, photoMapLayer, replaceWhitePixels = true),
-                BaseMapLayerManager(baseMapLayer),
+                PhotoMapLayerManager(
+                    context,
+                    photoMapLayer,
+                    replaceWhitePixels = true,
+                    loadPdfs = false
+                ),
+                BaseMapLayerManager(context, baseMapLayer),
                 BeaconLayerManager(context, beaconLayer),
                 NavigationLayerManager(context, navigationLayer)
             )
@@ -127,6 +134,7 @@ class MapToolLayerManager {
     fun pause(context: Context, view: IMapView) {
         layerManager?.stop()
         layerManager = null
+        PhotoMapRegionLoader.removeUnneededLoaders(emptyList())
     }
 
     fun onBearingChanged(bearing: Float) {

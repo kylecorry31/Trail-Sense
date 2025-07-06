@@ -21,6 +21,7 @@ import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyAccura
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyLocationLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.TideLayerManager
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
 
 class NavigationCompassLayerManager {
 
@@ -59,6 +60,7 @@ class NavigationCompassLayerManager {
         )
         mapLayer.setBackgroundColor(Resources.color(context, R.color.colorSecondary))
         mapLayer.setMinZoom(4)
+        mapLayer.controlsPdfCache = true
         view.setLayers(
             listOfNotNull(
                 if (isMapLayerEnabled) mapLayer else null,
@@ -84,7 +86,8 @@ class NavigationCompassLayerManager {
                 if (isMapLayerEnabled) PhotoMapLayerManager(
                     context,
                     mapLayer,
-                    replaceWhitePixels = true
+                    replaceWhitePixels = true,
+                    loadPdfs = false
                 ) else null
             )
         )
@@ -99,6 +102,7 @@ class NavigationCompassLayerManager {
     fun pause(context: Context, view: IMapView) {
         layerManager?.stop()
         layerManager = null
+        PhotoMapRegionLoader.removeUnneededLoaders(emptyList())
     }
 
     fun onBearingChanged(bearing: Float) {
