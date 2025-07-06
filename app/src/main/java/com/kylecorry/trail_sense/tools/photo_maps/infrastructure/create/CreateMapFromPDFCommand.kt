@@ -75,7 +75,10 @@ class CreateMapFromPDFCommand(
 
         val pdfSize = if (shouldCopyAsPdf) {
             tryOrDefault(null) {
-                PDFRenderer3(context, uri).getSize()
+                val renderer = PDFRenderer3(context, uri)
+                val size = renderer.getSize()
+                renderer.close()
+                size
             }
         } else {
             null
