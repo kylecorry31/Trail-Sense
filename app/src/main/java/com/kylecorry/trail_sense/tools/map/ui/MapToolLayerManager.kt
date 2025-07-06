@@ -116,7 +116,7 @@ class MapToolLayerManager {
                     context,
                     photoMapLayer,
                     replaceWhitePixels = true,
-                    loadPdfs = false
+                    loadPdfs = true
                 ),
                 BaseMapLayerManager(context, baseMapLayer),
                 BeaconLayerManager(context, beaconLayer),

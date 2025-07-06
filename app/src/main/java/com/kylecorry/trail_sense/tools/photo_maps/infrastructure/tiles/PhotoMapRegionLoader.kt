@@ -26,6 +26,9 @@ import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PercentBounds
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class PhotoMapRegionLoader(
     private val context: Context,
@@ -178,6 +181,7 @@ class PhotoMapRegionLoader(
     companion object {
         val loaderLock = Any()
         val loaders = mutableMapOf<PhotoMap, PdfImageRegionDecoder>()
+        private val scope = CoroutineScope(Dispatchers.IO)
 
         private fun getLoader(context: Context, map: PhotoMap): PdfImageRegionDecoder {
             synchronized(loaderLock) {
@@ -194,11 +198,13 @@ class PhotoMapRegionLoader(
         }
 
         fun removeUnneededLoaders(activeMaps: List<PhotoMap>) {
-            synchronized(loaderLock) {
-                val loadersToRemove = loaders.keys.filter { it !in activeMaps }
-                for (map in loadersToRemove) {
-                    loaders[map]?.recycle()
-                    loaders.remove(map)
+            scope.launch {
+                synchronized(loaderLock) {
+                    val loadersToRemove = loaders.keys.filter { it !in activeMaps }
+                    for (map in loadersToRemove) {
+                        loaders.remove(map)
+                        loaders[map]?.recycle()
+                    }
                 }
             }
         }
