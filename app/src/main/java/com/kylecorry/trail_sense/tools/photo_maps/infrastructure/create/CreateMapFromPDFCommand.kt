@@ -7,7 +7,7 @@ import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.pdf.GeospatialPDFParser
 import com.kylecorry.andromeda.pdf.PDFRenderer
-import com.kylecorry.andromeda.pdf.PDFRenderer2
+import com.kylecorry.trail_sense.shared.canvas.tiles.PDFRenderer3
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibration
@@ -75,7 +75,7 @@ class CreateMapFromPDFCommand(
 
         val pdfSize = if (shouldCopyAsPdf) {
             tryOrDefault(null) {
-                PDFRenderer2(context, uri).getSize()
+                PDFRenderer3(context, uri).getSize()
             }
         } else {
             null
