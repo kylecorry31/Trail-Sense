@@ -49,10 +49,6 @@ open class EnhancedImageView : SubsamplingScaleImageView {
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
 
-    init {
-        setMaxTileSize(512)
-    }
-
     override fun onDraw(canvas: Canvas) {
         if (isSetup) {
             drawer.canvas = canvas

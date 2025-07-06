@@ -110,7 +110,7 @@ data class PhotoMap(
 
     companion object {
         // TODO: Make this based on meters per pixel
-        const val DESIRED_PDF_SIZE = 10000
+        const val DESIRED_PDF_SIZE = 20000
     }
 
 }
