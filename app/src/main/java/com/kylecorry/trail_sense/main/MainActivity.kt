@@ -88,13 +88,7 @@ class MainActivity : AndromedaActivity() {
         ExceptionHandler.initialize(this)
 
         userPrefs = UserPreferences(applicationContext)
-        val mode = when (userPrefs.theme) {
-            UserPreferences.Theme.Light -> ColorTheme.Light
-            UserPreferences.Theme.Dark, UserPreferences.Theme.Black, UserPreferences.Theme.Night -> ColorTheme.Dark
-            UserPreferences.Theme.System, UserPreferences.Theme.SystemBlack -> ColorTheme.System
-            UserPreferences.Theme.SunriseSunset -> sunriseSunsetTheme()
-        }
-        setColorTheme(mode, userPrefs.useDynamicColors)
+        updateTheme()
 
         val isBlackTheme =
             userPrefs.theme == UserPreferences.Theme.Black
@@ -213,7 +207,18 @@ class MainActivity : AndromedaActivity() {
         }
     }
 
+    private fun updateTheme(){
+        val mode = when (userPrefs.theme) {
+            UserPreferences.Theme.Light -> ColorTheme.Light
+            UserPreferences.Theme.Dark, UserPreferences.Theme.Black, UserPreferences.Theme.Night -> ColorTheme.Dark
+            UserPreferences.Theme.System, UserPreferences.Theme.SystemBlack -> ColorTheme.System
+            UserPreferences.Theme.SunriseSunset -> sunriseSunsetTheme()
+        }
+        setColorTheme(mode, userPrefs.useDynamicColors)
+    }
+
     fun reloadTheme() {
+        updateTheme()
         cache.putBoolean("pref_theme_just_changed", true)
         recreate()
     }
