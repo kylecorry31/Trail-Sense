@@ -246,6 +246,8 @@ To get your GPS coordinates on a map in UTM (a very common coordinate system):
 3. Look at the grid lines on the map to identify the grid zone where your location is. These lines represent the first digits of your location (e.g., 123000E and 234000N).
 4. For increased precision, divide the grid into 10 equal sections vertically and horizontally. Determine which line your location is closest to within the grid. Use a ruler for accuracy. For example, if your location is two-tenths to the right and one-tenth up from the bottom-right corner of the grid, your new location will be 123200E and 234100N.
 
+![](file:///android_asset/survival_guide/map_location.webp)
+
 You can follow those steps in reverse to transfer a GPS coordinate onto your map. Just be sure to set your GPS coordinates to match the map's coordinate format.
 
 If your map does not have UTM grid lines, you can still follow the same approach using the coordinate values on the sides of the map. Some systems may use decimal places instead.
