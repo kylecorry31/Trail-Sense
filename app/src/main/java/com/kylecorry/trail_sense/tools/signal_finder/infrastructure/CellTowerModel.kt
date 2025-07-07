@@ -101,6 +101,9 @@ object CellTowerModel {
         pixel: PixelCoordinate
     ): List<CellNetwork> = onIO {
         val data = source.read(context, "cell_towers.webp", pixel)
+        if (data.isEmpty()) {
+            return@onIO emptyList()
+        }
         val value = data[0].toInt()
         val networkMap = mapOf(
             1 to CellNetwork.Gsm,
