@@ -14,7 +14,6 @@ import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geography.projections.MercatorProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
-import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.ILayer
@@ -206,6 +205,15 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         return scale.coerceIn(minScale, max(2 * minScale, maxScale))
     }
 
+    private fun translatePixels(distanceX: Float, distanceY: Float) {
+        val newPoint = PixelCoordinate(width / 2f + distanceX, height / 2f + distanceY)
+        val newCenter = toCoordinate(newPoint)
+        mapCenter = Coordinate(
+            newCenter.latitude.coerceIn(-85.0, 85.0),
+            Coordinate.toLongitude(newCenter.longitude)
+        )
+    }
+
     private val mGestureListener = object : GestureDetector.SimpleOnGestureListener() {
 
         override fun onScroll(
@@ -215,38 +223,13 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             distanceY: Float
         ): Boolean {
             if (isPanEnabled) {
-                val metersEast = distanceX * metersPerPixel
-                val metersNorth = -distanceY * metersPerPixel
-
-                mapCenter = mapCenter.plus(
-                    metersEast.toDouble(),
-                    Bearing(90f)
-                ).plus(
-                    metersNorth.toDouble(),
-                    Bearing(0f)
-                ).let {
-                    Coordinate(it.latitude.coerceIn(-85.0, 85.0), it.longitude)
-                }
-
+                translatePixels(distanceX, distanceY)
             }
             return true
         }
 
         override fun onDoubleTap(e: MotionEvent): Boolean {
-            if (isPanEnabled) {
-                // TODO: Zoom in on the area that was tapped
-//                mapCenter = toCoordinate(
-//                    PixelCoordinate(
-//                        e.x,
-//                        e.y
-//                    )
-//                )
-            }
-
-            if (isZoomEnabled) {
-                zoom(2F)
-            }
-
+            zoomWithFocus(2f, PixelCoordinate(e.x, e.y))
             return super.onDoubleTap(e)
         }
 
@@ -268,13 +251,26 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     }
 
     private val scaleListener = object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
-
         override fun onScale(detector: ScaleGestureDetector): Boolean {
-            if (isZoomEnabled) {
-                zoom(detector.scaleFactor)
-                // TODO: Zoom on the area that was pinched
-            }
+            zoomWithFocus(detector.scaleFactor, PixelCoordinate(detector.focusX, detector.focusY))
             return true
+        }
+    }
+
+    private fun zoomWithFocus(scaleFactor: Float, focus: PixelCoordinate) {
+        if (!isZoomEnabled) return
+
+        // Calculate the focus coordinate before zooming
+        val focusCoordinate = toCoordinate(focus)
+
+        zoom(scaleFactor)
+
+        if (isPanEnabled) {
+            // Keep the focus point stationary
+            val newFocusPixel = toPixel(focusCoordinate)
+            val dx = focus.x - newFocusPixel.x
+            val dy = focus.y - newFocusPixel.y
+            translatePixels(-dx, -dy)
         }
     }
 
