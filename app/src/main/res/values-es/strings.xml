@@ -1394,5 +1394,17 @@
     <string name="harvested">Cosechado</string>
     <string name="sightings">Avistamientos</string>
     <string name="sightings_count">Avistamientos(%d)</string>
-    <string name="safe_mode_toast">"Detectados problemas,  desactivando algunas funciones durante unos segundos."</string>
+    <string name="safe_mode_toast">Detectados problemas, desactivando algunas funciones durante unos segundos.</string>
+    <string name="opacity">Opacidad</string>
+    <string name="declination">Declinación</string>
+    <string name="use_alarm_for_distance_alert">Alarma para alertar de distancia</string>
+    <string name="use_alarm_for_turn_back_alert">Alarma para alertar de hora de regreso</string>
+    <string name="use_alarm_for_water_boil_timer">Alarma para temporizador de hervido</string>
+    <string name="use_alarm_for_storm_alert">Alarma para alertar de tormentas</string>
+    <string name="use_alarm_for_sunset_alert">Alarma para alertar de puesta del sol</string>
+    <string name="use_alarm_for_sunrise_alert">Alarma para alertar de salida del sol</string>
+    <string name="alarm_description">Reproduce un sonido aunque las notificaciones estén silenciadas</string>
+    <string name="mute_alarm_at_night">Silenciar alarma por la noche</string>
+    <string name="alarm_time_range">Solo de %1$s a %2$s</string>
+    <string name="digital_elevation_model_abbreviation">DEM (Modelo Digital de Eelevacion)</string>
 </resources>
