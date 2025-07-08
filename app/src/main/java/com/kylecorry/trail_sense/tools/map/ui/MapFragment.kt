@@ -14,6 +14,8 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
     override fun update() {
         val mapView = useView<MapView>(R.id.map)
         val lockButton = useView<FloatingActionButton>(R.id.lock_btn)
+        val zoomInButton = useView<FloatingActionButton>(R.id.zoom_in_btn)
+        val zoomOutButton = useView<FloatingActionButton>(R.id.zoom_out_btn)
         val navigation = useNavigationSensors(trueNorth = true)
         val context = useAndroidContext()
         val (lockMode, setLockMode) = useState(MapLockMode.Free)
@@ -71,6 +73,19 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
         useEffect(mapView, lockMode, navigation.bearing) {
             if (lockMode == MapLockMode.Compass) {
                 mapView.mapAzimuth = navigation.bearing.value
+            }
+        }
+
+        useEffect(zoomInButton, zoomOutButton) {
+            CustomUiUtils.setButtonState(zoomInButton, false)
+            CustomUiUtils.setButtonState(zoomOutButton, false)
+
+            zoomInButton.setOnClickListener {
+                mapView.zoom(2f)
+            }
+
+            zoomOutButton.setOnClickListener {
+                mapView.zoom(0.5f)
             }
         }
     }
