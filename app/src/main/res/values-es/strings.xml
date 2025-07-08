@@ -1322,7 +1322,7 @@
     <string name="stars">Estrellas</string>
     <string name="nearest_stars">Estrellas más cercanas</string>
     <string name="select_star">Seleccionar estrella</string>
-    <string name="ballistics_calculator">Calculadora de balística</string>
+    <string name="ballistics_calculator">Calculadora balística</string>
     <string name="ballistics">Balística</string>
     <string name="permits">Permisos</string>
     <string name="no_permits">Ningún permiso</string>
@@ -1340,7 +1340,7 @@
     <string name="source_era5">Fuente: ERA5</string>
     <string name="source_merra_2">Fuente: MERRA-2</string>
     <string name="climate_tropical_rainforest">Selva tropical</string>
-    <string name="climate_ice_cap">Casquete de hielo</string>
+    <string name="climate_ice_cap">Casquete polar</string>
     <string name="climate_tropical_monsoon">Monzón tropical</string>
     <string name="climate_tropical_savanna">Sabana tropical</string>
     <string name="climate_desert">Desierto</string>
@@ -1375,4 +1375,24 @@
     <string name="climate_hot_summer_description">Prevea temperaturas cálidas durante el verano.</string>
     <string name="climate_warm_summer_description">Prevea temperaturas moderadas durante el verano.</string>
     <string name="field_guide">Guía práctica</string>
+    <string name="pref_navigation_lock_screen_when_open_title">Mostrar en pantalla de bloqueo mientras está abierto</string>
+    <string name="caliber_format">%s cal</string>
+    <string name="grains_format">%s gr</string>
+    <string name="survival_guide_disclaimer">Esta guía se proporciona únicamente con fines informativos, y ni el autor, ni el editor, ni ninguno de los colaboradores garantizan su exactitud o idoneidad para cualquier propósito. Al utilizar esta guía, usted reconoce que las actividades al aire libre implican riesgos, y lo hace bajo su propia responsabilidad, aceptando eximir de responsabilidad e indemnizar al autor, al editor y a cualquier colaborador por cualquier reclamación o daño derivado del uso de esta guía. Consulte siempre a profesionales para obtener asesoramiento específico para su situación, ya que esta guía no sustituye a la orientación profesional. Además, tenga en cuenta que las leyes y normativas locales pueden afectar al uso legal de las técnicas aquí descritas, y su cumplimiento es responsabilidad suya.</string>
+    <string name="survival_guide_empty_desc">Busque por temas de supervivencia como agua, medicina, alimentos, meteorología, refugios o técnicas de desplazamiento.</string>
+    <string name="signal_finder_description">Ver torres de telefonía móvil y señales cercanas.</string>
+    <string name="cell_tower_disclaimer">La ubicación de las torres es aproximada a partir de OpenCelliD.\n\n[OpenCelliD Project](https://opencellid.org/) está bajo una licencia [Creative Commons Attribution-ShareAlike 4.0 International].(https://creativecommons.org/licenses/by-sa/4.0/)</string>
+    <string name="activity_pattern">Patrón de actividad</string>
+    <string name="field_guide_disclaimer">Esta herramienta sólo tiene fines educativos. Tenga siempre cuidado al identificar plantas, animales u hongos. Algunas especies pueden ser peligrosas o estar protegidas. Si no está seguro de una identificación, consulte a un profesional.</string>
+    <string name="distance_to_target">Distancia al objetivo</string>
+    <string name="bullet_weight">Peso de la bala</string>
+    <string name="speed_format_feet_per_second">%s pies/seg.</string>
+    <string name="speed_format_meters_per_second">%s m/seg</string>
+    <string name="climate_precipitation_amount">Precipitación: %s total mensual</string>
+    <string name="active_period">Activos de %1$s a %2$s</string>
+    <string name="record_sighting">Registrar avistamiento</string>
+    <string name="harvested">Cosechado</string>
+    <string name="sightings">Avistamientos</string>
+    <string name="sightings_count">Avistamientos(%d)</string>
+    <string name="safe_mode_toast">"Detectados problemas,  desactivando algunas funciones durante unos segundos."</string>
 </resources>
