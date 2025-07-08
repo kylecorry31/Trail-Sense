@@ -1406,5 +1406,5 @@
     <string name="alarm_description">Reproduce un sonido aunque las notificaciones estén silenciadas</string>
     <string name="mute_alarm_at_night">Silenciar alarma por la noche</string>
     <string name="alarm_time_range">Solo de %1$s a %2$s</string>
-    <string name="digital_elevation_model_abbreviation">DEM (Modelo Digital de Eelevacion)</string>
+    <string name="digital_elevation_model_abbreviation">DEM (Modelo Digital de Elevacion)</string>
 </resources>
