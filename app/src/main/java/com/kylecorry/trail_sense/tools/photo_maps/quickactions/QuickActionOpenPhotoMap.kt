@@ -25,7 +25,7 @@ class QuickActionOpenPhotoMap(button: ImageButton, fragment: Fragment) : QuickAc
 
     override fun onCreate() {
         super.onCreate()
-        setIcon(R.drawable.maps)
+        setIcon(R.drawable.photo_maps)
     }
 
     override fun onLongClick(): Boolean {

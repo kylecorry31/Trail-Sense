@@ -31,7 +31,7 @@ object PhotoMapsToolRegistration : ToolRegistration {
         return Tool(
             Tools.PHOTO_MAPS,
             context.getString(R.string.photo_maps),
-            R.drawable.maps,
+            R.drawable.photo_maps,
             R.id.mapListFragment,
             ToolCategory.Location,
             context.getString(R.string.photo_map_summary),
