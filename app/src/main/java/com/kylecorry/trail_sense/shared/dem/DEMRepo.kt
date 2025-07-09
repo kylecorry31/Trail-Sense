@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.dem
 
 import android.util.Log
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.main.persistence.ICleanable
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -31,6 +32,12 @@ class DEMRepo private constructor() : ICleanable {
 
         if (removed) {
             DEM.invalidateCache()
+        }
+    }
+
+    suspend fun getVersion(): String? = onDefault {
+        lock.withLock {
+            database.digitalElevationModelDao().getVersion()
         }
     }
 

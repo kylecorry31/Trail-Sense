@@ -40,6 +40,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.URLs
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.DEM
+import com.kylecorry.trail_sense.shared.dem.DEMRepo
 import com.kylecorry.trail_sense.shared.dem.DigitalElevationModelLoader
 import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -217,8 +218,12 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
                 mode == UserPreferences.AltimeterMode.DigitalElevationModelBarometer
 
         demPref.isVisible = isModeDem
-        demPref.summary =
-            if (DEM.isExternalModel()) getString(R.string.loaded) else getString(R.string.built_in_dem)
+        inBackground {
+            val version = DEMRepo.getInstance().getVersion()
+            onMain {
+                demPref.summary = version ?: getString(R.string.built_in_dem)
+            }
+        }
         clearDemPref.isVisible = isModeDem && DEM.isExternalModel()
 
         // Calibration mode options
