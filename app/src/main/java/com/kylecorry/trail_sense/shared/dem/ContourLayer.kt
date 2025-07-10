@@ -22,13 +22,20 @@ import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.TileMath
 import kotlin.math.absoluteValue
 import kotlin.math.atan2
 
-class ElevationLayer : IAsyncLayer {
+class ContourLayer : IAsyncLayer {
 
     private val units by lazy { AppServiceRegistry.get<UserPreferences>().baseDistanceUnits }
     private var updateListener: (() -> Unit)? = null
 
     private val minZoomLevel = 13
     private val maxZoomLevel = 19
+
+    private var opacity = 127
+
+    fun setOpacity(opacity: Int) {
+        this.opacity = opacity
+        invalidate()
+    }
 
     var shouldDrawLabels = true
     var shouldColorContours = false
@@ -113,7 +120,7 @@ class ElevationLayer : IAsyncLayer {
         }
 
         drawer.textSize(drawer.sp(10f * map.layerScale))
-        drawer.withLayerOpacity(127) {
+        drawer.withLayerOpacity(opacity) {
             val thickLineWeight = drawer.dp(2.5f)
             val thinLineWeight = drawer.dp(1f)
 

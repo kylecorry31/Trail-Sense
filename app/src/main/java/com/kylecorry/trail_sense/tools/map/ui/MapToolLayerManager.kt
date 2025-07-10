@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.dem.ElevationLayer
+import com.kylecorry.trail_sense.shared.dem.ContourLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
@@ -44,7 +44,7 @@ class MapToolLayerManager {
     private val tideLayer = TideLayer()
     private val baseMapLayer = MapLayer()
     private val photoMapLayer = MapLayer()
-    private val elevationLayer = ElevationLayer()
+    private val contourLayer = ContourLayer()
     private val navigationLayer = NavigationLayer()
     private val scaleBarLayer = ScaleBarLayer()
     private val backgroundLayer = BackgroundColorMapLayer()
@@ -87,7 +87,7 @@ class MapToolLayerManager {
             listOfNotNull(
                 baseMapLayer,
                 photoMapLayer,
-                if (prefs.showContoursOnMaps) elevationLayer else null,
+                if (prefs.showContoursOnMaps) contourLayer else null,
                 navigationLayer,
                 pathLayer,
                 myAccuracyLayer,

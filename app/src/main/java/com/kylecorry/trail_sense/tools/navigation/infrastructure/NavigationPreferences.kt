@@ -233,6 +233,30 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         50 // percent
     )
 
+    val isContourLayerEnabled by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_navigation_contour_layer_enabled),
+        false
+    )
+
+    val contourLayerOpacity by IntPreference(
+        cache,
+        context.getString(R.string.pref_navigation_contour_layer_opacity),
+        50 // percent
+    )
+
+    val contourLayerShowLabels by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_navigation_contour_layer_show_labels),
+        true
+    )
+
+    val contourLayerColorWithElevation by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_navigation_contour_layer_color_with_elevation),
+        false
+    )
+
     enum class SpeedometerMode {
         Backtrack,
         GPS,

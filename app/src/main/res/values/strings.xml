@@ -1697,8 +1697,12 @@
     <string name="sightings">Sightings</string>
     <string name="sightings_count">Sightings (%d)</string>
     <string name="pref_navigation_map_layer_enabled" translatable="false">pref_navigation_map_layer_enabled</string>
+    <string name="pref_navigation_contour_layer_enabled" translatable="false">pref_navigation_contour_layer_enabled</string>
+    <string name="pref_navigation_contour_layer_show_labels" translatable="false">pref_navigation_contour_layer_show_labels</string>
+    <string name="pref_navigation_contour_layer_color_with_elevation" translatable="false">pref_navigation_contour_layer_color_with_elevation</string>
     <string name="safe_mode_toast">Crashes detected, disabling some features for a few seconds.</string>
     <string name="pref_navigation_map_layer_opacity" translatable="false">pref_navigation_map_layer_opacity</string>
+    <string name="pref_navigation_contour_layer_opacity" translatable="false">pref_navigation_contour_layer_opacity</string>
     <string name="opacity">Opacity</string>
     <string name="pref_navigation_keep_unlocked" translatable="false">pref_navigation_keep_unlocked</string>
     <string name="pref_photo_maps_keep_unlocked" translatable="false">pref_photo_maps_keep_unlocked</string>
@@ -1748,4 +1752,6 @@
     <string name="pref_dem_url" translatable="false">pref_dem_url</string>
     <string name="dem_url">DEM URL</string>
     <string name="map">Map</string>
+    <string name="show_labels">Show labels</string>
+    <string name="color_with_elevation">Color contours based on elevation</string>
 </resources>

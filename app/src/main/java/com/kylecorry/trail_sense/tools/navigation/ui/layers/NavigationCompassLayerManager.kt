@@ -10,16 +10,16 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.dem.ElevationLayer
+import com.kylecorry.trail_sense.shared.dem.ContourLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.ILayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MapLayer
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PhotoMapLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MultiLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyAccuracyLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyLocationLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PathLayerManager
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PhotoMapLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.TideLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
 
@@ -31,7 +31,7 @@ class NavigationCompassLayerManager {
     private val myAccuracyLayer = MyAccuracyLayer()
     private val tideLayer = TideLayer()
     private val mapLayer = MapLayer()
-    private val elevationLayer = ElevationLayer()
+    private val contourLayer = ContourLayer()
     private val prefs = AppServiceRegistry.get<UserPreferences>()
     private var layerManager: ILayerManager? = null
 
@@ -46,6 +46,7 @@ class NavigationCompassLayerManager {
         }
 
         val isMapLayerEnabled = prefs.navigation.isMapLayerEnabled
+        val isContourLayerEnabled = prefs.navigation.isContourLayerEnabled
 
         beaconLayer.setOutlineColor(Resources.color(context, R.color.colorSecondary))
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
@@ -55,16 +56,29 @@ class NavigationCompassLayerManager {
                 0f,
                 100f,
                 0f,
-                255f
+                255f,
+                shouldClamp = true
             ).toInt()
         )
+        contourLayer.setOpacity(
+            SolMath.map(
+                prefs.navigation.contourLayerOpacity.toFloat(),
+                0f,
+                100f,
+                0f,
+                255f,
+                shouldClamp = true
+            ).toInt()
+        )
+        contourLayer.shouldDrawLabels = prefs.navigation.contourLayerShowLabels
+        contourLayer.shouldColorContours = prefs.navigation.contourLayerColorWithElevation
         mapLayer.setBackgroundColor(Resources.color(context, R.color.colorSecondary))
         mapLayer.setMinZoom(4)
         mapLayer.controlsPdfCache = true
         view.setLayers(
             listOfNotNull(
                 if (isMapLayerEnabled) mapLayer else null,
-                if (prefs.showContoursOnMaps) elevationLayer else null,
+                if (isContourLayerEnabled) contourLayer else null,
                 pathLayer,
                 myAccuracyLayer,
                 myLocationLayer,
