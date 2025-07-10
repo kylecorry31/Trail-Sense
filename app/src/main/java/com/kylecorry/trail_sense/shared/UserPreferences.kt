@@ -44,7 +44,7 @@ import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyPrefere
 import com.kylecorry.trail_sense.tools.ballistics.infrastructure.BallisticsPreferences
 import com.kylecorry.trail_sense.tools.climate.infrastructure.ClimatePreferenceRepo
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuidePreferences
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapPreferences
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.PhotoMapPreferences
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.ui.sort.ToolSortType
@@ -59,7 +59,7 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
     private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
 
     val navigation by lazy { NavigationPreferences(context) }
-    val maps by lazy { MapPreferences(context) }
+    val photoMaps by lazy { PhotoMapPreferences(context) }
     val weather by lazy { WeatherPreferences(context) }
     val astronomy by lazy { AstronomyPreferences(context) }
     val flashlight by lazy { FlashlightPreferenceRepo(context) }

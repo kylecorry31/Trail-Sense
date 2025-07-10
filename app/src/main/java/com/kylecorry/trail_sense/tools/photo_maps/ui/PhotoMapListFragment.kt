@@ -125,7 +125,7 @@ class PhotoMapListFragment : BoundFragment<FragmentPhotoMapListBinding>() {
             UserGuideUtils.showGuide(this, R.raw.guide_tool_photo_maps)
         }
 
-        sort = prefs.maps.mapSort
+        sort = prefs.photoMaps.mapSort
         binding.mapListTitle.rightButton.setOnClickListener {
             Pickers.menu(
                 it, listOf(
@@ -160,10 +160,10 @@ class PhotoMapListFragment : BoundFragment<FragmentPhotoMapListBinding>() {
             requireContext(),
             getString(R.string.sort),
             sortOptions.map { getSortString(it) },
-            sortOptions.indexOf(prefs.maps.mapSort)
+            sortOptions.indexOf(prefs.photoMaps.mapSort)
         ) { newSort ->
             if (newSort != null) {
-                prefs.maps.mapSort = sortOptions[newSort]
+                prefs.photoMaps.mapSort = sortOptions[newSort]
                 sort = sortOptions[newSort]
                 onSortChanged()
             }
@@ -359,7 +359,7 @@ class PhotoMapListFragment : BoundFragment<FragmentPhotoMapListBinding>() {
 
             val isPdfMap = map.hasPdf(requireContext())
 
-            if ((isPdfMap && prefs.maps.autoReducePdfMaps) || (!isPdfMap && prefs.maps.autoReducePhotoMaps)) {
+            if ((isPdfMap && prefs.photoMaps.autoReducePdfMaps) || (!isPdfMap && prefs.photoMaps.autoReducePhotoMaps)) {
                 mapImportingIndicator.show()
                 val reducer = HighQualityMapReducer(requireContext())
                 reducer.reduce(map)

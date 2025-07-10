@@ -36,7 +36,7 @@ object PhotoMapsToolRegistration : ToolRegistration {
             ToolCategory.Location,
             context.getString(R.string.photo_map_summary),
             guideId = R.raw.guide_tool_photo_maps,
-            settingsNavAction = R.id.mapSettingsFragment,
+            settingsNavAction = R.id.photoMapSettingsFragment,
             quickActions = listOf(
                 ToolQuickAction(
                     Tools.QUICK_ACTION_OPEN_PHOTO_MAP,

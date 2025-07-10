@@ -649,9 +649,9 @@
         android:name="com.kylecorry.trail_sense.settings.ui.SensorSettingsFragment"
         android:label="SensorSettingsFragment" />
     <fragment
-        android:id="@+id/mapSettingsFragment"
-        android:name="com.kylecorry.trail_sense.tools.photo_maps.ui.MapSettingsFragment"
-        android:label="MapSettingsFragment" />
+        android:id="@+id/photoMapSettingsFragment"
+        android:name="com.kylecorry.trail_sense.tools.photo_maps.ui.PhotoMapSettingsFragment"
+        android:label="PhotoMapSettingsFragment" />
     <fragment
         android:id="@+id/temperatureEstimationFragment"
         android:name="com.kylecorry.trail_sense.tools.temperature_estimation.ui.TemperatureEstimationFragment"

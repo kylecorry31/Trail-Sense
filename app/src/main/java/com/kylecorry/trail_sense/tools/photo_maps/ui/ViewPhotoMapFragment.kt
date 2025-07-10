@@ -20,6 +20,7 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.torch.ScreenTorch
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -76,7 +77,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     private val prefs by lazy { UserPreferences(requireContext()) }
 
     private val navigator by lazy { Navigator.getInstance(requireContext()) }
-    private val screenLock by lazy { NavigationScreenLock(prefs.maps.keepScreenUnlockedWhileOpen) }
+    private val screenLock by lazy { NavigationScreenLock(prefs.photoMaps.keepScreenUnlockedWhileOpen) }
 
     private val screenLight by lazy { ScreenTorch(requireActivity().window) }
 
@@ -165,7 +166,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
 
         if (mapLockMode == MapLockMode.Trace) {
-            updateMapLockMode(MapLockMode.Trace, prefs.maps.keepMapFacingUp)
+            updateMapLockMode(MapLockMode.Trace, prefs.photoMaps.keepMapFacingUp)
         }
     }
 
@@ -174,7 +175,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
         binding.map.setLayers(
             listOfNotNull(
-                if (prefs.showContoursOnMaps) contourLayer else null,
+                if (prefs.photoMaps.isContourLayerEnabled) contourLayer else null,
                 navigationLayer,
                 pathLayer,
                 myAccuracyLayer,
@@ -185,6 +186,18 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                 distanceLayer,
                 myElevationLayer
             )
+        )
+        contourLayer.shouldColorContours = prefs.photoMaps.contourLayerColorWithElevation
+        contourLayer.shouldDrawLabels = prefs.photoMaps.contourLayerShowLabels
+        contourLayer.setOpacity(
+            SolMath.map(
+                prefs.photoMaps.contourLayerOpacity.toFloat(),
+                0f,
+                100f,
+                0f,
+                255f,
+                shouldClamp = true
+            ).toInt()
         )
         distanceLayer.setOutlineColor(Color.WHITE)
         distanceLayer.setPathColor(Color.BLACK)
@@ -217,7 +230,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
             onLongPress(it)
         }
 
-        val keepMapUp = prefs.maps.keepMapFacingUp
+        val keepMapUp = prefs.photoMaps.keepMapFacingUp
 
         // TODO: Don't show if location not on map
 
@@ -392,7 +405,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     }
 
     fun trace() {
-        updateMapLockMode(MapLockMode.Trace, prefs.maps.keepMapFacingUp)
+        updateMapLockMode(MapLockMode.Trace, prefs.photoMaps.keepMapFacingUp)
     }
 
     private fun navigateTo(location: Coordinate) {
@@ -451,7 +464,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         this.map = map
         binding.map.onImageLoadedListener = {
             if (shouldLockOnMapLoad) {
-                updateMapLockMode(MapLockMode.Location, prefs.maps.keepMapFacingUp)
+                updateMapLockMode(MapLockMode.Location, prefs.photoMaps.keepMapFacingUp)
                 shouldLockOnMapLoad = false
             }
         }

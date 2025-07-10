@@ -5,10 +5,10 @@ import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 
-class MapSettingsFragment : AndromedaPreferenceFragment() {
+class PhotoMapSettingsFragment : AndromedaPreferenceFragment() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.map_preferences, rootKey)
+        setPreferencesFromResource(R.xml.photo_map_preferences, rootKey)
 
         val reducePhotoResolutionPreference = switch(R.string.pref_low_resolution_maps)
         val reducePdfResolutionPreference = switch(R.string.pref_low_resolution_pdf_maps)

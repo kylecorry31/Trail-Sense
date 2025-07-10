@@ -36,7 +36,7 @@ class MapMapper(
 
     override fun map(value: PhotoMap): ListItem {
         val onMap = value.boundary()?.contains(gps.location) ?: false
-        val icon = if (prefs.maps.showMapPreviews) {
+        val icon = if (prefs.photoMaps.showMapPreviews) {
             AsyncListIcon(
                 lifecycleOwner,
                 { loadMapThumbnail(value) },
@@ -111,7 +111,7 @@ class MapMapper(
             getDefaultMapThumbnail()
         }
 
-        val rotation = if (prefs.maps.keepMapFacingUp) map.baseRotation().toFloat() else map.calibration.rotation
+        val rotation = if (prefs.photoMaps.keepMapFacingUp) map.baseRotation().toFloat() else map.calibration.rotation
 
         if (rotation != 0f) {
             val rotated = bitmap.rotate(rotation)
