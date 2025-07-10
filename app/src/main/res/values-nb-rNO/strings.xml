@@ -572,7 +572,7 @@
     <string name="clear_amounts">Tøm mengder</string>
     <string name="desired_amount">Ønsket mengde</string>
     <string name="packed_amount">Sammenpakket mengde</string>
-    <string name="us_gallons">Amerikanske gallon</string>
+    <string name="us_gallons">amerikanske gallon</string>
     <string name="no_clouds">Ingen skyer</string>
     <string name="moon">Månen</string>
     <string name="sun">Solen</string>
@@ -1157,5 +1157,15 @@
     <string name="scanning_image">Analyserer bilde</string>
     <string name="actual_frequency_disclaimer">Den faktiske frekvensen kan variere ettersom noen enheter har bakgrunnsbegrensninger på plass.</string>
     <string name="pref_dialog_battery_log_summary">Batteriloggen er deaktivert. Historikk og tid til tomt batteri kan være utilgjengelig. Du kan aktivere dette igjen i innstillingene</string>
-    <string name="pref_tiles_enabled_battery_log_summary">Lagrer batteriprosenten hver time for å estimere tiden til batteriet er tomt.</string>
+    <string name="pref_tiles_enabled_battery_log_summary">Lagrer batteriprosenten hver time for å estimere tiden til batteriet er tomt</string>
+    <string name="yards_format">%s yd</string>
+    <string name="caliber_format">%s cal</string>
+    <string name="unit_yards">Yards</string>
+    <string name="gallon_format">%s gal</string>
+    <string name="teaspooon_format">%s tsp</string>
+    <string name="tablespoon_format">%s tbsp</string>
+    <string name="us_pints">US Pints</string>
+    <string name="us_quarts">US Quarts</string>
+    <string name="grains">Grains</string>
+    <string name="us_ounces_volume">amerikanske unser</string>
 </resources>
