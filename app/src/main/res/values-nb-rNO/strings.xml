@@ -929,7 +929,7 @@
     <string name="size">Størrelse</string>
     <string name="center">Senter</string>
     <string name="create_blank_map">Opprett tomt kart</string>
-    <string name="unblock_notification_channel">Opphev %s-merknad for Trail Sense</string>
+    <string name="unblock_notification_channel">Fjern blokkering av %s-merknad for Trail Sense</string>
     <string name="battery_restricted_resolution">Sett Trail Sense som «Ikke optimalisert»</string>
     <string name="loading">Laster inn …</string>
     <string name="unable_to_find_next_astronomy">Finner ikke neste %s</string>
