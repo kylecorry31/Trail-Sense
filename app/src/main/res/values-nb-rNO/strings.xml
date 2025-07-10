@@ -98,7 +98,7 @@
     <string name="compass_declination">Misvisning</string>
     <string name="fahrenheit">Fahrenheit</string>
     <string name="pref_use_24_hour_title">Bruk 24-timersklokke</string>
-    <string name="set_inclination_instructions">Trykk eller hold hvor som helst for å låse/låse opp</string>
+    <string name="set_inclination_instructions">Trykk eller hold hvor som helst for å låse eller låse opp</string>
     <string name="clinometer_rotate_device">Hold telefonen vertikalt for å måle helning</string>
     <string name="tool_clinometer_summary">Anslå snøskredfare og objekthøyder</string>
     <string name="clinometer_title">Klinometer</string>
@@ -114,7 +114,7 @@
     <string name="sos">SOS</string>
     <string name="dash">-</string>
     <string name="kilometers_per_hour_format">%.1f km/t</string>
-    <string name="access_background_location_rationale">Trail Sense bruker posisjonsdata i bakgrunnen. Posisjonsdata brukes for å gi mer nøyaktige solnedgangsvarsler mens du reiser. [Vis personvernregler](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">Trail Sense bruker posisjonsdata i bakgrunnen. Dette brukes til kalibrering av lufttrykk ved havnivå i værvarsling og for å gi mer nøyaktige solnedgangsvarsler. [Vis personvernregler](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="access_background_location">Oppdater posisjonsinnstillinger</string>
     <string name="tool_user_guide_summary">Veiledning for bruk av Trail Sense</string>
     <string name="tool_user_guide_title">Brukerveiledning</string>
@@ -1153,4 +1153,8 @@
     <string name="screen_flashlight_full_name">Skjermlommelykt</string>
     <string name="bottom_navigation_slot">Nedre navigeringsplass %d</string>
     <string name="pinned">Festet</string>
+    <string name="onboarding_privacy">- Trail Sense respekterer personvernet ditt og posisjonsdata forlater aldri enheten din\n\n- Trail Sense vil aldri kreve Internett-tillatelse\n\n- Se [Personvernreglene](https://kylecorry.com/Trail-Sense/privacy_policy.html) (åpnes i telefonens nettleser)\n\n- Noen funksjoner i Trail Sense krever tilgang til posisjonen din\n\n- Å gi plasseringstillatelsen vil aktivere følgende funksjoner:\n\n- Navigerer til beacons\n\n- Forbedret prognosenøyaktighet (ikke tilgjengelig på alle enheter)\n\n- Tilbakespor\n\n- Sol- og månetider for din nåværende posisjon (solnedgangsvarsler kan kreve bakgrunnsposisjon)\n\n- Hvis du velger å ikke gi plasseringstillatelsen, kan du manuelt legge inn en plassering i menyen Innstillinger &gt; Sensorer &gt; GPS-kalibrering i Trail Sense.\n\n- Etter å ha klikket fortsett, vil du bli bedt om å gi plasseringstillatelse. Å nekte denne tillatelsen vil forhindre Trail Sense fra å få tilgang til posisjonen din, så en manuell posisjonsangivelse anbefales.</string>
+    <string name="scanning_image">Analyserer bilde</string>
+    <string name="actual_frequency_disclaimer">Den faktiske frekvensen kan variere ettersom noen enheter har bakgrunnsbegrensninger på plass.</string>
+    <string name="pref_dialog_battery_log_summary">Batteriloggen er deaktivert. Historikk og tid til tomt batteri kan være utilgjengelig. Du kan aktivere dette igjen i innstillingene.</string>
 </resources>
