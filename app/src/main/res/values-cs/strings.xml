@@ -1454,4 +1454,6 @@
     <string name="map_layer">Vrstva mapy</string>
     <string name="dem_url">URL DEM</string>
     <string name="map">Mapa</string>
+    <string name="show_labels">Zobrazit popisky</string>
+    <string name="color_with_elevation">Barevné vrstevnice podle nadmořské výšky</string>
 </resources>
