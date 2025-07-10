@@ -1260,4 +1260,14 @@
     <string name="last_known_gps_location">Ultima posizione GPS nota</string>
     <string name="timezone">Fuso orario</string>
     <string name="approximate_location">Posizione approssimativa</string>
+    <plurals name="page_group_summary">
+        <item quantity="one">pagina</item>
+        <item quantity="many">pagine</item>
+        <item quantity="other">pagine</item>
+    </plurals>
+    <string name="pref_navigation_lock_screen_when_open_title">Mostra sulla schermata di blocco quando aperto</string>
+    <string name="milligrams">Milligrammi</string>
+    <string name="grains">Gravi</string>
+    <string name="milligrams_format">%s mg</string>
+    <string name="grains_format">%s gr</string>
 </resources>
