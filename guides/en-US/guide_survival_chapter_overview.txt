@@ -165,7 +165,7 @@ Once you have a trip planned out, pack the necessary gear and supplies and check
 
 Signaling for help will increase your odds of being found. You should do this often, even if you don't think anyone is nearby or can hear you.
 
-### Cell phones
+### Cell phone
 <!-- K: cell, phone, call, text, smartphone -->
 
 Many phones can call emergency services even without a signal from your carrier. If you can't make a call, try sending a text message. Check your phone periodically to see if you have a signal, but otherwise, keep it off or in airplane mode to conserve battery. You may get a better signal by moving to higher ground or an open area.
