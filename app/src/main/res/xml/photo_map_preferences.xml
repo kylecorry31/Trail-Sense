@@ -53,46 +53,4 @@
             app:singleLineTitle="false"
             app:title="@string/layers" />
     </PreferenceCategory>
-
-    <PreferenceCategory
-        app:iconSpaceReserved="false"
-        app:singleLineTitle="false"
-        app:title="@string/contours">
-
-        <SwitchPreferenceCompat
-            app:defaultValue="false"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_photo_maps_contour_layer_enabled"
-            app:singleLineTitle="false"
-            app:title="@string/visible" />
-
-        <SeekBarPreference
-            android:defaultValue="50"
-            android:dependency="@string/pref_photo_maps_contour_layer_enabled"
-            android:max="100"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_photo_maps_contour_layer_opacity"
-            app:min="0"
-            app:seekBarIncrement="1"
-            app:showSeekBarValue="true"
-            app:singleLineTitle="false"
-            app:title="@string/opacity" />
-
-        <SwitchPreferenceCompat
-            app:defaultValue="true"
-            app:dependency="@string/pref_photo_maps_contour_layer_enabled"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_photo_maps_contour_layer_show_labels"
-            app:singleLineTitle="false"
-            app:title="@string/show_labels" />
-
-        <SwitchPreferenceCompat
-            app:defaultValue="false"
-            app:dependency="@string/pref_photo_maps_contour_layer_enabled"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_photo_maps_contour_layer_color_with_elevation"
-            app:singleLineTitle="false"
-            app:title="@string/color_with_elevation" />
-
-    </PreferenceCategory>
 </PreferenceScreen>

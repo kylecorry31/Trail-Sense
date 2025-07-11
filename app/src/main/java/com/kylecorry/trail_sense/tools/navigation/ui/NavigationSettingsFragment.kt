@@ -10,6 +10,8 @@ import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerPreferenceManager
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerPreferences
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.shared.preferences.setupDistanceSetting
@@ -85,6 +87,13 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
         } else {
             preference(R.string.pref_show_dial_ticks_when_no_compass)?.isVisible = false
         }
+
+        val layerManager =
+            MapLayerPreferenceManager("navigation", listOf(
+                MapLayerPreferences.photoMaps(requireContext()),
+                MapLayerPreferences.contours(requireContext())
+            ), getString(R.string.pref_nearby_radar))
+        layerManager.populatePreferences(preferenceScreen)
     }
 
     private fun relative(distance: Distance, prefs: UserPreferences): Distance {

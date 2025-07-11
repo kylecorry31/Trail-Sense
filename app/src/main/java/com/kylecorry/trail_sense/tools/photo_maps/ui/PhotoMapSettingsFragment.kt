@@ -4,6 +4,8 @@ import android.os.Bundle
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerPreferenceManager
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerPreferences
 
 class PhotoMapSettingsFragment : AndromedaPreferenceFragment() {
 
@@ -21,6 +23,13 @@ class PhotoMapSettingsFragment : AndromedaPreferenceFragment() {
             onReduceResolutionChange(reducePhotoResolutionPreference?.isChecked == true)
         }
 
+        // Layers
+        val layerManager = MapLayerPreferenceManager(
+            "photo_maps", listOf(
+                MapLayerPreferences.contours(requireContext())
+            )
+        )
+        layerManager.populatePreferences(preferenceScreen)
     }
 
     private fun onReduceResolutionChange(shouldReduce: Boolean) {
