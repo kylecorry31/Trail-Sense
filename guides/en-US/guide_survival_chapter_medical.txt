@@ -20,7 +20,7 @@ This chapter covers basic medical knowledge and techniques for common injuries a
 - Antibiotic ointment
 - Sunscreen
 - Insect repellent
-- Prescription medications, contact lenses, and glasses
+- Prescription medications (including several days worth of extra doses), contact lenses, and glasses
 - Pain relievers (aspirin, ibuprofen, acetaminophen)
 - Hand sanitizer (unscented)
 - Epinephrine auto-injector (if you have severe allergies)

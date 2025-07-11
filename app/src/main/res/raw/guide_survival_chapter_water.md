@@ -14,7 +14,7 @@ You can only survive a few days without water in most cases, and sometimes not e
 **Necessities**:
 - Water (enough for the duration of your trip, plus a bit extra).
   - Bring a water purification method for longer trips and plan your route to include water sources.
-- Water containers (ensure you have a container that you can boil water in).
+- Water containers (ensure you have a container that you can boil water in, such as a single-walled stainless steel bottle)
 
 **Optional**:
 - Water purification method (tablets or filter)

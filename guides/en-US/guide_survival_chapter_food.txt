@@ -12,7 +12,7 @@ Food gives you energy but is a low priority in most survival situations since yo
 ### Gear
 
 **Necessities**:
-- Food (enough for the duration of your trip, plus a bit extra). Some good options include:
+- Food (enough for the duration of your trip, plus a bit extra). Don't bring food you have never eaten before. Some good options can include:
   - Nuts
   - Seeds
   - Dried fruit
@@ -20,7 +20,7 @@ Food gives you energy but is a low priority in most survival situations since yo
   - Energy bars
   - Dehydrated meals (with extra water)
   - Canned food (with a can opener if needed)
-- Knife or multitool
+- Knife or multitool with a knife blade
 - Bear bag or canister
 
 **Optional**:
