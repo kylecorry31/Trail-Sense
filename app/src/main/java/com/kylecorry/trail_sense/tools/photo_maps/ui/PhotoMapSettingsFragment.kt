@@ -4,8 +4,8 @@ import android.os.Bundle
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.map_layers.MapLayerPreferenceManager
-import com.kylecorry.trail_sense.shared.map_layers.MapLayerPreferences
+import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayerPreferenceManager
+import com.kylecorry.trail_sense.shared.map_layers.preferences.definition.MapLayerPreferences
 
 class PhotoMapSettingsFragment : AndromedaPreferenceFragment() {
 

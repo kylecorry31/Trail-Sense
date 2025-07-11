@@ -14,6 +14,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.infrastructure.IBeaconPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ICompassStylePreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.ContourMapLayerPreferences
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.PhotoMapMapLayerPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.sort.BeaconSortMethod
@@ -221,41 +223,8 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
     )
 
     // Layers
-    var isMapLayerEnabled by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_navigation_map_layer_enabled),
-        true
-    )
-
-    val mapLayerOpacity by IntPreference(
-        cache,
-        context.getString(R.string.pref_navigation_map_layer_opacity),
-        50 // percent
-    )
-
-    val isContourLayerEnabled by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_navigation_contour_layer_enabled),
-        false
-    )
-
-    val contourLayerOpacity by IntPreference(
-        cache,
-        context.getString(R.string.pref_navigation_contour_layer_opacity),
-        50 // percent
-    )
-
-    val contourLayerShowLabels by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_navigation_contour_layer_show_labels),
-        true
-    )
-
-    val contourLayerColorWithElevation by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_navigation_contour_layer_color_with_elevation),
-        false
-    )
+    val photoMapLayer = PhotoMapMapLayerPreferences(context, "navigation")
+    val contourLayer = ContourMapLayerPreferences(context, "navigation")
 
     enum class SpeedometerMode {
         Backtrack,

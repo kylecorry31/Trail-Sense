@@ -10,8 +10,8 @@ import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.map_layers.MapLayerPreferenceManager
-import com.kylecorry.trail_sense.shared.map_layers.MapLayerPreferences
+import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayerPreferenceManager
+import com.kylecorry.trail_sense.shared.map_layers.preferences.definition.MapLayerPreferences
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.shared.preferences.setupDistanceSetting

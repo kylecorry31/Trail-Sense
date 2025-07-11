@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.map_layers
+package com.kylecorry.trail_sense.shared.map_layers.preferences.definition
 
 import android.content.Context
 import com.kylecorry.trail_sense.R

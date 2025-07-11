@@ -7,6 +7,7 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.onMain
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.CompassDirection
@@ -14,6 +15,7 @@ import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
 import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.device.DeviceSubsystem
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.PhotoMapMapLayerPreferences
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.ITileSourceSelector
@@ -42,8 +44,16 @@ class MapLayer : IAsyncLayer {
             shouldReloadTiles = true
         }
 
-    fun setOpacity(opacity: Int) {
-        this.opacity = opacity
+    fun setPreferences(prefs: PhotoMapMapLayerPreferences) {
+        opacity = SolMath.map(
+            prefs.opacity.toFloat(),
+            0f,
+            100f,
+            0f,
+            255f,
+            shouldClamp = true
+        ).toInt()
+        invalidate()
     }
 
     fun setBackgroundColor(color: Int) {

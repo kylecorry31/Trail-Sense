@@ -6,6 +6,7 @@ import com.kylecorry.andromeda.preferences.IntEnumPreference
 import com.kylecorry.andromeda.preferences.IntPreference
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.infrastructure.PreferenceRepo
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.ContourMapLayerPreferences
 import com.kylecorry.trail_sense.tools.photo_maps.domain.sort.MapSortMethod
 
 class PhotoMapPreferences(context: Context) : PreferenceRepo(context) {
@@ -47,27 +48,5 @@ class PhotoMapPreferences(context: Context) : PreferenceRepo(context) {
     )
 
     // Layers
-    val isContourLayerEnabled by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_photo_maps_contour_layer_enabled),
-        false
-    )
-
-    val contourLayerOpacity by IntPreference(
-        cache,
-        context.getString(R.string.pref_photo_maps_contour_layer_opacity),
-        50 // percent
-    )
-
-    val contourLayerShowLabels by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_photo_maps_contour_layer_show_labels),
-        true
-    )
-
-    val contourLayerColorWithElevation by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_photo_maps_contour_layer_color_with_elevation),
-        false
-    )
+    val contourLayer = ContourMapLayerPreferences(context, "photo_maps")
 }

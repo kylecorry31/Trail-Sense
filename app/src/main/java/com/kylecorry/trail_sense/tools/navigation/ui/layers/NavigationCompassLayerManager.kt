@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Color
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
@@ -30,7 +29,7 @@ class NavigationCompassLayerManager {
     private val myLocationLayer = MyLocationLayer()
     private val myAccuracyLayer = MyAccuracyLayer()
     private val tideLayer = TideLayer()
-    private val mapLayer = MapLayer()
+    private val photoMapLayer = MapLayer()
     private val contourLayer = ContourLayer()
     private val prefs = AppServiceRegistry.get<UserPreferences>()
     private var layerManager: ILayerManager? = null
@@ -45,39 +44,19 @@ class NavigationCompassLayerManager {
             myLocationLayer.setShowDirection(false)
         }
 
-        val isMapLayerEnabled = prefs.navigation.isMapLayerEnabled
-        val isContourLayerEnabled = prefs.navigation.isContourLayerEnabled
+        val isMapLayerEnabled = prefs.navigation.photoMapLayer.isEnabled
+        val isContourLayerEnabled = prefs.navigation.contourLayer.isEnabled
 
         beaconLayer.setOutlineColor(Resources.color(context, R.color.colorSecondary))
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
-        mapLayer.setOpacity(
-            SolMath.map(
-                prefs.navigation.mapLayerOpacity.toFloat(),
-                0f,
-                100f,
-                0f,
-                255f,
-                shouldClamp = true
-            ).toInt()
-        )
-        contourLayer.setOpacity(
-            SolMath.map(
-                prefs.navigation.contourLayerOpacity.toFloat(),
-                0f,
-                100f,
-                0f,
-                255f,
-                shouldClamp = true
-            ).toInt()
-        )
-        contourLayer.shouldDrawLabels = prefs.navigation.contourLayerShowLabels
-        contourLayer.shouldColorContours = prefs.navigation.contourLayerColorWithElevation
-        mapLayer.setBackgroundColor(Resources.color(context, R.color.colorSecondary))
-        mapLayer.setMinZoom(4)
-        mapLayer.controlsPdfCache = true
+        photoMapLayer.setPreferences(prefs.navigation.photoMapLayer)
+        contourLayer.setPreferences(prefs.navigation.contourLayer)
+        photoMapLayer.setBackgroundColor(Resources.color(context, R.color.colorSecondary))
+        photoMapLayer.setMinZoom(4)
+        photoMapLayer.controlsPdfCache = true
         view.setLayers(
             listOfNotNull(
-                if (isMapLayerEnabled) mapLayer else null,
+                if (isMapLayerEnabled) photoMapLayer else null,
                 if (isContourLayerEnabled) contourLayer else null,
                 pathLayer,
                 myAccuracyLayer,
@@ -99,7 +78,7 @@ class NavigationCompassLayerManager {
                 TideLayerManager(context, tideLayer),
                 if (isMapLayerEnabled) PhotoMapLayerManager(
                     context,
-                    mapLayer,
+                    photoMapLayer,
                     replaceWhitePixels = true,
                     loadPdfs = false
                 ) else null

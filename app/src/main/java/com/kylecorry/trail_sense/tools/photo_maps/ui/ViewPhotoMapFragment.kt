@@ -175,7 +175,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
         binding.map.setLayers(
             listOfNotNull(
-                if (prefs.photoMaps.isContourLayerEnabled) contourLayer else null,
+                if (prefs.photoMaps.contourLayer.isEnabled) contourLayer else null,
                 navigationLayer,
                 pathLayer,
                 myAccuracyLayer,
@@ -187,18 +187,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                 myElevationLayer
             )
         )
-        contourLayer.shouldColorContours = prefs.photoMaps.contourLayerColorWithElevation
-        contourLayer.shouldDrawLabels = prefs.photoMaps.contourLayerShowLabels
-        contourLayer.setOpacity(
-            SolMath.map(
-                prefs.photoMaps.contourLayerOpacity.toFloat(),
-                0f,
-                100f,
-                0f,
-                255f,
-                shouldClamp = true
-            ).toInt()
-        )
+        contourLayer.setPreferences(prefs.photoMaps.contourLayer)
         distanceLayer.setOutlineColor(Color.WHITE)
         distanceLayer.setPathColor(Color.BLACK)
         distanceLayer.isEnabled = false

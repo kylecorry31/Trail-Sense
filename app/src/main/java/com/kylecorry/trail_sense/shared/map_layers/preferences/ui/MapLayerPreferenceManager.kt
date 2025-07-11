@@ -1,8 +1,9 @@
-package com.kylecorry.trail_sense.shared.map_layers
+package com.kylecorry.trail_sense.shared.map_layers.preferences.ui
 
 import android.content.Context
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceScreen
+import com.kylecorry.trail_sense.shared.map_layers.preferences.definition.MapLayerPreferences
 
 class MapLayerPreferenceManager(
     private val mapId: String,
@@ -37,4 +38,3 @@ class MapLayerPreferenceManager(
         return category
     }
 }
-

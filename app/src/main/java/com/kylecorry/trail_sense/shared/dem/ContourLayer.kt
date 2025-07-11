@@ -16,6 +16,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
 import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.ContourMapLayerPreferences
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.TileMath
@@ -32,13 +33,22 @@ class ContourLayer : IAsyncLayer {
 
     private var opacity = 127
 
-    fun setOpacity(opacity: Int) {
-        this.opacity = opacity
+    fun setPreferences(prefs: ContourMapLayerPreferences) {
+        opacity = SolMath.map(
+            prefs.opacity.toFloat(),
+            0f,
+            100f,
+            0f,
+            255f,
+            shouldClamp = true
+        ).toInt()
+        shouldDrawLabels = prefs.showLabels
+        shouldColorContours = prefs.colorWithElevation
         invalidate()
     }
 
-    var shouldDrawLabels = true
-    var shouldColorContours = false
+    private var shouldDrawLabels = true
+    private var shouldColorContours = false
     private val colorScale = RgbInterpolationColorMap(
         arrayOf(
             0xFF006400.toInt(), // Dark green (0m)
