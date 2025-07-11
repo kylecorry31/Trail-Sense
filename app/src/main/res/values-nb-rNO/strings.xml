@@ -1196,5 +1196,19 @@
     <string name="unpin">Løsne</string>
     <string name="pin">Fest</string>
     <string name="settings_have_moved">Innstillingene har blitt flyttet</string>
-    <string name="settings_have_moved_message">Appinnstillinger har blitt flyttet til Verktøy fanen.</string>
+    <string name="settings_have_moved_message">Appinnstillinger har blitt flyttet til Verktøy fanen</string>
+    <string name="missing_sensor_message_1">Din %1$s har ikke en innebygd %2$s-sensor. Dessverre betyr dette at noen funksjoner i %3$s ikke vil være tilgjengelige.</string>
+    <string name="is_there_a_way_to_fix_this">Finnes det en måte å fikse dette på?</string>
+    <string name="no_sensor_unable_to_fix">Nei, dessverre er dette en maskinvarefunksjon, så det finnes ingenting som kan gjøres for å legge den til.</string>
+    <string name="why_missing_sensor">Min enhet er ny/dyr, hvorfor mangler den denne sensoren?</string>
+    <string name="missing_sensor_explanation">Noen telefonprodusenter velger å ikke inkludere denne sensoren, selv på nye eller dyre enheter. Du kan få mer informasjon ved å besøke produsentens nettside eller kontakte dem direkte.</string>
+    <string name="true_north_description">Peker mot den geografiske nordpolen ved å bruke deklinasjonen for din posisjon. Dette vil samsvare med de fleste kart.</string>
+    <string name="magnetic_north_description">Peker mot den magnetiske nordpolen. Dette vil samsvare med de fleste kompasser.</string>
+    <string name="high_sensitivity">Høy følsomhet</string>
+    <string name="continuous_calibration">Kontinuerlig kalibrering</string>
+    <string name="continuous_calibration_description">Kalibrerer hver gang det er GPS-fiks.</string>
+    <string name="service_restart">Omstart av tjenesten</string>
+    <string name="service_restart_channel_description">Et varsel om omstart av tjenester</string>
+    <string name="restart_services_title">Start tjenestene på nytt</string>
+    <string name="restart_services_message">Bakgrunnstjenester kunne ikke startes på nytt. Trykk for å starte på nytt.</string>
 </resources>
