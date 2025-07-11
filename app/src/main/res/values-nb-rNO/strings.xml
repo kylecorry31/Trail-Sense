@@ -1184,4 +1184,17 @@
     <string name="crop_map_instructions_long">Dra hjørnene på boksen til hjørnene på kartet for å markere området. Beskjæring vil redusere kartets oppløsning.</string>
     <string name="triangulate_destination_location_1_instructions">Registrer posisjonen din og retningen mot målet.</string>
     <string name="signal_finder_description">Vis nærliggende mobilmaster og signaler.</string>
+    <string name="triangulate_destination_location_2_instructions">Flytt deg minst %s fra den første posisjonen. Registrer så posisjon og retning mot målet på nytt.</string>
+    <string name="triangulate_self_location_1_instructions">Velg et kjent sted du kan se, og registrer retningen dit fra der du står.</string>
+    <string name="triangulate_self_location_2_instructions">Velg et annet kjent sted du kan se, og registrer retningen dit fra der du står.</string>
+    <string name="location_to_triangulate">Sted for triangulering</string>
+    <string name="distance_away_from_self">%s unna</string>
+    <string name="distance_away_from_destination">%s fra målet</string>
+    <string name="enter_manually">Skriv inn manuelt</string>
+    <string name="direction_not_set">Retning ikke angitt</string>
+    <string name="augmented_reality">Utvidet virkelighet</string>
+    <string name="unpin">Løsne</string>
+    <string name="pin">Fest</string>
+    <string name="settings_have_moved">Innstillingene har blitt flyttet</string>
+    <string name="settings_have_moved_message">Appinnstillinger har blitt flyttet til Verktøy fanen.</string>
 </resources>
