@@ -1415,4 +1415,6 @@
     <string name="map_layer">地图层</string>
     <string name="dem_url">数字高程模型 URL</string>
     <string name="map">地图</string>
+    <string name="show_labels">显示标签</string>
+    <string name="color_with_elevation">根据高度着色轮廓</string>
 </resources>
