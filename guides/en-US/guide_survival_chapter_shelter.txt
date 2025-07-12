@@ -77,9 +77,9 @@ When choosing clothing, consider the following materials:
 
 You should plan to wear multiple layers of clothing to protect against the elements. Layering allows you to adjust your clothing to changing conditions and maintain body temperature.
 
-In cold environments, remove or add layers to prevent sweating while staying warm.
+In cold environments, remove or add layers to prevent sweating while staying warm. Remove mid layers before physical exertion and add them back in after you stop.
 
-In warm environments, you may only need to wear a base layer. But you should always pack rain gear, such as an emergency poncho, in case of sudden weather changes.
+In warm environments, you may only need to wear a base layer as long as you have sunscreen and bug repellant on. But you should still always pack rain gear, such as an emergency poncho, in case of sudden weather changes.
 
 If you need extra insulation in a pinch, stuff your clothing with dry leaves, grass, or other insulating materials.
 
@@ -107,7 +107,7 @@ If you need extra insulation in a pinch, stuff your clothing with dry leaves, gr
 
 Be sure to choose footwear that is appropriate for your environment. In cold climates, wear insulated, waterproof boots. In hot climates, wear breathable, lightweight shoes. Always break in new footwear before a trip to avoid blisters.
 
-If you plan to be hiking in wet conditions, consider wearing waterproof boots.
+If you plan to be hiking in wet conditions, consider wearing waterproof boots or all-terrain footwear that can handle water and dries fast.
 
 Bring extra socks, preferably made from wool, and ensure they are taller than your boots to avoid blisters.
 
@@ -115,7 +115,7 @@ Bring extra socks, preferably made from wool, and ensure they are taller than yo
 <!-- K: prepare, shelter, sleep -->
 <!-- S: Choose a location for your shelter that is protected from the elements and has access to resources. -->
 
-When selecting a site for your shelter, look for areas near building materials and resources such as water and food. Make sure the area is protected from the elements but is also free of threats such as dead trees/branches, slopes that could lead to avalanches, rock slides, or flooding, insects, poisonous plants, and dangerous animals. It should not be so secluded that you can't signal for help. If you can avoid it, do not build a shelter above the treeline in mountainous regions.
+When selecting a site for your shelter, look for areas near building materials and resources such as water and food. Make sure the area is protected from the elements but is also free of threats such as dead trees / branches, slopes that could lead to avalanches / rock slides, or flooding, insects, poisonous plants, and dangerous animals. It should not be so secluded that you can't signal for help. If you can avoid it, do not build a shelter above the treeline in mountainous regions as you will be exposed to the elements.
 
 While gathering materials for your shelter, prefer wood and debris that are already on the ground and require minimal effort to use. Avoid logs that are too thick to break by hand.
 
@@ -123,14 +123,14 @@ While gathering materials for your shelter, prefer wood and debris that are alre
 <!-- K: sleep, shelter, type -->
 <!-- S: Construct a shelter using natural materials or a tarp. Insulate the shelter with leaves, straw, or clothing. -->
 
-You can construct various shelters using tarps, ponchos, or natural elements. Try to build the smallest shelter that meets your needs, since it will be easier to retain heat, and position it against prevailing winds to avoid excess heat loss. Before sleeping in your shelter, make sure there is adequate airflow to manage condensation and smoke.
+You can construct various shelters using tarps, ponchos, or natural elements. To retain heat, build the smallest shelter that meets your needs and position it against prevailing winds to avoid excess heat loss. Before sleeping in your shelter, make sure there is adequate airflow to manage condensation and smoke from your fire.
 
 ### Lean-to
 <!-- K: lean-to, build, ridgeline, tarp -->
 
 A lean-to is a simple shelter made by leaning a large sheet of material against a support like a tree or a ridgepole. It protects from wind and rain.
 
-1. Lash a ridgepole to two trees or supports. If you are using a tarp or poncho, this can be a cord.
+1. Lash a ridgepole to two trees or supports. If you are using a tarp or poncho, your 'ridgepole' can be a cord.
 2. Lay a tarp or poncho over the ridgepole, allowing one side to touch the ground. If using natural materials, lay branches and leaves over the ridgepole.
 3. Secure the sides with stakes or rocks.
 
@@ -162,7 +162,7 @@ Wrap yourself in an emergency space blanket to reflect body heat and protect aga
 ### Tent
 <!-- K: tent, rainfly, setup, assemble -->
 
-If you have a tent, set it up according to the manufacturer's instructions. Ensure the tent is staked securely and the rainfly is in place. Most tents can be set up by inserting poles into sleeves or clips and securing the tent to the ground with stakes. If there is a chance of rain and your tent comes with a rainfly, be sure to set it up.
+If you have a tent, set it up according to the manufacturer's instructions. Ensure the tent is staked securely and the rainfly is in place. Most tents can be set up by inserting poles into sleeves or clips and securing the tent to the ground with stakes. If there is even a slight chance of rain and your tent comes with a rainfly, be sure to set it up.
 
 ### Hammock
 <!-- K: hammock, setup, rainfly, assemble -->
@@ -246,7 +246,7 @@ You can use a bowline to attach a line to a grommet on a tarp.
 ### Jam knot
 <!-- K: jam-knot, loop, fasten, pole -->
 
-Used to fasten a rope to a timber or pole. This can be used in place of lashings. It can be loosened by pulling on the knot on the end. It is hard to untie this knot.
+Used to fasten a rope to a timber or pole. This can be used in place of lashings. It can be loosened by pulling on the knot at the end. It is hard to untie this knot.
 
 ![](file:///android_asset/survival_guide/jam_knot.webp)
 
@@ -274,7 +274,7 @@ Used to secure a load or tighten a line. Can be cinched down tighter than a taut
 ### Square lashing
 <!-- K: square-lashing, lash -->
 
-Used to secure one pole at a right angle to another pole. You can swap with the diagonal lashing if desired.
+Used to secure one pole at a right angle to another pole.
 
 ![](file:///android_asset/survival_guide/136.webp)
 
@@ -322,4 +322,4 @@ Any fibrous material can be used to make cordage. Some examples include:
 1. Sharpen one end of a stake to a point.
 2. Hammer the stake into the ground at a slight angle, leaning away from your shelter.
 3. Secure a line to your tent or tarp with a bowline.
-4. Secure the other end of the line to the stake with a jam knot, clove hitch, or taut-line hitch.
+4. Secure the other end of the line to the stake with a jam knot or hitch.
