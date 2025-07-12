@@ -1428,4 +1428,6 @@
     <string name="contours">Contouren</string>
     <string name="dem_url">DEM URL</string>
     <string name="map">Kaart</string>
+    <string name="show_labels">Labels tonen</string>
+    <string name="color_with_elevation">Kleur contouren op basis van hoogte</string>
 </resources>

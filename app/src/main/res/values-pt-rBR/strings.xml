@@ -1398,4 +1398,6 @@
     <string name="contours">Contornos</string>
     <string name="dem_url">URL do MDE</string>
     <string name="map">Mapa</string>
+    <string name="color_with_elevation">Contornos coloridos com base na elevação</string>
+    <string name="show_labels">Mostrar títulos</string>
 </resources>
