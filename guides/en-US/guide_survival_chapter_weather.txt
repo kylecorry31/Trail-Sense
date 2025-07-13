@@ -152,7 +152,8 @@ Identifying the cloud type can improve your ability to forecast weather.
 6. **Altostratus**: A mid-level cloud that covers the sky. The sun can barely be seen as a bright patch. May indicate precipitation in the next 8 hours.
 7. **Stratus**: A low cloud that covers the sky. Objects don't cast shadows, and it may be foggy. May indicate fair weather for the next 3 hours if it is foggy; otherwise, it may indicate precipitation soon.
 8. **Nimbostratus**: A mid-level cloud that is dark gray and covers the sky. If it is not raining, it may be a stratus cloud. May have precipitation for the next 4 hours.
-9. **Cirrus**: High wispy clouds that look like tufts of white hair. May indicate precipitation in the next 12 to 24 hours.
+9. **Stratocumulus**: Low clouds that look like a sheet of cotton balls with small gaps. The color ranges from white to dark gray. May indicate fair weather for the next 3 hours.
+10. **Cirrus**: High wispy clouds that look like tufts of white hair. May indicate precipitation in the next 12 to 24 hours.
 
 ## Tides
 <!-- K: tide, water, coast, rise, fall, moon, ocean, sea, semidiurnal, diurnal, mixed -->
