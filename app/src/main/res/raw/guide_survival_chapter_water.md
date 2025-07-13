@@ -72,7 +72,7 @@ Water is available in many places by just digging a hole in the ground and allow
 
 Plants can provide water when no open sources are available. Look for green bamboo, vines, or coconuts for easy access to water, but be sure to positively identify the plant before consuming. You can extract water from other plants by placing them into a solar still.
 
-Dew can be collected from plants in the early morning using a cloth to soak up the water. Only collect dew from plants you can positively identify as safe.
+Dew can be collected from plants in the early morning using a cloth or piece of clothing to soak up the water. Only collect dew from plants you can positively identify as safe (non-toxic).
 
 ### Solar stills
 <!-- K: solar, still, solar-still, transpiration, transpiration-bag, bag, leaves, leaf, desalinate -->
@@ -84,7 +84,7 @@ Solar stills produce small amounts of water and are best used as a supplement.
 A below-ground solar still is a simple device that uses the sun's heat to draw moisture from the soil or plants. The moisture then condenses on a plastic sheet and can be collected in a container.
 
 1. Dig a bowl-shaped hole about 3 feet (1 meter) across and 2 feet (0.6 meters) deep. Ensure it is in direct sunlight.
-2. Place a container in the center of the hole. Optionally, place plants or water around the container to increase moisture (do not place them in the container).
+2. Place a container in the center of the hole. Optionally, place plants or water around the container to increase moisture (do not place them in the container). You may need to weigh down or secure the container to ensure it doesn't float if you are pouring water into the hole.
 3. Place a plastic sheet over the hole, securing the edges with rocks or soil. You can use a clear bag if you don't have a sheet.
 4. Place a small rock in the center of the sheet directly over the container.
 5. Wait for the sun to heat the ground and evaporate moisture, which will condense on the plastic and drip into the container.
@@ -93,7 +93,7 @@ A below-ground solar still is a simple device that uses the sun's heat to draw m
 
 **Transpiration bag**
 
-A transpiration bag is a plastic bag tied around a leafy branch to collect water. Use multiple bags to increase yield.
+A transpiration bag is a plastic bag tied around a leafy branch of a tree you have identified as safe (non-toxic) to collect water. Use multiple bags to increase yield.
 
 ![](file:///android_asset/survival_guide/transpiration_bag.webp)
 
@@ -121,7 +121,7 @@ Bring water to a rolling boil for at least one minute. At higher altitudes (abov
 
 Use a portable water filter to remove contaminants. Some filters are rated to remove nearly all bacteria and viruses and can be used without additional purification. Custom-crafted filters are less effective and require additional purification.
 
-A filter will have an inlet and an outlet, and it typically shows the direction of water flow with an arrow or text (inlet to outlet). Place the inlet into the dirty water and the outlet into a container, then pump to filter the water. If you are using a filter straw, the outlet goes into the water and the inlet into your mouth. Be careful never to let the outlet come into contact with unfiltered water. After filtering, you can remove the inlet from the water and pump a couple of times to push out excess water. With a straw, forcefully blow into it to clear out water.
+A filter will have an inlet and an outlet, and it typically shows the direction of water flow with an arrow or text (inlet to outlet). Place the inlet into the dirty water and the outlet into a container, then pump to filter the water. If you are using a filter straw, the inlet goes into the water and the outlet into your mouth. Be careful never to let the outlet come into contact with unfiltered water. After filtering, you can remove the inlet from the water and pump a couple of times to push out excess water. With a straw, forcefully blow into it to clear out water.
 
 If the manufacturer's instructions are different, be sure to follow them instead.
 
@@ -166,6 +166,8 @@ Water may contain bacteria, viruses, and parasites that can cause illness. Boili
 
 Water may contain chemicals from industrial or agricultural runoff. Purification methods may not remove all chemical contaminants. Avoid drinking water next to roads, farms, or other inhabited areas.
 
+There may be terrain or wildlife hazards present at water sources; always be aware and cautious. Avoid slippery areas, loose rocks, or patches of soft ground while gathering water.
+
 ## Craft: Bowl
 <!-- K: bowl, cook, store, container -->
 <!-- S: You can make a bowl from a small log by burning a bowl shape into it using hot coals. -->
@@ -181,7 +183,7 @@ A wooden bowl can be used to boil water using hot rocks.
 **Instructions**
 1. Cut or obtain a small log.
 2. Place hot coals into the log using makeshift tongs.
-3. Let the coals burn out.
+3. Let the coals burn out. You can speed this up by blowing gently on the point where the coal touches the log and holding it in place with a stick.
 4. Scrape out the charred wood with a stick or rock.
 5. Repeat the process until you have a bowl.
 
@@ -194,13 +196,13 @@ You can use tongs to move around hot coals or rocks without getting burned.
 ![](file:///android_asset/survival_guide/tongs.webp)
 
 **Resources**
-- Green wood
+- Green (live) wood
 
 **Instructions**
 1. Cut a length of green wood.
 2. Split the wood down the middle to create a flat surface.
 3. Optionally, carve a small notch in the stick's center to allow it to bend more easily.
-4. Bend the wood in half to create tongs.
+4. Bend the wood in half to create tongs. If the wood is not bending easily, either remove more material or heat the section to bend over a fire (do not burn it) and try again.
 
 ## Craft: Filter
 <!-- K: filter, craft, charcoal, sand, gravel -->
