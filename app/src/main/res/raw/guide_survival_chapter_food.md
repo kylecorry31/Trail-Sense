@@ -67,7 +67,7 @@ If you are in a survival situation, ration your food to make it last longer. Eat
 ### Starvation
 <!-- K: starvation -->
 
-Starvation occurs when the body does not receive enough nutrients to function correctly. Symptoms include loss of body fat, difficulty breathing, feeling colder, fatigue, and increased healing times.
+Starvation occurs when the body does not receive enough nutrients to function correctly. Symptoms include loss of body fat, difficulty breathing, feeling colder, fatigue, and increased healing times. You are not likely to experience this unless you are going more than a week or two without food.
 
 ## Plants and mushrooms
 <!-- K: plant, mushroom, seaweed, weeds, green, fungus, berries -->
@@ -78,7 +78,11 @@ Plants typically have fewer calories than animals but can be easier to obtain if
 ### Foraging
 <!-- K: forage, identify, edible, inedible, poison, toxic, sap, safe -->
 
-The safest plant to forage is aggregate berries, such as raspberries and blackberries, since they have a distinctive look and are generally edible. Nuts and seeds are higher in calories than leafy greens, but some nuts, such as acorns, require multiple batches of boiling. Also, just because you see an animal eating a plant doesn't mean it is safe for human consumption. Never eat a plant you aren't certain is edible; even if you are certain, only eat a small amount and be on the lookout for side effects.
+The safest plants to forage are aggregate berries, such as raspberries and blackberries, since they have a distinctive look and are generally edible. Nuts and seeds are higher in calories than leafy greens, but some nuts, such as acorns, require multiple rounds of boiling to remove bitterness. Also, just because you see an animal eating a plant doesn't mean it is safe for human consumption. Never eat a plant you aren't certain is edible; even if you are certain, only eat a small amount and be on the lookout for side effects.
+
+Here's an example of what an aggregate berry looks like (brambles):
+
+![](file:///android_asset/field_guide/brambles.webp)
 
 **The following should be avoided as the risk isn't worth the calories:**
 - Mushrooms
@@ -178,7 +182,7 @@ Traps are a passive way to catch small fish or crustaceans with little effort re
 
 You can construct a bottle fish trap by cutting off the cap and top quarter of a spare water bottle. Bait the trap with food and use a small rock to weigh it down. Place the top inverted into the rest of the bottle and place it in shallow water. If needed, you can tie a string to the bottle to allow for easy access.
 
-Alternatively, you can construct an M-shaped funnel trap by hammering sticks into the water to form a small entrance and walls. This can be built using the shore as a back wall to reduce effort. Small fish will swim into the trap and be unable to find their way out.
+Alternatively, you can construct an M-shaped funnel trap by hammering sticks into the bottom of the stream or other shallow water to form a small entrance and walls. This can be built using the shore as a back wall to reduce effort. Small fish will swim into the trap and be unable to find their way out.
 
 ![](file:///android_asset/survival_guide/fish_trap_funnel.webp)
 
@@ -189,7 +193,7 @@ Alternatively, you can construct an M-shaped funnel trap by hammering sticks int
 <!-- K: prepare, kill, clean, gut, fillet, cook, boil, roast, bake -->
 
 1. Once you catch a fish, bring it away from the shoreline. Do not hold or place it near the water before killing it, as it may flop back in.
-2. Stun the fish by hitting it hard on the head with a club or rock. Then use a knife to cut the gills or pierce the brain to ensure it is dead.
+2. Stun the fish by hitting it hard on the head (top of the head, right behind the eyes) with a club or rock. Then use a knife to cut the gills or pierce the brain to ensure it is dead.
 3. (Optional) Remove scales by scraping them off with a knife (tail to head).
 4. Cut open the belly and remove the entrails. You can also cut off the head and tail to make this easier.
 5. (Optional) Cut the fish into usable pieces or fillet it.
@@ -288,7 +292,7 @@ This guide does not cover the preparation of large mammals, as they are challeng
 <!-- K: cook -->
 <!-- S: To avoid getting sick, boil, roast, or bake most foods. This will require you to start a fire or have a portable stove. -->
 
-Do not try to preserve the food you catch; just cook and eat it.
+Do not try to preserve the food you catch; just cook and eat it. If possible, prepare, cook, and consume your feed some distance downwind of your shelter to avoid attracting animals to your camp.
 
 ### Stoves
 <!-- K: stove -->
@@ -298,12 +302,12 @@ Portable stoves are convenient ways to cook food. They can be fueled by wood, al
 ### Boiling
 <!-- K: boil, container -->
 
-Boiling preserves the most nutrients in food and is the safest cooking method. A metal container filled with water can be suspended over a fire or placed onto hot coals. See the Water chapter for more information on boiling water.
+Boiling preserves the most nutrients in food and is the safest cooking method. A metal container filled with water can be suspended over a fire or placed onto hot coals. Drinking the broth once it is cool enough will give you more nutrients. See the Water chapter for more information on boiling water.
 
 ### Roasting
 <!-- K: roast -->
 
-Roasting is a quick and easy cooking method, but the food is less nutritious. You can roast food on a stick over a fire or place it on hot coals.
+Roasting is a quick and easy cooking method, but the food is less nutritious. You can roast food on a stick over a fire or place it over hot coals or on dry rocks heated by the fire.
 
 ### Baking
 <!-- K: bake -->
@@ -324,7 +328,7 @@ You may need to protect your food from animals. Here are some methods to keep yo
 ### Bear bags
 <!-- K: bag, bear -->
 
-A bear bag is a bag of food hoisted into a tree to keep it out of reach of bears and other animals. Find a tree with a branch about 20 feet (6 meters) off the ground and thick enough to support the weight of your food at about 10 feet (3 meters) from the trunk.
+A bear bag is a bag of food hoisted into a tree to keep it out of reach of bears and other animals. Find a tree with a branch about 20 feet (6 meters) off the ground and thick enough to support the weight of your food at about 10 feet (3 meters) from the trunk. This tree should be 20-70 yards/meters downwind from your shelter.
 
 1. Place food in a bag.
 2. Tie a rope to the bag.
@@ -340,3 +344,5 @@ See the Shelter chapter for details on how to tie knots.
 <!-- K: canister, box, bear -->
 
 A bear canister is a rigid plastic container used to store food. It is bear-proof and can be left on the ground. Some campsites may provide a bear box, a large metal box used to store food.
+
+Ideally, the location where you leave this container should be 20–70 yards/meters downwind from your shelter. You may find tooth or claw marks on the canister in the morning, and it may be some distance from where you left it. Using brightly colored stickers on the outside may help you find it.
