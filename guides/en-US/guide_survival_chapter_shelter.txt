@@ -274,9 +274,9 @@ Used to secure a load or tighten a line. Can be cinched down tighter than a taut
 ### Square lashing
 <!-- K: square-lashing, lash -->
 
-Used to secure one pole at a right angle to another pole.
+Used to secure one pole at a right angle to another pole. This lashing starts and ends with a clove hitch, though you can use an overhand or jam knot as well.
 
-![](file:///android_asset/survival_guide/136.webp)
+![](file:///android_asset/survival_guide/knot_square_lashing.webp)
 
 ### Shear lashing
 <!-- K: shear-lashing, lash, tripod -->
