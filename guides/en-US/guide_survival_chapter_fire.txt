@@ -87,7 +87,7 @@ To make a feather stick:
 ![](file:///android_asset/survival_guide/feather_stick.webp)
 
 ## Starting a fire
-<!-- K: start, light, build, ignite, tepee, structure -->
+<!-- K: start, light, build, ignite, teepee, tepee, tipi, structure -->
 <!-- S: If you have a fire starter, use it. You can improvise if required, but it will be more difficult and requires practice. -->
 
 Once you have a site prepared and a sufficient supply of tinder, kindling, and fuel, you are ready to start the fire. As you build up the fire, be careful to always leave a section with open flame exposed, so as to not smother. Also, avoid adding damp or green wood until your fire is hot and you have an established bed of coals.
@@ -95,10 +95,10 @@ Once you have a site prepared and a sufficient supply of tinder, kindling, and f
 Here are the steps you can follow to get it going:
 
 1. Place the tinder into a small bundle or nest on the ground.
-2. Lean a few pieces of kindling against the tinder in a tepee shape.
+2. Lean a few pieces of kindling against the tinder in a teepee shape.
 3. Light the tinder.
 4. Carefully add kindling to the fire and gently blow into the base to encourage growth.
-5. Once your fire is steady, add fuel while maintaining a tepee structure.
+5. Once your fire is steady, add fuel while maintaining a teepee structure.
 
 ![](file:///android_asset/survival_guide/fire_tepee.webp)
 

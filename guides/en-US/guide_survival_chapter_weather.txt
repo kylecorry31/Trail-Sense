@@ -19,7 +19,7 @@ Weather can quickly change from a nice day to a life-threatening situation. You 
 
 **Optional**:
 - Barometer  
-  - Many smartphones have barometers; you can use the Weather tool in Trail Sense to monitor pressure  
+  - Many smartphones have barometers, but require an app to use them (such as the Trail Sense app on Android)  
 - Thermometer  
 
 ### Knowledge and skills
@@ -59,9 +59,9 @@ Temperature changes as you change elevation, decreasing by about 3.5°F (2°C) f
 ### Wind
 <!-- K: wind, gust, storm, hurricane, tornado, sandstorm, prevailing, blow, direction -->
 
-Wind can make cold conditions feel even colder, increasing the risk of hypothermia and frostbite. Dress in layers and wear a hat and gloves to protect yourself from the wind. During windstorms, unstable trees and branches can become hazardous. Wind can cause sandstorms in desert environments, reducing visibility and making breathing difficult. Seek shelter during a sandstorm and protect your eyes and mouth with a bandana or cloth. In costal environments, winds can lead to dangerous surf conditions such as high waves or rip currents.
+Wind can make cold conditions feel even colder, increasing the risk of hypothermia and frostbite. Dress in layers and wear a hat and gloves to protect yourself from the wind. During windstorms, unstable trees and branches can become hazardous. You should be extra cautious when the wind speed is above 20 mph (32 kph). Wind can cause sandstorms in desert environments, reducing visibility and making breathing difficult. Seek shelter during a sandstorm and protect your eyes and mouth with a bandana or cloth. In coastal environments, winds can lead to dangerous surf conditions such as high waves or rip currents.
 
-Prevailing winds are winds that blow consistently in one direction over time. While local geography and bodies of water can affect wind patterns, general patterns are as follows:
+Prevailing winds are winds that blow consistently in one direction over time. While local geography and bodies of water can affect wind patterns, general patterns for the following latitudes are as follows:
 - 60° N to 90° N: Winds generally blow from the east.  
 - 30° N to 60° N: Winds generally blow from the west.  
 - 0° to 30° N: Winds generally blow from the northeast.  
@@ -69,17 +69,17 @@ Prevailing winds are winds that blow consistently in one direction over time. Wh
 - 30° S to 60° S: Winds generally blow from the west.  
 - 60° S to 90° S: Winds generally blow from the east.
 
-These directions also indicate where the weather will most likely come from. For example, if you are at 40° N and see a thunderstorm to the west, it will likely arrive at your location soon.
+These directions also indicate where the weather will most likely come from. For example, if you are at a latitude of 40° N and see a thunderstorm to the west, it will likely arrive at your location soon.
 
 ### Fog
 <!-- K: fog, visibility -->
 
-Fog reduces visibility, making navigation difficult. If hiking in fog, stay on marked trails and use a map, compass, or GPS to navigate. Watch your footing carefully.
+Fog reduces visibility, making navigation difficult. If hiking in fog, stay on marked trails and use a map, compass, or GPS to navigate. Watch your footing carefully, as the fog can lead to slippery conditions.
 
 ### Lightning
 <!-- K: lightning, thunder, thunderstorm, strike, hair -->
 
-If caught outdoors during a thunderstorm, seek shelter immediately. Avoid tall trees and bodies of water, but get out of open areas. If you're in an open area and can't take shelter, crouch down on the balls of your feet and cover your ears to reduce the risk of lightning strikes.
+If caught outdoors during a thunderstorm, seek shelter immediately. Avoid tall trees and bodies of water, but get out of open areas. If you're in an open area and can't take shelter, crouch down on the balls of your feet and cover your ears to reduce the risk of injury from lightning strikes.
 
 If you feel your hair stand on end or hear a crackling noise, you are in danger of being struck by lightning.
 
@@ -183,3 +183,5 @@ You can estimate the time until sunset by holding your hand horizontally with yo
 ![](file:///android_asset/survival_guide/sunset_hand.webp)
 
 Navigating in the dark is not recommended; if necessary, use a flashlight or headlamp to light your way. On nights with a nearly full moon, you can use the moonlight to help navigate.
+
+If you are in a mountainous region, it may get dark sooner if you are on the eastern side of the range.
