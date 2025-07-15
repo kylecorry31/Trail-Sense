@@ -322,7 +322,7 @@
     <string name="allow_schedule_exact_alarms_instructions">Tämän avulla %1$s voi asettaa tarkat herätykset ja muistutukset, kuten auringonlaskun ilmoitukset. Ilman tätä herätykset eivät välttämättä toimi oikeaan aikaan.\n\nSalli napsauttamalla %2$s ja ota käyttöön herätysten ja muistutusten salliva asetus.</string>
     <string name="documents">Asiakirjat</string>
     <string name="next">Seuraava</string>
-    <string name="cirrocumulus_desc">Korkealla olevia pilviä, jotka muodostavat aaltoilevan peiton. Peitto koostuu pienistä pisteistä, jotka näyttävät melkein kaksiulotteisilta.</string>
+    <string name="cirrocumulus_desc">Palleropilvet (Cirrocumulus, Cc) ovat korkealla olevia pilviä, jotka muodostavat aaltoilevan peiton. Peitto koostuu pienistä pisteistä, jotka näyttävät melkein kaksiulotteisilta.</string>
     <string name="stride_length_stand_still">Pysy paikallasi</string>
     <string name="distance_unset">Etäisyyttä ei ole asetettu</string>
     <string name="unavailable">Ei saatavilla</string>
@@ -402,7 +402,7 @@
     <string name="path_slope">Rinne</string>
     <string name="todays_forecast">Päivän sääennuste</string>
     <string name="unsaved_changes">Tallentamattomat muutokset</string>
-    <string name="cirrostratus_desc">Korkealla oleva pilvi, joka peittää taivaan. Se on läpinäkyvä ja aiheuttaa tyypillisesti halon muodostumisen auringon ympärille.</string>
+    <string name="cirrostratus_desc">Harsopilvi (Cirrostratus, Cs) on korkealla oleva pilvi, joka peittää taivaan. Se on läpinäkyvä ja aiheuttaa tyypillisesti halon muodostumisen auringon ympärille.</string>
     <string name="my_location">Oma sijaintini</string>
     <string name="slope_amount">%s kaltevuus</string>
     <string name="no_gps_signal">Ei GPS-signaalia</string>
@@ -848,8 +848,8 @@
     <string name="point_style">Pistetyyli</string>
     <string name="precipitation_small_hail">Pienrakeita</string>
     <string name="pref_require_satellites_title">Vaadi satelliittipaikannus</string>
-    <string name="cirrocumulus">Palleropilvi (Cirrocumulus)</string>
-    <string name="altostratus">Verhopilvi (Altostratus)</string>
+    <string name="cirrocumulus">Palleropilviä</string>
+    <string name="altostratus">Verhopilvi</string>
     <string name="network_4g">4G</string>
     <string name="network_2g">2G</string>
     <string name="zero_shutter_lag">Ei kameran sulkimen viivettä</string>
@@ -900,7 +900,7 @@
     <string name="location_override_not_set_resolution">Aseta sijainnin ohitus asetuksista</string>
     <string name="magnitude">Magnitudi</string>
     <string name="precipitation_snow_grains">Lumijyviä</string>
-    <string name="nimbostratus">Laaja sadepilvi (Nimbostratus)</string>
+    <string name="nimbostratus">Laaja sadepilvi</string>
     <string name="export">Vie</string>
     <string name="candela_format">%s cd</string>
     <string name="bearing">Suuntima</string>
@@ -937,7 +937,7 @@
     <string name="tool_category_signaling">Viestitys</string>
     <string name="magnetic_field_format_precise">%s uT</string>
     <string name="bubble_level_angles">X: %1$s\nY: %2$s</string>
-    <string name="cirrus">Untuvapilvi (Cirrus)</string>
+    <string name="cirrus">Untuvapilviä</string>
     <string name="imperial_cups">Imperiallista kuppia</string>
     <string name="imperial_pints">Imperiallista tuoppia</string>
     <string name="imperial_gallons">Imperiallista gallonaa</string>
@@ -984,8 +984,8 @@
     <string name="temp_c_short">°C</string>
     <string name="one">1</string>
     <string name="map_fractional_separator">:</string>
-    <string name="cumulus">Kumpupilvi (Cumulus)</string>
-    <string name="stratocumulus">Kumpukerrospilvi (Stratocumulus)</string>
+    <string name="cumulus">Kumpupilviä</string>
+    <string name="stratocumulus">Kumpukerrospilviä</string>
     <string name="network_5g">5G</string>
     <string name="network_3g">3G</string>
     <string name="cell_signal">Matkapuhelinverkon signaali</string>
@@ -999,10 +999,10 @@
     <string name="theme_system_black">Järjestelmä (musta)</string>
     <string name="pref_sunrise_alert_time_title">Auringonnousun ilmoitusaika</string>
     <string name="category_fire">Tuli</string>
-    <string name="cirrostratus">Harsopilvi (Cirrostratus)</string>
-    <string name="altocumulus">Hahtuvapilvi (Altocumulus)</string>
-    <string name="stratus">Sumupilvi (Stratus)</string>
-    <string name="cumulonimbus">Kuuropilvi (Cumulonimbus)</string>
+    <string name="cirrostratus">Harsopilvi</string>
+    <string name="altocumulus">Hahtuvapilviä</string>
+    <string name="stratus">Sumupilvi</string>
+    <string name="cumulonimbus">Kuuropilviä</string>
     <string name="pref_backtrack_save_cell_title">Tallenna puhelinverkon signaali</string>
     <string name="cross">Risti</string>
     <string name="pref_show_last_signal_beacon_summary">Luo majakan viimeisimmälle puhelinverkon signaalin sijainnille</string>
@@ -1351,5 +1351,11 @@
     <string name="digital_elevation_model_link">Voit ladata erikokoisia digitaalisia korkeusmalleja osoitteesta %s</string>
     <string name="notification_grouping">Ilmoitusten ryhmittely</string>
     <string name="ungroup_all">Poista kaikki ryhmittelyt</string>
-    <string name="ungroup_alerts">Poista herätykset</string>
+    <string name="ungroup_alerts">Poista herätyksien ryhmittelyt</string>
+    <string name="contours">Korkeuskäyrät</string>
+    <string name="map_layer">Karttakerros</string>
+    <string name="dem_url">DKM URL</string>
+    <string name="map">Kartta</string>
+    <string name="show_labels">Näytä nimikkeet</string>
+    <string name="color_with_elevation">Väritä korkeuskäyrät korkeuden perusteella</string>
 </resources>
