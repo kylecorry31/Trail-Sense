@@ -1339,4 +1339,5 @@
     <string name="mute_alarm_at_night">Mykistä herätys yöaikaan</string>
     <string name="alarm_time_range">Soi vain välillä %1$s - %2$s</string>
     <string name="survival_guide_empty_desc">Hae selviytymiseen liittyvää tietoa aiheista kuten vesi, lääkintä, ruoka, sää, suoja tai navigointi.</string>
+    <string name="digital_elevation_model_abbreviation">DEM</string>
 </resources>
