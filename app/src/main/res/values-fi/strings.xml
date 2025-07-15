@@ -218,7 +218,7 @@
     <string name="estimated">Arvioitu</string>
     <string name="actual_frequency_disclaimer">Todellinen taajuus saattaa vaihdella, koska joillakin laitteilla on taustarajoituksia.</string>
     <string name="save">Tallenna</string>
-    <string name="low_pressure_system_description">Liitetään huonoon säähän, pilviseen taivaaseen ja lämpimämpiin lämpötiloihin.</string>
+    <string name="low_pressure_system_description">Liitetään huonoon säähän, pilvisiin taivaisiin ja lämpimämpiin lämpötiloihin.</string>
     <string name="line_style">Viivan tyyli</string>
     <string name="unblock_notification_channel">Kumoa Trail Sensen %s-ilmoitusten esto</string>
     <string name="map_export_error">Karttaa ei voi viedä valittuun tiedostoon</string>
@@ -230,7 +230,7 @@
     <string name="destination_elevation">Kohdekorkeus</string>
     <string name="last_lightning_strike_at">Viimeisin salama klo %s</string>
     <string name="ounces_weight">Unssia</string>
-    <string name="cumulus_desc">Matalalla olevia pöyheitä pilviä, jotka näyttävät pumpulipalloilta. Yleensä erillisiä toisistaan ja tyypillisesti valkoisia, alaosa saattaa olla tummempi.</string>
+    <string name="cumulus_desc">Kumpupilvet (Cumulus) ovat matalalla olevia pöyheitä pilviä, jotka näyttävät pumpulipalloilta. Ne ovat yleensä erillisiä toisistaan ja tyypillisesti valkoisia, joskin niiden alaosa saattaa olla tummempi.</string>
     <string name="now_value">Nyt: %s</string>
     <string name="set">Aseta</string>
     <string name="sighting_compass">Havaintokompassi</string>
@@ -243,7 +243,7 @@
     <string name="reset">Nollaa</string>
     <string name="allow_ignore_battery_restrictions_instructions">Trail Sensen akun rajoitusten poistaminen voi parantaa tarkkuutta.\n\nPaina useimmissa laitteissa %s, vaihda sitten kaikkiin sovelluksiin ja poista Trail Sensen akun optimointi käytöstä.\n\nKatso laitekohtaiset ohjeet osoitteesta [Don\'t kill my app](https://dontkillmyapp.com/).</string>
     <string name="forecasts_category">Sääennusteet</string>
-    <string name="stratocumulus_desc">Matalalla olevia pilviä, jotka näyttävät pumpulipallopeitolta jossa on pieniä rakoja. Väri vaihtelee valkoisesta tummanharmaaseen.</string>
+    <string name="stratocumulus_desc">Kumpukerrospilvet (Stratocumulus) ovat matalalla olevia pilviä, jotka näyttävät pumpulipallopeitolta, jossa on pieniä rakoja. Niiden väri vaihtelee valkoisesta tummanharmaaseen.</string>
     <string name="error_occurred">Tapahtui virhe</string>
     <string name="season_fall">Syksy</string>
     <string name="errors">Virheet</string>
@@ -311,7 +311,7 @@
     <string name="create_path">Luo polku</string>
     <string name="distance_alert">Etäisyysilmoitus</string>
     <string name="pref_daily_weather_notification_title">Päivittäinen sääilmoitus</string>
-    <string name="cirrus_desc">Korkealla olevia ohuita yläpilviä, jotka näyttävät valkoisilta hiustupsuilta.</string>
+    <string name="cirrus_desc">Untuvapilvet (Cirrus) ovat korkealla olevia ohuita yläpilviä, jotka näyttävät valkoisilta hiustupsuilta.</string>
     <string name="strobe_warning_content">Strobe-ominaisuus sisältää vilkkuvia valoja, jotka voivat olla vaarallisia joillekin käyttäjille.</string>
     <string name="notes_empty_text">Ei muistiinpanoja</string>
     <string name="delete_path">Poistetaanko polku\?</string>
@@ -322,7 +322,7 @@
     <string name="allow_schedule_exact_alarms_instructions">Tämän avulla %1$s voi asettaa tarkat herätykset ja muistutukset, kuten auringonlaskun ilmoitukset. Ilman tätä herätykset eivät välttämättä toimi oikeaan aikaan.\n\nSalli napsauttamalla %2$s ja ota käyttöön herätysten ja muistutusten salliva asetus.</string>
     <string name="documents">Asiakirjat</string>
     <string name="next">Seuraava</string>
-    <string name="cirrocumulus_desc">Palleropilvet (Cirrocumulus, Cc) ovat korkealla olevia pilviä, jotka muodostavat aaltoilevan peiton. Peitto koostuu pienistä pisteistä, jotka näyttävät melkein kaksiulotteisilta.</string>
+    <string name="cirrocumulus_desc">Palleropilvet (Cirrocumulus) ovat korkealla olevia pilviä, jotka muodostavat aaltoilevan peiton. Peitto koostuu pienistä pisteistä, jotka näyttävät melkein kaksiulotteisilta.</string>
     <string name="stride_length_stand_still">Pysy paikallasi</string>
     <string name="distance_unset">Etäisyyttä ei ole asetettu</string>
     <string name="unavailable">Ei saatavilla</string>
@@ -402,7 +402,7 @@
     <string name="path_slope">Rinne</string>
     <string name="todays_forecast">Päivän sääennuste</string>
     <string name="unsaved_changes">Tallentamattomat muutokset</string>
-    <string name="cirrostratus_desc">Harsopilvi (Cirrostratus, Cs) on korkealla oleva pilvi, joka peittää taivaan. Se on läpinäkyvä ja aiheuttaa tyypillisesti halon muodostumisen auringon ympärille.</string>
+    <string name="cirrostratus_desc">Harsopilvi (Cirrostratus) on korkealla oleva pilvi, joka peittää taivaan. Se on läpinäkyvä ja aiheuttaa tyypillisesti halon muodostumisen auringon ympärille.</string>
     <string name="my_location">Oma sijaintini</string>
     <string name="slope_amount">%s kaltevuus</string>
     <string name="no_gps_signal">Ei GPS-signaalia</string>
@@ -493,7 +493,7 @@
     <string name="altimeter_cache">Korkeusmittarin välimuisti</string>
     <string name="create_blank_map">Luo tyhjä kartta</string>
     <string name="gps_accuracy_tip">Varmista, että sinulla on esteetön näkymä taivaalle ja siirry poispäin korkeista rakennuksista sekä puista.</string>
-    <string name="stratus_desc">Matalalla oleva pilvi, joka peittää taivaan. Esineet eivät luo varjoja, ja saattaa olla sumuista.</string>
+    <string name="stratus_desc">Sumupilvi (Stratus) on matalalla oleva pilvi, joka peittää taivaan. Esineet eivät luo varjoja, ja saattaa olla sumuista.</string>
     <string name="new_text">Uusi</string>
     <string name="waypoint">Reittipiste</string>
     <string name="water_boil_timer_channel_description">Vesi on kiehumassa</string>
@@ -514,7 +514,7 @@
     <string name="restoring_loading_message">Palautetaan…</string>
     <string name="category_food">Ruoka</string>
     <string name="easy">Helppo</string>
-    <string name="nimbostratus_desc">Keskitason pilvi, joka on tummanharmaa ja peittää taivaan. Jos ei sada, se saattaa olla stratuspilvi.</string>
+    <string name="nimbostratus_desc">Laaja sadepilvi (Nimbostratus) on keskitason pilvi, joka on tummanharmaa ja peittää taivaan. Jos ei sada, se saattaa olla stratuspilvi.</string>
     <string name="season_spring">Kevät</string>
     <string name="path_slope_steep">Jyrkkä</string>
     <string name="supermoon">Superkuu</string>
@@ -732,7 +732,7 @@
     <string name="sensor_summary">Kompassi, GPS, korkeusmittari, barometri jne.</string>
     <string name="obscuration">Hämärtyminen</string>
     <string name="note_title_hint">Otsikko</string>
-    <string name="cumulonimbus_desc">Matalalla olevia pöyheitä pilviä, jotka ovat erittäin korkeita. Ne ovat tyypillisesti tummia ja alasimen muotoisia.</string>
+    <string name="cumulonimbus_desc">Kuuropilvet (Cumulonimbus), tunnettu myös nimellä ukkospilvet, ovat matalalla olevia pöyheitä pilviä, jotka ovat erittäin korkeita. Ne ovat tyypillisesti tummia ja alasimen muotoisia.</string>
     <string name="category_safety">Turvallisuus</string>
     <string name="percent_packed">%s pakattu</string>
     <string name="no_clouds">Ei pilviä</string>
@@ -744,11 +744,11 @@
     <string name="clinometer_measure_height_instructions">%s:n päässä olevan kohteen korkeuden mittaaminen: \n \n1. Kohdista klinometri kohteen pohjaan \n2. Napauta näyttöä ja pidä sitä painettuna \n3. Kohdista klinometri uudelleen kohteen huippuun \n4. Vapauta lukitaksesi ja nähdäksesi kohteen korkeuden</string>
     <string name="loading">Ladataan</string>
     <string name="battery_health_cold">Kylmä</string>
-    <string name="altocumulus_desc">Keskitason pöyheitä pilviä, jotka näyttävät pumpulipalloilta. Tyypillisesti valkoisia, alaosa saattaa olla tummempi. Ne voivat olla erillään tai muodostaa yhtenäisen peiton.</string>
+    <string name="altocumulus_desc">Hahtuvatpilvet (Altocumulus) ovat keskitason pöyheitä pilviä, jotka näyttävät pumpulipalloilta. Tyypillisesti valkoisia, joskin niiden alaosa saattaa olla tummempi. Ne voivat olla erillään tai muodostaa yhtenäisen peiton.</string>
     <string name="water_boil_timer_done_content">Vetesi on nyt juomakelpoista</string>
     <string name="data_source">Lähde: %s</string>
     <string name="pack_sort_percent_low_to_high">Pakattu prosentti (pienestä korkeaan)</string>
-    <string name="high_pressure_system_description">Liitetään hyvään säähän, selkeään taivaaseen ja viileämpiin lämpötiloihin.</string>
+    <string name="high_pressure_system_description">Liitetään hyvään säähän, selkeisiin taivaisiin ja viileämpiin lämpötiloihin.</string>
     <string name="pref_nmea_elevation_summary">Käytä NMEA (satelliitti) korkeuksien korjaamiseen sisäisen mallin sijaan</string>
     <string name="hygiene">Hygienia</string>
     <plurals name="waypoints_deleted">
@@ -818,7 +818,7 @@
     <string name="pack_sort_weight_low_to_high">Paino (pienestä suureen)</string>
     <string name="packed_amount">Pakattu määrä</string>
     <string name="old">Vanha</string>
-    <string name="altostratus_desc">Keskitason pilvi, joka peittää taivaan. Aurinko näkyy vain kirkkaana alueena.</string>
+    <string name="altostratus_desc">Verhopilvi (Altostratus) on keskitason pilvi, joka peittää taivaan. Aurinko näkyy sen läpi vain kirkkaana alueena.</string>
     <string name="strobe_warning_title">Vilkkuvia valoja</string>
     <string name="color">Väri</string>
     <string name="later">Myöhemmin</string>
