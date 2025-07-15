@@ -402,7 +402,7 @@
     <string name="path_slope">Rinne</string>
     <string name="todays_forecast">Päivän sääennuste</string>
     <string name="unsaved_changes">Tallentamattomat muutokset</string>
-    <string name="cirrostratus_desc">Harsopilvi (Cirrostratus) on korkealla oleva pilvi, joka peittää taivaan. Se on läpinäkyvä ja aiheuttaa tyypillisesti halon muodostumisen auringon ympärille.</string>
+    <string name="cirrostratus_desc">Harsopilvet (Cirrostratus) ovat korkealla oleva pilviä, jotka peittävät taivaan. Ne ovat läpinäkyviä ja aiheuttavat tyypillisesti halon muodostumisen auringon ympärille.</string>
     <string name="my_location">Oma sijaintini</string>
     <string name="slope_amount">%s kaltevuus</string>
     <string name="no_gps_signal">Ei GPS-signaalia</string>
@@ -493,7 +493,7 @@
     <string name="altimeter_cache">Korkeusmittarin välimuisti</string>
     <string name="create_blank_map">Luo tyhjä kartta</string>
     <string name="gps_accuracy_tip">Varmista, että sinulla on esteetön näkymä taivaalle ja siirry poispäin korkeista rakennuksista sekä puista.</string>
-    <string name="stratus_desc">Sumupilvi (Stratus) on matalalla oleva pilvi, joka peittää taivaan. Esineet eivät luo varjoja, ja saattaa olla sumuista.</string>
+    <string name="stratus_desc">Sumupilvet (Stratus) ovat matalalla oleva pilviä, jotka peittävät taivaan. Esineet eivät luo varjoja, ja saattaa olla sumuista.</string>
     <string name="new_text">Uusi</string>
     <string name="waypoint">Reittipiste</string>
     <string name="water_boil_timer_channel_description">Vesi on kiehumassa</string>
@@ -514,7 +514,7 @@
     <string name="restoring_loading_message">Palautetaan…</string>
     <string name="category_food">Ruoka</string>
     <string name="easy">Helppo</string>
-    <string name="nimbostratus_desc">Laaja sadepilvi (Nimbostratus) on keskitason pilvi, joka on tummanharmaa ja peittää taivaan. Jos ei sada, se saattaa olla stratuspilvi.</string>
+    <string name="nimbostratus_desc">Laajat sadepilvet (Nimbostratus) ovat keskitason pilviä, jotka ovat tummanharmaita ja peittävät taivaan. Jos ei sada, kyseessä saattaa olla sumupilvi.</string>
     <string name="season_spring">Kevät</string>
     <string name="path_slope_steep">Jyrkkä</string>
     <string name="supermoon">Superkuu</string>
@@ -732,7 +732,7 @@
     <string name="sensor_summary">Kompassi, GPS, korkeusmittari, barometri jne.</string>
     <string name="obscuration">Hämärtyminen</string>
     <string name="note_title_hint">Otsikko</string>
-    <string name="cumulonimbus_desc">Kuuropilvet (Cumulonimbus), tunnettu myös nimellä ukkospilvet, ovat matalalla olevia pöyheitä pilviä, jotka ovat erittäin korkeita. Ne ovat tyypillisesti tummia ja alasimen muotoisia.</string>
+    <string name="cumulonimbus_desc">Kuuropilvet (Cumulonimbus), tunnetaan myös nimellä ukkospilvet, ovat matalalla olevia pöyheitä pilviä, jotka ovat erittäin korkeita. Ne ovat tyypillisesti tummia ja alasimen muotoisia.</string>
     <string name="category_safety">Turvallisuus</string>
     <string name="percent_packed">%s pakattu</string>
     <string name="no_clouds">Ei pilviä</string>
@@ -818,7 +818,7 @@
     <string name="pack_sort_weight_low_to_high">Paino (pienestä suureen)</string>
     <string name="packed_amount">Pakattu määrä</string>
     <string name="old">Vanha</string>
-    <string name="altostratus_desc">Verhopilvi (Altostratus) on keskitason pilvi, joka peittää taivaan. Aurinko näkyy sen läpi vain kirkkaana alueena.</string>
+    <string name="altostratus_desc">Verhopilvet (Altostratus) ovat keskitason pilviä, jotka peittävät taivaan. Aurinko näkyy niiden läpi vain kirkkaana alueena.</string>
     <string name="strobe_warning_title">Vilkkuvia valoja</string>
     <string name="color">Väri</string>
     <string name="later">Myöhemmin</string>
