@@ -1,6 +1,8 @@
 package com.kylecorry.trail_sense.tools.map.ui
 
 import android.content.Context
+import android.graphics.Matrix
+import android.graphics.PointF
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -27,6 +29,8 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     var isInteractive = true
     var isPanEnabled = true
     var isZoomEnabled = true
+
+    private val lookupMatrix = Matrix()
 
     private val layers = mutableListOf<ILayer>()
     private val hooks = Hooks()
@@ -234,7 +238,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         }
 
         override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-            val pixel = PixelCoordinate(e.x, e.y)
+            val pixel = unrotated(PixelCoordinate(e.x, e.y))
             for (layer in layers.reversed()) {
                 val handled = layer.onClick(
                     drawer,
@@ -283,5 +287,37 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             gestureDetector.onTouchEvent(event)
         }
         return true
+    }
+
+    private fun unrotated(pixel: PixelCoordinate): PixelCoordinate {
+        val point = PointF(pixel.x, pixel.y)
+        return transform(point, invert = true, inPlace = true) {
+            postRotate(-mapAzimuth, width / 2f, height / 2f)
+        }.let { PixelCoordinate(it.x, it.y) }
+    }
+
+    private fun transform(
+        point: PointF,
+        invert: Boolean = false,
+        inPlace: Boolean = false,
+        actions: Matrix.() -> Unit
+    ): PointF {
+        synchronized(lookupMatrix) {
+            lookupMatrix.reset()
+            actions(lookupMatrix)
+            if (invert) {
+                lookupMatrix.invert(lookupMatrix)
+            }
+            val pointArray = floatArrayOf(point.x, point.y)
+            lookupMatrix.mapPoints(pointArray)
+
+            if (inPlace) {
+                point.x = pointArray[0]
+                point.y = pointArray[1]
+                return point
+            }
+
+            return PointF(pointArray[0], pointArray[1])
+        }
     }
 }
