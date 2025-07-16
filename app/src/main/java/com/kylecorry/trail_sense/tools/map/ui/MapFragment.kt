@@ -7,6 +7,7 @@ import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.useClickCallback
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.andromeda_temp.useFlow
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
@@ -30,6 +31,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
         val hasCompass = useMemo(sensors) { sensors.hasCompass() }
         val navigator = useService<Navigator>()
         val destination = useFlow(navigator.destination, BackgroundMinimumState.Resumed)
+        val mainActivity = useActivity() as MainActivity
 
         useClickCallback(lockButton, lockMode, hasCompass) {
             setLockMode(getNextLockMode(lockMode, hasCompass))
@@ -41,8 +43,8 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
 
         // Layers
         val manager = useMemo { MapToolLayerManager() }
-        useEffectWithCleanup(manager, mapView, resetOnResume) {
-            manager.resume(context, mapView)
+        useEffectWithCleanup(manager, mapView, mainActivity, resetOnResume) {
+            manager.resume(context, mapView, mainActivity)
             return@useEffectWithCleanup {
                 manager.pause(context, mapView)
             }
@@ -108,6 +110,13 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
                 navigationSheetView.show(navigation, destination, true)
             } else {
                 navigationSheetView.hide()
+            }
+        }
+
+        useEffectWithCleanup(resetOnResume, mainActivity){
+            mainActivity.toggleTopInsets(false)
+            return@useEffectWithCleanup {
+                mainActivity.toggleTopInsets(true)
             }
         }
     }

@@ -76,6 +76,8 @@ class MainActivity : AndromedaActivity() {
     )
 
     private var bottomInsets = 0
+    var topInsets = 0
+        private set
 
     init {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -201,9 +203,22 @@ class MainActivity : AndromedaActivity() {
                 leftMargin = insets.left
                 rightMargin = insets.right
             }
+            topInsets = insets.top
             bottomInsets = insets.bottom
             setBottomNavLabelsVisibility()
             windowInsets
+        }
+    }
+
+    fun toggleTopInsets(enabled: Boolean) {
+        if (enabled) {
+            binding.root.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                topMargin = topInsets
+            }
+        } else {
+            binding.root.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                topMargin = 0
+            }
         }
     }
 
