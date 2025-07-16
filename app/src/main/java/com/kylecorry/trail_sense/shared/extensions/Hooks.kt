@@ -88,7 +88,8 @@ data class NavigationSensorValues(
     val elevation: Float,
     val elevationAccuracy: Float?,
     val bearing: Bearing,
-    val declination: Float
+    val declination: Float,
+    val speed: Speed
 )
 
 fun AndromedaFragment.useNavigationSensors(
@@ -105,8 +106,11 @@ fun AndromedaFragment.useNavigationSensors(
     val declination = useMemo(gps.location) { declinationProvider.getDeclination() }
     useEffect(compass, declination) { compass.declination = if (trueNorth) declination else 0f }
 
-    val (location, locationAccuracy) = useTopic(gps, gps.location to gps.horizontalAccuracy) {
-        gps.location to gps.horizontalAccuracy
+    val (location, locationAccuracy, speed) = useTopic(
+        gps,
+        Triple(gps.location, gps.horizontalAccuracy, gps.speed)
+    ) {
+        Triple(gps.location, gps.horizontalAccuracy, gps.speed)
     }
 
     val (elevation, elevationAccuracy) = useTopic(
@@ -126,7 +130,8 @@ fun AndromedaFragment.useNavigationSensors(
         elevation,
         elevationAccuracy,
         bearing,
-        declination
+        declination,
+        speed
     ) {
         NavigationSensorValues(
             location,
@@ -134,7 +139,8 @@ fun AndromedaFragment.useNavigationSensors(
             elevation,
             elevationAccuracy,
             bearing,
-            declination
+            declination,
+            speed
         )
     }
 }

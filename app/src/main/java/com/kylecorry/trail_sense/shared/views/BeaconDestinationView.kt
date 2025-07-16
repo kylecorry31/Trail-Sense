@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.widget.LinearLayout
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.extensions.NavigationSensorValues
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.navigation.ui.DestinationPanel
 
@@ -31,6 +32,21 @@ class BeaconDestinationView(context: Context, attrs: AttributeSet?) : LinearLayo
             speed,
             destination,
             declination,
+            usingTrueNorth
+        )
+    }
+
+    fun show(
+        navigationSensorValues: NavigationSensorValues,
+        destination: Beacon,
+        usingTrueNorth: Boolean = true
+    ) {
+        destinationPanel.show(
+            navigationSensorValues.location,
+            navigationSensorValues.elevation,
+            navigationSensorValues.speed.speed,
+            destination,
+            navigationSensorValues.declination,
             usingTrueNorth
         )
     }

@@ -1,29 +1,42 @@
 package com.kylecorry.trail_sense.tools.map.ui
 
+import androidx.core.view.isVisible
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.useClickCallback
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.andromeda_temp.useFlow
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useNavigationSensors
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.views.BeaconDestinationView
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 
 class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
     override fun update() {
         val mapView = useView<MapView>(R.id.map)
+        val cancelNavigationButton = useView<FloatingActionButton>(R.id.cancel_navigation_btn)
         val lockButton = useView<FloatingActionButton>(R.id.lock_btn)
         val zoomInButton = useView<FloatingActionButton>(R.id.zoom_in_btn)
         val zoomOutButton = useView<FloatingActionButton>(R.id.zoom_out_btn)
+        val navigationSheetView = useView<BeaconDestinationView>(R.id.navigation_sheet)
         val navigation = useNavigationSensors(trueNorth = true)
         val context = useAndroidContext()
         val (lockMode, setLockMode) = useState(MapLockMode.Free)
         val sensors = useService<SensorService>()
         val hasCompass = useMemo(sensors) { sensors.hasCompass() }
+        val navigator = useService<Navigator>()
+        val destination = useFlow(navigator.destination, BackgroundMinimumState.Resumed)
 
         useClickCallback(lockButton, lockMode, hasCompass) {
             setLockMode(getNextLockMode(lockMode, hasCompass))
+        }
+
+        useClickCallback(cancelNavigationButton, navigator) {
+            navigator.cancelNavigation()
         }
 
         // Layers
@@ -86,6 +99,15 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
 
             zoomOutButton.setOnClickListener {
                 mapView.zoom(0.5f)
+            }
+        }
+
+        useEffect(cancelNavigationButton, navigationSheetView, destination, navigation) {
+            cancelNavigationButton.isVisible = destination != null
+            if (destination != null) {
+                navigationSheetView.show(navigation, destination, true)
+            } else {
+                navigationSheetView.hide()
             }
         }
     }
