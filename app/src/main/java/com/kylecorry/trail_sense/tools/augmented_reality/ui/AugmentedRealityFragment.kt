@@ -194,6 +194,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         binding.camera.setScaleType(PreviewView.ScaleType.FILL_CENTER)
         binding.camera.setShowTorch(false)
 
+        binding.arView.infiniteFocusWhenPointedUp = true
         binding.arView.bind(binding.camera)
 
         val arguments = requireArguments()
