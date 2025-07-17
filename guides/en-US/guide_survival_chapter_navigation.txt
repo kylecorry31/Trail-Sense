@@ -1,7 +1,7 @@
 <!-- K: navigate -->
 <!-- S: Plan a route and determine your location. -->
 
-Being able to navigate in the wilderness can help prevent you from getting lost or allow you to find your way back to safety.
+Being able to navigate in the wilderness can help prevent you from getting lost in the first place or allow you to find your way back to safety if you do go off trail.
 
 **This chapter is for informational purposes only and does not replace professional advice; use at your own risk and ensure compliance with local laws.**
 
@@ -36,13 +36,13 @@ Once you have mastered these skills, you should learn how to do the following:
 <!-- K: route, plan, trip -->
 <!-- S: Plan your route to avoid getting lost and ensure you reach your destination safely. -->
 
-When planning a route, choose one that matches your skill and fitness levels using a topographic map to gauge terrain difficulty. Use the map to identify landmarks along the way to help you stay on track. Also be sure to identify water sources, alternative routes, and the direction to roads or towns.
+When planning a route, choose one that matches your skill and fitness levels, using a topographic map to gauge terrain difficulty. Use the map to identify landmarks, like stream or river crossings, natural formations, or trail intersections, along the way to help you stay on track. Also, be sure to identify water sources, alternative routes, and the direction to roads or towns.
 
 ## Movement
 <!-- K: move, terrain -->
 <!-- S: Move carefully and adapt to the terrain. Avoid following animal trails. -->
 
-Moving carefully and adapting to the terrain are important for preventing injury or getting lost. In general, keep your body weight balanced over your feet, watch where you step, and take frequent breaks to rest. Stay on the designated trails at all times and be cautious of animal trails; they may lead to resources like water but can also get you lost.
+Moving carefully and adapting to the terrain are important preventions you can take against injury or getting lost. In general, keep your body weight balanced over your feet, watch where you step, and take frequent breaks to rest. Stay on the designated trails at all times and be cautious of animal trails; they may lead to resources like water but can also get you lost.
 
 ### Mountains
 <!-- K: mountain, steep -->
@@ -64,12 +64,12 @@ Deserts are typically hot and dry, with potentially cold nights, so be prepared 
 ### Jungle
 <!-- K: jungle, humid, vegetation -->
 
-Jungles feature dense vegetation, high humidity, and precipitation. Move with the vegetation rather than against it to conserve energy, and focus on distant landmarks rather than nearby objects to maintain your direction. The dense canopy makes it harder for search parties to find you and GPS devices may not be reliable. Always wear protective clothing to avoid insect bites and stings, and treat any wounds or scratches promptly to prevent infection.
+Jungles feature dense vegetation, high humidity, and frequent precipitation. Move with the vegetation rather than against it to conserve energy, and focus on distant landmarks rather than nearby objects to maintain your direction. The dense canopy makes it harder for search parties to find you and GPS devices may not be reliable. Always wear protective clothing to avoid insect bites and stings, and treat any wounds or scratches promptly to prevent infection.
 
 ### Night
 <!-- K: night, dark, light, flashlight -->
 
-If you can avoid traveling at night, then don't do it. If you have to travel, use a flashlight or headlamp to illuminate your path while moving slowly and carefully to avoid accidents. Use your hearing to identify helpful environmental cues like running water or distant roadways that can aid in orientation.
+If you can avoid traveling at night, then it is best to remain where you are. If you have to travel, use a flashlight or headlamp to illuminate your path while moving slowly and carefully to avoid accidents. Use your hearing to identify helpful environmental cues like running water or distant roadways that can aid in orientation.
 
 ### Rivers and streams
 <!-- K: river, current, cross -->
@@ -81,12 +81,12 @@ In emergency situations, following a river downstream may eventually lead to civ
 ### Coastal
 <!-- K: coast, ocean, beach, tide, sea -->
 
-Coastal regions typically feature tides, cliffs, and sandy beaches. Do not walk on beaches without footwear, as there may be buried glass or other sharp objects. To avoid getting trapped during high tide, be sure to consult tide tables before your trip and keep track of the time. See the Weather chapter for help predicting tides. 
+Coastal regions typically feature tides, cliffs, and rocky or sandy beaches. Do not walk on beaches without footwear, as there may be buried glass or other sharp objects. To avoid getting trapped during high tide, be sure to consult tide tables before your trip and to keep track of the time. See the Weather chapter for help predicting tides. 
 
 ### Detours
 <!-- K: detour, obstacle -->
 
-If there's an obstacle in your path, you may need to take a detour. To do this, find a feature to navigate to on the other side of the obstacle, then turn 90 degrees and walk to the end of the obstacle. Once there, turn back 90 degrees to your original heading and pass the obstacle. Finally, turn 90 degrees again and walk to the feature you picked out. Now you can resume following your original bearing.
+If there's an obstacle in your path, you may need to take a detour. To do this, find a feature to navigate to on the other side of the obstacle, then turn 90 degrees and walk to the end of the obstacle. Once there, turn back 90 degrees to your original heading and pass the obstacle. Then, turn 90 degrees again and walk to the feature you picked out. Finally, turn 90 degrees one more time to resume following your original bearing.
 
 ## Trail markers
 <!-- K: trail, marker -->
@@ -128,7 +128,7 @@ In some places, downed trees or debris are intentionally placed in front of a pa
 <!-- K: gps, device -->
 <!-- S: A GPS device can help you determine your location and navigate to a specific point, but always have a backup plan in case the device fails. -->
 
-A GPS device can help you determine your location and navigate to a specific point, but always have a backup plan in case the device fails.
+A GPS device can help you determine your location and navigate to a specific point, but always have a backup plan in case the device fails. A dedicated hiking GPS unit is typically more durable than a smartphone, but in many cases, a smartphone with a GPS or maps app is sufficient.
 
 ### Location
 <!-- K: location, latitude, longitude, coordinates, satellite -->
@@ -139,8 +139,6 @@ A GPS uses satellites to determine your location. Ensure the device has a clear 
 <!-- K: waypoint, beacon, backtrack, satellite, save, location, poi, point-of-interest -->
 
 A waypoint is a specific location you want to navigate to. You can enter waypoints into your GPS to guide you to your destination. Most devices allow you to enter waypoints before your trip, but you can also add them as you go. Place waypoints frequently so you can backtrack if necessary.
-
-If you use Trail Sense, you can use the Navigation, Beacons, Paths, and Photo Maps tools to assist with navigation.
 
 ### Battery
 <!-- K: battery, charge, power -->
@@ -282,9 +280,9 @@ Typical map colors include:
 
 ## Advanced direction finding
 <!-- K: north, south, east, west, advanced, technique -->
-<!-- S: You can use the sun, moon, or stars to determine direction. If you need this, it's best to stay where you are and wait for help. -->
+<!-- S: You can use the sun, moon, or stars to determine direction. If you need this, it's best to stay where you are and signal for help. -->
 
-You can use the sun or stars to determine direction without a compass. If you need this, it's best to stay where you are and wait for help.
+You can use the sun or stars to determine direction without a compass. If you need this, it's best to stay where you are and signal for help with the methods mentioned in the Overview chapter.
 
 ### Sun/Moon
 <!-- K: sun, moon -->
@@ -296,7 +294,7 @@ In the early morning, the sun will be close to the east, and in the late afterno
 
 If you measure which way shadows are moving over time, you can determine direction. This is because the Sun moves east to west throughout the sky, and therefore shadows move in the opposite direction.
 
-1. Place a stick vertically in the ground and mark the shadow tip.
+1. Place a stick vertically in the ground and mark the shadow tip. For the most accurate results, do this around noon.
 2. After 10-15 minutes, mark the new position of the shadow tip.
 3. Draw a line between the two points for an east-west line. West will be in the direction of the first point.
 4. Draw a line at a right angle to the east-west line. South (or north in the Southern Hemisphere) will point toward the sun.
@@ -306,7 +304,7 @@ If you measure which way shadows are moving over time, you can determine directi
 ### Time
 <!-- K: time, watch, hour, hand, analog -->
 
-You can determine your direction using the position of the sun and the current time. This will be a rough approximation, but it's better than nothing. Point the hour hand of an analog watch at the sun; south is roughly halfway between the hour hand and 12 o'clock in the Northern Hemisphere. In the Southern Hemisphere, point the 12 o'clock position at the sun. If on daylight saving time, use 1 o'clock instead of 12.
+You can determine your direction using the position of the sun and the current time. This will be a rough approximation, but it's better than nothing. Point the hour hand of an analog watch at the sun; south is roughly halfway between the hour hand and 12 o'clock in the Northern Hemisphere. In the Southern Hemisphere, point the 12 o'clock position at the sun, and north will be roughly halfway between the 12 o'clock position and the hour hand. If on daylight saving time, use 1 o'clock instead of 12; daylight saving time is usually during the summer for the regions that follow it, but this may vary.
 
 ![](file:///android_asset/survival_guide/direction_watch.webp)
 
