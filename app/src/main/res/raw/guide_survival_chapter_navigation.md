@@ -39,10 +39,12 @@ Once you have mastered these skills, you should learn how to do the following:
 When planning a route, choose one that matches your skill and fitness levels, using a topographic map to gauge terrain difficulty. Use the map to identify landmarks, like stream or river crossings, natural formations, or trail intersections, along the way to help you stay on track. Also, be sure to identify water sources, alternative routes, and the direction to roads or towns.
 
 ## Movement
-<!-- K: move, terrain -->
+<!-- K: move, terrain, trekking, pole, walking-stick -->
 <!-- S: Move carefully and adapt to the terrain. Avoid following animal trails. -->
 
 Moving carefully and adapting to the terrain are important preventions you can take against injury or getting lost. In general, keep your body weight balanced over your feet, watch where you step, and take frequent breaks to rest. Stay on the designated trails at all times and be cautious of animal trails; they may lead to resources like water but can also get you lost.
+
+Trekking poles or a walking stick can be beneficial for some people, especially in rough terrain or if you have knee problems. You can check if you are using the correct height pole by making sure you have a 90-degree bend at your elbow when the pole is touching the ground.
 
 ### Mountains
 <!-- K: mountain, steep -->
@@ -320,6 +322,8 @@ In the Northern Hemisphere, identify Polaris (the North Star) using the Big Dipp
 In the Southern Hemisphere, you can use the Southern Cross to determine south. Extend a line from the top and bottom stars of the Cross's long axis, continuing about 4.5 times the distance between these stars toward the horizon to approximate the South Pole. This method is more difficult than the one used in the Northern Hemisphere.
 
 ![](file:///android_asset/survival_guide/southern_stars.webp)
+
+The constellations may appear to be rotated in the sky depending on the time of night (they rotate around the celestial poles), so if you don't immediately spot them, try looking for a rotated version of the constellation.
 
 ## Craft: Compass
 <!-- K: compass, needle, magnet, north, south, east, west, direction, craft -->
