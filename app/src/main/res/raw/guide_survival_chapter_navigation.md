@@ -289,19 +289,24 @@ When navigating, it's often important to keep track of how far you've traveled. 
 When estimating distances, you may want to deal with a range of possible estimates rather than calculating a single value. For example, calculate your distance with a speed of 1.5 mph and 3 mph to get a lower and upper bound on the distance you traveled. You can do the same with the pace method by choosing a lower and a higher pace length than your average.
 
 ### Paces
-<!-- K: pace, step, count -->
+<!-- K: pace, step, count, stride -->
 
-A pace is the distance you cover with every full step with the same foot (two steps), which can be used to estimate how far you've traveled. The distance of a pace varies by person, terrain, and the weight of your gear, so it is important you get a good estimate of your pace length across a variety of conditions. To estimate your pace length, do the following:
+A pace is the distance you cover with every full step with the **same foot**, which can be used to estimate how far you've traveled. The length of a pace (called stride length) varies by person, terrain, and the weight of your gear, so it is important you get a good estimate of your stride length across a variety of conditions. To estimate your stride length, do the following:
 
 1. Measure a fixed distance with your desired terrain; 100 yards/meters is typically a good length.
 2. Put on your loaded backpack if needed.
 3. Walk this distance and count how many paces it takes you.
-4. Divide the distance by the number of paces (for example, 100 yards / 60 paces = 1.67 yards per pace).
+4. Divide the distance by the number of paces (for example, 100 yards / 130 paces = 0.77).
 5. Repeat steps 3 and 4 several times and calculate the average pace for a better estimate.
 
-Once you know what your pace length is, you can estimate distance traveled by keeping count of your paces and multiplying it by the pace length (for example, 60 paces × 1.67 yards per pace = 100 yards).
+Once you know what your pace length is, you can estimate distance traveled by keeping count of your paces and multiplying it by the pace length (for example, 130 paces × 0.77 yards per pace = 100 yards).
 
-If you have a smartphone with a pedometer or step counter app, you can use that to estimate distance. Typically, these apps will convert your steps to a distance, but if not, you can use your pace length times the step count divided by 2 (so 100 steps would be 50 paces).
+If you have a smartphone with a pedometer or step counter app, you can use that to estimate distance. Typically, these apps will convert your steps to a distance.
+
+To help you estimate, here's the distance traveled using the average stride length of 0.78 yards (0.71 m):
+- 200 paces ≈ 156 yards (143 m, 0.09 mi, 0.14 km)
+- 500 paces ≈ 390 yards (357 m, 0.22 mi, 0.36 km)
+- 1000 paces ≈ 780 yards (713 m, 0.44 mi, 0.71 km)
 
 ### Average speed
 <!-- K: average, speed -->
@@ -309,6 +314,11 @@ If you have a smartphone with a pedometer or step counter app, you can use that 
 A simpler method of estimating how far you've traveled is to use the average walking speed multiplied by the time spent hiking. You can calculate your walking speed by timing how long it takes you to hike a trail of known distance and then dividing the distance by time. The average person hikes at around 2 mph (3.2 km/h) on flat terrain, but this can vary based on fitness level, terrain, and load.
 
 To calculate the distance traveled using this method, multiply your average speed by the time spent hiking in hours. For example, if you hiked for 15 minutes and have an average speed of 3 mph, then you would do 0.25 hours × 2 mph to get 0.5 miles.
+
+To help you estimate, here's the distance traveled using an average speed of 2 mph (3.2 km/h):
+- 15 minutes ≈ 0.5 miles (0.8 km)
+- 30 minutes ≈ 1 mile (1.6 km)
+- 1 hour ≈ 2 miles (3.2 km)
 
 ## Advanced direction finding
 <!-- K: north, south, east, west, advanced, technique -->
