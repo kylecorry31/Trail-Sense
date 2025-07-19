@@ -308,6 +308,10 @@ To help you estimate, here's the distance traveled using the average stride leng
 - 500 paces ≈ 390 yards (357 m, 0.22 mi, 0.36 km)
 - 1000 paces ≈ 780 yards (713 m, 0.44 mi, 0.71 km)
 
+You can keep track of the count by putting a small pebble in your pocket every 100 yards/meters. When you have 10 pebbles in your pocket, remove them all and place one pebble into your other pocket. The pebbles in your second pocket will represent 1,000 yards/meters and will reduce the number of pebbles you need to carry.
+
+Your stride length will likely be shorter on difficult terrain or bad weather.
+
 ### Average speed
 <!-- K: average, speed -->
 
