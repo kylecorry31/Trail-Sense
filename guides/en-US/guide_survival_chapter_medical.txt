@@ -443,7 +443,7 @@ Perform the Heimlich maneuver on yourself:
 1. If possible, bend over a hard surface.
 2. Make a fist with one hand.
 3. Place the thumb side of your fist against your abdomen, below your ribcage and above your navel.
-4. Grasp your fist with your other hand and press into your abdomen with a quick upward thrust.
+4. Grasp your fist with your other hand and press into your abdomen with a quick upward thrust.choking
 
 Perform the Heimlich maneuver on someone else (only perform this if you know they are choking, upright, and have signaled for help):
 1. Stand behind the person.
@@ -451,6 +451,8 @@ Perform the Heimlich maneuver on someone else (only perform this if you know the
 3. Make a fist with one hand.
 4. Place the thumb side of your fist against the person's abdomen, below the ribcage and above the navel.
 5. Grasp your fist with your other hand and press into the person's abdomen with a quick upward thrust.
+
+![](file:///android_asset/survival_guide/choking.webp)
 
 ## Cramps
 <!-- K: cramp, muscle, pain, spasm, weak, electrolyte -->
