@@ -705,6 +705,8 @@ If someone else becomes unresponsive and you suspect heart problems:
 
 If you are fully trained in CPR, perform rescue breathing after 30 compressions. Otherwise, just do compressions.
 
+![](file:///android_asset/survival_guide/cpr.webp)
+
 **Rescue breathing**:
 
 1. With the airway clear, tilt the head back and lift the chin.
