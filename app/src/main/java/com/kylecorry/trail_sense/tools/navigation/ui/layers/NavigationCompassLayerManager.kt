@@ -80,7 +80,7 @@ class NavigationCompassLayerManager {
                     context,
                     photoMapLayer,
                     replaceWhitePixels = true,
-                    loadPdfs = false
+                    loadPdfs = true
                 ) else null
             )
         )

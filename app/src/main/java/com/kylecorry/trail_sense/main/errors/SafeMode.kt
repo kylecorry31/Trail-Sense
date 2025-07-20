@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.main.errors
 
 import android.content.Context
 import android.util.Log
+import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 
 object SafeMode {
@@ -35,7 +36,7 @@ object SafeMode {
     private var safeModeEndTime: Long = 0L
 
     fun isEnabled(): Boolean {
-        return safeModeEndTime > 0 && System.currentTimeMillis() < safeModeEndTime
+        return !isDebug() && safeModeEndTime > 0 && System.currentTimeMillis() < safeModeEndTime
     }
 
 }

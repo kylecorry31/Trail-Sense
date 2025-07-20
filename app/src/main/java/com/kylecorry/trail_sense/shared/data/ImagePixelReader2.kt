@@ -11,6 +11,7 @@ import com.kylecorry.andromeda.bitmaps.BitmapUtils.isInBounds
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.shared.extensions.range
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.getExactRegion
 import java.io.InputStream
 import kotlin.math.ceil
 import kotlin.math.floor
@@ -50,13 +51,14 @@ class ImagePixelReader2(
             val xEnd = ceil(xRange.end).toInt()
             val yEnd = ceil(yRange.end).toInt()
 
-            val rect = getExactRegion(
+            val rect = BitmapUtils.getExactRegion(
                 Rect(
                     xStart - lookupOrder * 2,
                     yStart - lookupOrder * 2,
                     xEnd + lookupOrder * 2,
                     yEnd + lookupOrder * 2
-                )
+                ),
+                imageSize
             )
             bitmap = BitmapUtils.decodeRegion(
                 image,
@@ -147,24 +149,4 @@ class ImagePixelReader2(
         }
         return pixels
     }
-
-    private fun getExactRegion(rect: Rect, blockSize: Int = 16): Rect {
-        val left = rect.left.coerceIn(0, imageSize.width)
-        val top = rect.top.coerceIn(0, imageSize.height)
-        val right = rect.right.coerceIn(0, imageSize.width)
-        val bottom = rect.bottom.coerceIn(0, imageSize.height)
-
-        // Align it to a 16 pixel block
-        val alignedLeft = (left / blockSize) * blockSize
-        val alignedTop = (top / blockSize) * blockSize
-        val alignedRight = ((right + (blockSize - 1)) / blockSize) * blockSize
-        val alignedBottom = ((bottom + (blockSize - 1)) / blockSize) * blockSize
-        return Rect(
-            alignedLeft.coerceIn(0, imageSize.width),
-            alignedTop.coerceIn(0, imageSize.height),
-            alignedRight.coerceIn(0, imageSize.width),
-            alignedBottom.coerceIn(0, imageSize.height)
-        )
-    }
-
 }

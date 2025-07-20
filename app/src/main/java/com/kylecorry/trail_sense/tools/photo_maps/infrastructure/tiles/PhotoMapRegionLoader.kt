@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.Rect
 import android.util.Size
 import androidx.core.net.toUri
+import com.kylecorry.andromeda.bitmaps.BitmapUtils
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.luna.coroutines.onIO
@@ -26,6 +27,7 @@ import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PercentBounds
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.getExactRegion
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -57,7 +59,8 @@ class PhotoMapRegionLoader(
             map.metadata.unscaledPdfSize ?: map.metadata.size
         }
 
-        val region = Rect(left, top, right, bottom)
+        val region =
+            BitmapUtils.getExactRegion(Rect(left, top, right, bottom), size.toAndroidSize())
         if (region.width() <= 0 || region.height() <= 0) {
             return@onIO null // No area to load
         }
@@ -79,9 +82,16 @@ class PhotoMapRegionLoader(
             (southWest.y - region.top) / region.height()
         )
 
-        val isRotated = !SolMath.isZero(
-            SolMath.deltaAngle(map.calibration.rotation, 0f),
-        )
+        val shouldApplyPerspectiveCorrection = listOf(
+            percentTopLeft.x,
+            percentTopLeft.y,
+            percentBottomRight.x,
+            percentBottomRight.y,
+            percentTopRight.x,
+            percentTopRight.y,
+            percentBottomLeft.x,
+            percentBottomLeft.y
+        ).any { !SolMath.isZero(it % 1f) }
 
         val bitmap = if (loadPdfs && map.hasPdf(context)) {
             decodePdfRegion(
@@ -94,7 +104,6 @@ class PhotoMapRegionLoader(
                 )
             )
         } else {
-            // TODO: Load PDF region
             val inputStream = if (map.isAsset) {
                 fileSystem.streamAsset(map.filename)!!
             } else {
@@ -111,7 +120,7 @@ class PhotoMapRegionLoader(
                     )
                     it.inScaled = true
                     it.inPreferredConfig = Bitmap.Config.ARGB_8888
-                    it.inMutable = replaceWhitePixels
+                    it.inMutable = true
                 }
 
                 ImageRegionLoader.decodeBitmapRegionWrapped(
@@ -128,7 +137,7 @@ class PhotoMapRegionLoader(
         bitmap?.applyOperations(
             Resize(maxSize, false),
             Conditional(
-                isRotated,
+                shouldApplyPerspectiveCorrection,
                 CorrectPerspective(
                     // Bounds are inverted on the Y axis from android's pixel coordinate system
                     PercentBounds(
