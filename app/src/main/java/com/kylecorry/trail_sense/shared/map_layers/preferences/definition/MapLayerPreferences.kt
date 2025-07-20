@@ -53,7 +53,14 @@ data class MapLayerPreferences(
                         "map_layer_opacity",
                         defaultValue = 50,
                         dependency = "map_layer_enabled"
-                    )
+                    ),
+                    SwitchMapLayerPreference(
+                        context.getString(R.string.load_pdf_tiles),
+                        "map_layer_load_pdfs",
+                        defaultValue = false,
+                        dependency = "map_layer_enabled",
+                        summary = context.getString(R.string.load_pdf_tiles_summary)
+                    ),
                 )
             )
         }

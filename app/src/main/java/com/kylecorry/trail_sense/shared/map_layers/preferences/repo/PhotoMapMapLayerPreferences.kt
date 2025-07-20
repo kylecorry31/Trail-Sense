@@ -21,4 +21,10 @@ class PhotoMapMapLayerPreferences(
         "pref_${mapId}_map_layer_opacity",
         50 // percent
     )
+
+    val loadPdfs by BooleanPreference(
+        cache,
+        "pref_${mapId}_map_layer_load_pdfs",
+        false
+    )
 }

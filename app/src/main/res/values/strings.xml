@@ -1761,4 +1761,6 @@
     <string name="planet_saturn">Saturn</string>
     <string name="planet_uranus">Uranus</string>
     <string name="planet_neptune">Neptune</string>
+    <string name="load_pdf_tiles">Load PDF tiles</string>
+    <string name="load_pdf_tiles_summary">PDF maps will be sharper, but performance may be impacted</string>
 </resources>

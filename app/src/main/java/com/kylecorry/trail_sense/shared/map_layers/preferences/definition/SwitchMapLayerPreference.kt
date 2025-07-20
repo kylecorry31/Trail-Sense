@@ -8,7 +8,8 @@ class SwitchMapLayerPreference(
     private val title: String,
     private val key: String,
     private val defaultValue: Boolean = true,
-    override val dependency: String? = null
+    override val dependency: String? = null,
+    private val summary: String? = null
 ) :
     MapLayerPreference {
     override fun create(context: Context, mapId: String): Preference {
@@ -18,6 +19,7 @@ class SwitchMapLayerPreference(
         visible.key = "pref_${mapId}_${key}"
         visible.isSingleLineTitle = false
         visible.title = title
+        visible.summary = summary
         return visible
     }
 }
