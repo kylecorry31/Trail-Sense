@@ -1754,4 +1754,11 @@
     <string name="map">Map</string>
     <string name="show_labels">Show labels</string>
     <string name="color_with_elevation">Color contours based on elevation</string>
+    <string name="planet_mercury">Mercury</string>
+    <string name="planet_venus">Venus</string>
+    <string name="planet_mars">Mars</string>
+    <string name="planet_jupiter">Jupiter</string>
+    <string name="planet_saturn">Saturn</string>
+    <string name="planet_uranus">Uranus</string>
+    <string name="planet_neptune">Neptune</string>
 </resources>

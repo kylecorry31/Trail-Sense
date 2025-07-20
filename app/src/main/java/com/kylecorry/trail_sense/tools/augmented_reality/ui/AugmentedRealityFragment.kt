@@ -24,6 +24,7 @@ import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.location.Satellite
+import com.kylecorry.sol.science.astronomy.locators.Planet
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
 import com.kylecorry.sol.science.astronomy.stars.Star
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -44,6 +45,7 @@ import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
+import com.kylecorry.trail_sense.tools.astronomy.ui.format.PlanetMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.calibration.ARCalibratorFactory
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.guide.ARGuide
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.guide.AstronomyARGuide
@@ -59,9 +61,9 @@ import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.Beacon
 import com.kylecorry.trail_sense.tools.diagnostics.status.GpsStatusBadgeProvider
 import com.kylecorry.trail_sense.tools.diagnostics.status.SensorStatusBadgeProvider
 import com.kylecorry.trail_sense.tools.diagnostics.status.StatusBadge
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PathLayerManager
 import java.time.LocalDate
 import java.time.ZonedDateTime
 import kotlin.math.hypot
@@ -78,6 +80,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
 
     private var guide: ARGuide? = null
+
+    private val planetMapper by lazy { PlanetMapper(requireContext()) }
 
     private val beaconLayer by lazy {
         ARBeaconLayer(
@@ -99,7 +103,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             drawStars = userPrefs.augmentedReality.showStars,
             onSunFocus = this::onSunFocused,
             onMoonFocus = this::onMoonFocused,
-            onStarFocus = this::onStarFocused
+            onStarFocus = this::onStarFocused,
+            onPlanetFocus = this::onPlanetFocused,
         )
     }
 
@@ -361,6 +366,11 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
     private fun onStarFocused(star: Star): Boolean {
         binding.arView.focusText = getString(R.string.star) + "\n" + formatEnumName(star.name)
+        return true
+    }
+
+    private fun onPlanetFocused(planet: Planet): Boolean {
+        binding.arView.focusText = planetMapper.getName(planet)
         return true
     }
 

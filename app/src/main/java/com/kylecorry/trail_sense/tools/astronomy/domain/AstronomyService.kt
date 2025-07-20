@@ -5,10 +5,12 @@ import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.sol.science.astronomy.RiseSetTransitTimes
 import com.kylecorry.sol.science.astronomy.SunTimesMode
 import com.kylecorry.sol.science.astronomy.eclipse.EclipseType
+import com.kylecorry.sol.science.astronomy.locators.Planet
 import com.kylecorry.sol.science.astronomy.meteors.MeteorShowerPeak
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
 import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
 import com.kylecorry.sol.science.astronomy.stars.Star
+import com.kylecorry.sol.science.astronomy.units.CelestialObservation
 import com.kylecorry.sol.science.shared.Season
 import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.time.Time.toZonedDateTime
@@ -286,6 +288,27 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
             val altitude = Astronomy.getStarAltitude(it, time, location, true)
             it to (azimuth to altitude)
         }.filter { it.second.second > 0 }
+    }
+
+    fun getVisiblePlanets(
+        location: Coordinate,
+        time: ZonedDateTime = ZonedDateTime.now()
+    ): List<Pair<Planet, CelestialObservation>> {
+        if (isSunUp(location, time)) {
+            return emptyList()
+        }
+
+        // Initial filter based on magnitude / proximity to the sun
+        val planetsToConsider = listOf(
+            Planet.Venus,
+            Planet.Mars,
+            Planet.Jupiter,
+            Planet.Saturn
+        )
+
+        return planetsToConsider.map {
+            it to Astronomy.getPlanetPosition(it, time, location, withRefraction = true)
+        }.filter { it.second.altitude > 0 }
     }
 
     private fun getEclipse(

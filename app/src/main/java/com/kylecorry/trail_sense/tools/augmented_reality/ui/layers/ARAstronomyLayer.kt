@@ -10,6 +10,7 @@ import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.SolMath.map
 import com.kylecorry.sol.science.astronomy.Astronomy
+import com.kylecorry.sol.science.astronomy.locators.Planet
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
 import com.kylecorry.sol.science.astronomy.stars.Star
 import com.kylecorry.sol.time.Time
@@ -20,6 +21,7 @@ import com.kylecorry.trail_sense.shared.fromColorTemperature
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.tools.astronomy.ui.MoonPhaseImageMapper
+import com.kylecorry.trail_sense.tools.astronomy.ui.format.PlanetMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.SphericalARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARLine
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMarker
@@ -39,7 +41,8 @@ class ARAstronomyLayer(
     private val drawStars: Boolean,
     private val onSunFocus: (time: ZonedDateTime) -> Boolean,
     private val onMoonFocus: (time: ZonedDateTime, phase: MoonPhase) -> Boolean,
-    private val onStarFocus: (star: Star) -> Boolean
+    private val onStarFocus: (star: Star) -> Boolean,
+    private val onPlanetFocus: (planet: Planet) -> Boolean,
 ) : ARLayer {
 
     private val scope = CoroutineScope(Dispatchers.Default)
@@ -56,6 +59,8 @@ class ARAstronomyLayer(
     private val currentMoonLayer = ARMarkerLayer()
 
     private val starLayer = ARMarkerLayer()
+    private val planetLayer = ARMarkerLayer()
+    private var planetMapper: PlanetMapper? = null
 
     private val astro = AstronomyService()
 
@@ -71,6 +76,9 @@ class ARAstronomyLayer(
 
     override suspend fun update(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         val location = view.location
+        if (planetMapper == null) {
+            planetMapper = PlanetMapper(view.context)
+        }
 
         hooks.effect(
             "positions",
@@ -90,6 +98,7 @@ class ARAstronomyLayer(
         currentSunLayer.update(drawer, view)
         currentMoonLayer.update(drawer, view)
         starLayer.update(drawer, view)
+        planetLayer.update(drawer, view)
     }
 
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
@@ -102,6 +111,7 @@ class ARAstronomyLayer(
         if (timeOverride == null || timeOverride?.toLocalDate() == LocalDate.now()) {
             currentSunLayer.draw(drawer, view)
             currentMoonLayer.draw(drawer, view)
+            planetLayer.draw(drawer, view)
             starLayer.draw(drawer, view)
         }
     }
@@ -113,6 +123,7 @@ class ARAstronomyLayer(
         currentMoonLayer.invalidate()
         currentSunLayer.invalidate()
         starLayer.invalidate()
+        planetLayer.invalidate()
     }
 
     override fun onClick(
@@ -124,6 +135,7 @@ class ARAstronomyLayer(
                 currentMoonLayer.onClick(drawer, view, pixel) ||
                 sunLayer.onClick(drawer, view, pixel) ||
                 moonLayer.onClick(drawer, view, pixel) ||
+                planetLayer.onClick(drawer, view, pixel) ||
                 starLayer.onClick(drawer, view, pixel)
     }
 
@@ -132,6 +144,7 @@ class ARAstronomyLayer(
                 currentMoonLayer.onFocus(drawer, view) ||
                 sunLayer.onFocus(drawer, view) ||
                 moonLayer.onFocus(drawer, view) ||
+                planetLayer.onFocus(drawer, view) ||
                 starLayer.onFocus(drawer, view)
     }
 
@@ -301,6 +314,7 @@ class ARAstronomyLayer(
                 }
 
                 updateStarLayer(location, time)
+                updatePlanetLayer(location, time, drawer)
 
                 lineLayer.setLines(sunLines + moonLines)
                 sunLayer.setMarkers(sunPointsToDraw.flatten())
@@ -348,6 +362,46 @@ class ARAstronomyLayer(
         }
 
         starLayer.setMarkers(starMarkers)
+    }
+
+    private suspend fun updatePlanetLayer(
+        location: Coordinate,
+        time: ZonedDateTime,
+        drawer: ICanvasDrawer
+    ) = onDefault {
+        val markers = if (drawStars) {
+            val planets = astro.getVisiblePlanets(location, time)
+            planets.mapNotNull {
+                val resId = planetMapper?.getImage(it.first) ?: return@mapNotNull null
+                val bitmap = bitmapLoader?.load(
+                    resId,
+                    drawer.dp(24f).toInt()
+                ) ?: return@mapNotNull null
+                ARMarker(
+                    SphericalARPoint(
+                        it.second.azimuth.value,
+                        it.second.altitude,
+                        isTrueNorth = true,
+                        angularDiameter = map(
+                            -(it.second.visualMagnitude ?: 0f),
+                            -2f,
+                            1.5f,
+                            0.4f,
+                            0.8f,
+                            true
+                        )
+                    ),
+                    canvasObject = CanvasBitmap(bitmap),
+                    onFocusedFn = {
+                        onPlanetFocus(it.first)
+                    }
+                )
+            }
+        } else {
+            emptyList()
+        }
+
+        starLayer.setMarkers(markers)
     }
 
     private fun getMarkersAboveHorizon(points: List<ARMarker>): List<List<ARMarker>> {
