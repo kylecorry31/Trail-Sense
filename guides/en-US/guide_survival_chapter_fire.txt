@@ -69,7 +69,9 @@ Finding dry wood can be difficult, but look for dead branches on trees, fallen b
   - Wood soaked in a flammable liquid such as bug spray or hand sanitizer (use caution)
 - **Fuel**
   - Prefer fallen wood that you can break by hand over wood that requires cutting
-  - To break a larger piece of wood, insert it between two live trees at the point you want to break it and push it to the side until it snaps
+  - To break a larger piece of wood, insert it between two live trees at the point you want to break it and push it to the side until it snaps, as seen below.
+
+![](file:///android_asset/survival_guide/breaking_branches.webp)
 
 ### Feather sticks
 <!-- K: feather-stick -->
