@@ -1456,4 +1456,13 @@
     <string name="map">Mapa</string>
     <string name="show_labels">Zobrazit popisky</string>
     <string name="color_with_elevation">Barevné vrstevnice podle nadmořské výšky</string>
+    <string name="planet_mercury">Merkur</string>
+    <string name="planet_venus">Venuše</string>
+    <string name="planet_mars">Mars</string>
+    <string name="planet_jupiter">Jupiter</string>
+    <string name="planet_saturn">Saturn</string>
+    <string name="planet_uranus">Uran</string>
+    <string name="planet_neptune">Neptun</string>
+    <string name="load_pdf_tiles">Načíst dlaždice PDF</string>
+    <string name="load_pdf_tiles_summary">PDF mapy budou ostřejší, může to mít ale vliv na výkon</string>
 </resources>
