@@ -44,6 +44,7 @@ import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyPrefere
 import com.kylecorry.trail_sense.tools.ballistics.infrastructure.BallisticsPreferences
 import com.kylecorry.trail_sense.tools.climate.infrastructure.ClimatePreferenceRepo
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuidePreferences
+import com.kylecorry.trail_sense.tools.map.infrastructure.MapPreferences
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.PhotoMapPreferences
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -60,6 +61,7 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
 
     val navigation by lazy { NavigationPreferences(context) }
     val photoMaps by lazy { PhotoMapPreferences(context) }
+    val map by lazy { MapPreferences(context) }
     val weather by lazy { WeatherPreferences(context) }
     val astronomy by lazy { AstronomyPreferences(context) }
     val flashlight by lazy { FlashlightPreferenceRepo(context) }
@@ -445,12 +447,6 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
             "3" to NotificationSubsystem.GroupBehavior.UngroupHigh
         ),
         NotificationSubsystem.GroupBehavior.System
-    )
-
-    val showContoursOnMaps by BooleanPreference(
-        cache,
-        getString(R.string.pref_show_contours_on_maps),
-        false
     )
 
     private fun getString(id: Int): String {

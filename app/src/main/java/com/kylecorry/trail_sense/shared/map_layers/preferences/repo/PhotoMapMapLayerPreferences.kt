@@ -8,7 +8,8 @@ import com.kylecorry.trail_sense.settings.infrastructure.PreferenceRepo
 class PhotoMapMapLayerPreferences(
     context: Context,
     mapId: String,
-    enabledByDefault: Boolean = true
+    enabledByDefault: Boolean = true,
+    defaultOpacity: Int = 50
 ) : PreferenceRepo(context) {
     var isEnabled by BooleanPreference(
         cache,
@@ -19,7 +20,7 @@ class PhotoMapMapLayerPreferences(
     val opacity by IntPreference(
         cache,
         "pref_${mapId}_map_layer_opacity",
-        50 // percent
+        defaultOpacity // percent
     )
 
     val loadPdfs by BooleanPreference(

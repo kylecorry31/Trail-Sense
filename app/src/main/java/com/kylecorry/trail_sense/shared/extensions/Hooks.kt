@@ -3,6 +3,10 @@ package com.kylecorry.trail_sense.shared.extensions
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.sensors.IAltimeter
@@ -368,4 +372,37 @@ fun <T : View> ReactiveComponent.useViewWithCleanup(
         }
     }
     return view
+}
+
+fun ReactiveComponent.useLifecycleEffect(
+    lifecycleEvent: Lifecycle.Event,
+    vararg values: Any?,
+    action: () -> Unit
+) {
+    val owner = useLifecycleOwner()
+    val (lastObserver, setLastObserver) = useState<LifecycleObserver?>(null)
+    val observer = useMemo(*values, lifecycleEvent) {
+        LifecycleEventObserver { source: LifecycleOwner, event: Lifecycle.Event ->
+            if (event == lifecycleEvent) {
+                action()
+            }
+        }
+    }
+
+    useEffect(owner, observer) {
+        setLastObserver(observer)
+        lastObserver?.let {
+            owner.lifecycle.removeObserver(it)
+        }
+        owner.lifecycle.addObserver(observer)
+    }
+}
+
+fun ReactiveComponent.useDestroyEffect(vararg values: Any?, action: () -> Unit) {
+    useLifecycleEffect(
+        Lifecycle.Event.ON_DESTROY,
+        *values
+    ) {
+        action()
+    }
 }

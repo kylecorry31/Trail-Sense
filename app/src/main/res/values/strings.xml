@@ -1706,6 +1706,7 @@
     <string name="opacity">Opacity</string>
     <string name="pref_navigation_keep_unlocked" translatable="false">pref_navigation_keep_unlocked</string>
     <string name="pref_photo_maps_keep_unlocked" translatable="false">pref_photo_maps_keep_unlocked</string>
+    <string name="pref_map_keep_unlocked" translatable="false">pref_map_keep_unlocked</string>
     <string name="declination">Declination</string>
     <string name="pref_pedometer_use_alarm_for_distance_alert" translatable="false">pref_pedometer_use_alarm_for_distance_alert</string>
     <string name="pref_turn_back_use_alarm" translatable="false">pref_turn_back_use_alarm</string>
@@ -1746,7 +1747,6 @@
     <string name="notification_grouping">Notification grouping</string>
     <string name="ungroup_all">Ungroup all</string>
     <string name="ungroup_alerts">Ungroup alerts</string>
-    <string name="pref_show_contours_on_maps" translatable="false">pref_show_contours_on_maps</string>
     <string name="contours">Contours</string>
     <string name="map_layer">Map layer</string>
     <string name="pref_dem_url" translatable="false">pref_dem_url</string>

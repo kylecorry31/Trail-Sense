@@ -14,6 +14,9 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.ContourLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseMapLayerManager
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.CompassOverlayLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ScaleBarLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.BeaconLayer
@@ -88,11 +91,13 @@ class MapToolLayerManager {
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
         photoMapLayer.setMinZoom(4)
         photoMapLayer.controlsPdfCache = true
+        photoMapLayer.setPreferences(prefs.map.photoMapLayer)
+        contourLayer.setPreferences(prefs.map.contourLayer)
         view.setLayers(
             listOfNotNull(
                 baseMapLayer,
-                photoMapLayer,
-                if (prefs.showContoursOnMaps) contourLayer else null,
+                if (prefs.map.photoMapLayer.isEnabled) photoMapLayer else null,
+                if (prefs.map.contourLayer.isEnabled) contourLayer else null,
                 navigationLayer,
                 pathLayer,
                 myAccuracyLayer,
@@ -117,12 +122,12 @@ class MapToolLayerManager {
                     Resources.getPrimaryMarkerColor(context)
                 ),
                 TideLayerManager(context, tideLayer),
-                PhotoMapLayerManager(
+                if (prefs.map.photoMapLayer.isEnabled) PhotoMapLayerManager(
                     context,
                     photoMapLayer,
                     replaceWhitePixels = true,
-                    loadPdfs = true
-                ),
+                    loadPdfs = prefs.map.photoMapLayer.loadPdfs
+                ) else null,
                 BaseMapLayerManager(context, baseMapLayer),
                 BeaconLayerManager(context, beaconLayer),
                 NavigationLayerManager(context, navigationLayer)

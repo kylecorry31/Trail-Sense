@@ -8,11 +8,14 @@ import com.kylecorry.andromeda.fragments.useClickCallback
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.andromeda_temp.useFlow
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.useDestroyEffect
 import com.kylecorry.trail_sense.shared.extensions.useNavigationSensors
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.BeaconDestinationView
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScreenLock
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 
 class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
@@ -30,6 +33,19 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
         val hasCompass = useMemo(sensors) { sensors.hasCompass() }
         val navigator = useService<Navigator>()
         val destination = useFlow(navigator.destination, BackgroundMinimumState.Resumed)
+        val prefs = useService<UserPreferences>()
+        val activity = useActivity()
+        val screenLock = useMemo(prefs) {
+            NavigationScreenLock(prefs.map.keepScreenUnlockedWhileOpen)
+        }
+
+        useEffect(screenLock, activity, resetOnResume, destination) {
+            screenLock.updateLock(activity)
+        }
+
+        useDestroyEffect(screenLock, activity) {
+            screenLock.releaseLock(activity)
+        }
 
         useClickCallback(lockButton, lockMode, hasCompass) {
             setLockMode(getNextLockMode(lockMode, hasCompass))

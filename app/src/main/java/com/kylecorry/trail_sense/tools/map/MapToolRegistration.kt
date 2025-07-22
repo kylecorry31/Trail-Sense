@@ -17,6 +17,7 @@ object MapToolRegistration : ToolRegistration {
             R.drawable.maps,
             R.id.mapFragment,
             ToolCategory.Location,
+            settingsNavAction = R.id.mapSettingsFragment,
             diagnostics = listOf(
                 ToolDiagnosticFactory.gps(context),
                 *ToolDiagnosticFactory.compass(context)

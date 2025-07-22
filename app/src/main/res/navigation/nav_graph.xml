@@ -50,6 +50,10 @@
         android:name="com.kylecorry.trail_sense.tools.map.ui.MapFragment"
         android:label="MapFragment" />
     <fragment
+        android:id="@+id/mapSettingsFragment"
+        android:name="com.kylecorry.trail_sense.tools.map.ui.MapSettingsFragment"
+        android:label="MapSettingsFragment" />
+    <fragment
         android:id="@+id/action_settings"
         android:name="com.kylecorry.trail_sense.settings.ui.SettingsFragment"
         android:label="SettingsFragment">

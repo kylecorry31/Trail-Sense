@@ -4,7 +4,7 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:singleLineTitle="false"
-        app:title="@string/maps">
+        app:title="@string/photo_maps">
 
         <SwitchPreferenceCompat
             android:summary="@string/on_import"
