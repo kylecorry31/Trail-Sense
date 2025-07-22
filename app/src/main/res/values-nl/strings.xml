@@ -1430,4 +1430,13 @@
     <string name="map">Kaart</string>
     <string name="show_labels">Labels tonen</string>
     <string name="color_with_elevation">Kleur contouren op basis van hoogte</string>
+    <string name="planet_mercury">Mercurius</string>
+    <string name="planet_venus">Venus</string>
+    <string name="planet_mars">Mars</string>
+    <string name="planet_jupiter">Jupiter</string>
+    <string name="planet_saturn">Saturnus</string>
+    <string name="planet_uranus">Uranus</string>
+    <string name="planet_neptune">Neptunus</string>
+    <string name="load_pdf_tiles">PDF-tegels laden</string>
+    <string name="load_pdf_tiles_summary">PDF-kaarten zijn scherper, maar de prestaties kunnen worden beïnvloed</string>
 </resources>

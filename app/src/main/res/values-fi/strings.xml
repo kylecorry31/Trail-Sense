@@ -214,7 +214,7 @@
     <string name="thunder">Ukkonen</string>
     <string name="hours">Tuntia</string>
     <string name="temperature_history">Lämpötilahistoria - viimeinen %s</string>
-    <string name="pref_barometer_info_summary">Ilmanpaine voi poiketa lähellä olevien asemien paineista</string>
+    <string name="pref_barometer_info_summary">Mitattu Ilmanpaine saattaa poiketa lähellä olevien sääasemien paineista</string>
     <string name="estimated">Arvioitu</string>
     <string name="actual_frequency_disclaimer">Todellinen taajuus saattaa vaihdella, koska joillakin laitteilla on taustarajoituksia.</string>
     <string name="save">Tallenna</string>
@@ -503,7 +503,7 @@
         <item quantity="other">%d majakkaa tuotu</item>
     </plurals>
     <string name="compass_calibrate_toast">Kompassin tarkkuus %s, kalibrointi on suositeltavaa</string>
-    <string name="location_input_help_title">Tuetut sijaintimuodot</string>
+    <string name="location_input_help_title">Tuetut koordinaattimuodot</string>
     <string name="activity_recognition_permission_denied">Liikkumistietojen käyttöoikeus evätty, joten askelmittaritoimintoja ei voitu ottaa käyttöön. Voit ottaa ne käyttöön asetuksista.</string>
     <string name="liters">Litraa</string>
     <string name="unit_nautical_miles">Meripeninkulmaa</string>
@@ -732,7 +732,7 @@
     <string name="sensor_summary">Kompassi, GPS, korkeusmittari, barometri jne.</string>
     <string name="obscuration">Hämärtyminen</string>
     <string name="note_title_hint">Otsikko</string>
-    <string name="cumulonimbus_desc">Kuuropilvet (Cumulonimbus), tunnetaan myös nimellä ukkospilvet, ovat matalalla olevia pöyheitä pilviä, jotka ovat erittäin korkeita. Ne ovat tyypillisesti tummia ja alasimen muotoisia.</string>
+    <string name="cumulonimbus_desc">Kuuropilvet (Cumulonimbus), tunnettu myös nimellä ukkospilvet, ovat matalalla olevia pöyheitä pilviä, jotka ovat erittäin korkeita. Ne ovat tyypillisesti tummia ja alasimen muotoisia.</string>
     <string name="category_safety">Turvallisuus</string>
     <string name="percent_packed">%s pakattu</string>
     <string name="no_clouds">Ei pilviä</string>
@@ -1267,7 +1267,7 @@
     <string name="climate_steppe">Aro</string>
     <string name="climate_tundra">Tundra</string>
     <string name="climate_ice_cap">Mannerjää</string>
-    <string name="climate_temperate">Lauhkea</string>
+    <string name="climate_temperate">Lauhkea ilmasto</string>
     <string name="climate_continental">Mannerilmasto</string>
     <string name="climate_tropical_description">Kuuma ja kostea ilmasto, jossa sataa merkittävästi ympäri vuoden.</string>
     <string name="climate_dry_description">Kuiva ilmasto, jossa sataa vähän ja kasvillisuus on vähäistä.</string>
@@ -1328,7 +1328,7 @@
     <string name="opacity">Läpinäkymättömyys</string>
     <string name="safe_mode_toast">Kaatumisia havaittu, osa ominaisuuksista poistetaan käytöstä muutamaksi sekuniksi.</string>
     <string name="pref_navigation_lock_screen_when_open_title">Näytä lukitusnäytöllä käytön aikana</string>
-    <string name="declination">Kaltevuus</string>
+    <string name="declination">Eranto</string>
     <string name="use_alarm_for_distance_alert">Käytä herätystä etäisyysilmoitukseen</string>
     <string name="use_alarm_for_turn_back_alert">Käytä herätystä takaisinkääntymisilmoitukseen</string>
     <string name="use_alarm_for_water_boil_timer">Käytä herätystä veden kiehumisajastimeen</string>
@@ -1358,4 +1358,13 @@
     <string name="map">Kartta</string>
     <string name="show_labels">Näytä nimikkeet</string>
     <string name="color_with_elevation">Väritä korkeuskäyrät korkeuden perusteella</string>
+    <string name="planet_mercury">Merkurius</string>
+    <string name="planet_venus">Venus</string>
+    <string name="planet_mars">Mars</string>
+    <string name="planet_jupiter">Jupiter</string>
+    <string name="planet_saturn">Saturnus</string>
+    <string name="planet_uranus">Uranus</string>
+    <string name="planet_neptune">Neptunus</string>
+    <string name="load_pdf_tiles">Lataa PDF-laatat</string>
+    <string name="load_pdf_tiles_summary">PDF-kartat ovat terävämpiä, mutta saattavat vaikuttaa suorituskykyyn</string>
 </resources>

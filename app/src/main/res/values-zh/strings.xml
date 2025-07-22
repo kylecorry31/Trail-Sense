@@ -1417,4 +1417,13 @@
     <string name="map">地图</string>
     <string name="show_labels">显示标签</string>
     <string name="color_with_elevation">根据高度着色轮廓</string>
+    <string name="planet_mercury">水星</string>
+    <string name="planet_venus">金星</string>
+    <string name="planet_mars">火星</string>
+    <string name="planet_jupiter">木星</string>
+    <string name="planet_saturn">土星</string>
+    <string name="planet_uranus">天王星</string>
+    <string name="planet_neptune">海王星</string>
+    <string name="load_pdf_tiles">加载 PDF 文件</string>
+    <string name="load_pdf_tiles_summary">PDF 地图显示会更清晰，但可能影响性能</string>
 </resources>

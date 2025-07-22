@@ -1400,4 +1400,13 @@
     <string name="map">Mapa</string>
     <string name="color_with_elevation">Contornos coloridos com base na elevação</string>
     <string name="show_labels">Mostrar títulos</string>
+    <string name="planet_mercury">Mercúrio</string>
+    <string name="planet_venus">Vênus</string>
+    <string name="planet_mars">Marte</string>
+    <string name="planet_jupiter">Júpiter</string>
+    <string name="planet_saturn">Saturno</string>
+    <string name="planet_uranus">Urano</string>
+    <string name="planet_neptune">Netuno</string>
+    <string name="load_pdf_tiles">Carregar blocos em PDF</string>
+    <string name="load_pdf_tiles_summary">Os mapas em PDF ficarão mais nítidos, mas o desempenho poderá ser afetado</string>
 </resources>
