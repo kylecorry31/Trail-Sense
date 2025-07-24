@@ -227,6 +227,13 @@ Used to create a loop at the end of a line. In most cases a bowline would be a b
 
 ![](file:///android_asset/survival_guide/knot_overhand_loop.webp)
 
+### Overhand bend
+<!-- K: overhand-bend -->
+
+Used to join two lines together. This knot is easy to tie but hard to undo. In most cases a double sheet bend would be a better choice.
+
+![](file:///android_asset/survival_guide/knot_overhand_bend.webp)
+
 ### Double sheet bend
 <!-- K: double-sheet-bend, join, two, 2 -->
 
