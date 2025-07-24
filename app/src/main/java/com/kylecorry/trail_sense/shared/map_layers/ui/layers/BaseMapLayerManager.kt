@@ -39,7 +39,7 @@ class BaseMapLayerManager(
                         )
                     ),
                     MapMetadata(
-                        Size(2880f, 1440f),
+                        Size(5400f, 2700f),
                         null,
                         0,
                         MapProjectionType.CylindricalEquidistant
