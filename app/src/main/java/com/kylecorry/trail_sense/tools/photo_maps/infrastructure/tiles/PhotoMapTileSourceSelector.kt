@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles
 import android.content.Context
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.trail_sense.shared.bitmaps.BitmapOperation
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 
 class PhotoMapTileSourceSelector(
@@ -10,7 +11,9 @@ class PhotoMapTileSourceSelector(
     maps: List<PhotoMap>,
     private val maxLayers: Int = 4,
     private val replaceWhitePixels: Boolean = false,
-    private val loadPdfs: Boolean = true
+    private val loadPdfs: Boolean = true,
+    private val isPixelPerfect: Boolean = false,
+    private val operations: List<BitmapOperation> = emptyList()
 ) : ITileSourceSelector {
 
     private val sortedMaps = maps
@@ -69,7 +72,16 @@ class PhotoMapTileSourceSelector(
             containedMaps
         }
 
-        return maps.map { PhotoMapRegionLoader(context, it, replaceWhitePixels, loadPdfs) }
+        return maps.map {
+            PhotoMapRegionLoader(
+                context,
+                it,
+                replaceWhitePixels,
+                loadPdfs,
+                isPixelPerfect,
+                operations
+            )
+        }
     }
 
     // TODO: Extract to sol

@@ -16,6 +16,7 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.andromeda_temp.ImageRegionLoader
 import com.kylecorry.trail_sense.shared.andromeda_temp.ceilToInt
 import com.kylecorry.trail_sense.shared.andromeda_temp.floorToInt
+import com.kylecorry.trail_sense.shared.bitmaps.BitmapOperation
 import com.kylecorry.trail_sense.shared.bitmaps.Conditional
 import com.kylecorry.trail_sense.shared.bitmaps.CorrectPerspective
 import com.kylecorry.trail_sense.shared.bitmaps.ReplaceColor
@@ -36,7 +37,9 @@ class PhotoMapRegionLoader(
     private val context: Context,
     val map: PhotoMap,
     private val replaceWhitePixels: Boolean = false,
-    private val loadPdfs: Boolean = true
+    private val loadPdfs: Boolean = true,
+    private val isPixelPerfect: Boolean = false,
+    private val operations: List<BitmapOperation> = emptyList()
 ) : IGeographicImageRegionLoader {
 
     override suspend fun load(bounds: CoordinateBounds, maxSize: Size): Bitmap? = onIO {
@@ -135,7 +138,7 @@ class PhotoMapRegionLoader(
         }
 
         bitmap?.applyOperations(
-            Resize(maxSize, false),
+            Resize(maxSize, false, useBilinearScaling = !isPixelPerfect),
             Conditional(
                 shouldApplyPerspectiveCorrection,
                 CorrectPerspective(
@@ -145,10 +148,10 @@ class PhotoMapRegionLoader(
                         percentBottomRight,
                         percentTopLeft,
                         percentTopRight
-                    )
+                    ),
                 )
             ),
-            Resize(maxSize, true),
+            Resize(maxSize, true, useBilinearScaling = !isPixelPerfect),
             Conditional(
                 replaceWhitePixels,
                 ReplaceColor(
@@ -158,7 +161,8 @@ class PhotoMapRegionLoader(
                     true,
                     inPlace = true
                 )
-            )
+            ),
+            *operations.toTypedArray()
         )
     }
 

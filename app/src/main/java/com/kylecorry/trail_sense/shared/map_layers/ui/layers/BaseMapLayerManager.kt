@@ -49,7 +49,8 @@ class BaseMapLayerManager(
                 )
             ),
             maxLayers = 1,
-            loadPdfs = false
+            loadPdfs = false,
+            isPixelPerfect = true
         )
     }
 

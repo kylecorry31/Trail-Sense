@@ -7,8 +7,9 @@ import android.graphics.Rect
 import android.util.Size
 import androidx.annotation.ColorInt
 import androidx.core.graphics.createBitmap
+import androidx.core.graphics.scale
 import com.kylecorry.andromeda.bitmaps.BitmapUtils
-import com.kylecorry.andromeda.bitmaps.BitmapUtils.fixPerspective
+import com.kylecorry.andromeda.core.math.MathUtils
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PixelBounds
 
@@ -47,6 +48,14 @@ fun Bitmap.fixPerspective(
     )
 }
 
+fun Bitmap.resizeToFit2(maxWidth: Int, maxHeight: Int, useBilinearScaling: Boolean = true): Bitmap {
+    return if (maxHeight > 0 && maxWidth > 0) {
+        val scaledSize = MathUtils.scaleToBounds(Size(width, height), Size(maxWidth, maxHeight))
+        this.scale(scaledSize.width, scaledSize.height, useBilinearScaling)
+    } else {
+        this
+    }
+}
 
 fun Bitmap.fixPerspective2(
     topLeft: PixelCoordinate,
