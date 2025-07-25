@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.util.Log
+import androidx.core.graphics.alpha
 import androidx.core.graphics.createBitmap
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -98,8 +99,14 @@ class TileLoader {
                 newTiles[source.key] = entries
             }
 
+            val config = if (backgroundColor.alpha != 255) {
+                Bitmap.Config.ARGB_8888
+            } else {
+                Bitmap.Config.RGB_565
+            }
+
             var image =
-                createBitmap(source.key.size.width, source.key.size.height, Bitmap.Config.RGB_565)
+                createBitmap(source.key.size.width, source.key.size.height, config)
             image.eraseColor(backgroundColor)
 
             source.value.reversed().forEach {
@@ -114,7 +121,7 @@ class TileLoader {
 
             // Remove transparency
             image = image.applyOperations(
-                Convert(Bitmap.Config.RGB_565)
+                Convert(config)
             )
 
             hasChanges = true

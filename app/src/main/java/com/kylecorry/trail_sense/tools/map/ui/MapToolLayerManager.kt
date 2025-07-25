@@ -93,6 +93,8 @@ class MapToolLayerManager {
         photoMapLayer.controlsPdfCache = true
         photoMapLayer.setPreferences(prefs.map.photoMapLayer)
         contourLayer.setPreferences(prefs.map.contourLayer)
+
+        photoMapLayer.setBackgroundColor(Color.TRANSPARENT)
         view.setLayers(
             listOfNotNull(
                 baseMapLayer,

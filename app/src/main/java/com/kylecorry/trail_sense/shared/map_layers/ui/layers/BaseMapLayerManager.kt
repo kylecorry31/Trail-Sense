@@ -1,8 +1,11 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers
 
 import android.content.Context
+import android.graphics.Color
+import androidx.core.graphics.toColorInt
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.bitmaps.ReplaceColor
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibration
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapMetadata
@@ -50,7 +53,15 @@ class BaseMapLayerManager(
             ),
             maxLayers = 1,
             loadPdfs = false,
-            isPixelPerfect = true
+            isPixelPerfect = true,
+            operations = listOf(
+                // TODO: Allow the user to replace the land color
+//                Threshold(10f),
+//                ReplaceColor(Color.WHITE, "#7DBA4E".toColorInt()),
+                // TODO: Allow the user to replace the water color
+                // Replace the water color
+                ReplaceColor(Color.BLACK, "#4A90E2".toColorInt())
+            )
         )
     }
 
