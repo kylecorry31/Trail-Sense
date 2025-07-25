@@ -118,12 +118,14 @@ object TextUtils {
                         it,
                         removeMarkdownComments(first.content) + "\n" + section.drop(1)
                             .joinToString("\n") { it.toMarkdown(shouldUppercaseSubheadings) })
+                    it.movementMethod = LinkMovementMethodCompat.getInstance()
                 }
                 expandable
             } else {
                 // Only text nodes
                 val t = defaultTextView(context)
                 markdown.setMarkdown(t, section.joinToString("\n") { it.toMarkdown() })
+                t.movementMethod = LinkMovementMethodCompat.getInstance()
                 t
             }
         }
@@ -287,7 +289,6 @@ object TextUtils {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
-            it.movementMethod = LinkMovementMethodCompat.getInstance()
             it.setTextIsSelectable(true)
         }
     }
