@@ -209,13 +209,15 @@ Leeches attach to your skin and suck your blood. They can be found in freshwater
 
 #### Treatment
 
-1. Pull it taut (but not too tight).
-2. Slide a fingernail or other flat object between the leech and your skin to detach it.
+1. Hold the rear of the leech (the fatter end) and pull it taut (but not too tight). If the rear is suctioned to your skin, a fingernail can be used to detach it.
+2. Slide a fingernail or other flat object between the leech's head (the smaller end) and your skin to detach it.
 3. Flick the leech away before it can reattach.
 4. Clean the wound and apply antibiotic ointment.
 5. Apply a bandage to control bleeding. It is normal for the wound to bleed for a while.
 
 Do not salt, burn, or pull the leech off, as this can cause it to regurgitate into the wound.
+
+![](file:///android_asset/survival_guide/leech_removal.webp)
 
 #### Prevention
 - Use insect repellent.
