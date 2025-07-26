@@ -55,7 +55,7 @@ class ActiveMapSelector {
         location: Coordinate
     ): PhotoMap? {
         return maps.minByOrNull {
-            val pixel = it.projection.toPixels(location)
+            val pixel = it.baseProjection.toPixels(location)
             val xPercent = pixel.x / it.metadata.size.width
             val yPercent = pixel.y / it.metadata.size.height
             val xDist = abs(0.5f - xPercent)

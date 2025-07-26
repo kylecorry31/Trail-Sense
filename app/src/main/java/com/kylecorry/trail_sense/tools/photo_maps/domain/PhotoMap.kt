@@ -32,15 +32,20 @@ data class PhotoMap(
     private val hooks = Hooks()
 
     /**
-     * The projection onto the image (with base rotation applied, ex. 0, 90, 180, 270)
+     * The projection onto the image/pdf.
      */
-    val projection: IMapProjection by lazy { PhotoMapProjection(this) }
+    val projection: IMapProjection by lazy { PhotoMapProjection(this, useBaseRotation = false) }
 
     /**
-     * The projection onto the image (with base rotation applied, ex. 0, 90, 180, 270). Does not use the PDF.
+     * The projection onto the image (with base rotation applied, ex. 0, 90, 180, 270)
+     */
+    val baseProjection: IMapProjection by lazy { PhotoMapProjection(this) }
+
+    /**
+     * The projection onto the image. Does not use the PDF.
      */
     val imageProjection: IMapProjection by lazy {
-        PhotoMapProjection(this, usePdf = false)
+        PhotoMapProjection(this, usePdf = false, useBaseRotation = false)
     }
 
     /**
@@ -60,7 +65,7 @@ data class PhotoMap(
         }
 
         return hooks.memo("distance_per_pixel") {
-            projection.distancePerPixel(
+            baseProjection.distancePerPixel(
                 calibration.calibrationPoints[0].location,
                 calibration.calibrationPoints[1].location
             )
@@ -78,11 +83,7 @@ data class PhotoMap(
      * The size of the image with exact rotation applied
      */
     fun calibratedSize(usePdf: Boolean = true): Size {
-        val size = if (usePdf) {
-            metadata.size
-        } else {
-            metadata.unscaledPdfSize ?: metadata.size
-        }
+        val size = unrotatedSize(usePdf)
         return size.rotate(calibration.rotation)
     }
 
@@ -90,12 +91,16 @@ data class PhotoMap(
      * The size of the image with base rotation applied (ex. 0, 90, 180, 270)
      */
     fun baseSize(usePdf: Boolean = true): Size {
-        val size = if (usePdf) {
+        val size = unrotatedSize(usePdf)
+        return size.rotate(baseRotation().toFloat())
+    }
+
+    fun unrotatedSize(usePdf: Boolean = true): Size {
+        return if (usePdf) {
             metadata.size
         } else {
             metadata.unscaledPdfSize ?: metadata.size
         }
-        return size.rotate(baseRotation().toFloat())
     }
 
     /**
@@ -113,10 +118,10 @@ data class PhotoMap(
 
         return hooks.memo("boundary") {
             val size = baseSize()
-            val topLeft = projection.toCoordinate(Vector2(0f, 0f))
-            val bottomLeft = projection.toCoordinate(Vector2(0f, size.height))
-            val topRight = projection.toCoordinate(Vector2(size.width, 0f))
-            val bottomRight = projection.toCoordinate(Vector2(size.width, size.height))
+            val topLeft = baseProjection.toCoordinate(Vector2(0f, 0f))
+            val bottomLeft = baseProjection.toCoordinate(Vector2(0f, size.height))
+            val topRight = baseProjection.toCoordinate(Vector2(size.width, 0f))
+            val bottomRight = baseProjection.toCoordinate(Vector2(size.width, size.height))
 
             CoordinateBounds.from(listOf(topLeft, bottomLeft, topRight, bottomRight))
         }

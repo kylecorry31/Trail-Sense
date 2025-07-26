@@ -56,11 +56,7 @@ class PhotoMapRegionLoader(
         val top = listOf(northWest.y, southWest.y, northEast.y, southEast.y).min().floorToInt()
         val bottom = listOf(northWest.y, southWest.y, northEast.y, southEast.y).max().ceilToInt()
 
-        val size = if (loadPdfs) {
-            map.metadata.size
-        } else {
-            map.metadata.unscaledPdfSize ?: map.metadata.size
-        }
+        val size = map.unrotatedSize(loadPdfs)
 
         val region =
             BitmapUtils.getExactRegion(Rect(left, top, right, bottom), size.toAndroidSize())

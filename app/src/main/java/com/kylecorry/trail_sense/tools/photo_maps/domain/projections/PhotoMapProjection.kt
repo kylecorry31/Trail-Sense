@@ -8,7 +8,11 @@ import com.kylecorry.trail_sense.tools.photo_maps.domain.MapProjectionFactory
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMapRotationService
 
-class PhotoMapProjection(private val map: PhotoMap, private val usePdf: Boolean = true) :
+class PhotoMapProjection(
+    private val map: PhotoMap,
+    private val usePdf: Boolean = true,
+    private val useBaseRotation: Boolean = true
+) :
     IMapProjection {
 
     private val rotationService = PhotoMapRotationService(map)
@@ -29,17 +33,30 @@ class PhotoMapProjection(private val map: PhotoMap, private val usePdf: Boolean 
             it.imageLocation.toPixels(rotatedSize.width, rotatedSize.height) to it.location
         }, MapProjectionFactory().getProjection(map.metadata.projection))
 
-        // No need to rotate it back to the base rotation if it's already at the base rotation
-        if (map.calibration.rotation % 90f == 0f) {
+        val size = if (useBaseRotation) {
+            map.baseSize(usePdf)
+        } else {
+            map.unrotatedSize(usePdf)
+        }
+        val baseRotation = if (useBaseRotation) {
+            map.baseRotation()
+        } else {
+            0f
+        }
+
+        val angle = SolMath.deltaAngle(
+            baseRotation.toFloat(),
+            map.calibration.rotation
+        )
+
+        if (SolMath.isZero(angle)) {
             return projection
         }
 
-        val size = map.baseSize(usePdf)
-        val baseRotation = map.baseRotation()
         return RotatedProjection(
             projection,
             size,
-            SolMath.deltaAngle(baseRotation.toFloat(), map.calibration.rotation)
+            angle
         )
     }
 
