@@ -181,6 +181,7 @@ class MapToolLayerManager {
 
     fun onBoundsChanged(bounds: CoordinateBounds) {
         layerManager?.onBoundsChanged(bounds)
+        distanceLayer.invalidate()
     }
 
     fun onElevationChanged(elevation: Float) {
