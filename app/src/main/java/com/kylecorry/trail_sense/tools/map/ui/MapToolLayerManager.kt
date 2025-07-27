@@ -2,13 +2,9 @@ package com.kylecorry.trail_sense.tools.map.ui
 
 import android.content.Context
 import android.graphics.Color
-import androidx.core.os.bundleOf
-import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
-import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
@@ -16,7 +12,6 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
-import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.ContourLayer
@@ -46,7 +41,6 @@ import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PhotoMap
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.TideLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
 import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceLayer
-import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
 
 class MapToolLayerManager {
 
@@ -83,6 +77,8 @@ class MapToolLayerManager {
 
         compassLayer.backgroundColor = Resources.color(context, R.color.colorSecondary)
         compassLayer.cardinalDirectionColor = Resources.getCardinalDirectionColor(context)
+        compassLayer.paddingTopDp = 48f
+        compassLayer.paddingRightDp = 8f
 
         myElevationLayer = MyElevationLayer(
             formatter,
@@ -220,7 +216,7 @@ class MapToolLayerManager {
         distanceLayer.clear()
     }
 
-    fun undoLastDistanceMeasurement(){
+    fun undoLastDistanceMeasurement() {
         distanceLayer.undo()
     }
 

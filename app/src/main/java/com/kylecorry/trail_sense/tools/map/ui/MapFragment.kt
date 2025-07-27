@@ -10,6 +10,7 @@ import com.kylecorry.andromeda.core.ui.useCallback
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.useClickCallback
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
@@ -40,6 +41,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
         val lockButton = useView<FloatingActionButton>(R.id.lock_btn)
         val zoomInButton = useView<FloatingActionButton>(R.id.zoom_in_btn)
         val zoomOutButton = useView<FloatingActionButton>(R.id.zoom_out_btn)
+        val menuButton = useView<FloatingActionButton>(R.id.menu_btn)
         val navigationSheetView = useView<BeaconDestinationView>(R.id.navigation_sheet)
         val mapDistanceSheetView = useView<MapDistanceSheet>(R.id.distance_sheet)
         val navigation = useNavigationSensors(trueNorth = true)
@@ -98,12 +100,12 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
                 manager,
                 pathService,
                 navigation.location
-            ) { location: Coordinate, startWithUserLocation: Boolean ->
-                if (startWithUserLocation) {
-                    manager.startDistanceMeasurement(navigation.location, location)
-                } else {
-                    manager.startDistanceMeasurement(location)
-                }
+            ) { location: Coordinate?, startWithUserLocation: Boolean ->
+                val initialPoints = listOfNotNull(
+                    if (startWithUserLocation) navigation.location else null,
+                    location
+                ).toTypedArray()
+                manager.startDistanceMeasurement(*initialPoints)
                 mapDistanceSheetView.show()
                 mapDistanceSheetView.cancelListener = {
                     stopDistanceMeasurement()
@@ -236,6 +238,32 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
                     .convertTo(prefs.baseDistanceUnits)
                     .toRelativeDistance()
                 mapDistanceSheetView.setDistance(relative)
+            }
+        }
+
+        // Menu
+        useEffect(menuButton) {
+            CustomUiUtils.setButtonState(menuButton, false)
+        }
+
+        useClickCallback(menuButton, startDistanceMeasurement) {
+            val actions = listOf(
+                MapAction.Measure to getString(R.string.measure),
+                MapAction.CreatePath to getString(R.string.create_path),
+            )
+
+
+            Pickers.menu(
+                menuButton,
+                actions.map { action -> action.second }
+            ) { index ->
+                when (actions[index].first) {
+                    MapAction.Measure, MapAction.CreatePath -> startDistanceMeasurement(
+                        null,
+                        false
+                    )
+                }
+                true
             }
         }
     }

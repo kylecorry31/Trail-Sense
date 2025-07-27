@@ -21,6 +21,18 @@ class CompassOverlayLayer : ILayer {
             invalidate()
         }
 
+    var paddingTopDp: Float = 16f
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    var paddingRightDp: Float = 16f
+        set(value) {
+            field = value
+            invalidate()
+        }
+
     override fun draw(
         drawer: ICanvasDrawer,
         map: IMapView
@@ -36,8 +48,8 @@ class CompassOverlayLayer : ILayer {
         val arrowWidth = drawer.dp(5f)
         val arrowMargin = drawer.dp(3f)
         val location = PixelCoordinate(
-            drawer.canvas.width - drawer.dp(32f),
-            drawer.dp(32f)
+            drawer.canvas.width - drawer.dp(paddingRightDp + compassSize / 2f),
+            drawer.dp(paddingTopDp + compassSize / 2f)
         )
         drawer.push()
         drawer.rotate(-map.mapAzimuth, location.x, location.y)
