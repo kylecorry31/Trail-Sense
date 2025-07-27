@@ -26,7 +26,41 @@ You can pinch to zoom the radar compass, which will change the nearby beacon rad
 
 If your device does not have a compass, you can still choose to display the compass dial ticks by enabling the Settings > Navigation > 'Show dial ticks on nearby radar' option. Please note, that without a compass sensor, moving your device will not change the direction of the radar compass.
 
-You can choose to display a map layer containing your Photo Maps on the compass by enabling Settings > Navigation > Photo Maps > Visible. This will show nearby Photo Maps as the background of the compass, with the most zoomed-in map appearing on top. You can also adjust the opacity of this layer to make it less visible via Settings > Navigation > Photo Maps > Opacity.
+Layers are used to display information on the radar compass. You can find layer settings in Settings > Navigation.
+
+#### Photo Maps
+This layer shows visible Photo Maps, with the most zoomed-in map appearing on top. You can add new maps in the Photo Maps tool.
+
+Settings:
+
+- **Visible**: Determines if this layer is visible.
+- **Opacity**: Determines how transparent this layer is. 0 is fully transparent and 100 is fully opaque.
+- **Load PDF tiles**: If enabled, PDF tiles will be loaded for maps that have a PDF version available. This is slower but provides higher resolution maps.
+
+#### Contours
+This layer shows contour lines generated from the digital elevation model (DEM) and can be used to see the steepness and elevation of map features. You can change the DEM in Settings > Altimeter.
+
+Settings:
+
+- **Visible**: Determines if this layer is visible.
+- **Opacity**: Determines how transparent this layer is. 0 is fully transparent and 100 is fully opaque.
+- **Show labels**: Determines if contour labels are shown on the map.
+- **Color contours based on elevation**: If enabled, the color of the contour lines will be based on the elevation (green to purple). If disabled, contours will be brown.
+
+#### Paths
+This layer shows visible paths. You can add new paths in the Paths tool.
+
+#### GPS accuracy
+This layer shows the GPS accuracy as a circle around your current location.
+
+#### Location
+This layer shows your location and which direction you are facing (if you have a compass).
+
+#### Tides
+This layer shows visible tides. You can add new tides in the Tides tool.
+
+#### Beacons
+This layer shows visible beacons. You can add new beacons in the Beacons tool. You can click on a beacon to navigate to it.
 
 ### Linear compass
 

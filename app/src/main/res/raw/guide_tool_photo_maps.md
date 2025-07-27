@@ -71,6 +71,46 @@ To create a path from the map, follow the instructions in the 'Measuring distanc
 
 For further details on paths, refer to the 'Paths' guide.
 
+## Layers
+Layers are used to display information on the map. You can find layer settings in Settings > Photo Maps.
+
+### Contours
+This layer shows contour lines generated from the digital elevation model (DEM) and can be used to see the steepness and elevation of map features. You can change the DEM in Settings > Altimeter.
+
+Settings:
+
+- **Visible**: Determines if this layer is visible.
+- **Opacity**: Determines how transparent this layer is. 0 is fully transparent and 100 is fully opaque.
+- **Show labels**: Determines if contour labels are shown on the map.
+- **Color contours based on elevation**: If enabled, the color of the contour lines will be based on the elevation (green to purple). If disabled, contours will be brown.
+
+### Navigation
+This layer draws a line between your location and the destination point you are navigating to.
+
+### Paths
+This layer shows visible paths. You can add new paths in the Paths tool.
+
+### GPS accuracy
+This layer shows the GPS accuracy as a circle around your current location.
+
+### Location
+This layer shows your location and which direction you are facing (if you have a compass).
+
+### Tides
+This layer shows visible tides. You can add new tides in the Tides tool.
+
+### Beacons
+This layer shows visible beacons. You can add new beacons in the Beacons tool. You can click on a beacon to navigate to it.
+
+### Scale
+This layer shows a scale bar in the bottom-left corner of the map, which can be used to estimate distances on the map.
+
+### Elevation
+This layer shows your elevation in the bottom-right corner of the map.
+
+### Compass
+This layer shows a compass in the top-right corner of the map. It shows where true north is on the map.
+
 ## Measuring distance on a map
 You can measure distances on a map by opening the map, clicking the menu button in the top-right, and selecting 'Measure' or 'Create path'. Tap the map to place markers, and the total distance will be displayed at the bottom. To undo the last marker, click the undo button in the bottom left. Cancel by clicking the 'X' button in the bottom-right. You can also convert the drawn path into a saved path by clicking the 'Create path' button at the bottom.
 
