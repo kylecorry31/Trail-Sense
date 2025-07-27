@@ -1763,4 +1763,5 @@
     <string name="planet_neptune">Neptune</string>
     <string name="load_pdf_tiles">Load PDF tiles</string>
     <string name="load_pdf_tiles_summary">PDF maps will be sharper, but performance may be impacted</string>
+    <string name="map_tool_disclaimer">This tool displays your beacons, paths, and photo maps. It is not a substitute for a dedicated maps application.</string>
 </resources>

@@ -266,6 +266,16 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
                 true
             }
         }
+
+        // Disclaimer
+        useEffect(context) {
+            CustomUiUtils.disclaimer(
+                context,
+                getString(R.string.map),
+                getString(R.string.map_tool_disclaimer),
+                "pref_map_tool_disclaimer_shown"
+            )
+        }
     }
 
     private fun switchMapLockMode(
