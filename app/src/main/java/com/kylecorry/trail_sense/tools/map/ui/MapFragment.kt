@@ -4,12 +4,16 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.system.GeoUri
+import com.kylecorry.andromeda.core.ui.useCallback
 import com.kylecorry.andromeda.core.ui.useService
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.useClickCallback
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.andromeda_temp.useFlow
@@ -17,6 +21,7 @@ import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useDestroyEffect
 import com.kylecorry.trail_sense.shared.extensions.useNavController
 import com.kylecorry.trail_sense.shared.extensions.useNavigationSensors
+import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.ActionItem
 import com.kylecorry.trail_sense.shared.sharing.Share
@@ -24,6 +29,9 @@ import com.kylecorry.trail_sense.shared.views.BeaconDestinationView
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScreenLock
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
+import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
+import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceSheet
 
 class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
     override fun update() {
@@ -33,12 +41,14 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
         val zoomInButton = useView<FloatingActionButton>(R.id.zoom_in_btn)
         val zoomOutButton = useView<FloatingActionButton>(R.id.zoom_out_btn)
         val navigationSheetView = useView<BeaconDestinationView>(R.id.navigation_sheet)
+        val mapDistanceSheetView = useView<MapDistanceSheet>(R.id.distance_sheet)
         val navigation = useNavigationSensors(trueNorth = true)
         val context = useAndroidContext()
         val (lockMode, setLockMode) = useState(MapLockMode.Free)
         val sensors = useService<SensorService>()
         val hasCompass = useMemo(sensors) { sensors.hasCompass() }
         val navigator = useService<Navigator>()
+        val pathService = useService<PathService>()
         val destination = useFlow(navigator.destination, BackgroundMinimumState.Resumed)
         val prefs = useService<UserPreferences>()
         val formatter = useService<FormatService>()
@@ -73,6 +83,51 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
                 manager.pause(context, mapView)
             }
         }
+
+        // Distance
+        val stopDistanceMeasurement = useCallback<Unit>(mapDistanceSheetView, manager) {
+            manager.stopDistanceMeasurement()
+            mapDistanceSheetView.hide()
+        }
+
+        val startDistanceMeasurement =
+            useCallback(
+                mapDistanceSheetView,
+                stopDistanceMeasurement,
+                navController,
+                manager,
+                pathService,
+                navigation.location
+            ) { location: Coordinate, startWithUserLocation: Boolean ->
+                if (startWithUserLocation) {
+                    manager.startDistanceMeasurement(navigation.location, location)
+                } else {
+                    manager.startDistanceMeasurement(location)
+                }
+                mapDistanceSheetView.show()
+                mapDistanceSheetView.cancelListener = {
+                    stopDistanceMeasurement()
+                }
+                mapDistanceSheetView.createPathListener = {
+                    inBackground {
+                        val id = CreatePathCommand(
+                            pathService,
+                            prefs.navigation,
+                            null
+                        ).execute(manager.getDistanceMeasurementPoints())
+
+                        onMain {
+                            navController.navigateWithAnimation(
+                                R.id.pathDetailsFragment,
+                                bundleOf("path_id" to id)
+                            )
+                        }
+                    }
+                }
+                mapDistanceSheetView.undoListener = {
+                    manager.undoLastDistanceMeasurement()
+                }
+            }
 
         // Update layer values
         useEffect(mapView, manager, navigation.location, navigation.locationAccuracy) {
@@ -137,9 +192,11 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
             }
         }
 
-        useEffect(mapView, manager, navController) {
+        useEffect(mapView, manager, navController, startDistanceMeasurement) {
             mapView.setOnLongPressListener { location ->
-                // TODO: Disable if distance layer is active
+                if (manager.isMeasuringDistance()) {
+                    return@setOnLongPressListener
+                }
                 manager.setSelectedLocation(location)
 
                 Share.actions(
@@ -150,7 +207,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
                             val bundle = bundleOf(
                                 "initial_location" to GeoUri(location)
                             )
-                            navController.navigate(R.id.placeBeaconFragment, bundle)
+                            navController.navigateWithAnimation(R.id.placeBeaconFragment, bundle)
                             manager.setSelectedLocation(null)
                         },
                         ActionItem(getString(R.string.navigate), R.drawable.ic_beacon) {
@@ -161,14 +218,23 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
                             )
                             manager.setSelectedLocation(null)
                         },
-//                        ActionItem(getString(R.string.distance), R.drawable.ruler) {
-//                            // TODO: Start distance measurement
-//                            manager.setSelectedLocation(null)
-//                        },
+                        ActionItem(getString(R.string.distance), R.drawable.ruler) {
+                            startDistanceMeasurement(location, true)
+                            manager.setSelectedLocation(null)
+                        },
                     )
                 ) {
                     manager.setSelectedLocation(null)
                 }
+            }
+        }
+
+        useEffect(mapDistanceSheetView, manager, prefs) {
+            manager.setOnDistanceChangedCallback { distance ->
+                val relative = distance
+                    .convertTo(prefs.baseDistanceUnits)
+                    .toRelativeDistance()
+                mapDistanceSheetView.setDistance(relative)
             }
         }
     }

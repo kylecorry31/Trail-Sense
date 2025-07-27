@@ -5,6 +5,7 @@ import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.paths.actions.PauseBacktrackAction
 import com.kylecorry.trail_sense.tools.paths.actions.ResumeBacktrackAction
+import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.paths.infrastructure.services.BacktrackService
 import com.kylecorry.trail_sense.tools.paths.quickactions.QuickActionBacktrack
 import com.kylecorry.trail_sense.tools.paths.services.BacktrackToolService
@@ -113,6 +114,9 @@ object PathsToolRegistration : ToolRegistration {
                     "Pause backtrack",
                     PauseBacktrackAction()
                 )
+            ),
+            singletons = listOf(
+                PathService::getInstance
             )
         )
     }

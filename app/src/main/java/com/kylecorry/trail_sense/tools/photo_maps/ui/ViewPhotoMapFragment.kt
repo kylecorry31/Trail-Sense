@@ -50,7 +50,7 @@ import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyLocati
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.NavigationLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.TideLayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.ui.commands.CreatePathCommand
+import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScreenLock
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.BeaconLayer
@@ -370,7 +370,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                     val id = CreatePathCommand(
                         pathService,
                         prefs.navigation,
-                        it
+                        it.name
                     ).execute(distanceLayer.getPoints())
 
                     onMain {

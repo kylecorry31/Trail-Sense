@@ -2,15 +2,21 @@ package com.kylecorry.trail_sense.tools.map.ui
 
 import android.content.Context
 import android.graphics.Color
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
+import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.ContourLayer
@@ -39,6 +45,8 @@ import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PathLaye
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PhotoMapLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.TideLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
+import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceLayer
+import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
 
 class MapToolLayerManager {
 
@@ -60,10 +68,12 @@ class MapToolLayerManager {
     private var myElevationLayer: MyElevationLayer? = null
     private val compassLayer = CompassOverlayLayer()
     private val selectedPointLayer = BeaconLayer()
+    private val distanceLayer = MapDistanceLayer { onDistancePathChange(it) }
 
     private val prefs = AppServiceRegistry.get<UserPreferences>()
     private val formatter = AppServiceRegistry.get<FormatService>()
     private var layerManager: ILayerManager? = null
+    private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
 
     var key = 0
         private set
@@ -102,6 +112,11 @@ class MapToolLayerManager {
         contourLayer.setPreferences(prefs.map.contourLayer)
 
         photoMapLayer.setBackgroundColor(Color.TRANSPARENT)
+
+        distanceLayer.isEnabled = false
+        distanceLayer.setOutlineColor(Color.WHITE)
+        distanceLayer.setPathColor(Color.BLACK)
+
         view.setLayers(
             listOfNotNull(
                 baseMapLayer,
@@ -114,6 +129,9 @@ class MapToolLayerManager {
                 tideLayer,
                 beaconLayer,
                 selectedPointLayer,
+                distanceLayer,
+
+                // Overlays
                 scaleBarLayer,
                 myElevationLayer,
                 compassLayer
@@ -173,7 +191,7 @@ class MapToolLayerManager {
         myElevationLayer?.elevation = Distance.meters(elevation).convertTo(prefs.baseDistanceUnits)
     }
 
-    fun setSelectedLocation(location: Coordinate?){
+    fun setSelectedLocation(location: Coordinate?) {
         selectedPointLayer.setBeacons(
             listOfNotNull(
                 if (location == null) {
@@ -183,6 +201,41 @@ class MapToolLayerManager {
                 }
             )
         )
+    }
+
+    // Distance measurement
+
+    private fun onDistancePathChange(points: List<Coordinate>) {
+        // Display distance
+        val distance = Geology.getPathDistance(points)
+        onDistanceChangedCallback?.invoke(distance)
+    }
+
+    fun setOnDistanceChangedCallback(callback: ((Distance) -> Unit)?) {
+        onDistanceChangedCallback = callback
+    }
+
+    fun stopDistanceMeasurement() {
+        distanceLayer.isEnabled = false
+        distanceLayer.clear()
+    }
+
+    fun undoLastDistanceMeasurement(){
+        distanceLayer.undo()
+    }
+
+    fun getDistanceMeasurementPoints(): List<Coordinate> {
+        return distanceLayer.getPoints()
+    }
+
+    fun startDistanceMeasurement(vararg initialPoints: Coordinate) {
+        distanceLayer.isEnabled = true
+        distanceLayer.clear()
+        initialPoints.forEach { distanceLayer.add(it) }
+    }
+
+    fun isMeasuringDistance(): Boolean {
+        return distanceLayer.isEnabled
     }
 
 }
