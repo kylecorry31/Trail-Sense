@@ -33,12 +33,12 @@ class Navigator private constructor(context: Context) {
         location: Coordinate,
         name: String = "",
         owner: BeaconOwner = BeaconOwner.User,
-        elevation: Float? = null
+        useDemElevation: Boolean = true,
     ) {
         CoroutineScope(Dispatchers.IO).launch {
             val beacon = Beacon.temporary(
                 location,
-                elevation = elevation ?: DEM.getElevation(location)?.distance,
+                elevation = if (useDemElevation) DEM.getElevation(location)?.distance else null,
                 name = name,
                 visible = false,
                 owner = owner
