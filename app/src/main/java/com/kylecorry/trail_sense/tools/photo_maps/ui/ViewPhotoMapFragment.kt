@@ -111,8 +111,6 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     // Paths
     private val pathService by lazy { PathService.getInstance(requireContext()) }
 
-    private var lastDistanceToast: Toast? = null
-
     private var mapId = 0L
     private var map: PhotoMap? = null
     private var destination: Beacon? = null
@@ -270,7 +268,6 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
         selectLocation(location)
 
-        lastDistanceToast?.cancel()
         Share.actions(
             this,
             formatService.formatLocation(location),
@@ -344,7 +341,6 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     }
 
     private fun showDistance(distance: Distance) {
-        lastDistanceToast?.cancel()
         val relative = distance
             .convertTo(prefs.baseDistanceUnits)
             .toRelativeDistance()
@@ -562,7 +558,6 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         super.onPause()
         layerManager?.stop()
         layerManager = null
-        lastDistanceToast?.cancel()
 
         // Reset brightness
         screenLight.off()
