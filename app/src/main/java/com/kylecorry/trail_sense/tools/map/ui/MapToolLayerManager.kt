@@ -18,6 +18,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseMapLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ScaleBarLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
@@ -58,6 +59,7 @@ class MapToolLayerManager {
     private val backgroundLayer = BackgroundColorMapLayer()
     private var myElevationLayer: MyElevationLayer? = null
     private val compassLayer = CompassOverlayLayer()
+    private val selectedPointLayer = BeaconLayer()
 
     private val prefs = AppServiceRegistry.get<UserPreferences>()
     private val formatter = AppServiceRegistry.get<FormatService>()
@@ -88,10 +90,15 @@ class MapToolLayerManager {
         backgroundLayer.color = Color.WHITE
 
         beaconLayer.setOutlineColor(Resources.color(context, R.color.colorSecondary))
+
+        selectedPointLayer.setOutlineColor(Color.WHITE)
+
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
+
         photoMapLayer.setMinZoom(4)
         photoMapLayer.controlsPdfCache = true
         photoMapLayer.setPreferences(prefs.map.photoMapLayer)
+
         contourLayer.setPreferences(prefs.map.contourLayer)
 
         photoMapLayer.setBackgroundColor(Color.TRANSPARENT)
@@ -106,6 +113,7 @@ class MapToolLayerManager {
                 myLocationLayer,
                 tideLayer,
                 beaconLayer,
+                selectedPointLayer,
                 scaleBarLayer,
                 myElevationLayer,
                 compassLayer
@@ -163,6 +171,18 @@ class MapToolLayerManager {
 
     fun onElevationChanged(elevation: Float) {
         myElevationLayer?.elevation = Distance.meters(elevation).convertTo(prefs.baseDistanceUnits)
+    }
+
+    fun setSelectedLocation(location: Coordinate?){
+        selectedPointLayer.setBeacons(
+            listOfNotNull(
+                if (location == null) {
+                    null
+                } else {
+                    Beacon(0, "", location)
+                }
+            )
+        )
     }
 
 }

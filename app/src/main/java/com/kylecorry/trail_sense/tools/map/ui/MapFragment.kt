@@ -1,20 +1,27 @@
 package com.kylecorry.trail_sense.tools.map.ui
 
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
+import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.useClickCallback
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.andromeda_temp.useFlow
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useDestroyEffect
+import com.kylecorry.trail_sense.shared.extensions.useNavController
 import com.kylecorry.trail_sense.shared.extensions.useNavigationSensors
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sharing.ActionItem
+import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.shared.views.BeaconDestinationView
+import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScreenLock
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 
@@ -34,7 +41,10 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
         val navigator = useService<Navigator>()
         val destination = useFlow(navigator.destination, BackgroundMinimumState.Resumed)
         val prefs = useService<UserPreferences>()
+        val formatter = useService<FormatService>()
         val activity = useActivity()
+        val navController = useNavController()
+
         val screenLock = useMemo(prefs) {
             NavigationScreenLock(prefs.map.keepScreenUnlockedWhileOpen)
         }
@@ -124,6 +134,41 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
                 navigationSheetView.show(navigation, destination, true)
             } else {
                 navigationSheetView.hide()
+            }
+        }
+
+        useEffect(mapView, manager, navController) {
+            mapView.setOnLongPressListener { location ->
+                // TODO: Disable if distance layer is active
+                manager.setSelectedLocation(location)
+
+                Share.actions(
+                    this,
+                    formatter.formatLocation(location),
+                    listOf(
+                        ActionItem(getString(R.string.beacon), R.drawable.ic_location) {
+                            val bundle = bundleOf(
+                                "initial_location" to GeoUri(location)
+                            )
+                            navController.navigate(R.id.placeBeaconFragment, bundle)
+                            manager.setSelectedLocation(null)
+                        },
+                        ActionItem(getString(R.string.navigate), R.drawable.ic_beacon) {
+                            navigator.navigateTo(
+                                location,
+                                formatter.formatLocation(location),
+                                BeaconOwner.Maps
+                            )
+                            manager.setSelectedLocation(null)
+                        },
+//                        ActionItem(getString(R.string.distance), R.drawable.ruler) {
+//                            // TODO: Start distance measurement
+//                            manager.setSelectedLocation(null)
+//                        },
+                    )
+                ) {
+                    manager.setSelectedLocation(null)
+                }
             }
         }
     }

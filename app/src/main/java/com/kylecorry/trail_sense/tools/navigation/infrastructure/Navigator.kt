@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.navigation.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
@@ -28,9 +29,20 @@ class Navigator private constructor(context: Context) {
 
     val destination = destinationId.map { it?.let { service.getBeacon(it) } }
 
-    fun navigateTo(location: Coordinate, name: String = "", owner: BeaconOwner = BeaconOwner.User) {
-        val beacon = Beacon.temporary(location, name = name, visible = false, owner = owner)
+    fun navigateTo(
+        location: Coordinate,
+        name: String = "",
+        owner: BeaconOwner = BeaconOwner.User,
+        elevation: Float? = null
+    ) {
         CoroutineScope(Dispatchers.IO).launch {
+            val beacon = Beacon.temporary(
+                location,
+                elevation = elevation ?: DEM.getElevation(location)?.distance,
+                name = name,
+                visible = false,
+                owner = owner
+            )
             val id = service.add(beacon)
             navigateTo(id)
         }

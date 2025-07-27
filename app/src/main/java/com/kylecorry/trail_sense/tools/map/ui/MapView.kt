@@ -35,9 +35,15 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     private val layers = mutableListOf<ILayer>()
     private val hooks = Hooks()
 
+    private var onLongPressCallback: ((Coordinate) -> Unit)? = null
+
     init {
         // TODO: Only do this if layers change - they need to be able to notify the map
         runEveryCycle = true
+    }
+
+    fun setOnLongPressListener(callback: ((Coordinate) -> Unit)?) {
+        onLongPressCallback = callback
     }
 
     // TODO: Expose a method to fit to bounds (sets map center and meters per pixel)
@@ -92,6 +98,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     private var lastScale = 1f
     private var minScale = 0.0002f
     private var maxScale = 1f
+    private var isScaling = false
 
     override fun addLayer(layer: ILayer) {
         layers.add(layer)
@@ -252,12 +259,33 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
             return super.onSingleTapConfirmed(e)
         }
+
+        override fun onLongPress(e: MotionEvent) {
+            super.onLongPress(e)
+
+            if (isScaling) return
+
+            val pixel = unrotated(PixelCoordinate(e.x, e.y))
+            val location = toCoordinate(pixel)
+            onLongPressCallback?.invoke(location)
+        }
     }
 
     private val scaleListener = object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
+
+        override fun onScaleBegin(detector: ScaleGestureDetector): Boolean {
+            isScaling = true
+            return super.onScaleBegin(detector)
+        }
+
         override fun onScale(detector: ScaleGestureDetector): Boolean {
             zoomWithFocus(detector.scaleFactor, PixelCoordinate(detector.focusX, detector.focusY))
             return true
+        }
+
+        override fun onScaleEnd(detector: ScaleGestureDetector) {
+            isScaling = false
+            super.onScaleEnd(detector)
         }
     }
 
