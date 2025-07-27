@@ -214,17 +214,13 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         accuracyPref.isVisible =
             mode == UserPreferences.AltimeterMode.GPS || mode == UserPreferences.AltimeterMode.GPSBarometer
 
-        val isModeDem = mode == UserPreferences.AltimeterMode.DigitalElevationModel ||
-                mode == UserPreferences.AltimeterMode.DigitalElevationModelBarometer
-
-        demPref.isVisible = isModeDem
         inBackground {
             val version = DEMRepo.getInstance().getVersion()
             onMain {
                 demPref.summary = version ?: getString(R.string.built_in_dem)
             }
         }
-        clearDemPref.isVisible = isModeDem && DEM.isExternalModel()
+        clearDemPref.isVisible = DEM.isExternalModel()
 
         // Calibration mode options
         val options = listOfNotNull(
