@@ -120,7 +120,7 @@ Take a moment to think about your situation. Answer (but do not act on) the foll
 - Which way did you come from?
 
 ### Observe
-Next, observe your surroundings and assess your situation. The first thing to do is check your smartphone or GPS receiver for your location. If you have a maps app, open it and check if a map is available. You can also check for a signal to call for help. If you have no luck there, then look around and listen for signs of people, vehicles, or trails. Lastly, observe where you are and look for potential hazards (weather / terrain / dangerous animals) or resources (water / shelter materials / firewood).
+Next, observe your surroundings and assess your situation. The first thing to do is check your smartphone or GPS receiver for your location. If you have a maps app, open it and check if a map is available. You can also check for a signal to call for help. If you have no luck there, then look around and listen for signs of people, vehicles, or trails. You can increase the range of your hearing by cupping your hands behind your ears. Lastly, observe where you are and look for potential hazards (weather / terrain / dangerous animals) or resources (water / shelter materials / firewood).
 
 ### Plan
 <!-- K: plan, next, steps, help -->
