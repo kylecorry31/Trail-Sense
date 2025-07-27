@@ -145,6 +145,7 @@ class PhotoMapRegionLoader(
                         percentTopLeft,
                         percentTopRight
                     ),
+                    maxSize = maxSize
                 )
             ),
             Resize(maxSize, true, useBilinearScaling = !isPixelPerfect),

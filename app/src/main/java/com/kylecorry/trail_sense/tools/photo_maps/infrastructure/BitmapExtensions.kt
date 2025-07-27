@@ -36,7 +36,8 @@ fun BitmapUtils.getExactRegion(rect: Rect, imageSize: Size, blockSize: Int = 16)
 fun Bitmap.fixPerspective(
     bounds: PixelBounds,
     shouldRecycleOriginal: Boolean = false,
-    @ColorInt backgroundColor: Int? = null
+    @ColorInt backgroundColor: Int? = null,
+    maxOutputSize: Size? = null
 ): Bitmap {
     return fixPerspective2(
         bounds.topLeft,
@@ -44,7 +45,8 @@ fun Bitmap.fixPerspective(
         bounds.bottomLeft,
         bounds.bottomRight,
         shouldRecycleOriginal,
-        backgroundColor
+        backgroundColor,
+        maxOutputSize,
     )
 }
 
@@ -63,15 +65,25 @@ fun Bitmap.fixPerspective2(
     bottomLeft: PixelCoordinate,
     bottomRight: PixelCoordinate,
     shouldRecycleOriginal: Boolean = false,
-    @ColorInt backgroundColor: Int? = null
+    @ColorInt backgroundColor: Int? = null,
+    maxOutputSize: Size? = null
 ): Bitmap {
     val top = topLeft.distanceTo(topRight)
     val bottom = bottomLeft.distanceTo(bottomRight)
-    val newWidth = ((top + bottom) / 2f).coerceAtLeast(1f)
+    var newWidth = ((top + bottom) / 2f).coerceAtLeast(1f)
 
     val left = topLeft.distanceTo(bottomLeft)
     val right = topRight.distanceTo(bottomRight)
-    val newHeight = ((left + right) / 2f).coerceAtLeast(1f)
+    var newHeight = ((left + right) / 2f).coerceAtLeast(1f)
+
+    if (maxOutputSize != null && (newWidth > maxOutputSize.width || newHeight > maxOutputSize.height)) {
+        val scale = MathUtils.scaleToBounds(
+            Size(newWidth.toInt(), newHeight.toInt()),
+            maxOutputSize
+        )
+        newWidth = scale.width.toFloat()
+        newHeight = scale.height.toFloat()
+    }
 
     val matrix = Matrix()
     matrix.setPolyToPoly(
