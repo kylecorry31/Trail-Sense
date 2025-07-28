@@ -1426,4 +1426,5 @@
     <string name="planet_neptune">海王星</string>
     <string name="load_pdf_tiles">加载 PDF 文件</string>
     <string name="load_pdf_tiles_summary">PDF 地图显示会更清晰，但可能影响性能</string>
+    <string name="map_tool_disclaimer">此工具展示你的信标、路径和照片地图。它不是专门的地图应用的替代品。</string>
 </resources>
