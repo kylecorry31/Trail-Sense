@@ -1409,5 +1409,5 @@
     <string name="planet_neptune">Netuno</string>
     <string name="load_pdf_tiles">Carregar blocos em PDF</string>
     <string name="load_pdf_tiles_summary">Os mapas em PDF ficarão mais nítidos, mas o desempenho poderá ser afetado</string>
-    <string name="map_tool_disclaimer">Essa ferramenta exibe seus ponto de referências, caminhos e mapas de fotos. Não é um substituto para um aplicativo de mapas dedicado.</string>
+    <string name="map_tool_disclaimer">Essa ferramenta exibe seus ponto de referências, caminhos e mapas fotográficos. Não é um substituto para um aplicativo de mapas dedicado.</string>
 </resources>
