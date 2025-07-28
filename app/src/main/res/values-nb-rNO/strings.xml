@@ -1211,4 +1211,6 @@
     <string name="service_restart_channel_description">Et varsel om omstart av tjenester</string>
     <string name="restart_services_title">Start tjenestene på nytt</string>
     <string name="restart_services_message">Bakgrunnstjenester kunne ikke startes på nytt. Trykk for å starte på nytt.</string>
+    <string name="planet_mercury">Merkur</string>
+    <string name="planet_neptune">Neptun</string>
 </resources>
