@@ -573,7 +573,7 @@ If the bone is out of place and medical attention is unavailable for several hou
 5. Apply a sling if the fracture is in the arm to help immobilize the limb.
 
 
-![](file:///android_asset/survival_guide/5.webp)
+![](file:///android_asset/survival_guide/splint.webp)
 
 ![](file:///android_asset/survival_guide/6.webp)
 

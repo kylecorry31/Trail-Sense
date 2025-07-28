@@ -6,7 +6,7 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 assets_path = os.path.join(script_dir, "../app/src/main/assets")
 application_dir = os.path.join(script_dir, "../app/src/main")
 
-excluded_dirs = ['temperatures', 'tides', 'precipitation', 'dewpoint', 'dem']
+excluded_dirs = ['temperatures', 'tides', 'precipitation', 'dewpoint', 'dem', 'land.webp']
 
 # Get all file names from the assets path
 files = []
