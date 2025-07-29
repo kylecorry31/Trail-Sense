@@ -38,10 +38,27 @@ jobs:
           NIGHTLY_STORE_PASSWORD: ${{ secrets.NIGHTLY_STORE_PASSWORD }}
           NIGHTLY_KEY_ALIAS: ${{ secrets.NIGHTLY_KEY_ALIAS }}
           NIGHTLY_STORE_FILE: ${{ secrets.NIGHTLY_STORE_FILE }}
+      
+      - name: Build Release APK
+        run: |
+          echo ${NIGHTLY_STORE_FILE} | base64 -d > KEY_NIGHTLY.jks
+          NIGHTLY_KEY_ALIAS=$(echo -n $NIGHTLY_KEY_ALIAS | base64 -d)
+          ./gradlew assembleNightlyRelease -Dnightly_store_file=../KEY_NIGHTLY.jks -Dnightly_store_password="${NIGHTLY_STORE_PASSWORD}" -Dnightly_key_alias="${NIGHTLY_KEY_ALIAS}" -Dnightly_key_password="${NIGHTLY_STORE_PASSWORD}"
+        env:
+          NIGHTLY_STORE_PASSWORD: ${{ secrets.NIGHTLY_STORE_PASSWORD }}
+          NIGHTLY_KEY_ALIAS: ${{ secrets.NIGHTLY_KEY_ALIAS }}
+          NIGHTLY_STORE_FILE: ${{ secrets.NIGHTLY_STORE_FILE }}
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Trail-Sense-Nightly.apk
           path: ./app/build/outputs/apk/nightly/*.apk
+          retention-days: 7
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Trail-Sense-Nightly-Release.apk
+          path: ./app/build/outputs/apk/nightlyRelease/*.apk
           retention-days: 7

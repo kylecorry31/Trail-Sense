@@ -16,8 +16,8 @@ android {
         applicationId = "com.kylecorry.trail_sense"
         minSdk = 23
         targetSdk = 36
-        versionCode = 133
-        versionName = "7.0.0"
+        versionCode = 134
+        versionName = "7.1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
@@ -93,6 +93,12 @@ android {
             signingConfig = signingConfigs.getByName("nightly")
             applicationIdSuffix = ".nightly"
             versionNameSuffix = "-nightly-${LocalDate.now()}"
+        }
+        create("nightlyRelease") {
+            initWith(getByName("release"))
+            signingConfig = signingConfigs.getByName("nightly")
+            applicationIdSuffix = ".nightly_release"
+            versionNameSuffix = "-nightly-release-${LocalDate.now()}"
         }
     }
     testOptions {
