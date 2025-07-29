@@ -56,7 +56,7 @@ jobs:
           path: ./app/build/outputs/apk/nightly/*.apk
           retention-days: 7
 
-      - name: Upload APK
+      - name: Upload Release APK
         uses: actions/upload-artifact@v4
         with:
           name: Trail-Sense-Nightly-Release.apk
