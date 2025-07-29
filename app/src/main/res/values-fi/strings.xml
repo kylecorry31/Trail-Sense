@@ -1367,4 +1367,5 @@
     <string name="planet_neptune">Neptunus</string>
     <string name="load_pdf_tiles">Lataa PDF-laatat</string>
     <string name="load_pdf_tiles_summary">PDF-kartat ovat terävämpiä, mutta saattavat vaikuttaa suorituskykyyn</string>
+    <string name="map_tool_disclaimer">Tämä työkalu näyttää majakkasi, polkusi ja valokuvakarttasi. Se ei kuitenkaan ole korvike erikseen valmistetuille karttasovelluksille.</string>
 </resources>
