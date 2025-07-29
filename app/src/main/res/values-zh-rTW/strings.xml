@@ -1375,4 +1375,16 @@
     <string name="safe_mode_toast">偵測到崩潰，某些功能停用幾秒鐘。</string>
     <string name="alarm_description">即使媒體和通知已靜音也會播放聲音</string>
     <string name="built_in_dem">內置（低準確性）</string>
+    <string name="survival_guide_empty_desc">請搜尋有關生存主題的內容，例如水源、醫療、食物、天氣、庇護所或導航技巧。</string>
+    <string name="drop_amount">彈道下墜%s</string>
+    <string name="range_header_units">射程（%s）</string>
+    <string name="drop_header_units">彈落距 (%s)</string>
+    <string name="climate_tropical_savanna">熱帶稀樹草原</string>
+    <string name="climate_tropical_description">炎熱潮濕的氣候，全年降雨量豐富。</string>
+    <string name="climate_dry_description">乾燥的氣候，降雨量少，植被稀疏。</string>
+    <string name="climate_temperate_description">氣候溫和，四季分明，降雨適中。</string>
+    <string name="climate_continental_description">寒冷的氣候，夏季溫暖，冬季寒冷，季節變化明顯。</string>
+    <string name="climate_polar_description">極度寒冷的氣候，夏季短暫。</string>
+    <string name="climate_rainforest_description">茂密的樹葉可能會干擾 GPS 訊號。</string>
+    <string name="climate_monsoon_description">有一個短暫的旱季。</string>
 </resources>
