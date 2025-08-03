@@ -1465,4 +1465,5 @@
     <string name="planet_neptune">Neptun</string>
     <string name="load_pdf_tiles">Načíst dlaždice PDF</string>
     <string name="load_pdf_tiles_summary">PDF mapy budou ostřejší, může to mít ale vliv na výkon</string>
+    <string name="map_tool_disclaimer">Tento nástroj zobrazuje vaše majáky, cesty a fotografické mapy. Nejedná se o náhradu vlastní mapové aplikace.</string>
 </resources>

@@ -83,7 +83,7 @@
     <string name="pressure_4_hours">4 horas</string>
     <string name="pref_pressure_history_title">Histórico de pressão</string>
     <string name="pref_monitor_weather_summary">Em segundo plano</string>
-    <string name="pref_monitor_weather_title">Monitorar o clima</string>
+    <string name="pref_monitor_weather_title">Monitoramento do clima</string>
     <string name="pref_ruler_calibration_title">Escala de régua</string>
     <string name="pref_ruler_calibration_summary">Protocolo de calibração:
 \n
