@@ -1,0 +1,28 @@
+package com.kylecorry.trail_sense.shared.map_layers.preferences.definition
+
+import android.content.Context
+import androidx.preference.Preference
+
+class LabelMapLayerPreference(
+    private val title: String,
+    private val summary: String? = null,
+    override val dependency: String? = null,
+    private val onClick: (() -> Unit)? = null,
+) : MapLayerPreference {
+    override fun create(
+        context: Context,
+        mapId: String
+    ): Preference {
+        val preference = Preference(context)
+        preference.isIconSpaceReserved = false
+        preference.isSingleLineTitle = false
+        preference.title = title
+        preference.summary = summary
+        preference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+            onClick?.invoke()
+            true
+        }
+        return preference
+    }
+
+}

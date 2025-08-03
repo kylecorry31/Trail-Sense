@@ -2,6 +2,9 @@ package com.kylecorry.trail_sense.shared.map_layers.preferences.definition
 
 import android.content.Context
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.MainActivity
+import com.kylecorry.trail_sense.shared.extensions.findNavController
+import com.kylecorry.trail_sense.shared.navigateWithAnimation
 
 data class MapLayerPreferences(
     val layerId: String,
@@ -18,6 +21,15 @@ data class MapLayerPreferences(
                         "contour_layer_enabled",
                         defaultValue = enabledByDefault
                     ),
+                    LabelMapLayerPreference(
+                        context.getString(R.string.plugin_digital_elevation_model),
+                        context.getString(R.string.open_settings)
+                    ) {
+                        if (context is MainActivity) {
+                            context.findNavController()
+                                .navigateWithAnimation(R.id.calibrateAltimeterFragment)
+                        }
+                    },
                     SeekbarMapLayerPreference(
                         context.getString(R.string.opacity),
                         "contour_layer_opacity",
@@ -40,7 +52,11 @@ data class MapLayerPreferences(
             )
         }
 
-        fun photoMaps(context: Context, enabledByDefault: Boolean = true, defaultOpacity: Int = 50): MapLayerPreferences {
+        fun photoMaps(
+            context: Context,
+            enabledByDefault: Boolean = true,
+            defaultOpacity: Int = 50
+        ): MapLayerPreferences {
             return MapLayerPreferences(
                 "map_layer", context.getString(R.string.photo_maps), listOf(
                     SwitchMapLayerPreference(
