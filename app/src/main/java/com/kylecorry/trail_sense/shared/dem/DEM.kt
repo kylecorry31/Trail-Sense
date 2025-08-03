@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.shared.dem
 import android.util.Log
 import android.util.Size
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
-import com.kylecorry.andromeda.core.cache.GeospatialCache
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.tryOrDefault
@@ -15,9 +14,9 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.andromeda_temp.GeospatialCache2
 import com.kylecorry.trail_sense.shared.andromeda_temp.getConnectedLines
 import com.kylecorry.trail_sense.shared.andromeda_temp.getIsolineCalculators
-import com.kylecorry.trail_sense.shared.andromeda_temp.getMultiplesBetween
 import com.kylecorry.trail_sense.shared.data.GeographicImageSource
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import kotlinx.coroutines.sync.Mutex
@@ -26,7 +25,7 @@ import kotlinx.coroutines.sync.withLock
 object DEM {
     private val cacheDistance = 10f
     private val cacheSize = 500
-    private var cache = GeospatialCache<Distance>(Distance.meters(cacheDistance), size = cacheSize)
+    private var cache = GeospatialCache2<Distance>(Distance.meters(cacheDistance), size = cacheSize)
     private val multiElevationLookupLock = Mutex()
 
     suspend fun getElevation(location: Coordinate): Distance? = onDefault {
@@ -37,22 +36,30 @@ object DEM {
 
     suspend fun getElevations(locations: List<Coordinate>): List<Pair<Coordinate, Distance>> =
         onDefault {
+            // It is less performant to use the cache for large numbers of locations
+            val shouldUseCache = locations.size < 20
             multiElevationLookupLock.withLock {
                 val results = mutableListOf<Pair<Coordinate, Distance>>()
                 val cachedLocations = mutableSetOf<Coordinate>()
 
-                for (location in locations) {
-                    val cached = cache.get(location)
-                    if (cached != null) {
-                        cachedLocations.add(location)
-                        results.add(location to cached)
+                if (shouldUseCache) {
+                    val cached = cache.getAll(locations)
+                    if (cached.isNotEmpty()) {
+                        cachedLocations.addAll(cached.keys)
+                        results.addAll(cached.map { it.key to it.value })
                     }
                 }
 
-                val remaining = locations.filter { it !in cachedLocations }
+                val remaining = if (shouldUseCache) {
+                    locations.filter { it !in cachedLocations }
+                } else {
+                    locations
+                }
                 val elevations = lookupElevations(remaining)
+                if (shouldUseCache) {
+                    cache.putAll(elevations.associate { it.first to it.second })
+                }
                 for (elevation in elevations) {
-                    cache.put(elevation.first, elevation.second)
                     results.add(elevation)
                 }
 
@@ -172,6 +179,10 @@ object DEM {
 
     private suspend fun lookupElevations(locations: List<Coordinate>): List<Pair<Coordinate, Distance>> =
         onIO {
+            if (locations.isEmpty()) {
+                return@onIO emptyList()
+            }
+
             val files = AppServiceRegistry.get<FileSubsystem>()
             val sources = getSources()
             val isExternal = isExternalModel()
@@ -216,7 +227,7 @@ object DEM {
         }
 
     fun invalidateCache() {
-        cache = GeospatialCache(Distance.meters(cacheDistance), size = cacheSize)
+        cache = GeospatialCache2(Distance.meters(cacheDistance), size = cacheSize)
     }
 
     fun isExternalModel(): Boolean {

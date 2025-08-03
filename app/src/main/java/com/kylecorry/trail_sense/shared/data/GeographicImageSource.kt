@@ -86,7 +86,6 @@ class GeographicImageSource(
             }
             regions[regionKey]!!.add(pixel)
         }
-
         val results = mutableListOf<Pair<PixelCoordinate, List<Float>>>()
         val interpolators = listOfNotNull(
             if (interpolate && interpolationOrder == 2) BicubicInterpolator<Float>() else null,
@@ -97,18 +96,23 @@ class GeographicImageSource(
             val pixels = reader.getAllPixels(streamProvider(), region, true)
             val decoded = pixels.map { it to decoder(it.value) }
             val channels = decoded.firstOrNull()?.second?.size ?: 0
+
+            val allValues = (0 until channels).map { channel ->
+                decoded.map {
+                    PixelResult(
+                        it.first.x,
+                        it.first.y,
+                        it.second[channel]
+                    )
+                }.filter {
+                    include0ValuesInInterpolation || !SolMath.isZero(it.value)
+                }
+            }
+
             for (pixel in region) {
                 val interpolated = mutableListOf<Float>()
                 for (i in 0 until channels) {
-                    val values = decoded.map {
-                        PixelResult(
-                            it.first.x,
-                            it.first.y,
-                            it.second[i]
-                        )
-                    }.filter {
-                        include0ValuesInInterpolation || !SolMath.isZero(it.value)
-                    }
+                    val values = allValues[i]
                     interpolated.add(interpolators.firstNotNullOfOrNull {
                         it.interpolate(
                             pixel,

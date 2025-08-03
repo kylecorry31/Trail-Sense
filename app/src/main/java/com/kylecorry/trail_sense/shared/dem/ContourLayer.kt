@@ -69,38 +69,43 @@ class ContourLayer : IAsyncLayer {
             mapOf(
                 13 to 50f,
                 14 to 50f,
-                15 to 20f,
+                15 to 50f,
                 16 to 10f,
-                17 to 50f,
-                18 to 5f,
-                19 to 5f
+                17 to 10f,
+                18 to 10f,
+                19 to 10f
             )
         } else {
             mapOf(
                 13 to Distance.feet(200f).meters().distance,
                 14 to Distance.feet(200f).meters().distance,
-                15 to Distance.feet(100f).meters().distance,
+                15 to Distance.feet(200f).meters().distance,
                 16 to Distance.feet(40f).meters().distance,
-                17 to Distance.feet(20f).meters().distance,
-                18 to Distance.feet(20f).meters().distance,
-                19 to Distance.feet(20f).meters().distance
+                17 to Distance.feet(40f).meters().distance,
+                18 to Distance.feet(40f).meters().distance,
+                19 to Distance.feet(40f).meters().distance
             )
         }
     }
 
     private val baseResolution = 1 / 240.0
     private val validResolutions = mapOf(
-        13 to baseResolution * 2,
-        14 to baseResolution * 2,
-        15 to baseResolution,
-        16 to baseResolution / 2,
-        17 to baseResolution / 2,
+        13 to baseResolution,
+        14 to baseResolution / 2,
+        15 to baseResolution / 4,
+        16 to baseResolution / 4,
+        17 to baseResolution / 4,
         18 to baseResolution / 4,
         19 to baseResolution / 4
     )
 
+    private val showLabelsOnAllContoursZoomLevels = setOf(
+        14, 15, 19
+    )
+
     private var contours = listOf<Contour>()
     private var contourInterval = 1f
+    private var lastZoomLevel = -1
 
     override fun draw(
         drawer: ICanvasDrawer,
@@ -124,6 +129,7 @@ class ContourLayer : IAsyncLayer {
             val interval = validIntervals[zoomLevel] ?: validIntervals.values.first()
             contours = DEM.getContourLines(bounds, interval, validResolutions[zoomLevel]!!)
             contourInterval = interval
+            lastZoomLevel = zoomLevel
             onMain {
                 updateListener?.invoke()
             }
@@ -183,7 +189,7 @@ class ContourLayer : IAsyncLayer {
                     }
                     drawer.lines(points.toFloatArray())
 
-                    if (isImportantLine && closestToCenterSegment != null && shouldDrawLabels) {
+                    if ((isImportantLine || showLabelsOnAllContoursZoomLevels.contains(lastZoomLevel)) && closestToCenterSegment != null && shouldDrawLabels) {
                         val center = closestToCenterSegment.first.midpoint(
                             closestToCenterSegment.second
                         )
