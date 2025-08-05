@@ -10,7 +10,6 @@ class PhotoMapTileSourceSelector(
     private val context: Context,
     maps: List<PhotoMap>,
     private val maxLayers: Int = 4,
-    private val replaceWhitePixels: Boolean = false,
     private val loadPdfs: Boolean = true,
     private val isPixelPerfect: Boolean = false,
     private val operations: List<BitmapOperation> = emptyList()
@@ -62,11 +61,11 @@ class PhotoMapTileSourceSelector(
                 0.5f
             )
         ) {
-            // The contained map isn't really rotated so only include a map after it if replaceWhitePixels is true
+            // The contained map isn't really rotated so only include a map after it
             val index = containedMaps.indexOf(firstContained)
             containedMaps.subList(
                 0,
-                minOf(index + if (replaceWhitePixels) 2 else 1, containedMaps.size)
+                minOf(index + 2, containedMaps.size)
             )
         } else {
             containedMaps
@@ -76,7 +75,6 @@ class PhotoMapTileSourceSelector(
             PhotoMapRegionLoader(
                 context,
                 it,
-                replaceWhitePixels,
                 loadPdfs,
                 isPixelPerfect,
                 operations

@@ -9,7 +9,9 @@ import androidx.core.graphics.createBitmap
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
+import com.kylecorry.trail_sense.shared.bitmaps.Conditional
 import com.kylecorry.trail_sense.shared.bitmaps.Convert
+import com.kylecorry.trail_sense.shared.bitmaps.ReplaceColor
 import com.kylecorry.trail_sense.shared.bitmaps.applyOperations
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.math.hypot
@@ -108,12 +110,23 @@ class TileLoader {
             var image =
                 createBitmap(source.key.size.width, source.key.size.height, config)
             image.eraseColor(backgroundColor)
+            val canvas = Canvas(image)
 
-            source.value.reversed().forEach {
-                val currentImage = it.load(source.key)
+            source.value.reversed().forEachIndexed { index, loader ->
+                val currentImage = loader.load(source.key)?.applyOperations(
+                    Conditional(
+                        index > 0,
+                        ReplaceColor(
+                            Color.WHITE,
+                            Color.argb(127, 127, 127, 127),
+                            80f,
+                            true,
+                            inPlace = true
+                        )
+                    )
+                )
 
                 if (currentImage != null) {
-                    val canvas = Canvas(image)
                     canvas.drawBitmap(currentImage, 0f, 0f, null)
                     currentImage.recycle()
                 }
@@ -121,6 +134,17 @@ class TileLoader {
 
             // Remove transparency
             image = image.applyOperations(
+                // Undo color replacement
+                Conditional(
+                    backgroundColor.alpha != 255 && source.value.size > 1,
+                    ReplaceColor(
+                        Color.argb(127, 127, 127, 127),
+                        Color.WHITE,
+                        80f,
+                        true,
+                        inPlace = true
+                    )
+                ),
                 Convert(config)
             )
 

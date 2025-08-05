@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 class PhotoMapLayerManager(
     private val context: Context,
     private val layer: MapLayer,
-    private val replaceWhitePixels: Boolean = false,
     private val loadPdfs: Boolean = true
 ) :
     BaseLayerManager() {
@@ -25,7 +24,7 @@ class PhotoMapLayerManager(
             runner.skipIfRunning {
                 val repo = MapRepo.getInstance(context)
                 layer.sourceSelector =
-                    PhotoMapTileSourceSelector(context, repo.getAllMaps(), 8, replaceWhitePixels, loadPdfs)
+                    PhotoMapTileSourceSelector(context, repo.getAllMaps(), 8, loadPdfs)
             }
         }
     }

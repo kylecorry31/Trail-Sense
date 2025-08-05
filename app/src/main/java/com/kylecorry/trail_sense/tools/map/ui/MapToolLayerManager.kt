@@ -149,7 +149,6 @@ class MapToolLayerManager {
                 if (prefs.map.photoMapLayer.isEnabled) PhotoMapLayerManager(
                     context,
                     photoMapLayer,
-                    replaceWhitePixels = true,
                     loadPdfs = prefs.map.photoMapLayer.loadPdfs
                 ) else null,
                 BaseMapLayerManager(context, baseMapLayer),

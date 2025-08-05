@@ -36,7 +36,6 @@ import kotlinx.coroutines.launch
 class PhotoMapRegionLoader(
     private val context: Context,
     val map: PhotoMap,
-    private val replaceWhitePixels: Boolean = false,
     private val loadPdfs: Boolean = true,
     private val isPixelPerfect: Boolean = false,
     private val operations: List<BitmapOperation> = emptyList()
@@ -149,16 +148,6 @@ class PhotoMapRegionLoader(
                 )
             ),
             Resize(maxSize, true, useBilinearScaling = !isPixelPerfect),
-            Conditional(
-                replaceWhitePixels,
-                ReplaceColor(
-                    Color.WHITE,
-                    Color.argb(127, 127, 127, 127),
-                    80f,
-                    true,
-                    inPlace = true
-                )
-            ),
             *operations.toTypedArray()
         )
     }

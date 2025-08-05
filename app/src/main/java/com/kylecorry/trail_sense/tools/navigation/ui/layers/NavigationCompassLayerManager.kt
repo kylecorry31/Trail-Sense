@@ -79,7 +79,6 @@ class NavigationCompassLayerManager {
                 if (isMapLayerEnabled) PhotoMapLayerManager(
                     context,
                     photoMapLayer,
-                    replaceWhitePixels = true,
                     loadPdfs = prefs.navigation.photoMapLayer.loadPdfs
                 ) else null
             )
