@@ -8,11 +8,10 @@ import com.kylecorry.andromeda.files.FileSaver
 import com.kylecorry.andromeda.pdf.Datum
 import com.kylecorry.andromeda.pdf.GeographicCoordinateSystem
 import com.kylecorry.andromeda.pdf.GeospatialPDFParser
-import com.kylecorry.andromeda.pdf.PDFObject
+import com.kylecorry.andromeda.pdf.PDFValue
 import com.kylecorry.andromeda.pdf.PdfConvert
 import com.kylecorry.andromeda.pdf.ProjectedCoordinateSystem
 import com.kylecorry.andromeda.pdf.Spheroid
-import com.kylecorry.andromeda.pdf.bbox
 import com.kylecorry.andromeda.pdf.catalog
 import com.kylecorry.andromeda.pdf.gcs
 import com.kylecorry.andromeda.pdf.geo
@@ -65,7 +64,7 @@ class MapExportService(
     }
 
     @Suppress("FoldInitializerAndIfToElvis")
-    private fun getPDFData(map: PhotoMap): List<PDFObject> {
+    private fun getPDFData(map: PhotoMap): List<PDFValue.PDFObject> {
         var bitmap: Bitmap? = null
         try {
             val maxImageSize = 2048
@@ -86,10 +85,10 @@ class MapExportService(
             if (bounds == null) {
                 // No calibration, just generate a PDF containing the image
                 return listOf(
-                    catalog("1 0", "2 0"),
-                    pages("2 0", listOf("3 0")),
-                    page("3 0", "2 0", width, height, listOf("4 0")),
-                    image("4 0", bitmap, destWidth = width, destHeight = height)
+                    catalog(1, 2),
+                    pages(2, listOf(3)),
+                    page(3, 2, width, height, listOf(4)),
+                    image(4, bitmap, destWidth = width, destHeight = height)
                 )
             }
 
@@ -115,17 +114,17 @@ class MapExportService(
             )
 
             return listOf(
-                catalog("1 0", "2 0"),
-                pages("2 0", listOf("3 0")),
-                page("3 0", "2 0", width, height, listOf("4 0"), listOf("5 0")),
-                image("4 0", bitmap, destWidth = width, destHeight = height),
-                viewport("5 0", "6 0", bbox(0, 0, width, height)),
+                catalog(1, 2),
+                pages(2, listOf(3)),
+                page(3, 2, width, height, listOf(4), listOf(5)),
+                image(4, bitmap, destWidth = width, destHeight = height),
+                viewport(5, 6, doubleArrayOf(0.0, 0.0, width.toDouble(), height.toDouble())),
                 geo(
-                    "6 0",
+                    6,
                     listOf(bounds.southWest, bounds.northWest, bounds.northEast, bounds.southEast),
-                    gcsId = "7 0"
+                    gcsId = 7
                 ),
-                gcs("7 0", pcjcs)
+                gcs(7, pcjcs)
             )
         } catch (e: Exception) {
             throw e
