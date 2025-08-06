@@ -52,6 +52,7 @@ interface IMappablePath : Identifiable {
     val color: Int
     val style: LineStyle
     val name: String?
+    val thicknessScale: Float
 }
 
 data class MappablePath(
@@ -59,5 +60,6 @@ data class MappablePath(
     override val points: List<IMappableLocation>,
     override val color: Int,
     override val style: LineStyle,
-    override val name: String? = null
+    override val name: String? = null,
+    override val thicknessScale: Float = 1f
 ) : IMappablePath

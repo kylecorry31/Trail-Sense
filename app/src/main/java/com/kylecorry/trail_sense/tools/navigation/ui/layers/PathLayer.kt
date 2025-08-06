@@ -5,6 +5,7 @@ import android.graphics.Path
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.StrokeCap
 import com.kylecorry.andromeda.canvas.StrokeJoin
+import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.cache.ObjectPool
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -12,6 +13,7 @@ import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.sol.math.SolMath.positive
 import com.kylecorry.sol.math.SolMath.real
+import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.trail_sense.shared.extensions.drawLines
 import com.kylecorry.trail_sense.shared.getBounds
@@ -24,6 +26,8 @@ import com.kylecorry.trail_sense.tools.paths.ui.drawing.RenderedPath
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.math.absoluteValue
+import kotlin.math.atan2
 
 class PathLayer : IAsyncLayer, IPathLayer {
 
@@ -37,6 +41,7 @@ class PathLayer : IAsyncLayer, IPathLayer {
     private var updateListener: (() -> Unit)? = null
 
     private var shouldRenderWithDrawLines = false
+    private var shouldRenderLabels = false
 
     private val lock = Any()
 
@@ -47,6 +52,11 @@ class PathLayer : IAsyncLayer, IPathLayer {
 
     fun setShouldRenderWithDrawLines(shouldRenderWithDrawLines: Boolean) {
         this.shouldRenderWithDrawLines = shouldRenderWithDrawLines
+        invalidate()
+    }
+
+    fun setShouldRenderLabels(shouldRenderLabels: Boolean) {
+        this.shouldRenderLabels = shouldRenderLabels
         invalidate()
     }
 
@@ -76,7 +86,7 @@ class PathLayer : IAsyncLayer, IPathLayer {
             val values = renderedPaths.values
             for (path in values) {
                 // Don't draw empty paths
-                if (path.line.isEmpty()){
+                if (path.line.isEmpty()) {
                     continue
                 }
                 val pathDrawer = factory.create(path.style)
@@ -87,19 +97,80 @@ class PathLayer : IAsyncLayer, IPathLayer {
                 drawer.scale(relativeScale)
                 drawer.strokeJoin(StrokeJoin.Round)
                 drawer.strokeCap(StrokeCap.Round)
-                pathDrawer.draw(drawer, path.color, strokeScale = scale) {
+                pathDrawer.draw(
+                    drawer,
+                    path.color,
+                    strokeScale = scale / (path.originalPath?.thicknessScale ?: 1f)
+                ) {
                     if (shouldRenderWithDrawLines || path.path == null) {
                         lines(path.line.toFloatArray())
                     } else {
                         path(path.path)
                     }
                 }
+
                 drawer.pop()
+                drawLabels(drawer, map, path)
             }
         }
         drawer.noStroke()
         drawer.fill(Color.WHITE)
         drawer.noPathEffect()
+    }
+
+    private fun drawLabels(drawer: ICanvasDrawer, map: IMapView, path: RenderedPath) {
+        if (shouldRenderLabels && path.originalPath?.name != null) {
+            // TODO: Adjust text size / wrapping based on name length
+            drawer.textSize(drawer.sp(10f * map.layerScale))
+            val strokeWeight = drawer.dp(2.5f * map.layerScale)
+
+            // TODO: Fixed position in the world rather than closest to center
+            val canvasCenter = map.toPixel(map.mapCenter)
+            var closestToCenterSegment: Pair<PixelCoordinate, PixelCoordinate>? =
+                null
+            var closestToCenterDistance: Float = Float.MAX_VALUE
+
+            for (i in 0 until (path.originalPath.points.size - 1)) {
+                val pixel1 = map.toPixel(path.originalPath.points[i].coordinate)
+                val pixel2 = map.toPixel(path.originalPath.points[i + 1].coordinate)
+
+                val center = PixelCoordinate(
+                    (pixel1.x + pixel2.x) / 2,
+                    (pixel1.y + pixel2.y) / 2
+                )
+
+                if (center.distanceTo(canvasCenter) < closestToCenterDistance) {
+                    closestToCenterDistance = center.distanceTo(canvasCenter)
+                    closestToCenterSegment = Pair(pixel1, pixel2)
+                }
+            }
+
+            drawer.strokeWeight(strokeWeight)
+
+            if (closestToCenterSegment != null) {
+                val center = closestToCenterSegment.first.midpoint(
+                    closestToCenterSegment.second
+                )
+                val angle =
+                    closestToCenterSegment.first.angleTo(closestToCenterSegment.second)
+                val drawAngle = if (angle.absoluteValue > 90) angle + 180 else angle
+                drawer.textMode(TextMode.Center)
+                drawer.stroke(Color.WHITE)
+                drawer.fill(Color.BLACK)
+                drawer.push()
+                drawer.rotate(
+                    drawAngle,
+                    center.x,
+                    center.y
+                )
+                drawer.text(
+                    path.originalPath.name!!,
+                    center.x,
+                    center.y
+                )
+                drawer.pop()
+            }
+        }
     }
 
     override fun drawOverlay(
@@ -175,6 +246,7 @@ class PathLayer : IAsyncLayer, IPathLayer {
                     color = path.color,
                     // A best guess at what scale the path was rendered at
                     renderedScale = (before + currentScale) / 2f,
+                    originalPath = path,
                     path = pathObj?.also {
                         it.drawLines(lineObj.toFloatArray())
                     })
@@ -198,5 +270,19 @@ class PathLayer : IAsyncLayer, IPathLayer {
 
     override fun setHasUpdateListener(listener: (() -> Unit)?) {
         updateListener = listener
+    }
+
+    private fun PixelCoordinate.midpoint(other: PixelCoordinate): PixelCoordinate {
+        return PixelCoordinate(
+            (this.x + other.x) / 2,
+            (this.y + other.y) / 2
+        )
+    }
+
+    private fun PixelCoordinate.angleTo(other: PixelCoordinate): Float {
+        return atan2(
+            other.y - this.y,
+            other.x - this.x
+        ).toDegrees()
     }
 }

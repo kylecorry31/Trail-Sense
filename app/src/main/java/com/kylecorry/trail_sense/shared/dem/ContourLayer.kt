@@ -2,14 +2,11 @@ package com.kylecorry.trail_sense.shared.dem
 
 import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
-import com.kylecorry.andromeda.canvas.TextMode
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.ui.colormaps.RgbInterpolationColorMap
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.sol.math.SolMath
-import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -17,18 +14,19 @@ import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
 import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.ContourMapLayerPreferences
+import com.kylecorry.trail_sense.tools.navigation.ui.MappableLocation
+import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.PathLayer
+import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.TileMath
-import kotlin.math.absoluteValue
-import kotlin.math.atan2
 
 class ContourLayer : IAsyncLayer {
 
-    // TODO: Use path layer to display
+    private val pathLayer = PathLayer()
 
     private val units by lazy { AppServiceRegistry.get<UserPreferences>().baseDistanceUnits }
-    private var updateListener: (() -> Unit)? = null
 
     private val minZoomLevel = 13
     private val maxZoomLevel = 19
@@ -44,12 +42,11 @@ class ContourLayer : IAsyncLayer {
             255f,
             shouldClamp = true
         ).toInt()
-        shouldDrawLabels = prefs.showLabels
+        pathLayer.setShouldRenderLabels(prefs.showLabels)
         shouldColorContours = prefs.colorWithElevation
         invalidate()
     }
 
-    private var shouldDrawLabels = true
     private var shouldColorContours = false
     private val colorScale = RgbInterpolationColorMap(
         arrayOf(
@@ -155,93 +152,53 @@ class ContourLayer : IAsyncLayer {
             contours = DEM.getContourLines(bounds, interval, validResolutions[zoomLevel]!!)
             contourInterval = interval
             lastZoomLevel = zoomLevel
-            onMain {
-                updateListener?.invoke()
-            }
+            var i = -10000L
+            pathLayer.setPaths(contours.flatMap { level ->
+                val isImportantLine = SolMath.isZero((level.elevation / contourInterval) % 5, 0.1f)
+                val name = DecimalFormatter.format(
+                    Distance.meters(level.elevation).convertTo(units).distance, 0
+                )
+                val color = if (shouldColorContours) {
+                    colorScale.getColor(
+                        SolMath.norm(
+                            level.elevation,
+                            minScaleElevation,
+                            maxScaleElevation,
+                            true
+                        )
+                    )
+                } else {
+                    AppColor.Brown.color
+                }
+                level.lines.map { line ->
+                    MappablePath(
+                        i++,
+                        line.map {
+                            MappableLocation(0, it, Color.TRANSPARENT, null)
+                        },
+                        color,
+                        LineStyle.Solid,
+                        name = if (isImportantLine || showLabelsOnAllContoursZoomLevels.contains(
+                                lastZoomLevel
+                            )
+                        ) {
+                            name
+                        } else {
+                            null
+                        },
+                        thicknessScale = if (isImportantLine) {
+                            0.8f
+                        } else {
+                            0.4f
+                        }
+                    )
+                }
+
+            })
         }
 
-        drawer.textSize(drawer.sp(10f * map.layerScale))
         drawer.withLayerOpacity(opacity) {
-            val thickLineWeight = drawer.dp(2.5f)
-            val thinLineWeight = drawer.dp(1f)
-
-            // TODO: Draw as curve
-            contours.forEach { level ->
-                val isImportantLine = SolMath.isZero((level.elevation / contourInterval) % 5)
-
-                val canvasCenter = map.toPixel(map.mapCenter)
-                level.lines.forEach { line ->
-                    val points = mutableListOf<Float>()
-                    var closestToCenterSegment: Pair<PixelCoordinate, PixelCoordinate>? = null
-                    var closestToCenterDistance: Float = Float.MAX_VALUE
-
-                    for (i in 0 until (line.size - 1)) {
-                        val pixel1 = map.toPixel(line[i])
-                        val pixel2 = map.toPixel(line[i + 1])
-                        points.add(pixel1.x)
-                        points.add(pixel1.y)
-                        points.add(pixel2.x)
-                        points.add(pixel2.y)
-
-                        val center = PixelCoordinate(
-                            (pixel1.x + pixel2.x) / 2,
-                            (pixel1.y + pixel2.y) / 2
-                        )
-
-                        if (center.distanceTo(canvasCenter) < closestToCenterDistance) {
-                            closestToCenterDistance = center.distanceTo(canvasCenter)
-                            closestToCenterSegment = Pair(pixel1, pixel2)
-                        }
-                    }
-
-                    drawer.strokeWeight(if (isImportantLine) thickLineWeight else thinLineWeight)
-                    drawer.noFill()
-
-                    // TODO: Extract this
-                    if (shouldColorContours) {
-                        drawer.stroke(
-                            colorScale.getColor(
-                                SolMath.norm(
-                                    level.elevation,
-                                    minScaleElevation,
-                                    maxScaleElevation,
-                                    true
-                                )
-                            )
-                        )
-                    } else {
-                        drawer.stroke(AppColor.Brown.color)
-                    }
-                    drawer.lines(points.toFloatArray())
-
-                    if ((isImportantLine || showLabelsOnAllContoursZoomLevels.contains(lastZoomLevel)) && closestToCenterSegment != null && shouldDrawLabels) {
-                        val center = closestToCenterSegment.first.midpoint(
-                            closestToCenterSegment.second
-                        )
-                        val angle =
-                            closestToCenterSegment.first.angleTo(closestToCenterSegment.second)
-                        var drawAngle = if (angle.absoluteValue > 90) angle + 180 else angle
-                        // TODO: Try to align it uphill
-                        drawer.textMode(TextMode.Center)
-                        drawer.stroke(Color.WHITE)
-                        drawer.fill(Color.BLACK)
-                        drawer.push()
-                        drawer.rotate(
-                            drawAngle,
-                            center.x,
-                            center.y
-                        )
-                        drawer.text(
-                            DecimalFormatter.format(
-                                Distance.meters(level.elevation).convertTo(units).distance, 0
-                            ),
-                            center.x,
-                            center.y
-                        )
-                        drawer.pop()
-                    }
-                }
-            }
+            pathLayer.draw(drawer, map)
         }
 
     }
@@ -250,11 +207,11 @@ class ContourLayer : IAsyncLayer {
         drawer: ICanvasDrawer,
         map: IMapView
     ) {
-        // TODO: Draw color scale
+        pathLayer.drawOverlay(drawer, map)
     }
 
     override fun invalidate() {
-        // Do nothing
+        pathLayer.invalidate()
     }
 
     override fun onClick(
@@ -266,20 +223,6 @@ class ContourLayer : IAsyncLayer {
     }
 
     override fun setHasUpdateListener(listener: (() -> Unit)?) {
-        updateListener = listener
-    }
-
-    private fun PixelCoordinate.midpoint(other: PixelCoordinate): PixelCoordinate {
-        return PixelCoordinate(
-            (this.x + other.x) / 2,
-            (this.y + other.y) / 2
-        )
-    }
-
-    private fun PixelCoordinate.angleTo(other: PixelCoordinate): Float {
-        return atan2(
-            other.y - this.y,
-            other.x - this.x
-        ).toDegrees()
+        pathLayer.setHasUpdateListener(listener)
     }
 }
