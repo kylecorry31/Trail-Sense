@@ -55,12 +55,13 @@ class BaseMapLayerManager(
             loadPdfs = false,
             isPixelPerfect = true,
             operations = listOf(
+                // https://en.wikipedia.org/wiki/Wikipedia:WikiProject_Maps/Conventions/Topographic_maps
                 // TODO: Allow the user to replace the land color
 //                Threshold(10f),
-//                ReplaceColor(Color.WHITE, "#7DBA4E".toColorInt()),
+//                ReplaceColor(Color.WHITE, "#BDCC96".toColorInt()),
                 // TODO: Allow the user to replace the water color
                 // Replace the water color
-                ReplaceColor(Color.BLACK, "#4A90E2".toColorInt())
+                ReplaceColor(Color.BLACK, "#AAD3DF".toColorInt())
             )
         )
     }

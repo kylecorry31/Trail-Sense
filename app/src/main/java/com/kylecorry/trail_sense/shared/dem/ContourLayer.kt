@@ -57,6 +57,29 @@ class ContourLayer : IAsyncLayer {
             0xFFA52A2A.toInt(), // Brown (~1500m)
             0xFFFF4500.toInt(), // Orange (~2000m)
             0xFF800080.toInt()  // Purple (~3000m)
+            /*
+            // These don't work well when the background color is green (they are meant to fill in the contours)
+            // https://en.wikipedia.org/wiki/Wikipedia:WikiProject_Maps/Conventions/Topographic_maps
+            0xACD0A5, // 0m
+            0x94BF8B, // 250m
+            0xA8C68F, // 500m
+            0xBDCC96, // 750m
+            0xD1D7AB, // 1000m
+            0xE1E4B5, // 1250m
+            0xEFEBC0, // 1500m
+            0xE8E1B6, // 1750m
+            0xDED6A3, // 2000m
+            0xD3CA9D, // 2250m
+            0xCAB982, // 2500m
+            0xC3A76B, // 2750m
+            0xB9985A, // 3000m
+            0xAA8753, // 3250m
+            0xAC9A7C, // 3500m
+            0xBAAE9A, // 3750m
+            0xCAC3B8, // 4000m
+            0xE0DED8, // 4250m
+            0xF5F4F2  // 4500m
+             */
         )
     )
     private val minScaleElevation = 0f
