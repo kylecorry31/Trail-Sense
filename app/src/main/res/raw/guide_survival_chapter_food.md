@@ -282,9 +282,10 @@ Small mammals can be caught using traps, clubs, throwing sticks, or rocks.
 
 To prepare a small mammal for cooking:
 
-1. Make cuts down the insides of the back legs.
-2. Pull the skin off the body like a glove. You'll need to sever the head and front feet to remove the skin.
-3. Cut open the abdominal cavity and remove the entrails. Be careful not to puncture the intestines.
+1. Make a cut on the back and pull the fur and skin off. You may need to sever the head and feet.
+2. Flip it over and cut open the abdominal cavity and remove the entrails. Be careful not to puncture the intestines.
+
+![](file:///android_asset/survival_guide/skin_mammal.webp)
 
 This guide does not cover the preparation of large mammals, as they are challenging to catch and require a lot of energy to process.
 
