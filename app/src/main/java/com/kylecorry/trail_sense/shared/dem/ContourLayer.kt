@@ -25,6 +25,8 @@ import kotlin.math.atan2
 
 class ContourLayer : IAsyncLayer {
 
+    // TODO: Use path layer to display
+
     private val units by lazy { AppServiceRegistry.get<UserPreferences>().baseDistanceUnits }
     private var updateListener: (() -> Unit)? = null
 

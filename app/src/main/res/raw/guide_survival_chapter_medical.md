@@ -570,12 +570,16 @@ If the bone is out of place and medical attention is unavailable for several hou
 2. Apply padding around the fracture.
 3. Construct a splint using a rigid object (stick, trekking pole, tent pole). It should extend past the bone break on both sides.
 4. Secure the splint with bandages, tape, or cordage. It should be tight but not cut off circulation. If splinting a finger, tape it to the one next to it.
-5. Apply a sling if the fracture is in the arm to help immobilize the limb.
+5. Apply a sling if the fracture is in the arm to help immobilize the limb. You can create a makeshift sling by placing your arm in a jacket or cloth and tying the loose ends behind your neck.
 
+
+Splint:
 
 ![](file:///android_asset/survival_guide/splint.webp)
 
-![](file:///android_asset/survival_guide/6.webp)
+Sling:
+
+![](file:///android_asset/survival_guide/sling.webp)
 
 ### Prevention
 - Be cautious when walking on uneven terrain.
