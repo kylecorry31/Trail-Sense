@@ -177,6 +177,7 @@ object DEM {
         }
     }
 
+    // TODO: If at the border of a tile, load the nearby pixels as well
     private suspend fun lookupElevations(locations: List<Coordinate>): List<Pair<Coordinate, Distance>> =
         onIO {
             if (locations.isEmpty()) {
@@ -211,6 +212,7 @@ object DEM {
                             files.streamAsset(lookup.key!!.first)!!
                         }
                     }
+                    // TODO: Load pixels without interpolation and interpolate later - or add a multi image lookup?
                     val readings =
                         lookup.key!!.second.read(streamProvider, coordinates.map { it.first })
                     elevations.addAll(readings.mapNotNull {

@@ -56,12 +56,12 @@ class GeographicImageSource(
         }
         return PixelCoordinate(
             x.roundPlaces(precision).toFloat().coerceIn(
-                0f,
-                imageSize.width.toFloat() - 1f
+                -valuePixelOffset,
+                imageSize.width.toFloat() - 1f + valuePixelOffset
             ),
             y.roundPlaces(precision).toFloat().coerceIn(
-                0f,
-                imageSize.height.toFloat() - 1f
+                -valuePixelOffset,
+                imageSize.height.toFloat() - 1f + valuePixelOffset
             )
         )
     }
