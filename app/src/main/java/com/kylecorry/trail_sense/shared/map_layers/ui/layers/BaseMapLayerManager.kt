@@ -5,6 +5,7 @@ import android.graphics.Color
 import androidx.core.graphics.toColorInt
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.bitmaps.Conditional
 import com.kylecorry.trail_sense.shared.bitmaps.ReplaceColor
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibration
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibrationPoint
@@ -55,18 +56,60 @@ class BaseMapLayerManager(
             loadPdfs = false,
             isPixelPerfect = true,
             operations = listOf(
-                // https://en.wikipedia.org/wiki/Wikipedia:WikiProject_Maps/Conventions/Topographic_maps
-                // TODO: Allow the user to replace the land color
-//                Threshold(10f),
-//                ReplaceColor(Color.WHITE, "#BDCC96".toColorInt()),
-                // TODO: Allow the user to replace the water color
-                // Replace the water color
-                ReplaceColor(Color.BLACK, "#AAD3DF".toColorInt())
+                Conditional(
+                    SOURCE_MAP_COLOR_WATER != DESTINATION_MAP_COLOR_WATER,
+                    ReplaceColor(
+                        SOURCE_MAP_COLOR_WATER,
+                        DESTINATION_MAP_COLOR_WATER
+                    )
+                ),
+                Conditional(
+                    SOURCE_MAP_COLOR_DESERT != DESTINATION_MAP_COLOR_DESERT,
+                    ReplaceColor(
+                        SOURCE_MAP_COLOR_DESERT,
+                        DESTINATION_MAP_COLOR_DESERT
+                    )
+                ),
+                Conditional(
+                    SOURCE_MAP_COLOR_ROCK != DESTINATION_MAP_COLOR_ROCK,
+                    ReplaceColor(
+                        SOURCE_MAP_COLOR_ROCK,
+                        DESTINATION_MAP_COLOR_ROCK
+                    )
+                ),
+                Conditional(
+                    SOURCE_MAP_COLOR_GRASS != DESTINATION_MAP_COLOR_GRASS,
+                    ReplaceColor(
+                        SOURCE_MAP_COLOR_GRASS,
+                        DESTINATION_MAP_COLOR_GRASS
+                    )
+                ),
+                Conditional(
+                    SOURCE_MAP_COLOR_ICE != DESTINATION_MAP_COLOR_ICE,
+                    ReplaceColor(
+                        SOURCE_MAP_COLOR_ICE,
+                        DESTINATION_MAP_COLOR_ICE
+                    )
+                )
             )
         )
     }
 
     override fun stop() {
         // Do nothing
+    }
+
+    companion object {
+        private val SOURCE_MAP_COLOR_DESERT = Color.rgb(232, 225, 182)
+        private val SOURCE_MAP_COLOR_ROCK = Color.rgb(202, 195, 184)
+        private val SOURCE_MAP_COLOR_GRASS = Color.rgb(189, 204, 150)
+        private val SOURCE_MAP_COLOR_ICE = Color.rgb(245, 244, 242)
+        private const val SOURCE_MAP_COLOR_WATER = Color.BLACK
+
+        private val DESTINATION_MAP_COLOR_DESERT = SOURCE_MAP_COLOR_DESERT
+        private val DESTINATION_MAP_COLOR_ROCK = SOURCE_MAP_COLOR_ROCK
+        private val DESTINATION_MAP_COLOR_GRASS = SOURCE_MAP_COLOR_GRASS
+        private val DESTINATION_MAP_COLOR_ICE = SOURCE_MAP_COLOR_ICE
+        private val DESTINATION_MAP_COLOR_WATER = "#AAD3DF".toColorInt()
     }
 }
