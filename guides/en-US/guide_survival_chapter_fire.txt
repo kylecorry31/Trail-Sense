@@ -34,7 +34,7 @@ Once you have mastered these skills, you should learn how to do the following:
 <!-- K: build, prepare, location -->
 <!-- S: Choose a flat, dry area protected from the wind. Gather tinder, kindling, and fuel. -->
 
-You should prepare the fire site before attempting to start a fire. Choose a flat, dry area protected from the wind that is close to your shelter and your fuel supply. If you are sheltered near a large rock, cliff, or embankment, layout your fire so that it is on the opposite side of your shelter from the rock face. This will reflect more heat onto your shelter.
+You should prepare the fire site before attempting to start a fire. Choose a flat, dry area protected from the wind that is close to your shelter and your fuel supply. If you are sheltered near a large rock, cliff, or embankment, lay out your fire so that it is on the opposite side of your shelter from the rock face. This will reflect more heat onto your shelter.
 
 Clear the ground of flammable material and, if possible, line the area with dry rocks, dirt, or sand. Do not construct a fire under a tree with low branches or over a root system or peat. Avoid areas with dry grass, leaves, or conifer needles nearby. In snowy environments, lay down logs to prevent the fire from touching the snow. Gather all materials before trying to start the fire.
 
@@ -43,7 +43,7 @@ You should also be aware of local laws and regulations, as some areas may not al
 ### Gathering materials
 <!-- K: find, gather, tinder, kindling, fuel, fatwood, wood, material -->
 
-You need three types of materials to start and maintain a fire: tinder, kindling, and fuel. Tinder is a dry, fine material that catches fire easily and is used to start a fire. Kindling consists of small sticks and twigs that burn easily and are used to build up the fire after lighting the tinder. Finally, fuel is used to sustain the fire and consists of larger sticks or logs. To make a fire, find about a handful of tinder, two handfuls of kindling, and a pile of fuel - double the amount you estimate you'll need.
+You need three types of materials to start and maintain a fire: tinder, kindling, and fuel. Tinder is a dry, fine material that catches fire easily and is used to start a fire. Kindling consists of small sticks and twigs that burn easily and are used to build up the fire after lighting the tinder. Finally, fuel is used to sustain the fire and consists of larger sticks or logs. To make a fire, find about a handful of tinder, two handfuls of kindling, and a pile of fuel-double the amount you estimate you'll need.
 
 Finding dry wood can be difficult, but look for dead branches on trees, fallen branches that aren't fully touching the ground, and sticks that break cleanly when snapped. You can dry out damp tinder by placing it near your body or in your sleeping bag, and you can dry out fuel by placing it near the fire.
 
@@ -65,7 +65,7 @@ Finding dry wood can be difficult, but look for dead branches on trees, fallen b
 - **Kindling**
   - Sticks and twigs (pencil to finger thickness)
   - Thinly split wood
-  - Plastics, such as straws or spoons (only in an emergency, these release fumes that you shouldn't breathe in)
+  - Plastics, such as straws or spoons (only in an emergency; these release fumes that you shouldn't breathe in)
   - Wood soaked in a flammable liquid such as bug spray or hand sanitizer (use caution)
 - **Fuel**
   - Prefer fallen wood that you can break by hand over wood that requires cutting
@@ -92,7 +92,7 @@ To make a feather stick:
 <!-- K: start, light, build, ignite, teepee, tepee, tipi, structure -->
 <!-- S: If you have a fire starter, use it. You can improvise if required, but it will be more difficult and requires practice. -->
 
-Once you have a site prepared and a sufficient supply of tinder, kindling, and fuel, you are ready to start the fire. As you build up the fire, be careful to always leave a section with open flame exposed, so as to not smother. Also, avoid adding damp or green wood until your fire is hot and you have an established bed of coals.
+Once you have a site prepared and a sufficient supply of tinder, kindling, and fuel, you are ready to start the fire. As you build up the fire, be careful to always leave a section with open flame exposed so as not to smother it. Also, avoid adding damp or green wood until your fire is hot and you have an established bed of coals.
 
 Here are the steps you can follow to get it going:
 
@@ -116,7 +116,7 @@ An ember is a small piece of tinder that is smoldering but has not formed a flam
 
 A reliable lighter is the easiest way to start a fire. Use the striker to produce a flame and use your hand to shield it against any wind. Put the flame to the tinder to ignite it, and then shut off the lighter. When lighting tinder at ground level, hold the lighter horizontally and twisted so that the flame is above the striker wheel and your fingers. If it takes you more than a couple of seconds to ignite the tinder, then it is not fine or dry enough.
 
-Some lighters require that you add fuel before use, so be sure to try out your lighter before you need it. The fuel should last a long time - even years with moderate use. If your lighter is out of fuel, you can still use the striker wheel to generate sparks to catch very fine tinder.
+Some lighters require that you add fuel before use, so be sure to try out your lighter before you need it. The fuel should last a long time-even years with moderate use. If your lighter is out of fuel, you can still use the striker wheel to generate sparks to catch very fine tinder.
 
 A lighter generally does not work when wet, but you can dry it quickly by gently rubbing the striker wheel against your clothes in the opposite direction that you would strike it and forcefully blowing into the striker area.
 
@@ -151,7 +151,7 @@ Most camp stoves require another ignition device, such as a lighter, but some ma
 2. Screw the stove head onto the canister.
 3. Place the stove on a flat surface and ensure it is stable.
 4. Expand the pot holders on the head if needed.
-5. Open the valve slightly (turn counter-clockwise).
+5. Open the valve slightly (turn counterclockwise).
 6. Ignite the gas and adjust the valve as needed.
 7. Once you're done, turn the valve completely off (turn clockwise). Wait for it to cool down before detaching the canister and storing it.
 
@@ -173,7 +173,7 @@ Using a lens, focus sunlight into a small point on the tinder. As the tinder sta
 ### Flint and steel
 <!-- K: flint, steel -->
 
-Strike a flint rock with a carbon steel tool to create sparks and ignite very dry and delicate tinder. Stainless steel - and therefore most pocket knives - will not work. If you find yourself here, it may be best to focus on insulation and shelter to stay warm.
+Strike a flint rock with a carbon steel tool to create sparks and ignite very dry and delicate tinder. Stainless steel-and therefore most pocket knives-will not work. If you find yourself here, it may be best to focus on insulation and shelter to stay warm.
 
 ### Drills
 <!-- K: drill, bow-drill, hand-drill -->
@@ -223,7 +223,7 @@ Hardwoods (oak, maple, ash, beech, etc.) burn slowly and hot, while softwoods (p
 ### Fire reflector
 <!-- K: reflector -->
 
-A fire reflector is a wall built behind the fire to reflect heat toward you and protect the fire from wind. Use rocks, logs (preferably green or water logged), or snow to create a barrier.
+A fire reflector is a wall built behind the fire to reflect heat toward you and protect the fire from wind. Use rocks, logs (preferably green or waterlogged), or snow to create a barrier.
 
 ![](file:///android_asset/survival_guide/fire_reflector.webp)
 

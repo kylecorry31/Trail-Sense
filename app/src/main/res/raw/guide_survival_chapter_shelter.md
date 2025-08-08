@@ -68,7 +68,7 @@ Your first line of defense in any environment is your clothing. Proper attire sh
 
 When choosing clothing, consider the following materials:
 - Wool: Retains warmth even when wet.
-- Polyester/nylon: Quick drying and moisture-wicking.
+- Polyester/nylon: Quick-drying and moisture-wicking.
 - Down: Lightweight and insulating but loses warmth when wet.
 - Cotton: Retains moisture and loses warmth when wet. Do not wear cotton in cold or wet environments.
 
@@ -79,7 +79,7 @@ You should plan to wear multiple layers of clothing to protect against the eleme
 
 In cold environments, remove or add layers to prevent sweating while staying warm. Remove mid layers before physical exertion and add them back in after you stop.
 
-In warm environments, you may only need to wear a base layer as long as you have sunscreen and bug repellant on. But you should still always pack rain gear, such as an emergency poncho, in case of sudden weather changes.
+In warm environments, you may only need to wear a base layer as long as you have sunscreen and bug repellent on. But you should still always pack rain gear, such as an emergency poncho, in case of sudden weather changes.
 
 If you need extra insulation in a pinch, stuff your clothing with dry leaves, grass, or other insulating materials.
 
@@ -96,7 +96,7 @@ If you need extra insulation in a pinch, stuff your clothing with dry leaves, gr
 - **Outer layer**: Protects against wind, rain, and snow. This layer should be loose-fitting.
   - Rain gear
   - Windbreaker
-- **Accessories**: Protects against sun, wind, cold, and insects.
+- **Accessories**: Protect against sun, wind, cold, and insects.
   - Hat
   - Sunglasses
   - Gloves
@@ -115,7 +115,7 @@ Bring extra socks, preferably made from wool, and ensure they are taller than yo
 <!-- K: prepare, shelter, sleep -->
 <!-- S: Choose a location for your shelter that is protected from the elements and has access to resources. -->
 
-When selecting a site for your shelter, look for areas near building materials and resources such as water and food. Make sure the area is protected from the elements but is also free of threats such as dead trees / branches, slopes that could lead to avalanches / rock slides, flooding, insects, poisonous plants, and dangerous animals. It should not be so secluded that you can't signal for help. If you can avoid it, do not build a shelter above the treeline in mountainous regions as you will be exposed to the elements.
+When selecting a site for your shelter, look for areas near building materials and resources such as water and food. Make sure the area is protected from the elements but is also free of threats such as dead trees/branches, slopes that could lead to avalanches/rock slides, flooding, insects, poisonous plants, and dangerous animals. It should not be so secluded that you can't signal for help. If you can avoid it, do not build a shelter above the tree line in mountainous regions, as you will be exposed to the elements.
 
 While gathering materials for your shelter, prefer wood and debris that are already on the ground and require minimal effort to use. Avoid logs that are too thick to break by hand.
 
@@ -223,14 +223,14 @@ Used to prevent the end of a rope from untwisting. This is hard to undo but very
 ### Overhand loop
 <!-- K: overhand-loop -->
 
-Used to create a loop at the end of a line. In most cases a bowline would be a better choice, but this knot is easy to tie.
+Used to create a loop at the end of a line. In most cases, a bowline would be a better choice, but this knot is easy to tie.
 
 ![](file:///android_asset/survival_guide/knot_overhand_loop.webp)
 
 ### Overhand bend
 <!-- K: overhand-bend -->
 
-Used to join two lines together. This knot is easy to tie but hard to undo. In most cases a double sheet bend would be a better choice.
+Used to join two lines together. This knot is easy to tie but hard to undo. In most cases, a double sheet bend would be a better choice.
 
 ![](file:///android_asset/survival_guide/knot_overhand_bend.webp)
 

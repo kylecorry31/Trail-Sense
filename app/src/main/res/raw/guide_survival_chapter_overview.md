@@ -36,7 +36,7 @@ Many people carry a smartphone with them at all times, and while you shouldn't r
 - Antibiotic ointment
 - Sunscreen
 - Insect repellent
-- Prescription medications (including several days worth of extra doses), contact lenses, and glasses
+- Prescription medications (including several days' worth of extra doses), contact lenses, and glasses
 - Pain relievers (aspirin, ibuprofen, acetaminophen)
 - Hand sanitizer
 - Epinephrine auto-injector (if you have severe allergies)
@@ -207,7 +207,7 @@ Flares are best seen at night or in low-visibility conditions. Follow the instru
 ### Flashlight / headlamp
 <!-- K: flashlight, light, SOS -->
 
-At night, a flashlight can be used to signal for help. Use the international distress signal, SOS, which is three short flashes, three long flashes, and three short flashes. If your flashlight changes modes when turned off and on, you can use cover the light with your hand instead of turning it off. Aim it in the direction of aircraft or other potential rescuers.
+At night, a flashlight can be used to signal for help. Use the international distress signal, SOS, which is three short flashes, three long flashes, and three short flashes. If your flashlight changes modes when turned off and on, you can cover the light with your hand instead of turning it off. Aim it in the direction of aircraft or other potential rescuers.
 
 ### Ground-to-air signals
 <!-- K: ground-to-air -->

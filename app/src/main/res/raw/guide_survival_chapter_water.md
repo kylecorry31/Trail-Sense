@@ -38,7 +38,7 @@ Once you have mastered these skills, you should learn how to do the following:
 <!-- K: hydration, essential, daily -->
 <!-- S: Drink at least 2 to 3 quarts/liters of water daily. Recognize the signs of dehydration. -->
 
-Assume all surface water is contaminated and requires purification, and if you have to choose a water source, try to find running water. To avoid getting sick or becoming dehydrated quickly, avoid drinking alcohol, saltwater, stagnant water, urine, or eating snow.
+Assume all surface water is contaminated and requires purification, and, if you have to choose a water source, try to find running water. To avoid getting sick or becoming dehydrated quickly, avoid drinking alcohol, saltwater, stagnant water, urine, or eating snow.
 
 At 70°F (20°C), you will need around 2 to 3 quarts/liters of water daily. This amount increases with physical activity and exposure to higher temperatures.
 
@@ -134,11 +134,11 @@ If you are pregnant or have thyroid problems, don't use iodine. Always read the 
 
 Here are some general steps for iodine tablets if you lost the instructions (based on the most popular brand, Potable Aqua):
 
-1. Fill up a bottle of water. You may want to run the water through a filter or cloth to remove sediment.
+1. Fill a bottle with water. You may want to run the water through a filter or cloth to remove sediment.
 2. Add 2 tablets per quart/liter of water and put the cap on loosely.
-3. Wait 5 minutes and shake. Be sure some water leaks out the cap and around the threads.
+3. Wait 5 minutes and shake. Be sure some water leaks out of the cap and around the threads.
 4. Tighten the cap and wait 30 minutes.
-5. (Optional) Add 2 neutralizer tablets per quart/liter, shake, and wait 3 minutes. This will help to improve the taste.
+5. (Optional) Add 2 neutralizer tablets per quart/liter, shake, and wait 3 minutes. This will help improve the taste.
 6. Your water is now ready to drink.
 
 **Conversions**
@@ -156,7 +156,7 @@ The following conversions are approximate, but that is fine for purification.
 As a last resort, you can use sunlight to purify water in a clear water bottle.
 
 1. Fill a clear water bottle with water. If the water is cloudy, run it through a filter or cloth first.
-2. Remove the label from the bottle and lay it on its side in direct sunlight. If you have something dark, place it underneath the bottle to increase effectiveness.
+2. Remove the label from the bottle and lay it on its side in direct sunlight. If you have something dark, place it underneath the bottle to increase its effectiveness.
 3. If it is sunny, most germs will be killed in 6 hours. If it is cloudy, you will need to wait 2 days - so consider using a different purification method.
 
 ### Hazards
@@ -202,7 +202,7 @@ You can use tongs to move around hot coals or rocks without getting burned.
 1. Cut a length of green wood.
 2. Split the wood down the middle to create a flat surface.
 3. Optionally, carve a small notch in the stick's center to allow it to bend more easily.
-4. Bend the wood in half to create tongs. If the wood is not bending easily, either remove more material or heat the section to bend over a fire (do not burn it) and try again.
+4. Bend the wood in half to create tongs. If the wood is not bending easily, either remove more material or heat the section you want to bend over a fire (do not burn it) and try again.
 
 ## Craft: Filter
 <!-- K: filter, craft, charcoal, sand, gravel -->

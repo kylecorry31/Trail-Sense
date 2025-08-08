@@ -20,7 +20,7 @@ This chapter covers basic medical knowledge and techniques for common injuries a
 - Antibiotic ointment
 - Sunscreen
 - Insect repellent
-- Prescription medications (including several days worth of extra doses), contact lenses, and glasses
+- Prescription medications (including several days' worth of extra doses), contact lenses, and glasses
 - Pain relievers (aspirin, ibuprofen, acetaminophen)
 - Hand sanitizer
 - Epinephrine auto-injector (if you have severe allergies)
@@ -35,7 +35,7 @@ This chapter covers basic medical knowledge and techniques for common injuries a
 - Aloe vera gel
 - Antiseptic wipes
 - Hydrocortisone cream
-- Antihistamine pills (diphenhydramine, dye-free varieties are available)
+- Antihistamine pills (diphenhydramine; dye-free varieties are available)
 - Superglue
 - Cotton swabs
 - Antidiarrheal medication (loperamide)
@@ -64,7 +64,7 @@ Once you have mastered these skills, you should learn how to do the following:
 - Make charcoal (see the Fire chapter).
 - Make tea from plants.
 - Identify medicinal plants in your area.
-- Perform advanced first aid / wilderness-medicine techniques, such as setting a broken bone or suturing a wound.
+- Perform advanced first aid/wilderness-medicine techniques, such as setting a broken bone or suturing a wound.
 
 ## Common medications
 <!-- K: medication, medicine, pill, drug, aspirin, ibuprofen, acetaminophen, diphenhydramine, loperamide, simethicone, antacid, hydrocortisone, antibiotic, ointment, cream -->
@@ -101,8 +101,8 @@ Allergic reactions can range from contact dermatitis (like poison ivy) or bug bi
 
 **Severe:**
 
-- Difficulty breathing.
-- Swelling of the face, lips, or tongue.
+- Difficulty breathing
+- Swelling of the face, lips, or tongue
 
 ### Treatment
 
@@ -165,7 +165,7 @@ Altitude sickness is caused by low oxygen levels at high altitudes.
 <!-- K: bite, attack, animal, mammal, bell, fight, pepper-spray, bear -->
 <!-- S: Treat by washing the wound with soap and water, applying antibiotics, bandaging, and seeking medical attention. Prevent this by avoiding wild animals and making noise to alert them of your presence. -->
 
-Many animals bite when threatened and some can transmit diseases.
+Many animals bite when threatened, and some can transmit diseases.
 
 #### Treatment
 
@@ -190,7 +190,7 @@ If a mammal bit you, seek medical attention as soon as possible; you may need ra
   - Use bear or pepper spray if available.
   - Fight back if attacked, except for grizzly bears.
     - Aim for eyes, nose, or throat with rocks, sticks, or hands.
-    - If a **grizzly bear** attacks, play dead unless it stalks you, attacks in your tent, or continues attacking - then fight back.
+    - If a **grizzly bear** attacks, play dead unless it stalks you, attacks in your tent, or continues attacking-then fight back.
   - Keep your backpack on; it can offer protection.
   - Protect your vital areas (neck, head, and chest).
 
@@ -347,7 +347,7 @@ Seek medical attention if the wound is deep, bleeding profusely, or shows signs 
 **Scrapes and minor cuts**
 1. Clean the wound with water.
 2. Optionally, apply antibiotic ointment.
-3. Apply a bandage. You can use medical grade superglue if needed.
+3. Apply a bandage. You can use medical-grade superglue if needed.
 
 **Deeper cuts**
 1. Apply pressure to the wound with a clean cloth or bandage. You may need to apply pressure for about 10 to 20 minutes to get the bleeding to stop, longer if on blood thinners.
@@ -500,7 +500,7 @@ Cramps can be caused by dehydration, overexertion, or lack of electrolytes.
 - Nausea
 
 ### Treatment
-Rehydrate by slowly drinking water, an electrolyte solution, or other, non-alcoholic beverage. Avoid diuretics.
+Rehydrate by slowly drinking water, an electrolyte solution, or another non-alcoholic beverage. Avoid diuretics.
 
 ### Prevention
 - Drink water frequently, increasing intake during physical activity.
@@ -620,7 +620,7 @@ Only thaw the area if you can keep it thawed. Refreezing can cause more damage. 
 
 1. Take pain medicine before thawing.
 2. Prepare hot water (104-108°F / 40-42°C).
-3. Thaw the area for 30 to 45 minutes or until it is pink/red and soft. If the water cools, change it - remove the area from the water before changing it.
+3. Thaw the area for 30 to 45 minutes or until it is pink/red and soft. If the water cools, change it-remove the area from the water before changing it.
 4. Wrap the area in a sterile dressing and keep warm.
 
 ### Prevention
@@ -648,7 +648,7 @@ Gastrointestinal issues can be caused by contaminated food or water.
 - Rehydrate with purified water.
 - Drink a cup of tea every few hours. You can make tea by boiling the following plants:
   - For diarrhea:
-    - Blackberry / brambles roots
+    - Blackberry/brambles roots
     - Cranberry or hazel leaves
     - White oak bark
   - For constipation:
@@ -740,7 +740,7 @@ If you are fully trained in CPR, perform rescue breathing after 30 compressions.
 
 ## Heat exhaustion and heatstroke
 <!-- K: heat, exhaustion, stroke, heatstroke, pale, hot, sweat, fatigue, heartbeat, dizziness, nausea, vomit, cramp, muscle, headache, chill, confusion, seizure, unconscious, electrolyte, shade, break, overexert -->
-<!-- S: Symptoms include pale skin, sweating, fatigue, rapid heartbeat, dizziness, nausea, muscle cramps, headache, and chills. Treat by moving to a cooling down and drinking water. Prevent this by staying hydrated, wearing proper clothing, and taking breaks in the shade. -->
+<!-- S: Symptoms include pale skin, sweating, fatigue, rapid heartbeat, dizziness, nausea, muscle cramps, headache, and chills. Treat by moving to a cool place and drinking water. Prevent by staying hydrated, wearing proper clothing, and taking breaks in the shade. -->
 
 Heat exhaustion and heatstroke are caused by exposure to high temperatures and dehydration.
 
@@ -869,10 +869,10 @@ Hypothermia is caused by exposure to cold temperatures, causing the body to lose
 It is common to get objects in your eye while in the wilderness, such as dirt, sand, bugs, or an eyelash.
 
 ### Symptoms
-- Pain and discomfort of the eye.
-- Redness of the eye.
-- Excess tearing.
-- Difficulty keeping the eye open.
+- Pain and discomfort of the eye
+- Redness of the eye
+- Excess tearing
+- Difficulty keeping the eye open
 
 ### Treatment
 1. Avoid rubbing the eye.
@@ -885,7 +885,7 @@ It is common to get objects in your eye while in the wilderness, such as dirt, s
 ### Prevention
 - Wear glasses or sunglasses.
 - Don't lift objects with dirt or loose debris on them above your head without eye protection.
-- Carefully apply bug repellant on your face to deter bugs from going near your eyes.
+- Carefully apply bug repellent on your face to deter bugs from going near your eyes.
 
 ## Panic attacks and calming techniques
 <!-- K: panic, attack, fear, heartbeat, sweat, tremble, breath, chest, pain, nausea, dizziness, numb, tingle, calm, meditate, technique -->
@@ -920,7 +920,7 @@ It is common to get objects in your eye while in the wilderness, such as dirt, s
 <!-- K: poison, ivy, oak, sumac, trumpet, rengas, stinging, nettle, rash, itch, blister, red, swell, dermatitis, contact -->
 <!-- S: Symptoms include a rash, itching, and blisters. Treat by washing the area with soap and water, applying calamine lotion, and taking antihistamines. Prevent by learning to identify and avoid poisonous plants. -->
 
-Contact dermatitis is caused by contact with poisonous plants, such as poison ivy / poison oak, poison sumac, stinging nettle, and many other plants around the world (always check what is dangerous in your area).
+Contact dermatitis is caused by contact with poisonous plants, such as poison ivy/poison oak, poison sumac, stinging nettle, and many other plants around the world (always check what is dangerous in your area).
 
 ![](file:///android_asset/survival_guide/dangerous_plants.webp)
 
@@ -955,7 +955,7 @@ Learn to identify and avoid contact with the following plants:
 - Rengas tree
 - Trumpet vine
 - Stinging nettle
-- Gympie-gympie / stinging tree
+- Gympie-gympie/stinging tree
 - Wild parsnip
 - Giant hogweed
 
@@ -969,7 +969,7 @@ If you come into contact with these plants, wash the area with soap and water as
 
 Falling asleep can be difficult in the wilderness, but getting adequate rest is important for maintaining energy. To help yourself fall asleep, wind down at night by avoiding strenuous activity and calming your mind, perhaps using meditation. Ensure you aren't too hot or cold and that your sleeping area is comfortable. You might find it easier to sleep if you make a pillow by stuffing spare clothing or a stuff sack with dry leaves or other soft materials.
 
-Some people may also find it necessary to block out noise using earplugs or listening to music or white noise if available.
+Some people may also find it necessary to block out noise using earplugs or by listening to music or white noise if available.
 
 ## Snow blindness
 <!-- K: snow, blind, eye, headache, light, sensitivity, red, scratchy, itch, uv -->
@@ -1013,7 +1013,7 @@ You should make sure your tetanus immunization is up to date for any puncture wo
 ### Prevention
 - Use caution when handling dry wood or thorn bushes.
 - Avoid walking through thorn bushes.
-- Wear long sleeves and pants if going off trail.
+- Wear long sleeves and pants if going off-trail.
 - Don't touch cacti or porcupines.
 - Watch out for urchins if walking in the ocean.
 

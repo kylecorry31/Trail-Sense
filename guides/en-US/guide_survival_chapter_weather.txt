@@ -19,7 +19,7 @@ Weather can quickly change from a nice day to a life-threatening situation. You 
 
 **Optional**:
 - Barometer  
-  - Many smartphones have barometers, but require an app to use them (such as the Trail Sense app on Android)  
+  - Many smartphones have barometers but require an app to use them (such as the Trail Sense app on Android)  
 - Thermometer  
 
 ### Knowledge and skills
@@ -43,7 +43,7 @@ Weather conditions can change rapidly and significantly impact your outdoor acti
 ### Precipitation
 <!-- K: rain, snow, hail, sleet, precipitation -->
 
-You can generally continue outdoor activities in light precipitation. However, if it starts precipitating heavily, seek shelter. During heavy rain, rivers and streams can rise rapidly and flash floods are possible. Precipitation can also lead to hypothermia, so be aware of the risks and take steps to stay warm and dry.
+You can generally continue outdoor activities in light precipitation. However, if it starts precipitating heavily, seek shelter. During heavy rain, rivers and streams can rise rapidly, and flash floods are possible. Precipitation can also lead to hypothermia, so be aware of the risks and take steps to stay warm and dry.
 
 Blizzards can lead to whiteout conditions, severely reducing visibility. If caught in a blizzard, seek shelter immediately and stay warm and dry.
 
@@ -99,7 +99,7 @@ Wildfires can cause smoke to travel long distances. If possible, avoid outdoor a
 <!-- K: climate, average -->
 <!-- S: Your region's climate can indicate what weather is common for the time of year. -->
 
-The climate of a region refers to its average weather conditions over time. You should look up the average daily high and low temperatures, how often it rains or snows, what the humidity normally is, and where the prevailing wind blows from. You should prepare for conditions to return to the climate normals in a longer-term scenario, so if it is unusually warm during your hike but the average low is below freezing, bring cold weather gear with you. During a dry season, you should be extra cautious of starting a fire and plan for scarce natural water sources.
+The climate of a region refers to its average weather conditions over time. You should look up the average daily high and low temperatures, how often it rains or snows, what the humidity normally is, and where the prevailing wind blows from. You should prepare for conditions to return to the climate normals in a longer-term scenario, so if it is unusually warm during your hike but the average low is below freezing, bring cold-weather gear with you. During a dry season, you should be extra cautious about starting a fire and plan for scarce natural water sources.
 
 ## Forecasting
 <!-- K: forecast, predict, signs -->
@@ -144,7 +144,7 @@ Identifying the cloud type can improve your ability to forecast weather.
 
 ![](file:///android_asset/survival_guide/clouds.webp)
 
-1. **Cirrocumulus**: High-level clouds that form a wavy sheet. The sheet is composed of small dots which almost look two-dimensional. May indicate precipitation in the next 8 to 12 hours.
+1. **Cirrocumulus**: High-level clouds that form a wavy sheet. The sheet is composed of small dots that almost look two-dimensional. May indicate precipitation in the next 8 to 12 hours.
 2. **Altocumulus**: Mid-level puffy clouds that look like cotton balls. They are typically white with darker patches below and can be spaced out or sheet-like. May indicate precipitation or a thunderstorm in the next 12 hours.
 3. **Cumulus**: Low puffy clouds that look like cotton balls. They are spaced out and are typically white with darker patches below. Usually indicates fair weather, but if it is growing taller, then precipitation or a thunderstorm could be possible in the next few hours.
 4. **Cumulonimbus**: Low puffy clouds that are very tall. They typically have an anvil shape and are dark. May indicate a thunderstorm in a few minutes.

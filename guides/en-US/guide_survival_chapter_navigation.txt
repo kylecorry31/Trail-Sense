@@ -1,7 +1,7 @@
 <!-- K: navigate -->
 <!-- S: Plan a route and determine your location. -->
 
-Being able to navigate in the wilderness can help prevent you from getting lost in the first place or allow you to find your way back to safety if you do go off trail.
+Being able to navigate in the wilderness can help prevent you from getting lost in the first place or allow you to find your way back to safety if you do go off-trail.
 
 **This chapter is for informational purposes only and does not replace professional advice; use at your own risk and ensure compliance with local laws.**
 
@@ -44,17 +44,17 @@ When planning a route, choose one that matches your skill and fitness levels, us
 
 Moving carefully and adapting to the terrain are important preventions you can take against injury or getting lost. In general, keep your body weight balanced over your feet, watch where you step, and take frequent breaks to rest. Stay on the designated trails at all times and be cautious of animal trails; they may lead to resources like water but can also get you lost.
 
-Trekking poles or a walking stick can be beneficial for some people, especially in rough terrain or if you have knee problems. You can check if you are using the correct height pole by making sure you have a 90-degree bend at your elbow when the pole is touching the ground.
+Trekking poles or a walking stick can be beneficial for some people, especially in rough terrain or if you have knee problems. You can check if you are using the correct-height pole by making sure you have a 90-degree bend at your elbow when the pole is touching the ground.
 
 ### Mountains
 <!-- K: mountain, steep -->
 
-The steep slopes of mountainous terrain can tire you out or injure your joints, so be extra vigilant about taking breaks. To make it easier to follow uphill trails, walk in a zigzag path; this pattern will increase the distance you travel but it will be less steep. When descending, maintain a bend in your knees to protect your joints. If you are climbing a tall mountain, take your time so that you can acclimate to higher altitudes without getting sick.
+The steep slopes of mountainous terrain can tire you out or injure your joints, so be extra vigilant about taking breaks. To make it easier to follow uphill trails, walk in a zigzag path; this pattern will increase the distance you travel, but it will be less steep. When descending, maintain a bend in your knees to protect your joints. If you are climbing a tall mountain, take your time so that you can acclimate to higher altitudes without getting sick.
 
 ### Snow
 <!-- K: snow, ice, avalanche, cold, snowshoe -->
 
-It can be taxing to travel in snowy conditions and you don't know for sure what you are stepping on; the snow may be hiding a patch of ice, a hole, or water. You can use a pole or stick to test ice and snow conditions before stepping. Avoid walking on frozen bodies of water unless you know the ice thickness. If you have snowshoes or skis, use them to help prevent your feet from sinking into the snow.
+It can be taxing to travel in snowy conditions, and you don't know for sure what you are stepping on; the snow may be hiding a patch of ice, a hole, or water. You can use a pole or stick to test ice and snow conditions before stepping. Avoid walking on frozen bodies of water unless you know the ice thickness. If you have snowshoes or skis, use them to help prevent your feet from sinking into the snow.
 
 Watch out for areas prone to avalanches. They are usually marked.
 
@@ -66,7 +66,7 @@ Deserts are typically hot and dry, with potentially cold nights, so be prepared 
 ### Jungle
 <!-- K: jungle, humid, vegetation -->
 
-Jungles feature dense vegetation, high humidity, and frequent precipitation. Move with the vegetation rather than against it to conserve energy, and focus on distant landmarks rather than nearby objects to maintain your direction. The dense canopy makes it harder for search parties to find you and GPS devices may not be reliable. Always wear protective clothing to avoid insect bites and stings, and treat any wounds or scratches promptly to prevent infection.
+Jungles feature dense vegetation, high humidity, and frequent precipitation. Move with the vegetation rather than against it to conserve energy, and focus on distant landmarks rather than nearby objects to maintain your direction. The dense canopy makes it harder for search parties to find you, and GPS devices may not be reliable. Always wear protective clothing to avoid insect bites and stings, and treat any wounds or scratches promptly to prevent infection.
 
 ### Night
 <!-- K: night, dark, light, flashlight -->
@@ -83,7 +83,7 @@ In emergency situations, following a river downstream may eventually lead to civ
 ### Coastal
 <!-- K: coast, ocean, beach, tide, sea -->
 
-Coastal regions typically feature tides, cliffs, and rocky or sandy beaches. Do not walk on beaches without footwear, as there may be buried glass or other sharp objects. To avoid getting trapped during high tide, be sure to consult tide tables before your trip and to keep track of the time. See the Weather chapter for help predicting tides. 
+Coastal regions typically feature tides, cliffs, and rocky or sandy beaches. Do not walk on beaches without footwear, as there may be buried glass or other sharp objects. To avoid getting trapped during high tide, be sure to consult tide tables before your trip and keep track of the time. See the Weather chapter for help predicting tides. 
 
 ### Detours
 <!-- K: detour, obstacle -->
@@ -310,7 +310,7 @@ To help you estimate, here's the distance traveled using the average stride leng
 
 You can keep track of the count by putting a small pebble in your pocket every 100 yards/meters. When you have 10 pebbles in your pocket, remove them all and place one pebble into your other pocket. The pebbles in your second pocket will represent 1,000 yards/meters and will reduce the number of pebbles you need to carry.
 
-Your stride length will likely be shorter on difficult terrain or bad weather.
+Your stride length will likely be shorter on difficult terrain or in bad weather.
 
 ### Average speed
 <!-- K: average, speed -->
@@ -333,7 +333,7 @@ You can use the sun or stars to determine direction without a compass. If you ne
 ### Sun/Moon
 <!-- K: sun, moon -->
 
-In the early morning, the sun will be close to the east, and in the late afternoon, it will be close to the west. The same applies to the moon at moonrise and moonset. During the day, the sun will be in the southern half of the sky in the northern hemisphere, and in the northern half in the southern hemisphere.
+In the early morning, the sun will be close to the east, and in the late afternoon, it will be close to the west. The same applies to the moon at moonrise and moonset. During the day, the sun will be in the southern half of the sky in the Northern Hemisphere and in the northern half in the Southern Hemisphere.
 
 ### Shadows
 <!-- K: sun, shadow -->

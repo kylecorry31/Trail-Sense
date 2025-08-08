@@ -129,7 +129,7 @@ Do not eat the following:
 ### Preparation
 <!-- K: prepare, cook, boil, roast, bake -->
 
-To prepare bugs for cooking, remove any stingers and optionally the legs, wings, and head before eating. You should cook all bugs before eating them to be on the safe side, but in a pinch many can be eaten raw. Worms can be placed in water for 15 minutes to purge their digestive tracts before cooking. If you can't bring yourself to eat a worm, try completely drying it in the sun or roasting it and then grinding it into a powder.
+To prepare bugs for cooking, remove any stingers and, optionally, the legs, wings, and head before eating. You should cook all bugs before eating them to be on the safe side, but in a pinch many can be eaten raw. Worms can be placed in water for 15 minutes to purge their digestive tracts before cooking. If you can't bring yourself to eat a worm, try completely drying it in the sun or roasting it and then grinding it into a powder.
 
 ## Shellfish and crustaceans
 <!-- K: shellfish, crustacean, clam, mussel, snail, limpet, crayfish, lobster, crab, shrimp, shell, bait, seafood -->
@@ -140,9 +140,9 @@ Shellfish and crustaceans are good sources of protein and can be found in both f
 ### Collection
 <!-- K: gather, find, trap, red, tide -->
 
-Search shallow waters, tide pools, and rocky areas for shellfish and crustaceans. Snails and limpets are often attached to rocks, which may be easier to access during low tide. Crayfish, lobsters, and crabs can be found under and around stones, in soft mud or sand, and may be more active at night. Crustaceans can be caught by attaching bait onto a line (no hook required, they'll grab it), baiting the shoreline and waiting for them to leave the water, or using a fish trap with bait.
+Search shallow waters, tide pools, and rocky areas for shellfish and crustaceans. Snails and limpets are often attached to rocks, which may be easier to access during low tide. Crayfish, lobsters, and crabs can be found under and around stones, in soft mud or sand, and may be more active at night. Crustaceans can be caught by attaching bait onto a line (no hook required; they'll grab it), baiting the shoreline and waiting for them to leave the water, or using a fish trap with bait.
 
-Some shellfish may be poisonous, and be especially cautious of mussels in tropical waters during the summer, any shellfish within three days of a red tide, or shellfish not covered by water during high tide.
+Some shellfish may be poisonous. Be especially cautious of mussels in tropical waters during the summer, any shellfish within three days of a red tide, or shellfish not covered by water during high tide.
 
 ### Preparation
 <!-- K: prepare, cook, boil, roast, bake -->
@@ -174,7 +174,7 @@ If you need to craft a hook, go with a gorge hook since it is easy to make and d
 
 If you do not have fishing line, you can make it from plant fibers, inner strands of paracord (using a bend knot to join them together), or other strong cordage.
 
-If you do not have a fishing pole, you can tie the line to both the base and tip of a sturdy stick - try to mimic what an actual fishing pole looks like. You can also wrap the line around a short stick and use it as a hand line. An easier technique may be to tie the line to a tree branch so you can do other things and check it frequently.
+If you do not have a fishing pole, you can tie the line to both the base and tip of a sturdy stick-try to mimic what an actual fishing pole looks like. You can also wrap the line around a short stick and use it as a hand line. An easier technique may be to tie the line to a tree branch so you can do other things and check it frequently.
 
 **Traps**
 
@@ -293,7 +293,7 @@ This guide does not cover the preparation of large mammals, as they are challeng
 <!-- K: cook -->
 <!-- S: To avoid getting sick, boil, roast, or bake most foods. This will require you to start a fire or have a portable stove. -->
 
-Do not try to preserve the food you catch; just cook and eat it. If possible, prepare, cook, and consume your feed some distance downwind of your shelter to avoid attracting animals to your camp.
+Do not try to preserve the food you catch; just cook and eat it. If possible, prepare, cook, and consume your food some distance downwind of your shelter to avoid attracting animals to your camp.
 
 ### Stoves
 <!-- K: stove -->
