@@ -11,10 +11,13 @@ import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.luna.coroutines.onMain
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.positive
 import com.kylecorry.sol.math.SolMath.real
 import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.geometry.Rectangle
+import com.kylecorry.sol.math.interpolation.Interpolation
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.extensions.drawLines
 import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
@@ -23,11 +26,13 @@ import com.kylecorry.trail_sense.tools.paths.ui.drawing.ClippedPathRenderer
 import com.kylecorry.trail_sense.tools.paths.ui.drawing.IRenderedPathFactory
 import com.kylecorry.trail_sense.tools.paths.ui.drawing.PathLineDrawerFactory
 import com.kylecorry.trail_sense.tools.paths.ui.drawing.RenderedPath
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.TileMath
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 import kotlin.math.atan2
+import kotlin.math.max
 
 class PathLayer : IAsyncLayer, IPathLayer {
 
@@ -120,55 +125,93 @@ class PathLayer : IAsyncLayer, IPathLayer {
 
     private fun drawLabels(drawer: ICanvasDrawer, map: IMapView, path: RenderedPath) {
         if (shouldRenderLabels && path.originalPath?.name != null) {
+            val pts = path.originalPath.points
+            if (pts.size < 2) return
+
             // TODO: Adjust text size / wrapping based on name length
             drawer.textSize(drawer.sp(10f * map.layerScale))
             val strokeWeight = drawer.dp(2.5f * map.layerScale)
+            val minSeparationPx = max(drawer.canvas.width, drawer.canvas.height) / 4f
+            val maxLabels = 5
 
-            // TODO: Fixed position in the world rather than closest to center
-            val canvasCenter = map.toPixel(map.mapCenter)
-            var closestToCenterSegment: Pair<PixelCoordinate, PixelCoordinate>? =
-                null
-            var closestToCenterDistance: Float = Float.MAX_VALUE
+            // World-aligned grid for label selection
+            val bounds = map.mapBounds
+            val zoomLevel = TileMath.distancePerPixelToZoom(
+                map.metersPerPixel.toDouble(),
+                bounds.center.latitude
+            )
 
-            for (i in 0 until (path.originalPath.points.size - 1)) {
-                val pixel1 = map.toPixel(path.originalPath.points[i].coordinate)
-                val pixel2 = map.toPixel(path.originalPath.points[i + 1].coordinate)
+            // Only show labels at zoom level 13+
+            if (zoomLevel < 13) return
 
-                val center = PixelCoordinate(
-                    (pixel1.x + pixel2.x) / 2,
-                    (pixel1.y + pixel2.y) / 2
-                )
-
-                if (center.distanceTo(canvasCenter) < closestToCenterDistance) {
-                    closestToCenterDistance = center.distanceTo(canvasCenter)
-                    closestToCenterSegment = Pair(pixel1, pixel2)
-                }
+            // Grid spacing based on zoom level (degrees)
+            val resolution = when (zoomLevel) {
+                13 -> 0.048
+                14 -> 0.024
+                15 -> 0.016
+                16 -> 0.008
+                17 -> 0.004
+                18 -> 0.002
+                else -> 0.001
             }
 
-            drawer.strokeWeight(strokeWeight)
+            // Grid
+            val latitudes = Interpolation.getMultiplesBetween(
+                bounds.south,
+                bounds.north,
+                resolution
+            )
+            val longitudes = Interpolation.getMultiplesBetween(
+                bounds.west,
+                bounds.east,
+                resolution
+            )
 
-            if (closestToCenterSegment != null) {
-                val center = closestToCenterSegment.first.midpoint(
-                    closestToCenterSegment.second
-                )
-                val angle =
-                    closestToCenterSegment.first.angleTo(closestToCenterSegment.second)
-                val drawAngle = if (angle.absoluteValue > 90) angle + 180 else angle
-                drawer.textMode(TextMode.Center)
-                drawer.stroke(Color.WHITE)
-                drawer.fill(Color.BLACK)
-                drawer.push()
-                drawer.rotate(
-                    drawAngle,
-                    center.x,
-                    center.y
-                )
-                drawer.text(
-                    path.originalPath.name!!,
-                    center.x,
-                    center.y
-                )
-                drawer.pop()
+            val segmentCenters = ArrayList<PixelCoordinate>(pts.size - 1)
+            val segmentAngles = ArrayList<Float>(pts.size - 1)
+            for (i in 0 until (pts.size - 1)) {
+                val p1 = map.toPixel(pts[i].coordinate)
+                val p2 = map.toPixel(pts[i + 1].coordinate)
+                segmentCenters.add(p1.midpoint(p2))
+                segmentAngles.add(p1.angleTo(p2))
+            }
+
+            val chosenSegments = HashSet<Int>()
+            val placedCenters = mutableListOf<PixelCoordinate>()
+
+            drawer.strokeWeight(strokeWeight)
+            drawer.textMode(TextMode.Center)
+            drawer.stroke(Color.WHITE)
+            drawer.fill(Color.BLACK)
+
+            var labelsDrawn = 0
+            for (lat in latitudes) {
+                if (labelsDrawn >= maxLabels) break
+                for (lon in longitudes) {
+                    if (labelsDrawn >= maxLabels) break
+                    val gridPixel = map.toPixel(Coordinate(lat, lon))
+
+                    // Find nearest segment center to this grid point
+                    val closestIndex =
+                        SolMath.argmin(segmentCenters.map { it.distanceTo(gridPixel) })
+
+                    if (closestIndex >= 0) {
+                        val center = segmentCenters[closestIndex]
+                        if (chosenSegments.contains(closestIndex)) continue
+                        if (placedCenters.any { it.distanceTo(center) < minSeparationPx }) continue
+
+                        chosenSegments.add(closestIndex)
+                        placedCenters.add(center)
+                        val angle = segmentAngles[closestIndex]
+                        val drawAngle = if (angle.absoluteValue > 90) angle + 180 else angle
+
+                        drawer.push()
+                        drawer.rotate(drawAngle, center.x, center.y)
+                        drawer.text(path.originalPath.name ?: "", center.x, center.y)
+                        drawer.pop()
+                        labelsDrawn++
+                    }
+                }
             }
         }
     }
