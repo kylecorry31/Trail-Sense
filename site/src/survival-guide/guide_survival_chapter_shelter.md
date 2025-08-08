@@ -292,7 +292,7 @@ Used to secure one pole at a right angle to another pole. You can swap with the 
 
 Used for lashing two or more poles next to each other. It can be used to construct a tripod.
 
-![](/assets/images/survival_guide/138.webp)
+![](/assets/images/survival_guide/knot_shear_lashing.webp)
 
 ## Craft: Cordage
 <!-- K: cordage, rope, twine, fiber, twist, cord, strand, paracord, craft -->

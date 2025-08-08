@@ -288,9 +288,9 @@ Used to secure one pole at a right angle to another pole. This lashing starts an
 ### Shear lashing
 <!-- K: shear-lashing, lash, tripod -->
 
-Used for lashing two or more poles next to each other. It can be used to construct a tripod.
+Used for lashing two or more poles next to each other. It can be used to construct a tripod. This lashing starts and ends with a clove hitch, though you can use an overhand or jam knot as well.
 
-![](file:///android_asset/survival_guide/138.webp)
+![](file:///android_asset/survival_guide/knot_shear_lashing.webp)
 
 ## Craft: Cordage
 <!-- K: cordage, rope, twine, fiber, twist, cord, strand, paracord, craft -->

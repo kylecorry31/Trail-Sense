@@ -256,7 +256,7 @@ Used பெறுநர் secure one முனைமம் at a வலது an
 ### கொய்வு lashing
 Used க்கு lashing two or more poles அடுத்தது பெறுநர் each other. It can be used பெறுநர் construct a tripod.
 
-![](file:///android_asset/survival_guide/138.webp)
+![](file:///android_asset/survival_guide/knot_shear_lashing.webp)
 
 ## Craft: Cordage
 <!-- K: cordage, rope, twine, fiber, twist, cord, strand, paracord, craft -->
