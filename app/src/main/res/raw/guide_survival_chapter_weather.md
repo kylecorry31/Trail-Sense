@@ -59,7 +59,7 @@ Temperature changes as you change elevation, decreasing by about 3.5°F (2°C) f
 ### Wind
 <!-- K: wind, gust, storm, hurricane, tornado, sandstorm, prevailing, blow, direction -->
 
-Wind can make cold conditions feel even colder, increasing the risk of hypothermia and frostbite. Dress in layers and wear a hat and gloves to protect yourself from the wind. During windstorms, unstable trees and branches can become hazardous. You should be extra cautious when the wind speed is above 20 mph (32 kph). Wind can cause sandstorms in desert environments, reducing visibility and making breathing difficult. Seek shelter during a sandstorm and protect your eyes and mouth with a bandana or cloth. In coastal environments, winds can lead to dangerous surf conditions such as high waves or rip currents.
+Wind can make cold conditions feel even colder, increasing the risk of hypothermia and frostbite. Dress in layers and wear a hat and gloves to protect yourself from the wind. During windstorms, unstable trees and branches can become hazardous. You should be extra cautious when the wind speed is above 20 mph (32 km/h). Wind can cause sandstorms in desert environments, reducing visibility and making breathing difficult. Seek shelter during a sandstorm and protect your eyes and mouth with a bandana or cloth. In coastal environments, winds can lead to dangerous surf conditions such as high waves or rip currents.
 
 Prevailing winds are winds that blow consistently in one direction over time. While local geography and bodies of water can affect wind patterns, general patterns for the following latitudes are as follows:
 - 60° N to 90° N: Winds generally blow from the east.  
