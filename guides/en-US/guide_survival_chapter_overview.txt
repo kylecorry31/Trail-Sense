@@ -21,7 +21,7 @@ The gear you bring will depend on your skill level, trip duration, trail popular
 
 On short nature hikes (under 2 hours), a phone with offline maps, a knife or multi-tool, a lighter, sunglasses, and a bottle of water may be sufficient. You can apply insect repellent or sunscreen before going out.
 
-Many people carry a smartphone with them at all times, and while you shouldn't rely solely on it, it can be very helpful. To make the most of it, download an offline navigation app or maps and place money, bandages, a Fresnel lens, and a flattened piece of cotton under the back of the case for emergencies.
+Many people carry a smartphone with them at all times, and while you shouldn't rely solely on it, it can be very helpful. To make the most of it, download an offline navigation app or maps and place money, bandages, and a Fresnel lens under the back of the case for emergencies.
 
 **Necessities**:
 - Cell phone (with offline maps if possible)
@@ -43,7 +43,6 @@ Many people carry a smartphone with them at all times, and while you shouldn't r
 - Asthma inhaler (if you have asthma)
 - Emergency space blanket
 - Poncho
-- Change of clothing
 - Extra socks
 - Boots or sturdy shoes
 - Sunglasses
@@ -56,14 +55,16 @@ Many people carry a smartphone with them at all times, and while you shouldn't r
   - Thermal underlayers
   - Hand warmers
 - For overnight stays:
+  - Change of clothing
   - Sleeping bag
   - Sleeping pad
   - Tent
   - Tarp
+  - Bear bag or canister
 - Water (enough for the duration of your trip, plus a bit extra)
   - Bring a water purification method for longer trips and plan your route to include water sources.
-- Water containers (ensure you have a container that you can boil water in, such as a single-walled stainless steel bottle)
-- Firestarter (lighter, waterproof matches, or fire steel - carry at least two different types)
+- Water containers (preferably a container that you can boil water in, such as a single-walled stainless steel bottle)
+- Firestarter (lighter, waterproof matches, or fire steel)
 - Food (enough for the duration of your trip, plus a bit extra). Don't bring food you have never eaten before. Some good options can include:
   - Nuts
   - Seeds
@@ -73,7 +74,6 @@ Many people carry a smartphone with them at all times, and while you shouldn't r
   - Dehydrated meals (with extra water)
   - Canned food (with a can opener if needed)
 - Knife or multi-tool with a knife blade
-- Bear bag or canister
 - Map
 - Compass
 - Flashlight or headlamp
@@ -125,12 +125,13 @@ Next, observe your surroundings and assess your situation. The first thing to do
 ### Plan
 <!-- K: plan, next, steps, help -->
 
-Make a plan for your next steps. First, try to put in a call or text for help if you are not in immediate danger. What you do next is going to depend on your current situation. Here's some general advice for actions you can take, ordered by importance:
+Make a plan for your next steps. What you do next is going to depend on your current situation. Here's some general advice for actions you can take, ordered by importance:
 
 - If you are badly injured, treat your injuries.
-- If it is cold, get warm through insulation, shelter, and then fire (if easily started).
 - If you are wet and have dry clothing, remove the wet clothing and put on the dry clothes. If you only have a dry blanket or sleeping bag, remove the wet clothes and wrap yourself in that.
 - If the weather is bad, take shelter.
+- Try to put in a call or text for help.
+- If it is cold, get warm through insulation, shelter, and then fire (if easily started).
 - If it is hot, find shade and slowly drink water.
 - If it is close to dark, set up a shelter and maybe a fire.
 - Start conserving food and water, but don't let yourself get thirsty.

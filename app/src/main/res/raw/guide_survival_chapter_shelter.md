@@ -14,7 +14,6 @@ This chapter covers how to dress appropriately for the environment and build she
 **Necessities**:
 - Emergency space blanket
 - Poncho
-- Change of clothing
 - Extra socks
 - Boots or sturdy shoes
 - Sunglasses
@@ -27,6 +26,7 @@ This chapter covers how to dress appropriately for the environment and build she
   - Thermal underlayers
   - Hand warmers
 - For overnight stays:
+  - Change of clothing
   - Sleeping bag
   - Sleeping pad
   - Tent
@@ -96,7 +96,7 @@ If you need extra insulation in a pinch, stuff your clothing with dry leaves, gr
 - **Outer layer**: Protects against wind, rain, and snow. This layer should be loose-fitting.
   - Rain gear
   - Windbreaker
-- **Accessories**: Protect against sun, wind, cold, and insects.
+- **Accessories**: Protects against sun, wind, cold, and insects.
   - Hat
   - Sunglasses
   - Gloves
@@ -115,7 +115,7 @@ Bring extra socks, preferably made from wool, and ensure they are taller than yo
 <!-- K: prepare, shelter, sleep -->
 <!-- S: Choose a location for your shelter that is protected from the elements and has access to resources. -->
 
-When selecting a site for your shelter, look for areas near building materials and resources such as water and food. Make sure the area is protected from the elements but is also free of threats such as dead trees / branches, slopes that could lead to avalanches / rock slides, or flooding, insects, poisonous plants, and dangerous animals. It should not be so secluded that you can't signal for help. If you can avoid it, do not build a shelter above the treeline in mountainous regions as you will be exposed to the elements.
+When selecting a site for your shelter, look for areas near building materials and resources such as water and food. Make sure the area is protected from the elements but is also free of threats such as dead trees / branches, slopes that could lead to avalanches / rock slides, flooding, insects, poisonous plants, and dangerous animals. It should not be so secluded that you can't signal for help. If you can avoid it, do not build a shelter above the treeline in mountainous regions as you will be exposed to the elements.
 
 While gathering materials for your shelter, prefer wood and debris that are already on the ground and require minimal effort to use. Avoid logs that are too thick to break by hand.
 

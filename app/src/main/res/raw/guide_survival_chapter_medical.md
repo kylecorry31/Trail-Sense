@@ -22,7 +22,7 @@ This chapter covers basic medical knowledge and techniques for common injuries a
 - Insect repellent
 - Prescription medications (including several days worth of extra doses), contact lenses, and glasses
 - Pain relievers (aspirin, ibuprofen, acetaminophen)
-- Hand sanitizer (unscented)
+- Hand sanitizer
 - Epinephrine auto-injector (if you have severe allergies)
 - Asthma inhaler (if you have asthma)
 
@@ -49,9 +49,9 @@ This chapter covers basic medical knowledge and techniques for common injuries a
 - Toilet paper and/or portable bidet
 - Trash bags/container (check local regulations regarding toilet paper and human waste)
 - Trowel
-- Soap (unscented)
+- Soap
 - Washcloth/microfiber towel
-- Lip balm (unscented)
+- Lip balm
 - Electrolyte mix
 
 ### Knowledge and skills
@@ -73,7 +73,7 @@ Once you have mastered these skills, you should learn how to do the following:
 This is a list of common medications hikers might carry. It's not a complete list. Only use these in accordance with your doctor's recommendations and follow the package directions. Know the side effects, how much to take, and when to take them before your trip.
 
 - **Aspirin**: A pain reliever used for headaches, sore muscles, joint pain, inflammation, and fevers. Many doctors recommend taking aspirin at the first signs of a heart attack, as it can help prevent further blood clots. High doses can lead to gastrointestinal bleeding.
-- **Ibuprofen**: A pain reliever used for headaches, sore muscles, joint pain, inflammation, and fevers. It can also cause stomachaches for some people.
+- **Ibuprofen**: A pain reliever used for headaches, sore muscles, joint pain, inflammation, and fevers. It can cause stomachaches for some people.
 - **Acetaminophen**: A pain reliever used for headaches, sore muscles, joint pain, or fevers.
 - **Diphenhydramine**: An antihistamine used for allergies, itching, and sleeplessness. It may cause drowsiness.
 - **Loperamide**: Used to treat diarrhea.
@@ -90,14 +90,14 @@ Allergic reactions can range from contact dermatitis (like poison ivy) or bug bi
 
 ### Symptoms
 
-- Rash.
-- Itching.
-- Swelling.
-- Hives.
-- Runny nose.
-- Sneezing.
-- Coughing.
-- Scratchy throat.
+- Rash
+- Itching
+- Swelling
+- Hives
+- Runny nose
+- Sneezing
+- Coughing
+- Scratchy throat
 
 **Severe:**
 
@@ -137,15 +137,15 @@ If you have asthma and are having an attack, use your inhaler.
 Altitude sickness is caused by low oxygen levels at high altitudes.
 
 ### Symptoms
-- Headache.
-- Nausea.
-- Fatigue.
-- Dizziness.
-- Shortness of breath.
-- Poor sleep.
-- Loss of appetite.
-- Rapid heartbeat.
-- Coughing.
+- Headache
+- Nausea
+- Fatigue
+- Dizziness
+- Shortness of breath
+- Poor sleep
+- Loss of appetite
+- Rapid heartbeat
+- Coughing
 
 ### Treatment
 
@@ -202,10 +202,10 @@ Leeches attach to your skin and suck your blood. They can be found in freshwater
 
 #### Symptoms
 
-- Leech attached to the skin.
-- Bleeding.
-- Swelling.
-- Pain.
+- Leech attached to the skin
+- Bleeding
+- Swelling
+- Pain
 
 #### Treatment
 
@@ -228,7 +228,7 @@ Do not salt, burn, or pull the leech off, as this can cause it to regurgitate in
 <!-- K: snake, bite, venom, poison, antivenom, snakebite -->
 <!-- S: Treat by cleaning the wound, applying a bandage, immobilizing the limb, and seeking medical attention. Prevent this by watching where you step and wearing high boots. -->
 
-Always check your path for snakes, especially in areas with tall grass, loose rocks, or logs. In hot and arid regions, snakes may hide in shaded areas, under brush or debris, or in holes. In temperate areas, snakes may be in areas exposed to the sun. Most snake bites are not venomous, but if you don't know the type of snake, treat the bite as venomous.
+Always check your path for snakes, especially in areas with tall grass, loose rocks, or logs. In hot and arid regions, snakes may hide in shaded areas, under brush or debris, or in holes. In temperate areas, snakes may be in areas exposed to the sun. Most snakes are nonvenomous, but if you don't know the type of snake, treat the bite as venomous.
 
 #### Treatment
 1. Rinse the bite area with water.
@@ -257,10 +257,10 @@ Do not do the following:
 Many insects can bite or sting you, causing pain, swelling, and itching. Some insects can also transmit diseases.
 
 #### Symptoms
-- Itching.
-- Swelling.
-- Redness.
-- Pain.
+- Itching
+- Swelling
+- Redness
+- Pain
 
 #### Treatment
 
@@ -298,10 +298,10 @@ Ticks attach to your skin and will feed on your blood. They can transmit disease
 
 #### Symptoms
 
-- Itching.
-- Swelling.
-- Redness.
-- Attached tick.
+- Itching
+- Swelling
+- Redness
+- Attached tick
 
 #### Treatment
 
@@ -324,11 +324,11 @@ Many jellyfish have small, venomous stinging cells, typically on tentacles. Even
 
 #### Symptoms
 
-- Pain.
-- Itching.
-- Redness.
-- Rash.
-- Swelling.
+- Pain
+- Itching
+- Redness
+- Rash
+- Swelling
 
 #### Treatment
 
@@ -374,8 +374,8 @@ You can apply a tourniquet to stop blood flow to a limb if direct pressure does 
 <!-- S: Treat small blisters by applying moleskin and large blisters by draining with a sterilized needle, cleaning, and bandaging. Preventing this by keeping feet dry and wearing properly fitting shoes. -->
 
 ### Symptoms
-- Red, sore area.
-- Blister.
+- Red, sore area
+- Blister
 
 ### Treatment
 If the blister is small:
@@ -383,7 +383,7 @@ If the blister is small:
 2. Place the moleskin around the blister, with the blister in the hole.
 
 If the blister is large or painful:
-1. Sterilize a needle with alcohol or fire.
+1. Sterilize a needle with hand sanitizer or fire.
 2. Pierce the blister near the edge and drain the fluid.
 3. Clean and wash the area.
 4. Apply a bandage and, optionally, antibiotic ointment.
@@ -445,7 +445,7 @@ Perform the Heimlich maneuver on yourself:
 1. If possible, bend over a hard surface.
 2. Make a fist with one hand.
 3. Place the thumb side of your fist against your abdomen, below your ribcage and above your navel.
-4. Grasp your fist with your other hand and press into your abdomen with a quick upward thrust.choking
+4. Grasp your fist with your other hand and press into your abdomen with a quick upward thrust.
 
 Perform the Heimlich maneuver on someone else (only perform this if you know they are choking, upright, and have signaled for help):
 1. Stand behind the person.
@@ -463,9 +463,9 @@ Perform the Heimlich maneuver on someone else (only perform this if you know the
 Cramps can be caused by dehydration, overexertion, or lack of electrolytes.
 
 ### Symptoms
-- Muscle pain.
-- Muscle spasms.
-- Muscle weakness.
+- Muscle pain
+- Muscle spasms
+- Muscle weakness
 
 ### Treatment
 - Gently stretch the muscle.
@@ -473,7 +473,7 @@ Cramps can be caused by dehydration, overexertion, or lack of electrolytes.
 - Apply heat or cold to the muscle.
 - Drink water or an electrolyte solution containing sodium and potassium.
 - Eat salty foods.
-- Eat potassium-rich foods (bananas, potatoes, sweet potatoes, spinach, and lentils).
+- Eat potassium-rich foods (such as bananas or potatoes).
 - Slow down or stop physical activity.
 
 ### Prevention
@@ -488,16 +488,16 @@ Cramps can be caused by dehydration, overexertion, or lack of electrolytes.
 <!-- S: Rehydrate by drinking water with electrolytes. Prevent by drinking water frequently and increasing intake during physical activity. -->
 
 ### Symptoms
-- Thirst.
-- Dry mouth and throat.
-- Fatigue.
-- Dizziness.
-- Dark urine.
-- Reduced urine output.
-- Dry skin.
-- Headache.
-- Confusion.
-- Nausea.
+- Thirst
+- Dry mouth and throat
+- Fatigue
+- Dizziness
+- Dark urine
+- Reduced urine output
+- Dry skin
+- Headache
+- Confusion
+- Nausea
 
 ### Treatment
 Rehydrate by slowly drinking water, an electrolyte solution, or other, non-alcoholic beverage. Avoid diuretics.
@@ -536,7 +536,7 @@ In some cases, you may be able to use a pair of pliers instead of the fishing li
 ### Prevention
 - Be careful when handling fishhooks, especially lures with multiple treble hooks.
 - Be extra careful when removing a hook from a thrashing or slippery fish.
-- Barbless hooks are easier to remove if you get hooked, but don't work as well when fishing.
+- Barbless hooks are easier to remove if you get hooked, but it can be more difficult to successfully land the fish.
 
 ## Fractures
 <!-- K: fracture, break, broken, bone, pain, swelling, bruise, deform, weight, splint, sling, set, arm, leg -->
@@ -545,13 +545,13 @@ In some cases, you may be able to use a pair of pliers instead of the fishing li
 A fracture is a broken bone. A fracture can be closed (bone is broken, but skin is intact) or open (bone is broken and protruding from the skin).
 
 ### Symptoms
-- Pain.
-- Swelling.
-- Bruising.
-- Deformity.
-- Loss of function.
-- Inability to bear weight.
-- Bone protruding from the skin.
+- Pain
+- Swelling
+- Bruising
+- Deformity
+- Loss of function
+- Inability to bear weight
+- Bone protruding from the skin
 
 ### Treatment
 If the bone is out of place and medical attention is unavailable for several hours, you may need to set it. Otherwise, splint it in place and seek medical attention.
@@ -597,16 +597,16 @@ Frostbite is caused by exposure to cold temperatures, which freezes the skin and
 
 **Frostnip**:
 
-- Redness.
-- Numbness.
-- Pale or white skin.
-- The area is still soft and pliable.
+- Redness
+- Numbness
+- Pale or white skin
+- The area is still soft and pliable
 
 **Frostbite**:
 
-- White or grayish-yellow skin.
-- Hard or waxy skin.
-- Numbness.
+- White or grayish-yellow skin
+- Hard or waxy skin
+- Numbness
 
 ### Treatment
 
@@ -638,17 +638,26 @@ Only thaw the area if you can keep it thawed. Refreezing can cause more damage. 
 Gastrointestinal issues can be caused by contaminated food or water.
 
 ### Symptoms
-- Diarrhea.
-- Vomiting.
-- Nausea.
-- Stomach cramps.
-- Gas.
+- Diarrhea
+- Vomiting
+- Nausea
+- Stomach cramps
+- Gas
 
 ### Treatment
 - Rehydrate with purified water.
 - Drink a cup of tea every few hours. You can make tea by boiling the following plants:
-  - Oak bark, leaves, and acorns. Boil for two or more hours. It won't taste good, but it may help.
-  - Common plantain leaves.
+  - For diarrhea:
+    - Blackberry / brambles roots
+    - Cranberry or hazel leaves
+    - White oak bark
+  - For constipation:
+    - Dandelion leaves
+    - Rose hips
+    - Walnut bark
+  - For gas and cramps:
+    - Mint leaves
+- Eating campfire ash can also help with diarrhea.
 - Make a solution of a handful of ground charcoal in a cup of water. Drink a couple of spoonfuls every few hours.
   - If you ate something poisonous, seek medical help immediately. If you can't contact help, drinking charcoal may help. Do not induce vomiting.
 
@@ -656,6 +665,7 @@ Gastrointestinal issues can be caused by contaminated food or water.
 - Boil water before drinking.
 - Wash hands before eating.
 - Cook food thoroughly.
+- Only eat foods you know are safe.
 - Store food properly.
 
 ## Headache
@@ -684,12 +694,12 @@ Headaches can be caused by various factors, such as dehydration, stress, lack of
 To be safe, seek medical attention as soon as possible if you experience symptoms of heart problems.
 
 ### Symptoms
-- Chest pain.
-- Shortness of breath.
-- Pain in the arms, back, neck, jaw, or stomach.
-- Nausea.
-- Lightheadedness.
-- Cold sweat.
+- Chest pain
+- Shortness of breath
+- Pain in the arms, back, neck, jaw, or stomach
+- Nausea
+- Lightheadedness
+- Cold sweat
 
 ### Treatment
 1. Stop and sit comfortably.
@@ -701,7 +711,7 @@ If someone else becomes unresponsive and you suspect heart problems:
 **CPR**:
 
 1. Check for responsiveness, breathing, and pulse.
-2. Call emergency services (you can put your phone on speaker to do the two at the same time) and start CPR.
+2. Call emergency services and start CPR. You can put your phone on speaker to do the two at the same time.
 3. Make sure the person is on their back on a hard, stable surface.
 4. Place the heel of one hand on the center of the chest.
 5. Place the heel of the other hand on top of the first hand.
@@ -738,22 +748,22 @@ Heat exhaustion and heatstroke are caused by exposure to high temperatures and d
 
 **Heat exhaustion**: 
 
-- Pale skin.
-- Sweating.
-- Fatigue.
-- Rapid heartbeat.
-- Dizziness.
-- Nausea or vomiting.
-- Muscle cramps.
-- Headache.
-- Chills.
+- Pale skin
+- Sweating
+- Fatigue
+- Rapid heartbeat
+- Dizziness
+- Nausea or vomiting
+- Muscle cramps
+- Headache
+- Chills
 
 **Heatstroke**:
 
-- Same symptoms as heat exhaustion, but more severe.
-- Confusion.
-- Seizures.
-- Unconsciousness.
+- Same symptoms as heat exhaustion, but more severe
+- Confusion
+- Seizures
+- Unconsciousness
 
 ### Treatment
 
@@ -829,13 +839,13 @@ Keep clothing clean and dry. Wash clothes with water and soap or boil them. To d
 Hypothermia is caused by exposure to cold temperatures, causing the body to lose heat faster than it can produce.
 
 ### Symptoms
-- Shivering. If shivering stops, it is a sign of severe hypothermia.
-- Coldness.
-- Impaired coordination.
-- Memory loss.
-- Slurred speech.
-- Drowsiness.
-- Slow breathing and heart rate.
+- Shivering. If shivering stops and you have not warmed up, it is a sign of severe hypothermia.
+- Coldness
+- Impaired coordination
+- Memory loss
+- Slurred speech
+- Drowsiness
+- Slow breathing and heart rate
 
 ### Treatment
 - Change into dry clothes.
@@ -882,16 +892,16 @@ It is common to get objects in your eye while in the wilderness, such as dirt, s
 <!-- S: Symptoms include rapid heartbeat, sweating, trembling, shortness of breath, chest pain, nausea, dizziness, fear, numbness, and tingling. Treat using a calming technique, such as meditation. -->
 
 ### Symptoms
-- Rapid heartbeat.
-- Sweating.
-- Trembling.
-- Shortness of breath.
-- Hyperventilation.
-- Chest pain.
-- Nausea.
-- Dizziness.
-- Fear.
-- Numbness or tingling.
+- Rapid heartbeat
+- Sweating
+- Trembling
+- Shortness of breath
+- Hyperventilation
+- Chest pain
+- Nausea
+- Dizziness
+- Fear
+- Numbness or tingling
 
 ### Treatment
 1. Sit down.
@@ -968,9 +978,9 @@ Some people may also find it necessary to block out noise using earplugs or list
 Snow blindness is caused when too much sunlight reflects off snow, ice, or water into your eyes.
 
 ### Symptoms
-- Eyes are red, scratchy, and watery.
-- Sensitivity to light.
-- Headache.
+- Eyes are red, scratchy, and watery
+- Sensitivity to light
+- Headache
 
 ### Treatment
 Cover your eyes with a dark cloth until symptoms disappear.
@@ -988,7 +998,7 @@ Splinters and thorns can be painful and may lead to infection if not removed.
 If the splinter is deep or very large, seek medical attention and do not try to remove it yourself.
 
 1. Inspect the splinter to see if any part is exposed and determine which direction it entered.
-2. If no part is exposed, sterilize a needle using hand sanitizer or a flame and gently dig at the skin to expose one end of the splinter.
+2. If no part is exposed, sterilize a needle with hand sanitizer or fire and gently dig at the skin to expose one end of the splinter.
 3. Use tweezers to grab the exposed end of the splinter, preferably pulling in the opposite direction from how it entered.
 4. Slowly pull the splinter out.
 5. Repeat if any pieces remain.
@@ -1014,13 +1024,13 @@ You should make sure your tetanus immunization is up to date for any puncture wo
 Sprains are injuries to a tendon or ligament, while strains are injuries to a muscle or tendon.
 
 ### Symptoms
-- Pain.
-- Swelling.
-- Bruising.
-- Loss of functional movement.
-- Muscle spasms and cramping.
-- Muscle weakness.
-- A pop or tear may be heard or felt during injury.
+- Pain
+- Swelling
+- Bruising
+- Loss of functional movement
+- Muscle spasms and cramping
+- Muscle weakness
+- A pop or tear may be heard or felt during injury
 
 ### Treatment
 1. Rest the injured area.
@@ -1064,10 +1074,10 @@ If caught in a rip current, swim parallel to the shore until you are out of the 
 Sunburn is caused by prolonged exposure to the sun's ultraviolet (UV) radiation.
 
 ### Symptoms
-- Redness.
-- Pain.
-- Swelling.
-- Blisters.
+- Redness
+- Pain
+- Swelling
+- Blisters
 
 ### Treatment
 1. Get out of the sun.

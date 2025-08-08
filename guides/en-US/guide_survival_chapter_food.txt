@@ -21,7 +21,7 @@ Food gives you energy but is a low priority in most survival situations since yo
   - Dehydrated meals (with extra water)
   - Canned food (with a can opener if needed)
 - Knife or multitool with a knife blade
-- Bear bag or canister
+- Bear bag or canister (for overnight stays)
 
 **Optional**:
 - Cooking pot or container

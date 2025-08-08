@@ -1,7 +1,7 @@
 <!-- K: water, thirst, thirsty, drink -->
 <!-- S: Stay hydrated and purify water. -->
 
-You can only survive a few days without water in most cases, and sometimes not even that long. Knowing how to find and purify water is vital in a survival situation.
+You can only survive at most a few days without water. Knowing how to find and purify water is vital in a survival situation.
 
 **This chapter is for informational purposes only and does not replace professional advice; use at your own risk and ensure compliance with local laws.**
 
@@ -14,7 +14,7 @@ You can only survive a few days without water in most cases, and sometimes not e
 **Necessities**:
 - Water (enough for the duration of your trip, plus a bit extra).
   - Bring a water purification method for longer trips and plan your route to include water sources.
-- Water containers (ensure you have a container that you can boil water in, such as a single-walled stainless steel bottle)
+- Water containers (preferably a container that you can boil water in, such as a single-walled stainless steel bottle)
 
 **Optional**:
 - Water purification method (tablets or filter)
@@ -55,7 +55,7 @@ You can find water in many places if you know where to look. Unless otherwise st
 ### Precipitation
 <!-- K: rain, snow, ice, rainwater, precipitation -->
 
-Rainwater collected directly in containers does not need purification, but it should be purified if it has touched another surface. Snow and ice should be melted using a fire or body heat before drinking; eating it directly can lower your core body temperature.
+Rainwater collected directly in clean containers does not need purification, but it should be purified if it has touched another surface. Snow and ice should be melted using a fire or body heat before drinking; eating it directly can lower your core body temperature.
 
 ### Bodies of water
 <!-- K: river, stream, lake, pond, ocean, sea, saltwater -->
@@ -93,7 +93,7 @@ A below-ground solar still is a simple device that uses the sun's heat to draw m
 
 **Transpiration bag**
 
-A transpiration bag is a plastic bag tied around a leafy branch of a tree you have identified as safe (non-toxic) to collect water. Use multiple bags to increase yield.
+A transpiration bag is a plastic bag tied around a leafy branch of a tree you have identified as safe (non-toxic) to collect water.
 
 ![](file:///android_asset/survival_guide/transpiration_bag.webp)
 
@@ -119,7 +119,7 @@ Bring water to a rolling boil for at least one minute. At higher altitudes (abov
 ### Filtration
 <!-- K: filter, filtration, pump -->
 
-Use a portable water filter to remove contaminants. Some filters are rated to remove nearly all bacteria and viruses and can be used without additional purification. Custom-crafted filters are less effective and require additional purification.
+Use a portable water filter to remove contaminants. Some filters are rated to remove nearly all bacteria and can be used without additional purification. Custom-crafted filters are less effective and require additional purification.
 
 A filter will have an inlet and an outlet, and it typically shows the direction of water flow with an arrow or text (inlet to outlet). Place the inlet into the dirty water and the outlet into a container, then pump to filter the water. If you are using a filter straw, the inlet goes into the water and the outlet into your mouth. Be careful never to let the outlet come into contact with unfiltered water. After filtering, you can remove the inlet from the water and pump a couple of times to push out excess water. With a straw, forcefully blow into it to clear out water.
 
