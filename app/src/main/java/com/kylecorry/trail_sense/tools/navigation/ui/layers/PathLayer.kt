@@ -46,6 +46,7 @@ class PathLayer : IAsyncLayer, IPathLayer {
     private var updateListener: (() -> Unit)? = null
 
     private var shouldRenderWithDrawLines = false
+    private var shouldRenderSmoothPaths = false
     private var shouldRenderLabels = false
 
     private val lock = Any()
@@ -57,6 +58,11 @@ class PathLayer : IAsyncLayer, IPathLayer {
 
     fun setShouldRenderWithDrawLines(shouldRenderWithDrawLines: Boolean) {
         this.shouldRenderWithDrawLines = shouldRenderWithDrawLines
+        invalidate()
+    }
+
+    fun setShouldRenderSmoothPaths(shouldRenderSmoothPaths: Boolean) {
+        this.shouldRenderSmoothPaths = shouldRenderSmoothPaths
         invalidate()
     }
 
@@ -291,7 +297,7 @@ class PathLayer : IAsyncLayer, IPathLayer {
                     renderedScale = (before + currentScale) / 2f,
                     originalPath = path,
                     path = pathObj?.also {
-                        it.drawLines(lineObj.toFloatArray())
+                        it.drawLines(lineObj.toFloatArray(), shouldRenderSmoothPaths)
                     })
         }
     }

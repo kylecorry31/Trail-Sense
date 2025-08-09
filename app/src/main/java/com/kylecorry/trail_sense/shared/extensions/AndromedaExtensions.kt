@@ -11,11 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.topics.ITopic
-import com.kylecorry.andromeda.core.ui.ReactiveComponent
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.andromeda.fragments.AndromedaFragment
-import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.sol.math.SolMath.square
 import com.kylecorry.trail_sense.receivers.ServiceRestartAlerter
 import com.kylecorry.trail_sense.shared.safeRoundToInt
@@ -89,7 +85,7 @@ fun PixelCoordinate.squaredDistanceTo(other: PixelCoordinate): Float {
     return square(x - other.x) + square(y - other.y)
 }
 
-fun Path.drawLines(lines: FloatArray) {
+fun Path.drawLines(lines: FloatArray, smooth: Boolean = false) {
     // Lines are in the form [x1, y1, x2, y2, x3, y3, ...]
     // Where x1, y1 is the first point and x2, y2 is the second point of the line
     // There can be gaps in the lines
@@ -104,10 +100,24 @@ fun Path.drawLines(lines: FloatArray) {
         if (x1 != lastX || y1 != lastY) {
             moveTo(x1, y1)
         }
-        lineTo(x2, y2)
+        if (smooth) {
+            val mx = (x1 + x2) / 2f
+            val my = (y1 + y2) / 2f
+            quadTo(x1, x2, mx, my)
+        } else {
+            lineTo(x2, y2)
+        }
         lastX = x2
         lastY = y2
         i += 4
+    }
+
+    if (smooth && lines.size >= 4) {
+        val x1 = lines[lines.size - 4]
+        val y1 = lines[lines.size - 3]
+        val x2 = lines[lines.size - 2]
+        val y2 = lines[lines.size - 1]
+        quadTo(x1, y1, x2, y2)
     }
 }
 

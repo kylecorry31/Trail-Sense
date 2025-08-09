@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
 import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.ContourMapLayerPreferences
 import com.kylecorry.trail_sense.tools.navigation.ui.MappableLocation
 import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
@@ -43,6 +44,8 @@ class ContourLayer : IAsyncLayer {
             shouldClamp = true
         ).toInt()
         pathLayer.setShouldRenderLabels(prefs.showLabels)
+        // TODO: More experimentation required before this is enabled for everyone
+        pathLayer.setShouldRenderSmoothPaths(isDebug())
         shouldColorContours = prefs.colorWithElevation
         invalidate()
     }
