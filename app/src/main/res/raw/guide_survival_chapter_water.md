@@ -128,18 +128,34 @@ If the manufacturer's instructions are different, be sure to follow them instead
 ### Chemical treatment
 <!-- K: chemical, treat, tablet, iodine, chlorine, disinfect -->
 
-Chemical water purification tablets or drops can be used to treat water. Be sure to follow the instructions, which are normally printed on the bottle. The most common chemical is iodine, but chlorine-based treatments are also available. Before deciding which to buy, research how effective they are against bacteria and parasites in your region. Treatment amounts and times vary by chemical type and brand. Be sure to check the expiration date (if any) before going on a trip.
+Chemical water purification tablets or drops can be used to treat water. Be sure to follow the instructions, which are normally printed on the package. The most common chemical is iodine, but chlorine-based treatments are also available. Before deciding which to buy, research how effective they are against bacteria and parasites in your region. Treatment amounts and times vary by chemical type and brand. Be sure to check the expiration date (if any) before going on a trip.
 
 If you are pregnant or have thyroid problems, don't use iodine. Always read the warnings on the packages of chemical purification solutions before buying them. 
 
-Here are some general steps for iodine tablets if you lost the instructions (based on the most popular brand, Potable Aqua):
+Here are some general steps (if you have the manufacturer's instructions, use them instead):
 
 1. Fill a bottle with water. You may want to run the water through a filter or cloth to remove sediment.
-2. Add 2 tablets per quart/liter of water and put the cap on loosely.
+2. Add the correct amount of tablets/drops and put the cap on loosely (see below for popular brands).
 3. Wait 5 minutes and shake. Be sure some water leaks out of the cap and around the threads.
-4. Tighten the cap and wait 30 minutes.
-5. (Optional) Add 2 neutralizer tablets per quart/liter, shake, and wait 3 minutes. This will help improve the taste.
-6. Your water is now ready to drink.
+4. Tighten the cap and wait for the purification time (see below for popular brands).
+5. Your water is now ready to drink.
+
+Here are some instructions taken from popular brands as of 2025:
+
+Potable Aqua (Iodine):
+- 2 tablets per liter
+- Purification time: 30 minutes
+- Additional instructions (optional): After waiting for the purification time, add 2 neutralizer tablets per liter, shake, and wait 3 minutes. This will help improve the taste.
+
+Potable Aqua (Chlorine):
+- 1 tablet per liter
+- Purification time: 4 hours
+- Additional instructions: Use an opaque container or keep the bottle in the dark.
+
+Aquatabs (Chlorine, 49mg)
+- 1 tablet per 0.75-2 liters
+- Purification time: 30 minutes
+- Additional instructions: Use 2 tablets if the water is dirty, cloudy, stained, or cold.
 
 **Conversions**
 
@@ -157,7 +173,7 @@ As a last resort, you can use sunlight to purify water in a clear water bottle.
 
 1. Fill a clear water bottle with water. If the water is cloudy, run it through a filter or cloth first.
 2. Remove the label from the bottle and lay it on its side in direct sunlight. If you have something dark, place it underneath the bottle to increase its effectiveness.
-3. If it is sunny, most germs will be killed in 6 hours. If it is cloudy, you will need to wait 2 days-so consider using a different purification method.
+3. If it is sunny, most germs will be killed in 6 hours. If it is cloudy, you will need to wait 2 days - so consider using a different purification method.
 
 ### Hazards
 <!-- K: hazard, virus, bacteria, parasite, microorganism, kill, germ, chemical, runoff, stagnant -->
