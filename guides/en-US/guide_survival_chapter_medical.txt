@@ -36,7 +36,7 @@ This chapter covers basic medical knowledge and techniques for common injuries a
 - Antiseptic wipes
 - Hydrocortisone cream
 - Antihistamine pills (diphenhydramine; dye-free varieties are available)
-- Superglue
+- Super glue
 - Cotton swabs
 - Antidiarrheal medication (loperamide)
 - Gas relievers (simethicone)
@@ -268,13 +268,13 @@ Many insects can bite or sting you, causing pain, swelling, and itching. Some in
 
 To reduce itching, avoid scratching and apply calamine lotion or hydrocortisone cream. To reduce swelling, use a cloth soaked in cold water or filled with snow/ice.
 
-If you were bitten by a spider you believe to be venomous, treat it as you would a snake bite and seek medical attention.
+If you were bitten by a spider you believe to be venomous, treat it as you would a snakebite and seek medical attention.
 
 **Stings**
 
 Remove any stingers, taking care not to squeeze the venom sac. Treat it as if it were a bug bite.
 
-If you were stung by a scorpion or insect you believe to be venomous, treat it as a snake bite and seek medical attention.
+If you were stung by a scorpion or insect you believe to be venomous, treat it as a snakebite and seek medical attention.
 
 **Bugs in eyes**
 
@@ -347,7 +347,7 @@ Seek medical attention if the wound is deep, bleeding profusely, or shows signs 
 **Scrapes and minor cuts**
 1. Clean the wound with water.
 2. Optionally, apply antibiotic ointment.
-3. Apply a bandage. You can use medical-grade superglue if needed.
+3. Apply a bandage. You can use medical-grade super glue if needed.
 
 **Deeper cuts**
 1. Apply pressure to the wound with a clean cloth or bandage. You may need to apply pressure for about 10 to 20 minutes to get the bleeding to stop, longer if on blood thinners.

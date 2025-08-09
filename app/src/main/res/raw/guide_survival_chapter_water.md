@@ -157,7 +157,7 @@ As a last resort, you can use sunlight to purify water in a clear water bottle.
 
 1. Fill a clear water bottle with water. If the water is cloudy, run it through a filter or cloth first.
 2. Remove the label from the bottle and lay it on its side in direct sunlight. If you have something dark, place it underneath the bottle to increase its effectiveness.
-3. If it is sunny, most germs will be killed in 6 hours. If it is cloudy, you will need to wait 2 days - so consider using a different purification method.
+3. If it is sunny, most germs will be killed in 6 hours. If it is cloudy, you will need to wait 2 days-so consider using a different purification method.
 
 ### Hazards
 <!-- K: hazard, virus, bacteria, parasite, microorganism, kill, germ, chemical, runoff, stagnant -->
