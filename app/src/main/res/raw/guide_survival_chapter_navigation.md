@@ -1,7 +1,7 @@
 <!-- K: navigate -->
 <!-- S: Plan a route and determine your location. -->
 
-Being able to navigate in the wilderness can help prevent you from getting lost in the first place or allow you to find your way back to safety if you do go off-trail.
+Being able to navigate in the wilderness can help prevent you from getting lost in the first place or allow you to find your way back to safety if you go off-trail.
 
 **This chapter is for informational purposes only and does not replace professional advice; use at your own risk and ensure compliance with local laws.**
 
@@ -54,9 +54,9 @@ The steep slopes of mountainous terrain can tire you out or injure your joints, 
 ### Snow
 <!-- K: snow, ice, avalanche, cold, snowshoe -->
 
-It can be taxing to travel in snowy conditions, and you don't know for sure what you are stepping on; the snow may be hiding a patch of ice, a hole, or water. You can use a pole or stick to test ice and snow conditions before stepping. Avoid walking on frozen bodies of water unless you know the ice thickness. If you have snowshoes or skis, use them to help prevent your feet from sinking into the snow.
+It can be taxing to travel in snowy conditions, and you don't know for sure what you are stepping on; the snow may be hiding a patch of ice, a hole, or water. You can use a pole or stick to test ice and snow before stepping. Avoid walking on frozen bodies of water unless you know the ice thickness. If you have snowshoes or skis, use them to help prevent your feet from sinking into the snow.
 
-Watch out for areas prone to avalanches. They are usually marked.
+Watch out for areas prone to avalanches. They are usually marked and typically occur on slopes between 30° and 45°.
 
 ### Desert
 <!-- K: desert, hot, shade -->
@@ -76,7 +76,7 @@ If you can avoid traveling at night, then it is best to remain where you are. If
 ### Rivers and streams
 <!-- K: river, current, cross -->
 
-When crossing rivers or streams, search for the narrowest section or areas where the water splits into multiple channels. Whenever possible, use bridges, fallen trees, or rocks as crossing points, but be cautious of slippery or loose surfaces. Avoid crossing where currents are strong or near ledges. If you have to wade through water to cross, then find another spot. Anytime you cross a river or stream, unbuckle your backpack and carry it in front of you to prevent being pulled underwater by its weight if you fall.
+When crossing rivers or streams, search for the narrowest section or areas where the water splits into multiple channels. Whenever possible, use bridges, fallen trees, or rocks as crossing points, but be cautious of slippery or loose surfaces. Avoid crossing where currents are strong or near ledges. Anytime you cross a river or stream, unbuckle your backpack and carry it in front of you to prevent being pulled underwater by its weight if you fall.
 
 In emergency situations, following a river downstream may eventually lead to civilization, as many settlements are built near water sources.
 
@@ -94,7 +94,7 @@ If there's an obstacle in your path, you may need to take a detour. To do this, 
 <!-- K: trail, marker -->
 <!-- S: Trail markers help you to stay on the trail. -->
 
-Trail markers indicate where the trail is and distinguish one trail from another. Many ways are used to mark trails, but there is no universal standard.
+Trail markers indicate where the trail is and distinguish one trail from another. Many methods are used to mark trails, and there is no universal standard.
 
 ### Blazes
 <!-- K: blaze, paint, symbol, rectangle, square, circle, triangle, cross, flag -->
@@ -114,7 +114,7 @@ While not always true, the color and/or shape of the blazes should match what ap
 ### Cairns
 <!-- K: cairn, pile, rock, stack -->
 
-Cairns are piles of rocks, typically used in places without large trees to blaze. Cairns are usually placed on the side of the trail, and you should be able to see multiple cairns at a time. In some places, cairns may be small stacks of stones (typically 3) and could be hard to locate.
+Cairns are piles of rocks, typically used in places without large trees to blaze. Cairns are usually placed on the side of the trail, and you should be able to see multiple cairns at a time. In some places, cairns may be small stacks of stones (typically 3) and can be hard to locate.
 
 ### Signs
 <!-- K: sign -->
@@ -130,7 +130,7 @@ In some places, downed trees or debris are intentionally placed in front of a pa
 <!-- K: gps, device -->
 <!-- S: A GPS device can help you determine your location and navigate to a specific point, but always have a backup plan in case the device fails. -->
 
-A GPS device can help you determine your location and navigate to a specific point, but always have a backup plan in case the device fails. A dedicated hiking GPS unit is typically more durable than a smartphone, but in many cases, a smartphone with a GPS or maps app is sufficient.
+A GPS device can help you determine your location and navigate to a specific point, but always have a backup plan in case the device fails. A dedicated hiking GPS unit is typically more durable than a smartphone, but a smartphone with a GPS or maps app is sufficient.
 
 ### Location
 <!-- K: location, latitude, longitude, coordinates, satellite -->
@@ -197,7 +197,7 @@ To use a back bearing to navigate, you need to take a bearing before hiking out.
 ### Declination
 <!-- K: declination, true, magnetic, grid, north, add, subtract -->
 
-Declination is the difference between magnetic north (MN) and true north (TN or a star) and is usually shown on the map as two arrows and a degree. Your map is likely aligned with true north. If your compass has a declination adjustment, rotate it to match the arrow and you are all set to compare bearings between the compass and the map with no additional adjustments. Otherwise, you will need to adjust manually by doing the following. To go from a reading on your compass to a reading on the map, add the declination to your compass reading. If you are going from the map to the compass, subtract the declination. If the magnetic north arrow is drawn to the left of the true north arrow, the declination amount is negative. For example, if your map lists 10° of declination:
+Declination is the difference between magnetic north (usually shown as MN) and true north (usually shown as TN or a star symbol) and is usually shown on the map as two arrows and a degree. Your map is likely aligned with true north. If your compass has a declination adjustment, rotate it to match the arrow and you are all set to compare bearings between the compass and the map with no additional adjustments. Otherwise, you will need to adjust for declination manually using the following techniques: To convert from a reading on your compass to a reading on the map, add the declination to your compass reading. To convert from the map to the compass, subtract the declination. If the magnetic north arrow is drawn to the left of the true north arrow, the declination amount is negative. For example, if your map lists 10° of declination:
 
 - A compass bearing of 20° would be 30° on the map (20° + 10°).
 - A map reading of 30° would be 20° on the compass (30° - 10°).
@@ -255,7 +255,7 @@ If your map does not have UTM grid lines, you can still follow the same approach
 ### Scale
 <!-- K: scale, distance, measure, ruler -->
 
-Maps are drawn to scale, allowing you to determine distances between points. A bar on the map indicates the scale. You can measure distances using a ruler, string, or finger.
+Maps are drawn to scale, allowing you to determine distances between points. Usually, there is a bar on the map that indicates the scale. You can measure distances using a ruler, string, or finger.
 
 ![](file:///android_asset/survival_guide/map_scale.webp)
 
@@ -284,14 +284,14 @@ Typical map colors include:
 <!-- K: estimate, distance, measure -->
 <!-- S: You can measure distance using paces or average speed. -->
 
-When navigating, it's often important to keep track of how far you've traveled. If your GPS or phone supports distance tracking, that will be the easiest approach. If you don't have that, you can either measure distances on a map or estimate the distance using paces or average speed.
+When navigating, it's often important to keep track of how far you've traveled. If your GPS or phone supports distance tracking, that will be the easiest approach. If you don't have that, you can either measure distances on a map or estimate the distance using your paces or average speed.
 
 When estimating distances, you may want to deal with a range of possible estimates rather than calculating a single value. For example, calculate your distance with a speed of 1.5 mph and 3 mph to get a lower and upper bound on the distance you traveled. You can do the same with the pace method by choosing a lower and a higher pace length than your average.
 
 ### Paces
 <!-- K: pace, step, count, stride -->
 
-A pace is the distance you cover with every full step with the **same foot**, which can be used to estimate how far you've traveled. The length of a pace (called stride length) varies by person, terrain, and the weight of your gear, so it is important you get a good estimate of your stride length across a variety of conditions. To estimate your stride length, do the following:
+A pace is the distance you cover with every full step with the **same foot**, which can be used to estimate how far you've traveled. The length of a pace (called stride length) varies by person, terrain, and the weight of your gear, so it is important that you get a good estimate of your stride length across a variety of conditions. To estimate your stride length, do the following:
 
 1. Measure a fixed distance with your desired terrain; 100 yards/meters is typically a good length.
 2. Put on your loaded backpack if needed.
@@ -315,9 +315,9 @@ Your stride length will likely be shorter on difficult terrain or in bad weather
 ### Average speed
 <!-- K: average, speed -->
 
-A simpler method of estimating how far you've traveled is to use the average walking speed multiplied by the time spent hiking. You can calculate your walking speed by timing how long it takes you to hike a trail of known distance and then dividing the distance by time. The average person hikes at around 2 mph (3.2 km/h) on flat terrain, but this can vary based on fitness level, terrain, and load.
+A simpler method of estimating how far you've traveled is to use the average hiking speed multiplied by the time spent hiking. You can calculate your hiking speed by timing how long it takes you to hike a trail of known distance and then dividing the distance by time. The average person hikes at around 2 mph (3.2 km/h) on flat terrain, but this can vary based on fitness level, terrain, and load.
 
-To calculate the distance traveled using this method, multiply your average speed by the time spent hiking in hours. For example, if you hiked for 15 minutes and have an average speed of 3 mph, then you would do 0.25 hours × 2 mph to get 0.5 miles.
+To calculate the distance traveled using this method, multiply your average speed by the time spent hiking in hours. For example, if you hiked for 15 minutes and have an average speed of 2 mph, then you would do 0.25 hours × 2 mph to get 0.5 miles.
 
 To help you estimate, here's the distance traveled using an average speed of 2 mph (3.2 km/h):
 - 15 minutes ≈ 0.5 miles (0.8 km)
@@ -340,8 +340,8 @@ In the early morning, the sun will be close to the east, and in the late afterno
 
 If you measure which way shadows are moving over time, you can determine direction. This is because the Sun moves east to west throughout the sky, and therefore shadows move in the opposite direction.
 
-1. Place a stick vertically in the ground and mark the shadow tip. For the most accurate results, do this around noon.
-2. After 10-15 minutes, mark the new position of the shadow tip.
+1. Place a stick vertically in the ground and mark the shadow tip.
+2. After 15-30 minutes, mark the new position of the shadow tip.
 3. Draw a line between the two points for an east-west line. West will be in the direction of the first point.
 4. Draw a line at a right angle to the east-west line. South (or north in the Southern Hemisphere) will point toward the sun.
 

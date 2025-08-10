@@ -19,7 +19,7 @@ Weather can quickly change from a nice day to a life-threatening situation. You 
 
 **Optional**:
 - Barometer  
-  - Many smartphones have barometers but require an app to use them (such as the Trail Sense app on Android)  
+  - Many smartphones have barometers but require an app to use them
 - Thermometer  
 
 ### Knowledge and skills
@@ -54,7 +54,7 @@ In cold weather, dress in layers and wear a hat and gloves to prevent heat loss.
 
 In hot weather, stay hydrated and take breaks in the shade. Wear sunscreen and sun-protective clothing to protect yourself from sun exposure. High humidity can make it feel hotter and make cooling off more difficult.
 
-Temperature changes as you change elevation, decreasing by about 3.5°F (2°C) for every 1,000 feet (305 meters) of elevation gain. If you are hiking in a mountainous region, it may be warm at the bottom, but be prepared for cold, windy temperatures at the top.
+Temperature decreases by about 3.5°F (2°C) for every 1,000 feet (305 meters) of elevation gain. If you are hiking in a mountainous region, it may be warm at the bottom, but be prepared for cold, windy temperatures at the top.
 
 ### Wind
 <!-- K: wind, gust, storm, hurricane, tornado, sandstorm, prevailing, blow, direction -->
@@ -88,12 +88,12 @@ You can estimate how far away a thunderstorm is by counting the seconds between 
 ### Sun
 <!-- K: sun, uv, uv-index, sunburn, heatstroke, shade -->
 
-Wear sunscreen and sun-protective clothing on days with a high UV index. In hot climates, stay hydrated and take breaks in the shade.
+Wear sunscreen, sun-protective clothing, and sunglasses on days with a high UV index. In hot climates, stay hydrated and take breaks in the shade. If there is snow on the ground or you are on the water, wear sunglasses to prevent snow blindness.
 
 ### Smoke
 <!-- K: smoke, wildfire, air quality, pollution -->
 
-Wildfires can cause smoke to travel long distances. If possible, avoid outdoor activities on days with poor air quality.
+Wildfires can cause smoke to travel long distances, appearing as a haze. If possible, avoid outdoor activities on days with poor air quality.
 
 ## Climate
 <!-- K: climate, average -->
@@ -119,7 +119,7 @@ You can learn to forecast weather by observing the signs around you. The more si
 - Wind speed increases  
 - Temperature suddenly drops  
 - Barometric pressure drops  
-  - Faster drops indicate more severe weather  
+  - Faster drops may indicate more severe weather  
 - Wind direction changes to be opposite the prevailing wind  
 - Animals become quiet  
 - Humidity increases  
@@ -144,16 +144,16 @@ Identifying the cloud type can improve your ability to forecast weather.
 
 ![](file:///android_asset/survival_guide/clouds.webp)
 
-1. **Cirrocumulus**: High-level clouds that form a wavy sheet. The sheet is composed of small dots that almost look two-dimensional. May indicate precipitation in the next 8 to 12 hours.
-2. **Altocumulus**: Mid-level puffy clouds that look like cotton balls. They are typically white with darker patches below and can be spaced out or sheet-like. May indicate precipitation or a thunderstorm in the next 12 hours.
-3. **Cumulus**: Low puffy clouds that look like cotton balls. They are spaced out and are typically white with darker patches below. Usually indicates fair weather, but if it is growing taller, then precipitation or a thunderstorm could be possible in the next few hours.
-4. **Cumulonimbus**: Low puffy clouds that are very tall. They typically have an anvil shape and are dark. May indicate a thunderstorm in a few minutes.
-5. **Cirrostratus**: A high cloud that covers the sky. It is transparent and typically causes a halo to form around the sun. May indicate precipitation in the next 10 to 15 hours.
-6. **Altostratus**: A mid-level cloud that covers the sky. The sun can barely be seen as a bright patch. May indicate precipitation in the next 8 hours.
-7. **Stratus**: A low cloud that covers the sky. Objects don't cast shadows, and it may be foggy. May indicate fair weather for the next 3 hours if it is foggy; otherwise, it may indicate precipitation soon.
-8. **Nimbostratus**: A mid-level cloud that is dark gray and covers the sky. If it is not raining, it may be a stratus cloud. May have precipitation for the next 4 hours.
-9. **Stratocumulus**: Low clouds that look like a sheet of cotton balls with small gaps. The color ranges from white to dark gray. May indicate fair weather for the next 3 hours.
-10. **Cirrus**: High wispy clouds that look like tufts of white hair. May indicate precipitation in the next 12 to 24 hours.
+1. **Cirrocumulus**: High-level clouds that form a wavy sheet. The sheet is composed of small dots that almost look two-dimensional. They may indicate precipitation in the next 8 to 12 hours.
+2. **Altocumulus**: Mid-level puffy clouds that look like cotton balls. They are typically white with darker patches below and can be spaced out or sheet-like. They may indicate precipitation or a thunderstorm in the next 12 hours.
+3. **Cumulus**: Low puffy clouds that look like cotton balls. They are spaced out and are typically white with darker patches below. Usually they indicate fair weather, but if they are growing taller, then precipitation or a thunderstorm could be possible in the next few hours.
+4. **Cumulonimbus**: Low puffy clouds that are very tall. They typically have an anvil shape and are dark. They may indicate a thunderstorm in a few minutes.
+5. **Cirrostratus**: A high cloud that covers the sky. It is transparent and typically causes a halo to form around the sun. It may indicate precipitation in the next 10 to 15 hours.
+6. **Altostratus**: A mid-level cloud that covers the sky. The sun can barely be seen as a bright patch. It may indicate precipitation in the next 8 hours.
+7. **Stratus**: A low cloud that covers the sky. Objects don't cast shadows, and it may be foggy. It may indicate fair weather for the next few hours if it is foggy; otherwise, it may indicate precipitation soon.
+8. **Nimbostratus**: A mid-level cloud that is dark gray and covers the sky. If it is not raining, it may be a stratus cloud. It may produce precipitation for the next few hours.
+9. **Stratocumulus**: Low clouds that look like a sheet of cotton balls with small gaps. The color ranges from white to dark gray. They may indicate fair weather for the next few hours.
+10. **Cirrus**: High wispy clouds that look like tufts of white hair. They may indicate precipitation in the next 12 to 24 hours.
 
 ## Tides
 <!-- K: tide, water, coast, rise, fall, moon, ocean, sea, semidiurnal, diurnal, mixed -->

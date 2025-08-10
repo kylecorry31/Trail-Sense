@@ -73,7 +73,7 @@ Starvation occurs when the body does not receive enough nutrients to function co
 <!-- K: plant, mushroom, seaweed, weeds, green, fungus, berries -->
 <!-- S: Only eat plants you can confidently identify as safe, and don't eat mushrooms. Aggregate berries, like raspberries and blackberries, are generally safe. -->
 
-Plants typically have fewer calories than animals but can be easier to obtain if you can identify them. If you can't identify which plants are safe, just focus on bugs and shellfish. You should also avoid mushrooms unless you are experienced in foraging, since many can make you sick. Familiarize yourself with local plants and mushrooms before your trip.
+Plants typically contain fewer calories than animals but can be easier to obtain if you can identify them. If you can't identify which plants are safe, just focus on bugs and shellfish. You should also avoid mushrooms unless you are experienced in foraging, since many can make you sick. Familiarize yourself with local plants and mushrooms before your trip.
 
 ### Foraging
 <!-- K: forage, identify, edible, inedible, poison, toxic, sap, safe -->
@@ -124,7 +124,7 @@ Do not eat the following:
 - Insects with a pungent odor
 - Hairy caterpillars
 - Spiders
-- Anything that feeds off blood, such as ticks, flies, and mosquitoes
+- Anything that feeds on blood, such as ticks, flies, and mosquitoes
 
 ### Preparation
 <!-- K: prepare, cook, boil, roast, bake -->
@@ -147,7 +147,7 @@ Some shellfish may be poisonous. Be especially cautious of mussels in tropical w
 ### Preparation
 <!-- K: prepare, cook, boil, roast, bake -->
 
-You should cook all shellfish and crustaceans before eating. You can cook them in their shells.
+You should cook all shellfish and crustaceans before eating. You can cook them in their shells. For crustaceans, remove the digestive tract (gray/green), gills (gray, feathery), and hard shells before eating.
 
 ## Fish
 <!-- K: fish, seafood -->
@@ -158,7 +158,7 @@ If you are in a longer-term survival situation or have access to fishing gear, f
 ### Fishing
 <!-- K: fish, hook, line, pole, bait, basket, bottle, trap, funnel, gather -->
 
-Fish are most active before a storm, near rocks or logs, and under overhanging brush. In hot weather, fish tend to be in shaded or deep water, while in cold weather, they prefer shallow and sunny areas. In rivers, look for areas where the water is slow or still.
+Fish are most active before a storm, near rocks or logs, and under overhanging brush. In hot weather, fish tend to be in shaded or deep water, while in cold weather, they prefer shallow and sunny areas. In rivers, look for areas where the water is slow or still. The best time of day varies by species, so you may have better luck fishing at multiple points during the day. Many fish are more active around dusk and dawn.
 
 **Hook and line**
 
@@ -166,9 +166,9 @@ Fishing with a hook and line is likely your most familiar technique. You will ne
 
 ![](file:///android_asset/survival_guide/knot_fishermans.webp)
 
-Hooks with barbs are more effective than barbless hooks at keeping fish on the line. For best results, bait the hooks using insects, worms, or pieces of food. Make sure that any bait on the hook is securely attached; if using a worm, thread the hook through the worm's body.
+Hooks with barbs are usually more effective than barbless hooks at keeping fish on the line. For best results, bait the hooks using insects, worms, or pieces of food. Make sure that any bait on the hook is securely attached; if using a worm, thread the hook through the worm's body.
 
-If you need to craft a hook, go with a gorge hook since it is easy to make and doesn't need to be set manually. One downside is that any fish caught with a gorge hook will almost certainly die if released. To carve a gorge hook, sharpen both sides of a small section of wood or bone and taper it at the center. Place the hook into the bait.
+If you need to craft a hook, go with a gorge hook since it is easy to make and doesn't need to be set manually. Fish caught with a gorge hook are more likely to die if released, so it should only be considered in a true survival situation (many places ban gorge hooks). To carve a gorge hook, sharpen both sides of a small section of wood or bone and taper it at the center. Place the hook into the bait.
 
 ![](file:///android_asset/survival_guide/gorge_hook.webp)
 
@@ -182,12 +182,11 @@ Traps are a passive way to catch small fish or crustaceans with little effort re
 
 You can construct a bottle fish trap by cutting off the cap and top quarter of a spare water bottle. Bait the trap with food and use a small rock to weigh it down. Place the top inverted into the rest of the bottle and place it in shallow water. If needed, you can tie a string to the bottle to allow for easy access.
 
+![](file:///android_asset/survival_guide/fish_trap_bottle.webp)
+
 Alternatively, you can construct an M-shaped funnel trap by hammering sticks into the bottom of the stream or other shallow water to form a small entrance and walls. This can be built using the shore as a back wall to reduce effort. Small fish will swim into the trap and be unable to find their way out.
 
 ![](file:///android_asset/survival_guide/fish_trap_funnel.webp)
-
-
-![](file:///android_asset/survival_guide/fish_trap_bottle.webp)
 
 ### Preparation
 <!-- K: prepare, kill, clean, gut, fillet, cook, boil, roast, bake -->
@@ -231,7 +230,7 @@ Traps allow for the passive capture of small animals. They can be set up and lef
 
 **Deadfalls**
 
-Deadfall traps work by dropping a heavy object on the animal when it triggers the trap. The trigger mechanism can be made from a stick and a bait stick. The trigger is released when the animal takes the bait, causing the heavy object to fall. Place one or more of these traps near your shelter to catch mice.
+Deadfall traps work by dropping a heavy object on the animal when it triggers the trap. The trigger is released when the animal takes the bait, causing the heavy object to fall. Place one or more of these traps near your shelter to catch mice.
 
 To avoid getting injured while setting the trap, support the rock/log using your knee or free hand until the trap is set. Be ready to quickly pull your hand away if it begins to fall.
 
@@ -295,25 +294,20 @@ This guide does not cover the preparation of large mammals, as they are challeng
 
 Do not try to preserve the food you catch; just cook and eat it. If possible, prepare, cook, and consume your food some distance downwind of your shelter to avoid attracting animals to your camp.
 
-### Stoves
-<!-- K: stove -->
-
-Portable stoves are convenient ways to cook food. They can be fueled by wood, alcohol, or gas. Follow the manufacturer's instructions for use. You'll most likely use this to boil water rather than cook the food directly on the flame. Be sure to let the stove cool down before packing it away.
-
 ### Boiling
 <!-- K: boil, container -->
 
-Boiling preserves the most nutrients in food and is the safest cooking method. A metal container filled with water can be suspended over a fire or placed onto hot coals. Drinking the broth once it is cool enough will give you more nutrients. See the Water chapter for more information on boiling water.
+Boiling preserves the most nutrients in food and is the safest cooking method. A metal container filled with water can be suspended over a fire or placed onto hot coals. Drinking the broth once it is cool enough will give you more nutrients. See the Water chapter for more information on boiling.
 
 ### Roasting
 <!-- K: roast -->
 
-Roasting is a quick and easy cooking method, but the food is less nutritious. You can roast food on a stick over a fire or place it over hot coals or on dry rocks heated by the fire.
+Roasting is a quick and easy cooking method, but the food is less nutritious than other methods. You can roast food on a stick over a fire or place it over hot coals or on dry rocks heated by the fire.
 
 ### Baking
 <!-- K: bake -->
 
-You can wrap food in leaves or clay and place it in the coals of a fire to bake it. This method is slower than roasting but preserves more nutrients. Do not skin fish or birds packed with clay; the skin will stick to the clay and can be removed after cooking.
+You can wrap food in green, edible leaves or clay and place it in the coals of a fire to bake it. This method is slower than roasting but preserves more nutrients. Do not skin fish or birds packed with clay; the skin will stick to the clay and can be removed after cooking.
 
 ### Utensils
 <!-- K: utensil -->
@@ -344,6 +338,6 @@ See the Shelter chapter for details on how to tie knots.
 ### Bear canisters
 <!-- K: canister, box, bear -->
 
-A bear canister is a rigid plastic container used to store food. It is bear-proof and can be left on the ground. Some campsites may provide a bear box, a large metal box used to store food.
+A bear canister is a rigid plastic container used to store food. It is bear-proof and can be left on the ground. Some campsites may provide a large metal bear box for storing food.
 
 Ideally, the location where you leave this container should be 20–70 yards/meters downwind from your shelter. You may find tooth or claw marks on the canister in the morning, and it may be some distance from where you left it. Using brightly colored stickers on the outside may help you find it.

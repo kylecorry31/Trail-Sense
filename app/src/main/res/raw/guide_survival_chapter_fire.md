@@ -1,7 +1,7 @@
 <!-- K: fire, flame, light, heat, warm, burn -->
 <!-- S: Build and maintain a fire. -->
 
-Knowing how to make fire can help you stay warm, purify water, and cook food. You should never leave a fire unattended and must be careful to avoid it spreading.
+Knowing how to make fire can help you stay warm, purify water, and cook food.
 
 **This chapter is for informational purposes only and does not replace professional advice; use at your own risk and ensure compliance with local laws.**
 
@@ -99,12 +99,10 @@ Here are the steps you can follow to get it going:
 1. Place the tinder into a small bundle or nest on the ground.
 2. Lean a few pieces of kindling against the tinder in a teepee shape.
 3. Light the tinder.
-4. Carefully add kindling to the fire and gently blow into the base to encourage growth.
+4. Carefully add kindling to the fire and gently blow into the base to encourage growth. When blowing into a fire, be gentle and take breaths away from the smoke.
 5. Once your fire is steady, add fuel while maintaining a teepee structure.
 
 ![](file:///android_asset/survival_guide/fire_tepee.webp)
-
-**Note**: When blowing into a fire, be gentle and take breaths away from the smoke. You can use a hollow reed or straw to direct your breath onto the coals if one is available.
 
 ### Nursing an ember
 <!-- K: ember, nurse, blow, oxygen, tinder -->
@@ -122,12 +120,12 @@ A lighter generally does not work when wet, but you can dry it quickly by gently
 
 You can also remove the child safety device from the striker wheel to more easily dry the lighter or use it in the cold. To do so, point it away from your eyes (the safety is spring-loaded) and use a knife or multi-tool to pry it off. **Do this at your own risk.**
 
-There are also electronic lighters available, but they are less reliable and require a charge. They can be used in a similar fashion to regular lighters but typically require smaller and finer tinder.
+There are also electric/arc lighters available, but they are less reliable and require a charge. They can be used in a similar fashion to regular lighters but typically require smaller and finer tinder.
 
 ### Matches
 <!-- K: matches -->
 
-Matches typically require a special striking surface to light, though strike-anywhere matches exist and can be lit using a rough rock. Unless you have waterproof or stormproof matches, once wet they will not work, and if it is windy, they can be easily extinguished.
+Matches typically require a special striking surface to light, though strike-anywhere matches exist and can be lit using a rough rock. Regular matches will not work when wet or in wind, but waterproof and stormproof varieties are available.
 
 To light a fire with matches, light the match and use your hand to shield it against any wind. Hold the lit match so that the head is slightly below the level of the matchstick to allow the flame to burn longer. Put the flame to the tinder to ignite it and carefully drop the matchstick into the flame.
 
@@ -207,7 +205,7 @@ If you are using a hand drill, follow the same steps as the bow drill, except do
 <!-- K: extinguish, safety -->
 <!-- S: Thoroughly extinguish your fire with water or dirt. -->
 
-You should always have a plan to quickly extinguish your fire in case it begins to spread. Thoroughly extinguish your fire by dousing it with water and/or covering it with dirt. Make sure no embers remain that could reignite or cause a wildfire. If you are on a beach, do not cover the fire with sand; it can insulate the heat and cause burns.
+You should always have a plan to quickly extinguish your fire in case it begins to spread. Thoroughly extinguish your fire by dousing it with water and/or covering it with dirt. Make sure no embers remain that could reignite or cause a wildfire. If you are on a beach, do not cover the fire with sand; it can insulate the heat and cause burns. Don't leave an active fire unattended.
 
 ## Increasing warmth
 <!-- K: increase, maximize -->
@@ -218,7 +216,7 @@ To maximize the heat from your fire, you can add more dry fuel, build a fire ref
 ### Types of wood
 <!-- K: hardwood, softwood, type, wood -->
 
-Hardwoods (oak, maple, ash, beech, etc.) burn slowly and hot, while softwoods (pine, fir, spruce, cedar) burn faster and cooler. Once you have a hot fire going, start adding hardwoods to make it last longer and burn hotter.
+Hardwoods (oak, maple, ash, beech, etc.) burn slow and hot, while softwoods (pine, fir, spruce, cedar, etc.) burn fast and cool (but still very hot). Once you have a hot fire going, start adding hardwoods to make it last longer and burn hotter.
 
 ### Fire reflector
 <!-- K: reflector -->
@@ -227,12 +225,12 @@ A fire reflector is a wall built behind the fire to reflect heat toward you and 
 
 ![](file:///android_asset/survival_guide/fire_reflector.webp)
 
-Building a second reflector behind you will help reflect even more heat. You can use an emergency space blanket or umbrella for this reflector.
+Building a second reflector behind you will help reflect even more heat. You can also use an emergency space blanket or umbrella for this reflector.
 
 ### Heating rocks
 <!-- K: rock, hand-warmer -->
 
-You can also heat rocks **near** the fire and place them in your shelter or sleeping area. To avoid burns or fires, don't let the rocks get too hot; they should be warm to the touch. Be sure to check how hot the stones are before touching them. Do not use rocks found near water sources, as they can explode in a fire. Alternatively, you can heat water and place it in a container or bottle to keep warm.
+You can also heat rocks **near** the fire and place them in your shelter or sleeping area, or bury them under your bedding. To avoid burns or fires, don't let the rocks get too hot; they should be warm to the touch. Be sure to check how hot the stones are before touching them. Do not use rocks found near water sources, as they can explode in a fire. Alternatively, you can heat water and place it in a container or bottle to keep warm.
 
 ## Craft: charcoal
 <!-- K: charcoal, filter, coal, craft -->
