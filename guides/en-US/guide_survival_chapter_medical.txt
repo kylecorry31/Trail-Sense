@@ -577,6 +577,8 @@ Splint:
 
 ![](file:///android_asset/survival_guide/splint.webp)
 
+<!-- \pagebreak -->
+
 Sling:
 
 ![](file:///android_asset/survival_guide/sling.webp)

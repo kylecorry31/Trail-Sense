@@ -357,7 +357,7 @@ You can determine your direction using the position of the sun and the current t
 ### Stars
 <!-- K: star, night, constellation, polaris, big dipper, cassiopeia, southern cross -->
 
-Being able to identify a handful of constellations will help you determine direction at night.
+Being able to identify a handful of constellations will help you determine direction at night. The constellations may appear to be rotated in the sky depending on the time of night (they rotate around the celestial poles), so if you don't immediately spot them, try looking for a rotated version of the constellation.
 
 In the Northern Hemisphere, identify Polaris (the North Star) using the Big Dipper and Cassiopeia as reference points. Polaris is directly to the north.
 
@@ -366,8 +366,6 @@ In the Northern Hemisphere, identify Polaris (the North Star) using the Big Dipp
 In the Southern Hemisphere, you can use the Southern Cross to determine south. Extend a line from the top and bottom stars of the Cross's long axis, continuing about 4.5 times the distance between these stars toward the horizon to approximate the South Pole. This method is more difficult than the one used in the Northern Hemisphere.
 
 ![](file:///android_asset/survival_guide/southern_stars.webp)
-
-The constellations may appear to be rotated in the sky depending on the time of night (they rotate around the celestial poles), so if you don't immediately spot them, try looking for a rotated version of the constellation.
 
 ## Craft: Compass
 <!-- K: compass, needle, magnet, north, south, east, west, direction, craft -->

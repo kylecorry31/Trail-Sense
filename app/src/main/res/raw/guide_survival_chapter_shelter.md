@@ -187,17 +187,23 @@ Used for seams that require strength, such as on backpacks or tents.
 
 ![](file:///android_asset/survival_guide/back_stitch.webp)
 
+<!-- \pagebreak -->
+
 **Running stitch**
 
 Used for quick repairs on clothing or gear in places where strength is not critical.
 
 ![](file:///android_asset/survival_guide/running_stitch.webp)
 
+<!-- \pagebreak -->
+
 **Whip stitch**
 
 Used to repair tears or holes in fabric. It can also be used to connect two pieces of fabric.
 
 ![](file:///android_asset/survival_guide/whip_stitch.webp)
+
+<!-- \pagebreak -->
 
 ### Tarps
 <!-- K: tarp, grommet -->
@@ -220,12 +226,16 @@ Used to prevent the end of a rope from untwisting. This is hard to undo but very
 
 ![](file:///android_asset/survival_guide/knot_overhand.webp)
 
+<!-- \pagebreak -->
+
 ### Overhand loop
 <!-- K: overhand-loop -->
 
 Used to create a loop at the end of a line. In most cases, a bowline would be a better choice, but this knot is easy to tie.
 
 ![](file:///android_asset/survival_guide/knot_overhand_loop.webp)
+
+<!-- \pagebreak -->
 
 ### Overhand bend
 <!-- K: overhand-bend -->
@@ -234,12 +244,16 @@ Used to join two lines together. This knot is easy to tie but hard to undo. In m
 
 ![](file:///android_asset/survival_guide/knot_overhand_bend.webp)
 
+<!-- \pagebreak -->
+
 ### Double sheet bend
 <!-- K: double-sheet-bend, join, two, 2 -->
 
 Used for tying two lines together.
 
 ![](file:///android_asset/survival_guide/knot_double_sheet_bend.webp)
+
+<!-- \pagebreak -->
 
 ### Bowline
 <!-- K: bowline, loop, grommet, tarp -->
@@ -250,12 +264,16 @@ You can use a bowline to attach a line to a grommet on a tarp.
 
 ![](file:///android_asset/survival_guide/knot_bowline.webp)
 
+<!-- \pagebreak -->
+
 ### Jam knot
 <!-- K: jam-knot, loop, fasten, pole -->
 
 Used to fasten a rope to a timber or pole. This can be used in place of lashings. It can be loosened by pulling on the knot at the end. It is hard to untie this knot.
 
 ![](file:///android_asset/survival_guide/jam_knot.webp)
+
+<!-- \pagebreak -->
 
 ### Clove hitch
 <!-- K: clove-hitch, pole, hitch -->
@@ -264,12 +282,16 @@ Used to fasten a rope to a timber or pole. It can be tied at any point in a rope
 
 ![](file:///android_asset/survival_guide/knot_clove_hitch.webp)
 
+<!-- \pagebreak -->
+
 ### Taut-line hitch
 <!-- K: taut-line-hitch, tighten, hitch, pole, ridge-line -->
 
 Used to tighten a line.
 
 ![](file:///android_asset/survival_guide/knot_tautline_hitch.webp)
+
+<!-- \pagebreak -->
 
 ### Trucker's hitch
 <!-- K: truckers-hitch, tighten, cinch, hitch, pole, ridge-line -->
@@ -278,6 +300,8 @@ Used to secure a load or tighten a line. Can be cinched down tighter than a taut
 
 ![](file:///android_asset/survival_guide/knot_truckers_hitch.webp)
 
+<!-- \pagebreak -->
+
 ### Square lashing
 <!-- K: square-lashing, lash -->
 
@@ -285,12 +309,16 @@ Used to secure one pole at a right angle to another pole. This lashing starts an
 
 ![](file:///android_asset/survival_guide/knot_square_lashing.webp)
 
+<!-- \pagebreak -->
+
 ### Shear lashing
 <!-- K: shear-lashing, lash, tripod -->
 
 Used for lashing two or more poles next to each other. It can be used to construct a tripod. This lashing starts and ends with a clove hitch, though you can use an overhand or jam knot as well.
 
 ![](file:///android_asset/survival_guide/knot_shear_lashing.webp)
+
+<!-- \pagebreak -->
 
 ## Craft: Cordage
 <!-- K: cordage, rope, twine, fiber, twist, cord, strand, paracord, craft -->
