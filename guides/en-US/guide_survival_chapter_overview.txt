@@ -174,7 +174,7 @@ Many phones can call emergency services even without a signal from your carrier.
 ### Satellite messengers and PLBs
 <!-- K: satellite, messenger, PLB, beacon, personal-locator-beacon -->
 
-A satellite messenger or personal locator beacon (PLB) can be used to send an SOS signal in an emergency situation. They are typically used in areas where your cell phone does not have a signal. Most require a subscription and a specialized device to use.
+A satellite messenger or personal locator beacon (PLB) can be used to send an SOS signal in an emergency situation. They are typically used in areas where your cell phone does not have a signal. PLBs can only send an SOS signal and are required to be registered, but they don't have a subscription fee. Satellite messengers require a subscription but usually allow you to send more types of messages.
 
 On some smartphones, there may be a satellite feature available that can be used for this purpose. Visit your phone manufacturer's website or consult the user manual to see if this is available on your device.
 
