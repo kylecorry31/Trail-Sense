@@ -6,6 +6,10 @@ from PIL import Image
 script_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = f"{script_dir}/.."
 
+conclusion = """If you practice survival skills before you are in a survival situation, you can increase your chances of returning safely and feel more comfortable going on adventures. Being in a survival situation is rare, especially if you take precautions and avoid making risky decisions.
+
+Thank you for reading through this guide. I wish you the best of luck on your adventures."""
+
 # TODO: Add index using keywords
 
 def convert_to_book(files, metadata, book_filetype = 'pdf', before_body_files=[], header_file=None, cover_image=None):
@@ -148,6 +152,8 @@ for chapter in chapters:
 
         content += file_content
     content += "\n\n"
+
+content += f"# Conclusion\n\n{conclusion}"
 
 content = content.strip()
 
