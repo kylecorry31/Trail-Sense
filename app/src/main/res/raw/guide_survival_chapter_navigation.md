@@ -255,7 +255,7 @@ If your map does not have UTM grid lines, you can still follow the same approach
 ### Scale
 <!-- K: scale, distance, measure, ruler -->
 
-Maps are drawn to scale, allowing you to determine distances between points. Usually, there is a bar on the map that indicates the scale. You can measure distances using a ruler, string, or finger.
+Maps are drawn to scale, allowing you to determine distances between points. Usually, there is a bar on the map that indicates the scale, and you can use a ruler, string, or your finger to measure distances using it on your map. Maps may list the scale as text, such as 1 inch = 1 mile, which means that every inch you measure on your map with a ruler is 1 mile on the actual terrain. You may also see a ratio listed, such as 1:10000, which means every inch on the map is 10,000 inches in the real world.
 
 ![](file:///android_asset/survival_guide/map_scale.webp)
 
