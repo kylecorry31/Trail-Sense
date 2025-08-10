@@ -93,7 +93,7 @@ for chapter in chapters:
                 'the',
                 'to',
                 'for',
-                "GPS"
+                'gps'
             ]
 
             prefix = ''
