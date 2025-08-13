@@ -401,7 +401,7 @@ class ARAstronomyLayer(
             emptyList()
         }
 
-        starLayer.setMarkers(markers)
+        planetLayer.setMarkers(markers)
     }
 
     private fun getMarkersAboveHorizon(points: List<ARMarker>): List<List<ARMarker>> {
