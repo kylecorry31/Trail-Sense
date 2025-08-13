@@ -12,15 +12,15 @@ Weather can quickly change from a nice day to a life-threatening situation. You 
 ### Gear
 
 **Necessities**:
-- 7-day weather forecast  
-- Appropriate clothing and shelter for the weather (see the Shelter chapter)  
-- Poncho  
-- Sunglasses  
+- 7-day weather forecast
+- Appropriate clothing and shelter for the weather (see the Shelter chapter)
+- Poncho
+- Sunglasses
 
 **Optional**:
-- Barometer  
+- Barometer
   - Many smartphones have barometers but require an app to use them
-- Thermometer  
+- Thermometer
 
 ### Knowledge and skills
 Start by learning how to do the following:
@@ -62,11 +62,11 @@ Temperature decreases by about 3.5°F (2°C) for every 1,000 feet (305 meters) o
 Wind can make cold conditions feel even colder, increasing the risk of hypothermia and frostbite. Dress in layers and wear a hat and gloves to protect yourself from the wind. During windstorms, unstable trees and branches can become hazardous. You should be extra cautious when the wind speed is above 20 mph (32 km/h). Wind can cause sandstorms in desert environments, reducing visibility and making breathing difficult. Seek shelter during a sandstorm and protect your eyes and mouth with a bandana or cloth. In coastal environments, winds can lead to dangerous surf conditions such as high waves or rip currents.
 
 Prevailing winds are winds that blow consistently in one direction over time. While local geography and bodies of water can affect wind patterns, general patterns for the following latitudes are as follows:
-- 60° N to 90° N: Winds generally blow from the east.  
-- 30° N to 60° N: Winds generally blow from the west.  
-- 0° to 30° N: Winds generally blow from the northeast.  
-- 0° to 30° S: Winds generally blow from the southeast.  
-- 30° S to 60° S: Winds generally blow from the west.  
+- 60° N to 90° N: Winds generally blow from the east.
+- 30° N to 60° N: Winds generally blow from the west.
+- 0° to 30° N: Winds generally blow from the northeast.
+- 0° to 30° S: Winds generally blow from the southeast.
+- 30° S to 60° S: Winds generally blow from the west.
 - 60° S to 90° S: Winds generally blow from the east.
 
 These directions also indicate where the weather will most likely come from. For example, if you are at a latitude of 40° N and see a thunderstorm to the west, it will likely arrive at your location soon.
@@ -110,32 +110,32 @@ You can learn to forecast weather by observing the signs around you. The more si
 ### Signs of worsening weather
 <!-- K: storm, worsen, bad, rain, dark -->
 
-- Cloud cover increases  
-- Clouds start growing vertically (into an anvil shape)  
-  - This indicates a thunderstorm  
-- Clouds darken  
-- Clouds move quickly  
-- Clouds lower  
-- Wind speed increases  
-- Temperature suddenly drops  
-- Barometric pressure drops  
-  - Faster drops may indicate more severe weather  
-- Wind direction changes to be opposite the prevailing wind  
-- Animals become quiet  
-- Humidity increases  
-- You see lightning or hear thunder  
-- You smell rain  
+- Cloud cover increases
+- Clouds start growing vertically (into an anvil shape)
+  - This indicates a thunderstorm
+- Clouds darken
+- Clouds move quickly
+- Clouds lower
+- Wind speed increases
+- Temperature suddenly drops
+- Barometric pressure drops
+  - Faster drops may indicate more severe weather
+- Wind direction changes to be opposite the prevailing wind
+- Animals become quiet
+- Humidity increases
+- You see lightning or hear thunder
+- You smell rain
 
 ### Signs of improving weather
 <!-- K: improve, good, clear -->
 
-- Cloud cover decreases  
-- Wind speed decreases  
-- Temperature rises  
-- Barometric pressure rises  
-- Wind direction changes to match the prevailing wind  
-- Animals become active  
-- Humidity decreases  
+- Cloud cover decreases
+- Wind speed decreases
+- Temperature rises
+- Barometric pressure rises
+- Wind direction changes to match the prevailing wind
+- Animals become active
+- Humidity decreases
 
 ### Clouds
 <!-- K: cloud, type, cumulus, cirrus, cumulonimbus, altocumulus, stratus, altostratus, clear, cirrostratus, nimbostratus, cirrocumulus -->
