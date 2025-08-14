@@ -120,7 +120,7 @@ Take a moment to think about your situation. Answer (but do not act on) the foll
 - Which way did you come from?
 
 ### Observe
-Next, observe your surroundings and assess your situation. The first thing to do is check your smartphone or GPS receiver for your location. If you have a maps app, open it and check if a map is available. You can also check for a signal to call for help. If you have no luck there, then look around and listen for signs of people, vehicles, or trails. You can increase the range of your hearing by cupping your hands behind your ears. Lastly, observe where you are and look for potential hazards (weather / terrain / dangerous animals) or resources (water / shelter materials / firewood).
+Next, observe your surroundings and assess your situation. The first thing to do is check your smartphone or GPS receiver for your location. If you have a maps app, open it and check if a map is available. You can also check for a signal to call for help. If you have no luck there, then look around and listen for signs of people, vehicles, or trails. You can increase the range of your hearing by cupping your hands behind your ears. Lastly, observe where you are and look for potential hazards (weather/terrain/dangerous animals) or resources (water/shelter materials/firewood).
 
 ### Plan
 <!-- K: plan, next, steps, help -->
@@ -204,10 +204,10 @@ Smoke can attract attention during the day. Adding green vegetation to an establ
 
 Flares are best seen at night or in low-visibility conditions. Follow the instructions on the flare packaging and be aware of any legal restrictions on their use.
 
-### Flashlight / headlamp
+### Flashlight
 <!-- K: flashlight, light, SOS -->
 
-At night, a flashlight can be used to signal for help. Use the international distress signal, SOS, which is three short flashes, three long flashes, and three short flashes. If your flashlight changes modes when turned off and on, you can cover the light with your hand instead of turning it off. Aim it in the direction of aircraft or other potential rescuers.
+At night, a flashlight or headlamp can be used to signal for help. Use the international distress signal, SOS, which is three short flashes, three long flashes, and three short flashes. If your flashlight changes modes when turned off and on, you can cover the light with your hand instead of turning it off. Aim it in the direction of aircraft or other potential rescuers.
 
 ### Ground-to-air signals
 <!-- K: ground-to-air -->

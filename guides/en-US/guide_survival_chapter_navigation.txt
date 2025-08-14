@@ -296,7 +296,7 @@ A pace is the distance you cover with every full step with the **same foot**, wh
 1. Measure a fixed distance with your desired terrain; 100 yards/meters is typically a good length.
 2. Put on your loaded backpack if needed.
 3. Walk this distance and count how many paces it takes you.
-4. Divide the distance by the number of paces (for example, 100 yards / 130 paces = 0.77).
+4. Divide the distance by the number of paces (for example, 100 yards/130 paces = 0.77).
 5. Repeat steps 3 and 4 several times and calculate the average pace for a better estimate.
 
 Once you know what your pace length is, you can estimate distance traveled by keeping count of your paces and multiplying it by the pace length (for example, 130 paces × 0.77 yards per pace = 100 yards).

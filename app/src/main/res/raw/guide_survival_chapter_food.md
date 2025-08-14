@@ -236,9 +236,9 @@ To avoid getting injured while setting the trap, support the rock/log using your
 
 ![](file:///android_asset/survival_guide/figure_4_trap.webp)
 
-1. Support stick (front / side)
-2. Release stick (front / side)
-3. Bait stick (front / side)
+1. Support stick (front/side)
+2. Release stick (front/side)
+3. Bait stick (front/side)
 4. Bait
 5. Rock
 

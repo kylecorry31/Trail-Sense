@@ -110,7 +110,7 @@ Always ensure the water you collect is safe to drink. Boiling is the most reliab
 ### Boiling
 <!-- K: boil, heat -->
 
-Bring water to a rolling boil for at least one minute. At higher altitudes (above 6,500 ft / 2,000 m), boil for three minutes. If you do not have a single-walled metal container that can be used for boiling, then do the following:
+Bring water to a rolling boil for at least one minute. At higher altitudes (above 6,500 ft/2,000 m), boil for three minutes. If you do not have a single-walled metal container that can be used for boiling, then do the following:
 1. Find another container, dig a hole in the ground and line it with a waterproof material, or craft a bowl.
 2. Fill the container with water.
 3. Heat rocks in a fire and place them in the water to heat it. **Do not** use rocks that may contain moisture (such as river rocks), as they can explode. Use two sticks in a chopstick fashion to move the rocks.

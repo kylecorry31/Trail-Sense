@@ -621,7 +621,7 @@ Rewarm the area using body heat (such as placing a hand under the armpit), warm 
 Only thaw the area if you can keep it thawed. Refreezing can cause more damage. Do not use a fire to thaw the area. Do not rub the area. Seek medical attention as soon as possible.
 
 1. Take pain medicine before thawing.
-2. Prepare hot water (104-108°F / 40-42°C).
+2. Prepare hot water (104-108°F/40-42°C).
 3. Thaw the area for 30 to 45 minutes or until it is pink/red and soft. If the water cools, change it-remove the area from the water before changing it.
 4. Wrap the area in a sterile dressing and keep warm.
 
@@ -832,7 +832,7 @@ Keep clothing clean and dry. Wash clothes with water and soap or boil them. To d
   - If you do not have a trowel, use a stick to dig the hole.
 - If you do not have toilet paper or a bidet, use non-poisonous leaves, moss, or smooth rocks to clean yourself.
 - Always wash your hands after using the bathroom.
-- Do not defecate or urinate near water sources (at least 200 feet / 60 meters away).
+- Do not defecate or urinate near water sources (at least 200 feet/60 meters away).
 
 ## Hypothermia
 <!-- K: hypothermia, cold, freeze, frozen, shiver, coordination, memory, speech, slur, speak, drowsiness, breath, heartbeat, heat, warm, fire -->
