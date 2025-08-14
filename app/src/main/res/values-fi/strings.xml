@@ -1266,7 +1266,7 @@
     <string name="climate_desert">Aavikko</string>
     <string name="climate_steppe">Aro</string>
     <string name="climate_tundra">Tundra</string>
-    <string name="climate_ice_cap">Mannerjää</string>
+    <string name="climate_ice_cap">Mannerjäätikkö</string>
     <string name="climate_temperate">Lauhkea ilmasto</string>
     <string name="climate_continental">Mannerilmasto</string>
     <string name="climate_tropical_description">Kuuma ja kostea ilmasto, jossa sataa merkittävästi ympäri vuoden.</string>
@@ -1368,4 +1368,5 @@
     <string name="load_pdf_tiles">Lataa PDF-laatat</string>
     <string name="load_pdf_tiles_summary">PDF-kartat ovat terävämpiä, mutta saattavat vaikuttaa suorituskykyyn</string>
     <string name="map_tool_disclaimer">Tämä työkalu näyttää majakkasi, polkusi ja valokuvakarttasi. Se ei kuitenkaan ole korvike erikseen valmistetuille karttasovelluksille.</string>
+    <string name="open_settings">Avaa asetukset</string>
 </resources>
