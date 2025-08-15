@@ -15,7 +15,7 @@ import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
 import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.device.DeviceSubsystem
-import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.PhotoMapMapLayerPreferences
+import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapMapLayerPreferences
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.ITileSourceSelector
@@ -46,7 +46,7 @@ class MapLayer : IAsyncLayer {
 
     fun setPreferences(prefs: PhotoMapMapLayerPreferences) {
         opacity = SolMath.map(
-            prefs.opacity.toFloat(),
+            prefs.opacity.get().toFloat(),
             0f,
             100f,
             0f,

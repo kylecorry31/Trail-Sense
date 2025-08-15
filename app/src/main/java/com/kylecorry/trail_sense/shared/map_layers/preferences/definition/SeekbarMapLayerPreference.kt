@@ -11,7 +11,7 @@ class SeekbarMapLayerPreference(
     private val min: Int = 0,
     private val max: Int = 100,
     override val dependency: String? = null
-) : MapLayerPreference {
+) : MapLayerViewPreference {
     override fun create(
         context: Context,
         mapId: String

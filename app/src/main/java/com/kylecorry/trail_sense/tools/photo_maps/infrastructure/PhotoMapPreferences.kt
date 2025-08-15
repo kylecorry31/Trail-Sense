@@ -3,10 +3,10 @@ package com.kylecorry.trail_sense.tools.photo_maps.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.IntEnumPreference
-import com.kylecorry.andromeda.preferences.IntPreference
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.infrastructure.PreferenceRepo
-import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.ContourMapLayerPreferences
+import com.kylecorry.trail_sense.shared.dem.map_layers.ContourMapLayerPreferences
+import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayerPreferenceManager
 import com.kylecorry.trail_sense.tools.photo_maps.domain.sort.MapSortMethod
 
 class PhotoMapPreferences(context: Context) : PreferenceRepo(context) {
@@ -49,4 +49,9 @@ class PhotoMapPreferences(context: Context) : PreferenceRepo(context) {
 
     // Layers
     val contourLayer = ContourMapLayerPreferences(context, "photo_maps")
+    val layerManager = MapLayerPreferenceManager(
+        "photo_maps", listOf(
+            contourLayer.getPreferences()
+        )
+    )
 }

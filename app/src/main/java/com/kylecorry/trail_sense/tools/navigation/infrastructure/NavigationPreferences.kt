@@ -5,7 +5,6 @@ import com.kylecorry.andromeda.core.toFloatCompat
 import com.kylecorry.andromeda.core.toIntCompat
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.IntEnumPreference
-import com.kylecorry.andromeda.preferences.IntPreference
 import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.sol.science.geography.CoordinateFormat
 import com.kylecorry.sol.units.Distance
@@ -14,8 +13,9 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.infrastructure.IBeaconPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ICompassStylePreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.ContourMapLayerPreferences
-import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.PhotoMapMapLayerPreferences
+import com.kylecorry.trail_sense.shared.dem.map_layers.ContourMapLayerPreferences
+import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapMapLayerPreferences
+import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayerPreferenceManager
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.sort.BeaconSortMethod
@@ -225,6 +225,14 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
     // Layers
     val photoMapLayer = PhotoMapMapLayerPreferences(context, "navigation")
     val contourLayer = ContourMapLayerPreferences(context, "navigation")
+
+    val layerManager = MapLayerPreferenceManager(
+        "navigation", listOf(
+            photoMapLayer.getPreferences(),
+            contourLayer.getPreferences()
+        ),
+        context.getString(R.string.pref_nearby_radar)
+    )
 
     enum class SpeedometerMode {
         Backtrack,

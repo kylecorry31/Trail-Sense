@@ -11,7 +11,7 @@ class SwitchMapLayerPreference(
     override val dependency: String? = null,
     private val summary: String? = null
 ) :
-    MapLayerPreference {
+    MapLayerViewPreference {
     override fun create(context: Context, mapId: String): Preference {
         val visible = SwitchPreferenceCompat(context)
         visible.setDefaultValue(defaultValue)

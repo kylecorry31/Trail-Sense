@@ -9,7 +9,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.dem.ContourLayer
+import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.ILayerManager
@@ -44,8 +44,8 @@ class NavigationCompassLayerManager {
             myLocationLayer.setShowDirection(false)
         }
 
-        val isMapLayerEnabled = prefs.navigation.photoMapLayer.isEnabled
-        val isContourLayerEnabled = prefs.navigation.contourLayer.isEnabled
+        val isMapLayerEnabled = prefs.navigation.photoMapLayer.isEnabled.get()
+        val isContourLayerEnabled = prefs.navigation.contourLayer.isEnabled.get()
 
         beaconLayer.setOutlineColor(Resources.color(context, R.color.colorSecondary))
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
@@ -79,7 +79,7 @@ class NavigationCompassLayerManager {
                 if (isMapLayerEnabled) PhotoMapLayerManager(
                     context,
                     photoMapLayer,
-                    loadPdfs = prefs.navigation.photoMapLayer.loadPdfs
+                    loadPdfs = prefs.navigation.photoMapLayer.loadPdfs.get()
                 ) else null
             )
         )

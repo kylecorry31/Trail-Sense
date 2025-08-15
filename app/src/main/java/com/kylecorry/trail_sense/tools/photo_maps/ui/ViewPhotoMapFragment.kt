@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
@@ -20,7 +19,6 @@ import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.torch.ScreenTorch
-import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -32,7 +30,7 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.dem.ContourLayer
+import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.ActionItem
@@ -40,6 +38,17 @@ import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScreenLock
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.BeaconLayer
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyAccuracyLayer
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyElevationLayer
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyLocationLayer
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.NavigationLayer
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.PathLayer
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.TideLayer
+import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
+import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.BeaconLayerManager
@@ -50,17 +59,6 @@ import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyLocati
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.NavigationLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.TideLayerManager
-import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
-import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScreenLock
-import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.BeaconLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyAccuracyLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyElevationLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyLocationLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.NavigationLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.PathLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.TideLayer
-import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -173,7 +171,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
         binding.map.setLayers(
             listOfNotNull(
-                if (prefs.photoMaps.contourLayer.isEnabled) contourLayer else null,
+                if (prefs.photoMaps.contourLayer.isEnabled.get()) contourLayer else null,
                 navigationLayer,
                 pathLayer,
                 myAccuracyLayer,

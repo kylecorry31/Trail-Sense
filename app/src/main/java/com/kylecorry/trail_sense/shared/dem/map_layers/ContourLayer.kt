@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.shared.dem
+package com.kylecorry.trail_sense.shared.dem.map_layers
 
 import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
@@ -14,7 +14,9 @@ import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
 import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.debugging.isDebug
-import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.ContourMapLayerPreferences
+import com.kylecorry.trail_sense.shared.dem.Contour
+import com.kylecorry.trail_sense.shared.dem.DEM
+import com.kylecorry.trail_sense.shared.dem.map_layers.ContourMapLayerPreferences
 import com.kylecorry.trail_sense.tools.navigation.ui.MappableLocation
 import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IAsyncLayer
@@ -36,17 +38,17 @@ class ContourLayer : IAsyncLayer {
 
     fun setPreferences(prefs: ContourMapLayerPreferences) {
         opacity = SolMath.map(
-            prefs.opacity.toFloat(),
+            prefs.opacity.get().toFloat(),
             0f,
             100f,
             0f,
             255f,
             shouldClamp = true
         ).toInt()
-        pathLayer.setShouldRenderLabels(prefs.showLabels)
+        pathLayer.setShouldRenderLabels(prefs.showLabels.get())
         // TODO: More experimentation required before this is enabled for everyone
         pathLayer.setShouldRenderSmoothPaths(isDebug())
-        shouldColorContours = prefs.colorWithElevation
+        shouldColorContours = prefs.colorWithElevation.get()
         invalidate()
     }
 
@@ -102,13 +104,13 @@ class ContourLayer : IAsyncLayer {
             )
         } else {
             mapOf(
-                13 to Distance.feet(200f).meters().distance,
-                14 to Distance.feet(200f).meters().distance,
-                15 to Distance.feet(200f).meters().distance,
-                16 to Distance.feet(40f).meters().distance,
-                17 to Distance.feet(40f).meters().distance,
-                18 to Distance.feet(40f).meters().distance,
-                19 to Distance.feet(40f).meters().distance
+                13 to Distance.Companion.feet(200f).meters().distance,
+                14 to Distance.Companion.feet(200f).meters().distance,
+                15 to Distance.Companion.feet(200f).meters().distance,
+                16 to Distance.Companion.feet(40f).meters().distance,
+                17 to Distance.Companion.feet(40f).meters().distance,
+                18 to Distance.Companion.feet(40f).meters().distance,
+                19 to Distance.Companion.feet(40f).meters().distance
             )
         }
     }
@@ -159,7 +161,7 @@ class ContourLayer : IAsyncLayer {
             pathLayer.setPaths(contours.flatMap { level ->
                 val isImportantLine = SolMath.isZero((level.elevation / contourInterval) % 5, 0.1f)
                 val name = DecimalFormatter.format(
-                    Distance.meters(level.elevation).convertTo(units).distance, 0
+                    Distance.Companion.meters(level.elevation).convertTo(units).distance, 0
                 )
                 val color = if (shouldColorContours) {
                     colorScale.getColor(

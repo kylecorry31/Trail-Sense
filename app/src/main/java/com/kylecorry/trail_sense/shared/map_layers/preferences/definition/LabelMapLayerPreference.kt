@@ -8,7 +8,7 @@ class LabelMapLayerPreference(
     private val summary: String? = null,
     override val dependency: String? = null,
     private val onClick: (() -> Unit)? = null,
-) : MapLayerPreference {
+) : MapLayerViewPreference {
     override fun create(
         context: Context,
         mapId: String

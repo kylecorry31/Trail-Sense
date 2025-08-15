@@ -14,7 +14,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.dem.ContourLayer
+import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseMapLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ScaleBarLayer
@@ -116,8 +116,8 @@ class MapToolLayerManager {
         view.setLayers(
             listOfNotNull(
                 baseMapLayer,
-                if (prefs.map.photoMapLayer.isEnabled) photoMapLayer else null,
-                if (prefs.map.contourLayer.isEnabled) contourLayer else null,
+                if (prefs.map.photoMapLayer.isEnabled.get()) photoMapLayer else null,
+                if (prefs.map.contourLayer.isEnabled.get()) contourLayer else null,
                 navigationLayer,
                 pathLayer,
                 myAccuracyLayer,
@@ -146,10 +146,10 @@ class MapToolLayerManager {
                     Resources.getPrimaryMarkerColor(context)
                 ),
                 TideLayerManager(context, tideLayer),
-                if (prefs.map.photoMapLayer.isEnabled) PhotoMapLayerManager(
+                if (prefs.map.photoMapLayer.isEnabled.get()) PhotoMapLayerManager(
                     context,
                     photoMapLayer,
-                    loadPdfs = prefs.map.photoMapLayer.loadPdfs
+                    loadPdfs = prefs.map.photoMapLayer.loadPdfs.get()
                 ) else null,
                 BaseMapLayerManager(context, baseMapLayer),
                 BeaconLayerManager(context, beaconLayer),
