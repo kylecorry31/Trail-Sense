@@ -1,9 +1,8 @@
-package com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers
+package com.kylecorry.trail_sense.shared.map_layers.ui.layers
 
 import android.graphics.Color
 import androidx.annotation.ColorInt
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyAccuracyLayer
 
 class MyAccuracyLayerManager(
     private val layer: MyAccuracyLayer,

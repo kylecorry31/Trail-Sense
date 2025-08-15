@@ -30,16 +30,16 @@ import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibrationManager
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.calibration.MapRotationCalculator
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.BeaconLayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.ILayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MultiLayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyAccuracyLayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyLocationLayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PathLayerManager
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.BeaconLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyAccuracyLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyLocationLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.PathLayer
+import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayerManager
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyAccuracyLayerManager
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
+import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
+import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyAccuracyLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
+import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 
 class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBinding>() {
 

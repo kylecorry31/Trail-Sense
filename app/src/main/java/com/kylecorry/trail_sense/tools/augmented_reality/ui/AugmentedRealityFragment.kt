@@ -63,7 +63,7 @@ import com.kylecorry.trail_sense.tools.diagnostics.status.SensorStatusBadgeProvi
 import com.kylecorry.trail_sense.tools.diagnostics.status.StatusBadge
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PathLayerManager
+import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
 import java.time.LocalDate
 import java.time.ZonedDateTime
 import kotlin.math.hypot

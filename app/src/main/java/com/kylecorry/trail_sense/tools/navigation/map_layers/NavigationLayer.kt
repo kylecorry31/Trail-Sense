@@ -1,15 +1,18 @@
-package com.kylecorry.trail_sense.tools.navigation.ui.layers
+package com.kylecorry.trail_sense.tools.navigation.map_layers
 
 import android.graphics.Color
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 
 class NavigationLayer : BaseLayer() {
 
     private var _start: Coordinate? = null
     private var _end: Coordinate? = null
-    @ColorInt private var _color: Int = Color.WHITE
+    @ColorInt
+    private var _color: Int = Color.WHITE
 
     fun setStart(location: Coordinate?) {
         _start = location

@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers
+package com.kylecorry.trail_sense.shared.map_layers.ui.layers
 
 import android.graphics.Canvas
 import android.graphics.Color
@@ -15,14 +15,12 @@ import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
 import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.device.DeviceSubsystem
+import com.kylecorry.trail_sense.shared.map_layers.tiles.ITileSourceSelector
+import com.kylecorry.trail_sense.shared.map_layers.tiles.TileLoader
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapMapLayerPreferences
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.IAsyncLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.ITileSourceSelector
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.TileLoader
 import kotlinx.coroutines.CancellationException
 
-class MapLayer : IAsyncLayer {
+class TiledMapLayer : IAsyncLayer {
 
     private var shouldReloadTiles = true
     private var opacity: Int = 255
@@ -142,16 +140,16 @@ class MapLayer : IAsyncLayer {
     private fun CoordinateBounds.grow(percent: Float): CoordinateBounds {
         val x = this.width() * percent
         val y = this.height() * percent
-        return CoordinateBounds.from(
+        return CoordinateBounds.Companion.from(
             listOf(
-                northWest.plus(x, Bearing.from(CompassDirection.West))
-                    .plus(y, Bearing.from(CompassDirection.North)),
-                northEast.plus(x, Bearing.from(CompassDirection.East))
-                    .plus(y, Bearing.from(CompassDirection.North)),
-                southWest.plus(x, Bearing.from(CompassDirection.West))
-                    .plus(y, Bearing.from(CompassDirection.South)),
-                southEast.plus(x, Bearing.from(CompassDirection.East))
-                    .plus(y, Bearing.from(CompassDirection.South)),
+                northWest.plus(x, Bearing.Companion.from(CompassDirection.West))
+                    .plus(y, Bearing.Companion.from(CompassDirection.North)),
+                northEast.plus(x, Bearing.Companion.from(CompassDirection.East))
+                    .plus(y, Bearing.Companion.from(CompassDirection.North)),
+                southWest.plus(x, Bearing.Companion.from(CompassDirection.West))
+                    .plus(y, Bearing.Companion.from(CompassDirection.South)),
+                southEast.plus(x, Bearing.Companion.from(CompassDirection.East))
+                    .plus(y, Bearing.Companion.from(CompassDirection.South)),
             )
         )
     }

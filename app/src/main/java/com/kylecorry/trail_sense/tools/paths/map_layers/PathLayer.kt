@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.navigation.ui.layers
+package com.kylecorry.trail_sense.tools.paths.map_layers
 
 import android.graphics.Color
 import android.graphics.Path
@@ -21,12 +21,14 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.extensions.drawLines
 import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.tools.paths.ui.IPathLayer
 import com.kylecorry.trail_sense.tools.paths.ui.drawing.ClippedPathRenderer
 import com.kylecorry.trail_sense.tools.paths.ui.drawing.IRenderedPathFactory
 import com.kylecorry.trail_sense.tools.paths.ui.drawing.PathLineDrawerFactory
 import com.kylecorry.trail_sense.tools.paths.ui.drawing.RenderedPath
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.TileMath
+import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

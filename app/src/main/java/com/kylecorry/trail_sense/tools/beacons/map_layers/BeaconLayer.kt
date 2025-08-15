@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.navigation.ui.layers
+package com.kylecorry.trail_sense.tools.beacons.map_layers
 
 import android.graphics.Color
 import androidx.annotation.ColorInt
@@ -7,6 +7,8 @@ import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.navigation.ui.DrawerBitmapLoader
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.BitmapMapMarker
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.CircleMapMarker
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.MapMarker

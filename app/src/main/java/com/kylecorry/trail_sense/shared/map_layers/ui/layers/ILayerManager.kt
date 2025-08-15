@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers
+package com.kylecorry.trail_sense.shared.map_layers.ui.layers
 
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate

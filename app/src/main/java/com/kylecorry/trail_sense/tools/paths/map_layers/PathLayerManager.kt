@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers
+package com.kylecorry.trail_sense.tools.paths.map_layers
 
 import android.content.Context
 import com.kylecorry.andromeda.core.coroutines.onDefault
@@ -12,6 +12,7 @@ import com.kylecorry.trail_sense.tools.paths.infrastructure.PathLoader
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.paths.ui.IPathLayer
 import com.kylecorry.trail_sense.tools.paths.ui.asMappable
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseLayerManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -24,7 +25,7 @@ class PathLayerManager(
 ) :
     BaseLayerManager() {
 
-    private val pathService = PathService.getInstance(context)
+    private val pathService = PathService.Companion.getInstance(context)
     private val hikingService = HikingService()
     private val pathLoader = PathLoader(pathService)
     private var paths = emptyList<Path>()

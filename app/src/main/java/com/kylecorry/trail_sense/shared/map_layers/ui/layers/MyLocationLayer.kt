@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.navigation.ui.layers
+package com.kylecorry.trail_sense.shared.map_layers.ui.layers
 
 import android.graphics.Color
 import android.graphics.Path

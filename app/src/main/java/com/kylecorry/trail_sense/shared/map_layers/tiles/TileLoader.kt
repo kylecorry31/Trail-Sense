@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles
+package com.kylecorry.trail_sense.shared.map_layers.tiles
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.shared.bitmaps.Conditional
 import com.kylecorry.trail_sense.shared.bitmaps.Convert
 import com.kylecorry.trail_sense.shared.bitmaps.ReplaceColor
 import com.kylecorry.trail_sense.shared.bitmaps.applyOperations
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.math.hypot
 
@@ -69,7 +70,7 @@ class TileLoader {
             .distinct()
 
         if (controlsPdfCache) {
-            PhotoMapRegionLoader.removeUnneededLoaders(allMaps)
+            PhotoMapRegionLoader.Companion.removeUnneededLoaders(allMaps)
         }
 
         var hasChanges = false

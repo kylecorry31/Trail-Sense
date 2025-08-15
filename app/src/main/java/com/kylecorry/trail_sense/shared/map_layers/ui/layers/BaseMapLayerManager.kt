@@ -13,13 +13,11 @@ import com.kylecorry.trail_sense.tools.photo_maps.domain.MapMetadata
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapProjectionType
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.BaseLayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MapLayer
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapTileSourceSelector
 
 class BaseMapLayerManager(
     private val context: Context,
-    private val layer: MapLayer,
+    private val layer: TiledMapLayer,
 ) : BaseLayerManager() {
     override fun start() {
         // TODO: Tint/mask support

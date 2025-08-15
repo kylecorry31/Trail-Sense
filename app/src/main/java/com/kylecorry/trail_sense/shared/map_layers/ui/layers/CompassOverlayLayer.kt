@@ -4,8 +4,6 @@ import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.ILayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
 
 // TODO: Allow setting of position
 class CompassOverlayLayer : ILayer {

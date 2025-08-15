@@ -21,22 +21,22 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ScaleBarLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.BeaconLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyAccuracyLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyElevationLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyLocationLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.NavigationLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.PathLayer
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.BeaconLayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.ILayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MapLayer
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MultiLayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyAccuracyLayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyLocationLayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.NavigationLayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PathLayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PhotoMapLayerManager
+import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyAccuracyLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyElevationLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
+import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
+import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
+import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayerManager
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.TiledMapLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyAccuracyLayerManager
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
+import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayerManager
+import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
+import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
 import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
@@ -53,12 +53,11 @@ class MapToolLayerManager {
     private val myLocationLayer = MyLocationLayer()
     private val myAccuracyLayer = MyAccuracyLayer()
     private val tideLayer = TideMapLayer()
-    private val baseMapLayer = MapLayer()
-    private val photoMapLayer = MapLayer()
+    private val baseMapLayer = TiledMapLayer()
+    private val photoMapLayer = TiledMapLayer()
     private val contourLayer = ContourLayer()
     private val navigationLayer = NavigationLayer()
     private val scaleBarLayer = ScaleBarLayer()
-    private val backgroundLayer = BackgroundColorMapLayer()
     private var myElevationLayer: MyElevationLayer? = null
     private val compassLayer = CompassOverlayLayer()
     private val selectedPointLayer = BeaconLayer()
@@ -90,7 +89,6 @@ class MapToolLayerManager {
         }
 
         scaleBarLayer.units = prefs.baseDistanceUnits
-        backgroundLayer.color = Color.WHITE
 
         beaconLayer.setOutlineColor(Resources.color(context, R.color.colorSecondary))
 

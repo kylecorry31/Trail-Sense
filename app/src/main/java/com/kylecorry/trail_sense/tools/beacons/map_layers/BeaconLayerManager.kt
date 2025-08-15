@@ -1,11 +1,11 @@
-package com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers
+package com.kylecorry.trail_sense.tools.beacons.map_layers
 
 import android.content.Context
 import android.graphics.Color
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.BeaconLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseLayerManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -15,8 +15,8 @@ class BeaconLayerManager(context: Context, private val layer: BeaconLayer) :
     BaseLayerManager() {
 
     private val scope = CoroutineScope(Dispatchers.Default)
-    private val beaconRepo = BeaconRepo.getInstance(context)
-    private val navigator = Navigator.getInstance(context)
+    private val beaconRepo = BeaconRepo.Companion.getInstance(context)
+    private val navigator = Navigator.Companion.getInstance(context)
 
     private var beacons = emptyList<Beacon>()
     private var destination: Beacon? = null

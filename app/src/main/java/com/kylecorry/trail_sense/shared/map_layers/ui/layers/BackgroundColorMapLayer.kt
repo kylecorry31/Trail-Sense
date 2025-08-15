@@ -1,10 +1,8 @@
-package com.kylecorry.trail_sense.tools.map.ui
+package com.kylecorry.trail_sense.shared.map_layers.ui.layers
 
 import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.ILayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
 
 class BackgroundColorMapLayer : ILayer {
 

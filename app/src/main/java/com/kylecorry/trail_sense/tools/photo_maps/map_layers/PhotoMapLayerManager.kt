@@ -1,7 +1,9 @@
-package com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers
+package com.kylecorry.trail_sense.tools.photo_maps.map_layers
 
 import android.content.Context
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseLayerManager
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.TiledMapLayer
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapTileSourceSelector
 import kotlinx.coroutines.CoroutineScope
@@ -11,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class PhotoMapLayerManager(
     private val context: Context,
-    private val layer: MapLayer,
+    private val layer: TiledMapLayer,
     private val loadPdfs: Boolean = true
 ) :
     BaseLayerManager() {
@@ -22,7 +24,7 @@ class PhotoMapLayerManager(
     override fun start() {
         scope.launch {
             runner.skipIfRunning {
-                val repo = MapRepo.getInstance(context)
+                val repo = MapRepo.Companion.getInstance(context)
                 layer.sourceSelector =
                     PhotoMapTileSourceSelector(context, repo.getAllMaps(), 8, loadPdfs)
             }

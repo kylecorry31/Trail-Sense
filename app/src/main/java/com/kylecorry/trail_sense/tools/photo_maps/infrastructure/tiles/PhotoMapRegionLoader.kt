@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.graphics.Rect
 import android.util.Size
 import androidx.core.net.toUri
@@ -19,12 +18,12 @@ import com.kylecorry.trail_sense.shared.andromeda_temp.floorToInt
 import com.kylecorry.trail_sense.shared.bitmaps.BitmapOperation
 import com.kylecorry.trail_sense.shared.bitmaps.Conditional
 import com.kylecorry.trail_sense.shared.bitmaps.CorrectPerspective
-import com.kylecorry.trail_sense.shared.bitmaps.ReplaceColor
 import com.kylecorry.trail_sense.shared.bitmaps.Resize
 import com.kylecorry.trail_sense.shared.bitmaps.applyOperations
 import com.kylecorry.trail_sense.shared.canvas.tiles.PdfImageRegionDecoder
 import com.kylecorry.trail_sense.shared.extensions.toAndroidSize
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.shared.map_layers.tiles.IGeographicImageRegionLoader
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PercentBounds
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PercentCoordinate
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap

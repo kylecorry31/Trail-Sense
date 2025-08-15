@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles
+package com.kylecorry.trail_sense.shared.map_layers.tiles
 
 import android.graphics.Bitmap
 import android.util.Size

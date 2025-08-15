@@ -1,10 +1,10 @@
-package com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers
+package com.kylecorry.trail_sense.tools.navigation.map_layers
 
 import android.content.Context
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.NavigationLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseLayerManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -14,7 +14,7 @@ class NavigationLayerManager(context: Context, private val layer: NavigationLaye
     BaseLayerManager() {
 
     private val scope = CoroutineScope(Dispatchers.Default)
-    private val navigator = Navigator.getInstance(context)
+    private val navigator = Navigator.Companion.getInstance(context)
 
     override fun start() {
         scope.launch {

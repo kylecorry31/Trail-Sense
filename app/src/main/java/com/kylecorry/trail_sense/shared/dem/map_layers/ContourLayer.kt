@@ -13,17 +13,15 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
 import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.dem.Contour
 import com.kylecorry.trail_sense.shared.dem.DEM
-import com.kylecorry.trail_sense.shared.dem.map_layers.ContourMapLayerPreferences
 import com.kylecorry.trail_sense.tools.navigation.ui.MappableLocation
 import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.IAsyncLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.PathLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.TileMath
+import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 
 class ContourLayer : IAsyncLayer {
 

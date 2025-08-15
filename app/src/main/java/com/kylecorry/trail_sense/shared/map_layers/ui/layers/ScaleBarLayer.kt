@@ -9,8 +9,6 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.ILayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
 import com.kylecorry.trail_sense.tools.paths.ui.DistanceScale
 
 // TODO: Allow position to be adjusted
