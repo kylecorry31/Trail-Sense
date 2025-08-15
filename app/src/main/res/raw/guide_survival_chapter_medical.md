@@ -332,7 +332,7 @@ Many jellyfish have small, venomous stinging cells, typically on tentacles. Even
 
 #### Treatment
 
-1. Rub sand on the area to remove the stingers, but be sure to use a barrier of seaweed or cloth over your hands to avoid getting stung there as well. You can also use the edge of a credit card or tweezers to remove the stingers.
+1. Use the edge of a credit card, tweezers, or stick to remove the stingers.
 2. Rinse the area with seawater (or vinegar if you somehow have it on you). Do not rinse with fresh water, as this can cause the stingers to release more venom.
 3. Soak the area in hot water for 30 minutes.
 4. Take pain relievers if needed.
