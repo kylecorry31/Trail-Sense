@@ -47,7 +47,7 @@ class ContourLayer : IAsyncLayer {
         ).toInt()
         pathLayer.setShouldRenderLabels(prefs.showLabels.get())
         // TODO: More experimentation required before this is enabled for everyone
-        pathLayer.setShouldRenderSmoothPaths(isDebug())
+//        pathLayer.setShouldRenderSmoothPaths(isDebug())
         shouldColorContours = prefs.colorWithElevation.get()
         invalidate()
     }

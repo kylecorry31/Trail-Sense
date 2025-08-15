@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.photo_maps.ui
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +11,7 @@ import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.system.GeoUri
-import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.time.Throttle
-import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
@@ -25,12 +22,10 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPhotoMapsViewBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
-import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.ActionItem
@@ -40,25 +35,10 @@ import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScreenLock
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.BeaconLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyAccuracyLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyElevationLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyLocationLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.NavigationLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.PathLayer
-import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapRepo
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.BeaconLayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.ILayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MultiLayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyAccuracyLayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyLocationLayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.NavigationLayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PathLayerManager
-import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -80,31 +60,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     private val screenLight by lazy { ScreenTorch(requireActivity().window) }
 
     // Map layers
-    private val tideLayer = TideMapLayer()
-    private val beaconLayer = BeaconLayer {
-        if (mapLockMode != MapLockMode.Trace) {
-            navigateTo(it)
-        } else {
-            true
-        }
-    }
-    private val pathLayer = PathLayer()
-    private val contourLayer = ContourLayer()
-    private val distanceLayer = MapDistanceLayer { onDistancePathChange(it) }
-    private val myLocationLayer = MyLocationLayer()
-    private val myAccuracyLayer = MyAccuracyLayer()
-    private val navigationLayer = NavigationLayer()
-    private val selectedPointLayer = BeaconLayer()
-    private val myElevationLayer by lazy {
-        MyElevationLayer(
-            formatService,
-            PixelCoordinate(
-                Resources.dp(requireContext(), 16f),
-                -Resources.dp(requireContext(), 16f)
-            )
-        )
-    }
-    private var layerManager: ILayerManager? = null
+    private val layerManager = PhotoMapToolLayerManager()
 
     // Paths
     private val pathService by lazy { PathService.getInstance(requireContext()) }
@@ -124,7 +80,6 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
         mapId = requireArguments().getLong("mapId")
         shouldLockOnMapLoad = requireArguments().getBoolean("autoLockLocation", false)
     }
@@ -138,31 +93,19 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
     override fun onResume() {
         super.onResume()
-        layerManager = MultiLayerManager(
-            listOfNotNull(
-                PathLayerManager(requireContext(), pathLayer),
-                MyAccuracyLayerManager(
-                    myAccuracyLayer,
-                    Resources.getPrimaryMarkerColor(requireContext())
-                ),
-                MyLocationLayerManager(
-                    myLocationLayer,
-                    Resources.getPrimaryMarkerColor(requireContext())
-                ),
-                if (prefs.photoMaps.tideLayer.isEnabled.get()) TideMapLayerManager(
-                    requireContext(),
-                    tideLayer
-                ) else null,
-                BeaconLayerManager(requireContext(), beaconLayer),
-                NavigationLayerManager(requireContext(), navigationLayer),
-                // selectedPointLayer and distanceLayer do not need to be managed
-            )
-        )
-        layerManager?.start()
+        layerManager.setOnBeaconClickListener {
+            if (mapLockMode != MapLockMode.Trace) {
+                navigateTo(it)
+            }
+        }
+        layerManager.setOnDistanceChangedCallback(this::showDistance)
+        layerManager.resume(requireContext(), binding.map)
 
         // Populate the last known location and map bounds
-        layerManager?.onBoundsChanged(map?.boundary())
-        layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
+        map?.boundary()?.let {
+            layerManager.onBoundsChanged(it)
+        }
+        layerManager.onLocationChanged(gps.location, gps.horizontalAccuracy)
 
         if (mapLockMode == MapLockMode.Trace) {
             updateMapLockMode(MapLockMode.Trace, prefs.photoMaps.keepMapFacingUp)
@@ -171,30 +114,8 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.map.setLayers(
-            listOfNotNull(
-                if (prefs.photoMaps.contourLayer.isEnabled.get()) contourLayer else null,
-                navigationLayer,
-                pathLayer,
-                myAccuracyLayer,
-                myLocationLayer,
-                if (prefs.photoMaps.tideLayer.isEnabled.get()) tideLayer else null,
-                beaconLayer,
-                selectedPointLayer,
-                distanceLayer,
-                myElevationLayer
-            )
-        )
-        contourLayer.setPreferences(prefs.photoMaps.contourLayer)
-        tideLayer.setPreferences(prefs.photoMaps.tideLayer)
-        distanceLayer.setOutlineColor(Color.WHITE)
-        distanceLayer.setPathColor(Color.BLACK)
-        distanceLayer.isEnabled = false
-        selectedPointLayer.setOutlineColor(Color.WHITE)
-
         observe(gps) {
-            layerManager?.onLocationChanged(gps.location, gps.horizontalAccuracy)
+            layerManager.onLocationChanged(gps.location, gps.horizontalAccuracy)
             updateDestination()
 
             if (mapLockMode == MapLockMode.Location || mapLockMode == MapLockMode.Compass) {
@@ -206,7 +127,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
             compass.declination = Geology.getGeomagneticDeclination(gps.location, gps.altitude)
             val bearing = compass.rawBearing
             binding.map.azimuth = bearing
-            layerManager?.onBearingChanged(bearing)
+            layerManager.onBearingChanged(bearing)
             if (mapLockMode == MapLockMode.Compass) {
                 binding.map.mapAzimuth = bearing
             }
@@ -257,14 +178,10 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                 }
             }
         }
-
-        if (!hasCompass) {
-            myLocationLayer.setShowDirection(false)
-        }
     }
 
     private fun onLongPress(location: Coordinate) {
-        if (map?.isCalibrated != true || distanceLayer.isEnabled || mapLockMode == MapLockMode.Trace) {
+        if (map?.isCalibrated != true || layerManager.isMeasuringDistance() || mapLockMode == MapLockMode.Trace) {
             return
         }
 
@@ -324,15 +241,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     }
 
     private fun selectLocation(location: Coordinate?) {
-        selectedPointLayer.setBeacons(
-            listOfNotNull(
-                if (location == null) {
-                    null
-                } else {
-                    Beacon(0, "", location)
-                }
-            )
-        )
+        layerManager.setSelectedLocation(location)
     }
 
     private fun createBeacon(location: Coordinate) {
@@ -355,9 +264,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
             return
         }
 
-        distanceLayer.isEnabled = true
-        distanceLayer.clear()
-        initialPoints.forEach { distanceLayer.add(it) }
+        layerManager.startDistanceMeasurement(*initialPoints)
         binding.distanceSheet.show()
         binding.distanceSheet.cancelListener = {
             stopDistanceMeasurement()
@@ -369,7 +276,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                         pathService,
                         prefs.navigation,
                         it.name
-                    ).execute(distanceLayer.getPoints())
+                    ).execute(layerManager.getDistanceMeasurementPoints())
 
                     onMain {
                         findNavController().navigate(
@@ -381,13 +288,12 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
             }
         }
         binding.distanceSheet.undoListener = {
-            distanceLayer.undo()
+            layerManager.undoLastDistanceMeasurement()
         }
     }
 
     private fun stopDistanceMeasurement() {
-        distanceLayer.isEnabled = false
-        distanceLayer.clear()
+        layerManager.stopDistanceMeasurement()
         binding.distanceSheet.hide()
     }
 
@@ -413,12 +319,6 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
             navigateTo(beacon.copy(id = id))
         }
-    }
-
-    private fun onDistancePathChange(points: List<Coordinate>) {
-        // Display distance
-        val distance = Geology.getPathDistance(points)
-        showDistance(distance)
     }
 
     private fun navigateTo(beacon: Beacon): Boolean {
@@ -456,7 +356,9 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
             }
         }
         binding.map.showMap(map)
-        layerManager?.onBoundsChanged(map.boundary())
+        map.boundary()?.let {
+            layerManager.onBoundsChanged(it)
+        }
     }
 
     private fun updateMapLockMode(mode: MapLockMode, keepMapUp: Boolean) {
@@ -558,8 +460,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
     override fun onPause() {
         super.onPause()
-        layerManager?.stop()
-        layerManager = null
+        layerManager.pause(requireContext(), binding.map)
 
         // Reset brightness
         screenLight.off()
@@ -584,8 +485,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         super.onUpdate()
 
         effect("elevation", elevation, lifecycleHookTrigger.onResume()) {
-            myElevationLayer.elevation =
-                Distance.meters(elevation).convertTo(prefs.baseDistanceUnits)
+            layerManager.onElevationChanged(elevation)
         }
 
         useEffect(resetOnResume) {

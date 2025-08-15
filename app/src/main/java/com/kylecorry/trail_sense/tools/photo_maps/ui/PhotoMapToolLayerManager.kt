@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.map.ui
+package com.kylecorry.trail_sense.tools.photo_maps.ui
 
 import android.content.Context
 import android.graphics.Color
@@ -15,12 +15,11 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseMapLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ScaleBarLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
-import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
+import com.kylecorry.trail_sense.tools.map.ui.BackgroundColorMapLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyAccuracyLayer
@@ -30,31 +29,26 @@ import com.kylecorry.trail_sense.tools.navigation.ui.layers.NavigationLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.PathLayer
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.BeaconLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.ILayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MapLayer
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MultiLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyAccuracyLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyLocationLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.NavigationLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PathLayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PhotoMapLayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
-import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
 
-class MapToolLayerManager {
+class PhotoMapToolLayerManager {
+
+    private var onBeaconClick: ((Beacon) -> Unit)? = null
 
     private val pathLayer = PathLayer()
     private val beaconLayer = BeaconLayer {
-        val navigator = AppServiceRegistry.get<Navigator>()
-        navigator.navigateTo(it)
+        onBeaconClick?.invoke(it)
         true
     }
     private val myLocationLayer = MyLocationLayer()
     private val myAccuracyLayer = MyAccuracyLayer()
     private val tideLayer = TideMapLayer()
-    private val baseMapLayer = MapLayer()
-    private val photoMapLayer = MapLayer()
     private val contourLayer = ContourLayer()
     private val navigationLayer = NavigationLayer()
     private val scaleBarLayer = ScaleBarLayer()
@@ -74,7 +68,7 @@ class MapToolLayerManager {
 
         compassLayer.backgroundColor = Resources.color(context, R.color.colorSecondary)
         compassLayer.cardinalDirectionColor = Resources.getCardinalDirectionColor(context)
-        compassLayer.paddingTopDp = 48f
+        compassLayer.paddingTopDp = 8f
         compassLayer.paddingRightDp = 8f
 
         myElevationLayer = MyElevationLayer(
@@ -98,30 +92,22 @@ class MapToolLayerManager {
 
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
 
-        photoMapLayer.setMinZoom(4)
-        photoMapLayer.controlsPdfCache = true
-        photoMapLayer.setPreferences(prefs.map.photoMapLayer)
-
-        contourLayer.setPreferences(prefs.map.contourLayer)
-
-        photoMapLayer.setBackgroundColor(Color.TRANSPARENT)
+        contourLayer.setPreferences(prefs.photoMaps.contourLayer)
 
         distanceLayer.isEnabled = false
         distanceLayer.setOutlineColor(Color.WHITE)
         distanceLayer.setPathColor(Color.BLACK)
 
-        tideLayer.setPreferences(prefs.map.tideLayer)
+        tideLayer.setPreferences(prefs.photoMaps.tideLayer)
 
         view.setLayers(
             listOfNotNull(
-                baseMapLayer,
-                if (prefs.map.photoMapLayer.isEnabled.get()) photoMapLayer else null,
-                if (prefs.map.contourLayer.isEnabled.get()) contourLayer else null,
+                if (prefs.photoMaps.contourLayer.isEnabled.get()) contourLayer else null,
                 navigationLayer,
                 pathLayer,
                 myAccuracyLayer,
                 myLocationLayer,
-                if (prefs.map.tideLayer.isEnabled.get()) tideLayer else null,
+                if (prefs.photoMaps.tideLayer.isEnabled.get()) tideLayer else null,
                 beaconLayer,
                 selectedPointLayer,
                 distanceLayer,
@@ -144,28 +130,23 @@ class MapToolLayerManager {
                     myLocationLayer,
                     Resources.getPrimaryMarkerColor(context)
                 ),
-                if (prefs.map.tideLayer.isEnabled.get()) TideMapLayerManager(
+                if (prefs.photoMaps.tideLayer.isEnabled.get()) TideMapLayerManager(
                     context,
                     tideLayer
                 ) else null,
-                if (prefs.map.photoMapLayer.isEnabled.get()) PhotoMapLayerManager(
-                    context,
-                    photoMapLayer,
-                    loadPdfs = prefs.map.photoMapLayer.loadPdfs.get()
-                ) else null,
-                BaseMapLayerManager(context, baseMapLayer),
                 BeaconLayerManager(context, beaconLayer),
                 NavigationLayerManager(context, navigationLayer)
             )
         )
 
-        layerManager?.start()
+        if (prefs.navigation.useRadarCompass) {
+            layerManager?.start()
+        }
     }
 
     fun pause(context: Context, view: IMapView) {
         layerManager?.stop()
         layerManager = null
-        PhotoMapRegionLoader.removeUnneededLoaders(emptyList())
     }
 
     fun onBearingChanged(bearing: Float) {
@@ -230,6 +211,10 @@ class MapToolLayerManager {
 
     fun isMeasuringDistance(): Boolean {
         return distanceLayer.isEnabled
+    }
+
+    fun setOnBeaconClickListener(listener: ((Beacon) -> Unit)?) {
+        onBeaconClick = listener
     }
 
 }
