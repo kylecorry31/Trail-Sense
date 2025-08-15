@@ -659,9 +659,8 @@ Gastrointestinal issues can be caused by contaminated food or water.
     - Walnut bark
   - For gas and cramps:
     - Mint leaves
-- Eating campfire ash can also help with diarrhea.
-- Make a solution of a handful of ground charcoal in a cup of water. Drink a couple of spoonfuls every few hours.
-  - If you ate something poisonous, seek medical help immediately. If you can't contact help, drinking charcoal may help. Do not induce vomiting.
+- Eating campfire ash or ground charcoal (mixed into water) can also help with diarrhea.
+- If you ate something poisonous, seek medical help immediately.
 
 ### Prevention
 - Boil water before drinking.
