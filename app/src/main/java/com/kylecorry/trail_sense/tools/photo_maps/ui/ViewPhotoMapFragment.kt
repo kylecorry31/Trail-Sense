@@ -46,7 +46,7 @@ import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyElevationLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.NavigationLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.PathLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.TideLayer
+import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
@@ -58,7 +58,7 @@ import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyAccura
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyLocationLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.NavigationLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PathLayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.TideLayerManager
+import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -80,7 +80,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     private val screenLight by lazy { ScreenTorch(requireActivity().window) }
 
     // Map layers
-    private val tideLayer = TideLayer()
+    private val tideLayer = TideMapLayer()
     private val beaconLayer = BeaconLayer {
         if (mapLockMode != MapLockMode.Trace) {
             navigateTo(it)
@@ -139,7 +139,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     override fun onResume() {
         super.onResume()
         layerManager = MultiLayerManager(
-            listOf(
+            listOfNotNull(
                 PathLayerManager(requireContext(), pathLayer),
                 MyAccuracyLayerManager(
                     myAccuracyLayer,
@@ -149,7 +149,10 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                     myLocationLayer,
                     Resources.getPrimaryMarkerColor(requireContext())
                 ),
-                TideLayerManager(requireContext(), tideLayer),
+                if (prefs.photoMaps.tideLayer.isEnabled.get()) TideMapLayerManager(
+                    requireContext(),
+                    tideLayer
+                ) else null,
                 BeaconLayerManager(requireContext(), beaconLayer),
                 NavigationLayerManager(requireContext(), navigationLayer),
                 // selectedPointLayer and distanceLayer do not need to be managed
@@ -176,7 +179,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                 pathLayer,
                 myAccuracyLayer,
                 myLocationLayer,
-                tideLayer,
+                if (prefs.photoMaps.tideLayer.isEnabled.get()) tideLayer else null,
                 beaconLayer,
                 selectedPointLayer,
                 distanceLayer,
@@ -184,6 +187,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
             )
         )
         contourLayer.setPreferences(prefs.photoMaps.contourLayer)
+        tideLayer.setPreferences(prefs.photoMaps.tideLayer)
         distanceLayer.setOutlineColor(Color.WHITE)
         distanceLayer.setPathColor(Color.BLACK)
         distanceLayer.isEnabled = false

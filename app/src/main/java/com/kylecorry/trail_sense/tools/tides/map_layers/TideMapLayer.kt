@@ -1,15 +1,18 @@
-package com.kylecorry.trail_sense.tools.navigation.ui.layers
+package com.kylecorry.trail_sense.tools.tides.map_layers
 
 import android.graphics.Bitmap
 import androidx.annotation.DrawableRes
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.BaseLayer
+import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.BitmapMapMarker
 import com.kylecorry.trail_sense.tools.tides.domain.TideTable
 import kotlin.reflect.KMutableProperty0
 
-class TideLayer : BaseLayer() {
+class TideMapLayer : BaseLayer() {
 
     private val _tides = mutableListOf<Pair<TideTable, TideType?>>()
     private var _highTideImg: Bitmap? = null
@@ -17,6 +20,20 @@ class TideLayer : BaseLayer() {
     private var _halfTideImg: Bitmap? = null
 
     private val lock = Any()
+
+    private var opacity: Int = 255
+
+    fun setPreferences(prefs: TideMapLayerPreferences) {
+        opacity = SolMath.map(
+            prefs.opacity.get().toFloat(),
+            0f,
+            100f,
+            0f,
+            255f,
+            shouldClamp = true
+        ).toInt()
+        invalidate()
+    }
 
     fun setTides(tides: List<Pair<TideTable, TideType?>>) {
         synchronized(lock) {
@@ -27,6 +44,7 @@ class TideLayer : BaseLayer() {
     }
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
+        drawer.opacity(opacity)
         clearMarkers()
         val tides = synchronized(lock) { _tides.toList() }
         tides.forEach { tide ->
@@ -35,6 +53,7 @@ class TideLayer : BaseLayer() {
             addMarker(BitmapMapMarker(tide.first.location!!, img))
         }
         super.draw(drawer, map)
+        drawer.opacity(255)
     }
 
     private fun getImage(drawer: ICanvasDrawer, type: TideType?): Bitmap {
@@ -44,11 +63,13 @@ class TideLayer : BaseLayer() {
                 drawer,
                 this::_highTideImg
             )
+
             TideType.Low -> _lowTideImg ?: loadImage(
                 R.drawable.ic_tide_low,
                 drawer,
                 this::_lowTideImg
             )
+
             null -> _halfTideImg ?: loadImage(
                 R.drawable.ic_tide_half,
                 drawer,

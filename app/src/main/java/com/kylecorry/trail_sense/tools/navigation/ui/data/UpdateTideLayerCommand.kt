@@ -3,12 +3,12 @@ package com.kylecorry.trail_sense.tools.navigation.ui.data
 import android.content.Context
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.TideLayer
+import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 import com.kylecorry.trail_sense.tools.tides.domain.TideService
 import com.kylecorry.trail_sense.tools.tides.domain.commands.CurrentTideTypeCommand
 import com.kylecorry.trail_sense.tools.tides.domain.commands.LoadAllTideTablesCommand
 
-class UpdateTideLayerCommand(private val context: Context, private val layer: TideLayer) :
+class UpdateTideLayerCommand(private val context: Context, private val layer: TideMapLayer) :
     CoroutineCommand {
     override suspend fun execute() = onDefault {
         val tables = LoadAllTideTablesCommand(context).execute()

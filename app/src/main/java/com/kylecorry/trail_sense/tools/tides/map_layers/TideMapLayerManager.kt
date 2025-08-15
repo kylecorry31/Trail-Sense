@@ -1,11 +1,11 @@
-package com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers
+package com.kylecorry.trail_sense.tools.tides.map_layers
 
 import android.content.Context
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.trail_sense.tools.navigation.ui.data.UpdateTideLayerCommand
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.TideLayer
+import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.BaseLayerManager
 
-class TideLayerManager(context: Context, layer: TideLayer) : BaseLayerManager() {
+class TideMapLayerManager(context: Context, layer: TideMapLayer) : BaseLayerManager() {
 
     private val updateTideLayerCommand = UpdateTideLayerCommand(context, layer)
 

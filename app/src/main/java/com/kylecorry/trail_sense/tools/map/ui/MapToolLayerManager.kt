@@ -28,7 +28,6 @@ import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyElevationLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.NavigationLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.PathLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.TideLayer
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.BeaconLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.ILayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MapLayer
@@ -38,9 +37,10 @@ import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.MyLocati
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.NavigationLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.PhotoMapLayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.layers.TideLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
 import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceLayer
+import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
+import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
 
 class MapToolLayerManager {
 
@@ -52,7 +52,7 @@ class MapToolLayerManager {
     }
     private val myLocationLayer = MyLocationLayer()
     private val myAccuracyLayer = MyAccuracyLayer()
-    private val tideLayer = TideLayer()
+    private val tideLayer = TideMapLayer()
     private val baseMapLayer = MapLayer()
     private val photoMapLayer = MapLayer()
     private val contourLayer = ContourLayer()
@@ -113,6 +113,8 @@ class MapToolLayerManager {
         distanceLayer.setOutlineColor(Color.WHITE)
         distanceLayer.setPathColor(Color.BLACK)
 
+        tideLayer.setPreferences(prefs.map.tideLayer)
+
         view.setLayers(
             listOfNotNull(
                 baseMapLayer,
@@ -122,7 +124,7 @@ class MapToolLayerManager {
                 pathLayer,
                 myAccuracyLayer,
                 myLocationLayer,
-                tideLayer,
+                if (prefs.map.tideLayer.isEnabled.get()) tideLayer else null,
                 beaconLayer,
                 selectedPointLayer,
                 distanceLayer,
@@ -145,7 +147,10 @@ class MapToolLayerManager {
                     myLocationLayer,
                     Resources.getPrimaryMarkerColor(context)
                 ),
-                TideLayerManager(context, tideLayer),
+                if (prefs.map.tideLayer.isEnabled.get()) TideMapLayerManager(
+                    context,
+                    tideLayer
+                ) else null,
                 if (prefs.map.photoMapLayer.isEnabled.get()) PhotoMapLayerManager(
                     context,
                     photoMapLayer,

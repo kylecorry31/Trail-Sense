@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.settings.infrastructure.PreferenceRepo
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourMapLayerPreferences
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapMapLayerPreferences
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayerPreferenceManager
+import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerPreferences
 
 class MapPreferences(context: Context) : PreferenceRepo(context) {
 
@@ -18,12 +19,14 @@ class MapPreferences(context: Context) : PreferenceRepo(context) {
 
     // Layers
     val photoMapLayer = PhotoMapMapLayerPreferences(context, "map", defaultOpacity = 100)
+    val tideLayer = TideMapLayerPreferences(context, "map")
     val contourLayer = ContourMapLayerPreferences(context, "map", isEnabledByDefault = true)
 
     val layerManager = MapLayerPreferenceManager(
         "map", listOf(
             photoMapLayer.getPreferences(),
-            contourLayer.getPreferences()
+            contourLayer.getPreferences(),
+            tideLayer.getPreferences()
         )
     )
 }

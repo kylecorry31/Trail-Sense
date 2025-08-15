@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
 import com.kylecorry.trail_sense.tools.paths.domain.PathStyle
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.IPathPreferences
 import com.kylecorry.trail_sense.tools.paths.ui.PathSortMethod
+import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerPreferences
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
 
@@ -225,11 +226,13 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
     // Layers
     val photoMapLayer = PhotoMapMapLayerPreferences(context, "navigation")
     val contourLayer = ContourMapLayerPreferences(context, "navigation")
+    val tideLayer = TideMapLayerPreferences(context, "navigation")
 
     val layerManager = MapLayerPreferenceManager(
         "navigation", listOf(
             photoMapLayer.getPreferences(),
-            contourLayer.getPreferences()
+            contourLayer.getPreferences(),
+            tideLayer.getPreferences()
         ),
         context.getString(R.string.pref_nearby_radar)
     )
