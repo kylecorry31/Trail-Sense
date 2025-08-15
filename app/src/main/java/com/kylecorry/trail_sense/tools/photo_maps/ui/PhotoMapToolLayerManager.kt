@@ -19,7 +19,6 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ScaleBarLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
-import com.kylecorry.trail_sense.tools.map.ui.BackgroundColorMapLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.IMapView
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.MyAccuracyLayer
@@ -52,7 +51,6 @@ class PhotoMapToolLayerManager {
     private val contourLayer = ContourLayer()
     private val navigationLayer = NavigationLayer()
     private val scaleBarLayer = ScaleBarLayer()
-    private val backgroundLayer = BackgroundColorMapLayer()
     private var myElevationLayer: MyElevationLayer? = null
     private val compassLayer = CompassOverlayLayer()
     private val selectedPointLayer = BeaconLayer()
@@ -64,13 +62,19 @@ class PhotoMapToolLayerManager {
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
 
     fun resume(context: Context, view: IMapView) {
+        // Location layer
         val hasCompass = SensorService(context).hasCompass()
+        if (!hasCompass) {
+            myLocationLayer.setShowDirection(false)
+        }
 
+        // Compass layer
         compassLayer.backgroundColor = Resources.color(context, R.color.colorSecondary)
         compassLayer.cardinalDirectionColor = Resources.getCardinalDirectionColor(context)
         compassLayer.paddingTopDp = 8f
         compassLayer.paddingRightDp = 8f
 
+        // Elevation layer
         myElevationLayer = MyElevationLayer(
             formatter,
             PixelCoordinate(
@@ -79,27 +83,30 @@ class PhotoMapToolLayerManager {
             )
         )
 
-        if (!hasCompass) {
-            myLocationLayer.setShowDirection(false)
-        }
-
+        // Scale bar layer
         scaleBarLayer.units = prefs.baseDistanceUnits
-        backgroundLayer.color = Color.WHITE
 
+        // Beacon layer
         beaconLayer.setOutlineColor(Resources.color(context, R.color.colorSecondary))
 
+        // Selected point layer
         selectedPointLayer.setOutlineColor(Color.WHITE)
 
+        // Path layer
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
 
+        // Contour layer
         contourLayer.setPreferences(prefs.photoMaps.contourLayer)
 
+        // Distance layer
         distanceLayer.isEnabled = false
         distanceLayer.setOutlineColor(Color.WHITE)
         distanceLayer.setPathColor(Color.BLACK)
 
+        // Tide layer
         tideLayer.setPreferences(prefs.photoMaps.tideLayer)
 
+        // Start
         view.setLayers(
             listOfNotNull(
                 if (prefs.photoMaps.contourLayer.isEnabled.get()) contourLayer else null,
@@ -139,9 +146,7 @@ class PhotoMapToolLayerManager {
             )
         )
 
-        if (prefs.navigation.useRadarCompass) {
-            layerManager?.start()
-        }
+        layerManager?.start()
     }
 
     fun pause(context: Context, view: IMapView) {
@@ -178,6 +183,10 @@ class PhotoMapToolLayerManager {
         )
     }
 
+    fun setOnBeaconClickListener(listener: ((Beacon) -> Unit)?) {
+        onBeaconClick = listener
+    }
+
     // Distance measurement
 
     private fun onDistancePathChange(points: List<Coordinate>) {
@@ -212,9 +221,4 @@ class PhotoMapToolLayerManager {
     fun isMeasuringDistance(): Boolean {
         return distanceLayer.isEnabled
     }
-
-    fun setOnBeaconClickListener(listener: ((Beacon) -> Unit)?) {
-        onBeaconClick = listener
-    }
-
 }
