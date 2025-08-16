@@ -5,10 +5,12 @@ import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.luna.coroutines.CoroutineQueueRunner
-import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
-import com.kylecorry.trail_sense.tools.navigation.ui.DrawerBitmapLoader
+import com.kylecorry.sol.math.SolMath
+import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.navigation.ui.DrawerBitmapLoader
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.BitmapMapMarker
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.CircleMapMarker
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.MapMarker
@@ -34,6 +36,8 @@ class BeaconLayer(
     @ColorInt
     private var backgroundColor = Color.TRANSPARENT
 
+    private var opacity: Int = 255
+
     private val lock = Any()
 
     private val runner = CoroutineQueueRunner()
@@ -47,13 +51,27 @@ class BeaconLayer(
         updateMarkers()
     }
 
+    fun setPreferences(prefs: BeaconMapLayerPreferences) {
+        opacity = SolMath.map(
+            prefs.opacity.get().toFloat(),
+            0f,
+            100f,
+            0f,
+            255f,
+            shouldClamp = true
+        ).toInt()
+        invalidate()
+    }
+
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
-        if (_loader == null) {
-            _imageSize = drawer.dp(24f)
-            _loader = DrawerBitmapLoader(drawer)
-            updateMarkers()
+        drawer.withLayerOpacity(opacity) {
+            if (_loader == null) {
+                _imageSize = drawer.dp(24f)
+                _loader = DrawerBitmapLoader(drawer)
+                updateMarkers()
+            }
+            super.draw(drawer, map)
         }
-        super.draw(drawer, map)
     }
 
     protected fun finalize() {

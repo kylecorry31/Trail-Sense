@@ -52,9 +52,11 @@ class NavigationCompassLayerManager {
 
         val isMapLayerEnabled = prefs.navigation.photoMapLayer.isEnabled.get()
         val isContourLayerEnabled = prefs.navigation.contourLayer.isEnabled.get()
+        val isBeaconLayerEnabled = prefs.navigation.beaconLayer.isEnabled.get()
         val isTideLayerEnabled = prefs.navigation.tideLayer.isEnabled.get()
 
         beaconLayer.setOutlineColor(Resources.color(context, R.color.colorSecondary))
+        beaconLayer.setPreferences(prefs.navigation.beaconLayer)
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
         photoMapLayer.setPreferences(prefs.navigation.photoMapLayer)
         contourLayer.setPreferences(prefs.navigation.contourLayer)
@@ -70,7 +72,7 @@ class NavigationCompassLayerManager {
                 myAccuracyLayer,
                 myLocationLayer,
                 if (isTideLayerEnabled) tideLayer else null,
-                beaconLayer
+                if (isBeaconLayerEnabled) beaconLayer else null
             )
         )
 

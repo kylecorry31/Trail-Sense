@@ -88,6 +88,7 @@ class PhotoMapToolLayerManager {
 
         // Beacon layer
         beaconLayer.setOutlineColor(Resources.color(context, R.color.colorSecondary))
+        beaconLayer.setPreferences(prefs.photoMaps.beaconLayer)
 
         // Selected point layer
         selectedPointLayer.setOutlineColor(Color.WHITE)
@@ -115,7 +116,7 @@ class PhotoMapToolLayerManager {
                 myAccuracyLayer,
                 myLocationLayer,
                 if (prefs.photoMaps.tideLayer.isEnabled.get()) tideLayer else null,
-                beaconLayer,
+                if (prefs.photoMaps.beaconLayer.isEnabled.get()) beaconLayer else null,
                 selectedPointLayer,
                 distanceLayer,
 
@@ -141,7 +142,10 @@ class PhotoMapToolLayerManager {
                     context,
                     tideLayer
                 ) else null,
-                BeaconLayerManager(context, beaconLayer),
+                if (prefs.photoMaps.beaconLayer.isEnabled.get()) BeaconLayerManager(
+                    context,
+                    beaconLayer
+                ) else null,
                 NavigationLayerManager(context, navigationLayer)
             )
         )

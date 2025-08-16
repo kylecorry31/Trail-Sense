@@ -17,27 +17,27 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseMapLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.CompassOverlayLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ScaleBarLayer
-import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
-import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
-import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyAccuracyLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyAccuracyLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyElevationLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
-import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
-import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.TiledMapLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyAccuracyLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ScaleBarLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.TiledMapLayer
+import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
+import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayerManager
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
+import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayerManager
+import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
+import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
@@ -91,6 +91,7 @@ class MapToolLayerManager {
         scaleBarLayer.units = prefs.baseDistanceUnits
 
         beaconLayer.setOutlineColor(Resources.color(context, R.color.colorSecondary))
+        beaconLayer.setPreferences(prefs.map.beaconLayer)
 
         selectedPointLayer.setOutlineColor(Color.WHITE)
 
@@ -120,7 +121,7 @@ class MapToolLayerManager {
                 myAccuracyLayer,
                 myLocationLayer,
                 if (prefs.map.tideLayer.isEnabled.get()) tideLayer else null,
-                beaconLayer,
+                if (prefs.map.beaconLayer.isEnabled.get()) beaconLayer else null,
                 selectedPointLayer,
                 distanceLayer,
 
@@ -152,7 +153,10 @@ class MapToolLayerManager {
                     loadPdfs = prefs.map.photoMapLayer.loadPdfs.get()
                 ) else null,
                 BaseMapLayerManager(context, baseMapLayer),
-                BeaconLayerManager(context, beaconLayer),
+                if (prefs.map.beaconLayer.isEnabled.get()) BeaconLayerManager(
+                    context,
+                    beaconLayer
+                ) else null,
                 NavigationLayerManager(context, navigationLayer)
             )
         )

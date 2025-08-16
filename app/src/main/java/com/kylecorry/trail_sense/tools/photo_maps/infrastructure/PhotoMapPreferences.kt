@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.infrastructure.PreferenceRepo
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourMapLayerPreferences
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayerPreferenceManager
+import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconMapLayerPreferences
 import com.kylecorry.trail_sense.tools.photo_maps.domain.sort.MapSortMethod
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerPreferences
 
@@ -50,10 +51,12 @@ class PhotoMapPreferences(context: Context) : PreferenceRepo(context) {
 
     // Layers
     val contourLayer = ContourMapLayerPreferences(context, "photo_maps")
+    val beaconLayer = BeaconMapLayerPreferences(context, "photo_maps")
     val tideLayer = TideMapLayerPreferences(context, "photo_maps")
     val layerManager = MapLayerPreferenceManager(
         "photo_maps", listOf(
             contourLayer.getPreferences(),
+            beaconLayer.getPreferences(),
             tideLayer.getPreferences(),
         )
     )
