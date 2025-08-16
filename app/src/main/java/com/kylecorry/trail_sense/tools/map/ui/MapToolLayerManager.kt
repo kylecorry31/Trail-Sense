@@ -100,6 +100,8 @@ class MapToolLayerManager {
 
         navigationLayer.setPreferences(prefs.map.navigationLayer)
 
+        baseMapLayer.setPreferences(prefs.map.baseMapLayer)
+
         photoMapLayer.setMinZoom(4)
         photoMapLayer.controlsPdfCache = true
         photoMapLayer.setPreferences(prefs.map.photoMapLayer)
@@ -116,7 +118,7 @@ class MapToolLayerManager {
 
         view.setLayers(
             listOfNotNull(
-                baseMapLayer,
+                if (prefs.map.baseMapLayer.isEnabled.get()) baseMapLayer else null,
                 if (prefs.map.photoMapLayer.isEnabled.get()) photoMapLayer else null,
                 if (prefs.map.contourLayer.isEnabled.get()) contourLayer else null,
                 if (prefs.map.navigationLayer.isEnabled.get()) navigationLayer else null,
@@ -155,7 +157,7 @@ class MapToolLayerManager {
                     photoMapLayer,
                     loadPdfs = prefs.map.photoMapLayer.loadPdfs.get()
                 ) else null,
-                BaseMapLayerManager(context, baseMapLayer),
+                if (prefs.map.baseMapLayer.isEnabled.get()) BaseMapLayerManager(context, baseMapLayer) else null,
                 if (prefs.map.beaconLayer.isEnabled.get()) BeaconLayerManager(
                     context,
                     beaconLayer

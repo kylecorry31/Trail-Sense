@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconMapLayerPreferen
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerPreferences
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathMapLayerPreferences
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationMapLayerPreferences
+import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapMapLayerPreferences
 
 class MapPreferences(context: Context) : PreferenceRepo(context) {
 
@@ -21,6 +22,7 @@ class MapPreferences(context: Context) : PreferenceRepo(context) {
     )
 
     // Layers
+    val baseMapLayer = BaseMapMapLayerPreferences(context, "map", defaultOpacity = 100)
     val photoMapLayer = PhotoMapMapLayerPreferences(context, "map", defaultOpacity = 100)
     val beaconLayer = BeaconMapLayerPreferences(context, "map")
     val pathLayer = PathMapLayerPreferences(context, "map")
@@ -30,6 +32,7 @@ class MapPreferences(context: Context) : PreferenceRepo(context) {
 
     val layerManager = MapLayerPreferenceManager(
         "map", listOf(
+            baseMapLayer.getPreferences(),
             photoMapLayer.getPreferences(),
             contourLayer.getPreferences(),
             pathLayer.getPreferences(),

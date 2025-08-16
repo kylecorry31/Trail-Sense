@@ -15,8 +15,10 @@ import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
 import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.device.DeviceSubsystem
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.BaseMapLayerPreferences
 import com.kylecorry.trail_sense.shared.map_layers.tiles.ITileSourceSelector
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileLoader
+import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapMapLayerPreferences
 import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapMapLayerPreferences
 import kotlinx.coroutines.CancellationException
 
@@ -43,6 +45,18 @@ class TiledMapLayer : IAsyncLayer {
         }
 
     fun setPreferences(prefs: PhotoMapMapLayerPreferences) {
+        opacity = SolMath.map(
+            prefs.opacity.get().toFloat(),
+            0f,
+            100f,
+            0f,
+            255f,
+            shouldClamp = true
+        ).toInt()
+        invalidate()
+    }
+
+    fun setPreferences(prefs: BaseMapMapLayerPreferences) {
         opacity = SolMath.map(
             prefs.opacity.get().toFloat(),
             0f,

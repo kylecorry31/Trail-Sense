@@ -1752,6 +1752,8 @@
     <string name="pref_dem_url" translatable="false">pref_dem_url</string>
     <string name="dem_url">DEM URL</string>
     <string name="map">Map</string>
+    <!--A world map that is the background for the map-->
+    <string name="basemap">Basemap</string>
     <string name="show_labels">Show labels</string>
     <string name="color_with_elevation">Color contours based on elevation</string>
     <string name="planet_mercury">Mercury</string>
