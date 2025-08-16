@@ -9,6 +9,7 @@ import com.kylecorry.sol.science.astronomy.locators.Planet
 import com.kylecorry.sol.science.astronomy.meteors.MeteorShowerPeak
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
 import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
+import com.kylecorry.sol.science.astronomy.stars.STAR_CATALOG
 import com.kylecorry.sol.science.astronomy.stars.Star
 import com.kylecorry.sol.science.astronomy.units.CelestialObservation
 import com.kylecorry.sol.science.shared.Season
@@ -283,7 +284,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
             return emptyList()
         }
 
-        return Star.entries.map {
+        return STAR_CATALOG.filter { it.magnitude <= 4.0 }.map {
             val azimuth = Astronomy.getStarAzimuth(it, time, location)
             val altitude = Astronomy.getStarAltitude(it, time, location, true)
             it to (azimuth to altitude)

@@ -40,7 +40,6 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.formatEnumName
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.withId
@@ -365,7 +364,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     }
 
     private fun onStarFocused(star: Star): Boolean {
-        binding.arView.focusText = getString(R.string.star) + "\n" + formatEnumName(star.name)
+        binding.arView.focusText = getString(R.string.star) + "\n" + star.name
         return true
     }
 
