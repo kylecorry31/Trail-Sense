@@ -10,23 +10,23 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyAccuracyLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyAccuracyLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.TiledMapLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.TiledMapLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyAccuracyLayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
-import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayerManager
-import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
+import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayerManager
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
+import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
 
 class NavigationCompassLayerManager {
 
@@ -56,6 +56,7 @@ class NavigationCompassLayerManager {
         val isBeaconLayerEnabled = prefs.navigation.beaconLayer.isEnabled.get()
         val isTideLayerEnabled = prefs.navigation.tideLayer.isEnabled.get()
         val isMyLocationLayerEnabled = prefs.navigation.myLocationLayer.isEnabled.get()
+        val isMyAccuracyLayerEnabled = prefs.navigation.myAccuracyLayer.isEnabled.get()
 
         beaconLayer.setOutlineColor(Resources.color(context, R.color.colorSecondary))
         beaconLayer.setPreferences(prefs.navigation.beaconLayer)
@@ -65,6 +66,7 @@ class NavigationCompassLayerManager {
         contourLayer.setPreferences(prefs.navigation.contourLayer)
         tideLayer.setPreferences(prefs.navigation.tideLayer)
         myLocationLayer.setPreferences(prefs.navigation.myLocationLayer)
+        myAccuracyLayer.setPreferences(prefs.navigation.myAccuracyLayer)
         photoMapLayer.setBackgroundColor(Resources.color(context, R.color.colorSecondary))
         photoMapLayer.setMinZoom(4)
         photoMapLayer.controlsPdfCache = true
@@ -73,7 +75,7 @@ class NavigationCompassLayerManager {
                 if (isMapLayerEnabled) photoMapLayer else null,
                 if (isContourLayerEnabled) contourLayer else null,
                 if (isPathLayerEnabled) pathLayer else null,
-                myAccuracyLayer,
+                if (isMyAccuracyLayerEnabled) myAccuracyLayer else null,
                 if (isMyLocationLayerEnabled) myLocationLayer else null,
                 if (isTideLayerEnabled) tideLayer else null,
                 if (isBeaconLayerEnabled) beaconLayer else null
@@ -83,12 +85,14 @@ class NavigationCompassLayerManager {
         layerManager = MultiLayerManager(
             listOfNotNull(
                 if (isPathLayerEnabled) PathLayerManager(context, pathLayer) else null,
-                MyAccuracyLayerManager(
+                if (isMyAccuracyLayerEnabled) MyAccuracyLayerManager(
                     myAccuracyLayer,
-                    Resources.getPrimaryMarkerColor(context),
-                    25
-                ),
-                if (isMyLocationLayerEnabled) MyLocationLayerManager(myLocationLayer, Color.WHITE) else null,
+                    Resources.getPrimaryMarkerColor(context)
+                ) else null,
+                if (isMyLocationLayerEnabled) MyLocationLayerManager(
+                    myLocationLayer,
+                    Color.WHITE
+                ) else null,
                 if (isTideLayerEnabled) TideMapLayerManager(context, tideLayer) else null,
                 if (isMapLayerEnabled) PhotoMapLayerManager(
                     context,

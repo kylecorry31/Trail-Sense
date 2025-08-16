@@ -30,6 +30,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathMapLayerPreferences
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationMapLayerPreferences
+import com.kylecorry.trail_sense.tools.map.map_layers.MyAccuracyMapLayerPreferences
 
 class NavigationPreferences(private val context: Context) : ICompassStylePreferences,
     IPathPreferences, IBeaconPreferences {
@@ -233,6 +234,7 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
     val contourLayer = ContourMapLayerPreferences(context, "navigation")
     val tideLayer = TideMapLayerPreferences(context, "navigation")
     val myLocationLayer = MyLocationMapLayerPreferences(context, "navigation")
+    val myAccuracyLayer = MyAccuracyMapLayerPreferences(context, "navigation")
 
     val layerManager = MapLayerPreferenceManager(
         "navigation", listOf(
@@ -241,6 +243,7 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
             pathLayer.getPreferences(),
             beaconLayer.getPreferences(),
             tideLayer.getPreferences(),
+            myAccuracyLayer.getPreferences(),
             myLocationLayer.getPreferences()
         ),
         context.getString(R.string.pref_nearby_radar)

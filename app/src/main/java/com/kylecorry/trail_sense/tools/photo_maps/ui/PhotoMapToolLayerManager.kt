@@ -16,22 +16,22 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.CompassOverlayLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyAccuracyLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyAccuracyLayerManager
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyElevationLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ScaleBarLayer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyAccuracyLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyElevationLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
-import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyAccuracyLayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
+import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationLayerManager
+import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
@@ -111,8 +111,11 @@ class PhotoMapToolLayerManager {
         // Tide layer
         tideLayer.setPreferences(prefs.photoMaps.tideLayer)
 
-        // Apply my location preferences
+        // My location layer
         myLocationLayer.setPreferences(prefs.photoMaps.myLocationLayer)
+
+        // My accuracy layer
+        myAccuracyLayer.setPreferences(prefs.photoMaps.myAccuracyLayer)
 
         // Start
         view.setLayers(
@@ -120,7 +123,7 @@ class PhotoMapToolLayerManager {
                 if (prefs.photoMaps.contourLayer.isEnabled.get()) contourLayer else null,
                 if (prefs.photoMaps.navigationLayer.isEnabled.get()) navigationLayer else null,
                 if (prefs.photoMaps.pathLayer.isEnabled.get()) pathLayer else null,
-                myAccuracyLayer,
+                if (prefs.photoMaps.myAccuracyLayer.isEnabled.get()) myAccuracyLayer else null,
                 if (prefs.photoMaps.myLocationLayer.isEnabled.get()) myLocationLayer else null,
                 if (prefs.photoMaps.tideLayer.isEnabled.get()) tideLayer else null,
                 if (prefs.photoMaps.beaconLayer.isEnabled.get()) beaconLayer else null,
@@ -136,11 +139,14 @@ class PhotoMapToolLayerManager {
 
         layerManager = MultiLayerManager(
             listOfNotNull(
-                if (prefs.photoMaps.pathLayer.isEnabled.get()) PathLayerManager(context, pathLayer) else null,
-                MyAccuracyLayerManager(
+                if (prefs.photoMaps.pathLayer.isEnabled.get()) PathLayerManager(
+                    context,
+                    pathLayer
+                ) else null,
+                if (prefs.photoMaps.myAccuracyLayer.isEnabled.get()) MyAccuracyLayerManager(
                     myAccuracyLayer,
                     Resources.getPrimaryMarkerColor(context)
-                ),
+                ) else null,
                 if (prefs.photoMaps.myLocationLayer.isEnabled.get()) MyLocationLayerManager(
                     myLocationLayer,
                     Resources.getPrimaryMarkerColor(context)
@@ -153,7 +159,10 @@ class PhotoMapToolLayerManager {
                     context,
                     beaconLayer
                 ) else null,
-                if (prefs.photoMaps.navigationLayer.isEnabled.get()) NavigationLayerManager(context, navigationLayer) else null
+                if (prefs.photoMaps.navigationLayer.isEnabled.get()) NavigationLayerManager(
+                    context,
+                    navigationLayer
+                ) else null
             )
         )
 

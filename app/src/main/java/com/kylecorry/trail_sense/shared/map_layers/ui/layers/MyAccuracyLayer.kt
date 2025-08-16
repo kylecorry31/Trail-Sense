@@ -5,6 +5,8 @@ import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.CircleMapMarker
+import com.kylecorry.sol.math.SolMath
+import com.kylecorry.trail_sense.tools.map.map_layers.MyAccuracyMapLayerPreferences
 
 /**
  * Draws a circle on the map representing the accuracy of a location
@@ -51,12 +53,22 @@ class MyAccuracyLayer : BaseLayer() {
      * Sets the fill and stroke color of the circle
      * @param fillColor The fill color of the circle
      * @param strokeColor The stroke color of the circle
-     * @param opacity The opacity of the circle
      */
-    fun setColors(@ColorInt fillColor: Int, @ColorInt strokeColor: Int, opacity: Int = 50) {
+    fun setColors(@ColorInt fillColor: Int, @ColorInt strokeColor: Int) {
         _fillColor = fillColor
         _strokeColor = strokeColor
-        _opacity = opacity
+        invalidate()
+    }
+
+    fun setPreferences(prefs: MyAccuracyMapLayerPreferences){
+        _opacity = SolMath.map(
+            prefs.opacity.get().toFloat(),
+            0f,
+            100f,
+            0f,
+            255f,
+            shouldClamp = true
+        ).toInt()
         invalidate()
     }
 

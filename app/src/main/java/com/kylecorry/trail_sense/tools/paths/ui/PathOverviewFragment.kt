@@ -169,8 +169,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             listOf(
                 MyAccuracyLayerManager(
                     myAccuracyLayer,
-                    Resources.getPrimaryMarkerColor(requireContext()),
-                    25
+                    Resources.getPrimaryMarkerColor(requireContext())
                 ),
                 MyLocationLayerManager(
                     myLocationLayer,

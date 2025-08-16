@@ -6,12 +6,11 @@ import com.kylecorry.sol.units.Coordinate
 
 class MyAccuracyLayerManager(
     private val layer: MyAccuracyLayer,
-    @ColorInt private val color: Int,
-    private val opacity: Int = 50
+    @ColorInt private val color: Int
 ) :
     BaseLayerManager() {
     override fun start() {
-        layer.setColors(color, Color.TRANSPARENT, opacity)
+        layer.setColors(color, Color.TRANSPARENT)
     }
 
     override fun stop() {
