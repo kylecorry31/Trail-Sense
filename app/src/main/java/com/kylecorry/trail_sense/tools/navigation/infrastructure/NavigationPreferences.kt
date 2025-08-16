@@ -28,6 +28,7 @@ import com.kylecorry.trail_sense.tools.paths.ui.PathSortMethod
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerPreferences
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
+import com.kylecorry.trail_sense.tools.paths.map_layers.PathMapLayerPreferences
 
 class NavigationPreferences(private val context: Context) : ICompassStylePreferences,
     IPathPreferences, IBeaconPreferences {
@@ -226,6 +227,7 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
 
     // Layers
     val photoMapLayer = PhotoMapMapLayerPreferences(context, "navigation")
+    val pathLayer = PathMapLayerPreferences(context, "navigation")
     val beaconLayer = BeaconMapLayerPreferences(context, "navigation")
     val contourLayer = ContourMapLayerPreferences(context, "navigation")
     val tideLayer = TideMapLayerPreferences(context, "navigation")
@@ -234,6 +236,7 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         "navigation", listOf(
             photoMapLayer.getPreferences(),
             contourLayer.getPreferences(),
+            pathLayer.getPreferences(),
             beaconLayer.getPreferences(),
             tideLayer.getPreferences()
         ),

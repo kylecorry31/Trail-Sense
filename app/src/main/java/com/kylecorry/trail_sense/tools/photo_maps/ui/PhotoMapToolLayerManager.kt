@@ -95,6 +95,7 @@ class PhotoMapToolLayerManager {
 
         // Path layer
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
+        pathLayer.setPreferences(prefs.photoMaps.pathLayer)
 
         // Contour layer
         contourLayer.setPreferences(prefs.photoMaps.contourLayer)
@@ -112,7 +113,7 @@ class PhotoMapToolLayerManager {
             listOfNotNull(
                 if (prefs.photoMaps.contourLayer.isEnabled.get()) contourLayer else null,
                 navigationLayer,
-                pathLayer,
+                if (prefs.photoMaps.pathLayer.isEnabled.get()) pathLayer else null,
                 myAccuracyLayer,
                 myLocationLayer,
                 if (prefs.photoMaps.tideLayer.isEnabled.get()) tideLayer else null,
@@ -129,7 +130,7 @@ class PhotoMapToolLayerManager {
 
         layerManager = MultiLayerManager(
             listOfNotNull(
-                PathLayerManager(context, pathLayer),
+                if (prefs.photoMaps.pathLayer.isEnabled.get()) PathLayerManager(context, pathLayer) else null,
                 MyAccuracyLayerManager(
                     myAccuracyLayer,
                     Resources.getPrimaryMarkerColor(context)

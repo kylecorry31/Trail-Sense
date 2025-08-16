@@ -18,6 +18,7 @@ import com.kylecorry.sol.math.SolMath.toDegrees
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
 import com.kylecorry.trail_sense.shared.extensions.drawLines
 import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
@@ -51,12 +52,26 @@ class PathLayer : IAsyncLayer, IPathLayer {
     private var shouldRenderSmoothPaths = false
     private var shouldRenderLabels = false
 
+    private var opacity: Int = 255
+
     private val lock = Any()
 
     private val runner = CoroutineQueueRunner()
     private val scope = CoroutineScope(Dispatchers.Default)
 
     private var currentScale = 1f
+
+    fun setPreferences(prefs: PathMapLayerPreferences) {
+        opacity = SolMath.map(
+            prefs.opacity.get().toFloat(),
+            0f,
+            100f,
+            0f,
+            255f,
+            shouldClamp = true
+        ).toInt()
+        invalidate()
+    }
 
     fun setShouldRenderWithDrawLines(shouldRenderWithDrawLines: Boolean) {
         this.shouldRenderWithDrawLines = shouldRenderWithDrawLines
@@ -93,37 +108,39 @@ class PathLayer : IAsyncLayer, IPathLayer {
             renderInBackground(renderer)
         }
 
-        // Make a copy of the rendered paths
-        synchronized(lock) {
-            val factory = PathLineDrawerFactory()
-            val values = renderedPaths.values
-            for (path in values) {
-                // Don't draw empty paths
-                if (path.line.isEmpty()) {
-                    continue
-                }
-                val pathDrawer = factory.create(path.style)
-                val centerPixel = map.toPixel(path.origin)
-                drawer.push()
-                drawer.translate(centerPixel.x, centerPixel.y)
-                val relativeScale = (path.renderedScale / currentScale).real().positive(1f)
-                drawer.scale(relativeScale)
-                drawer.strokeJoin(StrokeJoin.Round)
-                drawer.strokeCap(StrokeCap.Round)
-                pathDrawer.draw(
-                    drawer,
-                    path.color,
-                    strokeScale = scale / (path.originalPath?.thicknessScale ?: 1f)
-                ) {
-                    if (shouldRenderWithDrawLines || path.path == null) {
-                        lines(path.line.toFloatArray())
-                    } else {
-                        path(path.path)
+        drawer.withLayerOpacity(opacity) {
+            // Make a copy of the rendered paths
+            synchronized(lock) {
+                val factory = PathLineDrawerFactory()
+                val values = renderedPaths.values
+                for (path in values) {
+                    // Don't draw empty paths
+                    if (path.line.isEmpty()) {
+                        continue
                     }
-                }
+                    val pathDrawer = factory.create(path.style)
+                    val centerPixel = map.toPixel(path.origin)
+                    drawer.push()
+                    drawer.translate(centerPixel.x, centerPixel.y)
+                    val relativeScale = (path.renderedScale / currentScale).real().positive(1f)
+                    drawer.scale(relativeScale)
+                    drawer.strokeJoin(StrokeJoin.Round)
+                    drawer.strokeCap(StrokeCap.Round)
+                    pathDrawer.draw(
+                        drawer,
+                        path.color,
+                        strokeScale = scale / (path.originalPath?.thicknessScale ?: 1f)
+                    ) {
+                        if (shouldRenderWithDrawLines || path.path == null) {
+                            lines(path.line.toFloatArray())
+                        } else {
+                            path(path.path)
+                        }
+                    }
 
-                drawer.pop()
-                drawLabels(drawer, map, path)
+                    drawer.pop()
+                    drawLabels(drawer, map, path)
+                }
             }
         }
         drawer.noStroke()

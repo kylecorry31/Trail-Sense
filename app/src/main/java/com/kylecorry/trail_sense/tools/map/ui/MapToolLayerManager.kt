@@ -96,6 +96,7 @@ class MapToolLayerManager {
         selectedPointLayer.setOutlineColor(Color.WHITE)
 
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
+        pathLayer.setPreferences(prefs.map.pathLayer)
 
         photoMapLayer.setMinZoom(4)
         photoMapLayer.controlsPdfCache = true
@@ -117,7 +118,7 @@ class MapToolLayerManager {
                 if (prefs.map.photoMapLayer.isEnabled.get()) photoMapLayer else null,
                 if (prefs.map.contourLayer.isEnabled.get()) contourLayer else null,
                 navigationLayer,
-                pathLayer,
+                if (prefs.map.pathLayer.isEnabled.get()) pathLayer else null,
                 myAccuracyLayer,
                 myLocationLayer,
                 if (prefs.map.tideLayer.isEnabled.get()) tideLayer else null,
@@ -134,7 +135,7 @@ class MapToolLayerManager {
 
         layerManager = MultiLayerManager(
             listOfNotNull(
-                PathLayerManager(context, pathLayer),
+                if (prefs.map.pathLayer.isEnabled.get()) PathLayerManager(context, pathLayer) else null,
                 MyAccuracyLayerManager(
                     myAccuracyLayer,
                     Resources.getPrimaryMarkerColor(context)
