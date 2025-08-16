@@ -116,6 +116,8 @@ class MapToolLayerManager {
 
         tideLayer.setPreferences(prefs.map.tideLayer)
 
+        myLocationLayer.setPreferences(prefs.map.myLocationLayer)
+
         view.setLayers(
             listOfNotNull(
                 if (prefs.map.baseMapLayer.isEnabled.get()) baseMapLayer else null,
@@ -124,7 +126,7 @@ class MapToolLayerManager {
                 if (prefs.map.navigationLayer.isEnabled.get()) navigationLayer else null,
                 if (prefs.map.pathLayer.isEnabled.get()) pathLayer else null,
                 myAccuracyLayer,
-                myLocationLayer,
+                if (prefs.map.myLocationLayer.isEnabled.get()) myLocationLayer else null,
                 if (prefs.map.tideLayer.isEnabled.get()) tideLayer else null,
                 if (prefs.map.beaconLayer.isEnabled.get()) beaconLayer else null,
                 selectedPointLayer,
@@ -144,10 +146,10 @@ class MapToolLayerManager {
                     myAccuracyLayer,
                     Resources.getPrimaryMarkerColor(context)
                 ),
-                MyLocationLayerManager(
+                if (prefs.map.myLocationLayer.isEnabled.get()) MyLocationLayerManager(
                     myLocationLayer,
                     Resources.getPrimaryMarkerColor(context)
-                ),
+                ) else null,
                 if (prefs.map.tideLayer.isEnabled.get()) TideMapLayerManager(
                     context,
                     tideLayer

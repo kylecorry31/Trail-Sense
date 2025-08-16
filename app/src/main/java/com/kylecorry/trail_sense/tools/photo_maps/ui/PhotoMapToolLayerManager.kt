@@ -111,6 +111,9 @@ class PhotoMapToolLayerManager {
         // Tide layer
         tideLayer.setPreferences(prefs.photoMaps.tideLayer)
 
+        // Apply my location preferences
+        myLocationLayer.setPreferences(prefs.photoMaps.myLocationLayer)
+
         // Start
         view.setLayers(
             listOfNotNull(
@@ -118,7 +121,7 @@ class PhotoMapToolLayerManager {
                 if (prefs.photoMaps.navigationLayer.isEnabled.get()) navigationLayer else null,
                 if (prefs.photoMaps.pathLayer.isEnabled.get()) pathLayer else null,
                 myAccuracyLayer,
-                myLocationLayer,
+                if (prefs.photoMaps.myLocationLayer.isEnabled.get()) myLocationLayer else null,
                 if (prefs.photoMaps.tideLayer.isEnabled.get()) tideLayer else null,
                 if (prefs.photoMaps.beaconLayer.isEnabled.get()) beaconLayer else null,
                 selectedPointLayer,
@@ -138,10 +141,10 @@ class PhotoMapToolLayerManager {
                     myAccuracyLayer,
                     Resources.getPrimaryMarkerColor(context)
                 ),
-                MyLocationLayerManager(
+                if (prefs.photoMaps.myLocationLayer.isEnabled.get()) MyLocationLayerManager(
                     myLocationLayer,
                     Resources.getPrimaryMarkerColor(context)
-                ),
+                ) else null,
                 if (prefs.photoMaps.tideLayer.isEnabled.get()) TideMapLayerManager(
                     context,
                     tideLayer
@@ -150,7 +153,7 @@ class PhotoMapToolLayerManager {
                     context,
                     beaconLayer
                 ) else null,
-                if (prefs.map.navigationLayer.isEnabled.get()) NavigationLayerManager(context, navigationLayer) else null
+                if (prefs.photoMaps.navigationLayer.isEnabled.get()) NavigationLayerManager(context, navigationLayer) else null
             )
         )
 

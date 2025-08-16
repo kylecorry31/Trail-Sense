@@ -55,6 +55,7 @@ class NavigationCompassLayerManager {
         val isPathLayerEnabled = prefs.navigation.pathLayer.isEnabled.get()
         val isBeaconLayerEnabled = prefs.navigation.beaconLayer.isEnabled.get()
         val isTideLayerEnabled = prefs.navigation.tideLayer.isEnabled.get()
+        val isMyLocationLayerEnabled = prefs.navigation.myLocationLayer.isEnabled.get()
 
         beaconLayer.setOutlineColor(Resources.color(context, R.color.colorSecondary))
         beaconLayer.setPreferences(prefs.navigation.beaconLayer)
@@ -63,6 +64,7 @@ class NavigationCompassLayerManager {
         photoMapLayer.setPreferences(prefs.navigation.photoMapLayer)
         contourLayer.setPreferences(prefs.navigation.contourLayer)
         tideLayer.setPreferences(prefs.navigation.tideLayer)
+        myLocationLayer.setPreferences(prefs.navigation.myLocationLayer)
         photoMapLayer.setBackgroundColor(Resources.color(context, R.color.colorSecondary))
         photoMapLayer.setMinZoom(4)
         photoMapLayer.controlsPdfCache = true
@@ -72,7 +74,7 @@ class NavigationCompassLayerManager {
                 if (isContourLayerEnabled) contourLayer else null,
                 if (isPathLayerEnabled) pathLayer else null,
                 myAccuracyLayer,
-                myLocationLayer,
+                if (isMyLocationLayerEnabled) myLocationLayer else null,
                 if (isTideLayerEnabled) tideLayer else null,
                 if (isBeaconLayerEnabled) beaconLayer else null
             )
@@ -86,7 +88,7 @@ class NavigationCompassLayerManager {
                     Resources.getPrimaryMarkerColor(context),
                     25
                 ),
-                MyLocationLayerManager(myLocationLayer, Color.WHITE),
+                if (isMyLocationLayerEnabled) MyLocationLayerManager(myLocationLayer, Color.WHITE) else null,
                 if (isTideLayerEnabled) TideMapLayerManager(context, tideLayer) else null,
                 if (isMapLayerEnabled) PhotoMapLayerManager(
                     context,
