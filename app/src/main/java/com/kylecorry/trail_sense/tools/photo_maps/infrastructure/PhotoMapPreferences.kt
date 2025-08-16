@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconMapLayerPreferen
 import com.kylecorry.trail_sense.tools.photo_maps.domain.sort.MapSortMethod
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerPreferences
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathMapLayerPreferences
+import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationMapLayerPreferences
 
 class PhotoMapPreferences(context: Context) : PreferenceRepo(context) {
     val autoReducePhotoMaps by BooleanPreference(
@@ -54,12 +55,14 @@ class PhotoMapPreferences(context: Context) : PreferenceRepo(context) {
     val contourLayer = ContourMapLayerPreferences(context, "photo_maps")
     val pathLayer = PathMapLayerPreferences(context, "photo_maps")
     val beaconLayer = BeaconMapLayerPreferences(context, "photo_maps")
+    val navigationLayer = NavigationMapLayerPreferences(context, "photo_maps")
     val tideLayer = TideMapLayerPreferences(context, "photo_maps")
     val layerManager = MapLayerPreferenceManager(
         "photo_maps", listOf(
             contourLayer.getPreferences(),
             pathLayer.getPreferences(),
             beaconLayer.getPreferences(),
+            navigationLayer.getPreferences(),
             tideLayer.getPreferences(),
         )
     )

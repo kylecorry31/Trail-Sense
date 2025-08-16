@@ -98,6 +98,8 @@ class MapToolLayerManager {
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
         pathLayer.setPreferences(prefs.map.pathLayer)
 
+        navigationLayer.setPreferences(prefs.map.navigationLayer)
+
         photoMapLayer.setMinZoom(4)
         photoMapLayer.controlsPdfCache = true
         photoMapLayer.setPreferences(prefs.map.photoMapLayer)
@@ -117,7 +119,7 @@ class MapToolLayerManager {
                 baseMapLayer,
                 if (prefs.map.photoMapLayer.isEnabled.get()) photoMapLayer else null,
                 if (prefs.map.contourLayer.isEnabled.get()) contourLayer else null,
-                navigationLayer,
+                if (prefs.map.navigationLayer.isEnabled.get()) navigationLayer else null,
                 if (prefs.map.pathLayer.isEnabled.get()) pathLayer else null,
                 myAccuracyLayer,
                 myLocationLayer,
@@ -158,7 +160,7 @@ class MapToolLayerManager {
                     context,
                     beaconLayer
                 ) else null,
-                NavigationLayerManager(context, navigationLayer)
+                if (prefs.map.navigationLayer.isEnabled.get()) NavigationLayerManager(context, navigationLayer) else null
             )
         )
 

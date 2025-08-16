@@ -97,6 +97,9 @@ class PhotoMapToolLayerManager {
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
         pathLayer.setPreferences(prefs.photoMaps.pathLayer)
 
+        // Navigation layer
+        navigationLayer.setPreferences(prefs.photoMaps.navigationLayer)
+
         // Contour layer
         contourLayer.setPreferences(prefs.photoMaps.contourLayer)
 
@@ -112,7 +115,7 @@ class PhotoMapToolLayerManager {
         view.setLayers(
             listOfNotNull(
                 if (prefs.photoMaps.contourLayer.isEnabled.get()) contourLayer else null,
-                navigationLayer,
+                if (prefs.photoMaps.navigationLayer.isEnabled.get()) navigationLayer else null,
                 if (prefs.photoMaps.pathLayer.isEnabled.get()) pathLayer else null,
                 myAccuracyLayer,
                 myLocationLayer,
@@ -147,7 +150,7 @@ class PhotoMapToolLayerManager {
                     context,
                     beaconLayer
                 ) else null,
-                NavigationLayerManager(context, navigationLayer)
+                if (prefs.map.navigationLayer.isEnabled.get()) NavigationLayerManager(context, navigationLayer) else null
             )
         )
 
