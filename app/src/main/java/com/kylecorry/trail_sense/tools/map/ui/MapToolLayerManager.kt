@@ -69,6 +69,8 @@ class MapToolLayerManager {
     private var layerManager: ILayerManager? = null
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
 
+    var key: Int = 0
+
     fun resume(context: Context, view: IMapView) {
         val hasCompass = SensorService(context).hasCompass()
 
@@ -171,6 +173,8 @@ class MapToolLayerManager {
         )
 
         layerManager?.start()
+
+        key++
     }
 
     fun pause(context: Context, view: IMapView) {

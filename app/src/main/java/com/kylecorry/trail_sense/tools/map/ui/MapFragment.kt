@@ -9,6 +9,7 @@ import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.ui.useCallback
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.fragments.useClickCallback
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.units.Coordinate
@@ -22,6 +23,7 @@ import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useDestroyEffect
 import com.kylecorry.trail_sense.shared.extensions.useNavController
 import com.kylecorry.trail_sense.shared.extensions.useNavigationSensors
+import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.ActionItem
@@ -85,6 +87,17 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
                 manager.pause(context, mapView)
             }
         }
+        val layerEditSheet = useMemo(prefs) {
+            MapLayersBottomSheet(prefs.map.layerManager)
+        }
+
+        val adjustLayers = useCallback<Unit>(manager, layerEditSheet, context, mapView) {
+            manager.pause(context, mapView)
+            layerEditSheet.setOnDismissListener {
+                manager.resume(context, mapView)
+            }
+            layerEditSheet.show(this)
+        }
 
         // Distance
         val stopDistanceMeasurement = useCallback<Unit>(mapDistanceSheetView, manager) {
@@ -132,21 +145,21 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
             }
 
         // Update layer values
-        useEffect(mapView, manager, navigation.location, navigation.locationAccuracy) {
+        useEffect(mapView, manager, navigation.location, navigation.locationAccuracy, manager.key) {
             manager.onLocationChanged(navigation.location, navigation.locationAccuracy)
             mapView.invalidate()
         }
 
-        useEffect(mapView, manager, navigation.bearing) {
+        useEffect(mapView, manager, navigation.bearing, manager.key) {
             manager.onBearingChanged(navigation.bearing.value)
             mapView.invalidate()
         }
 
-        useEffect(manager, mapView.mapBounds) {
+        useEffect(manager, mapView.mapBounds, manager.key) {
             manager.onBoundsChanged(mapView.mapBounds)
         }
 
-        useEffect(mapView, manager, navigation.elevation) {
+        useEffect(mapView, manager, navigation.elevation, manager.key) {
             manager.onElevationChanged(navigation.elevation)
             mapView.invalidate()
         }
@@ -250,6 +263,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
             val actions = listOf(
                 MapAction.Measure to getString(R.string.measure),
                 MapAction.CreatePath to getString(R.string.create_path),
+                MapAction.AdjustLayers to getString(R.string.layers)
             )
 
 
@@ -262,6 +276,8 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
                         null,
                         false
                     )
+
+                    MapAction.AdjustLayers -> adjustLayers()
                 }
                 true
             }
