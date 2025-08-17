@@ -36,7 +36,7 @@ abstract class BaseMapLayerPreferences(
         get = { _isEnabled },
         set = { _isEnabled = it },
         preference = SwitchMapLayerPreference(
-            context.getString(R.string.visible),
+            name,
             enabledPreferenceId,
             defaultValue = enabledByDefault,
             dependency = dependency
