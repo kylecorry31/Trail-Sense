@@ -21,6 +21,8 @@ You can only survive at most a few days without water. Knowing how to find and p
 - Cooking pot or container
 - Clear plastic sheet/tarp
 
+If you don't have room for a metal container, you can pack aluminum foil, which you can form into a bowl shape in an emergency.
+
 ### Knowledge and skills
 Start by learning how to do the following:
 - Plan your water needs for the trip
