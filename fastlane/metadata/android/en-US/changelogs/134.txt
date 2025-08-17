@@ -1,0 +1,18 @@
+Map tool (new)
+- View all beacons, paths, photo maps, etc. on a map
+- Basemap layer (color based on satellite imagery)
+
+Map layers
+- Add contour layer
+- Map layer settings on Navigation, Photo Maps, and Map tools
+
+Photo Maps
+- Auto calibrate more PDFs (ex. USGS GeoPDF)
+- Improve PDF rendering
+
+Augmented Reality
+- See visible planets and meteor showers at night
+- Improve focus when pointed at the sky
+
+Survival Guide
+- Content updates
