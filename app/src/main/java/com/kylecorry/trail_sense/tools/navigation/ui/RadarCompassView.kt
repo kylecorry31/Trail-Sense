@@ -30,9 +30,9 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
-import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import kotlin.math.min
 
 class RadarCompassView : BaseCompassView, IMapView {
@@ -67,6 +67,9 @@ class RadarCompassView : BaseCompassView, IMapView {
     private val layers = mutableListOf<ILayer>()
 
     private var singleTapAction: (() -> Unit)? = null
+    private var longPressAction: (() -> Unit)? = null
+
+    private var isScaling = false
 
     private var north = ""
     private var south = ""
@@ -91,6 +94,10 @@ class RadarCompassView : BaseCompassView, IMapView {
 
     fun setOnSingleTapListener(action: (() -> Unit)?) {
         singleTapAction = action
+    }
+
+    fun setOnLongPressListener(action: (() -> Unit)?) {
+        longPressAction = action
     }
 
     private fun drawLayers() {
@@ -304,6 +311,16 @@ class RadarCompassView : BaseCompassView, IMapView {
 
     private val scaleListener = object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
 
+        override fun onScaleBegin(detector: ScaleGestureDetector): Boolean {
+            isScaling = true
+            return super.onScaleBegin(detector)
+        }
+
+        override fun onScaleEnd(detector: ScaleGestureDetector) {
+            super.onScaleEnd(detector)
+            isScaling = false
+        }
+
         override fun onScale(detector: ScaleGestureDetector): Boolean {
             prefs.navigation.maxBeaconDistance /= detector.scaleFactor
             maxDistanceMeters = Distance.meters(prefs.navigation.maxBeaconDistance)
@@ -318,6 +335,13 @@ class RadarCompassView : BaseCompassView, IMapView {
         override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
             singleTapAction?.invoke()
             return super.onSingleTapConfirmed(e)
+        }
+
+        override fun onLongPress(e: MotionEvent) {
+            super.onLongPress(e)
+            if (!isScaling) {
+                longPressAction?.invoke()
+            }
         }
     }
 

@@ -41,6 +41,7 @@ import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
+import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
 import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.safeRoundToInt
@@ -309,6 +310,16 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.radarCompass.setOnSingleTapListener {
             toggleDestinationBearing()
         }
+
+        binding.radarCompass.setOnLongPressListener {
+            val sheet = MapLayersBottomSheet(userPrefs.navigation.layerManager)
+            layers.pause(requireContext(), binding.radarCompass)
+            sheet.setOnDismissListener {
+                layers.resume(requireContext(), binding.radarCompass)
+            }
+            sheet.show(this)
+        }
+
         binding.linearCompass.setOnClickListener {
             toggleDestinationBearing()
         }
