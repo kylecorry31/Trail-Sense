@@ -6,6 +6,7 @@ import com.kylecorry.sol.science.astronomy.RiseSetTransitTimes
 import com.kylecorry.sol.science.astronomy.SunTimesMode
 import com.kylecorry.sol.science.astronomy.eclipse.EclipseType
 import com.kylecorry.sol.science.astronomy.locators.Planet
+import com.kylecorry.sol.science.astronomy.meteors.MeteorShower
 import com.kylecorry.sol.science.astronomy.meteors.MeteorShowerPeak
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
 import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
@@ -310,6 +311,35 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         return planetsToConsider.map {
             it to Astronomy.getPlanetPosition(it, time, location, withRefraction = true)
         }.filter { it.second.altitude > 0 }
+    }
+
+    fun getVisibleMeteorShowers(
+        location: Coordinate,
+        time: ZonedDateTime = ZonedDateTime.now()
+    ): List<Pair<MeteorShower, CelestialObservation>> {
+        if (isSunUp(location, time)) {
+            return emptyList()
+        }
+
+        // Search 10 days before and after
+        val start = time.minusDays(10)
+        val end = time.plusDays(10)
+
+        val showers = mutableSetOf<MeteorShower>()
+        var current = start
+        while (current <= end) {
+            val peak = Astronomy.getMeteorShower(location, current)
+            if (peak != null) {
+                showers.add(peak.shower)
+            }
+            current = current.plusDays(1)
+        }
+
+        return showers.map { shower ->
+            val azimuth = Astronomy.getMeteorShowerAzimuth(shower, location, time.toInstant())
+            val altitude = Astronomy.getMeteorShowerAltitude(shower, location, time.toInstant())
+            shower to CelestialObservation(azimuth, altitude)
+        }.filter { it.second.altitude > -10 }
     }
 
     private fun getEclipse(

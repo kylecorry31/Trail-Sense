@@ -11,11 +11,13 @@ import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.SolMath.map
 import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.sol.science.astronomy.locators.Planet
+import com.kylecorry.sol.science.astronomy.meteors.MeteorShower
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
 import com.kylecorry.sol.science.astronomy.stars.Star
 import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.fromColorTemperature
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
@@ -43,6 +45,7 @@ class ARAstronomyLayer(
     private val onMoonFocus: (time: ZonedDateTime, phase: MoonPhase) -> Boolean,
     private val onStarFocus: (star: Star) -> Boolean,
     private val onPlanetFocus: (planet: Planet) -> Boolean,
+    private val onMeteorShowerFocus: (shower: MeteorShower) -> Boolean
 ) : ARLayer {
 
     private val scope = CoroutineScope(Dispatchers.Default)
@@ -60,6 +63,7 @@ class ARAstronomyLayer(
 
     private val starLayer = ARMarkerLayer()
     private val planetLayer = ARMarkerLayer()
+    private val meteorShowerLayer = ARMarkerLayer()
     private var planetMapper: PlanetMapper? = null
 
     private val astro = AstronomyService()
@@ -99,6 +103,7 @@ class ARAstronomyLayer(
         currentMoonLayer.update(drawer, view)
         starLayer.update(drawer, view)
         planetLayer.update(drawer, view)
+        meteorShowerLayer.update(drawer, view)
     }
 
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
@@ -109,10 +114,11 @@ class ARAstronomyLayer(
 
         // Only draw the current position when the time is today (this will change in the future)
         if (timeOverride == null || timeOverride?.toLocalDate() == LocalDate.now()) {
+            starLayer.draw(drawer, view)
+            planetLayer.draw(drawer, view)
+            meteorShowerLayer.draw(drawer, view)
             currentSunLayer.draw(drawer, view)
             currentMoonLayer.draw(drawer, view)
-            planetLayer.draw(drawer, view)
-            starLayer.draw(drawer, view)
         }
     }
 
@@ -124,6 +130,7 @@ class ARAstronomyLayer(
         currentSunLayer.invalidate()
         starLayer.invalidate()
         planetLayer.invalidate()
+        meteorShowerLayer.invalidate()
     }
 
     override fun onClick(
@@ -136,7 +143,8 @@ class ARAstronomyLayer(
                 sunLayer.onClick(drawer, view, pixel) ||
                 moonLayer.onClick(drawer, view, pixel) ||
                 planetLayer.onClick(drawer, view, pixel) ||
-                starLayer.onClick(drawer, view, pixel)
+                starLayer.onClick(drawer, view, pixel) ||
+                meteorShowerLayer.onClick(drawer, view, pixel)
     }
 
     override fun onFocus(drawer: ICanvasDrawer, view: AugmentedRealityView): Boolean {
@@ -145,7 +153,8 @@ class ARAstronomyLayer(
                 sunLayer.onFocus(drawer, view) ||
                 moonLayer.onFocus(drawer, view) ||
                 planetLayer.onFocus(drawer, view) ||
-                starLayer.onFocus(drawer, view)
+                starLayer.onFocus(drawer, view) ||
+                meteorShowerLayer.onFocus(drawer, view)
     }
 
     private fun updatePositions(
@@ -315,6 +324,7 @@ class ARAstronomyLayer(
 
                 updateStarLayer(location, time)
                 updatePlanetLayer(location, time, drawer)
+                updateMeteorShowerLayer(location, time, drawer)
 
                 lineLayer.setLines(sunLines + moonLines)
                 sunLayer.setMarkers(sunPointsToDraw.flatten())
@@ -402,6 +412,32 @@ class ARAstronomyLayer(
         }
 
         planetLayer.setMarkers(markers)
+    }
+
+    private suspend fun updateMeteorShowerLayer(
+        location: Coordinate,
+        time: ZonedDateTime,
+        drawer: ICanvasDrawer
+    ) = onDefault {
+        val showers = astro.getVisibleMeteorShowers(location, time)
+        val markers = showers.mapNotNull {
+            val bitmap =
+                bitmapLoader?.load(R.drawable.meteor_shower_radiant, drawer.dp(100f).toInt())
+                    ?: return@mapNotNull null
+            ARMarker(
+                SphericalARPoint(
+                    it.second.azimuth.value,
+                    it.second.altitude,
+                    isTrueNorth = true,
+                    angularDiameter = 20f
+                ),
+                canvasObject = CanvasBitmap(bitmap, opacity = 30),
+                onFocusedFn = {
+                    onMeteorShowerFocus(it.first)
+                }
+            )
+        }
+        meteorShowerLayer.setMarkers(markers)
     }
 
     private fun getMarkersAboveHorizon(points: List<ARMarker>): List<List<ARMarker>> {

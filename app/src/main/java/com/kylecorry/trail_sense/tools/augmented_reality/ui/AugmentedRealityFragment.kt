@@ -25,6 +25,7 @@ import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.location.Satellite
 import com.kylecorry.sol.science.astronomy.locators.Planet
+import com.kylecorry.sol.science.astronomy.meteors.MeteorShower
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
 import com.kylecorry.sol.science.astronomy.stars.Star
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -40,8 +41,10 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.formatEnumName
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
+import com.kylecorry.trail_sense.shared.readableName
 import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.tools.astronomy.ui.format.PlanetMapper
@@ -104,6 +107,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             onMoonFocus = this::onMoonFocused,
             onStarFocus = this::onStarFocused,
             onPlanetFocus = this::onPlanetFocused,
+            onMeteorShowerFocus = this::onMeteorShowerFocused
         )
     }
 
@@ -370,6 +374,11 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
     private fun onPlanetFocused(planet: Planet): Boolean {
         binding.arView.focusText = planetMapper.getName(planet)
+        return true
+    }
+
+    private fun onMeteorShowerFocused(shower: MeteorShower): Boolean {
+        binding.arView.focusText = getString(R.string.meteor_shower) + "\n" + shower.readableName()
         return true
     }
 
