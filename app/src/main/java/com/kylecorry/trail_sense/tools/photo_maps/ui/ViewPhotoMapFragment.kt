@@ -15,6 +15,7 @@ import com.kylecorry.andromeda.core.time.Throttle
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
+import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.torch.ScreenTorch
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
@@ -26,6 +27,7 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
 import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.ActionItem
@@ -99,13 +101,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
             }
         }
         layerManager.setOnDistanceChangedCallback(this::showDistance)
-        layerManager.resume(requireContext(), binding.map)
-
-        // Populate the last known location and map bounds
-        map?.boundary()?.let {
-            layerManager.onBoundsChanged(it)
-        }
-        layerManager.onLocationChanged(gps.location, gps.horizontalAccuracy)
+        resetLayerManager()
 
         if (mapLockMode == MapLockMode.Trace) {
             updateMapLockMode(MapLockMode.Trace, prefs.photoMaps.keepMapFacingUp)
@@ -299,6 +295,25 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
     fun trace() {
         updateMapLockMode(MapLockMode.Trace, prefs.photoMaps.keepMapFacingUp)
+    }
+
+    private fun resetLayerManager(){
+        layerManager.resume(requireContext(), binding.map)
+
+        // Populate the last known location and map bounds
+        map?.boundary()?.let {
+            layerManager.onBoundsChanged(it)
+        }
+        layerManager.onLocationChanged(gps.location, gps.horizontalAccuracy)
+    }
+
+    fun adjustLayers(){
+        val sheet = MapLayersBottomSheet(prefs.photoMaps.layerManager)
+        layerManager.pause(requireContext(), binding.map)
+        sheet.setOnDismissListener {
+            resetLayerManager()
+        }
+        sheet.show(this)
     }
 
     private fun navigateTo(location: Coordinate) {

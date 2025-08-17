@@ -10,5 +10,6 @@ enum class MapContextualAction {
     Export,
     Print,
     Delete,
-    Trace
+    Trace,
+    AdjustLayers
 }

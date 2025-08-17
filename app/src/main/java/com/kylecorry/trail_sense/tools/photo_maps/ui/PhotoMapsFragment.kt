@@ -82,6 +82,7 @@ class PhotoMapsFragment : BoundFragment<FragmentPhotoMapsBinding>() {
                 MapContextualAction.ChangeProjection to if (isMapView) getString(R.string.change_map_projection) else null,
                 MapContextualAction.Measure to if (isMapView) getString(R.string.measure) else null,
                 MapContextualAction.CreatePath to if (isMapView) getString(R.string.create_path) else null,
+                MapContextualAction.AdjustLayers to if (isMapView) getString(R.string.layers) else null,
                 MapContextualAction.Export to if (isMapView) getString(R.string.export) else null,
                 MapContextualAction.Print to if (isMapView && Printer.canPrint()) getString(R.string.print) else null,
                 MapContextualAction.Delete to getString(R.string.delete),
@@ -103,6 +104,7 @@ class PhotoMapsFragment : BoundFragment<FragmentPhotoMapsBinding>() {
                     MapContextualAction.Print -> print()
                     MapContextualAction.Delete -> delete()
                     MapContextualAction.Trace -> trace()
+                    MapContextualAction.AdjustLayers -> adjustLayers()
                 }
                 true
             }
@@ -174,6 +176,13 @@ class PhotoMapsFragment : BoundFragment<FragmentPhotoMapsBinding>() {
         val fragment = currentFragment
         if (fragment != null && fragment is ViewPhotoMapFragment) {
             fragment.trace()
+        }
+    }
+
+    private fun adjustLayers() {
+        val fragment = currentFragment
+        if (fragment != null && fragment is ViewPhotoMapFragment) {
+            fragment.adjustLayers()
         }
     }
 
