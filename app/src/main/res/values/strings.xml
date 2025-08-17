@@ -1767,4 +1767,5 @@
     <string name="load_pdf_tiles_summary">PDF maps will be sharper, but performance may be impacted</string>
     <string name="map_tool_disclaimer">This tool displays your beacons, paths, and photo maps. It is not a substitute for a dedicated maps application.</string>
     <string name="open_settings">Open settings</string>
+    <string name="pref_map_layer_button" translatable="false">pref_map_layer_button</string>
 </resources>
