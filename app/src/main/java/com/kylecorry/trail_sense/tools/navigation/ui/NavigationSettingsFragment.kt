@@ -3,13 +3,16 @@ package com.kylecorry.trail_sense.tools.navigation.ui
 import android.os.Bundle
 import android.text.InputType
 import androidx.preference.ListPreference
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
+import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.shared.preferences.setupDistanceSetting
@@ -86,7 +89,10 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
             preference(R.string.pref_show_dial_ticks_when_no_compass)?.isVisible = false
         }
 
-        prefs.navigation.layerManager.populatePreferences(preferenceScreen)
+        onClick(preference(R.string.pref_map_layer_button)) {
+            val prefs = AppServiceRegistry.get<UserPreferences>()
+            MapLayersBottomSheet(prefs.navigation.layerManager).show(this)
+        }
     }
 
     private fun relative(distance: Distance, prefs: UserPreferences): Distance {

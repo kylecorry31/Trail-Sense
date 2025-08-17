@@ -44,12 +44,9 @@
             app:key="@string/pref_photo_maps_keep_unlocked"
             app:singleLineTitle="false" />
 
-    </PreferenceCategory>
-
-    <!--Layers-->
-    <PreferenceCategory>
         <Preference
             app:iconSpaceReserved="false"
+            app:key="@string/pref_map_layer_button"
             app:singleLineTitle="false"
             app:title="@string/layers" />
     </PreferenceCategory>

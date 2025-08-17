@@ -118,12 +118,10 @@
             app:singleLineTitle="false"
             app:title="@string/pref_nearby_radar_title" />
 
-    </PreferenceCategory>
-
-    <!--Layers-->
-    <PreferenceCategory app:dependency="@string/pref_nearby_radar">
         <Preference
+            app:dependency="@string/pref_nearby_radar"
             app:iconSpaceReserved="false"
+            app:key="@string/pref_map_layer_button"
             app:singleLineTitle="false"
             app:title="@string/layers" />
     </PreferenceCategory>

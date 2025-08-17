@@ -14,23 +14,23 @@ import com.kylecorry.trail_sense.settings.infrastructure.IBeaconPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ICompassStylePreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourMapLayerPreferences
-import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapMapLayerPreferences
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayerPreferenceManager
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.sort.BeaconSortMethod
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconMapLayerPreferences
+import com.kylecorry.trail_sense.tools.map.map_layers.MyAccuracyMapLayerPreferences
+import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationMapLayerPreferences
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
 import com.kylecorry.trail_sense.tools.paths.domain.PathStyle
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.IPathPreferences
+import com.kylecorry.trail_sense.tools.paths.map_layers.PathMapLayerPreferences
 import com.kylecorry.trail_sense.tools.paths.ui.PathSortMethod
+import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapMapLayerPreferences
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerPreferences
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathMapLayerPreferences
-import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationMapLayerPreferences
-import com.kylecorry.trail_sense.tools.map.map_layers.MyAccuracyMapLayerPreferences
 
 class NavigationPreferences(private val context: Context) : ICompassStylePreferences,
     IPathPreferences, IBeaconPreferences {
@@ -245,8 +245,7 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
             tideLayer.getPreferences(),
             myAccuracyLayer.getPreferences(),
             myLocationLayer.getPreferences()
-        ),
-        context.getString(R.string.pref_nearby_radar)
+        )
     )
 
     enum class SpeedometerMode {
