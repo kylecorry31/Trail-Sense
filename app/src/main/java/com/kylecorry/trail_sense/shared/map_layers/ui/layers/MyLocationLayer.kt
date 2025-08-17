@@ -5,11 +5,9 @@ import android.graphics.Path
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationMapLayerPreferences
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.CircleMapMarker
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.PathMapMarker
-import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
-import com.kylecorry.sol.math.SolMath
-import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationMapLayerPreferences
 
 class MyLocationLayer : BaseLayer() {
 
@@ -20,8 +18,6 @@ class MyLocationLayer : BaseLayer() {
 
     @ColorInt
     private var _color: Int = Color.WHITE
-
-    private var opacity: Int = 255
 
     fun setShowDirection(show: Boolean) {
         _showDirection = show
@@ -43,27 +39,18 @@ class MyLocationLayer : BaseLayer() {
         invalidate()
     }
 
-    fun setPreferences(prefs: MyLocationMapLayerPreferences){
-        opacity = SolMath.map(
-            prefs.opacity.get().toFloat(),
-            0f,
-            100f,
-            0f,
-            255f,
-            shouldClamp = true
-        ).toInt()
+    fun setPreferences(prefs: MyLocationMapLayerPreferences) {
+        setPercentOpacity(prefs.opacity.get() / 100f)
         invalidate()
     }
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
-        drawer.withLayerOpacity(opacity) {
-            if (_showDirection) {
-                drawArrow(drawer, map)
-            } else {
-                drawCircle(map)
-            }
-            super.draw(drawer, map)
+        if (_showDirection) {
+            drawArrow(drawer, map)
+        } else {
+            drawCircle(map)
         }
+        super.draw(drawer, map)
     }
 
     private fun drawCircle(map: IMapView) {

@@ -7,15 +7,12 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.onMain
-import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.trail_sense.main.errors.SafeMode
-import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
 import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.device.DeviceSubsystem
-import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.BaseMapLayerPreferences
 import com.kylecorry.trail_sense.shared.map_layers.tiles.ITileSourceSelector
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileLoader
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapMapLayerPreferences
@@ -25,7 +22,6 @@ import kotlinx.coroutines.CancellationException
 class TiledMapLayer : IAsyncLayer {
 
     private var shouldReloadTiles = true
-    private var opacity: Int = 255
     private var backgroundColor: Int = Color.WHITE
     var controlsPdfCache = false
     private var minZoom: Int = 0
@@ -45,26 +41,12 @@ class TiledMapLayer : IAsyncLayer {
         }
 
     fun setPreferences(prefs: PhotoMapMapLayerPreferences) {
-        opacity = SolMath.map(
-            prefs.opacity.get().toFloat(),
-            0f,
-            100f,
-            0f,
-            255f,
-            shouldClamp = true
-        ).toInt()
+        _percentOpacity = prefs.opacity.get() / 100f
         invalidate()
     }
 
     fun setPreferences(prefs: BaseMapMapLayerPreferences) {
-        opacity = SolMath.map(
-            prefs.opacity.get().toFloat(),
-            0f,
-            100f,
-            0f,
-            255f,
-            shouldClamp = true
-        ).toInt()
+        _percentOpacity = prefs.opacity.get() / 100f
         invalidate()
     }
 
@@ -116,16 +98,8 @@ class TiledMapLayer : IAsyncLayer {
 
         // Render loaded tiles
         synchronized(loader.lock) {
-            if (opacity == 255 || loader.tileCache.map { it.key.z }.distinct().size == 1) {
-                // No issues with tile opacity stacking
-                tilePaint.alpha = opacity
-                renderTiles(drawer.canvas, map)
-            } else {
-                tilePaint.alpha = 255
-                drawer.withLayerOpacity(opacity) {
-                    renderTiles(drawer.canvas, map)
-                }
-            }
+            tilePaint.alpha = 255
+            renderTiles(drawer.canvas, map)
         }
     }
 
@@ -199,4 +173,9 @@ class TiledMapLayer : IAsyncLayer {
     override fun setHasUpdateListener(listener: (() -> Unit)?) {
         updateListener = listener
     }
+
+    private var _percentOpacity: Float = 1f
+
+    override val percentOpacity: Float
+        get() = _percentOpacity
 }

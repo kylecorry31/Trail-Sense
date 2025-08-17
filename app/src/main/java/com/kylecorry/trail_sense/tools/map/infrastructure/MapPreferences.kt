@@ -24,7 +24,7 @@ class MapPreferences(context: Context) : PreferenceRepo(context) {
     )
 
     // Layers
-    val baseMapLayer = BaseMapMapLayerPreferences(context, "map", defaultOpacity = 100)
+    val baseMapLayer = BaseMapMapLayerPreferences(context, "map")
     val photoMapLayer = PhotoMapMapLayerPreferences(context, "map", defaultOpacity = 100)
     val beaconLayer = BeaconMapLayerPreferences(context, "map")
     val pathLayer = PathMapLayerPreferences(context, "map")

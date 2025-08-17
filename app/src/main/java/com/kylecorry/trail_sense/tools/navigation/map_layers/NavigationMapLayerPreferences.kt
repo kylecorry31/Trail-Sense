@@ -13,48 +13,4 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.BaseMapLayer
 class NavigationMapLayerPreferences(
     context: Context,
     mapId: String
-) : BaseMapLayerPreferences(context) {
-    private var _isEnabled by BooleanPreference(
-        cache,
-        "pref_${mapId}_navigation_layer_enabled",
-        true
-    )
-
-    val isEnabled = MapLayerPreferenceConfig(
-        get = { _isEnabled },
-        set = { _isEnabled = it },
-        preference = SwitchMapLayerPreference(
-            context.getString(R.string.visible),
-            "navigation_layer_enabled",
-            defaultValue = true
-        )
-    )
-
-    private var _opacity by IntPreference(
-        cache,
-        "pref_${mapId}_navigation_layer_opacity",
-        100 // percent
-    )
-
-    val opacity = MapLayerPreferenceConfig(
-        get = { _opacity },
-        set = { _opacity = it },
-        preference = SeekbarMapLayerPreference(
-            context.getString(R.string.opacity),
-            "navigation_layer_opacity",
-            defaultValue = 100,
-            dependency = "navigation_layer_enabled"
-        )
-    )
-
-    override fun getPreferences(): MapLayerViewPreferences {
-        return MapLayerViewPreferences(
-            "navigation_layer",
-            context.getString(R.string.navigation),
-            listOf(
-                isEnabled.preference,
-                opacity.preference
-            )
-        )
-    }
-}
+) : BaseMapLayerPreferences(context, mapId, "navigation", R.string.navigation)

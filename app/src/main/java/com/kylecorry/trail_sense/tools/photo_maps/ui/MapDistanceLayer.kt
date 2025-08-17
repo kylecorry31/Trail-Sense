@@ -140,4 +140,9 @@ class MapDistanceLayer(private val onPathChanged: (points: List<Coordinate>) -> 
             )
         }
     }
+
+    private var _percentOpacity: Float = 1f
+
+    override val percentOpacity: Float
+        get() = _percentOpacity
 }

@@ -86,4 +86,9 @@ class MyElevationLayer(
     protected fun finalize() {
         bitmapLoader.clear()
     }
+
+    private var _percentOpacity: Float = 1f
+
+    override val percentOpacity: Float
+        get() = _percentOpacity
 }

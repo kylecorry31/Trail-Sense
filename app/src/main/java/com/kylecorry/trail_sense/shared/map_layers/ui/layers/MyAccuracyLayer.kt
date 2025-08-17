@@ -4,9 +4,8 @@ import android.graphics.Color
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.tools.navigation.ui.markers.CircleMapMarker
-import com.kylecorry.sol.math.SolMath
 import com.kylecorry.trail_sense.tools.map.map_layers.MyAccuracyMapLayerPreferences
+import com.kylecorry.trail_sense.tools.navigation.ui.markers.CircleMapMarker
 
 /**
  * Draws a circle on the map representing the accuracy of a location
@@ -33,10 +32,6 @@ class MyAccuracyLayer : BaseLayer() {
      */
     private var _strokeColor: Int = Color.TRANSPARENT
 
-    /**
-     * The opacity of the circle
-     */
-    private var _opacity: Int = 50
 
     /**
      * Sets the location and accuracy of the circle
@@ -60,15 +55,8 @@ class MyAccuracyLayer : BaseLayer() {
         invalidate()
     }
 
-    fun setPreferences(prefs: MyAccuracyMapLayerPreferences){
-        _opacity = SolMath.map(
-            prefs.opacity.get().toFloat(),
-            0f,
-            100f,
-            0f,
-            255f,
-            shouldClamp = true
-        ).toInt()
+    fun setPreferences(prefs: MyAccuracyMapLayerPreferences) {
+        setPercentOpacity(prefs.opacity.get() / 100f)
         invalidate()
     }
 
@@ -77,7 +65,7 @@ class MyAccuracyLayer : BaseLayer() {
         super.draw(drawer, map)
     }
 
-    private fun updateMarker(drawer: ICanvasDrawer, map: IMapView){
+    private fun updateMarker(drawer: ICanvasDrawer, map: IMapView) {
         val accuracy = _accuracy ?: return
         val location = _location ?: return
         if (map.metersPerPixel <= 0) return
@@ -91,7 +79,7 @@ class MyAccuracyLayer : BaseLayer() {
                 location,
                 _fillColor,
                 _strokeColor,
-                _opacity,
+                255,
                 sizeDp
             )
         )

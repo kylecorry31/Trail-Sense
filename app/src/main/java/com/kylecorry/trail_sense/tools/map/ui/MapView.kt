@@ -17,6 +17,7 @@ import com.kylecorry.sol.science.geography.projections.MercatorProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
@@ -177,7 +178,11 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         drawer.rotate(-mapAzimuth)
         drawLayers()
         pop()
-        layers.forEach { it.drawOverlay(this, this) }
+        layers.forEach {
+            withLayerOpacity(it.opacity) {
+                it.drawOverlay(this, this)
+            }
+        }
     }
 
     private fun drawLayers() {
@@ -187,7 +192,11 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         }
         // TODO: If map bounds changed, invalidate layers
 
-        layers.forEach { it.draw(this, this) }
+        layers.forEach {
+            withLayerOpacity(it.opacity) {
+                it.draw(this, this)
+            }
+        }
     }
 
     private fun getScale(metersPerPixel: Float): Float {

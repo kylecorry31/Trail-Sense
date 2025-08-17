@@ -96,4 +96,9 @@ class CompassOverlayLayer : ILayer {
     ): Boolean {
         return false
     }
+
+    private var _percentOpacity: Float = 1f
+
+    override val percentOpacity: Float
+        get() = _percentOpacity
 }

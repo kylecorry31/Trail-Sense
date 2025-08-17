@@ -23,6 +23,7 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import kotlin.math.atan2
@@ -151,7 +152,11 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
             layers.forEach { it.invalidate() }
         }
 
-        layers.forEach { it.draw(this, this) }
+        layers.forEach {
+            withLayerOpacity(it.opacity) {
+                it.draw(this, this)
+            }
+        }
     }
 
     private fun getInitialScale(): Float? {

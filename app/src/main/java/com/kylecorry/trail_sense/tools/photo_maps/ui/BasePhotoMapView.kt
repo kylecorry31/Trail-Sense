@@ -11,11 +11,12 @@ import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
-import com.kylecorry.trail_sense.shared.views.EnhancedImageView
-import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
+import com.kylecorry.trail_sense.shared.views.EnhancedImageView
+import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import kotlin.math.max
 import kotlin.math.min
 
@@ -182,12 +183,20 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
             onImageLoadedListener?.invoke()
         }
 
-        layers.forEach { it.draw(drawer, this) }
+        layers.forEach {
+            drawer.withLayerOpacity(it.opacity) {
+                it.draw(drawer, this)
+            }
+        }
     }
 
     override fun drawOverlay() {
         super.drawOverlay()
-        layers.forEach { it.drawOverlay(drawer, this) }
+        layers.forEach {
+            drawer.withLayerOpacity(it.opacity) {
+                it.drawOverlay(drawer, this)
+            }
+        }
     }
 
     open fun showMap(map: PhotoMap) {

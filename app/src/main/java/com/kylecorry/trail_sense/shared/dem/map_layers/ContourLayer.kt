@@ -32,17 +32,8 @@ class ContourLayer : IAsyncLayer {
     private val minZoomLevel = 13
     private val maxZoomLevel = 19
 
-    private var opacity = 127
-
     fun setPreferences(prefs: ContourMapLayerPreferences) {
-        opacity = SolMath.map(
-            prefs.opacity.get().toFloat(),
-            0f,
-            100f,
-            0f,
-            255f,
-            shouldClamp = true
-        ).toInt()
+        _percentOpacity = prefs.opacity.get() / 100f
         pathLayer.setShouldRenderLabels(prefs.showLabels.get())
         // TODO: More experimentation required before this is enabled for everyone
 //        pathLayer.setShouldRenderSmoothPaths(isDebug())
@@ -224,6 +215,11 @@ class ContourLayer : IAsyncLayer {
     ): Boolean {
         return false
     }
+
+    private var _percentOpacity: Float = 1f
+
+    override val percentOpacity: Float
+        get() = _percentOpacity
 
     override fun setHasUpdateListener(listener: (() -> Unit)?) {
         pathLayer.setHasUpdateListener(listener)

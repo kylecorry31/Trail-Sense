@@ -29,6 +29,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
+import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
@@ -96,12 +97,24 @@ class RadarCompassView : BaseCompassView, IMapView {
         // TODO: Handle beacon highlighting
         push()
         clip(compassPath)
-        layers.forEach { tryOrLog { it.draw(this, this) } }
+        layers.forEach {
+            tryOrLog {
+                withLayerOpacity(it.opacity) {
+                    it.draw(this, this)
+                }
+            }
+        }
         pop()
     }
 
     private fun drawOverlays() {
-        layers.forEach { tryOrLog { it.drawOverlay(this, this) } }
+        layers.forEach {
+            tryOrLog {
+                withLayerOpacity(it.opacity) {
+                    it.drawOverlay(this, this)
+                }
+            }
+        }
     }
 
     private fun drawCompass() {

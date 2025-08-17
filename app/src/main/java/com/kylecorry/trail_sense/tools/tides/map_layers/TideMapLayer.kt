@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.tides.map_layers
 import android.graphics.Bitmap
 import androidx.annotation.DrawableRes
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
-import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.oceanography.TideType
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseLayer
@@ -21,17 +20,8 @@ class TideMapLayer : BaseLayer() {
 
     private val lock = Any()
 
-    private var opacity: Int = 255
-
     fun setPreferences(prefs: TideMapLayerPreferences) {
-        opacity = SolMath.map(
-            prefs.opacity.get().toFloat(),
-            0f,
-            100f,
-            0f,
-            255f,
-            shouldClamp = true
-        ).toInt()
+        setPercentOpacity(prefs.opacity.get() / 100f)
         invalidate()
     }
 
@@ -44,7 +34,6 @@ class TideMapLayer : BaseLayer() {
     }
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
-        drawer.opacity(opacity)
         clearMarkers()
         val tides = synchronized(lock) { _tides.toList() }
         tides.forEach { tide ->
@@ -53,7 +42,6 @@ class TideMapLayer : BaseLayer() {
             addMarker(BitmapMapMarker(tide.first.location!!, img))
         }
         super.draw(drawer, map)
-        drawer.opacity(255)
     }
 
     private fun getImage(drawer: ICanvasDrawer, type: TideType?): Bitmap {

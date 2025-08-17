@@ -74,6 +74,16 @@ open class BaseLayer : ILayer {
         return false
     }
 
+    private var _percentOpacity: Float = 1f
+
+    override val percentOpacity: Float
+        get() = _percentOpacity
+
+    fun setPercentOpacity(opacity: Float) {
+        _percentOpacity = opacity.coerceIn(0f, 1f)
+        invalidate()
+    }
+
     private fun getBounds(drawer: ICanvasDrawer): Rectangle {
         // Rotating by map rotation wasn't working around 90/270 degrees - this is a workaround
         // It will just render slightly more of the path than needed, but never less (since 45 is when the area is at its largest)

@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.map_layers.ui.layers
 
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.sol.math.SolMath
 
 interface ILayer {
     /**
@@ -26,4 +27,16 @@ interface ILayer {
      * @return true if the click event was handled by this layer, false otherwise
      */
     fun onClick(drawer: ICanvasDrawer, map: IMapView, pixel: PixelCoordinate): Boolean
+
+    val percentOpacity: Float
+
+    val opacity: Int
+        get() = SolMath.map(
+            percentOpacity,
+            0f,
+            1f,
+            0f,
+            255f,
+            shouldClamp = true
+        ).toInt()
 }
