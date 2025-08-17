@@ -1428,4 +1428,5 @@
     <string name="load_pdf_tiles_summary">PDF 地图显示会更清晰，但可能影响性能</string>
     <string name="map_tool_disclaimer">此工具展示你的信标、路径和照片地图。它不是专门的地图应用的替代品。</string>
     <string name="open_settings">打开设置</string>
+    <string name="basemap">基础地图</string>
 </resources>
