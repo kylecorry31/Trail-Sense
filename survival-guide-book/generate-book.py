@@ -193,11 +193,9 @@ with open("copyright.tex", "w") as f:
 disclaimer_page = """
 \\thispagestyle{{empty}}
 \\vspace*{{\\fill}}
-\\begin{{center}}
 \\textbf{{DISCLAIMER}}\\\\
 \\
 {disclaimer}\\\\
-\\end{{center}}
 \\vspace*{{\\fill}}
 \\newpage
 """.format(**metadata)
