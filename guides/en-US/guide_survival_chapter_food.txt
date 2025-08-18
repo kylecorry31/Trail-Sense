@@ -198,6 +198,8 @@ Alternatively, you can construct an M-shaped funnel trap by hammering sticks int
 5. (Optional) Cut the fish into usable pieces or fillet it.
 6. Cook the fish.
 
+<!-- \pagebreak -->
+
 Cutting pattern to remove entrails (red line):
 
 ![](file:///android_asset/survival_guide/prepare_fish.webp)

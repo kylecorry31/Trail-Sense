@@ -676,7 +676,7 @@ Gastrointestinal issues can be caused by contaminated food or water.
 Headaches can be caused by various factors, such as dehydration, stress, lack of sleep, eye strain, tight muscles, or illness.
 
 ### Treatment
-- Take pain relievers (aspirin, ibuprofen, acetaminophen).
+- Take pain relievers.
 - Drink water or an electrolyte solution.
 - Rest.
 - Eat salty foods.
