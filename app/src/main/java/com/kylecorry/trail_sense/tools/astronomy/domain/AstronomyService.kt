@@ -321,24 +321,16 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
             return emptyList()
         }
 
-        // Search 10 days before and after
-        val start = time.minusDays(10)
-        val end = time.plusDays(10)
+        val showers = Astronomy.getActiveMeteorShowers(location, time)
 
-        val showers = mutableSetOf<MeteorShower>()
-        var current = start
-        while (current <= end) {
-            val peak = Astronomy.getMeteorShower(location, current)
-            if (peak != null) {
-                showers.add(peak.shower)
-            }
-            current = current.plusDays(1)
-        }
-
-        return showers.map { shower ->
-            val azimuth = Astronomy.getMeteorShowerAzimuth(shower, location, time.toInstant())
-            val altitude = Astronomy.getMeteorShowerAltitude(shower, location, time.toInstant())
-            shower to CelestialObservation(azimuth, altitude)
+        return showers
+            .filter { Duration.between(time, it.peak).abs() <= Duration.ofDays(it.shower.activeDays.toLong() / 3) }
+            .map { shower ->
+            shower.shower to Astronomy.getMeteorShowerPosition(
+                shower.shower,
+                location,
+                time.toInstant()
+            )
         }.filter { it.second.altitude > -10 }
     }
 
