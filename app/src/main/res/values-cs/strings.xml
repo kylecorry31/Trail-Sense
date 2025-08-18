@@ -1467,4 +1467,5 @@
     <string name="load_pdf_tiles_summary">PDF mapy budou ostřejší, může to mít ale vliv na výkon</string>
     <string name="map_tool_disclaimer">Tento nástroj zobrazuje vaše majáky, cesty a fotografické mapy. Nejedná se o náhradu vlastní mapové aplikace.</string>
     <string name="open_settings">Otevřít nastavení</string>
+    <string name="basemap">Podkladová mapa</string>
 </resources>
