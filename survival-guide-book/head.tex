@@ -24,17 +24,21 @@
 \AtBeginEnvironment{itemize}{\Needspace{3\baselineskip}}
 \AtBeginEnvironment{enumerate}{\Needspace{3\baselineskip}}
 
-% Prefer flexible page height to prevent forced widows/orphans
-\raggedbottom
-
-% Improve justification without excessive interword stretch
-% (allow moderate hyphenation and reduce emergency stretch)
-\hyphenpenalty=10000
+% Balanced justification: reduce stretch and hyphen overuse, avoid overflow
+\pretolerance=0
+\tolerance=700            % modest looseness when hyphenation allowed
+\emergencystretch=0.35em      % limited safety valve to prevent overfull lines
+% Prefer hyphenation to big gaps for rare long words
+\hyphenpenalty=800
 \exhyphenpenalty=10000
 \lefthyphenmin=3
 \righthyphenmin=3
-\emergencystretch=1em
-\tolerance=1200
+% Hyphenation exceptions for medical terms
+\hyphenation{ac-et-a-min-o-phen i-bu-pro-fen as-pi-rin}
+% Limit allowable interword stretch/shrink to avoid ugly gaps
+\spaceskip=0.3333em plus 0.15em minus 0.12em
+\xspaceskip=\spaceskip
+\linepenalty=20               % slightly prefer adding lines over loose spacing
 % Require at least two lines at top/bottom of a page (e-TeX primitives)
 \clubpenalties 2 10000 10000
 \widowpenalties 2 10000 10000
