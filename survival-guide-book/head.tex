@@ -17,5 +17,35 @@
 \titlespacing*{\section}{0pt}{0.5in}{20pt}
 \usepackage{fontspec}
 \setmainfont{Open Sans}
-\hyphenpenalty=10000
-\exhyphenpenalty=10000
+% Ensure lists/sections don't start at the very bottom of a page
+\usepackage{needspace}
+\preto\section{\Needspace{4\baselineskip}}
+\preto\subsection{\Needspace{3\baselineskip}}
+\AtBeginEnvironment{itemize}{\Needspace{3\baselineskip}}
+\AtBeginEnvironment{enumerate}{\Needspace{3\baselineskip}}
+
+% Prefer flexible page height to prevent forced widows/orphans
+\raggedbottom
+
+\hyphenpenalty=200
+\exhyphenpenalty=200
+% Avoid option clash: only load microtype if not already loaded by the template
+\makeatletter
+\@ifpackageloaded{microtype}{}{%
+  \usepackage{microtype}%
+}
+\makeatother
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+% Require at least two lines at top/bottom of a page (e-TeX primitives)
+\clubpenalties 2 10000 10000
+\widowpenalties 2 10000 10000
+% Allow slight line stretch to avoid overfull boxes and lonely words on next page
+\emergencystretch=6em
+% Permit a bit looser spacing so TeX can find better paragraph breaks
+\tolerance=5000
+% Slightly discourage page breaks within paragraphs
+\interlinepenalty=250
+% Enforce at least two lines at top/bottom of paragraphs and list items
+\usepackage[all,defaultlines=2]{nowidow}
