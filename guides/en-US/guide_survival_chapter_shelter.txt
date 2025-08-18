@@ -215,6 +215,8 @@ If your tarp has a hole, you can repair it using duct tape or by sewing it shut.
 ### Other methods
 If you do not have a sewing kit, you can use duct tape, safety pins, super glue, or cordage as temporary fixes.
 
+<!-- \pagebreak -->
+
 ## Knots
 <!-- K: knot, tie, cordage, cord, rope, paracord -->
 <!-- S: Learn several knots to make the most of your cordage. -->
