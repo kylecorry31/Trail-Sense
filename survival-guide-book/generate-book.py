@@ -12,7 +12,7 @@ Thank you for reading through this guide. I wish you the best of luck on your ad
 
 # TODO: Add index using keywords
 
-def convert_to_book(files, metadata, book_filetype = 'pdf', before_body_files=[], header_file=None, cover_image=None):
+def convert_to_book(files, metadata, book_filetype = 'pdf', before_body_files=[], header_file=None, cover_image=None, after_body_files=[]):
     command = f'pandoc -o Book.{book_filetype} {' '.join(files)} --toc --toc-depth=2 --top-level-division=chapter'
     for entry in metadata:
         command += f' --metadata {entry}="{metadata[entry]}"'
@@ -31,6 +31,10 @@ def convert_to_book(files, metadata, book_filetype = 'pdf', before_body_files=[]
         command += ' --split-level=1'
         if cover_image:
             command += f' --epub-cover-image={cover_image}'
+
+    # Append after-body files (e.g., extra pages for print)
+    for file in after_body_files:
+        command += f' -A {file}'
     
     os.system(command)
 
@@ -204,8 +208,22 @@ disclaimer_page = """
 with open("disclaimer.tex", "w") as f:
     f.write(disclaimer_page)
 
+# Create four printable tinder pages to append at the end of the PDF
+_tinder_text = "Tear out this page and use as tinder in an emergency"
+_tinder_page = r"""
+\thispagestyle{empty}
+\vspace*{\fill}
+\begin{center}
+%s
+\end{center}
+\vspace*{\fill}
+\newpage
+""" % _tinder_text
+with open("tinder.tex", "w") as f:
+    f.write(_tinder_page * 4)
 
-convert_to_book(['temp.md'], metadata, 'pdf', ['copyright.tex', 'disclaimer.tex'], 'head.tex')
+
+convert_to_book(['temp.md'], metadata, 'pdf', ['copyright.tex', 'disclaimer.tex'], 'head.tex', after_body_files=['tinder.tex'])
 
 # Convert pagebreaks to divs with the pagebreak class
 with open('temp.md', 'r') as file:
@@ -249,4 +267,5 @@ os.remove('temp.md')
 os.remove('temp.jpg')
 os.remove('copyright.tex')
 os.remove('disclaimer.tex')
+os.remove('tinder.tex')
 os.system('rm -rf temp')
