@@ -17,29 +17,8 @@
 \titlespacing*{\section}{0pt}{0.5in}{20pt}
 \usepackage{fontspec}
 \setmainfont{Open Sans}
-% Ensure lists/sections don't start at the very bottom of a page
-\usepackage{needspace}
-\preto\section{\Needspace{4\baselineskip}}
-\preto\subsection{\Needspace{3\baselineskip}}
-\AtBeginEnvironment{itemize}{\Needspace{3\baselineskip}}
-\AtBeginEnvironment{enumerate}{\Needspace{3\baselineskip}}
-
-% Balanced justification: reduce stretch and hyphen overuse, avoid overflow
-\pretolerance=0
-\tolerance=700            % modest looseness when hyphenation allowed
-\emergencystretch=0.35em      % limited safety valve to prevent overfull lines
-% Prefer hyphenation to big gaps for rare long words
-\hyphenpenalty=800
-\exhyphenpenalty=10000
-\lefthyphenmin=3
-\righthyphenmin=3
-% Hyphenation exceptions for medical terms
-\hyphenation{ac-et-a-min-o-phen i-bu-pro-fen as-pi-rin}
-% Limit allowable interword stretch/shrink to avoid ugly gaps
-\spaceskip=0.3333em plus 0.15em minus 0.12em
-\xspaceskip=\spaceskip
-\linepenalty=20               % slightly prefer adding lines over loose spacing
-% Require at least two lines at top/bottom of a page (e-TeX primitives)
+\hyphenpenalty 10000
+\exhyphenpenalty 10000
 \clubpenalties 2 10000 10000
 \widowpenalties 2 10000 10000
 % Prevent blank pages inserted to start chapters on odd pages
