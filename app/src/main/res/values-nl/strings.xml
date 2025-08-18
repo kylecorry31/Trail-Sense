@@ -1441,4 +1441,5 @@
     <string name="load_pdf_tiles_summary">PDF-kaarten zijn scherper, maar de prestaties kunnen worden beïnvloed</string>
     <string name="map_tool_disclaimer">Dit hulpmiddel toont je bakens, paden en fotokaarten. Het is geen vervanging voor een speciale kaartapplicatie.</string>
     <string name="open_settings">Open instellingen</string>
+    <string name="basemap">Basiskaart</string>
 </resources>
