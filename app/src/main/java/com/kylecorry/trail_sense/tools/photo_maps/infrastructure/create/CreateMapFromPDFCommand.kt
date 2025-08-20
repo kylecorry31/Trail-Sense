@@ -44,7 +44,11 @@ class CreateMapFromPDFCommand(
             ?: return@onIO null
 
         if (metadata != null && metadata.points.size >= 4) {
-            val points = listOf(metadata.points[1], metadata.points[3]).map {
+
+            val first = metadata.points[0]
+            val second = metadata.points.maxBy { it.first.distanceTo(first.first) }
+
+            val points = listOf(first, second).map {
                 MapCalibrationPoint(
                     it.second,
                     PercentCoordinate(scale * it.first.x / bp.width, scale * it.first.y / bp.height)
