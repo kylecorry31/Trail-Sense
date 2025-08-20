@@ -292,6 +292,16 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         }.filter { it.second.second > 0 }
     }
 
+    fun getStarPosition(
+        star: Star,
+        location: Coordinate,
+        time: ZonedDateTime = ZonedDateTime.now()
+    ): CelestialObservation {
+        val azimuth = Astronomy.getStarAzimuth(star, time, location)
+        val altitude = Astronomy.getStarAltitude(star, time, location, true)
+        return CelestialObservation(azimuth, altitude)
+    }
+
     fun getVisiblePlanets(
         location: Coordinate,
         time: ZonedDateTime = ZonedDateTime.now()
@@ -324,14 +334,17 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         val showers = Astronomy.getActiveMeteorShowers(location, time)
 
         return showers
-            .filter { Duration.between(time, it.peak).abs() <= Duration.ofDays(it.shower.activeDays.toLong() / 3) }
+            .filter {
+                Duration.between(time, it.peak)
+                    .abs() <= Duration.ofDays(it.shower.activeDays.toLong() / 3)
+            }
             .map { shower ->
-            shower.shower to Astronomy.getMeteorShowerPosition(
-                shower.shower,
-                location,
-                time.toInstant()
-            )
-        }.filter { it.second.altitude > -10 }
+                shower.shower to Astronomy.getMeteorShowerPosition(
+                    shower.shower,
+                    location,
+                    time.toInstant()
+                )
+            }.filter { it.second.altitude > -10 }
     }
 
     private fun getEclipse(

@@ -13,12 +13,14 @@ import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.sol.science.astronomy.locators.Planet
 import com.kylecorry.sol.science.astronomy.meteors.MeteorShower
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
+import com.kylecorry.sol.science.astronomy.stars.Constellation
 import com.kylecorry.sol.science.astronomy.stars.Star
 import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.debugging.ifDebug
 import com.kylecorry.trail_sense.shared.fromColorTemperature
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
@@ -62,6 +64,7 @@ class ARAstronomyLayer(
     private val currentMoonLayer = ARMarkerLayer()
 
     private val starLayer = ARMarkerLayer()
+    private val constellationLayer = ARLineLayer()
     private val planetLayer = ARMarkerLayer()
     private val meteorShowerLayer = ARMarkerLayer()
     private var planetMapper: PlanetMapper? = null
@@ -102,6 +105,7 @@ class ARAstronomyLayer(
         currentSunLayer.update(drawer, view)
         currentMoonLayer.update(drawer, view)
         starLayer.update(drawer, view)
+        constellationLayer.update(drawer, view)
         planetLayer.update(drawer, view)
         meteorShowerLayer.update(drawer, view)
     }
@@ -114,6 +118,7 @@ class ARAstronomyLayer(
 
         // Only draw the current position when the time is today (this will change in the future)
         if (timeOverride == null || timeOverride?.toLocalDate() == LocalDate.now()) {
+            constellationLayer.draw(drawer, view)
             starLayer.draw(drawer, view)
             planetLayer.draw(drawer, view)
             meteorShowerLayer.draw(drawer, view)
@@ -128,6 +133,7 @@ class ARAstronomyLayer(
         sunLayer.invalidate()
         currentMoonLayer.invalidate()
         currentSunLayer.invalidate()
+        constellationLayer.invalidate()
         starLayer.invalidate()
         planetLayer.invalidate()
         meteorShowerLayer.invalidate()
@@ -338,9 +344,9 @@ class ARAstronomyLayer(
     }
 
     private suspend fun updateStarLayer(location: Coordinate, time: ZonedDateTime) = onDefault {
-        val starMarkers = if (drawStars) {
+        if (drawStars) {
             val stars = astro.getVisibleStars(location, time)
-            stars.map {
+            val starMarkers = stars.map {
                 ARMarker(
                     SphericalARPoint(
                         it.second.first.value,
@@ -367,11 +373,44 @@ class ARAstronomyLayer(
                     }
                 )
             }
-        } else {
-            emptyList()
-        }
 
-        starLayer.setMarkers(starMarkers)
+            ifDebug {
+                val constellations = Constellation.entries.filter {
+                    val constellationStars =
+                        it.edges.flatMap { listOf(it.first, it.second) }.toSet()
+                    stars.any { constellationStars.contains(it.first) }
+                }
+
+                val constellationLines = constellations.flatMap {
+                    it.edges.map {
+                        val start = astro.getStarPosition(it.first, location, time)
+                        val end = astro.getStarPosition(it.second, location, time)
+                        ARLine(
+                            listOf(
+                                SphericalARPoint(
+                                    start.azimuth.value,
+                                    start.altitude,
+                                    isTrueNorth = true
+                                ),
+                                SphericalARPoint(
+                                    end.azimuth.value,
+                                    end.altitude,
+                                    isTrueNorth = true
+                                )
+                            ),
+                            Color.WHITE.withAlpha(20),
+                            1f
+                        )
+                    }
+                }
+
+                constellationLayer.setLines(constellationLines)
+            }
+            starLayer.setMarkers(starMarkers)
+        } else {
+            starLayer.setMarkers(emptyList())
+            constellationLayer.setLines(emptyList())
+        }
     }
 
     private suspend fun updatePlanetLayer(
