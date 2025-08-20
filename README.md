@@ -9,7 +9,7 @@
 
 Trail Sense is a tool, and just like any other tool that you bring into the wilderness, it's essential to have backup equipment and skills.
 
-Help support my development of Trail Sense by [buying a paperback copy of the wilderness survival guide](https://www.amazon.com/dp/B0FN4XBJM7) and leave a review if you want. This is also freely available in app or for download on the [website](https://kylecorry.com/Trail-Sense/book.html).
+The "Trail Sense: Wilderness Survival Guide" book is available as a [paperback or free ebook](https://kylecorry.com/Trail-Sense/book.html).
 
 As featured in the [#WeArePlay](http://g.co/play/weareplay-usa) campaign!
 
@@ -19,7 +19,7 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
     <tr>
         <th>F-Droid</th>
         <th>Google Play</th>
-        <th>Survival Guide (Book)</th>
+        <th>Survival Guide (Paperback)</th>
     </tr>
     <tr>
         <td>
@@ -180,6 +180,8 @@ The FAQ has moved [to the wiki](https://github.com/kylecorry31/Trail-Sense/wiki/
 # Support
 
 The best way to support Trail Sense is to send me your feedback, share how you are using it, test nightly builds, or post your ideas for new features.
+
+If you want to monetarily support my development of Trail Sense, you can [buy a paperback copy of the wilderness survival guide](https://www.amazon.com/dp/B0FN4XBJM7) and leave a review.
 
 # Open Source Credits
 
