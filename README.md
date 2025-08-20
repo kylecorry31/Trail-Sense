@@ -32,7 +32,7 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
                 <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="60" align="middle">
             </a>
         </td>
-        <td>
+        <td style="text-align: center;">
             <a href="https://www.amazon.com/dp/B0FN4XBJM7">
                 <img alt="Buy it on Amazon" src="/site/images/cover.webp" height="80" align="middle">
             </a>
