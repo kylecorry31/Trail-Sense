@@ -9,6 +9,8 @@
 
 Trail Sense is a tool, and just like any other tool that you bring into the wilderness, it's essential to have backup equipment and skills.
 
+Help support my development of Trail Sense by [buying a paperback copy of the wilderness survival guide](https://www.amazon.com/dp/B0FN4XBJM7) and leave a review if you want. This is also freely available in app or for download on the [website](https://kylecorry.com/Trail-Sense/book.html).
+
 As featured in the [#WeArePlay](http://g.co/play/weareplay-usa) campaign!
 
 See the [Technical Blog / Research](https://kylecorry.com/research/categories/trail-sense/)
