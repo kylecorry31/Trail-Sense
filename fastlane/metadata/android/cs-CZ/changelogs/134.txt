@@ -1,0 +1,18 @@
+Nástroj Mapa (nový)
+- Zobrazení všech majáků, tras, fotomap atd. na mapě
+- Vrstva podkladové mapy (barvy podle satelitních snímků)
+
+Vrstvy mapy
+- Přidání vrstvy vrstevnic
+- Nastavení vrstev mapy v nástrojích Navigace, Fotomapy a Mapa
+
+Fotomapy
+- Automatická kalibrace více souborů PDF (např. USGS GeoPDF)
+- Vylepšené vykreslování PDF
+
+Rozšířená realita
+- Zobrazení viditelných planet a meteorických rojů v noci
+- Vylepšené ostření při namíření na oblohu
+
+Příručka pro přežití
+- Aktualizace obsahu

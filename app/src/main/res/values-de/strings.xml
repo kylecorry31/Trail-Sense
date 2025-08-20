@@ -1426,4 +1426,15 @@
     <string name="built_in_dem">Eingebaut (geringe Genauigkeit)</string>
     <string name="contours">Konturen</string>
     <string name="map_layer">Kartenebene</string>
+    <string name="map">Karte</string>
+    <string name="planet_mercury">Merkur</string>
+    <string name="planet_venus">Venus</string>
+    <string name="planet_mars">Mars</string>
+    <string name="planet_jupiter">Jupiter</string>
+    <string name="planet_saturn">Saturn</string>
+    <string name="planet_uranus">Uranus</string>
+    <string name="planet_neptune">Neptun</string>
+    <string name="open_settings">Einstellungen öffnen</string>
+    <string name="show_labels">Beschriftungen anzeigen</string>
+    <string name="map_tool_disclaimer">Dieses Werkzeug zeigt Ihre Wegpunkte, Pfade und Bilderkarten. Es ist kein Ersatz für eine eigene Kartenanwendung.</string>
 </resources>
