@@ -19,6 +19,14 @@ class MyLocationLayer : BaseLayer() {
     @ColorInt
     private var _color: Int = Color.WHITE
 
+
+    private var _accuracy: Float? = null
+
+    private var _drawAccuracy: Boolean = true
+
+    @ColorInt
+    private var _accuracyFillColor: Int = Color.WHITE
+
     fun setShowDirection(show: Boolean) {
         _showDirection = show
         invalidate()
@@ -26,6 +34,11 @@ class MyLocationLayer : BaseLayer() {
 
     fun setLocation(location: Coordinate) {
         _location = location
+        invalidate()
+    }
+
+    fun setAccuracy(accuracy: Float?) {
+        _accuracy = accuracy
         invalidate()
     }
 
@@ -39,12 +52,22 @@ class MyLocationLayer : BaseLayer() {
         invalidate()
     }
 
+    fun setAccuracyColor(@ColorInt color: Int) {
+        _accuracyFillColor = color
+        invalidate()
+    }
+
     fun setPreferences(prefs: MyLocationMapLayerPreferences) {
         setPercentOpacity(prefs.opacity.get() / 100f)
+        _drawAccuracy = prefs.showAccuracy.get()
         invalidate()
     }
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
+        clearMarkers()
+        if (_drawAccuracy) {
+            updateAccuracy(drawer, map)
+        }
         if (_showDirection) {
             drawArrow(drawer, map)
         } else {
@@ -53,8 +76,26 @@ class MyLocationLayer : BaseLayer() {
         super.draw(drawer, map)
     }
 
+    private fun updateAccuracy(drawer: ICanvasDrawer, map: IMapView) {
+        val accuracy = _accuracy ?: return
+        val location = _location ?: return
+        if (map.metersPerPixel <= 0) return
+
+        val sizePixels = 2 * accuracy / map.metersPerPixel * map.layerScale
+        val sizeDp = sizePixels / drawer.dp(1f)
+
+        addMarker(
+            CircleMapMarker(
+                location,
+                _accuracyFillColor,
+                null,
+                25,
+                sizeDp
+            )
+        )
+    }
+
     private fun drawCircle(map: IMapView) {
-        clearMarkers()
         addMarker(
             CircleMapMarker(
                 _location ?: map.mapCenter,
@@ -86,7 +127,6 @@ class MyLocationLayer : BaseLayer() {
 
             _path = path
         }
-        clearMarkers()
         addMarker(
             PathMapMarker(
                 _location ?: map.mapCenter,

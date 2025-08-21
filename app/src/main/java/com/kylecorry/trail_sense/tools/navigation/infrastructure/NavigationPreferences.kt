@@ -19,7 +19,6 @@ import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.sort.BeaconSortMethod
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconMapLayerPreferences
-import com.kylecorry.trail_sense.tools.map.map_layers.MyAccuracyMapLayerPreferences
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationMapLayerPreferences
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
@@ -234,7 +233,6 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
     val contourLayer = ContourMapLayerPreferences(context, "navigation")
     val tideLayer = TideMapLayerPreferences(context, "navigation")
     val myLocationLayer = MyLocationMapLayerPreferences(context, "navigation")
-    val myAccuracyLayer = MyAccuracyMapLayerPreferences(context, "navigation")
 
     val layerManager = MapLayerPreferenceManager(
         "navigation", listOf(
@@ -243,7 +241,6 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
             pathLayer.getPreferences(),
             beaconLayer.getPreferences(),
             tideLayer.getPreferences(),
-            myAccuracyLayer.getPreferences(),
             myLocationLayer.getPreferences()
         )
     )

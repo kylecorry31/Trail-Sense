@@ -25,21 +25,19 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.GPSDeclinationStrategy
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
+import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayerManager
+import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
+import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibrationManager
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.MapRepo
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.calibration.MapRotationCalculator
-import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyAccuracyLayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayerManager
-import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyAccuracyLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 
 class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBinding>() {
 
@@ -68,7 +66,6 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
     private val beaconLayer = BeaconLayer()
     private val pathLayer = PathLayer()
     private val myLocationLayer = MyLocationLayer()
-    private val myAccuracyLayer = MyAccuracyLayer()
 
     // Sensors
     private val sensorService by lazy { SensorService(requireContext()) }
@@ -92,8 +89,11 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
         layerManager = MultiLayerManager(
             listOf(
                 PathLayerManager(requireContext(), pathLayer),
-                MyAccuracyLayerManager(myAccuracyLayer, Resources.getPrimaryMarkerColor(requireContext())),
-                MyLocationLayerManager(myLocationLayer, Resources.getPrimaryMarkerColor(requireContext())),
+                MyLocationLayerManager(
+                    myLocationLayer,
+                    Resources.getPrimaryMarkerColor(requireContext()),
+                    Resources.getPrimaryMarkerColor(requireContext())
+                ),
                 BeaconLayerManager(requireContext(), beaconLayer)
             )
         )
@@ -221,7 +221,7 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
     }
 
     private fun updateMapCalibration() {
-        if (!isBound){
+        if (!isBound) {
             return
         }
 
@@ -231,7 +231,7 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
             CustomUiUtils.setButtonState(binding.previewButton, showPreview)
         }
 
-        if (!isCalibrated && showPreview){
+        if (!isCalibrated && showPreview) {
             setPreviewMode(false)
         }
 
@@ -330,14 +330,13 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
         showPreview = enabled
         val layers = if (enabled) listOf(
             pathLayer,
-            myAccuracyLayer,
             myLocationLayer,
             beaconLayer
         ) else emptyList()
         binding.calibrationMap.setLayers(layers)
         updateMapCalibration()
 
-        if (showPreview){
+        if (showPreview) {
             layerManager?.start()
         } else {
             layerManager?.stop()

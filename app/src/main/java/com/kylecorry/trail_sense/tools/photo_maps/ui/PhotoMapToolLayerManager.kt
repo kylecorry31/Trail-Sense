@@ -19,8 +19,6 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyAccuracyLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyAccuracyLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyElevationLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
@@ -46,7 +44,6 @@ class PhotoMapToolLayerManager {
         true
     }
     private val myLocationLayer = MyLocationLayer()
-    private val myAccuracyLayer = MyAccuracyLayer()
     private val tideLayer = TideMapLayer()
     private val contourLayer = ContourLayer()
     private val navigationLayer = NavigationLayer()
@@ -114,16 +111,12 @@ class PhotoMapToolLayerManager {
         // My location layer
         myLocationLayer.setPreferences(prefs.photoMaps.myLocationLayer)
 
-        // My accuracy layer
-        myAccuracyLayer.setPreferences(prefs.photoMaps.myAccuracyLayer)
-
         // Start
         view.setLayers(
             listOfNotNull(
                 if (prefs.photoMaps.contourLayer.isEnabled.get()) contourLayer else null,
                 if (prefs.photoMaps.navigationLayer.isEnabled.get()) navigationLayer else null,
                 if (prefs.photoMaps.pathLayer.isEnabled.get()) pathLayer else null,
-                if (prefs.photoMaps.myAccuracyLayer.isEnabled.get()) myAccuracyLayer else null,
                 if (prefs.photoMaps.myLocationLayer.isEnabled.get()) myLocationLayer else null,
                 if (prefs.photoMaps.tideLayer.isEnabled.get()) tideLayer else null,
                 if (prefs.photoMaps.beaconLayer.isEnabled.get()) beaconLayer else null,
@@ -143,12 +136,9 @@ class PhotoMapToolLayerManager {
                     context,
                     pathLayer
                 ) else null,
-                if (prefs.photoMaps.myAccuracyLayer.isEnabled.get()) MyAccuracyLayerManager(
-                    myAccuracyLayer,
-                    Resources.getPrimaryMarkerColor(context)
-                ) else null,
                 if (prefs.photoMaps.myLocationLayer.isEnabled.get()) MyLocationLayerManager(
                     myLocationLayer,
+                    Resources.getPrimaryMarkerColor(context),
                     Resources.getPrimaryMarkerColor(context)
                 ) else null,
                 if (prefs.photoMaps.tideLayer.isEnabled.get()) TideMapLayerManager(
