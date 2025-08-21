@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.map_layers.preferences.ui
 import android.content.DialogInterface
 import com.kylecorry.andromeda.views.toolbar.Toolbar
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.CustomUiUtils.replaceChildFragment
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveBottomSheetFragment
 
@@ -22,9 +23,9 @@ class MapLayersBottomSheet(private val manager: MapLayerPreferenceManager) :
 
     override fun update() {
         val titleView = useView<Toolbar>(R.id.title)
-
+        val mainActivity = useActivity() as MainActivity
         val preferences = useMemo {
-            MapLayersBottomSheetFragment(manager)
+            MapLayersBottomSheetFragment(manager, mainActivity)
         }
 
         useEffect(titleView) {

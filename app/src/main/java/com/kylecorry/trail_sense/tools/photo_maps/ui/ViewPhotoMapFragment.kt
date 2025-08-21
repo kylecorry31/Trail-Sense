@@ -63,6 +63,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
     // Map layers
     private val layerManager = PhotoMapToolLayerManager()
+    private var layerSheet: MapLayersBottomSheet? = null
 
     // Paths
     private val pathService by lazy { PathService.getInstance(requireContext()) }
@@ -297,7 +298,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         updateMapLockMode(MapLockMode.Trace, prefs.photoMaps.keepMapFacingUp)
     }
 
-    private fun resetLayerManager(){
+    private fun resetLayerManager() {
         layerManager.resume(requireContext(), binding.map)
 
         // Populate the last known location and map bounds
@@ -307,13 +308,14 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         layerManager.onLocationChanged(gps.location, gps.horizontalAccuracy)
     }
 
-    fun adjustLayers(){
-        val sheet = MapLayersBottomSheet(prefs.photoMaps.layerManager)
+    fun adjustLayers() {
+        layerSheet?.dismiss()
+        layerSheet = MapLayersBottomSheet(prefs.photoMaps.layerManager)
         layerManager.pause(requireContext(), binding.map)
-        sheet.setOnDismissListener {
+        layerSheet?.setOnDismissListener {
             resetLayerManager()
         }
-        sheet.show(this)
+        layerSheet?.show(this)
     }
 
     private fun navigateTo(location: Coordinate) {
@@ -475,8 +477,9 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
     override fun onPause() {
         super.onPause()
+        layerSheet?.setOnDismissListener(null)
+        layerSheet?.dismiss()
         layerManager.pause(requireContext(), binding.map)
-
         // Reset brightness
         screenLight.off()
 

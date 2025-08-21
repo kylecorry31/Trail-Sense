@@ -58,9 +58,9 @@ class ContourMapLayerPreferences(
             LabelMapLayerPreference(
                 context.getString(R.string.plugin_digital_elevation_model),
                 context.getString(R.string.open_settings)
-            ) {
-                if (context is MainActivity) {
-                    context.findNavController()
+            ) { ctx ->
+                if (ctx is MainActivity) {
+                    ctx.findNavController()
                         .navigateWithAnimation(R.id.calibrateAltimeterFragment)
                 }
             },

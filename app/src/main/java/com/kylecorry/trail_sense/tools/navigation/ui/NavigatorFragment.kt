@@ -130,6 +130,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val loadBeaconsRunner = CoroutineQueueRunner()
 
     private val layers = NavigationCompassLayerManager()
+    private var layerSheet: MapLayersBottomSheet? = null
 
     // Compass layers
     private val beaconCompassLayer = BeaconCompassLayer()
@@ -312,12 +313,13 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         binding.radarCompass.setOnLongPressListener {
-            val sheet = MapLayersBottomSheet(userPrefs.navigation.layerManager)
+            layerSheet?.dismiss()
+            layerSheet = MapLayersBottomSheet(userPrefs.navigation.layerManager)
             layers.pause(requireContext(), binding.radarCompass)
-            sheet.setOnDismissListener {
+            layerSheet?.setOnDismissListener {
                 layers.resume(requireContext(), binding.radarCompass)
             }
-            sheet.show(this)
+            layerSheet?.show(this)
         }
 
         binding.linearCompass.setOnClickListener {
@@ -408,6 +410,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         super.onPause()
         loadBeaconsRunner.cancel()
         errors.reset()
+        layerSheet?.setOnDismissListener(null)
+        layerSheet?.dismiss()
         layers.pause(requireContext(), binding.radarCompass)
         northReferenceHideTimer.stop()
     }

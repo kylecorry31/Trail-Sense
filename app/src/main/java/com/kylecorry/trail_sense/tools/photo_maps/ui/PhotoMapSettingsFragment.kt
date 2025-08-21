@@ -11,6 +11,8 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBotto
 
 class PhotoMapSettingsFragment : AndromedaPreferenceFragment() {
 
+    private var layerSheet: MapLayersBottomSheet? = null
+
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.photo_map_preferences, rootKey)
 
@@ -28,7 +30,9 @@ class PhotoMapSettingsFragment : AndromedaPreferenceFragment() {
         // Layers
         onClick(preference(R.string.pref_map_layer_button)) {
             val prefs = AppServiceRegistry.get<UserPreferences>()
-            MapLayersBottomSheet(prefs.photoMaps.layerManager).show(this)
+            layerSheet?.dismiss()
+            layerSheet = MapLayersBottomSheet(prefs.photoMaps.layerManager)
+            layerSheet?.show(this)
         }
     }
 
@@ -44,6 +48,11 @@ class PhotoMapSettingsFragment : AndromedaPreferenceFragment() {
             getString(R.string.reduce_map_resolution_crop_disclaimer_shown),
             cancelText = null
         )
+    }
+
+    override fun onPause() {
+        super.onPause()
+        layerSheet?.dismiss()
     }
 
 }

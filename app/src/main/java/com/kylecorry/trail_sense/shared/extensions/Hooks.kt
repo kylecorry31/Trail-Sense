@@ -406,3 +406,12 @@ fun ReactiveComponent.useDestroyEffect(vararg values: Any?, action: () -> Unit) 
         action()
     }
 }
+
+fun ReactiveComponent.usePauseEffect(vararg values: Any?, action: () -> Unit) {
+    useLifecycleEffect(
+        Lifecycle.Event.ON_PAUSE,
+        *values
+    ) {
+        action()
+    }
+}

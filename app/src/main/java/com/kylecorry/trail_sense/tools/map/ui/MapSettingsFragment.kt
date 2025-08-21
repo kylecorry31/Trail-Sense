@@ -10,13 +10,22 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBotto
 
 class MapSettingsFragment : AndromedaPreferenceFragment() {
 
+    private var layerSheet: MapLayersBottomSheet? = null
+
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.map_preferences, rootKey)
 
         // Layers
         onClick(preference(R.string.pref_map_layer_button)) {
             val prefs = AppServiceRegistry.get<UserPreferences>()
-            MapLayersBottomSheet(prefs.map.layerManager).show(this)
+            layerSheet?.dismiss()
+            layerSheet = MapLayersBottomSheet(prefs.map.layerManager)
+            layerSheet?.show(this)
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        layerSheet?.dismiss()
     }
 }

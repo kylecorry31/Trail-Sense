@@ -10,7 +10,6 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.DistanceUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
-import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
@@ -23,10 +22,11 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
 
     private var prefLeftButton: ListPreference? = null
     private var prefRightButton: ListPreference? = null
-    private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val hasCompass by lazy { SensorService(requireContext()).hasCompass() }
 
     private lateinit var prefs: UserPreferences
+
+    private var layerSheet: MapLayersBottomSheet? = null
 
     private fun bindPreferences() {
         prefLeftButton = list(R.string.pref_navigation_quick_action_left)
@@ -91,12 +91,19 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
 
         onClick(preference(R.string.pref_map_layer_button)) {
             val prefs = AppServiceRegistry.get<UserPreferences>()
-            MapLayersBottomSheet(prefs.navigation.layerManager).show(this)
+            layerSheet?.dismiss()
+            layerSheet = MapLayersBottomSheet(prefs.navigation.layerManager)
+            layerSheet?.show(this)
         }
     }
 
     private fun relative(distance: Distance, prefs: UserPreferences): Distance {
         return distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        layerSheet?.dismiss()
     }
 
     private fun onCurrentPaceSpeedometerSelected() {

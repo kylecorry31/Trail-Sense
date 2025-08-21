@@ -23,6 +23,7 @@ import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useDestroyEffect
 import com.kylecorry.trail_sense.shared.extensions.useNavController
 import com.kylecorry.trail_sense.shared.extensions.useNavigationSensors
+import com.kylecorry.trail_sense.shared.extensions.usePauseEffect
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -89,6 +90,11 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
         }
         val layerEditSheet = useMemo(prefs) {
             MapLayersBottomSheet(prefs.map.layerManager)
+        }
+
+        usePauseEffect(layerEditSheet) {
+            layerEditSheet.setOnDismissListener(null)
+            layerEditSheet.dismiss()
         }
 
         val adjustLayers = useCallback<Unit>(manager, layerEditSheet, context, mapView) {

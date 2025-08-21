@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.map_layers.preferences.ui
 import android.content.Context
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceScreen
+import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.map_layers.preferences.definition.MapLayerViewPreferences
 
 class MapLayerPreferenceManager(
@@ -11,9 +12,7 @@ class MapLayerPreferenceManager(
     private val layerDependency: String? = null
 ) {
 
-    fun populatePreferences(screen: PreferenceScreen) {
-        val context = screen.context
-
+    fun populatePreferences(screen: PreferenceScreen, context: Context) {
         layers.forEach { layer ->
             val category = createCategory(context)
             screen.addPreference(category)
