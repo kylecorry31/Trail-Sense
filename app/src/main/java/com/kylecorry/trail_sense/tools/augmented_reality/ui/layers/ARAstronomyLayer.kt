@@ -13,7 +13,7 @@ import com.kylecorry.sol.science.astronomy.Astronomy
 import com.kylecorry.sol.science.astronomy.locators.Planet
 import com.kylecorry.sol.science.astronomy.meteors.MeteorShower
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
-import com.kylecorry.sol.science.astronomy.stars.Constellation
+import com.kylecorry.sol.science.astronomy.stars.CONSTELLATIONS
 import com.kylecorry.sol.science.astronomy.stars.Star
 import com.kylecorry.sol.time.Time
 import com.kylecorry.sol.units.Coordinate
@@ -375,14 +375,13 @@ class ARAstronomyLayer(
             }
 
             ifDebug {
-                val constellations = Constellation.entries.filter {
-                    val constellationStars =
-                        it.edges.flatMap { listOf(it.first, it.second) }.toSet()
-                    stars.any { constellationStars.contains(it.first) }
+                val constellations = CONSTELLATIONS.filter {
+                    val constellationStars = it.lines.flatMap { it }.toSet()
+                    stars.any { constellationStars.contains(it.first.hipDesignation) }
                 }
 
                 val constellationLines = constellations.flatMap {
-                    it.edges.map {
+                    it.starEdges.map {
                         val start = astro.getStarPosition(it.first, location, time)
                         val end = astro.getStarPosition(it.second, location, time)
                         ARLine(
@@ -398,7 +397,7 @@ class ARAstronomyLayer(
                                     isTrueNorth = true
                                 )
                             ),
-                            Color.WHITE.withAlpha(20),
+                            Color.WHITE.withAlpha(30),
                             1f
                         )
                     }
