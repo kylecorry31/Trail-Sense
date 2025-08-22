@@ -281,15 +281,15 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         location: Coordinate,
         time: ZonedDateTime = ZonedDateTime.now()
     ): List<Pair<Star, Pair<Bearing, Float>>> {
-        if (isSunUp(location, time)) {
-            return emptyList()
-        }
+//        if (isSunUp(location, time)) {
+//            return emptyList()
+//        }
 
-        return STAR_CATALOG.filter { it.magnitude <= 4.0 }.map {
+        return STAR_CATALOG.map {
             val azimuth = Astronomy.getStarAzimuth(it, time, location)
             val altitude = Astronomy.getStarAltitude(it, time, location, true)
             it to (azimuth to altitude)
-        }.filter { it.second.second > 0 }
+        }//.filter { it.second.second > 0 }
     }
 
     fun getStarPosition(

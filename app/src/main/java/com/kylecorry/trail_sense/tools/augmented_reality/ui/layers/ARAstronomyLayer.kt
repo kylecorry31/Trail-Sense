@@ -397,7 +397,7 @@ class ARAstronomyLayer(
                                     isTrueNorth = true
                                 )
                             ),
-                            Color.WHITE.withAlpha(30),
+                            Color.WHITE.withAlpha(130),
                             1f
                         )
                     }
