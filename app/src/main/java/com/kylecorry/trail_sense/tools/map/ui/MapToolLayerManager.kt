@@ -20,8 +20,6 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyAccuracyLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyAccuracyLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyElevationLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
@@ -41,7 +39,6 @@ import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapLayerManage
 import com.kylecorry.trail_sense.tools.photo_maps.ui.MapDistanceLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
-import com.kylecorry.sol.math.SolMath
 
 class MapToolLayerManager {
 
@@ -52,7 +49,6 @@ class MapToolLayerManager {
         true
     }
     private val myLocationLayer = MyLocationLayer()
-    private val myAccuracyLayer = MyAccuracyLayer()
     private val tideLayer = TideMapLayer()
     private val baseMapLayer = TiledMapLayer()
     private val photoMapLayer = TiledMapLayer()
@@ -120,7 +116,6 @@ class MapToolLayerManager {
         tideLayer.setPreferences(prefs.map.tideLayer)
 
         myLocationLayer.setPreferences(prefs.map.myLocationLayer)
-        myAccuracyLayer.setPreferences(prefs.map.myAccuracyLayer)
 
         view.setLayers(
             listOfNotNull(
@@ -129,7 +124,6 @@ class MapToolLayerManager {
                 if (prefs.map.contourLayer.isEnabled.get()) contourLayer else null,
                 if (prefs.map.navigationLayer.isEnabled.get()) navigationLayer else null,
                 if (prefs.map.pathLayer.isEnabled.get()) pathLayer else null,
-                if (prefs.map.myAccuracyLayer.isEnabled.get()) myAccuracyLayer else null,
                 if (prefs.map.myLocationLayer.isEnabled.get()) myLocationLayer else null,
                 if (prefs.map.tideLayer.isEnabled.get()) tideLayer else null,
                 if (prefs.map.beaconLayer.isEnabled.get()) beaconLayer else null,
@@ -145,13 +139,13 @@ class MapToolLayerManager {
 
         layerManager = MultiLayerManager(
             listOfNotNull(
-                if (prefs.map.pathLayer.isEnabled.get()) PathLayerManager(context, pathLayer) else null,
-                if (prefs.map.myAccuracyLayer.isEnabled.get()) MyAccuracyLayerManager(
-                    myAccuracyLayer,
-                    Resources.getPrimaryMarkerColor(context)
+                if (prefs.map.pathLayer.isEnabled.get()) PathLayerManager(
+                    context,
+                    pathLayer
                 ) else null,
                 if (prefs.map.myLocationLayer.isEnabled.get()) MyLocationLayerManager(
                     myLocationLayer,
+                    Resources.getPrimaryMarkerColor(context),
                     Resources.getPrimaryMarkerColor(context)
                 ) else null,
                 if (prefs.map.tideLayer.isEnabled.get()) TideMapLayerManager(
@@ -163,12 +157,18 @@ class MapToolLayerManager {
                     photoMapLayer,
                     loadPdfs = prefs.map.photoMapLayer.loadPdfs.get()
                 ) else null,
-                if (prefs.map.baseMapLayer.isEnabled.get()) BaseMapLayerManager(context, baseMapLayer) else null,
+                if (prefs.map.baseMapLayer.isEnabled.get()) BaseMapLayerManager(
+                    context,
+                    baseMapLayer
+                ) else null,
                 if (prefs.map.beaconLayer.isEnabled.get()) BeaconLayerManager(
                     context,
                     beaconLayer
                 ) else null,
-                if (prefs.map.navigationLayer.isEnabled.get()) NavigationLayerManager(context, navigationLayer) else null
+                if (prefs.map.navigationLayer.isEnabled.get()) NavigationLayerManager(
+                    context,
+                    navigationLayer
+                ) else null
             )
         )
 

@@ -13,8 +13,6 @@ import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyAccuracyLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyAccuracyLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.TiledMapLayer
@@ -33,7 +31,6 @@ class NavigationCompassLayerManager {
     private val pathLayer = PathLayer()
     private val beaconLayer = BeaconLayer()
     private val myLocationLayer = MyLocationLayer()
-    private val myAccuracyLayer = MyAccuracyLayer()
     private val tideLayer = TideMapLayer()
     private val photoMapLayer = TiledMapLayer()
     private val contourLayer = ContourLayer()
@@ -56,7 +53,6 @@ class NavigationCompassLayerManager {
         val isBeaconLayerEnabled = prefs.navigation.beaconLayer.isEnabled.get()
         val isTideLayerEnabled = prefs.navigation.tideLayer.isEnabled.get()
         val isMyLocationLayerEnabled = prefs.navigation.myLocationLayer.isEnabled.get()
-        val isMyAccuracyLayerEnabled = prefs.navigation.myAccuracyLayer.isEnabled.get()
 
         beaconLayer.setOutlineColor(Resources.color(context, R.color.colorSecondary))
         beaconLayer.setPreferences(prefs.navigation.beaconLayer)
@@ -66,7 +62,6 @@ class NavigationCompassLayerManager {
         contourLayer.setPreferences(prefs.navigation.contourLayer)
         tideLayer.setPreferences(prefs.navigation.tideLayer)
         myLocationLayer.setPreferences(prefs.navigation.myLocationLayer)
-        myAccuracyLayer.setPreferences(prefs.navigation.myAccuracyLayer)
         photoMapLayer.setBackgroundColor(Resources.color(context, R.color.colorSecondary))
         photoMapLayer.setMinZoom(4)
         photoMapLayer.controlsPdfCache = true
@@ -75,7 +70,6 @@ class NavigationCompassLayerManager {
                 if (isMapLayerEnabled) photoMapLayer else null,
                 if (isContourLayerEnabled) contourLayer else null,
                 if (isPathLayerEnabled) pathLayer else null,
-                if (isMyAccuracyLayerEnabled) myAccuracyLayer else null,
                 if (isMyLocationLayerEnabled) myLocationLayer else null,
                 if (isTideLayerEnabled) tideLayer else null,
                 if (isBeaconLayerEnabled) beaconLayer else null
@@ -85,13 +79,10 @@ class NavigationCompassLayerManager {
         layerManager = MultiLayerManager(
             listOfNotNull(
                 if (isPathLayerEnabled) PathLayerManager(context, pathLayer) else null,
-                if (isMyAccuracyLayerEnabled) MyAccuracyLayerManager(
-                    myAccuracyLayer,
-                    Resources.getPrimaryMarkerColor(context)
-                ) else null,
                 if (isMyLocationLayerEnabled) MyLocationLayerManager(
                     myLocationLayer,
-                    Color.WHITE
+                    Color.WHITE,
+                    Resources.getPrimaryMarkerColor(context)
                 ) else null,
                 if (isTideLayerEnabled) TideMapLayerManager(context, tideLayer) else null,
                 if (isMapLayerEnabled) PhotoMapLayerManager(

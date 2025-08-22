@@ -42,22 +42,19 @@ import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.extensions.range
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.io.IOFactory
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.toRelativeDistance
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.BeaconNavigator
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.IBeaconNavigator
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyAccuracyLayerManager
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayerManager
+import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.MappableLocation
 import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
-import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyAccuracyLayer
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MyLocationLayer
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
@@ -70,6 +67,7 @@ import com.kylecorry.trail_sense.tools.paths.domain.point_finder.NearestPathLine
 import com.kylecorry.trail_sense.tools.paths.domain.point_finder.NearestPathPointNavigator
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.BacktrackCommand
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ChangePathColorCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ChangePathLineStyleCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ChangePointStyleCommand
@@ -136,8 +134,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         }
     }
     private val myLocationLayer = MyLocationLayer()
-    private val myAccuracyLayer = MyAccuracyLayer()
-
     private val paceFactor = 1.75f
 
     private var isFullscreen = false
@@ -167,12 +163,9 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         super.onResume()
         layerManager = MultiLayerManager(
             listOf(
-                MyAccuracyLayerManager(
-                    myAccuracyLayer,
-                    Resources.getPrimaryMarkerColor(requireContext())
-                ),
                 MyLocationLayerManager(
                     myLocationLayer,
+                    Resources.getPrimaryMarkerColor(requireContext()),
                     Resources.getPrimaryMarkerColor(requireContext())
                 )
             )
@@ -298,7 +291,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
         waypointLayer.setOutlineColor(Color.TRANSPARENT)
         binding.pathImage.setLayers(
-            listOf(pathLayer, waypointLayer, myAccuracyLayer, myLocationLayer)
+            listOf(pathLayer, waypointLayer, myLocationLayer)
         )
 
         binding.pathLineStyle.setOnClickListener {
