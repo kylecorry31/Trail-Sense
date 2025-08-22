@@ -6,6 +6,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.coroutines.onMain
 import com.kylecorry.andromeda.core.system.GeoUri
+import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.core.ui.useCallback
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.inBackground
@@ -93,8 +94,10 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
         }
 
         usePauseEffect(layerEditSheet) {
-            layerEditSheet.setOnDismissListener(null)
-            layerEditSheet.dismiss()
+            tryOrNothing {
+                layerEditSheet.setOnDismissListener(null)
+                layerEditSheet.dismiss()
+            }
         }
 
         val adjustLayers = useCallback<Unit>(manager, layerEditSheet, context, mapView) {
