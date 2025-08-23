@@ -7,4 +7,5 @@ data class MapMetadata(
     val unscaledPdfSize: Size?,
     val fileSize: Long,
     val projection: MapProjectionType = MapProjectionType.Mercator,
+    val imageSize: Size = size
 )

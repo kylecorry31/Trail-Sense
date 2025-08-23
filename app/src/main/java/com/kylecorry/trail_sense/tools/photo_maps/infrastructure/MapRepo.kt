@@ -96,7 +96,8 @@ class MapRepo private constructor(private val context: Context) : IMapRepo {
         return newMap.copy(
             metadata = newMap.metadata.copy(
                 size = pdfSize ?: Size(size.width.toFloat(), size.height.toFloat()),
-                fileSize = fileSize
+                fileSize = fileSize,
+                imageSize = Size(size.width.toFloat(), size.height.toFloat())
             )
         )
     }

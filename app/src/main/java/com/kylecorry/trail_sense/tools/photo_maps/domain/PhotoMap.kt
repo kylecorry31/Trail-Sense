@@ -99,7 +99,7 @@ data class PhotoMap(
         return if (usePdf) {
             metadata.size
         } else {
-            metadata.unscaledPdfSize ?: metadata.size
+            metadata.imageSize
         }
     }
 
