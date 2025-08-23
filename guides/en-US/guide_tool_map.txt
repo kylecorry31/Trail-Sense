@@ -20,7 +20,7 @@ You can measure distances by clicking the menu button in the top-right, and sele
 For a quick measurement from your location to a point, long-press that point on the map and click 'Distance'.
 
 ## Layers
-Layers are used to display information on the map. You can find layer settings in Settings > Map.
+Layers are used to display information on the map. You can find layer settings in Settings > Map or through the menu at the top right of the screen. You can choose to hide and show layers using the switch next to each layer's name. The opacity setting for each layer determines how transparent the layer is. 0 is fully transparent and 100 is fully opaque.
 
 ### Base map
 This layer shows a map of the world with colors based on satellite imagery. It is very low resolution and not suitable for navigation.
@@ -30,8 +30,6 @@ This layer shows visible Photo Maps, with the most zoomed-in map appearing on to
 
 Settings:
 
-- **Visible**: Determines if this layer is visible.
-- **Opacity**: Determines how transparent this layer is. 0 is fully transparent and 100 is fully opaque.
 - **Load PDF tiles**: If enabled, PDF tiles will be loaded for maps that have a PDF version available. This is slower but provides higher resolution maps.
 
 ### Contours
@@ -39,34 +37,39 @@ This layer shows contour lines generated from the digital elevation model (DEM) 
 
 Settings:
 
-- **Visible**: Determines if this layer is visible.
-- **Opacity**: Determines how transparent this layer is. 0 is fully transparent and 100 is fully opaque.
 - **Show labels**: Determines if contour labels are shown on the map.
 - **Color contours based on elevation**: If enabled, the color of the contour lines will be based on the elevation (green to purple). If disabled, contours will be brown.
-
-### Navigation
-This layer draws a line between your location and the destination point you are navigating to.
 
 ### Paths
 This layer shows visible paths. You can add new paths in the Paths tool.
 
-### GPS accuracy
-This layer shows the GPS accuracy as a circle around your current location.
+### Beacons
+This layer shows visible beacons. You can add new beacons in the Beacons tool. You can click on a beacon to navigate to it.
 
-### Location
-This layer shows your location and which direction you are facing (if you have a compass).
+### Navigation
+This layer draws a line between your location and the destination point you are navigating to.
 
 ### Tides
 This layer shows visible tides. You can add new tides in the Tides tool.
 
-### Beacons
-This layer shows visible beacons. You can add new beacons in the Beacons tool. You can click on a beacon to navigate to it.
+### My location
+This layer shows your location, which direction you are facing (if you have a compass), and the accuracy of your GPS.
+
+Settings:
+
+- **Show GPS accuracy**: Determines if the GPS accuracy circle is visible.
 
 ### Scale
 This layer shows a scale bar in the bottom-left corner of the map, which can be used to estimate distances on the map.
 
+This layer is not currently configurable.
+
 ### Elevation
 This layer shows your elevation in the bottom-right corner of the map.
 
+This layer is not currently configurable.
+
 ### Compass
 This layer shows a compass in the top-right corner of the map. It shows where true north is on the map.
+
+This layer is not currently configurable.
