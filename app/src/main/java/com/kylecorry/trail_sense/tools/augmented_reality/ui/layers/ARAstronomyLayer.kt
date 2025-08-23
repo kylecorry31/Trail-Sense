@@ -20,7 +20,6 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.debugging.ifDebug
 import com.kylecorry.trail_sense.shared.fromColorTemperature
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
@@ -374,37 +373,35 @@ class ARAstronomyLayer(
                 )
             }
 
-            ifDebug {
-                val constellations = CONSTELLATIONS.filter {
-                    val constellationStars = it.lines.flatMap { it }.toSet()
-                    stars.any { constellationStars.contains(it.first.hipDesignation) }
-                }
-
-                val constellationLines = constellations.flatMap {
-                    it.starEdges.map {
-                        val start = astro.getStarPosition(it.first, location, time)
-                        val end = astro.getStarPosition(it.second, location, time)
-                        ARLine(
-                            listOf(
-                                SphericalARPoint(
-                                    start.azimuth.value,
-                                    start.altitude,
-                                    isTrueNorth = true
-                                ),
-                                SphericalARPoint(
-                                    end.azimuth.value,
-                                    end.altitude,
-                                    isTrueNorth = true
-                                )
-                            ),
-                            Color.WHITE.withAlpha(130),
-                            1f
-                        )
-                    }
-                }
-
-                constellationLayer.setLines(constellationLines)
+            val constellations = CONSTELLATIONS.filter {
+                val constellationStars = it.lines.flatMap { it }.toSet()
+                stars.any { constellationStars.contains(it.first.hipDesignation) }
             }
+
+            val constellationLines = constellations.flatMap {
+                it.starEdges.map {
+                    val start = astro.getStarPosition(it.first, location, time)
+                    val end = astro.getStarPosition(it.second, location, time)
+                    ARLine(
+                        listOf(
+                            SphericalARPoint(
+                                start.azimuth.value,
+                                start.altitude,
+                                isTrueNorth = true
+                            ),
+                            SphericalARPoint(
+                                end.azimuth.value,
+                                end.altitude,
+                                isTrueNorth = true
+                            )
+                        ),
+                        Color.WHITE.withAlpha(30),
+                        1f
+                    )
+                }
+            }
+
+            constellationLayer.setLines(constellationLines)
             starLayer.setMarkers(starMarkers)
         } else {
             starLayer.setMarkers(emptyList())
