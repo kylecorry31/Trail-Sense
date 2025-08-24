@@ -1468,4 +1468,5 @@
     <string name="map_tool_disclaimer">Tento nástroj zobrazuje vaše majáky, cesty a fotografické mapy. Nejedná se o náhradu vlastní mapové aplikace.</string>
     <string name="open_settings">Otevřít nastavení</string>
     <string name="basemap">Podkladová mapa</string>
+    <string name="show_gps_accuracy">Zobrazit přesnost GPS</string>
 </resources>
