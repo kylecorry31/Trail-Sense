@@ -17,6 +17,7 @@ import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.time.TimerActionBehavior
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.ui.setTextDistinct
+import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.interval
@@ -41,11 +42,13 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.hooks.HookTriggers
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.readableName
 import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
+import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomySubsystem
 import com.kylecorry.trail_sense.tools.astronomy.ui.format.PlanetMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.calibration.ARCalibratorFactory
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.guide.ARGuide
@@ -181,6 +184,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     private var gpsStatusBadge by state<StatusBadge?>(null)
     private var visibleLayersOverride by state<List<ARLayer>?>(null)
     private var visibleLayers by state<List<ARLayer>>(emptyList())
+
+    private val triggers = HookTriggers()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -340,6 +345,15 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
             lifecycleHookTrigger.onResume()
         ) {
             binding.arView.setLayers(visibleLayersOverride ?: visibleLayers)
+        }
+
+        val astronomy = useService<AstronomySubsystem>()
+        val isNight = astronomy.isNight()
+
+        // Increase exposure at night
+        // TODO: Let the user toggle this on or off
+        useEffect(binding.arView, isNight) {
+            binding.arView.setExposureCompensation(if (isNight) 0.5f else 0f)
         }
     }
 

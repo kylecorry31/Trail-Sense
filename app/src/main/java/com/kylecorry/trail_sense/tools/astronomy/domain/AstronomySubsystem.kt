@@ -90,6 +90,10 @@ class AstronomySubsystem(context: Context) {
         }
     }
 
+    fun isNight(): Boolean {
+        return !sun.isUp
+    }
+
     companion object {
         @SuppressLint("StaticFieldLeak")
         private var instance: AstronomySubsystem? = null

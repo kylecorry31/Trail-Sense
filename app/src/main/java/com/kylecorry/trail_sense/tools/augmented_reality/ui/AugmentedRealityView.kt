@@ -241,6 +241,10 @@ class AugmentedRealityView : CanvasView {
         }
     }
 
+    fun setExposureCompensation(compensation: Float) {
+        camera?.setExposureCompensation(compensation)
+    }
+
     fun guideTo(
         guidePoint: ARPoint,
         thresholdDegrees: Float? = null,

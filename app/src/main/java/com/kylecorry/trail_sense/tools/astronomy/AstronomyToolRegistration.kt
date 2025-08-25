@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.astronomy
 import android.content.Context
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomySubsystem
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.AstronomyAlertCommand
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunriseAlarmCommand
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunsetAlarmCommand
@@ -140,6 +141,9 @@ object AstronomyToolRegistration : ToolRegistration {
                     BROADCAST_SUNSET_ALERTS_STATE_CHANGED,
                     "Sunset alerts state changed"
                 )
+            ),
+            singletons = listOf(
+                AstronomySubsystem::getInstance
             )
         )
     }
