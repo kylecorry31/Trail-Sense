@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.packs
 
+import androidx.test.uiautomator.Direction
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
@@ -7,6 +8,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isChecked
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.clickListItemMenu
@@ -117,6 +119,7 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
     }
 
     private fun canAddASecondItem() {
+        hasText(string(R.string.category_food))
         createItem("Test Item 2", 1, 2, string(R.string.category_clothing), 0.5f)
         hasItem(
             "Test Item 2",
@@ -310,7 +313,10 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
         input(R.id.count_edit, amount.toString())
         input(R.id.desired_amount_edit, desiredAmount.toString())
         click(R.id.category_spinner)
-        click(category)
+
+        scrollUntil(direction = Direction.UP) {
+            click(category, waitForTime = 0)
+        }
         clickOk()
         input(R.id.item_weight_input, weight.toString())
         click(R.id.create_btn)
