@@ -42,6 +42,7 @@ import java.time.ZonedDateTime
 class ARAstronomyLayer(
     private val drawBelowHorizon: Boolean,
     private val drawStars: Boolean,
+    private val drawConstellations: Boolean,
     private val onSunFocus: (time: ZonedDateTime) -> Boolean,
     private val onMoonFocus: (time: ZonedDateTime, phase: MoonPhase) -> Boolean,
     private val onStarFocus: (star: Star) -> Boolean,
@@ -343,9 +344,9 @@ class ARAstronomyLayer(
     }
 
     private suspend fun updateStarLayer(location: Coordinate, time: ZonedDateTime) = onDefault {
-        if (drawStars) {
-            val stars = astro.getVisibleStars(location, time)
-            val starMarkers = stars.map {
+        val stars = astro.getVisibleStars(location, time)
+        val starMarkers = if (drawStars) {
+            stars.map {
                 ARMarker(
                     SphericalARPoint(
                         it.second.first.value,
@@ -372,13 +373,17 @@ class ARAstronomyLayer(
                     }
                 )
             }
+        } else {
+            emptyList()
+        }
 
+        val constellationLines = if (drawConstellations) {
             val constellations = CONSTELLATIONS.filter {
                 val constellationStars = it.lines.flatMap { it }.toSet()
                 stars.any { constellationStars.contains(it.first.hipDesignation) }
             }
 
-            val constellationLines = constellations.flatMap {
+            constellations.flatMap {
                 it.starEdges.map {
                     val start = astro.getStarPosition(it.first, location, time)
                     val end = astro.getStarPosition(it.second, location, time)
@@ -400,13 +405,12 @@ class ARAstronomyLayer(
                     )
                 }
             }
-
-            constellationLayer.setLines(constellationLines)
-            starLayer.setMarkers(starMarkers)
         } else {
-            starLayer.setMarkers(emptyList())
-            constellationLayer.setLines(emptyList())
+            emptyList()
         }
+
+        constellationLayer.setLines(constellationLines)
+        starLayer.setMarkers(starMarkers)
     }
 
     private suspend fun updatePlanetLayer(

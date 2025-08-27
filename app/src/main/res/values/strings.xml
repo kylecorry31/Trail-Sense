@@ -1540,6 +1540,7 @@
     <string name="tide_estimation_description_tide_model">Uses a built-in tide model to estimate tides for the entered location or your location if none is entered.</string>
     <string name="star">Star</string>
     <string name="pref_show_ar_stars" translatable="false">pref_show_ar_stars</string>
+    <string name="pref_show_ar_constellations" translatable="false">pref_show_ar_constellations</string>
     <string name="show_stars">Show stars</string>
     <string name="approximate_location">Approximate location</string>
     <string name="last_known_gps_location">Last known GPS location</string>
@@ -1771,4 +1772,5 @@
     <string name="show_gps_accuracy">Show GPS accuracy</string>
     <string name="pref_increase_ar_exposure_at_night" translatable="false">pref_increase_ar_exposure_at_night</string>
     <string name="increase_exposure_at_night">Increase exposure at night</string>
+    <string name="show_constellations">Show constellations</string>
 </resources>

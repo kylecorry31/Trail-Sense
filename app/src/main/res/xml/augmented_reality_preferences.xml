@@ -67,6 +67,14 @@
             app:singleLineTitle="false"
             app:title="@string/show_stars" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:dependency="@string/pref_show_ar_astronomy_layer"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_ar_constellations"
+            app:singleLineTitle="false"
+            app:title="@string/show_constellations" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

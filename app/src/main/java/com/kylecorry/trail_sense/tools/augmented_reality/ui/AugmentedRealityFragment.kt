@@ -105,6 +105,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
         ARAstronomyLayer(
             drawBelowHorizon = false,
             drawStars = userPrefs.augmentedReality.showStars,
+            drawConstellations = userPrefs.augmentedReality.showConstellations,
             onSunFocus = this::onSunFocused,
             onMoonFocus = this::onMoonFocused,
             onStarFocus = this::onStarFocused,
