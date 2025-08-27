@@ -379,7 +379,7 @@ class ARAstronomyLayer(
 
         val constellationLines = if (drawConstellations) {
             val constellations = CONSTELLATIONS.filter {
-                val constellationStars = it.lines.flatMap { it }.toSet()
+                val constellationStars = it.allStarIds
                 stars.any { constellationStars.contains(it.first.hipDesignation) }
             }
 

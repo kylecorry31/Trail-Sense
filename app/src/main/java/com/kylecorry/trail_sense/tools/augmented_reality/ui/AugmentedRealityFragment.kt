@@ -385,7 +385,11 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     }
 
     private fun onStarFocused(star: Star): Boolean {
-        binding.arView.focusText = "${getString(R.string.star)}\n${star.name}"
+        val constellations = astronomyService.getConstellationsForStar(star)
+        val constellationString =
+            constellations.joinToString("\n\n\n") { "${getString(R.string.constellation)}\n${it.name}" }
+        binding.arView.focusText =
+            "${getString(R.string.star)}\n${star.name}\n\n\n$constellationString".trim()
         return true
     }
 

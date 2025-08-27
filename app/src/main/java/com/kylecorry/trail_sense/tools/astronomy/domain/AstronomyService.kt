@@ -10,6 +10,8 @@ import com.kylecorry.sol.science.astronomy.meteors.MeteorShower
 import com.kylecorry.sol.science.astronomy.meteors.MeteorShowerPeak
 import com.kylecorry.sol.science.astronomy.moon.MoonPhase
 import com.kylecorry.sol.science.astronomy.moon.MoonTruePhase
+import com.kylecorry.sol.science.astronomy.stars.CONSTELLATIONS
+import com.kylecorry.sol.science.astronomy.stars.Constellation
 import com.kylecorry.sol.science.astronomy.stars.STAR_CATALOG
 import com.kylecorry.sol.science.astronomy.stars.Star
 import com.kylecorry.sol.science.astronomy.units.CelestialObservation
@@ -290,6 +292,10 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
             val altitude = Astronomy.getStarAltitude(it, time, location, true)
             it to (azimuth to altitude)
         }.filter { it.second.second > 0 }
+    }
+
+    fun getConstellationsForStar(star: Star): List<Constellation> {
+        return CONSTELLATIONS.filter { it.allStarIds.contains(star.hipDesignation) }
     }
 
     fun getStarPosition(
