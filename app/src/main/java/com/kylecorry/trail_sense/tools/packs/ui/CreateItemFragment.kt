@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.core.toDoubleCompat
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -14,6 +15,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentCreateItemBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.packs.domain.ItemCategory
 import com.kylecorry.trail_sense.tools.packs.domain.PackItem
 import com.kylecorry.trail_sense.tools.packs.infrastructure.PackRepo
@@ -25,6 +27,13 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
 
     private val itemRepo by lazy { PackRepo.getInstance(requireContext()) }
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
+
+    private val prefs by lazy { AppServiceRegistry.get<PreferencesSubsystem>() }
+
+    private val defaultCategory by lazy {
+        val lastCategoryId = prefs.preferences.getInt(KEY_LAST_CATEGORY)
+        ItemCategory.entries.firstOrNull { it.id == lastCategoryId } ?: ItemCategory.Other
+    }
 
     private var editingItem: PackItem? = null
 
@@ -59,6 +68,9 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
             if (name != null) {
                 inBackground {
                     withContext(Dispatchers.IO) {
+
+                        prefs.preferences.putInt(KEY_LAST_CATEGORY, category.id)
+
                         itemRepo.addItem(
                             PackItem(
                                 editingItem?.id ?: 0,
@@ -84,7 +96,7 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
         binding.categorySpinner.setHint(getString(R.string.category))
 
         if (itemId == 0L) {
-            binding.categorySpinner.setSelection(sortedCategories.indexOf(ItemCategory.Other))
+            binding.categorySpinner.setSelection(sortedCategories.indexOf(defaultCategory))
         }
 
         promptIfUnsavedChanges(this::hasChanges)
@@ -147,7 +159,7 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
         val category = sortedCategories[binding.categorySpinner.selectedItemPosition]
         val weight = binding.itemWeightInput.value
 
-        return name.isNullOrBlank() && amount.isNullOrBlank() && desiredAmount.isNullOrBlank() && category == ItemCategory.Other && weight == null
+        return name.isNullOrBlank() && amount.isNullOrBlank() && desiredAmount.isNullOrBlank() && category == defaultCategory && weight == null
     }
 
     override fun generateBinding(
@@ -155,6 +167,10 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
         container: ViewGroup?
     ): FragmentCreateItemBinding {
         return FragmentCreateItemBinding.inflate(layoutInflater, container, false)
+    }
+
+    companion object {
+        private const val KEY_LAST_CATEGORY = "cache_packing_lists_last_category"
     }
 
 }
