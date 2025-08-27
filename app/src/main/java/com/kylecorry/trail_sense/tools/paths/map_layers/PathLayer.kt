@@ -197,6 +197,7 @@ class PathLayer : IAsyncLayer, IPathLayer {
             drawer.textMode(TextMode.Center)
             drawer.stroke(Color.WHITE)
             drawer.fill(Color.BLACK)
+            drawer.noPathEffect()
 
             var labelsDrawn = 0
             for (lat in latitudes) {
