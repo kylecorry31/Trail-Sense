@@ -19,7 +19,6 @@ This chapter covers how to dress appropriately for the environment and build she
 
 - Emergency space blanket
 - Poncho
-- Change of clothing
 - Extra socks
 - Boots or sturdy shoes
 - Sunglasses
@@ -32,6 +31,7 @@ This chapter covers how to dress appropriately for the environment and build she
   - Thermal underlayers
   - Hand warmers
 - For overnight stays:
+  - Change of clothing
   - Sleeping bag
   - Sleeping pad
   - Tent
@@ -77,7 +77,7 @@ Your first line of defense in any environment is your clothing. Proper attire sh
 When choosing clothing, consider the following materials:
 
 - Wool: Retains warmth even when wet.
-- Polyester/nylon: Quick drying and moisture-wicking.
+- Polyester/nylon: Quick-drying and moisture-wicking.
 - Down: Lightweight and insulating but loses warmth when wet.
 - Cotton: Retains moisture and loses warmth when wet. Do not wear cotton in cold or wet environments.
 
@@ -86,9 +86,9 @@ When choosing clothing, consider the following materials:
 
 You should plan to wear multiple layers of clothing to protect against the elements. Layering allows you to adjust your clothing to changing conditions and maintain body temperature.
 
-In cold environments, remove or add layers to prevent sweating while staying warm.
+In cold environments, remove or add layers to prevent sweating while staying warm. Remove mid layers before physical exertion and add them back in after you stop.
 
-In warm environments, you may only need to wear a base layer. But you should always pack rain gear, such as an emergency poncho, in case of sudden weather changes.
+In warm environments, you may only need to wear a base layer as long as you have sunscreen and bug repellent on. But you should still always pack rain gear, such as an emergency poncho, in case of sudden weather changes.
 
 If you need extra insulation in a pinch, stuff your clothing with dry leaves, grass, or other insulating materials.
 
@@ -116,7 +116,7 @@ If you need extra insulation in a pinch, stuff your clothing with dry leaves, gr
 
 Be sure to choose footwear that is appropriate for your environment. In cold climates, wear insulated, waterproof boots. In hot climates, wear breathable, lightweight shoes. Always break in new footwear before a trip to avoid blisters.
 
-If you plan to be hiking in wet conditions, consider wearing waterproof boots.
+If you plan to be hiking in wet conditions, consider wearing waterproof boots or all-terrain footwear that can handle water and dries fast.
 
 Bring extra socks, preferably made from wool, and ensure they are taller than your boots to avoid blisters.
 
@@ -124,7 +124,7 @@ Bring extra socks, preferably made from wool, and ensure they are taller than yo
 <!-- K: prepare, shelter, sleep -->
 <!-- S: Choose a location for your shelter that is protected from the elements and has access to resources. -->
 
-When selecting a site for your shelter, look for areas near building materials and resources such as water and food. Make sure the area is protected from the elements but is also free of threats such as dead trees/branches, slopes that could lead to avalanches, rock slides, or flooding, insects, poisonous plants, and dangerous animals. It should not be so secluded that you can't signal for help. If you can avoid it, do not build a shelter above the treeline in mountainous regions.
+When selecting a site for your shelter, look for areas near building materials and resources such as water and food. Make sure the area is protected from the elements but is also free of threats such as dead trees/branches, slopes that could lead to avalanches/rock slides, flooding, insects, poisonous plants, and dangerous animals. It should not be so secluded that you can't signal for help. If you can avoid it, do not build a shelter above the tree line in mountainous regions, as you will be exposed to the elements.
 
 While gathering materials for your shelter, prefer wood and debris that are already on the ground and require minimal effort to use. Avoid logs that are too thick to break by hand.
 
@@ -132,14 +132,14 @@ While gathering materials for your shelter, prefer wood and debris that are alre
 <!-- K: sleep, shelter, type -->
 <!-- S: Construct a shelter using natural materials or a tarp. Insulate the shelter with leaves, straw, or clothing. -->
 
-You can construct various shelters using tarps, ponchos, or natural elements. Try to build the smallest shelter that meets your needs, since it will be easier to retain heat, and position it against prevailing winds to avoid excess heat loss. Before sleeping in your shelter, make sure there is adequate airflow to manage condensation and smoke.
+You can construct various shelters using tarps, ponchos, or natural elements. To retain heat, build the smallest shelter that meets your needs and position it against prevailing winds to avoid excess heat loss. Before sleeping in your shelter, make sure there is adequate airflow to manage condensation and smoke from your fire.
 
 ### Lean-to
 <!-- K: lean-to, build, ridgeline, tarp -->
 
 A lean-to is a simple shelter made by leaning a large sheet of material against a support like a tree or a ridgepole. It protects from wind and rain.
 
-1. Lash a ridgepole to two trees or supports. If you are using a tarp or poncho, this can be a cord.
+1. Lash a ridgepole to two trees or supports. If you are using a tarp or poncho, your 'ridgepole' can be a cord.
 2. Lay a tarp or poncho over the ridgepole, allowing one side to touch the ground. If using natural materials, lay branches and leaves over the ridgepole.
 3. Secure the sides with stakes or rocks.
 
@@ -171,7 +171,7 @@ Wrap yourself in an emergency space blanket to reflect body heat and protect aga
 ### Tent
 <!-- K: tent, rainfly, setup, assemble -->
 
-If you have a tent, set it up according to the manufacturer's instructions. Ensure the tent is staked securely and the rainfly is in place. Most tents can be set up by inserting poles into sleeves or clips and securing the tent to the ground with stakes. If there is a chance of rain and your tent comes with a rainfly, be sure to set it up.
+If you have a tent, set it up according to the manufacturer's instructions. Ensure the tent is staked securely and the rainfly is in place. Most tents can be set up by inserting poles into sleeves or clips and securing the tent to the ground with stakes. If there is even a slight chance of rain and your tent comes with a rainfly, be sure to set it up.
 
 ### Hammock
 <!-- K: hammock, setup, rainfly, assemble -->
@@ -196,17 +196,23 @@ Used for seams that require strength, such as on backpacks or tents.
 
 ![](/assets/images/survival_guide/back_stitch.webp)
 
+<!-- \pagebreak -->
+
 **Running stitch**
 
 Used for quick repairs on clothing or gear in places where strength is not critical.
 
 ![](/assets/images/survival_guide/running_stitch.webp)
 
+<!-- \pagebreak -->
+
 **Whip stitch**
 
 Used to repair tears or holes in fabric. It can also be used to connect two pieces of fabric.
 
 ![](/assets/images/survival_guide/whip_stitch.webp)
+
+<!-- \pagebreak -->
 
 ### Tarps
 <!-- K: tarp, grommet -->
@@ -217,6 +223,8 @@ If your tarp has a hole, you can repair it using duct tape or by sewing it shut.
 
 ### Other methods
 If you do not have a sewing kit, you can use duct tape, safety pins, super glue, or cordage as temporary fixes.
+
+<!-- \pagebreak -->
 
 ## Knots
 <!-- K: knot, tie, cordage, cord, rope, paracord -->
@@ -229,12 +237,25 @@ Used to prevent the end of a rope from untwisting. This is hard to undo but very
 
 ![](/assets/images/survival_guide/knot_overhand.webp)
 
+<!-- \pagebreak -->
+
 ### Overhand loop
 <!-- K: overhand-loop -->
 
-Used to create a loop at the end of a line. In most cases a bowline would be a better choice, but this knot is easy to tie.
+Used to create a loop at the end of a line. In most cases, a bowline would be a better choice, but this knot is easy to tie.
 
 ![](/assets/images/survival_guide/knot_overhand_loop.webp)
+
+<!-- \pagebreak -->
+
+### Overhand bend
+<!-- K: overhand-bend -->
+
+Used to join two lines together. This knot is easy to tie but hard to undo. In most cases, a double sheet bend would be a better choice.
+
+![](/assets/images/survival_guide/knot_overhand_bend.webp)
+
+<!-- \pagebreak -->
 
 ### Double sheet bend
 <!-- K: double-sheet-bend, join, two, 2 -->
@@ -242,6 +263,8 @@ Used to create a loop at the end of a line. In most cases a bowline would be a b
 Used for tying two lines together.
 
 ![](/assets/images/survival_guide/knot_double_sheet_bend.webp)
+
+<!-- \pagebreak -->
 
 ### Bowline
 <!-- K: bowline, loop, grommet, tarp -->
@@ -252,12 +275,16 @@ You can use a bowline to attach a line to a grommet on a tarp.
 
 ![](/assets/images/survival_guide/knot_bowline.webp)
 
+<!-- \pagebreak -->
+
 ### Jam knot
 <!-- K: jam-knot, loop, fasten, pole -->
 
-Used to fasten a rope to a timber or pole. This can be used in place of lashings. It can be loosened by pulling on the knot on the end. It is hard to untie this knot.
+Used to fasten a rope to a timber or pole. This can be used in place of lashings. It can be loosened by pulling on the knot at the end. It is hard to untie this knot.
 
 ![](/assets/images/survival_guide/jam_knot.webp)
+
+<!-- \pagebreak -->
 
 ### Clove hitch
 <!-- K: clove-hitch, pole, hitch -->
@@ -266,12 +293,16 @@ Used to fasten a rope to a timber or pole. It can be tied at any point in a rope
 
 ![](/assets/images/survival_guide/knot_clove_hitch.webp)
 
+<!-- \pagebreak -->
+
 ### Taut-line hitch
 <!-- K: taut-line-hitch, tighten, hitch, pole, ridge-line -->
 
 Used to tighten a line.
 
 ![](/assets/images/survival_guide/knot_tautline_hitch.webp)
+
+<!-- \pagebreak -->
 
 ### Trucker's hitch
 <!-- K: truckers-hitch, tighten, cinch, hitch, pole, ridge-line -->
@@ -280,19 +311,25 @@ Used to secure a load or tighten a line. Can be cinched down tighter than a taut
 
 ![](/assets/images/survival_guide/knot_truckers_hitch.webp)
 
+<!-- \pagebreak -->
+
 ### Square lashing
 <!-- K: square-lashing, lash -->
 
-Used to secure one pole at a right angle to another pole. You can swap with the diagonal lashing if desired.
+Used to secure one pole at a right angle to another pole. This lashing starts and ends with a clove hitch, though you can use an overhand or jam knot as well.
 
-![](/assets/images/survival_guide/136.webp)
+![](/assets/images/survival_guide/knot_square_lashing.webp)
+
+<!-- \pagebreak -->
 
 ### Shear lashing
 <!-- K: shear-lashing, lash, tripod -->
 
-Used for lashing two or more poles next to each other. It can be used to construct a tripod.
+Used for lashing two or more poles next to each other. It can be used to construct a tripod. This lashing starts and ends with a clove hitch, though you can use an overhand or jam knot as well.
 
 ![](/assets/images/survival_guide/knot_shear_lashing.webp)
+
+<!-- \pagebreak -->
 
 ## Craft: Cordage
 <!-- K: cordage, rope, twine, fiber, twist, cord, strand, paracord, craft -->
@@ -333,4 +370,4 @@ Any fibrous material can be used to make cordage. Some examples include:
 1. Sharpen one end of a stake to a point.
 2. Hammer the stake into the ground at a slight angle, leaning away from your shelter.
 3. Secure a line to your tent or tarp with a bowline.
-4. Secure the other end of the line to the stake with a jam knot, clove hitch, or taut-line hitch.
+4. Secure the other end of the line to the stake with a jam knot or hitch.

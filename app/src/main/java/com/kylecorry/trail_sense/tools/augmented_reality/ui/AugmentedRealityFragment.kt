@@ -349,11 +349,14 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
 
         val astronomy = useService<AstronomySubsystem>()
         val isNight = astronomy.isNight()
+        val prefs = useService<UserPreferences>()
+        val shouldIncreaseExposureAtNight = useMemo(prefs) {
+            prefs.augmentedReality.increaseExposureAtNight
+        }
 
         // Increase exposure at night
-        // TODO: Let the user toggle this on or off
-        useEffect(binding.arView, isNight) {
-            binding.arView.setExposureCompensation(if (isNight) 0.5f else 0f)
+        useEffect(binding.arView, isNight, shouldIncreaseExposureAtNight) {
+            binding.arView.setExposureCompensation(if (isNight && shouldIncreaseExposureAtNight) 0.5f else 0f)
         }
     }
 

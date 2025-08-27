@@ -96,6 +96,13 @@
             app:summary="@string/use_gyroscope_after_calibration_description"
             app:title="@string/use_gyroscope_after_calibration" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_increase_ar_exposure_at_night"
+            app:singleLineTitle="false"
+            app:title="@string/increase_exposure_at_night" />
+
     </PreferenceCategory>
 
 

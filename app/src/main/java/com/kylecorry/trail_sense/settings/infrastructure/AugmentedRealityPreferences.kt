@@ -74,4 +74,10 @@ class AugmentedRealityPreferences(context: Context) : PreferenceRepo(context) {
         context.getString(R.string.pref_show_ar_stars),
         true
     )
+
+    val increaseExposureAtNight by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_increase_ar_exposure_at_night),
+        true
+    )
 }
