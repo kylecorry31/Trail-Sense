@@ -31,6 +31,13 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
     private var packId: Long = 0
     private var itemId: Long = 0
 
+    val nameMapper by lazy { ItemCategoryStringMapper(requireContext()) }
+
+
+    private val sortedCategories by lazy {
+        ItemCategory.entries.sortedBy { nameMapper.getString(it) }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         itemId = arguments?.getLong("edit_item_id") ?: 0L
@@ -46,7 +53,7 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
             val name = binding.nameEdit.text?.toString()
             val amount = binding.countEdit.text?.toString()?.toDoubleCompat() ?: 0.0
             val desiredAmount = binding.desiredAmountEdit.text?.toString()?.toDoubleCompat() ?: 0.0
-            val category = ItemCategory.values()[binding.categorySpinner.selectedItemPosition]
+            val category = sortedCategories[binding.categorySpinner.selectedItemPosition]
             val weight = binding.itemWeightInput.value
 
             if (name != null) {
@@ -72,13 +79,12 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
             }
         }
 
-        val nameMapper = ItemCategoryStringMapper(requireContext())
 
-        binding.categorySpinner.setItems(ItemCategory.values().map { nameMapper.getString(it) })
+        binding.categorySpinner.setItems(sortedCategories.map { nameMapper.getString(it) })
         binding.categorySpinner.setHint(getString(R.string.category))
 
         if (itemId == 0L) {
-            binding.categorySpinner.setSelection(0)
+            binding.categorySpinner.setSelection(sortedCategories.indexOf(ItemCategory.Other))
         }
 
         promptIfUnsavedChanges(this::hasChanges)
@@ -96,7 +102,7 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
 
             withContext(Dispatchers.Main) {
                 editingItem?.let {
-                    if (!isBound){
+                    if (!isBound) {
                         return@let
                     }
                     binding.createItemTitle.title.text = getString(R.string.edit_item_title)
@@ -109,7 +115,7 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
                             false
                         )
                     )
-                    binding.categorySpinner.setSelection(it.category.ordinal)
+                    binding.categorySpinner.setSelection(sortedCategories.indexOf(it.category))
                     binding.itemWeightInput.value = it.weight
                     if (it.weight == null) {
                         binding.itemWeightInput.unit = binding.itemWeightInput.units.firstOrNull()
@@ -124,7 +130,7 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
         val name = binding.nameEdit.text?.toString()
         val amount = binding.countEdit.text?.toString()?.toDoubleCompat() ?: 0.0
         val desiredAmount = binding.desiredAmountEdit.text?.toString()?.toDoubleCompat() ?: 0.0
-        val category = ItemCategory.values()[binding.categorySpinner.selectedItemPosition]
+        val category = sortedCategories[binding.categorySpinner.selectedItemPosition]
         val weight = binding.itemWeightInput.value
 
         return !nothingEntered() && (name != editingItem?.name || amount != editingItem?.amount || desiredAmount != editingItem?.desiredAmount || category != editingItem?.category || weight != editingItem?.weight)
@@ -138,7 +144,7 @@ class CreateItemFragment : BoundFragment<FragmentCreateItemBinding>() {
         val name = binding.nameEdit.text?.toString()
         val amount = binding.countEdit.text?.toString()
         val desiredAmount = binding.desiredAmountEdit.text?.toString()
-        val category = ItemCategory.values()[binding.categorySpinner.selectedItemPosition]
+        val category = sortedCategories[binding.categorySpinner.selectedItemPosition]
         val weight = binding.itemWeightInput.value
 
         return name.isNullOrBlank() && amount.isNullOrBlank() && desiredAmount.isNullOrBlank() && category == ItemCategory.Other && weight == null
