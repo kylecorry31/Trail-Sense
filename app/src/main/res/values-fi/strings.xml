@@ -1370,4 +1370,5 @@
     <string name="map_tool_disclaimer">Tämä työkalu näyttää majakkasi, polkusi ja valokuvakarttasi. Se ei kuitenkaan ole korvike erikseen valmistetuille karttasovelluksille.</string>
     <string name="open_settings">Avaa asetukset</string>
     <string name="basemap">Taustakartta</string>
+    <string name="show_gps_accuracy">Näytä GPS-tarkkuus</string>
 </resources>
