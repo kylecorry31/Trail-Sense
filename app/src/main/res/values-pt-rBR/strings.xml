@@ -1202,7 +1202,7 @@
     <string name="tide_estimation_description_lunitidal_interval_local">Usa a posição da lua para estimar as marés. Requer o intervalo lunitidal local e a localização.</string>
     <string name="tide_estimation_description_tide_model">Usa um modelo de maré integrado para estimar as marés para o local inserido ou para o seu local, se nenhum for inserido.</string>
     <string name="star">Estrela</string>
-    <string name="show_stars">Mostrar estrelas</string>
+    <string name="show_stars">Mostrar estrelas e planetas</string>
     <string name="tide_estimation_description_lunitidal_interval_utc">Usa a posição da lua para estimar as marés. Requer o intervalo lunitidal UTC.</string>
     <string name="approximate_location">Localização aproximada</string>
     <string name="last_known_gps_location">Última localização conhecida a partir do GPS</string>
@@ -1413,4 +1413,7 @@
     <string name="open_settings">Ir para configurações</string>
     <string name="basemap">Mapa básico</string>
     <string name="show_gps_accuracy">Mostrar precisão do GPS</string>
+    <string name="increase_exposure_at_night">Aumentar exposição à noite</string>
+    <string name="show_constellations">Mostrar constelações</string>
+    <string name="constellation">Constelação</string>
 </resources>

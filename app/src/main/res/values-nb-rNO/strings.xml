@@ -1213,4 +1213,14 @@
     <string name="restart_services_message">Bakgrunnstjenester kunne ikke startes på nytt. Trykk for å starte på nytt.</string>
     <string name="planet_mercury">Merkur</string>
     <string name="planet_neptune">Neptun</string>
+    <string name="basemap">Basiskart</string>
+    <string name="show_labels">Vis påskrifter</string>
+    <string name="color_with_elevation">Farg høydekurver basert på høyde</string>
+    <string name="planet_venus">Venus</string>
+    <string name="planet_mars">Mars</string>
+    <string name="planet_jupiter">Jupiter</string>
+    <string name="planet_saturn">Saturn</string>
+    <string name="planet_uranus">Uranus</string>
+    <string name="open_settings">Åpne innstillinger</string>
+    <string name="show_gps_accuracy">Vis GPS-nøyaktiget</string>
 </resources>
