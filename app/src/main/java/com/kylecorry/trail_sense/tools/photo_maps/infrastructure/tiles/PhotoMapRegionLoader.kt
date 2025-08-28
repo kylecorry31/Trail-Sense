@@ -19,7 +19,7 @@ import com.kylecorry.trail_sense.shared.bitmaps.BitmapOperation
 import com.kylecorry.trail_sense.shared.bitmaps.Conditional
 import com.kylecorry.trail_sense.shared.bitmaps.CorrectPerspective
 import com.kylecorry.trail_sense.shared.bitmaps.Resize
-import com.kylecorry.trail_sense.shared.bitmaps.applyOperations
+import com.kylecorry.trail_sense.shared.bitmaps.applyOperationsOrNull
 import com.kylecorry.trail_sense.shared.canvas.tiles.PdfImageRegionDecoder
 import com.kylecorry.trail_sense.shared.extensions.toAndroidSize
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
@@ -131,7 +131,7 @@ class PhotoMapRegionLoader(
             }
         }
 
-        bitmap?.applyOperations(
+        bitmap?.applyOperationsOrNull(
             Resize(maxSize, false, useBilinearScaling = !isPixelPerfect),
             Conditional(
                 shouldApplyPerspectiveCorrection,

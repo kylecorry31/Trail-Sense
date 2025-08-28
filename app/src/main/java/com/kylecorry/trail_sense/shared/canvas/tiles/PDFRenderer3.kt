@@ -13,7 +13,7 @@ import androidx.annotation.ColorInt
 import androidx.core.graphics.createBitmap
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.trail_sense.shared.bitmaps.Convert
-import com.kylecorry.trail_sense.shared.bitmaps.applyOperations
+import com.kylecorry.trail_sense.shared.bitmaps.applyOperationsOrNull
 
 class PDFRenderer3(
     private val context: Context,
@@ -108,6 +108,6 @@ class PDFRenderer3(
             PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY
         )
 
-        return bitmap.applyOperations(Convert(config))
+        return bitmap.applyOperationsOrNull(Convert(config))
     }
 }

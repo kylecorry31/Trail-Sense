@@ -12,7 +12,7 @@ import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
 import com.kylecorry.trail_sense.shared.bitmaps.Conditional
 import com.kylecorry.trail_sense.shared.bitmaps.Convert
 import com.kylecorry.trail_sense.shared.bitmaps.ReplaceColor
-import com.kylecorry.trail_sense.shared.bitmaps.applyOperations
+import com.kylecorry.trail_sense.shared.bitmaps.applyOperationsOrNull
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.math.hypot
@@ -108,13 +108,13 @@ class TileLoader {
                 Bitmap.Config.RGB_565
             }
 
-            var image =
+            var image: Bitmap? =
                 createBitmap(source.key.size.width, source.key.size.height, config)
-            image.eraseColor(backgroundColor)
+            image!!.eraseColor(backgroundColor)
             val canvas = Canvas(image)
 
             source.value.reversed().forEachIndexed { index, loader ->
-                val currentImage = loader.load(source.key)?.applyOperations(
+                val currentImage = loader.load(source.key)?.applyOperationsOrNull(
                     Conditional(
                         index > 0,
                         ReplaceColor(
@@ -134,7 +134,7 @@ class TileLoader {
             }
 
             // Remove transparency
-            image = image.applyOperations(
+            image = image.applyOperationsOrNull(
                 // Undo color replacement
                 Conditional(
                     backgroundColor.alpha != 255 && source.value.size > 1,
@@ -151,7 +151,7 @@ class TileLoader {
 
             hasChanges = true
             synchronized(lock) {
-                entries.add(image)
+                image?.let { entries.add(it) }
             }
         }
 
