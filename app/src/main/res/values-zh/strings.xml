@@ -1224,7 +1224,7 @@
     <string name="tide_estimation_description_lunitidal_interval_auto">使用月亮位置预测潮汐。需要至少一个已知的潮汐。</string>
     <string name="tide_estimation_description_lunitidal_interval_utc">使用月亮位置预测潮汐。需要 UTC 月潮间隔。</string>
     <string name="star">星星</string>
-    <string name="show_stars">显示星星</string>
+    <string name="show_stars">显示星星和行星</string>
     <string name="nearest_stars">最近的星星</string>
     <string name="select_star">选择星星</string>
     <string name="stars">星星</string>
@@ -1430,4 +1430,7 @@
     <string name="open_settings">打开设置</string>
     <string name="basemap">基础地图</string>
     <string name="show_gps_accuracy">显示 GPS 精度</string>
+    <string name="increase_exposure_at_night">提高夜间曝光度</string>
+    <string name="show_constellations">显示星座</string>
+    <string name="constellation">星座</string>
 </resources>
