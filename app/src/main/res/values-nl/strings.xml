@@ -1235,7 +1235,7 @@
     <string name="tide_estimation_description_lunitidal_interval_local">Gebruikt de positie van de maan om getijden te schatten. Vereist de lokale maangetijdeninterval en locatie.</string>
     <string name="tide_estimation_description_tide_model">Gebruikt een ingebouwd getijdenmodel om getijden te schatten voor de ingevoerde locatie, of jouw locatie als geen is ingevoerd.</string>
     <string name="star">Ster</string>
-    <string name="show_stars">Sterren tonen</string>
+    <string name="show_stars">Sterren en planeten tonen</string>
     <string name="nearest_stars">Dichtstbijzijnde sterren</string>
     <string name="last_known_gps_location">Laatst bekende GPS-locatie</string>
     <string name="select_star">Selecteer ster</string>
@@ -1443,4 +1443,7 @@
     <string name="open_settings">Open instellingen</string>
     <string name="basemap">Basiskaart</string>
     <string name="show_gps_accuracy">GPS-nauwkeurigheid tonen</string>
+    <string name="increase_exposure_at_night">Belichting \'s nachts verhogen</string>
+    <string name="show_constellations">Sterrenbeelden tonen</string>
+    <string name="constellation">Sterrenbeeld</string>
 </resources>
