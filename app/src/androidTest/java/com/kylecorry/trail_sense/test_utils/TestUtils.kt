@@ -245,17 +245,16 @@ object TestUtils {
 
     fun <T> waitFor(durationMillis: Long = 5000, action: () -> T): T {
         var remaining = durationMillis
-        val interval = 10L
         var times = 0
         var lastException: Throwable? = null
+        val startTime = System.currentTimeMillis()
         while (remaining > 0 || times == 0) {
             try {
                 return action()
             } catch (e: Throwable) {
                 lastException = e
             }
-            Thread.sleep(interval)
-            remaining -= interval
+            remaining = durationMillis - (System.currentTimeMillis() - startTime)
             times++
         }
         if (lastException != null) {

@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.packs
 
 import androidx.test.uiautomator.Direction
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
@@ -212,11 +213,11 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
         clickToolbarMenuItem(string(R.string.export))
         // TODO: Figure out how to click save
 //            viewWithText("SAVE").click()
-        hasText("test-pack-2.csv")
-        waitFor {
-            waitFor {
-                TestUtils.back()
-            }
+        // Pressing back is needed sometimes to close the drive selector
+        backUntil {
+            hasText("test-pack-2.csv", contains = true, waitForTime = 1000)
+        }
+        backUntil {
             hasText(R.id.inventory_list_title, "Test Pack 2")
         }
     }
@@ -315,7 +316,7 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
         click(R.id.category_spinner)
 
         scrollUntil(direction = Direction.UP) {
-            click(category, waitForTime = 0)
+            click(category, waitForTime = 1000)
         }
         clickOk()
         input(R.id.item_weight_input, weight.toString())

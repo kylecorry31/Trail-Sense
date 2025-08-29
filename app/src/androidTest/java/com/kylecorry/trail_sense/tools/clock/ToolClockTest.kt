@@ -5,6 +5,7 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.uiautomator.By
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
@@ -28,7 +29,7 @@ class ToolClockTest: ToolTestBase(Tools.CLOCK) {
         hasText(R.id.clock_title, Regex("\\w+, \\w+ \\d{1,2}, \\d{4}"))
 
         // Wait for the GPS to be found
-        hasText(R.id.pip_button, string(R.string.pip_button))
+        hasText(R.id.pip_button, string(R.string.pip_button), waitForTime = GPS_WAIT_FOR_TIMEOUT)
 
         // Update time from GPS
         click(toolbarButton(R.id.clock_title, Side.Right))

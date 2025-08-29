@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.waterpurification
 
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
@@ -18,7 +19,7 @@ class ToolWaterBoilTimerTest : ToolTestBase(Tools.WATER_BOIL_TIMER) {
     fun verifyBasicFunctionality() {
         // Auto
         hasText(R.id.chip_auto, string(R.string.auto))
-        hasText(R.id.time_left, waitForTime = 12000) { it == "180" || it == "60" }
+        hasText(R.id.time_left, waitForTime = GPS_WAIT_FOR_TIMEOUT) { it == "180" || it == "60" }
 
         // Select 3 minutes
         hasText(R.id.chip_3_min, "3m")

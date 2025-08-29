@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.temperature_estimation
 
 import com.kylecorry.luna.text.toFloatCompat
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
@@ -32,7 +33,7 @@ class ToolTemperatureEstimationTest : ToolTestBase(Tools.TEMPERATURE_ESTIMATION)
         // Autofill
         click(R.id.temp_est_autofill)
 
-        hasText(R.id.temp_est_base_elevation, waitForTime = 12000) {
+        hasText(R.id.temp_est_base_elevation, waitForTime = GPS_WAIT_FOR_TIMEOUT) {
             it.split(",").first().toFloatCompat() != null
         }
         hasText(R.id.temp_est_base_temperature) {

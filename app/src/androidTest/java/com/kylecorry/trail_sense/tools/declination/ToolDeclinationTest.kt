@@ -4,6 +4,7 @@ import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
@@ -17,7 +18,7 @@ class ToolDeclinationTest : ToolTestBase(Tools.DECLINATION) {
     @Test
     fun verifyBasicFunctionality() {
         // Wait for it to load the GPS location
-        not(waitForTime = 15000) {
+        not(waitForTime = GPS_WAIT_FOR_TIMEOUT) {
             hasText(string(R.string.loading), waitForTime = 0)
         }
 

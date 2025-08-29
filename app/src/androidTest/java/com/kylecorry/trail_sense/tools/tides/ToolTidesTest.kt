@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.tides
 
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
@@ -24,7 +25,7 @@ class ToolTidesTest : ToolTestBase(Tools.TIDES) {
         clickOk()
 
         // Wait for the nearby tides to load
-        hasText(string(R.string.navigation_nearby_category), waitForTime = 150000)
+        hasText(string(R.string.navigation_nearby_category), waitForTime = GPS_WAIT_FOR_TIMEOUT)
         click(toolbarButton(R.id.tide_title, Side.Right))
 
         // Tide list

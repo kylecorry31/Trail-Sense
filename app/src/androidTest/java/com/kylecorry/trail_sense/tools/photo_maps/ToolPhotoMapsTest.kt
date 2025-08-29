@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.photo_maps
 
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
@@ -242,11 +243,11 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
 
     private fun canExportMap() {
         clickListItemMenu(string(R.string.export), index = 1)
-        hasText("blank-map.pdf", contains = true)
-        waitFor {
-            waitFor {
-                back()
-            }
+        // Pressing back is needed sometimes to close the drive selector
+        backUntil {
+            hasText("blank-map.pdf", contains = true)
+        }
+        backUntil {
             isVisible(R.id.map_list_title)
         }
     }

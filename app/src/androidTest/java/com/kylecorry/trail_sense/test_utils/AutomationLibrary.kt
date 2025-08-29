@@ -180,6 +180,21 @@ object AutomationLibrary {
         }
     }
 
+    fun or(vararg blocks: () -> Unit) {
+        var lastError: Throwable? = null
+        for (block in blocks) {
+            try {
+                block()
+                return
+            } catch (e: Throwable) {
+                lastError = e
+            }
+        }
+        if (lastError != null) {
+            throw lastError
+        }
+    }
+
     fun click(
         id: Int,
         index: Int = 0,
@@ -423,6 +438,26 @@ object AutomationLibrary {
         action()
     }
 
+    fun backUntil(
+        maxBacks: Int = 10,
+        action: () -> Unit
+    ) {
+        var backsDone = 0
+        while (backsDone < maxBacks) {
+            try {
+                action()
+                // Action succeeded, no need to go back further
+                return
+            } catch (e: Throwable) {
+                // Action failed, try going back
+                TestUtils.back(false)
+                backsDone++
+            }
+        }
+        // Try action one last time after all backs
+        action()
+    }
+
     fun hasNotification(
         id: Int,
         title: String? = null,
@@ -445,5 +480,6 @@ object AutomationLibrary {
         }
     }
 
-    const val DEFAULT_WAIT_FOR_TIMEOUT = 5000L
+    const val DEFAULT_WAIT_FOR_TIMEOUT = 7000L
+    const val GPS_WAIT_FOR_TIMEOUT = 15000L
 }

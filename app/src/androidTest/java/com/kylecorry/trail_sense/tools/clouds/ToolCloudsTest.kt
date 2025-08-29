@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.clouds
 
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
@@ -73,11 +74,8 @@ class ToolCloudsTest : ToolTestBase(Tools.CLOUDS) {
         // The file picker is opened
         isNotVisible(R.id.add_btn)
 
-        waitFor {
-            waitFor {
-                back()
-            }
-            isVisible(R.id.cloud_list_title)
+        backUntil {
+            isVisible(R.id.cloud_list_title, waitForTime = 1000)
         }
     }
 

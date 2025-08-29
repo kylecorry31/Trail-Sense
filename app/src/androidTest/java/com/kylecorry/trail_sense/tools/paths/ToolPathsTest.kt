@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.paths
 
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
@@ -86,7 +87,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS) {
         hasText(R.id.play_bar_title, "On - 15m")
 
         // Wait for the path to be created
-        isVisible(com.kylecorry.andromeda.views.R.id.title, waitForTime = 12000)
+        isVisible(com.kylecorry.andromeda.views.R.id.title, waitForTime = GPS_WAIT_FOR_TIMEOUT)
 
         // Stop backtrack
         click(R.id.play_btn)
@@ -103,7 +104,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS) {
         }
 
         // Wait for the path to be created
-        isVisible(com.kylecorry.andromeda.views.R.id.title, index = 1, waitForTime = 12000)
+        isVisible(com.kylecorry.andromeda.views.R.id.title, index = 1, waitForTime = GPS_WAIT_FOR_TIMEOUT)
 
         click(quickAction(Tools.QUICK_ACTION_BACKTRACK))
 

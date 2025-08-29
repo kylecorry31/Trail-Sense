@@ -8,6 +8,8 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isTrue
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.test_utils.TestUtils.isCameraInUse
@@ -33,6 +35,7 @@ class ToolClinometerTest : ToolTestBase(Tools.CLINOMETER) {
         canMeasureAngleAndSlope()
         canLock()
         canSwitchToDialMode()
+        switchToCurrentMode()
         doesNotEstimateHeightOrDistanceByDefault()
         canEstimateDistance()
         canEstimateHeight()
@@ -55,6 +58,13 @@ class ToolClinometerTest : ToolTestBase(Tools.CLINOMETER) {
             isTrue {
                 !isCameraInUse(isBackFacing = true)
             }
+        }
+    }
+
+    private fun switchToCurrentMode(){
+        optional {
+            hasText("Hold your phone vertically", waitForTime = 1000)
+            click(toolbarButton(R.id.clinometer_title, Side.Left))
         }
     }
 

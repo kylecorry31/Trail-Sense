@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.solarpanel
 
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
@@ -21,7 +22,7 @@ class ToolSolarPanelAlignerTest : ToolTestBase(Tools.SOLAR_PANEL_ALIGNER) {
         clickOk()
 
         // It should show the solar panel details for today
-        hasText(R.id.tilt_label, string(R.string.tilt))
+        hasText(R.id.tilt_label, string(R.string.tilt), waitForTime = GPS_WAIT_FOR_TIMEOUT)
         hasText(R.id.current_altitude, Regex("-?\\d+°"))
         hasText(R.id.desired_altitude, Regex("-?\\d+°"))
 
