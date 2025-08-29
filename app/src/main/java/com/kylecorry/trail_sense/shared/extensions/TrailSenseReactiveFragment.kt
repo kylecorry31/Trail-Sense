@@ -1,5 +1,9 @@
 package com.kylecorry.trail_sense.shared.extensions
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import com.kylecorry.andromeda.fragments.XmlReactiveFragment
 import com.kylecorry.sol.units.Coordinate
@@ -12,6 +16,23 @@ abstract class TrailSenseReactiveFragment(@LayoutRes private val layoutId: Int) 
 
     private var currentTriggerIndex = 0
     private val triggers = HookTriggers()
+
+    private var wasViewCreated = false
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = super.onCreateView(inflater, container, savedInstanceState)
+        wasViewCreated = true
+        return view
+    }
+
+    override fun onDestroyView() {
+        wasViewCreated = false
+        super.onDestroyView()
+    }
 
     fun distance(
         location: Coordinate,
@@ -30,6 +51,9 @@ abstract class TrailSenseReactiveFragment(@LayoutRes private val layoutId: Int) 
     }
 
     override fun onUpdate() {
+        if (!wasViewCreated){
+            return
+        }
         currentTriggerIndex = 0
         update()
     }

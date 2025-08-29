@@ -68,7 +68,6 @@ class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_fiel
         }
 
         useEffect(sightingsView, page, navController, prefs) {
-            sightingsView.isVisible = isDebug()
             page ?: return@useEffect
             sightingsView.setOnClickListener {
                 // TODO: Navigate to the sightings list

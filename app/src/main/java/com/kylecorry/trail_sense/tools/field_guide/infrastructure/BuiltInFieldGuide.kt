@@ -33,7 +33,7 @@ object BuiltInFieldGuide {
 
     fun getFieldGuidePage(context: Context, id: Long): FieldGuidePage? {
         return getPages(context).getOrNull(-id.toInt() - 1)
-            ?.let { loadPage(context, it, -id.toInt()) }
+            ?.let { loadPage(context, it, -id.toInt() - 1) }
     }
 
     fun getFieldGuide(context: Context): List<FieldGuidePage> {
