@@ -5,6 +5,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.longClick
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.Side
@@ -77,5 +78,18 @@ class ToolMapTest : ToolTestBase(Tools.MAP) {
         hasText(Regex("\\d+(\\.\\d+)? (mi|ft)"))
         hasText("Create path")
         click(toolbarButton(R.id.map_distance_title, Side.Right))
+
+        click(R.id.menu_btn)
+        click("Layers")
+        scrollUntil { hasText("Basemap") }
+        scrollUntil { hasText("Photo Maps") }
+        scrollUntil { hasText("Contours") }
+        scrollUntil { hasText("Paths") }
+        scrollUntil { hasText("Beacons") }
+        scrollUntil { hasText("Navigation") }
+        scrollUntil { hasText("Tides") }
+        scrollUntil { hasText("My location") }
+        click(toolbarButton(R.id.title, Side.Right))
     }
+
 }

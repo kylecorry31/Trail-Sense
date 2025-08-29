@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.longClick
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
@@ -37,8 +38,22 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
         canDisplaySensorStatus()
 
         // Compass
+        canAdjustLayers()
         canSetDestinationBearing()
         canNavigate()
+    }
+
+    private fun canAdjustLayers(){
+        optional {
+            longClick(R.id.radar_compass)
+            scrollUntil { hasText("Photo Maps") }
+            scrollUntil { hasText("Contours") }
+            scrollUntil { hasText("Paths") }
+            scrollUntil { hasText("Beacons") }
+            scrollUntil { hasText("Tides") }
+            scrollUntil { hasText("My location") }
+            click(toolbarButton(R.id.title, Side.Right))
+        }
     }
 
     private fun canSetDestinationBearing() {
