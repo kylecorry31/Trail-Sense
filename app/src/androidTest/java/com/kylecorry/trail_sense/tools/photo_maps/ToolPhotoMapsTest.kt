@@ -10,6 +10,8 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.longClick
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.TestUtils.clickListItemMenu
@@ -49,7 +51,7 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         canDeleteMap()
     }
 
-    private fun canCreateMapFromCamera() {
+    private fun canCreateMapFromCamera(goBack: Boolean = true) {
         click(R.id.add_btn)
         click("Camera")
         click(R.id.capture_button)
@@ -60,7 +62,9 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         click("Edit")
 
         click("Next")
-        clickOk()
+        optional {
+            clickOk()
+        }
 
         hasText("Test Map")
         hasText("Rotation: 0°")
@@ -73,7 +77,9 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         click("Done")
 
         hasText("Test Map")
-        back()
+        if (goBack) {
+            back()
+        }
     }
 
     private fun canCreateMapFromFile() {
@@ -204,16 +210,102 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
     }
 
     private fun verifyMapMenuOptions() {
-        // TODO
         // Calibrate
-        // User Guide
+        click(toolbarButton(R.id.map_title, Side.Right))
+        click("Calibrate")
+        hasText("Calibrate with known locations", contains = true)
+        click("Next")
+        click("Done")
+        isVisible(R.id.map)
+
+        // User guide
+        click(toolbarButton(R.id.map_title, Side.Right))
+        click("User Guide")
+        hasText("Photo Maps")
+        back()
+        isVisible(R.id.map)
+
         // Rename
+        click(toolbarButton(R.id.map_title, Side.Right))
+        click("Rename")
+        input("Test Map", "Test Map 2", contains = true)
+        clickOk()
+        hasText("Test Map 2")
+
         // Change projection
+        click(toolbarButton(R.id.map_title, Side.Right))
+        click("Change projection")
+        click("Equidistant")
+        clickOk()
+
         // Measure
+        click(toolbarButton(R.id.map_title, Side.Right))
+        click("Measure")
+        hasText("Distance")
+        hasText(Regex("\\d+(\\.\\d+)? (mi|ft)"))
+        hasText("Create path")
+        click(toolbarButton(R.id.map_distance_title, Side.Right))
+
         // Create path
+        click(toolbarButton(R.id.map_title, Side.Right))
+        click("Create path")
+        hasText("Distance")
+        hasText(Regex("\\d+(\\.\\d+)? (mi|ft)"))
+        hasText("Create path")
+        click(toolbarButton(R.id.map_distance_title, Side.Right))
+
+        // Layers
+        click(toolbarButton(R.id.map_title, Side.Right))
+        click("Layers")
+        scrollUntil { hasText("Contours") }
+        scrollUntil { hasText("Paths") }
+        scrollUntil { hasText("Beacons") }
+        scrollUntil { hasText("Navigation") }
+        scrollUntil { hasText("Tides") }
+        scrollUntil { hasText("My location") }
+        click(toolbarButton(R.id.title, Side.Right))
+
         // Export
+        click(toolbarButton(R.id.map_title, Side.Right))
+        click("Export")
+        // Pressing back is needed sometimes to close the drive selector
+        backUntil {
+            hasText("test-map-2.pdf", contains = true)
+        }
+        backUntil {
+            isVisible(R.id.map)
+        }
+
         // Print
+        click(toolbarButton(R.id.map_title, Side.Right))
+        click("Print")
+        hasText("Copies", contains = true)
+        backUntil {
+            isVisible(R.id.map)
+        }
+
+        // Trace
+        click(toolbarButton(R.id.map_title, Side.Right))
+        click("Trace")
+        clickOk()
+        not { isVisible(R.id.zoom_in_btn, waitForTime = 0) }
+        not { isVisible(R.id.zoom_out_btn, waitForTime = 0) }
+        // Bottom nav does nothing
+        click(R.id.bottom_navigation)
+        click(R.id.lock_btn)
+        isVisible(R.id.zoom_in_btn)
+        isVisible(R.id.zoom_out_btn)
+
         // Delete
+        click(toolbarButton(R.id.map_title, Side.Right))
+        click(string(R.string.delete))
+        clickOk()
+
+        isVisible(R.id.map_list_title)
+        not { hasText("Test Map 2", waitForTime = 0) }
+
+        // Recreate the map
+        canCreateMapFromCamera(false)
     }
 
     private fun canRenameMap() {
@@ -255,10 +347,7 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
     private fun canPrintMap() {
         clickListItemMenu(string(R.string.print), index = 1)
         hasText("Copies", contains = true)
-        waitFor {
-            waitFor {
-                back()
-            }
+        backUntil {
             isVisible(R.id.map_list_title)
         }
     }
