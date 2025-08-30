@@ -53,7 +53,7 @@
     <string name="pref_altimeter_calibration_title">高度表</string>
     <string name="request_permission">请求权限</string>
     <string name="pref_auto_location_title">自动调整位置</string>
-    <string name="location">位置</string>
+    <string name="location">定位</string>
     <string name="compass_accuracy_improved">指南针的精确度提升至 %s</string>
     <string name="compass_reported_accuracy">报告的准确度： %s</string>
     <string name="calibrate_compass_on_navigate_dialog_content">以8字形或全方位旋转手机几次，完成后轻触 %s 。
@@ -145,7 +145,7 @@
     <string name="pip_button">更新系统时间</string>
     <string name="could_not_triangulate">无法进行三角定位</string>
     <string name="tool_triangulate_title">三角定位</string>
-    <string name="tool_category_signaling">信号传递</string>
+    <string name="tool_category_signaling">发送信号</string>
     <string name="tool_category_angles">角度</string>
     <string name="power">能源</string>
     <string name="battery_health">健康状况：%s</string>
@@ -422,7 +422,7 @@
     <string name="quality_good">好</string>
     <string name="quality_poor">差</string>
     <string name="magnetic_field_format_precise">%s uT</string>
-    <string name="help">帮助</string>
+    <string name="help">求助</string>
     <string name="beam_distance">%s 光柱距离</string>
     <string name="candela_format">%s cd</string>
     <string name="lux_format">%s lx</string>
@@ -510,7 +510,7 @@
     <string name="whistle_signal_acknowledged">收到</string>
     <string name="whistle_signal_where_are_you">你在哪里？</string>
     <string name="noon">最高点</string>
-    <string name="weather_monitor">天气监视</string>
+    <string name="weather_monitor">天气监测</string>
     <string name="pref_barometer_info_summary">大气压强可能与附近气象站的大气压强不同</string>
     <string name="battery_history">历史电量 - 过去 %s</string>
     <string name="no_data">无数据</string>
@@ -599,7 +599,7 @@
     <string name="new_packing_list">新包装清单</string>
     <string name="no_packing_lists">无包装清单</string>
     <string name="percent_packed">%s 已打包</string>
-    <string name="packing_lists">包装清单</string>
+    <string name="packing_lists">背包清单</string>
     <string name="hygiene">卫生</string>
     <string name="documents">文档</string>
     <string name="electronics">电子产品</string>
