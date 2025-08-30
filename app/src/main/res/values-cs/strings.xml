@@ -1258,7 +1258,7 @@
     <string name="tide_estimation_description_lunitidal_interval_auto">Využívá polohu Měsíce k odhadu přílivu a odlivu. Vyžaduje alespoň jeden známý příliv nebo odliv.</string>
     <string name="tide_estimation_description_lunitidal_interval_local">Využívá polohu Měsíce k odhadu přílivu a odlivu. Vyžaduje místní lunitidální interval a polohu.</string>
     <string name="tide_estimation_description_tide_model">Používá vestavěný model přílivu a odlivu k odhadu přílivu a odlivu pro zadanou polohu nebo vaši polohu, pokud není zadána.</string>
-    <string name="show_stars">Zobrazit hvězdy</string>
+    <string name="show_stars">Zobrazit hvězdy a planety</string>
     <string name="star">Hvězda</string>
     <string name="select_star">Vybrat hvězdu</string>
     <plurals name="star_count">
@@ -1469,4 +1469,7 @@
     <string name="open_settings">Otevřít nastavení</string>
     <string name="basemap">Podkladová mapa</string>
     <string name="show_gps_accuracy">Zobrazit přesnost GPS</string>
+    <string name="increase_exposure_at_night">Zvýšit expozici v noci</string>
+    <string name="show_constellations">Zobrazit souhvězdí</string>
+    <string name="constellation">Souhvězdí</string>
 </resources>
