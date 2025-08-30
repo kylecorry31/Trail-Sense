@@ -1774,4 +1774,6 @@
     <string name="increase_exposure_at_night">Increase exposure at night</string>
     <string name="show_constellations">Show constellations</string>
     <string name="constellation">Constellation</string>
+    <string name="no_sightings">No sightings</string>
+    <string name="sighting">Sighting</string>
 </resources>

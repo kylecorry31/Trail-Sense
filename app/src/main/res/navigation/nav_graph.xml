@@ -150,6 +150,17 @@
     </fragment>
 
     <fragment
+        android:id="@+id/sightingListFragment"
+        android:name="com.kylecorry.trail_sense.tools.field_guide.ui.SightingListFragment"
+        android:label="SightingListFragment">
+
+        <argument
+            android:name="page_id"
+            app:argType="long" />
+
+    </fragment>
+
+    <fragment
         android:id="@+id/createFieldGuidePageFragment"
         android:name="com.kylecorry.trail_sense.tools.field_guide.ui.CreateFieldGuidePageFragment"
         android:label="CreateFieldGuidePageFragment">

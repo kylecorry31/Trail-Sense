@@ -16,7 +16,12 @@ object FieldGuideToolRegistration : ToolRegistration {
             R.drawable.field_guide,
             R.id.fieldGuideFragment,
             ToolCategory.Books,
-            additionalNavigationIds = listOf(R.id.fieldGuidePageFragment),
+            additionalNavigationIds = listOf(
+                R.id.fieldGuidePageFragment,
+                R.id.sightingListFragment,
+                R.id.createFieldGuideSightingFragment,
+                R.id.createFieldGuidePageFragment
+            ),
             guideId = R.raw.guide_tool_field_guide,
             singletons = listOf(
                 FieldGuideRepo::getInstance
