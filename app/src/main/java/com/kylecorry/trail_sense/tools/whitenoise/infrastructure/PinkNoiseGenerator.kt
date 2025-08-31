@@ -2,47 +2,50 @@ package com.kylecorry.trail_sense.tools.whitenoise.infrastructure
 
 import android.media.AudioTrack
 import com.kylecorry.andromeda.sound.SoundGenerator
-import com.kylecorry.sol.math.SolMath
 import kotlin.random.Random
 
 class PinkNoiseGenerator {
 
     private val soundGenerator = SoundGenerator()
 
-    fun getNoise(sampleRate: Int = 64000, durationSeconds: Int = 1): AudioTrack {
-        var b0 = 1.0
-        var b1 = 0.0
-        var b2 = 0.0
-        var b3 = 0.0
-        var b4 = 0.0
-        var b5 = 0.0
-        var b6 = 0.0
-
+    // Uses a version of Voss-McCartney algorithm
+    fun getNoise(sampleRate: Int = 44100, durationSeconds: Double = 1.0): AudioTrack {
+        val rows = DoubleArray(16)
+        var runningSum = 0.0
+        var counter = 0L
         val random = Random(0)
-        var noise = mutableListOf<Double>()
-        val size = (durationSeconds + 1) * sampleRate
+
+        val noise = mutableListOf<Double>()
+        val size = ((durationSeconds + 1) * sampleRate).toInt()
         for (i in 0 until size) {
-            val white = random.nextDouble()
-            b0 = 0.99886 * b0 + white * 0.0555179
-            b1 = 0.99332 * b1 + white * 0.0750759
-            b2 = 0.96900 * b2 + white * 0.1538520
-            b3 = 0.86650 * b3 + white * 0.3104856
-            b4 = 0.55000 * b4 + white * 0.5329522
-            b5 = -0.7616 * b5 - white * 0.0168980
-            val pink = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362
-            b6 = white * 0.115926
+            counter++
+            var lastBit = counter
+            for (j in rows.indices) {
+                if (lastBit and 1L != 0L) {
+                    val newValue = random.nextDouble(-1.0, 1.0)
+                    runningSum += newValue - rows[j]
+                    rows[j] = newValue
+                }
+                lastBit = lastBit shr 1
+            }
+            val pink = runningSum / rows.size.toDouble()
             noise.add(pink)
         }
 
-        val min = noise.minOrNull() ?: 0.0
-        val max = noise.maxOrNull() ?: 0.0
+        val precomputed = SoundGenerators.precomputed(
+            noise,
+            durationSeconds + 1.0
+        )
 
-        noise = noise.map {
-            SolMath.map(it, min, max, -1.0, 1.0)
-        }.toMutableList()
+        val blended = SoundGenerators.loopBlended(
+            0.02,
+            durationSeconds,
+            precomputed
+        )
 
         return soundGenerator.getSound(sampleRate, durationSeconds.toFloat()) {
-            noise[it + sampleRate]
+            val t = it / sampleRate.toDouble()
+            blended(t)
         }
     }
 

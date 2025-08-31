@@ -9,12 +9,12 @@ class CricketsGenerator(private val includeNearbyCricket: Boolean = true) {
     private val whiteNoise1 = SoundGenerators.loopBlended(
         0.05,
         totalChirpDuration,
-        SoundGenerators.bandedWhiteNoise(1800.0, 2500.0)
+        SoundGenerators.bandedNoise(1800.0, 2500.0)
     )
     private val whiteNoise2 = SoundGenerators.loopBlended(
         0.05,
         totalChirpDuration,
-        SoundGenerators.bandedWhiteNoise(3600.0, 5000.0)
+        SoundGenerators.bandedNoise(3600.0, 5000.0)
     )
 
     private val cricketChirpSound = SoundGenerators.sineWave(
