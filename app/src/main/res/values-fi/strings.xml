@@ -691,7 +691,7 @@
     <string name="error">Virhe</string>
     <string name="pref_backfill_temperatures_description">Kaikki tallennetut lämpötilat korvataan kalibroidulla historiallisella lämpötilalla.</string>
     <string name="low_tide">Matala</string>
-    <string name="updating_weather">Päivitetään säätä</string>
+    <string name="updating_weather">Säätä päivitetään</string>
     <string name="tool_solar_panel_title">Aurinkopaneelien suuntaaja</string>
     <string name="diagnostics">Diagnostiikka</string>
     <string name="no_group">Ei ryhmää</string>
@@ -732,7 +732,7 @@
     <string name="sensor_summary">Kompassi, GPS, korkeusmittari, barometri jne.</string>
     <string name="obscuration">Hämärtyminen</string>
     <string name="note_title_hint">Otsikko</string>
-    <string name="cumulonimbus_desc">Kuuropilvet (Cumulonimbus), tunnettu myös nimellä ukkospilvet, ovat matalalla olevia pöyheitä pilviä, jotka ovat erittäin korkeita. Ne ovat tyypillisesti tummia ja alasimen muotoisia.</string>
+    <string name="cumulonimbus_desc">Kuuropilvet (Cumulonimbus), jotka tunnetaan myös nimellä ukkospilvet, ovat matalalla olevia pöyheitä pilviä, jotka ovat erittäin korkeita. Ne ovat tyypillisesti tummia ja alasimen muotoisia.</string>
     <string name="category_safety">Turvallisuus</string>
     <string name="percent_packed">%s pakattu</string>
     <string name="no_clouds">Ei pilviä</string>
@@ -803,7 +803,7 @@
     <string name="restore_disclaimer">Tämä toiminto korvaa kaikki nykyiset tietosi. Varmista, että sinulla on varmuuskopio ennen kuin jatkat.\n\nValitse vain varmuuskopiotiedosto, jonka olet luonut sovelluksella %s ja johon luotat.</string>
     <string name="tool_lightning_title">Salamaniskun etäisyys</string>
     <string name="time">Aika</string>
-    <string name="historic_temperatures_full_disclaimer" tools:ignore="PluralsCandidate">Lämpötilat perustuvat %d vuoden keskiarvoon historiallisista tiedoista eivätkä välttämättä vastaa tämänhetkisiä sääolosuhteita.</string>
+    <string name="historic_temperatures_full_disclaimer" tools:ignore="PluralsCandidate">Lämpötilat perustuvat %d:n vuoden keskiarvoon historiallisista tiedoista, eivätkä välttämättä vastaa nykyhetken sääolosuhteita.</string>
     <string name="guide_light_meter_description">Kuinka määrittää taskulamppujen valokeilan etäisyys</string>
     <string name="beta_disclaimer">Tämä työkalu on tällä hetkellä betavaiheessa, joten ilmoita ongelmista tai palautteesta osoitteeseen %s.</string>
     <string name="tool_climate">Ilmasto</string>
@@ -1056,7 +1056,7 @@
     <string name="continuous_calibration">Jatkuva kalibraatio</string>
     <string name="service_restart">Palvelun uudelleenkäynnistys</string>
     <string name="fused_altimeter_force_calibration_summary">Pakota GPS-kalibrointi joka %s</string>
-    <string name="compact_mode">Tiivis tila</string>
+    <string name="compact_mode">Tiivis työkalupalkki</string>
     <string name="compass_dynamic_colors">Dynaamiset värit kompassissa</string>
     <string name="compass_dynamic_colors_summary">Käytä dynaamisia värejä pääilmansuunnissa</string>
     <string name="screen_flashlight_full_name">Näyttötaskulamppu</string>
@@ -1163,7 +1163,7 @@
     <string name="tide_estimation_description_lunitidal_interval_utc">Käyttää kuun sijaintia vuorovesien arvioimiseen. Vaatii UTC-lunitidaalisen intervallin.</string>
     <string name="tide_estimation_description_tide_model">Käyttää sisäänrakennettua mallia vuorovesien arvioimiseen annetussa sijainissa. Käyttää puhelimen sijaintia jos sijaintia ei ole annettu erikseen.</string>
     <string name="star">Tähti</string>
-    <string name="show_stars">Näytä tähdet</string>
+    <string name="show_stars">Näytä tähdet ja planeetat</string>
     <string name="nearest_stars">Lähimmät tähdet</string>
     <string name="stars">Tähdet</string>
     <string name="approximate_location">Arvioitu sijainti</string>
@@ -1260,12 +1260,12 @@
     <string name="insect_activity">Hyönteisaktiivisuus</string>
     <string name="mosquitoes">Hyttyset</string>
     <string name="active_period">Aktiivisia välillä %1$s - %2$s</string>
-    <string name="climate_tropical_monsoon">Trooppinen monsuuni</string>
-    <string name="climate_tropical_savanna">Trooppinen savanni</string>
-    <string name="climate_tropical_rainforest">Trooppinen sademetsä</string>
-    <string name="climate_desert">Aavikko</string>
-    <string name="climate_steppe">Aro</string>
-    <string name="climate_tundra">Tundra</string>
+    <string name="climate_tropical_monsoon">Trooppinen monsuuni-ilmasto</string>
+    <string name="climate_tropical_savanna">Trooppinen savanni-ilmasto</string>
+    <string name="climate_tropical_rainforest">Trooppinen sademetsäilmasto</string>
+    <string name="climate_desert">Aavikkoilmasto</string>
+    <string name="climate_steppe">Aroilmasto</string>
+    <string name="climate_tundra">Tundrailmasto</string>
     <string name="climate_ice_cap">Mannerjäätikkö</string>
     <string name="climate_temperate">Lauhkea ilmasto</string>
     <string name="climate_continental">Mannerilmasto</string>
@@ -1282,7 +1282,7 @@
     <string name="climate_dry_summer_description">Sisältää kuivan kauden kesäisin.</string>
     <string name="climate_dry_winter_description">Sisältää kuivan kauden talvisin.</string>
     <string name="climate_no_dry_season_description">Ei sisällä kuivaa kautta.</string>
-    <string name="climate_ice_cap_description">Jää ei sula vuoden aikana eikä kasvillisuutta ole yhtään.</string>
+    <string name="climate_ice_cap_description">Jää ei sula vuoden aikana, eikä kasvillisuutta ole lainkaan.</string>
     <string name="climate_hot_description">Valmistaudu kuumiin lämpötiloihin ympäri vuoden.</string>
     <string name="climate_cold_description">Valmistaudu kylmiin lämpötiloihin ympäri vuoden.</string>
     <string name="climate_hot_summer_description">Valmistaudu kuumiin lämpötiloihin kesän aikana.</string>
@@ -1371,4 +1371,9 @@
     <string name="open_settings">Avaa asetukset</string>
     <string name="basemap">Taustakartta</string>
     <string name="show_gps_accuracy">Näytä GPS-tarkkuus</string>
+    <string name="increase_exposure_at_night">Pidennä valoitusaikaa yöaikaan</string>
+    <string name="show_constellations">Näytä tähtikuviot</string>
+    <string name="constellation">Tähtikuvio</string>
+    <string name="no_sightings">Ei havaintoja</string>
+    <string name="sighting">Havainto</string>
 </resources>
