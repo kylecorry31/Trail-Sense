@@ -2,79 +2,27 @@ package com.kylecorry.trail_sense.tools.whitenoise.infrastructure
 
 import android.media.AudioTrack
 import com.kylecorry.andromeda.sound.SoundGenerator
-import com.kylecorry.sol.math.SolMath.power
-import kotlin.math.PI
-import kotlin.math.sin
-import kotlin.random.Random
 
 class CricketsGenerator(private val includeNearbyCricket: Boolean = true) {
     private val soundGenerator = SoundGenerator()
-    private val random = Random(100)
 
-    private val whiteNoise1 = createLoopBlendedNoiseGenerator(
+    private val whiteNoise1 = SoundGenerators.loopBlended(
         0.05,
         totalChirpDuration,
-        createBandedWhiteNoiseGenerator(1800.0, 2500.0)
+        SoundGenerators.bandedWhiteNoise(1800.0, 2500.0)
     )
-    private val whiteNoise2 = createLoopBlendedNoiseGenerator(
+    private val whiteNoise2 = SoundGenerators.loopBlended(
         0.05,
         totalChirpDuration,
-        createBandedWhiteNoiseGenerator(3600.0, 5000.0)
+        SoundGenerators.bandedWhiteNoise(3600.0, 5000.0)
     )
 
-    private fun createLoopBlendedNoiseGenerator(
-        blendDuration: Double,
-        loopDuration: Double,
-        producer: (t: Double) -> Double
-    ): (Double) -> Double {
-        return { t ->
-            var amplitude = producer(t)
-            if (t < blendDuration) {
-                val norm = t / blendDuration
-                amplitude *= norm
-                amplitude += (1 - norm) * producer(loopDuration + t)
-            }
-            amplitude
-        }
-    }
+    private val cricketChirpSound = SoundGenerators.sineWave(
+        4500.0,
+        numHarmonics = 2
+    )
 
-    private fun createBandedWhiteNoiseGenerator(
-        lowFreq: Double,
-        highFreq: Double,
-        numOscillators: Int = 100
-    ): (Double) -> Double {
-        val oscillators = List(numOscillators) {
-            val freq = lowFreq + random.nextDouble() * (highFreq - lowFreq)
-            val phase = random.nextDouble() * 2 * PI
-            Oscillator(freq, phase)
-        }
-
-        return { t ->
-            var amplitude = 0.0
-            for (osc in oscillators) {
-                amplitude += sin(2 * PI * osc.freq * t + osc.phase)
-            }
-            amplitude / oscillators.size
-        }
-    }
-
-    private fun getFrequencyWaveform(
-        t: Double,
-        frequency: Double,
-        phase: Double = 0.0,
-        numHarmonics: Int = 0
-    ): Double {
-        val factor = 2 * PI * t
-        var signal = 0.0
-        var totalAmplitude = 0.0
-        for (i in 0..numHarmonics) {
-            val multiplier = i + 1
-            val divisor = power(2, i)
-            signal += sin(factor * frequency * multiplier + phase) / divisor
-            totalAmplitude += 1 / divisor.toDouble()
-        }
-        return signal / totalAmplitude
-    }
+    private val chirpFade = SoundGenerators.sineWave(0.5)
 
     private fun getBackgroundNoise(t: Double): Double {
         return 0.6 * whiteNoise1(t) + 0.4 * whiteNoise2(t)
@@ -83,8 +31,7 @@ class CricketsGenerator(private val includeNearbyCricket: Boolean = true) {
     private fun getChirp(
         t: Double,
         startGapDuration: Double = 0.0,
-        endGapDuration: Double = 0.5,
-        pitch: Double = 4500.0
+        endGapDuration: Double = 0.5
     ): Double {
         // Calculate the t value for the current pulse
         var currentCycleT = t % (
@@ -105,10 +52,9 @@ class CricketsGenerator(private val includeNearbyCricket: Boolean = true) {
             return 0.0
         }
         val newT = (currentCycleT % (impulseDuration + impulseGapDuration)).toFloat()
-        var signal = getFrequencyWaveform(t, pitch, numHarmonics = 2)
+        var signal = cricketChirpSound(t)
         // Fade
-        signal *= getFrequencyWaveform(newT / impulseDuration, 0.5)
-
+        signal *= chirpFade(newT / impulseDuration)
         return signal
     }
 
@@ -139,8 +85,6 @@ class CricketsGenerator(private val includeNearbyCricket: Boolean = true) {
             getAmplitude(t)
         }
     }
-
-    private class Oscillator(val freq: Double, val phase: Double)
 
     private class Cricket(val volume: Double, val startOffset: Double) {
         val endOffset = timeBetweenChirps - startOffset
