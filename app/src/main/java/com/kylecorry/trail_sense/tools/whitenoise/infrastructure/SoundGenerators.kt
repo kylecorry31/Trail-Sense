@@ -41,9 +41,8 @@ object SoundGenerators {
         }
     }
 
-    fun brownNoise(sampleRate: Int): (Double) -> Double {
+    fun brownNoise(sampleRate: Int, durationSeconds: Double = 2.0): (Double) -> Double {
         val random = Random(0)
-        val durationSeconds = 2.0
         val blendDuration = 0.01
 
         val noise = mutableListOf<Double>()

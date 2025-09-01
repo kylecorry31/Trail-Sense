@@ -13,6 +13,8 @@ class SleepSoundFactory {
             SleepSound.CricketsNoChirp -> CricketsGenerator(includeNearbyCricket = false).getNoise(
                 durationSeconds = CricketsGenerator.totalChirpDuration.toFloat()
             )
+
+            SleepSound.OceanWaves -> OceanWavesGenerator().getNoise(durationSeconds = OceanWavesGenerator.totalDuration)
         }
 
         return SoundPlayer(track)

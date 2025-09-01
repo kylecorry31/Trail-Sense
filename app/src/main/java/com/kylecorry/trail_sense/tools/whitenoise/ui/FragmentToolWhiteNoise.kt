@@ -37,6 +37,7 @@ class FragmentToolWhiteNoise :
                 SleepSound.BrownNoise to getString(R.string.sleep_sound_brown_noise),
                 SleepSound.Crickets to getString(R.string.sleep_sound_crickets),
                 SleepSound.CricketsNoChirp to getString(R.string.sleep_sound_crickets_no_chirping),
+                SleepSound.OceanWaves to getString(R.string.sleep_sound_ocean_waves)
             )
         }
 

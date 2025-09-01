@@ -1781,4 +1781,5 @@
     <string name="sleep_sound_brown_noise">Brown noise</string>
     <string name="sleep_sound_crickets">Crickets</string>
     <string name="sleep_sound_crickets_no_chirping">Crickets (no chirping)</string>
+    <string name="sleep_sound_ocean_waves">Ocean waves</string>
 </resources>
