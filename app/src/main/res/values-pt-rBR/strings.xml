@@ -1416,4 +1416,6 @@
     <string name="increase_exposure_at_night">Aumentar exposição à noite</string>
     <string name="show_constellations">Mostrar constelações</string>
     <string name="constellation">Constelação</string>
+    <string name="no_sightings">Sem observações</string>
+    <string name="sighting">Observação</string>
 </resources>
