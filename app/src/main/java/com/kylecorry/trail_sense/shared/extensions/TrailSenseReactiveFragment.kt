@@ -11,11 +11,16 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
 import java.time.Duration
 
-abstract class TrailSenseReactiveFragment(@LayoutRes private val layoutId: Int) :
+abstract class TrailSenseReactiveFragment(
+    @LayoutRes private val layoutId: Int,
+    private val forcedInterval: Long? = null
+) :
     XmlReactiveFragment(layoutId) {
 
     private var currentTriggerIndex = 0
     private val triggers = HookTriggers()
+
+    protected var runEveryCycle = 0
 
     private var wasViewCreated = false
 
@@ -26,6 +31,9 @@ abstract class TrailSenseReactiveFragment(@LayoutRes private val layoutId: Int) 
     ): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
         wasViewCreated = true
+        if (forcedInterval != null) {
+            scheduleUpdates(forcedInterval)
+        }
         return view
     }
 
@@ -51,9 +59,10 @@ abstract class TrailSenseReactiveFragment(@LayoutRes private val layoutId: Int) 
     }
 
     override fun onUpdate() {
-        if (!wasViewCreated){
+        if (!wasViewCreated) {
             return
         }
+        runEveryCycle++
         currentTriggerIndex = 0
         update()
     }

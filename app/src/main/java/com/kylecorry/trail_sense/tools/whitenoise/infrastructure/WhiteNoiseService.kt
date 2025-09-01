@@ -5,17 +5,19 @@ import android.content.Intent
 import androidx.core.content.ContextCompat
 import com.kylecorry.andromeda.background.services.AndromedaService
 import com.kylecorry.andromeda.background.services.ForegroundInfo
+import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.sound.ISoundPlayer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.withId
 import java.time.Duration
 import java.time.Instant
 
 class WhiteNoiseService : AndromedaService() {
 
-    private var whiteNoise: ISoundPlayer? = null
+    private var soundPlayer: ISoundPlayer? = null
     private val cache by lazy { PreferencesSubsystem.getInstance(this).preferences }
 
     private val offTimer = CoroutineTimer {
@@ -31,8 +33,11 @@ class WhiteNoiseService : AndromedaService() {
             offTimer.once(Duration.between(Instant.now(), stopAt))
         }
 
-        whiteNoise = PinkNoise()
-        whiteNoise?.fadeOn()
+        val soundId = cache.getLong(CACHE_KEY_SLEEP_SOUND_ID) ?: SleepSound.PinkNoise.id
+        val sound = SleepSound.entries.withId(soundId) ?: SleepSound.PinkNoise
+
+        soundPlayer = SleepSoundFactory().getSleepSound(sound)
+        soundPlayer?.fadeOn()
         return START_STICKY
     }
 
@@ -53,7 +58,7 @@ class WhiteNoiseService : AndromedaService() {
         releaseWakelock()
         offTimer.stop()
         isRunning = false
-        whiteNoise?.fadeOff(true)
+        soundPlayer?.fadeOff(true)
         stopService(true)
         clearSleepTimer(this)
         super.onDestroy()
@@ -64,11 +69,32 @@ class WhiteNoiseService : AndromedaService() {
         const val NOTIFICATION_CHANNEL_ID = "white_noise"
         const val CACHE_KEY_OFF_TIME = "cache_white_noise_off_at"
 
+        const val CACHE_KEY_SLEEP_SOUND_ID = "cache_sleep_sound_id"
+
         var isRunning = false
             private set
 
         fun intent(context: Context): Intent {
             return Intent(context, WhiteNoiseService::class.java)
+        }
+
+        fun play(
+            context: Context,
+            sleepSound: SleepSound? = null,
+            duration: Duration? = null
+        ) {
+            val cache = AppServiceRegistry.get<PreferencesSubsystem>().preferences
+            if (duration != null && !duration.isZero) {
+                cache.putInstant(CACHE_KEY_OFF_TIME, Instant.now().plus(duration))
+            } else {
+                clearSleepTimer(context)
+            }
+
+            // Allow the last selected sound to be played
+            if (sleepSound != null) {
+                cache.putLong(CACHE_KEY_SLEEP_SOUND_ID, sleepSound.id)
+            }
+            start(context)
         }
 
         fun start(context: Context) {
