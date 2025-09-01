@@ -1,6 +1,8 @@
 package com.kylecorry.trail_sense.tools.whitenoise.infrastructure
 
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.power
+import com.kylecorry.trail_sense.shared.extensions.range
 import kotlin.math.PI
 import kotlin.math.pow
 import kotlin.math.sin
@@ -11,15 +13,34 @@ object SoundGenerators {
     fun precomputed(
         amplitudes: List<Double>,
         totalDuration: Double,
+        normalize: Boolean = true
     ): (t: Double) -> Double {
-        val n = amplitudes.size
+        val amps = if (normalize){
+            val range = amplitudes.range() ?: return { 0.0 }
+            amplitudes.map {
+                SolMath.map(it, range.start, range.end, -1.0, 1.0)
+            }
+        } else {
+            amplitudes
+        }
+        val n = amps.size
         return { t ->
             val index = ((t / totalDuration) * n).toInt()
             if (index < 0 || index >= n) {
                 0.0
             } else {
-                amplitudes[index]
+                amps[index]
             }
+        }
+    }
+
+    fun normalized(
+        minimum: Double,
+        maximum: Double,
+        producer: (Double) -> Double
+    ): (Double) -> Double {
+        return { t ->
+            SolMath.map(producer(t), minimum, maximum, -1.0, 1.0)
         }
     }
 
