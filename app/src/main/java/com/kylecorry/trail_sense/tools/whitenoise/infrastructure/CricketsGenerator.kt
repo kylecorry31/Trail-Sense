@@ -2,9 +2,13 @@ package com.kylecorry.trail_sense.tools.whitenoise.infrastructure
 
 import android.media.AudioTrack
 import com.kylecorry.andromeda.sound.SoundGenerator
+import com.kylecorry.sol.math.SolMath
+import kotlin.math.PI
 
 class CricketsGenerator(private val includeNearbyCricket: Boolean = true) {
     private val soundGenerator = SoundGenerator()
+
+    private val backgroundNoise = SoundGenerators.brownNoise(44100)
 
     private val whiteNoise1 = SoundGenerators.loopBlended(
         0.05,
@@ -14,18 +18,23 @@ class CricketsGenerator(private val includeNearbyCricket: Boolean = true) {
     private val whiteNoise2 = SoundGenerators.loopBlended(
         0.05,
         totalChirpDuration,
-        SoundGenerators.bandedNoise(3600.0, 5000.0)
+        SoundGenerators.bandedNoise(3800.0, 5800.0)
     )
 
-    private val cricketChirpSound = SoundGenerators.sineWave(
-        4500.0,
-        numHarmonics = 2
-    )
+    private val cricketChirpSound = SoundGenerators.bandedNoise(
+        4200.0,
+        5000.0,
+        numOscillators = 10,
+        evenDistribution = true
+    ) { frequency, _ ->
+        val normFrequency = SolMath.norm(frequency, 4200.0, 5000.0)
+        SoundGenerators.Oscillator(normFrequency, frequency, (1 - normFrequency) * 2 * PI)
+    }
 
     private val chirpFade = SoundGenerators.sineWave(0.5)
 
     private fun getBackgroundNoise(t: Double): Double {
-        return 0.6 * whiteNoise1(t) + 0.4 * whiteNoise2(t)
+        return 0.7 * whiteNoise1(t) + 0.29 * whiteNoise2(t) + 0.01 * backgroundNoise(t)
     }
 
     private fun getChirp(
@@ -91,11 +100,11 @@ class CricketsGenerator(private val includeNearbyCricket: Boolean = true) {
     }
 
     companion object {
-        private val impulseDuration = 0.02
-        private val impulseGapDuration = 0.005
+        private val impulseDuration = 0.04
+        private val impulseGapDuration = 0.01
         private val numPulses = 3
         private val backgroundVolume = 0.8
-        private val timeBetweenChirps = 0.5
+        private val timeBetweenChirps = 0.4
 
         val totalChirpDuration =
             numPulses * (impulseDuration + impulseGapDuration) + timeBetweenChirps
