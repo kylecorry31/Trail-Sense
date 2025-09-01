@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.whitenoise.infrastructure
 import android.media.AudioTrack
 import com.kylecorry.andromeda.sound.SoundGenerator
 import com.kylecorry.trail_sense.shared.andromeda_temp.nextGaussian
-import kotlin.math.abs
 import kotlin.random.Random
 
 class BrownNoiseGenerator {
@@ -19,15 +18,10 @@ class BrownNoiseGenerator {
         val size = ((durationSeconds + blendDuration) * sampleRate).toInt()
         var brown = 0.0
         for (i in 0 until size) {
-            var white = random.nextGaussian()
-            if ((brown + white / 10) >= 1.0) {
-                white = -abs(white)
-            } else if ((brown + white / 10) <= -1.0) {
-                white = abs(white)
-            }
-
-            brown += white / 10.0
-
+            val white = random.nextGaussian()
+            brown += white * 0.02
+            // Leaky integration
+            brown /= 1.02
             noise.add(brown)
         }
 
