@@ -1,0 +1,16 @@
+Pilvet-työkalu avustaa sinua sekä sään seuraamisessa että sen ennustamisessa tunnistamalla pilviä. Jos puhelimessasi on barometri, Trail Sense yhdistää sen lukemat pilvihavaintoihin parantaakseen sääennusteita Sää-työkalussa.
+
+## Pilviloki
+Pilvilokista löydät viimeisen 48:n tunnin aikana kirjatut pilvihavainnot. Jokainen rivi pitää sisällään havainnon ajankohdan sekä havaitun pilvityypin, sekä sen mahdolliset vaikutukset tulevaan säähän. Paina riviä nähdäksesi lisää tietoja kyseisestä pilvityypistä, mm. sen kuvauksen, sateen todennäköisyyden ja yleisimmät sen tuottamat sadetyypit. Poistaaksesi havainnon paina rivin oikeassa reunassa olevaa valikkonäppäintä ja vahvista sitten havainnon poisto. Voit painaa pilvien kuvia lokissa nähdäksesi niistä suurennetut versiot.
+
+## Pilvien kirjaaminen lokiin
+Kirjataksesi uuden pilven lokiin, paina '+' painiketta ruudun oikeassa alakulmassa Pilvet-työkalun ollessa auki. Voit valita kuvan laitteesi tiedostoista, ottaa uuden kuvan kameralla tai manuaalisesti kirjata itse tunnistamasi pilven. Mikäli havaitsit pilven aikaisemmin etkä ehtinyt kirjaamaan sitä havaintohetkellä, voit manuaalisesti asettaa havaintosi todellisen ajankohdan painamalla näytön yläreunassa olevaan kellonaikaa "Pilvet" tekstin alapuolella kun olet kirjaamassa pilveä lokiin.
+
+## Automaattinen tunnistaminen
+Jos käytät kameraa tai jo ottamaasi kuvaa, Trail Sense yrittää tunnistaa kuvassa olevan pilven puolestasi. Työkalu näyttää millä varmuudella se arvioi kuvan pilven olevan tiettyä tyyppiä. Työkalu valitsee automaattisesti suurimman varmuuden pilvityypin kirjattavaksi, mutta voit halutessasi vaihtaa valintaa valintaruutujen avulla ennen sen tallentamista. Paina näytön oikeassa yläkulmassa olevaa painiketta tallentaaksesi havaintosi.
+
+## Manuaalinen tunnistaminen
+Jos päätät tunnistaa pilven manuaalisesti, sinulle näytetään lista eri pilvityypeistä. Käytä valintaruutuja päättääksesi minkä/mitkä pilvet haluat kirjata lokiin. Kun olet valinnut haluamasi pilvet listalta, paina näytön oikeassa yläkulmassa olevaa painiketta tallentaaksesi havaintosi.
+
+## Pikatoiminto
+Voit ottaa käyttöön Pilviskanneri-pikatoiminnon sovelluksen asetuksista. Pilviskanneri avaa laitteesi kameran pilvien kuvaamiseksi ja niiden tunnistamiseksi. Pikatoimintopainikkeen pitkään pohjassa painaminen avaa Pilvet-työkalun. Voit sijoittaa pikanäppäimen haluamaasi työkaluun sovelluksen asetuksista.

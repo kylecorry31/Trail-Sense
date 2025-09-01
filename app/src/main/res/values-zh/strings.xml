@@ -1433,4 +1433,6 @@
     <string name="increase_exposure_at_night">提高夜间曝光度</string>
     <string name="show_constellations">显示星座</string>
     <string name="constellation">星座</string>
+    <string name="no_sightings">无发现</string>
+    <string name="sighting">发现</string>
 </resources>
