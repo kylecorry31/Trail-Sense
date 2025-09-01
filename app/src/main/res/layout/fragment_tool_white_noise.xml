@@ -13,6 +13,14 @@
         app:tileIcon="@drawable/ic_tool_white_noise"
         app:tilePadding="64dp" />
 
+    <com.kylecorry.trail_sense.shared.views.MaterialSpinnerView
+        android:id="@+id/sound_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp" />
+
     <com.google.android.material.materialswitch.MaterialSwitch
         android:id="@+id/sleep_timer_switch"
         android:layout_width="match_parent"
