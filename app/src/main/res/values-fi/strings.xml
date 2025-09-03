@@ -137,7 +137,7 @@
     <string name="compass_auto_declination">Säädä eranto automaattisesti</string>
     <string name="compass_declination_override">Erannon ohitus</string>
     <string name="override_from_gps">Aseta ohitus GPS:stä</string>
-    <string name="smoothing_summary">Korkeat arvot voivat vähentää kohinaa</string>
+    <string name="smoothing_summary">Korkeat arvot saattavat vähentää kohinaa</string>
     <string name="true_north">Todellinen pohjoinen</string>
     <string name="pref_compass_sensor_title">Kompassi</string>
     <string name="pref_ruler_calibration_summary">Kalibrointiprotokolla:\n\n- Aseta arvoksi 1.\n\n- Mittaa Trail Sense -viivoittimella mitta, joka vastaa yhtä fyysisen viivoittimen yksikköä.\n\n- Ilmoita mitattu arvo tässä.</string>
@@ -544,7 +544,7 @@
     <string name="very_soon">Erittäin pian</string>
     <string name="pref_backfill_temperatures_title">Päivitä tallennetut lämpötilat</string>
     <string name="backup">Varmuuskopioi</string>
-    <string name="tool_white_noise_title">Valkoista kohinaa</string>
+    <string name="tool_white_noise_title">Valkoista Kohinaa</string>
     <string name="water_purification_step_1">Suodata vesi</string>
     <string name="tool_whistle_title">Pilli</string>
     <string name="quality_good">Hyvä</string>
@@ -1328,7 +1328,7 @@
     <string name="opacity">Läpinäkymättömyys</string>
     <string name="safe_mode_toast">Kaatumisia havaittu, osa ominaisuuksista poistetaan käytöstä muutamaksi sekuniksi.</string>
     <string name="pref_navigation_lock_screen_when_open_title">Näytä lukitusnäytöllä käytön aikana</string>
-    <string name="declination">Eranto</string>
+    <string name="declination">Paikalliseranto</string>
     <string name="use_alarm_for_distance_alert">Käytä herätystä etäisyysilmoitukseen</string>
     <string name="use_alarm_for_turn_back_alert">Käytä herätystä takaisinkääntymisilmoitukseen</string>
     <string name="use_alarm_for_water_boil_timer">Käytä herätystä veden kiehumisajastimeen</string>
@@ -1376,4 +1376,10 @@
     <string name="constellation">Tähtikuvio</string>
     <string name="no_sightings">Ei havaintoja</string>
     <string name="sighting">Havainto</string>
+    <string name="sleep_sound_white_noise">Valkoista kohinaa</string>
+    <string name="sleep_sound_pink_noise">Vaaleanpunaista kohinaa</string>
+    <string name="sleep_sound_brown_noise">Brownin kohinaa</string>
+    <string name="sleep_sound_crickets">Sirkkoja</string>
+    <string name="sleep_sound_crickets_no_chirping">Sirkkoja (ei sirkutusta)</string>
+    <string name="sleep_sound_ocean_waves">Meren aaltoja</string>
 </resources>

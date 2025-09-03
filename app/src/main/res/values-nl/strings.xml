@@ -1446,4 +1446,12 @@
     <string name="increase_exposure_at_night">Belichting \'s nachts verhogen</string>
     <string name="show_constellations">Sterrenbeelden tonen</string>
     <string name="constellation">Sterrenbeeld</string>
+    <string name="no_sightings">Geen observaties</string>
+    <string name="sighting">Observatie</string>
+    <string name="sleep_sound_white_noise">Witte ruis</string>
+    <string name="sleep_sound_pink_noise">Roze ruis</string>
+    <string name="sleep_sound_brown_noise">Bruine ruis</string>
+    <string name="sleep_sound_crickets">Krekels</string>
+    <string name="sleep_sound_crickets_no_chirping">Krekels (zonder tjirpen)</string>
+    <string name="sleep_sound_ocean_waves">Oceaangolven</string>
 </resources>

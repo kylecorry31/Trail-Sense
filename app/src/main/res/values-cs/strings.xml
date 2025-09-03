@@ -1474,4 +1474,10 @@
     <string name="constellation">Souhvězdí</string>
     <string name="no_sightings">Žádná pozorování</string>
     <string name="sighting">Pozorování</string>
+    <string name="sleep_sound_white_noise">Bílý šum</string>
+    <string name="sleep_sound_pink_noise">Růžový šum</string>
+    <string name="sleep_sound_brown_noise">Hnědý šum</string>
+    <string name="sleep_sound_crickets">Cvrčci</string>
+    <string name="sleep_sound_crickets_no_chirping">Cvrčci (bez cvrlikání)</string>
+    <string name="sleep_sound_ocean_waves">Vlny oceánu</string>
 </resources>

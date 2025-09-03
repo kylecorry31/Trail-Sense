@@ -1418,4 +1418,10 @@
     <string name="constellation">Constelação</string>
     <string name="no_sightings">Sem observações</string>
     <string name="sighting">Observação</string>
+    <string name="sleep_sound_white_noise">Ruído branco</string>
+    <string name="sleep_sound_pink_noise">Ruído rosa</string>
+    <string name="sleep_sound_brown_noise">Ruído marrom</string>
+    <string name="sleep_sound_crickets">Grilos</string>
+    <string name="sleep_sound_crickets_no_chirping">Grilos (sem chilrear)</string>
+    <string name="sleep_sound_ocean_waves">Ondas do mar</string>
 </resources>
