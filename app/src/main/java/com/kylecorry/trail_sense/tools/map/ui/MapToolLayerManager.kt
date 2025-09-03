@@ -14,7 +14,9 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
+import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseMapLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
@@ -53,6 +55,7 @@ class MapToolLayerManager {
     private val baseMapLayer = TiledMapLayer()
     private val photoMapLayer = TiledMapLayer()
     private val contourLayer = ContourLayer()
+    private val hillshadeLayer = HillshadeLayer()
     private val navigationLayer = NavigationLayer()
     private val scaleBarLayer = ScaleBarLayer()
     private var myElevationLayer: MyElevationLayer? = null
@@ -120,6 +123,7 @@ class MapToolLayerManager {
         view.setLayers(
             listOfNotNull(
                 if (prefs.map.baseMapLayer.isEnabled.get()) baseMapLayer else null,
+                if (isDebug()) hillshadeLayer else null,
                 if (prefs.map.photoMapLayer.isEnabled.get()) photoMapLayer else null,
                 if (prefs.map.contourLayer.isEnabled.get()) contourLayer else null,
                 if (prefs.map.navigationLayer.isEnabled.get()) navigationLayer else null,

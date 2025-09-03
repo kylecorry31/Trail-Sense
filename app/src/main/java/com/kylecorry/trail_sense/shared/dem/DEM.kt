@@ -1,11 +1,18 @@
 package com.kylecorry.trail_sense.shared.dem
 
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.util.Log
 import android.util.Size
+import androidx.core.graphics.createBitmap
+import androidx.core.graphics.set
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.tryOrDefault
+import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.SolMath.cosDegrees
+import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Geometry
 import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -21,6 +28,7 @@ import com.kylecorry.trail_sense.shared.data.GeographicImageSource
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlin.math.pow
 
 object DEM {
     private val cacheDistance = 10f
@@ -70,14 +78,10 @@ object DEM {
             }
         }
 
-    /**
-     * Get contour lines using marching squares
-     */
-    suspend fun getContourLines(
+    private suspend fun getElevationGrid(
         bounds: CoordinateBounds,
-        interval: Float,
-        resolution: Double,
-    ): List<Contour> = onDefault {
+        resolution: Double
+    ): List<List<Pair<Coordinate, Float>>> = onDefault {
         val latitudes = Interpolation.getMultiplesBetween(
             bounds.south - resolution,
             bounds.north + resolution,
@@ -96,12 +100,23 @@ object DEM {
 
         val allElevations =
             getElevations(toLookup.flatten()).map { it.first to it.second.meters().distance }
-        val grid = toLookup.map {
+        toLookup.map {
             it.map { coord ->
                 val elevation = allElevations.find { it.first == coord }?.second ?: 0f
                 coord to elevation
             }
         }
+    }
+
+    /**
+     * Get contour lines using marching squares
+     */
+    suspend fun getContourLines(
+        bounds: CoordinateBounds,
+        interval: Float,
+        resolution: Double,
+    ): List<Contour> = onDefault {
+        val grid = getElevationGrid(bounds, resolution)
 
         val minElevation = grid.minOfOrNull { it.minOf { it.second } } ?: 0f
         val maxElevation = grid.maxOfOrNull { it.maxOf { it.second } } ?: 0f
@@ -131,6 +146,66 @@ object DEM {
                 segments.map { lerpCoordinate(0.5f, it.start, it.end) to it.upDirection }
             )
         }
+    }
+
+    suspend fun elevationImage(
+        bounds: CoordinateBounds,
+        resolution: Double
+    ): Bitmap = onDefault {
+        val grid = getElevationGrid(bounds, resolution)
+        val bitmap = createBitmap(grid[0].size, grid.size, Bitmap.Config.RGB_565)
+
+        val minElevation = grid.minOfOrNull { it.minOf { it.second } } ?: 0f
+        val maxElevation = grid.maxOfOrNull { it.maxOf { it.second } } ?: 0f
+        val getElevation = { x: Int, y: Int ->
+            grid[y.coerceIn(grid.indices)][x.coerceIn(grid[0].indices)].second
+        }
+
+        for (y in grid.indices) {
+            for (x in grid[y].indices) {
+                val i = SolMath.map(getElevation(x, y), minElevation, maxElevation, 0f, 255f, true)
+                    .toInt()
+                val color = Color.rgb(i, i, i)
+                bitmap[x, y] = Color.rgb(color, color, color)
+            }
+        }
+
+        bitmap
+    }
+
+    suspend fun hillshadeImage(
+        bounds: CoordinateBounds,
+        resolution: Double,
+        power: Double = 2.0
+    ): Bitmap = onDefault {
+        val grid = getElevationGrid(bounds, resolution)
+
+        val bitmap = createBitmap(grid[0].size, grid.size, Bitmap.Config.RGB_565)
+
+        val getElevation = { x: Int, y: Int ->
+            grid[y.coerceIn(grid.indices)][x.coerceIn(grid[0].indices)].second
+        }
+
+        // Scale the deltas by the horizontal resolution
+        val dzScale = (1f / (resolution * 111319.5 * cosDegrees(bounds.center.latitude))).toFloat()
+
+        // 315 degrees azimuth,  45 altitude
+        val light = Vector3(-0.5f, 0.5f, 0.70710677f)
+        for (y in grid.indices) {
+            for (x in grid[y].indices) {
+                val x1 = getElevation(x - 1, y)
+                val x2 = getElevation(x + 1, y)
+                val y1 = getElevation(x, y - 1)
+                val y2 = getElevation(x, y + 1)
+                val n = Vector3((x1 - x2) * dzScale, (y1 - y2) * dzScale, 2f).normalize()
+                val raw = light.dot(n).coerceAtLeast(0f)
+                val gray = (raw.toDouble().pow(power) * 255).toInt()
+                val color = Color.rgb(gray, gray, gray)
+                bitmap[x, y] = Color.rgb(color, color, color)
+            }
+        }
+
+        bitmap
     }
 
     private fun lerpCoordinate(percent: Float, a: Coordinate, b: Coordinate): Coordinate {
