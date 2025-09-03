@@ -1,10 +1,12 @@
 package com.kylecorry.trail_sense.shared.dem.map_layers
 
 import android.graphics.Bitmap
-import android.graphics.BlendMode
 import android.graphics.Paint
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import com.kylecorry.andromeda.core.ui.colormaps.RgbInterpolationColorMap
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.sol.math.SolMath
+import com.kylecorry.sol.math.SolMath.roundNearest
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
@@ -13,7 +15,7 @@ import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 
-class HillshadeLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask()) :
+class ElevationLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask()) :
     IAsyncLayer {
     private var updateListener: (() -> Unit)? = null
 
@@ -28,11 +30,28 @@ class HillshadeLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBa
                 return@addTask
             }
 
-            val newHillshade = DEM.hillshadeImage(bounds, validResolutions[zoomLevel]!!, 3f)
-            synchronized(hillshadeLock) {
-                hillshade?.recycle()
-                hillshade = newHillshade
-                hillshadeBounds = bounds
+            val newElevation =
+                DEM.elevationImage(
+                    bounds,
+                    validResolutions[zoomLevel]!!
+                ) { elevation, _, maxElevation ->
+                    var maxScaleElevation = (maxElevation * 1.25f).roundNearest(1000f)
+                    if (maxScaleElevation < maxElevation) {
+                        maxScaleElevation += 1000f
+                    }
+                    colorScale.getColor(
+                        SolMath.norm(
+                            elevation,
+                            minScaleElevation,
+                            maxScaleElevation,
+                            true
+                        )
+                    )
+                }
+            synchronized(elevationLock) {
+                elevation?.recycle()
+                elevation = newElevation
+                elevationBounds = bounds
             }
             lastZoomLevel = zoomLevel
             updateListener?.invoke()
@@ -42,9 +61,6 @@ class HillshadeLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBa
     private val paint = Paint().apply {
         isAntiAlias = true
         isFilterBitmap = true
-        // TODO: Set via preferences
-        alpha = 127
-        blendMode = BlendMode.MULTIPLY
     }
 
     // TODO: Extract this for use by all contour type layers
@@ -64,10 +80,25 @@ class HillshadeLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBa
         19 to baseResolution / 4
     )
 
-    private var hillshadeLock = Any()
-    private var hillshade: Bitmap? = null
-    private var hillshadeBounds: CoordinateBounds? = null
+    private var elevationLock = Any()
+    private var elevation: Bitmap? = null
+    private var elevationBounds: CoordinateBounds? = null
     private var lastZoomLevel = -1
+
+    // https://hub.qgis.org/styles/195/
+    private val colorScale = RgbInterpolationColorMap(
+        arrayOf(
+            0xFFBFC9A3.toInt(),
+            0xFF90B77E.toInt(),
+            0xFFFCD7B6.toInt(),
+            0xFFDDA36E.toInt(),
+            0xFFC47747.toInt()
+        )
+    )
+
+    private val minScaleElevation = 0f
+    // TODO: Let the user choose between dynamic color and fixed color scales
+    private val maxScaleElevation = 3000f
 
     override fun draw(
         drawer: ICanvasDrawer,
@@ -77,18 +108,18 @@ class HillshadeLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBa
             return
         }
 
-        // TODO: Add a shared task runner which each layer registers with that allows it to load using the same bounds
         taskRunner.scheduleUpdate(map.mapBounds, map.metersPerPixel)
 
-        synchronized(hillshadeLock) {
-            val hillshade = hillshade ?: return@synchronized
-            val hillshadeBounds = hillshadeBounds ?: return@synchronized
-            val topLeftPixel = map.toPixel(hillshadeBounds.northWest)
-            val topRightPixel = map.toPixel(hillshadeBounds.northEast)
-            val bottomRightPixel = map.toPixel(hillshadeBounds.southEast)
-            val bottomLeftPixel = map.toPixel(hillshadeBounds.southWest)
+        synchronized(elevationLock) {
+            val elevation = this@ElevationLayer.elevation ?: return@synchronized
+            val elevationBounds = this@ElevationLayer.elevationBounds ?: return@synchronized
+            // TODO: This moves around when it loads new bounds
+            val topLeftPixel = map.toPixel(elevationBounds.northWest)
+            val topRightPixel = map.toPixel(elevationBounds.northEast)
+            val bottomRightPixel = map.toPixel(elevationBounds.southEast)
+            val bottomLeftPixel = map.toPixel(elevationBounds.southWest)
             drawer.canvas.drawBitmapMesh(
-                hillshade,
+                elevation,
                 1,
                 1,
                 floatArrayOf(
@@ -126,7 +157,11 @@ class HillshadeLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBa
         return false
     }
 
-    override val percentOpacity: Float = 1f
+    // TODO: Set via preferences
+    private var _percentOpacity: Float = 0.6f
+
+    override val percentOpacity: Float
+        get() = _percentOpacity
 
     override fun setHasUpdateListener(listener: (() -> Unit)?) {
         updateListener = listener

@@ -1,9 +1,9 @@
 package com.kylecorry.trail_sense.shared.canvas
 
-import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -17,29 +17,51 @@ class MapLayerBackgroundTask {
     private var lastQueuedMetersPerPixel: Float? = null
 
     private val scope = CoroutineScope(Dispatchers.Default)
-    private val runner = CoroutineQueueRunner(2)
+    private val runner = CoroutineQueueRunner2(1, queuePolicy = BufferOverflow.DROP_OLDEST)
     private val lock = Mutex()
+
+    private val tasks =
+        mutableListOf<suspend (bounds: CoordinateBounds, metersPerPixel: Float) -> Unit>()
+
+    fun addTask(task: suspend (bounds: CoordinateBounds, metersPerPixel: Float) -> Unit) {
+        tasks.add(task)
+    }
+
+    fun clearTasks() {
+        tasks.clear()
+    }
 
     fun scheduleUpdate(
         bounds: CoordinateBounds,
         metersPerPixel: Float,
         isInvalid: Boolean = false,
-        update: suspend (bounds: CoordinateBounds, metersPerPixel: Float) -> Unit
+        update: suspend (bounds: CoordinateBounds, metersPerPixel: Float) -> Unit = { bounds, metersPerPixel ->
+            for (task in tasks) {
+                task(bounds, metersPerPixel)
+            }
+        }
     ) {
         scope.launch {
             lock.withLock {
                 // If the bounds/meters per pixel have already been ran or queued, exit
-                if (!isInvalid && areBoundsEqual(bounds, lastRunBounds ?: CoordinateBounds.Companion.empty) &&
+                if (!isInvalid && areBoundsEqual(
+                        bounds,
+                        lastRunBounds ?: CoordinateBounds.Companion.empty
+                    ) &&
                     metersPerPixel == lastRunMetersPerPixel
                 ) {
                     return@launch
                 }
 
-                if (!isInvalid && areBoundsEqual(bounds, lastQueuedBounds ?: CoordinateBounds.Companion.empty) &&
-                    metersPerPixel == lastQueuedMetersPerPixel
-                ) {
-                    return@launch
-                }
+                // This was causing it to not run when required, figure this out since this causes an extra re-render
+//                if (!isInvalid && areBoundsEqual(
+//                        bounds,
+//                        lastQueuedBounds ?: CoordinateBounds.Companion.empty
+//                    ) &&
+//                    metersPerPixel == lastQueuedMetersPerPixel
+//                ) {
+//                    return@launch
+//                }
 
                 val runPercentScaleDifference = lastRunMetersPerPixel?.let {
                     (abs(metersPerPixel - it) / it)

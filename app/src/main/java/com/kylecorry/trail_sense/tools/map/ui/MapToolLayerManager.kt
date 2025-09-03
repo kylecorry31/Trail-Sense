@@ -14,9 +14,13 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.debugging.isDebug
+import com.kylecorry.trail_sense.shared.dem.Contour
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
+import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationLayer
 import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BackgroundColorMapLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.BaseMapLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
@@ -50,12 +54,14 @@ class MapToolLayerManager {
         navigator.navigateTo(it)
         true
     }
+    private val taskRunner = MapLayerBackgroundTask()
     private val myLocationLayer = MyLocationLayer()
     private val tideLayer = TideMapLayer()
     private val baseMapLayer = TiledMapLayer()
     private val photoMapLayer = TiledMapLayer()
-    private val contourLayer = ContourLayer()
-    private val hillshadeLayer = HillshadeLayer()
+    private var contourLayer: ContourLayer? = null
+    private var hillshadeLayer: HillshadeLayer? = null
+    private var elevationLayer: ElevationLayer? = null
     private val navigationLayer = NavigationLayer()
     private val scaleBarLayer = ScaleBarLayer()
     private var myElevationLayer: MyElevationLayer? = null
@@ -72,6 +78,11 @@ class MapToolLayerManager {
 
     fun resume(context: Context, view: IMapView) {
         val hasCompass = SensorService(context).hasCompass()
+
+        taskRunner.clearTasks()
+        contourLayer = ContourLayer(taskRunner)
+        hillshadeLayer = HillshadeLayer(taskRunner)
+        elevationLayer = ElevationLayer(taskRunner)
 
         compassLayer.backgroundColor = Resources.color(context, R.color.colorSecondary)
         compassLayer.cardinalDirectionColor = Resources.getCardinalDirectionColor(context)
@@ -108,7 +119,7 @@ class MapToolLayerManager {
         photoMapLayer.controlsPdfCache = true
         photoMapLayer.setPreferences(prefs.map.photoMapLayer)
 
-        contourLayer.setPreferences(prefs.map.contourLayer)
+        contourLayer?.setPreferences(prefs.map.contourLayer)
 
         photoMapLayer.setBackgroundColor(Color.TRANSPARENT)
 
@@ -122,7 +133,9 @@ class MapToolLayerManager {
 
         view.setLayers(
             listOfNotNull(
+                BackgroundColorMapLayer().also { it.color = Color.rgb(127, 127, 127) },
                 if (prefs.map.baseMapLayer.isEnabled.get()) baseMapLayer else null,
+                if (isDebug()) elevationLayer else null,
                 if (isDebug()) hillshadeLayer else null,
                 if (prefs.map.photoMapLayer.isEnabled.get()) photoMapLayer else null,
                 if (prefs.map.contourLayer.isEnabled.get()) contourLayer else null,

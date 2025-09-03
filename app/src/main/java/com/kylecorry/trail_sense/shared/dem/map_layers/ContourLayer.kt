@@ -15,17 +15,80 @@ import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.dem.Contour
 import com.kylecorry.trail_sense.shared.dem.DEM
-import com.kylecorry.trail_sense.tools.navigation.ui.MappableLocation
-import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
+import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
+import com.kylecorry.trail_sense.tools.navigation.ui.MappableLocation
+import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
-import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
+import com.kylecorry.trail_sense.tools.paths.map_layers.PathLayer
 
-class ContourLayer : IAsyncLayer {
+class ContourLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBackgroundTask()) :
+    IAsyncLayer {
 
     private val pathLayer = PathLayer()
+
+    init {
+        taskRunner.addTask { bounds, metersPerPixel ->
+            val zoomLevel = TileMath.distancePerPixelToZoom(
+                metersPerPixel.toDouble(),
+                (bounds.north + bounds.south) / 2
+            ).coerceAtMost(maxZoomLevel)
+
+            if (zoomLevel < minZoomLevel) {
+                contours = emptyList()
+                return@addTask
+            }
+
+            val interval = validIntervals[zoomLevel] ?: validIntervals.values.first()
+            contours = DEM.getContourLines(bounds, interval, validResolutions[zoomLevel]!!)
+            contourInterval = interval
+            lastZoomLevel = zoomLevel
+            var i = -10000L
+            pathLayer.setPaths(contours.flatMap { level ->
+                val isImportantLine = SolMath.isZero((level.elevation / contourInterval) % 5, 0.1f)
+                val name = DecimalFormatter.format(
+                    Distance.Companion.meters(level.elevation).convertTo(units).distance, 0
+                )
+                val color = if (shouldColorContours) {
+                    colorScale.getColor(
+                        SolMath.norm(
+                            level.elevation,
+                            minScaleElevation,
+                            maxScaleElevation,
+                            true
+                        )
+                    )
+                } else {
+                    AppColor.Brown.color
+                }
+                level.lines.map { line ->
+                    MappablePath(
+                        i++,
+                        line.map {
+                            MappableLocation(0, it, Color.TRANSPARENT, null)
+                        },
+                        color,
+                        LineStyle.Solid,
+                        name = if (isImportantLine || showLabelsOnAllContoursZoomLevels.contains(
+                                lastZoomLevel
+                            )
+                        ) {
+                            name
+                        } else {
+                            null
+                        },
+                        thicknessScale = if (isImportantLine) {
+                            0.8f
+                        } else {
+                            0.4f
+                        }
+                    )
+                }
+
+            })
+        }
+    }
 
     private val units by lazy { AppServiceRegistry.get<UserPreferences>().baseDistanceUnits }
 
@@ -78,8 +141,6 @@ class ContourLayer : IAsyncLayer {
     private val minScaleElevation = 0f
     private val maxScaleElevation = 3000f
 
-    private val taskRunner = MapLayerBackgroundTask()
-
     private val validIntervals by lazy {
         if (units.isMetric) {
             mapOf(
@@ -131,65 +192,7 @@ class ContourLayer : IAsyncLayer {
             return
         }
 
-        taskRunner.scheduleUpdate(map.mapBounds, map.metersPerPixel) { bounds, metersPerPixel ->
-            val zoomLevel = TileMath.distancePerPixelToZoom(
-                metersPerPixel.toDouble(),
-                (bounds.north + bounds.south) / 2
-            ).coerceAtMost(maxZoomLevel)
-
-            if (zoomLevel < minZoomLevel) {
-                contours = emptyList()
-                return@scheduleUpdate
-            }
-
-            val interval = validIntervals[zoomLevel] ?: validIntervals.values.first()
-            contours = DEM.getContourLines(bounds, interval, validResolutions[zoomLevel]!!)
-            contourInterval = interval
-            lastZoomLevel = zoomLevel
-            var i = -10000L
-            pathLayer.setPaths(contours.flatMap { level ->
-                val isImportantLine = SolMath.isZero((level.elevation / contourInterval) % 5, 0.1f)
-                val name = DecimalFormatter.format(
-                    Distance.Companion.meters(level.elevation).convertTo(units).distance, 0
-                )
-                val color = if (shouldColorContours) {
-                    colorScale.getColor(
-                        SolMath.norm(
-                            level.elevation,
-                            minScaleElevation,
-                            maxScaleElevation,
-                            true
-                        )
-                    )
-                } else {
-                    AppColor.Brown.color
-                }
-                level.lines.map { line ->
-                    MappablePath(
-                        i++,
-                        line.map {
-                            MappableLocation(0, it, Color.TRANSPARENT, null)
-                        },
-                        color,
-                        LineStyle.Solid,
-                        name = if (isImportantLine || showLabelsOnAllContoursZoomLevels.contains(
-                                lastZoomLevel
-                            )
-                        ) {
-                            name
-                        } else {
-                            null
-                        },
-                        thicknessScale = if (isImportantLine) {
-                            0.8f
-                        } else {
-                            0.4f
-                        }
-                    )
-                }
-
-            })
-        }
+        taskRunner.scheduleUpdate(map.mapBounds, map.metersPerPixel)
 
         drawer.withLayerOpacity(opacity) {
             pathLayer.draw(drawer, map)

@@ -10,9 +10,12 @@ import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.tryOrDefault
+import com.kylecorry.luna.cache.LRUCache
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.cosDegrees
-import com.kylecorry.sol.math.Vector3
+import com.kylecorry.sol.math.SolMath.toRadians
+import com.kylecorry.sol.math.SolMath.wrap
+import com.kylecorry.sol.math.analysis.Trigonometry
 import com.kylecorry.sol.math.geometry.Geometry
 import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -28,13 +31,19 @@ import com.kylecorry.trail_sense.shared.data.GeographicImageSource
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import kotlin.math.pow
+import kotlin.math.PI
+import kotlin.math.atan
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.hypot
+import kotlin.math.sin
 
 object DEM {
     private val cacheDistance = 10f
     private val cacheSize = 500
     private var cache = GeospatialCache2<Distance>(Distance.meters(cacheDistance), size = cacheSize)
     private val multiElevationLookupLock = Mutex()
+    private var gridCache = LRUCache<String, List<List<Pair<Coordinate, Float>>>>(1)
 
     suspend fun getElevation(location: Coordinate): Distance? = onDefault {
         cache.getOrPut(location) {
@@ -82,28 +91,30 @@ object DEM {
         bounds: CoordinateBounds,
         resolution: Double
     ): List<List<Pair<Coordinate, Float>>> = onDefault {
-        val latitudes = Interpolation.getMultiplesBetween(
-            bounds.south - resolution,
-            bounds.north + resolution,
-            resolution
-        )
+        gridCache.getOrPut(getGridKey(bounds, resolution)) {
+            val latitudes = Interpolation.getMultiplesBetween(
+                bounds.south - resolution,
+                bounds.north + resolution,
+                resolution
+            )
 
-        val longitudes = Interpolation.getMultiplesBetween(
-            bounds.west - resolution,
-            bounds.east + resolution,
-            resolution
-        )
+            val longitudes = Interpolation.getMultiplesBetween(
+                bounds.west - resolution,
+                bounds.east + resolution,
+                resolution
+            )
 
-        val toLookup = latitudes.map { lat ->
-            longitudes.map { lon -> Coordinate(lat, lon) }
-        }
+            val toLookup = latitudes.map { lat ->
+                longitudes.map { lon -> Coordinate(lat, lon) }
+            }
 
-        val allElevations =
-            getElevations(toLookup.flatten()).map { it.first to it.second.meters().distance }
-        toLookup.map {
-            it.map { coord ->
-                val elevation = allElevations.find { it.first == coord }?.second ?: 0f
-                coord to elevation
+            val allElevations =
+                getElevations(toLookup.flatten()).map { it.first to it.second.meters().distance }
+            toLookup.map {
+                it.map { coord ->
+                    val elevation = allElevations.find { it.first == coord }?.second ?: 0f
+                    coord to elevation
+                }
             }
         }
     }
@@ -150,10 +161,15 @@ object DEM {
 
     suspend fun elevationImage(
         bounds: CoordinateBounds,
-        resolution: Double
+        resolution: Double,
+        colorMap: (elevation: Float, minElevation: Float, maxElevation: Float) -> Int = { elevation, minElevation, maxElevation ->
+            val gray = SolMath.map(elevation, minElevation, maxElevation, 0f, 255f, true).toInt()
+            Color.rgb(gray, gray, gray)
+        }
     ): Bitmap = onDefault {
         val grid = getElevationGrid(bounds, resolution)
         val bitmap = createBitmap(grid[0].size, grid.size, Bitmap.Config.RGB_565)
+        println("${bitmap.width}x${bitmap.height}")
 
         val minElevation = grid.minOfOrNull { it.minOf { it.second } } ?: 0f
         val maxElevation = grid.maxOfOrNull { it.maxOf { it.second } } ?: 0f
@@ -163,10 +179,8 @@ object DEM {
 
         for (y in grid.indices) {
             for (x in grid[y].indices) {
-                val i = SolMath.map(getElevation(x, y), minElevation, maxElevation, 0f, 255f, true)
-                    .toInt()
-                val color = Color.rgb(i, i, i)
-                bitmap[x, y] = Color.rgb(color, color, color)
+                val color = colorMap(getElevation(x, y), minElevation, maxElevation)
+                bitmap[x, y] = color
             }
         }
 
@@ -176,7 +190,11 @@ object DEM {
     suspend fun hillshadeImage(
         bounds: CoordinateBounds,
         resolution: Double,
-        power: Double = 2.0
+        zFactor: Float = 1f,
+        azimuth: Float = 315f,
+        altitude: Float = 45f,
+        samples: Int = 5,
+        sampleSpacing: Float = 3f
     ): Bitmap = onDefault {
         val grid = getElevationGrid(bounds, resolution)
 
@@ -186,20 +204,52 @@ object DEM {
             grid[y.coerceIn(grid.indices)][x.coerceIn(grid[0].indices)].second
         }
 
-        // Scale the deltas by the horizontal resolution
-        val dzScale = (1f / (resolution * 111319.5 * cosDegrees(bounds.center.latitude))).toFloat()
+        val cellSizeX = (resolution * 111319.5 * cosDegrees(bounds.center.latitude))
+        val cellSizeY = (resolution * 111319.5)
 
-        // 315 degrees azimuth,  45 altitude
-        val light = Vector3(-0.5f, 0.5f, 0.70710677f)
+        // https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/how-hillshade-works.htm
+        val zenithRad = (90 - altitude).toRadians()
+        val azimuths = mutableListOf<Float>()
+        var start = azimuth - (samples / 2) * sampleSpacing
+        for (i in 0 until samples) {
+            azimuths.add(Trigonometry.remapUnitAngle(start, 90f, true).toRadians())
+            start += sampleSpacing
+        }
+        val cosZenith = cos(zenithRad)
+        val sinZenith = sin(zenithRad)
+
         for (y in grid.indices) {
             for (x in grid[y].indices) {
-                val x1 = getElevation(x - 1, y)
-                val x2 = getElevation(x + 1, y)
-                val y1 = getElevation(x, y - 1)
-                val y2 = getElevation(x, y + 1)
-                val n = Vector3((x1 - x2) * dzScale, (y1 - y2) * dzScale, 2f).normalize()
-                val raw = light.dot(n).coerceAtLeast(0f)
-                val gray = (raw.toDouble().pow(power) * 255).toInt()
+                val a = getElevation(x - 1, y - 1)
+                val b = getElevation(x, y - 1)
+                val c = getElevation(x + 1, y - 1)
+                val d = getElevation(x - 1, y)
+                val f = getElevation(x + 1, y)
+                val g = getElevation(x - 1, y + 1)
+                val h = getElevation(x, y + 1)
+                val i = getElevation(x + 1, y + 1)
+                val dx = (((c + 2 * f + i) - (a + 2 * d + g)) / (8 * cellSizeX)).toFloat()
+                val dy = (((g + 2 * h + i) - (a + 2 * b + c)) / (8 * cellSizeY)).toFloat()
+                val slopeRad = atan(zFactor * hypot(dx, dy))
+
+                var aspectRad = 0f
+                if (!SolMath.isZero(dx)) {
+                    aspectRad = wrap(atan2(dy, -dx), 0f, 2 * PI.toFloat())
+                } else {
+                    if (dy > 0) {
+                        aspectRad = PI.toFloat() / 2
+                    } else if (dy < 0) {
+                        aspectRad = 3 * PI.toFloat() / 2
+                    }
+                }
+
+                var hillshade = 0.0
+                for (azimuthRad in azimuths) {
+                    hillshade += 255 * (cosZenith * cos(slopeRad) +
+                            sinZenith * sin(slopeRad) * cos(azimuthRad - aspectRad)) / samples
+                }
+
+                val gray = hillshade.toInt().coerceIn(0, 255)
                 val color = Color.rgb(gray, gray, gray)
                 bitmap[x, y] = Color.rgb(color, color, color)
             }
@@ -310,6 +360,10 @@ object DEM {
     fun isExternalModel(): Boolean {
         val prefs = AppServiceRegistry.get<UserPreferences>()
         return prefs.altimeter.isDigitalElevationModelLoaded
+    }
+
+    private fun getGridKey(bounds: CoordinateBounds, resolution: Double): String {
+        return "${bounds.north}_${bounds.east}_${bounds.south}_${bounds.west}_$resolution"
     }
 
 }
