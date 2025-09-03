@@ -5,6 +5,7 @@ import android.graphics.Paint
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.ui.colormaps.RgbInterpolationColorMap
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.roundNearest
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -54,7 +55,9 @@ class ElevationLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBa
                 elevationBounds = bounds
             }
             lastZoomLevel = zoomLevel
-            updateListener?.invoke()
+            onMain {
+                updateListener?.invoke()
+            }
         }
     }
 

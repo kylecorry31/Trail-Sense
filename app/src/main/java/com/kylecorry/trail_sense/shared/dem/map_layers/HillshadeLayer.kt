@@ -7,6 +7,7 @@ import androidx.core.graphics.BlendModeCompat
 import androidx.core.graphics.setBlendMode
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
@@ -37,7 +38,9 @@ class HillshadeLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBa
                 hillshadeBounds = bounds
             }
             lastZoomLevel = zoomLevel
-            updateListener?.invoke()
+            onMain {
+                updateListener?.invoke()
+            }
         }
     }
 
