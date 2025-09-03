@@ -1472,4 +1472,6 @@
     <string name="increase_exposure_at_night">Zvýšit expozici v noci</string>
     <string name="show_constellations">Zobrazit souhvězdí</string>
     <string name="constellation">Souhvězdí</string>
+    <string name="no_sightings">Žádná pozorování</string>
+    <string name="sighting">Pozorování</string>
 </resources>
