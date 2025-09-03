@@ -1435,4 +1435,10 @@
     <string name="constellation">星座</string>
     <string name="no_sightings">无发现</string>
     <string name="sighting">发现</string>
+    <string name="sleep_sound_white_noise">白噪音</string>
+    <string name="sleep_sound_pink_noise">粉噪音</string>
+    <string name="sleep_sound_brown_noise">棕色噪音</string>
+    <string name="sleep_sound_crickets">蟋蟀音</string>
+    <string name="sleep_sound_crickets_no_chirping">蟋蟀音（无唧唧声）</string>
+    <string name="sleep_sound_ocean_waves">海浪声</string>
 </resources>
