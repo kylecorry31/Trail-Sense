@@ -1,8 +1,10 @@
 package com.kylecorry.trail_sense.shared.dem.map_layers
 
 import android.graphics.Bitmap
-import android.graphics.BlendMode
 import android.graphics.Paint
+import android.os.Build
+import androidx.core.graphics.BlendModeCompat
+import androidx.core.graphics.setBlendMode
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.science.geology.CoordinateBounds
@@ -44,7 +46,9 @@ class HillshadeLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBa
         isFilterBitmap = true
         // TODO: Set via preferences
         alpha = 127
-        blendMode = BlendMode.MULTIPLY
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            setBlendMode(BlendModeCompat.MULTIPLY)
+        }
     }
 
     // TODO: Extract this for use by all contour type layers
