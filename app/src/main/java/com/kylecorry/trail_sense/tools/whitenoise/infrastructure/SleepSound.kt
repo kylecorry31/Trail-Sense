@@ -8,5 +8,6 @@ enum class SleepSound(override val id: Long) : Identifiable {
     BrownNoise(3),
     Crickets(4),
     CricketsNoChirp(5),
-    OceanWaves(6)
+    OceanWaves(6),
+    Fan(7)
 }

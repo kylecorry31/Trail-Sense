@@ -6,6 +6,7 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.useArgument
+import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.views.toolbar.Toolbar
 import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.sol.time.Time.toZonedDateTime
@@ -13,6 +14,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useCoordinateInputView
 import com.kylecorry.trail_sense.shared.extensions.useElevationInputView
@@ -37,6 +39,7 @@ class CreateFieldGuideSightingFragment :
 
         // Arguments
         val pageId = useArgument<Long>("page_id") ?: 0
+        val sightingId = useArgument<Long>("sighting_id") ?: 0
 
         // State
         val (datetime, setDatetime) = useState<LocalDateTime?>(null)
@@ -49,6 +52,7 @@ class CreateFieldGuideSightingFragment :
         val repo = useService<FieldGuideRepo>()
         val navController = useNavController()
         val context = useAndroidContext()
+        val prefs = useService<UserPreferences>()
 
         // Effects
         useEffect(datetimeView) {
@@ -82,11 +86,45 @@ class CreateFieldGuideSightingFragment :
             }
         }
 
+        useBackgroundEffect(
+            sightingId,
+            datetimeView,
+            coordinateView,
+            elevationView,
+            notesView,
+            harvestedSwitchView,
+            repo,
+            prefs
+        ) {
+            if (sightingId != 0L) {
+                val sighting = repo.getSighting(sightingId) ?: return@useBackgroundEffect
+                val elevation = sighting.altitude?.let {
+                    Distance.meters(it).convertTo(prefs.baseDistanceUnits)
+                }
+                // Update views
+                sighting.time?.let {
+                    datetimeView.setValue(it.toZonedDateTime().toLocalDateTime())
+                }
+                coordinateView.coordinate = sighting.location
+                elevationView.elevation = elevation
+                notesView.setText(sighting.notes)
+                harvestedSwitchView.isChecked = sighting.harvested == true
+
+                // Update state
+                setDatetime(sighting.time?.toZonedDateTime()?.toLocalDateTime())
+                setLocation(sighting.location)
+                setElevation(elevation)
+                setNotes(sighting.notes)
+                setHarvested(sighting.harvested == true)
+            }
+        }
+
         useEffect(
             titleView,
             context,
             navController,
             repo,
+            sightingId,
             pageId,
             datetime,
             location,
@@ -100,7 +138,7 @@ class CreateFieldGuideSightingFragment :
                     Alerts.withLoading(context, getString(R.string.saving)) {
                         repo.addSighting(
                             Sighting(
-                                0,
+                                sightingId,
                                 pageId,
                                 datetime?.toZonedDateTime()?.toInstant(),
                                 location,
@@ -117,7 +155,7 @@ class CreateFieldGuideSightingFragment :
             }
         }
 
-        // TODO: Add support for editing an existing sighting
+        // TODO: Bind coordinate and elevation like on climate tool
         // TODO: Add change detection
     }
 }

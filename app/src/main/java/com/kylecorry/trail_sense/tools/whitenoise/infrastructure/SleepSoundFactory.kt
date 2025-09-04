@@ -1,22 +1,26 @@
 package com.kylecorry.trail_sense.tools.whitenoise.infrastructure
 
 import com.kylecorry.andromeda.sound.ISoundPlayer
-import com.kylecorry.andromeda.sound.SoundPlayer
+import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.streams.BrownNoiseAudioStream
+import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.streams.CricketsAudioStream
+import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.streams.FanNoiseAudioStream
+import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.streams.OceanWavesAudioStream
+import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.streams.PinkNoiseAudioStream
+import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.streams.WhiteNoiseAudioStream
+import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.streams.andromeda.StreamSoundPlayer
 
 class SleepSoundFactory {
     fun getSleepSound(sleepSound: SleepSound): ISoundPlayer {
-        val track = when (sleepSound) {
-            SleepSound.WhiteNoise -> WhiteNoiseGenerator().getNoise(durationSeconds = 2.0)
-            SleepSound.PinkNoise -> PinkNoiseGenerator().getNoise(durationSeconds = 2.0)
-            SleepSound.BrownNoise -> BrownNoiseGenerator().getNoise(durationSeconds = 2.0)
-            SleepSound.Crickets -> CricketsGenerator().getNoise(durationSeconds = CricketsGenerator.totalChirpDuration.toFloat())
-            SleepSound.CricketsNoChirp -> CricketsGenerator(includeNearbyCricket = false).getNoise(
-                durationSeconds = CricketsGenerator.totalChirpDuration.toFloat()
-            )
-
-            SleepSound.OceanWaves -> OceanWavesGenerator().getNoise(durationSeconds = OceanWavesGenerator.totalDuration)
+        val stream = when (sleepSound) {
+            SleepSound.WhiteNoise -> WhiteNoiseAudioStream()
+            SleepSound.PinkNoise -> PinkNoiseAudioStream()
+            SleepSound.BrownNoise -> BrownNoiseAudioStream()
+            SleepSound.Crickets -> CricketsAudioStream()
+            SleepSound.CricketsNoChirp -> CricketsAudioStream(false)
+            SleepSound.OceanWaves -> OceanWavesAudioStream()
+            SleepSound.Fan -> FanNoiseAudioStream()
         }
 
-        return SoundPlayer(track)
+        return StreamSoundPlayer(stream)
     }
 }

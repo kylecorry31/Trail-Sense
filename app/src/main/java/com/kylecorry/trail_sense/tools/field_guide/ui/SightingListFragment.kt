@@ -50,7 +50,12 @@ class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sighti
             Alerts.dialog(
                 context,
                 getString(R.string.delete),
-                sighting.time?.let { time -> formatter.formatRelativeDateTime(time.toZonedDateTime()) }
+                sighting.time?.let { time ->
+                    formatter.formatRelativeDateTime(
+                        time.toZonedDateTime(),
+                        includeSeconds = false
+                    )
+                }
                     ?: getString(R.string.sighting)) { cancelled ->
                 if (!cancelled) {
                     inBackground {
@@ -59,14 +64,27 @@ class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sighti
                     }
                 }
             }
-
         }
 
-        val sightingListItems = useMemo(formatter, sightings, deleteSighting) {
+        val editSighting = useCallback(navController) { sighting: Sighting ->
+            navController.navigateWithAnimation(
+                R.id.createFieldGuideSightingFragment, bundleOf(
+                    "page_id" to pageId,
+                    "sighting_id" to sighting.id,
+                )
+            )
+        }
+
+        val sightingListItems = useMemo(formatter, sightings, deleteSighting, editSighting) {
             sightings.map {
                 ListItem(
                     it.id,
-                    it.time?.let { time -> formatter.formatRelativeDateTime(time.toZonedDateTime()) }
+                    it.time?.let { time ->
+                        formatter.formatRelativeDateTime(
+                            time.toZonedDateTime(),
+                            includeSeconds = false
+                        )
+                    }
                         ?: getString(R.string.sighting),
                     it.notes,
                     tags = listOfNotNull(
@@ -77,12 +95,15 @@ class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sighti
                         ) else null
                     ),
                     menu = listOf(
+                        ListMenuItem(getString(R.string.edit)) {
+                            editSighting(it)
+                        },
                         ListMenuItem(getString(R.string.delete)) {
                             deleteSighting(it)
                         }
                     )
                 ) {
-                    // TODO: Edit on click
+                    editSighting(it)
                 }
             }
         }

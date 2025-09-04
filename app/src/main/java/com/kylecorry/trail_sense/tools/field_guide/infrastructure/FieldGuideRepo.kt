@@ -59,6 +59,10 @@ class FieldGuideRepo private constructor(private val context: Context) {
         sightingDao.upsert(FieldGuideSightingEntity.fromSighting(sighting))
     }
 
+    suspend fun getSighting(id: Long): Sighting? = onIO {
+        sightingDao.getSighting(id)?.toSighting()
+    }
+
     suspend fun deleteSighting(sighting: Sighting) = onIO {
         sightingDao.delete(FieldGuideSightingEntity.fromSighting(sighting))
     }
