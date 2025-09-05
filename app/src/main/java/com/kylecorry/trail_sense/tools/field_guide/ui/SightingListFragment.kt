@@ -4,6 +4,7 @@ import android.widget.TextView
 import androidx.core.os.bundleOf
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.useCallback
 import com.kylecorry.andromeda.core.ui.useService
@@ -15,13 +16,18 @@ import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.andromeda.views.list.ListItemTag
 import com.kylecorry.andromeda.views.list.ListMenuItem
 import com.kylecorry.sol.time.Time.toZonedDateTime
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useNavController
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
+import com.kylecorry.trail_sense.shared.openTool
+import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.field_guide.domain.Sighting
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sightings_list) {
     override fun update() {
@@ -34,6 +40,7 @@ class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sighti
         val formatter = useService<FormatService>()
         val repo = useService<FieldGuideRepo>()
         val navController = useNavController()
+        val navigator = useService<Navigator>()
         val context = useAndroidContext()
 
         // Arguments
@@ -42,9 +49,13 @@ class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sighti
         // State
         val (deleteKey, setDeleteKey) = useState(0)
 
-        val sightings = useBackgroundMemo(repo, pageId, deleteKey, resetOnResume) {
-            repo.getPage(pageId)?.sightings?.sortedByDescending { it.time }
-        } ?: emptyList()
+        val page = useBackgroundMemo(repo, pageId, deleteKey, resetOnResume) {
+            repo.getPage(pageId)
+        }
+
+        val sightings = useMemo(page) {
+            page?.sightings?.sortedByDescending { it.time } ?: emptyList()
+        }
 
         val deleteSighting = useCallback(context, repo, deleteKey) { sighting: Sighting ->
             Alerts.dialog(
@@ -75,7 +86,37 @@ class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sighti
             )
         }
 
-        val sightingListItems = useMemo(formatter, sightings, deleteSighting, editSighting) {
+        val navigateToSighting =
+            useCallback(navigator, navController, page) { sighting: Sighting ->
+                navigator.navigateTo(
+                    sighting.location ?: Coordinate.zero,
+                    page?.name ?: "",
+                    BeaconOwner.FieldGuide,
+                    elevation = sighting.altitude
+                )
+                // TODO: Let user set default navigation tool (compass or map)
+                navController.openTool(Tools.NAVIGATION)
+            }
+
+        val createBeacon = useCallback(navController, page) { sighting: Sighting ->
+            val bundle = bundleOf(
+                "initial_location" to GeoUri(
+                    sighting.location ?: Coordinate.zero,
+                    sighting.altitude,
+                    mapOf("label" to (page?.name ?: ""))
+                )
+            )
+            navController.navigateWithAnimation(R.id.placeBeaconFragment, bundle)
+        }
+
+        val sightingListItems = useMemo(
+            formatter,
+            sightings,
+            deleteSighting,
+            editSighting,
+            navigateToSighting,
+            createBeacon
+        ) {
             sightings.map {
                 ListItem(
                     it.id,
@@ -94,7 +135,13 @@ class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sighti
                             Resources.androidTextColorSecondary(context)
                         ) else null
                     ),
-                    menu = listOf(
+                    menu = listOfNotNull(
+                        if (it.location != null) ListMenuItem(getString(R.string.navigate)) {
+                            navigateToSighting(it)
+                        } else null,
+                        if (it.location != null) ListMenuItem(getString(R.string.create_beacon)) {
+                            createBeacon(it)
+                        } else null,
                         ListMenuItem(getString(R.string.edit)) {
                             editSighting(it)
                         },

@@ -238,8 +238,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
                             navigator.navigateTo(
                                 location,
                                 formatter.formatLocation(location),
-                                BeaconOwner.Maps,
-                                true
+                                BeaconOwner.Maps
                             )
                             manager.setSelectedLocation(null)
                         },
