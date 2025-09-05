@@ -3,12 +3,14 @@ package com.kylecorry.trail_sense.shared.extensions
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.andromeda.core.ui.ReactiveComponent
 import com.kylecorry.andromeda.core.ui.useCallback
@@ -30,6 +32,7 @@ import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.sol.units.Weight
 import com.kylecorry.sol.units.WeightUnits
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.ILoadingIndicator
@@ -185,6 +188,28 @@ fun <T> T.useBackPressedCallback(
 
         return@useEffectWithCleanup {
             listener.remove()
+        }
+    }
+}
+
+fun <T> T.useUnsavedChangesPrompt(hasChanges: Boolean) where T : Fragment, T : ReactiveComponent {
+    val activity = useActivity() as? FragmentActivity
+    useBackPressedCallback(hasChanges, activity) {
+        if (hasChanges && activity != null) {
+            Alerts.dialog(
+                activity,
+                getString(R.string.unsaved_changes),
+                getString(R.string.unsaved_changes_message),
+                okText = getString(R.string.dialog_leave)
+            ) { cancelled ->
+                if (!cancelled) {
+                    remove()
+                    activity.onBackPressedDispatcher.onBackPressed()
+                }
+            }
+            true
+        } else {
+            false
         }
     }
 }
@@ -357,6 +382,34 @@ fun ReactiveComponent.useElevationInputView(
 ): ElevationInputView {
     return useViewWithCleanup(id, lifecycleHookTrigger) {
         it.pause()
+    }
+}
+
+fun ReactiveComponent.useBindCoordinateAndElevationViews(
+    coordinateView: CoordinateInputView,
+    elevationView: ElevationInputView
+) {
+    val prefs = useService<UserPreferences>()
+
+    useEffect(coordinateView, elevationView, prefs) {
+        coordinateView.setOnAutoLocationClickListener {
+            if (elevationView.elevation == null) {
+                elevationView.autofill()
+            }
+        }
+
+        elevationView.setOnAutoElevationClickListener {
+            if (coordinateView.coordinate == null) {
+                coordinateView.autofill()
+            }
+        }
+
+        coordinateView.setOnBeaconSelectedListener {
+            it.elevation?.let { elevation ->
+                elevationView.elevation =
+                    Distance.meters(elevation).convertTo(prefs.baseDistanceUnits)
+            }
+        }
     }
 }
 
