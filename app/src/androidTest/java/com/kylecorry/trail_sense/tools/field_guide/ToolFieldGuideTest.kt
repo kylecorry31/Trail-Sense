@@ -1,10 +1,12 @@
 package com.kylecorry.trail_sense.tools.field_guide
 
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isChecked
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollToEnd
@@ -12,6 +14,8 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollToStart
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.TestUtils.clickListItemMenu
+import com.kylecorry.trail_sense.test_utils.TestUtils.pickDate
+import com.kylecorry.trail_sense.test_utils.TestUtils.pickTime
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
@@ -106,6 +110,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         click("Ant")
         hasText(R.id.field_guide_page_title, "Ant")
         hasText("A small insect", contains = true)
+        canLogSightings()
         val tags = listOf(
             "North America",
             "Insect",
@@ -183,5 +188,76 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         }
 
         back()
+    }
+
+    private fun canLogSightings(){
+        click("Sightings (0)")
+        hasText("No sightings")
+        click(R.id.create_btn)
+        click(R.id.time)
+        pickDate(2025, 1, 1)
+        pickTime(6, 0, true)
+        hasText("January 1 6:00 AM")
+        input(R.id.location, "42, 72")
+        input(R.id.elevation, "100")
+        click("Harvested")
+        input("Notes", "Test", contains = true)
+        click(toolbarButton(R.id.title, Side.Right))
+
+        // Sightings list
+        hasText("Sightings")
+        hasText("January 1 6:00 AM")
+        hasText("Test")
+
+        // Edit by clicking
+        click("January 1 6:00 AM")
+        hasText("January 1 6:00 AM")
+        hasText("42.000000°,  72.000000°", contains = true)
+        hasText("100", contains = true)
+        isChecked("Harvested")
+        input("Test", "Test 2", contains = true)
+        click(toolbarButton(R.id.title, Side.Right))
+
+        // Sightings list is updated
+        hasText("Test 2", contains = true)
+
+        // Edit via menu
+        clickListItemMenu("Edit")
+        hasText("January 1 6:00 AM")
+        hasText("42.000000°,  72.000000°", contains = true)
+        hasText("100", contains = true)
+        isChecked("Harvested")
+        input("Test 2", "Test 3", contains = true)
+        click(toolbarButton(R.id.title, Side.Right))
+
+        // Sightings list is updated
+        hasText("Test 3", contains = true)
+
+        // Navigate
+        clickListItemMenu("Navigate")
+        hasText(Regex("\\s*\\d+°\\s+[NSEW]+"))
+        hasText("Ant")
+        back()
+
+        // Create beacon
+        clickListItemMenu("Create beacon")
+        hasText("Ant")
+        hasText("42.000000°,  72.000000°", contains = true)
+        hasText("100", contains = true)
+        back()
+        click("Leave")
+
+        // Count on field guide page
+        backUntil {
+            click("Sightings (1)")
+        }
+
+        // Delete
+        clickListItemMenu("Delete")
+        clickOk()
+
+        hasText("No sightings")
+        back()
+        hasText("Sightings (0)")
     }
 }

@@ -3,12 +3,13 @@ package com.kylecorry.trail_sense.shared.views
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.FrameLayout
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
-import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import java.time.LocalDateTime
@@ -32,8 +33,19 @@ class MaterialDateTimeInputView(context: Context, attrs: AttributeSet?) :
 
         edittext.setOnClickListener {
             val prefs = AppServiceRegistry.get<UserPreferences>()
-            Pickers.datetime(context, prefs.use24HourTime, datetime) {
-                setValue(it ?: return@datetime)
+            val supportFragmentManager = (context as? AppCompatActivity)?.supportFragmentManager
+            if (supportFragmentManager != null) {
+                CustomUiUtils.pickMaterialDatetime(
+                    supportFragmentManager,
+                    prefs.use24HourTime,
+                    datetime
+                ) {
+                    setValue(it ?: return@pickMaterialDatetime)
+                }
+            } else {
+                CustomUiUtils.pickDatetime(context, prefs.use24HourTime, datetime) {
+                    setValue(it ?: return@pickDatetime)
+                }
             }
         }
     }

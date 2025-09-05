@@ -426,6 +426,27 @@ object CustomUiUtils {
         }
     }
 
+    fun pickMaterialDatetime(
+        fragmentManager: FragmentManager,
+        use24Hours: Boolean,
+        default: LocalDateTime = LocalDateTime.now(),
+        onDatetimePick: (value: LocalDateTime?) -> Unit
+    ) {
+        MaterialPickers.date(fragmentManager, default.toLocalDate(), null) { date ->
+            if (date != null) {
+                MaterialPickers.time(fragmentManager, use24Hours, default.toLocalTime()) { time ->
+                    if (time != null) {
+                        onDatetimePick(LocalDateTime.of(date, time))
+                    } else {
+                        onDatetimePick(null)
+                    }
+                }
+            } else {
+                onDatetimePick(null)
+            }
+        }
+    }
+
     fun MaterialPickers.time(
         fragmentManager: FragmentManager,
         use24Hours: Boolean,
