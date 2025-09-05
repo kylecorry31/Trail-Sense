@@ -76,7 +76,6 @@ class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_fiel
                 )
             }
             sightingsView.text = getString(R.string.sightings_count, page.sightings.size)
-            sightingsView.isVisible = prefs.fieldGuide.isSightingsEnabled
         }
 
     }
