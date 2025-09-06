@@ -36,9 +36,14 @@ class ElevationLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBa
                     bounds,
                     validResolutions[zoomLevel]!!
                 ) { elevation, _, maxElevation ->
-                    var maxScaleElevation = (maxElevation * 1.25f).roundNearest(1000f)
-                    if (maxScaleElevation < maxElevation) {
-                        maxScaleElevation += 1000f
+                    val maxScaleElevation = if (useDynamicElevationScale) {
+                        var max = (maxElevation * 1.25f).roundNearest(1000f)
+                        if (max < maxElevation) {
+                            max += 1000f
+                        }
+                        max
+                    } else {
+                        this.maxScaleElevation
                     }
                     colorScale.getColor(
                         SolMath.norm(
@@ -99,8 +104,8 @@ class ElevationLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBa
         )
     )
 
+    private val useDynamicElevationScale = false
     private val minScaleElevation = 0f
-    // TODO: Let the user choose between dynamic color and fixed color scales
     private val maxScaleElevation = 3000f
 
     override fun draw(
