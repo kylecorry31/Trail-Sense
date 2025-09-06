@@ -1,0 +1,16 @@
+Map layers
+- Add elevation and hillshade layers
+- Add color settings for contour layer
+
+Field Guide
+- Add sightings log for each page
+
+White Noise
+- Add sound chooser: noise (white, pink, brown), crickets, waves, fan
+
+Augmented Reality
+- Show constellations
+- Increase exposure at night
+
+Packing Lists
+- Remember last category
