@@ -19,16 +19,21 @@ class MapLayerBackgroundTask {
     private val scope = CoroutineScope(Dispatchers.Default)
     private val runner = CoroutineQueueRunner2(1, queuePolicy = BufferOverflow.DROP_OLDEST)
     private val lock = Mutex()
+    private val taskLock = Any()
 
     private val tasks =
         mutableListOf<suspend (bounds: CoordinateBounds, metersPerPixel: Float) -> Unit>()
 
     fun addTask(task: suspend (bounds: CoordinateBounds, metersPerPixel: Float) -> Unit) {
-        tasks.add(task)
+        synchronized(taskLock) {
+            tasks.add(task)
+        }
     }
 
     fun clearTasks() {
-        tasks.clear()
+        synchronized(taskLock) {
+            tasks.clear()
+        }
     }
 
     fun scheduleUpdate(
@@ -36,7 +41,10 @@ class MapLayerBackgroundTask {
         metersPerPixel: Float,
         isInvalid: Boolean = false,
         update: suspend (bounds: CoordinateBounds, metersPerPixel: Float) -> Unit = { bounds, metersPerPixel ->
-            for (task in tasks) {
+            val taskCopy = synchronized(taskLock){
+                tasks.toList()
+            }
+            for (task in taskCopy) {
                 task(bounds, metersPerPixel)
             }
         }

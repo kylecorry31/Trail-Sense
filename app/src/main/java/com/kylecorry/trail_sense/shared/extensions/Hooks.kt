@@ -94,7 +94,7 @@ data class NavigationSensorValues(
     val locationAccuracy: Float?,
     val elevation: Float,
     val elevationAccuracy: Float?,
-    val bearing: Bearing,
+    val bearing: Float,
     val declination: Float,
     val speed: Speed
 )
@@ -127,8 +127,8 @@ fun AndromedaFragment.useNavigationSensors(
         altimeter.altitude to if (altimeter is IGPS) altimeter.verticalAccuracy else gps.verticalAccuracy
     }
 
-    val bearing = useTopic(compass, compass.bearing) {
-        compass.bearing
+    val bearing = useTopic(compass, compass.rawBearing) {
+        compass.rawBearing
     }
 
     return useMemo(

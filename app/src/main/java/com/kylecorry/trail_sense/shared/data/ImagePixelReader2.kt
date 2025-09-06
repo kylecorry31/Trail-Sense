@@ -10,7 +10,7 @@ import com.kylecorry.andromeda.bitmaps.BitmapUtils
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.isInBounds
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.trail_sense.shared.extensions.range
+import com.kylecorry.sol.math.Range
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.getExactRegion
 import java.io.InputStream
 import kotlin.math.ceil
@@ -33,7 +33,8 @@ class PixelResult<T>(
 class ImagePixelReader2(
     private val imageSize: Size,
     private val config: Bitmap.Config = Bitmap.Config.ARGB_8888,
-    private val lookupOrder: Int = 1 // The layers of surrounding pixels to look up (1 = 4 pixels, 2 = 12 pixels, etc.)
+    private val lookupOrder: Int = 1, // The layers of surrounding pixels to look up (1 = 4 pixels, 2 = 12 pixels, etc.)
+    private val returnAllPixels: Boolean = false
 ) {
 
     suspend fun getAllPixels(
@@ -43,8 +44,31 @@ class ImagePixelReader2(
     ): List<PixelResult<Int>> = onIO {
         var bitmap: Bitmap? = null
         try {
-            val xRange = pixels.map { it.x }.range() ?: return@onIO emptyList()
-            val yRange = pixels.map { it.y }.range() ?: return@onIO emptyList()
+            if (pixels.isEmpty()) {
+                return@onIO emptyList()
+            }
+
+            var minX = Float.MAX_VALUE
+            var minY = Float.MAX_VALUE
+            var maxX = Float.MIN_VALUE
+            var maxY = Float.MIN_VALUE
+            for (pixel in pixels) {
+                if (pixel.x < minX) {
+                    minX = pixel.x
+                }
+                if (pixel.x > maxX) {
+                    maxX = pixel.x
+                }
+                if (pixel.y < minY) {
+                    minY = pixel.y
+                }
+                if (pixel.y > maxY) {
+                    maxY = pixel.y
+                }
+            }
+
+            val xRange = Range(minX, maxX)
+            val yRange = Range(minY, maxY)
 
             val xStart = floor(xRange.start).toInt()
             val yStart = floor(yRange.start).toInt()
@@ -81,21 +105,31 @@ class ImagePixelReader2(
             }
 
             val allPixels = mutableListOf<PixelResult<Int>>()
-            for (pixel in pixels) {
-                val newX = pixel.x - rect.left
-                val newY = pixel.y - rect.top
+            if (returnAllPixels) {
+                for (x in 0 until bitmap.width) {
+                    for (y in 0 until bitmap.height) {
+                        allPixels.add(PixelResult(x + rect.left, y + rect.top, bitmap[x, y]))
+                    }
+                }
+                allPixels
+            } else {
+                for (pixel in pixels) {
+                    val newX = pixel.x - rect.left
+                    val newY = pixel.y - rect.top
 
-                allPixels.addAll((1..lookupOrder).flatMap { order ->
-                    getNearbyPixels(newX.toInt(), newY.toInt(), order, bitmap)
-                }.map {
-                    PixelResult(
-                        it.x + rect.left,
-                        it.y + rect.top,
-                        it.value
-                    )
-                })
+                    allPixels.addAll((1..lookupOrder).flatMap { order ->
+                        getNearbyPixels(newX.toInt(), newY.toInt(), order, bitmap)
+                    }.map {
+                        PixelResult(
+                            it.x + rect.left,
+                            it.y + rect.top,
+                            it.value
+                        )
+                    })
+                }
+                allPixels.distinctBy { it.x to it.y }
+
             }
-            allPixels.distinctBy { it.x to it.y }
         } finally {
             bitmap?.recycle()
             if (autoClose) {
