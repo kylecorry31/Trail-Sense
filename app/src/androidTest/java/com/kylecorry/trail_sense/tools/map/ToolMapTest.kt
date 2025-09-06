@@ -82,6 +82,8 @@ class ToolMapTest : ToolTestBase(Tools.MAP) {
         click(R.id.menu_btn)
         click("Layers")
         scrollUntil { hasText("Basemap") }
+        scrollUntil { hasText("Elevation") }
+        scrollUntil { hasText("Hillshade") }
         scrollUntil { hasText("Photo Maps") }
         scrollUntil { hasText("Contours") }
         scrollUntil { hasText("Paths") }
