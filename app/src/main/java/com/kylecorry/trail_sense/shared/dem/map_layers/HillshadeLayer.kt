@@ -8,6 +8,7 @@ import androidx.core.graphics.setBlendMode
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.onMain
+import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
@@ -47,7 +48,6 @@ class HillshadeLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBa
     private val paint = Paint().apply {
         isAntiAlias = true
         isFilterBitmap = true
-        // TODO: Set via preferences
         alpha = 127
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             setBlendMode(BlendModeCompat.MULTIPLY)
@@ -75,6 +75,18 @@ class HillshadeLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBa
     private var hillshade: Bitmap? = null
     private var hillshadeBounds: CoordinateBounds? = null
     private var lastZoomLevel = -1
+
+    fun setPreferences(prefs: HillshadeMapLayerPreferences) {
+        paint.alpha = SolMath.map(
+            prefs.opacity.get() / 100f,
+            0f,
+            1f,
+            0f,
+            255f,
+            shouldClamp = true
+        ).toInt()
+        invalidate()
+    }
 
     override fun draw(
         drawer: ICanvasDrawer,

@@ -108,6 +108,11 @@ class ElevationLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBa
     private val minScaleElevation = 0f
     private val maxScaleElevation = 3000f
 
+    fun setPreferences(prefs: ElevationMapLayerPreferences) {
+        _percentOpacity = prefs.opacity.get() / 100f
+        invalidate()
+    }
+
     override fun draw(
         drawer: ICanvasDrawer,
         map: IMapView
@@ -165,8 +170,7 @@ class ElevationLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBa
         return false
     }
 
-    // TODO: Set via preferences
-    private var _percentOpacity: Float = 0.6f
+    private var _percentOpacity: Float = 1f
 
     override val percentOpacity: Float
         get() = _percentOpacity

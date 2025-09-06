@@ -5,14 +5,16 @@ import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.infrastructure.PreferenceRepo
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourMapLayerPreferences
-import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapMapLayerPreferences
+import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationMapLayerPreferences
+import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeMapLayerPreferences
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayerPreferenceManager
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconMapLayerPreferences
-import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerPreferences
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathMapLayerPreferences
-import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationMapLayerPreferences
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapMapLayerPreferences
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationMapLayerPreferences
+import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationMapLayerPreferences
+import com.kylecorry.trail_sense.tools.paths.map_layers.PathMapLayerPreferences
+import com.kylecorry.trail_sense.tools.photo_maps.map_layers.PhotoMapMapLayerPreferences
+import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerPreferences
 
 class MapPreferences(context: Context) : PreferenceRepo(context) {
 
@@ -23,18 +25,23 @@ class MapPreferences(context: Context) : PreferenceRepo(context) {
     )
 
     // Layers
-    val baseMapLayer = BaseMapMapLayerPreferences(context, "map")
-    val photoMapLayer = PhotoMapMapLayerPreferences(context, "map", defaultOpacity = 100)
-    val beaconLayer = BeaconMapLayerPreferences(context, "map")
-    val pathLayer = PathMapLayerPreferences(context, "map")
-    val navigationLayer = NavigationMapLayerPreferences(context, "map")
-    val tideLayer = TideMapLayerPreferences(context, "map")
-    val contourLayer = ContourMapLayerPreferences(context, "map", isEnabledByDefault = true)
-    val myLocationLayer = MyLocationMapLayerPreferences(context, "map")
+    private val mapId = "map"
+    val baseMapLayer = BaseMapMapLayerPreferences(context, mapId)
+    val photoMapLayer = PhotoMapMapLayerPreferences(context, mapId, defaultOpacity = 100)
+    val beaconLayer = BeaconMapLayerPreferences(context, mapId)
+    val pathLayer = PathMapLayerPreferences(context, mapId)
+    val navigationLayer = NavigationMapLayerPreferences(context, mapId)
+    val tideLayer = TideMapLayerPreferences(context, mapId)
+    val contourLayer = ContourMapLayerPreferences(context, mapId, isEnabledByDefault = true)
+    val myLocationLayer = MyLocationMapLayerPreferences(context, mapId)
+    val elevationLayer = ElevationMapLayerPreferences(context, mapId, isEnabledByDefault = true)
+    val hillshadeLayer = HillshadeMapLayerPreferences(context, mapId, isEnabledByDefault = true)
 
     val layerManager = MapLayerPreferenceManager(
-        "map", listOf(
+        mapId, listOf(
             baseMapLayer.getPreferences(),
+            elevationLayer.getPreferences(),
+            hillshadeLayer.getPreferences(),
             photoMapLayer.getPreferences(),
             contourLayer.getPreferences(),
             pathLayer.getPreferences(),

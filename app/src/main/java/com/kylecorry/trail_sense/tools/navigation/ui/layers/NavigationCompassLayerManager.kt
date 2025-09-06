@@ -9,7 +9,10 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
+import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationLayer
+import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MultiLayerManager
@@ -27,13 +30,15 @@ import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayer
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
 
 class NavigationCompassLayerManager {
-
+    private val taskRunner = MapLayerBackgroundTask()
     private val pathLayer = PathLayer()
     private val beaconLayer = BeaconLayer()
     private val myLocationLayer = MyLocationLayer()
     private val tideLayer = TideMapLayer()
     private val photoMapLayer = TiledMapLayer()
-    private val contourLayer = ContourLayer()
+    private var contourLayer: ContourLayer? = null
+    private var elevationLayer: ElevationLayer? = null
+    private var hillshadeLayer: HillshadeLayer? = null
     private val prefs = AppServiceRegistry.get<UserPreferences>()
     private var layerManager: ILayerManager? = null
 
@@ -42,6 +47,10 @@ class NavigationCompassLayerManager {
 
     fun resume(context: Context, view: IMapView) {
         val hasCompass = SensorService(context).hasCompass()
+        taskRunner.clearTasks()
+        contourLayer = ContourLayer(taskRunner)
+        elevationLayer = ElevationLayer(taskRunner)
+        hillshadeLayer = HillshadeLayer(taskRunner)
 
         if (!hasCompass) {
             myLocationLayer.setShowDirection(false)
@@ -49,6 +58,8 @@ class NavigationCompassLayerManager {
 
         val isMapLayerEnabled = prefs.navigation.photoMapLayer.isEnabled.get()
         val isContourLayerEnabled = prefs.navigation.contourLayer.isEnabled.get()
+        val isElevationLayerEnabled = prefs.navigation.elevationLayer.isEnabled.get()
+        val isHillshadeLayerEnabled = prefs.navigation.hillshadeLayer.isEnabled.get()
         val isPathLayerEnabled = prefs.navigation.pathLayer.isEnabled.get()
         val isBeaconLayerEnabled = prefs.navigation.beaconLayer.isEnabled.get()
         val isTideLayerEnabled = prefs.navigation.tideLayer.isEnabled.get()
@@ -59,7 +70,9 @@ class NavigationCompassLayerManager {
         pathLayer.setShouldRenderWithDrawLines(prefs.navigation.useFastPathRendering)
         pathLayer.setPreferences(prefs.navigation.pathLayer)
         photoMapLayer.setPreferences(prefs.navigation.photoMapLayer)
-        contourLayer.setPreferences(prefs.navigation.contourLayer)
+        contourLayer?.setPreferences(prefs.navigation.contourLayer)
+        elevationLayer?.setPreferences(prefs.map.elevationLayer)
+        hillshadeLayer?.setPreferences(prefs.map.hillshadeLayer)
         tideLayer.setPreferences(prefs.navigation.tideLayer)
         myLocationLayer.setPreferences(prefs.navigation.myLocationLayer)
         photoMapLayer.setBackgroundColor(Resources.color(context, R.color.colorSecondary))
@@ -67,6 +80,8 @@ class NavigationCompassLayerManager {
         photoMapLayer.controlsPdfCache = true
         view.setLayers(
             listOfNotNull(
+                if (isElevationLayerEnabled) elevationLayer else null,
+                if (isHillshadeLayerEnabled) hillshadeLayer else null,
                 if (isMapLayerEnabled) photoMapLayer else null,
                 if (isContourLayerEnabled) contourLayer else null,
                 if (isPathLayerEnabled) pathLayer else null,
@@ -101,6 +116,7 @@ class NavigationCompassLayerManager {
     }
 
     fun pause(context: Context, view: IMapView) {
+        taskRunner.clearTasks()
         layerManager?.stop()
         layerManager = null
         PhotoMapRegionLoader.removeUnneededLoaders(emptyList())

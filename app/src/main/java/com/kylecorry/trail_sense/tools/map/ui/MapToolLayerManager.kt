@@ -120,6 +120,8 @@ class MapToolLayerManager {
         photoMapLayer.setPreferences(prefs.map.photoMapLayer)
 
         contourLayer?.setPreferences(prefs.map.contourLayer)
+        elevationLayer?.setPreferences(prefs.map.elevationLayer)
+        hillshadeLayer?.setPreferences(prefs.map.hillshadeLayer)
 
         photoMapLayer.setBackgroundColor(Color.TRANSPARENT)
 
@@ -135,8 +137,8 @@ class MapToolLayerManager {
             listOfNotNull(
                 BackgroundColorMapLayer().also { it.color = Color.rgb(127, 127, 127) },
                 if (prefs.map.baseMapLayer.isEnabled.get()) baseMapLayer else null,
-                if (isDebug()) elevationLayer else null,
-                if (isDebug()) hillshadeLayer else null,
+                if (prefs.map.elevationLayer.isEnabled.get()) elevationLayer else null,
+                if (prefs.map.hillshadeLayer.isEnabled.get()) hillshadeLayer else null,
                 if (prefs.map.photoMapLayer.isEnabled.get()) photoMapLayer else null,
                 if (prefs.map.contourLayer.isEnabled.get()) contourLayer else null,
                 if (prefs.map.navigationLayer.isEnabled.get()) navigationLayer else null,
@@ -195,6 +197,7 @@ class MapToolLayerManager {
     }
 
     fun pause(context: Context, view: IMapView) {
+        taskRunner.clearTasks()
         layerManager?.stop()
         layerManager = null
         PhotoMapRegionLoader.removeUnneededLoaders(emptyList())

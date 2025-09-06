@@ -14,6 +14,8 @@ import com.kylecorry.trail_sense.settings.infrastructure.IBeaconPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ICompassStylePreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourMapLayerPreferences
+import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationMapLayerPreferences
+import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeMapLayerPreferences
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayerPreferenceManager
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -227,15 +229,21 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
     )
 
     // Layers
-    val photoMapLayer = PhotoMapMapLayerPreferences(context, "navigation")
-    val pathLayer = PathMapLayerPreferences(context, "navigation")
-    val beaconLayer = BeaconMapLayerPreferences(context, "navigation")
-    val contourLayer = ContourMapLayerPreferences(context, "navigation")
-    val tideLayer = TideMapLayerPreferences(context, "navigation")
-    val myLocationLayer = MyLocationMapLayerPreferences(context, "navigation")
+
+    private val mapId = "navigation"
+    val photoMapLayer = PhotoMapMapLayerPreferences(context, mapId)
+    val pathLayer = PathMapLayerPreferences(context, mapId)
+    val beaconLayer = BeaconMapLayerPreferences(context, mapId)
+    val contourLayer = ContourMapLayerPreferences(context, mapId)
+    val tideLayer = TideMapLayerPreferences(context, mapId)
+    val myLocationLayer = MyLocationMapLayerPreferences(context, mapId)
+    val elevationLayer = ElevationMapLayerPreferences(context, mapId)
+    val hillshadeLayer = HillshadeMapLayerPreferences(context, mapId)
 
     val layerManager = MapLayerPreferenceManager(
-        "navigation", listOf(
+        mapId, listOf(
+            elevationLayer.getPreferences(),
+            hillshadeLayer.getPreferences(),
             photoMapLayer.getPreferences(),
             contourLayer.getPreferences(),
             pathLayer.getPreferences(),
