@@ -80,7 +80,7 @@ This layer shows contour lines generated from the digital elevation model (DEM) 
 Settings:
 
 - **Show labels**: Determines if contour labels are shown on the map.
-- **Color contours based on elevation**: If enabled, the color of the contour lines will be based on the elevation (green to purple). If disabled, contours will be brown.
+- **Color**: The color of the contour lines, some options are color scales which change based on elevation.
 
 ### Paths
 This layer shows visible paths. You can add new paths in the Paths tool.
