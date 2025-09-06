@@ -43,7 +43,7 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
         canNavigate()
     }
 
-    private fun canAdjustLayers(){
+    private fun canAdjustLayers() {
         optional {
             longClick(R.id.radar_compass)
             scrollUntil { hasText("Elevation") }
@@ -112,21 +112,18 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
     private fun canDisplaySensorStatus() {
         click(Regex("(Poor|Moderate|Good|Stale|Unavailable)"))
         hasText(string(R.string.accuracy_info_title))
-        hasText("GPS location accuracy", contains = true)
+        hasText("GPS location accuracy")
         optional {
-            hasText(Regex("GPS location accuracy: ± \\d+ ft"), contains = true, waitForTime = 0)
+            hasText(Regex("GPS location accuracy: ± \\d+ ft"), waitForTime = 0)
         }
         optional {
-            hasText(Regex("GPS elevation accuracy: ± \\d+ ft"), contains = true, waitForTime = 0)
+            hasText(Regex("GPS elevation accuracy: ± \\d+ ft"), waitForTime = 0)
         }
         optional {
-            hasText(Regex("GPS satellites: \\d+"), contains = true, waitForTime = 0)
+            hasText(Regex("GPS satellites: \\d+"), waitForTime = 0)
         }
-        hasText(
-            string(R.string.calibrate_compass_dialog_content, string(android.R.string.ok)),
-            contains = true
-        )
-        hasText(string(R.string.gps_accuracy_tip), contains = true)
+        hasText(string(R.string.calibrate_compass_dialog_content, string(android.R.string.ok)))
+        hasText(string(R.string.gps_accuracy_tip))
         clickOk()
     }
 
@@ -153,7 +150,7 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
     private fun canCreateBeacon() {
         longClick(R.id.beaconBtn)
         hasText(string(R.string.create_beacon))
-        hasText(Regex("-?\\d+\\.\\d+°,\\s+-?\\d+\\.\\d+°"), contains = true)
+        hasText(Regex("-?\\d+\\.\\d+°,\\s+-?\\d+\\.\\d+°"))
         back()
         click(string(R.string.dialog_leave))
         back()

@@ -29,8 +29,8 @@ class ToolNotesTest : ToolTestBase(Tools.NOTES) {
 
     private fun canEditNote() {
         click(com.kylecorry.andromeda.views.R.id.title)
-        hasText(R.id.title_edit, "Test note", contains = true)
-        hasText(R.id.content_edit, "This is a test note", contains = true)
+        hasText(R.id.title_edit, "Test note")
+        hasText(R.id.content_edit, "This is a test note")
 
         input(R.id.title_edit, "Test note 2")
         input(R.id.content_edit, "This is a test note 2")

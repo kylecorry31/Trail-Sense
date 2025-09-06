@@ -27,7 +27,7 @@ object AutomationLibrary {
         text: String,
         ignoreCase: Boolean = false,
         checkDescendants: Boolean = true,
-        contains: Boolean = false,
+        exact: Boolean = false,
         index: Int = 0,
         childId: Int? = null,
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
@@ -37,7 +37,7 @@ object AutomationLibrary {
                 text,
                 ignoreCase = ignoreCase,
                 checkDescendants = checkDescendants,
-                contains = contains
+                contains = !exact
             )
         }
     }
@@ -73,22 +73,22 @@ object AutomationLibrary {
 
     fun hasText(
         text: String,
-        contains: Boolean = false,
+        exact: Boolean = false,
         index: Int = 0,
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
     ) {
         waitFor(waitForTime) {
-            viewWithText(text, index = index, contains = contains)
+            viewWithText(text, index = index, contains = !exact)
         }
     }
 
     fun hasText(
         regex: Regex,
         index: Int = 0,
-        contains: Boolean = false,
+        exact: Boolean = false,
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
     ) {
-        val r = if (contains) {
+        val r = if (!exact) {
             Regex(".*${regex.pattern}.*", RegexOption.DOT_MATCHES_ALL)
         } else {
             regex
@@ -131,11 +131,11 @@ object AutomationLibrary {
         viewText: String,
         isChecked: Boolean = true,
         index: Int = 0,
-        contains: Boolean = false,
+        exact: Boolean = false,
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
     ) {
         waitFor(waitForTime) {
-            viewWithText(viewText, contains, index = index).isChecked(isChecked)
+            viewWithText(viewText, !exact, index = index).isChecked(isChecked)
         }
     }
 
@@ -150,13 +150,13 @@ object AutomationLibrary {
     fun isNotChecked(
         viewText: String,
         index: Int = 0,
-        contains: Boolean = false,
+        exact: Boolean = false,
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
     ) {
         isChecked(
             viewText,
             isChecked = false,
-            contains = contains,
+            exact = exact,
             index = index,
             waitForTime = waitForTime
         )
@@ -236,13 +236,13 @@ object AutomationLibrary {
         text: String,
         index: Int = 0,
         holdDuration: Long? = null,
-        contains: Boolean = false,
+        exact: Boolean = false,
         xPercent: Float? = null,
         yPercent: Float? = null,
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
     ) {
         waitFor(waitForTime) {
-            viewWithText(text, index = index, contains = contains).click(
+            viewWithText(text, index = index, contains = !exact).click(
                 holdDuration,
                 xPercent,
                 yPercent
@@ -297,7 +297,12 @@ object AutomationLibrary {
     }
 
     fun clickOk(index: Int = 0, waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT) {
-        click(string(android.R.string.ok), index = index, waitForTime = waitForTime)
+        click(
+            string(android.R.string.ok),
+            index = index,
+            waitForTime = waitForTime,
+            exact = true
+        )
     }
 
     fun input(
@@ -330,16 +335,16 @@ object AutomationLibrary {
         viewText: String,
         text: String,
         checkDescendants: Boolean = true,
-        contains: Boolean = false,
+        exact: Boolean = false,
         isHint: Boolean = false,
         index: Int = 0,
         waitForTime: Long = DEFAULT_WAIT_FOR_TIMEOUT
     ) {
         waitFor(waitForTime) {
             if (isHint) {
-                viewWithHint(viewText, contains, index = index)
+                viewWithHint(viewText, !exact, index = index)
             } else {
-                viewWithText(viewText, contains, index = index)
+                viewWithText(viewText, !exact, index = index)
             }.input(text, checkDescendants)
         }
     }
@@ -416,6 +421,7 @@ object AutomationLibrary {
         action: () -> Unit
     ) {
         var scrollsDone = 0
+        var failedScrollCount = 0
         while (scrollsDone < maxScrolls) {
             try {
                 action()
@@ -427,11 +433,17 @@ object AutomationLibrary {
                 waitFor(waitForTime) {
                     scrolled = viewLookup().scroll(direction, amountPerScroll)
                 }
-                if (!scrolled) {
+                if (!scrolled && failedScrollCount > 2) {
                     // Couldn't scroll further
                     break
                 }
-                scrollsDone++
+
+                if (!scrolled) {
+                    failedScrollCount++
+                } else {
+                    failedScrollCount = 0
+                    scrollsDone++
+                }
             }
         }
         // Try action one last time after all scrolling

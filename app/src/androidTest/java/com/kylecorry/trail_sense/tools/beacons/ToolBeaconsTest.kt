@@ -44,7 +44,7 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS) {
 
     private fun createBeacon() {
         click(R.id.create_btn)
-        click(string(R.string.beacon))
+        click(string(R.string.beacon), exact = true)
 
         hasText(R.id.create_beacon_title, string(R.string.create_beacon))
 
@@ -103,13 +103,13 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS) {
     private fun editBeacon() {
         click(R.id.edit_btn)
         hasText(R.id.create_beacon_title, string(R.string.create_beacon))
-        hasText(R.id.beacon_name, "Test beacon", contains = true)
-        hasText(R.id.beacon_location, "42.000000°,  -72.000000°", contains = true)
-        hasText(R.id.beacon_elevation, "1000", contains = true)
+        hasText(R.id.beacon_name, "Test beacon")
+        hasText(R.id.beacon_location, "42.000000°,  -72.000000°")
+        hasText(R.id.beacon_elevation, "1000")
         isNotChecked(R.id.create_at_distance)
 
         scrollToEnd(R.id.create_beacon_scroll)
-        hasText(R.id.comment, "Test notes", contains = true)
+        hasText(R.id.comment, "Test notes")
         hasText(R.id.beacon_group_picker, string(R.string.no_group))
         hasText(R.id.beacon_color_picker, string(R.string.color))
         hasText(R.id.beacon_icon_picker, string(R.string.icon))
@@ -140,7 +140,7 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS) {
         clickListItemMenu("Delete")
         clickOk()
         hasText("Test beacon 2")
-        not { hasText("Test beacon", waitForTime = 0) }
+        not { hasText("Test beacon", waitForTime = 0, exact = true) }
         back(false)
     }
 

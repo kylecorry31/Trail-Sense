@@ -31,6 +31,6 @@ class ToolBatteryTest : ToolTestBase(Tools.BATTERY) {
 
         // Open battery settings
         click(toolbarButton(R.id.battery_title, Side.Right))
-        hasText("Battery", contains = true)
+        hasText("Battery")
     }
 }

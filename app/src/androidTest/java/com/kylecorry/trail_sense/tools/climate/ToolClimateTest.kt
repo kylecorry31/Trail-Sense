@@ -25,7 +25,7 @@ class ToolClimateTest : ToolTestBase(Tools.CLIMATE) {
         pickDate(2024, 8, 5)
 
         // Verify the temperature is displayed
-        hasText("81 °F / 59 °F", contains = true)
+        hasText("81 °F / 59 °F")
 
         // Scroll until precipitation section is visible, then verify it
         scrollUntil {

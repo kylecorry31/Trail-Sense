@@ -36,7 +36,7 @@ class ToolSurvivalGuideTest : ToolTestBase(Tools.SURVIVAL_GUIDE) {
             click(chapter.title)
 
             // Wait for the chapter to load
-            hasText(R.id.guide_name, chapter.title, contains = true, ignoreCase = true)
+            hasText(R.id.guide_name, chapter.title, ignoreCase = true)
             hasText(R.id.guide_scroll) { it.isNotEmpty() }
             click("Be prepared")
 
@@ -45,7 +45,7 @@ class ToolSurvivalGuideTest : ToolTestBase(Tools.SURVIVAL_GUIDE) {
 
         // Search
         input(R.id.search, "Eating fish")
-        hasText("fishing gear", contains = true)
+        hasText("fishing gear")
         click("Fish")
 
         hasText(R.id.guide_name, "Food")
@@ -61,7 +61,7 @@ class ToolSurvivalGuideTest : ToolTestBase(Tools.SURVIVAL_GUIDE) {
         click(quickAction(Tools.QUICK_ACTION_SURVIVAL_GUIDE))
 
         input(R.id.search, "Eating fish", closeKeyboardOnCompletion = true)
-        hasText("fishing gear", contains = true)
+        hasText("fishing gear")
         click("Fish")
 
         hasText("Food")
@@ -77,6 +77,6 @@ class ToolSurvivalGuideTest : ToolTestBase(Tools.SURVIVAL_GUIDE) {
         click(toolbarButton(R.id.title, Side.Right))
 
         isVisible(R.id.list)
-        hasText(R.id.search, "Eating fish", contains = true)
+        hasText(R.id.search, "Eating fish")
     }
 }

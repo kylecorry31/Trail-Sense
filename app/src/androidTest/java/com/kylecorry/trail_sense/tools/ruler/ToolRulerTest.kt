@@ -26,7 +26,7 @@ class ToolRulerTest : ToolTestBase(Tools.RULER) {
 
         // Enter a to ratio
         input(R.id.fractional_map_to, "10")
-        hasText(R.id.fractional_map_from, "1", contains = true)
+        hasText(R.id.fractional_map_from, "1")
         hasText(R.id.map_distance, Regex("Map: \\d+\\.\\d+ m"))
 
         // Switch to verbal scale
@@ -37,8 +37,8 @@ class ToolRulerTest : ToolTestBase(Tools.RULER) {
 
         // Switch back to ratio and verify it's still there
         click(R.id.map_ratio_btn)
-        hasText(R.id.fractional_map_from, "1", contains = true)
-        hasText(R.id.fractional_map_to, "10", contains = true)
+        hasText(R.id.fractional_map_from, "1")
+        hasText(R.id.fractional_map_to, "10")
         hasText(R.id.map_distance, Regex("Map: \\d+\\.\\d+ m"))
 
         verifyQuickActions()

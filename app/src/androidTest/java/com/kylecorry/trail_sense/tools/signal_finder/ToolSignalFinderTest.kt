@@ -33,7 +33,7 @@ class ToolSignalFinderTest : ToolTestBase(Tools.SIGNAL_FINDER, Coordinate(42.03,
         // Create a beacon at one of the cell towers
         TestUtils.clickListItemMenu(string(R.string.create_beacon))
         hasText(R.id.create_beacon_title, string(R.string.create_beacon))
-        hasText(R.id.beacon_location, "42.030000°,  -71.970000°", contains = true)
+        hasText(R.id.beacon_location, "42.030000°,  -71.970000°")
 
         back()
         click("Leave")

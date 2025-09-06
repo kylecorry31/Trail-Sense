@@ -86,7 +86,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
 
     private fun canEditPage() {
         clickListItemMenu("Edit")
-        hasText(R.id.name, "A Test", contains = true)
+        hasText(R.id.name, "A Test")
         input(R.id.name, "A Test 2")
         click(toolbarButton(R.id.create_field_guide_page_title, Side.Right))
 
@@ -96,7 +96,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         // Open it an edit
         click("A Test 2")
         click(toolbarButton(R.id.field_guide_page_title, Side.Right))
-        hasText(R.id.name, "A Test 2", contains = true)
+        hasText(R.id.name, "A Test 2")
         input(R.id.name, "A Test 3")
         click(toolbarButton(R.id.create_field_guide_page_title, Side.Right))
 
@@ -109,7 +109,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
     private fun canOpenPage() {
         click("Ant")
         hasText(R.id.field_guide_page_title, "Ant")
-        hasText("A small insect", contains = true)
+        hasText("A small insect")
         canLogSightings()
         val tags = listOf(
             "North America",
@@ -130,30 +130,30 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         click(R.id.tag_classifications)
         click("Bird")
         clickOk()
-        hasText(R.id.tag_classifications, "Animal, Bird", contains = true)
+        hasText(R.id.tag_classifications, "Animal, Bird")
         input(R.id.notes, "Notes")
         scrollToEnd(R.id.scroll_view)
 
         click(R.id.tag_locations)
         click("North America")
         clickOk()
-        hasText(R.id.tag_locations, "North America", contains = true)
+        hasText(R.id.tag_locations, "North America")
 
         click(R.id.tag_habitats)
         click("Forest")
         clickOk()
-        hasText(R.id.tag_habitats, "Forest", contains = true)
+        hasText(R.id.tag_habitats, "Forest")
 
         click(R.id.tag_human_interactions)
         click("Edible")
         click("Inedible")
         clickOk()
-        hasText(R.id.tag_human_interactions, "Edible, Inedible", contains = true)
+        hasText(R.id.tag_human_interactions, "Edible, Inedible")
 
         click(R.id.tag_activity_patterns)
         click("Diurnal (day)")
         clickOk()
-        hasText(R.id.tag_activity_patterns, "Diurnal (day)", contains = true)
+        hasText(R.id.tag_activity_patterns, "Diurnal (day)")
 
         scrollToStart(R.id.scroll_view)
         click("Take photo")
@@ -190,7 +190,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         back()
     }
 
-    private fun canLogSightings(){
+    private fun canLogSightings() {
         click("Sightings (0)")
         hasText("No sightings")
         click(R.id.create_btn)
@@ -201,7 +201,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         input(R.id.location, "42, 72")
         input(R.id.elevation, "100")
         click("Harvested")
-        input("Notes", "Test", contains = true)
+        input("Notes", "Test")
         click(toolbarButton(R.id.title, Side.Right))
 
         // Sightings list
@@ -212,26 +212,26 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         // Edit by clicking
         click("January 1 6:00 AM")
         hasText("January 1 6:00 AM")
-        hasText("42.000000°,  72.000000°", contains = true)
-        hasText("100", contains = true)
+        hasText("42.000000°,  72.000000°")
+        hasText("100")
         isChecked("Harvested")
-        input("Test", "Test 2", contains = true)
+        input("Test", "Test 2")
         click(toolbarButton(R.id.title, Side.Right))
 
         // Sightings list is updated
-        hasText("Test 2", contains = true)
+        hasText("Test 2")
 
         // Edit via menu
         clickListItemMenu("Edit")
         hasText("January 1 6:00 AM")
-        hasText("42.000000°,  72.000000°", contains = true)
-        hasText("100", contains = true)
+        hasText("42.000000°,  72.000000°")
+        hasText("100")
         isChecked("Harvested")
-        input("Test 2", "Test 3", contains = true)
+        input("Test 2", "Test 3")
         click(toolbarButton(R.id.title, Side.Right))
 
         // Sightings list is updated
-        hasText("Test 3", contains = true)
+        hasText("Test 3")
 
         // Navigate
         clickListItemMenu("Navigate")
@@ -242,8 +242,8 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         // Create beacon
         clickListItemMenu("Create beacon")
         hasText("Ant")
-        hasText("42.000000°,  72.000000°", contains = true)
-        hasText("100", contains = true)
+        hasText("42.000000°,  72.000000°")
+        hasText("100")
         back()
         click("Leave")
 

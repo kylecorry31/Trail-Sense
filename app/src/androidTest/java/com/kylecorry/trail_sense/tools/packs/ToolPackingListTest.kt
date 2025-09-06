@@ -215,7 +215,7 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
 //            viewWithText("SAVE").click()
         // Pressing back is needed sometimes to close the drive selector
         backUntil {
-            hasText("test-pack-2.csv", contains = true, waitForTime = 1000)
+            hasText("test-pack-2.csv", waitForTime = 1000)
         }
         backUntil {
             hasText(R.id.inventory_list_title, "Test Pack 2")

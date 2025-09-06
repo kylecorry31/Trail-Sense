@@ -53,7 +53,7 @@ class ToolWhiteNoiseTest : ToolTestBase(Tools.WHITE_NOISE) {
     }
 
     private fun canChangeSleepSound(){
-        click("Pink noise", contains = true)
+        click("Pink noise")
         click("Crickets")
         clickOk()
         hasText("Crickets")

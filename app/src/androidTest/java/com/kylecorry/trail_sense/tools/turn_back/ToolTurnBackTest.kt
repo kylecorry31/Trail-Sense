@@ -24,7 +24,7 @@ class ToolTurnBackTest : ToolTestBase(Tools.TURN_BACK) {
 
         handleExactAlarmsDialog()
 
-        hasText(R.id.edittext, "8:00 PM", contains = true)
+        hasText(R.id.edittext, "8:00 PM")
         hasText(
             R.id.instructions,
             Regex("Turn around by \\d+:\\d+ (AM|PM) \\(.*\\) to return at 8:00 PM")

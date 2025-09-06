@@ -55,7 +55,7 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         click(R.id.add_btn)
         click("Camera")
         click(R.id.capture_button)
-        input("Name", "Test Map", index = 1, contains = true)
+        input("Name", "Test Map", index = 1)
         clickOk()
 
         click("Preview")
@@ -102,7 +102,7 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         click(string(R.string.blank))
 
         clickOk()
-        input("Name", "Blank Map", index = 1, contains = true)
+        input("Name", "Blank Map", index = 1)
         clickOk()
 
         hasText(R.id.map_title, "Blank Map")
@@ -113,7 +113,7 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         click(R.id.add_btn)
         click(string(R.string.group))
 
-        input("Name", "Test Group", index = 1, contains = true)
+        input("Name", "Test Group", index = 1)
         clickOk()
         hasText("Test Group")
         hasText("0 maps")
@@ -147,7 +147,7 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
 
     private fun canRenameGroup() {
         clickListItemMenu(string(R.string.rename), index = 0)
-        input("Test Group", "Test Group 2", contains = true)
+        input("Test Group", "Test Group 2")
         clickOk()
         hasText("Test Group 2")
         hasText("1 map")
@@ -213,7 +213,7 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         // Calibrate
         click(toolbarButton(R.id.map_title, Side.Right))
         click("Calibrate")
-        hasText("Calibrate with known locations", contains = true)
+        hasText("Calibrate with known locations")
         click("Next")
         click("Done")
         isVisible(R.id.map)
@@ -228,7 +228,7 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         // Rename
         click(toolbarButton(R.id.map_title, Side.Right))
         click("Rename")
-        input("Test Map", "Test Map 2", contains = true)
+        input("Test Map", "Test Map 2")
         clickOk()
         hasText("Test Map 2")
 
@@ -270,7 +270,7 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         click("Export")
         // Pressing back is needed sometimes to close the drive selector
         backUntil {
-            hasText("test-map-2.pdf", contains = true)
+            hasText("test-map-2.pdf")
         }
         backUntil {
             isVisible(R.id.map)
@@ -279,7 +279,7 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         // Print
         click(toolbarButton(R.id.map_title, Side.Right))
         click("Print")
-        hasText("Copies", contains = true)
+        hasText("Copies")
         backUntil {
             isVisible(R.id.map)
         }
@@ -310,7 +310,7 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
 
     private fun canRenameMap() {
         clickListItemMenu(string(R.string.rename), index = 2)
-        input("Test Map", "Test Map 2", contains = true)
+        input("Test Map", "Test Map 2")
         clickOk()
         hasText("Test Map 2")
     }
@@ -337,7 +337,7 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
         clickListItemMenu(string(R.string.export), index = 1)
         // Pressing back is needed sometimes to close the drive selector
         backUntil {
-            hasText("blank-map.pdf", contains = true)
+            hasText("blank-map.pdf")
         }
         backUntil {
             isVisible(R.id.map_list_title)
@@ -346,7 +346,7 @@ class ToolPhotoMapsTest : ToolTestBase(Tools.PHOTO_MAPS) {
 
     private fun canPrintMap() {
         clickListItemMenu(string(R.string.print), index = 1)
-        hasText("Copies", contains = true)
+        hasText("Copies")
         backUntil {
             isVisible(R.id.map_list_title)
         }
