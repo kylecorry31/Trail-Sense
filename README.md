@@ -17,6 +17,7 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
     <tr>
         <th>F-Droid</th>
         <th>Google Play</th>
+        <th>Obtainium</th>
         <th>Survival Guide (Paperback)</th>
     </tr>
     <tr>
