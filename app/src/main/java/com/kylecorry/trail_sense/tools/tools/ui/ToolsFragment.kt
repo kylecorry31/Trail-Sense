@@ -1,10 +1,12 @@
 package com.kylecorry.trail_sense.tools.tools.ui
 
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.coroutines.onDefault
+import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.list.GridView
@@ -46,6 +48,9 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
 
     private val toolItemRenderer = DelegateToolListItemRenderer()
 
+    private var recyclerViewState: Parcelable? = null
+    private var isScrollRestored = false
+
     private val toolHeader by lazy {
         getToolHeaderListItem(
             getString(R.string.tools),
@@ -81,6 +86,8 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
                 toolItemRenderer.render(binding, tool)
             }
 
+            isScrollRestored = false
+
             updatePinnedTools()
             updateTools()
 
@@ -102,6 +109,16 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
             )
 
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        recyclerViewState = binding.tools.layoutManager?.onSaveInstanceState()
+    }
+
+    override fun onDestroyView() {
+        recyclerViewState = binding.tools.layoutManager?.onSaveInstanceState() ?: recyclerViewState
+        super.onDestroyView()
     }
 
     // TODO: Add a way to customize this
@@ -165,6 +182,15 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
             } else {
                 toolListView.setSpannedData(toolListItems)
             }
+        }
+
+        if (!isScrollRestored && recyclerViewState != null) {
+            binding.tools.post {
+                tryOrNothing {
+                    binding.tools.layoutManager?.onRestoreInstanceState(recyclerViewState)
+                }
+            }
+            isScrollRestored = true
         }
     }
 
