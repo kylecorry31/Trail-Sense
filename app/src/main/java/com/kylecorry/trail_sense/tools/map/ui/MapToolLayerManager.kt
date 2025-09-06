@@ -193,6 +193,10 @@ class MapToolLayerManager {
 
         layerManager?.start()
 
+        if (view is View){
+            view.invalidate()
+        }
+
         key++
     }
 

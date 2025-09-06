@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.canvas
 
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
@@ -55,9 +56,8 @@ class MapLayerBackgroundTask {
             val taskCopy = synchronized(taskLock) {
                 tasks.toList()
             }
-            for (task in taskCopy) {
-                task(bounds, metersPerPixel)
-            }
+            val parallel = ParallelCoroutineRunner()
+            parallel.run(taskCopy.map { { it(bounds, metersPerPixel) } })
         }
     ) {
         scope.launch {

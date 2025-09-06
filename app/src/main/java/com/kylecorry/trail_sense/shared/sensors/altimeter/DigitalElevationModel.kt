@@ -30,7 +30,7 @@ class DigitalElevationModel(private val context: Context, private val gps: IGPS)
                 try {
                     val location = gps.location
                     val gpsIsValid = gps.hasValidReading
-                    demAltitude = DEM.getElevation(location)?.meters()?.distance ?: 0f
+                    demAltitude = DEM.getElevation(location) ?: 0f
                     onMain {
                         if (gpsIsValid) {
                             notifyListeners()

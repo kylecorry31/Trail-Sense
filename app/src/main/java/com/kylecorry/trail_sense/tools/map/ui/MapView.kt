@@ -160,6 +160,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         layers.forEach { it.invalidate() }
+        invalidate()
     }
 
     override fun setup() {
@@ -204,6 +205,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     fun recenter() {
         scale = 1f
+        invalidate()
     }
 
     @Suppress("MemberVisibilityCanBePrivate")
@@ -218,6 +220,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         val newScale = clampScale(scale * factor)
         val newFactor = newScale / scale
         scale *= newFactor
+        invalidate()
     }
 
     private fun clampScale(scale: Float): Float {
@@ -231,6 +234,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             newCenter.latitude.coerceIn(-85.0, 85.0),
             Coordinate.toLongitude(newCenter.longitude)
         )
+        invalidate()
     }
 
     private val mGestureListener = object : GestureDetector.SimpleOnGestureListener() {
