@@ -1424,4 +1424,5 @@
     <string name="sleep_sound_crickets">Grilos</string>
     <string name="sleep_sound_crickets_no_chirping">Grilos (sem chilrear)</string>
     <string name="sleep_sound_ocean_waves">Ondas do mar</string>
+    <string name="sleep_sound_fan">Fan</string>
 </resources>

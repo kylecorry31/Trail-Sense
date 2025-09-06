@@ -1441,4 +1441,5 @@
     <string name="sleep_sound_crickets">蟋蟀音</string>
     <string name="sleep_sound_crickets_no_chirping">蟋蟀音（无唧唧声）</string>
     <string name="sleep_sound_ocean_waves">海浪声</string>
+    <string name="sleep_sound_fan">风扇</string>
 </resources>

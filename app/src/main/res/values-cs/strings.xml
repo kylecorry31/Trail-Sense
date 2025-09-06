@@ -1480,4 +1480,5 @@
     <string name="sleep_sound_crickets">Cvrčci</string>
     <string name="sleep_sound_crickets_no_chirping">Cvrčci (bez cvrlikání)</string>
     <string name="sleep_sound_ocean_waves">Vlny oceánu</string>
+    <string name="sleep_sound_fan">Větrák</string>
 </resources>
