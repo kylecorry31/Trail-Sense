@@ -47,6 +47,9 @@ object Perf {
         }
 
         // Display all times
+        println()
+        println("All times:")
+        println("-----")
         for (tag in times.map { it.first }) {
             val ms = getTime(tag)?.let { it / 1_000_000.0 }
             println("${tag}: $ms ms")

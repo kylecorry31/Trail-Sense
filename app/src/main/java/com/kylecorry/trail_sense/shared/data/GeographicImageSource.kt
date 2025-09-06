@@ -13,9 +13,11 @@ import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.math.SolMath.roundPlaces
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.debugging.Perf
 import java.io.InputStream
 import kotlin.math.abs
 import kotlin.math.floor
+import kotlin.math.roundToInt
 
 class GeographicImageSource(
     val imageSize: Size,
@@ -27,6 +29,7 @@ class GeographicImageSource(
     private val include0ValuesInInterpolation: Boolean = true,
     private val interpolationOrder: Int = 1,
     private val valuePixelOffset: Float = 0f,
+    private val maxChannels: Int? = null,
     private val decoder: (Int?) -> List<Float> = { listOf(it?.toFloat() ?: 0f) }
 ) {
 
@@ -75,6 +78,7 @@ class GeographicImageSource(
         streamProvider: suspend () -> InputStream,
         pixels: List<PixelCoordinate>
     ): List<Pair<PixelCoordinate, List<Float>>> = onIO {
+        Perf.start("read")
         // Divide the pixels into subregions of at most 255x255 pixels in the original image (using x, y)
         val regions = mutableMapOf<Pair<Int, Int>, MutableList<PixelCoordinate>>()
         for (pixel in pixels) {
@@ -92,39 +96,94 @@ class GeographicImageSource(
             if (interpolate) BilinearInterpolator<Float>() else null,
             NearestInterpolator<Float>()
         )
+        Perf.start("load regions")
+        println("Loading ${regions.size} regions")
+        if (regions.size > 1){
+            println()
+        }
         for (region in regions.values) {
+            // TODO: Get the result back from the reader as a grid
+            Perf.start("load")
             val pixels = reader.getAllPixels(streamProvider(), region, true)
+            Perf.end("load")
             val decoded = pixels.map { it to decoder(it.value) }
-            val channels = decoded.firstOrNull()?.second?.size ?: 0
+            var channels = decoded.firstOrNull()?.second?.size ?: 0
+            if (maxChannels != null) {
+                channels = minOf(channels, maxChannels)
+            }
 
-            val allValues = (0 until channels).map { channel ->
-                decoded.map {
-                    PixelResult(
-                        it.first.x,
-                        it.first.y,
-                        it.second[channel]
-                    )
-                }.filter {
-                    include0ValuesInInterpolation || !SolMath.isZero(it.value)
+            var minX = Int.MAX_VALUE
+            var minY = Int.MAX_VALUE
+            var maxX = Int.MIN_VALUE
+            var maxY = Int.MIN_VALUE
+            for (pair in decoded) {
+                val pixelResult = pair.first
+
+                if (pixelResult.x < minX) {
+                    minX = pixelResult.x
+                }
+                if (pixelResult.y < minY) {
+                    minY = pixelResult.y
+                }
+                if (pixelResult.x > maxX) {
+                    maxX = pixelResult.x
+                }
+                if (pixelResult.y > maxY) {
+                    maxY = pixelResult.y
                 }
             }
 
+            val width = (maxX - minX) + 1
+            val height = (maxY - minY) + 1
+
+            val pixelGrid = List(channels) {
+                List(height) {
+                    MutableList(width) { Float.NaN }
+                }
+            }
+
+            (0 until channels).forEach { channel ->
+                decoded.forEach { pair ->
+                    val pixelResult = pair.first
+                    val values = pair.second
+
+                    if (!include0ValuesInInterpolation && SolMath.isZero(values[channel])) {
+                        return@forEach
+                    }
+
+                    val x = (pixelResult.x - minX)
+                    val y = (pixelResult.y - minY)
+
+                    if (x in 0 until width && y in 0 until height) {
+                        val value = values[channel]
+                        pixelGrid[channel][y][x] = value
+                    }
+                }
+            }
+
+            Perf.start("Interpolating")
             for (pixel in region) {
                 val interpolated = mutableListOf<Float>()
                 for (i in 0 until channels) {
-                    val values = allValues[i]
+                    val values = pixelGrid[i]
+                    val localPixel = PixelCoordinate(
+                        pixel.x - minX,
+                        pixel.y - minY
+                    )
                     interpolated.add(interpolators.firstNotNullOfOrNull {
-                        it.interpolate(
-                            pixel,
-                            values
-                        )
-                    }
-                        ?: 0f)
+                        it.interpolate(localPixel, values)
+                    } ?: 0f)
                 }
                 results.add(pixel to interpolated)
             }
+            Perf.end("Interpolating")
         }
+        Perf.end("load regions")
 
+        Perf.end("read")
+        println()
+        Perf.print()
+        Perf.clear()
         results
     }
 
@@ -195,45 +254,80 @@ class GeographicImageSource(
 interface PixelInterpolator<T : Number> {
     fun interpolate(
         pixel: PixelCoordinate,
-        pixels: List<PixelResult<T>>
+        pixels: List<List<T>>
     ): Float?
 }
 
 class NearestInterpolator<T : Number> : PixelInterpolator<T> {
     override fun interpolate(
-        point: PixelCoordinate,
-        values: List<PixelResult<T>>
+        pixel: PixelCoordinate,
+        pixels: List<List<T>>
     ): Float? {
-        return values.minByOrNull { point.distanceTo(it.coordinate) }?.value?.toFloat()
+        // TODO: Extract this
+        // Perform a grid search around the pixel for the closest point that is not NaN
+        val (x, y) = pixel
+        val (xInt, yInt) = listOf(x.roundToInt(), y.roundToInt())
+        val searchRadius = maxOf(pixels.size, pixels.firstOrNull()?.size ?: 0)
+
+        var closestValue: T? = null
+        var closestDistance = Float.MAX_VALUE
+
+        for (currentRadius in 0..searchRadius) {
+            for (i in -currentRadius..currentRadius) {
+                val j = currentRadius - abs(i)
+                listOf(j, -j).distinct().forEach { dy ->
+                    val cx = xInt + i
+                    val cy = yInt + dy
+                    val value = pixels.getOrNull(cy)?.getOrNull(cx)
+                    if (value != null && !value.toDouble().isNaN()) {
+                        val distance = (cx - x) * (cx - x) + (cy - y) * (cy - y)
+                        if (distance < closestDistance) {
+                            closestDistance = distance
+                            closestValue = value
+                        }
+                    }
+                }
+            }
+        }
+
+        return closestValue?.toFloat()
     }
 }
 
 class BilinearInterpolator<T : Number> : PixelInterpolator<T> {
     override fun interpolate(
-        point: PixelCoordinate,
-        values: List<PixelResult<T>>
+        pixel: PixelCoordinate,
+        pixels: List<List<T>>
     ): Float? {
         // Find the 4 corners
-        val xFloor = point.x.toInt()
-        val yFloor = point.y.toInt()
+        val xFloor = pixel.x.toInt()
+        val yFloor = pixel.y.toInt()
         val xCeil = xFloor + 1
         val yCeil = yFloor + 1
-        val x1y1 = values.firstOrNull { it.x == xFloor && it.y == yFloor }
-        val x1y2 = values.firstOrNull { it.x == xFloor && it.y == yCeil }
-        val x2y1 = values.firstOrNull { it.x == xCeil && it.y == yFloor }
-        val x2y2 = values.firstOrNull { it.x == xCeil && it.y == yCeil }
+        val x1y1 = pixels.getOrNull(yFloor)?.getOrNull(xFloor)
+        val x1y2 = pixels.getOrNull(yCeil)?.getOrNull(xFloor)
+        val x2y1 = pixels.getOrNull(yFloor)?.getOrNull(xCeil)
+        val x2y2 = pixels.getOrNull(yCeil)?.getOrNull(xCeil)
 
         // Not enough values to interpolate
         if (x1y1 == null || x1y2 == null || x2y1 == null || x2y2 == null) {
             return null
         }
 
+        if (x1y1.toDouble().isNaN() ||
+            x1y2.toDouble().isNaN() ||
+            x2y1.toDouble().isNaN() ||
+            x2y2.toDouble().isNaN()
+        ) {
+            return null
+        }
+
         // Interpolate
-        val x1y1Weight = (x2y1.x - point.x) * (x1y2.y - point.y)
-        val x1y2Weight = (x2y1.x - point.x) * (point.y - x1y1.y)
-        val x2y1Weight = (point.x - x1y1.x) * (x1y2.y - point.y)
-        val x2y2Weight = (point.x - x1y1.x) * (point.y - x1y1.y)
-        return x1y1.value.toFloat() * x1y1Weight + x1y2.value.toFloat() * x1y2Weight + x2y1.value.toFloat() * x2y1Weight + x2y2.value.toFloat() * x2y2Weight
+        val x1y1Weight = (xCeil - pixel.x) * (yCeil - pixel.y)
+        val x1y2Weight = (xCeil - pixel.x) * (pixel.y - yFloor)
+        val x2y1Weight = (pixel.x - xFloor) * (yCeil - pixel.y)
+        val x2y2Weight = (pixel.x - xFloor) * (pixel.y - yFloor)
+        return x1y1.toFloat() * x1y1Weight + x1y2.toFloat() * x1y2Weight + x2y1.toFloat() * x2y1Weight + x2y2.toFloat() * x2y2Weight
     }
 }
 
@@ -248,11 +342,11 @@ class BicubicInterpolator<T : Number> : PixelInterpolator<T> {
     }
 
     override fun interpolate(
-        point: PixelCoordinate,
-        values: List<PixelResult<T>>
+        pixel: PixelCoordinate,
+        pixels: List<List<T>>
     ): Float? {
-        val x = point.x
-        val y = point.y
+        val x = pixel.x
+        val y = pixel.y
 
         val xInt = floor(x).toInt()
         val yInt = floor(y).toInt()
@@ -264,16 +358,24 @@ class BicubicInterpolator<T : Number> : PixelInterpolator<T> {
         for (i in 0 until 4) {
             var value = 0f
             for (j in 0 until 4) {
-                val pixel = values.firstOrNull {
-                    it.x == xInt + j - 1 && it.y == yInt + i - 1
-                } ?: return null
-                value += pixel.value.toFloat() * cubic(fx - (j - 1).toFloat())
+                val currentX = xInt + j - 1
+                val currentY = yInt + i - 1
+                val pixelValue = pixels.getOrNull(currentY)?.getOrNull(currentX) ?: continue
+
+                if (pixelValue.toDouble().isNaN()) {
+                    return null
+                }
+
+                value += pixelValue.toFloat() * cubic(fx - (j - 1).toFloat())
             }
             rowVals.add(value)
         }
 
         var result = 0f
         for (i in 0 until 4) {
+            if (rowVals[i].isNaN()) {
+                return null
+            }
             result += rowVals[i] * cubic(fy - (i - 1).toFloat())
         }
 

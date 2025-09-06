@@ -76,9 +76,8 @@ object DEM {
                 if (shouldUseCache) {
                     cache.putAll(elevations.associate { it.first to it.second })
                 }
-                for (elevation in elevations) {
-                    results.add(elevation)
-                }
+
+                results.addAll(elevations)
 
                 if (remaining.isNotEmpty()) {
                     Log.d("DEM", "Looked up ${remaining.size} locations not in cache")
@@ -91,29 +90,33 @@ object DEM {
         bounds: CoordinateBounds,
         resolution: Double
     ): List<List<Pair<Coordinate, Float>>> = onDefault {
-        gridCache.getOrPut(getGridKey(bounds, resolution)) {
-            val latitudes = Interpolation.getMultiplesBetween(
-                bounds.south - resolution,
-                bounds.north + resolution,
-                resolution
-            )
+        val latitudes = Interpolation.getMultiplesBetween(
+            bounds.south - resolution,
+            bounds.north + resolution,
+            resolution
+        )
 
-            val longitudes = Interpolation.getMultiplesBetween(
-                bounds.west - resolution,
-                bounds.east + resolution,
-                resolution
-            )
+        val longitudes = Interpolation.getMultiplesBetween(
+            bounds.west - resolution,
+            bounds.east + resolution,
+            resolution
+        )
 
-            val toLookup = latitudes.map { lat ->
-                longitudes.map { lon -> Coordinate(lat, lon) }
+        gridCache.getOrPut(getGridKey(latitudes, longitudes, resolution)) {
+            val toLookupCoordinates = mutableListOf<Coordinate>()
+            latitudes.forEach { lat ->
+                longitudes.forEach { lon ->
+                    toLookupCoordinates.add(Coordinate(lat, lon))
+                }
             }
 
             val allElevations =
-                getElevations(toLookup.flatten()).map { it.first to it.second.meters().distance }
-            toLookup.map {
-                it.map { coord ->
-                    val elevation = allElevations.find { it.first == coord }?.second ?: 0f
-                    coord to elevation
+                getElevations(toLookupCoordinates).associate { it.first to it.second.meters().distance }
+            var i = 0
+            latitudes.map { lat ->
+                longitudes.map { lon ->
+                    val location = toLookupCoordinates[i++]
+                    location to (allElevations[location] ?: 0f)
                 }
             }
         }
@@ -169,7 +172,6 @@ object DEM {
     ): Bitmap = onDefault {
         val grid = getElevationGrid(bounds, resolution)
         val bitmap = createBitmap(grid[0].size, grid.size, Bitmap.Config.RGB_565)
-        println("${bitmap.width}x${bitmap.height}")
 
         val minElevation = grid.minOfOrNull { it.minOf { it.second } } ?: 0f
         val maxElevation = grid.maxOfOrNull { it.maxOf { it.second } } ?: 0f
@@ -297,7 +299,8 @@ object DEM {
                 precision = 10,
                 include0ValuesInInterpolation = false,
                 valuePixelOffset = valuePixelOffset,
-                interpolationOrder = 2
+                interpolationOrder = 2,
+                maxChannels = 1
             )
         }
     }
@@ -340,6 +343,7 @@ object DEM {
                     // TODO: Load pixels without interpolation and interpolate later - or add a multi image lookup?
                     val readings =
                         lookup.key!!.second.read(streamProvider, coordinates.map { it.first })
+
                     elevations.addAll(readings.mapNotNull {
                         val coordinate =
                             coordinates.firstOrNull { c -> c.first == it.first }?.second
@@ -362,8 +366,16 @@ object DEM {
         return prefs.altimeter.isDigitalElevationModelLoaded
     }
 
-    private fun getGridKey(bounds: CoordinateBounds, resolution: Double): String {
-        return "${bounds.north}_${bounds.east}_${bounds.south}_${bounds.west}_$resolution"
+    private fun getGridKey(
+        latitudes: List<Double>,
+        longitudes: List<Double>,
+        resolution: Double
+    ): String {
+        val minLatitude = latitudes.minOrNull() ?: 0.0
+        val maxLatitude = latitudes.maxOrNull() ?: 0.0
+        val minLongitude = longitudes.minOrNull() ?: 0.0
+        val maxLongitude = longitudes.maxOrNull() ?: 0.0
+        return "${minLatitude}_${maxLatitude}_${minLongitude}_${maxLongitude}_$resolution"
     }
 
 }
