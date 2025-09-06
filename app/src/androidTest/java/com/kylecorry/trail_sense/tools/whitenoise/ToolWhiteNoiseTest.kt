@@ -2,6 +2,8 @@ package com.kylecorry.trail_sense.tools.whitenoise
 
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isFalse
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isTrue
@@ -45,7 +47,16 @@ class ToolWhiteNoiseTest : ToolTestBase(Tools.WHITE_NOISE) {
         // TODO: The UIAutomator can't enter text in the duration input
 //        canSetSleepTimer()
 
+        canChangeSleepSound()
+
         verifyQuickAction()
+    }
+
+    private fun canChangeSleepSound(){
+        click("Pink noise", contains = true)
+        click("Crickets")
+        clickOk()
+        hasText("Crickets")
     }
 
     private fun canSetSleepTimer() {
