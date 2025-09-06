@@ -28,6 +28,12 @@ If your device does not have a compass, you can still choose to display the comp
 
 Layers are used to display information on the radar compass. You can find layer settings in Settings > Navigation or by long pressing the radar compass. You can choose to hide and show layers using the switch next to each layer's name. The opacity setting for each layer determines how transparent the layer is. 0 is fully transparent and 100 is fully opaque.
 
+#### Elevation
+This layer shows the elevation from the digital elevation model (DEM) as color. You can change the DEM in Settings > Altimeter.
+
+#### Hillshade
+This layer draws shadows to help see elevation in the terrain from the digital elevation model (DEM). You can change the DEM in Settings > Altimeter.
+
 #### Photo Maps
 This layer shows visible Photo Maps, with the most zoomed-in map appearing on top. You can add new maps in the Photo Maps tool.
 

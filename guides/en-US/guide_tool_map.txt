@@ -25,6 +25,12 @@ Layers are used to display information on the map. You can find layer settings i
 ### Base map
 This layer shows a map of the world with colors based on satellite imagery. It is very low resolution and not suitable for navigation.
 
+### Elevation
+This layer shows the elevation from the digital elevation model (DEM) as color. You can change the DEM in Settings > Altimeter.
+
+### Hillshade
+This layer draws shadows to help see elevation in the terrain from the digital elevation model (DEM). You can change the DEM in Settings > Altimeter.
+
 ### Photo Maps
 This layer shows visible Photo Maps, with the most zoomed-in map appearing on top. You can add new maps in the Photo Maps tool.
 
