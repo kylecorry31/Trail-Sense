@@ -271,23 +271,19 @@ ETOPO 2022 metadata may be accessed here: ETOPO 2022 metadata landing page"""
             "Survival guide",
             ""
         ) {
+            """The survival guide is licensed under CC BY-SA 4.0 and was written by Kyle Corry""".trimIndent()
+        },
+        Library(
+            "Elevation colors",
+            ""
+        ){
             """
-The Survival Guide was written by Kyle Corry. It is based on information from the US Army's survival guide and other sources.
-
-The images in the survival guide are from the following sources:
-- SURVIVAL; Department of the Army: https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/ARN12086_ATP%203-50x21%20FINAL%20WEB%202.pdf, public domain
-
-- https://commons.wikimedia.org/wiki/File:Inonotus_obliquus.jpg (Modified from original), CC SA 3.0
-
-- https://commons.wikimedia.org/wiki/File:Running_stitch.gif, public domain
-
-- https://commons.wikimedia.org/wiki/File:Whip_stitch.jpg, CC SA 3.0
-
-- https://commons.wikimedia.org/wiki/File:Kopiva.JPG, CC SA 3.0
-
-- https://oceanservice.noaa.gov/education/tutorial_tides/tides07_cycles.html#1, public domain
-
-                    """.trimIndent()
+                The elevation colors for map layers were designed by various authors.
+                
+                - USGS: U.S. Geological Survey and R. Langford under CC Attribution-NonCommercial 3.0 unported (2021) https://creativecommons.org/licenses/by-nc/3.0/
+                - Natural: Tom Patterson under public domain
+                - Viridis, Magma, Plasma, Inferno: Nathaniel J. Smith, Stefan van der Walt, and Eric Firing under CC0 1.0 Universal (http://creativecommons.org/publicdomain/zero/1.0)
+            """.trimIndent()
         }
     )
 

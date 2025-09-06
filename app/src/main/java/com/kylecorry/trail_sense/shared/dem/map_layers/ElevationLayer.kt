@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.shared.dem.map_layers
 import android.graphics.Bitmap
 import android.graphics.Paint
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
-import com.kylecorry.andromeda.core.ui.colormaps.RgbInterpolationColorMap
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.coroutines.onMain
 import com.kylecorry.sol.math.SolMath
@@ -12,6 +11,7 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.dem.DEM
+import com.kylecorry.trail_sense.shared.dem.colors.USGSElevationColorMap
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
@@ -36,23 +36,22 @@ class ElevationLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBa
                     bounds,
                     validResolutions[zoomLevel]!!
                 ) { elevation, _, maxElevation ->
-                    val maxScaleElevation = if (useDynamicElevationScale) {
+                    if (useDynamicElevationScale) {
                         var max = (maxElevation * 1.25f).roundNearest(1000f)
                         if (max < maxElevation) {
                             max += 1000f
                         }
-                        max
-                    } else {
-                        this.maxScaleElevation
-                    }
-                    colorScale.getColor(
-                        SolMath.norm(
-                            elevation,
-                            minScaleElevation,
-                            maxScaleElevation,
-                            true
+                        colorScale.getColor(
+                            SolMath.norm(
+                                elevation,
+                                minScaleElevation,
+                                max,
+                                true
+                            )
                         )
-                    )
+                    } else {
+                        colorScale.getElevationColor(elevation)
+                    }
                 }
             synchronized(elevationLock) {
                 elevation?.recycle()
@@ -93,20 +92,10 @@ class ElevationLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBa
     private var elevationBounds: CoordinateBounds? = null
     private var lastZoomLevel = -1
 
-    // https://hub.qgis.org/styles/195/
-    private val colorScale = RgbInterpolationColorMap(
-        arrayOf(
-            0xFFBFC9A3.toInt(),
-            0xFF90B77E.toInt(),
-            0xFFFCD7B6.toInt(),
-            0xFFDDA36E.toInt(),
-            0xFFC47747.toInt()
-        )
-    )
+    private val colorScale = USGSElevationColorMap()
 
     private val useDynamicElevationScale = false
     private val minScaleElevation = 0f
-    private val maxScaleElevation = 3000f
 
     fun setPreferences(prefs: ElevationMapLayerPreferences) {
         _percentOpacity = prefs.opacity.get() / 100f

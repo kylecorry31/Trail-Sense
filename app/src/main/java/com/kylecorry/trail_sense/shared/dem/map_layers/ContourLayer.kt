@@ -4,7 +4,6 @@ import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.math.DecimalFormatter
-import com.kylecorry.andromeda.core.ui.colormaps.RgbInterpolationColorMap
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.units.Distance
@@ -15,6 +14,7 @@ import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.dem.Contour
 import com.kylecorry.trail_sense.shared.dem.DEM
+import com.kylecorry.trail_sense.shared.dem.colors.TrailSenseExaggeratedElevationColorMap
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
@@ -51,14 +51,7 @@ class ContourLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBack
                     Distance.Companion.meters(level.elevation).convertTo(units).distance, 0
                 )
                 val color = if (shouldColorContours) {
-                    colorScale.getColor(
-                        SolMath.norm(
-                            level.elevation,
-                            minScaleElevation,
-                            maxScaleElevation,
-                            true
-                        )
-                    )
+                    colorScale.getElevationColor(level.elevation)
                 } else {
                     AppColor.Brown.color
                 }
@@ -105,41 +98,7 @@ class ContourLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBack
     }
 
     private var shouldColorContours = false
-    private val colorScale = RgbInterpolationColorMap(
-        arrayOf(
-            0xFF006400.toInt(), // Dark green (0m)
-            0xFF90EE90.toInt(), // Light green (~500m)
-            0xFFFFFF00.toInt(), // Yellow (~1000m)
-            0xFFA52A2A.toInt(), // Brown (~1500m)
-            0xFFFF4500.toInt(), // Orange (~2000m)
-            0xFF800080.toInt()  // Purple (~3000m)
-            /*
-            // These don't work well when the background color is green (they are meant to fill in the contours)
-            // https://en.wikipedia.org/wiki/Wikipedia:WikiProject_Maps/Conventions/Topographic_maps
-            0xACD0A5, // 0m
-            0x94BF8B, // 250m
-            0xA8C68F, // 500m
-            0xBDCC96, // 750m
-            0xD1D7AB, // 1000m
-            0xE1E4B5, // 1250m
-            0xEFEBC0, // 1500m
-            0xE8E1B6, // 1750m
-            0xDED6A3, // 2000m
-            0xD3CA9D, // 2250m
-            0xCAB982, // 2500m
-            0xC3A76B, // 2750m
-            0xB9985A, // 3000m
-            0xAA8753, // 3250m
-            0xAC9A7C, // 3500m
-            0xBAAE9A, // 3750m
-            0xCAC3B8, // 4000m
-            0xE0DED8, // 4250m
-            0xF5F4F2  // 4500m
-             */
-        )
-    )
-    private val minScaleElevation = 0f
-    private val maxScaleElevation = 3000f
+    private val colorScale = TrailSenseExaggeratedElevationColorMap()
 
     private val validIntervals by lazy {
         if (units.isMetric) {
