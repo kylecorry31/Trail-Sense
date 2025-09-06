@@ -39,8 +39,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     private var onLongPressCallback: ((Coordinate) -> Unit)? = null
 
     init {
-        // TODO: Only do this if layers change - they need to be able to notify the map
-        runEveryCycle = true
+        runEveryCycle = false
     }
 
     fun setOnLongPressListener(callback: ((Coordinate) -> Unit)?) {
