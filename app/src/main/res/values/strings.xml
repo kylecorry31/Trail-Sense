@@ -1784,4 +1784,11 @@
     <string name="sleep_sound_ocean_waves">Ocean waves</string>
     <string name="sleep_sound_fan">Fan</string>
     <string name="hillshade">Hillshade</string>
+    <string name="color_usgs">USGS</string>
+    <string name="color_grayscale">Grayscale</string>
+    <string name="color_vibrant">Vibrant</string>
+    <string name="color_muted">Muted</string>
+    <string name="color_viridis">Viridis</string>
+    <string name="color_inferno">Inferno</string>
+    <string name="color_plasma">Plasma</string>
 </resources>

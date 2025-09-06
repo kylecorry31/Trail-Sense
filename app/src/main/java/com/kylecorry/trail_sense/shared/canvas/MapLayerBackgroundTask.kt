@@ -20,6 +20,7 @@ class MapLayerBackgroundTask {
     private val runner = CoroutineQueueRunner2(1, queuePolicy = BufferOverflow.DROP_OLDEST)
     private val lock = Mutex()
     private val taskLock = Any()
+    private var isDirty = true
 
     private val tasks =
         mutableListOf<suspend (bounds: CoordinateBounds, metersPerPixel: Float) -> Unit>()
@@ -28,11 +29,21 @@ class MapLayerBackgroundTask {
         synchronized(taskLock) {
             tasks.add(task)
         }
+        scope.launch {
+            lock.withLock {
+                isDirty = true
+            }
+        }
     }
 
     fun clearTasks() {
         synchronized(taskLock) {
             tasks.clear()
+        }
+        scope.launch {
+            lock.withLock {
+                isDirty = true
+            }
         }
     }
 
@@ -41,7 +52,7 @@ class MapLayerBackgroundTask {
         metersPerPixel: Float,
         isInvalid: Boolean = false,
         update: suspend (bounds: CoordinateBounds, metersPerPixel: Float) -> Unit = { bounds, metersPerPixel ->
-            val taskCopy = synchronized(taskLock){
+            val taskCopy = synchronized(taskLock) {
                 tasks.toList()
             }
             for (task in taskCopy) {
@@ -52,7 +63,7 @@ class MapLayerBackgroundTask {
         scope.launch {
             lock.withLock {
                 // If the bounds/meters per pixel have already been ran or queued, exit
-                if (!isInvalid && areBoundsEqual(
+                if (!isDirty && !isInvalid && areBoundsEqual(
                         bounds,
                         lastRunBounds ?: CoordinateBounds.Companion.empty
                     ) &&
@@ -91,6 +102,7 @@ class MapLayerBackgroundTask {
                 // This will be queued up
                 lastQueuedBounds = bounds
                 lastQueuedMetersPerPixel = metersPerPixel
+                isDirty = false
 
                 // Otherwise queue it up
                 val run = suspend {
@@ -115,8 +127,9 @@ class MapLayerBackgroundTask {
         }
     }
 
-    fun cancelUpdates() {
+    fun stop() {
         runner.cancel()
+        clearTasks()
     }
 
     private fun areBoundsEqual(bounds1: CoordinateBounds, bound2: CoordinateBounds): Boolean {

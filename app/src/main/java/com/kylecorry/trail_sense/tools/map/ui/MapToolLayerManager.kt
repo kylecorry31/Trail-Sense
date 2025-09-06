@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.map.ui
 
 import android.content.Context
 import android.graphics.Color
+import android.view.View
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -79,7 +80,6 @@ class MapToolLayerManager {
     fun resume(context: Context, view: IMapView) {
         val hasCompass = SensorService(context).hasCompass()
 
-        taskRunner.clearTasks()
         contourLayer = ContourLayer(taskRunner)
         hillshadeLayer = HillshadeLayer(taskRunner)
         elevationLayer = ElevationLayer(taskRunner)
@@ -197,7 +197,7 @@ class MapToolLayerManager {
     }
 
     fun pause(context: Context, view: IMapView) {
-        taskRunner.clearTasks()
+        taskRunner.stop()
         layerManager?.stop()
         layerManager = null
         PhotoMapRegionLoader.removeUnneededLoaders(emptyList())

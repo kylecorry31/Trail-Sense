@@ -47,7 +47,6 @@ class NavigationCompassLayerManager {
 
     fun resume(context: Context, view: IMapView) {
         val hasCompass = SensorService(context).hasCompass()
-        taskRunner.clearTasks()
         contourLayer = ContourLayer(taskRunner)
         elevationLayer = ElevationLayer(taskRunner)
         hillshadeLayer = HillshadeLayer(taskRunner)
@@ -116,7 +115,7 @@ class NavigationCompassLayerManager {
     }
 
     fun pause(context: Context, view: IMapView) {
-        taskRunner.clearTasks()
+        taskRunner.stop()
         layerManager?.stop()
         layerManager = null
         PhotoMapRegionLoader.removeUnneededLoaders(emptyList())

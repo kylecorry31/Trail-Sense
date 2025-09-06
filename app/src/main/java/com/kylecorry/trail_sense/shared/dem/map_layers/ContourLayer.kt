@@ -14,7 +14,7 @@ import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.dem.Contour
 import com.kylecorry.trail_sense.shared.dem.DEM
-import com.kylecorry.trail_sense.shared.dem.colors.TrailSenseExaggeratedElevationColorMap
+import com.kylecorry.trail_sense.shared.dem.colors.TrailSenseVibrantElevationColorMap
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
@@ -98,7 +98,7 @@ class ContourLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBack
     }
 
     private var shouldColorContours = false
-    private val colorScale = TrailSenseExaggeratedElevationColorMap()
+    private val colorScale = TrailSenseVibrantElevationColorMap()
 
     private val validIntervals by lazy {
         if (units.isMetric) {

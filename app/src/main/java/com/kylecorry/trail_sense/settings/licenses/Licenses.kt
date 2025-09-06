@@ -281,7 +281,7 @@ ETOPO 2022 metadata may be accessed here: ETOPO 2022 metadata landing page"""
                 The elevation colors for map layers were designed by various authors.
                 
                 - USGS: U.S. Geological Survey and R. Langford under CC Attribution-NonCommercial 3.0 unported (2021) https://creativecommons.org/licenses/by-nc/3.0/
-                - Natural: Tom Patterson under public domain
+                - Muted: Tom Patterson under public domain
                 - Viridis, Magma, Plasma, Inferno: Nathaniel J. Smith, Stefan van der Walt, and Eric Firing under CC0 1.0 Universal (http://creativecommons.org/publicdomain/zero/1.0)
             """.trimIndent()
         }

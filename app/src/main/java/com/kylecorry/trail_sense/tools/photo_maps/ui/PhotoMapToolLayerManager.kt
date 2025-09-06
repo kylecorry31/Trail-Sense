@@ -14,6 +14,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayerManager
@@ -36,6 +37,8 @@ import com.kylecorry.trail_sense.tools.tides.map_layers.TideMapLayerManager
 
 class PhotoMapToolLayerManager {
 
+    private val taskRunner = MapLayerBackgroundTask()
+
     private var onBeaconClick: ((Beacon) -> Unit)? = null
 
     private val pathLayer = PathLayer()
@@ -45,7 +48,7 @@ class PhotoMapToolLayerManager {
     }
     private val myLocationLayer = MyLocationLayer()
     private val tideLayer = TideMapLayer()
-    private val contourLayer = ContourLayer()
+    private var contourLayer: ContourLayer? = null
     private val navigationLayer = NavigationLayer()
     private val scaleBarLayer = ScaleBarLayer()
     private var myElevationLayer: MyElevationLayer? = null
@@ -59,6 +62,8 @@ class PhotoMapToolLayerManager {
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
 
     fun resume(context: Context, view: IMapView) {
+        contourLayer = ContourLayer(taskRunner)
+
         // Location layer
         val hasCompass = SensorService(context).hasCompass()
         if (!hasCompass) {
@@ -98,7 +103,7 @@ class PhotoMapToolLayerManager {
         navigationLayer.setPreferences(prefs.photoMaps.navigationLayer)
 
         // Contour layer
-        contourLayer.setPreferences(prefs.photoMaps.contourLayer)
+        contourLayer?.setPreferences(prefs.photoMaps.contourLayer)
 
         // Distance layer
         distanceLayer.isEnabled = false
@@ -160,6 +165,7 @@ class PhotoMapToolLayerManager {
     }
 
     fun pause(context: Context, view: IMapView) {
+        taskRunner.stop()
         layerManager?.stop()
         layerManager = null
     }

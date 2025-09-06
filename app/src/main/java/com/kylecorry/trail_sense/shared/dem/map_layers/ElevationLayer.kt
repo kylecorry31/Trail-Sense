@@ -11,6 +11,8 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.dem.DEM
+import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorMap
+import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorMapFactory
 import com.kylecorry.trail_sense.shared.dem.colors.USGSElevationColorMap
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
@@ -92,13 +94,14 @@ class ElevationLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBa
     private var elevationBounds: CoordinateBounds? = null
     private var lastZoomLevel = -1
 
-    private val colorScale = USGSElevationColorMap()
+    private var colorScale: ElevationColorMap = USGSElevationColorMap()
 
     private val useDynamicElevationScale = false
     private val minScaleElevation = 0f
 
     fun setPreferences(prefs: ElevationMapLayerPreferences) {
         _percentOpacity = prefs.opacity.get() / 100f
+        colorScale = ElevationColorMapFactory().getElevationColorMap(prefs.colorStrategy.get())
         invalidate()
     }
 
