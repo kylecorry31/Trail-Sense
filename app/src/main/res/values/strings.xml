@@ -1791,4 +1791,8 @@
     <string name="color_viridis">Viridis</string>
     <string name="color_inferno">Inferno</string>
     <string name="color_plasma">Plasma</string>
+    <string name="color_black">Black</string>
+    <string name="color_brown">Brown</string>
+    <string name="color_gray">Gray</string>
+    <string name="color_white">White</string>
 </resources>

@@ -11,9 +11,10 @@ import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
 import com.kylecorry.trail_sense.shared.canvas.MapLayerBackgroundTask
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.dem.Contour
 import com.kylecorry.trail_sense.shared.dem.DEM
+import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorMap
+import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorMapFactory
 import com.kylecorry.trail_sense.shared.dem.colors.TrailSenseVibrantElevationColorMap
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
@@ -50,11 +51,7 @@ class ContourLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBack
                 val name = DecimalFormatter.format(
                     Distance.Companion.meters(level.elevation).convertTo(units).distance, 0
                 )
-                val color = if (shouldColorContours) {
-                    colorScale.getElevationColor(level.elevation)
-                } else {
-                    AppColor.Brown.color
-                }
+                val color = colorScale.getElevationColor(level.elevation)
                 level.lines.map { line ->
                     MappablePath(
                         i++,
@@ -93,12 +90,11 @@ class ContourLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBack
         pathLayer.setShouldRenderLabels(prefs.showLabels.get())
         // TODO: More experimentation required before this is enabled for everyone
 //        pathLayer.setShouldRenderSmoothPaths(isDebug())
-        shouldColorContours = prefs.colorWithElevation.get()
+        colorScale = ElevationColorMapFactory().getElevationColorMap(prefs.colorStrategy.get())
         invalidate()
     }
 
-    private var shouldColorContours = false
-    private val colorScale = TrailSenseVibrantElevationColorMap()
+    private var colorScale: ElevationColorMap = TrailSenseVibrantElevationColorMap()
 
     private val validIntervals by lazy {
         if (units.isMetric) {

@@ -6,6 +6,7 @@ import com.kylecorry.luna.text.toIntCompat
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.AppState
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorStrategy
 import com.kylecorry.trail_sense.shared.extensions.getIntArray
 import com.kylecorry.trail_sense.shared.extensions.putIntArray
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -45,7 +46,7 @@ class PreferenceMigrator private constructor() {
         private var instance: PreferenceMigrator? = null
         private val staticLock = Object()
 
-        private const val version = 18
+        private const val version = 19
         private val migrations = listOf(
             PreferenceMigration(0, 1) { _, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -222,6 +223,17 @@ class PreferenceMigrator private constructor() {
                 val userPrefs = UserPreferences(context)
                 // Disable the map layer by default for returning users to not be disruptive
                 userPrefs.navigation.photoMapLayer.isEnabled.set(!AppState.isReturningUser)
+            },
+            PreferenceMigration(18, 19) { context, prefs ->
+                val mapIds = listOf("navigation", "map", "photo_maps")
+                for (mapId in mapIds) {
+                    if (prefs.getBoolean("pref_${mapId}_contour_layer_color_with_elevation") == true) {
+                        prefs.putString(
+                            "pref_${mapId}_contour_layer_color",
+                            ElevationColorStrategy.Vibrant.id.toString()
+                        )
+                    }
+                }
             }
         )
 

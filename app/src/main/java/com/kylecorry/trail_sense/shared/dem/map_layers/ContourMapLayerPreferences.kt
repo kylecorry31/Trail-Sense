@@ -2,10 +2,13 @@ package com.kylecorry.trail_sense.shared.dem.map_layers
 
 import android.content.Context
 import com.kylecorry.andromeda.preferences.BooleanPreference
+import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
+import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorStrategy
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.shared.map_layers.preferences.definition.LabelMapLayerPreference
+import com.kylecorry.trail_sense.shared.map_layers.preferences.definition.ListMapLayerPreference
 import com.kylecorry.trail_sense.shared.map_layers.preferences.definition.MapLayerPreferenceConfig
 import com.kylecorry.trail_sense.shared.map_layers.preferences.definition.MapLayerViewPreference
 import com.kylecorry.trail_sense.shared.map_layers.preferences.definition.SwitchMapLayerPreference
@@ -52,6 +55,37 @@ class ContourMapLayerPreferences(
         )
     )
 
+    private var _colorStrategy by StringEnumPreference(
+        cache,
+        "pref_${mapId}_${layerId}_layer_color",
+        ElevationColorStrategy.entries.associateBy { it.id.toString() },
+        ElevationColorStrategy.Brown
+    )
+
+    val colorStrategy = MapLayerPreferenceConfig(
+        get = { _colorStrategy },
+        set = { _colorStrategy = it },
+        preference = ListMapLayerPreference(
+            context.getString(R.string.color),
+            "${layerId}_layer_color",
+            listOf(
+                context.getString(R.string.color_black) to ElevationColorStrategy.Black.id.toString(),
+                context.getString(R.string.color_brown) to ElevationColorStrategy.Brown.id.toString(),
+                context.getString(R.string.color_gray) to ElevationColorStrategy.Gray.id.toString(),
+                context.getString(R.string.color_white) to ElevationColorStrategy.White.id.toString(),
+                context.getString(R.string.color_usgs) to ElevationColorStrategy.USGS.id.toString(),
+                context.getString(R.string.color_grayscale) to ElevationColorStrategy.Grayscale.id.toString(),
+                context.getString(R.string.color_muted) to ElevationColorStrategy.Muted.id.toString(),
+                context.getString(R.string.color_vibrant) to ElevationColorStrategy.Vibrant.id.toString(),
+                context.getString(R.string.color_viridis) to ElevationColorStrategy.Viridis.id.toString(),
+                context.getString(R.string.color_inferno) to ElevationColorStrategy.Inferno.id.toString(),
+                context.getString(R.string.color_plasma) to ElevationColorStrategy.Plasma.id.toString(),
+            ),
+            dependency = enabledPreferenceId,
+            defaultValue = ElevationColorStrategy.Brown.id.toString()
+        )
+    )
+
     override fun getAllPreferences(): List<MapLayerViewPreference> {
         return listOf(
             isEnabled.preference,
@@ -66,7 +100,7 @@ class ContourMapLayerPreferences(
             },
             opacity.preference,
             showLabels.preference,
-            colorWithElevation.preference
+            colorStrategy.preference
         )
     }
 }
