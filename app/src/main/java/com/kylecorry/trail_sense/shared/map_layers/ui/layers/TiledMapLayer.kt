@@ -11,6 +11,7 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.trail_sense.main.errors.SafeMode
+import com.kylecorry.trail_sense.shared.andromeda_temp.grow
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.device.DeviceSubsystem
 import com.kylecorry.trail_sense.shared.map_layers.tiles.ITileSourceSelector
@@ -123,23 +124,6 @@ class TiledMapLayer : IAsyncLayer {
         } else {
             0.2f
         }
-    }
-
-    private fun CoordinateBounds.grow(percent: Float): CoordinateBounds {
-        val x = this.width() * percent
-        val y = this.height() * percent
-        return CoordinateBounds.Companion.from(
-            listOf(
-                northWest.plus(x, Bearing.Companion.from(CompassDirection.West))
-                    .plus(y, Bearing.Companion.from(CompassDirection.North)),
-                northEast.plus(x, Bearing.Companion.from(CompassDirection.East))
-                    .plus(y, Bearing.Companion.from(CompassDirection.North)),
-                southWest.plus(x, Bearing.Companion.from(CompassDirection.West))
-                    .plus(y, Bearing.Companion.from(CompassDirection.South)),
-                southEast.plus(x, Bearing.Companion.from(CompassDirection.East))
-                    .plus(y, Bearing.Companion.from(CompassDirection.South)),
-            )
-        )
     }
 
     private fun renderTiles(canvas: Canvas, map: IMapView) {
