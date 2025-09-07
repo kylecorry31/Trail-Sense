@@ -49,7 +49,8 @@ android {
         aidl = true
     }
     buildTypes {
-        // Release build (Google Play / F-Droid)
+        // ------- RELEASES -------
+        // F-Droid
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
@@ -58,47 +59,63 @@ android {
                 "proguard-rules.pro"
             )
         }
+        // Play Store
+        create("playStore"){
+            initWith(getByName("release"))
+        }
+        // GitHub
+        create("github") {
+            initWith(getByName("release"))
+            signingConfig = signingConfigs.getByName("dev")
+        }
+
+        // ------- DEVELOPMENT -------
+        // Local debug
         getByName("debug"){
             testProguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
-        // Staging build (a release build with a ID)
+        // Staging
         create("staging") {
             initWith(getByName("release"))
             applicationIdSuffix = ".staging"
             versionNameSuffix = "-staging"
         }
-        // Play store build
-        create("playStore"){
-            initWith(getByName("release"))
-        }
-        // Debug build (GitHub)
-        create("dev") {
-            initWith(getByName("debug"))
-            signingConfig = signingConfigs.getByName("dev")
-            applicationIdSuffix = ".dev"
-            versionNameSuffix = "-dev"
-        }
-        // Release build (GitHub) - uses the same signing as the dev build
-        create("github") {
-            initWith(getByName("release"))
-            signingConfig = signingConfigs.getByName("dev")
-            applicationIdSuffix = ".github"
-            versionNameSuffix = "-github"
-        }
+
+        // ------- NIGHTLY -------
+
+        // Debug
         create("nightly") {
             initWith(getByName("debug"))
             signingConfig = signingConfigs.getByName("nightly")
             applicationIdSuffix = ".nightly"
             versionNameSuffix = "-nightly-${LocalDate.now()}"
         }
+        // Release
         create("nightlyRelease") {
             initWith(getByName("release"))
             signingConfig = signingConfigs.getByName("nightly")
             applicationIdSuffix = ".nightly_release"
             versionNameSuffix = "-nightly-release-${LocalDate.now()}"
+        }
+
+        // ------- DEPRECATED -------
+
+        // Legacy debug build for GitHub
+        create("dev") {
+            initWith(getByName("debug"))
+            signingConfig = signingConfigs.getByName("dev")
+            applicationIdSuffix = ".dev"
+            versionNameSuffix = "-dev"
+        }
+        // Legacy release build for GitHub
+        create("legacyGithub") {
+            initWith(getByName("release"))
+            signingConfig = signingConfigs.getByName("dev")
+            applicationIdSuffix = ".github"
+            versionNameSuffix = "-github"
         }
     }
     testOptions {
