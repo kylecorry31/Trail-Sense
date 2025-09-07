@@ -24,7 +24,9 @@ import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
+import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 import com.kylecorry.trail_sense.tools.paths.ui.IPathLayer
+import com.kylecorry.trail_sense.tools.paths.ui.PathBackgroundColor
 import com.kylecorry.trail_sense.tools.paths.ui.drawing.ClippedPathRenderer
 import com.kylecorry.trail_sense.tools.paths.ui.drawing.IRenderedPathFactory
 import com.kylecorry.trail_sense.tools.paths.ui.drawing.PathLineDrawerFactory
@@ -58,8 +60,15 @@ class PathLayer : IAsyncLayer, IPathLayer {
 
     private var currentScale = 1f
 
+    private var backgroundColor: Int? = null
+
     fun setPreferences(prefs: PathMapLayerPreferences) {
         _percentOpacity = prefs.opacity.get() / 100f
+        backgroundColor = when (prefs.backgroundColor.get()) {
+            PathBackgroundColor.None -> null
+            PathBackgroundColor.Black -> Color.BLACK
+            PathBackgroundColor.White -> Color.WHITE
+        }
         invalidate()
     }
 
@@ -115,6 +124,19 @@ class PathLayer : IAsyncLayer, IPathLayer {
                 drawer.scale(relativeScale)
                 drawer.strokeJoin(StrokeJoin.Round)
                 drawer.strokeCap(StrokeCap.Round)
+                backgroundColor?.let { backgroundColor ->
+                    factory.create(LineStyle.Solid).draw(
+                        drawer,
+                        backgroundColor,
+                        strokeScale = 0.75f * scale / (path.originalPath?.thicknessScale ?: 1f)
+                    ) {
+                        if (shouldRenderWithDrawLines || path.path == null) {
+                            lines(path.line.toFloatArray())
+                        } else {
+                            path(path.path)
+                        }
+                    }
+                }
                 pathDrawer.draw(
                     drawer,
                     path.color,

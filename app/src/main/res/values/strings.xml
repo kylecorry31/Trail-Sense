@@ -1795,4 +1795,5 @@
     <string name="color_brown">Brown</string>
     <string name="color_gray">Gray</string>
     <string name="color_white">White</string>
+    <string name="background_color">Background color</string>
 </resources>

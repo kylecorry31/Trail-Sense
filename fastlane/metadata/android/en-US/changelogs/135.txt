@@ -1,6 +1,7 @@
 Map layers
 - Add elevation and hillshade layers
 - Add color settings for contour layer
+- Add background color setting for paths layer
 
 Field Guide
 - Add sightings log for each page

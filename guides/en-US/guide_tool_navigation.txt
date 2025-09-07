@@ -56,6 +56,10 @@ Settings:
 #### Paths
 This layer shows visible paths. You can add new paths in the Paths tool.
 
+Settings:
+
+- **Background color**: The background color to render behind paths for increased visibility.
+
 #### Beacons
 This layer shows visible beacons. You can add new beacons in the Beacons tool.
 
