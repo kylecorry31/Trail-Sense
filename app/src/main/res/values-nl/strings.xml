@@ -1455,4 +1455,16 @@
     <string name="sleep_sound_crickets_no_chirping">Krekels (zonder tjirpen)</string>
     <string name="sleep_sound_ocean_waves">Oceaangolven</string>
     <string name="sleep_sound_fan">Ventilator</string>
+    <string name="hillshade">Heuvelschaduw</string>
+    <string name="color_usgs">USGS</string>
+    <string name="color_grayscale">Grijswaarden</string>
+    <string name="color_vibrant">Levendig</string>
+    <string name="color_muted">Gedempt</string>
+    <string name="color_viridis">Viridis</string>
+    <string name="color_inferno">Inferno</string>
+    <string name="color_plasma">Plasma</string>
+    <string name="color_black">Zwart</string>
+    <string name="color_brown">Bruin</string>
+    <string name="color_gray">Grijs</string>
+    <string name="color_white">Wit</string>
 </resources>
