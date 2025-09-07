@@ -2,25 +2,18 @@ package com.kylecorry.trail_sense.shared.andromeda_temp
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Point
 import android.graphics.Rect
 import android.util.Size
 import androidx.core.graphics.blue
-import androidx.core.graphics.createBitmap
 import androidx.core.graphics.get
 import androidx.core.graphics.green
 import androidx.core.graphics.red
-import com.kylecorry.andromeda.bitmaps.BitmapUtils
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.files.AssetFileSystem
 import com.kylecorry.sol.math.SolMath.wrap
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.data.GeographicImageSource
 import java.io.InputStream
-import kotlin.math.max
-import kotlin.math.min
 import kotlin.math.roundToInt
 
 object GeographicImageUtils {
@@ -123,87 +116,7 @@ object GeographicImageUtils {
         // Step 2: Load as much of the region as possible
         val rect = Rect(left, top, right, bottom)
 
-        return decodeBitmapRegionWrapped(stream, rect, fullImageSize)
+        return ImageRegionLoader.decodeBitmapRegionWrapped(stream, rect, fullImageSize, wrap = true)
     }
 
-    fun decodeBitmapRegionWrapped(stream: InputStream, rect: Rect, imageSize: Size): Bitmap {
-        val left = rect.left
-        val top = rect.top
-        val right = rect.right
-        val width = rect.width()
-        val height = rect.height()
-        val fullImageWidth = imageSize.width
-
-        val resultBitmap = createBitmap(width, height)
-        val canvas = Canvas(resultBitmap)
-
-        val rectsToLoad = mutableListOf<Pair<Point, Rect>>()
-
-        // Center
-        val centerIntersection = getIntersection(rect, imageSize)
-        val centerOffsetX = centerIntersection.left - left
-        val centerOffsetY = centerIntersection.top - top
-        if (centerIntersection.width() > 0 && centerIntersection.height() > 0) {
-            rectsToLoad.add(
-                Pair(
-                    Point(centerOffsetX, centerOffsetY),
-                    centerIntersection
-                )
-            )
-        }
-
-        // Left (display the right side of the image)
-        if (centerOffsetX > 0) {
-            val leftRect = Rect(
-                fullImageWidth - centerOffsetX,
-                centerIntersection.top,
-                fullImageWidth,
-                centerIntersection.bottom
-            )
-            rectsToLoad.add(
-                Pair(
-                    Point(0, centerOffsetY),
-                    leftRect
-                )
-            )
-        }
-
-        // Right (display the left side of the image)
-        if (right > fullImageWidth) {
-            val rightRect = Rect(
-                0,
-                centerIntersection.top,
-                right - fullImageWidth,
-                centerIntersection.bottom
-            )
-            rectsToLoad.add(
-                Pair(
-                    Point(centerIntersection.width() + centerOffsetX, centerOffsetY),
-                    rightRect
-                )
-            )
-        }
-
-        for ((offset, rectToLoad) in rectsToLoad) {
-            val bitmap = BitmapUtils.decodeRegion(
-                stream,
-                rectToLoad,
-                null,
-                autoClose = false,
-                enforceBounds = true
-            ) ?: continue
-            canvas.drawBitmap(bitmap, offset.x.toFloat(), offset.y.toFloat(), null)
-            bitmap.recycle()
-        }
-
-        return resultBitmap
-    }
-
-    private fun getIntersection(rect: Rect, imageSize: Size): Rect {
-        val left = max(0, rect.left)
-        val top = max(0, rect.top)
-        val right = min(imageSize.width, rect.right)
-        val bottom = min(imageSize.height, rect.bottom)
-        return Rect(left, top, right, bottom)
-    }
 }

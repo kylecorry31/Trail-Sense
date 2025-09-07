@@ -35,7 +35,7 @@ import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.andromeda_temp.Hysteresis
+import com.kylecorry.trail_sense.shared.andromeda_temp.SchmittTrigger
 import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
 import com.kylecorry.trail_sense.shared.canvas.InteractionUtils
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
@@ -186,7 +186,7 @@ class AugmentedRealityView : CanvasView {
         syncWithCamera()
     }
 
-    private val pointedUpTrigger = Hysteresis(30f, 5f)
+    private val pointedUpTrigger = SchmittTrigger(30f, 5f)
     private var isSetup = false
     private val updateTimer = CoroutineTimer(observeOn = Dispatchers.Default) {
         if (!isSetup) {

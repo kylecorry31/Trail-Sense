@@ -143,13 +143,11 @@ object DEM {
 
         val parallelThresholds = ParallelCoroutineRunner(16)
         parallelThresholds.map(thresholds) { threshold ->
-            val calculators = Interpolation.getIsolineCalculators<Coordinate>(
+            val calculators = Interpolation.getIsolineCalculators(
                 grid,
                 threshold,
                 ::lerpCoordinate
-            ) { a, b ->
-                a.bearingTo(b).value
-            }
+            )
 
             val parallel = ParallelCoroutineRunner(16)
             val segments = parallel.mapFunctions(calculators).flatten()

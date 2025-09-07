@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.dem.colors
 
 import android.graphics.Color
+import com.kylecorry.andromeda.core.ui.colormaps.SampledColorMap
 import com.kylecorry.sol.math.SolMath
 
 /*

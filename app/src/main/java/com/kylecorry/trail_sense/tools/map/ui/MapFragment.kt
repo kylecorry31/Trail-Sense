@@ -12,6 +12,7 @@ import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.fragments.useClickCallback
+import com.kylecorry.andromeda.fragments.useFlow
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
@@ -19,7 +20,6 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.andromeda_temp.useFlow
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useDestroyEffect
 import com.kylecorry.trail_sense.shared.extensions.useNavController
@@ -55,7 +55,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_map) {
         val hasCompass = useMemo(sensors) { sensors.hasCompass() }
         val navigator = useService<Navigator>()
         val pathService = useService<PathService>()
-        val destination = useFlow(navigator.destination, BackgroundMinimumState.Resumed)
+        val destination = useFlow(navigator.destination, state = BackgroundMinimumState.Resumed)
         val prefs = useService<UserPreferences>()
         val formatter = useService<FormatService>()
         val activity = useActivity()

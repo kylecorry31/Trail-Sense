@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.shared.andromeda_temp
 
-class Hysteresis(
+class SchmittTrigger(
     private val threshold: Float,
     private val hysteresisAmount: Float,
     private val trueIfAbove: Boolean = true

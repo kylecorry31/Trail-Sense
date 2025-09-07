@@ -9,8 +9,7 @@ object MarchingSquares {
     fun <T> getIsolineCalculators(
         grid: List<List<Pair<T, Float>>>,
         threshold: Float,
-        interpolator: (percent: Float, a: T, b: T) -> T,
-        angleCalculator: (T, T) -> Float = { a, b -> 0f }
+        interpolator: (percent: Float, a: T, b: T) -> T
     ): List<() -> List<IsolineSegment<T>>> {
         val squares = mutableListOf<List<Pair<T, Float>>>()
         for (i in 0 until grid.size - 1) {
@@ -27,26 +26,15 @@ object MarchingSquares {
 
         return squares.map { square ->
             {
-                marchingSquares(square, threshold, interpolator, angleCalculator)
+                marchingSquares(square, threshold, interpolator)
             }
         }
-    }
-
-    fun <T> getIsoline(
-        grid: List<List<Pair<T, Float>>>,
-        threshold: Float,
-        interpolator: (percent: Float, a: T, b: T) -> T,
-        angleCalculator: (T, T) -> Float = { a, b -> 0f }
-    ): List<IsolineSegment<T>> {
-        val calculators = getIsolineCalculators(grid, threshold, interpolator, angleCalculator)
-        return calculators.flatMap { it() }
     }
 
     private fun <T> marchingSquares(
         square: List<Pair<T, Float>>,
         threshold: Float,
-        interpolator: (Float, T, T) -> T,
-        angleCalculator: (T, T) -> Float = { a, b -> 0f }
+        interpolator: (Float, T, T) -> T
     ): List<IsolineSegment<T>> {
         val contourLines = mutableListOf<IsolineSegment<T>>()
 
@@ -86,20 +74,13 @@ object MarchingSquares {
         // If there are exactly 2 intersections, then there is 1 line
         val intersections = listOfNotNull(ab, ac, bd, cd)
         if (intersections.size == 2) {
-            val angle = angleCalculator(intersections[0], intersections[1])
-            val slopeAngle = angle + perpendicularDirection
-
-            contourLines.add(IsolineSegment(intersections[0], intersections[1], slopeAngle))
+            contourLines.add(IsolineSegment(intersections[0], intersections[1]))
         } else if (intersections.size == 4 && a.second >= threshold) {
-            val angle1 = angleCalculator(intersections[0], intersections[1])
-            val angle2 = angleCalculator(intersections[2], intersections[3])
-            contourLines.add(IsolineSegment(intersections[0], intersections[2], angle1 + 90f))
-            contourLines.add(IsolineSegment(intersections[1], intersections[3], angle2 - 90f))
+            contourLines.add(IsolineSegment(intersections[0], intersections[2]))
+            contourLines.add(IsolineSegment(intersections[1], intersections[3]))
         } else if (intersections.size == 4 && a.second < threshold) {
-            val angle1 = angleCalculator(intersections[0], intersections[1])
-            val angle2 = angleCalculator(intersections[2], intersections[3])
-            contourLines.add(IsolineSegment(intersections[0], intersections[1], angle1 - 90f))
-            contourLines.add(IsolineSegment(intersections[2], intersections[3], angle2 + 90f))
+            contourLines.add(IsolineSegment(intersections[0], intersections[1]))
+            contourLines.add(IsolineSegment(intersections[2], intersections[3]))
         }
         return contourLines
     }
