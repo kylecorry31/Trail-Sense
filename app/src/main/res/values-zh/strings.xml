@@ -1442,4 +1442,16 @@
     <string name="sleep_sound_crickets_no_chirping">蟋蟀音（无唧唧声）</string>
     <string name="sleep_sound_ocean_waves">海浪声</string>
     <string name="sleep_sound_fan">风扇</string>
+    <string name="hillshade">山背阴处</string>
+    <string name="color_usgs">美国地质勘探局</string>
+    <string name="color_grayscale">灰度</string>
+    <string name="color_vibrant">Vibrant</string>
+    <string name="color_muted">Muted</string>
+    <string name="color_viridis">Viridis</string>
+    <string name="color_inferno">Inferno</string>
+    <string name="color_plasma">Plasma</string>
+    <string name="color_black">黑</string>
+    <string name="color_brown">棕</string>
+    <string name="color_gray">灰</string>
+    <string name="color_white">白</string>
 </resources>
