@@ -191,7 +191,7 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS) {
         click("Test group")
         click("Move")
         hasText("2 beacons")
-        not { hasText("Test beacon", waitForTime = 0) }
+        not { hasText("Test beacon", waitForTime = 0, exact = true) }
 
         click("Test group")
         hasText("Test beacon")
@@ -203,7 +203,7 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS) {
         clickListItemMenu("Delete")
         clickOk()
         hasText("No beacons")
-        not { hasText("Test group", waitForTime = 0) }
+        not { hasText("Test group", waitForTime = 0, exact = true) }
     }
 
     private fun renameGroup() {
@@ -211,7 +211,7 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS) {
         input("Test group", "Test group 2")
         clickOk()
         hasText("Test group 2")
-        not { hasText("Test group", waitForTime = 0) }
+        not { hasText("Test group", waitForTime = 0, exact = true) }
     }
 
     private fun search() {
