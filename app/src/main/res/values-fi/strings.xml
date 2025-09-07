@@ -350,7 +350,7 @@
     <string name="pref_auto_low_power_summary">Kun akku on vähissä</string>
     <string name="nimbostratus_forecast" tools:ignore="PluralsCandidate">Saattaa sataa seuraavan %d:n tunnin ajan.</string>
     <string name="paths">Polut</string>
-    <string name="total">Kaikki yhteensä</string>
+    <string name="total">Kokonaan</string>
     <string name="milliliters">Millilitraa</string>
     <string name="kilograms">Kilogrammaa</string>
     <plurals name="paths_imported">
@@ -1382,4 +1382,17 @@
     <string name="sleep_sound_crickets">Sirkkoja</string>
     <string name="sleep_sound_crickets_no_chirping">Sirkkoja (ei sirkutusta)</string>
     <string name="sleep_sound_ocean_waves">Meren aaltoja</string>
+    <string name="sleep_sound_fan">Tuuletin</string>
+    <string name="color_grayscale">Harmaasävy</string>
+    <string name="color_vibrant">Kylläinen</string>
+    <string name="color_muted">Hillitty</string>
+    <string name="color_inferno">Liekkimeri</string>
+    <string name="color_plasma">Plasma</string>
+    <string name="color_black">Musta</string>
+    <string name="color_brown">Ruskea</string>
+    <string name="color_gray">Harmaa</string>
+    <string name="color_white">Valkoinen</string>
+    <string name="color_usgs">USGS</string>
+    <string name="color_viridis">Viridis</string>
+    <string name="hillshade">Korkeuskäyräväritys</string>
 </resources>
