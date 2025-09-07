@@ -8,7 +8,7 @@ import androidx.core.graphics.alpha
 import androidx.core.graphics.createBitmap
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
+import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
 import com.kylecorry.trail_sense.shared.bitmaps.Conditional
 import com.kylecorry.trail_sense.shared.bitmaps.Convert
 import com.kylecorry.trail_sense.shared.bitmaps.ReplaceColor

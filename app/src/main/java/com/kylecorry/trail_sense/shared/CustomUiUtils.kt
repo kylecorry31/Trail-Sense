@@ -551,7 +551,7 @@ object CustomUiUtils {
     }
 
     fun Resources.getPrimaryColor(context: Context): Int {
-        return getAndroidColorAttr(context, com.google.android.material.R.attr.colorPrimary)
+        return getAndroidColorAttr(context, com.google.android.material.R.attr.colorPrimaryFixed)
     }
 
     fun Resources.getColorOnPrimary(context: Context): Int {

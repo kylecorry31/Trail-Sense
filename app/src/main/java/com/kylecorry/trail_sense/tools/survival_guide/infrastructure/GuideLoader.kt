@@ -2,7 +2,7 @@ package com.kylecorry.trail_sense.tools.survival_guide.infrastructure
 
 import android.content.Context
 import com.kylecorry.luna.coroutines.onIO
-import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
+import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
 import com.kylecorry.trail_sense.shared.text.TextUtils
 import com.kylecorry.trail_sense.tools.survival_guide.domain.Chapter
 import com.kylecorry.trail_sense.tools.survival_guide.domain.Chapters

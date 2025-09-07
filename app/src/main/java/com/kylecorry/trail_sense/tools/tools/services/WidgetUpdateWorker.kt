@@ -10,7 +10,7 @@ import com.kylecorry.andromeda.core.system.Wakelocks
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.widgets.Widgets
-import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
+import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
 import com.kylecorry.trail_sense.shared.permissions.canGetLocationCustom
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem

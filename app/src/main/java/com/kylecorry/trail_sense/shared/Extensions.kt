@@ -1,11 +1,8 @@
 package com.kylecorry.trail_sense.shared
 
 import android.graphics.Color
-import android.graphics.ColorMatrix
 import android.os.Bundle
 import android.view.View
-import android.view.Window
-import androidx.annotation.ColorInt
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -174,15 +171,6 @@ inline fun List<Float>.forEachLine(action: (x1: Float, y1: Float, x2: Float, y2:
     }
 }
 
-/**
- * Sets the navigation bar color. On SDK < 26, this does nothing because the foreground color is not customizable.
- */
-fun Window.setNavigationBarColorCompat(@ColorInt color: Int) {
-    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-        navigationBarColor = color
-    }
-}
-
 fun Float.safeRoundToInt(default: Int = 0): Int {
     return tryOrDefault(default) {
         if (isNaN() || isInfinite()) {
@@ -221,11 +209,6 @@ fun <T> List<T>.padRight(minLength: Int, value: T): List<T> {
     }
 }
 
-fun formatEnumName(name: String): String {
-    return name.map { if (it.isUpperCase()) " $it" else it }
-        .joinToString("").trim()
-}
-
 fun Colors.fromColorTemperature(temp: Float): Int {
     // http://www.vendian.org/mncharity/dir3/blackbody/UnstableURLs/bbr_color.html
     val map = RgbInterpolationColorMap(
@@ -249,34 +232,3 @@ fun Colors.fromColorTemperature(temp: Float): Int {
 }
 
 
-/**
- * Anything below the threshold will be black, anything above will be grayscale
- */
-fun Colors.createGrayscaleThresholdMatrix(threshold: Int): ColorMatrix {
-    val range = 255 - threshold.toFloat()
-    val scale = 255 / range
-    return ColorMatrix(
-        floatArrayOf(
-            0.3333333f * scale,
-            0.3333333f * scale,
-            0.3333333f * scale,
-            0f,
-            -threshold.toFloat() * scale,
-            0.3333333f * scale,
-            0.3333333f * scale,
-            0.3333333f * scale,
-            0f,
-            -threshold.toFloat() * scale,
-            0.3333333f * scale,
-            0.3333333f * scale,
-            0.3333333f * scale,
-            0f,
-            -threshold.toFloat() * scale,
-            0f,
-            0f,
-            0f,
-            1f,
-            0f
-        )
-    )
-}

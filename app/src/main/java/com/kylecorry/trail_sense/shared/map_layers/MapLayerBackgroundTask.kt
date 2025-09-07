@@ -1,7 +1,8 @@
-package com.kylecorry.trail_sense.shared.canvas
+package com.kylecorry.trail_sense.shared.map_layers
 
+import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.trail_sense.shared.ParallelCoroutineRunner
+import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
@@ -18,7 +19,7 @@ class MapLayerBackgroundTask {
     private var lastQueuedMetersPerPixel: Float? = null
 
     private val scope = CoroutineScope(Dispatchers.Default)
-    private val runner = CoroutineQueueRunner2(1, queuePolicy = BufferOverflow.DROP_OLDEST)
+    private val runner = CoroutineQueueRunner(1, queuePolicy = BufferOverflow.DROP_OLDEST)
     private val lock = Mutex()
     private val taskLock = Any()
     private var isDirty = true
