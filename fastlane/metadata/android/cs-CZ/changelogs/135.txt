@@ -1,0 +1,17 @@
+Vrstvy mapy
+- Přidány vrstvy nadmořské výšky a stínování kopců
+- Přidáno nastavení barev pro vrstvu vrstevnic
+- Přidáno nastavení barvy pozadí pro vrstvu cest
+
+Průvodce terénem
+- Přidán záznam pozorování pro každou stránku
+
+Bílý šum
+- Přidán výběru zvuku: šum (bílý, růžový, hnědý), cvrčci, vlny, ventilátor
+
+Rozšířená realita
+- Zobrazení souhvězdí
+- Zvýšení expozice v noci
+
+Seznamy na balení
+- Zapamatování poslední kategorie
