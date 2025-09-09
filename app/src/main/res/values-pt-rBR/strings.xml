@@ -116,7 +116,7 @@
     <string name="pref_sunset_alert_time_title">Horário de alerta do pôr do sol</string>
     <string name="sunset_alert_notification_title">O sol vai se pôr em breve</string>
     <string name="sunset_alert_notification_text">O sol vai se pôr às %s</string>
-    <string name="sunset_alerts">Alertas ao pôr do sol</string>
+    <string name="sunset_alerts">Alertas de pôr do sol</string>
     <string name="sunset_alert_channel_title">Alerta ao pôr do sol</string>
     <string name="moon_phase">Fase lunar</string>
     <string name="degree_format">%.0f°</string>
@@ -735,7 +735,7 @@
     <string name="keep_forever">Manter para sempre</string>
     <string name="very_soon">Muito em breve</string>
     <string name="soon">Em breve</string>
-    <string name="weather_no_change">Imutável</string>
+    <string name="weather_no_change">Sem alterações</string>
     <string name="weather_storm">Tempestade</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d ponto do percurso excluído</item>
@@ -1437,4 +1437,5 @@
     <string name="color_brown">Marrom</string>
     <string name="color_gray">Cinza</string>
     <string name="color_white">Branco</string>
+    <string name="background_color">Cor de fundo</string>
 </resources>
