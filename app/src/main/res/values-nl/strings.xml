@@ -1467,4 +1467,5 @@
     <string name="color_brown">Bruin</string>
     <string name="color_gray">Grijs</string>
     <string name="color_white">Wit</string>
+    <string name="background_color">Achtergrondkleur</string>
 </resources>

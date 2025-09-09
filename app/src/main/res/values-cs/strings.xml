@@ -1480,5 +1480,18 @@
     <string name="sleep_sound_crickets">Cvrčci</string>
     <string name="sleep_sound_crickets_no_chirping">Cvrčci (bez cvrlikání)</string>
     <string name="sleep_sound_ocean_waves">Vlny oceánu</string>
-    <string name="sleep_sound_fan">Větrák</string>
+    <string name="sleep_sound_fan">Ventilátor</string>
+    <string name="hillshade">Stínování terénu</string>
+    <string name="color_usgs">USGS</string>
+    <string name="color_grayscale">Stupně šedi</string>
+    <string name="color_vibrant">Živé</string>
+    <string name="color_muted">Ztlumené</string>
+    <string name="color_viridis">Viridis</string>
+    <string name="color_inferno">Peklo</string>
+    <string name="color_plasma">Plazma</string>
+    <string name="color_black">Černá</string>
+    <string name="color_brown">Hnědá</string>
+    <string name="color_gray">Šedá</string>
+    <string name="color_white">Bílá</string>
+    <string name="background_color">Barva pozadí</string>
 </resources>

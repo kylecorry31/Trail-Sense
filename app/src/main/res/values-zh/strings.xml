@@ -7,7 +7,7 @@
     <string name="astronomy">天文学</string>
     <string name="sunrise_label">日出</string>
     <string name="sunset_label">日落</string>
-    <string name="true_north">正北</string>
+    <string name="true_north">真北</string>
     <string name="pref_use_sea_level_pressure_title">海平面压强</string>
     <string name="general">常规</string>
     <string name="pressure">大气压强</string>
@@ -668,8 +668,8 @@
     <string name="navigate">导航</string>
     <string name="astronomy_alerts">天文提醒</string>
     <string name="lunar_eclipse">月食</string>
-    <string name="partial">部分 (%s)</string>
-    <string name="total">总数</string>
+    <string name="partial">偏食 (%s)</string>
+    <string name="total">全食</string>
     <string name="lunar_eclipses">月食</string>
     <string name="high_amount">高 (%s)</string>
     <string name="medium_amount">中等 (%s)</string>
@@ -973,13 +973,13 @@
     <string name="solar_eclipses">日食</string>
     <string name="start_time">开始</string>
     <string name="end_time">结束</string>
-    <string name="peak_time">高潮</string>
-    <string name="obscuration">掩星</string>
-    <string name="astronomy_altitude_peak">最高高度</string>
-    <string name="magnitude">等级</string>
+    <string name="peak_time">食甚</string>
+    <string name="obscuration">遮蔽率</string>
+    <string name="astronomy_altitude_peak">最大仰角</string>
+    <string name="magnitude">食分</string>
     <string name="unable_to_find_next_astronomy">无法找到下一个 %s</string>
     <string name="print">打印</string>
-    <string name="astronomy_direction_peak">峰值方向</string>
+    <string name="astronomy_direction_peak">最大仰角方向</string>
     <string name="autofill_source">自动填充源</string>
     <string name="calibrate_map_point">用已知位置校准 (%1$d / %2$d)</string>
     <string name="map_calibration">地图校准</string>
@@ -991,7 +991,7 @@
     <string name="compass_source_legacy_android">传统（Android）</string>
     <string name="accelerometer">加速度计</string>
     <string name="data_source">来源：%s</string>
-    <string name="pref_keep_map_facing_up_summary">地图将与屏幕顶部对齐，而不是正北。</string>
+    <string name="pref_keep_map_facing_up_summary">地图将与屏幕顶部对齐，而不是真北。</string>
     <string name="daylight_duration">%s 白昼</string>
     <string name="times">时间</string>
     <string name="illumination">照度</string>
@@ -1126,7 +1126,7 @@
     <string name="visible">可见</string>
     <string name="date">日期</string>
     <string name="ar_layer_override_message">图层设置可能会被指南（例如“天文学”指南）覆盖。</string>
-    <string name="astronomy_altitude">海拔</string>
+    <string name="astronomy_altitude">仰角</string>
     <string name="grid">网格</string>
     <string name="projection_type">增强现实投影</string>
     <string name="max_s">最大 %s</string>
@@ -1454,4 +1454,5 @@
     <string name="color_brown">棕</string>
     <string name="color_gray">灰</string>
     <string name="color_white">白</string>
+    <string name="background_color">背景色</string>
 </resources>
