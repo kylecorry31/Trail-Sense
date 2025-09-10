@@ -112,7 +112,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         this.layers.clear()
         this.layers.addAll(layers)
         this.layers.filterIsInstance<IAsyncLayer>()
-            .forEach { it.setHasUpdateListener { invalidate() } }
+            .forEach { it.setHasUpdateListener { post { invalidate() } } }
     }
 
     private val projection = MercatorProjection()

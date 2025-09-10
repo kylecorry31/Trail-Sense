@@ -14,13 +14,14 @@ import androidx.core.graphics.createBitmap
 import com.kylecorry.andromeda.core.system.Screen
 import com.kylecorry.trail_sense.shared.bitmaps.Convert
 import com.kylecorry.trail_sense.shared.bitmaps.applyOperationsOrNull
+import java.io.Closeable
 
 class PDFRenderer3(
     private val context: Context,
     private val uri: Uri,
     private val inchesToPixels: Float? = null,
     private val config: Bitmap.Config = Bitmap.Config.RGB_565,
-) {
+): Closeable {
 
     private val dpi = Screen.dpi(context)
     private val lock = Any()
@@ -49,7 +50,7 @@ class PDFRenderer3(
         }
     }
 
-    fun close() {
+    override fun close() {
         synchronized(lock) {
             pdfPage?.close()
             renderer?.close()

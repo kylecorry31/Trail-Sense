@@ -9,21 +9,25 @@ import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.shared.toVector2
 import com.kylecorry.trail_sense.tools.navigation.ui.markers.MapMarker
 
-open class BaseLayer : ILayer {
+open class BaseLayer : IAsyncLayer {
 
     private val markers = mutableListOf<MapMarker>()
     private val lock = Any()
+
+    private var updateListener: (() -> Unit)? = null
 
     fun addMarker(marker: MapMarker) {
         synchronized(lock) {
             markers.add(marker)
         }
+        invalidate()
     }
 
     fun clearMarkers() {
         synchronized(lock) {
             markers.clear()
         }
+        invalidate()
     }
 
     override fun draw(drawer: ICanvasDrawer, map: IMapView) {
@@ -47,7 +51,7 @@ open class BaseLayer : ILayer {
     }
 
     override fun invalidate() {
-
+        updateListener?.invoke()
     }
 
     override fun onClick(drawer: ICanvasDrawer, map: IMapView, pixel: PixelCoordinate): Boolean {
@@ -88,5 +92,9 @@ open class BaseLayer : ILayer {
         // Rotating by map rotation wasn't working around 90/270 degrees - this is a workaround
         // It will just render slightly more of the path than needed, but never less (since 45 is when the area is at its largest)
         return drawer.getBounds(45f)
+    }
+
+    override fun setHasUpdateListener(listener: (() -> Unit)?) {
+        updateListener = listener
     }
 }

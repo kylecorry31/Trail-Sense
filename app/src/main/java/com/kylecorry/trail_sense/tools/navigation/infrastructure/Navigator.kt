@@ -12,7 +12,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -24,10 +24,12 @@ class Navigator private constructor(context: Context) {
 
     // Flows
     private val _destinationId = MutableStateFlow(getDestinationId())
+    private val _forceUpdate = MutableStateFlow(0)
     private val destinationId: Flow<Long?> = _destinationId
-        .distinctUntilChanged { old, new -> old == new }
 
-    val destination = destinationId.map { it?.let { service.getBeacon(it) } }
+    val destination = destinationId
+        .combine(_forceUpdate) { id, _ -> id }
+        .map { it?.let { service.getBeacon(it) } }
 
     fun navigateTo(
         location: Coordinate,
@@ -56,11 +58,13 @@ class Navigator private constructor(context: Context) {
     fun navigateTo(beaconId: Long) {
         prefs.putLong(DESTINATION_ID_KEY, beaconId)
         _destinationId.update { beaconId }
+        _forceUpdate.update { it -> it + 1 }
     }
 
     fun cancelNavigation() {
         prefs.remove(DESTINATION_ID_KEY)
         _destinationId.update { null }
+        _forceUpdate.update { it -> it + 1 }
     }
 
     fun getDestinationId(): Long? {
