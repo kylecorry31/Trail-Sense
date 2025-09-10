@@ -1437,11 +1437,11 @@
     <string name="open_settings">Einstellungen öffnen</string>
     <string name="show_labels">Beschriftungen anzeigen</string>
     <string name="map_tool_disclaimer">Dieses Werkzeug zeigt Ihre Wegpunkte, Pfade und Bilderkarten. Es ist kein Ersatz für eine eigene Kartenanwendung.</string>
-    <string name="basemap">Hauptkarte</string>
+    <string name="basemap">Basiskarte</string>
     <string name="color_with_elevation">Farbkonturen aufgrund der Höhe</string>
     <string name="load_pdf_tiles">Lade PDF teile</string>
     <string name="load_pdf_tiles_summary">PDF-Karten sind schärfer, aber die Leistung wird verringert</string>
-    <string name="show_gps_accuracy">Zeige GPS genauigkeit</string>
+    <string name="show_gps_accuracy">Zeige GPS-Genauigkeit</string>
     <string name="increase_exposure_at_night">Erhöhe die Blende bei Nacht</string>
     <string name="show_constellations">Konstellationen anzeigen</string>
     <string name="constellation">Konstellation</string>
@@ -1454,4 +1454,17 @@
     <string name="sleep_sound_crickets">Grillen</string>
     <string name="sleep_sound_crickets_no_chirping">Grillen (ohne Zirpen)</string>
     <string name="sleep_sound_ocean_waves">Ozeanwellen</string>
+    <string name="background_color">Hintergrundfarbe</string>
+    <string name="color_grayscale">Graustufen</string>
+    <string name="color_black">Schwarz</string>
+    <string name="color_brown">Braun</string>
+    <string name="color_white">Weiß</string>
+    <string name="color_gray">Grau</string>
+    <string name="color_plasma">Plasma</string>
+    <string name="color_muted">Gedeckt</string>
+    <string name="color_viridis">Grünlich</string>
+    <string name="color_vibrant">Lebendig</string>
+    <string name="color_inferno">Inferno</string>
+    <string name="sleep_sound_fan">Lüfter</string>
+    <string name="color_usgs">USGS</string>
 </resources>
