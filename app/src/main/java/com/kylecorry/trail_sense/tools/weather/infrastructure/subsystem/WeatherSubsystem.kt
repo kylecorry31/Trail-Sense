@@ -5,8 +5,8 @@ import android.content.Context
 import com.kylecorry.andromeda.core.cache.MemoryCachedValue
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onIO
-import com.kylecorry.andromeda.core.topics.ITopic
-import com.kylecorry.andromeda.core.topics.Topic
+import com.kylecorry.andromeda.core.subscriptions.ISubscription
+import com.kylecorry.andromeda.core.subscriptions.Subscription
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.meteorology.KoppenGeigerClimateClassification
@@ -24,7 +24,6 @@ import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.climate.infrastructure.ClimateSubsystem
 import com.kylecorry.trail_sense.tools.climate.infrastructure.precipitation.HistoricMonthlyPrecipitationRepo
-import com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures.HistoricTemperatureRepo
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudRepo
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
@@ -64,8 +63,8 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     private var isValid = false
     private var updateWeatherMutex = Mutex()
 
-    private val _weatherChanged = Topic()
-    override val weatherChanged: ITopic = _weatherChanged
+    private val _weatherChanged = Subscription()
+    override val weatherChanged: ISubscription = _weatherChanged
 
     private val invalidationPrefKeys = listOf(
         R.string.pref_use_sea_level_pressure,
@@ -110,7 +109,6 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
 
         weatherChanged.subscribe {
             Tools.broadcast(WeatherToolRegistration.BROADCAST_WEATHER_PREDICTION_CHANGED)
-            true
         }
     }
 

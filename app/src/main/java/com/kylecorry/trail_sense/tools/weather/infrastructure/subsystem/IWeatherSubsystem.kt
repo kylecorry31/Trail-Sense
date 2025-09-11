@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem
 
-import com.kylecorry.andromeda.core.topics.ITopic
+import com.kylecorry.andromeda.core.subscriptions.ISubscription
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.meteorology.KoppenGeigerClimateClassification
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
@@ -17,7 +17,7 @@ import java.time.ZonedDateTime
 
 // TODO: Split into two subsystems: Weather and Weather Monitor
 interface IWeatherSubsystem {
-    val weatherChanged: ITopic
+    val weatherChanged: ISubscription
 
     suspend fun getWeather(): CurrentWeather
     suspend fun getHistory(): List<WeatherObservation>

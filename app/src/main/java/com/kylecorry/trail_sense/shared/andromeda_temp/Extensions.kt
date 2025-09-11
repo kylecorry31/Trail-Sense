@@ -1,8 +1,14 @@
 package com.kylecorry.trail_sense.shared.andromeda_temp
 
+import androidx.fragment.app.Fragment
+import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
+import com.kylecorry.andromeda.core.subscriptions.ISubscription
+import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.CompassDirection
+import kotlinx.coroutines.Dispatchers
+import kotlin.coroutines.CoroutineContext
 import kotlin.math.log
 import kotlin.math.sqrt
 import kotlin.random.Random
@@ -39,7 +45,7 @@ fun CoordinateBounds.grow(percent: Float): CoordinateBounds {
 }
 
 fun CoordinateBounds.intersects2(other: CoordinateBounds): Boolean {
-    if (intersects(other)){
+    if (intersects(other)) {
         return true
     }
 
@@ -54,4 +60,24 @@ fun CoordinateBounds.intersects2(other: CoordinateBounds): Boolean {
     if (selfWraps) return other.west <= east || other.east >= west
     if (otherWraps) return west <= other.east || east >= other.west
     return west <= other.east && east >= other.west
+}
+
+fun Fragment.observe(
+    subscription: ISubscription,
+    state: BackgroundMinimumState = BackgroundMinimumState.Any,
+    collectOn: CoroutineContext = Dispatchers.Default,
+    observeOn: CoroutineContext = Dispatchers.Main,
+    listener: suspend () -> Unit
+) {
+    observeFlow(subscription.flow(), state, collectOn, observeOn) { listener() }
+}
+
+fun <T> Fragment.observe(
+    subscription: com.kylecorry.andromeda.core.subscriptions.generic.ISubscription<T>,
+    state: BackgroundMinimumState = BackgroundMinimumState.Any,
+    collectOn: CoroutineContext = Dispatchers.Default,
+    observeOn: CoroutineContext = Dispatchers.Main,
+    listener: suspend (T) -> Unit
+) {
+    observeFlow(subscription.flow(), state, collectOn, observeOn, listener)
 }
