@@ -133,7 +133,7 @@ class LinearCompassView : BaseCompassView {
         } else {
             noTint()
         }
-        val x = toPixel(reference.bearing.value).coerceIn(0f, width.toFloat())
+        val x = toPixel(reference.bearing).coerceIn(0f, width.toFloat())
         opacity((255 * reference.opacity).toInt())
         val bitmap = getBitmap(reference.drawableId, sizeDp)
         imageMode(ImageMode.Corner)
@@ -148,7 +148,7 @@ class LinearCompassView : BaseCompassView {
     }
 
     override fun draw(bearing: IMappableBearing, stopAt: Coordinate?) {
-        val x = toPixel(bearing.bearing.value) - width / 2f
+        val x = toPixel(bearing.bearing) - width / 2f
         fill(bearing.color)
         opacity(100)
         rect(width / 2f, height - 0.5f * height, x, height * 0.5f)

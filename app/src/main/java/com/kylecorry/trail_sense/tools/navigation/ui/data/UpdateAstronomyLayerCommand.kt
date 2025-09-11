@@ -70,7 +70,7 @@ class UpdateAstronomyLayerCommand(
         layer.setMarkers(markers)
     }
 
-    private fun fromTrueNorth(bearing: Bearing): Bearing {
+    private fun fromTrueNorth(bearing: Float): Float {
         return if (prefs.compass.useTrueNorth) {
             bearing
         } else {

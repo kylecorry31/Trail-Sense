@@ -7,25 +7,25 @@ import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 
 interface IMappableBearing {
-    val bearing: Bearing
+    val bearing: Float
     val color: Int
 }
 
-data class MappableBearing(override val bearing: Bearing, override val color: Int) :
+data class MappableBearing(override val bearing: Float, override val color: Int) :
     IMappableBearing
 
 interface IMappableReferencePoint : Identifiable {
     val drawableId: Int
     val tint: Int?
     val opacity: Float
-    val bearing: Bearing
+    val bearing: Float
     val rotation: Float
 }
 
 data class MappableReferencePoint(
     override val id: Long,
     override val drawableId: Int,
-    override val bearing: Bearing,
+    override val bearing: Float,
     override val tint: Int? = null,
     override val opacity: Float = 1f,
     override val rotation: Float = 0f

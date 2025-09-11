@@ -91,10 +91,10 @@ class BeaconCompassLayer(
             }
 
             val bearing = if (compass.useTrueNorth) {
-                compass.compassCenter.bearingTo(it.coordinate)
+                compass.compassCenter.bearingTo(it.coordinate).value
             } else {
                 DeclinationUtils.fromTrueNorthBearing(
-                    compass.compassCenter.bearingTo(it.coordinate),
+                    compass.compassCenter.bearingTo(it.coordinate).value,
                     compass.declination
                 )
             }

@@ -28,7 +28,6 @@ import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Bearing
-import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
@@ -662,10 +661,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             val destColor = destination?.color ?: AppColor.Blue.color
 
             val direction = destBearing?.let {
-                MappableBearing(
-                    Bearing(it),
-                    destColor
-                )
+                MappableBearing(it, destColor)
             }
 
             // Update beacon layers

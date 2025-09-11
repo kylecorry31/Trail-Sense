@@ -11,8 +11,8 @@ class NavAstronomyDataCommand(private val gps: IGPS) : CoroutineValueCommand<Nav
 
     override suspend fun execute(): NavAstronomyData = onDefault {
         NavAstronomyData(
-            astronomy.getSunAzimuth(gps.location),
-            astronomy.getMoonAzimuth(gps.location),
+            astronomy.getSunAzimuth(gps.location).value,
+            astronomy.getMoonAzimuth(gps.location).value,
             astronomy.isSunUp(gps.location),
             astronomy.isMoonUp(gps.location),
             astronomy.getMoonPhase(LocalDate.now()).phase,

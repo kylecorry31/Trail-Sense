@@ -24,7 +24,7 @@ class BearingToCompassLayer : ICompassLayer {
         val destination = destination
         var direction = bearing
         if (destination != null && direction == null) {
-            val trueDirection = compass.compassCenter.bearingTo(destination)
+            val trueDirection = compass.compassCenter.bearingTo(destination).value
             val b = if (compass.useTrueNorth) {
                 trueDirection
             } else {
