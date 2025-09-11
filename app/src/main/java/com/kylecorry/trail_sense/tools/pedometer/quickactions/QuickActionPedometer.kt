@@ -4,10 +4,10 @@ import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.topics.generic.ITopic
+import com.kylecorry.andromeda.core.topics.generic.getOrNull
 import com.kylecorry.andromeda.core.topics.generic.replay
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FeatureState
-import com.kylecorry.trail_sense.shared.extensions.getOrNull
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition

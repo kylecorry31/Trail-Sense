@@ -2,13 +2,13 @@ package com.kylecorry.trail_sense.settings.migrations
 
 import android.content.Context
 import com.kylecorry.andromeda.core.system.Screen
+import com.kylecorry.andromeda.preferences.getIntArray
+import com.kylecorry.andromeda.preferences.putIntArray
 import com.kylecorry.luna.text.toIntCompat
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.AppState
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorStrategy
-import com.kylecorry.trail_sense.shared.extensions.getIntArray
-import com.kylecorry.trail_sense.shared.extensions.putIntArray
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrapper

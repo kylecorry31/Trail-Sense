@@ -8,6 +8,10 @@ import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.IntEnumPreference
 import com.kylecorry.andromeda.preferences.IntPreference
 import com.kylecorry.andromeda.preferences.StringEnumPreference
+import com.kylecorry.andromeda.preferences.getIntArray
+import com.kylecorry.andromeda.preferences.getLongArray
+import com.kylecorry.andromeda.preferences.putIntArray
+import com.kylecorry.andromeda.preferences.putLongArray
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.PressureUnits
@@ -34,10 +38,6 @@ import com.kylecorry.trail_sense.settings.infrastructure.PrivacyPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ThermometerPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.TidePreferences
 import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
-import com.kylecorry.trail_sense.shared.extensions.getIntArray
-import com.kylecorry.trail_sense.shared.extensions.getLongArray
-import com.kylecorry.trail_sense.shared.extensions.putIntArray
-import com.kylecorry.trail_sense.shared.extensions.putLongArray
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sharing.MapSite
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyPreferences

@@ -17,6 +17,7 @@ import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.canvas.TextAlign
 import com.kylecorry.andromeda.canvas.TextMode
+import com.kylecorry.andromeda.core.math.SchmittTrigger
 import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -35,7 +36,6 @@ import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.andromeda_temp.SchmittTrigger
 import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
 import com.kylecorry.trail_sense.shared.canvas.InteractionUtils
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle

@@ -14,6 +14,8 @@ import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.preferences.putOrRemoveCoordinate
+import com.kylecorry.andromeda.preferences.putOrRemoveFloat
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.science.geology.Geology
@@ -31,8 +33,6 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.from
-import com.kylecorry.trail_sense.shared.extensions.putOrRemoveCoordinate
-import com.kylecorry.trail_sense.shared.extensions.putOrRemoveFloat
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sharing.Share

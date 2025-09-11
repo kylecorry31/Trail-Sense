@@ -4,7 +4,7 @@ import android.content.Context
 import android.widget.RemoteViews
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.extensions.setImageViewResourceAsIcon
+import com.kylecorry.andromeda.views.remote.setImageViewResourceAsIcon
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomySubsystem
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyTransition

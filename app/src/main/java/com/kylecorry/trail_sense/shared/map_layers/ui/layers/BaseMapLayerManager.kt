@@ -3,10 +3,10 @@ package com.kylecorry.trail_sense.shared.map_layers.ui.layers
 import android.content.Context
 import android.graphics.Color
 import androidx.core.graphics.toColorInt
+import com.kylecorry.andromeda.bitmaps.operations.Conditional
+import com.kylecorry.andromeda.bitmaps.operations.ReplaceColor
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.shared.bitmaps.Conditional
-import com.kylecorry.trail_sense.shared.bitmaps.ReplaceColor
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibration
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapCalibrationPoint
 import com.kylecorry.trail_sense.tools.photo_maps.domain.MapMetadata

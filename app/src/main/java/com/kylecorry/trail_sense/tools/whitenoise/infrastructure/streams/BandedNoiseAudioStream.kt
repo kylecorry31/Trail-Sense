@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.whitenoise.infrastructure.streams
 
-import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.streams.andromeda.SeekableAudioStream
+import com.kylecorry.andromeda.sound.stream.SeekableAudioStream
 import kotlin.math.PI
 import kotlin.math.pow
 import kotlin.math.sin

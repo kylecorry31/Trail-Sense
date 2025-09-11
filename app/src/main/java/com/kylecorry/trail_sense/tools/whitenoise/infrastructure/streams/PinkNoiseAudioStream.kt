@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.tools.whitenoise.infrastructure.streams
 
-import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.streams.andromeda.AudioStream
+import com.kylecorry.andromeda.sound.stream.AudioStream
 import kotlin.random.Random
 
 class PinkNoiseAudioStream : AudioStream {

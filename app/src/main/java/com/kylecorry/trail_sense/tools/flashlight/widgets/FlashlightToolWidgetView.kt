@@ -9,7 +9,7 @@ import android.widget.RemoteViews
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
-import com.kylecorry.trail_sense.shared.extensions.setImageViewResourceAsIcon
+import com.kylecorry.andromeda.views.remote.setImageViewResourceAsIcon
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import com.kylecorry.trail_sense.tools.tools.ui.widgets.SimpleToolWidgetView

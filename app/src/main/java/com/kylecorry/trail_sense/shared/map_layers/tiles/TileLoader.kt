@@ -6,13 +6,13 @@ import android.graphics.Color
 import android.util.Log
 import androidx.core.graphics.alpha
 import androidx.core.graphics.createBitmap
+import com.kylecorry.andromeda.bitmaps.operations.Conditional
+import com.kylecorry.andromeda.bitmaps.operations.Convert
+import com.kylecorry.andromeda.bitmaps.operations.ReplaceColor
+import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
 import com.kylecorry.luna.coroutines.onDefault
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.luna.coroutines.ParallelCoroutineRunner
-import com.kylecorry.trail_sense.shared.bitmaps.Conditional
-import com.kylecorry.trail_sense.shared.bitmaps.Convert
-import com.kylecorry.trail_sense.shared.bitmaps.ReplaceColor
-import com.kylecorry.trail_sense.shared.bitmaps.applyOperationsOrNull
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles.PhotoMapRegionLoader
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.math.hypot

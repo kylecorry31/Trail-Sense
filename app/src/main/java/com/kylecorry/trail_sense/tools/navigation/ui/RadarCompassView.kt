@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import com.kylecorry.andromeda.canvas.ArcMode
 import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.andromeda.canvas.TextMode
+import com.kylecorry.andromeda.canvas.withLayerOpacity
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -29,7 +30,6 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
-import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService

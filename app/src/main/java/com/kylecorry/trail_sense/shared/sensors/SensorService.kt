@@ -239,8 +239,11 @@ class SensorService(ctx: Context) {
         return Sensors.hasGyroscope(context)
     }
 
-    fun getCompass(): ICompass {
-        return CompassProvider(context, userPrefs.compass).get(MOTION_SENSOR_DELAY)
+    fun getCompass(orientationSensor: IOrientationSensor? = null): ICompass {
+        return CompassProvider(context, userPrefs.compass).get(
+            MOTION_SENSOR_DELAY,
+            orientationSensor
+        )
     }
 
     fun getOrientation(): IOrientationSensor {

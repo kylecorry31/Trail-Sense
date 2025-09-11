@@ -1,10 +1,10 @@
 package com.kylecorry.trail_sense.tools.photo_maps.infrastructure.tiles
 
 import android.content.Context
+import com.kylecorry.andromeda.bitmaps.operations.BitmapOperation
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.andromeda_temp.intersects2
-import com.kylecorry.trail_sense.shared.bitmaps.BitmapOperation
 import com.kylecorry.trail_sense.shared.map_layers.tiles.IGeographicImageRegionLoader
 import com.kylecorry.trail_sense.shared.map_layers.tiles.ITileSourceSelector
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap

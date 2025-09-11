@@ -6,6 +6,7 @@ import com.kylecorry.andromeda.core.time.CoroutineTimer
 import com.kylecorry.andromeda.core.topics.generic.ITopic
 import com.kylecorry.andromeda.core.topics.generic.Topic
 import com.kylecorry.andromeda.core.topics.generic.distinct
+import com.kylecorry.andromeda.core.topics.generic.getOrNull
 import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.torch.ITorch
@@ -14,7 +15,6 @@ import com.kylecorry.andromeda.torch.TorchStateChangedTopic
 import com.kylecorry.sol.math.SolMath
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.extensions.getOrNull
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.flashlight.FlashlightToolRegistration
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode

@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.tools.whitenoise.infrastructure.streams
 
+import com.kylecorry.andromeda.sound.stream.AudioStream
+import com.kylecorry.andromeda.sound.stream.SineWaveAudioStream
 import com.kylecorry.sol.math.SolMath
-import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.streams.andromeda.AudioStream
-import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.streams.andromeda.SineWaveAudioStream
 
 class OceanWavesAudioStream : AudioStream {
 

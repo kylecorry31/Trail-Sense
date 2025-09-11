@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.tools.whitenoise.infrastructure.streams
 
-import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.streams.andromeda.AudioStream
-import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.streams.andromeda.SineWaveAudioStream
-import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.streams.andromeda.SumAudioStream
+import com.kylecorry.andromeda.sound.stream.AudioStream
+import com.kylecorry.andromeda.sound.stream.SineWaveAudioStream
+import com.kylecorry.andromeda.sound.stream.SumAudioStream
 
 class FanNoiseAudioStream(seed: Int = 0) : AudioStream {
     private val brownNoise = BrownNoiseAudioStream(seed)

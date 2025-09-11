@@ -9,13 +9,12 @@ import com.kylecorry.sol.math.SolMath
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
-import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.dem.Contour
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorMap
 import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorMapFactory
 import com.kylecorry.trail_sense.shared.dem.colors.TrailSenseVibrantElevationColorMap
+import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
@@ -148,11 +147,7 @@ class ContourLayer(private val taskRunner: MapLayerBackgroundTask = MapLayerBack
         }
 
         taskRunner.scheduleUpdate(map.mapBounds, map.metersPerPixel)
-
-        drawer.withLayerOpacity(opacity) {
-            pathLayer.draw(drawer, map)
-        }
-
+        pathLayer.draw(drawer, map)
     }
 
     override fun drawOverlay(

@@ -39,6 +39,10 @@ fun CoordinateBounds.grow(percent: Float): CoordinateBounds {
 }
 
 fun CoordinateBounds.intersects2(other: CoordinateBounds): Boolean {
+    if (intersects(other)){
+        return true
+    }
+
     if (south > other.north || other.south > north) {
         return false
     }

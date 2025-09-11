@@ -7,6 +7,7 @@ import android.util.Size
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.set
 import com.kylecorry.andromeda.core.cache.AppServiceRegistry
+import com.kylecorry.andromeda.core.cache.GeospatialCache
 import com.kylecorry.andromeda.core.coroutines.onDefault
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.tryOrDefault
@@ -24,7 +25,6 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.andromeda_temp.GeospatialCache2
 import com.kylecorry.trail_sense.shared.andromeda_temp.getConnectedLines
 import com.kylecorry.trail_sense.shared.andromeda_temp.getIsolineCalculators
 import com.kylecorry.trail_sense.shared.data.GeographicImageSource
@@ -41,7 +41,7 @@ import kotlin.math.sin
 object DEM {
     private val cacheDistance = 10f
     private val cacheSize = 500
-    private var cache = GeospatialCache2<Float>(Distance.meters(cacheDistance), size = cacheSize)
+    private var cache = GeospatialCache<Float>(Distance.meters(cacheDistance), size = cacheSize)
     private val multiElevationLookupLock = Mutex()
     private var gridCache = LRUCache<String, List<List<Pair<Coordinate, Float>>>>(1)
 
@@ -372,7 +372,7 @@ object DEM {
         }
 
     fun invalidateCache() {
-        cache = GeospatialCache2(Distance.meters(cacheDistance), size = cacheSize)
+        cache = GeospatialCache(Distance.meters(cacheDistance), size = cacheSize)
     }
 
     fun isExternalModel(): Boolean {

@@ -1,8 +1,8 @@
 package com.kylecorry.trail_sense.tools.whitenoise.infrastructure.streams
 
+import com.kylecorry.andromeda.sound.stream.AudioStream
 import com.kylecorry.sol.math.ComplexNumber
 import com.kylecorry.sol.math.analysis.FrequencyAnalysis
-import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.streams.andromeda.AudioStream
 
 class FFTAudioStream(
     private val stream: AudioStream,

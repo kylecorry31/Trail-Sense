@@ -8,26 +8,27 @@ import android.net.Uri
 import android.util.Size
 import androidx.core.graphics.toRectF
 import com.kylecorry.andromeda.core.math.MathUtils
+import com.kylecorry.andromeda.pdf.PDFRenderer2
 import com.kylecorry.andromeda.views.subscaleview.decoder.ImageRegionDecoder
 import com.kylecorry.trail_sense.tools.photo_maps.domain.PhotoMap
 
 class PdfImageRegionDecoder(private val bitmapConfig: Bitmap.Config? = null) : ImageRegionDecoder {
 
-    private lateinit var renderer: PDFRenderer3
+    private lateinit var renderer: PDFRenderer2
 
     override fun init(
         context: Context?,
         uri: Uri
     ): Point {
         // TODO: Pass in scale
-        renderer = PDFRenderer3(context!!, uri, 1f, bitmapConfig ?: Bitmap.Config.RGB_565)
+        renderer = PDFRenderer2(context!!, uri, 1f, bitmapConfig ?: Bitmap.Config.RGB_565)
         val size = renderer.getSize()
         val scaledSize = MathUtils.scaleToBounds(
             size,
             Size(PhotoMap.DESIRED_PDF_SIZE, PhotoMap.DESIRED_PDF_SIZE)
         )
         val scale = scaledSize.width.toFloat() / size.width.toFloat()
-        renderer = PDFRenderer3(context, uri, scale, bitmapConfig ?: Bitmap.Config.RGB_565)
+        renderer = PDFRenderer2(context, uri, scale, bitmapConfig ?: Bitmap.Config.RGB_565)
         return Point(scaledSize.width, scaledSize.height)
     }
 

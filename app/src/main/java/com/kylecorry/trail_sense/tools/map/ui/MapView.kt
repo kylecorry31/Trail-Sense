@@ -8,6 +8,7 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import com.kylecorry.andromeda.canvas.CanvasView
+import com.kylecorry.andromeda.canvas.withLayerOpacity
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.SolMath.deltaAngle
@@ -17,7 +18,6 @@ import com.kylecorry.sol.science.geography.projections.MercatorProjection
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.shared.andromeda_temp.withLayerOpacity
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
