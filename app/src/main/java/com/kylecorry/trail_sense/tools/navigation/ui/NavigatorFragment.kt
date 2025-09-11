@@ -28,6 +28,7 @@ import com.kylecorry.luna.coroutines.CoroutineQueueRunner
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
 import com.kylecorry.sol.units.Bearing
+import com.kylecorry.sol.units.CompassDirection
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
@@ -37,6 +38,7 @@ import com.kylecorry.trail_sense.settings.ui.CompassCalibrationView
 import com.kylecorry.trail_sense.settings.ui.ImproveAccuracyAlerter
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.andromeda_temp.direction
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
@@ -592,22 +594,22 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun updateCompassBearing() {
-        val bearing = compass.bearing
+        val bearing = compass.rawBearing
 
         // Azimuth
         if (hasCompass) {
-            val titleText = memo("azimuth_title", bearing.value.safeRoundToInt()) {
+            val titleText = memo("azimuth_title", bearing.safeRoundToInt()) {
                 val azimuthText =
-                    formatService.formatDegrees(bearing.value, replace360 = true)
+                    formatService.formatDegrees(bearing, replace360 = true)
                         .padStart(4, ' ')
-                val directionText = formatService.formatDirection(bearing.direction)
+                val directionText = formatService.formatDirection(Bearing.direction(bearing))
                     .padStart(2, ' ')
                 "$azimuthText   $directionText"
             }
             binding.navigationTitle.title.setTextDistinct(titleText)
         }
 
-        layers.onBearingChanged(bearing.value)
+        layers.onBearingChanged(bearing)
 
         // Compass
         listOf<ICompassView>(

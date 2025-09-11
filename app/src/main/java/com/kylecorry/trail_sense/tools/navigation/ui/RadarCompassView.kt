@@ -22,7 +22,6 @@ import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.geometry.Circle
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
-import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
@@ -134,7 +133,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         opacity(30)
         strokeWeight(3f)
         push()
-        rotate(azimuth.value)
+        rotate(azimuth)
         if (shouldDrawDial) {
             line(width / 2f, height / 2f, width / 2f, iconSize + dp(2f))
         }
@@ -236,7 +235,7 @@ class RadarCompassView : BaseCompassView, IMapView {
         }
         clear()
         push()
-        rotate(-azimuth.value)
+        rotate(-azimuth)
         dial.draw(drawer, false)
         drawLayers()
         drawCompassLayers()
@@ -284,8 +283,8 @@ class RadarCompassView : BaseCompassView, IMapView {
             iconSize.toFloat() + dp2,
             compassSize.toFloat(),
             compassSize.toFloat(),
-            azimuth.value - 90,
-            azimuth.value - 90 + deltaAngle(azimuth.value, bearing.bearing.value),
+            azimuth - 90,
+            azimuth - 90 + deltaAngle(azimuth, bearing.bearing.value),
             ArcMode.Pie
         )
 
@@ -299,8 +298,8 @@ class RadarCompassView : BaseCompassView, IMapView {
                 centerPixel.y - size / 2f,
                 size,
                 size,
-                azimuth.value - 90,
-                azimuth.value - 90 + deltaAngle(azimuth.value, bearing.bearing.value),
+                azimuth - 90,
+                azimuth - 90 + deltaAngle(azimuth, bearing.bearing.value),
                 ArcMode.Pie
             )
         }
@@ -395,9 +394,9 @@ class RadarCompassView : BaseCompassView, IMapView {
             compassCenter = value
         }
     override var mapAzimuth: Float
-        get() = azimuth.value
+        get() = azimuth
         set(value) {
-            azimuth = Bearing(value)
+            azimuth = value
         }
 
     override val mapRotation: Float = 0f

@@ -93,7 +93,7 @@ class SightingCompassBottomSheetFragment(
         }
 
         binding.toolTitle.title.text = bearing?.let { formatter.formatDegrees(it) } ?: ""
-        binding.linearCompass.azimuth = Bearing(bearing ?: 0f)
+        binding.linearCompass.azimuth = bearing ?: 0f
     }
 
     private fun confirmBearing() {

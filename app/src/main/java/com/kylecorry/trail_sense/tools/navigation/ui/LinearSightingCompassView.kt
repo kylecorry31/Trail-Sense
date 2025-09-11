@@ -196,7 +196,7 @@ class LinearSightingCompassView(context: Context, attrs: AttributeSet?) :
         set(value) {
             binding.linearCompass.declination = value
         }
-    override var azimuth: Bearing
+    override var azimuth: Float
         get() = binding.linearCompass.azimuth
         set(value) {
             binding.linearCompass.azimuth = value

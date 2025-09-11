@@ -49,7 +49,7 @@ abstract class BaseCompassView : CanvasView, ICompassView {
         setupAfterVisible = true
     }
 
-    override var azimuth: Bearing = Bearing(0f)
+    override var azimuth: Float = 0f
         set(value) {
             field = value
             invalidate()

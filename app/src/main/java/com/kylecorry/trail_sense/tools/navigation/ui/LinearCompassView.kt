@@ -36,10 +36,10 @@ class LinearCompassView : BaseCompassView {
     var range = 180f
 
     private val rawMinimum: Float
-        get() = azimuth.value - range / 2
+        get() = azimuth - range / 2
 
     private val rawMaximum: Float
-        get() = azimuth.value + range / 2
+        get() = azimuth + range / 2
 
     private var iconSize = 0
     private var textSize = 0f
@@ -158,7 +158,7 @@ class LinearCompassView : BaseCompassView {
     private fun toPixel(bearing: Float): Float {
         return AugmentedRealityUtils.getPixelLinear(
             bearing,
-            azimuth.value,
+            azimuth,
             0f,
             0f,
             Size(width.toFloat(), height.toFloat()),

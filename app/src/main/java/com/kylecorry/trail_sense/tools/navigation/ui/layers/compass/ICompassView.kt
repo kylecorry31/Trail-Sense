@@ -10,7 +10,7 @@ interface ICompassView {
     var compassCenter: Coordinate
     var useTrueNorth: Boolean
     var declination: Float
-    var azimuth: Bearing
+    var azimuth: Float
 
     fun addCompassLayer(layer: ICompassLayer)
     fun removeCompassLayer(layer: ICompassLayer)
