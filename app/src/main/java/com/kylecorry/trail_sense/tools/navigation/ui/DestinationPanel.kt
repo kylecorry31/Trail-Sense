@@ -15,6 +15,7 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.andromeda_temp.direction
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import java.time.ZonedDateTime
@@ -68,7 +69,7 @@ class DestinationPanel(private val view: View) {
             )
             CustomUiUtils.setImageColor(binding.beaconName, commentColor)
         }
-        updateDestinationDirection(vector.direction)
+        updateDestinationDirection(vector.direction.value)
         updateDestinationElevation(destination.elevation, vector.altitudeChange)
         updateDestinationEta(location, elevation, speed, destination)
     }
@@ -78,11 +79,11 @@ class DestinationPanel(private val view: View) {
         beacon = null
     }
 
-    private fun updateDestinationDirection(azimuth: Bearing) {
+    private fun updateDestinationDirection(azimuth: Float) {
         binding.beaconDistance.description = formatService.formatDegrees(
-            azimuth.value,
+            azimuth,
             replace360 = true
-        ) + " " + formatService.formatDirection(azimuth.direction)
+        ) + " " + formatService.formatDirection(Bearing.direction(azimuth))
     }
 
     private fun updateDestinationEta(

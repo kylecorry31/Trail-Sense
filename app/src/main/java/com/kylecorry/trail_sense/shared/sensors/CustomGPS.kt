@@ -72,7 +72,7 @@ class CustomGPS(
     override val altitude: Float
         get() = _altitude
     override val bearing: Bearing?
-        get() = _bearing
+        get() = _bearing?.let { Bearing(it) }
     override val bearingAccuracy: Float?
         get() = _bearingAccuracy
 
@@ -119,7 +119,7 @@ class CustomGPS(
     private var mslOffset = 0f
     private var geoidOffset = 0f
     private var _rawBearing: Float? = null
-    private var _bearing: Bearing? = null
+    private var _bearing: Float? = null
     private var _bearingAccuracy: Float? = null
     private var _speedAccuracy: Float? = null
 
@@ -152,7 +152,7 @@ class CustomGPS(
         _altitude = baseGPS.altitude - getGeoidOffset(_location)
 
         _rawBearing = baseGPS.rawBearing
-        _bearing = baseGPS.bearing
+        _bearing = baseGPS.bearing?.value
         _bearingAccuracy = baseGPS.bearingAccuracy
         _speedAccuracy = baseGPS.speedAccuracy
 

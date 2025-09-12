@@ -96,17 +96,17 @@ class NavigationService {
             Pair(
                 it,
                 if (usingTrueNorth) {
-                    location.bearingTo(it.coordinate)
+                    location.bearingTo(it.coordinate).value
                 } else {
                     DeclinationUtils.fromTrueNorthBearing(
-                        location.bearingTo(it.coordinate),
+                        location.bearingTo(it.coordinate).value,
                         declination
                     )
                 }
             )
         }.filter {
-            isFacingBearing(bearing, it.second.value)
-        }.minByOrNull { abs(deltaAngle(it.second.value, bearing)) }?.first
+            isFacingBearing(bearing, it.second)
+        }.minByOrNull { abs(deltaAngle(it.second, bearing)) }?.first
     }
 
 }

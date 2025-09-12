@@ -24,7 +24,6 @@ import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.signal.ICellSignalSensor
-import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
@@ -78,14 +77,6 @@ fun AndromedaFragment.useGPSLocation(frequency: Duration = Duration.ofMillis(20)
     val gps = useGPSSensor(frequency)
     return useTopic(gps, gps.location to gps.horizontalAccuracy) {
         it.location to it.horizontalAccuracy
-    }
-}
-
-fun AndromedaFragment.useCompassBearing(applyDeclination: Boolean): Bearing {
-    val sensors = useService<SensorService>()
-    val compass = useMemo(sensors) { sensors.getCompass() }
-    return useTopic(compass, compass.bearing) {
-        compass.bearing
     }
 }
 
