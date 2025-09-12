@@ -5,6 +5,7 @@ Signals that your phone detects are displayed at the top of the list. You will s
 
 - Network type
 - Signal strength
+- The estimated distance to the tower (if available). Enable in Experimental settings.
 - The time that the signal was detected
 - Whether you have full service or only emergency calls. Full service means the tower is for your provider.
 

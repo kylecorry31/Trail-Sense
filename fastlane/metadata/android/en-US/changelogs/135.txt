@@ -15,3 +15,6 @@ Augmented Reality
 
 Packing Lists
 - Remember last category
+
+Signal Finder
+- Show estimated signal distance (experimental)
