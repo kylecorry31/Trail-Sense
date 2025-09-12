@@ -634,7 +634,11 @@ class FormatService private constructor(private val context: Context) {
         if (short) {
             return when (unit) {
                 DistanceUnits.Feet -> context.getString(R.string.speed_format_feet_per_second, "")
-                DistanceUnits.Meters -> context.getString(R.string.speed_format_meters_per_second, "")
+                DistanceUnits.Meters -> context.getString(
+                    R.string.speed_format_meters_per_second,
+                    ""
+                )
+
                 else -> ""
             }.replace(" ", "")
         }
@@ -793,14 +797,14 @@ class FormatService private constructor(private val context: Context) {
         return if (value) context.getString(R.string.yes) else context.getString(R.string.no)
     }
 
-    fun join(vararg strings: String, separator: Separator = Separator.Comma): String {
+    fun join(vararg strings: String?, separator: Separator = Separator.Comma): String {
         val separatorString = when (separator) {
             Separator.Dot -> " • "
             Separator.Comma -> ", "
             Separator.Space -> " "
             Separator.Dash -> " - "
         }
-        return strings.joinToString(separatorString)
+        return strings.filterNotNull().joinToString(separatorString)
     }
 
     @DrawableRes

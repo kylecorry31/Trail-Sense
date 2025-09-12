@@ -314,7 +314,8 @@ class SensorService(ctx: Context) {
         return CellSignalSensor(
             context,
             userPrefs.cellSignal.populateCache,
-            removeUnregisteredSignals
+            removeUnregisteredSignals,
+            pathLossFactor = 0.1f
         )
     }
 

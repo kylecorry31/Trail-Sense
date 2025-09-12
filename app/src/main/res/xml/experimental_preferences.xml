@@ -74,6 +74,14 @@
             app:title="@string/notification_grouping"
             app:useSimpleSummaryProvider="true" />
 
+        <SwitchPreferenceCompat
+            android:title="@string/cell_signal_distance"
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_cell_signal_distance"
+            app:singleLineTitle="false"
+            app:summary="@string/tool_signal_finder" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

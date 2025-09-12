@@ -14,4 +14,10 @@ class CellSignalPreferences(private val context: Context) {
         true
     )
 
+    val estimateSignalDistance by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_show_cell_signal_distance),
+        false
+    )
+
 }
