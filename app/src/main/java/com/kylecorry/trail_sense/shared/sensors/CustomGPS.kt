@@ -123,6 +123,8 @@ class CustomGPS(
     private var _bearingAccuracy: Float? = null
     private var _speedAccuracy: Float? = null
 
+    private var hadValidReading = false
+
     private val locationHistory = RingBuffer<Pair<ApproximateCoordinate, Instant>>(10)
 
     init {
@@ -218,7 +220,8 @@ class CustomGPS(
             cache.getDouble(LAST_LONGITUDE) ?: 0.0
         )
         _altitude = cache.getFloat(LAST_ALTITUDE) ?: 0f
-        _speed = Speed.from(cache.getFloat(LAST_SPEED) ?: 0f, DistanceUnits.Meters, TimeUnits.Seconds)
+        _speed =
+            Speed.from(cache.getFloat(LAST_SPEED) ?: 0f, DistanceUnits.Meters, TimeUnits.Seconds)
         _time = Instant.ofEpochMilli(cache.getLong(LAST_UPDATE) ?: 0L)
     }
 
@@ -226,6 +229,12 @@ class CustomGPS(
     override fun startImpl() {
         if (!GPS.isAvailable(context)) {
             return
+        }
+
+        // If this is being restarted, reload the value from cache if there's a newer reading there
+        if (hadValidReading && cacheHasNewerReading()) {
+            updateFromCache()
+            notifyListeners()
         }
 
         baseGPS.start(this::onLocationUpdate)
@@ -270,6 +279,7 @@ class CustomGPS(
         updateFromBase()
 
         if (shouldNotify && location != Coordinate.zero) {
+            hadValidReading = true
             notifyListeners()
         }
 
