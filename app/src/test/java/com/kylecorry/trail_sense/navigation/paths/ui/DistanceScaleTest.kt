@@ -1,6 +1,5 @@
-package com.kylecorrytrail_sense.tools.paths.ui
+package com.kylecorry.trail_sense.navigation.paths.ui
 
-import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.tools.paths.ui.DistanceScale
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -9,7 +8,7 @@ import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 import java.util.stream.Stream
 
-internal class DistanceScaleTest {
+class DistanceScaleTest {
 
     @ParameterizedTest
     @MethodSource("provideScales")
@@ -18,7 +17,7 @@ internal class DistanceScaleTest {
         maxLength: Float,
         metersPerPixel: Float,
         expected: Float,
-        expectedUnits: Float
+        expectedUnits: DistanceUnits
     ) {
         val scale = DistanceScale()
         val actual = scale.getScaleDistance(units, maxLength, metersPerPixel)
