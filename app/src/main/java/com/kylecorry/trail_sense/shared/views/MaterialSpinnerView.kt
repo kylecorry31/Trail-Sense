@@ -22,9 +22,6 @@ class MaterialSpinnerView(context: Context, attrs: AttributeSet?) : FrameLayout(
     var selectedItemPosition: Int = 0
         private set
 
-    val selectedItem: String?
-        get() = items.getOrNull(selectedItemPosition)
-
     init {
         inflate(context, R.layout.view_material_spinner, this)
         edittext = findViewById(R.id.material_spinner_edittext)

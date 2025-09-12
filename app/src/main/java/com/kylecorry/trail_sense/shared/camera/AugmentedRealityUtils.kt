@@ -11,7 +11,6 @@ import com.kylecorry.sol.math.SolMath.toRadians
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.CameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper.LinearCameraAnglePixelMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.SphericalARPoint
@@ -66,10 +65,6 @@ object AugmentedRealityUtils {
                 null
             )
         }
-    }
-
-    fun getAngularSize(diameter: Distance, distance: Distance): Float {
-        return getAngularSize(diameter.meters().distance, distance.meters().distance)
     }
 
     fun getAngularSize(diameterMeters: Float, distanceMeters: Float): Float {

@@ -7,24 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.ScrollView
 import android.widget.TextView
-import androidx.core.view.setPadding
 
 object Views {
-
-    fun scroll(
-        child: View,
-        width: Int = ViewGroup.LayoutParams.MATCH_PARENT,
-        height: Int = ViewGroup.LayoutParams.MATCH_PARENT,
-        padding: Int = 0
-    ): View {
-        val scrollView = ScrollView(child.context)
-        scrollView.layoutParams = ViewGroup.LayoutParams(width, height)
-        scrollView.setPadding(padding)
-        scrollView.addView(child)
-        return scrollView
-    }
 
     fun linear(
         views: List<View>,

@@ -20,11 +20,4 @@ class IOFactory {
         )
     }
 
-    fun createCsvService(fragment: AndromedaFragment): IOService<List<List<String>>> {
-        return CsvIOService(
-            IntentUriPicker(fragment, fragment.requireContext()),
-            ExternalUriService(fragment.requireContext())
-        )
-    }
-
 }

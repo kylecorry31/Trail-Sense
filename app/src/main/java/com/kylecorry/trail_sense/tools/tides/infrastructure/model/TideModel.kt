@@ -101,10 +101,6 @@ object TideModel {
         }
     }
 
-    private fun hasValue(pixel: Int): Boolean {
-        return pixel.red > 0 || pixel.green > 0
-    }
-
     private suspend fun load(
         context: Context,
         pixel: PixelCoordinate

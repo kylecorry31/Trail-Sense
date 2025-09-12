@@ -42,7 +42,6 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.hooks.HookTriggers
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.readableName
@@ -185,8 +184,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentAugmentedRealityBinding>(
     private var gpsStatusBadge by state<StatusBadge?>(null)
     private var visibleLayersOverride by state<List<ARLayer>?>(null)
     private var visibleLayers by state<List<ARLayer>>(emptyList())
-
-    private val triggers = HookTriggers()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

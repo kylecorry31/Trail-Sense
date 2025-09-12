@@ -158,7 +158,7 @@ class SensorService(ctx: Context) {
 
     private fun getDigitalElevationModel(gps: IGPS? = null): IGPS {
         return DigitalElevationModel(
-            context, gps ?: getGPS()
+            gps ?: getGPS()
         )
     }
 

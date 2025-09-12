@@ -34,14 +34,4 @@ class HookTriggers {
         return conditional.getValue(Instant.now(), threshold)
     }
 
-    fun predicate(
-        name: String,
-        behavior: PredicateHookTrigger.TriggerBehavior,
-        predicate: () -> Boolean
-    ): Boolean {
-        val conditional = synchronized(predicateLock) {
-            predicateTriggers.getOrPut(name) { PredicateHookTrigger() }
-        }
-        return conditional.getValue(behavior, predicate)
-    }
 }

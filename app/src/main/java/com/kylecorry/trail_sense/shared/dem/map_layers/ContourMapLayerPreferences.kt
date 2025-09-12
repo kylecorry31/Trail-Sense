@@ -38,23 +38,6 @@ class ContourMapLayerPreferences(
         )
     )
 
-    private var _colorWithElevation by BooleanPreference(
-        cache,
-        "pref_${mapId}_contour_layer_color_with_elevation",
-        false
-    )
-
-    val colorWithElevation = MapLayerPreferenceConfig(
-        get = { _colorWithElevation },
-        set = { _colorWithElevation = it },
-        preference = SwitchMapLayerPreference(
-            context.getString(R.string.color_with_elevation),
-            "contour_layer_color_with_elevation",
-            defaultValue = false,
-            dependency = enabledPreferenceId
-        )
-    )
-
     private var _colorStrategy by StringEnumPreference(
         cache,
         "pref_${mapId}_${layerId}_layer_color",

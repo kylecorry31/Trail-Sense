@@ -334,11 +334,4 @@ class PathView(context: Context, attrs: AttributeSet? = null) : CanvasView(conte
         )
     }
 
-    private fun toSource(screen: PixelCoordinate): PixelCoordinate {
-        return PixelCoordinate(
-            screen.x - translateX,
-            screen.y - translateY
-        )
-    }
-
 }

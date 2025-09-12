@@ -11,7 +11,6 @@ import com.kylecorry.andromeda.bitmaps.BitmapUtils.isInBounds
 import com.kylecorry.andromeda.core.coroutines.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.sol.math.Range
-import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.getExactRegion
 import java.io.InputStream
 import kotlin.math.ceil
 import kotlin.math.floor
@@ -136,16 +135,6 @@ class ImagePixelReader2(
                 image.close()
             }
         }
-    }
-
-    @Suppress("BlockingMethodInNonBlockingContext")
-    suspend fun getPixels(
-        image: InputStream,
-        x: Float,
-        y: Float,
-        autoClose: Boolean = true
-    ): List<PixelResult<Int>> = onIO {
-        getAllPixels(image, listOf(PixelCoordinate(x, y)), autoClose)
     }
 
     private fun getNearbyPixels(

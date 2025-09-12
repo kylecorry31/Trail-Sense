@@ -80,16 +80,6 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         R.string.pref_pressure_units
     ).map { context.getString(it) }
 
-    private val weatherMonitorStatePrefKeys = listOf(
-        R.string.pref_monitor_weather,
-        R.string.pref_low_power_mode_weather,
-        R.string.pref_low_power_mode
-    ).map { context.getString(it) }
-
-    private val weatherMonitorFrequencyPrefKeys = listOf(
-        R.string.pref_weather_update_frequency
-    ).map { context.getString(it) }
-
     init {
         sharedPrefs.onChange.subscribe { key ->
             if (key in invalidationPrefKeys) {

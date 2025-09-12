@@ -3,8 +3,6 @@ package com.kylecorry.trail_sense.shared.views
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.ColorFilter
-import android.graphics.Paint
 import android.util.AttributeSet
 import android.util.Size
 import android.view.GestureDetector
@@ -223,18 +221,6 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         focus = value
         camera?.setFocusDistancePercentage(value)
         hasPendingChanges = true
-    }
-
-    fun setPreviewColorFilter(filter: ColorFilter?) {
-        if (filter == null) {
-            preview.implementationMode = PreviewView.ImplementationMode.PERFORMANCE
-            preview.setLayerType(LAYER_TYPE_NONE, null)
-        } else {
-            preview.implementationMode = PreviewView.ImplementationMode.COMPATIBLE
-            val paint = Paint()
-            paint.colorFilter = filter
-            preview.setLayerType(LAYER_TYPE_HARDWARE, paint)
-        }
     }
 
     @SuppressLint("UnsafeOptInUsageError")

@@ -8,24 +8,15 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrapper
-import com.kylecorry.trail_sense.shared.sensors.altimeter.OverrideAltimeter
-import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import java.time.Duration
 import java.time.Instant
 
 class LocationSubsystem private constructor(private val context: Context) {
 
     private val sensorService by lazy { SensorService(context) }
-    private val altimeterOverride by lazy { OverrideAltimeter(context) }
-    private val weather by lazy { WeatherSubsystem.getInstance(context) }
-    private val paths by lazy { PathService.getInstance(context) }
     private val sensorSubsystem by lazy { SensorSubsystem.getInstance(context) }
-
-    private val maxElevationHistoryDuration = Duration.ofDays(1)
-    private val maxElevationFilterHistoryDuration = maxElevationHistoryDuration.plusHours(6)
 
     private val prefs by lazy { PreferencesSubsystem.getInstance(context).preferences }
 

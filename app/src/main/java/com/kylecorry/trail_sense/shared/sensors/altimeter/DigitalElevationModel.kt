@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.shared.sensors.altimeter
 
-import android.content.Context
 import android.util.Log
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.sense.location.IGPS
@@ -16,7 +15,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.time.Instant
 
-class DigitalElevationModel(private val context: Context, private val gps: IGPS) : AbstractSensor(),
+class DigitalElevationModel(private val gps: IGPS) : AbstractSensor(),
     IGPS {
 
     private val scope = CoroutineScope(Dispatchers.Default)

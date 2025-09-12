@@ -43,7 +43,6 @@ import com.kylecorry.trail_sense.shared.sharing.MapSite
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyPreferences
 import com.kylecorry.trail_sense.tools.ballistics.infrastructure.BallisticsPreferences
 import com.kylecorry.trail_sense.tools.climate.infrastructure.ClimatePreferenceRepo
-import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuidePreferences
 import com.kylecorry.trail_sense.tools.map.infrastructure.MapPreferences
 import com.kylecorry.trail_sense.tools.photo_maps.infrastructure.PhotoMapPreferences
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationPreferences
@@ -83,7 +82,6 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
     val backup by lazy { BackupPreferences(context) }
     val ballistics by lazy { BallisticsPreferences(context) }
     val climate by lazy { ClimatePreferenceRepo(context) }
-    val fieldGuide by lazy { FieldGuidePreferences(context) }
     val waterBoilTimer by lazy { WaterBoilTimerPreferences(context) }
     val turnBack by lazy { TurnBackPreferences(context) }
 

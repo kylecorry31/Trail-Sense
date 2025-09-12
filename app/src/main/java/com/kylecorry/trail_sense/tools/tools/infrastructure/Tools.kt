@@ -215,11 +215,6 @@ object Tools {
             .any { isWidgetOnHomeScreen(context, it) }
     }
 
-    fun isWidgetOnHomeScreen(context: Context, widgetId: String): Boolean {
-        val widget = getWidget(context, widgetId) ?: return false
-        return isWidgetOnHomeScreen(context, widget)
-    }
-
     private fun isWidgetOnHomeScreen(context: Context, widget: ToolWidget): Boolean {
         return AppWidgetManager.getInstance(context)
             .getAppWidgetIds(ComponentName(context, widget.widgetClass))

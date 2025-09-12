@@ -23,9 +23,6 @@ class MaterialMultiSpinnerView(context: Context, attrs: AttributeSet?) :
     var selectedItemPositions: List<Int> = emptyList()
         private set
 
-    val selectedItems: List<String>
-        get() = selectedItemPositions.mapNotNull { items.getOrNull(it) }
-
     init {
         inflate(context, R.layout.view_material_spinner, this)
         edittext = findViewById(R.id.material_spinner_edittext)
